@@ -1,0 +1,129 @@
+# markdownlint configuration — the single source of truth for Markdown linting in this repo.
+#
+# Mirrors PSScriptAnalyzerSettings.psd1: every rule is folded out in full, so you can see at a glance
+# what is on/off and what each option is. Change a value HERE — never with scattered inline
+# `<!-- markdownlint-disable -->` comments in the docs themselves.
+#
+# FORMAT: YAML, with native `#` comments. markdownlint and the VS Code extension
+# (DavidAnson.vscode-markdownlint) auto-discover `.markdownlint.yml`. We use `.yml` (not `.yaml`)
+# deliberately: per the pipeline-naming ADR (ADR-PIPENAME:6) `.yml` is config data our tooling parses, while
+# `.yaml` is reserved for executable ADO pipelines — and .vscode/settings.json maps `*.yaml` to the
+# Azure Pipelines schema, which would mis-highlight this file.
+#
+# HOW TO READ A RULE:
+#   MD0xx: true                 -> active, default options
+#   MD0xx: { ...options... }    -> active, options spelled out
+#   MD0xx: false  # OFF: ...     -> intentionally off (reason inline)
+#   The MDxxx id is canonical and stable; the rule's alias is in the trailing comment.
+#
+# STYLE RULES ARE KEPT IN SYNC WITH PRETTIER — exactly as the PSSA codeFormatting settings are kept in
+# sync with the VS Code PowerShell formatter. Prettier (esbenp.prettier-vscode) is the [markdown]
+# formatter (see .vscode/settings.json) and is opinionated: it rewrites Markdown to `-` bullets,
+# `_emphasis_`, `**strong**`, ```backtick``` fences, `#` ATX headings, `---` thematic breaks, collapsed
+# blank lines, 2-space nested-list indent (its tabWidth comes from .editorconfig [*.md]
+# indent_size = 2), and — via the root .prettierrc.yml (proseWrap: always, printWidth: 140) — prose
+# wrapped at 140 columns. The style rules below ACCEPT exactly that output, so formatter and linter
+# never fight. Run "Format Document" (Prettier) or Format-Markdown to bring a file into
+# compliance; these rules then pass.
+#
+# Deprecated rules MD002 (first-heading-h1) and MD006 (ul-start-left) are superseded by MD041 / MD007
+# and are off by default even under `default: true` — they are intentionally not configured here.
+# MD059 (descriptive-link-text) is omitted: it is newer than some engine versions and an unknown rule
+# can error; add it once the pinned markdownlint version is known to support it.
+
+# Enable every rule by default. The entries below either restate that (for visibility / easy tuning)
+# or deviate. A future engine's new rules auto-enable, matching the "strict by default" stance.
+default: true
+
+# ── Repo standard deviations (from .editorconfig and the uniform-formatting ADR) ──────────────
+
+# MD007 ul-indent — nested list items indent by 2 spaces. Matches Prettier (tabWidth 2) and
+# .editorconfig [*.md] indent_size = 2. (2 is also markdownlint's default; pinned here for clarity.)
+MD007:
+  indent: 2
+
+# MD013 line-length — prose target 140 (uniform-formatting ADR; .editorconfig max_line_length = 140).
+# Tables exempt (never wrap a table) and code blocks exempt (wrapping code / log output is wrong).
+# The root .prettierrc.yml sets proseWrap: always + printWidth: 140, so Prettier (Format Document /
+# Format-Markdown) wraps prose to satisfy this rule. Keep .prettierrc printWidth, this
+# line_length, and .editorconfig [*.md] max_line_length in sync at 140.
+MD013:
+  line_length: 140
+  heading_line_length: 140
+  code_block_line_length: 140
+  code_blocks: false
+  tables: false
+  headings: true
+  strict: false
+  stern: false
+
+# ── Style rules pinned to Prettier's output ───────────────────────────────────────────────────
+
+MD003: { style: atx }            # heading-style — `# Heading` (ATX, no closing #). Prettier emits ATX.
+MD004: { style: dash }           # ul-style — unordered lists use `-`. Prettier emits `-`.
+MD035: { style: "---" }          # hr-style — thematic breaks are `---`. Prettier emits `---`.
+MD046: { style: fenced }         # code-block-style — fenced, not indented. Prettier emits fenced.
+MD048: { style: backtick }       # code-fence-style — ```backtick``` fences. Prettier emits backticks.
+MD049: { style: underscore }     # emphasis-style — italics as `_x_`. Prettier emits `_emphasis_`.
+MD050: { style: asterisk }       # strong-style — bold as `**x**`. Prettier emits `**strong**`.
+MD060: { style: aligned }        # table-column-style — table pipes vertically aligned. Prettier pads & aligns columns.
+
+# ── Lenient choices (deliberate, to avoid false positives in this doc set) ─────────────────────
+
+# MD024 no-duplicate-heading — only flag duplicates under the SAME parent heading. The ADRs reuse
+# section names (Context, Decision, Consequences, "How this is enforced") within and across files.
+MD024: { siblings_only: true }
+
+# MD044 proper-names — OFF: opt-in casing rule that needs a name list. To enable, e.g.:
+#   MD044: { names: ["Azure", "PowerShell", "Bicep", "Markdown"], code_blocks: false }
+MD044: false
+
+# MD043 required-headings — OFF: we do not mandate a fixed heading skeleton across all documents.
+MD043: false
+
+# ── Everything else: active with defaults (folded out for visibility and easy tuning) ──────────
+
+MD001: true  # heading-increment — heading levels go up one at a time (no h2 -> h4 jump)
+MD005: true  # list-indent — consistent indent for items at the same list level
+MD009: true  # no-trailing-spaces — (still allows 2 trailing spaces as a hard line break: br_spaces = 2)
+MD010: true  # no-hard-tabs — spaces, not tabs
+MD011: true  # no-reversed-links — catches a (text)[url] link written backwards
+MD012: true  # no-multiple-blanks — at most one consecutive blank line (Prettier collapses these)
+MD014: true  # commands-show-output — no leading `$` on shell commands that show no output
+MD018: true  # no-missing-space-atx — require a space after `#` in an ATX heading
+MD019: true  # no-multiple-space-atx — single space after `#`
+MD020: true  # no-missing-space-closed-atx — space inside a closed ATX heading (`# h #`)
+MD021: true  # no-multiple-space-closed-atx — single space inside a closed ATX heading
+MD022: true  # blanks-around-headings — headings padded by blank lines (our section-spacing convention)
+MD023: true  # heading-start-left — headings start at column 0
+MD025: true  # single-title — exactly one top-level (h1) heading per document
+MD026: true  # no-trailing-punctuation — headings do not end with . , ; : !
+MD027: true  # no-multiple-space-blockquote — single space after `>`
+MD028: true  # no-blanks-blockquote — no blank line inside a blockquote
+MD029: true  # ol-prefix — consistent ordered-list numbering (default: one_or_ordered)
+MD030: true  # list-marker-space — single space after a list marker
+MD031: true  # blanks-around-fences — fenced code blocks padded by blank lines
+MD032: true  # blanks-around-lists — lists padded by blank lines
+MD033: true  # no-inline-html — no raw HTML. Our <placeholder> notation lives in `code spans`, so it is exempt.
+MD034: true  # no-bare-urls — wrap a bare URL in <> or a proper link
+MD036: true  # no-emphasis-as-heading — do not use a lone bold/italic line in place of a heading
+MD037: true  # no-space-in-emphasis — no spaces just inside `**` / `_` markers
+MD038: true  # no-space-in-code — no spaces just inside `` `code` `` markers
+MD039: true  # no-space-in-links — no spaces just inside `[link text]`
+MD040: true  # fenced-code-language — code fences declare a language (```powershell, ```text, ```mermaid, …)
+MD041: true  # first-line-heading — the first line of a file is a top-level heading
+MD042: true  # no-empty-links — a link must have a destination
+MD045: true  # no-alt-text — images have alt text
+MD047: true  # single-trailing-newline — file ends with exactly one newline (matches insert_final_newline)
+# MD051 link-fragments — OFF: markdownlint's slugger cannot reproduce GitHub's anchors for the `Verb:N`
+# rule-citation headings (a colon with no following space, e.g. `### Rule ADR-TEST:1` -> GitHub `#rule-adr-test1`),
+# so it false-positives on valid same-file links. It only validates SAME-FILE `#fragment` links anyway
+# (cross-file `file.md#frag` is never checked), and our anchors are GitHub-valid per the citation registry
+# in docs/adr/README.md. Re-enable if the slugger gains a GitHub-compatible mode.
+MD051: false
+MD052: true  # reference-links-images — reference-style links/images resolve to a definition
+MD053: true  # link-image-reference-definitions — no unused reference definitions
+MD054: true  # link-image-style — all link/image styles allowed (no style restricted)
+MD055: true  # table-pipe-style — consistent leading/trailing pipes across a table
+MD056: true  # table-column-count — every row has the same number of cells
+MD058: true  # blanks-around-tables — tables padded by blank lines

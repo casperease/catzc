@@ -1,0 +1,24 @@
+# Binary files must never be line-ending normalized — EOL conversion rewrites the bytes, which corrupts
+# the file and breaks the byte-exact, hash-keyed compiled-type cache (see docs/adr/automation/caching.md).
+# The `binary` macro expands to `-text -diff`: no text conversion, no textual diff.
+# Verified by automation/Catzc.Base.Utils/tests/Test-CheckedInBinaries.Tests.ps1.
+#
+# Only binary types are marked here. There is deliberately NO `* text=auto` rule, so existing text files
+# keep their current storage and are not mass-renormalized by adding this file.
+
+# Committed combined C# types assembly — whole directory, any extension, since it is byte-exact build output.
+automation/.compiled/** binary
+
+# Binary file types (vendored module assemblies, debug symbols, signatures, native libraries).
+*.dll    binary
+*.pdb    binary
+*.p7s    binary
+*.exe    binary
+*.so     binary
+*.dylib  binary
+
+# C# type sources are the byte-exact key of the compiled-type cache — their combined hash names the committed
+# automation/.compiled/Catzc.Types.<hash>.dll. Pin them to LF so every clone/checkout materializes identical
+# bytes regardless of core.autocrlf; otherwise a CRLF working tree diverges from the committed build and trips
+# the loader's "types changed since they were loaded" guard on re-import. See docs/adr/automation/caching.md.
+*.cs     text eol=lf

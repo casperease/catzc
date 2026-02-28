@@ -1,0 +1,8 @@
+# Paths Prettier skips (gitignore syntax): ONLY third-party / non-authored trees that should never be
+# formatted (like node_modules and vendor). This root config makes NO content-scope decisions — which
+# authored Markdown we choose not to lint/gate (out/, docs/notes, …) is coded into the Test-Markdownlint
+# and Test-Spelling functions, not here. Prettier is the formatter and may be pointed at anything we
+# write, including scratch under out/.
+automation/.vendor/
+node_modules/
+.git/

@@ -1,0 +1,50 @@
+.claude/CLAUDE.local.md
+.mcp.json
+
+tmp
+
+*.bkp
+
+# Output directory (keep the folder, ignore contents)
+out/*
+!out/.gitkeep
+
+# Auto-generated module manifests (created by importer)
+automation/**/*.psd1
+!automation/.vendor/**/*.psd1
+# The authored analyzer config is committed (it is not a generated manifest); it lives under
+# automation/.internal/assets/, so opt it back in past the glob above.
+!automation/.internal/assets/PSScriptAnalyzerSettings.psd1
+
+# The repository-root PSScriptAnalyzerSettings.psd1 is a generated copy-in of that authored config
+# (Build-ScriptAnalyzerSettings, Catzc.Base.QualityGates, regenerated on every import). PSScriptAnalyzer needs a
+# literal-hashtable settings file, so the root copy holds the settings themselves — but it is derived, not a
+# source, so it is gitignored. The .internal/assets source (opted back in above) is the single source of truth.
+/PSScriptAnalyzerSettings.psd1
+
+# Generated README copy-ins (Build-Readme, Catzc.Base.Docs) — derived artifacts like the *.psd1 manifests
+# above: regenerated from docs/readme sources on every import, so ignored globally. Hand-authored READMEs
+# (folders NOT mapped in automation/Catzc.Base.Docs/configs/readme.yml) opt back in below.
+**/README.md
+!.github/README.md
+!docs/adr/README.md
+!automation/.vendor/**/README.md
+!automation/Catzc.Base.Environment/assets/README.md
+!automation/Catzc.Azure.Templates/tests/assets/README.md
+!.cspell/README.md
+
+# The generated cspell dictionaries under .cspell/ are gitignored by .cspell/.gitignore (regenerated on
+# import from terminology.yml, the single source of truth); only .cspell/README.md and that .gitignore are
+# committed.
+
+# The combined compiled C# types assembly (automation/.compiled/Catzc.Types.<hash>.dll) is COMMITTED — a
+# vendored, hash-keyed prebuild that lets a fresh checkout and CI load without compiling. Only the transient
+# compile temp is ignored.
+automation/.compiled/*.tmp
+
+# IDE-only C# project build output. The root catzc.sln references automation/.internal/assets/Catzc.Types.csproj,
+# and MSBuild emits obj/bin next to that project. The runtime never builds it (Add-Type compiles the type
+# sources at import time), so its MSBuild artifacts are transient and never committed.
+automation/.internal/assets/obj/
+automation/.internal/assets/bin/
+bash.exe.stackdump

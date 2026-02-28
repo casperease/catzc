@@ -1,0 +1,82 @@
+version: "0.2"
+language: en,en-GB
+ignorePaths:
+  - .git/**
+  - automation/.vendor/**
+  # Vendored, downloaded third-party install scripts (.NET Foundation dotnet-install.*) — never authored here,
+  # and they carry Authenticode signature blocks whose base64 is not spellable vocabulary. Same rationale as
+  # .vendor/** above.
+  - "**/assets/scripts/dotnet-install.*"
+  - "**/types/.compiled/**"
+  # IDE-only C# project (Catzc.Types.csproj) MSBuild output — transient, gitignored, never authored.
+  - obj/**
+  - bin/**
+  - cspell.yml
+  - "**/*.dll"
+  - "**/*.pdb"
+  - "**/*.p7s"
+  - "**/*.exe"
+  - "**/*.png"
+  - "**/*.pdf"
+# Approved-vocabulary dictionaries — one per registry category (ADR-SPELL:6) — generated from the terminology
+# registry (automation/Catzc.Base.QualityGates/configs/terminology.yml) by Build-TerminologyDictionary. The
+# .cspell/<category>.txt lists are GITIGNORED and regenerated at the importer tail (terminology.yml is the
+# single source of truth), so run `. ./importer.ps1` once on a fresh clone before cspell can resolve them.
+# Never hand-edit the lists; add or remove vocabulary in terminology.yml. See .cspell/README.md and
+# docs/adr/automation/spell-out-names.md (ADR-SPELL:5-ADR-SPELL:8).
+#
+# ONE definition + dictionary entry per registry category. This list must match the `categories:` keys in
+# terminology.yml — adding a category means adding it in both places (cspell.yml cannot read the registry).
+dictionaryDefinitions:
+  - name: catzc-terms-domain
+    path: ./.cspell/domain.txt
+  - name: catzc-terms-abbreviation
+    path: ./.cspell/abbreviation.txt
+  - name: catzc-terms-fixture
+    path: ./.cspell/fixture.txt
+  - name: catzc-terms-adr
+    path: ./.cspell/adr.txt
+  - name: catzc-terms-ado
+    path: ./.cspell/ado.txt
+  - name: catzc-terms-azure
+    path: ./.cspell/azure.txt
+  - name: catzc-terms-tool
+    path: ./.cspell/tool.txt
+  - name: catzc-terms-platform
+    path: ./.cspell/platform.txt
+  - name: catzc-terms-powershell
+    path: ./.cspell/powershell.txt
+  - name: catzc-terms-coined
+    path: ./.cspell/coined.txt
+  - name: catzc-terms-person
+    path: ./.cspell/person.txt
+dictionaries:
+  - catzc-terms-domain
+  - catzc-terms-abbreviation
+  - catzc-terms-fixture
+  - catzc-terms-adr
+  - catzc-terms-ado
+  - catzc-terms-azure
+  - catzc-terms-tool
+  - catzc-terms-platform
+  - catzc-terms-powershell
+  - catzc-terms-coined
+  - catzc-terms-person
+languageSettings:
+  - languageId: powershell
+    dictionaries:
+      # cspell's built-in PowerShell dictionary. The conventional-abbreviation allow-list (ADR-SPELL:2 — cfg, ctx,
+      # cmd, repo, …) and all other approved vocabulary live in terminology.yml (single source, ADR-SPELL:5),
+      # generated into the .cspell/*.txt dictionaries this config loads globally — never inline here.
+      - powershell
+  - languageId: markdown
+    dictionaries:
+      - powershell
+      - csharp
+      - dotnet
+  - languageId: csharp
+    dictionaries:
+      - csharp
+      - dotnet
+    words:
+      - slnx

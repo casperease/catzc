@@ -1,0 +1,7 @@
+# Paths markdownlint-cli2 skips (gitignore syntax; auto-discovered at the repo root): ONLY third-party /
+# non-authored trees (like node_modules and vendor). Content-scope — which authored Markdown the GATE
+# skips (out/, docs/notes) — is coded into Test-Markdownlint's globs, not here. This file is only for the
+# editor extension; the Test-Markdownlint function is self-contained.
+automation/.vendor/
+node_modules/
+.git/

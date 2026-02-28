@@ -1,0 +1,11 @@
+# Prettier configuration — the markdown formatter for this repo (esbenp.prettier-vscode is the
+# [markdown] formatter in .vscode/settings.json; Format-Markdown runs the same engine).
+#
+# proseWrap: always makes the formatter OWN line length — it wraps prose at printWidth so Markdown
+# satisfies markdownlint MD013 (line-length 140). printWidth is pinned to 140 to match
+# .markdownlint.yml MD013 and .editorconfig [*.md] max_line_length. Keep these three in sync.
+#
+# .yml (not .yaml) per pipeline-naming ADR-PIPENAME:6 — config data our tooling reads, not an executable
+# ADO pipeline. Prettier auto-discovers .prettierrc.yml.
+printWidth: 140
+proseWrap: always

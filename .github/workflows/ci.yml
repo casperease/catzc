@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Pin Node to the version tools.yml expects (Assert-Tool node_js enforces it before the npm installs
+      # below). GitHub is migrating runners' default Node 20 → 24, so without this the version check fails
+      # intermittently depending on which runner image we land on.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run tests
+        shell: pwsh
+        run: |
+          . ./importer.ps1
+          # Install cspell + markdownlint-cli2 (npm; GitHub runners ship Node) so the L2 repository
+          # spelling/markdown integrity tests run rather than self-skipping when the tool is absent.
+          Install-Cspell -Force
+          Install-Markdownlint -Force
+          # Timings are reported in the run's summary.md but NOT enforced here: hard per-test wall-clock limits
+          # flake on shared CI runners that vary 2-5x in speed and run cold (pwsh startup / child-process import
+          # / cold-JIT push near-limit tests over). The report stays as the signal; the gate does not fail CI.
+          Test-Automation -Level 2

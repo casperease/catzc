@@ -1,0 +1,49 @@
+root = true
+
+[*]
+# UTF-8 without BOM — aligned with ExcludeRules: PSUseBOMForUnicodeEncodedFile
+charset = utf-8
+# Aligned with PSUseConsistentIndentation defaults: Kind = 'space', IndentationSize = 4
+indent_style = space
+indent_size = 4
+# Aligned with PSAvoidTrailingWhitespace (enabled by default)
+trim_trailing_whitespace = true
+insert_final_newline = true
+end_of_line = lf
+
+[*.{ps1,psm1,psd1}]
+indent_size = 4
+# Aligned with PSAvoidLongLines default: MaximumLineLength = 120
+max_line_length = 120
+
+[*.md]
+# Markdown trailing spaces can be significant (line breaks)
+trim_trailing_whitespace = false
+# Prettier reads indent_size as its tabWidth; 2 keeps nested list items at 2 spaces,
+# matching markdownlint MD007 (ul-indent) whose default is 2. Inheriting 4 from [*]
+# made Prettier indent sublists 4 spaces, which the linter then flagged.
+indent_size = 2
+# Prose target — tables are exempt (no wrapping)
+max_line_length = 140
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.json]
+indent_size = 2
+
+# C# type sources opt out — once here in the root config, not a #pragma in every file — of two IDE rules
+# they break BY DESIGN (ADR native-csharp-types):
+#  - IDE1006 "Naming rule violation": config-mirroring records use snake_case / lowercase property names so
+#    the YAML key and the C# property are the same identifier (ADR-TYPES#8) — not PascalCase.
+#  - IDE0130 "Namespace does not match folder structure": each file's namespace is its MODULE (ADR-TYPES#2) —
+#    e.g. Catzc.Azure for automation/Catzc.Azure/types/*.cs — a flat, module-encoding convention, NOT the IDE
+#    project's physical path (Catzc.Types.automation.Catzc.Azure.types). We turn the underlying preference off
+#    (stating the policy as code) and mute the diagnostic; this rule is an editor hint, invisible to dotnet build.
+# CA1050 "Declare types in namespaces" is deliberately NOT suppressed: every source declares its module's
+# file-scoped namespace (Format-Types writes it, Test-Types gates it), so the rule passes honestly — the
+# editor reflects the rule rather than having it switched off (everything-as-code).
+[automation/**/types/*.cs]
+dotnet_style_namespace_match_folder = false
+dotnet_diagnostic.IDE0130.severity = none
+dotnet_diagnostic.IDE1006.severity = none
