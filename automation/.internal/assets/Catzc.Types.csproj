@@ -1,0 +1,136 @@
+<!--
+  IDE: It exists so VS Code's C# Dev Kit (and any Roslyn-based editor) compiles and analyzes
+  the repo's native type sources — automation/<Module>/types/*.cs — with the SAME rules the runtime honors.
+
+  Location: this project lives at automation/.internal/assets/Catzc.Types.csproj; the committed root catzc.sln
+  (a real solution, kept at the repo root so Dev Kit auto-loads it) references it by relative path. Every
+  path below is therefore project-relative: '../..' is the automation/ directory.
+  Each source declares its module's file-scoped namespace (Format-Types writes it, Test-Types gates it), so
+  the analyzer sees real namespaces and never raises a false CA1050 "Declare types in namespaces".
+
+  At import time Import-CSharpTypes compiles the very same sources with
+  Add-Type into one committed assembly (automation/.compiled/Catzc.Types.<hash>.dll); nothing here is shipped
+  or required to run the toolset. The project's only job is to make the editor's feedback equal the runtime's
+  — everything-as-code. To stay faithful, it mirrors Add-Type's compile: Nullable and ImplicitUsings OFF (the
+  runtime enables neither). Build output (obj/, bin/) is gitignored. See ADR native-csharp-types (code types).
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- The runtime host (PowerShell 7.6) runs on .NET 10, the framework Add-Type compiles these against. -->
+    <TargetFramework>net10.0</TargetFramework>
+    <!-- Mirror Add-Type: it compiles with neither a nullable context nor implicit usings, so neither here —
+         otherwise the editor would flag (or silence) things the runtime compile never sees. -->
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <!-- Hand-list the sources below instead of the SDK's default '**/*.cs' glob, so the project never tries to
+         compile its own build intermediates or any future non-type .cs. -->
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Broadest glob: every .cs in automation/ is a type source today (all under a module's types/ folder).
+         Project-relative ('../..' = automation/). Tighten to '../../*/types/*.cs' only if a non-type .cs is
+         ever added. -->
+    <Compile Include="../../**/types/*.cs" />
+  </ItemGroup>
+
+  <!--
+    Stamp this project's version from the committed native-types assembly's identity. The RUNTIME
+    (Import-CSharpTypes) writes automation/.compiled/Catzc.Types.<hash>.dll, where <hash> is the combined
+    hash of every module's types/*.cs (ADR native-csharp-types, ADR-TYPES:6) — that hash IS the assembly's
+    identity. The stamp is READ off that committed DLL's name, so the IDE build's version mirrors the
+    runtime artifact (deps.json -> "Catzc.Types/1.0.0-<hash>") instead of the meaningless default 1.0.0.
+
+    Trust, but verify: before trusting the committed name, the task RECOMPUTES the combined hash from the
+    sources with the SAME algorithm the loader uses (per file: SHA-256 of the bytes with every CR (0x0D)
+    stripped, upper-hex; one line "<module>/<type>|<upper-hex>\n" per file in ordinal <module>/<type>
+    order; SHA-256 of that text; first 8 hex, lower-cased) and FAILS the build when the committed DLL is
+    missing, stale, or ambiguous — a stamp is never trusted past the sources it claims to describe.
+    Dot-source ./importer.ps1 to rebuild and commit automation/.compiled when this fires. The algorithm
+    mirrors Import-CSharpTypes / Clear-ModuleTypeCache / the drift-guard tests and MUST stay in sync.
+  -->
+  <UsingTask TaskName="StampCatzcTypesVersion" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <AutomationRoot ParameterType="System.String" Required="true" />
+      <CompiledDir ParameterType="System.String" Required="true" />
+      <CombinedHash ParameterType="System.String" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Fragment" Language="cs"><![CDATA[
+        // Gather automation/<module>/types/*.cs (skip dot-modules), keyed <module>/<bare-type>.
+        var files = new List<KeyValuePair<string, string>>();
+        foreach (var moduleDir in Directory.EnumerateDirectories(AutomationRoot))
+        {
+            var module = Path.GetFileName(moduleDir);
+            if (module.StartsWith(".")) continue;
+            var typesDir = Path.Combine(moduleDir, "types");
+            if (!Directory.Exists(typesDir)) continue;
+            foreach (var cs in Directory.EnumerateFiles(typesDir, "*.cs"))
+            {
+                var bare = Path.GetFileNameWithoutExtension(cs);
+                files.Add(new KeyValuePair<string, string>(module + "/" + bare, cs));
+            }
+        }
+        files.Sort((a, b) => string.CompareOrdinal(a.Key, b.Key));
+
+        string sourceHash;
+        using (var sha = System.Security.Cryptography.SHA256.Create())
+        {
+            var sb = new StringBuilder();
+            foreach (var f in files)
+            {
+                var raw = File.ReadAllBytes(f.Value);
+                var norm = new List<byte>(raw.Length);
+                foreach (var b in raw) if (b != 13) norm.Add(b);   // EOL-insensitive: strip CR (0x0D)
+                var fileHex = BitConverter.ToString(sha.ComputeHash(norm.ToArray())).Replace("-", "");
+                sb.Append(f.Key).Append('|').Append(fileHex).Append('\n');
+            }
+            var combined = sha.ComputeHash(Encoding.UTF8.GetBytes(sb.ToString()));
+            sourceHash = BitConverter.ToString(combined).Replace("-", "").Substring(0, 8).ToLowerInvariant();
+        }
+
+        var dlls = Directory.Exists(CompiledDir)
+            ? Directory.GetFiles(CompiledDir, "Catzc.Types.*.dll")
+            : new string[0];
+        if (dlls.Length != 1)
+        {
+            var found = dlls.Length == 0 ? "(none)" : string.Join(", ", System.Array.ConvertAll(dlls, Path.GetFileName));
+            Log.LogError("Catzc.Types stamping: expected exactly one committed automation/.compiled/Catzc.Types.<hash>.dll, "
+                + "found " + dlls.Length + ": " + found + ". Dot-source ./importer.ps1 to rebuild the combined types "
+                + "assembly (current source hash " + sourceHash + "), then commit automation/.compiled.");
+        }
+        else
+        {
+            var dllHash = Path.GetFileNameWithoutExtension(dlls[0]).Substring("Catzc.Types.".Length);
+            if (!string.Equals(dllHash, sourceHash, System.StringComparison.Ordinal))
+            {
+                Log.LogError("Catzc.Types stamping: committed automation/.compiled/Catzc.Types." + dllHash
+                    + ".dll is STALE — the current combined source hash is " + sourceHash + ". Dot-source "
+                    + "./importer.ps1 to rebuild the assembly, then commit automation/.compiled.");
+            }
+            else
+            {
+                CombinedHash = dllHash;   // verified current — safe to stamp from the committed name
+            }
+        }
+      ]]></Code>
+    </Task>
+  </UsingTask>
+
+  <!-- Run before anything reads $(Version): PrepareForBuild precedes GetAssemblyVersion (assembly
+       attributes) and GenerateBuildDependencyFile (the deps.json project entry). -->
+  <Target Name="StampCatzcTypesVersionFromCompiled" BeforeTargets="PrepareForBuild;GetAssemblyVersion;GenerateBuildDependencyFile">
+    <StampCatzcTypesVersion AutomationRoot="$(MSBuildProjectDirectory)/../.." CompiledDir="$(MSBuildProjectDirectory)/../../.compiled">
+      <Output TaskParameter="CombinedHash" PropertyName="CatzcTypesHash" />
+    </StampCatzcTypesVersion>
+    <PropertyGroup>
+      <Version>1.0.0-$(CatzcTypesHash)</Version>
+      <InformationalVersion>$(CatzcTypesHash)</InformationalVersion>
+    </PropertyGroup>
+    <Message Importance="high" Text="Catzc.Types: stamped version $(Version) from committed .compiled hash $(CatzcTypesHash)." />
+  </Target>
+
+</Project>
