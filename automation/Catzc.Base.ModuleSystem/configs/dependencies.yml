@@ -1,0 +1,68 @@
+# Declared (ALLOWED) module dependency graph, validated at load (Assert-DependenciesConfig) and enforced
+# against the real code (Get-ModuleDependency + Get-CSharpTypeDependency) by Assert-ModuleDependency.
+#
+# Two sections:
+#   groups:  a named set of on-disk modules WITH its own internal member->member DAG. A group is a concept,
+#            not a disk module. Pinning a group in a module's deps permits an edge to ANY member; the internal
+#            map is the layering contract among the members (each member's actual edges must stay within it).
+#   modules: per consumer module, the names it may depend on — each a GROUP (loose: any member) or a specific
+#            MODULE (tight). A module NOT listed here is unconstrained.
+#
+# Rules (asserted at load): targets resolve to a declared module or group; the module graph and each group's
+# internal graph are acyclic; declared modules and group members exist on disk. No back-compat — one source
+# of truth (the infra system is pre-production).
+
+groups:
+    # The Catzc.Base cluster — small focused libraries held together as one concept. Foundation-first:
+    # each member lists the members it may depend on (its internal DAG layer).
+    Base:
+        Catzc.Base.Asserts: []
+        Catzc.Base.Repository: [Catzc.Base.Asserts]
+        Catzc.Base.Environment: [Catzc.Base.Asserts]
+        Catzc.Base.Objects: [Catzc.Base.Asserts]
+        Catzc.Base.Writers: [Catzc.Base.Objects, Catzc.Base.Asserts]
+        Catzc.Base.Config: [Catzc.Base.Repository, Catzc.Base.Asserts]
+        Catzc.Base.Variants: [Catzc.Base.Config, Catzc.Base.Asserts]
+        Catzc.Base.Docs: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts]
+        Catzc.Base.Vendor: [Catzc.Base.Config, Catzc.Base.Writers, Catzc.Base.Repository]
+        Catzc.Base.Execution: [Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Asserts]
+        Catzc.Base.Files: [Catzc.Base.Execution, Catzc.Base.Asserts]
+        Catzc.Base.TypesSystem: [Catzc.Base.Repository, Catzc.Base.Files, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts]
+        Catzc.Base.ModuleSystem: [Catzc.Base.TypesSystem, Catzc.Base.Repository, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Files, Catzc.Base.Writers, Catzc.Base.Asserts]
+        Catzc.Base.QualityGates: [Catzc.Base.ModuleSystem, Catzc.Base.TypesSystem, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts]
+
+    # The Azure-extension cluster — all the Azure modules except the root `Catzc.Azure`. Its internal
+    # member->member DAG captures their layering; cross-group edges (to Base, to the `Catzc.Azure` root, and
+    # to the `Tooling` group) are declared per-member in `modules:` below.
+    AzureExt:
+        Catzc.Azure.Cli: []
+        Catzc.Azure.DevOps: [Catzc.Azure.Cli]
+        Catzc.Azure.Firewall: [Catzc.Azure.Cli]
+        Catzc.Azure.Templates: [Catzc.Azure.Cli]
+
+    # The Tooling cluster — manages the non-vendored external CLI tools. Core is the foundation (config +
+    # mapping, version/presence control, and the generic install/uninstall engine); Python (pip) and Node
+    # (npm) carry their runtime ecosystems, Toolchain the generic-engine tools (dotnet/java/terraform/az),
+    # and Provisioning orchestrates the whole devbox (and ships git/postman). Provisioning reaches the
+    # per-tool installers by dynamic dispatch (no static edge), but is allowed to depend on them here.
+    Tooling:
+        Catzc.Tooling.Core: []
+        Catzc.Tooling.Environment: []
+        Catzc.Tooling.Python: [Catzc.Tooling.Core]
+        Catzc.Tooling.Node: [Catzc.Tooling.Core]
+        Catzc.Tooling.Toolchain: [Catzc.Tooling.Core]
+        Catzc.Tooling.Provisioning: [Catzc.Tooling.Core, Catzc.Tooling.Python, Catzc.Tooling.Node, Catzc.Tooling.Toolchain]
+
+modules:
+    Catzc.Azure: [Base]
+    Catzc.Tooling.Core: [Base]
+    Catzc.Tooling.Environment: [Base]
+    Catzc.Tooling.Python: [Tooling, Base]
+    Catzc.Tooling.Node: [Tooling, Base]
+    Catzc.Tooling.Toolchain: [Tooling, Base]
+    Catzc.Tooling.Provisioning: [Tooling, Base]
+    Catzc.Tooling.Github: [Base]
+    Catzc.Azure.Cli: [Base, Catzc.Azure, Catzc.Tooling.Core]
+    Catzc.Azure.DevOps: [Tooling, Base, Catzc.Azure]
+    Catzc.Azure.Firewall: [Tooling, Base, Catzc.Azure]
+    Catzc.Azure.Templates: [Tooling, Base, Catzc.Azure]

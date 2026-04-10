@@ -1,0 +1,20 @@
+# Repo-wide variants — settings fixed for the importer session (see docs/adr/repository/repo-variants.md).
+# A growing dictionary of repo-wide switches: edit a value and re-run the importer to apply it. Read only
+# through the module's Test-/Assert-/Get- primitives; loaded by Get-Config -Config variants and validated
+# by private/Assert-VariantsConfig.
+
+# Azure resource-name component order — the segment order every generated resource name uses.
+# standard | classic (the keys of Get-AzureNameOrderSet). See docs/adr/azure/naming-standard.md.
+# Changing this re-spells every resource name, so every typed name in each template's configuration must
+# be re-edited to match — deliberately not a casual flip.
+ado_naming: standard
+
+# Enabled-customer set for the repo:
+#   false            — no customer deployments; only non-customer templates allowed (the default for a
+#                      customer-free repo)
+#   all              — every customer defined in customer.yml is enabled
+#   [acme, globex]   — only these named customers are enabled
+# See docs/adr/azure/customer-model.md. customer.yml is the catalogue of who the customers are; this
+# variant is which of them this repo actually deploys for. This repo ships customer templates (e.g. the
+# per-customer foundation), so it enables all of them; a repo with no customer templates leaves this false.
+have_customers: all

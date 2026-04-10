@@ -1,0 +1,20 @@
+# Config override registry for Get-Config.
+#
+# Most configs need NO entry here: a config validates by the Assert-<Name>Config convention (a private
+# function in its owning module) or, with no such function, loads raw. Add an entry only to override that:
+#
+#   <config-name>:
+#     type: <C# FQN>         # construct [FQN]::new($dict) — maps + validates (the anemic/typed path)
+#   <config-name>:
+#     pwsh: <Function-Name>  # a differently-named pwsh validator (run in the owning module's scope)
+#     module: <ModuleName>   # optional — only to pin the owner when the name exists in two modules
+#
+# The registry validates ITSELF: the 'configs' config (this file) is validated by the C# type below — the
+# one live example of a `type:` override. Get-ConfigRegistry constructs it on load.
+configs:
+  configs:
+    type: Catzc.Base.Config.ConfigsConfig
+  terminology:
+    type: Catzc.Base.QualityGates.TerminologyConfig
+  readme:
+    type: Catzc.Base.Docs.DocsConfig

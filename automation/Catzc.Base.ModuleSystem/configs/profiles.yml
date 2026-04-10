@@ -1,0 +1,21 @@
+# profiles.yml — named module sets for Copy-Automation -Profile and Test-InIsolation (Catzc.Base.ModuleSystem).
+#
+# Each profile is a SEED list of module names. Get-ModuleProfile expands a seed to its declared-dependency
+# closure (dependencies.yml) and adds the fixed infrastructure (.internal, .compiled, .vendor) needed to load
+# and test — so a profile pulls in everything it needs. An EMPTY seed means "everything" (the full repo).
+#
+# Loaded via Get-Config -Config profiles; validated by the private Assert-ProfilesConfig (snake_case profile
+# names; each profile a list of module names, possibly empty).
+profiles:
+  minimal:
+    - Catzc.Base.Asserts
+  base:
+    - Catzc.Base.QualityGates
+  azure:
+    - Catzc.Azure.Templates
+    - Catzc.Azure.Cli
+    - Catzc.Azure.DevOps
+    - Catzc.Azure.Firewall
+  tooling:
+    - Catzc.Tooling.Provisioning
+  full: []

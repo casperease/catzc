@@ -1,0 +1,34 @@
+# files.yml — module -> packages, for Copy-Automation (Catzc.Base.ModuleSystem).
+#
+# Each automation module may declare packages. A package is a named group of repository-root-relative file
+# artifacts the module owns beyond its own folder. Copy-Automation copies a selected module's folder plus its
+# packages, minus any named in -ExcludePackages; package names are globally unique (the exclude unit). Only
+# modules that own extra artifacts appear here. Paths are repository-root-relative and forward-slashed.
+#
+# Loaded via Get-Config -Config files; validated by the private Assert-FilesConfig (a 'modules' map whose
+# entries have a non-empty 'packages' map; snake_case, globally-unique package names; non-empty path lists).
+modules:
+  .internal:
+    packages:
+      entrypoint:
+        - importer.ps1
+  Catzc.Base.TypesSystem:
+    packages:
+      csproj:
+        - automation/.internal/assets/Catzc.Types.csproj
+        - catzc.sln
+  Catzc.Base.Repository:
+    packages:
+      root_configs:
+        - .editorconfig
+        - .gitattributes
+        - .markdownlint.yml
+        - .markdownlintignore
+        - .prettierrc.yml
+        - .prettierignore
+        - automation/.internal/assets/PSScriptAnalyzerSettings.psd1
+        - cspell.yml
+        - .cspell
+        - dotnet-tools.json
+      gitignore:
+        - .gitignore

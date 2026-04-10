@@ -1,0 +1,11 @@
+# Vendor module source — where Install-VendorModule downloads from and Remove-VendorModules validates against
+# (see docs/adr/automation/vendor-toolset-dependencies.md). Loaded by Get-Config -Config vendor and validated
+# by private/Assert-VendorConfig. Read only through the module's functions.
+
+# The registered PSResourceRepository to download from and validate against. PSGallery is the built-in default
+# and needs no url.
+source: PSGallery
+
+# Optional custom repository url (an Artifactory / proxy feed). Undefined by default — set it to point the
+# vendor source at a private feed; the repository is registered under the `source` name on first use.
+# sourceUrl: https://your-feed/v3/index.json

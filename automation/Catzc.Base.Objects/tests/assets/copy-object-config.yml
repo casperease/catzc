@@ -1,0 +1,26 @@
+# Test fixture for Copy-Object deep-clone tests (Catzc.Base.Objects).
+# Self-contained — a representative nested config, not tied to any module's real configuration.
+name: sample-config
+
+customers:
+  alpha:
+    details: Alpha Corp
+    regions: [weu, neu]
+  bravo:
+    details: Bravo Ltd
+  charlie:
+    details: Charlie Co
+
+environments:
+  dev:
+    code: d
+    region: westeurope
+  prod:
+    code: p
+    region: westeurope
+
+nested:
+  level1:
+    level2:
+      value: 42
+      list: [1, 2, 3]
