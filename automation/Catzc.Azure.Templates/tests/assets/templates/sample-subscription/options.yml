@@ -1,0 +1,7 @@
+# Per-template deployment options for 'sample-subscription'.
+# Read by Read-BicepTemplateOptions and overlaid onto the discovery defaults.
+# short_name is the globally-unique Azure id segment (2-5 alnum).
+
+short_name: ssub
+deployment_target: Subscription
+

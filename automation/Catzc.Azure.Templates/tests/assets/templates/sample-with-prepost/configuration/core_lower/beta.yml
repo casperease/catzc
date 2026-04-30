@@ -1,0 +1,7 @@
+# Per-slot config for the 'sample-with-prepost' fixture, beta env.
+# See alpha.yml — vnetName written statically; PrePost merges the address ranges from the network plan.
+
+ParametersFile:
+  parameters:
+    vnetName:
+      value: beta-weu-tst-sppp-vnet

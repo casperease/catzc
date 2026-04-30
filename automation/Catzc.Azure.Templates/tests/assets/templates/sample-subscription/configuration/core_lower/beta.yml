@@ -1,0 +1,7 @@
+# Per-template per-environment config for 'sample-subscription', beta env.
+# See alpha.yml — Subscription-target; resourceGroupName written statically (no generation yet).
+
+ParametersFile:
+  parameters:
+    resourceGroupName:
+      value: beta-weu-tst-ssub-rg

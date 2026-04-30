@@ -1,0 +1,8 @@
+# cspell:ignore weutstsidxst
+# Config for 'sample-indexed', slot 001 of env alpha (config 'alpha-001'). One config file ⟷ one RG.
+# storageAccountName is written statically here (in-template name generation is intentionally deferred).
+
+ParametersFile:
+  parameters:
+    storageAccountName:
+      value: al001weutstsidxst

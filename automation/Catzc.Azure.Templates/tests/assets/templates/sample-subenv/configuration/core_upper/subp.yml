@@ -1,0 +1,4 @@
+ParametersFile:
+  parameters:
+    workspaceName:
+      value: subp-weu-tst-subx-log

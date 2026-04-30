@@ -1,0 +1,137 @@
+[
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-app",
+    "name": "ipg-app",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.21.0.0/24",
+      "10.20.0.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-aks-pods",
+    "name": "ipg-aks-pods",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.71.0.0/16"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-db",
+    "name": "ipg-db",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.31.0.0/24",
+      "10.30.0.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-linux",
+    "name": "ipg-linux",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.40.0.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-partners",
+    "name": "ipg-partners",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "203.0.113.0/24",
+      "198.51.100.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-jumpbox",
+    "name": "ipg-jumpbox",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.0.100.11/32",
+      "10.0.100.10/32"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-office-users",
+    "name": "ipg-office-users",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.60.0.0/16"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-mgmt",
+    "name": "ipg-mgmt",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.0.100.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-onprem",
+    "name": "ipg-onprem",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "192.168.0.0/16",
+      "172.16.0.0/16",
+      "10.250.0.0/16"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-dmz",
+    "name": "ipg-dmz",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.5.0.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-acr",
+    "name": "ipg-acr",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.22.0.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-aks-nodes",
+    "name": "ipg-aks-nodes",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.70.0.0/16"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-web",
+    "name": "ipg-web",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.10.0.0/24",
+      "10.2.0.0/24",
+      "10.1.0.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-corp",
+    "name": "ipg-corp",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.11.0.0/16",
+      "10.10.0.0/16"
+    ]
+  }
+]

@@ -1,0 +1,10 @@
+# Per-slot config for the 'sample-with-prepost' fixture, alpha env.
+#
+# vnetName is written statically here (the resource name). The address ranges are deliberately
+# omitted: PrePost.psm1's Invoke-BicepPrepareParameterSet merges them from the network IP plan (the
+# cross-cutting config) at build time. This is the merge seam being exercised.
+
+ParametersFile:
+  parameters:
+    vnetName:
+      value: alpha-weu-tst-sppp-vnet

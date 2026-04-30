@@ -1,0 +1,7 @@
+# Per-template options for the 'sample-indexed' fixture.
+# Its config files carry a slot (<env>-<slot>.yml, e.g. alpha-001.yml / alpha-002.yml) — each is a slot
+# (one resource group), and a deploy selects one via -Slot. There is no `indexed` flag and no slot bit:
+# the slot is simply the config filename's discriminator. short_name is the globally-unique Azure id
+# segment (2-5 alnum).
+
+short_name: sidx

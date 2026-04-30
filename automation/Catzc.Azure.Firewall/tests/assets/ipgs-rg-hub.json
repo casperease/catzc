@@ -1,0 +1,129 @@
+[
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-shared-svcs",
+    "name": "ipg-shared-svcs",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.120.0.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-egress",
+    "name": "ipg-egress",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "51.140.0.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-build",
+    "name": "ipg-build",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.81.0.0/24",
+      "10.80.0.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-vpn-gateway",
+    "name": "ipg-vpn-gateway",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.100.3.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-monitoring",
+    "name": "ipg-monitoring",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.121.0.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-loadbalancers",
+    "name": "ipg-loadbalancers",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.122.0.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-spoke-test",
+    "name": "ipg-spoke-test",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.114.0.0/16"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-backup",
+    "name": "ipg-backup",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.90.0.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-dns-forwarders",
+    "name": "ipg-dns-forwarders",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.100.1.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-hub",
+    "name": "ipg-hub",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.100.0.0/16"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-spoke-prod",
+    "name": "ipg-spoke-prod",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.110.0.0/15"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-bastion",
+    "name": "ipg-bastion",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.100.4.0/24"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-spoke-dev",
+    "name": "ipg-spoke-dev",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.112.0.0/15"
+    ]
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/rg-hub/providers/Microsoft.Network/ipGroups/ipg-firewall-mgmt",
+    "name": "ipg-firewall-mgmt",
+    "location": "westeurope",
+    "provisioningState": "Succeeded",
+    "ipAddresses": [
+      "10.100.2.0/24"
+    ]
+  }
+]

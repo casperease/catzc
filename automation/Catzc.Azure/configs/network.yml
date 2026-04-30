@@ -1,0 +1,21 @@
+# Global cross-cutting network configuration — the IP address plan, side by side with azure.yml. The
+# single source of truth for vnet / subnet ranges. A template that creates a vnet merges the right
+# ranges in at build time via its PrePost prepare hook, so the central plan is never duplicated into
+# every template's per-slot config. Loaded via Get-Config -Config network.
+#
+# Keyed by environment name (matching azure.yml's environments) so each environment gets a
+# non-overlapping address space.
+
+environments:
+  dev:
+    vnet_address_space: 10.10.0.0/16
+    default_subnet: 10.10.0.0/24
+  test:
+    vnet_address_space: 10.20.0.0/16
+    default_subnet: 10.20.0.0/24
+  preprod:
+    vnet_address_space: 10.30.0.0/16
+    default_subnet: 10.30.0.0/24
+  prod:
+    vnet_address_space: 10.40.0.0/16
+    default_subnet: 10.40.0.0/24

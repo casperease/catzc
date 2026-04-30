@@ -1,0 +1,7 @@
+# cspell:ignore alweutstscusacst
+# Config for 'sample-customer', customer acme, base slot of env alpha (configuration/acme/alpha.yml).
+# Deployed into acme's subscription; storageAccountName carries the customer shortcode `ze`.
+ParametersFile:
+  parameters:
+    storageAccountName:
+      value: alweutstscusacst

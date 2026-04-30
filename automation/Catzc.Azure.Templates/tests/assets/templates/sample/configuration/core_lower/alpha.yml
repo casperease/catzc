@@ -1,0 +1,8 @@
+# cspell:ignore alweutstsmplst
+# Config for the 'sample' fixture template, base slot of env alpha. One config file ⟷ one RG.
+# Resource names are written statically here (in-template name generation is intentionally deferred).
+
+ParametersFile:
+  parameters:
+    storageAccountName:
+      value: alweutstsmplst

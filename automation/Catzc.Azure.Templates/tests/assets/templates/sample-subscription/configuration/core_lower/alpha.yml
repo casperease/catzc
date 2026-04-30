@@ -1,0 +1,10 @@
+# Per-template per-environment config for 'sample-subscription', alpha env.
+#
+# Subscription-target template: NO `ResourceGroup` key (subscription scope). resourceGroupName is
+# the RG this subscription-scoped template creates — written statically here (in-template name
+# generation is intentionally deferred).
+
+ParametersFile:
+  parameters:
+    resourceGroupName:
+      value: alpha-weu-tst-ssub-rg

@@ -1,0 +1,93 @@
+# Test-only identity fixture for Catzc.Azure.Templates unit tests. Tests redirect config discovery here
+# (Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -> tests/assets/config/<name>.yml) so logic tests
+# own their identity inputs and never depend on the shipped configs/azure.yml. Deliberately distinct names,
+# with a DIFFERENT scheme per axis so the axis is obvious at a glance: environments are Greek
+# (alpha/beta/gamma/delta), customers are company names (acme/globex). So editing the real azure.yml can
+# never change a logic-test outcome. The shipped azure.yml is validated
+# separately by tests/Get-Config.Integrity.Tests.ps1.
+
+org: tst
+
+bicep_min_version: "0.30.0"
+
+tenants:
+  fixtenant:
+    id: 00000000-0000-0000-0000-000000000001
+
+# Customer definitions live in the sibling customer.yml fixture (acme/globex); a subscription below binds
+# one by naming it in its `customer` field (by key or shortcode).
+
+environments:
+  alpha:
+    shortcode: al
+    region: westeurope
+    region_code: weu
+  beta:
+    shortcode: bt
+    region: westeurope
+    region_code: weu
+  gamma:
+    shortcode: gm
+    region: westeurope
+    region_code: weu
+  delta:
+    shortcode: dl
+    region: westeurope
+    region_code: weu
+  # Per-subscription envs (per_subscription) for the fixture — subn (lower/nonprod), subp (upper/prod).
+  subn:
+    shortcode: sn
+    region: westeurope
+    region_code: weu
+    per_subscription: true
+  subp:
+    shortcode: sp
+    region: westeurope
+    region_code: weu
+    per_subscription: true
+
+# Subscriptions (fixture): a non-customer pair (core_lower/core_upper), a non-customer single
+# (cross_shared) that overlaps their envs, and a customer pair (acme_lower/acme_upper, customer acme).
+# The overlap (cross_shared serves alpha/beta/gamma/delta too) exercises the multi-subscription-per-env
+# case the deploy-time -Subscription disambiguator handles, and subp is reused across subscriptions.
+subscriptions:
+  core_lower:
+    id: 00000000-0000-0000-0000-000000000002
+    tenant: fixtenant
+    environments:
+      - alpha
+      - beta
+      - subn
+  core_upper:
+    id: 00000000-0000-0000-0000-000000000003
+    tenant: fixtenant
+    environments:
+      - gamma
+      - delta
+      - subp
+  # cross_shared — single subscription serving all standard envs + subp identity (the single-sub shape).
+  cross_shared:
+    id: 00000000-0000-0000-0000-000000000004
+    tenant: fixtenant
+    environments:
+      - alpha
+      - beta
+      - gamma
+      - delta
+      - subp
+  acme_lower:
+    id: 00000000-0000-0000-0000-000000000005
+    tenant: fixtenant
+    customer: acme
+    environments:
+      - alpha
+      - beta
+      - subn
+  acme_upper:
+    id: 00000000-0000-0000-0000-000000000006
+    tenant: fixtenant
+    customer: acme
+    environments:
+      - gamma
+      - delta
+      - subp

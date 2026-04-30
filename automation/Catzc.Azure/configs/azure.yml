@@ -1,0 +1,149 @@
+# yaml-language-server: $schema=.not-azure-schema.json
+# (Pins an empty, match-anything schema. Without it the editor matches this file to the Azure
+#  Developer CLI `azure.yaml` schema by filename alone and wrongly demands a `name` key.)
+
+# Global Azure identity for the templating system.
+#
+# Placeholder GUIDs — replace with real tenant/subscription IDs per deployment target.
+# Loaded by Get-Config -Config azure; validated by private/Assert-AzureConfig.
+
+# Vertical / organization shortcode — global, one per repo. The <org> component of every Azure
+# resource name (see docs/adr/azure/naming-standard.md). Placeholder — set your org's shortcode.
+# (The resource-name component ORDER is NOT here — it is a durable tooling setting in code:
+#  Get-AzureNameOrder. Changing it requires re-editing every typed name in the configs.)
+org: zct
+
+# Minimum Bicep CLI version required to build/deploy templates. Asserted before every `az bicep build`
+# (Assert-AzCliBicep) so a too-old or missing Bicep CLI fails fast with `az bicep upgrade` / `az bicep
+# install`, rather than silently emitting no main.json. MAJOR.MINOR.PATCH.
+bicep_min_version: "0.43.8"
+
+tenants:
+  placeholder:
+    id: 00000000-0000-0000-0000-000000000001
+
+# Customer DEFINITIONS live in configs/customer.yml (the catalogue), not here — see
+# docs/adr/azure/customer-model.md. A subscription below binds a customer by naming it in its `customer`
+# field, by EITHER its key (apex) OR its 2-char shortcode (ap); WHICH customers are enabled for deployment
+# is the `have_customers` variant in variants.yml.
+
+# Environments. The map KEY is the readable env name (the deploy handle, the config-file name, and
+# the env-segment of relaxed resource names — see docs/adr/azure/naming-standard.md); it must be
+# unique and prefix-free (no name a prefix of another). `shortcode` is a 2-letter code, unique, used
+# as the env-segment of the restricted (tight-budget) patterns only — `kv`/`storage`/`vm` — so a
+# readable name never costs a tight name a byte; its 2nd char lets same-first-letter envs coexist
+# (e.g. preprod `pp` vs prod `pr`). `region` is the Azure deployment location; `region_code`
+# is its 3-letter name component (`weu`).
+environments:
+  dev:
+    shortcode: de
+    region: westeurope
+    region_code: weu
+  test:
+    shortcode: te
+    region: westeurope
+    region_code: weu
+  preprod:
+    shortcode: pp
+    region: westeurope
+    region_code: weu
+  prod:
+    shortcode: pr
+    region: westeurope
+    region_code: weu
+  # Per-subscription environments (per_subscription: true) — exactly one per subscription (the sub's
+  # identity env), used by environment_kind: subscription templates (e.g. foundation). subn = the
+  # nonprod subscription, subp = the prod subscription. Standard envs (above) are many-per-subscription.
+  subn:
+    shortcode: sn
+    region: westeurope
+    region_code: weu
+    per_subscription: true
+  subp:
+    shortcode: sp
+    region: westeurope
+    region_code: weu
+    per_subscription: true
+
+# Subscriptions. A template targets a subscription DIRECTLY by naming a config folder after it
+# (configuration/<subscription>/<env>[-<slot>].yml) — there is no subscription-group indirection. Each
+# subscription serves a set of environments and MAY carry an optional `customer` (a key in `customers`)
+# — that is the single source of "is this a customer subscription?", and the customer renders into the
+# resource names of anything deployed here (see docs/adr/azure/naming-standard.md). A subscription's
+# `environments` may freely mix standard envs (dev/test/preprod/prod) with AT MOST ONE per-subscription
+# identity env (subn xor subp) — the identity env addresses once-per-subscription templates
+# (environment_kind: subscription). See docs/adr/azure/data-model.md.
+subscriptions:
+  shared_nonprod:
+    id: 00000000-0000-0000-0000-000000000002
+    tenant: placeholder
+    environments:
+      - dev
+      - test
+      - subn
+  shared_prod:
+    id: 00000000-0000-0000-0000-000000000003
+    tenant: placeholder
+    environments:
+      - preprod
+      - prod
+      - subp
+  # ortho — shared cross-cutting, a SINGLE subscription serving all standard envs + the subp identity.
+  ortho_main:
+    id: 00000000-0000-0000-0000-00000000000a
+    tenant: placeholder
+    environments:
+      - dev
+      - test
+      - preprod
+      - prod
+      - subp
+  # itsm — holds the ITSM-requests database; a nonprod/prod pair like shared.
+  itsm_nonprod:
+    id: 00000000-0000-0000-0000-00000000000b
+    tenant: placeholder
+    environments:
+      - dev
+      - test
+      - subn
+  itsm_prod:
+    id: 00000000-0000-0000-0000-00000000000c
+    tenant: placeholder
+    environments:
+      - preprod
+      - prod
+      - subp
+  # Customer subscriptions — carry a `customer` key. One pair per customer
+  # (nova/flux are nonprod-only for now).
+  apex_nonprod:
+    id: 00000000-0000-0000-0000-000000000004
+    tenant: placeholder
+    customer: apex
+    environments:
+      - dev
+      - test
+      - subn
+  apex_prod:
+    id: 00000000-0000-0000-0000-000000000005
+    tenant: placeholder
+    customer: apex
+    environments:
+      - preprod
+      - prod
+      - subp
+  nova_nonprod:
+    id: 00000000-0000-0000-0000-000000000006
+    tenant: placeholder
+    customer: nova
+    environments:
+      - dev
+      - test
+      - subn
+  flux_nonprod:
+    id: 00000000-0000-0000-0000-000000000007
+    tenant: placeholder
+    customer: flux
+    environments:
+      - dev
+      - test
+      - subn

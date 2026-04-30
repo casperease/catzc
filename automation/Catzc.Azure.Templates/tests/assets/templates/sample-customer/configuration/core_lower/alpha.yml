@@ -1,0 +1,6 @@
+# cspell:ignore alweutstscusst
+# Config for 'sample-customer', core (no-customer) base slot of env alpha. One config file ⟷ one RG.
+ParametersFile:
+  parameters:
+    storageAccountName:
+      value: alweutstscusst

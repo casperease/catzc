@@ -1,0 +1,9 @@
+# cspell:ignore alweutstderivst
+# Config for the 'derived-name' fixture template (base slot of env alpha). One config file ⟷ one RG.
+# This template ships NO options.yml — its short_name is derived from the folder name ('deriv').
+# Resource names are written statically here (in-template name generation is intentionally deferred).
+
+ParametersFile:
+  parameters:
+    storageAccountName:
+      value: alweutstderivst

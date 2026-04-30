@@ -1,0 +1,9 @@
+# cspell:ignore weutstscusacst
+# Config for 'sample-customer', customer acme, env alpha, slot 001 (configuration/acme/alpha-001.yml).
+# Deliberately sits beside the non-slotted acme/alpha.yml: one template freely MIXES a base (no-slot)
+# config and a slotted (<env>-<slot>.yml) config — the slot is a per-config dimension, not a
+# template-level bit. See docs/adr/azure/data-model.md.
+ParametersFile:
+  parameters:
+    storageAccountName:
+      value: al001weutstscusacst

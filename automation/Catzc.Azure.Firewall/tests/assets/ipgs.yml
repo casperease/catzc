@@ -1,0 +1,131 @@
+# IP Groups - 2 source(s), 28 group(s)
+# Retrieved: 2026-06-18 09:00 UTC
+
+sources:
+  rg-hub:
+    subscriptionId: 00000000-0000-0000-0000-000000000003
+  rg-network:
+    subscriptionId: 00000000-0000-0000-0000-000000000002
+ipgs:
+  ipg-acr:
+    source: rg-network
+    addresses:
+    - 10.22.0.0/24
+  ipg-aks-nodes:
+    source: rg-network
+    addresses:
+    - 10.70.0.0/16
+  ipg-aks-pods:
+    source: rg-network
+    addresses:
+    - 10.71.0.0/16
+  ipg-app:
+    source: rg-network
+    addresses:
+    - 10.20.0.0/24
+    - 10.21.0.0/24
+  ipg-backup:
+    source: rg-hub
+    addresses:
+    - 10.90.0.0/24
+  ipg-bastion:
+    source: rg-hub
+    addresses:
+    - 10.100.4.0/24
+  ipg-build:
+    source: rg-hub
+    addresses:
+    - 10.80.0.0/24
+    - 10.81.0.0/24
+  ipg-corp:
+    source: rg-network
+    addresses:
+    - 10.10.0.0/16
+    - 10.11.0.0/16
+  ipg-db:
+    source: rg-network
+    addresses:
+    - 10.30.0.0/24
+    - 10.31.0.0/24
+  ipg-dmz:
+    source: rg-network
+    addresses:
+    - 10.5.0.0/24
+  ipg-dns-forwarders:
+    source: rg-hub
+    addresses:
+    - 10.100.1.0/24
+  ipg-egress:
+    source: rg-hub
+    addresses:
+    - 51.140.0.0/24
+  ipg-firewall-mgmt:
+    source: rg-hub
+    addresses:
+    - 10.100.2.0/24
+  ipg-hub:
+    source: rg-hub
+    addresses:
+    - 10.100.0.0/16
+  ipg-jumpbox:
+    source: rg-network
+    addresses:
+    - 10.0.100.10/32
+    - 10.0.100.11/32
+  ipg-linux:
+    source: rg-network
+    addresses:
+    - 10.40.0.0/24
+  ipg-loadbalancers:
+    source: rg-hub
+    addresses:
+    - 10.122.0.0/24
+  ipg-mgmt:
+    source: rg-network
+    addresses:
+    - 10.0.100.0/24
+  ipg-monitoring:
+    source: rg-hub
+    addresses:
+    - 10.121.0.0/24
+  ipg-office-users:
+    source: rg-network
+    addresses:
+    - 10.60.0.0/16
+  ipg-onprem:
+    source: rg-network
+    addresses:
+    - 10.250.0.0/16
+    - 172.16.0.0/16
+    - 192.168.0.0/16
+  ipg-partners:
+    source: rg-network
+    addresses:
+    - 198.51.100.0/24
+    - 203.0.113.0/24
+  ipg-shared-svcs:
+    source: rg-hub
+    addresses:
+    - 10.120.0.0/24
+  ipg-spoke-dev:
+    source: rg-hub
+    addresses:
+    - 10.112.0.0/15
+  ipg-spoke-prod:
+    source: rg-hub
+    addresses:
+    - 10.110.0.0/15
+  ipg-spoke-test:
+    source: rg-hub
+    addresses:
+    - 10.114.0.0/16
+  ipg-vpn-gateway:
+    source: rg-hub
+    addresses:
+    - 10.100.3.0/24
+  ipg-web:
+    source: rg-network
+    addresses:
+    - 10.1.0.0/24
+    - 10.2.0.0/24
+    - 10.10.0.0/24

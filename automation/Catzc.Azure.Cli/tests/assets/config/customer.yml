@@ -1,0 +1,10 @@
+# Test-only customer fixture (paired with the sibling azure.yml). Company-name customers acme/globex,
+# deliberately distinct from the shipped apex/nova/… so editing the real customer.yml can never change a
+# logic-test outcome. Tests redirect config discovery here via the Resolve-ConfigEntry seam.
+customers:
+  acme:
+    shortcode: ac
+    details: Zeta Fixture Co
+  globex:
+    shortcode: gx
+    details: Theta Fixture Co

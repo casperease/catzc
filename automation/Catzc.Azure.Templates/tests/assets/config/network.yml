@@ -1,0 +1,17 @@
+# Test-only IP-plan fixture (pairs with tests/assets/config/azure.yml). Its environment set must equal
+# the fixture azure.yml's (Assert-NetworkConfiguration cross-checks). Distinct ranges per env so merge
+# tests can assert they differ.
+
+environments:
+  alpha:
+    vnet_address_space: 10.50.0.0/16
+    default_subnet: 10.50.0.0/24
+  beta:
+    vnet_address_space: 10.60.0.0/16
+    default_subnet: 10.60.0.0/24
+  gamma:
+    vnet_address_space: 10.70.0.0/16
+    default_subnet: 10.70.0.0/24
+  delta:
+    vnet_address_space: 10.80.0.0/16
+    default_subnet: 10.80.0.0/24

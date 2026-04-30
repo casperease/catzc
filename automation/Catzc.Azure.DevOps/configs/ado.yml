@@ -1,0 +1,15 @@
+# Azure DevOps coupling for this repo's automation — the data that binds it to a specific ADO
+# organization and the Entra (Azure AD) tenant behind it. Loaded by Get-Config -Config ado. The API functions
+# (New-AdoPullRequest, Register-AdoPipeline, Get-AdoPipelineDefinitions, …) default organization/project
+# from here; Get-AdoAuthorizationHeader uses `tenant` to ensure the az CLI session is in the right
+# directory before minting an ADO token (its az-login fallback path).
+
+# Azure DevOps organization URL (the REST API host).
+organization: "https://dev.azure.com/Catzc"
+
+# Default project (URL-encoded).
+project: "CatzcProject"
+
+# Entra (Azure AD) tenant GUID backing the DevOps organization. The identity coupling: the az session
+# that mints an ADO token must be logged into this directory.
+tenant: "00000000-0000-0000-0000-000000000000"
