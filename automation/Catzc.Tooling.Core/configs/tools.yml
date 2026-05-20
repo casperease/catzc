@@ -1,0 +1,110 @@
+python:
+  version: "3.14"
+  command: python
+  winget_id: "Python.Python.{0}"
+  # Enables --scope user on winget for a user-space install (no admin). The
+  # burn-installer UAC prompt that affected 3.11 was fixed in 3.12+, so 3.14
+  # installs without elevation.
+  winget_scope: user
+  brew_formula: "python@{0}"
+  apt_package: "python{0}"
+  version_command: "python --version"
+  version_pattern: "^Python (?<ver>.+)$"
+
+dotnet:
+  version: "10.0"
+  command: dotnet
+  # Installed via vendored install scripts — no package manager, no admin.
+  # Install dir defaults: Windows = LOCALAPPDATA\<command>, Unix = HOME/.<command>.
+  # Override per platform with windows_install_dir / unix_install_dir if needed.
+  script_install: true
+  windows_install_dir: "Microsoft\\dotnet"
+  version_command: "dotnet --version"
+  version_pattern: "^(?<ver>.+)$"
+
+az_cli:
+  version: "2.87"
+  command: az
+  # macOS: Homebrew (user-space). Windows: winget (Microsoft.AzureCLI — MSI, machine-scope, needs admin,
+  # hash-verified). Linux: the official aka.ms/InstallAzureCLIDeb script (Install-AzCli runs it; needs root).
+  # az bundles its own Python, so it does not depend on the system `python` tool. apt_package is kept for
+  # status/uninstall classification only — the Linux *install* uses the official script (see Install-AzCli),
+  # not the generic apt path, because the azure-cli package needs the Microsoft apt repo configured first.
+  winget_id: "Microsoft.AzureCLI"
+  brew_formula: "azure-cli"
+  apt_package: "azure-cli"
+  version_command: "az version --output tsv"
+  version_pattern: "^(?<ver>[^\t]+)"
+
+poetry:
+  version: "2.4"
+  command: poetry
+  depends_on: python
+  pip_package: poetry
+  version_command: "poetry --version"
+  version_pattern: "^Poetry \\(version (?<ver>.+)\\)$"
+
+node_js:
+  version: "24"
+  command: node
+  winget_id: "OpenJS.NodeJS.{0}"
+  winget_scope: user
+  brew_formula: "node@{0}"
+  apt_package: "nodejs"
+  version_command: "node --version"
+  version_pattern: "^v(?<ver>.+)$"
+
+cspell:
+  version: "10"
+  command: cspell
+  depends_on: node_js
+  npm_package: cspell
+  version_command: "cspell --version"
+  version_pattern: "^(?<ver>[\\d.]+)"
+
+markdownlint:
+  version: "0.23"
+  command: markdownlint-cli2
+  depends_on: node_js
+  npm_package: markdownlint-cli2
+  # markdownlint-cli2 --version prints a banner ("markdownlint-cli2 v0.22.1 (markdownlint v0.40.0)"),
+  # so the pattern captures the digits after the first 'v' (Get-ToolVersion matches unanchored).
+  version_command: "markdownlint-cli2 --version"
+  version_pattern: "v(?<ver>[\\d.]+)"
+
+prettier:
+  version: "3"
+  command: prettier
+  depends_on: node_js
+  npm_package: prettier
+  version_command: "prettier --version"
+  version_pattern: "^(?<ver>[\\d.]+)"
+
+terraform:
+  version: "1.15"
+  command: terraform
+  winget_id: "Hashicorp.Terraform"
+  winget_scope: user
+  brew_formula: "hashicorp/tap/terraform"
+  # Linux: HashiCorp apt repo must be configured first.
+  # Install-Terraform handles this inline.
+  version_command: "terraform --version"
+  version_pattern: "^Terraform v(?<ver>[\\d.]+)"
+
+java:
+  version: "25"
+  command: java
+  winget_id: "Microsoft.OpenJDK.{0}"
+  winget_scope: user
+  brew_formula: "openjdk@{0}"
+  apt_package: "openjdk-{0}-jdk"
+  version_command: "java --version"
+  version_pattern: "(?<ver>[\\d.]+)"
+
+py_spark:
+  version: "4.1"
+  command: pyspark
+  depends_on: java
+  pip_package: pyspark
+  version_command: 'python -c "import pyspark; print(pyspark.__version__)"'
+  version_pattern: "^(?<ver>[\\d.]+)$"
