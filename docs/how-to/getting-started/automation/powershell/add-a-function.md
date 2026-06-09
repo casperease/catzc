@@ -1,0 +1,107 @@
+# Add a function
+
+Adding a public function is a one-step operation: **create the file**. The bootstrap module discovers it on the next importer run — no
+manifest to edit, no export list to maintain.
+
+## Steps
+
+1. Pick the right module folder under `automation/` (or [create a new module](../add-a-module.md) first).
+2. Create `automation/<Module>/Verb-Noun.ps1`. The **file name must equal the function name**, and the file must contain exactly one
+   function (see [one-function-per-file](../../../../adr/automation/one-function-per-file.md)).
+3. Create the paired test `automation/<Module>/tests/Verb-Noun.Tests.ps1`.
+4. Re-run the importer (`. ./importer.ps1`) and run `Test-Automation`.
+
+## The shape of a function
+
+```powershell
+# automation/<Module>/Get-Widgets.ps1
+function Get-Widgets {
+    [CmdletBinding()]
+    [OutputType([object[]])]
+    param(
+        [Parameter(Mandatory, Position = 0)]
+        [string] $Source,
+
+        [int] $Limit = 10
+    )
+
+    Assert-NotNullOrWhitespace $Source        # validate input at entry
+    Assert-PathExist $Source -PathType Leaf
+
+    $raw = Get-Content $Source -Raw
+    Assert-NotNullOrWhitespace $raw            # assert after an external read
+
+    $widgets = $raw | ConvertFrom-Json
+    foreach ($w in $widgets) {                 # foreach, not ForEach-Object
+        $w.name = $w.name.Trim()
+    }
+
+    $widgets | Select-Object -First $Limit
+}
+```
+
+Five functional lines, three assertions — that ratio is the target (see
+[fail-fast-with-asserts](../../../../adr/automation/fail-fast-with-asserts.md)).
+
+## The rules you must follow
+
+These are enforced by PSScriptAnalyzer and the convention tests — code that breaks them fails `Test-Automation`.
+
+- **Approved verb, meaningful noun.** Use a verb from `Get-Verb` (`Get`, `New`, `Set`, `Install`, `Invoke`, `Assert`, `Test`, …). Use a
+  **plural** noun when you return a collection (`Get-Widgets`) and a **singular** noun when you return one object (`Get-Widget`). The verb
+  is a contract: `Get-` must not change state, `Test-` returns `[bool]`, `Assert-` throws on failure (see
+  [respect-pwsh-verb-rules](../../../../adr/automation/powershell/respect-pwsh-verb-rules.md)).
+- **Assert your assumptions.** Validate parameters at entry and results after every external call with the `Assert-*` library — never inline
+  `if (-not $x) { throw }` (see [fail-fast-with-asserts](../../../../adr/automation/fail-fast-with-asserts.md)).
+- **Throw, don't warn.** Use `throw` / `Assert-*` for failure and `Write-Message` / `Write-Verbose` for information. `Write-Error` and
+  `Write-Warning` are banned (see [error-handling](../../../../adr/automation/powershell/error-handling.md)).
+- **Sensible defaults.** Make the zero/low-argument call do the common thing; pull defaults from config where they live; use `[switch]` for
+  opt-in behavior (see [sensible-defaults](../../../../adr/automation/sensible-defaults.md)).
+- **One responsibility.** A function does one thing its name describes. `Invoke-Widget` must not secretly install the tool — assert the
+  precondition and let the caller compose (see
+  [single-responsibility-functions](../../../../adr/automation/single-responsibility-functions.md)).
+- **Style.** K&R braces, 4-space indent, no trailing semicolons, `foreach` over `ForEach-Object` for anything with control flow, PascalCase
+  parameters / camelCase locals (see [powershell-formatting](../../../../adr/automation/powershell/powershell-formatting.md)).
+
+## Reuse the base library
+
+Before writing a helper, reach for what already exists in `Catzc.Base.*` and `Catzc.Base.Asserts`:
+
+- Run external tools with `Invoke-Executable` (it logs the command, handles exit codes, and returns a `CliResult` with `-PassThru`) — not a
+  bare `& tool`.
+- Locate files with `Get-RepositoryRoot` / `Get-RepositoryFile`; write output under `Get-OutputRoot`. Never depend on `$PWD` (see
+  [never-depend-on-pwd](../../../../adr/automation/never-depend-on-pwd.md)).
+- Load config with `Get-Config -Config <name>`.
+- Common guards: `Assert-NotNullOrWhitespace`, `Assert-PathExist`, `Assert-Command`, `Assert-True`, `Test-Command`.
+
+## Call a private helper
+
+A `.ps1` in the module root is exported; a `.ps1` in `private/` is loaded into the same module scope but **not** exported. Public functions
+call private helpers directly — no import, no qualification. To add one, drop `automation/<Module>/private/Verb-Noun.ps1` (same
+one-function-per-file rule).
+
+## The paired test
+
+Every function file pairs one-to-one with a test file. Every test carries **two mandatory tags**: a tier (`L0`/`L1`/`L2`/`L3`) and a
+category (`logic`/`integrity`). A run fails fast if either is missing.
+
+```powershell
+# automation/<Module>/tests/Get-Widgets.Tests.ps1
+Describe 'Get-Widgets' -Tag 'L1', 'logic' {
+    It 'returns the trimmed widgets, capped at -Limit' {
+        $fixture = Join-Path $PSScriptRoot 'assets/widgets.json'
+        $result = Get-Widgets -Source $fixture -Limit 2
+        $result.Count | Should -Be 2
+    }
+}
+```
+
+Logic tests run on fixtures/mocks and are hermetic; mock only real boundaries (filesystem location, CLIs), and mock the whole boundary
+function — see [test-automation](../../../../adr/automation/test-automation.md) for tiers, tagging, and the isolation idioms. Then:
+
+```powershell
+. ./importer.ps1
+Test-Automation                 # L0 + L1, the fast default
+```
+
+See [Run tests and checks](../run-tests-and-checks.md) for levels, categories, and the report files.
