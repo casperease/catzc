@@ -1,0 +1,7 @@
+# foundation, apex prod subscription (env subp, customer apex).
+ParametersFile:
+  parameters:
+    logAnalyticsName:
+      value: subp-weu-zct-fnd-apex-log
+    keyVaultName:
+      value: sp-weu-zct-fnd-ap-kv

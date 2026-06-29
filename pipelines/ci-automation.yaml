@@ -1,0 +1,479 @@
+# CI pipeline — unit tests, framework integration tests, and Azure auth tests.
+
+trigger:
+  branches:
+    include: [main]
+
+pr:
+  branches:
+    include: [main]
+
+# ---------------------------------------------------------------------------
+# Job 1: Unit tests (Pester)
+# ---------------------------------------------------------------------------
+jobs:
+  - job: UnitTests
+    displayName: 'Unit Tests'
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - checkout: self
+
+      # cspell + markdownlint-cli2 are installed here so the L2 'Repository spelling/markdown integrity'
+      # tests run as part of Test-Automation -Level 2 (they self-skip when the tool is absent). These L2
+      # integrity tests are the single spell/markdown gate.
+      - task: UseNode@1
+        inputs:
+          version: '22.x'
+        displayName: 'Activate Node.js 22'
+
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Install-Cspell (npm, depends on Node.js)'
+          RunCommand: 'Install-Cspell -Force'
+
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Install-Markdownlint (npm, depends on Node.js)'
+          RunCommand: 'Install-Markdownlint -Force'
+
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          RunCommand: 'Test-Automation -Level 2 -EnforceTimings'
+
+  # ---------------------------------------------------------------------------
+  # Job 2: Framework integration tests (no Azure auth)
+  # Each step exercises a different edge of the framework through the template.
+  # ---------------------------------------------------------------------------
+  - job: FrameworkTests
+    displayName: 'Framework Integration Tests'
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - checkout: self
+
+      # 2a: Multiline command via YAML pipe operator
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Multiline: templates config'
+          RunCommand: |
+            $cfg = Get-TemplatesConfiguration azure
+            $envs = @($cfg.environments.Keys)
+            Assert-True ($envs.Count -gt 0)
+            Write-Message "Environments: $($envs.Count)"
+
+      # 2b: Invoke-Executable output capture and PassThru
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'CliCommand: output capture'
+          RunCommand: |
+            $result = Invoke-Executable 'which which' -PassThru -Silent
+            Assert-True ($result.ExitCode -eq 0)
+            Assert-NotNullOrWhitespace $result.Output
+            Assert-True ($result.Raw.Count -ge 1)
+            Write-Message "CliCommand output: $($result.Output)"
+
+      # 2c: Invoke-Executable stderr separation
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'CliCommand: stderr separation'
+          RunCommand: |
+            $result = Invoke-Executable 'bash -c "echo out; echo err >&2"' -PassThru -NoAssert -Silent
+            Assert-True ($result.Output -match 'out')
+            Assert-True ($result.Errors -match 'err')
+            Assert-True ($result.Full -match 'out')
+            Assert-True ($result.Full -match 'err')
+
+      # 2d: Invoke-Executable exit code assertion
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'CliCommand: exit code assertion'
+          RunCommand: |
+            $threw = $false
+            try { Invoke-Executable 'bash -c "exit 1"' -Silent } catch { $threw = $true }
+            Assert-True $threw
+            $result = Invoke-Executable 'bash -c "exit 42"' -PassThru -NoAssert -Silent
+            Assert-True ($result.ExitCode -eq 42)
+
+      # 2e: Pipeline detection and output root
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Pipeline detection and output root'
+          RunCommand: |
+            Assert-True (Test-IsRunningInPipeline)
+            $outRoot = Get-OutputRoot
+            Assert-NotNullOrWhitespace $outRoot
+            Assert-PathExist $outRoot -PathType Container
+            Write-Message "OutputRoot: $outRoot"
+
+      # 2f: Set-AdoPipelineVariable integration
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Set-AdoPipelineVariable integration'
+          RunCommand: |
+            Set-AdoPipelineVariable -Name 'test_result' -Value 'passed'
+            Set-AdoPipelineVariable -Name 'my_count' -Value '42' -IsOutput
+            Set-AdoPipelineVariable -Name 'sanitized.name' -Value 'ok' -SanitizeName
+
+      # 2g: DryRun mode on tool wrappers (no tools needed)
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'DryRun: tool wrappers'
+          RunCommand: |
+            $pyCmd = Invoke-Python '-c "print(42)"' -DryRun
+            Assert-True ($pyCmd -match 'python')
+            Assert-True ($pyCmd -match 'print')
+            $azCmd = Invoke-AzCli 'account show' -DryRun
+            Assert-True ($azCmd -match 'az')
+            Assert-True ($azCmd -match 'account show')
+
+      # 2h: Write-Header renders with colored stars in pipeline
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          RunCommand: 'Write-Header "Hello from pipeline"; Write-Header; Write-Footer;'
+
+      # 2i: Module loading and function discovery
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Module loading and discovery'
+          RunCommand: |
+            $modules = Get-Module | Where-Object { $_.Name -match '^Catzc\.' }
+            Assert-True ($modules.Count -ge 3)
+            Assert-True ($null -ne (Get-Command Get-TemplatesConfiguration -ErrorAction Ignore))
+            Assert-True ($null -ne (Get-Command Invoke-Executable -ErrorAction Ignore))
+            Assert-True ($null -ne (Get-Command Set-AdoPipelineVariable -ErrorAction Ignore))
+            Write-Message "Loaded $($modules.Count) Catzc modules"
+
+      # 2j: Write-Exception outputs exception type and message
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Write-Exception: type and message'
+          RunCommand: |
+            $record = try { throw 'test error' } catch { $_ }
+            $output = Write-Exception $record *>&1 | Out-String
+            Assert-True ($output -match 'test error')
+            Assert-True ($output -match 'RuntimeException')
+            Write-Message 'Write-Exception output verified'
+
+  # ---------------------------------------------------------------------------
+  # Job 3: Azure auth mode tests (needs sc-azure-test service connection)
+  # ---------------------------------------------------------------------------
+  - job: AzureAuthTests
+    displayName: 'Azure Auth Tests'
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - checkout: self
+
+      # 3a: Mode azcli — az CLI is pre-authenticated
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Mode azcli: az account show'
+          RunCommand: |
+            $result = Invoke-Executable 'az account show --output json' -PassThru -Silent
+            Assert-True ($result.ExitCode -eq 0)
+            $account = $result.Output | ConvertFrom-Json
+            Assert-NotNullOrWhitespace $account.id
+            Write-Message "AzCli logged into: $($account.name)"
+          Mode: azcli
+          ServiceConnection: 'sc-azure-test'
+
+      # 3b: Mode azps — Az PowerShell modules authenticated
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Mode azps: Get-AzContext'
+          RunCommand: |
+            $ctx = Get-AzContext
+            Assert-NotNull $ctx
+            Assert-NotNullOrWhitespace $ctx.Subscription.Id
+            Write-Message "AzPs context: $($ctx.Subscription.Name)"
+          Mode: azps
+          ServiceConnection: 'sc-azure-test'
+
+      # 3c: ExposeAccessToken — SYSTEM_ACCESSTOKEN is mapped
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'ExposeAccessToken: token available'
+          RunCommand: |
+            Assert-NotNullOrWhitespace $env:SYSTEM_ACCESSTOKEN
+            Write-Message 'SYSTEM_ACCESSTOKEN is available'
+          ExposeAccessToken: true
+
+  # ---------------------------------------------------------------------------
+  # Job 4: Tool installation — install all locked-version tools on Linux
+  # One step per tool, in dependency order.
+  # ---------------------------------------------------------------------------
+  - job: ToolInstallation
+    displayName: 'Tool Installation (Linux)'
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - checkout: self
+
+      # Activate pre-cached tool versions on the hosted agent.
+      # These put the correct version on PATH so Install-* sees it and skips.
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '3.11'
+        displayName: 'Activate Python 3.11'
+
+      - task: UseDotNet@2
+        inputs:
+          version: '10.x'
+        displayName: 'Activate .NET 10'
+
+      - task: UseNode@1
+        inputs:
+          version: '22.x'
+        displayName: 'Activate Node.js 22'
+
+      # Snapshot before installing
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Tools status (before)'
+          RunCommand: 'Get-ToolsStatus | Write-Object -Name "Before"'
+
+      # Install remaining tools via our functions.
+      # Python, Dotnet, NodeJs use native ADO tasks above.
+      # pip-based tools depend on Python being on PATH (activated above).
+      # apt-based tools use sudo (available on hosted agents).
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Install-AzCli (pip, depends on Python)'
+          RunCommand: 'Install-AzCli -Force'
+
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Install-Poetry (pip, depends on Python)'
+          RunCommand: 'Install-Poetry -Force'
+
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          RunCommand: 'Install-Terraform -Force'
+
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          RunCommand: 'Install-Java -Force'
+
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Install-PySpark (pip, depends on Java)'
+          RunCommand: 'Install-PySpark -Force'
+
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Install-Cspell (npm, depends on Node.js)'
+          RunCommand: 'Install-Cspell -Force'
+
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Install-Markdownlint (npm, depends on Node.js)'
+          RunCommand: 'Install-Markdownlint -Force'
+
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Install-Prettier (npm, depends on Node.js)'
+          RunCommand: 'Install-Prettier -Force'
+
+      # Snapshot after installing
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Tools status (after)'
+          RunCommand: 'Get-ToolsStatus | Write-Object -Name "After"'
+
+  - job: VisualTests
+    displayName: 'Visual Tests'
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - checkout: self
+
+      # 5a: Simple types
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Write-Object: simple types'
+          RunCommand: |
+
+            Write-Object 'hello world' -Name 'String'
+            Write-Object 42 -Name 'Int'
+            Write-Object 3.14 -Name 'Double'
+            Write-Object $true -Name 'Bool'
+
+      # 5b: Flat array
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Write-Object: flat array'
+          RunCommand: |
+
+            Write-Object @('alpha', 'bravo', 'charlie', 'delta') -Name 'StringArray'
+            Write-Object @(1, 2, 3, 4, 5) -Name 'IntArray'
+
+      # 5c: Nested hashtable (depth 4)
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Write-Object: nested hashtable'
+          RunCommand: |
+
+            $ht = @{
+                Environment = 'production'
+                Azure = @{
+                    Subscription = 'sub-001'
+                    ResourceGroup = @{
+                        Name = 'rg-app-prod'
+                        Location = 'westeurope'
+                        Tags = @{
+                            Owner = 'platform-team'
+                            CostCenter = 'CC-4200'
+                            ManagedBy = 'catzc'
+                        }
+                    }
+                    Network = @{
+                        VNet = 'vnet-prod'
+                        Subnets = @('snet-app', 'snet-data', 'snet-mgmt')
+                    }
+                }
+            }
+            Write-Object $ht -Name 'InfraConfig'
+
+      # 5d: PSCustomObject (depth 3)
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Write-Object: PSCustomObject'
+          RunCommand: |
+
+            $obj = [PSCustomObject]@{
+                Name = 'Checkout API'
+                Version = '2.4.1'
+                Health = [PSCustomObject]@{
+                    Status = 'Healthy'
+                    Uptime = '14d 6h'
+                    Checks = [PSCustomObject]@{
+                        Database = 'OK'
+                        Cache = 'OK'
+                        MessageBus = 'Degraded'
+                    }
+                }
+                Endpoints = @('/api/v1/orders', '/api/v1/payments', '/health')
+            }
+            Write-Object $obj -Name 'ServiceInfo'
+
+      # 5e: Array of PSCustomObjects
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Write-Object: array of objects'
+          RunCommand: |
+
+            $customers = @(
+                [PSCustomObject]@{
+                    Name = 'Acme Corp'
+                    Tier = 'Enterprise'
+                    Environments = [PSCustomObject]@{
+                        Dev = [PSCustomObject]@{ Subscription = 'sub-acme-dev'; Region = 'northeurope' }
+                        Prod = [PSCustomObject]@{ Subscription = 'sub-acme-prod'; Region = 'westeurope' }
+                    }
+                }
+                [PSCustomObject]@{
+                    Name = 'Contoso Ltd'
+                    Tier = 'Standard'
+                    Environments = [PSCustomObject]@{
+                        Dev = [PSCustomObject]@{ Subscription = 'sub-contoso-dev'; Region = 'northeurope' }
+                        Prod = [PSCustomObject]@{ Subscription = 'sub-contoso-prod'; Region = 'westeurope' }
+                    }
+                }
+            )
+            Write-Object $customers -Name 'Customers'
+
+      # 5f: OrderedDictionary (depth 3)
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Write-Object: ordered dictionary'
+          RunCommand: |
+
+            $config = [ordered]@{
+                pipeline = [ordered]@{
+                    name = 'CI'
+                    trigger = @('main', 'release/*')
+                    pool = [ordered]@{
+                        vmImage = 'ubuntu-latest'
+                        demands = @('pwsh', 'dotnet')
+                    }
+                }
+                settings = [ordered]@{
+                    timeoutMinutes = 30
+                    cancelTimeoutMinutes = 5
+                    continueOnError = $false
+                }
+            }
+            Write-Object $config -Name 'PipelineConfig'
+
+      # 5g: Splat (hashtable used as parameter splat)
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Write-Object: splat hashtable'
+          RunCommand: |
+
+            $splat = @{
+                Path = '/home/vsts/work'
+                Filter = '*.ps1'
+                Recurse = $true
+                Depth = 3
+                ErrorAction = 'SilentlyContinue'
+            }
+            Write-Object $splat -Name 'Get-ChildItem splat'
+
+      # 5h: Azure configuration from real YAML
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Write-Object: real azure config'
+          RunCommand: |
+
+            $azure = Get-TemplatesConfiguration azure
+            Write-Object $azure -Name 'AzureConfiguration'
+
+      # 5i: Mixed-type array
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Write-Object: mixed-type array'
+          RunCommand: |
+
+            $mixed = @(
+                'plain string'
+                42
+                $true
+                @{ nested = 'hashtable' }
+                [PSCustomObject]@{
+                    Type = 'object'
+                    Value = 99
+                    Inner = [PSCustomObject]@{
+                        Status = 'active'
+                        Detail = [PSCustomObject]@{
+                            Code = 'A1'
+                            Tags = @('critical', 'reviewed')
+                        }
+                    }
+                }
+            )
+            Write-Object $mixed -Name 'MixedArray'
+
+      # 5j: ConvertTo-FlatSettingSet — nested config flattened to dot-notation
+      - template: /pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: 'Write-Object: flattened settings'
+          RunCommand: |
+
+            $config = [PSCustomObject]@{
+                app = [PSCustomObject]@{
+                    name    = 'catzc'
+                    version = '1.0.0'
+                }
+                database = [PSCustomObject]@{
+                    host    = 'sql.internal'
+                    port    = 1433
+                    options = [PSCustomObject]@{
+                        encrypt = $true
+                        timeout = 30
+                    }
+                }
+                regions = @('westeurope', 'northeurope')
+            }
+            $config | ConvertTo-FlatSettingSet | Write-Object -Name 'FlatSettings'

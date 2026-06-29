@@ -1,0 +1,14 @@
+# contracts/ — keeps this directory tracked (checked in)
+#
+# contracts/ is the repository's external-facing API surface. See:
+#   docs/adr/repository/api-contracts.md          (code ctr — what contracts are; contract testing)
+#   docs/adr/repository/conventional-folders.md   (rule ADR-FOLDERS:11 — the folder convention)
+#
+# Layout: contracts/<contract-name>/v<N>/
+#   - <contract-name>/ is the named boundary (the unit), like infrastructure/templates/<name>/.
+#   - v<N> are version folders: integers, no leading zeros (v1, v2, … v10).
+#   - Declared, live versions start at v1. v0 is reserved for internal/draft use and is never
+#     declared as a live version; zero-padded forms (v01, v000) are never used.
+#   - A published version (v1+) is immutable; an incompatible change is a new v<N>. Each version
+#     folder carries its own .gitkeep. Coexisting versions are deliberate and equally live
+#     (ADR-ONELIVE:7), not legacy.

@@ -1,0 +1,144 @@
+# Whole-pipeline (extends) template — the ONE shared structure for every customer CD.
+#
+# Per docs/adr/pipelines/pipeline-naming-and-placement.md, customer CD is the sanctioned large-template
+# case: every customer's thin pipeline (cd-apex.yaml, cd-nova.yaml, cd-flux.yaml) `extends:` this file
+# and supplies only meta selection criteria — the customer key and the per-deployment
+# env/slot/subscription/service-connection map. No automation config is needled through
+# (custom-template-discipline.md): env, slot and subscription are all the automation layer needs to
+# resolve names and the KV. The subscription is named explicitly because it is mandatory in a pipeline
+# (inference is devbox-only — see docs/adr/azure/data-model.md); the customer that renders into names is
+# derived from it.
+#
+# CD = CI + CD: the CI stage builds + publishes the immutable artifacts (filtered to this customer),
+# then the deploy stages apply them in dependency order — foundation -> discovery -> expedition. foundation
+# owns the per-subscription Key Vault that discovery/expedition reference, so it deploys first (dependsOn).
+#
+# The three flat lists render cleanly with ${{ each }} — one deployment job per entry. Each entry
+# carries its own serviceConnection (tier -> SC: nonprod sub serves subn/dev/test, prod sub serves
+# subp/preprod/prod). Reference shapes only: real service connections + a non-placeholder azure.yml are
+# required to actually deploy.
+#
+# Triggers live in the thin root pipelines that extend this template — `trigger:` / `pr:` are honored
+# only at the pipeline root, not inside an extends template.
+
+parameters:
+  - name: Customer
+    type: string
+  - name: Foundations
+    type: object   # [ {env: subn, subscription: <owner>_nonprod, serviceConnection: sc-<owner>-nonprod}, {env: subp, subscription: <owner>_prod, serviceConnection: sc-<owner>-prod} ]
+  - name: Discoveries
+    type: object   # [ {env: dev, subscription: <owner>_nonprod, serviceConnection: sc-<owner>-nonprod}, ... {env: prod, subscription: <owner>_prod, serviceConnection: sc-<owner>-prod} ]
+  - name: Expeditions
+    type: object   # [ {env: dev, slot: '001', subscription: <owner>_nonprod, serviceConnection: sc-<owner>-nonprod}, ... ]
+
+stages:
+  # --- CI engine: build this customer's slots + publish the immutable artifacts -------------------
+  - stage: CI
+    displayName: 'CI engine — build & verify (${{ parameters.Customer }})'
+    jobs:
+      - job: Build
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - checkout: self
+
+          # Build only this customer's subscriptions (build-once). -Subscriptions tolerates an absent
+          # tier — a nonprod-only customer (no <owner>_prod folder) simply builds its nonprod slots.
+          - template: /pipelines/steps/invoke-automation.yaml
+            parameters:
+              DisplayName: 'Build-Bicep foundation -Subscriptions ${{ parameters.Customer }}_nonprod,${{ parameters.Customer }}_prod'
+              RunCommand: 'Build-Bicep foundation -Subscriptions ${{ parameters.Customer }}_nonprod,${{ parameters.Customer }}_prod'
+          - publish: out/template/foundation
+            artifact: foundation
+
+          - template: /pipelines/steps/invoke-automation.yaml
+            parameters:
+              DisplayName: 'Build-Bicep discovery -Subscriptions ${{ parameters.Customer }}_nonprod,${{ parameters.Customer }}_prod'
+              RunCommand: 'Build-Bicep discovery -Subscriptions ${{ parameters.Customer }}_nonprod,${{ parameters.Customer }}_prod'
+          - publish: out/template/discovery
+            artifact: discovery
+
+          - template: /pipelines/steps/invoke-automation.yaml
+            parameters:
+              DisplayName: 'Build-Bicep expedition -Subscriptions ${{ parameters.Customer }}_nonprod,${{ parameters.Customer }}_prod'
+              RunCommand: 'Build-Bicep expedition -Subscriptions ${{ parameters.Customer }}_nonprod,${{ parameters.Customer }}_prod'
+          - publish: out/template/expedition
+            artifact: expedition
+
+  # --- Deploy foundation (per-subscription Key Vault) — main only --------------------------------
+  - stage: Deploy_Foundation
+    displayName: 'Deploy foundation (${{ parameters.Customer }})'
+    dependsOn: CI
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - ${{ each f in parameters.Foundations }}:
+          - deployment: Foundation_${{ f.env }}
+            displayName: 'foundation → ${{ f.env }}'
+            environment: ${{ parameters.Customer }}-${{ f.env }}
+            pool:
+              vmImage: ubuntu-latest
+            strategy:
+              runOnce:
+                deploy:
+                  steps:
+                    - checkout: self
+                    - download: current
+                      artifact: foundation
+                    - template: /pipelines/steps/invoke-automation.yaml
+                      parameters:
+                        DisplayName: 'Deploy-Bicep ${{ f.env }} foundation -Subscription ${{ f.subscription }} (from artifact)'
+                        Mode: azcli
+                        ServiceConnection: ${{ f.serviceConnection }}
+                        RunCommand: 'Deploy-Bicep -Environment ${{ f.env }} -Template foundation -Subscription ${{ f.subscription }} -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
+
+  # --- Deploy discovery (reads the foundation Key Vault) — after foundation, main only ------------
+  - stage: Deploy_Discovery
+    displayName: 'Deploy discovery (${{ parameters.Customer }})'
+    dependsOn: Deploy_Foundation
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - ${{ each e in parameters.Discoveries }}:
+          - deployment: Discovery_${{ e.env }}
+            displayName: 'discovery → ${{ e.env }}'
+            environment: ${{ parameters.Customer }}-${{ e.env }}
+            pool:
+              vmImage: ubuntu-latest
+            strategy:
+              runOnce:
+                deploy:
+                  steps:
+                    - checkout: self
+                    - download: current
+                      artifact: discovery
+                    - template: /pipelines/steps/invoke-automation.yaml
+                      parameters:
+                        DisplayName: 'Deploy-Bicep ${{ e.env }} discovery -Subscription ${{ e.subscription }} (from artifact)'
+                        Mode: azcli
+                        ServiceConnection: ${{ e.serviceConnection }}
+                        RunCommand: 'Deploy-Bicep -Environment ${{ e.env }} -Template discovery -Subscription ${{ e.subscription }} -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+
+  # --- Deploy expedition (slotted; reads the foundation Key Vault) — after discovery, main only ---
+  - stage: Deploy_Expedition
+    displayName: 'Deploy expedition (${{ parameters.Customer }})'
+    dependsOn: Deploy_Discovery
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - ${{ each w in parameters.Expeditions }}:
+          - deployment: Expedition_${{ w.env }}_${{ w.slot }}
+            displayName: 'expedition → ${{ w.env }}-${{ w.slot }}'
+            environment: ${{ parameters.Customer }}-${{ w.env }}-${{ w.slot }}
+            pool:
+              vmImage: ubuntu-latest
+            strategy:
+              runOnce:
+                deploy:
+                  steps:
+                    - checkout: self
+                    - download: current
+                      artifact: expedition
+                    - template: /pipelines/steps/invoke-automation.yaml
+                      parameters:
+                        DisplayName: 'Deploy-Bicep ${{ w.env }} expedition -Slot ${{ w.slot }} -Subscription ${{ w.subscription }} (from artifact)'
+                        Mode: azcli
+                        ServiceConnection: ${{ w.serviceConnection }}
+                        RunCommand: 'Deploy-Bicep -Environment ${{ w.env }} -Template expedition -Slot ${{ w.slot }} -Subscription ${{ w.subscription }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition"'

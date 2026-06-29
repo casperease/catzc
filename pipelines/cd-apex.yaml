@@ -1,0 +1,40 @@
+# CD pipeline for customer apex — thin root that extends the shared customer CD template.
+#
+# Supplies only meta selection criteria: the customer key and the per-deployment env/slot/service-
+# connection map. All structure (CI build, foundation -> discovery -> expedition ordering) lives in
+# /pipelines/extends/cd-customer.yaml. apex has both tiers — nonprod (subn/dev/test) and prod
+# (subp/preprod/prod). Triggers live here because they are honored only at the pipeline root.
+#
+# Reference shape: 'sc-apex-*' are illustrative until real service connections + a non-placeholder
+# azure.yml exist.
+
+trigger:
+  branches:
+    include: [main]
+  paths:
+    include: [infrastructure]
+
+pr:
+  branches:
+    include: [main]
+  paths:
+    include: [infrastructure]
+
+extends:
+  template: /pipelines/extends/cd-customer.yaml
+  parameters:
+    Customer: apex
+    Foundations:
+      - { env: subn, subscription: apex_nonprod, serviceConnection: sc-apex-nonprod }
+      - { env: subp, subscription: apex_prod, serviceConnection: sc-apex-prod }
+    Discoveries:
+      - { env: dev, subscription: apex_nonprod, serviceConnection: sc-apex-nonprod }
+      - { env: test, subscription: apex_nonprod, serviceConnection: sc-apex-nonprod }
+      - { env: preprod, subscription: apex_prod, serviceConnection: sc-apex-prod }
+      - { env: prod, subscription: apex_prod, serviceConnection: sc-apex-prod }
+    Expeditions:
+      - { env: dev, slot: '001', subscription: apex_nonprod, serviceConnection: sc-apex-nonprod }
+      - { env: dev, slot: '002', subscription: apex_nonprod, serviceConnection: sc-apex-nonprod }
+      - { env: test, slot: '001', subscription: apex_nonprod, serviceConnection: sc-apex-nonprod }
+      - { env: preprod, slot: '001', subscription: apex_prod, serviceConnection: sc-apex-prod }
+      - { env: prod, slot: '001', subscription: apex_prod, serviceConnection: sc-apex-prod }

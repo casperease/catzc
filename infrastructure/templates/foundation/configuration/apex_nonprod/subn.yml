@@ -1,0 +1,7 @@
+# foundation, apex nonprod subscription (env subn, customer apex).
+ParametersFile:
+  parameters:
+    logAnalyticsName:
+      value: subn-weu-zct-fnd-apex-log
+    keyVaultName:
+      value: sn-weu-zct-fnd-ap-kv

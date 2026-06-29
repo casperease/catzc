@@ -1,0 +1,31 @@
+# CD pipeline for customer nova — thin root that extends the shared customer CD template.
+#
+# nova is dev-only (nonprod tier only): one foundation per-sub env (subn), one discovery env (dev), one
+# expedition slot (dev-001). Add the prod tier (subp / preprod / prod) when nova grows. All structure
+# lives in /pipelines/extends/cd-customer.yaml; triggers live here (honored only at the pipeline root).
+#
+# Reference shape: 'sc-nova-nonprod' is illustrative until real service connections + a non-placeholder
+# azure.yml exist.
+
+trigger:
+  branches:
+    include: [main]
+  paths:
+    include: [infrastructure]
+
+pr:
+  branches:
+    include: [main]
+  paths:
+    include: [infrastructure]
+
+extends:
+  template: /pipelines/extends/cd-customer.yaml
+  parameters:
+    Customer: nova
+    Foundations:
+      - { env: subn, subscription: nova_nonprod, serviceConnection: sc-nova-nonprod }
+    Discoveries:
+      - { env: dev, subscription: nova_nonprod, serviceConnection: sc-nova-nonprod }
+    Expeditions:
+      - { env: dev, slot: '001', subscription: nova_nonprod, serviceConnection: sc-nova-nonprod }

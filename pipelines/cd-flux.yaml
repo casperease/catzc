@@ -1,0 +1,31 @@
+# CD pipeline for customer flux — thin root that extends the shared customer CD template.
+#
+# flux is dev-only (nonprod tier only): one foundation per-sub env (subn), one discovery env (dev), one
+# expedition slot (dev-001). Add the prod tier (subp / preprod / prod) when flux grows. All structure
+# lives in /pipelines/extends/cd-customer.yaml; triggers live here (honored only at the pipeline root).
+#
+# Reference shape: 'sc-flux-nonprod' is illustrative until real service connections + a non-placeholder
+# azure.yml exist.
+
+trigger:
+  branches:
+    include: [main]
+  paths:
+    include: [infrastructure]
+
+pr:
+  branches:
+    include: [main]
+  paths:
+    include: [infrastructure]
+
+extends:
+  template: /pipelines/extends/cd-customer.yaml
+  parameters:
+    Customer: flux
+    Foundations:
+      - { env: subn, subscription: flux_nonprod, serviceConnection: sc-flux-nonprod }
+    Discoveries:
+      - { env: dev, subscription: flux_nonprod, serviceConnection: sc-flux-nonprod }
+    Expeditions:
+      - { env: dev, slot: '001', subscription: flux_nonprod, serviceConnection: sc-flux-nonprod }
