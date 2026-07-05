@@ -1,12 +1,13 @@
 <#
 .SYNOPSIS
-    Installs Python via the platform package manager.
+    Provisions Python via uv.
 .DESCRIPTION
-    Uses winget on Windows, brew on macOS, and apt-get on Linux.
-    Idempotent — skips if already installed at the correct version.
+    Installs a uv-managed CPython (`uv python install <version> --default`) — user-space, cross-platform, with
+    a global python/python3 shim in uv's bin (~/.local/bin). Requires uv. Idempotent — skips if the correct
+    version is already on PATH.
 
-    NOT for CI pipelines. In Azure DevOps, use the native UsePythonVersion task
-    which activates pre-cached versions instantly:
+    NOT for CI pipelines. In Azure DevOps, use the native UsePythonVersion task which activates pre-cached
+    versions instantly:
 
         - task: UsePythonVersion@0
           inputs:
@@ -14,7 +15,7 @@
 .PARAMETER Version
     Python version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force
-    Replace an existing installation at the wrong version.
+    Reinstall even when a build is already present (uv --reinstall).
 .EXAMPLE
     Install-Python
 .EXAMPLE
@@ -32,12 +33,39 @@ function Install-Python {
         "In ADO pipelines, use the native task: - task: UsePythonVersion@0 inputs: versionSpec: '3.11'"
     )
 
-    Install-Tool -Tool 'python' -Version $Version -Force:$Force
+    $config = Get-ToolConfig -Tool 'python'
+    if (-not $Version) {
+        $Version = $config.version
+    }
 
-    # Keep pip current — we only pin the Python version, not pip.
-    # -q suppresses the dependency list; runs after Install-Tool so it
-    # only fires when Python is actually present on PATH.
-    if (Test-Command pip) {
-        Invoke-Executable 'python -m pip install -q --upgrade pip'
+    # Idempotent: skip if already at the correct version (unless forcing a reinstall).
+    if (-not $Force -and (Test-Command $config.command)) {
+        $installed = Get-ToolVersion -Config $config
+        if ($installed -and $installed.StartsWith($Version)) {
+            Write-Message "python $Version is already installed"
+            return
+        }
+    }
+
+    # uv resolves the newest matching CPython, installs it, and (--default) writes the global python/python3
+    # shims into its bin dir. --reinstall replaces an existing build of the same version under -Force.
+    $reinstall = if ($Force) {
+        ' --reinstall'
+    }
+    else {
+        ''
+    }
+    Invoke-Uv "python install $Version --default$reinstall"
+
+    Sync-SessionPath
+
+    Assert-Command $config.command -ErrorText "python was installed but '$($config.command)' is not on PATH. You may need to restart your shell (or run 'uv python update-shell')."
+
+    $actual = Get-ToolVersion -Config $config
+    if ($actual -and $actual.StartsWith($Version)) {
+        Write-Message "python $actual installed successfully"
+    }
+    else {
+        Write-Message "python installed but could not verify version as $Version.x"
     }
 }

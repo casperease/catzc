@@ -1,13 +1,10 @@
 python:
   version: "3.14"
   command: python
-  winget_id: "Python.Python.{0}"
-  # Enables --scope user on winget for a user-space install (no admin). The
-  # burn-installer UAC prompt that affected 3.11 was fixed in 3.12+, so 3.14
-  # installs without elevation.
-  winget_scope: user
-  brew_formula: "python@{0}"
-  apt_package: "python{0}"
+  # Provisioned by uv (`uv python install <version> --default`) — user-space, cross-platform, installing a
+  # global python/python3 shim into uv's bin (~/.local/bin). depends_on uv so uv is present first.
+  depends_on: uv
+  uv_python: true
   version_command: "python --version"
   version_pattern: "^Python (?<ver>.+)$"
 
@@ -42,8 +39,10 @@ az_cli:
 poetry:
   version: "2.4"
   command: poetry
-  depends_on: python
-  pip_package: poetry
+  # Installed user-space via uv (`uv tool install poetry`) in an isolated env with uv's own Python —
+  # depends_on uv (not python), which uv brings itself.
+  depends_on: uv
+  uv_tool: poetry
   version_command: "poetry --version"
   version_pattern: "^Poetry \\(version (?<ver>.+)\\)$"
 
@@ -123,7 +122,11 @@ uv:
 py_spark:
   version: "4.1"
   command: pyspark
-  depends_on: java
+  # Installed with `uv pip install --system pyspark` INTO the uv-managed Python, so it stays importable;
+  # depends_on python for install ordering. Java is a runtime dependency, asserted in Invoke-PySpark.
+  depends_on: python
   pip_package: pyspark
-  version_command: 'python -c "import pyspark; print(pyspark.__version__)"'
+  # Read the version from package metadata — no heavy `import pyspark` (which spins up the JVM gateway),
+  # just the installed dist-info. importlib.metadata is stdlib since 3.8.
+  version_command: 'python -c "from importlib.metadata import version; print(version(''pyspark''))"'
   version_pattern: "^(?<ver>[\\d.]+)$"

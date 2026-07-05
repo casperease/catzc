@@ -20,13 +20,13 @@ trigger:
   branches:
     include: [main]
   paths:
-    include: [infrastructure]
+    include: [.triggers/infrastructure.sha256]
 
 pr:
   branches:
     include: [main]
   paths:
-    include: [infrastructure]
+    include: [.triggers/infrastructure.sha256]
 
 stages:
   # --- CI engine: build + verify, then publish the immutable artifacts ----------------------------

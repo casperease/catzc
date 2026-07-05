@@ -119,6 +119,12 @@ terms:
       meaning: 'Catzc (this repository / module namespace) — the Cloud Automation Toolset, Zero Ceremony; the reserved source-code-level name; "cats" is its conversational cover term'
     - term: pathspecs
       meaning: 'git pathspecs (the path-filter arguments passed to git grep/git log)'
+    - term: fileset
+      meaning: 'the set of files a scan or globset covers (fileset)'
+    - term: quotepath
+      meaning: 'the git core.quotepath setting (quotepath) - controls C-quoting of non-ASCII paths'
+    - term: stdlib
+      meaning: 'a language''s standard library (stdlib)'
     - term: gpgsign
       meaning: 'git''s commit.gpgsign config key (disabled in Test-GitHistoryClean test repos)'
   abbreviation:
@@ -378,6 +384,10 @@ terms:
       meaning: 'body of the ADR-AZSESS code (az-session-verification)'
     - term: cfgaddr
       meaning: 'body of the ADR-CFGADDR code (config-value-addressing)'
+    - term: protglob
+      meaning: 'body of the ADR-PROTGLOB code (protected-globs)'
+    - term: uvpy
+      meaning: 'body of the ADR-UVPY code (uv-python-handler)'
     - term: nosemi
       meaning: 'body of the ADR-NOSEMI code (avoid-using-semicolons)'
     - term: useps
@@ -770,6 +780,8 @@ terms:
       meaning: 'coined adjective ''pasteable'''
     - term: previewable
       meaning: 'coined adjective ''previewable'''
+    - term: protectable
+      meaning: 'coined adjective ''protectable'' - a scan the protected-glob gate may skip (ADR-PROTGLOB)'
     - term: stringly
       meaning: '''stringly-typed'' (stringly)'
     - term: suppressable

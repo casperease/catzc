@@ -1,12 +1,12 @@
 <#
 .SYNOPSIS
-    Runs pip with the given arguments.
+    Runs pip through uv (`uv pip`).
 .DESCRIPTION
-    Asserts Python is available before executing.
-    Uses python -m pip to ensure the correct pip is used.
-    For install commands, asserts version match and checks scope.
+    Delegates to Invoke-Uv, so `Invoke-Pip 'install --system requests'` runs `uv pip install --system requests`
+    against the uv-managed Python. uv is the standard Python handler; installs that target the global
+    interpreter pass `--system` (see Install-PipTool). uv presence is asserted by Invoke-Uv.
 .PARAMETER Arguments
-    Arguments to pass to pip.
+    Arguments to pass to `uv pip`.
 .PARAMETER PassThru
     Return a CliResult object with Output, Errors, Full, and ExitCode.
 .PARAMETER NoAssert
@@ -16,9 +16,9 @@
 .PARAMETER DryRun
     Return the command string without executing. Used for testing.
 .EXAMPLE
-    Invoke-Pip 'install requests'
+    Invoke-Pip 'install --system requests'
 .EXAMPLE
-    Invoke-Pip 'install requests' -DryRun
+    Invoke-Pip 'list --format json' -DryRun
 #>
 function Invoke-Pip {
     [CmdletBinding()]
@@ -33,9 +33,5 @@ function Invoke-Pip {
 
     Assert-NotNullOrWhitespace $Arguments -ErrorText 'Arguments cannot be empty'
 
-    if (-not $DryRun) {
-        Assert-Tool 'python'
-    }
-
-    Invoke-Executable "python -m pip $Arguments" -PassThru:$PassThru -NoAssert:$NoAssert -Silent:$Silent -DryRun:$DryRun
+    Invoke-Uv "pip $Arguments" -PassThru:$PassThru -NoAssert:$NoAssert -Silent:$Silent -DryRun:$DryRun
 }

@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-    Uninstalls Poetry via pip.
+    Uninstalls Poetry.
 .DESCRIPTION
-    Idempotent — skips if Poetry is not installed or if Python is
-    not available (nothing to pip-uninstall).
+    Removes the uv-managed install (`uv tool uninstall poetry`) via Uninstall-UvTool. Idempotent — skips if
+    Poetry is not installed.
 .EXAMPLE
     Uninstall-Poetry
 #>
@@ -11,5 +11,5 @@ function Uninstall-Poetry {
     [CmdletBinding()]
     param()
 
-    Uninstall-PipTool -Tool 'poetry'
+    Uninstall-UvTool -Tool 'poetry'
 }

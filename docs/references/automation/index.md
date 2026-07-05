@@ -35,6 +35,7 @@ Modules are layered — a module may only call into the modules it declares in `
 | [Catzc.Base.Variants](catzc-base-variants.md)               | Repo-wide variants fixed per importer session — naming order, enabled-customer set        |
 | [Catzc.Base.Execution](catzc-base-execution.md)             | The external-process boundary — `Invoke-Executable`, `CliResult`/`CliRunner`              |
 | [Catzc.Base.Files](catzc-base-files.md)                     | Filesystem and source-control facts — tree copy, file locks, git branch/commit            |
+| [Catzc.Base.Globs](catzc-base-globs.md)                     | Globsets, durable-SHA identities, trigger files, and protected scans                      |
 | [Catzc.Base.TypesSystem](catzc-base-typessystem.md)         | The native C# type system — compiled-assembly cache and cross-module type-ref scanning    |
 | [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md)       | The module/function dependency graph, integrity, and vendoring                            |
 | [Catzc.Base.QualityGates](catzc-base-qualitygates.md)       | The repository's self-check gates — tests, spelling, markdownlint, formatting             |
@@ -52,5 +53,13 @@ Modules are layered — a module may only call into the modules it declares in `
 | [Catzc.Azure.DevOps](catzc-azure-devops.md)                 | Azure DevOps REST, pipeline inventory, and the runtime bridge                             |
 | [Catzc.Azure.Firewall](catzc-azure-firewall.md)             | Firewall-rule ingestion and rendering                                                     |
 | [Catzc.Azure.Templates](catzc-azure-templates.md)           | Bicep template discovery, naming, build, and deploy                                       |
+
+## Beyond the modules
+
+Two reference areas cover the parts of `automation/` that are not themselves `automation/*` modules:
+
+- [Internal (`.psm1` shared infrastructure)](internal/index.md) — the loader and shared libraries under `automation/.internal/` that run the
+  import sequence and load every module above.
+- [BCL (C# / .NET types)](BCL/index.md) — the native C# type system those loaders compile and load.
 
 New here for a task rather than a survey? Start with the [getting-started guide](../../how-to/getting-started/automation/index.md).

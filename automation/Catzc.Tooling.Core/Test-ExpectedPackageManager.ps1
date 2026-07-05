@@ -40,6 +40,16 @@ function Test-ExpectedPackageManager {
         return $result.Full -match [regex]::Escape($Config.uv_tool)
     }
 
+    # uv-provisioned Python — managed only when uv reports an installed uv-MANAGED CPython. --managed-python
+    # excludes system pythons uv merely discovered (e.g. a winget/system 3.11), which would false-positive.
+    if ($Config.uv_python) {
+        if (-not (Test-Command uv)) {
+            return $false
+        }
+        $result = Invoke-Executable 'uv python list --only-installed --managed-python' -PassThru -NoAssert -Silent
+        return [bool]$result.Output
+    }
+
     # 3. Platform-specific package managers — only if the tool has the field
     #    for the current platform.
     if ($IsWindows -and $Config.winget_id) {
@@ -88,13 +98,13 @@ function Test-ExpectedPackageManager {
         return $result.ExitCode -eq 0
     }
 
-    # 3. pip — cross-platform fallback. Catches Poetry everywhere and AzCli
-    #    on Windows/Linux. On macOS, AzCli already matched brew above.
+    # 3. uv pip — library packages installed into the uv-managed Python (e.g. pyspark). `uv pip show --system`
+    #    inspects the global interpreter without importing the package.
     if ($Config.pip_package) {
-        if (-not (Test-Command pip)) {
+        if (-not (Test-Command uv)) {
             return $false
         }
-        $result = Invoke-Executable "pip show $($Config.pip_package)" -PassThru -NoAssert -Silent
+        $result = Invoke-Executable "uv pip show --system $($Config.pip_package)" -PassThru -NoAssert -Silent
         return [bool]$result.Output
     }
 

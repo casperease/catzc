@@ -27,9 +27,10 @@ groups:
         Catzc.Base.Vendor: [Catzc.Base.Config, Catzc.Base.Writers, Catzc.Base.Repository]
         Catzc.Base.Execution: [Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Asserts]
         Catzc.Base.Files: [Catzc.Base.Execution, Catzc.Base.Asserts]
+        Catzc.Base.Globs: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts]
         Catzc.Base.TypesSystem: [Catzc.Base.Repository, Catzc.Base.Files, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts]
         Catzc.Base.ModuleSystem: [Catzc.Base.TypesSystem, Catzc.Base.Repository, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Files, Catzc.Base.Writers, Catzc.Base.Asserts]
-        Catzc.Base.QualityGates: [Catzc.Base.ModuleSystem, Catzc.Base.TypesSystem, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts]
+        Catzc.Base.QualityGates: [Catzc.Base.ModuleSystem, Catzc.Base.TypesSystem, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts, Catzc.Base.Globs]
 
     # The Azure-extension cluster — all the Azure modules except the root `Catzc.Azure`. Its internal
     # member->member DAG captures their layering; cross-group edges (to Base, to the `Catzc.Azure` root, and

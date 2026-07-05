@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-    Uninstalls PySpark via pip.
+    Uninstalls PySpark from the uv-managed Python via `uv pip`.
 .DESCRIPTION
     Idempotent — skips if PySpark is not installed or if Python is
-    not available (nothing to pip-uninstall).
+    not available (nothing to uninstall).
 .EXAMPLE
     Uninstall-PySpark
 #>

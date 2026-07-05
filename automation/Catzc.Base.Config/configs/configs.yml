@@ -18,3 +18,5 @@ configs:
     type: Catzc.Base.QualityGates.TerminologyConfig
   readme:
     type: Catzc.Base.Docs.DocsConfig
+  globs:
+    type: Catzc.Base.Globs.GlobsConfig

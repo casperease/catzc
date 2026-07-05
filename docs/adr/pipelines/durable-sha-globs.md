@@ -5,7 +5,7 @@
 ### Rule ADR-GLOBS:1
 
 One source of truth: named globsets in `globs.yml` (owned by `Catzc.Base.Globs`) map each deployable unit onto its files under version
-control. Pipelines, workflows, and build-validation policies path-filter only on the unit's trigger file `triggers/<name>.sha256`, never on
+control. Pipelines, workflows, and build-validation policies path-filter only on the unit's trigger file `.triggers/<name>.sha256`, never on
 source paths.
 
 - [One configuration point](#one-configuration-point)
@@ -44,7 +44,9 @@ hex digest and a trailing LF, nothing else.
 ### Rule ADR-GLOBS:6
 
 A commit that changes any file a globset matches also carries that globset's regenerated trigger file. A stale, missing, or orphaned trigger
-file fails the integrity gate. No globset may match `triggers/` or `globs.yml` itself: trigger files are outputs of the hash, never inputs.
+file fails the integrity gate. No globset may have a trigger file (`.triggers/*.sha256`) as a member: trigger files are outputs of the hash,
+never inputs. The config itself is an ordinary tracked file — a globset may include it, and the repository-wide CI set does, so a config
+edit is never uncovered.
 
 - [Commit discipline](#commit-discipline)
 - [How this is enforced](#how-this-is-enforced)
@@ -66,7 +68,7 @@ else.
 ### One configuration point
 
 `globs.yml` holds every globset: a kebab-case name, a description, an `include:` pattern list, and an optional `exclude:` pattern list.
-`Catzc.Base.Globs` owns the file, the dialect, the hash, and all reading and writing of `triggers/`; nothing else parses the config or
+`Catzc.Base.Globs` owns the file, the dialect, the hash, and all reading and writing of `.triggers/`; nothing else parses the config or
 writes into that folder. A pipeline or workflow references a unit by registering the unit's trigger-file path as its only path filter, so
 adding or removing files from a unit is a config edit, never an orchestration edit.
 
@@ -109,6 +111,48 @@ The hash recipe makes the identity durable across platforms and sensitive to eve
 The trigger file is minimal on purpose: one hex line, LF, no header. A one-line diff is the whole review surface, and `.gitattributes` pins
 the line ending.
 
+### Registering a pipeline or workflow
+
+Registration is one line per vendor: the unit's trigger-file path as the only path filter. The vendors' own glob dialects never appear — a
+trigger file is a literal path, so nothing is left for their `*`/`**` semantics to disagree about.
+
+An Azure DevOps root pipeline (the `trigger:`/`pr:` keys are honored only at the pipeline root, never inside a template):
+
+```yaml
+trigger:
+  branches:
+    include: [main]
+  paths:
+    include: [.triggers/<globset>.sha256]
+
+pr:
+  branches:
+    include: [main]
+  paths:
+    include: [.triggers/<globset>.sha256]
+```
+
+A GitHub workflow:
+
+```yaml
+on:
+  push:
+    branches: [main]
+    paths: [.triggers/<globset>.sha256]
+  pull_request:
+    branches: [main]
+    paths: [.triggers/<globset>.sha256]
+```
+
+An ADO build-validation policy lives server-side, not in the repository: its path filter is set to `/.triggers/<globset>.sha256` in the
+branch policy. The policy is a registration like any other — the unit's composition still lives only in `globs.yml`.
+
+A pipeline whose scope spans several units registers several trigger files (a list of paths); a pipeline whose unit is effectively the whole
+repository registers the repository-wide set's trigger file rather than dropping the filter — dropping it would put trigger-file-only edge
+cases and vendor default semantics back in play. Because the trigger file changes exactly when the unit's durable SHA changes, a
+registration is behaviorally identical to a perfect source-path filter — including renames and moves, which content-blind vendor filters
+miss.
+
 ### Commit discipline
 
 Vendor triggers fire on changed paths in a push. The trigger file is what turns "this unit changed" into a changed path: whoever changes a
@@ -122,13 +166,13 @@ rule keeps regeneration stable: writing a trigger file never changes any globset
   self-matching globsets (`ADR-GLOBS:6`).
 - `Test-Trigger` recomputes every globset's durable SHA and reports stale, missing, and orphaned trigger files; an integrity-tagged test in
   `Catzc.Base.Globs` asserts it, so `Test-Automation` fails locally and in CI on any violation.
-- Grep-ability: `paths:` filters in `pipelines/*.yaml` and `.github/workflows/` reference only `triggers/` entries; a source path in a
+- Grep-ability: `paths:` filters in `pipelines/*.yaml` and `.github/workflows/` reference only `.triggers/` entries; a source path in a
   filter is findable by search and wrong by rule (`ADR-GLOBS:1`).
 
 ## Consequences
 
 - One edit point: recomposing a deployable unit touches `globs.yml`, never N pipelines in two vendor dialects.
-- Reviewable deploys: "this commit re-deploys unit X" is a visible one-line diff under `triggers/`, not an inference from path filters.
+- Reviewable deploys: "this commit re-deploys unit X" is a visible one-line diff under `.triggers/`, not an inference from path filters.
 - The identity is reproducible from any checkout: same tracked content, same SHA, on every platform.
 - Contributors carry a duty to regenerate trigger files; the gate converts forgetting from a silent non-deploy into a red build.
 - Renames and moves re-trigger by construction, which vendor content-blind path filters get right only by accident.

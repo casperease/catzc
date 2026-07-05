@@ -1,8 +1,13 @@
 <#
 .SYNOPSIS
-    Installs Poetry via pip.
+    Installs Poetry as an isolated uv tool.
+.DESCRIPTION
+    Installs Poetry user-space via uv (`uv tool install poetry`) in its own environment. Requires uv.
+    Idempotent — skips if the correct version is already on PATH.
 .PARAMETER Version
     Poetry version to install. Defaults to the locked version in Get-ToolConfig.
+.PARAMETER Force
+    Replace an existing installation at the wrong version.
 .EXAMPLE
     Install-Poetry
 .EXAMPLE
@@ -15,5 +20,5 @@ function Install-Poetry {
         [switch] $Force
     )
 
-    Install-PipTool -Tool 'poetry' -Version $Version -Force:$Force
+    Install-UvTool -Tool 'poetry' -Version $Version -Force:$Force
 }

@@ -94,6 +94,8 @@ A check **passes** when its assertions are green. A few L2 checks shell out to a
 | 54  | L1   | automation/Catzc.Base.QualityGates/tests/Build-ScriptAnalyzerSettings.Tests.ps1 | Build-ScriptAnalyzerSettings — real config                           | The importer-kept root PSScriptAnalyzerSettings.psd1 matches the authored source (no drift) and parses as a settings hashtable.   |
 | 55  | L0   | automation/Catzc.Base.Vendor/tests/Assert-VendorConfig.Tests.ps1                | integrity (shipped vendor.yml)                                       | The shipped vendor.yml passes Assert-VendorConfig (known keys, a present source, an absolute source URL).                         |
 | 56  | L2   | automation/Catzc.Base.ModuleSystem/tests/New-Importer.Tests.ps1                 | New-Importer — importer.ps1 drift guard                              | The committed importer.ps1 equals New-Importer output and its parameter set matches the Invoke-Importer overlay (no drift).       |
+| 57  | L2   | automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1                     | Get-TrackedFile (real git)                                           | The real tracked-file universe comes back repo-relative and /-separated from git ls-files.                                        |
+| 58  | L2   | automation/Catzc.Base.Globs/tests/Trigger-Freshness.Tests.ps1                   | Trigger freshness                                                    | Every globset's committed `.triggers/<name>.sha256` matches its recomputed durable SHA — none stale, missing, or orphaned.        |
 
 ## L0 · integrity
 

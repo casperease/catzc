@@ -25,8 +25,8 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
     }
 
     Context 'the trigger path (ADR-GLOBS:1)' {
-        It 'derives triggers/<name>.sha256' {
-            (& $script:make 'my-unit').TriggerPath | Should -Be 'triggers/my-unit.sha256'
+        It 'derives the trigger path from the set name' {
+            (& $script:make 'my-unit').TriggerPath | Should -Be '.triggers/my-unit.sha256'
         }
     }
 

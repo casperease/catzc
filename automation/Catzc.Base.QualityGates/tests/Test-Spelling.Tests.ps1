@@ -114,12 +114,20 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
 # Integrity: the ACTUAL repository content is spell-clean. Unlike the logic test above (real cspell over a
 # fixture file), this binds to the real repo — Test-Spelling with no -Glob scans its default content scope
 # (ADR-TEST:14). L2 because it drives the cspell CLI; self-skips when cspell is absent (ADR-TEST:8/9).
+# Protected-glob gated (ADR-PROTGLOB): a repeat local run over an unchanged 'automation' globset (the
+# repository-wide set — cspell reads nearly everything, including its own configs) is skipped; in a
+# pipeline the protection is ignored and the scan always runs full.
 Describe 'Repository spelling integrity' -Tag 'L2', 'integrity' {
     It 'the real repository content is spell-clean (real cspell, default content scope)' {
         if (-not (Get-Command cspell -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_cspell_missing'
             return
         }
+        if (Test-GlobSetProtection -Test 'spelling' -Name 'automation') {
+            Set-ItResult -Skipped -Because 'protected_globset_unchanged_since_green_run'
+            return
+        }
         { Test-Spelling -OutputFolder (Join-Path $TestDrive 'reports') } | Should -Not -Throw
+        Protect-GlobSet -Test 'spelling' -Name 'automation'
     }
 }

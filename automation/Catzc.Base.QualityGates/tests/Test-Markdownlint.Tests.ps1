@@ -107,12 +107,20 @@ Describe 'Test-Markdownlint (real markdownlint-cli2)' -Tag 'L2', 'logic' {
 # Integrity: the ACTUAL repository markdown is lint-clean. Unlike the logic test above (real markdownlint over
 # a fixture file), this binds to the real repo — Test-Markdownlint with no -Glob scans its default content
 # scope (ADR-TEST:14). L2 because it drives the markdownlint-cli2 CLI; self-skips when absent (ADR-TEST:8/9).
+# Protected-glob gated (ADR-PROTGLOB): a repeat local run over an unchanged 'markdown-scope' globset (the
+# scan's inputs — in-scope markdown plus the markdownlint config) is skipped; in a pipeline the protection
+# is ignored and the scan always runs full.
 Describe 'Repository markdown integrity' -Tag 'L2', 'integrity' {
     It 'the real repository markdown is lint-clean (real markdownlint-cli2, default content scope)' {
         if (-not (Get-Command markdownlint-cli2 -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_markdownlint_missing'
             return
         }
+        if (Test-GlobSetProtection -Test 'markdown' -Name 'markdown-scope') {
+            Set-ItResult -Skipped -Because 'protected_globset_unchanged_since_green_run'
+            return
+        }
         { Test-Markdownlint -OutputFolder (Join-Path $TestDrive 'reports') } | Should -Not -Throw
+        Protect-GlobSet -Test 'markdown' -Name 'markdown-scope'
     }
 }

@@ -1,16 +1,16 @@
 <#
 .SYNOPSIS
-    Installs a pip-managed tool.
+    Installs a Python-library tool into the uv-managed Python via `uv pip`.
 .DESCRIPTION
-    Private helper for Install-Poetry and Install-AzCli. Mirrors
-    Install-Tool's contract but uses pip instead of platform package
-    managers. Handles idempotency, scope validation, and Force.
+    Private helper for Install-PySpark. Mirrors Install-Tool's contract but installs the package INTO the
+    uv-managed Python with `uv pip install --system` (so it stays importable, unlike an isolated `uv tool`).
+    Handles idempotency, -Force, and version verification. uv presence is asserted by Invoke-Pip.
 .PARAMETER Tool
-    The snake_case tool key as defined in tools.yml.
+    The snake_case tool key as defined in tools.yml (must declare pip_package).
 .PARAMETER Version
     Version override. Defaults to the locked version.
 .PARAMETER Force
-    Automatically uninstall the wrong version before installing the correct one.
+    Uninstall a wrong version before installing the correct one.
 #>
 function Install-PipTool {
     [CmdletBinding()]
@@ -23,27 +23,13 @@ function Install-PipTool {
 
     $config = Get-ToolConfig -Tool $Tool
     $command = Get-ToolCommandSuffix -Tool $Tool
-    Assert-NotNullOrWhitespace $config.pip_package -ErrorText "$Tool has no pip_package in tools.yml — cannot install via pip"
+    Assert-NotNullOrWhitespace $config.pip_package -ErrorText "$Tool has no pip_package in tools.yml — cannot install via uv pip"
 
     if (-not $Version) {
         $Version = $config.version
     }
 
-    # Dependency: pip-managed tools require Python
-    Assert-Tool 'python'
-
-    # Scope check: pip writes to Python's Scripts directory. If Python is
-    # machine-wide, that directory is read-only without admin.
-    $pythonConfig = Get-ToolConfig -Tool 'python'
-    $pythonLocation = (Get-Command python).Source
-    $scope = Get-InstallScope -Config $pythonConfig -Location $pythonLocation
-    if ($scope -eq 'machine' -and -not (Test-IsAdministrator)) {
-        throw "Python is installed machine-wide at '$pythonLocation'. " +
-        'pip cannot write to its Scripts directory without admin. ' +
-        'Either run as Administrator, or uninstall Python and run Install-Python to install user-scope.'
-    }
-
-    # Idempotent: skip if already installed at the correct version
+    # Idempotent: skip if already installed at the correct version.
     if (Test-Command $config.command) {
         $installed = Get-ToolVersion -Config $config
 
@@ -57,7 +43,7 @@ function Install-PipTool {
         }
         elseif ($Force) {
             Write-Verbose "$Tool $installed found — uninstalling before installing $Version"
-            Invoke-Pip "uninstall $($config.pip_package) -y"
+            Invoke-Pip "uninstall --system $($config.pip_package)"
         }
         else {
             $location = (Get-Command $config.command).Source
@@ -65,7 +51,9 @@ function Install-PipTool {
         }
     }
 
-    Invoke-Pip "install -q $($config.pip_package)==$Version.*"
+    # --system targets the uv-managed Python on PATH (the `uv python install --default` interpreter), so the
+    # package is importable there rather than trapped in an isolated tool env.
+    Invoke-Pip "install --system $($config.pip_package)==$Version.*"
 
     Sync-SessionPath
 
@@ -78,7 +66,7 @@ function Install-PipTool {
         Write-Message "$Tool $actualVersion installed successfully"
     }
     elseif ($actualVersion) {
-        Write-Message "$Tool installed but version $actualVersion does not match expected $Version.x — package manager may have installed a different version"
+        Write-Message "$Tool installed but version $actualVersion does not match expected $Version.x — uv may have installed a different version"
     }
     else {
         Write-Message "$Tool installed but could not verify version"

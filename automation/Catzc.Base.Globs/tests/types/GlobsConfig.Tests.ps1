@@ -11,20 +11,14 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
     Context 'a valid registry' {
         It 'constructs and exposes the sets with lookup' {
             $c = & $script:make @{
-                'automation' = @{
-                    description = 'the automation layer'
-                    include     = @('automation/**', 'importer.ps1')
-                    # the config lives inside the automation tree, so an automation-wide set must carve it
-                    # out (ADR-GLOBS:6) — the validator forces this exclude
-                    exclude     = @('automation/Catzc.Base.Globs/configs/globs.yml')
-                }
+                'automation' = @{ description = 'the automation layer'; include = @('automation/**', 'importer.ps1') }
                 'apex'       = @{ description = 'the apex unit'; include = @('infrastructure/**'); exclude = @('**/*.md') }
             }
             $c.globsets.Count | Should -Be 2
             $c.Names | Should -Contain 'automation'
             $c.Contains('apex') | Should -BeTrue
             $c.Contains('nope') | Should -BeFalse
-            $c.Get('apex').TriggerPath | Should -Be 'triggers/apex.sha256'
+            $c.Get('apex').TriggerPath | Should -Be '.triggers/apex.sha256'
             $c.Get('apex').Matches('infrastructure/x/readme.md') | Should -BeFalse
         }
 
@@ -60,7 +54,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
     Context 'self-exclusion (ADR-GLOBS:6)' {
         It 'rejects a set matching its own trigger file' {
-            { & $script:make @{ unit = @{ description = 'd'; include = @('triggers/unit.sha256') } } } |
+            { & $script:make @{ unit = @{ description = 'd'; include = @('.triggers/unit.sha256') } } } |
                 Should -Throw '*ADR-GLOBS:6*'
         }
 
@@ -68,7 +62,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             {
                 & $script:make @{
                     'a-unit' = @{ description = 'd'; include = @('src/**') }
-                    'b-unit' = @{ description = 'd'; include = @('triggers/a-unit.sha256') }
+                    'b-unit' = @{ description = 'd'; include = @('.triggers/a-unit.sha256') }
                 }
             } | Should -Throw '*ADR-GLOBS:6*'
         }
@@ -78,21 +72,22 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
                 Should -Throw '*ADR-GLOBS:6*'
         }
 
-        It 'rejects a set matching the config itself' {
-            { & $script:make @{ unit = @{ description = 'd'; include = @('automation/Catzc.Base.Globs/configs/*.yml') } } } |
-                Should -Throw '*ADR-GLOBS:6*'
+        It 'accepts a set including the config itself — an ordinary tracked file' {
+            $c = & $script:make @{ unit = @{ description = 'd'; include = @('automation/Catzc.Base.Globs/configs/*.yml') } }
+            $c.Get('unit').Matches('automation/Catzc.Base.Globs/configs/globs.yml') | Should -BeTrue
         }
 
-        It 'accepts a catch-all whose excludes carve out triggers/ and the config' {
+        It 'accepts a catch-all whose exclude carves out .triggers/' {
             $c = & $script:make @{
                 everything = @{
                     description = 'the whole tree'
                     include     = @('**')
-                    exclude     = @('triggers/**', 'automation/Catzc.Base.Globs/configs/globs.yml')
+                    exclude     = @('.triggers/**')
                 }
             }
             $c.Get('everything').Matches('docs/index.md') | Should -BeTrue
-            $c.Get('everything').Matches('triggers/everything.sha256') | Should -BeFalse
+            $c.Get('everything').Matches('automation/Catzc.Base.Globs/configs/globs.yml') | Should -BeTrue
+            $c.Get('everything').Matches('.triggers/everything.sha256') | Should -BeFalse
         }
     }
 }

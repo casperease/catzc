@@ -44,6 +44,7 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 | -------------- | -------------------------------------------------------------------------------- |
 | `ADR-VENDOR`   | [vendor-toolset-dependencies](automation/vendor-toolset-dependencies.md)         |
 | `ADR-AZCLI`    | [prefer-az-cli](automation/prefer-az-cli.md)                                     |
+| `ADR-UVPY`     | [uv-python-handler](automation/uv-python-handler.md)                             |
 | `ADR-PRELOG`   | [log-before-invoke](automation/log-before-invoke.md)                             |
 | `ADR-RETRY`    | [retry-as-last-resort](automation/retry-as-last-resort.md)                       |
 | `ADR-EXTEND`   | [open-closed-architecture](automation/open-closed-architecture.md)               |
@@ -68,6 +69,7 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 | `ADR-AZSESS`   | [az-session-verification](automation/az-session-verification.md)                 |
 | `ADR-PATH`     | [path-representation](automation/path-representation.md)                         |
 | `ADR-CFGADDR`  | [config-value-addressing](automation/config-value-addressing.md)                 |
+| `ADR-PROTGLOB` | [protected-globs](automation/protected-globs.md)                                 |
 
 #### automation/powershell/
 

@@ -6,25 +6,25 @@
 # parameter alignment) and then Build-Bicep (compile main.bicep + render every per-slot parameter file +
 # run the UNDEFINED gate). Building needs no auth — `az bicep build` is offline — so Mode stays 'none'.
 #
-# One pipeline covers all three templates (path-filtered to infrastructure/**); it is fast enough to stay
-# inside the 5-10 min pre-commit budget. Revisit per-template CI only if build time grows.
+# One pipeline covers all three templates; it is fast enough to stay inside the 5-10 min pre-commit
+# budget. Revisit per-template CI only if build time grows.
 #
 # The CI engine runs in two trigger contexts on the same code:
 #   - pre-commit  : as an ADO build validation on PRs to main (the gate)
 #   - post-commit : the same build + verify on the merged commit
-# Both are path-filtered to the unit they verify.
+# Both are registered on the 'infrastructure' unit's trigger file, never on source paths (ADR-GLOBS#1).
 
 trigger:
   branches:
     include: [main]
   paths:
-    include: [infrastructure]
+    include: [.triggers/infrastructure.sha256]
 
 pr:
   branches:
     include: [main]
   paths:
-    include: [infrastructure]
+    include: [.triggers/infrastructure.sha256]
 
 jobs:
   - job: CI

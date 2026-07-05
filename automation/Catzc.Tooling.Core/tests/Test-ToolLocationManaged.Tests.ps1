@@ -55,4 +55,20 @@ Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
                 Should -BeFalse
         }
     }
+
+    It 'treats uv-provisioned python (uv data dir) as managed' {
+        InModuleScope Catzc.Tooling.Core {
+            $config = Get-ToolConfig -Tool 'python'
+            $loc = Join-Path $env:APPDATA 'uv\python\cpython-3.14.0\python.exe'
+            Test-ToolLocationManaged -Config $config -Location $loc | Should -BeTrue
+        }
+    }
+
+    It 'treats a system-installed python as unmanaged' {
+        InModuleScope Catzc.Tooling.Core {
+            $config = Get-ToolConfig -Tool 'python'
+            Test-ToolLocationManaged -Config $config -Location 'C:\Users\me\AppData\Local\Programs\Python\Python311\python.exe' |
+                Should -BeFalse
+        }
+    }
 }

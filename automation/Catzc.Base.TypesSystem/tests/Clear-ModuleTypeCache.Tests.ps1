@@ -63,9 +63,22 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         $currentDll | Should -Exist
     }
 
-    It 'warns when a superseded build sits next to the current one (devbox)' -Tag 'logic' {
-        Clear-ModuleTypeCache -AutomationRoot $fakeRoot   # fixture has current + stale = two builds
+    It 'warns when a superseded build survives the delete — a live session locking it (devbox)' -Tag 'logic' {
+        # The console-session warning fires only when a build SURVIVES the delete pass, not on a bare two-dlls-on-
+        # disk state. Report the stale build as locked, so the delete skips it and two builds remain — the exact
+        # situation the warning describes.
+        Mock Test-FileIsLocked { $true } -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Path -like '*deadbeef*' }
+        Clear-ModuleTypeCache -AutomationRoot $fakeRoot   # fixture has current + stale; stale is locked → survives
+        $staleDll | Should -Exist
         Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Warning }
+    }
+
+    It 'does NOT warn when the superseded build is freely deletable (cleaned up silently)' -Tag 'logic' {
+        # The fix: the warning is no longer emitted preemptively on a mere two-dlls-on-disk state. The fixture's
+        # stale build is unlocked, so the delete removes it and only the current build remains — no warning.
+        Clear-ModuleTypeCache -AutomationRoot $fakeRoot
+        $staleDll | Should -Not -Exist
+        Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -Times 0 -ParameterFilter { $Warning }
     }
 
     It 'throws in a pipeline when a superseded build is committed (two dlls present)' -Tag 'logic' {
@@ -74,7 +87,8 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         $staleDll | Should -Exist   # CI made no source-control change — it threw before touching anything
     }
 
-    It 'emits the two-dll warning even under -Silent (a locked/stale DLL must surface)' -Tag 'logic' {
+    It 'emits the survived-build warning even under -Silent (a locked/stale DLL must surface)' -Tag 'logic' {
+        Mock Test-FileIsLocked { $true } -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Path -like '*deadbeef*' }
         Clear-ModuleTypeCache -AutomationRoot $fakeRoot -Silent
         Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Warning }
     }

@@ -29,6 +29,14 @@ entry can never produce a run, and its patterns are expanded against the filesys
 The map is the single place the folder-to-source pairing is stated; the generator reads it through [Catzc.Base.Config](catzc-base-config.md)
 and never hard-codes a path.
 
+The map is also the **opt-in switch** for the generated (copy-out) README. Listing a folder here opts it in: its `README.md` becomes a
+derived copy-out of the named source, gitignored so it is never edited by hand and never gates the markdown or spelling checks (the source
+under `docs/` is what those gates check). A folder _not_ listed opts out — it keeps a hand-authored, committed `README.md` that is
+un-ignored in `.gitignore` and checked like any other doc. Two details keep the opt-in safe: a `patterns` glob supports only a trailing `/*`
+and matches just the immediate, non-dot-prefixed subdirectories of its prefix (so `.vendor`, `.internal`, and other dot-folders can never be
+swept in), and a matched folder whose derived source does not exist yet is skipped rather than generated — so a module with no reference
+article is fine; it simply has no generated README until its source lands.
+
 ## What the module does
 
 The module is small and single-purpose: it keeps every conventional folder's README in step with one authored source. The source of truth is

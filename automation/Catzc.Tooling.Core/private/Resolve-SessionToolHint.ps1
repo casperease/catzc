@@ -27,7 +27,7 @@ function Resolve-SessionToolHint {
         # Does the command actually live in this dir? Probe the bare name plus the Windows executable
         # extensions (PATHEXT is empty on Unix, so only the bare name is probed there).
         $names = @($Config.command) +
-            (@($env:PATHEXT -split ';') | Where-Object { $_ } | ForEach-Object { "$($Config.command)$_" })
+        (@($env:PATHEXT -split ';') | Where-Object { $_ } | ForEach-Object { "$($Config.command)$_" })
         $present = $false
         foreach ($n in $names) {
             if (Test-Path -LiteralPath (Join-Path $dir $n)) {

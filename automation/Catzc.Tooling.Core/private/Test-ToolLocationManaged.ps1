@@ -32,10 +32,23 @@ function Test-ToolLocationManaged {
         return $loc.StartsWith($dir, [System.StringComparison]::OrdinalIgnoreCase)
     }
 
-    # uv-managed tools (az_cli, poetry) install their shims to uv's tool-bin dir (~/.local/bin cross-platform).
-    if ($Config.uv_tool) {
-        $uvBin = if ($IsWindows) { Join-Path $env:USERPROFILE '.local\bin' } else { Join-Path $HOME '.local/bin' }
-        return $loc.StartsWith($uvBin.TrimEnd('\', '/'), [System.StringComparison]::OrdinalIgnoreCase)
+    # uv-managed tools (az_cli, poetry) and uv-provisioned python install their shims to uv's bin
+    # (~/.local/bin cross-platform); managed pythons may also resolve to uv's data dir directly.
+    if ($Config.uv_tool -or $Config.uv_python) {
+        # uv's shims go to ~/.local/bin; its managed pythons/tool-envs live in the data dir — %APPDATA%\uv
+        # (Roaming) on Windows, ~/.local/share/uv on Unix (verified via `uv tool dir` / `uv python dir`).
+        $uvRoots = if ($IsWindows) {
+            @((Join-Path $env:USERPROFILE '.local\bin'), (Join-Path $env:APPDATA 'uv'))
+        }
+        else {
+            @((Join-Path $HOME '.local/bin'), (Join-Path $HOME '.local/share/uv'))
+        }
+        foreach ($root in $uvRoots) {
+            if ($loc.StartsWith($root.TrimEnd('\', '/'), [System.StringComparison]::OrdinalIgnoreCase)) {
+                return $true
+            }
+        }
+        return $false
     }
 
     # Otherwise: owned iff the binary sits under the platform package manager's install root. npm/pip tools

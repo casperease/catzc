@@ -1,9 +1,10 @@
 // The globset registry (configs/globs.yml) and its validity rules: a non-empty 'globsets' map of
 // kebab-case name -> { description, include: [...], [exclude: [...]] }, each entry a valid GlobSet, no
 // unknown keys anywhere (strict-config discipline), and the self-exclusion rule — no globset may have a
-// trigger file or the config itself as a member (ADR-GLOBS:6), asserted by probing every declared trigger
-// path, a canary trigger path, and the config's own repo path against every set's membership. Constructing
-// an instance validates the whole registry (collecting all errors) and exposes the sets in registry order.
+// trigger file as a member (ADR-GLOBS:6; trigger files are outputs of the hash, never inputs), asserted by
+// probing every declared trigger path plus a canary trigger path against every set's membership. The config
+// itself is an ordinary tracked file and may be a member. Constructing an instance validates the whole
+// registry (collecting all errors) and exposes the sets in registry order.
 // See docs/adr/pipelines/durable-sha-globs.md.
 
 using System;
@@ -80,13 +81,12 @@ public sealed class GlobsConfig
             map[set.Name] = set;
         }
 
-        // ---- self-exclusion (ADR-GLOBS:6): trigger files and the config are outputs, never members.
-        //      Probes: every declared trigger path, a canary trigger path (catches catch-alls like '**'
-        //      or 'triggers/**' regardless of the declared names), and the config's own path. ----
+        // ---- self-exclusion (ADR-GLOBS:6): trigger files are outputs of the hash, never members.
+        //      Probes: every declared trigger path, plus a canary trigger path that catches catch-alls
+        //      like '**' or '.triggers/**' regardless of the declared names. ----
         List<string> probes = new List<string>();
         foreach (GlobSet set in sets) { probes.Add(set.TriggerPath); }
-        probes.Add("triggers/canary.sha256");
-        probes.Add(ConfigPath);
+        probes.Add(".triggers/canary.sha256");
 
         foreach (GlobSet set in sets)
         {
@@ -94,7 +94,7 @@ public sealed class GlobsConfig
             {
                 if (set.Matches(probe))
                 {
-                    errors.Add(string.Format("globset '{0}' matches '{1}' — trigger files and the config are outputs of the hash, never members (ADR-GLOBS:6); add an exclude", set.Name, probe));
+                    errors.Add(string.Format("globset '{0}' matches '{1}' — trigger files are outputs of the hash, never members (ADR-GLOBS:6); add an exclude", set.Name, probe));
                     break;
                 }
             }
