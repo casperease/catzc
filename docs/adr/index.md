@@ -123,6 +123,7 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 | `ADR-FORMAT`   | [uniform-formatting](repository/uniform-formatting.md)                 |
 | `ADR-CONTRACT` | [api-contracts](repository/api-contracts.md)                           |
 | `ADR-README`   | [generated-readmes](repository/generated-readmes.md)                   |
+| `ADR-ROOTCFG`  | [generated-root-configs](repository/generated-root-configs.md)         |
 | `ADR-EXAMPLE`  | [documentation-examples](repository/documentation-examples.md)         |
 | `ADR-VARIANT`  | [repo-variants](repository/repo-variants.md)                           |
 

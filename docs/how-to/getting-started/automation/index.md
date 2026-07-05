@@ -143,6 +143,7 @@ Short, focused how-to articles for the common jobs:
 | Create a brand-new module                 | [Add a module](add-a-module.md)                                     |
 | Add a native .NET type backed by C#       | [Add a C# type](BCL/add-a-dotnet-type.md)                           |
 | Add a deployable Bicep template           | [Add an infrastructure template](add-an-infrastructure-template.md) |
+| Define a deployable unit + trigger file   | [Add a deployable unit](add-a-deployable-unit.md)                   |
 | Run the tests, linters, and formatters    | [Run tests and checks](run-tests-and-checks.md)                     |
 | Set breakpoints and debug module code     | [Debug in VS Code](debug-in-vscode.md)                              |
 | Add or upgrade a CLI tool (az, dotnet, …) | [Add a CLI tool](add-a-cli-tool.md)                                 |

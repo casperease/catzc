@@ -32,9 +32,20 @@ Describe 'Install-DevBoxTools' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Message -like '*Skipping beta*' }
     }
 
+    It 'asserts a system-provided tool (winget) instead of installing it' {
+        Mock Get-ToolInstallOrder { @('winget') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig { [pscustomobject]@{ command = 'winget'; system_provided = $true; windows_only = $false } } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolCommandSuffix { 'Winget' } -ModuleName Catzc.Tooling.Provisioning
+        Mock Assert-Command { } -ModuleName Catzc.Tooling.Provisioning
+        Install-DevBoxTools
+        Should -Invoke Assert-Command -ModuleName Catzc.Tooling.Provisioning -Times 1
+        # No Install-Winget lookup/throw happened — the system-provided branch returned first.
+    }
+
     It 'throws when a locked tool has no matching Install- function' {
         Mock Get-ToolInstallOrder { @('mystery') } -ModuleName Catzc.Tooling.Provisioning
         Mock Get-ToolCommandSuffix { 'Mystery' } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig { [pscustomobject]@{ command = 'mystery'; system_provided = $false; windows_only = $false; pip_package = $null; script_install = $false } } -ModuleName Catzc.Tooling.Provisioning
         { Install-DevBoxTools } | Should -Throw '*No Install-Mystery function found*'
     }
 }

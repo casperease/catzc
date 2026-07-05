@@ -72,11 +72,21 @@ function Get-ToolsStatus {
 
     $ret = foreach ($toolName in $allTools.Keys) {
         $config = $allTools[$toolName]
+
+        # Windows-only tools (winget) do not exist elsewhere — skip them off Windows so they are not reported
+        # as Missing on macOS/Linux.
+        if ($config.windows_only -and -not $IsWindows) {
+            continue
+        }
+
         $command = Get-ToolCommandSuffix -Tool $toolName
 
         # Mirror Test-ExpectedPackageManager check order:
-        # ScriptInstall → platform-specific → pip → unknown
-        $expectedManager = if ($config.script_install) {
+        # SystemProvided → ScriptInstall → uv → platform-specific → pip → npm → unknown
+        $expectedManager = if ($config.system_provided) {
+            'system'
+        }
+        elseif ($config.script_install) {
             'script'
         }
         elseif ($config.uv_tool -or $config.uv_python) {

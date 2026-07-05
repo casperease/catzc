@@ -1,17 +1,15 @@
 <#
 .SYNOPSIS
-    Installs uv, Astral's Python handler.
+    Installs or upgrades uv, Astral's Python handler.
 .DESCRIPTION
-    Windows: winget (astral-sh.uv — a portable-zip package, so winget installs it user-scope, no admin).
-    macOS: Homebrew. Both delegate to Install-Tool. uv is the standard Python handler: it provisions Python
-    and runs Python-based CLIs in isolated environments. Idempotent — skips if the correct version is already
-    on PATH.
+    uv is user-space on every platform. A fresh machine bootstraps it via winget (hash-verified, user-scope,
+    no admin). An already-present uv installed by Astral's standalone installer upgrades itself in place with
+    `uv self update` — the standalone build's native, admin-free upgrade path, which a winget-managed uv does
+    not support. Idempotent — skips if the correct version is already on PATH.
 .PARAMETER Version
     uv version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force
-    Replace an existing installation at the wrong version.
-.EXAMPLE
-    Install-Uv
+    Upgrade even when a build is already present.
 #>
 function Install-Uv {
     [CmdletBinding()]
@@ -20,5 +18,40 @@ function Install-Uv {
         [switch] $Force
     )
 
-    Install-Tool -Tool 'uv' -Version $Version -Force:$Force
+    $config = Get-ToolConfig -Tool 'uv'
+    if (-not $Version) {
+        $Version = $config.version
+    }
+
+    # Fresh machine: bootstrap via winget (hash-verified, user-scope).
+    if (-not (Test-Command 'uv')) {
+        Install-Tool -Tool 'uv' -Version $Version
+        return
+    }
+
+    $installed = Get-ToolVersion -Config $config
+    if (-not $Force -and $installed -and $installed.StartsWith($Version)) {
+        Write-Message "uv $Version is already installed"
+        return
+    }
+
+    # A winget-installed uv cannot self-update — route it through the winget upgrade path. A standalone uv
+    # (Astral installer, on PATH outside the winget package root) upgrades itself with `uv self update`.
+    $wingetRoot = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'
+    if ((Get-Command uv).Source.StartsWith($wingetRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+        Install-Tool -Tool 'uv' -Version $Version -Force:$Force
+        return
+    }
+
+    Write-Message "Upgrading uv toward $Version (self-update)"
+    Invoke-Executable 'uv self update'
+    Sync-SessionPath
+
+    $actual = Get-ToolVersion -Config $config
+    if ($actual -and $actual.StartsWith($Version)) {
+        Write-Message "uv $actual installed successfully"
+    }
+    else {
+        Write-Message "uv self-updated to $actual, which does not match the locked $Version.x — bump the uv pin in tools.yml."
+    }
 }

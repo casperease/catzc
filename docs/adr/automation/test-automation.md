@@ -158,8 +158,9 @@ only to tests that mutate-and-collide.
 ### Rule ADR-TEST:20
 
 When the unit is a pure function of the filesystem (the importer; discovery), spawn one import per distinct tree shape, not per assertion.
-Capture a rich observation from a single import and assert its facets across separate `It` blocks. Minimize the spawn count — Pester has no
-in-run parallelism, so splitting a stateful narrative into more tests does not parallelize it; fewer, richer imports is the only lever.
+Capture a rich observation from a single import and assert its facets across separate `It` blocks. Minimize the spawn count — Pester
+executes tests sequentially within a run, and the harness parallelizes at whole-file granularity (test files sharded across worker
+processes), so splitting a stateful narrative into more tests in one file parallelizes nothing; fewer, richer imports is the only lever.
 
 - [Keeping logic tests fast](#keeping-logic-tests-fast)
 
@@ -328,8 +329,9 @@ Logic tests run on every change, so their speed compounds. Four effects, measure
   — the importer, discovery — every distinct tree shape needs its own cold import, but every _assertion_ does not. `Import-AllModules`
   re-spawned a child `pwsh` for all 14 narrative steps; collapsed to the five tree shapes that are actually distinct (empty, a populated
   tree, a re-derive-after-add/change/delete, a duplicate-name collision, a vendor shadow), each capturing a rich JSON observation that many
-  `It` blocks assert against, it dropped from ~10.7 s to ~5.3 s with no loss of coverage. Reduce the spawn _count_; do not try to
-  parallelize — Pester runs tests sequentially within a run and the harness adds no parallelism, and these narratives are stateful besides.
+  `It` blocks assert against, it dropped from ~10.7 s to ~5.3 s with no loss of coverage. Reduce the spawn _count_; splitting the narrative
+  buys no concurrency — Pester executes tests sequentially within a run, the harness parallelizes whole test files across worker processes
+  (a single file's tests never split across workers), and these narratives are stateful besides.
 
 - **Measure; mocks are rarely the cause (ADR-TEST:21).** The instinct to blame slowness on Pester mocking is almost always wrong:
   interception is ~ms/call and a `-ParameterFilter` adds ~1 ms. Here the suspected "6× mock penalty" on discovery was a measurement artifact

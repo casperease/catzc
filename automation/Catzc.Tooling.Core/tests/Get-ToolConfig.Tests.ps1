@@ -5,6 +5,8 @@ Describe 'Get-ToolConfig' -Tag 'L0' {
     $script:toolEntries = foreach ($key in $script:allTools.Keys) {
         @{ Tool = $key; Config = $script:allTools[$key] }
     }
+    # OS-provided tools (winget) are asserted, never installed — they have no Install-/Uninstall- functions.
+    $script:installableEntries = $script:toolEntries | Where-Object { -not $_.Config['system_provided'] }
     $script:depEntries = foreach ($entry in $script:toolEntries) {
         if ($entry.Config['depends_on']) {
             @{ Tool = $entry.Tool; DependsOn = $entry.Config['depends_on'] }
@@ -40,8 +42,8 @@ Describe 'Get-ToolConfig' -Tag 'L0' {
         }
 
         It '<Tool> has at least one install mechanism' -ForEach $script:toolEntries {
-            $hasMechanism = $Config['winget_id'] -or $Config['brew_formula'] -or $Config['apt_package'] -or $Config['pip_package'] -or $Config['script_install'] -or $Config['npm_package'] -or $Config['uv_tool'] -or $Config['uv_python']
-            $hasMechanism | Should -BeTrue -Because "$Tool needs WingetId, BrewFormula, AptPackage, PipPackage, ScriptInstall, NpmPackage, UvTool, or UvPython"
+            $hasMechanism = $Config['winget_id'] -or $Config['brew_formula'] -or $Config['apt_package'] -or $Config['pip_package'] -or $Config['script_install'] -or $Config['npm_package'] -or $Config['uv_tool'] -or $Config['uv_python'] -or $Config['system_provided']
+            $hasMechanism | Should -BeTrue -Because "$Tool needs WingetId, BrewFormula, AptPackage, PipPackage, ScriptInstall, NpmPackage, UvTool, UvPython, or SystemProvided"
         }
 
         It '<Tool> DependsOn references an existing tool' -ForEach $script:depEntries {
@@ -50,14 +52,14 @@ Describe 'Get-ToolConfig' -Tag 'L0' {
     }
 
     Context 'Install/Uninstall function coverage' -Tag 'integrity' {
-        It '<Tool> has an Install-<Tool> function' -ForEach $script:toolEntries {
+        It '<Tool> has an Install-<Tool> function' -ForEach $script:installableEntries {
             $suffix = & (Get-Module Catzc.Tooling.Core) { Get-ToolCommandSuffix -Tool $args[0] } $Tool
-            Get-Command "Install-$suffix" -ErrorAction SilentlyContinue | Should -Not -BeNullOrEmpty -Because "every tool needs an Install-$suffix function"
+            Get-Command "Install-$suffix" -ErrorAction SilentlyContinue | Should -Not -BeNullOrEmpty -Because "every installable tool needs an Install-$suffix function"
         }
 
-        It '<Tool> has an Uninstall-<Tool> function' -ForEach $script:toolEntries {
+        It '<Tool> has an Uninstall-<Tool> function' -ForEach $script:installableEntries {
             $suffix = & (Get-Module Catzc.Tooling.Core) { Get-ToolCommandSuffix -Tool $args[0] } $Tool
-            Get-Command "Uninstall-$suffix" -ErrorAction SilentlyContinue | Should -Not -BeNullOrEmpty -Because "every tool needs an Uninstall-$suffix function"
+            Get-Command "Uninstall-$suffix" -ErrorAction SilentlyContinue | Should -Not -BeNullOrEmpty -Because "every installable tool needs an Uninstall-$suffix function"
         }
     }
 

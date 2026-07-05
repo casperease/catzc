@@ -21,6 +21,11 @@ function Test-ExpectedPackageManager {
         [string] $WingetListCache
     )
 
+    # 0. OS-provided tools (winget) — the OS is the manager, so "managed" means simply present.
+    if ($Config.system_provided) {
+        return [bool](Test-Command $Config.command)
+    }
+
     # 1. Script-installed tools (e.g., Dotnet via dotnet-install scripts).
     if ($Config.script_install) {
         if (-not (Test-Command $Config.command)) {

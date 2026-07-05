@@ -23,9 +23,16 @@ function Uninstall-DevBoxTools {
     [array]::Reverse($order)
 
     foreach ($toolName in $order) {
-        $uninstallCmd = "Uninstall-$toolName"
-        if (Get-Command $uninstallCmd -ErrorAction SilentlyContinue) {
-            & $uninstallCmd
+        # Map the snake_case tools.yml key to its PascalCase command suffix, exactly as Install-DevBoxTools does
+        # (node_js -> Uninstall-NodeJs, az_cli -> Uninstall-AzCli, py_spark -> Uninstall-PySpark). Building
+        # "Uninstall-$toolName" from the raw key only works for single-word tools by PowerShell's case-insensitive
+        # command resolution; a multi-word key ("node_js") never resolves to its function ("Uninstall-NodeJs") and
+        # was silently skipped. Throw on a missing uninstaller, mirroring Install-DevBoxTools — a locked tool must
+        # have one, so its absence is a defect to surface, not a tool to skip.
+        $uninstallCmd = "Uninstall-$(Get-ToolCommandSuffix -Tool $toolName)"
+        if (-not (Get-Command $uninstallCmd -ErrorAction SilentlyContinue)) {
+            throw "No $uninstallCmd function found for tool '$toolName' defined in tools.yml"
         }
+        & $uninstallCmd
     }
 }

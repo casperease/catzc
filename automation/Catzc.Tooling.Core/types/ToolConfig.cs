@@ -52,6 +52,13 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // True when the tool is installed via a bespoke script rather than a package manager.
     public bool   script_install      { get; }
 
+    // True when the tool is provided by the operating system (e.g. winget/App Installer on Windows). The
+    // toolchain asserts it and keeps it on PATH via session_path_hints, but never installs it.
+    public bool   system_provided     { get; }
+
+    // True when the tool exists only on Windows — skipped on macOS/Linux by the provisioning and status loops.
+    public bool   windows_only        { get; }
+
     // The install directory on Windows. Null when not applicable.
     public string windows_install_dir { get; }
 
@@ -83,6 +90,8 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
         uv_tool             = OptStr(d, "uv_tool");
         uv_python           = Flag(d, "uv_python");
         script_install      = Flag(d, "script_install");
+        system_provided     = Flag(d, "system_provided");
+        windows_only        = Flag(d, "windows_only");
         windows_install_dir = OptStr(d, "windows_install_dir");
         unix_install_dir    = OptStr(d, "unix_install_dir");
         depends_on          = OptStr(d, "depends_on");

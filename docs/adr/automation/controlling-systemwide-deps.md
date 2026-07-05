@@ -12,7 +12,8 @@ allowlist of base tools (git, vscode) deliberately tracks `latest` and verifies 
 ### Rule ADR-SYSDEPS:2
 
 Provide one `Install-*` / `Invoke-*` / `Uninstall-*` triad per tool. The installer handles platform differences, the invoker asserts version
-and presence, the uninstaller cleans up.
+and presence, the uninstaller cleans up. An OS-provided prerequisite is the exception (Rule ADR-SYSDEPS:8): it is asserted, never installed,
+so it has no triad.
 
 - [2. Platform-aware installers](#2-platform-aware-installers)
 
@@ -54,6 +55,16 @@ split: `ADR-SYSDEPS` (SYS = system) and `ADR-MODDEPS` (MOD = module). This ADR g
 [controlling-module-dependencies](controlling-module-dependencies.md).
 
 - [System dependencies vs module dependencies](#system-dependencies-vs-module-dependencies)
+
+### Rule ADR-SYSDEPS:8
+
+An OS-provided prerequisite is asserted, never installed. A tool the operating system supplies — winget (the Windows App Installer) —
+carries `system_provided: true`: the toolchain asserts it is present and keeps it on PATH through `session_path_hints`, but has no
+`Install-*` / `Uninstall-*` triad. `windows_only: true` marks a tool that exists only on Windows, skipped by the provisioning and status
+loops on other platforms. Tools that install through it declare `depends_on: winget`, so `Get-ToolInstallOrder` orders it first and a
+missing prerequisite fails fast.
+
+- [3d. OS-provided prerequisites](#3d-os-provided-prerequisites)
 
 ## Context
 
@@ -116,6 +127,10 @@ tool:
   (`Python` for Poetry/AzCli, `Java` for PySpark). On macOS `AzCli` instead uses `BrewFormula`.
 - **script-install tools** (e.g. `Dotnet`) set `ScriptInstall: true` and use vendored install scripts with no package manager, plus
   install-dir fields like `WindowsInstallDir`.
+- **uv-managed Python family** — Python itself and the CLIs written in Python (the Azure CLI, Poetry, PySpark) install user-space through
+  uv, keyed by `uv_python` / `uv_tool` / `pip_package`; see [uv-python-handler](uv-python-handler.md) (`ADR-UVPY`).
+- **OS-provided prerequisites** (e.g. `winget`) set `system_provided: true` — asserted and kept on PATH, never installed (Rule
+  ADR-SYSDEPS:8).
 
 All entries share `Version`, `Command`, `VersionCommand`, and `VersionPattern` — the fields used for version-locking and runtime assertion.
 
@@ -169,6 +184,22 @@ Poetry:
 tools so each dependency installs before the tools that need it (it throws on a circular dependency). At install time, `Install-PipTool`
 also calls `Assert-Tool 'Python'` to confirm the interpreter is present before running pip. Pip-based tools share install and uninstall
 logic through `Install-PipTool` and `Uninstall-PipTool`, which parallel `Install-Tool` and `Uninstall-Tool` for platform package managers.
+
+#### 3d. OS-provided prerequisites
+
+Some tools the toolchain never installs — the operating system supplies them, and the toolchain only asserts and locates them. winget (the
+Windows App Installer) is the example: it is the platform package manager the winget-based installs run against, so it cannot itself be a
+winget install. Such a tool is declared with `system_provided: true` (and `windows_only: true`, since winget exists only on Windows). It is
+a prerequisite, not a target:
+
+- `Install-DevBoxTools` **asserts** it is present — with a clear message to install it (App Installer from the Microsoft Store) when it is
+  missing — rather than installing it, and it has no `Install-*` / `Uninstall-*` triad.
+- `Get-ToolsStatus` reports its manager as `system`, and the session janitor never flags it as foreign.
+- It is kept resolvable by `session_path_hints`: the janitor re-adds its directory to PATH on every load, so a dropped
+  `%LOCALAPPDATA%\Microsoft\WindowsApps` self-heals without a manual fix.
+
+The winget-based tools (`node_js`, `java`, `terraform`, and uv's fresh bootstrap) declare `depends_on: winget`, so it is ordered and
+asserted before anything that needs it.
 
 #### 4. Orchestrate with Install-DevBoxTools
 

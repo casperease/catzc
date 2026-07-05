@@ -1,3 +1,16 @@
+winget:
+  version: "1"
+  command: winget
+  # OS-provided (Windows App Installer) — asserted and kept on PATH, never installed by the toolchain. It is
+  # the install-time prerequisite for the winget-based tools (node_js, java, terraform, and uv's bootstrap).
+  # The hint lets Sync-SessionTools recover it when %LOCALAPPDATA%\Microsoft\WindowsApps drops off PATH.
+  system_provided: true
+  windows_only: true
+  version_command: "winget --version"
+  version_pattern: "v(?<ver>[\\d.]+)"
+  session_path_hints:
+    - "%LOCALAPPDATA%\\Microsoft\\WindowsApps"
+
 python:
   version: "3.14"
   command: python
@@ -49,6 +62,7 @@ poetry:
 node_js:
   version: "24"
   command: node
+  depends_on: winget
   winget_id: "OpenJS.NodeJS.{0}"
   winget_scope: user
   brew_formula: "node@{0}"
@@ -89,6 +103,7 @@ prettier:
 terraform:
   version: "1.15"
   command: terraform
+  depends_on: winget
   winget_id: "Hashicorp.Terraform"
   winget_scope: user
   brew_formula: "hashicorp/tap/terraform"
@@ -100,6 +115,7 @@ terraform:
 java:
   version: "25"
   command: java
+  depends_on: winget
   winget_id: "Microsoft.OpenJDK.{0}"
   winget_scope: user
   brew_formula: "openjdk@{0}"
@@ -110,6 +126,8 @@ java:
 uv:
   version: "0.11"
   command: uv
+  # depends_on winget only for the fresh-machine winget bootstrap; a standalone uv self-updates (Install-Uv).
+  depends_on: winget
   # Astral's uv — the standard Python handler: it provisions Python and runs Python-based CLIs in isolated
   # environments. Windows: winget astral-sh.uv (portable zip → user scope, no admin). macOS: brew. User-space
   # everywhere. Linux uses Astral's standalone installer (user-space, ~/.local/bin) — not the generic apt path.

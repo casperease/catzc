@@ -33,12 +33,25 @@ function Install-DevBoxTools {
 
     # Version-locked tools (from tools.yml, dependency-ordered via DependsOn)
     foreach ($toolName in Get-ToolInstallOrder) {
+        $config = Get-ToolConfig -Tool $toolName
+
+        # Windows-only tools (winget) do not exist on macOS/Linux.
+        if ($config.windows_only -and -not $IsWindows) {
+            continue
+        }
+
+        # OS-provided tools (winget) are never installed — assert present (the session janitor keeps them on
+        # PATH via their session_path_hints) and move on, so the tools that depend on them fail fast if absent.
+        if ($config.system_provided) {
+            Assert-Command $config.command -ErrorText "$toolName is required but is provided by the operating system, not the toolchain — install it and re-run (on Windows, install 'App Installer' from the Microsoft Store to get winget)."
+            continue
+        }
+
         $installCmd = "Install-$(Get-ToolCommandSuffix -Tool $toolName)"
         if (-not (Get-Command $installCmd -ErrorAction SilentlyContinue)) {
             throw "No $installCmd function found for tool '$toolName' defined in tools.yml"
         }
 
-        $config = Get-ToolConfig -Tool $toolName
         if ($config.pip_package -and -not $config.script_install) {
             # Pip tools don't support -Force (version is pinned by pip ==version.*)
             & $installCmd

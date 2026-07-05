@@ -16,10 +16,11 @@ automation/**/*.psd1
 # automation/.internal/assets/, so opt it back in past the glob above.
 !automation/.internal/assets/PSScriptAnalyzerSettings.psd1
 
-# The repository-root PSScriptAnalyzerSettings.psd1 is a generated copy-in of that authored config
-# (Build-ScriptAnalyzerSettings, Catzc.Base.QualityGates, regenerated on every import). PSScriptAnalyzer needs a
-# literal-hashtable settings file, so the root copy holds the settings themselves — but it is derived, not a
-# source, so it is gitignored. The .internal/assets source (opted back in above) is the single source of truth.
+# The repository-root PSScriptAnalyzerSettings.psd1 is a managed root-config copy-in of that authored config
+# (Build-RootConfig, Catzc.Base.RootConfig — see configs/rootconfig.yml, regenerated on every import).
+# PSScriptAnalyzer needs a literal-hashtable settings file, so the root copy holds the settings themselves —
+# but it is derived, not a source, so it is gitignored. The .internal/assets source (opted back in above) is
+# the single source of truth.
 /PSScriptAnalyzerSettings.psd1
 
 # Generated README copy-ins (Build-Readme, Catzc.Base.Docs) — derived artifacts like the *.psd1 manifests

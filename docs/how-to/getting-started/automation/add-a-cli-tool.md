@@ -17,6 +17,9 @@ version plus the install metadata each platform needs. The generic engine in `Ca
   Poetry in an isolated environment; `pip_package` installs an importable library like PySpark into the uv-managed Python). uv installs
   entirely in user space — see [uv-python-handler](../../../adr/automation/uv-python-handler.md).
 - **Vendored install scripts** (`script_install`) for tools like .NET.
+- **OS-provided prerequisites** (`system_provided`, e.g. winget) — supplied by the operating system, so the toolchain asserts them and keeps
+  them on PATH via `session_path_hints`, never installs them; `windows_only: true` marks a Windows-only tool. Tools that install through one
+  declare `depends_on: <it>`.
 
 ```yaml
 # automation/Catzc.Tooling.Core/configs/tools.yml

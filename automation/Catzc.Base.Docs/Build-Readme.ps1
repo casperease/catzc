@@ -139,26 +139,9 @@ function Build-Readme {
         $content = (($composedLines -join "`n").TrimEnd("`n")) + "`n"
 
         $readmePath = Resolve-RepoPath "$($mapping.folder)/README.md"
-        $existing = if (Test-Path $readmePath) {
-            [System.IO.File]::ReadAllText($readmePath)
-        }
-        else {
-            $null
-        }
-        # EOL-insensitive compare so a CRLF working tree never trips a rewrite (mirrors the compiled-type
-        # cache guard — see docs/adr/automation/caching.md).
-        $existingNormalized = if ($null -ne $existing) {
-            $existing -replace "`r", ''
-        }
-        else {
-            $null
-        }
-        $changed = $content -cne $existingNormalized
-
-        if (-not $DryRun -and $changed) {
-            $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
-            [System.IO.File]::WriteAllText($readmePath, $content, $utf8NoBom)
-        }
+        # Canonicalise, EOL-insensitively compare, and write-on-change via the one shared primitive
+        # (Write-FileIfChanged, Catzc.Base.Files).
+        $changed = Write-FileIfChanged -Path $readmePath -Content $content -DryRun:$DryRun
 
         if (-not $Silent) {
             $verb = if ($DryRun) {

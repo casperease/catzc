@@ -1,0 +1,25 @@
+# Root config registry — repository-root files fully managed by the source-of-truth automation. Each entry
+# names ONE in-repo source of truth (`source`: an authored file copied out, or `generator`: a function that
+# renders the content) and Build-RootConfig reproduces the target from it on every import.
+#
+# Two booleans, both defaulting to FALSE:
+#   optIn      — is this file managed at all? Opt-out is the default: an entry with optIn false (or a root
+#                file with no entry) stays hand-authored and committed.
+#   committed  — is the managed target tracked in git? false = gitignored (reproduced on import, invisible
+#                churn); true = committed (for files git or the bootstrap reads BEFORE the importer runs —
+#                importer.ps1, the git files), where a source change surfaces as a reviewable diff.
+#
+# `comment` ('hash' | 'none', default 'none') picks the generated-file header for `source` copy-ins; a
+# `generator` owns its whole output, header included, and takes no `comment`. All paths are repository-root-
+# relative and forward-slashed (communication form; see docs/adr/automation/path-representation.md). Loaded
+# via Get-Config -Config rootconfig; the shape is validated by Catzc.Base.RootConfig.RootConfigFiles. See
+# docs/adr/repository/generated-root-configs.md.
+files:
+  - target: PSScriptAnalyzerSettings.psd1
+    source: automation/.internal/assets/PSScriptAnalyzerSettings.psd1
+    comment: hash
+    optIn: true
+  - target: importer.ps1
+    generator: New-Importer
+    committed: true
+    optIn: true

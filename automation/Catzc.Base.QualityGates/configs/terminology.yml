@@ -123,6 +123,8 @@ terms:
       meaning: 'the set of files a scan or globset covers (fileset)'
     - term: quotepath
       meaning: 'the git core.quotepath setting (quotepath) - controls C-quoting of non-ASCII paths'
+    - term: rootconfig
+      meaning: 'the rootconfig.yml registry and the Catzc.Base.RootConfig module (rootconfig)'
     - term: stdlib
       meaning: 'a language''s standard library (stdlib)'
     - term: gpgsign

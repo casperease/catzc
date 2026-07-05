@@ -46,9 +46,10 @@ function Invoke-Importer {
         # a normal load stays quiet); pass this to see what it cleaned or that it was already clean.
         [switch] $NonSilentClear,
 
-        # Skip the post-import janitors (Clear-ModuleTypeCache, Build-Readme, Build-TerminologyDictionary) and the
-        # PSModulePath check — a lean/optimized load for a copied subset (Test-InIsolation). Type loading still
-        # fast-paths on the committed .compiled DLL; only the tail maintenance is skipped.
+        # Skip the post-import janitors (Clear-ModuleTypeCache, Build-Readme, Build-TerminologyDictionary,
+        # Build-RootConfig) and the PSModulePath check — a lean/optimized load for a copied subset
+        # (Test-InIsolation). Type loading still fast-paths on the committed .compiled DLL; only the tail
+        # maintenance is skipped.
         [switch] $SkipJanitors
     )
 
@@ -187,12 +188,13 @@ function Invoke-Importer {
         Build-TerminologyDictionary -Silent | Out-Null
     }
 
-    # Keep the repository-root PSScriptAnalyzerSettings.psd1 current (Catzc.Base.QualityGates). PSScriptAnalyzer
-    # needs a literal-hashtable settings file, so the root copy is a generated copy-in of the authored config under
-    # .internal/assets — gitignored, the .internal/assets source is the single source of truth. Rewrites only on
-    # drift, so a clean tree is a fast no-op. Guarded: absent in the bootstrap sandbox.
-    if (-not $SkipJanitors -and (Get-Command Build-ScriptAnalyzerSettings -ErrorAction Ignore)) {
-        Build-ScriptAnalyzerSettings -Silent | Out-Null
+    # Keep the managed root config files current (Catzc.Base.RootConfig). Every opted-in root file is
+    # reproduced from its single in-repo source of truth — an authored source copied out with a generated-file
+    # header (e.g. the root PSScriptAnalyzerSettings.psd1 from .internal/assets), or a generator's rendered
+    # output (e.g. New-Importer for importer.ps1). Rewrites only on drift, so a clean tree is a fast no-op.
+    # Guarded: absent in the bootstrap sandbox. See docs/adr/repository/generated-root-configs.md.
+    if (-not $SkipJanitors -and (Get-Command Build-RootConfig -ErrorAction Ignore)) {
+        Build-RootConfig -Silent | Out-Null
     }
 
     # Reconcile the session PATH to whatever tools are actually present — including tools installed outside the

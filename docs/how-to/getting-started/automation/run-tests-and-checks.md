@@ -67,6 +67,17 @@ identifier abbreviation is spelled out instead (see [spell-out-names](../../../a
 PSScriptAnalyzer itself (style, approved verbs, the custom rules under `automation/.scriptanalyzer/`) runs as part of the **L2** suite via
 the analyzer test — so `Test-Automation -Level 2` is what catches a formatting or convention violation before CI does.
 
+## Trigger freshness and protected scans
+
+Two globset-backed behaviors show up in gate runs (see [durable-sha-globs](../../../adr/pipelines/durable-sha-globs.md) and
+[protected-globs](../../../adr/automation/protected-globs.md)):
+
+- A red **Trigger freshness** test means a change to a deployable unit is missing its regenerated trigger file — run `Update-Trigger`,
+  `git add .triggers/`, and include it in the commit. `Test-Trigger` shows the per-set status without failing anything.
+- A **skipped** repository spelling/markdown scan (`protected_globset_unchanged_since_green_run`) means that scan already ran green against
+  the identical file set this session — a local-only optimization, never active in CI. `Clear-GlobSetProtection` (or reloading the importer)
+  forces a full rescan.
+
 ## What CI runs
 
 CI runs the same functions you do — there is no separate CI test script. It runs `Test-Automation` at Level 2 across Windows, Linux, and
