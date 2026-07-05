@@ -10,10 +10,10 @@ and the materialisation.
 
 ## Domains
 
-| Domain   | Area     | Name                                                             |
-| -------- | -------- | ---------------------------------------------------------------- |
+| Domain   | Area     | Name                                                                   |
+| -------- | -------- | ---------------------------------------------------------------------- |
 | domain:1 | render   | [Managed-file materialisation](#domain1--managed-file-materialisation) |
-| domain:2 | registry | [Root-config registry](#domain2--root-config-registry)           |
+| domain:2 | registry | [Root-config registry](#domain2--root-config-registry)                 |
 
 ### domain:1 — Managed-file materialisation
 

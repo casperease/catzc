@@ -388,6 +388,8 @@ terms:
       meaning: 'body of the ADR-CFGADDR code (config-value-addressing)'
     - term: protglob
       meaning: 'body of the ADR-PROTGLOB code (protected-globs)'
+    - term: rootcfg
+      meaning: 'body of the ADR-ROOTCFG code (generated-root-configs)'
     - term: uvpy
       meaning: 'body of the ADR-UVPY code (uv-python-handler)'
     - term: nosemi

@@ -34,9 +34,9 @@ Describe 'New-TestAutomationShardScript' -Tag 'logic' {
             $script:content | Should -Match 'ConvertTo-TestAutomationRowSet'
         }
 
-        It 'carries the exclude tags and exits with the failed flag' {
+        It 'carries the exclude tags and exits with the not-passed flag' {
             $script:content | Should -Match ([regex]::Escape("ExcludeTag = @('L2', 'L3')"))
-            $script:content | Should -Match ([regex]::Escape('exit ([int]($result.FailedCount -gt 0))'))
+            $script:content | Should -Match ([regex]::Escape('exit ([int]($result.Result -ne ''Passed''))'))
         }
 
         It 'omits the tag filter line when no tags are excluded' {

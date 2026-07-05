@@ -40,6 +40,7 @@ Modules are layered — a module may only call into the modules it declares in `
 | [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md)       | The module/function dependency graph, integrity, and vendoring                            |
 | [Catzc.Base.QualityGates](catzc-base-qualitygates.md)       | The repository's self-check gates — tests, spelling, markdownlint, formatting             |
 | [Catzc.Base.Docs](catzc-base-docs.md)                       | Generated module READMEs, copy-in from a docs source, gitignored                          |
+| [Catzc.Base.RootConfig](catzc-base-rootconfig.md)           | Managed root config files — each reproduced on import from one in-repo source of truth    |
 | [Catzc.Base.Vendor](catzc-base-vendor.md)                   | Vendored third-party modules — add, remove, and validate restorability from the source    |
 | [Catzc.Tooling.Core](catzc-tooling-core.md)                 | Tool config and mapping, version/presence control, and the generic install engine         |
 | [Catzc.Tooling.Python](catzc-tooling-python.md)             | Python and pip, plus the pip-installed tools (Poetry, PySpark)                            |

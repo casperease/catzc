@@ -29,7 +29,7 @@ groups:
         Catzc.Base.Files: [Catzc.Base.Execution, Catzc.Base.Asserts]
         Catzc.Base.Globs: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts]
         Catzc.Base.TypesSystem: [Catzc.Base.Repository, Catzc.Base.Files, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts]
-        Catzc.Base.ModuleSystem: [Catzc.Base.TypesSystem, Catzc.Base.Repository, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Files, Catzc.Base.Writers, Catzc.Base.Asserts]
+        Catzc.Base.ModuleSystem: [Catzc.Base.TypesSystem, Catzc.Base.Globs, Catzc.Base.Repository, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Files, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts]
         Catzc.Base.RootConfig: [Catzc.Base.ModuleSystem, Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Files, Catzc.Base.Objects, Catzc.Base.Writers, Catzc.Base.Asserts]
         Catzc.Base.QualityGates: [Catzc.Base.ModuleSystem, Catzc.Base.TypesSystem, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts, Catzc.Base.Globs]
 

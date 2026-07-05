@@ -7,8 +7,9 @@
     (-SkipJanitors), imports vendored Pester, runs the shard's test files with the run's exclude tags, writes
     Pester's NUnit results to results-shard-<N>.xml, reduces its live result to rows (ConvertTo-
     TestAutomationRowSet — tier/category resolution needs the live .Block chain, so it must happen inside the
-    worker) into rows-shard-<N>.json, and exits 0 (green) or 1 (test failures). Any other exit code — or a
-    missing rows sidecar — means the worker itself crashed, which the parent surfaces loudly.
+    worker) into rows-shard-<N>.json, and exits 0 (green) or 1 (the run did not pass — failed tests, or a
+    container/discovery error that fails the run with zero failed tests). Any other exit code — or a missing
+    rows sidecar — means the worker itself crashed, which the parent surfaces loudly.
 .PARAMETER ShardIndex
     The shard's zero-based index — names the script, results, and rows files.
 .PARAMETER TestPath
@@ -75,7 +76,7 @@ $excludeLine
 `$result = Invoke-Pester -Configuration `$config
 `$rows = & (Get-Module Catzc.Base.QualityGates) { param(`$runResult) ConvertTo-TestAutomationRowSet -Result `$runResult } `$result
 Set-Content -Path '$rowsPath' -Value (ConvertTo-Json -InputObject @(`$rows) -Depth 4) -Encoding utf8
-exit ([int](`$result.FailedCount -gt 0))
+exit ([int](`$result.Result -ne 'Passed'))
 "@
     Set-Content -LiteralPath $scriptPath -Value $content -Encoding utf8
 

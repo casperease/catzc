@@ -20,9 +20,8 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
                     (New-FakeTest 'ambiguousTier' @('L1', 'L2', 'logic'))
                 )
             }
-            Mock Invoke-Pester { $discovered }
 
-            $violations = Get-TestTagViolations -TestPath 'unused-because-mocked'
+            $violations = Get-TestTagViolations -Discovery $discovered
 
             $violations | Should -HaveCount 3
             $violations.Test | Should -Not -Contain 'good'
@@ -31,6 +30,25 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
             $violations.Test | Should -Contain 'ambiguousTier'
             ($violations | Where-Object Test -EQ 'noTier').Reason | Should -BeLike '*tier resolves to 0*'
             ($violations | Where-Object Test -EQ 'ambiguousTier').Reason | Should -BeLike '*tier resolves to 2*L1,L2*'
+        }
+    }
+
+    It 'tolerates a tag outside the two axes (the optional serial tag is not a violation)' {
+        InModuleScope Catzc.Base.QualityGates {
+            $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }
+            $discovered = [pscustomobject]@{
+                Tests = @(
+                    [pscustomobject]@{
+                        Tag          = @()
+                        Block        = [pscustomobject]@{ IsRoot = $false; Tag = @('L1', 'logic', 'serial'); Parent = $root }
+                        ExpandedName = 'taggedSerial'
+                        ScriptBlock  = [pscustomobject]@{ File = 'fixture.Tests.ps1' }
+                    }
+                )
+            }
+
+            $violations = Get-TestTagViolations -Discovery $discovered
+            $violations | Should -HaveCount 0
         }
     }
 
@@ -47,9 +65,8 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
                     }
                 )
             }
-            Mock Invoke-Pester { $clean }
 
-            $violations = Get-TestTagViolations -TestPath 'unused-because-mocked'
+            $violations = Get-TestTagViolations -Discovery $clean
             $violations | Should -HaveCount 0
         }
     }

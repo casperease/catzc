@@ -20,13 +20,13 @@ so it has no triad.
 ### Rule ADR-SYSDEPS:3
 
 Assert before every invocation. `Assert-Tool` runs `Assert-Command` and `Assert-ToolVersion` (presence and version only) before every
-external tool call; it does not resolve `DependsOn`.
+external tool call; it does not resolve `depends_on`.
 
 - [3. Assert at runtime](#3-assert-at-runtime)
 
 ### Rule ADR-SYSDEPS:4
 
-Declare install-order dependencies in config. If a tool must be installed after another, add `DependsOn` to its `tools.yml` entry;
+Declare install-order dependencies in config. If a tool must be installed after another, add `depends_on` to its `tools.yml` entry;
 `Get-ToolInstallOrder` topologically sorts installs, and it is not a runtime assertion.
 
 - [3b. Declare tool dependencies in config](#3b-declare-tool-dependencies-in-config)
@@ -104,15 +104,16 @@ code, config, and prose.
 Every tool has a locked version in `automation/Catzc.Tooling.Core/configs/tools.yml`:
 
 ```yaml
-Python:
-  Version: "3.11"
-  Command: python
-  WingetId: "Python.Python.{0}"
-  WingetScope: user
-  BrewFormula: "python@{0}"
-  AptPackage: "python{0}"
-  VersionCommand: "python --version"
-  VersionPattern: "^Python (?<ver>.+)$"
+node_js:
+  version: "24"
+  command: node
+  depends_on: winget
+  winget_id: "OpenJS.NodeJS.{0}"
+  winget_scope: user
+  brew_formula: "node@{0}"
+  apt_package: "nodejs"
+  version_command: "node --version"
+  version_pattern: "^v(?<ver>.+)$"
 ```
 
 The config is the source of truth. Functions read it via `Get-ToolConfig`. Version changes are pull requests, not ad-hoc installs.
@@ -120,13 +121,11 @@ The config is the source of truth. Functions read it via `Get-ToolConfig`. Versi
 The schema is intentionally heterogeneous: each tool carries only the install metadata its platforms need, so the installer shape varies per
 tool:
 
-- **winget / brew / apt tools** (e.g. `Python`, `NodeJs`, `Terraform`, `Java`) carry `WingetId`, `BrewFormula`, and/or `AptPackage`. Not
-  every entry has all three — some platforms are intentionally omitted (e.g. `Terraform` has no `AptPackage` because its installer
-  configures the HashiCorp apt repo inline).
-- **pip tools** (e.g. `Poetry`, `AzCli`, `PySpark`) carry `PipPackage` plus a `DependsOn` naming the interpreter they install under
-  (`Python` for Poetry/AzCli, `Java` for PySpark). On macOS `AzCli` instead uses `BrewFormula`.
-- **script-install tools** (e.g. `Dotnet`) set `ScriptInstall: true` and use vendored install scripts with no package manager, plus
-  install-dir fields like `WindowsInstallDir`.
+- **winget / brew / apt tools** (e.g. `node_js`, `terraform`, `java`) carry `winget_id`, `brew_formula`, and/or `apt_package`. Not every
+  entry has all three — some platforms are intentionally omitted (e.g. `terraform` has no `apt_package` because its installer configures the
+  HashiCorp apt repo inline).
+- **script-install tools** (e.g. `dotnet`) set `script_install: true` and use vendored install scripts with no package manager, plus
+  install-dir fields like `windows_install_dir`.
 - **uv-managed Python family** — Python itself and the CLIs written in Python (the Azure CLI, Poetry, PySpark) install user-space through
   uv, keyed by `uv_python` / `uv_tool` / `pip_package`; see [uv-python-handler](uv-python-handler.md) (`ADR-UVPY`).
 - **OS-provided prerequisites** (e.g. `winget`) set `system_provided: true` — asserted and kept on PATH, never installed (Rule
@@ -142,6 +141,9 @@ Each tool has an `Install-*` function that delegates to the platform's native pa
 - **macOS:** brew
 - **Linux:** apt-get
 
+The Python family is the exception: Python and the CLIs written in it install user-space through uv on every platform rather than the native
+manager — see [uv-python-handler](uv-python-handler.md) (`ADR-UVPY`).
+
 The installer is idempotent — if the tool is already installed, it returns immediately (see
 [idempotent-state-functions](idempotent-state-functions.md#rule-adr-idem1)).
 
@@ -150,13 +152,13 @@ The installer is idempotent — if the tool is already installed, it returns imm
 Every `Invoke-*` wrapper asserts the tool is present and at the correct version before executing:
 
 ```powershell
-Assert-Tool 'Python'   # is it on PATH? does the version match the lock?
+Assert-Tool 'python'   # is it on PATH? does the version match the lock?
 ```
 
 `Assert-Tool` looks up the command name from config, calls `Assert-Command` to confirm the command is on PATH, then `Assert-ToolVersion` to
-confirm the version matches the lock. It asserts presence and version only — it does **not** resolve `DependsOn`. `DependsOn` is an
+confirm the version matches the lock. It asserts presence and version only — it does **not** resolve `depends_on`. `depends_on` is an
 install-time concern (see #3b), not a runtime requirement, so a runtime assertion never re-checks a tool's dependencies. If the tool is
-missing or at the wrong version, the error says so directly ("Python is not installed (python not found on PATH). Run Install-Python.").
+missing or at the wrong version, the error says so directly ("python is not installed (python not found on PATH). Run Install-Python.").
 
 Version checks are cached per session — the first `Invoke-Python` call validates, subsequent calls skip the check.
 
@@ -171,19 +173,20 @@ pipeline's.
 
 #### 3b. Declare tool dependencies in config
 
-Some tools must be installed after another tool — Poetry and Azure CLI are installed via pip, so Python must already be present; PySpark is
-installed via pip but depends on Java. These dependencies are declared in `tools.yml`:
+Some tools must be installed after another — the Azure CLI and Poetry install as isolated uv tools, so `uv` must be present; PySpark installs
+into the uv-managed Python, so `python` must be present; the winget tools need `winget`. These dependencies are declared in `tools.yml`:
 
 ```yaml
-Poetry:
-  DependsOn: Python
-  PipPackage: poetry
+poetry:
+  depends_on: uv
+  uv_tool: poetry
 ```
 
-`DependsOn` governs **install ordering**, not runtime assertion. `Get-ToolInstallOrder` reads every `DependsOn` and topologically sorts the
-tools so each dependency installs before the tools that need it (it throws on a circular dependency). At install time, `Install-PipTool`
-also calls `Assert-Tool 'Python'` to confirm the interpreter is present before running pip. Pip-based tools share install and uninstall
-logic through `Install-PipTool` and `Uninstall-PipTool`, which parallel `Install-Tool` and `Uninstall-Tool` for platform package managers.
+`depends_on` governs **install ordering**, not runtime assertion. `Get-ToolInstallOrder` reads every `depends_on` and topologically sorts the
+tools so each dependency installs before the tools that need it (it throws on a circular dependency). The isolated `uv tool` installs share
+`Install-UvTool` / `Uninstall-UvTool`; a library installed into the interpreter (`uv pip install --system`, e.g. PySpark) uses
+`Install-PipTool` / `Uninstall-PipTool` — both run through `Invoke-Uv`, which asserts `uv` is present, and both parallel `Install-Tool` /
+`Uninstall-Tool` for platform package managers.
 
 #### 3d. OS-provided prerequisites
 
@@ -225,7 +228,7 @@ script" that reimplements installs — same config, same installers, same assert
 CI does **not** run the `Install-DevBoxTools` orchestrator. Hosted agents already ship cached toolchains, so the tool-installation job first
 activates the locked versions of Python, .NET, and Node via the native ADO tasks (`UsePythonVersion`, `UseDotNet`, `UseNode`) to put the
 right version on PATH, then calls the individual `Install-*` functions for the remaining tools in dependency order (`Install-AzCli`,
-`Install-Poetry`, `Install-Terraform`, `Install-Java`, `Install-PySpark`). The pip-based installers reuse the same `Install-PipTool` path as
+`Install-Poetry`, `Install-Terraform`, `Install-Java`, `Install-PySpark`). The Python-family installers run through uv — the same path as
 local runs.
 
 ```yaml
@@ -235,7 +238,7 @@ local runs.
     versionSpec: "3.11"
 - template: /pipelines/steps/invoke-automation.yaml
   parameters:
-    RunCommand: "Install-AzCli -Force" # pip, depends on Python
+    RunCommand: "Install-AzCli -Force" # uv tool, depends on uv
 ```
 
 ## Decision

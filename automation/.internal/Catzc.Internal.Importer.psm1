@@ -26,6 +26,11 @@
     Surface the post-import type-cache janitor's report (off by default).
 .PARAMETER SkipJanitors
     Skip the post-import janitors and the PSModulePath check — a lean load for a copied subset.
+.PARAMETER CommitTriggers
+    Sync the trigger files after load and auto-commit the importer-maintained generated files
+    (.triggers/, automation/.compiled/) via Sync-GeneratedFile — dev-box, non-main branches only; the
+    function self-skips in CI, on main/master, and while the tracked tree is dirty. Ignored under
+    -SkipJanitors.
 .EXAMPLE
     Invoke-Importer -DiagnoseLoadTime
 #>
@@ -50,7 +55,12 @@ function Invoke-Importer {
         # Build-RootConfig) and the PSModulePath check — a lean/optimized load for a copied subset
         # (Test-InIsolation). Type loading still fast-paths on the committed .compiled DLL; only the tail
         # maintenance is skipped.
-        [switch] $SkipJanitors
+        [switch] $SkipJanitors,
+
+        # Sync the trigger files after load and auto-commit the generated files the importer maintains
+        # (.triggers/, automation/.compiled/) — the janitor tail's last, opt-in step (Sync-GeneratedFile,
+        # which self-guards: dev box only, never main/master, never a dirty tracked tree).
+        [switch] $CommitTriggers
     )
 
     # Hard floor: the toolset requires PowerShell 7.4+. Among other things the vendor functions
@@ -203,6 +213,15 @@ function Invoke-Importer {
     # land in the caller's live session. Guarded: absent in the bootstrap sandbox (Catzc.Tooling.Core).
     if (-not $SkipJanitors -and (Get-Command Sync-SessionTools -ErrorAction Ignore)) {
         Sync-SessionTools
+    }
+
+    # Opt-in (-CommitTriggers): sync the trigger files and auto-commit the generated files the importer
+    # maintains (.triggers/, automation/.compiled/). Deliberately the LAST janitor, so tracked files the
+    # janitors above touch (the .compiled DLL swap) are in their final state before the durable SHAs are
+    # computed. Sync-GeneratedFile carries its own guards (never CI, never main/master, never a dirty
+    # tracked tree). Guarded: absent in the bootstrap sandbox.
+    if ($CommitTriggers -and -not $SkipJanitors -and (Get-Command Sync-GeneratedFile -ErrorAction Ignore)) {
+        Sync-GeneratedFile | Out-Null
     }
 
     # Warn if PSModulePath contains a network share. The permanent fix is a one-time

@@ -9,7 +9,8 @@ param(
     [switch] $DiagnoseLoadTime,
     [switch] $ClearCompiledTypes,
     [switch] $NonSilentClear,
-    [switch] $SkipJanitors
+    [switch] $SkipJanitors,
+    [switch] $CommitTriggers
 )
 
 Set-StrictMode -Version Latest

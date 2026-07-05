@@ -20,10 +20,10 @@ shared library code: the shim removes it once `Invoke-Importer` returns.
 4. **Dependencies and modules** — install the custom error view, load the vendored dependencies (`Import-VendorModules`, deferring Pester
    and PSScriptAnalyzer as lazy), optionally wipe the compiled type DLLs first (`-ClearCompiledTypes`), then discover and import every
    `automation/*` module (`Import-AllModules`, which compiles the combined C# type assembly once before any module's functions).
-5. **Post-import janitors** — keep the derived artifacts current and the session honest: the type-cache tidy
-   (`Clear-ModuleTypeCache`), the generated READMEs (`Build-Readme`), the cSpell dictionaries (`Build-TerminologyDictionary`), the managed
-   root config files (`Build-RootConfig`), the session-PATH reconcile (`Sync-SessionTools`), and a Windows warning when
-   `PSModulePath` contains a network share. Each is guarded (absent in the bootstrap sandbox) and each is a fast no-op on a clean tree.
+5. **Post-import janitors** — keep the derived artifacts current and the session honest: the type-cache tidy (`Clear-ModuleTypeCache`), the
+   generated READMEs (`Build-Readme`), the cSpell dictionaries (`Build-TerminologyDictionary`), the managed root config files
+   (`Build-RootConfig`), the session-PATH reconcile (`Sync-SessionTools`), and a Windows warning when `PSModulePath` contains a network
+   share. Each is guarded (absent in the bootstrap sandbox) and each is a fast no-op on a clean tree.
 6. **Teardown** — remove the transient bootstrap module (kept until here so importer output can route through its `Write-ImporterMessage`),
    leaving the resident Loader, Types, and Vendor in the session, and print the console load timer.
 

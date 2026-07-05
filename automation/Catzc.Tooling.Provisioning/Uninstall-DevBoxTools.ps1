@@ -2,10 +2,12 @@
 .SYNOPSIS
     Removes all tools installed by Install-DevBoxTools.
 .DESCRIPTION
-    Uninstalls tools in reverse dependency order (derived from DependsOn
+    Uninstalls tools in reverse dependency order (derived from depends_on
     in tools.yml). Tools that depend on others are removed first so their
-    uninstallers can still use the dependency (e.g., pip tools need Python).
-    Idempotent — skips tools that are not installed.
+    uninstallers can still use the dependency (e.g., az_cli is removed
+    before uv). OS-provided prerequisites (winget) are never uninstalled,
+    and Windows-only tools are skipped off Windows. Idempotent — skips
+    tools that are not installed.
 .EXAMPLE
     Uninstall-DevBoxTools
 #>
@@ -23,6 +25,18 @@ function Uninstall-DevBoxTools {
     [array]::Reverse($order)
 
     foreach ($toolName in $order) {
+        $config = Get-ToolConfig -Tool $toolName
+
+        # Windows-only tools (winget) do not exist on macOS/Linux.
+        if ($config.windows_only -and -not $IsWindows) {
+            continue
+        }
+
+        # OS-provided tools (winget) are supplied by the OS — the toolchain never uninstalls them.
+        if ($config.system_provided) {
+            continue
+        }
+
         # Map the snake_case tools.yml key to its PascalCase command suffix, exactly as Install-DevBoxTools does
         # (node_js -> Uninstall-NodeJs, az_cli -> Uninstall-AzCli, py_spark -> Uninstall-PySpark). Building
         # "Uninstall-$toolName" from the raw key only works for single-word tools by PowerShell's case-insensitive

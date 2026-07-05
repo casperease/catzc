@@ -7,18 +7,20 @@
 
       - Skipped : the test ran discovery and was then skipped from inside the run — a self-skip when its
                   tool/cloud is absent (Set-ItResult -Skipped -Because '…'), or an `It -Skip`. Each is
-                  listed with its reason (the -Because text), so "az not installed" is visible rather than
-                  a bare count.
+                  listed with its reason (the row's SkipReason, resolved by ConvertTo-TestAutomationRowSet
+                  in the process that ran the test), so "az not installed" is visible rather than a bare
+                  count.
       - Not run : the test was never executed because its tier/category tag fell outside this run's
                   requested scope (the -MinLevel/-MaxLevel/-Category filter). These are grouped by
                   tier+category with counts and the scope that excluded them — listing all of them would be
                   noise, but the breakdown tells the reader exactly what raising -Level would add.
 
-    Silent when nothing was skipped or excluded (a full run reports nothing here). Best-effort presentation:
-    the caller wraps it so a rendering error never masks the run outcome. Shares Get-TestLevelTag /
-    Get-TestCategoryTag with the rest of the report so tier/category resolution is single-sourced.
-.PARAMETER Result
-    The Pester run object ($result from Invoke-Pester -Configuration <with Run.PassThru>).
+    Consumes the run's row set — not a live Pester object — because parallel workers reduce their results
+    in-process and only the rows survive the process boundary. Silent when nothing was skipped or excluded
+    (a full run reports nothing here). Best-effort presentation: the caller wraps it so a rendering error
+    never masks the run outcome.
+.PARAMETER Rows
+    The aggregated per-test rows (ConvertTo-TestAutomationRowSet output, merged across shards).
 .PARAMETER MinLevel
     The -MinLevel the run was invoked with — names the excluding scope in the "not run" header.
 .PARAMETER MaxLevel
@@ -30,7 +32,8 @@ function Write-TestAutomationSkipReport {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
-        $Result,
+        [AllowEmptyCollection()]
+        [object[]] $Rows,
 
         [int] $MinLevel = 0,
 
@@ -39,9 +42,8 @@ function Write-TestAutomationSkipReport {
         [string] $Category = 'Both'
     )
 
-    $tests = @($Result.Tests)
-    $skipped = @($tests | Where-Object { $_.Result -eq 'Skipped' })
-    $notRun = @($tests | Where-Object { $_.Result -eq 'NotRun' })
+    $skipped = @($Rows | Where-Object { $_.Result -eq 'Skipped' })
+    $notRun = @($Rows | Where-Object { $_.Result -eq 'NotRun' })
 
     if ($skipped.Count -eq 0 -and $notRun.Count -eq 0) {
         return
@@ -54,9 +56,14 @@ function Write-TestAutomationSkipReport {
     # -Skip` carries none). Listed individually: a self-skip naming the missing tool is the whole value.
     if ($skipped.Count -gt 0) {
         Write-Message "  Skipped ($($skipped.Count)) — ran, then skipped from inside the test:" -NoHeader
-        foreach ($test in $skipped) {
-            $reason = Get-TestSkipReason -Test $test
-            Write-Message "    [$reason] $($test.ExpandedPath)" -NoHeader
+        foreach ($row in $skipped) {
+            $reason = if ($row.SkipReason) {
+                $row.SkipReason
+            }
+            else {
+                'no reason given'
+            }
+            Write-Message "    [$reason] $($row.ExpandedPath)" -NoHeader
         }
     }
 
@@ -75,7 +82,7 @@ function Write-TestAutomationSkipReport {
         Write-Message "  Not run ($($notRun.Count)) — outside this run's scope ($scope):" -NoHeader
 
         $groups = $notRun |
-            Group-Object { "$(Get-TestLevelTag -Test $_) $(Get-TestCategoryTag -Test $_)" } |
+            Group-Object { "$($_.Level) $($_.Category)" } |
             Sort-Object Name
         foreach ($group in $groups) {
             $label = if ([string]::IsNullOrWhiteSpace($group.Name)) {

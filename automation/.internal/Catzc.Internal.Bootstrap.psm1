@@ -123,6 +123,15 @@ function New-DynamicManifest {
 
     # Canonical, formatter-stable text — no hand-padded alignment (ADR-FORMAT#1); the L2 suite gates the invariant.
     $content = Get-DynamicManifestContent -NestedModule $nestedModules -FunctionToExport $exportNames -ExportAll:$ExportPrivates
+
+    # Write only on drift (the janitors' write-on-drift pattern): the manifest is a pure derivation of the
+    # module's files, so an unchanged tree yields identical bytes and the write is skipped. Beyond saving ~40
+    # writes per import, this is what lets Test-Automation's parallel workers dot-source the importer
+    # concurrently — the parent's own import regenerated every manifest just before spawning, so the workers
+    # all compare-equal and none writes, and there is no cross-process race on the .psd1 files.
+    if ([System.IO.File]::Exists($manifestPath) -and [System.IO.File]::ReadAllText($manifestPath) -ceq $content) {
+        return $manifestPath
+    }
     $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
     [System.IO.File]::WriteAllText($manifestPath, $content, $utf8NoBom)
     return $manifestPath

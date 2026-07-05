@@ -2,32 +2,24 @@
 .SYNOPSIS
     Lists every Pester test that is missing — or ambiguous on — a required tag axis.
 .DESCRIPTION
-    Runs a discovery-only Pester pass (Run.SkipRun) over the given test folders so EVERY test is inspected
-    regardless of run level or tag filters, then resolves each test's tier (L0-L3) and category
-    (logic|integrity) via Get-TestLevelTag / Get-TestCategoryTag (nearest contributing block wins). A test is
-    a violation when an axis resolves to zero tags (missing) or to more than one on its nearest contributing
-    block (ambiguous). Returns one object per violating test: @{ Test; File; Reason }. Test-Automation calls
-    this to enforce that every test carries exactly one tier and one category tag. See the test-automation ADR.
-    Pester must already be loaded (Test-Automation lazy-loads it before calling this).
-.PARAMETER TestPath
-    One or more 'tests' folders to discover.
+    Inspects a discovery-only Pester result (Get-TestDiscovery), so EVERY test is checked regardless of run
+    level or tag filters, and resolves each test's tier (L0-L3) and category (logic|integrity) via
+    Get-TestLevelTag / Get-TestCategoryTag (nearest contributing block wins). A test is a violation when an
+    axis resolves to zero tags (missing) or to more than one on its nearest contributing block (ambiguous).
+    Returns one object per violating test: @{ Test; File; Reason }. Test-Automation calls this to enforce
+    that every test carries exactly one tier and one category tag. See the test-automation ADR.
+.PARAMETER Discovery
+    The discovery-only Pester run object (Get-TestDiscovery output) whose tests are inspected.
 #>
 function Get-TestTagViolations {
     [CmdletBinding()]
     [OutputType([System.Object[]])]
     param(
         [Parameter(Mandatory)]
-        [string[]] $TestPath
+        $Discovery
     )
 
-    $config = New-PesterConfiguration
-    $config.Run.Path = $TestPath
-    $config.Run.SkipRun = $true
-    $config.Run.PassThru = $true
-    $config.Output.Verbosity = 'None'
-    $discovered = Invoke-Pester -Configuration $config
-
-    $violations = foreach ($test in $discovered.Tests) {
+    $violations = foreach ($test in $Discovery.Tests) {
         $reasons = @()
 
         $tierTags = Get-TestBlockTag -Test $test -Valid 'L0', 'L1', 'L2', 'L3'

@@ -5,8 +5,8 @@
 ### Rule ADR-ROOTCFG:1
 
 An opted-in repository-root config file is **fully managed by the source-of-truth automation**: it is reproduced from exactly one in-repo
-source of truth — a `source` file (an authored config copied out) or a `generator` function (e.g. `New-Importer`) — and is never hand-edited.
-Corrections go to the source; the root file is its rendering.
+source of truth — a `source` file (an authored config copied out) or a `generator` function (e.g. `New-Importer`) — and is never
+hand-edited. Corrections go to the source; the root file is its rendering.
 
 - [Decision](#decision)
 
@@ -22,8 +22,8 @@ The registry is `automation/Catzc.Base.RootConfig/configs/rootconfig.yml` — va
 
 Per entry, the `committed` boolean (default false) decides git membership and nothing else. `committed: false` → the target is a derived,
 gitignored artifact, reproduced on import like the generated READMEs. `committed: true` → the target stays tracked because git or the
-bootstrap reads it **before the importer runs** (`importer.ps1`), while the automation still owns its content — a source change surfaces as a
-reviewable diff. The difference between the two is one boolean, not two systems.
+bootstrap reads it **before the importer runs** (`importer.ps1`), while the automation still owns its content — a source change surfaces as
+a reviewable diff. The difference between the two is one boolean, not two systems.
 
 - [One system, one boolean](#one-system-one-boolean)
 
@@ -37,8 +37,8 @@ change — so a clean tree is a fast no-op and a CRLF/LF flip never forces a rew
 
 ### Rule ADR-ROOTCFG:5
 
-A `source` copy-in carries a leading generated-file header in the target's comment style (`comment: hash` for `#`-trivia formats; `none`
-for formats with no comment syntax, e.g. JSON) naming the source. A `generator` owns its whole output — header included — and takes no
+A `source` copy-in carries a leading generated-file header in the target's comment style (`comment: hash` for `#`-trivia formats; `none` for
+formats with no comment syntax, e.g. JSON) naming the source. A `generator` owns its whole output — header included — and takes no
 `comment`. The header is strictly a leading block: config formats have no portable in-body anchor.
 
 - [Decision](#decision)
@@ -70,17 +70,17 @@ the managed target tracked in git) — and the importer tail keeps every opted-i
 ### One system, one boolean
 
 Some root files are read before the importer can possibly have produced them: `importer.ps1` is the load entry point itself, and git reads
-`.gitignore`/`.gitattributes` at checkout. Those files cannot be gitignored copy-ins — but they can still be fully managed, because "managed"
-means "reproduced from one in-repo source of truth", not "absent from git". `committed: true` expresses exactly that: same registry, same
-writer, same drift guarantee; the only difference is that the target stays tracked and a regeneration shows up as a normal diff to review
-and commit. This keeps the model honest — a copy-in and `importer.ps1` differ by one boolean, not by which system owns them.
+`.gitignore`/`.gitattributes` at checkout. Those files cannot be gitignored copy-ins — but they can still be fully managed, because
+"managed" means "reproduced from one in-repo source of truth", not "absent from git". `committed: true` expresses exactly that: same
+registry, same writer, same drift guarantee; the only difference is that the target stays tracked and a regeneration shows up as a normal
+diff to review and commit. This keeps the model honest — a copy-in and `importer.ps1` differ by one boolean, not by which system owns them.
 
 ### Always current, at no steady-state cost
 
 Because the targets are cheap to reproduce and must never go stale, the importer regenerates them on every load, exactly like the README
 copy-ins. This is safe only because generation is idempotent: `Write-FileIfChanged` canonicalises, compares ignoring line endings, and
-writes only on a real change. The same primitive is the write tail for every generated-artifact builder — one living copy of that logic
-(see [one-living-version](../principles/one-living-version.md)) instead of a per-builder reimplementation.
+writes only on a real change. The same primitive is the write tail for every generated-artifact builder — one living copy of that logic (see
+[one-living-version](../principles/one-living-version.md)) instead of a per-builder reimplementation.
 
 ### The integrity gate
 
