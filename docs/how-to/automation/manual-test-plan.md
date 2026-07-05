@@ -92,6 +92,8 @@ A check **passes** when its assertions are green. A few L2 checks shell out to a
 | 52  | L0   | automation/Catzc.Azure/tests/Assert-CustomerConfig.Tests.ps1                    | integrity (shipped customer.yml)                                     | The shipped customer.yml validates — customer keys/shortcodes are well-formed, unique, and non-colliding.                         |
 | 53  | L0   | automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1                    | against a real shipped config                                        | `Get-ConfigValue` resolves a real shipped config subtree end-to-end through the live `Get-Config`.                                |
 | 54  | L1   | automation/Catzc.Base.QualityGates/tests/Build-ScriptAnalyzerSettings.Tests.ps1 | Build-ScriptAnalyzerSettings — real config                           | The importer-kept root PSScriptAnalyzerSettings.psd1 matches the authored source (no drift) and parses as a settings hashtable.   |
+| 55  | L0   | automation/Catzc.Base.Vendor/tests/Assert-VendorConfig.Tests.ps1                | integrity (shipped vendor.yml)                                       | The shipped vendor.yml passes Assert-VendorConfig (known keys, a present source, an absolute source URL).                         |
+| 56  | L2   | automation/Catzc.Base.ModuleSystem/tests/New-Importer.Tests.ps1                 | New-Importer — importer.ps1 drift guard                              | The committed importer.ps1 equals New-Importer output and its parameter set matches the Invoke-Importer overlay (no drift).       |
 
 ## L0 · integrity
 

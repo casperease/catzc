@@ -40,9 +40,9 @@ Describe 'Get-FirewallMarkdownColumns' -Tag 'L0', 'logic' {
             AdditionalColumns      = @()
             Present                = $script:present
         }
-        $protoPort = $cols | Where-Object { $_.Name -eq 'Protocol/Port' }
-        $protoPort.Render | Should -Be 'protoport'
-        $protoPort.Sort | Should -BeFalse
+        $protocolPort = $cols | Where-Object { $_.Name -eq 'Protocol/Port' }
+        $protocolPort.Render | Should -Be 'protoport'
+        $protocolPort.Sort | Should -BeFalse
         $source = $cols | Where-Object { $_.Name -eq 'Source' }
         $source.Render | Should -Be 'list'
         $source.Sort | Should -BeTrue

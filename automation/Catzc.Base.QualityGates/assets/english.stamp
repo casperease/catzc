@@ -1,8 +1,8 @@
 {
-  "cspell": "8.19.4",
+  "cspell": "10.0.1",
   "dicts": {
     "@cspell/dict-en_us": "4.4.35",
-    "@cspell/dict-en-gb": "1.1.33"
+    "@cspell/dict-en-gb-mit": "3.1.24"
   },
-  "word_count": 207181
+  "word_count": 206921
 }

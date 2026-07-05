@@ -145,6 +145,15 @@ missing or at the wrong version, the error says so directly ("Python is not inst
 
 Version checks are cached per session — the first `Invoke-Python` call validates, subsequent calls skip the check.
 
+#### 3c. Devbox version lever (local-only relaxation)
+
+`Assert-ToolVersion` accepts the locked `version` everywhere. A tool may also declare an optional `devbox_version` in `tools.yml`:
+**outside** a CI pipeline (`Test-IsRunningInPipeline` is false), an installed version matching **either** the locked `version` or the
+`devbox_version` prefix passes the assertion. This lets a devbox run a functional off-pin tool for local pre-commit tooling without an
+immediate upgrade — a team-tuned balancing lever, not a second pin. A pipeline session ignores `devbox_version` and enforces the locked
+`version` alone, so main/master builds stay deterministically locked: a developer's own tooling can be relaxed, but it never relaxes the
+pipeline's.
+
 #### 3b. Declare tool dependencies in config
 
 Some tools must be installed after another tool — Poetry and Azure CLI are installed via pip, so Python must already be present; PySpark is
@@ -205,7 +214,8 @@ before every use. The platform works without a container runtime on Windows, mac
 
 ## Consequences
 
-- Tool versions are consistent across all developers and CI environments.
+- Tool versions are consistent across CI environments and, by default, developer machines; an optional per-tool `devbox_version` lever can
+  locally widen the accepted range for pre-commit tooling, while pipelines stay locked to the pinned version (see #3c).
 - Version upgrades are pull requests with a one-line config change.
 - New developers run `Install-DevBoxTools` once and have a working environment.
 - CI pipelines are self-provisioning — they do not depend on runner image contents.

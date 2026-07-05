@@ -38,7 +38,18 @@ function Test-Tool {
     }
 
     if (-not $SkipVersionCheck) {
-        return $installed.StartsWith($config.version)
+        if ($installed.StartsWith($config.version)) {
+            return $true
+        }
+        # Devbox lever (mirrors Assert-ToolVersion): outside a CI pipeline, also accept an installed version
+        # matching the tool's devbox_version prefix, so a levered off-pin tool reads as usable for test gates
+        # too — not just runtime asserts. Read from the raw config: devbox_version is a version-check policy
+        # field, not part of the typed ToolConfig install mirror.
+        $devboxVersion = (Get-Config -Config tools)[$Tool]['devbox_version']
+        if ($devboxVersion -and -not (Test-IsRunningInPipeline)) {
+            return $installed.StartsWith($devboxVersion)
+        }
+        return $false
     }
 
     $true

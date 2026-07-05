@@ -73,7 +73,7 @@ function Build-EnglishDictionary {
         $dictVersions[$package.name] = $package.version
     }
 
-    # cspell-trie reads a trie and prints its words. Pin to the cspell 8 line to match the installed tries.
+    # cspell-trie reads a trie and prints its words. Pin to the cspell 10 line to match the installed tries.
     # This shells out to npx (a cold run downloads cspell-trie) and reads ~440k words — announce it (ADR-CONSOLE:10).
     Write-Message 'Flattening cspell English dictionaries (en_US, en_GB) via cspell-trie — this can take a while...'
 
@@ -83,7 +83,7 @@ function Build-EnglishDictionary {
         foreach ($trie in $triePaths) {
             $tmp = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), [System.Guid]::NewGuid().ToString('N') + '.txt')
             $tempFiles.Add($tmp)
-            Invoke-Executable "npx --yes cspell-trie@8 reader '$trie' -o '$tmp'" | Out-Null
+            Invoke-Executable "npx --yes cspell-trie@10 reader '$trie' -o '$tmp'" | Out-Null
             Assert-PathExist $tmp
 
             # Keep only lower-cased, pure-alpha words of length >= 2. This drops cspell's apostrophe forms

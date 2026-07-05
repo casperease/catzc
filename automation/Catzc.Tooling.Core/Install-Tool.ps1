@@ -24,6 +24,15 @@ function Install-Tool {
 
     $config = Get-ToolConfig -Tool $Tool
     $command = Get-ToolCommandSuffix -Tool $Tool
+
+    # npm-managed tools (cspell, prettier, markdownlint) are installed with npm, not a platform package
+    # manager, so Install-Tool cannot handle them. Fail here — before the -Force path routes into
+    # Uninstall-Tool — so the message names Install-$command (what the caller wanted), not a stray winget
+    # detail from deeper in the chain. Bulk provisioning already dispatches these to Install-$command.
+    if ($config.npm_package) {
+        throw "$Tool is an npm-managed tool. Install-Tool manages winget/brew/apt packages only — use Install-$command (npm) instead."
+    }
+
     if (-not $Version) {
         $Version = $config.version
     }

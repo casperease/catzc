@@ -21,7 +21,9 @@ is in [native-csharp-types](../../../../adr/automation/BCL/native-csharp-types.m
   the file-scoped form `namespace <Module>;` matching the module (folder-derived by `Format-Types`, gated by `Test-Types`).
 - `types/CliRunner.cs` in `Catzc.Base.Execution` becomes `Catzc.Base.Execution.CliRunner`. FQN collisions across modules are therefore
   impossible.
-- **BCL only.** Types compile against the shared framework with `Add-Type`; there is no mechanism to add NuGet references.
+- **Host-guaranteed assemblies only.** Types compile with `Add-Type` against its default reference set — the shared framework plus
+  `System.Management.Automation` — so a PowerShell primitive (`WildcardPattern`, `PSObject`) costs a `using` namespace and nothing more.
+  There is no mechanism to add NuGet references.
 - Use **PascalCase** property names — _except_ on a type that mirrors a `configs/<name>.yml` file, where the properties match the snake_case
   YAML keys (see [native-csharp-types rule ADR-TYPES:8](../../../../adr/automation/BCL/native-csharp-types.md)).
 

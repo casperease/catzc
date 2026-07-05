@@ -20,14 +20,31 @@ function Uninstall-Tool {
 
     $config = Get-ToolConfig -Tool $Tool
     $command = Get-ToolCommandSuffix -Tool $Tool
-    if (-not $Version) {
-        $Version = $config.version
+
+    # npm-managed tools (cspell, prettier, markdownlint) are removed with npm, not a platform package
+    # manager. Redirect to Uninstall-$command instead of failing later on a missing winget id.
+    if ($config.npm_package) {
+        throw "$Tool is an npm-managed tool. Uninstall-Tool manages winget/brew/apt packages only — use Uninstall-$command (npm) instead."
     }
 
     # Idempotent: skip if not installed or not functional (e.g., Windows Store stub)
     if (-not (Test-Tool $Tool -SkipVersionCheck)) {
         Write-Message "$Tool is not installed — nothing to do"
         return
+    }
+
+    # Uninstall targets the version that is ACTUALLY installed, not the locked one. For tools whose
+    # package id embeds the version (node's OpenJS.NodeJS.{0}, python's Python.Python.{0}, java's
+    # Microsoft.OpenJDK.{0}), defaulting to the locked version asks the package manager to remove a
+    # package that isn't there ("No installed package found") whenever the installed major differs —
+    # e.g. replacing node 22 with the locked 24 via Install-Tool -Force. Reduce the installed version to
+    # the locked version's component granularity so the {0} slot matches the installed package:
+    # node "22.22.2" -> "22", python "3.11.9" -> "3.11". Version-independent ids (Microsoft.AzureCLI,
+    # Hashicorp.Terraform) ignore the value. An explicit -Version still wins for removing a named build.
+    if (-not $Version) {
+        $installed = Get-ToolVersion -Config $config
+        $components = ($config.version -split '\.').Count
+        $Version = (($installed -split '\.') | Select-Object -First $components) -join '.'
     }
 
     # Only uninstall tools managed by the expected package manager.

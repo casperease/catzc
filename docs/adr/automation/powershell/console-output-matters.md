@@ -236,11 +236,11 @@ process is alive and working, which is meaningful output, not noise. This is the
 of a long operation is itself an outcome worth reporting.
 
 The announcement goes _before_ the blocking call, not after — a message printed once the work is already done cannot tell the user it is in
-progress. For an operation whose duration is open-ended, pair the up-front message with a dot-per-interval liveness signal (ADR-CONSOLE:8) rather
-than leaving the console frozen. `Invoke-Executable` already covers the common case: it logs the exact command before running it (ADR-CONSOLE:3,
-[log-before-invoke](../log-before-invoke.md)), so a function whose slow step _is_ a single external call inherits the announcement for free.
-The rule bites where the slow work is not a logged external call — a large in-process loop, a module import, an in-memory computation —
-where nothing else would print.
+progress. For an operation whose duration is open-ended, pair the up-front message with a dot-per-interval liveness signal (ADR-CONSOLE:8)
+rather than leaving the console frozen. `Invoke-Executable` already covers the common case: it logs the exact command before running it
+(ADR-CONSOLE:3, [log-before-invoke](../log-before-invoke.md)), so a function whose slow step _is_ a single external call inherits the
+announcement for free. The rule bites where the slow work is not a logged external call — a large in-process loop, a module import, an
+in-memory computation — where nothing else would print.
 
 ## Decision
 

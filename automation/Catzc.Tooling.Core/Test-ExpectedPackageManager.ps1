@@ -31,7 +31,16 @@ function Test-ExpectedPackageManager {
         return $location -like "$expectedDir*"
     }
 
-    # 2. Platform-specific package managers — only if the tool has the field
+    # 2. uv-managed tools (az_cli, poetry) — cross-platform, installed in isolated uv environments.
+    if ($Config.uv_tool) {
+        if (-not (Test-Command uv)) {
+            return $false
+        }
+        $result = Invoke-Executable 'uv tool list' -PassThru -NoAssert -Silent
+        return $result.Full -match [regex]::Escape($Config.uv_tool)
+    }
+
+    # 3. Platform-specific package managers — only if the tool has the field
     #    for the current platform.
     if ($IsWindows -and $Config.winget_id) {
         if (-not (Test-Command winget)) {

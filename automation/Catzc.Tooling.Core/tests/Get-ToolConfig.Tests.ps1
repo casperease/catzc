@@ -40,8 +40,8 @@ Describe 'Get-ToolConfig' -Tag 'L0' {
         }
 
         It '<Tool> has at least one install mechanism' -ForEach $script:toolEntries {
-            $hasMechanism = $Config['winget_id'] -or $Config['brew_formula'] -or $Config['apt_package'] -or $Config['pip_package'] -or $Config['script_install'] -or $Config['npm_package']
-            $hasMechanism | Should -BeTrue -Because "$Tool needs WingetId, BrewFormula, AptPackage, PipPackage, ScriptInstall, or NpmPackage"
+            $hasMechanism = $Config['winget_id'] -or $Config['brew_formula'] -or $Config['apt_package'] -or $Config['pip_package'] -or $Config['script_install'] -or $Config['npm_package'] -or $Config['uv_tool'] -or $Config['uv_python']
+            $hasMechanism | Should -BeTrue -Because "$Tool needs WingetId, BrewFormula, AptPackage, PipPackage, ScriptInstall, NpmPackage, UvTool, or UvPython"
         }
 
         It '<Tool> DependsOn references an existing tool' -ForEach $script:depEntries {

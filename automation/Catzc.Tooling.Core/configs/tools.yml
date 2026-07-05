@@ -24,15 +24,18 @@ dotnet:
 
 az_cli:
   version: "2.87"
+  # Devbox lever (local-only version relaxation). OUTSIDE a CI pipeline, Assert-ToolVersion also accepts an
+  # installed az whose version starts with this prefix — so a devbox can run a functional off-pin az for local
+  # pre-commit tooling without an immediate upgrade. A pipeline session (Test-IsRunningInPipeline: TF_BUILD /
+  # GITHUB_ACTIONS) IGNORES this and enforces `version` alone, so main/master builds stay deterministically
+  # locked. This is a team-tuned balancing lever, not a second pin — raise it toward `version` once devbox upgrades land.
+  devbox_version: "2.84"
   command: az
-  # macOS: Homebrew (user-space). Windows: winget (Microsoft.AzureCLI — MSI, machine-scope, needs admin,
-  # hash-verified). Linux: the official aka.ms/InstallAzureCLIDeb script (Install-AzCli runs it; needs root).
-  # az bundles its own Python, so it does not depend on the system `python` tool. apt_package is kept for
-  # status/uninstall classification only — the Linux *install* uses the official script (see Install-AzCli),
-  # not the generic apt path, because the azure-cli package needs the Microsoft apt repo configured first.
-  winget_id: "Microsoft.AzureCLI"
-  brew_formula: "azure-cli"
-  apt_package: "azure-cli"
+  # Installed user-space via uv (`uv tool install azure-cli`) in an isolated environment — no admin on any
+  # platform. depends_on uv so uv is provisioned first; the isolated uv env keeps az's dependency graph off
+  # the shared toolchain Python.
+  depends_on: uv
+  uv_tool: azure-cli
   version_command: "az version --output tsv"
   version_pattern: "^(?<ver>[^\t]+)"
 
@@ -53,6 +56,10 @@ node_js:
   apt_package: "nodejs"
   version_command: "node --version"
   version_pattern: "^v(?<ver>.+)$"
+  # nvm-for-windows exposes the active node via this symlink; the janitor points the session at it when
+  # winget node is absent, so an nvm devbox keeps a working `node` (and node-based shims) on PATH.
+  session_path_hints:
+    - "%ProgramFiles%\\nodejs"
 
 cspell:
   version: "10"
@@ -100,6 +107,18 @@ java:
   apt_package: "openjdk-{0}-jdk"
   version_command: "java --version"
   version_pattern: "(?<ver>[\\d.]+)"
+
+uv:
+  version: "0.11"
+  command: uv
+  # Astral's uv — the standard Python handler: it provisions Python and runs Python-based CLIs in isolated
+  # environments. Windows: winget astral-sh.uv (portable zip → user scope, no admin). macOS: brew. User-space
+  # everywhere. Linux uses Astral's standalone installer (user-space, ~/.local/bin) — not the generic apt path.
+  winget_id: "astral-sh.uv"
+  winget_scope: user
+  brew_formula: "uv"
+  version_command: "uv --version"
+  version_pattern: "uv (?<ver>[\\d.]+)"
 
 py_spark:
   version: "4.1"

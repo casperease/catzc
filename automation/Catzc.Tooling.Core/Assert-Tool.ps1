@@ -3,8 +3,9 @@
     Asserts that a tool is installed and at the expected version.
 .DESCRIPTION
     Checks that the tool's command is on PATH and that its version
-    matches the locked version in tools.yml. Does NOT check DependsOn —
-    those are install-time dependencies, not runtime requirements.
+    matches the locked version in tools.yml (outside a CI pipeline an optional
+    devbox_version lever also passes — see Assert-ToolVersion). Does NOT check
+    DependsOn — those are install-time dependencies, not runtime requirements.
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (e.g., 'python', 'az_cli').
 .PARAMETER SkipVersionCheck

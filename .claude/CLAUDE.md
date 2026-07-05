@@ -14,8 +14,8 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 - `importer.ps1` — root script that imports all modules; always **dot-sourced** (`.\importer.ps1` is dot-sourcing), so it runs in the
   caller's scope and its global state (the prompt hook, `$env:RepositoryRoot`, `$isConsoleSession`, …) takes effect
 - `automation/` — module folders containing `.ps1` function files
-- `automation/.internal/` — internal infrastructure: the loader + shared libraries (`Catzc.Internal.{Loader,Types,TestKit}.psm1`,
-  stay loaded) and the bootstrap (`Catzc.Internal.Bootstrap.psm1`, loaded first, removed after import), plus build `assets/`
+- `automation/.internal/` — internal infrastructure: the loader + shared libraries (`Catzc.Internal.{Loader,Types,TestKit}.psm1`, stay
+  loaded) and the bootstrap (`Catzc.Internal.Bootstrap.psm1`, loaded first, removed after import), plus build `assets/`
 - `automation/.vendor/` — third-party modules (checked in)
 - `docs/adr/` — Architecture Decision Records (see below); `docs/notes/` — freeform working notes
 

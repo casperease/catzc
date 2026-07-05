@@ -78,18 +78,21 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
 # assert a repo-wide fact. The repo-wide "all module code is analyzer-clean" integrity check is already the
 # sharded L2 'PSScriptAnalyzer' test in automation/.internal/tests — not duplicated here.
 Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'logic' {
-    It 'reports a clean fixture as having no violations (real PSScriptAnalyzer, repo rule set)' {
-        $file = Join-Path $TestDrive 'Get-Thing.ps1'
-        Set-Content -Path $file -Value "function Get-Thing {`n    `$value = 1`n    `$value`n}" -Encoding utf8
-        $result = Test-ScriptAnalyzer -Path $file -OutputFolder (Join-Path $TestDrive 'reports') -PassThru
-        $result.IssueCount | Should -Be 0
-    }
-
-    It 'flags a real violation (an aliased cmdlet) and throws' {
-        $file = Join-Path $TestDrive 'Get-Bad.ps1'
+    # One real-analyzer run over a clean + a violating file proves the boundary end-to-end: the real analyzer
+    # flags the aliased cmdlet with the repo rule set and reports the clean file as issue-free. The throw path
+    # (IssueCount > 0 without -PassThru) is pure Test-ScriptAnalyzer logic, covered by the mocked L0 block above;
+    # here -PassThru surfaces the real counts without re-spawning the analyzer shards a second time.
+    It 'flags a real aliased-cmdlet violation and passes the clean fixture (real PSScriptAnalyzer, repo rule set)' {
+        $clean = Join-Path $TestDrive 'Get-Thing.ps1'
+        Set-Content -Path $clean -Value "function Get-Thing {`n    `$value = 1`n    `$value`n}" -Encoding utf8
+        $bad = Join-Path $TestDrive 'Get-Bad.ps1'
         # gci is the Get-ChildItem alias — PSAvoidUsingCmdletAliases (enabled in the repo psd1) flags it.
-        Set-Content -Path $file -Value "function Get-Bad {`n    gci`n}" -Encoding utf8
-        { Test-ScriptAnalyzer -Path $file -OutputFolder (Join-Path $TestDrive 'reports') } |
-            Should -Throw '*PSScriptAnalyzer violation*'
+        Set-Content -Path $bad -Value "function Get-Bad {`n    gci`n}" -Encoding utf8
+
+        $result = Test-ScriptAnalyzer -Path @($clean, $bad) -OutputFolder (Join-Path $TestDrive 'reports') -PassThru
+
+        $result.IssueCount | Should -BeGreaterThan 0
+        $result.FileCount | Should -Be 1   # only the violating file has issues; the clean one contributes none
+        (Get-Content (Join-Path $result.ReportPath 'scriptanalyzer.md') -Raw) | Should -Match 'PSAvoidUsingCmdletAliases'
     }
 }

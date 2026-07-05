@@ -89,6 +89,14 @@ external-facing API surface and its contract-testing discipline — is the [api-
 
 - [Level 1: Repository root](#level-1-repository-root)
 
+### Rule ADR-FOLDERS:12
+
+Deployable-unit trigger files live under the root `triggers/` folder — one `<globset>.sha256` per globset, written only by the owning
+tooling and never hand-edited. What the trigger files _are_ — the globset model, the durable-SHA identity, and the registration-only trigger
+discipline — is the [durable-sha-globs](../pipelines/durable-sha-globs.md) ADR (code `ADR-GLOBS`).
+
+- [Level 1: Repository root](#level-1-repository-root)
+
 ## Context
 
 A mono-repository without a fixed folder structure degenerates into a naming negotiation. Every new module, every new config file, every new
@@ -113,7 +121,7 @@ infrastructure, and a module's internals separate public from private from tests
 Conventional folders come in two kinds, and the difference is _who relies on the name_:
 
 - **Contract folders** — a tool hardcodes the literal name and programs against it, so a wrong name makes the content structurally invisible
-  or non-functional. `automation/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `pipelines/steps/`, and
+  or non-functional. `automation/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `pipelines/steps/`, `triggers/`, and
   `infrastructure/templates/<name>/configuration/<subscription>/` are contract folders.
 - **Semantic folders** — a _reader_ infers the meaning; no tool hardcodes the name, and the internal layout is freeform. `docs/`,
   `docs/notes/**`, `infrastructure/modules/`, and the ad-hoc workspaces under `out/` are semantic folders.
@@ -180,18 +188,19 @@ are contracts, not suggestions.
 The root is a closed set of folders, each with a fixed meaning. The **Kind** column marks whether tooling hardcodes the name (_contract_) or
 a reader infers it (_semantic_).
 
-| Directory         | Kind     | Meaning                                                                                           | Programmed against by                                     |
-| ----------------- | -------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| `automation/`     | contract | Module system root — all PowerShell modules and infrastructure (Levels 2–3)                       | `importer.ps1`, `Test-Automation`, `Install-VendorModule` |
-| `docs/`           | semantic | Documentation — `adr/` decision records and `notes/` working notes                                | Human consumption; ADR section + file-naming convention   |
-| `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                | Bicep build/deploy tooling, `Get-BicepTemplates`          |
-| `pipelines/`      | contract | Azure DevOps YAML pipelines, per-kind templates, and the runner                                   | Azure DevOps runner, `Invoke-AdoScript.ps1`               |
-| `contracts/`      | contract | External-facing API contracts (versioned) — `<name>/v<N>/`; see [api-contracts](api-contracts.md) | Contract tests; contract producers/consumers              |
-| `out/`            | contract | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)   | Output functions, CI artifacts, cleanup scripts           |
-| `.github/`        | contract | GitHub Actions — `workflows/`, actions, templates                                                 | GitHub Actions runner                                     |
-| `.vscode/`        | contract | Editor settings, tasks, launch configs                                                            | VS Code                                                   |
-| `.claude/`        | contract | Claude Code project config — `CLAUDE.md`, `CLAUDE.local.md`, `settings.json`                      | Claude Code                                               |
-| `.git/`           | —        | Git's own store. The boundary of _our_ conventions: git owns it, we do not document it.           | Git                                                       |
+| Directory         | Kind     | Meaning                                                                                                        | Programmed against by                                     |
+| ----------------- | -------- | -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| `automation/`     | contract | Module system root — all PowerShell modules and infrastructure (Levels 2–3)                                    | `importer.ps1`, `Test-Automation`, `Install-VendorModule` |
+| `docs/`           | semantic | Documentation — `adr/` decision records and `notes/` working notes                                             | Human consumption; ADR section + file-naming convention   |
+| `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                             | Bicep build/deploy tooling, `Get-BicepTemplates`          |
+| `pipelines/`      | contract | Azure DevOps YAML pipelines, per-kind templates, and the runner                                                | Azure DevOps runner, `Invoke-AdoScript.ps1`               |
+| `contracts/`      | contract | External-facing API contracts (versioned) — `<name>/v<N>/`; see [api-contracts](api-contracts.md)              | Contract tests; contract producers/consumers              |
+| `triggers/`       | contract | Deployable-unit trigger files — `<globset>.sha256`; see [durable-sha-globs](../pipelines/durable-sha-globs.md) | ADO/GH path filters; `Update-Trigger`, `Test-Trigger`     |
+| `out/`            | contract | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)                | Output functions, CI artifacts, cleanup scripts           |
+| `.github/`        | contract | GitHub Actions — `workflows/`, actions, templates                                                              | GitHub Actions runner                                     |
+| `.vscode/`        | contract | Editor settings, tasks, launch configs                                                                         | VS Code                                                   |
+| `.claude/`        | contract | Claude Code project config — `CLAUDE.md`, `CLAUDE.local.md`, `settings.json`                                   | Claude Code                                               |
+| `.git/`           | —        | Git's own store. The boundary of _our_ conventions: git owns it, we do not document it.                        | Git                                                       |
 
 `automation/` is the only root the module system interacts with; its internals are Levels 2–3 below. The rest separate concerns at the repo
 level, and each has its own conventional sub-layout:
@@ -222,6 +231,12 @@ versions start at `v1`; `v0` is reserved for internal/draft use and is never dec
 equally live (see [one-living-version](../principles/one-living-version.md#rule-adr-onelive7)), not legacy to be collapsed. Every contract
 version folder carries a checked-in `.gitkeep` marker — a committed, dot-prefixed git marker (the `.gitkeep` analogue) that keeps the
 directory tracked when otherwise empty and marks it as a conventional contract folder.
+
+**`triggers/`** holds the committed trigger files — one `<globset>.sha256` per globset, each containing exactly the deployable unit's
+durable SHA. The files are generated by the owning module's tooling and never hand-edited; ADO pipelines, ADO build-validation policies, and
+GH workflows path-filter on these paths and on nothing else. The folder name and the `<globset>.sha256` naming are the contract both
+vendors' path filters register against. The full model — globsets, the durable-SHA identity, the commit discipline — is the
+[durable-sha-globs](../pipelines/durable-sha-globs.md) ADR.
 
 **`out/`** is the single home for all generated and transient files, gitignored except `.gitkeep`. The _root_ is the contract
 (`Get-OutputRoot`); the subfolders inside are ad-hoc workspaces with no fixed names. Nothing under `out/` is source. See
@@ -358,7 +373,8 @@ folder must exist.
 - **Repo-wide conventions** — the closed root set (`ADR-FOLDERS:3`), the dot-prefixed roots (`ADR-FOLDERS:4`), the markdown-only rule for
   `docs/` (`ADR-FOLDERS:5`), and the `contracts/` versioned-contract layout with its `.gitkeep` marker (`ADR-FOLDERS:11`) — are enforced by
   **code review** against this ADR; the deep `automation/` conventions above are additionally enforced mechanically by the tooling listed
-  here.
+  here. The `triggers/` layout (`ADR-FOLDERS:12`) is enforced mechanically: the trigger-freshness integrity gate fails on a stale, missing,
+  or orphaned trigger file.
 
 - **Code review.** Structural conventions that tooling cannot enforce (e.g., "this YAML file belongs in `configs/`, not the module root")
   are caught in review. The uniform structure makes deviations visually obvious.

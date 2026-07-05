@@ -1,3 +1,15 @@
+# Real CLR types (PowerShell classes are genuine .NET types, parsed by PowerShell — no Roslyn compile) used to
+# prove the reflect-over-public-members path with a nested typed member. Avoids Add-Type, whose Roslyn compile
+# was the entire cost of this L0 file.
+class CatzcFlatSettingSetDb {
+    [string] $Host
+    [int] $Port
+}
+class CatzcFlatSettingSetRoot {
+    [string] $Name
+    [CatzcFlatSettingSetDb] $Database
+}
+
 Describe 'ConvertTo-FlatSettingSet' -Tag 'L0', 'logic' {
     It 'flattens a simple nested object' {
         $object = [PSCustomObject]@{
@@ -117,24 +129,9 @@ Describe 'ConvertTo-FlatSettingSet' -Tag 'L0', 'logic' {
     }
 
     It 'flattens a typed CLR object by reflecting over its public members' {
-        Add-Type -TypeDefinition @'
-namespace CatzcFlatSettingSetTest {
-    public class Db {
-        public string Host;
-        public int Port;
-        public Db() {}
-    }
-    public class Root {
-        public string Name;
-        public Db Database;
-        public Root() {}
-    }
-}
-'@ -ErrorAction SilentlyContinue
-
-        $object = [CatzcFlatSettingSetTest.Root]::new()
+        $object = [CatzcFlatSettingSetRoot]::new()
         $object.Name = 'app'
-        $object.Database = [CatzcFlatSettingSetTest.Db]::new()
+        $object.Database = [CatzcFlatSettingSetDb]::new()
         $object.Database.Host = 'db1'
         $object.Database.Port = 5432
 

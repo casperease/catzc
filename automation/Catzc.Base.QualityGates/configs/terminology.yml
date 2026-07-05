@@ -116,7 +116,7 @@ terms:
     - term: yoke
       meaning: 'the ''yoke'' of poka-yoke'
     - term: catzc
-      meaning: 'Catzc (this repository / module namespace) — the reserved source-code-level name; "cats" is its conversational cover term'
+      meaning: 'Catzc (this repository / module namespace) — the Cloud Automation Toolset, Zero Ceremony; the reserved source-code-level name; "cats" is its conversational cover term'
     - term: pathspecs
       meaning: 'git pathspecs (the path-filter arguments passed to git grep/git log)'
     - term: gpgsign
@@ -277,6 +277,12 @@ terms:
       meaning: 'test fixture token ''fixtenant'''
     - term: fixtype
       meaning: 'test fixture token ''fixtype'''
+    - term: faketool
+      meaning: 'placeholder tool name ''faketool'' in Resolve-SessionToolHint tests'
+    - term: hintbin
+      meaning: 'placeholder bin-directory name ''hintbin'' in Resolve-SessionToolHint tests'
+    - term: emptybin
+      meaning: 'placeholder empty bin-directory name ''emptybin'' in Resolve-SessionToolHint tests'
     - term: globex
       meaning: 'fictional customer name (Globex) in Azure test config'
     - term: khuvslfy
@@ -748,6 +754,10 @@ terms:
       meaning: 'coined adjective ''capturable'''
     - term: foldered
       meaning: 'coined adjective ''foldered'''
+    - term: globset
+      meaning: 'coined noun ''globset'' — a named set of glob patterns defining a deployable unit (ADR-GLOBS)'
+    - term: globsets
+      meaning: 'plural of the coined noun ''globset'''
     - term: greppable
       meaning: 'coined adjective ''greppable'''
     - term: loggable

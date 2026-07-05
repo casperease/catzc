@@ -41,10 +41,11 @@ extracts the C# edges and `Assert-ModuleDependency` fails the L2 suite on an und
 
 ### Rule ADR-TYPES:5
 
-BCL only — types reference no external packages (`Add-Type` compiles against the shared framework with no mechanism to add references, and
-there is no NuGet in this toolset).
+Host-guaranteed assemblies only — types reference the BCL plus `System.Management.Automation`, and nothing else. Both are in `Add-Type`'s
+default reference set, and both are loaded in every process that can load the compiled assembly, so a `using` namespace is the whole
+binding. No external packages, no NuGet.
 
-- [Decision](#decision)
+- [The reference set: host-guaranteed assemblies](#the-reference-set-host-guaranteed-assemblies)
 
 ### Rule ADR-TYPES:6
 
@@ -135,6 +136,21 @@ Types may reference each other across modules (one assembly); the dependency gra
 
 The mechanism is `Import-CSharpTypes` in `automation/.internal/Catzc.Internal.Bootstrap.psm1`, run once as a pre-pass by `Import-AllModules`
 before the module loop.
+
+### The reference set: host-guaranteed assemblies
+
+A type may reference exactly what the host guarantees is present: the BCL and `System.Management.Automation` (SMA). The types compile and
+run exclusively inside a `pwsh` session's CLR — `Add-Type` is the only compiler, and its default reference set includes SMA alongside the
+shared framework. The compiled assembly is likewise only ever loaded by a `pwsh` process, where SMA is loaded by definition, so an SMA
+reference resolves in every process that can load the assembly at all. Using a PowerShell primitive from C# — `WildcardPattern`,
+`TypeAccelerators`, `PSObject` — therefore costs a `using` namespace and nothing more: no package, no assembly hint, no build step. That is
+what "host-guaranteed" means: the reference is satisfied by the same host that makes the type reachable in the first place.
+
+The boundary is packages, not the SMA line: `Add-Type` has no mechanism to add references beyond its default set, and there is no NuGet in
+this toolset. A type that wants `Microsoft.Extensions.*` or any other external package is asking for a dependency the host does not
+guarantee — that logic belongs in PowerShell calling a vendored tool, not in `types/`. The IDE mirror carries the SMA reference
+**compile-time-only** (never copied to output), so the editor analyzes the same reference set the runtime compiles against and the project
+build cannot change what `Add-Type` sees.
 
 ### Why the namespace is declared, and an IDE project alongside
 

@@ -1,14 +1,29 @@
-Describe 'Measure-NoRawPipelineDetection' -Tag 'L2', 'logic' {
+# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
+# ScriptBlockAst. The engine-wiring proof (PSScriptAnalyzer discovers and fires this rule via -CustomRulePath)
+# lives once, for all custom rules, in CustomRuleWiring.Tests.ps1.
+Describe 'Measure-NoRawPipelineDetection' -Tag 'L0', 'logic' {
     BeforeAll {
+        Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoRawPipelineDetection.psm1') -Force
+        # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module
+        # once for the type — we never invoke the analyzer engine (that is the L2 wiring test below).
         if (-not (Get-Module PSScriptAnalyzer)) {
             Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
         }
-        $script:rulePath = Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoRawPipelineDetection.psm1'
 
         function Test-RawDetection {
             param([string] $Code)
-            Invoke-ScriptAnalyzer -ScriptDefinition $Code -CustomRulePath $script:rulePath |
-                Where-Object RuleName -EQ 'Measure-NoRawPipelineDetection'
+            $ast = [System.Management.Automation.Language.Parser]::ParseInput($Code, [ref]$null, [ref]$null)
+            Measure-NoRawPipelineDetection -ScriptBlockAst $ast
+        }
+
+        # The *.Tests.ps1 exemption keys off $ScriptBlockAst.Extent.File, so that case must parse from a real
+        # file path (ParseInput leaves Extent.File empty).
+        function Test-RawDetectionFile {
+            param([string] $Code, [string] $FileName)
+            $path = Join-Path $TestDrive $FileName
+            Set-Content -Path $path -Value $Code
+            $ast = [System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$null, [ref]$null)
+            Measure-NoRawPipelineDetection -ScriptBlockAst $ast
         }
     }
 
@@ -46,20 +61,10 @@ function Test-IsRunningInPipeline {
     }
 
     It 'exempts *.Tests.ps1 files (test isolation set/restore)' {
-        $tempDir = Join-Path ([System.IO.Path]::GetTempPath()) ('rawdet-' + [guid]::NewGuid())
-        New-Item -Path $tempDir -ItemType Directory | Out-Null
-        try {
-            $testFile = Join-Path $tempDir 'Sample.Tests.ps1'
-            Set-Content -Path $testFile -Value @'
+        $code = @'
 $orig = $env:TF_BUILD
 try { $env:TF_BUILD = 'True' } finally { $env:TF_BUILD = $orig }
 '@
-            $result = Invoke-ScriptAnalyzer -Path $testFile -CustomRulePath $script:rulePath |
-                Where-Object RuleName -EQ 'Measure-NoRawPipelineDetection'
-            $result | Should -BeNullOrEmpty
-        }
-        finally {
-            Remove-Item -Path $tempDir -Recurse -Force -ErrorAction SilentlyContinue
-        }
+        Test-RawDetectionFile -Code $code -FileName 'Sample.Tests.ps1' | Should -BeNullOrEmpty
     }
 }

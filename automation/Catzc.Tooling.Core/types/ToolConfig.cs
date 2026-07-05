@@ -42,6 +42,13 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // npm package name. Null when npm is not an install path.
     public string npm_package         { get; }
 
+    // uv tool/package name — installed with `uv tool install <uv_tool>` into an isolated env (e.g. az_cli,
+    // poetry). Null when uv-tool is not an install path.
+    public string uv_tool             { get; }
+
+    // True when this tool is Python itself, provisioned by `uv python install --default`. Null/false otherwise.
+    public bool   uv_python           { get; }
+
     // True when the tool is installed via a bespoke script rather than a package manager.
     public bool   script_install      { get; }
 
@@ -53,6 +60,11 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The name of a tool that must be installed first. Null when the tool has no prerequisite.
     public string depends_on          { get; }
+
+    // Extra directories the session janitor (Sync-SessionTools) prepends to PATH to point THIS session at
+    // a tool installed outside the installer layer (e.g. nvm-managed node under %ProgramFiles%\nodejs) when
+    // it is otherwise unresolvable. Environment variables are expanded. Empty when the tool has no hints.
+    public string[] session_path_hints { get; }
 
     // Constructed from the parsed tools.yml dictionary; the constructor validates the required keys.
     public ToolConfig(IDictionary d)
@@ -68,9 +80,12 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
         apt_package         = OptStr(d, "apt_package");
         pip_package         = OptStr(d, "pip_package");
         npm_package         = OptStr(d, "npm_package");
+        uv_tool             = OptStr(d, "uv_tool");
+        uv_python           = Flag(d, "uv_python");
         script_install      = Flag(d, "script_install");
         windows_install_dir = OptStr(d, "windows_install_dir");
         unix_install_dir    = OptStr(d, "unix_install_dir");
         depends_on          = OptStr(d, "depends_on");
+        session_path_hints  = StrArr(d, "session_path_hints");
     }
 }

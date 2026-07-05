@@ -195,6 +195,14 @@ function Invoke-Importer {
         Build-ScriptAnalyzerSettings -Silent | Out-Null
     }
 
+    # Reconcile the session PATH to whatever tools are actually present — including tools installed outside the
+    # installer layer (e.g. nvm-managed node) — and report any running from a non-owned location on one line.
+    # Session-only, quiet on a clean devbox, self-skips in CI. The importer is dot-sourced, so its PATH nudges
+    # land in the caller's live session. Guarded: absent in the bootstrap sandbox (Catzc.Tooling.Core).
+    if (-not $SkipJanitors -and (Get-Command Sync-SessionTools -ErrorAction Ignore)) {
+        Sync-SessionTools
+    }
+
     # Warn if PSModulePath contains a network share. The permanent fix is a one-time
     # script that writes a local PSModulePath to the user-scope powershell.config.json.
     # See: automation/Catzc.Base.Environment/assets/README.md

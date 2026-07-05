@@ -101,6 +101,7 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 | `ADR-PIPEVAR`  | [pipeline-variables](pipelines/pipeline-variables.md)                       |
 | `ADR-PIPENAME` | [pipeline-naming-and-placement](pipelines/pipeline-naming-and-placement.md) |
 | `ADR-TEMPLATE` | [custom-template-discipline](pipelines/custom-template-discipline.md)       |
+| `ADR-GLOBS`    | [durable-sha-globs](pipelines/durable-sha-globs.md)                         |
 
 ### azure/
 
@@ -137,10 +138,10 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   to sample or example code, because that couples durable rationale to code churn. The "How this is enforced" sections that _name_ an
   enforcing function are the established exception.
 
-- **Link granularity is per-context.** Cite a specific rule anchor (`file.md#rule-<code><n>`, e.g. `data-model.md#rule-adr-datamod2`) when the
-  citing sentence, comment, or throw-message invokes one concrete rule. Link the ADR document when the context is general — an index list, a
-  "see ADR X for the full rationale" pointer, or a citation that invokes the ADR's whole thesis. Over-narrowing a general pointer to one
-  rule is worse than leaving it doc-level.
+- **Link granularity is per-context.** Cite a specific rule anchor (`file.md#rule-<code><n>`, e.g. `data-model.md#rule-adr-datamod2`) when
+  the citing sentence, comment, or throw-message invokes one concrete rule. Link the ADR document when the context is general — an index
+  list, a "see ADR X for the full rationale" pointer, or a citation that invokes the ADR's whole thesis. Over-narrowing a general pointer to
+  one rule is worse than leaving it doc-level.
 
 - **Plain language.** Write in plain English; avoid terse logic or math jargon. Never use "iff" — spell out both directions ("required when
   Y; an error otherwise", or "present exactly when Y"). Prefer "when" / "only when" / "exactly when".

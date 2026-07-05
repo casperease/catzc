@@ -79,6 +79,9 @@ function Get-ToolsStatus {
         $expectedManager = if ($config.script_install) {
             'script'
         }
+        elseif ($config.uv_tool) {
+            'uv'
+        }
         elseif ($IsWindows -and $config.winget_id) {
             'winget'
         }
