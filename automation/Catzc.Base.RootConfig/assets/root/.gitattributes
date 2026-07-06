@@ -30,3 +30,11 @@ automation/.compiled/** binary
 # so every checkout materializes exactly the bytes the writer produced.
 # See docs/adr/pipelines/durable-sha-globs.md.
 .sha-markers/*.yml text eol=lf
+
+# The committed managed root-config targets (rootconfig.yml committed:true — importer.ps1 and the git files)
+# are written canonical-LF by Write-FileIfChanged. Pin them to LF so a core.autocrlf=true machine neither
+# warns on every regeneration commit nor checks out CRLF copies that differ from what the writer produced.
+# See docs/adr/repository/generated-root-configs.md.
+/.gitattributes text eol=lf
+/.gitignore     text eol=lf
+/importer.ps1   text eol=lf
