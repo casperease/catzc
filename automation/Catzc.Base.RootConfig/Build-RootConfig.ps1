@@ -121,8 +121,11 @@ function Build-RootConfig {
 
         if (-not $Silent) {
             $verb = if ($entry.copyAsLink) {
-                if ($changed) {
-                    if ($DryRun) { 'would link' } else { 'linked' }
+                if ($changed -and $DryRun) {
+                    'would link'
+                }
+                elseif ($changed) {
+                    'linked'
                 }
                 else {
                     'link current'

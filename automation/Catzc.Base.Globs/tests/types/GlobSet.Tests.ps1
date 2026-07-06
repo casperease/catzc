@@ -35,23 +35,24 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
         It 'renders the full definition canonically — fixed field order, LF-terminated, declared pattern order, quoted patterns' {
             $set = [Catzc.Base.Globs.GlobSet]::new('my-unit', 'a test globset', 'deployable-unit',
                 @('src/**', 'importer.ps1'), @('**/*.md'), @('base'), @('Catzc.Base.Globs'), 2, 'cd-my-unit')
-            $set.Representation | Should -Be (@(
-                    'name: my-unit'
-                    'description: a test globset'
-                    'layer: deployable-unit'
-                    'pipeline: cd-my-unit'
-                    'verify:'
-                    '  modules:'
-                    '  - Catzc.Base.Globs'
-                    '  level: 2'
-                    'compose:'
-                    '- base'
-                    'include:'
-                    "- 'src/**'"
-                    "- 'importer.ps1'"
-                    'exclude:'
-                    "- '**/*.md'"
-                ) -join "`n") + "`n"
+            $expectedLines = @(
+                'name: my-unit'
+                'description: a test globset'
+                'layer: deployable-unit'
+                'pipeline: cd-my-unit'
+                'verify:'
+                '  modules:'
+                '  - Catzc.Base.Globs'
+                '  level: 2'
+                'compose:'
+                '- base'
+                'include:'
+                "- 'src/**'"
+                "- 'importer.ps1'"
+                'exclude:'
+                "- '**/*.md'"
+            )
+            $set.Representation | Should -Be (($expectedLines -join "`n") + "`n")
         }
 
         It 'omits empty sections and changes exactly when the definition changes' {
@@ -65,7 +66,7 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
             $set = & $script:make 'my-unit' @('src/**')
             $hash = 'a' * 64
             $set.MarkerContent($hash) | Should -Be ($set.Representation + "sha256: $hash`n")
-            { $set.MarkerContent(' ') } | Should -Throw "*requires the durable SHA*"
+            { $set.MarkerContent(' ') } | Should -Throw '*requires the durable SHA*'
         }
 
         It 'parses back as YAML carrying the definition and the sha256' {
