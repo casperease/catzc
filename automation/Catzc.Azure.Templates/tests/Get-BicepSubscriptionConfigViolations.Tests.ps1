@@ -11,8 +11,10 @@ Describe 'Get-BicepSubscriptionConfigViolations' -Tag 'L0', 'logic' {
                 acme_upper = [ordered]@{ customer = 'acme'; environments = @('gamma', 'subp') }
             }
         }
-        # The customer catalogue read is a whole-boundary mock (ADR-PESTER:3) — the rule only needs keys.
+        # The customer catalogue reads are whole-boundary mocks (ADR-PESTER:3) — the rule needs the key
+        # list, and the candidates rule normalizes a non-matching raw token through Get-AzureCustomer.
         Mock Get-AzureCustomers { @('acme', 'globex') } -ModuleName Catzc.Azure.Templates
+        Mock Get-AzureCustomer { [ordered]@{ key = $Name; shortcode = ''; details = '' } } -ModuleName Catzc.Azure.Templates
         $script:run = {
             param($Customer, $Environment, $Config, $Location)
             & (Get-Module Catzc.Azure.Templates) {
