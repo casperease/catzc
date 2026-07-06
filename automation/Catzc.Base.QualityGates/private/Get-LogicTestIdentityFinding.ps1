@@ -48,9 +48,14 @@ function Get-LogicTestIdentityFinding {
     $parseErrors = $null
     $ast = [System.Management.Automation.Language.Parser]::ParseFile($Path, [ref]$parseTokens, [ref]$parseErrors)
 
+    # Predicates bound to locals (never inlined in a .FindAll(...) call) — ADR-PSFORMAT:6.
     $isCommandNode = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]
+    }
+    $isStringLiteral = {
+        param($node)
+        $node -is [System.Management.Automation.Language.StringConstantExpressionAst]
     }
     $commands = $ast.FindAll($isCommandNode, $true)
 
@@ -72,13 +77,18 @@ function Get-LogicTestIdentityFinding {
                 $body = $element
             }
             $isTagParam = $element -is [System.Management.Automation.Language.CommandParameterAst] -and
-                ($element.ParameterName -eq 'Tag' -or $element.ParameterName -eq 'Tags')
+            ($element.ParameterName -eq 'Tag' -or $element.ParameterName -eq 'Tags')
             if (-not $isTagParam) {
                 continue
             }
-            $valueAst = if ($i + 1 -lt $elements.Count) { $elements[$i + 1] } else { $null }
+            $valueAst = if ($i + 1 -lt $elements.Count) {
+                $elements[$i + 1]
+            }
+            else {
+                $null
+            }
             if ($valueAst) {
-                $stringNodes = $valueAst.FindAll({ param($node) $node -is [System.Management.Automation.Language.StringConstantExpressionAst] }, $true)
+                $stringNodes = $valueAst.FindAll($isStringLiteral, $true)
                 foreach ($stringNode in $stringNodes) {
                     [void] $tags.Add($stringNode.Value)
                 }
@@ -98,10 +108,6 @@ function Get-LogicTestIdentityFinding {
         return , $ret.ToArray()
     }
 
-    $isStringLiteral = {
-        param($node)
-        $node -is [System.Management.Automation.Language.StringConstantExpressionAst]
-    }
     $literals = $ast.FindAll($isStringLiteral, $true)
     foreach ($literal in $literals) {
         $value = $literal.Value

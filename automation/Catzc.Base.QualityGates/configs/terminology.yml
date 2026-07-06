@@ -65,6 +65,8 @@ categories:
 
 terms:
   domain:
+    - term: testkit
+      meaning: 'catzc-internal-testkit'
     - term: ast
       meaning: 'abstract syntax tree (AST) — the PowerShell parser''s AST'
     - term: trie

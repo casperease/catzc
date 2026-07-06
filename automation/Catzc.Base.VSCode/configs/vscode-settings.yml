@@ -86,6 +86,16 @@ settings:
     '**/*.yaml': azure-pipelines
     '**/.markdownlintignore': ignore
 
+  # Prettier is the .yaml (ADO pipeline) formatter, the same engine Format-Pipelines runs — so the editor
+  # and the catzc gate produce byte-identical output (ADR-FORMAT). `.yaml` is the azure-pipelines language
+  # (files.associations above), a custom language prettier-vscode does not format by default, so
+  # documentSelectors opts those files in; the language default-formatter then routes Format Document to it.
+  # Format-on-save is deliberately OFF — formatting is on demand (Shift+Alt+F) and enforced by the gate.
+  prettier.documentSelectors:
+    - '**/*.yaml'
+  '[azure-pipelines]':
+    editor.defaultFormatter: esbenp.prettier-vscode
+
   # Azure Pipelines extension: validate .yaml against OUR generated schema, not the extension's bundled one.
   # The bundled schema models a step's `task` as a per-task anyOf; offline (never connected to an ADO org)
   # it cannot resolve the real task set and reports every non-matching branch — the spurious "String does
