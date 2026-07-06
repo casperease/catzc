@@ -7,4 +7,4 @@ scan:
 - '- automation/Catzc.Azure.Templates/private/**'
 - '- automation/Catzc.Azure.Templates/types/**'
 - '- automation/Catzc.Azure.Templates/configs/**'
-sha256: 908907f83405dbd72ac3e67f9b8c53ff1c6bba73b23dac189a83a554be224ea3
+sha256: 3b380f9086b9dcaa26dc0877533c96bdec344b7bc8028c6da9af94c40622af9b
