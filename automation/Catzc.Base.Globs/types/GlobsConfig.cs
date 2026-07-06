@@ -177,14 +177,12 @@ public sealed class GlobsConfig
             throw new ArgumentException("globs config validation failed:\n" + string.Join("\n", errors));
         }
 
-        // ---- self-exclusion (ADR-GLOBS:6): sha-marker files and their .globset definition companions
-        //      are outputs, never members. Probes: every declared marker and companion path, plus canary
-        //      paths that catch catch-alls like '**' or '.sha-markers/**' regardless of the declared
-        //      names. ----
+        // ---- self-exclusion (ADR-GLOBS:6): sha-marker files are outputs of the hash, never members.
+        //      Probes: every declared marker path, plus a canary marker path that catches catch-alls
+        //      like '**' or '.sha-markers/**' regardless of the declared names. ----
         List<string> probes = new List<string>();
-        foreach (GlobSet set in sets) { probes.Add(set.MarkerPath); probes.Add(set.GlobSetPath); }
-        probes.Add(".sha-markers/canary.sha256");
-        probes.Add(".sha-markers/canary.globset");
+        foreach (GlobSet set in sets) { probes.Add(set.MarkerPath); }
+        probes.Add(".sha-markers/canary.yml");
 
         foreach (GlobSet set in sets)
         {

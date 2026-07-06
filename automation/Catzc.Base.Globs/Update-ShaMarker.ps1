@@ -1,23 +1,21 @@
 <#
 .SYNOPSIS
-    Regenerates the committed sha-marker files and their .globset definition companions (ADR-GLOBS:5,
-    ADR-GLOBS:6, ADR-GLOBS:9).
+    Regenerates the committed sha-marker files from the globsets' definitions and durable SHAs
+    (ADR-GLOBS:5, ADR-GLOBS:6, ADR-GLOBS:9).
 .DESCRIPTION
     For every globset — the declared registry AND the derived module sets (ADR-PROTGLOB:7) — or the named
-    ones, recomputes the durable SHA and writes .sha-markers/<name>.sha256 — exactly one line, the
-    64-hex-lowercase digest plus a trailing LF, no BOM — and the sister .sha-markers/<name>.globset — the
-    set's canonical definition representation, which changes exactly when the set's configuration changes,
-    never when member content changes. Each file is written only when its content actually changes
-    (idempotent). Marker and companion files whose globset no longer exists in either name space are
-    removed (one living version — no dead marker files), regardless of -Name. Run this after changing any
-    file a globset matches, and commit the marker files together with the change; the marker-freshness gate
-    fails a commit that forgets.
+    ones, recomputes the durable SHA and writes .sha-markers/<name>.yml — the set's canonical definition
+    representation plus its sha256 line, LF-terminated, no BOM — only when the content actually changes
+    (idempotent). The one file carries both signals: its body changes exactly when the set's configuration
+    changes, its sha256 line whenever member content changes. Marker files whose globset no longer exists
+    in either name space are removed (one living version — no dead marker files), regardless of -Name. Run
+    this after changing any file a globset matches, and commit the marker file together with the change;
+    the marker-freshness gate fails a commit that forgets.
 .PARAMETER Name
     The globset(s) to regenerate — a declared name or a derived one (module folder, internal module, kebab,
     or reserved infra name). Omit for every globset. Orphan removal always considers both full name spaces.
 .PARAMETER PassThru
-    Return the per-file report objects (Name, Status Written|Unchanged|Removed, Hash, Path) — one row per
-    written file, so a set may report a marker row and a companion row.
+    Return the per-file report objects (Name, Status Written|Unchanged|Removed, Hash, Path).
 .EXAMPLE
     Update-ShaMarker
 .EXAMPLE

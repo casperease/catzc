@@ -1,8 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# GENERATED FILE — do not edit the root copy. Single source of truth:
+# MANAGED ROOT FILE — single source of truth:
 #   automation/Catzc.Base.RootConfig/assets/root/catzc.sln
-# Regenerated on import by Build-RootConfig; edit the source, not the root copy. The note lives in this
-# comment block — not a leading header — because MSBuild's solution parser requires the Format Version
+# Linked to the repo root by Build-RootConfig on every import — the root file IS this file. The note lives in
+# this comment block — not a leading header — because MSBuild's solution parser requires the Format Version
 # line at the top, and the format's own '#' comments only start after it.
 #
 # IDE-ONLY solution. It exists solely so VS Code's C# Dev Kit auto-loads Catzc.Types.csproj (Dev Kit loads a

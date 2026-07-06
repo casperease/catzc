@@ -1,8 +1,8 @@
 /*
-  GENERATED at .vscode/markdown-preview-dark.css — the copy the editor reads is reproduced verbatim from
-  THIS file (automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css) on every import by
-  Build-RootConfig (rootconfig.yml; see docs/adr/repository/generated-root-configs.md). Edit this asset,
-  never the .vscode copy.
+  MANAGED at .vscode/markdown-preview-dark.css — the file the editor reads is linked to THIS file
+  (automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css) on every import by Build-RootConfig
+  (rootconfig.yml; see docs/adr/repository/generated-root-configs.md). The two are one file; edits land
+  here either way.
 */
 
 /* Dark theme for Markdown preview with warm nighttime gradient */

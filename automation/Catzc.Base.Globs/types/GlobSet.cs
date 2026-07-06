@@ -41,22 +41,17 @@ public sealed class GlobSet
     // The composed sets, resolved by GlobsConfig once every set is constructed (names validated there).
     private IReadOnlyList<GlobSet> composed = new GlobSet[0];
 
-    // The committed sha-marker file this globset's durable SHA is persisted in (ADR-GLOBS:1).
+    // The committed sha-marker file this globset is persisted in (ADR-GLOBS:1, ADR-GLOBS:9).
     public string MarkerPath
     {
-        get { return ".sha-markers/" + Name + ".sha256"; }
+        get { return ".sha-markers/" + Name + ".yml"; }
     }
 
-    // The committed definition companion beside the marker (ADR-GLOBS:9).
-    public string GlobSetPath
-    {
-        get { return ".sha-markers/" + Name + ".globset"; }
-    }
-
-    // The canonical definition representation persisted as the .globset companion (ADR-GLOBS:9): a
-    // deterministic, LF-terminated rendering of the set's configuration — fixed field order, patterns and
-    // compose references in declared order, empty sections omitted. It changes exactly when the definition
-    // changes, never when member content changes.
+    // The canonical definition representation — the marker's YAML body above its sha256 line (ADR-GLOBS:9):
+    // a deterministic, LF-terminated rendering of the set's configuration — fixed field order, patterns and
+    // compose references in declared order (patterns single-quoted: a plain '*' opener is not valid YAML),
+    // empty sections omitted. It changes exactly when the definition changes, never when member content
+    // changes.
     public string Representation
     {
         get
@@ -91,7 +86,7 @@ public sealed class GlobSet
                 text.Append("include:\n");
                 foreach (GlobPattern pattern in Include)
                 {
-                    text.Append("- ").Append(pattern.Pattern).Append('\n');
+                    text.Append("- '").Append(pattern.Pattern.Replace("'", "''")).Append("'\n");
                 }
             }
             if (Exclude.Count > 0)
@@ -99,11 +94,23 @@ public sealed class GlobSet
                 text.Append("exclude:\n");
                 foreach (GlobPattern pattern in Exclude)
                 {
-                    text.Append("- ").Append(pattern.Pattern).Append('\n');
+                    text.Append("- '").Append(pattern.Pattern.Replace("'", "''")).Append("'\n");
                 }
             }
             return text.ToString();
         }
+    }
+
+    // The marker file's full content (ADR-GLOBS:9): the definition representation plus the durable SHA —
+    // so one file carries both signals, and its diff separates "composition changed" (body lines) from
+    // "content changed" (the sha256 line).
+    public string MarkerContent(string sha256)
+    {
+        if (string.IsNullOrWhiteSpace(sha256))
+        {
+            throw new ArgumentException(string.Format("globset '{0}': MarkerContent requires the durable SHA", Name));
+        }
+        return Representation + "sha256: " + sha256 + "\n";
     }
 
     public GlobSet(string name, string description, string layer, string[] include, string[] exclude,
