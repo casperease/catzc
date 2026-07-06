@@ -6,4 +6,4 @@ scan:
 - '+ automation/Catzc.Base.VSCode/private/**'
 - '+ automation/Catzc.Base.VSCode/types/**'
 - '+ automation/Catzc.Base.VSCode/configs/**'
-sha256: ec0d4c2c97a64e82cf88cb37ce711abd9c3981b9d464901c0f4259b4be0a4ce9
+sha256: c9da150f0748f1776bfe7cee4ca85f088de3516fec0ec3f04eb467a26374bb58
