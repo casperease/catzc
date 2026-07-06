@@ -124,7 +124,7 @@ terms:
     - term: yoke
       meaning: 'the ''yoke'' of poka-yoke'
     - term: catzc
-      meaning: 'Catzc (this repository / module namespace) — the Cloud Automation Toolset, Zero Ceremony; the reserved source-code-level name; "cats" is its conversational cover term'
+      meaning: 'Catzc (this repository / module namespace) — the Cloud Automation Toolkit, Zero-Ceremony; the reserved source-code-level name; "cats" is its conversational cover term'
     - term: pathspecs
       meaning: 'git pathspecs (the path-filter arguments passed to git grep/git log)'
     - term: fileset
