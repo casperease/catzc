@@ -1,0 +1,14 @@
+# Managed-GUID registry — the single authored source of every GUID literal the repository carries.
+#
+# Every GUID found in tracked text (code, configs, fixtures, pipelines, docs) must be registered here; the
+# integrity gate enforces both directions — an unregistered guid fails the suite, and so does a dead entry
+# no tracked file references. Two entry classes: an external-facing GUID is registered as-is (its value is
+# fixed by the outside world); a placeholder GUID is minted with ConvertTo-Guid so the value spells its
+# `sentence`.
+#
+# Loaded via Get-Config -Config guids; validated by Assert-GuidsConfig. Entry shape:
+#   <snake_case_name>: { guid, description [, sentence] }
+guids:
+  ado_oauth_resource:
+    guid: 499b84ac-1321-427f-aa17-267ca6975798
+    description: Azure DevOps well-known OAuth resource id (Get-AdoAuthorizationHeader default -ResourceUrl)

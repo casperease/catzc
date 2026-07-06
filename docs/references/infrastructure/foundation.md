@@ -14,8 +14,8 @@ at deploy time (injected by their `PrePost.psm1`), so foundation must deploy bef
 
 - `short_name`: `fnd`; `environment_kind`: `subscription`.
 - One config per subscription, keyed by the per-subscription environment (`subn` non-production, `subp` production); no slot.
-- `configuration/<subscription>/<subn|subp>.yml` — shipped for the `shared`, `apex`, `nova`, and `flux` subscriptions (non-production and,
-  for shared/apex, production).
+- `configuration/<subn|subp>.yml` at the configuration root — the shared platform pair — plus `configuration/<customer>/<subn|subp>.yml`
+  for the `apex`, `nova`, and `flux` customers (non-production and, for apex, production).
 
 ## Modules used
 

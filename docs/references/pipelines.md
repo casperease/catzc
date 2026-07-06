@@ -49,10 +49,11 @@ has placeholder subscription GUIDs; the `sc-…` names are illustrative). They w
 
 - `ci-infrastructure.yaml` — CI engine for all three templates (`Assert-BicepTemplate` + `Build-Bicep`), no deploy. Registered on the
   infrastructure unit's sha-marker file (`.sha-markers/infrastructure.yml`).
-- `cd-shared.yaml` — CD for the central/shared subscription (standalone): build → deploy foundation (`subn`/`subp`) → deploy discovery
-  (`dev`/`test`/`preprod`/`prod`). No expedition (customer-only).
+- `cd-shared.yaml` — CD for the shared platform (standalone): `-Shared` build of the configuration-root slots → deploy foundation
+  (`subn`/`subp`) → deploy discovery (`dev`/`test`/`preprod`/`prod`). No expedition (customer-only). Every deploy's target is the service
+  connection's session, pinned with `-SubscriptionIdAssertIs`.
 - `cd-apex.yaml`, `cd-nova.yaml`, `cd-flux.yaml` — thin per-customer CDs that `extends:` `extends/cd-customer.yaml`, passing the customer
-  key + the env/slot/service-connection map. apex has both tiers; nova/flux are dev-only.
+  key + the env/slot/service-connection/assert map. apex has both tiers; nova/flux are dev-only.
 - `extends/cd-customer.yaml` — the one shared customer-CD structure: CI build, then foundation → discovery → expedition deploys
   (`${{ each }}` over three flat lists), foundation first (it owns the per-subscription Key Vault).
 

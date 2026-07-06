@@ -16,22 +16,24 @@ infrastructure/templates/<name>/
   options.yml                                      optional — override short_name (else derived) + classification
   PrePost.psm1                                     optional — build/deploy hooks
   configuration/
-    <subscription>/                                a subscription key from azure.yml
-      <env>.yml                                    one config file = one resource group (base slot)
-      <env>-<slot>.yml                             a special slot (blue/green, ordinal, …)
+    <env>.yml                                      a shared-platform config (base slot) — one file = one resource group
+    <env>-<slot>.yml                               a special slot (blue/green, ordinal, …)
+    <customer>/                                    a customer KEY from customer.yml
+      <env>[-<slot>].yml                           that customer's configs, same filename rules
 ```
 
 Two rules make this work:
 
-- **The `configuration/<subscription>/` folder names the deployment target.** `<subscription>` must be a key in `azure.yml` `subscriptions`,
-  and it must serve the config's environment. There are no config files directly under `configuration/`.
+- **The coordinate is the deployment target.** A config at the configuration ROOT is the shared platform's — its env must be served by
+  exactly one non-customer subscription, which is the resolved target. A subfolder is always a **customer key**, and its configs resolve to
+  that customer's one subscription serving the env. Every file resolves to exactly ONE subscription id (asserted at discovery).
 - **The filename is the identity.** `dev.yml` is the base (index-0) slot for environment `dev`; `dev-001.yml` is the `001` slot. **One
-  config file ⟷ one (subscription, env, slot) ⟷ one Azure resource group.** Listing the `configuration/` tree is the resource-group
+  config file ⟷ one (customer?, env, slot) ⟷ one Azure resource group.** Listing the `configuration/` tree is the resource-group
   inventory.
 
 ## Worked example
 
-A minimal `survey` template — two storage accounts and a Data Factory, deployed to `shared_nonprod` `dev`. It needs **no `options.yml`**:
+A minimal `survey` template — two storage accounts and a Data Factory, a shared-platform `dev` deployment. It needs **no `options.yml`**:
 the `short_name` (the 2–5 char, globally-unique Azure identifier segment) is derived from the folder name — `survey` → `surve` (the folder
 name is a human label; the derived `short_name` carries the Azure id). Add an `options.yml` with a `short_name:` override only when the
 derived value is unsuitable (e.g. `discovery` → `disco`, but you want `disc`).
@@ -58,7 +60,7 @@ module adfMain '../../modules/data-factory.bicep' = {
 }
 ```
 
-**`infrastructure/templates/survey/configuration/shared_nonprod/dev.yml`** — the parameter values for this one resource group. Resource
+**`infrastructure/templates/survey/configuration/dev.yml`** — the parameter values for this one resource group. Resource
 names are written **statically** here (the build passes them through unchanged); they follow the
 [naming standard](../../../adr/azure/naming-standard.md):
 
@@ -103,12 +105,13 @@ A template with no `PrePost.psm1`, or one that doesn't export a given hook, simp
 
 Templates resolve identity from two shared assets in `automation/Catzc.Azure/configs/`:
 
-- `azure.yml` — tenants, customers, environments, and subscriptions (the `<subscription>` folder keys, the env names and shortcodes, the
-  region codes, the `org` segment). Read via `Get-Config -Config azure`.
+- `azure.yml` — tenants, environments, and subscriptions (the env names and shortcodes, the region codes, the `org` segment, each
+  subscription's `customer`). Read via `Get-Config -Config azure`. Customer definitions live in `customer.yml` — the keys are the
+  configuration subfolder names.
 - `network.yml` — the per-environment IP plan, keyed by environment name. Read via `Get-Config -Config network`.
 
 To deploy to a new subscription or environment, add it to `azure.yml` first, then create the matching
-`configuration/<subscription>/<env>.yml`.
+`configuration/[<customer>/]<env>.yml`.
 
 ## Build and deploy
 
@@ -120,9 +123,10 @@ Build-Bicep  -Template survey -Environments dev         # render parameter files
 Deploy-Bicep -Template survey -Environment dev -DryRun  # preview; drop -DryRun to deploy
 ```
 
-`Build-Bicep` runs the prepare hook and renders one `parameters.<subscription>.<config>.json` per slot under `out/`. `Deploy-Bicep`
-validates the `az` session, runs the pre-deploy hook, calls `az deployment ... create`, sets tracking tags, and runs the post-deploy hook.
-On a devbox the subscription is inferred when exactly one serves the env; in a pipeline you pass `-Subscription` explicitly.
+`Build-Bicep` runs the prepare hook and renders one `parameters.[<customer>.]<config>.json` per slot under `out/`. `Deploy-Bicep` deploys
+into the **az session's subscription** (what `Connect-AzCli` / `az account set` — or, in a pipeline, the service connection — points at),
+runs the pre-deploy hook, calls `az deployment ... create`, sets tracking tags, and runs the post-deploy hook. In a pipeline you pin the
+target with `-SubscriptionIdAssertIs <guid>` (mandatory there); on a devbox the guard is optional.
 
 ## Verify
 

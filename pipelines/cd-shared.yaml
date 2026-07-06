@@ -8,10 +8,12 @@
 # Stage order is the safety property: foundation owns the Key Vault that discovery references, so
 # Deploy_Foundation must finish before Deploy_Discovery. Encoded via dependsOn.
 #
-# Tier -> subscription / service connection: shared_nonprod serves subn / dev / test (sc-shared-nonprod);
-# shared_prod serves subp / preprod / prod (sc-shared-prod). subn / subp are ordinary -Environment values
-# (the per-subscription env class). Every deploy names its subscription explicitly with -Subscription
-# (mandatory in a pipeline — see docs/adr/azure/data-model.md).
+# Tier -> service connection: sc-shared-nonprod logs into shared_nonprod (serves subn / dev / test);
+# sc-shared-prod into shared_prod (serves subp / preprod / prod). subn / subp are ordinary -Environment
+# values (the per-subscription env class). The deploy TARGET is the az session's subscription — what the
+# service connection logged into — and every deploy pins it with -SubscriptionIdAssertIs (mandatory in a
+# pipeline — see docs/adr/azure/data-model.md). The shared platform's configs live at the template's
+# configuration ROOT, which a non-customer session addresses.
 #
 # Reference only: deploying requires real Azure service connections and a non-placeholder azure.yml (the
 # shipped one has placeholder subscription GUIDs). The 'sc-shared-*' names are illustrative.
@@ -40,20 +42,19 @@ stages:
           - checkout: self
 
           # Build-Bicep writes each template to out/template/<name>; publish that as the artifact the
-          # deploy stages consume. -Subscriptions scopes the build to the shared subscriptions only
-          # (shared_nonprod serves subn/dev/test, shared_prod serves subp/preprod/prod) — customer
-          # subscriptions are built by their own customer CD.
+          # deploy stages consume. -Shared scopes the build to the configuration-root (shared platform)
+          # slots — customer subfolders are built by their own customer CD.
           - template: /pipelines/steps/invoke-automation.yaml
             parameters:
-              DisplayName: 'Build-Bicep foundation -Subscriptions shared_nonprod,shared_prod'
-              RunCommand: 'Build-Bicep foundation -Subscriptions shared_nonprod,shared_prod'
+              DisplayName: 'Build-Bicep foundation -Shared'
+              RunCommand: 'Build-Bicep foundation -Shared'
           - publish: out/template/foundation
             artifact: foundation
 
           - template: /pipelines/steps/invoke-automation.yaml
             parameters:
-              DisplayName: 'Build-Bicep discovery -Subscriptions shared_nonprod,shared_prod'
-              RunCommand: 'Build-Bicep discovery -Subscriptions shared_nonprod,shared_prod'
+              DisplayName: 'Build-Bicep discovery -Shared'
+              RunCommand: 'Build-Bicep discovery -Shared'
           - publish: out/template/discovery
             artifact: discovery
 
@@ -77,10 +78,10 @@ stages:
                   artifact: foundation
                 - template: /pipelines/steps/invoke-automation.yaml
                   parameters:
-                    DisplayName: 'Deploy-Bicep subn foundation -Subscription shared_nonprod (from artifact)'
+                    DisplayName: 'Deploy-Bicep subn foundation (session target: shared nonprod, asserted)'
                     Mode: azcli
                     ServiceConnection: 'sc-shared-nonprod'
-                    RunCommand: 'Deploy-Bicep -Environment subn -Template foundation -Subscription shared_nonprod -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
+                    RunCommand: 'Deploy-Bicep -Environment subn -Template foundation -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000002 -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
 
       - deployment: Foundation_subp
         displayName: 'foundation → subp (prod sub)'
@@ -96,10 +97,10 @@ stages:
                   artifact: foundation
                 - template: /pipelines/steps/invoke-automation.yaml
                   parameters:
-                    DisplayName: 'Deploy-Bicep subp foundation -Subscription shared_prod (from artifact)'
+                    DisplayName: 'Deploy-Bicep subp foundation (session target: shared prod, asserted)'
                     Mode: azcli
                     ServiceConnection: 'sc-shared-prod'
-                    RunCommand: 'Deploy-Bicep -Environment subp -Template foundation -Subscription shared_prod -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
+                    RunCommand: 'Deploy-Bicep -Environment subp -Template foundation -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000003 -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
 
   # --- Deploy discovery (reads the foundation Key Vault) — after foundation, main only -------------
   - stage: Deploy_Discovery
@@ -121,10 +122,10 @@ stages:
                   artifact: discovery
                 - template: /pipelines/steps/invoke-automation.yaml
                   parameters:
-                    DisplayName: 'Deploy-Bicep dev discovery -Subscription shared_nonprod (from artifact)'
+                    DisplayName: 'Deploy-Bicep dev discovery (session target: shared nonprod, asserted)'
                     Mode: azcli
                     ServiceConnection: 'sc-shared-nonprod'
-                    RunCommand: 'Deploy-Bicep -Environment dev -Template discovery -Subscription shared_nonprod -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+                    RunCommand: 'Deploy-Bicep -Environment dev -Template discovery -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000002 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
       - deployment: Discovery_test
         displayName: 'discovery → test (nonprod sub)'
@@ -140,10 +141,10 @@ stages:
                   artifact: discovery
                 - template: /pipelines/steps/invoke-automation.yaml
                   parameters:
-                    DisplayName: 'Deploy-Bicep test discovery -Subscription shared_nonprod (from artifact)'
+                    DisplayName: 'Deploy-Bicep test discovery (session target: shared nonprod, asserted)'
                     Mode: azcli
                     ServiceConnection: 'sc-shared-nonprod'
-                    RunCommand: 'Deploy-Bicep -Environment test -Template discovery -Subscription shared_nonprod -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+                    RunCommand: 'Deploy-Bicep -Environment test -Template discovery -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000002 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
       - deployment: Discovery_preprod
         displayName: 'discovery → preprod (prod sub)'
@@ -159,10 +160,10 @@ stages:
                   artifact: discovery
                 - template: /pipelines/steps/invoke-automation.yaml
                   parameters:
-                    DisplayName: 'Deploy-Bicep preprod discovery -Subscription shared_prod (from artifact)'
+                    DisplayName: 'Deploy-Bicep preprod discovery (session target: shared prod, asserted)'
                     Mode: azcli
                     ServiceConnection: 'sc-shared-prod'
-                    RunCommand: 'Deploy-Bicep -Environment preprod -Template discovery -Subscription shared_prod -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+                    RunCommand: 'Deploy-Bicep -Environment preprod -Template discovery -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000003 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
       - deployment: Discovery_prod
         displayName: 'discovery → prod (prod sub)'
@@ -178,7 +179,7 @@ stages:
                   artifact: discovery
                 - template: /pipelines/steps/invoke-automation.yaml
                   parameters:
-                    DisplayName: 'Deploy-Bicep prod discovery -Subscription shared_prod (from artifact)'
+                    DisplayName: 'Deploy-Bicep prod discovery (session target: shared prod, asserted)'
                     Mode: azcli
                     ServiceConnection: 'sc-shared-prod'
-                    RunCommand: 'Deploy-Bicep -Environment prod -Template discovery -Subscription shared_prod -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+                    RunCommand: 'Deploy-Bicep -Environment prod -Template discovery -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000003 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'

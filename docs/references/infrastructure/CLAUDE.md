@@ -19,7 +19,7 @@ A template article describes a template by **what it deploys and how it is confi
    dependency (e.g. it needs `foundation`'s Key Vault). Link the governing ADR(s) (`../../adr/azure/...`).
 3. **`## Resources`** — a bullet list of the Azure resources it creates, each naming the shared `*.bicep` module that provides it.
 4. **`## Configuration`** — its `short_name` and `environment_kind`, the environments/slots it targets, the
-   `configuration/<subscription>/<env>[-<slot>].yml` files shipped, and any `PrePost.psm1` behaviour.
+   `configuration/[<customer>/]<env>[-<slot>].yml` files shipped, and any `PrePost.psm1` behaviour.
 5. **`## Modules used`** — the shared modules it references, linking [modules](modules.md).
 
 `overview.md` and `modules.md` use lighter shapes: `overview.md` covers the folder layout and the build/deploy flow; `modules.md` lists the

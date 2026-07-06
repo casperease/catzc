@@ -87,7 +87,6 @@ The module's public functions, sorted into the domains above. This module owns n
 |                                                           | `Get-BicepTemplateConfiguration`  |
 |                                                           | `Set-BicepTemplateConfiguration`  |
 |                                                           | `Get-BicepTemplateCustomers`      |
-|                                                           | `Get-BicepTemplateSubscriptions`  |
 |                                                           | `Get-BicepTemplateSlots`          |
 | domain:2 — Deterministic resource naming                  | `Get-AzureResourceName`           |
 |                                                           | `Get-BicepResourceName`           |

@@ -126,7 +126,7 @@ Conventional folders come in two kinds, and the difference is _who relies on the
 
 - **Contract folders** — a tool hardcodes the literal name and programs against it, so a wrong name makes the content structurally invisible
   or non-functional. `automation/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `pipelines/steps/`, `.sha-markers/`, and
-  `infrastructure/templates/<name>/configuration/<subscription>/` are contract folders.
+  `infrastructure/templates/<name>/configuration/[<customer>/]` are contract folders.
 - **Semantic folders** — a _reader_ infers the meaning; no tool hardcodes the name, and the internal layout is freeform. `docs/`,
   `docs/notes/**`, `infrastructure/modules/`, and the ad-hoc workspaces under `out/` are semantic folders.
 
@@ -216,8 +216,9 @@ author's, but the files are `.md`.
 
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's
-`configuration/<subscription>/<env>[-<slot>].yml` tree is the resource-group inventory — one config file is one resource group. The folder
-name is the readable label; the Azure identity is a separate `short_name`. See [the data model](../azure/data-model.md) and
+`configuration/[<customer>/]<env>[-<slot>].yml` tree is the resource-group inventory — one config file is one resource group; a config at
+the configuration root is the shared platform's, and a subfolder is always a customer key. The folder name is the readable label; the
+Azure identity is a separate `short_name`. See [the data model](../azure/data-model.md) and
 [the naming standard](../azure/naming-standard.md).
 
 **`pipelines/`** is flat: pipelines are named `<type>-<name>.yaml` (`cron`/`ci`/`cd`/`deploy`/`input`) directly in the folder, the runner

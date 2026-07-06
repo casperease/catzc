@@ -141,6 +141,8 @@ terms:
       meaning: 'a language''s standard library (stdlib)'
     - term: gpgsign
       meaning: 'git''s commit.gpgsign config key (disabled in Test-GitHistoryClean test repos)'
+    - term: fxd
+      meaning: 'the git clean -fxd flag set (force + remove ignored + directories; Reset-GitCleanFxd)'
   abbreviation:
     - term: auth
       meaning: 'authentication / authorization'
@@ -675,6 +677,8 @@ terms:
       meaning: 'the standard error stream (stderr)'
     - term: guid
       meaning: 'a globally unique identifier (GUID)'
+    - term: guids
+      meaning: 'plural of GUID; the managed-GUID registry (Catzc.Base.QualityGates configs/guids.yml)'
     - term: amsi
       meaning: 'Windows Antimalware Scan Interface (AMSI)'
     - term: appdomain
@@ -738,6 +742,8 @@ terms:
       meaning: 'PowerShell cmdlet'
     - term: cmdlets
       meaning: 'PowerShell cmdlets'
+    - term: cnotin
+      meaning: 'PowerShell case-sensitive -cnotin containment operator'
     - term: confirmpreference
       meaning: 'PowerShell $ConfirmPreference variable'
     - term: erroraction

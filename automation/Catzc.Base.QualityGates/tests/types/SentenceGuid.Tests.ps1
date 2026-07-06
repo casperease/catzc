@@ -53,7 +53,7 @@ Describe 'SentenceGuid' -Tag 'L0', 'logic' {
             ([string][char]0x00E9 * 100)
             'a'
             ('the quick brown fox ' * 50)
-            "tabs`tand`nnewlines"
+            "tabs`t and`n newlines"
         )
         foreach ($sentence in $hostile) {
             $result = [Catzc.Base.QualityGates.SentenceGuid]::Convert($sentence)

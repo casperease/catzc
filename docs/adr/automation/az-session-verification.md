@@ -35,6 +35,17 @@ token alone. Every auth path proves itself against that config, so the keys that
 
 - [Config defines correct](#config-defines-correct)
 
+### Rule ADR-AZSESS:5
+
+The **reverse lookup** is the fourth layer: `Get-AzCliSessionSubscription` (in `Catzc.Azure.Cli`) reads the session's active subscription
+(`Get-CurrentAzSubscription`) and resolves its GUID to the declared `azure.yml` identity — name, customer, tenant — throwing when the
+session targets a subscription azure.yml does not declare. It makes the session usable as a **selector** (the deploy target follows the
+service connection) while config stays the authority on what exists; it is read-only like every verification (ADR-AZSESS:2), and the
+`-SubscriptionIdAssertIs` guard on the deploy surface is its explicit pin (see
+[data-model](../azure/data-model.md#rule-adr-datamod7)).
+
+- [The reverse lookup](#the-reverse-lookup)
+
 ## Context
 
 Working with `az` involves three genuinely different questions that are easy to conflate: is the tool installed, is the session pointed at a
@@ -70,6 +81,16 @@ call anywhere (it has no side effects) and keeps the connecting logic in one pla
 and the expected-vs-actual subscription/tenant. `Test-` and `Assert-` are thin wrappers over it, and the config-aware functions resolve
 identity then call it — so there is exactly one place that decides what "connected" means, and the bool and the throw can never disagree.
 
+### The reverse lookup
+
+The forward layers answer "is the session pointed where config says it should be?". The reverse lookup answers the complementary question —
+"WHERE is the session pointed, in config terms?" — and is what lets the session act as the deploy-target selector: in a pipeline the
+service connection logs the session into one subscription, and `Get-AzCliSessionSubscription` maps that back to the declared `azure.yml`
+identity (name, customer, tenant) so the rest of the platform reasons in config vocabulary. A session pointed at an undeclared subscription
+throws — config defines what exists (ADR-AZSESS:4), so an unknown target is an error, never a fallback. The lookup is read-only
+(ADR-AZSESS:2); the explicit pin against mis-wiring is the deploy surface's `-SubscriptionIdAssertIs` guard, mandatory in pipelines
+([data-model](../azure/data-model.md#rule-adr-datamod7)).
+
 ### Config defines correct
 
 The configuration is the sole authority on the target: `azure.yml` says which tenant and subscription are correct; `ado.yml` says which
@@ -84,6 +105,9 @@ correctness check is config-driven, the config keys that express it (tenant, sub
   extension checks, and the verification functions below). No verification function logs in.
 - **`Get-AzCliConnectionState`** (`Catzc.Azure.Cli`) is the shared comparison; `Assert/Test-AzCliConnected` (by GUIDs) and
   `Assert/Test-AzCliIsConnected` (by `azure.yml` subscription name, via `Get-AzureSubscription`) all route through it.
+- **`Get-AzCliSessionSubscription`** (`Catzc.Azure.Cli`) owns the reverse lookup (session GUID → declared identity), built on
+  `Get-CurrentAzSubscription`; the deploy path (`Get-BicepDeploymentContext`, `Deploy-Bicep`, `Set-BicepTrackingTagSet`) consumes it and is
+  the mock seam tests isolate.
 - **Code review** keeps the layers apart: a session check that reads `azure.yml` belongs in the config-aware layer, a generic one in the
   by-args layer, and neither belongs in `Catzc.Tooling.Core`.
 

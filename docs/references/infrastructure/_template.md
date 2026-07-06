@@ -12,7 +12,7 @@ dependency (for example, it needs `foundation`'s Key Vault). Link the governing 
 
 - `short_name`: `<xxx>`; `environment_kind`: `standard` (per environment) or `subscription` (once per subscription).
 - `<the environments, and slots if any, it targets>`
-- `configuration/<subscription>/<env>[-<slot>].yml` — `<which subscriptions are shipped>`.
+- `configuration/[<customer>/]<env>[-<slot>].yml` — `<which root/customer configs are shipped>`.
 - `<any PrePost.psm1 behaviour, e.g. injecting a secret from foundation's Key Vault>`
 
 ## Modules used

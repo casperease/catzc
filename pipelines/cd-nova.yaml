@@ -3,6 +3,8 @@
 # nova is dev-only (nonprod tier only): one foundation per-sub env (subn), one discovery env (dev), one
 # expedition slot (dev-001). Add the prod tier (subp / preprod / prod) when nova grows. All structure
 # lives in /pipelines/extends/cd-customer.yaml; triggers live here (honored only at the pipeline root).
+# The target subscription is what the service connection logs into; the subscriptionIdAssertIs GUID
+# (from azure.yml) pins it.
 #
 # Reference shape: 'sc-nova-nonprod' is illustrative until real service connections + a non-placeholder
 # azure.yml exist.
@@ -24,8 +26,8 @@ extends:
   parameters:
     Customer: nova
     Foundations:
-      - { env: subn, subscription: nova_nonprod, serviceConnection: sc-nova-nonprod }
+      - { env: subn, serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000006 }
     Discoveries:
-      - { env: dev, subscription: nova_nonprod, serviceConnection: sc-nova-nonprod }
+      - { env: dev, serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000006 }
     Expeditions:
-      - { env: dev, slot: '001', subscription: nova_nonprod, serviceConnection: sc-nova-nonprod }
+      - { env: dev, slot: '001', serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000006 }
