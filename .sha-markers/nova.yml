@@ -3,11 +3,11 @@ description: Deployable unit - customer nova's foundation (shared surface + the 
 layer: deployable-unit
 pipeline: cd-nova
 compose:
-- foundation-shared
+- template-azure-subscription-foundation
 include:
 - 'infrastructure/templates/foundation/configuration/nova/**'
 resolved:
-  foundation-shared:
+  template-azure-subscription-foundation:
     include:
     - 'infrastructure/templates/foundation/**'
     - 'infrastructure/modules/**'

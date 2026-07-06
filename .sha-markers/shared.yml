@@ -3,11 +3,11 @@ description: Deployable unit - the shared platform's foundation (shared surface 
 layer: deployable-unit
 pipeline: cd-shared
 compose:
-- foundation-shared
+- template-azure-subscription-foundation
 include:
 - 'infrastructure/templates/foundation/configuration/*.yml'
 resolved:
-  foundation-shared:
+  template-azure-subscription-foundation:
     include:
     - 'infrastructure/templates/foundation/**'
     - 'infrastructure/modules/**'

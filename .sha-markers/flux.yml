@@ -3,11 +3,11 @@ description: Deployable unit - customer flux's foundation (shared surface + the 
 layer: deployable-unit
 pipeline: cd-flux
 compose:
-- foundation-shared
+- template-azure-subscription-foundation
 include:
 - 'infrastructure/templates/foundation/configuration/flux/**'
 resolved:
-  foundation-shared:
+  template-azure-subscription-foundation:
     include:
     - 'infrastructure/templates/foundation/**'
     - 'infrastructure/modules/**'

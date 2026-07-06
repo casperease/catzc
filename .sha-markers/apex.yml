@@ -3,11 +3,11 @@ description: Deployable unit - customer apex's foundation (shared surface + the 
 layer: deployable-unit
 pipeline: cd-apex
 compose:
-- foundation-shared
+- template-azure-subscription-foundation
 include:
 - 'infrastructure/templates/foundation/configuration/apex/**'
 resolved:
-  foundation-shared:
+  template-azure-subscription-foundation:
     include:
     - 'infrastructure/templates/foundation/**'
     - 'infrastructure/modules/**'
