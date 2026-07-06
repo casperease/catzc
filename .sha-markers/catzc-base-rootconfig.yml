@@ -1,6 +1,6 @@
 name: catzc-base-rootconfig
 description: Derived module scope - automation/Catzc.Base.RootConfig/**
 layer: module
-scan:
-- '+ automation/Catzc.Base.RootConfig/**'
+include:
+- 'automation/Catzc.Base.RootConfig/**'
 sha256: 2563b6ccf97f32c4ac5061d78cf0a27098354987b1f3f17b20828a673f13ce4e

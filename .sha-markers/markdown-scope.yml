@@ -1,9 +1,10 @@
 name: markdown-scope
 description: The markdown integrity scan's inputs - in-scope markdown plus the markdownlint config.
 layer: scope
-scan:
-- '+ **/*.md'
-- '+ .markdownlint.yml'
-- '- docs/notes/**'
-- '- automation/.vendor/**'
+include:
+- '**/*.md'
+- '.markdownlint.yml'
+exclude:
+- 'docs/notes/**'
+- 'automation/.vendor/**'
 sha256: ffc593546ff80fbd6064c38a0786020dfeb759ffd01268d858c5b64a904090eb

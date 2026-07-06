@@ -4,10 +4,14 @@ layer: deployable-unit
 pipeline: cd-nova
 compose:
 - template-azure-subscription-foundation
-scan:
-- '+ infrastructure/templates/foundation/**'
-- '+ infrastructure/modules/**'
-- '- infrastructure/templates/foundation/configuration/*.yml'
-- '- infrastructure/templates/foundation/configuration/*/**'
-- '+ infrastructure/templates/foundation/configuration/nova/**'
+include:
+- 'infrastructure/templates/foundation/configuration/nova/**'
+resolved:
+  template-azure-subscription-foundation:
+    include:
+    - 'infrastructure/templates/foundation/**'
+    - 'infrastructure/modules/**'
+    exclude:
+    - 'infrastructure/templates/foundation/configuration/*.yml'
+    - 'infrastructure/templates/foundation/configuration/*/**'
 sha256: 5220a72b8e820a40d4a049a898f87ce5c35b9b5ecfd38fba40d4c4c92f721625

@@ -4,10 +4,14 @@ layer: deployable-unit
 pipeline: cd-flux
 compose:
 - template-azure-subscription-foundation
-scan:
-- '+ infrastructure/templates/foundation/**'
-- '+ infrastructure/modules/**'
-- '- infrastructure/templates/foundation/configuration/*.yml'
-- '- infrastructure/templates/foundation/configuration/*/**'
-- '+ infrastructure/templates/foundation/configuration/flux/**'
+include:
+- 'infrastructure/templates/foundation/configuration/flux/**'
+resolved:
+  template-azure-subscription-foundation:
+    include:
+    - 'infrastructure/templates/foundation/**'
+    - 'infrastructure/modules/**'
+    exclude:
+    - 'infrastructure/templates/foundation/configuration/*.yml'
+    - 'infrastructure/templates/foundation/configuration/*/**'
 sha256: 8ed0517e0d59af006c85a67d172ebd15976c05cadd8061c5d2d3f9b20dd4ff69

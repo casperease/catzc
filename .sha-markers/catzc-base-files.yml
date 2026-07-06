@@ -1,6 +1,6 @@
 name: catzc-base-files
 description: Derived module scope - automation/Catzc.Base.Files/**
 layer: module
-scan:
-- '+ automation/Catzc.Base.Files/**'
+include:
+- 'automation/Catzc.Base.Files/**'
 sha256: c5ea60580d283ba6396b97b8b182d81939659769f4cff2bc4dbf0a55d7cf2461

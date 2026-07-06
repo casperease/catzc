@@ -6,6 +6,6 @@ verify:
   modules:
   - Catzc.Azure.Templates
   level: 2
-scan:
-- '+ infrastructure/**'
+include:
+- 'infrastructure/**'
 sha256: cd125ff3508d564757ad174f584ad2741c814d984037055b1a9f459f72213be8

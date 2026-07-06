@@ -1,6 +1,6 @@
 name: catzc-azure-devops-buildvalidation
 description: Derived module scope - automation/Catzc.Azure.DevOps.BuildValidation/**
 layer: module
-scan:
-- '+ automation/Catzc.Azure.DevOps.BuildValidation/**'
+include:
+- 'automation/Catzc.Azure.DevOps.BuildValidation/**'
 sha256: 75ee2c714fea577cf6bac3b76c705ecb066fba6a70c85044324d37bbb03aa2aa

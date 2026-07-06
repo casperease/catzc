@@ -1,6 +1,6 @@
 name: catzc-internal-testkit
 description: Derived internal-module scope - automation/.internal/Catzc.Internal.TestKit.psm1
 layer: module
-scan:
-- '+ automation/.internal/Catzc.Internal.TestKit.psm1'
+include:
+- 'automation/.internal/Catzc.Internal.TestKit.psm1'
 sha256: 71b5ceb7bc9daca34120795e7af1e8e3207c9d27efb82b2da9ee04cad8fee487

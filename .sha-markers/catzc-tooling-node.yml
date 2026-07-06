@@ -1,6 +1,6 @@
 name: catzc-tooling-node
 description: Derived module scope - automation/Catzc.Tooling.Node/**
 layer: module
-scan:
-- '+ automation/Catzc.Tooling.Node/**'
+include:
+- 'automation/Catzc.Tooling.Node/**'
 sha256: e9f36e235a6d7d99cab743b924e7f050e9d6f8731d6bc86b7a59ed176a52e471

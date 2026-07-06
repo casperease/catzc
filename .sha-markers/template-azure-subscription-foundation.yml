@@ -5,9 +5,10 @@ verify:
   modules:
   - Catzc.Azure.Templates
   level: 2
-scan:
-- '+ infrastructure/templates/foundation/**'
-- '+ infrastructure/modules/**'
-- '- infrastructure/templates/foundation/configuration/*.yml'
-- '- infrastructure/templates/foundation/configuration/*/**'
+include:
+- 'infrastructure/templates/foundation/**'
+- 'infrastructure/modules/**'
+exclude:
+- 'infrastructure/templates/foundation/configuration/*.yml'
+- 'infrastructure/templates/foundation/configuration/*/**'
 sha256: 483ccc6cb98de6d5526716553b524eaec3ff9168ce9ed58d11aaa2c4138b08a9

@@ -1,6 +1,6 @@
 name: catzc-base-asserts
 description: Derived module scope - automation/Catzc.Base.Asserts/**
 layer: module
-scan:
-- '+ automation/Catzc.Base.Asserts/**'
+include:
+- 'automation/Catzc.Base.Asserts/**'
 sha256: c919e2fda3507e9c0109a38b7c859933bfc8679cc983d16b77335ed4091c5971

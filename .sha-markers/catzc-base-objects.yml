@@ -1,6 +1,6 @@
 name: catzc-base-objects
 description: Derived module scope - automation/Catzc.Base.Objects/**
 layer: module
-scan:
-- '+ automation/Catzc.Base.Objects/**'
+include:
+- 'automation/Catzc.Base.Objects/**'
 sha256: 4cc186cb7fa09bbf357a9c44839eb4e2495c6b199ab79f1b774a7e2d1a42359c
