@@ -223,24 +223,11 @@ function Test-Automation {
         }
 
         # -Rule: narrow the work-list to the files carrying a test that cites one of the given ADR rules (the
-        # provenance filter). The worker also filters within a file via IncludeTag, so a file mixing cited and
-        # uncited tests runs only the cited ones. Citations come from the discovery pass (all tests, any tier).
+        # provenance filter). The worker also filters within a file via IncludeTag, so a file that mixes matched
+        # and other tests runs only the matched ones; this keeps whole non-matching files off the work-list.
         if ($Rule.Count -gt 0) {
-            $ruleWanted = [System.Collections.Generic.HashSet[string]]::new([string[]]$Rule, [System.StringComparer]::Ordinal)
-            $ruleFiles = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-            foreach ($test in @($discovery.Tests)) {
-                if (-not $test.ScriptBlock -or -not $test.ScriptBlock.File) {
-                    continue
-                }
-                foreach ($citation in (Get-TestRuleTags -Test $test)) {
-                    if ($ruleWanted.Contains($citation)) {
-                        [void]$ruleFiles.Add($test.ScriptBlock.File)
-                        break
-                    }
-                }
-            }
             $testFiles = [System.Collections.Generic.List[string]]::new(
-                [string[]]@($testFiles | Where-Object { $ruleFiles.Contains($_) }))
+                [string[]] (Select-RuleTaggedFiles -TestFile @($testFiles) -Discovery $discovery -Rule $Rule))
             if ($testFiles.Count -eq 0) {
                 throw "No test cites $($Rule -join ', ') — nothing to run for -Rule."
             }
