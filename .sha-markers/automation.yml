@@ -4,4 +4,4 @@ layer: track
 pipeline: ci-automation
 include:
 - 'automation/**'
-sha256: 3f7d18f74226916b3af18d73360a54ff8d39e3b1f8e37df580c2a15a4fcbc010
+sha256: 68cd2104c42a7fa2d03de932294dce23f2a12c59fd5cba58ccd0069f8e5460ef
