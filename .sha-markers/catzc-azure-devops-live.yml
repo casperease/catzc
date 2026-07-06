@@ -6,4 +6,4 @@ scan:
 - '+ automation/Catzc.Azure.DevOps/private/**'
 - '+ automation/Catzc.Azure.DevOps/types/**'
 - '+ automation/Catzc.Azure.DevOps/configs/**'
-sha256: 2ac310bb4d396fc34990dd83af1e16523b89bc7cf586e2a212faf24a9201de30
+sha256: 7cf575b2fd17f461cb5a43c0789cae9e080eb43271f11106ab735e80f31fb68e
