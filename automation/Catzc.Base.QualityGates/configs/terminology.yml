@@ -99,8 +99,6 @@ terms:
       meaning: 'the pre/post extension-module pattern (''prepost'')'
     - term: qualitygates
       meaning: 'reference-doc slug segment for the Catzc.Base.QualityGates module'
-    - term: rebaser
-      meaning: 'the Build-Readme component that rebases a source''s relative links to the target folder'
     - term: reformatter
       meaning: 'a reformatter'
     - term: reflog
