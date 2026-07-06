@@ -3,4 +3,4 @@ description: Derived module scope - automation/Catzc.Base.QualityGates/**
 layer: module
 scan:
 - '+ automation/Catzc.Base.QualityGates/**'
-sha256: 1943a9dd65e0e1a58574c03773ef33ce459b6c1ea89e079ffaec9f0bddd2100e
+sha256: be2202f5e36d2a6e11d61491e4ec7912f224a5b47692b4441b4bf2a41ae9a99d
