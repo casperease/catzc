@@ -3,4 +3,4 @@ description: Derived module scope - automation/Catzc.Azure.DevOps.BuildValidatio
 layer: module
 scan:
 - '+ automation/Catzc.Azure.DevOps.BuildValidation/**'
-sha256: 75ee2c714fea577cf6bac3b76c705ecb066fba6a70c85044324d37bbb03aa2aa
+sha256: 38fc39c138df38f1e9b24838736e47d3f95f607f344430ae9cb032545a8dfb2a
