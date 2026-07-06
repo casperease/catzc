@@ -8,4 +8,4 @@ verify:
 include:
 - 'infrastructure/templates/foundation/**'
 - 'infrastructure/modules/**'
-sha256: cc2c184496e2a13844f3cde07e2d921bce4cfe1d398586b2aea0d1c2f2570b5b
+sha256: cd125ff3508d564757ad174f584ad2741c814d984037055b1a9f459f72213be8

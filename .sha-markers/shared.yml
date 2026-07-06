@@ -6,4 +6,4 @@ compose:
 - foundation-shared
 include:
 - 'infrastructure/templates/foundation/configuration/*.yml'
-sha256: 483ccc6cb98de6d5526716553b524eaec3ff9168ce9ed58d11aaa2c4138b08a9
+sha256: 9aff95cc9939789ea505340428099a39b21e4a3cc71c423cb31a8a5e3fd8d929

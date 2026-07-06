@@ -6,4 +6,4 @@ compose:
 - foundation-shared
 include:
 - 'infrastructure/templates/foundation/configuration/nova/**'
-sha256: 483ccc6cb98de6d5526716553b524eaec3ff9168ce9ed58d11aaa2c4138b08a9
+sha256: 5220a72b8e820a40d4a049a898f87ce5c35b9b5ecfd38fba40d4c4c92f721625

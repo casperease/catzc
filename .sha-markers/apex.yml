@@ -6,4 +6,4 @@ compose:
 - foundation-shared
 include:
 - 'infrastructure/templates/foundation/configuration/apex/**'
-sha256: 483ccc6cb98de6d5526716553b524eaec3ff9168ce9ed58d11aaa2c4138b08a9
+sha256: 331118c5271e3044f597a639461bd7d9b544194bb29812e88579087206c557f5
