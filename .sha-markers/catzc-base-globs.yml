@@ -3,4 +3,4 @@ description: Derived module scope - automation/Catzc.Base.Globs/**
 layer: module
 scan:
 - '+ automation/Catzc.Base.Globs/**'
-sha256: 491465395cfeb4b0869add2cde194e5b2d0faee0d8956a7a1008c03e2e6d9c39
+sha256: 5fd1190101a6e639109a99b0bf93ed4f5771594e3adcea8d81b5fbd4970c5dc2
