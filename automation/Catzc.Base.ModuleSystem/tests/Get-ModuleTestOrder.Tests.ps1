@@ -1,5 +1,5 @@
 Describe 'Get-ModuleTestOrder' -Tag 'L0', 'logic' {
-    It 'orders each module after its declared module dependencies (foundation-first)' {
+    It 'orders each module after its declared module dependencies (dependencies-first)' {
         Mock Get-AutomationModules { @('Catzc.A', 'Catzc.B', 'Catzc.C') } -ModuleName Catzc.Base.ModuleSystem
         Mock Get-ModuleGroupConfig { [ordered]@{} } -ModuleName Catzc.Base.ModuleSystem
         Mock Get-ModuleDependencyConfig {
@@ -12,14 +12,14 @@ Describe 'Get-ModuleTestOrder' -Tag 'L0', 'logic' {
     It 'expands a group dependency to all its members (and honours the group-internal layering)' {
         Mock Get-AutomationModules { @('Catzc.App', 'Catzc.Base.A', 'Catzc.Base.B') } -ModuleName Catzc.Base.ModuleSystem
         Mock Get-ModuleGroupConfig {
-            [ordered]@{ Base = [ordered]@{ 'Catzc.Base.A' = @(); 'Catzc.Base.B' = @('Catzc.Base.A') } }
+            [ordered]@{ Widgets = [ordered]@{ 'Catzc.Base.A' = @(); 'Catzc.Base.B' = @('Catzc.Base.A') } }
         } -ModuleName Catzc.Base.ModuleSystem
         Mock Get-ModuleDependencyConfig {
-            [ordered]@{ 'Catzc.App' = @('Base') }
+            [ordered]@{ 'Catzc.App' = @('Widgets') }
         } -ModuleName Catzc.Base.ModuleSystem
 
         $order = @(Get-ModuleTestOrder)
-        # App depends on the whole Base group -> after every member
+        # App depends on the whole Widgets group -> after every member
         [array]::IndexOf($order, 'Catzc.App') | Should -BeGreaterThan ([array]::IndexOf($order, 'Catzc.Base.A'))
         [array]::IndexOf($order, 'Catzc.App') | Should -BeGreaterThan ([array]::IndexOf($order, 'Catzc.Base.B'))
         # within Base, B depends on A

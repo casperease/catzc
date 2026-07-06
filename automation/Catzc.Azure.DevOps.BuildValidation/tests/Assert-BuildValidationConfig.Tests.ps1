@@ -7,11 +7,14 @@ Describe 'Assert-BuildValidationConfig' -Tag 'L0', 'logic' {
             param($config)
             & (Get-Module Catzc.Azure.DevOps.BuildValidation) { param($inner) Assert-BuildValidationConfig $inner } $config
         }
+        # Neutral fixture globset/pipeline names (widget/gadget) — Assert-BuildValidationConfig checks SHAPE
+        # only (globset existence is enforced by the integrity test below and at runtime), so a logic fixture
+        # must not borrow real deployable-unit names (ADR-TEST:3).
         $script:valid = [ordered]@{
             branch      = 'main'
             validations = @(
-                [ordered]@{ globset = 'automation' }
-                [ordered]@{ globset = 'template-azure-subscription-foundation'; pipeline = 'ci-foundation'; blocking = $false; display_name = 'x' }
+                [ordered]@{ globset = 'widget' }
+                [ordered]@{ globset = 'gadget'; pipeline = 'cd-gadget'; blocking = $false; display_name = 'x' }
             )
         }
     }
@@ -26,7 +29,7 @@ Describe 'Assert-BuildValidationConfig' -Tag 'L0', 'logic' {
         @{ why = 'an empty branch'; config = [ordered]@{ branch = ' '; validations = @([ordered]@{ globset = 'a' }) } }
         @{ why = 'a missing validations list'; config = [ordered]@{ branch = 'main' } }
         @{ why = 'an empty validations list'; config = [ordered]@{ branch = 'main'; validations = @() } }
-        @{ why = 'a non-mapping entry'; config = [ordered]@{ branch = 'main'; validations = @('automation') } }
+        @{ why = 'a non-mapping entry'; config = [ordered]@{ branch = 'main'; validations = @('widget') } }
         @{ why = 'an entry without globset'; config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ pipeline = 'x' }) } }
         @{ why = 'an unknown entry key'; config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ globset = 'a'; nope = 1 }) } }
         @{ why = 'a non-bool blocking'; config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ globset = 'a'; blocking = 'yes' }) } }

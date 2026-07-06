@@ -5,7 +5,7 @@ Describe 'Assert-FilesConfig' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.ModuleSystem {
             $config = [ordered]@{ modules = [ordered]@{
                     '.internal'             = [ordered]@{ packages = [ordered]@{ entrypoint = @('importer.ps1') } }
-                    'Catzc.Base.Repository' = [ordered]@{ packages = [ordered]@{
+                    'Catzc.Base.Alpha' = [ordered]@{ packages = [ordered]@{
                             root_configs = @('.editorconfig')
                             gitignore    = @('.gitignore')
                         }
@@ -43,7 +43,7 @@ Describe 'Assert-FilesConfig' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.ModuleSystem {
             { Assert-FilesConfig ([ordered]@{ modules = [ordered]@{
                             '.internal'             = [ordered]@{ packages = [ordered]@{ dup = @('a') } }
-                            'Catzc.Base.Repository' = [ordered]@{ packages = [ordered]@{ dup = @('b') } }
+                            'Catzc.Base.Alpha' = [ordered]@{ packages = [ordered]@{ dup = @('b') } }
                         }
                     }) } | Should -Throw '*duplicate package*'
         }

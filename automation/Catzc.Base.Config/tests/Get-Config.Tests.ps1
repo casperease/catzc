@@ -9,10 +9,17 @@ Describe 'Get-Config' -Tag 'L0' {
 
     Context 'caching, errors, and name binding' -Tag 'logic' {
         # Function behaviour, independent of which configs are shipped: memoization, the not-found error
-        # path, and parameter-binding validation (ADR-TEST:14). 'tools' is just a convenient real name here.
+        # path, and parameter-binding validation (ADR-TEST:14). The caching test owns a fixture config
+        # through the Resolve-ConfigEntry seam, so it never reads a shipped config (ADR-TEST:3).
         It 'returns the same cached object reference on repeat calls' {
-            $first = Get-Config -Config tools
-            $second = Get-Config -Config tools
+            $dir = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path $dir | Out-Null
+            Set-Content -Path (Join-Path $dir 'myconfig.yml') -Value 'k: v'
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'myconfig' } -MockWith {
+                @{ Name = 'myconfig'; Module = 'Catzc.Base.Config'; Path = (Join-Path $dir 'myconfig.yml') }
+            }
+            $first = Get-Config -Config myconfig
+            $second = Get-Config -Config myconfig
             [object]::ReferenceEquals($first, $second) | Should -BeTrue
         }
 
