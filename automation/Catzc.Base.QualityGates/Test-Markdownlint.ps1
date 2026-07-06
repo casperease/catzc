@@ -38,9 +38,9 @@ function Test-Markdownlint {
             '!automation/.vendor'
             '!docs/notes'
             '!**/node_modules'
-            # Generated README copy-ins (Catzc.Base.Docs) are derived artifacts, not source: they are
-            # gitignored and their authored source under docs/ is what is linted. Their rebased links can
-            # also exceed the line-length rule. See docs/adr/repository/generated-readmes.md (ADR-README:7).
+            # Generated README links (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored
+            # links whose authored source under docs/ is what is linted — linting through the link would
+            # double-report the source. See docs/adr/repository/generated-readmes.md (ADR-README:7).
             '!**/README.md'
         ),
 

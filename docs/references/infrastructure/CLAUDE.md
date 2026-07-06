@@ -7,8 +7,8 @@ template article; when in doubt, match `foundation.md` (the smallest complete ex
 
 Each article is also the **link source** for its folder's generated `README.md` (module `Catzc.Base.Docs`; see
 [generated-readmes](../../adr/repository/generated-readmes.md)): the README is a filesystem link to the article, not a copy. The mapping
-from folder to source lives in `automation/Catzc.Base.Docs/configs/readme.yml`. Author links relative to _this_ directory — the docs tree
-is the reading surface where they resolve; the README is a pointer to the article, not a second rendering.
+from folder to source lives in `automation/Catzc.Base.Docs/configs/readme.yml`. Author links relative to _this_ directory — the docs tree is
+the reading surface where they resolve; the README is a pointer to the article, not a second rendering.
 
 ## Document structure — a template article
 

@@ -46,8 +46,8 @@ A globset's identity is its durable SHA: per member file, SHA-256 over the CR-st
 ### Rule ADR-GLOBS:6
 
 A commit that changes any file a globset matches also carries that globset's regenerated sha-marker file. A stale, missing, or orphaned
-marker file fails the integrity gate. No globset may have a marker file (`.sha-markers/*.yml`) as a member: marker files are outputs of
-the hash, never inputs. The config itself is an ordinary tracked file — a globset may include it, and the repository-wide CI set does, so a
+marker file fails the integrity gate. No globset may have a marker file (`.sha-markers/*.yml`) as a member: marker files are outputs of the
+hash, never inputs. The config itself is an ordinary tracked file — a globset may include it, and the repository-wide CI set does, so a
 config edit is never uncovered. A corollary is the PR surface: because the markers ride with every change and `.sha-markers/` is a
 dot-folder that sorts to the top of a PR's file view, the marker diff IS the change's area-of-control report — no extra machinery.
 

@@ -32,10 +32,9 @@ clean in scope.
 
 ### domain:3 — Sha-marker files
 
-Writing and verifying `.sha-markers/<name>.yml` — one full-information YAML per globset carrying its canonical definition plus its
-`sha256:` durable SHA, LF-terminated, written only when changed, orphans removed. The freshness query reports Fresh/Stale/Missing/Orphaned
-per set; the module's integrity test asserts all-Fresh, which is what makes the "commit the marker file with the change" discipline
-self-enforcing.
+Writing and verifying `.sha-markers/<name>.yml` — one full-information YAML per globset carrying its canonical definition plus its `sha256:`
+durable SHA, LF-terminated, written only when changed, orphans removed. The freshness query reports Fresh/Stale/Missing/Orphaned per set;
+the module's integrity test asserts all-Fresh, which is what makes the "commit the marker file with the change" discipline self-enforcing.
 
 ### domain:4 — Protected scans
 

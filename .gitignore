@@ -44,10 +44,10 @@ automation/**/*.psd1
 /dotnet-tools.json
 /catzc.sln
 
-# ── Generated README copy-ins ───────────────────────────────────────────────────────────────────────────────────────
-# A README.md in a mapped conventional folder is a generated copy-in of an authored docs source (Build-Readme,
+# ── Generated README links ──────────────────────────────────────────────────────────────────────────────────────────
+# A README.md in a mapped conventional folder is a filesystem link to an authored docs source (Build-Readme,
 # Catzc.Base.Docs; see docs/adr/repository/generated-readmes.md) — derived artifacts like the module manifests,
-# regenerated on every import. Hand-authored READMEs are exactly the unmapped folders and opt back in below. The
+# re-linked on every import. Hand-authored READMEs are exactly the unmapped folders and opt back in below. The
 # generated cspell dictionaries under .cspell/ are ignored by .cspell/.gitignore, so only that folder's README and its
 # .gitignore are committed.
 **/README.md

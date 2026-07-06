@@ -16,6 +16,8 @@ automation/.compiled/** binary
 *.exe    binary
 *.so     binary
 *.dylib  binary
+*.png    binary
+*.drawio.png binary
 
 # C# type sources are the byte-exact key of the compiled-type cache — their combined hash names the committed
 # automation/.compiled/Catzc.Types.<hash>.dll. Pin them to LF so every clone/checkout materializes identical

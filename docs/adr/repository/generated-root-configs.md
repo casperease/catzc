@@ -22,9 +22,9 @@ The registry is `automation/Catzc.Base.RootConfig/configs/rootconfig.yml` — va
 ### Rule ADR-ROOTCFG:3
 
 Per entry, the `committed` boolean (default false) decides git membership and nothing else. `committed: false` → the target is a derived,
-gitignored artifact, materialised on import like the generated module manifests. `committed: true` → the target stays tracked because git
-or the bootstrap reads it **before the importer runs** (`importer.ps1`), while the automation still owns its content — a source change
-surfaces as a reviewable diff. The difference between the two is one boolean, not two systems.
+gitignored artifact, materialised on import like the generated module manifests. `committed: true` → the target stays tracked because git or
+the bootstrap reads it **before the importer runs** (`importer.ps1`), while the automation still owns its content — a source change surfaces
+as a reviewable diff. The difference between the two is one boolean, not two systems.
 
 - [One system, one boolean](#one-system-one-boolean)
 
@@ -131,8 +131,8 @@ call current, leaving the mechanism disagreeing with the registry. The inverse i
 
 Because the targets are cheap to reproduce and must never go stale, the importer regenerates them on every load, exactly like the README
 links ([generated-readmes](generated-readmes.md)). This is safe only because generation is idempotent: `Write-FileIfChanged` canonicalises,
-compares ignoring line endings, and writes only on a real change (delete-then-write, so the changed write always yields a fresh,
-independent file); `Set-FileLink` answers "already the right link" with no write at all. The same primitives are the write tail for every
+compares ignoring line endings, and writes only on a real change (delete-then-write, so the changed write always yields a fresh, independent
+file); `Set-FileLink` answers "already the right link" with no write at all. The same primitives are the write tail for every
 generated-artifact builder — one living copy of that logic (see [one-living-version](../principles/one-living-version.md)) instead of a
 per-builder reimplementation.
 
