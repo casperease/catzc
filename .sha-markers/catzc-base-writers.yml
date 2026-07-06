@@ -3,4 +3,4 @@ description: Derived module scope - automation/Catzc.Base.Writers/**
 layer: module
 include:
 - 'automation/Catzc.Base.Writers/**'
-sha256: 6d1aa4c3e23a88fd820461ead0361815955fdc1d4a4ef448f29298627da5b101
+sha256: 26f485b3cf2eaafafd6199b46021348aa546688e895342486766d26e4844a917
