@@ -46,14 +46,14 @@ function Get-BicepSubscriptionConfigViolations {
     }
 
     $candidates = Get-BicepConfigSubscriptionCandidates -Customer $Customer -Environment $Environment -AzureConfig $AzureConfig
-    $scope = if ([string]::IsNullOrEmpty($Customer)) {
-        'no non-customer subscription'
-    }
-    else {
-        "customer '$Customer' has no subscription"
-    }
     if ($candidates.Count -eq 0) {
-        $violations += "$Location cannot be resolved: $scope serves environment '$Environment' (azure.yml)"
+        $scope = if ([string]::IsNullOrEmpty($Customer)) {
+            "no non-customer subscription serves environment '$Environment'"
+        }
+        else {
+            "customer '$Customer' has no subscription serving environment '$Environment'"
+        }
+        $violations += "$Location cannot be resolved: $scope (azure.yml)"
     }
     elseif ($candidates.Count -gt 1) {
         $violations += "$Location resolves to more than one subscription ($(@($candidates | Sort-Object) -join ', ')) — every config must resolve to exactly one subscription id (azure.yml)"

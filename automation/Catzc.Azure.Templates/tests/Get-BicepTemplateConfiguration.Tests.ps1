@@ -6,7 +6,7 @@ Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
@@ -38,24 +38,19 @@ Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
         { Get-BicepTemplateConfiguration nonexistent alpha } | Should -Throw
     }
 
-    It 'loads a config from the named subscription subdir' {
-        $configuration = Get-BicepTemplateConfiguration sample-customer alpha -Subscription acme_lower
+    It 'loads a config from the customer subfolder' {
+        $configuration = Get-BicepTemplateConfiguration sample-customer alpha -Customer acme
         $configuration.ParametersFile.parameters.storageAccountName.value | Should -Be 'alweutstscusacst'
     }
 
-    It 'loads the core subscription config distinct from the customer one' {
-        $core = Get-BicepTemplateConfiguration sample-customer alpha -Subscription core_lower
-        $core.ParametersFile.parameters.storageAccountName.value | Should -Be 'alweutstscusst'
+    It 'loads the configuration-root config distinct from the customer one' {
+        $shared = Get-BicepTemplateConfiguration sample-customer alpha
+        $shared.ParametersFile.parameters.storageAccountName.value | Should -Be 'alweutstscusst'
     }
 
-    It 'requires -Subscription when more than one serves the env (ambiguous)' {
-        # sample-customer configures alpha in BOTH core_lower and acme_lower.
-        { Get-BicepTemplateConfiguration sample-customer alpha } | Should -Throw '*more than one subscription*'
-    }
-
-    It 'throws when the config does not exist for that subscription' {
-        # acme_lower has alpha (base) but no slot 002.
-        { Get-BicepTemplateConfiguration sample-customer alpha -Slot 002 -Subscription acme_lower } |
-            Should -Throw "*no config 'alpha-002'*"
+    It 'throws when the config does not exist for that customer' {
+        # acme has alpha (base) but no slot 002.
+        { Get-BicepTemplateConfiguration sample-customer alpha -Slot 002 -Customer acme } |
+            Should -Throw '*alpha-002*'
     }
 }

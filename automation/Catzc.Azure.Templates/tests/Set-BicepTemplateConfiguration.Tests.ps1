@@ -41,7 +41,7 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
         }
 
         It 'DryRun returns the planned content without writing' {
-            $result = Set-BicepTemplateConfiguration sample delta -Subscription core_upper -Parameters @{ storageAccountName = 'z' } -DryRun
+            $result = Set-BicepTemplateConfiguration sample delta -Parameters @{ storageAccountName = 'z' } -DryRun
             $result.Written | Should -BeFalse
             $result.Content | Should -Match 'z'
             $result.Path | Should -Not -Exist
@@ -59,23 +59,24 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
             { Set-BicepTemplateConfiguration sample alpha -Slot 'toolong' -Parameters @{ a = 'b' } } | Should -Throw '*1-3 lowercase*'
         }
 
-        It 'throws on an undefined subscription' {
-            { Set-BicepTemplateConfiguration sample-customer alpha -Subscription zzz -Parameters @{ a = 'b' } } | Should -Throw '*not a defined subscription*'
+        It 'throws when -Customer is not a customer key in the catalogue' {
+            { Set-BicepTemplateConfiguration sample-customer alpha -Customer zzz -Parameters @{ a = 'b' } } | Should -Throw '*not a customer key*'
         }
 
-        It 'throws when the subscription does not serve the environment' {
-            # core_lower serves alpha/beta/subn — not gamma.
-            { Set-BicepTemplateConfiguration sample gamma -Subscription core_lower -Parameters @{ a = 'b' } } | Should -Throw '*does not serve*'
+        It 'throws when the coordinate resolves to no subscription' {
+            # globex is a defined customer but has no subscription in the fixture azure.yml.
+            { Set-BicepTemplateConfiguration sample-customer alpha -Customer globex -Parameters @{ a = 'b' } } |
+                Should -Throw '*cannot be resolved*'
         }
     }
 
     Context 'writes' {
-        # Each test writes to a DISTINCT path (sample/core_upper/gamma, sample/core_upper/delta,
-        # sample/core_lower/alpha, sample-customer/acme_lower/alpha), so a single shared writable copy never
-        # causes interference and the order of the tests does not matter. One copy + ONE discovery (BeforeAll)
-        # keeps the discovery cache warm — a fresh per-test root would defeat the cache and pay a full cold
-        # re-discovery every test (discovery is filesystem-bound — see Get-BicepTemplates). See the read-only
-        # BeforeAll for the unique-dir / AV-race rationale.
+        # Each test writes to a DISTINCT path (sample/gamma, sample/delta, sample/alpha,
+        # sample-customer/acme/alpha), so a single shared writable copy never causes interference and the
+        # order of the tests does not matter. One copy + ONE discovery (BeforeAll) keeps the discovery
+        # cache warm — a fresh per-test root would defeat the cache and pay a full cold re-discovery every
+        # test (discovery is filesystem-bound — see Get-BicepTemplates). See the read-only BeforeAll for
+        # the unique-dir / AV-race rationale.
         BeforeAll {
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot
@@ -85,33 +86,33 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
             InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
         }
 
-        It 'creates a new config file for a new environment under the subscription folder' {
-            # core_upper serves gamma.
-            $result = Set-BicepTemplateConfiguration sample gamma -Subscription core_upper -Parameters @{ storageAccountName = 'gmweutstsmplst' }
+        It 'creates a new configuration-root config file for a new environment' {
+            # gamma resolves to core_upper (the one non-customer subscription serving it).
+            $result = Set-BicepTemplateConfiguration sample gamma -Parameters @{ storageAccountName = 'gmweutstsmplst' }
             $result.Written | Should -BeTrue
             $result.Path | Should -Exist
-            $result.Path | Should -Match 'configuration[\\/]core_upper[\\/]gamma\.yml'
+            $result.Path | Should -Match 'configuration[\\/]gamma\.yml'
             $configuration = Get-Content $result.Path -Raw | ConvertFrom-Yaml -Ordered
             $configuration.ParametersFile.parameters.storageAccountName.value | Should -Be 'gmweutstsmplst'
         }
 
         It 'merges into an existing config, preserving other parameters' {
-            Set-BicepTemplateConfiguration sample alpha -Subscription core_lower -Parameters @{ keyVaultName = 'al-weu-kv' } | Out-Null
-            $configuration = Get-Content (Join-Path $script:templatesRoot 'sample/configuration/core_lower/alpha.yml') -Raw | ConvertFrom-Yaml -Ordered
+            Set-BicepTemplateConfiguration sample alpha -Parameters @{ keyVaultName = 'al-weu-kv' } | Out-Null
+            $configuration = Get-Content (Join-Path $script:templatesRoot 'sample/configuration/alpha.yml') -Raw | ConvertFrom-Yaml -Ordered
             $configuration.ParametersFile.parameters.keyVaultName.value | Should -Be 'al-weu-kv'
             $configuration.ParametersFile.parameters.storageAccountName.value | Should -Be 'alweutstsmplst'
         }
 
         It 'is idempotent — two identical writes leave identical content' {
             # delta (not gamma) so this shares the BeforeAll tree with the 'creates' test without colliding.
-            $first = Set-BicepTemplateConfiguration sample delta -Subscription core_upper -Parameters @{ storageAccountName = 'x' }
-            $second = Set-BicepTemplateConfiguration sample delta -Subscription core_upper -Parameters @{ storageAccountName = 'x' }
+            $first = Set-BicepTemplateConfiguration sample delta -Parameters @{ storageAccountName = 'x' }
+            $second = Set-BicepTemplateConfiguration sample delta -Parameters @{ storageAccountName = 'x' }
             $second.Content | Should -Be $first.Content
         }
 
-        It 'writes under the subscription subdir' {
-            $result = Set-BicepTemplateConfiguration sample-customer alpha -Subscription acme_lower -Parameters @{ storageAccountName = 'y' }
-            $result.Path | Should -Match 'configuration[\\/]acme_lower[\\/]alpha\.yml'
+        It 'writes under the customer subfolder when -Customer is given' {
+            $result = Set-BicepTemplateConfiguration sample-customer alpha -Customer acme -Parameters @{ storageAccountName = 'y' }
+            $result.Path | Should -Match 'configuration[\\/]acme[\\/]alpha\.yml'
             $result.Path | Should -Exist
         }
     }
