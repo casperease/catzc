@@ -117,13 +117,66 @@ Describe 'Managed root config files agree with .gitignore and git tracking' -Tag
             })
         $ignored | Should -HaveCount 0 -Because "these committed:true managed files must not match an ignore rule: $($ignored -join '; ')"
     }
+
+    It 'materialises every copyAsLink target as an effective link to its source' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
+
+        # Effective from THIS OS: a symbolic link resolving to the entry's source, or a hard link whose bytes
+        # are CR-insensitively identical to it. Anything else is a broken or stale artifact.
+        $broken = @(foreach ($entry in $script:entries) {
+                if (-not $entry.copyAsLink) {
+                    continue
+                }
+                $targetPath = Join-Path $script:repoRoot $entry.target
+                $sourcePath = Join-Path $script:repoRoot $entry.source
+                $item = Get-Item -LiteralPath $targetPath -Force -ErrorAction Ignore
+                $effective = $false
+                if ($item -and $item.LinkType -eq 'SymbolicLink') {
+                    $resolved = $item.ResolveLinkTarget($true)
+                    $effective = $resolved -and (
+                        [System.IO.Path]::GetFullPath($resolved.FullName) -eq [System.IO.Path]::GetFullPath($sourcePath))
+                }
+                elseif ($item -and $item.LinkType -eq 'HardLink') {
+                    $targetText = [System.IO.File]::ReadAllText($targetPath) -replace "`r", ''
+                    $sourceText = [System.IO.File]::ReadAllText($sourcePath) -replace "`r", ''
+                    $effective = $targetText -ceq $sourceText
+                }
+                if (-not $effective) {
+                    $entry.target
+                }
+            })
+        $broken | Should -HaveCount 0 -Because "these copyAsLink targets are missing, stale, or not links — re-run the importer (Build-RootConfig re-links): $($broken -join '; ')"
+    }
+
+    It 'materialises no non-copyAsLink target as a link' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
+
+        # The inverse guard: a copy or generator target left as a link means a flipped-back entry was never
+        # converted (a comment:none copy composes bytes identical to its source, which a content compare alone
+        # would read through the link and call current) — registry and artifact must agree on the MECHANISM.
+        $links = @(foreach ($entry in $script:entries) {
+                if ($entry.copyAsLink) {
+                    continue
+                }
+                $item = Get-Item -LiteralPath (Join-Path $script:repoRoot $entry.target) -Force -ErrorAction Ignore
+                if ($item -and $item.LinkType) {
+                    $entry.target
+                }
+            })
+        $links | Should -HaveCount 0 -Because "these managed root files must be real, independent files, not links — re-run the importer (Build-RootConfig rewrites them): $($links -join '; ')"
+    }
 }
 
-# The root PSScriptAnalyzerSettings.psd1 is the first migrated copy-in and has a consumer-format contract of
-# its own: PSScriptAnalyzer requires a literal-hashtable settings file, so the generated copy (hash header +
-# copied source) must still parse as one — and carry exactly the authored settings.
-Describe 'Root PSScriptAnalyzerSettings.psd1 copy-in' -Tag 'L1', 'integrity' {
-    It 'parses as a settings hashtable with exactly the authored content' {
+# The root PSScriptAnalyzerSettings.psd1 has a consumer-format contract of its own: PSScriptAnalyzer requires
+# a literal-hashtable settings file at the path it is given. The target is a copyAsLink entry, so content
+# equality with the source holds by construction (a hard link is the same bytes; a symbolic link resolves) —
+# what remains to prove is that a consumer opening the ROOT path can follow the link and parse the settings.
+Describe 'Root PSScriptAnalyzerSettings.psd1 link' -Tag 'L1', 'integrity' {
+    It 'parses as a settings hashtable through the link' {
         $entry = @(Get-Config -Config rootconfig | ForEach-Object files |
                 Where-Object { $_.target -eq 'PSScriptAnalyzerSettings.psd1' -and $_.optIn })
         if (-not $entry) {
@@ -137,7 +190,7 @@ Describe 'Root PSScriptAnalyzerSettings.psd1 copy-in' -Tag 'L1', 'integrity' {
         }
 
         $root = Import-PowerShellDataFile $rootPath
-        $source = Import-PowerShellDataFile (Resolve-RepoPath $entry[0].source)
-        ($root | ConvertTo-Json -Depth 8) | Should -Be ($source | ConvertTo-Json -Depth 8)
+        $root | Should -BeOfType [hashtable]
+        $root.Keys.Count | Should -BeGreaterThan 0
     }
 }

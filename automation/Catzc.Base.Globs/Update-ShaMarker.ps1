@@ -66,7 +66,7 @@ function Update-ShaMarker {
     foreach ($set in $sets) {
         $hash = Get-GlobSetHash -GlobSet $set
         $path = [System.IO.Path]::Combine($root, $set.MarkerPath)
-        $content = "$hash`n"
+        $content = $set.MarkerContent($hash)
         $current = if ([System.IO.File]::Exists($path)) {
             [System.IO.File]::ReadAllText($path)
         }
@@ -83,41 +83,16 @@ function Update-ShaMarker {
             Write-Message "Marker '$($set.Name)': $($hash.Substring(0, 8)) -> $($set.MarkerPath)"
         }
         $report.Add([pscustomobject]@{ Name = $set.Name; Status = $status; Hash = $hash; Path = $set.MarkerPath })
-
-        # The definition companion (ADR-GLOBS:9): the set's canonical representation, rewritten only on a
-        # definition change — so its diff is the "composition changed" signal beside the marker's
-        # "content changed".
-        $companionPath = [System.IO.Path]::Combine($root, $set.GlobSetPath)
-        $companionContent = $set.Representation
-        $companionCurrent = if ([System.IO.File]::Exists($companionPath)) {
-            [System.IO.File]::ReadAllText($companionPath)
-        }
-        else {
-            $null
-        }
-
-        if ($companionCurrent -ceq $companionContent) {
-            $companionStatus = 'Unchanged'
-        }
-        else {
-            [System.IO.File]::WriteAllText($companionPath, $companionContent, $noBomUtf8)
-            $companionStatus = 'Written'
-            Write-Message "Globset '$($set.Name)': definition -> $($set.GlobSetPath)"
-        }
-        $report.Add([pscustomobject]@{ Name = $set.Name; Status = $companionStatus; Hash = $null; Path = $set.GlobSetPath })
     }
 
-    # Orphans: a marker or companion file with no globset — declared or derived — is dead state; remove it
-    # (README and friends are untouched).
-    foreach ($extension in '*.sha256', '*.globset') {
-        foreach ($file in [System.IO.Directory]::EnumerateFiles($markersDir, $extension)) {
-            $orphanName = [System.IO.Path]::GetFileNameWithoutExtension($file)
-            if (-not $validNames.Contains($orphanName)) {
-                $orphanFileName = [System.IO.Path]::GetFileName($file)
-                [System.IO.File]::Delete($file)
-                Write-Message "Marker '$orphanName': removed $orphanFileName (no such globset)"
-                $report.Add([pscustomobject]@{ Name = $orphanName; Status = 'Removed'; Hash = $null; Path = ".sha-markers/$orphanFileName" })
-            }
+    # Orphans: a marker file with no globset — declared or derived — is dead state; remove it (README and
+    # friends are untouched).
+    foreach ($file in [System.IO.Directory]::EnumerateFiles($markersDir, '*.yml')) {
+        $orphanName = [System.IO.Path]::GetFileNameWithoutExtension($file)
+        if (-not $validNames.Contains($orphanName)) {
+            [System.IO.File]::Delete($file)
+            Write-Message "Marker '$orphanName': removed (no such globset)"
+            $report.Add([pscustomobject]@{ Name = $orphanName; Status = 'Removed'; Hash = $null; Path = ".sha-markers/$orphanName.yml" })
         }
     }
 
