@@ -64,8 +64,8 @@ currently-selected one. This distinguishes "authenticated somewhere" from "able 
 
 ### domain:8 — Bicep CLI readiness
 
-Provisioning and confirming the Bicep CLI at or above the minimum version the estate requires — installing or upgrading it, and
-asserting or testing its presence — before a build or deploy relies on it.
+Provisioning and confirming the Bicep CLI at or above the minimum version the estate requires — installing or upgrading it, and asserting or
+testing its presence — before a build or deploy relies on it.
 
 ## What the module does
 

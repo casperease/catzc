@@ -24,7 +24,7 @@ any system-installed copy. For each module it:
 
 `-VendorRoot` is the vendor directory (it skips silently when the path does not exist). Vendoring modules this way — checked-in versions
 loaded without a gallery restore — is the subject of the
-[vendor-toolset-dependencies](../../../adr/automation/vendor-toolset-dependencies.md) ADR.
+[vendor-toolset-dependencies](../../../adr/automation/powershell/vendor-toolset-dependencies.md) ADR.
 
 ## Functions
 
@@ -33,7 +33,8 @@ loaded without a gallery restore — is the subject of the
 
 ## Related
 
-- ADR: [vendor-toolset-dependencies](../../../adr/automation/vendor-toolset-dependencies.md) — determinism without a restore step.
+- ADR: [vendor-toolset-dependencies](../../../adr/automation/powershell/vendor-toolset-dependencies.md) — determinism without a restore
+  step.
 - ADR: [one-living-version](../../../adr/principles/one-living-version.md) — why the loader is shared by both layers.
 - ADR: [use-ps1-not-psm1](../../../adr/automation/powershell/use-ps1-not-psm1.md) — the loader is a sanctioned `.psm1`.
 - Reference: [Catzc.Base.Vendor](../catzc-base-vendor.md) — the post-import cover functions that add, remove, and validate vendored modules

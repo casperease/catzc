@@ -36,8 +36,8 @@ through it, so it is the toolchain's foundational prerequisite (its dependents d
 Installing, uninstalling, and hard-removing the `az` binary and locking its version. It installs user-space as an isolated uv tool
 (`uv tool install azure-cli`) on every platform — no administrator anywhere — so this module carries no machine-scope install path (see
 [uv-python-handler](../../adr/automation/uv-python-handler.md); the CLI is still preferred over the Az PowerShell modules per
-[prefer-az-cli](../../adr/automation/prefer-az-cli.md)). Everything you do with `az` once it is installed — the session: connect, select a
-subscription, verify — lives in [Catzc.Azure.Cli](catzc-azure-cli.md), the subject of
+[prefer-az-cli](../../adr/automation/powershell/prefer-az-cli.md)). Everything you do with `az` once it is installed — the session: connect,
+select a subscription, verify — lives in [Catzc.Azure.Cli](catzc-azure-cli.md), the subject of
 [az-session-verification](../../adr/automation/az-session-verification.md), not here.
 
 ## What the module does

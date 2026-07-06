@@ -61,7 +61,7 @@ The sanctioned `.psm1` files are:
 - The custom PSScriptAnalyzer rule modules under `automation/.scriptanalyzer/` (e.g. `FunctionLength.psm1`, `VariableCasing.psm1`) —
   standalone analyzer rule modules, not module function files.
 - Per-template `PrePost.psm1` files (the `Catzc.Azure.Templates/assets/PrePost.psm1` starter and any
-  `infrastructure/templates/<name>/PrePost.psm1`) — see [`prepost-extension-modules`](../prepost-extension-modules.md).
+  `infrastructure/templates/<name>/PrePost.psm1`) — see [`prepost-extension-modules`](prepost-extension-modules.md).
 
 None of these are per-function files within a module, so the rule above is intact: a module's function files are always `.ps1`.
 
@@ -79,4 +79,4 @@ None of these are per-function files within a module, so the rule above is intac
 - Aligns with the established PowerShell community convention
 - `.psm1` remains in use only for genuine module/standalone files, never for a module's function files: the `automation/.internal/*.psm1`
   shared modules (loader, bootstrap, TestKit, types), the `automation/.scriptanalyzer/*.psm1` custom analyzer rule modules, and per-template
-  `PrePost.psm1` files (see [`prepost-extension-modules`](../prepost-extension-modules.md))
+  `PrePost.psm1` files (see [`prepost-extension-modules`](prepost-extension-modules.md))

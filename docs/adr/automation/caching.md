@@ -128,8 +128,8 @@ inputs are stable, and the importer is the one knob.
 The importer is on the hot path of **every** session — every interactive shell tab a developer opens and every step a pipeline runs begins
 by dot-sourcing it. Its job is to make the module system available, fast, and nothing more: it sets error preferences and runs the bootstrap
 module to discover and import modules. It even **defers** expensive vendor modules (Pester, PSScriptAnalyzer) via lazy loading rather than
-pay for them at startup (see [vendor-toolset-dependencies](vendor-toolset-dependencies.md#rule-adr-vendor5)), and it reports its own load
-time so regressions are visible.
+pay for them at startup (see [vendor-toolset-dependencies](powershell/vendor-toolset-dependencies.md#rule-adr-vendor5)), and it reports its
+own load time so regressions are visible.
 
 This makes importer time a budget to protect, and it sets the default for caching: **lazy.** Reading `azure.yml`, scanning
 `infrastructure/templates/`, or deriving any other config/information at import would tax every session for work most sessions never use.

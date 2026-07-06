@@ -60,8 +60,8 @@ reproducible version pins. It removes three problems that a system-package-manag
   cannot break another.
 - **Determinism.** uv resolves an exact interpreter and package set from the pin in `tools.yml`, identically on a devbox and in CI.
 
-The Azure CLI is still preferred over the Az PowerShell modules for all Azure work ([prefer-az-cli](prefer-az-cli.md)); this ADR only
-changes how that CLI is installed, not that it is the chosen tool.
+The Azure CLI is still preferred over the Az PowerShell modules for all Azure work ([prefer-az-cli](powershell/prefer-az-cli.md)); this ADR
+only changes how that CLI is installed, not that it is the chosen tool.
 
 ### Two install shapes
 

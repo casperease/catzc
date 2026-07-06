@@ -19,7 +19,7 @@
 
     The two deploy hooks are not exported, so they fall through to no-ops.
 
-    See docs/adr/automation/prepost-extension-modules.md.
+    See docs/adr/automation/powershell/prepost-extension-modules.md.
 #>
 function Invoke-BicepPrepareParameterSet {
     [CmdletBinding()]

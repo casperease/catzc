@@ -57,9 +57,9 @@ Each of these is a single action with no prerequisites and no follow-up steps. T
 
 ### What hard-to-fail looks like
 
-**You cannot name a file wrong.** [One function per file](one-function-per-file.md#rule-adr-onefunc1) — `Test-Automation.Tests.ps1`
-validates that every file is `Verb-Noun.ps1`, contains exactly one function, and the function name matches. A misnamed file fails the test
-suite immediately.
+**You cannot name a file wrong.** [One function per file](powershell/one-function-per-file.md#rule-adr-onefunc1) —
+`Test-Automation.Tests.ps1` validates that every file is `Verb-Noun.ps1`, contains exactly one function, and the function name matches. A
+misnamed file fails the test suite immediately.
 
 **You cannot use the wrong verb.** [Approved verbs](powershell/respect-pwsh-verb-rules.md#rule-adr-verbs1) — PSScriptAnalyzer's
 `PSUseApprovedVerbs` rule rejects unapproved verbs. The author does not need to check `Get-Verb` — the tool catches it.
@@ -78,9 +78,9 @@ handle it.
 **You cannot publish a function that doesn't exist.** [Use .ps1 not .psm1](powershell/use-ps1-not-psm1.md) — the bootstrap module derives
 exports from file names. There is no manifest to get out of sync — the file system is the source of truth.
 
-**You cannot get a stale module version.** [Vendor dependencies](vendor-toolset-dependencies.md#rule-adr-vendor2) — vendored modules are
-checked into the repo. There is no version resolution at runtime, no gallery call that might return a different version on a different
-machine.
+**You cannot get a stale module version.** [Vendor dependencies](powershell/vendor-toolset-dependencies.md#rule-adr-vendor2) — vendored
+modules are checked into the repo. There is no version resolution at runtime, no gallery call that might return a different version on a
+different machine.
 
 ## Decision
 

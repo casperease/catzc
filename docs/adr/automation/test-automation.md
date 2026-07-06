@@ -224,10 +224,10 @@ whole file (serial wins when a file carries both):
 - **`serial`** — the test mutates state shared across worker processes: the committed `.compiled` assembly, a fixed `out/` path two files
   both write (e.g. the `out/template/<name>` build folders), `.triggers/`. Its file runs in the final **one-worker phase**, strictly alone,
   one file after another.
-- **`greedy`** — the test consumes the machine beyond its own process (the PSScriptAnalyzer gate's background-process pool, tests that
-  spawn importer-loading pwsh workers) but shares no mutable state with other files. Its file runs in the **greedy phase** between the
-  parallel shards and the serial phase: single-file shards through the worker pool, one file per worker slot, so greedy files overlap each
-  other (their tests carry L2-scale time limits) but never the parallel phase whose L0/L1 timings they would inflate.
+- **`greedy`** — the test consumes the machine beyond its own process (the PSScriptAnalyzer gate's background-process pool, tests that spawn
+  importer-loading pwsh workers) but shares no mutable state with other files. Its file runs in the **greedy phase** between the parallel
+  shards and the serial phase: single-file shards through the worker pool, one file per worker slot, so greedy files overlap each other
+  (their tests carry L2-scale time limits) but never the parallel phase whose L0/L1 timings they would inflate.
 
 A parallel-run flake root-caused to a shared resource is fixed by tagging it serial (or removing the sharing) — never by retrying
 (ADR-RETRY:1).
@@ -240,8 +240,8 @@ An **optional third, provenance dimension**: a test MAY carry `ADR-<CODE>#<n>` c
 `docs/adr/index.md` `#` citation form, so the `ADR-` marker greps to both a rule's prose and its enforcing tests. Absence is never a
 violation. A **present** citation is validated (`Get-TestTagViolations`): it must be well-formed and resolve to a real rule
 (`Get-CatsAdrRuleIds`), or the run fails — so a rule renumber breaks its stale tag loudly. Unlike the single-valued tier and category axes
-(nearest-contributing-block wins), provenance is **set-valued and additive**: `Get-TestRuleTags` **unions** the citations across a test's own
-It-tags and every ancestor block, so a broad `Describe` rule and a specific `It` rule both count.
+(nearest-contributing-block wins), provenance is **set-valued and additive**: `Get-TestRuleTags` **unions** the citations across a test's
+own It-tags and every ancestor block, so a broad `Describe` rule and a specific `It` rule both count.
 
 - [The optional provenance axis and rule-enforcement coverage](#the-optional-provenance-axis-and-rule-enforcement-coverage)
 
@@ -257,11 +257,11 @@ It is report-only because a rule may be enforced structurally or by review, so "
 
 ### Rule ADR-TEST:29
 
-The analyzer→ADR mapping — the source for the `pssa-rule` enforcer kind — lives in
-`Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`, each enabled analyzer rule (a custom `Measure-*` rule or an enabled built-in) mapped
-to the citation(s) it enforces. Its shape is validated at load (`Assert-AnalyzerAdrMapConfig`); an **integrity test** checks that every mapped
-id resolves to a real rule and that **every custom analyzer rule is mapped**, so a new custom rule cannot ship unmapped and a renumber breaks
-the build. Id existence is checked by that integrity test, not at load, keeping config load hermetic (the ADR-CUSTOMER:3 pattern).
+The analyzer→ADR mapping — the source for the `pssa-rule` enforcer kind — lives in `Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`,
+each enabled analyzer rule (a custom `Measure-*` rule or an enabled built-in) mapped to the citation(s) it enforces. Its shape is validated
+at load (`Assert-AnalyzerAdrMapConfig`); an **integrity test** checks that every mapped id resolves to a real rule and that **every custom
+analyzer rule is mapped**, so a new custom rule cannot ship unmapped and a renumber breaks the build. Id existence is checked by that
+integrity test, not at load, keeping config load hermetic (the ADR-CUSTOMER:3 pattern).
 
 - [The optional provenance axis and rule-enforcement coverage](#the-optional-provenance-axis-and-rule-enforcement-coverage)
 
@@ -359,20 +359,20 @@ citations of the next section.
 
 A test may also declare **which ADR rule(s) it enforces**, so the suite is traceable both ways: from a test to the rule behind it, and from
 a rule to the tests that pin it. The citation is a tag in the `docs/adr/index.md` `#` form — `ADR-ERROR#3` — chosen so the one reserved
-`ADR-` marker greps uniformly across a rule's prose, the code that cites it, and now its tests. This dimension differs from tier and category
-in two ways. It is **optional**: a test carries a citation only when it meaningfully enforces a specific rule, and absence is never a
-violation — a mandatory citation would pressure forced cites for tests that enforce loose behaviour, the junk-drawer failure the
+`ADR-` marker greps uniformly across a rule's prose, the code that cites it, and now its tests. This dimension differs from tier and
+category in two ways. It is **optional**: a test carries a citation only when it meaningfully enforces a specific rule, and absence is never
+a violation — a mandatory citation would pressure forced cites for tests that enforce loose behaviour, the junk-drawer failure the
 [spell-out registry](powershell/spell-out-names.md) warns against. And it is **set-valued**: a test can enforce several rules, and a
 `Describe`-level rule and an inner `It`-level rule both hold, so `Get-TestRuleTags` **unions** the citations across the whole block chain
 rather than taking the nearest like the single-valued axes.
 
 What keeps the optional axis honest is that a **present** citation is validated. `Get-TestTagViolations` — the same discovery-pass gate that
 enforces the mandatory axes — rejects any `ADR-` tag that is malformed or names a rule absent from `Get-CatsAdrRuleIds` (the flat set parsed
-from every ADR's rule registry). So a citation cannot silently rot: renumbering a rule turns its stale tags red. The check is lazy — it reads
-the ADR tree only when a test actually carries a citation — so a suite with none stays hermetic.
+from every ADR's rule registry). So a citation cannot silently rot: renumbering a rule turns its stale tags red. The check is lazy — it
+reads the ADR tree only when a test actually carries a citation — so a suite with none stays hermetic.
 
-Coverage is the payoff, and it is **reported, not gated**. `Write-TestAutomationRuleCoverage` writes `rule-coverage.md`/`.csv` beside the run
-report, mapping every rule to its enforcers and listing the genuinely-uncovered. Crucially it counts **two** enforcer kinds, because two
+Coverage is the payoff, and it is **reported, not gated**. `Write-TestAutomationRuleCoverage` writes `rule-coverage.md`/`.csv` beside the
+run report, mapping every rule to its enforcers and listing the genuinely-uncovered. Crucially it counts **two** enforcer kinds, because two
 mechanisms run inside the one `Test-Automation` invocation: a **`pester-test`** (a tagged test — the `tests.csv` `Rules` column is the
 backtrack table) and a **`pssa-rule`** (a PSScriptAnalyzer rule that enforces the rule on every build). Counting the analyzer rules is what
 makes the uncovered list honest: a rule like `ADR-NOPWD` reads as covered because its custom analyzer fails the build, not falsely bare for
@@ -384,8 +384,8 @@ future gate is one flag away.
 ### Test tiers (by integration layer)
 
 Vendor test tooling is lazy-loaded to protect importer time (see
-[vendor-toolset-dependencies](vendor-toolset-dependencies.md#rule-adr-vendor5)). Tests are tagged by **what they integrate with**, not by
-speed:
+[vendor-toolset-dependencies](powershell/vendor-toolset-dependencies.md#rule-adr-vendor5)). Tests are tagged by **what they integrate
+with**, not by speed:
 
 - **L0 / L1 — unit.** Pure logic + orchestration wiring, with every external boundary mocked. Deterministic and hermetic. Run on every
   change. (The tier tag is mandatory — there is no default; see ADR-TEST:13.)
@@ -598,8 +598,8 @@ Describe 'sample (real az)' -Tag 'L2', 'logic' {
   `InModuleScope Catzc.Base.Config { $script:configCache = $null }`.
 - **`Test-Automation.Tests.ps1`** validates the `Verb-Noun.Tests.ps1` filename convention — a type test under `tests/types/` is instead
   named for the `types/*.cs` it covers — and the one-function-per-file rules for source (see
-  [one-function-per-file](one-function-per-file.md)). It also AST-scans every test for `Set-ItResult ... -Because '<literal>'` and fails any
-  reason that is not a constrained skip key (lowercase alnum segments joined by `_`).
+  [one-function-per-file](powershell/one-function-per-file.md)). It also AST-scans every test for `Set-ItResult ... -Because '<literal>'`
+  and fails any reason that is not a constrained skip key (lowercase alnum segments joined by `_`).
 - **Seam-mocking isolates pure-logic tests;** the tests that bind to shipped assets (the cross-layer reference check and the generic
   template-build integrity check) are the sanctioned exceptions — an input-source choice, not a tier — and they bind to the template _set_,
   never to a named template (ADR-TEST:17). The fixtures under `tests/assets/` are the patterns new logic tests copy (see

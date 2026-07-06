@@ -42,8 +42,9 @@ subscription I name by its raw GUID, and is the session pointed at the subscript
 produces functions that "check the connection" but secretly depend on `azure.yml`, or that quietly log you in as a side effect of a check —
 both of which make failures hard to reason about and couple modules that should not depend on each other.
 
-This ADR records how the az-session functions are layered. It complements [prefer-az-cli](prefer-az-cli.md) (why `az` over the Az PowerShell
-modules) and [dual-authentication](../pipelines/dual-authentication.md) (how an ADO token is selected and proven against `ado.yml`).
+This ADR records how the az-session functions are layered. It complements [prefer-az-cli](powershell/prefer-az-cli.md) (why `az` over the Az
+PowerShell modules) and [dual-authentication](../pipelines/dual-authentication.md) (how an ADO token is selected and proven against
+`ado.yml`).
 
 ## Decision
 

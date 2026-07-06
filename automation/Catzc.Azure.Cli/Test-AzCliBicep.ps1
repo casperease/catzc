@@ -10,8 +10,8 @@
     Why this exists: `az bicep build` auto-installs the Bicep CLI on first use, and on a machine where
     that install is missing, blocked (enterprise proxy/firewall), or stale, the first build can exit zero
     while writing no main.json. Probing `az bicep version` first surfaces — and warms — the Bicep CLI, and
-    enforces a known-good minimum, before a build depends on it. See docs/adr/automation/prefer-az-cli.md#rule-adr-azcli1
-    and effective-in-enterprises.md.
+    enforces a known-good minimum, before a build depends on it.
+    See docs/adr/automation/powershell/prefer-az-cli.md#rule-adr-azcli1 and effective-in-enterprises.md.
 .EXAMPLE
     if (Test-AzCliBicep) { Build-Bicep sample }
 #>

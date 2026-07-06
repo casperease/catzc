@@ -132,8 +132,8 @@ extension is exactly the right tool: an isolated scope that can be cleanly impor
 
 ### Why this does not conflict with `use-ps1-not-psm1`
 
-[`use-ps1-not-psm1`](powershell/use-ps1-not-psm1.md) governs **function files inside `automation/`** that declare the module's regular
-per-function exports. Its goal is shared scope across one module's internals.
+[`use-ps1-not-psm1`](use-ps1-not-psm1.md) governs **function files inside `automation/`** that declare the module's regular per-function
+exports. Its goal is shared scope across one module's internals.
 
 Neither `assets/PrePost.psm1` nor `infrastructure/templates/<name>/PrePost.psm1` is a "function file inside an `automation/` module":
 

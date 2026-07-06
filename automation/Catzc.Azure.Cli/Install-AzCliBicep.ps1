@@ -7,7 +7,7 @@
     which can fail quietly behind an enterprise proxy or leave a stale version. Idempotent — skips when the
     Bicep CLI already meets Get-AzureBicepMinVersion (azure.yml `bicep_min_version`); installs it when absent,
     upgrades it when too old. Asserts the az CLI itself first (Assert-Tool 'az_cli'), and confirms the result
-    meets the minimum before returning. See docs/adr/automation/prefer-az-cli.md#rule-adr-azcli1.
+    meets the minimum before returning. See docs/adr/automation/powershell/prefer-az-cli.md#rule-adr-azcli1.
 .PARAMETER Force
     Upgrade to the latest Bicep CLI even when the installed one already meets the minimum.
 .EXAMPLE

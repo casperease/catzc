@@ -7,7 +7,7 @@ manifest to edit, no export list to maintain.
 
 1. Pick the right module folder under `automation/` (or [create a new module](../add-a-module.md) first).
 2. Create `automation/<Module>/Verb-Noun.ps1`. The **file name must equal the function name**, and the file must contain exactly one
-   function (see [one-function-per-file](../../../../adr/automation/one-function-per-file.md)).
+   function (see [one-function-per-file](../../../../adr/automation/powershell/one-function-per-file.md)).
 3. Create the paired test `automation/<Module>/tests/Verb-Noun.Tests.ps1`.
 4. Re-run the importer (`. ./importer.ps1`) and run `Test-Automation`.
 
@@ -109,8 +109,8 @@ Describe 'Invoke-Poetry' -Tag 'L1', 'logic', 'ADR-ERROR#3' {   # this test pins 
 ```
 
 The citation is optional (absence is never a violation), but a **present** one is validated: it must be well-formed and name a real rule, or
-the run fails — so renumbering a rule turns its stale tags red. It is set-valued: put a broad rule on the `Describe` and a specific one on an
-inner `Context`/`It`, and both count (citations are unioned across the block chain, unlike the nearest-wins tier/category). Mind the two
+the run fails — so renumbering a rule turns its stale tags red. It is set-valued: put a broad rule on the `Describe` and a specific one on
+an inner `Context`/`It`, and both count (citations are unioned across the block chain, unlike the nearest-wins tier/category). Mind the two
 spellings of one rule: the **tag** uses `#` (`ADR-ERROR#3`, the citation form), while the rule's **heading** in the ADR uses `:`
 (`### Rule ADR-ERROR:3`). Each run then writes `rule-coverage.md`/`.csv` (rule → enforcers, and the uncovered), and `tests.csv` gains a
 `Rules` column you can filter by a citation to find every test that enforces it.

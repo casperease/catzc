@@ -4,10 +4,10 @@
 
 ### Rule ADR-FLOW:1
 
-Continuous Integration is a **discipline before it is a pipeline**: the team practice of integrating work into one mainline continuously, in
-small increments, each validated fast enough that the mainline stays continuously integrable. The pipeline _concept_ CI — build-validation
-and the BVT — is how that discipline is enforced mechanically, not a second, separate thing the word denotes. The discipline is primary; the
-CI pipeline is its instrument.
+_Continuous Integration_ is a **discipline before it is a pipeline**: the team practice of _integrating work into one mainline
+continuously_, _in small increments, each validated fast enough that the mainline stays continuously integrable_. The pipeline _concept_ CI
+— build-validation and the BVT — is how that discipline is enforced mechanically, not a second, separate thing the word denotes. The
+discipline is primary; the CI pipeline is its instrument.
 
 - [CI is a discipline, the pipeline is its instrument](#ci-is-a-discipline-the-pipeline-is-its-instrument)
 

@@ -107,8 +107,8 @@ automation/**/*.psd1
 
 The exception is real source from the dependency's perspective: a vendored third-party module under `automation/.vendor/` ships its own
 author-written `.psd1`, which the platform does **not** generate and which must be committed for offline reproducibility (see
-[vendor-toolset-dependencies](vendor-toolset-dependencies.md)). Ours are derived; theirs are vendored source — which is exactly why one is
-gitignored and the other is committed.
+[vendor-toolset-dependencies](powershell/vendor-toolset-dependencies.md)). Ours are derived; theirs are vendored source — which is exactly
+why one is gitignored and the other is committed.
 
 ### How the platform implements open/closed
 

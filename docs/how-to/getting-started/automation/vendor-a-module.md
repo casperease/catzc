@@ -2,7 +2,7 @@
 
 Third-party PowerShell modules are **vendored** — checked into `automation/.vendor/<Name>/<Version>/` — so the repository alone guarantees
 reproducibility with no restore step and no PowerShell Gallery call at runtime. Adding one is a single command run at authoring time, then a
-commit. The rationale is in [vendor-toolset-dependencies](../../../adr/automation/vendor-toolset-dependencies.md).
+commit. The rationale is in [vendor-toolset-dependencies](../../../adr/automation/powershell/vendor-toolset-dependencies.md).
 
 ## Add a vendored module
 
@@ -42,9 +42,9 @@ Upgrade deliberately, never automatically:
 ## What is not vendored
 
 The Azure **`Az` PowerShell modules** are deliberately not vendored — they are hundreds of megabytes and their assembly dependencies
-conflict in-process. Azure operations go through the `az` CLI instead (see [prefer-az-cli](../../../adr/automation/prefer-az-cli.md)).
-System CLI tools (Python, .NET, Terraform, …) aren't vendored either — they're version-locked and installed by package manager (see
-[Add a CLI tool](add-a-cli-tool.md)).
+conflict in-process. Azure operations go through the `az` CLI instead (see
+[prefer-az-cli](../../../adr/automation/powershell/prefer-az-cli.md)). System CLI tools (Python, .NET, Terraform, …) aren't vendored either
+— they're version-locked and installed by package manager (see [Add a CLI tool](add-a-cli-tool.md)).
 
 ## How vendored modules win
 

@@ -42,13 +42,10 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 
 | Code           | ADR                                                                              |
 | -------------- | -------------------------------------------------------------------------------- |
-| `ADR-VENDOR`   | [vendor-toolset-dependencies](automation/vendor-toolset-dependencies.md)         |
-| `ADR-AZCLI`    | [prefer-az-cli](automation/prefer-az-cli.md)                                     |
 | `ADR-UVPY`     | [uv-python-handler](automation/uv-python-handler.md)                             |
 | `ADR-PRELOG`   | [log-before-invoke](automation/log-before-invoke.md)                             |
 | `ADR-RETRY`    | [retry-as-last-resort](automation/retry-as-last-resort.md)                       |
 | `ADR-EXTEND`   | [open-closed-architecture](automation/open-closed-architecture.md)               |
-| `ADR-ONEFUNC`  | [one-function-per-file](automation/one-function-per-file.md)                     |
 | `ADR-ZERO`     | [zero-ceremony-poka-yoke](automation/zero-ceremony-poka-yoke.md)                 |
 | `ADR-NOPWD`    | [never-depend-on-pwd](automation/never-depend-on-pwd.md)                         |
 | `ADR-NONEST`   | [avoid-deep-nesting](automation/avoid-deep-nesting.md)                           |
@@ -64,7 +61,6 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 | `ADR-ENTERP`   | [effective-in-enterprises](automation/effective-in-enterprises.md)               |
 | `ADR-SYSDEPS`  | [controlling-systemwide-deps](automation/controlling-systemwide-deps.md)         |
 | `ADR-MODDEPS`  | [controlling-module-dependencies](automation/controlling-module-dependencies.md) |
-| `ADR-PREPOST`  | [prepost-extension-modules](automation/prepost-extension-modules.md)             |
 | `ADR-ENVVAR`   | [environment-variables](automation/environment-variables.md)                     |
 | `ADR-AZSESS`   | [az-session-verification](automation/az-session-verification.md)                 |
 | `ADR-PATH`     | [path-representation](automation/path-representation.md)                         |
@@ -75,6 +71,10 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 
 | Code           | ADR                                                                                               |
 | -------------- | ------------------------------------------------------------------------------------------------- |
+| `ADR-VENDOR`   | [vendor-toolset-dependencies](automation/powershell/vendor-toolset-dependencies.md)               |
+| `ADR-AZCLI`    | [prefer-az-cli](automation/powershell/prefer-az-cli.md)                                           |
+| `ADR-ONEFUNC`  | [one-function-per-file](automation/powershell/one-function-per-file.md)                           |
+| `ADR-PREPOST`  | [prepost-extension-modules](automation/powershell/prepost-extension-modules.md)                   |
 | `ADR-ERROR`    | [error-handling](automation/powershell/error-handling.md)                                         |
 | `ADR-NOSEMI`   | [avoid-using-semicolons](automation/powershell/avoid-using-semicolons.md)                         |
 | `ADR-CONSOLE`  | [console-output-matters](automation/powershell/console-output-matters.md)                         |

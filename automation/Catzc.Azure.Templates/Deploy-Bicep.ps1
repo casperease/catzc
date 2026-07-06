@@ -132,7 +132,7 @@ function Deploy-Bicep {
     # The deploy invocation — the arguments this deploy is acting on (incl. Mode). DryRun is passed
     # as its own first-class parameter to PreDeploy (it's the side-effect kill switch — too special
     # to hide in a bag). Computed descriptor objects stay separate.
-    # See docs/adr/automation/prepost-extension-modules.md.
+    # See docs/adr/automation/powershell/prepost-extension-modules.md.
     $customer = if ($null -ne $context.environment.subscription.customer) {
         $context.environment.subscription.customer
     }

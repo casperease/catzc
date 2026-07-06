@@ -83,8 +83,8 @@ exact command first (see [log-before-invoke](../../../adr/automation/log-before-
 
 Windows installs use **winget** (hash-verified, mandatory review), never Chocolatey — `Install-DevBoxTools` even removes Chocolatey first
 (see [use-proper-package-managers](../../../adr/automation/use-proper-package-managers.md)). Azure work uses the **`az` CLI**, not the Az
-PowerShell modules, to avoid assembly conflicts and slow imports (see [prefer-az-cli](../../../adr/automation/prefer-az-cli.md)). To log in,
-use `Connect-AzCli`.
+PowerShell modules, to avoid assembly conflicts and slow imports (see [prefer-az-cli](../../../adr/automation/powershell/prefer-az-cli.md)).
+To log in, use `Connect-AzCli`.
 
 ## Verify
 

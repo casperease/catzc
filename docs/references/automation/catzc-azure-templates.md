@@ -65,8 +65,8 @@ Build (domain 4) and deploy (domain 5) are the two execution phases, and the spl
 never touches the cloud, while deploy is the only place state changes. Both phases call the template's optional extension hooks at the right
 moments — preparation merges global configuration into the parameter set at build time, and the pre/post-deploy hooks bracket the deployment
 — which is how a template injects a secret reference or provisions a queue without that logic leaking into the engine (see
-[prepost-extension-modules](../../adr/automation/prepost-extension-modules.md)). Deploy leans on the session-verification checks before it
-acts, so a deployment can never run against the wrong subscription.
+[prepost-extension-modules](../../adr/automation/powershell/prepost-extension-modules.md)). Deploy leans on the session-verification checks
+before it acts, so a deployment can never run against the wrong subscription.
 
 The classification vocabularies (domain 3) are the small enumerations that keep options and deploys honest, and integrity validation
 (domain 6) is the safety net: it binds to the _set_ of shipped templates and asserts the invariants that must hold for every one of them, so

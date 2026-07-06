@@ -8,7 +8,7 @@
     Asserting it before a build turns the silent "az bicep build exits 0 but writes no main.json" failure
     into a clear, early error at the source. It first asserts the az CLI itself is installed at the
     locked version (Assert-Tool 'az_cli'), then checks the Bicep CLI. Both share Get-AzCliBicepState.
-    See docs/adr/automation/prefer-az-cli.md#rule-adr-azcli1 and effective-in-enterprises.md.
+    See docs/adr/automation/powershell/prefer-az-cli.md#rule-adr-azcli1 and effective-in-enterprises.md.
 .PARAMETER ErrorText
     Custom error message. Defaults to one naming the specific cause and the matching az bicep fix.
 .EXAMPLE

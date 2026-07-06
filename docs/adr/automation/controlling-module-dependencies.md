@@ -63,8 +63,8 @@ against exactly the code that commit holds. An external dependency is pinned to 
 ### Rule ADR-MODDEPS:8
 
 Internal module dependencies are vendored and named. The code is in-tree — the toolset's own modules, and third-party modules vendored under
-`automation/.vendor/` ([vend](vendor-toolset-dependencies.md)) — and every edge is declared by name in `dependencies.yml` (ADR-MODDEPS:1).
-The repository alone is the internal dependency set; there is nothing to fetch.
+`automation/.vendor/` ([vend](powershell/vendor-toolset-dependencies.md)) — and every edge is declared by name in `dependencies.yml`
+(ADR-MODDEPS:1). The repository alone is the internal dependency set; there is nothing to fetch.
 
 - [Internal: vendored and named](#internal-vendored-and-named)
 
@@ -164,15 +164,15 @@ Tooling layer. That concern has its own ADR, [controlling-systemwide-deps](contr
 Reproducibility is the point, so nothing floats. An internal dependency needs no version field — its code is in the checkout, so the commit
 is the pin: a given commit builds against exactly the code that commit holds. An external dependency carries an exact version in config — a
 single version, not a `2.x` range or `latest` — so its feed resolves the same artifact every time. This is the determinism
-[vend](vendor-toolset-dependencies.md) secures for vendored modules, applied to every module dependency however it arrives.
+[vend](powershell/vendor-toolset-dependencies.md) secures for vendored modules, applied to every module dependency however it arrives.
 
 ### Internal: vendored and named
 
 An internal module dependency is visible in the repository two ways at once. It is **vendored** — the code is in-tree, whether the toolset's
 own modules under `automation/` or a third-party module checked in under `automation/.vendor/<Name>/<Version>/`
-([vend](vendor-toolset-dependencies.md)) — so loading is a path read with no network. And it is **named** — the edge is declared in
-`dependencies.yml` and gated (the graph rules above). Vendored gives the code; named gives the layering. Together they make the repository
-alone the internal dependency set: nothing is fetched and nothing is resolved.
+([vend](powershell/vendor-toolset-dependencies.md)) — so loading is a path read with no network. And it is **named** — the edge is declared
+in `dependencies.yml` and gated (the graph rules above). Vendored gives the code; named gives the layering. Together they make the
+repository alone the internal dependency set: nothing is fetched and nothing is resolved.
 
 ### External: stitched at build time
 
@@ -200,8 +200,8 @@ describes, and adding or moving a dependency is a reviewed change.
 - **`Assert-ModuleDependency`** — checks the extracted edges against the declaration (allow-set membership and the group's internal-map
   subset rule), failing the L2 suite on any undeclared edge.
 - **Code review** — enforces `ADR-MODDEPS:5`: a new edge is declared in the same change as the code, not deferred.
-- **`Install-VendorModule`** + **`Import-VendorModules`** ([vend](vendor-toolset-dependencies.md)) — pin a vendored internal dependency by
-  its `automation/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-MODDEPS:8`).
+- **`Install-VendorModule`** + **`Import-VendorModules`** ([vend](powershell/vendor-toolset-dependencies.md)) — pin a vendored internal
+  dependency by its `automation/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-MODDEPS:8`).
 - **Pinning** — the commit pins every internal dependency; an external dependency carries its exact version in the stitch config, reviewed
   in the diff (`ADR-MODDEPS:7`).
 

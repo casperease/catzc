@@ -3,7 +3,7 @@
 // per-slot configuration/<slot>.yml deliberately does NOT carry. The vnet NAME comes from the config
 // (like every resource name); only the ranges come from the asset.
 //
-// See docs/adr/automation/prepost-extension-modules.md.
+// See docs/adr/automation/powershell/prepost-extension-modules.md.
 
 param vnetName string
 param location string = resourceGroup().location

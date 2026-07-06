@@ -65,16 +65,16 @@ The "why" and "how" behind the PowerShell automation layer.
 
 ### Implementation decisions
 
-- [One function per file](adr/automation/one-function-per-file.md) — makes discovery automatic and eliminates export ceremony
+- [One function per file](adr/automation/powershell/one-function-per-file.md) — makes discovery automatic and eliminates export ceremony
 - [Use .ps1 not .psm1](adr/automation/powershell/use-ps1-not-psm1.md) — shared scope without boilerplate loaders
 - [Approved verbs](adr/automation/powershell/respect-pwsh-verb-rules.md) — enforced naming so functions are self-documenting
 - [Uniform formatting](adr/repository/uniform-formatting.md) — the whole repo, one mechanical standard
 - [PowerShell formatting](adr/automation/powershell/powershell-formatting.md) — the PowerShell layer over uniform-formatting
 - [Log before invoke](adr/automation/log-before-invoke.md) — automatic, not opt-in
-- [Vendor dependencies](adr/automation/vendor-toolset-dependencies.md) — determinism without a restore step
+- [Vendor dependencies](adr/automation/powershell/vendor-toolset-dependencies.md) — determinism without a restore step
 - [Controlling system-wide deps](adr/automation/controlling-systemwide-deps.md) — version-locked, platform-aware, no container required
 - [Effective in enterprises](adr/automation/effective-in-enterprises.md) — no network paths, no gallery, no profile dependency
-- [Prefer Az CLI](adr/automation/prefer-az-cli.md) — avoids assembly hell, no module ceremony
+- [Prefer Az CLI](adr/automation/powershell/prefer-az-cli.md) — avoids assembly hell, no module ceremony
 - [Prefer -DryRun over ShouldProcess](adr/automation/powershell/prefer-dryrun-over-shouldprocess.md) — an explicit switch beats the
   un-testable, easy-to-misuse -WhatIf/-Confirm subsystem
 - [Conventional folders](adr/repository/conventional-folders.md) — predictable layout for the whole repository: root folders, modules,
@@ -102,7 +102,7 @@ The "why" and "how" behind the PowerShell automation layer.
   this add ceremony?" — is the KISS test.
 - **DRY** — Enforced structurally: [open/closed architecture](adr/automation/open-closed-architecture.md) eliminates manifest duplication,
   [sensible defaults](adr/automation/sensible-defaults.md) pull versions from config,
-  [one function per file](adr/automation/one-function-per-file.md) makes the file name the export name.
+  [one function per file](adr/automation/powershell/one-function-per-file.md) makes the file name the export name.
 
 ## Pipeline ADRs
 

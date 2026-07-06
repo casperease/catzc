@@ -47,7 +47,7 @@ against.
 
 So the IP plan is a **single source of truth** sitting beside `azure.yml`: `automation/Catzc.Azure.Templates/configs/network.yml`. A
 template merges the right ranges in at build time through its PrePost prepare hook (see
-[`prepost-extension-modules`](../automation/prepost-extension-modules.md)), so the central plan is read, never copied.
+[`prepost-extension-modules`](../automation/powershell/prepost-extension-modules.md)), so the central plan is read, never copied.
 
 This is a third global asset, distinct from the two layers in [`data-model`](data-model.md): it is not identity
 (tenant/customer/environment/subscription) and not templating (template/options/slot). It is pure topology — the network plan keyed by

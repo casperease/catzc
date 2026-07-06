@@ -97,7 +97,7 @@ If the template needs build- or deploy-time logic, copy the starter `automation/
 - `Invoke-BicepPostDeploy` — runs after a successful deploy. Fixups and verification.
 
 A template with no `PrePost.psm1`, or one that doesn't export a given hook, simply skips that step — there is no default. See
-[prepost-extension-modules](../../../adr/automation/prepost-extension-modules.md).
+[prepost-extension-modules](../../../adr/automation/powershell/prepost-extension-modules.md).
 
 ## Where the global config lives
 

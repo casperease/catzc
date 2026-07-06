@@ -38,6 +38,32 @@
   </ItemGroup>
 
   <!--
+    Reference System.Management.Automation from the pwsh HOST, not a package. The runtime compile
+    (Add-Type) gets SMA for free — it is in Add-Type's default reference set, and the compiled assembly
+    only ever loads inside a pwsh process where SMA is loaded by definition (ADR native-csharp-types,
+    "host-guaranteed assemblies"). There is no NuGet in this toolset, so the IDE build mirrors that
+    contract the same way the runtime satisfies it: ask the pwsh on PATH for the SMA assembly it actually
+    loads ([psobject].Assembly.Location — deliberately $-free so the command survives both cmd and sh)
+    and reference it compile-time-only (Private=false, never copied to output).
+  -->
+  <Target Name="ResolveSmaReferenceFromPwshHost" BeforeTargets="ResolveAssemblyReferences">
+    <Exec Command="pwsh -NoProfile -NonInteractive -Command &quot;[Console]::Out.Write([psobject].Assembly.Location)&quot;"
+          ConsoleToMSBuild="true" EchoOff="true" StandardOutputImportance="low" IgnoreExitCode="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="CatzcSmaPath" />
+      <Output TaskParameter="ExitCode" PropertyName="CatzcPwshExitCode" />
+    </Exec>
+    <Error Condition="'$(CatzcPwshExitCode)' != '0' Or !Exists('$(CatzcSmaPath)')"
+           Text="Catzc.Types: could not resolve System.Management.Automation.dll from the pwsh on PATH (exit $(CatzcPwshExitCode), path '$(CatzcSmaPath)'). The IDE build references SMA from the PowerShell 7 host (no NuGet in this toolset) — install pwsh 7.4+ and ensure it is on PATH." />
+    <ItemGroup>
+      <Reference Include="System.Management.Automation">
+        <HintPath>$(CatzcSmaPath)</HintPath>
+        <!-- Compile-time-only: the host supplies SMA at runtime, so it is never copied to output. -->
+        <Private>false</Private>
+      </Reference>
+    </ItemGroup>
+  </Target>
+
+  <!--
     Stamp this project's version from the committed native-types assembly's identity. The RUNTIME
     (Import-CSharpTypes) writes automation/.compiled/Catzc.Types.<hash>.dll, where <hash> is the combined
     hash of every module's types/*.cs (ADR native-csharp-types, ADR-TYPES:6) — that hash IS the assembly's

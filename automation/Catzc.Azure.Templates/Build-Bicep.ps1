@@ -97,7 +97,8 @@ function Build-Bicep {
 
         # The build invocation for this slot — the arguments Build-Bicep is acting on. Hooks read what
         # they need from it (e.g. $BuildInvocation.Customer) rather than via raw params, so adding a
-        # dimension never changes the hook signature. See docs/adr/automation/prepost-extension-modules.md.
+        # dimension never changes the hook signature.
+        # See docs/adr/automation/powershell/prepost-extension-modules.md.
         $buildInvocation = [ordered]@{
             Template     = $Template
             Environment  = $environment
