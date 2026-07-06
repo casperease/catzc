@@ -7,10 +7,22 @@ Describe 'Initialize-GitClone' -Tag 'L0', 'logic' {
         Mock Test-IsWslSession { $false } -ModuleName Catzc.Tooling.Provisioning
         Mock Invoke-Executable {
             switch -Regex ($Command) {
-                'rev-parse --is-inside-work-tree' { [pscustomobject]@{ ExitCode = 0; Output = 'true' }; break }
-                '--get user\.(name|email)' { [pscustomobject]@{ ExitCode = 0; Output = 'obj' }; break }
-                '--get' { [pscustomobject]@{ ExitCode = 1; Output = '' }; break }   # local settings unset
-                default { $null }
+                'rev-parse --is-inside-work-tree' {
+                    [pscustomobject]@{ ExitCode = 0; Output = 'true' }
+                    break
+                }
+                '--get user\.(name|email)' {
+                    [pscustomobject]@{ ExitCode = 0; Output = 'obj' }
+                    break
+                }
+                '--get' {
+                    # local settings unset
+                    [pscustomobject]@{ ExitCode = 1; Output = '' }
+                    break
+                }
+                default {
+                    $null
+                }
             }
         } -ModuleName Catzc.Tooling.Provisioning
     }

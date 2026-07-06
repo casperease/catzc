@@ -27,7 +27,7 @@
 .EXAMPLE
     Initialize-GitClone
 .EXAMPLE
-    Initialize-GitClone /home/calni/catzc -DryRun
+    Initialize-GitClone ~/catzc -DryRun
 #>
 # Uses -DryRun, not ShouldProcess/-WhatIf — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-dryrun2.
 function Initialize-GitClone {

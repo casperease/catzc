@@ -26,8 +26,8 @@ Describe 'Get-AzureSubscription' -Tag 'L0', 'logic' {
     }
 
     It 'normalizes a customer referenced by shortcode to its canonical key' {
-        # acme_short binds customer 'ac' (globex/acme shortcode form); it resolves to the key 'acme'.
-        (Get-AzureSubscription acme_short).customer | Should -Be 'acme'
+        # globex_short binds customer 'gx' (the shortcode form); it resolves to the key 'globex'.
+        (Get-AzureSubscription globex_short).customer | Should -Be 'globex'
     }
 
     It 'omits the customer for a non-customer subscription' {
