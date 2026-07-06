@@ -36,13 +36,16 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     // The environments this template deploys into. Never null (empty array when none).
     public string[]    environments         { get; }
 
-    // The subscriptions this template deploys into. Never null (empty array when none).
+    // The families this template deploys into (its configuration subfolders). Never null.
+    public string[]    families             { get; }
+
+    // The subscriptions this template deploys into (resolved per slot). Never null (empty array when none).
     public string[]    subscriptions        { get; }
 
     // The customers this template is deployed for. Never null (empty array when none).
     public string[]    customers            { get; }
 
-    // The fully resolved deployable units — the (subscription, environment, slot) fan-out. Never null.
+    // The fully resolved deployable units — the (family, environment, slot) fan-out. Never null.
     public BicepSlot[] slots                { get; }
 
     // The folder build output is written to. Always present.
@@ -88,6 +91,7 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
         bicep_files          = StrArr(d, "bicep_files");
         configuration_files  = StrArr(d, "configuration_files");
         environments         = StrArr(d, "environments");
+        families             = StrArr(d, "families");
         subscriptions        = StrArr(d, "subscriptions");
         customers            = StrArr(d, "customers");
         slots                = SlotArr(d, "slots");

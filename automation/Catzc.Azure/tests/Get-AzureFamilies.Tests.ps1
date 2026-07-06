@@ -11,35 +11,35 @@ Describe 'Get-AzureFamilies' -Tag 'L0', 'logic' {
     }
 
     It 'groups every subscription into its derived family' {
-        $families = Get-AzureFamilies
-        @($families | ForEach-Object { $_.name } | Sort-Object) |
+        # Comma-wrapped array return: parenthesise before piping (see pester-testing.md gotchas).
+        @((Get-AzureFamilies) | ForEach-Object { $_.name } | Sort-Object) |
             Should -Be @('acme', 'core', 'cross_shared', 'globex')
     }
 
     It 'a multi-member family lists all its member subscriptions' {
-        $core = @(Get-AzureFamilies | Where-Object { $_.name -eq 'core' })[0]
+        $core = @((Get-AzureFamilies) | Where-Object { $_.name -eq 'core' })[0]
         @($core.subscriptions | Sort-Object) | Should -Be @('core_lower', 'core_upper')
     }
 
     It 'a customer family carries the canonical customer key' {
-        $acme = @(Get-AzureFamilies | Where-Object { $_.name -eq 'acme' })[0]
+        $acme = @((Get-AzureFamilies) | Where-Object { $_.name -eq 'acme' })[0]
         $acme.customer | Should -Be 'acme'
-        $globex = @(Get-AzureFamilies | Where-Object { $_.name -eq 'globex' })[0]
+        $globex = @((Get-AzureFamilies) | Where-Object { $_.name -eq 'globex' })[0]
         $globex.customer | Should -Be 'globex'
     }
 
     It 'a non-customer family carries an empty customer' {
-        $core = @(Get-AzureFamilies | Where-Object { $_.name -eq 'core' })[0]
+        $core = @((Get-AzureFamilies) | Where-Object { $_.name -eq 'core' })[0]
         $core.customer | Should -BeNullOrEmpty
     }
 
     It 'overlays declared families: configuration onto the derived entry' {
-        $core = @(Get-AzureFamilies | Where-Object { $_.name -eq 'core' })[0]
+        $core = @((Get-AzureFamilies) | Where-Object { $_.name -eq 'core' })[0]
         $core.details | Should -Be 'Fixture core family (lower + upper pair)'
     }
 
     It 'an undeclared family has default (empty) configuration' {
-        $acme = @(Get-AzureFamilies | Where-Object { $_.name -eq 'acme' })[0]
+        $acme = @((Get-AzureFamilies) | Where-Object { $_.name -eq 'acme' })[0]
         $acme.details | Should -BeNullOrEmpty
     }
 }
