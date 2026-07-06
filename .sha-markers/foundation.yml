@@ -1,0 +1,11 @@
+name: foundation
+description: Deployable unit - the foundation infrastructure template plus the shared Bicep modules.
+layer: deployable-unit
+verify:
+  modules:
+  - Catzc.Azure.Templates
+  level: 2
+include:
+- 'infrastructure/templates/foundation/**'
+- 'infrastructure/modules/**'
+sha256: c6554ed3341ea17acb8b0d005cf450e1841dbdb3c13d078b447269dd88de5b14

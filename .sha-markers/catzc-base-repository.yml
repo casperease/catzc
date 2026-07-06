@@ -1,0 +1,6 @@
+name: catzc-base-repository
+description: Derived module scope - automation/Catzc.Base.Repository/**
+layer: module
+include:
+- 'automation/Catzc.Base.Repository/**'
+sha256: 94dbf1b6856b6b411184518d3ae4a449079356da64383ff0a4556e9d38c00b9a
