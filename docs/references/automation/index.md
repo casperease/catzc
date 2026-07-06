@@ -54,6 +54,7 @@ Modules are layered — a module may only call into the modules it declares in `
 | [Catzc.Azure](catzc-azure.md)                               | Azure identity and topology — the model behind every deployment                               |
 | [Catzc.Azure.Cli](catzc-azure-cli.md)                       | The Azure CLI surface — invocation, session, verification, context                            |
 | [Catzc.Azure.DevOps](catzc-azure-devops.md)                 | Azure DevOps REST, pipeline inventory, and the runtime bridge                                 |
+| [Catzc.Azure.DevOps.BuildValidation](catzc-azure-devops-buildvalidation.md) | Build-validation branch policies tied to globsets — the server-side pre-commit gate |
 | [Catzc.Azure.Firewall](catzc-azure-firewall.md)             | Firewall-rule ingestion and rendering                                                         |
 | [Catzc.Azure.Templates](catzc-azure-templates.md)           | Bicep template discovery, naming, build, and deploy                                           |
 
