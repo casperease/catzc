@@ -1,6 +1,3 @@
-# GENERATED FILE — do not edit. Single source of truth:
-#   automation/Catzc.Base.RootConfig/assets/root/cspell.yml
-# Regenerated on import by Build-RootConfig; edit the source, not this copy.
 version: "0.2"
 language: en,en-GB
 ignorePaths:

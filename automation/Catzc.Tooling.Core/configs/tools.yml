@@ -46,6 +46,8 @@ az_cli:
   # the shared toolchain Python.
   depends_on: uv
   uv_tool: azure-cli
+  # azure-cli's dependency tree pins a pre-release (azure-batch beta), which uv refuses by default.
+  uv_allow_prerelease: true
   version_command: "az version --output tsv"
   version_pattern: "^(?<ver>[^\t]+)"
 

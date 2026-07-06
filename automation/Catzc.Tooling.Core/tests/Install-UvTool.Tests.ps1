@@ -17,6 +17,16 @@ Describe 'Install-UvTool' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'passes --prerelease=allow when the tool allows pre-releases' {
+        Mock Get-ToolConfig { [pscustomobject]@{ uv_tool = 'azure-cli'; command = 'az'; version = '2.87'; uv_allow_prerelease = $true } } -ModuleName Catzc.Tooling.Core
+        Mock Test-Command { $false } -ModuleName Catzc.Tooling.Core
+        Mock Get-ToolVersion { '2.87.0' } -ModuleName Catzc.Tooling.Core
+        Install-UvTool -Tool 'az_cli'
+        Should -Invoke Invoke-Uv -ModuleName Catzc.Tooling.Core -Times 1 -ParameterFilter {
+            $Arguments -eq 'tool install azure-cli==2.87.* --prerelease=allow'
+        }
+    }
+
     It 'is idempotent — skips when already at the locked version' {
         Mock Test-Command { $true } -ModuleName Catzc.Tooling.Core
         Mock Get-ToolVersion { '2.87.1' } -ModuleName Catzc.Tooling.Core

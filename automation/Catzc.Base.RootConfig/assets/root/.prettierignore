@@ -1,6 +1,3 @@
-# GENERATED FILE — do not edit. Single source of truth:
-#   automation/Catzc.Base.RootConfig/assets/root/.prettierignore
-# Regenerated on import by Build-RootConfig; edit the source, not this copy.
 # Paths Prettier skips (gitignore syntax): ONLY third-party / non-authored trees that should never be
 # formatted (like node_modules and vendor). This root config makes NO content-scope decisions — which
 # authored Markdown we choose not to lint/gate (out/, docs/notes, …) is coded into the Test-Markdownlint

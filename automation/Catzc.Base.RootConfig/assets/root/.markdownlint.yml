@@ -1,6 +1,3 @@
-# GENERATED FILE — do not edit. Single source of truth:
-#   automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
-# Regenerated on import by Build-RootConfig; edit the source, not this copy.
 # markdownlint configuration — the single source of truth for Markdown linting in this repo.
 #
 # Mirrors PSScriptAnalyzerSettings.psd1: every rule is folded out in full, so you can see at a glance

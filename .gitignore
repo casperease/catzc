@@ -31,6 +31,13 @@ automation/**/*.psd1
 # source of truth (see rootconfig.yml). Edit the source, never the root copy; this list is injected from the
 # registry's committed:false targets and never restated by hand.
 /PSScriptAnalyzerSettings.psd1
+/.editorconfig
+/.markdownlint.yml
+/.markdownlintignore
+/.prettierrc.yml
+/.prettierignore
+/cspell.yml
+/dotnet-tools.json
 
 # ── Generated README copy-ins ───────────────────────────────────────────────────────────────────────────────────────
 # A README.md in a mapped conventional folder is a generated copy-in of an authored docs source (Build-Readme,

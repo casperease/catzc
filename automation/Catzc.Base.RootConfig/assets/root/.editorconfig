@@ -1,6 +1,3 @@
-# GENERATED FILE — do not edit. Single source of truth:
-#   automation/Catzc.Base.RootConfig/assets/root/.editorconfig
-# Regenerated on import by Build-RootConfig; edit the source, not this copy.
 root = true
 
 [*]

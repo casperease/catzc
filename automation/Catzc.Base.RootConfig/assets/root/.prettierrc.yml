@@ -1,6 +1,3 @@
-# GENERATED FILE — do not edit. Single source of truth:
-#   automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
-# Regenerated on import by Build-RootConfig; edit the source, not this copy.
 # Prettier configuration — the markdown formatter for this repo (esbenp.prettier-vscode is the
 # [markdown] formatter in .vscode/settings.json; Format-Markdown runs the same engine).
 #

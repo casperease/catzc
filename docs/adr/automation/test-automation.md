@@ -217,9 +217,11 @@ from module session state, which global strict never reaches).
 
 ### Rule ADR-TEST:26
 
-The optional third tag **`serial`** (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`) names a test that mutates
-state shared across worker processes — the committed `.compiled` assembly, a fixed `out/` path two files both write (e.g. the
-`out/template/<name>` build folders), `.triggers/`. Any file containing a serial-tagged test runs wholly in a final **one-worker phase**,
+The optional third tag **`serial`** (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`) names a test that must not
+share the machine with the parallel pool: it mutates state shared across worker processes — the committed `.compiled` assembly, a fixed
+`out/` path two files both write (e.g. the `out/template/<name>` build folders), `.triggers/` — or it fans out heavy parallelism of its own
+(the PSScriptAnalyzer gate's background-process pool) that would oversubscribe the box on top of the running workers and inflate
+neighbouring tests' wall clock. Any file containing a serial-tagged test runs wholly in a final **one-worker phase**,
 alone, after the parallel shards complete; a file is the scheduling unit, so one serial test serializes its file. A parallel-run flake
 root-caused to a shared resource is fixed by tagging it serial (or removing the sharing) — never by retrying (ADR-RETRY:1).
 

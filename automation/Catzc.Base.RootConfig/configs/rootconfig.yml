@@ -19,9 +19,45 @@ files:
     source: automation/.internal/assets/PSScriptAnalyzerSettings.psd1
     comment: hash
     optIn: true
+  # importer.ps1 has TWO valid source-of-truth forms, swapped by editing this entry alone:
+  #   generator: New-Importer  — the live form: the full shim, rendered from the Invoke-Importer overlay's
+  #                              param block on every import (the drift guard in New-Importer.Tests.ps1).
+  #   source: automation/Catzc.Base.RootConfig/assets/root/importer.ps1 (comment: none)
+  #                            — the SEED form for a first check-in: a minimal bootstrap that just performs
+  #                              one full import; the importer tail's Build-RootConfig then materialises
+  #                              whatever THIS entry names, so switching back to the generator self-heals
+  #                              the seed into the full shim on the very next load.
   - target: importer.ps1
     generator: New-Importer
     committed: true
+    optIn: true
+  - target: .editorconfig
+    source: automation/Catzc.Base.RootConfig/assets/root/.editorconfig
+    comment: hash
+    optIn: true
+  - target: .markdownlint.yml
+    source: automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
+    comment: hash
+    optIn: true
+  - target: .markdownlintignore
+    source: automation/Catzc.Base.RootConfig/assets/root/.markdownlintignore
+    comment: hash
+    optIn: true
+  - target: .prettierrc.yml
+    source: automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
+    comment: hash
+    optIn: true
+  - target: .prettierignore
+    source: automation/Catzc.Base.RootConfig/assets/root/.prettierignore
+    comment: hash
+    optIn: true
+  - target: cspell.yml
+    source: automation/Catzc.Base.RootConfig/assets/root/cspell.yml
+    comment: hash
+    optIn: true
+  - target: dotnet-tools.json
+    source: automation/Catzc.Base.RootConfig/assets/root/dotnet-tools.json
+    comment: none
     optIn: true
   - target: .gitattributes
     source: automation/Catzc.Base.RootConfig/assets/root/.gitattributes

@@ -1,4 +1,7 @@
-Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity' {
+# serial: the analysis shards across min(ProcessorCount - 1, 10) background pwsh processes of its own —
+# stacked on the parallel worker pool that fan-out oversubscribes the machine (and inflates neighbouring
+# tests' wall clock against the level time limits); in the serial phase it lands on an idle box instead.
+Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'serial' {
     BeforeAll {
         $repositoryRoot = $env:RepositoryRoot
         $automationRoot = Join-Path $repositoryRoot 'automation'
