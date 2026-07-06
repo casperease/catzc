@@ -1,5 +1,7 @@
 # CATZC — Cloud Automation Toolkit, Zero-Ceremony
 
+<!-- cspell:ignore utomation oolkit ero eremony -- the bold-initial expansion below splits into these fragments -->
+
 **C**loud **A**utomation **T**oolkit, **Z**ero-**C**eremony — a PowerShell 7.4+ module system for monorepos, with Azure/Bicep
 infrastructure-as-code and Azure DevOps pipelines, built on one founding rule: **zero ceremony**.
 
