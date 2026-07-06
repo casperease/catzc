@@ -150,8 +150,8 @@ function Test-Automation {
         throw 'No test folders found'
     }
 
-    # One discovery-only pass feeds every pre-run inspection: the tag gate below and the serial-phase split
-    # (Get-TestSerialFiles) share it, so the tree is discovered once per run.
+    # One discovery-only pass feeds every pre-run inspection: the tag gate below and the phase split
+    # (Split-TestAutomationFiles) share it, so the tree is discovered once per run.
     $discovery = Get-TestDiscovery -TestPath $testPaths
 
     # Enforce the two mandatory tag axes (tier L0-L3 + category logic|integrity) on every test. The discovery
@@ -238,9 +238,10 @@ function Test-Automation {
         # the map; in a pipeline the selection is a pass-through). The key carries the run parameters, so an
         # L0-L1 green never skips an L2 run.
         $protectionKey = "test-automation|L$MinLevel-L$MaxLevel|$Category|$($Rule -join ',')"
-        $protectionPlan = Select-ProtectedTestFile -ParallelFiles @($parallelFiles) -SerialFiles @($serialFiles) `
-            -Discovery $discovery -ProtectionKey $protectionKey
+        $protectionPlan = Select-ProtectedTestFile -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
+            -SerialFiles @($serialFiles) -Discovery $discovery -ProtectionKey $protectionKey
         $parallelFiles = [System.Collections.Generic.List[string]]::new([string[]]$protectionPlan.ParallelFiles)
+        $greedyFiles = [System.Collections.Generic.List[string]]::new([string[]]$protectionPlan.GreedyFiles)
         $serialFiles = [System.Collections.Generic.List[string]]::new([string[]]$protectionPlan.SerialFiles)
         $protectedModules = @($protectionPlan.ProtectedModules)
 
@@ -257,14 +258,15 @@ function Test-Automation {
 
         Write-TestAutomationHeader -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules
 
-        # Shard, run the pool (then the serial phase), and aggregate the row sidecars — the execution engine.
+        # Shard, run the pool (then the greedy and serial phases), and aggregate the row sidecars — the engine.
         # When protection drained the whole work-list, there is nothing to execute: the run is vacuously green.
-        $workerRun = if (($parallelFiles.Count + $serialFiles.Count) -eq 0) {
+        $workerRun = if (($parallelFiles.Count + $greedyFiles.Count + $serialFiles.Count) -eq 0) {
             Write-Message 'Every module in scope is protected — nothing to run.' -ForegroundColor Yellow
             [pscustomobject]@{ Rows = @(); FailedShardLabels = @(); DurationSeconds = 0.0; Shards = @(); WorkerSummaries = @() }
         }
         else {
-            Invoke-TestAutomationWorkers -ParallelFiles @($parallelFiles) -SerialFiles @($serialFiles) `
+            Invoke-TestAutomationWorkers -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
+                -SerialFiles @($serialFiles) `
                 -RunDirectory $runDir -ExcludeTag $excludeTags -IncludeTag $Rule -Verbosity $Output -Workers $Workers `
                 -TimeoutSeconds $TimeoutSeconds -WorkerEnvironment $workerEnvironment
         }
