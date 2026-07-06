@@ -34,9 +34,11 @@ Describe 'Get-TrackedFile' -Tag 'L0', 'logic' {
 # forward slashes, including this test file.
 Describe 'Get-TrackedFile (real git)' -Tag 'L2', 'integrity' {
     It 'lists this repository''s tracked files as /-separated repo-relative paths' {
-        $files = InModuleScope Catzc.Base.Globs { Get-TrackedFile }
+        # @()-wrap both counts: under the importer's strict mode, .Count on a scalar (or an empty pipeline
+        # result) throws instead of adapting.
+        $files = @(InModuleScope Catzc.Base.Globs { Get-TrackedFile })
         $files.Count | Should -BeGreaterThan 100
         $files | Should -Contain 'importer.ps1'
-        ($files | Where-Object { $_ -like '*\*' }).Count | Should -Be 0
+        @($files | Where-Object { $_ -like '*\*' }).Count | Should -Be 0
     }
 }

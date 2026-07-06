@@ -202,6 +202,29 @@ reaches master only when its BVT is green, and the canonical module-manifest art
 
 - [The Build Verification Test](#the-build-verification-test)
 
+### Rule ADR-TEST:25
+
+`Test-Automation` parallelizes at whole-file granularity across worker **processes**: the run's test files are sharded across pwsh workers
+(the `PesterRunner` type — pooled live output, one worker's stream live while later workers buffer and replay in order), each worker
+dot-sources the importer, runs its shard, writes `results-shard-<N>.xml`, and reduces its **live** Pester result to plain per-test rows
+(`ConvertTo-TestAutomationRowSet` — tier/category resolution walks the live `.Block` chain, which does not survive a process boundary) into
+a `rows-shard-<N>.json` sidecar. The parent aggregates rows — never a Pester object across a boundary — and every run report (tests.csv,
+summary.md, the timing check, the skip report) consumes rows. A worker exits 0/1; any other exit code, or a missing sidecar, is a worker
+crash the parent surfaces loudly. Workers run tests **without** strict mode, matching what the harness has always done (it invoked Pester
+from module session state, which global strict never reaches).
+
+- [The parallel harness](#the-parallel-harness)
+
+### Rule ADR-TEST:26
+
+The optional third tag **`serial`** (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`) names a test that mutates
+state shared across worker processes — the committed `.compiled` assembly, a fixed `out/` path two files both write (e.g. the
+`out/template/<name>` build folders), `.triggers/`. Any file containing a serial-tagged test runs wholly in a final **one-worker phase**,
+alone, after the parallel shards complete; a file is the scheduling unit, so one serial test serializes its file. A parallel-run flake
+root-caused to a shared resource is fixed by tagging it serial (or removing the sharing) — never by retrying (ADR-RETRY:1).
+
+- [The parallel harness](#the-parallel-harness)
+
 ## Context
 
 [Fail fast with inline assertions](fail-fast-with-asserts.md) makes the case that automation code is mostly _impure_ — it orchestrates
@@ -370,6 +393,26 @@ merged by the PrePost seam, the injected Key Vault reference — lives in the `B
 the walking skeleton: a very few real-`az` builds, one per distinct compiler concern — a resource-group-scoped build wiring `main.json`
 alongside its parameter files, a subscription `targetScope` compiling, a reusable module inlined into `main.json` — not one per sample
 template. A new sample that varies only its inputs adds L0 rule-checks and no new real build.
+
+### The parallel harness
+
+`Test-Automation` runs the suite across parallel worker **processes**, not runspaces — the same isolation doctrine as the PSSA shards and
+the cold-import gotcha above: process-global state (env vars, loaded assemblies, thread-unsafe engines) makes in-process parallelism unsafe,
+and a child process is fully isolated. The unit of scheduling is the **whole test file**: files are round-robin sharded across a CPU-capped
+pool (`-Workers` overrides), each worker imports the repository (`-SkipJanitors` — and manifest generation writes only on drift, so
+concurrent worker imports never race the generated `.psd1` files), runs its shard through Pester, and streams its output through the pool —
+the first unfinished worker is live, later workers buffer and replay in submission order, so the console reads sequentially while the wall
+clock runs in parallel (the `PesterRunner` type owns this).
+
+Results cross the process boundary as **rows**, not Pester objects: each worker reduces its own live result — where the `.Block` chain still
+exists for tier/category/skip-reason resolution — to plain per-test rows in a JSON sidecar, and the parent aggregates them for the timing
+check and every report. Pester's NUnit output is per shard (`results-shard-<N>.xml`); summary.md and tests.csv are the merged artifacts.
+Files containing a `serial`-tagged test (ADR-TEST:26) run in a final one-worker phase, alone.
+
+Two deliberate consequences: workers run tests **without strict mode** (parity — the harness has always invoked Pester from module session
+state, which global strict never reaches, and the suite is not written to run strict); and the protected-glob session map
+([protected-globs](protected-globs.md)) is per worker session, so a protected scan never skips under the harness — it runs concurrently with
+the other shards instead.
 
 ### The Build Verification Test
 

@@ -1,7 +1,10 @@
+# GENERATED FILE — do not edit. Single source of truth:
+#   automation/Catzc.Base.RootConfig/assets/root/.gitattributes
+# Regenerated on import by Build-RootConfig; edit the source, not this copy.
 # Binary files must never be line-ending normalized — EOL conversion rewrites the bytes, which corrupts
 # the file and breaks the byte-exact, hash-keyed compiled-type cache (see docs/adr/automation/caching.md).
 # The `binary` macro expands to `-text -diff`: no text conversion, no textual diff.
-# Verified by automation/Catzc.Base.Utils/tests/Test-CheckedInBinaries.Tests.ps1.
+# Verified by automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1.
 #
 # Only binary types are marked here. There is deliberately NO `* text=auto` rule, so existing text files
 # keep their current storage and are not mass-renormalized by adding this file.

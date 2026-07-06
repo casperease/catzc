@@ -59,6 +59,10 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // True when the tool exists only on Windows — skipped on macOS/Linux by the provisioning and status loops.
     public bool   windows_only        { get; }
 
+    // True when the tool has only a machine-scope installer, so installing it requires Administrator. Install
+    // asserts elevation; the provisioning loops skip and report it when not elevated.
+    public bool   admin_only          { get; }
+
     // The install directory on Windows. Null when not applicable.
     public string windows_install_dir { get; }
 
@@ -92,6 +96,7 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
         script_install      = Flag(d, "script_install");
         system_provided     = Flag(d, "system_provided");
         windows_only        = Flag(d, "windows_only");
+        admin_only          = Flag(d, "admin_only");
         windows_install_dir = OptStr(d, "windows_install_dir");
         unix_install_dir    = OptStr(d, "unix_install_dir");
         depends_on          = OptStr(d, "depends_on");

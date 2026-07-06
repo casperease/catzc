@@ -60,10 +60,13 @@ poetry:
   version_pattern: "^Poetry \\(version (?<ver>.+)\\)$"
 
 node_js:
+  # Node 24 (current LTS). winget has no versioned OpenJS.NodeJS.24 — its versioned packages stop at 23 — so
+  # this uses the OpenJS.NodeJS.LTS alias, currently 24.x. That alias MOVES with each LTS: when the LTS advances
+  # past 24, bump `version` to match (and revisit brew's node@24), or the installed version fails the pin.
   version: "24"
   command: node
   depends_on: winget
-  winget_id: "OpenJS.NodeJS.{0}"
+  winget_id: "OpenJS.NodeJS.LTS"
   winget_scope: user
   brew_formula: "node@{0}"
   apt_package: "nodejs"
@@ -117,7 +120,10 @@ java:
   command: java
   depends_on: winget
   winget_id: "Microsoft.OpenJDK.{0}"
-  winget_scope: user
+  # Microsoft.OpenJDK.25 ships only a machine-scope (wix) installer — there is no user-scope installer, so a
+  # `--scope user` install finds none. It installs machine-scope and therefore requires Administrator; the
+  # provisioning loops skip and report it when not elevated.
+  admin_only: true
   brew_formula: "openjdk@{0}"
   apt_package: "openjdk-{0}-jdk"
   version_command: "java --version"
@@ -140,10 +146,14 @@ uv:
 py_spark:
   version: "4.1"
   command: pyspark
-  # Installed with `uv pip install --system pyspark` INTO the uv-managed Python, so it stays importable;
-  # depends_on python for install ordering. Java is a runtime dependency, asserted in Invoke-PySpark.
+  # Installed with `uv pip install --python <pin> pyspark` INTO the uv-managed Python, so it stays importable;
+  # depends_on python for install ordering. Its `pyspark` launcher lives inside the package (not a PATH exe),
+  # so presence is verified by the import-metadata version probe, not Assert-Command.
   depends_on: python
   pip_package: pyspark
+  # Runtime needs Java, which is admin_only — so PySpark is provisioned in the same elevated run as Java, and
+  # the non-elevated provision skips and reports it rather than installing a runtime that cannot start.
+  admin_only: true
   # Read the version from package metadata — no heavy `import pyspark` (which spins up the JVM gateway),
   # just the installed dist-info. importlib.metadata is stdlib since 3.8.
   version_command: 'python -c "from importlib.metadata import version; print(version(''pyspark''))"'

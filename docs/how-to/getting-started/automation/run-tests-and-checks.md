@@ -44,9 +44,11 @@ L2/L3 tests **self-skip** when their tool or cloud access is missing, so the def
 
 Every run writes to `out/test-automation/<yyyyMMdd-HHmmss>/`, and `out/test-automation/latest.txt` names the newest run:
 
-- `results.xml` — Pester NUnit output (names, durations, failures)
-- `summary.md` — counts, failures with `file:line`, slowest tests, over-budget timings
-- `tests.csv` — one row per test, for sorting by duration
+- `results-shard-<N>.xml` — Pester NUnit output per worker shard (names, durations, failures)
+- `rows-shard-<N>.json` — each shard's per-test rows, the shape the merged reports are built from
+- `summary.md` — counts, failures with `file:line`, slowest tests, over-budget timings (merged across shards)
+- `tests.csv` — one row per test, for sorting by duration (merged across shards)
+- `shard-<N>.ps1` — the generated worker runner scripts, kept for diagnosis
 
 ## Linters, spelling, and formatting
 
@@ -77,6 +79,10 @@ Two globset-backed behaviors show up in gate runs (see [durable-sha-globs](../..
 - A **skipped** repository spelling/markdown scan (`protected_globset_unchanged_since_green_run`) means that scan already ran green against
   the identical file set this session — a local-only optimization, never active in CI. `Clear-GlobSetProtection` (or reloading the importer)
   forces a full rescan.
+- A **"module(s) skipped (protected)"** line means those modules' composite identity — their own files, their declared dependencies, the
+  loader/vendor/compiled-types infrastructure, and the test harness — is unchanged since their last green run this session, so their test
+  files were dropped from the run. Same rules: session memory only, never in CI, and the protection key carries the run's level/category, so
+  a `-Level 1` green never skips a `-Level 2` run. `Clear-GlobSetProtection` forces the full suite.
 
 ## What CI runs
 

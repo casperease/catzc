@@ -11,8 +11,10 @@
 .PARAMETER Result
     The live Pester run object (Invoke-Pester -Configuration <with Run.PassThru>), in the process that ran it.
 .OUTPUTS
-    [pscustomobject] rows: ExpandedPath, ExpandedName, Result, DurationMs, Level, Category, File, Line,
-    ErrorMessage, ErrorStack, SkipReason.
+    [pscustomobject] rows: ExpandedPath, ExpandedName, Result, DurationMs, Level, Category, Rules, File, Line,
+    ErrorMessage, ErrorStack, SkipReason. Rules is the ';'-joined ADR provenance citations (Get-TestRuleTags),
+    '' when the test carries none — resolved in-worker like Level/Category because the .Block chain does not
+    survive the process boundary.
 #>
 function ConvertTo-TestAutomationRowSet {
     [CmdletBinding()]
@@ -51,6 +53,7 @@ function ConvertTo-TestAutomationRowSet {
             DurationMs   = [int]$test.Duration.TotalMilliseconds
             Level        = "$(Get-TestLevelTag -Test $test)"
             Category     = "$(Get-TestCategoryTag -Test $test)"
+            Rules        = (Get-TestRuleTags -Test $test) -join ';'
             File         = $file
             Line         = $line
             ErrorMessage = $errorMessage

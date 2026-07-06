@@ -1,4 +1,6 @@
-Describe 'Build-Bicep (sample-subscription)' -Tag 'L0', 'logic' {
+# serial: wipes and rebuilds the shared out/template/sample-subscription folder, which Build-Bicep.L2.Tests.ps1
+# also builds — a parallel worker would race it (see the test-automation ADR's serial tag).
+Describe 'Build-Bicep (sample-subscription)' -Tag 'L0', 'logic', 'serial' {
     # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
     # build output folder is wiped per test, since the build tests write into it (ADR-TEST:19/ADR-TEST:4).
     BeforeAll {

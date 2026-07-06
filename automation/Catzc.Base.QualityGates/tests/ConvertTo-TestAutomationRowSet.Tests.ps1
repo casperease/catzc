@@ -43,6 +43,8 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
                     -File 'C:\x\Gated.Tests.ps1' -Line 20 -Message 'is skipped, because tool_az_missing'
                 New-FakeTest -Path 'Mod.Wide is out of scope' -Result 'NotRun' -Ms 0 -Tags @('L3', 'logic') `
                     -File 'C:\x\Wide.Tests.ps1' -Line 30
+                New-FakeTest -Path 'Mod.Cited enforces a rule' -Result 'Passed' -Ms 3 `
+                    -Tags @('L1', 'logic', 'ADR-ERROR#3', 'ADR-IDEM#1') -File 'C:\x\Cited.Tests.ps1' -Line 8
             )
         }
 
@@ -53,8 +55,8 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
     }
 
     It 'emits one row per discovered test, in order, including Skipped and NotRun' {
-        $script:rows | Should -HaveCount 4
-        $script:rows.Result | Should -Be @('Passed', 'Failed', 'Skipped', 'NotRun')
+        $script:rows | Should -HaveCount 5
+        $script:rows.Result | Should -Be @('Passed', 'Failed', 'Skipped', 'NotRun', 'Passed')
         $script:rows[0].ExpandedPath | Should -Be 'Mod.Fast passes'
     }
 
@@ -63,6 +65,11 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
         $script:rows[0].Category | Should -Be 'logic'
         $script:rows[2].Level | Should -Be 'L2'
         $script:rows[2].Category | Should -Be 'integrity'
+    }
+
+    It 'joins the ADR provenance citations into Rules, and is empty when none are carried' {
+        $script:rows[4].Rules | Should -Be 'ADR-ERROR#3;ADR-IDEM#1'
+        $script:rows[0].Rules | Should -BeExactly ''
     }
 
     It 'carries duration, file, and line for every row' {
@@ -87,9 +94,10 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
     It 'round-trips through JSON without losing any field' {
         $json = ConvertTo-Json -InputObject $script:rows -Depth 4
         $back = @($json | ConvertFrom-Json)
-        $back | Should -HaveCount 4
+        $back | Should -HaveCount 5
         $back[2].SkipReason | Should -Be 'tool_az_missing'
         $back[1].ErrorMessage | Should -Be 'Expected 1 but got 2'
         $back[3].Result | Should -Be 'NotRun'
+        $back[4].Rules | Should -Be 'ADR-ERROR#3;ADR-IDEM#1'
     }
 }

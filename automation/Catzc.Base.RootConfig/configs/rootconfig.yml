@@ -23,3 +23,12 @@ files:
     generator: New-Importer
     committed: true
     optIn: true
+  - target: .gitattributes
+    source: automation/Catzc.Base.RootConfig/assets/root/.gitattributes
+    comment: hash
+    committed: true
+    optIn: true
+  - target: .gitignore
+    generator: New-GitIgnore
+    committed: true
+    optIn: true

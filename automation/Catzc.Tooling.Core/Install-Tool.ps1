@@ -104,6 +104,22 @@ function Install-Tool {
 
     Sync-SessionPath
 
+    # winget portable packages resolve through a symlink in WinGet\Links that must be on PATH; creating that
+    # symlink needs Developer Mode (or admin), so on a plain user account the command lands under WinGet\Packages
+    # on no PATH at all. When it is still unresolved after the registry sync, recover it: find the command in the
+    # Packages tree and prepend its directory to the session PATH. (Enabling Developer Mode lets winget do this
+    # itself and is the cleaner fix.)
+    if ($IsWindows -and -not (Get-Command $config.command -CommandType Application -ErrorAction Ignore)) {
+        $pkgRoot = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'
+        if (Test-Path $pkgRoot) {
+            $exe = Get-ChildItem -Path $pkgRoot -Filter "$($config.command).exe" -Recurse -File -ErrorAction Ignore |
+                Select-Object -First 1
+            if ($exe -and (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $exe.DirectoryName)) {
+                $env:PATH = "$($exe.DirectoryName)$([System.IO.Path]::PathSeparator)$env:PATH"
+            }
+        }
+    }
+
     Assert-Command $config.command -ErrorText "$Tool was installed but '$($config.command)' is not on PATH. You may need to restart your shell."
 
     # Verify the actual installed version matches what we asked for.

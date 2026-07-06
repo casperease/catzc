@@ -48,10 +48,10 @@ exactly one file across the repository, verified by an integrity test.
 
 ### Rule ADR-EXTEND:7
 
-Generated manifests are gitignored, never committed. `New-DynamicManifest` rewrites each module's `<Module>.psd1` from the filesystem on
-**every** import (and deletes it when a module has no `.ps1` files left), so the manifest is a pure derived artifact —
-`automation/**/*.psd1` is gitignored. The only committed `.psd1` files are the vendored third-party manifests under `automation/.vendor/`
-(negated in `.gitignore`), which the platform does not generate.
+Generated manifests are gitignored, never committed. `New-DynamicManifest` recomputes each module's `<Module>.psd1` from the filesystem on
+**every** import, writing only when the content differs (and deleting it when a module has no `.ps1` files left), so the manifest is a pure
+derived artifact — `automation/**/*.psd1` is gitignored. The only committed `.psd1` files are the vendored third-party manifests under
+`automation/.vendor/` (negated in `.gitignore`), which the platform does not generate.
 
 - [Manifests are a regenerated, gitignored artifact](#manifests-are-a-regenerated-gitignored-artifact)
 
@@ -89,11 +89,12 @@ self-evident.
 ### Manifests are a regenerated, gitignored artifact
 
 A module's `.psd1` is not source — it is a projection of the module's `.ps1` files, recomputed every time the importer runs.
-`Import-AllModules` calls `New-DynamicManifest` for each module directory immediately before `Import-Module`, writing
+`Import-AllModules` calls `New-DynamicManifest` for each module directory immediately before `Import-Module`, deriving
 `<Module>/<Module>.psd1` directly from the current filesystem: every root `*.ps1` (excluding `*.Tests.ps1`) becomes an exported function,
-every `private/*.ps1` becomes a non-exported `NestedModules` entry. A directory that has lost all its `.ps1` files has its stale manifest
-deleted in the same loop. The manifest is never read as an input and never hand-edited; the filesystem of `.ps1` files is the single source
-of truth, and the manifest is its output.
+every `private/*.ps1` becomes a non-exported `NestedModules` entry. The file is written only when the recomputed content differs — a clean
+tree costs a read per module and no write, which is also what lets Test-Automation's parallel workers import concurrently without racing the
+manifest files. A directory that has lost all its `.ps1` files has its stale manifest deleted in the same loop. The manifest is never read
+as an input and never hand-edited; the filesystem of `.ps1` files is the single source of truth, and the manifest is its output.
 
 Because the manifest is regenerated from scratch on every import, committing it would be committing a build output. It would drift from the
 `.ps1` files on any branch that adds, renames, or moves a function, and produce noisy, conflict-prone diffs that say nothing the directory

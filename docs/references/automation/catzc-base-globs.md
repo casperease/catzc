@@ -38,9 +38,11 @@ the trigger file with the change" discipline self-enforcing.
 
 ### domain:4 — Protected scans
 
-The session-memory skip for heavy read-only scans: a (test, globset) key holds the durable SHA of the last green run; an unchanged set
-answers "protected" and the scan is skipped. Recording happens only after a green run, on the hash computed before the scan, and in a
-pipeline the whole mechanism is ignored — CI always scans full.
+The session-memory skip for heavy read-only scans: a (test, scope) key holds the durable identity of the last green run; an unchanged scope
+answers "protected" and the scan is skipped. Recording happens only after a green run, on the identity computed before the scan, and in a
+pipeline the whole mechanism is ignored — CI always scans full. Beyond the declared scan scopes, the module folders derive their own
+globsets by convention (one per module, plus the reserved infra scopes `internal`/`vendor`/`compiled`/`scriptanalyzer`) — the building
+blocks `Test-Automation` composes into per-module protection identities. Derived sets never gain trigger files.
 
 ## What the module does
 
@@ -68,3 +70,4 @@ The module's public surface, indexed by domain.
 | domain:4 — Protected scans                 | `Test-GlobSetProtection`  |
 |                                            | `Protect-GlobSet`         |
 |                                            | `Clear-GlobSetProtection` |
+|                                            | `Get-ModuleGlobSet`       |

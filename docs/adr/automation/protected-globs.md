@@ -47,6 +47,32 @@ changes the scan's outcome must re-key the set.
 
 - [Scoping a protected scan](#scoping-a-protected-scan)
 
+### Rule ADR-PROTGLOB:7
+
+Module globsets are derived, never declared: every module folder under `automation/` derives a set named by the readme-kebab convention
+(`Catzc.Base.Globs` → `catzc-base-globs`, include `automation/<Module>/**`), and the reserved names `internal`, `vendor`, `compiled`, and
+`scriptanalyzer` cover the dot-prefixed infrastructure. Derived and declared sets share one name space — a declared set that shadows a
+derived name is rejected — and derived sets never gain trigger files: they scope protection, not pipeline routing.
+
+- [Derived module globsets](#derived-module-globsets)
+
+### Rule ADR-PROTGLOB:8
+
+A module's protection identity is a composite: the fold of its own derived set, the derived sets of its declared dependency closure from
+`dependencies.yml`, the four infra scopes, and the runner's own set. It widens to include the repository-wide declared set exactly when the
+module's true read set is not derivable — when it is unconstrained in `dependencies.yml`, when its tests include the `integrity` category,
+or when it is a dot-prefixed infra test unit. Skip less, never wrongly.
+
+- [The composite identity](#the-composite-identity)
+
+### Rule ADR-PROTGLOB:9
+
+Under the sharded test harness, protection decisions live only in the orchestrator: modules are dropped from the work-list before sharding
+and promoted after aggregation; workers never read or write the map. The protection key carries the run parameters
+(`test-automation|L<min>-L<max>|<category>`), so a narrower run's green never skips a wider run.
+
+- [Whole-suite protection](#whole-suite-protection)
+
 ## Context
 
 The repository-wide integrity scans (spelling, markdown lint) each take seconds to minutes and are pure functions of the files they read. In
@@ -88,6 +114,39 @@ The globset must cover everything the scan reads — the scanned files **and** t
 The markdown scan protects against `markdown-scope` (in-scope markdown plus the markdownlint config, mirroring the scan's own negation
 globs); the spelling scan reads nearly the whole tree including its vocabulary registry, so it protects against the repository-wide
 `automation` set. Two scans may share one globset — the key is (test, globset), so one scan's green never skips another.
+
+### Derived module globsets
+
+The module folders already say what a module is; writing thirty registry entries would duplicate that and drift as modules come and go. So
+per-module globsets are derived, not declared (`Get-ModuleGlobSet`): folder = module = set, named by the readme-kebab convention, including
+`automation/<Module>/**` — the module's functions, private helpers, native types, configs, and its own tests, so editing a test re-keys its
+module. The reserved names `internal`, `vendor`, `compiled`, and `scriptanalyzer` derive the dot-prefixed infrastructure scopes the suite
+also depends on. Derived and declared sets share one name space — a shadowing declared name is rejected at load — and derived sets never
+enter the trigger-file registry: `Update-Trigger` and `Test-Trigger` iterate declared sets only.
+
+### The composite identity
+
+A module's test outcome is a function of more than its own files: its declared dependencies (any of them may change behavior underneath it),
+the loader and vendored Pester that run every test, the combined type assembly, the analyzer rules, and the harness itself. The protection
+identity is therefore a fold — the ADR-GLOBS durable-SHA recipe applied to `set-name|set-hash` lines — over the module's own derived set,
+its declared dependency closure from `dependencies.yml` (a group reference permits any member, so it expands to all members), the four infra
+scopes, and the runner's set. Each named set is hashed at most once per run (a run-owned memo), so composites cost folds, not re-hashing.
+
+Where the true read set is not derivable, the composite widens to include the repository-wide declared set instead of guessing: a module
+that is unconstrained in `dependencies.yml`, a module whose tests carry the `integrity` category (they read the real repository — that is
+the category's definition), and the infra test units themselves. The widened identity changes on any tracked edit, so those units re-run
+more — the failure mode is a redundant run, never a wrong skip.
+
+### Whole-suite protection
+
+`Test-Automation` applies the gate per module, in the orchestrator, around the sharded execution engine: after discovery, each in-scope
+unit's composite identity is computed and queried — a protected unit's test files are dropped from the work-list before sharding, reported
+one line per unit and as `ProtectedModules` on the `-PassThru` object; after the workers return, every unit that produced no failed row is
+promoted (the pending pre-run identity, `ADR-PROTGLOB:4`). Anything unattributable is conservative: a failed shard container, or a failed
+row with no file, promotes nothing. Workers never read or write the map — a worker is a fresh process whose module state could not see it
+anyway. In a pipeline the whole block is bypassed before any identity is computed, so CI pays nothing and skips nothing. A run keyed
+`test-automation|L0-L1|Logic` protects only that scope; the default `L0-L2|Both` run has its own key, so a narrow green never hides a wide
+red.
 
 ### How this is enforced
 

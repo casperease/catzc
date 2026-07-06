@@ -47,6 +47,13 @@ function Install-DevBoxTools {
             continue
         }
 
+        # Admin-only tools (machine-scope installers, e.g. Microsoft.OpenJDK) cannot install without elevation.
+        # Skip and report in a non-elevated run rather than failing the whole provision; re-run elevated to get them.
+        if ($config.admin_only -and -not (Test-IsAdministrator)) {
+            Write-Message "Skipping $toolName — requires Administrator (machine-scope installer). Re-run Install-DevBoxTools elevated to install it."
+            continue
+        }
+
         $installCmd = "Install-$(Get-ToolCommandSuffix -Tool $toolName)"
         if (-not (Get-Command $installCmd -ErrorAction SilentlyContinue)) {
             throw "No $installCmd function found for tool '$toolName' defined in tools.yml"

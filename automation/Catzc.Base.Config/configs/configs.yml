@@ -20,5 +20,7 @@ configs:
     type: Catzc.Base.Docs.DocsConfig
   rootconfig:
     type: Catzc.Base.RootConfig.RootConfigFiles
+  gitignore:
+    type: Catzc.Base.Git.GitIgnoreConfig
   globs:
     type: Catzc.Base.Globs.GlobsConfig

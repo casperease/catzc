@@ -109,10 +109,14 @@ terms:
       meaning: 'system-wide (''systemwide''; controlling-systemwide-deps ADR)'
     - term: typessystem
       meaning: 'reference-doc slug segment for the Catzc.Base.TypesSystem module'
+    - term: unioned
+      meaning: 'unioned (combined as a set union)'
     - term: upsert
       meaning: 'upsert (insert-or-update)'
     - term: virtualenvs
       meaning: 'Python virtual environments (virtualenvs)'
+    - term: importlib
+      meaning: 'Python importlib.metadata (stdlib) — reads an installed package''s version without importing it'
     - term: yoke
       meaning: 'the ''yoke'' of poka-yoke'
     - term: catzc
@@ -561,6 +565,8 @@ terms:
       meaning: 'a PowerShell data file (.psd1 manifest)'
     - term: gitignore
       meaning: 'a .gitignore file'
+    - term: wildmatch
+      meaning: 'git''s wildmatch pattern syntax — the glob dialect .gitignore/.gitattributes patterns use'
     - term: markdownlint
       meaning: 'the markdownlint tool'
     - term: artifactory
@@ -621,6 +627,14 @@ terms:
       meaning: 'TOML configuration format'
     - term: winget
       meaning: 'winget package manager'
+    - term: uv
+      meaning: 'Astral''s uv — Python package/tool manager and Python installer (the standard Python handler)'
+    - term: astral
+      meaning: 'Astral (astral.sh), maker of uv'
+    - term: nvm
+      meaning: 'nvm (Node Version Manager)'
+    - term: cpython
+      meaning: 'CPython (the reference Python implementation; uv installs cpython builds)'
     - term: yaml
       meaning: 'YAML'
   platform:
@@ -658,6 +672,8 @@ terms:
       meaning: 'libexec directory'
     - term: localappdata
       meaning: 'the %LOCALAPPDATA% path (localappdata)'
+    - term: windowsapps
+      meaning: 'the %LOCALAPPDATA%\Microsoft\WindowsApps directory — winget / App Installer command aliases'
     - term: lpdw
       meaning: 'Win32 P/Invoke out-parameter name ''lpdwResult'' (long pointer to DWORD)'
     - term: ntfs
@@ -776,6 +792,8 @@ terms:
       meaning: 'coined adjective ''greppable'''
     - term: loggable
       meaning: 'coined adjective ''loggable'' — a value safe to write to a log'
+    - term: miscased
+      meaning: 'coined adjective ''miscased'' — a tag/name written in the wrong letter case'
     - term: mockable
       meaning: 'coined adjective ''mockable'''
     - term: parseable

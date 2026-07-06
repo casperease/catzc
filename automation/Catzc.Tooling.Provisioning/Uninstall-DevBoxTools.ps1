@@ -37,6 +37,12 @@ function Uninstall-DevBoxTools {
             continue
         }
 
+        # Admin-only tools (machine-scope) need elevation to uninstall — skip and report in a non-elevated run.
+        if ($config.admin_only -and -not (Test-IsAdministrator)) {
+            Write-Message "Skipping $toolName — requires Administrator to uninstall (machine-scope). Re-run elevated."
+            continue
+        }
+
         # Map the snake_case tools.yml key to its PascalCase command suffix, exactly as Install-DevBoxTools does
         # (node_js -> Uninstall-NodeJs, az_cli -> Uninstall-AzCli, py_spark -> Uninstall-PySpark). Building
         # "Uninstall-$toolName" from the raw key only works for single-word tools by PowerShell's case-insensitive

@@ -37,9 +37,10 @@
     category's tag.
 .PARAMETER Workers
     How many parallel worker processes to shard the test files across. 0 (the default) sizes the pool
-    automatically — min(ProcessorCount - 1, 8), never more than the file count. 1 runs everything through a
-    single worker process (serialized, but still process-isolated). The serial phase always runs one worker,
-    after the parallel shards complete.
+    automatically — max(1, ProcessorCount / 4), never more than the file count: past that the box is
+    throughput-saturated, so extra workers only inflate per-test wall clock against the level time limits.
+    1 runs everything through a single worker process (serialized, but still process-isolated). The serial
+    phase always runs one worker, after the parallel shards complete.
 .PARAMETER TimeoutSeconds
     Hard ceiling on each execution phase (the parallel pool, then the serial phase). On expiry every worker
     is killed and the run throws. Defaults to 3600.
@@ -127,66 +128,9 @@ function Test-Automation {
         Import-Module $pesterPath -Scope Global -Force
     }
 
-    $automationRoot = Join-Path $env:RepositoryRoot 'automation'
-
-    # Discover every automation/<dir>/tests folder in a single .NET directory scan — one enumeration
-    # instead of two Get-ChildItem passes, with no pipeline/object overhead (and fewer filesystem round
-    # trips on network-backed repos, see effective-in-enterprises). Module tests run FOUNDATION-FIRST
-    # (Get-ModuleTestOrder — a topological sort of the declared dependency graph), so a broken base
-    # module's failures surface before the dependents that cascade from it; dot-prefixed infrastructure
-    # (.internal, .scriptanalyzer) runs after, ordinally.
-    $allDirs = [System.IO.Directory]::GetDirectories($automationRoot)
-    [Array]::Sort($allDirs)
-
-    $moduleTestsByName = [ordered]@{}
-    $infraTestPaths = [System.Collections.Generic.List[string]]::new()
-    foreach ($dir in $allDirs) {
-        $dirName = [System.IO.Path]::GetFileName($dir)
-        $isInfra = $dirName.StartsWith('.')
-
-        # -Modules narrows the run to the named automation modules. Dot-prefixed infrastructure
-        # (.internal, .scriptanalyzer) is never a named module, so it only runs in the unfiltered case.
-        if ($Modules -and ($isInfra -or $dirName -notin $Modules)) {
-            continue
-        }
-
-        $testsPath = [System.IO.Path]::Combine($dir, 'tests')
-        if (-not [System.IO.Directory]::Exists($testsPath)) {
-            continue
-        }
-
-        if ($isInfra) {
-            $infraTestPaths.Add($testsPath)
-        }
-        else {
-            $moduleTestsByName[$dirName] = $testsPath
-        }
-    }
-
-    # Foundation-first module order from the dependency graph — best-effort: if the graph cannot be
-    # ordered (a malformed or cyclic dependencies.yml, which its OWN tests then report), fall back to the
-    # ordinal order so the suite still runs rather than the runner crashing on the config it is testing.
-    $moduleOrder = try {
-        Get-ModuleTestOrder
-    }
-    catch {
-        Write-Verbose "Get-ModuleTestOrder failed ($_); falling back to ordinal module order."
-        @($moduleTestsByName.Keys)
-    }
-
-    $moduleTestPaths = [System.Collections.Generic.List[string]]::new()
-    foreach ($name in $moduleOrder) {
-        if ($moduleTestsByName.Contains($name)) {
-            $moduleTestPaths.Add($moduleTestsByName[$name])
-            $moduleTestsByName.Remove($name)
-        }
-    }
-    # Any discovered module the order did not name (safety) — append in the ordinal order already scanned.
-    foreach ($name in @($moduleTestsByName.Keys)) {
-        $moduleTestPaths.Add($moduleTestsByName[$name])
-    }
-
-    $testPaths = @($moduleTestPaths) + @($infraTestPaths)
+    # The run's tests folders, foundation-first — module dependency order, dot-prefixed infrastructure last
+    # (Get-TestAutomationTestPaths owns the scan and the ordering).
+    $testPaths = @(Get-TestAutomationTestPaths -Modules $Modules)
 
     if (-not $testPaths) {
         if ($Modules) {
@@ -231,240 +175,203 @@ function Test-Automation {
     }
     New-Item -ItemType Directory -Path $runDir -Force | Out-Null
 
-    # Collect the run's test files in foundation-first folder order (recursing so tests/types/ is included),
-    # then split off the serial files — any file containing a 'serial'-tagged test mutates state shared
-    # across worker processes and runs in a final one-worker phase, alone.
-    $testFiles = [System.Collections.Generic.List[string]]::new()
-    foreach ($testsPath in $testPaths) {
-        $files = @([System.IO.Directory]::GetFiles($testsPath, '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories))
-        [Array]::Sort($files, [System.StringComparer]::Ordinal)
-        foreach ($file in $files) {
-            $testFiles.Add($file)
-        }
-    }
-    if ($testFiles.Count -eq 0) {
-        throw 'No test files found in the discovered tests folders.'
-    }
+    # The run's self-describing state record (run.json): stamped 'running' now, and terminally
+    # ('passed'|'failed'|'crashed') in the finally below — so a reader never has to infer completeness from
+    # which artifact files happen to exist yet (Write-TestRunManifest; the write is atomic).
+    $runStartedAt = [DateTimeOffset]::UtcNow.ToString('o')
+    Write-TestRunManifest -RunDirectory $runDir -Manifest ([ordered]@{
+            status    = 'running'
+            startedAt = $runStartedAt
+            minLevel  = $MinLevel
+            maxLevel  = $MaxLevel
+            category  = $Category
+            modules   = @($Modules)
+        }) | Out-Null
 
-    $serialLookup = [System.Collections.Generic.HashSet[string]]::new(
-        [string[]] (Get-TestSerialFiles -Discovery $discovery), [System.StringComparer]::OrdinalIgnoreCase)
-    $parallelFiles = [System.Collections.Generic.List[string]]::new()
-    $serialFiles = [System.Collections.Generic.List[string]]::new()
-    foreach ($file in $testFiles) {
-        if ($serialLookup.Contains($file)) {
-            $serialFiles.Add($file)
-        }
-        else {
-            $parallelFiles.Add($file)
-        }
-    }
-
-    # Pool size: explicit -Workers, else CPU-tracked and capped (the proven shard heuristic) — never more
-    # workers than files, and at least one when only serial files exist (that pool is skipped below).
-    $workerCount = if ($Workers -gt 0) {
-        $Workers
-    }
-    else {
-        [Math]::Max(1, [Math]::Min([Environment]::ProcessorCount - 1, 8))
-    }
-    $workerCount = [Math]::Max(1, [Math]::Min($workerCount, $parallelFiles.Count))
-
-    # Round-robin the parallel files across the shards — spreads the heavy modules; the serial phase (when
-    # present) is one extra shard scheduled after the pool completes.
-    $shardFiles = @{}
-    for ($shardIndex = 0; $shardIndex -lt $workerCount; $shardIndex++) {
-        $shardFiles[$shardIndex] = [System.Collections.Generic.List[string]]::new()
-    }
-    for ($fileIndex = 0; $fileIndex -lt $parallelFiles.Count; $fileIndex++) {
-        $shardFiles[$fileIndex % $workerCount].Add($parallelFiles[$fileIndex])
-    }
-
-    $shards = [System.Collections.Generic.List[object]]::new()
-    for ($shardIndex = 0; $shardIndex -lt $workerCount; $shardIndex++) {
-        if ($shardFiles[$shardIndex].Count -eq 0) {
-            continue
-        }
-        $shards.Add((New-TestAutomationShardScript -ShardIndex $shardIndex -TestPath $shardFiles[$shardIndex] `
-                    -RunDirectory $runDir -ExcludeTag $excludeTags -Verbosity $Output))
-    }
-    $serialShard = $null
-    if ($serialFiles.Count -gt 0) {
-        $serialShard = New-TestAutomationShardScript -ShardIndex $workerCount -TestPath $serialFiles `
-            -RunDirectory $runDir -ExcludeTag $excludeTags -Verbosity $Output
-    }
-
-    # The unit-test tripwire for tool-free levels (L0/L1) travels on each worker's own process environment —
-    # never the parent's $env:. If a worker's test then launches a real process, a Mock failed to intercept
-    # it — almost always a -ModuleName pointing at the wrong module — so Invoke-Executable throws inside the
-    # worker instead of leaking. L2+ legitimately drive real CLIs, so it stays off there.
-    $workerEnvironment = if ($MaxLevel -lt 2) {
-        @{ CATZC_BLOCK_REAL_PROCESS = '1' }
-    }
-    else {
-        $null
-    }
-
-    Write-TestAutomationHeader -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules
-
-    # Announce before the pool blocks: each worker pays its own importer + Pester load before the first
-    # Pester line streams, so silence here would read as a hang (ADR-CONSOLE:10).
-    Write-Message "Running $($parallelFiles.Count) test file(s) across $($shards.Count) parallel worker(s)$(if ($serialShard) { ", then $($serialFiles.Count) serial-tagged file(s)" })..." -NoHeader
-
-    $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-    $workerResults = [System.Collections.Generic.List[object]]::new()
-    $allShards = [System.Collections.Generic.List[object]]::new()
-
-    if ($shards.Count -gt 0) {
-        $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-            [string[]] @($shards.ScriptPath), [string[]] @($shards.Label), $shards.Count,
-            $workerEnvironment, $TimeoutSeconds, $false)
-        $workerResults.AddRange($runner.Results)
-        $allShards.AddRange($shards)
-    }
-
-    # The serial phase runs after the pool, alone — its files mutate state the parallel workers must not see
-    # changing underneath them.
-    if ($serialShard) {
-        Write-Message "Serial phase: $($serialFiles.Count) serial-tagged file(s) in one worker..." -NoHeader
-        $serialRunner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-            [string[]] @($serialShard.ScriptPath), [string[]] @($serialShard.Label), 1,
-            $workerEnvironment, $TimeoutSeconds, $false)
-        $workerResults.AddRange($serialRunner.Results)
-        $allShards.Add($serialShard)
-    }
-    $stopwatch.Stop()
-
-    # Aggregate the rows sidecars, in shard order. A worker that exited outside {0,1} or never wrote its
-    # sidecar crashed before finishing its run — fail loudly naming the shard rather than reporting a
-    # partial run as the whole truth.
-    $rows = [System.Collections.Generic.List[object]]::new()
-    $failedShardLabels = [System.Collections.Generic.List[string]]::new()
-    for ($shardIndex = 0; $shardIndex -lt $allShards.Count; $shardIndex++) {
-        $shard = $allShards[$shardIndex]
-        $workerResult = $workerResults[$shardIndex]
-
-        if ($workerResult.ExitCode -notin 0, 1 -or -not (Test-Path $shard.RowsPath)) {
-            $stderrTail = "$($workerResult.Stderr)".Trim()
-            throw ("Test worker '$($shard.Label)' crashed (exit $($workerResult.ExitCode)) without completing its run." +
-                $(if ($stderrTail) {
-                        " Stderr:`n$stderrTail"
-                    }))
-        }
-        if ($workerResult.ExitCode -eq 1) {
-            $failedShardLabels.Add($shard.Label)
-        }
-
-        foreach ($row in @([System.IO.File]::ReadAllText($shard.RowsPath) | ConvertFrom-Json)) {
-            $rows.Add($row)
-        }
-    }
-    $rows = @($rows)
-
-    $failedCount = @($rows | Where-Object { $_.Result -eq 'Failed' }).Count
-    # A shard can report failure with zero failed test rows — a container/discovery error fails its run
-    # without producing a failed test. Either signal fails the aggregate verdict.
-    $runResult = if ($failedCount -gt 0 -or $failedShardLabels.Count -gt 0) {
-        'Failed'
-    }
-    else {
-        'Passed'
-    }
-
-    # Validate test durations against level limits
-    # L0 < 400ms, L1 < 2s (default for untagged), L2 < 120s, L3 < 30s
-    $limits = @{ 'L0' = 400; 'L1' = 2000; 'L2' = 120000; 'L3' = 30000 }
-    $violations = @()
-
-    foreach ($row in $rows) {
-        if ($row.Result -ne 'Passed') {
-            continue
-        }
-        if (-not $row.Level) {
-            continue
-        }   # untagged/ambiguous tier — already reported by the tag check
-        $limitMs = $limits[$row.Level]
-
-        if ($row.DurationMs -gt $limitMs) {
-            $violations += "[$($row.Level) > ${limitMs}ms] $($row.ExpandedName) took $($row.DurationMs)ms"
-        }
-    }
-
-    $timingFailure = $false
-    if ($violations.Count -gt 0) {
-        # Timings are machine-dependent, so report them by default and only FAIL the run when the
-        # caller opts in with -EnforceTimings. Either way the durations are written out below.
-        $color = if ($EnforceTimings) {
-            'Red'
-        }
-        else {
-            'Yellow'
-        }
-        $header = if ($EnforceTimings) {
-            'Tests exceeding level time limits'
-        }
-        else {
-            'Tests exceeding level time limits (report-only — pass -EnforceTimings to fail)'
-        }
-        Write-Message '' -NoHeader
-        Write-Header $header -ForegroundColor $color
-        foreach ($v in $violations) {
-            Write-Message "  $v" -ForegroundColor $color -NoHeader
-        }
-        Write-Message 'Tag slow tests with a higher level or optimize them.' -NoHeader
-        Write-Footer -ForegroundColor $color
-        $timingFailure = [bool]$EnforceTimings
-    }
-
-    # Persist the run report (summary.md + tests.csv) beside the per-shard results-shard-<N>.xml — written
-    # here, before any throw, so a failing run still produces it. Best-effort: a rendering error must never
-    # mask the outcome.
+    # Everything below runs inside try/finally so the terminal manifest is stamped on every exit path —
+    # pass, fail (the throw at the tail), or crash (any unexpected throw). The stamp must never be skipped:
+    # it is what makes run.json trustworthy, so it sits in the finally, not in a best-effort catch.
+    $manifestStatus = 'crashed'
+    $failedCount = 0
+    $failedShardLabels = @()
+    $workerRun = $null
     try {
-        Write-TestAutomationReport -Rows $rows -OutputFolder $runDir -Level $MaxLevel -Limits $limits `
-            -RunResult $runResult -DurationSeconds $stopwatch.Elapsed.TotalSeconds -TimingsEnforced:$EnforceTimings
-        Set-Content -Path (Join-Path $OutputFolder 'latest.txt') -Value (Split-Path $runDir -Leaf) -Encoding utf8
-        Write-Message '' -NoHeader
-        Write-Message "Test report: $runDir" -ForegroundColor Cyan -NoHeader
-    }
-    catch {
-        Write-Message "Could not write test report to ${runDir}: $_" -ForegroundColor Yellow -NoHeader
-    }
-
-    # Final section: what was skipped (a self-skip, with its reason) or not run (excluded by this run's
-    # tier/category scope). Best-effort — a rendering error here must never mask the run outcome below.
-    try {
-        Write-TestAutomationSkipReport -Rows $rows -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category
-    }
-    catch {
-        Write-Message "Could not render the skip report: $_" -ForegroundColor Yellow -NoHeader
-    }
-
-    if ($PassThru) {
-        [pscustomobject]@{
-            Result          = $runResult
-            TotalCount      = $rows.Count
-            PassedCount     = @($rows | Where-Object { $_.Result -eq 'Passed' }).Count
-            FailedCount     = $failedCount
-            SkippedCount    = @($rows | Where-Object { $_.Result -eq 'Skipped' }).Count
-            NotRunCount     = @($rows | Where-Object { $_.Result -eq 'NotRun' }).Count
-            DurationSeconds = [math]::Round($stopwatch.Elapsed.TotalSeconds, 2)
-            Rows            = $rows
-            RunDirectory    = $runDir
-            Shards          = @($allShards)
+        # Collect the run's test files in foundation-first folder order (recursing so tests/types/ is included),
+        # then split off the serial files — any file containing a 'serial'-tagged test mutates state shared
+        # across worker processes and runs in a final one-worker phase, alone.
+        $testFiles = [System.Collections.Generic.List[string]]::new()
+        foreach ($testsPath in $testPaths) {
+            $files = @([System.IO.Directory]::GetFiles($testsPath, '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories))
+            [Array]::Sort($files, [System.StringComparer]::Ordinal)
+            foreach ($file in $files) {
+                $testFiles.Add($file)
+            }
         }
-    }
-    elseif ($runResult -ne 'Passed' -or $timingFailure) {
-        # The failure gets its own red banner (a self-contained box) before the throw, so the outcome reads at
-        # a glance above the raw error.
-        $failureText = if ($failedCount -gt 0) {
-            "$failedCount test(s) failed"
+        if ($testFiles.Count -eq 0) {
+            throw 'No test files found in the discovered tests folders.'
         }
-        elseif ($failedShardLabels.Count -gt 0) {
-            "worker(s) $($failedShardLabels -join ', ') reported a failed run with no failed tests (a container/discovery error — see the output above)"
+
+        $serialLookup = [System.Collections.Generic.HashSet[string]]::new(
+            [string[]] (Get-TestSerialFiles -Discovery $discovery), [System.StringComparer]::OrdinalIgnoreCase)
+        $parallelFiles = [System.Collections.Generic.List[string]]::new()
+        $serialFiles = [System.Collections.Generic.List[string]]::new()
+        foreach ($file in $testFiles) {
+            if ($serialLookup.Contains($file)) {
+                $serialFiles.Add($file)
+            }
+            else {
+                $parallelFiles.Add($file)
+            }
+        }
+
+        # Per-module protection (ADR-PROTGLOB:9): units whose composite identity is unchanged since their last
+        # green run this session are dropped from the work-list here in the orchestrator (workers never see
+        # the map; in a pipeline the selection is a pass-through). The key carries the run parameters, so an
+        # L0-L1 green never skips an L2 run.
+        $protectionKey = "test-automation|L$MinLevel-L$MaxLevel|$Category"
+        $protectionPlan = Select-ProtectedTestFile -ParallelFiles @($parallelFiles) -SerialFiles @($serialFiles) `
+            -Discovery $discovery -ProtectionKey $protectionKey
+        $parallelFiles = [System.Collections.Generic.List[string]]::new([string[]]$protectionPlan.ParallelFiles)
+        $serialFiles = [System.Collections.Generic.List[string]]::new([string[]]$protectionPlan.SerialFiles)
+        $protectedModules = @($protectionPlan.ProtectedModules)
+
+        # The unit-test tripwire for tool-free levels (L0/L1) travels on each worker's own process environment —
+        # never the parent's $env:. If a worker's test then launches a real process, a Mock failed to intercept
+        # it — almost always a -ModuleName pointing at the wrong module — so Invoke-Executable throws inside the
+        # worker instead of leaking. L2+ legitimately drive real CLIs, so it stays off there.
+        $workerEnvironment = if ($MaxLevel -lt 2) {
+            @{ CATZC_BLOCK_REAL_PROCESS = '1' }
         }
         else {
-            "$($violations.Count) test(s) exceeded their level time limit (-EnforceTimings)"
+            $null
         }
-        Write-Header "Test Automation FAILED — $failureText" -ForegroundColor Red
-        throw "Test-Automation failed: $failureText"
+
+        Write-TestAutomationHeader -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules
+
+        # Shard, run the pool (then the serial phase), and aggregate the row sidecars — the execution engine.
+        # When protection drained the whole work-list, there is nothing to execute: the run is vacuously green.
+        $workerRun = if (($parallelFiles.Count + $serialFiles.Count) -eq 0) {
+            Write-Message 'Every module in scope is protected — nothing to run.' -ForegroundColor Yellow
+            [pscustomobject]@{ Rows = @(); FailedShardLabels = @(); DurationSeconds = 0.0; Shards = @() }
+        }
+        else {
+            Invoke-TestAutomationWorkers -ParallelFiles @($parallelFiles) -SerialFiles @($serialFiles) `
+                -RunDirectory $runDir -ExcludeTag $excludeTags -Verbosity $Output -Workers $Workers `
+                -TimeoutSeconds $TimeoutSeconds -WorkerEnvironment $workerEnvironment
+        }
+        $rows = @($workerRun.Rows)
+        $failedShardLabels = @($workerRun.FailedShardLabels)
+
+        # Promote protection for every candidate unit that came back green — per-module attribution over the
+        # rows, conservative on anything unattributable (Protect-TestedModule owns the rules).
+        Protect-TestedModule -Candidates @($protectionPlan.Candidates) -Rows $rows `
+            -FailedShardLabels $failedShardLabels -ProtectionKey $protectionKey
+
+        $failedCount = @($rows | Where-Object { $_.Result -eq 'Failed' }).Count
+        # A shard can report failure with zero failed test rows — a container/discovery error fails its run
+        # without producing a failed test. Either signal fails the aggregate verdict.
+        $runResult = if ($failedCount -gt 0 -or $failedShardLabels.Count -gt 0) {
+            'Failed'
+        }
+        else {
+            'Passed'
+        }
+        $manifestStatus = $runResult.ToLowerInvariant()
+
+        # Validate test durations against level limits (Get-TestTimingViolation owns the per-row check):
+        # L0 < 400ms, L1 < 2s (default for untagged), L2 < 120s, L3 < 30s
+        $limits = @{ 'L0' = 400; 'L1' = 2000; 'L2' = 120000; 'L3' = 30000 }
+        $violations = @(Get-TestTimingViolation -Rows $rows -Limits $limits)
+
+        $timingFailure = $false
+        if ($violations.Count -gt 0) {
+            # Timings are machine-dependent, so report them by default and only FAIL the run when the
+            # caller opts in with -EnforceTimings. Either way the durations are written out below.
+            $color = if ($EnforceTimings) {
+                'Red'
+            }
+            else {
+                'Yellow'
+            }
+            $header = if ($EnforceTimings) {
+                'Tests exceeding level time limits'
+            }
+            else {
+                'Tests exceeding level time limits (report-only — pass -EnforceTimings to fail)'
+            }
+            Write-Message '' -NoHeader
+            Write-Header $header -ForegroundColor $color
+            foreach ($v in $violations) {
+                Write-Message "  $v" -ForegroundColor $color -NoHeader
+            }
+            Write-Message 'Tag slow tests with a higher level or optimize them.' -NoHeader
+            Write-Footer -ForegroundColor $color
+            $timingFailure = [bool]$EnforceTimings
+            if ($timingFailure) {
+                $manifestStatus = 'failed'
+            }
+        }
+
+        # Persist summary.md/tests.csv + latest.txt and render the skip report — best-effort, never masking
+        # the run outcome (Write-TestAutomationArtifacts owns the guards).
+        Write-TestAutomationArtifacts -Rows $rows -RunDirectory $runDir -OutputFolder $OutputFolder `
+            -MaxLevel $MaxLevel -Limits $limits -RunResult $runResult -DurationSeconds $workerRun.DurationSeconds `
+            -EnforceTimings:$EnforceTimings -MinLevel $MinLevel -Category $Category
+
+        if ($PassThru) {
+            [pscustomobject]@{
+                Result           = $runResult
+                TotalCount       = $rows.Count
+                PassedCount      = @($rows | Where-Object { $_.Result -eq 'Passed' }).Count
+                FailedCount      = $failedCount
+                SkippedCount     = @($rows | Where-Object { $_.Result -eq 'Skipped' }).Count
+                NotRunCount      = @($rows | Where-Object { $_.Result -eq 'NotRun' }).Count
+                DurationSeconds  = [math]::Round($workerRun.DurationSeconds, 2)
+                Rows             = $rows
+                RunDirectory     = $runDir
+                Shards           = @($workerRun.Shards)
+                ProtectedModules = @($protectedModules)
+            }
+        }
+        elseif ($runResult -ne 'Passed' -or $timingFailure) {
+            # The failure gets its own red banner (a self-contained box) before the throw, so the outcome reads at
+            # a glance above the raw error.
+            $failureText = if ($failedCount -gt 0) {
+                "$failedCount test(s) failed"
+            }
+            elseif ($failedShardLabels.Count -gt 0) {
+                "worker(s) $($failedShardLabels -join ', ') reported a failed run with no failed tests (a container/discovery error — see the output above)"
+            }
+            else {
+                "$($violations.Count) test(s) exceeded their level time limit (-EnforceTimings)"
+            }
+            Write-Header "Test Automation FAILED — $failureText" -ForegroundColor Red
+            throw "Test-Automation failed: $failureText"
+        }
+    }
+    finally {
+        Write-TestRunManifest -RunDirectory $runDir -Manifest ([ordered]@{
+                status            = $manifestStatus
+                startedAt         = $runStartedAt
+                finishedAt        = [DateTimeOffset]::UtcNow.ToString('o')
+                minLevel          = $MinLevel
+                maxLevel          = $MaxLevel
+                category          = $Category
+                modules           = @($Modules)
+                failedCount       = $failedCount
+                failedShardLabels = @($failedShardLabels)
+                shardExitCodes    = $(if ($workerRun -and $workerRun.PSObject.Properties['ShardExitCodes']) {
+                        $workerRun.ShardExitCodes
+                    }
+                    else {
+                        @{}
+                    })
+                durationSeconds   = $(if ($workerRun) {
+                        [math]::Round($workerRun.DurationSeconds, 2)
+                    }
+                    else {
+                        0
+                    })
+            }) | Out-Null
     }
 }

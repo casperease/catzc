@@ -25,6 +25,19 @@ function Invoke-RootConfigGenerator {
             # the content without writing).
             New-Importer -DryRun
         }
+        'New-GitIgnore' {
+            # The root .gitignore, rendered from the gitignore zone registry (Catzc.Base.Git). The managed-
+            # copies zone is injected HERE, from this module's own registry — the committed:false targets,
+            # root-anchored — so the ignored-copies list lives once in rootconfig.yml and the dependency edge
+            # stays one-way (RootConfig -> Git; New-GitIgnore never reads rootconfig.yml).
+            $config = Get-Config -Config rootconfig
+            $ignoredCopies = @(foreach ($entry in @(Get-RootConfigTargets -Config $config)) {
+                    if (-not $entry.committed) {
+                        '/' + $entry.target
+                    }
+                })
+            New-GitIgnore -Inject @{ 'rootconfig-committed-false' = $ignoredCopies }
+        }
         default {
             throw "Unknown root-config generator '$Name'. Register its invocation in Invoke-RootConfigGenerator (Catzc.Base.RootConfig)."
         }

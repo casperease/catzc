@@ -221,8 +221,8 @@ jobs:
       # These put the correct version on PATH so Install-* sees it and skips.
       - task: UsePythonVersion@0
         inputs:
-          versionSpec: '3.11'
-        displayName: 'Activate Python 3.11'
+          versionSpec: '3.14'
+        displayName: 'Activate Python 3.14'
 
       - task: UseDotNet@2
         inputs:

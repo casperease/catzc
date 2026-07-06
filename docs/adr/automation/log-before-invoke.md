@@ -19,8 +19,8 @@ must add their own logging.
 
 ### Rule ADR-PRELOG:3
 
-Do not paraphrase: log the actual command (e.g. `winget install --id Python.Python.3.11 --silent`), not a description like "Installing
-Python...". A readable description may be added but never substituted.
+Do not paraphrase: log the actual command (e.g. `uv python install 3.14 --default`), not a description like "Installing Python...". A
+readable description may be added but never substituted.
 
 - [Why this must be automatic, not opt-in](#why-this-must-be-automatic-not-opt-in)
 

@@ -4,7 +4,12 @@
 .DESCRIPTION
     Writes <RunDirectory>/shard-<N>.ps1 — the script a PesterRunner worker executes as `pwsh -NoProfile
     -File` (modeled on Test-InIsolation's generated runner). The worker dot-sources the repository importer
-    (-SkipJanitors), imports vendored Pester, runs the shard's test files with the run's exclude tags, writes
+    (-SkipJanitors), then turns strict mode OFF for its own scope: invoking Pester from a scope the importer
+    made strict would leak strict mode into every test body — a behaviour the suite is not written under
+    (the harness has always invoked Pester from module session state, which global strict never reaches).
+    It then imports vendored Pester, builds its run configuration through the ONE shared builder
+    (New-PesterRunConfiguration, reached via module scope — the same builder Invoke-TestFile uses, so the
+    worker and manual paths cannot drift), runs the shard's test files with the run's exclude tags, writes
     Pester's NUnit results to results-shard-<N>.xml, reduces its live result to rows (ConvertTo-
     TestAutomationRowSet — tier/category resolution needs the live .Block chain, so it must happen inside the
     worker) into rows-shard-<N>.json, and exits 0 (green) or 1 (the run did not pass — failed tests, or a
@@ -39,7 +44,11 @@ function New-TestAutomationShardScript {
         [string[]] $ExcludeTag = @(),
 
         [ValidateSet('Minimal', 'Normal', 'Detailed', 'Diagnostic')]
-        [string] $Verbosity = 'Detailed'
+        [string] $Verbosity = 'Detailed',
+
+        # Filter the worker's run to tests whose full name contains this text — the manual single-check path
+        # (Invoke-TestFile). Empty means no name filter (the harness never sets one).
+        [string] $FullNameFilter
     )
 
     Assert-PathExist $RunDirectory -PathType Container
@@ -50,29 +59,26 @@ function New-TestAutomationShardScript {
     $rowsPath = Join-Path $RunDirectory "rows-shard-$ShardIndex.json"
 
     $pathLiteral = ($TestPath | ForEach-Object { "'$_'" }) -join ', '
-    $excludeLine = if ($ExcludeTag.Count -gt 0) {
-        $tagLiteral = ($ExcludeTag | ForEach-Object { "'$_'" }) -join ', '
-        "`$config.Filter.ExcludeTag = @($tagLiteral)"
-    }
-    else {
-        ''
-    }
+    $tagLiteral = ($ExcludeTag | ForEach-Object { "'$_'" }) -join ', '
+    # Single-quote literal: double any embedded quote (a FullNameFilter is prose — titles carry apostrophes).
+    $filterLiteral = "$FullNameFilter" -replace "'", "''"
 
+    # The Pester configuration itself comes from the ONE shared builder (New-PesterRunConfiguration) so this
+    # worker path and the manual single-check path (Invoke-TestFile) can never drift apart — the worker has
+    # the full toolset imported, so it reaches the private through module scope like ConvertTo-
+    # TestAutomationRowSet below. Only the strict-mode discipline stays inline: strict is scope-dynamic and
+    # the test scopes chain to the process's top scope, so the worker script itself must be the one to turn
+    # it off (tests run without strict — ADR-TEST:25).
     $content = @"
 `$ErrorActionPreference = 'Stop'
 . '$repositoryRoot/importer.ps1' -SkipJanitors
+Set-StrictMode -Off
 Import-Module '$repositoryRoot/automation/.vendor/Pester' -Force
 `$global:__PesterRunning = `$true
-`$config = New-PesterConfiguration
-`$config.Run.Path = @($pathLiteral)
-`$config.Run.PassThru = `$true
-`$config.Output.Verbosity = '$Verbosity'
-$excludeLine
-`$config.TestResult.Enabled = `$true
-`$config.TestResult.OutputFormat = 'NUnitXml'
-`$config.TestResult.OutputPath = '$resultsPath'
-`$config.TestResult.OutputEncoding = 'UTF8'
-`$config.TestResult.TestSuiteName = 'Catzc'
+`$config = & (Get-Module Catzc.Base.QualityGates) {
+    param(`$path, `$excludeTag, `$verbosity, `$resultsPath, `$fullNameFilter)
+    New-PesterRunConfiguration -Path `$path -ExcludeTag `$excludeTag -Verbosity `$verbosity -ResultsPath `$resultsPath -FullNameFilter `$fullNameFilter
+} @($pathLiteral) @($tagLiteral) '$Verbosity' '$resultsPath' '$filterLiteral'
 `$result = Invoke-Pester -Configuration `$config
 `$rows = & (Get-Module Catzc.Base.QualityGates) { param(`$runResult) ConvertTo-TestAutomationRowSet -Result `$runResult } `$result
 Set-Content -Path '$rowsPath' -Value (ConvertTo-Json -InputObject @(`$rows) -Depth 4) -Encoding utf8

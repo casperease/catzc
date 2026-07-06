@@ -97,7 +97,7 @@ Instead of `if ($bad) { throw "message" }` scattered through the code, use the `
 
 ```powershell
 Assert-Command python                    # throws: "'python' is not installed"
-Assert-ToolVersion -Tool 'Python'        # throws: "Python version mismatch: expected 3.11.x, found 3.10.2"
+Assert-ToolVersion -Tool 'python'        # throws: "python version mismatch: expected 3.14.x, found 3.10.2"
 Assert-PathExist $configPath             # throws: "Path does not exist: /app/config.yml"
 Assert-NotNullOrWhitespace $name         # throws: "Assertion failed: value was null or whitespace — Deploy.ps1, line 42"
 ```

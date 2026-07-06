@@ -28,23 +28,30 @@ Describe 'New-TestAutomationShardScript' -Tag 'logic' {
             $script:content | Should -Match ([regex]::Escape("importer.ps1' -SkipJanitors"))
             $script:content | Should -Match ([regex]::Escape('.vendor/Pester'))
             $script:content | Should -Match ([regex]::Escape("@('C:\repo\a.Tests.ps1', 'C:\repo\b.Tests.ps1')"))
-            $script:content | Should -Match ([regex]::Escape("Verbosity = 'Normal'"))
+            $script:content | Should -Match ([regex]::Escape("'Normal'"))
             $script:content | Should -Match ([regex]::Escape($script:shard.ResultsPath))
             $script:content | Should -Match ([regex]::Escape($script:shard.RowsPath))
             $script:content | Should -Match 'ConvertTo-TestAutomationRowSet'
         }
 
+        It 'builds its configuration through the one shared builder, strict off' {
+            # The worker and Invoke-TestFile must share New-PesterRunConfiguration (one living copy of the
+            # invocation config) and the worker turns strict mode off before Pester (ADR-TEST:25).
+            $script:content | Should -Match 'New-PesterRunConfiguration'
+            $script:content | Should -Match ([regex]::Escape('Set-StrictMode -Off'))
+        }
+
         It 'carries the exclude tags and exits with the not-passed flag' {
-            $script:content | Should -Match ([regex]::Escape("ExcludeTag = @('L2', 'L3')"))
+            $script:content | Should -Match ([regex]::Escape("@('L2', 'L3')"))
             $script:content | Should -Match ([regex]::Escape('exit ([int]($result.Result -ne ''Passed''))'))
         }
 
-        It 'omits the tag filter line when no tags are excluded' {
+        It 'passes an empty tag literal when no tags are excluded' {
             $bare = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
                 param($Dir)
                 New-TestAutomationShardScript -ShardIndex 4 -TestPath @('C:\repo\a.Tests.ps1') -RunDirectory $Dir
             }
-            (Get-Content -LiteralPath $bare.ScriptPath -Raw) | Should -Not -Match 'ExcludeTag'
+            (Get-Content -LiteralPath $bare.ScriptPath -Raw) | Should -Match ([regex]::Escape("@() 'Detailed'"))
         }
     }
 

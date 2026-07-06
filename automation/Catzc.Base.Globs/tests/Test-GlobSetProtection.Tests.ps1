@@ -77,4 +77,30 @@ Describe 'Test-GlobSetProtection / Protect-GlobSet' -Tag 'L0', 'logic' {
             $Message -match 'spelling' -and $Message -match 'unit' -and $Message -match 'aaaaaaaa'
         }
     }
+
+    Context '-Hash (a caller-computed composite identity)' {
+        It 'keys on the supplied identity and never hashes a declared set' {
+            Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('c' * 64) | Should -BeFalse
+            Protect-GlobSet -Test 'suite' -Name 'Some.Module'
+            Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('c' * 64) | Should -BeTrue
+            Should -Invoke Get-GlobSetHash -ModuleName Catzc.Base.Globs -Exactly -Times 0
+        }
+
+        It 'unprotects when the supplied identity changes' {
+            Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('c' * 64) | Out-Null
+            Protect-GlobSet -Test 'suite' -Name 'Some.Module'
+            Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('d' * 64) | Should -BeFalse
+        }
+
+        It 'promotes the queried (pre-run) identity, not a later -Hash' {
+            Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('c' * 64) | Out-Null
+            Protect-GlobSet -Test 'suite' -Name 'Some.Module' -Hash ('d' * 64)   # pending wins (ADR-PROTGLOB:4)
+            Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('c' * 64) | Should -BeTrue
+        }
+
+        It 'records a direct -Hash protection when nothing is pending' {
+            Protect-GlobSet -Test 'suite' -Name 'Some.Module' -Hash ('e' * 64)
+            Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('e' * 64) | Should -BeTrue
+        }
+    }
 }

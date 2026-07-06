@@ -35,7 +35,7 @@ those terms, and sorts its functions and configs into them:
   [Catzc.Base.Config](references/automation/catzc-base-config.md), [Catzc.Base.Execution](references/automation/catzc-base-execution.md),
   [Catzc.Base.Files](references/automation/catzc-base-files.md), [Catzc.Base.TypesSystem](references/automation/catzc-base-typessystem.md),
   [Catzc.Base.ModuleSystem](references/automation/catzc-base-modulesystem.md),
-  [Catzc.Base.QualityGates](references/automation/catzc-base-qualitygates.md),
+  [Catzc.Base.QualityGates](references/automation/catzc-base-qualitygates.md), [Catzc.Base.Git](references/automation/catzc-base-git.md),
   [Catzc.Base.RootConfig](references/automation/catzc-base-rootconfig.md)
 - [Catzc.Tooling.Core](references/automation/catzc-tooling-core.md), [Catzc.Tooling.Python](references/automation/catzc-tooling-python.md),
   [Catzc.Tooling.Node](references/automation/catzc-tooling-node.md),

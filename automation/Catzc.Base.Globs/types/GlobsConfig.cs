@@ -15,8 +15,13 @@ namespace Catzc.Base.Globs;
 
 public sealed class GlobsConfig
 {
-    // The config's own repo-relative path — a forbidden member of every globset (ADR-GLOBS:6).
+    // The config's own repo-relative path (named in lookup errors).
     public const string ConfigPath = "automation/Catzc.Base.Globs/configs/globs.yml";
+
+    // Names reserved for the DERIVED globsets (ADR-PROTGLOB): the infra scopes every module's tests depend
+    // on. Module folders derive their own sets by convention (Get-ModuleGlobSet); a declared set may not
+    // shadow a reserved name — the declared registry and the derived sets share one name space.
+    public static readonly string[] ReservedNames = { "internal", "vendor", "compiled", "scriptanalyzer" };
 
     // Every globset, in registry order.
     public IReadOnlyList<GlobSet> globsets { get; }
@@ -65,6 +70,12 @@ public sealed class GlobsConfig
                 {
                     errors.Add(string.Format("globset '{0}': unknown key '{1}' (allowed: description, include, exclude)", name, field));
                 }
+            }
+
+            if (Array.IndexOf(ReservedNames, name) >= 0)
+            {
+                errors.Add(string.Format("globset name '{0}' is reserved for a derived infra set (ADR-PROTGLOB); pick another name", name));
+                continue;
             }
 
             GlobSet set;

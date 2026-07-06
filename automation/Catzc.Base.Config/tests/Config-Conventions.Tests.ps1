@@ -3,7 +3,9 @@
 #  - wiring: each validated shipped config actually rejects a malformed file through Get-Config
 
 Describe 'Config conventions' -Tag 'L0', 'integrity' {
-    It 'every Assert-*Config validator maps to a configs/<name>.yml in its module (no orphans)' {
+    # Title deliberately avoids Pester's <var> name-template syntax — under the importer's strict mode an
+    # unmatched <name> token in an It title throws at name-expansion time instead of expanding to empty.
+    It 'every Assert-*Config validator maps to a configs/*.yml in its module (no orphans)' {
         $automation = Join-Path $env:RepositoryRoot 'automation'
         foreach ($moduleDir in (Get-ChildItem $automation -Directory | Where-Object { $_.Name -notmatch '^\.' })) {
             $mod = Get-Module $moduleDir.Name

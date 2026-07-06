@@ -30,7 +30,24 @@ Describe 'Uninstall-DevBoxTools' -Tag 'L0', 'logic' {
 
     It 'throws when a locked tool has no Uninstall- function' {
         Mock Get-ToolInstallOrder { @('made_up') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig { [pscustomobject]@{ system_provided = $false; windows_only = $false; admin_only = $false } } -ModuleName Catzc.Tooling.Provisioning
         { Uninstall-DevBoxTools } | Should -Throw '*No Uninstall-MadeUp function found*'
+    }
+
+    It 'skips an admin-only tool in a non-elevated run' {
+        Mock Get-ToolInstallOrder { @('java') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig { [pscustomobject]@{ system_provided = $false; windows_only = $false; admin_only = $true } } -ModuleName Catzc.Tooling.Provisioning
+        Mock Test-IsAdministrator { $false } -ModuleName Catzc.Tooling.Provisioning
+        Mock Write-Message { } -ModuleName Catzc.Tooling.Provisioning
+        { Uninstall-DevBoxTools } | Should -Not -Throw
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Message -like '*Skipping java*Administrator*' }
+    }
+
+    It 'skips an OS-provided tool (winget) without uninstalling or throwing' {
+        Mock Get-ToolInstallOrder { @('winget') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig { [pscustomobject]@{ system_provided = $true; windows_only = $false } } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolCommandSuffix { 'Winget' } -ModuleName Catzc.Tooling.Provisioning
+        { Uninstall-DevBoxTools } | Should -Not -Throw
     }
 
     It 'does not throw when there are no version-locked tools (empty install order)' {

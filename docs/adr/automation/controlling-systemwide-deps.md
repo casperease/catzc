@@ -173,8 +173,9 @@ pipeline's.
 
 #### 3b. Declare tool dependencies in config
 
-Some tools must be installed after another — the Azure CLI and Poetry install as isolated uv tools, so `uv` must be present; PySpark installs
-into the uv-managed Python, so `python` must be present; the winget tools need `winget`. These dependencies are declared in `tools.yml`:
+Some tools must be installed after another — the Azure CLI and Poetry install as isolated uv tools, so `uv` must be present; PySpark
+installs into the uv-managed Python, so `python` must be present; the winget tools need `winget`. These dependencies are declared in
+`tools.yml`:
 
 ```yaml
 poetry:
@@ -182,9 +183,9 @@ poetry:
   uv_tool: poetry
 ```
 
-`depends_on` governs **install ordering**, not runtime assertion. `Get-ToolInstallOrder` reads every `depends_on` and topologically sorts the
-tools so each dependency installs before the tools that need it (it throws on a circular dependency). The isolated `uv tool` installs share
-`Install-UvTool` / `Uninstall-UvTool`; a library installed into the interpreter (`uv pip install --system`, e.g. PySpark) uses
+`depends_on` governs **install ordering**, not runtime assertion. `Get-ToolInstallOrder` reads every `depends_on` and topologically sorts
+the tools so each dependency installs before the tools that need it (it throws on a circular dependency). The isolated `uv tool` installs
+share `Install-UvTool` / `Uninstall-UvTool`; a library installed into the interpreter (`uv pip install --system`, e.g. PySpark) uses
 `Install-PipTool` / `Uninstall-PipTool` — both run through `Invoke-Uv`, which asserts `uv` is present, and both parallel `Install-Tool` /
 `Uninstall-Tool` for platform package managers.
 
@@ -235,7 +236,7 @@ local runs.
 # native task activates the locked version, then our installer asserts/installs
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: "3.11"
+    versionSpec: "3.14"
 - template: /pipelines/steps/invoke-automation.yaml
   parameters:
     RunCommand: "Install-AzCli -Force" # uv tool, depends on uv

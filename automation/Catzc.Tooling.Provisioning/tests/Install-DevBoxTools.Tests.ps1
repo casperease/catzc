@@ -45,7 +45,17 @@ Describe 'Install-DevBoxTools' -Tag 'L0', 'logic' {
     It 'throws when a locked tool has no matching Install- function' {
         Mock Get-ToolInstallOrder { @('mystery') } -ModuleName Catzc.Tooling.Provisioning
         Mock Get-ToolCommandSuffix { 'Mystery' } -ModuleName Catzc.Tooling.Provisioning
-        Mock Get-ToolConfig { [pscustomobject]@{ command = 'mystery'; system_provided = $false; windows_only = $false; pip_package = $null; script_install = $false } } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig { [pscustomobject]@{ command = 'mystery'; system_provided = $false; windows_only = $false; admin_only = $false; pip_package = $null; script_install = $false } } -ModuleName Catzc.Tooling.Provisioning
         { Install-DevBoxTools } | Should -Throw '*No Install-Mystery function found*'
+    }
+
+    It 'skips an admin-only tool in a non-elevated run and reports it' {
+        Mock Get-ToolInstallOrder { @('java') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig { [pscustomobject]@{ command = 'java'; system_provided = $false; windows_only = $false; admin_only = $true } } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolCommandSuffix { 'Java' } -ModuleName Catzc.Tooling.Provisioning
+        Mock Test-IsAdministrator { $false } -ModuleName Catzc.Tooling.Provisioning
+        Mock Write-Message { } -ModuleName Catzc.Tooling.Provisioning
+        Install-DevBoxTools
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Message -like '*Skipping java*Administrator*' }
     }
 }

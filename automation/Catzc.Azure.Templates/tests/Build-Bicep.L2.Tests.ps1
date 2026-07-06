@@ -18,7 +18,10 @@
 #
 # Isolation is the standard seam swap (ADR-TEST:2): redirect the template tree to tests/assets/templates and the
 # azure/network configs to the fixtures, so these bind to the sample-* assets, never to shipped templates.
-Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic' {
+# serial: builds sample-customer / sample-subscription / sample-with-module into the shared out/template/<name>
+# folders that Build-Bicep.Sample*.Tests.ps1 also write — a parallel worker building the same template races
+# the output folder (see the test-automation ADR's serial tag).
+Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'serial' {
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'

@@ -29,6 +29,11 @@ function Install-PipTool {
         $Version = $config.version
     }
 
+    # Target the uv-managed Python explicitly (by its locked version), not `--system`: `uv pip --system` installs
+    # into whatever interpreter uv discovers on PATH, which can be a stray system Python that shadows the managed
+    # one. `--python <pin>` always lands in the interpreter the toolchain provisions.
+    $pythonVersion = (Get-ToolConfig -Tool 'python').version
+
     # Idempotent: skip if already installed at the correct version.
     if (Test-Command $config.command) {
         $installed = Get-ToolVersion -Config $config
@@ -43,7 +48,7 @@ function Install-PipTool {
         }
         elseif ($Force) {
             Write-Verbose "$Tool $installed found — uninstalling before installing $Version"
-            Invoke-Pip "uninstall --system $($config.pip_package)"
+            Invoke-Pip "uninstall --python $pythonVersion $($config.pip_package)"
         }
         else {
             $location = (Get-Command $config.command).Source
@@ -51,24 +56,25 @@ function Install-PipTool {
         }
     }
 
-    # --system targets the uv-managed Python on PATH (the `uv python install --default` interpreter), so the
-    # package is importable there rather than trapped in an isolated tool env.
-    Invoke-Pip "install --system $($config.pip_package)==$Version.*"
+    # Install into the uv-managed Python (by locked version) so the package is importable in the interpreter the
+    # toolchain provisions, not trapped in an isolated tool env or a stray system Python.
+    Invoke-Pip "install --python $pythonVersion $($config.pip_package)==$Version.*"
 
     Sync-SessionPath
 
-    Assert-Command $config.command -ErrorText "$Tool was installed but '$($config.command)' is not on PATH. You may need to restart your shell."
-
-    # Verify the actual installed version matches what we asked for.
+    # A pip-installed library may expose no PATH executable (PySpark's launcher lives inside the package), so
+    # confirm it through the version probe (an import/metadata read against the managed Python) rather than
+    # asserting a command on PATH.
     $actualVersion = Get-ToolVersion -Config $config
 
-    if ($actualVersion -and $actualVersion.StartsWith($Version)) {
+    if (-not $actualVersion) {
+        throw "$Tool was installed but its version probe ('$($config.version_command)') did not confirm it — check that the managed Python resolves on PATH."
+    }
+
+    if ($actualVersion.StartsWith($Version)) {
         Write-Message "$Tool $actualVersion installed successfully"
     }
-    elseif ($actualVersion) {
-        Write-Message "$Tool installed but version $actualVersion does not match expected $Version.x — uv may have installed a different version"
-    }
     else {
-        Write-Message "$Tool installed but could not verify version"
+        Write-Message "$Tool installed but version $actualVersion does not match expected $Version.x — uv may have installed a different version"
     }
 }

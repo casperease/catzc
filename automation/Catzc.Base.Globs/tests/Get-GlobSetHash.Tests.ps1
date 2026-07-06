@@ -79,4 +79,23 @@ Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {
         $empty | Should -MatchExactly '^[0-9a-f]{64}$'
         Get-GlobSetHash -Name unit | Should -Be $empty
     }
+
+    Context '-GlobSet (a derived set, not in the declared registry)' {
+        It 'hashes a GlobSet object to the same identity as an equivalent declared set' {
+            Set-Content (Join-Path $script:data 'o.txt') 'object-path' -NoNewline
+            Mock Get-TrackedFile { @('data/o.txt') } -ModuleName Catzc.Base.Globs
+
+            $derived = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', @('data/**'), @())
+            Get-GlobSetHash -GlobSet $derived | Should -Be (Get-GlobSetHash -Name unit)
+        }
+
+        It 'scopes membership to the object, not the registry' {
+            Set-Content (Join-Path $script:data 'in.txt') 'inside' -NoNewline
+            Mock Get-TrackedFile { @('data/in.txt', 'other/out.txt') } -ModuleName Catzc.Base.Globs
+
+            $narrow = [Catzc.Base.Globs.GlobSet]::new('narrow', 'd', @('data/**'), @())
+            $wide = [Catzc.Base.Globs.GlobSet]::new('wide', 'd', @('data/**', 'other/**'), @())
+            Get-GlobSetHash -GlobSet $narrow | Should -Not -Be (Get-GlobSetHash -GlobSet $wide)
+        }
+    }
 }

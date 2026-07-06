@@ -57,6 +57,7 @@ The module's public functions, sorted into the domains above.
 | Domain                                        | Function            |
 | --------------------------------------------- | ------------------- |
 | domain:1 — Test suite runner                  | `Test-Automation`   |
+|                                               | `Invoke-TestFile`   |
 | domain:2 — Document and code formatting gates | `Test-Spelling`     |
 |                                               | `Test-Markdownlint` |
 |                                               | `Format-Markdown`   |

@@ -23,13 +23,16 @@ Test-Automation -Category Integrity -Modules Catzc.Azure        # one module's i
 Test-Automation -Category Integrity -Level 2 -Output Detailed  # one line per assertion
 ```
 
-**Run one check (precise):** take the `Test file` and `FullNameFilter` from the row and filter Pester to it:
+**Run one check (precise):** take the `Test file` and `FullNameFilter` from the row and hand them to the single-check entry point:
 
 ```powershell
 . ./importer.ps1
-Import-Module ./automation/.vendor/Pester -Force
-Invoke-Pester -Path <Test file> -FullNameFilter '*<FullNameFilter>*' -Output Detailed
+Invoke-TestFile <Test file> -FullNameFilter '<FullNameFilter>'
 ```
+
+`Invoke-TestFile` runs the file as a one-shard worker — the exact discipline `Test-Automation` uses (same generated runner, same Pester
+configuration builder, tests run without strict mode per `ADR-TEST:25`). Do **not** call `Invoke-Pester` directly from an importer session:
+the dot-sourced shim leaves the session strict, and Pester then runs the same tests under different semantics than the harness.
 
 A check **passes** when its assertions are green. A few L2 checks shell out to a tool (git, PSScriptAnalyzer, cspell, markdownlint-cli2) and
 **self-skip** when that tool is absent — a skip is not a failure (see the end-of-run skip report).
@@ -98,6 +101,10 @@ A check **passes** when its assertions are green. A few L2 checks shell out to a
 | 58  | L2   | automation/Catzc.Base.Globs/tests/Trigger-Freshness.Tests.ps1                  | Trigger freshness                                                    | Every globset's committed `.triggers/<name>.sha256` matches its recomputed durable SHA — none stale, missing, or orphaned.        |
 | 59  | L2   | automation/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1      | Managed root config files agree with .gitignore and git tracking     | Per opted-in entry, `committed` and git agree: false ⇒ ignored + untracked; true ⇒ tracked + not ignored.                         |
 | 60  | L1   | automation/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1      | Root PSScriptAnalyzerSettings.psd1 copy-in                           | The generated root analyzer settings still parse as a literal settings hashtable carrying exactly the authored content.           |
+| 61  | L2   | automation/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1             | Invoke-TestFile (real worker)                                        | The manual single-check entry point runs a strict-hostile file green through the worker chain — harness parity (ADR-TEST:25).     |
+| 62  | L1   | automation/Catzc.Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1    | Test titles use angle-bracket templates only on data-driven tests    | No It/Describe title carries a Pester template token without -ForEach data — the strict-caller name-expansion trap is banned.     |
+| 63  | L1   | automation/Catzc.Base.Git/tests/New-GitIgnore.Tests.ps1                        | New-GitIgnore — real gitignore.yml                                   | The shipped zone registry renders with the root-config provider — every zone resolves into the generated .gitignore.              |
+| 61  | L1   | automation/Catzc.Base.QualityGates/tests/Get-TestAutomationTestPaths.Tests.ps1 | Get-TestAutomationTestPaths                                          | The run's tests folders resolve foundation-first from the real tree — modules by dependency order, infrastructure last.           |
 
 ## L0 · integrity
 
