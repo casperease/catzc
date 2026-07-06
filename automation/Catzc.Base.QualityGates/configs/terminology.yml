@@ -31,6 +31,8 @@ terms:
       meaning: 'abstract syntax tree (AST) — the PowerShell parser''s AST'
     - term: trie
       meaning: 'trie (the prefix-tree data structure; cspell ships its dictionaries as tries)'
+    - term: mutex
+      meaning: 'See. Semaphore'
     - term: shortcode
       meaning: 'the 2-char customer/environment identifier in the Azure naming standard'
     - term: shortcodes
