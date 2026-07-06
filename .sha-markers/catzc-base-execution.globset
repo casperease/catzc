@@ -1,5 +1,0 @@
-name: catzc-base-execution
-description: Derived module scope - automation/Catzc.Base.Execution/**
-layer: module
-include:
-- automation/Catzc.Base.Execution/**

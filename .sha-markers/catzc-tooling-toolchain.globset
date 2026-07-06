@@ -1,5 +1,0 @@
-name: catzc-tooling-toolchain
-description: Derived module scope - automation/Catzc.Tooling.Toolchain/**
-layer: module
-include:
-- automation/Catzc.Tooling.Toolchain/**

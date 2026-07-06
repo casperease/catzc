@@ -1,6 +1,0 @@
-name: catzc-azure
-description: Derived module scope - automation/Catzc.Azure/**
-layer: module
-include:
-- 'automation/Catzc.Azure/**'
-sha256: 6a5a77f1e59a81368b5e61594ee5aa683f40b43c5f9d8ef39416abdd11830457

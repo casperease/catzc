@@ -1,5 +1,0 @@
-name: catzc-base-asserts
-description: Derived module scope - automation/Catzc.Base.Asserts/**
-layer: module
-include:
-- automation/Catzc.Base.Asserts/**

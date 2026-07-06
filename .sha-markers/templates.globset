@@ -1,7 +1,0 @@
-name: templates
-description: All infrastructure templates' shared surface - every template excluding per-subscription configuration.
-layer: scope
-include:
-- infrastructure/templates/**
-exclude:
-- infrastructure/templates/*/configuration/*_*/**

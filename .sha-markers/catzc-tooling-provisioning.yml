@@ -1,6 +1,0 @@
-name: catzc-tooling-provisioning
-description: Derived module scope - automation/Catzc.Tooling.Provisioning/**
-layer: module
-include:
-- 'automation/Catzc.Tooling.Provisioning/**'
-sha256: cd6df266435fd4501e007089332c345e1cf94d21908585c3b2add9e90c40b9c8

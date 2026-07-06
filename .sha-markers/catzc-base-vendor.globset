@@ -1,5 +1,0 @@
-name: catzc-base-vendor
-description: Derived module scope - automation/Catzc.Base.Vendor/**
-layer: module
-include:
-- automation/Catzc.Base.Vendor/**

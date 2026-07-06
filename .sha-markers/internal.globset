@@ -1,5 +1,0 @@
-name: internal
-description: Derived infra scope - automation/.internal/**
-layer: module
-include:
-- automation/.internal/**

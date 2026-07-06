@@ -5,10 +5,10 @@ name: CI
 on:
   push:
     branches: [main]
-    paths: [.sha-markers/automation.sha256]
+    paths: [.sha-markers/automation.yml]
   pull_request:
     branches: [main]
-    paths: [.sha-markers/automation.sha256]
+    paths: [.sha-markers/automation.yml]
 
 jobs:
   test:

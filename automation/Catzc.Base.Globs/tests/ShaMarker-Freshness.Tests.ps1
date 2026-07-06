@@ -1,5 +1,5 @@
 # Integrity: the REAL repository's marker files are fresh (ADR-GLOBS:6) — every globset's committed
-# .sha-markers/<name>.sha256 carries its recomputed durable SHA, none is missing, none is orphaned. This is the
+# .sha-markers/<name>.yml carries its definition and recomputed durable SHA, none is missing, none is orphaned. This is the
 # gate that makes the commit discipline self-enforcing: a change to any unit's members without the
 # regenerated marker file fails here, locally and in CI. Heal with Update-ShaMarker and commit the result.
 # L2 because the tracked-file universe comes from the real git CLI.

@@ -1,5 +1,0 @@
-name: catzc-base-files
-description: Derived module scope - automation/Catzc.Base.Files/**
-layer: module
-include:
-- automation/Catzc.Base.Files/**

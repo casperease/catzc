@@ -1,5 +1,0 @@
-name: catzc-tooling-environment
-description: Derived module scope - automation/Catzc.Tooling.Environment/**
-layer: module
-include:
-- automation/Catzc.Tooling.Environment/**

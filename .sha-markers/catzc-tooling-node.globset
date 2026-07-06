@@ -1,5 +1,0 @@
-name: catzc-tooling-node
-description: Derived module scope - automation/Catzc.Tooling.Node/**
-layer: module
-include:
-- automation/Catzc.Tooling.Node/**

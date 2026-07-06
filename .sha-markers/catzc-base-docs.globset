@@ -1,5 +1,0 @@
-name: catzc-base-docs
-description: Derived module scope - automation/Catzc.Base.Docs/**
-layer: module
-include:
-- automation/Catzc.Base.Docs/**

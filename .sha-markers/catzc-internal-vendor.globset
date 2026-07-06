@@ -1,5 +1,0 @@
-name: catzc-internal-vendor
-description: Derived internal-module scope - automation/.internal/Catzc.Internal.Vendor.psm1
-layer: module
-include:
-- automation/.internal/Catzc.Internal.Vendor.psm1

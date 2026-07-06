@@ -24,18 +24,14 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'the marker path (ADR-GLOBS:1)' {
+    Context 'the marker path (ADR-GLOBS:1, ADR-GLOBS:9)' {
         It 'derives the marker path from the set name' {
-            (& $script:make 'my-unit').MarkerPath | Should -Be '.sha-markers/my-unit.sha256'
-        }
-
-        It 'derives the .globset companion path from the set name (ADR-GLOBS:9)' {
-            (& $script:make 'my-unit').GlobSetPath | Should -Be '.sha-markers/my-unit.globset'
+            (& $script:make 'my-unit').MarkerPath | Should -Be '.sha-markers/my-unit.yml'
         }
     }
 
-    Context 'the definition representation (ADR-GLOBS:9)' {
-        It 'renders the full definition canonically — fixed field order, LF-terminated, declared pattern order' {
+    Context 'the marker content (ADR-GLOBS:9)' {
+        It 'renders the full definition canonically — fixed field order, LF-terminated, declared pattern order, quoted patterns' {
             $set = [Catzc.Base.Globs.GlobSet]::new('my-unit', 'a test globset', 'deployable-unit',
                 @('src/**', 'importer.ps1'), @('**/*.md'), @('base'), @('Catzc.Base.Globs'), 2, 'cd-my-unit')
             $set.Representation | Should -Be (@(
@@ -50,18 +46,35 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
                     'compose:'
                     '- base'
                     'include:'
-                    '- src/**'
-                    '- importer.ps1'
+                    "- 'src/**'"
+                    "- 'importer.ps1'"
                     'exclude:'
-                    '- **/*.md'
+                    "- '**/*.md'"
                 ) -join "`n") + "`n"
         }
 
         It 'omits empty sections and changes exactly when the definition changes' {
             $set = & $script:make 'my-unit' @('src/**')
-            $set.Representation | Should -Be "name: my-unit`ndescription: a test globset`nlayer: scope`ninclude:`n- src/**`n"
+            $set.Representation | Should -Be "name: my-unit`ndescription: a test globset`nlayer: scope`ninclude:`n- 'src/**'`n"
             (& $script:make 'my-unit' @('src/**')).Representation | Should -Be $set.Representation
             (& $script:make 'my-unit' @('src/**', 'extra/**')).Representation | Should -Not -Be $set.Representation
+        }
+
+        It 'appends the durable SHA as the sha256 line, and requires it' {
+            $set = & $script:make 'my-unit' @('src/**')
+            $hash = 'a' * 64
+            $set.MarkerContent($hash) | Should -Be ($set.Representation + "sha256: $hash`n")
+            { $set.MarkerContent(' ') } | Should -Throw "*requires the durable SHA*"
+        }
+
+        It 'parses back as YAML carrying the definition and the sha256' {
+            $set = [Catzc.Base.Globs.GlobSet]::new('my-unit', 'a test globset', 'deployable-unit',
+                @('src/**'), @('**/*.md'), @(), @(), -1, 'cd-my-unit')
+            $parsed = $set.MarkerContent(('a' * 64)) | ConvertFrom-Yaml
+            $parsed.name | Should -Be 'my-unit'
+            $parsed.include | Should -Be @('src/**')
+            $parsed.exclude | Should -Be @('**/*.md')
+            $parsed.sha256 | Should -Be ('a' * 64)
         }
     }
 

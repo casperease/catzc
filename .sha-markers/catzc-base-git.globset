@@ -1,5 +1,0 @@
-name: catzc-base-git
-description: Derived module scope - automation/Catzc.Base.Git/**
-layer: module
-include:
-- automation/Catzc.Base.Git/**

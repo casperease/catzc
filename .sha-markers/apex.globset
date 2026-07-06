@@ -1,8 +1,0 @@
-name: apex
-description: Deployable unit - customer apex's foundation (shared surface + apex_* configuration).
-layer: deployable-unit
-pipeline: cd-apex
-compose:
-- foundation-shared
-include:
-- infrastructure/templates/foundation/configuration/apex_*/**

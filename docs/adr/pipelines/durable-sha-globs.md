@@ -6,7 +6,7 @@
 
 One source of truth: named globsets in `globs.yml` (owned by `Catzc.Base.Globs`) map each area-of-control — a deployable unit, a track
 (`ADR-TRACK`), or a scan scope — onto its files under version control. Each set's identity is persisted as its **sha-marker**
-`.sha-markers/<name>.sha256`. The marker is the mechanism; **trigger** is the name of one _role_ it plays: pipelines, workflows, and
+`.sha-markers/<name>.yml`. The marker is the mechanism; **trigger** is the name of one _role_ it plays: pipelines, workflows, and
 build-validation policies path-filter only on the marker file, never on source paths. Its other roles are the PR surface (the changed
 markers are the first thing a PR shows) and test blast-radius (protection scoping derives from the same identities).
 
@@ -38,15 +38,15 @@ matches at least one include pattern and no exclude pattern. There is no inline 
 ### Rule ADR-GLOBS:5
 
 A globset's identity is its durable SHA: per member file, SHA-256 over the CR-stripped bytes; the per-file digests folded as
-`<repo-relative-path>|<digest>` lines, ordinal-sorted by path, into one combined SHA-256. The marker file contains exactly the lowercase hex
-digest and a trailing LF, nothing else.
+`<repo-relative-path>|<digest>` lines, ordinal-sorted by path, into one combined SHA-256. The marker file carries that digest as its
+`sha256:` line, inside the full-information YAML of ADR-GLOBS:9.
 
 - [The durable SHA](#the-durable-sha)
 
 ### Rule ADR-GLOBS:6
 
 A commit that changes any file a globset matches also carries that globset's regenerated sha-marker file. A stale, missing, or orphaned
-marker file fails the integrity gate. No globset may have a marker file (`.sha-markers/*.sha256`) as a member: marker files are outputs of
+marker file fails the integrity gate. No globset may have a marker file (`.sha-markers/*.yml`) as a member: marker files are outputs of
 the hash, never inputs. The config itself is an ordinary tracked file — a globset may include it, and the repository-wide CI set does, so a
 config edit is never uncovered. A corollary is the PR surface: because the markers ride with every change and `.sha-markers/` is a
 dot-folder that sorts to the top of a PR's file view, the marker diff IS the change's area-of-control report — no extra machinery.
@@ -75,14 +75,14 @@ foundation surface) without one customer's configuration change firing another c
 
 ### Rule ADR-GLOBS:9
 
-Every marker file has a sister **definition companion**, `.sha-markers/<name>.globset`: the globset's canonical, LF-terminated
-representation (fixed field order — name, description, layer, pipeline, verify, compose, include, exclude — empty sections omitted),
-produced by the `GlobSet` type (`Representation`/`GlobSetPath`) and written by `Update-ShaMarker` with the same write-on-change discipline
-as the marker. Its content changes exactly when the set's **definition** changes — never when member content changes — so in a PR the
-marker diff reads "this unit's content changed" and the companion diff reads "this unit's composition changed". The freshness gate covers
-both files, orphan handling removes a companion with no globset, and neither file is ever a globset member (ADR-GLOBS:6).
+The marker file is **full-information YAML**: the globset's canonical, LF-terminated definition representation (fixed field order — name,
+description, layer, pipeline, verify, compose, include, exclude — empty sections omitted, patterns single-quoted) plus a final `sha256:`
+line carrying the durable SHA of ADR-GLOBS:5. The `GlobSet` type produces the content (`Representation` + `MarkerContent(sha)`), and
+`Update-ShaMarker` writes it only on a real content change — so the one file separates the two signals in its diff: body lines change
+exactly when the set's **definition** changes, the `sha256:` line whenever member **content** changes. The file is data our own tooling can
+parse back (the repository's `.yml` convention), never an input to any hash (ADR-GLOBS:6).
 
-- [The definition companion](#the-definition-companion)
+- [The marker is full-information YAML](#the-marker-is-full-information-yaml)
 
 ## Context
 
@@ -142,8 +142,14 @@ The hash recipe makes the identity durable across platforms and sensitive to eve
   not — a moved file changes what a unit deploys.
 - **Order-free.** Lines are ordinal-sorted by path before the combined digest, so enumeration order is irrelevant.
 
-The marker file is minimal on purpose: one hex line, LF, no header. A one-line diff is the whole review surface, and `.gitattributes` pins
-the line ending.
+### The marker is full-information YAML
+
+The marker file `.sha-markers/<name>.yml` holds everything there is to say about the set: its canonical definition — name, description,
+layer, pipeline, verify, compose, include, exclude, rendered deterministically by the `GlobSet` type with empty sections omitted and
+patterns single-quoted — and, as the final line, `sha256:` with the durable SHA above. One file, two separable signals in review: a diff in
+the body means the set's composition changed (a pattern added, a pipeline rebound); a diff in the `sha256:` line means the members' content
+changed. A reader (or a tool) can parse the marker as ordinary YAML and know the unit's definition and identity without opening `globs.yml`.
+`.gitattributes` pins the line ending, so the bytes are identical on every checkout.
 
 ### Registering a pipeline or workflow
 
@@ -157,13 +163,13 @@ trigger:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/<globset>.sha256]
+    include: [.sha-markers/<globset>.yml]
 
 pr:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/<globset>.sha256]
+    include: [.sha-markers/<globset>.yml]
 ```
 
 A GitHub workflow:
@@ -172,13 +178,13 @@ A GitHub workflow:
 on:
   push:
     branches: [main]
-    paths: [.sha-markers/<globset>.sha256]
+    paths: [.sha-markers/<globset>.yml]
   pull_request:
     branches: [main]
-    paths: [.sha-markers/<globset>.sha256]
+    paths: [.sha-markers/<globset>.yml]
 ```
 
-An ADO build-validation policy lives server-side, not in the repository: its path filter is set to `/.sha-markers/<globset>.sha256` in the
+An ADO build-validation policy lives server-side, not in the repository: its path filter is set to `/.sha-markers/<globset>.yml` in the
 branch policy. The policy is a registration like any other — the unit's composition still lives only in `globs.yml`.
 
 A pipeline whose scope spans several units registers several marker files (a list of paths); a pipeline whose unit is effectively the whole

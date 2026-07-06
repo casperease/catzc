@@ -1,9 +1,0 @@
-name: foundation-shared
-description: The foundation template's customer-shared surface - shared modules, main.bicep, and the non-subscription configuration.
-layer: deployable-unit
-include:
-- 'infrastructure/templates/foundation/**'
-- 'infrastructure/modules/**'
-exclude:
-- 'infrastructure/templates/foundation/configuration/*_*/**'
-sha256: 483ccc6cb98de6d5526716553b524eaec3ff9168ce9ed58d11aaa2c4138b08a9

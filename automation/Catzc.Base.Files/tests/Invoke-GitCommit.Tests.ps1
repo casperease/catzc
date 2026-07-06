@@ -29,7 +29,7 @@ Describe 'Invoke-GitCommit' -Tag 'L0', 'logic' {
 
     It 'stages and commits the paths and returns the new commit SHA when changes exist' {
         Mock Invoke-Executable {
-            [pscustomobject]@{ Output = " M .sha-markers/automation.sha256`n"; ExitCode = 0 }
+            [pscustomobject]@{ Output = " M .sha-markers/automation.yml`n"; ExitCode = 0 }
         } -ModuleName Catzc.Base.Files -ParameterFilter { $Command -like 'git status --porcelain*' }
 
         $result = Invoke-GitCommit -Path '.sha-markers' -Message 'chore(markers): sync sha-marker files'

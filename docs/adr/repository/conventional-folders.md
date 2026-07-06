@@ -93,7 +93,7 @@ external-facing API surface and its contract-testing discipline — is the [api-
 
 ### Rule ADR-FOLDERS:12
 
-Deployable-unit sha-marker files live under the root `.sha-markers/` folder — one `<globset>.sha256` per globset, written only by the owning
+Deployable-unit sha-marker files live under the root `.sha-markers/` folder — one `<globset>.yml` per globset, written only by the owning
 tooling and never hand-edited. The dot-prefix marks the folder as tooling-owned state, the same convention as every other dot-prefixed root
 (`ADR-FOLDERS:4`), and the dot also sorts the folder to the top of a PR's file view — the changed markers are the first thing a reviewer
 sees. What the marker files _are_ — the globset model, the durable-SHA identity, and the registration-only trigger discipline — is the
@@ -199,7 +199,7 @@ a reader infers it (_semantic_).
 | `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                                          | Bicep build/deploy tooling, `Get-BicepTemplates`          |
 | `pipelines/`      | contract | Azure DevOps YAML pipelines, per-kind templates, and the runner                                                             | Azure DevOps runner, `Invoke-AdoScript.ps1`               |
 | `contracts/`      | contract | External-facing API contracts (versioned) — `<name>/v<N>/`; see [api-contracts](api-contracts.md)                           | Contract tests; contract producers/consumers              |
-| `.sha-markers/`   | contract | Deployable-unit sha-marker files — `<globset>.sha256`; see [durable-sha-globs](../pipelines/durable-sha-globs.md)           | ADO/GH path filters; `Update-ShaMarker`, `Test-ShaMarker` |
+| `.sha-markers/`   | contract | Deployable-unit sha-marker files — `<globset>.yml`; see [durable-sha-globs](../pipelines/durable-sha-globs.md)              | ADO/GH path filters; `Update-ShaMarker`, `Test-ShaMarker` |
 | `out/`            | contract | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)                             | Output functions, CI artifacts, cleanup scripts           |
 | `.github/`        | contract | GitHub Actions — `workflows/`, actions, templates                                                                           | GitHub Actions runner                                     |
 | `.vscode/`        | contract | Managed, generated editor config — every file reproduced on import; see [generated-root-configs](generated-root-configs.md) | VS Code; `Build-RootConfig`                               |

@@ -20,13 +20,13 @@ trigger:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/shared.sha256]
+    include: [.sha-markers/shared.yml]
 
 pr:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/shared.sha256]
+    include: [.sha-markers/shared.yml]
 
 stages:
   # --- CI engine: build + verify, then publish the immutable artifacts ----------------------------

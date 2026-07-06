@@ -1,8 +1,0 @@
-name: flux
-description: Deployable unit - customer flux's foundation (shared surface + flux_* configuration).
-layer: deployable-unit
-pipeline: cd-flux
-compose:
-- foundation-shared
-include:
-- infrastructure/templates/foundation/configuration/flux_*/**

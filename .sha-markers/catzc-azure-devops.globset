@@ -1,5 +1,0 @@
-name: catzc-azure-devops
-description: Derived module scope - automation/Catzc.Azure.DevOps/**
-layer: module
-include:
-- automation/Catzc.Azure.DevOps/**

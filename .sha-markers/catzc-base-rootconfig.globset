@@ -1,5 +1,0 @@
-name: catzc-base-rootconfig
-description: Derived module scope - automation/Catzc.Base.RootConfig/**
-layer: module
-include:
-- automation/Catzc.Base.RootConfig/**

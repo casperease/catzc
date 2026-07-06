@@ -1,5 +1,0 @@
-name: scriptanalyzer
-description: Derived infra scope - automation/.scriptanalyzer/**
-layer: module
-include:
-- automation/.scriptanalyzer/**

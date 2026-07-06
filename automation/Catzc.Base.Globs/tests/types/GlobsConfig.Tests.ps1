@@ -20,7 +20,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $c.Names | Should -Contain 'automation'
             $c.Contains('apex') | Should -BeTrue
             $c.Contains('nope') | Should -BeFalse
-            $c.Get('apex').MarkerPath | Should -Be '.sha-markers/apex.sha256'
+            $c.Get('apex').MarkerPath | Should -Be '.sha-markers/apex.yml'
             $c.Get('apex').Layer | Should -Be 'deployable-unit'
             $c.Get('apex').Matches('infrastructure/x/readme.md') | Should -BeFalse
         }
@@ -106,7 +106,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
     Context 'self-exclusion (ADR-GLOBS:6)' {
         It 'rejects a set matching its own marker file' {
-            { & $script:make @{ unit = @{ description = 'd'; layer = 'scope'; include = @('.sha-markers/unit.sha256') } } } |
+            { & $script:make @{ unit = @{ description = 'd'; layer = 'scope'; include = @('.sha-markers/unit.yml') } } } |
                 Should -Throw '*ADR-GLOBS:6*'
         }
 
@@ -114,7 +114,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             {
                 & $script:make @{
                     'a-unit' = @{ description = 'd'; layer = 'scope'; include = @('src/**') }
-                    'b-unit' = @{ description = 'd'; layer = 'scope'; include = @('.sha-markers/a-unit.sha256') }
+                    'b-unit' = @{ description = 'd'; layer = 'scope'; include = @('.sha-markers/a-unit.yml') }
                 }
             } | Should -Throw '*ADR-GLOBS:6*'
         }
@@ -129,7 +129,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             # 'unit' trips the probe — proving the self-exclusion check sees through compose.
             {
                 & $script:make @{
-                    'leaky' = @{ description = 'd'; layer = 'scope'; include = @('.sha-markers/unit.sha256') }
+                    'leaky' = @{ description = 'd'; layer = 'scope'; include = @('.sha-markers/unit.yml') }
                     'unit'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('leaky') }
                 }
             } | Should -Throw '*ADR-GLOBS:6*'
@@ -151,7 +151,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             }
             $c.Get('everything').Matches('docs/index.md') | Should -BeTrue
             $c.Get('everything').Matches('automation/Catzc.Base.Globs/configs/globs.yml') | Should -BeTrue
-            $c.Get('everything').Matches('.sha-markers/everything.sha256') | Should -BeFalse
+            $c.Get('everything').Matches('.sha-markers/everything.yml') | Should -BeFalse
         }
     }
 }
