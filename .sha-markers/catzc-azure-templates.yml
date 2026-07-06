@@ -3,4 +3,4 @@ description: Derived module scope - automation/Catzc.Azure.Templates/**
 layer: module
 include:
 - 'automation/Catzc.Azure.Templates/**'
-sha256: 5bfd8a5f510826c8c2e0073d9da31dc25f8441e57fff3cb238411ee14b532da4
+sha256: a74fd3b8d61f365653f30cb374b5caf6d62aa29be906c6f3dbddc855feef676e
