@@ -107,6 +107,7 @@ A check **passes** when its assertions are green. A few L2 checks shell out to a
 | 64  | L1   | automation/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1                | New-VSCodeSettings — real vscode-settings.yml                        | The shipped settings registry renders to valid JSON with the analyzer wiring and the authored un-exclude intact.                  |
 | 61  | L1   | automation/Catzc.Base.QualityGates/tests/Get-TestAutomationTestPaths.Tests.ps1 | Get-TestAutomationTestPaths                                          | The run's tests folders resolve foundation-first from the real tree — modules by dependency order, infrastructure last.           |
 | 65  | L1   | automation/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1     | analyzer-adr-map integrity                                           | Every analyzer→ADR mapping cites a real rule, and every custom analyzer rule is listed in analyzer-adr-map.yml.                   |
+| 66  | L1   | automation/Catzc.Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1               | Get-CatsRuleEnforcers integrity                                      | Rule enforcers resolve from the real tree — analyzer map + AST-read test -Tag citations, ignoring citation-shaped fixture strings. |
 
 ## L0 · integrity
 

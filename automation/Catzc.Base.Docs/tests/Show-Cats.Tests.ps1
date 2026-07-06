@@ -18,9 +18,21 @@ Describe 'Show-Cats' -Tag 'L0', 'logic' {
             @([pscustomobject]@{ Code = 'ADR-ALPHA'; Title = 'alpha-thing'; Path = 'principles/alpha-thing.md' })
         }
         Mock Get-CatsAdrRules -ModuleName Catzc.Base.Docs { @([pscustomobject]@{ Id = 'ADR-ALPHA:1'; Summary = 's' }) }
+        Mock Get-CatsRuleEnforcers -ModuleName Catzc.Base.Docs { @{} }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs { 'TestDrive:/fake.md' }
         Show-Cats adr alpha
         Should -Invoke Get-CatsAdrRules -ModuleName Catzc.Base.Docs -Times 1
+    }
+
+    It 'looks up the enforcers for a matched ADR query' {
+        Mock Get-CatsAdrIndex -ModuleName Catzc.Base.Docs {
+            @([pscustomobject]@{ Code = 'ADR-ALPHA'; Title = 'alpha-thing'; Path = 'principles/alpha-thing.md' })
+        }
+        Mock Get-CatsAdrRules -ModuleName Catzc.Base.Docs { @([pscustomobject]@{ Id = 'ADR-ALPHA:1'; Summary = 's' }) }
+        Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs { 'TestDrive:/fake.md' }
+        Mock Get-CatsRuleEnforcers -ModuleName Catzc.Base.Docs { @{} }
+        Show-Cats adr alpha
+        Should -Invoke Get-CatsRuleEnforcers -ModuleName Catzc.Base.Docs -Times 1
     }
 
     It 'routes the module area to Get-CatsModules' {

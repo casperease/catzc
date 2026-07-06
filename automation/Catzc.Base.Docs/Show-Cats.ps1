@@ -62,6 +62,7 @@ function Show-Cats {
                     Write-Message "No ADR matches '$Query'. Run 'Show-Cats adr' for the full list." -NoHeader
                     break
                 }
+                $enforcers = Get-CatsRuleEnforcers
                 foreach ($entry in $matched) {
                     Write-Message "$($entry.Code)  $($entry.Title)" -NoHeader -ForegroundColor Cyan
                     Write-Message "  docs/adr/$($entry.Path)" -NoHeader
@@ -74,6 +75,22 @@ function Show-Cats {
                             $rule.Summary
                         }
                         Write-Message "  $($rule.Id)  $summary" -NoHeader
+
+                        # Show what mechanically enforces this rule (tests + analyzer rules), if anything —
+                        # the citation is the '#' form of the registry id (docs/adr/index.md).
+                        $entryEnforcers = $enforcers[($rule.Id -replace ':', '#')]
+                        if ($entryEnforcers) {
+                            $parts = @()
+                            if ($entryEnforcers.Analyzers.Count) {
+                                $parts += "analyzer: $($entryEnforcers.Analyzers -join ', ')"
+                            }
+                            if ($entryEnforcers.Tests.Count) {
+                                $parts += "$($entryEnforcers.Tests.Count) test(s)"
+                            }
+                            if ($parts) {
+                                Write-Message "      enforced by $($parts -join '; ')" -NoHeader
+                            }
+                        }
                     }
                     Write-Message '' -NoHeader
                 }
