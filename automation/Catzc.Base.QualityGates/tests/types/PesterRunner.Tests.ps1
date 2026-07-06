@@ -46,6 +46,13 @@ Describe 'PesterRunner' -Tag 'logic' {
             $runner.Results[1].Stderr | Should -Match 'bravo-err'
             $runner.Results[1].ExitCode | Should -Be 3
             $runner.Results[2].Stdout | Should -Match 'env=hand-off'
+
+            # Wall-clock timing per worker: started at/after the pool's start, ran for a measured duration
+            # (reap-loop granularity means small, never negative, values).
+            foreach ($result in $runner.Results) {
+                $result.StartOffsetMs | Should -BeGreaterOrEqual 0
+                $result.DurationMs | Should -BeGreaterThan 0
+            }
         }
 
         It 'runs workers concurrently up to maxParallel' {

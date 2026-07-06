@@ -26,6 +26,12 @@ public class PesterRunner
         public string Stdout { get; internal set; }
         public string Stderr { get; internal set; }
         public int ExitCode { get; internal set; }
+
+        // Wall-clock timing relative to this Run call: when the worker process started (offset from the
+        // pool's start) and how long it ran. Completion is observed by the reap loop, so DurationMs
+        // carries up to one poll interval (~50ms) of slop.
+        public long StartOffsetMs { get; internal set; }
+        public long DurationMs { get; internal set; }
     }
 
     // Per-worker live state while the pool runs. Mutable output state is guarded by Sync.
@@ -45,6 +51,9 @@ public class PesterRunner
         public bool Started;
         public bool Completed;        // process exited AND both readers drained to EOF
         public int ExitCode;
+        public long StartedTick;      // Environment.TickCount64 when the process started
+        public long StartOffsetMs;    // StartedTick relative to the pool's start
+        public long DurationMs;       // start → reap-observed completion
     }
 
     /// <summary>
@@ -109,7 +118,9 @@ public class PesterRunner
                 ScriptPath = workers[i].ScriptPath,
                 Stdout = workers[i].Stdout.ToString(),
                 Stderr = workers[i].Stderr.ToString(),
-                ExitCode = workers[i].ExitCode
+                ExitCode = workers[i].ExitCode,
+                StartOffsetMs = workers[i].StartOffsetMs,
+                DurationMs = workers[i].DurationMs
             };
         }
         return new PesterRunner { Results = results };
@@ -118,7 +129,8 @@ public class PesterRunner
     private static void Execute(Worker[] workers, int maxParallel, IDictionary environment,
         int timeoutSeconds, bool silent)
     {
-        long deadline = Environment.TickCount64 + (long)timeoutSeconds * 1000;
+        long poolStart = Environment.TickCount64;
+        long deadline = poolStart + (long)timeoutSeconds * 1000;
         int nextToStart = 0;
         int liveIndex = 0;
 
@@ -136,6 +148,7 @@ public class PesterRunner
                         worker.StdoutReader.Join();
                         worker.StderrReader.Join();
                         worker.ExitCode = worker.Process.ExitCode;
+                        worker.DurationMs = Environment.TickCount64 - worker.StartedTick;
                         worker.Process.Dispose();
                         worker.Completed = true;
                     }
@@ -149,6 +162,8 @@ public class PesterRunner
                 while (nextToStart < workers.Length && running < maxParallel)
                 {
                     Start(workers[nextToStart], environment);
+                    workers[nextToStart].StartedTick = Environment.TickCount64;
+                    workers[nextToStart].StartOffsetMs = workers[nextToStart].StartedTick - poolStart;
                     nextToStart++;
                     running++;
                 }

@@ -27,7 +27,8 @@
 .OUTPUTS
     [pscustomobject] with Rows (aggregated, in shard order), FailedShardLabels (shards that exited 1),
     ShardExitCodes (label -> exit code, for the run manifest), Shards (the shard descriptors, serial last),
-    and DurationSeconds (wall clock across both phases).
+    WorkerSummaries (one per worker: queue number, label, file/test tallies, wall-clock start and duration —
+    the end-of-run table's rows), and DurationSeconds (wall clock across both phases).
 #>
 function Invoke-TestAutomationWorkers {
     [CmdletBinding()]
@@ -85,17 +86,21 @@ function Invoke-TestAutomationWorkers {
     }
 
     $shards = [System.Collections.Generic.List[object]]::new()
+    $shardFileCounts = @{}
     for ($shardIndex = 0; $shardIndex -lt $workerCount; $shardIndex++) {
         if ($shardFiles[$shardIndex].Count -eq 0) {
             continue
         }
-        $shards.Add((New-TestAutomationShardScript -ShardIndex $shardIndex -TestPath $shardFiles[$shardIndex] `
-                    -RunDirectory $RunDirectory -ExcludeTag $ExcludeTag -IncludeTag $IncludeTag -Verbosity $Verbosity))
+        $shard = New-TestAutomationShardScript -ShardIndex $shardIndex -TestPath $shardFiles[$shardIndex] `
+            -RunDirectory $RunDirectory -ExcludeTag $ExcludeTag -IncludeTag $IncludeTag -Verbosity $Verbosity
+        $shards.Add($shard)
+        $shardFileCounts[$shard.Label] = $shardFiles[$shardIndex].Count
     }
     $serialShard = $null
     if ($SerialFiles.Count -gt 0) {
         $serialShard = New-TestAutomationShardScript -ShardIndex $workerCount -TestPath $SerialFiles `
             -RunDirectory $RunDirectory -ExcludeTag $ExcludeTag -IncludeTag $IncludeTag -Verbosity $Verbosity
+        $shardFileCounts[$serialShard.Label] = $SerialFiles.Count
     }
 
     # Announce before the pool blocks: each worker pays its own importer + Pester load before the first
@@ -115,9 +120,12 @@ function Invoke-TestAutomationWorkers {
     }
 
     # The serial phase runs after the pool, alone — its files mutate state the parallel workers must not see
-    # changing underneath them.
+    # changing underneath them. Its workers' start offsets are relative to its own Run call, so remember the
+    # phase boundary to place them on the run's single wall-clock timeline.
+    $serialPhaseOffsetMs = 0
     if ($serialShard) {
         Write-Message "Serial phase: $($SerialFiles.Count) serial-tagged file(s) in one worker..." -NoHeader
+        $serialPhaseOffsetMs = $stopwatch.ElapsedMilliseconds
         $serialRunner = [Catzc.Base.QualityGates.PesterRunner]::Run(
             [string[]] @($serialShard.ScriptPath), [string[]] @($serialShard.Label), 1,
             $WorkerEnvironment, $TimeoutSeconds, $false)
@@ -134,6 +142,7 @@ function Invoke-TestAutomationWorkers {
     $rows = [System.Collections.Generic.List[object]]::new()
     $failedShardLabels = [System.Collections.Generic.List[string]]::new()
     $shardExitCodes = [ordered]@{}
+    $workerSummaries = [System.Collections.Generic.List[object]]::new()
     for ($shardIndex = 0; $shardIndex -lt $allShards.Count; $shardIndex++) {
         $shard = $allShards[$shardIndex]
         $workerResult = $workerResults[$shardIndex]
@@ -151,9 +160,37 @@ function Invoke-TestAutomationWorkers {
             $failedShardLabels.Add($shard.Label)
         }
 
-        foreach ($row in @([System.IO.File]::ReadAllText($shard.RowsPath) | ConvertFrom-Json)) {
+        $shardRows = @([System.IO.File]::ReadAllText($shard.RowsPath) | ConvertFrom-Json)
+        foreach ($row in $shardRows) {
             $rows.Add($row)
         }
+
+        # One summary per worker for the end-of-run table: queue number is submission order (serial last),
+        # start is on the run's single wall-clock timeline (serial workers offset by their phase boundary).
+        $isSerial = $serialShard -and $shard.Label -eq $serialShard.Label
+        $phaseOffsetMs = if ($isSerial) {
+            $serialPhaseOffsetMs
+        }
+        else {
+            0
+        }
+        $label = if ($isSerial) {
+            "$($shard.Label) (serial)"
+        }
+        else {
+            $shard.Label
+        }
+        $workerSummaries.Add([pscustomobject]@{
+                QueueNumber     = $shardIndex + 1
+                Label           = $label
+                Files           = $shardFileCounts[$shard.Label]
+                Tests           = $shardRows.Count
+                Passed          = @($shardRows | Where-Object { $_.Result -eq 'Passed' }).Count
+                Failed          = @($shardRows | Where-Object { $_.Result -eq 'Failed' }).Count
+                Skipped         = @($shardRows | Where-Object { $_.Result -eq 'Skipped' }).Count
+                StartSeconds    = ($phaseOffsetMs + $workerResult.StartOffsetMs) / 1000
+                DurationSeconds = $workerResult.DurationMs / 1000
+            })
     }
 
     [pscustomobject]@{
@@ -161,6 +198,7 @@ function Invoke-TestAutomationWorkers {
         FailedShardLabels = @($failedShardLabels)
         ShardExitCodes    = $shardExitCodes
         Shards            = @($allShards)
+        WorkerSummaries   = @($workerSummaries)
         DurationSeconds   = $stopwatch.Elapsed.TotalSeconds
     }
 }

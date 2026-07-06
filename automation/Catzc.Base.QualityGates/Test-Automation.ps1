@@ -267,7 +267,7 @@ function Test-Automation {
         # When protection drained the whole work-list, there is nothing to execute: the run is vacuously green.
         $workerRun = if (($parallelFiles.Count + $serialFiles.Count) -eq 0) {
             Write-Message 'Every module in scope is protected — nothing to run.' -ForegroundColor Yellow
-            [pscustomobject]@{ Rows = @(); FailedShardLabels = @(); DurationSeconds = 0.0; Shards = @() }
+            [pscustomobject]@{ Rows = @(); FailedShardLabels = @(); DurationSeconds = 0.0; Shards = @(); WorkerSummaries = @() }
         }
         else {
             Invoke-TestAutomationWorkers -ParallelFiles @($parallelFiles) -SerialFiles @($serialFiles) `
@@ -276,6 +276,7 @@ function Test-Automation {
         }
         $rows = @($workerRun.Rows)
         $failedShardLabels = @($workerRun.FailedShardLabels)
+        Write-TestAutomationWorkerSummary -WorkerSummaries @($workerRun.WorkerSummaries) -DurationSeconds $workerRun.DurationSeconds
 
         # Promote protection for every candidate unit that came back green — per-module attribution over the
         # rows, conservative on anything unattributable (Protect-TestedModule owns the rules).
