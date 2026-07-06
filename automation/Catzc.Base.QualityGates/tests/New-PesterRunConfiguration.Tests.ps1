@@ -22,6 +22,18 @@ Describe 'New-PesterRunConfiguration' -Tag 'L0', 'logic' {
         @($without.Filter.ExcludeTag.Value) | Should -HaveCount 0
     }
 
+    It 'applies include tags (the -Rule provenance filter) only when given' {
+        $with = InModuleScope Catzc.Base.QualityGates {
+            New-PesterRunConfiguration -Path 'a.Tests.ps1' -IncludeTag 'ADR-ERROR#3'
+        }
+        @($with.Filter.Tag.Value) | Should -Be @('ADR-ERROR#3')
+
+        $without = InModuleScope Catzc.Base.QualityGates {
+            New-PesterRunConfiguration -Path 'a.Tests.ps1'
+        }
+        @($without.Filter.Tag.Value) | Should -HaveCount 0
+    }
+
     It 'enables the NUnit result file only when ResultsPath is given' {
         $resultsPath = Join-Path $TestDrive 'results.xml'
         $config = InModuleScope Catzc.Base.QualityGates -Parameters @{ ResultsPath = $resultsPath } {

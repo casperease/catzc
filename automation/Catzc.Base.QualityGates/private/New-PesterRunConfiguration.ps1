@@ -14,6 +14,9 @@
     The test file(s) or folder(s) to run.
 .PARAMETER ExcludeTag
     Tags excluded from the run (from Get-TestExcludeTag). Empty means no tag filter.
+.PARAMETER IncludeTag
+    Tags a test must carry to run (Pester Filter.Tag) — the -Rule provenance filter. Empty means no include
+    filter (the default); a test still also has to clear ExcludeTag.
 .PARAMETER Verbosity
     Pester output verbosity.
 .PARAMETER ResultsPath
@@ -32,6 +35,9 @@ function New-PesterRunConfiguration {
         [AllowEmptyCollection()]
         [string[]] $ExcludeTag = @(),
 
+        [AllowEmptyCollection()]
+        [string[]] $IncludeTag = @(),
+
         [ValidateSet('None', 'Minimal', 'Normal', 'Detailed', 'Diagnostic')]
         [string] $Verbosity = 'Detailed',
 
@@ -46,6 +52,9 @@ function New-PesterRunConfiguration {
     $config.Output.Verbosity = $Verbosity
     if ($ExcludeTag.Count -gt 0) {
         $config.Filter.ExcludeTag = $ExcludeTag
+    }
+    if ($IncludeTag.Count -gt 0) {
+        $config.Filter.Tag = $IncludeTag
     }
     if ($FullNameFilter) {
         $config.Filter.FullName = "*$FullNameFilter*"

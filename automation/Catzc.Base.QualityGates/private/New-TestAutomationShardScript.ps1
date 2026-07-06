@@ -43,6 +43,9 @@ function New-TestAutomationShardScript {
 
         [string[]] $ExcludeTag = @(),
 
+        # Tags a test must carry to run (the -Rule provenance filter). Empty means no include filter.
+        [string[]] $IncludeTag = @(),
+
         [ValidateSet('Minimal', 'Normal', 'Detailed', 'Diagnostic')]
         [string] $Verbosity = 'Detailed',
 
@@ -60,6 +63,7 @@ function New-TestAutomationShardScript {
 
     $pathLiteral = ($TestPath | ForEach-Object { "'$_'" }) -join ', '
     $tagLiteral = ($ExcludeTag | ForEach-Object { "'$_'" }) -join ', '
+    $includeTagLiteral = ($IncludeTag | ForEach-Object { "'$_'" }) -join ', '
     # Single-quote literal: double any embedded quote (a FullNameFilter is prose — titles carry apostrophes).
     $filterLiteral = "$FullNameFilter" -replace "'", "''"
 
@@ -76,9 +80,9 @@ Set-StrictMode -Off
 Import-Module '$repositoryRoot/automation/.vendor/Pester' -Force
 `$global:__PesterRunning = `$true
 `$config = & (Get-Module Catzc.Base.QualityGates) {
-    param(`$path, `$excludeTag, `$verbosity, `$resultsPath, `$fullNameFilter)
-    New-PesterRunConfiguration -Path `$path -ExcludeTag `$excludeTag -Verbosity `$verbosity -ResultsPath `$resultsPath -FullNameFilter `$fullNameFilter
-} @($pathLiteral) @($tagLiteral) '$Verbosity' '$resultsPath' '$filterLiteral'
+    param(`$path, `$excludeTag, `$includeTag, `$verbosity, `$resultsPath, `$fullNameFilter)
+    New-PesterRunConfiguration -Path `$path -ExcludeTag `$excludeTag -IncludeTag `$includeTag -Verbosity `$verbosity -ResultsPath `$resultsPath -FullNameFilter `$fullNameFilter
+} @($pathLiteral) @($tagLiteral) @($includeTagLiteral) '$Verbosity' '$resultsPath' '$filterLiteral'
 `$result = Invoke-Pester -Configuration `$config
 `$rows = & (Get-Module Catzc.Base.QualityGates) { param(`$runResult) ConvertTo-TestAutomationRowSet -Result `$runResult } `$result
 Set-Content -Path '$rowsPath' -Value (ConvertTo-Json -InputObject @(`$rows) -Depth 4) -Encoding utf8

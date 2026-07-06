@@ -46,12 +46,24 @@ Describe 'New-TestAutomationShardScript' -Tag 'logic' {
             $script:content | Should -Match ([regex]::Escape('exit ([int]($result.Result -ne ''Passed''))'))
         }
 
-        It 'passes an empty tag literal when no tags are excluded' {
+        It 'passes empty exclude and include tag literals when neither is given' {
             $bare = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
                 param($Dir)
                 New-TestAutomationShardScript -ShardIndex 4 -TestPath @('C:\repo\a.Tests.ps1') -RunDirectory $Dir
             }
-            (Get-Content -LiteralPath $bare.ScriptPath -Raw) | Should -Match ([regex]::Escape("@() 'Detailed'"))
+            # order: @(paths) @(excludeTag) @(includeTag) 'Verbosity' — both tag literals empty here.
+            (Get-Content -LiteralPath $bare.ScriptPath -Raw) | Should -Match ([regex]::Escape("@() @() 'Detailed'"))
+        }
+
+        It 'threads the -Rule include tags into the worker configuration' {
+            $ruled = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
+                param($Dir)
+                New-TestAutomationShardScript -ShardIndex 5 -TestPath @('C:\repo\a.Tests.ps1') -RunDirectory $Dir `
+                    -ExcludeTag @('L3') -IncludeTag @('ADR-ERROR#3')
+            }
+            $content = Get-Content -LiteralPath $ruled.ScriptPath -Raw
+            $content | Should -Match ([regex]::Escape("@('L3') @('ADR-ERROR#3')"))
+            $content | Should -Match ([regex]::Escape('-IncludeTag $includeTag'))
         }
     }
 

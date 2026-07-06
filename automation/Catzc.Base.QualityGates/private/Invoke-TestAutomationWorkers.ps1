@@ -47,6 +47,9 @@ function Invoke-TestAutomationWorkers {
         [AllowEmptyCollection()]
         [string[]] $ExcludeTag = @(),
 
+        [AllowEmptyCollection()]
+        [string[]] $IncludeTag = @(),
+
         [ValidateSet('Minimal', 'Normal', 'Detailed', 'Diagnostic')]
         [string] $Verbosity = 'Detailed',
 
@@ -87,12 +90,12 @@ function Invoke-TestAutomationWorkers {
             continue
         }
         $shards.Add((New-TestAutomationShardScript -ShardIndex $shardIndex -TestPath $shardFiles[$shardIndex] `
-                    -RunDirectory $RunDirectory -ExcludeTag $ExcludeTag -Verbosity $Verbosity))
+                    -RunDirectory $RunDirectory -ExcludeTag $ExcludeTag -IncludeTag $IncludeTag -Verbosity $Verbosity))
     }
     $serialShard = $null
     if ($SerialFiles.Count -gt 0) {
         $serialShard = New-TestAutomationShardScript -ShardIndex $workerCount -TestPath $SerialFiles `
-            -RunDirectory $RunDirectory -ExcludeTag $ExcludeTag -Verbosity $Verbosity
+            -RunDirectory $RunDirectory -ExcludeTag $ExcludeTag -IncludeTag $IncludeTag -Verbosity $Verbosity
     }
 
     # Announce before the pool blocks: each worker pays its own importer + Pester load before the first

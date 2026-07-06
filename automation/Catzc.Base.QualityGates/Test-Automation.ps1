@@ -52,6 +52,11 @@
     Returns the run summary object: Result, TotalCount/PassedCount/FailedCount/SkippedCount/NotRunCount,
     DurationSeconds, Rows (the aggregated per-test rows), RunDirectory, and Shards (the shard descriptors).
     By default, no object is returned.
+.PARAMETER Rule
+    Run only the tests that cite one of these ADR rules (the provenance filter) — e.g. `-Rule ADR-ERROR#3`.
+    Each value is a citation in `ADR-<CODE>#<n>` form. The run narrows to the files carrying a matching test
+    and, within them, to the cited tests (Pester tag include). Composes with -Level/-Category/-Modules. It is
+    the executable companion of the rule-coverage report: find a rule's tests, then run just them.
 .PARAMETER EnforceTimings
     Fail the run when a test exceeds its level's time limit. Off by default — timings are
     machine-dependent, so the run only *reports* over-limit tests (with their durations) and stays
@@ -81,6 +86,8 @@
     Test-Automation -Output Detailed -PassThru
 .EXAMPLE
     Test-Automation -EnforceTimings   # fail if any test is over its level's limit
+.EXAMPLE
+    Test-Automation -Rule ADR-ERROR#3   # run only the tests that cite ADR-ERROR#3
 .EXAMPLE
     Test-Automation -OutputFolder C:\reports\catzc   # write the run report under a custom base
 #>
@@ -113,6 +120,9 @@ function Test-Automation {
         [switch] $PassThru,
 
         [switch] $EnforceTimings,
+
+        [ValidatePattern('^ADR-[A-Z]+#\d+$')]
+        [string[]] $Rule = @(),
 
         [string] $OutputFolder
     )
@@ -212,6 +222,30 @@ function Test-Automation {
             throw 'No test files found in the discovered tests folders.'
         }
 
+        # -Rule: narrow the work-list to the files carrying a test that cites one of the given ADR rules (the
+        # provenance filter). The worker also filters within a file via IncludeTag, so a file mixing cited and
+        # uncited tests runs only the cited ones. Citations come from the discovery pass (all tests, any tier).
+        if ($Rule.Count -gt 0) {
+            $ruleWanted = [System.Collections.Generic.HashSet[string]]::new([string[]]$Rule, [System.StringComparer]::Ordinal)
+            $ruleFiles = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+            foreach ($test in @($discovery.Tests)) {
+                if (-not $test.ScriptBlock -or -not $test.ScriptBlock.File) {
+                    continue
+                }
+                foreach ($citation in (Get-TestRuleTags -Test $test)) {
+                    if ($ruleWanted.Contains($citation)) {
+                        [void]$ruleFiles.Add($test.ScriptBlock.File)
+                        break
+                    }
+                }
+            }
+            $testFiles = [System.Collections.Generic.List[string]]::new(
+                [string[]]@($testFiles | Where-Object { $ruleFiles.Contains($_) }))
+            if ($testFiles.Count -eq 0) {
+                throw "No test cites $($Rule -join ', ') — nothing to run for -Rule."
+            }
+        }
+
         $serialLookup = [System.Collections.Generic.HashSet[string]]::new(
             [string[]] (Get-TestSerialFiles -Discovery $discovery), [System.StringComparer]::OrdinalIgnoreCase)
         $parallelFiles = [System.Collections.Generic.List[string]]::new()
@@ -229,7 +263,7 @@ function Test-Automation {
         # green run this session are dropped from the work-list here in the orchestrator (workers never see
         # the map; in a pipeline the selection is a pass-through). The key carries the run parameters, so an
         # L0-L1 green never skips an L2 run.
-        $protectionKey = "test-automation|L$MinLevel-L$MaxLevel|$Category"
+        $protectionKey = "test-automation|L$MinLevel-L$MaxLevel|$Category|$($Rule -join ',')"
         $protectionPlan = Select-ProtectedTestFile -ParallelFiles @($parallelFiles) -SerialFiles @($serialFiles) `
             -Discovery $discovery -ProtectionKey $protectionKey
         $parallelFiles = [System.Collections.Generic.List[string]]::new([string[]]$protectionPlan.ParallelFiles)
@@ -257,7 +291,7 @@ function Test-Automation {
         }
         else {
             Invoke-TestAutomationWorkers -ParallelFiles @($parallelFiles) -SerialFiles @($serialFiles) `
-                -RunDirectory $runDir -ExcludeTag $excludeTags -Verbosity $Output -Workers $Workers `
+                -RunDirectory $runDir -ExcludeTag $excludeTags -IncludeTag $Rule -Verbosity $Output -Workers $Workers `
                 -TimeoutSeconds $TimeoutSeconds -WorkerEnvironment $workerEnvironment
         }
         $rows = @($workerRun.Rows)
