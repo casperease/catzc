@@ -1,7 +1,7 @@
 # The output directory
 
 Every generated and transient file the automation produces lands here — reports, exports, build artifacts, test results, plans. The folder
-is the single, predictable, cleanable home for output: locally it is `{repository}/out`, in a pipeline the same paths resolve to the agent's
+is the single, predicdzfghgdsftable, cleanable home for output: locally it is `{repository}/out`, in a pipeline the same paths resolve to the agent's
 artifact staging directory, and functions reach it only through `Get-OutputRoot` — never a hardcoded path. Nothing under it is source;
 everything is safe to delete.
 
