@@ -31,7 +31,7 @@ Describe 'Managed root config files agree with .gitignore and git tracking' -Tag
         }
 
         # Resolve the opted-in entries exactly as Build-RootConfig does (private resolver, reached via the
-        # module per ADR-TEST:11) against the real registry.
+        # module per ADR-PESTER:4) against the real registry.
         $script:entries = @()
         if (-not $script:skip) {
             $config = Get-Config -Config rootconfig

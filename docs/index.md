@@ -59,6 +59,8 @@ The "why" and "how" behind the PowerShell automation layer.
 - [Fail fast with assertions](adr/automation/fail-fast-with-asserts.md) — catch errors at the source, not three layers down
 - [Retry as a last resort](adr/automation/retry-as-last-resort.md) — last-ditch only, lowest level possible, never in a test
 - [Test automation](adr/automation/test-automation.md) — isolate logic tests behind seams; bind only integrity tests to shipped assets
+- [Pester testing](adr/automation/powershell/pester-testing.md) — the language layer: the mock idioms, test-file conventions, and engine
+  gotchas
 - [Idempotent state functions](adr/automation/idempotent-state-functions.md) — re-runs are always safe
 - [Sensible defaults](adr/automation/sensible-defaults.md) — the zero-arg call does the right thing
 - [Parameter design](adr/automation/powershell/parameter-design.md) — the PowerShell layer: positional primary argument, switches over

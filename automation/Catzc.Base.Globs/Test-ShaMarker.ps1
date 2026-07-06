@@ -1,20 +1,21 @@
 <#
 .SYNOPSIS
-    Compares every trigger file against its globset's recomputed durable SHA — the freshness query.
+    Compares every sha-marker file against its globset's recomputed durable SHA — the freshness query.
 .DESCRIPTION
-    The non-throwing query behind the trigger-freshness gate (ADR-GLOBS:6): recomputes each globset's
+    The non-throwing query behind the marker-freshness gate (ADR-GLOBS:6): recomputes each globset's
     durable SHA and reports one status object per globset — Fresh (file matches), Stale (file differs), or
-    Missing (no file) — plus one Orphaned entry per .triggers/*.sha256 with no globset. A commit is clean
-    exactly when every status is Fresh; anything else means "run Update-Trigger and commit the result".
+    Missing (no file) — plus one Orphaned entry per .sha-markers/*.sha256 with no globset. A commit is
+    clean exactly when every status is Fresh; anything else means "run Update-ShaMarker and commit the
+    result".
 .PARAMETER Name
     The globset(s) to check. Omit for every globset. Orphan detection always runs against the full registry,
     regardless of -Name.
 .EXAMPLE
-    Test-Trigger
+    Test-ShaMarker
 .EXAMPLE
-    (Test-Trigger | Where-Object Status -NE 'Fresh').Count -eq 0
+    (Test-ShaMarker | Where-Object Status -NE 'Fresh').Count -eq 0
 #>
-function Test-Trigger {
+function Test-ShaMarker {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
@@ -33,7 +34,7 @@ function Test-Trigger {
 
     foreach ($set in $sets) {
         $expected = Get-GlobSetHash -Name $set.Name
-        $path = [System.IO.Path]::Combine($root, $set.TriggerPath)
+        $path = [System.IO.Path]::Combine($root, $set.MarkerPath)
         $actual = $null
         $status = 'Missing'
         if ([System.IO.File]::Exists($path)) {
@@ -50,13 +51,13 @@ function Test-Trigger {
             Status   = $status
             Expected = $expected
             Actual   = $actual
-            Path     = $set.TriggerPath
+            Path     = $set.MarkerPath
         }
     }
 
-    $triggersDir = [System.IO.Path]::Combine($root, '.triggers')
-    if ([System.IO.Directory]::Exists($triggersDir)) {
-        foreach ($file in [System.IO.Directory]::EnumerateFiles($triggersDir, '*.sha256')) {
+    $markersDir = [System.IO.Path]::Combine($root, '.sha-markers')
+    if ([System.IO.Directory]::Exists($markersDir)) {
+        foreach ($file in [System.IO.Directory]::EnumerateFiles($markersDir, '*.sha256')) {
             $orphanName = [System.IO.Path]::GetFileNameWithoutExtension($file)
             if (-not $config.Contains($orphanName)) {
                 [pscustomobject]@{
@@ -64,7 +65,7 @@ function Test-Trigger {
                     Status   = 'Orphaned'
                     Expected = $null
                     Actual   = [System.IO.File]::ReadAllText($file).Trim()
-                    Path     = ".triggers/$orphanName.sha256"
+                    Path     = ".sha-markers/$orphanName.sha256"
                 }
             }
         }

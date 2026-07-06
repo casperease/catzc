@@ -8,6 +8,8 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
   type-accelerator prefix, and the literal product token. Use it in code and in precise references.
 - **cats** (plural) — the conversational cover term for the catzc system as a whole: the human-friendly name used in prose and docs and when
   talking to or about the system ("ask cats"). It stands in for the complicated, code-level catzc.
+- **"domain rules" / "ADR rules"** — the sanctioned terms for this repository's conventions and decision records. Never say "house rules";
+  it is not a domain-sanctioned term.
 
 ## Project structure
 

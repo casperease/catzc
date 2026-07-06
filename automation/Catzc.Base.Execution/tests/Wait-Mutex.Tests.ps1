@@ -3,7 +3,7 @@ param()
 
 Describe 'Wait-Mutex' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The writer is the observable boundary (ADR-TEST:5): assert which message shape each path emits.
+        # The writer is the observable boundary (ADR-PESTER:3): assert which message shape each path emits.
         Mock Write-Message { } -ModuleName Catzc.Base.Execution
     }
 

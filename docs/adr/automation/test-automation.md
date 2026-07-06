@@ -10,14 +10,6 @@ them across separate `Context`/`Describe` blocks, each tagged.
 
 - [Two kinds of test with opposite dependencies](#two-kinds-of-test-with-opposite-dependencies)
 
-### Rule ADR-TEST:2
-
-Isolate logic tests through the seams — in `BeforeEach`, mock `Get-BicepTemplatesRoot` to a fixture template tree, and isolate config either
-by mocking the discovery seam `Resolve-ConfigEntry` (return a fixture `@{ Name; Module; Path }`) or by mocking `Get-Config` itself.
-Redirecting only the template tree leaks the shipped identities back in.
-
-- [Isolation comes from seams, not from editing production](#isolation-comes-from-seams-not-from-editing-production)
-
 ### Rule ADR-TEST:3
 
 Fixtures own their inputs and use deliberately distinct identities under `tests/assets/` (envs `alpha`/`beta`, customers `acme`/`globex`,
@@ -28,24 +20,17 @@ org `tst`) so they cannot collide with production.
 ### Rule ADR-TEST:4
 
 Seam swaps are safe because `Get-Config` and `Get-BicepTemplates` key their session caches on the resolved path/root, so a fixture path and
-the real path get separate cache entries. Reset the config cache with `InModuleScope Catzc.Base.Config { $script:configCache = $null }` only
-when exercising cache behavior directly.
+the real path get separate cache entries. A test that exercises cache behavior itself resets the slot per
+[script-scope-caching](powershell/script-scope-caching.md) (ADR-PSCACHE:3).
 
 - [How this is enforced](#how-this-is-enforced)
-
-### Rule ADR-TEST:5
-
-Mock at module boundaries with `-ModuleName`, and mock the whole boundary function — never its internals. A cached function ignores mocked
-dependencies, and reaching into internals couples the test to implementation.
-
-- [The idioms](#the-idioms)
 
 ### Rule ADR-TEST:6
 
 Do not mock the unit under test, and do not over-mock. Let the pure logic run for real; mock only the genuine boundaries (filesystem
 location, external CLIs, git, pipeline detection).
 
-- [The idioms](#the-idioms)
+- [Isolation comes from seams, not from editing production](#isolation-comes-from-seams-not-from-editing-production)
 
 ### Rule ADR-TEST:7
 
@@ -76,21 +61,6 @@ because `az` was not connected is a mis-tiered test, not a flake.
 
 A runtime tripwire enforces "L0/L1 launches no real process": `Test-Automation` sets `$env:CATZC_BLOCK_REAL_PROCESS` and `Invoke-Executable`
 throws instead of launching, so a Mock that fails to intercept fails loudly.
-
-- [How this is enforced](#how-this-is-enforced)
-
-### Rule ADR-TEST:11
-
-Test private functions through the module (`& (Get-Module …) { … }` or `InModuleScope`), injecting metadata by mocking the public seam —
-never by editing module-scope state except to reset a cache slot.
-
-- [The idioms](#the-idioms)
-
-### Rule ADR-TEST:12
-
-One test file per function, `Verb-Noun.Tests.ps1` — `Test-Automation.Tests.ps1` enforces the hyphenated basename. A cross-cutting suite is
-named after the function it most exercises plus a suffix. A test for a native C# type is named for the type and lives in `tests/types/`
-(`<TypeName>.Tests.ps1`) — exempt from Verb-Noun, but the gate requires the name to match a `types/*.cs` in the same module.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -132,7 +102,7 @@ and assert invariants that hold for _every_ template. It must **never** bind to 
 production-derived magic value (a rendered secret name, resource name, or parameter-file name). Binding a test to a production identity
 makes that test veto the identity's rename or removal — a test must never block a production refactor. Positive, template-specific behaviour
 (e.g. a PrePost hook injecting a particular Key Vault reference) is verified as a **logic** test against a **fixture** template
-(ADR-TEST:2/ADR-TEST:3), not against the shipped one; the generic integrity test asserts only the structural invariant — "any reference
+(ADR-PESTER:2/ADR-TEST:3), not against the shipped one; the generic integrity test asserts only the structural invariant — "any reference
 present is well-formed" — across all shipped templates.
 
 - [Integrity tests are generic, never name-bound](#integrity-tests-are-generic-never-name-bound)
@@ -431,7 +401,8 @@ Logic tests run on every change, so their speed compounds. Four effects, measure
   actual cost was `Get-ChildItem`, proven by `[Diagnostics.Stopwatch]` timing of the unmocked path and `Should -Invoke -Times` invocation
   counts.
 
-Cold-import isolation is the one case that legitimately needs a separate **process** (not an in-process runspace): see the Gotchas.
+Cold-import isolation is the one case that legitimately needs a separate **process** (not an in-process runspace): see the Gotchas in
+[pester-testing](powershell/pester-testing.md).
 
 ### Push the rule-checks left; keep a thin walking skeleton
 
@@ -501,87 +472,12 @@ byte-identical for a given commit.
 Separate **logic tests** (isolated from shipped config via seams + fixtures) from **integrity tests** (bound to the shipped assets, depended
 on by nothing). Mock only at module boundaries, mock whole functions, and let pure logic run for real.
 
-### The idioms
+### The idioms and gotchas are the language layer
 
-A hermetic logic test (both seams isolated, fixture identities):
-
-```powershell
-Describe 'Get-AzureEnvironment' -Tag 'L1', 'logic' {
-    BeforeEach {
-        Mock Get-BicepTemplatesRoot { Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates' } -ModuleName Catzc.Azure.Templates
-        # Redirect the 'azure' config to the fixture file via the discovery seam.
-        Mock Resolve-ConfigEntry {
-            @{ Name = 'azure'; Module = 'Catzc.Azure.Templates'
-               Path = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/config/azure.yml' }
-        } -ParameterFilter { $Config -eq 'azure' } -ModuleName Catzc.Base.Config
-    }
-    It 'resolves the environment identity against a named subscription' {
-        (Get-AzureEnvironment alpha -Subscription core_lower).subscription.name | Should -Be 'core_lower'   # fixture identity, not 'dev'
-    }
-}
-```
-
-The integrity test (binds to shipped assets — mocks nothing):
-
-```powershell
-Describe 'Shipped asset integrity' -Tag 'L1', 'integrity' {
-    It 'every shipped template references only defined environments and customers' {
-        $azure = Get-Config -Config azure
-        foreach ($t in (Get-BicepTemplates)) {
-            foreach ($slot in $t.slots) {
-                $slot.environment | Should -BeIn @($azure.environments.Keys)
-            }
-        }
-    }
-}
-```
-
-A CLI-tool integration test (L2 — drives `az bicep build`), tagged and self-skipping:
-
-```powershell
-Describe 'sample (real az)' -Tag 'L2', 'logic' {
-    It 'compiles with az bicep build' {
-        if (-not (Get-Command az -ErrorAction Ignore)) { Set-ItResult -Skipped -Because 'tool_az_missing'; return }
-        Build-Bicep sample -Environments alpha | Out-Null
-        Join-Path $outputRoot 'main.json' | Should -Exist
-    }
-}
-```
-
-### Gotchas
-
-- **`<word>` in an `It` name is Pester data-binding**, not literal text — `'names parameters.<config>.json'` makes Pester look for
-  `$config`. Keep angle brackets out of test names.
-- **An unbound `[string]` parameter is `''`, not `$null`** — the engine coerces `$null`→`''` for `[string]`, so `$Customer -eq $null` is
-  never true for a `[string]` param. Test emptiness with `if (-not $Customer)` or `[string]::IsNullOrEmpty($Customer)`, and never default
-  one with `??` (the default won't apply — see [automatic-variable-pitfalls](powershell/automatic-variable-pitfalls.md#rule-adr-autovar6)).
-- **`Where-Object prop -EQ` / `ForEach-Object prop` shortcuts do not bind `[ordered]` dictionary keys** — use the script-block form. This
-  codebase returns ordered dicts pervasively.
-- **A comma-wrapped array return piped directly member-enumerates.** `Get-BicepTemplates | Where …` feeds the whole array as one object;
-  parenthesise first: `(Get-BicepTemplates) | Where …`.
-- **To test that a parameter is mandatory, bind it to `$null` — never omit it.** An _absent_ mandatory parameter makes an interactive host
-  **prompt** (and hang), not throw; it only throws under `-NonInteractive`. Supplying the param explicitly as `$null` (with valid values for
-  the others) rejects at binding in _every_ host — `{ Invoke-Foo -X $null -Y @{} } | Should -Throw`. Relying on `-NonInteractive` to turn
-  the prompt into a throw masks the hazard rather than removing it, so a `Test-Automation` run from a devbox shell hangs.
-- **A reused-and-deleted sandbox path races an on-access file scanner.** A `BeforeEach` that deletes and recreates one fixed sandbox dir
-  intermittently throws "… being used by another process" on the delete, because a Windows AV / indexer briefly holds a just-copied file
-  open. Do not retry the delete (see [retry-as-last-resort](retry-as-last-resort.md#rule-adr-retry2)) — remove the need: give each test a
-  unique dir, `$script:sandbox = Join-Path $TestDrive ([Guid]::NewGuid())`, copy fixtures in, and drop the cleanup entirely. Pester
-  auto-cleans `$TestDrive`, and a unique dir is never re-deleted mid-run. Scratch belongs in `$TestDrive` / `[IO.Path]::GetTempPath()`, not
-  `out/` (see [dedicated-output-directory](../repository/dedicated-output-directory.md#rule-adr-outdir3)).
-- **Bulk deletes: use .NET, not per-item `Remove-Item`.** Clearing many entries with per-item `Remove-Item` is ~50× slower than
-  `[IO.File]::Delete` / `[IO.Directory]::Delete($d, $true)` (measured ~33 s vs ~0.6 s for ~4,300 entries) — `Clear-TempFolders`
-  (`Catzc.Tooling.Provisioning`) uses the .NET calls for this reason. And do not blame AV for temp slowness without checking: a bloated
-  `%TEMP%` (tens of thousands of entries) slows NTFS directory creation, and `%TEMP%` is often already AV-excluded while the repo is not.
-- **Chained mock state hits a Pester `$script:` scope surprise.** A `Set-` mock that writes `$script:x` and a `Get-` mock that reads it back
-  do not reliably round-trip within one test (the mock bodies don't share the scope you expect). Don't assert idempotency by mutating fake
-  state and reading it back — assert on the boundary instead: seed the "already present" state and assert `Should -Invoke <writer> -Times 0`
-  (it must not have written). Single-direction reads/writes (seed → act → read the writer's captured `$Value`) are fine.
-- **Cold-import isolation belongs in a child process, not an in-process runspace.** A fresh runspace looks like cheap isolation, but env
-  vars are process-global — the importer's `$env:RepositoryRoot`/`$env:PSModulePath` writes leak into the parent (breaking the real
-  session's lazy Pester/PSScriptAnalyzer resolution) — and a loaded assembly cannot be unloaded, so the sandbox's `powershell-yaml` DLL
-  stays locked and cleanup fails. `Import-AllModules.Tests.ps1` runs each import in a child `pwsh` for exactly this isolation; reserve
-  runspaces for work that writes no process-global state.
+The concrete Pester shapes — the seam-mock `BeforeEach`, mocking at module boundaries with `-ModuleName`, testing privates through the
+module, the `Verb-Noun.Tests.ps1` file convention, and the engine gotchas that repeatedly bite — are
+[pester-testing](powershell/pester-testing.md) (`ADR-PESTER`). The doctrine above says what a test may depend on; that ADR says how the
+test is written.
 
 ### How this is enforced
 
@@ -590,16 +486,10 @@ Describe 'sample (real az)' -Tag 'L2', 'logic' {
   (`L0-L3`) or category (`logic|integrity`) tag. `Get-TestLevelTag`/`Get-TestCategoryTag` (in `Catzc.Base.QualityGates`) do the
   nearest-contributing-block resolution.
 - **The seams exist** as mockable functions (`Get-BicepTemplatesRoot` for the template tree; `Resolve-ConfigEntry` and `Get-Config` for
-  config), so isolation is a mock away and production has a single pristine default.
-- **For config, the boundary to mock is `Resolve-ConfigEntry` (the discovery seam) or `Get-Config`** — the unified config reader all reads
-  route through (see [module-config-loading](module-config-loading.md)). Mock the discovery seam to return a fixture
-  `@{ Name; Module; Path }` pointing at a fixture file, or mock `Get-Config` outright; mock the whole function, never its internals (per
-  Rule ADR-TEST:5). When exercising cache behavior directly, reset the slot with
-  `InModuleScope Catzc.Base.Config { $script:configCache = $null }`.
-- **`Test-Automation.Tests.ps1`** validates the `Verb-Noun.Tests.ps1` filename convention — a type test under `tests/types/` is instead
-  named for the `types/*.cs` it covers — and the one-function-per-file rules for source (see
-  [one-function-per-file](powershell/one-function-per-file.md)). It also AST-scans every test for `Set-ItResult ... -Because '<literal>'`
-  and fails any reason that is not a constrained skip key (lowercase alnum segments joined by `_`).
+  config — see [module-config-loading](module-config-loading.md)), so isolation is a mock away and production has a single pristine
+  default. The mock idioms are [pester-testing](powershell/pester-testing.md) (`ADR-PESTER:2`–`ADR-PESTER:4`).
+- **`Test-Automation.Tests.ps1`** validates the test-file conventions (`ADR-PESTER:5`) and AST-scans every test for
+  `Set-ItResult ... -Because '<literal>'`, failing any reason that is not a constrained skip key (lowercase alnum segments joined by `_`).
 - **Seam-mocking isolates pure-logic tests;** the tests that bind to shipped assets (the cross-layer reference check and the generic
   template-build integrity check) are the sanctioned exceptions — an input-source choice, not a tier — and they bind to the template _set_,
   never to a named template (ADR-TEST:17). The fixtures under `tests/assets/` are the patterns new logic tests copy (see

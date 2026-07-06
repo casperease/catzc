@@ -98,7 +98,8 @@ Describe 'Get-Widgets' -Tag 'L1', 'logic' {
 ```
 
 Logic tests run on fixtures/mocks and are hermetic; mock only real boundaries (filesystem location, CLIs), and mock the whole boundary
-function — see [test-automation](../../../../adr/automation/test-automation.md) for tiers, tagging, and the isolation idioms.
+function — see [test-automation](../../../../adr/automation/test-automation.md) for tiers and tagging, and
+[pester-testing](../../../../adr/automation/powershell/pester-testing.md) for the isolation idioms.
 
 ### Optionally cite the ADR rule a test enforces
 

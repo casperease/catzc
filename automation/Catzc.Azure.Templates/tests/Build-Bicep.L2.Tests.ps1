@@ -16,7 +16,7 @@
 # PowerShell fully covered at L0, and their compile is a flat resource-group build identical to the skeleton.
 # Each It self-skips when `az` is absent (ADR-TEST:8); the skip key is the constrained `tool_az_missing` grammar.
 #
-# Isolation is the standard seam swap (ADR-TEST:2): redirect the template tree to tests/assets/templates and the
+# Isolation is the standard seam swap (ADR-PESTER:2): redirect the template tree to tests/assets/templates and the
 # azure/network configs to the fixtures, so these bind to the sample-* assets, never to shipped templates.
 # serial: builds sample-customer / sample-subscription / sample-with-module into the shared out/template/<name>
 # folders that Build-Bicep.Sample*.Tests.ps1 also write — a parallel worker building the same template races

@@ -1,7 +1,7 @@
 // One named globset: the deployable unit's mapping onto files under version control — a kebab-case name, a
 // description, the include patterns, and the optional exclude patterns (a file belongs when it matches at
-// least one include and no exclude, ADR-GLOBS:4). TriggerPath is the unit's committed trigger-file path
-// (.triggers/<name>.sha256, ADR-GLOBS:1); no globset may match its own trigger file or the config itself
+// least one include and no exclude, ADR-GLOBS:4). MarkerPath is the unit's committed sha-marker path
+// (.sha-markers/<name>.sha256, ADR-GLOBS:1); no globset may match its own marker file or the config itself
 // (ADR-GLOBS:6), which GlobsConfig asserts across the whole registry at construction.
 // See docs/adr/pipelines/durable-sha-globs.md.
 
@@ -20,10 +20,10 @@ public sealed class GlobSet
     public IReadOnlyList<GlobPattern> Include { get; }
     public IReadOnlyList<GlobPattern> Exclude { get; }
 
-    // The committed trigger file this globset's durable SHA is persisted in (ADR-GLOBS:1).
-    public string TriggerPath
+    // The committed sha-marker file this globset's durable SHA is persisted in (ADR-GLOBS:1).
+    public string MarkerPath
     {
-        get { return ".triggers/" + Name + ".sha256"; }
+        get { return ".sha-markers/" + Name + ".sha256"; }
     }
 
     public GlobSet(string name, string description, string[] include, string[] exclude)

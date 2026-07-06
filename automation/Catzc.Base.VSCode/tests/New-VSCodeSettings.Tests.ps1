@@ -1,6 +1,6 @@
 Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the config seam (ADR-TEST:2): a small fixture registry with an authored
+        # Isolate through the config seam (ADR-PESTER:2): a small fixture registry with an authored
         # search.exclude carrying an explicit un-exclude (false) that injection must not override.
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [pscustomobject]@{

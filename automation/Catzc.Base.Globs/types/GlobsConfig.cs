@@ -92,12 +92,12 @@ public sealed class GlobsConfig
             map[set.Name] = set;
         }
 
-        // ---- self-exclusion (ADR-GLOBS:6): trigger files are outputs of the hash, never members.
-        //      Probes: every declared trigger path, plus a canary trigger path that catches catch-alls
-        //      like '**' or '.triggers/**' regardless of the declared names. ----
+        // ---- self-exclusion (ADR-GLOBS:6): sha-marker files are outputs of the hash, never members.
+        //      Probes: every declared marker path, plus a canary marker path that catches catch-alls
+        //      like '**' or '.sha-markers/**' regardless of the declared names. ----
         List<string> probes = new List<string>();
-        foreach (GlobSet set in sets) { probes.Add(set.TriggerPath); }
-        probes.Add(".triggers/canary.sha256");
+        foreach (GlobSet set in sets) { probes.Add(set.MarkerPath); }
+        probes.Add(".sha-markers/canary.sha256");
 
         foreach (GlobSet set in sets)
         {
@@ -105,7 +105,7 @@ public sealed class GlobsConfig
             {
                 if (set.Matches(probe))
                 {
-                    errors.Add(string.Format("globset '{0}' matches '{1}' — trigger files are outputs of the hash, never members (ADR-GLOBS:6); add an exclude", set.Name, probe));
+                    errors.Add(string.Format("globset '{0}' matches '{1}' — sha-marker files are outputs of the hash, never members (ADR-GLOBS:6); add an exclude", set.Name, probe));
                     break;
                 }
             }

@@ -2,7 +2,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
 
-        # Isolate through the seams (ADR-TEST:2): mock the config seam (Get-Config) and redirect the repository
+        # Isolate through the seams (ADR-PESTER:2): mock the config seam (Get-Config) and redirect the repository
         # root to a fixture tree (TestKit) so Resolve-RepoPath and the link rebaser bind inside it.
         # H1, a blank line (exercises the double-blank guard, MD012), then a sibling link and a parent link
         # (exercise the rebaser) and an in-page anchor (must be left alone).

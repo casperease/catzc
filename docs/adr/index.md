@@ -92,6 +92,7 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 | `ADR-PSXPLAT`  | [cross-platform-powershell](automation/powershell/cross-platform-powershell.md)                   |
 | `ADR-MANIFEST` | [dynamic-module-manifests](automation/powershell/dynamic-module-manifests.md)                     |
 | `ADR-PSCACHE`  | [script-scope-caching](automation/powershell/script-scope-caching.md)                             |
+| `ADR-PESTER`   | [pester-testing](automation/powershell/pester-testing.md)                                         |
 | `ADR-DRYRUN`   | [prefer-dryrun-over-shouldprocess](automation/powershell/prefer-dryrun-over-shouldprocess.md)     |
 
 #### automation/BCL/
