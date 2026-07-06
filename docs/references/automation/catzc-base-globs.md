@@ -40,9 +40,10 @@ the marker file with the change" discipline self-enforcing.
 
 The session-memory skip for heavy read-only scans: a (test, scope) key holds the durable identity of the last green run; an unchanged scope
 answers "protected" and the scan is skipped. Recording happens only after a green run, on the identity computed before the scan, and in a
-pipeline the whole mechanism is ignored — CI always scans full. Beyond the declared scan scopes, the module folders derive their own
-globsets by convention (one per module, plus the reserved infra scopes `internal`/`vendor`/`compiled`/`scriptanalyzer`) — the building
-blocks `Test-Automation` composes into per-module protection identities. Derived sets never gain marker files.
+pipeline the whole mechanism is ignored — CI always scans full. Every **declared** globset (domain:1) — deployable unit, track, and scan
+scope alike — has a committed sha-marker (domain:3); protection additionally **derives** globsets the registry never lists: one per module
+folder by convention, plus the reserved infra scopes `internal`/`vendor`/`compiled`/`scriptanalyzer` — the building blocks `Test-Automation`
+composes into per-module protection identities. Only these derived, protection-only sets never gain marker files.
 
 ## What the module does
 
