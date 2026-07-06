@@ -40,6 +40,12 @@ function Test-ToolLocationManaged {
         return $loc.StartsWith($dir, [System.StringComparison]::OrdinalIgnoreCase)
     }
 
+    # uv-venv tools (az_cli) live under the toolchain's dedicated venv root.
+    if ($Config.uv_venv) {
+        $venvRoot = if ($IsWindows) { Join-Path $env:LOCALAPPDATA 'catzc\venvs' } else { Join-Path $HOME '.local/share/catzc/venvs' }
+        return $loc.StartsWith($venvRoot.TrimEnd('\', '/'), [System.StringComparison]::OrdinalIgnoreCase)
+    }
+
     # uv-managed tools (az_cli, poetry) and uv-provisioned python install their shims to uv's bin
     # (~/.local/bin cross-platform); managed pythons may also resolve to uv's data dir directly.
     if ($Config.uv_tool -or $Config.uv_python) {

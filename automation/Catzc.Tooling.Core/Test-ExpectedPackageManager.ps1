@@ -45,6 +45,15 @@ function Test-ExpectedPackageManager {
         return $result.Full -match [regex]::Escape($Config.uv_tool)
     }
 
+    # uv-venv tools (az_cli) — managed when the command resolves from under the toolchain's venv root.
+    if ($Config.uv_venv) {
+        if (-not (Test-Command $Config.command)) {
+            return $false
+        }
+        $venvRoot = if ($IsWindows) { Join-Path $env:LOCALAPPDATA 'catzc\venvs' } else { Join-Path $HOME '.local/share/catzc/venvs' }
+        return (Get-Command $Config.command).Source -like "$venvRoot*"
+    }
+
     # uv-provisioned Python — managed only when uv reports an installed uv-MANAGED CPython. --managed-python
     # excludes system pythons uv merely discovered (e.g. a winget/system 3.11), which would false-positive.
     if ($Config.uv_python) {

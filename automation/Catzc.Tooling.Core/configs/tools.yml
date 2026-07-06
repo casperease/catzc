@@ -41,15 +41,19 @@ az_cli:
   # locked. This is a team-tuned balancing lever, not a second pin — raise it toward `version` once devbox upgrades land.
   devbox_version: "2.84"
   command: az
-  # Installed user-space via uv (`uv tool install azure-cli`) in an isolated environment — no admin on any
-  # platform. depends_on uv so uv is provisioned first; the isolated uv env keeps az's dependency graph off
-  # the shared toolchain Python.
+  # Installed user-space into a DEDICATED uv venv (uv venv + uv pip install azure-cli) — no admin on any
+  # platform. az's own launcher (az.bat) runs the python.exe sitting next to it, so it must live in a venv with
+  # its own interpreter; a `uv tool` shim in ~/.local/bin would instead grab uv's --default python (no azure).
+  # depends_on uv so uv is provisioned first.
   depends_on: uv
-  uv_tool: azure-cli
+  uv_venv: azure-cli
   # azure-cli's dependency tree pins a pre-release (azure-batch beta), which uv refuses by default.
   uv_allow_prerelease: true
   version_command: "az version --output tsv"
   version_pattern: "^(?<ver>[^\t]+)"
+  # The dedicated venv's script dir — the janitor keeps it on PATH each load so `az` resolves across sessions.
+  session_path_hints:
+    - "%LOCALAPPDATA%\\catzc\\venvs\\az_cli\\Scripts"
 
 poetry:
   version: "2.4"

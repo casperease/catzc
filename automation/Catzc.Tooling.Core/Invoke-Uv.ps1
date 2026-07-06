@@ -7,6 +7,10 @@
     `uv pip`, `uv run`).
 .PARAMETER Arguments
     Arguments to pass to uv.
+.PARAMETER Prerelease
+    Append `--prerelease=allow`, permitting pre-release/dev dependency versions in the resolution. This is a
+    deliberate, surfaced choice — it emits a warning — because it pulls dev-marked packages into an otherwise
+    version-locked install (e.g. the Azure CLI pins beta azure-* dependencies). Never enable it silently.
 .PARAMETER PassThru
     Return a CliResult object with Output, Errors, Full, and ExitCode.
 .PARAMETER NoAssert
@@ -18,13 +22,14 @@
 .EXAMPLE
     Invoke-Uv 'tool install azure-cli'
 .EXAMPLE
-    Invoke-Uv 'python install 3.14 --default'
+    Invoke-Uv 'pip install azure-cli' -Prerelease
 #>
 function Invoke-Uv {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
         [string] $Arguments,
+        [switch] $Prerelease,
         [switch] $PassThru,
         [switch] $NoAssert,
         [switch] $Silent,
@@ -35,6 +40,12 @@ function Invoke-Uv {
 
     if (-not $DryRun) {
         Assert-Tool 'uv'
+    }
+
+    if ($Prerelease) {
+        # Pre-release resolution is a deliberate relaxation of the version lock — surface it, never silent.
+        Write-Warning "uv: allowing pre-release/dev package versions (--prerelease=allow) for: uv $Arguments"
+        $Arguments = "$Arguments --prerelease=allow"
     }
 
     Invoke-Executable "uv $Arguments" -PassThru:$PassThru -NoAssert:$NoAssert -Silent:$Silent -DryRun:$DryRun

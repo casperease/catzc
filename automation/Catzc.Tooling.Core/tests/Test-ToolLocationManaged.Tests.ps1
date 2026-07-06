@@ -71,8 +71,16 @@ Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
 
     It 'treats a uv-tool under the uv shim bin (~/.local/bin) as managed' {
         InModuleScope Catzc.Tooling.Core {
+            $config = Get-ToolConfig -Tool 'poetry'
+            $loc = Join-Path $env:USERPROFILE '.local\bin\poetry.exe'
+            Test-ToolLocationManaged -Config $config -Location $loc | Should -BeTrue
+        }
+    }
+
+    It 'treats a uv-venv tool (az_cli) under the venv root as managed' {
+        InModuleScope Catzc.Tooling.Core {
             $config = Get-ToolConfig -Tool 'az_cli'
-            $loc = Join-Path $env:USERPROFILE '.local\bin\az.exe'
+            $loc = Join-Path $env:LOCALAPPDATA 'catzc\venvs\az_cli\Scripts\az.bat'
             Test-ToolLocationManaged -Config $config -Location $loc | Should -BeTrue
         }
     }
@@ -85,7 +93,7 @@ Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'treats a uv-tool outside the uv shim bin as unmanaged' {
+    It 'treats a uv-venv tool outside the venv root (e.g. a machine-scope MSI) as unmanaged' {
         InModuleScope Catzc.Tooling.Core {
             $config = Get-ToolConfig -Tool 'az_cli'
             Test-ToolLocationManaged -Config $config -Location 'C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin\az.cmd' |

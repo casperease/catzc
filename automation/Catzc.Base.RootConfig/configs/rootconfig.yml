@@ -31,6 +31,10 @@ files:
     generator: New-Importer
     committed: true
     optIn: true
+  - target: .vscode/settings.json
+    generator: New-VSCodeSettings
+    committed: true
+    optIn: true
   - target: .editorconfig
     source: automation/Catzc.Base.RootConfig/assets/root/.editorconfig
     comment: hash

@@ -46,9 +46,14 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // poetry). Null when uv-tool is not an install path.
     public string uv_tool             { get; }
 
-    // True to pass `--prerelease=allow` to `uv tool install` — needed when the package's dependency tree pins a
+    // True to pass `--prerelease=allow` to the uv install — needed when the package's dependency tree pins a
     // pre-release (e.g. azure-cli depends on an azure-batch beta), which uv otherwise refuses.
     public bool   uv_allow_prerelease { get; }
+
+    // pip package installed into a DEDICATED uv venv (not the shared managed Python, not an isolated uv tool).
+    // For CLIs whose own launcher expects python.exe adjacent to it (azure-cli's az.bat), which a uv-tool shim
+    // in ~/.local/bin breaks. Null when venv install is not the path.
+    public string uv_venv             { get; }
 
     // True when this tool is Python itself, provisioned by `uv python install --default`. Null/false otherwise.
     public bool   uv_python           { get; }
@@ -97,6 +102,7 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
         npm_package         = OptStr(d, "npm_package");
         uv_tool             = OptStr(d, "uv_tool");
         uv_allow_prerelease = Flag(d, "uv_allow_prerelease");
+        uv_venv             = OptStr(d, "uv_venv");
         uv_python           = Flag(d, "uv_python");
         script_install      = Flag(d, "script_install");
         system_provided     = Flag(d, "system_provided");

@@ -3,6 +3,11 @@
 # Regenerated on import by Build-RootConfig; edit the source, not this copy.
 version: "0.2"
 language: en,en-GB
+# This is the repository's ONE spelling config (the root cspell.yml is a managed copy-in of this source —
+# see rootconfig.yml). Never search for per-folder configs: the source copy of this very file lives under
+# assets/root/, and without this flag cspell would treat it as a nearest config for its sibling files and
+# resolve the ./.cspell/ dictionary paths relative to the wrong folder.
+noConfigSearch: true
 ignorePaths:
   - .git/**
   - automation/.vendor/**

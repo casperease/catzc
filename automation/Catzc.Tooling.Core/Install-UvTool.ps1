@@ -52,10 +52,9 @@ function Install-UvTool {
         }
     }
 
-    # uv resolves the package's own compatible Python and installs it in an isolated env. Some packages pin a
-    # pre-release dependency (azure-cli → an azure-batch beta), which uv refuses unless --prerelease=allow.
-    $prerelease = if ($config.uv_allow_prerelease) { ' --prerelease=allow' } else { '' }
-    Invoke-Uv "tool install $($config.uv_tool)==$Version.*$prerelease"
+    # uv resolves the package's own compatible Python and installs it in an isolated env. Pre-release resolution
+    # (for packages that pin a beta dependency) is threaded through Invoke-Uv's -Prerelease switch, which warns.
+    Invoke-Uv "tool install $($config.uv_tool)==$Version.*" -Prerelease:$config.uv_allow_prerelease
 
     Sync-SessionPath
 

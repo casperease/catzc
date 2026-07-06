@@ -38,6 +38,17 @@ function Invoke-RootConfigGenerator {
                 })
             New-GitIgnore -Inject @{ 'rootconfig-committed-false' = $ignoredCopies }
         }
+        'New-VSCodeSettings' {
+            # The VS Code workspace settings, rendered from the vscode-settings registry (Catzc.Base.VSCode).
+            # Every opted-in managed target is injected into search.exclude HERE, from this module's own
+            # registry — find-all lands on sources of truth, never generated copies — and the dependency
+            # edge stays one-way (RootConfig -> VSCode; New-VSCodeSettings never reads rootconfig.yml).
+            $config = Get-Config -Config rootconfig
+            $managedTargets = @(foreach ($entry in @(Get-RootConfigTargets -Config $config)) {
+                    $entry.target
+                })
+            New-VSCodeSettings -ManagedTarget $managedTargets
+        }
         default {
             throw "Unknown root-config generator '$Name'. Register its invocation in Invoke-RootConfigGenerator (Catzc.Base.RootConfig)."
         }

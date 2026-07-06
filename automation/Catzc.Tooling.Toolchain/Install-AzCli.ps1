@@ -1,10 +1,10 @@
 <#
 .SYNOPSIS
-    Installs the Azure CLI, user-space via uv.
+    Installs the Azure CLI, user-space into a dedicated uv venv.
 .DESCRIPTION
-    Installs az as an isolated uv tool (`uv tool install azure-cli`) on every platform — user-space, no admin,
-    with az's dependency graph kept off the shared toolchain Python. Requires uv (Install-UvTool asserts it).
-    Idempotent — skips if the correct version is already on PATH.
+    Installs az into its own uv venv (`uv venv` + `uv pip install azure-cli`) on every platform — user-space,
+    no admin. az's launcher runs the python beside it, so it needs a venv with its own interpreter rather than
+    a uv-tool shim. Requires uv. Idempotent — skips if the correct version is already on PATH.
 .PARAMETER Version
     Azure CLI version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force
@@ -21,5 +21,5 @@ function Install-AzCli {
         [switch] $Force
     )
 
-    Install-UvTool -Tool 'az_cli' -Version $Version -Force:$Force
+    Install-UvVenvTool -Tool 'az_cli' -Version $Version -Force:$Force
 }

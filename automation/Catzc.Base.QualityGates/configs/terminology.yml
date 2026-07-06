@@ -115,6 +115,10 @@ terms:
       meaning: 'upsert (insert-or-update)'
     - term: virtualenvs
       meaning: 'Python virtual environments (virtualenvs)'
+    - term: venv
+      meaning: 'a Python virtual environment (python -m venv; uv venv)'
+    - term: venvs
+      meaning: 'plural of venv'
     - term: importlib
       meaning: 'Python importlib.metadata (stdlib) — reads an installed package''s version without importing it'
     - term: yoke

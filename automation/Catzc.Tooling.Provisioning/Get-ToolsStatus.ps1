@@ -89,7 +89,7 @@ function Get-ToolsStatus {
         elseif ($config.script_install) {
             'script'
         }
-        elseif ($config.uv_tool -or $config.uv_python) {
+        elseif ($config.uv_tool -or $config.uv_python -or $config.uv_venv) {
             'uv'
         }
         elseif ($IsWindows -and $config.winget_id) {

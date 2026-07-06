@@ -23,7 +23,7 @@ Describe 'Install-UvTool' -Tag 'L0', 'logic' {
         Mock Get-ToolVersion { '2.87.0' } -ModuleName Catzc.Tooling.Core
         Install-UvTool -Tool 'az_cli'
         Should -Invoke Invoke-Uv -ModuleName Catzc.Tooling.Core -Times 1 -ParameterFilter {
-            $Arguments -eq 'tool install azure-cli==2.87.* --prerelease=allow'
+            $Arguments -eq 'tool install azure-cli==2.87.*' -and $Prerelease
         }
     }
 
