@@ -7,4 +7,4 @@ scan:
 - '- automation/Catzc.Base.Globs/private/**'
 - '- automation/Catzc.Base.Globs/types/**'
 - '- automation/Catzc.Base.Globs/configs/**'
-sha256: a76eadf7e676ca64b06e48e7565e84b114e3bda3e94a236d4735dcdc90266992
+sha256: b2684400f9a87f1e19c5e9d6c7a5b173feacd2a6f0a31ac533486b49b57e7c5d
