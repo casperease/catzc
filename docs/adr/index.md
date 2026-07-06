@@ -136,6 +136,7 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 | `ADR-ROOTCFG`  | [generated-root-configs](repository/generated-root-configs.md)         |
 | `ADR-EXAMPLE`  | [documentation-examples](repository/documentation-examples.md)         |
 | `ADR-VARIANT`  | [repo-variants](repository/repo-variants.md)                           |
+| `ADR-LANG`     | [domain-language-separation](repository/domain-language-separation.md) |
 
 ## Authoring conventions
 

@@ -25,11 +25,14 @@ function Get-LiveIdentityTokens {
 
     $ret = [System.Collections.Generic.List[object]]::new()
     $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    # MatchMode governs HOW the finder matches a token: 'exact' — a distinctive identity flagged wherever it
+    # appears as a literal; 'position' — an ambiguous identity (an environment name like 'test'/'dev') flagged
+    # ONLY when bound to an identity parameter (-Environment/-Env/-Shortcode), never as bare prose.
     $add = {
-        param($token, $kind, $source, $suggest)
+        param($token, $kind, $source, $suggest, $matchMode = 'exact')
         $value = "$token"
         if (-not [string]::IsNullOrWhiteSpace($value) -and $seen.Add($value)) {
-            $ret.Add([pscustomobject]@{ Token = $value; Kind = $kind; Source = $source; Suggest = $suggest })
+            $ret.Add([pscustomobject]@{ Token = $value; Kind = $kind; Source = $source; Suggest = $suggest; MatchMode = $matchMode })
         }
     }
 
@@ -42,12 +45,25 @@ function Get-LiveIdentityTokens {
         }
     }
 
-    # Azure identity (azure.yml) — the org component and the subscription names. Environment names are Phase 2.
+    # Azure identity (azure.yml) — the org component and the subscription names (distinctive → exact match).
     $azure = Get-Config -Config azure
     & $add $azure.org 'org' 'azure.yml' 'the fixture org (tst)'
     if ($azure.Contains('subscriptions')) {
         foreach ($subName in $azure.subscriptions.Keys) {
             & $add $subName 'subscription' 'azure.yml' 'a fixture subscription (core_lower / acme_lower)'
+        }
+    }
+
+    # Environment names and shortcodes (azure.yml) — ambiguous words ('test'/'dev'), so 'position' match only
+    # (a value bound to -Environment/-Env/-Shortcode). The per-subscription identity envs (subn/subp) are
+    # shared structural vocabulary, not a discriminating identity, and are skipped.
+    if ($azure.Contains('environments')) {
+        foreach ($envName in $azure.environments.Keys) {
+            if ($azure.environments[$envName].per_subscription) {
+                continue
+            }
+            & $add $envName 'environment' 'azure.yml' 'a fixture environment (alpha / beta / gamma / delta)' 'position'
+            & $add $azure.environments[$envName].shortcode 'environment-shortcode' 'azure.yml' 'a fixture env shortcode (al / bt)' 'position'
         }
     }
 

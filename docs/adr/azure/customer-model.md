@@ -54,9 +54,9 @@ shared rule used by `Get-BicepTemplates` (fail-fast) and `Assert-BicepTemplate` 
 
 ### Rule ADR-CUSTOMER:6
 
-The customer **key is the configuration subfolder name**: a template's customer configs live at
-`configuration/<key>/<env>[-<slot>].yml`, and a subfolder that is not a defined key is a discovery error
-([data-model](data-model.md#rule-adr-datamod3)). The shortcode never names a folder — one spelling on disk, the canonical key.
+The customer **key is the configuration subfolder name**: a template's customer configs live at `configuration/<key>/<env>[-<slot>].yml`,
+and a subfolder that is not a defined key is a discovery error ([data-model](data-model.md#rule-adr-datamod3)). The shortcode never names a
+folder — one spelling on disk, the canonical key.
 
 - [The catalogue](#the-catalogue)
 
@@ -71,13 +71,12 @@ from the catalogue of who the customers are.
 
 ### The catalogue
 
-`customer.yml` declares one entity — a customer — keyed by a readable **`key`** (the customer-segment of relaxed resource names, the value
-a subscription may reference, and the name of the customer's `configuration/<key>/` subfolder in every template), with a 2-char
+`customer.yml` declares one entity — a customer — keyed by a readable **`key`** (the customer-segment of relaxed resource names, the value a
+subscription may reference, and the name of the customer's `configuration/<key>/` subfolder in every template), with a 2-char
 **`shortcode`** (unique; the customer-segment of the restricted patterns) and optional `details`. This mirrors the name/shortcode split
-environments already carry. `Assert-CustomerConfig` validates it: key format
-(`^[a-z][a-z0-9]+$`), shortcode format (`^[a-z]{2}$`), shortcode uniqueness, and the no-key-equals-a-shortcode rule (ADR-CUSTOMER:2). It is
-self-contained — it does not read `azure.yml`, so the customer catalogue sits below the subscriptions that reference it and validation stays
-one-directional.
+environments already carry. `Assert-CustomerConfig` validates it: key format (`^[a-z][a-z0-9]+$`), shortcode format (`^[a-z]{2}$`),
+shortcode uniqueness, and the no-key-equals-a-shortcode rule (ADR-CUSTOMER:2). It is self-contained — it does not read `azure.yml`, so the
+customer catalogue sits below the subscriptions that reference it and validation stays one-directional.
 
 ### Two names, one binding
 
@@ -117,8 +116,8 @@ rule is asymmetric and lives in `Get-BicepCustomerClassViolations`:
 
 - `customer_deployment: false` ⇒ the config must not live under a customer subfolder — a non-customer template ships configuration-root
   configs only;
-- `customer_deployment: true` ⇒ a customer subfolder is allowed, but the customer it deploys for must be **enabled** by `have_customers`
-  (so `have_customers: [acme]` rejects a `configuration/globex/` config even with the switch on); root configs are still fine.
+- `customer_deployment: true` ⇒ a customer subfolder is allowed, but the customer it deploys for must be **enabled** by `have_customers` (so
+  `have_customers: [acme]` rejects a `configuration/globex/` config even with the switch on); root configs are still fine.
 
 The rule is shared by discovery (`Get-BicepTemplates`, fail-fast) and the collect-all validator (`Assert-BicepTemplate`), the same
 two-caller / one-rule shape as the env-class and subscription-folder checks (see [data-model](data-model.md)).

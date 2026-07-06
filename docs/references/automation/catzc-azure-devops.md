@@ -29,7 +29,9 @@ pipeline definition, and reading the pipeline definitions the organization alrea
 
 Reading the repository's own pipeline YAML: finding the YAML files and classifying each as a pipeline or a template (and which kind) from
 its structure and the organization's registration data. This answers "what pipelines and templates does this repo define?" without deploying
-anything.
+anything. On top of that classification sits the naming-and-placement gate — `Test-Pipelines` reports every violation of the layout contract
+([pipeline-naming-and-placement](../../adr/pipelines/pipeline-naming-and-placement.md)) and `Assert-Pipelines` throws them as an L2 CI gate,
+both offline.
 
 ### domain:4 — Pipeline runtime bridge
 
@@ -67,6 +69,8 @@ The module's public functions and configuration, sorted into the domains above.
 |                                                       | `Get-AdoPipelineDefinitions`     |
 | domain:3 — Pipeline YAML discovery and classification | `Get-AdoYamlFiles`               |
 |                                                       | `Get-AdoYamlInventory`           |
+|                                                       | `Test-Pipelines`                 |
+|                                                       | `Assert-Pipelines`               |
 | domain:4 — Pipeline runtime bridge                    | `Set-AdoPipelineVariable`        |
 |                                                       | `ConvertFrom-AdoPipelineCommand` |
 |                                                       | `Write-AdoEnvironmentDiagnostic` |

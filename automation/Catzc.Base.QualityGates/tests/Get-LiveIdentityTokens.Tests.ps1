@@ -11,7 +11,15 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
             [ordered]@{ customers = [ordered]@{ acme = @{ shortcode = 'ac' }; globex = @{ shortcode = 'gx' } } }
         }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'azure' } -MockWith {
-            [ordered]@{ org = 'tst'; subscriptions = [ordered]@{ core_lower = @{}; acme_lower = @{} } }
+            [ordered]@{
+                org           = 'tst'
+                subscriptions = [ordered]@{ core_lower = @{}; acme_lower = @{} }
+                environments  = [ordered]@{
+                    alpha = @{ shortcode = 'al' }
+                    beta  = @{ shortcode = 'bt' }
+                    subn  = @{ shortcode = 'sn'; per_subscription = $true }
+                }
+            }
         }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'ado' } -MockWith {
             [ordered]@{ project = 'FixtureProject' }
@@ -40,15 +48,27 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
         ($tokens | Where-Object { $_.Kind -in 'deployable-unit', 'pipeline' }) | Should -BeNullOrEmpty
     }
 
+    It 'derives environments as position-match tokens, excluding the shared subn/subp identity envs' {
+        $tokens = & $script:run
+        $envs = @($tokens | Where-Object { $_.Kind -eq 'environment' })
+        $envs.Token | Should -Contain 'alpha'
+        $envs.Token | Should -Contain 'beta'
+        $envs.Token | Should -Not -Contain 'subn'
+        ($envs | ForEach-Object { $_.MatchMode } | Select-Object -Unique) | Should -Be 'position'
+        ($tokens | Where-Object { $_.Token -eq 'al' }).Kind | Should -Be 'environment-shortcode'
+    }
+
+    It 'marks distinctive identities exact and environment identities position' {
+        $tokens = & $script:run
+        ($tokens | Where-Object { $_.Token -eq 'acme' }).MatchMode | Should -Be 'exact'
+        ($tokens | Where-Object { $_.Token -eq 'tst' }).MatchMode | Should -Be 'exact'
+        ($tokens | Where-Object { $_.Token -eq 'alpha' }).MatchMode | Should -Be 'position'
+    }
+
     It 'derives the ADO project and shipped template names' {
         $tokens = & $script:run
         $tokens.Token | Should -Contain 'FixtureProject'
         $tokens.Token | Should -Contain 'sample'
-    }
-
-    It 'excludes environment names (Phase 1 is distinctive-identity only)' {
-        $tokens = & $script:run
-        ($tokens | Where-Object { $_.Kind -eq 'environment' }) | Should -BeNullOrEmpty
     }
 
     It 'carries a Source and a Suggest for every token, de-duplicated' {

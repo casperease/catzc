@@ -24,9 +24,10 @@ definitions are the subject of [test-automation](../../adr/automation/test-autom
 ### domain:2 — Document and code formatting gates
 
 How the repository checks and enforces the style of its written and source content. This domain runs the spell-checker, the Markdown linter,
-the Markdown formatter (which aligns tables and wraps prose in-place), and the PowerShell auto-formatter. These are the same style gates CI
-runs; a contributor runs them locally before pushing, and CI runs them on every pull request. The domain owns the invocation of each tool,
-not the tool itself or its per-tool configuration.
+the Markdown formatter (which aligns tables and wraps prose in-place), the ADO pipeline YAML formatter (`Format-Pipelines`, the same
+Prettier engine as `Format-Markdown` — they share one private `Invoke-Prettier`), and the PowerShell auto-formatter. These are the same
+style gates CI runs; a contributor runs them locally before pushing, and CI runs them on every pull request. The domain owns the invocation
+of each tool, not the tool itself or its per-tool configuration.
 
 ## What the module does
 
@@ -61,4 +62,5 @@ The module's public functions, sorted into the domains above.
 | domain:2 — Document and code formatting gates | `Test-Spelling`     |
 |                                               | `Test-Markdownlint` |
 |                                               | `Format-Markdown`   |
+|                                               | `Format-Pipelines`  |
 |                                               | `Format-Automation` |

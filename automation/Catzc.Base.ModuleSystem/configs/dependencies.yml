@@ -27,7 +27,7 @@ groups:
         Catzc.Base.Vendor: [Catzc.Base.Config, Catzc.Base.Writers, Catzc.Base.Repository]
         Catzc.Base.Execution: [Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Asserts]
         Catzc.Base.Files: [Catzc.Base.Execution, Catzc.Base.Asserts]
-        Catzc.Base.Globs: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts]
+        Catzc.Base.Globs: [Catzc.Base.Variants, Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts]
         Catzc.Base.TypesSystem: [Catzc.Base.Repository, Catzc.Base.Files, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts]
         Catzc.Base.ModuleSystem: [Catzc.Base.TypesSystem, Catzc.Base.Globs, Catzc.Base.Variants, Catzc.Base.Repository, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Files, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts]
         Catzc.Base.Git: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts]

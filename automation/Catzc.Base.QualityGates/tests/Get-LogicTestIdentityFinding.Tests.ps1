@@ -3,7 +3,10 @@ Describe 'Get-LogicTestIdentityFinding' -Tag 'L0', 'logic' {
         # A SYNTHETIC live-identity map: 'contoso' stands in for a live customer. It is deliberately NOT a real
         # shipped identity, so this very test file (which must contain the token to exercise the finder) is not
         # itself flagged by the real gate. The finder's logic is identical for any token set.
-        $script:live = @{ contoso = [pscustomobject]@{ Token = 'contoso'; Kind = 'customer-key'; Source = 'customer.yml'; Suggest = 'a fixture customer (acme)' } }
+        $script:live = @{
+            contoso = [pscustomobject]@{ Token = 'contoso'; Kind = 'customer-key'; Source = 'customer.yml'; Suggest = 'a fixture customer (acme)'; MatchMode = 'exact' }
+            staging = [pscustomobject]@{ Token = 'staging'; Kind = 'environment'; Source = 'azure.yml'; Suggest = 'a fixture environment (alpha)'; MatchMode = 'position' }
+        }
         $script:find = {
             param([string] $Content, [string] $Name = 'Fixture.Tests.ps1')
             $path = Join-Path $TestDrive $Name
@@ -74,6 +77,36 @@ Describe 'X' -Tag 'L0', 'integrity' {
         $found = & $script:find @'
 Describe 'X' -Tag 'logic' {
     It 'a' { Get-Item 'contoso/sub/main.bicep' | Should -Not -BeNullOrEmpty }
+}
+'@
+        @($found).Count | Should -Be 0
+    }
+
+    It 'flags an environment identity bound to an identity parameter (position match)' {
+        $found = & $script:find @'
+Describe 'X' -Tag 'logic' {
+    It 'a' { Get-Thing -Environment 'staging' | Should -Be 1 }
+}
+'@
+        @($found).Count | Should -Be 1
+        $found[0].Token | Should -Be 'staging'
+        $found[0].Kind | Should -Be 'environment'
+    }
+
+    It 'does NOT flag an environment name as a bare literal (position-only)' {
+        $found = & $script:find @'
+Describe 'X' -Tag 'logic' {
+    It 'a' { $label = 'staging'; Write-Output $label }
+}
+'@
+        @($found).Count | Should -Be 0
+    }
+
+    It 'does NOT flag an environment bound to -Environment inside an integrity block' {
+        $found = & $script:find @'
+Describe 'X' -Tag 'L0' {
+    Context 'integrity' -Tag 'integrity' { It 'a' { Get-Thing -Environment 'staging' } }
+    Context 'logic' -Tag 'logic' { It 'b' { Get-Thing -Environment 'alpha' } }
 }
 '@
         @($found).Count | Should -Be 0

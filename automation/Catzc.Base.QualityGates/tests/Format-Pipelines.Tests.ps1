@@ -27,7 +27,10 @@ Describe 'Format-Pipelines' -Tag 'L0', 'logic' {
     }
 
     It 'in --write mode counts only the changed files (those without "(unchanged)")' {
-        $script:prettierOut = "pipelines/ci-automation.yaml 10ms`npipelines/cd-shared.yaml 5ms (unchanged)`n"
+        $script:prettierOut = @(
+            'pipelines/ci-automation.yaml 10ms'
+            'pipelines/cd-shared.yaml 5ms (unchanged)'
+        ) -join "`n"
         $result = Format-Pipelines -PassThru
         $result.ChangedCount | Should -Be 1
         $result.ChangedFiles | Should -Be @('pipelines/ci-automation.yaml')
@@ -70,7 +73,13 @@ Describe 'Format-Pipelines (real prettier)' -Tag 'L2', 'logic' {
         }
         $file = Join-Path $TestDrive 'ci-sample.yaml'
         # Badly-indented mapping Prettier will normalise; keep a ${{ }} expression to prove it survives.
-        $messy = "trigger:`n    branches:`n        include: [main]`nsteps:`n  - script: `"echo `${{ parameters.x }}`"`n"
+        $messy = @'
+trigger:
+    branches:
+        include: [main]
+steps:
+  - script: "echo ${{ parameters.x }}"
+'@
         Set-Content -Path $file -Value $messy -Encoding utf8
         $glob = $file -replace '\\', '/'
         $result = Format-Pipelines -Glob $glob -PassThru
@@ -78,5 +87,20 @@ Describe 'Format-Pipelines (real prettier)' -Tag 'L2', 'logic' {
         (Get-Content $file -Raw) | Should -Match '\$\{\{ parameters\.x \}\}'
         # After formatting, prettier --list-different reports nothing to change.
         (Format-Pipelines -Glob $glob -DryRun -PassThru).ChangedCount | Should -Be 0
+    }
+}
+
+# Integrity: the ACTUAL repository pipeline YAML is Prettier-clean. Binds to the real repo — Format-Pipelines
+# with no -Glob scans its default **/*.yaml scope. L2 because it drives the Prettier CLI; self-skips when the
+# tool is absent (ADR-TEST:8/9). This is the formatting half of the L2 pipeline gate (Assert-Pipelines is the
+# naming/placement half); a drifted .yaml fails CI here.
+Describe 'Repository pipeline formatting integrity' -Tag 'L2', 'integrity' {
+    It 'the real repository pipeline YAML is already Prettier-formatted (default **/*.yaml scope)' {
+        if (-not (Get-Command prettier -ErrorAction Ignore)) {
+            Set-ItResult -Skipped -Because 'tool_prettier_missing'
+            return
+        }
+        $result = Format-Pipelines -Check -PassThru
+        $result.ChangedCount | Should -Be 0 -Because "run Format-Pipelines to fix: $($result.ChangedFiles -join ', ')"
     }
 }

@@ -1,9 +1,9 @@
 # The output directory
 
 Every generated and transient file the automation produces lands here — reports, exports, build artifacts, test results, plans. The folder
-is the single, cleanable home for output: locally it is `{repository}/out`, in a pipeline the same paths resolve to
-the agent's artifact staging directory, and functions reach it only through `Get-OutputRoot` — never a hardcoded path. Nothing under it is
-source; everything is safe to delete.
+is the single, cleanable home for output: locally it is `{repository}/out`, in a pipeline the same paths resolve to the agent's artifact
+staging directory, and functions reach it only through `Get-OutputRoot` — never a hardcoded path. Nothing under it is source; everything is
+safe to delete.
 
 The contents are gitignored — only the `.gitkeep` keeping the folder tracked and this README are ever present on a fresh clone. Cleaning
 everything is one command:

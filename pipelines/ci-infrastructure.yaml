@@ -28,7 +28,7 @@ pr:
 
 jobs:
   - job: CI
-    displayName: 'CI engine — validate & build foundation / discovery / expedition'
+    displayName: "CI engine — validate & build foundation / discovery / expedition"
     pool:
       vmImage: ubuntu-latest
     steps:
@@ -36,27 +36,27 @@ jobs:
 
       - template: /pipelines/steps/invoke-automation.yaml
         parameters:
-          DisplayName: 'Assert-BicepTemplate foundation'
-          RunCommand: 'Assert-BicepTemplate foundation'
+          DisplayName: "Assert-BicepTemplate foundation"
+          RunCommand: "Assert-BicepTemplate foundation"
       - template: /pipelines/steps/invoke-automation.yaml
         parameters:
-          DisplayName: 'Build-Bicep foundation (compile + render + verify)'
-          RunCommand: 'Build-Bicep foundation'
+          DisplayName: "Build-Bicep foundation (compile + render + verify)"
+          RunCommand: "Build-Bicep foundation"
 
       - template: /pipelines/steps/invoke-automation.yaml
         parameters:
-          DisplayName: 'Assert-BicepTemplate discovery'
-          RunCommand: 'Assert-BicepTemplate discovery'
+          DisplayName: "Assert-BicepTemplate discovery"
+          RunCommand: "Assert-BicepTemplate discovery"
       - template: /pipelines/steps/invoke-automation.yaml
         parameters:
-          DisplayName: 'Build-Bicep discovery (compile + render + verify)'
-          RunCommand: 'Build-Bicep discovery'
+          DisplayName: "Build-Bicep discovery (compile + render + verify)"
+          RunCommand: "Build-Bicep discovery"
 
       - template: /pipelines/steps/invoke-automation.yaml
         parameters:
-          DisplayName: 'Assert-BicepTemplate expedition'
-          RunCommand: 'Assert-BicepTemplate expedition'
+          DisplayName: "Assert-BicepTemplate expedition"
+          RunCommand: "Assert-BicepTemplate expedition"
       - template: /pipelines/steps/invoke-automation.yaml
         parameters:
-          DisplayName: 'Build-Bicep expedition (compile + render + verify)'
-          RunCommand: 'Build-Bicep expedition'
+          DisplayName: "Build-Bicep expedition (compile + render + verify)"
+          RunCommand: "Build-Bicep expedition"

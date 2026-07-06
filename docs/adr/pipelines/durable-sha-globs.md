@@ -75,9 +75,9 @@ Within every layer but `loose-fileset` the sets are pairwise-independent on OWN 
 another module's files, a unit never another unit's — each is a boundary. The `module` layer carries a **catch-all** (`module-leftovers`) so
 it covers its whole space with nothing unmapped; the catch-all is the complement of the explicit sets, hence still disjoint from them.
 `pipeline:` (the 1-1 trigger-role binding) and `verify:` (`modules` + `level`, the test blast-radius scope) are **orthogonal** annotations
-valid on any layer: a CI pipeline binds a loose-fileset track's marker, a CD pipeline a configured deployable-unit's, a base unit binds none.
-A **deployable-unit** that is neither composed nor pipeline-bound is not a unit but phantom state, and one living version (`ADR-ONELIVE`)
-forbids it; a loose-fileset without a demonstrated use is likewise forbidden — every marker earns its cost (`ADR-GLOBS:9`).
+valid on any layer: a CI pipeline binds a loose-fileset track's marker, a CD pipeline a configured deployable-unit's, a base unit binds
+none. A **deployable-unit** that is neither composed nor pipeline-bound is not a unit but phantom state, and one living version
+(`ADR-ONELIVE`) forbids it; a loose-fileset without a demonstrated use is likewise forbidden — every marker earns its cost (`ADR-GLOBS:9`).
 
 - [One configuration point](#one-configuration-point)
 

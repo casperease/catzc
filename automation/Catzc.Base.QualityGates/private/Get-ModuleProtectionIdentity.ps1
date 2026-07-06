@@ -42,7 +42,15 @@ function Get-ModuleProtectionIdentity {
                 Get-GlobSetHash -Name automation
             }
             else {
-                Get-GlobSetHash -GlobSet (Get-ModuleGlobSet -Name $setName)
+                # A module name resolves to its live/tests aspect sets (ADR-ASPECT); a reserved/single set to
+                # one. Fold the aspect hashes (name|hash, ordinal by name) so the constituent hash covers the
+                # module's whole content — identical protection semantics to the pre-aspect whole-module set.
+                $sets = @(Get-ModuleGlobSet -Name $setName) | Sort-Object Name
+                $fold = [System.Text.StringBuilder]::new()
+                foreach ($set in $sets) {
+                    [void]$fold.Append($set.Name).Append('|').Append((Get-GlobSetHash -GlobSet $set)).Append("`n")
+                }
+                [Catzc.Base.Globs.DurableHash]::HashFold($fold.ToString())
             }
         }
         $HashCache[$setName]

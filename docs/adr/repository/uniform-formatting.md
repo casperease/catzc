@@ -72,12 +72,12 @@ The baseline is the floor. Each language adds its own `.editorconfig` section (i
 formatter/analyzer. The exact per-language values live in `.editorconfig`; this ADR does not restate them — it records only which tool
 governs each language:
 
-| Language                            | Governed by                                                                                                                        |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| PowerShell (`.ps1`/`.psm1`/`.psd1`) | `.editorconfig` + `PSScriptAnalyzerSettings.psd1` — see [powershell-formatting](../automation/powershell/powershell-formatting.md) |
-| YAML (`.yml`/`.yaml`)               | `.editorconfig`                                                                                                                    |
-| JSON                                | `.editorconfig`                                                                                                                    |
-| Markdown (`.md`)                    | `.editorconfig` + `.markdownlint.yml`, formatted by Prettier                                                                       |
+| Language                            | Governed by                                                                                                                                                 |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PowerShell (`.ps1`/`.psm1`/`.psd1`) | `.editorconfig` + `PSScriptAnalyzerSettings.psd1` — see [powershell-formatting](../automation/powershell/powershell-formatting.md)                          |
+| YAML (`.yml`/`.yaml`)               | `.editorconfig`; `.yaml` pipelines additionally formatted by Prettier (`Format-Pipelines`) and gated on naming/placement (`Assert-Pipelines`, ADR-PIPENAME) |
+| JSON                                | `.editorconfig`                                                                                                                                             |
+| Markdown (`.md`)                    | `.editorconfig` + `.markdownlint.yml`, formatted by Prettier                                                                                                |
 
 Adding a language means adding its `.editorconfig` section (and, if it has one, wiring its formatter into the test suite) — not inventing a
 new formatting philosophy.
@@ -110,7 +110,10 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - **`.gitattributes`** — marks binary files so EOL/diff normalization never corrupts them; deliberately no `* text=auto`.
 - **Per-language analyzers** — each language's specific rules run in its own gate. For PowerShell this is PSScriptAnalyzer plus custom rules
   in the L2 test suite (see [powershell-formatting](../automation/powershell/powershell-formatting.md)). For Markdown it is markdownlint
-  (`.markdownlint.yml`), formatted by Prettier and kept in sync with it.
+  (`.markdownlint.yml`), formatted by Prettier and kept in sync with it. For ADO pipeline YAML (`.yaml`) it is Prettier (`Format-Pipelines`,
+  the same engine as Markdown) plus the naming-and-placement gate `Assert-Pipelines`
+  ([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md)) — both run in the L2 suite, so drifted or misplaced
+  pipeline YAML fails CI.
 - **Generated artifacts** — a build-generated artifact is emitted canonical by its generator (the module-manifest emitter), and the L2 suite
   asserts the formatter is a no-op over generated output, so its bytes cannot drift from the standard.
 

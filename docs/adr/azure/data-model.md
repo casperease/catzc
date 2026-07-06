@@ -83,12 +83,11 @@ A third global asset, `configs/network.yml`, carries the cross-cutting IP plan (
 It is a separate concern with its own schema and cross-asset integrity rules — see [`network-model`](network-model.md). This ADR covers
 identity (Layer 1) and templating (Layer 2); the network plan is documented there.
 
-The two layers join through the **conventional configuration tree**: a config at the configuration ROOT
-(`configuration/<env>[-<slot>].yml`) is a shared-platform deployment, and a config under a subfolder
-(`configuration/<customer>/<env>[-<slot>].yml`) is that customer's — the subfolder is always a customer KEY from `customer.yml`. The
-subscription never appears in a path; it is RESOLVED from the coordinate: a root config's env must be served by exactly one non-customer
-subscription, a customer config's env by exactly one of that customer's subscriptions, and Layer 1 resolves that subscription to its
-tenant, its serving environments, and (optionally) its customer.
+The two layers join through the **conventional configuration tree**: a config at the configuration ROOT (`configuration/<env>[-<slot>].yml`)
+is a shared-platform deployment, and a config under a subfolder (`configuration/<customer>/<env>[-<slot>].yml`) is that customer's — the
+subfolder is always a customer KEY from `customer.yml`. The subscription never appears in a path; it is RESOLVED from the coordinate: a root
+config's env must be served by exactly one non-customer subscription, a customer config's env by exactly one of that customer's
+subscriptions, and Layer 1 resolves that subscription to its tenant, its serving environments, and (optionally) its customer.
 
 Governing principle:
 
@@ -148,8 +147,8 @@ erDiagram
 
 A subscription declares its **`tenant`**, the **`environments`** it serves, and — optionally — a **`customer`**, naming a customer defined
 in `customer.yml` by its key OR its 2-char shortcode (see [`customer-model`](customer-model.md)). The `customer` field is the single signal
-that a subscription belongs to a customer: it makes the subscription a candidate for the customer's `configuration/<customer>/` configs
-(and excludes it from root-config resolution), and the customer renders into the resource names of anything deployed there (see
+that a subscription belongs to a customer: it makes the subscription a candidate for the customer's `configuration/<customer>/` configs (and
+excludes it from root-config resolution), and the customer renders into the resource names of anything deployed there (see
 [`naming-standard`](naming-standard.md)).
 
 A **customer** (defined in `customer.yml`) carries two stored identifiers, mirroring an environment: a readable **`key`** (the map key — the
@@ -171,12 +170,12 @@ Deployable templates live in `infrastructure/templates/<name>/` (discovered by `
 sibling `infrastructure/modules/` — referenced by templates via a relative `module` declaration and inlined by `az bicep build`; they are
 **not** discovered as templates and carry no `options.yml` / `configuration/`.
 
-**One config file ⟷ one (customer?, env, slot) ⟷ one subscription ⟷ one Azure resource group.** A config lives at the configuration
-ROOT — `infrastructure/templates/<name>/configuration/<env>[-<slot>].yml`, the shared-platform deployment — or under a customer subfolder,
+**One config file ⟷ one (customer?, env, slot) ⟷ one subscription ⟷ one Azure resource group.** A config lives at the configuration ROOT —
+`infrastructure/templates/<name>/configuration/<env>[-<slot>].yml`, the shared-platform deployment — or under a customer subfolder,
 `configuration/<customer>/<env>[-<slot>].yml`, where the folder is always a customer KEY. The filename is `<env-name>[-<slot>]` —
-`develop.yml` (the base / index-0 slot) or `develop-blue.yml` (a special slot). Discovery parses the filename by splitting on the first
-`-`: the `name` part must be a defined environment, the remainder is the optional `slot` (≤3 alnum). The subscription is resolved per
-config from the coordinate and asserted unique (ADR-DATAMOD:3).
+`develop.yml` (the base / index-0 slot) or `develop-blue.yml` (a special slot). Discovery parses the filename by splitting on the first `-`:
+the `name` part must be a defined environment, the remainder is the optional `slot` (≤3 alnum). The subscription is resolved per config from
+the coordinate and asserted unique (ADR-DATAMOD:3).
 
 **Customer is the one path dimension.** A config's customer is its subfolder ('' for a root config) — "is this a customer config?" is
 answered by the path alone. Deploy/build name the env and slot as **distinct args** (`-Environment develop [-Slot blue]`); at deploy time
@@ -267,10 +266,10 @@ The config is resolved into runtime objects on demand — where the "complex joi
 
 - **The deploy target is the az session's subscription.** `Get-AzCliSessionSubscription` (in `Catzc.Azure.Cli`) reverse-resolves the
   session's subscription GUID — in a pipeline, exactly what the service connection logged into — to its declared `azure.yml` identity
-  (`{ name, id, customer, tenant }`), throwing when the session targets an undeclared subscription. The session's `customer` picks the
-  slot: the customer's `configuration/<customer>/` config, or the configuration-root one. The **`-SubscriptionIdAssertIs <guid>`** guard
-  pins the expectation — mandatory in a pipeline (`Deploy-Bicep` throws without it), so a re-wired service connection can never silently
-  retarget an existing pipeline's deploy; on a devbox `Connect-AzCli` / `az account set` chooses the target and the guard is optional.
+  (`{ name, id, customer, tenant }`), throwing when the session targets an undeclared subscription. The session's `customer` picks the slot:
+  the customer's `configuration/<customer>/` config, or the configuration-root one. The **`-SubscriptionIdAssertIs <guid>`** guard pins the
+  expectation — mandatory in a pipeline (`Deploy-Bicep` throws without it), so a re-wired service connection can never silently retarget an
+  existing pipeline's deploy; on a devbox `Connect-AzCli` / `az account set` chooses the target and the guard is optional.
 - `Get-AzureSubscription <sub>` → `{ name, id, customer?, tenant: { name, id } }` — a by-name lookup (no join), with the tenant rebuilt from
   the map key.
 - `Get-AzureEnvironment <env> -Subscription <sub>` → `{ name, shortcode, region, region_code, subscription }`; asserts the subscription
@@ -284,15 +283,15 @@ The config is resolved into runtime objects on demand — where the "complex joi
 
 Thin read-only lookups and argument-completers over the two layers (no joins of their own); listed here so the public surface is complete:
 
-| Function                          | Returns / purpose                                                               |
-| --------------------------------- | ------------------------------------------------------------------------------- |
-| `Get-AzureCustomers`              | the customer keys from `customer.yml`                                           |
-| `Get-AzureBicepEnvironmentKinds`  | the allowed `environment_kind` values (`standard`, `subscription`)              |
-| `Get-AzureBicepDeploymentModes`   | the allowed `deployment_mode` values for `options.yml` validation               |
-| `Get-AzureBicepDeploymentTargets` | the allowed `deployment_target` values for `options.yml` validation             |
-| `Get-AzureBicepMinVersion`        | `bicep_min_version` from `azure.yml` (asserted by `Assert-AzCliBicep`)          |
-| `Get-BicepTemplateCustomers`      | the distinct customers (configuration subfolders) a template ships (completer)  |
-| `Get-BicepTemplateSlots`          | the distinct slots a template declares (completer)                              |
+| Function                          | Returns / purpose                                                              |
+| --------------------------------- | ------------------------------------------------------------------------------ |
+| `Get-AzureCustomers`              | the customer keys from `customer.yml`                                          |
+| `Get-AzureBicepEnvironmentKinds`  | the allowed `environment_kind` values (`standard`, `subscription`)             |
+| `Get-AzureBicepDeploymentModes`   | the allowed `deployment_mode` values for `options.yml` validation              |
+| `Get-AzureBicepDeploymentTargets` | the allowed `deployment_target` values for `options.yml` validation            |
+| `Get-AzureBicepMinVersion`        | `bicep_min_version` from `azure.yml` (asserted by `Assert-AzCliBicep`)         |
+| `Get-BicepTemplateCustomers`      | the distinct customers (configuration subfolders) a template ships (completer) |
+| `Get-BicepTemplateSlots`          | the distinct slots a template declares (completer)                             |
 
 ### Validation
 
@@ -306,8 +305,8 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
 
 ## Consequences
 
-- At-a-glance source-of-truth ⟷ Azure mapping: one config file = one resource group; the `configuration/` tree is the RG inventory —
-  the root is the shared platform, each subfolder a customer.
+- At-a-glance source-of-truth ⟷ Azure mapping: one config file = one resource group; the `configuration/` tree is the RG inventory — the
+  root is the shared platform, each subfolder a customer.
 - The resource-group name is **derived**, not hand-typed. The name-component **order** is the `ado_naming` repo variant (`Get-AdoNaming`);
   changing it re-spells every derived name.
 - Maps keyed by name make duplicate tenant/subscription names structurally impossible.

@@ -217,9 +217,8 @@ author's, but the files are `.md`.
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's
 `configuration/[<customer>/]<env>[-<slot>].yml` tree is the resource-group inventory — one config file is one resource group; a config at
-the configuration root is the shared platform's, and a subfolder is always a customer key. The folder name is the readable label; the
-Azure identity is a separate `short_name`. See [the data model](../azure/data-model.md) and
-[the naming standard](../azure/naming-standard.md).
+the configuration root is the shared platform's, and a subfolder is always a customer key. The folder name is the readable label; the Azure
+identity is a separate `short_name`. See [the data model](../azure/data-model.md) and [the naming standard](../azure/naming-standard.md).
 
 **`pipelines/`** is flat: pipelines are named `<type>-<name>.yaml` (`cron`/`ci`/`cd`/`deploy`/`input`) directly in the folder, the runner
 `Invoke-AdoScript.ps1` sits at the root, and reusable fragments live in per-kind folders whose names are the include-kind contract —

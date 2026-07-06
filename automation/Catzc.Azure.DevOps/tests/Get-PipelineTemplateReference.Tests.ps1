@@ -52,7 +52,10 @@ steps:
     }
 
     It 'does not match commented-out references' {
-        $p = New-Yaml "# - template: /pipelines/steps/old.yaml`nsteps: []"
+        $p = New-Yaml @'
+# - template: /pipelines/steps/old.yaml
+steps: []
+'@
         & $script:getRefs $p | Should -BeNullOrEmpty
     }
 }

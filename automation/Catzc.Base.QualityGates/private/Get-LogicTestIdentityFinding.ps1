@@ -108,27 +108,32 @@ function Get-LogicTestIdentityFinding {
         return , $ret.ToArray()
     }
 
+    # A live identity is legitimate inside an integrity block — carve those extents out of every scan.
+    $isInIntegrity = {
+        param($offset)
+        foreach ($range in $integrityRanges) {
+            if ($offset -ge $range.Start -and $offset -lt $range.End) {
+                return $true
+            }
+        }
+        $false
+    }
+
+    # Exact pass — a distinctive identity (customer / subscription / org / template / project) flagged as a
+    # bare literal anywhere outside an integrity block.
     $literals = $ast.FindAll($isStringLiteral, $true)
     foreach ($literal in $literals) {
         $value = $literal.Value
         if (-not $LiveToken.ContainsKey($value)) {
             continue
         }
-
-        # Carve out literals inside an integrity block — a live identity is legitimate there.
-        $start = $literal.Extent.StartOffset
-        $inIntegrity = $false
-        foreach ($range in $integrityRanges) {
-            if ($start -ge $range.Start -and $start -lt $range.End) {
-                $inIntegrity = $true
-                break
-            }
-        }
-        if ($inIntegrity) {
+        $record = $LiveToken[$value]
+        if ($record.MatchMode -ne 'exact') {
             continue
         }
-
-        $record = $LiveToken[$value]
+        if (& $isInIntegrity $literal.Extent.StartOffset) {
+            continue
+        }
         $ret.Add([pscustomobject]@{
                 File    = $Path
                 Line    = $literal.Extent.StartLineNumber
@@ -138,6 +143,45 @@ function Get-LogicTestIdentityFinding {
                 Suggest = $record.Suggest
                 Message = "logic test uses live identity '$value' ($($record.Kind), from $($record.Source)) — use $($record.Suggest)"
             })
+    }
+
+    # Position pass — an ambiguous identity (an environment name or shortcode, like 'test'/'dev') is flagged
+    # ONLY when bound to an identity parameter (-Environment / -Env / -Shortcode), never as a prose literal.
+    $identityParameters = 'Environment', 'Env', 'Shortcode'
+    foreach ($command in $commands) {
+        $elements = $command.CommandElements
+        for ($i = 0; $i -lt $elements.Count - 1; $i++) {
+            $element = $elements[$i]
+            $isIdentityParam = $element -is [System.Management.Automation.Language.CommandParameterAst] -and
+            $element.ParameterName -in $identityParameters
+            if (-not $isIdentityParam) {
+                continue
+            }
+            $argument = $elements[$i + 1]
+            if ($argument -isnot [System.Management.Automation.Language.StringConstantExpressionAst]) {
+                continue
+            }
+            $value = $argument.Value
+            if (-not $LiveToken.ContainsKey($value)) {
+                continue
+            }
+            $record = $LiveToken[$value]
+            if ($record.MatchMode -ne 'position') {
+                continue
+            }
+            if (& $isInIntegrity $argument.Extent.StartOffset) {
+                continue
+            }
+            $ret.Add([pscustomobject]@{
+                    File    = $Path
+                    Line    = $argument.Extent.StartLineNumber
+                    Token   = $value
+                    Kind    = $record.Kind
+                    Source  = $record.Source
+                    Suggest = $record.Suggest
+                    Message = "logic test binds live $($record.Kind) '$value' to -$($element.ParameterName) — use $($record.Suggest)"
+                })
+        }
     }
 
     , $ret.ToArray()

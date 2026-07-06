@@ -26,12 +26,16 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         Mock Get-Config { $script:config } -ModuleName Catzc.Base.Globs
     }
 
-    It 'derives one kebab-named set per module folder, matching the module tree' {
-        $set = Get-ModuleGlobSet -Name Catzc.Base.Alpha
-        $set.Name | Should -Be 'catzc-base-alpha'
-        $set.Matches('automation/Catzc.Base.Alpha/Get-Alpha.ps1') | Should -BeTrue
-        $set.Matches('automation/Catzc.Base.Alpha/tests/Get-Alpha.Tests.ps1') | Should -BeTrue
-        $set.Matches('automation/Catzc.Fake.Beta/Get-Beta.ps1') | Should -BeFalse
+    It 'derives live/tests aspect sets per module folder, partitioning the module tree (ADR-ASPECT)' {
+        $aspects = @(Get-ModuleGlobSet -Name Catzc.Base.Alpha)
+        ($aspects.Name | Sort-Object) | Should -Be @('catzc-base-alpha-live', 'catzc-base-alpha-tests')
+        $live = $aspects | Where-Object Name -eq 'catzc-base-alpha-live'
+        $tests = $aspects | Where-Object Name -eq 'catzc-base-alpha-tests'
+        # live claims the runtime surface, not the tests folder; tests is the non-live catch-all
+        $live.Matches('automation/Catzc.Base.Alpha/Get-Alpha.ps1') | Should -BeTrue
+        $live.Matches('automation/Catzc.Base.Alpha/tests/Get-Alpha.Tests.ps1') | Should -BeFalse
+        $tests.Matches('automation/Catzc.Base.Alpha/tests/Get-Alpha.Tests.ps1') | Should -BeTrue
+        $live.Matches('automation/Catzc.Fake.Beta/Get-Beta.ps1') | Should -BeFalse
     }
 
     It 'resolves a set by folder name and by kebab name to the same instance' {
@@ -62,7 +66,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
 
     It 'returns every derived set exactly once when no name is given' {
         $all = @(Get-ModuleGlobSet)
-        ($all.Name | Sort-Object) | Should -Be (@('catzc-base-alpha', 'catzc-fake-beta', 'catzc-internal-alpha', 'catzc-internal-beta', 'compiled', 'internal', 'module-leftovers', 'scriptanalyzer', 'vendor'))
+        ($all.Name | Sort-Object) | Should -Be (@('catzc-base-alpha-live', 'catzc-base-alpha-tests', 'catzc-fake-beta-live', 'catzc-fake-beta-tests', 'catzc-internal-alpha', 'catzc-internal-beta', 'compiled', 'internal', 'module-leftovers', 'scriptanalyzer', 'vendor'))
     }
 
     It 'derives the module-leftovers catch-all — module layer, excluding every module folder and dot-folder' {
@@ -86,7 +90,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
                 globsets = @{ 'catzc-base-alpha' = @{ description = 'd'; layer = 'loose-fileset'; include = @('docs/**') } }
             })
         Mock Get-Config { $shadowing } -ModuleName Catzc.Base.Globs
-        { Get-ModuleGlobSet } | Should -Throw '*shadows the derived set*'
+        { Get-ModuleGlobSet } | Should -Throw '*shadows the derived*'
     }
 }
 

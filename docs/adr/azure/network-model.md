@@ -41,9 +41,8 @@ Per-subscription envs (`subn`/`subp`) need no network entry — they carry no vn
 
 A template that creates a virtual network needs an address space and subnet ranges. Those ranges are **global, cross-cutting state**: every
 environment must get a non-overlapping block, and the same block must be referenced identically by every template that touches that
-environment's network. If the ranges lived in each template's per-slot `configuration/[<customer>/]<env>.yml`, the plan would be
-duplicated across templates and drift — the exact failure [`one-config-to-rule-them-all`](../../notes/one-config-to-rule-them-all.md) warns
-against.
+environment's network. If the ranges lived in each template's per-slot `configuration/[<customer>/]<env>.yml`, the plan would be duplicated
+across templates and drift — the exact failure [`one-config-to-rule-them-all`](../../notes/one-config-to-rule-them-all.md) warns against.
 
 So the IP plan is a **single source of truth** sitting beside `azure.yml`: `automation/Catzc.Azure.Templates/configs/network.yml`. A
 template merges the right ranges in at build time through its PrePost prepare hook (see

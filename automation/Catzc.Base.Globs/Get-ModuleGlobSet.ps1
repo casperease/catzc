@@ -61,6 +61,17 @@ function Get-ModuleGlobSet {
         $derived[$reservedName] = $set
     }
 
+    # The aspect convention (ADR-ASPECT): each module folder partitions into disjoint, exhaustive aspect sets
+    # (live/tests by default) from the 'aspects' variant. The whole-module set is the union of its aspects and
+    # is NOT persisted — the aspect markers ARE the module's identity (a shipped module = 1 live + 1 tests,
+    # isolated: a test-only change never re-keys live). Compiled per unit root by AspectPartition.
+    $aspectList = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
+    foreach ($aspectDef in Get-Aspect) {
+        $aspectList.Add([Catzc.Base.Globs.Aspect]::new($aspectDef.Name, [string[]]$aspectDef.Patterns))
+    }
+    # bare module name/kebab -> its aspect sets, so a caller can ask for "the module" and get both aspects.
+    $moduleAspects = @{}
+
     # The per-folder module globs, collected so 'module-leftovers' below can exclude every one of them.
     $moduleFolderGlobs = [System.Collections.Generic.List[string]]::new()
     foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($automationRoot)) {
@@ -70,15 +81,24 @@ function Get-ModuleGlobSet {
         }
         $kebab = $moduleName.ToLowerInvariant().Replace('.', '-')
         if ($kebab -in $declaredNames) {
-            throw "Declared globset '$kebab' in globs.yml shadows the derived set of module '$moduleName' — derived and declared sets share one name space (ADR-PROTGLOB); rename the declared set."
+            throw "Declared globset '$kebab' in globs.yml shadows the derived module '$moduleName' — derived and declared sets share one name space (ADR-PROTGLOB); rename the declared set."
         }
-        $moduleGlob = "automation/$moduleName/**"
-        $moduleFolderGlobs.Add($moduleGlob)
-        $set = [Catzc.Base.Globs.GlobSet]::new(
-            $kebab, "Derived module scope - automation/$moduleName/**", 'module',
-            @($moduleGlob), @(), @(), @(), -1, $null)
-        $derived[$kebab] = $set
-        $derived[$moduleName] = $set
+        $moduleFolderGlobs.Add("automation/$moduleName/**")
+        $aspectSets = [System.Collections.Generic.List[Catzc.Base.Globs.GlobSet]]::new()
+        foreach ($compiled in [Catzc.Base.Globs.AspectPartition]::Compile($aspectList, "automation/$moduleName")) {
+            $aspectKebab = "$kebab-$($compiled.Name)"
+            if ($aspectKebab -in $declaredNames) {
+                throw "Declared globset '$aspectKebab' in globs.yml shadows the derived aspect of module '$moduleName' — derived and declared sets share one name space (ADR-PROTGLOB); rename the declared set."
+            }
+            $set = [Catzc.Base.Globs.GlobSet]::new(
+                $aspectKebab, "Derived module aspect - automation/$moduleName [$($compiled.Name)]", 'module',
+                $compiled.Include, $compiled.Exclude, @(), @(), -1, $null)
+            $derived[$aspectKebab] = $set
+            $derived["$moduleName-$($compiled.Name)"] = $set
+            $aspectSets.Add($set)
+        }
+        $moduleAspects[$kebab] = $aspectSets
+        $moduleAspects[$moduleName] = $aspectSets
     }
 
     # The internal shared modules: one single-file set per automation/.internal/<Name>.psm1 — the file is
@@ -129,9 +149,15 @@ function Get-ModuleGlobSet {
     }
 
     foreach ($lookupName in $Name) {
-        if (-not $derived.Contains($lookupName)) {
-            throw "No derived globset for '$lookupName' — expected a module folder under automation/, an internal module (automation/.internal/<Name>.psm1), the kebab name of either, or one of: $([Catzc.Base.Globs.GlobsConfig]::ReservedNames -join ', ')."
+        if ($derived.Contains($lookupName)) {
+            $derived[$lookupName]
         }
-        $derived[$lookupName]
+        elseif ($moduleAspects.ContainsKey($lookupName)) {
+            # a bare module name/kebab -> both aspect sets ('<module>-live', '<module>-tests')
+            $moduleAspects[$lookupName]
+        }
+        else {
+            throw "No derived globset for '$lookupName' — expected a module folder under automation/ (bare name -> its aspects, or '<module>-live'/'<module>-tests'), an internal module (automation/.internal/<Name>.psm1), the kebab name of either, or one of: $([Catzc.Base.Globs.GlobsConfig]::ReservedNames -join ', ')."
+        }
     }
 }
