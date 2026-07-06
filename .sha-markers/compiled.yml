@@ -3,4 +3,4 @@ description: Derived infra scope - automation/.compiled/**
 layer: module
 include:
 - 'automation/.compiled/**'
-sha256: 4f4b7cac86d76a9760a72673c6ba4e92081cf7c7d81499689bf59fc7e63f663c
+sha256: c2ad33ce01a692ed85d9409fcd2449598f4367473f15a954c65949cedf6442c3
