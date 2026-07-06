@@ -44,7 +44,7 @@ function Get-BicepDeploymentName {
         [Parameter(Position = 2)]
         [ArgumentCompleter({
                 param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-                Get-BicepTemplateSlots -Template $fakeBoundParameters['Template'] -Environment $fakeBoundParameters['Environment'] -Subscription $fakeBoundParameters['Subscription']
+                Get-BicepTemplateSlots -Template $fakeBoundParameters['Template'] -Environment $fakeBoundParameters['Environment'] -Customer $fakeBoundParameters['Customer']
             })]
         [string] $Slot
     )

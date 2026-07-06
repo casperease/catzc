@@ -31,7 +31,7 @@ Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
 
     It 'throws when the selected slot does not exist' {
         # sample has base slots alpha/beta; asking for slot 001 resolves to config 'alpha-001', which it lacks.
-        { Get-BicepTemplateConfiguration sample alpha -Slot 001 } | Should -Throw "*no config 'alpha-001'*"
+        { Get-BicepTemplateConfiguration sample alpha -Slot 001 } | Should -Throw "*no config 'alpha-001.yml'*"
     }
 
     It 'throws on an unknown template' {

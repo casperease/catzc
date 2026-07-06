@@ -56,7 +56,7 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
     It "a slot-less call selects the env's base slot, which this template does not have" {
         # alpha with no -Slot resolves to config 'alpha', which this indexed-only template does not
         # configure (it has alpha-001 / alpha-002).
-        { Get-BicepTemplateConfiguration sample-indexed alpha } | Should -Throw "*no config 'alpha'*"
+        { Get-BicepTemplateConfiguration sample-indexed alpha } | Should -Throw "*no config 'alpha.yml'*"
     }
 
     It 'passes a distinct configured storageAccountName through per slot' {
