@@ -3,7 +3,12 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
     # build output folder is wiped per test, since the build tests write into it (ADR-TEST:19/ADR-TEST:4).
     BeforeAll {
-        $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample'
+        # Own output root through the seam: any other file building the 'sample' fixture from a sibling
+        # worker can race the shared out/template/sample (ADR-TEST:26 — remove the sharing).
+        $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep/template/sample'
+        Mock Get-BicepTemplatesOutputRoot {
+            Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep'
+        } -ModuleName Catzc.Azure.Templates
 
         Mock Invoke-AzCli {
             if ($Arguments -match 'bicep version') {
@@ -109,10 +114,15 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
 
 Describe 'Build-Bicep (real az)' -Tag 'L2', 'logic' {
     BeforeAll {
-        $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample'
+        # Own output root through the seam (see the mocked-az block's note) — same isolated root as that
+        # block: one file runs in one worker, so its blocks never overlap each other.
+        $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep/template/sample'
     }
 
     BeforeEach {
+        Mock Get-BicepTemplatesOutputRoot {
+            Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep'
+        } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates

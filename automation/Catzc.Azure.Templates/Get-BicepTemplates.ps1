@@ -50,25 +50,26 @@ function Get-BicepTemplates {
     param()
 
     $infrastructureRoot = Get-BicepTemplatesRoot
+    $outputRoot = Get-BicepTemplatesOutputRoot
 
     # Filesystem-derived information is cached for the session, lazily on first use, keyed on the discovery
-    # root — see docs/adr/automation/caching.md. The on-disk file set is fixed at importer time
+    # root + the output root — see docs/adr/automation/caching.md. The on-disk file set is fixed at importer time
     # (pipeline: static checkout; devbox: re-run the importer after editing files), so re-running the
     # importer is the only invalidation. Keying on the root lets tests redirect discovery to a fixture
-    # tree (Mock Get-BicepTemplatesRoot) without colliding with the real cache entry. Callers must
+    # tree (Mock Get-BicepTemplatesRoot) or the build output to a folder of their own (Mock
+    # Get-BicepTemplatesOutputRoot) without colliding with the real cache entry. Callers must
     # treat the result as read-only (the same object is returned every call).
     if (-not $script:bicepTemplatesCache) {
         $script:bicepTemplatesCache = @{}
     }
-    if ($script:bicepTemplatesCache.ContainsKey($infrastructureRoot)) {
-        return , $script:bicepTemplatesCache[$infrastructureRoot]
+    $cacheKey = "$infrastructureRoot|$outputRoot"
+    if ($script:bicepTemplatesCache.ContainsKey($cacheKey)) {
+        return , $script:bicepTemplatesCache[$cacheKey]
     }
 
     if (-not (Test-Path $infrastructureRoot -PathType Container)) {
         return @()
     }
-
-    $outputRoot = Join-Path (Get-RepositoryRoot) 'out'
 
     # Every config lives at configuration/<subscription>/<env>[-<slot>].yml. The folder names the
     # subscription (a key in azure.yml's subscriptions); the customer is derived from that subscription.
@@ -239,6 +240,6 @@ function Get-BicepTemplates {
         throw "Duplicate short_name '$($duplicate.Name)' across templates: $(@($templates | Where-Object { $_.short_name -eq $duplicate.Name } | ForEach-Object { $_.name }) -join ', ')"
     }
 
-    $script:bicepTemplatesCache[$infrastructureRoot] = $templates.ToArray()
-    , $script:bicepTemplatesCache[$infrastructureRoot]
+    $script:bicepTemplatesCache[$cacheKey] = $templates.ToArray()
+    , $script:bicepTemplatesCache[$cacheKey]
 }

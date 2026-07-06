@@ -5,7 +5,13 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
     # force that cold re-derive on every test (ADR-TEST:19/ADR-TEST:4). Per-test we only wipe the (cheap) build folder,
     # which a couple of tests depend on being clean.
     BeforeAll {
-        $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample'
+        # Own output root through the seam: any other file building the 'sample' fixture from a sibling
+        # worker can race the shared out/template/sample (ADR-TEST:26 — remove the sharing). Kept
+        # under the repo because the repo-relative artifact contract is asserted below.
+        $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context/template/sample'
+        Mock Get-BicepTemplatesOutputRoot {
+            Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context'
+        } -ModuleName Catzc.Azure.Templates
 
         # Mock Build-Bicep to materialize stub artifacts without invoking az ([System.IO], not the file cmdlets:
         # ~0.1ms vs ~20ms/call — ADR-TEST:18).
@@ -95,9 +101,9 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
 
     It 'stores artifact paths repo-root-relative on devbox (build output lives under the repo)' {
         $context = Get-BicepDeploymentContext -Environment alpha -Template sample
-        $context.artifacts.folder | Should -Be 'out/template/sample'
-        $context.artifacts.template_file | Should -Be 'out/template/sample/main.json'
-        $context.artifacts.parameters_file | Should -Be 'out/template/sample/parameters.core_lower.alpha.json'
+        $context.artifacts.folder | Should -Be 'out/test-isolation/deployment-context/template/sample'
+        $context.artifacts.template_file | Should -Be 'out/test-isolation/deployment-context/template/sample/main.json'
+        $context.artifacts.parameters_file | Should -Be 'out/test-isolation/deployment-context/template/sample/parameters.core_lower.alpha.json'
         [IO.Path]::IsPathRooted($context.artifacts.template_file) | Should -BeFalse
     }
 
@@ -122,7 +128,11 @@ Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
     # Boundary mocked + config cache reset ONCE (see the devbox block's note); per-test only the build folder
     # is wiped.
     BeforeAll {
-        $script:sampleCustomerOutputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-customer'
+        # Own output root through the seam (see the devbox block's note).
+        $script:sampleCustomerOutputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context/template/sample-customer'
+        Mock Get-BicepTemplatesOutputRoot {
+            Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context'
+        } -ModuleName Catzc.Azure.Templates
 
         Mock Build-Bicep {
             $outputFolder = (Get-BicepTemplate $Template).output_folder
@@ -237,7 +247,11 @@ Describe 'Get-BicepDeploymentContext (DoNotRun gate)' -Tag 'L0', 'logic' {
     # Boundary mocked + config cache reset ONCE (see the devbox block's note); per-test only the build folder
     # is wiped (one test builds into it).
     BeforeAll {
-        $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample'
+        # Own output root through the seam (see the devbox block's note).
+        $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context/template/sample'
+        Mock Get-BicepTemplatesOutputRoot {
+            Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context'
+        } -ModuleName Catzc.Azure.Templates
 
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
