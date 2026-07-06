@@ -56,11 +56,15 @@ dot-folder that sorts to the top of a PR's file view, the marker diff IS the cha
 
 ### Rule ADR-GLOBS:7
 
-Every declared globset carries a **layer**: `track` (a root concern, `ADR-TRACK`), `deployable-unit` (what ships; determines a pipeline 1-1,
-annotated on the set as `pipeline:`), or `scope` (a cross-cutting slice). The fourth layer, `module`, is **derived-only** (`ADR-PROTGLOB`) —
-the folders are the registration, and declaring it is rejected; derived module sets persist sha-markers through the same mechanism as
-declared sets (`ADR-PROTGLOB#7`), while pipelines register only on declared deployable-unit markers. An optional `verify:` (`modules` +
-`level`) declares the set's test blast-radius scope.
+Every declared globset carries a **layer**: `track` (a root concern, `ADR-TRACK`), `deployable-unit` (a configurable unit that ships —
+optionally bound 1-1 to a CI/CD pipeline, annotated on the set as `pipeline:`), or `scope` (a cross-cutting slice). A deployable unit takes
+one of two shapes: a **configured** unit — a base plus its own configuration, e.g. a customer or platform unit — binds its pipeline; a
+**base** unit — a shared, un-configured surface that exists only to be composed, e.g. `template-azure-subscription-foundation` — binds none,
+because it ships only through the configured units that compose it, yet still carries an area-of-control (its `verify:` scope and its review
+surface). A globset that is neither composed nor pipeline-bound is not a unit but phantom state, and one living version (`ADR-ONELIVE`)
+forbids it. The fourth layer, `module`, is **derived-only** (`ADR-PROTGLOB`) — the folders are the registration, and declaring it is
+rejected; derived module sets persist sha-markers through the same mechanism as declared sets (`ADR-PROTGLOB#7`), while pipelines register
+only on declared deployable-unit markers. An optional `verify:` (`modules` + `level`) declares the set's test blast-radius scope.
 
 - [One configuration point](#one-configuration-point)
 
@@ -68,8 +72,9 @@ declared sets (`ADR-PROTGLOB#7`), while pipelines register only on declared depl
 
 A globset may **compose** other declared sets (`compose:`): its effective membership is its own include-minus-exclude members UNION the
 composed sets' effective members. References resolve to declared sets only, never to the set itself, and the reference graph must be acyclic
-— all validated at config load. Composition is how a deployable-unit shares a base (e.g. every customer unit composing the customer-shared
-foundation surface) without one customer's configuration change firing another customer's pipeline. The composed surface is also rendered
+— all validated at config load. Composition is how a configured deployable-unit shares a base (e.g. every customer/platform unit composing
+`template-azure-subscription-foundation`, the config-free foundation surface) without one deployment's configuration change firing
+another's pipeline. The composed surface is also rendered
 into the marker's `resolved:` block (ADR-GLOBS:9), so the marker states a set's effective membership without chasing references.
 
 - [One configuration point](#one-configuration-point)
@@ -107,8 +112,9 @@ is materialized as a committed hash — its sha-marker. Orchestration artifacts 
 ### One configuration point
 
 `globs.yml` holds every globset: a kebab-case name, a description, its layer (`ADR-GLOBS:7`), an `include:` pattern list and optional
-`exclude:` list, optional `compose:` references (`ADR-GLOBS:8`), an optional `verify:` blast-radius scope, and — on a deployable-unit — the
-`pipeline:` it determines. `Catzc.Base.Globs` owns the file, the dialect, the hash, and all reading and writing of `.sha-markers/`; nothing
+`exclude:` list, optional `compose:` references (`ADR-GLOBS:8`), an optional `verify:` blast-radius scope, and — on a configured
+deployable-unit — the `pipeline:` it binds (a base unit composed by others binds none, `ADR-GLOBS:7`). `Catzc.Base.Globs` owns the file,
+the dialect, the hash, and all reading and writing of `.sha-markers/`; nothing
 else parses the config or writes into that folder. A pipeline or workflow references a unit by registering the unit's marker path as its
 only path filter, so adding or removing files from a unit — or adding a whole customer — is a config edit, never an orchestration edit.
 

@@ -11,7 +11,7 @@ Describe 'Assert-BuildValidationConfig' -Tag 'L0', 'logic' {
             branch      = 'main'
             validations = @(
                 [ordered]@{ globset = 'automation' }
-                [ordered]@{ globset = 'foundation-shared'; pipeline = 'ci-foundation'; blocking = $false; display_name = 'x' }
+                [ordered]@{ globset = 'template-azure-subscription-foundation'; pipeline = 'ci-foundation'; blocking = $false; display_name = 'x' }
             )
         }
     }
