@@ -14,11 +14,16 @@
 # emits one gitignored cspell dictionary (.cspell/<category>.txt) per category.
 #
 # Each category is a mapping with a required `description` and an OPTIONAL `scope` — a list of repo-relative
-# `/`-separated globs bounding where that category's terms are legitimate. A category with no `scope` is
-# GLOBAL (its terms are approved everywhere, as today). A category WITH a scope is DOMAIN-BOUND: its terms
-# belong only under those globs, and the spelling gate turns a term appearing outside its scope — a fixture
-# token leaking into shipped config, a live identity leaking into a logic test — into a failure. See
-# docs/adr/repository/domain-language-separation.md (ADR-LANG) and spell-out-names.md (ADR-SPELL).
+# `/`-separated globs DECLARING which domain a category's terms belong to (the test/example domain, the
+# live/config domain, the design/ADR domain — see ADR-LANG). `scope` is a DECLARATION of intent, not a cspell
+# rule: cspell tokenizes text, not meaning, and example/fixture vocabulary legitimately appears in comments,
+# doc-example blocks, and demo data across every file type (a config comment illustrating `[acme, globex]`,
+# a pipeline's `'Contoso Ltd'` demo record, a function's .EXAMPLE help), so a file-glob dictionary scope
+# cannot separate "fixture-as-illustration" from "fixture-as-leaked-production-data". The domain separation
+# is therefore enforced by ADR-TEST + code review (and, prospectively, a TAG-AWARE AST gate over test files —
+# an extension of Get-TestTagViolations that inspects string literals, not comments), with `scope` as the
+# machine-readable domain map that gate would consume. All categories are effectively GLOBAL to cspell today.
+# See docs/adr/repository/domain-language-separation.md (ADR-LANG) and spell-out-names.md (ADR-SPELL).
 categories:
   domain:
     description: 'General technical or computing vocabulary this codebase uses that fits no more specific category below.'
@@ -166,6 +171,8 @@ terms:
       meaning: 'git pathspecs (the path-filter arguments passed to git grep/git log)'
     - term: fileset
       meaning: 'the set of files a scan or globset covers (fileset)'
+    - term: filesets
+      meaning: 'the sets of files scans or globsets cover (filesets); loose-filesets are the cross-cutting globset layer'
     - term: quotepath
       meaning: 'the git core.quotepath setting (quotepath) - controls C-quoting of non-ASCII paths'
     - term: rootconfig

@@ -2,7 +2,7 @@
 
 The quality-gate module. It **runs every check the repository applies to itself** — the Pester test suite (with tag-enforcement and
 timestamped reporting), the spell-checker, the Markdown linter, the Markdown formatter, and the PowerShell auto-formatter. What it
-deliberately sdfdoes **not** own is the tests themselves (each module keeps its own `tests/` folder) or the per-tool configuration (cSpell,
+deliberately does **not** own is the tests themselves (each module keeps its own `tests/` folder) or the per-tool configuration (cSpell,
 markdownlint, and Prettier each carry their own config at the repository root). This module owns the gate invocations, and nothing more. The
 tier and category tag rules that the Pester runner enforces are the subject of [test-automation](../../adr/automation/test-automation.md).
 

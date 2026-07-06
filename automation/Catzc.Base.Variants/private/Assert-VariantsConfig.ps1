@@ -33,7 +33,7 @@ function Assert-VariantsConfig {
 
     $errors = [System.Collections.Generic.List[string]]::new()
 
-    $allowedKeys = @('ado_naming', 'git_workspace', 'have_customers')
+    $allowedKeys = @('ado_naming', 'git_workspace', 'have_customers', 'aspects')
     foreach ($key in @($Config.Keys)) {
         if ($key -notin $allowedKeys) {
             $errors.Add("unknown key '$key' (allowed: $($allowedKeys -join ', '))")
@@ -81,6 +81,59 @@ function Assert-VariantsConfig {
         }
         else {
             $errors.Add("invalid have_customers '$value' (must be false, 'all', or a list of customer names)")
+        }
+    }
+
+    if ($Config.Contains('aspects')) {
+        # An ordered first-match classification (ADR-ASPECT): a list of single-key {name: [patterns]} entries,
+        # the LAST the '**' catch-all remainder, which by rule is non-live (a stray file must never ship). The
+        # glob syntax of each pattern is validated downstream by the Globs aspect engine (no up-dependency here).
+        $value = $Config.aspects
+        if ($value -is [string] -or $value -isnot [System.Collections.IEnumerable]) {
+            $errors.Add("invalid aspects (must be an ordered list of single-key {name: [patterns]} entries)")
+        }
+        else {
+            $items = @($value)
+            if ($items.Count -eq 0) {
+                $errors.Add("aspects must list at least one aspect (the last is the '**' catch-all)")
+            }
+            $seen = @()
+            for ($i = 0; $i -lt $items.Count; $i++) {
+                $item = $items[$i]
+                if ($item -isnot [System.Collections.IDictionary] -or @($item.Keys).Count -ne 1) {
+                    $errors.Add("aspects[$i] must be a single-key mapping {name: [patterns]}")
+                    continue
+                }
+                $name = "$(@($item.Keys)[0])"
+                if ($name -cnotmatch '^[a-z][a-z0-9]*(-[a-z0-9]+)*$') {
+                    $errors.Add("invalid aspect name '$name' (kebab-case)")
+                }
+                elseif ($name -in $seen) {
+                    $errors.Add("duplicate aspect '$name'")
+                }
+                else {
+                    $seen += $name
+                }
+                $patterns = @($item[@($item.Keys)[0]])
+                if ($patterns.Count -eq 0 -or @($patterns | Where-Object { [string]::IsNullOrWhiteSpace("$_") }).Count -gt 0) {
+                    $errors.Add("aspect '$name' needs at least one non-empty pattern")
+                }
+                $isLast = ($i -eq $items.Count - 1)
+                if ($isLast) {
+                    if (@($patterns).Count -ne 1 -or "$($patterns[0])" -ne '**') {
+                        $errors.Add("the last aspect ('$name') must be the '**' catch-all remainder")
+                    }
+                    if ($name -ceq 'live') {
+                        $errors.Add("the catch-all remainder aspect must be non-live (a stray file must never ship); declare 'live' earlier with explicit patterns")
+                    }
+                }
+                elseif ($patterns -contains '**') {
+                    $errors.Add("aspect '$name' uses the bare '**' catch-all but is not last — only the final aspect is the remainder; 'live' must stay a closed convention")
+                }
+            }
+            if ('live' -notin $seen) {
+                $errors.Add("aspects must include a 'live' aspect (the prod-going surface)")
+            }
         }
     }
 
