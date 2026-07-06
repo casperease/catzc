@@ -39,8 +39,8 @@ not catch-and-retry/log/continue unless error handling is their single stated pu
 
 ### Rule ADR-ONEJOB:6
 
-State changes are explicit. Functions do not mutate `$ErrorActionPreference`, `$PWD`, or environment variables as a side effect; a temporary
-change is restored in a `finally` block.
+State changes are explicit. Functions do not mutate ambient global state — error preferences, the working directory, environment variables —
+as a side effect; a temporary change is restored in a `finally` block.
 
 - [Why this is critical for PowerShell specifically](#why-this-is-critical-for-powershell-specifically)
 

@@ -7,10 +7,10 @@
 Cache static config reads: a function that loads + parses (+ validates) a checked-in file returns the parsed object from a session cache on
 repeat calls.
 
-Exemplar: `Get-Config` — every config read routes through it, keyed on the resolved file path in `$script:configCache`, so every config
-inherits one cache (see [module-config-loading](module-config-loading.md)).
+Exemplar: `Get-Config` — every config read routes through it, keyed on the resolved file path, so every config inherits one cache (see
+[module-config-loading](module-config-loading.md)).
 
-- [The idioms](#the-idioms)
+- [The storage idiom is the language layer](#the-storage-idiom-is-the-language-layer)
 
 ### Rule ADR-CACHE:2
 
@@ -21,8 +21,8 @@ stored result thereafter. Exemplar: `Get-BicepTemplates`.
 
 ### Rule ADR-CACHE:4
 
-Key the cache by the function's inputs: no parameters → a single slot; parameters → a cache keyed on them; a resolved-input function keys
-on that input. Keys must be session-stable values, never mutable objects.
+Key the cache by the function's inputs: no parameters → a single slot; parameters → a cache keyed on them; a resolved-input function keys on
+that input. Keys must be session-stable values, never mutable objects.
 
 - [The storage idiom is the language layer](#the-storage-idiom-is-the-language-layer)
 

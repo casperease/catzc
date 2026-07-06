@@ -73,8 +73,7 @@ re-importing. What is missing is a place to put such values and a disciplined wa
 
 A variant is a repo-wide switch backed by `Catzc.Base.Variants/configs/variants.yml`, loaded and validated by `Get-Config -Config variants`
 (convention validator `Assert-VariantsConfig`), and cached for the session. "Fixed for the importer session" is not special machinery — it
-is the ordinary `Get-Config` cache boundary (`ADR-CACHE:6`, `ADR-PSCACHE:1`): the value is read once, every caller sees the same answer,
-and
+is the ordinary `Get-Config` cache boundary (`ADR-CACHE:6`, `ADR-PSCACHE:1`): the value is read once, every caller sees the same answer, and
 re-running the importer is the only way to pick up an edit. The set of variants is open: `variants.yml` is a dictionary that grows a key
 (and a matching primitive) whenever a new repo-wide switch is genuinely needed.
 

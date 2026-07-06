@@ -94,8 +94,8 @@ The "why" and "how" behind the PowerShell automation layer.
 - [Cross-platform](adr/automation/cross-platform.md) — runs on Windows, Linux, and macOS
 - [Cross-platform PowerShell](adr/automation/powershell/cross-platform-powershell.md) — the language layer: Join-Path, compatible cmdlets,
   platform gating
-- [Script-scope caching](adr/automation/powershell/script-scope-caching.md) — the PowerShell layer under [caching](adr/automation/caching.md):
-  `$script:` slots, mock-the-whole-function
+- [Script-scope caching](adr/automation/powershell/script-scope-caching.md) — the PowerShell layer under
+  [caching](adr/automation/caching.md): `$script:` slots, mock-the-whole-function
 - [Avoid deep nesting](adr/automation/avoid-deep-nesting.md) — flat code is readable code
 - [Avoid using semicolons](adr/automation/powershell/avoid-using-semicolons.md) — one statement per line
 - [Prefer foreach over ForEach-Object](adr/automation/powershell/prefer-foreach-over-foreach-object.md) — clarity and debuggability

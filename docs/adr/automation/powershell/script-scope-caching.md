@@ -11,17 +11,17 @@ state is established at import and destroyed on re-import, so "re-run the import
 
 ### Rule ADR-PSCACHE:2
 
-Use module-scoped `$script:` variables for the cache — never `$env:` or `$global:`. `$env:` leaks to child processes and is
-stringly-typed ([environment-variable-mechanics](environment-variable-mechanics.md)); `$global:` survives re-import and couples modules
-through shared session state.
+Use module-scoped `$script:` variables for the cache — never `$env:` or `$global:`. `$env:` leaks to child processes and is stringly-typed
+([environment-variable-mechanics](environment-variable-mechanics.md)); `$global:` survives re-import and couples modules through shared
+session state.
 
 - [Why `$script:` is the cache scope](#why-script-is-the-cache-scope)
 
 ### Rule ADR-PSCACHE:3
 
 Tests vary cached behavior by mocking the whole function (`Mock Get-BicepTemplates`), not its internals — a warm cache ignores mocked
-dependencies. A test exercising cache population resets the slot in module scope
-(`InModuleScope <Module> { $script:<slot> = $null }`), and only such a test does.
+dependencies. A test exercising cache population resets the slot in module scope (`InModuleScope <Module> { $script:<slot> = $null }`), and
+only such a test does.
 
 - [Testing cached functions](#testing-cached-functions)
 
@@ -34,9 +34,9 @@ function is written with.
 ### Why `$script:` is the cache scope
 
 `$script:` state belongs to the module that declares it: it is created when the module imports, invisible to other modules, and discarded
-when the importer re-imports — which is precisely the session-cache lifetime `ADR-CACHE` requires, with no extra machinery. The
-alternatives both violate the doctrine structurally: `$env:` is process-global, inherited by every child process, and stores only strings;
-`$global:` outlives a re-import, so a "fresh" session would resume a stale cache, silently breaking the one invalidation contract.
+when the importer re-imports — which is precisely the session-cache lifetime `ADR-CACHE` requires, with no extra machinery. The alternatives
+both violate the doctrine structurally: `$env:` is process-global, inherited by every child process, and stores only strings; `$global:`
+outlives a re-import, so a "fresh" session would resume a stale cache, silently breaking the one invalidation contract.
 
 ### The idioms
 
@@ -83,9 +83,9 @@ function Get-BicepTemplates {
 
 A warm cache short-circuits before any dependency runs, so mocking a cached function's _internals_ silently tests nothing — the mock never
 fires. A test therefore mocks the **whole boundary function** and lets the cache be an implementation detail. The one exception is a test
-whose subject _is_ the cache: it resets the module-scope slot first
-(`InModuleScope Catzc.Base.Config { $script:configCache = $null }`) and pays the cold derive deliberately. Resetting per test everywhere
-else defeats the cache and multiplies suite time (see [test-automation](../test-automation.md)).
+whose subject _is_ the cache: it resets the module-scope slot first (`InModuleScope Catzc.Base.Config { $script:configCache = $null }`) and
+pays the cold derive deliberately. Resetting per test everywhere else defeats the cache and multiplies suite time (see
+[test-automation](../test-automation.md)).
 
 ## Decision
 
@@ -102,9 +102,8 @@ Session caches are module `$script:` hashtables keyed by resolved input, populat
 
 ## Consequences
 
-- Every cache shares one lifetime story: import populates nothing, first use populates the slot, re-import destroys it. There is no
-  second invalidation mechanism to reason about.
-- Caches are module-private by construction — no cross-module coupling through shared cache state, and parallel test workers cannot see
-  each other's slots (each process imports its own).
-- Tests stay honest: mocking the boundary function works whether the cache is cold or warm, and only deliberate cache tests touch the
-  slot.
+- Every cache shares one lifetime story: import populates nothing, first use populates the slot, re-import destroys it. There is no second
+  invalidation mechanism to reason about.
+- Caches are module-private by construction — no cross-module coupling through shared cache state, and parallel test workers cannot see each
+  other's slots (each process imports its own).
+- Tests stay honest: mocking the boundary function works whether the cache is cold or warm, and only deliberate cache tests touch the slot.
