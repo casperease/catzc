@@ -1,1 +1,6 @@
-keep
+This .gitkeep keeps its otherwise-empty (or content-ignored) folder tracked in git.
+
+GENERATED — every .gitkeep is reproduced from automation/Catzc.Base.Docs/assets/gitkeep on import
+(Build-GitKeep); edit that source, never a copy. Everything worth knowing about this folder is in its
+README.md, generated from the folder's docs/references article — an integrity test guarantees the article
+exists (see docs/adr/repository/generated-readmes.md).

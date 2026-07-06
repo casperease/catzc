@@ -8,10 +8,11 @@ rendering; the importer keeps the renderings current on every load.
 
 ## Domains
 
-| Domain   | Area   | Name                                             |
-| -------- | ------ | ------------------------------------------------ |
-| domain:1 | render | [README generation](#domain1--readme-generation) |
-| domain:2 | map    | [Copy-in map](#domain2--copy-in-map)             |
+| Domain   | Area    | Name                                                      |
+| -------- | ------- | --------------------------------------------------------- |
+| domain:1 | render  | [README generation](#domain1--readme-generation)          |
+| domain:2 | map     | [Copy-in map](#domain2--copy-in-map)                      |
+| domain:3 | markers | [Managed .gitkeep files](#domain3--managed-gitkeep-files) |
 
 ### domain:1 — README generation
 
@@ -37,6 +38,14 @@ and matches just the immediate, non-dot-prefixed subdirectories of its prefix (s
 swept in), and a matched folder whose derived source does not exist yet is skipped rather than generated — so a module with no reference
 article is fine; it simply has no generated README until its source lands.
 
+### domain:3 — Managed .gitkeep files
+
+Reproducing every `.gitkeep` from the one generic authored source (`assets/gitkeep`). The folder is the registration — a filesystem walk
+(skipping `.git`, the vendored modules, and the output root's contents) finds the set, so there is no list to maintain. The generic text
+points the reader at the folder's `README.md`, and an integrity test makes that pointer binding: every `.gitkeep` folder must be a
+readme-mapped target (domain:2), so dropping a `.gitkeep` anywhere demands its reference article. Unlike the gitignored READMEs, the
+`.gitkeep` copies stay committed — tracking the folder is their purpose — so a source change lands as a reviewable, repo-wide diff.
+
 ## What the module does
 
 The module is small and single-purpose: it keeps every conventional folder's README in step with one authored source. The source of truth is
@@ -54,7 +63,8 @@ filesystem to the concrete folder-to-source list, so a bad entry fails fast rath
 
 The module's public surface, sorted into the domains above.
 
-| Domain                       | Function       |
-| ---------------------------- | -------------- |
-| domain:1 — README generation | `Build-Readme` |
-| domain:2 — Copy-in map       | `readme.yml`   |
+| Domain                            | Function        |
+| --------------------------------- | --------------- |
+| domain:1 — README generation      | `Build-Readme`  |
+| domain:2 — Copy-in map            | `readme.yml`    |
+| domain:3 — Managed .gitkeep files | `Build-GitKeep` |

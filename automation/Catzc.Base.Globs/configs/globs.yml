@@ -13,16 +13,6 @@
 # include minus exclude, evaluated against `git ls-files`. No set may have a marker file as a member.
 
 globsets:
-  # The whole tree minus the marker files themselves — the "did anything at all change" scope. Display
-  # only: no pipeline binds to it.
-  everything:
-    description: Everything - every tracked file, the whole-repository scope.
-    layer: scope
-    include:
-      - '**'
-    exclude:
-      - .sha-markers/**
-
   # The automation track (ADR-TRACK) — the shared-fate CI unit ci-automation fires on. Starts BROAD:
   # everything the CI engine's gates read (the automation layer, the docs the spelling/markdown integrity
   # scans cover, the pipeline definitions, this registry, the infrastructure templates its integrity tests

@@ -32,3 +32,15 @@ mappings:
     source: docs/references/infrastructure/modules.md
   - folder: infrastructure/templates/foundation
     source: docs/references/infrastructure/foundation.md
+  # Every .gitkeep folder is backed by a reference article (the Build-GitKeep integrity gate) — the generic
+  # .gitkeep points at the README these mappings copy in. The three template-kind folders share one source.
+  - folder: out
+    source: docs/references/out.md
+  - folder: contracts
+    source: docs/references/contracts.md
+  - folder: pipelines/jobs
+    source: docs/references/pipelines/template-folders.md
+  - folder: pipelines/stages
+    source: docs/references/pipelines/template-folders.md
+  - folder: pipelines/variables
+    source: docs/references/pipelines/template-folders.md

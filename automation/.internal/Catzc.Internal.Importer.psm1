@@ -193,6 +193,13 @@ function Invoke-Importer {
         Build-Readme -Silent | Out-Null
     }
 
+    # Keep the managed .gitkeep files current (Catzc.Base.Docs). Every .gitkeep is a committed copy of the
+    # one generic source, pointing at its folder's generated README — reproduced here so a source change
+    # propagates, and a fast no-op on a clean tree. See docs/adr/repository/generated-readmes.md.
+    if (-not $SkipJanitors -and (Get-Command Build-GitKeep -ErrorAction Ignore)) {
+        Build-GitKeep -Silent | Out-Null
+    }
+
     # Keep the generated cspell dictionaries current (Catzc.Base.QualityGates). They are derived from
     # configs/terminology.yml — gitignored, not committed — so the registry is the single source of truth and
     # cspell still resolves them at fixed paths. Fast no-op when nothing changed (writes only on drift).

@@ -110,6 +110,7 @@ A check **passes** when its assertions are green. A few L2 checks shell out to a
 | 66  | L1   | automation/Catzc.Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1               | Get-CatsRuleEnforcers integrity                                      | Rule enforcers resolve from the real tree — analyzer map + AST-read test -Tag citations, ignoring citation-shaped fixture strings. |
 | 67  | L1   | automation/Catzc.Base.VSCode/tests/New-VSCodeExtensions.Tests.ps1              | New-VSCodeExtensions — real vscode-extensions.yml                    | The shipped recommendation registry validates and renders to a non-empty list carrying the PowerShell extension.                   |
 | 68  | L1   | automation/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1                  | New-VSCodeLaunch — real vscode-launch.yml                            | The shipped launch registry validates and renders with the importer debug profile's workspace placeholder intact.                  |
+| 69  | L1   | automation/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1                       | Build-GitKeep — managed .gitkeep files                               | Every .gitkeep carries the generic source content, and every .gitkeep folder is a readme-mapped target with a reference article.   |
 
 ## L0 · integrity
 

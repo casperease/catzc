@@ -63,6 +63,16 @@ still resolve in the generated README.
 
 - [Links are rebased to the target folder](#links-are-rebased-to-the-target-folder)
 
+### Rule ADR-README:9
+
+Every `.gitkeep` is a managed, committed copy of the one generic source (`Catzc.Base.Docs/assets/gitkeep`), reproduced by `Build-GitKeep` on
+every import — the folder is the registration; there is no list to maintain. The generic text points at the folder's `README.md`, and that
+pointer is binding: an integrity test requires every `.gitkeep` folder to be a readme-mapped target, so adding a `.gitkeep` anywhere demands
+its reference article — the gap finder for the reference docs. `.gitkeep` files stay tracked (keeping the folder in git is their job), so a
+source change lands as a reviewable diff across every location.
+
+- [.gitkeep files point at the README, and the pointer is enforced](#gitkeep-files-point-at-the-readme-and-the-pointer-is-enforced)
+
 ## Context
 
 A `README.md` is what a reader sees first in a folder on GitHub, in Azure DevOps, and in an editor. Kept by hand, each drifts from the
@@ -104,6 +114,16 @@ a few small file reads over a cached config.
 The banner renders wherever the README is read. GitHub styles a `> [!WARNING]` alert, but Azure DevOps and VS Code render it as literal
 text, and none of the three renders the same callout box. So the banner is a plain blockquote with an emoji and bold lead-in — features
 every one of the three renders — accepting a consistent, readable warning over a colored box that works in only one place.
+
+### .gitkeep files point at the README, and the pointer is enforced
+
+A `.gitkeep` exists precisely where a folder has nothing else to say for itself in git — an empty template-kind folder, a content-ignored
+output root — which is exactly where a reader most needs an explanation. So the two generated artifacts pair up: the `.gitkeep` is a generic
+managed copy whose text says everything worth knowing is in the folder's `README.md`, and the readme system supplies that README from a
+`docs/references/` article. The integrity gate closes the loop in both directions — a `.gitkeep` whose folder is not readme-mapped fails
+(write the article, or remove the marker), and a `.gitkeep` whose content drifts from the source fails (re-run the importer and commit).
+Unlike the gitignored READMEs, the `.gitkeep` copies are committed: tracking the folder is their purpose, so the managed content rides in
+git and a source edit is a reviewable, repo-wide diff.
 
 ### Links are rebased to the target folder
 
