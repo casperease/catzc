@@ -44,7 +44,9 @@ function Resolve-SessionToolHint {
         if (($env:PATH -split $sep) -notcontains $dir) {
             $env:PATH = "$dir$sep$env:PATH"
         }
-        return Get-Command $Config.command -CommandType Application -ErrorAction Ignore
+        # -First 1: with the hint dir prepended, the command may now resolve in MORE than one PATH dir —
+        # an array's .Source would break the [string] -Location binding downstream.
+        return Get-Command $Config.command -CommandType Application -ErrorAction Ignore | Select-Object -First 1
     }
 
     return $null
