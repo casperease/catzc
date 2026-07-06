@@ -4,12 +4,12 @@
 // matches at least one include and no exclude, ADR-GLOBS:4), and the optional composition (ADR-GLOBS:8):
 // the set's effective membership is its own patterns' members UNION the composed sets' effective members.
 // Verify (test blast-radius scope) and Pipeline (the trigger-role binding) are declarative annotations.
-// MarkerPath is the set's committed sha-marker path (.sha-markers/<name>.sha256, ADR-GLOBS:1) and
-// GlobSetPath its committed definition companion (.sha-markers/<name>.globset), whose content is the
-// canonical Representation below — it changes exactly when the set's definition changes, never when member
-// content changes. No globset may match its own marker or companion file or the config itself
-// (ADR-GLOBS:6), which GlobsConfig asserts across the whole registry at construction — compose resolution
-// included.
+// MarkerPath is the set's committed sha-marker path (.sha-markers/<name>.yml, ADR-GLOBS:1, ADR-GLOBS:9),
+// whose content is MarkerContent(sha256): the canonical Representation of the set's definition plus the
+// durable SHA — one full-information YAML file that changes when the definition changes (its body) or the
+// members' content identity changes (its sha256 line). No globset may match its own marker file or the
+// config itself (ADR-GLOBS:6), which GlobsConfig asserts across the whole registry at construction —
+// compose resolution included.
 // See docs/adr/pipelines/durable-sha-globs.md.
 
 using System;

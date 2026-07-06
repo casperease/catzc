@@ -8,16 +8,20 @@
 #   committed  — is the managed target tracked in git? false = gitignored (reproduced on import, invisible
 #                churn); true = committed (for files git or the bootstrap reads BEFORE the importer runs —
 #                importer.ps1, the git files), where a source change surfaces as a reviewable diff.
+#   copyAsLink — materialise the target as a filesystem LINK to the source (Set-FileLink: a symbolic link, or
+#                a hard link on Windows without the symlink privilege) instead of a generated copy: the root
+#                file IS the source, so drift is impossible and no header is injected. Requires `source`,
+#                requires committed false, forbids a declared `comment`. Healed per-OS at the importer tail.
 #
-# `comment` ('hash' | 'none', default 'none') picks the generated-file header for `source` copy-ins; a
-# `generator` owns its whole output, header included, and takes no `comment`. All paths are repository-root-
+# `comment` ('hash' | 'none', default 'none') picks the generated-file header for non-link `source` copy-ins;
+# a `generator` owns its whole output, header included, and takes no `comment`. All paths are repository-root-
 # relative and forward-slashed (communication form; see docs/adr/automation/path-representation.md). Loaded
 # via Get-Config -Config rootconfig; the shape is validated by Catzc.Base.RootConfig.RootConfigFiles. See
 # docs/adr/repository/generated-root-configs.md.
 files:
   - target: PSScriptAnalyzerSettings.psd1
     source: automation/.internal/assets/PSScriptAnalyzerSettings.psd1
-    comment: hash
+    copyAsLink: true
     optIn: true
   # importer.ps1 has TWO valid source-of-truth forms, swapped by editing this entry alone:
   #   generator: New-Importer  — the live form: the full shim, rendered from the Invoke-Importer overlay's
@@ -31,9 +35,9 @@ files:
     generator: New-Importer
     committed: true
     optIn: true
-  # The four .vscode/ files are gitignored generated copies (committed: false) — the editor greys them and
-  # a fresh clone materialises them on the first import. Sources of truth: the Catzc.Base.VSCode registries
-  # (settings/extensions/launch) and the module's CSS asset.
+  # The three generated .vscode/ files are gitignored generated copies (committed: false) — the editor greys
+  # them and a fresh clone materialises them on the first import. Sources of truth: the Catzc.Base.VSCode
+  # registries (settings/extensions/launch).
   - target: .vscode/settings.json
     generator: New-VSCodeSettings
     optIn: true
@@ -43,27 +47,29 @@ files:
   - target: .vscode/launch.json
     generator: New-VSCodeLaunch
     optIn: true
-  # CSS carries its generated marker authored IN the source (a /* */ block — the dotnet-tools.json pattern),
-  # so the copy-in injects no header.
   - target: .vscode/markdown-preview-dark.css
     source: automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css
-    comment: none
+    copyAsLink: true
     optIn: true
   - target: .editorconfig
     source: automation/Catzc.Base.RootConfig/assets/root/.editorconfig
-    comment: hash
+    copyAsLink: true
     optIn: true
   - target: .markdownlint.yml
     source: automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
-    comment: hash
+    copyAsLink: true
     optIn: true
+  # The ignore files and cspell.yml stay generated COPIES until the symlink path is verified on Linux (the
+  # tools may resolve relative references against a symlinked config's real path — cspell's .cspell/
+  # references are the suspect case). Flip each to copyAsLink only after the gates run green through a
+  # symbolic link; see the plan's step 12 and the generated-root-configs ADR.
   - target: .markdownlintignore
     source: automation/Catzc.Base.RootConfig/assets/root/.markdownlintignore
     comment: hash
     optIn: true
   - target: .prettierrc.yml
     source: automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
-    comment: hash
+    copyAsLink: true
     optIn: true
   - target: .prettierignore
     source: automation/Catzc.Base.RootConfig/assets/root/.prettierignore
@@ -73,18 +79,17 @@ files:
     source: automation/Catzc.Base.RootConfig/assets/root/cspell.yml
     comment: hash
     optIn: true
-  # JSON has no comment syntax (and the dotnet manifest parser rejects // line comments), so the generated
-  # marker travels IN the authored source as an ignored "//" property, not as an injected header.
+  # JSON has no comment syntax (and the dotnet manifest parser rejects // line comments), so the managed-file
+  # marker travels IN the authored source as an ignored "//" property.
   - target: dotnet-tools.json
     source: automation/Catzc.Base.RootConfig/assets/root/dotnet-tools.json
-    comment: none
+    copyAsLink: true
     optIn: true
-  # MSBuild's solution parser requires the 'Format Version' line at the top, so no leading header may be
-  # injected — the generated note lives inside the source's own '#' comment block (which the format allows
-  # only after that line).
+  # MSBuild's solution parser requires the 'Format Version' line at the top, so the managed-file note lives
+  # inside the source's own '#' comment block (which the format allows only after that line).
   - target: catzc.sln
     source: automation/Catzc.Base.RootConfig/assets/root/catzc.sln
-    comment: none
+    copyAsLink: true
     optIn: true
   - target: .gitattributes
     source: automation/Catzc.Base.RootConfig/assets/root/.gitattributes
