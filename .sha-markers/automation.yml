@@ -2,6 +2,6 @@ name: automation
 description: The automation track - the automation module system under automation/.
 layer: track
 pipeline: ci-automation
-include:
-- 'automation/**'
-sha256: f9addbf463261c249f12e6ae23986b4406d4016babc90cc61ad4b5f187161ec8
+scan:
+- '+ automation/**'
+sha256: 127625de7631511f88f637805dd24077dbbe42d3b797eabfec2e317f6c022feb

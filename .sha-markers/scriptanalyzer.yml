@@ -1,6 +1,6 @@
 name: scriptanalyzer
 description: Derived infra scope - automation/.scriptanalyzer/**
 layer: module
-include:
-- 'automation/.scriptanalyzer/**'
+scan:
+- '+ automation/.scriptanalyzer/**'
 sha256: dc52d52b9bb7121a7bd87e3f839bc227111390a85a051dc02d48c61fff100556

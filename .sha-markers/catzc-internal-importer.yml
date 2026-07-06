@@ -1,6 +1,6 @@
 name: catzc-internal-importer
 description: Derived internal-module scope - automation/.internal/Catzc.Internal.Importer.psm1
 layer: module
-include:
-- 'automation/.internal/Catzc.Internal.Importer.psm1'
+scan:
+- '+ automation/.internal/Catzc.Internal.Importer.psm1'
 sha256: 509c2c49fa59fffcb40c4ee2749cc9bee814761440322204029bebe19da4f941

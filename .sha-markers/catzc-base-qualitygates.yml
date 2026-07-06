@@ -1,6 +1,6 @@
 name: catzc-base-qualitygates
 description: Derived module scope - automation/Catzc.Base.QualityGates/**
 layer: module
-include:
-- 'automation/Catzc.Base.QualityGates/**'
-sha256: 325dd40f7ec2efc7f39a72b14361bde09978ecf6b01d5e5e9a4ad9693096e916
+scan:
+- '+ automation/Catzc.Base.QualityGates/**'
+sha256: 8532b34f25e6f416a12e75e2cc899d2c407b26b90323ee67bd5dc96135f3e461

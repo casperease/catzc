@@ -1,6 +1,6 @@
 name: catzc-base-variants
 description: Derived module scope - automation/Catzc.Base.Variants/**
 layer: module
-include:
-- 'automation/Catzc.Base.Variants/**'
+scan:
+- '+ automation/Catzc.Base.Variants/**'
 sha256: d5843b265db36fd421273d9653db84d030b8a3f7dc4592cc1a4d77a386ec73f5

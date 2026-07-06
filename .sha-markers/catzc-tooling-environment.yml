@@ -1,6 +1,6 @@
 name: catzc-tooling-environment
 description: Derived module scope - automation/Catzc.Tooling.Environment/**
 layer: module
-include:
-- 'automation/Catzc.Tooling.Environment/**'
+scan:
+- '+ automation/Catzc.Tooling.Environment/**'
 sha256: 712e5a51d9e4f1a65a45cdbb0f97d7e66a8938a8bb4d6aa0a1f5211cfa38dd25

@@ -1,6 +1,6 @@
 name: catzc-base-execution
 description: Derived module scope - automation/Catzc.Base.Execution/**
 layer: module
-include:
-- 'automation/Catzc.Base.Execution/**'
+scan:
+- '+ automation/Catzc.Base.Execution/**'
 sha256: 60240d0d9faebca42447b8f1208f6593b76701d93c701413ad3b0e14e8507d0b

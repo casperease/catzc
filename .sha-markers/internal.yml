@@ -1,6 +1,6 @@
 name: internal
 description: Derived infra scope - automation/.internal/**
 layer: module
-include:
-- 'automation/.internal/**'
+scan:
+- '+ automation/.internal/**'
 sha256: 6261f8a8fe647cfad1e76095eb0b767941bbf57e0b36081058d5df0d470544bf

@@ -1,6 +1,6 @@
 name: catzc-base-modulesystem
 description: Derived module scope - automation/Catzc.Base.ModuleSystem/**
 layer: module
-include:
-- 'automation/Catzc.Base.ModuleSystem/**'
+scan:
+- '+ automation/Catzc.Base.ModuleSystem/**'
 sha256: bfc48b32d293365c112c9ee73e24967c0b603b79562d8558f165811af489f527

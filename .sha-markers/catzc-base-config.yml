@@ -1,6 +1,6 @@
 name: catzc-base-config
 description: Derived module scope - automation/Catzc.Base.Config/**
 layer: module
-include:
-- 'automation/Catzc.Base.Config/**'
+scan:
+- '+ automation/Catzc.Base.Config/**'
 sha256: fe66c994428d0952525c3145543467374d0dce2d9a4a02bfd686e2a29e4f2dbd
