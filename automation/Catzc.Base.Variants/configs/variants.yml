@@ -9,6 +9,14 @@
 # be re-edited to match — deliberately not a casual flip.
 ado_naming: standard
 
+# Git workspace mode — how changes reach main:
+#   main-direct   — direct commits to main are allowed (the default; a solo-author trunk)
+#   main-via-pr   — everything reaches main through a PR; local work always happens on a branch, so the
+#                   only forbidden direct commit is one made while standing on main locally
+# Automation that commits (e.g. Sync-GeneratedFile syncing .triggers/ + .compiled) enforces exactly that
+# stop condition: main-via-pr AND currently on main. Going 1 -> 1+ authors is when to flip this.
+git_workspace: main-direct
+
 # Enabled-customer set for the repo:
 #   false            — no customer deployments; only non-customer templates allowed (the default for a
 #                      customer-free repo)

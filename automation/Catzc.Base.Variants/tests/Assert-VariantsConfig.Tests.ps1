@@ -43,6 +43,15 @@ Describe 'Assert-VariantsConfig' -Tag 'L0' {
             { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Throw '*invalid ado_naming*'
         }
 
+        It 'accepts both git_workspace modes and throws on any other value' {
+            foreach ($mode in 'main-direct', 'main-via-pr') {
+                $config = [ordered]@{ git_workspace = $mode }
+                { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Not -Throw
+            }
+            $config = [ordered]@{ git_workspace = 'anarchy' }
+            { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Throw '*invalid git_workspace*'
+        }
+
         It 'throws when have_customers is a non-all string' {
             $config = [ordered]@{ have_customers = 'some' }
             { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Throw "*a string must be 'all'*"

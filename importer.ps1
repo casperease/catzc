@@ -10,7 +10,7 @@ param(
     [switch] $ClearCompiledTypes,
     [switch] $NonSilentClear,
     [switch] $SkipJanitors,
-    [switch] $CommitTriggers
+    [switch] $NoCommitTriggersInDevBox
 )
 
 Set-StrictMode -Version Latest

@@ -2,15 +2,17 @@
 .SYNOPSIS
     Validates configs/variants.yml and throws with all violations collected.
 .DESCRIPTION
-    Repo-wide variants — settings fixed for the importer session. A growing dictionary; today two keys:
+    Repo-wide variants — settings fixed for the importer session. A growing dictionary; today three keys:
 
       ado_naming:      standard | classic        — Azure resource-name component order
+      git_workspace:   main-direct | main-via-pr — how changes reach main (solo trunk vs everything-by-PR)
       have_customers:  false | all | [names]     — the enabled-customer set
 
     Integrity rules:
     - only the known keys are allowed (unknown key => throw), so a typo fails fast at load
     - ado_naming (if present) is 'standard' or 'classic' (the keys of Get-AzureNameOrderSet, mirrored here
       as literals because this Base validator must not depend up into the Azure/Templates layer)
+    - git_workspace (if present) is 'main-direct' or 'main-via-pr'
     - have_customers (if present) is one of:
         * a boolean (false = disabled, true = every customer enabled)
         * the literal string 'all' (every customer enabled)
@@ -19,8 +21,8 @@
       lives one layer up, in Catzc.Azure); an Azure-layer integrity test confirms every listed name is a
       defined customer.
 
-    Both keys are OPTIONAL in the file — the accessors default when a key is absent — but the shipped
-    variants.yml sets both explicitly. Auto-dispatched by Get-Config when loading the 'variants' config.
+    Every key is OPTIONAL in the file — the accessors default when a key is absent — but the shipped
+    variants.yml sets each explicitly. Auto-dispatched by Get-Config when loading the 'variants' config.
 #>
 function Assert-VariantsConfig {
     [CmdletBinding()]
@@ -31,7 +33,7 @@ function Assert-VariantsConfig {
 
     $errors = [System.Collections.Generic.List[string]]::new()
 
-    $allowedKeys = @('ado_naming', 'have_customers')
+    $allowedKeys = @('ado_naming', 'git_workspace', 'have_customers')
     foreach ($key in @($Config.Keys)) {
         if ($key -notin $allowedKeys) {
             $errors.Add("unknown key '$key' (allowed: $($allowedKeys -join ', '))")
@@ -42,6 +44,13 @@ function Assert-VariantsConfig {
         $validOrders = @('standard', 'classic')
         if ("$($Config.ado_naming)" -cnotmatch '^(standard|classic)$') {
             $errors.Add("invalid ado_naming '$($Config.ado_naming)' (valid: $($validOrders -join ', '))")
+        }
+    }
+
+    if ($Config.Contains('git_workspace')) {
+        $validModes = @('main-direct', 'main-via-pr')
+        if ("$($Config.git_workspace)" -cnotmatch '^(main-direct|main-via-pr)$') {
+            $errors.Add("invalid git_workspace '$($Config.git_workspace)' (valid: $($validModes -join ', '))")
         }
     }
 

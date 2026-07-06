@@ -2,7 +2,7 @@
 .SYNOPSIS
     Regenerates the trigger files and commits the importer-maintained generated files to git.
 .DESCRIPTION
-    The dev-box convenience behind the importer's -CommitTriggers switch: runs Update-Trigger, then
+    The dev-box janitor the importer runs by default (opt out: -NoCommitTriggersInDevBox): runs Update-Trigger, then
     commits whatever under the generated-file paths — .triggers/ (durable-SHA trigger files,
     docs/adr/pipelines/durable-sha-globs.md) and automation/.compiled/ (the committed compiled type
     assembly) — differs from HEAD, via Invoke-GitCommit. Deriving the commit set from git status rather
@@ -13,12 +13,15 @@
     untouched or merely re-synced, never committed:
     - Skips in CI (Test-IsRunningInPipeline): the gates there must fail loudly, not be auto-repaired.
     - Skips on a detached HEAD: a commit there hangs off no branch and is one checkout away from lost.
+    - Skips on main/master when the repo's git_workspace variant is 'main-via-pr' (Test-GitWorkspace,
+      ADR-VARIANT:6): in that mode work always happens on a branch, so standing on main locally is the
+      one place a direct commit is forbidden. In 'main-direct' (the default, a solo-author trunk) any
+      named branch commits — including main, which IS the integration path (one-living-version).
     - Skips the commit (but still syncs) while the tracked working tree is dirty outside the generated
       paths: the durable SHA hashes working-tree content, so a trigger committed from a dirty tree would
       match neither that commit nor HEAD.
-    Any named branch commits — including main: the repository is trunk-based (one-living-version), so
-    main IS the integration path, the switch is explicit consent, and the dirty-tree guard means the
-    commit only ever carries regenerated derived state that CI re-verifies by hash.
+    The switch is explicit consent, and the dirty-tree guard means the commit only ever carries
+    regenerated derived state that CI re-verifies by hash.
 .PARAMETER DryRun
     Propagated to Invoke-GitCommit: the trigger files are still regenerated (Update-Trigger is
     idempotent), but instead of committing, the planned git commands are returned.
@@ -47,6 +50,10 @@ function Sync-GeneratedFile {
     $branch = Get-GitCurrentBranch
     if ($branch -eq 'HEAD') {
         Write-Message 'Skipped: detached HEAD — a commit here hangs off no branch.'
+        return
+    }
+    if ($branch -in 'main', 'master' -and (Test-GitWorkspace -MainViaPr)) {
+        Write-Message "Skipped: the git_workspace variant is 'main-via-pr' and this is $branch — commit generated files from a working branch (variants.yml, ADR-VARIANT:6)."
         return
     }
 

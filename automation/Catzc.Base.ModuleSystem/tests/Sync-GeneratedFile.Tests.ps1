@@ -8,6 +8,8 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Command -eq 'git status --porcelain' }
         Mock Invoke-GitCommit { 'abc1234567890abcdef1234567890abcdef12345' } -ModuleName Catzc.Base.ModuleSystem
         Mock Write-Message { } -ModuleName Catzc.Base.ModuleSystem
+        # main-direct workspace (the shipped default) unless a test flips it.
+        Mock Test-GitWorkspace { $false } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $MainViaPr }
     }
 
     It 'skips in a pipeline before syncing anything' {
@@ -25,8 +27,23 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
     }
 
-    It 'commits on <_> — trunk-based: any named branch is the integration path' -ForEach 'main', 'master' {
+    It 'commits on <_> in the main-direct workspace — the trunk IS the integration path' -ForEach 'main', 'master' {
         Mock Get-GitCurrentBranch { $_ } -ModuleName Catzc.Base.ModuleSystem
+        Sync-GeneratedFile | Should -Not -BeNullOrEmpty
+        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
+    }
+
+    It 'skips on <_> in the main-via-pr workspace — standing on main is the one forbidden place' -ForEach 'main', 'master' {
+        Mock Get-GitCurrentBranch { $_ } -ModuleName Catzc.Base.ModuleSystem
+        Mock Test-GitWorkspace { $true } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $MainViaPr }
+        Sync-GeneratedFile | Should -BeNullOrEmpty
+        Should -Invoke Update-Trigger -ModuleName Catzc.Base.ModuleSystem -Times 0
+        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter { $Message -like '*main-via-pr*' }
+    }
+
+    It 'commits from a working branch in the main-via-pr workspace — a branch is always allowed' {
+        Mock Test-GitWorkspace { $true } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $MainViaPr }
         Sync-GeneratedFile | Should -Not -BeNullOrEmpty
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
     }

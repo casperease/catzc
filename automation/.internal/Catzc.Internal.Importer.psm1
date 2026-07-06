@@ -26,11 +26,13 @@
     Surface the post-import type-cache janitor's report (off by default).
 .PARAMETER SkipJanitors
     Skip the post-import janitors and the PSModulePath check — a lean load for a copied subset.
-.PARAMETER CommitTriggers
-    Sync the trigger files after load and auto-commit the importer-maintained generated files
-    (.triggers/, automation/.compiled/) via Sync-GeneratedFile — dev-box, non-main branches only; the
-    function self-skips in CI, on main/master, and while the tracked tree is dirty. Ignored under
-    -SkipJanitors.
+.PARAMETER NoCommitTriggersInDevBox
+    Opt OUT of the default trigger sync + auto-commit. By default every dev-box import syncs the trigger
+    files and auto-commits the importer-maintained generated files (.triggers/, automation/.compiled/)
+    via Sync-GeneratedFile — never in a pipeline (double-guarded: the call site skips under
+    Test-IsRunningInPipeline and the function self-skips again), skipped on main/master when the
+    git_workspace variant is 'main-via-pr' (ADR-VARIANT:6), and the commit (not the sync) is held back
+    while the tracked tree is dirty. Also ignored under -SkipJanitors.
 .EXAMPLE
     Invoke-Importer -DiagnoseLoadTime
 #>
@@ -57,10 +59,11 @@ function Invoke-Importer {
         # maintenance is skipped.
         [switch] $SkipJanitors,
 
-        # Sync the trigger files after load and auto-commit the generated files the importer maintains
-        # (.triggers/, automation/.compiled/) — the janitor tail's last, opt-in step (Sync-GeneratedFile,
-        # which self-guards: dev box only, never main/master, never a dirty tracked tree).
-        [switch] $CommitTriggers
+        # Opt OUT of the default trigger sync + auto-commit of the generated files the importer maintains
+        # (.triggers/, automation/.compiled/) — the janitor tail's last step (Sync-GeneratedFile, which
+        # self-guards: never a pipeline, main allowed only in the main-direct git_workspace variant,
+        # never a commit from a dirty tracked tree).
+        [switch] $NoCommitTriggersInDevBox
     )
 
     # Hard floor: the toolset requires PowerShell 7.4+. Among other things the vendor functions
@@ -215,12 +218,16 @@ function Invoke-Importer {
         Sync-SessionTools
     }
 
-    # Opt-in (-CommitTriggers): sync the trigger files and auto-commit the generated files the importer
-    # maintains (.triggers/, automation/.compiled/). Deliberately the LAST janitor, so tracked files the
-    # janitors above touch (the .compiled DLL swap) are in their final state before the durable SHAs are
-    # computed. Sync-GeneratedFile carries its own guards (never CI, never main/master, never a dirty
-    # tracked tree). Guarded: absent in the bootstrap sandbox.
-    if ($CommitTriggers -and -not $SkipJanitors -and (Get-Command Sync-GeneratedFile -ErrorAction Ignore)) {
+    # Default-on for dev boxes (opt out: -NoCommitTriggersInDevBox): sync the trigger files and auto-commit
+    # the generated files the importer maintains (.triggers/, automation/.compiled/). Deliberately the LAST
+    # janitor, so tracked files the janitors above touch (the .compiled DLL swap) are in their final state
+    # before the durable SHAs are computed. NEVER in a pipeline — guarded here so CI imports stay silent,
+    # and again inside Sync-GeneratedFile (which also guards: main only in the main-direct git_workspace
+    # variant, never a commit from a dirty tracked tree). Guarded: absent in the bootstrap sandbox.
+    if (-not $NoCommitTriggersInDevBox -and -not $SkipJanitors -and
+        (Get-Command Sync-GeneratedFile -ErrorAction Ignore) -and
+        (Get-Command Test-IsRunningInPipeline -ErrorAction Ignore) -and
+        -not (Test-IsRunningInPipeline)) {
         Sync-GeneratedFile | Out-Null
     }
 
