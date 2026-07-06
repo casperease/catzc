@@ -3,4 +3,4 @@ description: Derived module scope - automation/Catzc.Base.ModuleSystem/**
 layer: module
 include:
 - 'automation/Catzc.Base.ModuleSystem/**'
-sha256: 37d33ca15c52e53a8fb10d7a6464e94a883f9f1ce9a4b86d0c8e1e6b9c82aead
+sha256: b59c35008516bc00cd224683b3dedff02dc6715e65c0b4e620d6f23bc358441c
