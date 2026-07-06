@@ -64,12 +64,13 @@ dictionaryDefinitions:
     path: ./.cspell/coined.txt
   - name: catzc-terms-person
     path: ./.cspell/person.txt
+# The GLOBAL dictionaries — vocabulary legal everywhere. The three DOMAIN-scoped categories (fixture,
+# azure-live, adr-example) are deliberately NOT here; they are enabled only inside their `overrides:` globs
+# below, so a fixture token in shipped config, a live identity outside the Azure configs, or a doc-example
+# token in code becomes an unknown-word failure (the domain-language separation of ADR-LANG).
 dictionaries:
   - catzc-terms-domain
   - catzc-terms-abbreviation
-  - catzc-terms-fixture
-  - catzc-terms-azure-live
-  - catzc-terms-adr-example
   - catzc-terms-adr
   - catzc-terms-ado
   - catzc-terms-azure
@@ -96,3 +97,26 @@ languageSettings:
       - dotnet
     words:
       - slnx
+# Domain-scoped vocabulary (ADR-LANG). Each override enables a domain's dictionary ONLY for files under that
+# domain's globs, so a token approved in one domain is unknown — and fails the gate — in another.
+overrides:
+  # TEST domain — hermetic fixture tokens (acme, tst, fixtenant, smpl, faketool, …) are legal only in tests
+  # and in documentation examples.
+  - filename:
+      - '**/tests/**'
+      - 'docs/**'
+    dictionaries:
+      - catzc-terms-fixture
+  # CONFIG/LIVE domain — live Azure identities (the real customers/subscriptions the demo maps to) are legal
+  # only in the Azure configs, the infrastructure tree, and docs that document them.
+  - filename:
+      - 'automation/Catzc.Azure*/configs/**'
+      - 'infrastructure/**'
+      - 'docs/**'
+    dictionaries:
+      - catzc-terms-azure-live
+  # DESIGN domain — discovery-theme and doc-example tokens (Contoso, …) are legal only in docs and ADRs.
+  - filename:
+      - 'docs/**'
+    dictionaries:
+      - catzc-terms-adr-example

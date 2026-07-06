@@ -30,4 +30,4 @@ extends:
     Discoveries:
       - { env: dev, serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 000a0000-de00-50b0-0000-000000000000 }
     Expeditions:
-      - { env: dev, slot: '001', serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 000a0000-de00-50b0-0000-000000000000 }
+      - { env: dev, slot: "001", serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 000a0000-de00-50b0-0000-000000000000 }

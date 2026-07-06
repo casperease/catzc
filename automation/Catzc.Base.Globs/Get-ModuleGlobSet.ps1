@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
-    Returns the DERIVED globsets — one per module folder, per internal .psm1 module, plus the reserved
-    infra scopes (ADR-PROTGLOB).
+    Returns the DERIVED globsets — one per module folder, per internal .psm1 module, the reserved infra
+    umbrellas, and the 'module-leftovers' catch-all (ADR-PROTGLOB).
 .DESCRIPTION
     Derived sets are never written in globs.yml: the folder (or file) is the registration. Every non-dot
     module folder under automation/ derives a set named by the readme-kebab convention (Catzc.Base.Globs ->
@@ -61,6 +61,8 @@ function Get-ModuleGlobSet {
         $derived[$reservedName] = $set
     }
 
+    # The per-folder module globs, collected so 'module-leftovers' below can exclude every one of them.
+    $moduleFolderGlobs = [System.Collections.Generic.List[string]]::new()
     foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($automationRoot)) {
         $moduleName = [System.IO.Path]::GetFileName($moduleDir)
         if ($moduleName.StartsWith('.')) {
@@ -70,9 +72,11 @@ function Get-ModuleGlobSet {
         if ($kebab -in $declaredNames) {
             throw "Declared globset '$kebab' in globs.yml shadows the derived set of module '$moduleName' — derived and declared sets share one name space (ADR-PROTGLOB); rename the declared set."
         }
+        $moduleGlob = "automation/$moduleName/**"
+        $moduleFolderGlobs.Add($moduleGlob)
         $set = [Catzc.Base.Globs.GlobSet]::new(
             $kebab, "Derived module scope - automation/$moduleName/**", 'module',
-            @("automation/$moduleName/**"), @(), @(), @(), -1, $null)
+            @($moduleGlob), @(), @(), @(), -1, $null)
         $derived[$kebab] = $set
         $derived[$moduleName] = $set
     }
@@ -95,6 +99,23 @@ function Get-ModuleGlobSet {
             $derived[$internalName] = $set
         }
     }
+
+    # The module layer's catch-all: every tracked file under automation/ that no per-folder module owns and
+    # that is not dot-folder infrastructure (the reserved umbrellas' loose-fileset territory). It exists so
+    # the module layer covers module-space and a stray file cannot go unmapped — it should be empty in a
+    # clean tree, but stuff can pop up (a file dropped at automation/'s root, a folder not yet a module). Its
+    # OWN excludes are every module folder plus the four dot-folders, so it stays disjoint from every module
+    # set (ADR-GLOBS:10). Derived, module-layer, never declared; a declared set may not shadow it.
+    if ('module-leftovers' -in $declaredNames) {
+        throw "Declared globset 'module-leftovers' in globs.yml shadows the derived module-space catch-all — derived and declared sets share one name space (ADR-PROTGLOB); rename the declared set."
+    }
+    # Ordinal-sorted so the scan program (the marker body) is byte-identical on every machine, independent of
+    # directory-enumeration and hashtable order.
+    $leftoverExcludes = @($moduleFolderGlobs) + @($reserved.Values)
+    [System.Array]::Sort($leftoverExcludes, [System.StringComparer]::Ordinal)
+    $derived['module-leftovers'] = [Catzc.Base.Globs.GlobSet]::new(
+        'module-leftovers', 'Derived module-space catch-all - automation/ files no module owns', 'module',
+        @('automation/**'), $leftoverExcludes, @(), @(), -1, $null)
 
     if (-not $PSBoundParameters.ContainsKey('Name')) {
         # every set once — module sets are keyed twice (kebab + folder), so de-duplicate by reference

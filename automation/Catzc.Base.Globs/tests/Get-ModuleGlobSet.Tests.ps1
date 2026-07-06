@@ -62,7 +62,19 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
 
     It 'returns every derived set exactly once when no name is given' {
         $all = @(Get-ModuleGlobSet)
-        ($all.Name | Sort-Object) | Should -Be (@('catzc-base-alpha', 'catzc-fake-beta', 'catzc-internal-alpha', 'catzc-internal-beta', 'compiled', 'internal', 'scriptanalyzer', 'vendor'))
+        ($all.Name | Sort-Object) | Should -Be (@('catzc-base-alpha', 'catzc-fake-beta', 'catzc-internal-alpha', 'catzc-internal-beta', 'compiled', 'internal', 'module-leftovers', 'scriptanalyzer', 'vendor'))
+    }
+
+    It 'derives the module-leftovers catch-all — module layer, excluding every module folder and dot-folder' {
+        $leftovers = Get-ModuleGlobSet -Name module-leftovers
+        $leftovers.Layer | Should -Be 'module'
+        # a file inside a real module folder is owned by that module, never the catch-all
+        $leftovers.OwnMatches('automation/Catzc.Base.Alpha/Get-Alpha.ps1') | Should -BeFalse
+        # dot-folder infrastructure is the umbrellas' territory, not the catch-all's
+        $leftovers.OwnMatches('automation/.vendor/Pester/5.7.1/Pester.psd1') | Should -BeFalse
+        $leftovers.OwnMatches('automation/.internal/Catzc.Internal.Alpha.psm1') | Should -BeFalse
+        # a stray file at automation/'s root is what the catch-all is for
+        $leftovers.OwnMatches('automation/stray.ps1') | Should -BeTrue
     }
 
     It 'throws a named error on an unknown name' {

@@ -33,7 +33,7 @@ pr:
 stages:
   # --- CI engine: build + verify, then publish the immutable artifacts ----------------------------
   - stage: CI
-    displayName: 'CI engine — build & verify'
+    displayName: "CI engine — build & verify"
     jobs:
       - job: Build
         pool:
@@ -46,26 +46,26 @@ stages:
           # slots — customer subfolders are built by their own customer CD.
           - template: /pipelines/steps/invoke-automation.yaml
             parameters:
-              DisplayName: 'Build-Bicep foundation -Shared'
-              RunCommand: 'Build-Bicep foundation -Shared'
+              DisplayName: "Build-Bicep foundation -Shared"
+              RunCommand: "Build-Bicep foundation -Shared"
           - publish: out/template/foundation
             artifact: foundation
 
           - template: /pipelines/steps/invoke-automation.yaml
             parameters:
-              DisplayName: 'Build-Bicep discovery -Shared'
-              RunCommand: 'Build-Bicep discovery -Shared'
+              DisplayName: "Build-Bicep discovery -Shared"
+              RunCommand: "Build-Bicep discovery -Shared"
           - publish: out/template/discovery
             artifact: discovery
 
   # --- Deploy foundation (per-subscription Log Analytics + Key Vault) — post-commit on main only ---
   - stage: Deploy_Foundation
-    displayName: 'Deploy foundation → subn, subp'
+    displayName: "Deploy foundation → subn, subp"
     dependsOn: CI
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
       - deployment: Foundation_subn
-        displayName: 'foundation → subn (nonprod sub)'
+        displayName: "foundation → subn (nonprod sub)"
         environment: shared-subn
         pool:
           vmImage: ubuntu-latest
@@ -78,13 +78,15 @@ stages:
                   artifact: foundation
                 - template: /pipelines/steps/invoke-automation.yaml
                   parameters:
-                    DisplayName: 'Deploy-Bicep subn foundation (session target: shared nonprod, asserted)'
+                    DisplayName: "Deploy-Bicep subn foundation (session target: shared nonprod, asserted)"
                     Mode: azcli
-                    ServiceConnection: 'sc-shared-nonprod'
-                    RunCommand: 'Deploy-Bicep -Environment subn -Template foundation -SubscriptionIdAssertIs 50a0ed00-de00-50b0-0000-000000000000 -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
+                    ServiceConnection: "sc-shared-nonprod"
+                    RunCommand:
+                      'Deploy-Bicep -Environment subn -Template foundation -SubscriptionIdAssertIs 50a0ed00-de00-50b0-0000-000000000000
+                      -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
 
       - deployment: Foundation_subp
-        displayName: 'foundation → subp (prod sub)'
+        displayName: "foundation → subp (prod sub)"
         environment: shared-subp
         pool:
           vmImage: ubuntu-latest
@@ -97,19 +99,21 @@ stages:
                   artifact: foundation
                 - template: /pipelines/steps/invoke-automation.yaml
                   parameters:
-                    DisplayName: 'Deploy-Bicep subp foundation (session target: shared prod, asserted)'
+                    DisplayName: "Deploy-Bicep subp foundation (session target: shared prod, asserted)"
                     Mode: azcli
-                    ServiceConnection: 'sc-shared-prod'
-                    RunCommand: 'Deploy-Bicep -Environment subp -Template foundation -SubscriptionIdAssertIs 50a0ed00-000d-50b0-0000-000000000000 -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
+                    ServiceConnection: "sc-shared-prod"
+                    RunCommand:
+                      'Deploy-Bicep -Environment subp -Template foundation -SubscriptionIdAssertIs 50a0ed00-000d-50b0-0000-000000000000
+                      -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
 
   # --- Deploy discovery (reads the foundation Key Vault) — after foundation, main only -------------
   - stage: Deploy_Discovery
-    displayName: 'Deploy discovery → dev, test, preprod, prod'
+    displayName: "Deploy discovery → dev, test, preprod, prod"
     dependsOn: Deploy_Foundation
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
       - deployment: Discovery_dev
-        displayName: 'discovery → dev (nonprod sub)'
+        displayName: "discovery → dev (nonprod sub)"
         environment: shared-dev
         pool:
           vmImage: ubuntu-latest
@@ -122,13 +126,15 @@ stages:
                   artifact: discovery
                 - template: /pipelines/steps/invoke-automation.yaml
                   parameters:
-                    DisplayName: 'Deploy-Bicep dev discovery (session target: shared nonprod, asserted)'
+                    DisplayName: "Deploy-Bicep dev discovery (session target: shared nonprod, asserted)"
                     Mode: azcli
-                    ServiceConnection: 'sc-shared-nonprod'
-                    RunCommand: 'Deploy-Bicep -Environment dev -Template discovery -SubscriptionIdAssertIs 50a0ed00-de00-50b0-0000-000000000000 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+                    ServiceConnection: "sc-shared-nonprod"
+                    RunCommand:
+                      'Deploy-Bicep -Environment dev -Template discovery -SubscriptionIdAssertIs 50a0ed00-de00-50b0-0000-000000000000
+                      -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
       - deployment: Discovery_test
-        displayName: 'discovery → test (nonprod sub)'
+        displayName: "discovery → test (nonprod sub)"
         environment: shared-test
         pool:
           vmImage: ubuntu-latest
@@ -141,13 +147,15 @@ stages:
                   artifact: discovery
                 - template: /pipelines/steps/invoke-automation.yaml
                   parameters:
-                    DisplayName: 'Deploy-Bicep test discovery (session target: shared nonprod, asserted)'
+                    DisplayName: "Deploy-Bicep test discovery (session target: shared nonprod, asserted)"
                     Mode: azcli
-                    ServiceConnection: 'sc-shared-nonprod'
-                    RunCommand: 'Deploy-Bicep -Environment test -Template discovery -SubscriptionIdAssertIs 50a0ed00-de00-50b0-0000-000000000000 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+                    ServiceConnection: "sc-shared-nonprod"
+                    RunCommand:
+                      'Deploy-Bicep -Environment test -Template discovery -SubscriptionIdAssertIs 50a0ed00-de00-50b0-0000-000000000000
+                      -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
       - deployment: Discovery_preprod
-        displayName: 'discovery → preprod (prod sub)'
+        displayName: "discovery → preprod (prod sub)"
         environment: shared-preprod
         pool:
           vmImage: ubuntu-latest
@@ -160,13 +168,15 @@ stages:
                   artifact: discovery
                 - template: /pipelines/steps/invoke-automation.yaml
                   parameters:
-                    DisplayName: 'Deploy-Bicep preprod discovery (session target: shared prod, asserted)'
+                    DisplayName: "Deploy-Bicep preprod discovery (session target: shared prod, asserted)"
                     Mode: azcli
-                    ServiceConnection: 'sc-shared-prod'
-                    RunCommand: 'Deploy-Bicep -Environment preprod -Template discovery -SubscriptionIdAssertIs 50a0ed00-000d-50b0-0000-000000000000 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+                    ServiceConnection: "sc-shared-prod"
+                    RunCommand:
+                      'Deploy-Bicep -Environment preprod -Template discovery -SubscriptionIdAssertIs 50a0ed00-000d-50b0-0000-000000000000
+                      -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
       - deployment: Discovery_prod
-        displayName: 'discovery → prod (prod sub)'
+        displayName: "discovery → prod (prod sub)"
         environment: shared-prod
         pool:
           vmImage: ubuntu-latest
@@ -179,7 +189,9 @@ stages:
                   artifact: discovery
                 - template: /pipelines/steps/invoke-automation.yaml
                   parameters:
-                    DisplayName: 'Deploy-Bicep prod discovery (session target: shared prod, asserted)'
+                    DisplayName: "Deploy-Bicep prod discovery (session target: shared prod, asserted)"
                     Mode: azcli
-                    ServiceConnection: 'sc-shared-prod'
-                    RunCommand: 'Deploy-Bicep -Environment prod -Template discovery -SubscriptionIdAssertIs 50a0ed00-000d-50b0-0000-000000000000 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+                    ServiceConnection: "sc-shared-prod"
+                    RunCommand:
+                      'Deploy-Bicep -Environment prod -Template discovery -SubscriptionIdAssertIs 50a0ed00-000d-50b0-0000-000000000000
+                      -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'

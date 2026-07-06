@@ -4,13 +4,16 @@
 # path-filter on those marker files and on nothing else. Validated strictly on load by
 # Catzc.Base.Globs.GlobsConfig.
 #
-# Every set declares its layer (ADR-GLOBS:7): 'deployable-unit' (a configurable unit that ships) or
-# 'loose-fileset' (a cross-cutting check surface — a track's root concern, a scan scope, an umbrella); the
-# 'module' layer is derived from the folders (and the internal .psm1 files) and never declared — derived
-# sets persist their own sha-markers too (ADR-PROTGLOB:7). Within a non-loose layer no two sets may select a
-# common file on their OWN contribution (ADR-GLOBS:10); loose-filesets overlap freely. 'compose' unions
-# another declared set's effective members into this one (acyclic, ADR-GLOBS:8). 'pipeline' names the
-# pipeline bound to this set's marker — any layer may bind one (ADR-GLOBS:7).
+# Every set declares its layer (ADR-GLOBS:7) — each layer a BOUNDARY in the repository: 'track' (a
+# root-level partition: automation, infrastructure, and the 'repository' catch-all for everything else at
+# root), 'deployable-unit' (a configurable unit that ships), or 'loose-fileset' (a cross-cutting check
+# surface — a scan scope, an umbrella — that deliberately overlaps the boundaries it cuts across). The
+# 'module' layer is derived from the folders (and the internal .psm1 files), never declared, and carries its
+# own 'module-leftovers' catch-all — derived sets persist their own sha-markers too (ADR-PROTGLOB:7). Within
+# every layer but 'loose-fileset' no two sets may select a common file on their OWN contribution — a track
+# never consumes another track's files, a module never another module's (ADR-GLOBS:10); loose-filesets
+# overlap freely. 'compose' unions another declared set's effective members into this one (acyclic,
+# ADR-GLOBS:8). 'pipeline' names the pipeline bound to this set's marker — any layer may bind one.
 #
 # Dialect: '/'-separated, repo-relative; '**' is the only cross-segment operator (zero or more whole
 # segments); within a segment, PowerShell wildcards ('*', '?', '[a-z]'), case-sensitive. Membership is
@@ -23,7 +26,7 @@ globsets:
   # widened into this set.
   automation:
     description: The automation track - the automation module system under automation/.
-    layer: loose-fileset
+    layer: track
     pipeline: ci-automation
     include:
       - automation/**
@@ -31,12 +34,27 @@ globsets:
   # The infrastructure track (ADR-TRACK): what ci-infrastructure verifies and the cd-* pipelines deploy from.
   infrastructure:
     description: The infrastructure track - the Bicep IaC tree, reusable modules and deployable templates.
-    layer: loose-fileset
+    layer: track
     pipeline: ci-infrastructure
     verify:
       modules: [Catzc.Azure.Templates]
       level: 2
     include:
+      - infrastructure/**
+
+  # The repository track's catch-all: every tracked file at the repo root that no other track owns - docs,
+  # pipelines, workflows, root dotfiles - so the track layer covers the whole tree and nothing at root goes
+  # unmapped. It owns none of automation/ or infrastructure/ (those are their own tracks) and excludes the
+  # sha-marker outputs (ADR-GLOBS:6). Adding a track means excluding it here too, or the per-layer
+  # independence gate (ADR-GLOBS:10) fails on the overlap.
+  repository:
+    description: The repository track - every tracked file at the root that no other track owns.
+    layer: track
+    include:
+      - '**'
+    exclude:
+      - .sha-markers/**
+      - automation/**
       - infrastructure/**
 
   # The all-templates shared surface: every deployable template EXCEPT its deployment configuration —

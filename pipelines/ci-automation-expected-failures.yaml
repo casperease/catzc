@@ -16,7 +16,7 @@ pr:
 
 jobs:
   - job: ExpectedFailures
-    displayName: 'Expected Failures'
+    displayName: "Expected Failures"
     pool:
       vmImage: ubuntu-latest
     steps:
@@ -24,7 +24,7 @@ jobs:
 
       # 1a: Assert-True $false triggers trap with stack trace
       - task: PowerShell@2
-        displayName: 'Trap: Assert-True $false'
+        displayName: "Trap: Assert-True $false"
         inputs:
           targetType: inline
           script: . './pipelines/Invoke-AdoScript.ps1' -Command 'Assert-True $false'
@@ -35,7 +35,7 @@ jobs:
       #     Simulates what invoke-automation.yaml does internally.
       #     The throw propagates → step goes amber (expected).
       - task: PowerShell@2
-        displayName: 'Guard: multiline without DisplayName'
+        displayName: "Guard: multiline without DisplayName"
         inputs:
           targetType: inline
           pwsh: true
@@ -54,7 +54,7 @@ jobs:
 
       # 1c: Invoke-Executable non-zero exit code throws
       - task: PowerShell@2
-        displayName: 'Trap: non-zero exit code'
+        displayName: "Trap: non-zero exit code"
         inputs:
           targetType: inline
           script: . './pipelines/Invoke-AdoScript.ps1' -Command 'Invoke-Executable "bash -c exit\ 1" -Silent'
@@ -63,7 +63,7 @@ jobs:
 
       # 1d: Install-Python refuses in pipeline
       - task: PowerShell@2
-        displayName: 'Guard: Install-Python blocked in CI'
+        displayName: "Guard: Install-Python blocked in CI"
         inputs:
           targetType: inline
           script: . './pipelines/Invoke-AdoScript.ps1' -Command 'Install-Python'
@@ -72,7 +72,7 @@ jobs:
 
       # 1e: Install-Dotnet refuses in pipeline
       - task: PowerShell@2
-        displayName: 'Guard: Install-Dotnet blocked in CI'
+        displayName: "Guard: Install-Dotnet blocked in CI"
         inputs:
           targetType: inline
           script: . './pipelines/Invoke-AdoScript.ps1' -Command 'Install-Dotnet'
@@ -81,7 +81,7 @@ jobs:
 
       # 1f: Install-NodeJs refuses in pipeline
       - task: PowerShell@2
-        displayName: 'Guard: Install-NodeJs blocked in CI'
+        displayName: "Guard: Install-NodeJs blocked in CI"
         inputs:
           targetType: inline
           script: . './pipelines/Invoke-AdoScript.ps1' -Command 'Install-NodeJs'

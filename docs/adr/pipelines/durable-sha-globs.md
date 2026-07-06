@@ -59,19 +59,26 @@ dot-folder that sorts to the top of a PR's file view, the marker diff IS the cha
 
 ### Rule ADR-GLOBS:7
 
-Every declared globset carries a **layer**, one of two: `deployable-unit` (a configurable unit that ships) or `loose-fileset` (a
-cross-cutting check surface — a track's root concern (`ADR-TRACK`), a scan scope, or a reserved umbrella). A third layer, `module`, is
-**derived-only** (`ADR-PROTGLOB`): the folders are the registration, declaring it is rejected, and derived module sets persist sha-markers
-through the same mechanism as declared sets (`ADR-PROTGLOB#7`). A deployable unit takes one of two shapes: a **configured** unit — a base
-plus its own configuration, e.g. a customer or platform unit — and a **base** unit — a shared, un-configured surface that exists only to be
-composed, e.g. `template-azure-subscription-foundation`, which ships only through the configured units that compose it yet still carries an
-area-of-control (its `verify:` scope and its review surface). Deployable-units and modules are pairwise-independent on OWN contribution
-(`ADR-GLOBS:10`); loose-filesets overlap freely.
+Every globset carries a **layer** — the kind of thing it maps, and a **boundary** in the repository. Three are declared in `globs.yml`:
+`track` (a root-level partition — a root concern (`ADR-TRACK`) such as `automation`/`infrastructure`, plus the `repository` catch-all that
+owns every root file no other track claims), `deployable-unit` (a configurable unit that ships), and `loose-fileset` (a cross-cutting check
+surface — a scan scope, a reserved umbrella — that deliberately overlaps the boundaries it cuts across). The fourth, `module`, is
+**derived-only** (`ADR-PROTGLOB`): the folders are the registration, declaring it is rejected, and the layer carries the per-folder module
+sets plus the `module-leftovers` catch-all (module-space files no module owns); derived sets persist sha-markers through the same mechanism
+as declared sets (`ADR-PROTGLOB#7`).
 
-`pipeline:` (the 1-1 trigger-role binding) and `verify:` (`modules` + `level`, the test blast-radius scope) are **orthogonal** annotations,
-valid on any layer: a CI pipeline binds a track's loose-fileset marker, a CD pipeline binds a configured deployable-unit's, a base unit binds
-none. A **deployable-unit** that is neither composed nor pipeline-bound is not a unit but phantom state, and one living version
-(`ADR-ONELIVE`) forbids it; a loose-fileset earns its identity by being a real check surface (a scan's inputs, a track's boundary).
+A deployable unit takes one of two shapes: a **configured** unit — a base plus its own configuration, e.g. a customer or platform unit — and
+a **base** unit — a shared, un-configured surface that exists only to be composed, e.g. `template-azure-subscription-foundation`, which ships
+only through the configured units that compose it yet still carries an area-of-control (its `verify:` scope and its review surface).
+
+Within every layer but `loose-fileset` the sets are pairwise-independent on OWN contribution (`ADR-GLOBS:10`): a track never consumes another
+track's files, a module never another module's, a unit never another unit's — each is a boundary. A `track` and a `module` layer may each
+carry a **catch-all** (`repository`, `module-leftovers`) so the layer covers its whole space with nothing unmapped; the catch-all is the
+complement of the explicit sets, hence still disjoint from them. `pipeline:` (the 1-1 trigger-role binding) and `verify:` (`modules` +
+`level`, the test blast-radius scope) are **orthogonal** annotations valid on any layer: a CI pipeline binds a track's marker, a CD pipeline
+a configured deployable-unit's, a base unit or a catch-all binds none. A **deployable-unit** that is neither composed nor pipeline-bound is
+not a unit but phantom state, and one living version (`ADR-ONELIVE`) forbids it; the other layers earn identity by being a real boundary (a
+track's root, a module's folder, a scan's inputs).
 
 - [One configuration point](#one-configuration-point)
 
@@ -105,12 +112,14 @@ to any hash (ADR-GLOBS:6).
 ### Rule ADR-GLOBS:10
 
 Within a layer, no two globsets may select a common file on their **OWN contribution** — the set's own `include`/`exclude` program with
-`compose` ignored (`ADR-GLOBS:4`). Two that do contain parts of each other and are not independent. Validation is **per layer, never
-across**: a deployable-unit deliberately contains the base it composes, so cross-layer overlap on *effective* membership is expected and
-correct — the rule is therefore defined on OWN membership, not effective. The `deployable-unit` and `module` layers are pairwise-disjoint on
-OWN membership; the `loose-fileset` layer is **exempt** — its sets are cross-cutting surfaces (tracks, scan scopes, the reserved umbrellas
-`internal`/`vendor`/`compiled`/`scriptanalyzer`) that overlap the modules and units they cut across by design. The rule holds across the
-declared registry and the derived module sets (`ADR-PROTGLOB:7`) alike; a violation names both sets and a shared file.
+`compose` ignored (`ADR-GLOBS:4`). Two that do contain parts of each other and are not independent — the boundary leaks. Validation is **per
+layer, never across**: a deployable-unit deliberately contains the base it composes, and every file sits in both a `track` and a `module`, so
+cross-layer overlap is expected and correct — the rule is defined on OWN membership within one layer, never on effective membership or across
+layers. The `track`, `deployable-unit`, and `module` layers are each pairwise-disjoint on OWN membership; the `loose-fileset` layer is
+**exempt** — its sets are cross-cutting surfaces (scan scopes, the reserved umbrellas `internal`/`vendor`/`compiled`/`scriptanalyzer`) that
+overlap the boundaries they cut across by design. A catch-all (`repository`, `module-leftovers`) is the complement of its layer's explicit
+sets, so it satisfies the rule by construction. The rule holds across the declared registry and the derived module sets (`ADR-PROTGLOB:7`)
+alike; a violation names both sets and a shared file.
 
 - [Per-layer independence](#per-layer-independence)
 
@@ -188,19 +197,25 @@ ending, so the bytes are identical on every checkout.
 
 ### Per-layer independence
 
-A layer is a set of peers that partition a concern; overlap between peers means one set contains part of another, and the marker diff stops
-being a clean area-of-control report. So within a layer the sets are pairwise-disjoint — but on their **OWN** contribution, never their
-effective membership (`ADR-GLOBS:10`). The distinction is what makes `compose` legal: a customer deployable-unit's *effective* members
-include the whole base it composes, so on effective membership every customer overlaps the base and each other through it. That overlap is
-the point of composition — a cross-layer "depends on a base" — not a peer collision. On OWN membership (compose ignored) the customer units
-own only their own `configuration/<key>/**` slice and the base owns the shared surface minus the config folders, so the layer is disjoint.
+A layer is a set of peers that partition one concern into boundaries: the `track` layer partitions the tree at the root, the `module` layer
+partitions module-space, the `deployable-unit` layer partitions what ships. Overlap between peers means one boundary consumes another's
+files, and the marker diff stops being a clean area-of-control report. So within a layer the sets are pairwise-disjoint — but on their **OWN**
+contribution, never their effective membership (`ADR-GLOBS:10`). The distinction is what makes `compose` legal: a customer deployable-unit's
+*effective* members include the whole base it composes, so on effective membership every customer overlaps the base and each other through
+it. That overlap is the point of composition — "depends on a base" — not a peer collision. On OWN membership (compose ignored) the customer
+units own only their own `configuration/<key>/**` slice and the base owns the shared surface minus the config folders, so the layer is
+disjoint. The same holds across layers by design: a file under `automation/Catzc.Base.Globs/` belongs to the `automation` track AND the
+`catzc-base-globs` module AND (if it ships) a deployable-unit — three boundaries in three layers, one file. Cross-layer overlap is never a
+violation; only same-layer overlap is.
 
-The `loose-fileset` layer is exempt because its sets are defined to cut across the others: the `automation` track's OWN members are every
-file under `automation/**`, which necessarily includes every module folder; the reserved `internal` umbrella covers the same files as the
-per-`.psm1` `catzc-internal-*` module sets. These are not independent peers, they are deliberate cross-sections — so the rule does not police
-them. `module` and `deployable-unit`, which do claim to partition, are held to disjointness. The gate evaluates OWN membership over the
-tracked-file universe for the declared registry and the derived module sets together, so a mis-scoped module include or an umbrella
-mistakenly declared as a `module` (rather than a `loose-fileset`) fails as a named pair.
+Catch-alls keep a layer total without breaking disjointness. The `repository` track owns every root file `automation`/`infrastructure` do
+not — the complement — so it can never overlap them; add a track and its files leave `repository` automatically, but only if the new track is
+also excluded there, which the gate checks. The `module-leftovers` set is the module-space complement: it should be empty in a clean tree, a
+tripwire for a file dropped at `automation/`'s root or a folder not yet a module. The `loose-fileset` layer is exempt because its sets are
+defined to cut across the boundaries: the reserved `internal` umbrella covers the same files as the per-`.psm1` `catzc-internal-*` module
+sets; a scan scope like markdown spans every track. These are deliberate cross-sections, not independent peers, so the rule does not police
+them. The gate evaluates OWN membership over the tracked-file universe for the declared registry and the derived module sets together, so a
+mis-scoped module include, a track that reaches into another's files, or an umbrella mistakenly declared a `module` fails as a named pair.
 
 ### Registering a pipeline or workflow
 

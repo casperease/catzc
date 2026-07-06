@@ -28,16 +28,16 @@ parameters:
   - name: Customer
     type: string
   - name: Foundations
-    type: object   # [ {env: subn, serviceConnection: sc-<owner>-nonprod, subscriptionIdAssertIs: <guid>}, {env: subp, ...} ]
+    type: object # [ {env: subn, serviceConnection: sc-<owner>-nonprod, subscriptionIdAssertIs: <guid>}, {env: subp, ...} ]
   - name: Discoveries
-    type: object   # [ {env: dev, serviceConnection: sc-<owner>-nonprod, subscriptionIdAssertIs: <guid>}, ... ]
+    type: object # [ {env: dev, serviceConnection: sc-<owner>-nonprod, subscriptionIdAssertIs: <guid>}, ... ]
   - name: Expeditions
-    type: object   # [ {env: dev, slot: '001', serviceConnection: sc-<owner>-nonprod, subscriptionIdAssertIs: <guid>}, ... ]
+    type: object # [ {env: dev, slot: '001', serviceConnection: sc-<owner>-nonprod, subscriptionIdAssertIs: <guid>}, ... ]
 
 stages:
   # --- CI engine: build this customer's slots + publish the immutable artifacts -------------------
   - stage: CI
-    displayName: 'CI engine — build & verify (${{ parameters.Customer }})'
+    displayName: "CI engine — build & verify (${{ parameters.Customer }})"
     jobs:
       - job: Build
         pool:
@@ -49,34 +49,34 @@ stages:
           # folder, so -Customers needs no subscription names and tolerates an absent tier.
           - template: /pipelines/steps/invoke-automation.yaml
             parameters:
-              DisplayName: 'Build-Bicep foundation -Customers ${{ parameters.Customer }}'
-              RunCommand: 'Build-Bicep foundation -Customers ${{ parameters.Customer }}'
+              DisplayName: "Build-Bicep foundation -Customers ${{ parameters.Customer }}"
+              RunCommand: "Build-Bicep foundation -Customers ${{ parameters.Customer }}"
           - publish: out/template/foundation
             artifact: foundation
 
           - template: /pipelines/steps/invoke-automation.yaml
             parameters:
-              DisplayName: 'Build-Bicep discovery -Customers ${{ parameters.Customer }}'
-              RunCommand: 'Build-Bicep discovery -Customers ${{ parameters.Customer }}'
+              DisplayName: "Build-Bicep discovery -Customers ${{ parameters.Customer }}"
+              RunCommand: "Build-Bicep discovery -Customers ${{ parameters.Customer }}"
           - publish: out/template/discovery
             artifact: discovery
 
           - template: /pipelines/steps/invoke-automation.yaml
             parameters:
-              DisplayName: 'Build-Bicep expedition -Customers ${{ parameters.Customer }}'
-              RunCommand: 'Build-Bicep expedition -Customers ${{ parameters.Customer }}'
+              DisplayName: "Build-Bicep expedition -Customers ${{ parameters.Customer }}"
+              RunCommand: "Build-Bicep expedition -Customers ${{ parameters.Customer }}"
           - publish: out/template/expedition
             artifact: expedition
 
   # --- Deploy foundation (per-subscription Key Vault) — main only --------------------------------
   - stage: Deploy_Foundation
-    displayName: 'Deploy foundation (${{ parameters.Customer }})'
+    displayName: "Deploy foundation (${{ parameters.Customer }})"
     dependsOn: CI
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
       - ${{ each f in parameters.Foundations }}:
           - deployment: Foundation_${{ f.env }}
-            displayName: 'foundation → ${{ f.env }}'
+            displayName: "foundation → ${{ f.env }}"
             environment: ${{ parameters.Customer }}-${{ f.env }}
             pool:
               vmImage: ubuntu-latest
@@ -89,20 +89,22 @@ stages:
                       artifact: foundation
                     - template: /pipelines/steps/invoke-automation.yaml
                       parameters:
-                        DisplayName: 'Deploy-Bicep ${{ f.env }} foundation (session target, assert ${{ f.subscriptionIdAssertIs }})'
+                        DisplayName: "Deploy-Bicep ${{ f.env }} foundation (session target, assert ${{ f.subscriptionIdAssertIs }})"
                         Mode: azcli
                         ServiceConnection: ${{ f.serviceConnection }}
-                        RunCommand: 'Deploy-Bicep -Environment ${{ f.env }} -Template foundation -SubscriptionIdAssertIs ${{ f.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
+                        RunCommand:
+                          'Deploy-Bicep -Environment ${{ f.env }} -Template foundation -SubscriptionIdAssertIs ${{ f.subscriptionIdAssertIs
+                          }} -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
 
   # --- Deploy discovery (reads the foundation Key Vault) — after foundation, main only ------------
   - stage: Deploy_Discovery
-    displayName: 'Deploy discovery (${{ parameters.Customer }})'
+    displayName: "Deploy discovery (${{ parameters.Customer }})"
     dependsOn: Deploy_Foundation
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
       - ${{ each e in parameters.Discoveries }}:
           - deployment: Discovery_${{ e.env }}
-            displayName: 'discovery → ${{ e.env }}'
+            displayName: "discovery → ${{ e.env }}"
             environment: ${{ parameters.Customer }}-${{ e.env }}
             pool:
               vmImage: ubuntu-latest
@@ -115,20 +117,22 @@ stages:
                       artifact: discovery
                     - template: /pipelines/steps/invoke-automation.yaml
                       parameters:
-                        DisplayName: 'Deploy-Bicep ${{ e.env }} discovery (session target, assert ${{ e.subscriptionIdAssertIs }})'
+                        DisplayName: "Deploy-Bicep ${{ e.env }} discovery (session target, assert ${{ e.subscriptionIdAssertIs }})"
                         Mode: azcli
                         ServiceConnection: ${{ e.serviceConnection }}
-                        RunCommand: 'Deploy-Bicep -Environment ${{ e.env }} -Template discovery -SubscriptionIdAssertIs ${{ e.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+                        RunCommand:
+                          'Deploy-Bicep -Environment ${{ e.env }} -Template discovery -SubscriptionIdAssertIs ${{ e.subscriptionIdAssertIs
+                          }} -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
   # --- Deploy expedition (slotted; reads the foundation Key Vault) — after discovery, main only ---
   - stage: Deploy_Expedition
-    displayName: 'Deploy expedition (${{ parameters.Customer }})'
+    displayName: "Deploy expedition (${{ parameters.Customer }})"
     dependsOn: Deploy_Discovery
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
       - ${{ each w in parameters.Expeditions }}:
           - deployment: Expedition_${{ w.env }}_${{ w.slot }}
-            displayName: 'expedition → ${{ w.env }}-${{ w.slot }}'
+            displayName: "expedition → ${{ w.env }}-${{ w.slot }}"
             environment: ${{ parameters.Customer }}-${{ w.env }}-${{ w.slot }}
             pool:
               vmImage: ubuntu-latest
@@ -141,7 +145,10 @@ stages:
                       artifact: expedition
                     - template: /pipelines/steps/invoke-automation.yaml
                       parameters:
-                        DisplayName: 'Deploy-Bicep ${{ w.env }} expedition -Slot ${{ w.slot }} (session target, assert ${{ w.subscriptionIdAssertIs }})'
+                        DisplayName:
+                          "Deploy-Bicep ${{ w.env }} expedition -Slot ${{ w.slot }} (session target, assert ${{ w.subscriptionIdAssertIs }})"
                         Mode: azcli
                         ServiceConnection: ${{ w.serviceConnection }}
-                        RunCommand: 'Deploy-Bicep -Environment ${{ w.env }} -Template expedition -Slot ${{ w.slot }} -SubscriptionIdAssertIs ${{ w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition"'
+                        RunCommand:
+                          'Deploy-Bicep -Environment ${{ w.env }} -Template expedition -Slot ${{ w.slot }} -SubscriptionIdAssertIs ${{
+                          w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition"'
