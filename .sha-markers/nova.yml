@@ -1,0 +1,9 @@
+name: nova
+description: Deployable unit - customer nova's foundation (shared surface + nova_* configuration).
+layer: deployable-unit
+pipeline: cd-nova
+compose:
+- foundation-shared
+include:
+- 'infrastructure/templates/foundation/configuration/nova_*/**'
+sha256: 88ae213df679440e43d9bdde3aefd97f17a816ec25f0fe55b3ae68e6f6d6c138

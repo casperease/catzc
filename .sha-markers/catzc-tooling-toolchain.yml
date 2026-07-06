@@ -1,0 +1,6 @@
+name: catzc-tooling-toolchain
+description: Derived module scope - automation/Catzc.Tooling.Toolchain/**
+layer: module
+include:
+- 'automation/Catzc.Tooling.Toolchain/**'
+sha256: c123d4f453dd9109e7e0a1d01957e5ae23c67b02e30767209c281e6c188135e7

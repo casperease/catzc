@@ -1,0 +1,6 @@
+name: compiled
+description: Derived infra scope - automation/.compiled/**
+layer: module
+include:
+- 'automation/.compiled/**'
+sha256: 9f2c82f1a112975cda2c3b994d14195c934abb68cffdcd0694429315e532c2e4

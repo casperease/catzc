@@ -1,0 +1,6 @@
+name: catzc-base-vendor
+description: Derived module scope - automation/Catzc.Base.Vendor/**
+layer: module
+include:
+- 'automation/Catzc.Base.Vendor/**'
+sha256: 891573f5958e6dd136568898a53faa6326d367c4b6cc44e4275ab5597e749df2
