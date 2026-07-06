@@ -1,6 +1,6 @@
 name: catzc-base-vscode
 description: Derived module scope - automation/Catzc.Base.VSCode/**
 layer: module
-include:
-- 'automation/Catzc.Base.VSCode/**'
+scan:
+- '+ automation/Catzc.Base.VSCode/**'
 sha256: ce9be0f266d91a26917cb077c7f4db291dd82d37d56fb9320a79cc59a1f9e4b0

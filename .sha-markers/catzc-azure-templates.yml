@@ -1,6 +1,6 @@
 name: catzc-azure-templates
 description: Derived module scope - automation/Catzc.Azure.Templates/**
 layer: module
-include:
-- 'automation/Catzc.Azure.Templates/**'
+scan:
+- '+ automation/Catzc.Azure.Templates/**'
 sha256: d30d566ce24d5105eb91e104fd404fc16042a3e5aadfc00a1021fbedfdf79836

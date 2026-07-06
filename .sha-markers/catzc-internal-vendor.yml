@@ -1,6 +1,6 @@
 name: catzc-internal-vendor
 description: Derived internal-module scope - automation/.internal/Catzc.Internal.Vendor.psm1
 layer: module
-include:
-- 'automation/.internal/Catzc.Internal.Vendor.psm1'
+scan:
+- '+ automation/.internal/Catzc.Internal.Vendor.psm1'
 sha256: 628350647d31ddfbae0afc735aecdfd76baf845ccf288224a31b278bbe6fe0fc

@@ -4,14 +4,10 @@ layer: deployable-unit
 pipeline: cd-apex
 compose:
 - template-azure-subscription-foundation
-include:
-- 'infrastructure/templates/foundation/configuration/apex/**'
-resolved:
-  template-azure-subscription-foundation:
-    include:
-    - 'infrastructure/templates/foundation/**'
-    - 'infrastructure/modules/**'
-    exclude:
-    - 'infrastructure/templates/foundation/configuration/*.yml'
-    - 'infrastructure/templates/foundation/configuration/*/**'
+scan:
+- '+ infrastructure/templates/foundation/**'
+- '+ infrastructure/modules/**'
+- '- infrastructure/templates/foundation/configuration/*.yml'
+- '- infrastructure/templates/foundation/configuration/*/**'
+- '+ infrastructure/templates/foundation/configuration/apex/**'
 sha256: 331118c5271e3044f597a639461bd7d9b544194bb29812e88579087206c557f5

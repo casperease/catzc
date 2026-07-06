@@ -4,14 +4,10 @@ layer: deployable-unit
 pipeline: cd-shared
 compose:
 - template-azure-subscription-foundation
-include:
-- 'infrastructure/templates/foundation/configuration/*.yml'
-resolved:
-  template-azure-subscription-foundation:
-    include:
-    - 'infrastructure/templates/foundation/**'
-    - 'infrastructure/modules/**'
-    exclude:
-    - 'infrastructure/templates/foundation/configuration/*.yml'
-    - 'infrastructure/templates/foundation/configuration/*/**'
+scan:
+- '+ infrastructure/templates/foundation/**'
+- '+ infrastructure/modules/**'
+- '- infrastructure/templates/foundation/configuration/*.yml'
+- '- infrastructure/templates/foundation/configuration/*/**'
+- '+ infrastructure/templates/foundation/configuration/*.yml'
 sha256: 9aff95cc9939789ea505340428099a39b21e4a3cc71c423cb31a8a5e3fd8d929
