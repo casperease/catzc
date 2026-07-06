@@ -7,8 +7,8 @@
     'catzc-base-globs') including 'automation/<Module>/**' — the module's functions, private helpers, types,
     configs, and its own tests. The reserved names cover the dot-prefixed infrastructure every module's test
     results also depend on: 'internal', 'vendor', 'compiled', 'scriptanalyzer'. Derived sets exist for
-    protection scoping only — Update-Trigger/Test-Trigger iterate the declared registry, so a derived set
-    never gains a trigger file. A declared globset may not shadow a derived name; the collision throws here,
+    protection scoping only — Update-ShaMarker/Test-ShaMarker iterate the declared registry, so a derived set
+    never gains a marker file. A declared globset may not shadow a derived name; the collision throws here,
     naming both sides.
 .PARAMETER Name
     A module folder name ('Catzc.Base.Globs'), its kebab form ('catzc-base-globs'), or a reserved infra name
