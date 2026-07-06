@@ -4,6 +4,12 @@ Describe 'Set-BicepTrackingTagSet' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
+        # The scope subscription is the az session's — the whole-boundary session mock (ADR-PESTER:3).
+        Mock Get-AzCliSessionSubscription {
+            [ordered]@{ name = 'core_lower'; id = '00000000-0000-0000-0000-000000000002'; customer = ''
+                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            }
+        } -ModuleName Catzc.Azure.Templates
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'

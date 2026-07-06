@@ -71,7 +71,13 @@ function Get-BicepTemplateConfiguration {
         Join-Path $templateDescriptor.configuration_folder $Customer
     }
     $environmentFile = Join-Path $folder "$configName.yml"
-    Assert-PathExist $environmentFile -PathType Leaf
+    $where = if ([string]::IsNullOrEmpty($Customer)) {
+        'at the configuration root'
+    }
+    else {
+        "under configuration/$Customer/"
+    }
+    Assert-PathExist $environmentFile -PathType Leaf -ErrorText "Template '$Template' has no config '$configName.yml' $where ($environmentFile)"
 
     Get-Content $environmentFile -Raw | ConvertFrom-Yaml -Ordered
 }
