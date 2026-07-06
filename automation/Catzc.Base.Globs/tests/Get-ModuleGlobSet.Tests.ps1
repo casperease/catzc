@@ -11,8 +11,10 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
             'automation/.internal/Catzc.Internal.Alpha.psm1' = 'function Test-InternalAlpha {}'
             'automation/.internal/Catzc.Internal.Beta.psm1'  = 'function Test-InternalBeta {}'
         }
+        # Neutral fixture globset name (widget), not the real 'automation' track (ADR-TEST:3); this declared
+        # set only needs to exist so the shadow-check has a registry to compare the derived names against.
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
-                globsets = @{ automation = @{ description = 'd'; layer = 'track'; include = @('automation/**'); exclude = @('.sha-markers/**') } }
+                globsets = @{ widget = @{ description = 'd'; layer = 'track'; include = @('src/**'); exclude = @('.sha-markers/**') } }
             })
     }
 

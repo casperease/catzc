@@ -12,17 +12,18 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
     Context 'a valid registry' {
         It 'constructs and exposes the sets with lookup' {
+            # Neutral fixture globset names (widget/gadget), not the real track/deployable-unit names (ADR-TEST:3).
             $c = & $script:make @{
-                'automation' = @{ description = 'the automation layer'; layer = 'track'; include = @('automation/**', 'importer.ps1') }
-                'apex'       = @{ description = 'the apex unit'; layer = 'deployable-unit'; include = @('infrastructure/**'); exclude = @('**/*.md') }
+                'widget' = @{ description = 'the widget track'; layer = 'track'; include = @('src/**', 'main.ps1') }
+                'gadget' = @{ description = 'the gadget unit'; layer = 'deployable-unit'; include = @('lib/**'); exclude = @('**/*.md') }
             }
             $c.globsets.Count | Should -Be 2
-            $c.Names | Should -Contain 'automation'
-            $c.Contains('apex') | Should -BeTrue
+            $c.Names | Should -Contain 'widget'
+            $c.Contains('gadget') | Should -BeTrue
             $c.Contains('nope') | Should -BeFalse
-            $c.Get('apex').MarkerPath | Should -Be '.sha-markers/apex.yml'
-            $c.Get('apex').Layer | Should -Be 'deployable-unit'
-            $c.Get('apex').Matches('infrastructure/x/readme.md') | Should -BeFalse
+            $c.Get('gadget').MarkerPath | Should -Be '.sha-markers/gadget.yml'
+            $c.Get('gadget').Layer | Should -Be 'deployable-unit'
+            $c.Get('gadget').Matches('lib/x/readme.md') | Should -BeFalse
         }
 
         It 'throws a named error on an unknown set lookup' {

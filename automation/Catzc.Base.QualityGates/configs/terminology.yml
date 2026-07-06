@@ -358,8 +358,6 @@ terms:
       meaning: 'derived short_name of the ''survey'' example template (documentation-examples ADR)'
     - term: systemet
       meaning: 'author''s docs/notes topic-folder name ''systemet'' cited in the conventional-folders ADR'
-    - term: vmsmpldeweu
-      meaning: 'expected VM resource name in Get-AzureResourceName tests (vm / sample / dev / westeurope)'
     - term: wksp
       meaning: 'resource-name shortcode for ''workspace'' (wksp) in test assets'
   adr:

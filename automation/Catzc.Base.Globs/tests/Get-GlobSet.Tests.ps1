@@ -1,10 +1,12 @@
 # The typed read of globs.yml: all sets in registry order, named lookup, throwing on an unknown name.
 Describe 'Get-GlobSet' -Tag 'L0', 'logic' {
     BeforeAll {
+        # Neutral fixture globset names (widget/gadget), not the real track/deployable-unit names, so this
+        # logic test owns its inputs and editing the shipped globs.yml can never change its outcome (ADR-TEST:3).
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
-                    'automation' = @{ description = 'the automation layer'; layer = 'track'; include = @('automation/**') }
-                    'apex'       = @{ description = 'the apex unit'; layer = 'deployable-unit'; include = @('infrastructure/**') }
+                    'widget' = @{ description = 'the widget track'; layer = 'track'; include = @('src/**') }
+                    'gadget' = @{ description = 'the gadget unit'; layer = 'deployable-unit'; include = @('lib/**') }
                 }
             })
     }
@@ -16,21 +18,21 @@ Describe 'Get-GlobSet' -Tag 'L0', 'logic' {
     It 'returns every globset in registry order when no name is given' {
         $sets = Get-GlobSet
         $sets.Count | Should -Be 2
-        $sets[0].Name | Should -Be 'automation'
-        $sets[1].Name | Should -Be 'apex'
+        $sets[0].Name | Should -Be 'widget'
+        $sets[1].Name | Should -Be 'gadget'
     }
 
     It 'returns the named globsets, in the order asked' {
-        $sets = Get-GlobSet -Name apex, automation
-        $sets[0].Name | Should -Be 'apex'
-        $sets[1].Name | Should -Be 'automation'
+        $sets = Get-GlobSet -Name gadget, widget
+        $sets[0].Name | Should -Be 'gadget'
+        $sets[1].Name | Should -Be 'widget'
     }
 
     It 'returns typed GlobSet objects with working membership' {
-        $set = Get-GlobSet -Name apex
+        $set = Get-GlobSet -Name gadget
         $set | Should -BeOfType [Catzc.Base.Globs.GlobSet]
-        $set.Matches('infrastructure/templates/apex/main.bicep') | Should -BeTrue
-        $set.MarkerPath | Should -Be '.sha-markers/apex.yml'
+        $set.Matches('lib/templates/gadget/main.bicep') | Should -BeTrue
+        $set.MarkerPath | Should -Be '.sha-markers/gadget.yml'
     }
 
     It 'throws a named error on an unknown globset' {

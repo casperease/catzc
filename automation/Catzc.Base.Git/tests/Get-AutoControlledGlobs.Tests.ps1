@@ -43,5 +43,9 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         & $isControlled 'out/plan-obj.md' | Should -BeTrue
         & $isControlled 'automation/Catzc.Base.Git/New-Draft.ps1' | Should -BeFalse
         & $isControlled 'automation/.compiled/Catzc.Types.abc123.dll' | Should -BeFalse
+        # drawio autosave shadows are disposable clutter; the committed asset beside them is NOT
+        & $isControlled 'docs/.assets/deployable-units/.$apex.drawio.png.bkp' | Should -BeTrue
+        & $isControlled 'docs/.assets/modules/.$catzc-azure.drawio.png.bkp' | Should -BeTrue
+        & $isControlled 'docs/.assets/deployable-units/apex.drawio.png' | Should -BeFalse
     }
 }

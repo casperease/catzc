@@ -1,12 +1,14 @@
 Describe 'Assert-NetworkConfig' -Tag 'L0' {
     BeforeAll {
-        # Mirrors the four azure.yml environments so the cross-asset integrity checks are satisfied.
+        # Fixture network plan — deliberately-distinct Greek env names (alpha/beta/gamma/delta), NOT the
+        # shipped dev/test/preprod/prod, so this logic test owns its identity inputs and editing azure.yml
+        # can never change its outcome (ADR-TEST:1, ADR-TEST:3).
         $script:baseConfig = [ordered]@{
             environments = [ordered]@{
-                dev     = [ordered]@{ vnet_address_space = '10.10.0.0/16'; default_subnet = '10.10.0.0/24' }
-                test    = [ordered]@{ vnet_address_space = '10.20.0.0/16'; default_subnet = '10.20.0.0/24' }
-                preprod = [ordered]@{ vnet_address_space = '10.30.0.0/16'; default_subnet = '10.30.0.0/24' }
-                prod    = [ordered]@{ vnet_address_space = '10.40.0.0/16'; default_subnet = '10.40.0.0/24' }
+                alpha = [ordered]@{ vnet_address_space = '10.10.0.0/16'; default_subnet = '10.10.0.0/24' }
+                beta  = [ordered]@{ vnet_address_space = '10.20.0.0/16'; default_subnet = '10.20.0.0/24' }
+                gamma = [ordered]@{ vnet_address_space = '10.30.0.0/16'; default_subnet = '10.30.0.0/24' }
+                delta = [ordered]@{ vnet_address_space = '10.40.0.0/16'; default_subnet = '10.40.0.0/24' }
             }
         }
     }
@@ -19,6 +21,23 @@ Describe 'Assert-NetworkConfig' -Tag 'L0' {
     }
 
     Context 'logic (fixture configs)' -Tag 'logic' {
+        BeforeAll {
+            # Assert-NetworkConfig cross-checks the network plan against azure.yml's environments. Mock that
+            # read to a fixture azure config with the SAME Greek env set, so the logic test is hermetic — it
+            # does not depend on which environments the shipped azure.yml happens to declare today.
+            $script:fixtureAzure = [ordered]@{
+                environments = [ordered]@{
+                    alpha = [ordered]@{ shortcode = 'al'; region = 'westeurope'; region_code = 'weu' }
+                    beta  = [ordered]@{ shortcode = 'bt'; region = 'westeurope'; region_code = 'weu' }
+                    gamma = [ordered]@{ shortcode = 'gm'; region = 'westeurope'; region_code = 'weu' }
+                    delta = [ordered]@{ shortcode = 'dl'; region = 'westeurope'; region_code = 'weu' }
+                    subn  = [ordered]@{ shortcode = 'sn'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
+                    subp  = [ordered]@{ shortcode = 'sp'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
+                }
+            }
+            Mock Get-Config { $script:fixtureAzure } -ParameterFilter { $Config -eq 'azure' } -ModuleName Catzc.Azure
+        }
+
         It 'passes for a minimal valid config' {
             { & (Get-Module Catzc.Azure) { Assert-NetworkConfig $args[0] } (Copy-Object $baseConfig) } | Should -Not -Throw
         }
@@ -30,31 +49,31 @@ Describe 'Assert-NetworkConfig' -Tag 'L0' {
 
         It 'throws when an environment is missing vnet_address_space' {
             $bad = Copy-Object $baseConfig
-            $bad.environments.dev.Remove('vnet_address_space')
+            $bad.environments.alpha.Remove('vnet_address_space')
             { & (Get-Module Catzc.Azure) { Assert-NetworkConfig $args[0] } $bad } | Should -Throw "*missing 'vnet_address_space'*"
         }
 
         It 'throws when an environment is missing default_subnet' {
             $bad = Copy-Object $baseConfig
-            $bad.environments.dev.Remove('default_subnet')
+            $bad.environments.alpha.Remove('default_subnet')
             { & (Get-Module Catzc.Azure) { Assert-NetworkConfig $args[0] } $bad } | Should -Throw "*missing 'default_subnet'*"
         }
 
         It 'throws when a range is not a CIDR' {
             $bad = Copy-Object $baseConfig
-            $bad.environments.dev.vnet_address_space = 'not-a-cidr'
+            $bad.environments.alpha.vnet_address_space = 'not-a-cidr'
             { & (Get-Module Catzc.Azure) { Assert-NetworkConfig $args[0] } $bad } | Should -Throw '*invalid vnet_address_space*'
         }
 
         It 'throws when a prefix length is out of range' {
             $bad = Copy-Object $baseConfig
-            $bad.environments.dev.default_subnet = '10.10.0.0/40'
+            $bad.environments.alpha.default_subnet = '10.10.0.0/40'
             { & (Get-Module Catzc.Azure) { Assert-NetworkConfig $args[0] } $bad } | Should -Throw '*invalid default_subnet*'
         }
 
         It 'throws when an address octet is invalid' {
             $bad = Copy-Object $baseConfig
-            $bad.environments.dev.vnet_address_space = '10.999.0.0/16'
+            $bad.environments.alpha.vnet_address_space = '10.999.0.0/16'
             { & (Get-Module Catzc.Azure) { Assert-NetworkConfig $args[0] } $bad } | Should -Throw '*invalid vnet_address_space*'
         }
 
@@ -66,8 +85,8 @@ Describe 'Assert-NetworkConfig' -Tag 'L0' {
 
         It 'throws when an azure.yml environment has no network entry' {
             $bad = Copy-Object $baseConfig
-            $bad.environments.Remove('prod')
-            { & (Get-Module Catzc.Azure) { Assert-NetworkConfig $args[0] } $bad } | Should -Throw "*environment 'prod' has no network entry*"
+            $bad.environments.Remove('delta')
+            { & (Get-Module Catzc.Azure) { Assert-NetworkConfig $args[0] } $bad } | Should -Throw "*environment 'delta' has no network entry*"
         }
 
         It 'throws when an environment key is not a valid identifier' {

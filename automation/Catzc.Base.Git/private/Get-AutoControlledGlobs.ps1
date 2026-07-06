@@ -14,7 +14,8 @@
       materialised link by the generated-readmes contract — a hand-authored README is only safe once
       opted in and committed), the generated cspell dictionaries (.cspell/), the transient output root
       (out/ — disposable by the dedicated-output-directory contract), the IDE-only C# project's build
-      output (bin/obj under automation/.internal/assets), and the compiled-type *.tmp scratch.
+      output (bin/obj under automation/.internal/assets), the compiled-type *.tmp scratch, and the
+      drawio editor's autosave shadows ('.$*.drawio.png.bkp' beside a committed .drawio.png asset).
 
     Patterns are repo-relative, '/'-separated -like globs; a directory is listed both bare and with a
     trailing /* so a whole-folder candidate from `git clean` matches too.
@@ -64,6 +65,10 @@ function Get-AutoControlledGlobs {
 
     # The compiled-type build scratch — only *.tmp is gitignored there; the hash-keyed DLL is committed.
     $ret.Add('automation/.compiled/*.tmp')
+
+    # drawio editor autosave shadows ('.$<name>.drawio.png.bkp') — disposable copies the editor writes
+    # beside a committed .drawio.png asset (drawio-diagrams-and-cli); regenerable, safe to clean.
+    $ret.Add('**/.$*.drawio.png.bkp')
 
     , $ret.ToArray()
 }
