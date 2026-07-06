@@ -123,12 +123,12 @@ terms:
       meaning: 'plural of venv'
     - term: importlib
       meaning: 'Python importlib.metadata (stdlib) — reads an installed package''s version without importing it'
-    - term: workstream
-      meaning: 'workstream (a parallel line of work)'
     - term: yoke
       meaning: 'the ''yoke'' of poka-yoke'
     - term: catzc
       meaning: 'Catzc (this repository / module namespace) — the Cloud Automation Toolkit, Zero-Ceremony; the reserved source-code-level name; "cats" is its conversational cover term'
+    - term: pathspec
+      meaning: 'a git pathspec (the path-filter argument to git add/commit/grep/log)'
     - term: pathspecs
       meaning: 'git pathspecs (the path-filter arguments passed to git grep/git log)'
     - term: fileset
