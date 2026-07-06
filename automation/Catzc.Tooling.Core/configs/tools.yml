@@ -12,7 +12,10 @@ winget:
     - "%LOCALAPPDATA%\\Microsoft\\WindowsApps"
 
 python:
-  version: "3.14"
+  # 3.13, not the latest (3.14): stay one release behind the bleeding edge so dependents that lag the newest
+  # Python still work. The az_cli venv runs on this interpreter and azure-cli supports only up to 3.13 — the
+  # max_python gate on az_cli (Assert-ToolsConfig) fails the build if this is bumped past what a dependent allows.
+  version: "3.13"
   command: python
   # Provisioned by uv (`uv python install <version> --default`) — user-space, cross-platform, installing a
   # global python/python3 shim into uv's bin (~/.local/bin). depends_on uv so uv is present first.
@@ -47,6 +50,9 @@ az_cli:
   # depends_on uv so uv is provisioned first.
   depends_on: uv
   uv_venv: azure-cli
+  # azure-cli 2.87 supports Python only up to 3.13. Its venv runs on the toolchain's `python` pin, so this caps
+  # how far Python may be bumped — Assert-ToolsConfig fails the build if python's version exceeds this.
+  max_python: "3.13"
   # azure-cli's dependency tree pins a pre-release (azure-batch beta), which uv refuses by default.
   uv_allow_prerelease: true
   version_command: "az version --output tsv"

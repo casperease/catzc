@@ -18,11 +18,17 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter { $Message -like '*pipeline*' }
     }
 
-    It 'skips on <_> with a message and no sync' -ForEach 'main', 'master', 'HEAD' {
-        Mock Get-GitCurrentBranch { $_ } -ModuleName Catzc.Base.ModuleSystem
+    It 'skips on a detached HEAD with a message and no sync' {
+        Mock Get-GitCurrentBranch { 'HEAD' } -ModuleName Catzc.Base.ModuleSystem
         Sync-GeneratedFile | Should -BeNullOrEmpty
         Should -Invoke Update-Trigger -ModuleName Catzc.Base.ModuleSystem -Times 0
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
+    }
+
+    It 'commits on <_> — trunk-based: any named branch is the integration path' -ForEach 'main', 'master' {
+        Mock Get-GitCurrentBranch { $_ } -ModuleName Catzc.Base.ModuleSystem
+        Sync-GeneratedFile | Should -Not -BeNullOrEmpty
+        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
     }
 
     It 'syncs, commits both generated paths, and reports the branch on a clean tree' {

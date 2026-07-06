@@ -1,8 +1,12 @@
 Describe 'Install-UvVenvTool' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-ToolConfig {
-            if ($Tool -eq 'python') { [pscustomobject]@{ version = '3.14' } }
-            else { [pscustomobject]@{ uv_venv = 'azure-cli'; command = 'az'; version = '2.87'; uv_allow_prerelease = $true } }
+            if ($Tool -eq 'python') {
+                [pscustomobject]@{ version = '3.14' }
+            }
+            else {
+                [pscustomobject]@{ uv_venv = 'azure-cli'; command = 'az'; version = '2.87'; uv_allow_prerelease = $true }
+            }
         } -ModuleName Catzc.Tooling.Core
         Mock Sync-SessionPath { } -ModuleName Catzc.Tooling.Core
         Mock Assert-Command { } -ModuleName Catzc.Tooling.Core
@@ -15,7 +19,7 @@ Describe 'Install-UvVenvTool' -Tag 'L0', 'logic' {
         Mock Get-ToolVersion { '2.87.0' } -ModuleName Catzc.Tooling.Core
         Install-UvVenvTool -Tool 'az_cli'
         Should -Invoke Invoke-Uv -ModuleName Catzc.Tooling.Core -Times 1 -ParameterFilter {
-            $Arguments -like 'venv *az_cli* --python 3.14 --clear'
+            $Arguments -like 'venv *az_cli* --python 3.14 --clear --seed'
         }
     }
 

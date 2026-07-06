@@ -42,18 +42,26 @@ function Install-UvVenvTool {
     }
 
     $venvDir = Get-UvVenvDir -Tool $Tool
-    $scriptsDir = if ($IsWindows) { Join-Path $venvDir 'Scripts' } else { Join-Path $venvDir 'bin' }
+    $scriptsDir = if ($IsWindows) {
+        Join-Path $venvDir 'Scripts'
+    }
+    else {
+        Join-Path $venvDir 'bin'
+    }
 
-    # --clear rebuilds the venv so a -Force or version change starts clean.
-    Invoke-Uv "venv `"$venvDir`" --python $pythonVersion --clear"
+    # --clear rebuilds the venv clean; --seed adds pip/setuptools/wheel so packages that expect `pkg_resources`
+    # (azure-cli's azure-devops extension) can load.
+    Invoke-Uv "venv `"$venvDir`" --python $pythonVersion --clear --seed"
     Invoke-Uv "pip install --python `"$venvDir`" $($config.uv_venv)==$Version.*" -Prerelease:$config.uv_allow_prerelease
 
     Sync-SessionPath
 
-    # Put the venv's script directory on the session PATH (the janitor keeps it there each load via the tool's
-    # session_path_hints), so the launcher — beside the venv's python — resolves.
+    # APPEND the venv's script directory to PATH (the janitor keeps it there each load via session_path_hints).
+    # Append, not prepend: the venv's Scripts dir also holds its own python.exe, and prepending would shadow the
+    # uv-managed `python` on ~/.local/bin. The tool's command resolves from here because nothing earlier provides
+    # it, while `python` stays the managed interpreter.
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $scriptsDir) {
-        $env:PATH = "$scriptsDir$([System.IO.Path]::PathSeparator)$env:PATH"
+        $env:PATH = "$env:PATH$([System.IO.Path]::PathSeparator)$scriptsDir"
     }
 
     Assert-Command $config.command -ErrorText "$Tool was installed into '$venvDir' but '$($config.command)' is not on PATH — its session_path_hints must include '$scriptsDir'."

@@ -16,5 +16,17 @@ Describe 'Assert-ToolsConfig' -Tag 'L0' {
             { & (Get-Module Catzc.Tooling.Core) { Assert-ToolsConfig $args[0] } $bad } |
                 Should -Throw '*snake_case*'
         }
+
+        It 'throws when the python pin exceeds a tool''s max_python' {
+            $bad = [ordered]@{ python = [ordered]@{ version = '3.14' }; az_cli = [ordered]@{ max_python = '3.13' } }
+            { & (Get-Module Catzc.Tooling.Core) { Assert-ToolsConfig $args[0] } $bad } |
+                Should -Throw '*supports Python <= 3.13*'
+        }
+
+        It 'accepts a python pin at or below max_python' {
+            $ok = [ordered]@{ python = [ordered]@{ version = '3.13' }; az_cli = [ordered]@{ max_python = '3.13' } }
+            { & (Get-Module Catzc.Tooling.Core) { Assert-ToolsConfig $args[0] } $ok } |
+                Should -Not -Throw
+        }
     }
 }

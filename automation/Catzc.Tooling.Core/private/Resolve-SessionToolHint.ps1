@@ -39,13 +39,15 @@ function Resolve-SessionToolHint {
             continue
         }
 
-        # Point THIS session at it: prepend so it wins over anything already on PATH.
+        # Point THIS session at it by APPENDING the hint dir. The hint only fires when the command is otherwise
+        # unresolvable, so nothing conflicts — and appending avoids a hint dir that also holds a python.exe (an
+        # az uv-venv Scripts dir) shadowing the managed `python` on ~/.local/bin.
         $sep = [System.IO.Path]::PathSeparator
         if (($env:PATH -split $sep) -notcontains $dir) {
-            $env:PATH = "$dir$sep$env:PATH"
+            $env:PATH = "$env:PATH$sep$dir"
         }
-        # -First 1: with the hint dir prepended, the command may now resolve in MORE than one PATH dir —
-        # an array's .Source would break the [string] -Location binding downstream.
+        # -First 1: the command may now resolve in more than one PATH dir — an array's .Source would break the
+        # [string] -Location binding downstream.
         return Get-Command $Config.command -CommandType Application -ErrorAction Ignore | Select-Object -First 1
     }
 

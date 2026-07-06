@@ -50,7 +50,12 @@ function Test-ExpectedPackageManager {
         if (-not (Test-Command $Config.command)) {
             return $false
         }
-        $venvRoot = if ($IsWindows) { Join-Path $env:LOCALAPPDATA 'catzc\venvs' } else { Join-Path $HOME '.local/share/catzc/venvs' }
+        $venvRoot = if ($IsWindows) {
+            Join-Path $env:LOCALAPPDATA 'catzc\venvs'
+        }
+        else {
+            Join-Path $HOME '.local/share/catzc/venvs'
+        }
         return (Get-Command $Config.command).Source -like "$venvRoot*"
     }
 

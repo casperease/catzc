@@ -55,6 +55,10 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // in ~/.local/bin breaks. Null when venv install is not the path.
     public string uv_venv             { get; }
 
+    // Highest Python version this tool supports (runs under). The Assert-ToolsConfig gate fails the build if the
+    // toolchain's python pin exceeds it — keeping Python off a bleeding-edge release a dependent cannot use.
+    public string max_python          { get; }
+
     // True when this tool is Python itself, provisioned by `uv python install --default`. Null/false otherwise.
     public bool   uv_python           { get; }
 
@@ -103,6 +107,7 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
         uv_tool             = OptStr(d, "uv_tool");
         uv_allow_prerelease = Flag(d, "uv_allow_prerelease");
         uv_venv             = OptStr(d, "uv_venv");
+        max_python          = OptStr(d, "max_python");
         uv_python           = Flag(d, "uv_python");
         script_install      = Flag(d, "script_install");
         system_provided     = Flag(d, "system_provided");

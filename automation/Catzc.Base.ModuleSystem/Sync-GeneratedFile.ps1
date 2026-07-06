@@ -12,11 +12,13 @@
     Guards, in order — each skip is one explanatory message, and every guard leaves the working tree
     untouched or merely re-synced, never committed:
     - Skips in CI (Test-IsRunningInPipeline): the gates there must fail loudly, not be auto-repaired.
-    - Skips on main/master and on a detached HEAD: auto-writing the mainline outside the normal
-      integration path is what docs/adr/design/ci-discipline-and-promotion-flow.md forbids.
+    - Skips on a detached HEAD: a commit there hangs off no branch and is one checkout away from lost.
     - Skips the commit (but still syncs) while the tracked working tree is dirty outside the generated
       paths: the durable SHA hashes working-tree content, so a trigger committed from a dirty tree would
       match neither that commit nor HEAD.
+    Any named branch commits — including main: the repository is trunk-based (one-living-version), so
+    main IS the integration path, the switch is explicit consent, and the dirty-tree guard means the
+    commit only ever carries regenerated derived state that CI re-verifies by hash.
 .PARAMETER DryRun
     Propagated to Invoke-GitCommit: the trigger files are still regenerated (Update-Trigger is
     idempotent), but instead of committing, the planned git commands are returned.
@@ -43,8 +45,8 @@ function Sync-GeneratedFile {
     }
 
     $branch = Get-GitCurrentBranch
-    if ($branch -in 'main', 'master', 'HEAD') {
-        Write-Message "Skipped: auto-committing generated files is for feature branches, not '$branch'."
+    if ($branch -eq 'HEAD') {
+        Write-Message 'Skipped: detached HEAD — a commit here hangs off no branch.'
         return
     }
 

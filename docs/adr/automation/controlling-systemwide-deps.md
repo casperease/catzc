@@ -236,7 +236,7 @@ local runs.
 # native task activates the locked version, then our installer asserts/installs
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: "3.14"
+    versionSpec: "3.13"
 - template: /pipelines/steps/invoke-automation.yaml
   parameters:
     RunCommand: "Install-AzCli -Force" # uv tool, depends on uv

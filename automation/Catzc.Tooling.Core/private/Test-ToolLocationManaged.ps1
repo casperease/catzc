@@ -42,7 +42,12 @@ function Test-ToolLocationManaged {
 
     # uv-venv tools (az_cli) live under the toolchain's dedicated venv root.
     if ($Config.uv_venv) {
-        $venvRoot = if ($IsWindows) { Join-Path $env:LOCALAPPDATA 'catzc\venvs' } else { Join-Path $HOME '.local/share/catzc/venvs' }
+        $venvRoot = if ($IsWindows) {
+            Join-Path $env:LOCALAPPDATA 'catzc\venvs'
+        }
+        else {
+            Join-Path $HOME '.local/share/catzc/venvs'
+        }
         return $loc.StartsWith($venvRoot.TrimEnd('\', '/'), [System.StringComparison]::OrdinalIgnoreCase)
     }
 

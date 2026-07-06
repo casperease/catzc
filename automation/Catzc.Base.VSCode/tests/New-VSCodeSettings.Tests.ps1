@@ -7,7 +7,7 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
                 settings = [ordered]@{
                     'editor.tabSize' = 4
                     'search.exclude' = [ordered]@{
-                        'automation/.vendor' = $true
+                        'automation/.vendor'   = $true
                         'keep/searchable.psd1' = $false
                     }
                 }

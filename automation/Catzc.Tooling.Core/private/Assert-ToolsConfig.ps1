@@ -21,4 +21,19 @@ function Assert-ToolsConfig {
     )
 
     Assert-YmlNaming $Config
+
+    # Never let the toolchain's Python outrun what a dependent supports. A tool declaring max_python (e.g.
+    # az_cli, whose venv runs the Azure CLI, which supports only up to 3.13) fails the build if the pinned
+    # python version exceeds it — a poka-yoke against bumping Python to a bleeding-edge release its dependents
+    # cannot use.
+    $python = $Config['python']
+    if ($python -and $python['version']) {
+        $pythonVersion = [version] $python['version']
+        foreach ($key in $Config.Keys) {
+            $max = $Config[$key]['max_python']
+            if ($max -and $pythonVersion -gt [version] $max) {
+                throw "Python is pinned to $($python['version']), but '$key' supports Python <= $max. Lower python's version, or raise '$key''s max_python — the toolchain does not run bleeding-edge Python past a dependent's support."
+            }
+        }
+    }
 }
