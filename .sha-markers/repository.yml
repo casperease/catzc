@@ -6,4 +6,4 @@ scan:
 - '- .sha-markers/**'
 - '- automation/**'
 - '- infrastructure/**'
-sha256: d0584dcbbd68d97570c3dacc1e44bbabaa9fc837ba61f567bd714b0835a38a44
+sha256: 428a4f6425ec05342e51d6bed584c0a2e70cafea1c2e9ae496fe211bb2d46985
