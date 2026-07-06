@@ -177,14 +177,7 @@ function Test-Automation {
     if (-not $OutputFolder) {
         $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) 'test-automation'
     }
-    $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
-    $runDir = Join-Path $OutputFolder $stamp
-    $i = 2
-    while (Test-Path $runDir) {
-        $runDir = Join-Path $OutputFolder "$stamp-$i"
-        $i++
-    }
-    New-Item -ItemType Directory -Path $runDir -Force | Out-Null
+    $runDir = New-TestAutomationRunDirectory -OutputFolder $OutputFolder
 
     # The run's self-describing state record (run.json): stamped 'running' now, and terminally
     # ('passed'|'failed'|'crashed') in the finally below — so a reader never has to infer completeness from
