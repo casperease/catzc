@@ -3,4 +3,4 @@ description: Derived module scope - automation/Catzc.Azure.DevOps/**
 layer: module
 scan:
 - '+ automation/Catzc.Azure.DevOps/**'
-sha256: b9dd7677830cf8480986945bd2c4b501a4aa890c69fe30f023cd2c928ead7d2b
+sha256: 1d05c97f48d9b44f15cdf654a4af447f23f9f2c4a5cf58ebc46664e0bdc7816d
