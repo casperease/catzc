@@ -644,6 +644,8 @@ terms:
   platform:
     - term: clr
       meaning: 'the Common Language Runtime (CLR)'
+    - term: consolas
+      meaning: 'the Consolas monospace font (the VS Code markdown-preview font in vscode-settings.yml)'
     - term: pwd
       meaning: 'the $PWD present-working-directory automatic variable (e.g. Measure-NeverDependOnPwd)'
     - term: stderr
