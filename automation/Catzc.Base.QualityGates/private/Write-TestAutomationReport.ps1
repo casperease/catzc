@@ -56,8 +56,10 @@ function Write-TestAutomationReport {
     }
 
     # tests.csv — one row per test, slowest first (the report's columns; failure detail stays in summary.md).
+    # Rules carries the ADR provenance citations, so tests.csv is the backtrack table: filter it by a rule to
+    # find every test that enforces it.
     $csvRows = @($Rows |
-            Select-Object ExpandedPath, Result, DurationMs, Level, Category, File, Line |
+            Select-Object ExpandedPath, Result, DurationMs, Level, Category, Rules, File, Line |
             Sort-Object -Property DurationMs -Descending)
     $csvRows | Export-Csv -Path (Join-Path $OutputFolder 'tests.csv') -NoTypeInformation -Encoding utf8
 
