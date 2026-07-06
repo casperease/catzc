@@ -28,12 +28,10 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
             [Catzc.Base.Globs.GlobSet]::new($Name.ToLowerInvariant().Replace('.', '-'), 'd', 'module', @('x/**'), @(), @(), @(), -1, $null)
         } -ModuleName Catzc.Base.QualityGates
         Mock Get-GlobSetHash {
-            $setName = if ($Name) {
-                $Name
-            }
-            else {
-                $GlobSet.Name
-            }
+            # StrictMode-safe: read the bound auto-variable without referencing an unset $Name/$GlobSet
+            # (the -Name path and the -GlobSet path each set only one of them).
+            $byName = Get-Variable -Name Name -ValueOnly -ErrorAction Ignore
+            $setName = if ($byName) { $byName } else { (Get-Variable -Name GlobSet -ValueOnly -ErrorAction Ignore).Name }
             $script:setHashes[$setName]
         } -ModuleName Catzc.Base.QualityGates
     }
