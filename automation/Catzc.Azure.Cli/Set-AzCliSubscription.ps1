@@ -8,7 +8,7 @@
 .EXAMPLE
     Set-AzCliSubscription 'my-subscription'
 .EXAMPLE
-    Set-AzCliSubscription '00000000-0000-0000-0000-000000000000'
+    Set-AzCliSubscription '50a0ed00-de00-50b0-0000-000000000000'
 #>
 function Set-AzCliSubscription {
     [CmdletBinding()]

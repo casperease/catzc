@@ -52,8 +52,10 @@ Describe 'SentenceGuid' -Tag 'L0', 'logic' {
     }
 
     It 'yields the all-zeros GUID for an input with no mappable characters' {
+        # Compared as [guid]::Empty, not a literal — the all-zeros GUID is on the registry's denied list
+        # and never appears in tracked text.
         $result = [Catzc.Base.QualityGates.SentenceGuid]::Convert('!!! ??? ,,,')
-        "$result" | Should -BeExactly '00000000-0000-0000-0000-000000000000'
+        $result | Should -Be ([guid]::Empty)
     }
 
     It 'yields a valid GUID for every hostile input' {

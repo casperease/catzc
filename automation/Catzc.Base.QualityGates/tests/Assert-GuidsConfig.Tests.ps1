@@ -4,6 +4,9 @@ Describe 'Assert-GuidsConfig' -Tag 'L0', 'logic' {
             param($Config)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ C = $Config } { param($C) Assert-GuidsConfig -Config $C }
         }
+        # The all-zeros GUID is itself denied (it must not appear as a tracked literal), so build it at
+        # runtime — the same discipline the managed-guid gate enforces on every other file.
+        $script:zeroGuid = "$([guid]::Empty)"
     }
 
     It 'accepts a well-formed registry' {
@@ -17,6 +20,45 @@ Describe 'Assert-GuidsConfig' -Tag 'L0', 'logic' {
 
     It 'accepts an empty registry' {
         { & $script:assert ([ordered]@{ guids = $null }) } | Should -Not -Throw
+    }
+
+    It 'accepts a registry with a denied section' {
+        $config = [ordered]@{
+            denied = [ordered]@{
+                guid_zero = [ordered]@{ guid = $script:zeroGuid; description = 'the unset value' }
+            }
+            guids  = [ordered]@{
+                entry = [ordered]@{ guid = 'a100a000-7e57-7e0a-0700-000000000000'; description = 'x' }
+            }
+        }
+        { & $script:assert $config } | Should -Not -Throw
+    }
+
+    It 'throws when a denied guid is also registered' {
+        $config = [ordered]@{
+            denied = [ordered]@{
+                guid_zero = [ordered]@{ guid = $script:zeroGuid; description = 'the unset value' }
+            }
+            guids  = [ordered]@{
+                sneaky = [ordered]@{ guid = $script:zeroGuid; description = 'x' }
+            }
+        }
+        { & $script:assert $config } | Should -Throw '*Duplicate guid value*denied value can never also be registered*'
+    }
+
+    It 'throws when a denied entry carries a sentence' {
+        $config = [ordered]@{
+            denied = [ordered]@{
+                guid_zero = [ordered]@{ guid = $script:zeroGuid; description = 'x'; sentence = 'zero' }
+            }
+            guids  = $null
+        }
+        { & $script:assert $config } | Should -Throw "*denied entry 'guid_zero' carries unknown key 'sentence'*"
+    }
+
+    It 'throws on an unknown top-level key' {
+        $config = [ordered]@{ guids = $null; blocked = $null }
+        { & $script:assert $config } | Should -Throw "*unknown top-level key 'blocked'*"
     }
 
     It 'throws when the guids key is missing' {

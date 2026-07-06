@@ -72,8 +72,20 @@ Describe 'Repository guid integrity' -Tag 'L1', 'integrity' {
         foreach ($name in @($entries.Keys)) {
             [void]$registered.Add("$($entries[$name].guid)")
         }
+        $deniedEntries = (Get-Config -Config guids).denied
+        if ($null -eq $deniedEntries) {
+            $deniedEntries = [ordered]@{}
+        }
+        $denied = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+        foreach ($name in @($deniedEntries.Keys)) {
+            [void]$denied.Add("$($deniedEntries[$name].guid)")
+        }
 
         $found = @(Get-RepositoryGuids)
+
+        $deniedFound = @($found | Where-Object { $denied.Contains($_.guid) })
+        $deniedReport = @($deniedFound | ForEach-Object { "$($_.file):$($_.line) $($_.guid)" })
+        $deniedReport | Should -BeNullOrEmpty -Because 'a denied guid (guids.yml `denied:`) is never a legitimate identity and must not appear in tracked text — construct it at runtime (e.g. [guid]::Empty) instead'
 
         $unregistered = @($found | Where-Object { -not $registered.Contains($_.guid) })
         $unregisteredReport = @($unregistered | ForEach-Object { "$($_.file):$($_.line) $($_.guid)" })

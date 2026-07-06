@@ -10,6 +10,15 @@
 #   <snake_case_name>: { guid, description [, sentence] }
 #
 # cspell:ignore oilzstgq
+
+# The non-allow list: values that are never a legitimate identity. A denied guid can never be registered
+# under `guids:` (Assert-GuidsConfig rejects the overlap) and must never appear in tracked text (the
+# integrity gate names it as denied, not merely unregistered).
+denied:
+  guid_zero:
+    guid: 00000000-0000-0000-0000-000000000000
+    description: the all-zeros GUID — the unset/default value, never a real identity (also SentenceGuid's output for an input with no mappable characters)
+
 guids:
   # -- external-facing: values fixed by the outside world --------------------------------------------------
   ado_oauth_resource:
@@ -30,7 +39,7 @@ guids:
   tenant_placeholder:
     guid: fa0e0000-7e0a-0700-1d00-000000000000
     sentence: fake tenant id
-    description: shipped azure.yml 'placeholder' tenant id — echoed by fixtures and function help examples
+    description: shipped azure.yml 'placeholder' tenant id — echoed by ado.yml, fixtures, and function help examples
   subscription_shared_nonprod:
     guid: 50a0ed00-de00-50b0-0000-000000000000
     sentence: shared dev sub
@@ -57,9 +66,6 @@ guids:
     description: shipped azure.yml 'flux_nonprod' subscription id
 
   # -- test fixtures and documentation examples -------------------------------------------------------------
-  guid_zero:
-    guid: 00000000-0000-0000-0000-000000000000
-    description: the all-zeros GUID — SentenceGuid's output for an input with no mappable characters
   fixture_unknown_tenant_subscription:
     guid: 10570000-7e0a-0700-50b0-000000000000
     sentence: lost tenant sub

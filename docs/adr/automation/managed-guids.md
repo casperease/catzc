@@ -14,8 +14,11 @@ Every GUID literal in tracked text — code, configs, fixtures, pipelines, docs 
 ### Rule ADR-GUIDS:2
 
 A registry entry is name-keyed and strict: `<snake_case_name>: { guid, description [, sentence] }`. The `guid` is canonical (lowercase,
-hyphenated), guid values are unique across entries — a GUID has exactly one registered name — and unknown keys are rejected.
-`Assert-GuidsConfig` validates the file on load, collecting every violation into one throw.
+hyphenated), guid values are unique across entries — a GUID has exactly one registered name — and unknown keys are rejected. The registry
+also carries a `denied:` non-allow list — values that are never a legitimate identity, headed by the all-zeros GUID: a denied value can
+never be registered under `guids:` (the validator rejects the overlap) and must never appear in tracked text (the gate names it as denied;
+code that needs it constructs it at runtime, e.g. `[guid]::Empty`). `Assert-GuidsConfig` validates the file on load, collecting every
+violation into one throw.
 
 - [The registry](#the-registry)
 
@@ -72,6 +75,12 @@ authored source of truth, deliberate reviewed entries, a liveness rule, and a ga
 snake_case name — readable diffs, and the duplicate-guid check lives in the validator where YAML's silent last-key-wins cannot hide it.
 `description` says what the GUID identifies; `sentence` is present exactly when the value was minted from a sentence, so a minted
 placeholder carries its own decoding.
+
+The `denied:` section is the inverse table: values that are never a legitimate identity, with the all-zeros GUID as its first entry — it is
+the unset/default value (and `SentenceGuid`'s output for an input with no mappable characters), so registering it would bless every
+uninitialized field that happens to render it. A denied entry has the same name/guid/description shape but never a `sentence` (a denied
+value is not minted for use), and its liveness rule is inverted: a `guids:` entry must be referenced somewhere, a `denied:` entry must be
+referenced nowhere.
 
 ### The mint
 

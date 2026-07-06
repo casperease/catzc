@@ -11,5 +11,6 @@ organization: "https://dev.azure.com/Catzc"
 project: "CatzcProject"
 
 # Entra (Azure AD) tenant GUID backing the DevOps organization. The identity coupling: the az session
-# that mints an ADO token must be logged into this directory.
-tenant: "00000000-0000-0000-0000-000000000000"
+# that mints an ADO token must be logged into this directory. Placeholder ('fake tenant id', the same
+# minted tenant as azure.yml's) — replace with the real tenant per deployment target.
+tenant: "fa0e0000-7e0a-0700-1d00-000000000000"
