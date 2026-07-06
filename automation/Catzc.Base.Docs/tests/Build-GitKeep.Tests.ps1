@@ -70,7 +70,12 @@ Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L1', 'integrity' {
             @(Get-ReadmeMappings -Config (Get-Config -Config readme)).folder
         }
         $unbacked = foreach ($keep in $script:report.Path) {
-            $folder = if ($keep -eq '.gitkeep') { '.' } else { $keep -replace '/\.gitkeep$', '' }
+            $folder = if ($keep -eq '.gitkeep') {
+                '.'
+            }
+            else {
+                $keep -replace '/\.gitkeep$', ''
+            }
             if ($folder -notin $mapped) {
                 $keep
             }

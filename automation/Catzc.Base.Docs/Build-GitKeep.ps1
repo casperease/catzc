@@ -81,7 +81,12 @@ function Build-GitKeep {
         $changed = Write-FileIfChanged (Resolve-RepoPath $keep) $content -DryRun:$DryRun
 
         if ($changed -and -not $Silent) {
-            $verb = if ($DryRun) { 'would write' } else { 'wrote' }
+            $verb = if ($DryRun) {
+                'would write'
+            }
+            else {
+                'wrote'
+            }
             Write-Message "$verb $keep"
         }
         elseif ($emitVerbose -and -not $Silent) {
