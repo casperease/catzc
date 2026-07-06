@@ -121,6 +121,8 @@ terms:
       meaning: 'plural of venv'
     - term: importlib
       meaning: 'Python importlib.metadata (stdlib) — reads an installed package''s version without importing it'
+    - term: workstream
+      meaning: 'workstream (a parallel line of work)'
     - term: yoke
       meaning: 'the ''yoke'' of poka-yoke'
     - term: catzc
@@ -621,6 +623,8 @@ terms:
       meaning: 'Roslyn C# compiler'
     - term: scriptanalyzer
       meaning: 'PSScriptAnalyzer (''scriptanalyzer'')'
+    - term: setuptools
+      meaning: 'Python setuptools packaging library'
     - term: slnx
       meaning: 'Visual Studio .slnx solution format'
     - term: startuml
