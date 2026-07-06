@@ -20,13 +20,13 @@ Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-TEST#27' {
     }
 
     It 'unions citations across own tags and every ancestor block' {
-        $result = & $script:rules (New-FakeTest -OwnTags @('L0', 'logic', 'ADR-ERROR#3') -InnerTags @('ADR-ERROR#5') -OuterTags @('ADR-IDEM#1'))
-        $result | Should -Be @('ADR-ERROR#3', 'ADR-ERROR#5', 'ADR-IDEM#1')
+        $result = & $script:rules (New-FakeTest -OwnTags @('L0', 'logic', 'ADR-FAKE#1') -InnerTags @('ADR-FAKE#8') -OuterTags @('ADR-FAKE#2'))
+        $result | Should -Be @('ADR-FAKE#1', 'ADR-FAKE#2', 'ADR-FAKE#8')
     }
 
     It 'de-duplicates a citation carried at more than one level' {
-        $result = & $script:rules (New-FakeTest -OwnTags @('ADR-ERROR#3') -InnerTags @('ADR-ERROR#3'))
-        $result | Should -Be @('ADR-ERROR#3')
+        $result = & $script:rules (New-FakeTest -OwnTags @('ADR-FAKE#1') -InnerTags @('ADR-FAKE#1'))
+        $result | Should -Be @('ADR-FAKE#1')
     }
 
     It 'ignores the tier, category and serial tags' {

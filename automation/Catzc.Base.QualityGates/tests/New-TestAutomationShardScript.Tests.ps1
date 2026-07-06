@@ -59,10 +59,10 @@ Describe 'New-TestAutomationShardScript' -Tag 'logic' {
             $ruled = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
                 param($Dir)
                 New-TestAutomationShardScript -ShardIndex 5 -TestPath @('C:\repo\a.Tests.ps1') -RunDirectory $Dir `
-                    -ExcludeTag @('L3') -IncludeTag @('ADR-ERROR#3')
+                    -ExcludeTag @('L3') -IncludeTag @('ADR-FAKE#1')
             }
             $content = Get-Content -LiteralPath $ruled.ScriptPath -Raw
-            $content | Should -Match ([regex]::Escape("@('L3') @('ADR-ERROR#3')"))
+            $content | Should -Match ([regex]::Escape("@('L3') @('ADR-FAKE#1')"))
             $content | Should -Match ([regex]::Escape('-IncludeTag $includeTag'))
         }
     }

@@ -76,8 +76,20 @@ Describe 'Get-ToolConfig' -Tag 'L0' {
         }
 
         It 'caches across calls' {
-            $script:first = & (Get-Module Catzc.Tooling.Core) { Get-ToolConfig -Tool 'python' }
-            $script:second = & (Get-Module Catzc.Tooling.Core) { Get-ToolConfig -Tool 'python' }
+            # Hermetic fixture tool through the Get-Config seam, so the cache test never depends on the
+            # shipped tools.yml (ADR-TEST:3). The mock returns a STABLE object (Get-ToolConfig inherits its
+            # same-reference caching from Get-Config's cached read), so both calls see one tool entry.
+            $script:toolsFixture = @{ faketool = @{
+                    version         = '1.0'
+                    command         = 'faketool'
+                    version_command = 'faketool --version'
+                    version_pattern = '^(?<ver>.+)$'
+                    winget_id       = 'Fake.Tool'
+                }
+            }
+            Mock Get-Config -ModuleName Catzc.Tooling.Core -ParameterFilter { $Config -eq 'tools' } -MockWith { $script:toolsFixture }
+            $script:first = & (Get-Module Catzc.Tooling.Core) { Get-ToolConfig -Tool 'faketool' }
+            $script:second = & (Get-Module Catzc.Tooling.Core) { Get-ToolConfig -Tool 'faketool' }
             [object]::ReferenceEquals($first, $second) | Should -BeTrue -Because 'repeated calls should return the same cached object'
         }
     }

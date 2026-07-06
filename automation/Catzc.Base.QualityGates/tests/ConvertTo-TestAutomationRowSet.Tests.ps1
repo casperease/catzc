@@ -44,7 +44,7 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
                 New-FakeTest -Path 'Mod.Wide is out of scope' -Result 'NotRun' -Ms 0 -Tags @('L3', 'logic') `
                     -File 'C:\x\Wide.Tests.ps1' -Line 30
                 New-FakeTest -Path 'Mod.Cited enforces a rule' -Result 'Passed' -Ms 3 `
-                    -Tags @('L1', 'logic', 'ADR-ERROR#3', 'ADR-IDEM#1') -File 'C:\x\Cited.Tests.ps1' -Line 8
+                    -Tags @('L1', 'logic', 'ADR-FAKE#1', 'ADR-FAKE#2') -File 'C:\x\Cited.Tests.ps1' -Line 8
             )
         }
 
@@ -68,7 +68,7 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
     }
 
     It 'joins the ADR provenance citations into Rules, and is empty when none are carried' {
-        $script:rows[4].Rules | Should -Be 'ADR-ERROR#3;ADR-IDEM#1'
+        $script:rows[4].Rules | Should -Be 'ADR-FAKE#1;ADR-FAKE#2'
         $script:rows[0].Rules | Should -BeExactly ''
     }
 
@@ -98,6 +98,6 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
         $back[2].SkipReason | Should -Be 'tool_az_missing'
         $back[1].ErrorMessage | Should -Be 'Expected 1 but got 2'
         $back[3].Result | Should -Be 'NotRun'
-        $back[4].Rules | Should -Be 'ADR-ERROR#3;ADR-IDEM#1'
+        $back[4].Rules | Should -Be 'ADR-FAKE#1;ADR-FAKE#2'
     }
 }

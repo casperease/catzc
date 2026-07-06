@@ -13,9 +13,9 @@ Describe 'Select-RuleTaggedFiles' -Tag 'L0', 'logic', 'ADR-TEST#27' {
         }
         $script:discovery = [pscustomobject]@{
             Tests = @(
-                New-FakeTest 'C:\r\a.Tests.ps1' @('L0', 'logic', 'ADR-ERROR#3')
+                New-FakeTest 'C:\r\a.Tests.ps1' @('L0', 'logic', 'ADR-FAKE#1')
                 New-FakeTest 'C:\r\b.Tests.ps1' @('L1', 'logic')
-                New-FakeTest 'C:\r\c.Tests.ps1' @('L1', 'logic', 'ADR-IDEM#1')
+                New-FakeTest 'C:\r\c.Tests.ps1' @('L1', 'logic', 'ADR-FAKE#2')
             )
         }
         $script:select = {
@@ -27,11 +27,11 @@ Describe 'Select-RuleTaggedFiles' -Tag 'L0', 'logic', 'ADR-TEST#27' {
     }
 
     It 'keeps only the files whose tests cite one of the rules, in input order' {
-        $result = & $script:select @('C:\r\a.Tests.ps1', 'C:\r\b.Tests.ps1', 'C:\r\c.Tests.ps1') @('ADR-ERROR#3', 'ADR-IDEM#1')
+        $result = & $script:select @('C:\r\a.Tests.ps1', 'C:\r\b.Tests.ps1', 'C:\r\c.Tests.ps1') @('ADR-FAKE#1', 'ADR-FAKE#2')
         @($result) | Should -Be @('C:\r\a.Tests.ps1', 'C:\r\c.Tests.ps1')
     }
 
     It 'returns empty when no test cites the rule' {
-        @(& $script:select @('C:\r\a.Tests.ps1', 'C:\r\b.Tests.ps1', 'C:\r\c.Tests.ps1') @('ADR-NAMING#1')) | Should -HaveCount 0
+        @(& $script:select @('C:\r\a.Tests.ps1', 'C:\r\b.Tests.ps1', 'C:\r\c.Tests.ps1') @('ADR-FAKE#7')) | Should -HaveCount 0
     }
 }
