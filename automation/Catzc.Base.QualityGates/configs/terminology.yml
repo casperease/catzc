@@ -729,6 +729,10 @@ terms:
       meaning: 'Windows Defender Application Control (WDAC)'
     - term: worktree
       meaning: 'git worktree'
+    - term: wsl
+      meaning: 'Windows Subsystem for Linux (WSL)'
+    - term: mingw
+      meaning: 'the MinGW toolchain — the mingw64 directory inside a Git for Windows install'
   powershell:
     - term: cmdlet
       meaning: 'PowerShell cmdlet'

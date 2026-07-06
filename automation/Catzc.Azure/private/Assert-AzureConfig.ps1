@@ -6,18 +6,24 @@
       org:                 top-level vertical/organization shortcode (2-3 lowercase alphanumeric)
       bicep_min_version:   minimum Bicep CLI version (MAJOR.MINOR.PATCH); asserted before az bicep build
       tenants:             map; name -> { id }
-      subscriptions:       map; name -> { id, tenant, environments [, customer] }
+      subscriptions:       map; name -> { id, tenant, environments [, customer | family] }
                            customer: OPTIONAL — a reference to a customer in customer.yml, by its key OR its
                                      2-char shortcode. Its presence marks a customer subscription; the
-                                     customer renders into resource names. Allowed on any subscription.
+                                     customer renders into resource names, and its canonical key is the
+                                     subscription's family. Allowed on any subscription.
+                           family:   OPTIONAL — the family a non-customer subscription belongs to. Never
+                                     combined with customer (the customer IS the family).
       environments:        map; name -> { shortcode, region, region_code [, per_subscription] }
                            per_subscription: true marks a once-per-subscription env (subn/subp); absent ⇒ false
+      families:            OPTIONAL map; name -> { details? } — configuration for a family beyond the
+                           derived defaults. A declared entry must have at least one member subscription.
       (all named entities are maps keyed by name — duplicate names are structurally impossible)
       (customer DEFINITIONS live in customer.yml — see Assert-CustomerConfig / docs/adr/azure/customer-model.md)
 
-    A template targets a subscription directly by naming a config folder after it
-    (configuration/<subscription>/…) — there is no subscription_group entity. See
-    docs/adr/azure/data-model.md.
+    A template targets a FAMILY by naming a config folder after it (configuration/<family>/…); the
+    subscription is resolved as the family's one member serving the config's environment. A subscription's
+    family is DERIVED: its customer's key when `customer` is set, else its explicit `family:`, else its
+    own name. See docs/adr/azure/data-model.md.
 
     Integrity rules:
     - names are valid lower-snake_case identifiers
@@ -34,6 +40,13 @@
     - environment `per_subscription` (if present) is a boolean
     - a subscription lists at most one `per_subscription` environment (its identity env)
     - no duplicate environment `shortcode`s (names are map keys, so name duplicates are impossible)
+    - subscription `family` (if present) is 2+ lowercase alphanumeric, leading letter (no underscore —
+      the family is the configuration-folder name), and never combined with `customer`
+    - within a family, no two member subscriptions serve the same environment (the (family, env) ->
+      subscription join must be unique); membership here groups a customer subscription by its RAW
+      customer token — the normalized (key-vs-shortcode) grouping is a cross-asset fact covered by the
+      shipped-asset integrity test, like the customer reference itself
+    - every declared `families:` entry has at least one member subscription (no dead family config)
 
     Note: completeness ("every environment is served") and uniqueness ("at most one subscription serves
     an env") are NOT validated here. Multiple subscriptions may serve the same env; a template names the
@@ -195,6 +208,73 @@ function Assert-AzureConfig {
             $subPerSub = @(@($s.environments) | Where-Object { $_ -in $perSubEnvNames })
             if ($subPerSub.Count -gt 1) {
                 $errors.Add("subscription '$sName' lists more than one per-subscription environment ($($subPerSub -join ', ')) — at most one is allowed")
+            }
+        }
+    }
+
+    # --- Families (docs/adr/azure/data-model.md) ---
+    # A subscription's family is derived: customer (raw token here — normalization is a cross-asset,
+    # customer.yml read this hermetic validator must not make) -> explicit `family:` -> its own name.
+    # The same derivation, normalized, is Get-AzureSubscriptionFamily; the shipped-asset integrity test
+    # covers the normalized grouping.
+    $familyMembers = @{}
+    foreach ($sName in $subNames) {
+        $s = $Config.subscriptions[$sName]
+        if ($s.Contains('family')) {
+            if ($s.Contains('customer')) {
+                $errors.Add("subscription '$sName' declares both 'customer' and 'family' — a customer subscription's family IS its customer's key; remove 'family'")
+            }
+            if ("$($s.family)" -cnotmatch '^[a-z][a-z0-9]+$') {
+                $errors.Add("subscription '$sName' has invalid family '$($s.family)' (must be 2+ lowercase alphanumeric chars, leading letter — the family is a configuration-folder name)")
+            }
+        }
+        $family = if ($s.Contains('customer')) {
+            "$($s.customer)"
+        }
+        elseif ($s.Contains('family')) {
+            "$($s.family)"
+        }
+        else {
+            $sName
+        }
+        if (-not $familyMembers.ContainsKey($family)) {
+            $familyMembers[$family] = [System.Collections.Generic.List[string]]::new()
+        }
+        $familyMembers[$family].Add($sName)
+    }
+
+    # Within a family, no two members serve the same environment — the (family, env) -> subscription
+    # join must resolve to exactly one member.
+    foreach ($family in $familyMembers.Keys) {
+        $members = @($familyMembers[$family])
+        if ($members.Count -lt 2) {
+            continue
+        }
+        $servedBy = @{}
+        foreach ($sName in $members) {
+            $s = $Config.subscriptions[$sName]
+            if (-not $s.Contains('environments')) {
+                continue
+            }
+            foreach ($e in @($s.environments)) {
+                if ($servedBy.ContainsKey($e)) {
+                    $errors.Add("family '$family' has more than one subscription serving environment '$e' ($($servedBy[$e]), $sName) — within a family every environment is served by exactly one subscription")
+                }
+                else {
+                    $servedBy[$e] = $sName
+                }
+            }
+        }
+    }
+
+    # Declared family configuration must configure a family that exists (>= 1 member) — no dead config.
+    if ($Config.Contains('families')) {
+        foreach ($family in @($Config.families.Keys)) {
+            if ("$family" -cnotmatch '^[a-z][a-z0-9]+$') {
+                $errors.Add("families entry '$family' is invalid (must be 2+ lowercase alphanumeric chars, leading letter)")
+            }
+            if (-not $familyMembers.ContainsKey("$family")) {
+                $errors.Add("families entry '$family' has no member subscription — declare a member (customer key, `family:` key, or subscription name) or remove the entry")
             }
         }
     }
