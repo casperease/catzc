@@ -6,11 +6,11 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         # One stale .gitkeep, one nested one, one deep inside out/ (must never be touched — the walk checks
         # out/.gitkeep itself but does not descend), and one under a vendored module (not ours to manage).
         $script:fake = New-FakeRepositoryRoot -Modules @{ 'Catzc.Fixture' = @{} } -Files @{
-            'contracts/.gitkeep'                = "stale`n"
-            'pipelines/jobs/.gitkeep'           = ''
-            'out/.gitkeep'                      = "stale`n"
-            'out/deep/.gitkeep'                 = "transient`n"
-            'automation/.vendor/Fake/.gitkeep'  = "vendored`n"
+            'contracts/.gitkeep'               = "stale`n"
+            'pipelines/jobs/.gitkeep'          = ''
+            'out/.gitkeep'                     = "stale`n"
+            'out/deep/.gitkeep'                = "transient`n"
+            'automation/.vendor/Fake/.gitkeep' = "vendored`n"
         }
         $script:expected = [System.IO.File]::ReadAllText(
             (Join-Path (Split-Path $PSScriptRoot -Parent) 'assets/gitkeep'))

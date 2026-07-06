@@ -20,12 +20,22 @@ function Assert-VscodeLaunchConfig {
 
     $violations = [System.Collections.Generic.List[string]]::new()
 
-    $version = if ($Config.Contains('version')) { $Config['version'] } else { $null }
+    $version = if ($Config.Contains('version')) {
+        $Config['version']
+    }
+    else {
+        $null
+    }
     if ($version -isnot [string] -or [string]::IsNullOrWhiteSpace($version)) {
         $violations.Add("'version' must be a non-empty string (VS Code launch schema version, e.g. '0.2.0')")
     }
 
-    $configurations = if ($Config.Contains('configurations')) { @($Config['configurations']) } else { @() }
+    $configurations = if ($Config.Contains('configurations')) {
+        @($Config['configurations'])
+    }
+    else {
+        @()
+    }
     if ($configurations.Count -eq 0) {
         $violations.Add("'configurations' must be a non-empty list of launch profiles")
     }
@@ -37,12 +47,22 @@ function Assert-VscodeLaunchConfig {
             continue
         }
         foreach ($required in 'name', 'type', 'request') {
-            $value = if ($launchProfile.Contains($required)) { $launchProfile[$required] } else { $null }
+            $value = if ($launchProfile.Contains($required)) {
+                $launchProfile[$required]
+            }
+            else {
+                $null
+            }
             if ($value -isnot [string] -or [string]::IsNullOrWhiteSpace($value)) {
                 $violations.Add("a configurations entry is missing a non-empty '$required'")
             }
         }
-        $name = if ($launchProfile.Contains('name')) { $launchProfile['name'] } else { $null }
+        $name = if ($launchProfile.Contains('name')) {
+            $launchProfile['name']
+        }
+        else {
+            $null
+        }
         if ($name -is [string] -and -not [string]::IsNullOrWhiteSpace($name) -and -not $seen.Add($name)) {
             $violations.Add("duplicate configuration name '$name'")
         }

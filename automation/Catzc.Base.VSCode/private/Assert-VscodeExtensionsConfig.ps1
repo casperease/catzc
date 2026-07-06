@@ -20,7 +20,12 @@ function Assert-VscodeExtensionsConfig {
 
     $violations = [System.Collections.Generic.List[string]]::new()
 
-    $recommendations = if ($Config.Contains('recommendations')) { @($Config['recommendations']) } else { @() }
+    $recommendations = if ($Config.Contains('recommendations')) {
+        @($Config['recommendations'])
+    }
+    else {
+        @()
+    }
     if ($recommendations.Count -eq 0) {
         $violations.Add("'recommendations' must be a non-empty list of extension ids")
     }
