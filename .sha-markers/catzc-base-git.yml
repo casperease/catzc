@@ -3,4 +3,4 @@ description: Derived module scope - automation/Catzc.Base.Git/**
 layer: module
 include:
 - 'automation/Catzc.Base.Git/**'
-sha256: 873af6c9e2fa9b38bc075ce0f84ffd18994d90d65542bb41a5c7ebc507ac8522
+sha256: 8f94c700b4932c733bb13033aa875de65af8180997b26598d4ec47af48033817
