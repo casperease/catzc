@@ -4,9 +4,10 @@
 
 ### Rule ADR-ROOTCFG:1
 
-An opted-in repository-root config file is **fully managed by the source-of-truth automation**: it is reproduced from exactly one in-repo
-source of truth — a `source` file (an authored config copied out) or a `generator` function (e.g. `New-Importer`) — and is never
-hand-edited. Corrections go to the source; the root file is its rendering.
+An opted-in repository-root config file is **fully managed by the source-of-truth automation**: it is materialised from exactly one in-repo
+source of truth — a `source` file (an authored config copied out, or linked out under `copyAsLink` — ADR-ROOTCFG:7) or a `generator`
+function (e.g. `New-Importer`). Corrections go to the source: a reproduced copy is a rendering and is never hand-edited; a link target IS
+the source, so an edit through either path lands in the one authored file.
 
 - [Decision](#decision)
 
