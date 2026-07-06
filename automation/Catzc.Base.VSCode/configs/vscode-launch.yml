@@ -1,0 +1,17 @@
+# VS Code launch-profile registry — the single authored source for .vscode/launch.json. The file the editor
+# reads is a managed, gitignored copy rendered from this registry by New-VSCodeLaunch (wired through
+# Build-RootConfig; see rootconfig.yml and docs/adr/repository/generated-root-configs.md) — edit THIS file,
+# never launch.json. Explanations live here as comments; the rendered JSON carries only a generated-file
+# header (VS Code reads JSONC, so the header is legal).
+#
+# Loaded via Get-Config -Config vscode-launch and validated by private/Assert-VscodeLaunchConfig: a version
+# string plus a non-empty configurations list, each entry carrying name/type/request, names unique.
+version: '0.2.0'
+configurations:
+  # Debug the module system end to end: dot-source the importer under the PowerShell debugger, from the
+  # repository root, so breakpoints in any module function bind.
+  - name: Debug Module
+    type: PowerShell
+    request: launch
+    script: ${workspaceFolder}/importer.ps1
+    cwd: ${workspaceFolder}

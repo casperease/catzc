@@ -1,0 +1,36 @@
+# VS Code extension-recommendation registry — the single authored source for .vscode/extensions.json. The
+# file the editor reads is a managed, gitignored copy rendered from this registry by New-VSCodeExtensions
+# (wired through Build-RootConfig; see rootconfig.yml and docs/adr/repository/generated-root-configs.md) —
+# edit THIS file, never extensions.json. Explanations live here as comments; the rendered JSON carries only a
+# generated-file header (VS Code reads JSONC, so the header is legal).
+#
+# Loaded via Get-Config -Config vscode-extensions and validated by private/Assert-VscodeExtensionsConfig:
+# each entry is a publisher.name extension id, non-empty and unique.
+#
+# cspell:ignore azuretools azureresourcegroups streetsidesoftware rosshamish kuskus kusto shd101wyy esbenp tomoki redhat Anson
+recommendations:
+  # YAML language support — schema-validated editing of the configs/*.yml registries and pipeline YAML.
+  - redhat.vscode-yaml
+  # markdownlint in the editor — the same rules the Test-Markdownlint gate enforces (.markdownlint.yml).
+  - DavidAnson.vscode-markdownlint
+  # Kusto syntax highlighting for KQL snippets in docs and Azure work.
+  - rosshamish.kuskus-kusto-syntax-highlighting
+  # Azure Pipelines YAML schema for pipelines/*.yaml.
+  - ms-azure-devops.azure-pipelines
+  # Azure resource browsing for the deployed templates.
+  - ms-azuretools.vscode-azureresourcegroups
+  # cspell in the editor — the same dictionaries the Test-Spelling gate uses (cspell.yml + .cspell/).
+  - streetsidesoftware.code-spell-checker
+  # .editorconfig support — applies the repo-wide formatting baseline on save (uniform-formatting).
+  - editorconfig.editorconfig
+  # Markdown Preview Enhanced — the preview the vscode-settings registry themes.
+  - shd101wyy.markdown-preview-enhanced
+  # ANSI color rendering in output panes — the writers emit color (console-output-matters).
+  - ibm.output-colorizer
+  # The PowerShell extension — language service, debugging, and the codeFormatting settings wired in
+  # vscode-settings.yml.
+  - ms-vscode.powershell
+  # Prettier — the markdown formatter behind Format-Markdown; format-on-save matches the gate.
+  - esbenp.prettier-vscode
+  # PDF viewing for reference material in docs.
+  - tomoki1207.pdf

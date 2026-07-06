@@ -292,38 +292,12 @@ function Test-Automation {
         }
         $manifestStatus = $runResult.ToLowerInvariant()
 
-        # Validate test durations against level limits (Get-TestTimingViolation owns the per-row check):
-        # L0 < 400ms, L1 < 2s (default for untagged), L2 < 120s, L3 < 30s
+        # Validate test durations against the per-level limits and render the over-limit section
+        # (Write-TestAutomationTimingReport): report-only by default, run-failing under -EnforceTimings.
         $limits = @{ 'L0' = 400; 'L1' = 2000; 'L2' = 120000; 'L3' = 30000 }
-        $violations = @(Get-TestTimingViolation -Rows $rows -Limits $limits)
-
-        $timingFailure = $false
-        if ($violations.Count -gt 0) {
-            # Timings are machine-dependent, so report them by default and only FAIL the run when the
-            # caller opts in with -EnforceTimings. Either way the durations are written out below.
-            $color = if ($EnforceTimings) {
-                'Red'
-            }
-            else {
-                'Yellow'
-            }
-            $header = if ($EnforceTimings) {
-                'Tests exceeding level time limits'
-            }
-            else {
-                'Tests exceeding level time limits (report-only — pass -EnforceTimings to fail)'
-            }
-            Write-Message '' -NoHeader
-            Write-Header $header -ForegroundColor $color
-            foreach ($v in $violations) {
-                Write-Message "  $v" -ForegroundColor $color -NoHeader
-            }
-            Write-Message 'Tag slow tests with a higher level or optimize them.' -NoHeader
-            Write-Footer -ForegroundColor $color
-            $timingFailure = [bool]$EnforceTimings
-            if ($timingFailure) {
-                $manifestStatus = 'failed'
-            }
+        $timingFailure = Write-TestAutomationTimingReport -Rows $rows -Limits $limits -EnforceTimings:$EnforceTimings
+        if ($timingFailure) {
+            $manifestStatus = 'failed'
         }
 
         # Persist summary.md/tests.csv + latest.txt and render the skip report — best-effort, never masking

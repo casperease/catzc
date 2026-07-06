@@ -25,7 +25,7 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
 
         Mock Get-Config { $script:dependencies } -ModuleName Catzc.Base.QualityGates
         Mock Get-ModuleGlobSet {
-            [Catzc.Base.Globs.GlobSet]::new($Name.ToLowerInvariant().Replace('.', '-'), 'd', @('x/**'), @())
+            [Catzc.Base.Globs.GlobSet]::new($Name.ToLowerInvariant().Replace('.', '-'), 'd', 'module', @('x/**'), @(), @(), @(), -1, $null)
         } -ModuleName Catzc.Base.QualityGates
         Mock Get-GlobSetHash {
             $setName = if ($Name) {

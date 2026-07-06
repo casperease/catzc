@@ -42,6 +42,9 @@ globsets:
     description: The infrastructure track - the Bicep IaC tree, reusable modules and deployable templates.
     layer: track
     pipeline: ci-infrastructure
+    verify:
+      modules: [Catzc.Azure.Templates]
+      level: 2
     include:
       - infrastructure/**
 
@@ -49,6 +52,9 @@ globsets:
   foundation:
     description: Deployable unit - the foundation infrastructure template plus the shared Bicep modules.
     layer: deployable-unit
+    verify:
+      modules: [Catzc.Azure.Templates]
+      level: 2
     include:
       - infrastructure/templates/foundation/**
       - infrastructure/modules/**
