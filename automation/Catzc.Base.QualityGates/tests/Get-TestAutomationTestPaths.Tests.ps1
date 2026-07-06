@@ -5,10 +5,17 @@ Describe 'Get-TestAutomationTestPaths' -Tag 'L1', 'integrity' {
 
     It 'returns existing tests folders only, for the whole tree' {
         $script:paths.Count | Should -BeGreaterThan 10
-        foreach ($path in $script:paths) {
-            [System.IO.Path]::GetFileName($path) | Should -Be 'tests'
-            $path | Should -Exist
+        # One Should over the violating set — a Should per discovered folder pays Pester's
+        # per-assertion cost times the whole tree.
+        $violations = foreach ($path in $script:paths) {
+            if ([System.IO.Path]::GetFileName($path) -ne 'tests') {
+                "not a tests folder: $path"
+            }
+            elseif (-not [System.IO.Directory]::Exists($path)) {
+                "missing on disk: $path"
+            }
         }
+        @($violations) | Should -BeNullOrEmpty
     }
 
     It 'puts dot-prefixed infrastructure after every module' {

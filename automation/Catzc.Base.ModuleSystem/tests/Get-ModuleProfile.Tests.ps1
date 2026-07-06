@@ -56,12 +56,19 @@ Describe 'Get-ModuleProfile — real profiles.yml' -Tag 'L2', 'integrity' {
         $names = @((Get-Config -Config profiles).profiles.Keys)
         $names.Count | Should -BeGreaterThan 0
         $allowed = @((Get-BaseModule).Name) + @('.internal', '.compiled', '.vendor') | Select-Object -Unique
-        foreach ($name in $names) {
+        # One Should over the violating set — a Should per profile × module pays Pester's
+        # per-assertion cost times the whole shipped registry.
+        $violations = foreach ($name in $names) {
             $resolved = Get-ModuleProfile -Name $name
-            @($resolved).Count | Should -BeGreaterThan 0 -Because "profile '$name' must resolve to at least one module"
+            if (@($resolved).Count -eq 0) {
+                "profile '$name' resolved to no modules"
+            }
             foreach ($module in $resolved) {
-                $module | Should -BeIn $allowed -Because "profile '$name' resolved '$module', which is not an on-disk module"
+                if ($module -notin $allowed) {
+                    "profile '$name' resolved '$module', which is not an on-disk module"
+                }
             }
         }
+        @($violations) | Should -BeNullOrEmpty
     }
 }

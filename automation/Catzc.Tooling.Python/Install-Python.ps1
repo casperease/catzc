@@ -48,14 +48,16 @@ function Install-Python {
     }
 
     # uv resolves the newest matching CPython, installs it, and (--default) writes the global python/python3
-    # shims into its bin dir. --reinstall replaces an existing build of the same version under -Force.
+    # shims into its bin dir. --default is still preview-gated, so opt in explicitly with
+    # --preview-features to keep it (and silence uv's experimental warning, which WarningPreference=Stop
+    # would otherwise turn into a halt). --reinstall replaces an existing build of the same version under -Force.
     $reinstall = if ($Force) {
         ' --reinstall'
     }
     else {
         ''
     }
-    Invoke-Uv "python install $Version --default$reinstall"
+    Invoke-Uv "python install $Version --default --preview-features python-install-default$reinstall"
 
     Sync-SessionPath
 

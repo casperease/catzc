@@ -13,7 +13,7 @@ Describe 'Install-Python' -Tag 'L1', 'logic' {
         Mock Test-Command { $false } -ModuleName Catzc.Tooling.Python
         Install-Python
         Should -Invoke Invoke-Uv -ModuleName Catzc.Tooling.Python -Times 1 -ParameterFilter {
-            $Arguments -eq 'python install 3.14 --default'
+            $Arguments -eq 'python install 3.14 --default --preview-features python-install-default'
         }
     }
 
@@ -27,7 +27,7 @@ Describe 'Install-Python' -Tag 'L1', 'logic' {
         Mock Test-Command { $true } -ModuleName Catzc.Tooling.Python
         Install-Python -Force
         Should -Invoke Invoke-Uv -ModuleName Catzc.Tooling.Python -Times 1 -ParameterFilter {
-            $Arguments -eq 'python install 3.14 --default --reinstall'
+            $Arguments -eq 'python install 3.14 --default --preview-features python-install-default --reinstall'
         }
     }
 

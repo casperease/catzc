@@ -81,7 +81,17 @@ function Sync-GeneratedFile {
         return
     }
     if ($otherChanges.Count -gt 0) {
-        Write-Message "Working tree has uncommitted changes ($($otherChanges.Count)) — generated files synced but not committed."
+        # Name the blockers, so the remedy (commit them, then re-run) needs no git status round-trip. Cap
+        # the list — the first few identify the workstream.
+        $shown = @($otherChanges | Select-Object -First 5)
+        $more = $otherChanges.Count - $shown.Count
+        $suffix = if ($more -gt 0) {
+            " (+$more more)"
+        }
+        else {
+            ''
+        }
+        Write-Message "Working tree has uncommitted changes ($($otherChanges.Count)) — generated files synced but not committed: $($shown -join ', ')$suffix"
         return
     }
 

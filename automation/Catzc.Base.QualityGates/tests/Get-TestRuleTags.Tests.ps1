@@ -1,4 +1,4 @@
-Describe 'Get-TestRuleTags' -Tag 'L0', 'logic' {
+Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-TEST#27' {
     BeforeAll {
         # A fake Pester test: own It-tags, an inner block, and an optional outer block (the same shape
         # Get-TestBlockTag.Tests.ps1 uses). The test's .Block is the inner block.

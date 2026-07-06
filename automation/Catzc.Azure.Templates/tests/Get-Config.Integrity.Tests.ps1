@@ -17,15 +17,25 @@ Describe 'Shipped asset integrity' -Tag 'L0', 'integrity' {
         $azure = Get-Config -Config azure
         $envs = @($azure.environments.Keys)
 
-        foreach ($t in (Get-BicepTemplates)) {
+        # One Should over the violating set — a Should per template slot pays Pester's per-assertion
+        # cost times the whole discovered template tree.
+        $violations = foreach ($t in (Get-BicepTemplates)) {
             foreach ($slot in $t.slots) {
-                $slot.environment | Should -BeIn $envs -Because "template '$($t.name)' config '$($slot.name)' must use a defined environment"
+                if ($slot.environment -notin $envs) {
+                    "template '$($t.name)' config '$($slot.name)': environment '$($slot.environment)' is not defined in azure.yml"
+                }
                 if (-not [string]::IsNullOrEmpty($slot.customer)) {
                     # slot.customer is the raw token from the subscription (a key or shortcode); it must
                     # resolve to a defined customer in customer.yml (Get-AzureCustomer throws otherwise).
-                    { Get-AzureCustomer $slot.customer } | Should -Not -Throw -Because "template '$($t.name)' customer subdir must reference a defined customer (customer.yml)"
+                    try {
+                        $null = Get-AzureCustomer $slot.customer
+                    }
+                    catch {
+                        "template '$($t.name)' config '$($slot.name)': customer '$($slot.customer)' is not defined in customer.yml ($_)"
+                    }
                 }
             }
         }
+        @($violations) | Should -BeNullOrEmpty
     }
 }

@@ -1,4 +1,4 @@
-Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic' {
+Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-TEST#28' {
     It 'flattens the map into one pssa-rule row per (analyzer, ADR id)' {
         InModuleScope Catzc.Base.QualityGates {
             Mock Get-Config {
@@ -18,7 +18,7 @@ Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity' {
+Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'ADR-TEST#29' {
     BeforeAll {
         # The shipped map, and the authoritative rule-id set in '#' (citation) form so it compares to the map.
         # Plain assignment receives the comma-wrapped getter result intact — @() would nest it (Show-Cats note).
@@ -39,11 +39,16 @@ Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity' {
     }
 
     It 'maps every analyzer to rule ids that resolve to a real ADR rule' {
-        foreach ($analyzer in $script:map.analyzers.Keys) {
+        # One Should over the violating set — a Should per analyzer × id pays Pester's
+        # per-assertion cost times the whole shipped map.
+        $violations = foreach ($analyzer in $script:map.analyzers.Keys) {
             foreach ($id in $script:map.analyzers[$analyzer]) {
-                $script:validIds.Contains($id) | Should -BeTrue -Because "$analyzer cites $id, which must be a real rule in docs/adr"
+                if (-not $script:validIds.Contains($id)) {
+                    "$analyzer cites $id, which must be a real rule in docs/adr"
+                }
             }
         }
+        @($violations) | Should -BeNullOrEmpty
     }
 
     It 'maps every custom analyzer rule (a new one cannot ship unmapped)' {

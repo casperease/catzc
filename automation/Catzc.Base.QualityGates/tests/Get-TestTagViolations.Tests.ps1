@@ -71,7 +71,7 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'the optional ADR provenance axis' {
+    Context 'the optional ADR provenance axis' -Tag 'ADR-TEST#27' {
         BeforeAll {
             # A fixture rule-id set (registry ':' form) so the validation is hermetic — it never reads the
             # shipped ADR tree. Mocking the whole boundary function is the seam (ADR-TEST).

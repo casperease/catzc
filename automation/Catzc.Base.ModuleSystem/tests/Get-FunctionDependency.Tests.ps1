@@ -4,8 +4,13 @@ Describe 'Get-FunctionDependency' -Tag 'L0', 'integrity' {
     }
 
     It 'CrossModule is true when CallerModule != TargetModule' {
-        $dependencies | Where-Object CrossModule | ForEach-Object {
-            $_.CallerModule | Should -Not -Be $_.TargetModule
+        # One Should over the violating set — a Should per edge costs ~0.5ms × ~1000 cross-module edges,
+        # which alone breaches the L0 time limit.
+        $violations = foreach ($dependency in $dependencies) {
+            if ($dependency.CrossModule -and $dependency.CallerModule -eq $dependency.TargetModule) {
+                $dependency
+            }
         }
+        @($violations) | Should -BeNullOrEmpty
     }
 }

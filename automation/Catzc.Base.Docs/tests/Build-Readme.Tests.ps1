@@ -155,10 +155,14 @@ Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity' {
                 ForEach-Object { [System.IO.Path]::GetFileName($_) } |
                 Where-Object { -not $_.StartsWith('.') })
         $mapped = @($script:results.Folder)
-        foreach ($module in $modules) {
-            "automation/$module" |
-                Should -BeIn $mapped -Because 'every automation module needs a docs/references/automation/<kebab>.md reference article'
+        # One Should over the violating set — a Should per module pays Pester's per-assertion cost
+        # times the whole automation tree.
+        $violations = foreach ($module in $modules) {
+            if ("automation/$module" -notin $mapped) {
+                "automation/$module has no docs/references/automation/<kebab>.md reference article"
+            }
         }
+        @($violations) | Should -BeNullOrEmpty
     }
 
     It 'declares the global README ignore rule' {

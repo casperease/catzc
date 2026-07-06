@@ -30,9 +30,14 @@ Describe 'Config conventions' -Tag 'L0', 'integrity' {
                 }
             }
 
-            foreach ($validator in $validators) {
-                $validator | Should -BeIn $expected -Because "validator '$validator' in $($moduleDir.Name) has no matching configs/*.yml — rename it to Assert-<TitleCase(name)>Config or add the config"
+            # One Should over the violating set — a Should per validator pays Pester's per-assertion
+            # cost times every discovered module's validators.
+            $violations = foreach ($validator in $validators) {
+                if ($validator -notin $expected) {
+                    "validator '$validator' in $($moduleDir.Name) has no matching configs/*.yml — rename it to Assert-<TitleCase(name)>Config or add the config"
+                }
             }
+            @($violations) | Should -BeNullOrEmpty
         }
     }
 
