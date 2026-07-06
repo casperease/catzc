@@ -37,16 +37,18 @@ globsets:
     include:
       - infrastructure/**
 
-  # The all-templates shared surface: every deployable template EXCEPT the per-subscription configuration
-  # folders — the one marker that says "template code changed" without firing on an individual
-  # subscription's config edit (the per-unit sets below carry those).
+  # The all-templates shared surface: every deployable template EXCEPT its deployment configuration —
+  # the configuration-root (shared-platform) files and the per-customer subfolders — so this marker says
+  # "template code changed" without firing on an individual deployment's config edit (the per-unit sets
+  # below carry those).
   templates:
-    description: All infrastructure templates' shared surface - every template excluding per-subscription configuration.
+    description: All infrastructure templates' shared surface - every template excluding deployment configuration.
     layer: scope
     include:
       - infrastructure/templates/**
     exclude:
-      - infrastructure/templates/*/configuration/*_*/**
+      - infrastructure/templates/*/configuration/*.yml
+      - infrastructure/templates/*/configuration/*/**
 
   # The whole-template deployable unit: the foundation template with everything it deploys from.
   foundation:
@@ -59,52 +61,55 @@ globsets:
       - infrastructure/templates/foundation/**
       - infrastructure/modules/**
 
-  # The customer-shared foundation surface: everything of the foundation unit EXCEPT the per-subscription
-  # configuration folders — the compose base every customer unit (and the shared unit) builds on, so a
-  # change to one customer's configuration never fires another customer's CD.
+  # The customer-shared foundation surface: everything of the foundation unit EXCEPT its deployment
+  # configuration (the root files and the customer subfolders) — the compose base every customer unit
+  # (and the shared unit) builds on, so a change to one deployment's configuration never fires another's CD.
   foundation-shared:
-    description: The foundation template's customer-shared surface - shared modules, main.bicep, and the non-subscription configuration.
+    description: The foundation template's customer-shared surface - shared modules, main.bicep, and everything but deployment configuration.
     layer: deployable-unit
     include:
       - infrastructure/templates/foundation/**
       - infrastructure/modules/**
     exclude:
-      - infrastructure/templates/foundation/configuration/*_*/**
+      - infrastructure/templates/foundation/configuration/*.yml
+      - infrastructure/templates/foundation/configuration/*/**
 
-  # Per-customer deployable units (ADR-TRACK:5): the shared surface plus that customer's own subscription
-  # configuration folders. Adding a customer is adding an entry here — config, never code.
+  # Per-customer deployable units (ADR-TRACK:5): the shared surface plus that customer's own
+  # configuration subfolder — the folder IS the customer key, so the unit is the exact folder name.
+  # Adding a customer is adding an entry here — config, never code.
   nova:
-    description: Deployable unit - customer nova's foundation (shared surface + nova_* configuration).
+    description: Deployable unit - customer nova's foundation (shared surface + the nova configuration folder).
     layer: deployable-unit
     pipeline: cd-nova
     compose: [foundation-shared]
     include:
-      - infrastructure/templates/foundation/configuration/nova_*/**
+      - infrastructure/templates/foundation/configuration/nova/**
 
   apex:
-    description: Deployable unit - customer apex's foundation (shared surface + apex_* configuration).
+    description: Deployable unit - customer apex's foundation (shared surface + the apex configuration folder).
     layer: deployable-unit
     pipeline: cd-apex
     compose: [foundation-shared]
     include:
-      - infrastructure/templates/foundation/configuration/apex_*/**
+      - infrastructure/templates/foundation/configuration/apex/**
 
   flux:
-    description: Deployable unit - customer flux's foundation (shared surface + flux_* configuration).
+    description: Deployable unit - customer flux's foundation (shared surface + the flux configuration folder).
     layer: deployable-unit
     pipeline: cd-flux
     compose: [foundation-shared]
     include:
-      - infrastructure/templates/foundation/configuration/flux_*/**
+      - infrastructure/templates/foundation/configuration/flux/**
 
-  # The central/shared subscription's unit — the same shape as a customer, deployed by cd-shared.
+  # The shared-platform unit — the configuration-ROOT files (the non-customer deployment), deployed by
+  # cd-shared. The same shape as a customer unit, keyed by the root instead of a subfolder.
   shared:
-    description: Deployable unit - the central/shared subscription's foundation (shared surface + shared_* configuration).
+    description: Deployable unit - the shared platform's foundation (shared surface + the configuration-root files).
     layer: deployable-unit
     pipeline: cd-shared
     compose: [foundation-shared]
     include:
-      - infrastructure/templates/foundation/configuration/shared_*/**
+      - infrastructure/templates/foundation/configuration/*.yml
 
   # The markdown scan scope: exactly what Test-Markdownlint reads - every in-scope markdown file plus the
   # scan's own config (a scan's globset includes its configuration). The excludes mirror the scan's default

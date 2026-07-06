@@ -1,4 +1,4 @@
-// One deployable slot of a template: the unit binding one config file to one (family, environment,
+// One deployable slot of a template: the unit binding one config file to one (customer?, environment,
 // slot) coordinate, which resolves to one subscription and one resource group. Nested into
 // BicepTemplate.slots — a template fans out into one BicepSlot per deployable coordinate.
 
@@ -18,27 +18,24 @@ public sealed class BicepSlot
     // slot — kept as a sentinel because downstream resolves slots by value (`slot -eq ''` for the base).
     public string slot         { get; }
 
-    // The family this slot belongs to — the configuration folder name. Always present.
-    public string family       { get; }
-
-    // The subscription this slot deploys into — the family's one member serving the environment,
-    // resolved at discovery. Always present.
+    // The subscription this slot deploys into — resolved at discovery from the slot's coordinate: the
+    // one non-customer subscription serving the env (a configuration-root config), or the customer's one
+    // subscription serving it (a configuration/<customer>/ config). Always present.
     public string subscription { get; }
 
-    // The customer this slot is for. The empty string "" (NOT null) when the subscription is not a
-    // customer subscription — a sentinel because downstream filters by value (`customer -eq ''`).
+    // The customer this slot is for — the configuration subfolder name (a customer key). The empty
+    // string "" (NOT null) for a configuration-root (shared) slot — a sentinel because downstream
+    // filters by value (`customer -eq ''`).
     public string customer     { get; }
 
-    public BicepSlot(string name, string environment, string slot, string family, string subscription, string customer)
+    public BicepSlot(string name, string environment, string slot, string subscription, string customer)
     {
         if (string.IsNullOrWhiteSpace(name))         { throw new ArgumentException("BicepSlot.name is required"); }
         if (string.IsNullOrWhiteSpace(environment))  { throw new ArgumentException("BicepSlot.environment is required"); }
-        if (string.IsNullOrWhiteSpace(family))       { throw new ArgumentException("BicepSlot.family is required"); }
         if (string.IsNullOrWhiteSpace(subscription)) { throw new ArgumentException("BicepSlot.subscription is required"); }
         this.name         = name;
         this.environment  = environment;
         this.slot         = slot ?? "";        // "" sentinel — compared by value downstream
-        this.family       = family;
         this.subscription = subscription;
         this.customer     = customer ?? "";    // "" sentinel — compared by value downstream
     }

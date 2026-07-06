@@ -17,9 +17,9 @@
       - Env-class classification: every config matches the template's env-class bit
         (standard/subscription) — via Get-BicepConfigClassViolations. (Slot is per-config: a template
         may mix slotted and non-slotted configs.)
-      - Identity references: each config filename resolves to a defined environment; each config sits
-        under a configuration/<subscription>/ folder that is a defined subscription serving that env
-        (Get-BicepSubscriptionConfigViolations); no config sits directly under configuration/.
+      - Identity references: each config filename resolves to a defined environment; a configuration
+        subfolder is always a defined customer key, and every config's (customer?, env) coordinate
+        resolves to exactly one subscription (Get-BicepSubscriptionConfigViolations).
       - Parameter alignment: a config's ParametersFile.parameters may only set parameters that
         main.bicep declares (params main.bicep declares but the config omits are fine — PrePost or
         bicep defaults supply them).
@@ -143,26 +143,30 @@ function Assert-BicepTemplate {
             $declaredParameters = @([regex]::Matches($bicep, '(?m)^\s*param\s+([A-Za-z_][A-Za-z0-9_]*)\b') | ForEach-Object { $_.Groups[1].Value })
         }
 
-        # Gather configs: every config lives under a configuration/<subscription>/ folder.
+        # Gather configs: root files are shared-platform configs; a subfolder is always a customer key.
         $configEntries = [System.Collections.Generic.List[object]]::new()
-        $stray = @([System.IO.Directory]::EnumerateFiles($configFolder, '*.yml') | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Sort-Object)
-        if ($stray.Count -gt 0) {
-            $errors.Add("[$name] config file(s) directly under configuration/ ($($stray -join ', ')) — every config must live under a configuration/<subscription>/ folder")
+        foreach ($file in @([System.IO.Directory]::EnumerateFiles($configFolder, '*.yml') | Sort-Object)) {
+            $configEntries.Add([pscustomobject]@{ file = $file; customer = '' })
         }
-        foreach ($subscriptionDirectoryPath in ([System.IO.Directory]::EnumerateDirectories($configFolder) | Sort-Object)) {
-            foreach ($file in @([System.IO.Directory]::EnumerateFiles($subscriptionDirectoryPath, '*.yml') | Sort-Object)) {
-                $configEntries.Add([pscustomobject]@{ file = $file; subscription = [System.IO.Path]::GetFileName($subscriptionDirectoryPath) })
+        foreach ($customerDirectoryPath in ([System.IO.Directory]::EnumerateDirectories($configFolder) | Sort-Object)) {
+            foreach ($file in @([System.IO.Directory]::EnumerateFiles($customerDirectoryPath, '*.yml') | Sort-Object)) {
+                $configEntries.Add([pscustomobject]@{ file = $file; customer = [System.IO.Path]::GetFileName($customerDirectoryPath) })
             }
         }
 
         $nonDefault = @($configEntries | Where-Object { [IO.Path]::GetFileNameWithoutExtension($_.file) -ne 'default' })
         if ($nonDefault.Count -eq 0) {
-            $errors.Add("[$name] has no config files under configuration/<subscription>/")
+            $errors.Add("[$name] has no config files under configuration/")
         }
 
         foreach ($entry in $nonDefault) {
             $configName = [IO.Path]::GetFileNameWithoutExtension($entry.file)
-            $location = "configuration/$($entry.subscription)/$configName.yml"
+            $location = if ([string]::IsNullOrEmpty($entry.customer)) {
+                "configuration/$configName.yml"
+            }
+            else {
+                "configuration/$($entry.customer)/$configName.yml"
+            }
 
             $resolved = $null
             try {
@@ -172,13 +176,13 @@ function Assert-BicepTemplate {
                 $errors.Add("[$name] $location — $($_.Exception.Message)")
             }
             if ($null -ne $resolved) {
-                foreach ($violation in (Get-BicepSubscriptionConfigViolations -Subscription $entry.subscription -Environment $resolved.environment -AzureConfig $azure -Location $location)) {
+                foreach ($violation in (Get-BicepSubscriptionConfigViolations -Customer $entry.customer -Environment $resolved.environment -AzureConfig $azure -Location $location)) {
                     $errors.Add("[$name] $violation")
                 }
                 foreach ($violation in (Get-BicepConfigClassViolations -Environment $resolved.environment -EnvironmentKind $environmentKind -AzureConfig $azure -Location $location)) {
                     $errors.Add("[$name] $violation")
                 }
-                foreach ($violation in (Get-BicepCustomerClassViolations -Subscription $entry.subscription -CustomerDeployment $customerDeployment -AzureConfig $azure -Location $location)) {
+                foreach ($violation in (Get-BicepCustomerClassViolations -Customer $entry.customer -CustomerDeployment $customerDeployment -Location $location)) {
                     $errors.Add("[$name] $violation")
                 }
             }

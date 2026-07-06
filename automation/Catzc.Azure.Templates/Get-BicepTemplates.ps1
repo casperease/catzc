@@ -5,14 +5,16 @@
 .DESCRIPTION
     Scans `infrastructure/templates/` at depth 1 for template folders (reusable bicep modules live
     in the sibling `infrastructure/modules/` and are NOT discovered here). Each folder must contain
-    a `main.bicep` and a `configuration/` subfolder. Every config lives at
-    `configuration/<subscription>/<env>[-<slot>].yml` — the folder names the subscription the config
-    deploys to (a key in azure.yml's `subscriptions`); there are no config files directly under
-    `configuration/`. One config file ⟷ one resource group (docs/adr/azure/data-model.md). The filename
+    a `main.bicep` and a `configuration/` subfolder. A config lives at the configuration ROOT —
+    `configuration/<env>[-<slot>].yml`, a shared-platform deployment — or under a customer subfolder,
+    `configuration/<customer>/<env>[-<slot>].yml`, where the folder is always a customer KEY from
+    customer.yml. One config file ⟷ one resource group (docs/adr/azure/data-model.md). The filename
     resolves (Resolve-BicepConfigName) to its environment + optional slot: `dev.yml` (base slot of env
-    `dev`), `dev-001.yml` (slot `001`). The customer is DERIVED from the subscription (its optional
-    `customer` field), not from the path. Validated at discovery: the folder is a defined subscription,
-    and the filename's env is one that subscription serves.
+    `dev`), `dev-001.yml` (slot `001`). The SUBSCRIPTION is resolved per config
+    (Get-BicepConfigSubscriptionCandidates): a root config's env must be served by exactly one
+    non-customer subscription; a customer config's env by exactly one of that customer's subscriptions.
+    Validated at discovery: the subfolder is a defined customer key, and every config resolves to
+    exactly one subscription id.
 
     Returns one ordered dictionary per template with these keys:
       name                  — folder name (the template identifier)
@@ -20,11 +22,11 @@
       main                  — path to main.bicep
       bicep_files           — all *.bicep files in the template folder
       configuration_folder  — path to the configuration/ subfolder
-      configuration_files   — *.yml files in configuration/<subscription>/
+      configuration_files   — *.yml files at the configuration root and in configuration/<customer>/
       environments          — distinct env names across the slots (excluding 'default')
-      subscriptions         — distinct subscription names across the slots (the config subfolders)
-      customers             — distinct non-empty customer names across the slots (derived from the subscriptions)
-      slots                 — one per config file: { name (=config), environment, slot, subscription, customer } (slot/customer empty for a base / non-customer slot)
+      subscriptions         — distinct resolved subscription names across the slots
+      customers             — distinct customer names across the slots (the config subfolders)
+      slots                 — one per config file: { name (=config), environment, slot, subscription, customer } (slot/customer empty for a base / shared-platform slot)
       short_name            — the Azure id segment (2-5 alnum, globally unique). DERIVED from the folder name
                               ([Catzc.Azure.Templates.BicepShortName]::Resolve) unless options.yml overrides it
       output_folder         — where Build-Bicep writes main.json + parameters.<subscription>.<slot>.json
@@ -71,10 +73,10 @@ function Get-BicepTemplates {
         return @()
     }
 
-    # Every config lives at configuration/<subscription>/<env>[-<slot>].yml. The folder names the
-    # subscription (a key in azure.yml's subscriptions); the customer is derived from that subscription.
-    # Both checks (folder is a defined subscription, env served by it) run at discovery via the shared
-    # Get-BicepSubscriptionConfigViolations.
+    # A config lives at the configuration root (`<env>[-<slot>].yml` — the shared platform) or under a
+    # configuration/<customer>/ subfolder (the folder is a customer key). The subscription is resolved
+    # per config; both checks (subfolder is a defined customer key, the coordinate resolves to exactly
+    # one subscription) run at discovery via the shared Get-BicepSubscriptionConfigViolations.
     $azure = Get-Config -Config azure
 
     $templates = [System.Collections.Generic.List[object]]::new()
@@ -133,30 +135,23 @@ function Get-BicepTemplates {
         }
         $shortName = [Catzc.Azure.Templates.BicepShortName]::Resolve($name, $shortNameOverride)
 
-        # No config may sit directly under configuration/ — every config belongs to a subscription folder.
-        $strayFiles = @([System.IO.Directory]::EnumerateFiles($configurationFolder, '*.yml') | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Sort-Object)
-        if ($strayFiles.Count -gt 0) {
-            throw "Template '$name' has config file(s) directly under configuration/ ($($strayFiles -join ', ')) — every config must live under a configuration/<subscription>/ folder (see docs/adr/azure/data-model.md#rule-adr-datamod2)."
-        }
-
-        # Gather every config file with its subscription (the folder) and derived customer.
+        # Gather every config file with its customer (the subfolder; '' for a configuration-root config).
+        # Root files first, then the customer subfolders — both sorted, so output stays deterministic.
         $configEntries = [System.Collections.Generic.List[object]]::new()
-        foreach ($subscriptionDirectoryPath in ([System.IO.Directory]::EnumerateDirectories($configurationFolder) | Sort-Object)) {
-            $subscription = [System.IO.Path]::GetFileName($subscriptionDirectoryPath)
-            $subscriptionCustomer = if ($azure.subscriptions.Contains($subscription)) {
-                Get-AzureSubscriptionCustomer $azure.subscriptions[$subscription]
-            }
-            else {
-                ''
-            }
-            foreach ($file in @([System.IO.Directory]::EnumerateFiles($subscriptionDirectoryPath, '*.yml') | Sort-Object)) {
-                $configEntries.Add([pscustomobject]@{ file = $file; subscription = $subscription; customer = $subscriptionCustomer })
+        foreach ($file in @([System.IO.Directory]::EnumerateFiles($configurationFolder, '*.yml') | Sort-Object)) {
+            $configEntries.Add([pscustomobject]@{ file = $file; customer = '' })
+        }
+        foreach ($customerDirectoryPath in ([System.IO.Directory]::EnumerateDirectories($configurationFolder) | Sort-Object)) {
+            $customer = [System.IO.Path]::GetFileName($customerDirectoryPath)
+            foreach ($file in @([System.IO.Directory]::EnumerateFiles($customerDirectoryPath, '*.yml') | Sort-Object)) {
+                $configEntries.Add([pscustomobject]@{ file = $file; customer = $customer })
             }
         }
 
         # Each config file is one slot (one resource group). The filename `<env>[-<slot>]` resolves to
         # its environment + slot via Resolve-BicepConfigName (`default.yml` is a reserved skip); the
-        # subscription comes from the subfolder (one config file ⟷ one (subscription, env, slot) ⟷ one RG).
+        # subscription is resolved from the (customer?, env) coordinate — one config file ⟷ one
+        # (customer?, env, slot) ⟷ one subscription ⟷ one RG.
         $slots = [System.Collections.Generic.List[object]]::new()
         $configurationFiles = [System.Collections.Generic.List[string]]::new()
         foreach ($entry in $configEntries) {
@@ -165,14 +160,19 @@ function Get-BicepTemplates {
                 continue
             }
             $configurationFiles.Add($entry.file)
-            $location = "configuration/$($entry.subscription)/$configName.yml"
+            $location = if ([string]::IsNullOrEmpty($entry.customer)) {
+                "configuration/$configName.yml"
+            }
+            else {
+                "configuration/$($entry.customer)/$configName.yml"
+            }
             try {
                 $resolved = Resolve-BicepConfigName $configName
             }
             catch {
                 throw "Template '$name' has $location — $($_.Exception.Message)"
             }
-            $subscriptionViolations = Get-BicepSubscriptionConfigViolations -Subscription $entry.subscription -Environment $resolved.environment -AzureConfig $azure -Location $location
+            $subscriptionViolations = Get-BicepSubscriptionConfigViolations -Customer $entry.customer -Environment $resolved.environment -AzureConfig $azure -Location $location
             if ($subscriptionViolations) {
                 throw "Template '$name' has an invalid config: $($subscriptionViolations -join '; ')."
             }
@@ -180,12 +180,13 @@ function Get-BicepTemplates {
             if ($classViolations) {
                 throw "Template '$name' has an invalid config: $($classViolations -join '; ')."
             }
-            $customerViolations = Get-BicepCustomerClassViolations -Subscription $entry.subscription -CustomerDeployment $customerDeployment -AzureConfig $azure -Location $location
+            $customerViolations = Get-BicepCustomerClassViolations -Customer $entry.customer -CustomerDeployment $customerDeployment -Location $location
             if ($customerViolations) {
                 throw "Template '$name' has an invalid config: $($customerViolations -join '; ')."
             }
 
-            $slots.Add([Catzc.Azure.Templates.BicepSlot]::new($configName, $resolved.environment, $resolved.slot, $entry.subscription, $entry.customer))
+            $subscription = @(Get-BicepConfigSubscriptionCandidates -Customer $entry.customer -Environment $resolved.environment -AzureConfig $azure)[0]
+            $slots.Add([Catzc.Azure.Templates.BicepSlot]::new($configName, $resolved.environment, $resolved.slot, $subscription, $entry.customer))
         }
         $environments = @($slots | ForEach-Object { $_.environment } | Select-Object -Unique)
         $subscriptions = @($slots | ForEach-Object { $_.subscription } | Select-Object -Unique)

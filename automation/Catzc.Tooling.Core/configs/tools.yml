@@ -82,6 +82,10 @@ node_js:
   winget_scope: user
   brew_formula: "node@{0}"
   apt_package: "nodejs"
+  # apt-get needs root; the Windows (winget --scope user) and macOS (brew) installs are user-space, so the
+  # elevation requirement is Linux-only (Test-ToolRequiresElevation) — a non-elevated Linux provision skips
+  # and reports it instead of failing the whole run.
+  linux_admin_only: true
   version_command: "node --version"
   version_pattern: "^v(?<ver>.+)$"
   # nvm-for-windows exposes the active node via this symlink; the janitor points the session at it when
@@ -123,7 +127,9 @@ terraform:
   winget_scope: user
   brew_formula: "hashicorp/tap/terraform"
   # Linux: HashiCorp apt repo must be configured first.
-  # Install-Terraform handles this inline.
+  # Install-Terraform handles this inline. That inline apt path needs root, while the Windows
+  # (winget --scope user) and macOS (brew) installs are user-space — Linux-only elevation.
+  linux_admin_only: true
   version_command: "terraform --version"
   version_pattern: "^Terraform v(?<ver>[\\d.]+)"
 

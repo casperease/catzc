@@ -56,6 +56,37 @@ Describe 'Install-DevBoxTools' -Tag 'L0', 'logic' {
         Mock Test-IsAdministrator { $false } -ModuleName Catzc.Tooling.Provisioning
         Mock Write-Message { } -ModuleName Catzc.Tooling.Provisioning
         Install-DevBoxTools
-        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Message -like '*Skipping java*Administrator*' }
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Message -like '*Skipping java*elevation*' }
+    }
+
+    It 'cascades the skip to a dependent whose skipped dependency is not available' {
+        Mock Get-ToolInstallOrder { @('node_js', 'cspell') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig {
+            @{
+                node_js = [pscustomobject]@{ command = 'node'; admin_only = $true }
+                cspell  = [pscustomobject]@{ command = 'cspell'; depends_on = 'node_js' }
+            }[$Tool]
+        } -ModuleName Catzc.Tooling.Provisioning
+        Mock Test-IsAdministrator { $false } -ModuleName Catzc.Tooling.Provisioning
+        Mock Test-Command { $false } -ModuleName Catzc.Tooling.Provisioning
+        Mock Write-Message { } -ModuleName Catzc.Tooling.Provisioning
+        { Install-DevBoxTools } | Should -Not -Throw
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Message -like 'Skipping cspell*node_js*' }
+    }
+
+    It 'does not cascade when the skipped dependency''s command is still available' {
+        Mock Get-ToolInstallOrder { @('node_js', 'cspell') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig {
+            @{
+                node_js = [pscustomobject]@{ command = 'node'; admin_only = $true }
+                cspell  = [pscustomobject]@{ command = 'cspell'; depends_on = 'node_js' }
+            }[$Tool]
+        } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolCommandSuffix { 'Cspell' } -ModuleName Catzc.Tooling.Provisioning
+        Mock Test-IsAdministrator { $false } -ModuleName Catzc.Tooling.Provisioning
+        Mock Test-Command { $true } -ModuleName Catzc.Tooling.Provisioning
+        Mock Install-Cspell { } -ModuleName Catzc.Tooling.Provisioning
+        Install-DevBoxTools
+        Should -Invoke Install-Cspell -ModuleName Catzc.Tooling.Provisioning -Times 1
     }
 }

@@ -89,6 +89,12 @@ function Install-Git {
         Write-Message 'Git installed successfully via brew'
     }
     elseif ($IsLinux) {
+        # Idempotent guard first (as on macOS) — a box that already has git (e.g. it cloned this repo) must
+        # never trip the root assert below just to conclude there is nothing to do.
+        if ((Test-Command git) -and -not $Force) {
+            Write-Message 'Git is already installed'
+            return
+        }
         Assert-IsAdministrator -ErrorText 'Install-Git on Linux requires root (apt-get). Run as root or install Git manually.'
         Assert-Command apt-get
         Invoke-Executable 'sudo apt-get update -qq'

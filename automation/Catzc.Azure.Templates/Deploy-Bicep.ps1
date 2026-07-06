@@ -2,9 +2,16 @@
 .SYNOPSIS
     Deploys a bicep template to Azure (resolves context, runs hooks, calls az, sets tags).
 .DESCRIPTION
+    The deploy target is the az session's subscription — in a pipeline, exactly what the service
+    connection logged into — reverse-resolved against azure.yml (Get-AzCliSessionSubscription). The
+    session's customer picks the slot: a customer subscription deploys the template's
+    configuration/<customer>/ config, a non-customer subscription the configuration-root one. The
+    -SubscriptionIdAssertIs guard pins the target explicitly and is MANDATORY in a pipeline
+    (docs/adr/azure/data-model.md).
+
     Flow:
-    1. Assert-AzCliIsConnected             (correct tenant + subscription).
-    2. Get-BicepDeploymentContext           (devbox auto-runs Build-Bicep; pipeline uses ArtifactsFolder).
+    1. Get-BicepDeploymentContext           (resolves the session target, applies the assert guard;
+       devbox auto-runs Build-Bicep; pipeline uses ArtifactsFolder).
        Returns $null if mode is DoNotRun without -OverrideDoNotRunAndRun → skip.
     3. Import the template's own PrePost.psm1 from artifacts (if it ships one); resolve the hooks it exports.
     4. Run the template's Invoke-BicepPreDeploy hook if it exports one (else no-op).
@@ -25,11 +32,11 @@
 .PARAMETER Slot
     Optional special-slot discriminator (1-3 lowercase alphanumeric chars, `001`). Selects the slot to
     deploy; omitted -> the env's base / index-0 slot.
-.PARAMETER Subscription
-    Subscription (the config folder) to deploy. On a devbox it is resolved from (env, slot) when omitted
-    (required only when more than one subscription serves that env+slot). In a pipeline it is
-    MANDATORY — inference is devbox-only, so a later template-config addition can never silently retarget
-    or break a pipeline's deploy.
+.PARAMETER SubscriptionIdAssertIs
+    Guard — the subscription GUID the az session is expected to target; throws on a mismatch (a
+    mis-wired service connection). MANDATORY in a pipeline: a pipeline deploy must pin its target
+    explicitly, so a session change can never silently retarget it. Optional on a devbox. Never a
+    selector — the session always determines the target.
 .PARAMETER ArtifactsFolder
     Required in a pipeline. Devbox callers can pass it with -DoNotRebuild to skip the local build.
 .PARAMETER DoNotRebuild
@@ -40,11 +47,11 @@
     Preview only — runs the Azure `--what-if` deployment and skips the real deploy, post-deploy hook,
     and tag-setting.
 .EXAMPLE
-    Deploy-Bicep dev sample
+    Deploy-Bicep dev sample            # deploys into the az session's subscription
 .EXAMPLE
     Deploy-Bicep dev sample -DryRun
 .EXAMPLE
-    Deploy-Bicep dev sample-customer -Subscription apex_nonprod   # into apex's subscription
+    Deploy-Bicep subn foundation -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000004
 #>
 function Deploy-Bicep {
     # State-changing function deliberately uses -DryRun, not ShouldProcess — see
@@ -65,15 +72,11 @@ function Deploy-Bicep {
 
         [ArgumentCompleter({
                 param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-                Get-BicepTemplateSlots -Template $fakeBoundParameters['Template'] -Environment $fakeBoundParameters['Environment'] -Subscription $fakeBoundParameters['Subscription']
+                Get-BicepTemplateSlots -Template $fakeBoundParameters['Template'] -Environment $fakeBoundParameters['Environment']
             })]
         [string] $Slot,
 
-        [ArgumentCompleter({
-                param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-                Get-BicepTemplateSubscriptions -Template $fakeBoundParameters['Template'] -Environment $fakeBoundParameters['Environment'] -Slot $fakeBoundParameters['Slot']
-            })]
-        [string] $Subscription,
+        [string] $SubscriptionIdAssertIs,
 
         [string] $ArtifactsFolder,
         [switch] $DoNotRebuild,
@@ -81,24 +84,22 @@ function Deploy-Bicep {
         [switch] $DryRun
     )
 
-    # In a pipeline the subscription MUST be explicit — inference is devbox-only. Otherwise adding a
-    # template config (which can make a given (env, slot) ambiguous across subscriptions) would silently
-    # retarget, or break, an existing pipeline's deploy. Fail fast at the call site instead. See
-    # docs/adr/azure/data-model.md.
-    if ((Test-IsRunningInPipeline) -and [string]::IsNullOrEmpty($Subscription)) {
-        throw "Deploy-Bicep requires an explicit -Subscription in a pipeline (subscription inference is devbox-only). Pass -Subscription <name> for template '$Template' ($Environment)."
+    # In a pipeline the target MUST be pinned explicitly — the session (the service connection) selects
+    # it, and the assert guard is the pipeline's declared expectation, so a re-wired service connection
+    # can never silently retarget an existing pipeline's deploy. Fail fast at the call site instead.
+    # See docs/adr/azure/data-model.md.
+    if ((Test-IsRunningInPipeline) -and [string]::IsNullOrEmpty($SubscriptionIdAssertIs)) {
+        throw "Deploy-Bicep requires -SubscriptionIdAssertIs in a pipeline — the pipeline must pin the subscription GUID its service connection is expected to target, for template '$Template' ($Environment)."
     }
 
-    # The deploy targets one subscription (the config folder). Resolve it once and thread it through, so
-    # the connection guard checks THAT subscription and context/config/tags all agree.
-    $subscription = Resolve-BicepDeploymentSubscription -Template $Template -Environment $Environment -Slot $Slot -Subscription $Subscription
-    Assert-AzCliIsConnected -Subscription $subscription
-
+    # The session determines the target; the context resolves and guards it (Get-AzCliSessionSubscription
+    # + -SubscriptionIdAssertIs), and everything downstream reads the one resolved identity off the
+    # context so config, artifacts, and tags all agree.
     $context = Get-BicepDeploymentContext `
         -Environment $Environment `
         -Template $Template `
         -Slot $Slot `
-        -Subscription $subscription `
+        -SubscriptionIdAssertIs $SubscriptionIdAssertIs `
         -ArtifactsFolder $ArtifactsFolder `
         -DoNotRebuild:$DoNotRebuild `
         -OverrideDoNotRunAndRun:$OverrideDoNotRunAndRun
@@ -110,8 +111,15 @@ function Deploy-Bicep {
 
     Write-Object $context -Name 'deployment context'
 
+    $subscription = $context.environment.subscription.name
+    $customerFromContext = if ($null -ne $context.environment.subscription.customer) {
+        $context.environment.subscription.customer
+    }
+    else {
+        ''
+    }
     $templateDescriptor = Get-BicepTemplate $Template
-    $configurationDescriptor = Get-BicepTemplateConfiguration $Template $Environment -Slot $Slot -Subscription $subscription
+    $configurationDescriptor = Get-BicepTemplateConfiguration $Template $Environment -Slot $Slot -Customer $customerFromContext
 
     # A template MAY ship infrastructure/templates/<name>/PrePost.psm1 exporting Invoke-BicepPreDeploy /
     # Invoke-BicepPostDeploy. Resolve whichever it exports; absent hooks are no-ops. The
@@ -133,18 +141,12 @@ function Deploy-Bicep {
     # as its own first-class parameter to PreDeploy (it's the side-effect kill switch — too special
     # to hide in a bag). Computed descriptor objects stay separate.
     # See docs/adr/automation/powershell/prepost-extension-modules.md.
-    $customer = if ($null -ne $context.environment.subscription.customer) {
-        $context.environment.subscription.customer
-    }
-    else {
-        ''
-    }
     $deployInvocation = [ordered]@{
         Template     = $Template
         Environment  = $Environment
         Slot         = $Slot
         Subscription = $subscription
-        Customer     = $customer
+        Customer     = $customerFromContext
         Mode         = $context.deployment.mode
     }
     $hookSplat = [ordered]@{
@@ -234,5 +236,5 @@ function Deploy-Bicep {
         & $postDeployHook @hookSplat
     }
 
-    Set-BicepTrackingTagSet -Environment $Environment -Template $Template -Slot $Slot -Subscription $subscription | Out-Null
+    Set-BicepTrackingTagSet -Environment $Environment -Template $Template -Slot $Slot | Out-Null
 }

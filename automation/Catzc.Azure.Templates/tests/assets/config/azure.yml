@@ -46,10 +46,11 @@ environments:
     region_code: weu
     per_subscription: true
 
-# Subscriptions (fixture): a non-customer pair (core_lower/core_upper), a non-customer single
-# (cross_shared) that overlaps their envs, and a customer pair (acme_lower/acme_upper, customer acme).
-# The overlap (cross_shared serves alpha/beta/gamma/delta too) exercises the multi-subscription-per-env
-# case the deploy-time -Subscription disambiguator handles, and subp is reused across subscriptions.
+# Subscriptions (fixture): a non-customer pair (core_lower/core_upper) — the shared platform every
+# configuration-ROOT config resolves against (each env is served by exactly one of them) — and a
+# customer pair (acme_lower/acme_upper, customer acme) that configuration/acme/ configs resolve
+# against. The customer subs overlap the non-customer envs on purpose: the customer axis, not the env,
+# separates them (docs/adr/azure/data-model.md).
 subscriptions:
   core_lower:
     id: 00000000-0000-0000-0000-000000000002
@@ -62,16 +63,6 @@ subscriptions:
     id: 00000000-0000-0000-0000-000000000003
     tenant: fixtenant
     environments:
-      - gamma
-      - delta
-      - subp
-  # cross_shared — single subscription serving all standard envs + subp identity (the single-sub shape).
-  cross_shared:
-    id: 00000000-0000-0000-0000-000000000004
-    tenant: fixtenant
-    environments:
-      - alpha
-      - beta
       - gamma
       - delta
       - subp

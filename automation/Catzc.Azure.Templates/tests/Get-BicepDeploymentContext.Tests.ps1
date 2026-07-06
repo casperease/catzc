@@ -18,10 +18,18 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
         Mock Build-Bicep {
             $outputFolder = (Get-BicepTemplate $Template).output_folder
             [System.IO.Directory]::CreateDirectory($outputFolder) | Out-Null
-            foreach ($file in 'main.json', 'parameters.core_lower.alpha.json', 'parameters.core_lower.beta.json') {
+            foreach ($file in 'main.json', 'parameters.alpha.json', 'parameters.beta.json') {
                 [System.IO.File]::WriteAllText((Join-Path $outputFolder $file), '{}')
             }
             $outputFolder
+        } -ModuleName Catzc.Azure.Templates
+
+        # The deploy target is the az session's subscription — the whole-boundary session mock stands in
+        # for the service connection / az account set (ADR-PESTER:3).
+        Mock Get-AzCliSessionSubscription {
+            [ordered]@{ name = 'core_lower'; id = '00000000-0000-0000-0000-000000000002'; customer = ''
+                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            }
         } -ModuleName Catzc.Azure.Templates
 
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
@@ -80,7 +88,7 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
 
     It 'artifacts.did_local_build is false with -DoNotRebuild (Build-Bicep is NOT invoked)' {
         [System.IO.Directory]::CreateDirectory($script:outputRoot) | Out-Null
-        foreach ($file in 'main.json', 'parameters.core_lower.alpha.json') {
+        foreach ($file in 'main.json', 'parameters.alpha.json') {
             [System.IO.File]::WriteAllText((Join-Path $script:outputRoot $file), '{}')
         }
 
@@ -94,16 +102,16 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
         $context.artifacts.template_file | Should -BeLike '*main.json'
     }
 
-    It 'artifacts.parameters_file points at parameters.core_lower.alpha.json for alpha' {
+    It 'artifacts.parameters_file points at parameters.alpha.json for alpha (a configuration-root slot)' {
         $context = Get-BicepDeploymentContext -Environment alpha -Template sample
-        $context.artifacts.parameters_file | Should -BeLike '*parameters.core_lower.alpha.json'
+        $context.artifacts.parameters_file | Should -BeLike '*parameters.alpha.json'
     }
 
     It 'stores artifact paths repo-root-relative on devbox (build output lives under the repo)' {
         $context = Get-BicepDeploymentContext -Environment alpha -Template sample
         $context.artifacts.folder | Should -Be 'out/test-isolation/deployment-context/template/sample'
         $context.artifacts.template_file | Should -Be 'out/test-isolation/deployment-context/template/sample/main.json'
-        $context.artifacts.parameters_file | Should -Be 'out/test-isolation/deployment-context/template/sample/parameters.core_lower.alpha.json'
+        $context.artifacts.parameters_file | Should -Be 'out/test-isolation/deployment-context/template/sample/parameters.alpha.json'
         [IO.Path]::IsPathRooted($context.artifacts.template_file) | Should -BeFalse
     }
 
@@ -137,7 +145,7 @@ Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
         Mock Build-Bicep {
             $outputFolder = (Get-BicepTemplate $Template).output_folder
             [System.IO.Directory]::CreateDirectory($outputFolder) | Out-Null
-            foreach ($file in 'main.json', 'parameters.core_lower.alpha.json', 'parameters.acme_lower.alpha.json') {
+            foreach ($file in 'main.json', 'parameters.alpha.json', 'parameters.acme.alpha.json') {
                 [System.IO.File]::WriteAllText((Join-Path $outputFolder $file), '{}')
             }
             $outputFolder
@@ -166,19 +174,51 @@ Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'targets the customer subscription, RG, artifact, and deployment name for the customer subscription' {
-        $context = Get-BicepDeploymentContext -Environment alpha -Template sample-customer -Subscription acme_lower
-        $context.deployment.resource_group | Should -Be 'alpha-weu-tst-scus-acme-rg'   # customer derived from acme_lower
+    It 'a customer-subscription session targets the customer RG, artifact, and configuration/<customer>/ slot' {
+        # The session (the service connection) is what selects the customer deployment.
+        Mock Get-AzCliSessionSubscription {
+            [ordered]@{ name = 'acme_lower'; id = '00000000-0000-0000-0000-000000000005'; customer = 'acme'
+                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            }
+        } -ModuleName Catzc.Azure.Templates
+        $context = Get-BicepDeploymentContext -Environment alpha -Template sample-customer
+        $context.deployment.resource_group | Should -Be 'alpha-weu-tst-scus-acme-rg'   # customer from the session subscription
         $context.deployment.name | Should -BeLike 'sample-customer-alpha-*'
         $context.environment.subscription.name | Should -Be 'acme_lower'
-        $context.artifacts.parameters_file | Should -BeLike '*parameters.acme_lower.alpha.json'
+        $context.artifacts.parameters_file | Should -BeLike '*parameters.acme.alpha.json'
     }
 
-    It 'core deploy (core_lower subscription) targets the core subscription + RG + artifact' {
-        $context = Get-BicepDeploymentContext -Environment alpha -Template sample-customer -Subscription core_lower
+    It 'a non-customer session targets the configuration-root slot + RG + artifact' {
+        Mock Get-AzCliSessionSubscription {
+            [ordered]@{ name = 'core_lower'; id = '00000000-0000-0000-0000-000000000002'; customer = ''
+                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            }
+        } -ModuleName Catzc.Azure.Templates
+        $context = Get-BicepDeploymentContext -Environment alpha -Template sample-customer
         $context.deployment.resource_group | Should -Be 'alpha-weu-tst-scus-rg'   # no customer on core_lower
         $context.environment.subscription.name | Should -Be 'core_lower'
-        $context.artifacts.parameters_file | Should -BeLike '*parameters.core_lower.alpha.json'
+        $context.artifacts.parameters_file | Should -BeLike '*parameters.alpha.json'
+    }
+
+    It 'the -SubscriptionIdAssertIs guard throws when the session subscription differs' {
+        Mock Get-AzCliSessionSubscription {
+            [ordered]@{ name = 'acme_lower'; id = '00000000-0000-0000-0000-000000000005'; customer = 'acme'
+                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            }
+        } -ModuleName Catzc.Azure.Templates
+        { Get-BicepDeploymentContext -Environment alpha -Template sample-customer -SubscriptionIdAssertIs '00000000-0000-0000-0000-000000000002' } |
+            Should -Throw '*-SubscriptionIdAssertIs failed*'
+    }
+
+    It 'throws a self-contained error when the session addresses a coordinate the template has no config for' {
+        # globex has no configuration/globex/ folder in sample-customer.
+        Mock Get-AzCliSessionSubscription {
+            [ordered]@{ name = 'globex_short'; id = '00000000-0000-0000-0000-000000000007'; customer = 'globex'
+                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            }
+        } -ModuleName Catzc.Azure.Templates
+        { Get-BicepDeploymentContext -Environment alpha -Template sample-customer } |
+            Should -Throw "*no config*customer 'globex'*"
     }
 }
 
@@ -188,6 +228,11 @@ Describe 'Get-BicepDeploymentContext (pipeline)' -Tag 'L0', 'logic' {
     # torn down once.
     BeforeAll {
         Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Azure.Templates
+        Mock Get-AzCliSessionSubscription {
+            [ordered]@{ name = 'core_lower'; id = '00000000-0000-0000-0000-000000000002'; customer = ''
+                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            }
+        } -ModuleName Catzc.Azure.Templates
         Mock Build-Bicep { throw 'Build-Bicep must not be invoked on a pipeline agent' } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
@@ -206,7 +251,7 @@ Describe 'Get-BicepDeploymentContext (pipeline)' -Tag 'L0', 'logic' {
 
         $script:artifactsFolder = Join-Path ([IO.Path]::GetTempPath()) ('catzc-test-' + [Guid]::NewGuid())
         [System.IO.Directory]::CreateDirectory($script:artifactsFolder) | Out-Null
-        foreach ($file in 'main.json', 'parameters.core_lower.alpha.json') {
+        foreach ($file in 'main.json', 'parameters.alpha.json') {
             [System.IO.File]::WriteAllText((Join-Path $script:artifactsFolder $file), '{}')
         }
     }
@@ -254,6 +299,11 @@ Describe 'Get-BicepDeploymentContext (DoNotRun gate)' -Tag 'L0', 'logic' {
         } -ModuleName Catzc.Azure.Templates
 
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
+        Mock Get-AzCliSessionSubscription {
+            [ordered]@{ name = 'core_lower'; id = '00000000-0000-0000-0000-000000000002'; customer = ''
+                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            }
+        } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
@@ -292,7 +342,7 @@ Describe 'Get-BicepDeploymentContext (DoNotRun gate)' -Tag 'L0', 'logic' {
 
         Mock Build-Bicep {
             [System.IO.Directory]::CreateDirectory($script:outputRoot) | Out-Null
-            foreach ($file in 'main.json', 'parameters.core_lower.alpha.json') {
+            foreach ($file in 'main.json', 'parameters.alpha.json') {
                 [System.IO.File]::WriteAllText((Join-Path $script:outputRoot $file), '{}')
             }
             $script:outputRoot

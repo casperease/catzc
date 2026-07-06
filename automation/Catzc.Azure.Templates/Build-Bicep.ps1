@@ -2,15 +2,15 @@
 .SYNOPSIS
     Builds a bicep template: renders per-slot parameter files and compiles main.bicep.
 .DESCRIPTION
-    For each target slot (one per configuration/<subscription>/<config>.yml):
-    1. Loads `configuration/<subscription>/<slot>.yml` via Get-BicepTemplateConfiguration.
+    For each target slot (one per configuration/[<customer>/]<config>.yml):
+    1. Loads the slot's config via Get-BicepTemplateConfiguration.
     2. Runs the UNDEFINED gate (throws if any flattened leaf is the literal string 'UNDEFINED').
     3. If the template ships `infrastructure/templates/<name>/PrePost.psm1` exporting
        Invoke-BicepPrepareParameterSet, runs it — the merge seam between per-slot config and the
        global asset configs in `Catzc.Azure.Templates/assets/*.yml`. With no such hook the step is a no-op
        (the per-slot config is used unchanged).
     4. Renders the resulting `.ParametersFile` to
-       `out/template/<name>/parameters.<subscription>.<config>.json` — one per config file; the name
+       `out/template/<name>/parameters.[<customer>.]<config>.json` — one per config file; the name
        comes from Get-BicepParametersFileName (config name = `<env>[-<slot>]`).
 
     Then runs `az bicep build --file <main.bicep> --outdir <out>` once for the template,
@@ -23,14 +23,19 @@
 .PARAMETER Environments
     Optional filter — build only slots whose environment is named here. Defaults to all
     slots configured for the template (one parameters file per configuration/*.yml, excluding default).
-.PARAMETER Subscriptions
-    Optional filter — build only slots for the named subscriptions (config folders). Defaults to all.
+.PARAMETER Customers
+    Optional filter — build only the named customers' slots (their configuration subfolders).
+.PARAMETER Shared
+    Optional filter — build the configuration-root (shared-platform, non-customer) slots. Combines with
+    -Customers as a union; with neither filter every slot builds.
 .EXAMPLE
     Build-Bicep discovery
 .EXAMPLE
     Build-Bicep discovery -Environments dev
 .EXAMPLE
-    Build-Bicep discovery -Subscriptions apex_nonprod
+    Build-Bicep discovery -Customers apex
+.EXAMPLE
+    Build-Bicep foundation -Shared
 #>
 function Build-Bicep {
     [CmdletBinding()]
@@ -42,22 +47,31 @@ function Build-Bicep {
 
         [string[]] $Environments,
 
-        [string[]] $Subscriptions
+        [ArgumentCompleter({
+                param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+                Get-BicepTemplateCustomers -Template $fakeBoundParameters['Template']
+            })]
+        [string[]] $Customers,
+
+        [switch] $Shared
     )
 
     $templateDescriptor = Get-BicepTemplate $Template
     $outputFolder = $templateDescriptor.output_folder
 
-    # Build every slot by default (all subscriptions); -Environments / -Subscriptions narrow it.
+    # Build every slot by default; -Environments narrows by env, and -Customers/-Shared narrow by the
+    # configuration axis (a customer's subfolder slots / the root slots), unioned when both are given.
     $targetSlots = @($templateDescriptor.slots)
     if ($Environments) {
         $targetSlots = @($targetSlots | Where-Object { $_.environment -in $Environments })
     }
-    if ($Subscriptions) {
-        $targetSlots = @($targetSlots | Where-Object { $_.subscription -in $Subscriptions })
+    if ($Customers -or $Shared) {
+        $targetSlots = @($targetSlots | Where-Object {
+                ($Customers -and $_.customer -in $Customers) -or ($Shared -and $_.customer -eq '')
+            })
     }
     if ($targetSlots.Count -eq 0) {
-        throw "No slots to build for template '$Template' (requested environments: $($Environments -join ', '); subscriptions: $($Subscriptions -join ', '); available: $($templateDescriptor.environments -join ', '))"
+        throw "No slots to build for template '$Template' (requested environments: $($Environments -join ', '); customers: $($Customers -join ', ')$(if ($Shared) { ' + shared' }); available environments: $($templateDescriptor.environments -join ', '))"
     }
 
     # Precondition: the Bicep CLI must be available before we wipe the output and render params, else
@@ -86,7 +100,7 @@ function Build-Bicep {
 
     foreach ($slot in $targetSlots) {
         $environment = $slot.environment
-        $configurationDescriptor = Get-BicepTemplateConfiguration $Template $environment -Slot $slot.slot -Subscription $slot.subscription
+        $configurationDescriptor = Get-BicepTemplateConfiguration $Template $environment -Slot $slot.slot -Customer $slot.customer
 
         $flat = $configurationDescriptor | ConvertTo-FlatSettingSet
         foreach ($key in $flat.Keys) {
@@ -118,7 +132,7 @@ function Build-Bicep {
             throw "Prepared configuration for $Template / $($slot.name) is missing 'ParametersFile' (check the template's PrePost.psm1)"
         }
 
-        $paramsPath = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $environment -Slot $slot.slot -Subscription $slot.subscription)
+        $paramsPath = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $environment -Slot $slot.slot -Customer $slot.customer)
         $preparedDescriptor.ParametersFile | ConvertTo-Json -Depth 10 | Set-Content $paramsPath -Encoding utf8 -NoNewline
         Write-Message "Wrote $paramsPath"
     }

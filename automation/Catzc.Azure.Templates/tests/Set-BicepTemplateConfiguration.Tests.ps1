@@ -16,7 +16,7 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
         # The tool/config boundary is mocked once for the whole block — Get-BicepTemplatesRoot reads the
         # current $script:templatesRoot at call time, so each context just repoints that variable.
         Mock Get-BicepTemplatesRoot { $script:templatesRoot } -ModuleName Catzc.Azure.Templates
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }

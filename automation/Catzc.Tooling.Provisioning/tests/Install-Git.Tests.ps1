@@ -34,5 +34,15 @@ Describe 'Install-Git' -Tag 'L0', 'logic' {
             { Install-Git } | Should -Not -Throw
             Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Provisioning -Times 1
         }
+
+        It 'is a no-op on Linux when git is already installed — the root assert is never reached' {
+            if (-not $IsLinux) {
+                Set-ItResult -Skipped -Because 'unix_only_install'; return
+            }
+            Mock Test-Command { $true } -ModuleName Catzc.Tooling.Provisioning
+            Mock Assert-IsAdministrator { throw 'root assert must not fire for an already-installed git' } -ModuleName Catzc.Tooling.Provisioning
+            { Install-Git } | Should -Not -Throw
+            Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Provisioning -Times 0
+        }
     }
 }

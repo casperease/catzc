@@ -18,11 +18,8 @@
 .PARAMETER Environment
     Optional filter — return only slots configured for this environment name.
 .PARAMETER Customer
-    Customer filter (the naming paths) — return slots for this customer (omitted/empty = the
-    non-customer slots). Ignored when -Subscription is given.
-.PARAMETER Subscription
-    Subscription filter (the deploy paths) — return slots for this subscription folder. Takes precedence
-    over -Customer.
+    Customer filter — return slots for this customer's configuration subfolder (omitted/empty = the
+    configuration-root, shared-platform slots).
 .EXAMPLE
     Get-BicepTemplateSlots sample-indexed            # -> 001, 002
 .EXAMPLE
@@ -39,10 +36,7 @@ function Get-BicepTemplateSlots {
         [string] $Environment,
 
         [Parameter(Position = 2)]
-        [string] $Customer,
-
-        [Parameter(Position = 3)]
-        [string] $Subscription
+        [string] $Customer
     )
 
     if ([string]::IsNullOrEmpty($Template)) {
@@ -57,20 +51,12 @@ function Get-BicepTemplateSlots {
     }
 
     # slots are [ordered] dicts -> use the script-block Where-Object/ForEach-Object form (the
-    # `Where-Object prop -EQ` shortcut does not bind ordered-dict keys). Filter by subscription when
-    # given (the deploy paths), else by customer (the naming paths; empty/unbound = non-customer slots).
+    # `Where-Object prop -EQ` shortcut does not bind ordered-dict keys). Filter by customer — the
+    # configuration axis; empty/unbound = the configuration-root (shared-platform) slots.
     $wantCustomer = [string]$Customer
-    $wantSubscription = [string]$Subscription
     @($templateDescriptor.slots |
             Where-Object { -not [string]::IsNullOrEmpty($_.slot) } |
-            Where-Object {
-                if (-not [string]::IsNullOrEmpty($wantSubscription)) {
-                    $_.subscription -eq $wantSubscription
-                }
-                else {
-                    $_.customer -eq $wantCustomer
-                }
-            } |
+            Where-Object { $_.customer -eq $wantCustomer } |
             Where-Object { [string]::IsNullOrEmpty($Environment) -or $_.environment -eq $Environment } |
             ForEach-Object { $_.slot } |
             Select-Object -Unique)

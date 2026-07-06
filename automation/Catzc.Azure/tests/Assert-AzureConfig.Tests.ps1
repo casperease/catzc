@@ -38,17 +38,25 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
 
         # The load-time validator groups customer subscriptions by their RAW customer token (it must not
         # read customer.yml — see customer-model.md); this is the NORMALIZED counterpart: with shortcode
-        # bindings resolved to canonical keys, every shipped family still serves each env exactly once.
-        It 'every shipped family serves each environment through exactly one subscription (normalized)' {
+        # bindings resolved to canonical keys, every shipped customer still serves each env exactly once,
+        # and so does the non-customer (shared) set — the uniqueness every configuration file resolution
+        # rests on (docs/adr/azure/data-model.md).
+        It 'every shipped customer — and the non-customer set — serves each environment through exactly one subscription' {
             $azure = Get-Config -Config azure
-            foreach ($family in (Get-AzureFamilies)) {
-                $servedBy = @{}
-                foreach ($name in $family.subscriptions) {
-                    foreach ($environment in @($azure.subscriptions[$name].environments)) {
-                        $servedBy.ContainsKey($environment) |
-                            Should -BeFalse -Because "family '$($family.name)' must serve '$environment' through exactly one subscription ($($servedBy[$environment]) vs $name)"
-                        $servedBy[$environment] = $name
-                    }
+            $servedBy = @{}
+            foreach ($name in $azure.subscriptions.Keys) {
+                $token = & (Get-Module Catzc.Azure) { Get-AzureSubscriptionCustomer $args[0] } $azure.subscriptions[$name]
+                $group = if ([string]::IsNullOrEmpty($token)) {
+                    ''
+                }
+                else {
+                    (Get-AzureCustomer $token).key
+                }
+                foreach ($environment in @($azure.subscriptions[$name].environments)) {
+                    $key = "$group|$environment"
+                    $servedBy.ContainsKey($key) |
+                        Should -BeFalse -Because "'$(if ($group) { "customer $group" } else { 'the non-customer set' })' must serve '$environment' through exactly one subscription ($($servedBy[$key]) vs $name)"
+                    $servedBy[$key] = $name
                 }
             }
         }
@@ -204,42 +212,18 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
             { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $ok } | Should -Not -Throw
         }
 
-        It 'passes for a valid two-member family with disjoint environments' {
+        It 'passes for a customer pair with disjoint environments' {
             $ok = Copy-Object $baseConfig
             $ok.environments.Add('prod', [ordered]@{ shortcode = 'pr'; region = 'westeurope'; region_code = 'weu' })
-            $ok.subscriptions.placeholder_nonprod.family = 'placeholder'
+            $ok.subscriptions.placeholder_nonprod.customer = 'anything'
             $ok.subscriptions.Add('placeholder_prod', [ordered]@{
                     id = '00000000-0000-0000-0000-000000000003'; tenant = 'placeholder'
-                    family = 'placeholder'; environments = @('prod')
+                    customer = 'anything'; environments = @('prod')
                 })
             { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $ok } | Should -Not -Throw
         }
 
-        It 'throws when a family key contains an underscore or invalid chars' {
-            $bad = Copy-Object $baseConfig
-            $bad.subscriptions.placeholder_nonprod.family = 'place_holder'
-            { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $bad } | Should -Throw '*invalid family*'
-        }
-
-        It 'throws when a subscription declares both customer and family' {
-            $bad = Copy-Object $baseConfig
-            $bad.subscriptions.placeholder_nonprod.customer = 'anything'
-            $bad.subscriptions.placeholder_nonprod.family = 'placeholder'
-            { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $bad } | Should -Throw "*both 'customer' and 'family'*"
-        }
-
-        It 'throws when two members of one family serve the same environment' {
-            $bad = Copy-Object $baseConfig
-            $bad.subscriptions.placeholder_nonprod.family = 'placeholder'
-            $bad.subscriptions.Add('placeholder_prod', [ordered]@{
-                    id = '00000000-0000-0000-0000-000000000003'; tenant = 'placeholder'
-                    family = 'placeholder'; environments = @('dev')
-                })
-            { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $bad } |
-                Should -Throw '*more than one subscription serving environment*'
-        }
-
-        It 'groups customer subscriptions by their raw token for the disjointness rule' {
+        It 'throws when two subscriptions of one customer serve the same environment' {
             $bad = Copy-Object $baseConfig
             $bad.subscriptions.placeholder_nonprod.customer = 'anything'
             $bad.subscriptions.Add('placeholder_second', [ordered]@{
@@ -250,16 +234,12 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
                 Should -Throw '*more than one subscription serving environment*'
         }
 
-        It 'throws when a declared families: entry has no member subscription' {
-            $bad = Copy-Object $baseConfig
-            $bad.families = [ordered]@{ ghost = [ordered]@{ details = 'nobody home' } }
-            { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $bad } | Should -Throw '*no member subscription*'
-        }
-
-        It 'passes when a declared families: entry matches a family: key or a subscription name' {
+        It 'allows two NON-customer subscriptions to serve the same env at load (root-config uniqueness is a discovery/integrity concern)' {
             $ok = Copy-Object $baseConfig
-            $ok.subscriptions.placeholder_nonprod.family = 'placeholder'
-            $ok.families = [ordered]@{ placeholder = [ordered]@{ details = 'configured' } }
+            $ok.subscriptions.Add('placeholder_second', [ordered]@{
+                    id = '00000000-0000-0000-0000-000000000003'; tenant = 'placeholder'
+                    environments = @('dev')
+                })
             { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $ok } | Should -Not -Throw
         }
     }

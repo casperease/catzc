@@ -32,6 +32,7 @@ function Install-DevBoxTools {
     }
 
     # Version-locked tools (from tools.yml, dependency-ordered via DependsOn)
+    $skipped = [System.Collections.Generic.HashSet[string]]::new()
     foreach ($toolName in Get-ToolInstallOrder) {
         $config = Get-ToolConfig -Tool $toolName
 
@@ -47,11 +48,25 @@ function Install-DevBoxTools {
             continue
         }
 
-        # Admin-only tools (machine-scope installers, e.g. Microsoft.OpenJDK) cannot install without elevation.
-        # Skip and report in a non-elevated run rather than failing the whole provision; re-run elevated to get them.
-        if ($config.admin_only -and -not (Test-IsAdministrator)) {
-            Write-Message "Skipping $toolName — requires Administrator (machine-scope installer). Re-run Install-DevBoxTools elevated to install it."
+        # Elevation-bound tools (admin_only machine-scope installers, or apt-get-routed Linux installs —
+        # Test-ToolRequiresElevation) cannot install without elevation. Skip and report in a non-elevated run
+        # rather than failing the whole provision; re-run elevated to get them.
+        if ((Test-ToolRequiresElevation $config) -and -not (Test-IsAdministrator)) {
+            Write-Message "Skipping $toolName — requires elevation on this platform. Re-run Install-DevBoxTools elevated to install it."
+            $skipped.Add($toolName) | Out-Null
             continue
+        }
+
+        # A tool whose declared dependency was skipped this run — and whose dependency's command is not
+        # available from an earlier install either — cannot install. Skip and report it with the same
+        # remediation instead of letting its installer fail the whole provision.
+        if ($config.depends_on -and $skipped.Contains([string] $config.depends_on)) {
+            $dependencyCommand = (Get-ToolConfig -Tool $config.depends_on).command
+            if (-not (Test-Command $dependencyCommand)) {
+                Write-Message "Skipping $toolName — its dependency '$($config.depends_on)' was skipped and '$dependencyCommand' is not available. Re-run Install-DevBoxTools elevated to install both."
+                $skipped.Add($toolName) | Out-Null
+                continue
+            }
         }
 
         $installCmd = "Install-$(Get-ToolCommandSuffix -Tool $toolName)"

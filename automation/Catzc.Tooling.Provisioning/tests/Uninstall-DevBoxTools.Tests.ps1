@@ -40,7 +40,7 @@ Describe 'Uninstall-DevBoxTools' -Tag 'L0', 'logic' {
         Mock Test-IsAdministrator { $false } -ModuleName Catzc.Tooling.Provisioning
         Mock Write-Message { } -ModuleName Catzc.Tooling.Provisioning
         { Uninstall-DevBoxTools } | Should -Not -Throw
-        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Message -like '*Skipping java*Administrator*' }
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Message -like '*Skipping java*elevation*' }
     }
 
     It 'skips an OS-provided tool (winget) without uninstalling or throwing' {

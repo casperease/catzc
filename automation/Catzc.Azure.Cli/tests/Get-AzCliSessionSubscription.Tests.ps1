@@ -10,25 +10,23 @@ Describe 'Get-AzCliSessionSubscription' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
     }
 
-    It 'resolves the session subscription to its declared azure.yml identity and family' {
-        # acme_lower's fixture GUID; the family derives from its customer.
+    It 'resolves the session subscription to its declared azure.yml identity' {
+        # acme_lower's fixture GUID; the customer is normalized to its canonical key.
         Mock Get-CurrentAzSubscription -ModuleName Catzc.Azure.Cli {
             [pscustomobject]@{ Id = '00000000-0000-0000-0000-000000000005'; Name = 'live-acme-lower'; TenantId = '00000000-0000-0000-0000-000000000001' }
         }
         $session = Get-AzCliSessionSubscription
         $session.name | Should -Be 'acme_lower'
-        $session.family | Should -Be 'acme'
         $session.customer | Should -Be 'acme'
         $session.tenant.name | Should -Be 'fixtenant'
     }
 
-    It 'resolves an ungrouped subscription to its own-name family' {
+    It 'resolves a non-customer subscription with an empty customer' {
         Mock Get-CurrentAzSubscription -ModuleName Catzc.Azure.Cli {
             [pscustomobject]@{ Id = '00000000-0000-0000-0000-000000000004'; Name = 'live-cross'; TenantId = '00000000-0000-0000-0000-000000000001' }
         }
         $session = Get-AzCliSessionSubscription
         $session.name | Should -Be 'cross_shared'
-        $session.family | Should -Be 'cross_shared'
         $session.customer | Should -BeNullOrEmpty
     }
 

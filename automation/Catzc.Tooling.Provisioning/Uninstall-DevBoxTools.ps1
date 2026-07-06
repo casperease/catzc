@@ -37,9 +37,10 @@ function Uninstall-DevBoxTools {
             continue
         }
 
-        # Admin-only tools (machine-scope) need elevation to uninstall — skip and report in a non-elevated run.
-        if ($config.admin_only -and -not (Test-IsAdministrator)) {
-            Write-Message "Skipping $toolName — requires Administrator to uninstall (machine-scope). Re-run elevated."
+        # Elevation-bound tools (admin_only machine-scope, or apt-get-routed Linux installs) need the same
+        # elevation to uninstall — skip and report in a non-elevated run.
+        if ((Test-ToolRequiresElevation $config) -and -not (Test-IsAdministrator)) {
+            Write-Message "Skipping $toolName — requires elevation on this platform to uninstall. Re-run elevated."
             continue
         }
 

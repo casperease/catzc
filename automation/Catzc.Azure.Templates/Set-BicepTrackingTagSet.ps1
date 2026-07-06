@@ -17,12 +17,11 @@
     code, and az's captured stderr/stdout — so a failure here (e.g. a tag-governing Azure Policy
     colliding with the tags API, or a dropped connection) is diagnosable from the thrown error itself,
     not only from the live console stream.
+    The target scope's subscription is the az session's (Get-AzCliSessionSubscription) — the same
+    session-determined target Deploy-Bicep just deployed into, so the tags land where the deploy did.
 .PARAMETER Slot
     Optional special-slot discriminator (1-3 lowercase alphanumeric chars). Selects the same slot (and
     therefore the same RG) that was deployed; omitted -> the env's base / index-0 slot.
-.PARAMETER Subscription
-    Optional subscription (the config folder). Resolved from (env, slot) when omitted; required only when
-    more than one subscription serves that env+slot.
 .PARAMETER DryRun
     Preview only — log the tag command that would run and make no change.
 .EXAMPLE
@@ -48,22 +47,17 @@ function Set-BicepTrackingTagSet {
         [Parameter(Position = 2)]
         [ArgumentCompleter({
                 param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-                Get-BicepTemplateSlots -Template $fakeBoundParameters['Template'] -Environment $fakeBoundParameters['Environment'] -Subscription $fakeBoundParameters['Subscription']
+                Get-BicepTemplateSlots -Template $fakeBoundParameters['Template'] -Environment $fakeBoundParameters['Environment']
             })]
         [string] $Slot,
-
-        [ArgumentCompleter({
-                param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-                Get-BicepTemplateSubscriptions -Template $fakeBoundParameters['Template'] -Environment $fakeBoundParameters['Environment'] -Slot $fakeBoundParameters['Slot']
-            })]
-        [string] $Subscription,
 
         [switch] $DryRun
     )
 
     $templateDescriptor = Get-BicepTemplate $Template
-    $subscription = Resolve-BicepDeploymentSubscription -Template $Template -Environment $Environment -Slot $Slot -Subscription $Subscription
-    $environmentDescriptor = Get-AzureEnvironment $Environment -Subscription $subscription
+    # The scope is the az session's subscription — the same session-determined target the deploy used.
+    $sessionSubscription = Get-AzCliSessionSubscription
+    $environmentDescriptor = Get-AzureEnvironment $Environment -Subscription $sessionSubscription.name
     $customer = if ($null -ne $environmentDescriptor.subscription.customer) {
         $environmentDescriptor.subscription.customer
     }

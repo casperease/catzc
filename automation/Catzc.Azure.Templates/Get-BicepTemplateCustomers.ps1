@@ -2,11 +2,11 @@
 .SYNOPSIS
     Returns a template's configured customer names as a flat string array.
 .DESCRIPTION
-    The single source of the customer list used by the -Customer ArgumentCompleter on the naming paths
-    (the deploy paths take -Subscription). A template's customers are DERIVED from its subscription
-    folders: each `configuration/<subscription>/` folder whose subscription carries a `customer`
-    contributes that customer. This returns the distinct customer names from discovery, so `-Customer
-    <TAB>` offers exactly the customers the bound -Template actually ships configs for.
+    The single source of the customer list used by the -Customer ArgumentCompleter (the deploy paths
+    are session-determined and take no customer). A template's customers ARE its configuration
+    subfolders: each `configuration/<customer>/` folder contributes its customer key. This returns the
+    distinct customer names from discovery, so `-Customer <TAB>` offers exactly the customers the bound
+    -Template actually ships configs for.
 
     Returns an empty array when -Template is omitted/unknown or the template is core-only — completers
     must degrade quietly, never throw.
@@ -16,7 +16,7 @@
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .EXAMPLE
-    Get-BicepTemplateCustomers sample-indexed   # -> apex
+    Get-BicepTemplateCustomers sample-customer   # -> acme
 #>
 function Get-BicepTemplateCustomers {
     [CmdletBinding()]

@@ -25,7 +25,7 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
@@ -53,20 +53,20 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
 
     It 'renders one parameters.json per configured environment' {
         Build-Bicep sample | Out-Null
-        Join-Path $script:outputRoot 'parameters.core_lower.alpha.json' | Should -Exist
-        Join-Path $script:outputRoot 'parameters.core_lower.beta.json' | Should -Exist
+        Join-Path $script:outputRoot 'parameters.alpha.json' | Should -Exist
+        Join-Path $script:outputRoot 'parameters.beta.json' | Should -Exist
     }
 
     It 'passes the configured storageAccountName through to parameters.json' {
         Build-Bicep sample -Environments alpha | Out-Null
-        $json = Get-Content (Join-Path $script:outputRoot 'parameters.core_lower.alpha.json') -Raw | ConvertFrom-Json
+        $json = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
         $json.parameters.storageAccountName.value | Should -Be 'alweutstsmplst'
     }
 
     It 'filters environments when -Environments is provided' {
         Build-Bicep sample -Environments alpha | Out-Null
-        Join-Path $script:outputRoot 'parameters.core_lower.alpha.json' | Should -Exist
-        Join-Path $script:outputRoot 'parameters.core_lower.beta.json' | Should -Not -Exist
+        Join-Path $script:outputRoot 'parameters.alpha.json' | Should -Exist
+        Join-Path $script:outputRoot 'parameters.beta.json' | Should -Not -Exist
     }
 
     It 'invokes az bicep build with the template main path and outdir' {
@@ -133,7 +133,7 @@ Describe 'Build-Bicep (real az)' -Tag 'L2', 'logic' {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
@@ -146,7 +146,7 @@ Describe 'Build-Bicep (real az)' -Tag 'L2', 'logic' {
         }
     }
 
-    It 'produces main.json + parameters.core_lower.alpha.json with real az bicep build' {
+    It 'produces main.json + parameters.alpha.json with real az bicep build' {
         if (-not (Get-Command az -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_az_missing'
             return
@@ -156,6 +156,6 @@ Describe 'Build-Bicep (real az)' -Tag 'L2', 'logic' {
         }
         Build-Bicep sample -Environments alpha | Out-Null
         Join-Path $script:outputRoot 'main.json' | Should -Exist
-        Join-Path $script:outputRoot 'parameters.core_lower.alpha.json' | Should -Exist
+        Join-Path $script:outputRoot 'parameters.alpha.json' | Should -Exist
     }
 }

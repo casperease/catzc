@@ -5,7 +5,7 @@ Describe 'Get-BicepTemplateSlots' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
@@ -33,9 +33,9 @@ Describe 'Get-BicepTemplateSlots' -Tag 'L0', 'logic' {
         @(Get-BicepTemplateSlots 'sample-indexed' -Environment 'beta') | Should -BeNullOrEmpty
     }
 
-    It 'filters slots by customer (omitted = core slots only)' {
-        # sample-customer core configs carry no slot; acme MIXES a base config (alpha) and a slotted one
-        # (alpha-001), so only the acme view offers a slot discriminator.
+    It 'filters slots by customer (omitted = configuration-root slots only)' {
+        # sample-customer's root config carries no slot; acme MIXES a base config (alpha) and a slotted
+        # one (alpha-001), so only the acme view offers a slot discriminator.
         @(Get-BicepTemplateSlots 'sample-customer') | Should -BeNullOrEmpty
         @(Get-BicepTemplateSlots 'sample-customer' -Customer 'acme') | Should -Be @('001')
     }
@@ -57,7 +57,7 @@ Describe 'Slot ArgumentCompleter wiring' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }

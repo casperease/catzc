@@ -47,22 +47,15 @@ environments:
     region_code: weu
     per_subscription: true
 
-# Declared family configuration (fixture): the core pair is family 'core' (members declare family: core
-# below); this entry exercises the declared-config overlay (details) on top of the derived membership.
-families:
-  core:
-    details: Fixture core family (lower + upper pair)
-
-# Subscriptions (fixture): a non-customer pair (family core: core_lower/core_upper), a non-customer
-# single (cross_shared — its own one-member family, the ungrouped default) that overlaps their envs, and
-# a customer pair (acme_lower/acme_upper, customer acme -> family acme). The overlap (cross_shared
-# serves alpha/beta/gamma/delta too) exercises the several-families-per-env case the session-determined
-# deploy resolves; within each family the env sets are disjoint, so (family, env) is always unique.
+# Subscriptions (fixture): a non-customer pair (core_lower/core_upper), a non-customer single
+# (cross_shared) that overlaps their envs, and a customer pair (acme_lower/acme_upper, customer acme).
+# Within each customer the env sets are disjoint (a customer config resolves to exactly one
+# subscription per env); the identity-layer tests here are folder-agnostic, so the non-customer overlap
+# is harmless and keeps the by-name lookups exercised.
 subscriptions:
   core_lower:
     id: 00000000-0000-0000-0000-000000000002
     tenant: fixtenant
-    family: core
     environments:
       - alpha
       - beta
@@ -70,13 +63,11 @@ subscriptions:
   core_upper:
     id: 00000000-0000-0000-0000-000000000003
     tenant: fixtenant
-    family: core
     environments:
       - gamma
       - delta
       - subp
-  # cross_shared — single subscription serving all standard envs + subp identity (the single-sub shape;
-  # no customer, no family: — its own name is its family, the degenerate default).
+  # cross_shared — single subscription serving all standard envs + subp identity (the single-sub shape).
   cross_shared:
     id: 00000000-0000-0000-0000-000000000004
     tenant: fixtenant
@@ -103,8 +94,8 @@ subscriptions:
       - delta
       - subp
   # globex_short — binds its customer by the 2-char SHORTCODE ('gx') instead of the key, exercising the
-  # by-shortcode reference form (Get-AzureSubscription normalizes it to the key 'globex'; the derived
-  # family is likewise the canonical key). Its own customer keeps family 'acme' env-disjoint.
+  # by-shortcode reference form (Get-AzureSubscription normalizes it to the key 'globex'). Its own
+  # customer keeps customer 'acme' env-disjoint (the per-customer load rule).
   globex_short:
     id: 00000000-0000-0000-0000-000000000007
     tenant: fixtenant

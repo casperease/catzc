@@ -1,21 +1,21 @@
 <#
 .SYNOPSIS
-    Resolves the az session's active subscription to its declared azure.yml identity (name + family).
+    Resolves the az session's active subscription to its declared azure.yml identity.
 .DESCRIPTION
     The reverse lookup that makes the session the deploy-target selector: reads the active subscription
     (Get-CurrentAzSubscription — in a pipeline, exactly what the service connection logged into), finds
-    the azure.yml subscription with that GUID, and returns the declared identity with its family
-    (Get-AzureSubscriptionFamily). Read-only — it never logs in or switches context (verify is not
-    connect, docs/adr/azure/az-session-verification.md); config defines correct, so a session pointed at
-    a subscription azure.yml does not declare is an error, not a fallback.
+    the azure.yml subscription with that GUID, and returns the declared identity. Read-only — it never
+    logs in or switches context (verify is not connect, docs/adr/azure/az-session-verification.md);
+    config defines correct, so a session pointed at a subscription azure.yml does not declare is an
+    error, not a fallback.
 .OUTPUTS
-    An ordered dictionary: @{ name; id; family; customer; tenant } — `name` is the azure.yml subscription
-    key, `customer` the canonical customer key ('' for a non-customer subscription), `tenant` the
-    resolved tenant object.
+    An ordered dictionary: @{ name; id; customer; tenant } — `name` is the azure.yml subscription key,
+    `customer` the canonical customer key ('' for a non-customer subscription), `tenant` the resolved
+    tenant object.
 .EXAMPLE
     (Get-AzCliSessionSubscription).name      # -> apex_nonprod  (whatever the session is set to)
 .EXAMPLE
-    (Get-AzCliSessionSubscription).family    # -> apex
+    (Get-AzCliSessionSubscription).customer  # -> apex  ('' for a non-customer subscription)
 #>
 function Get-AzCliSessionSubscription {
     [CmdletBinding()]
@@ -33,12 +33,10 @@ function Get-AzCliSessionSubscription {
     }
 
     $subscription = Get-AzureSubscription $declared[0]
-    $family = Get-AzureSubscriptionFamily $declared[0]
 
     [ordered]@{
         name     = $subscription.name
         id       = $subscription.id
-        family   = $family
         customer = $subscription.customer
         tenant   = $subscription.tenant
     }

@@ -1,27 +1,27 @@
 <#
 .SYNOPSIS
-    The build-artifact parameters filename for a (subscription, env, slot) config.
+    The build-artifact parameters filename for a (customer?, env, slot) config.
 .DESCRIPTION
     The single source of the per-slot parameters artifact name, used by both Build-Bicep (which writes
     it) and Get-BicepDeploymentContext (which reads it) so the two can never drift — the same principle
     as the derived RG name (Get-BicepResourceGroupName).
 
-    `parameters.<subscription>.<config>.json` — where `<config>` is `<env>[-<slot>]`
-    (Get-BicepConfigName). All of a template's slots render into one build folder, so keying the
-    artifact on the subscription (the config folder) makes it structurally collision-free: two
-    subscriptions serving the same env+slot get distinct artifact names with no guard to remember. The
-    naming complexity is encapsulated here — the human-facing config tree stays simple. See
+    `parameters.<config>.json` for a configuration-root (shared-platform) slot, or
+    `parameters.<customer>.<config>.json` for a customer slot — where `<config>` is `<env>[-<slot>]`
+    (Get-BicepConfigName). The artifact names mirror the configuration tree exactly: all of a template's
+    slots render into one build folder, and keying on the customer keeps them structurally
+    collision-free ((customer?, env, slot) is unique) with no guard to remember. See
     docs/adr/azure/data-model.md.
 .PARAMETER Environment
     Environment name.
 .PARAMETER Slot
     Optional special-slot discriminator; omitted ⇒ the base slot.
-.PARAMETER Subscription
-    The subscription (config folder) the slot belongs to.
+.PARAMETER Customer
+    The customer (configuration subfolder) the slot belongs to; omitted/'' ⇒ a configuration-root slot.
 .EXAMPLE
-    Get-BicepParametersFileName -Environment dev -Subscription shared_nonprod            # -> parameters.shared_nonprod.dev.json
+    Get-BicepParametersFileName -Environment dev                     # -> parameters.dev.json
 .EXAMPLE
-    Get-BicepParametersFileName -Environment dev -Slot 001 -Subscription apex_nonprod    # -> parameters.apex_nonprod.dev-001.json
+    Get-BicepParametersFileName -Environment dev -Slot 001 -Customer apex   # -> parameters.apex.dev-001.json
 #>
 function Get-BicepParametersFileName {
     [CmdletBinding()]
@@ -32,10 +32,16 @@ function Get-BicepParametersFileName {
         [Parameter(Position = 1)]
         [string] $Slot,
 
-        [Parameter(Mandatory, Position = 2)]
-        [string] $Subscription
+        [Parameter(Position = 2)]
+        [AllowEmptyString()]
+        [string] $Customer
     )
 
     $config = Get-BicepConfigName $Environment $Slot
-    "parameters.$Subscription.$config.json"
+    if ([string]::IsNullOrEmpty($Customer)) {
+        "parameters.$config.json"
+    }
+    else {
+        "parameters.$Customer.$config.json"
+    }
 }

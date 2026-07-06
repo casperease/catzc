@@ -33,9 +33,8 @@ function Invoke-BicepPostDeploy {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
         # These exercise the DEVBOX path; without this, the real Test-IsRunningInPipeline returns $true under
-        # CI ($env:GITHUB_ACTIONS) and Deploy-Bicep throws "requires an explicit -Subscription in a pipeline".
+        # CI ($env:GITHUB_ACTIONS) and Deploy-Bicep throws "requires -SubscriptionIdAssertIs in a pipeline".
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
-        Mock Assert-AzCliIsConnected { } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
@@ -79,8 +78,10 @@ function Invoke-BicepPostDeploy {
                     name         = 'alpha'
                     region       = 'westeurope'
                     subscription = [ordered]@{
-                        id     = '00000000-0000-0000-0000-000000000002'
-                        tenant = [ordered]@{ id = '00000000-0000-0000-0000-000000000001' }
+                        name     = 'core_lower'
+                        id       = '00000000-0000-0000-0000-000000000002'
+                        customer = ''
+                        tenant   = [ordered]@{ id = '00000000-0000-0000-0000-000000000001' }
                     }
                 }
             }
@@ -104,9 +105,11 @@ function Invoke-BicepPostDeploy {
         }
     }
 
-    It 'asserts cli is connected to the resolved subscription before proceeding' {
-        Deploy-Bicep alpha sample
-        Should -Invoke Assert-AzCliIsConnected -ModuleName Catzc.Azure.Templates -ParameterFilter { $Subscription -eq 'core_lower' }
+    It 'passes -SubscriptionIdAssertIs through to the deployment context (the guard lives there)' {
+        Deploy-Bicep alpha sample -SubscriptionIdAssertIs '00000000-0000-0000-0000-000000000002'
+        Should -Invoke Get-BicepDeploymentContext -ModuleName Catzc.Azure.Templates -ParameterFilter {
+            $SubscriptionIdAssertIs -eq '00000000-0000-0000-0000-000000000002'
+        }
     }
 
     It 'runs the template PreDeploy hook with DeployInvocation + TemplateDescriptor/EnvironmentDescriptor/ConfigurationDescriptor' {
@@ -240,18 +243,18 @@ function Invoke-BicepPostDeploy {
         }
     }
 
-    Context 'pipeline requires an explicit -Subscription' {
+    Context 'pipeline requires the explicit -SubscriptionIdAssertIs guard' {
         BeforeEach {
             Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Azure.Templates
         }
 
-        It 'throws when -Subscription is omitted in a pipeline (no silent inference)' {
-            { Deploy-Bicep alpha sample } | Should -Throw '*requires an explicit -Subscription in a pipeline*'
+        It 'throws when -SubscriptionIdAssertIs is omitted in a pipeline (the target must be pinned)' {
+            { Deploy-Bicep alpha sample } | Should -Throw '*requires -SubscriptionIdAssertIs in a pipeline*'
             Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.Templates -Times 0
         }
 
-        It 'proceeds when -Subscription is given in a pipeline' {
-            { Deploy-Bicep alpha sample -Subscription core_lower } | Should -Not -Throw
+        It 'proceeds when -SubscriptionIdAssertIs is given in a pipeline' {
+            { Deploy-Bicep alpha sample -SubscriptionIdAssertIs '00000000-0000-0000-0000-000000000002' } | Should -Not -Throw
         }
     }
 }

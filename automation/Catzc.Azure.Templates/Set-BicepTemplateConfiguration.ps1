@@ -4,13 +4,13 @@
     the INPUT pipeline: it turns user input into a version-controlled change, never a runtime cloud
     mutation. See docs/adr/pipelines/pipeline-types.md and docs/adr/azure/data-model.md.
 .DESCRIPTION
-    Resolves the config file for a (template, subscription, environment[, slot]) tuple —
-    `infrastructure/templates/<template>/configuration/<subscription>/<env>[-<slot>].yml` — and sets the
+    Resolves the config file for a (template[, customer], environment[, slot]) coordinate —
+    `infrastructure/templates/<template>/configuration/[<customer>/]<env>[-<slot>].yml` — and sets the
     given parameters under `ParametersFile.parameters`. Each entry is written ARM-style as
     `{ <name>: { value: <value> } }`.
 
     Idempotent (Set-): an existing config is loaded and the named parameters are overlaid (other
-    parameters and keys are preserved); a missing config is created (the subscription subdir too).
+    parameters and keys are preserved); a missing config is created (the customer subdir too).
     Running it twice with the same input leaves the same file. The config file need not exist yet — that
     is how a new slot / resource group is introduced (the next discovery picks it up).
 
@@ -25,16 +25,17 @@
     Hashtable of ARM parameter name -> value. Each becomes `parameters.<name>.value = <value>`.
 .PARAMETER Slot
     Optional special-slot discriminator (1-3 lowercase alphanumeric). Omitted ⇒ the base / index-0 slot.
-.PARAMETER Subscription
-    Subscription (a key in azure.yml's subscriptions) — the config folder to write under
-    (`configuration/<subscription>/`). Required, and must be a subscription that serves the environment.
+.PARAMETER Customer
+    Optional customer key (customer.yml) — the config subfolder to write under
+    (`configuration/<customer>/`). Omitted writes the configuration-root (shared-platform) config. The
+    coordinate must resolve to exactly one subscription (the same rule discovery enforces).
 .PARAMETER DryRun
     Preview only — returns the planned path and content without writing. See
     docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
 .EXAMPLE
-    Set-BicepTemplateConfiguration discovery dev -Subscription shared_nonprod -Parameters @{ sqlAdminLogin = 'admin' }
+    Set-BicepTemplateConfiguration discovery dev -Parameters @{ sqlAdminLogin = 'admin' }
 .EXAMPLE
-    Set-BicepTemplateConfiguration discovery dev -Subscription shared_nonprod -Parameters @{ sqlAdminLogin = 'admin' } -DryRun
+    Set-BicepTemplateConfiguration discovery dev -Customer apex -Parameters @{ sqlAdminLogin = 'admin' } -DryRun
 #>
 function Set-BicepTemplateConfiguration {
     # State-changing function deliberately uses -DryRun, not ShouldProcess — see
@@ -60,9 +61,9 @@ function Set-BicepTemplateConfiguration {
 
         [ArgumentCompleter({
                 param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-                Get-BicepTemplateSubscriptions -Template $fakeBoundParameters['Template'] -Environment $fakeBoundParameters['Environment']
+                Get-BicepTemplateCustomers -Template $fakeBoundParameters['Template']
             })]
-        [string] $Subscription,
+        [string] $Customer,
 
         [switch] $DryRun
     )
@@ -78,17 +79,27 @@ function Set-BicepTemplateConfiguration {
         throw "Invalid -Slot '$Slot' — must be 1-3 lowercase alphanumeric chars (e.g. 001)."
     }
 
-    # The subscription names the config folder; it must be a defined subscription that serves the env
-    # (the same cross-layer rule discovery enforces, via Get-BicepSubscriptionConfigViolations).
-    Assert-True (-not [string]::IsNullOrEmpty($Subscription)) -ErrorText 'A -Subscription is required — it names the configuration/<subscription>/ folder to write under.'
-    $loc = "configuration/$Subscription/$Environment.yml"
-    $subViolations = @(Get-BicepSubscriptionConfigViolations -Subscription $Subscription -Environment $Environment -AzureConfig $azure -Location $loc)
+    # The coordinate must conform to the conventional tree (the same cross-layer rule discovery
+    # enforces): the customer subfolder is a defined customer key, and the (customer?, env) coordinate
+    # resolves to exactly one subscription.
+    $loc = if ([string]::IsNullOrEmpty($Customer)) {
+        "configuration/$Environment.yml"
+    }
+    else {
+        "configuration/$Customer/$Environment.yml"
+    }
+    $subViolations = @(Get-BicepSubscriptionConfigViolations -Customer $Customer -Environment $Environment -AzureConfig $azure -Location $loc)
     Assert-True ($subViolations.Count -eq 0) -ErrorText ($subViolations -join '; ')
 
-    # Resolve the config file path: <configuration_folder>/<subscription>/<env>[-<slot>].yml.
+    # Resolve the config file path: <configuration_folder>/[<customer>/]<env>[-<slot>].yml.
     $templateDescriptor = Get-BicepTemplate $Template
     $configName = Get-BicepConfigName $Environment $Slot
-    $folder = Join-Path $templateDescriptor.configuration_folder $Subscription
+    $folder = if ([string]::IsNullOrEmpty($Customer)) {
+        $templateDescriptor.configuration_folder
+    }
+    else {
+        Join-Path $templateDescriptor.configuration_folder $Customer
+    }
     $configFile = Join-Path $folder "$configName.yml"
 
     # Load the existing config (preserve unrelated keys) or start a fresh ordered structure.

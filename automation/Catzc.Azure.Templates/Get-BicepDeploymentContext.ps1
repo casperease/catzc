@@ -20,6 +20,10 @@
 
     Subscription-target templates leave `deployment.resource_group` unset and assert that
     `configuration/<slot>.yml` does NOT carry a `ResourceGroup` key.
+    The target SUBSCRIPTION is the az session's (in a pipeline: the service connection's), resolved
+    against azure.yml by Get-AzCliSessionSubscription; the slot addressed is (session customer?, env,
+    slot). The optional -SubscriptionIdAssertIs guard pins the target explicitly. See
+    docs/adr/azure/data-model.md.
 .PARAMETER Environment
     Environment shortname (must be in azure.yml and in the template's environment list).
 .PARAMETER Template
@@ -27,10 +31,10 @@
 .PARAMETER Slot
     Optional special-slot discriminator (1-3 lowercase alphanumeric chars, `001`). Selects the slot
     (config file + parameters artifact + resource group). Omitted -> the env's base / index-0 slot.
-.PARAMETER Subscription
-    Optional subscription (the config folder). Resolved from (template, env, slot) when omitted; required
-    only when more than one subscription serves that env+slot. The customer that renders into names is
-    derived from the resolved subscription.
+.PARAMETER SubscriptionIdAssertIs
+    Optional guard — the subscription GUID the az session is expected to target. Throws when the
+    session's subscription differs (in a pipeline that means a mis-wired service connection). Never a
+    selector: the session always determines the target.
 .PARAMETER ArtifactsFolder
     Required on a build agent. Points at the downloaded build output.
 .PARAMETER DoNotRebuild
@@ -56,15 +60,11 @@ function Get-BicepDeploymentContext {
 
         [ArgumentCompleter({
                 param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-                Get-BicepTemplateSlots -Template $fakeBoundParameters['Template'] -Environment $fakeBoundParameters['Environment'] -Subscription $fakeBoundParameters['Subscription']
+                Get-BicepTemplateSlots -Template $fakeBoundParameters['Template'] -Environment $fakeBoundParameters['Environment']
             })]
         [string] $Slot,
 
-        [ArgumentCompleter({
-                param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-                Get-BicepTemplateSubscriptions -Template $fakeBoundParameters['Template'] -Environment $fakeBoundParameters['Environment'] -Slot $fakeBoundParameters['Slot']
-            })]
-        [string] $Subscription,
+        [string] $SubscriptionIdAssertIs,
 
         [string] $ArtifactsFolder,
 
@@ -98,17 +98,35 @@ function Get-BicepDeploymentContext {
         return $null
     }
 
-    # The deploy targets one subscription (the config folder). Resolve it (throws if ambiguous), then
-    # resolve the environment identity for it; the customer that renders into names is the subscription's.
-    $subscription = Resolve-BicepDeploymentSubscription -Template $Template -Environment $Environment -Slot $Slot -Subscription $Subscription
+    # The deploy target is the az session's subscription (in a pipeline: exactly what the service
+    # connection logged into), reverse-resolved against azure.yml. The optional -SubscriptionIdAssertIs
+    # guard pins it explicitly — a mismatch is a mis-wired service connection, not a retarget.
+    $sessionSubscription = Get-AzCliSessionSubscription
+    if (-not [string]::IsNullOrEmpty($SubscriptionIdAssertIs)) {
+        Assert-IsGuid $SubscriptionIdAssertIs
+        if ("$($sessionSubscription.id)" -ne $SubscriptionIdAssertIs) {
+            throw "-SubscriptionIdAssertIs failed: the az session targets subscription '$($sessionSubscription.name)' ($($sessionSubscription.id)), not $SubscriptionIdAssertIs — in a pipeline this means the service connection is wired to the wrong subscription."
+        }
+    }
+    $subscription = $sessionSubscription.name
+    $customer = $sessionSubscription.customer
+
+    # The slot addressed is (session customer?, env, slot) — it must exist as a config, and the session
+    # subscription must serve the env (Get-AzureEnvironment asserts that).
+    $wantSlot = [string]$Slot
+    $slotMatch = @($templateDescriptor.slots | Where-Object { $_.environment -eq $Environment -and $_.slot -eq $wantSlot -and $_.customer -eq $customer })
+    if ($slotMatch.Count -eq 0) {
+        $where = if ([string]::IsNullOrEmpty($customer)) {
+            'the shared platform (configuration root)'
+        }
+        else {
+            "customer '$customer' (configuration/$customer/)"
+        }
+        $configName = Get-BicepConfigName $Environment $Slot
+        throw "Template '$Template' has no config '$configName.yml' for $where — the az session subscription '$subscription' addresses that coordinate. Configured: $(@($templateDescriptor.slots | ForEach-Object { if ($_.customer) { "$($_.customer)/$($_.name)" } else { $_.name } } | Sort-Object) -join ', ')"
+    }
     $environmentDescriptor = Get-AzureEnvironment $Environment -Subscription $subscription
-    $customer = if ($null -ne $environmentDescriptor.subscription.customer) {
-        $environmentDescriptor.subscription.customer
-    }
-    else {
-        ''
-    }
-    $configurationDescriptor = Get-BicepTemplateConfiguration $Template $Environment -Slot $Slot -Subscription $subscription
+    $configurationDescriptor = Get-BicepTemplateConfiguration $Template $Environment -Slot $Slot -Customer $customer
 
     $resourceGroup = $null
     switch ($templateDescriptor.deployment_target) {
@@ -145,7 +163,7 @@ function Get-BicepDeploymentContext {
 
     $templateFile = Join-Path $buildFolder 'main.json'
     Assert-PathExist $templateFile -PathType Leaf
-    $parametersFile = Join-Path $buildFolder (Get-BicepParametersFileName -Environment $Environment -Slot $Slot -Subscription $subscription)
+    $parametersFile = Join-Path $buildFolder (Get-BicepParametersFileName -Environment $Environment -Slot $Slot -Customer $customer)
     Assert-PathExist $parametersFile -PathType Leaf
 
     $deployment = [Catzc.Azure.Templates.BicepDeploymentPlan]::new(
