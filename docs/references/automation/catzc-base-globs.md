@@ -32,18 +32,19 @@ clean in scope.
 
 ### domain:3 — Sha-marker files
 
-Writing and verifying `.sha-markers/<name>.sha256` — one 64-hex line plus LF per globset, written only when changed, orphans removed. The
-freshness query reports Fresh/Stale/Missing/Orphaned per set; the module's integrity test asserts all-Fresh, which is what makes the "commit
-the marker file with the change" discipline self-enforcing.
+Writing and verifying `.sha-markers/<name>.yml` — one full-information YAML per globset carrying its canonical definition plus its
+`sha256:` durable SHA, LF-terminated, written only when changed, orphans removed. The freshness query reports Fresh/Stale/Missing/Orphaned
+per set; the module's integrity test asserts all-Fresh, which is what makes the "commit the marker file with the change" discipline
+self-enforcing.
 
 ### domain:4 — Protected scans
 
 The session-memory skip for heavy read-only scans: a (test, scope) key holds the durable identity of the last green run; an unchanged scope
 answers "protected" and the scan is skipped. Recording happens only after a green run, on the identity computed before the scan, and in a
-pipeline the whole mechanism is ignored — CI always scans full. Every **declared** globset (domain:1) — deployable unit, track, and scan
-scope alike — has a committed sha-marker (domain:3); protection additionally **derives** globsets the registry never lists: one per module
-folder by convention, plus the reserved infra scopes `internal`/`vendor`/`compiled`/`scriptanalyzer` — the building blocks `Test-Automation`
-composes into per-module protection identities. Only these derived, protection-only sets never gain marker files.
+pipeline the whole mechanism is ignored — CI always scans full. Every globset — the **declared** registry (domain:1) and the **derived**
+sets the registry never lists (one per module folder by convention, one per internal `.psm1` module, plus the reserved infra scopes
+`internal`/`vendor`/`compiled`/`scriptanalyzer`) — has a committed sha-marker (domain:3). The derived sets double as the building blocks
+`Test-Automation` composes into per-module protection identities.
 
 ## What the module does
 

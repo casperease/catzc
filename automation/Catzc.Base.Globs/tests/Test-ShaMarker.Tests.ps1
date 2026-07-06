@@ -1,3 +1,4 @@
+# cspell:ignore nlayer nsha  -- the escape-sequence artifacts in the "…`nlayer:…`nsha256:…" fixture strings
 # The freshness query: Fresh/Stale/Missing per globset marker — one full-information YAML per set
 # (ADR-GLOBS:9), declared AND derived (ADR-PROTGLOB:7) — plus Orphaned files; clean exactly when all Fresh.
 Describe 'Test-ShaMarker' -Tag 'L1', 'logic' {
