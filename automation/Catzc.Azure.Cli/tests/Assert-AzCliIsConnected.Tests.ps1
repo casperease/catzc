@@ -38,7 +38,7 @@ Describe 'Assert-AzCliIsConnected' -Tag 'L0', 'logic' {
             [ordered]@{
                 logged_in = $true; connected = $false
                 expected_tenant = $script:tenantId; expected_subscription = $script:subId
-                actual_tenant = '11111111-1111-1111-1111-111111111111'; actual_subscription = $script:subId
+                actual_tenant = '00700000-70a7-50b0-0000-000000000000'; actual_subscription = $script:subId
             }
         } -ModuleName Catzc.Azure.Cli
 

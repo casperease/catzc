@@ -14,8 +14,8 @@ Describe 'Get-BicepDeploymentContext (sample-subscription)' -Tag 'L0', 'logic' {
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
         # The deploy target is the az session's subscription (ADR-PESTER:3 whole-boundary mock).
         Mock Get-AzCliSessionSubscription {
-            [ordered]@{ name = 'core_lower'; id = '00000000-0000-0000-0000-000000000002'; customer = ''
-                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            [ordered]@{ name = 'core_lower'; id = '50a0ed00-de00-50b0-0000-000000000000'; customer = ''
+                tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
             }
         } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
@@ -112,9 +112,9 @@ Describe 'Deploy-Bicep (sample-subscription sub create)' -Tag 'L0', 'logic' {
                     region       = 'westeurope'
                     subscription = [ordered]@{
                         name     = 'core_lower'
-                        id       = '00000000-0000-0000-0000-000000000002'
+                        id       = '50a0ed00-de00-50b0-0000-000000000000'
                         customer = ''
-                        tenant   = [ordered]@{ id = '00000000-0000-0000-0000-000000000001' }
+                        tenant   = [ordered]@{ id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
                     }
                 }
             }

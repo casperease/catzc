@@ -27,7 +27,7 @@
 .PARAMETER SubscriptionId
     The subscription GUID the current login must be able to reach.
 .EXAMPLE
-    (Get-AzCliSubscriptionAccessState -SubscriptionId 00000000-0000-0000-0000-000000000002).accessible
+    (Get-AzCliSubscriptionAccessState -SubscriptionId 50a0ed00-de00-50b0-0000-000000000000).accessible
 #>
 function Get-AzCliSubscriptionAccessState {
     [CmdletBinding()]

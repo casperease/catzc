@@ -51,7 +51,7 @@
 .EXAMPLE
     Deploy-Bicep dev sample -DryRun
 .EXAMPLE
-    Deploy-Bicep subn foundation -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000004
+    Deploy-Bicep subn foundation -SubscriptionIdAssertIs a0e00000-de00-50b0-0000-000000000000
 #>
 function Deploy-Bicep {
     # State-changing function deliberately uses -DryRun, not ShouldProcess — see

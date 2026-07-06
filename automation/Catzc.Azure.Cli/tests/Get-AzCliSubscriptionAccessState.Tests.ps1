@@ -1,6 +1,6 @@
 Describe 'Get-AzCliSubscriptionAccessState' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:sub = '00000000-0000-0000-0000-000000000002'
+        $script:sub = '50a0ed00-de00-50b0-0000-000000000000'
     }
 
     It 'reports accessible when the scoped ARM probe exits zero' {

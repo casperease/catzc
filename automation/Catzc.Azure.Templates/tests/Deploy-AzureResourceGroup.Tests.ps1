@@ -3,7 +3,7 @@ Describe 'Deploy-AzureResourceGroup' -Tag 'L0', 'logic' {
     BeforeAll {
         # The caller resolves the subscription + region and passes them in; this function never
         # re-resolves from azure.yml (so the RG always lands in the deployment's subscription).
-        $script:subId = '00000000-0000-0000-0000-000000000002'
+        $script:subId = '50a0ed00-de00-50b0-0000-000000000000'
     }
 
     Context 'when the resource group already exists' {
@@ -49,7 +49,7 @@ Describe 'Deploy-AzureResourceGroup' -Tag 'L0', 'logic' {
             Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.Templates -ParameterFilter {
                 $Arguments -match '^group create' -and
                 $Arguments -match 'westeurope' -and
-                $Arguments -match '--subscription 00000000-0000-0000-0000-000000000002'
+                $Arguments -match '--subscription 50a0ed00-de00-50b0-0000-000000000000'
             }
         }
 

@@ -26,8 +26,8 @@ extends:
   parameters:
     Customer: flux
     Foundations:
-      - { env: subn, serviceConnection: sc-flux-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000007 }
+      - { env: subn, serviceConnection: sc-flux-nonprod, subscriptionIdAssertIs: f1000000-de00-50b0-0000-000000000000 }
     Discoveries:
-      - { env: dev, serviceConnection: sc-flux-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000007 }
+      - { env: dev, serviceConnection: sc-flux-nonprod, subscriptionIdAssertIs: f1000000-de00-50b0-0000-000000000000 }
     Expeditions:
-      - { env: dev, slot: '001', serviceConnection: sc-flux-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000007 }
+      - { env: dev, slot: '001', serviceConnection: sc-flux-nonprod, subscriptionIdAssertIs: f1000000-de00-50b0-0000-000000000000 }

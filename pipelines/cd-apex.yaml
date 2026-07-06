@@ -27,16 +27,16 @@ extends:
   parameters:
     Customer: apex
     Foundations:
-      - { env: subn, serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000004 }
-      - { env: subp, serviceConnection: sc-apex-prod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000005 }
+      - { env: subn, serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
+      - { env: subp, serviceConnection: sc-apex-prod, subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000 }
     Discoveries:
-      - { env: dev, serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000004 }
-      - { env: test, serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000004 }
-      - { env: preprod, serviceConnection: sc-apex-prod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000005 }
-      - { env: prod, serviceConnection: sc-apex-prod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000005 }
+      - { env: dev, serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
+      - { env: test, serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
+      - { env: preprod, serviceConnection: sc-apex-prod, subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000 }
+      - { env: prod, serviceConnection: sc-apex-prod, subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000 }
     Expeditions:
-      - { env: dev, slot: '001', serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000004 }
-      - { env: dev, slot: '002', serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000004 }
-      - { env: test, slot: '001', serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000004 }
-      - { env: preprod, slot: '001', serviceConnection: sc-apex-prod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000005 }
-      - { env: prod, slot: '001', serviceConnection: sc-apex-prod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000005 }
+      - { env: dev, slot: '001', serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
+      - { env: dev, slot: '002', serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
+      - { env: test, slot: '001', serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
+      - { env: preprod, slot: '001', serviceConnection: sc-apex-prod, subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000 }
+      - { env: prod, slot: '001', serviceConnection: sc-apex-prod, subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000 }

@@ -22,9 +22,9 @@
 .PARAMETER TenantId
     The tenant GUID the session must be in. Optional alongside a subscription; required on its own.
 .EXAMPLE
-    (Get-AzCliConnectionState -SubscriptionId 00000000-0000-0000-0000-000000000002).connected
+    (Get-AzCliConnectionState -SubscriptionId 50a0ed00-de00-50b0-0000-000000000000).connected
 .EXAMPLE
-    (Get-AzCliConnectionState -TenantId 00000000-0000-0000-0000-000000000001).connected
+    (Get-AzCliConnectionState -TenantId fa0e0000-7e0a-0700-1d00-000000000000).connected
 #>
 function Get-AzCliConnectionState {
     [CmdletBinding(DefaultParameterSetName = 'Tenant')]

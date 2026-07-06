@@ -16,7 +16,7 @@ bicep_min_version: "0.30.0"
 
 tenants:
   fixtenant:
-    id: 00000000-0000-0000-0000-000000000001
+    id: fa0e0000-7e0a-0700-1d00-000000000000
 
 # Customer definitions live in the sibling customer.yml fixture (acme/globex); a subscription below binds
 # one by naming it in its `customer` field (by key or shortcode).
@@ -56,14 +56,14 @@ environments:
 # case the deploy-time -Subscription disambiguator handles, and subp is reused across subscriptions.
 subscriptions:
   core_lower:
-    id: 00000000-0000-0000-0000-000000000002
+    id: 50a0ed00-de00-50b0-0000-000000000000
     tenant: fixtenant
     environments:
       - alpha
       - beta
       - subn
   core_upper:
-    id: 00000000-0000-0000-0000-000000000003
+    id: 50a0ed00-000d-50b0-0000-000000000000
     tenant: fixtenant
     environments:
       - gamma
@@ -71,7 +71,7 @@ subscriptions:
       - subp
   # cross_shared — single subscription serving all standard envs + subp identity (the single-sub shape).
   cross_shared:
-    id: 00000000-0000-0000-0000-000000000004
+    id: a0e00000-de00-50b0-0000-000000000000
     tenant: fixtenant
     environments:
       - alpha
@@ -80,7 +80,7 @@ subscriptions:
       - delta
       - subp
   acme_lower:
-    id: 00000000-0000-0000-0000-000000000005
+    id: a0e00000-000d-50b0-0000-000000000000
     tenant: fixtenant
     customer: acme
     environments:
@@ -88,7 +88,7 @@ subscriptions:
       - beta
       - subn
   acme_upper:
-    id: 00000000-0000-0000-0000-000000000006
+    id: 000a0000-de00-50b0-0000-000000000000
     tenant: fixtenant
     customer: acme
     environments:

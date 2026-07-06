@@ -20,7 +20,7 @@ bicep_min_version: "0.43.8"
 
 tenants:
   placeholder:
-    id: 00000000-0000-0000-0000-000000000001
+    id: fa0e0000-7e0a-0700-1d00-000000000000
 
 # Customer DEFINITIONS live in configs/customer.yml (the catalogue), not here — see
 # docs/adr/azure/customer-model.md. A subscription below binds a customer by naming it in its `customer`
@@ -82,14 +82,14 @@ subscriptions:
   # The shared platform pair — the only non-customer subscriptions, so every root config's env resolves
   # to exactly one of them (nonprod serves dev/test/subn; prod serves preprod/prod/subp).
   shared_nonprod:
-    id: 00000000-0000-0000-0000-000000000002
+    id: 50a0ed00-de00-50b0-0000-000000000000
     tenant: placeholder
     environments:
       - dev
       - test
       - subn
   shared_prod:
-    id: 00000000-0000-0000-0000-000000000003
+    id: 50a0ed00-000d-50b0-0000-000000000000
     tenant: placeholder
     environments:
       - preprod
@@ -98,7 +98,7 @@ subscriptions:
   # Customer subscriptions — carry a `customer` key; their configs live under the
   # configuration/<customer>/ subfolder. One pair per customer (nova/flux are nonprod-only for now).
   apex_nonprod:
-    id: 00000000-0000-0000-0000-000000000004
+    id: a0e00000-de00-50b0-0000-000000000000
     tenant: placeholder
     customer: apex
     environments:
@@ -106,7 +106,7 @@ subscriptions:
       - test
       - subn
   apex_prod:
-    id: 00000000-0000-0000-0000-000000000005
+    id: a0e00000-000d-50b0-0000-000000000000
     tenant: placeholder
     customer: apex
     environments:
@@ -114,7 +114,7 @@ subscriptions:
       - prod
       - subp
   nova_nonprod:
-    id: 00000000-0000-0000-0000-000000000006
+    id: 000a0000-de00-50b0-0000-000000000000
     tenant: placeholder
     customer: nova
     environments:
@@ -122,7 +122,7 @@ subscriptions:
       - test
       - subn
   flux_nonprod:
-    id: 00000000-0000-0000-0000-000000000007
+    id: f1000000-de00-50b0-0000-000000000000
     tenant: placeholder
     customer: flux
     environments:

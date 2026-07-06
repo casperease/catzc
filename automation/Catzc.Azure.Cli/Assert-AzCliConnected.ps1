@@ -15,9 +15,9 @@
 .PARAMETER TenantId
     The tenant GUID the session must be in. Optional alongside a subscription; required on its own.
 .EXAMPLE
-    Assert-AzCliConnected -SubscriptionId 00000000-0000-0000-0000-000000000002
+    Assert-AzCliConnected -SubscriptionId 50a0ed00-de00-50b0-0000-000000000000
 .EXAMPLE
-    Assert-AzCliConnected -TenantId 00000000-0000-0000-0000-000000000001
+    Assert-AzCliConnected -TenantId fa0e0000-7e0a-0700-1d00-000000000000
 #>
 function Assert-AzCliConnected {
     [CmdletBinding(DefaultParameterSetName = 'Tenant')]

@@ -1,7 +1,7 @@
 Describe 'Get-AzCliConnectionState' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:sub = '00000000-0000-0000-0000-000000000002'
-        $script:tenant = '00000000-0000-0000-0000-000000000001'
+        $script:sub = '50a0ed00-de00-50b0-0000-000000000000'
+        $script:tenant = 'fa0e0000-7e0a-0700-1d00-000000000000'
     }
 
     It 'reports connected when subscription and tenant both match' {
@@ -16,7 +16,7 @@ Describe 'Get-AzCliConnectionState' -Tag 'L0', 'logic' {
 
     It 'ignores tenant when -TenantId is omitted (subscription-only match)' {
         Mock Invoke-AzCli {
-            [pscustomobject]@{ Output = "tenantId: 99999999-9999-9999-9999-999999999999`nid: $script:sub"; ExitCode = 0 }
+            [pscustomobject]@{ Output = "tenantId: a2000000-7e57-7e0a-0700-000000000000`nid: $script:sub"; ExitCode = 0 }
         } -ModuleName Catzc.Azure.Cli
 
         (Get-AzCliConnectionState -SubscriptionId $script:sub).connected | Should -BeTrue
@@ -24,7 +24,7 @@ Describe 'Get-AzCliConnectionState' -Tag 'L0', 'logic' {
 
     It 'is not connected when the tenant differs (and -TenantId is given)' {
         Mock Invoke-AzCli {
-            [pscustomobject]@{ Output = "tenantId: 99999999-9999-9999-9999-999999999999`nid: $script:sub"; ExitCode = 0 }
+            [pscustomobject]@{ Output = "tenantId: a2000000-7e57-7e0a-0700-000000000000`nid: $script:sub"; ExitCode = 0 }
         } -ModuleName Catzc.Azure.Cli
 
         (Get-AzCliConnectionState -SubscriptionId $script:sub -TenantId $script:tenant).connected | Should -BeFalse
@@ -32,7 +32,7 @@ Describe 'Get-AzCliConnectionState' -Tag 'L0', 'logic' {
 
     It 'is not connected when the subscription differs' {
         Mock Invoke-AzCli {
-            [pscustomobject]@{ Output = "tenantId: $script:tenant`nid: 88888888-8888-8888-8888-888888888888"; ExitCode = 0 }
+            [pscustomobject]@{ Output = "tenantId: $script:tenant`nid: a2000000-7e57-50b0-0000-000000000000"; ExitCode = 0 }
         } -ModuleName Catzc.Azure.Cli
 
         (Get-AzCliConnectionState -SubscriptionId $script:sub -TenantId $script:tenant).connected | Should -BeFalse
@@ -48,7 +48,7 @@ Describe 'Get-AzCliConnectionState' -Tag 'L0', 'logic' {
 
     It 'tenant-only set: connected when the tenant matches (subscription ignored)' {
         Mock Invoke-AzCli {
-            [pscustomobject]@{ Output = "tenantId: $script:tenant`nid: 88888888-8888-8888-8888-888888888888"; ExitCode = 0 }
+            [pscustomobject]@{ Output = "tenantId: $script:tenant`nid: a2000000-7e57-50b0-0000-000000000000"; ExitCode = 0 }
         } -ModuleName Catzc.Azure.Cli
 
         (Get-AzCliConnectionState -TenantId $script:tenant).connected | Should -BeTrue
@@ -56,7 +56,7 @@ Describe 'Get-AzCliConnectionState' -Tag 'L0', 'logic' {
 
     It 'tenant-only set: not connected when the tenant differs' {
         Mock Invoke-AzCli {
-            [pscustomobject]@{ Output = "tenantId: 99999999-9999-9999-9999-999999999999`nid: $script:sub"; ExitCode = 0 }
+            [pscustomobject]@{ Output = "tenantId: a2000000-7e57-7e0a-0700-000000000000`nid: $script:sub"; ExitCode = 0 }
         } -ModuleName Catzc.Azure.Cli
 
         (Get-AzCliConnectionState -TenantId $script:tenant).connected | Should -BeFalse

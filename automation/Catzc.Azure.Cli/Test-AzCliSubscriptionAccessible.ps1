@@ -14,7 +14,7 @@
 .PARAMETER SubscriptionId
     The subscription GUID the current login must be able to reach.
 .EXAMPLE
-    if (Test-AzCliSubscriptionAccessible -SubscriptionId 00000000-0000-0000-0000-000000000002) { ... }
+    if (Test-AzCliSubscriptionAccessible -SubscriptionId 50a0ed00-de00-50b0-0000-000000000000) { ... }
 #>
 function Test-AzCliSubscriptionAccessible {
     [CmdletBinding()]

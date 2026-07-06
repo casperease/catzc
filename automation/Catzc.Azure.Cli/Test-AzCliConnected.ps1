@@ -14,9 +14,9 @@
 .PARAMETER TenantId
     The tenant GUID the session must be in. Optional alongside a subscription; required on its own.
 .EXAMPLE
-    if (Test-AzCliConnected -SubscriptionId 00000000-0000-0000-0000-000000000002) { ... }
+    if (Test-AzCliConnected -SubscriptionId 50a0ed00-de00-50b0-0000-000000000000) { ... }
 .EXAMPLE
-    if (Test-AzCliConnected -TenantId 00000000-0000-0000-0000-000000000001) { ... }
+    if (Test-AzCliConnected -TenantId fa0e0000-7e0a-0700-1d00-000000000000) { ... }
 #>
 function Test-AzCliConnected {
     [CmdletBinding(DefaultParameterSetName = 'Tenant')]

@@ -26,8 +26,8 @@ extends:
   parameters:
     Customer: nova
     Foundations:
-      - { env: subn, serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000006 }
+      - { env: subn, serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 000a0000-de00-50b0-0000-000000000000 }
     Discoveries:
-      - { env: dev, serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000006 }
+      - { env: dev, serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 000a0000-de00-50b0-0000-000000000000 }
     Expeditions:
-      - { env: dev, slot: '001', serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 00000000-0000-0000-0000-000000000006 }
+      - { env: dev, slot: '001', serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 000a0000-de00-50b0-0000-000000000000 }

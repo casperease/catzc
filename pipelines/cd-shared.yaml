@@ -81,7 +81,7 @@ stages:
                     DisplayName: 'Deploy-Bicep subn foundation (session target: shared nonprod, asserted)'
                     Mode: azcli
                     ServiceConnection: 'sc-shared-nonprod'
-                    RunCommand: 'Deploy-Bicep -Environment subn -Template foundation -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000002 -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
+                    RunCommand: 'Deploy-Bicep -Environment subn -Template foundation -SubscriptionIdAssertIs 50a0ed00-de00-50b0-0000-000000000000 -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
 
       - deployment: Foundation_subp
         displayName: 'foundation → subp (prod sub)'
@@ -100,7 +100,7 @@ stages:
                     DisplayName: 'Deploy-Bicep subp foundation (session target: shared prod, asserted)'
                     Mode: azcli
                     ServiceConnection: 'sc-shared-prod'
-                    RunCommand: 'Deploy-Bicep -Environment subp -Template foundation -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000003 -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
+                    RunCommand: 'Deploy-Bicep -Environment subp -Template foundation -SubscriptionIdAssertIs 50a0ed00-000d-50b0-0000-000000000000 -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
 
   # --- Deploy discovery (reads the foundation Key Vault) — after foundation, main only -------------
   - stage: Deploy_Discovery
@@ -125,7 +125,7 @@ stages:
                     DisplayName: 'Deploy-Bicep dev discovery (session target: shared nonprod, asserted)'
                     Mode: azcli
                     ServiceConnection: 'sc-shared-nonprod'
-                    RunCommand: 'Deploy-Bicep -Environment dev -Template discovery -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000002 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+                    RunCommand: 'Deploy-Bicep -Environment dev -Template discovery -SubscriptionIdAssertIs 50a0ed00-de00-50b0-0000-000000000000 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
       - deployment: Discovery_test
         displayName: 'discovery → test (nonprod sub)'
@@ -144,7 +144,7 @@ stages:
                     DisplayName: 'Deploy-Bicep test discovery (session target: shared nonprod, asserted)'
                     Mode: azcli
                     ServiceConnection: 'sc-shared-nonprod'
-                    RunCommand: 'Deploy-Bicep -Environment test -Template discovery -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000002 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+                    RunCommand: 'Deploy-Bicep -Environment test -Template discovery -SubscriptionIdAssertIs 50a0ed00-de00-50b0-0000-000000000000 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
       - deployment: Discovery_preprod
         displayName: 'discovery → preprod (prod sub)'
@@ -163,7 +163,7 @@ stages:
                     DisplayName: 'Deploy-Bicep preprod discovery (session target: shared prod, asserted)'
                     Mode: azcli
                     ServiceConnection: 'sc-shared-prod'
-                    RunCommand: 'Deploy-Bicep -Environment preprod -Template discovery -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000003 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+                    RunCommand: 'Deploy-Bicep -Environment preprod -Template discovery -SubscriptionIdAssertIs 50a0ed00-000d-50b0-0000-000000000000 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
       - deployment: Discovery_prod
         displayName: 'discovery → prod (prod sub)'
@@ -182,4 +182,4 @@ stages:
                     DisplayName: 'Deploy-Bicep prod discovery (session target: shared prod, asserted)'
                     Mode: azcli
                     ServiceConnection: 'sc-shared-prod'
-                    RunCommand: 'Deploy-Bicep -Environment prod -Template discovery -SubscriptionIdAssertIs 00000000-0000-0000-0000-000000000003 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
+                    RunCommand: 'Deploy-Bicep -Environment prod -Template discovery -SubscriptionIdAssertIs 50a0ed00-000d-50b0-0000-000000000000 -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'

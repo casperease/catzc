@@ -5,11 +5,11 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
             org               = 'zct'
             bicep_min_version = '0.30.0'
             tenants           = [ordered]@{
-                placeholder = [ordered]@{ id = '00000000-0000-0000-0000-000000000001' }
+                placeholder = [ordered]@{ id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
             }
             subscriptions     = [ordered]@{
                 placeholder_nonprod = [ordered]@{
-                    id           = '00000000-0000-0000-0000-000000000002'
+                    id           = '50a0ed00-de00-50b0-0000-000000000000'
                     tenant       = 'placeholder'
                     environments = @('dev')
                 }
@@ -75,7 +75,7 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
         It 'throws when subscription references unknown tenant' {
             $bad = Copy-Object $baseConfig
             $bad.subscriptions = [ordered]@{
-                s1 = [ordered]@{ id = '00000000-0000-0000-0000-000000000099'; tenant = 'nonexistent'; environments = @('dev') }
+                s1 = [ordered]@{ id = '10570000-7e0a-0700-50b0-000000000000'; tenant = 'nonexistent'; environments = @('dev') }
             }
             { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $bad } | Should -Throw '*unknown tenant*'
         }
@@ -176,8 +176,8 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
         It 'allows more than one subscription to serve the same environment (resolution is by config folder, not uniqueness)' {
             $ok = Copy-Object $baseConfig
             $ok.subscriptions = [ordered]@{
-                c1 = [ordered]@{ id = '00000000-0000-0000-0000-000000000002'; tenant = 'placeholder'; environments = @('dev') }
-                c2 = [ordered]@{ id = '00000000-0000-0000-0000-000000000003'; tenant = 'placeholder'; environments = @('dev') }
+                c1 = [ordered]@{ id = '50a0ed00-de00-50b0-0000-000000000000'; tenant = 'placeholder'; environments = @('dev') }
+                c2 = [ordered]@{ id = '50a0ed00-000d-50b0-0000-000000000000'; tenant = 'placeholder'; environments = @('dev') }
             }
             { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $ok } | Should -Not -Throw
         }
@@ -217,7 +217,7 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
             $ok.environments.Add('prod', [ordered]@{ shortcode = 'pr'; region = 'westeurope'; region_code = 'weu' })
             $ok.subscriptions.placeholder_nonprod.customer = 'anything'
             $ok.subscriptions.Add('placeholder_prod', [ordered]@{
-                    id = '00000000-0000-0000-0000-000000000003'; tenant = 'placeholder'
+                    id = '50a0ed00-000d-50b0-0000-000000000000'; tenant = 'placeholder'
                     customer = 'anything'; environments = @('prod')
                 })
             { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $ok } | Should -Not -Throw
@@ -227,7 +227,7 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
             $bad = Copy-Object $baseConfig
             $bad.subscriptions.placeholder_nonprod.customer = 'anything'
             $bad.subscriptions.Add('placeholder_second', [ordered]@{
-                    id = '00000000-0000-0000-0000-000000000003'; tenant = 'placeholder'
+                    id = '50a0ed00-000d-50b0-0000-000000000000'; tenant = 'placeholder'
                     customer = 'anything'; environments = @('dev')
                 })
             { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $bad } |
@@ -237,7 +237,7 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
         It 'allows two NON-customer subscriptions to serve the same env at load (root-config uniqueness is a discovery/integrity concern)' {
             $ok = Copy-Object $baseConfig
             $ok.subscriptions.Add('placeholder_second', [ordered]@{
-                    id = '00000000-0000-0000-0000-000000000003'; tenant = 'placeholder'
+                    id = '50a0ed00-000d-50b0-0000-000000000000'; tenant = 'placeholder'
                     environments = @('dev')
                 })
             { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $ok } | Should -Not -Throw

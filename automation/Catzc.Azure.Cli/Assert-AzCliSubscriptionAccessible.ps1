@@ -16,7 +16,7 @@
 .PARAMETER SubscriptionId
     The subscription GUID the current login must be able to reach.
 .EXAMPLE
-    Assert-AzCliSubscriptionAccessible -SubscriptionId 00000000-0000-0000-0000-000000000002
+    Assert-AzCliSubscriptionAccessible -SubscriptionId 50a0ed00-de00-50b0-0000-000000000000
 #>
 function Assert-AzCliSubscriptionAccessible {
     [CmdletBinding()]

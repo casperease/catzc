@@ -13,7 +13,7 @@ Describe 'Get-AzCliSessionSubscription' -Tag 'L0', 'logic' {
     It 'resolves the session subscription to its declared azure.yml identity' {
         # acme_lower's fixture GUID; the customer is normalized to its canonical key.
         Mock Get-CurrentAzSubscription -ModuleName Catzc.Azure.Cli {
-            [pscustomobject]@{ Id = '00000000-0000-0000-0000-000000000005'; Name = 'live-acme-lower'; TenantId = '00000000-0000-0000-0000-000000000001' }
+            [pscustomobject]@{ Id = 'a0e00000-000d-50b0-0000-000000000000'; Name = 'live-acme-lower'; TenantId = 'fa0e0000-7e0a-0700-1d00-000000000000' }
         }
         $session = Get-AzCliSessionSubscription
         $session.name | Should -Be 'acme_lower'
@@ -23,7 +23,7 @@ Describe 'Get-AzCliSessionSubscription' -Tag 'L0', 'logic' {
 
     It 'resolves a non-customer subscription with an empty customer' {
         Mock Get-CurrentAzSubscription -ModuleName Catzc.Azure.Cli {
-            [pscustomobject]@{ Id = '00000000-0000-0000-0000-000000000004'; Name = 'live-cross'; TenantId = '00000000-0000-0000-0000-000000000001' }
+            [pscustomobject]@{ Id = 'a0e00000-de00-50b0-0000-000000000000'; Name = 'live-cross'; TenantId = 'fa0e0000-7e0a-0700-1d00-000000000000' }
         }
         $session = Get-AzCliSessionSubscription
         $session.name | Should -Be 'cross_shared'
@@ -32,7 +32,7 @@ Describe 'Get-AzCliSessionSubscription' -Tag 'L0', 'logic' {
 
     It 'throws when the session subscription is not declared in azure.yml' {
         Mock Get-CurrentAzSubscription -ModuleName Catzc.Azure.Cli {
-            [pscustomobject]@{ Id = '99999999-9999-9999-9999-999999999999'; Name = 'foreign'; TenantId = '00000000-0000-0000-0000-000000000001' }
+            [pscustomobject]@{ Id = 'a2000000-7e57-7e0a-0700-000000000000'; Name = 'foreign'; TenantId = 'fa0e0000-7e0a-0700-1d00-000000000000' }
         }
         { Get-AzCliSessionSubscription } | Should -Throw '*not declared in azure.yml*'
     }

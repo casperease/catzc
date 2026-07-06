@@ -11,7 +11,7 @@
 .PARAMETER SubscriptionId
     The subscription GUID (or display name) to make active.
 .EXAMPLE
-    Set-CurrentAzSubscription -SubscriptionId 00000000-0000-0000-0000-000000000002
+    Set-CurrentAzSubscription -SubscriptionId 50a0ed00-de00-50b0-0000-000000000000
 .EXAMPLE
     $original = Get-CurrentAzSubscription
     try     { Set-CurrentAzSubscription -SubscriptionId $target; do-stuff }
