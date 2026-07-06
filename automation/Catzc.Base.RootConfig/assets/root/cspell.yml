@@ -44,6 +44,10 @@ dictionaryDefinitions:
     path: ./.cspell/abbreviation.txt
   - name: catzc-terms-fixture
     path: ./.cspell/fixture.txt
+  - name: catzc-terms-azure-live
+    path: ./.cspell/azure-live.txt
+  - name: catzc-terms-adr-example
+    path: ./.cspell/adr-example.txt
   - name: catzc-terms-adr
     path: ./.cspell/adr.txt
   - name: catzc-terms-ado
@@ -64,6 +68,8 @@ dictionaries:
   - catzc-terms-domain
   - catzc-terms-abbreviation
   - catzc-terms-fixture
+  - catzc-terms-azure-live
+  - catzc-terms-adr-example
   - catzc-terms-adr
   - catzc-terms-ado
   - catzc-terms-azure

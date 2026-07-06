@@ -1,5 +1,5 @@
 // One named globset: an area-of-control's mapping onto files under version control — a kebab-case name, a
-// description, its layer (deployable-unit | track | scope, ADR-GLOBS:7; the derived module layer never
+// description, its layer (deployable-unit | loose-fileset, ADR-GLOBS:7; the derived module layer never
 // appears in the registry), the authored include/exclude patterns, and the optional composition
 // (ADR-GLOBS:8). Membership is decided by the set's SCAN PROGRAM (ADR-GLOBS:4): an ordered list of +/- rules
 // evaluated last-match-wins with a default of not-selected. A leaf set's program is its includes as '+' then
@@ -14,6 +14,8 @@
 // whose scan: body changes when the definition changes and whose sha256 line changes when selected content
 // changes. No globset may match its own marker file or the config itself (ADR-GLOBS:6), which GlobsConfig
 // asserts across the whole registry at construction — compose resolution included.
+// Per-layer independence (ADR-GLOBS:10) is decided on OWN membership (OwnMatches — the set's own rules only,
+// compose ignored): within a non-loose layer no two sets may select a common file on their OWN contribution.
 // See docs/adr/pipelines/durable-sha-globs.md.
 
 using System;
@@ -27,10 +29,12 @@ public sealed class GlobSet
 {
     private static readonly Regex KebabCase = new Regex("^[a-z0-9]+(-[a-z0-9]+)*$");
 
-    // The declared layers (ADR-GLOBS:7). 'module' is the DERIVED layer (ADR-PROTGLOB) — a valid GlobSet
-    // layer (Get-ModuleGlobSet constructs them), but GlobsConfig rejects it in the declared registry.
-    public static readonly string[] DeclaredLayers = { "deployable-unit", "track", "scope" };
-    public static readonly string[] ValidLayers = { "deployable-unit", "track", "scope", "module" };
+    // The declared layers (ADR-GLOBS:7): 'deployable-unit' (a configurable unit that ships) and
+    // 'loose-fileset' (a cross-cutting check surface — tracks, scan scopes, the reserved umbrellas). 'module'
+    // is the DERIVED layer (ADR-PROTGLOB) — a valid GlobSet layer (Get-ModuleGlobSet constructs them), but
+    // GlobsConfig rejects it in the declared registry.
+    public static readonly string[] DeclaredLayers = { "deployable-unit", "loose-fileset" };
+    public static readonly string[] ValidLayers = { "deployable-unit", "loose-fileset", "module" };
 
     public string Name { get; }
     public string Description { get; }
@@ -180,6 +184,19 @@ public sealed class GlobSet
         {
             if (rule.Pattern.Matches(repoRelativePath)) { selected = rule.Select; }
         }
+        return selected;
+    }
+
+    // OWN membership (ADR-GLOBS:10): the set's own program only — its includes as '+' then its excludes as
+    // '-', last-match-wins — with compose IGNORED. This is the set's OWN contribution, the slice it maps
+    // independent of any base it composes: a file belongs when the set selects it without help from a base.
+    // The per-layer independence gate is defined on this, never on effective (Matches) membership — compose
+    // is "depends on a base," a deliberate cross-layer overlap, not a peer overlap.
+    public bool OwnMatches(string repoRelativePath)
+    {
+        bool selected = false;
+        foreach (GlobPattern pattern in Include) { if (pattern.Matches(repoRelativePath)) { selected = true; } }
+        foreach (GlobPattern pattern in Exclude) { if (pattern.Matches(repoRelativePath)) { selected = false; } }
         return selected;
     }
 

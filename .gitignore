@@ -34,6 +34,7 @@ automation/**/*.psd1
 /.vscode/settings.json
 /.vscode/extensions.json
 /.vscode/launch.json
+/.vscode/azure-pipelines-schema.json
 /.vscode/markdown-preview-dark.css
 /.editorconfig
 /.markdownlint.yml

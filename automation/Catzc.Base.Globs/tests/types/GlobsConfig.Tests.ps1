@@ -12,9 +12,9 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
     Context 'a valid registry' {
         It 'constructs and exposes the sets with lookup' {
-            # Neutral fixture globset names (widget/gadget), not the real track/deployable-unit names (ADR-TEST:3).
+            # Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names (ADR-TEST:3).
             $c = & $script:make @{
-                'widget' = @{ description = 'the widget track'; layer = 'track'; include = @('src/**', 'main.ps1') }
+                'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**', 'main.ps1') }
                 'gadget' = @{ description = 'the gadget unit'; layer = 'deployable-unit'; include = @('lib/**'); exclude = @('**/*.md') }
             }
             $c.globsets.Count | Should -Be 2
@@ -27,7 +27,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
         }
 
         It 'throws a named error on an unknown set lookup' {
-            $c = & $script:make @{ unit = @{ description = 'd'; layer = 'scope'; include = @('src/**') } }
+            $c = & $script:make @{ unit = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**') } }
             { $c.Get('missing') } | Should -Throw "*no globset named 'missing'*"
         }
 
@@ -113,17 +113,17 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
         It 'rejects <why>' -ForEach @(
             @{ why = 'a missing globsets map'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{}) } }
             @{ why = 'an empty globsets map'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{} }) } }
-            @{ why = 'an unknown top-level key'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'scope'; include = @('a/**') } }; extra = 1 }) } }
-            @{ why = 'an unknown per-set key'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'scope'; include = @('a/**'); owner = 'x' } } }) } }
+            @{ why = 'an unknown top-level key'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'loose-fileset'; include = @('a/**') } }; extra = 1 }) } }
+            @{ why = 'an unknown per-set key'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'loose-fileset'; include = @('a/**'); owner = 'x' } } }) } }
             @{ why = 'a non-mapping set entry'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = 'not-a-map' } }) } }
-            @{ why = 'a set with neither include nor compose'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'scope' } } }) } }
-            @{ why = 'a set with no description'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ layer = 'scope'; include = @('a/**') } } }) } }
+            @{ why = 'a set with neither include nor compose'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'loose-fileset' } } }) } }
+            @{ why = 'a set with no description'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ layer = 'loose-fileset'; include = @('a/**') } } }) } }
             @{ why = 'a set with no layer'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; include = @('a/**') } } }) } }
             @{ why = "the derived-only 'module' layer"; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'module'; include = @('a/**') } } }) } }
-            @{ why = 'a non-kebab set name'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ MyUnit = @{ description = 'd'; layer = 'scope'; include = @('a/**') } } }) } }
-            @{ why = 'a verify without modules'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'scope'; include = @('a/**'); verify = @{ level = 1 } } } }) } }
-            @{ why = 'a verify with an out-of-range level'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'scope'; include = @('a/**'); verify = @{ modules = @('M'); level = 9 } } } }) } }
-            @{ why = 'a verify with an unknown key'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'scope'; include = @('a/**'); verify = @{ modules = @('M'); level = 1; extra = 1 } } } }) } }
+            @{ why = 'a non-kebab set name'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ MyUnit = @{ description = 'd'; layer = 'loose-fileset'; include = @('a/**') } } }) } }
+            @{ why = 'a verify without modules'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'loose-fileset'; include = @('a/**'); verify = @{ level = 1 } } } }) } }
+            @{ why = 'a verify with an out-of-range level'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'loose-fileset'; include = @('a/**'); verify = @{ modules = @('M'); level = 9 } } } }) } }
+            @{ why = 'a verify with an unknown key'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'loose-fileset'; include = @('a/**'); verify = @{ modules = @('M'); level = 1; extra = 1 } } } }) } }
         ) {
             $block | Should -Throw
         }
@@ -131,8 +131,8 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
         It 'collects several errors into one failure' {
             {
                 & $script:make @{
-                    'BadName' = @{ description = 'd'; layer = 'scope'; include = @('a/**') }
-                    'no-desc' = @{ layer = 'scope'; include = @('a/**') }
+                    'BadName' = @{ description = 'd'; layer = 'loose-fileset'; include = @('a/**') }
+                    'no-desc' = @{ layer = 'loose-fileset'; include = @('a/**') }
                 }
             } | Should -Throw '*validation failed*'
         }
@@ -140,21 +140,21 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
     Context 'self-exclusion (ADR-GLOBS:6)' {
         It 'rejects a set matching its own marker file' {
-            { & $script:make @{ unit = @{ description = 'd'; layer = 'scope'; include = @('.sha-markers/unit.yml') } } } |
+            { & $script:make @{ unit = @{ description = 'd'; layer = 'loose-fileset'; include = @('.sha-markers/unit.yml') } } } |
                 Should -Throw '*ADR-GLOBS:6*'
         }
 
         It "rejects a set matching another set's marker file" {
             {
                 & $script:make @{
-                    'a-unit' = @{ description = 'd'; layer = 'scope'; include = @('src/**') }
-                    'b-unit' = @{ description = 'd'; layer = 'scope'; include = @('.sha-markers/a-unit.yml') }
+                    'a-unit' = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**') }
+                    'b-unit' = @{ description = 'd'; layer = 'loose-fileset'; include = @('.sha-markers/a-unit.yml') }
                 }
             } | Should -Throw '*ADR-GLOBS:6*'
         }
 
         It 'rejects a catch-all include via the canary probe' {
-            { & $script:make @{ unit = @{ description = 'd'; layer = 'scope'; include = @('**') } } } |
+            { & $script:make @{ unit = @{ description = 'd'; layer = 'loose-fileset'; include = @('**') } } } |
                 Should -Throw '*ADR-GLOBS:6*'
         }
 
@@ -163,14 +163,14 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             # 'unit' trips the probe — proving the self-exclusion check sees through compose.
             {
                 & $script:make @{
-                    'leaky' = @{ description = 'd'; layer = 'scope'; include = @('.sha-markers/unit.yml') }
+                    'leaky' = @{ description = 'd'; layer = 'loose-fileset'; include = @('.sha-markers/unit.yml') }
                     'unit'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('leaky') }
                 }
             } | Should -Throw '*ADR-GLOBS:6*'
         }
 
         It 'accepts a set including the config itself — an ordinary tracked file' {
-            $c = & $script:make @{ unit = @{ description = 'd'; layer = 'scope'; include = @('automation/Catzc.Base.Globs/configs/*.yml') } }
+            $c = & $script:make @{ unit = @{ description = 'd'; layer = 'loose-fileset'; include = @('automation/Catzc.Base.Globs/configs/*.yml') } }
             $c.Get('unit').Matches('automation/Catzc.Base.Globs/configs/globs.yml') | Should -BeTrue
         }
 
@@ -178,7 +178,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $c = & $script:make @{
                 everything = @{
                     description = 'the whole tree'
-                    layer       = 'scope'
+                    layer       = 'loose-fileset'
                     include     = @('**')
                     exclude     = @('.sha-markers/**')
                 }

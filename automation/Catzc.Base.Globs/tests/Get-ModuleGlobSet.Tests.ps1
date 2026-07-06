@@ -11,10 +11,10 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
             'automation/.internal/Catzc.Internal.Alpha.psm1' = 'function Test-InternalAlpha {}'
             'automation/.internal/Catzc.Internal.Beta.psm1'  = 'function Test-InternalBeta {}'
         }
-        # Neutral fixture globset name (widget), not the real 'automation' track (ADR-TEST:3); this declared
+        # Neutral fixture globset name (widget), not the real 'automation' set (ADR-TEST:3); this declared
         # set only needs to exist so the shadow-check has a registry to compare the derived names against.
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
-                globsets = @{ widget = @{ description = 'd'; layer = 'track'; include = @('src/**'); exclude = @('.sha-markers/**') } }
+                globsets = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**'); exclude = @('.sha-markers/**') } }
             })
     }
 
@@ -71,7 +71,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
 
     It 'rejects a declared globset that shadows a derived module name' {
         $shadowing = [Catzc.Base.Globs.GlobsConfig]::new(@{
-                globsets = @{ 'catzc-base-alpha' = @{ description = 'd'; layer = 'scope'; include = @('docs/**') } }
+                globsets = @{ 'catzc-base-alpha' = @{ description = 'd'; layer = 'loose-fileset'; include = @('docs/**') } }
             })
         Mock Get-Config { $shadowing } -ModuleName Catzc.Base.Globs
         { Get-ModuleGlobSet } | Should -Throw '*shadows the derived set*'
@@ -83,7 +83,7 @@ Describe 'GlobsConfig reserved names' -Tag 'L0', 'logic' {
     It 'rejects a declared set named after a reserved infra scope' {
         {
             [Catzc.Base.Globs.GlobsConfig]::new(@{
-                    globsets = @{ vendor = @{ description = 'd'; layer = 'scope'; include = @('docs/**') } }
+                    globsets = @{ vendor = @{ description = 'd'; layer = 'loose-fileset'; include = @('docs/**') } }
                 })
         } | Should -Throw '*reserved*'
     }

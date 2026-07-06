@@ -59,15 +59,19 @@ dot-folder that sorts to the top of a PR's file view, the marker diff IS the cha
 
 ### Rule ADR-GLOBS:7
 
-Every declared globset carries a **layer**: `track` (a root concern, `ADR-TRACK`), `deployable-unit` (a configurable unit that ships —
-optionally bound 1-1 to a CI/CD pipeline, annotated on the set as `pipeline:`), or `scope` (a cross-cutting slice). A deployable unit takes
-one of two shapes: a **configured** unit — a base plus its own configuration, e.g. a customer or platform unit — binds its pipeline; a
-**base** unit — a shared, un-configured surface that exists only to be composed, e.g. `template-azure-subscription-foundation` — binds none,
-because it ships only through the configured units that compose it, yet still carries an area-of-control (its `verify:` scope and its review
-surface). A globset that is neither composed nor pipeline-bound is not a unit but phantom state, and one living version (`ADR-ONELIVE`)
-forbids it. The fourth layer, `module`, is **derived-only** (`ADR-PROTGLOB`) — the folders are the registration, and declaring it is
-rejected; derived module sets persist sha-markers through the same mechanism as declared sets (`ADR-PROTGLOB#7`), while pipelines register
-only on declared deployable-unit markers. An optional `verify:` (`modules` + `level`) declares the set's test blast-radius scope.
+Every declared globset carries a **layer**, one of two: `deployable-unit` (a configurable unit that ships) or `loose-fileset` (a
+cross-cutting check surface — a track's root concern (`ADR-TRACK`), a scan scope, or a reserved umbrella). A third layer, `module`, is
+**derived-only** (`ADR-PROTGLOB`): the folders are the registration, declaring it is rejected, and derived module sets persist sha-markers
+through the same mechanism as declared sets (`ADR-PROTGLOB#7`). A deployable unit takes one of two shapes: a **configured** unit — a base
+plus its own configuration, e.g. a customer or platform unit — and a **base** unit — a shared, un-configured surface that exists only to be
+composed, e.g. `template-azure-subscription-foundation`, which ships only through the configured units that compose it yet still carries an
+area-of-control (its `verify:` scope and its review surface). Deployable-units and modules are pairwise-independent on OWN contribution
+(`ADR-GLOBS:10`); loose-filesets overlap freely.
+
+`pipeline:` (the 1-1 trigger-role binding) and `verify:` (`modules` + `level`, the test blast-radius scope) are **orthogonal** annotations,
+valid on any layer: a CI pipeline binds a track's loose-fileset marker, a CD pipeline binds a configured deployable-unit's, a base unit binds
+none. A **deployable-unit** that is neither composed nor pipeline-bound is not a unit but phantom state, and one living version
+(`ADR-ONELIVE`) forbids it; a loose-fileset earns its identity by being a real check surface (a scan's inputs, a track's boundary).
 
 - [One configuration point](#one-configuration-point)
 
@@ -97,6 +101,18 @@ whenever selected **content** changes. The file is data our own tooling can pars
 to any hash (ADR-GLOBS:6).
 
 - [The marker is an immutable lock](#the-marker-is-an-immutable-lock)
+
+### Rule ADR-GLOBS:10
+
+Within a layer, no two globsets may select a common file on their **OWN contribution** — the set's own `include`/`exclude` program with
+`compose` ignored (`ADR-GLOBS:4`). Two that do contain parts of each other and are not independent. Validation is **per layer, never
+across**: a deployable-unit deliberately contains the base it composes, so cross-layer overlap on *effective* membership is expected and
+correct — the rule is therefore defined on OWN membership, not effective. The `deployable-unit` and `module` layers are pairwise-disjoint on
+OWN membership; the `loose-fileset` layer is **exempt** — its sets are cross-cutting surfaces (tracks, scan scopes, the reserved umbrellas
+`internal`/`vendor`/`compiled`/`scriptanalyzer`) that overlap the modules and units they cut across by design. The rule holds across the
+declared registry and the derived module sets (`ADR-PROTGLOB:7`) alike; a violation names both sets and a shared file.
+
+- [Per-layer independence](#per-layer-independence)
 
 ## Context
 
@@ -170,6 +186,22 @@ diff in the `sha256:` line means the selected content changed. A reader (or a to
 program → fileset, fileset → sha — and know the unit's definition and identity without opening `globs.yml`. `.gitattributes` pins the line
 ending, so the bytes are identical on every checkout.
 
+### Per-layer independence
+
+A layer is a set of peers that partition a concern; overlap between peers means one set contains part of another, and the marker diff stops
+being a clean area-of-control report. So within a layer the sets are pairwise-disjoint — but on their **OWN** contribution, never their
+effective membership (`ADR-GLOBS:10`). The distinction is what makes `compose` legal: a customer deployable-unit's *effective* members
+include the whole base it composes, so on effective membership every customer overlaps the base and each other through it. That overlap is
+the point of composition — a cross-layer "depends on a base" — not a peer collision. On OWN membership (compose ignored) the customer units
+own only their own `configuration/<key>/**` slice and the base owns the shared surface minus the config folders, so the layer is disjoint.
+
+The `loose-fileset` layer is exempt because its sets are defined to cut across the others: the `automation` track's OWN members are every
+file under `automation/**`, which necessarily includes every module folder; the reserved `internal` umbrella covers the same files as the
+per-`.psm1` `catzc-internal-*` module sets. These are not independent peers, they are deliberate cross-sections — so the rule does not police
+them. `module` and `deployable-unit`, which do claim to partition, are held to disjointness. The gate evaluates OWN membership over the
+tracked-file universe for the declared registry and the derived module sets together, so a mis-scoped module include or an umbrella
+mistakenly declared as a `module` (rather than a `loose-fileset`) fails as a named pair.
+
 ### Registering a pipeline or workflow
 
 Registration is one line per vendor: the unit's marker path as the only path filter. The vendors' own glob dialects never appear — a marker
@@ -225,6 +257,9 @@ one pass always converges.
   self-matching globsets (`ADR-GLOBS:6`).
 - `Test-ShaMarker` recomputes every globset's durable SHA and reports stale, missing, and orphaned marker files; an integrity-tagged test in
   `Catzc.Base.Globs` asserts it, so `Test-Automation` fails locally and in CI on any violation.
+- `Test-GlobSetIndependence` evaluates OWN membership per layer across the declared registry and the derived module sets, reporting any
+  same-layer pair that overlaps (`ADR-GLOBS:10`); a second integrity-tagged test asserts it empty, so a module or deployable-unit that starts
+  containing part of a peer fails the same gate.
 - Grep-ability: `paths:` filters in `pipelines/*.yaml` and `.github/workflows/` reference only `.sha-markers/` entries; a source path in a
   filter is findable by search and wrong by rule (`ADR-GLOBS:1`).
 

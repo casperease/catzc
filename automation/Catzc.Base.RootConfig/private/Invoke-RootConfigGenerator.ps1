@@ -58,6 +58,12 @@ function Invoke-RootConfigGenerator {
             # The VS Code launch profiles, rendered from the vscode-launch registry (Catzc.Base.VSCode).
             New-VSCodeLaunch
         }
+        'New-VSCodePipelineSchema' {
+            # The repo-controlled Azure Pipelines JSON Schema, rendered from the vscode-pipeline-schema
+            # registry (Catzc.Base.VSCode). Fed to the extension via azure-pipelines.customSchemaFile to
+            # replace its bundled per-task anyOf — the source of the offline "^PowerShell@2$" false positives.
+            New-VSCodePipelineSchema
+        }
         default {
             throw "Unknown root-config generator '$Name'. Register its invocation in Invoke-RootConfigGenerator (Catzc.Base.RootConfig)."
         }

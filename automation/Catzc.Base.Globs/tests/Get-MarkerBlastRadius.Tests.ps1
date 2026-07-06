@@ -2,7 +2,7 @@ Describe 'Get-MarkerBlastRadius' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
-                    'infra' = @{ description = 'd'; layer = 'track'; include = @('infrastructure/**')
+                    'infra' = @{ description = 'd'; layer = 'loose-fileset'; include = @('infrastructure/**')
                         pipeline = 'ci-infra'; verify = @{ modules = @('Catzc.Azure.Templates'); level = 2 }
                     }
                     'base'  = @{ description = 'd'; layer = 'deployable-unit'; include = @('infrastructure/modules/**') }

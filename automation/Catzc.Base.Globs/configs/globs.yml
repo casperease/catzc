@@ -4,11 +4,13 @@
 # path-filter on those marker files and on nothing else. Validated strictly on load by
 # Catzc.Base.Globs.GlobsConfig.
 #
-# Every set declares its layer (ADR-GLOBS:7, ADR-TRACK): 'track' (a root concern), 'deployable-unit'
-# (what ships; determines a pipeline 1-1), or 'scope' (a cross-cutting slice); the 'module' layer is
-# derived from the folders (and the internal .psm1 files) and never declared — derived sets persist their
-# own sha-markers too (ADR-PROTGLOB:7). 'compose' unions another declared set's effective members into
-# this one (acyclic, ADR-GLOBS:8). 'pipeline' names the pipeline bound to a deployable-unit's marker.
+# Every set declares its layer (ADR-GLOBS:7): 'deployable-unit' (a configurable unit that ships) or
+# 'loose-fileset' (a cross-cutting check surface — a track's root concern, a scan scope, an umbrella); the
+# 'module' layer is derived from the folders (and the internal .psm1 files) and never declared — derived
+# sets persist their own sha-markers too (ADR-PROTGLOB:7). Within a non-loose layer no two sets may select a
+# common file on their OWN contribution (ADR-GLOBS:10); loose-filesets overlap freely. 'compose' unions
+# another declared set's effective members into this one (acyclic, ADR-GLOBS:8). 'pipeline' names the
+# pipeline bound to this set's marker — any layer may bind one (ADR-GLOBS:7).
 #
 # Dialect: '/'-separated, repo-relative; '**' is the only cross-segment operator (zero or more whole
 # segments); within a segment, PowerShell wildcards ('*', '?', '[a-z]'), case-sensitive. Membership is
@@ -21,7 +23,7 @@ globsets:
   # widened into this set.
   automation:
     description: The automation track - the automation module system under automation/.
-    layer: track
+    layer: loose-fileset
     pipeline: ci-automation
     include:
       - automation/**
@@ -29,7 +31,7 @@ globsets:
   # The infrastructure track (ADR-TRACK): what ci-infrastructure verifies and the cd-* pipelines deploy from.
   infrastructure:
     description: The infrastructure track - the Bicep IaC tree, reusable modules and deployable templates.
-    layer: track
+    layer: loose-fileset
     pipeline: ci-infrastructure
     verify:
       modules: [Catzc.Azure.Templates]
@@ -43,7 +45,7 @@ globsets:
   # below carry those).
   templates:
     description: All infrastructure templates' shared surface - every template excluding deployment configuration.
-    layer: scope
+    layer: loose-fileset
     include:
       - infrastructure/templates/**
     exclude:
@@ -110,7 +112,7 @@ globsets:
   # durable SHA is unchanged since the last green run in the session.
   markdown-scope:
     description: The markdown integrity scan's inputs - in-scope markdown plus the markdownlint config.
-    layer: scope
+    layer: loose-fileset
     include:
       - '**/*.md'
       - .markdownlint.yml

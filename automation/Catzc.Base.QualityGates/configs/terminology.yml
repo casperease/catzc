@@ -25,7 +25,20 @@ categories:
   abbreviation:
     description: 'A short form standing for a full word or phrase; carries expands_to with the full form.'
   fixture:
-    description: 'A token that appears only in tests, fixtures, or documentation examples, not production vocabulary.'
+    description: 'A hermetic TEST token — a fixture identity or placeholder that appears only in tests, never in shipped config or production vocabulary (the test domain, ADR-LANG).'
+    scope:
+      - '**/tests/**'
+      - 'docs/**'
+  azure-live:
+    description: 'A LIVE Azure identity — a real customer, subscription, org, or shipped-template name that the demo config maps to (the config/live domain, ADR-LANG). Guarded by integrity tests; forbidden in a logic test.'
+    scope:
+      - 'automation/Catzc.Azure*/configs/**'
+      - 'infrastructure/**'
+      - 'docs/**'
+  adr-example:
+    description: 'A DESIGN-domain example token — a discovery-theme name (discovery/expedition/survey, Contoso) or documentation placeholder used only in ADRs and reference docs (ADR-EXAMPLE, ADR-LANG).'
+    scope:
+      - 'docs/**'
   adr:
     description: 'An ADR rule-citation code — the short code naming a docs/adr rule.'
   ado:
@@ -105,8 +118,6 @@ terms:
       meaning: 'reference-doc slug segment for the Catzc.Base.ModuleSystem module'
     - term: noassert
       meaning: 'the -NoAssert switch (''noassert'') on Invoke-Executable'
-    - term: nova
-      meaning: 'tenant/customer name (Nova Systems) in azure.yml'
     - term: nullness
       meaning: 'nullness'
     - term: optout
@@ -294,8 +305,6 @@ terms:
       meaning: 'services'
       expands_to: 'services'
   fixture:
-    - term: apex
-      meaning: 'sample template shortcode ''apex'' in resource-naming examples'
     - term: tmpl
       meaning: 'placeholder C# type name ''Tmpl'' (template) in Get-CSharpTypeDependency tests, alongside Ctx/Use'
     - term: appname
@@ -304,8 +313,6 @@ terms:
       meaning: 'placeholder script-block return value ''blockout'' in Write-EnvironmentSet tests'
     - term: capi
       meaning: 'sample ADO pipeline-variable name ''dev.capi'' in Set-AdoPipelineVariable examples/tests'
-    - term: contoso
-      meaning: 'Microsoft''s canonical fictional company name (Contoso)'
     - term: ghtest
       meaning: 'temp-repo directory prefix ''catzc-ghtest-'' in Test-GitHistoryClean tests'
     - term: thirdparty
@@ -378,6 +385,14 @@ terms:
       meaning: 'author''s docs/notes topic-folder name ''systemet'' cited in the conventional-folders ADR'
     - term: wksp
       meaning: 'resource-name shortcode for ''workspace'' (wksp) in test assets'
+  azure-live:
+    - term: apex
+      meaning: 'live customer key ''apex'' (Apex Industries) — a real customer in customer.yml / azure.yml (apex_nonprod) with its cd-apex deployable unit'
+    - term: nova
+      meaning: 'live customer key ''nova'' (Nova Systems) in customer.yml / azure.yml (nova_nonprod)'
+  adr-example:
+    - term: contoso
+      meaning: 'Microsoft''s canonical fictional company name (Contoso) — a design-domain example in ADRs and reference docs (ADR-EXAMPLE)'
   adr:
     - term: adr
       meaning: 'the ADR- rule-citation prefix; every rule code has the form ADR-<NAME> (see docs/adr/index.md)'

@@ -1,5 +1,6 @@
 // The globset registry (configs/globs.yml) and its validity rules: a non-empty 'globsets' map of
-// kebab-case name -> { description, layer, [include: [...]], [exclude: [...]], [compose: [...]],
+// kebab-case name -> { description, layer (deployable-unit | loose-fileset — 'module' is derived-only and
+// rejected here, ADR-GLOBS:7), [include: [...]], [exclude: [...]], [compose: [...]],
 // [verify: { modules, level }], [pipeline] }, each entry a valid GlobSet, no unknown keys anywhere
 // (strict-config discipline), compose references resolving to declared sets acyclically (ADR-GLOBS:8),
 // and the self-exclusion rule — no globset may have a sha-marker file as an effective member (ADR-GLOBS:6;

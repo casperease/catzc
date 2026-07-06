@@ -47,6 +47,11 @@ files:
   - target: .vscode/launch.json
     generator: New-VSCodeLaunch
     optIn: true
+  # The Azure Pipelines schema the extension validates our .yaml against (wired via
+  # azure-pipelines.customSchemaFile in vscode-settings.yml). Gitignored generated copy like the others.
+  - target: .vscode/azure-pipelines-schema.json
+    generator: New-VSCodePipelineSchema
+    optIn: true
   - target: .vscode/markdown-preview-dark.css
     source: automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css
     copyAsLink: true

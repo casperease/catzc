@@ -50,9 +50,13 @@ function Get-ModuleGlobSet {
         'compiled'       = 'automation/.compiled/**'
         'scriptanalyzer' = 'automation/.scriptanalyzer/**'
     }
+    # The reserved umbrellas are cross-cutting check surfaces, not independent modules: 'internal' overlaps
+    # every catzc-internal-* single-file set, 'vendor'/'compiled'/'scriptanalyzer' cover whole dot-folders.
+    # They are loose-filesets (ADR-GLOBS:7, overlap-exempt), not the 'module' layer whose sets are the
+    # pairwise-disjoint per-folder modules (ADR-GLOBS:10).
     foreach ($reservedName in [Catzc.Base.Globs.GlobsConfig]::ReservedNames) {
         $set = [Catzc.Base.Globs.GlobSet]::new(
-            $reservedName, "Derived infra scope - $($reserved[$reservedName])", 'module',
+            $reservedName, "Derived infra scope - $($reserved[$reservedName])", 'loose-fileset',
             @($reserved[$reservedName]), @(), @(), @(), -1, $null)
         $derived[$reservedName] = $set
     }

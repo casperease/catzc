@@ -12,7 +12,7 @@ Describe 'Resolve-MarkerVerify' -Tag 'L0', 'logic' {
 
     It 'throws an actionable error when the marker declares no verify scope' {
         Mock Get-GlobSet {
-            [Catzc.Base.Globs.GlobSet]::new('bare', 'd', 'scope', @('x/**'), @(), @(), @(), -1, $null)
+            [Catzc.Base.Globs.GlobSet]::new('bare', 'd', 'loose-fileset', @('x/**'), @(), @(), @(), -1, $null)
         } -ModuleName Catzc.Base.QualityGates
 
         { InModuleScope Catzc.Base.QualityGates { Resolve-MarkerVerify -Name bare } } |

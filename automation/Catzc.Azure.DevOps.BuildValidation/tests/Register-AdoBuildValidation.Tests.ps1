@@ -128,7 +128,7 @@ Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {
 
     It 'throws when no pipeline is resolvable from any source' {
         $script:globSet = [Catzc.Base.Globs.GlobSet]::new(
-            'unit-x', 'd', 'scope', @('src/**'), @(), @(), @(), -1, $null)   # no pipeline annotation
+            'unit-x', 'd', 'loose-fileset', @('src/**'), @(), @(), @(), -1, $null)   # no pipeline annotation
 
         { Register-AdoBuildValidation unit-x -RepositoryName catzc } | Should -Throw '*No pipeline for globset*'
     }

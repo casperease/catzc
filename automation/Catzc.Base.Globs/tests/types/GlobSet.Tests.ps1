@@ -7,7 +7,7 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {
             param([string] $name = 'unit', [string[]] $include = @('src/**'), [string[]] $exclude = @())
-            [Catzc.Base.Globs.GlobSet]::new($name, 'a test globset', 'scope', $include, $exclude, @(), @(), -1, $null)
+            [Catzc.Base.Globs.GlobSet]::new($name, 'a test globset', 'loose-fileset', $include, $exclude, @(), @(), -1, $null)
         }
     }
 
@@ -64,7 +64,7 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
 
         It 'omits empty sections and changes exactly when the definition changes' {
             $set = & $script:make 'my-unit' @('src/**')
-            $set.Representation | Should -Be "name: my-unit`ndescription: a test globset`nlayer: scope`nscan:`n- '+ src/**'`n"
+            $set.Representation | Should -Be "name: my-unit`ndescription: a test globset`nlayer: loose-fileset`nscan:`n- '+ src/**'`n"
             (& $script:make 'my-unit' @('src/**')).Representation | Should -Be $set.Representation
             (& $script:make 'my-unit' @('src/**', 'extra/**')).Representation | Should -Not -Be $set.Representation
         }
@@ -88,28 +88,28 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
 
     Context 'the constructor gate' {
         It 'rejects <why>' -ForEach @(
-            @{ why = 'a non-kebab name (uppercase)'; block = { [Catzc.Base.Globs.GlobSet]::new('MyUnit', 'd', 'scope', @('**'), @(), @(), @(), -1, $null) } }
-            @{ why = 'a non-kebab name (underscore)'; block = { [Catzc.Base.Globs.GlobSet]::new('my_unit', 'd', 'scope', @('**'), @(), @(), @(), -1, $null) } }
-            @{ why = 'a non-kebab name (leading dash)'; block = { [Catzc.Base.Globs.GlobSet]::new('-unit', 'd', 'scope', @('**'), @(), @(), @(), -1, $null) } }
-            @{ why = 'a missing description'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', ' ', 'scope', @('**'), @(), @(), @(), -1, $null) } }
+            @{ why = 'a non-kebab name (uppercase)'; block = { [Catzc.Base.Globs.GlobSet]::new('MyUnit', 'd', 'loose-fileset', @('**'), @(), @(), @(), -1, $null) } }
+            @{ why = 'a non-kebab name (underscore)'; block = { [Catzc.Base.Globs.GlobSet]::new('my_unit', 'd', 'loose-fileset', @('**'), @(), @(), @(), -1, $null) } }
+            @{ why = 'a non-kebab name (leading dash)'; block = { [Catzc.Base.Globs.GlobSet]::new('-unit', 'd', 'loose-fileset', @('**'), @(), @(), @(), -1, $null) } }
+            @{ why = 'a missing description'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', ' ', 'loose-fileset', @('**'), @(), @(), @(), -1, $null) } }
             @{ why = 'a missing layer'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', ' ', @('**'), @(), @(), @(), -1, $null) } }
             @{ why = 'an unknown layer'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'lane', @('**'), @(), @(), @(), -1, $null) } }
-            @{ why = 'neither include nor compose'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'scope', @(), @(), @(), @(), -1, $null) } }
-            @{ why = 'a duplicate include pattern'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'scope', @('a/**', 'a/**'), @(), @(), @(), -1, $null) } }
-            @{ why = 'a malformed include pattern'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'scope', @('/lead'), @(), @(), @(), -1, $null) } }
-            @{ why = 'a malformed exclude pattern'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'scope', @('**'), @('a//b'), @(), @(), -1, $null) } }
-            @{ why = 'an out-of-range verify level'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'scope', @('**'), @(), @(), @('M'), 4, $null) } }
+            @{ why = 'neither include nor compose'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @(), @(), @(), @(), -1, $null) } }
+            @{ why = 'a duplicate include pattern'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @('a/**', 'a/**'), @(), @(), @(), -1, $null) } }
+            @{ why = 'a malformed include pattern'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @('/lead'), @(), @(), @(), -1, $null) } }
+            @{ why = 'a malformed exclude pattern'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @('**'), @('a//b'), @(), @(), -1, $null) } }
+            @{ why = 'an out-of-range verify level'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @('**'), @(), @(), @('M'), 4, $null) } }
         ) {
             $block | Should -Throw
         }
 
         It 'names the globset in a pattern error' {
-            { [Catzc.Base.Globs.GlobSet]::new('my-unit', 'd', 'scope', @('/lead'), @(), @(), @(), -1, $null) } |
+            { [Catzc.Base.Globs.GlobSet]::new('my-unit', 'd', 'loose-fileset', @('/lead'), @(), @(), @(), -1, $null) } |
                 Should -Throw "*globset 'my-unit'*"
         }
 
         It 'accepts a null exclude list as empty' {
-            $set = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'scope', @('**'), $null, @(), @(), -1, $null)
+            $set = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @('**'), $null, @(), @(), -1, $null)
             $set.Exclude.Count | Should -Be 0
             $set.Matches('a.txt') | Should -BeTrue
         }

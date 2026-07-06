@@ -86,6 +86,14 @@ settings:
     '**/*.yaml': azure-pipelines
     '**/.markdownlintignore': ignore
 
+  # Azure Pipelines extension: validate .yaml against OUR generated schema, not the extension's bundled one.
+  # The bundled schema models a step's `task` as a per-task anyOf; offline (never connected to an ADO org)
+  # it cannot resolve the real task set and reports every non-matching branch — the spurious "String does
+  # not match the pattern of ^PowerShell@2$" warnings. Our schema (source: Catzc.Base.VSCode
+  # configs/vscode-pipeline-schema.yml, rendered by New-VSCodePipelineSchema) drops that anyOf and keeps the
+  # structural checks worth having. The extension exposes no severity/ignore knob — only this override.
+  azure-pipelines.customSchemaFile: ./.vscode/azure-pipelines-schema.json
+
   # Spell checking — the single repo dictionary lives in /cspell.yml (auto-discovered by Code Spell
   # Checker; the extension is recommended in .vscode/extensions.json).
   cSpell.enabled: true

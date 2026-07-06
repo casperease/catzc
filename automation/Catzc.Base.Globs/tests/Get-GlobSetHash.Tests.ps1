@@ -9,7 +9,7 @@ Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {
         New-Item -ItemType Directory -Path $script:data -Force | Out-Null
 
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
-                globsets = @{ unit = @{ description = 'd'; layer = 'scope'; include = @('data/**') } }
+                globsets = @{ unit = @{ description = 'd'; layer = 'loose-fileset'; include = @('data/**') } }
             })
     }
 
