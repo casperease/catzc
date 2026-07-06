@@ -17,6 +17,10 @@ ignorePaths:
   - obj/**
   - bin/**
   - cspell.yml
+  # The terminology registry DEFINES the approved vocabulary (including the domain-scoped fixture/azure-live/
+  # adr-example tokens); spell-checking it against the dictionaries generated from it is circular. Its own
+  # integrity is validated by Test-Terminology, not cspell. (Same rationale as excluding cspell.yml above.)
+  - automation/Catzc.Base.QualityGates/configs/terminology.yml
   - "**/*.dll"
   - "**/*.pdb"
   - "**/*.p7s"
@@ -64,13 +68,12 @@ dictionaryDefinitions:
     path: ./.cspell/coined.txt
   - name: catzc-terms-person
     path: ./.cspell/person.txt
-# The GLOBAL dictionaries — vocabulary legal everywhere. The three DOMAIN-scoped categories (fixture,
-# azure-live, adr-example) are deliberately NOT here; they are enabled only inside their `overrides:` globs
-# below, so a fixture token in shipped config, a live identity outside the Azure configs, or a doc-example
-# token in code becomes an unknown-word failure (the domain-language separation of ADR-LANG).
 dictionaries:
   - catzc-terms-domain
   - catzc-terms-abbreviation
+  - catzc-terms-fixture
+  - catzc-terms-azure-live
+  - catzc-terms-adr-example
   - catzc-terms-adr
   - catzc-terms-ado
   - catzc-terms-azure

@@ -18,10 +18,14 @@ source-path filters.
 
 ### domain:1 — The globset registry
 
-Owning `configs/globs.yml` and its typed, strictly validated read: each globset is a kebab-case name, a description, include patterns, and
-optional exclude patterns, compiled at load into `[Catzc.Base.Globs.GlobSet]` records (per-segment PowerShell wildcards, `**` as the only
-cross-segment operator, case-sensitive). Validation rejects unknown keys, malformed patterns, and any set that would have a sha-marker file
-as a member.
+Owning `configs/globs.yml` and its typed, strictly validated read: each globset is a kebab-case name, a description, a layer, include
+patterns, and optional exclude patterns, compiled at load into `[Catzc.Base.Globs.GlobSet]` records (per-segment PowerShell wildcards, `**`
+as the only cross-segment operator, case-sensitive). A layer is the kind of boundary the set maps: `track` (a root-level partition, e.g.
+`automation`/`infrastructure`, with the `repository` catch-all for everything else at root), `deployable-unit` (a configurable unit that
+ships), or `loose-fileset` (a cross-cutting scan scope or reserved umbrella); `module` (per-folder, with the `module-leftovers` catch-all)
+is derived from the folders and never declared. Validation rejects unknown keys, malformed patterns, and any set that would have a
+sha-marker file as a member. Within every layer but `loose-fileset` no two sets may overlap on their OWN contribution — a boundary never
+consumes a peer's files (`ADR-GLOBS:10`); loose-filesets overlap the boundaries they cut across by design.
 
 ### domain:2 — Membership and durable identity
 
@@ -41,9 +45,9 @@ the module's integrity test asserts all-Fresh, which is what makes the "commit t
 The session-memory skip for heavy read-only scans: a (test, scope) key holds the durable identity of the last green run; an unchanged scope
 answers "protected" and the scan is skipped. Recording happens only after a green run, on the identity computed before the scan, and in a
 pipeline the whole mechanism is ignored — CI always scans full. Every globset — the **declared** registry (domain:1) and the **derived**
-sets the registry never lists (one per module folder by convention, one per internal `.psm1` module, plus the reserved infra scopes
-`internal`/`vendor`/`compiled`/`scriptanalyzer`) — has a committed sha-marker (domain:3). The derived sets double as the building blocks
-`Test-Automation` composes into per-module protection identities.
+sets the registry never lists (one per module folder by convention, one per internal `.psm1` module, the reserved infra umbrellas
+`internal`/`vendor`/`compiled`/`scriptanalyzer`, and the `module-leftovers` catch-all) — has a committed sha-marker (domain:3). The derived
+sets double as the building blocks `Test-Automation` composes into per-module protection identities.
 
 ## What the module does
 
@@ -60,16 +64,17 @@ outside (registrations on `.sha-markers/` paths).
 
 The module's public surface, indexed by domain.
 
-| Domain                                     | Function                  |
-| ------------------------------------------ | ------------------------- |
-| domain:1 — The globset registry            | `Get-GlobSet`             |
-| config                                     | `globs.yml`               |
-| domain:2 — Membership and durable identity | `Get-GlobSetFile`         |
-|                                            | `Get-GlobSetHash`         |
-| domain:3 — Sha-marker files                | `Update-ShaMarker`        |
-|                                            | `Test-ShaMarker`          |
-|                                            | `Get-MarkerBlastRadius`   |
-| domain:4 — Protected scans                 | `Test-GlobSetProtection`  |
-|                                            | `Protect-GlobSet`         |
-|                                            | `Clear-GlobSetProtection` |
-|                                            | `Get-ModuleGlobSet`       |
+| Domain                                     | Function                   |
+| ------------------------------------------ | -------------------------- |
+| domain:1 — The globset registry            | `Get-GlobSet`              |
+|                                            | `Test-GlobSetIndependence` |
+| config                                     | `globs.yml`                |
+| domain:2 — Membership and durable identity | `Get-GlobSetFile`          |
+|                                            | `Get-GlobSetHash`          |
+| domain:3 — Sha-marker files                | `Update-ShaMarker`         |
+|                                            | `Test-ShaMarker`           |
+|                                            | `Get-MarkerBlastRadius`    |
+| domain:4 — Protected scans                 | `Test-GlobSetProtection`   |
+|                                            | `Protect-GlobSet`          |
+|                                            | `Clear-GlobSetProtection`  |
+|                                            | `Get-ModuleGlobSet`        |

@@ -25,10 +25,12 @@ categories:
   abbreviation:
     description: 'A short form standing for a full word or phrase; carries expands_to with the full form.'
   fixture:
-    description: 'A hermetic TEST token — a fixture identity or placeholder that appears only in tests, never in shipped config or production vocabulary (the test domain, ADR-LANG).'
+    description: 'A hermetic TEST token or documentation placeholder — a fixture identity or example value used in tests, doc examples, and comment-based-help EXAMPLE blocks, but NEVER in shipped config DATA (a *.yml/*.json/*.bicep under configs/ or infrastructure/). The test/example domain (ADR-LANG).'
     scope:
       - '**/tests/**'
       - 'docs/**'
+      - '**/*.ps1'
+      - '**/*.psm1'
   azure-live:
     description: 'A LIVE Azure identity — a real customer, subscription, org, or shipped-template name that the demo config maps to (the config/live domain, ADR-LANG). Guarded by integrity tests; forbidden in a logic test.'
     scope:
