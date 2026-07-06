@@ -3,4 +3,4 @@ description: Derived module scope - automation/Catzc.Tooling.Core/**
 layer: module
 include:
 - 'automation/Catzc.Tooling.Core/**'
-sha256: 6488f825c2951826a22fd1f941dfcc860f04b70cc644b4feaaa564580e20e6f6
+sha256: a56b38ee541894e3971ba90f04e9ba9359028504334bba50d47e4f104a2fe49b
