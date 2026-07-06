@@ -18,7 +18,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $c.Names | Should -Contain 'automation'
             $c.Contains('apex') | Should -BeTrue
             $c.Contains('nope') | Should -BeFalse
-            $c.Get('apex').TriggerPath | Should -Be '.triggers/apex.sha256'
+            $c.Get('apex').MarkerPath | Should -Be '.sha-markers/apex.sha256'
             $c.Get('apex').Matches('infrastructure/x/readme.md') | Should -BeFalse
         }
 
@@ -53,16 +53,16 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
     }
 
     Context 'self-exclusion (ADR-GLOBS:6)' {
-        It 'rejects a set matching its own trigger file' {
-            { & $script:make @{ unit = @{ description = 'd'; include = @('.triggers/unit.sha256') } } } |
+        It 'rejects a set matching its own marker file' {
+            { & $script:make @{ unit = @{ description = 'd'; include = @('.sha-markers/unit.sha256') } } } |
                 Should -Throw '*ADR-GLOBS:6*'
         }
 
-        It "rejects a set matching another set's trigger file" {
+        It "rejects a set matching another set's marker file" {
             {
                 & $script:make @{
                     'a-unit' = @{ description = 'd'; include = @('src/**') }
-                    'b-unit' = @{ description = 'd'; include = @('.triggers/a-unit.sha256') }
+                    'b-unit' = @{ description = 'd'; include = @('.sha-markers/a-unit.sha256') }
                 }
             } | Should -Throw '*ADR-GLOBS:6*'
         }
@@ -77,17 +77,17 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $c.Get('unit').Matches('automation/Catzc.Base.Globs/configs/globs.yml') | Should -BeTrue
         }
 
-        It 'accepts a catch-all whose exclude carves out .triggers/' {
+        It 'accepts a catch-all whose exclude carves out .sha-markers/' {
             $c = & $script:make @{
                 everything = @{
                     description = 'the whole tree'
                     include     = @('**')
-                    exclude     = @('.triggers/**')
+                    exclude     = @('.sha-markers/**')
                 }
             }
             $c.Get('everything').Matches('docs/index.md') | Should -BeTrue
             $c.Get('everything').Matches('automation/Catzc.Base.Globs/configs/globs.yml') | Should -BeTrue
-            $c.Get('everything').Matches('.triggers/everything.sha256') | Should -BeFalse
+            $c.Get('everything').Matches('.sha-markers/everything.sha256') | Should -BeFalse
         }
     }
 }

@@ -30,7 +30,7 @@ Describe 'Get-GlobSet' -Tag 'L0', 'logic' {
         $set = Get-GlobSet -Name apex
         $set | Should -BeOfType [Catzc.Base.Globs.GlobSet]
         $set.Matches('infrastructure/templates/apex/main.bicep') | Should -BeTrue
-        $set.TriggerPath | Should -Be '.triggers/apex.sha256'
+        $set.MarkerPath | Should -Be '.sha-markers/apex.sha256'
     }
 
     It 'throws a named error on an unknown globset' {

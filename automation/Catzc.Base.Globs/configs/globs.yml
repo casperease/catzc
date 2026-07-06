@@ -1,22 +1,22 @@
 # The globset registry — THE single source of truth mapping every deployable unit onto its files under
 # version control (see docs/adr/pipelines/durable-sha-globs.md, ADR-GLOBS). Each set's durable SHA is
-# persisted in .triggers/<name>.sha256 by Update-Trigger; pipelines and workflows path-filter on those
-# trigger files and on nothing else. Validated strictly on load by Catzc.Base.Globs.GlobsConfig.
+# persisted in .sha-markers/<name>.sha256 by Update-ShaMarker; pipelines and workflows path-filter on those
+# marker files and on nothing else. Validated strictly on load by Catzc.Base.Globs.GlobsConfig.
 #
 # Dialect: '/'-separated, repo-relative; '**' is the only cross-segment operator (zero or more whole
 # segments); within a segment, PowerShell wildcards ('*', '?', '[a-z]'), case-sensitive. Membership is
-# include minus exclude, evaluated against `git ls-files`. No set may have a trigger file as a member.
+# include minus exclude, evaluated against `git ls-files`. No set may have a marker file as a member.
 
 globsets:
   # The shared-fate CI unit: everything the CI engine's gates read — the automation layer, the docs the
   # spelling/markdown integrity scans cover, the pipeline definitions, this registry. Effectively the whole
-  # tree minus the trigger files themselves, so ci-automation fires on any real change.
+  # tree minus the marker files themselves, so ci-automation fires on any real change.
   automation:
     description: The shared-fate CI unit - every tracked file the CI engine verifies.
     include:
       - '**'
     exclude:
-      - .triggers/**
+      - .sha-markers/**
 
   # The infrastructure delivery unit: what ci-infrastructure verifies and the cd-* pipelines deploy from.
   infrastructure:
