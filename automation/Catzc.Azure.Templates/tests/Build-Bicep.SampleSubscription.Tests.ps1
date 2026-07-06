@@ -20,7 +20,7 @@ Describe 'Build-Bicep (sample-subscription)' -Tag 'L0', 'logic', 'serial' {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
@@ -46,7 +46,7 @@ Describe 'Build-Bicep (sample-subscription)' -Tag 'L0', 'logic', 'serial' {
 
     It 'passes the configured resourceGroupName through to parameters.json' {
         Build-Bicep sample-subscription -Environments alpha | Out-Null
-        $json = Get-Content (Join-Path $script:outputRoot 'parameters.core_lower.alpha.json') -Raw | ConvertFrom-Json
+        $json = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
         $json.parameters.resourceGroupName.value | Should -Be 'alpha-weu-tst-ssub-rg'
     }
 }

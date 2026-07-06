@@ -11,7 +11,7 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
@@ -66,12 +66,12 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
         $derived.short_name | Should -Be 'deriv'
     }
 
-    It 'exposes the subscriptions list (the config subfolders)' {
+    It 'exposes the subscriptions list (resolved per slot from the coordinate)' {
         $sample = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample' } | Select-Object -First 1
         @($sample.subscriptions) | Should -Be @('core_lower')
     }
 
-    It 'exposes both subscriptions for a template with core + customer configs' {
+    It 'exposes both resolved subscriptions for a template with root + customer configs' {
         $sc = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample-customer' } | Select-Object -First 1
         @($sc.subscriptions | Sort-Object) | Should -Be @('acme_lower', 'core_lower')
     }
@@ -122,24 +122,24 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
             $script:sc = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample-customer' } | Select-Object -First 1
         }
 
-        It 'exposes the distinct customers derived from the subscription folders' {
+        It 'exposes the distinct customers (the configuration subfolders)' {
             $sc.customers | Should -Be @('acme')
         }
 
-        It 'tags the non-customer (core_lower) config slot with an empty customer' {
-            $core = $sc.slots | Where-Object { $_.name -eq 'alpha' -and $_.customer -eq '' } | Select-Object -First 1
-            $core | Should -Not -BeNullOrEmpty
-            $core.environment | Should -Be 'alpha'
-            $core.subscription | Should -Be 'core_lower'
+        It 'tags the configuration-root slot with an empty customer and the resolved non-customer subscription' {
+            $shared = $sc.slots | Where-Object { $_.name -eq 'alpha' -and $_.customer -eq '' } | Select-Object -First 1
+            $shared | Should -Not -BeNullOrEmpty
+            $shared.environment | Should -Be 'alpha'
+            $shared.subscription | Should -Be 'core_lower'
         }
 
-        It 'discovers the customer-subscription slots tagged with the customer (mixed base + slotted)' {
+        It 'discovers the customer-subfolder slots tagged with the customer and the resolved customer subscription' {
             $acmeSlots = @($sc.slots | Where-Object { $_.customer -eq 'acme' } | ForEach-Object { $_.name } | Sort-Object)
             $acmeSlots | Should -Be @('alpha', 'alpha-001')
             @($sc.slots | Where-Object { $_.customer -eq 'acme' } | ForEach-Object { $_.subscription } | Select-Object -Unique) | Should -Be @('acme_lower')
         }
 
-        It 'treats the core and customer alpha as distinct slots (same config-name, different subscription)' {
+        It 'treats the root and customer alpha as distinct slots (same config-name, different coordinate)' {
             @($sc.slots | Where-Object { $_.name -eq 'alpha' }).Count | Should -Be 2
         }
     }

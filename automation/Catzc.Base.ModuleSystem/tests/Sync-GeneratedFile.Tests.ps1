@@ -3,6 +3,7 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.ModuleSystem
         Mock Get-GitCurrentBranch { 'feature/sync' } -ModuleName Catzc.Base.ModuleSystem
         Mock Update-ShaMarker { } -ModuleName Catzc.Base.ModuleSystem
+        Mock Test-GitPathChanged { $true } -ModuleName Catzc.Base.ModuleSystem
         Mock Invoke-GitCommit { 'abc1234567890abcdef1234567890abcdef12345' } -ModuleName Catzc.Base.ModuleSystem
         Mock Write-Message { } -ModuleName Catzc.Base.ModuleSystem
         # main-direct workspace (the shipped default) unless a test flips it.
@@ -45,7 +46,7 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
     }
 
-    It 'syncs, commits both generated paths, and reports the branch on a clean tree' {
+    It 'syncs, commits both generated paths, and reports the branch when both changed' {
         $result = Sync-GeneratedFile
         $result | Should -Be 'abc1234567890abcdef1234567890abcdef12345'
         Should -Invoke Update-ShaMarker -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
@@ -53,7 +54,26 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
             ($Path -join ',') -eq '.sha-markers,automation/.compiled' -and $Message -eq 'chore(repo): sync sha-marker files and compiled types'
         }
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter {
-            $Message -eq 'Sha files were synced to feature/sync'
+            $Message -eq 'Synced sha-marker files and compiled types to feature/sync'
+        }
+    }
+
+    It 'stages and names only the marker files when the compiled types are clean' {
+        Mock Test-GitPathChanged { $Path -contains '.sha-markers' } -ModuleName Catzc.Base.ModuleSystem
+        Sync-GeneratedFile | Should -Not -BeNullOrEmpty
+        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
+            ($Path -join ',') -eq '.sha-markers' -and $Message -eq 'chore(repo): sync sha-marker files'
+        }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter {
+            $Message -eq 'Synced sha-marker files to feature/sync'
+        }
+    }
+
+    It 'stages and names only the compiled types when the markers are clean' {
+        Mock Test-GitPathChanged { $Path -contains 'automation/.compiled' } -ModuleName Catzc.Base.ModuleSystem
+        Sync-GeneratedFile | Should -Not -BeNullOrEmpty
+        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
+            ($Path -join ',') -eq 'automation/.compiled' -and $Message -eq 'chore(repo): sync compiled types'
         }
     }
 
@@ -67,12 +87,12 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'does nothing, quietly, when the generated paths match HEAD' {
-        # Invoke-GitCommit is the idempotent no-op (returns nothing) when nothing changed under its paths.
-        Mock Invoke-GitCommit { } -ModuleName Catzc.Base.ModuleSystem
+    It 'does nothing, quietly, when the generated paths match HEAD — no commit is even attempted' {
+        Mock Test-GitPathChanged { $false } -ModuleName Catzc.Base.ModuleSystem
 
         Sync-GeneratedFile | Should -BeNullOrEmpty
         Should -Invoke Update-ShaMarker -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
+        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0
     }
 
@@ -82,6 +102,6 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         $planned = Sync-GeneratedFile -DryRun
         $planned.Count | Should -Be 2
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter { $DryRun }
-        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0 -ParameterFilter { $Message -like 'Sha files*' }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0 -ParameterFilter { $Message -like 'Synced*' }
     }
 }

@@ -21,7 +21,7 @@ Describe 'sample-with-module (reusable module consumer)' -Tag 'L0', 'logic', 'se
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
@@ -56,9 +56,9 @@ Describe 'sample-with-module (reusable module consumer)' -Tag 'L0', 'logic', 'se
         $expected | Should -Be 'alweutstsmodst'
     }
 
-    It 'renders the configured storageAccountName into parameters.core_lower.alpha.json' {
+    It 'renders the configured storageAccountName into parameters.alpha.json' {
         Build-Bicep sample-with-module -Environments alpha | Out-Null
-        $json = Get-Content (Join-Path $script:outputRoot 'parameters.core_lower.alpha.json') -Raw | ConvertFrom-Json
+        $json = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
         $json.parameters.storageAccountName.value | Should -Be 'alweutstsmodst'
     }
 }

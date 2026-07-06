@@ -5,7 +5,7 @@ Describe 'Get-BicepTemplateCustomers' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
@@ -42,7 +42,7 @@ Describe 'Customer ArgumentCompleter wiring' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
@@ -50,10 +50,12 @@ Describe 'Customer ArgumentCompleter wiring' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
     }
 
-    # Only the pure naming path still takes -Customer (the deploy paths take -Subscription now); it
-    # exposes the completer over Get-BicepTemplateCustomers.
+    # The naming and file-addressing paths take -Customer (the deploy paths are session-determined);
+    # each exposes the completer over Get-BicepTemplateCustomers.
     $commands = @(
         'Get-BicepResourceName'
+        'Get-BicepTemplateConfiguration'
+        'Set-BicepTemplateConfiguration'
     )
 
     It '<_> has an ArgumentCompleter on -Customer that returns the template customers' -ForEach $commands {

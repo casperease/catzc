@@ -23,7 +23,7 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
@@ -61,8 +61,8 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
 
     It 'passes a distinct configured storageAccountName through per slot' {
         Build-Bicep sample-indexed | Out-Null
-        $a001 = Get-Content (Join-Path $script:outputRoot 'parameters.core_lower.alpha-001.json') -Raw | ConvertFrom-Json
-        $a002 = Get-Content (Join-Path $script:outputRoot 'parameters.core_lower.alpha-002.json') -Raw | ConvertFrom-Json
+        $a001 = Get-Content (Join-Path $script:outputRoot 'parameters.alpha-001.json') -Raw | ConvertFrom-Json
+        $a002 = Get-Content (Join-Path $script:outputRoot 'parameters.alpha-002.json') -Raw | ConvertFrom-Json
         $a001.parameters.storageAccountName.value | Should -Be 'al001weutstsidxst'
         $a002.parameters.storageAccountName.value | Should -Be 'al002weutstsidxst'
     }
@@ -76,8 +76,8 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
 
     It 'builds one parameters file per slot (two RGs for one env)' {
         Build-Bicep sample-indexed | Out-Null
-        Join-Path $script:outputRoot 'parameters.core_lower.alpha-001.json' | Should -Exist
-        Join-Path $script:outputRoot 'parameters.core_lower.alpha-002.json' | Should -Exist
+        Join-Path $script:outputRoot 'parameters.alpha-001.json' | Should -Exist
+        Join-Path $script:outputRoot 'parameters.alpha-002.json' | Should -Exist
     }
 
     It 'puts the slot in the deployment name so slots never collide' {

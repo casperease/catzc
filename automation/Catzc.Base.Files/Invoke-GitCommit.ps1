@@ -55,8 +55,7 @@ function Invoke-GitCommit {
     }
 
     # Nothing changed under the given paths -> nothing to do (the idempotent no-op).
-    $status = Invoke-Executable "git status --porcelain -- $pathSpec" -PassThru -Silent
-    if ([string]::IsNullOrWhiteSpace($status.Output)) {
+    if (-not (Test-GitPathChanged $Path)) {
         return
     }
 

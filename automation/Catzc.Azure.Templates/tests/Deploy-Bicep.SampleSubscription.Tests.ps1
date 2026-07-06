@@ -5,18 +5,24 @@ Describe 'Get-BicepDeploymentContext (sample-subscription)' -Tag 'L0', 'logic' {
         Mock Build-Bicep {
             $outputFolder = (Get-BicepTemplate $Template).output_folder
             New-Item -ItemType Directory -Path $outputFolder -Force | Out-Null
-            foreach ($file in 'main.json', 'parameters.core_lower.alpha.json', 'parameters.core_lower.beta.json') {
+            foreach ($file in 'main.json', 'parameters.alpha.json', 'parameters.beta.json') {
                 Set-Content -Path (Join-Path $outputFolder $file) -Value '{}'
             }
             $outputFolder
         } -ModuleName Catzc.Azure.Templates
 
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
+        # The deploy target is the az session's subscription (ADR-PESTER:3 whole-boundary mock).
+        Mock Get-AzCliSessionSubscription {
+            [ordered]@{ name = 'core_lower'; id = '00000000-0000-0000-0000-000000000002'; customer = ''
+                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            }
+        } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
@@ -68,14 +74,13 @@ Describe 'Deploy-Bicep (sample-subscription sub create)' -Tag 'L0', 'logic' {
         $script:tempArtifacts = Join-Path ([IO.Path]::GetTempPath()) ('catzc-subdeploy-' + [Guid]::NewGuid())
 
         # Devbox path: without this the real Test-IsRunningInPipeline returns $true under CI
-        # ($env:GITHUB_ACTIONS) and Deploy-Bicep throws "requires an explicit -Subscription in a pipeline".
+        # ($env:GITHUB_ACTIONS) and Deploy-Bicep throws "requires -SubscriptionIdAssertIs in a pipeline".
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
-        Mock Assert-AzCliIsConnected { } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
@@ -106,8 +111,10 @@ Describe 'Deploy-Bicep (sample-subscription sub create)' -Tag 'L0', 'logic' {
                     name         = 'alpha'
                     region       = 'westeurope'
                     subscription = [ordered]@{
-                        id     = '00000000-0000-0000-0000-000000000002'
-                        tenant = [ordered]@{ id = '00000000-0000-0000-0000-000000000001' }
+                        name     = 'core_lower'
+                        id       = '00000000-0000-0000-0000-000000000002'
+                        customer = ''
+                        tenant   = [ordered]@{ id = '00000000-0000-0000-0000-000000000001' }
                     }
                 }
             }
@@ -158,7 +165,7 @@ Describe 'Get-BicepTrackTagNameSet (sample-subscription)' -Tag 'L0', 'logic' {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }

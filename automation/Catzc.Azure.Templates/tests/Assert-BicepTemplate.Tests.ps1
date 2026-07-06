@@ -11,7 +11,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
         InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
 
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
@@ -60,50 +60,47 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
 
         It 'accepts a template that MIXES slotted and non-slotted configs (slot is per-config)' {
             # Add a slotted config beside sample's existing non-slotted ones — no longer a violation.
-            # core_lower serves beta, so beta-001 is a valid slotted config there.
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/core_lower/beta-001.yml'), "ParametersFile:`n  parameters: {}")
+            # beta resolves to core_lower, so beta-001 is a valid slotted root config.
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/beta-001.yml'), "ParametersFile:`n  parameters: {}")
             { Assert-BicepTemplate sample } | Should -Not -Throw
         }
 
         It 'reports an env-class violation (per-subscription env on a standard template)' {
-            # core_lower serves subn; placing it on a standard template trips the env-class rule.
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/core_lower/subn.yml'), "ParametersFile:`n  parameters: {}")
+            # subn is a per-subscription env; placing it on a standard template trips the env-class rule.
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/subn.yml'), "ParametersFile:`n  parameters: {}")
             { Assert-BicepTemplate sample } | Should -Throw '*environment_kind*'
         }
 
-        It 'reports a config sitting directly under configuration/ (not under a subscription folder)' {
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/alpha.yml'), "ParametersFile:`n  parameters: {}")
-            { Assert-BicepTemplate sample } | Should -Throw '*directly under configuration*'
-        }
-
-        It 'reports a config whose subscription does not serve its environment' {
-            # core_lower serves alpha/beta/subn — NOT gamma.
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/core_lower/gamma.yml'), "ParametersFile:`n  parameters: {}")
-            { Assert-BicepTemplate sample } | Should -Throw '*does not serve*'
+        It 'reports a config whose coordinate resolves to no subscription' {
+            # globex is a defined customer with NO subscription in the fixture azure.yml, so a
+            # configuration/globex/ config can never resolve to a subscription id.
+            [System.IO.Directory]::CreateDirectory((Join-Path $script:templatesRoot 'sample/configuration/globex')) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/globex/alpha.yml'), "ParametersFile:`n  parameters: {}")
+            { Assert-BicepTemplate sample } | Should -Throw '*cannot be resolved*'
         }
 
         It 'reports a parameter the template does not declare' {
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/core_lower/beta-001.yml'), "ParametersFile:`n  parameters:`n    bogusParam:`n      value: 1")
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/beta-001.yml'), "ParametersFile:`n  parameters:`n    bogusParam:`n      value: 1")
             { Assert-BicepTemplate sample } | Should -Throw '*bogusParam*'
         }
 
-        It 'reports an undefined subscription subdir' {
+        It 'reports a subfolder that is not a customer key' {
             [System.IO.Directory]::CreateDirectory((Join-Path $script:templatesRoot 'sample/configuration/zzz')) | Out-Null
             [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/zzz/alpha.yml'), "ParametersFile:`n  parameters: {}")
-            { Assert-BicepTemplate sample } | Should -Throw '*not a defined subscription*'
+            { Assert-BicepTemplate sample } | Should -Throw '*not a customer key*'
         }
 
         It 'reports a missing main.bicep' {
-            [System.IO.Directory]::CreateDirectory((Join-Path $script:templatesRoot 'broken/configuration/core_lower')) | Out-Null
+            [System.IO.Directory]::CreateDirectory((Join-Path $script:templatesRoot 'broken/configuration')) | Out-Null
             [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'broken/options.yml'), 'short_name: brkn')
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'broken/configuration/core_lower/alpha.yml'), "ParametersFile:`n  parameters: {}")
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'broken/configuration/alpha.yml'), "ParametersFile:`n  parameters: {}")
             { Assert-BicepTemplate broken } | Should -Throw '*main.bicep*'
         }
 
         It 'collects multiple violations into one consolidated error' {
             # One config trips two rules at once: a per-subscription env on a standard template (env-class)
             # AND a parameter main.bicep does not declare.
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/core_lower/subn.yml'), "ParametersFile:`n  parameters:`n    bogusParam:`n      value: 1")
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/subn.yml'), "ParametersFile:`n  parameters:`n    bogusParam:`n      value: 1")
             $err = $null
             try {
                 Assert-BicepTemplate sample
