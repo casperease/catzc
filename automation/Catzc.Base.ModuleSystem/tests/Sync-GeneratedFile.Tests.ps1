@@ -3,9 +3,6 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.ModuleSystem
         Mock Get-GitCurrentBranch { 'feature/sync' } -ModuleName Catzc.Base.ModuleSystem
         Mock Update-Trigger { } -ModuleName Catzc.Base.ModuleSystem
-        Mock Invoke-Executable {
-            [pscustomobject]@{ Output = " M .triggers/automation.sha256`nD  automation/.compiled/Catzc.Types.old.dll`n"; ExitCode = 0 }
-        } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Command -eq 'git status --porcelain' }
         Mock Invoke-GitCommit { 'abc1234567890abcdef1234567890abcdef12345' } -ModuleName Catzc.Base.ModuleSystem
         Mock Write-Message { } -ModuleName Catzc.Base.ModuleSystem
         # main-direct workspace (the shipped default) unless a test flips it.
@@ -60,34 +57,22 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'syncs but does not commit while a tracked file outside the generated paths is dirty' {
-        Mock Invoke-Executable {
-            [pscustomobject]@{ Output = " M .triggers/automation.sha256`n M automation/Catzc.Base.Files/Invoke-GitCommit.ps1`n"; ExitCode = 0 }
-        } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Command -eq 'git status --porcelain' }
-
-        Sync-GeneratedFile | Should -BeNullOrEmpty
-        Should -Invoke Update-Trigger -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
-        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
-        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter { $Message -like '*uncommitted changes*' }
-    }
-
-    It 'ignores untracked (??) noise when judging dirtiness' {
-        Mock Invoke-Executable {
-            [pscustomobject]@{ Output = " M .triggers/automation.sha256`n?? out/scratch.md`n"; ExitCode = 0 }
-        } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Command -eq 'git status --porcelain' }
-
+    It 'commits the generated paths even while other tracked or staged work is in flight' {
+        # The commit is pathspec-limited inside Invoke-GitCommit, so a dirty (or staged) tree never holds
+        # the stamp commit back and never leaks into it.
         Sync-GeneratedFile | Should -Not -BeNullOrEmpty
-        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
+        Should -Invoke Update-Trigger -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
+        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
+            ($Path -join ',') -eq '.triggers,automation/.compiled'
+        }
     }
 
     It 'does nothing, quietly, when the generated paths match HEAD' {
-        Mock Invoke-Executable {
-            [pscustomobject]@{ Output = ''; ExitCode = 0 }
-        } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Command -eq 'git status --porcelain' }
+        # Invoke-GitCommit is the idempotent no-op (returns nothing) when nothing changed under its paths.
+        Mock Invoke-GitCommit { } -ModuleName Catzc.Base.ModuleSystem
 
         Sync-GeneratedFile | Should -BeNullOrEmpty
         Should -Invoke Update-Trigger -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
-        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0
     }
 
