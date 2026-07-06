@@ -7,4 +7,4 @@ include:
 exclude:
 - 'docs/notes/**'
 - 'automation/.vendor/**'
-sha256: fe88ef3e9db7f036e1723c5a7592ea9a8e273389673e8d88666eff6fe6b8369f
+sha256: 7dd2df75671b9ad4f871131c6007b977a99a10009d6d856f1ba2c0d517995d84
