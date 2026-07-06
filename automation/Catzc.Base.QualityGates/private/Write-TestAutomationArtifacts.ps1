@@ -3,9 +3,10 @@
     Writes a run's report artifacts and the skip report — best-effort, never masking the run outcome.
 .DESCRIPTION
     Persists summary.md + tests.csv beside the per-shard results (Write-TestAutomationReport), points
-    latest.txt at the run, and renders the end-of-run skip report (Write-TestAutomationSkipReport). Both
-    halves are try/catch-guarded independently: a rendering error is reported as a yellow line and swallowed,
-    so a failing run still throws for its own reason, not a reporting one.
+    latest.txt at the run, renders the end-of-run skip report (Write-TestAutomationSkipReport), and writes the
+    ADR rule-enforcement coverage (Write-TestAutomationRuleCoverage — rule-coverage.md/.csv). Each part is
+    try/catch-guarded independently: a rendering error is reported as a yellow line and swallowed, so a failing
+    run still throws for its own reason, not a reporting one.
 .PARAMETER Rows
     The run's aggregated per-test rows.
 .PARAMETER RunDirectory
@@ -80,5 +81,17 @@ function Write-TestAutomationArtifacts {
     }
     catch {
         Write-Message "Could not render the skip report: $_" -ForegroundColor Yellow -NoHeader
+    }
+
+    # ADR rule-enforcement coverage — report-only, same best-effort discipline. Unions the tagged-test
+    # enforcers (each row's Rules column) with the analyzer-rule enforcers (Get-AnalyzerAdrCoverage) over the
+    # full rule universe. Plain assignment receives the comma-wrapped getter intact; ':'->'#' matches the tags.
+    try {
+        $ruleIds = Get-CatsAdrRuleIds
+        Write-TestAutomationRuleCoverage -Rows $Rows -AnalyzerCoverage @(Get-AnalyzerAdrCoverage) `
+            -AllRuleIds @($ruleIds -replace ':', '#') -OutputFolder $RunDirectory
+    }
+    catch {
+        Write-Message "Could not render the rule-coverage report: $_" -ForegroundColor Yellow -NoHeader
     }
 }
