@@ -41,10 +41,10 @@
       customer token — the normalized (key-vs-shortcode) grouping is a cross-asset fact covered by the
       shipped-asset integrity test, like the customer reference itself
 
-    Note: completeness ("every environment is served") and uniqueness ("at most one subscription serves
-    an env") are NOT validated here. Multiple subscriptions may serve the same env; a template names the
-    subscription it deploys to via its config folder, and the deploy-time -Subscription arg disambiguates
-    when more than one applies. See docs/adr/azure/data-model.md#rule-adr-datamod7.
+    Note: completeness ("every environment is served") is NOT validated here, and different customers'
+    subscriptions (and the shared platform's) may serve the same env — the customer axis separates them.
+    The root-config uniqueness ("exactly one NON-customer subscription serves the env") is a per-config
+    discovery/integrity concern, not a load rule. See docs/adr/azure/data-model.md#rule-adr-datamod7.
 #>
 function Assert-AzureConfig {
     [CmdletBinding()]

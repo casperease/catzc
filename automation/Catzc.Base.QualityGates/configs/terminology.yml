@@ -103,6 +103,8 @@ terms:
       meaning: 'reference-doc slug segment for the Catzc.Base.QualityGates module'
     - term: reformatter
       meaning: 'a reformatter'
+    - term: regenerable
+      meaning: 'regenerable (able to be regenerated from its source)'
     - term: reflog
       meaning: 'the git reference log (git reflog) — the record of ref-tip movements pruned when rebuilding history'
     - term: roundtrips

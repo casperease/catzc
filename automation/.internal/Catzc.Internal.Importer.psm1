@@ -32,6 +32,14 @@
     automation/.compiled/) via Sync-GeneratedFile — never in a pipeline (double-guarded: the call site
     skips under Test-IsRunningInPipeline and the function self-skips again), and skipped on main/master
     when the git_workspace variant is 'main-via-pr' (ADR-VARIANT:6). Also ignored under -SkipJanitors.
+.PARAMETER CleanClone
+    Opt IN to a whitelisted deep clean as the janitor run's first step: Reset-GitCleanFxd deletes only
+    the auto-controlled generated artifacts a `git clean -fxd` would remove (managed root configs,
+    module manifests, README links, cspell dictionaries, out/, IDE bin/obj) and keeps — reported — any
+    untracked file that is not the automation's to delete. The regenerating janitors that follow
+    rematerialise what it removed, so one -CleanClone import leaves a pristine, fully-generated clone
+    (the module manifests reappear on the next import, exactly as on a fresh clone). Ignored under
+    -SkipJanitors.
 .EXAMPLE
     Invoke-Importer -DiagnoseLoadTime
 #>
@@ -62,7 +70,12 @@ function Invoke-Importer {
         # maintains (.sha-markers/, automation/.compiled/) — the janitor tail's last step
         # (Sync-GeneratedFile, which self-guards: never a pipeline, main allowed only in the main-direct
         # git_workspace variant).
-        [switch] $NoCommitShaMarkersInDevBox
+        [switch] $NoCommitShaMarkersInDevBox,
+
+        # Opt IN to a whitelisted deep clean as the janitor run's first step (Reset-GitCleanFxd): delete
+        # only the auto-controlled generated artifacts, keep and report everything else, and let the
+        # regenerating janitors below rematerialise the tree.
+        [switch] $CleanClone
     )
 
     # Hard floor: the toolset requires PowerShell 7.4+. Among other things the vendor functions
@@ -177,6 +190,14 @@ function Invoke-Importer {
         foreach ($t in $top) {
             Write-ImporterMessage ('  slowest: {0,6}ms  {1}' -f $t.Ms, $t.Stage) -ForegroundColor DarkGray
         }
+    }
+
+    # Opt-in deep clean (-CleanClone): the whitelisted git clean -fxd (Reset-GitCleanFxd) deletes only the
+    # auto-controlled generated artifacts and keeps — reported — any untracked file that is not the
+    # automation's to delete. Deliberately the FIRST janitor, so the regenerating janitors below
+    # rematerialise what it removed in the same run. Guarded: absent in the bootstrap sandbox.
+    if ($CleanClone -and -not $SkipJanitors -and (Get-Command Reset-GitCleanFxd -ErrorAction Ignore)) {
+        Reset-GitCleanFxd
     }
 
     # Tidy superseded compiled type assemblies so the committed automation/.compiled stays a clean -1/+1 diff when

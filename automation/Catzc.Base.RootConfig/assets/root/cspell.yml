@@ -23,6 +23,11 @@ ignorePaths:
   - "**/*.exe"
   - "**/*.png"
   - "**/*.pdf"
+# GUID literals are not words: the managed-GUID gate (Catzc.Base.QualityGates configs/guids.yml,
+# Get-RepositoryGuids) is their single owner, so cspell never tokenizes their hex fragments. One gate owns
+# words, one owns GUIDs.
+ignoreRegExpList:
+  - /\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b/g
 # Approved-vocabulary dictionaries — one per registry category (ADR-SPELL:6) — generated from the terminology
 # registry (automation/Catzc.Base.QualityGates/configs/terminology.yml) by Build-TerminologyDictionary. The
 # .cspell/<category>.txt lists are GITIGNORED and regenerated at the importer tail (terminology.yml is the

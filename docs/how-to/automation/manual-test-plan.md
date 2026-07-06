@@ -110,6 +110,7 @@ A check **passes** when its assertions are green. A few L2 checks shell out to a
 | 66  | L1   | automation/Catzc.Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1                           | Get-CatsRuleEnforcers integrity                                      | Rule enforcers resolve from the real tree — analyzer map + AST-read test -Tag citations, ignoring citation-shaped fixture strings.                                                                            |
 | 67  | L1   | automation/Catzc.Base.VSCode/tests/New-VSCodeExtensions.Tests.ps1                          | New-VSCodeExtensions — real vscode-extensions.yml                    | The shipped recommendation registry validates and renders to a non-empty list carrying the PowerShell extension.                                                                                              |
 | 68  | L1   | automation/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1                              | New-VSCodeLaunch — real vscode-launch.yml                            | The shipped launch registry validates and renders with the importer debug profile's workspace placeholder intact.                                                                                             |
+| 69  | L1   | automation/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1                     | Repository guid integrity                                            | Every GUID literal in tracked text is registered in guids.yml, and every registry entry is live (referenced by a tracked file).                                                                               |
 | 69  | L1   | automation/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1                                   | Build-GitKeep — managed .gitkeep files                               | Every .gitkeep carries the generic source content, and every .gitkeep folder is a readme-mapped target with a reference article.                                                                              |
 | 70  | L0   | automation/Catzc.Azure.DevOps.BuildValidation/tests/Assert-BuildValidationConfig.Tests.ps1 | Shipped build-validation config integrity                            | The shipped build-validation.yml loads through Get-Config and its validator (a guarded branch plus well-formed validation entries).                                                                           |
 
@@ -519,3 +520,13 @@ manifest never churns when it is later re-formatted.
   unchanged.
 
 **Prerequisite:** PSScriptAnalyzer (vendored).
+
+### 69. Repository guid integrity
+
+**Guards:** the managed-GUID registry and the tracked tree agree in both directions.
+
+**Checks:**
+
+- Every GUID literal found in tracked text (`Get-RepositoryGuids` over the scan universe) is registered in
+  `Catzc.Base.QualityGates/configs/guids.yml`.
+- Every registry entry is live — at least one tracked file references its guid.

@@ -38,6 +38,7 @@
     Build-Bicep foundation -Shared
 #>
 function Build-Bicep {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]

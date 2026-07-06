@@ -10,7 +10,8 @@ param(
     [switch] $ClearCompiledTypes,
     [switch] $NonSilentClear,
     [switch] $SkipJanitors,
-    [switch] $NoCommitShaMarkersInDevBox
+    [switch] $NoCommitShaMarkersInDevBox,
+    [switch] $CleanClone
 )
 
 Set-StrictMode -Version Latest

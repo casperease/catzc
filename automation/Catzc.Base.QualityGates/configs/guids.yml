@@ -8,7 +8,94 @@
 #
 # Loaded via Get-Config -Config guids; validated by Assert-GuidsConfig. Entry shape:
 #   <snake_case_name>: { guid, description [, sentence] }
+#
+# cspell:ignore oilzstgq
 guids:
+  # -- external-facing: values fixed by the outside world --------------------------------------------------
   ado_oauth_resource:
     guid: 499b84ac-1321-427f-aa17-267ca6975798
     description: Azure DevOps well-known OAuth resource id (Get-AdoAuthorizationHeader default -ResourceUrl)
+  ado_build_policy_type:
+    guid: 0609b952-1397-4640-95ec-e00a01b2c241
+    description: Azure DevOps well-known 'Build' policy type id — the discriminator every build-validation policy carries
+  vs_csharp_project_type:
+    guid: 9a19103f-16f7-4668-be54-9a1e7a4f7556
+    description: Visual Studio SDK-style C# project-type id (catzc.sln)
+  catzc_types_project:
+    guid: 3f2a9c14-7b6d-4e58-9a21-0c5e8d4f1b2a
+    description: the Catzc.Types.csproj project id in catzc.sln (the IDE-only mirror of the combined type assembly)
+
+  # -- shipped placeholder topology: the sequential ids in the shipped azure.yml demo config ---------------
+  tenant_placeholder:
+    guid: 00000000-0000-0000-0000-000000000001
+    description: shipped azure.yml 'placeholder' tenant id — sequential placeholder, echoed by fixtures and function help examples
+  subscription_shared_nonprod:
+    guid: 00000000-0000-0000-0000-000000000002
+    description: shipped azure.yml 'shared_nonprod' subscription id — sequential placeholder
+  subscription_shared_prod:
+    guid: 00000000-0000-0000-0000-000000000003
+    description: shipped azure.yml 'shared_prod' subscription id — sequential placeholder
+  subscription_apex_nonprod:
+    guid: 00000000-0000-0000-0000-000000000004
+    description: shipped azure.yml 'apex_nonprod' subscription id — sequential placeholder
+  subscription_apex_prod:
+    guid: 00000000-0000-0000-0000-000000000005
+    description: shipped azure.yml 'apex_prod' subscription id — sequential placeholder
+  subscription_nova_nonprod:
+    guid: 00000000-0000-0000-0000-000000000006
+    description: shipped azure.yml 'nova_nonprod' subscription id — sequential placeholder
+  subscription_flux_nonprod:
+    guid: 00000000-0000-0000-0000-000000000007
+    description: shipped azure.yml 'flux_nonprod' subscription id — sequential placeholder
+
+  # -- test fixtures and documentation examples -------------------------------------------------------------
+  guid_zero:
+    guid: 00000000-0000-0000-0000-000000000000
+    description: the all-zeros GUID — SentenceGuid's output for an input with no mappable characters
+  fixture_unknown_tenant_subscription:
+    guid: 00000000-0000-0000-0000-000000000099
+    description: Assert-AzureConfig test fixture — a subscription referencing an unknown tenant
+  fixture_wrong_subscription:
+    guid: 11111111-1111-1111-1111-111111111111
+    description: Assert-AzCliIsConnected test fixture — a subscription id the session is not set to
+  fixture_az_cli_eights:
+    guid: 88888888-8888-8888-8888-888888888888
+    description: az CLI connection-state test fixture id (all eights)
+  fixture_az_cli_nines:
+    guid: 99999999-9999-9999-9999-999999999999
+    description: az CLI connection-state test fixture id (all nines)
+  fixture_build_validation_repository:
+    guid: aaaaaaaa-0000-0000-0000-000000000000
+    description: Azure DevOps build-validation test fixture repository id
+  rfc_example_uuid:
+    guid: 550e8400-e29b-41d4-a716-446655440000
+    description: the canonical RFC 4122 example UUID — Assert-IsGuid / Test-IsGuid fixtures
+  test_is_guid_example:
+    guid: d3b07384-d9a0-4c9b-8a0d-6e7b8f3a1c2d
+    description: Test-IsGuid comment-based-help example value
+  assert_is_guid_example:
+    guid: d3b07384-d9a0-4c9b-8a0d-6e5c7a8b9c0d
+    description: Assert-IsGuid comment-based-help example value
+
+  # -- minted with ConvertTo-Guid: the value spells the sentence -------------------------------------------
+  minted_sample_test_data:
+    guid: 5a1e7e57-da7a-0000-0000-000000000000
+    sentence: sample test data
+    description: ConvertTo-Guid worked example (function help and tests)
+  minted_alpha_test_tenant:
+    guid: a1a7e577-ea70-0000-0000-000000000000
+    sentence: alpha test tenant
+    description: ConvertTo-Guid worked example; the managed-guid tests' registered-fixture guid
+  minted_leet_map_exercise:
+    guid: 01125769-0000-0000-0000-000000000000
+    sentence: oilzstgq
+    description: SentenceGuid test exercising every non-identity mapping (o i l z s t g q)
+  fixture_hex_passthrough:
+    guid: abcdef01-2345-6789-0000-000000000000
+    description: SentenceGuid test — hex letters and digits pass through unchanged
+  fixture_truncation:
+    guid: abcdef05-abcd-ef05-abcd-ef05abcdef05
+    description: SentenceGuid test — input truncated at 32 mappable characters
+  fixture_drop_unmappable:
+    guid: a0000000-0000-0000-0000-000000000000
+    description: SentenceGuid test — unmappable characters dropped, only 'a' survives

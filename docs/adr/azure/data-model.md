@@ -284,15 +284,15 @@ The config is resolved into runtime objects on demand — where the "complex joi
 
 Thin read-only lookups and argument-completers over the two layers (no joins of their own); listed here so the public surface is complete:
 
-| Function                          | Returns / purpose                                                             |
-| --------------------------------- | ----------------------------------------------------------------------------- |
-| `Get-AzureCustomers`              | the customer keys from `customer.yml`                                         |
-| `Get-AzureBicepEnvironmentKinds`  | the allowed `environment_kind` values (`standard`, `subscription`)            |
-| `Get-AzureBicepDeploymentModes`   | the allowed `deployment_mode` values for `options.yml` validation             |
-| `Get-AzureBicepDeploymentTargets` | the allowed `deployment_target` values for `options.yml` validation           |
-| `Get-AzureBicepMinVersion`        | `bicep_min_version` from `azure.yml` (asserted by `Assert-AzCliBicep`)        |
-| `Get-BicepTemplateCustomers`      | the distinct customers (configuration subfolders) a template ships (completer) |
-| `Get-BicepTemplateSlots`          | the distinct slots a template declares (completer)                            |
+| Function                          | Returns / purpose                                                               |
+| --------------------------------- | ------------------------------------------------------------------------------- |
+| `Get-AzureCustomers`              | the customer keys from `customer.yml`                                           |
+| `Get-AzureBicepEnvironmentKinds`  | the allowed `environment_kind` values (`standard`, `subscription`)              |
+| `Get-AzureBicepDeploymentModes`   | the allowed `deployment_mode` values for `options.yml` validation               |
+| `Get-AzureBicepDeploymentTargets` | the allowed `deployment_target` values for `options.yml` validation             |
+| `Get-AzureBicepMinVersion`        | `bicep_min_version` from `azure.yml` (asserted by `Assert-AzCliBicep`)          |
+| `Get-BicepTemplateCustomers`      | the distinct customers (configuration subfolders) a template ships (completer)  |
+| `Get-BicepTemplateSlots`          | the distinct slots a template declares (completer)                              |
 
 ### Validation
 

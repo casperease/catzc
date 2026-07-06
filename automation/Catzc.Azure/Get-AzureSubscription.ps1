@@ -3,9 +3,9 @@
     Returns the resolved Azure subscription identity (id + tenant [+ customer]) for a named subscription.
 .DESCRIPTION
     Reads configs/azure.yml via Get-Config and looks up the subscription by name (a key in
-    `subscriptions`). A template targets a subscription directly by naming a config folder after it
-    (configuration/<subscription>/…), so the subscription name is the input — there is no
-    (environment, group, customer) join. The matching tenant is looked up by name and embedded. A
+    `subscriptions`) — the by-name identity lookup the resolved configuration coordinates and the session
+    reverse lookup (Get-AzCliSessionSubscription) build on; there is no (environment, group, customer)
+    join here. The matching tenant is looked up by name and embedded. A
     subscription MAY carry a `customer`, named by its key OR its 2-char shortcode (a customer in
     customer.yml); it is resolved to the canonical key and included (and renders into the resource names of
     anything deployed there). See docs/adr/azure/data-model.md#rule-adr-datamod4 and customer-model.md.
