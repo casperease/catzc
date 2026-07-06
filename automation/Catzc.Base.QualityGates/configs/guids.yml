@@ -22,59 +22,74 @@ guids:
     guid: 9a19103f-16f7-4668-be54-9a1e7a4f7556
     description: Visual Studio SDK-style C# project-type id (catzc.sln)
   catzc_types_project:
-    guid: 3f2a9c14-7b6d-4e58-9a21-0c5e8d4f1b2a
+    guid: ca72c000-700e-5000-0000-ec7000000000
+    sentence: catzc types project
     description: the Catzc.Types.csproj project id in catzc.sln (the IDE-only mirror of the combined type assembly)
 
-  # -- shipped placeholder topology: the sequential ids in the shipped azure.yml demo config ---------------
+  # -- shipped placeholder topology: the minted ids in the shipped azure.yml demo config -------------------
   tenant_placeholder:
-    guid: 00000000-0000-0000-0000-000000000001
-    description: shipped azure.yml 'placeholder' tenant id — sequential placeholder, echoed by fixtures and function help examples
+    guid: fa0e0000-7e0a-0700-1d00-000000000000
+    sentence: fake tenant id
+    description: shipped azure.yml 'placeholder' tenant id — echoed by fixtures and function help examples
   subscription_shared_nonprod:
-    guid: 00000000-0000-0000-0000-000000000002
-    description: shipped azure.yml 'shared_nonprod' subscription id — sequential placeholder
+    guid: 50a0ed00-de00-50b0-0000-000000000000
+    sentence: shared dev sub
+    description: shipped azure.yml 'shared_nonprod' subscription id (also the az CLI and firewall fixtures' subscription)
   subscription_shared_prod:
-    guid: 00000000-0000-0000-0000-000000000003
-    description: shipped azure.yml 'shared_prod' subscription id — sequential placeholder
+    guid: 50a0ed00-000d-50b0-0000-000000000000
+    sentence: shared prod sub
+    description: shipped azure.yml 'shared_prod' subscription id (also the firewall hub fixture's subscription)
   subscription_apex_nonprod:
-    guid: 00000000-0000-0000-0000-000000000004
-    description: shipped azure.yml 'apex_nonprod' subscription id — sequential placeholder
+    guid: a0e00000-de00-50b0-0000-000000000000
+    sentence: apex dev sub
+    description: shipped azure.yml 'apex_nonprod' subscription id
   subscription_apex_prod:
-    guid: 00000000-0000-0000-0000-000000000005
-    description: shipped azure.yml 'apex_prod' subscription id — sequential placeholder
+    guid: a0e00000-000d-50b0-0000-000000000000
+    sentence: apex prod sub
+    description: shipped azure.yml 'apex_prod' subscription id
   subscription_nova_nonprod:
-    guid: 00000000-0000-0000-0000-000000000006
-    description: shipped azure.yml 'nova_nonprod' subscription id — sequential placeholder
+    guid: 000a0000-de00-50b0-0000-000000000000
+    sentence: nova dev sub
+    description: shipped azure.yml 'nova_nonprod' subscription id
   subscription_flux_nonprod:
-    guid: 00000000-0000-0000-0000-000000000007
-    description: shipped azure.yml 'flux_nonprod' subscription id — sequential placeholder
+    guid: f1000000-de00-50b0-0000-000000000000
+    sentence: flux dev sub
+    description: shipped azure.yml 'flux_nonprod' subscription id
 
   # -- test fixtures and documentation examples -------------------------------------------------------------
   guid_zero:
     guid: 00000000-0000-0000-0000-000000000000
     description: the all-zeros GUID — SentenceGuid's output for an input with no mappable characters
   fixture_unknown_tenant_subscription:
-    guid: 00000000-0000-0000-0000-000000000099
+    guid: 10570000-7e0a-0700-50b0-000000000000
+    sentence: lost tenant sub
     description: Assert-AzureConfig test fixture — a subscription referencing an unknown tenant
   fixture_wrong_subscription:
-    guid: 11111111-1111-1111-1111-111111111111
+    guid: 00700000-70a7-50b0-0000-000000000000
+    sentence: not that sub
     description: Assert-AzCliIsConnected test fixture — a subscription id the session is not set to
-  fixture_az_cli_eights:
-    guid: 88888888-8888-8888-8888-888888888888
-    description: az CLI connection-state test fixture id (all eights)
-  fixture_az_cli_nines:
-    guid: 99999999-9999-9999-9999-999999999999
-    description: az CLI connection-state test fixture id (all nines)
+  fixture_az_cli_subscription:
+    guid: a2000000-7e57-50b0-0000-000000000000
+    sentence: az test sub
+    description: az CLI connection-state test fixture subscription id
+  fixture_az_cli_tenant:
+    guid: a2000000-7e57-7e0a-0700-000000000000
+    sentence: az test tenant
+    description: az CLI connection-state test fixture tenant id
   fixture_build_validation_repository:
-    guid: aaaaaaaa-0000-0000-0000-000000000000
+    guid: fa0e0000-0e00-1d00-0000-000000000000
+    sentence: fake repo id
     description: Azure DevOps build-validation test fixture repository id
   rfc_example_uuid:
     guid: 550e8400-e29b-41d4-a716-446655440000
     description: the canonical RFC 4122 example UUID — Assert-IsGuid / Test-IsGuid fixtures
   test_is_guid_example:
-    guid: d3b07384-d9a0-4c9b-8a0d-6e7b8f3a1c2d
+    guid: 15000000-1700-a000-601d-000000000000
+    sentence: is it a guid
     description: Test-IsGuid comment-based-help example value
   assert_is_guid_example:
-    guid: d3b07384-d9a0-4c9b-8a0d-6e5c7a8b9c0d
+    guid: a55e0700-a000-601d-0000-000000000000
+    sentence: assert a guid
     description: Assert-IsGuid comment-based-help example value
 
   # -- minted with ConvertTo-Guid: the value spells the sentence, one word per dash group ------------------
