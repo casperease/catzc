@@ -64,7 +64,8 @@ currently-selected one. This distinguishes "authenticated somewhere" from "able 
 
 ### domain:8 — Bicep CLI readiness
 
-Confirming the Bicep CLI is present at or above the minimum version the estate requires, before a build or deploy relies on it.
+Provisioning and confirming the Bicep CLI at or above the minimum version the estate requires — installing or upgrading it, and
+asserting or testing its presence — before a build or deploy relies on it.
 
 ## What the module does
 
@@ -113,5 +114,6 @@ The module's public functions, sorted into the domains above.
 |                                               | `Test-AzCliCanAccess`                |
 |                                               | `Assert-AzCliSubscriptionAccessible` |
 |                                               | `Test-AzCliSubscriptionAccessible`   |
-| domain:8 — Bicep CLI readiness                | `Assert-AzCliBicep`                  |
+| domain:8 — Bicep CLI readiness                | `Install-AzCliBicep`                 |
+|                                               | `Assert-AzCliBicep`                  |
 |                                               | `Test-AzCliBicep`                    |

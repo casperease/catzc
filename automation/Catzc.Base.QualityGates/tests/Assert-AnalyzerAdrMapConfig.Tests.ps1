@@ -8,9 +8,9 @@ Describe 'Assert-AnalyzerAdrMapConfig' -Tag 'L0', 'logic' {
 
     It 'accepts a well-formed map' {
         $config = [ordered]@{ analyzers = [ordered]@{
-                'Measure-VariableCasing' = @('ADR-PSFORMAT#4')
+                'Measure-VariableCasing'   = @('ADR-PSFORMAT#4')
                 'Measure-NeverDependOnPwd' = @('ADR-NOPWD#1', 'ADR-NOPWD#3')
-                'PSUseApprovedVerbs' = @('ADR-VERBS#1')
+                'PSUseApprovedVerbs'       = @('ADR-VERBS#1')
             }
         }
         { & $script:assert $config } | Should -Not -Throw
