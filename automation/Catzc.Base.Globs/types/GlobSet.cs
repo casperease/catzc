@@ -29,15 +29,15 @@ public sealed class GlobSet
 {
     private static readonly Regex KebabCase = new Regex("^[a-z0-9]+(-[a-z0-9]+)*$");
 
-    // The layers (ADR-GLOBS:7) — each a BOUNDARY in the repository: 'track' (a root-level partition, e.g.
-    // automation/infrastructure, plus the 'repository' catch-all), 'deployable-unit' (a configurable unit
-    // that ships), and 'loose-fileset' (a cross-cutting check surface — scan scopes, the reserved umbrellas —
-    // that deliberately overlaps the boundaries it cuts across). 'module' is the DERIVED layer (ADR-PROTGLOB)
-    // — the per-folder module partition plus the 'modules' catch-all — a valid GlobSet layer (Get-ModuleGlobSet
+    // The layers (ADR-GLOBS:7) — three kinds of thing: 'deployable-unit' (a configurable unit that ships) and
+    // 'loose-fileset' (a cross-cutting check surface — a track's root concern like automation/infrastructure,
+    // a scan scope, the reserved umbrellas — that carries a demonstrated use, e.g. a pipeline, and deliberately
+    // overlaps the boundaries it cuts across). 'module' is the DERIVED layer (ADR-PROTGLOB) — the per-folder
+    // module partition plus the 'module-leftovers' catch-all — a valid GlobSet layer (Get-ModuleGlobSet
     // constructs them), but GlobsConfig rejects it in the declared registry. Within every layer but
     // 'loose-fileset' the sets are pairwise-disjoint on OWN membership (ADR-GLOBS:10).
-    public static readonly string[] DeclaredLayers = { "track", "deployable-unit", "loose-fileset" };
-    public static readonly string[] ValidLayers = { "track", "deployable-unit", "loose-fileset", "module" };
+    public static readonly string[] DeclaredLayers = { "deployable-unit", "loose-fileset" };
+    public static readonly string[] ValidLayers = { "deployable-unit", "loose-fileset", "module" };
 
     public string Name { get; }
     public string Description { get; }

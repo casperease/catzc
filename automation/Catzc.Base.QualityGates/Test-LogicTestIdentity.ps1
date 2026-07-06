@@ -1,0 +1,77 @@
+<#
+.SYNOPSIS
+    Gate: no LOGIC test may name a live production identity (a real customer, subscription, org, template, or
+    ADO project) as a code string literal — the tag-aware, comment-blind enforcer of the test/live domain
+    separation (ADR-LANG, ADR-TEST:3).
+.DESCRIPTION
+    The forbidden set is DERIVED from the shipped config (Get-LiveIdentityTokens), so it is always current —
+    add a customer to customer.yml and it is immediately banned from logic tests. Each test file is classified
+    by its Pester tags from the AST (Get-LogicTestIdentityFinding): a pure-logic file is scanned for
+    live-identity string literals; an integrity or *.Integrity.Tests.ps1 file is skipped; a file mixing both
+    is reported as needing a split.
+
+    This is itself an INTEGRITY check (it reads the shipped config and the whole test tree), so it is tagged
+    `integrity` where a Pester test wraps it. It mirrors the Test-Spelling / Test-Terminology gate shape
+    (ADR-VERBS:7): it throws on findings to fail the build, and returns a result object under -PassThru.
+
+    Phase 1 matches the DISTINCTIVE identities exactly (customers, subscriptions, org, templates, deployable
+    units, ADO project); environment names (dev/test/preprod/prod) are a later, position-aware phase.
+.PARAMETER Path
+    Test files to check. Defaults to every *.Tests.ps1 under automation/ (excluding vendored modules).
+.PARAMETER PassThru
+    Return a result object ({ FindingCount; MixedCount; Findings }) instead of throwing.
+.OUTPUTS
+    None (throws on findings), or the result object with -PassThru.
+.EXAMPLE
+    Test-LogicTestIdentity
+.EXAMPLE
+    $r = Test-LogicTestIdentity -PassThru; $r.Findings
+#>
+function Test-LogicTestIdentity {
+    [CmdletBinding()]
+    param(
+        [string[]] $Path,
+
+        [switch] $PassThru
+    )
+
+    # The forbidden live-identity map, keyed by token, derived from the shipped config.
+    $live = @{}
+    foreach ($identity in (Get-LiveIdentityTokens)) {
+        $live[$identity.Token] = $identity
+    }
+
+    if (-not $Path) {
+        $automationRoot = Join-Path (Get-RepositoryRoot) 'automation'
+        $Path = [System.IO.Directory]::EnumerateFiles($automationRoot, '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories) |
+            Where-Object { $_ -notmatch '[\\/]\.vendor[\\/]' } |
+            Sort-Object
+    }
+
+    $findings = [System.Collections.Generic.List[object]]::new()
+    foreach ($file in $Path) {
+        foreach ($finding in (Get-LogicTestIdentityFinding -Path $file -LiveToken $live)) {
+            $findings.Add($finding)
+        }
+    }
+
+    if ($PassThru) {
+        return [pscustomobject]@{
+            FindingCount = $findings.Count
+            Findings     = @($findings)
+        }
+    }
+
+    if ($findings.Count -eq 0) {
+        Write-Message "No logic-test identity violations across $($Path.Count) test file(s)."
+        return
+    }
+
+    foreach ($finding in $findings) {
+        $relative = ConvertTo-RepoRelativePath $finding.File
+        Write-Message "${relative}:$($finding.Line): $($finding.Message)" -NoHeader -ForegroundColor Red
+    }
+
+    $preview = @($findings | Select-Object -First 5 | ForEach-Object { "$($_.Token) ($([System.IO.Path]::GetFileName($_.File)):$($_.Line))" })
+    throw "Test-LogicTestIdentity failed: $($findings.Count) live-identity use(s) in logic tests — $($preview -join ', ')"
+}

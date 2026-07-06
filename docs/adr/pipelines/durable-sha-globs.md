@@ -59,26 +59,25 @@ dot-folder that sorts to the top of a PR's file view, the marker diff IS the cha
 
 ### Rule ADR-GLOBS:7
 
-Every globset carries a **layer** — the kind of thing it maps, and a **boundary** in the repository. Three are declared in `globs.yml`:
-`track` (a root-level partition — a root concern (`ADR-TRACK`) such as `automation`/`infrastructure`, plus the `repository` catch-all that
-owns every root file no other track claims), `deployable-unit` (a configurable unit that ships), and `loose-fileset` (a cross-cutting check
-surface — a scan scope, a reserved umbrella — that deliberately overlaps the boundaries it cuts across). The fourth, `module`, is
-**derived-only** (`ADR-PROTGLOB`): the folders are the registration, declaring it is rejected, and the layer carries the per-folder module
-sets plus the `module-leftovers` catch-all (module-space files no module owns); derived sets persist sha-markers through the same mechanism
-as declared sets (`ADR-PROTGLOB#7`).
+Every globset carries a **layer** — the kind of thing it maps. Two are declared in `globs.yml`: `deployable-unit` (a configurable unit that
+ships) and `loose-fileset` (a cross-cutting check surface that deliberately overlaps the boundaries it cuts across — a track's root concern
+(`ADR-TRACK`) such as `automation`/`infrastructure`, a scan scope, a reserved umbrella). A loose-fileset must earn its place by a
+**demonstrated use** — a pipeline it triggers, a scan it scopes, a protection it drives (YAGNI: no catch-all-for-completeness's-sake). The
+third, `module`, is **derived-only** (`ADR-PROTGLOB`): the folders are the registration, declaring it is rejected, and the layer carries the
+per-folder module sets plus the `module-leftovers` catch-all (module-space files no module owns); derived sets persist sha-markers through
+the same mechanism as declared sets (`ADR-PROTGLOB#7`).
 
 A deployable unit takes one of two shapes: a **configured** unit — a base plus its own configuration, e.g. a customer or platform unit — and
 a **base** unit — a shared, un-configured surface that exists only to be composed, e.g. `template-azure-subscription-foundation`, which
 ships only through the configured units that compose it yet still carries an area-of-control (its `verify:` scope and its review surface).
 
-Within every layer but `loose-fileset` the sets are pairwise-independent on OWN contribution (`ADR-GLOBS:10`): a track never consumes
-another track's files, a module never another module's, a unit never another unit's — each is a boundary. A `track` and a `module` layer may
-each carry a **catch-all** (`repository`, `module-leftovers`) so the layer covers its whole space with nothing unmapped; the catch-all is
-the complement of the explicit sets, hence still disjoint from them. `pipeline:` (the 1-1 trigger-role binding) and `verify:` (`modules` +
-`level`, the test blast-radius scope) are **orthogonal** annotations valid on any layer: a CI pipeline binds a track's marker, a CD pipeline
-a configured deployable-unit's, a base unit or a catch-all binds none. A **deployable-unit** that is neither composed nor pipeline-bound is
-not a unit but phantom state, and one living version (`ADR-ONELIVE`) forbids it; the other layers earn identity by being a real boundary (a
-track's root, a module's folder, a scan's inputs).
+Within every layer but `loose-fileset` the sets are pairwise-independent on OWN contribution (`ADR-GLOBS:10`): a module never consumes
+another module's files, a unit never another unit's — each is a boundary. The `module` layer carries a **catch-all** (`module-leftovers`) so
+it covers its whole space with nothing unmapped; the catch-all is the complement of the explicit sets, hence still disjoint from them.
+`pipeline:` (the 1-1 trigger-role binding) and `verify:` (`modules` + `level`, the test blast-radius scope) are **orthogonal** annotations
+valid on any layer: a CI pipeline binds a loose-fileset track's marker, a CD pipeline a configured deployable-unit's, a base unit binds none.
+A **deployable-unit** that is neither composed nor pipeline-bound is not a unit but phantom state, and one living version (`ADR-ONELIVE`)
+forbids it; a loose-fileset without a demonstrated use is likewise forbidden — every marker earns its cost (`ADR-GLOBS:9`).
 
 - [One configuration point](#one-configuration-point)
 

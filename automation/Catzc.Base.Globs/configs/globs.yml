@@ -20,41 +20,26 @@
 # include minus exclude, evaluated against `git ls-files`. No set may have a marker file as a member.
 
 globsets:
-  # The automation track (ADR-TRACK:1) — mapped onto exactly its root folder: the module system
-  # ci-automation verifies. A track never spans two roots, so the cross-cutting surfaces the CI gates
-  # also read (docs, pipelines, this registry's markers) are scopes or tracks of their own, never
-  # widened into this set.
+  # The automation track — the automation module system under automation/. A loose-fileset (ADR-GLOBS:7):
+  # a cross-cutting check surface with a demonstrated use (the ci-automation pipeline binds its marker). It
+  # overlaps the derived module sets it spans, which is exactly what the loose-fileset layer is for.
   automation:
     description: The automation track - the automation module system under automation/.
-    layer: track
+    layer: loose-fileset
     pipeline: ci-automation
     include:
       - automation/**
 
-  # The infrastructure track (ADR-TRACK): what ci-infrastructure verifies and the cd-* pipelines deploy from.
+  # The infrastructure track — the Bicep IaC tree. A loose-fileset with a demonstrated use: ci-infrastructure
+  # verifies it and the cd-* pipelines deploy from it; it overlaps the per-unit deployable sets below.
   infrastructure:
     description: The infrastructure track - the Bicep IaC tree, reusable modules and deployable templates.
-    layer: track
+    layer: loose-fileset
     pipeline: ci-infrastructure
     verify:
       modules: [Catzc.Azure.Templates]
       level: 2
     include:
-      - infrastructure/**
-
-  # The repository track's catch-all: every tracked file at the repo root that no other track owns - docs,
-  # pipelines, workflows, root dotfiles - so the track layer covers the whole tree and nothing at root goes
-  # unmapped. It owns none of automation/ or infrastructure/ (those are their own tracks) and excludes the
-  # sha-marker outputs (ADR-GLOBS:6). Adding a track means excluding it here too, or the per-layer
-  # independence gate (ADR-GLOBS:10) fails on the overlap.
-  repository:
-    description: The repository track - every tracked file at the root that no other track owns.
-    layer: track
-    include:
-      - '**'
-    exclude:
-      - .sha-markers/**
-      - automation/**
       - infrastructure/**
 
   # The all-templates shared surface: every deployable template EXCEPT its deployment configuration —
