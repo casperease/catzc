@@ -106,6 +106,7 @@ A check **passes** when its assertions are green. A few L2 checks shell out to a
 | 63  | L1   | automation/Catzc.Base.Git/tests/New-GitIgnore.Tests.ps1                        | New-GitIgnore — real gitignore.yml                                   | The shipped zone registry renders with the root-config provider — every zone resolves into the generated .gitignore.              |
 | 64  | L1   | automation/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1                | New-VSCodeSettings — real vscode-settings.yml                        | The shipped settings registry renders to valid JSON with the analyzer wiring and the authored un-exclude intact.                  |
 | 61  | L1   | automation/Catzc.Base.QualityGates/tests/Get-TestAutomationTestPaths.Tests.ps1 | Get-TestAutomationTestPaths                                          | The run's tests folders resolve foundation-first from the real tree — modules by dependency order, infrastructure last.           |
+| 65  | L1   | automation/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1     | analyzer-adr-map integrity                                           | Every analyzer→ADR mapping cites a real rule, and every custom analyzer rule is listed in analyzer-adr-map.yml.                   |
 
 ## L0 · integrity
 
