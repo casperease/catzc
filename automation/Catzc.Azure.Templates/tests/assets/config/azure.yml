@@ -12,7 +12,7 @@ bicep_min_version: "0.30.0"
 
 tenants:
   fixtenant:
-    id: 00000000-0000-0000-0000-000000000001
+    id: fa0e0000-7e0a-0700-1d00-000000000000
 
 # Customer definitions live in the sibling customer.yml fixture (acme/globex); a subscription below binds
 # one by naming it in its `customer` field (by key or shortcode).
@@ -53,21 +53,21 @@ environments:
 # separates them (docs/adr/azure/data-model.md).
 subscriptions:
   core_lower:
-    id: 00000000-0000-0000-0000-000000000002
+    id: 50a0ed00-de00-50b0-0000-000000000000
     tenant: fixtenant
     environments:
       - alpha
       - beta
       - subn
   core_upper:
-    id: 00000000-0000-0000-0000-000000000003
+    id: 50a0ed00-000d-50b0-0000-000000000000
     tenant: fixtenant
     environments:
       - gamma
       - delta
       - subp
   acme_lower:
-    id: 00000000-0000-0000-0000-000000000005
+    id: a0e00000-000d-50b0-0000-000000000000
     tenant: fixtenant
     customer: acme
     environments:
@@ -75,7 +75,7 @@ subscriptions:
       - beta
       - subn
   acme_upper:
-    id: 00000000-0000-0000-0000-000000000006
+    id: 000a0000-de00-50b0-0000-000000000000
     tenant: fixtenant
     customer: acme
     environments:

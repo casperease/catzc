@@ -27,8 +27,8 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
         # The deploy target is the az session's subscription — the whole-boundary session mock stands in
         # for the service connection / az account set (ADR-PESTER:3).
         Mock Get-AzCliSessionSubscription {
-            [ordered]@{ name = 'core_lower'; id = '00000000-0000-0000-0000-000000000002'; customer = ''
-                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            [ordered]@{ name = 'core_lower'; id = '50a0ed00-de00-50b0-0000-000000000000'; customer = ''
+                tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
             }
         } -ModuleName Catzc.Azure.Templates
 
@@ -177,8 +177,8 @@ Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
     It 'a customer-subscription session targets the customer RG, artifact, and configuration/<customer>/ slot' {
         # The session (the service connection) is what selects the customer deployment.
         Mock Get-AzCliSessionSubscription {
-            [ordered]@{ name = 'acme_lower'; id = '00000000-0000-0000-0000-000000000005'; customer = 'acme'
-                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            [ordered]@{ name = 'acme_lower'; id = 'a0e00000-000d-50b0-0000-000000000000'; customer = 'acme'
+                tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
             }
         } -ModuleName Catzc.Azure.Templates
         $context = Get-BicepDeploymentContext -Environment alpha -Template sample-customer
@@ -190,8 +190,8 @@ Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
 
     It 'a non-customer session targets the configuration-root slot + RG + artifact' {
         Mock Get-AzCliSessionSubscription {
-            [ordered]@{ name = 'core_lower'; id = '00000000-0000-0000-0000-000000000002'; customer = ''
-                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            [ordered]@{ name = 'core_lower'; id = '50a0ed00-de00-50b0-0000-000000000000'; customer = ''
+                tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
             }
         } -ModuleName Catzc.Azure.Templates
         $context = Get-BicepDeploymentContext -Environment alpha -Template sample-customer
@@ -202,19 +202,19 @@ Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
 
     It 'the -SubscriptionIdAssertIs guard throws when the session subscription differs' {
         Mock Get-AzCliSessionSubscription {
-            [ordered]@{ name = 'acme_lower'; id = '00000000-0000-0000-0000-000000000005'; customer = 'acme'
-                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            [ordered]@{ name = 'acme_lower'; id = 'a0e00000-000d-50b0-0000-000000000000'; customer = 'acme'
+                tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
             }
         } -ModuleName Catzc.Azure.Templates
-        { Get-BicepDeploymentContext -Environment alpha -Template sample-customer -SubscriptionIdAssertIs '00000000-0000-0000-0000-000000000002' } |
+        { Get-BicepDeploymentContext -Environment alpha -Template sample-customer -SubscriptionIdAssertIs '50a0ed00-de00-50b0-0000-000000000000' } |
             Should -Throw '*-SubscriptionIdAssertIs failed*'
     }
 
     It 'throws a self-contained error when the session addresses a coordinate the template has no config for' {
         # globex has no configuration/globex/ folder in sample-customer.
         Mock Get-AzCliSessionSubscription {
-            [ordered]@{ name = 'globex_short'; id = '00000000-0000-0000-0000-000000000007'; customer = 'globex'
-                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            [ordered]@{ name = 'globex_short'; id = 'f1000000-de00-50b0-0000-000000000000'; customer = 'globex'
+                tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
             }
         } -ModuleName Catzc.Azure.Templates
         { Get-BicepDeploymentContext -Environment alpha -Template sample-customer } |
@@ -229,8 +229,8 @@ Describe 'Get-BicepDeploymentContext (pipeline)' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Azure.Templates
         Mock Get-AzCliSessionSubscription {
-            [ordered]@{ name = 'core_lower'; id = '00000000-0000-0000-0000-000000000002'; customer = ''
-                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            [ordered]@{ name = 'core_lower'; id = '50a0ed00-de00-50b0-0000-000000000000'; customer = ''
+                tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
             }
         } -ModuleName Catzc.Azure.Templates
         Mock Build-Bicep { throw 'Build-Bicep must not be invoked on a pipeline agent' } -ModuleName Catzc.Azure.Templates
@@ -300,8 +300,8 @@ Describe 'Get-BicepDeploymentContext (DoNotRun gate)' -Tag 'L0', 'logic' {
 
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
         Mock Get-AzCliSessionSubscription {
-            [ordered]@{ name = 'core_lower'; id = '00000000-0000-0000-0000-000000000002'; customer = ''
-                tenant = [ordered]@{ name = 'fixtenant'; id = '00000000-0000-0000-0000-000000000001' }
+            [ordered]@{ name = 'core_lower'; id = '50a0ed00-de00-50b0-0000-000000000000'; customer = ''
+                tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
             }
         } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {

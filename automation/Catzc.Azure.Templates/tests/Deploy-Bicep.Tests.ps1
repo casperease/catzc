@@ -79,9 +79,9 @@ function Invoke-BicepPostDeploy {
                     region       = 'westeurope'
                     subscription = [ordered]@{
                         name     = 'core_lower'
-                        id       = '00000000-0000-0000-0000-000000000002'
+                        id       = '50a0ed00-de00-50b0-0000-000000000000'
                         customer = ''
-                        tenant   = [ordered]@{ id = '00000000-0000-0000-0000-000000000001' }
+                        tenant   = [ordered]@{ id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
                     }
                 }
             }
@@ -106,9 +106,9 @@ function Invoke-BicepPostDeploy {
     }
 
     It 'passes -SubscriptionIdAssertIs through to the deployment context (the guard lives there)' {
-        Deploy-Bicep alpha sample -SubscriptionIdAssertIs '00000000-0000-0000-0000-000000000002'
+        Deploy-Bicep alpha sample -SubscriptionIdAssertIs '50a0ed00-de00-50b0-0000-000000000000'
         Should -Invoke Get-BicepDeploymentContext -ModuleName Catzc.Azure.Templates -ParameterFilter {
-            $SubscriptionIdAssertIs -eq '00000000-0000-0000-0000-000000000002'
+            $SubscriptionIdAssertIs -eq '50a0ed00-de00-50b0-0000-000000000000'
         }
     }
 
@@ -129,7 +129,7 @@ function Invoke-BicepPostDeploy {
         Deploy-Bicep alpha sample
         Should -Invoke Deploy-AzureResourceGroup -ModuleName Catzc.Azure.Templates -ParameterFilter {
             $ResourceGroup -eq 'rg-sample-alpha' -and
-            $SubscriptionId -eq '00000000-0000-0000-0000-000000000002' -and
+            $SubscriptionId -eq '50a0ed00-de00-50b0-0000-000000000000' -and
             $Region -eq 'westeurope'
         }
     }
@@ -254,7 +254,7 @@ function Invoke-BicepPostDeploy {
         }
 
         It 'proceeds when -SubscriptionIdAssertIs is given in a pipeline' {
-            { Deploy-Bicep alpha sample -SubscriptionIdAssertIs '00000000-0000-0000-0000-000000000002' } | Should -Not -Throw
+            { Deploy-Bicep alpha sample -SubscriptionIdAssertIs '50a0ed00-de00-50b0-0000-000000000000' } | Should -Not -Throw
         }
     }
 }
