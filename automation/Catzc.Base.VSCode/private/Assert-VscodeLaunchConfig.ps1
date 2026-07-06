@@ -31,18 +31,18 @@ function Assert-VscodeLaunchConfig {
     }
 
     $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-    foreach ($profile in $configurations) {
-        if ($profile -isnot [System.Collections.IDictionary]) {
+    foreach ($launchProfile in $configurations) {
+        if ($launchProfile -isnot [System.Collections.IDictionary]) {
             $violations.Add('each configurations entry must be a mapping')
             continue
         }
         foreach ($required in 'name', 'type', 'request') {
-            $value = if ($profile.Contains($required)) { $profile[$required] } else { $null }
+            $value = if ($launchProfile.Contains($required)) { $launchProfile[$required] } else { $null }
             if ($value -isnot [string] -or [string]::IsNullOrWhiteSpace($value)) {
                 $violations.Add("a configurations entry is missing a non-empty '$required'")
             }
         }
-        $name = if ($profile.Contains('name')) { $profile['name'] } else { $null }
+        $name = if ($launchProfile.Contains('name')) { $launchProfile['name'] } else { $null }
         if ($name -is [string] -and -not [string]::IsNullOrWhiteSpace($name) -and -not $seen.Add($name)) {
             $violations.Add("duplicate configuration name '$name'")
         }
