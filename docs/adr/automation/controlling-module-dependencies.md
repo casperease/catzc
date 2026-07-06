@@ -89,8 +89,8 @@ reproducible from the checkout.
 The repository is a mono-repo of modules that use one another: a function in one module calls a function in another, and a C# type in one
 module references a type in another. Left implicit, those uses form an unmanaged graph — and an unmanaged graph drifts into cycles and layer
 inversions, where a foundation module quietly comes to depend on a leaf. Neither medium the edges travel through stops this on its own:
-PowerShell imports every module into one global function namespace (see [open-closed-architecture](open-closed-architecture.md)), so any
-module can call any other's function; and the C# types compile into a **single combined assembly** (see
+PowerShell imports every module into one global function namespace (see [dynamic-module-manifests](powershell/dynamic-module-manifests.md)),
+so any module can call any other's function; and the C# types compile into a **single combined assembly** (see
 [native-csharp-types](BCL/native-csharp-types.md)), so the compiler does not forbid a cross-module type reference that inverts a layer.
 
 So the layering is made explicit and enforced: the allowed edges are declared once, in one file, and the actual edges are extracted from the

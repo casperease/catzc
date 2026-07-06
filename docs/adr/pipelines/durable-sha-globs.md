@@ -53,11 +53,11 @@ edit is never uncovered.
 
 ## Context
 
-A deployable unit is a high-level composition of modules in the modular repository, mapped onto actual files under version control. Both
-Azure DevOps (`trigger:`/`pr:` `paths:`, build-validation policies) and GitHub (`on.*.paths`) decide whether to run by matching changed
-paths against filter lists. Writing those lists directly into every pipeline and workflow scatters one fact — "which files compose this
-unit" — across the orchestration layer, in two vendor dialects with subtly different wildcard semantics, where drift is invisible until a
-deploy silently does not fire.
+A deployable unit is a high-level composition of modules in the modular repository — a whole track or a reduced slice of one (see
+[tracks](../design/tracks.md), `ADR-TRACK#5`) — mapped onto actual files under version control. Both Azure DevOps (`trigger:`/`pr:`
+`paths:`, build-validation policies) and GitHub (`on.*.paths`) decide whether to run by matching changed paths against filter lists. Writing
+those lists directly into every pipeline and workflow scatters one fact — "which files compose this unit" — across the orchestration layer,
+in two vendor dialects with subtly different wildcard semantics, where drift is invisible until a deploy silently does not fire.
 
 The durable-SHA design inverts this: the composition is declared once, at the deterministic source-of-truth layer, and each unit's identity
 is materialized as a committed hash. Orchestration artifacts hold a registration — a single-path filter on the trigger file — and nothing

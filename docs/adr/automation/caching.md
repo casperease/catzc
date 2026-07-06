@@ -4,8 +4,8 @@
 
 ### Rule ADR-CACHE:1
 
-Cache static config reads: a function that loads + parses (+ validates) a checked-in file returns the parsed object from a `$script:` cache
-on repeat calls.
+Cache static config reads: a function that loads + parses (+ validates) a checked-in file returns the parsed object from a session cache on
+repeat calls.
 
 Exemplar: `Get-Config` — every config read routes through it, keyed on the resolved file path in `$script:configCache`, so every config
 inherits one cache (see [module-config-loading](module-config-loading.md)).
@@ -19,19 +19,12 @@ stored result thereafter. Exemplar: `Get-BicepTemplates`.
 
 - [The cost of not caching](#the-cost-of-not-caching)
 
-### Rule ADR-CACHE:3
-
-Use module-scoped `$script:` variables for the cache — never `$env:` or `$global:`. `$script:` state is established at import and destroyed
-on re-import, which is exactly the cache boundary.
-
-- [The importer is the cache boundary](#the-importer-is-the-cache-boundary)
-
 ### Rule ADR-CACHE:4
 
-Key the cache by the function's inputs: no parameters → a single slot; parameters → a `$script:` hashtable keyed on them; a resolved-input
-function keys on that input. Keys must be session-stable values, never mutable objects.
+Key the cache by the function's inputs: no parameters → a single slot; parameters → a cache keyed on them; a resolved-input function keys
+on that input. Keys must be session-stable values, never mutable objects.
 
-- [The idioms](#the-idioms)
+- [The storage idiom is the language layer](#the-storage-idiom-is-the-language-layer)
 
 ### Rule ADR-CACHE:5
 
@@ -62,33 +55,6 @@ The compiled-type prebuild is the one committed, cross-session cache: `Import-CS
 on a fresh checkout and self-invalidating on any source change. See [native-csharp-types](BCL/native-csharp-types.md) for the full contract.
 
 - [What is NOT cacheable](#what-is-not-cacheable)
-
-### Rule ADR-CACHE:9
-
-Tests vary cached behavior by mocking the whole function (`Mock Get-BicepTemplates`), not its internals — a warm cache ignores mocked
-dependencies. A test exercising cache population resets the slot in module scope.
-
-- [How this is enforced](#how-this-is-enforced)
-
-### Rule ADR-CACHE:10
-
-The compiled-type cache key is byte-exact but line-ending-insensitive: `Import-CSharpTypes` hashes each `types/*.cs` with the
-carriage-return bytes stripped, so a CRLF or an LF working tree (git `core.autocrlf`, an editor's format-on-save, a checkout that rewrites
-the file) yields the same `Catzc.Types.<hash>.dll` name on every machine. `.cs` sources are additionally pinned to LF in `.gitattributes` so
-a checkout materializes identical bytes in the first place. The carriage-return stripping is duplicated in `Clear-ModuleTypeCache` (the
-janitor) and the drift-guard tests — keep all of them identical, or the janitor will plan the live build for deletion.
-
-- [native-csharp-types](BCL/native-csharp-types.md)
-
-### Rule ADR-CACHE:11
-
-The "source changed since loaded — restart PowerShell" guard is keyed by `ModulesRoot`. `Import-CSharpTypes` takes the tree as a parameter,
-and one session may load more than one tree (the real `automation/` plus the test-fixture trees), so the per-session record of loaded hash
-and file snapshot is stored per resolved root. A load from one root therefore never makes a re-import of another root falsely report a
-change — without this, running the test suite (which loads fixture trees) would poison the next real import's guard. The thrown message
-names the drifted files and both hashes so the cause is diagnosable from the error text alone.
-
-- [native-csharp-types](BCL/native-csharp-types.md)
 
 ## Context
 
@@ -167,50 +133,15 @@ The rule has a sharp boundary. Do **not** cache:
 ## Decision
 
 Cache, for the lifetime of the session, the results of (a) **static config-file reads** and (b) **filesystem-scan-derived information**.
-Store the cache in module-scoped `$script:` state. Invalidate only by re-running the importer. Never cache runtime state or objects callers
-mutate.
+Store the cache in module state per the language layer ([script-scope-caching](powershell/script-scope-caching.md)). Invalidate only by
+re-running the importer. Never cache runtime state or objects callers mutate.
 
-### The idioms
+### The storage idiom is the language layer
 
-Static read, keyed by resolved path (as in `Get-Config`, through which every config read routes — see
-[module-config-loading](module-config-loading.md)):
-
-```powershell
-function Get-Config {
-    param([string] $Config, [string] $Module)
-
-    $entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name; Module; Path } (discovery seam)
-    if (-not $script:configCache) { $script:configCache = @{} }
-    if ($script:configCache.ContainsKey($entry.Path)) {
-        return $script:configCache[$entry.Path]      # same object every call
-    }
-
-    Assert-PathExist $entry.Path
-    $config = <parse $entry.Path -Ordered>
-    <validate/map in the owner's scope>              # runs once, on the cache miss
-    $script:configCache[$entry.Path] = $config
-    $script:configCache[$entry.Path]
-}
-```
-
-Filesystem-derived information, keyed by resolved root (as in `Get-BicepTemplates`):
-
-```powershell
-function Get-BicepTemplates {
-    $root = Get-BicepTemplatesRoot                                               # the mockable seam (one prod answer)
-    if (-not $script:bicepTemplatesCache) { $script:bicepTemplatesCache = @{} }
-    if ($script:bicepTemplatesCache.ContainsKey($root)) {
-        return , $script:bicepTemplatesCache[$root]                              # comma preserves array-ness
-    }
-
-    $templates = <scan infrastructure/templates, read+validate options.yml, assert short_name uniqueness>
-    $script:bicepTemplatesCache[$root] = $templates
-    , $script:bicepTemplatesCache[$root]
-}
-```
-
-(Resetting the whole `$script:bicepTemplatesCache` to `$null` — as the test idiom above does — discards every keyed entry, which is the
-intended hard reset.)
+Where a cache lives, the keyed-hashtable code shape, and how tests interact with a cached function are the PowerShell layer,
+[script-scope-caching](powershell/script-scope-caching.md) (`ADR-PSCACHE`): module `$script:` state — never `$env:` or `$global:` — with
+`Get-Config` and `Get-BicepTemplates` as the exemplars. The compiled-type prebuild's own cache-key and staleness-guard rules live with the
+type system, [native-csharp-types](BCL/native-csharp-types.md) (`ADR-TYPES`).
 
 ### How this is enforced
 

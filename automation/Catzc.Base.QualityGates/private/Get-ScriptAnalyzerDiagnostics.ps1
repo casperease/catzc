@@ -12,7 +12,7 @@
       - Each shard imports the analyzer once and pipes its whole file list through a SINGLE
         Invoke-ScriptAnalyzer call, so the ~3s per-process setup is paid once per shard, not per file.
       - Shards run from the repo root (Push-Location/Pop-Location) so the settings' relative CustomRulePath
-        entries resolve (ADR never-depend-on-pwd, rule ADR-NOPWD:2/ADR-NOPWD:3).
+        entries resolve (ADR working-directory-mechanics, rule ADR-PSPWD:2/ADR-PSPWD:3).
 
     A dot is printed per interval while shards run so the run never looks hung — a progress bar is banned
     (ADR console-output-matters, rule ADR-CONSOLE:8). The external Invoke-ScriptAnalyzer progress bar is suppressed

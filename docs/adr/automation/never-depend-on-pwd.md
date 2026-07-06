@@ -4,23 +4,11 @@
 
 ### Rule ADR-NOPWD:1
 
-Never use relative paths that depend on `$PWD`. Use `$PSScriptRoot`, `$env:RepositoryRoot`, or `Join-Path` from a known anchor.
+Never use relative paths that depend on the process working directory. Resolve every path from a known anchor — in PowerShell,
+`$PSScriptRoot` or `$env:RepositoryRoot` joined with `Join-Path` (the anchor idioms are the language layer,
+[working-directory-mechanics](powershell/working-directory-mechanics.md), `ADR-PSPWD`).
 
 - [Rejected alternatives](#rejected-alternatives)
-- [How this is enforced](#how-this-is-enforced)
-
-### Rule ADR-NOPWD:2
-
-When a tool requires a specific working directory, use `Push-Location` / `Pop-Location` in a `try`/`finally` block to change directory and
-guarantee restoration.
-
-- [Rejected alternatives](#rejected-alternatives)
-
-### Rule ADR-NOPWD:3
-
-Never call `Set-Location` (or `cd`) without restoring it; bare calls change `$PWD` for the rest of the session. If you must change
-directory, use `Push-Location` / `Pop-Location`.
-
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-NOPWD:4
@@ -52,15 +40,15 @@ All functions must work correctly regardless of the caller's `$PWD`.
 
 ### How this is enforced
 
-- **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`automation/.scriptanalyzer/NeverDependOnPwd.psm1`) — warns on bare
-  `Set-Location`/`cd` calls and relative paths that depend on `$PWD`. Runs as part of the L2 test suite via `Test-ScriptAnalyzer.Tests.ps1`.
+- **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`automation/.scriptanalyzer/NeverDependOnPwd.psm1`) — warns on `$PWD`
+  dependence. Runs as part of the L2 test suite via `Test-ScriptAnalyzer.Tests.ps1`.
+- **The language layer** — the anchor idioms and the one safe way to change directory (`Push-Location`/`Pop-Location` in `try`/`finally`)
+  are [working-directory-mechanics](powershell/working-directory-mechanics.md) (`ADR-PSPWD`), which the same analyzer rule enforces.
 
 ## Consequences
 
 - Functions can be composed freely — calling `Invoke-Poetry` from inside `Install-Poetry` works regardless of where the user's shell is
   sitting.
 - CI pipelines and scheduled tasks work without a `cd` preamble.
-- `$PSScriptRoot` and `$env:RepositoryRoot` are the standard anchors for locating files. `$PSScriptRoot` gives the directory of the current
-  script file; `$env:RepositoryRoot` gives the repository root set by `importer.ps1`.
-- Tools that need a working directory (git, dotnet, poetry) get it via `Push-Location`/`Pop-Location`, never by assuming `$PWD` is already
-  correct.
+- Every path resolves from a stable anchor, so a function behaves identically wherever it is called from — the anchor idioms live in
+  [working-directory-mechanics](powershell/working-directory-mechanics.md).

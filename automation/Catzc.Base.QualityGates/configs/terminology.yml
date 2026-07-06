@@ -146,8 +146,11 @@ terms:
       meaning: 'authentication / authorization'
       expands_to: 'authentication'
     - term: depm
-      meaning: 'a module dependency map; the [Catzc.Module.Depm] type-accelerator alias for ModuleDependencyFormat, and the $depm local'
-      expands_to: 'dependency map'
+      meaning: 'module dependencies — dependencies BETWEEN modules, never on systems (those are deps); the [Catzc.Module.Depm] type-accelerator alias for ModuleDependencyFormat, and the $depm local (only when the value is specifically module-to-module dependencies)'
+      expands_to: 'module dependencies'
+    - term: depms
+      meaning: 'plural of depm (module dependencies)'
+      expands_to: 'module dependencies'
     - term: cfg
       meaning: 'configuration'
       expands_to: 'configuration'
@@ -394,6 +397,18 @@ terms:
       meaning: 'body of the ADR-MODDEPS code (controlling-module-dependencies)'
     - term: envvar
       meaning: 'body of the ADR-ENVVAR code (environment-variables)'
+    - term: psenv
+      meaning: 'body of the ADR-PSENV code (environment-variable-mechanics)'
+    - term: modpath
+      meaning: 'body of the ADR-MODPATH code (module-path-hygiene)'
+    - term: psparam
+      meaning: 'body of the ADR-PSPARAM code (parameter-design)'
+    - term: pspwd
+      meaning: 'body of the ADR-PSPWD code (working-directory-mechanics)'
+    - term: psxplat
+      meaning: 'body of the ADR-PSXPLAT code (cross-platform-powershell)'
+    - term: pscache
+      meaning: 'body of the ADR-PSCACHE code (script-scope-caching)'
     - term: azsess
       meaning: 'body of the ADR-AZSESS code (az-session-verification)'
     - term: cfgaddr

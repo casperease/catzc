@@ -1,4 +1,5 @@
 {
+  "//": "GENERATED FILE - do not edit the root copy. Single source of truth: automation/Catzc.Base.RootConfig/assets/root/dotnet-tools.json, regenerated on import by Build-RootConfig. JSON has no comment syntax and the dotnet manifest parser rejects // line comments, so the marker is this ignored '//' property.",
   "version": 1,
   "isRoot": true,
   "tools": {}

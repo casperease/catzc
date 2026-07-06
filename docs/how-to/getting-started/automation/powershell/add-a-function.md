@@ -55,8 +55,9 @@ These are enforced by PSScriptAnalyzer and the convention tests — code that br
   `if (-not $x) { throw }` (see [fail-fast-with-asserts](../../../../adr/automation/fail-fast-with-asserts.md)).
 - **Throw, don't warn.** Use `throw` / `Assert-*` for failure and `Write-Message` / `Write-Verbose` for information. `Write-Error` and
   `Write-Warning` are banned (see [error-handling](../../../../adr/automation/powershell/error-handling.md)).
-- **Sensible defaults.** Make the zero/low-argument call do the common thing; pull defaults from config where they live; use `[switch]` for
-  opt-in behavior (see [sensible-defaults](../../../../adr/automation/sensible-defaults.md)).
+- **Sensible defaults.** Make the zero/low-argument call do the common thing; pull defaults from config where they live (see
+  [sensible-defaults](../../../../adr/automation/sensible-defaults.md)); make the primary argument positional and use `[switch]` for opt-in
+  behavior (see [parameter-design](../../../../adr/automation/powershell/parameter-design.md)).
 - **One responsibility.** A function does one thing its name describes. `Invoke-Widget` must not secretly install the tool — assert the
   precondition and let the caller compose (see
   [single-responsibility-functions](../../../../adr/automation/single-responsibility-functions.md)).

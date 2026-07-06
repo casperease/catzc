@@ -16,20 +16,6 @@ config files; the function reads them internally so callers need not update.
 
 - [Where defaults come from](#where-defaults-come-from)
 
-### Rule ADR-DEFAULT:3
-
-Use positional parameters for the primary argument — the most important parameter is `Position = 0` so the caller can skip the name
-(`Invoke-Poetry 'install'`).
-
-- [What sensible defaults look like](#what-sensible-defaults-look-like)
-
-### Rule ADR-DEFAULT:4
-
-Use `[switch]`, not `[bool]`, for opt-in behavior that is off by default. Switches are self-documenting at the call site: `-PassThru` over
-`-PassThru $true`.
-
-- [Where defaults come from](#where-defaults-come-from)
-
 ### Rule ADR-DEFAULT:5
 
 Make parameters mandatory only when no default makes sense. If the function would do something wrong or meaningless without the value, it is
@@ -73,20 +59,14 @@ function Install-Python {
 }
 ```
 
-```powershell
-# GOOD — positional for the primary argument, switches for behavior
-Invoke-Poetry 'install'
-Invoke-Poetry 'install' -PassThru
-
-# BAD — named parameters for everything
-Invoke-Poetry -Arguments 'install' -PassThru
-```
+How the parameter surface itself is shaped so the common call stays short — the positional primary argument, switches over booleans — is the
+language layer, [parameter-design](powershell/parameter-design.md) (`ADR-PSPARAM`).
 
 ### The principle
 
 Every function should answer the question: **"What would the caller most likely pass here?"** If there is a single obvious answer, that
-answer is the default. If the answer comes from configuration, read it from config. If the answer is "nothing" (the feature is off), use a
-`[switch]`.
+answer is the default. If the answer comes from configuration, read it from config. If the answer is "nothing" (the feature is off), the
+behavior defaults to off and the caller opts in explicitly.
 
 This does not mean making everything optional. A function that does nothing useful without a specific value should make that parameter
 mandatory. `Invoke-Poetry` without arguments would enter an interactive prompt — that is never the right default, so `$Arguments` is
@@ -104,8 +84,8 @@ In order of preference:
 3. **The environment.** `$env:RepositoryRoot` provides the repo root. `$PSScriptRoot` provides the script's own directory. The function uses
    these anchors instead of requiring a path parameter.
 
-4. **Switches for opt-in behavior.** `-PassThru`, `-DryRun`, `-Silent`, `-NoAssert` — these are off by default because the common case does
-   not need them. The caller opts in explicitly when needed.
+4. **Off, for opt-in behavior.** `-PassThru`, `-DryRun`, `-Silent`, `-NoAssert` — these default to off because the common case does not need
+   them; the caller opts in explicitly when needed (expressed as a `[switch]` — see [parameter-design](powershell/parameter-design.md)).
 
 ## Decision
 

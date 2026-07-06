@@ -43,7 +43,7 @@ Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {
 
             # The settings' relative CustomRulePath entries resolve against the working directory. Set it
             # with Push-Location/Pop-Location in try/finally so $PWD is always restored — never a bare
-            # Set-Location (ADR never-depend-on-pwd, rule ADR-NOPWD:2/ADR-NOPWD:3).
+            # Set-Location (ADR working-directory-mechanics, rule ADR-PSPWD:2/ADR-PSPWD:3).
             Push-Location $root
             try {
                 # Capture non-terminating analyzer errors and surface any as a shard failure — a silently

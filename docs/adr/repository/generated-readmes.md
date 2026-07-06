@@ -68,8 +68,8 @@ still resolve in the generated README.
 A `README.md` is what a reader sees first in a folder on GitHub, in Azure DevOps, and in an editor. Kept by hand, each drifts from the
 documentation it duplicates, and the same content is maintained in two places. The repository already treats other per-folder,
 convention-derived files — the module manifests — as generated, gitignored artifacts
-([open-closed-architecture](../automation/open-closed-architecture.md), `ADR-EXTEND:7`); a README copied out from one authored source is the
-same pattern applied to prose.
+([dynamic-module-manifests](../automation/powershell/dynamic-module-manifests.md), `ADR-MANIFEST:3`); a README copied out from one authored
+source is the same pattern applied to prose.
 
 ## Decision
 

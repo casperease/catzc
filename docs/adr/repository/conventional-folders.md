@@ -5,7 +5,9 @@
 ### Rule ADR-FOLDERS:1
 
 Every folder in the repository is conventional: its name infers its contents and purpose, for humans and for tooling. No folder needs a
-mapping file or a README to be understood — the name is the meaning.
+mapping file or a README to be understood — the name is the meaning. At the root this goes further: every root folder names a **track** —
+the repository's unit of root concern — so adding a root folder is the decision to open a track (see [tracks](../design/tracks.md), code
+`ADR-TRACK`).
 
 - [The thesis: every folder infers its meaning](#the-thesis-every-folder-infers-its-meaning)
 

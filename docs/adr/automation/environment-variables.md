@@ -63,10 +63,11 @@ survive function calls. This makes them tempting for passing state between funct
 That temptation is the problem. Environment variables are the worst form of global mutable state because they have **no scoping, no type
 safety, no automatic cleanup, and no visibility boundaries.**
 
-PowerShell has proper scoping for regular variables: `$local:`, `$script:`, module scope, function parameters, return values. All of these
-are destroyed or scoped automatically. `$env:FOO` set inside any function, at any call depth, persists for the entire process lifetime
-unless someone explicitly removes it. There is no `try`/`finally` equivalent that automatically cleans up environment variables when a scope
-exits.
+A language gives code scoped mechanisms for its own state — parameters, return values, locals, module state — all destroyed or scoped
+automatically. An environment variable set inside any function, at any call depth, persists for the entire process lifetime unless someone
+explicitly removes it; no scope exit cleans it up. The PowerShell mechanics of obeying this rule — which scoped mechanism replaces which
+`$env:` temptation, runspace sharing, test isolation — are the language layer,
+[environment-variable-mechanics](powershell/environment-variable-mechanics.md) (`ADR-PSENV`).
 
 ### Why environment variables are global mutable state
 
@@ -77,8 +78,8 @@ exits.
 - **Mutable.** Any code path can change the value at any time. Two consecutive reads of `$env:FOO` can return different values if something
   in between modified it.
 
-- **Unscoped.** Unlike `$script:` variables (scoped to the module) or `$local:` variables (scoped to the function), `$env:` has no
-  boundaries at all. It bypasses PowerShell's scope isolation entirely.
+- **Unscoped.** Unlike a language's scoped variables (a function local, module-level state), `$env:` has no boundaries at all. It bypasses
+  the language's scope isolation entirely.
 
 ### They are always strings
 
@@ -92,19 +93,12 @@ Every process spawned via `Start-Process`, `Start-Job`, `&`, or external tool in
 parent. A child process (a linter, a build tool, a third-party CLI) sees every `$env:` variable the parent set, even if it has no need for
 them. This violates least privilege and creates an invisible coupling between parent and child.
 
-### They break parallel execution
+### They break parallel execution and poison tests
 
-All runspaces in a `ForEach-Object -Parallel` block share the same process environment block. Environment variables are not isolated per
-runspace — they are process-wide. Concurrent reads and writes to the same `$env:` variable from different runspaces produce race conditions.
-Unlike `$using:` variables (which are copied per-runspace), `$env:` is a single shared namespace.
-
-### They poison tests
-
-Environment variables set in one test leak into subsequent tests. If Test A sets `$env:MODE = 'test'` and forgets to clean up, Test B runs
-with an unexpected `$env:MODE`. This creates order-dependent test failures that are extremely difficult to diagnose.
-
-Pester provides `TestDrive:` for file isolation and scoped cleanup for PowerShell variables, but it provides **no automatic isolation for
-environment variables.** You must manually snapshot and restore them — ceremony that proper function parameters would avoid entirely.
+Environment variables are process-wide, so concurrent workers share one mutable namespace — parallel reads and writes race — and a value set
+in one test leaks into the next, producing order-dependent failures that are extremely difficult to diagnose. The PowerShell specifics
+(runspace sharing, `$using:`, Pester's lack of `$env:` isolation) live in
+[environment-variable-mechanics](powershell/environment-variable-mechanics.md).
 
 ### They are a security surface
 
@@ -124,16 +118,10 @@ state means dealing with this cross-platform inconsistency in every consumer. Mo
 
 ### The correct alternative for internal state
 
-| Mechanism            | Scope   | Cleanup        | Type-safe    | Testable                  |
-| -------------------- | ------- | -------------- | ------------ | ------------------------- |
-| Function parameters  | Call    | Automatic      | Yes          | Trivially                 |
-| Return values        | Call    | Automatic      | Yes          | Trivially                 |
-| `$script:` variables | Module  | Module unload  | Yes          | Mockable                  |
-| `$env:` variables    | Process | Never (manual) | No (strings) | Requires snapshot/restore |
-
-If you need to pass a value between functions, pass it as a parameter. If you need to share state within a module, use `$script:`. If you
-need to cache a result, use a module-scoped variable. None of these leak to child processes, pollute tests, or persist beyond their natural
-lifetime.
+Internal state belongs in the mechanisms the language scopes and cleans up automatically: pass values between functions as parameters and
+return values, and keep shared state in module scope. None of these leak to child processes, pollute tests, or persist beyond their natural
+lifetime. The PowerShell mechanism table and idioms are the language layer,
+[environment-variable-mechanics](powershell/environment-variable-mechanics.md) (`ADR-PSENV`).
 
 ## Decision
 

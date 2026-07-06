@@ -10,7 +10,7 @@ a normative summary plus internal links to the prose that justifies it).
 
 - Every `<code>` has the form `ADR-<NAME>` — a literal `ADR-` prefix plus 4–8 uppercase letters — so `ADR-` is the single searchable marker
   for a rule reference anywhere in the repository.
-- **Cite a rule** as `<code>#<n>` — e.g. `ADR-ERROR#3`, `ADR-CACHE#9`, `ADR-NAMING#7`.
+- **Cite a rule** as `<code>#<n>` — e.g. `ADR-ERROR#3`, `ADR-CACHE#5`, `ADR-NAMING#7`.
 - That resolves to the anchor `#rule-<code><n>` with the code lowercased and the `:` dropped — e.g.
   `automation/powershell/error-handling.md#rule-adr-error3` (so it is `rule-adr-error3`, not `rule-adr-error-3`).
 - The `<code>` is unique per ADR; the table below is the authoritative code ↔ ADR mapping.
@@ -29,9 +29,10 @@ a normative summary plus internal links to the prose that justifies it).
 
 ### design/
 
-| Code       | ADR                                                                            |
-| ---------- | ------------------------------------------------------------------------------ |
-| `ADR-FLOW` | [ci-discipline-and-promotion-flow](design/ci-discipline-and-promotion-flow.md) |
+| Code        | ADR                                                                            |
+| ----------- | ------------------------------------------------------------------------------ |
+| `ADR-FLOW`  | [ci-discipline-and-promotion-flow](design/ci-discipline-and-promotion-flow.md) |
+| `ADR-TRACK` | [tracks](design/tracks.md)                                                     |
 
 ### automation/
 
@@ -84,6 +85,13 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 | `ADR-USEPS`    | [use-ps1-not-psm1](automation/powershell/use-ps1-not-psm1.md)                                     |
 | `ADR-AUTOVAR`  | [automatic-variable-pitfalls](automation/powershell/automatic-variable-pitfalls.md)               |
 | `ADR-PSFORMAT` | [powershell-formatting](automation/powershell/powershell-formatting.md)                           |
+| `ADR-PSENV`    | [environment-variable-mechanics](automation/powershell/environment-variable-mechanics.md)         |
+| `ADR-MODPATH`  | [module-path-hygiene](automation/powershell/module-path-hygiene.md)                               |
+| `ADR-PSPARAM`  | [parameter-design](automation/powershell/parameter-design.md)                                     |
+| `ADR-PSPWD`    | [working-directory-mechanics](automation/powershell/working-directory-mechanics.md)               |
+| `ADR-PSXPLAT`  | [cross-platform-powershell](automation/powershell/cross-platform-powershell.md)                   |
+| `ADR-MANIFEST` | [dynamic-module-manifests](automation/powershell/dynamic-module-manifests.md)                     |
+| `ADR-PSCACHE`  | [script-scope-caching](automation/powershell/script-scope-caching.md)                             |
 | `ADR-DRYRUN`   | [prefer-dryrun-over-shouldprocess](automation/powershell/prefer-dryrun-over-shouldprocess.md)     |
 
 #### automation/BCL/

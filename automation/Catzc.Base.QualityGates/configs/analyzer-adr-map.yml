@@ -12,7 +12,7 @@
 analyzers:
     # Custom rules (automation/.scriptanalyzer)
     Measure-VariableCasing: [ADR-PSFORMAT#4]
-    Measure-NeverDependOnPwd: [ADR-NOPWD#1, ADR-NOPWD#3]
+    Measure-NeverDependOnPwd: [ADR-NOPWD#1, ADR-PSPWD#2]
     Measure-FunctionLength: [ADR-ONEJOB#4]
     Measure-NoWriteErrorOrWarning: [ADR-ERROR#3, ADR-ERROR#5]
     Measure-NoAzModuleNaming: [ADR-AZCLI#3]

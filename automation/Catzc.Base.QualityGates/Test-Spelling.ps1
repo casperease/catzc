@@ -178,6 +178,27 @@ function Test-Spelling {
     }
 
     if ($issueCount -gt 0) {
-        throw "Test-Spelling failed: $issueCount spelling issue(s) found — see $runDir"
+        # Name the offending words in the throw itself, so the failure is diagnosable from the message
+        # alone (ADR-CONSOLE:6) — the report still carries the full per-issue detail. An issue line reads
+        # '<path>:<line>:<col> - Unknown word (word) [fix: (suggestion)]'; take the first parenthesized
+        # token after the ' - ' separator.
+        $issueWords = foreach ($issueLine in $issueLines) {
+            $wordMatch = [regex]::Match($issueLine, ' - [^(]*\((?<word>[^)]+)\)')
+            if ($wordMatch.Success) {
+                $wordMatch.Groups['word'].Value
+            }
+        }
+        $words = @($issueWords | Select-Object -Unique)
+        $preview = @($words | Select-Object -First 5)
+        $wordSummary = if ($preview.Count -eq 0) {
+            ''
+        }
+        elseif ($words.Count -gt $preview.Count) {
+            " — first $($preview.Count) misspelled words: $($preview -join ', '), ... $($words.Count - $preview.Count) more"
+        }
+        else {
+            " — misspelled word(s): $($preview -join ', ')"
+        }
+        throw "Test-Spelling failed: $issueCount spelling issue(s) found$wordSummary — see $runDir"
     }
 }

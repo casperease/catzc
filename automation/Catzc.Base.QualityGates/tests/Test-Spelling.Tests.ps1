@@ -25,10 +25,26 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         (Join-Path $result.ReportPath 'spelling.md') | Should -Exist
     }
 
-    It 'throws when cspell reports spelling issues' {
+    It 'throws when cspell reports spelling issues, naming the word in the message' {
         $script:cspellExit = 1
         $script:cspellOut = "docs/x.md:1:1 - Unknown word (mispeld) fix: (misspelled)`nCSpell: Files checked: 1, Issues found: 1 in 1 file."
-        { Test-Spelling -OutputFolder $script:reportBase } | Should -Throw '*spelling issue*'
+        { Test-Spelling -OutputFolder $script:reportBase } | Should -Throw '*spelling issue*misspelled word(s): mispeld*'
+    }
+
+    It 'names the first five distinct misspelled words in the throw and counts the rest' {
+        $script:cspellExit = 1
+        $script:cspellOut = (@(
+                'a.md:1:1 - Unknown word (alpha) fix: (alpine)'
+                'a.md:2:1 - Unknown word (bravo)'
+                'a.md:3:1 - Unknown word (alpha)'
+                'b.md:1:1 - Unknown word (charlie)'
+                'b.md:2:1 - Unknown word (delta)'
+                'b.md:3:1 - Unknown word (echo)'
+                'b.md:4:1 - Unknown word (foxtrot)'
+                'CSpell: Files checked: 2, Issues found: 7 in 2 files.'
+            ) -join "`n")
+        { Test-Spelling -OutputFolder $script:reportBase } |
+            Should -Throw '*first 5 misspelled words: alpha, bravo, charlie, delta, echo, ... 1 more*'
     }
 
     It 'with -PassThru returns the issue and file counts from cspell''s summary' {

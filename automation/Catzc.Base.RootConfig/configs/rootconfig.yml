@@ -59,8 +59,17 @@ files:
     source: automation/Catzc.Base.RootConfig/assets/root/cspell.yml
     comment: hash
     optIn: true
+  # JSON has no comment syntax (and the dotnet manifest parser rejects // line comments), so the generated
+  # marker travels IN the authored source as an ignored "//" property, not as an injected header.
   - target: dotnet-tools.json
     source: automation/Catzc.Base.RootConfig/assets/root/dotnet-tools.json
+    comment: none
+    optIn: true
+  # MSBuild's solution parser requires the 'Format Version' line at the top, so no leading header may be
+  # injected — the generated note lives inside the source's own '#' comment block (which the format allows
+  # only after that line).
+  - target: catzc.sln
+    source: automation/Catzc.Base.RootConfig/assets/root/catzc.sln
     comment: none
     optIn: true
   - target: .gitattributes

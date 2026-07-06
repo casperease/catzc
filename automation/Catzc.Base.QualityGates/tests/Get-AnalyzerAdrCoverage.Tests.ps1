@@ -3,7 +3,7 @@ Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-TEST#28' {
         InModuleScope Catzc.Base.QualityGates {
             Mock Get-Config {
                 [ordered]@{ analyzers = [ordered]@{
-                        'Measure-NeverDependOnPwd' = @('ADR-NOPWD#1', 'ADR-NOPWD#3')
+                        'Measure-NeverDependOnPwd' = @('ADR-NOPWD#1', 'ADR-PSPWD#2')
                         'PSUseApprovedVerbs'       = @('ADR-VERBS#1')
                     }
                 }
@@ -12,7 +12,7 @@ Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-TEST#28' {
             $rows = @(Get-AnalyzerAdrCoverage)
             $rows | Should -HaveCount 3
             ($rows | ForEach-Object Kind | Sort-Object -Unique) | Should -Be 'pssa-rule'
-            ($rows | Where-Object { $_.Enforcer -eq 'Measure-NeverDependOnPwd' }).AdrId | Should -Be @('ADR-NOPWD#1', 'ADR-NOPWD#3')
+            ($rows | Where-Object { $_.Enforcer -eq 'Measure-NeverDependOnPwd' }).AdrId | Should -Be @('ADR-NOPWD#1', 'ADR-PSPWD#2')
             ($rows | Where-Object { $_.AdrId -eq 'ADR-VERBS#1' }).Enforcer | Should -Be 'PSUseApprovedVerbs'
         }
     }

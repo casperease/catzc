@@ -9,7 +9,7 @@ Describe 'Assert-AnalyzerAdrMapConfig' -Tag 'L0', 'logic', 'ADR-TEST#29' {
     It 'accepts a well-formed map' {
         $config = [ordered]@{ analyzers = [ordered]@{
                 'Measure-VariableCasing'   = @('ADR-PSFORMAT#4')
-                'Measure-NeverDependOnPwd' = @('ADR-NOPWD#1', 'ADR-NOPWD#3')
+                'Measure-NeverDependOnPwd' = @('ADR-NOPWD#1', 'ADR-PSPWD#2')
                 'PSUseApprovedVerbs'       = @('ADR-VERBS#1')
             }
         }

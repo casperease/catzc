@@ -105,8 +105,9 @@ known anchor, not the current directory.
 
 The fix is to fix the _form_ a path takes at each boundary, rather than leaving it to each function author. This ADR complements
 [never-depend-on-pwd](never-depend-on-pwd.md) (resolve against `$env:RepositoryRoot`, never `$PWD`),
-[cross-platform](cross-platform.md#rule-adr-xplat1) (`Join-Path` and `[IO.Path]::GetFullPath`, forward slashes), and
-[dedicated-output-directory](../repository/dedicated-output-directory.md) (the `out/` root, whose paths take the same relative form).
+[cross-platform-powershell](powershell/cross-platform-powershell.md#rule-adr-psxplat2) (`Join-Path` and `[IO.Path]::GetFullPath`, forward
+slashes), and [dedicated-output-directory](../repository/dedicated-output-directory.md) (the `out/` root, whose paths take the same relative
+form).
 
 ### The two forms
 

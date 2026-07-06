@@ -94,6 +94,27 @@ graph (Rule ADR-TYPES:4) like any other.
 
 - [Type-accelerator aliases, and backtracking to source](#type-accelerator-aliases-and-backtracking-to-source)
 
+### Rule ADR-TYPES:11
+
+The compiled-type cache key is byte-exact but line-ending-insensitive: `Import-CSharpTypes` hashes each `types/*.cs` with the
+carriage-return bytes stripped, so a CRLF or an LF working tree (git `core.autocrlf`, an editor's format-on-save, a checkout that rewrites
+the file) yields the same `Catzc.Types.<hash>.dll` name on every machine. `.cs` sources are additionally pinned to LF in `.gitattributes` so
+a checkout materializes identical bytes in the first place. The carriage-return stripping is duplicated in `Clear-ModuleTypeCache` (the
+janitor), the drift-guard tests, and the IDE project's stamp task — keep all of them identical, or the janitor will plan the live build for
+deletion.
+
+- [The cache-state contract](#the-cache-state-contract)
+
+### Rule ADR-TYPES:12
+
+The "source changed since loaded — restart PowerShell" guard is keyed by `ModulesRoot`. `Import-CSharpTypes` takes the tree as a parameter,
+and one session may load more than one tree (the real `automation/` plus the test-fixture trees), so the per-session record of loaded hash
+and file snapshot is stored per resolved root. A load from one root therefore never makes a re-import of another root falsely report a
+change — without this, running the test suite (which loads fixture trees) would poison the next real import's guard. The thrown message
+names the drifted files and both hashes so the cause is diagnosable from the error text alone.
+
+- [The cache-state contract](#the-cache-state-contract)
+
 ## Context
 
 Some logic is better expressed as a native .NET type than as PowerShell: a process runner with background reader threads

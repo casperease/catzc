@@ -5,7 +5,8 @@
     Flags:
     - References to $PWD (use $PSScriptRoot or $env:RepositoryRoot instead)
     - Bare Set-Location / cd calls (use Push-Location / Pop-Location instead)
-    See docs/adr/automation/never-depend-on-pwd.md#rule-adr-nopwd1
+    See docs/adr/automation/never-depend-on-pwd.md#rule-adr-nopwd1 and
+    docs/adr/automation/powershell/working-directory-mechanics.md#rule-adr-pspwd2
 #>
 
 function Measure-NeverDependOnPwd {

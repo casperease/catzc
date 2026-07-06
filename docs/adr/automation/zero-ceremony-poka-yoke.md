@@ -72,8 +72,9 @@ silently propagate.
 editor. PSScriptAnalyzer rules enforce brace style and variable casing. The author does not need to think about formatting — the tools
 handle it.
 
-**You cannot depend on $PWD.** [Never depend on $PWD](never-depend-on-pwd.md#rule-adr-nopwd3) — a custom PSScriptAnalyzer rule flags bare
-`Set-Location` calls. Functions that accidentally depend on the working directory are caught before they run in a different context.
+**You cannot depend on $PWD.** [Working-directory mechanics](powershell/working-directory-mechanics.md#rule-adr-pspwd2) — a custom
+PSScriptAnalyzer rule flags bare `Set-Location` calls. Functions that accidentally depend on the working directory are caught before they
+run in a different context.
 
 **You cannot publish a function that doesn't exist.** [Use .ps1 not .psm1](powershell/use-ps1-not-psm1.md) — the bootstrap module derives
 exports from file names. There is no manifest to get out of sync — the file system is the source of truth.

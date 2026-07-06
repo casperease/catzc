@@ -40,6 +40,7 @@
     ".prettierignore": true,
     "cspell.yml": true,
     "dotnet-tools.json": true,
+    "catzc.sln": true,
     ".gitattributes": true,
     ".gitignore": true
   },

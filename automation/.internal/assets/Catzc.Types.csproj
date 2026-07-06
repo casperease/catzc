@@ -2,8 +2,9 @@
   IDE: It exists so VS Code's C# Dev Kit (and any Roslyn-based editor) compiles and analyzes
   the repo's native type sources — automation/<Module>/types/*.cs — with the SAME rules the runtime honors.
 
-  Location: this project lives at automation/.internal/assets/Catzc.Types.csproj; the committed root catzc.sln
-  (a real solution, kept at the repo root so Dev Kit auto-loads it) references it by relative path. Every
+  Location: this project lives at automation/.internal/assets/Catzc.Types.csproj; the root catzc.sln (a real
+  solution, managed by Build-RootConfig and kept at the repo root so Dev Kit auto-loads it) references it by
+  relative path. Every
   path below is therefore project-relative: '../..' is the automation/ directory.
   Each source declares its module's file-scoped namespace (Format-Types writes it, Test-Types gates it), so
   the analyzer sees real namespaces and never raises a false CA1050 "Declare types in namespaces".

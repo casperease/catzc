@@ -39,7 +39,8 @@ to take effect now.
 The module ships one asset alongside its public functions: `assets/Set-LocalPSModulePath.ps1`. This is a one-time helper that writes a local
 PSModulePath entry into the user-scope `powershell.config.json`, preventing PowerShell from scanning a slow network share on every import.
 It is not a public function — it is an advisory script a developer runs once when setting up a machine on a domain network. The governing
-rationale is in [effective-in-enterprises](../../adr/automation/effective-in-enterprises.md).
+rationale is in [module-path-hygiene](../../adr/automation/powershell/module-path-hygiene.md) (over
+[effective-in-enterprises](../../adr/automation/effective-in-enterprises.md)).
 
 The module has no configuration files and no private helpers. All input validation is delegated to
 [Catzc.Base.Asserts](catzc-base-asserts.md), keeping each function's body focused on the PATH operation itself.
