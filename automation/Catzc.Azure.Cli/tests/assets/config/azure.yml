@@ -1,3 +1,7 @@
+# yaml-language-server: $schema=.not-azure-schema.json
+# (Pins an empty, match-anything schema. Without it the editor matches this file to the Azure
+#  Developer CLI `azure.yaml` schema by filename alone and wrongly demands a `name` key.)
+
 # Test-only identity fixture for Catzc.Azure.Templates unit tests. Tests redirect config discovery here
 # (Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -> tests/assets/config/<name>.yml) so logic tests
 # own their identity inputs and never depend on the shipped configs/azure.yml. Deliberately distinct names,

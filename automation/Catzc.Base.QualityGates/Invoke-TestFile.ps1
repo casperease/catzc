@@ -81,9 +81,20 @@ function Invoke-TestFile {
     $shard = New-TestAutomationShardScript -ShardIndex 0 -TestPath $resolved -RunDirectory $runDirectory `
         -Verbosity $Output -FullNameFilter $FullNameFilter
 
-    # One worker, live output — the same runner the harness pools.
-    $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-        [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $null, $TimeoutSeconds, $true)
+    # One worker, live output — the same runner the harness pools, behind the same machine-wide run lock
+    # (a file run launched mid-suite would race the suite's shared build folders; Wait-TestRunMutex owns
+    # the why).
+    $runMutex = Wait-TestRunMutex -Reason 'test file run'
+    try {
+        $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
+            [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $null, $TimeoutSeconds, $true)
+    }
+    finally {
+        if ($runMutex) {
+            $runMutex.ReleaseMutex()
+            $runMutex.Dispose()
+        }
+    }
     $exitCode = $runner.Results[0].ExitCode
 
     # 0 = green, 1 = the run did not pass; anything else (or a missing rows sidecar) is a worker crash.
