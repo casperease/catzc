@@ -41,6 +41,7 @@ groups:
     AzureExt:
         Catzc.Azure.Cli: []
         Catzc.Azure.DevOps: [Catzc.Azure.Cli]
+        Catzc.Azure.DevOps.BuildValidation: [Catzc.Azure.DevOps]
         Catzc.Azure.Firewall: [Catzc.Azure.Cli]
         Catzc.Azure.Templates: [Catzc.Azure.Cli]
 
@@ -68,5 +69,6 @@ modules:
     Catzc.Tooling.Github: [Base]
     Catzc.Azure.Cli: [Base, Catzc.Azure, Catzc.Tooling.Core]
     Catzc.Azure.DevOps: [Tooling, Base, Catzc.Azure]
+    Catzc.Azure.DevOps.BuildValidation: [Base]
     Catzc.Azure.Firewall: [Tooling, Base, Catzc.Azure]
     Catzc.Azure.Templates: [Tooling, Base, Catzc.Azure]

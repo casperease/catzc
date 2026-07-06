@@ -16,7 +16,7 @@ Catzc.Base.Execution (for `git` invocations) and Catzc.Base.Asserts (for the Ass
 ### domain:1 — Filesystem operations
 
 Materialising and observing files on disk. The two write primitives are the write tail every generated-artifact builder shares
-(Build-RootConfig, Build-Readme, …): `Write-FileIfChanged` canonicalises content, compares EOL-insensitively, and writes only on a real
+(Build-RootConfig, Build-Readme, Build-GitKeep, …): `Write-FileIfChanged` canonicalises content, compares EOL-insensitively, and writes only on a real
 change — delete-then-write, so a changed write can never tunnel through a linked target into its source; `Set-FileLink` materialises a file
 as a filesystem link to a source of truth (a relative symbolic link where permitted, a hard link on privilege-less Windows, a throw — never
 a content copy). The directory copy uses the .NET APIs directly for efficiency — no shelling out, no intermediate listings. The lock check

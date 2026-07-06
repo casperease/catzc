@@ -1,12 +1,12 @@
-# Integrity gate for generated README copy-ins.
+# Integrity gate for generated README links.
 #
-# readme.yml (expanded by Get-ReadmeMappings) is the registry of folders whose README.md is a GENERATED
-# copy-in of a docs/ source — a derived artifact, never authored in place. Every such README must therefore be:
+# readme.yml (expanded by Get-ReadmeMappings) is the registry of folders whose README.md is a LINK to a
+# docs/ source — a derived artifact, never authored in place. Every such README must therefore be:
 #   1. matched by a .gitignore ignore rule (so a fresh Build-Readme output is never accidentally stageable), and
 #   2. absent from git tracking (removed with `git rm --cached` if it was ever committed).
 # Hand-authored READMEs are exactly the folders NOT in readme.yml; they are individually un-ignored in
 # .gitignore and are out of scope here. See docs/adr/repository/generated-readmes.md.
-Describe 'Generated README copy-ins are gitignored and untracked' -Tag 'L2', 'integrity' {
+Describe 'Generated README links are gitignored and untracked' -Tag 'L2', 'integrity' {
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
         $script:skip = $null
@@ -31,13 +31,14 @@ Describe 'Generated README copy-ins are gitignored and untracked' -Tag 'L2', 'in
         # Resolve the configured targets exactly as Build-Readme does: expand readme.yml through
         # Get-ReadmeMappings (private, so reached via the module per ADR-PESTER:4) against the real repo root.
         # Each target folder's generated file is "<folder>/README.md".
+        $script:mappings = @()
         $script:targets = @()
         if (-not $script:skip) {
             $config = Get-Config -Config readme
-            $mappings = InModuleScope Catzc.Base.Docs -Parameters @{ Config = $config } {
-                param($Config) Get-ReadmeMappings -Config $Config
-            }
-            $script:targets = @($mappings.folder | ForEach-Object { "$_/README.md" } | Sort-Object -Unique)
+            $script:mappings = @(InModuleScope Catzc.Base.Docs -Parameters @{ Config = $config } {
+                    param($Config) Get-ReadmeMappings -Config $Config
+                })
+            $script:targets = @($script:mappings.folder | ForEach-Object { "$_/README.md" } | Sort-Object -Unique)
         }
     }
 
@@ -76,5 +77,34 @@ Describe 'Generated README copy-ins are gitignored and untracked' -Tag 'L2', 'in
                 $LASTEXITCODE -eq 0
             })
         $tracked | Should -HaveCount 0 -Because "these generated READMEs are committed but must be gitignored artifacts — run 'git rm --cached <path>': $($tracked -join '; ')"
+    }
+
+    It 'materialises every mapped README as an effective link to its source' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
+
+        # Effective from THIS OS: a symbolic link resolving to the mapping's source, or a hard link whose
+        # bytes are CR-insensitively identical to it. Anything else is a broken or stale artifact.
+        $broken = @(foreach ($mapping in $script:mappings) {
+                $readmePath = Join-Path $script:repoRoot "$($mapping.folder)/README.md"
+                $sourcePath = Join-Path $script:repoRoot $mapping.source
+                $item = Get-Item -LiteralPath $readmePath -Force -ErrorAction Ignore
+                $effective = $false
+                if ($item -and $item.LinkType -eq 'SymbolicLink') {
+                    $resolved = $item.ResolveLinkTarget($true)
+                    $effective = $resolved -and (
+                        [System.IO.Path]::GetFullPath($resolved.FullName) -eq [System.IO.Path]::GetFullPath($sourcePath))
+                }
+                elseif ($item -and $item.LinkType -eq 'HardLink') {
+                    $readmeText = [System.IO.File]::ReadAllText($readmePath) -replace "`r", ''
+                    $sourceText = [System.IO.File]::ReadAllText($sourcePath) -replace "`r", ''
+                    $effective = $readmeText -ceq $sourceText
+                }
+                if (-not $effective) {
+                    "$($mapping.folder)/README.md"
+                }
+            })
+        $broken | Should -HaveCount 0 -Because "these README links are missing, stale, or not links — re-run the importer (Build-Readme re-links): $($broken -join '; ')"
     }
 }

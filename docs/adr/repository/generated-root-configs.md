@@ -22,9 +22,9 @@ The registry is `automation/Catzc.Base.RootConfig/configs/rootconfig.yml` — va
 ### Rule ADR-ROOTCFG:3
 
 Per entry, the `committed` boolean (default false) decides git membership and nothing else. `committed: false` → the target is a derived,
-gitignored artifact, reproduced on import like the generated READMEs. `committed: true` → the target stays tracked because git or the
-bootstrap reads it **before the importer runs** (`importer.ps1`), while the automation still owns its content — a source change surfaces as
-a reviewable diff. The difference between the two is one boolean, not two systems.
+gitignored artifact, materialised on import like the generated module manifests. `committed: true` → the target stays tracked because git
+or the bootstrap reads it **before the importer runs** (`importer.ps1`), while the automation still owns its content — a source change
+surfaces as a reviewable diff. The difference between the two is one boolean, not two systems.
 
 - [One system, one boolean](#one-system-one-boolean)
 
@@ -79,7 +79,7 @@ syntax) get re-solved ad hoc. "Root" names the ownership — one source of truth
 managed set covers the repository root and the `.vscode/` editor files (settings, extension recommendations, launch profiles, and the
 preview CSS), all `committed: false`, so the editor greys them and a fresh clone materialises them on its first import — the same contract
 as the generated cspell dictionaries ([dedicated-output-directory](dedicated-output-directory.md#rule-adr-outdir8)). The repository already
-treats other per-folder derived files as generated, gitignored artifacts — the module manifests and the README copy-ins
+treats other per-folder derived files as generated, gitignored artifacts — the module manifests and the README links
 ([generated-readmes](generated-readmes.md)) — and already generated one root file each in two one-off ways: the root analyzer settings (a
 bespoke builder) and `importer.ps1` (`New-Importer` plus a drift test). A root config file is the same pattern; what was missing was one
 registry and one writer.
@@ -130,10 +130,11 @@ call current, leaving the mechanism disagreeing with the registry. The inverse i
 ### Always current, at no steady-state cost
 
 Because the targets are cheap to reproduce and must never go stale, the importer regenerates them on every load, exactly like the README
-copy-ins. This is safe only because generation is idempotent: `Write-FileIfChanged` canonicalises, compares ignoring line endings, and
-writes only on a real change (delete-then-write, so the changed write always yields a fresh, independent file); `Set-FileLink` answers
-"already the right link" with no write at all. The same primitives are the write tail for every generated-artifact builder — one living copy
-of that logic (see [one-living-version](../principles/one-living-version.md)) instead of a per-builder reimplementation.
+links ([generated-readmes](generated-readmes.md)). This is safe only because generation is idempotent: `Write-FileIfChanged` canonicalises,
+compares ignoring line endings, and writes only on a real change (delete-then-write, so the changed write always yields a fresh,
+independent file); `Set-FileLink` answers "already the right link" with no write at all. The same primitives are the write tail for every
+generated-artifact builder — one living copy of that logic (see [one-living-version](../principles/one-living-version.md)) instead of a
+per-builder reimplementation.
 
 ### The integrity gate
 

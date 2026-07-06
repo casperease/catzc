@@ -3,19 +3,17 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         Import-InternalModule TestKit
 
         # Isolate through the seams (ADR-PESTER:2): mock the config seam (Get-Config) and redirect the repository
-        # root to a fixture tree (TestKit) so Resolve-RepoPath and the link rebaser bind inside it.
-        # H1, a blank line (exercises the double-blank guard, MD012), then a sibling link and a parent link
-        # (exercise the rebaser) and an in-page anchor (must be left alone).
+        # root to a fixture tree (TestKit) so Resolve-RepoPath binds inside it.
         $sourceText = @(
             '# Fixture Title'
             ''
-            'See [asserts](catzc-base-asserts.md) and [pwd](../../adr/automation/never-depend-on-pwd.md).'
-            'Jump to [top](#fixture-title).'
+            'Prose with a [sibling link](catzc-base-asserts.md) that resolves at the source location.'
         ) -join "`n"
         $script:fake = New-FakeRepositoryRoot -Modules @{ 'Catzc.Fixture' = @{} } -Files @{
             'docs/references/automation/foo.md' = ($sourceText + "`n")
         }
         $script:readme = Join-Path $script:fake.Root 'automation/Catzc.Fixture/README.md'
+        $script:source = Join-Path $script:fake.Root 'docs/references/automation/foo.md'
 
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         Mock Get-Config -ModuleName Catzc.Base.Docs {
@@ -32,55 +30,46 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         Remove-FakeRepositoryRoot $script:fake
     }
 
-    It 'generates the README with the banner injected after the H1' {
-        Build-Readme | Out-Null
-        Test-Path $script:readme | Should -BeTrue
-        $text = [System.IO.File]::ReadAllText($script:readme)
-        ($text -split "`n")[0] | Should -Be '# Fixture Title'
-        $text | Should -Match '> ⚠️ \*\*Warning'
-        $text | Should -Match '`docs/references/automation/foo\.md`'
+    BeforeEach {
+        Remove-Item $script:readme -Force -ErrorAction Ignore
     }
 
-    It 'rebases relative links to the target folder and leaves the anchor' {
+    It 'materialises the README as a link whose content IS the source' {
         Build-Readme | Out-Null
-        $text = [System.IO.File]::ReadAllText($script:readme)
-        $text | Should -Match '\[asserts\]\(\.\./\.\./docs/references/automation/catzc-base-asserts\.md\)'
-        $text | Should -Match '\[pwd\]\(\.\./\.\./docs/adr/automation/never-depend-on-pwd\.md\)'
-        $text | Should -Match '\[top\]\(#fixture-title\)'
+        (Get-Item -LiteralPath $script:readme -Force).LinkType | Should -Not -BeNullOrEmpty
+        [System.IO.File]::ReadAllText($script:readme) |
+            Should -Be ([System.IO.File]::ReadAllText($script:source))
     }
 
-    It 'produces no double blank line (MD012-clean) and a single trailing newline' {
-        Build-Readme | Out-Null
-        $text = [System.IO.File]::ReadAllText($script:readme)
-        $text | Should -Not -Match "`n`n`n"
-        $text.EndsWith("`n") | Should -BeTrue
-        $text.EndsWith("`n`n") | Should -BeFalse
+    It 'replaces a plain file (the old generated copy) with a link' {
+        [System.IO.File]::WriteAllText($script:readme, "# Old generated copy`n")
+
+        $result = Build-Readme -PassThru
+        $result[0].Changed | Should -BeTrue
+        (Get-Item -LiteralPath $script:readme -Force).LinkType | Should -Not -BeNullOrEmpty
     }
 
-    It 'is idempotent — a second run rewrites nothing' {
+    It 'is idempotent — a second run changes nothing' {
         Build-Readme | Out-Null
         $result = Build-Readme -PassThru
         ($result | Where-Object Changed) | Should -BeNullOrEmpty
     }
 
-    It 'skips a rewrite when only the line endings differ (EOL-insensitive)' {
+    It 'an edit through the README path lands in the source' {
         Build-Readme | Out-Null
-        $lf = [System.IO.File]::ReadAllText($script:readme)
-        $crlf = $lf -replace "`n", "`r`n"
-        [System.IO.File]::WriteAllText($script:readme, $crlf, [System.Text.UTF8Encoding]::new($false))
-        $result = Build-Readme -PassThru
-        ($result | Where-Object Changed) |
-            Should -BeNullOrEmpty -Because 'a pure CRLF/LF difference is not a content change'
+        [System.IO.File]::WriteAllText($script:readme, "# Edited through the README`n")
+        [System.IO.File]::ReadAllText($script:source) | Should -Be "# Edited through the README`n"
+
+        # Restore the fixture source for the sibling tests.
+        [System.IO.File]::WriteAllText($script:source, "# Fixture Title`n")
     }
 
     It 'with -DryRun does not write a missing README' {
-        Remove-Item $script:readme -Force -ErrorAction Ignore
         Build-Readme -DryRun | Out-Null
         Test-Path $script:readme | Should -BeFalse
     }
 
     It 'reports the change with -DryRun -PassThru without writing' {
-        Remove-Item $script:readme -Force -ErrorAction Ignore
         $result = Build-Readme -DryRun -PassThru
         @($result).Count | Should -Be 1
         $result[0].Changed | Should -BeTrue
@@ -93,43 +82,9 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Update-MarkdownRelativeLink' -Tag 'L0', 'logic' {
-    It 'rebases parent-relative and sibling links; leaves anchors and URLs' {
-        InModuleScope Catzc.Base.Docs -Parameters @{ Root = $TestDrive } {
-            param($Root)
-            $content = @(
-                '[pwd](../../adr/automation/never-depend-on-pwd.md)'
-                '[files](catzc-base-files.md)'
-                '[anchor](#domain1--x)'
-                '[web](https://example.com/x.md)'
-            ) -join "`n"
-            $out = Update-MarkdownRelativeLink -Content $content `
-                -SourceDirectory 'docs/references/automation' `
-                -TargetDirectory 'automation/Catzc.Base.Repository' `
-                -RepositoryRoot $Root
-            $lines = $out -split "`n"
-            $lines[0] | Should -Be '[pwd](../../docs/adr/automation/never-depend-on-pwd.md)'
-            $lines[1] | Should -Be '[files](../../docs/references/automation/catzc-base-files.md)'
-            $lines[2] | Should -Be '[anchor](#domain1--x)'
-            $lines[3] | Should -Be '[web](https://example.com/x.md)'
-        }
-    }
-
-    It 'preserves a #fragment and an optional title when rebasing' {
-        InModuleScope Catzc.Base.Docs -Parameters @{ Root = $TestDrive } {
-            param($Root)
-            $out = Update-MarkdownRelativeLink -Content '[x](../../adr/repository/api-contracts.md#rule-adr-contract2 "Contracts")' `
-                -SourceDirectory 'docs/references/automation' `
-                -TargetDirectory 'automation/Catzc.Azure' `
-                -RepositoryRoot $Root
-            $out | Should -Be '[x](../../docs/adr/repository/api-contracts.md#rule-adr-contract2 "Contracts")'
-        }
-    }
-}
-
 Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity' {
     # The real readme.yml registry is consistent with the repository — every resolved README's source exists
-    # (Build-Readme asserts it), every automation module is covered by the pattern, and the generated/committed
+    # (Set-FileLink asserts it), every automation module is covered by the pattern, and the generated/committed
     # split matches .gitignore (every mapped README is ignored; none is opted back in). Resolves through the
     # public generator (Build-Readme -DryRun -PassThru) since the pattern expansion (Get-ReadmeMappings) is
     # private. Closes the poka-yoke gap of the two-place "generated vs committed" convention (readme.yml <->
@@ -145,7 +100,7 @@ Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity' {
         )
     }
 
-    It 'resolves every README without a missing-source throw (Build-Readme asserts each source exists)' {
+    It 'resolves every README without a missing-source throw (Set-FileLink asserts each source exists)' {
         { Build-Readme -DryRun -Silent | Out-Null } | Should -Not -Throw
     }
 

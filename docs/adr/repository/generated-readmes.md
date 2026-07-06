@@ -1,25 +1,25 @@
-# Generated READMEs — one authored source, copied out per conventional folder
+# Generated READMEs — one authored source, linked out per conventional folder
 
 ## Rules: ADR-README
 
 ### Rule ADR-README:1
 
-A `README.md` in a mapped conventional folder is a generated copy-in of an authored docs source, never hand-edited. Corrections go to the
-source; the README is reproduced from it.
+A `README.md` in a mapped conventional folder is a **filesystem link** to an authored docs source, never a hand-kept copy: the README IS
+the source, so there is no second copy to drift and an edit through either path lands in the one authored file.
 
 - [Decision](#decision)
 
 ### Rule ADR-README:2
 
-Generated READMEs are derived artifacts, gitignored globally (`**/README.md`) exactly like the generated `.psd1` manifests — regenerated,
-not committed. History and the authored text live elsewhere (git; the source).
+Generated READMEs are derived artifacts, gitignored globally (`**/README.md`) exactly like the generated `.psd1` manifests — re-linked on
+import, never committed. History and the authored text live elsewhere (git; the source).
 
 - [Derived, not committed](#derived-not-committed)
 
 ### Rule ADR-README:3
 
-A folder keeps a hand-authored, committed README by opting out: omit it from the map and un-ignore it in `.gitignore` (`!path/README.md`). A
-folder is therefore either generated (mapped, ignored) or committed (unmapped, opted-in) — never both.
+A folder keeps a hand-authored, committed README by opting out: omit it from the map and un-ignore it in `.gitignore` (`!path/README.md`).
+A folder is therefore either generated (mapped, ignored) or committed (unmapped, opted-in) — never both.
 
 - [Opt-out is explicit and located](#opt-out-is-explicit-and-located)
 
@@ -27,74 +27,62 @@ folder is therefore either generated (mapped, ignored) or committed (unmapped, o
 
 The map from a target folder to its source lives only in `automation/Catzc.Base.Docs/configs/readme.yml` — a glob `patterns` list whose
 matched folders derive their source by convention, plus explicit `mappings` for the exceptions — validated by the `DocsConfig` type and
-expanded by `Get-ReadmeMappings`; `Build-Readme` is the single generator. The mapping is not restated anywhere else.
+expanded by `Get-ReadmeMappings`; `Build-Readme` is the single writer. The mapping is not restated anywhere else.
 
 - [Decision](#decision)
 
 ### Rule ADR-README:5
 
-Generation is idempotent and runs on every import (the importer tail). Output is canonical (UTF-8 no BOM, LF, one trailing newline) and a
-README is rewritten only when its composed content differs, compared line-ending-insensitively — so a clean tree is a fast no-op and a
-CRLF/LF flip never forces a rewrite.
+Materialisation is idempotent and runs on every import (the importer tail), through the one link mechanism owner `Set-FileLink`
+(`Catzc.Base.Files`, [ADR-ROOTCFG:7](generated-root-configs.md#rule-adr-rootcfg7)): a README that is already an effective link to its
+source is a no-op, and anything else — an old plain-file copy, a wrong or orphaned link — is recreated with the running OS's best mechanism
+(a relative symbolic link where permitted, a hard link on privilege-less Windows), so a clean tree is a fast no-op and each OS heals its
+own view at its session start.
 
 - [Always current, at no steady-state cost](#always-current-at-no-steady-state-cost)
 
 ### Rule ADR-README:6
 
-The warning banner injected after the title is a portable blockquote (`> ⚠️ **Warning …**`) that renders as an intentional warning in
-GitHub, Azure DevOps, and VS Code. No callout-box syntax styles in all three, so the lowest-common-denominator form is used.
+Relative links resolve at the source. An article authors its links relative to its own `docs/` location, and the docs tree is the reading
+surface where they are guaranteed to resolve; the README path is a pointer into that surface, not a second rendering with its own link
+base. A consumer that resolves a relative reference against the README's folder rather than the source's location reads the article from
+the wrong base — the accepted cost of the link form, bounded by the fact that the links are gitignored and local-only (no hosted renderer
+ever serves them).
 
-- [The banner is portable by construction](#the-banner-is-portable-by-construction)
+- [The reading surface is the source](#the-reading-surface-is-the-source)
 
 ### Rule ADR-README:7
 
 Authored sources live under `docs/references/` — automation modules as the domains-first reference articles in
-`docs/references/automation/<kebab>.md`, and other folders (pipelines, infrastructure) under `docs/references/`. The source is the reviewed,
-gate-checked artifact; the generated README is its rendering and is out of markdown-gate scope.
+`docs/references/automation/<kebab>.md`, and other folders (pipelines, infrastructure) under `docs/references/`. The source is the
+reviewed, gate-checked artifact; the README link is out of markdown-gate scope.
 
 - [Derived, not committed](#derived-not-committed)
 
-### Rule ADR-README:8
-
-Because a README is generated in a different folder than its source, `Build-Readme` rebases the source's relative links and images to
-resolve from the target folder — each link is resolved against the source directory, then re-expressed relative to the target. In-page
-anchors, external URLs, and root-absolute paths are left as-is. A source therefore authors links relative to its own location, and they
-still resolve in the generated README.
-
-- [Links are rebased to the target folder](#links-are-rebased-to-the-target-folder)
-
-### Rule ADR-README:9
-
-Every `.gitkeep` is a managed, committed copy of the one generic source (`Catzc.Base.Docs/assets/gitkeep`), reproduced by `Build-GitKeep` on
-every import — the folder is the registration; there is no list to maintain. The generic text points at the folder's `README.md`, and that
-pointer is binding: an integrity test requires every `.gitkeep` folder to be a readme-mapped target, so adding a `.gitkeep` anywhere demands
-its reference article — the gap finder for the reference docs. `.gitkeep` files stay tracked (keeping the folder in git is their job), so a
-source change lands as a reviewable diff across every location.
-
-- [.gitkeep files point at the README, and the pointer is enforced](#gitkeep-files-point-at-the-readme-and-the-pointer-is-enforced)
-
 ## Context
 
-A `README.md` is what a reader sees first in a folder on GitHub, in Azure DevOps, and in an editor. Kept by hand, each drifts from the
-documentation it duplicates, and the same content is maintained in two places. The repository already treats other per-folder,
-convention-derived files — the module manifests — as generated, gitignored artifacts
-([dynamic-module-manifests](../automation/powershell/dynamic-module-manifests.md), `ADR-MANIFEST:3`); a README copied out from one authored
-source is the same pattern applied to prose.
+A `README.md` is what a reader sees first in a folder in an editor. Kept by hand, each drifts from the documentation it duplicates, and the
+same content is maintained in two places. The repository already treats other per-folder, convention-derived files as generated, gitignored
+artifacts ([dynamic-module-manifests](../automation/powershell/dynamic-module-manifests.md), `ADR-MANIFEST:3`), and the managed root
+configs materialise a source-backed, gitignored target as a filesystem link to its source of truth
+([generated-root-configs](generated-root-configs.md), `ADR-ROOTCFG:7`). A README is the same shape: one authored source under `docs/`, one
+derived artifact per folder — and the link form makes the artifact the source itself, so drift is impossible by construction and there is
+no banner, rebasing, or composed content to maintain.
 
 ## Decision
 
-Each mapped conventional folder's `README.md` is generated by `Build-Readme` (module `Catzc.Base.Docs`) from a single authored source under
-`docs/references/`, declared in `configs/readme.yml` (glob `patterns` + explicit `mappings`) and validated by `DocsConfig`. The generator
-copies the source out, rebases its relative links to the target folder, and injects a standard "generated file" warning after the title.
-There is one authored copy of the content (the source) and one derived copy per folder (the README).
+Each mapped conventional folder's `README.md` is materialised by `Build-Readme` (module `Catzc.Base.Docs`) as a filesystem link to its
+single authored source under `docs/references/`, declared in `configs/readme.yml` (glob `patterns` + explicit `mappings`) and validated by
+`DocsConfig`. There is one authored copy of the content (the source) and one link per folder (the README) — the same file, reachable from
+both paths.
 
 ### Derived, not committed
 
-The generated README is an artifact, not source. It is gitignored globally (`**/README.md`), the way the generated `.psd1` manifests are
+The README link is an artifact, not source. It is gitignored globally (`**/README.md`), the way the generated `.psd1` manifests are
 ([dedicated-output-directory](dedicated-output-directory.md) treats generated artifacts as out of the committed source set), and it is
-excluded from the markdown gate — its rebased links can exceed the line-length rule, and the authored source under `docs/references/` is the
-reviewed artifact, not its rendering. Editing a generated README is editing a build output — the injected banner says so and names the
-source.
+excluded from the markdown gate — the authored source under `docs/references/` is the reviewed artifact. Committing a link would also be
+committing a git link object, which Windows checkouts materialise unreliably — the same reason a `committed` root config is never a link
+([ADR-ROOTCFG:7](generated-root-configs.md#rule-adr-rootcfg7)).
 
 ### Opt-out is explicit and located
 
@@ -105,39 +93,28 @@ in.
 
 ### Always current, at no steady-state cost
 
-Because the READMEs are cheap to reproduce and must never go stale, the importer regenerates them on every load. This is safe only because
-generation is idempotent: canonical output and a content compare that ignores line endings mean a clean tree writes nothing, and the cost is
-a few small file reads over a cached config.
+Because the links are cheap to verify and must never go stale, the importer re-materialises them on every load. This is safe only because
+`Set-FileLink` is idempotent: an effective link (a symbolic link resolving to the source, or a hard link with identical bytes) is a no-op,
+and anything else is deleted and recreated — including a plain file whose content happens to match, because content equality is not the
+contract; being the same file is. The per-OS healing contract is the mechanism owner's
+([generated-root-configs](generated-root-configs.md#copy-as-link-the-target-is-the-source)): a Windows session typically holds hard links,
+a Linux session symbolic links, and each session verifies and heals its own view at import.
 
-### The banner is portable by construction
+### The reading surface is the source
 
-The banner renders wherever the README is read. GitHub styles a `> [!WARNING]` alert, but Azure DevOps and VS Code render it as literal
-text, and none of the three renders the same callout box. So the banner is a plain blockquote with an emoji and bold lead-in — features
-every one of the three renders — accepting a consistent, readable warning over a colored box that works in only one place.
-
-### .gitkeep files point at the README, and the pointer is enforced
-
-A `.gitkeep` exists precisely where a folder has nothing else to say for itself in git — an empty template-kind folder, a content-ignored
-output root — which is exactly where a reader most needs an explanation. So the two generated artifacts pair up: the `.gitkeep` is a generic
-managed copy whose text says everything worth knowing is in the folder's `README.md`, and the readme system supplies that README from a
-`docs/references/` article. The integrity gate closes the loop in both directions — a `.gitkeep` whose folder is not readme-mapped fails
-(write the article, or remove the marker), and a `.gitkeep` whose content drifts from the source fails (re-run the importer and commit).
-Unlike the gitignored READMEs, the `.gitkeep` copies are committed: tracking the folder is their purpose, so the managed content rides in
-git and a source edit is a reviewable, repo-wide diff.
-
-### Links are rebased to the target folder
-
-A source and its generated README sit in different folders, so a relative link that is correct at the source (`../../adr/...`, a sibling
-reference) would point nowhere from the README. Rather than force sources to author links for a distant target, `Build-Readme` rebases them:
-it resolves each relative link against the source directory and re-expresses it relative to the target folder, so the same file is reached
-from either place. It is pure path arithmetic — anchors, external URLs, and root-absolute paths are untouched. This keeps sources natural to
-write and read in place while their renderings link correctly from the module folders. Reference docs link to sibling reference docs
-(committed), not to sibling READMEs (generated, uncommitted), so rebased links never point at an artifact that is absent from git.
+An authored article links to its neighbours — sibling references, ADRs — relative to its own location, and those links are checked by the
+markdown gate at that location. The README makes the article reachable from the folder it documents; reading it there shows the source
+content, and editing it there edits the source. What the link form does not provide is a second link base: a renderer that resolves
+relative references against the README's folder resolves them against the wrong base. That consumer does not exist in practice — the
+READMEs are gitignored, so no hosted renderer ever serves them, and the in-repo navigation surface is the docs tree itself — which is why
+the trade is accepted rather than compensated for with a rewritten copy.
 
 ## Consequences
 
-- Per-folder README content is authored once, under `docs/references/`, and cannot drift from a second hand-kept copy.
-- A reader never mistakes a generated README for a source of truth: it is gitignored, banner-marked, and reproduced on every import.
+- Per-folder README content is authored once, under `docs/references/`, and cannot drift — the README is the same file, not a copy kept in
+  step.
+- A reader never mistakes a generated README for a second source of truth: there is no second content at all, and an edit through the
+  README path lands in the authored source, which is the intent.
 - Adding a generated README is one mapping line plus its source file; opting a folder out is one `.gitignore` line and leaving it unmapped.
-- Relative links are rebased when copied out, so a link authored relative to the source resolves correctly from the generated README's
-  folder — no manual per-target link juggling.
+- The cost is the link base: relative links inside an article are guaranteed to resolve only at the source's own location, so the docs tree
+  is the canonical reading surface and the README is the pointer to it.

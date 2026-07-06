@@ -1,31 +1,28 @@
 <#
 .SYNOPSIS
-    Generates each conventional folder's README.md as a copy-in of its authored docs source — the writer
-    behind the "READMEs are generated" contract.
+    Materialises each conventional folder's README.md as a filesystem link to its authored docs source — the
+    writer behind the "READMEs are generated" contract.
 .DESCRIPTION
-    Reads the README copy-in registry (configs/readme.yml, via Get-Config -Config readme), expands its glob
-    patterns against the filesystem (Get-ReadmeMappings), and for every resulting mapping copies the authored
-    `source` docs file out to `<folder>/README.md`, injecting a standard "generated
-    file" warning immediately after the source's first H1 title (prepended when the source has no H1). The
-    warning names the exact source and renders as an intentional warning in GitHub, Azure DevOps, and VS Code
-    (a portable blockquote — none of the three renders a common callout syntax).
+    Reads the README registry (configs/readme.yml, via Get-Config -Config readme), expands its glob patterns
+    against the filesystem (Get-ReadmeMappings), and for every resulting mapping ensures `<folder>/README.md`
+    is a link to the authored `source` docs file (Set-FileLink, Catzc.Base.Files): the README IS the source,
+    so there is no copy to drift, no banner to inject, and an edit through either path lands in the one
+    authored file. Relative links inside the article resolve at the source's own location — the authored
+    article under docs/ is the reading surface; the README path is a pointer to it.
 
-    The generated READMEs are derived artifacts: gitignored (like the generated .psd1 manifests) and excluded
-    from the markdown gate — the authored source under docs/references/ is what is checked. This function is
-    the single source that keeps them current; never hand-edit a generated README.
-
-    Idempotent and fast by construction, so the importer can run it on every load (see importer.ps1):
-    output is canonical (UTF-8 no BOM, LF endings, single trailing newline), and a README is rewritten only
-    when its composed content differs from what is on disk — compared EOL-insensitively (CR stripped), so a
-    CRLF/LF flip never triggers a spurious rewrite. A clean tree is a true no-op.
+    The README links are derived artifacts: gitignored (like the generated .psd1 manifests) and excluded from
+    the markdown gate — the authored source under docs/references/ is what is checked. Idempotent and fast by
+    construction, so the importer runs it on every load (see importer.ps1): a link that already resolves to
+    its source is a no-op, and a stale artifact (the old generated copy, a wrong or orphaned link) is
+    recreated with the running OS's best mechanism.
 
     See docs/adr/repository/generated-readmes.md and docs/adr/automation/module-config-loading.md.
 .PARAMETER Folder
-    Regenerate only the mapping whose target folder equals this repo-relative path (e.g.
+    Materialise only the mapping whose target folder equals this repo-relative path (e.g.
     'automation/Catzc.Azure.DevOps'). Throws when it matches no mapping. Default: every mapping.
 .PARAMETER DryRun
-    Report what would change without writing any file. The composed content is the same either way; -DryRun
-    only skips the write. See docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    Report what would change without touching the filesystem. See
+    docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
 .PARAMETER Silent
     The per-README status lines are verbose-level — shown only when this function is run with -Verbose.
     -Silent suppresses them entirely, even under -Verbose (used by the importer tail so a session with
@@ -33,16 +30,16 @@
 .PARAMETER PassThru
     Return one result object per README ({ Folder, Source, Readme, Changed, DryRun }) instead of the paths.
 .OUTPUTS
-    [string[]] The paths to the generated READMEs (with -PassThru, one result object per README instead).
+    [string[]] The paths to the README links (with -PassThru, one result object per README instead).
 .EXAMPLE
     Build-Readme
-    Regenerates every mapped README from its docs source.
+    Ensures every mapped README is a link to its docs source.
 .EXAMPLE
     Build-Readme -DryRun -PassThru
-    Reports which mapped READMEs are stale without writing them.
+    Reports which mapped READMEs are stale without touching them.
 .EXAMPLE
     Build-Readme 'automation/Catzc.Azure.DevOps'
-    Regenerates only that folder's README.
+    Materialises only that folder's README link.
 #>
 function Build-Readme {
     [CmdletBinding()]
@@ -68,99 +65,28 @@ function Build-Readme {
         }
     }
 
-    $repositoryRoot = Get-RepositoryRoot
-
     # The per-file status lines are verbose-level detail — shown only when this function is run with -Verbose.
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 
     $ret = foreach ($mapping in $mappings) {
         $sourcePath = Resolve-RepoPath $mapping.source
-        Assert-PathExist $sourcePath
-
-        # Normalize the source to LF so composition and the on-disk compare are line-ending agnostic.
-        $sourceText = [System.IO.File]::ReadAllText($sourcePath) -replace "`r`n", "`n" -replace "`r", "`n"
-
-        # Rebase relative links so they resolve from the generated README's folder, not the source's.
-        $sourceDirectory = ([System.IO.Path]::GetDirectoryName($mapping.source)) -replace '\\', '/'
-        $sourceText = Update-MarkdownRelativeLink -Content $sourceText -SourceDirectory $sourceDirectory -TargetDirectory $mapping.folder -RepositoryRoot $repositoryRoot
-
-        $sourceLines = $sourceText -split "`n"
-
-        # The portable warning (single-quoted so the markdown code-span backticks stay literal); -f injects
-        # the source path. Two blockquote lines, no blank between them (MD028), each within the 140-column
-        # line-length limit (MD013).
-        $bannerLine1 = '> ⚠️ **Warning — generated file.** This README is a copy-in of `{0}`. Any' -f $mapping.source
-        $bannerLine2 = '> corrections to it are gitignored; edit that source and re-run `Build-Readme`.'
-        $bannerBody = @($bannerLine1, $bannerLine2)
-
-        # Inject the banner immediately after the first H1 title; prepend it when the source has no H1. The
-        # banner controls its own spacing — exactly one blank line on each side — so drop any blank lines the
-        # source already had right after the title, else the generated file would carry a double blank (MD012).
-        $headingIndex = -1
-        for ($i = 0; $i -lt $sourceLines.Count; $i++) {
-            if ($sourceLines[$i] -match '^#\s') {
-                $headingIndex = $i
-                break
-            }
-        }
-        if ($headingIndex -ge 0) {
-            $before = @($sourceLines[0..$headingIndex])
-            $rest = if ($headingIndex + 1 -lt $sourceLines.Count) {
-                @($sourceLines[($headingIndex + 1)..($sourceLines.Count - 1)])
-            }
-            else {
-                @()
-            }
-        }
-        else {
-            $before = @()
-            $rest = @($sourceLines)
-        }
-
-        $skip = 0
-        while ($skip -lt $rest.Count -and $rest[$skip] -eq '') {
-            $skip++
-        }
-        $rest = if ($skip -lt $rest.Count) {
-            @($rest[$skip..($rest.Count - 1)])
-        }
-        else {
-            @()
-        }
-
-        $composedLines = if ($before.Count -gt 0) {
-            $before + @('') + $bannerBody + @('') + $rest
-        }
-        else {
-            $bannerBody + @('') + $rest
-        }
-
-        # Canonical text: LF joins, exactly one trailing newline.
-        $content = (($composedLines -join "`n").TrimEnd("`n")) + "`n"
-
         $readmePath = Resolve-RepoPath "$($mapping.folder)/README.md"
-        # Canonicalise, EOL-insensitively compare, and write-on-change via the one shared primitive
-        # (Write-FileIfChanged, Catzc.Base.Files).
-        $changed = Write-FileIfChanged -Path $readmePath -Content $content -DryRun:$DryRun
+
+        # The README IS the source: verified or (re)created as a filesystem link by the one mechanism owner
+        # (Set-FileLink, Catzc.Base.Files), which also asserts the source exists.
+        $changed = Set-FileLink -Path $readmePath -Target $sourcePath -DryRun:$DryRun
 
         if (-not $Silent) {
-            $verb = if ($DryRun) {
-                if ($changed) {
-                    'would regenerate'
-                }
-                else {
-                    'already current'
-                }
+            $verb = if ($changed -and $DryRun) {
+                'would link'
+            }
+            elseif ($changed) {
+                'linked'
             }
             else {
-                if ($changed) {
-                    'regenerated'
-                }
-                else {
-                    'unchanged'
-                }
+                'link current'
             }
-            Write-Message "$($mapping.folder)/README.md $verb — from $($mapping.source)" -Verbose:$emitVerbose
+            Write-Message "$($mapping.folder)/README.md $verb — to $($mapping.source)" -Verbose:$emitVerbose
         }
 
         [pscustomobject]@{

@@ -14,7 +14,7 @@
     target path would tunnel the composed content into the link's source of truth (a Set-FileLink target that
     an entry stopped declaring), so the write always produces a fresh, independent file.
 
-    This is the write tail every generated-artifact builder shares (Build-Readme, Build-RootConfig, …) —
+    This is the write tail every generated-artifact builder shares (Build-RootConfig, Build-GitKeep, …) —
     one living copy of the canonicalise/compare/write logic instead of one per builder (see
     docs/adr/principles/one-living-version.md). It is a pure primitive: no console output — callers own
     their reporting.

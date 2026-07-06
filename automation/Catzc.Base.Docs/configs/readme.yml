@@ -1,10 +1,10 @@
-# README copy-in registry — the single authored source for every generated README.md.
+# README link registry — the single authored source for every generated README.md.
 #
-# Each generated `<folder>/README.md` is a copy-in of an authored docs `source`, with the source's relative
-# links rebased to the target folder and a standard "generated file" warning injected after the title. The
-# generated README is gitignored (the `source` under docs/ is what the markdown/spelling gates check) — NEVER
-# edit a generated README; edit its `source` and re-run Build-Readme (the importer also runs it on every load).
-# A folder NOT covered here keeps a hand-authored, committed README (opt-out) and is un-ignored in .gitignore.
+# Each generated `<folder>/README.md` is a filesystem LINK to an authored docs `source` (Set-FileLink: a
+# symbolic link, or a hard link on Windows without the symlink privilege) — the README IS the source, so an
+# edit through either path lands in the one authored file. The README link is gitignored (the `source` under
+# docs/ is what the markdown/spelling gates check); the importer re-links on every load. A folder NOT covered
+# here keeps a hand-authored, committed README (opt-out) and is un-ignored in .gitignore.
 #
 # Two ways a folder gets a source:
 #   patterns:  a glob whose every matched folder derives its source by CONVENTION — the `{kebab}` placeholder
