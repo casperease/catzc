@@ -1,6 +1,6 @@
 [
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-app",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-app",
     "name": "ipg-app",
     "location": "westeurope",
     "provisioningState": "Succeeded",
@@ -10,7 +10,7 @@
     ]
   },
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-aks-pods",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-aks-pods",
     "name": "ipg-aks-pods",
     "location": "westeurope",
     "provisioningState": "Succeeded",
@@ -19,7 +19,7 @@
     ]
   },
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-db",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-db",
     "name": "ipg-db",
     "location": "westeurope",
     "provisioningState": "Succeeded",
@@ -29,7 +29,7 @@
     ]
   },
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-linux",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-linux",
     "name": "ipg-linux",
     "location": "westeurope",
     "provisioningState": "Succeeded",
@@ -38,7 +38,7 @@
     ]
   },
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-partners",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-partners",
     "name": "ipg-partners",
     "location": "westeurope",
     "provisioningState": "Succeeded",
@@ -48,7 +48,7 @@
     ]
   },
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-jumpbox",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-jumpbox",
     "name": "ipg-jumpbox",
     "location": "westeurope",
     "provisioningState": "Succeeded",
@@ -58,7 +58,7 @@
     ]
   },
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-office-users",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-office-users",
     "name": "ipg-office-users",
     "location": "westeurope",
     "provisioningState": "Succeeded",
@@ -67,7 +67,7 @@
     ]
   },
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-mgmt",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-mgmt",
     "name": "ipg-mgmt",
     "location": "westeurope",
     "provisioningState": "Succeeded",
@@ -76,7 +76,7 @@
     ]
   },
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-onprem",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-onprem",
     "name": "ipg-onprem",
     "location": "westeurope",
     "provisioningState": "Succeeded",
@@ -87,7 +87,7 @@
     ]
   },
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-dmz",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-dmz",
     "name": "ipg-dmz",
     "location": "westeurope",
     "provisioningState": "Succeeded",
@@ -96,7 +96,7 @@
     ]
   },
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-acr",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-acr",
     "name": "ipg-acr",
     "location": "westeurope",
     "provisioningState": "Succeeded",
@@ -105,7 +105,7 @@
     ]
   },
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-aks-nodes",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-aks-nodes",
     "name": "ipg-aks-nodes",
     "location": "westeurope",
     "provisioningState": "Succeeded",
@@ -114,7 +114,7 @@
     ]
   },
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-web",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-web",
     "name": "ipg-web",
     "location": "westeurope",
     "provisioningState": "Succeeded",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "id": "/subscriptions/00000000-0000-0000-0000-000000000002/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-corp",
+    "id": "/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/ipGroups/ipg-corp",
     "name": "ipg-corp",
     "location": "westeurope",
     "provisioningState": "Succeeded",

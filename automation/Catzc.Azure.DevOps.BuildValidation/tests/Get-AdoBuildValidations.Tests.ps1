@@ -34,7 +34,7 @@ Describe 'Get-AdoBuildValidations' -Tag 'L0', 'logic' {
             id         = 9
             isEnabled  = $true
             isBlocking = $true
-            type       = [pscustomobject]@{ id = 'aaaaaaaa-0000-0000-0000-000000000000' }   # not a Build policy
+            type       = [pscustomobject]@{ id = 'fa0e0000-0e00-1d00-0000-000000000000' }   # not a Build policy
             settings   = [pscustomobject]@{ scope = @([pscustomobject]@{ repositoryId = 'repo-guid'; refName = 'refs/heads/main' }) }
         }
 

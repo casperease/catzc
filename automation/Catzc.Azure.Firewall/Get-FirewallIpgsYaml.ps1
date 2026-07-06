@@ -38,7 +38,7 @@
 .PARAMETER YamlPath
     Output YAML path for the combined document. Defaults to <repo-root>/out/yaml/ipgs.yaml.
 .EXAMPLE
-    Get-FirewallIpgsYaml -SubscriptionId 00000000-0000-0000-0000-000000000002 -ResourceGroupName rg-firewall
+    Get-FirewallIpgsYaml -SubscriptionId 50a0ed00-de00-50b0-0000-000000000000 -ResourceGroupName rg-firewall
 .EXAMPLE
     @(
         [pscustomobject]@{ SubscriptionId = $subA; ResourceGroupName = 'rg-fw-a' }

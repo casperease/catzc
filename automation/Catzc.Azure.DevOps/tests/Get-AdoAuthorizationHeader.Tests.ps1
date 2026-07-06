@@ -60,7 +60,7 @@ Describe 'Get-AdoAuthorizationHeader' -Tag 'L0', 'logic' {
             $env:SYSTEM_ACCESSTOKEN = $null
             $env:AZURE_DEVOPS_PAT = $null
             # ado.yml supplies the tenant; az session is asserted before the token request.
-            Mock Get-Config -ParameterFilter { $Config -eq 'ado' } -MockWith { @{ tenant = '00000000-0000-0000-0000-000000000001' } } -ModuleName Catzc.Azure.DevOps
+            Mock Get-Config -ParameterFilter { $Config -eq 'ado' } -MockWith { @{ tenant = 'fa0e0000-7e0a-0700-1d00-000000000000' } } -ModuleName Catzc.Azure.DevOps
         }
 
         AfterEach {
@@ -76,7 +76,7 @@ Describe 'Get-AdoAuthorizationHeader' -Tag 'L0', 'logic' {
             $header = Get-AdoAuthorizationHeader
             $header.Authorization | Should -Be 'Bearer tok-123'
             Should -Invoke Assert-AzCliConnected -ModuleName Catzc.Azure.DevOps -ParameterFilter {
-                $TenantId -eq '00000000-0000-0000-0000-000000000001'
+                $TenantId -eq 'fa0e0000-7e0a-0700-1d00-000000000000'
             }
         }
 

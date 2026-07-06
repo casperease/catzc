@@ -4,7 +4,7 @@
 .PARAMETER ObjectGuid
     The string to validate as a GUID.
 .EXAMPLE
-    Test-IsGuid 'd3b07384-d9a0-4c9b-8a0d-6e7b8f3a1c2d'
+    Test-IsGuid '15000000-1700-a000-601d-000000000000'
 #>
 function Test-IsGuid {
     [OutputType([bool])]

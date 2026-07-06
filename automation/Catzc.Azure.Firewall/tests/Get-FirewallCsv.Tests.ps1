@@ -2,7 +2,7 @@
 Describe 'Get-FirewallCsv' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:assets = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Firewall/tests/assets'
-        $script:subscriptionId = '00000000-0000-0000-0000-000000000002'
+        $script:subscriptionId = '50a0ed00-de00-50b0-0000-000000000000'
 
         # A realistic blob listing. The dd-MM-yyyy names do NOT sort chronologically by string:
         # 'ApplicationRules-30-01-2026-...' is lexically largest but is January (older than June),

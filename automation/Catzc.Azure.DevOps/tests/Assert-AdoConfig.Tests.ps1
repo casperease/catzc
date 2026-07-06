@@ -3,7 +3,7 @@ Describe 'Assert-AdoConfig' -Tag 'L0' {
         $script:baseConfig = @{
             organization = 'https://dev.azure.com/example-org'
             project      = 'My%20Project'
-            tenant       = '00000000-0000-0000-0000-000000000001'
+            tenant       = 'fa0e0000-7e0a-0700-1d00-000000000000'
         }
     }
 
@@ -22,7 +22,7 @@ Describe 'Assert-AdoConfig' -Tag 'L0' {
     }
 
     It 'throws when a key is not snake_case' -Tag 'logic' {
-        $bad = @{ Organization = 'https://dev.azure.com/x'; project = 'p'; tenant = '00000000-0000-0000-0000-000000000001' }
+        $bad = @{ Organization = 'https://dev.azure.com/x'; project = 'p'; tenant = 'fa0e0000-7e0a-0700-1d00-000000000000' }
         { & (Get-Module Catzc.Azure.DevOps) { Assert-AdoConfig $args[0] } $bad } | Should -Throw '*snake_case*'
     }
 

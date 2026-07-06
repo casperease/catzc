@@ -1,8 +1,8 @@
 Describe 'Get-FirewallIpgsYaml' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:assets = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Firewall/tests/assets'
-        $script:subNetwork = '00000000-0000-0000-0000-000000000002'
-        $script:subHub = '00000000-0000-0000-0000-000000000003'
+        $script:subNetwork = '50a0ed00-de00-50b0-0000-000000000000'
+        $script:subHub = '50a0ed00-000d-50b0-0000-000000000000'
 
         # No live ARM: replay the committed golden INPUT fixture matching the requested resource group.
         Mock Assert-AzCliExtension -ModuleName Catzc.Azure.Firewall {}
