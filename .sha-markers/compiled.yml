@@ -3,4 +3,4 @@ description: Derived infra scope - automation/.compiled/**
 layer: loose-fileset
 scan:
 - '+ automation/.compiled/**'
-sha256: 750ed1c2dcc78c60adc6cb255902649ca86b4880496b6ed9b8e29c8544e9505f
+sha256: c4a77e4b936335665625ae814bab9dbfeae112927daf254528bc5bb4677ecd6c
