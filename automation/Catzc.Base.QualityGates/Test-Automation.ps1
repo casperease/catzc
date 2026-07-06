@@ -6,10 +6,12 @@
     worker processes (pwsh children driven by the PesterRunner type), each of which imports the repository,
     runs its shard, writes results-shard-<N>.xml plus a rows-shard-<N>.json sidecar, and streams its output
     through the pool — the first unfinished worker is live, later workers buffer and replay in submission
-    order, so the console reads sequentially while the wall clock runs in parallel. Files containing any
-    'serial'-tagged test (tests that mutate state shared across processes, or fan out heavy parallelism of
-    their own — see ADR-TEST:26) run in a final one-worker phase, alone. Pester executes tests sequentially
-    within a worker; a single file never splits across workers.
+    order, so the console reads sequentially while the wall clock runs in parallel. Files containing a
+    'greedy'-tagged test (tests that fan out heavy machine load of their own but share no state) follow as
+    single-file shards through the pool, one file per worker slot; files containing a 'serial'-tagged test
+    (tests that mutate state shared across processes) run last in a one-worker phase, alone — see
+    ADR-TEST:26. Pester executes tests sequentially within a worker; a single file never splits across
+    workers.
 .PARAMETER MaxLevel
     Maximum test level to run (alias: -Level). Defaults to 2 (L0 + L1 + L2) — the L2 tier drives the
     locally-installed CLI tools and self-skips a test when its tool is absent, so the default stays green
