@@ -62,7 +62,6 @@ zones:
       - '**/README.md'
       - '!.github/README.md'
       - '!automation/.vendor/**/README.md'
-      - '!automation/Catzc.Base.Environment/assets/README.md'
       - '!automation/Catzc.Azure.Templates/tests/assets/README.md'
 
   - id: compiled-types

@@ -16,6 +16,7 @@ Don't depend on the user profile at runtime. No function reads or writes `$HOME\
 one sanctioned exception is the opt-in `Set-LocalPSModulePath.ps1` helper the user runs by hand.
 
 - [The one-time fix for network user paths](#the-one-time-fix-for-network-user-paths)
+- [Why the user-scope config override, and not the alternatives](#why-the-user-scope-config-override-and-not-the-alternatives)
 
 ### Rule ADR-MODPATH:3
 
@@ -82,6 +83,29 @@ startup — fast — instead of recursively scanning a network share on every lo
 This helper _does_ touch the user profile (it writes the config file there and may suggest moving existing modules off DFS). That is the
 point: it is the user opting in to a permanent local redirect, run once, not something the automation does on every import. No admin is
 required and it is idempotent.
+
+### Why the user-scope config override, and not the alternatives
+
+The fix targets the user-scope `powershell.config.json` deliberately, because every other way to keep the network path out of
+`$env:PSModulePath` is worse:
+
+- **Stripping the UNC entry at runtime** does not hold. PowerShell reconstructs `$env:PSModulePath` during certain operations — the
+  Windows-compatibility layer starts a background Windows PowerShell 5.1 process whose path includes the DFS-based Documents path, and PS7
+  inherits those entries back when that process completes; module auto-loading can trigger the same reconstruction. The network path
+  reappears unpredictably.
+- **A symlink** from `Documents\PowerShell` to a local directory works only after migrating any existing profile, module cache, and history
+  out of the network location first (the link target must not already exist), and a profile loaded through a symlink from a DFS origin is
+  still treated as remote by `RemoteSigned`, forcing a `Bypass` execution policy. That migration is too error-prone to automate safely
+  across every user.
+- **An AllUsers config** (`$PSHOME\powershell.config.json` with a `PSModulePath` key) sets the AllUsers module path, not the CurrentUser
+  one, so the network user path remains — and it overrides `$PSHOME\Modules`, hiding the built-in core modules.
+- **A user-scoped `PSModulePath` registry value** (`HKCU:\Environment`) is read by PS7 as a full user override, so it stops appending
+  `$PSHOME\Modules` and the core modules become undiscoverable.
+- **Suppressing auto-loading** (`$PSModuleAutoLoadingPreference = 'None'`) hides the scanning symptom but breaks
+  `Get-Module -ListAvailable`, command discovery, and anything that relies on module auto-loading.
+
+The user-scope `powershell.config.json` override avoids all of these: it sets only the CurrentUser module path, leaves `$PSHOME\Modules`
+intact so the core modules stay discoverable, is read once at startup rather than reconstructed mid-session, and needs no admin.
 
 ### How this is enforced
 

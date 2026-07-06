@@ -54,7 +54,6 @@ automation/**/*.psd1
 **/README.md
 !.github/README.md
 !automation/.vendor/**/README.md
-!automation/Catzc.Base.Environment/assets/README.md
 !automation/Catzc.Azure.Templates/tests/assets/README.md
 
 # ── Compiled C# types — transient temp only ─────────────────────────────────────────────────────────────────────────
