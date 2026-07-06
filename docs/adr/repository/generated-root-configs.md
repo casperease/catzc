@@ -55,10 +55,14 @@ generator's output (the drift check).
 
 The repository root carries configuration files for git, editors, and quality-gate tools. Kept by hand, each is its own little source of
 truth with its own drift risk, and the tool-specific quirks (a `.psd1` that must be a literal hashtable, a JSON manifest with no comment
-syntax) get re-solved ad hoc. The repository already treats other per-folder derived files as generated, gitignored artifacts — the module
-manifests and the README copy-ins ([generated-readmes](generated-readmes.md)) — and already generated one root file each in two one-off
-ways: the root analyzer settings (a bespoke builder) and `importer.ps1` (`New-Importer` plus a drift test). A root config file is the same
-pattern; what was missing was one registry and one writer.
+syntax) get re-solved ad hoc. "Root" names the ownership — one source of truth under `automation/`, one writer — not a path constraint: the
+managed set covers the repository root and the `.vscode/` editor files (settings, extension recommendations, launch profiles, and the
+preview CSS), all `committed: false`, so the editor greys them and a fresh clone materialises them on its first import — the same contract
+as the generated cspell dictionaries ([dedicated-output-directory](dedicated-output-directory.md#rule-adr-outdir8)). The repository already
+treats other per-folder derived files as generated, gitignored artifacts — the module manifests and the README copy-ins
+([generated-readmes](generated-readmes.md)) — and already generated one root file each in two one-off ways: the root analyzer settings (a
+bespoke builder) and `importer.ps1` (`New-Importer` plus a drift test). A root config file is the same pattern; what was missing was one
+registry and one writer.
 
 ## Decision
 

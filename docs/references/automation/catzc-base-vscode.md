@@ -1,53 +1,67 @@
 # Catzc.Base.VSCode
 
-The declarative editor-settings module. It owns the rule that **the editor is glued to the tooling**: `.vscode/settings.json` is rendered
-from an authored yml registry (`vscode-settings.yml`) and completed at render time with the managed root-config targets, so find-all always
-lands on a source of truth and never on a generated copy (see [generated-root-configs](../../adr/repository/generated-root-configs.md)).
-What it deliberately does **not** own is the materialisation: `New-VSCodeSettings` is a pure renderer that returns content and writes
-nothing; the `settings.json` target is a managed, committed root file written by [Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s
-`Build-RootConfig`, which names `New-VSCodeSettings` as that entry's generator.
+The declarative editor-config module. It owns the rule that **the editor is glued to the tooling**: every file in `.vscode/` —
+`settings.json`, `extensions.json`, `launch.json`, and the markdown-preview CSS — is a gitignored, generated copy reproduced from an
+authored source in this module, so the editor's behaviour cannot drift from the tooling it mirrors (see
+[generated-root-configs](../../adr/repository/generated-root-configs.md)). What it deliberately does **not** own is the materialisation: the
+renderers are pure functions that return content and write nothing; the `.vscode/` targets are managed entries written by
+[Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s `Build-RootConfig`, which names each renderer as its entry's generator (the CSS is a
+plain copy-in of this module's asset).
 
 ## Domains
 
 | Domain   | Area     | Name                                                     |
 | -------- | -------- | -------------------------------------------------------- |
-| domain:1 | render   | [Settings rendering](#domain1--settings-rendering)       |
-| domain:2 | registry | [The settings registry](#domain2--the-settings-registry) |
+| domain:1 | render   | [Editor-file rendering](#domain1--editor-file-rendering) |
+| domain:2 | registry | [The editor registries](#domain2--the-editor-registries) |
 
-### domain:1 — Settings rendering
+### domain:1 — Editor-file rendering
 
-Turning the settings registry into the `settings.json` content. This domain renders a generated-file header (JSONC — VS Code reads comments
-in `settings.json`) followed by the authored settings as JSON, in registry order, and performs the one render-time completion: every managed
-target passed by the caller joins `search.exclude`, an authored entry winning over an injected key of the same name (an explicit `false`
-un-exclude survives). The authored explanations live as comments in the yml — the searched, reviewed artifact — not in the rendering.
+Turning the registries into the `.vscode/` JSON contents. Each renderer emits a generated-file header (JSONC — VS Code reads comments in all
+three files) followed by the authored content as JSON, in registry order. Settings rendering performs the one render-time completion: every
+managed target passed by the caller joins `search.exclude`, an authored entry winning over an injected key of the same name (an explicit
+`false` un-exclude survives). Extensions and launch render their registries verbatim — the generators are the seam should either ever need
+dynamic content. The authored explanations live as comments in the yml — the searched, reviewed artifact — not in the renderings.
 
-### domain:2 — The settings registry
+### domain:2 — The editor registries
 
-Which editor behaviour the workspace pins, and why. The registry is `vscode-settings.yml`: a free-form `settings:` mapping of VS Code keys
-(loaded raw — there is no repository-side shape to validate against the editor's own schema), each carrying its rationale as a comment —
-notably the PowerShell `codeFormatting` block that must stay in step with `PSScriptAnalyzerSettings.psd1`, and the authored
-`search.exclude`/`files.watcherExclude` maps for the generated manifests. The managed-targets completion is deliberately **not** in this
-registry: it is injected by [Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s generator dispatch from its own registry, so the list lives
-once and the dependency edge stays one-way (RootConfig → VSCode; the renderer never reads `rootconfig.yml`).
+Which editor behaviour the workspace pins, and why. Three registries, each entry carrying its rationale as a comment:
+
+- `vscode-settings.yml` — a free-form `settings:` mapping of VS Code keys (loaded raw — there is no repository-side shape to validate
+  against the editor's own schema) — notably the PowerShell `codeFormatting` block that must stay in step with
+  `PSScriptAnalyzerSettings.psd1`, and the authored `search.exclude` map for the generated manifests. The managed-targets completion is
+  deliberately **not** in this registry: it is injected by [Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s generator dispatch from its
+  own registry, so the list lives once and the dependency edge stays one-way (RootConfig → VSCode; a renderer never reads `rootconfig.yml`).
+- `vscode-extensions.yml` — the recommended-extension ids, **binding**: validated on load by the private convention validator
+  (`Assert-VscodeExtensionsConfig` — non-empty, unique `publisher.name` ids).
+- `vscode-launch.yml` — the debug launch profiles, **binding**: validated on load (`Assert-VscodeLaunchConfig` — a version plus profiles
+  each carrying `name`/`type`/`request`, names unique).
+
+The module also ships the one non-JSON editor asset, `assets/markdown-preview-dark.css`, whose generated marker is authored in the source
+itself (a `/* */` block) since the copy-in injects no header.
 
 ## What the module does
 
-The module is small and single-purpose: it makes the workspace's editor behaviour a declared, explained artifact that cannot drift from the
-tooling it mirrors. The settings file VS Code reads is `committed: true` in the root-config registry — the editor consumes it whenever the
-workspace opens, import or no import — so a fresh clone gets correct editor behaviour immediately, the importer merely keeps it current, and
-a registry change surfaces as a normal reviewable diff.
+The module makes the workspace's editor behaviour a declared, explained artifact that cannot drift from the tooling it mirrors. All four
+`.vscode/` targets are `committed: false` in the root-config registry: gitignored (the editor greys them), reproduced on every import, and
+absent until a fresh clone's first import — the same contract as the generated cspell dictionaries. Editing a `.vscode/` file is editing a
+build output the next import overwrites; the yml registries and the CSS asset are where changes go.
 
-The injected `search.exclude` completion is the point of the design: the repository's managed files (the root-config copy-ins and the
-generated committed files alike) are derived artifacts, and a search that lands in one invites an edit that the next import silently
-overwrites. With the exclusion list computed from the same registry that defines "managed", opting a file into management removes it from
-find-all in the same change — the editor and the tooling cannot disagree, and there is no hand-kept second list. It is the same
-one-source-injection shape as [Catzc.Base.Git](catzc-base-git.md)'s managed-copies zone.
+The injected `search.exclude` completion is the point of the design: the repository's managed files (the root-config copy-ins, the generated
+committed files, and the `.vscode/` copies themselves) are derived artifacts, and a search that lands in one invites an edit that the next
+import silently overwrites. With the exclusion list computed from the same registry that defines "managed", opting a file into management
+removes it from find-all in the same change — the editor and the tooling cannot disagree, and there is no hand-kept second list. It is the
+same one-source-injection shape as [Catzc.Base.Git](catzc-base-git.md)'s managed-copies zone.
 
 ## Division
 
 The module's public surface, sorted into the domains above.
 
-| Domain                           | Function              |
-| -------------------------------- | --------------------- |
-| domain:1 — Settings rendering    | `New-VSCodeSettings`  |
-| domain:2 — The settings registry | `vscode-settings.yml` |
+| Domain                           | Function                |
+| -------------------------------- | ----------------------- |
+| domain:1 — Editor-file rendering | `New-VSCodeSettings`    |
+|                                  | `New-VSCodeExtensions`  |
+|                                  | `New-VSCodeLaunch`      |
+| domain:2 — The editor registries | `vscode-settings.yml`   |
+|                                  | `vscode-extensions.yml` |
+|                                  | `vscode-launch.yml`     |

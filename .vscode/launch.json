@@ -1,3 +1,6 @@
+// GENERATED FILE — do not edit. Single source of truth:
+//   automation/Catzc.Base.VSCode/configs/vscode-launch.yml (the authored launch profiles + comments)
+// Regenerated on import by Build-RootConfig; edit the yml, not this file (VS Code reads the // header fine).
 {
   "version": "0.2.0",
   "configurations": [

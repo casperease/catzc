@@ -28,11 +28,11 @@ Pipelines are flat in the root and named for their type. Templates live in the f
 | Type   | What it is                                                                                                                       | Trigger / Deploy Targets in Scope                             |
 | ------ | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
 | INPUT  | Self-service input turned into a commit                                                                                          | Manual, with parameters                                       |
-| CRON   | Automation job on a timer (not really a pipeline)                                                                                | `schedules:`                                                  |
+| CRON   | Automation job on a timer (not really a pipeline, can direct-affect live/prod)                                                   | `schedules:`                                                  |
 | CI     | CI/ci - Continuous _Integration_ - The CI engine alone — build + verify, no artifact, no deploy                                  | PR build validation + post-commit `main` (BVT)                |
-| CD     | CI/ci - Continuous _Delivery_ - (CI engine + deploy + system test) (internal deploys for auto-tests + UAT, but not towards prod) | post-commit `main`                                            |
+| CD     | CD/cd - Continuous _Delivery_ - (CI engine + deploy + system test) (internal deploys for auto-tests + UAT, but not towards prod) | post-commit `main`                                            |
 | CDE    | CDE/CDe - Continuous _Deployment_                                                                                                | deployment to prod also, but can be manually gated downstream |
-| DEPLOY | The Tail-end of a CDE/CDe pipeline, detaches the live deploy from CDE pipeline                                                   | to prod but can be manually gated downstream                  |
+| DEPLOY | The Tail-end of a CD pipeline, detaches the live deploy from CDE pipeline                                                        | to prod but can be manually gated downstream                  |
 
 ## Pipelines here
 

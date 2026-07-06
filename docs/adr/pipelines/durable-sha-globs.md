@@ -56,19 +56,19 @@ dot-folder that sorts to the top of a PR's file view, the marker diff IS the cha
 
 ### Rule ADR-GLOBS:7
 
-Every declared globset carries a **layer**: `track` (a root concern, `ADR-TRACK`), `deployable-unit` (what ships; determines a pipeline
-1-1, annotated on the set as `pipeline:`), or `scope` (a cross-cutting slice). The fourth layer, `module`, is **derived-only**
-(`ADR-PROTGLOB`) — the folders are the registration, and declaring it is rejected. An optional `verify:` (`modules` + `level`) declares the
-set's test blast-radius scope.
+Every declared globset carries a **layer**: `track` (a root concern, `ADR-TRACK`), `deployable-unit` (what ships; determines a pipeline 1-1,
+annotated on the set as `pipeline:`), or `scope` (a cross-cutting slice). The fourth layer, `module`, is **derived-only** (`ADR-PROTGLOB`) —
+the folders are the registration, and declaring it is rejected. An optional `verify:` (`modules` + `level`) declares the set's test
+blast-radius scope.
 
 - [One configuration point](#one-configuration-point)
 
 ### Rule ADR-GLOBS:8
 
 A globset may **compose** other declared sets (`compose:`): its effective membership is its own include-minus-exclude members UNION the
-composed sets' effective members. References resolve to declared sets only, never to the set itself, and the reference graph must be
-acyclic — all validated at config load. Composition is how a deployable-unit shares a base (e.g. every customer unit composing the
-customer-shared foundation surface) without one customer's configuration change firing another customer's pipeline.
+composed sets' effective members. References resolve to declared sets only, never to the set itself, and the reference graph must be acyclic
+— all validated at config load. Composition is how a deployable-unit shares a base (e.g. every customer unit composing the customer-shared
+foundation surface) without one customer's configuration change firing another customer's pipeline.
 
 - [One configuration point](#one-configuration-point)
 

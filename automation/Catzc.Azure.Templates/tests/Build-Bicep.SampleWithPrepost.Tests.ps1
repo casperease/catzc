@@ -12,12 +12,7 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
         # per-env values straight from the asset so the test tracks it.
         $script:alphaNetwork = (Get-Config -Config network).environments.alpha
         $script:betaNetwork = (Get-Config -Config network).environments.beta
-    }
 
-    BeforeEach {
-        if (Test-Path $script:outputRoot) {
-            Remove-Item $script:outputRoot -Recurse -Force
-        }
         Mock Invoke-AzCli {
             if ($Arguments -match 'bicep version') {
                 return [pscustomobject]@{ Output = 'Bicep CLI version 999.999.999'; ExitCode = 0 }
@@ -32,11 +27,15 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        InModuleScope Catzc.Base.Config { $script:configCache = $null }
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
-            @{ Name = $Config; Module = 'Catzc.Azure.Templates'
-                Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
-            }
+
+        # Warm the path-keyed session caches once, not per test (ADR-TEST#19).
+        Get-Config -Config azure | Out-Null
+        Get-BicepTemplates | Out-Null
+    }
+
+    BeforeEach {
+        if (Test-Path $script:outputRoot) {
+            Remove-Item $script:outputRoot -Recurse -Force
         }
     }
 

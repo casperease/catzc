@@ -31,6 +31,10 @@ automation/**/*.psd1
 # source of truth (see rootconfig.yml). Edit the source, never the root copy; this list is injected from the
 # registry's committed:false targets and never restated by hand.
 /PSScriptAnalyzerSettings.psd1
+/.vscode/settings.json
+/.vscode/extensions.json
+/.vscode/launch.json
+/.vscode/markdown-preview-dark.css
 /.editorconfig
 /.markdownlint.yml
 /.markdownlintignore

@@ -31,9 +31,23 @@ files:
     generator: New-Importer
     committed: true
     optIn: true
+  # The four .vscode/ files are gitignored generated copies (committed: false) — the editor greys them and
+  # a fresh clone materialises them on the first import. Sources of truth: the Catzc.Base.VSCode registries
+  # (settings/extensions/launch) and the module's CSS asset.
   - target: .vscode/settings.json
     generator: New-VSCodeSettings
-    committed: true
+    optIn: true
+  - target: .vscode/extensions.json
+    generator: New-VSCodeExtensions
+    optIn: true
+  - target: .vscode/launch.json
+    generator: New-VSCodeLaunch
+    optIn: true
+  # CSS carries its generated marker authored IN the source (a /* */ block — the dotnet-tools.json pattern),
+  # so the copy-in injects no header.
+  - target: .vscode/markdown-preview-dark.css
+    source: automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css
+    comment: none
     optIn: true
   - target: .editorconfig
     source: automation/Catzc.Base.RootConfig/assets/root/.editorconfig

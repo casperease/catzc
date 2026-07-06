@@ -108,6 +108,8 @@ A check **passes** when its assertions are green. A few L2 checks shell out to a
 | 61  | L1   | automation/Catzc.Base.QualityGates/tests/Get-TestAutomationTestPaths.Tests.ps1 | Get-TestAutomationTestPaths                                          | The run's tests folders resolve foundation-first from the real tree — modules by dependency order, infrastructure last.            |
 | 65  | L1   | automation/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1     | analyzer-adr-map integrity                                           | Every analyzer→ADR mapping cites a real rule, and every custom analyzer rule is listed in analyzer-adr-map.yml.                    |
 | 66  | L1   | automation/Catzc.Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1               | Get-CatsRuleEnforcers integrity                                      | Rule enforcers resolve from the real tree — analyzer map + AST-read test -Tag citations, ignoring citation-shaped fixture strings. |
+| 67  | L1   | automation/Catzc.Base.VSCode/tests/New-VSCodeExtensions.Tests.ps1              | New-VSCodeExtensions — real vscode-extensions.yml                    | The shipped recommendation registry validates and renders to a non-empty list carrying the PowerShell extension.                   |
+| 68  | L1   | automation/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1                  | New-VSCodeLaunch — real vscode-launch.yml                            | The shipped launch registry validates and renders with the importer debug profile's workspace placeholder intact.                  |
 
 ## L0 · integrity
 

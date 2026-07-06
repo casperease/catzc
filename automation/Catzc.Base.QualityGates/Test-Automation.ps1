@@ -59,6 +59,11 @@
     Each value is a citation in `ADR-<CODE>#<n>` form. The run narrows to the files carrying a matching test
     and, within them, to the cited tests (Pester tag include). Composes with -Level/-Category/-Modules. It is
     the executable companion of the rule-coverage report: find a rule's tests, then run just them.
+.PARAMETER Marker
+    Run a marker's declared blast radius: the named globset's `verify:` scope in globs.yml resolves to
+    the module list and tier to run (ADR-GLOBS:7) — "which tests do I need to run to verify a change in
+    that area-of-control". Mutually exclusive with -Modules; a marker without a verify scope throws with
+    the remedy. Find the touched markers for a change with Get-MarkerBlastRadius.
 .PARAMETER EnforceTimings
     Fail the run when a test exceeds its level's time limit. Off by default — timings are
     machine-dependent, so the run only *reports* over-limit tests (with their durations) and stays
@@ -90,6 +95,8 @@
     Test-Automation -EnforceTimings   # fail if any test is over its level's limit
 .EXAMPLE
     Test-Automation -Rule ADR-ERROR#3   # run only the tests that cite ADR-ERROR#3
+.EXAMPLE
+    Test-Automation -Marker foundation   # run the foundation unit's declared verify scope (globs.yml)
 .EXAMPLE
     Test-Automation -OutputFolder C:\reports\catzc   # write the run report under a custom base
 #>
@@ -126,11 +133,25 @@ function Test-Automation {
         [ValidatePattern('^ADR-[A-Z]+#\d+$')]
         [string[]] $Rule = @(),
 
+        [ArgumentCompleter({ (Get-Config -Config globs).Names })]
+        [string] $Marker,
+
         [string] $OutputFolder
     )
 
     if ($MinLevel -gt $MaxLevel) {
         throw "MinLevel ($MinLevel) cannot exceed MaxLevel ($MaxLevel)."
+    }
+
+    # -Marker: run the named area-of-control's declared blast radius — its globs.yml verify scope resolves
+    # to the module list and tier (Resolve-MarkerVerify, ADR-GLOBS:7).
+    if ($Marker) {
+        if ($Modules.Count -gt 0) {
+            throw 'Pass -Marker or -Modules, not both — a marker resolves its own module scope.'
+        }
+        $markerScope = Resolve-MarkerVerify -Name $Marker
+        $Modules = @($markerScope.Modules)
+        $MaxLevel = $markerScope.Level
     }
 
     # Lazy-load Pester — deferred at import time for speed. The parent needs it only for the discovery pass;

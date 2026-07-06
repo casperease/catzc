@@ -68,6 +68,7 @@ The module's public surface, indexed by domain.
 |                                            | `Get-GlobSetHash`         |
 | domain:3 — Sha-marker files                | `Update-ShaMarker`        |
 |                                            | `Test-ShaMarker`          |
+|                                            | `Get-MarkerBlastRadius`   |
 | domain:4 — Protected scans                 | `Test-GlobSetProtection`  |
 |                                            | `Protect-GlobSet`         |
 |                                            | `Clear-GlobSetProtection` |

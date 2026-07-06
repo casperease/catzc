@@ -1,12 +1,6 @@
 Describe 'Get-BicepDeploymentContext (sample-subscription)' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-subscription'
-    }
-
-    BeforeEach {
-        if (Test-Path $script:outputRoot) {
-            Remove-Item $script:outputRoot -Recurse -Force
-        }
 
         Mock Build-Bicep {
             $outputFolder = (Get-BicepTemplate $Template).output_folder
@@ -26,6 +20,17 @@ Describe 'Get-BicepDeploymentContext (sample-subscription)' -Tag 'L0', 'logic' {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
+        }
+
+        # Warm the path-keyed session caches once, not per test (ADR-TEST#19).
+        Get-Config -Config azure | Out-Null
+        Get-Config -Config network | Out-Null
+        Get-BicepTemplates | Out-Null
+    }
+
+    BeforeEach {
+        if (Test-Path $script:outputRoot) {
+            Remove-Item $script:outputRoot -Recurse -Force
         }
     }
 
@@ -61,15 +66,6 @@ Describe 'Get-BicepDeploymentContext (sample-subscription)' -Tag 'L0', 'logic' {
 Describe 'Deploy-Bicep (sample-subscription sub create)' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tempArtifacts = Join-Path ([IO.Path]::GetTempPath()) ('catzc-subdeploy-' + [Guid]::NewGuid())
-    }
-
-    BeforeEach {
-        if (Test-Path $script:tempArtifacts) {
-            Remove-Item $script:tempArtifacts -Recurse -Force
-        }
-        New-Item -ItemType Directory -Path $script:tempArtifacts -Force | Out-Null
-        Set-Content -Path (Join-Path $script:tempArtifacts 'main.json') -Value '{}'
-        Set-Content -Path (Join-Path $script:tempArtifacts 'parameters.alpha.json') -Value '{}'
 
         # Devbox path: without this the real Test-IsRunningInPipeline returns $true under CI
         # ($env:GITHUB_ACTIONS) and Deploy-Bicep throws "requires an explicit -Subscription in a pipeline".
@@ -116,6 +112,19 @@ Describe 'Deploy-Bicep (sample-subscription sub create)' -Tag 'L0', 'logic' {
                 }
             }
         } -ModuleName Catzc.Azure.Templates
+
+        # Warm the path-keyed session caches once, not per test (ADR-TEST#19).
+        Get-Config -Config azure | Out-Null
+        Get-BicepTemplates | Out-Null
+    }
+
+    BeforeEach {
+        if (Test-Path $script:tempArtifacts) {
+            Remove-Item $script:tempArtifacts -Recurse -Force
+        }
+        New-Item -ItemType Directory -Path $script:tempArtifacts -Force | Out-Null
+        Set-Content -Path (Join-Path $script:tempArtifacts 'main.json') -Value '{}'
+        Set-Content -Path (Join-Path $script:tempArtifacts 'parameters.alpha.json') -Value '{}'
     }
 
     AfterAll {
@@ -144,7 +153,7 @@ Describe 'Deploy-Bicep (sample-subscription sub create)' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-BicepTrackTagNameSet (sample-subscription)' -Tag 'L0', 'logic' {
-    BeforeEach {
+    BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
@@ -154,6 +163,10 @@ Describe 'Get-BicepTrackTagNameSet (sample-subscription)' -Tag 'L0', 'logic' {
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
         }
+
+        # Warm the path-keyed session caches once, not per test (ADR-TEST#19).
+        Get-Config -Config azure | Out-Null
+        Get-BicepTemplates | Out-Null
     }
 
     It 'returns template-prefixed tag names for a Subscription-target template' {

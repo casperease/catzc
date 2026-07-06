@@ -192,19 +192,19 @@ are contracts, not suggestions.
 The root is a closed set of folders, each with a fixed meaning. The **Kind** column marks whether tooling hardcodes the name (_contract_) or
 a reader infers it (_semantic_).
 
-| Directory         | Kind     | Meaning                                                                                                           | Programmed against by                                     |
-| ----------------- | -------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| `automation/`     | contract | Module system root — all PowerShell modules and infrastructure (Levels 2–3)                                       | `importer.ps1`, `Test-Automation`, `Install-VendorModule` |
-| `docs/`           | semantic | Documentation — `adr/` decision records and `notes/` working notes                                                | Human consumption; ADR section + file-naming convention   |
-| `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                                | Bicep build/deploy tooling, `Get-BicepTemplates`          |
-| `pipelines/`      | contract | Azure DevOps YAML pipelines, per-kind templates, and the runner                                                   | Azure DevOps runner, `Invoke-AdoScript.ps1`               |
-| `contracts/`      | contract | External-facing API contracts (versioned) — `<name>/v<N>/`; see [api-contracts](api-contracts.md)                 | Contract tests; contract producers/consumers              |
-| `.sha-markers/`   | contract | Deployable-unit sha-marker files — `<globset>.sha256`; see [durable-sha-globs](../pipelines/durable-sha-globs.md) | ADO/GH path filters; `Update-ShaMarker`, `Test-ShaMarker` |
-| `out/`            | contract | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)                   | Output functions, CI artifacts, cleanup scripts           |
-| `.github/`        | contract | GitHub Actions — `workflows/`, actions, templates                                                                 | GitHub Actions runner                                     |
-| `.vscode/`        | contract | Editor settings, tasks, launch configs                                                                            | VS Code                                                   |
-| `.claude/`        | contract | Claude Code project config — `CLAUDE.md`, `CLAUDE.local.md`, `settings.json`                                      | Claude Code                                               |
-| `.git/`           | —        | Git's own store. The boundary of _our_ conventions: git owns it, we do not document it.                           | Git                                                       |
+| Directory         | Kind     | Meaning                                                                                                                     | Programmed against by                                     |
+| ----------------- | -------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| `automation/`     | contract | Module system root — all PowerShell modules and infrastructure (Levels 2–3)                                                 | `importer.ps1`, `Test-Automation`, `Install-VendorModule` |
+| `docs/`           | semantic | Documentation — `adr/` decision records and `notes/` working notes                                                          | Human consumption; ADR section + file-naming convention   |
+| `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                                          | Bicep build/deploy tooling, `Get-BicepTemplates`          |
+| `pipelines/`      | contract | Azure DevOps YAML pipelines, per-kind templates, and the runner                                                             | Azure DevOps runner, `Invoke-AdoScript.ps1`               |
+| `contracts/`      | contract | External-facing API contracts (versioned) — `<name>/v<N>/`; see [api-contracts](api-contracts.md)                           | Contract tests; contract producers/consumers              |
+| `.sha-markers/`   | contract | Deployable-unit sha-marker files — `<globset>.sha256`; see [durable-sha-globs](../pipelines/durable-sha-globs.md)           | ADO/GH path filters; `Update-ShaMarker`, `Test-ShaMarker` |
+| `out/`            | contract | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)                             | Output functions, CI artifacts, cleanup scripts           |
+| `.github/`        | contract | GitHub Actions — `workflows/`, actions, templates                                                                           | GitHub Actions runner                                     |
+| `.vscode/`        | contract | Managed, generated editor config — every file reproduced on import; see [generated-root-configs](generated-root-configs.md) | VS Code; `Build-RootConfig`                               |
+| `.claude/`        | contract | Claude Code project config — `CLAUDE.md`, `CLAUDE.local.md`, `settings.json`                                                | Claude Code                                               |
+| `.git/`           | —        | Git's own store. The boundary of _our_ conventions: git owns it, we do not document it.                                     | Git                                                       |
 
 `automation/` is the only root the module system interacts with; its internals are Levels 2–3 below. The rest separate concerns at the repo
 level, and each has its own conventional sub-layout:

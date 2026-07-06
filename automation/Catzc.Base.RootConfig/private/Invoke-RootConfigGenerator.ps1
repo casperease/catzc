@@ -49,6 +49,15 @@ function Invoke-RootConfigGenerator {
                 })
             New-VSCodeSettings -ManagedTarget $managedTargets
         }
+        'New-VSCodeExtensions' {
+            # The VS Code extension recommendations, rendered from the vscode-extensions registry
+            # (Catzc.Base.VSCode).
+            New-VSCodeExtensions
+        }
+        'New-VSCodeLaunch' {
+            # The VS Code launch profiles, rendered from the vscode-launch registry (Catzc.Base.VSCode).
+            New-VSCodeLaunch
+        }
         default {
             throw "Unknown root-config generator '$Name'. Register its invocation in Invoke-RootConfigGenerator (Catzc.Base.RootConfig)."
         }
