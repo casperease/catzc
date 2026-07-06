@@ -43,8 +43,10 @@ function Invoke-Uv {
     }
 
     if ($Prerelease) {
-        # Pre-release resolution is a deliberate relaxation of the version lock — surface it, never silent.
-        Write-Warning "uv: allowing pre-release/dev package versions (--prerelease=allow) for: uv $Arguments"
+        # Pre-release resolution is a deliberate, config-driven relaxation of the version lock — surface it so it
+        # is never silent. A message, not a warning: the toolchain runs with WarningPreference=Stop, and this is
+        # expected (opt-in) behaviour, not an anomaly to halt on.
+        Write-Message "uv: allowing pre-release/dev package versions (--prerelease=allow) for: uv $Arguments"
         $Arguments = "$Arguments --prerelease=allow"
     }
 

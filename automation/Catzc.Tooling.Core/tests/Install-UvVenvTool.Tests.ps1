@@ -42,8 +42,8 @@ Describe 'Install-UvVenvTool' -Tag 'L0', 'logic' {
 }
 
 Describe 'Invoke-Uv' -Tag 'L0', 'logic' {
-    It 'appends --prerelease=allow (and warns) under -Prerelease' {
-        Invoke-Uv 'pip install azure-cli' -Prerelease -DryRun -WarningAction SilentlyContinue |
+    It 'appends --prerelease=allow (and surfaces a message) under -Prerelease' {
+        Invoke-Uv 'pip install azure-cli' -Prerelease -DryRun |
             Should -Be 'uv pip install azure-cli --prerelease=allow'
     }
 
