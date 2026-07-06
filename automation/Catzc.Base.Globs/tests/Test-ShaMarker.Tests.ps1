@@ -1,4 +1,5 @@
-# The freshness query: Fresh/Stale/Missing per globset plus Orphaned files — clean exactly when all Fresh.
+# The freshness query: Fresh/Stale/Missing per globset — declared AND derived (ADR-PROTGLOB:7) — plus
+# Orphaned files; clean exactly when all Fresh.
 Describe 'Test-ShaMarker' -Tag 'L1', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
@@ -17,7 +18,10 @@ Describe 'Test-ShaMarker' -Tag 'L1', 'logic' {
                     'unit-b' = @{ description = 'd'; layer = 'deployable-unit'; include = @('docs/**') }
                 }
             })
+        $script:derivedSet = [Catzc.Base.Globs.GlobSet]::new(
+            'mod-x', 'derived module scope', 'module', @('automation/Mod.X/**'), @(), @(), @(), -1, $null)
         Mock Get-Config { $script:config } -ModuleName Catzc.Base.Globs
+        Mock Get-ModuleGlobSet { $script:derivedSet } -ModuleName Catzc.Base.Globs
         Mock Get-GlobSetHash { $script:hashA } -ModuleName Catzc.Base.Globs
     }
 
@@ -52,17 +56,26 @@ Describe 'Test-ShaMarker' -Tag 'L1', 'logic' {
         ($result | Where-Object Status -EQ 'Orphaned').Name | Should -Be 'dead-unit'
     }
 
-    It 'covers every globset on a full run and never throws' {
+    It 'covers every globset — declared and derived — on a full run and never throws' {
         [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'unit-a.sha256'), "$script:hashA`n")
         $result = @(Test-ShaMarker)
-        $result.Count | Should -Be 2
+        $result.Count | Should -Be 3
         ($result | Where-Object Name -EQ 'unit-a').Status | Should -Be 'Fresh'
         ($result | Where-Object Name -EQ 'unit-b').Status | Should -Be 'Missing'
+        ($result | Where-Object Name -EQ 'mod-x').Status | Should -Be 'Missing'
+    }
+
+    It 'resolves a derived set by name and never reports its marker as orphaned' {
+        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'mod-x.sha256'), "$script:hashA`n")
+        $result = @(Test-ShaMarker -Name mod-x)
+        ($result | Where-Object Name -EQ 'mod-x').Status | Should -Be 'Fresh'
+        ($result | Where-Object Status -EQ 'Orphaned') | Should -BeNullOrEmpty
     }
 
     It 'is clean exactly when everything is Fresh' {
         [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'unit-a.sha256'), "$script:hashA`n")
         [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'unit-b.sha256'), "$script:hashA`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'mod-x.sha256'), "$script:hashA`n")
         @(Test-ShaMarker | Where-Object Status -NE 'Fresh').Count | Should -Be 0
     }
 }

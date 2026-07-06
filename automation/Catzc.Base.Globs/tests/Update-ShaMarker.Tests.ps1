@@ -1,4 +1,5 @@
-# The trigger-file writer: one 64-hex line + LF, no BOM; idempotent; orphans removed (ADR-GLOBS:5/6).
+# The trigger-file writer: one 64-hex line + LF, no BOM; idempotent; declared AND derived sets
+# (ADR-PROTGLOB:7); orphans removed (ADR-GLOBS:5/6).
 Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
@@ -16,7 +17,10 @@ Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
                     'unit-b' = @{ description = 'd'; layer = 'deployable-unit'; include = @('docs/**') }
                 }
             })
+        $script:derivedSet = [Catzc.Base.Globs.GlobSet]::new(
+            'mod-x', 'derived module scope', 'module', @('automation/Mod.X/**'), @(), @(), @(), -1, $null)
         Mock Get-Config { $script:config } -ModuleName Catzc.Base.Globs
+        Mock Get-ModuleGlobSet { $script:derivedSet } -ModuleName Catzc.Base.Globs
         Mock Get-GlobSetHash { $script:hashA } -ModuleName Catzc.Base.Globs
     }
 
@@ -59,6 +63,13 @@ Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
         (Get-Content (Join-Path $script:markersDir 'unit-a.sha256') -Raw) | Should -Be "$script:hashB`n"
     }
 
+    It 'writes a marker for a derived set on a full run' {
+        $report = Update-ShaMarker -PassThru
+
+        ($report | Where-Object Name -EQ 'mod-x').Status | Should -Be 'Written'
+        Test-Path (Join-Path $script:markersDir 'mod-x.sha256') | Should -BeTrue
+    }
+
     It 'updates only the named set but still removes orphans' {
         New-Item -ItemType Directory -Path $script:markersDir -Force | Out-Null
         Set-Content (Join-Path $script:markersDir 'dead-unit.sha256') $script:hashB
@@ -69,6 +80,16 @@ Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
         $report.Name | Should -Not -Contain 'unit-b'
         ($report | Where-Object Name -EQ 'dead-unit').Status | Should -Be 'Removed'
         Test-Path (Join-Path $script:markersDir 'dead-unit.sha256') | Should -BeFalse
+    }
+
+    It 'never removes a derived set''s marker as an orphan' {
+        New-Item -ItemType Directory -Path $script:markersDir -Force | Out-Null
+        Set-Content (Join-Path $script:markersDir 'mod-x.sha256') $script:hashB
+
+        $report = Update-ShaMarker -Name unit-a -PassThru
+
+        ($report | Where-Object Name -EQ 'mod-x') | Should -BeNullOrEmpty
+        Test-Path (Join-Path $script:markersDir 'mod-x.sha256') | Should -BeTrue
     }
 
     It 'leaves non-sha256 files in .sha-markers/ alone' {

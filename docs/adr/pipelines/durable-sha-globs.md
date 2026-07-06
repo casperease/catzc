@@ -58,8 +58,9 @@ dot-folder that sorts to the top of a PR's file view, the marker diff IS the cha
 
 Every declared globset carries a **layer**: `track` (a root concern, `ADR-TRACK`), `deployable-unit` (what ships; determines a pipeline 1-1,
 annotated on the set as `pipeline:`), or `scope` (a cross-cutting slice). The fourth layer, `module`, is **derived-only** (`ADR-PROTGLOB`) —
-the folders are the registration, and declaring it is rejected. An optional `verify:` (`modules` + `level`) declares the set's test
-blast-radius scope.
+the folders are the registration, and declaring it is rejected; derived module sets persist sha-markers through the same mechanism as
+declared sets (`ADR-PROTGLOB#7`), while pipelines register only on declared deployable-unit markers. An optional `verify:` (`modules` +
+`level`) declares the set's test blast-radius scope.
 
 - [One configuration point](#one-configuration-point)
 

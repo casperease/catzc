@@ -5,8 +5,9 @@
 #
 # Every set declares its layer (ADR-GLOBS:7, ADR-TRACK): 'track' (a root concern), 'deployable-unit'
 # (what ships; determines a pipeline 1-1), or 'scope' (a cross-cutting slice); the 'module' layer is
-# derived from the folders and never declared. 'compose' unions another declared set's effective members
-# into this one (acyclic, ADR-GLOBS:8). 'pipeline' names the pipeline bound to a deployable-unit's marker.
+# derived from the folders (and the internal .psm1 files) and never declared — derived sets persist their
+# own sha-markers too (ADR-PROTGLOB:7). 'compose' unions another declared set's effective members into
+# this one (acyclic, ADR-GLOBS:8). 'pipeline' names the pipeline bound to a deployable-unit's marker.
 #
 # Dialect: '/'-separated, repo-relative; '**' is the only cross-segment operator (zero or more whole
 # segments); within a segment, PowerShell wildcards ('*', '?', '[a-z]'), case-sensitive. Membership is
@@ -37,6 +38,17 @@ globsets:
       level: 2
     include:
       - infrastructure/**
+
+  # The all-templates shared surface: every deployable template EXCEPT the per-subscription configuration
+  # folders — the one marker that says "template code changed" without firing on an individual
+  # subscription's config edit (the per-unit sets below carry those).
+  templates:
+    description: All infrastructure templates' shared surface - every template excluding per-subscription configuration.
+    layer: scope
+    include:
+      - infrastructure/templates/**
+    exclude:
+      - infrastructure/templates/*/configuration/*_*/**
 
   # The whole-template deployable unit: the foundation template with everything it deploys from.
   foundation:

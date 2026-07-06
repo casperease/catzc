@@ -662,6 +662,8 @@ terms:
       meaning: 'CPython (the reference Python implementation; uv installs cpython builds)'
     - term: yaml
       meaning: 'YAML'
+    - term: vscode
+      meaning: 'Visual Studio Code (VS Code) — the .vscode/ root folder, the Catzc.Base.VSCode module, and its Assert-Vscode* validators'
   platform:
     - term: clr
       meaning: 'the Common Language Runtime (CLR)'

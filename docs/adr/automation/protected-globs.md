@@ -50,9 +50,12 @@ changes the scan's outcome must re-key the set.
 ### Rule ADR-PROTGLOB:7
 
 Module globsets are derived, never declared: every module folder under `automation/` derives a set named by the readme-kebab convention
-(`Catzc.Base.Globs` → `catzc-base-globs`, include `automation/<Module>/**`), and the reserved names `internal`, `vendor`, `compiled`, and
-`scriptanalyzer` cover the dot-prefixed infrastructure. Derived and declared sets share one name space — a declared set that shadows a
-derived name is rejected — and derived sets never gain sha-marker files: they scope protection, not pipeline routing.
+(`Catzc.Base.Globs` → `catzc-base-globs`, include `automation/<Module>/**`), every internal shared module `automation/.internal/<Name>.psm1`
+derives a single-file set by the same convention (`Catzc.Internal.Bootstrap` → `catzc-internal-bootstrap`), and the reserved names
+`internal`, `vendor`, `compiled`, and `scriptanalyzer` cover the dot-prefixed infrastructure. Derived and declared sets share one name space
+— a declared set that shadows a derived name is rejected. Derived sets scope protection **and** persist sha-markers exactly as declared sets
+do (`Update-ShaMarker`/`Test-ShaMarker` iterate both name spaces); pipeline routing stays declared-only — a pipeline registers on a declared
+deployable-unit's marker, never on a derived module's.
 
 - [Derived module globsets](#derived-module-globsets)
 
@@ -120,9 +123,12 @@ globs); the spelling scan reads nearly the whole tree including its vocabulary r
 The module folders already say what a module is; writing thirty registry entries would duplicate that and drift as modules come and go. So
 per-module globsets are derived, not declared (`Get-ModuleGlobSet`): folder = module = set, named by the readme-kebab convention, including
 `automation/<Module>/**` — the module's functions, private helpers, native types, configs, and its own tests, so editing a test re-keys its
-module. The reserved names `internal`, `vendor`, `compiled`, and `scriptanalyzer` derive the dot-prefixed infrastructure scopes the suite
-also depends on. Derived and declared sets share one name space — a shadowing declared name is rejected at load — and derived sets never
-enter the sha-marker registry: `Update-ShaMarker` and `Test-ShaMarker` iterate declared sets only.
+module. Each internal shared module `automation/.internal/<Name>.psm1` derives a single-file set the same way — the file is the
+registration, as the folder is for a module. The reserved names `internal`, `vendor`, `compiled`, and `scriptanalyzer` derive the
+dot-prefixed infrastructure scopes the suite also depends on. Derived and declared sets share one name space — a shadowing declared name is
+rejected at load — and derived sets persist their own sha-markers alongside the declared registry: `Update-ShaMarker` and `Test-ShaMarker`
+iterate both name spaces, so a module's identity is a committed, reviewable marker in the PR surface, while pipelines keep registering only
+on declared deployable-unit markers.
 
 ### The composite identity
 
