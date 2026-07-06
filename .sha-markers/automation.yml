@@ -4,4 +4,4 @@ layer: loose-fileset
 pipeline: ci-automation
 scan:
 - '+ automation/**'
-sha256: 336497e7234ee48728e8b6588200bbe3629b0e67d9dda3ef41409069cccf410a
+sha256: 5c89aa02a9e2f39723b7b120e7cf35e1a157d0dbcebf240b899870f35d53ffcc
