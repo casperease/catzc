@@ -1,3 +1,4 @@
+# cspell:ignore ndescription nlayer ninclude  -- the escape-sequence artifacts in the "…`nlayer:…" fixture strings
 # The globset record: membership is include-minus-exclude unioned through compose (ADR-GLOBS:4/ADR-GLOBS:8),
 # the marker path derives from the name (ADR-GLOBS:1), and the constructor gates the shape (kebab-case name,
 # required description, a declared layer, include or compose present, no duplicate patterns).
