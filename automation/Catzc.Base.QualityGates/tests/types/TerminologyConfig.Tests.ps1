@@ -66,8 +66,47 @@ Describe 'TerminologyConfig' -Tag 'L0', 'logic' {
 
     It 'throws when a defined category has no description' {
         { [Catzc.Base.QualityGates.TerminologyConfig]::new(
-                @{ categories = @{ domain = '' }; terms = @{ domain = @(@{ term = 'a'; meaning = 'b' }) } }) } |
+                @{ categories = @{ domain = @{ description = '' } }; terms = @{ domain = @(@{ term = 'a'; meaning = 'b' }) } }) } |
             Should -Throw '*a description is required*'
+    }
+
+    It 'throws when a category value is not a mapping' {
+        { [Catzc.Base.QualityGates.TerminologyConfig]::new(
+                @{ categories = @{ domain = 'just a string' }; terms = @{ domain = @(@{ term = 'a'; meaning = 'b' }) } }) } |
+            Should -Throw '*must be a mapping*'
+    }
+
+    It 'throws when a category carries an unknown key' {
+        { [Catzc.Base.QualityGates.TerminologyConfig]::new(
+                @{ categories = @{ domain = @{ description = 'd'; owner = 'x' } }; terms = @{ domain = @(@{ term = 'a'; meaning = 'b' }) } }) } |
+            Should -Throw "*unknown key 'owner'*"
+    }
+
+    It 'exposes an optional per-category scope; a scope-less category is global (empty list)' {
+        $c = [Catzc.Base.QualityGates.TerminologyConfig]::new(@{
+                categories = @{
+                    domain  = @{ description = 'global vocab' }
+                    fixture = @{ description = 'test-only'; scope = @('**/*.Tests.ps1', 'docs/**') }
+                }
+                terms      = @{
+                    domain  = @(@{ term = 'bicep'; meaning = 'Azure Bicep' })
+                    fixture = @(@{ term = 'acme'; meaning = 'a fixture customer' })
+                }
+            })
+        @($c.categoryScopes['fixture']) | Should -Be @('**/*.Tests.ps1', 'docs/**')
+        @($c.categoryScopes['domain']) | Should -HaveCount 0
+    }
+
+    It 'throws when scope is not a list of globs' {
+        { [Catzc.Base.QualityGates.TerminologyConfig]::new(
+                @{ categories = @{ domain = @{ description = 'd'; scope = 'not-a-list' } }; terms = @{ domain = @(@{ term = 'a'; meaning = 'b' }) } }) } |
+            Should -Throw "*'scope' must be a list*"
+    }
+
+    It 'throws on a backslash-separated scope glob' {
+        { [Catzc.Base.QualityGates.TerminologyConfig]::new(
+                @{ categories = @{ domain = @{ description = 'd'; scope = @('automation\tests\**') } }; terms = @{ domain = @(@{ term = 'a'; meaning = 'b' }) } }) } |
+            Should -Throw '*must be*separated*'
     }
 
     It 'throws when the terms map is empty or absent' {
