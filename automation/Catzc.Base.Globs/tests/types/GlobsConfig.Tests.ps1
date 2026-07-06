@@ -55,6 +55,43 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $set.Matches('other/a.txt') | Should -BeFalse
         }
 
+        It 'expands the composed surface into the marker resolved: block (ADR-GLOBS:9)' {
+            $c = & $script:make @{
+                'base' = @{ description = 'd'; layer = 'deployable-unit'; include = @('shared/**'); exclude = @('shared/config/**') }
+                'unit' = @{ description = 'd'; layer = 'deployable-unit'; compose = @('base'); include = @('mine/**'); pipeline = 'cd-unit' }
+            }
+            $expectedLines = @(
+                'name: unit'
+                'description: d'
+                'layer: deployable-unit'
+                'pipeline: cd-unit'
+                'compose:'
+                '- base'
+                'include:'
+                "- 'mine/**'"
+                'resolved:'
+                '  base:'
+                '    include:'
+                "    - 'shared/**'"
+                '    exclude:'
+                "    - 'shared/config/**'"
+            )
+            $c.Get('unit').Representation | Should -Be (($expectedLines -join "`n") + "`n")
+            # the base set itself composes nothing, so it carries no resolved: block
+            $c.Get('base').Representation | Should -Not -Match 'resolved:'
+        }
+
+        It 'resolves the composed surface transitively, each contributing set once (ADR-GLOBS:9)' {
+            $c = & $script:make @{
+                'leaf' = @{ description = 'd'; layer = 'deployable-unit'; include = @('leaf/**') }
+                'mid'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('leaf'); include = @('mid/**') }
+                'top'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('mid', 'leaf'); include = @('top/**') }
+            }
+            # depth-first, declared order, deduped: mid then leaf (leaf appears once though named twice)
+            $rep = $c.Get('top').Representation
+            $rep | Should -Match "resolved:`n  mid:`n    include:`n    - 'mid/\*\*'`n  leaf:`n    include:`n    - 'leaf/\*\*'`n"
+        }
+
         It 'rejects a compose reference to an unknown set' {
             { & $script:make @{ unit = @{ description = 'd'; layer = 'deployable-unit'; compose = @('nope') } } } |
                 Should -Throw '*unknown set*ADR-GLOBS:8*'

@@ -50,4 +50,27 @@ Describe 'Write-Header' -Tag 'L0', 'logic' {
         $raw = $iv | ForEach-Object { $_.MessageData } | Out-String
         $raw | Should -Match '\e\[96m'
     }
+
+    Context 'RainbowColor profile' {
+        It 'draws the rule as a per-character gradient and keeps the title in the base colour' {
+            $green = [Catzc.Base.Writers.RainbowColor]::new([System.ConsoleColor]::Green)
+            Write-Header 'PASSED' -Width 20 -ForegroundColor $green -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
+            $raw = ($iv | ForEach-Object { $_.MessageData }) -join "`n"
+
+            # The gradient carries several distinct SGR foreground codes (a solid colour would carry one).
+            $codes = [regex]::Matches($raw, '\e\[(\d+)m') | ForEach-Object { $_.Groups[1].Value } |
+                Where-Object { $_ -ne '0' } | Select-Object -Unique
+            @($codes).Count | Should -BeGreaterThan 3
+
+            # The rule characters survive intact under the per-character colouring.
+            $plain = StripAnsi $raw
+            $plain | Should -Match '╭─'
+            $plain | Should -Match '╰─'
+            $plain | Should -Match '│ PASSED'
+
+            # char 0 of the rule is the anchor (green, 92); the title line is the base colour, green.
+            $raw | Should -Match '\e\[92m╭'
+            $raw | Should -Match '\e\[92m│ PASSED'
+        }
+    }
 }

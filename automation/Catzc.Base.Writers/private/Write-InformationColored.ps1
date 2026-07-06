@@ -49,64 +49,15 @@ function Write-InformationColored {
     $text = [string]$MessageData
 
     if ($PSBoundParameters.ContainsKey('ForegroundColor')) {
-        $ansi = switch ($ForegroundColor) {
-            'Black' {
-                "`e[30m"
-            }
-            'DarkRed' {
-                "`e[31m"
-            }
-            'DarkGreen' {
-                "`e[32m"
-            }
-            'DarkYellow' {
-                "`e[33m"
-            }
-            'DarkBlue' {
-                "`e[34m"
-            }
-            'DarkMagenta' {
-                "`e[35m"
-            }
-            'DarkCyan' {
-                "`e[36m"
-            }
-            'Gray' {
-                "`e[37m"
-            }
-            'DarkGray' {
-                "`e[90m"
-            }
-            'Red' {
-                "`e[91m"
-            }
-            'Green' {
-                "`e[92m"
-            }
-            'Yellow' {
-                "`e[93m"
-            }
-            'Blue' {
-                "`e[94m"
-            }
-            'Magenta' {
-                "`e[95m"
-            }
-            'Cyan' {
-                "`e[96m"
-            }
-            'White' {
-                "`e[97m"
-            }
-            default {
-                ''
-            }
-        }
+        # The ConsoleColor -> ANSI SGR map lives once, in the Ansi type (shared with the rainbow writer),
+        # so this chokepoint and RainbowColor can never disagree on a colour's code. Empty = no escape.
+        $ansi = [Catzc.Base.Writers.Ansi]::Code($ForegroundColor)
 
         if ($ansi) {
             # Wrap each line individually — ADO/CI log renderers reset ANSI at newlines
+            $reset = [Catzc.Base.Writers.Ansi]::Reset
             $lines = $text -split "`n"
-            $text = ($lines | ForEach-Object { "${ansi}$_`e[0m" }) -join "`n"
+            $text = ($lines | ForEach-Object { "${ansi}$_$reset" }) -join "`n"
         }
     }
 

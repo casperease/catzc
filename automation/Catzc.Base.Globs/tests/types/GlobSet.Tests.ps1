@@ -55,6 +55,12 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
             $set.Representation | Should -Be (($expectedLines -join "`n") + "`n")
         }
 
+        It 'renders no resolved: block until the registry resolves compose (the raw set has no composed surface)' {
+            $unit = [Catzc.Base.Globs.GlobSet]::new('my-unit', 'a unit', 'deployable-unit',
+                @('config/my-unit/**'), @(), @('base'), @(), -1, 'cd-my-unit')
+            $unit.Representation | Should -Not -Match 'resolved:'
+        }
+
         It 'omits empty sections and changes exactly when the definition changes' {
             $set = & $script:make 'my-unit' @('src/**')
             $set.Representation | Should -Be "name: my-unit`ndescription: a test globset`nlayer: scope`ninclude:`n- 'src/**'`n"

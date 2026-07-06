@@ -69,18 +69,24 @@ declared sets (`ADR-PROTGLOB#7`), while pipelines register only on declared depl
 A globset may **compose** other declared sets (`compose:`): its effective membership is its own include-minus-exclude members UNION the
 composed sets' effective members. References resolve to declared sets only, never to the set itself, and the reference graph must be acyclic
 — all validated at config load. Composition is how a deployable-unit shares a base (e.g. every customer unit composing the customer-shared
-foundation surface) without one customer's configuration change firing another customer's pipeline.
+foundation surface) without one customer's configuration change firing another customer's pipeline. The composed surface is also rendered
+into the marker's `resolved:` block (ADR-GLOBS:9), so the marker states a set's effective membership without chasing references.
 
 - [One configuration point](#one-configuration-point)
 
 ### Rule ADR-GLOBS:9
 
 The marker file is **full-information YAML**: the globset's canonical, LF-terminated definition representation (fixed field order — name,
-description, layer, pipeline, verify, compose, include, exclude — empty sections omitted, patterns single-quoted) plus a final `sha256:`
-line carrying the durable SHA of ADR-GLOBS:5. The `GlobSet` type produces the content (`Representation` + `MarkerContent(sha)`), and
-`Update-ShaMarker` writes it only on a real content change — so the one file separates the two signals in its diff: body lines change
-exactly when the set's **definition** changes, the `sha256:` line whenever member **content** changes. The file is data our own tooling can
-parse back (the repository's `.yml` convention), never an input to any hash (ADR-GLOBS:6).
+description, layer, pipeline, verify, compose, include, exclude, resolved — empty sections omitted, patterns single-quoted) plus a final
+`sha256:` line carrying the durable SHA of ADR-GLOBS:5. When the set composes (ADR-GLOBS:8), the trailing `resolved:` block expands the
+effective composed surface — every transitively composed set that carries its own patterns, rendered under its name with its own
+`include`/`exclude` kept together (never flattened into one table: a flat merge would leak one set's exclude onto another's include and
+change what the set matches). The `resolved:` block is a display of the union `Matches()` already computes; it makes the marker state what
+the set contains without chasing `compose:` references into other marker files. The `GlobSet` type produces the content (`Representation` +
+`MarkerContent(sha)`), and `Update-ShaMarker` writes it only on a real content change — so the one file separates the two signals in its
+diff: body lines change exactly when the set's **definition** changes — its own, or (through `resolved:`) a composed set's — the `sha256:`
+line whenever member **content** changes. The file is data our own tooling can parse back (the repository's `.yml` convention), never an
+input to any hash (ADR-GLOBS:6).
 
 - [The marker is full-information YAML](#the-marker-is-full-information-yaml)
 
@@ -146,9 +152,13 @@ The hash recipe makes the identity durable across platforms and sensitive to eve
 
 The marker file `.sha-markers/<name>.yml` holds everything there is to say about the set: its canonical definition — name, description,
 layer, pipeline, verify, compose, include, exclude, rendered deterministically by the `GlobSet` type with empty sections omitted and
-patterns single-quoted — and, as the final line, `sha256:` with the durable SHA above. One file, two separable signals in review: a diff in
-the body means the set's composition changed (a pattern added, a pipeline rebound); a diff in the `sha256:` line means the members' content
-changed. A reader (or a tool) can parse the marker as ordinary YAML and know the unit's definition and identity without opening `globs.yml`.
+patterns single-quoted — a `resolved:` block that expands any composed surface (ADR-GLOBS:9), and, as the final line, `sha256:` with the
+durable SHA above. The `resolved:` block lists each transitively composed set that contributes patterns, its `include`/`exclude` kept
+together under its name — a faithful picture of the effective union (never a flat merge, which would drop the composing set's own
+configuration by leaking the base's excludes onto it). So a customer unit's marker shows, in one file, both what the customer adds and the
+shared base it inherits. One file, two separable signals in review: a diff in the body means the set's composition changed — a pattern
+added, a pipeline rebound, or a composed set's patterns changed; a diff in the `sha256:` line means the members' content changed. A reader
+(or a tool) can parse the marker as ordinary YAML and know the unit's definition and identity without opening `globs.yml`.
 `.gitattributes` pins the line ending, so the bytes are identical on every checkout.
 
 ### Registering a pipeline or workflow

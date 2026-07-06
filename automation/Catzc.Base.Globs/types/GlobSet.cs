@@ -3,6 +3,9 @@
 // appears in the registry), the include patterns, the optional exclude patterns (a file belongs when it
 // matches at least one include and no exclude, ADR-GLOBS:4), and the optional composition (ADR-GLOBS:8):
 // the set's effective membership is its own patterns' members UNION the composed sets' effective members.
+// That composed surface is also rendered into the marker as the resolved: block (each contributing set's
+// include/exclude, kept together — never flattened into one table, which would leak excludes across sets),
+// so the marker states what the set contains without chasing compose references into other marker files.
 // Verify (test blast-radius scope) and Pipeline (the trigger-role binding) are declarative annotations.
 // MarkerPath is the set's committed sha-marker path (.sha-markers/<name>.yml, ADR-GLOBS:1, ADR-GLOBS:9),
 // whose content is MarkerContent(sha256): the canonical Representation of the set's definition plus the
@@ -48,10 +51,12 @@ public sealed class GlobSet
     }
 
     // The canonical definition representation — the marker's YAML body above its sha256 line (ADR-GLOBS:9):
-    // a deterministic, LF-terminated rendering of the set's configuration — fixed field order, patterns and
-    // compose references in declared order (patterns single-quoted: a plain '*' opener is not valid YAML),
-    // empty sections omitted. It changes exactly when the definition changes, never when member content
-    // changes.
+    // a deterministic, LF-terminated rendering of the set's configuration — fixed field order (name,
+    // description, layer, pipeline, verify, compose, include, exclude, resolved), patterns and compose
+    // references in declared order (patterns single-quoted: a plain '*' opener is not valid YAML), empty
+    // sections omitted. The trailing resolved: block expands the composed surface (ADR-GLOBS:8) so the
+    // marker states what the set contains without chasing compose references. It changes exactly when the
+    // definition changes — the set's own OR a composed set's — never when member content changes.
     public string Representation
     {
         get
@@ -95,6 +100,44 @@ public sealed class GlobSet
                 foreach (GlobPattern pattern in Exclude)
                 {
                     text.Append("- '").Append(pattern.Pattern.Replace("'", "''")).Append("'\n");
+                }
+            }
+            // resolved: the effective composed surface (ADR-GLOBS:8, ADR-GLOBS:9). Each transitively
+            // composed set that carries its own patterns is rendered under its name, its include/exclude
+            // kept together — a faithful picture of the union (never a flat merge, which would leak one
+            // set's exclude onto another's include). Display only: Matches() computes the same union
+            // directly; this block just makes the marker say what the set actually contains without
+            // chasing compose references into other marker files.
+            List<GlobSet> resolvedSets = new List<GlobSet>();
+            foreach (GlobSet composedSet in ComposedClosure())
+            {
+                if (composedSet.Include.Count > 0 || composedSet.Exclude.Count > 0)
+                {
+                    resolvedSets.Add(composedSet);
+                }
+            }
+            if (resolvedSets.Count > 0)
+            {
+                text.Append("resolved:\n");
+                foreach (GlobSet composedSet in resolvedSets)
+                {
+                    text.Append("  ").Append(composedSet.Name).Append(":\n");
+                    if (composedSet.Include.Count > 0)
+                    {
+                        text.Append("    include:\n");
+                        foreach (GlobPattern pattern in composedSet.Include)
+                        {
+                            text.Append("    - '").Append(pattern.Pattern.Replace("'", "''")).Append("'\n");
+                        }
+                    }
+                    if (composedSet.Exclude.Count > 0)
+                    {
+                        text.Append("    exclude:\n");
+                        foreach (GlobPattern pattern in composedSet.Exclude)
+                        {
+                            text.Append("    - '").Append(pattern.Pattern.Replace("'", "''")).Append("'\n");
+                        }
+                    }
                 }
             }
             return text.ToString();
@@ -168,6 +211,30 @@ public sealed class GlobSet
             if (set.Matches(repoRelativePath)) { return true; }
         }
         return false;
+    }
+
+    // The transitively composed sets, depth-first through Compose in declared order, each appearing once
+    // (first occurrence wins). Because the union is order- and structure-free (ADR-GLOBS:5), a flat,
+    // deduped list of the contributing sets fully captures the composed surface for the resolved: block.
+    // Empty until GlobsConfig calls ResolveCompose, so a raw, unregistered GlobSet renders no resolved block.
+    private List<GlobSet> ComposedClosure()
+    {
+        List<GlobSet> ordered = new List<GlobSet>();
+        HashSet<string> seen = new HashSet<string>(StringComparer.Ordinal);
+        CollectComposed(this, ordered, seen);
+        return ordered;
+    }
+
+    private static void CollectComposed(GlobSet set, List<GlobSet> ordered, HashSet<string> seen)
+    {
+        foreach (GlobSet composedSet in set.composed)
+        {
+            if (seen.Add(composedSet.Name))
+            {
+                ordered.Add(composedSet);
+                CollectComposed(composedSet, ordered, seen);
+            }
+        }
     }
 
     private bool MatchesOwn(string repoRelativePath)

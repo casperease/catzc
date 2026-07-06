@@ -7,16 +7,22 @@
       Curved:  ╰──────────────╯
       Stars:   ****************
       Heavy:   ╚══════════════╝
+
+    -ForegroundColor takes either a [System.ConsoleColor] (or its string name) or a
+    [Catzc.Base.Writers.RainbowColor] profile, which renders the closing rule as a per-character gradient.
 .PARAMETER Style
     Visual style: Curved, Stars, or Heavy. Defaults to Curved.
 .PARAMETER Width
-    Total width of the line. Defaults to 60.
+    Total width of the line. Defaults to 78.
 .PARAMETER ForegroundColor
-    Color for the output. No color by default (renders as terminal default).
+    Colour for the output: a [System.ConsoleColor] (or its name), or a [Catzc.Base.Writers.RainbowColor]
+    profile for a gradient rule. No colour by default (renders as terminal default).
 .EXAMPLE
     Write-Header 'Deploying'
     Deploy-App
     Write-Footer
+.EXAMPLE
+    Write-Footer -ForegroundColor ([Catzc.Base.Writers.RainbowColor]::new('Green'))
 #>
 function Write-Footer {
     [CmdletBinding()]
@@ -26,19 +32,14 @@ function Write-Footer {
 
         [int] $Width = 78,
 
-        [System.ConsoleColor] $ForegroundColor
+        [object] $ForegroundColor
     )
 
-    $colorSplat = if ($PSBoundParameters.ContainsKey('ForegroundColor')) {
-        @{ ForegroundColor = $ForegroundColor }
-    }
-    else {
-        @{}
-    }
+    $color = Resolve-WriterColor -ForegroundColor $ForegroundColor -Bound:$PSBoundParameters.ContainsKey('ForegroundColor')
 
     $line = switch ($Style) {
         'Curved' {
-            $inner = $Width - 2; "`n╰$('─' * $inner)╯"
+            $inner = $Width - 2; "╰$('─' * $inner)╯"
         }
         'Stars' {
             '*' * $Width
@@ -48,5 +49,5 @@ function Write-Footer {
         }
     }
 
-    Write-InformationColored $line @colorSplat
+    Write-FramedLine -Segment @(@{ Text = $line; Rule = $true }) -Color $color
 }

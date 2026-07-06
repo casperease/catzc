@@ -14,20 +14,25 @@
         * Message
         ****************
 
+    -ForegroundColor takes either a [System.ConsoleColor] (or its string name) — one colour for the whole
+    header — or a [Catzc.Base.Writers.RainbowColor] profile, which renders the horizontal rule lines as a
+    per-character gradient while the titled line keeps the profile's base colour. A profile passed to any
+    plain [ConsoleColor] sink side-grades to its base, so the same value works everywhere.
 .PARAMETER Message
     The text to display. If omitted, writes a single separator line.
 .PARAMETER Style
-    Visual style: Curved, Stars, or Line. Defaults to Curved.
+    Visual style: Curved, Stars, or Heavy. Defaults to Curved.
 .PARAMETER Width
-    Total width of the separator lines. Defaults to 60.
+    Total width of the separator lines. Defaults to 78.
 .PARAMETER ForegroundColor
-    Color for the output. No color by default (renders as terminal default).
+    Colour for the output: a [System.ConsoleColor] (or its name), or a [Catzc.Base.Writers.RainbowColor]
+    profile for a gradient rule. No colour by default (renders as terminal default).
 .EXAMPLE
     Write-Header 'Deployment starting'
 .EXAMPLE
     Write-Header 'Build' -Style Stars -ForegroundColor Yellow
 .EXAMPLE
-    Write-Header -Style Line
+    Write-Header 'PASSED' -ForegroundColor ([Catzc.Base.Writers.RainbowColor]::new('Green'))
 #>
 function Write-Header {
     [CmdletBinding()]
@@ -40,71 +45,65 @@ function Write-Header {
 
         [int] $Width = 78,
 
-        [System.ConsoleColor] $ForegroundColor
+        [object] $ForegroundColor
     )
 
-    $colorSplat = if ($PSBoundParameters.ContainsKey('ForegroundColor')) {
-        @{ ForegroundColor = $ForegroundColor }
-    }
-    else {
-        @{}
-    }
+    $color = Resolve-WriterColor -ForegroundColor $ForegroundColor -Bound:$PSBoundParameters.ContainsKey('ForegroundColor')
 
-    switch ($Style) {
+    $segments = switch ($Style) {
         'Curved' {
             $inner = $Width - 2
-            $topLine = "╭$('─' * $inner)╮"
-            $bottomLine = "╰$('─' * $inner)╯"
-
+            $top = "╭$('─' * $inner)╮"
+            $bottom = "╰$('─' * $inner)╯"
             if ($Message) {
                 $maxMsg = $inner - 2
-                $msgLine = if ($Message.Length -le $maxMsg) {
+                $msg = if ($Message.Length -le $maxMsg) {
                     "│ $($Message.PadRight($maxMsg)) │"
                 }
                 else {
                     "│ $Message"
                 }
-                Write-InformationColored "$topLine`n$msgLine`n$bottomLine" @colorSplat
+                @(@{ Text = $top; Rule = $true }, @{ Text = $msg; Rule = $false }, @{ Text = $bottom; Rule = $true })
             }
             else {
-                Write-InformationColored "$topLine`n" @colorSplat
+                @(@{ Text = $top; Rule = $true })
             }
         }
         'Stars' {
             $separator = '*' * $Width
             $maxMsg = $Width - 4  # "* " + message + " *"
-
             if ($Message) {
-                $msgLine = if ($Message.Length -le $maxMsg) {
+                $msg = if ($Message.Length -le $maxMsg) {
                     "* $($Message.PadRight($maxMsg)) *"
                 }
                 else {
                     "* $Message"
                 }
-                Write-InformationColored "$separator`n$msgLine`n$separator" @colorSplat
+                @(@{ Text = $separator; Rule = $true }, @{ Text = $msg; Rule = $false }, @{ Text = $separator; Rule = $true })
             }
             else {
-                Write-InformationColored $separator @colorSplat
+                @(@{ Text = $separator; Rule = $true })
             }
         }
         'Heavy' {
             $inner = $Width - 2
-            $topLine = "╔$('═' * $inner)╗"
-            $bottomLine = "╚$('═' * $inner)╝"
-            $maxMsg = $inner - 2
-
+            $top = "╔$('═' * $inner)╗"
+            $bottom = "╚$('═' * $inner)╝"
             if ($Message) {
-                $msgLine = if ($Message.Length -le $maxMsg) {
+                $maxMsg = $inner - 2
+                $msg = if ($Message.Length -le $maxMsg) {
                     "║ $($Message.PadRight($maxMsg)) ║"
                 }
                 else {
                     "║ $Message"
                 }
-                Write-InformationColored "$topLine`n$msgLine`n$bottomLine" @colorSplat
+                @(@{ Text = $top; Rule = $true }, @{ Text = $msg; Rule = $false }, @{ Text = $bottom; Rule = $true })
             }
             else {
-                Write-InformationColored $topLine @colorSplat
+                @(@{ Text = $top; Rule = $true })
             }
         }
     }
+
+    Write-FramedLine -Segment $segments -Color $color
 }
