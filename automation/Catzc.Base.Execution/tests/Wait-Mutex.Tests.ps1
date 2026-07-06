@@ -1,3 +1,6 @@
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The contended-hold helper''s Mutex/HeldSignal/HoldMilliseconds parameters are consumed via $using: inside its Start-ThreadJob scriptblock, which this rule does not trace')]
+param()
+
 Describe 'Wait-Mutex' -Tag 'L0', 'logic' {
     BeforeAll {
         # The writer is the observable boundary (ADR-TEST:5): assert which message shape each path emits.
