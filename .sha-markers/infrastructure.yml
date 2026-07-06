@@ -1,6 +1,6 @@
 name: infrastructure
 description: The infrastructure track - the Bicep IaC tree, reusable modules and deployable templates.
-layer: track
+layer: loose-fileset
 pipeline: ci-infrastructure
 verify:
   modules:
