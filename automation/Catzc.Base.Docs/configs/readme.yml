@@ -24,6 +24,10 @@ patterns:
   - glob: automation/*
     source: docs/references/automation/{kebab}.md
 mappings:
+  # The ADR folder's README IS its index — same folder, so index.md's own relative links resolve unchanged
+  # through the README pointer (the ideal link-base case, generated-readmes.md ADR-README:6).
+  - folder: docs/adr
+    source: docs/adr/index.md
   - folder: pipelines
     source: docs/references/pipelines.md
   - folder: infrastructure

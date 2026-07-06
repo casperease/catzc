@@ -61,7 +61,6 @@ zones:
     patterns:
       - '**/README.md'
       - '!.github/README.md'
-      - '!docs/adr/README.md'
       - '!automation/.vendor/**/README.md'
       - '!automation/Catzc.Base.Environment/assets/README.md'
       - '!automation/Catzc.Azure.Templates/tests/assets/README.md'
