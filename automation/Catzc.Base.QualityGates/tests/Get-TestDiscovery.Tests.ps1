@@ -16,7 +16,7 @@ Describe 'DiscoveryFixture' -Tag 'L0', 'logic' {
         }
 
         # Both tests are discovered, none ran (the throwing bodies prove SkipRun held), and the block chain
-        # is live — the tag consumers (Get-TestTagViolations / Get-TestSerialFiles) walk it from this object.
+        # is live — the tag consumers (Get-TestTagViolations / Split-TestAutomationFiles) walk it from this object.
         $discovery.Tests | Should -HaveCount 2
         @($discovery.Tests.Result) | Should -Be @('NotRun', 'NotRun')
         $discovery.Tests[0].Block.Tag | Should -Contain 'L0'

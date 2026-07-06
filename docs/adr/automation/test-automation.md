@@ -217,13 +217,20 @@ from module session state, which global strict never reaches).
 
 ### Rule ADR-TEST:26
 
-The optional third tag **`serial`** (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`) names a test that must not
-share the machine with the parallel pool: it mutates state shared across worker processes — the committed `.compiled` assembly, a fixed
-`out/` path two files both write (e.g. the `out/template/<name>` build folders), `.triggers/` — or it fans out heavy parallelism of its own
-(the PSScriptAnalyzer gate's background-process pool) that would oversubscribe the box on top of the running workers and inflate
-neighbouring tests' wall clock. Any file containing a serial-tagged test runs wholly in a final **one-worker phase**,
-alone, after the parallel shards complete; a file is the scheduling unit, so one serial test serializes its file. A parallel-run flake
-root-caused to a shared resource is fixed by tagging it serial (or removing the sharing) — never by retrying (ADR-RETRY:1).
+Two optional phase tags (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`) name tests that must not share the
+machine with the parallel pool; `Split-TestAutomationFiles` owns the split, and a file is the scheduling unit, so one tagged test moves its
+whole file (serial wins when a file carries both):
+
+- **`serial`** — the test mutates state shared across worker processes: the committed `.compiled` assembly, a fixed `out/` path two files
+  both write (e.g. the `out/template/<name>` build folders), `.triggers/`. Its file runs in the final **one-worker phase**, strictly alone,
+  one file after another.
+- **`greedy`** — the test consumes the machine beyond its own process (the PSScriptAnalyzer gate's background-process pool, tests that
+  spawn importer-loading pwsh workers) but shares no mutable state with other files. Its file runs in the **greedy phase** between the
+  parallel shards and the serial phase: single-file shards through the worker pool, one file per worker slot, so greedy files overlap each
+  other (their tests carry L2-scale time limits) but never the parallel phase whose L0/L1 timings they would inflate.
+
+A parallel-run flake root-caused to a shared resource is fixed by tagging it serial (or removing the sharing) — never by retrying
+(ADR-RETRY:1).
 
 - [The parallel harness](#the-parallel-harness)
 
@@ -345,7 +352,8 @@ Each axis is also a run filter on `Test-Automation`: `-Level` bounds the tier (L
 category (omit it to run both). Both work by excluding the unwanted tags, so a mixed file's per-`Context` category tags filter correctly —
 the `Describe` carries only the tier.
 
-Beyond the two mandatory axes there are two **optional** tags: `serial` (ADR-TEST:26) and the provenance citations of the next section.
+Beyond the two mandatory axes there are three **optional** tags: the phase tags `serial` and `greedy` (ADR-TEST:26) and the provenance
+citations of the next section.
 
 ### The optional provenance axis and rule-enforcement coverage
 
@@ -468,7 +476,8 @@ clock runs in parallel (the `PesterRunner` type owns this).
 Results cross the process boundary as **rows**, not Pester objects: each worker reduces its own live result — where the `.Block` chain still
 exists for tier/category/skip-reason resolution — to plain per-test rows in a JSON sidecar, and the parent aggregates them for the timing
 check and every report. Pester's NUnit output is per shard (`results-shard-<N>.xml`); summary.md and tests.csv are the merged artifacts.
-Files containing a `serial`-tagged test (ADR-TEST:26) run in a final one-worker phase, alone.
+Files containing a `greedy`-tagged test (ADR-TEST:26) follow the parallel shards as single-file shards through the pool, one per worker
+slot; files containing a `serial`-tagged test run last in a one-worker phase, alone.
 
 Two deliberate consequences: workers run tests **without strict mode** (parity — the harness has always invoked Pester from module session
 state, which global strict never reaches, and the suite is not written to run strict); and the protected-glob session map

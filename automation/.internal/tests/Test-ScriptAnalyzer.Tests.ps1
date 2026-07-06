@@ -1,7 +1,7 @@
-# serial: the analysis shards across min(ProcessorCount - 1, 10) background pwsh processes of its own —
+# greedy: the analysis shards across min(ProcessorCount - 1, 10) background pwsh processes of its own —
 # stacked on the parallel worker pool that fan-out oversubscribes the machine (and inflates neighbouring
-# tests' wall clock against the level time limits); in the serial phase it lands on an idle box instead.
-Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'serial' {
+# tests' wall clock against the level time limits); the greedy phase runs it after the pool instead.
+Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         $repositoryRoot = $env:RepositoryRoot
         $automationRoot = Join-Path $repositoryRoot 'automation'

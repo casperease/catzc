@@ -5,9 +5,9 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
 }
 
 # L2: drives a real child pwsh worker through the same generator + runner chain as the harness.
-# serial: each It spawns a full importer-loading pwsh worker — stacked on the parallel pool that
-# oversubscribes the box (see the test-automation ADR's serial tag).
-Describe 'Invoke-TestFile (real worker)' -Tag 'L2', 'integrity', 'serial' {
+# greedy: each It spawns a full importer-loading pwsh worker — stacked on the parallel pool that
+# oversubscribes the box (see the test-automation ADR's greedy tag).
+Describe 'Invoke-TestFile (real worker)' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
 
