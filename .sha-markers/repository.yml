@@ -1,0 +1,9 @@
+name: repository
+description: The repository track - every tracked file at the root that no other track owns.
+layer: track
+scan:
+- '+ **'
+- '- .sha-markers/**'
+- '- automation/**'
+- '- infrastructure/**'
+sha256: 85c05ef77cecb1ce6fc265226e66a47ae07dd03da3538bc43488d8b323ab7cef
