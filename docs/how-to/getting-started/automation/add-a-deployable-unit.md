@@ -56,10 +56,10 @@ The exact YAML shapes are in the ADR's
 
 ## The daily discipline
 
-A commit that changes any file a globset matches must also carry the regenerated sha-marker file. On a dev box the importer's janitor
-keeps this true by itself; forgetting is safe either way: the **Marker freshness** integrity gate (in `Test-Automation`, locally and in
-CI) fails on any stale, missing, or orphaned marker file and its message tells you to run `Update-ShaMarker`. `Test-ShaMarker` shows the
-per-set status (Fresh/Stale/Missing/Orphaned) without failing anything.
+A commit that changes any file a globset matches must also carry the regenerated sha-marker file. On a dev box the importer's janitor keeps
+this true by itself; forgetting is safe either way: the **Marker freshness** integrity gate (in `Test-Automation`, locally and in CI) fails
+on any stale, missing, or orphaned marker file and its message tells you to run `Update-ShaMarker`. `Test-ShaMarker` shows the per-set
+status (Fresh/Stale/Missing/Orphaned) without failing anything.
 
 ## Protected scans (what the skip messages mean)
 

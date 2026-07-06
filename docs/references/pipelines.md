@@ -63,9 +63,10 @@ canonical shapes to copy.
 
 1. Create a `<type>-<name>.yaml` pointed at your real deployable unit (copy an existing one like `ci-infrastructure.yaml` or
    `cd-shared.yaml` as a starting point).
-2. Point its `trigger:`/`pr:` path filters at the unit's sha-marker file — `.sha-markers/<globset>.sha256` — never at source paths; the unit's
-   composition lives in `globs.yml` (see [durable-sha-globs](../adr/pipelines/durable-sha-globs.md#registering-a-pipeline-or-workflow) and
-   the [add-a-deployable-unit](../how-to/getting-started/automation/add-a-deployable-unit.md) how-to).
+2. Point its `trigger:`/`pr:` path filters at the unit's sha-marker file — `.sha-markers/<globset>.sha256` — never at source paths; the
+   unit's composition lives in `globs.yml` (see
+   [durable-sha-globs](../adr/pipelines/durable-sha-globs.md#registering-a-pipeline-or-workflow) and the
+   [add-a-deployable-unit](../how-to/getting-started/automation/add-a-deployable-unit.md) how-to).
 3. Set real `ServiceConnection` names and ensure `azure.yml` has real subscription IDs.
 4. Register it: `Register-AdoPipeline '<Name>' 'pipelines/<type>-<name>.yaml'`.
 5. For CI/CD, set it as the branch's build validation (the pre-commit half), with the policy's path filter on the same

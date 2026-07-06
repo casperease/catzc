@@ -1,14 +1,14 @@
 name: CI
 
-# Registered on the shared-fate CI unit's trigger file, never on source paths (ADR-GLOBS#1): the
+# Registered on the shared-fate CI unit's sha-marker file, never on source paths (ADR-GLOBS#1): the
 # 'automation' globset covers every tracked file the gates read, so this fires on any real change.
 on:
   push:
     branches: [main]
-    paths: [.triggers/automation.sha256]
+    paths: [.sha-markers/automation.sha256]
   pull_request:
     branches: [main]
-    paths: [.triggers/automation.sha256]
+    paths: [.sha-markers/automation.sha256]
 
 jobs:
   test:

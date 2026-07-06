@@ -8,7 +8,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
             'Catzc.Fake.Beta'  = @{ Public = 'Get-Beta' }
         }
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
-                globsets = @{ automation = @{ description = 'd'; include = @('automation/**'); exclude = @('.triggers/**') } }
+                globsets = @{ automation = @{ description = 'd'; include = @('automation/**'); exclude = @('.sha-markers/**') } }
             })
     }
 

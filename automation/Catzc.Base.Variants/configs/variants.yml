@@ -13,7 +13,7 @@ ado_naming: standard
 #   main-direct   — direct commits to main are allowed (the default; a solo-author trunk)
 #   main-via-pr   — everything reaches main through a PR; local work always happens on a branch, so the
 #                   only forbidden direct commit is one made while standing on main locally
-# Automation that commits (e.g. Sync-GeneratedFile syncing .triggers/ + .compiled) enforces exactly that
+# Automation that commits (e.g. Sync-GeneratedFile syncing .sha-markers/ + .compiled) enforces exactly that
 # stop condition: main-via-pr AND currently on main. Going 1 -> 1+ authors is when to flip this.
 git_workspace: main-direct
 

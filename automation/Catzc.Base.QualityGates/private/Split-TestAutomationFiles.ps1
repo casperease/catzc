@@ -7,7 +7,7 @@
     (Get-TestBlockTag, nearest contributing block wins — the same resolution as the tier/category axes):
 
       - 'serial' — the test mutates state shared across worker processes (the committed .compiled assembly,
-        a fixed out/ path two files both write, .triggers/). Its file runs in the final one-worker phase,
+        a fixed out/ path two files both write, .sha-markers/). Its file runs in the final one-worker phase,
         strictly alone, one file after another.
       - 'greedy' — the test consumes the machine beyond its own process (fans out a background-process
         pool, spawns importer-loading pwsh workers) but shares no mutable state with other files. Its file

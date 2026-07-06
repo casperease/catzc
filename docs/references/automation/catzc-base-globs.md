@@ -27,8 +27,8 @@ as a member.
 
 Resolving a globset to its actual members — the tracked-file universe (`git ls-files`) intersected with the set's membership, ordinally
 sorted — and computing the durable SHA over them: per file, SHA-256 of the CR-stripped bytes; folded as `<path>|<digest>` lines; one
-combined SHA-256. The identity is EOL-insensitive, rename-sensitive, and equal to the committed marker identity whenever the working tree
-is clean in scope.
+combined SHA-256. The identity is EOL-insensitive, rename-sensitive, and equal to the committed marker identity whenever the working tree is
+clean in scope.
 
 ### domain:3 — Sha-marker files
 
