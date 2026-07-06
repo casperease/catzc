@@ -1,6 +1,0 @@
-name: catzc-tooling-core
-description: Derived module scope - automation/Catzc.Tooling.Core/**
-layer: module
-scan:
-- '+ automation/Catzc.Tooling.Core/**'
-sha256: 64d92e3aefbb09462bb3d7e1ade4abf02984ddad284bc039a9e2ac8b19c692b5

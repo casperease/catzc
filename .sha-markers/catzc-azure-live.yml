@@ -1,0 +1,9 @@
+name: catzc-azure-live
+description: Derived module aspect - automation/Catzc.Azure [live]
+layer: module
+scan:
+- '+ automation/Catzc.Azure/*.ps1'
+- '+ automation/Catzc.Azure/private/**'
+- '+ automation/Catzc.Azure/types/**'
+- '+ automation/Catzc.Azure/configs/**'
+sha256: dc0efced714e0e5c45650dde3014b75ca310bfe15c52c307705150089ce20bd7

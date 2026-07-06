@@ -1,0 +1,9 @@
+name: catzc-base-files-live
+description: Derived module aspect - automation/Catzc.Base.Files [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Files/*.ps1'
+- '+ automation/Catzc.Base.Files/private/**'
+- '+ automation/Catzc.Base.Files/types/**'
+- '+ automation/Catzc.Base.Files/configs/**'
+sha256: f9aa4b3044fe34386c0fbda0c1b5552d7f9fbf8b920f73fb4e6e7388755eec86

@@ -1,6 +1,0 @@
-name: catzc-base-git
-description: Derived module scope - automation/Catzc.Base.Git/**
-layer: module
-scan:
-- '+ automation/Catzc.Base.Git/**'
-sha256: e1a8bf268dfc2f1d520896be831836011fad435a0c87de2faae858149dcad160

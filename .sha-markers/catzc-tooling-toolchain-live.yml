@@ -1,0 +1,9 @@
+name: catzc-tooling-toolchain-live
+description: Derived module aspect - automation/Catzc.Tooling.Toolchain [live]
+layer: module
+scan:
+- '+ automation/Catzc.Tooling.Toolchain/*.ps1'
+- '+ automation/Catzc.Tooling.Toolchain/private/**'
+- '+ automation/Catzc.Tooling.Toolchain/types/**'
+- '+ automation/Catzc.Tooling.Toolchain/configs/**'
+sha256: d3237a7d54ef959c8e494a76d2456700f037ba0d7addf50651a9e61ddcbaea9b

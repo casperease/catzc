@@ -1,6 +1,0 @@
-name: catzc-tooling-python
-description: Derived module scope - automation/Catzc.Tooling.Python/**
-layer: module
-scan:
-- '+ automation/Catzc.Tooling.Python/**'
-sha256: 74e2cfcbfd7e5dcf0536c7edd8eaf81102edf0e8fd6bf08e9d7f4808cfd15e2f

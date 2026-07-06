@@ -1,0 +1,10 @@
+name: catzc-base-execution-tests
+description: Derived module aspect - automation/Catzc.Base.Execution [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Execution/**'
+- '- automation/Catzc.Base.Execution/*.ps1'
+- '- automation/Catzc.Base.Execution/private/**'
+- '- automation/Catzc.Base.Execution/types/**'
+- '- automation/Catzc.Base.Execution/configs/**'
+sha256: 8d1df09337fe59a211c5a87bc0e532614a28e514d3a99a17f8db346b981bfd90

@@ -1,0 +1,9 @@
+name: catzc-azure-devops-live
+description: Derived module aspect - automation/Catzc.Azure.DevOps [live]
+layer: module
+scan:
+- '+ automation/Catzc.Azure.DevOps/*.ps1'
+- '+ automation/Catzc.Azure.DevOps/private/**'
+- '+ automation/Catzc.Azure.DevOps/types/**'
+- '+ automation/Catzc.Azure.DevOps/configs/**'
+sha256: 2ac310bb4d396fc34990dd83af1e16523b89bc7cf586e2a212faf24a9201de30

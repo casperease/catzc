@@ -1,6 +1,0 @@
-name: catzc-base-writers
-description: Derived module scope - automation/Catzc.Base.Writers/**
-layer: module
-scan:
-- '+ automation/Catzc.Base.Writers/**'
-sha256: 08c3f3a44c8d3f873f8df30327f2df7f87d5b725f6decdeebd154613464003fb

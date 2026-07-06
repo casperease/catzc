@@ -1,0 +1,10 @@
+name: catzc-base-writers-tests
+description: Derived module aspect - automation/Catzc.Base.Writers [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Writers/**'
+- '- automation/Catzc.Base.Writers/*.ps1'
+- '- automation/Catzc.Base.Writers/private/**'
+- '- automation/Catzc.Base.Writers/types/**'
+- '- automation/Catzc.Base.Writers/configs/**'
+sha256: cb260f598fa7c942d7b6ec8997566ab9e25c866fe5fc93458ff340a79c017591

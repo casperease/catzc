@@ -1,0 +1,10 @@
+name: catzc-azure-devops-tests
+description: Derived module aspect - automation/Catzc.Azure.DevOps [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Azure.DevOps/**'
+- '- automation/Catzc.Azure.DevOps/*.ps1'
+- '- automation/Catzc.Azure.DevOps/private/**'
+- '- automation/Catzc.Azure.DevOps/types/**'
+- '- automation/Catzc.Azure.DevOps/configs/**'
+sha256: 17e39dd8e8c0b0e76e00daa3ac9acfc50c6f016ba23de26031c0e1016e3a59f7

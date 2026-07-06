@@ -1,0 +1,9 @@
+name: catzc-base-variants-live
+description: Derived module aspect - automation/Catzc.Base.Variants [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Variants/*.ps1'
+- '+ automation/Catzc.Base.Variants/private/**'
+- '+ automation/Catzc.Base.Variants/types/**'
+- '+ automation/Catzc.Base.Variants/configs/**'
+sha256: 23a34580342fd51f7128de09d1e98a486ad8aefc0929b04a722b806d4a755620

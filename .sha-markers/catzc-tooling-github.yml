@@ -1,6 +1,0 @@
-name: catzc-tooling-github
-description: Derived module scope - automation/Catzc.Tooling.Github/**
-layer: module
-scan:
-- '+ automation/Catzc.Tooling.Github/**'
-sha256: 5f662aaac3be36a84e943f8e6fa7325f350bc898d6fd4488636de270683618e3

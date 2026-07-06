@@ -1,0 +1,9 @@
+name: catzc-azure-devops-buildvalidation-live
+description: Derived module aspect - automation/Catzc.Azure.DevOps.BuildValidation [live]
+layer: module
+scan:
+- '+ automation/Catzc.Azure.DevOps.BuildValidation/*.ps1'
+- '+ automation/Catzc.Azure.DevOps.BuildValidation/private/**'
+- '+ automation/Catzc.Azure.DevOps.BuildValidation/types/**'
+- '+ automation/Catzc.Azure.DevOps.BuildValidation/configs/**'
+sha256: c3e0d4d97f34889f87580373858069ead0648d9039c983753e6acc6bc5a0db82

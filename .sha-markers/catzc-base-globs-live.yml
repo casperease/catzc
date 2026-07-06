@@ -1,0 +1,9 @@
+name: catzc-base-globs-live
+description: Derived module aspect - automation/Catzc.Base.Globs [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Globs/*.ps1'
+- '+ automation/Catzc.Base.Globs/private/**'
+- '+ automation/Catzc.Base.Globs/types/**'
+- '+ automation/Catzc.Base.Globs/configs/**'
+sha256: c5adb06956239060ff357fe26d1755d4fa353262defa8e29195f6b70c09752f4

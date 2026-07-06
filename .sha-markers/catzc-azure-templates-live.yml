@@ -1,0 +1,9 @@
+name: catzc-azure-templates-live
+description: Derived module aspect - automation/Catzc.Azure.Templates [live]
+layer: module
+scan:
+- '+ automation/Catzc.Azure.Templates/*.ps1'
+- '+ automation/Catzc.Azure.Templates/private/**'
+- '+ automation/Catzc.Azure.Templates/types/**'
+- '+ automation/Catzc.Azure.Templates/configs/**'
+sha256: f210fc72f1f640767732d690d2b3c454b32d72149fe2216086fc9fe06b82d9d1

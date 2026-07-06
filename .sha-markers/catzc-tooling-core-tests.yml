@@ -1,0 +1,10 @@
+name: catzc-tooling-core-tests
+description: Derived module aspect - automation/Catzc.Tooling.Core [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Tooling.Core/**'
+- '- automation/Catzc.Tooling.Core/*.ps1'
+- '- automation/Catzc.Tooling.Core/private/**'
+- '- automation/Catzc.Tooling.Core/types/**'
+- '- automation/Catzc.Tooling.Core/configs/**'
+sha256: 47bce6b84664e5bae7a1fa02fff16f9247ae65c79319619b7e0a82bbefe49a76

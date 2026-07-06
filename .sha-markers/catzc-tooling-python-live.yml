@@ -1,0 +1,9 @@
+name: catzc-tooling-python-live
+description: Derived module aspect - automation/Catzc.Tooling.Python [live]
+layer: module
+scan:
+- '+ automation/Catzc.Tooling.Python/*.ps1'
+- '+ automation/Catzc.Tooling.Python/private/**'
+- '+ automation/Catzc.Tooling.Python/types/**'
+- '+ automation/Catzc.Tooling.Python/configs/**'
+sha256: 7553f4339ed50db2bb56f67c6816058a55be8b8437c72ac4c6cb9d528961ebd3

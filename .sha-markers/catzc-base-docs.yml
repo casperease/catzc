@@ -1,6 +1,0 @@
-name: catzc-base-docs
-description: Derived module scope - automation/Catzc.Base.Docs/**
-layer: module
-scan:
-- '+ automation/Catzc.Base.Docs/**'
-sha256: ad1d042e83cde8ba80958529524227cdfbf5220395e67d34ca18292538d212f3

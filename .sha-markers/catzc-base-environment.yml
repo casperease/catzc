@@ -1,6 +1,0 @@
-name: catzc-base-environment
-description: Derived module scope - automation/Catzc.Base.Environment/**
-layer: module
-scan:
-- '+ automation/Catzc.Base.Environment/**'
-sha256: 540ff148c98d3078bb837f3e86c807737d896b81bb2450481e6a6fb5eb0c5aeb

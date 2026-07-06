@@ -1,0 +1,10 @@
+name: catzc-tooling-github-tests
+description: Derived module aspect - automation/Catzc.Tooling.Github [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Tooling.Github/**'
+- '- automation/Catzc.Tooling.Github/*.ps1'
+- '- automation/Catzc.Tooling.Github/private/**'
+- '- automation/Catzc.Tooling.Github/types/**'
+- '- automation/Catzc.Tooling.Github/configs/**'
+sha256: 737b38370085512648faa939b08b263d0a9ee84ce77e1fcd12a1ab13be1a1edf

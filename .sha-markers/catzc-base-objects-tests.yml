@@ -1,0 +1,10 @@
+name: catzc-base-objects-tests
+description: Derived module aspect - automation/Catzc.Base.Objects [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Objects/**'
+- '- automation/Catzc.Base.Objects/*.ps1'
+- '- automation/Catzc.Base.Objects/private/**'
+- '- automation/Catzc.Base.Objects/types/**'
+- '- automation/Catzc.Base.Objects/configs/**'
+sha256: dee4c094a3c68c6a73c2b0d6c6e62521025e3515230632872a2f16c1d36c2489

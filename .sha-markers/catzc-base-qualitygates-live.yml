@@ -1,0 +1,9 @@
+name: catzc-base-qualitygates-live
+description: Derived module aspect - automation/Catzc.Base.QualityGates [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.QualityGates/*.ps1'
+- '+ automation/Catzc.Base.QualityGates/private/**'
+- '+ automation/Catzc.Base.QualityGates/types/**'
+- '+ automation/Catzc.Base.QualityGates/configs/**'
+sha256: 8822436fc0b4bfa52172f00a1f62a988d8efc251649166187bf9240f17b150e7

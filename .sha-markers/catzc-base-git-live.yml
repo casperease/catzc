@@ -1,0 +1,9 @@
+name: catzc-base-git-live
+description: Derived module aspect - automation/Catzc.Base.Git [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Git/*.ps1'
+- '+ automation/Catzc.Base.Git/private/**'
+- '+ automation/Catzc.Base.Git/types/**'
+- '+ automation/Catzc.Base.Git/configs/**'
+sha256: e5a31a4b603e523aed8d241da450552c34d7410227f3cb261d92ef9e3aa13bc5

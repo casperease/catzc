@@ -1,0 +1,9 @@
+name: catzc-base-objects-live
+description: Derived module aspect - automation/Catzc.Base.Objects [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Objects/*.ps1'
+- '+ automation/Catzc.Base.Objects/private/**'
+- '+ automation/Catzc.Base.Objects/types/**'
+- '+ automation/Catzc.Base.Objects/configs/**'
+sha256: e4228ffebaabd3e1a6eb0b22f9f0f4460eaec33542b0b9cfa6f91f3a9e389b90

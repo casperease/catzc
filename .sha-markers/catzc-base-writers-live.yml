@@ -1,0 +1,9 @@
+name: catzc-base-writers-live
+description: Derived module aspect - automation/Catzc.Base.Writers [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Writers/*.ps1'
+- '+ automation/Catzc.Base.Writers/private/**'
+- '+ automation/Catzc.Base.Writers/types/**'
+- '+ automation/Catzc.Base.Writers/configs/**'
+sha256: e7c81020c77d80ada07af91bbc9874057f4603041381cb457f128c8da69b8a74

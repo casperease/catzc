@@ -1,0 +1,9 @@
+name: catzc-tooling-core-live
+description: Derived module aspect - automation/Catzc.Tooling.Core [live]
+layer: module
+scan:
+- '+ automation/Catzc.Tooling.Core/*.ps1'
+- '+ automation/Catzc.Tooling.Core/private/**'
+- '+ automation/Catzc.Tooling.Core/types/**'
+- '+ automation/Catzc.Tooling.Core/configs/**'
+sha256: 46e117206c1576a60b5caf2ea75829377d91de4eb32afd1aa82d960b37063a6f

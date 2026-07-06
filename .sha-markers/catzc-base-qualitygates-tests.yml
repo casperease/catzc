@@ -1,0 +1,10 @@
+name: catzc-base-qualitygates-tests
+description: Derived module aspect - automation/Catzc.Base.QualityGates [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Base.QualityGates/**'
+- '- automation/Catzc.Base.QualityGates/*.ps1'
+- '- automation/Catzc.Base.QualityGates/private/**'
+- '- automation/Catzc.Base.QualityGates/types/**'
+- '- automation/Catzc.Base.QualityGates/configs/**'
+sha256: d9573e9159f2383eea682ee50c72ef06050240e12bfb20572a4d798dcd0ae4b2

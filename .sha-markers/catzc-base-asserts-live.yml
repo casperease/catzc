@@ -1,0 +1,9 @@
+name: catzc-base-asserts-live
+description: Derived module aspect - automation/Catzc.Base.Asserts [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Asserts/*.ps1'
+- '+ automation/Catzc.Base.Asserts/private/**'
+- '+ automation/Catzc.Base.Asserts/types/**'
+- '+ automation/Catzc.Base.Asserts/configs/**'
+sha256: fe763c34d38cddbe7d259e6faa8a0c63090ad185b218f12a31bda0d26a52cdab

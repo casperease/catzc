@@ -1,6 +1,0 @@
-name: catzc-base-qualitygates
-description: Derived module scope - automation/Catzc.Base.QualityGates/**
-layer: module
-scan:
-- '+ automation/Catzc.Base.QualityGates/**'
-sha256: b8d5cb8e2dc8da476d91e55c731f270727eb7505db5d0902d816d2f2325f9ceb

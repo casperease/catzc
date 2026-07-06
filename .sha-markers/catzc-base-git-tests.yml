@@ -1,0 +1,10 @@
+name: catzc-base-git-tests
+description: Derived module aspect - automation/Catzc.Base.Git [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Git/**'
+- '- automation/Catzc.Base.Git/*.ps1'
+- '- automation/Catzc.Base.Git/private/**'
+- '- automation/Catzc.Base.Git/types/**'
+- '- automation/Catzc.Base.Git/configs/**'
+sha256: 03bed2b2a5977079030385ad37f9f96727cceeb10f25340615cc75be96105557

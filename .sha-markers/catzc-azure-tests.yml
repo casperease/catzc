@@ -1,0 +1,10 @@
+name: catzc-azure-tests
+description: Derived module aspect - automation/Catzc.Azure [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Azure/**'
+- '- automation/Catzc.Azure/*.ps1'
+- '- automation/Catzc.Azure/private/**'
+- '- automation/Catzc.Azure/types/**'
+- '- automation/Catzc.Azure/configs/**'
+sha256: b9859c58210021600e37405da75b7fd307999dd1d7a4cdcc2e022dc1a69bf4bf

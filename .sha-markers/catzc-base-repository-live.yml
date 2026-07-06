@@ -1,0 +1,9 @@
+name: catzc-base-repository-live
+description: Derived module aspect - automation/Catzc.Base.Repository [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Repository/*.ps1'
+- '+ automation/Catzc.Base.Repository/private/**'
+- '+ automation/Catzc.Base.Repository/types/**'
+- '+ automation/Catzc.Base.Repository/configs/**'
+sha256: 29e63da8540b5f2734cc0e0bcbc12245898967e0764d23360939b467a2bf6461

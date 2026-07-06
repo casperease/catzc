@@ -1,0 +1,10 @@
+name: catzc-base-vscode-tests
+description: Derived module aspect - automation/Catzc.Base.VSCode [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Base.VSCode/**'
+- '- automation/Catzc.Base.VSCode/*.ps1'
+- '- automation/Catzc.Base.VSCode/private/**'
+- '- automation/Catzc.Base.VSCode/types/**'
+- '- automation/Catzc.Base.VSCode/configs/**'
+sha256: 6e63a145918125c6cb578d1665d3ca64393df033e26848c25b262192db660b5a

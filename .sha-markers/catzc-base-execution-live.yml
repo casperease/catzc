@@ -1,0 +1,9 @@
+name: catzc-base-execution-live
+description: Derived module aspect - automation/Catzc.Base.Execution [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Execution/*.ps1'
+- '+ automation/Catzc.Base.Execution/private/**'
+- '+ automation/Catzc.Base.Execution/types/**'
+- '+ automation/Catzc.Base.Execution/configs/**'
+sha256: 54d40641f3789c4fb9370093a38864322b6a28e7d316b881271b338c80bf091d

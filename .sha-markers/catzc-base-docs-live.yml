@@ -1,0 +1,9 @@
+name: catzc-base-docs-live
+description: Derived module aspect - automation/Catzc.Base.Docs [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Docs/*.ps1'
+- '+ automation/Catzc.Base.Docs/private/**'
+- '+ automation/Catzc.Base.Docs/types/**'
+- '+ automation/Catzc.Base.Docs/configs/**'
+sha256: 4f5e85e864d21ff2b4a4e29df7196f989fcc1d91dad65d0dfdbde6377072d464

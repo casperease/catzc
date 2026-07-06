@@ -1,0 +1,9 @@
+name: catzc-tooling-node-live
+description: Derived module aspect - automation/Catzc.Tooling.Node [live]
+layer: module
+scan:
+- '+ automation/Catzc.Tooling.Node/*.ps1'
+- '+ automation/Catzc.Tooling.Node/private/**'
+- '+ automation/Catzc.Tooling.Node/types/**'
+- '+ automation/Catzc.Tooling.Node/configs/**'
+sha256: 0fa673fb76d747753e1b6446f47725a849c7fc9c942733e397e0ff3169096577

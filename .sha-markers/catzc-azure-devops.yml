@@ -1,6 +1,0 @@
-name: catzc-azure-devops
-description: Derived module scope - automation/Catzc.Azure.DevOps/**
-layer: module
-scan:
-- '+ automation/Catzc.Azure.DevOps/**'
-sha256: 1d05c97f48d9b44f15cdf654a4af447f23f9f2c4a5cf58ebc46664e0bdc7816d

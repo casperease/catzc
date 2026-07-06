@@ -1,0 +1,10 @@
+name: catzc-azure-firewall-tests
+description: Derived module aspect - automation/Catzc.Azure.Firewall [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Azure.Firewall/**'
+- '- automation/Catzc.Azure.Firewall/*.ps1'
+- '- automation/Catzc.Azure.Firewall/private/**'
+- '- automation/Catzc.Azure.Firewall/types/**'
+- '- automation/Catzc.Azure.Firewall/configs/**'
+sha256: 8b8964f3b9ec84e04a54a63d1a6a70369e192468f3b9ef6e44b5494736387897

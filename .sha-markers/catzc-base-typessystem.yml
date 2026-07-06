@@ -1,6 +1,0 @@
-name: catzc-base-typessystem
-description: Derived module scope - automation/Catzc.Base.TypesSystem/**
-layer: module
-scan:
-- '+ automation/Catzc.Base.TypesSystem/**'
-sha256: cb10caccd0851c6892febe00ef5286746b6700b023b6dce973e5d37d5ec078ab

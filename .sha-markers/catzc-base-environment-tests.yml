@@ -1,0 +1,10 @@
+name: catzc-base-environment-tests
+description: Derived module aspect - automation/Catzc.Base.Environment [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Environment/**'
+- '- automation/Catzc.Base.Environment/*.ps1'
+- '- automation/Catzc.Base.Environment/private/**'
+- '- automation/Catzc.Base.Environment/types/**'
+- '- automation/Catzc.Base.Environment/configs/**'
+sha256: ea68c1516ca636bf4315f0b6ed94633a56236337d7ad8b3e86d26801e58489df

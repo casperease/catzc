@@ -1,0 +1,10 @@
+name: catzc-tooling-environment-tests
+description: Derived module aspect - automation/Catzc.Tooling.Environment [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Tooling.Environment/**'
+- '- automation/Catzc.Tooling.Environment/*.ps1'
+- '- automation/Catzc.Tooling.Environment/private/**'
+- '- automation/Catzc.Tooling.Environment/types/**'
+- '- automation/Catzc.Tooling.Environment/configs/**'
+sha256: 48e478a11051c677b034e4054a307f14bd84f30450b8149fb71bea12fb555335

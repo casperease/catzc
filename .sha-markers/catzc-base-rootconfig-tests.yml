@@ -1,0 +1,10 @@
+name: catzc-base-rootconfig-tests
+description: Derived module aspect - automation/Catzc.Base.RootConfig [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Base.RootConfig/**'
+- '- automation/Catzc.Base.RootConfig/*.ps1'
+- '- automation/Catzc.Base.RootConfig/private/**'
+- '- automation/Catzc.Base.RootConfig/types/**'
+- '- automation/Catzc.Base.RootConfig/configs/**'
+sha256: 8251d5f10210903dddf25416a4268266d6dbac1174f3ce64ca38d6b8a7b275a1

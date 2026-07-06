@@ -1,0 +1,10 @@
+name: catzc-base-variants-tests
+description: Derived module aspect - automation/Catzc.Base.Variants [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Variants/**'
+- '- automation/Catzc.Base.Variants/*.ps1'
+- '- automation/Catzc.Base.Variants/private/**'
+- '- automation/Catzc.Base.Variants/types/**'
+- '- automation/Catzc.Base.Variants/configs/**'
+sha256: d06649d759193eee669e933f75e723f1ad35e4456fbf5b95f928a559fcb42da4

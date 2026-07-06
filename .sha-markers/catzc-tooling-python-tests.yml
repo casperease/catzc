@@ -1,0 +1,10 @@
+name: catzc-tooling-python-tests
+description: Derived module aspect - automation/Catzc.Tooling.Python [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Tooling.Python/**'
+- '- automation/Catzc.Tooling.Python/*.ps1'
+- '- automation/Catzc.Tooling.Python/private/**'
+- '- automation/Catzc.Tooling.Python/types/**'
+- '- automation/Catzc.Tooling.Python/configs/**'
+sha256: 5f2fbe8ef629042f870dd9b232e8cac2b7fc2ab4b48eaa931b8b930f64005e9d

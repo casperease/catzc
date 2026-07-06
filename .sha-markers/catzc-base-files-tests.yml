@@ -1,0 +1,10 @@
+name: catzc-base-files-tests
+description: Derived module aspect - automation/Catzc.Base.Files [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Base.Files/**'
+- '- automation/Catzc.Base.Files/*.ps1'
+- '- automation/Catzc.Base.Files/private/**'
+- '- automation/Catzc.Base.Files/types/**'
+- '- automation/Catzc.Base.Files/configs/**'
+sha256: 63f3bc439b86fab912cb1c79f60123768a303bc877a445c387d264e1ed2585bb

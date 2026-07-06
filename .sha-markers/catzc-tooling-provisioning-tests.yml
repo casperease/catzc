@@ -1,0 +1,10 @@
+name: catzc-tooling-provisioning-tests
+description: Derived module aspect - automation/Catzc.Tooling.Provisioning [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Tooling.Provisioning/**'
+- '- automation/Catzc.Tooling.Provisioning/*.ps1'
+- '- automation/Catzc.Tooling.Provisioning/private/**'
+- '- automation/Catzc.Tooling.Provisioning/types/**'
+- '- automation/Catzc.Tooling.Provisioning/configs/**'
+sha256: 887bd0547fffa6918fda0e379ff999ea734a9d7804b48191b0b4e6033402d65c

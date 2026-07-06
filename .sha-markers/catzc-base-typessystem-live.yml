@@ -1,0 +1,9 @@
+name: catzc-base-typessystem-live
+description: Derived module aspect - automation/Catzc.Base.TypesSystem [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.TypesSystem/*.ps1'
+- '+ automation/Catzc.Base.TypesSystem/private/**'
+- '+ automation/Catzc.Base.TypesSystem/types/**'
+- '+ automation/Catzc.Base.TypesSystem/configs/**'
+sha256: f7e940b850364e7fb67312f0a646be8f8519997d9fe95d12128af69a1c5d68e5

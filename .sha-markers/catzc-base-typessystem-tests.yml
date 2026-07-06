@@ -1,0 +1,10 @@
+name: catzc-base-typessystem-tests
+description: Derived module aspect - automation/Catzc.Base.TypesSystem [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Base.TypesSystem/**'
+- '- automation/Catzc.Base.TypesSystem/*.ps1'
+- '- automation/Catzc.Base.TypesSystem/private/**'
+- '- automation/Catzc.Base.TypesSystem/types/**'
+- '- automation/Catzc.Base.TypesSystem/configs/**'
+sha256: 91af9456c80c97a8049deb9ec618c952e057fb1db97fc591eba9e8d5c71b9d6a

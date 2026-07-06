@@ -1,0 +1,9 @@
+name: catzc-base-modulesystem-live
+description: Derived module aspect - automation/Catzc.Base.ModuleSystem [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.ModuleSystem/*.ps1'
+- '+ automation/Catzc.Base.ModuleSystem/private/**'
+- '+ automation/Catzc.Base.ModuleSystem/types/**'
+- '+ automation/Catzc.Base.ModuleSystem/configs/**'
+sha256: 764a3e9f4a7005325ee6b4a4aef3f0be674d4d5a818600c65eff1d6ddef2a1e3

@@ -1,0 +1,9 @@
+name: catzc-base-rootconfig-live
+description: Derived module aspect - automation/Catzc.Base.RootConfig [live]
+layer: module
+scan:
+- '+ automation/Catzc.Base.RootConfig/*.ps1'
+- '+ automation/Catzc.Base.RootConfig/private/**'
+- '+ automation/Catzc.Base.RootConfig/types/**'
+- '+ automation/Catzc.Base.RootConfig/configs/**'
+sha256: 0545fc43acb0dbf686ecfc0c2eef9b84fd2b0897ab048eb27df779f9b8f2a11d

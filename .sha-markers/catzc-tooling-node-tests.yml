@@ -1,0 +1,10 @@
+name: catzc-tooling-node-tests
+description: Derived module aspect - automation/Catzc.Tooling.Node [tests]
+layer: module
+scan:
+- '+ automation/Catzc.Tooling.Node/**'
+- '- automation/Catzc.Tooling.Node/*.ps1'
+- '- automation/Catzc.Tooling.Node/private/**'
+- '- automation/Catzc.Tooling.Node/types/**'
+- '- automation/Catzc.Tooling.Node/configs/**'
+sha256: dc5f37bcbb3e48ff64497d9236fd14dc6c76642d095c227906d9f7e3190a50bc
