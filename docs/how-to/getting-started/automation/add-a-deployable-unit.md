@@ -1,9 +1,9 @@
 # Add a deployable unit (a globset and its sha-marker)
 
 A deployable unit is defined exactly once, as a **globset** in `automation/Catzc.Base.Globs/configs/globs.yml` — a named set of glob
-patterns over the files under version control. The unit's identity is its **durable SHA**, persisted in a committed sha-marker file
-`.sha-markers/<name>.sha256`; pipelines and workflows path-filter on that one file and never on source paths. The full model is the
-[durable-sha-globs](../../../adr/pipelines/durable-sha-globs.md) ADR; this page is the workflow.
+patterns over the files under version control. The unit's identity is its **durable SHA**, persisted with the set's canonical definition in
+a committed sha-marker file `.sha-markers/<name>.yml`; pipelines and workflows path-filter on that one file and never on source paths. The
+full model is the [durable-sha-globs](../../../adr/pipelines/durable-sha-globs.md) ADR; this page is the workflow.
 
 ## Define the globset
 
@@ -38,7 +38,7 @@ so only `.sha-markers/` and `automation/.compiled/` land in the stamp commit; op
 by hand:
 
 ```powershell
-Update-ShaMarker                   # writes .sha-markers/my-unit.sha256 (and refreshes any other stale set)
+Update-ShaMarker                   # writes .sha-markers/my-unit.yml (and refreshes any other stale set)
 ```
 
 `Update-ShaMarker` is idempotent, writes only on change, and removes the marker file of any globset that no longer exists.
