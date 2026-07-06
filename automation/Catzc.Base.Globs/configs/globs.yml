@@ -1,7 +1,8 @@
 # The globset registry — THE single source of truth mapping every area-of-control onto its files under
-# version control (see docs/adr/pipelines/durable-sha-globs.md, ADR-GLOBS). Each set's durable SHA is
-# persisted in .sha-markers/<name>.sha256 by Update-ShaMarker; pipelines and workflows path-filter on those
-# marker files and on nothing else. Validated strictly on load by Catzc.Base.Globs.GlobsConfig.
+# version control (see docs/adr/pipelines/durable-sha-globs.md, ADR-GLOBS). Each set's canonical definition
+# plus its durable SHA is persisted in .sha-markers/<name>.yml by Update-ShaMarker; pipelines and workflows
+# path-filter on those marker files and on nothing else. Validated strictly on load by
+# Catzc.Base.Globs.GlobsConfig.
 #
 # Every set declares its layer (ADR-GLOBS:7, ADR-TRACK): 'track' (a root concern), 'deployable-unit'
 # (what ships; determines a pipeline 1-1), or 'scope' (a cross-cutting slice); the 'module' layer is

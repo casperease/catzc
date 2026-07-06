@@ -47,9 +47,9 @@ Update-ShaMarker                   # writes .sha-markers/my-unit.yml (and refres
 
 Point every pipeline or workflow that should fire for this unit at the sha-marker file — and at nothing else:
 
-- **ADO root pipeline** — `trigger:`/`pr:` `paths: include: [.sha-markers/my-unit.sha256]`.
-- **GitHub workflow** — `on.push.paths` / `on.pull_request.paths: [.sha-markers/my-unit.sha256]`.
-- **ADO build-validation policy** (server-side) — set the policy's path filter to `/.sha-markers/my-unit.sha256`.
+- **ADO root pipeline** — `trigger:`/`pr:` `paths: include: [.sha-markers/my-unit.yml]`.
+- **GitHub workflow** — `on.push.paths` / `on.pull_request.paths: [.sha-markers/my-unit.yml]`.
+- **ADO build-validation policy** (server-side) — set the policy's path filter to `/.sha-markers/my-unit.yml`.
 
 The exact YAML shapes are in the ADR's
 [registration section](../../../adr/pipelines/durable-sha-globs.md#registering-a-pipeline-or-workflow).
