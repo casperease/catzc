@@ -52,7 +52,7 @@ changes the scan's outcome must re-key the set.
 Module globsets are derived, never declared: every module folder under `automation/` derives a set named by the readme-kebab convention
 (`Catzc.Base.Globs` → `catzc-base-globs`, include `automation/<Module>/**`), and the reserved names `internal`, `vendor`, `compiled`, and
 `scriptanalyzer` cover the dot-prefixed infrastructure. Derived and declared sets share one name space — a declared set that shadows a
-derived name is rejected — and derived sets never gain trigger files: they scope protection, not pipeline routing.
+derived name is rejected — and derived sets never gain sha-marker files: they scope protection, not pipeline routing.
 
 - [Derived module globsets](#derived-module-globsets)
 
@@ -122,7 +122,7 @@ per-module globsets are derived, not declared (`Get-ModuleGlobSet`): folder = mo
 `automation/<Module>/**` — the module's functions, private helpers, native types, configs, and its own tests, so editing a test re-keys its
 module. The reserved names `internal`, `vendor`, `compiled`, and `scriptanalyzer` derive the dot-prefixed infrastructure scopes the suite
 also depends on. Derived and declared sets share one name space — a shadowing declared name is rejected at load — and derived sets never
-enter the trigger-file registry: `Update-Trigger` and `Test-Trigger` iterate declared sets only.
+enter the sha-marker registry: `Update-ShaMarker` and `Test-ShaMarker` iterate declared sets only.
 
 ### The composite identity
 

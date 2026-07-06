@@ -4,8 +4,8 @@
 
 ### Rule ADR-PESTER:1
 
-Pester is the test framework, and a test applies the [test-automation](../test-automation.md) (`ADR-TEST`) doctrine — logic isolated
-through seams, integrity bound to the real files — with the mock idioms and file conventions below.
+Pester is the test framework, and a test applies the [test-automation](../test-automation.md) (`ADR-TEST`) doctrine — logic isolated through
+seams, integrity bound to the real files — with the mock idioms and file conventions below.
 
 - [The idioms](#the-idioms)
 
@@ -135,9 +135,9 @@ Describe 'sample (real az)' -Tag 'L2', 'logic' {
 ### How this is enforced
 
 - **The seams exist** as mockable functions (`Get-BicepTemplatesRoot` for the template tree; `Resolve-ConfigEntry` and `Get-Config` for
-  config), so isolation is a mock away and production has a single pristine default. For config, mock the discovery seam to return a
-  fixture `@{ Name; Module; Path }`, or mock `Get-Config` outright — the whole function, never its internals (`ADR-PESTER:3`). When
-  exercising cache behavior directly, reset the slot per [script-scope-caching](script-scope-caching.md) (`ADR-PSCACHE:3`).
+  config), so isolation is a mock away and production has a single pristine default. For config, mock the discovery seam to return a fixture
+  `@{ Name; Module; Path }`, or mock `Get-Config` outright — the whole function, never its internals (`ADR-PESTER:3`). When exercising cache
+  behavior directly, reset the slot per [script-scope-caching](script-scope-caching.md) (`ADR-PSCACHE:3`).
 - **`Test-Automation.Tests.ps1`** validates the `Verb-Noun.Tests.ps1` filename convention — a type test under `tests/types/` is instead
   named for the `types/*.cs` it covers — and the one-function-per-file rules for source (see
   [one-function-per-file](one-function-per-file.md)).

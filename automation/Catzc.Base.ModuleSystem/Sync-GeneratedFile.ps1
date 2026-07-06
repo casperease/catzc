@@ -1,9 +1,10 @@
 <#
 .SYNOPSIS
-    Regenerates the trigger files and commits the importer-maintained generated files to git.
+    Regenerates the sha-marker files and commits the importer-maintained generated files to git.
 .DESCRIPTION
-    The dev-box janitor the importer runs by default (opt out: -NoCommitTriggersInDevBox): runs Update-Trigger, then
-    commits whatever under the generated-file paths — .triggers/ (durable-SHA trigger files,
+    The dev-box janitor the importer runs by default (opt out: -NoCommitShaMarkersInDevBox): runs
+    Update-ShaMarker, then
+    commits whatever under the generated-file paths — .sha-markers/ (durable-SHA marker files,
     docs/adr/pipelines/durable-sha-globs.md) and automation/.compiled/ (the committed compiled type
     assembly) — differs from HEAD, via Invoke-GitCommit. Deriving the commit set from git status rather
     than this run's reports also picks up generated files an earlier import wrote but never committed
@@ -25,7 +26,7 @@
     stamps hash working-tree content, so mid-work they describe the tree the in-flight edits will join in
     the next work commit; CI verifies the pushed HEAD by recomputing the hashes.
 .PARAMETER DryRun
-    Propagated to Invoke-GitCommit: the trigger files are still regenerated (Update-Trigger is
+    Propagated to Invoke-GitCommit: the marker files are still regenerated (Update-ShaMarker is
     idempotent), but instead of committing, the planned git commands are returned.
 .OUTPUTS
     [string] The new commit's SHA (or the planned commands with -DryRun); nothing when a guard skipped
@@ -42,7 +43,7 @@ function Sync-GeneratedFile {
         [switch] $DryRun
     )
 
-    $generatedPaths = '.triggers', 'automation/.compiled'
+    $generatedPaths = '.sha-markers', 'automation/.compiled'
 
     if (Test-IsRunningInPipeline) {
         Write-Message 'Skipped: running in a pipeline — CI gates verify generated files, they never auto-commit them.'
@@ -59,12 +60,12 @@ function Sync-GeneratedFile {
         return
     }
 
-    Update-Trigger
+    Update-ShaMarker
 
     # Commit whatever changed under the generated paths — Invoke-GitCommit is the idempotent no-op when
     # nothing did, and its pathspec-limited add+commit means exactly the generated files land in the
     # stamp commit whatever else is modified or staged.
-    $result = Invoke-GitCommit -Path $generatedPaths -Message 'chore(repo): sync trigger files and compiled types' -DryRun:$DryRun
+    $result = Invoke-GitCommit -Path $generatedPaths -Message 'chore(repo): sync sha-marker files and compiled types' -DryRun:$DryRun
     if ($result -and -not $DryRun) {
         Write-Message "Sha files were synced to $branch"
     }

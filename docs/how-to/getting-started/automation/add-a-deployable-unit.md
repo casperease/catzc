@@ -1,8 +1,8 @@
-# Add a deployable unit (a globset and its trigger file)
+# Add a deployable unit (a globset and its sha-marker)
 
 A deployable unit is defined exactly once, as a **globset** in `automation/Catzc.Base.Globs/configs/globs.yml` — a named set of glob
-patterns over the files under version control. The unit's identity is its **durable SHA**, persisted in a committed trigger file
-`.triggers/<name>.sha256`; pipelines and workflows path-filter on that one file and never on source paths. The full model is the
+patterns over the files under version control. The unit's identity is its **durable SHA**, persisted in a committed sha-marker file
+`.sha-markers/<name>.sha256`; pipelines and workflows path-filter on that one file and never on source paths. The full model is the
 [durable-sha-globs](../../../adr/pipelines/durable-sha-globs.md) ADR; this page is the workflow.
 
 ## Define the globset
@@ -20,51 +20,46 @@ globsets:
 
 The dialect: `/`-separated, repo-relative; `**` matches any depth (the only operator that crosses `/`); within a segment, patterns mean
 exactly what they mean to PowerShell's `-like` (`*`, `?`, `[a-z]`), case-sensitively. Membership is include minus exclude, evaluated against
-`git ls-files`. The config is strictly validated on load — an unknown key, a malformed pattern, or a set matching a trigger file is rejected
-with a named error.
+`git ls-files`. The config is strictly validated on load — an unknown key, a malformed pattern, or a set matching a sha-marker file is
+rejected with a named error.
 
 Inspect the result before committing to it:
 
 ```powershell
-Get-GlobSet -Name my-unit          # the compiled set + its TriggerPath
+Get-GlobSet -Name my-unit          # the compiled set + its MarkerPath
 Get-GlobSetFile -Name my-unit      # exactly the files the identity is computed over
 Get-GlobSetHash -Name my-unit      # the durable SHA itself
 ```
 
-## Generate and commit the trigger file
+## Generate and commit the sha-marker
+
+Nothing to do on a dev box: every import syncs the marker files and auto-commits them (the `Sync-GeneratedFile` janitor — pathspec-limited,
+so only `.sha-markers/` and `automation/.compiled/` land in the stamp commit; opt out with `-NoCommitShaMarkersInDevBox`). To run the sync
+by hand:
 
 ```powershell
-Update-Trigger                     # writes .triggers/my-unit.sha256 (and refreshes any other stale set)
-git add .triggers/
+Update-ShaMarker                   # writes .sha-markers/my-unit.sha256 (and refreshes any other stale set)
 ```
 
-`Update-Trigger` is idempotent, writes only on change, and removes the trigger file of any globset that no longer exists.
+`Update-ShaMarker` is idempotent, writes only on change, and removes the marker file of any globset that no longer exists.
 
 ## Register the consumers
 
-Point every pipeline or workflow that should fire for this unit at the trigger file — and at nothing else:
+Point every pipeline or workflow that should fire for this unit at the sha-marker file — and at nothing else:
 
-- **ADO root pipeline** — `trigger:`/`pr:` `paths: include: [.triggers/my-unit.sha256]`.
-- **GitHub workflow** — `on.push.paths` / `on.pull_request.paths: [.triggers/my-unit.sha256]`.
-- **ADO build-validation policy** (server-side) — set the policy's path filter to `/.triggers/my-unit.sha256`.
+- **ADO root pipeline** — `trigger:`/`pr:` `paths: include: [.sha-markers/my-unit.sha256]`.
+- **GitHub workflow** — `on.push.paths` / `on.pull_request.paths: [.sha-markers/my-unit.sha256]`.
+- **ADO build-validation policy** (server-side) — set the policy's path filter to `/.sha-markers/my-unit.sha256`.
 
 The exact YAML shapes are in the ADR's
 [registration section](../../../adr/pipelines/durable-sha-globs.md#registering-a-pipeline-or-workflow).
 
 ## The daily discipline
 
-A commit that changes any file a globset matches must also carry the regenerated trigger file:
-
-```powershell
-git add <your changes>             # stage first — git ls-files (the index) is the matching universe
-Update-Trigger
-git add .triggers/
-git commit
-```
-
-Forgetting is safe: the **Trigger freshness** integrity gate (in `Test-Automation`, locally and in CI) fails on any stale, missing, or
-orphaned trigger file and its message tells you to run `Update-Trigger`. `Test-Trigger` shows the per-set status
-(Fresh/Stale/Missing/Orphaned) without failing anything.
+A commit that changes any file a globset matches must also carry the regenerated sha-marker file. On a dev box the importer's janitor
+keeps this true by itself; forgetting is safe either way: the **Marker freshness** integrity gate (in `Test-Automation`, locally and in
+CI) fails on any stale, missing, or orphaned marker file and its message tells you to run `Update-ShaMarker`. `Test-ShaMarker` shows the
+per-set status (Fresh/Stale/Missing/Orphaned) without failing anything.
 
 ## Protected scans (what the skip messages mean)
 

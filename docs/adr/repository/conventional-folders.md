@@ -27,7 +27,7 @@ The root set is closed. Adding a top-level directory is a deliberate architectur
 
 ### Rule ADR-FOLDERS:4
 
-Dot-prefix means infrastructure/tooling, everywhere — `.github/`, `.vscode/`, `.claude/`, `.git/`, `.triggers/`, and
+Dot-prefix means infrastructure/tooling, everywhere — `.github/`, `.vscode/`, `.claude/`, `.git/`, `.sha-markers/`, and
 `automation/.internal|.scriptanalyzer|.vendor/`. Under `automation/` it is enforced mechanically by `Import-AllModules` (dot-prefixed
 directories are excluded from module discovery); elsewhere it is the same convention applied repo-wide.
 
@@ -93,10 +93,11 @@ external-facing API surface and its contract-testing discipline — is the [api-
 
 ### Rule ADR-FOLDERS:12
 
-Deployable-unit trigger files live under the root `.triggers/` folder — one `<globset>.sha256` per globset, written only by the owning
-tooling and never hand-edited. The dot-prefix marks the folder as tooling-owned state, the same convention as every other dot-prefixed root
-(`ADR-FOLDERS:4`). What the trigger files _are_ — the globset model, the durable-SHA identity, and the registration-only trigger discipline
-— is the [durable-sha-globs](../pipelines/durable-sha-globs.md) ADR (code `ADR-GLOBS`).
+Deployable-unit sha-marker files live under the root `.sha-markers/` folder — one `<globset>.sha256` per globset, written only by the
+owning tooling and never hand-edited. The dot-prefix marks the folder as tooling-owned state, the same convention as every other
+dot-prefixed root (`ADR-FOLDERS:4`), and the dot also sorts the folder to the top of a PR's file view — the changed markers are the first
+thing a reviewer sees. What the marker files _are_ — the globset model, the durable-SHA identity, and the registration-only trigger
+discipline — is the [durable-sha-globs](../pipelines/durable-sha-globs.md) ADR (code `ADR-GLOBS`).
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -124,7 +125,7 @@ infrastructure, and a module's internals separate public from private from tests
 Conventional folders come in two kinds, and the difference is _who relies on the name_:
 
 - **Contract folders** — a tool hardcodes the literal name and programs against it, so a wrong name makes the content structurally invisible
-  or non-functional. `automation/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `pipelines/steps/`, `.triggers/`, and
+  or non-functional. `automation/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `pipelines/steps/`, `.sha-markers/`, and
   `infrastructure/templates/<name>/configuration/<subscription>/` are contract folders.
 - **Semantic folders** — a _reader_ infers the meaning; no tool hardcodes the name, and the internal layout is freeform. `docs/`,
   `docs/notes/**`, `infrastructure/modules/`, and the ad-hoc workspaces under `out/` are semantic folders.
@@ -198,7 +199,7 @@ a reader infers it (_semantic_).
 | `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                             | Bicep build/deploy tooling, `Get-BicepTemplates`          |
 | `pipelines/`      | contract | Azure DevOps YAML pipelines, per-kind templates, and the runner                                                | Azure DevOps runner, `Invoke-AdoScript.ps1`               |
 | `contracts/`      | contract | External-facing API contracts (versioned) — `<name>/v<N>/`; see [api-contracts](api-contracts.md)              | Contract tests; contract producers/consumers              |
-| `.triggers/`      | contract | Deployable-unit trigger files — `<globset>.sha256`; see [durable-sha-globs](../pipelines/durable-sha-globs.md) | ADO/GH path filters; `Update-Trigger`, `Test-Trigger`     |
+| `.sha-markers/`   | contract | Deployable-unit sha-marker files — `<globset>.sha256`; see [durable-sha-globs](../pipelines/durable-sha-globs.md) | ADO/GH path filters; `Update-ShaMarker`, `Test-ShaMarker` |
 | `out/`            | contract | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)                | Output functions, CI artifacts, cleanup scripts           |
 | `.github/`        | contract | GitHub Actions — `workflows/`, actions, templates                                                              | GitHub Actions runner                                     |
 | `.vscode/`        | contract | Editor settings, tasks, launch configs                                                                         | VS Code                                                   |
@@ -235,7 +236,7 @@ equally live (see [one-living-version](../principles/one-living-version.md#rule-
 version folder carries a checked-in `.gitkeep` marker — a committed, dot-prefixed git marker (the `.gitkeep` analogue) that keeps the
 directory tracked when otherwise empty and marks it as a conventional contract folder.
 
-**`.triggers/`** holds the committed trigger files — one `<globset>.sha256` per globset, each containing exactly the deployable unit's
+**`.sha-markers/`** holds the committed sha-marker files — one `<globset>.sha256` per globset, each containing exactly the deployable unit's
 durable SHA. The files are generated by the owning module's tooling and never hand-edited; ADO pipelines, ADO build-validation policies, and
 GH workflows path-filter on these paths and on nothing else. The folder name and the `<globset>.sha256` naming are the contract both
 vendors' path filters register against. The full model — globsets, the durable-SHA identity, the commit discipline — is the
@@ -245,7 +246,7 @@ vendors' path filters register against. The full model — globsets, the durable
 (`Get-OutputRoot`); the subfolders inside are ad-hoc workspaces with no fixed names. Nothing under `out/` is source. See
 [dedicated-output-directory](dedicated-output-directory.md).
 
-**Dot-prefixed roots** (`.github/`, `.vscode/`, `.claude/`, `.git/`, `.triggers/`) are infrastructure/tooling — the same convention the
+**Dot-prefixed roots** (`.github/`, `.vscode/`, `.claude/`, `.git/`, `.sha-markers/`) are infrastructure/tooling — the same convention the
 dot-prefix carries inside `automation/` (Level 2): a leading dot means "infrastructure, not content."
 
 The repository _root_ is itself conventional beyond its folders: `importer.ps1` (the entry point), `.editorconfig`, `.gitattributes`,
@@ -376,8 +377,8 @@ folder must exist.
 - **Repo-wide conventions** — the closed root set (`ADR-FOLDERS:3`), the dot-prefixed roots (`ADR-FOLDERS:4`), the markdown-only rule for
   `docs/` (`ADR-FOLDERS:5`), and the `contracts/` versioned-contract layout with its `.gitkeep` marker (`ADR-FOLDERS:11`) — are enforced by
   **code review** against this ADR; the deep `automation/` conventions above are additionally enforced mechanically by the tooling listed
-  here. The `.triggers/` layout (`ADR-FOLDERS:12`) is enforced mechanically: the trigger-freshness integrity gate fails on a stale, missing,
-  or orphaned trigger file.
+  here. The `.sha-markers/` layout (`ADR-FOLDERS:12`) is enforced mechanically: the marker-freshness integrity gate fails on a stale,
+  missing, or orphaned marker file.
 
 - **Code review.** Structural conventions that tooling cannot enforce (e.g., "this YAML file belongs in `configs/`, not the module root")
   are caught in review. The uniform structure makes deviations visually obvious.

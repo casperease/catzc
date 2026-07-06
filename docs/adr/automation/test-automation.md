@@ -476,8 +476,8 @@ on by nothing). Mock only at module boundaries, mock whole functions, and let pu
 
 The concrete Pester shapes — the seam-mock `BeforeEach`, mocking at module boundaries with `-ModuleName`, testing privates through the
 module, the `Verb-Noun.Tests.ps1` file convention, and the engine gotchas that repeatedly bite — are
-[pester-testing](powershell/pester-testing.md) (`ADR-PESTER`). The doctrine above says what a test may depend on; that ADR says how the
-test is written.
+[pester-testing](powershell/pester-testing.md) (`ADR-PESTER`). The doctrine above says what a test may depend on; that ADR says how the test
+is written.
 
 ### How this is enforced
 
@@ -486,8 +486,8 @@ test is written.
   (`L0-L3`) or category (`logic|integrity`) tag. `Get-TestLevelTag`/`Get-TestCategoryTag` (in `Catzc.Base.QualityGates`) do the
   nearest-contributing-block resolution.
 - **The seams exist** as mockable functions (`Get-BicepTemplatesRoot` for the template tree; `Resolve-ConfigEntry` and `Get-Config` for
-  config — see [module-config-loading](module-config-loading.md)), so isolation is a mock away and production has a single pristine
-  default. The mock idioms are [pester-testing](powershell/pester-testing.md) (`ADR-PESTER:2`–`ADR-PESTER:4`).
+  config — see [module-config-loading](module-config-loading.md)), so isolation is a mock away and production has a single pristine default.
+  The mock idioms are [pester-testing](powershell/pester-testing.md) (`ADR-PESTER:2`–`ADR-PESTER:4`).
 - **`Test-Automation.Tests.ps1`** validates the test-file conventions (`ADR-PESTER:5`) and AST-scans every test for
   `Set-ItResult ... -Because '<literal>'`, failing any reason that is not a constrained skip key (lowercase alnum segments joined by `_`).
 - **Seam-mocking isolates pure-logic tests;** the tests that bind to shipped assets (the cross-layer reference check and the generic
