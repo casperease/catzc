@@ -9,7 +9,7 @@ Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {
         New-Item -ItemType Directory -Path $script:data -Force | Out-Null
 
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
-                globsets = @{ unit = @{ description = 'd'; include = @('data/**') } }
+                globsets = @{ unit = @{ description = 'd'; layer = 'scope'; include = @('data/**') } }
             })
     }
 
@@ -85,7 +85,7 @@ Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {
             Set-Content (Join-Path $script:data 'o.txt') 'object-path' -NoNewline
             Mock Get-TrackedFile { @('data/o.txt') } -ModuleName Catzc.Base.Globs
 
-            $derived = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', @('data/**'), @())
+            $derived = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'module', @('data/**'), @(), @(), @(), -1, $null)
             Get-GlobSetHash -GlobSet $derived | Should -Be (Get-GlobSetHash -Name unit)
         }
 
@@ -93,8 +93,8 @@ Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {
             Set-Content (Join-Path $script:data 'in.txt') 'inside' -NoNewline
             Mock Get-TrackedFile { @('data/in.txt', 'other/out.txt') } -ModuleName Catzc.Base.Globs
 
-            $narrow = [Catzc.Base.Globs.GlobSet]::new('narrow', 'd', @('data/**'), @())
-            $wide = [Catzc.Base.Globs.GlobSet]::new('wide', 'd', @('data/**', 'other/**'), @())
+            $narrow = [Catzc.Base.Globs.GlobSet]::new('narrow', 'd', 'module', @('data/**'), @(), @(), @(), -1, $null)
+            $wide = [Catzc.Base.Globs.GlobSet]::new('wide', 'd', 'module', @('data/**', 'other/**'), @(), @(), @(), -1, $null)
             Get-GlobSetHash -GlobSet $narrow | Should -Not -Be (Get-GlobSetHash -GlobSet $wide)
         }
     }

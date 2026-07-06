@@ -52,7 +52,9 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
     }
 
     Context 'fixture' -Tag 'logic' {
-        It 'compiles fresh modules, loads their types, and caches ONE combined DLL' {
+        # L1: the first Add-Type in the file pays Roslyn's cold-start (~0.5s) on top of the compile itself;
+        # the sibling compile tests run against a warm compiler and stay within the L0 budget.
+        It 'compiles fresh modules, loads their types, and caches ONE combined DLL' -Tag 'L1' {
             $namespace = "CatzcTestA$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Alpha = 'public class Alpha { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }

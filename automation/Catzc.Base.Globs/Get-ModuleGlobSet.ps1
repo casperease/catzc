@@ -44,7 +44,8 @@ function Get-ModuleGlobSet {
     }
     foreach ($reservedName in [Catzc.Base.Globs.GlobsConfig]::ReservedNames) {
         $set = [Catzc.Base.Globs.GlobSet]::new(
-            $reservedName, "Derived infra scope - $($reserved[$reservedName])", @($reserved[$reservedName]), @())
+            $reservedName, "Derived infra scope - $($reserved[$reservedName])", 'module',
+            @($reserved[$reservedName]), @(), @(), @(), -1, $null)
         $derived[$reservedName] = $set
     }
 
@@ -58,7 +59,8 @@ function Get-ModuleGlobSet {
             throw "Declared globset '$kebab' in globs.yml shadows the derived set of module '$moduleName' — derived and declared sets share one name space (ADR-PROTGLOB); rename the declared set."
         }
         $set = [Catzc.Base.Globs.GlobSet]::new(
-            $kebab, "Derived module scope - automation/$moduleName/**", @("automation/$moduleName/**"), @())
+            $kebab, "Derived module scope - automation/$moduleName/**", 'module',
+            @("automation/$moduleName/**"), @(), @(), @(), -1, $null)
         $derived[$kebab] = $set
         $derived[$moduleName] = $set
     }

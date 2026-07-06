@@ -3,8 +3,8 @@ Describe 'Get-GlobSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
-                    'automation' = @{ description = 'the automation layer'; include = @('automation/**') }
-                    'apex'       = @{ description = 'the apex unit'; include = @('infrastructure/**') }
+                    'automation' = @{ description = 'the automation layer'; layer = 'track'; include = @('automation/**') }
+                    'apex'       = @{ description = 'the apex unit'; layer = 'deployable-unit'; include = @('infrastructure/**') }
                 }
             })
     }

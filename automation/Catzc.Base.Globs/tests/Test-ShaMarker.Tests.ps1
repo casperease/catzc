@@ -13,8 +13,8 @@ Describe 'Test-ShaMarker' -Tag 'L1', 'logic' {
 
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
-                    'unit-a' = @{ description = 'd'; include = @('src/**') }
-                    'unit-b' = @{ description = 'd'; include = @('docs/**') }
+                    'unit-a' = @{ description = 'd'; layer = 'deployable-unit'; include = @('src/**') }
+                    'unit-b' = @{ description = 'd'; layer = 'deployable-unit'; include = @('docs/**') }
                 }
             })
         Mock Get-Config { $script:config } -ModuleName Catzc.Base.Globs

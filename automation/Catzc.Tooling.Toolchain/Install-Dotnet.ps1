@@ -6,8 +6,12 @@
     Install directory resolved by Get-ScriptInstallDir (LOCALAPPDATA on
     Windows, HOME on Unix — overridable in tools.yml).
     No admin required. Persists DOTNET_ROOT and PATH for future sessions.
-    Idempotent — if the correct version is already on PATH (regardless of
-    how it was installed), skips with a message.
+    Idempotent — converges to the desired state on every run: when our
+    install dir already holds the locked version the download is skipped,
+    but the environment (session + persistent PATH, DOTNET_ROOT) is still
+    converged, so a machine whose PATH persistence was lost is repaired by
+    re-running. Only a right-version dotnet from elsewhere on PATH (a
+    system-wide install we do not manage) is a true no-op.
 
     NOT for CI pipelines. In Azure DevOps, use the native UseDotNet task
     which activates pre-cached versions instantly:
@@ -41,20 +45,6 @@ function Install-Dotnet {
         $Version = $config.version
     }
 
-    # Same rule as all other tools: if the correct version is on PATH, skip.
-    if (Test-Command $config.command) {
-        $installed = Get-ToolVersion -Config $config
-
-        if ($installed -and $installed.StartsWith($Version)) {
-            Write-Message "Dotnet $Version is already installed"
-            return
-        }
-
-        # Wrong version on PATH — only matters if it's from our install dir.
-        # A system-wide dotnet at a different version doesn't block us since
-        # we install side-by-side and prepend our dir to PATH.
-    }
-
     $installDir = Get-ScriptInstallDir -Config $config
     $ourBinary = if ($IsWindows) {
         Join-Path $installDir 'dotnet.exe'
@@ -63,9 +53,14 @@ function Install-Dotnet {
         Join-Path $installDir 'dotnet'
     }
 
-    # Check our install dir for wrong-version scenario
+    # Decide whether to run the install script. Our own install dir wins the check: when it already holds
+    # the locked version the download is skipped, but the environment is STILL converged below — re-running
+    # repairs a lost PATH/DOTNET_ROOT persistence instead of returning past it (ADR-IDEM:1). Without this,
+    # a session where dotnet resolves through the session janitor's PATH hints masks a broken persistent
+    # PATH forever, and every non-repo process (an editor's language server) fails to find dotnet.
+    $needsInstall = $true
     if (Test-Path $ourBinary) {
-        # Check specific binary (not PATH) — can't use Get-ToolVersion here
+        # Check the specific binary (not PATH) — can't use Get-ToolVersion here
         $result = Invoke-Executable "$ourBinary --version" -PassThru -NoAssert -Silent
         $ourInstalled = if ($result.Full -match $config.version_pattern) {
             $Matches['ver']
@@ -76,32 +71,45 @@ function Install-Dotnet {
 
         if ($ourInstalled -and $ourInstalled.StartsWith($Version)) {
             Write-Message "Dotnet $Version is already installed at '$installDir'"
-            return
+            $needsInstall = $false
         }
-
-        if ($Force) {
+        elseif ($Force) {
             Write-Verbose "Dotnet $ourInstalled found at '$installDir' — reinstalling $Version"
         }
         else {
             throw "Dotnet version mismatch: expected $Version.x, found $ourInstalled at '$installDir'. Run Install-Dotnet -Force to replace."
         }
     }
-
-    # Resolve vendored install script
-    if ($IsWindows) {
-        $scriptPath = Join-Path -Path $PSScriptRoot -ChildPath 'assets' -AdditionalChildPath 'scripts', 'dotnet-install.ps1'
-        Assert-PathExist $scriptPath
-        Write-Message "Installing .NET SDK $Version to '$installDir'"
-        & $scriptPath -Channel $Version -InstallDir $installDir -Quality ga
-    }
-    else {
-        $scriptPath = Join-Path -Path $PSScriptRoot -ChildPath 'assets' -AdditionalChildPath 'scripts', 'dotnet-install.sh'
-        Assert-PathExist $scriptPath
-        Write-Message "Installing .NET SDK $Version to '$installDir'"
-        Invoke-Executable "bash '$scriptPath' --channel $Version --install-dir $installDir --quality ga"
+    elseif (Test-Command $config.command) {
+        # Nothing in our install dir, but a dotnet is on PATH. At the right version that install —
+        # wherever it lives — satisfies the tool contract and is not ours to manage: skip without touching
+        # PATH or DOTNET_ROOT. A wrong version elsewhere doesn't block us since we install side-by-side
+        # and prepend our dir to PATH.
+        $installed = Get-ToolVersion -Config $config
+        if ($installed -and $installed.StartsWith($Version)) {
+            Write-Message "Dotnet $Version is already installed"
+            return
+        }
     }
 
-    # Set environment for current session + persist PATH
+    if ($needsInstall) {
+        # Resolve vendored install script
+        if ($IsWindows) {
+            $scriptPath = Join-Path -Path $PSScriptRoot -ChildPath 'assets' -AdditionalChildPath 'scripts', 'dotnet-install.ps1'
+            Assert-PathExist $scriptPath
+            Write-Message "Installing .NET SDK $Version to '$installDir'"
+            & $scriptPath -Channel $Version -InstallDir $installDir -Quality ga
+        }
+        else {
+            $scriptPath = Join-Path -Path $PSScriptRoot -ChildPath 'assets' -AdditionalChildPath 'scripts', 'dotnet-install.sh'
+            Assert-PathExist $scriptPath
+            Write-Message "Installing .NET SDK $Version to '$installDir'"
+            Invoke-Executable "bash '$scriptPath' --channel $Version --install-dir $installDir --quality ga"
+        }
+    }
+
+    # Converge the environment on every run that owns the install — session + persistent, both idempotent.
+    # This is the PATH non-repo processes resolve dotnet through.
     $env:DOTNET_ROOT = $installDir
     Add-PermanentPath $installDir -Prepend -Label 'Install-Dotnet'
 
@@ -127,5 +135,7 @@ function Install-Dotnet {
     }
 
     Assert-Command dotnet -ErrorText ".NET SDK was installed but 'dotnet' is not on PATH. You may need to restart your shell."
-    Write-Message "Dotnet $Version installed successfully to '$installDir'"
+    if ($needsInstall) {
+        Write-Message "Dotnet $Version installed successfully to '$installDir'"
+    }
 }

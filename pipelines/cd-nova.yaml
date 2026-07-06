@@ -11,13 +11,13 @@ trigger:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/infrastructure.sha256]
+    include: [.sha-markers/nova.sha256]
 
 pr:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/infrastructure.sha256]
+    include: [.sha-markers/nova.sha256]
 
 extends:
   template: /pipelines/extends/cd-customer.yaml

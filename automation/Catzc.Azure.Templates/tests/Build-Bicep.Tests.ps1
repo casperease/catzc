@@ -31,6 +31,12 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
             }
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
+
+        # Warm the discovery and config caches once, here — the cold re-derive the reset above forces is
+        # one-time setup cost, not the first test's duration (ADR-TEST:19; it kept tipping that test just
+        # over the L0 limit).
+        Get-BicepTemplates | Out-Null
+        Get-Config -Config azure | Out-Null
     }
 
     BeforeEach {

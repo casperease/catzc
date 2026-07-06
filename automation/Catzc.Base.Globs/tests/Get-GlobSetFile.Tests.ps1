@@ -3,7 +3,7 @@ Describe 'Get-GlobSetFile' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = @{
-                    unit = @{ description = 'd'; include = @('src/**'); exclude = @('**/*.md') }
+                    unit = @{ description = 'd'; layer = 'scope'; include = @('src/**'); exclude = @('**/*.md') }
                 }
             })
     }

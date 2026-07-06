@@ -1,11 +1,11 @@
-# The globset record: membership is include-minus-exclude (ADR-GLOBS:4), the trigger path derives from the
-# name (ADR-GLOBS:1), and the constructor gates the shape (kebab-case name, required description, non-empty
-# include, no duplicate patterns).
+# The globset record: membership is include-minus-exclude unioned through compose (ADR-GLOBS:4/ADR-GLOBS:8),
+# the marker path derives from the name (ADR-GLOBS:1), and the constructor gates the shape (kebab-case name,
+# required description, a declared layer, include or compose present, no duplicate patterns).
 Describe 'GlobSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {
             param([string] $name = 'unit', [string[]] $include = @('src/**'), [string[]] $exclude = @())
-            [Catzc.Base.Globs.GlobSet]::new($name, 'a test globset', $include, $exclude)
+            [Catzc.Base.Globs.GlobSet]::new($name, 'a test globset', 'scope', $include, $exclude, @(), @(), -1, $null)
         }
     }
 
@@ -32,27 +32,41 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
 
     Context 'the constructor gate' {
         It 'rejects <why>' -ForEach @(
-            @{ why = 'a non-kebab name (uppercase)'; block = { [Catzc.Base.Globs.GlobSet]::new('MyUnit', 'd', @('**'), @()) } }
-            @{ why = 'a non-kebab name (underscore)'; block = { [Catzc.Base.Globs.GlobSet]::new('my_unit', 'd', @('**'), @()) } }
-            @{ why = 'a non-kebab name (leading dash)'; block = { [Catzc.Base.Globs.GlobSet]::new('-unit', 'd', @('**'), @()) } }
-            @{ why = 'a missing description'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', ' ', @('**'), @()) } }
-            @{ why = 'an empty include list'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', @(), @()) } }
-            @{ why = 'a duplicate include pattern'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', @('a/**', 'a/**'), @()) } }
-            @{ why = 'a malformed include pattern'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', @('/lead'), @()) } }
-            @{ why = 'a malformed exclude pattern'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', @('**'), @('a//b')) } }
+            @{ why = 'a non-kebab name (uppercase)'; block = { [Catzc.Base.Globs.GlobSet]::new('MyUnit', 'd', 'scope', @('**'), @(), @(), @(), -1, $null) } }
+            @{ why = 'a non-kebab name (underscore)'; block = { [Catzc.Base.Globs.GlobSet]::new('my_unit', 'd', 'scope', @('**'), @(), @(), @(), -1, $null) } }
+            @{ why = 'a non-kebab name (leading dash)'; block = { [Catzc.Base.Globs.GlobSet]::new('-unit', 'd', 'scope', @('**'), @(), @(), @(), -1, $null) } }
+            @{ why = 'a missing description'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', ' ', 'scope', @('**'), @(), @(), @(), -1, $null) } }
+            @{ why = 'a missing layer'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', ' ', @('**'), @(), @(), @(), -1, $null) } }
+            @{ why = 'an unknown layer'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'lane', @('**'), @(), @(), @(), -1, $null) } }
+            @{ why = 'neither include nor compose'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'scope', @(), @(), @(), @(), -1, $null) } }
+            @{ why = 'a duplicate include pattern'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'scope', @('a/**', 'a/**'), @(), @(), @(), -1, $null) } }
+            @{ why = 'a malformed include pattern'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'scope', @('/lead'), @(), @(), @(), -1, $null) } }
+            @{ why = 'a malformed exclude pattern'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'scope', @('**'), @('a//b'), @(), @(), -1, $null) } }
+            @{ why = 'an out-of-range verify level'; block = { [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'scope', @('**'), @(), @(), @('M'), 4, $null) } }
         ) {
             $block | Should -Throw
         }
 
         It 'names the globset in a pattern error' {
-            { [Catzc.Base.Globs.GlobSet]::new('my-unit', 'd', @('/lead'), @()) } |
+            { [Catzc.Base.Globs.GlobSet]::new('my-unit', 'd', 'scope', @('/lead'), @(), @(), @(), -1, $null) } |
                 Should -Throw "*globset 'my-unit'*"
         }
 
         It 'accepts a null exclude list as empty' {
-            $set = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', @('**'), $null)
+            $set = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'scope', @('**'), $null, @(), @(), -1, $null)
             $set.Exclude.Count | Should -Be 0
             $set.Matches('a.txt') | Should -BeTrue
+        }
+
+        It "accepts the 'module' layer — the derived layer is valid on the type, rejected only in the declared registry" {
+            ([Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'module', @('automation/M/**'), @(), @(), @(), -1, $null)).Layer |
+                Should -Be 'module'
+        }
+
+        It 'accepts a compose-only set (membership resolved by the registry)' {
+            $set = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'deployable-unit', @(), @(), @('base'), @(), -1, $null)
+            $set.Compose | Should -Be @('base')
+            $set.Matches('anything.txt') | Should -BeFalse
         }
     }
 }

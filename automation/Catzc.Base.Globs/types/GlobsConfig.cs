@@ -1,10 +1,12 @@
 // The globset registry (configs/globs.yml) and its validity rules: a non-empty 'globsets' map of
-// kebab-case name -> { description, include: [...], [exclude: [...]] }, each entry a valid GlobSet, no
-// unknown keys anywhere (strict-config discipline), and the self-exclusion rule — no globset may have a
-// trigger file as a member (ADR-GLOBS:6; trigger files are outputs of the hash, never inputs), asserted by
-// probing every declared trigger path plus a canary trigger path against every set's membership. The config
-// itself is an ordinary tracked file and may be a member. Constructing an instance validates the whole
-// registry (collecting all errors) and exposes the sets in registry order.
+// kebab-case name -> { description, layer, [include: [...]], [exclude: [...]], [compose: [...]],
+// [verify: { modules, level }], [pipeline] }, each entry a valid GlobSet, no unknown keys anywhere
+// (strict-config discipline), compose references resolving to declared sets acyclically (ADR-GLOBS:8),
+// and the self-exclusion rule — no globset may have a sha-marker file as an effective member (ADR-GLOBS:6;
+// marker files are outputs of the hash, never inputs), asserted by probing every declared marker path plus
+// a canary marker path against every set's effective membership. The config itself is an ordinary tracked
+// file and may be a member. Constructing an instance validates the whole registry (collecting all errors)
+// and exposes the sets in registry order.
 // See docs/adr/pipelines/durable-sha-globs.md.
 
 using System;
@@ -66,9 +68,10 @@ public sealed class GlobsConfig
             foreach (object entryKey in entry.Keys)
             {
                 string field = entryKey == null ? null : entryKey.ToString();
-                if (field != "description" && field != "include" && field != "exclude")
+                if (field != "description" && field != "layer" && field != "include" && field != "exclude"
+                    && field != "compose" && field != "verify" && field != "pipeline")
                 {
-                    errors.Add(string.Format("globset '{0}': unknown key '{1}' (allowed: description, include, exclude)", name, field));
+                    errors.Add(string.Format("globset '{0}': unknown key '{1}' (allowed: description, layer, include, exclude, compose, verify, pipeline)", name, field));
                 }
             }
 
@@ -77,11 +80,53 @@ public sealed class GlobsConfig
                 errors.Add(string.Format("globset name '{0}' is reserved for a derived infra set (ADR-PROTGLOB); pick another name", name));
                 continue;
             }
+            if (ReadStr(entry, "layer") == "module")
+            {
+                errors.Add(string.Format("globset '{0}': the 'module' layer is derived-only (ADR-GLOBS:7, ADR-PROTGLOB) — the folder is the registration; declared layers: {1}", name, string.Join(", ", GlobSet.DeclaredLayers)));
+                continue;
+            }
+
+            string[] verifyModules = null;
+            int verifyLevel = -1;
+            if (entry.Contains("verify"))
+            {
+                IDictionary verify = entry["verify"] as IDictionary;
+                if (verify == null)
+                {
+                    errors.Add(string.Format("globset '{0}': verify must be a mapping with modules and level", name));
+                    continue;
+                }
+                bool verifyOk = true;
+                foreach (object verifyKey in verify.Keys)
+                {
+                    string field = verifyKey == null ? null : verifyKey.ToString();
+                    if (field != "modules" && field != "level")
+                    {
+                        errors.Add(string.Format("globset '{0}': unknown verify key '{1}' (allowed: modules, level)", name, field));
+                        verifyOk = false;
+                    }
+                }
+                verifyModules = ReadList(verify, "modules");
+                if (verifyModules == null || verifyModules.Length == 0)
+                {
+                    errors.Add(string.Format("globset '{0}': verify requires at least one module", name));
+                    verifyOk = false;
+                }
+                string levelText = ReadStr(verify, "level");
+                if (!int.TryParse(levelText, out verifyLevel) || verifyLevel < 0 || verifyLevel > 3)
+                {
+                    errors.Add(string.Format("globset '{0}': verify level '{1}' must be 0-3", name, levelText));
+                    verifyOk = false;
+                }
+                if (!verifyOk) { continue; }
+            }
 
             GlobSet set;
             try
             {
-                set = new GlobSet(name, ReadStr(entry, "description"), ReadList(entry, "include"), ReadList(entry, "exclude"));
+                set = new GlobSet(name, ReadStr(entry, "description"), ReadStr(entry, "layer"),
+                    ReadList(entry, "include"), ReadList(entry, "exclude"), ReadList(entry, "compose"),
+                    verifyModules, verifyLevel, ReadStr(entry, "pipeline"));
             }
             catch (ArgumentException ex)
             {
@@ -90,6 +135,46 @@ public sealed class GlobsConfig
             }
             sets.Add(set);
             map[set.Name] = set;
+        }
+
+        // ---- compose resolution (ADR-GLOBS:8): every reference names a declared set, never itself, and
+        //      the reference graph is acyclic; effective membership is the union through the references. ----
+        foreach (GlobSet set in sets)
+        {
+            List<GlobSet> resolved = new List<GlobSet>();
+            foreach (string reference in set.Compose)
+            {
+                GlobSet target;
+                if (reference == set.Name)
+                {
+                    errors.Add(string.Format("globset '{0}' composes itself (ADR-GLOBS:8)", set.Name));
+                }
+                else if (!map.TryGetValue(reference, out target))
+                {
+                    errors.Add(string.Format("globset '{0}' composes unknown set '{1}' — compose references declared sets only (ADR-GLOBS:8)", set.Name, reference));
+                }
+                else
+                {
+                    resolved.Add(target);
+                }
+            }
+            set.ResolveCompose(resolved);
+        }
+        foreach (GlobSet set in sets)
+        {
+            string cycle = FindComposeCycle(set, map, new List<string>());
+            if (cycle != null)
+            {
+                errors.Add(string.Format("compose cycle: {0} (ADR-GLOBS:8)", cycle));
+                break;
+            }
+        }
+
+        // A broken compose graph makes Matches() unsafe (a cycle would recurse forever), so the
+        // self-exclusion probes below cannot run — fail now with everything collected so far.
+        if (errors.Count > 0)
+        {
+            throw new ArgumentException("globs config validation failed:\n" + string.Join("\n", errors));
         }
 
         // ---- self-exclusion (ADR-GLOBS:6): sha-marker files are outputs of the hash, never members.
@@ -143,6 +228,29 @@ public sealed class GlobsConfig
             foreach (GlobSet set in globsets) { names.Add(set.Name); }
             return names;
         }
+    }
+
+    // Depth-first walk of the compose references; returns the cycle path when one exists, else null.
+    // Guarded against unresolved references (already reported) by walking the name map only.
+    private static string FindComposeCycle(GlobSet set, Dictionary<string, GlobSet> map, List<string> path)
+    {
+        if (path.Contains(set.Name))
+        {
+            path.Add(set.Name);
+            return string.Join(" -> ", path.GetRange(path.IndexOf(set.Name), path.Count - path.IndexOf(set.Name)));
+        }
+        path.Add(set.Name);
+        foreach (string reference in set.Compose)
+        {
+            GlobSet target;
+            if (map.TryGetValue(reference, out target))
+            {
+                string cycle = FindComposeCycle(target, map, path);
+                if (cycle != null) { return cycle; }
+            }
+        }
+        path.RemoveAt(path.Count - 1);
+        return null;
     }
 
     private static string ReadStr(IDictionary d, string key)

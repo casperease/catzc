@@ -8,7 +8,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
             'Catzc.Fake.Beta'  = @{ Public = 'Get-Beta' }
         }
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
-                globsets = @{ automation = @{ description = 'd'; include = @('automation/**'); exclude = @('.sha-markers/**') } }
+                globsets = @{ automation = @{ description = 'd'; layer = 'track'; include = @('automation/**'); exclude = @('.sha-markers/**') } }
             })
     }
 
@@ -56,7 +56,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
 
     It 'rejects a declared globset that shadows a derived module name' {
         $shadowing = [Catzc.Base.Globs.GlobsConfig]::new(@{
-                globsets = @{ 'catzc-base-alpha' = @{ description = 'd'; include = @('docs/**') } }
+                globsets = @{ 'catzc-base-alpha' = @{ description = 'd'; layer = 'scope'; include = @('docs/**') } }
             })
         Mock Get-Config { $shadowing } -ModuleName Catzc.Base.Globs
         { Get-ModuleGlobSet } | Should -Throw '*shadows the derived set*'
@@ -68,7 +68,7 @@ Describe 'GlobsConfig reserved names' -Tag 'L0', 'logic' {
     It 'rejects a declared set named after a reserved infra scope' {
         {
             [Catzc.Base.Globs.GlobsConfig]::new(@{
-                    globsets = @{ vendor = @{ description = 'd'; include = @('docs/**') } }
+                    globsets = @{ vendor = @{ description = 'd'; layer = 'scope'; include = @('docs/**') } }
                 })
         } | Should -Throw '*reserved*'
     }

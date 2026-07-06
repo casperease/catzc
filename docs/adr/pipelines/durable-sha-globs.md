@@ -54,6 +54,24 @@ dot-folder that sorts to the top of a PR's file view, the marker diff IS the cha
 - [Commit discipline](#commit-discipline)
 - [How this is enforced](#how-this-is-enforced)
 
+### Rule ADR-GLOBS:7
+
+Every declared globset carries a **layer**: `track` (a root concern, `ADR-TRACK`), `deployable-unit` (what ships; determines a pipeline
+1-1, annotated on the set as `pipeline:`), or `scope` (a cross-cutting slice). The fourth layer, `module`, is **derived-only**
+(`ADR-PROTGLOB`) — the folders are the registration, and declaring it is rejected. An optional `verify:` (`modules` + `level`) declares the
+set's test blast-radius scope.
+
+- [One configuration point](#one-configuration-point)
+
+### Rule ADR-GLOBS:8
+
+A globset may **compose** other declared sets (`compose:`): its effective membership is its own include-minus-exclude members UNION the
+composed sets' effective members. References resolve to declared sets only, never to the set itself, and the reference graph must be
+acyclic — all validated at config load. Composition is how a deployable-unit shares a base (e.g. every customer unit composing the
+customer-shared foundation surface) without one customer's configuration change firing another customer's pipeline.
+
+- [One configuration point](#one-configuration-point)
+
 ## Context
 
 A deployable unit is a high-level composition of modules in the modular repository — a whole track or a reduced slice of one (see
@@ -70,10 +88,11 @@ is materialized as a committed hash — its sha-marker. Orchestration artifacts 
 
 ### One configuration point
 
-`globs.yml` holds every globset: a kebab-case name, a description, an `include:` pattern list, and an optional `exclude:` pattern list.
-`Catzc.Base.Globs` owns the file, the dialect, the hash, and all reading and writing of `.sha-markers/`; nothing else parses the config or
-writes into that folder. A pipeline or workflow references a unit by registering the unit's marker path as its only path filter, so adding
-or removing files from a unit is a config edit, never an orchestration edit.
+`globs.yml` holds every globset: a kebab-case name, a description, its layer (`ADR-GLOBS:7`), an `include:` pattern list and optional
+`exclude:` list, optional `compose:` references (`ADR-GLOBS:8`), an optional `verify:` blast-radius scope, and — on a deployable-unit — the
+`pipeline:` it determines. `Catzc.Base.Globs` owns the file, the dialect, the hash, and all reading and writing of `.sha-markers/`; nothing
+else parses the config or writes into that folder. A pipeline or workflow references a unit by registering the unit's marker path as its
+only path filter, so adding or removing files from a unit — or adding a whole customer — is a config edit, never an orchestration edit.
 
 ### The dialect
 

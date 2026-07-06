@@ -1,35 +1,104 @@
-# The globset registry — THE single source of truth mapping every deployable unit onto its files under
+# The globset registry — THE single source of truth mapping every area-of-control onto its files under
 # version control (see docs/adr/pipelines/durable-sha-globs.md, ADR-GLOBS). Each set's durable SHA is
 # persisted in .sha-markers/<name>.sha256 by Update-ShaMarker; pipelines and workflows path-filter on those
 # marker files and on nothing else. Validated strictly on load by Catzc.Base.Globs.GlobsConfig.
+#
+# Every set declares its layer (ADR-GLOBS:7, ADR-TRACK): 'track' (a root concern), 'deployable-unit'
+# (what ships; determines a pipeline 1-1), or 'scope' (a cross-cutting slice); the 'module' layer is
+# derived from the folders and never declared. 'compose' unions another declared set's effective members
+# into this one (acyclic, ADR-GLOBS:8). 'pipeline' names the pipeline bound to a deployable-unit's marker.
 #
 # Dialect: '/'-separated, repo-relative; '**' is the only cross-segment operator (zero or more whole
 # segments); within a segment, PowerShell wildcards ('*', '?', '[a-z]'), case-sensitive. Membership is
 # include minus exclude, evaluated against `git ls-files`. No set may have a marker file as a member.
 
 globsets:
-  # The shared-fate CI unit: everything the CI engine's gates read — the automation layer, the docs the
-  # spelling/markdown integrity scans cover, the pipeline definitions, this registry. Effectively the whole
-  # tree minus the marker files themselves, so ci-automation fires on any real change.
-  automation:
-    description: The shared-fate CI unit - every tracked file the CI engine verifies.
+  # The whole tree minus the marker files themselves — the "did anything at all change" scope. Display
+  # only: no pipeline binds to it.
+  everything:
+    description: Everything - every tracked file, the whole-repository scope.
+    layer: scope
     include:
       - '**'
     exclude:
       - .sha-markers/**
 
-  # The infrastructure delivery unit: what ci-infrastructure verifies and the cd-* pipelines deploy from.
+  # The automation track (ADR-TRACK) — the shared-fate CI unit ci-automation fires on. Starts BROAD:
+  # everything the CI engine's gates read (the automation layer, the docs the spelling/markdown integrity
+  # scans cover, the pipeline definitions, this registry, the infrastructure templates its integrity tests
+  # discover). The exclude list is a living curated list: as we find changes the track should not fire on,
+  # they move here — configurability is the point.
+  automation:
+    description: The automation track - every tracked file the CI engine verifies.
+    layer: track
+    pipeline: ci-automation
+    include:
+      - '**'
+    exclude:
+      - .sha-markers/**
+
+  # The infrastructure track (ADR-TRACK): what ci-infrastructure verifies and the cd-* pipelines deploy from.
   infrastructure:
-    description: The Bicep IaC tree - reusable modules and deployable templates.
+    description: The infrastructure track - the Bicep IaC tree, reusable modules and deployable templates.
+    layer: track
+    pipeline: ci-infrastructure
     include:
       - infrastructure/**
 
-  # A per-deployable-unit example: the foundation template composed with the shared modules it deploys.
+  # The whole-template deployable unit: the foundation template with everything it deploys from.
   foundation:
     description: Deployable unit - the foundation infrastructure template plus the shared Bicep modules.
+    layer: deployable-unit
     include:
       - infrastructure/templates/foundation/**
       - infrastructure/modules/**
+
+  # The customer-shared foundation surface: everything of the foundation unit EXCEPT the per-subscription
+  # configuration folders — the compose base every customer unit (and the shared unit) builds on, so a
+  # change to one customer's configuration never fires another customer's CD.
+  foundation-shared:
+    description: The foundation template's customer-shared surface - shared modules, main.bicep, and the non-subscription configuration.
+    layer: deployable-unit
+    include:
+      - infrastructure/templates/foundation/**
+      - infrastructure/modules/**
+    exclude:
+      - infrastructure/templates/foundation/configuration/*_*/**
+
+  # Per-customer deployable units (ADR-TRACK:5): the shared surface plus that customer's own subscription
+  # configuration folders. Adding a customer is adding an entry here — config, never code.
+  nova:
+    description: Deployable unit - customer nova's foundation (shared surface + nova_* configuration).
+    layer: deployable-unit
+    pipeline: cd-nova
+    compose: [foundation-shared]
+    include:
+      - infrastructure/templates/foundation/configuration/nova_*/**
+
+  apex:
+    description: Deployable unit - customer apex's foundation (shared surface + apex_* configuration).
+    layer: deployable-unit
+    pipeline: cd-apex
+    compose: [foundation-shared]
+    include:
+      - infrastructure/templates/foundation/configuration/apex_*/**
+
+  flux:
+    description: Deployable unit - customer flux's foundation (shared surface + flux_* configuration).
+    layer: deployable-unit
+    pipeline: cd-flux
+    compose: [foundation-shared]
+    include:
+      - infrastructure/templates/foundation/configuration/flux_*/**
+
+  # The central/shared subscription's unit — the same shape as a customer, deployed by cd-shared.
+  shared:
+    description: Deployable unit - the central/shared subscription's foundation (shared surface + shared_* configuration).
+    layer: deployable-unit
+    pipeline: cd-shared
+    compose: [foundation-shared]
+    include:
+      - infrastructure/templates/foundation/configuration/shared_*/**
 
   # The markdown scan scope: exactly what Test-Markdownlint reads - every in-scope markdown file plus the
   # scan's own config (a scan's globset includes its configuration). The excludes mirror the scan's default
@@ -37,6 +106,7 @@ globsets:
   # durable SHA is unchanged since the last green run in the session.
   markdown-scope:
     description: The markdown integrity scan's inputs - in-scope markdown plus the markdownlint config.
+    layer: scope
     include:
       - '**/*.md'
       - .markdownlint.yml
