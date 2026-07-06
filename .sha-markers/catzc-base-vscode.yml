@@ -3,4 +3,4 @@ description: Derived module scope - automation/Catzc.Base.VSCode/**
 layer: module
 scan:
 - '+ automation/Catzc.Base.VSCode/**'
-sha256: ce9be0f266d91a26917cb077c7f4db291dd82d37d56fb9320a79cc59a1f9e4b0
+sha256: bcecf4f3c7b08db8212753c85c5faecfd8b91ef7606319eb61a7d7b140f9af37
