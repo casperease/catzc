@@ -6,14 +6,24 @@ Describe 'SentenceGuid' -Tag 'L0', 'logic' {
         $a | Should -Be $b
     }
 
-    It 'spells the sentence through the hex look-alike map' {
-        # s→5 a→a m✗ p✗ l→1 e→e | t→7 e→e s→5 t→7 | d→d a→a t→7 a→a, padded with zeros to 32.
+    It 'spells the sentence through the hex look-alike map, one digit per character' {
+        # s→5 a→a m→0 p→0 l→1 e→e | (word break: skip to the next dash group) | t→7 e→e s→5 t→7 | d→d a→a t→7 a→a
         $result = [Catzc.Base.QualityGates.SentenceGuid]::Convert('sample test data')
-        "$result" | Should -BeExactly '5a1e7e57-da7a-0000-0000-000000000000'
+        "$result" | Should -BeExactly '5a001e00-7e57-da7a-0000-000000000000'
+    }
+
+    It 'aligns each word to its own dash group' {
+        $result = [Catzc.Base.QualityGates.SentenceGuid]::Convert('be a cafe')
+        "$result" | Should -BeExactly 'be000000-a000-cafe-0000-000000000000'
+    }
+
+    It 'collapses whitespace runs and ignores leading whitespace' {
+        $plain = [Catzc.Base.QualityGates.SentenceGuid]::Convert('be a cafe')
+        [Catzc.Base.QualityGates.SentenceGuid]::Convert('   be    a  cafe') | Should -Be $plain
     }
 
     It 'maps each leet character to its hex look-alike' {
-        # o→0 i→1 l→1 z→2 s→5 g→6 t→7 q→9 — one input exercising the whole non-identity table.
+        # o→0 i→1 l→1 z→2 s→5 t→7 g→6 q→9 — one input exercising the whole non-identity table.
         $result = [Catzc.Base.QualityGates.SentenceGuid]::Convert('oilzstgq')
         "$result" | Should -BeExactly '01125769-0000-0000-0000-000000000000'
     }
@@ -23,9 +33,9 @@ Describe 'SentenceGuid' -Tag 'L0', 'logic' {
         "$result" | Should -BeExactly 'abcdef01-2345-6789-0000-000000000000'
     }
 
-    It 'drops characters with no hex look-alike' {
-        # h j k m n p r u v w x y, whitespace, and punctuation all vanish; only 'a' survives.
-        $result = [Catzc.Base.QualityGates.SentenceGuid]::Convert('h j-k.m,n p!r?u v(w)x y a')
+    It 'renders a character with no hex look-alike as 0' {
+        # h and ! have no look-alike — each still occupies one digit, so the shape stays positional.
+        $result = [Catzc.Base.QualityGates.SentenceGuid]::Convert('ah!')
         "$result" | Should -BeExactly 'a0000000-0000-0000-0000-000000000000'
     }
 

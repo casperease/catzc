@@ -2,7 +2,7 @@ Describe 'ConvertTo-Guid' -Tag 'L0', 'logic' {
     It 'returns a [guid], positionally' {
         $result = ConvertTo-Guid 'sample test data'
         $result | Should -BeOfType [guid]
-        "$result" | Should -BeExactly '5a1e7e57-da7a-0000-0000-000000000000'
+        "$result" | Should -BeExactly '5a001e00-7e57-da7a-0000-000000000000'
     }
 
     It 'matches the SentenceGuid type it wraps' {

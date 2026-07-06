@@ -9,7 +9,7 @@ Describe 'Assert-GuidsConfig' -Tag 'L0', 'logic' {
     It 'accepts a well-formed registry' {
         $config = [ordered]@{ guids = [ordered]@{
                 ado_oauth_resource = [ordered]@{ guid = '499b84ac-1321-427f-aa17-267ca6975798'; description = 'ADO OAuth resource id' }
-                fixture_alpha      = [ordered]@{ guid = 'a1a7e577-ea70-0000-0000-000000000000'; description = 'alpha fixture tenant'; sentence = 'alpha test tenant' }
+                fixture_alpha      = [ordered]@{ guid = 'a100a000-7e57-7e0a-0700-000000000000'; description = 'alpha fixture tenant'; sentence = 'alpha test tenant' }
             }
         }
         { & $script:assert $config } | Should -Not -Throw
@@ -25,7 +25,7 @@ Describe 'Assert-GuidsConfig' -Tag 'L0', 'logic' {
 
     It 'throws on a non-snake_case entry name' {
         $config = [ordered]@{ guids = [ordered]@{
-                'Bad-Name' = [ordered]@{ guid = 'a1a7e577-ea70-0000-0000-000000000000'; description = 'x' }
+                'Bad-Name' = [ordered]@{ guid = 'a100a000-7e57-7e0a-0700-000000000000'; description = 'x' }
             }
         }
         { & $script:assert $config } | Should -Throw '*is invalid (must be snake_case*'
@@ -38,7 +38,7 @@ Describe 'Assert-GuidsConfig' -Tag 'L0', 'logic' {
 
     It 'throws on a non-canonical (uppercase) guid' {
         $config = [ordered]@{ guids = [ordered]@{
-                entry = [ordered]@{ guid = 'A1A7E577-EA70-0000-0000-000000000000'; description = 'x' }
+                entry = [ordered]@{ guid = 'A100A000-7E57-7E0A-0700-000000000000'; description = 'x' }
             }
         }
         { & $script:assert $config } | Should -Throw '*canonical lowercase hyphenated form*'
@@ -46,8 +46,8 @@ Describe 'Assert-GuidsConfig' -Tag 'L0', 'logic' {
 
     It 'throws on a duplicate guid value' {
         $config = [ordered]@{ guids = [ordered]@{
-                one = [ordered]@{ guid = 'a1a7e577-ea70-0000-0000-000000000000'; description = 'x' }
-                two = [ordered]@{ guid = 'a1a7e577-ea70-0000-0000-000000000000'; description = 'y' }
+                one = [ordered]@{ guid = 'a100a000-7e57-7e0a-0700-000000000000'; description = 'x' }
+                two = [ordered]@{ guid = 'a100a000-7e57-7e0a-0700-000000000000'; description = 'y' }
             }
         }
         { & $script:assert $config } | Should -Throw '*Duplicate guid value*'
@@ -55,7 +55,7 @@ Describe 'Assert-GuidsConfig' -Tag 'L0', 'logic' {
 
     It 'throws on a missing description' {
         $config = [ordered]@{ guids = [ordered]@{
-                entry = [ordered]@{ guid = 'a1a7e577-ea70-0000-0000-000000000000' }
+                entry = [ordered]@{ guid = 'a100a000-7e57-7e0a-0700-000000000000' }
             }
         }
         { & $script:assert $config } | Should -Throw "*missing a non-empty 'description'*"
@@ -63,7 +63,7 @@ Describe 'Assert-GuidsConfig' -Tag 'L0', 'logic' {
 
     It 'throws on an empty sentence' {
         $config = [ordered]@{ guids = [ordered]@{
-                entry = [ordered]@{ guid = 'a1a7e577-ea70-0000-0000-000000000000'; description = 'x'; sentence = ' ' }
+                entry = [ordered]@{ guid = 'a100a000-7e57-7e0a-0700-000000000000'; description = 'x'; sentence = ' ' }
             }
         }
         { & $script:assert $config } | Should -Throw "*has an empty 'sentence'*"
@@ -71,14 +71,14 @@ Describe 'Assert-GuidsConfig' -Tag 'L0', 'logic' {
 
     It 'throws on an unknown entry key' {
         $config = [ordered]@{ guids = [ordered]@{
-                entry = [ordered]@{ guid = 'a1a7e577-ea70-0000-0000-000000000000'; description = 'x'; owner = 'me' }
+                entry = [ordered]@{ guid = 'a100a000-7e57-7e0a-0700-000000000000'; description = 'x'; owner = 'me' }
             }
         }
         { & $script:assert $config } | Should -Throw "*unknown key 'owner'*"
     }
 
     It 'throws on a non-map entry' {
-        $config = [ordered]@{ guids = [ordered]@{ entry = 'a1a7e577-ea70-0000-0000-000000000000' } }
+        $config = [ordered]@{ guids = [ordered]@{ entry = 'a100a000-7e57-7e0a-0700-000000000000' } }
         { & $script:assert $config } | Should -Throw "*entry 'entry' must be a map*"
     }
 

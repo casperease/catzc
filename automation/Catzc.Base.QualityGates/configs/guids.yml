@@ -77,15 +77,19 @@ guids:
     guid: d3b07384-d9a0-4c9b-8a0d-6e5c7a8b9c0d
     description: Assert-IsGuid comment-based-help example value
 
-  # -- minted with ConvertTo-Guid: the value spells the sentence -------------------------------------------
+  # -- minted with ConvertTo-Guid: the value spells the sentence, one word per dash group ------------------
   minted_sample_test_data:
-    guid: 5a1e7e57-da7a-0000-0000-000000000000
+    guid: 5a001e00-7e57-da7a-0000-000000000000
     sentence: sample test data
-    description: ConvertTo-Guid worked example (function help and tests)
+    description: ConvertTo-Guid worked example (function help and tests) — sample|test|data per dash group
   minted_alpha_test_tenant:
-    guid: a1a7e577-ea70-0000-0000-000000000000
+    guid: a100a000-7e57-7e0a-0700-000000000000
     sentence: alpha test tenant
     description: ConvertTo-Guid worked example; the managed-guid tests' registered-fixture guid
+  minted_be_a_cafe:
+    guid: be000000-a000-cafe-0000-000000000000
+    sentence: be a cafe
+    description: SentenceGuid word-alignment example — each word lands in its own dash group
   minted_leet_map_exercise:
     guid: 01125769-0000-0000-0000-000000000000
     sentence: oilzstgq
@@ -96,6 +100,7 @@ guids:
   fixture_truncation:
     guid: abcdef05-abcd-ef05-abcd-ef05abcdef05
     description: SentenceGuid test — input truncated at 32 mappable characters
-  fixture_drop_unmappable:
+  minted_ah:
     guid: a0000000-0000-0000-0000-000000000000
-    description: SentenceGuid test — unmappable characters dropped, only 'a' survives
+    sentence: ah!
+    description: SentenceGuid test — a character with no hex look-alike renders as 0 ('ah!' → a00)

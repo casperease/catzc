@@ -77,9 +77,11 @@ placeholder carries its own decoding.
 
 `ConvertTo-Guid` (over the native type `Catzc.Base.QualityGates.SentenceGuid`) deterministically converts any sentence into a valid GUID
 whose hex digits best-effort spell it: hex letters and digits pass through, the leet look-alike table maps (`o`→`0`, `i`/`l`→`1`, `z`→`2`,
-`s`→`5`, `g`→`6`, `t`→`7`, `q`→`9`), everything else is dropped, and the result pads with zeros to 32 hex digits. Validity is structural —
-any 32 hex digits parse as a GUID — so every input yields one. `sample test data` becomes `5a1e7e57-da7a-0000-0000-000000000000`: a reader
-sees the value and reads the sentence back out of it.
+`s`→`5`, `g`→`6`, `t`→`7`, `q`→`9`), and any other character renders as `0` — one character in is always one digit out, so a human decodes
+the value positionally. Whitespace is the exception with a purpose: it skips to the GUID's next dash group, so each word lands in its own
+segment. The result pads with zeros to 32 hex digits, and validity is structural — any 32 hex digits parse as a GUID — so every input yields
+one. `sample test data` becomes `5a001e00-7e57-da7a-0000-000000000000`: a reader sees the value and reads the words back out of the dash
+groups.
 
 The mint is an authoring tool. A person (or an LLM) runs it once to produce a registry entry and the literal that goes into the fixture; the
 automation never calls it to generate identity at runtime, because a runtime-minted GUID would be an unregistered GUID by construction.
@@ -121,8 +123,8 @@ invisible to cspell.
 
 - A GUID in the tree is never anonymous: the registry names it, describes it, and — for minted placeholders — decodes it.
 - A new GUID cannot enter the repository silently; registering it is a reviewed diff beside the change that introduces it.
-- Placeholder values become self-describing (`a1a7e577-ea70-…` reads "alpha test tenant"), so fixtures are legible at the value itself, not
-  only at the registry.
+- Placeholder values become self-describing (`a100a000-7e57-7e0a-07…` reads "alpha test tenant"), so fixtures are legible at the value
+  itself, not only at the registry.
 - Dead identities cannot accumulate: removing a GUID's last reference forces its entry out in the same change.
 - The cost is one registry entry per GUID and the discipline to mint rather than invent — a small tax that buys an inventory of every
   identity the repository carries.

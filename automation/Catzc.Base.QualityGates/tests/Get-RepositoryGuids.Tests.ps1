@@ -8,9 +8,9 @@ Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
 
         $script:alphaFile = Join-Path $script:sandbox 'alpha.yml'
         [System.IO.File]::WriteAllText($script:alphaFile, @(
-                'tenant: a1a7e577-ea70-0000-0000-000000000000'
+                'tenant: a100a000-7e57-7e0a-0700-000000000000'
                 'no guid on this line'
-                'ids: 499B84AC-1321-427F-AA17-267CA6975798 and a1a7e577-ea70-0000-0000-000000000000'
+                'ids: 499B84AC-1321-427F-AA17-267CA6975798 and a100a000-7e57-7e0a-0700-000000000000'
             ) -join "`n", $utf8NoBom)
 
         $script:hashFile = Join-Path $script:sandbox 'hashes.txt'
@@ -29,7 +29,7 @@ Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
         $found.Count | Should -Be 3
         $found[0].file | Should -Be $script:alphaFile
         $found[0].line | Should -Be 1
-        $found[0].guid | Should -BeExactly 'a1a7e577-ea70-0000-0000-000000000000'
+        $found[0].guid | Should -BeExactly 'a100a000-7e57-7e0a-0700-000000000000'
     }
 
     It 'normalizes matched guids to lowercase' {
