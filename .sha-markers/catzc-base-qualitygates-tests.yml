@@ -7,4 +7,4 @@ scan:
 - '- automation/Catzc.Base.QualityGates/private/**'
 - '- automation/Catzc.Base.QualityGates/types/**'
 - '- automation/Catzc.Base.QualityGates/configs/**'
-sha256: 9fb0e301d2c04a25b4f021f3ae7999a425ecfbffb526babe57c4a83f2fd62e5e
+sha256: f200ba4dacb244ce3eef96ce05c6732f86a7e34a76bfe7a154388e595d98fec2
