@@ -84,14 +84,9 @@ function Install-Tool {
     }
     elseif ($IsLinux) {
         Assert-NotNullOrWhitespace $config.apt_package -ErrorText "$Tool has no AptPackage — use Install-$command directly"
-        # Linux package installation via apt-get requires root. No user-space
-        # package-manager alternative exists without adding a new tool dependency.
-        # Two paths to eliminate this requirement:
-        #   Option A: Vendor the uv binary (astral.sh/uv, ~25 MB static Rust binary).
-        #             uv python install <ver> is fully user-space on all platforms.
-        #             Also gives isolated tool installs (uv tool install azure-cli).
-        #   Option B: Upgrade Python to 3.12+ in tools.yml. Fixes the Windows UAC
-        #             issue (3.11 burn installer) but Linux still needs admin here.
+        # Linux package installation via apt-get requires root. The user-space uv family never routes here:
+        # Install-Uv bootstraps uv from Astral's standalone release, and the Python-based CLIs install
+        # through uv (docs/adr/automation/uv-python-handler.md).
         Assert-IsAdministrator -ErrorText "Install-$command on Linux requires root (apt-get). Run as root or install $Tool manually."
         Assert-Command apt-get
         $package = $config.apt_package -f $Version
