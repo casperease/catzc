@@ -12,18 +12,36 @@
 # categories — the allowed values for a term's `category`, each with what it means. This is the single
 # source of the category set: the type validates every term against it, and Build-TerminologyDictionary
 # emits one gitignored cspell dictionary (.cspell/<category>.txt) per category.
+#
+# Each category is a mapping with a required `description` and an OPTIONAL `scope` — a list of repo-relative
+# `/`-separated globs bounding where that category's terms are legitimate. A category with no `scope` is
+# GLOBAL (its terms are approved everywhere, as today). A category WITH a scope is DOMAIN-BOUND: its terms
+# belong only under those globs, and the spelling gate turns a term appearing outside its scope — a fixture
+# token leaking into shipped config, a live identity leaking into a logic test — into a failure. See
+# docs/adr/repository/domain-language-separation.md (ADR-LANG) and spell-out-names.md (ADR-SPELL).
 categories:
-  domain: 'General technical or computing vocabulary this codebase uses that fits no more specific category below.'
-  abbreviation: 'A short form standing for a full word or phrase; carries expands_to with the full form.'
-  fixture: 'A token that appears only in tests, fixtures, or documentation examples, not production vocabulary.'
-  adr: 'An ADR rule-citation code — the short code naming a docs/adr rule.'
-  ado: 'Azure DevOps vocabulary: predefined pipeline variables, REST area names, and logging commands.'
-  azure: 'Azure and cloud infrastructure: regions, resource types, network topology, and environment or subscription tokens.'
-  tool: 'An external tool, product, package manager, runtime, or file/data format.'
-  platform: 'Operating-system, .NET, filesystem, registry, or low-level runtime and encoding vocabulary.'
-  powershell: 'PowerShell language and runtime vocabulary — cmdlet/parameter names, automatic variables, and concepts.'
-  coined: 'A word this codebase coined — a neologism (adjective, verb, or noun) not found in ordinary usage.'
-  person: 'A cited author or thinker referenced in the docs.'
+  domain:
+    description: 'General technical or computing vocabulary this codebase uses that fits no more specific category below.'
+  abbreviation:
+    description: 'A short form standing for a full word or phrase; carries expands_to with the full form.'
+  fixture:
+    description: 'A token that appears only in tests, fixtures, or documentation examples, not production vocabulary.'
+  adr:
+    description: 'An ADR rule-citation code — the short code naming a docs/adr rule.'
+  ado:
+    description: 'Azure DevOps vocabulary: predefined pipeline variables, REST area names, and logging commands.'
+  azure:
+    description: 'Azure and cloud infrastructure: regions, resource types, network topology, and environment or subscription tokens.'
+  tool:
+    description: 'An external tool, product, package manager, runtime, or file/data format.'
+  platform:
+    description: 'Operating-system, .NET, filesystem, registry, or low-level runtime and encoding vocabulary.'
+  powershell:
+    description: 'PowerShell language and runtime vocabulary — cmdlet/parameter names, automatic variables, and concepts.'
+  coined:
+    description: 'A word this codebase coined — a neologism (adjective, verb, or noun) not found in ordinary usage.'
+  person:
+    description: 'A cited author or thinker referenced in the docs.'
 
 terms:
   domain:
@@ -650,8 +668,6 @@ terms:
       meaning: 'PlantUML @startuml directive'
     - term: terraform
       meaning: 'Terraform'
-    - term: toml
-      meaning: 'TOML configuration format'
     - term: winget
       meaning: 'winget package manager'
     - term: uv

@@ -4,7 +4,11 @@
 # category keys, so a term's category is the group it is listed under (no per-entry category field).
 Describe 'TerminologyConfig' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:cats = @{ domain = 'a domain term'; abbreviation = 'a short form'; fixture = 'a test-only token' }
+        $script:cats = @{
+            domain       = @{ description = 'a domain term' }
+            abbreviation = @{ description = 'a short form' }
+            fixture      = @{ description = 'a test-only token' }
+        }
         $script:make = {
             param([hashtable] $termsMap)
             [Catzc.Base.QualityGates.TerminologyConfig]::new(@{ categories = $script:cats; terms = $termsMap })

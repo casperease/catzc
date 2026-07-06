@@ -79,7 +79,7 @@ Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
 
         ($report | Where-Object Name -EQ 'unit-a').Status | Should -Be 'Written'
         [System.IO.File]::ReadAllText((Join-Path $script:markersDir 'unit-a.yml')) |
-            Should -Match ([regex]::Escape("- 'extra/**'"))
+            Should -Match ([regex]::Escape("- '+ extra/**'"))
     }
 
     It 'writes a marker for a derived set on a full run' {
