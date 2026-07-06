@@ -7,6 +7,8 @@
       ado_naming:      standard | classic        — Azure resource-name component order
       git_workspace:   main-direct | main-via-pr — how changes reach main (solo trunk vs everything-by-PR)
       have_customers:  false | all | [names]     — the enabled-customer set
+      aspects:         [ {name: [patterns]}, … ] — the ordered module/track partition (ADR-ASPECT), last
+                       entry the '**' catch-all remainder, which must be non-live (default: live, tests)
 
     Integrity rules:
     - only the known keys are allowed (unknown key => throw), so a typo fails fast at load
