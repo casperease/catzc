@@ -59,4 +59,31 @@ Describe 'Write-FileIfChanged' -Tag 'L0', 'logic' {
         Write-FileIfChanged $target '' | Should -BeTrue
         [System.IO.File]::ReadAllText($target) | Should -BeExactly "`n"
     }
+
+    It 'a changed write to a hard-linked target severs the link and never touches its source' {
+        $source = Join-Path $TestDrive ([guid]::NewGuid().ToString('N') + '-source.txt')
+        [System.IO.File]::WriteAllText($source, "alpha`n")
+        New-Item -ItemType HardLink -Path $target -Target $source | Out-Null
+
+        Write-FileIfChanged $target "beta`n" | Should -BeTrue
+        [System.IO.File]::ReadAllText($target) | Should -BeExactly "beta`n"
+        [System.IO.File]::ReadAllText($source) | Should -BeExactly "alpha`n"
+        (Get-Item -LiteralPath $target -Force).LinkType | Should -BeNullOrEmpty
+    }
+
+    It 'a changed write to a symbolically linked target severs the link and never touches its source' {
+        $source = Join-Path $TestDrive ([guid]::NewGuid().ToString('N') + '-source.txt')
+        [System.IO.File]::WriteAllText($source, "alpha`n")
+        try {
+            New-Item -ItemType SymbolicLink -Path $target -Target $source -ErrorAction Stop | Out-Null
+        }
+        catch {
+            Set-ItResult -Skipped -Because 'symbolic_link_privilege_missing'; return
+        }
+
+        Write-FileIfChanged $target "beta`n" | Should -BeTrue
+        [System.IO.File]::ReadAllText($target) | Should -BeExactly "beta`n"
+        [System.IO.File]::ReadAllText($source) | Should -BeExactly "alpha`n"
+        (Get-Item -LiteralPath $target -Force).LinkType | Should -BeNullOrEmpty
+    }
 }

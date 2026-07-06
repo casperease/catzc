@@ -27,6 +27,8 @@ automation/.compiled/** binary
 *.cs     text eol=lf
 
 # Sha-marker files carry a deployable unit's durable SHA — one 64-hex line + LF, written by Update-ShaMarker
-# and compared byte-for-byte by the marker-freshness gate. Pin to LF so every checkout materializes exactly
-# the bytes the writer produced. See docs/adr/pipelines/durable-sha-globs.md.
+# and compared byte-for-byte by the marker-freshness gate. The .globset definition companions are the same
+# writer's canonical, LF-terminated rendering, compared byte-for-byte too. Pin both to LF so every checkout
+# materializes exactly the bytes the writer produced. See docs/adr/pipelines/durable-sha-globs.md.
 .sha-markers/*.sha256 text eol=lf
+.sha-markers/*.globset text eol=lf

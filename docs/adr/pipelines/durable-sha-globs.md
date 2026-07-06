@@ -73,6 +73,17 @@ foundation surface) without one customer's configuration change firing another c
 
 - [One configuration point](#one-configuration-point)
 
+### Rule ADR-GLOBS:9
+
+Every marker file has a sister **definition companion**, `.sha-markers/<name>.globset`: the globset's canonical, LF-terminated
+representation (fixed field order — name, description, layer, pipeline, verify, compose, include, exclude — empty sections omitted),
+produced by the `GlobSet` type (`Representation`/`GlobSetPath`) and written by `Update-ShaMarker` with the same write-on-change discipline
+as the marker. Its content changes exactly when the set's **definition** changes — never when member content changes — so in a PR the
+marker diff reads "this unit's content changed" and the companion diff reads "this unit's composition changed". The freshness gate covers
+both files, orphan handling removes a companion with no globset, and neither file is ever a globset member (ADR-GLOBS:6).
+
+- [The definition companion](#the-definition-companion)
+
 ## Context
 
 A deployable unit is a high-level composition of modules in the modular repository — a whole track or a reduced slice of one (see

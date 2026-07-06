@@ -7,9 +7,10 @@
     the opted-in entries (Get-RootConfigTargets), and reproduces each target from its single source of truth:
     a `source` entry copies the authored file out (prepending the `comment`-style generated-file header), a
     `generator` entry renders the content through Invoke-RootConfigGenerator (e.g. New-Importer for
-    importer.ps1). Whether the target is gitignored (committed false) or tracked (committed true) changes
-    nothing here — content is produced the same way; `committed` only governs git membership, asserted by the
-    integrity test.
+    importer.ps1), and a `copyAsLink` source entry skips content entirely — the target is materialised as a
+    filesystem link to the source (Set-FileLink), so the root file IS the source. Whether the target is
+    gitignored (committed false) or tracked (committed true) changes nothing here — content is produced the
+    same way; `committed` only governs git membership, asserted by the integrity test.
 
     Idempotent and fast by construction, so the importer runs it on every load (see importer.ps1): the write
     goes through Write-FileIfChanged (canonical UTF-8/LF output, EOL-insensitive compare, write-on-change), so
@@ -67,37 +68,67 @@ function Build-RootConfig {
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 
     $ret = foreach ($entry in $entries) {
-        # Content from the one source of truth: an authored source file (with the generated-file header) or a
-        # generator's rendered output (which owns its whole content, header included).
-        if ($entry.source) {
-            $sourcePath = Resolve-RepoPath $entry.source
-            Assert-PathExist $sourcePath
+        $targetPath = Resolve-RepoPath $entry.target
 
-            # Normalize the source to LF so composition is line-ending agnostic (the write itself canonicalises).
-            $content = [System.IO.File]::ReadAllText($sourcePath) -replace "`r`n", "`n" -replace "`r", "`n"
-            if ($entry.comment -eq 'hash') {
-                $header = @(
-                    '# GENERATED FILE — do not edit. Single source of truth:'
-                    "#   $($entry.source)"
-                    '# Regenerated on import by Build-RootConfig; edit the source, not this copy.'
-                    ''
-                ) -join "`n"
-                $content = $header + $content
-            }
-            $from = $entry.source
+        if ($entry.copyAsLink) {
+            # A link entry skips content composition entirely: the target IS the source, verified or
+            # (re)created as a filesystem link by the one mechanism owner (Set-FileLink, Catzc.Base.Files).
+            $sourcePath = Resolve-RepoPath $entry.source
+            $changed = Set-FileLink -Path $targetPath -Target $sourcePath -DryRun:$DryRun
+            $from = "$($entry.source) (link)"
         }
         else {
-            $content = Invoke-RootConfigGenerator -Name $entry.generator
-            $from = "$($entry.generator) (generator)"
+            # Content from the one source of truth: an authored source file (with the generated-file header)
+            # or a generator's rendered output (which owns its whole content, header included).
+            if ($entry.source) {
+                $sourcePath = Resolve-RepoPath $entry.source
+                Assert-PathExist $sourcePath
+
+                # Normalize the source to LF so composition is line-ending agnostic (the write itself canonicalises).
+                $content = [System.IO.File]::ReadAllText($sourcePath) -replace "`r`n", "`n" -replace "`r", "`n"
+                if ($entry.comment -eq 'hash') {
+                    $header = @(
+                        '# GENERATED FILE — do not edit. Single source of truth:'
+                        "#   $($entry.source)"
+                        '# Regenerated on import by Build-RootConfig; edit the source, not this copy.'
+                        ''
+                    ) -join "`n"
+                    $content = $header + $content
+                }
+                $from = $entry.source
+            }
+            else {
+                $content = Invoke-RootConfigGenerator -Name $entry.generator
+                $from = "$($entry.generator) (generator)"
+            }
+
+            # A target that is currently a LINK is stale regardless of content equality: a comment:none entry
+            # flipped back from copyAsLink composes bytes identical to its source, which the compare would read
+            # through the link and call current — leaving the link in place while the registry says copy.
+            $item = Get-Item -LiteralPath $targetPath -Force -ErrorAction Ignore
+            $targetIsLink = [bool] ($item -and $item.LinkType)
+            if ($targetIsLink -and -not $DryRun) {
+                [System.IO.File]::Delete($targetPath)
+            }
+
+            # Canonicalise, EOL-insensitively compare, and write-on-change via the one shared primitive
+            # (Write-FileIfChanged, Catzc.Base.Files).
+            $changed = Write-FileIfChanged -Path $targetPath -Content $content -DryRun:$DryRun
+            if ($targetIsLink) {
+                $changed = $true
+            }
         }
 
-        $targetPath = Resolve-RepoPath $entry.target
-        # Canonicalise, EOL-insensitively compare, and write-on-change via the one shared primitive
-        # (Write-FileIfChanged, Catzc.Base.Files).
-        $changed = Write-FileIfChanged -Path $targetPath -Content $content -DryRun:$DryRun
-
         if (-not $Silent) {
-            $verb = if ($DryRun) {
+            $verb = if ($entry.copyAsLink) {
+                if ($changed) {
+                    if ($DryRun) { 'would link' } else { 'linked' }
+                }
+                else {
+                    'link current'
+                }
+            }
+            elseif ($DryRun) {
                 if ($changed) {
                     'would regenerate'
                 }
@@ -117,13 +148,14 @@ function Build-RootConfig {
         }
 
         [pscustomobject]@{
-            Target    = $entry.target
-            Source    = $entry.source
-            Generator = $entry.generator
-            Committed = [bool] $entry.committed
-            Path      = $targetPath
-            Changed   = [bool] $changed
-            DryRun    = [bool] $DryRun
+            Target     = $entry.target
+            Source     = $entry.source
+            Generator  = $entry.generator
+            Committed  = [bool] $entry.committed
+            CopyAsLink = [bool] $entry.copyAsLink
+            Path       = $targetPath
+            Changed    = [bool] $changed
+            DryRun     = [bool] $DryRun
         }
     }
     $ret = @($ret)

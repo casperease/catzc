@@ -14,12 +14,16 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
 
         Mock Write-Message -ModuleName Catzc.Base.RootConfig { }
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { "rendered output`n" }
+        # The link mechanism is its own unit (Set-FileLink.Tests.ps1) — here it is a mocked boundary, so these
+        # tests assert only that the link branch dispatches to it and skips content composition.
+        Mock Set-FileLink -ModuleName Catzc.Base.RootConfig { $false }
         Mock Get-Config -ModuleName Catzc.Base.RootConfig {
             [pscustomobject]@{
                 files = @(
-                    [pscustomobject]@{ target = 'fixture.yml'; source = 'sources/fixture.yml'; generator = $null; comment = 'hash'; optIn = $true; committed = $false }
-                    [pscustomobject]@{ target = 'generated.txt'; source = $null; generator = 'Fake-Generator'; comment = 'none'; optIn = $true; committed = $true }
-                    [pscustomobject]@{ target = 'opted-out.yml'; source = 'sources/missing.yml'; generator = $null; comment = 'none'; optIn = $false; committed = $false }
+                    [pscustomobject]@{ target = 'fixture.yml'; source = 'sources/fixture.yml'; generator = $null; comment = 'hash'; optIn = $true; committed = $false; copyAsLink = $false }
+                    [pscustomobject]@{ target = 'generated.txt'; source = $null; generator = 'Fake-Generator'; comment = 'none'; optIn = $true; committed = $true; copyAsLink = $false }
+                    [pscustomobject]@{ target = 'linked.yml'; source = 'sources/fixture.yml'; generator = $null; comment = 'none'; optIn = $true; committed = $false; copyAsLink = $true }
+                    [pscustomobject]@{ target = 'opted-out.yml'; source = 'sources/missing.yml'; generator = $null; comment = 'none'; optIn = $false; committed = $false; copyAsLink = $false }
                 )
             }
         }
@@ -49,7 +53,45 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
 
     It 'skips opted-out entries entirely (their missing source never throws)' {
         $result = Build-RootConfig -PassThru
-        @($result.Target) | Should -Be @('fixture.yml', 'generated.txt')
+        @($result.Target) | Should -Be @('fixture.yml', 'generated.txt', 'linked.yml')
+    }
+
+    It 'materialises a copyAsLink entry through Set-FileLink with the resolved paths' {
+        Build-RootConfig | Out-Null
+        Should -Invoke Set-FileLink -ModuleName Catzc.Base.RootConfig -Times 1 -Exactly -ParameterFilter {
+            $Path -eq (Join-Path $script:fake.Root 'linked.yml') -and
+            $Target -eq (Join-Path $script:fake.Root 'sources/fixture.yml')
+        }
+    }
+
+    It 'skips content composition for a copyAsLink entry — nothing is written' {
+        Build-RootConfig | Out-Null
+        # Set-FileLink is mocked, so the target exists only if the copy path wrote it.
+        Test-Path (Join-Path $script:fake.Root 'linked.yml') | Should -BeFalse
+    }
+
+    It 'passes -DryRun through to Set-FileLink' {
+        Build-RootConfig -DryRun | Out-Null
+        Should -Invoke Set-FileLink -ModuleName Catzc.Base.RootConfig -ParameterFilter { [bool] $DryRun }
+    }
+
+    It '-PassThru reports CopyAsLink per entry' {
+        $result = Build-RootConfig -PassThru
+        ($result | Where-Object { $_.Target -eq 'linked.yml' }).CopyAsLink | Should -BeTrue
+        ($result | Where-Object { $_.Target -eq 'fixture.yml' }).CopyAsLink | Should -BeFalse
+    }
+
+    It 'treats a linked target as stale for a copy entry, even with identical content' {
+        # A comment:none entry flipped back from copyAsLink: the composed copy is byte-identical to the source,
+        # so only the is-link check can convert the leftover link back into an independent file.
+        $sourceOnDisk = Join-Path $script:fake.Root 'sources/fixture.yml'
+        New-Item -ItemType HardLink -Path $script:copyTarget -Target $sourceOnDisk | Out-Null
+
+        $result = Build-RootConfig -Target 'fixture.yml' -PassThru
+        $result.Changed | Should -BeTrue
+        (Get-Item -LiteralPath $script:copyTarget -Force).LinkType | Should -BeNullOrEmpty
+        # The source of truth is untouched by the severing write.
+        [System.IO.File]::ReadAllText($sourceOnDisk) | Should -BeExactly "alpha: 1`nbeta: 2`n"
     }
 
     It 'is idempotent — a second run rewrites nothing' {

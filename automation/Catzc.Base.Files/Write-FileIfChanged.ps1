@@ -10,6 +10,10 @@
     BOM; a missing parent directory is created. Returns whether the file changed (or would change under
     -DryRun), so a caller can drive its own status line.
 
+    A changed write is delete-then-write, never in-place: writing through a symbolic or hard link at the
+    target path would tunnel the composed content into the link's source of truth (a Set-FileLink target that
+    an entry stopped declaring), so the write always produces a fresh, independent file.
+
     This is the write tail every generated-artifact builder shares (Build-Readme, Build-RootConfig, …) —
     one living copy of the canonicalise/compare/write logic instead of one per builder (see
     docs/adr/principles/one-living-version.md). It is a pure primitive: no console output — callers own
@@ -59,6 +63,12 @@ function Write-FileIfChanged {
         $directory = [System.IO.Path]::GetDirectoryName($Path)
         if ($directory) {
             [System.IO.Directory]::CreateDirectory($directory) | Out-Null
+        }
+        if ([System.IO.File]::Exists($Path)) {
+            # Delete-then-write: an in-place write through a linked target would tunnel the composed content
+            # into the link's source of truth; deleting first severs any link, so the write is always a fresh,
+            # independent file.
+            [System.IO.File]::Delete($Path)
         }
         $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
         [System.IO.File]::WriteAllText($Path, $canonical, $utf8NoBom)

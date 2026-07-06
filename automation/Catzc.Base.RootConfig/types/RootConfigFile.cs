@@ -4,8 +4,11 @@
 // entry; `committed` (default false) keeps the managed target tracked in git instead of gitignored (for files
 // git or the bootstrap reads before the importer runs). `comment` ('hash' or 'none', default 'none') picks the
 // generated-file header style and is meaningful only for `source` entries — a generator owns its whole output,
-// header included. Paths are repository-root-relative, '/'-separated communication-form values (see
-// docs/adr/automation/path-representation.md). Mirrors a rootconfig.yml files entry (snake_case keys).
+// header included. `copyAsLink` (default false) materialises the target as a filesystem link to the source
+// instead of a generated copy: it requires `source`, requires committed false, and forbids a declared
+// `comment` (a link carries no generated content). Paths are repository-root-relative, '/'-separated
+// communication-form values (see docs/adr/automation/path-representation.md). Mirrors a rootconfig.yml files
+// entry (snake_case keys).
 //
 // Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
 // over its own properties and its constructor uses the base's extraction helpers.
@@ -37,6 +40,10 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
     // needed before the importer runs (importer.ps1, the git files).
     public bool committed { get; }
 
+    // Materialise the target as a filesystem link to the source (Set-FileLink) instead of a generated copy.
+    // Requires source, requires committed false, forbids a declared comment.
+    public bool copyAsLink { get; }
+
     public RootConfigFile(IDictionary d)
     {
         if (d == null) { throw new ArgumentException("RootConfigFile requires a dictionary"); }
@@ -46,6 +53,7 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
         comment = OptStr(d, "comment") ?? "none";
         optIn = Flag(d, "optIn");
         committed = Flag(d, "committed");
+        copyAsLink = Flag(d, "copyAsLink");
 
         if ((source == null) == (generator == null))
         {
@@ -61,6 +69,21 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
         {
             throw new ArgumentException(string.Format(
                 "root config entry '{0}' is generator-produced and must not declare 'comment' — the generator owns its whole output", target));
+        }
+        if (copyAsLink && source == null)
+        {
+            throw new ArgumentException(string.Format(
+                "root config entry '{0}' declares copyAsLink but no 'source' — a generator renders content and has no single file to link to", target));
+        }
+        if (copyAsLink && committed)
+        {
+            throw new ArgumentException(string.Format(
+                "root config entry '{0}' declares copyAsLink with committed true — a tracked target must be a real file, never a link", target));
+        }
+        if (copyAsLink && OptStr(d, "comment") != null)
+        {
+            throw new ArgumentException(string.Format(
+                "root config entry '{0}' declares copyAsLink and must not declare 'comment' — a link carries no generated content", target));
         }
     }
 }

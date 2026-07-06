@@ -4,13 +4,17 @@
 // matches at least one include and no exclude, ADR-GLOBS:4), and the optional composition (ADR-GLOBS:8):
 // the set's effective membership is its own patterns' members UNION the composed sets' effective members.
 // Verify (test blast-radius scope) and Pipeline (the trigger-role binding) are declarative annotations.
-// MarkerPath is the set's committed sha-marker path (.sha-markers/<name>.sha256, ADR-GLOBS:1); no globset
-// may match its own marker file or the config itself (ADR-GLOBS:6), which GlobsConfig asserts across the
-// whole registry at construction — compose resolution included.
+// MarkerPath is the set's committed sha-marker path (.sha-markers/<name>.sha256, ADR-GLOBS:1) and
+// GlobSetPath its committed definition companion (.sha-markers/<name>.globset), whose content is the
+// canonical Representation below — it changes exactly when the set's definition changes, never when member
+// content changes. No globset may match its own marker or companion file or the config itself
+// (ADR-GLOBS:6), which GlobsConfig asserts across the whole registry at construction — compose resolution
+// included.
 // See docs/adr/pipelines/durable-sha-globs.md.
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Globs;
@@ -41,6 +45,65 @@ public sealed class GlobSet
     public string MarkerPath
     {
         get { return ".sha-markers/" + Name + ".sha256"; }
+    }
+
+    // The committed definition companion beside the marker (ADR-GLOBS:9).
+    public string GlobSetPath
+    {
+        get { return ".sha-markers/" + Name + ".globset"; }
+    }
+
+    // The canonical definition representation persisted as the .globset companion (ADR-GLOBS:9): a
+    // deterministic, LF-terminated rendering of the set's configuration — fixed field order, patterns and
+    // compose references in declared order, empty sections omitted. It changes exactly when the definition
+    // changes, never when member content changes.
+    public string Representation
+    {
+        get
+        {
+            StringBuilder text = new StringBuilder();
+            text.Append("name: ").Append(Name).Append('\n');
+            text.Append("description: ").Append(Description).Append('\n');
+            text.Append("layer: ").Append(Layer).Append('\n');
+            if (Pipeline != null)
+            {
+                text.Append("pipeline: ").Append(Pipeline).Append('\n');
+            }
+            if (VerifyModules.Count > 0)
+            {
+                text.Append("verify:\n").Append("  modules:\n");
+                foreach (string module in VerifyModules)
+                {
+                    text.Append("  - ").Append(module).Append('\n');
+                }
+                text.Append("  level: ").Append(VerifyLevel).Append('\n');
+            }
+            if (Compose.Count > 0)
+            {
+                text.Append("compose:\n");
+                foreach (string reference in Compose)
+                {
+                    text.Append("- ").Append(reference).Append('\n');
+                }
+            }
+            if (Include.Count > 0)
+            {
+                text.Append("include:\n");
+                foreach (GlobPattern pattern in Include)
+                {
+                    text.Append("- ").Append(pattern.Pattern).Append('\n');
+                }
+            }
+            if (Exclude.Count > 0)
+            {
+                text.Append("exclude:\n");
+                foreach (GlobPattern pattern in Exclude)
+                {
+                    text.Append("- ").Append(pattern.Pattern).Append('\n');
+                }
+            }
+            return text.ToString();
+        }
     }
 
     public GlobSet(string name, string description, string layer, string[] include, string[] exclude,

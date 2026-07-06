@@ -28,6 +28,41 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
         It 'derives the marker path from the set name' {
             (& $script:make 'my-unit').MarkerPath | Should -Be '.sha-markers/my-unit.sha256'
         }
+
+        It 'derives the .globset companion path from the set name (ADR-GLOBS:9)' {
+            (& $script:make 'my-unit').GlobSetPath | Should -Be '.sha-markers/my-unit.globset'
+        }
+    }
+
+    Context 'the definition representation (ADR-GLOBS:9)' {
+        It 'renders the full definition canonically — fixed field order, LF-terminated, declared pattern order' {
+            $set = [Catzc.Base.Globs.GlobSet]::new('my-unit', 'a test globset', 'deployable-unit',
+                @('src/**', 'importer.ps1'), @('**/*.md'), @('base'), @('Catzc.Base.Globs'), 2, 'cd-my-unit')
+            $set.Representation | Should -Be (@(
+                    'name: my-unit'
+                    'description: a test globset'
+                    'layer: deployable-unit'
+                    'pipeline: cd-my-unit'
+                    'verify:'
+                    '  modules:'
+                    '  - Catzc.Base.Globs'
+                    '  level: 2'
+                    'compose:'
+                    '- base'
+                    'include:'
+                    '- src/**'
+                    '- importer.ps1'
+                    'exclude:'
+                    '- **/*.md'
+                ) -join "`n") + "`n"
+        }
+
+        It 'omits empty sections and changes exactly when the definition changes' {
+            $set = & $script:make 'my-unit' @('src/**')
+            $set.Representation | Should -Be "name: my-unit`ndescription: a test globset`nlayer: scope`ninclude:`n- src/**`n"
+            (& $script:make 'my-unit' @('src/**')).Representation | Should -Be $set.Representation
+            (& $script:make 'my-unit' @('src/**', 'extra/**')).Representation | Should -Not -Be $set.Representation
+        }
     }
 
     Context 'the constructor gate' {

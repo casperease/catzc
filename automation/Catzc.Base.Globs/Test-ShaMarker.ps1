@@ -1,11 +1,12 @@
 <#
 .SYNOPSIS
-    Compares every sha-marker file against its globset's recomputed durable SHA — the freshness query.
+    Compares every sha-marker file and .globset companion against its globset — the freshness query.
 .DESCRIPTION
-    The non-throwing query behind the marker-freshness gate (ADR-GLOBS:6): recomputes each globset's
-    durable SHA — the declared registry AND the derived module sets (ADR-PROTGLOB:7) — and reports one
-    status object per globset — Fresh (file matches), Stale (file differs), or Missing (no file) — plus one
-    Orphaned entry per .sha-markers/*.sha256 with no globset in either name space. A commit is clean
+    The non-throwing query behind the marker-freshness gate (ADR-GLOBS:6, ADR-GLOBS:9): recomputes each
+    globset's durable SHA and canonical definition representation — the declared registry AND the derived
+    module sets (ADR-PROTGLOB:7) — and reports one status object per file — Fresh (file matches), Stale
+    (file differs), or Missing (no file) — a marker row and a companion row per globset, plus one Orphaned
+    entry per .sha-markers/*.sha256 or *.globset with no globset in either name space. A commit is clean
     exactly when every status is Fresh; anything else means "run Update-ShaMarker and commit the result".
 .PARAMETER Name
     The globset(s) to check — a declared name or a derived one (module folder, internal module, kebab, or
@@ -70,19 +71,43 @@ function Test-ShaMarker {
             Actual   = $actual
             Path     = $set.MarkerPath
         }
+
+        # The definition companion (ADR-GLOBS:9): compared against the set's canonical representation.
+        $companionPath = [System.IO.Path]::Combine($root, $set.GlobSetPath)
+        $companionExpected = $set.Representation
+        $companionActual = $null
+        $companionStatus = 'Missing'
+        if ([System.IO.File]::Exists($companionPath)) {
+            $companionActual = [System.IO.File]::ReadAllText($companionPath)
+            $companionStatus = if ($companionActual -ceq $companionExpected) {
+                'Fresh'
+            }
+            else {
+                'Stale'
+            }
+        }
+        [pscustomobject]@{
+            Name     = $set.Name
+            Status   = $companionStatus
+            Expected = $companionExpected
+            Actual   = $companionActual
+            Path     = $set.GlobSetPath
+        }
     }
 
     $markersDir = [System.IO.Path]::Combine($root, '.sha-markers')
     if ([System.IO.Directory]::Exists($markersDir)) {
-        foreach ($file in [System.IO.Directory]::EnumerateFiles($markersDir, '*.sha256')) {
-            $orphanName = [System.IO.Path]::GetFileNameWithoutExtension($file)
-            if (-not $validNames.Contains($orphanName)) {
-                [pscustomobject]@{
-                    Name     = $orphanName
-                    Status   = 'Orphaned'
-                    Expected = $null
-                    Actual   = [System.IO.File]::ReadAllText($file).Trim()
-                    Path     = ".sha-markers/$orphanName.sha256"
+        foreach ($extension in '*.sha256', '*.globset') {
+            foreach ($file in [System.IO.Directory]::EnumerateFiles($markersDir, $extension)) {
+                $orphanName = [System.IO.Path]::GetFileNameWithoutExtension($file)
+                if (-not $validNames.Contains($orphanName)) {
+                    [pscustomobject]@{
+                        Name     = $orphanName
+                        Status   = 'Orphaned'
+                        Expected = $null
+                        Actual   = [System.IO.File]::ReadAllText($file).Trim()
+                        Path     = ".sha-markers/$([System.IO.Path]::GetFileName($file))"
+                    }
                 }
             }
         }

@@ -1,5 +1,5 @@
-# The trigger-file writer: one 64-hex line + LF, no BOM; idempotent; declared AND derived sets
-# (ADR-PROTGLOB:7); orphans removed (ADR-GLOBS:5/6).
+# The trigger-file writer: one 64-hex line + LF, no BOM; a .globset definition companion per set
+# (ADR-GLOBS:9); idempotent; declared AND derived sets (ADR-PROTGLOB:7); orphans removed (ADR-GLOBS:5/6).
 Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
@@ -53,21 +53,51 @@ Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
         (Get-Item $path).LastWriteTimeUtc | Should -Be $stamp
     }
 
-    It 'rewrites when the hash changes' {
+    It 'rewrites the marker when the hash changes, leaving the unchanged companion alone' {
         Update-ShaMarker
         Mock Get-GlobSetHash { $script:hashB } -ModuleName Catzc.Base.Globs
 
         $report = Update-ShaMarker -PassThru
 
-        ($report | Where-Object Name -EQ 'unit-a').Status | Should -Be 'Written'
+        ($report | Where-Object Path -EQ '.sha-markers/unit-a.sha256').Status | Should -Be 'Written'
+        ($report | Where-Object Path -EQ '.sha-markers/unit-a.globset').Status | Should -Be 'Unchanged'
         (Get-Content (Join-Path $script:markersDir 'unit-a.sha256') -Raw) | Should -Be "$script:hashB`n"
     }
 
-    It 'writes a marker for a derived set on a full run' {
+    It 'writes a .globset companion carrying the set''s canonical representation' {
+        Update-ShaMarker
+
+        $path = Join-Path $script:markersDir 'unit-a.globset'
+        Test-Path $path | Should -BeTrue
+        $bytes = [System.IO.File]::ReadAllBytes($path)
+        $bytes[0] | Should -Not -Be 0xEF                   # no BOM
+        [System.IO.File]::ReadAllText($path) | Should -Be $script:config.Get('unit-a').Representation
+    }
+
+    It 'rewrites the companion only when the definition changes, leaving the unchanged marker alone' {
+        Update-ShaMarker
+        $redefined = [Catzc.Base.Globs.GlobsConfig]::new(@{
+                globsets = [ordered]@{
+                    'unit-a' = @{ description = 'd'; layer = 'deployable-unit'; include = @('src/**', 'extra/**') }
+                    'unit-b' = @{ description = 'd'; layer = 'deployable-unit'; include = @('docs/**') }
+                }
+            })
+        Mock Get-Config { $redefined } -ModuleName Catzc.Base.Globs
+
         $report = Update-ShaMarker -PassThru
 
-        ($report | Where-Object Name -EQ 'mod-x').Status | Should -Be 'Written'
+        ($report | Where-Object Path -EQ '.sha-markers/unit-a.globset').Status | Should -Be 'Written'
+        ($report | Where-Object Path -EQ '.sha-markers/unit-a.sha256').Status | Should -Be 'Unchanged'
+        [System.IO.File]::ReadAllText((Join-Path $script:markersDir 'unit-a.globset')) |
+            Should -Match ([regex]::Escape('extra/**'))
+    }
+
+    It 'writes a marker and companion for a derived set on a full run' {
+        $report = Update-ShaMarker -PassThru
+
+        ($report | Where-Object Name -EQ 'mod-x').Status | Should -Be @('Written', 'Written')
         Test-Path (Join-Path $script:markersDir 'mod-x.sha256') | Should -BeTrue
+        Test-Path (Join-Path $script:markersDir 'mod-x.globset') | Should -BeTrue
     }
 
     It 'updates only the named set but still removes orphans' {
@@ -90,6 +120,16 @@ Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
 
         ($report | Where-Object Name -EQ 'mod-x') | Should -BeNullOrEmpty
         Test-Path (Join-Path $script:markersDir 'mod-x.sha256') | Should -BeTrue
+    }
+
+    It 'removes an orphaned .globset companion' {
+        New-Item -ItemType Directory -Path $script:markersDir -Force | Out-Null
+        Set-Content (Join-Path $script:markersDir 'dead-unit.globset') 'name: dead-unit'
+
+        $report = Update-ShaMarker -Name unit-a -PassThru
+
+        ($report | Where-Object Path -EQ '.sha-markers/dead-unit.globset').Status | Should -Be 'Removed'
+        Test-Path (Join-Path $script:markersDir 'dead-unit.globset') | Should -BeFalse
     }
 
     It 'leaves non-sha256 files in .sha-markers/ alone' {

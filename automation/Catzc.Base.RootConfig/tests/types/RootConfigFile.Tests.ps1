@@ -7,6 +7,7 @@ Describe 'RootConfigFile' -Tag 'L0', 'logic' {
         $f.comment | Should -Be 'none'
         $f.optIn | Should -BeFalse
         $f.committed | Should -BeFalse
+        $f.copyAsLink | Should -BeFalse
     }
 
     It 'constructs a generator entry' {
@@ -44,5 +45,28 @@ Describe 'RootConfigFile' -Tag 'L0', 'logic' {
     It 'throws when a generator entry declares a comment style' {
         { [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; generator = 'g'; comment = 'hash' }) } |
             Should -Throw '*must not declare*'
+    }
+
+    It 'constructs a copyAsLink source entry' {
+        $f = [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = '.editorconfig'; source = 'a/b/.editorconfig'; copyAsLink = $true; optIn = $true })
+        $f.copyAsLink | Should -BeTrue
+        $f.committed | Should -BeFalse
+    }
+
+    It 'throws when a generator entry declares copyAsLink' {
+        { [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; generator = 'g'; copyAsLink = $true }) } |
+            Should -Throw '*no ''source''*'
+    }
+
+    It 'throws when a copyAsLink entry declares committed true' {
+        { [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; copyAsLink = $true; committed = $true }) } |
+            Should -Throw '*committed true*'
+    }
+
+    It 'throws when a copyAsLink entry declares a comment style, even an explicit none' {
+        { [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; copyAsLink = $true; comment = 'hash' }) } |
+            Should -Throw '*must not declare ''comment''*'
+        { [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; copyAsLink = $true; comment = 'none' }) } |
+            Should -Throw '*must not declare ''comment''*'
     }
 }
