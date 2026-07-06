@@ -1,0 +1,5 @@
+name: catzc-base-qualitygates
+description: Derived module scope - automation/Catzc.Base.QualityGates/**
+layer: module
+include:
+- automation/Catzc.Base.QualityGates/**

@@ -1,0 +1,5 @@
+name: catzc-tooling-core
+description: Derived module scope - automation/Catzc.Tooling.Core/**
+layer: module
+include:
+- automation/Catzc.Tooling.Core/**

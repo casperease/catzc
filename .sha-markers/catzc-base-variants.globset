@@ -1,0 +1,5 @@
+name: catzc-base-variants
+description: Derived module scope - automation/Catzc.Base.Variants/**
+layer: module
+include:
+- automation/Catzc.Base.Variants/**

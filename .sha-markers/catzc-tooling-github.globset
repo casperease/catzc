@@ -1,0 +1,5 @@
+name: catzc-tooling-github
+description: Derived module scope - automation/Catzc.Tooling.Github/**
+layer: module
+include:
+- automation/Catzc.Tooling.Github/**

@@ -1,0 +1,5 @@
+name: catzc-base-objects
+description: Derived module scope - automation/Catzc.Base.Objects/**
+layer: module
+include:
+- automation/Catzc.Base.Objects/**

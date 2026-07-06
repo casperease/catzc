@@ -1,0 +1,5 @@
+name: catzc-base-vscode
+description: Derived module scope - automation/Catzc.Base.VSCode/**
+layer: module
+include:
+- automation/Catzc.Base.VSCode/**

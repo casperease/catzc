@@ -1,0 +1,5 @@
+name: catzc-azure-firewall
+description: Derived module scope - automation/Catzc.Azure.Firewall/**
+layer: module
+include:
+- automation/Catzc.Azure.Firewall/**

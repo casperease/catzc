@@ -1,0 +1,5 @@
+name: catzc-azure-templates
+description: Derived module scope - automation/Catzc.Azure.Templates/**
+layer: module
+include:
+- automation/Catzc.Azure.Templates/**

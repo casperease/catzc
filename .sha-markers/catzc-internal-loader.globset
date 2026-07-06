@@ -1,0 +1,5 @@
+name: catzc-internal-loader
+description: Derived internal-module scope - automation/.internal/Catzc.Internal.Loader.psm1
+layer: module
+include:
+- automation/.internal/Catzc.Internal.Loader.psm1

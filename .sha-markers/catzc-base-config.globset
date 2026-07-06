@@ -1,0 +1,5 @@
+name: catzc-base-config
+description: Derived module scope - automation/Catzc.Base.Config/**
+layer: module
+include:
+- automation/Catzc.Base.Config/**

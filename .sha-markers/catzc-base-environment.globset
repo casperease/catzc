@@ -1,0 +1,5 @@
+name: catzc-base-environment
+description: Derived module scope - automation/Catzc.Base.Environment/**
+layer: module
+include:
+- automation/Catzc.Base.Environment/**

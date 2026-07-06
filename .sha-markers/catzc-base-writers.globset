@@ -1,0 +1,5 @@
+name: catzc-base-writers
+description: Derived module scope - automation/Catzc.Base.Writers/**
+layer: module
+include:
+- automation/Catzc.Base.Writers/**

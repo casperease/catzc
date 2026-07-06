@@ -1,0 +1,5 @@
+name: compiled
+description: Derived infra scope - automation/.compiled/**
+layer: module
+include:
+- automation/.compiled/**

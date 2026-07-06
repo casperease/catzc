@@ -1,0 +1,5 @@
+name: vendor
+description: Derived infra scope - automation/.vendor/**
+layer: module
+include:
+- automation/.vendor/**

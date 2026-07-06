@@ -1,0 +1,5 @@
+name: catzc-base-globs
+description: Derived module scope - automation/Catzc.Base.Globs/**
+layer: module
+include:
+- automation/Catzc.Base.Globs/**

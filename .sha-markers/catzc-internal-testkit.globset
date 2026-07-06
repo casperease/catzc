@@ -1,0 +1,5 @@
+name: catzc-internal-testkit
+description: Derived internal-module scope - automation/.internal/Catzc.Internal.TestKit.psm1
+layer: module
+include:
+- automation/.internal/Catzc.Internal.TestKit.psm1

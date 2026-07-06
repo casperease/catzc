@@ -1,0 +1,5 @@
+name: catzc-azure-cli
+description: Derived module scope - automation/Catzc.Azure.Cli/**
+layer: module
+include:
+- automation/Catzc.Azure.Cli/**

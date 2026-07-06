@@ -1,0 +1,5 @@
+name: catzc-tooling-python
+description: Derived module scope - automation/Catzc.Tooling.Python/**
+layer: module
+include:
+- automation/Catzc.Tooling.Python/**

@@ -1,0 +1,8 @@
+name: automation
+description: The automation track - every tracked file the CI engine verifies.
+layer: track
+pipeline: ci-automation
+include:
+- **
+exclude:
+- .sha-markers/**
