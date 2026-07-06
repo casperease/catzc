@@ -56,7 +56,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $set.Matches('other/a.txt') | Should -BeFalse
         }
 
-        It 'expands the composed surface into the marker resolved: block (ADR-GLOBS:9)' {
+        It 'flattens the composed surface into the marker scan program, own rules last (ADR-GLOBS:8, ADR-GLOBS:9)' {
             $c = & $script:make @{
                 'base' = @{ description = 'd'; layer = 'deployable-unit'; include = @('shared/**'); exclude = @('shared/config/**') }
                 'unit' = @{ description = 'd'; layer = 'deployable-unit'; compose = @('base'); include = @('mine/**'); pipeline = 'cd-unit' }
@@ -68,29 +68,25 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
                 'pipeline: cd-unit'
                 'compose:'
                 '- base'
-                'include:'
-                "- 'mine/**'"
-                'resolved:'
-                '  base:'
-                '    include:'
-                "    - 'shared/**'"
-                '    exclude:'
-                "    - 'shared/config/**'"
+                'scan:'
+                "- '+ shared/**'"      # base rules first...
+                "- '- shared/config/**'"
+                "- '+ mine/**'"        # ...then unit's own rule last
             )
             $c.Get('unit').Representation | Should -Be (($expectedLines -join "`n") + "`n")
-            # the base set itself composes nothing, so it carries no resolved: block
-            $c.Get('base').Representation | Should -Not -Match 'resolved:'
+            # the base set composes nothing, so its program is just its own rules
+            $c.Get('base').Representation | Should -Match "scan:`n- '\+ shared/\*\*'`n- '- shared/config/\*\*'`n"
         }
 
-        It 'resolves the composed surface transitively, each contributing set once (ADR-GLOBS:9)' {
+        It 'flattens transitively, each rule appearing once — dedupe keeps the last occurrence (ADR-GLOBS:8)' {
             $c = & $script:make @{
                 'leaf' = @{ description = 'd'; layer = 'deployable-unit'; include = @('leaf/**') }
                 'mid'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('leaf'); include = @('mid/**') }
                 'top'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('mid', 'leaf'); include = @('top/**') }
             }
-            # depth-first, declared order, deduped: mid then leaf (leaf appears once though named twice)
+            # top composes [mid, leaf]; mid already pulls leaf. Raw: +leaf,+mid,+leaf,+top -> dedupe-last: +mid,+leaf,+top
             $rep = $c.Get('top').Representation
-            $rep | Should -Match "resolved:`n  mid:`n    include:`n    - 'mid/\*\*'`n  leaf:`n    include:`n    - 'leaf/\*\*'`n"
+            $rep | Should -Match "scan:`n- '\+ mid/\*\*'`n- '\+ leaf/\*\*'`n- '\+ top/\*\*'`n"
         }
 
         It 'rejects a compose reference to an unknown set' {

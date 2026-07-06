@@ -1,7 +1,8 @@
 # cspell:ignore ndescription nlayer ninclude  -- the escape-sequence artifacts in the "…`nlayer:…" fixture strings
-# The globset record: membership is include-minus-exclude unioned through compose (ADR-GLOBS:4/ADR-GLOBS:8),
-# the marker path derives from the name (ADR-GLOBS:1), and the constructor gates the shape (kebab-case name,
-# required description, a declared layer, include or compose present, no duplicate patterns).
+# The globset record: membership is decided by the scan program — an ordered +/- rule list, last-match-wins
+# (ADR-GLOBS:4), flattened through compose with own-rules-last (ADR-GLOBS:8); the marker path derives from the
+# name (ADR-GLOBS:1); and the constructor gates the shape (kebab-case name, required description, a declared
+# layer, include or compose present, no duplicate patterns).
 Describe 'GlobSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {
@@ -32,9 +33,10 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
     }
 
     Context 'the marker content (ADR-GLOBS:9)' {
-        It 'renders the full definition canonically — fixed field order, LF-terminated, declared pattern order, quoted patterns' {
+        It 'renders meta then the scan program canonically — fixed field order, LF-terminated, +/- rules, quoted patterns' {
             $set = [Catzc.Base.Globs.GlobSet]::new('my-unit', 'a test globset', 'deployable-unit',
                 @('src/**', 'importer.ps1'), @('**/*.md'), @('base'), @('Catzc.Base.Globs'), 2, 'cd-my-unit')
+            # a raw (unresolved) set's program is its own rules: includes as '+' (declared order) then excludes as '-'
             $expectedLines = @(
                 'name: my-unit'
                 'description: a test globset'
@@ -46,24 +48,23 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
                 '  level: 2'
                 'compose:'
                 '- base'
-                'include:'
-                "- 'src/**'"
-                "- 'importer.ps1'"
-                'exclude:'
-                "- '**/*.md'"
+                'scan:'
+                "- '+ src/**'"
+                "- '+ importer.ps1'"
+                "- '- **/*.md'"
             )
             $set.Representation | Should -Be (($expectedLines -join "`n") + "`n")
         }
 
-        It 'renders no resolved: block until the registry resolves compose (the raw set has no composed surface)' {
+        It 'renders only its own rules until the registry flattens compose (compose: stays as provenance meta)' {
             $unit = [Catzc.Base.Globs.GlobSet]::new('my-unit', 'a unit', 'deployable-unit',
                 @('config/my-unit/**'), @(), @('base'), @(), -1, 'cd-my-unit')
-            $unit.Representation | Should -Not -Match 'resolved:'
+            $unit.Representation | Should -Match "compose:`n- base`nscan:`n- '\+ config/my-unit/\*\*'`n"
         }
 
         It 'omits empty sections and changes exactly when the definition changes' {
             $set = & $script:make 'my-unit' @('src/**')
-            $set.Representation | Should -Be "name: my-unit`ndescription: a test globset`nlayer: scope`ninclude:`n- 'src/**'`n"
+            $set.Representation | Should -Be "name: my-unit`ndescription: a test globset`nlayer: scope`nscan:`n- '+ src/**'`n"
             (& $script:make 'my-unit' @('src/**')).Representation | Should -Be $set.Representation
             (& $script:make 'my-unit' @('src/**', 'extra/**')).Representation | Should -Not -Be $set.Representation
         }
@@ -80,8 +81,7 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
                 @('src/**'), @('**/*.md'), @(), @(), -1, 'cd-my-unit')
             $parsed = $set.MarkerContent(('a' * 64)) | ConvertFrom-Yaml
             $parsed.name | Should -Be 'my-unit'
-            $parsed.include | Should -Be @('src/**')
-            $parsed.exclude | Should -Be @('**/*.md')
+            $parsed.scan | Should -Be @('+ src/**', '- **/*.md')
             $parsed.sha256 | Should -Be ('a' * 64)
         }
     }

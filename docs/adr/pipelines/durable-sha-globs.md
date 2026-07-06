@@ -30,8 +30,11 @@ no escape character: every pattern must be expressible without one.
 
 ### Rule ADR-GLOBS:4
 
-A globset selects from tracked files only (`git ls-files`). Membership is `include:` minus `exclude:` — a file belongs to the set when it
-matches at least one include pattern and no exclude pattern. There is no inline negation.
+A globset selects from tracked files only (`git ls-files`, the non-gitignored universe). Membership is decided by an ordered **scan
+program**: a sequence of `+ <pattern>` (select) and `- <pattern>` (drop) rules, evaluated **last-match-wins** with a default of
+not-selected — a file belongs when its last matching rule is `+`, and to no set when nothing matches. Precedence is position, not kind: a
+later rule overrides an earlier one, so negation is expressed by order, never by an inline `!`. A leaf set's program is its `include:`
+patterns as `+` then its `exclude:` patterns as `-` — excludes come last and win, the include-minus-exclude special case.
 
 - [The matching universe](#the-matching-universe)
 
@@ -70,30 +73,30 @@ only on declared deployable-unit markers. An optional `verify:` (`modules` + `le
 
 ### Rule ADR-GLOBS:8
 
-A globset may **compose** other declared sets (`compose:`): its effective membership is its own include-minus-exclude members UNION the
-composed sets' effective members. References resolve to declared sets only, never to the set itself, and the reference graph must be acyclic
-— all validated at config load. Composition is how a configured deployable-unit shares a base (e.g. every customer/platform unit composing
-`template-azure-subscription-foundation`, the config-free foundation surface) without one deployment's configuration change firing
-another's pipeline. The composed surface is also rendered
-into the marker's `resolved:` block (ADR-GLOBS:9), so the marker states a set's effective membership without chasing references.
+A globset may **compose** other declared sets (`compose:`): its scan program (ADR-GLOBS:4) is the composed sets' programs first — in
+dependency order, deepest base first, each set once — then the set's own `+`/`-` rules **last**, so the set's own rules override its base. A
+unit re-adds a slice its base dropped exactly this way (`+ configuration/apex/**` after the base's `- configuration/*/**`). References
+resolve to declared sets only, never to the set itself, and the reference graph must be acyclic — all validated at config load. Composition
+is how a configured deployable-unit shares a base (e.g. every customer/platform unit composing `template-azure-subscription-foundation`, the
+config-free foundation surface) without one deployment's configuration change firing another's pipeline. The flattened program is the
+marker's core (ADR-GLOBS:9): the marker states exactly the ordered rules the tree is scanned with, no reference-chasing.
 
 - [One configuration point](#one-configuration-point)
 
 ### Rule ADR-GLOBS:9
 
-The marker file is **full-information YAML**: the globset's canonical, LF-terminated definition representation (fixed field order — name,
-description, layer, pipeline, verify, compose, include, exclude, resolved — empty sections omitted, patterns single-quoted) plus a final
-`sha256:` line carrying the durable SHA of ADR-GLOBS:5. When the set composes (ADR-GLOBS:8), the trailing `resolved:` block expands the
-effective composed surface — every transitively composed set that carries its own patterns, rendered under its name with its own
-`include`/`exclude` kept together (never flattened into one table: a flat merge would leak one set's exclude onto another's include and
-change what the set matches). The `resolved:` block is a display of the union `Matches()` already computes; it makes the marker state what
-the set contains without chasing `compose:` references into other marker files. The `GlobSet` type produces the content (`Representation` +
-`MarkerContent(sha)`), and `Update-ShaMarker` writes it only on a real content change — so the one file separates the two signals in its
-diff: body lines change exactly when the set's **definition** changes — its own, or (through `resolved:`) a composed set's — the `sha256:`
-line whenever member **content** changes. The file is data our own tooling can parse back (the repository's `.yml` convention), never an
-input to any hash (ADR-GLOBS:6).
+The marker file is the fileset's **immutable lock** — two reproducible core parts under a meta header: (1) the `scan:` program, the ordered
+`+`/`-` rules the non-gitignored tree is scanned with (ADR-GLOBS:4, flattened through compose per ADR-GLOBS:8), and (2) the final `sha256:`
+line, the durable SHA of exactly what that scan selected (ADR-GLOBS:5). The **meta** above them — name, description, layer, pipeline, verify,
+compose — is provenance: what the mapping represents and how the program was derived, never an input to the hash. Fixed field order (name,
+description, layer, pipeline, verify, compose, scan, sha256), LF-terminated, patterns single-quoted, empty meta sections omitted. `program →
+fileset → sha` is deterministic with nothing else as input, and the file parses both ways. The `GlobSet` type produces the content
+(`Representation` + `MarkerContent(sha)`), and `Update-ShaMarker` writes it only on a real content change — so the one file separates two
+signals in its diff: the `scan:` body changes when the **definition** changes (its own rules, or a composed set's), the `sha256:` line
+whenever selected **content** changes. The file is data our own tooling can parse back (the repository's `.yml` convention), never an input
+to any hash (ADR-GLOBS:6).
 
-- [The marker is full-information YAML](#the-marker-is-full-information-yaml)
+- [The marker is an immutable lock](#the-marker-is-an-immutable-lock)
 
 ## Context
 
@@ -154,18 +157,18 @@ The hash recipe makes the identity durable across platforms and sensitive to eve
   not — a moved file changes what a unit deploys.
 - **Order-free.** Lines are ordinal-sorted by path before the combined digest, so enumeration order is irrelevant.
 
-### The marker is full-information YAML
+### The marker is an immutable lock
 
-The marker file `.sha-markers/<name>.yml` holds everything there is to say about the set: its canonical definition — name, description,
-layer, pipeline, verify, compose, include, exclude, rendered deterministically by the `GlobSet` type with empty sections omitted and
-patterns single-quoted — a `resolved:` block that expands any composed surface (ADR-GLOBS:9), and, as the final line, `sha256:` with the
-durable SHA above. The `resolved:` block lists each transitively composed set that contributes patterns, its `include`/`exclude` kept
-together under its name — a faithful picture of the effective union (never a flat merge, which would drop the composing set's own
-configuration by leaking the base's excludes onto it). So a customer unit's marker shows, in one file, both what the customer adds and the
-shared base it inherits. One file, two separable signals in review: a diff in the body means the set's composition changed — a pattern
-added, a pipeline rebound, or a composed set's patterns changed; a diff in the `sha256:` line means the members' content changed. A reader
-(or a tool) can parse the marker as ordinary YAML and know the unit's definition and identity without opening `globs.yml`.
-`.gitattributes` pins the line ending, so the bytes are identical on every checkout.
+The marker file `.sha-markers/<name>.yml` is the fileset's lock — a meta header plus the two deterministic core parts. The **meta** (name,
+description, layer, pipeline, verify, compose) is provenance: what the mapping represents and how its program was derived. The **core** is a
+`scan:` block — the ordered `+`/`-` program the tree is scanned with, flattened through compose (ADR-GLOBS:4/8) so it needs no
+reference-chasing — and a final `sha256:` line, the durable SHA of exactly what that scan selected. The `GlobSet` type renders all of it
+deterministically (empty meta sections omitted, patterns single-quoted). So a customer unit's marker shows, in one file, the full ordered
+program it inherits from its base plus the rules it adds on top, and the identity of the resulting fileset. One file, two separable signals
+in review: a diff in the `scan:` body means the definition changed — a rule added, a pipeline rebound, or a composed set's rules changed; a
+diff in the `sha256:` line means the selected content changed. A reader (or a tool) can parse the marker as ordinary YAML both ways —
+program → fileset, fileset → sha — and know the unit's definition and identity without opening `globs.yml`. `.gitattributes` pins the line
+ending, so the bytes are identical on every checkout.
 
 ### Registering a pipeline or workflow
 

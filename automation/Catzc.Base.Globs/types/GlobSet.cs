@@ -1,18 +1,19 @@
 // One named globset: an area-of-control's mapping onto files under version control — a kebab-case name, a
 // description, its layer (deployable-unit | track | scope, ADR-GLOBS:7; the derived module layer never
-// appears in the registry), the include patterns, the optional exclude patterns (a file belongs when it
-// matches at least one include and no exclude, ADR-GLOBS:4), and the optional composition (ADR-GLOBS:8):
-// the set's effective membership is its own patterns' members UNION the composed sets' effective members.
-// That composed surface is also rendered into the marker as the resolved: block (each contributing set's
-// include/exclude, kept together — never flattened into one table, which would leak excludes across sets),
-// so the marker states what the set contains without chasing compose references into other marker files.
-// Verify (test blast-radius scope) and Pipeline (the trigger-role binding) are declarative annotations.
+// appears in the registry), the authored include/exclude patterns, and the optional composition
+// (ADR-GLOBS:8). Membership is decided by the set's SCAN PROGRAM (ADR-GLOBS:4): an ordered list of +/- rules
+// evaluated last-match-wins with a default of not-selected. A leaf set's program is its includes as '+' then
+// its excludes as '-' (excludes come last and win). A composing set's program is the composed sets' programs
+// first (dependency order, deepest base first, each set once), then its own +/- rules LAST — so a set's own
+// rules override its base (it re-adds a slice the base dropped). The program is the marker's core: the
+// Representation renders it as the scan: block, and the durable SHA (ADR-GLOBS:5) is computed over exactly
+// what the program selects.
+// Verify (test blast-radius scope) and Pipeline (the trigger-role binding) are declarative meta annotations.
 // MarkerPath is the set's committed sha-marker path (.sha-markers/<name>.yml, ADR-GLOBS:1, ADR-GLOBS:9),
-// whose content is MarkerContent(sha256): the canonical Representation of the set's definition plus the
-// durable SHA — one full-information YAML file that changes when the definition changes (its body) or the
-// members' content identity changes (its sha256 line). No globset may match its own marker file or the
-// config itself (ADR-GLOBS:6), which GlobsConfig asserts across the whole registry at construction —
-// compose resolution included.
+// whose content is MarkerContent(sha256): the meta + the scan: program + the durable SHA — one immutable lock
+// whose scan: body changes when the definition changes and whose sha256 line changes when selected content
+// changes. No globset may match its own marker file or the config itself (ADR-GLOBS:6), which GlobsConfig
+// asserts across the whole registry at construction — compose resolution included.
 // See docs/adr/pipelines/durable-sha-globs.md.
 
 using System;
@@ -44,19 +45,34 @@ public sealed class GlobSet
     // The composed sets, resolved by GlobsConfig once every set is constructed (names validated there).
     private IReadOnlyList<GlobSet> composed = new GlobSet[0];
 
+    // The flattened scan program, built lazily from composed + own rules and cached (composed is immutable
+    // after ResolveCompose, which clears this). One rule: select (+) or drop (-) a pattern.
+    private IReadOnlyList<ScanRule> cachedProgram;
+
+    // A single scan-program rule (ADR-GLOBS:4): Select true = '+' (select), false = '-' (drop).
+    public readonly struct ScanRule
+    {
+        public bool Select { get; }
+        public GlobPattern Pattern { get; }
+        public ScanRule(bool select, GlobPattern pattern)
+        {
+            Select = select;
+            Pattern = pattern;
+        }
+    }
+
     // The committed sha-marker file this globset is persisted in (ADR-GLOBS:1, ADR-GLOBS:9).
     public string MarkerPath
     {
         get { return ".sha-markers/" + Name + ".yml"; }
     }
 
-    // The canonical definition representation — the marker's YAML body above its sha256 line (ADR-GLOBS:9):
-    // a deterministic, LF-terminated rendering of the set's configuration — fixed field order (name,
-    // description, layer, pipeline, verify, compose, include, exclude, resolved), patterns and compose
-    // references in declared order (patterns single-quoted: a plain '*' opener is not valid YAML), empty
-    // sections omitted. The trailing resolved: block expands the composed surface (ADR-GLOBS:8) so the
-    // marker states what the set contains without chasing compose references. It changes exactly when the
-    // definition changes — the set's own OR a composed set's — never when member content changes.
+    // The canonical marker body above the sha256 line (ADR-GLOBS:9): a deterministic, LF-terminated rendering
+    // — fixed field order (name, description, layer, pipeline, verify, compose, scan), patterns single-quoted
+    // (a plain '*' opener is not valid YAML), empty meta sections omitted. The meta (name..compose) is
+    // provenance; the scan: block is the core — the flattened +/- program the tree is scanned with. Each scan
+    // rule renders as '- '<op> <pattern>'' with op '+' (select) or '-' (drop). It changes exactly when the
+    // definition changes — the set's own rules OR a composed set's — never when selected content changes.
     public string Representation
     {
         get
@@ -86,59 +102,11 @@ public sealed class GlobSet
                     text.Append("- ").Append(reference).Append('\n');
                 }
             }
-            if (Include.Count > 0)
+            text.Append("scan:\n");
+            foreach (ScanRule rule in ScanProgram())
             {
-                text.Append("include:\n");
-                foreach (GlobPattern pattern in Include)
-                {
-                    text.Append("- '").Append(pattern.Pattern.Replace("'", "''")).Append("'\n");
-                }
-            }
-            if (Exclude.Count > 0)
-            {
-                text.Append("exclude:\n");
-                foreach (GlobPattern pattern in Exclude)
-                {
-                    text.Append("- '").Append(pattern.Pattern.Replace("'", "''")).Append("'\n");
-                }
-            }
-            // resolved: the effective composed surface (ADR-GLOBS:8, ADR-GLOBS:9). Each transitively
-            // composed set that carries its own patterns is rendered under its name, its include/exclude
-            // kept together — a faithful picture of the union (never a flat merge, which would leak one
-            // set's exclude onto another's include). Display only: Matches() computes the same union
-            // directly; this block just makes the marker say what the set actually contains without
-            // chasing compose references into other marker files.
-            List<GlobSet> resolvedSets = new List<GlobSet>();
-            foreach (GlobSet composedSet in ComposedClosure())
-            {
-                if (composedSet.Include.Count > 0 || composedSet.Exclude.Count > 0)
-                {
-                    resolvedSets.Add(composedSet);
-                }
-            }
-            if (resolvedSets.Count > 0)
-            {
-                text.Append("resolved:\n");
-                foreach (GlobSet composedSet in resolvedSets)
-                {
-                    text.Append("  ").Append(composedSet.Name).Append(":\n");
-                    if (composedSet.Include.Count > 0)
-                    {
-                        text.Append("    include:\n");
-                        foreach (GlobPattern pattern in composedSet.Include)
-                        {
-                            text.Append("    - '").Append(pattern.Pattern.Replace("'", "''")).Append("'\n");
-                        }
-                    }
-                    if (composedSet.Exclude.Count > 0)
-                    {
-                        text.Append("    exclude:\n");
-                        foreach (GlobPattern pattern in composedSet.Exclude)
-                        {
-                            text.Append("    - '").Append(pattern.Pattern.Replace("'", "''")).Append("'\n");
-                        }
-                    }
-                }
+                text.Append("- '").Append(rule.Select ? "+ " : "- ")
+                    .Append(rule.Pattern.Pattern.Replace("'", "''")).Append("'\n");
             }
             return text.ToString();
         }
@@ -195,61 +163,69 @@ public sealed class GlobSet
         Pipeline = string.IsNullOrWhiteSpace(pipeline) ? null : pipeline;
     }
 
-    // Called by GlobsConfig after construction, with the referenced sets in Compose order.
+    // Called by GlobsConfig after construction, with the referenced sets in Compose order. Clears the cached
+    // program so it rebuilds against the resolved composition.
     internal void ResolveCompose(IReadOnlyList<GlobSet> resolved)
     {
         composed = resolved;
+        cachedProgram = null;
     }
 
-    // Effective membership (ADR-GLOBS:4 + ADR-GLOBS:8): the set's own include-minus-exclude members,
-    // union the composed sets' effective members.
+    // Membership (ADR-GLOBS:4): evaluate the scan program last-match-wins, default not-selected — a file
+    // belongs when its last matching rule is '+'.
     public bool Matches(string repoRelativePath)
     {
-        if (MatchesOwn(repoRelativePath)) { return true; }
-        foreach (GlobSet set in composed)
+        bool selected = false;
+        foreach (ScanRule rule in ScanProgram())
         {
-            if (set.Matches(repoRelativePath)) { return true; }
+            if (rule.Pattern.Matches(repoRelativePath)) { selected = rule.Select; }
         }
-        return false;
+        return selected;
     }
 
-    // The transitively composed sets, depth-first through Compose in declared order, each appearing once
-    // (first occurrence wins). Because the union is order- and structure-free (ADR-GLOBS:5), a flat,
-    // deduped list of the contributing sets fully captures the composed surface for the resolved: block.
-    // Empty until GlobsConfig calls ResolveCompose, so a raw, unregistered GlobSet renders no resolved block.
-    private List<GlobSet> ComposedClosure()
+    // The flattened scan program (ADR-GLOBS:4/8): the composed sets' programs first (dependency order,
+    // deepest base first), then this set's own rules (includes as '+', excludes as '-') LAST, so own rules
+    // override the base. Identical (op, pattern) rules are deduped keeping the LAST occurrence — harmless for
+    // last-match-wins and keeps a diamond compose from repeating rules. Built lazily and cached.
+    public IReadOnlyList<ScanRule> ScanProgram()
     {
-        List<GlobSet> ordered = new List<GlobSet>();
-        HashSet<string> seen = new HashSet<string>(StringComparer.Ordinal);
-        CollectComposed(this, ordered, seen);
-        return ordered;
+        if (cachedProgram == null)
+        {
+            List<ScanRule> rules = new List<ScanRule>();
+            AppendProgram(this, rules);
+            cachedProgram = DedupeKeepingLast(rules);
+        }
+        return cachedProgram;
     }
 
-    private static void CollectComposed(GlobSet set, List<GlobSet> ordered, HashSet<string> seen)
+    private static void AppendProgram(GlobSet set, List<ScanRule> rules)
     {
         foreach (GlobSet composedSet in set.composed)
         {
-            if (seen.Add(composedSet.Name))
-            {
-                ordered.Add(composedSet);
-                CollectComposed(composedSet, ordered, seen);
-            }
+            AppendProgram(composedSet, rules);
         }
+        foreach (GlobPattern pattern in set.Include) { rules.Add(new ScanRule(true, pattern)); }
+        foreach (GlobPattern pattern in set.Exclude) { rules.Add(new ScanRule(false, pattern)); }
     }
 
-    private bool MatchesOwn(string repoRelativePath)
+    private static IReadOnlyList<ScanRule> DedupeKeepingLast(List<ScanRule> rules)
     {
-        bool included = false;
-        foreach (GlobPattern pattern in Include)
+        List<ScanRule> deduped = new List<ScanRule>();
+        for (int i = 0; i < rules.Count; i++)
         {
-            if (pattern.Matches(repoRelativePath)) { included = true; break; }
+            bool laterDuplicate = false;
+            for (int j = i + 1; j < rules.Count; j++)
+            {
+                if (rules[j].Select == rules[i].Select
+                    && string.Equals(rules[j].Pattern.Pattern, rules[i].Pattern.Pattern, StringComparison.Ordinal))
+                {
+                    laterDuplicate = true;
+                    break;
+                }
+            }
+            if (!laterDuplicate) { deduped.Add(rules[i]); }
         }
-        if (!included) { return false; }
-        foreach (GlobPattern pattern in Exclude)
-        {
-            if (pattern.Matches(repoRelativePath)) { return false; }
-        }
-        return true;
+        return deduped;
     }
 
     private static IReadOnlyList<GlobPattern> Compile(string name, string listName, string[] patterns)
