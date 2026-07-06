@@ -1,9 +1,9 @@
 name: shared
-description: Deployable unit - the central/shared subscription's foundation (shared surface + shared_* configuration).
+description: Deployable unit - the shared platform's foundation (shared surface + the configuration-root files).
 layer: deployable-unit
 pipeline: cd-shared
 compose:
 - foundation-shared
 include:
-- 'infrastructure/templates/foundation/configuration/shared_*/**'
-sha256: be3fd14064177a8bea44ac375ffe402964d5642d57ff05ca9a8a7f47b9b84104
+- 'infrastructure/templates/foundation/configuration/*.yml'
+sha256: 483ccc6cb98de6d5526716553b524eaec3ff9168ce9ed58d11aaa2c4138b08a9

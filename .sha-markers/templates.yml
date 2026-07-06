@@ -1,8 +1,9 @@
 name: templates
-description: All infrastructure templates' shared surface - every template excluding per-subscription configuration.
+description: All infrastructure templates' shared surface - every template excluding deployment configuration.
 layer: scope
 include:
 - 'infrastructure/templates/**'
 exclude:
-- 'infrastructure/templates/*/configuration/*_*/**'
+- 'infrastructure/templates/*/configuration/*.yml'
+- 'infrastructure/templates/*/configuration/*/**'
 sha256: d5927fd410e37094df6a437f3bf1a3d603b8177284171f70970caeba58d0b2f8
