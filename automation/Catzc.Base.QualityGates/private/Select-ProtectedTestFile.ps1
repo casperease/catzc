@@ -11,6 +11,8 @@
     nothing and skips nothing.
 .PARAMETER ParallelFiles
     The parallel-phase test files.
+.PARAMETER GreedyFiles
+    The greedy-phase test files.
 .PARAMETER SerialFiles
     The serial-phase test files.
 .PARAMETER Discovery
@@ -18,8 +20,8 @@
 .PARAMETER ProtectionKey
     The run-parameter key ('test-automation|L<min>-L<max>|<category>').
 .OUTPUTS
-    [pscustomobject] with ParallelFiles, SerialFiles (the work-lists minus protected units' files),
-    ProtectedModules, and Candidates (units to promote when they come back green).
+    [pscustomobject] with ParallelFiles, GreedyFiles, SerialFiles (the work-lists minus protected units'
+    files), ProtectedModules, and Candidates (units to promote when they come back green).
 #>
 function Select-ProtectedTestFile {
     [CmdletBinding()]
@@ -27,6 +29,9 @@ function Select-ProtectedTestFile {
     param(
         [AllowEmptyCollection()]
         [string[]] $ParallelFiles = @(),
+
+        [AllowEmptyCollection()]
+        [string[]] $GreedyFiles = @(),
 
         [AllowEmptyCollection()]
         [string[]] $SerialFiles = @(),
@@ -44,6 +49,7 @@ function Select-ProtectedTestFile {
     if (Test-IsRunningInPipeline) {
         return [pscustomobject]@{
             ParallelFiles    = $ParallelFiles
+            GreedyFiles      = $GreedyFiles
             SerialFiles      = $SerialFiles
             ProtectedModules = @()
             Candidates       = @()
@@ -61,7 +67,7 @@ function Select-ProtectedTestFile {
 
     # group the run's files by unit, decide per unit, drop the protected units' files
     $filesByModule = [ordered]@{}
-    foreach ($file in @($ParallelFiles) + @($SerialFiles)) {
+    foreach ($file in @($ParallelFiles) + @($GreedyFiles) + @($SerialFiles)) {
         $unit = Get-TestFileModule $file
         if (-not $filesByModule.Contains($unit)) {
             $filesByModule[$unit] = [System.Collections.Generic.List[string]]::new()
@@ -91,6 +97,7 @@ function Select-ProtectedTestFile {
 
     [pscustomobject]@{
         ParallelFiles    = @($ParallelFiles | Where-Object { -not $droppedFiles.Contains($_) })
+        GreedyFiles      = @($GreedyFiles | Where-Object { -not $droppedFiles.Contains($_) })
         SerialFiles      = @($SerialFiles | Where-Object { -not $droppedFiles.Contains($_) })
         ProtectedModules = @($protectedModules)
         Candidates       = @($candidates)

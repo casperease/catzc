@@ -226,18 +226,12 @@ function Test-Automation {
             }
         }
 
-        $serialLookup = [System.Collections.Generic.HashSet[string]]::new(
-            [string[]] (Get-TestSerialFiles -Discovery $discovery), [System.StringComparer]::OrdinalIgnoreCase)
-        $parallelFiles = [System.Collections.Generic.List[string]]::new()
-        $serialFiles = [System.Collections.Generic.List[string]]::new()
-        foreach ($file in $testFiles) {
-            if ($serialLookup.Contains($file)) {
-                $serialFiles.Add($file)
-            }
-            else {
-                $parallelFiles.Add($file)
-            }
-        }
+        # Three execution phases — parallel shards, greedy single-file shards, strict serial (see
+        # Split-TestAutomationFiles / ADR-TEST:26).
+        $phases = Split-TestAutomationFiles -Discovery $discovery -TestFiles $testFiles
+        $parallelFiles = @($phases.Parallel)
+        $greedyFiles = @($phases.Greedy)
+        $serialFiles = @($phases.Serial)
 
         # Per-module protection (ADR-PROTGLOB:9): units whose composite identity is unchanged since their last
         # green run this session are dropped from the work-list here in the orchestrator (workers never see
