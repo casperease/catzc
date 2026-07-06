@@ -46,5 +46,5 @@ function Select-RuleTaggedFiles {
         }
     }
 
-    , @($TestFile | Where-Object { $ruleFiles.Contains($_) })
+    @($TestFile | Where-Object { $ruleFiles.Contains($_) })
 }
