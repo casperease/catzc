@@ -1,6 +1,3 @@
-# GENERATED FILE — do not edit. Single source of truth:
-#   automation/Catzc.Base.RootConfig/assets/root/.cspell/.gitignore
-# Regenerated on import by Build-RootConfig; edit the source, not this copy.
 # Generated cspell dictionaries (Build-TerminologyDictionary, Catzc.Base.QualityGates) — regenerated at the
 # importer tail from automation/Catzc.Base.QualityGates/configs/terminology.yml, the single source of truth.
 # They are build artifacts, never committed; only the folder's .gitkeep is tracked. See README.md.

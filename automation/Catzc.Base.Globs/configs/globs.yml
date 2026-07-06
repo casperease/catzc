@@ -15,19 +15,16 @@
 # include minus exclude, evaluated against `git ls-files`. No set may have a marker file as a member.
 
 globsets:
-  # The automation track (ADR-TRACK) — the shared-fate CI unit ci-automation fires on. Starts BROAD:
-  # everything the CI engine's gates read (the automation layer, the docs the spelling/markdown integrity
-  # scans cover, the pipeline definitions, this registry, the infrastructure templates its integrity tests
-  # discover). The exclude list is a living curated list: as we find changes the track should not fire on,
-  # they move here — configurability is the point.
+  # The automation track (ADR-TRACK:1) — mapped onto exactly its root folder: the module system
+  # ci-automation verifies. A track never spans two roots, so the cross-cutting surfaces the CI gates
+  # also read (docs, pipelines, this registry's markers) are scopes or tracks of their own, never
+  # widened into this set.
   automation:
-    description: The automation track - every tracked file the CI engine verifies.
+    description: The automation track - the automation module system under automation/.
     layer: track
     pipeline: ci-automation
     include:
-      - '**'
-    exclude:
-      - .sha-markers/**
+      - automation/**
 
   # The infrastructure track (ADR-TRACK): what ci-infrastructure verifies and the cd-* pipelines deploy from.
   infrastructure:

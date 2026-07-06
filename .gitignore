@@ -40,6 +40,7 @@ automation/**/*.psd1
 /.markdownlintignore
 /.prettierrc.yml
 /.prettierignore
+/.cspell/.gitignore
 /cspell.yml
 /dotnet-tools.json
 /catzc.sln
@@ -48,15 +49,14 @@ automation/**/*.psd1
 # A README.md in a mapped conventional folder is a filesystem link to an authored docs source (Build-Readme,
 # Catzc.Base.Docs; see docs/adr/repository/generated-readmes.md) — derived artifacts like the module manifests,
 # re-linked on every import. Hand-authored READMEs are exactly the unmapped folders and opt back in below. The
-# generated cspell dictionaries under .cspell/ are ignored by .cspell/.gitignore, so only that folder's README and its
-# .gitignore are committed.
+# generated cspell dictionaries under .cspell/ are ignored by the folder's own managed .gitignore (a root-config
+# copy), so only that folder's .gitkeep is committed.
 **/README.md
 !.github/README.md
 !docs/adr/README.md
 !automation/.vendor/**/README.md
 !automation/Catzc.Base.Environment/assets/README.md
 !automation/Catzc.Azure.Templates/tests/assets/README.md
-!.cspell/README.md
 
 # ── Compiled C# types — transient temp only ─────────────────────────────────────────────────────────────────────────
 # The combined compiled assembly (automation/.compiled/Catzc.Types.<hash>.dll) is COMMITTED — a vendored, hash-keyed

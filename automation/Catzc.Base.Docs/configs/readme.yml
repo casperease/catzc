@@ -36,6 +36,8 @@ mappings:
   # .gitkeep points at the README these mappings copy in. The three template-kind folders share one source.
   - folder: out
     source: docs/references/out.md
+  - folder: .cspell
+    source: docs/references/cspell.md
   - folder: contracts
     source: docs/references/contracts.md
   - folder: pipelines/jobs

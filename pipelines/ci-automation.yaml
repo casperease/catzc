@@ -1,7 +1,8 @@
 # CI pipeline — unit tests, framework integration tests, and Azure auth tests.
 #
-# Registered on the shared-fate CI unit's trigger file, never on source paths (ADR-GLOBS#1): the
-# 'automation' globset covers every tracked file the gates read, so this fires on any real change.
+# Registered on the automation track's trigger file, never on source paths (ADR-GLOBS#1): the
+# 'automation' globset is the track's own root folder (automation/**, ADR-TRACK#1), so this fires
+# exactly when the module system changes.
 
 trigger:
   branches:

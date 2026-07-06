@@ -75,6 +75,13 @@ files:
     source: automation/Catzc.Base.RootConfig/assets/root/.prettierignore
     comment: hash
     optIn: true
+  # The nested ignore for the generated .cspell/ dictionaries. A generated COPY forever, never copyAsLink:
+  # git itself refuses to honour a symlinked .gitignore, so the Linux-verification caveat above does not
+  # apply — there is nothing to flip to.
+  - target: .cspell/.gitignore
+    source: automation/Catzc.Base.RootConfig/assets/root/.cspell/.gitignore
+    comment: hash
+    optIn: true
   - target: cspell.yml
     source: automation/Catzc.Base.RootConfig/assets/root/cspell.yml
     comment: hash

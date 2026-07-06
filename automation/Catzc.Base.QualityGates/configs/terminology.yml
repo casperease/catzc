@@ -51,6 +51,8 @@ terms:
       meaning: 'autoloaded'
     - term: bareword
       meaning: 'bareword (an unquoted token)'
+    - term: buildvalidation
+      meaning: 'reference-doc slug segment for the Catzc.Azure.DevOps.BuildValidation module'
     - term: chokepoint
       meaning: 'a chokepoint'
     - term: cli

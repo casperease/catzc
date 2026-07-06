@@ -54,8 +54,9 @@ Cleaning all output is one command: `Remove-Item (Join-Path (Get-OutputRoot) '*'
 The spell-checker dictionaries generated from the terminology registry (ADR-SPELL:5) are NOT committed: like the `.psd1` manifests they are
 generated (one `<category>.txt` per vocabulary category under the root `.cspell/`), gitignored, and regenerated at the importer tail from
 `configs/terminology.yml`. The registry is the single source of truth; the word lists are ephemeral build artifacts cspell resolves at a
-fixed path after an import (a fresh clone must run the importer once before cspell has them). Only `.cspell/README.md` and
-`.cspell/.gitignore` are committed. This is the `.psd1`/generated-README pattern — not the committed-artifact exception of ADR-OUTDIR:5.
+fixed path after an import (a fresh clone must run the importer once before cspell has them). Everything in `.cspell/` is generated — the
+word lists, the folder's `.gitignore` (a managed root-config copy), and its `README.md` (a generated link); only the `.gitkeep` keeping the
+folder tracked is committed. This is the `.psd1`/generated-README pattern — not the committed-artifact exception of ADR-OUTDIR:5.
 
 - [Decision](#decision)
 
