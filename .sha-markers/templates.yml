@@ -1,6 +1,6 @@
 name: templates
 description: All infrastructure templates' shared surface - every template excluding deployment configuration.
-layer: scope
+layer: loose-fileset
 scan:
 - '+ infrastructure/templates/**'
 - '- infrastructure/templates/*/configuration/*.yml'
