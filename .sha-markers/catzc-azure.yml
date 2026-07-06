@@ -3,4 +3,4 @@ description: Derived module scope - automation/Catzc.Azure/**
 layer: module
 include:
 - 'automation/Catzc.Azure/**'
-sha256: 0a1959d3f72fe4a76d0b58b5667e4885cfa8ba651a79e5a027979484df3c4fd9
+sha256: dc9e0958ef2f61f5bb3ba82f5197906474844c987b1268adccc7fc51b415d9b2
