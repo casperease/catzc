@@ -77,7 +77,9 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
 # prettier)' sibling: this exercises the gate against the REAL analyzer over throwaway files, it does not
 # assert a repo-wide fact. The repo-wide "all module code is analyzer-clean" integrity check is already the
 # sharded L2 'PSScriptAnalyzer' test in automation/.internal/tests — not duplicated here.
-Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'logic' {
+# serial: the real analyzer fans out Start-Job pwsh processes of its own — stacked on the parallel pool
+# that oversubscribes the box (see the test-automation ADR's serial tag).
+Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'logic', 'serial' {
     # One real-analyzer run over a clean + a violating file proves the boundary end-to-end: the real analyzer
     # flags the aliased cmdlet with the repo rule set and reports the clean file as issue-free. The throw path
     # (IssueCount > 0 without -PassThru) is pure Test-ScriptAnalyzer logic, covered by the mocked L0 block above;

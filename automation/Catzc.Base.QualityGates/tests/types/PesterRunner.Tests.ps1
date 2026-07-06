@@ -22,7 +22,9 @@ Describe 'PesterRunner' -Tag 'logic' {
         }
     }
 
-    Context 'execution (real pwsh workers)' -Tag 'L2' {
+    # serial: runs real pwsh worker pools of its own — stacked on the parallel pool that
+    # oversubscribes the box (see the test-automation ADR's serial tag).
+    Context 'execution (real pwsh workers)' -Tag 'L2', 'serial' {
         It 'captures stdout, stderr, exit code, and a handed-off env var per worker, in submission order' {
             # One pool run covers capture, submission-order results, env hand-off, and exit codes.
             $alpha = Join-Path $TestDrive 'alpha.ps1'

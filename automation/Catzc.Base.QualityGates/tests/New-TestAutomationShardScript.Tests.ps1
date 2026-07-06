@@ -55,7 +55,9 @@ Describe 'New-TestAutomationShardScript' -Tag 'logic' {
         }
     }
 
-    Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2' {
+    # serial: spawns a full importer-loading pwsh worker — stacked on the parallel pool that
+    # oversubscribes the box (see the test-automation ADR's serial tag).
+    Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2', 'serial' {
         It 'runs a generated shard end to end: results.xml, rows sidecar, and a green exit code' {
             # The walking skeleton for the whole worker chain: generator → PesterRunner → importer →
             # Pester → row sidecar. One real worker; the per-case behaviour lives in the L0 tests above
