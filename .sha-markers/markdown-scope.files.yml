@@ -1,6 +1,6 @@
-generated_at: 2026-07-07T02:21:54Z
+generated_at: 2026-07-07T02:26:47Z
 scoped_sha256: fcfdddd4e4c57bdc231e4c7d9ddb90598c07774dcb400796c515c88b68a8c7c2
-filtered_sha256: a50a26fc8a86cef882aae452cef2e477fb2e6bb1646a8abc6e4cfb367af22378
+filtered_sha256: 5affaa06ce48b4c1e6235e7565e4cca486bf4c6315ce6e56320cf663e13ad327
 scan:
 - '+ **/*.md'
 - '+ .markdownlint.yml'
@@ -202,6 +202,7 @@ filtered:
 - automation/Catzc.Tooling.Toolchain/README.md
 - contracts/README.md
 - docs/adr/README.md
+- docs/adr/design/thin-platforms.md
 - infrastructure/README.md
 - infrastructure/modules/README.md
 - infrastructure/templates/foundation/README.md
