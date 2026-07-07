@@ -151,6 +151,10 @@ Describe 'Build-Bicep (real az)' -Tag 'L2', 'logic' {
             Set-ItResult -Skipped -Because 'tool_az_missing'
             return
         }
+        if (-not (Test-AzCliBicep)) {
+            Set-ItResult -Skipped -Because 'tool_az_bicep_missing'
+            return
+        }
         if (Test-Path $script:outputRoot) {
             Remove-Item $script:outputRoot -Recurse -Force
         }
