@@ -1,6 +1,6 @@
-generated_at: 2026-07-07T02:59:39Z
-scoped_sha256: f2da3985f52cfa68b99a0818eb84939d8a54625c71d8000a55bc20e4735f8315
-filtered_sha256: c417ad07be82135a1d71f6688f1bbdcb7d27d74e0d217e8d980756d0dbc2fa05
+generated_at: 2026-07-07T03:00:31Z
+scoped_sha256: 07187ba65c592bd6728e38ad0d2a0463b7428a9e76a76fee3489e30454b69d41
+filtered_sha256: 31debf523fe23718716fc918ddcd71ea296e4404565282cd8adcaa48d268d033
 scan:
 - '+ automation/Catzc.Tooling.Toolchain/**'
 - '- automation/Catzc.Tooling.Toolchain/*.ps1'
@@ -20,8 +20,8 @@ included:
 - automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.Tests.ps1
 - automation/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
 - automation/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
 filtered:
 - automation/Catzc.Tooling.Toolchain/Catzc.Tooling.Toolchain.psd1
 - automation/Catzc.Tooling.Toolchain/README.md
-- automation/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
-- automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1

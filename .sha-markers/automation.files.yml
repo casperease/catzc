@@ -1,6 +1,6 @@
-generated_at: 2026-07-07T02:59:28Z
-scoped_sha256: 246b869cf544f1c7d7d15a7b79672cb7e6432e0883fe5d9a00bfa08e71bf41dd
-filtered_sha256: 312d562abcb9cc189fe3c968b266fce4ba3e407b767d5291e70f7f8477ea8443
+generated_at: 2026-07-07T03:00:19Z
+scoped_sha256: e986af028b58226a29f8fe4ba0c5b3f5ca6c89c1a8fa229540b48bfb34da1c16
+filtered_sha256: b58df234113ca989461d4553fcc66b5b3ea5540ef73c6473d80f0242bd0ccb6d
 scan:
 - '+ automation/**'
 included:
@@ -954,6 +954,7 @@ included:
 - automation/Catzc.Tooling.Node/Uninstall-NodeJs.ps1
 - automation/Catzc.Tooling.Node/Uninstall-Prettier.ps1
 - automation/Catzc.Tooling.Node/tests/Invoke-Npm.L2.Tests.ps1
+- automation/Catzc.Tooling.Node/tests/Uninstall-NodeJs.Tests.ps1
 - automation/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
 - automation/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
 - automation/Catzc.Tooling.Provisioning/Get-ToolsStatus.ps1
@@ -1032,6 +1033,8 @@ included:
 - automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.Tests.ps1
 - automation/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
 - automation/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
 filtered:
 - automation/.internal/assets/obj/Catzc.Types.csproj.nuget.dgspec.json
 - automation/.internal/assets/obj/Catzc.Types.csproj.nuget.g.props
@@ -1105,12 +1108,9 @@ filtered:
 - automation/Catzc.Tooling.Github/README.md
 - automation/Catzc.Tooling.Node/Catzc.Tooling.Node.psd1
 - automation/Catzc.Tooling.Node/README.md
-- automation/Catzc.Tooling.Node/tests/Uninstall-NodeJs.Tests.ps1
 - automation/Catzc.Tooling.Provisioning/Catzc.Tooling.Provisioning.psd1
 - automation/Catzc.Tooling.Provisioning/README.md
 - automation/Catzc.Tooling.Python/Catzc.Tooling.Python.psd1
 - automation/Catzc.Tooling.Python/README.md
 - automation/Catzc.Tooling.Toolchain/Catzc.Tooling.Toolchain.psd1
 - automation/Catzc.Tooling.Toolchain/README.md
-- automation/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
-- automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
