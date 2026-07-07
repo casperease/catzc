@@ -1,6 +1,0 @@
-scoped_sha256: 7f17e8c5db83698cc21aa101f8e5717393a17718df3183bc092dbe9277da5564
-filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-scan:
-- '+ automation/.compiled/**'
-included:
-- automation/.compiled/Catzc.Types.2e339c2f.dll
