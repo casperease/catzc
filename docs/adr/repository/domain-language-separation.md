@@ -55,10 +55,12 @@ category is `fixture` vs `azure-live` vs `adr-example`; it is a declaration of d
 
 ### Rule ADR-LANG:7
 
-Matching is **exact and conservative**. A finding is a string literal that IS a live identity, not a substring or path segment
-(`'automation/Catzc.X'` never trips the deployable-unit name `automation`), so false positives stay near zero. Structural names that collide
-with folder literals (deployable-unit/pipeline names) are out of scope; environment names (`dev`/`test`/`preprod`/`prod`) and the reverse
-boundary (a fixture identity in shipped config **values**) are later, position-aware phases, not the first cut.
+Matching is **exact and conservative**. A distinctive live identity (customer, subscription, org, template, project) is flagged as a bare
+string literal that IS the token, not a substring or path segment (`'automation/Catzc.X'` never trips the deployable-unit name `automation`);
+an ambiguous one — an environment name like `test`/`dev` — is flagged only where it is bound to an identity parameter (`-Environment`/`-Env`/
+`-Shortcode`), never as prose. Structural names that collide with folder literals (deployable-unit/pipeline names) are out of scope. The
+reverse boundary — a **fixture** identity in a shipped config **value** — is enforced the mirror way, by walking the parsed config's keys and
+values (comment-blind) rather than its raw text.
 
 - [Exact, conservative, phased](#exact-conservative-phased)
 
@@ -136,10 +138,10 @@ the machine-readable statement of intent; the gate consumes it, and a future pha
 
 The gate matches a string literal that **is** a live identity, never a substring — a repository path `automation/Catzc.X` does not trip the
 deployable-unit name `automation`. Structural names that collide with folder literals are left out of the forbidden set entirely, because a
-name a test must legitimately type is not an identity leak. The first phase covers the distinctive identities (customers, subscriptions,
-org, templates, ADO project); environment names, which are pervasive in test prose, and the reverse boundary — a fixture identity sitting in
-shipped config **values** rather than comments — are position-aware follow-on phases. The bias is toward a gate that is right when it fires,
-not one that fires often.
+name a test must legitimately type is not an identity leak. Distinctive identities (customers, subscriptions, org, templates, ADO project)
+match exactly wherever they appear; ambiguous environment names, pervasive in test prose, match only in an identity-parameter position; and
+the reverse boundary — a fixture identity sitting in shipped config **values** rather than comments — is caught by walking the parsed config,
+not its text. The bias throughout is toward a gate that is right when it fires, not one that fires often.
 
 ## Decision
 
@@ -157,14 +159,21 @@ the domains; a file-glob spell-checker is not used, because it cannot separate i
   the set is always current with the config.
 
 - **`Get-LogicTestIdentityFinding`** (private) is the AST walk: it classifies a file by its Pester `-Tag` values, carves out the
-  script-block extent of every `integrity`-tagged block, and reports an exact-match live identity anywhere else. Comments and help are not
-  AST nodes, so illustration is invisible to it.
+  script-block extent of every `integrity`-tagged block, reports an exact-match live identity anywhere else, and reports an environment
+  identity bound to an identity parameter. Comments and help are not AST nodes, so illustration is invisible to it.
+
+- **`Test-ConfigIdentityHygiene`** (`Catzc.Base.QualityGates`) is the mirror gate — the reverse boundary: it walks every shipped
+  `configs/*.yml` and `infrastructure/**` file's parsed keys and values and throws on a test-fixture identity, so a fixture is never
+  committed as production data. It too runs as an `integrity` test.
+
+- **`Get-FixtureIdentityTokens`** (private) derives the forbidden fixture set from the `tests/assets/config/` fixtures — always current with
+  the test configs, and disjoint from the live set by construction.
 
 - **The terminology `scope` map** ([spell-out-names](../automation/powershell/spell-out-names.md)) records each category's domain, and
   `Test-Terminology` keeps the registry honest — but cspell does not scope on it (ADR-LANG:5).
 
-- **Code review** covers the design-domain rules a gate does not (an ADR illustrating with a test fixture, ADR-LANG:4) and the phases the
-  gate does not yet cover (environment names, config-data values, ADR-LANG:7).
+- **Code review** covers the design-domain rules a gate does not — an ADR illustrating with a test fixture (ADR-LANG:4), or a live identity
+  in a doc that is not documenting that identity as its subject.
 
 ## Consequences
 

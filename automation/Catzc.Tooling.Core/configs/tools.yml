@@ -81,6 +81,9 @@ node_js:
   winget_id: "OpenJS.NodeJS.LTS"
   winget_scope: user
   brew_formula: "node@{0}"
+  # Linux: the distro `nodejs` package lags the pin badly (Ubuntu jammy ships Node 12), so Install-NodeJs
+  # configures the NodeSource apt repo for the locked major inline (as Install-Terraform does for HashiCorp)
+  # and then installs this package. `apt_package` stays the package name uninstall/status/expected-manager use.
   apt_package: "nodejs"
   # apt-get needs root; the Windows (winget --scope user) and macOS (brew) installs are user-space, so the
   # elevation requirement is Linux-only (Test-ToolRequiresElevation) — a non-elevated Linux provision skips

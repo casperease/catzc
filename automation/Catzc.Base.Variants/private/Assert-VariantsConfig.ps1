@@ -7,8 +7,8 @@
       ado_naming:      standard | classic        — Azure resource-name component order
       git_workspace:   main-direct | main-via-pr — how changes reach main (solo trunk vs everything-by-PR)
       have_customers:  false | all | [names]     — the enabled-customer set
-      aspects:         [ {name: [patterns]}, … ] — the ordered module/track partition (ADR-ASPECT), last
-                       entry the '**' catch-all remainder, which must be non-live (default: live, tests)
+      aspects:         { track: [ {name: [patterns]}, … ] } — per-track/container partition conventions
+                       (ADR-ASPECT); each list ordered, last entry the '**' catch-all remainder
 
     Integrity rules:
     - only the known keys are allowed (unknown key => throw), so a typo fails fast at load
@@ -87,54 +87,53 @@ function Assert-VariantsConfig {
     }
 
     if ($Config.Contains('aspects')) {
-        # An ordered first-match classification (ADR-ASPECT): a list of single-key {name: [patterns]} entries,
-        # the LAST the '**' catch-all remainder, which by rule is non-live (a stray file must never ship). The
-        # glob syntax of each pattern is validated downstream by the Globs aspect engine (no up-dependency here).
+        # A per-track/per-container map (ADR-ASPECT): track -> ordered list of single-key {name: [patterns]}
+        # entries, the LAST the '**' catch-all remainder. The catch-all's liveness is the container's call
+        # (automation: 'tests'; a deployment: 'live'), so it is NOT validated here. Glob syntax is validated
+        # downstream by the Globs aspect engine (no up-dependency). Structural checks only.
         $value = $Config.aspects
-        if ($value -is [string] -or $value -isnot [System.Collections.IEnumerable]) {
-            $errors.Add("invalid aspects (must be an ordered list of single-key {name: [patterns]} entries)")
+        if ($value -isnot [System.Collections.IDictionary]) {
+            $errors.Add("invalid aspects (must be a map of track -> ordered [ {name: [patterns]}, … ])")
+        }
+        elseif (@($value.Keys).Count -eq 0) {
+            $errors.Add("aspects must define at least one track convention")
         }
         else {
-            $items = @($value)
-            if ($items.Count -eq 0) {
-                $errors.Add("aspects must list at least one aspect (the last is the '**' catch-all)")
-            }
-            $seen = @()
-            for ($i = 0; $i -lt $items.Count; $i++) {
-                $item = $items[$i]
-                if ($item -isnot [System.Collections.IDictionary] -or @($item.Keys).Count -ne 1) {
-                    $errors.Add("aspects[$i] must be a single-key mapping {name: [patterns]}")
+            foreach ($track in @($value.Keys)) {
+                $items = @($value[$track])
+                if ($items.Count -eq 0) {
+                    $errors.Add("aspects['$track'] must list at least one aspect (the last is the '**' catch-all)")
                     continue
                 }
-                $name = "$(@($item.Keys)[0])"
-                if ($name -cnotmatch '^[a-z][a-z0-9]*(-[a-z0-9]+)*$') {
-                    $errors.Add("invalid aspect name '$name' (kebab-case)")
-                }
-                elseif ($name -in $seen) {
-                    $errors.Add("duplicate aspect '$name'")
-                }
-                else {
-                    $seen += $name
-                }
-                $patterns = @($item[@($item.Keys)[0]])
-                if ($patterns.Count -eq 0 -or @($patterns | Where-Object { [string]::IsNullOrWhiteSpace("$_") }).Count -gt 0) {
-                    $errors.Add("aspect '$name' needs at least one non-empty pattern")
-                }
-                $isLast = ($i -eq $items.Count - 1)
-                if ($isLast) {
-                    if (@($patterns).Count -ne 1 -or "$($patterns[0])" -ne '**') {
-                        $errors.Add("the last aspect ('$name') must be the '**' catch-all remainder")
+                $seen = @()
+                for ($i = 0; $i -lt $items.Count; $i++) {
+                    $item = $items[$i]
+                    if ($item -isnot [System.Collections.IDictionary] -or @($item.Keys).Count -ne 1) {
+                        $errors.Add("aspects['$track'][$i] must be a single-key mapping {name: [patterns]}")
+                        continue
                     }
-                    if ($name -ceq 'live') {
-                        $errors.Add("the catch-all remainder aspect must be non-live (a stray file must never ship); declare 'live' earlier with explicit patterns")
+                    $name = "$(@($item.Keys)[0])"
+                    if ($name -cnotmatch '^[a-z][a-z0-9]*(-[a-z0-9]+)*$') {
+                        $errors.Add("aspects['$track']: invalid aspect name '$name' (kebab-case)")
+                    }
+                    elseif ($name -in $seen) {
+                        $errors.Add("aspects['$track']: duplicate aspect '$name'")
+                    }
+                    else {
+                        $seen += $name
+                    }
+                    $patterns = @($item[@($item.Keys)[0]])
+                    if ($patterns.Count -eq 0 -or @($patterns | Where-Object { [string]::IsNullOrWhiteSpace("$_") }).Count -gt 0) {
+                        $errors.Add("aspects['$track'].$name needs at least one non-empty pattern")
+                    }
+                    $isLast = ($i -eq $items.Count - 1)
+                    if ($isLast -and (@($patterns).Count -ne 1 -or "$($patterns[0])" -ne '**')) {
+                        $errors.Add("aspects['$track']: the last aspect ('$name') must be the '**' catch-all remainder")
+                    }
+                    elseif (-not $isLast -and ($patterns -contains '**')) {
+                        $errors.Add("aspects['$track'].$name uses the bare '**' catch-all but is not last — only the final aspect is the remainder")
                     }
                 }
-                elseif ($patterns -contains '**') {
-                    $errors.Add("aspect '$name' uses the bare '**' catch-all but is not last — only the final aspect is the remainder; 'live' must stay a closed convention")
-                }
-            }
-            if ('live' -notin $seen) {
-                $errors.Add("aspects must include a 'live' aspect (the prod-going surface)")
             }
         }
     }

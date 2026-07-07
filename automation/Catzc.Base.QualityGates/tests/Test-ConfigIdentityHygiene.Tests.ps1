@@ -8,7 +8,12 @@ Describe 'Test-ConfigIdentityHygiene' -Tag 'L1', 'integrity' {
 
     It 'catches a fixture identity planted in a config VALUE' {
         $path = Join-Path $TestDrive 'planted.yml'
-        [System.IO.File]::WriteAllText($path, "customers:`n  acme:`n    shortcode: ac`n")
+        $yaml = @'
+customers:
+  acme:
+    shortcode: ac
+'@
+        [System.IO.File]::WriteAllText($path, $yaml)
         $result = Test-ConfigIdentityHygiene -Path $path -PassThru
         $result.FindingCount | Should -BeGreaterThan 0
         $result.Findings.Token | Should -Contain 'acme'
@@ -16,7 +21,13 @@ Describe 'Test-ConfigIdentityHygiene' -Tag 'L1', 'integrity' {
 
     It 'is comment-blind — a fixture identity in a config COMMENT is not a finding' {
         $path = Join-Path $TestDrive 'commented.yml'
-        [System.IO.File]::WriteAllText($path, "# syntax example: have_customers is [acme, globex]`ncustomers:`n  apex:`n    shortcode: ap`n")
+        $yaml = @'
+# syntax example: have_customers is [acme, globex]
+customers:
+  apex:
+    shortcode: ap
+'@
+        [System.IO.File]::WriteAllText($path, $yaml)
         (Test-ConfigIdentityHygiene -Path $path -PassThru).FindingCount | Should -Be 0
     }
 }

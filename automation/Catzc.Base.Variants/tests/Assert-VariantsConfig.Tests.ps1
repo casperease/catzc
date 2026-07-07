@@ -67,29 +67,27 @@ Describe 'Assert-VariantsConfig' -Tag 'L0' {
             { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Throw '*duplicate have_customers customer name*'
         }
 
-        It 'accepts a valid aspects partition (live explicit, tests the catch-all last)' {
-            $config = [ordered]@{ aspects = @([ordered]@{ live = @('*.ps1', 'private/**') }, [ordered]@{ tests = @('**') }) }
+        It 'accepts per-track conventions (automation live-closed, infra live-catch-all)' {
+            $config = [ordered]@{ aspects = [ordered]@{
+                    automation     = @([ordered]@{ live = @('*.ps1', 'private/**') }, [ordered]@{ tests = @('**') })
+                    infrastructure = @([ordered]@{ tests = @('**/tests/**') }, [ordered]@{ live = @('**') })
+                } }
             { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Not -Throw
         }
 
-        It 'throws when the catch-all remainder is live (a stray file would ship)' {
-            $config = [ordered]@{ aspects = @([ordered]@{ tests = @('**/tests/**') }, [ordered]@{ live = @('**') }) }
-            { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Throw '*catch-all remainder aspect must be non-live*'
+        It 'throws when a track is not a map of ordered aspect lists' {
+            $config = [ordered]@{ aspects = @([ordered]@{ live = @('**') }) }   # a bare list, not a track map
+            { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Throw '*must be a map of track*'
         }
 
-        It 'throws when the last aspect is not the ** catch-all' {
-            $config = [ordered]@{ aspects = @([ordered]@{ live = @('*.ps1') }, [ordered]@{ tests = @('tests/**') }) }
+        It "throws when a track's last aspect is not the ** catch-all" {
+            $config = [ordered]@{ aspects = [ordered]@{ automation = @([ordered]@{ live = @('*.ps1') }, [ordered]@{ tests = @('tests/**') }) } }
             { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Throw "*last aspect*must be the '**' catch-all*"
         }
 
-        It 'throws when a non-last aspect uses the bare ** catch-all' {
-            $config = [ordered]@{ aspects = @([ordered]@{ live = @('**') }, [ordered]@{ tests = @('**') }) }
+        It "throws when a non-last aspect uses the bare ** catch-all" {
+            $config = [ordered]@{ aspects = [ordered]@{ automation = @([ordered]@{ live = @('**') }, [ordered]@{ tests = @('**') }) } }
             { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Throw '*not last*'
-        }
-
-        It 'throws when there is no live aspect' {
-            $config = [ordered]@{ aspects = @([ordered]@{ docs = @('docs/**') }, [ordered]@{ tests = @('**') }) }
-            { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Throw "*must include a 'live' aspect*"
         }
     }
 }

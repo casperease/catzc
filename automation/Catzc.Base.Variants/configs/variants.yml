@@ -27,11 +27,16 @@ git_workspace: main-direct
 # per-customer foundation), so it enables all of them; a repo with no customer templates leaves this false.
 have_customers: all
 
-# Module/track aspects (ADR-ASPECT) — the ordered, first-match (fallthrough) facets every unit's tracked
-# files partition into; patterns are relative to the unit root. 'live' is the CLOSED, explicit prod-going
-# surface (folder-scoped so it never reaches tests/); the LAST aspect is the '**' catch-all remainder and
-# by rule is NON-LIVE, so anything 'live' does not claim (tests, docs, stray files) falls to the
-# verification side and can never silently ship. Disjoint + exhaustive by construction of the ordering.
+# Aspects (ADR-ASPECT) — per-track/per-container conventions. Each is an ordered, first-match (fallthrough)
+# list; the LAST aspect is the '**' catch-all remainder. The catch-all's liveness is the container's call:
+# automation is CODE, so 'live' is closed (a stray file falls to the 'tests' catch-all and never ships);
+# infrastructure is a DEPLOYMENT, so everything under a template ships and 'live' is the catch-all — only an
+# explicit tests/ folder is non-live. Patterns are relative to the unit root. Disjoint + exhaustive by
+# construction of the ordering.
 aspects:
-  - live: ['*.ps1', 'private/**', 'types/**', 'configs/**']
-  - tests: ['**']
+  automation:
+    - live: ['*.ps1', 'private/**', 'types/**', 'configs/**']
+    - tests: ['**']
+  infrastructure:
+    - tests: ['**/tests/**']
+    - live: ['**']

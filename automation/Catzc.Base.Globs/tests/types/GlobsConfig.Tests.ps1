@@ -1,3 +1,4 @@
+# cspell:ignore dedupe
 # The globs.yml registry gate: strict shape (unknown keys rejected), every entry a valid GlobSet with a
 # declared layer (ADR-GLOBS:7), compose resolving acyclically to declared sets (ADR-GLOBS:8), and the
 # self-exclusion rule — no globset may have a sha-marker file or the config itself as an effective member

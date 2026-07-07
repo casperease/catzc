@@ -1,13 +1,16 @@
 <#
 .SYNOPSIS
-    Returns the DERIVED globsets — one per module folder, per internal .psm1 module, the reserved infra
-    umbrellas, and the 'module-leftovers' catch-all (ADR-PROTGLOB).
+    Returns the DERIVED globsets — the live/tests aspect sets per module folder, one set per internal .psm1
+    module, the reserved infra umbrellas, and the 'module-leftovers' catch-all (ADR-PROTGLOB, ADR-ASPECT).
 .DESCRIPTION
     Derived sets are never written in globs.yml: the folder (or file) is the registration. Every non-dot
-    module folder under automation/ derives a set named by the readme-kebab convention (Catzc.Base.Globs ->
-    'catzc-base-globs') including 'automation/<Module>/**' — the module's functions, private helpers, types,
-    configs, and its own tests. Every internal shared module automation/.internal/<Name>.psm1 derives a
-    single-file set by the same kebab convention (Catzc.Internal.Bootstrap -> 'catzc-internal-bootstrap').
+    module folder under automation/ partitions into live/tests aspect sets (ADR-ASPECT), named by the
+    readme-kebab convention plus the aspect (Catzc.Base.Globs -> 'catzc-base-globs-live' and
+    'catzc-base-globs-tests') — 'live' the module's shippable surface (functions, private helpers, types,
+    configs), 'tests' its verification harness; the two are disjoint and cover the folder. The whole-module
+    set is their union and is NOT persisted — the aspect markers ARE the module's identity. Every internal
+    shared module automation/.internal/<Name>.psm1 derives a single-file set (no tests aspect) by the same
+    kebab convention (Catzc.Internal.Bootstrap -> 'catzc-internal-bootstrap').
     The reserved names cover the dot-prefixed infrastructure every module's test results also depend on:
     'internal', 'vendor', 'compiled', 'scriptanalyzer'. Derived sets scope protection AND persist their own
     sha-markers — Update-ShaMarker/Test-ShaMarker iterate the declared registry and the derived sets alike
@@ -66,7 +69,7 @@ function Get-ModuleGlobSet {
     # is NOT persisted — the aspect markers ARE the module's identity (a shipped module = 1 live + 1 tests,
     # isolated: a test-only change never re-keys live). Compiled per unit root by AspectPartition.
     $aspectList = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
-    foreach ($aspectDef in Get-Aspect) {
+    foreach ($aspectDef in Get-Aspect -Track automation) {
         $aspectList.Add([Catzc.Base.Globs.Aspect]::new($aspectDef.Name, [string[]]$aspectDef.Patterns))
     }
     # bare module name/kebab -> its aspect sets, so a caller can ask for "the module" and get both aspects.

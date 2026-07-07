@@ -1,29 +1,41 @@
 <#
 .SYNOPSIS
-    Returns the ordered aspect classification — the facets every module and track partitions into.
+    Returns a track/container's ordered aspect classification — the facets its units partition into.
 .DESCRIPTION
-    The `aspects` repo-wide variant (configs/variants.yml, ADR-ASPECT): an ordered first-match (fallthrough)
-    classification of a unit's tracked files, patterns relative to the unit root. Each aspect is
-    { Name, Patterns }; evaluated in order, first match wins, the LAST aspect is the '**' catch-all
-    remainder. The default separates the prod-going artifacts ('live' — root functions, private helpers,
-    C# types, configs) from the means to verify them ('tests' — the catch-all remainder), so anything
-    'live' does not explicitly claim falls to the non-live side and can never silently ship. The shape is
-    validated by Assert-VariantsConfig; the Globs aspect engine compiles each aspect into a scan program.
+    The `aspects` repo-wide variant (configs/variants.yml, ADR-ASPECT) is a per-track/per-container map of
+    ordered first-match (fallthrough) classifications, patterns relative to the unit root. Each aspect is
+    { Name, Patterns }; evaluated in order, first match wins, the LAST aspect is the '**' catch-all remainder.
+    The catch-all's liveness is the container's call: 'automation' (code) keeps 'live' closed so a stray file
+    falls to the 'tests' catch-all and never ships; 'infrastructure' (a deployment) makes 'live' the catch-all
+    — everything under a template ships, only an explicit tests/ folder is non-live. An unknown track falls
+    back to the automation convention. The shape is validated by Assert-VariantsConfig; the Globs aspect
+    engine compiles each aspect into a scan program.
+.PARAMETER Track
+    The track/container whose convention to return ('automation', 'infrastructure', …). Defaults to
+    'automation'.
 .EXAMPLE
-    Get-Aspect   # -> live (closed), tests (catch-all)
+    Get-Aspect -Track automation      # -> live (closed), tests (catch-all)
 .EXAMPLE
-    (Get-Aspect)[-1].Name   # -> 'tests' (the non-live catch-all)
+    (Get-Aspect -Track infrastructure)[-1].Name   # -> 'live' (a deployment's catch-all is live)
 #>
 function Get-Aspect {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
-    param()
-
-    $default = @(
-        [ordered]@{ live = @('*.ps1', 'private/**', 'types/**', 'configs/**') }
-        [ordered]@{ tests = @('**') }
+    param(
+        [string] $Track = 'automation'
     )
-    foreach ($item in @(Get-Variant -Name aspects -Default $default)) {
+
+    $default = [ordered]@{
+        automation     = @([ordered]@{ live = @('*.ps1', 'private/**', 'types/**', 'configs/**') }, [ordered]@{ tests = @('**') })
+        infrastructure = @([ordered]@{ tests = @('**/tests/**') }, [ordered]@{ live = @('**') })
+    }
+    $configured = Get-Variant -Name aspects -Default $default
+
+    $list = if ($configured.Contains($Track)) { $configured[$Track] }
+    elseif ($default.Contains($Track)) { $default[$Track] }
+    else { $configured.Contains('automation') ? $configured['automation'] : $default['automation'] }
+
+    foreach ($item in @($list)) {
         $name = @($item.Keys)[0]
         [pscustomobject]@{
             Name     = "$name"

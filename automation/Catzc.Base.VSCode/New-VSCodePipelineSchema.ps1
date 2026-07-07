@@ -34,8 +34,8 @@ function New-VSCodePipelineSchema {
         $rendered['$schema'] = $config['$schema']
     }
     $rendered['$comment'] = 'GENERATED FILE — do not edit. Source of truth: ' +
-        'automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml (authored schema + rationale). ' +
-        'Regenerated on import by Build-RootConfig; edit the yml, not this file.'
+    'automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml (authored schema + rationale). ' +
+    'Regenerated on import by Build-RootConfig; edit the yml, not this file.'
     foreach ($key in $config.Keys) {
         if ($key -eq '$schema') {
             continue

@@ -73,17 +73,22 @@ function Test-Pipelines {
         if ($dir) {
             $segments = @($dir -split '/')
         }
-        $topFolder = if ($segments.Count -ge 1) { $segments[0] } else { '' }
+        $topFolder = if ($segments.Count -ge 1) {
+            $segments[0]
+        }
+        else {
+            ''
+        }
 
         # A parse failure is itself a violation — a pipeline that ADO cannot read is not compliant.
         if ($record.ParseError) {
-            $violations.Add((New-Violation $rel 'ADR-PIPENAME:parse' "YAML failed to parse: $($record.ParseError)"))
+            $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPENAME:parse' -Message "YAML failed to parse: $($record.ParseError)"))
             continue
         }
 
         # ADR-PIPENAME:6 — executable YAML under pipelines/ is `.yaml`, never `.yml`.
         if ($extension -eq '.yml') {
-            $violations.Add((New-Violation $rel 'ADR-PIPENAME:6' "Executable pipeline YAML must be '.yaml', not '.yml'."))
+            $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPENAME:6' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
             continue
         }
 
@@ -92,26 +97,26 @@ function Test-Pipelines {
             # ADR-PIPENAME:1 — filename starts with a valid type token.
             $prefix = ($name -split '-', 2)[0]
             if ($prefix -notin $typePrefixes) {
-                $violations.Add((New-Violation $rel 'ADR-PIPENAME:1' "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPENAME:1' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
             }
         }
         else {
             # --- Inside a subfolder : must be a per-kind template folder, one level deep. ---
             # ADR-PIPENAME:3 — the folder is in the closed set, and no deeper nesting.
             if ($topFolder -notin $templateFolders) {
-                $violations.Add((New-Violation $rel 'ADR-PIPENAME:3' "Template folder '$topFolder' is not one of: $($templateFolders -join ' | ')."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPENAME:3' -Message "Template folder '$topFolder' is not one of: $($templateFolders -join ' | ')."))
             }
             elseif ($segments.Count -gt 1) {
-                $violations.Add((New-Violation $rel 'ADR-PIPENAME:2' "Templates live directly in '$topFolder/', not nested deeper ('$dir/')."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPENAME:2' -Message "Templates live directly in '$topFolder/', not nested deeper ('$dir/')."))
             }
             else {
                 # ADR-PIPENAME:2 — a structural pipeline has no business inside a template folder.
                 if ($record.Classification -eq 'Pipeline') {
-                    $violations.Add((New-Violation $rel 'ADR-PIPENAME:2' "A pipeline (trigger/pr/… shape) must live flat in pipelines/, not inside '$topFolder/'."))
+                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPENAME:2' -Message "A pipeline (trigger/pr/… shape) must live flat in pipelines/, not inside '$topFolder/'."))
                 }
                 # ADR-PIPENAME:3 — a fragment's structural kind matches its folder (extends/ exempt).
                 elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and "$($record.TemplateType)" -ne $folderKind[$topFolder]) {
-                    $violations.Add((New-Violation $rel 'ADR-PIPENAME:3' "A '$($record.TemplateType)' template does not belong in '$topFolder/' (expected $($folderKind[$topFolder]))."))
+                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPENAME:3' -Message "A '$($record.TemplateType)' template does not belong in '$topFolder/' (expected $($folderKind[$topFolder]))."))
                 }
             }
         }
@@ -119,7 +124,7 @@ function Test-Pipelines {
         # ADR-PIPENAME:4 — template references are absolute (/pipelines/<kind>/<name>.yaml).
         foreach ($ref in (Get-PipelineTemplateReference -Path $record.Path)) {
             if ($ref -notmatch '^/pipelines/') {
-                $violations.Add((New-Violation $rel 'ADR-PIPENAME:4' "Template reference '$ref' must be an absolute path starting with /pipelines/."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPENAME:4' -Message "Template reference '$ref' must be an absolute path starting with /pipelines/."))
             }
         }
     }

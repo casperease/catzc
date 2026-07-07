@@ -8,7 +8,7 @@
     configs under every `tests/assets/config/` (the `azure.yml` / `customer.yml` / `network.yml` a logic test
     redirects to). Reading them means the fixture set is always current — a fixture customer added to a test
     config is immediately banned from shipped config. A small set of neutral in-memory fixtures that never live
-    in a config file (widget/gadget/faketool/lockedtool) is added explicitly.
+    in a config file (widget/gadget/faketool) is added explicitly.
 
     Backs Test-ConfigIdentityHygiene: a shipped `configs/*.yml` or `infrastructure/**` file whose parsed VALUES
     (or keys) contain one of these tokens has a test fixture where a live identity belongs. Parsing values is
@@ -65,7 +65,7 @@ function Get-FixtureIdentityTokens {
 
     # Neutral in-memory fixtures that never live in a config file — the globset and tool fixtures logic tests
     # construct inline.
-    foreach ($token in 'widget', 'gadget', 'faketool', 'lockedtool') {
+    foreach ($token in 'widget', 'gadget', 'faketool') {
         & $add $token
     }
 
