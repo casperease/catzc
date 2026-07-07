@@ -12,7 +12,12 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
         $script:program = {
             param($set)
             foreach ($rule in $set.ScanProgram()) {
-                $op = if ($rule.Select) { '+' } else { '-' }
+                $op = if ($rule.Select) {
+                    '+'
+                }
+                else {
+                    '-'
+                }
                 "$op $($rule.Pattern.Pattern)"
             }
         }

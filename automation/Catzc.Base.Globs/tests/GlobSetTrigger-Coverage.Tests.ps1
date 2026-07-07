@@ -5,7 +5,7 @@
 # ordered '!'-negation paths ARE the scan program, the same evaluator as GlobSet.Matches — covered at L0.)
 Describe 'Native-trigger projection coverage' -Tag 'L2', 'integrity' {
     BeforeDiscovery {
-        $boundSets = @(Get-GlobSet | Where-Object Pipeline | ForEach-Object Name)
+        $script:boundSets = @(Get-GlobSet | Where-Object Pipeline | ForEach-Object Name)
     }
 
     It 'ADO includes cover every member of <_> (include-only is a safe superset)' -ForEach $boundSets {

@@ -3,7 +3,7 @@
 # A source-path filter hand-edited out of sync with globs.yml fails here.
 Describe 'ADO pipeline trigger globs match the globset projection' -Tag 'L2', 'integrity' {
     BeforeDiscovery {
-        $boundSets = @(Get-GlobSet | Where-Object Pipeline | ForEach-Object Name)
+        $script:boundSets = @(Get-GlobSet | Where-Object Pipeline | ForEach-Object Name)
     }
 
     It 'pipeline trigger for <_> matches Get-GlobSetTrigger' -ForEach $boundSets {
