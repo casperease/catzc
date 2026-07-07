@@ -1,6 +1,6 @@
-generated_at: 2026-07-07T01:45:18Z
+generated_at: 2026-07-07T01:46:44Z
 scoped_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-filtered_sha256: 479b6da04eff44f04958bcd3a7f4efaea83b37d5d19a1a87e1177d880dbedec3
+filtered_sha256: f29c699bfb539b798193b597fa4241a93e9abcc1de1b85b9ec49e24b7d0a2fc7
 scan:
 - '+ automation/**'
 - '- automation/.compiled/**'
@@ -40,7 +40,6 @@ scan:
 - '- automation/Catzc.Tooling.Toolchain/**'
 included: []
 filtered:
-- automation/.compiled/Catzc.Types.2e339c2f.dll
 - automation/.internal/assets/obj/Catzc.Types.csproj.nuget.dgspec.json
 - automation/.internal/assets/obj/Catzc.Types.csproj.nuget.g.props
 - automation/.internal/assets/obj/Catzc.Types.csproj.nuget.g.targets
