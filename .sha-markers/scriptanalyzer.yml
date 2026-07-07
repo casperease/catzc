@@ -3,4 +3,4 @@ description: Derived infra scope - automation/.scriptanalyzer/**
 layer: loose-fileset
 scan:
 - '+ automation/.scriptanalyzer/**'
-sha256: dc52d52b9bb7121a7bd87e3f839bc227111390a85a051dc02d48c61fff100556
+sha256: 213062de485dfdfd5fb1dd156c5faeb42bc36810dc0ed339909f591aa177abfa
