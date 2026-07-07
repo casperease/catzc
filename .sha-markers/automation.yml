@@ -5,4 +5,4 @@ pipeline: ci-automation
 scan:
 - '+ automation/**'
 scoped_sha256: fe72f2c8c4516cb034deff37dd0f0a2425b87f8ac3334b19013b95e289b06548
-sha256: 5650e4ebf6dc1c23b358997abeab992d64b628ad679529a0ea35e3e5a0db3ad7
+sha256: e7f7f31ce7292e0aec429ecae695380d98f88eea2e42e2b89e32e618976e1bf7
