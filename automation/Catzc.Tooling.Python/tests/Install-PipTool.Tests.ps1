@@ -11,19 +11,19 @@ Describe 'Install-PipTool' -Tag 'L1', 'logic' {
         Mock Get-ToolVersion { '4.1.0' } -ModuleName Catzc.Tooling.Python
     }
 
-    It 'installs into the pinned managed Python with --system (non-virtual)' -Tag 'ADR-UVPY#2' {
+    It 'installs into the pinned managed Python, non-virtual, overriding the externally-managed marker' -Tag 'ADR-UVPY#2' {
         InModuleScope Catzc.Tooling.Python { Install-PipTool -Tool 'widget' }
         Should -Invoke Invoke-Pip -ModuleName Catzc.Tooling.Python -Times 1 -ParameterFilter {
-            $Arguments -eq 'install --python 3.13 --system widgetlib==4.1.*'
+            $Arguments -eq 'install --python 3.13 --system --break-system-packages widgetlib==4.1.*'
         }
     }
 
-    It 'uninstalls with the pinned interpreter and --system before a -Force reinstall' -Tag 'ADR-UVPY#2' {
+    It 'uninstalls with the same pin, system and break-system-packages flags before a -Force reinstall' -Tag 'ADR-UVPY#2' {
         Mock Test-Command { $true } -ModuleName Catzc.Tooling.Python
         Mock Get-ToolVersion { '3.9.0' } -ModuleName Catzc.Tooling.Python
         InModuleScope Catzc.Tooling.Python { Install-PipTool -Tool 'widget' -Force }
         Should -Invoke Invoke-Pip -ModuleName Catzc.Tooling.Python -Times 1 -ParameterFilter {
-            $Arguments -eq 'uninstall --python 3.13 --system widgetlib'
+            $Arguments -eq 'uninstall --python 3.13 --system --break-system-packages widgetlib'
         }
     }
 }
