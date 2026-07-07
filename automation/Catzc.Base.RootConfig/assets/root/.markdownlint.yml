@@ -97,7 +97,10 @@ MD021: true  # no-multiple-space-closed-atx — single space inside a closed ATX
 MD022: true  # blanks-around-headings — headings padded by blank lines (our section-spacing convention)
 MD023: true  # heading-start-left — headings start at column 0
 MD025: true  # single-title — exactly one top-level (h1) heading per document
-MD026: true  # no-trailing-punctuation — headings do not end with . , ; : !
+# MD026 no-trailing-punctuation — headings do not end with sentence punctuation. The ASCII colon is
+# dropped from the default set so the ADR template's final `## Dora explains:` heading is legal; every
+# other trailing-punctuation check (. , ; ! ?) stays active.
+MD026: { punctuation: ".,;!?" }
 MD027: true  # no-multiple-space-blockquote — single space after `>`
 MD028: true  # no-blanks-blockquote — no blank line inside a blockquote
 MD029: true  # ol-prefix — consistent ordered-list numbering (default: one_or_ordered)

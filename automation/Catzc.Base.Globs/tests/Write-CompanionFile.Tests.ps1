@@ -1,6 +1,6 @@
-# The gitignored companion writer (ADR-GLOBS:11): timestamp + two list SHAs + scan filter + FULL included +
-# OPTIONAL filtered (capped at 500, graceful cut-off). Idempotent ignoring the timestamp. Tested through the
-# module (private); Get-RepositoryRoot is redirected to a temp tree.
+# The gitignored companion writer (ADR-GLOBS:11): two list SHAs + scan filter + FULL included + OPTIONAL
+# filtered (capped at 500, graceful cut-off). Deterministic (NO timestamp — byte-identical for the same
+# resolution) and idempotent. Tested through the module (private); Get-RepositoryRoot -> a temp tree.
 Describe 'Write-CompanionFile' -Tag 'L1', 'logic' {
     BeforeEach {
         $script:root = Join-Path ([System.IO.Path]::GetTempPath()) ([guid]::NewGuid())
@@ -14,7 +14,7 @@ Describe 'Write-CompanionFile' -Tag 'L1', 'logic' {
         [System.IO.Directory]::Delete($script:root, $true)
     }
 
-    It 'writes a timestamp, both list SHAs, the scan filter, the full included list, and filtered' {
+    It 'writes both list SHAs, the scan filter, the full included list, and filtered — no timestamp' {
         $resolution = [pscustomobject]@{
             Name = 'unit'; Included = @('src/a.cs', 'src/b.cs'); Filtered = @('src/x.tmp')
             ScopedSha = ('a' * 64); FilteredSha = ('b' * 64)
@@ -22,7 +22,7 @@ Describe 'Write-CompanionFile' -Tag 'L1', 'logic' {
         & (Get-Module Catzc.Base.Globs) { param($s, $r) Write-CompanionFile -GlobSet $s -Resolution $r } $script:set $resolution
 
         $text = [System.IO.File]::ReadAllText($script:companion)
-        $text | Should -Match 'generated_at: \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z'
+        $text | Should -Not -Match 'generated_at'                    # deterministic: no timestamp at all
         $text | Should -Match 'scoped_sha256: a{64}'
         $text | Should -Match 'filtered_sha256: b{64}'
         $text | Should -Match "scan:`n- '\+ src/\*\*'"
@@ -51,13 +51,16 @@ Describe 'Write-CompanionFile' -Tag 'L1', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.Globs -ParameterFilter { $ForegroundColor -eq 'Red' -and $Message -match 'cut off at 500' }
     }
 
-    It 'is idempotent ignoring the timestamp: an unchanged resolution does not rewrite' {
+    It 'is deterministic and idempotent: same resolution renders byte-identical and does not rewrite' {
         $resolution = [pscustomobject]@{ Name = 'unit'; Included = @('src/a.cs'); Filtered = @(); ScopedSha = ('a' * 64); FilteredSha = ('b' * 64) }
         $write = { & (Get-Module Catzc.Base.Globs) { param($s, $r) Write-CompanionFile -GlobSet $s -Resolution $r } $script:set $resolution }
         & $write
+        $first = [System.IO.File]::ReadAllText($script:companion)
         $stamp = [System.IO.File]::GetLastWriteTimeUtc($script:companion)
         Start-Sleep -Milliseconds 40
         & $write
+        # No timestamp, so the content is byte-identical and the write-on-change compare skips the rewrite.
+        [System.IO.File]::ReadAllText($script:companion) | Should -Be $first
         [System.IO.File]::GetLastWriteTimeUtc($script:companion) | Should -Be $stamp
     }
 }

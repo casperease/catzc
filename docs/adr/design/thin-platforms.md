@@ -56,10 +56,10 @@ fully cover.
 
 The industry has a name for the middle path. Team Topologies frames the internal **platform** as a product built by a **platform team** that
 treats other teams as customers and offers self-service capabilities to reduce their cognitive load — and prescribes keeping it to the
-**Thinnest Viable Platform**, "the smallest set of APIs, documentation, and tools" that still accelerates delivery. Gregor Hohpe's
-_Platform Strategy_ supplies the mechanism and its guardrail: platforms create leverage through **harmonization** and abstraction, but the
-abstraction must expose the decisions that come back to bite (scale cost, regional latency) rather than paper over them — "build
-abstractions, not illusions."
+**Thinnest Viable Platform**, "the smallest set of APIs, documentation, and tools" that still accelerates delivery. Gregor Hohpe's _Platform
+Strategy_ supplies the mechanism and its guardrail: platforms create leverage through **harmonization** and abstraction, but the abstraction
+must expose the decisions that come back to bite (scale cost, regional latency) rather than paper over them — "build abstractions, not
+illusions."
 
 catzc is our implementation of that middle path: an **Everything-as-Code (EaC)** and **Continuous Delivery (CD)** platform, delivered as a
 thin, reusable **platform-as-a-CLI**, currently covering Azure and Azure Resource Manager.
@@ -70,8 +70,8 @@ Thin is a measurement, not an aesthetic. The platform is thin when removing any 
 still leave them fighting the raw vendor. Concretely, catzc owns four things and nothing more: the **calling convention** (one CLI, one auth
 model, one config-addressing scheme), the **conventions** over Azure (naming, layout, defaults), the **tooling contract** (pinned versions,
 reproducible install), and the **vendor bindings** (which Bicep modules and which az commands, wired once). Everything a consumer wants to
-_change_ is a config edit; everything they want to _add_ is a new template or test. The TVP test applies literally: if a wiki page would
-do, we do not build a function.
+_change_ is a config edit; everything they want to _add_ is a new template or test. The TVP test applies literally: if a wiki page would do,
+we do not build a function.
 
 ### Thin means delegation, not reimplementation
 
@@ -86,44 +86,45 @@ platform makes the vendor easier to use correctly; a framework tries to replace 
 
 The platform's API is its CLI: discoverable `Verb-Noun` functions, driven by declarative configuration. This is deliberate. A CLI is the
 narrowest useful contract — it hides the substrate completely while staying scriptable, composable, and equally at home on a developer box
-and in a pipeline (`ADR-PARITY`). Consumers get X-as-a-Service: they call `Get-Azure*`/`New-*` verbs and edit `azure.yml`/`options.yml`,
-and the platform resolves, authenticates, and executes. Because the CLI is the only surface anyone binds to, the platform team is free to
+and in a pipeline (`ADR-PARITY`). Consumers get X-as-a-Service: they call `Get-Azure*`/`New-*` verbs and edit `azure.yml`/`options.yml`, and
+the platform resolves, authenticates, and executes. Because the CLI is the only surface anyone binds to, the platform team is free to
 re-wire what happens behind it — swap a Bicep module, change an az invocation, re-pin a tool — without touching a single consumer.
 
 ### Everything the platform covers is code
 
-A thin abstraction is only trustworthy if it is fully materialized. Everything the platform touches is checked in and versioned as one living
-source of truth (`ADR-ASCODE`, `ADR-ONELIVE`): the PowerShell/C# automation, the Bicep infrastructure, the per-target configuration, the
-pinned tool versions, and the vendored dependencies. Nothing is configured by clicking a console, and nothing is a "we usually run this by
-hand" step. This is what lets the thin layer stay thin without becoming lossy — the full representation is in the repo, so the abstraction
-can be reproduced, reviewed, and diffed rather than trusted on faith.
+A thin abstraction is only trustworthy if it is fully materialized. Everything the platform touches is checked in and versioned as one
+living source of truth (`ADR-ASCODE`, `ADR-ONELIVE`): the PowerShell/C# automation, the Bicep infrastructure, the per-target configuration,
+the pinned tool versions, and the vendored dependencies. Nothing is configured by clicking a console, and nothing is a "we usually run this
+by hand" step. This is what lets the thin layer stay thin without becoming lossy — the full representation is in the repo, so the
+abstraction can be reproduced, reviewed, and diffed rather than trusted on faith.
 
 ### Owned as a product, over a swappable substrate
 
-The platform is developed and managed as a product with a lifecycle, not a one-off scaffold — versioned, tested, and evolved on behalf of its
-consumers by the platform team. Its value compounds because it is reusable: the same CLI backs every developer box and every CD pipeline,
-and the same conventions apply to every Azure target. And because the vendor lives strictly behind the CLI, the substrate is swappable in
-principle — Azure is the first covered vendor, not a hardwired assumption. The guardrail from Hohpe holds throughout: the abstraction
-harmonizes the substrate but never hides the consequential choices. Cost, region, scale, and blast radius stay in the consumer's
+The platform is developed and managed as a product with a lifecycle, not a one-off scaffold — versioned, tested, and evolved on behalf of
+its consumers by the platform team. Its value compounds because it is reusable: the same CLI backs every developer box and every CD
+pipeline, and the same conventions apply to every Azure target. And because the vendor lives strictly behind the CLI, the substrate is
+swappable in principle — Azure is the first covered vendor, not a hardwired assumption. The guardrail from Hohpe holds throughout: the
+abstraction harmonizes the substrate but never hides the consequential choices. Cost, region, scale, and blast radius stay in the consumer's
 configuration, where they belong.
 
 ## Decision
 
 Build catzc as a **thin platform**: an API/CLI abstraction over a vendor layer (ADR-THINPLAT:1), kept thin by delegating to the vendor's own
-primitives rather than reimplementing them (ADR-THINPLAT:2), consumed through a single CLI surface (ADR-THINPLAT:3), fully represented as one
-living version of code (ADR-THINPLAT:4), and owned as a reusable product over a substrate that stays swappable behind the CLI
+primitives rather than reimplementing them (ADR-THINPLAT:2), consumed through a single CLI surface (ADR-THINPLAT:3), fully represented as
+one living version of code (ADR-THINPLAT:4), and owned as a reusable product over a substrate that stays swappable behind the CLI
 (ADR-THINPLAT:5). This is our implementation of the EaC and CD principles as a Team-Topologies platform, currently covering Azure and Azure
 RM via Bicep plus a curated az CLI.
 
 ### How this holds together
 
-- **Team Topologies** supplies the shape (a platform is an internal product; keep it to the Thinnest Viable Platform) and the ownership model
-  (a platform team develops and manages it as X-as-a-Service).
-- **Hohpe's _Platform Strategy_** supplies the discipline (harmonize, don't reimplement; build abstractions, not illusions) and the guardrail
-  (surface the decisions that scale-time cost punishes).
+- **Team Topologies** supplies the shape (a platform is an internal product; keep it to the Thinnest Viable Platform) and the ownership
+  model (a platform team develops and manages it as X-as-a-Service).
+- **Hohpe's _Platform Strategy_** supplies the discipline (harmonize, don't reimplement; build abstractions, not illusions) and the
+  guardrail (surface the decisions that scale-time cost punishes).
 - **`ADR-ASCODE` / `ADR-ONELIVE`** keep the abstraction fully materialized and singular — no drift, no legacy shims behind the thin layer.
 - **`ADR-AZCLI` and the Bicep infrastructure track** are the concrete substrate bindings the CLI delegates to today.
-- **`ADR-PARITY`** keeps the one CLI surface identical on a developer box and in the pipeline, which is what makes it a real service boundary.
+- **`ADR-PARITY`** keeps the one CLI surface identical on a developer box and in the pipeline, which is what makes it a real service
+  boundary.
 
 ## References
 

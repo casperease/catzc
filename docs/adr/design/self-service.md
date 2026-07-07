@@ -23,11 +23,11 @@ reproduce, or review what is not written down.
 
 ### Rule ADR-SELFSERV:3
 
-What ships is an **immutable, content-addressed artifact** built **reproducibly** from a known source commit and carrying **provenance** from
-source to deployed state. The durable-SHA markers (`ADR-GLOBS`) content-address each shippable unit; a build is a verifiable path from that
-commit to its output, not a one-off act that cannot be repeated. This is what makes self-service _auditable_: every deployed thing traces to
-one exact, reviewed commit, and anyone can independently rebuild it and confirm the match. (Primary sources: the Reproducible Builds project
-on the source-to-binary verification path, and SLSA on build provenance and attestation.)
+What ships is an **immutable, content-addressed artifact** built **reproducibly** from a known source commit and carrying **provenance**
+from source to deployed state. The durable-SHA markers (`ADR-GLOBS`) content-address each shippable unit; a build is a verifiable path from
+that commit to its output, not a one-off act that cannot be repeated. This is what makes self-service _auditable_: every deployed thing
+traces to one exact, reviewed commit, and anyone can independently rebuild it and confirm the match. (Primary sources: the Reproducible
+Builds project on the source-to-binary verification path, and SLSA on build provenance and attestation.)
 
 - [Immutable artifacts and provenance](#immutable-artifacts-and-provenance)
 
@@ -60,9 +60,9 @@ simply not allowed.
 
 The resolution is to make self-service _safe by construction_. catzc rests on four properties that, together, make "anyone can change it
 themselves" and "every change is controlled, reproducible, and auditable" the same statement rather than opposing ones: a **single source of
-truth** (`ADR-ASCODE`), **immutable and reproducibly-built artifacts** with provenance, **trunk-based development** with automated guardrails
-(`ADR-ONELIVE`), and the **thin CLI** as the only way to act (`ADR-THINPLAT`). Each one is load-bearing; remove any and self-service stops
-being safe.
+truth** (`ADR-ASCODE`), **immutable and reproducibly-built artifacts** with provenance, **trunk-based development** with automated
+guardrails (`ADR-ONELIVE`), and the **thin CLI** as the only way to act (`ADR-THINPLAT`). Each one is load-bearing; remove any and
+self-service stops being safe.
 
 ### Self-service, not free-for-all
 
@@ -73,17 +73,17 @@ recorded, reproducible, and reviewable. Freedom and control coexist because the 
 
 ### One source of truth, or none
 
-Every guarantee downstream — audit, reproducibility, review, rollback — assumes there is exactly one authoritative description of the managed
-world. The moment a second source exists (a console tweak, a hand-run command that leaves no record), the guarantees collapse: the audit log
-is incomplete, the rebuild does not match, and review covered only half the change. So the repository is not _a_ source of truth, it is _the_
-source, and anything not in it does not exist as far as the platform is concerned. Drift detection exists to find the gap and close it toward
-the repository — never to promote an out-of-band change into the record.
+Every guarantee downstream — audit, reproducibility, review, rollback — assumes there is exactly one authoritative description of the
+managed world. The moment a second source exists (a console tweak, a hand-run command that leaves no record), the guarantees collapse: the
+audit log is incomplete, the rebuild does not match, and review covered only half the change. So the repository is not _a_ source of truth,
+it is _the_ source, and anything not in it does not exist as far as the platform is concerned. Drift detection exists to find the gap and
+close it toward the repository — never to promote an out-of-band change into the record.
 
 ### Immutable artifacts and provenance
 
 A shippable unit is identified by its content, not by a mutable tag: the durable-SHA markers key each unit to the exact bytes it comprises
-(`ADR-GLOBS`), so "which version is deployed" has a single, verifiable answer. Reproducibility makes that answer checkable by a third party —
-the Reproducible Builds project defines a reproducible build as "an independently-verifiable path from source to binary code", which is
+(`ADR-GLOBS`), so "which version is deployed" has a single, verifiable answer. Reproducibility makes that answer checkable by a third party
+— the Reproducible Builds project defines a reproducible build as "an independently-verifiable path from source to binary code", which is
 exactly the property an auditor needs. Provenance carries the chain the other direction: SLSA frames build provenance as verifiable evidence
 of _how_ an artifact was produced. Together they mean a deployed artifact is not trusted on faith — it is trusted because it can be traced
 back to a reviewed commit and rebuilt to match.
@@ -94,18 +94,18 @@ Trunk-based development is what keeps the single source of truth actually single
 as "a source-control branching model where developers collaborate on code in a single branch called 'trunk' and resist any pressure to
 create other long-lived development branches". The practices that matter here are its guardrails: small, frequent commits to trunk;
 short-lived branches used only for review and CI, then deleted; and a mandatory build/gate that a commit must pass. Because those gates are
-automated and stand between every change and trunk, self-service cannot merge something that skips review, fails an assert, or leaves a stale
-marker. The branching discipline and the no-legacy rule (`ADR-ONELIVE`) are two faces of the same commitment: one living version, on trunk,
-always releasable.
+automated and stand between every change and trunk, self-service cannot merge something that skips review, fails an assert, or leaves a
+stale marker. The branching discipline and the no-legacy rule (`ADR-ONELIVE`) are two faces of the same commitment: one living version, on
+trunk, always releasable.
 
 ### Why this is safe where control matters most
 
-The domains where self-service seems most dangerous — regulated, audited, compliance-bound — are the ones this design serves best, because it
-makes the compliance artifacts fall out of the normal workflow instead of being assembled after the fact. The audit trail is `git log`: every
-change is attributed, timestamped, and justified in its commit and review. The provenance record is the marker set: every deployed unit names
-its exact content. The change-approval control is the pull request: no change reaches trunk unreviewed. None of these is an extra step a busy
-engineer might skip under deadline — they are the only path, so the record is always complete. That is what "safe by construction" means:
-the fast path and the compliant path are the same path.
+The domains where self-service seems most dangerous — regulated, audited, compliance-bound — are the ones this design serves best, because
+it makes the compliance artifacts fall out of the normal workflow instead of being assembled after the fact. The audit trail is `git log`:
+every change is attributed, timestamped, and justified in its commit and review. The provenance record is the marker set: every deployed
+unit names its exact content. The change-approval control is the pull request: no change reaches trunk unreviewed. None of these is an extra
+step a busy engineer might skip under deadline — they are the only path, so the record is always complete. That is what "safe by
+construction" means: the fast path and the compliant path are the same path.
 
 ## Decision
 
@@ -127,8 +127,7 @@ controlled domains this makes self-service and auditability the same mechanism r
 
 - The Reproducible Builds project — "an independently-verifiable path from source to binary code":
   [reproducible-builds.org](https://reproducible-builds.org/)
-- SLSA (Supply-chain Levels for Software Artifacts) — build provenance and attestation:
-  [slsa.dev](https://slsa.dev/)
+- SLSA (Supply-chain Levels for Software Artifacts) — build provenance and attestation: [slsa.dev](https://slsa.dev/)
 - Paul Hammant et al., Trunk-Based Development — the branching model and its guardrails:
   [trunkbaseddevelopment.com](https://trunkbaseddevelopment.com/)
 
@@ -141,6 +140,7 @@ external review. Relevant DORA capabilities:
 - [Version control](https://dora.dev/capabilities/version-control/) — the single source of truth for all production artifacts.
 - [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — small batches on trunk, short-lived branches.
 - [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — self-service delivery without manual gatekeeping.
-- [Streamlining change approval](https://dora.dev/capabilities/streamlining-change-approval/) — peer review over external change-advisory boards.
+- [Streamlining change approval](https://dora.dev/capabilities/streamlining-change-approval/) — peer review over external change-advisory
+  boards.
 - [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — the batch size that keeps self-service safe.
 - [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

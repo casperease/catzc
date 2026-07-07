@@ -3,17 +3,18 @@
     Writes a globset's gitignored companion file — the expanded, human-readable resolution beside its
     marker (ADR-GLOBS:11).
 .DESCRIPTION
-    Renders `.sha-markers/<name>.files.yml`: a UTC timestamp, the two list-identity SHAs, the scan filter
-    (mirrored from the marker so the companion is self-contained), the FULL `included` list (git-bound files
-    in the package, one line per file), and OPTIONALLY the `filtered` list (non-git files the includes touch
-    — what is on disk but NOT in the package). The companion is gitignored, managed, and NOT gated: its
-    filtered half is a non-reproducible fact of the local tree.
+    Renders `.sha-markers/<name>.files.yml`: the two list-identity SHAs, the scan filter (mirrored from the
+    marker so the companion is self-contained), the FULL `included` list (git-bound files in the package, one
+    line per file), and OPTIONALLY the `filtered` list (non-git files the includes touch — what is on disk but
+    NOT in the package). The companion is gitignored, managed, and NOT gated: its filtered half is a
+    non-reproducible fact of the local tree.
 
     Two disciplines:
       - Filtered is capped at 500 entries. Beyond that the list is cut off gracefully, `filtered_truncated:
         true` is emitted, and a red message names the file — the full set is too big to be useful inline.
-      - Idempotent under the timestamp: the on-disk companion is compared with its `generated_at:` line
-        removed, so an unchanged resolution is not rewritten every import (the importer-budget contract).
+      - Deterministic and idempotent: the companion carries NO timestamp, so the same resolution always
+        renders byte-identical; a full-content compare skips the write when nothing changed (the
+        importer-budget contract) and there is no generated-on value to churn.
 .PARAMETER GlobSet
     The globset the companion belongs to (for the name and the scan filter).
 .PARAMETER Resolution
@@ -39,7 +40,8 @@ function Write-CompanionFile {
     $truncated = $filtered.Count -gt $filteredCap
     $filteredShown = if ($truncated) { $filtered[0..($filteredCap - 1)] } else { $filtered }
 
-    # Body WITHOUT the timestamp line — the change-compare basis.
+    # The companion content — deterministic, content-only (no timestamp), so it is byte-identical for the
+    # same resolution and reproducible from the tree.
     $stringBuilder = [System.Text.StringBuilder]::new()
     [void]$stringBuilder.Append("scoped_sha256: $($Resolution.ScopedSha)`n")
     [void]$stringBuilder.Append("filtered_sha256: $($Resolution.FilteredSha)`n")
@@ -65,24 +67,20 @@ function Write-CompanionFile {
             [void]$stringBuilder.Append("filtered_truncated: true`n")
         }
     }
-    $bodyNoStamp = $stringBuilder.ToString()
+    $content = $stringBuilder.ToString()
 
-    # Timestamp-ignoring compare: strip the existing generated_at line and compare the rest.
-    $existingBody = $null
-    if ([System.IO.File]::Exists($companionPath)) {
-        $existingLines = [System.IO.File]::ReadAllLines($companionPath)
-        $kept = foreach ($line in $existingLines) {
-            if (-not $line.StartsWith('generated_at:')) { $line }
-        }
-        $existingBody = ($kept -join "`n") + "`n"
+    # Write-on-change: a full-content compare (the companion is deterministic, so equal content means an
+    # unchanged resolution — no rewrite, honouring the importer-budget contract).
+    $existing = if ([System.IO.File]::Exists($companionPath)) {
+        [System.IO.File]::ReadAllText($companionPath)
     }
-
-    if ($existingBody -ceq $bodyNoStamp) {
+    else {
+        $null
+    }
+    if ($existing -ceq $content) {
         return
     }
 
-    $timestamp = [System.DateTime]::UtcNow.ToString('yyyy-MM-ddTHH:mm:ssZ', [System.Globalization.CultureInfo]::InvariantCulture)
-    $content = "generated_at: $timestamp`n" + $bodyNoStamp
     $noBomUtf8 = [System.Text.UTF8Encoding]::new($false)
     [System.IO.File]::WriteAllText($companionPath, $content, $noBomUtf8)
 
