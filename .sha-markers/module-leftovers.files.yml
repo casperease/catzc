@@ -1,6 +1,6 @@
-generated_at: 2026-07-07T02:26:58Z
+generated_at: 2026-07-07T02:28:28Z
 scoped_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-filtered_sha256: ea510bbdb31c256ed05a19ab7d1a3de4ba2c34bb109795f0966964d9590d7ced
+filtered_sha256: 5b534baa8357eafb968e5947d11ff67922704cfe3265f2746afa9a7c7f62d568
 scan:
 - '+ automation/**'
 - '- automation/.compiled/**'
@@ -119,4 +119,5 @@ filtered:
 - automation/Catzc.Tooling.Python/README.md
 - automation/Catzc.Tooling.Toolchain/Catzc.Tooling.Toolchain.psd1
 - automation/Catzc.Tooling.Toolchain/README.md
+- automation/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
 - automation/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
