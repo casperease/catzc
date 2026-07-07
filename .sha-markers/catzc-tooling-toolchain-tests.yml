@@ -7,4 +7,4 @@ scan:
 - '- automation/Catzc.Tooling.Toolchain/private/**'
 - '- automation/Catzc.Tooling.Toolchain/types/**'
 - '- automation/Catzc.Tooling.Toolchain/configs/**'
-sha256: 3211e1168cc09886270c58912b23cb6e467b32344eb439cee96097bfd75cb871
+sha256: 0341928266491a55c3fb17698e31e52db30bf4b4ed96e6a81fe5ecd24c070ce3
