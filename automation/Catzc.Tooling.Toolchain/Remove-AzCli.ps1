@@ -1,14 +1,17 @@
 <#
 .SYNOPSIS
-    Removes an MSI-installed Azure CLI and cleans up system PATH.
+    Destructively evicts an off-config Azure CLI so the managed (uv-venv) build can win.
 .DESCRIPTION
-    Deletes the Azure CLI installation folder and removes it from the
-    system-level PATH. Requires Administrator. Auto-detects the install
-    directory from Get-Command if not specified.
+    Removes an Azure CLI installed OUTSIDE the tooling system — the destructive `Remove-` verb of the tool
+    lifecycle (docs/adr/automation/tool-removal-lifecycle.md, ADR-REMOVE). Refuses a managed install and
+    redirects to Uninstall-AzCli (ADR-REMOVE:3). Per platform:
 
-    This is for Azure CLI MSI installations found outside the tooling system.
-    If Azure CLI is managed by the tooling system (winget/brew/apt), use
-    Uninstall-AzCli instead.
+      - Windows: delete the MSI install folder and strip it from the machine PATH (needs Administrator).
+      - Linux: evict via the mechanism that placed it — apt package / uv-Python pip / stray binary
+        (Remove-LinuxToolInstall); elevation is scoped to the mechanism (ADR-REMOVE:6).
+
+    -Force confirms the destructive action; without it the plan is reported and nothing changes (ADR-REMOVE:4).
+    Usually reached through the escalation `Uninstall-AzCli -Remove -Force` (ADR-REMOVE:5).
 .PARAMETER InstallDir
     Path to the Azure CLI installation folder. Auto-detected from PATH if omitted.
 .PARAMETER Force
@@ -27,14 +30,34 @@ function Remove-AzCli {
         [switch] $Force
     )
 
-    Assert-IsAdministrator
-
     $config = Get-ToolConfig -Tool 'az_cli'
 
-    # Gate: if managed by our tooling system (pip/brew), refuse and redirect
+    # Gate: managed by our tooling system → refuse, redirect to Uninstall-AzCli (ADR-REMOVE:3).
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Azure CLI is managed by the tooling system. Use Uninstall-AzCli instead.'
     }
+
+    # Linux: evict an off-config install by the mechanism that placed it (apt / uv-Python pip / stray binary).
+    # Elevation is scoped to the mechanism inside Remove-LinuxToolInstall (ADR-REMOVE:6), so no admin assert here.
+    if ($IsLinux) {
+        if (-not $Force) {
+            Write-Message 'Would evict an off-config Azure CLI (apt package / uv-Python pip / stray binary). Run with -Force to execute.'
+            return
+        }
+        if (-not (Remove-LinuxToolInstall -Config $config)) {
+            Write-Message 'No off-config Azure CLI found — nothing to remove.'
+        }
+        return
+    }
+
+    # macOS eviction is not built yet (ADR-REMOVE:7 stub) — fail honestly rather than fall to the Windows path.
+    if ($IsMacOS) {
+        Remove-MacToolInstall -Config $config | Out-Null
+        return
+    }
+
+    # Windows: delete the MSI install directory and clean the machine PATH — needs Administrator.
+    Assert-IsAdministrator
 
     # Auto-detect install directory
     if (-not $InstallDir) {

@@ -26,14 +26,32 @@ function Remove-NodeJs {
         [switch] $Force
     )
 
-    Assert-IsAdministrator
-
     $config = Get-ToolConfig -Tool 'node_js'
 
-    # Gate: if managed by our tooling system, refuse and redirect
+    # Gate: managed by our tooling system → refuse, redirect to Uninstall-NodeJs (ADR-REMOVE:3).
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Node.js is managed by the tooling system. Use Uninstall-NodeJs instead.'
     }
+
+    # Linux: evict an off-config install by the mechanism that placed it (apt / uv-Python pip / stray binary);
+    # elevation is scoped to the mechanism (ADR-REMOVE:6). macOS eviction is a stub (ADR-REMOVE:7).
+    if ($IsLinux) {
+        if (-not $Force) {
+            Write-Message 'Would evict an off-config Node.js (apt package / uv-Python pip / stray binary). Run with -Force to execute.'
+            return
+        }
+        if (-not (Remove-LinuxToolInstall -Config $config)) {
+            Write-Message 'No off-config Node.js found — nothing to remove.'
+        }
+        return
+    }
+    if ($IsMacOS) {
+        Remove-MacToolInstall -Config $config | Out-Null
+        return
+    }
+
+    # Windows: delete the install directory and clean the machine PATH — needs Administrator.
+    Assert-IsAdministrator
 
     # Auto-detect install directory
     if (-not $InstallDir) {

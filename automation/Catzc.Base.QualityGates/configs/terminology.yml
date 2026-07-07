@@ -500,6 +500,8 @@ terms:
       meaning: "body of the ADR-OUTDIR code (dedicated-output-directory)"
     - term: poka
       meaning: "body of the ADR-POKA code (poka-yoke); also 'poka-yoke'"
+    - term: THINPLAT
+      meaning: 'ADR-THINPLAT is the ADR on thinnest re-usable platforms API(CLI) abstraction'
   ado:
     - term: tf
       meaning: "the TF_BUILD predefined pipeline variable (Team Foundation Build), e.g. $savedTfBuild"
@@ -911,11 +913,17 @@ terms:
       meaning: "Richard Bown (surname of a cited author)"
     - term: deming
       meaning: "W. Edwards Deming (cited author)"
+    - term: hohpe
+      meaning: "Gregor Hohpe (surname of a cited author)"
     - term: liskov
       meaning: "Liskov substitution principle (cited)"
     - term: ohno
       meaning: "Taiichi Ohno (surname; cited)"
+    - term: pais
+      meaning: "Manuel Pais (surname of a cited author)"
     - term: poppendieck
       meaning: "Mary & Tom Poppendieck (cited authors)"
+    - term: skelton
+      meaning: "Matthew Skelton (surname of a cited author)"
     - term: taiichi
       meaning: "Taiichi Ohno (given name; cited)"

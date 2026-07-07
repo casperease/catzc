@@ -30,10 +30,11 @@ a normative summary plus internal links to the prose that justifies it).
 
 ### design/
 
-| Code        | ADR                                                                            |
-| ----------- | ------------------------------------------------------------------------------ |
-| `ADR-FLOW`  | [ci-discipline-and-promotion-flow](design/ci-discipline-and-promotion-flow.md) |
-| `ADR-TRACK` | [tracks](design/tracks.md)                                                     |
+| Code           | ADR                                                                            |
+| -------------- | ------------------------------------------------------------------------------ |
+| `ADR-FLOW`     | [ci-discipline-and-promotion-flow](design/ci-discipline-and-promotion-flow.md) |
+| `ADR-TRACK`    | [tracks](design/tracks.md)                                                     |
+| `ADR-THINPLAT` | [thin-platforms](design/thin-platforms.md)                                     |
 
 ### automation/
 

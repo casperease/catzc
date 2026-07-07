@@ -27,17 +27,32 @@ function Remove-Java {
         [switch] $Force
     )
 
-    if (-not $IsWindows) {
-        throw 'Remove-Java is only supported on Windows.'
-    }
-
-    Assert-IsAdministrator
-
     $config = Get-ToolConfig -Tool 'java'
 
+    # Gate: managed by our tooling system → refuse, redirect to Uninstall-Java (ADR-REMOVE:3).
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Java is managed by the tooling system. Use Uninstall-Java instead.'
     }
+
+    # Linux: evict an off-config install by the mechanism that placed it (apt / uv-Python pip / stray binary);
+    # elevation is scoped to the mechanism (ADR-REMOVE:6). macOS eviction is a stub (ADR-REMOVE:7).
+    if ($IsLinux) {
+        if (-not $Force) {
+            Write-Message 'Would evict an off-config Java (apt package / uv-Python pip / stray binary). Run with -Force to execute.'
+            return
+        }
+        if (-not (Remove-LinuxToolInstall -Config $config)) {
+            Write-Message 'No off-config Java found — nothing to remove.'
+        }
+        return
+    }
+    if ($IsMacOS) {
+        Remove-MacToolInstall -Config $config | Out-Null
+        return
+    }
+
+    # Windows: delete the JDK install directory, clean the machine PATH and JAVA_HOME — needs Administrator.
+    Assert-IsAdministrator
 
     if (-not $InstallDir) {
         $command = Get-Command $config.command -ErrorAction SilentlyContinue
