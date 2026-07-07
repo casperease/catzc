@@ -8,5 +8,6 @@ verify:
   level: 2
 scan:
 - '+ infrastructure/**'
+files: 16
 scoped_sha256: 8f919e546cf74e751e434207e527f10582f3d453d8b1cdfac76c4321368b77c1
 sha256: cd125ff3508d564757ad174f584ad2741c814d984037055b1a9f459f72213be8

@@ -7,5 +7,6 @@ scan:
 - '- automation/Catzc.Azure.Cli/private/**'
 - '- automation/Catzc.Azure.Cli/types/**'
 - '- automation/Catzc.Azure.Cli/configs/**'
+files: 20
 scoped_sha256: bac1fa9fb5ff1cb9b407a5952e2549c16e1ff0525b169f118a2a526e514fedd5
 sha256: c6ab2dde1d0a01ad8e88f5ca99919aa88c77bd75e57d77c7b3787ddecebd2c98

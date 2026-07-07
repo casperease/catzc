@@ -10,5 +10,6 @@ scan:
 - '- infrastructure/templates/foundation/configuration/*.yml'
 - '- infrastructure/templates/foundation/configuration/*/**'
 - '+ infrastructure/templates/foundation/configuration/apex/**'
+files: 12
 scoped_sha256: ff9e236197380d0377187dd6db17dfcddaae5dddfc156bd5493d3b33850ba92f
 sha256: 331118c5271e3044f597a639461bd7d9b544194bb29812e88579087206c557f5

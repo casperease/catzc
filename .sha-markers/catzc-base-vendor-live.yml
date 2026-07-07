@@ -6,5 +6,6 @@ scan:
 - '+ automation/Catzc.Base.Vendor/private/**'
 - '+ automation/Catzc.Base.Vendor/types/**'
 - '+ automation/Catzc.Base.Vendor/configs/**'
+files: 8
 scoped_sha256: d285c7aaf517e731b2a7454e9057124d7769e179d6288bd8447342efb52bb1bb
 sha256: 9dd646c6017497b2d0c3ae7ccd879a3cf52f3471524dc8947794609dc738f450

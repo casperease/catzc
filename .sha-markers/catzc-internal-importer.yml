@@ -3,5 +3,6 @@ description: Derived internal-module scope - automation/.internal/Catzc.Internal
 layer: module
 scan:
 - '+ automation/.internal/Catzc.Internal.Importer.psm1'
+files: 1
 scoped_sha256: b5bea45d93caf12a99d9132ca3deef462590f231a6a72da2d720da31b6233b20
 sha256: 509c2c49fa59fffcb40c4ee2749cc9bee814761440322204029bebe19da4f941

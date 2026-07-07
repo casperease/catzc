@@ -6,5 +6,6 @@ scan:
 - '+ automation/Catzc.Base.Git/private/**'
 - '+ automation/Catzc.Base.Git/types/**'
 - '+ automation/Catzc.Base.Git/configs/**'
+files: 8
 scoped_sha256: ed88309989814baf3dd8a3188b345815f460b0e69ee87d7a2c3a873949d7096e
 sha256: 2f0e1267af5f038fde08f0a1938363b3cf0d8b504bb7be40c0f4ad158ca751f5

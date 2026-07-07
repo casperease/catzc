@@ -6,5 +6,6 @@ scan:
 - '+ automation/Catzc.Base.RootConfig/private/**'
 - '+ automation/Catzc.Base.RootConfig/types/**'
 - '+ automation/Catzc.Base.RootConfig/configs/**'
+files: 6
 scoped_sha256: 663c721a5fe4bf7dcd3afb8a921b9fccb185662f841279e690b80f78bfb27b5c
 sha256: 0545fc43acb0dbf686ecfc0c2eef9b84fd2b0897ab048eb27df779f9b8f2a11d

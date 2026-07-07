@@ -6,5 +6,6 @@ scan:
 - '+ automation/Catzc.Tooling.Core/private/**'
 - '+ automation/Catzc.Tooling.Core/types/**'
 - '+ automation/Catzc.Tooling.Core/configs/**'
+files: 29
 scoped_sha256: 1ac736f0a4094946e4150ceb1b6a598cec60558cefffcc06f73af4b4d11635d5
-sha256: 6a116421e170a7bb31f398e0d20dc2e61c0b16bc1fe8ea5d592d64712bc2d5ae
+sha256: a62b06037a240d9182f910d805c299bcd37757ad7a3f5777dc254def3ea58d9b

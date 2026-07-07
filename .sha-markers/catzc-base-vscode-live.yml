@@ -6,5 +6,6 @@ scan:
 - '+ automation/Catzc.Base.VSCode/private/**'
 - '+ automation/Catzc.Base.VSCode/types/**'
 - '+ automation/Catzc.Base.VSCode/configs/**'
+files: 10
 scoped_sha256: 56b6d64a8a5a27c64e01dc08b46a551909c9bc3436398307c077fe6932300ba2
 sha256: c9da150f0748f1776bfe7cee4ca85f088de3516fec0ec3f04eb467a26374bb58

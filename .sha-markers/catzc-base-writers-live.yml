@@ -6,5 +6,6 @@ scan:
 - '+ automation/Catzc.Base.Writers/private/**'
 - '+ automation/Catzc.Base.Writers/types/**'
 - '+ automation/Catzc.Base.Writers/configs/**'
+files: 13
 scoped_sha256: 37def896c5123c55592bf02a90dc270ca500efad03fe1c1ca587f20199d732cb
 sha256: e7c81020c77d80ada07af91bbc9874057f4603041381cb457f128c8da69b8a74

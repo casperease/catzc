@@ -6,5 +6,6 @@ scan:
 - '+ automation/Catzc.Tooling.Github/private/**'
 - '+ automation/Catzc.Tooling.Github/types/**'
 - '+ automation/Catzc.Tooling.Github/configs/**'
+files: 6
 scoped_sha256: 78b3acc2754a2aa23616aa255ce2b0598a9419526c6cec90e94bd2b2545654ce
 sha256: bac35387835d3fbd8a148d1d8c76a6018d5698b7f1586c9e9116feb3a872ab05
