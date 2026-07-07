@@ -1,8 +1,0 @@
-name: scriptanalyzer
-description: Derived infra scope - automation/.scriptanalyzer/**
-layer: loose-fileset
-scan:
-- '+ automation/.scriptanalyzer/**'
-files: 17
-scoped_sha256: c9faa5c145cb3c3006a755036a733f779e686ef496120957364d3418dda133e7
-sha256: dc52d52b9bb7121a7bd87e3f839bc227111390a85a051dc02d48c61fff100556

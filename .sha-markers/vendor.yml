@@ -1,8 +1,0 @@
-name: vendor
-description: Derived infra scope - automation/.vendor/**
-layer: loose-fileset
-scan:
-- '+ automation/.vendor/**'
-files: 78
-scoped_sha256: 6ec0179aa4d7ce03269a401aa4ef8e6ff12e21117f19b1af8a7755cd6cc9d824
-sha256: 59bfd23a6ebd26b1f8323040b7b4f9ce563f3280f1a54ad3af041d1baff84c4b
