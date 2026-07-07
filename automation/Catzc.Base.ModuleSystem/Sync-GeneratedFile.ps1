@@ -71,7 +71,9 @@ function Sync-GeneratedFile {
         return
     }
 
-    Update-ShaMarker
+    # Marker regeneration is build-time (ADR-TIMEBIND:1) — the durable-SHA artifacts are stitched here — so
+    # Get-TimeBinding reports build-time while they are produced.
+    Invoke-AtBuildTime { Update-ShaMarker }
 
     # Which generated paths actually changed decides both the commit's pathspec and its message — the
     # stamp commit stages and names exactly what this sync did, never a sibling path that was clean.

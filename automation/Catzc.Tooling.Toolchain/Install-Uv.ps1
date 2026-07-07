@@ -5,9 +5,10 @@
     uv is user-space on every platform. A fresh machine bootstraps it via winget on Windows and brew on macOS
     (both hash-verified, user-scope, no admin), and from Astral's standalone GitHub release on Linux
     (Install-UvStandalone — verified download into ~/.local/bin; there is no uv apt package). An
-    already-present uv installed by Astral's standalone installer upgrades itself in place with
-    `uv self update` — the standalone build's native, admin-free upgrade path, which a winget-managed uv does
-    not support. Idempotent — skips if the correct version is already on PATH.
+    already-present uv is upgraded through its install source: on Linux it re-runs the standalone install
+    (Install-UvStandalone), because the extracted tarball carries no `uv self update` receipt; a winget-managed
+    uv (Windows) re-runs winget (Install-Tool); any other uv (one installed by Astral's own script) upgrades
+    with `uv self update`. Idempotent — skips if the correct version is already on PATH.
 .PARAMETER Version
     uv version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force
@@ -40,6 +41,15 @@ function Install-Uv {
     $installed = Get-ToolVersion -Config $config
     if (-not $Force -and $installed -and $installed.StartsWith($Version)) {
         Write-Message "uv $Version is already installed"
+        return
+    }
+
+    # The Linux bootstrap extracts the standalone tarball into ~/.local/bin, which carries no self-update
+    # receipt, so `uv self update` refuses it ("installed via pip/brew/another package manager"). Re-run the
+    # configured standalone install: it re-downloads the pinned, verified build and overwrites the tool-bin
+    # binary in place — also replacing an off-config uv (e.g. a leftover pip-installed one) sitting there.
+    if ($IsLinux) {
+        Install-UvStandalone -Version $Version
         return
     }
 

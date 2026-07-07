@@ -26,6 +26,7 @@ a normative summary plus internal links to the prose that justifies it).
 | `ADR-NOWASTE` | [reduce-waste](principles/reduce-waste.md)             |
 | `ADR-POKA`    | [poka-yoke](principles/poka-yoke.md)                   |
 | `ADR-ONELIVE` | [one-living-version](principles/one-living-version.md) |
+| `ADR-PARITY`  | [devbox-pipeline-parity](principles/devbox-pipeline-parity.md) |
 
 ### design/
 
