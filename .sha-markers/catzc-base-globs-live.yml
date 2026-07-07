@@ -8,4 +8,4 @@ scan:
 - '+ automation/Catzc.Base.Globs/configs/**'
 files: 22
 scoped_sha256: b5b6e8f5bb6a97156f9ab090cc9a8f039956ea48228db074dc3e6579cbff8bb1
-sha256: 4180be4e19570621ad9a23bf744c61872492f89e5e7b7a5107ef6c895de8e47d
+sha256: 44e47ebd89af53a05754b957d0cc97764eba19d74e32a57201e7fa40ef65f1d7
