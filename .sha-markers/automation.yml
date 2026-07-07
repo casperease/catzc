@@ -5,5 +5,5 @@ pipeline: ci-automation
 scan:
 - '+ automation/**'
 files: 1033
-scoped_sha256: b5f0b24e92fe37ff182008d9cae5dcbc277c91ad50af0f65be97c302a407e7a3
-sha256: ef2a47ee1835edaf8a41f6f9e3f13fb6f7d5163532ccd335be28533d01ae7760
+scoped_sha256: 3a8fbbf2a235ad04a2d8b457ebb4b1de1a6fd4036f9514267a7c06b63ac8e7d4
+sha256: b9cf7e45c22d5734fee3242788a9148e9d3987a38d3be54c1729cd7b4f5c779e
