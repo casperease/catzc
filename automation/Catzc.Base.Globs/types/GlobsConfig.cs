@@ -31,19 +31,9 @@ public sealed class GlobsConfig
 
     private readonly Dictionary<string, GlobSet> byName;
 
-    // Persistence policy (ADR-GLOBS, ADR-PROTGLOB:7): mappability is unconditional, but a marker file is
-    // written only for persisted sets. Declared sets persist by default (opt out with 'persist: false',
-    // recorded in persistOptOut); derived module sets do NOT persist by default (opt in by listing the
-    // derived name under top-level 'persist_modules'). ShouldPersist folds both against the one name space.
-    private readonly List<string> persistModules;
-    private readonly HashSet<string> persistModulesSet;
-    private readonly HashSet<string> persistOptOut;
-
     public GlobsConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
-        List<string> persistModulesLocal = new List<string>();
-        HashSet<string> persistOptOutLocal = new HashSet<string>(StringComparer.Ordinal);
 
         if (raw == null || !raw.Contains("globsets"))
         {
@@ -52,9 +42,9 @@ public sealed class GlobsConfig
         foreach (object key in raw.Keys)
         {
             string top = key == null ? null : key.ToString();
-            if (top != "globsets" && top != "persist_modules")
+            if (top != "globsets")
             {
-                errors.Add(string.Format("unknown top-level key '{0}' (allowed: globsets, persist_modules)", top));
+                errors.Add(string.Format("unknown top-level key '{0}' (allowed: globsets)", top));
             }
         }
 
@@ -80,9 +70,9 @@ public sealed class GlobsConfig
             {
                 string field = entryKey == null ? null : entryKey.ToString();
                 if (field != "description" && field != "layer" && field != "include" && field != "exclude"
-                    && field != "compose" && field != "verify" && field != "pipeline" && field != "persist")
+                    && field != "compose" && field != "verify" && field != "pipeline")
                 {
-                    errors.Add(string.Format("globset '{0}': unknown key '{1}' (allowed: description, layer, include, exclude, compose, verify, pipeline, persist)", name, field));
+                    errors.Add(string.Format("globset '{0}': unknown key '{1}' (allowed: description, layer, include, exclude, compose, verify, pipeline)", name, field));
                 }
             }
 
@@ -95,25 +85,6 @@ public sealed class GlobsConfig
             {
                 errors.Add(string.Format("globset '{0}': the 'module' layer is derived-only (ADR-GLOBS:7, ADR-PROTGLOB) — the folder is the registration; declared layers: {1}", name, string.Join(", ", GlobSet.DeclaredLayers)));
                 continue;
-            }
-
-            // persist (ADR-GLOBS): a declared set persists its marker by default; 'persist: false' opts it
-            // out. A pipeline-bound set may not opt out — its marker IS the trigger (ADR-GLOBS:6).
-            if (entry.Contains("persist"))
-            {
-                string persistText = ReadStr(entry, "persist");
-                if (string.Equals(persistText, "false", StringComparison.OrdinalIgnoreCase))
-                {
-                    if (!string.IsNullOrWhiteSpace(ReadStr(entry, "pipeline")))
-                    {
-                        errors.Add(string.Format("globset '{0}': a pipeline-bound set cannot opt out of persistence — its marker is the trigger (ADR-GLOBS:6)", name));
-                    }
-                    persistOptOutLocal.Add(name);
-                }
-                else if (!string.Equals(persistText, "true", StringComparison.OrdinalIgnoreCase))
-                {
-                    errors.Add(string.Format("globset '{0}': persist '{1}' must be true or false", name, persistText));
-                }
             }
 
             string[] verifyModules = null;
@@ -167,35 +138,6 @@ public sealed class GlobsConfig
             map[set.Name] = set;
         }
 
-        // ---- persist_modules (ADR-PROTGLOB:7): derived module sets opted IN to marker persistence. The
-        //      derived name space lives on the filesystem (Get-ModuleGlobSet), unknown here — so this
-        //      validates shape and rejects DECLARED names (those persist by default; opt out via 'persist:
-        //      false'); Get-ModuleGlobSet checks each remaining name resolves to a real derived set. ----
-        if (raw.Contains("persist_modules"))
-        {
-            string[] optIn = ReadList(raw, "persist_modules");
-            HashSet<string> seen = new HashSet<string>(StringComparer.Ordinal);
-            foreach (string pm in optIn ?? new string[0])
-            {
-                if (string.IsNullOrWhiteSpace(pm))
-                {
-                    errors.Add("persist_modules contains an empty entry");
-                }
-                else if (!seen.Add(pm))
-                {
-                    errors.Add(string.Format("persist_modules lists '{0}' more than once", pm));
-                }
-                else if (map.ContainsKey(pm))
-                {
-                    errors.Add(string.Format("persist_modules names the declared globset '{0}' — declared sets persist by default; use 'persist: false' to opt out (ADR-GLOBS)", pm));
-                }
-                else
-                {
-                    persistModulesLocal.Add(pm);
-                }
-            }
-        }
-
         // ---- compose resolution (ADR-GLOBS:8): every reference names a declared set, never itself, and
         //      the reference graph is acyclic; effective membership is the union through the references. ----
         foreach (GlobSet set in sets)
@@ -229,32 +171,8 @@ public sealed class GlobsConfig
             }
         }
 
-        // A broken compose graph makes Matches() unsafe (a cycle would recurse forever), so the
-        // self-exclusion probes below cannot run — fail now with everything collected so far.
-        if (errors.Count > 0)
-        {
-            throw new ArgumentException("globs config validation failed:\n" + string.Join("\n", errors));
-        }
-
-        // ---- self-exclusion (ADR-GLOBS:6): sha-marker files are outputs of the hash, never members.
-        //      Probes: every declared marker path, plus a canary marker path that catches catch-alls
-        //      like '**' or '.sha-markers/**' regardless of the declared names. ----
-        List<string> probes = new List<string>();
-        foreach (GlobSet set in sets) { probes.Add(set.MarkerPath); }
-        probes.Add(".sha-markers/canary.yml");
-
-        foreach (GlobSet set in sets)
-        {
-            foreach (string probe in probes)
-            {
-                if (set.Matches(probe))
-                {
-                    errors.Add(string.Format("globset '{0}' matches '{1}' — sha-marker files are outputs of the hash, never members (ADR-GLOBS:6); add an exclude", set.Name, probe));
-                    break;
-                }
-            }
-        }
-
+        // A broken compose graph makes Matches() unsafe (a cycle would recurse forever), so fail now with
+        // everything collected so far — the final validation gate.
         if (errors.Count > 0)
         {
             throw new ArgumentException("globs config validation failed:\n" + string.Join("\n", errors));
@@ -262,28 +180,6 @@ public sealed class GlobsConfig
 
         globsets = sets;
         byName = map;
-        persistModules = persistModulesLocal;
-        persistModulesSet = new HashSet<string>(persistModulesLocal, StringComparer.Ordinal);
-        persistOptOut = persistOptOutLocal;
-    }
-
-    // The derived module sets opted IN to marker persistence (top-level 'persist_modules'), in file order.
-    // Get-ModuleGlobSet validates each names a real derived set.
-    public IReadOnlyList<string> PersistModules
-    {
-        get { return persistModules; }
-    }
-
-    // Whether a set persists a committed sha-marker (ADR-GLOBS, ADR-PROTGLOB:7). Declared sets persist unless
-    // opted out ('persist: false'); a derived set (any name not in the declared registry) persists only when
-    // opted in ('persist_modules'). Mappability is unconditional — this governs only the marker file.
-    public bool ShouldPersist(string name)
-    {
-        if (name != null && byName.ContainsKey(name))
-        {
-            return !persistOptOut.Contains(name);
-        }
-        return name != null && persistModulesSet.Contains(name);
     }
 
     public GlobSet Get(string name)

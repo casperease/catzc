@@ -1,9 +1,0 @@
-name: automation
-description: The automation track - the automation module system under automation/.
-layer: loose-fileset
-pipeline: ci-automation
-scan:
-- '+ automation/**'
-files: 1040
-scoped_sha256: 5aa8e861614d14024ebb94e45ce7941e9ad4862449718bff1f2a6810ed7e3a8b
-sha256: f5e6d5e8b43279cc4733e8625987bfaa0181584593d24406516a6e178c6ad3a0
