@@ -1,5 +1,5 @@
-generated_at: 2026-07-07T01:45:15Z
-scoped_sha256: 576da3bddfb9aae84eb24e855dc90579c5a56e40eb01fd3b38d9d532b2bda782
+generated_at: 2026-07-07T02:22:55Z
+scoped_sha256: 14e051bf5075e1e38d9a92f9891d3a12ad98a0e166544682df26da0bcc7032fd
 filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 scan:
 - '+ automation/Catzc.Tooling.Core/*.ps1'
@@ -18,6 +18,7 @@ included:
 - automation/Catzc.Tooling.Core/Install-UvTool.ps1
 - automation/Catzc.Tooling.Core/Install-UvVenvTool.ps1
 - automation/Catzc.Tooling.Core/Invoke-Uv.ps1
+- automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
 - automation/Catzc.Tooling.Core/Remove-SystemInstallation.ps1
 - automation/Catzc.Tooling.Core/Save-VerifiedDownload.ps1
 - automation/Catzc.Tooling.Core/Sync-SessionTools.ps1

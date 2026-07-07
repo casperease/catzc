@@ -1,6 +1,6 @@
-generated_at: 2026-07-07T01:51:43Z
-scoped_sha256: fe72f2c8c4516cb034deff37dd0f0a2425b87f8ac3334b19013b95e289b06548
-filtered_sha256: b58df234113ca989461d4553fcc66b5b3ea5540ef73c6473d80f0242bd0ccb6d
+generated_at: 2026-07-07T02:22:46Z
+scoped_sha256: 35bdec15b9480914a24e95f4ab61d76fea8315e7d1ad3258775a15d0ed5c6c62
+filtered_sha256: 5180b5c02409f0197182276b8fa3407fbfa3903f279559b5b7f9ac4c87ccccb2
 scan:
 - '+ automation/**'
 included:
@@ -530,14 +530,18 @@ included:
 - automation/Catzc.Base.Globs/tests/Get-GlobSet.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
+- automation/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
+- automation/Catzc.Base.Globs/tests/Get-GlobSetResolution.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Get-MarkerBlastRadius.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
+- automation/Catzc.Base.Globs/tests/Get-UntrackedFile.Tests.ps1
 - automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
 - automation/Catzc.Base.Globs/tests/ShaMarker-Freshness.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Test-ShaMarker.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Update-ShaMarker.Tests.ps1
+- automation/Catzc.Base.Globs/tests/Write-CompanionFile.Tests.ps1
 - automation/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
 - automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
 - automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
@@ -891,6 +895,7 @@ included:
 - automation/Catzc.Tooling.Core/Install-UvTool.ps1
 - automation/Catzc.Tooling.Core/Install-UvVenvTool.ps1
 - automation/Catzc.Tooling.Core/Invoke-Uv.ps1
+- automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
 - automation/Catzc.Tooling.Core/Remove-SystemInstallation.ps1
 - automation/Catzc.Tooling.Core/Save-VerifiedDownload.ps1
 - automation/Catzc.Tooling.Core/Sync-SessionTools.ps1
@@ -1089,6 +1094,7 @@ filtered:
 - automation/Catzc.Base.Writers/README.md
 - automation/Catzc.Tooling.Core/Catzc.Tooling.Core.psd1
 - automation/Catzc.Tooling.Core/README.md
+- automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
 - automation/Catzc.Tooling.Environment/Catzc.Tooling.Environment.psd1
 - automation/Catzc.Tooling.Environment/README.md
 - automation/Catzc.Tooling.Github/Catzc.Tooling.Github.psd1

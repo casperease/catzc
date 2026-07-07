@@ -1,5 +1,5 @@
-generated_at: 2026-07-07T01:50:56Z
-scoped_sha256: ed207953a46c345357dd6db209aa5d10f2a4fb2b2c706a28d8897a33d34c1981
+generated_at: 2026-07-07T02:22:52Z
+scoped_sha256: df64d0cd2d11a934bab34d92b8fd7cdfe706dfb681aeebaa82f50acb1de5fdcc
 filtered_sha256: f248b6f637971af3502d27f1e9ed11d8704fdf729bdd99dfadfe31480eb15cc3
 scan:
 - '+ automation/Catzc.Base.Globs/**'
@@ -11,14 +11,18 @@ included:
 - automation/Catzc.Base.Globs/tests/Get-GlobSet.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
+- automation/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
+- automation/Catzc.Base.Globs/tests/Get-GlobSetResolution.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Get-MarkerBlastRadius.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
+- automation/Catzc.Base.Globs/tests/Get-UntrackedFile.Tests.ps1
 - automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
 - automation/Catzc.Base.Globs/tests/ShaMarker-Freshness.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Test-ShaMarker.Tests.ps1
 - automation/Catzc.Base.Globs/tests/Update-ShaMarker.Tests.ps1
+- automation/Catzc.Base.Globs/tests/Write-CompanionFile.Tests.ps1
 - automation/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
 - automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
 - automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
