@@ -7,4 +7,4 @@ scan:
 - '- automation/Catzc.Base.Variants/private/**'
 - '- automation/Catzc.Base.Variants/types/**'
 - '- automation/Catzc.Base.Variants/configs/**'
-sha256: d06649d759193eee669e933f75e723f1ad35e4456fbf5b95f928a559fcb42da4
+sha256: edbaea6d7c12e41a522588e452622dfca8bf6d17ad24df4170772c50ce1e3252
