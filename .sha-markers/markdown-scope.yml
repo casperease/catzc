@@ -6,4 +6,4 @@ scan:
 - '+ .markdownlint.yml'
 - '- docs/notes/**'
 - '- automation/.vendor/**'
-sha256: 38e2d01d34e2ce684c77e05165425702af120c29de794f5c1be0914369e1124b
+sha256: 80f1eaa94cc842521977e53c6683a8f91ee0c7280f5d58baa0d12e86ddfe45e8
