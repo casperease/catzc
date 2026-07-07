@@ -878,6 +878,8 @@ terms:
       meaning: "PowerShell script blocks"
     - term: shouldprocess
       meaning: "PowerShell ShouldProcess"
+    - term: spacebar
+      meaning: "PSReadLine Spacebar key chord (e.g. Ctrl+Spacebar)"
     - term: splat
       meaning: "PowerShell splatting (splat)"
     - term: splatting
