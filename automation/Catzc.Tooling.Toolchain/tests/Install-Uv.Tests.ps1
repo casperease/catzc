@@ -30,13 +30,27 @@ Describe 'Install-Uv' -Tag 'L1', 'logic' {
         Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -Times 0
     }
 
-    It 'self-updates a standalone uv that is off-pin' {
+    It 'upgrades an off-pin uv through its configured source, never a blanket self-update' {
         Mock Test-Command { $true } -ModuleName Catzc.Tooling.Toolchain
         Mock Get-ToolVersion { '0.9.5' } -ModuleName Catzc.Tooling.Toolchain
+        # A uv resolved outside the winget package root (on Windows, the receipt-backed Astral-script case).
         Mock Get-Command { [pscustomobject]@{ Source = Join-Path ([IO.Path]::GetTempPath()) 'local-bin/uv' } } -ParameterFilter { $Name -eq 'uv' } -ModuleName Catzc.Tooling.Toolchain
         Install-Uv
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -Times 1 -ParameterFilter { $Command -eq 'uv self update' }
-        Should -Invoke Install-Tool -ModuleName Catzc.Tooling.Toolchain -Times 0
+        if ($IsLinux) {
+            # Tarball build has no self-update receipt — re-run the standalone install.
+            Should -Invoke Install-UvStandalone -ModuleName Catzc.Tooling.Toolchain -Times 1
+            Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -Times 0 -ParameterFilter { $Command -eq 'uv self update' }
+        }
+        elseif ($IsMacOS) {
+            # brew-managed — upgrade through brew, not self-update.
+            Should -Invoke Install-Tool -ModuleName Catzc.Tooling.Toolchain -Times 1
+            Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -Times 0 -ParameterFilter { $Command -eq 'uv self update' }
+        }
+        else {
+            # Windows, uv outside the winget root — receipt-backed self-update is the one valid case.
+            Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -Times 1 -ParameterFilter { $Command -eq 'uv self update' }
+            Should -Invoke Install-Tool -ModuleName Catzc.Tooling.Toolchain -Times 0
+        }
     }
 
     It 'routes a winget-installed uv through the winget upgrade path' {

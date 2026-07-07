@@ -20,7 +20,6 @@ analyzers:
     Measure-NoForEachObjectControlFlow: [ADR-FOREACH#3]
     Measure-NoRawVsoCommand: [ADR-PIPEVAR#1]
     Measure-NoRawPipelineDetection: [ADR-PIPEDET#1]
-    Measure-NoRawTimeDetection: [ADR-TIMEBIND#4]
     Measure-NoRawInformationStream: [ADR-CONSOLE#2]
     Measure-SpellOutIdentifiers: [ADR-SPELL#9]
 

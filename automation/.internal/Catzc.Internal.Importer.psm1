@@ -211,21 +211,21 @@ function Invoke-Importer {
     # rewrites a README only when its composed content differs (compared EOL-insensitively), so a clean tree costs
     # only a few small file reads. Guarded: absent in the bootstrap sandbox, like Clear-ModuleTypeCache.
     if (-not $SkipJanitors -and (Get-Command Build-Readme -ErrorAction Ignore)) {
-        Invoke-AtBuildTime { Build-Readme -Silent } | Out-Null
+        Build-Readme -Silent | Out-Null
     }
 
     # Keep the managed .gitkeep files current (Catzc.Base.Docs). Every .gitkeep is a committed copy of the
     # one generic source, pointing at its folder's generated README — reproduced here so a source change
     # propagates, and a fast no-op on a clean tree. See docs/adr/repository/generated-readmes.md.
     if (-not $SkipJanitors -and (Get-Command Build-GitKeep -ErrorAction Ignore)) {
-        Invoke-AtBuildTime { Build-GitKeep -Silent } | Out-Null
+        Build-GitKeep -Silent | Out-Null
     }
 
     # Keep the generated cspell dictionaries current (Catzc.Base.QualityGates). They are derived from
     # configs/terminology.yml — gitignored, not committed — so the registry is the single source of truth and
     # cspell still resolves them at fixed paths. Fast no-op when nothing changed (writes only on drift).
     if (-not $SkipJanitors -and (Get-Command Build-TerminologyDictionary -ErrorAction Ignore)) {
-        Invoke-AtBuildTime { Build-TerminologyDictionary -Silent } | Out-Null
+        Build-TerminologyDictionary -Silent | Out-Null
     }
 
     # Keep the managed root config files current (Catzc.Base.RootConfig). Every opted-in root file is
@@ -234,7 +234,7 @@ function Invoke-Importer {
     # output (e.g. New-Importer for importer.ps1). Rewrites only on drift, so a clean tree is a fast no-op.
     # Guarded: absent in the bootstrap sandbox. See docs/adr/repository/generated-root-configs.md.
     if (-not $SkipJanitors -and (Get-Command Build-RootConfig -ErrorAction Ignore)) {
-        Invoke-AtBuildTime { Build-RootConfig -Silent } | Out-Null
+        Build-RootConfig -Silent | Out-Null
     }
 
     # Reconcile the session PATH to whatever tools are actually present — including tools installed outside the

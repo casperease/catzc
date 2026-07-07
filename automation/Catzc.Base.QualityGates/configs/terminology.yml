@@ -420,8 +420,6 @@ terms:
   adr:
     - term: adr
       meaning: "the ADR- rule-citation prefix; every rule code has the form ADR-<NAME> (see docs/adr/index.md)"
-    - term: timebind
-      meaning: "body of the ADR-TIMEBIND (the adr short code)"
     - term: ascode
       meaning: "body of the ADR-ASCODE code (everything-as-code)"
     - term: lessvar

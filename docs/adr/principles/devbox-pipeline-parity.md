@@ -4,55 +4,57 @@
 
 ### Rule ADR-PARITY:1
 
-The `automation` track **is a CLI**. Every command runs, unchanged, in two environments: **DEVBOX** — the developer's machine, the
-furthest-left point in shift-left — and **PIPELINE** — CI/CD, to the right of the devbox and reaching, through a few manual approvals, all
-the way to live users. Same code, same commands, same behaviour in both. There is no pipeline-only automation and no devbox-only automation:
-what you run locally is exactly what CI runs. This is the #1 design rule for the track — every other automation rule assumes it.
+The `automation` track **is a CLI**, and every command runs unchanged in two environments: **DEVBOX** — the developer's machine, where you
+_shoot_ (iterate fast, and it just has to work) — and **PIPELINE** — CI/CD, where you _verify and deliver_ (deterministic and fast, through a
+few manual approvals to live users). Same code, same commands, same behaviour in both. There is no pipeline-only automation and no
+devbox-only automation: what you run locally is exactly what CI runs. This is the #1 design rule for the track — every other automation rule
+assumes it.
 
 ### Rule ADR-PARITY:2
 
-Both environments are first-class and **equally tested**. The gates (`Test-Automation` and its L0–L3 suites) run on the devbox AND in the
-pipeline and must pass identically. Shift-left means a failure surfaces on the devbox *before* the pipeline — not that the pipeline is the
-only place the code runs. A test that assumes one environment (needs a pipeline to pass, or cannot run in one) is mis-tiered (`ADR-TEST`),
-never a licence to fork behaviour.
+Both environments are **equally gated**: `Test-Automation` and its L0–L3 suites run on the devbox AND in the pipeline, and must agree.
+Shift-left means a failure surfaces on the devbox _first_ — not that the pipeline is the only place the code runs. A test that needs a
+pipeline to pass, or cannot run in one, is mis-tiered (`ADR-TEST`), never a licence to fork behaviour.
 
 ### Rule ADR-PARITY:3
 
-The only place the two environments may differ is a genuine **seam**, and every seam has one sanctioned detector: `Test-IsRunningInPipeline`
-for the pipeline seam (`ADR-PIPEDET`), `Get-TimeBinding` for the time seam (`ADR-TIMEBIND`), the output-root resolver for where artifacts
-land. A command branches on a seam only where the environments *genuinely* differ (an agent-set variable, no interactive auth, output goes
-elsewhere) — never to change its logic. A branch on `Test-IsRunningInPipeline` that alters what the command *does* is a parity violation.
+The **one seam** between the two is `Test-IsRunningInPipeline` (`ADR-PIPEDET`) — the CI orchestrator (Azure DevOps / GitHub) already knows
+it is CI, so the CLI only asks that one question. A command branches on the seam solely where the environments _genuinely_ differ, and those
+differences are small and already owned: where output goes (`Get-OutputRoot`), syncing concurrent runs (`Wait-Mutex`), skipping the dev-box
+auto-commit in CI. Never branch on the seam to change _what a command does_ — that is a parity violation.
 
 ### Rule ADR-PARITY:4
 
-Time bindings (`ADR-TIMEBIND`) are wired at the **command, not the environment**: a build command enters build-time whether it runs on the
-devbox or in CI, so `build-time` reports identically in both. Wiring build-time (or any binding) at a pipeline call site — so it only reports
-in CI — is a parity violation; wrap the command's own work, so the devbox invocation and the CI invocation are the same run.
+The two environments **connect only via the EAC** — the sha-markers (`ADR-GLOBS`). The devbox shoots: it edits, regenerates the markers, and
+commits them. The pipeline verifies: it recomputes the markers and gates on them, then delivers. Nothing else crosses between devbox and
+pipeline — no shared runtime state, only the committed marker identities. So "did this change" and "what ships" are the same fact on both
+sides, by construction.
 
 ## Context
 
 The value of the automation track is that it collapses the distance between "works on my machine" and "works in CI": one CLI, run the same
 everywhere, so a problem is caught at the furthest-left point it can be. That only holds if parity is a rule, not an accident — the moment a
 command needs a pipeline to work, or behaves differently there, shift-left breaks and the pipeline becomes the first place failures appear.
-The seams (`Test-IsRunningInPipeline`, `Get-TimeBinding`, output roots) exist precisely to keep the *one* legitimate environment difference
-in one auditable place, so everything else stays identical.
+The single seam (`Test-IsRunningInPipeline`) keeps the _one_ legitimate difference in one auditable place; the markers (`ADR-GLOBS`) are the
+only channel between the two, so everything else stays identical.
 
 ## Decision
 
-Treat the automation track as a single CLI with two runtimes and no third mode. Write every command to run on a bare devbox; let CI run the
-identical command; and confine the environment difference to a named seam behind a single detector. Wire cross-cutting bindings (build-time,
-test-time) into the commands themselves so they hold in both runtimes. The gates run in both and must agree — that agreement is the proof of
-parity, checked on every push (the pipeline recomputes what the devbox committed).
+Treat the track as a single CLI with two environments and no third mode. Write every command to run on a bare devbox; let CI run the
+identical command; confine the environment difference to the one seam behind `Test-IsRunningInPipeline`; and let devbox and pipeline
+communicate only through the committed sha-markers. The gates run in both and must agree — that agreement, recomputed on every push, is the
+proof of parity.
 
 ## Consequences
 
 - **Shift-left is real.** A failure shows up on the devbox first, because the devbox runs exactly what CI runs.
-- **Seams are enumerable.** Every environment difference is one detector call, so "where do devbox and pipeline diverge?" has a finite answer.
-- **No CI-only bugs.** A command that can't run on a devbox can't ship — parity is a gate, not a hope.
+- **The seam is enumerable.** Every environment difference is one `Test-IsRunningInPipeline` call, so "where do devbox and pipeline diverge?"
+  has a finite, small answer.
+- **One channel.** Devbox and pipeline share nothing but the committed markers — no hidden coupling, no CI-only state.
 
 ## Related
 
-- [pipeline-detection](../pipelines/pipeline-detection.md) — the one detector for the pipeline seam (`ADR-PIPEDET`)
-- [time-bindings](../automation/time-bindings.md) — build/runtime/test-time, wired at the command for parity (`ADR-TIMEBIND`)
+- [pipeline-detection](../pipelines/pipeline-detection.md) — the one seam detector (`ADR-PIPEDET`)
+- [durable-sha-globs](../pipelines/durable-sha-globs.md) — the sha-markers, the only channel between devbox and pipeline (`ADR-GLOBS`)
 - [test-automation](../automation/test-automation.md) — the L0–L3 gates that run identically in both environments (`ADR-TEST`)
-- [reduce-variability](reduce-variability.md), [one-living-version](one-living-version.md) — the principles this specialises to two runtimes
+- [reduce-variability](reduce-variability.md), [one-living-version](one-living-version.md) — the principles this specialises to two environments

@@ -19,13 +19,13 @@ a normative summary plus internal links to the prose that justifies it).
 
 ### principles/
 
-| Code          | ADR                                                    |
-| ------------- | ------------------------------------------------------ |
-| `ADR-ASCODE`  | [everything-as-code](principles/everything-as-code.md) |
-| `ADR-LESSVAR` | [reduce-variability](principles/reduce-variability.md) |
-| `ADR-NOWASTE` | [reduce-waste](principles/reduce-waste.md)             |
-| `ADR-POKA`    | [poka-yoke](principles/poka-yoke.md)                   |
-| `ADR-ONELIVE` | [one-living-version](principles/one-living-version.md) |
+| Code          | ADR                                                            |
+| ------------- | -------------------------------------------------------------- |
+| `ADR-ASCODE`  | [everything-as-code](principles/everything-as-code.md)         |
+| `ADR-LESSVAR` | [reduce-variability](principles/reduce-variability.md)         |
+| `ADR-NOWASTE` | [reduce-waste](principles/reduce-waste.md)                     |
+| `ADR-POKA`    | [poka-yoke](principles/poka-yoke.md)                           |
+| `ADR-ONELIVE` | [one-living-version](principles/one-living-version.md)         |
 | `ADR-PARITY`  | [devbox-pipeline-parity](principles/devbox-pipeline-parity.md) |
 
 ### design/
@@ -52,7 +52,6 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 | `ADR-NOPWD`    | [never-depend-on-pwd](automation/never-depend-on-pwd.md)                         |
 | `ADR-NONEST`   | [avoid-deep-nesting](automation/avoid-deep-nesting.md)                           |
 | `ADR-TEST`     | [test-automation](automation/test-automation.md)                                 |
-| `ADR-TIMEBIND` | [time-bindings](automation/time-bindings.md)                                     |
 | `ADR-XPLAT`    | [cross-platform](automation/cross-platform.md)                                   |
 | `ADR-ONEJOB`   | [single-responsibility-functions](automation/single-responsibility-functions.md) |
 | `ADR-CACHE`    | [caching](automation/caching.md)                                                 |

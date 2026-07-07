@@ -119,16 +119,25 @@ public sealed class GlobSet
         }
     }
 
-    // The marker file's full content (ADR-GLOBS:9): the definition representation plus the durable SHA —
-    // so one file carries both signals, and its diff separates "composition changed" (body lines) from
-    // "content changed" (the sha256 line).
-    public string MarkerContent(string sha256)
+    // The marker file's full content (ADR-GLOBS:9): the definition representation plus TWO identities — the
+    // list identity 'scoped_sha256' (the ordered set of git-bound member PATHS, names only — DurableHash
+    // .HashPathList, ADR-GLOBS:5) and the durable content identity 'sha256' (the path|content folds). Both
+    // re-key on membership; sha256 additionally re-keys on content. The list SHA lets a reviewer verify the
+    // exact files IN the package independent of content, even for a large set — its expanded form lives in
+    // the gitignored companion (.sha-markers/<name>.files.yml, ADR-GLOBS:11). Fixed field order keeps the
+    // diff legible: scan body = "definition changed", scoped_sha256 = "membership changed", sha256 =
+    // "content changed".
+    public string MarkerContent(string scopedSha256, string sha256)
     {
+        if (string.IsNullOrWhiteSpace(scopedSha256))
+        {
+            throw new ArgumentException(string.Format("globset '{0}': MarkerContent requires the scoped list SHA", Name));
+        }
         if (string.IsNullOrWhiteSpace(sha256))
         {
             throw new ArgumentException(string.Format("globset '{0}': MarkerContent requires the durable SHA", Name));
         }
-        return Representation + "sha256: " + sha256 + "\n";
+        return Representation + "scoped_sha256: " + scopedSha256 + "\n" + "sha256: " + sha256 + "\n";
     }
 
     public GlobSet(string name, string description, string layer, string[] include, string[] exclude,
@@ -188,6 +197,20 @@ public sealed class GlobSet
             if (rule.Pattern.Matches(repoRelativePath)) { selected = rule.Select; }
         }
         return selected;
+    }
+
+    // Include FOOTPRINT (ADR-GLOBS:11): true when ANY '+' (select) rule in the flattened scan program
+    // matches — ignoring later drops. This is what the include patterns REACH, before excludes carve the
+    // final membership. Used to classify the 'filtered' set for the companion: a non-git working-tree file
+    // the includes touch but that is not in the package. Distinct from Matches (final, last-match-wins) and
+    // OwnMatches (own rules, compose-blind).
+    public bool IncludeTouches(string repoRelativePath)
+    {
+        foreach (ScanRule rule in ScanProgram())
+        {
+            if (rule.Select && rule.Pattern.Matches(repoRelativePath)) { return true; }
+        }
+        return false;
     }
 
     // OWN membership (ADR-GLOBS:10): the set's own program only — its includes as '+' then its excludes as
