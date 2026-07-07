@@ -51,6 +51,7 @@ Modules are layered — a module may only call into the modules it declares in `
 | [Catzc.Tooling.Provisioning](catzc-tooling-provisioning.md)                 | Workstation provisioning, status, hygiene, and the Git/Postman installers                     |
 | [Catzc.Tooling.Environment](catzc-tooling-environment.md)                   | Environment-variable hand-off — secrets and config values into `$env:` for external tools     |
 | [Catzc.Tooling.Github](catzc-tooling-github.md)                             | Provable erasure of a token from a GitHub repo's history and remote objects                   |
+| [Catzc.Tooling.KeyHandler](catzc-tooling-keyhandler.md)                     | Replicate the Windows PSReadLine key bindings on Linux so shell editing keys match everywhere |
 | [Catzc.Azure](catzc-azure.md)                                               | Azure identity and topology — the model behind every deployment                               |
 | [Catzc.Azure.Cli](catzc-azure-cli.md)                                       | The Azure CLI surface — invocation, session, verification, context                            |
 | [Catzc.Azure.DevOps](catzc-azure-devops.md)                                 | Azure DevOps REST, pipeline inventory, and the runtime bridge                                 |
