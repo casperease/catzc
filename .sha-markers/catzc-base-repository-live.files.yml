@@ -1,0 +1,16 @@
+generated_at: 2026-07-07T01:45:14Z
+scoped_sha256: 4d225d4922a7ba513b7b59a514be1fb03075786dac936a6f71d843deb04611d3
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Base.Repository/*.ps1'
+- '+ automation/Catzc.Base.Repository/private/**'
+- '+ automation/Catzc.Base.Repository/types/**'
+- '+ automation/Catzc.Base.Repository/configs/**'
+included:
+- automation/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
+- automation/Catzc.Base.Repository/Get-OutputRoot.ps1
+- automation/Catzc.Base.Repository/Get-RepositoryFile.ps1
+- automation/Catzc.Base.Repository/Get-RepositoryFolder.ps1
+- automation/Catzc.Base.Repository/Get-RepositoryRoot.ps1
+- automation/Catzc.Base.Repository/Resolve-RepoPath.ps1
+- automation/Catzc.Base.Repository/Test-IsRunningInPipeline.ps1

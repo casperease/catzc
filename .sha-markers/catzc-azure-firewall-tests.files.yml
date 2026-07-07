@@ -1,0 +1,24 @@
+generated_at: 2026-07-07T01:45:11Z
+scoped_sha256: 975465d586927625685a391fc28116d8cb3412445c70fc27eca138301676cb9d
+filtered_sha256: 03cca2dab8719fc5c7b5aad39861f4bacefe831493cf7acbf4fd14b422d3a775
+scan:
+- '+ automation/Catzc.Azure.Firewall/**'
+- '- automation/Catzc.Azure.Firewall/*.ps1'
+- '- automation/Catzc.Azure.Firewall/private/**'
+- '- automation/Catzc.Azure.Firewall/types/**'
+- '- automation/Catzc.Azure.Firewall/configs/**'
+included:
+- automation/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1
+- automation/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1
+- automation/Catzc.Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
+- automation/Catzc.Azure.Firewall/tests/Get-FirewallIpgsYaml.Tests.ps1
+- automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownColumns.Tests.ps1
+- automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownTable.Tests.ps1
+- automation/Catzc.Azure.Firewall/tests/assets/application.csv
+- automation/Catzc.Azure.Firewall/tests/assets/ipgs-rg-hub.json
+- automation/Catzc.Azure.Firewall/tests/assets/ipgs-rg-network.json
+- automation/Catzc.Azure.Firewall/tests/assets/ipgs.yml
+- automation/Catzc.Azure.Firewall/tests/assets/network.csv
+filtered:
+- automation/Catzc.Azure.Firewall/Catzc.Azure.Firewall.psd1
+- automation/Catzc.Azure.Firewall/README.md

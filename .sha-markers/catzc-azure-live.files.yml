@@ -1,0 +1,26 @@
+generated_at: 2026-07-07T01:45:09Z
+scoped_sha256: 0d11ebac5ff13ab0800719498b58e1600f450e0a68c2ef44ccca9710bb82c083
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Azure/*.ps1'
+- '+ automation/Catzc.Azure/private/**'
+- '+ automation/Catzc.Azure/types/**'
+- '+ automation/Catzc.Azure/configs/**'
+included:
+- automation/Catzc.Azure/Get-AzureBicepMinVersion.ps1
+- automation/Catzc.Azure/Get-AzureCustomer.ps1
+- automation/Catzc.Azure/Get-AzureCustomers.ps1
+- automation/Catzc.Azure/Get-AzureEnvironment.ps1
+- automation/Catzc.Azure/Get-AzureSubscription.ps1
+- automation/Catzc.Azure/Get-AzureSubscriptionCustomer.ps1
+- automation/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1
+- automation/Catzc.Azure/configs/.not-azure-schema.json
+- automation/Catzc.Azure/configs/azure.yml
+- automation/Catzc.Azure/configs/customer.yml
+- automation/Catzc.Azure/configs/network.yml
+- automation/Catzc.Azure/private/Assert-AzureConfig.ps1
+- automation/Catzc.Azure/private/Assert-CustomerConfig.ps1
+- automation/Catzc.Azure/private/Assert-NetworkConfig.ps1
+- automation/Catzc.Azure/types/AzureEnvironment.cs
+- automation/Catzc.Azure/types/AzureSubscription.cs
+- automation/Catzc.Azure/types/Tenant.cs

@@ -1,0 +1,23 @@
+generated_at: 2026-07-07T01:45:17Z
+scoped_sha256: 33d52c035a54f5d810e4770b87eca7d4499fe25a280d512d24580edb0abeeb4c
+filtered_sha256: 31debf523fe23718716fc918ddcd71ea296e4404565282cd8adcaa48d268d033
+scan:
+- '+ automation/Catzc.Tooling.Toolchain/**'
+- '- automation/Catzc.Tooling.Toolchain/*.ps1'
+- '- automation/Catzc.Tooling.Toolchain/private/**'
+- '- automation/Catzc.Tooling.Toolchain/types/**'
+- '- automation/Catzc.Tooling.Toolchain/configs/**'
+included:
+- automation/Catzc.Tooling.Toolchain/assets/scripts/dotnet-install.ps1
+- automation/Catzc.Tooling.Toolchain/assets/scripts/dotnet-install.sh
+- automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Invoke-Dotnet.L2.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Invoke-Dotnet.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Invoke-Java.L2.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Invoke-Java.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.L2.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.Tests.ps1
+filtered:
+- automation/Catzc.Tooling.Toolchain/Catzc.Tooling.Toolchain.psd1
+- automation/Catzc.Tooling.Toolchain/README.md

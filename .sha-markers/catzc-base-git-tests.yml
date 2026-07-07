@@ -7,4 +7,5 @@ scan:
 - '- automation/Catzc.Base.Git/private/**'
 - '- automation/Catzc.Base.Git/types/**'
 - '- automation/Catzc.Base.Git/configs/**'
+scoped_sha256: f7545d6edfca7e2ab65a160058c50cd2d580ad1d3f6f90c1b43e42e6031e38d7
 sha256: 03bed2b2a5977079030385ad37f9f96727cceeb10f25340615cc75be96105557

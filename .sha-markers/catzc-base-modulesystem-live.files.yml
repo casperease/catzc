@@ -1,0 +1,42 @@
+generated_at: 2026-07-07T01:45:13Z
+scoped_sha256: 0c607199b9fa2c8857341f7740036211406b631fac116cb542ec9196c2f301c1
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Base.ModuleSystem/*.ps1'
+- '+ automation/Catzc.Base.ModuleSystem/private/**'
+- '+ automation/Catzc.Base.ModuleSystem/types/**'
+- '+ automation/Catzc.Base.ModuleSystem/configs/**'
+included:
+- automation/Catzc.Base.ModuleSystem/Assert-ModuleDependency.ps1
+- automation/Catzc.Base.ModuleSystem/ConvertTo-ModuleDependencyDiagram.ps1
+- automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1
+- automation/Catzc.Base.ModuleSystem/Get-AutomationFunctions.ps1
+- automation/Catzc.Base.ModuleSystem/Get-BaseModule.ps1
+- automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
+- automation/Catzc.Base.ModuleSystem/Get-FunctionDependencyTree.ps1
+- automation/Catzc.Base.ModuleSystem/Get-ModuleDependency.ps1
+- automation/Catzc.Base.ModuleSystem/Get-ModuleDependencyEdges.ps1
+- automation/Catzc.Base.ModuleSystem/Get-ModuleProfile.ps1
+- automation/Catzc.Base.ModuleSystem/Get-ModuleTestOrder.ps1
+- automation/Catzc.Base.ModuleSystem/New-Importer.ps1
+- automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
+- automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
+- automation/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
+- automation/Catzc.Base.ModuleSystem/configs/artifacts.yml
+- automation/Catzc.Base.ModuleSystem/configs/dependencies.yml
+- automation/Catzc.Base.ModuleSystem/configs/files.yml
+- automation/Catzc.Base.ModuleSystem/configs/profiles.yml
+- automation/Catzc.Base.ModuleSystem/private/Assert-DependenciesConfig.ps1
+- automation/Catzc.Base.ModuleSystem/private/Assert-FilesConfig.ps1
+- automation/Catzc.Base.ModuleSystem/private/Assert-ProfilesConfig.ps1
+- automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyClosure.ps1
+- automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyConfig.ps1
+- automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyMap.ps1
+- automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyViolations.ps1
+- automation/Catzc.Base.ModuleSystem/private/Get-ModuleGroupConfig.ps1
+- automation/Catzc.Base.ModuleSystem/types/BaseModule.cs
+- automation/Catzc.Base.ModuleSystem/types/DiskModule.cs
+- automation/Catzc.Base.ModuleSystem/types/ModuleDependencyEdge.cs
+- automation/Catzc.Base.ModuleSystem/types/ModuleDependencyFormat.cs
+- automation/Catzc.Base.ModuleSystem/types/ModulePackage.cs
+- automation/Catzc.Base.ModuleSystem/types/SessionModule.cs

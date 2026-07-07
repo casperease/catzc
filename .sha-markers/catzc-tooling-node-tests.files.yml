@@ -1,0 +1,14 @@
+generated_at: 2026-07-07T01:45:16Z
+scoped_sha256: d34e2c65d6ec4bc5bcd34f886a04b2f62b22d77c5ed12e1d0f7164fcfe6939ea
+filtered_sha256: 649c953b39d0ffa6637aa2c6154e7794375bf6747647d00794eac1a925d6ddfa
+scan:
+- '+ automation/Catzc.Tooling.Node/**'
+- '- automation/Catzc.Tooling.Node/*.ps1'
+- '- automation/Catzc.Tooling.Node/private/**'
+- '- automation/Catzc.Tooling.Node/types/**'
+- '- automation/Catzc.Tooling.Node/configs/**'
+included:
+- automation/Catzc.Tooling.Node/tests/Invoke-Npm.L2.Tests.ps1
+filtered:
+- automation/Catzc.Tooling.Node/Catzc.Tooling.Node.psd1
+- automation/Catzc.Tooling.Node/README.md

@@ -1,0 +1,15 @@
+generated_at: 2026-07-07T01:45:16Z
+scoped_sha256: 78b3acc2754a2aa23616aa255ce2b0598a9419526c6cec90e94bd2b2545654ce
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Tooling.Github/*.ps1'
+- '+ automation/Catzc.Tooling.Github/private/**'
+- '+ automation/Catzc.Tooling.Github/types/**'
+- '+ automation/Catzc.Tooling.Github/configs/**'
+included:
+- automation/Catzc.Tooling.Github/Assert-GitHubPurgeReady.ps1
+- automation/Catzc.Tooling.Github/New-SyntheticHistory.ps1
+- automation/Catzc.Tooling.Github/Publish-CleanHistory.ps1
+- automation/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1
+- automation/Catzc.Tooling.Github/Reset-GitHubRepository.ps1
+- automation/Catzc.Tooling.Github/Test-GitHistoryClean.ps1

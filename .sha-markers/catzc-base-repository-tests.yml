@@ -7,4 +7,5 @@ scan:
 - '- automation/Catzc.Base.Repository/private/**'
 - '- automation/Catzc.Base.Repository/types/**'
 - '- automation/Catzc.Base.Repository/configs/**'
-sha256: 83abd9cfdc7a9f64a1b16350bd32269dda1c83cd1953d73a5c4cb0fe03053f91
+scoped_sha256: f68957c38ffa414f754441baaa0bdd04add4b01c8088ef14d7b9e9be8f8b3947
+sha256: d8ae17670456bcb3b9b1fd196bae05c729395a6554cfeae102e262ea21d4c8a7

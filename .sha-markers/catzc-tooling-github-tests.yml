@@ -7,4 +7,5 @@ scan:
 - '- automation/Catzc.Tooling.Github/private/**'
 - '- automation/Catzc.Tooling.Github/types/**'
 - '- automation/Catzc.Tooling.Github/configs/**'
+scoped_sha256: e072920b2a12b8e97ad04391ae708d59c7dee10877f4814c1e9e83b3f93a7f88
 sha256: 737b38370085512648faa939b08b263d0a9ee84ce77e1fcd12a1ab13be1a1edf

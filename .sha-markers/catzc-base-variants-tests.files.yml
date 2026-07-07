@@ -1,0 +1,25 @@
+generated_at: 2026-07-07T01:45:14Z
+scoped_sha256: 60f34c93c133798306af17bf9a8b99ff4ddb11da2624be18d31c1958cdeef876
+filtered_sha256: b511150dc4c278205058142752af339000111f11d5dae9967e25c7c7667f4522
+scan:
+- '+ automation/Catzc.Base.Variants/**'
+- '- automation/Catzc.Base.Variants/*.ps1'
+- '- automation/Catzc.Base.Variants/private/**'
+- '- automation/Catzc.Base.Variants/types/**'
+- '- automation/Catzc.Base.Variants/configs/**'
+included:
+- automation/Catzc.Base.Variants/tests/Assert-AdoNaming.Tests.ps1
+- automation/Catzc.Base.Variants/tests/Assert-HaveCustomer.Tests.ps1
+- automation/Catzc.Base.Variants/tests/Assert-HaveCustomers.Tests.ps1
+- automation/Catzc.Base.Variants/tests/Assert-VariantsConfig.Tests.ps1
+- automation/Catzc.Base.Variants/tests/Get-AdoNaming.Tests.ps1
+- automation/Catzc.Base.Variants/tests/Get-Aspect.Tests.ps1
+- automation/Catzc.Base.Variants/tests/Get-EnabledCustomers.Tests.ps1
+- automation/Catzc.Base.Variants/tests/Get-GitWorkspace.Tests.ps1
+- automation/Catzc.Base.Variants/tests/Test-AdoNaming.Tests.ps1
+- automation/Catzc.Base.Variants/tests/Test-GitWorkspace.Tests.ps1
+- automation/Catzc.Base.Variants/tests/Test-HaveCustomer.Tests.ps1
+- automation/Catzc.Base.Variants/tests/Test-HaveCustomers.Tests.ps1
+filtered:
+- automation/Catzc.Base.Variants/Catzc.Base.Variants.psd1
+- automation/Catzc.Base.Variants/README.md

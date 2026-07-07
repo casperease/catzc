@@ -7,4 +7,5 @@ scan:
 - '- automation/Catzc.Azure.DevOps/private/**'
 - '- automation/Catzc.Azure.DevOps/types/**'
 - '- automation/Catzc.Azure.DevOps/configs/**'
+scoped_sha256: 7b721e7c10156d5b9caa3f5317e67de19b19165bbe346b5a22b19861a7e0101b
 sha256: f2570d8f5973e9d6ddb42dbe08123c5bb36807621aca12e4a529db7473136eb2

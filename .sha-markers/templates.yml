@@ -5,4 +5,5 @@ scan:
 - '+ infrastructure/templates/**'
 - '- infrastructure/templates/*/configuration/*.yml'
 - '- infrastructure/templates/*/configuration/*/**'
+scoped_sha256: 99345b26e9e53d48578dfd8095a843f7a406ca414b3f73707f60f69e354be990
 sha256: d5927fd410e37094df6a437f3bf1a3d603b8177284171f70970caeba58d0b2f8

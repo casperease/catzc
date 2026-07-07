@@ -6,4 +6,5 @@ scan:
 - '+ automation/Catzc.Tooling.Toolchain/private/**'
 - '+ automation/Catzc.Tooling.Toolchain/types/**'
 - '+ automation/Catzc.Tooling.Toolchain/configs/**'
+scoped_sha256: 8a98c226f97df155f1ffa78a2bb93930e961e37ca2f98bbb111a91fcbf44a304
 sha256: af67a334fa2a622680bd891f896f8ff67693319367a05af0e03b05dcf16a9165

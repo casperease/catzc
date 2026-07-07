@@ -1,0 +1,75 @@
+generated_at: 2026-07-07T01:45:13Z
+scoped_sha256: fb69c941c92560e7f0322c2e60227b0a72a9aaafcda3d051410397b1e5a8cf20
+filtered_sha256: ebe68c47c2de99e282f8be473a39b40e3e53207d62ba7a017b265d36fdd99b42
+scan:
+- '+ automation/Catzc.Base.QualityGates/**'
+- '- automation/Catzc.Base.QualityGates/*.ps1'
+- '- automation/Catzc.Base.QualityGates/private/**'
+- '- automation/Catzc.Base.QualityGates/types/**'
+- '- automation/Catzc.Base.QualityGates/configs/**'
+included:
+- automation/Catzc.Base.QualityGates/assets/english.stamp
+- automation/Catzc.Base.QualityGates/assets/english.txt.gz
+- automation/Catzc.Base.QualityGates/tests/Assert-AnalyzerAdrMapConfig.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Assert-GuidsConfig.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Assert-ManagedGuid.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Build-EnglishDictionary.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/ConvertTo-Guid.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Format-Markdown.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Format-Pipelines.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Format-Spelling.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-FixtureIdentityTokens.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-LiveIdentityTokens.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-LogicTestIdentityFinding.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-ModuleProtectionIdentity.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-TestAutomationTestPaths.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-TestBlockTag.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-TestCategoryTag.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-TestDiscovery.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-TestLevelTag.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-TestSkipReason.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Measure-NoAutomaticVariableMisuse.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Measure-NoForEachObjectControlFlow.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/New-PesterRunConfiguration.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/New-TestAutomationRunDirectory.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Resolve-MarkerVerify.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Set-CSharpFileScopedNamespace.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Test-InIsolation.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Test-ManagedGuid.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Write-TestAutomationHeader.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Write-TestAutomationReport.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Write-TestAutomationRuleCoverage.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Write-TestAutomationSkipReport.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Write-TestAutomationTimingReport.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Write-TestAutomationWorkerSummary.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/Write-TestRunManifest.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/assets/spelling/clean.md
+- automation/Catzc.Base.QualityGates/tests/types/GzipText.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/types/PesterRunner.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/types/SentenceGuid.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1
+- automation/Catzc.Base.QualityGates/tests/types/TerminologyConfig.Tests.ps1
+filtered:
+- automation/Catzc.Base.QualityGates/Catzc.Base.QualityGates.psd1
+- automation/Catzc.Base.QualityGates/README.md

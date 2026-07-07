@@ -1,0 +1,14 @@
+generated_at: 2026-07-07T01:45:12Z
+scoped_sha256: 082d137df94c9f5325f064d72d1dc22122444ff595ec627ccff3105b3e7c4b52
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Base.Environment/*.ps1'
+- '+ automation/Catzc.Base.Environment/private/**'
+- '+ automation/Catzc.Base.Environment/types/**'
+- '+ automation/Catzc.Base.Environment/configs/**'
+included:
+- automation/Catzc.Base.Environment/Add-PermanentPath.ps1
+- automation/Catzc.Base.Environment/Get-EnvironmentPath.ps1
+- automation/Catzc.Base.Environment/Remove-PermanentPath.ps1
+- automation/Catzc.Base.Environment/Set-EnvironmentPath.ps1
+- automation/Catzc.Base.Environment/Sync-SessionPath.ps1

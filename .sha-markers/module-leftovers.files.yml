@@ -1,0 +1,125 @@
+generated_at: 2026-07-07T01:45:18Z
+scoped_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+filtered_sha256: 479b6da04eff44f04958bcd3a7f4efaea83b37d5d19a1a87e1177d880dbedec3
+scan:
+- '+ automation/**'
+- '- automation/.compiled/**'
+- '- automation/.internal/**'
+- '- automation/.scriptanalyzer/**'
+- '- automation/.vendor/**'
+- '- automation/Catzc.Azure.Cli/**'
+- '- automation/Catzc.Azure.DevOps.BuildValidation/**'
+- '- automation/Catzc.Azure.DevOps/**'
+- '- automation/Catzc.Azure.Firewall/**'
+- '- automation/Catzc.Azure.Templates/**'
+- '- automation/Catzc.Azure/**'
+- '- automation/Catzc.Base.Asserts/**'
+- '- automation/Catzc.Base.Config/**'
+- '- automation/Catzc.Base.Docs/**'
+- '- automation/Catzc.Base.Environment/**'
+- '- automation/Catzc.Base.Execution/**'
+- '- automation/Catzc.Base.Files/**'
+- '- automation/Catzc.Base.Git/**'
+- '- automation/Catzc.Base.Globs/**'
+- '- automation/Catzc.Base.ModuleSystem/**'
+- '- automation/Catzc.Base.Objects/**'
+- '- automation/Catzc.Base.QualityGates/**'
+- '- automation/Catzc.Base.Repository/**'
+- '- automation/Catzc.Base.RootConfig/**'
+- '- automation/Catzc.Base.TypesSystem/**'
+- '- automation/Catzc.Base.VSCode/**'
+- '- automation/Catzc.Base.Variants/**'
+- '- automation/Catzc.Base.Vendor/**'
+- '- automation/Catzc.Base.Writers/**'
+- '- automation/Catzc.Tooling.Core/**'
+- '- automation/Catzc.Tooling.Environment/**'
+- '- automation/Catzc.Tooling.Github/**'
+- '- automation/Catzc.Tooling.Node/**'
+- '- automation/Catzc.Tooling.Provisioning/**'
+- '- automation/Catzc.Tooling.Python/**'
+- '- automation/Catzc.Tooling.Toolchain/**'
+included: []
+filtered:
+- automation/.compiled/Catzc.Types.2e339c2f.dll
+- automation/.internal/assets/obj/Catzc.Types.csproj.nuget.dgspec.json
+- automation/.internal/assets/obj/Catzc.Types.csproj.nuget.g.props
+- automation/.internal/assets/obj/Catzc.Types.csproj.nuget.g.targets
+- automation/.internal/assets/obj/Debug/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs
+- automation/.internal/assets/obj/Debug/net10.0/Catzc.Types.GeneratedMSBuildEditorConfig.editorconfig
+- automation/.internal/assets/obj/Debug/net10.0/Catzc.Types.assets.cache
+- automation/.internal/assets/obj/Debug/net10.0/Catzc.Types.csproj.AssemblyReference.cache
+- automation/.internal/assets/obj/Debug/net10.0/Catzc.Types.csproj.CoreCompileInputs.cache
+- automation/.internal/assets/obj/Debug/net10.0/Catzc.Types.csproj.FileListAbsolute.txt
+- automation/.internal/assets/obj/Debug/net10.0/Catzc.Types.dll
+- automation/.internal/assets/obj/Debug/net10.0/Catzc.Types.pdb
+- automation/.internal/assets/obj/Debug/net10.0/Catzc.Types.sourcelink.json
+- automation/.internal/assets/obj/Debug/net10.0/ref/Catzc.Types.dll
+- automation/.internal/assets/obj/Debug/net10.0/refint/Catzc.Types.dll
+- automation/.internal/assets/obj/project.assets.json
+- automation/.internal/assets/obj/project.nuget.cache
+- automation/Catzc.Azure.Cli/Catzc.Azure.Cli.psd1
+- automation/Catzc.Azure.Cli/README.md
+- automation/Catzc.Azure.DevOps.BuildValidation/Catzc.Azure.DevOps.BuildValidation.psd1
+- automation/Catzc.Azure.DevOps.BuildValidation/README.md
+- automation/Catzc.Azure.DevOps/Catzc.Azure.DevOps.psd1
+- automation/Catzc.Azure.DevOps/README.md
+- automation/Catzc.Azure.Firewall/Catzc.Azure.Firewall.psd1
+- automation/Catzc.Azure.Firewall/README.md
+- automation/Catzc.Azure.Templates/Catzc.Azure.Templates.psd1
+- automation/Catzc.Azure.Templates/README.md
+- automation/Catzc.Azure/Catzc.Azure.psd1
+- automation/Catzc.Azure/README.md
+- automation/Catzc.Base.Asserts/Catzc.Base.Asserts.psd1
+- automation/Catzc.Base.Asserts/README.md
+- automation/Catzc.Base.Config/Catzc.Base.Config.psd1
+- automation/Catzc.Base.Config/README.md
+- automation/Catzc.Base.Docs/Catzc.Base.Docs.psd1
+- automation/Catzc.Base.Docs/README.md
+- automation/Catzc.Base.Environment/Catzc.Base.Environment.psd1
+- automation/Catzc.Base.Environment/README.md
+- automation/Catzc.Base.Execution/Catzc.Base.Execution.psd1
+- automation/Catzc.Base.Execution/README.md
+- automation/Catzc.Base.Files/Catzc.Base.Files.psd1
+- automation/Catzc.Base.Files/README.md
+- automation/Catzc.Base.Git/Catzc.Base.Git.psd1
+- automation/Catzc.Base.Git/README.md
+- automation/Catzc.Base.Globs/Catzc.Base.Globs.psd1
+- automation/Catzc.Base.Globs/Get-GlobSetResolution.ps1
+- automation/Catzc.Base.Globs/README.md
+- automation/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
+- automation/Catzc.Base.Globs/private/Get-UntrackedFile.ps1
+- automation/Catzc.Base.Globs/private/Write-CompanionFile.ps1
+- automation/Catzc.Base.ModuleSystem/Catzc.Base.ModuleSystem.psd1
+- automation/Catzc.Base.ModuleSystem/README.md
+- automation/Catzc.Base.Objects/Catzc.Base.Objects.psd1
+- automation/Catzc.Base.Objects/README.md
+- automation/Catzc.Base.QualityGates/Catzc.Base.QualityGates.psd1
+- automation/Catzc.Base.QualityGates/README.md
+- automation/Catzc.Base.Repository/Catzc.Base.Repository.psd1
+- automation/Catzc.Base.Repository/README.md
+- automation/Catzc.Base.RootConfig/Catzc.Base.RootConfig.psd1
+- automation/Catzc.Base.RootConfig/README.md
+- automation/Catzc.Base.TypesSystem/Catzc.Base.TypesSystem.psd1
+- automation/Catzc.Base.TypesSystem/README.md
+- automation/Catzc.Base.VSCode/Catzc.Base.VSCode.psd1
+- automation/Catzc.Base.VSCode/README.md
+- automation/Catzc.Base.Variants/Catzc.Base.Variants.psd1
+- automation/Catzc.Base.Variants/README.md
+- automation/Catzc.Base.Vendor/Catzc.Base.Vendor.psd1
+- automation/Catzc.Base.Vendor/README.md
+- automation/Catzc.Base.Writers/Catzc.Base.Writers.psd1
+- automation/Catzc.Base.Writers/README.md
+- automation/Catzc.Tooling.Core/Catzc.Tooling.Core.psd1
+- automation/Catzc.Tooling.Core/README.md
+- automation/Catzc.Tooling.Environment/Catzc.Tooling.Environment.psd1
+- automation/Catzc.Tooling.Environment/README.md
+- automation/Catzc.Tooling.Github/Catzc.Tooling.Github.psd1
+- automation/Catzc.Tooling.Github/README.md
+- automation/Catzc.Tooling.Node/Catzc.Tooling.Node.psd1
+- automation/Catzc.Tooling.Node/README.md
+- automation/Catzc.Tooling.Provisioning/Catzc.Tooling.Provisioning.psd1
+- automation/Catzc.Tooling.Provisioning/README.md
+- automation/Catzc.Tooling.Python/Catzc.Tooling.Python.psd1
+- automation/Catzc.Tooling.Python/README.md
+- automation/Catzc.Tooling.Toolchain/Catzc.Tooling.Toolchain.psd1
+- automation/Catzc.Tooling.Toolchain/README.md

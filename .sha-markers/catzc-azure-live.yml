@@ -6,4 +6,5 @@ scan:
 - '+ automation/Catzc.Azure/private/**'
 - '+ automation/Catzc.Azure/types/**'
 - '+ automation/Catzc.Azure/configs/**'
+scoped_sha256: 0d11ebac5ff13ab0800719498b58e1600f450e0a68c2ef44ccca9710bb82c083
 sha256: dc0efced714e0e5c45650dde3014b75ca310bfe15c52c307705150089ce20bd7

@@ -6,4 +6,5 @@ scan:
 - '+ automation/Catzc.Azure.Firewall/private/**'
 - '+ automation/Catzc.Azure.Firewall/types/**'
 - '+ automation/Catzc.Azure.Firewall/configs/**'
+scoped_sha256: f5b178ed40e72f8de01246b1796108807fd860566cee19fefc6e42cd13856c5d
 sha256: 8829ebd0c2c4dc2f73f9a17f60540fb9f77b1561e1a4656b68016fbe5dde47c0

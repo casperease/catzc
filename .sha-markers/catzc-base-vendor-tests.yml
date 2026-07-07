@@ -7,4 +7,5 @@ scan:
 - '- automation/Catzc.Base.Vendor/private/**'
 - '- automation/Catzc.Base.Vendor/types/**'
 - '- automation/Catzc.Base.Vendor/configs/**'
+scoped_sha256: c1fecde1b473c2d9e944eb3fc367dde72370e9c9e902faada5cfab3405aee67d
 sha256: a51751fa1386e4829dea6a4248ad04acefb634b010f26de379a7dee7f8886d25

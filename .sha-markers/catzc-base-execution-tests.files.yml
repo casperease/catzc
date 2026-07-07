@@ -1,0 +1,17 @@
+generated_at: 2026-07-07T01:45:12Z
+scoped_sha256: 91e48485e0b7476dd34b59e63aa3f950c956250fc5cc8966fec32b0825193b2a
+filtered_sha256: 38e7a618f936995188a593b362d4784d51ae14e90979a3efc3c023d8414f9cc1
+scan:
+- '+ automation/Catzc.Base.Execution/**'
+- '- automation/Catzc.Base.Execution/*.ps1'
+- '- automation/Catzc.Base.Execution/private/**'
+- '- automation/Catzc.Base.Execution/types/**'
+- '- automation/Catzc.Base.Execution/configs/**'
+included:
+- automation/Catzc.Base.Execution/tests/Get-LastExitCode.Tests.ps1
+- automation/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
+- automation/Catzc.Base.Execution/tests/Reset-LastExitCode.Tests.ps1
+- automation/Catzc.Base.Execution/tests/Wait-Mutex.Tests.ps1
+filtered:
+- automation/Catzc.Base.Execution/Catzc.Base.Execution.psd1
+- automation/Catzc.Base.Execution/README.md

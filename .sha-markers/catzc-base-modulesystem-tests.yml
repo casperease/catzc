@@ -7,4 +7,5 @@ scan:
 - '- automation/Catzc.Base.ModuleSystem/private/**'
 - '- automation/Catzc.Base.ModuleSystem/types/**'
 - '- automation/Catzc.Base.ModuleSystem/configs/**'
+scoped_sha256: 47bfcaca4657343a825e61cb10d507bfc771545520613e812ae91c8f1df19fb3
 sha256: 85092050fa8afffc759cb5383fc0be6026cf164fc9c1f4c85e7d3c5fe65e04ba

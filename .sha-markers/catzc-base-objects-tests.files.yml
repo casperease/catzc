@@ -1,0 +1,21 @@
+generated_at: 2026-07-07T01:45:13Z
+scoped_sha256: ec3b41f3819c3ac65471017ee6a97e12fd37c906ebf723478637354bf30e2f57
+filtered_sha256: 76a0f6284bd1928957009cf3f74737c2f07f036f0021e8e786706004aeecccf6
+scan:
+- '+ automation/Catzc.Base.Objects/**'
+- '- automation/Catzc.Base.Objects/*.ps1'
+- '- automation/Catzc.Base.Objects/private/**'
+- '- automation/Catzc.Base.Objects/types/**'
+- '- automation/Catzc.Base.Objects/configs/**'
+included:
+- automation/Catzc.Base.Objects/tests/ConvertTo-Dictionary.Tests.ps1
+- automation/Catzc.Base.Objects/tests/ConvertTo-FlatSettingSet.Tests.ps1
+- automation/Catzc.Base.Objects/tests/ConvertTo-SortedDictionary.Tests.ps1
+- automation/Catzc.Base.Objects/tests/ConvertTo-YamlSafe.Tests.ps1
+- automation/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1
+- automation/Catzc.Base.Objects/tests/assets/copy-object-config.yml
+- automation/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
+- automation/Catzc.Base.Objects/tests/types/RepoRelativePath.Tests.ps1
+filtered:
+- automation/Catzc.Base.Objects/Catzc.Base.Objects.psd1
+- automation/Catzc.Base.Objects/README.md

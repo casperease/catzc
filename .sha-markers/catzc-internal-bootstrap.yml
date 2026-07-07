@@ -3,4 +3,5 @@ description: Derived internal-module scope - automation/.internal/Catzc.Internal
 layer: module
 scan:
 - '+ automation/.internal/Catzc.Internal.Bootstrap.psm1'
+scoped_sha256: 042eb824d14f771ddb78fab037fb31b538c68e7ba613276cc9d871227e4ef20f
 sha256: 8830be8960252794c7aecacc309bd541304de4f589ac0182a7c27713c68a2b13

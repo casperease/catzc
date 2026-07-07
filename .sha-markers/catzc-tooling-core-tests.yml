@@ -7,4 +7,5 @@ scan:
 - '- automation/Catzc.Tooling.Core/private/**'
 - '- automation/Catzc.Tooling.Core/types/**'
 - '- automation/Catzc.Tooling.Core/configs/**'
+scoped_sha256: 7d6a488b32319248b2582b96c6b42f5a852afeeb8ef67b4903e618ebb809876d
 sha256: 47bce6b84664e5bae7a1fa02fff16f9247ae65c79319619b7e0a82bbefe49a76

@@ -1,0 +1,20 @@
+generated_at: 2026-07-07T01:45:15Z
+scoped_sha256: 048074e30e3069d88a3b30c464cb1e0aa0294fa1430910e138c00037583c2f67
+filtered_sha256: ba84564eab25c93b332b5458259d2d029c63c88836bd8e9c89b88117ea39d577
+scan:
+- '+ automation/Catzc.Base.VSCode/**'
+- '- automation/Catzc.Base.VSCode/*.ps1'
+- '- automation/Catzc.Base.VSCode/private/**'
+- '- automation/Catzc.Base.VSCode/types/**'
+- '- automation/Catzc.Base.VSCode/configs/**'
+included:
+- automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css
+- automation/Catzc.Base.VSCode/tests/Assert-VscodeExtensionsConfig.Tests.ps1
+- automation/Catzc.Base.VSCode/tests/Assert-VscodeLaunchConfig.Tests.ps1
+- automation/Catzc.Base.VSCode/tests/New-VSCodeExtensions.Tests.ps1
+- automation/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1
+- automation/Catzc.Base.VSCode/tests/New-VSCodePipelineSchema.Tests.ps1
+- automation/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1
+filtered:
+- automation/Catzc.Base.VSCode/Catzc.Base.VSCode.psd1
+- automation/Catzc.Base.VSCode/README.md

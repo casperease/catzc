@@ -1,0 +1,17 @@
+generated_at: 2026-07-07T01:45:12Z
+scoped_sha256: ed88309989814baf3dd8a3188b345815f460b0e69ee87d7a2c3a873949d7096e
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Base.Git/*.ps1'
+- '+ automation/Catzc.Base.Git/private/**'
+- '+ automation/Catzc.Base.Git/types/**'
+- '+ automation/Catzc.Base.Git/configs/**'
+included:
+- automation/Catzc.Base.Git/New-GitIgnore.ps1
+- automation/Catzc.Base.Git/Reset-GitCleanFxd.ps1
+- automation/Catzc.Base.Git/configs/gitignore.yml
+- automation/Catzc.Base.Git/private/Format-GitIgnoreZone.ps1
+- automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
+- automation/Catzc.Base.Git/types/GitIgnoreConfig.cs
+- automation/Catzc.Base.Git/types/GitIgnorePattern.cs
+- automation/Catzc.Base.Git/types/GitIgnoreZone.cs

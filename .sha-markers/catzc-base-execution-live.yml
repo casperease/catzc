@@ -6,4 +6,5 @@ scan:
 - '+ automation/Catzc.Base.Execution/private/**'
 - '+ automation/Catzc.Base.Execution/types/**'
 - '+ automation/Catzc.Base.Execution/configs/**'
+scoped_sha256: 5f93209236d144fde60b5ee96552c3510d1e8d02b8b1a1fdefa90f2b20e84aec
 sha256: 54d40641f3789c4fb9370093a38864322b6a28e7d316b881271b338c80bf091d

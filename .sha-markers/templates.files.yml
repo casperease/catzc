@@ -1,0 +1,12 @@
+generated_at: 2026-07-07T01:45:07Z
+scoped_sha256: 99345b26e9e53d48578dfd8095a843f7a406ca414b3f73707f60f69e354be990
+filtered_sha256: 8b23005f5a33897279783afa7a6eb214f55f18b4da37bb44e2d7e33db52501a2
+scan:
+- '+ infrastructure/templates/**'
+- '- infrastructure/templates/*/configuration/*.yml'
+- '- infrastructure/templates/*/configuration/*/**'
+included:
+- infrastructure/templates/foundation/main.bicep
+- infrastructure/templates/foundation/options.yml
+filtered:
+- infrastructure/templates/foundation/README.md

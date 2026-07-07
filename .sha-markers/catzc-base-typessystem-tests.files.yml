@@ -1,0 +1,17 @@
+generated_at: 2026-07-07T01:45:14Z
+scoped_sha256: c0e283f092f915398e6643b695b806ba0d3cbdc9962aefd4a2288aaa00bd8e95
+filtered_sha256: 33ce01bf04e8f8d7b7b7be2cd4766c46f882fac6b9aa774b8289b670ea6ea2a1
+scan:
+- '+ automation/Catzc.Base.TypesSystem/**'
+- '- automation/Catzc.Base.TypesSystem/*.ps1'
+- '- automation/Catzc.Base.TypesSystem/private/**'
+- '- automation/Catzc.Base.TypesSystem/types/**'
+- '- automation/Catzc.Base.TypesSystem/configs/**'
+included:
+- automation/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
+- automation/Catzc.Base.TypesSystem/tests/Get-AutomationModules.Tests.ps1
+- automation/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
+- automation/Catzc.Base.TypesSystem/tests/Invoke-BuildForVSCode.Tests.ps1
+filtered:
+- automation/Catzc.Base.TypesSystem/Catzc.Base.TypesSystem.psd1
+- automation/Catzc.Base.TypesSystem/README.md

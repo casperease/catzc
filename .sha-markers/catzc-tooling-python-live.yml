@@ -6,4 +6,5 @@ scan:
 - '+ automation/Catzc.Tooling.Python/private/**'
 - '+ automation/Catzc.Tooling.Python/types/**'
 - '+ automation/Catzc.Tooling.Python/configs/**'
+scoped_sha256: 32a30457bf77cb9b8fe8c2d0a214b3b4f049c66960ddc6e2dbe6d98425ebc8aa
 sha256: 7553f4339ed50db2bb56f67c6816058a55be8b8437c72ac4c6cb9d528961ebd3

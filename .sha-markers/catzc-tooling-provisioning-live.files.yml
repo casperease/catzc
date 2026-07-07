@@ -1,0 +1,24 @@
+generated_at: 2026-07-07T01:45:16Z
+scoped_sha256: 6d361096b02940cb408746f8e578d71e429f0305693f26766b127470db79d855
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Tooling.Provisioning/*.ps1'
+- '+ automation/Catzc.Tooling.Provisioning/private/**'
+- '+ automation/Catzc.Tooling.Provisioning/types/**'
+- '+ automation/Catzc.Tooling.Provisioning/configs/**'
+included:
+- automation/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
+- automation/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
+- automation/Catzc.Tooling.Provisioning/Get-ToolsStatus.ps1
+- automation/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
+- automation/Catzc.Tooling.Provisioning/Install-DevBoxTools.ps1
+- automation/Catzc.Tooling.Provisioning/Install-Git.ps1
+- automation/Catzc.Tooling.Provisioning/Install-Postman.ps1
+- automation/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.ps1
+- automation/Catzc.Tooling.Provisioning/Uninstall-DevBoxTools.ps1
+- automation/Catzc.Tooling.Provisioning/Uninstall-Git.ps1
+- automation/Catzc.Tooling.Provisioning/Uninstall-Postman.ps1
+- automation/Catzc.Tooling.Provisioning/private/Find-WindowsGitCredentialManager.ps1
+- automation/Catzc.Tooling.Provisioning/private/Test-IsWslSession.ps1
+- automation/Catzc.Tooling.Provisioning/types/ToolStatus.cs
+- automation/Catzc.Tooling.Provisioning/types/ToolStatusKind.cs

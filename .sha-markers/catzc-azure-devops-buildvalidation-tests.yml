@@ -7,4 +7,5 @@ scan:
 - '- automation/Catzc.Azure.DevOps.BuildValidation/private/**'
 - '- automation/Catzc.Azure.DevOps.BuildValidation/types/**'
 - '- automation/Catzc.Azure.DevOps.BuildValidation/configs/**'
+scoped_sha256: b644e2e1e38b38372df2547c1942c4f2ff9478fa1f048701a142ab7e353a91b4
 sha256: 4fe29028f51ea3be686de75ad0da9105c99553049d00098fa3c42f7fbba23d3e

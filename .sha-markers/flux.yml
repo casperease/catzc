@@ -10,4 +10,5 @@ scan:
 - '- infrastructure/templates/foundation/configuration/*.yml'
 - '- infrastructure/templates/foundation/configuration/*/**'
 - '+ infrastructure/templates/foundation/configuration/flux/**'
+scoped_sha256: 7d748080a4fe0665e81349e59ad159664f4cbc0a1ec11f2a0c763533efbc3ac6
 sha256: 8ed0517e0d59af006c85a67d172ebd15976c05cadd8061c5d2d3f9b20dd4ff69

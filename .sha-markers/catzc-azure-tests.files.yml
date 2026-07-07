@@ -1,0 +1,27 @@
+generated_at: 2026-07-07T01:45:10Z
+scoped_sha256: 854eb36678144e82d908e2f78881fa969a96232da8b5e1d40a5d4cae32a520c3
+filtered_sha256: 2f7a950f46a0cc8d44fc09a543b1031c00722969a043196faa9717b76dcda22c
+scan:
+- '+ automation/Catzc.Azure/**'
+- '- automation/Catzc.Azure/*.ps1'
+- '- automation/Catzc.Azure/private/**'
+- '- automation/Catzc.Azure/types/**'
+- '- automation/Catzc.Azure/configs/**'
+included:
+- automation/Catzc.Azure/tests/Assert-AzureConfig.Tests.ps1
+- automation/Catzc.Azure/tests/Assert-CustomerConfig.Tests.ps1
+- automation/Catzc.Azure/tests/Assert-NetworkConfig.Tests.ps1
+- automation/Catzc.Azure/tests/Get-AzureBicepMinVersion.Tests.ps1
+- automation/Catzc.Azure/tests/Get-AzureCustomer.Tests.ps1
+- automation/Catzc.Azure/tests/Get-AzureCustomers.Tests.ps1
+- automation/Catzc.Azure/tests/Get-AzureEnvironment.Tests.ps1
+- automation/Catzc.Azure/tests/Get-AzureSubscription.Tests.ps1
+- automation/Catzc.Azure/tests/Get-AzureSubscriptionCustomer.Tests.ps1
+- automation/Catzc.Azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1
+- automation/Catzc.Azure/tests/assets/config/.not-azure-schema.json
+- automation/Catzc.Azure/tests/assets/config/azure.yml
+- automation/Catzc.Azure/tests/assets/config/customer.yml
+- automation/Catzc.Azure/tests/assets/config/network.yml
+filtered:
+- automation/Catzc.Azure/Catzc.Azure.psd1
+- automation/Catzc.Azure/README.md

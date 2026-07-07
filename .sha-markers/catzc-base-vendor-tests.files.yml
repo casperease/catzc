@@ -1,0 +1,19 @@
+generated_at: 2026-07-07T01:45:15Z
+scoped_sha256: c1fecde1b473c2d9e944eb3fc367dde72370e9c9e902faada5cfab3405aee67d
+filtered_sha256: 663a642fe782b0eec59d9fc783a9270ff7d921bfcc87ed95b622e91bc9b47abf
+scan:
+- '+ automation/Catzc.Base.Vendor/**'
+- '- automation/Catzc.Base.Vendor/*.ps1'
+- '- automation/Catzc.Base.Vendor/private/**'
+- '- automation/Catzc.Base.Vendor/types/**'
+- '- automation/Catzc.Base.Vendor/configs/**'
+included:
+- automation/Catzc.Base.Vendor/tests/Assert-VendorConfig.Tests.ps1
+- automation/Catzc.Base.Vendor/tests/Assert-VendorModuleAvailable.Tests.ps1
+- automation/Catzc.Base.Vendor/tests/Install-VendorModule.Tests.ps1
+- automation/Catzc.Base.Vendor/tests/Remove-VendorModules.Tests.ps1
+- automation/Catzc.Base.Vendor/tests/Resolve-VendorRepository.Tests.ps1
+- automation/Catzc.Base.Vendor/tests/Test-VendorModuleAvailable.Tests.ps1
+filtered:
+- automation/Catzc.Base.Vendor/Catzc.Base.Vendor.psd1
+- automation/Catzc.Base.Vendor/README.md

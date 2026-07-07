@@ -1,0 +1,29 @@
+generated_at: 2026-07-07T01:45:14Z
+scoped_sha256: 7da380c15b99bddbba0b481007d2118a373da66225adbaece01cf11d18636fb9
+filtered_sha256: 1e1ba1c3a596d90dc7cc76a9cffa275feb79069f2d8048f2021b14a4d94fd453
+scan:
+- '+ automation/Catzc.Base.RootConfig/**'
+- '- automation/Catzc.Base.RootConfig/*.ps1'
+- '- automation/Catzc.Base.RootConfig/private/**'
+- '- automation/Catzc.Base.RootConfig/types/**'
+- '- automation/Catzc.Base.RootConfig/configs/**'
+included:
+- automation/Catzc.Base.RootConfig/assets/root/.cspell/.gitignore
+- automation/Catzc.Base.RootConfig/assets/root/.editorconfig
+- automation/Catzc.Base.RootConfig/assets/root/.gitattributes
+- automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
+- automation/Catzc.Base.RootConfig/assets/root/.markdownlintignore
+- automation/Catzc.Base.RootConfig/assets/root/.prettierignore
+- automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
+- automation/Catzc.Base.RootConfig/assets/root/catzc.sln
+- automation/Catzc.Base.RootConfig/assets/root/cspell.yml
+- automation/Catzc.Base.RootConfig/assets/root/dotnet-tools.json
+- automation/Catzc.Base.RootConfig/assets/root/importer.ps1
+- automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
+- automation/Catzc.Base.RootConfig/tests/Get-RootConfigTargets.Tests.ps1
+- automation/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
+- automation/Catzc.Base.RootConfig/tests/types/RootConfigFile.Tests.ps1
+- automation/Catzc.Base.RootConfig/tests/types/RootConfigFiles.Tests.ps1
+filtered:
+- automation/Catzc.Base.RootConfig/Catzc.Base.RootConfig.psd1
+- automation/Catzc.Base.RootConfig/README.md

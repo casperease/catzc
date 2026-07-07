@@ -1,0 +1,32 @@
+generated_at: 2026-07-07T01:45:10Z
+scoped_sha256: e282b2f7b9384ad7e65a3847814b6d023b014b104696a207f896ae2ff168de9b
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Azure.DevOps/*.ps1'
+- '+ automation/Catzc.Azure.DevOps/private/**'
+- '+ automation/Catzc.Azure.DevOps/types/**'
+- '+ automation/Catzc.Azure.DevOps/configs/**'
+included:
+- automation/Catzc.Azure.DevOps/Assert-Pipelines.ps1
+- automation/Catzc.Azure.DevOps/ConvertFrom-AdoPipelineCommand.ps1
+- automation/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
+- automation/Catzc.Azure.DevOps/Get-AdoPipelineDefinitions.ps1
+- automation/Catzc.Azure.DevOps/Get-AdoYamlFiles.ps1
+- automation/Catzc.Azure.DevOps/Get-AdoYamlInventory.ps1
+- automation/Catzc.Azure.DevOps/Invoke-AdoRestMethod.ps1
+- automation/Catzc.Azure.DevOps/New-AdoPullRequest.ps1
+- automation/Catzc.Azure.DevOps/Register-AdoPipeline.ps1
+- automation/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1
+- automation/Catzc.Azure.DevOps/Test-Pipelines.ps1
+- automation/Catzc.Azure.DevOps/Write-AdoEnvironmentDiagnostic.ps1
+- automation/Catzc.Azure.DevOps/configs/ado.yml
+- automation/Catzc.Azure.DevOps/configs/pipeline-env.yml
+- automation/Catzc.Azure.DevOps/private/Assert-AdoConfig.ps1
+- automation/Catzc.Azure.DevOps/private/Get-PipelineTemplateReference.ps1
+- automation/Catzc.Azure.DevOps/private/Resolve-AdoYamlClassification.ps1
+- automation/Catzc.Azure.DevOps/types/PipelineDefinition.cs
+- automation/Catzc.Azure.DevOps/types/YamlClassification.cs
+- automation/Catzc.Azure.DevOps/types/YamlClassificationResult.cs
+- automation/Catzc.Azure.DevOps/types/YamlFileRecord.cs
+- automation/Catzc.Azure.DevOps/types/YamlInventoryRecord.cs
+- automation/Catzc.Azure.DevOps/types/YamlTemplateType.cs

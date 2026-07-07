@@ -1,0 +1,16 @@
+generated_at: 2026-07-07T01:45:11Z
+scoped_sha256: 5be585b3b872a96f87bfd248adb0a96934204d7d3d5916a33536a0f6e867a70b
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Base.Config/*.ps1'
+- '+ automation/Catzc.Base.Config/private/**'
+- '+ automation/Catzc.Base.Config/types/**'
+- '+ automation/Catzc.Base.Config/configs/**'
+included:
+- automation/Catzc.Base.Config/Get-Config.ps1
+- automation/Catzc.Base.Config/Get-ConfigValue.ps1
+- automation/Catzc.Base.Config/configs/configs.yml
+- automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
+- automation/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
+- automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+- automation/Catzc.Base.Config/types/ConfigsConfig.cs
