@@ -9,4 +9,4 @@ scan:
 - '- automation/Catzc.Azure.Templates/configs/**'
 files: 79
 scoped_sha256: b3afaa8e16ab275ad5ffaf9cb06857d3d74c9edd13ac68a952ade6cddd3a814d
-sha256: 3b380f9086b9dcaa26dc0877533c96bdec344b7bc8028c6da9af94c40622af9b
+sha256: eba22735f7d263de7b59ee222efbed93280d703afd7f081b400e8ab83b3be79d
