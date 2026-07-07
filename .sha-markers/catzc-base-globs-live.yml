@@ -6,6 +6,6 @@ scan:
 - '+ automation/Catzc.Base.Globs/private/**'
 - '+ automation/Catzc.Base.Globs/types/**'
 - '+ automation/Catzc.Base.Globs/configs/**'
-files: 22
-scoped_sha256: b5b6e8f5bb6a97156f9ab090cc9a8f039956ea48228db074dc3e6579cbff8bb1
-sha256: 956d6bb8eab475425aea5f7bfb2da02c7f6dbc22bd5acf148f7cc7650b1384f6
+files: 21
+scoped_sha256: b91e95cec339ebbb5a61cf17c5e8e7822cae1d4e4d6d6b8b8f8b2d4c7aebc2be
+sha256: 206b24b62396249141eb6db45b07bb322a87fd6f8332e140fdf4e37f4d9ff30b
