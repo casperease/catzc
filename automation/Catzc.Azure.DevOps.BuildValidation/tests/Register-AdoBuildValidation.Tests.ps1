@@ -38,7 +38,7 @@ Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {
         } -ModuleName Catzc.Azure.DevOps.BuildValidation
     }
 
-    It 'creates a policy path-filtered on the globset marker, queueing the resolved pipeline' {
+    It 'creates a policy path-filtered on the globset native projection, queueing the resolved pipeline' {
         $ret = Register-AdoBuildValidation unit-x -RepositoryName catzc
 
         $ret.id | Should -Be 99
@@ -46,7 +46,7 @@ Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {
             $Method -eq 'Post' -and
             $Uri -like '*policy/configurations?api-version*' -and
             $Body.settings.buildDefinitionId -eq 42 -and
-            @($Body.settings.filenamePatterns) -contains '/.sha-markers/unit-x.yml' -and
+            @($Body.settings.filenamePatterns) -contains '/src/**' -and
             $Body.settings.scope[0].refName -eq 'refs/heads/main' -and
             $Body.isBlocking -eq $true
         }
@@ -68,7 +68,7 @@ Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'updates in place when the existing policy differs (a marker-path change never duplicates)' {
+    It 'updates in place when the existing policy differs (a path-filter change never duplicates)' {
         $script:existingPolicies = @([pscustomobject]@{
                 id         = 7
                 isEnabled  = $true
@@ -77,7 +77,7 @@ Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {
                 settings   = [pscustomobject]@{
                     buildDefinitionId = 42
                     displayName       = 'Build validation - unit-x'
-                    filenamePatterns  = @('/.sha-markers/unit-x.sha256')   # the old marker path
+                    filenamePatterns  = @('/old/**')   # a stale path filter
                     scope             = @([pscustomobject]@{ repositoryId = 'repo-guid'; refName = 'refs/heads/main' })
                 }
             })
@@ -87,7 +87,7 @@ Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {
         Should -Invoke Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps.BuildValidation -ParameterFilter {
             $Method -eq 'Put' -and
             $Uri -like '*policy/configurations/7?api-version*' -and
-            @($Body.settings.filenamePatterns) -contains '/.sha-markers/unit-x.yml'
+            @($Body.settings.filenamePatterns) -contains '/src/**'
         }
     }
 
@@ -100,7 +100,7 @@ Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {
                 settings   = [pscustomobject]@{
                     buildDefinitionId = 42
                     displayName       = 'Build validation - unit-x'
-                    filenamePatterns  = @('/.sha-markers/unit-x.yml')
+                    filenamePatterns  = @('/src/**')
                     scope             = @([pscustomobject]@{ repositoryId = 'repo-guid'; refName = 'refs/heads/main' })
                 }
             })
@@ -120,7 +120,7 @@ Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {
         $plan.GlobSet | Should -Be 'unit-x'
         $plan.Pipeline | Should -Be 'ci-unit-x'
         $plan.Branch | Should -Be 'main'
-        $plan.PathFilter | Should -Be '/.sha-markers/unit-x.yml'
+        $plan.PathFilter | Should -Be '/src/**'
         Should -Invoke Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps.BuildValidation -Times 0 -ParameterFilter {
             $Method -in 'Post', 'Put', 'Delete'
         }

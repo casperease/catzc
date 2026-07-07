@@ -108,6 +108,10 @@ terms:
       meaning: "build provenance — verifiable evidence of how an artifact was produced (supply-chain integrity)"
     - term: auditability
       meaning: "auditability — the property of a system whose changes can be independently audited"
+    - term: mappability
+      meaning:
+        "mappability — the property that a globset always has a computable durable-SHA identity, independent of whether it persists a
+        committed marker (ADR-GLOBS, ADR-PROTGLOB)"
     - term: attestation
       meaning: "a signed attestation — a verifiable claim about how an artifact was built (SLSA)"
     - term: reproducibility
@@ -424,6 +428,8 @@ terms:
       meaning: "derived short_name of the 'survey' example template (documentation-examples ADR)"
     - term: systemet
       meaning: "author's docs/notes topic-folder name 'systemet' cited in the conventional-folders ADR"
+    - term: widgetlib
+      meaning: "placeholder pip/library package name 'widgetlib' (for command 'widget') in tool-install tests (Remove-*ToolInstall, Install-PipTool)"
     - term: wksp
       meaning: "resource-name shortcode for 'workspace' (wksp) in test assets"
   azure-live:
@@ -738,6 +744,10 @@ terms:
       meaning: "Astral (astral.sh), maker of uv"
     - term: nvm
       meaning: "nvm (Node Version Manager)"
+    - term: nodesource
+      meaning: "NodeSource — the apt repository (deb.nodesource.com) for pinned Node.js majors (Install-NodeJs)"
+    - term: nodistro
+      meaning: "the 'nodistro' distribution/suite token in the NodeSource apt source line"
     - term: cpython
       meaning: "CPython (the reference Python implementation; uv installs cpython builds)"
     - term: yaml
@@ -751,6 +761,8 @@ terms:
       meaning: "the Consolas monospace font (the VS Code markdown-preview font in vscode-settings.yml)"
     - term: pwd
       meaning: "the $PWD present-working-directory automatic variable (e.g. Measure-NeverDependOnPwd)"
+    - term: readlink
+      meaning: "POSIX readlink — resolves a symlink to its target (used in Remove-MacToolInstall)"
     - term: stderr
       meaning: "the standard error stream (stderr)"
     - term: guid
@@ -931,6 +943,8 @@ terms:
       meaning: "coined verb 'textified'"
     - term: unparseable
       meaning: "coined adjective 'unparseable'"
+    - term: ungated
+      meaning: "coined adjective 'ungated' — an artifact not covered by a quality gate (e.g. the gitignored sha-marker companion files)"
   person:
     - term: bown
       meaning: "Richard Bown (surname of a cited author)"

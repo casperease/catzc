@@ -14,7 +14,7 @@ Describe 'Get-AdoBuildValidations' -Tag 'L0', 'logic' {
             settings   = [pscustomobject]@{
                 buildDefinitionId = 42
                 displayName       = 'Build validation - unit-x'
-                filenamePatterns  = @('/.sha-markers/unit-x.yml')
+                filenamePatterns  = @('/src/**')
                 scope             = @([pscustomobject]@{ repositoryId = 'repo-guid'; refName = 'refs/heads/main'; matchKind = 'Exact' })
             }
         }
@@ -26,7 +26,7 @@ Describe 'Get-AdoBuildValidations' -Tag 'L0', 'logic' {
             settings   = [pscustomobject]@{
                 buildDefinitionId = 43
                 displayName       = 'Build validation - release'
-                filenamePatterns  = @('/.sha-markers/unit-y.yml')
+                filenamePatterns  = @('/other/**')
                 scope             = @([pscustomobject]@{ repositoryId = 'repo-guid'; refName = 'refs/heads/release'; matchKind = 'Exact' })
             }
         }
@@ -58,7 +58,7 @@ Describe 'Get-AdoBuildValidations' -Tag 'L0', 'logic' {
         $row.DisplayName | Should -Be 'Build validation - unit-x'
         $row.PipelineDefinitionId | Should -Be 42
         $row.Branch | Should -Be 'main'
-        $row.PathFilters | Should -Be @('/.sha-markers/unit-x.yml')
+        $row.PathFilters | Should -Be @('/src/**')
         $row.Blocking | Should -BeTrue
         $row.Enabled | Should -BeTrue
         $row.Raw.id | Should -Be 7

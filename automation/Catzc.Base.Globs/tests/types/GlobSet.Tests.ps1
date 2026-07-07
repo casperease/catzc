@@ -1,4 +1,4 @@
-# cspell:ignore ndescription nlayer nscan  -- the escape-sequence artifacts in the "…`nlayer:…" fixture strings
+# cspell:ignore ndescription nlayer nscan nscoped nsha  -- the escape-sequence artifacts in the "…`nlayer:…" fixture strings
 # The globset record: membership is decided by the scan program — an ordered +/- rule list, last-match-wins
 # (ADR-GLOBS:4), flattened through compose with own-rules-last (ADR-GLOBS:8); the marker path derives from the
 # name (ADR-GLOBS:1); and the constructor gates the shape (kebab-case name, required description, a declared

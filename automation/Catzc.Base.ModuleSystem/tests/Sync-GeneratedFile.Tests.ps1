@@ -2,7 +2,6 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.ModuleSystem
         Mock Get-GitCurrentBranch { 'feature/sync' } -ModuleName Catzc.Base.ModuleSystem
-        Mock Update-ShaMarker { } -ModuleName Catzc.Base.ModuleSystem
         Mock Test-GitPathChanged { $true } -ModuleName Catzc.Base.ModuleSystem
         Mock Invoke-GitCommit { 'abc1234567890abcdef1234567890abcdef12345' } -ModuleName Catzc.Base.ModuleSystem
         Mock Write-Message { } -ModuleName Catzc.Base.ModuleSystem
@@ -10,18 +9,16 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Mock Test-GitWorkspace { $false } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $MainViaPr }
     }
 
-    It 'skips in a pipeline before syncing anything' {
+    It 'skips in a pipeline before committing anything' {
         Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Base.ModuleSystem
         Sync-GeneratedFile | Should -BeNullOrEmpty
-        Should -Invoke Update-ShaMarker -ModuleName Catzc.Base.ModuleSystem -Times 0
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter { $Message -like '*pipeline*' }
     }
 
-    It 'skips on a detached HEAD with a message and no sync' {
+    It 'skips on a detached HEAD with a message and no commit' {
         Mock Get-GitCurrentBranch { 'HEAD' } -ModuleName Catzc.Base.ModuleSystem
         Sync-GeneratedFile | Should -BeNullOrEmpty
-        Should -Invoke Update-ShaMarker -ModuleName Catzc.Base.ModuleSystem -Times 0
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
     }
 
@@ -35,7 +32,6 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Mock Get-GitCurrentBranch { $_ } -ModuleName Catzc.Base.ModuleSystem
         Mock Test-GitWorkspace { $true } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $MainViaPr }
         Sync-GeneratedFile | Should -BeNullOrEmpty
-        Should -Invoke Update-ShaMarker -ModuleName Catzc.Base.ModuleSystem -Times 0
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter { $Message -like '*main-via-pr*' }
     }
@@ -46,44 +42,23 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
     }
 
-    It 'syncs, commits both generated paths, and reports the branch when both changed' {
+    It 'commits the compiled types and reports the branch when they changed' {
         $result = Sync-GeneratedFile
         $result | Should -Be 'abc1234567890abcdef1234567890abcdef12345'
-        Should -Invoke Update-ShaMarker -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
-        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
-            ($Path -join ',') -eq '.sha-markers,automation/.compiled' -and $Message -eq 'chore(repo): sync sha-marker files and compiled types'
-        }
-        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter {
-            $Message -eq 'Synced sha-marker files and compiled types to feature/sync'
-        }
-    }
-
-    It 'stages and names only the marker files when the compiled types are clean' {
-        Mock Test-GitPathChanged { $Path -contains '.sha-markers' } -ModuleName Catzc.Base.ModuleSystem
-        Sync-GeneratedFile | Should -Not -BeNullOrEmpty
-        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
-            ($Path -join ',') -eq '.sha-markers' -and $Message -eq 'chore(repo): sync sha-marker files'
-        }
-        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter {
-            $Message -eq 'Synced sha-marker files to feature/sync'
-        }
-    }
-
-    It 'stages and names only the compiled types when the markers are clean' {
-        Mock Test-GitPathChanged { $Path -contains 'automation/.compiled' } -ModuleName Catzc.Base.ModuleSystem
-        Sync-GeneratedFile | Should -Not -BeNullOrEmpty
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
             ($Path -join ',') -eq 'automation/.compiled' -and $Message -eq 'chore(repo): sync compiled types'
         }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter {
+            $Message -eq 'Synced compiled types to feature/sync'
+        }
     }
 
-    It 'commits the generated paths even while other tracked or staged work is in flight' {
+    It 'commits the generated path even while other tracked or staged work is in flight' {
         # The commit is pathspec-limited inside Invoke-GitCommit, so a dirty (or staged) tree never holds
         # the stamp commit back and never leaks into it.
         Sync-GeneratedFile | Should -Not -BeNullOrEmpty
-        Should -Invoke Update-ShaMarker -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
-            ($Path -join ',') -eq '.sha-markers,automation/.compiled'
+            ($Path -join ',') -eq 'automation/.compiled'
         }
     }
 
@@ -91,13 +66,12 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Mock Test-GitPathChanged { $false } -ModuleName Catzc.Base.ModuleSystem
 
         Sync-GeneratedFile | Should -BeNullOrEmpty
-        Should -Invoke Update-ShaMarker -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0
     }
 
     It 'propagates -DryRun to Invoke-GitCommit and suppresses the synced message' {
-        Mock Invoke-GitCommit { 'git add -A -- ".sha-markers" "automation/.compiled"', 'git commit ...' } -ModuleName Catzc.Base.ModuleSystem
+        Mock Invoke-GitCommit { 'git add -A -- "automation/.compiled"', 'git commit ...' } -ModuleName Catzc.Base.ModuleSystem
 
         $planned = Sync-GeneratedFile -DryRun
         $planned.Count | Should -Be 2

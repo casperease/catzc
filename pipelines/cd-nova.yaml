@@ -9,17 +9,31 @@
 # Reference shape: 'sc-nova-nonprod' is illustrative until real service connections + a non-placeholder
 # azure.yml exist.
 
+# Trigger = the 'nova' globset projected into ADO-native path filters (Get-GlobSetTrigger, ADR-GLOBS):
+# shared foundation + modules, plus nova's own configuration subfolder, minus the other deployments' config.
 trigger:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/nova.yml]
+    include:
+      - infrastructure/templates/foundation/**
+      - infrastructure/modules/**
+      - infrastructure/templates/foundation/configuration/nova/**
+    exclude:
+      - infrastructure/templates/foundation/configuration/*.yml
+      - infrastructure/templates/foundation/configuration/*/**
 
 pr:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/nova.yml]
+    include:
+      - infrastructure/templates/foundation/**
+      - infrastructure/modules/**
+      - infrastructure/templates/foundation/configuration/nova/**
+    exclude:
+      - infrastructure/templates/foundation/configuration/*.yml
+      - infrastructure/templates/foundation/configuration/*/**
 
 extends:
   template: /pipelines/extends/cd-customer.yaml

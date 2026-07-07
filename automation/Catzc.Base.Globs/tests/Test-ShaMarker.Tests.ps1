@@ -1,6 +1,8 @@
 # cspell:ignore nlayer nsha  -- the escape-sequence artifacts in the "…`nlayer:…`nsha256:…" fixture strings
-# The freshness query: Fresh/Stale/Missing per globset marker — one full-information YAML per set
-# (ADR-GLOBS:9), declared AND derived (ADR-PROTGLOB:7) — plus Orphaned files; clean exactly when all Fresh.
+# The freshness query: Fresh/Stale/Missing per PERSISTED globset marker — one full-information YAML per set
+# (ADR-GLOBS:9). Persistence is opt-out for declared sets and opt-in for derived ones (ADR-PROTGLOB:7): a
+# non-persisted set carries no marker, so a leftover file is Unexpected and an absent one is no row at all.
+# Plus Orphaned files (no globset owns them); clean exactly when every row is Fresh.
 Describe 'Test-ShaMarker' -Tag 'L1', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
@@ -70,27 +72,55 @@ Describe 'Test-ShaMarker' -Tag 'L1', 'logic' {
         ($result | Where-Object Status -EQ 'Orphaned').Name | Should -Be 'dead-unit'
     }
 
-    It 'covers every globset — declared and derived — on a full run and never throws' {
+    It 'covers declared sets on a full run and omits a non-persisted derived set with no marker' {
         [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'unit-a.yml'), $script:config.Get('unit-a').MarkerContent($script:count, $script:scopedA, $script:hashA))
         $result = @(Test-ShaMarker)
-        $result.Count | Should -Be 3
         ($result | Where-Object Name -EQ 'unit-a').Status | Should -Be 'Fresh'
         ($result | Where-Object Name -EQ 'unit-b').Status | Should -Be 'Missing'
-        ($result | Where-Object Name -EQ 'mod-x').Status | Should -Be 'Missing'
+        # mod-x is derived and not opted in -> not persisted -> no marker on disc -> no row at all.
+        ($result | Where-Object Name -EQ 'mod-x') | Should -BeNullOrEmpty
+        $result.Count | Should -Be 2
     }
 
-    It 'resolves a derived set by name and never reports its marker as orphaned' {
+    It 'reports a non-persisted derived set''s leftover marker as Unexpected (never Orphaned)' {
         [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'mod-x.yml'), $script:derivedSet.MarkerContent($script:count, $script:scopedA, $script:hashA))
         $result = @(Test-ShaMarker -Name mod-x)
-        ($result | Where-Object Name -EQ 'mod-x').Status | Should -Be 'Fresh'
+        ($result | Where-Object Name -EQ 'mod-x').Status | Should -Be 'Unexpected'
         ($result | Where-Object Status -EQ 'Orphaned') | Should -BeNullOrEmpty
     }
 
-    It 'is clean exactly when everything is Fresh' {
+    It 'persists a derived set opted in via persist_modules (Missing when absent, Fresh when present)' {
+        $optedIn = [Catzc.Base.Globs.GlobsConfig]::new(@{
+                globsets        = [ordered]@{
+                    'unit-a' = @{ description = 'd'; layer = 'deployable-unit'; include = @('src/**') }
+                }
+                persist_modules = @('mod-x')
+            })
+        Mock Get-Config { $optedIn } -ModuleName Catzc.Base.Globs
+        (Test-ShaMarker -Name mod-x).Status | Should -Be 'Missing'
+        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'mod-x.yml'), $script:derivedSet.MarkerContent($script:count, $script:scopedA, $script:hashA))
+        (Test-ShaMarker -Name mod-x).Status | Should -Be 'Fresh'
+    }
+
+    It 'treats a declared set with persist:false as not persisted — no row when absent, Unexpected when present' {
+        $optedOut = [Catzc.Base.Globs.GlobsConfig]::new(@{
+                globsets = [ordered]@{
+                    'unit-a' = @{ description = 'd'; layer = 'deployable-unit'; include = @('src/**'); persist = $false }
+                }
+            })
+        Mock Get-Config { $optedOut } -ModuleName Catzc.Base.Globs
+        Test-ShaMarker -Name unit-a | Should -BeNullOrEmpty
+        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'unit-a.yml'), "name: unit-a`n")
+        (Test-ShaMarker -Name unit-a).Status | Should -Be 'Unexpected'
+    }
+
+    It 'is clean exactly when every persisted marker is Fresh and no leftover is present' {
         foreach ($setName in 'unit-a', 'unit-b') {
             [System.IO.File]::WriteAllText((Join-Path $script:markersDir "$setName.yml"), $script:config.Get($setName).MarkerContent($script:count, $script:scopedA, $script:hashA))
         }
-        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'mod-x.yml'), $script:derivedSet.MarkerContent($script:count, $script:scopedA, $script:hashA))
         @(Test-ShaMarker | Where-Object Status -NE 'Fresh').Count | Should -Be 0
+        # a leftover marker for the non-persisted derived set makes the tree unclean (Unexpected).
+        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'mod-x.yml'), $script:derivedSet.MarkerContent($script:count, $script:scopedA, $script:hashA))
+        @(Test-ShaMarker | Where-Object Status -NE 'Fresh').Count | Should -Be 1
     }
 }

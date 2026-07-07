@@ -12,19 +12,20 @@
 # The CI engine runs in two trigger contexts on the same code:
 #   - pre-commit  : as an ADO build validation on PRs to main (the gate)
 #   - post-commit : the same build + verify on the merged commit
-# Both are registered on the 'infrastructure' unit's trigger file, never on source paths (ADR-GLOBS#1).
+# Trigger = the 'infrastructure' globset projected into ADO-native path filters (Get-GlobSetTrigger,
+# ADR-GLOBS): the track is its own root folder (infrastructure/**), so this starts only on a real change.
 
 trigger:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/infrastructure.yml]
+    include: [infrastructure/**]
 
 pr:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/infrastructure.yml]
+    include: [infrastructure/**]
 
 jobs:
   - job: CI

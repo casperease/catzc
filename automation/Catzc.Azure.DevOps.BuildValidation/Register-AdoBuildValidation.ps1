@@ -2,7 +2,7 @@
 .SYNOPSIS
     Registers (creates or updates) the build-validation branch policy tied to a globset. Idempotent.
 .DESCRIPTION
-    Binds the globset's sha-marker file (.sha-markers/<name>.yml, ADR-GLOBS:9) as the path filter of an
+    Binds the globset's native path projection (Get-GlobSetTrigger, ADR-GLOBS) as the path filter of an
     ADO build-validation policy that queues the resolved pipeline on the guarded branch — the server-side
     pre-commit half of the unit's CI binding (ADR-PIPETYPE:4). Everything defaults from local config: the
     pipeline resolves -Pipeline, then the globset's build-validation.yml entry, then the globset's own
@@ -92,7 +92,10 @@ function Register-AdoBuildValidation {
     $definition = $definitions | Where-Object { $_.Name -eq $Pipeline } | Select-Object -First 1
     Assert-NotNull $definition -ErrorText "Pipeline '$Pipeline' is not registered in $($context.Organization)/$($context.Project). Run Register-AdoPipeline first."
 
-    $pathFilter = "/$($set.MarkerPath)"
+    # The server-side pre-commit trigger filters on the globset's native path projection
+    # (Get-BuildValidationPathFilter -> Get-GlobSetTrigger, ADR-GLOBS) — the same globs the pipeline
+    # triggers on — never a committed marker.
+    $pathFilters = Get-BuildValidationPathFilter -GlobSet $set
     $desired = @{
         isEnabled  = $true
         isBlocking = $blocking
@@ -103,7 +106,7 @@ function Register-AdoBuildValidation {
             queueOnSourceUpdateOnly = $true
             manualQueueOnly         = $false
             validDuration           = 720
-            filenamePatterns        = @($pathFilter)
+            filenamePatterns        = $pathFilters
             scope                   = @(
                 @{ repositoryId = $context.RepositoryId; refName = "refs/heads/$Branch"; matchKind = 'Exact' }
             )
@@ -116,7 +119,7 @@ function Register-AdoBuildValidation {
     $action = if (-not $existing) {
         'Create'
     }
-    elseif ((@($existing.PathFilters) -join ',') -ne $pathFilter -or
+    elseif ((@($existing.PathFilters) -join ',') -ne ($pathFilters -join ',') -or
         $existing.Blocking -ne $blocking -or
         $existing.DisplayName -ne $displayName -or
         -not $existing.Enabled) {
@@ -138,7 +141,7 @@ function Register-AdoBuildValidation {
             Action     = $action
             Pipeline   = $Pipeline
             Branch     = $Branch
-            PathFilter = $pathFilter
+            PathFilter = $pathFilters
             Blocking   = $blocking
             PolicyId   = $policyId
         }

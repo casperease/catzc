@@ -1,20 +1,20 @@
 # CI pipeline — unit tests, framework integration tests, and Azure auth tests.
 #
-# Registered on the automation track's trigger file, never on source paths (ADR-GLOBS#1): the
-# 'automation' globset is the track's own root folder (automation/**, ADR-TRACK#1), so this fires
-# exactly when the module system changes.
+# Trigger = the 'automation' globset projected into ADO-native path filters (Get-GlobSetTrigger, ADR-GLOBS):
+# the track is its own root folder (automation/**, ADR-TRACK#1), so this fires exactly — and only starts at
+# all — when the module system changes. No committed marker to go stale across a squash or concurrent merge.
 
 trigger:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/automation.yml]
+    include: [automation/**]
 
 pr:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/automation.yml]
+    include: [automation/**]
 
 # ---------------------------------------------------------------------------
 # Job 1: Unit tests (Pester)

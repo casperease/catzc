@@ -1,4 +1,4 @@
-# Removal by the globset tie (the marker-file path filter): deletes the matched policy, no-ops when
+# Removal by the globset tie (the native path-filter projection): deletes the matched policy, no-ops when
 # absent (ADR-IDEM:2), and -DryRun returns the plan (ADR-DRYRUN).
 Describe 'Unregister-AdoBuildValidation' -Tag 'L0', 'logic' {
     BeforeEach {
@@ -12,7 +12,7 @@ Describe 'Unregister-AdoBuildValidation' -Tag 'L0', 'logic' {
                 settings   = [pscustomobject]@{
                     buildDefinitionId = 42
                     displayName       = 'Build validation - unit-x'
-                    filenamePatterns  = @('/.sha-markers/unit-x.yml')
+                    filenamePatterns  = @('/src/**')
                     scope             = @([pscustomobject]@{ repositoryId = 'repo-guid'; refName = 'refs/heads/main' })
                 }
             })
@@ -42,7 +42,7 @@ Describe 'Unregister-AdoBuildValidation' -Tag 'L0', 'logic' {
         } -ModuleName Catzc.Azure.DevOps.BuildValidation
     }
 
-    It 'deletes the policy whose path filter is the globset marker' {
+    It 'deletes the policy whose path filter is the globset native projection' {
         Unregister-AdoBuildValidation unit-x -RepositoryName catzc
 
         Should -Invoke Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps.BuildValidation -ParameterFilter {

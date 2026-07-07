@@ -1,6 +1,7 @@
-# The trigger-file writer: one full-information YAML marker per globset — the definition representation
-# plus its sha256 line, LF, no BOM (ADR-GLOBS:5/6/9); idempotent; declared AND derived sets
-# (ADR-PROTGLOB:7); orphans removed.
+# The trigger-file writer: one full-information YAML marker per PERSISTED globset — the definition
+# representation plus its sha256 line, LF, no BOM (ADR-GLOBS:5/6/9); idempotent. Persistence is opt-out for
+# declared sets and opt-in for derived ones (ADR-PROTGLOB:7): a non-persisted set writes no marker and any
+# stale one is removed. Orphans (no owning globset) removed.
 Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
@@ -91,7 +92,28 @@ Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
             Should -Match ([regex]::Escape("- '+ extra/**'"))
     }
 
-    It 'writes a marker for a derived set on a full run' {
+    It 'does not persist a non-persisted derived set, and removes a stale one on a full run' {
+        $report = Update-ShaMarker -PassThru
+        # mod-x is derived and not opted in -> no marker written, nothing to remove -> no row.
+        ($report | Where-Object Name -EQ 'mod-x') | Should -BeNullOrEmpty
+        Test-Path (Join-Path $script:markersDir 'mod-x.yml') | Should -BeFalse
+
+        # a pre-existing marker for the now-non-persisted set is dead state -> removed on the next run.
+        Set-Content (Join-Path $script:markersDir 'mod-x.yml') 'name: mod-x'
+        $report2 = Update-ShaMarker -PassThru
+        ($report2 | Where-Object Name -EQ 'mod-x').Status | Should -Be 'Removed'
+        Test-Path (Join-Path $script:markersDir 'mod-x.yml') | Should -BeFalse
+    }
+
+    It 'persists a derived set opted in via persist_modules' {
+        $optedIn = [Catzc.Base.Globs.GlobsConfig]::new(@{
+                globsets        = [ordered]@{
+                    'unit-a' = @{ description = 'd'; layer = 'deployable-unit'; include = @('src/**') }
+                }
+                persist_modules = @('mod-x')
+            })
+        Mock Get-Config { $optedIn } -ModuleName Catzc.Base.Globs
+
         $report = Update-ShaMarker -PassThru
 
         ($report | Where-Object Name -EQ 'mod-x').Status | Should -Be 'Written'

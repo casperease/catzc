@@ -18,17 +18,34 @@
 # Reference only: deploying requires real Azure service connections and a non-placeholder azure.yml (the
 # shipped one has placeholder subscription GUIDs). The 'sc-shared-*' names are illustrative.
 
+# Trigger = the 'shared' globset projected into ADO-native path filters (Get-GlobSetTrigger, ADR-GLOBS):
+# shared foundation + modules, plus the configuration-ROOT ymls, minus the customer subfolders. NOTE: on
+# ADO's order-independent filter, configuration/*.yml (include) and configuration/*/** (exclude) sit at the
+# SAME folder depth, so ADO may drop a root yml (it is not a deeper-folder re-add). The in-pipeline
+# Test-GlobSetAffected gate is the exact backstop; the definitive fix is to move the shared platform config
+# into its own configuration/_shared/ subfolder (folder=key, like every customer) — deferred (touches the
+# Azure data model). GitHub's ordered '!' negation projects this set exactly.
 trigger:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/shared.yml]
+    include:
+      - infrastructure/templates/foundation/**
+      - infrastructure/modules/**
+      - infrastructure/templates/foundation/configuration/*.yml
+    exclude:
+      - infrastructure/templates/foundation/configuration/*/**
 
 pr:
   branches:
     include: [main]
   paths:
-    include: [.sha-markers/shared.yml]
+    include:
+      - infrastructure/templates/foundation/**
+      - infrastructure/modules/**
+      - infrastructure/templates/foundation/configuration/*.yml
+    exclude:
+      - infrastructure/templates/foundation/configuration/*/**
 
 stages:
   # --- CI engine: build + verify, then publish the immutable artifacts ----------------------------

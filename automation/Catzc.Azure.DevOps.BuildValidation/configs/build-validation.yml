@@ -1,6 +1,6 @@
 # Build-validation branch policies tied to globsets — the server-side pre-commit half of a unit's CI
-# binding (ADR-PIPETYPE:4): each entry binds one DECLARED globset's sha-marker file
-# (.sha-markers/<name>.yml, ADR-GLOBS:9) as the policy's path filter and runs the entry's pipeline as an
+# binding (ADR-PIPETYPE:4): each entry binds one DECLARED globset's native path projection
+# (Get-GlobSetTrigger, ADR-GLOBS) as the policy's path filter and runs the entry's pipeline as an
 # ADO build validation on `branch`. Entries are a list (globset names are kebab-case, and snake_case key
 # validation forbids hyphenated map keys). Per entry: `globset` (required, a declared globset name),
 # `pipeline` (defaults to the globset's own `pipeline:` annotation in globs.yml), `blocking` (defaults to

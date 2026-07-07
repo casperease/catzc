@@ -2,9 +2,9 @@
 .SYNOPSIS
     Removes the build-validation branch policy tied to a globset. Idempotent — a no-op when none exists.
 .DESCRIPTION
-    Finds the build-validation policy whose path filter is the globset's sha-marker file
-    (.sha-markers/<name>.yml — the tie between policy and globset, ADR-GLOBS:9) on the guarded branch and
-    deletes it. When no such policy exists the function reports and returns without error (ADR-IDEM:2).
+    Finds the build-validation policy whose path filter is the globset's native projection
+    (Get-GlobSetTrigger, ADR-GLOBS — the tie between policy and globset) on the guarded branch and deletes
+    it. When no such policy exists the function reports and returns without error (ADR-IDEM:2).
 .PARAMETER GlobSet
     The declared globset whose policy to remove (a name in globs.yml).
 .PARAMETER Branch
@@ -51,9 +51,10 @@ function Unregister-AdoBuildValidation {
 
     $context = Resolve-AdoBuildValidationContext -Project $Project -Organization $Organization -RepositoryName $RepositoryName
 
-    $pathFilter = "/$($set.MarkerPath)"
+    $pathFilters = Get-BuildValidationPathFilter -GlobSet $set
+    $expected = ($pathFilters -join ',')
     $validations = @(Get-AdoBuildValidations -Branch $Branch -Project $context.Project -Organization $context.Organization -RepositoryName $context.RepositoryName)
-    $found = $validations | Where-Object { @($_.PathFilters) -contains $pathFilter } | Select-Object -First 1
+    $found = $validations | Where-Object { (@($_.PathFilters) -join ',') -eq $expected } | Select-Object -First 1
 
     if (-not $found) {
         Write-Message "No build validation tied to globset '$GlobSet' on $Branch - nothing to remove"

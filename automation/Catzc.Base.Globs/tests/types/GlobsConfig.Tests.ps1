@@ -139,6 +139,38 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
         }
     }
 
+    Context 'persistence policy (ADR-GLOBS, ADR-PROTGLOB:7)' {
+        It 'persists a declared set by default and does not persist an unknown (derived) name' {
+            $c = & $script:make @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**') } }
+            $c.ShouldPersist('widget') | Should -BeTrue
+            $c.ShouldPersist('some-module-live') | Should -BeFalse   # derived: not declared, not opted in
+            $c.PersistModules.Count | Should -Be 0
+        }
+
+        It 'opts a declared set OUT with persist: false' {
+            $c = & $script:make @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**'); persist = $false } }
+            $c.ShouldPersist('widget') | Should -BeFalse
+        }
+
+        It 'opts a derived set IN via top-level persist_modules and exposes the list' {
+            $c = [Catzc.Base.Globs.GlobsConfig]::new(@{
+                    globsets        = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**') } }
+                    persist_modules = @('some-module-live')
+                })
+            $c.ShouldPersist('some-module-live') | Should -BeTrue
+            $c.PersistModules | Should -Be @('some-module-live')
+        }
+
+        It 'rejects <why>' -ForEach @(
+            @{ why = 'persist: false on a pipeline-bound set'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'deployable-unit'; include = @('a/**'); pipeline = 'cd-u'; persist = $false } } }) } }
+            @{ why = 'a non-boolean persist value'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'loose-fileset'; include = @('a/**'); persist = 'sometimes' } } }) } }
+            @{ why = 'persist_modules naming a declared set'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'loose-fileset'; include = @('a/**') } }; persist_modules = @('u') }) } }
+            @{ why = 'a duplicate persist_modules entry'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'loose-fileset'; include = @('a/**') } }; persist_modules = @('mod-x', 'mod-x') }) } }
+        ) {
+            $block | Should -Throw
+        }
+    }
+
     Context 'self-exclusion (ADR-GLOBS:6)' {
         It 'rejects a set matching its own marker file' {
             { & $script:make @{ unit = @{ description = 'd'; layer = 'loose-fileset'; include = @('.sha-markers/unit.yml') } } } |
