@@ -7,4 +7,4 @@ scan:
 - '- docs/notes/**'
 - '- automation/.vendor/**'
 scoped_sha256: fcfdddd4e4c57bdc231e4c7d9ddb90598c07774dcb400796c515c88b68a8c7c2
-sha256: 05e0ebb96bc8de455e0adb4cc45ed204efed8df7c3330530232c860436c55d82
+sha256: 6f9ecc975599f553a78abcfbc59648f1ff0d66185d35f4ee0b4e14ed82a27610
