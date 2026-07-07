@@ -9,4 +9,4 @@ scan:
 - '- automation/Catzc.Base.QualityGates/configs/**'
 files: 62
 scoped_sha256: fb69c941c92560e7f0322c2e60227b0a72a9aaafcda3d051410397b1e5a8cf20
-sha256: f200ba4dacb244ce3eef96ce05c6732f86a7e34a76bfe7a154388e595d98fec2
+sha256: fcfe806931b43a894c64c9535e8930c4ff0589d36a8c40b2462d248918c9de71

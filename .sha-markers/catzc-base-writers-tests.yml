@@ -9,4 +9,4 @@ scan:
 - '- automation/Catzc.Base.Writers/configs/**'
 files: 11
 scoped_sha256: 262605aa1585b70a9d9ca5edc9c926b8fbcc182d6d4b1792be750d9b893cb1ff
-sha256: cb260f598fa7c942d7b6ec8997566ab9e25c866fe5fc93458ff340a79c017591
+sha256: ac0c177244bf5f5fb0e01192588ffa181c584112c0f5889d0857dd5ae8480df2

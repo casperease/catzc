@@ -43,7 +43,8 @@ function Get-ModuleGlobSet {
     )
 
     $automationRoot = [System.IO.Path]::Combine((Get-RepositoryRoot), 'automation')
-    $declaredNames = (Get-Config -Config globs).Names
+    $config = Get-Config -Config globs
+    $declaredNames = $config.Names
 
     # name -> GlobSet, both the kebab name and (for modules) the folder name as lookup keys
     $derived = [ordered]@{}
@@ -139,6 +140,22 @@ function Get-ModuleGlobSet {
     $derived['module-leftovers'] = [Catzc.Base.Globs.GlobSet]::new(
         'module-leftovers', 'Derived module-space catch-all - automation/ files no module owns', 'module',
         @('automation/**'), $leftoverExcludes, @(), @(), -1, $null)
+
+    # persist_modules (ADR-PROTGLOB:7) opts derived sets IN to marker persistence. Declared names are
+    # rejected at config load; here we reject any entry that resolves to no derived set, naming it — the
+    # derived name space is only known here (the filesystem), so this is where the opt-in list is validated.
+    $persistModules = @($config.PersistModules)
+    if ($persistModules.Count) {
+        $derivedNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+        foreach ($derivedSet in $derived.Values) {
+            [void]$derivedNames.Add($derivedSet.Name)
+        }
+        foreach ($optIn in $persistModules) {
+            if (-not $derivedNames.Contains($optIn)) {
+                throw "persist_modules names '$optIn', which is not a derived module globset — expected a module aspect ('<module>-live'/'<module>-tests'), an internal module, a reserved umbrella, or 'module-leftovers' (globs.yml, ADR-PROTGLOB:7)."
+            }
+        }
+    }
 
     if (-not $PSBoundParameters.ContainsKey('Name')) {
         # every set once — module sets are keyed twice (kebab + folder), so de-duplicate by reference

@@ -18,6 +18,18 @@
 # Dialect: '/'-separated, repo-relative; '**' is the only cross-segment operator (zero or more whole
 # segments); within a segment, PowerShell wildcards ('*', '?', '[a-z]'), case-sensitive. Membership is
 # include minus exclude, evaluated against `git ls-files`. No set may have a marker file as a member.
+#
+# Persistence (ADR-GLOBS, ADR-PROTGLOB:7) is a separate axis from mappability: EVERY set is always mappable
+# (its durable-SHA identity is computed live for protection, blast-radius, and independence), but a committed
+# .sha-markers/<name>.yml is written only for PERSISTED sets. The defaults are asymmetric: a DECLARED set
+# (the entries below) persists by default — add 'persist: false' to an entry to opt it out (forbidden on a
+# pipeline-bound set: its marker IS the trigger). A DERIVED module set (the per-folder aspect sets, internal
+# .psm1 sets, reserved umbrellas, module-leftovers — never declared here) does NOT persist by default; list
+# its derived marker name under the top-level 'persist_modules:' to opt it in. State only the non-default.
+
+# persist_modules: derived module sets opted IN to marker persistence (empty by default -> no module markers).
+#   e.g.  persist_modules: [catzc-base-globs-live]
+persist_modules: []
 
 globsets:
   # The automation track — the automation module system under automation/. A loose-fileset (ADR-GLOBS:7):

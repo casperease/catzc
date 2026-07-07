@@ -64,9 +64,23 @@ function Update-ShaMarker {
     $noBomUtf8 = [System.Text.UTF8Encoding]::new($false)
 
     foreach ($set in $sets) {
+        $path = [System.IO.Path]::Combine($root, $set.MarkerPath)
+
+        # Persistence is opt-in for derived sets and opt-out for declared ones (ADR-GLOBS, ADR-PROTGLOB:7).
+        # A non-persisted set stays fully mappable (identity, protection, blast-radius all compute live) but
+        # writes no marker to disc — remove any stale one so the tree carries only what is opted in (one
+        # living version — no dead marker files).
+        if (-not $config.ShouldPersist($set.Name)) {
+            if ([System.IO.File]::Exists($path)) {
+                [System.IO.File]::Delete($path)
+                Write-Message "Marker '$($set.Name)': removed (not persisted)"
+                $report.Add([pscustomobject]@{ Name = $set.Name; Status = 'Removed'; Hash = $null; Path = $set.MarkerPath })
+            }
+            continue
+        }
+
         $resolution = Get-GlobSetResolution -GlobSet $set
         $hash = Get-GlobSetHash -GlobSet $set
-        $path = [System.IO.Path]::Combine($root, $set.MarkerPath)
         $content = $set.MarkerContent($resolution.Count, $resolution.ScopedSha, $hash)
         $current = if ([System.IO.File]::Exists($path)) {
             [System.IO.File]::ReadAllText($path)

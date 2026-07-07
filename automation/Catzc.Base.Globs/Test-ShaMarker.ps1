@@ -52,13 +52,31 @@ function Test-ShaMarker {
     }
 
     foreach ($set in $sets) {
+        $path = [System.IO.Path]::Combine($root, $set.MarkerPath)
+
+        # Persistence is opt-in for derived sets, opt-out for declared ones (ADR-GLOBS, ADR-PROTGLOB:7). A
+        # non-persisted set's correct state is NO marker file — report ONLY the violation (a leftover that
+        # Update-ShaMarker must remove) as 'Unexpected', never a row for the correctly-absent common case
+        # (the derived space is large; a row each would bury the real signal). Mappability is untouched.
+        if (-not $config.ShouldPersist($set.Name)) {
+            if ([System.IO.File]::Exists($path)) {
+                [pscustomobject]@{
+                    Name     = $set.Name
+                    Status   = 'Unexpected'
+                    Expected = $null
+                    Actual   = [System.IO.File]::ReadAllText($path)
+                    Path     = $set.MarkerPath
+                }
+            }
+            continue
+        }
+
         # The gate checks only the committed marker (scan + scoped_sha256 + sha256) — never the gitignored
         # companion — so it needs the tracked members only, no untracked-tree scan.
         $members = [string[]] (Get-GlobSetMember -GlobSet $set)
         $scopedSha = [Catzc.Base.Globs.DurableHash]::HashPathList($members)
         $hash = Get-GlobSetHash -GlobSet $set
         $expected = $set.MarkerContent($members.Count, $scopedSha, $hash)
-        $path = [System.IO.Path]::Combine($root, $set.MarkerPath)
         $actual = $null
         $status = 'Missing'
         if ([System.IO.File]::Exists($path)) {

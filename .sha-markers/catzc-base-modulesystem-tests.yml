@@ -9,4 +9,4 @@ scan:
 - '- automation/Catzc.Base.ModuleSystem/configs/**'
 files: 20
 scoped_sha256: 47bfcaca4657343a825e61cb10d507bfc771545520613e812ae91c8f1df19fb3
-sha256: 85092050fa8afffc759cb5383fc0be6026cf164fc9c1f4c85e7d3c5fe65e04ba
+sha256: 9804aef701465a0252a9e55073e8a7fbad87b5d61e36e386e4af9f45db832122
