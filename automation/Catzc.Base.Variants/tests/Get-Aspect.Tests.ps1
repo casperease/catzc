@@ -8,7 +8,7 @@ Describe 'Get-Aspect' -Tag 'L0', 'logic' {
         $aspects[-1].Patterns | Should -Be @('**')          # tests is the non-live catch-all, declared last
     }
 
-    It "defaults infrastructure to live-as-catch-all (a deployment ships everything but tests/)" {
+    It 'defaults infrastructure to live-as-catch-all (a deployment ships everything but tests/)' {
         Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { [ordered]@{} }
         $aspects = @(Get-Aspect -Track infrastructure)
         $aspects.Name | Should -Be @('tests', 'live')

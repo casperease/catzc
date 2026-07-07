@@ -26,7 +26,7 @@ Describe 'RainbowColor' -Tag 'L0', 'logic' {
 
     It 'the walk never lands on a neutral or dark colour (legible on a dark ground)' {
         $dark = [System.ConsoleColor]::Black, [System.ConsoleColor]::DarkGray, [System.ConsoleColor]::Gray,
-            [System.ConsoleColor]::White, [System.ConsoleColor]::DarkBlue, [System.ConsoleColor]::DarkGreen
+        [System.ConsoleColor]::White, [System.ConsoleColor]::DarkBlue, [System.ConsoleColor]::DarkGreen
         foreach ($i in 1..21) {
             $script:green.ColorAt($i) | Should -Not -BeIn $dark
         }

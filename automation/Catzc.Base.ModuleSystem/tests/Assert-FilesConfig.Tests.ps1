@@ -4,7 +4,7 @@ Describe 'Assert-FilesConfig' -Tag 'L0', 'logic' {
     It 'accepts a valid modules/packages map' {
         InModuleScope Catzc.Base.ModuleSystem {
             $config = [ordered]@{ modules = [ordered]@{
-                    '.internal'             = [ordered]@{ packages = [ordered]@{ entrypoint = @('importer.ps1') } }
+                    '.internal'        = [ordered]@{ packages = [ordered]@{ entrypoint = @('importer.ps1') } }
                     'Catzc.Base.Alpha' = [ordered]@{ packages = [ordered]@{
                             root_configs = @('.editorconfig')
                             gitignore    = @('.gitignore')
@@ -42,7 +42,7 @@ Describe 'Assert-FilesConfig' -Tag 'L0', 'logic' {
     It 'throws on a duplicate package name across modules' {
         InModuleScope Catzc.Base.ModuleSystem {
             { Assert-FilesConfig ([ordered]@{ modules = [ordered]@{
-                            '.internal'             = [ordered]@{ packages = [ordered]@{ dup = @('a') } }
+                            '.internal'        = [ordered]@{ packages = [ordered]@{ dup = @('a') } }
                             'Catzc.Base.Alpha' = [ordered]@{ packages = [ordered]@{ dup = @('b') } }
                         }
                     }) } | Should -Throw '*duplicate package*'

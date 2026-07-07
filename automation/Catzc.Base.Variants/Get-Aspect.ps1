@@ -31,9 +31,15 @@ function Get-Aspect {
     }
     $configured = Get-Variant -Name aspects -Default $default
 
-    $list = if ($configured.Contains($Track)) { $configured[$Track] }
-    elseif ($default.Contains($Track)) { $default[$Track] }
-    else { $configured.Contains('automation') ? $configured['automation'] : $default['automation'] }
+    $list = if ($configured.Contains($Track)) {
+        $configured[$Track]
+    }
+    elseif ($default.Contains($Track)) {
+        $default[$Track]
+    }
+    else {
+        $configured.Contains('automation') ? $configured['automation'] : $default['automation']
+    }
 
     foreach ($item in @($list)) {
         $name = @($item.Keys)[0]

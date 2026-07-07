@@ -31,7 +31,12 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
             # StrictMode-safe: read the bound auto-variable without referencing an unset $Name/$GlobSet
             # (the -Name path and the -GlobSet path each set only one of them).
             $byName = Get-Variable -Name Name -ValueOnly -ErrorAction Ignore
-            $setName = if ($byName) { $byName } else { (Get-Variable -Name GlobSet -ValueOnly -ErrorAction Ignore).Name }
+            $setName = if ($byName) {
+                $byName
+            }
+            else {
+                (Get-Variable -Name GlobSet -ValueOnly -ErrorAction Ignore).Name
+            }
             $script:setHashes[$setName]
         } -ModuleName Catzc.Base.QualityGates
     }

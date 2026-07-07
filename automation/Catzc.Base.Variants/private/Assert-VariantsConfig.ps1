@@ -93,10 +93,10 @@ function Assert-VariantsConfig {
         # downstream by the Globs aspect engine (no up-dependency). Structural checks only.
         $value = $Config.aspects
         if ($value -isnot [System.Collections.IDictionary]) {
-            $errors.Add("invalid aspects (must be a map of track -> ordered [ {name: [patterns]}, … ])")
+            $errors.Add('invalid aspects (must be a map of track -> ordered [ {name: [patterns]}, … ])')
         }
         elseif (@($value.Keys).Count -eq 0) {
-            $errors.Add("aspects must define at least one track convention")
+            $errors.Add('aspects must define at least one track convention')
         }
         else {
             foreach ($track in @($value.Keys)) {

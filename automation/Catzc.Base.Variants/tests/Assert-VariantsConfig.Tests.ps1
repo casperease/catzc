@@ -71,7 +71,8 @@ Describe 'Assert-VariantsConfig' -Tag 'L0' {
             $config = [ordered]@{ aspects = [ordered]@{
                     automation     = @([ordered]@{ live = @('*.ps1', 'private/**') }, [ordered]@{ tests = @('**') })
                     infrastructure = @([ordered]@{ tests = @('**/tests/**') }, [ordered]@{ live = @('**') })
-                } }
+                }
+            }
             { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Not -Throw
         }
 
@@ -85,7 +86,7 @@ Describe 'Assert-VariantsConfig' -Tag 'L0' {
             { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Throw "*last aspect*must be the '**' catch-all*"
         }
 
-        It "throws when a non-last aspect uses the bare ** catch-all" {
+        It 'throws when a non-last aspect uses the bare ** catch-all' {
             $config = [ordered]@{ aspects = [ordered]@{ automation = @([ordered]@{ live = @('**') }, [ordered]@{ tests = @('**') }) } }
             { & (Get-Module Catzc.Base.Variants) { Assert-VariantsConfig $args[0] } $config } | Should -Throw '*not last*'
         }
