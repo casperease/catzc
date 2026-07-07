@@ -47,3 +47,5 @@ The module's public functions, sorted into the domains above.
 | --------------------------------------- | -------------------------------- |
 | domain:1 — Capture the Windows bindings | `Save-PSReadLineKeyHandlerSet`   |
 | domain:2 — Replay them on Linux         | `Import-PSReadLineKeyHandlerSet` |
+| config                                  | `key-handler-bindings.yml`       |
+|                                         | `key-handler-supported.yml`      |
