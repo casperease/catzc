@@ -6,4 +6,4 @@ scan:
 - '+ automation/Catzc.Tooling.Node/private/**'
 - '+ automation/Catzc.Tooling.Node/types/**'
 - '+ automation/Catzc.Tooling.Node/configs/**'
-sha256: 4805d77ea42c1dc87275d6b403c25b8927a311da0fa2d9c84b61ccfbe7ba632b
+sha256: a70b0b9d47ac793da4d49663780915062882e48fa0b36218497e7bdead4d88db
