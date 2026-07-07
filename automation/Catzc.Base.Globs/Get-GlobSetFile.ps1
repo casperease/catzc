@@ -19,16 +19,5 @@ function Get-GlobSetFile {
         [string] $Name
     )
 
-    $set = Get-GlobSet -Name $Name
-    $members = [System.Collections.Generic.List[string]]::new()
-    foreach ($path in Get-TrackedFile) {
-        if ($set.Matches($path)) {
-            $members.Add($path)
-        }
-    }
-
-    # Deterministic, culture-independent order (Sort-Object is culture-aware — cross-platform ADR).
-    $sorted = $members.ToArray()
-    [System.Array]::Sort($sorted, [System.StringComparer]::Ordinal)
-    $sorted
+    Get-GlobSetMember -GlobSet (Get-GlobSet -Name $Name)
 }

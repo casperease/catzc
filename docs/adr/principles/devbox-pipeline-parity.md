@@ -5,7 +5,7 @@
 ### Rule ADR-PARITY:1
 
 The `automation` track **is a CLI**, and every command runs unchanged in two environments: **DEVBOX** — the developer's machine, where you
-_shoot_ (iterate fast, and it just has to work) — and **PIPELINE** — CI/CD, where you _verify and deliver_ (deterministic and fast, through a
+_shoot_ (iterate fast; it just has to work) — and **PIPELINE** — CI/CD, where you _verify and deliver_ (deterministic and fast, through a
 few manual approvals to live users). Same code, same commands, same behaviour in both. There is no pipeline-only automation and no
 devbox-only automation: what you run locally is exactly what CI runs. This is the #1 design rule for the track — every other automation rule
 assumes it.

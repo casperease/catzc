@@ -64,9 +64,10 @@ function Update-ShaMarker {
     $noBomUtf8 = [System.Text.UTF8Encoding]::new($false)
 
     foreach ($set in $sets) {
+        $resolution = Get-GlobSetResolution -GlobSet $set
         $hash = Get-GlobSetHash -GlobSet $set
         $path = [System.IO.Path]::Combine($root, $set.MarkerPath)
-        $content = $set.MarkerContent($hash)
+        $content = $set.MarkerContent($resolution.ScopedSha, $hash)
         $current = if ([System.IO.File]::Exists($path)) {
             [System.IO.File]::ReadAllText($path)
         }
@@ -82,15 +83,28 @@ function Update-ShaMarker {
             $status = 'Written'
             Write-Message "Marker '$($set.Name)': $($hash.Substring(0, 8)) -> $($set.MarkerPath)"
         }
+
+        # Every marker gets its companion (ADR-GLOBS:11) — the gitignored, expanded resolution beside it.
+        Write-CompanionFile -GlobSet $set -Resolution $resolution
+
         $report.Add([pscustomobject]@{ Name = $set.Name; Status = $status; Hash = $hash; Path = $set.MarkerPath })
     }
 
     # Orphans: a marker file with no globset — declared or derived — is dead state; remove it (README and
     # friends are untouched).
     foreach ($file in [System.IO.Directory]::EnumerateFiles($markersDir, '*.yml')) {
+        # A companion '<name>.files.yml' is owned by marker '<name>' — skip it here; it is removed with its
+        # marker below (its GetFileNameWithoutExtension is '<name>.files', never a globset name).
+        if ($file.EndsWith('.files.yml')) {
+            continue
+        }
         $orphanName = [System.IO.Path]::GetFileNameWithoutExtension($file)
         if (-not $validNames.Contains($orphanName)) {
             [System.IO.File]::Delete($file)
+            $companion = [System.IO.Path]::Combine($markersDir, "$orphanName.files.yml")
+            if ([System.IO.File]::Exists($companion)) {
+                [System.IO.File]::Delete($companion)
+            }
             Write-Message "Marker '$orphanName': removed (no such globset)"
             $report.Add([pscustomobject]@{ Name = $orphanName; Status = 'Removed'; Hash = $null; Path = ".sha-markers/$orphanName.yml" })
         }

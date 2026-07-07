@@ -52,8 +52,12 @@ function Test-ShaMarker {
     }
 
     foreach ($set in $sets) {
+        # The gate checks only the committed marker (scan + scoped_sha256 + sha256) — never the gitignored
+        # companion — so it needs the tracked members only, no untracked-tree scan.
+        $members = Get-GlobSetMember -GlobSet $set
+        $scopedSha = [Catzc.Base.Globs.DurableHash]::HashPathList([string[]] $members)
         $hash = Get-GlobSetHash -GlobSet $set
-        $expected = $set.MarkerContent($hash)
+        $expected = $set.MarkerContent($scopedSha, $hash)
         $path = [System.IO.Path]::Combine($root, $set.MarkerPath)
         $actual = $null
         $status = 'Missing'
@@ -78,6 +82,11 @@ function Test-ShaMarker {
     $markersDir = [System.IO.Path]::Combine($root, '.sha-markers')
     if ([System.IO.Directory]::Exists($markersDir)) {
         foreach ($file in [System.IO.Directory]::EnumerateFiles($markersDir, '*.yml')) {
+            # Companions '<name>.files.yml' are gitignored, ungated artifacts — not markers; never orphan-check
+            # them (they are removed with their marker by Update-ShaMarker).
+            if ($file.EndsWith('.files.yml')) {
+                continue
+            }
             $orphanName = [System.IO.Path]::GetFileNameWithoutExtension($file)
             if (-not $validNames.Contains($orphanName)) {
                 [pscustomobject]@{

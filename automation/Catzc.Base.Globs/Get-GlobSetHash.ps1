@@ -33,20 +33,13 @@ function Get-GlobSetHash {
     )
 
     $root = Get-RepositoryRoot
-    $members = if ($PSCmdlet.ParameterSetName -eq 'ByName') {
-        Get-GlobSetFile -Name $Name
+    $set = if ($PSCmdlet.ParameterSetName -eq 'ByName') {
+        Get-GlobSet -Name $Name
     }
     else {
-        $matched = [System.Collections.Generic.List[string]]::new()
-        foreach ($path in Get-TrackedFile) {
-            if ($GlobSet.Matches($path)) {
-                $matched.Add($path)
-            }
-        }
-        $sorted = $matched.ToArray()
-        [System.Array]::Sort($sorted, [System.StringComparer]::Ordinal)
-        $sorted
+        $GlobSet
     }
+    $members = Get-GlobSetMember -GlobSet $set
 
     $stringBuilder = [System.Text.StringBuilder]::new()
     foreach ($path in $members) {

@@ -109,6 +109,19 @@ public sealed class GlobSet
                     text.Append("- ").Append(reference).Append('\n');
                 }
             }
+            text.Append(ScanRepresentation);
+            return text.ToString();
+        }
+    }
+
+    // Just the scan: block — the flattened +/- program, each rule '- '<op> <pattern>'' (op '+' select / '-'
+    // drop), single-quoted. The single renderer for the filter, used by both Representation (the marker) and
+    // the gitignored companion (ADR-GLOBS:11), so the filter reads identically in both files.
+    public string ScanRepresentation
+    {
+        get
+        {
+            StringBuilder text = new StringBuilder();
             text.Append("scan:\n");
             foreach (ScanRule rule in ScanProgram())
             {

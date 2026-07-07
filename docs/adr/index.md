@@ -62,6 +62,7 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 | `ADR-PKGMGR`   | [use-proper-package-managers](automation/use-proper-package-managers.md)         |
 | `ADR-ENTERP`   | [effective-in-enterprises](automation/effective-in-enterprises.md)               |
 | `ADR-SYSDEPS`  | [controlling-systemwide-deps](automation/controlling-systemwide-deps.md)         |
+| `ADR-REMOVE`   | [tool-removal-lifecycle](automation/tool-removal-lifecycle.md)                   |
 | `ADR-MODDEPS`  | [controlling-module-dependencies](automation/controlling-module-dependencies.md) |
 | `ADR-ENVVAR`   | [environment-variables](automation/environment-variables.md)                     |
 | `ADR-AZSESS`   | [az-session-verification](automation/az-session-verification.md)                 |
