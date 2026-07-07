@@ -35,6 +35,7 @@ a normative summary plus internal links to the prose that justifies it).
 | `ADR-FLOW`     | [ci-discipline-and-promotion-flow](design/ci-discipline-and-promotion-flow.md) |
 | `ADR-TRACK`    | [tracks](design/tracks.md)                                                     |
 | `ADR-THINPLAT` | [thin-platforms](design/thin-platforms.md)                                     |
+| `ADR-SELFSERV` | [self-service](design/self-service.md)                                         |
 
 ### automation/
 

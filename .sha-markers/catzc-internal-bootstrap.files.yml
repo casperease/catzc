@@ -1,7 +1,0 @@
-generated_at: 2026-07-07T01:45:17Z
-scoped_sha256: 042eb824d14f771ddb78fab037fb31b538c68e7ba613276cc9d871227e4ef20f
-filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-scan:
-- '+ automation/.internal/Catzc.Internal.Bootstrap.psm1'
-included:
-- automation/.internal/Catzc.Internal.Bootstrap.psm1

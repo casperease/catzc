@@ -1,7 +1,0 @@
-generated_at: 2026-07-07T01:45:17Z
-scoped_sha256: 9e157b3e8eee50e465e41a021f7e465de34b3160b0908a40d77cebedc6bf266d
-filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-scan:
-- '+ automation/.internal/Catzc.Internal.TestKit.psm1'
-included:
-- automation/.internal/Catzc.Internal.TestKit.psm1

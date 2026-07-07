@@ -110,10 +110,10 @@ terms:
       meaning: "auditability — the property of a system whose changes can be independently audited"
     - term: attestation
       meaning: "a signed attestation — a verifiable claim about how an artifact was built (SLSA)"
-    - term: attestations
-      meaning: "plural of attestation"
     - term: reproducibility
       meaning: "reproducibility — the property that a build yields bit-for-bit identical output from the same source"
+    - term: trunkbaseddevelopment
+      meaning: "trunkbaseddevelopment.com — Paul Hammant's primary-source site on trunk-based development, cited by name"
     - term: cmdb
       meaning: "configuration management database (CMDB)"
     - term: dotfiles
@@ -521,6 +521,8 @@ terms:
       meaning: "body of the ADR-POKA code (poka-yoke); also 'poka-yoke'"
     - term: THINPLAT
       meaning: 'ADR-THINPLAT is the ADR on thinnest re-usable platforms API(CLI) abstraction'
+    - term: selfserv
+      meaning: "body of the ADR-SELFSERV code (self-service)"
   ado:
     - term: tf
       meaning: "the TF_BUILD predefined pipeline variable (Team Foundation Build), e.g. $savedTfBuild"
