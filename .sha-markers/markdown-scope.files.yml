@@ -1,6 +1,6 @@
-generated_at: 2026-07-07T01:50:19Z
-scoped_sha256: 3764a2894192f7728fd93588666c04db1cdd42e4bb4c2e70bf27d6f2e030da88
-filtered_sha256: 3ac19e1a7f96e9f6f8063ab1835ebad4748e767666cd0b3c99a0271e7aa6d6b8
+generated_at: 2026-07-07T01:50:50Z
+scoped_sha256: fcfdddd4e4c57bdc231e4c7d9ddb90598c07774dcb400796c515c88b68a8c7c2
+filtered_sha256: 7299080e33afad2029b5468d3a22488aaa6e3ee3f19952ad507acdb46469118f
 scan:
 - '+ **/*.md'
 - '+ .markdownlint.yml'
@@ -60,6 +60,7 @@ included:
 - docs/adr/automation/sensible-defaults.md
 - docs/adr/automation/single-responsibility-functions.md
 - docs/adr/automation/test-automation.md
+- docs/adr/automation/tool-removal-lifecycle.md
 - docs/adr/automation/use-proper-package-managers.md
 - docs/adr/automation/uv-python-handler.md
 - docs/adr/automation/zero-ceremony-poka-yoke.md
@@ -201,7 +202,6 @@ filtered:
 - automation/Catzc.Tooling.Toolchain/README.md
 - contracts/README.md
 - docs/adr/README.md
-- docs/adr/automation/tool-removal-lifecycle.md
 - infrastructure/README.md
 - infrastructure/modules/README.md
 - infrastructure/templates/foundation/README.md
@@ -250,6 +250,9 @@ filtered:
 - out/test-markdownlint/20260707-034941-2/markdownlint.md
 - out/test-markdownlint/20260707-034941/markdownlint.md
 - out/test-markdownlint/20260707-035019/markdownlint.md
+- out/test-markdownlint/20260707-035030-2/markdownlint.md
+- out/test-markdownlint/20260707-035030/markdownlint.md
+- out/test-markdownlint/20260707-035031/markdownlint.md
 - out/test-scriptanalyzer/20260707-010034/scriptanalyzer.md
 - out/test-scriptanalyzer/20260707-010124/scriptanalyzer.md
 - out/test-scriptanalyzer/20260707-010227/scriptanalyzer.md

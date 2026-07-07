@@ -1,6 +1,6 @@
-generated_at: 2026-07-07T01:46:44Z
+generated_at: 2026-07-07T01:50:51Z
 scoped_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-filtered_sha256: f29c699bfb539b798193b597fa4241a93e9abcc1de1b85b9ec49e24b7d0a2fc7
+filtered_sha256: b58df234113ca989461d4553fcc66b5b3ea5540ef73c6473d80f0242bd0ccb6d
 scan:
 - '+ automation/**'
 - '- automation/.compiled/**'
@@ -83,11 +83,7 @@ filtered:
 - automation/Catzc.Base.Git/Catzc.Base.Git.psd1
 - automation/Catzc.Base.Git/README.md
 - automation/Catzc.Base.Globs/Catzc.Base.Globs.psd1
-- automation/Catzc.Base.Globs/Get-GlobSetResolution.ps1
 - automation/Catzc.Base.Globs/README.md
-- automation/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
-- automation/Catzc.Base.Globs/private/Get-UntrackedFile.ps1
-- automation/Catzc.Base.Globs/private/Write-CompanionFile.ps1
 - automation/Catzc.Base.ModuleSystem/Catzc.Base.ModuleSystem.psd1
 - automation/Catzc.Base.ModuleSystem/README.md
 - automation/Catzc.Base.Objects/Catzc.Base.Objects.psd1
