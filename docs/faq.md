@@ -73,3 +73,18 @@ hypothetical problems — they are the daily tax of manual dependency management
 
 The importer loads everything once, up front, in under a second. After that your script is just logic — no boilerplate, no path management,
 no possibility of a missing import at runtime.
+
+## "Trust me, it's simple" isn't enough — what is actually under the hood?
+
+**Fair.** There is real complexity; it is just kept out of your way. Under the covers the system manages several kinds of dependency:
+
+- **Compiled internal types** — immutable, optimized `Catzc.*` types and their processing in the automation layer.
+- **Module dependencies** — the internal and vendored modules the automation layer loads.
+- **External system dependencies** — the tooling the system shells out to, plus direct OS-level integration for processing and control.
+- **Build-time dependencies** — everything the infrastructure build, deploy, and test steps pull in.
+
+All of it is abstracted behind defined runtime conditions and a strict KISS rule, so from the outside the system stays simple. To actually
+understand the machinery, read the reference documentation on the automation system.
+
+From a user's seat, though, you rarely touch any of this. Your job is mostly editing configuration, writing regression tests, and adding
+templates — the importer and the module loader handle the rest.

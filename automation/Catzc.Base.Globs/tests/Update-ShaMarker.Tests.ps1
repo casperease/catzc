@@ -6,6 +6,7 @@ Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
         Import-InternalModule TestKit
         $script:hashA = 'a' * 64
         $script:hashB = 'b' * 64
+        $script:scopedA = 'c' * 64
     }
 
     BeforeEach {
@@ -23,6 +24,13 @@ Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
         Mock Get-Config { $script:config } -ModuleName Catzc.Base.Globs
         Mock Get-ModuleGlobSet { $script:derivedSet } -ModuleName Catzc.Base.Globs
         Mock Get-GlobSetHash { $script:hashA } -ModuleName Catzc.Base.Globs
+        # The resolution (scoped/filtered lists + list SHAs) and the companion writer are exercised by their
+        # own tests; here they are mocked so the marker assertions stay deterministic and no git shell / fake
+        # companion write happens in the fake repo.
+        Mock Get-GlobSetResolution {
+            [pscustomobject]@{ Name = 'x'; Included = @('src/a'); Filtered = @(); ScopedSha = $script:scopedA; FilteredSha = ('0' * 64) }
+        } -ModuleName Catzc.Base.Globs
+        Mock Write-CompanionFile { } -ModuleName Catzc.Base.Globs
     }
 
     AfterEach {
@@ -37,7 +45,7 @@ Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
         $bytes = [System.IO.File]::ReadAllBytes($path)
         $bytes[0] | Should -Not -Be 0xEF                   # no BOM
         $bytes[-1] | Should -Be 0x0A                       # trailing LF
-        [System.IO.File]::ReadAllText($path) | Should -Be $script:config.Get('unit-a').MarkerContent($script:hashA)
+        [System.IO.File]::ReadAllText($path) | Should -Be $script:config.Get('unit-a').MarkerContent($script:scopedA, $script:hashA)
         ($report | Where-Object Name -EQ 'unit-a').Status | Should -Be 'Written'
     }
 
@@ -61,7 +69,7 @@ Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
 
         ($report | Where-Object Name -EQ 'unit-a').Status | Should -Be 'Written'
         $content = [System.IO.File]::ReadAllText((Join-Path $script:markersDir 'unit-a.yml'))
-        $content | Should -Be $script:config.Get('unit-a').MarkerContent($script:hashB)
+        $content | Should -Be $script:config.Get('unit-a').MarkerContent($script:scopedA, $script:hashB)
         $content | Should -Match "sha256: $script:hashB"
     }
 
@@ -87,7 +95,7 @@ Describe 'Update-ShaMarker' -Tag 'L1', 'logic' {
 
         ($report | Where-Object Name -EQ 'mod-x').Status | Should -Be 'Written'
         [System.IO.File]::ReadAllText((Join-Path $script:markersDir 'mod-x.yml')) |
-            Should -Be $script:derivedSet.MarkerContent($script:hashA)
+            Should -Be $script:derivedSet.MarkerContent($script:scopedA, $script:hashA)
     }
 
     It 'updates only the named set but still removes orphans' {

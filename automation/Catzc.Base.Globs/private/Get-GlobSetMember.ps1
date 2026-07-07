@@ -31,5 +31,5 @@ function Get-GlobSetMember {
     # Deterministic, culture-independent order (Sort-Object is culture-aware — cross-platform ADR).
     $sorted = $members.ToArray()
     [System.Array]::Sort($sorted, [System.StringComparer]::Ordinal)
-    , $sorted
+    $sorted
 }
