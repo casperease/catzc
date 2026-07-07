@@ -1,0 +1,6 @@
+scoped_sha256: b5bea45d93caf12a99d9132ca3deef462590f231a6a72da2d720da31b6233b20
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/.internal/Catzc.Internal.Importer.psm1'
+included:
+- automation/.internal/Catzc.Internal.Importer.psm1

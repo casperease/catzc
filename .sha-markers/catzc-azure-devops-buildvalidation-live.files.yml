@@ -1,0 +1,15 @@
+scoped_sha256: c16c797c3e20250ffc8cf9c88e7658055021c7e1a15d7ec6f347916b31679388
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Azure.DevOps.BuildValidation/*.ps1'
+- '+ automation/Catzc.Azure.DevOps.BuildValidation/private/**'
+- '+ automation/Catzc.Azure.DevOps.BuildValidation/types/**'
+- '+ automation/Catzc.Azure.DevOps.BuildValidation/configs/**'
+included:
+- automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
+- automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+- automation/Catzc.Azure.DevOps.BuildValidation/Sync-AdoBuildValidations.ps1
+- automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
+- automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+- automation/Catzc.Azure.DevOps.BuildValidation/private/Assert-BuildValidationConfig.ps1
+- automation/Catzc.Azure.DevOps.BuildValidation/private/Resolve-AdoBuildValidationContext.ps1

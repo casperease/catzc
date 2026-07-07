@@ -1,0 +1,30 @@
+scoped_sha256: b5b6e8f5bb6a97156f9ab090cc9a8f039956ea48228db074dc3e6579cbff8bb1
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Base.Globs/*.ps1'
+- '+ automation/Catzc.Base.Globs/private/**'
+- '+ automation/Catzc.Base.Globs/types/**'
+- '+ automation/Catzc.Base.Globs/configs/**'
+included:
+- automation/Catzc.Base.Globs/Clear-GlobSetProtection.ps1
+- automation/Catzc.Base.Globs/Get-GlobSet.ps1
+- automation/Catzc.Base.Globs/Get-GlobSetFile.ps1
+- automation/Catzc.Base.Globs/Get-GlobSetHash.ps1
+- automation/Catzc.Base.Globs/Get-GlobSetResolution.ps1
+- automation/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1
+- automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+- automation/Catzc.Base.Globs/Protect-GlobSet.ps1
+- automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
+- automation/Catzc.Base.Globs/Test-GlobSetProtection.ps1
+- automation/Catzc.Base.Globs/Test-ShaMarker.ps1
+- automation/Catzc.Base.Globs/Update-ShaMarker.ps1
+- automation/Catzc.Base.Globs/configs/globs.yml
+- automation/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
+- automation/Catzc.Base.Globs/private/Get-TrackedFile.ps1
+- automation/Catzc.Base.Globs/private/Get-UntrackedFile.ps1
+- automation/Catzc.Base.Globs/private/Write-CompanionFile.ps1
+- automation/Catzc.Base.Globs/types/Aspect.cs
+- automation/Catzc.Base.Globs/types/DurableHash.cs
+- automation/Catzc.Base.Globs/types/GlobPattern.cs
+- automation/Catzc.Base.Globs/types/GlobSet.cs
+- automation/Catzc.Base.Globs/types/GlobsConfig.cs

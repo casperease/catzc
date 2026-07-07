@@ -1,0 +1,18 @@
+scoped_sha256: f7545d6edfca7e2ab65a160058c50cd2d580ad1d3f6f90c1b43e42e6031e38d7
+filtered_sha256: 807b3cb4cc80c0b78d99f8c4b39487965e2cc69d29724d6a18213425c3f35775
+scan:
+- '+ automation/Catzc.Base.Git/**'
+- '- automation/Catzc.Base.Git/*.ps1'
+- '- automation/Catzc.Base.Git/private/**'
+- '- automation/Catzc.Base.Git/types/**'
+- '- automation/Catzc.Base.Git/configs/**'
+included:
+- automation/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
+- automation/Catzc.Base.Git/tests/New-GitIgnore.Tests.ps1
+- automation/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
+- automation/Catzc.Base.Git/tests/types/GitIgnoreConfig.Tests.ps1
+- automation/Catzc.Base.Git/tests/types/GitIgnorePattern.Tests.ps1
+- automation/Catzc.Base.Git/tests/types/GitIgnoreZone.Tests.ps1
+filtered:
+- automation/Catzc.Base.Git/Catzc.Base.Git.psd1
+- automation/Catzc.Base.Git/README.md

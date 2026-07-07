@@ -1,0 +1,14 @@
+scoped_sha256: 663c721a5fe4bf7dcd3afb8a921b9fccb185662f841279e690b80f78bfb27b5c
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Base.RootConfig/*.ps1'
+- '+ automation/Catzc.Base.RootConfig/private/**'
+- '+ automation/Catzc.Base.RootConfig/types/**'
+- '+ automation/Catzc.Base.RootConfig/configs/**'
+included:
+- automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
+- automation/Catzc.Base.RootConfig/configs/rootconfig.yml
+- automation/Catzc.Base.RootConfig/private/Get-RootConfigTargets.ps1
+- automation/Catzc.Base.RootConfig/private/Invoke-RootConfigGenerator.ps1
+- automation/Catzc.Base.RootConfig/types/RootConfigFile.cs
+- automation/Catzc.Base.RootConfig/types/RootConfigFiles.cs

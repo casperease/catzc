@@ -1,0 +1,25 @@
+scoped_sha256: 8a98c226f97df155f1ffa78a2bb93930e961e37ca2f98bbb111a91fcbf44a304
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Tooling.Toolchain/*.ps1'
+- '+ automation/Catzc.Tooling.Toolchain/private/**'
+- '+ automation/Catzc.Tooling.Toolchain/types/**'
+- '+ automation/Catzc.Tooling.Toolchain/configs/**'
+included:
+- automation/Catzc.Tooling.Toolchain/Install-AzCli.ps1
+- automation/Catzc.Tooling.Toolchain/Install-Dotnet.ps1
+- automation/Catzc.Tooling.Toolchain/Install-Java.ps1
+- automation/Catzc.Tooling.Toolchain/Install-Terraform.ps1
+- automation/Catzc.Tooling.Toolchain/Install-Uv.ps1
+- automation/Catzc.Tooling.Toolchain/Invoke-Dotnet.ps1
+- automation/Catzc.Tooling.Toolchain/Invoke-Java.ps1
+- automation/Catzc.Tooling.Toolchain/Invoke-Terraform.ps1
+- automation/Catzc.Tooling.Toolchain/Remove-AzCli.ps1
+- automation/Catzc.Tooling.Toolchain/Remove-Dotnet.ps1
+- automation/Catzc.Tooling.Toolchain/Remove-Java.ps1
+- automation/Catzc.Tooling.Toolchain/Uninstall-AzCli.ps1
+- automation/Catzc.Tooling.Toolchain/Uninstall-Dotnet.ps1
+- automation/Catzc.Tooling.Toolchain/Uninstall-Java.ps1
+- automation/Catzc.Tooling.Toolchain/Uninstall-Terraform.ps1
+- automation/Catzc.Tooling.Toolchain/Uninstall-Uv.ps1
+- automation/Catzc.Tooling.Toolchain/private/Install-UvStandalone.ps1

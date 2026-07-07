@@ -1,0 +1,18 @@
+scoped_sha256: e072920b2a12b8e97ad04391ae708d59c7dee10877f4814c1e9e83b3f93a7f88
+filtered_sha256: d9a6dd731b1ae98741dae5222808135a821d855a69fdfbead3a9ace67ec1f6f7
+scan:
+- '+ automation/Catzc.Tooling.Github/**'
+- '- automation/Catzc.Tooling.Github/*.ps1'
+- '- automation/Catzc.Tooling.Github/private/**'
+- '- automation/Catzc.Tooling.Github/types/**'
+- '- automation/Catzc.Tooling.Github/configs/**'
+included:
+- automation/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
+- automation/Catzc.Tooling.Github/tests/New-SyntheticHistory.Tests.ps1
+- automation/Catzc.Tooling.Github/tests/Publish-CleanHistory.Tests.ps1
+- automation/Catzc.Tooling.Github/tests/Remove-TokenFromHistory.Tests.ps1
+- automation/Catzc.Tooling.Github/tests/Reset-GitHubRepository.Tests.ps1
+- automation/Catzc.Tooling.Github/tests/Test-GitHistoryClean.Tests.ps1
+filtered:
+- automation/Catzc.Tooling.Github/Catzc.Tooling.Github.psd1
+- automation/Catzc.Tooling.Github/README.md

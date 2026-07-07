@@ -1,0 +1,6 @@
+scoped_sha256: 1bda521ae5bd306879fd5f30f21226cbe978db4c6a370e199a66a55aeb5e59c1
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/.internal/Catzc.Internal.Types.psm1'
+included:
+- automation/.internal/Catzc.Internal.Types.psm1

@@ -1,0 +1,29 @@
+scoped_sha256: 491659ab4ddcfb941d009b689b32b428392616b7a0b51288595224cc9b32827b
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Base.Asserts/*.ps1'
+- '+ automation/Catzc.Base.Asserts/private/**'
+- '+ automation/Catzc.Base.Asserts/types/**'
+- '+ automation/Catzc.Base.Asserts/configs/**'
+included:
+- automation/Catzc.Base.Asserts/Assert-Command.ps1
+- automation/Catzc.Base.Asserts/Assert-False.ps1
+- automation/Catzc.Base.Asserts/Assert-HaveProperty.ps1
+- automation/Catzc.Base.Asserts/Assert-IsAdministrator.ps1
+- automation/Catzc.Base.Asserts/Assert-IsGuid.ps1
+- automation/Catzc.Base.Asserts/Assert-LastExitCodeWasZero.ps1
+- automation/Catzc.Base.Asserts/Assert-NotNull.ps1
+- automation/Catzc.Base.Asserts/Assert-NotNullOrWhitespace.ps1
+- automation/Catzc.Base.Asserts/Assert-Null.ps1
+- automation/Catzc.Base.Asserts/Assert-PathExist.ps1
+- automation/Catzc.Base.Asserts/Assert-PipelineCount.ps1
+- automation/Catzc.Base.Asserts/Assert-PipelineEmpty.ps1
+- automation/Catzc.Base.Asserts/Assert-PsModule.ps1
+- automation/Catzc.Base.Asserts/Assert-True.ps1
+- automation/Catzc.Base.Asserts/Assert-TypeIs.ps1
+- automation/Catzc.Base.Asserts/Assert-YmlNaming.ps1
+- automation/Catzc.Base.Asserts/Test-Command.ps1
+- automation/Catzc.Base.Asserts/Test-HaveProperty.ps1
+- automation/Catzc.Base.Asserts/Test-IsAdministrator.ps1
+- automation/Catzc.Base.Asserts/Test-IsGuid.ps1
+- automation/Catzc.Base.Asserts/Test-NotNullOrWhitespace.ps1

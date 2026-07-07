@@ -1,0 +1,37 @@
+scoped_sha256: 1ac736f0a4094946e4150ceb1b6a598cec60558cefffcc06f73af4b4d11635d5
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Tooling.Core/*.ps1'
+- '+ automation/Catzc.Tooling.Core/private/**'
+- '+ automation/Catzc.Tooling.Core/types/**'
+- '+ automation/Catzc.Tooling.Core/configs/**'
+included:
+- automation/Catzc.Tooling.Core/Assert-Tool.ps1
+- automation/Catzc.Tooling.Core/Get-InstallScope.ps1
+- automation/Catzc.Tooling.Core/Get-ScriptInstallDir.ps1
+- automation/Catzc.Tooling.Core/Get-ToolCommandSuffix.ps1
+- automation/Catzc.Tooling.Core/Get-ToolConfig.ps1
+- automation/Catzc.Tooling.Core/Get-ToolInstallOrder.ps1
+- automation/Catzc.Tooling.Core/Get-ToolVersion.ps1
+- automation/Catzc.Tooling.Core/Install-Tool.ps1
+- automation/Catzc.Tooling.Core/Install-UvTool.ps1
+- automation/Catzc.Tooling.Core/Install-UvVenvTool.ps1
+- automation/Catzc.Tooling.Core/Invoke-Uv.ps1
+- automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
+- automation/Catzc.Tooling.Core/Remove-MacToolInstall.ps1
+- automation/Catzc.Tooling.Core/Remove-SystemInstallation.ps1
+- automation/Catzc.Tooling.Core/Save-VerifiedDownload.ps1
+- automation/Catzc.Tooling.Core/Sync-SessionTools.ps1
+- automation/Catzc.Tooling.Core/Test-ExpectedPackageManager.ps1
+- automation/Catzc.Tooling.Core/Test-Tool.ps1
+- automation/Catzc.Tooling.Core/Test-ToolRequiresElevation.ps1
+- automation/Catzc.Tooling.Core/Uninstall-Tool.ps1
+- automation/Catzc.Tooling.Core/Uninstall-UvTool.ps1
+- automation/Catzc.Tooling.Core/Uninstall-UvVenvTool.ps1
+- automation/Catzc.Tooling.Core/configs/tools.yml
+- automation/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
+- automation/Catzc.Tooling.Core/private/Assert-ToolsConfig.ps1
+- automation/Catzc.Tooling.Core/private/Get-UvVenvDir.ps1
+- automation/Catzc.Tooling.Core/private/Resolve-SessionToolHint.ps1
+- automation/Catzc.Tooling.Core/private/Test-ToolLocationManaged.ps1
+- automation/Catzc.Tooling.Core/types/ToolConfig.cs

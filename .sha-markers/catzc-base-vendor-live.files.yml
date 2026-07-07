@@ -1,0 +1,16 @@
+scoped_sha256: d285c7aaf517e731b2a7454e9057124d7769e179d6288bd8447342efb52bb1bb
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Base.Vendor/*.ps1'
+- '+ automation/Catzc.Base.Vendor/private/**'
+- '+ automation/Catzc.Base.Vendor/types/**'
+- '+ automation/Catzc.Base.Vendor/configs/**'
+included:
+- automation/Catzc.Base.Vendor/Assert-VendorModuleAvailable.ps1
+- automation/Catzc.Base.Vendor/Install-VendorModule.ps1
+- automation/Catzc.Base.Vendor/Remove-VendorModules.ps1
+- automation/Catzc.Base.Vendor/Test-VendorModuleAvailable.ps1
+- automation/Catzc.Base.Vendor/configs/vendor.yml
+- automation/Catzc.Base.Vendor/private/Assert-VendorConfig.ps1
+- automation/Catzc.Base.Vendor/private/Get-VendoredModule.ps1
+- automation/Catzc.Base.Vendor/private/Resolve-VendorRepository.ps1

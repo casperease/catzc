@@ -1,0 +1,23 @@
+scoped_sha256: 262605aa1585b70a9d9ca5edc9c926b8fbcc182d6d4b1792be750d9b893cb1ff
+filtered_sha256: b4aaa303a7b585e68bc0b364c7ae90f7d6e816befe465bdff0e970d6f67bf844
+scan:
+- '+ automation/Catzc.Base.Writers/**'
+- '- automation/Catzc.Base.Writers/*.ps1'
+- '- automation/Catzc.Base.Writers/private/**'
+- '- automation/Catzc.Base.Writers/types/**'
+- '- automation/Catzc.Base.Writers/configs/**'
+included:
+- automation/Catzc.Base.Writers/tests/Write-CallStack.Tests.ps1
+- automation/Catzc.Base.Writers/tests/Write-CmdletParameterSet.Tests.ps1
+- automation/Catzc.Base.Writers/tests/Write-EnvironmentDiagnostic.Tests.ps1
+- automation/Catzc.Base.Writers/tests/Write-Exception.Tests.ps1
+- automation/Catzc.Base.Writers/tests/Write-Footer.Tests.ps1
+- automation/Catzc.Base.Writers/tests/Write-Header.Tests.ps1
+- automation/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1
+- automation/Catzc.Base.Writers/tests/Write-Message.Tests.ps1
+- automation/Catzc.Base.Writers/tests/Write-Object.Tests.ps1
+- automation/Catzc.Base.Writers/tests/types/Ansi.Tests.ps1
+- automation/Catzc.Base.Writers/tests/types/RainbowColor.Tests.ps1
+filtered:
+- automation/Catzc.Base.Writers/Catzc.Base.Writers.psd1
+- automation/Catzc.Base.Writers/README.md

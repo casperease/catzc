@@ -1,0 +1,21 @@
+scoped_sha256: c1f2e4124041fb0334915de9b813691ff6f70003d4b7ca13d48b00a56ba5b641
+filtered_sha256: eacb0ecb237833d447a6f764609bd631892fd1af9c7afcc99da2566d6bf1c6f5
+scan:
+- '+ automation/Catzc.Base.Files/**'
+- '- automation/Catzc.Base.Files/*.ps1'
+- '- automation/Catzc.Base.Files/private/**'
+- '- automation/Catzc.Base.Files/types/**'
+- '- automation/Catzc.Base.Files/configs/**'
+included:
+- automation/Catzc.Base.Files/tests/Assert-FileIsLocked.Tests.ps1
+- automation/Catzc.Base.Files/tests/Copy-Directory.Tests.ps1
+- automation/Catzc.Base.Files/tests/Get-GitCurrentBranch.Tests.ps1
+- automation/Catzc.Base.Files/tests/Get-GitCurrentCommit.Tests.ps1
+- automation/Catzc.Base.Files/tests/Invoke-GitCommit.Tests.ps1
+- automation/Catzc.Base.Files/tests/Set-FileLink.Tests.ps1
+- automation/Catzc.Base.Files/tests/Test-FileIsLocked.Tests.ps1
+- automation/Catzc.Base.Files/tests/Test-GitPathChanged.Tests.ps1
+- automation/Catzc.Base.Files/tests/Write-FileIfChanged.Tests.ps1
+filtered:
+- automation/Catzc.Base.Files/Catzc.Base.Files.psd1
+- automation/Catzc.Base.Files/README.md

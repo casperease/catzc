@@ -1,0 +1,26 @@
+scoped_sha256: 07187ba65c592bd6728e38ad0d2a0463b7428a9e76a76fee3489e30454b69d41
+filtered_sha256: 31debf523fe23718716fc918ddcd71ea296e4404565282cd8adcaa48d268d033
+scan:
+- '+ automation/Catzc.Tooling.Toolchain/**'
+- '- automation/Catzc.Tooling.Toolchain/*.ps1'
+- '- automation/Catzc.Tooling.Toolchain/private/**'
+- '- automation/Catzc.Tooling.Toolchain/types/**'
+- '- automation/Catzc.Tooling.Toolchain/configs/**'
+included:
+- automation/Catzc.Tooling.Toolchain/assets/scripts/dotnet-install.ps1
+- automation/Catzc.Tooling.Toolchain/assets/scripts/dotnet-install.sh
+- automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Invoke-Dotnet.L2.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Invoke-Dotnet.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Invoke-Java.L2.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Invoke-Java.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.L2.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
+filtered:
+- automation/Catzc.Tooling.Toolchain/Catzc.Tooling.Toolchain.psd1
+- automation/Catzc.Tooling.Toolchain/README.md

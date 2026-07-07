@@ -1,0 +1,32 @@
+scoped_sha256: 47bfcaca4657343a825e61cb10d507bfc771545520613e812ae91c8f1df19fb3
+filtered_sha256: 8dcd4109c2c251225f41c92b367874002363ea126929357a5bc38190d229f637
+scan:
+- '+ automation/Catzc.Base.ModuleSystem/**'
+- '- automation/Catzc.Base.ModuleSystem/*.ps1'
+- '- automation/Catzc.Base.ModuleSystem/private/**'
+- '- automation/Catzc.Base.ModuleSystem/types/**'
+- '- automation/Catzc.Base.ModuleSystem/configs/**'
+included:
+- automation/Catzc.Base.ModuleSystem/tests/Assert-DependenciesConfig.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Assert-FilesConfig.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Assert-ModuleDependency.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Assert-ProfilesConfig.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/ConvertTo-ModuleDependencyDiagram.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Copy-Automation.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Get-BaseModule.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependency.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependencyTree.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyClosure.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyEdges.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Get-ModuleGroupConfig.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Get-ModuleProfile.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Get-ModuleTestOrder.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/New-Importer.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
+- automation/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
+filtered:
+- automation/Catzc.Base.ModuleSystem/Catzc.Base.ModuleSystem.psd1
+- automation/Catzc.Base.ModuleSystem/README.md

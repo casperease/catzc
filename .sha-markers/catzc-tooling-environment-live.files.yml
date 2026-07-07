@@ -1,0 +1,10 @@
+scoped_sha256: 38aedf23c60961da14e1c673631420cf6220fe39b23f9bebd3eed2118da36d87
+filtered_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+scan:
+- '+ automation/Catzc.Tooling.Environment/*.ps1'
+- '+ automation/Catzc.Tooling.Environment/private/**'
+- '+ automation/Catzc.Tooling.Environment/types/**'
+- '+ automation/Catzc.Tooling.Environment/configs/**'
+included:
+- automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+- automation/Catzc.Tooling.Environment/private/Set-ProcessEnvironmentVariable.ps1

@@ -1,0 +1,24 @@
+scoped_sha256: ff9e236197380d0377187dd6db17dfcddaae5dddfc156bd5493d3b33850ba92f
+filtered_sha256: 711b55f31b7db022f2d8e037da8c12998e5c1cf395bc9e7e129ce9ec509ac46a
+scan:
+- '+ infrastructure/templates/foundation/**'
+- '+ infrastructure/modules/**'
+- '- infrastructure/templates/foundation/configuration/*.yml'
+- '- infrastructure/templates/foundation/configuration/*/**'
+- '+ infrastructure/templates/foundation/configuration/apex/**'
+included:
+- infrastructure/modules/data-factory.bicep
+- infrastructure/modules/key-vault.bicep
+- infrastructure/modules/log-analytics.bicep
+- infrastructure/modules/sql-database.bicep
+- infrastructure/modules/sql-server.bicep
+- infrastructure/modules/storage-account.bicep
+- infrastructure/modules/virtual-network.bicep
+- infrastructure/modules/vm.bicep
+- infrastructure/templates/foundation/configuration/apex/subn.yml
+- infrastructure/templates/foundation/configuration/apex/subp.yml
+- infrastructure/templates/foundation/main.bicep
+- infrastructure/templates/foundation/options.yml
+filtered:
+- infrastructure/modules/README.md
+- infrastructure/templates/foundation/README.md

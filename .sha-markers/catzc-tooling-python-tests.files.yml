@@ -1,0 +1,21 @@
+scoped_sha256: 7800477b16b770d41455be70002fb9f005fbfec4a8036bd2ca09c29ddaa8a75a
+filtered_sha256: 9d9acee846bd7bf6a01668655ca00e8c76266644db90dc65b3cce028704f5856
+scan:
+- '+ automation/Catzc.Tooling.Python/**'
+- '- automation/Catzc.Tooling.Python/*.ps1'
+- '- automation/Catzc.Tooling.Python/private/**'
+- '- automation/Catzc.Tooling.Python/types/**'
+- '- automation/Catzc.Tooling.Python/configs/**'
+included:
+- automation/Catzc.Tooling.Python/tests/Install-Python.Tests.ps1
+- automation/Catzc.Tooling.Python/tests/Invoke-Pip.L2.Tests.ps1
+- automation/Catzc.Tooling.Python/tests/Invoke-Pip.Tests.ps1
+- automation/Catzc.Tooling.Python/tests/Invoke-Poetry.L2.Tests.ps1
+- automation/Catzc.Tooling.Python/tests/Invoke-Poetry.Tests.ps1
+- automation/Catzc.Tooling.Python/tests/Invoke-PySpark.L2.Tests.ps1
+- automation/Catzc.Tooling.Python/tests/Invoke-PySpark.Tests.ps1
+- automation/Catzc.Tooling.Python/tests/Invoke-Python.L2.Tests.ps1
+- automation/Catzc.Tooling.Python/tests/Invoke-Python.Tests.ps1
+filtered:
+- automation/Catzc.Tooling.Python/Catzc.Tooling.Python.psd1
+- automation/Catzc.Tooling.Python/README.md
