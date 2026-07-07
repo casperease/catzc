@@ -23,9 +23,9 @@
     [string] The new commit's full SHA; the planned commands with -DryRun; nothing when there was
     nothing to commit.
 .EXAMPLE
-    Invoke-GitCommit -Path '.sha-markers' -Message 'chore(markers): sync sha-marker files'
+    Invoke-GitCommit -Path 'automation/.compiled' -Message 'chore(repo): sync compiled types'
 .EXAMPLE
-    Invoke-GitCommit -Path '.sha-markers', 'automation/.compiled' -Message 'sync' -DryRun
+    Invoke-GitCommit -Path 'automation/.compiled', 'out' -Message 'sync' -DryRun
 #>
 function Invoke-GitCommit {
     [CmdletBinding()]

@@ -14,9 +14,9 @@
 .OUTPUTS
     [bool]
 .EXAMPLE
-    Test-GitPathChanged '.sha-markers'
+    Test-GitPathChanged 'automation/.compiled'
 .EXAMPLE
-    Test-GitPathChanged '.sha-markers', 'automation/.compiled'
+    Test-GitPathChanged 'automation/.compiled', 'out'
 #>
 function Test-GitPathChanged {
     [CmdletBinding()]

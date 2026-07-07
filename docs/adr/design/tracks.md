@@ -33,9 +33,9 @@ services and C# function apps.
 ### Rule ADR-TRACK:4
 
 Tracks are **subscribable, never path-coupled**: a consumer binds to a track through its module dependencies (depm — dependencies between
-modules, never on systems) or through its durable-SHA marker (`ADR-GLOBS`), never by matching the track's source paths. The markers are the
-coordinating source of truth for "which tracks and deployable-units carry changes in this commit" — the mechanism that keeps a change in one
-track from rebuilding every customer of every other track.
+modules, never on systems) or through its globset's native trigger projection (`ADR-GLOBS`), never by hand-matching the track's source paths.
+The globsets are the coordinating source of truth for "which tracks and deployable-units carry changes in this commit" — computed from git,
+the mechanism that keeps a change in one track from rebuilding every customer of every other track.
 
 - [Subscription and coordination](#subscription-and-coordination)
 
@@ -86,12 +86,11 @@ Two subscription surfaces exist, both derived from the same source of truth:
 
 - **depms** — the module dependencies declare which modules (and by extension which tracks) a consumer rests on; the graph gates enforce
   them. A depm is module-to-module only — a dependency on a system is a dep, a different concern with different tooling.
-- **durable-SHA markers** (`ADR-GLOBS`) — each track's globset is stamped, and every commit that changes a track carries the regenerated
-  stamp. Pipelines path-filter on the stamps alone; a reviewer reads the stamp diff as the change's area-of-control report; test tooling
-  derives blast radius from the same stamps.
+- **globset projections** (`ADR-GLOBS`) — each track's globset projects to native vendor path filters that pipelines trigger on, and to a
+  git-reflected area-of-control the PR report reads; test tooling derives blast radius from the same globsets. Nothing is committed per set.
 
-This is the coordination answer to the monorepo's core tension: everything lives together, but nothing rebuilds together unless its marker
-says so.
+This is the coordination answer to the monorepo's core tension: everything lives together, but nothing rebuilds together unless the change
+actually touches it.
 
 ### Tracks, units, pipelines
 
@@ -104,15 +103,15 @@ customer's configuration surface.
 ## Decision
 
 Name the concept: repository root concerns are **tracks** — folder-named (ADR-TRACK:1), classified core/port/adapter (ADR-TRACK:2), one
-tech-stack each (ADR-TRACK:3), subscribable only via depms and durable-SHA markers (ADR-TRACK:4), and shipped through deployable-units that
+tech-stack each (ADR-TRACK:3), subscribable only via depms and globset projections (ADR-TRACK:4), and shipped through deployable-units that
 bind pipelines 1-1 (ADR-TRACK:5).
 
 ### How this is enforced
 
 - **`ADR-FOLDERS`** (conventional folders) keeps the root inventory deliberate — a new root folder is a reviewed decision, and under this
   ADR it is the decision to open a track.
-- **The globset registry** (`Catzc.Base.Globs`, `ADR-GLOBS`) declares each track's file set and stamps it; the freshness gate fails any
-  commit that changes a track without carrying its regenerated stamp, and pipelines filter on stamps only.
+- **The globset registry** (`Catzc.Base.Globs`, `ADR-GLOBS`) declares each track's file set; pipelines filter on its native projection and
+  the drift gate fails a trigger that no longer matches, while the git-reflected report answers what a change touches.
 - **depms and the dependency-graph gates** (`ADR-MODDEPS`) enforce the declared subscription edges, including the one-directional core ←
   adapter/port dependency.
 - **Code review** applies the taxonomy: a new root must name its classification and tech-stack; a cross-cutting need becomes a scope
@@ -120,18 +119,18 @@ bind pipelines 1-1 (ADR-TRACK:5).
 
 ## Consequences
 
-- "Which track does this change touch?" has one answer, computed (the marker stamps), not argued.
+- "Which track does this change touch?" has one answer, computed (git-reflected against the globsets), not argued.
 - Pipelines, tests, and reviewers all read the same coordination surface, so a change's blast radius is the same fact everywhere.
-- Opening a concern is cheap and bounded: one root folder, one classification, one globset entry, one marker — and the rest of the
-  repository is untouched by construction.
+- Opening a concern is cheap and bounded: one root folder, one classification, one globset entry — and the rest of the repository is
+  untouched by construction.
 - The cost is discipline at the root: no drive-by root folders, no second stack smuggled into an existing track, and the registry has to
   stay curated as tracks grow.
 
 ## Dora explains
 
 DORA identifies loosely coupled teams and code maintainability as drivers of delivery performance. Tracks establish named concerns with
-clear ownership, tech-stacks, and subscription boundaries, enabling independent verification and blast-radius isolation through durable
-markers.
+clear ownership, tech-stacks, and subscription boundaries, enabling independent verification and blast-radius isolation through
+git-reflected globsets.
 
 - [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — tracks partition ownership, prevent cross-cutting
   coupling, and isolate blast radius.

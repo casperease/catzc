@@ -53,9 +53,9 @@ Module globsets are derived, never declared: every module folder under `automati
 (`Catzc.Base.Globs` → `catzc-base-globs`, include `automation/<Module>/**`), every internal shared module `automation/.internal/<Name>.psm1`
 derives a single-file set by the same convention (`Catzc.Internal.Bootstrap` → `catzc-internal-bootstrap`), and the reserved names
 `internal`, `vendor`, `compiled`, and `scriptanalyzer` cover the dot-prefixed infrastructure. Derived and declared sets share one name space
-— a declared set that shadows a derived name is rejected. Derived sets scope protection **and** persist sha-markers exactly as declared sets
-do (`Update-ShaMarker`/`Test-ShaMarker` iterate both name spaces); pipeline routing stays declared-only — a pipeline registers on a declared
-deployable-unit's marker, never on a derived module's.
+— a declared set that shadows a derived name is rejected. Derived sets scope protection and blast-radius exactly as declared sets do, with
+nothing committed per set; pipeline routing stays declared-only — a pipeline registers on a declared deployable-unit's native projection,
+never on a derived module's.
 
 - [Derived module globsets](#derived-module-globsets)
 
@@ -126,9 +126,9 @@ per-module globsets are derived, not declared (`Get-ModuleGlobSet`): folder = mo
 module. Each internal shared module `automation/.internal/<Name>.psm1` derives a single-file set the same way — the file is the
 registration, as the folder is for a module. The reserved names `internal`, `vendor`, `compiled`, and `scriptanalyzer` derive the
 dot-prefixed infrastructure scopes the suite also depends on. Derived and declared sets share one name space — a shadowing declared name is
-rejected at load — and derived sets persist their own sha-markers alongside the declared registry: `Update-ShaMarker` and `Test-ShaMarker`
-iterate both name spaces, so a module's identity is a committed, reviewable marker in the PR surface, while pipelines keep registering only
-on declared deployable-unit markers.
+rejected at load — and derived sets scope protection and blast-radius alongside the declared registry through the same `Matches()` machinery,
+so a module's identity is a live, reviewable area-of-control in the PR report, while pipelines keep registering only on declared
+deployable-unit projections.
 
 ### The composite identity
 

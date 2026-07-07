@@ -108,10 +108,6 @@ terms:
       meaning: "build provenance — verifiable evidence of how an artifact was produced (supply-chain integrity)"
     - term: auditability
       meaning: "auditability — the property of a system whose changes can be independently audited"
-    - term: mappability
-      meaning:
-        "mappability — the property that a globset always has a computable durable-SHA identity, independent of whether it persists a
-        committed marker (ADR-GLOBS, ADR-PROTGLOB)"
     - term: attestation
       meaning: "a signed attestation — a verifiable claim about how an artifact was built (SLSA)"
     - term: reproducibility
@@ -564,6 +560,12 @@ terms:
       meaning: "ADO predefined variable System.PipelineStartTime"
     - term: pullrequests
       meaning: "ADO 'pullrequests' REST area name"
+    - term: pullrequest
+      meaning: "ADO predefined-variable segment System.PullRequest.* (e.g. SYSTEM_PULLREQUEST_PULLREQUESTID)"
+    - term: pullrequestid
+      meaning: "ADO predefined variable System.PullRequest.PullRequestId"
+    - term: targetbranch
+      meaning: "ADO predefined variable System.PullRequest.TargetBranch"
     - term: serviceendpoint
       meaning: "ADO 'serviceendpoint' (service connection) REST area"
     - term: setvariable
@@ -670,6 +672,8 @@ terms:
       meaning: "a .csproj MSBuild project file"
     - term: yml
       meaning: "a YAML (.yml) file"
+    - term: ymls
+      meaning: "plural of yml — YAML (.yml) files"
     - term: txt
       meaning: "a plain-text (.txt) file"
     - term: psd
@@ -943,8 +947,6 @@ terms:
       meaning: "coined verb 'textified'"
     - term: unparseable
       meaning: "coined adjective 'unparseable'"
-    - term: ungated
-      meaning: "coined adjective 'ungated' — an artifact not covered by a quality gate (e.g. the gitignored sha-marker companion files)"
   person:
     - term: bown
       meaning: "Richard Bown (surname of a cited author)"

@@ -5,9 +5,9 @@
 // evaluated last-match-wins with a default of not-selected. A leaf set's program is its includes as '+' then
 // its excludes as '-' (excludes come last and win). A composing set's program is the composed sets' programs
 // first (dependency order, deepest base first, each set once), then its own +/- rules LAST — so a set's own
-// rules override its base (it re-adds a slice the base dropped). The program is the marker's core: the
-// Representation renders it as the scan: block, and the durable SHA (ADR-GLOBS:5) is computed over exactly
-// what the program selects.
+// rules override its base (it re-adds a slice the base dropped). The program drives everything downstream:
+// Matches() decides membership, Get-GlobSetTrigger projects it into vendor path filters, and the durable SHA
+// (ADR-GLOBS:5) is computed over exactly what the program selects.
 // Verify (test blast-radius scope) and Pipeline (the trigger-role binding) are declarative meta annotations.
 // A globset never composes itself and the compose graph is acyclic (ADR-GLOBS:8), which GlobsConfig asserts
 // across the whole registry at construction.

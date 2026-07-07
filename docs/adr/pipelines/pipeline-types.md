@@ -180,11 +180,12 @@ deployable unit downstream of it.
 
 This is "the CI pipeline" and, identically, "the CI part of the CD pipeline."
 
-- **Trigger:** ADO build validation on the PR branch (pre-commit) and a master trigger (post-commit), registered on the trigger file of the
-  unit it verifies ([durable-sha-globs](durable-sha-globs.md#rule-adr-globs1)) — never path-filtered on source paths directly.
+- **Trigger:** ADO build validation on the PR branch (pre-commit) and a master trigger (post-commit), registered on the native path-filter
+  projection of the unit it verifies ([durable-sha-globs](durable-sha-globs.md#rule-adr-globs6)) — generated from `globs.yml`, never
+  hand-authored.
 - **Example — CI-automation:** "builds" by running `importer.ps1` and "tests" via `Test-Automation` (see
   [test-automation](../automation/test-automation.md)). It produces no artifact; it simply verifies that the automation layer loads and is
-  green. It registers on the automation unit's trigger file, so it runs exactly when that unit's durable SHA changes.
+  green. It registers on the automation unit's native projection (`automation/**`), so it runs exactly when that unit's files change.
 - **Contract:** unit-scoped and fast. The pre-commit budget is 5–10 minutes. A CI pipeline never deploys and never publishes a deployable
   artifact; if it needs to, it is a CD pipeline.
 
@@ -336,7 +337,7 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 - [custom-template-discipline](custom-template-discipline.md) — YAML carries ADO concerns only.
 - [pipeline-detection](pipeline-detection.md), [pipeline-variables](pipeline-variables.md), [dual-authentication](dual-authentication.md) —
   mechanics every type relies on.
-- [durable-sha-globs](durable-sha-globs.md) — the trigger files every unit-scoped trigger registers on.
+- [durable-sha-globs](durable-sha-globs.md) — the globset projection every unit-scoped trigger registers on.
 - [test-automation](../automation/test-automation.md) — the L2/L3 tiers the CI engine runs.
 - Notes: [shared-fate-ci](../../notes/shared-fate-ci.md), [ado-as-self-service-layer](../../notes/ado-as-self-service-layer.md),
   [one-config-to-rule-them-all](../../notes/one-config-to-rule-them-all.md),

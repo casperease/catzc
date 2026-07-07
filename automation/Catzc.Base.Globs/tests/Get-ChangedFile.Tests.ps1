@@ -1,3 +1,4 @@
+# cspell:ignore nsrc  -- the escape-sequence artifact in the "a.txt`nsrc/b.cs" fixture strings
 # The diff universe (ADR-GLOBS:4): changed paths from `git diff --name-only --no-renames`, repo-relative,
 # quotepath off, renames split so both the old and new path count.
 Describe 'Get-ChangedFile' -Tag 'L0', 'logic' {
