@@ -16,6 +16,7 @@
         'automation/.scriptanalyzer/NoForEachObjectControlFlow.psm1'
         'automation/.scriptanalyzer/NoRawVsoCommand.psm1'
         'automation/.scriptanalyzer/NoRawPipelineDetection.psm1'
+        'automation/.scriptanalyzer/NoRawTimeDetection.psm1'
         'automation/.scriptanalyzer/NoRawInformationStream.psm1'
         'automation/.scriptanalyzer/SpellOutIdentifiers.psm1'
     )

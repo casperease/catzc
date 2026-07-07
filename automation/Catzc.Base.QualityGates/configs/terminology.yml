@@ -26,883 +26,898 @@
 # See docs/adr/repository/domain-language-separation.md (ADR-LANG) and spell-out-names.md (ADR-SPELL).
 categories:
   domain:
-    description: 'General technical or computing vocabulary this codebase uses that fits no more specific category below.'
+    description: "General technical or computing vocabulary this codebase uses that fits no more specific category below."
   abbreviation:
-    description: 'A short form standing for a full word or phrase; carries expands_to with the full form.'
+    description: "A short form standing for a full word or phrase; carries expands_to with the full form."
   fixture:
-    description: 'A hermetic TEST token or documentation placeholder — a fixture identity or example value used in tests, doc examples, and comment-based-help EXAMPLE blocks, but NEVER in shipped config DATA (a *.yml/*.json/*.bicep under configs/ or infrastructure/). The test/example domain (ADR-LANG).'
+    description:
+      "A hermetic TEST token or documentation placeholder — a fixture identity or example value used in tests, doc examples, and
+      comment-based-help EXAMPLE blocks, but NEVER in shipped config DATA (a *.yml/*.json/*.bicep under configs/ or infrastructure/). The
+      test/example domain (ADR-LANG)."
     scope:
-      - '**/tests/**'
-      - 'docs/**'
-      - '**/*.ps1'
-      - '**/*.psm1'
+      - "**/tests/**"
+      - "docs/**"
+      - "**/*.ps1"
+      - "**/*.psm1"
   azure-live:
-    description: 'A LIVE Azure identity — a real customer, subscription, org, or shipped-template name that the demo config maps to (the config/live domain, ADR-LANG). Guarded by integrity tests; forbidden in a logic test.'
+    description:
+      "A LIVE Azure identity — a real customer, subscription, org, or shipped-template name that the demo config maps to (the config/live
+      domain, ADR-LANG). Guarded by integrity tests; forbidden in a logic test."
     scope:
-      - 'automation/Catzc.Azure*/configs/**'
-      - 'infrastructure/**'
-      - 'docs/**'
+      - "automation/Catzc.Azure*/configs/**"
+      - "infrastructure/**"
+      - "docs/**"
   adr-example:
-    description: 'A DESIGN-domain example token — a discovery-theme name (discovery/expedition/survey, Contoso) or documentation placeholder used only in ADRs and reference docs (ADR-EXAMPLE, ADR-LANG).'
+    description:
+      "A DESIGN-domain example token — a discovery-theme name (discovery/expedition/survey, Contoso) or documentation placeholder used only
+      in ADRs and reference docs (ADR-EXAMPLE, ADR-LANG)."
     scope:
-      - 'docs/**'
+      - "docs/**"
   adr:
-    description: 'An ADR rule-citation code — the short code naming a docs/adr rule.'
+    description: "An ADR rule-citation code — the short code naming a docs/adr rule."
   ado:
-    description: 'Azure DevOps vocabulary: predefined pipeline variables, REST area names, and logging commands.'
+    description: "Azure DevOps vocabulary: predefined pipeline variables, REST area names, and logging commands."
   azure:
-    description: 'Azure and cloud infrastructure: regions, resource types, network topology, and environment or subscription tokens.'
+    description: "Azure and cloud infrastructure: regions, resource types, network topology, and environment or subscription tokens."
   tool:
-    description: 'An external tool, product, package manager, runtime, or file/data format.'
+    description: "An external tool, product, package manager, runtime, or file/data format."
   platform:
-    description: 'Operating-system, .NET, filesystem, registry, or low-level runtime and encoding vocabulary.'
+    description: "Operating-system, .NET, filesystem, registry, or low-level runtime and encoding vocabulary."
   powershell:
-    description: 'PowerShell language and runtime vocabulary — cmdlet/parameter names, automatic variables, and concepts.'
+    description: "PowerShell language and runtime vocabulary — cmdlet/parameter names, automatic variables, and concepts."
   coined:
-    description: 'A word this codebase coined — a neologism (adjective, verb, or noun) not found in ordinary usage.'
+    description: "A word this codebase coined — a neologism (adjective, verb, or noun) not found in ordinary usage."
   person:
-    description: 'A cited author or thinker referenced in the docs.'
+    description: "A cited author or thinker referenced in the docs."
 
 terms:
   domain:
     - term: testkit
-      meaning: 'catzc-internal-testkit'
+      meaning: "catzc-internal-testkit"
     - term: ast
-      meaning: 'abstract syntax tree (AST) — the PowerShell parser''s AST'
+      meaning: "abstract syntax tree (AST) — the PowerShell parser's AST"
     - term: trie
-      meaning: 'trie (the prefix-tree data structure; cspell ships its dictionaries as tries)'
+      meaning: "trie (the prefix-tree data structure; cspell ships its dictionaries as tries)"
     - term: mutex
-      meaning: 'See. Semaphore'
+      meaning: "See. Semaphore"
     - term: shortcode
-      meaning: 'the 2-char customer/environment identifier in the Azure naming standard'
+      meaning: "the 2-char customer/environment identifier in the Azure naming standard"
     - term: shortcodes
-      meaning: 'plural of shortcode'
+      meaning: "plural of shortcode"
     - term: stackdump
       meaning: bash.exe.stackdump
     - term: esbenp
       meaning: Prettier (esbenp.prettier-vscode)
     - term: allman
-      meaning: 'Allman brace style'
+      meaning: "Allman brace style"
     - term: alnum
-      meaning: 'alphanumeric character class (alnum)'
+      meaning: "alphanumeric character class (alnum)"
     - term: autoload
-      meaning: 'autoload (automatic module loading)'
+      meaning: "autoload (automatic module loading)"
     - term: autoloaded
-      meaning: 'autoloaded'
+      meaning: "autoloaded"
     - term: bareword
-      meaning: 'bareword (an unquoted token)'
+      meaning: "bareword (an unquoted token)"
     - term: buildvalidation
-      meaning: 'reference-doc slug segment for the Catzc.Azure.DevOps.BuildValidation module'
+      meaning: "reference-doc slug segment for the Catzc.Azure.DevOps.BuildValidation module"
     - term: chokepoint
-      meaning: 'a chokepoint'
+      meaning: "a chokepoint"
     - term: cli
-      meaning: 'command-line interface (CLI)'
+      meaning: "command-line interface (CLI)"
     - term: cmdb
-      meaning: 'configuration management database (CMDB)'
+      meaning: "configuration management database (CMDB)"
     - term: dotfiles
-      meaning: 'dotfiles'
+      meaning: "dotfiles"
     - term: dryrun
-      meaning: 'the -DryRun switch (dryrun)'
+      meaning: "the -DryRun switch (dryrun)"
     - term: entrypoint
-      meaning: 'entry-point script or function (entrypoint); a Copy-Automation package name in files.yml'
+      meaning: "entry-point script or function (entrypoint); a Copy-Automation package name in files.yml"
     - term: headerless
-      meaning: 'headerless'
+      meaning: "headerless"
     - term: idempotency
-      meaning: 'idempotency'
+      meaning: "idempotency"
     - term: idempotent
-      meaning: 'idempotent'
+      meaning: "idempotent"
     - term: idempotently
-      meaning: 'idempotently'
+      meaning: "idempotently"
     - term: importer
-      meaning: 'the repository''s importer.ps1 loader'
+      meaning: "the repository's importer.ps1 loader"
     - term: itsm
-      meaning: 'IT service management (ITSM)'
+      meaning: "IT service management (ITSM)"
     - term: jidoka
-      meaning: 'Lean ''jidoka'' (automation with a human touch)'
+      meaning: "Lean 'jidoka' (automation with a human touch)"
     - term: kaizen
-      meaning: 'Lean ''kaizen'' (continuous improvement)'
+      meaning: "Lean 'kaizen' (continuous improvement)"
     - term: kebab
-      meaning: 'kebab-case'
+      meaning: "kebab-case"
     - term: modulesystem
-      meaning: 'reference-doc slug segment for the Catzc.Base.ModuleSystem module'
+      meaning: "reference-doc slug segment for the Catzc.Base.ModuleSystem module"
     - term: noassert
-      meaning: 'the -NoAssert switch (''noassert'') on Invoke-Executable'
+      meaning: "the -NoAssert switch ('noassert') on Invoke-Executable"
     - term: nullness
-      meaning: 'nullness'
+      meaning: "nullness"
     - term: optout
-      meaning: 'opt-out (optout)'
+      meaning: "opt-out (optout)"
     - term: ordinally
-      meaning: 'ordinally (by ordinal comparison)'
+      meaning: "ordinally (by ordinal comparison)"
     - term: parameterised
-      meaning: 'parameterised (British spelling)'
+      meaning: "parameterised (British spelling)"
     - term: prepost
-      meaning: 'the pre/post extension-module pattern (''prepost'')'
+      meaning: "the pre/post extension-module pattern ('prepost')"
     - term: qualitygates
-      meaning: 'reference-doc slug segment for the Catzc.Base.QualityGates module'
+      meaning: "reference-doc slug segment for the Catzc.Base.QualityGates module"
     - term: reformatter
-      meaning: 'a reformatter'
+      meaning: "a reformatter"
     - term: regenerable
-      meaning: 'regenerable (able to be regenerated from its source)'
+      meaning: "regenerable (able to be regenerated from its source)"
     - term: reflog
-      meaning: 'the git reference log (git reflog) — the record of ref-tip movements pruned when rebuilding history'
+      meaning: "the git reference log (git reflog) — the record of ref-tip movements pruned when rebuilding history"
     - term: roundtrips
-      meaning: 'round-trips (roundtrips)'
+      meaning: "round-trips (roundtrips)"
     - term: systemwide
-      meaning: 'system-wide (''systemwide''; controlling-systemwide-deps ADR)'
+      meaning: "system-wide ('systemwide'; controlling-systemwide-deps ADR)"
     - term: typessystem
-      meaning: 'reference-doc slug segment for the Catzc.Base.TypesSystem module'
+      meaning: "reference-doc slug segment for the Catzc.Base.TypesSystem module"
     - term: unioned
-      meaning: 'unioned (combined as a set union)'
+      meaning: "unioned (combined as a set union)"
     - term: upsert
-      meaning: 'upsert (insert-or-update)'
+      meaning: "upsert (insert-or-update)"
     - term: virtualenvs
-      meaning: 'Python virtual environments (virtualenvs)'
+      meaning: "Python virtual environments (virtualenvs)"
     - term: venv
-      meaning: 'a Python virtual environment (python -m venv; uv venv)'
+      meaning: "a Python virtual environment (python -m venv; uv venv)"
     - term: venvs
-      meaning: 'plural of venv'
+      meaning: "plural of venv"
     - term: importlib
-      meaning: 'Python importlib.metadata (stdlib) — reads an installed package''s version without importing it'
+      meaning: "Python importlib.metadata (stdlib) — reads an installed package's version without importing it"
     - term: yoke
-      meaning: 'the ''yoke'' of poka-yoke'
+      meaning: "the 'yoke' of poka-yoke"
     - term: catzc
-      meaning: 'Catzc (this repository / module namespace) — the Cloud Automation Toolkit, Zero-Ceremony; the reserved source-code-level name; "cats" is its conversational cover term'
+      meaning:
+        'Catzc (this repository / module namespace) — the Cloud Automation Toolkit, Zero-Ceremony; the reserved source-code-level name;
+        "cats" is its conversational cover term'
     - term: pathspec
-      meaning: 'a git pathspec (the path-filter argument to git add/commit/grep/log)'
+      meaning: "a git pathspec (the path-filter argument to git add/commit/grep/log)"
     - term: pathspecs
-      meaning: 'git pathspecs (the path-filter arguments passed to git grep/git log)'
+      meaning: "git pathspecs (the path-filter arguments passed to git grep/git log)"
     - term: fileset
-      meaning: 'the set of files a scan or globset covers (fileset)'
+      meaning: "the set of files a scan or globset covers (fileset)"
     - term: filesets
-      meaning: 'the sets of files scans or globsets cover (filesets); loose-filesets are the cross-cutting globset layer'
+      meaning: "the sets of files scans or globsets cover (filesets); loose-filesets are the cross-cutting globset layer"
     - term: quotepath
-      meaning: 'the git core.quotepath setting (quotepath) - controls C-quoting of non-ASCII paths'
+      meaning: "the git core.quotepath setting (quotepath) - controls C-quoting of non-ASCII paths"
     - term: rootconfig
-      meaning: 'the rootconfig.yml registry and the Catzc.Base.RootConfig module (rootconfig)'
+      meaning: "the rootconfig.yml registry and the Catzc.Base.RootConfig module (rootconfig)"
     - term: stdlib
-      meaning: 'a language''s standard library (stdlib)'
+      meaning: "a language's standard library (stdlib)"
     - term: gpgsign
-      meaning: 'git''s commit.gpgsign config key (disabled in Test-GitHistoryClean test repos)'
+      meaning: "git's commit.gpgsign config key (disabled in Test-GitHistoryClean test repos)"
     - term: fxd
-      meaning: 'the git clean -fxd flag set (force + remove ignored + directories; Reset-GitCleanFxd)'
+      meaning: "the git clean -fxd flag set (force + remove ignored + directories; Reset-GitCleanFxd)"
   abbreviation:
     - term: auth
-      meaning: 'authentication / authorization'
-      expands_to: 'authentication'
+      meaning: "authentication / authorization"
+      expands_to: "authentication"
     - term: depm
-      meaning: 'module dependencies — dependencies BETWEEN modules, never on systems (those are deps); the [Catzc.Module.Depm] type-accelerator alias for ModuleDependencyFormat, and the $depm local (only when the value is specifically module-to-module dependencies)'
-      expands_to: 'module dependencies'
+      meaning:
+        "module dependencies — dependencies BETWEEN modules, never on systems (those are deps); the [Catzc.Module.Depm] type-accelerator
+        alias for ModuleDependencyFormat, and the $depm local (only when the value is specifically module-to-module dependencies)"
+      expands_to: "module dependencies"
     - term: depms
-      meaning: 'plural of depm (module dependencies)'
-      expands_to: 'module dependencies'
+      meaning: "plural of depm (module dependencies)"
+      expands_to: "module dependencies"
     - term: cfg
-      meaning: 'configuration'
-      expands_to: 'configuration'
+      meaning: "configuration"
+      expands_to: "configuration"
     - term: cmd
-      meaning: 'command'
-      expands_to: 'command'
+      meaning: "command"
+      expands_to: "command"
     - term: ctx
-      meaning: 'context'
-      expands_to: 'context'
+      meaning: "context"
+      expands_to: "context"
     - term: dir
-      meaning: 'directory'
-      expands_to: 'directory'
+      meaning: "directory"
+      expands_to: "directory"
     - term: init
-      meaning: 'initialize'
-      expands_to: 'initialize'
+      meaning: "initialize"
+      expands_to: "initialize"
     - term: msg
-      meaning: 'message'
-      expands_to: 'message'
+      meaning: "message"
+      expands_to: "message"
     - term: obj
-      meaning: 'object'
-      expands_to: 'object'
+      meaning: "object"
+      expands_to: "object"
     - term: org
-      meaning: 'organization (also the org name component in the Azure naming standard)'
-      expands_to: 'organization'
+      meaning: "organization (also the org name component in the Azure naming standard)"
+      expands_to: "organization"
     - term: repo
-      meaning: 'repository'
-      expands_to: 'repository'
+      meaning: "repository"
+      expands_to: "repository"
     - term: config
-      meaning: 'configuration (conventional, e.g. $config, configPath)'
-      expands_to: 'configuration'
+      meaning: "configuration (conventional, e.g. $config, configPath)"
+      expands_to: "configuration"
     - term: configs
-      meaning: 'configurations'
-      expands_to: 'configurations'
+      meaning: "configurations"
+      expands_to: "configurations"
     - term: params
-      meaning: 'parameters (conventional; also the PowerShell splat idiom)'
-      expands_to: 'parameters'
+      meaning: "parameters (conventional; also the PowerShell splat idiom)"
+      expands_to: "parameters"
     - term: param
-      meaning: 'parameter'
-      expands_to: 'parameter'
+      meaning: "parameter"
+      expands_to: "parameter"
     - term: args
-      meaning: 'arguments (conventional; also the $args automatic variable)'
-      expands_to: 'arguments'
+      meaning: "arguments (conventional; also the $args automatic variable)"
+      expands_to: "arguments"
     - term: env
-      meaning: 'environment (conventional, e.g. $env, envName)'
-      expands_to: 'environment'
+      meaning: "environment (conventional, e.g. $env, envName)"
+      expands_to: "environment"
     - term: envs
-      meaning: 'environments'
-      expands_to: 'environments'
+      meaning: "environments"
+      expands_to: "environments"
     - term: src
-      meaning: 'source'
-      expands_to: 'source'
+      meaning: "source"
+      expands_to: "source"
     - term: dest
-      meaning: 'destination'
-      expands_to: 'destination'
+      meaning: "destination"
+      expands_to: "destination"
     - term: tmp
-      meaning: 'temporary (conventional, e.g. $tmp, tmpFile)'
-      expands_to: 'temporary'
+      meaning: "temporary (conventional, e.g. $tmp, tmpFile)"
+      expands_to: "temporary"
     - term: dirs
-      meaning: 'directories'
-      expands_to: 'directories'
+      meaning: "directories"
+      expands_to: "directories"
     - term: cwd
-      meaning: 'current working directory'
-      expands_to: 'current working directory'
+      meaning: "current working directory"
+      expands_to: "current working directory"
     - term: expr
-      meaning: 'expression'
-      expands_to: 'expression'
+      meaning: "expression"
+      expands_to: "expression"
     - term: attr
-      meaning: 'attribute'
-      expands_to: 'attribute'
+      meaning: "attribute"
+      expands_to: "attribute"
     - term: stmt
-      meaning: 'statement'
-      expands_to: 'statement'
+      meaning: "statement"
+      expands_to: "statement"
     - term: defs
-      meaning: 'definitions'
-      expands_to: 'definitions'
+      meaning: "definitions"
+      expands_to: "definitions"
     - term: exts
-      meaning: 'extensions (file extensions)'
-      expands_to: 'extensions'
+      meaning: "extensions (file extensions)"
+      expands_to: "extensions"
     - term: buf
-      meaning: 'buffer'
-      expands_to: 'buffer'
+      meaning: "buffer"
+      expands_to: "buffer"
     - term: idx
-      meaning: 'index'
-      expands_to: 'index'
+      meaning: "index"
+      expands_to: "index"
     - term: dicts
-      meaning: 'dictionaries'
-      expands_to: 'dictionaries'
+      meaning: "dictionaries"
+      expands_to: "dictionaries"
     - term: fn
-      meaning: 'function'
-      expands_to: 'function'
+      meaning: "function"
+      expands_to: "function"
     - term: fns
-      meaning: 'functions'
-      expands_to: 'functions'
+      meaning: "functions"
+      expands_to: "functions"
     - term: func
-      meaning: 'function'
-      expands_to: 'function'
+      meaning: "function"
+      expands_to: "function"
     - term: cand
-      meaning: 'candidate (coined shorthand, e.g. $cand)'
-      expands_to: 'candidate'
+      meaning: "candidate (coined shorthand, e.g. $cand)"
+      expands_to: "candidate"
     - term: conv
-      meaning: 'conversion / convert (coined shorthand)'
-      expands_to: 'conversion'
+      meaning: "conversion / convert (coined shorthand)"
+      expands_to: "conversion"
     - term: dedup
-      meaning: 'de-duplicate'
-      expands_to: 'de-duplicate'
+      meaning: "de-duplicate"
+      expands_to: "de-duplicate"
     - term: funcs
-      meaning: 'functions'
-      expands_to: 'functions'
+      meaning: "functions"
+      expands_to: "functions"
     - term: mgmt
-      meaning: 'management'
-      expands_to: 'management'
+      meaning: "management"
+      expands_to: "management"
     - term: pkgs
-      meaning: 'packages'
-      expands_to: 'packages'
+      meaning: "packages"
+      expands_to: "packages"
     - term: subdirs
-      meaning: 'subdirectories'
-      expands_to: 'subdirectories'
+      meaning: "subdirectories"
+      expands_to: "subdirectories"
     - term: svcs
-      meaning: 'services'
-      expands_to: 'services'
+      meaning: "services"
+      expands_to: "services"
   fixture:
     - term: tmpl
-      meaning: 'placeholder C# type name ''Tmpl'' (template) in Get-CSharpTypeDependency tests, alongside Ctx/Use'
+      meaning: "placeholder C# type name 'Tmpl' (template) in Get-CSharpTypeDependency tests, alongside Ctx/Use"
     - term: appname
-      meaning: 'placeholder scalar value ''appname'' in Write-EnvironmentSet examples/tests'
+      meaning: "placeholder scalar value 'appname' in Write-EnvironmentSet examples/tests"
     - term: blockout
-      meaning: 'placeholder script-block return value ''blockout'' in Write-EnvironmentSet tests'
+      meaning: "placeholder script-block return value 'blockout' in Write-EnvironmentSet tests"
     - term: capi
-      meaning: 'sample ADO pipeline-variable name ''dev.capi'' in Set-AdoPipelineVariable examples/tests'
+      meaning: "sample ADO pipeline-variable name 'dev.capi' in Set-AdoPipelineVariable examples/tests"
     - term: ghtest
-      meaning: 'temp-repo directory prefix ''catzc-ghtest-'' in Test-GitHistoryClean tests'
+      meaning: "temp-repo directory prefix 'catzc-ghtest-' in Test-GitHistoryClean tests"
     - term: thirdparty
-      meaning: 'sample vendored file name ''thirdparty.txt'' in Test-GitHistoryClean tests'
+      meaning: "sample vendored file name 'thirdparty.txt' in Test-GitHistoryClean tests"
     - term: discw
-      meaning: 'resource-name shortcode used in Get-AzureResourceName test assets'
+      meaning: "resource-name shortcode used in Get-AzureResourceName test assets"
     - term: errtext
-      meaning: 'sample stderr text ''errtext'' in Invoke-Executable tests'
+      meaning: "sample stderr text 'errtext' in Invoke-Executable tests"
     - term: exped
-      meaning: 'derived short_name of the ''expedition'' example template (documentation-examples ADR)'
+      meaning: "derived short_name of the 'expedition' example template (documentation-examples ADR)"
     - term: fixpwsh
-      meaning: 'test fixture token ''fixpwsh'''
+      meaning: "test fixture token 'fixpwsh'"
     - term: fixtenant
-      meaning: 'test fixture token ''fixtenant'''
+      meaning: "test fixture token 'fixtenant'"
     - term: fixtype
-      meaning: 'test fixture token ''fixtype'''
+      meaning: "test fixture token 'fixtype'"
     - term: faketool
-      meaning: 'placeholder tool name ''faketool'' in Resolve-SessionToolHint tests'
+      meaning: "placeholder tool name 'faketool' in Resolve-SessionToolHint tests"
     - term: hintbin
-      meaning: 'placeholder bin-directory name ''hintbin'' in Resolve-SessionToolHint tests'
+      meaning: "placeholder bin-directory name 'hintbin' in Resolve-SessionToolHint tests"
     - term: emptybin
-      meaning: 'placeholder empty bin-directory name ''emptybin'' in Resolve-SessionToolHint tests'
+      meaning: "placeholder empty bin-directory name 'emptybin' in Resolve-SessionToolHint tests"
     - term: globex
-      meaning: 'fictional customer name (Globex) in Azure test config'
+      meaning: "fictional customer name (Globex) in Azure test config"
     - term: khuvslfy
-      meaning: 'illustrative random Add-Type assembly name in the native-csharp-types ADR'
+      meaning: "illustrative random Add-Type assembly name in the native-csharp-types ADR"
     - term: myapp
-      meaning: 'placeholder application name ''myapp'' in examples'
+      meaning: "placeholder application name 'myapp' in examples"
     - term: myconfig
-      meaning: 'placeholder config name ''myconfig'' in Get-ConfigValue / Write-EnvironmentSet examples and tests'
+      meaning: "placeholder config name 'myconfig' in Get-ConfigValue / Write-EnvironmentSet examples and tests"
     - term: mycor
-      meaning: 'derived short_name of the ''my-core'' folder-name example in BicepShortName tests'
+      meaning: "derived short_name of the 'my-core' folder-name example in BicepShortName tests"
     - term: myproject
-      meaning: 'placeholder project name ''myproject'' in examples'
+      meaning: "placeholder project name 'myproject' in examples"
     - term: myproperty
-      meaning: 'placeholder config name ''myproperty'' in config-value-addressing examples (global.myproperty.name)'
+      meaning: "placeholder config name 'myproperty' in config-value-addressing examples (global.myproperty.name)"
     - term: mytem
-      meaning: 'derived short_name of the ''my-template'' example in the naming-standard ADR'
+      meaning: "derived short_name of the 'my-template' example in the naming-standard ADR"
     - term: myvalue
-      meaning: 'invented placeholder token cited as a bad example in the spell-out-names ADR (ADR-SPELL:12)'
+      meaning: "invented placeholder token cited as a bad example in the spell-out-names ADR (ADR-SPELL:12)"
     - term: myvar
-      meaning: 'placeholder variable name ''myvar'' in examples'
+      meaning: "placeholder variable name 'myvar' in examples"
     - term: objout
-      meaning: 'test scratch folder name ''objout'' (object output) in Firewall tests'
+      meaning: "test scratch folder name 'objout' (object output) in Firewall tests"
     - term: plainliteral
-      meaning: 'bare-string token ''plainliteral'' rejected by Write-EnvironmentSet -Set (tests)'
+      meaning: "bare-string token 'plainliteral' rejected by Write-EnvironmentSet -Set (tests)"
     - term: rline
-      meaning: 'token from a carriage-return escape test string (line1`rline2) in ADO command tests'
+      meaning: "token from a carriage-return escape test string (line1`rline2) in ADO command tests"
     - term: sekret
-      meaning: 'deliberately-misspelled placeholder secret value ''sekret'' in Write-EnvironmentSet tests'
+      meaning: "deliberately-misspelled placeholder secret value 'sekret' in Write-EnvironmentSet tests"
     - term: sidx
-      meaning: 'resource-name shortcode in restricted-naming examples (Get-BicepResourceGroupName)'
+      meaning: "resource-name shortcode in restricted-naming examples (Get-BicepResourceGroupName)"
     - term: smod
-      meaning: 'short_name ''smod'' of the sample-with-module test template'
+      meaning: "short_name 'smod' of the sample-with-module test template"
     - term: smpl
-      meaning: 'resource-name shortcode for the ''sample'' template (smpl = sample)'
+      meaning: "resource-name shortcode for the 'sample' template (smpl = sample)"
     - term: sppp
-      meaning: 'short_name ''sppp'' of the sample-with-prepost test template'
+      meaning: "short_name 'sppp' of the sample-with-prepost test template"
     - term: ssub
-      meaning: 'short_name ''ssub'' of the sample-subscription test template'
+      meaning: "short_name 'ssub' of the sample-subscription test template"
     - term: stfw
-      meaning: 'sample storage-account name ''stfw'' in Firewall tests'
+      meaning: "sample storage-account name 'stfw' in Firewall tests"
     - term: stfwexports
-      meaning: 'sample storage-account name ''stfwexports'' in a Firewall function''s doc comment'
+      meaning: "sample storage-account name 'stfwexports' in a Firewall function's doc comment"
     - term: subx
-      meaning: 'short_name ''subx'' of the sample-subenv test template'
+      meaning: "short_name 'subx' of the sample-subenv test template"
     - term: surve
-      meaning: 'derived short_name of the ''survey'' example template (documentation-examples ADR)'
+      meaning: "derived short_name of the 'survey' example template (documentation-examples ADR)"
     - term: systemet
-      meaning: 'author''s docs/notes topic-folder name ''systemet'' cited in the conventional-folders ADR'
+      meaning: "author's docs/notes topic-folder name 'systemet' cited in the conventional-folders ADR"
     - term: wksp
-      meaning: 'resource-name shortcode for ''workspace'' (wksp) in test assets'
+      meaning: "resource-name shortcode for 'workspace' (wksp) in test assets"
   azure-live:
     - term: apex
-      meaning: 'live customer key ''apex'' (Apex Industries) — a real customer in customer.yml / azure.yml (apex_nonprod) with its cd-apex deployable unit'
+      meaning:
+        "live customer key 'apex' (Apex Industries) — a real customer in customer.yml / azure.yml (apex_nonprod) with its cd-apex deployable
+        unit"
     - term: nova
-      meaning: 'live customer key ''nova'' (Nova Systems) in customer.yml / azure.yml (nova_nonprod)'
+      meaning: "live customer key 'nova' (Nova Systems) in customer.yml / azure.yml (nova_nonprod)"
   adr-example:
     - term: contoso
-      meaning: 'Microsoft''s canonical fictional company name (Contoso) — a design-domain example in ADRs and reference docs (ADR-EXAMPLE)'
+      meaning: "Microsoft's canonical fictional company name (Contoso) — a design-domain example in ADRs and reference docs (ADR-EXAMPLE)"
   adr:
     - term: adr
-      meaning: 'the ADR- rule-citation prefix; every rule code has the form ADR-<NAME> (see docs/adr/index.md)'
+      meaning: "the ADR- rule-citation prefix; every rule code has the form ADR-<NAME> (see docs/adr/index.md)"
+    - term: timebind
+      meaning: "body of the ADR-TIMEBIND (the adr short code)"
     - term: ascode
-      meaning: 'body of the ADR-ASCODE code (everything-as-code)'
+      meaning: "body of the ADR-ASCODE code (everything-as-code)"
     - term: lessvar
-      meaning: 'body of the ADR-LESSVAR code (reduce-variability)'
+      meaning: "body of the ADR-LESSVAR code (reduce-variability)"
     - term: nowaste
-      meaning: 'body of the ADR-NOWASTE code (reduce-waste)'
+      meaning: "body of the ADR-NOWASTE code (reduce-waste)"
     - term: onelive
-      meaning: 'body of the ADR-ONELIVE code (one-living-version)'
+      meaning: "body of the ADR-ONELIVE code (one-living-version)"
     - term: azcli
-      meaning: 'body of the ADR-AZCLI code (prefer-az-cli); also ''az cli'''
+      meaning: "body of the ADR-AZCLI code (prefer-az-cli); also 'az cli'"
     - term: prelog
-      meaning: 'body of the ADR-PRELOG code (log-before-invoke)'
+      meaning: "body of the ADR-PRELOG code (log-before-invoke)"
     - term: onefunc
-      meaning: 'body of the ADR-ONEFUNC code (one-function-per-file)'
+      meaning: "body of the ADR-ONEFUNC code (one-function-per-file)"
     - term: nopwd
-      meaning: 'body of the ADR-NOPWD code (never-depend-on-pwd)'
+      meaning: "body of the ADR-NOPWD code (never-depend-on-pwd)"
     - term: nonest
-      meaning: 'body of the ADR-NONEST code (avoid-deep-nesting)'
+      meaning: "body of the ADR-NONEST code (avoid-deep-nesting)"
     - term: xplat
-      meaning: 'body of the ADR-XPLAT code (cross-platform)'
+      meaning: "body of the ADR-XPLAT code (cross-platform)"
     - term: onejob
-      meaning: 'body of the ADR-ONEJOB code (single-responsibility-functions)'
+      meaning: "body of the ADR-ONEJOB code (single-responsibility-functions)"
     - term: modcfg
-      meaning: 'body of the ADR-MODCFG code (module-config-loading)'
+      meaning: "body of the ADR-MODCFG code (module-config-loading)"
     - term: failfast
-      meaning: 'body of the ADR-FAILFAST code (fail-fast-with-asserts)'
+      meaning: "body of the ADR-FAILFAST code (fail-fast-with-asserts)"
     - term: pkgmgr
-      meaning: 'body of the ADR-PKGMGR code (use-proper-package-managers)'
+      meaning: "body of the ADR-PKGMGR code (use-proper-package-managers)"
     - term: enterp
-      meaning: 'body of the ADR-ENTERP code (effective-in-enterprises)'
+      meaning: "body of the ADR-ENTERP code (effective-in-enterprises)"
     - term: sysdeps
-      meaning: 'body of the ADR-SYSDEPS code (controlling-systemwide-deps)'
+      meaning: "body of the ADR-SYSDEPS code (controlling-systemwide-deps)"
     - term: moddeps
-      meaning: 'body of the ADR-MODDEPS code (controlling-module-dependencies)'
+      meaning: "body of the ADR-MODDEPS code (controlling-module-dependencies)"
     - term: envvar
-      meaning: 'body of the ADR-ENVVAR code (environment-variables)'
+      meaning: "body of the ADR-ENVVAR code (environment-variables)"
     - term: psenv
-      meaning: 'body of the ADR-PSENV code (environment-variable-mechanics)'
+      meaning: "body of the ADR-PSENV code (environment-variable-mechanics)"
     - term: modpath
-      meaning: 'body of the ADR-MODPATH code (module-path-hygiene)'
+      meaning: "body of the ADR-MODPATH code (module-path-hygiene)"
     - term: psparam
-      meaning: 'body of the ADR-PSPARAM code (parameter-design)'
+      meaning: "body of the ADR-PSPARAM code (parameter-design)"
     - term: pspwd
-      meaning: 'body of the ADR-PSPWD code (working-directory-mechanics)'
+      meaning: "body of the ADR-PSPWD code (working-directory-mechanics)"
     - term: psxplat
-      meaning: 'body of the ADR-PSXPLAT code (cross-platform-powershell)'
+      meaning: "body of the ADR-PSXPLAT code (cross-platform-powershell)"
     - term: pscache
-      meaning: 'body of the ADR-PSCACHE code (script-scope-caching)'
+      meaning: "body of the ADR-PSCACHE code (script-scope-caching)"
     - term: azsess
-      meaning: 'body of the ADR-AZSESS code (az-session-verification)'
+      meaning: "body of the ADR-AZSESS code (az-session-verification)"
     - term: cfgaddr
-      meaning: 'body of the ADR-CFGADDR code (config-value-addressing)'
+      meaning: "body of the ADR-CFGADDR code (config-value-addressing)"
     - term: protglob
-      meaning: 'body of the ADR-PROTGLOB code (protected-globs)'
+      meaning: "body of the ADR-PROTGLOB code (protected-globs)"
     - term: rootcfg
-      meaning: 'body of the ADR-ROOTCFG code (generated-root-configs)'
+      meaning: "body of the ADR-ROOTCFG code (generated-root-configs)"
     - term: uvpy
-      meaning: 'body of the ADR-UVPY code (uv-python-handler)'
+      meaning: "body of the ADR-UVPY code (uv-python-handler)"
     - term: nosemi
-      meaning: 'body of the ADR-NOSEMI code (avoid-using-semicolons)'
+      meaning: "body of the ADR-NOSEMI code (avoid-using-semicolons)"
     - term: useps
-      meaning: 'body of the ADR-USEPS code (use-ps1-not-psm1)'
+      meaning: "body of the ADR-USEPS code (use-ps1-not-psm1)"
     - term: autovar
-      meaning: 'body of the ADR-AUTOVAR code (automatic-variable-pitfalls)'
+      meaning: "body of the ADR-AUTOVAR code (automatic-variable-pitfalls)"
     - term: psformat
-      meaning: 'body of the ADR-PSFORMAT code (powershell-formatting)'
+      meaning: "body of the ADR-PSFORMAT code (powershell-formatting)"
     - term: pipedet
-      meaning: 'body of the ADR-PIPEDET code (pipeline-detection)'
+      meaning: "body of the ADR-PIPEDET code (pipeline-detection)"
     - term: pipetype
-      meaning: 'body of the ADR-PIPETYPE code (pipeline-types)'
+      meaning: "body of the ADR-PIPETYPE code (pipeline-types)"
     - term: pipevar
-      meaning: 'body of the ADR-PIPEVAR code (pipeline-variables)'
+      meaning: "body of the ADR-PIPEVAR code (pipeline-variables)"
     - term: pipename
-      meaning: 'body of the ADR-PIPENAME code (pipeline-naming-and-placement)'
+      meaning: "body of the ADR-PIPENAME code (pipeline-naming-and-placement)"
     - term: datamod
-      meaning: 'body of the ADR-DATAMOD code (data-model)'
+      meaning: "body of the ADR-DATAMOD code (data-model)"
     - term: outdir
-      meaning: 'body of the ADR-OUTDIR code (dedicated-output-directory)'
+      meaning: "body of the ADR-OUTDIR code (dedicated-output-directory)"
     - term: poka
-      meaning: 'body of the ADR-POKA code (poka-yoke); also ''poka-yoke'''
+      meaning: "body of the ADR-POKA code (poka-yoke); also 'poka-yoke'"
   ado:
     - term: tf
-      meaning: 'the TF_BUILD predefined pipeline variable (Team Foundation Build), e.g. $savedTfBuild'
+      meaning: "the TF_BUILD predefined pipeline variable (Team Foundation Build), e.g. $savedTfBuild"
     - term: gh
-      meaning: 'the GITHUB_ACTIONS predefined variable / GitHub, e.g. $origGhActions'
+      meaning: "the GITHUB_ACTIONS predefined variable / GitHub, e.g. $origGhActions"
     - term: accesstoken
-      meaning: '''accesstoken'' as used in ADO/identity access-token field and variable forms'
+      meaning: "'accesstoken' as used in ADO/identity access-token field and variable forms"
     - term: ado
-      meaning: 'Azure DevOps (ADO)'
+      meaning: "Azure DevOps (ADO)"
     - term: artifactstagingdirectory
-      meaning: 'ADO predefined variable Build.ArtifactStagingDirectory'
+      meaning: "ADO predefined variable Build.ArtifactStagingDirectory"
     - term: binariesdirectory
-      meaning: 'ADO predefined variable Build.BinariesDirectory'
+      meaning: "ADO predefined variable Build.BinariesDirectory"
     - term: builddirectory
-      meaning: 'ADO predefined Build.*Directory path segment'
+      meaning: "ADO predefined Build.*Directory path segment"
     - term: buildid
-      meaning: 'ADO predefined variable Build.BuildId'
+      meaning: "ADO predefined variable Build.BuildId"
     - term: buildnumber
-      meaning: 'ADO predefined variable Build.BuildNumber'
+      meaning: "ADO predefined variable Build.BuildNumber"
     - term: collectionuri
-      meaning: 'ADO predefined variable System.CollectionUri'
+      meaning: "ADO predefined variable System.CollectionUri"
     - term: definitionname
-      meaning: 'ADO predefined variable Build.DefinitionName'
+      meaning: "ADO predefined variable Build.DefinitionName"
     - term: distributedtask
-      meaning: 'ADO ''distributedtask'' REST area name'
+      meaning: "ADO 'distributedtask' REST area name"
     - term: issecret
-      meaning: 'ADO logging-command property ''issecret'''
+      meaning: "ADO logging-command property 'issecret'"
     - term: jobdisplayname
-      meaning: 'ADO predefined variable System/Agent JobDisplayName'
+      meaning: "ADO predefined variable System/Agent JobDisplayName"
     - term: lockbehavior
-      meaning: 'ADO pipeline YAML ''lockBehavior'' key'
+      meaning: "ADO pipeline YAML 'lockBehavior' key"
     - term: pipelinestarttime
-      meaning: 'ADO predefined variable System.PipelineStartTime'
+      meaning: "ADO predefined variable System.PipelineStartTime"
     - term: pullrequests
-      meaning: 'ADO ''pullrequests'' REST area name'
+      meaning: "ADO 'pullrequests' REST area name"
     - term: serviceendpoint
-      meaning: 'ADO ''serviceendpoint'' (service connection) REST area'
+      meaning: "ADO 'serviceendpoint' (service connection) REST area"
     - term: setvariable
-      meaning: 'ADO logging command ''setvariable'''
+      meaning: "ADO logging command 'setvariable'"
     - term: sourcebranch
-      meaning: 'ADO predefined variable Build.SourceBranch'
+      meaning: "ADO predefined variable Build.SourceBranch"
     - term: sourcebranchname
-      meaning: 'ADO predefined variable Build.SourceBranchName'
+      meaning: "ADO predefined variable Build.SourceBranchName"
     - term: sourcesdirectory
-      meaning: 'ADO predefined variable Build.SourcesDirectory'
+      meaning: "ADO predefined variable Build.SourcesDirectory"
     - term: sourceversion
-      meaning: 'ADO predefined variable Build.SourceVersion'
+      meaning: "ADO predefined variable Build.SourceVersion"
     - term: sourceversionauthor
-      meaning: 'ADO predefined variable Build.SourceVersionAuthor'
+      meaning: "ADO predefined variable Build.SourceVersionAuthor"
     - term: sourceversionmessage
-      meaning: 'ADO predefined variable Build.SourceVersionMessage'
+      meaning: "ADO predefined variable Build.SourceVersionMessage"
     - term: teamproject
-      meaning: 'ADO predefined variable System.TeamProject'
+      meaning: "ADO predefined variable System.TeamProject"
     - term: tempdirectory
-      meaning: 'ADO predefined variable Agent.TempDirectory'
+      meaning: "ADO predefined variable Agent.TempDirectory"
     - term: testresultsdirectory
-      meaning: 'ADO predefined variable Common.TestResultsDirectory'
+      meaning: "ADO predefined variable Common.TestResultsDirectory"
     - term: toolsdirectory
-      meaning: 'ADO predefined variable Agent.ToolsDirectory'
+      meaning: "ADO predefined variable Agent.ToolsDirectory"
     - term: vso
-      meaning: '''vso'' (Visual Studio Online) ADO logging-command/task prefix'
+      meaning: "'vso' (Visual Studio Online) ADO logging-command/task prefix"
     - term: vsts
-      meaning: 'Visual Studio Team Services (VSTS), former name of Azure DevOps'
+      meaning: "Visual Studio Team Services (VSTS), former name of Azure DevOps"
   azure:
     - term: cidr
-      meaning: 'CIDR notation for an IP range (e.g. 10.0.0.0/16)'
+      meaning: "CIDR notation for an IP range (e.g. 10.0.0.0/16)"
     - term: rg
-      meaning: 'resource group (the Azure resource-type abbreviation, e.g. $rg)'
+      meaning: "resource group (the Azure resource-type abbreviation, e.g. $rg)"
     - term: ipg
-      meaning: 'IP Group (Azure Firewall IP Groups)'
+      meaning: "IP Group (Azure Firewall IP Groups)"
     - term: burstable
-      meaning: 'Azure ''burstable'' VM SKU family'
+      meaning: "Azure 'burstable' VM SKU family"
     - term: entra
-      meaning: 'Microsoft Entra ID (identity service)'
+      meaning: "Microsoft Entra ID (identity service)"
     - term: eus
-      meaning: 'Azure region short code East US (eus)'
+      meaning: "Azure region short code East US (eus)"
     - term: hubspoke
-      meaning: 'hub-and-spoke network topology'
+      meaning: "hub-and-spoke network topology"
     - term: ipgs
-      meaning: 'Azure Firewall IP Groups (IPGs)'
+      meaning: "Azure Firewall IP Groups (IPGs)"
     - term: jumpbox
-      meaning: 'jumpbox (bastion host)'
+      meaning: "jumpbox (bastion host)"
     - term: loadbalancers
-      meaning: 'Azure ''loadBalancers'' resource type'
+      meaning: "Azure 'loadBalancers' resource type"
     - term: neu
-      meaning: 'Azure region short code North Europe (neu)'
+      meaning: "Azure region short code North Europe (neu)"
     - term: nonprod
-      meaning: 'non-production (nonprod) environment'
+      meaning: "non-production (nonprod) environment"
     - term: northeurope
-      meaning: 'Azure region ''northeurope'''
+      meaning: "Azure region 'northeurope'"
     - term: onprem
-      meaning: 'on-premises (onprem)'
+      meaning: "on-premises (onprem)"
     - term: passwordless
-      meaning: 'passwordless authentication'
+      meaning: "passwordless authentication"
     - term: preprod
-      meaning: 'pre-production (preprod) environment'
+      meaning: "pre-production (preprod) environment"
     - term: protoport
-      meaning: 'firewall column render mode ''protoport'' (protocol + port)'
+      meaning: "firewall column render mode 'protoport' (protocol + port)"
     - term: scus
-      meaning: 'Azure region short code South Central US (scus)'
+      meaning: "Azure region short code South Central US (scus)"
     - term: snet
-      meaning: 'Azure subnet resource-name abbreviation (Cloud Adoption Framework ''snet'')'
+      meaning: "Azure subnet resource-name abbreviation (Cloud Adoption Framework 'snet')"
     - term: spoke
-      meaning: 'the ''spoke'' side of a hub-and-spoke network'
+      meaning: "the 'spoke' side of a hub-and-spoke network"
     - term: sqldb
-      meaning: 'Azure SQL Database resource type (sqldb)'
+      meaning: "Azure SQL Database resource type (sqldb)"
     - term: subdeploy
-      meaning: 'subscription-scoped deployment (''subdeploy'')'
+      meaning: "subscription-scoped deployment ('subdeploy')"
     - term: subenv
-      meaning: 'sub-environment (''subenv'') in the Azure data model'
+      meaning: "sub-environment ('subenv') in the Azure data model"
     - term: subn
-      meaning: 'the nonprod subscription token ''subn'' (azure.yml subscription model)'
+      meaning: "the nonprod subscription token 'subn' (azure.yml subscription model)"
     - term: subnet
-      meaning: 'subnet'
+      meaning: "subnet"
     - term: subnets
-      meaning: 'subnets'
+      meaning: "subnets"
     - term: subp
-      meaning: 'the prod subscription token ''subp'' (azure.yml subscription model)'
+      meaning: "the prod subscription token 'subp' (azure.yml subscription model)"
     - term: synw
-      meaning: 'Azure Synapse workspace resource-type token (synw)'
+      meaning: "Azure Synapse workspace resource-type token (synw)"
     - term: vnet
-      meaning: 'Azure virtual network (VNet)'
+      meaning: "Azure virtual network (VNet)"
     - term: waf
-      meaning: 'web-application firewall / Well-Architected Framework (WAF)'
+      meaning: "web-application firewall / Well-Architected Framework (WAF)"
     - term: westeurope
-      meaning: 'Azure region ''westeurope'''
+      meaning: "Azure region 'westeurope'"
     - term: weu
-      meaning: 'Azure region short code West Europe (weu)'
+      meaning: "Azure region short code West Europe (weu)"
   tool:
     - term: csharp
-      meaning: 'C# (the csharp language / file token)'
+      meaning: "C# (the csharp language / file token)"
     - term: py
-      meaning: 'Python (the py file/command token, e.g. PySpark)'
+      meaning: "Python (the py file/command token, e.g. PySpark)"
     - term: js
-      meaning: 'JavaScript (the js token, e.g. NodeJs)'
+      meaning: "JavaScript (the js token, e.g. NodeJs)"
     - term: puml
-      meaning: 'PlantUML (.puml diagram source)'
+      meaning: "PlantUML (.puml diagram source)"
     - term: csproj
-      meaning: 'a .csproj MSBuild project file'
+      meaning: "a .csproj MSBuild project file"
     - term: yml
-      meaning: 'a YAML (.yml) file'
+      meaning: "a YAML (.yml) file"
     - term: txt
-      meaning: 'a plain-text (.txt) file'
+      meaning: "a plain-text (.txt) file"
     - term: psd
-      meaning: 'a PowerShell data file (.psd1 manifest)'
+      meaning: "a PowerShell data file (.psd1 manifest)"
     - term: gitignore
-      meaning: 'a .gitignore file'
+      meaning: "a .gitignore file"
     - term: wildmatch
-      meaning: 'git''s wildmatch pattern syntax — the glob dialect .gitignore/.gitattributes patterns use'
+      meaning: "git's wildmatch pattern syntax — the glob dialect .gitignore/.gitattributes patterns use"
     - term: markdownlint
-      meaning: 'the markdownlint tool'
+      meaning: "the markdownlint tool"
     - term: artifactory
-      meaning: 'JFrog Artifactory'
+      meaning: "JFrog Artifactory"
     - term: azps
-      meaning: 'Azure PowerShell (Az / AzPS)'
+      meaning: "Azure PowerShell (Az / AzPS)"
     - term: bicep
-      meaning: 'Azure Bicep infrastructure-as-code language'
+      meaning: "Azure Bicep infrastructure-as-code language"
     - term: choco
-      meaning: 'Chocolatey CLI (choco)'
+      meaning: "Chocolatey CLI (choco)"
     - term: chocolatey
-      meaning: 'Chocolatey package manager'
+      meaning: "Chocolatey package manager"
     - term: cspell
-      meaning: 'cspell spell-checker'
+      meaning: "cspell spell-checker"
     - term: dbatools
-      meaning: 'dbatools PowerShell module'
+      meaning: "dbatools PowerShell module"
     - term: dearmor
-      meaning: 'gpg --dearmor'
+      meaning: "gpg --dearmor"
     - term: devbox
-      meaning: 'Microsoft Dev Box'
+      meaning: "Microsoft Dev Box"
     - term: dotnet
-      meaning: '.NET CLI (dotnet)'
+      meaning: ".NET CLI (dotnet)"
     - term: dpkg
-      meaning: 'Debian dpkg'
+      meaning: "Debian dpkg"
     - term: enduml
-      meaning: 'PlantUML @enduml directive'
+      meaning: "PlantUML @enduml directive"
     - term: flux
-      meaning: 'Flux GitOps toolkit'
+      meaning: "Flux GitOps toolkit"
     - term: gofmt
-      meaning: 'Go gofmt formatter'
+      meaning: "Go gofmt formatter"
     - term: msix
-      meaning: 'MSIX application package format'
+      meaning: "MSIX application package format"
     - term: npm
-      meaning: 'npm package manager'
+      meaning: "npm package manager"
     - term: nuget
-      meaning: 'NuGet package manager'
+      meaning: "NuGet package manager"
     - term: pester
-      meaning: 'Pester test framework'
+      meaning: "Pester test framework"
     - term: poetry
-      meaning: 'Python Poetry'
+      meaning: "Python Poetry"
     - term: pssa
-      meaning: 'PSScriptAnalyzer (PSSA)'
+      meaning: "PSScriptAnalyzer (PSSA)"
     - term: pstmn
-      meaning: 'Postman download host (dl.pstmn.io)'
+      meaning: "Postman download host (dl.pstmn.io)"
     - term: pyspark
-      meaning: 'PySpark'
+      meaning: "PySpark"
     - term: roslyn
-      meaning: 'Roslyn C# compiler'
+      meaning: "Roslyn C# compiler"
     - term: scriptanalyzer
-      meaning: 'PSScriptAnalyzer (''scriptanalyzer'')'
+      meaning: "PSScriptAnalyzer ('scriptanalyzer')"
     - term: setuptools
-      meaning: 'Python setuptools packaging library'
+      meaning: "Python setuptools packaging library"
     - term: slnx
-      meaning: 'Visual Studio .slnx solution format'
+      meaning: "Visual Studio .slnx solution format"
     - term: startuml
-      meaning: 'PlantUML @startuml directive'
+      meaning: "PlantUML @startuml directive"
     - term: terraform
-      meaning: 'Terraform'
+      meaning: "Terraform"
     - term: winget
-      meaning: 'winget package manager'
+      meaning: "winget package manager"
     - term: uv
-      meaning: 'Astral''s uv — Python package/tool manager and Python installer (the standard Python handler)'
+      meaning: "Astral's uv — Python package/tool manager and Python installer (the standard Python handler)"
     - term: astral
-      meaning: 'Astral (astral.sh), maker of uv'
+      meaning: "Astral (astral.sh), maker of uv"
     - term: nvm
-      meaning: 'nvm (Node Version Manager)'
+      meaning: "nvm (Node Version Manager)"
     - term: cpython
-      meaning: 'CPython (the reference Python implementation; uv installs cpython builds)'
+      meaning: "CPython (the reference Python implementation; uv installs cpython builds)"
     - term: yaml
-      meaning: 'YAML'
+      meaning: "YAML"
     - term: vscode
-      meaning: 'Visual Studio Code (VS Code) — the .vscode/ root folder, the Catzc.Base.VSCode module, and its Assert-Vscode* validators'
+      meaning: "Visual Studio Code (VS Code) — the .vscode/ root folder, the Catzc.Base.VSCode module, and its Assert-Vscode* validators"
   platform:
     - term: clr
-      meaning: 'the Common Language Runtime (CLR)'
+      meaning: "the Common Language Runtime (CLR)"
     - term: consolas
-      meaning: 'the Consolas monospace font (the VS Code markdown-preview font in vscode-settings.yml)'
+      meaning: "the Consolas monospace font (the VS Code markdown-preview font in vscode-settings.yml)"
     - term: pwd
-      meaning: 'the $PWD present-working-directory automatic variable (e.g. Measure-NeverDependOnPwd)'
+      meaning: "the $PWD present-working-directory automatic variable (e.g. Measure-NeverDependOnPwd)"
     - term: stderr
-      meaning: 'the standard error stream (stderr)'
+      meaning: "the standard error stream (stderr)"
     - term: guid
-      meaning: 'a globally unique identifier (GUID)'
+      meaning: "a globally unique identifier (GUID)"
     - term: guids
-      meaning: 'plural of GUID; the managed-GUID registry (Catzc.Base.QualityGates configs/guids.yml)'
+      meaning: "plural of GUID; the managed-GUID registry (Catzc.Base.QualityGates configs/guids.yml)"
     - term: amsi
-      meaning: 'Windows Antimalware Scan Interface (AMSI)'
+      meaning: "Windows Antimalware Scan Interface (AMSI)"
     - term: appdomain
-      meaning: '.NET AppDomain'
+      meaning: ".NET AppDomain"
     - term: bom
-      meaning: 'byte order mark (BOM)'
+      meaning: "byte order mark (BOM)"
     - term: crlf
-      meaning: 'carriage return + line feed (CRLF)'
+      meaning: "carriage return + line feed (CRLF)"
     - term: cultureinfo
-      meaning: '.NET CultureInfo'
+      meaning: ".NET CultureInfo"
     - term: dfs
-      meaning: 'Windows Distributed File System (DFS)'
+      meaning: "Windows Distributed File System (DFS)"
     - term: dpapi
-      meaning: 'Windows Data Protection API (DPAPI) — encrypts SecureString at rest on Windows'
+      meaning: "Windows Data Protection API (DPAPI) — encrypts SecureString at rest on Windows"
     - term: getcwd
-      meaning: 'POSIX getcwd()'
+      meaning: "POSIX getcwd()"
     - term: hkcu
-      meaning: 'registry hive HKEY_CURRENT_USER (HKCU)'
+      meaning: "registry hive HKEY_CURRENT_USER (HKCU)"
     - term: hklm
-      meaning: 'registry hive HKEY_LOCAL_MACHINE (HKLM)'
+      meaning: "registry hive HKEY_LOCAL_MACHINE (HKLM)"
     - term: isatty
-      meaning: 'POSIX isatty()'
+      meaning: "POSIX isatty()"
     - term: libexec
-      meaning: 'libexec directory'
+      meaning: "libexec directory"
     - term: localappdata
-      meaning: 'the %LOCALAPPDATA% path (localappdata)'
+      meaning: "the %LOCALAPPDATA% path (localappdata)"
     - term: windowsapps
       meaning: 'the %LOCALAPPDATA%\Microsoft\WindowsApps directory — winget / App Installer command aliases'
     - term: lpdw
-      meaning: 'Win32 P/Invoke out-parameter name ''lpdwResult'' (long pointer to DWORD)'
+      meaning: "Win32 P/Invoke out-parameter name 'lpdwResult' (long pointer to DWORD)"
     - term: ntfs
-      meaning: 'NTFS file system'
+      meaning: "NTFS file system"
     - term: osarchitecture
-      meaning: 'CIM Win32_OperatingSystem ''OSArchitecture'' property'
+      meaning: "CIM Win32_OperatingSystem 'OSArchitecture' property"
     - term: pathext
-      meaning: 'the %PATHEXT% variable (pathext)'
+      meaning: "the %PATHEXT% variable (pathext)"
     - term: settingchange
-      meaning: 'the WM_SETTINGCHANGE ''settingchange'' broadcast'
+      meaning: "the WM_SETTINGCHANGE 'settingchange' broadcast"
     - term: sha
-      meaning: 'SHA hash algorithm (sha)'
+      meaning: "SHA hash algorithm (sha)"
     - term: shortnames
-      meaning: '8.3 short file names (shortnames)'
+      meaning: "8.3 short file names (shortnames)"
     - term: symbolicname
-      meaning: 'package ''symbolicName'' field'
+      meaning: "package 'symbolicName' field"
     - term: unc
-      meaning: 'UNC network path'
+      meaning: "UNC network path"
     - term: utf
-      meaning: 'UTF (Unicode Transformation Format)'
+      meaning: "UTF (Unicode Transformation Format)"
     - term: wbin
-      meaning: 'the Azure CLI ''wbin'' scripts directory name'
+      meaning: "the Azure CLI 'wbin' scripts directory name"
     - term: wdac
-      meaning: 'Windows Defender Application Control (WDAC)'
+      meaning: "Windows Defender Application Control (WDAC)"
     - term: worktree
-      meaning: 'git worktree'
+      meaning: "git worktree"
     - term: wsl
-      meaning: 'Windows Subsystem for Linux (WSL)'
+      meaning: "Windows Subsystem for Linux (WSL)"
     - term: mingw
-      meaning: 'the MinGW toolchain — the mingw64 directory inside a Git for Windows install'
+      meaning: "the MinGW toolchain — the mingw64 directory inside a Git for Windows install"
   powershell:
     - term: cmdlet
-      meaning: 'PowerShell cmdlet'
+      meaning: "PowerShell cmdlet"
     - term: cmdlets
-      meaning: 'PowerShell cmdlets'
+      meaning: "PowerShell cmdlets"
     - term: cnotin
-      meaning: 'PowerShell case-sensitive -cnotin containment operator'
+      meaning: "PowerShell case-sensitive -cnotin containment operator"
     - term: confirmpreference
-      meaning: 'PowerShell $ConfirmPreference variable'
+      meaning: "PowerShell $ConfirmPreference variable"
     - term: erroraction
-      meaning: 'PowerShell -ErrorAction common parameter'
+      meaning: "PowerShell -ErrorAction common parameter"
     - term: erroractionpreference
-      meaning: 'PowerShell $ErrorActionPreference variable'
+      meaning: "PowerShell $ErrorActionPreference variable"
     - term: functionstoexport
-      meaning: 'module manifest FunctionsToExport key'
+      meaning: "module manifest FunctionsToExport key"
     - term: hashtable
-      meaning: 'PowerShell hashtable'
+      meaning: "PowerShell hashtable"
     - term: hashtables
-      meaning: 'PowerShell hashtables'
+      meaning: "PowerShell hashtables"
     - term: informationaction
-      meaning: 'PowerShell -InformationAction common parameter'
+      meaning: "PowerShell -InformationAction common parameter"
     - term: lastexitcode
-      meaning: 'PowerShell automatic variable $LASTEXITCODE'
+      meaning: "PowerShell automatic variable $LASTEXITCODE"
     - term: nestedmodules
-      meaning: 'module manifest NestedModules key'
+      meaning: "module manifest NestedModules key"
     - term: nonewscope
-      meaning: 'PowerShell -NoNewScope switch'
+      meaning: "PowerShell -NoNewScope switch"
     - term: noprofile
-      meaning: 'PowerShell -NoProfile switch'
+      meaning: "PowerShell -NoProfile switch"
     - term: passthru
-      meaning: 'PowerShell -PassThru common switch'
+      meaning: "PowerShell -PassThru common switch"
     - term: pscmdlet
-      meaning: 'PowerShell $PSCmdlet automatic variable'
+      meaning: "PowerShell $PSCmdlet automatic variable"
     - term: pscore
-      meaning: 'PowerShell Core (pscore)'
+      meaning: "PowerShell Core (pscore)"
     - term: pscustomobject
-      meaning: 'PowerShell [pscustomobject]'
+      meaning: "PowerShell [pscustomobject]"
     - term: psd1
-      meaning: 'PowerShell data/manifest file extension (.psd1)'
+      meaning: "PowerShell data/manifest file extension (.psd1)"
     - term: pshome
-      meaning: 'the $PSHOME location'
+      meaning: "the $PSHOME location"
     - term: psitem
-      meaning: 'PowerShell $PSItem automatic variable'
+      meaning: "PowerShell $PSItem automatic variable"
     - term: psm1
-      meaning: 'PowerShell script module file extension (.psm1)'
+      meaning: "PowerShell script module file extension (.psm1)"
     - term: psmodulepath
-      meaning: 'the PSModulePath environment variable'
+      meaning: "the PSModulePath environment variable"
     - term: psobject
-      meaning: 'the PowerShell [psobject] type'
+      meaning: "the PowerShell [psobject] type"
     - term: psscriptroot
-      meaning: 'PowerShell $PSScriptRoot automatic variable'
+      meaning: "PowerShell $PSScriptRoot automatic variable"
     - term: pwsh
-      meaning: 'PowerShell 7+ executable (pwsh)'
+      meaning: "PowerShell 7+ executable (pwsh)"
     - term: runspace
-      meaning: 'PowerShell runspace'
+      meaning: "PowerShell runspace"
     - term: runspaces
-      meaning: 'PowerShell runspaces'
+      meaning: "PowerShell runspaces"
     - term: scriptblock
-      meaning: 'PowerShell script block ([scriptblock])'
+      meaning: "PowerShell script block ([scriptblock])"
     - term: scriptblocks
-      meaning: 'PowerShell script blocks'
+      meaning: "PowerShell script blocks"
     - term: shouldprocess
-      meaning: 'PowerShell ShouldProcess'
+      meaning: "PowerShell ShouldProcess"
     - term: splat
-      meaning: 'PowerShell splatting (splat)'
+      meaning: "PowerShell splatting (splat)"
     - term: splatting
-      meaning: 'PowerShell splatting'
+      meaning: "PowerShell splatting"
     - term: steppable
-      meaning: 'a PowerShell steppable pipeline'
+      meaning: "a PowerShell steppable pipeline"
     - term: warningaction
-      meaning: 'PowerShell -WarningAction common parameter'
+      meaning: "PowerShell -WarningAction common parameter"
     - term: warningpreference
-      meaning: 'PowerShell $WarningPreference variable'
+      meaning: "PowerShell $WarningPreference variable"
     - term: whatifpreference
-      meaning: 'PowerShell $WhatIfPreference variable'
+      meaning: "PowerShell $WhatIfPreference variable"
   coined:
     - term: arrayifies
-      meaning: 'coined verb (arrayifies) — wraps a scalar in an array'
+      meaning: "coined verb (arrayifies) — wraps a scalar in an array"
     - term: assertability
-      meaning: 'coined noun ''assertability'''
+      meaning: "coined noun 'assertability'"
     - term: assertable
-      meaning: 'coined adjective ''assertable'''
+      meaning: "coined adjective 'assertable'"
     - term: capturable
-      meaning: 'coined adjective ''capturable'''
+      meaning: "coined adjective 'capturable'"
     - term: foldered
-      meaning: 'coined adjective ''foldered'''
+      meaning: "coined adjective 'foldered'"
     - term: globset
-      meaning: 'coined noun ''globset'' — a named set of glob patterns defining a deployable unit (ADR-GLOBS)'
+      meaning: "coined noun 'globset' — a named set of glob patterns defining a deployable unit (ADR-GLOBS)"
     - term: globsets
-      meaning: 'plural of the coined noun ''globset'''
+      meaning: "plural of the coined noun 'globset'"
     - term: greppable
-      meaning: 'coined adjective ''greppable'''
+      meaning: "coined adjective 'greppable'"
     - term: loggable
-      meaning: 'coined adjective ''loggable'' — a value safe to write to a log'
+      meaning: "coined adjective 'loggable' — a value safe to write to a log"
     - term: miscased
-      meaning: 'coined adjective ''miscased'' — a tag/name written in the wrong letter case'
+      meaning: "coined adjective 'miscased' — a tag/name written in the wrong letter case"
     - term: mockable
-      meaning: 'coined adjective ''mockable'''
+      meaning: "coined adjective 'mockable'"
     - term: parseable
-      meaning: 'coined adjective ''parseable'''
+      meaning: "coined adjective 'parseable'"
     - term: pasteable
-      meaning: 'coined adjective ''pasteable'''
+      meaning: "coined adjective 'pasteable'"
     - term: previewable
-      meaning: 'coined adjective ''previewable'''
+      meaning: "coined adjective 'previewable'"
     - term: protectable
-      meaning: 'coined adjective ''protectable'' - a scan the protected-glob gate may skip (ADR-PROTGLOB)'
+      meaning: "coined adjective 'protectable' - a scan the protected-glob gate may skip (ADR-PROTGLOB)"
     - term: stringly
-      meaning: '''stringly-typed'' (stringly)'
+      meaning: "'stringly-typed' (stringly)"
     - term: suppressable
-      meaning: 'coined adjective ''suppressable'''
+      meaning: "coined adjective 'suppressable'"
     - term: textified
-      meaning: 'coined verb ''textified'''
+      meaning: "coined verb 'textified'"
     - term: unparseable
-      meaning: 'coined adjective ''unparseable'''
+      meaning: "coined adjective 'unparseable'"
   person:
     - term: bown
-      meaning: 'Richard Bown (surname of a cited author)'
+      meaning: "Richard Bown (surname of a cited author)"
     - term: deming
-      meaning: 'W. Edwards Deming (cited author)'
+      meaning: "W. Edwards Deming (cited author)"
     - term: liskov
-      meaning: 'Liskov substitution principle (cited)'
+      meaning: "Liskov substitution principle (cited)"
     - term: ohno
-      meaning: 'Taiichi Ohno (surname; cited)'
+      meaning: "Taiichi Ohno (surname; cited)"
     - term: poppendieck
-      meaning: 'Mary & Tom Poppendieck (cited authors)'
+      meaning: "Mary & Tom Poppendieck (cited authors)"
     - term: taiichi
-      meaning: 'Taiichi Ohno (given name; cited)'
+      meaning: "Taiichi Ohno (given name; cited)"

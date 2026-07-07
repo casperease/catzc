@@ -19,6 +19,7 @@ Describe 'Custom PSScriptAnalyzer rules — engine wiring' -Tag 'L2', 'logic' {
             'NoAzModuleNaming'
             'NoRawInformationStream'
             'NoRawPipelineDetection'
+            'NoRawTimeDetection'
             'NoRawVsoCommand'
             'SpellOutIdentifiers'
         )
@@ -30,6 +31,7 @@ Describe 'Custom PSScriptAnalyzer rules — engine wiring' -Tag 'L2', 'logic' {
 function Get-AzResource { }
 Write-Information 'leak'
 $flag = $env:TF_BUILD
+$built = $env:CATZC_BUILD_TIME
 Write-Host "##vso[task.setvariable variable=Foo]bar"
 $rcg = 1
 '@
@@ -42,6 +44,7 @@ $rcg = 1
         @{ Rule = 'Measure-NoAzModuleNaming' }
         @{ Rule = 'Measure-NoRawInformationStream' }
         @{ Rule = 'Measure-NoRawPipelineDetection' }
+        @{ Rule = 'Measure-NoRawTimeDetection' }
         @{ Rule = 'Measure-NoRawVsoCommand' }
         @{ Rule = 'Measure-SpellOutIdentifiers' }
     ) {
