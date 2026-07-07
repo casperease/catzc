@@ -249,3 +249,19 @@ under instead of leaving "CD" to mean both.
 - [everything-as-code](../principles/everything-as-code.md), [reduce-waste](../principles/reduce-waste.md) — build-once/deploy-many and the
   version-aligned artifact are these principles applied to the flow.
 - Notes: [shared-fate-ci](../../notes/shared-fate-ci.md) — the failure mode when a slow suite squats in the fast CI slot.
+
+## Dora explains:
+
+DORA's research links continuous integration, continuous delivery, and deployment automation to faster, safer releases. Separating CI, CD,
+and DEPLOY as distinct domains keyed by immutable artifacts enables fast feedback loops, reliable promotion, and clear governance
+boundaries.
+
+- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — the 5-10 minute integration budget keeps the team's
+  mainline continuously integrable.
+- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — automated non-prod certification enables confidence before
+  production promotion.
+- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — build-once/deploy-many via immutable, tagged artifacts
+  ensures production safety.
+- [Streamlining change approval](https://dora.dev/capabilities/streamlining-change-approval/) — clear CD/DEPLOY boundary separates automated
+  validation from human governance.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

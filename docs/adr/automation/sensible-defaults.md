@@ -99,3 +99,16 @@ zero or minimal arguments.
 - Configuration changes propagate automatically — updating a version in `tools.yml` updates every function that reads it, without touching
   call sites.
 - New team members can use functions immediately without reading the help to find out what to pass.
+
+## Dora explains:
+
+Smart defaults pulled from configuration enable self-service platform capabilities and reduce the friction of automation. Functions that
+work on zero arguments with sensible behavior lower adoption barriers and speed up iteration.
+
+- [Platform engineering](https://dora.dev/capabilities/platform-engineering/) — sensible defaults make the platform self-discoverable and
+  reduce the need for elaborate documentation.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — defaults pulled from config reduce call-site noise and
+  eliminate scattered magic numbers.
+- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — configuration-driven defaults ensure consistent behavior
+  and make version/environment changes propagate uniformly.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

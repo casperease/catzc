@@ -48,8 +48,8 @@ proof of parity.
 ## Consequences
 
 - **Shift-left is real.** A failure shows up on the devbox first, because the devbox runs exactly what CI runs.
-- **The seam is enumerable.** Every environment difference is one `Test-IsRunningInPipeline` call, so "where do devbox and pipeline diverge?"
-  has a finite, small answer.
+- **The seam is enumerable.** Every environment difference is one `Test-IsRunningInPipeline` call, so "where do devbox and pipeline
+  diverge?" has a finite, small answer.
 - **One channel.** Devbox and pipeline share nothing but the committed markers — no hidden coupling, no CI-only state.
 
 ## Related
@@ -57,4 +57,17 @@ proof of parity.
 - [pipeline-detection](../pipelines/pipeline-detection.md) — the one seam detector (`ADR-PIPEDET`)
 - [durable-sha-globs](../pipelines/durable-sha-globs.md) — the sha-markers, the only channel between devbox and pipeline (`ADR-GLOBS`)
 - [test-automation](../automation/test-automation.md) — the L0–L3 gates that run identically in both environments (`ADR-TEST`)
-- [reduce-variability](reduce-variability.md), [one-living-version](one-living-version.md) — the principles this specialises to two environments
+- [reduce-variability](reduce-variability.md), [one-living-version](one-living-version.md) — the principles this specialises to two
+  environments
+
+## Dora explains:
+
+DORA's research links continuous integration to faster deployment frequency and lower change failure rate. Devbox/pipeline parity ensures
+the same code path runs locally and in CI, eliminating "works on my machine" failures and accelerating feedback loops.
+
+- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — parity ensures CI gates run early and faithfully.
+- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — identical commands in both environments enable reliable,
+  fast promotion.
+- [Flexible infrastructure](https://dora.dev/capabilities/flexible-infrastructure/) — the CLI runs unchanged across devbox and CI
+  environments.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

@@ -67,3 +67,17 @@ Each `.ps1` file contains exactly one exported function. The file name matches t
 - Each function has its own git history and blame
 - Test files map 1:1 to function files
 - Modules with many small functions will have many small files — this is acceptable and preferred over fewer large files
+
+## Dora explains:
+
+DORA's research on code maintainability emphasizes modularity and navigability—and one-function-per-file encoding that into file structure.
+Matching file name to function name eliminates both AST parsing and merge conflicts, makes the module's surface area visible at a glance,
+and creates natural test-file pairing.
+
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — file name equals function name eliminates search friction
+  and serves as self-documenting structure.
+- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — one-function-per-file prevents merge conflicts when
+  developers add functions in parallel.
+- [Test automation](https://dora.dev/capabilities/test-automation/) — test files pair naturally with function files, improving test coverage
+  and organization.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

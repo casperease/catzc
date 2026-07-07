@@ -512,3 +512,16 @@ is written.
   play.
 - The cost: two artifacts to maintain (fixture config + shipped config). They are independent by design; the fixture tracks the test's
   needs, the shipped file tracks reality, and the integrity test guards the latter.
+
+## Dora explains:
+
+Separating logic tests from integrity tests, isolating via seams and fixtures, and pushing rule-checks left into fast L0 gates keeps the
+test suite hermetic and rapid. This layered approach to testing enables reliable, fast feedback without sacrificing coverage.
+
+- [Test automation](https://dora.dev/capabilities/test-automation/) — logic tests isolated via seams run fast and deterministically;
+  walking-skeleton integration tests prove distinct boundaries; integrity tests guard shipped assets.
+- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — L0/L1 logic tests run on every change; L2 tool tests run
+  in fast CI; L3 cloud tests are optional and self-skip when unavailable.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — single-responsibility test isolation and fast feedback make
+  changes safe and error messages actionable.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

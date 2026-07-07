@@ -177,3 +177,16 @@ red.
 - [test-automation](test-automation.md) — the tier/category system the protected integrity scans run under.
 - [caching](caching.md) — the general caching rules; this map is deliberately narrower (session memory, never persisted).
 - [reduce-waste](../principles/reduce-waste.md), [poka-yoke](../principles/poka-yoke.md) — the principles the gate instantiates.
+
+## Dora explains:
+
+Session-memory gating of repeated scans over unchanged inputs cuts inner-loop feedback time without compromising CI proof. Fail-open
+architecture ensures every pipeline run proves the full set, maintaining fast-feedback and reliability together.
+
+- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — CI never gates, always scans full, so protection never
+  hides a violation from the merge gate.
+- [Test automation](https://dora.dev/capabilities/test-automation/) — heavy read-only scans are gated by globset identity, providing rapid
+  feedback on unchanged inputs.
+- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — skipped scans cut iteration time in local inner
+  loop.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

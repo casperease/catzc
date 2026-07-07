@@ -92,3 +92,17 @@ touch.
 - Parallel code stays race-free by construction: `$using:` copies values per runspace, and results travel through the pipeline.
 - Tests stay order-independent: the few that legitimately touch `$env:` (external toggles like `$env:CATZC_*`) restore what they change.
 - The cost is remembering four mechanisms instead of one global bag — which is the point: each mechanism carries its scope in its name.
+
+## Dora explains:
+
+DORA's research on test automation and deployment reliability emphasizes isolation and predictability—and process-wide environment variables
+violate both. Using scoped mechanisms (parameters, return values, `$script:` state) instead of `$env:` for internal coordination provides
+automatic cleanup, prevents test leakage, and enables confident concurrent execution.
+
+- [Test automation](https://dora.dev/capabilities/test-automation/) — scoped, isolated state prevents order-dependent test failures and race
+  conditions.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — proper scoping bounds state lifetime and surfaces contracts
+  at the call site.
+- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — predictable state isolation enables safe parallelism and
+  reduces deployment friction.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

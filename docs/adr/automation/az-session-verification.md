@@ -117,3 +117,16 @@ correctness check is config-driven, the config keys that express it (tenant, sub
 - A check is always safe to call — it never changes session state. The one thing that logs you in is named, separately, in the error it
   throws.
 - The cost is more small functions instead of one "check and fix" helper — which is the point: each answers one question.
+
+## Dora explains:
+
+DORA's research links robust authentication and authorization practices to reliable, secure deployments. Layering session verification and
+keeping concerns separate enables safe, auditable automation while maintaining module independence.
+
+- [Pervasive security](https://dora.dev/capabilities/pervasive-security/) — layered verification ensures sessions are authenticated to the
+  correct subscription before any deployment automation proceeds.
+- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — separating by-args and config-aware verification allows
+  modules to verify session state without depending on templating configuration.
+- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — clean session verification functions enable safe,
+  automated deployments with proper auth checks at each layer.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

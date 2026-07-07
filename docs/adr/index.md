@@ -173,3 +173,10 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
 
 - **Blank-line padding.** Pad every section: a blank line immediately after each `##`/`###` heading, and a blank line before the next
   heading. This applies to the `## Rules: <code>` registries and the `### Rule <code>:<n>` entries as well.
+
+- **`## Dora explains:` closes every ADR.** The final section of each ADR is `## Dora explains:` — a short, present-tense paragraph tying
+  the ADR's topic to [DORA](https://dora.dev/research/) research, followed by a bullet list of the domain-relevant DORA capability links
+  (2–4 capabilities, each as `[Capability](https://dora.dev/capabilities/<slug>/) — why it is relevant`, plus the research-overview link).
+  DORA is the repository's cross-cutting authoritative source on delivery performance; link only the capabilities that genuinely bear on the
+  ADR's domain, never the whole catalog. The trailing colon in the heading is deliberate and is why `.markdownlint.yml` drops `:` from the
+  MD026 punctuation set.

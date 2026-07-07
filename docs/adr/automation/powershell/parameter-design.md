@@ -76,3 +76,15 @@ parameters.
 - Call sites read as intent: `Invoke-Poetry 'install' -PassThru` states the action and the one opted-in behavior, nothing else.
 - Switch propagation is mechanical (`-DryRun:$DryRun`), so a flag travels a call chain without boolean plumbing.
 - The cost is one judgment per function — which parameter is primary — made once by the author instead of on every call.
+
+## Dora explains:
+
+DORA's research on code maintainability shows that clear interfaces reduce cognitive load—and well-designed parameters make call sites
+self-documenting. Positional primaries and switches for opt-in behavior surface intent at the call site, eliminating named-parameter noise
+and making functions easier to understand and reuse.
+
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — clear parameter surfaces reduce the burden of understanding
+  what each call does.
+- [Documentation quality](https://dora.dev/capabilities/documentation-quality/) — self-documenting call sites serve as examples; positional
+  and switch conventions are widely understood.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

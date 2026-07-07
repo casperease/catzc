@@ -159,3 +159,16 @@ variables on the next line.
 - Variable names serve as documentation for what each intermediate value represents.
 - No performance cost — variables are references, not copies.
 - Slightly more lines of code, which is a worthwhile trade for readability, debuggability, and assertability.
+
+## Dora explains:
+
+DORA's research links code clarity and structured logic to deployment frequency and reliability. Splitting nested expressions into named
+intermediate steps makes code more maintainable, easier to review, and simpler to diagnose when failures occur.
+
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — splitting nested logic into named steps makes code easier to
+  understand and review.
+- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — clear, step-by-step code reduces the cognitive load for
+  team members maintaining the codebase.
+- [Test automation](https://dora.dev/capabilities/test-automation/) — splitting expressions enables assertions at each step, supporting
+  fail-fast testing patterns.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

@@ -69,36 +69,29 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
             (& $script:make 'my-unit' @('src/**', 'extra/**')).Representation | Should -Not -Be $set.Representation
         }
 
-        It 'appends scoped_sha256 then the durable sha256, and requires both (ADR-GLOBS:9, ADR-GLOBS:11)' {
+        It 'appends the files count, scoped_sha256, then the durable sha256, and requires them (ADR-GLOBS:9, ADR-GLOBS:11)' {
             $set = & $script:make 'my-unit' @('src/**')
             $scoped = 'b' * 64
             $hash = 'a' * 64
-            $set.MarkerContent($scoped, $hash) | Should -Be ($set.Representation + "scoped_sha256: $scoped`nsha256: $hash`n")
-            { $set.MarkerContent(' ', $hash) } | Should -Throw '*requires the scoped list SHA*'
-            { $set.MarkerContent($scoped, ' ') } | Should -Throw '*requires the durable SHA*'
+            $set.MarkerContent(7, $scoped, $hash) | Should -Be ($set.Representation + "files: 7`nscoped_sha256: $scoped`nsha256: $hash`n")
+            { $set.MarkerContent(-1, $scoped, $hash) } | Should -Throw '*non-negative file count*'
+            { $set.MarkerContent(1, ' ', $hash) } | Should -Throw '*requires the scoped list SHA*'
+            { $set.MarkerContent(1, $scoped, ' ') } | Should -Throw '*requires the durable SHA*'
         }
 
-        It 'parses back as YAML carrying the definition, scoped_sha256 and sha256' {
+        It 'parses back as YAML carrying the definition, files, scoped_sha256 and sha256' {
             $set = [Catzc.Base.Globs.GlobSet]::new('my-unit', 'a test globset', 'deployable-unit',
                 @('src/**'), @('**/*.md'), @(), @(), -1, 'cd-my-unit')
-            $parsed = $set.MarkerContent(('b' * 64), ('a' * 64)) | ConvertFrom-Yaml
+            $parsed = $set.MarkerContent(3, ('b' * 64), ('a' * 64)) | ConvertFrom-Yaml
             $parsed.name | Should -Be 'my-unit'
             $parsed.scan | Should -Be @('+ src/**', '- **/*.md')
+            $parsed.files | Should -Be 3
             $parsed.scoped_sha256 | Should -Be ('b' * 64)
             $parsed.sha256 | Should -Be ('a' * 64)
         }
     }
 
-    Context 'the include footprint and scan rendering (ADR-GLOBS:11)' {
-        It 'IncludeTouches matches any + rule, ignoring later drops (the footprint, not final membership)' {
-            $set = & $script:make 'unit' @('src/**') @('src/gen/**')
-            $set.IncludeTouches('src/a.cs') | Should -BeTrue
-            # touched by the '+ src/**' include even though the '- src/gen/**' exclude drops it from Matches
-            $set.IncludeTouches('src/gen/x.cs') | Should -BeTrue
-            $set.Matches('src/gen/x.cs') | Should -BeFalse
-            $set.IncludeTouches('other/a.cs') | Should -BeFalse
-        }
-
+    Context 'the scan rendering (ADR-GLOBS:11)' {
         It 'ScanRepresentation renders just the scan: block (the single filter renderer)' {
             $set = & $script:make 'unit' @('src/**') @('**/*.md')
             $set.ScanRepresentation | Should -Be "scan:`n- '+ src/**'`n- '- **/*.md'`n"

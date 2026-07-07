@@ -296,3 +296,16 @@ one pass always converges.
 - [native-csharp-types](../automation/BCL/native-csharp-types.md) — the host-guaranteed type set the dialect implementation draws on
 - [everything-as-code](../principles/everything-as-code.md), [poka-yoke](../principles/poka-yoke.md),
   [reduce-variability](../principles/reduce-variability.md) — the principles this mechanism instantiates
+
+## Dora explains:
+
+DORA's research links version-controlled infrastructure and deterministic deployment triggering to faster, more reliable deployments. This
+ADR's design of durable-SHA markers as the single source of truth for area-of-control boundaries reduces deployment drift, makes CI trigger
+points reviewable as a first-class concern, and eliminates the maintenance tax of scattered path filters across two vendor dialects.
+
+- [Version control](https://dora.dev/capabilities/version-control/) — area-of-control boundaries as committed state, the single
+  configuration point.
+- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — deterministic, reproducible marker-based triggering.
+- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — one unit change regenerates one marker, visible as a
+  focused diff.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

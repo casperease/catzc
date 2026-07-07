@@ -272,3 +272,16 @@ resolution context shifts at each level, making the actual file path a puzzle. A
     [Parameters and templateContext](https://learn.microsoft.com/en-us/azure/devops/pipelines/process/template-parameters?view=azure-devops)
     — `templateContext` was introduced to bundle job and environment properties together, reducing the need to declare and forward
     individual parameters through template layers.
+
+## Dora explains:
+
+DORA's research links code clarity to delivery speed and quality. Excessive template abstraction and parameter forwarding slow reviews,
+introduce maintenance costs, and obscure pipeline behavior. This ADR's discipline of keeping templates focused on pipeline concerns keeps
+the critical path clear.
+
+- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — flat, reviewable pipeline code reduces cycle time.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — direct step references and shallow nesting keep pipelines
+  readable.
+- [Streamlining change approval](https://dora.dev/capabilities/streamlining-change-approval/) — simpler pipelines require less review
+  friction.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

@@ -151,3 +151,14 @@ whether it may deploy into customer subscriptions.
   default, and a template can only deploy for a customer the repo has enabled.
 - The cost is one more asset and one more variant to keep in step — reconciled by the two integrity tests, which are the only place the
   catalogue, the enabled set, and the subscriptions are checked against one another.
+
+## Dora explains:
+
+DORA's research links single-source-of-truth configuration and one-living-version practices to faster, more reliable delivery. This ADR
+encodes the customer catalogue as the authoritative source, enabling predictable customer-scoped deployments without policy coupling.
+
+- [Version control](https://dora.dev/capabilities/version-control/) — customer catalogue as a versioned, authoritative asset.
+- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — one-living-version principle (no legacy customer
+  definitions).
+- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — customer model drives repeatable deployment patterns.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

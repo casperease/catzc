@@ -83,3 +83,17 @@ Every function that invokes an external command must log the exact command strin
 - Failed commands can be copy-pasted and re-run manually for immediate reproduction.
 - No one needs to re-run a pipeline with `-Verbose` to find out what happened — the information is already there.
 - Secret masking is ADO's responsibility. The automation code logs freely and ADO redacts what needs redacting.
+
+## Dora explains:
+
+DORA's research links comprehensive, automatic logging and rapid troubleshooting to deployment reliability and reduced incident response
+time. Logging the exact command before every invocation ensures the log contains the information needed to reproduce and diagnose failures
+without re-running.
+
+- [Monitoring and observability](https://dora.dev/capabilities/monitoring-and-observability/) — logging every command and its output
+  provides the observability needed to diagnose failures in CI and production without re-running.
+- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — exact command logs enable fast copy-paste reproduction and
+  debugging, reducing time-to-diagnosis and pipeline iteration cycles.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — automatic logging through `Invoke-Executable` ensures
+  consistency and prevents the "forgot to log" bugs in production.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

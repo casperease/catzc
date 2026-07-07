@@ -1,18 +1,18 @@
 <#
 .SYNOPSIS
-    Resolves a globset over the working tree into its two file lists plus their list-identity SHAs
+    Resolves a globset over the working tree into its member file list, count, and list-identity SHA
     (ADR-GLOBS:11).
 .DESCRIPTION
-    Runs the set's scan program against the working tree and returns:
-      - Included  : the git-bound files IN the package — `git ls-files` intersected with GlobSet.Matches
-                    (Get-GlobSetMember). This is exactly the durable-SHA input; ScopedSha is its list SHA.
-      - Filtered  : the NON-GIT files the includes touch — untracked/ignored working-tree files
-                    (Get-UntrackedFile) matched by the include footprint (GlobSet.IncludeTouches). This is
-                    "what is on disk but NOT in the package"; FilteredSha is its list SHA.
-    ScopedSha equals the marker's scoped_sha256; the whole result is the source for the gitignored companion
-    (.sha-markers/<name>.files.yml). Filtered is a fact of the local tree — not reproducible — so it never
-    reaches a marker or a durable SHA. Tracked files a '-' exclude drops are in NEITHER list (the scan '-'
-    lines document them).
+    Runs the set's scan program against `git ls-files` and returns:
+      - Included  : the git-bound files IN the package — the tracked files GlobSet.Matches selects
+                    (Get-GlobSetMember), ordinal-sorted. This is exactly the durable-SHA input; ScopedSha is
+                    its list SHA and Count its size.
+      - Count     : the number of Included files — the marker's readable `files:` digest.
+      - ScopedSha : the ordered member-path list SHA (DurableHash.HashPathList) — the marker's scoped_sha256.
+    Everything here is deterministic and bound to the committed file NAMES: the resolution is reproducible from
+    the tree on any machine. The expanded Included list is written to the transient out/ folder by
+    Write-CompanionFile; the marker itself carries only Count + ScopedSha (+ the durable sha256), never the
+    list. Tracked files a '-' exclude drops are simply not members (the scan '-' lines document them).
 .PARAMETER Name
     A declared globset name (from globs.yml).
 .PARAMETER GlobSet
@@ -20,7 +20,7 @@
 .EXAMPLE
     Get-GlobSetResolution -Name apex
 .EXAMPLE
-    (Get-GlobSetResolution -GlobSet (Get-ModuleGlobSet -Name Catzc.Base.Globs)).Included
+    (Get-GlobSetResolution -GlobSet (Get-ModuleGlobSet -Name Catzc.Base.Globs)).Count
 #>
 function Get-GlobSetResolution {
     [CmdletBinding(DefaultParameterSetName = 'ByName')]
@@ -41,22 +41,12 @@ function Get-GlobSetResolution {
         $GlobSet
     }
 
-    $included = Get-GlobSetMember -GlobSet $set
-
-    $filteredList = [System.Collections.Generic.List[string]]::new()
-    foreach ($path in Get-UntrackedFile) {
-        if ($set.IncludeTouches($path)) {
-            $filteredList.Add($path)
-        }
-    }
-    $filtered = $filteredList.ToArray()
-    [System.Array]::Sort($filtered, [System.StringComparer]::Ordinal)
+    $included = [string[]] (Get-GlobSetMember -GlobSet $set)
 
     [pscustomobject]@{
-        Name        = $set.Name
-        Included    = [string[]] $included
-        Filtered    = [string[]] $filtered
-        ScopedSha   = [Catzc.Base.Globs.DurableHash]::HashPathList([string[]] $included)
-        FilteredSha = [Catzc.Base.Globs.DurableHash]::HashPathList([string[]] $filtered)
+        Name      = $set.Name
+        Included  = $included
+        Count     = $included.Count
+        ScopedSha = [Catzc.Base.Globs.DurableHash]::HashPathList($included)
     }
 }

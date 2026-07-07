@@ -327,3 +327,17 @@ Environment variables remain the right answer when your config is genuinely a fl
 - Secrets reach an external tool through one auditable seam. A secret bound into `$env:` for a child process goes through
   `Write-EnvironmentSet` (ADR-ENVVAR:7) — `SecureString` in, masked in logs, decrypted only at the assignment, scoped by default — so there
   is a single function to review rather than scattered ad-hoc secret-into-env writes.
+
+## Dora explains:
+
+DORA's research links clear module boundaries and explicit state passing to maintainability and reduced coupling. Confining environment
+variables to external tool contracts prevents invisible coupling through global mutable state and keeps secrets out of process-wide
+pollution vectors.
+
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — function parameters document inputs explicitly, eliminating
+  hidden dependencies that make caller code unclear.
+- [Pervasive security](https://dora.dev/capabilities/pervasive-security/) — environment variables are kept away from internal state and
+  secrets, reducing process-wide visibility and leak risk.
+- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — explicit function contracts through parameters replace
+  invisible coupling via shared global mutable state.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

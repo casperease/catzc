@@ -252,3 +252,15 @@ Per-customer rows use customer `apex` (shortcode `ap`):
   targets and is **never** a resource-name component. Names are assembled from the components above
   (env/slot/region/org/short*name/customer/role/type); the subscription never appears in them. The **customer** that does render is
   \_derived* from that subscription (`subscription.customer`). See [`data-model`](data-model.md).
+
+## Dora explains:
+
+DORA research shows that standardized, maintainable naming and configuration-driven automation reduce deployment lead time and errors. This
+ADR encodes deterministic, derived resource names that are never hand-typed, enabling safe infrastructure automation.
+
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — standardized, deterministic naming rules reduce cognitive
+  load.
+- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — derived naming enables reliable, repeatable resource
+  naming.
+- [Version control](https://dora.dev/capabilities/version-control/) — naming rules versioned as configuration, reproducible and auditable.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

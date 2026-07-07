@@ -102,3 +102,16 @@ If the answer to either question is unsatisfying, the design is not done.
 - The automation codebase stays consistent as it grows. Conventions are enforced mechanically, not by tribal knowledge.
 - The cost of this is rigidity. The conventions are not optional. The tradeoff is deliberate: individual flexibility is sacrificed for
   collective reliability.
+
+## Dora explains:
+
+Structural prevention of errors and zero-ceremony onboarding dramatically lower the barrier to contribution and enable faster iteration.
+This foundation — making the common path frictionless and the wrong path invisible — is what lets platforms scale.
+
+- [Platform engineering](https://dora.dev/capabilities/platform-engineering/) — zero-ceremony platform design with structural error
+  prevention enables self-service tooling and rapid adoption.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — auto-discovered conventions and mechanical enforcement keep
+  code consistent as it grows, without relying on tribal knowledge or code review.
+- [Learning culture](https://dora.dev/capabilities/learning-culture/) — low barrier to entry and immediate productive contribution encourage
+  participation and faster skill development.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

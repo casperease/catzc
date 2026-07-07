@@ -132,3 +132,17 @@ defining file.
 - `git status` never shows generated manifests, and a branch switch never conflicts on them.
 - The cost is that the manifest is invisible as an artifact: a reader who wants a module's export list reads the directory (which is the
   point), or lets an import materialize the `.psd1`.
+
+## Dora explains:
+
+DORA's research links loosely coupled architecture to deployment frequency—and dynamic manifests enable teams to add functions without
+editing shared files or resolving merge conflicts. Convention-based discovery (filesystem-as-manifest) eliminates the "add function, edit
+manifest, update export list" ceremony, reducing onboarding overhead and merge conflict friction.
+
+- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — module-based architecture where new functions never
+  require edits to shared infrastructure files.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — convention-based discovery (one file = one function = one
+  export) is simpler and cheaper than hand-maintained lists.
+- [Version control](https://dora.dev/capabilities/version-control/) — avoiding manifest edits prevents merge conflicts when developers add
+  functions in parallel.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

@@ -137,3 +137,16 @@ sees. An address is a _reference_ to a config value, with the same discipline a 
   freely, and secrets stay entirely off the addressing channel (ADR-ENVVAR:7).
 - Mistakes fail loudly at the call site — a wrong name or a wrong key throws with the offending address — instead of leaking a `$null`
   downstream.
+
+## Dora explains:
+
+DORA's research links version-controlled configuration and single source of truth to reliable, maintainable delivery. Providing a uniform
+addressing grammar for config values ensures every reference points to a canonical, committed source and fails fast on mistakes.
+
+- [Version control](https://dora.dev/capabilities/version-control/) — all addressable config lives in version-controlled files, making every
+  reference traceable and auditable.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — a fixed address grammar and fail-fast validation make
+  configuration handling clear and mistakes obvious.
+- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — addressing enforces single source of truth for every
+  config value, eliminating drift from copied literals.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

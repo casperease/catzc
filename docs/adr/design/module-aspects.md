@@ -33,8 +33,8 @@ marker is dropped — its sha would re-key on any change, defeating the isolatio
 ### Rule ADR-ASPECT:5
 
 The partition invariant — disjoint + exhaustive over `git ls-files` — is an integrity gate: a file claimed by two aspects, or by none, fails
-it (`AspectPartition.Validate`). The `module-leftovers` catch-all (`ADR-PROTGLOB`) is the module-space complement — files under `automation/`
-that no module partition claims — and stays empty in a clean tree.
+it (`AspectPartition.Validate`). The `module-leftovers` catch-all (`ADR-PROTGLOB`) is the module-space complement — files under
+`automation/` that no module partition claims — and stays empty in a clean tree.
 
 ## Context
 
@@ -65,6 +65,19 @@ and compiles per unit root with `AspectPartition`; `Get-ModuleGlobSet` derives `
 
 ## Related
 
-- [durable-sha-globs](../pipelines/durable-sha-globs.md) — the marker mechanism, the scan program (`ADR-GLOBS:4`), the layers (`ADR-GLOBS:7`)
+- [durable-sha-globs](../pipelines/durable-sha-globs.md) — the marker mechanism, the scan program (`ADR-GLOBS:4`), the layers
+  (`ADR-GLOBS:7`)
 - [repo-variants](../repository/repo-variants.md) — the `aspects` variant's home (`ADR-VARIANT`)
 - [test-automation](../automation/test-automation.md) — logic vs integrity tests, the `tests/` surface aspects isolate
+
+## Dora explains:
+
+DORA identifies loosely coupled teams and code maintainability as predictors of delivery performance. Partitioning modules into live and
+test aspects creates clear ownership boundaries, prevents accidental shipping of unreviewed code, and enables independent reasoning about
+each concern.
+
+- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — aspects partition code and tests, enabling independent
+  change and verification.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — explicit, convention-driven partitions reduce cognitive load
+  and prevent silent errors.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

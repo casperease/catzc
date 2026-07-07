@@ -345,3 +345,17 @@ The module-dependency graph that governs cross-module C# type edges (ADR-TYPES:4
 
 - Editing any type re-keys and rebuilds the one assembly (a single sub-second `Add-Type` compile, one committed DLL) and requires a session
   restart to pick up — the documented devbox contract.
+
+## Dora explains:
+
+DORA research links code maintainability and loosely coupled architecture to faster delivery and fewer defects. This ADR encodes domain
+models as native types with fixed shapes, versioned assemblies, and dependency-governed layering, reducing the cognitive load of loose
+dictionaries.
+
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — fixed, discoverable type shapes and standardized namespace
+  patterns.
+- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — dependency graph governs cross-module type references and
+  enforces layering.
+- [Version control](https://dora.dev/capabilities/version-control/) — committed prebuilt assembly; everything-as-code principle enables
+  reproducible builds.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

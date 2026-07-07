@@ -163,3 +163,17 @@ type system, [native-csharp-types](BCL/native-csharp-types.md) (`ADR-TYPES`).
   — the importer is the boundary by design.
 - Tests inject the descriptor by mocking the cached function itself (already the established pattern), and reset the `$script:` slot only
   when exercising cache behavior directly.
+
+## Dora explains:
+
+DORA's research links efficient, deterministic information retrieval to deployment frequency and reliability. Caching static reads and
+filesystem-derived information within session boundaries reduces waste and ensures every automation run sees a consistent, self-determined
+view of the repository.
+
+- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — efficient caching of static config reads and filesystem scans
+  enables fast, deterministic automation runs.
+- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — consistent, cached repository views ensure deployment
+  decisions are based on stable information within each session.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — clear cache boundaries and lazy-load patterns make it
+  obvious when information is recomputed versus memoized.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

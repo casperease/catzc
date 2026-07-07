@@ -138,3 +138,17 @@ it is not a detection signal. Detection (am I in a pipeline?) goes through `Test
 - The function is trivially testable: set `$env:TF_BUILD` (or `$env:GITHUB_ACTIONS`) in a test, assert the result, clean up.
 - Context-dependent behavior is greppable: search for `Test-IsRunningInPipeline` to find every place the code branches on execution context.
 - Functions that use `Get-OutputRoot` work in both contexts without modification — artifacts land in the right place automatically.
+
+## Dora explains:
+
+DORA's research links code maintainability and comprehensive testing to reduced defects and faster deployment cycles. Centralizing platform
+detection in a single function keeps context-dependent logic greppable, testable, and consistent, preventing silent cross-platform
+mismatches that surface only as cryptic failures deep in deployments.
+
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — centralized detection keeps logic consistent across
+  functions.
+- [Test automation](https://dora.dev/capabilities/test-automation/) — the detection function is trivially testable and mocks are
+  straightforward.
+- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — consistent detection across Azure DevOps and GitHub
+  Actions prevents platform-specific failures.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

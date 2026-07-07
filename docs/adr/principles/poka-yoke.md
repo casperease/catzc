@@ -91,3 +91,14 @@ If the answer to either question is unsatisfying, the design is not done.
 
 This principle is technology-agnostic. It applies to code, configuration, infrastructure, pipelines, and any other system where humans
 author artifacts that machines consume.
+
+## Dora explains:
+
+DORA's research identifies code maintainability and platform engineering as drivers of team efficacy and delivery performance. Poka-yoke
+prevents defects at their origin through structural prevention and immediate detection, reducing the cost and friction of change.
+
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — structural enforcement of conventions scales beyond
+  documentation and code review.
+- [Platform engineering](https://dora.dev/capabilities/platform-engineering/) — zero-ceremony platforms eliminate prerequisites and
+  follow-up steps, reducing defect introduction.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

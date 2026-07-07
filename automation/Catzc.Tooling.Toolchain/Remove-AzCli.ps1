@@ -37,22 +37,22 @@ function Remove-AzCli {
         throw 'Azure CLI is managed by the tooling system. Use Uninstall-AzCli instead.'
     }
 
-    # Linux: evict an off-config install by the mechanism that placed it (apt / uv-Python pip / stray binary).
-    # Elevation is scoped to the mechanism inside Remove-LinuxToolInstall (ADR-REMOVE:6), so no admin assert here.
-    if ($IsLinux) {
+    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip
+    # / stray binary); elevation is scoped to the mechanism (ADR-REMOVE:6), so no admin assert here.
+    if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
-            Write-Message 'Would evict an off-config Azure CLI (apt package / uv-Python pip / stray binary). Run with -Force to execute.'
+            Write-Message 'Would evict an off-config Azure CLI (native package / uv-Python pip / stray binary). Run with -Force to execute.'
             return
         }
-        if (-not (Remove-LinuxToolInstall -Config $config)) {
+        $removed = if ($IsLinux) {
+            Remove-LinuxToolInstall -Config $config
+        }
+        else {
+            Remove-MacToolInstall -Config $config
+        }
+        if (-not $removed) {
             Write-Message 'No off-config Azure CLI found — nothing to remove.'
         }
-        return
-    }
-
-    # macOS eviction is not built yet (ADR-REMOVE:7 stub) — fail honestly rather than fall to the Windows path.
-    if ($IsMacOS) {
-        Remove-MacToolInstall -Config $config | Out-Null
         return
     }
 

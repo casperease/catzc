@@ -1,66 +1,37 @@
-# The gitignored companion writer (ADR-GLOBS:11): two list SHAs + scan filter + FULL included + OPTIONAL
-# filtered (capped at 500, graceful cut-off). Deterministic (NO timestamp — byte-identical for the same
-# resolution) and idempotent. Tested through the module (private); Get-RepositoryRoot -> a temp tree.
+# The out/ companion writer (ADR-GLOBS:11): a timestamp + the list SHA + the files count + the scan filter +
+# the FULL included list, written under Get-OutputRoot (out/ on a devbox, the build staging dir in CI) — so
+# the committed marker stays lean and deterministic while the expansion is one Get-OutputRoot away. No
+# 'filtered' half. Tested through the module (private); Get-OutputRoot -> a temp tree.
 Describe 'Write-CompanionFile' -Tag 'L1', 'logic' {
     BeforeEach {
-        $script:root = Join-Path ([System.IO.Path]::GetTempPath()) ([guid]::NewGuid())
-        [System.IO.Directory]::CreateDirectory((Join-Path $script:root '.sha-markers')) | Out-Null
-        Mock Get-RepositoryRoot { $script:root } -ModuleName Catzc.Base.Globs
+        $script:out = Join-Path ([System.IO.Path]::GetTempPath()) ([guid]::NewGuid())
+        [System.IO.Directory]::CreateDirectory($script:out) | Out-Null
+        Mock Get-OutputRoot { $script:out } -ModuleName Catzc.Base.Globs
         $script:set = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @('src/**'), @('**/*.md'), @(), @(), -1, $null)
-        $script:companion = Join-Path $script:root '.sha-markers/unit.files.yml'
+        $script:companion = Join-Path $script:out 'sha-markers/unit.files.yml'
     }
 
     AfterEach {
-        [System.IO.Directory]::Delete($script:root, $true)
+        [System.IO.Directory]::Delete($script:out, $true)
     }
 
-    It 'writes both list SHAs, the scan filter, the full included list, and filtered — no timestamp' {
-        $resolution = [pscustomobject]@{
-            Name = 'unit'; Included = @('src/a.cs', 'src/b.cs'); Filtered = @('src/x.tmp')
-            ScopedSha = ('a' * 64); FilteredSha = ('b' * 64)
-        }
+    It 'writes under Get-OutputRoot: timestamp, list SHA, files count, scan filter, and the full included list' {
+        $resolution = [pscustomobject]@{ Name = 'unit'; Included = @('src/a.cs', 'src/b.cs'); Count = 2; ScopedSha = ('a' * 64) }
         & (Get-Module Catzc.Base.Globs) { param($s, $r) Write-CompanionFile -GlobSet $s -Resolution $r } $script:set $resolution
 
         $text = [System.IO.File]::ReadAllText($script:companion)
-        $text | Should -Not -Match 'generated_at'                    # deterministic: no timestamp at all
+        $text | Should -Match 'generated_at: \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z'   # timestamped — it lives in transient out/
         $text | Should -Match 'scoped_sha256: a{64}'
-        $text | Should -Match 'filtered_sha256: b{64}'
+        $text | Should -Match 'files: 2'
         $text | Should -Match "scan:`n- '\+ src/\*\*'"
         $text | Should -Match "included:`n- src/a.cs`n- src/b.cs"
-        $text | Should -Match "filtered:`n- src/x.tmp"
+        $text | Should -Not -Match 'filtered'                                        # no local-tree half
     }
 
-    It 'renders included: [] when empty and omits an empty filtered block' {
-        $resolution = [pscustomobject]@{ Name = 'unit'; Included = @(); Filtered = @(); ScopedSha = ('a' * 64); FilteredSha = ('b' * 64) }
+    It 'renders included: [] when the package is empty' {
+        $resolution = [pscustomobject]@{ Name = 'unit'; Included = @(); Count = 0; ScopedSha = ('a' * 64) }
         & (Get-Module Catzc.Base.Globs) { param($s, $r) Write-CompanionFile -GlobSet $s -Resolution $r } $script:set $resolution
 
-        $text = [System.IO.File]::ReadAllText($script:companion)
-        $text | Should -Match 'included: \[\]'
-        $text | Should -Not -Match 'filtered:'
-    }
-
-    It 'caps filtered at 500 with a graceful cut-off, a truncation marker, and a red message' {
-        $big = 1..600 | ForEach-Object { 'gen/f{0:d4}.tmp' -f $_ }
-        $resolution = [pscustomobject]@{ Name = 'unit'; Included = @(); Filtered = $big; ScopedSha = ('a' * 64); FilteredSha = ('b' * 64) }
-        Mock Write-Message { } -ModuleName Catzc.Base.Globs
-        & (Get-Module Catzc.Base.Globs) { param($s, $r) Write-CompanionFile -GlobSet $s -Resolution $r } $script:set $resolution
-
-        $lines = [System.IO.File]::ReadAllLines($script:companion)
-        @($lines | Where-Object { $_ -like '- gen/*' }).Count | Should -Be 500
-        $lines | Should -Contain 'filtered_truncated: true'
-        Should -Invoke Write-Message -ModuleName Catzc.Base.Globs -ParameterFilter { $ForegroundColor -eq 'Red' -and $Message -match 'cut off at 500' }
-    }
-
-    It 'is deterministic and idempotent: same resolution renders byte-identical and does not rewrite' {
-        $resolution = [pscustomobject]@{ Name = 'unit'; Included = @('src/a.cs'); Filtered = @(); ScopedSha = ('a' * 64); FilteredSha = ('b' * 64) }
-        $write = { & (Get-Module Catzc.Base.Globs) { param($s, $r) Write-CompanionFile -GlobSet $s -Resolution $r } $script:set $resolution }
-        & $write
-        $first = [System.IO.File]::ReadAllText($script:companion)
-        $stamp = [System.IO.File]::GetLastWriteTimeUtc($script:companion)
-        Start-Sleep -Milliseconds 40
-        & $write
-        # No timestamp, so the content is byte-identical and the write-on-change compare skips the rewrite.
-        [System.IO.File]::ReadAllText($script:companion) | Should -Be $first
-        [System.IO.File]::GetLastWriteTimeUtc($script:companion) | Should -Be $stamp
+        [System.IO.File]::ReadAllText($script:companion) | Should -Match 'included: \[\]'
     }
 }

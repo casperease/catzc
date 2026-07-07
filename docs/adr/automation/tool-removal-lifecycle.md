@@ -54,10 +54,11 @@ the all-user-space goal (`ADR-UVPY`).
 
 ### Rule ADR-REMOVE:7
 
-Two platform cores carry the destructive mechanics, and `Remove-<Tool>` delegates to the one for the running OS: `Remove-SystemInstallation`
-(Windows — delete the install directory, strip it from the machine `PATH`, clear its env vars) and `Remove-LinuxToolInstall` (Linux —
-`apt-get remove` a dpkg-owned shadow, `uv pip uninstall --system` a package in the uv-managed Python, or delete a stray on-`PATH` binary).
-macOS routes an off-config removal through `brew` or the owning file.
+Three platform cores carry the destructive mechanics, and `Remove-<Tool>` delegates to the one for the running OS:
+`Remove-SystemInstallation` (Windows — delete the install directory, strip it from the machine `PATH`, clear its env vars),
+`Remove-LinuxToolInstall` (Linux — `apt-get remove` a dpkg-owned shadow), and `Remove-MacToolInstall` (macOS — `brew uninstall` a
+Cellar-owned formula). The two Unix cores share one user-space tail — `uv pip uninstall --system` a package in the uv-managed Python, else
+delete a stray on-`PATH` binary — so only the apt step needs root.
 
 - [The platform cores](#the-platform-cores)
 
@@ -153,12 +154,15 @@ toward an all-user-space toolchain ([uv-python-handler](uv-python-handler.md)) i
 
 - **`Remove-SystemInstallation` (Windows).** Deletes the install directory, strips it (and named subdirectories) from the machine `PATH`
   registry key, clears the tool's system env vars, and broadcasts `WM_SETTINGCHANGE`. Windows-only by construction (it edits `HKLM`).
-- **`Remove-LinuxToolInstall` (Linux).** Evicts by the mechanism that placed the install: `apt-get remove` a shadow that `dpkg` owns (the
-  one step that asserts root), `uv pip uninstall --system` a package sitting in the uv-managed Python (user-space — the uv-scoped uninstall,
-  not a foreign system `pip`), or delete a stray on-`PATH` binary the managers do not own (user-space).
+- **`Remove-LinuxToolInstall` (Linux).** Evicts by the mechanism that placed the install: `apt-get remove` a shadow that `dpkg` owns by path
+  (the one step that asserts root), then the shared Unix tail.
+- **`Remove-MacToolInstall` (macOS).** Evicts a Homebrew-owned shadow — the binary under `brew --prefix`, whose Cellar symlink target names
+  the formula — with `brew uninstall` (user-space), then the shared Unix tail.
 
-macOS off-config removal routes through `brew` or the owning file. A `Remove-<Tool>` selects the core for the running OS, exactly as
-`Install-<Tool>` selects the installer.
+The two Unix cores share their tail (`Remove-UvPipOrStrayInstall`): `uv pip uninstall --system` a package sitting in the uv-managed Python
+(the uv-scoped uninstall, not a foreign system `pip`), else delete a stray on-`PATH` binary the managers do not own — both user-space, so
+elevation is confined to the Linux apt step. A `Remove-<Tool>` selects the core for the running OS, exactly as `Install-<Tool>` selects the
+installer.
 
 ### Not every tool needs a destructive Remove
 
@@ -173,8 +177,9 @@ off-config binary shadows the managed install — and only recommends `Remove-` 
 
 - **`Test-ExpectedPackageManager`** is the managed / off-config oracle both `Uninstall-` (implicitly, via `Uninstall-Tool`) and `Remove-`
   consult; `Remove-<Tool>` throws and redirects to `Uninstall-<Tool>` when it reports the install managed.
-- **`Remove-SystemInstallation` (Windows) and `Remove-LinuxToolInstall` (Linux)** are the platform cores; a `Remove-<Tool>` delegates to the
-  one for the running OS and adds only the tool's own detection.
+- **`Remove-SystemInstallation` (Windows), `Remove-LinuxToolInstall` (Linux), and `Remove-MacToolInstall` (macOS)** are the platform cores
+  (the two Unix cores sharing `Remove-UvPipOrStrayInstall`); a `Remove-<Tool>` delegates to the one for the running OS and adds only the
+  tool's own detection.
 - **The `-Force` dry-run discipline** ([prefer-dryrun-over-shouldprocess](powershell/prefer-dryrun-over-shouldprocess.md)) and the `-Remove`
   escalation switch are the two gates; a removal with neither is a plan, not an action.
 - **`Get-ToolsStatus`** names the correct verb per tool state, and recommends `Remove- -Force` only for a tool that defines a `Remove-`.
@@ -205,3 +210,16 @@ off-config binary shadows the managed install — and only recommends `Remove-` 
 - [respect-pwsh-verb-rules](powershell/respect-pwsh-verb-rules.md) (`ADR-VERBS`) — the `Uninstall-` vs `Remove-` verb contracts.
 - [uv-python-handler](uv-python-handler.md) (`ADR-UVPY`) — the user-space goal the scoped-elevation rule serves.
 - [idempotent-state-functions](idempotent-state-functions.md) (`ADR-IDEM`) — `Install-`/`Uninstall-`/`Remove-` are idempotent.
+
+## Dora explains:
+
+Clean separation of managed removal from destructive eviction, with safe default behavior, makes provisioning reliable and auditable.
+Double-gated destructive operations prevent accidental data loss while enabling systematic cleanup when needed.
+
+- [Flexible infrastructure](https://dora.dev/capabilities/flexible-infrastructure/) — uniform tool management across platforms, with clear
+  remediation paths for off-config installs.
+- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — idempotent, double-gated removal ensures machines converge
+  predictably and safely to the configured state.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — clear verb contracts (Install/Uninstall/Remove) and
+  safe-by-default gates make tool management auditable and reviewable.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

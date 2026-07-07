@@ -184,3 +184,17 @@ extracted step template (`invoke-automation.yaml`) and `pipelines/extends/` hold
 - Extension alone classifies a file as executable (`.yaml`) or data (`.yml`), which keeps tooling and `grep` honest.
 - The layout is rigid by design (the cost of [conventional-folders](../repository/conventional-folders.md)): pipelines cannot be foldered by
   team or domain, and fragment folders are a closed set. The predictability is worth more than the flexibility.
+
+## Dora explains:
+
+DORA's research links code organization and consistency to faster review cycles and lower defect introduction rates. This ADR's semantic
+layout convention — type-prefixed pipelines in one flat directory and per-kind template folders — eliminates guesswork about structure,
+enables tooling and audits to be predictable, and keeps the `pipelines/` directory self-indexing and greppable without opening files.
+
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — conventional layout keeps pipelines organized and instantly
+  classifiable by type.
+- [Documentation quality](https://dora.dev/capabilities/documentation-quality/) — the directory structure documents what each file is
+  without opening it.
+- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — consistent placement enables automated validation and
+  tooling built on known patterns.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

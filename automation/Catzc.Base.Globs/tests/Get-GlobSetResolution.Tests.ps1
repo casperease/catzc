@@ -1,6 +1,6 @@
-# The working-tree resolution (ADR-GLOBS:11): Included = git ∩ Matches (the package, the durable-SHA input);
-# Filtered = untracked ∩ include FOOTPRINT (what is on disk but NOT in the package). Both sorted; each carries
-# a list-identity SHA. Tracked files a '-' exclude drops are in NEITHER list.
+# The working-tree resolution (ADR-GLOBS:11): Included = git ∩ Matches (the package, the durable-SHA input),
+# ordinal-sorted; Count is its size (the marker's readable `files:` digest); ScopedSha its list-identity SHA.
+# Deterministic and bound to the committed file names only — no 'filtered' local-tree half.
 Describe 'Get-GlobSetResolution' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:make = {
@@ -9,26 +9,22 @@ Describe 'Get-GlobSetResolution' -Tag 'L1', 'logic' {
         }
     }
 
-    It 'splits the tree into Included (git ∩ Matches) and Filtered (untracked ∩ footprint)' {
+    It 'resolves Included = git ∩ Matches (a "-" exclude drops a tracked file from the package)' {
         Mock Get-TrackedFile { @('src/a.cs', 'src/gen/keep.cs', 'other/x.cs') } -ModuleName Catzc.Base.Globs
-        Mock Get-UntrackedFile { @('src/new.cs', 'src/gen/ignored.tmp', 'out/plan.md', 'other/y.cs') } -ModuleName Catzc.Base.Globs
 
         $result = Get-GlobSetResolution -GlobSet (& $script:make @('src/**') @('src/gen/**'))
 
-        # Included: src/a.cs matches; src/gen/keep.cs is dropped by the exclude; other/x.cs is not matched.
+        # src/a.cs matches; src/gen/keep.cs is dropped by the exclude; other/x.cs is not matched.
         $result.Included | Should -Be @('src/a.cs')
-        # Filtered: the untracked files the include FOOTPRINT ('+ src/**') touches — ignoring the exclude — so
-        # both src/new.cs and src/gen/ignored.tmp; out/plan.md and other/y.cs are outside the footprint.
-        $result.Filtered | Should -Be @('src/gen/ignored.tmp', 'src/new.cs')
+        $result.Count | Should -Be 1
     }
 
-    It 'ScopedSha / FilteredSha are the list-identity SHAs of Included / Filtered' {
-        Mock Get-TrackedFile { @('src/a.cs') } -ModuleName Catzc.Base.Globs
-        Mock Get-UntrackedFile { @() } -ModuleName Catzc.Base.Globs
+    It 'Count and ScopedSha are the size and list-identity SHA of the ordinal-sorted Included' {
+        Mock Get-TrackedFile { @('src/b.cs', 'src/a.cs') } -ModuleName Catzc.Base.Globs
 
         $result = Get-GlobSetResolution -GlobSet (& $script:make @('src/**'))
 
-        $result.ScopedSha | Should -Be ([Catzc.Base.Globs.DurableHash]::HashPathList([string[]] @('src/a.cs')))
-        $result.FilteredSha | Should -Be ([Catzc.Base.Globs.DurableHash]::HashPathList([string[]] @()))
+        $result.Count | Should -Be 2
+        $result.ScopedSha | Should -Be ([Catzc.Base.Globs.DurableHash]::HashPathList([string[]] @('src/a.cs', 'src/b.cs')))
     }
 }

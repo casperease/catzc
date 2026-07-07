@@ -52,3 +52,16 @@ All functions must work correctly regardless of the caller's `$PWD`.
 - CI pipelines and scheduled tasks work without a `cd` preamble.
 - Every path resolves from a stable anchor, so a function behaves identically wherever it is called from — the anchor idioms live in
   [working-directory-mechanics](powershell/working-directory-mechanics.md).
+
+## Dora explains:
+
+Absolute path resolution is essential to making functions composable and reproducible across environments. This discipline enables
+consistent behavior in CI pipelines, scheduled tasks, and nested function calls—all prerequisites for reliable automation.
+
+- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — scripts work in pipelines without working-directory
+  preambles.
+- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — functions behave identically in automated contexts
+  regardless of caller location.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — predictable path resolution makes functions easier to reason
+  about and compose.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

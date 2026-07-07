@@ -118,3 +118,17 @@ accepted rather than compensated for with a rewritten copy.
 - Adding a generated README is one mapping line plus its source file; opting a folder out is one `.gitignore` line and leaving it unmapped.
 - The cost is the link base: relative links inside an article are guaranteed to resolve only at the source's own location, so the docs tree
   is the canonical reading surface and the README is the pointer to it.
+
+## Dora explains:
+
+DORA's research on code maintainability and documentation quality emphasizes single sources of truth and automatic, drift-free maintenance;
+linking READMEs to their authored sources ensures documentation is always current and prevents the divergence that hand-kept copies
+introduce.
+
+- [Documentation quality](https://dora.dev/capabilities/documentation-quality/) — single-sourced, automatically-linked documentation
+  eliminates drift and keeps all channels current.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — filesystem links encode "one file, reachable from two paths"
+  directly, removing an entire class of maintenance burden.
+- [Version control](https://dora.dev/capabilities/version-control/) — no second copy means no mirror to drift from or to be mistaken for a
+  second truth.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

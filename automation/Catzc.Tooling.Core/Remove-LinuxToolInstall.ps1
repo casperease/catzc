@@ -51,29 +51,6 @@ function Remove-LinuxToolInstall {
         }
     }
 
-    # 2. pip shadow in the uv-managed Python — the uv-scoped uninstall (user-space), never a foreign system pip.
-    $pipName = if ($Config.pip_package) {
-        $Config.pip_package
-    }
-    else {
-        $Config.command
-    }
-    if (Test-Command uv) {
-        $show = Invoke-Executable "uv pip show --system $pipName" -PassThru -NoAssert -Silent
-        if ($show.Output) {
-            Invoke-Executable "uv pip uninstall --system $pipName"
-            return $true
-        }
-    }
-
-    # 3. Stray binary no manager owns — delete just that file (user-space; a root-owned path fails the delete
-    #    loudly rather than being force-removed silently).
-    if ([System.IO.File]::Exists($source)) {
-        Write-Message "Removing stray '$($Config.command)' at '$source'"
-        [System.IO.File]::Delete($source)
-        return $true
-    }
-
-    Write-Message "Nothing off-config to remove for '$($Config.command)'"
-    $false
+    # 2. uv-Python pip shadow, then 3. a stray binary — the shared user-space tail (also used by macOS).
+    Remove-UvPipOrStrayInstall -Config $Config -Source $source
 }

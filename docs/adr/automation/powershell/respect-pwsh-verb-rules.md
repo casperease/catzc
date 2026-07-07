@@ -228,3 +228,16 @@ All functions must use approved PowerShell verbs. No exceptions.
 - Code reads as natural language: `Assert-Command python`, `Install-Poetry`, `Get-Config azure`, `Test-IsAdministrator`.
 - PSScriptAnalyzer warns on unapproved verbs, catching mistakes before code review.
 - New team members familiar with any PowerShell module can immediately navigate the codebase because the vocabulary is shared.
+
+## Dora explains:
+
+DORA research shows that consistent naming conventions improve code maintainability and enable teams to understand unfamiliar code by name
+alone. Using PowerShell's approved verbs as the shared vocabulary transforms function names into behavioral contracts every team member
+recognizes.
+
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — consistent verbs reduce cognitive load, enable behavior
+  prediction.
+- [Documentation quality](https://dora.dev/capabilities/documentation-quality/) — verbs encode contracts that document behavior in names.
+- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — shared verbs enable independent navigation of unfamiliar
+  code.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

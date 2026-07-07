@@ -54,10 +54,10 @@ function Test-ShaMarker {
     foreach ($set in $sets) {
         # The gate checks only the committed marker (scan + scoped_sha256 + sha256) — never the gitignored
         # companion — so it needs the tracked members only, no untracked-tree scan.
-        $members = Get-GlobSetMember -GlobSet $set
-        $scopedSha = [Catzc.Base.Globs.DurableHash]::HashPathList([string[]] $members)
+        $members = [string[]] (Get-GlobSetMember -GlobSet $set)
+        $scopedSha = [Catzc.Base.Globs.DurableHash]::HashPathList($members)
         $hash = Get-GlobSetHash -GlobSet $set
-        $expected = $set.MarkerContent($scopedSha, $hash)
+        $expected = $set.MarkerContent($members.Count, $scopedSha, $hash)
         $path = [System.IO.Path]::Combine($root, $set.MarkerPath)
         $actual = $null
         $status = 'Missing'

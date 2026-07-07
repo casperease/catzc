@@ -67,7 +67,7 @@ function Update-ShaMarker {
         $resolution = Get-GlobSetResolution -GlobSet $set
         $hash = Get-GlobSetHash -GlobSet $set
         $path = [System.IO.Path]::Combine($root, $set.MarkerPath)
-        $content = $set.MarkerContent($resolution.ScopedSha, $hash)
+        $content = $set.MarkerContent($resolution.Count, $resolution.ScopedSha, $hash)
         $current = if ([System.IO.File]::Exists($path)) {
             [System.IO.File]::ReadAllText($path)
         }

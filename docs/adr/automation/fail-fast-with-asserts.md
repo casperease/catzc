@@ -136,3 +136,17 @@ asserted at the point where the assumption is made.
 - Performance cost is negligible — assertions are simple boolean checks. The cost of _not_ asserting (silent corruption, misleading errors,
   hours of debugging) is orders of magnitude higher.
 - Pester tests focus on behavior and integration, not on re-checking assumptions that the code already asserts on every execution.
+
+## Dora explains:
+
+DORA's research links early failure detection and clear error messages to deployment reliability and reduced debugging time. Inline
+assertions at every assumption point catch problems before they propagate, enabling fast diagnosis and reducing the cost of failures caught
+in production.
+
+- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — failing fast with inline assertions catches issues early,
+  reducing the feedback loop and enabling faster, safer deployment decisions.
+- [Test automation](https://dora.dev/capabilities/test-automation/) — assertions at every assumption replace mock-heavy tests, providing
+  real validation in every execution including production edge cases.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — assertions serve as executable documentation, making
+  preconditions explicit and preventing failures from propagating deep into code.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

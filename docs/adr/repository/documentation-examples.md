@@ -57,3 +57,16 @@ in function help.
 - Publishing the repository leaks no customer or project identity through example material.
 - A new example reaches for the discovery family first; adding a fourth example name extends the same exploration vocabulary rather than
   inventing an unrelated token.
+
+## Dora explains:
+
+DORA's research on learning culture and code maintainability emphasizes clear, consistent documentation; fictional example names make the
+narrative legible and prevent confusion between illustration and production.
+
+- [Documentation quality](https://dora.dev/capabilities/documentation-quality/) — consistent example names make documentation legible and
+  trustworthy.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — clear, themed names make examples instantly recognizable as
+  distinct from live data.
+- [Learning culture](https://dora.dev/capabilities/learning-culture/) — accessible, coherent examples accelerate onboarding and reduce
+  confusion.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

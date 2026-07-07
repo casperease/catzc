@@ -33,20 +33,22 @@ function Remove-Dotnet {
         throw 'Dotnet is managed by the tooling system. Use Uninstall-Dotnet instead.'
     }
 
-    # Linux: evict an off-config install by the mechanism that placed it (apt / uv-Python pip / stray binary);
-    # elevation is scoped to the mechanism (ADR-REMOVE:6). macOS eviction is a stub (ADR-REMOVE:7).
-    if ($IsLinux) {
+    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip
+    # / stray binary); elevation is scoped to the mechanism (ADR-REMOVE:6), so no admin assert here.
+    if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
-            Write-Message 'Would evict an off-config .NET (apt package / uv-Python pip / stray binary). Run with -Force to execute.'
+            Write-Message 'Would evict an off-config .NET (native package / uv-Python pip / stray binary). Run with -Force to execute.'
             return
         }
-        if (-not (Remove-LinuxToolInstall -Config $config)) {
+        $removed = if ($IsLinux) {
+            Remove-LinuxToolInstall -Config $config
+        }
+        else {
+            Remove-MacToolInstall -Config $config
+        }
+        if (-not $removed) {
             Write-Message 'No off-config .NET found — nothing to remove.'
         }
-        return
-    }
-    if ($IsMacOS) {
-        Remove-MacToolInstall -Config $config | Out-Null
         return
     }
 

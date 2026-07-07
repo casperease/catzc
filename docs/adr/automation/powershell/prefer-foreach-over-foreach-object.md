@@ -220,3 +220,13 @@ control flow is needed.
 - Developers accustomed to using `ForEach-Object` everywhere must learn to reach for `foreach` first. The PSScriptAnalyzer rule catches the
   dangerous cases automatically.
 - `ForEach-Object -Parallel` usage requires deliberate design — no accidental use as a "faster loop."
+
+## Dora explains:
+
+DORA research shows that correct language semantics and predictable control flow reduce debugging time and test failures. Using foreach for
+iteration eliminates entire classes of bugs where control flow keywords behave unexpectedly in scriptblock contexts.
+
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — correct control flow semantics reduce cognitive load and
+  bugs.
+- [Test automation](https://dora.dev/capabilities/test-automation/) — predictable iteration behavior enables reliable, non-flaky tests.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

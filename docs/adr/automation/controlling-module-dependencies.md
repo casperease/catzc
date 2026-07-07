@@ -219,3 +219,17 @@ describes, and adding or moving a dependency is a reviewed change.
 - A build is reproducible from the checkout: internal code by path (vendored), external code by a pinned feed fetch (stitched), the same on
   any machine — and offline for everything vendored. An internal change shows up as a diff in `dependencies.yml` or `.vendor/`, an external
   one as a diff in the stitch config, so nothing enters the build as an unreviewed ambient fact.
+
+## Dora explains:
+
+DORA's research links clear dependency structures and acyclic, well-defined interfaces to team independence and deployment reliability.
+Declaring and enforcing the module dependency graph enables teams to work on isolated modules safely while preventing the layer inversions
+and cycles that slow systems.
+
+- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — declared module dependencies enable teams to work
+  independently on their modules without undeclared cross-layer calls.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — an acyclic dependency graph and explicit interface contracts
+  make the system's structure clear and changes auditable.
+- [Version control](https://dora.dev/capabilities/version-control/) — the entire dependency graph, internal and external, is versioned in
+  config, making every build reproducible from the checkout.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

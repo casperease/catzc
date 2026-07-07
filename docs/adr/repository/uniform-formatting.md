@@ -124,3 +124,17 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - New contributors produce correctly formatted files from the first commit because their editor reads `.editorconfig`.
 - Formatting discussions never happen — the baseline is fixed and the per-language layers are mechanical.
 - Adding a file type is a small, bounded act: add its `.editorconfig` section (and formatter), inheriting the baseline.
+
+## Dora explains:
+
+DORA's research on code maintainability and continuous delivery emphasizes clean diffs and reproducible builds; mechanical formatting
+eliminates style noise from code review and ensures generated artifacts are byte-identical across runs, keeping blame and CI history
+legible.
+
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — automated formatting removes style noise and keeps
+  `git blame` pointing at the author of logic, not reformatting.
+- [Version control](https://dora.dev/capabilities/version-control/) — clean diffs containing only logic changes make code review sharp and
+  history readable.
+- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — canonical artifact generation ensures byte-identical output
+  across builds, so CI diffs are trustworthy.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

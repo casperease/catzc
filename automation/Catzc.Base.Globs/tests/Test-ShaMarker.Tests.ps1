@@ -29,6 +29,7 @@ Describe 'Test-ShaMarker' -Tag 'L1', 'logic' {
         $script:members = @('src/a')
         Mock Get-GlobSetMember { $script:members } -ModuleName Catzc.Base.Globs
         $script:scopedA = [Catzc.Base.Globs.DurableHash]::HashPathList([string[]] $script:members)
+        $script:count = @($script:members).Count
     }
 
     AfterEach {
@@ -36,14 +37,14 @@ Describe 'Test-ShaMarker' -Tag 'L1', 'logic' {
     }
 
     It 'reports Fresh when the file carries the recomputed definition and hash' {
-        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'unit-a.yml'), $script:config.Get('unit-a').MarkerContent($script:scopedA, $script:hashA))
+        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'unit-a.yml'), $script:config.Get('unit-a').MarkerContent($script:count, $script:scopedA, $script:hashA))
         $result = Test-ShaMarker -Name unit-a
         $result.Status | Should -Be 'Fresh'
         $result.Actual | Should -Match "sha256: $script:hashA"
     }
 
     It 'reports Stale when the sha256 line differs' {
-        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'unit-a.yml'), $script:config.Get('unit-a').MarkerContent($script:scopedA, $script:hashB))
+        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'unit-a.yml'), $script:config.Get('unit-a').MarkerContent($script:count, $script:scopedA, $script:hashB))
         $result = Test-ShaMarker -Name unit-a
         $result.Status | Should -Be 'Stale'
         $result.Expected | Should -Match "sha256: $script:hashA"
@@ -54,7 +55,7 @@ Describe 'Test-ShaMarker' -Tag 'L1', 'logic' {
         [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'unit-a.yml'), "name: unit-a`nlayer: scope`nsha256: $script:hashA`n")
         $result = Test-ShaMarker -Name unit-a
         $result.Status | Should -Be 'Stale'
-        $result.Expected | Should -Be $script:config.Get('unit-a').MarkerContent($script:scopedA, $script:hashA)
+        $result.Expected | Should -Be $script:config.Get('unit-a').MarkerContent($script:count, $script:scopedA, $script:hashA)
     }
 
     It 'reports Missing when no marker file exists' {
@@ -70,7 +71,7 @@ Describe 'Test-ShaMarker' -Tag 'L1', 'logic' {
     }
 
     It 'covers every globset — declared and derived — on a full run and never throws' {
-        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'unit-a.yml'), $script:config.Get('unit-a').MarkerContent($script:scopedA, $script:hashA))
+        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'unit-a.yml'), $script:config.Get('unit-a').MarkerContent($script:count, $script:scopedA, $script:hashA))
         $result = @(Test-ShaMarker)
         $result.Count | Should -Be 3
         ($result | Where-Object Name -EQ 'unit-a').Status | Should -Be 'Fresh'
@@ -79,7 +80,7 @@ Describe 'Test-ShaMarker' -Tag 'L1', 'logic' {
     }
 
     It 'resolves a derived set by name and never reports its marker as orphaned' {
-        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'mod-x.yml'), $script:derivedSet.MarkerContent($script:scopedA, $script:hashA))
+        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'mod-x.yml'), $script:derivedSet.MarkerContent($script:count, $script:scopedA, $script:hashA))
         $result = @(Test-ShaMarker -Name mod-x)
         ($result | Where-Object Name -EQ 'mod-x').Status | Should -Be 'Fresh'
         ($result | Where-Object Status -EQ 'Orphaned') | Should -BeNullOrEmpty
@@ -87,9 +88,9 @@ Describe 'Test-ShaMarker' -Tag 'L1', 'logic' {
 
     It 'is clean exactly when everything is Fresh' {
         foreach ($setName in 'unit-a', 'unit-b') {
-            [System.IO.File]::WriteAllText((Join-Path $script:markersDir "$setName.yml"), $script:config.Get($setName).MarkerContent($script:scopedA, $script:hashA))
+            [System.IO.File]::WriteAllText((Join-Path $script:markersDir "$setName.yml"), $script:config.Get($setName).MarkerContent($script:count, $script:scopedA, $script:hashA))
         }
-        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'mod-x.yml'), $script:derivedSet.MarkerContent($script:scopedA, $script:hashA))
+        [System.IO.File]::WriteAllText((Join-Path $script:markersDir 'mod-x.yml'), $script:derivedSet.MarkerContent($script:count, $script:scopedA, $script:hashA))
         @(Test-ShaMarker | Where-Object Status -NE 'Fresh').Count | Should -Be 0
     }
 }

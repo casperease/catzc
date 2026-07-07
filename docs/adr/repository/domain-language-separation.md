@@ -56,11 +56,11 @@ category is `fixture` vs `azure-live` vs `adr-example`; it is a declaration of d
 ### Rule ADR-LANG:7
 
 Matching is **exact and conservative**. A distinctive live identity (customer, subscription, org, template, project) is flagged as a bare
-string literal that IS the token, not a substring or path segment (`'automation/Catzc.X'` never trips the deployable-unit name `automation`);
-an ambiguous one — an environment name like `test`/`dev` — is flagged only where it is bound to an identity parameter (`-Environment`/`-Env`/
-`-Shortcode`), never as prose. Structural names that collide with folder literals (deployable-unit/pipeline names) are out of scope. The
-reverse boundary — a **fixture** identity in a shipped config **value** — is enforced the mirror way, by walking the parsed config's keys and
-values (comment-blind) rather than its raw text.
+string literal that IS the token, not a substring or path segment (`'automation/Catzc.X'` never trips the deployable-unit name
+`automation`); an ambiguous one — an environment name like `test`/`dev` — is flagged only where it is bound to an identity parameter
+(`-Environment`/`-Env`/ `-Shortcode`), never as prose. Structural names that collide with folder literals (deployable-unit/pipeline names)
+are out of scope. The reverse boundary — a **fixture** identity in a shipped config **value** — is enforced the mirror way, by walking the
+parsed config's keys and values (comment-blind) rather than its raw text.
 
 - [Exact, conservative, phased](#exact-conservative-phased)
 
@@ -140,8 +140,8 @@ The gate matches a string literal that **is** a live identity, never a substring
 deployable-unit name `automation`. Structural names that collide with folder literals are left out of the forbidden set entirely, because a
 name a test must legitimately type is not an identity leak. Distinctive identities (customers, subscriptions, org, templates, ADO project)
 match exactly wherever they appear; ambiguous environment names, pervasive in test prose, match only in an identity-parameter position; and
-the reverse boundary — a fixture identity sitting in shipped config **values** rather than comments — is caught by walking the parsed config,
-not its text. The bias throughout is toward a gate that is right when it fires, not one that fires often.
+the reverse boundary — a fixture identity sitting in shipped config **values** rather than comments — is caught by walking the parsed
+config, not its text. The bias throughout is toward a gate that is right when it fires, not one that fires often.
 
 ## Decision
 
@@ -202,3 +202,17 @@ the domains; a file-glob spell-checker is not used, because it cannot separate i
 - [spell-out-names](../automation/powershell/spell-out-names.md) (`ADR-SPELL`) — the terminology registry and the per-category `scope` map.
 - [poka-yoke](../principles/poka-yoke.md), [reduce-variability](../principles/reduce-variability.md) — the principles a mechanical,
   low-ceremony gate instantiates.
+
+## Dora explains:
+
+DORA's research on pervasive security and streamlining change approval emphasizes preventing configuration drift and production leaks; a
+tag-aware AST gate that enforces domain boundaries catches silent violations where text-based checks cannot, so live identities never leak
+into test code.
+
+- [Pervasive security](https://dora.dev/capabilities/pervasive-security/) — mechanical enforcement prevents live identities from leaking
+  into logic tests where they could cause production incidents.
+- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — AST-based gates run on every build and fail with exact,
+  actionable messages.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — semantic enforcement (not text-based) is what lets
+  illustration remain legible while protecting the boundary.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

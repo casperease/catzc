@@ -182,3 +182,13 @@ There are **no default hooks**. `assets/PrePost.psm1` is a copy-in starter only 
   (`infrastructure/templates/<template>/PrePost.psm1`).
 - Future extension points of the same shape (a small group of related hooks loaded on demand from a consumer-supplied module) can reuse this
   pattern: a starter file plus a per-consumer module, invoked only when present.
+
+## Dora explains:
+
+DORA's research connects loosely coupled architectures to faster delivery and better team autonomy. A single, clearly-defined extension
+point for per-template hooks allows teams to customize deployments without scattered code or central orchestration.
+
+- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — clear extension points enable independent template
+  customization.
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — grouped hooks in one .psm1 avoid scattered, duplicated code.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

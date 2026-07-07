@@ -132,3 +132,16 @@ contract testing so a break is caught in CI, not in production. Everything outsi
   threaded through implementations.
 - The cost is real and bounded: each live version is maintained and tested for as long as a consumer pins it. That cost buys the one thing
   it should — external consumers that keep working across change.
+
+## Dora explains:
+
+DORA's research links test automation and continuous delivery to predictable deployment outcomes; contract testing applies these findings to
+the public boundary, catching breaking changes in CI rather than in production.
+
+- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — contract tests run in CI and gate breaking changes
+  before merge.
+- [Test automation](https://dora.dev/capabilities/test-automation/) — published contracts are verified mechanically by provider-side tests
+  on every build.
+- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — binding, tested contracts ensure external consumers stay
+  deployable and unbroken across releases.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

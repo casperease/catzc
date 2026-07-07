@@ -86,3 +86,16 @@ enables quality.
     software development is "an exercise in discovery" while manufacturing is "an exercise in reducing variation." The resolution:
     standardize the process and tooling while preserving variation in the design space. Taiichi Ohno's observation that "where there is no
     standard there can be no kaizen" applies to the delivery process, not to the creative work.
+
+## Dora explains:
+
+DORA's research links reduced variability to faster, more reliable delivery outcomes. Standardizing processes, tooling, and artifact
+structure makes deviations visible, enabling early detection of defects and predictable performance across environments.
+
+- [Version control](https://dora.dev/capabilities/version-control/) — standardized artifacts in version control establish a consistent
+  baseline.
+- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — enforces a uniform process and prevents long-lived
+  variant branches.
+- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — consistent process and tooling enable frequent,
+  predictable integration.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

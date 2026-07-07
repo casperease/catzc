@@ -69,3 +69,16 @@ A retry is a **last-ditch** mechanism for a genuinely-transient external failure
 - When a retry _is_ used it is surgical (lowest level), bounded, logged, and idempotent — easy to spot in review and to reason about, with a
   contained blast radius.
 - A genuinely broken system fails immediately, with the real error, instead of after N slow, noisy attempts that bury the cause.
+
+## Dora explains:
+
+Restricting retry to idempotent operations at the lowest level keeps test results trustworthy and failures visible. This discipline is
+essential for reliable CI and for surfacing degrading systems before they cascade.
+
+- [Test automation](https://dora.dev/capabilities/test-automation/) — tests never retry, so flakiness surfaces immediately and must be fixed
+  or gated behind an explicit tier.
+- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — honest, fast failures prevent masking real defects and
+  keep merge gates reliable.
+- [Monitoring and observability](https://dora.dev/capabilities/monitoring-and-observability/) — every retry is logged as a warning so
+  degrading dependencies leave a visible breadcrumb.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

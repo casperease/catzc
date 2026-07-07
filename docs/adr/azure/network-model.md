@@ -108,3 +108,13 @@ environments:
   silently diverge.
 - Per-subscription identity environments stay network-free by design.
 - The network plan is a separate, self-contained asset — extending it (new env, new range) is a one-file change, validated on load.
+
+## Dora explains:
+
+DORA's research shows that infrastructure-as-code and centralized, single-source-of-truth configuration reduce errors and deployment lead
+time. This ADR encodes the network plan as a versioned asset, with cross-asset integrity rules preventing configuration drift.
+
+- [Version control](https://dora.dev/capabilities/version-control/) — IP plan is a versioned, authoritative source.
+- [Flexible infrastructure](https://dora.dev/capabilities/flexible-infrastructure/) — network topology defined as declarative configuration.
+- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — network plan drives template deployments and vnet setup.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

@@ -129,3 +129,15 @@ The registry is for the cases convention cannot express. Most configs need neith
   `$script:configCache`.
 - Test isolation is simple: mock the discovery seam (`Resolve-ConfigEntry`) or the whole boundary (`Get-Config`) — see
   [test-automation](test-automation.md).
+
+## Dora explains:
+
+A single config reader eliminates drift and ensures consistent validation, both core to reliable system behavior. This pattern reduces
+variability in configuration handling across modules, lowering defect rates and deployment risk.
+
+- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — one reader eliminates boilerplate and drift across modules.
+- [Version control](https://dora.dev/capabilities/version-control/) — configs flow through a single validation gate, making their state
+  auditable and consistent.
+- [Pervasive security](https://dora.dev/capabilities/pervasive-security/) — validation is owner-scoped and centralized, reducing the surface
+  for misconfiguration.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

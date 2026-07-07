@@ -196,3 +196,17 @@ what the code used to be lives in git and nowhere else — not in retained files
 - Recovering an old version is a `git` operation, not a tree excavation. The archive is complete and the present is uncluttered.
 - The cost is discipline and nerve: you must change every caller now and trust git to hold the past, rather than hedging with a copy. In an
   all-in-tree mono-repo that trust is well-founded.
+
+## Dora explains:
+
+DORA identifies version control and trunk-based development as predictors of delivery performance. One living version enforces a single
+source of truth, eliminating the cognitive load and defects that parallel paths create, enabling fast, atomic change propagation across the
+entire codebase.
+
+- [Version control](https://dora.dev/capabilities/version-control/) — git preserves complete history, making retention of legacy code
+  unnecessary.
+- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — short-lived branches and atomic merges keep trunk as
+  the sole living version.
+- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — atomic contract changes across all callers enable
+  rapid, coherent integration.
+- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
