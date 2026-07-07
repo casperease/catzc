@@ -34,6 +34,7 @@ scan:
 - '- automation/Catzc.Tooling.Core/**'
 - '- automation/Catzc.Tooling.Environment/**'
 - '- automation/Catzc.Tooling.Github/**'
+- '- automation/Catzc.Tooling.KeyHandler/**'
 - '- automation/Catzc.Tooling.Node/**'
 - '- automation/Catzc.Tooling.Provisioning/**'
 - '- automation/Catzc.Tooling.Python/**'

@@ -1,0 +1,11 @@
+name: catzc-tooling-keyhandler-live
+description: Derived module aspect - automation/Catzc.Tooling.KeyHandler [live]
+layer: module
+scan:
+- '+ automation/Catzc.Tooling.KeyHandler/*.ps1'
+- '+ automation/Catzc.Tooling.KeyHandler/private/**'
+- '+ automation/Catzc.Tooling.KeyHandler/types/**'
+- '+ automation/Catzc.Tooling.KeyHandler/configs/**'
+files: 0
+scoped_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
