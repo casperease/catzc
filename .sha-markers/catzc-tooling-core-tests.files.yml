@@ -1,5 +1,5 @@
-generated_at: 2026-07-07T02:23:49Z
-scoped_sha256: af0a5f89fd6800db76346f1b732b0261e7943ae71fec957c994f86625ddf79af
+generated_at: 2026-07-07T02:59:37Z
+scoped_sha256: cf88fce0f1df042e2a3b079e9ec8ccf40c6d9dee32e82c2c2babd2c696e70afb
 filtered_sha256: 1a915235688a427f63ed9ee1d17350fac694c5f96f06b482991565e4773098b9
 scan:
 - '+ automation/Catzc.Tooling.Core/**'
@@ -16,6 +16,7 @@ included:
 - automation/Catzc.Tooling.Core/tests/Install-UvTool.Tests.ps1
 - automation/Catzc.Tooling.Core/tests/Install-UvVenvTool.Tests.ps1
 - automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
+- automation/Catzc.Tooling.Core/tests/Remove-MacToolInstall.Tests.ps1
 - automation/Catzc.Tooling.Core/tests/Resolve-SessionToolHint.Tests.ps1
 - automation/Catzc.Tooling.Core/tests/Save-VerifiedDownload.Tests.ps1
 - automation/Catzc.Tooling.Core/tests/Sync-SessionTools.Tests.ps1

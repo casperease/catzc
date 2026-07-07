@@ -1,6 +1,6 @@
-generated_at: 2026-07-07T02:28:54Z
-scoped_sha256: 53a435b7f38c4a3356d9976f49d38916991aff49db144f63a031f49066002ce4
-filtered_sha256: 5b534baa8357eafb968e5947d11ff67922704cfe3265f2746afa9a7c7f62d568
+generated_at: 2026-07-07T02:59:28Z
+scoped_sha256: 246b869cf544f1c7d7d15a7b79672cb7e6432e0883fe5d9a00bfa08e71bf41dd
+filtered_sha256: 312d562abcb9cc189fe3c968b266fce4ba3e407b767d5291e70f7f8477ea8443
 scan:
 - '+ automation/**'
 included:
@@ -896,6 +896,7 @@ included:
 - automation/Catzc.Tooling.Core/Install-UvVenvTool.ps1
 - automation/Catzc.Tooling.Core/Invoke-Uv.ps1
 - automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
+- automation/Catzc.Tooling.Core/Remove-MacToolInstall.ps1
 - automation/Catzc.Tooling.Core/Remove-SystemInstallation.ps1
 - automation/Catzc.Tooling.Core/Save-VerifiedDownload.ps1
 - automation/Catzc.Tooling.Core/Sync-SessionTools.ps1
@@ -919,6 +920,7 @@ included:
 - automation/Catzc.Tooling.Core/tests/Install-UvTool.Tests.ps1
 - automation/Catzc.Tooling.Core/tests/Install-UvVenvTool.Tests.ps1
 - automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
+- automation/Catzc.Tooling.Core/tests/Remove-MacToolInstall.Tests.ps1
 - automation/Catzc.Tooling.Core/tests/Resolve-SessionToolHint.Tests.ps1
 - automation/Catzc.Tooling.Core/tests/Save-VerifiedDownload.Tests.ps1
 - automation/Catzc.Tooling.Core/tests/Sync-SessionTools.Tests.ps1
@@ -1028,6 +1030,8 @@ included:
 - automation/Catzc.Tooling.Toolchain/tests/Invoke-Java.Tests.ps1
 - automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.L2.Tests.ps1
 - automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
 filtered:
 - automation/.internal/assets/obj/Catzc.Types.csproj.nuget.dgspec.json
 - automation/.internal/assets/obj/Catzc.Types.csproj.nuget.g.props
@@ -1101,11 +1105,12 @@ filtered:
 - automation/Catzc.Tooling.Github/README.md
 - automation/Catzc.Tooling.Node/Catzc.Tooling.Node.psd1
 - automation/Catzc.Tooling.Node/README.md
+- automation/Catzc.Tooling.Node/tests/Uninstall-NodeJs.Tests.ps1
 - automation/Catzc.Tooling.Provisioning/Catzc.Tooling.Provisioning.psd1
 - automation/Catzc.Tooling.Provisioning/README.md
 - automation/Catzc.Tooling.Python/Catzc.Tooling.Python.psd1
 - automation/Catzc.Tooling.Python/README.md
 - automation/Catzc.Tooling.Toolchain/Catzc.Tooling.Toolchain.psd1
 - automation/Catzc.Tooling.Toolchain/README.md
-- automation/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
-- automation/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
+- automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1

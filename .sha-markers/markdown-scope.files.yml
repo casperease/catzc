@@ -1,6 +1,6 @@
-generated_at: 2026-07-07T02:30:21Z
-scoped_sha256: fcfdddd4e4c57bdc231e4c7d9ddb90598c07774dcb400796c515c88b68a8c7c2
-filtered_sha256: f8ce2c230565192ef59d39d676401b958f529f5bd4fc38c9e183a3fdde9db7fc
+generated_at: 2026-07-07T02:59:29Z
+scoped_sha256: 7b483cc23f75bbe0880b626eefded49a2aa31e4d60279705004f67618e304ed4
+filtered_sha256: a61b65ff04393e2e5242476f18f9725158ee5c7699693d7f392dbad96fd1f2a4
 scan:
 - '+ **/*.md'
 - '+ .markdownlint.yml'
@@ -70,6 +70,7 @@ included:
 - docs/adr/azure/network-model.md
 - docs/adr/design/ci-discipline-and-promotion-flow.md
 - docs/adr/design/module-aspects.md
+- docs/adr/design/thin-platforms.md
 - docs/adr/design/tracks.md
 - docs/adr/index.md
 - docs/adr/pipelines/custom-template-discipline.md
@@ -202,7 +203,6 @@ filtered:
 - automation/Catzc.Tooling.Toolchain/README.md
 - contracts/README.md
 - docs/adr/README.md
-- docs/adr/design/thin-platforms.md
 - infrastructure/README.md
 - infrastructure/modules/README.md
 - infrastructure/templates/foundation/README.md
