@@ -24,10 +24,10 @@ reproduce, or review what is not written down.
 ### Rule ADR-SELFSERV:3
 
 What ships is an **immutable, content-addressed artifact** built **reproducibly** from a known source commit and carrying **provenance**
-from source to deployed state. The durable-SHA markers (`ADR-GLOBS`) content-address each shippable unit; a build is a verifiable path from
-that commit to its output, not a one-off act that cannot be repeated. This is what makes self-service _auditable_: every deployed thing
-traces to one exact, reviewed commit, and anyone can independently rebuild it and confirm the match. (Primary sources: the Reproducible
-Builds project on the source-to-binary verification path, and SLSA on build provenance and attestation.)
+from source to deployed state. The globset durable-SHA identities (`ADR-GLOBS`) content-address each shippable unit; a build is a verifiable
+path from that commit to its output, not a one-off act that cannot be repeated. This is what makes self-service _auditable_: every deployed
+thing traces to one exact, reviewed commit, and anyone can independently rebuild it and confirm the match. (Primary sources: the
+Reproducible Builds project on the source-to-binary verification path, and SLSA on build provenance and attestation.)
 
 - [Immutable artifacts and provenance](#immutable-artifacts-and-provenance)
 
@@ -81,12 +81,12 @@ close it toward the repository — never to promote an out-of-band change into t
 
 ### Immutable artifacts and provenance
 
-A shippable unit is identified by its content, not by a mutable tag: the durable-SHA markers key each unit to the exact bytes it comprises
-(`ADR-GLOBS`), so "which version is deployed" has a single, verifiable answer. Reproducibility makes that answer checkable by a third party
-— the Reproducible Builds project defines a reproducible build as "an independently-verifiable path from source to binary code", which is
-exactly the property an auditor needs. Provenance carries the chain the other direction: SLSA frames build provenance as verifiable evidence
-of _how_ an artifact was produced. Together they mean a deployed artifact is not trusted on faith — it is trusted because it can be traced
-back to a reviewed commit and rebuilt to match.
+A shippable unit is identified by its content, not by a mutable tag: the globset durable-SHA identities key each unit to the exact bytes it
+comprises (`ADR-GLOBS`), so "which version is deployed" has a single, verifiable answer. Reproducibility makes that answer checkable by a
+third party — the Reproducible Builds project defines a reproducible build as "an independently-verifiable path from source to binary code",
+which is exactly the property an auditor needs. Provenance carries the chain the other direction: SLSA frames build provenance as verifiable
+evidence of _how_ an artifact was produced. Together they mean a deployed artifact is not trusted on faith — it is trusted because it can be
+traced back to a reviewed commit and rebuilt to match.
 
 ### Trunk-based development is the guardrail
 
@@ -117,7 +117,8 @@ controlled domains this makes self-service and auditability the same mechanism r
 ### How this is enforced
 
 - **Everything-as-code** (`ADR-ASCODE`) keeps the repository the sole authoritative source; there is no supported out-of-band channel.
-- **The durable-SHA markers** (`ADR-GLOBS`) content-address every shippable unit, giving each deployment a single verifiable identity.
+- **The globset durable-SHA identities** (`ADR-GLOBS`) content-address every shippable unit, giving each deployment a single verifiable
+  identity.
 - **One living version** (`ADR-ONELIVE`) forbids long-lived branches and legacy variants, keeping trunk the one always-releasable source.
 - **Fail-fast asserts and the quality gates** (`ADR-FAILFAST`, the spell/terminology/freshness gates) are the automated guardrails a
   self-service change must clear before it can merge.

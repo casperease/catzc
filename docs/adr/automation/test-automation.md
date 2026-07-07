@@ -192,8 +192,8 @@ machine with the parallel pool; `Split-TestAutomationFiles` owns the split, and 
 whole file (serial wins when a file carries both):
 
 - **`serial`** — the test mutates state shared across worker processes: the committed `.compiled` assembly, a fixed `out/` path two files
-  both write (e.g. the `out/template/<name>` build folders), `.sha-markers/`. Its file runs in the final **one-worker phase**, strictly
-  alone, one file after another.
+  both write (e.g. the `out/template/<name>` build folders). Its file runs in the final **one-worker phase**, strictly alone, one file after
+  another.
 - **`greedy`** — the test consumes the machine beyond its own process (the PSScriptAnalyzer gate's background-process pool, tests that spawn
   importer-loading pwsh workers) but shares no mutable state with other files. Its file runs in the **greedy phase** between the parallel
   shards and the serial phase: single-file shards through the worker pool, one file per worker slot, so greedy files overlap each other

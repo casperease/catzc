@@ -25,25 +25,25 @@ auto-commit in CI. Never branch on the seam to change _what a command does_ — 
 
 ### Rule ADR-PARITY:4
 
-The two environments **connect only via the EAC** — the sha-markers (`ADR-GLOBS`). The devbox shoots: it edits, regenerates the markers, and
-commits them. The pipeline verifies: it recomputes the markers and gates on them, then delivers. Nothing else crosses between devbox and
-pipeline — no shared runtime state, only the committed marker identities. So "did this change" and "what ships" are the same fact on both
-sides, by construction.
+The two environments **connect only via the EAC** — the version-controlled globsets and their generated trigger projections (`ADR-GLOBS`).
+The devbox shoots: it edits the source and its projected triggers, and commits them. The pipeline verifies: it reflects the same globsets
+against git at the merged commit and gates, then delivers. Nothing else crosses between devbox and pipeline — no shared runtime state, only
+the committed source. So "did this change" and "what ships" are the same fact on both sides, by construction.
 
 ## Context
 
 The value of the automation track is that it collapses the distance between "works on my machine" and "works in CI": one CLI, run the same
 everywhere, so a problem is caught at the furthest-left point it can be. That only holds if parity is a rule, not an accident — the moment a
 command needs a pipeline to work, or behaves differently there, shift-left breaks and the pipeline becomes the first place failures appear.
-The single seam (`Test-IsRunningInPipeline`) keeps the _one_ legitimate difference in one auditable place; the markers (`ADR-GLOBS`) are the
-only channel between the two, so everything else stays identical.
+The single seam (`Test-IsRunningInPipeline`) keeps the _one_ legitimate difference in one auditable place; the version-controlled globsets
+(`ADR-GLOBS`) are the only channel between the two, so everything else stays identical.
 
 ## Decision
 
 Treat the track as a single CLI with two environments and no third mode. Write every command to run on a bare devbox; let CI run the
 identical command; confine the environment difference to the one seam behind `Test-IsRunningInPipeline`; and let devbox and pipeline
-communicate only through the committed sha-markers. The gates run in both and must agree — that agreement, recomputed on every push, is the
-proof of parity.
+communicate only through the version-controlled globsets. The gates run in both and must agree — that agreement, recomputed on every push,
+is the proof of parity.
 
 ## Consequences
 
@@ -55,7 +55,7 @@ proof of parity.
 ## Related
 
 - [pipeline-detection](../pipelines/pipeline-detection.md) — the one seam detector (`ADR-PIPEDET`)
-- [durable-sha-globs](../pipelines/durable-sha-globs.md) — the sha-markers, the only channel between devbox and pipeline (`ADR-GLOBS`)
+- [durable-sha-globs](../pipelines/durable-sha-globs.md) — the globsets, the only channel between devbox and pipeline (`ADR-GLOBS`)
 - [test-automation](../automation/test-automation.md) — the L0–L3 gates that run identically in both environments (`ADR-TEST`)
 - [reduce-variability](reduce-variability.md), [one-living-version](one-living-version.md) — the principles this specialises to two
   environments

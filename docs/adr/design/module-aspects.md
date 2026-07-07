@@ -39,8 +39,8 @@ it (`AspectPartition.Validate`). The `module-leftovers` catch-all (`ADR-PROTGLOB
 ## Context
 
 A module is not one fileset — it holds two kinds of thing with opposite roles: the runtime code that ships to production, and the tests that
-verify it. Collapsing them into one sha-marker means a test-only edit re-keys the module's identity, firing everything downstream that keys
-on "did this module change" — even though nothing shippable moved. Isolation demands they be separate, versioned areas-of-control.
+verify it. Collapsing them into one set means a test-only edit re-keys the module's identity, firing everything downstream that keys on "did
+this module change" — even though nothing shippable moved. Isolation demands they be separate, versioned areas-of-control.
 
 ## Decision
 

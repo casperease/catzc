@@ -2,12 +2,9 @@
 // kebab-case name -> { description, layer (deployable-unit | loose-fileset — 'module' is derived-only and
 // rejected here, ADR-GLOBS:7), [include: [...]], [exclude: [...]], [compose: [...]],
 // [verify: { modules, level }], [pipeline] }, each entry a valid GlobSet, no unknown keys anywhere
-// (strict-config discipline), compose references resolving to declared sets acyclically (ADR-GLOBS:8),
-// and the self-exclusion rule — no globset may have a sha-marker file as an effective member (ADR-GLOBS:6;
-// marker files are outputs of the hash, never inputs), asserted by probing every declared marker path plus
-// a canary marker path against every set's effective membership. The config itself is an ordinary tracked
-// file and may be a member. Constructing an instance validates the whole registry (collecting all errors)
-// and exposes the sets in registry order.
+// (strict-config discipline), and compose references resolving to declared sets acyclically (ADR-GLOBS:8).
+// The config itself is an ordinary tracked file and may be a member. Constructing an instance validates the
+// whole registry (collecting all errors) and exposes the sets in registry order.
 // See docs/adr/pipelines/durable-sha-globs.md.
 
 using System;

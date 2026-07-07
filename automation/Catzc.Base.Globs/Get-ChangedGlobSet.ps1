@@ -1,14 +1,12 @@
 <#
 .SYNOPSIS
-    The globsets a diff touches — the computed area-of-control that replaces reading a sha-marker diff
-    (ADR-GLOBS:1).
+    The globsets a diff touches — the computed area-of-control of a change (ADR-GLOBS:1).
 .DESCRIPTION
     Reflects a change into the globset registry: returns every declared globset whose scan program
-    (GlobSet.Matches, last-match-wins ADR-GLOBS:4) selects at least one changed path. This is the live
-    replacement for the committed-marker surface — the same "which areas of control did this change touch"
-    fact, computed from git at the real refs instead of from a frozen per-set hash, so it is immune to the
-    squash-merge and concurrent-merge staleness a committed hash suffers, and correct across renames
-    (Get-ChangedFile splits a rename into both of its paths).
+    (GlobSet.Matches, last-match-wins ADR-GLOBS:4) selects at least one changed path. The "which areas of
+    control did this change touch" fact, computed from git at the real refs — reading the merged tree as it
+    actually is, so it is immune to the squash-merge and concurrent-merge staleness a per-set hash frozen on a
+    branch would suffer, and correct across renames (Get-ChangedFile splits a rename into both of its paths).
 
     The changed paths come either explicitly (-ChangedFile, a pure and testable call) or from a git range
     (-Range) resolved through Get-ChangedFile. -IncludeModules also matches the derived per-module sets

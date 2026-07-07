@@ -74,9 +74,9 @@ the analyzer test — so `Test-Automation -Level 2` is what catches a formatting
 Two globset-backed behaviors show up in gate runs (see [durable-sha-globs](../../../adr/pipelines/durable-sha-globs.md) and
 [protected-globs](../../../adr/automation/protected-globs.md)):
 
-- A red **Marker freshness** test means a change to a deployable unit is missing its regenerated sha-marker file — the dev-box importer
-  syncs and commits it automatically on the next import, or run `Update-ShaMarker` by hand. `Test-ShaMarker` shows the per-set status
-  without failing anything.
+- A red **Native trigger globs** test means a pipeline's `trigger:`/`pr:` `paths:` filter has drifted from its globset's projection —
+  regenerate it from `Get-GlobSetTrigger`. `Test-AdoPipelineTriggerGlob` / `Test-GitHubWorkflowTriggerGlob` show the per-pipeline status
+  (Match/Drift/Missing) without failing anything.
 - A **skipped** repository spelling/markdown scan (`protected_globset_unchanged_since_green_run`) means that scan already ran green against
   the identical file set this session — a local-only optimization, never active in CI. `Clear-GlobSetProtection` (or reloading the importer)
   forces a full rescan.

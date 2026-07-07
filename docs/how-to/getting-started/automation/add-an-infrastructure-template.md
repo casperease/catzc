@@ -28,8 +28,7 @@ Two rules make this work:
   exactly one non-customer subscription, which is the resolved target. A subfolder is always a **customer key**, and its configs resolve to
   that customer's one subscription serving the env. Every file resolves to exactly ONE subscription id (asserted at discovery).
 - **The filename is the identity.** `dev.yml` is the base (index-0) slot for environment `dev`; `dev-001.yml` is the `001` slot. **One
-  config file ⟷ one (customer?, env, slot) ⟷ one Azure resource group.** Listing the `configuration/` tree is the resource-group
-  inventory.
+  config file ⟷ one (customer?, env, slot) ⟷ one Azure resource group.** Listing the `configuration/` tree is the resource-group inventory.
 
 ## Worked example
 
@@ -60,9 +59,8 @@ module adfMain '../../modules/data-factory.bicep' = {
 }
 ```
 
-**`infrastructure/templates/survey/configuration/dev.yml`** — the parameter values for this one resource group. Resource
-names are written **statically** here (the build passes them through unchanged); they follow the
-[naming standard](../../../adr/azure/naming-standard.md):
+**`infrastructure/templates/survey/configuration/dev.yml`** — the parameter values for this one resource group. Resource names are written
+**statically** here (the build passes them through unchanged); they follow the [naming standard](../../../adr/azure/naming-standard.md):
 
 ```yaml
 # survey, shared dev.

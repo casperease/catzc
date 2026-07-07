@@ -126,8 +126,8 @@ per-module globsets are derived, not declared (`Get-ModuleGlobSet`): folder = mo
 module. Each internal shared module `automation/.internal/<Name>.psm1` derives a single-file set the same way — the file is the
 registration, as the folder is for a module. The reserved names `internal`, `vendor`, `compiled`, and `scriptanalyzer` derive the
 dot-prefixed infrastructure scopes the suite also depends on. Derived and declared sets share one name space — a shadowing declared name is
-rejected at load — and derived sets scope protection and blast-radius alongside the declared registry through the same `Matches()` machinery,
-so a module's identity is a live, reviewable area-of-control in the PR report, while pipelines keep registering only on declared
+rejected at load — and derived sets scope protection and blast-radius alongside the declared registry through the same `Matches()`
+machinery, so a module's identity is a live, reviewable area-of-control in the PR report, while pipelines keep registering only on declared
 deployable-unit projections.
 
 ### The composite identity

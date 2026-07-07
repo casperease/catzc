@@ -52,12 +52,13 @@ serializes writers and false-reds a busy mainline after a server-side squash mer
 ### Rule ADR-GLOBS:6
 
 A pipeline, workflow, or build-validation policy triggers on the globset's **native path-filter projection** (`Get-GlobSetTrigger`): the
-flattened scan program (ADR-GLOBS:4/8) rendered into the vendor's own `paths` dialect — GitHub `on.*.paths` with ordered `!` negation (exact,
-the same last-match-wins evaluator as `GlobSet.Matches`); Azure DevOps `trigger.paths.include`/`exclude` and branch-policy `filenamePatterns`
-(order-independent — union include minus union exclude — so each pattern is collapsed to its last select, and a compose re-add becomes a
-deeper-folder include ADO keeps). Modern vendors (ADO Services / Server 2022+, GitHub) accept wildcards anywhere in a path filter, so the
-projection is a true no-start trigger. The projected filters are generated from `globs.yml`, never hand-authored, and the drift gate
-(`Test-AdoPipelineTriggerGlob` / `Test-GitHubWorkflowTriggerGlob`) fails a pipeline whose declared trigger no longer equals its projection.
+flattened scan program (ADR-GLOBS:4/8) rendered into the vendor's own `paths` dialect — GitHub `on.*.paths` with ordered `!` negation
+(exact, the same last-match-wins evaluator as `GlobSet.Matches`); Azure DevOps `trigger.paths.include`/`exclude` and branch-policy
+`filenamePatterns` (order-independent — union include minus union exclude — so each pattern is collapsed to its last select, and a compose
+re-add becomes a deeper-folder include ADO keeps). Modern vendors (ADO Services / Server 2022+, GitHub) accept wildcards anywhere in a path
+filter, so the projection is a true no-start trigger. The projected filters are generated from `globs.yml`, never hand-authored, and the
+drift gate (`Test-AdoPipelineTriggerGlob` / `Test-GitHubWorkflowTriggerGlob`) fails a pipeline whose declared trigger no longer equals its
+projection.
 
 - [Native projection: the no-start trigger](#native-projection-the-no-start-trigger)
 - [How this is enforced](#how-this-is-enforced)
@@ -100,14 +101,14 @@ the native projection (ADR-GLOBS:6) and the durable SHA (ADR-GLOBS:5) are comput
 
 ### Rule ADR-GLOBS:9
 
-Whether a change touches a unit is **computed from git at real refs**, never from a committed hash. `Get-ChangedGlobSet` diffs a commit range
-(`Get-ChangedFile`, `git diff --name-only --no-renames`) and matches the changed paths against the registry; `Test-GlobSetAffected` answers
-the in-pipeline "is there anything here for us to process?" gate, resolving the reference commit per context (`Get-GlobSetChangeRange`:
-post-commit first-parent `HEAD^1..HEAD` — squash-safe; PR merge-base `origin/<target>...HEAD`; local working tree) and **failing open** on any
-doubt so a wrong skip can never drop a deploy. The same computation is the PR area-of-control report. Because it is recomputed at the actual
-refs after the merge exists, it is immune to the squash-merge and concurrent-merge staleness a committed hash suffers, and correct across
-renames (a rename is split into both its paths). A pipeline must checkout with sufficient depth (`fetchDepth: 0`) so the base ref is
-reachable.
+Whether a change touches a unit is **computed from git at real refs**, never from a committed hash. `Get-ChangedGlobSet` diffs a commit
+range (`Get-ChangedFile`, `git diff --name-only --no-renames`) and matches the changed paths against the registry; `Test-GlobSetAffected`
+answers the in-pipeline "is there anything here for us to process?" gate, resolving the reference commit per context
+(`Get-GlobSetChangeRange`: post-commit first-parent `HEAD^1..HEAD` — squash-safe; PR merge-base `origin/<target>...HEAD`; local working
+tree) and **failing open** on any doubt so a wrong skip can never drop a deploy. The same computation is the PR area-of-control report.
+Because it is recomputed at the actual refs after the merge exists, it is immune to the squash-merge and concurrent-merge staleness a
+committed hash suffers, and correct across renames (a rename is split into both its paths). A pipeline must checkout with sufficient depth
+(`fetchDepth: 0`) so the base ref is reachable.
 
 - [Git reflection: the in-pipeline gate and the PR report](#git-reflection-the-in-pipeline-gate-and-the-pr-report)
 
@@ -134,10 +135,10 @@ those lists directly into every pipeline and workflow by hand scatters one fact 
 layer, in two vendor dialects, where drift is invisible until a deploy silently does not fire.
 
 The design keeps the composition declared once, at the deterministic source-of-truth layer (`globs.yml`), and derives everything else from
-it. Two derivations replace what a committed per-set marker used to carry: the trigger is the globset **projected** into each vendor's native
-path-filter dialect (`Get-GlobSetTrigger`), generated into the orchestration YAML and drift-checked against the source; and "did this change
-touch the unit?" is **reflected** from git at the real refs (`Get-ChangedGlobSet` / `Test-GlobSetAffected`). Nothing is committed per set, so
-there is no whole-set hash to go stale.
+it. Two derivations replace what a committed per-set marker used to carry: the trigger is the globset **projected** into each vendor's
+native path-filter dialect (`Get-GlobSetTrigger`), generated into the orchestration YAML and drift-checked against the source; and "did this
+change touch the unit?" is **reflected** from git at the real refs (`Get-ChangedGlobSet` / `Test-GlobSetAffected`). Nothing is committed per
+set, so there is no whole-set hash to go stale.
 
 ## Decision
 
@@ -184,18 +185,18 @@ even when content does not), and order-free (lines ordinal-sorted). It is exactl
 protection map (`ADR-PROTGLOB`), where "this session already proved this input state green" is a live, in-process fact.
 
 What it must **not** be is a committed artifact gating the mainline. A committed whole-set hash is a lockfile over that set: two pull
-requests that touch different files of the same set both freeze the hash against their own branch state, and after a server-side squash merge
-the mainline holds the union while each frozen hash saw only its own half — an integrity gate recomputing the set would red the mainline with
-neither change individually wrong, and no merge conflict to warn anyone. Because the squash commit is a tree the client never hashed, any
-client-frozen hash is suspect. So the identity stays live and local; the trigger is a native projection (ADR-GLOBS:6) and the "did this
-change?" question is answered from git at the real refs (ADR-GLOBS:9), both of which see the merged tree as it actually is.
+requests that touch different files of the same set both freeze the hash against their own branch state, and after a server-side squash
+merge the mainline holds the union while each frozen hash saw only its own half — an integrity gate recomputing the set would red the
+mainline with neither change individually wrong, and no merge conflict to warn anyone. Because the squash commit is a tree the client never
+hashed, any client-frozen hash is suspect. So the identity stays live and local; the trigger is a native projection (ADR-GLOBS:6) and the
+"did this change?" question is answered from git at the real refs (ADR-GLOBS:9), both of which see the merged tree as it actually is.
 
 ### Native projection: the no-start trigger
 
 `Get-GlobSetTrigger` projects a globset's flattened scan program (ADR-GLOBS:4/8) into each vendor's native path-filter dialect:
 
-- **GitHub** `on.*.paths`: the program in order, each `-` rule rendered as a `!` negation. GitHub paths are ordered and last-match-wins — the
-  same evaluator as `GlobSet.Matches` — so the projection is **exact**.
+- **GitHub** `on.*.paths`: the program in order, each `-` rule rendered as a `!` negation. GitHub paths are ordered and last-match-wins —
+  the same evaluator as `GlobSet.Matches` — so the projection is **exact**.
 - **Azure DevOps** `trigger.paths.include`/`exclude` and branch-policy `filenamePatterns`: order-independent (union include minus union
   exclude), so each pattern is collapsed to its **last select** in the program — a base exclude a later compose include re-adds nets to an
   include, and ADO's documented "a deeper-folder include overrides a broader exclude" carries the compose re-add. Modern ADO (Services /
@@ -251,8 +252,8 @@ computation is the PR area-of-control report:
 - `Get-ChangedGlobSet` matches the changed paths against the registry (declared, and with `-IncludeModules` the derived module sets), and
   `Test-GlobSetAffected` reports whether the named unit is among them.
 
-It **fails open**: an unresolvable base (a shallow clone that cannot reach `HEAD^1`, a first commit, an unfetched target ref) proceeds rather
-than skips, because a redundant run is safe and a wrong skip is an un-deployed change; it returns `false` only when it has positively
+It **fails open**: an unresolvable base (a shallow clone that cannot reach `HEAD^1`, a first commit, a target ref not yet fetched) proceeds
+rather than skips, because a redundant run is safe and a wrong skip is an un-deployed change; it returns `false` only when it has positively
 confirmed the unit is untouched, and throws on an undeclared unit name so a typo never silently skips. This is the squash-proof, rename-
 correct heart of the design — two real commits that exist server-side after the merge, never a hash frozen on a branch.
 
@@ -260,28 +261,29 @@ correct heart of the design — two real commits that exist server-side after th
 
 A layer is a set of peers that partition one concern into boundaries: the `track` layer partitions the tree at the root, the `module` layer
 partitions module-space, the `deployable-unit` layer partitions what ships. Overlap between peers means one boundary consumes another's
-files. So within a layer the sets are pairwise-disjoint — but on their **OWN** contribution, never their effective membership (`ADR-GLOBS:10`).
-The distinction is what makes `compose` legal: a customer deployable-unit's _effective_ members include the whole base it composes, so on
-effective membership every customer overlaps the base and each other through it. That overlap is the point of composition — "depends on a
-base" — not a peer collision. On OWN membership (compose ignored) the customer units own only their own `configuration/<key>/**` slice and
-the base owns the shared surface minus the config folders, so the layer is disjoint. The same holds across layers by design: a file under
-`automation/Catzc.Base.Globs/` belongs to the `automation` track AND the `catzc-base-globs` module AND (if it ships) a deployable-unit —
-three boundaries in three layers, one file. Cross-layer overlap is never a violation; only same-layer overlap is.
+files. So within a layer the sets are pairwise-disjoint — but on their **OWN** contribution, never their effective membership
+(`ADR-GLOBS:10`). The distinction is what makes `compose` legal: a customer deployable-unit's _effective_ members include the whole base it
+composes, so on effective membership every customer overlaps the base and each other through it. That overlap is the point of composition —
+"depends on a base" — not a peer collision. On OWN membership (compose ignored) the customer units own only their own
+`configuration/<key>/**` slice and the base owns the shared surface minus the config folders, so the layer is disjoint. The same holds
+across layers by design: a file under `automation/Catzc.Base.Globs/` belongs to the `automation` track AND the `catzc-base-globs` module AND
+(if it ships) a deployable-unit — three boundaries in three layers, one file. Cross-layer overlap is never a violation; only same-layer
+overlap is.
 
 Catch-alls keep a layer total without breaking disjointness. The `repository` track owns every root file `automation`/`infrastructure` do
 not — the complement — so it can never overlap them; add a track and its files leave `repository` automatically, but only if the new track
 is also excluded there, which the gate checks. The `module-leftovers` set is the module-space complement: it should be empty in a clean
 tree, a tripwire for a file dropped at `automation/`'s root or a folder not yet a module. The `loose-fileset` layer is exempt because its
-sets are defined to cut across the boundaries. The gate evaluates OWN membership over the tracked-file universe for the declared registry and
-the derived module sets together, so a mis-scoped module include, a track that reaches into another's files, or an umbrella mistakenly
+sets are defined to cut across the boundaries. The gate evaluates OWN membership over the tracked-file universe for the declared registry
+and the derived module sets together, so a mis-scoped module include, a track that reaches into another's files, or an umbrella mistakenly
 declared a `module` fails as a named pair.
 
 ### How this is enforced
 
 - `GlobsConfig` validates the schema and every pattern at config load, rejecting unknown keys, malformed patterns (`ADR-GLOBS:3`), and
   cyclic or self-referential compose (`ADR-GLOBS:8`).
-- `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` recompute each pipeline-bound globset's native projection and compare it
-  to what the bound pipeline/workflow actually declares; integrity-tagged tests assert every trigger is a `Match`, so a hand-edited or
+- `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` recompute each pipeline-bound globset's native projection and compare
+  it to what the bound pipeline/workflow actually declares; integrity-tagged tests assert every trigger is a `Match`, so a hand-edited or
   drifted `paths:` filter fails `Test-Automation` locally and in CI.
 - The coverage integrity test confirms every member of a pipeline-bound set is covered by an ADO include pattern — an include-only
   projection is a safe superset that can never under-trigger, with `Test-GlobSetAffected` supplying exactness on top.
@@ -298,8 +300,8 @@ declared a `module` fails as a named pair.
   start at all; the in-pipeline `Test-GlobSetAffected` gate is the exact backstop for the residue.
 - Reviewable deploys: "this change touches unit X" is the computed area-of-control report over the PR diff — derived, so it can never go
   stale, and correct across renames.
-- Contributors carry no marker-regeneration duty; the drift gate keeps the generated triggers honest, and the identity used for protection is
-  live, per session.
+- Contributors carry no marker-regeneration duty; the drift gate keeps the generated triggers honest, and the identity used for protection
+  is live, per session.
 
 ## Related
 

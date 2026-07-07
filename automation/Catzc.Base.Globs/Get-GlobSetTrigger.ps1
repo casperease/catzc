@@ -3,10 +3,9 @@
     Projects a globset's scan program into vendor-native pipeline path filters — the no-start trigger
     (ADR-GLOBS:1).
 .DESCRIPTION
-    The replacement for a globset's committed sha-marker as the pipeline trigger: instead of pointing a
-    vendor path filter at one marker file, project the set's flattened scan program (ADR-GLOBS:4/8) straight
-    into the vendor's own `paths` filter, so the trigger fires — or does not start at all — on the real files,
-    with no committed hash to go stale across a squash or concurrent merge.
+    The pipeline trigger: project the set's flattened scan program (ADR-GLOBS:4/8) straight into the vendor's
+    own `paths` filter, so the trigger fires — or does not start at all — on the real files, with no committed
+    hash to go stale across a squash or concurrent merge.
 
     Two dialects, from the one program:
 
