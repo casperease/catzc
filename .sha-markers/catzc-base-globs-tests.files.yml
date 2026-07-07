@@ -1,6 +1,6 @@
-generated_at: 2026-07-07T01:45:13Z
+generated_at: 2026-07-07T01:50:56Z
 scoped_sha256: ed207953a46c345357dd6db209aa5d10f2a4fb2b2c706a28d8897a33d34c1981
-filtered_sha256: c725540f441e8acda5bba6e1d5013a27c41022630522ce31944fefc4cb6878f6
+filtered_sha256: f248b6f637971af3502d27f1e9ed11d8704fdf729bdd99dfadfe31480eb15cc3
 scan:
 - '+ automation/Catzc.Base.Globs/**'
 - '- automation/Catzc.Base.Globs/*.ps1'
@@ -25,8 +25,4 @@ included:
 - automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
 filtered:
 - automation/Catzc.Base.Globs/Catzc.Base.Globs.psd1
-- automation/Catzc.Base.Globs/Get-GlobSetResolution.ps1
 - automation/Catzc.Base.Globs/README.md
-- automation/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
-- automation/Catzc.Base.Globs/private/Get-UntrackedFile.ps1
-- automation/Catzc.Base.Globs/private/Write-CompanionFile.ps1
