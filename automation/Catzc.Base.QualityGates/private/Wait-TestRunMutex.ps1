@@ -3,7 +3,7 @@
     Acquires the machine-wide test-run mutex for this repository and returns it, owned.
 .DESCRIPTION
     One checkout, one test run: concurrent runs (a second Test-Automation, or an Invoke-TestFile launched
-    mid-suite) share the real out/template build folders, the .compiled assembly, and .sha-markers/ — they
+    mid-suite) share the real out/template build folders and the .compiled assembly — they
     wipe and lock files under each other, and every such collision reads as a flaky test. This is the one
     acquisition path both entry points use: a named [System.Threading.Mutex] keyed on the repository root
     (machine-wide via the Global\ namespace), awaited through Wait-Mutex — a short glitch leaves only a

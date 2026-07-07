@@ -27,9 +27,8 @@
 .PARAMETER SkipJanitors
     Skip the post-import janitors and the PSModulePath check — a lean load for a copied subset.
 .PARAMETER NoCommitShaMarkersInDevBox
-    Opt OUT of the default sha-marker sync + auto-commit. By default every dev-box import syncs the
-    marker files and auto-commits the importer-maintained generated files (.sha-markers/,
-    automation/.compiled/) via Sync-GeneratedFile — never in a pipeline (double-guarded: the call site
+    Opt OUT of the default dev-box auto-commit of the importer-maintained generated files
+    (automation/.compiled/) via Sync-GeneratedFile — never in a pipeline (double-guarded: the call site
     skips under Test-IsRunningInPipeline and the function self-skips again), and skipped on main/master
     when the git_workspace variant is 'main-via-pr' (ADR-VARIANT:6). Also ignored under -SkipJanitors.
 .PARAMETER CleanClone
@@ -66,10 +65,9 @@ function Invoke-Importer {
         # maintenance is skipped.
         [switch] $SkipJanitors,
 
-        # Opt OUT of the default sha-marker sync + auto-commit of the generated files the importer
-        # maintains (.sha-markers/, automation/.compiled/) — the janitor tail's last step
-        # (Sync-GeneratedFile, which self-guards: never a pipeline, main allowed only in the main-direct
-        # git_workspace variant).
+        # Opt OUT of the default auto-commit of the generated files the importer maintains
+        # (automation/.compiled/) — the janitor tail's last step (Sync-GeneratedFile, which self-guards:
+        # never a pipeline, main allowed only in the main-direct git_workspace variant).
         [switch] $NoCommitShaMarkersInDevBox,
 
         # Opt IN to a whitelisted deep clean as the janitor run's first step (Reset-GitCleanFxd): delete
@@ -245,12 +243,11 @@ function Invoke-Importer {
         Sync-SessionTools
     }
 
-    # Default-on for dev boxes (opt out: -NoCommitShaMarkersInDevBox): sync the sha-marker files and
-    # auto-commit the generated files the importer maintains (.sha-markers/, automation/.compiled/).
-    # Deliberately the LAST janitor, so tracked files the janitors above touch (the .compiled DLL swap)
-    # are in their final state before the durable SHAs are computed. NEVER in a pipeline — guarded here so
-    # CI imports stay silent, and again inside Sync-GeneratedFile (which also guards: main only in the
-    # main-direct git_workspace variant). Guarded: absent in the bootstrap sandbox.
+    # Default-on for dev boxes (opt out: -NoCommitShaMarkersInDevBox): auto-commit the generated files the
+    # importer maintains (automation/.compiled/). Deliberately the LAST janitor, so tracked files the
+    # janitors above touch (the .compiled DLL swap) are in their final state before it commits. NEVER in a
+    # pipeline — guarded here so CI imports stay silent, and again inside Sync-GeneratedFile (which also
+    # guards: main only in the main-direct git_workspace variant). Guarded: absent in the bootstrap sandbox.
     if (-not $NoCommitShaMarkersInDevBox -and -not $SkipJanitors -and
         (Get-Command Sync-GeneratedFile -ErrorAction Ignore) -and
         (Get-Command Test-IsRunningInPipeline -ErrorAction Ignore) -and

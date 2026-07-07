@@ -8,12 +8,11 @@
     readme-kebab convention plus the aspect (Catzc.Base.Globs -> 'catzc-base-globs-live' and
     'catzc-base-globs-tests') — 'live' the module's shippable surface (functions, private helpers, types,
     configs), 'tests' its verification harness; the two are disjoint and cover the folder. The whole-module
-    set is their union and is NOT persisted — the aspect markers ARE the module's identity. Every internal
+    set is their union (a test-only change never re-keys live). Every internal
     shared module automation/.internal/<Name>.psm1 derives a single-file set (no tests aspect) by the same
     kebab convention (Catzc.Internal.Bootstrap -> 'catzc-internal-bootstrap').
     The reserved names cover the dot-prefixed infrastructure every module's test results also depend on:
-    'internal', 'vendor', 'compiled', 'scriptanalyzer'. Derived sets scope protection AND persist their own
-    sha-markers — Update-ShaMarker/Test-ShaMarker iterate the declared registry and the derived sets alike
+    'internal', 'vendor', 'compiled', 'scriptanalyzer'. Derived sets scope protection and blast radius
     (ADR-PROTGLOB:7). A declared globset may not shadow a derived name; the collision throws here, naming
     both sides.
 .PARAMETER Name
@@ -66,9 +65,9 @@ function Get-ModuleGlobSet {
     }
 
     # The aspect convention (ADR-ASPECT): each module folder partitions into disjoint, exhaustive aspect sets
-    # (live/tests by default) from the 'aspects' variant. The whole-module set is the union of its aspects and
-    # is NOT persisted — the aspect markers ARE the module's identity (a shipped module = 1 live + 1 tests,
-    # isolated: a test-only change never re-keys live). Compiled per unit root by AspectPartition.
+    # (live/tests by default) from the 'aspects' variant. The whole-module set is the union of its aspects
+    # (a shipped module = 1 live + 1 tests, isolated: a test-only change never re-keys live). Compiled per
+    # unit root by AspectPartition.
     $aspectList = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
     foreach ($aspectDef in Get-Aspect -Track automation) {
         $aspectList.Add([Catzc.Base.Globs.Aspect]::new($aspectDef.Name, [string[]]$aspectDef.Patterns))
@@ -140,22 +139,6 @@ function Get-ModuleGlobSet {
     $derived['module-leftovers'] = [Catzc.Base.Globs.GlobSet]::new(
         'module-leftovers', 'Derived module-space catch-all - automation/ files no module owns', 'module',
         @('automation/**'), $leftoverExcludes, @(), @(), -1, $null)
-
-    # persist_modules (ADR-PROTGLOB:7) opts derived sets IN to marker persistence. Declared names are
-    # rejected at config load; here we reject any entry that resolves to no derived set, naming it — the
-    # derived name space is only known here (the filesystem), so this is where the opt-in list is validated.
-    $persistModules = @($config.PersistModules)
-    if ($persistModules.Count) {
-        $derivedNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-        foreach ($derivedSet in $derived.Values) {
-            [void]$derivedNames.Add($derivedSet.Name)
-        }
-        foreach ($optIn in $persistModules) {
-            if (-not $derivedNames.Contains($optIn)) {
-                throw "persist_modules names '$optIn', which is not a derived module globset — expected a module aspect ('<module>-live'/'<module>-tests'), an internal module, a reserved umbrella, or 'module-leftovers' (globs.yml, ADR-PROTGLOB:7)."
-            }
-        }
-    }
 
     if (-not $PSBoundParameters.ContainsKey('Name')) {
         # every set once — module sets are keyed twice (kebab + folder), so de-duplicate by reference

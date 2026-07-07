@@ -32,7 +32,6 @@ Describe 'Get-GlobSet' -Tag 'L0', 'logic' {
         $set = Get-GlobSet -Name gadget
         $set | Should -BeOfType [Catzc.Base.Globs.GlobSet]
         $set.Matches('lib/templates/gadget/main.bicep') | Should -BeTrue
-        $set.MarkerPath | Should -Be '.sha-markers/gadget.yml'
     }
 
     It 'throws a named error on an unknown globset' {

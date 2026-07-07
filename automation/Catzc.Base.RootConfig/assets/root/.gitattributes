@@ -25,12 +25,6 @@ automation/.compiled/** binary
 # the loader's "types changed since they were loaded" guard on re-import. See docs/adr/automation/caching.md.
 *.cs     text eol=lf
 
-# Sha-marker files carry a globset's canonical definition plus its durable SHA — one LF-terminated YAML
-# per set, written by Update-ShaMarker and compared byte-for-byte by the marker-freshness gate. Pin to LF
-# so every checkout materializes exactly the bytes the writer produced.
-# See docs/adr/pipelines/durable-sha-globs.md.
-.sha-markers/*.yml text eol=lf
-
 # The committed managed root-config targets (rootconfig.yml committed:true — importer.ps1 and the git files)
 # are written canonical-LF by Write-FileIfChanged. Pin them to LF so a core.autocrlf=true machine neither
 # warns on every regeneration commit nor checks out CRLF copies that differ from what the writer produced.

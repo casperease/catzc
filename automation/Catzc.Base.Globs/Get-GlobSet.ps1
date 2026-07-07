@@ -4,14 +4,14 @@
 .DESCRIPTION
     The typed read of the single source of truth (ADR-GLOBS:1): configs/globs.yml, loaded and validated
     through Get-Config as a [Catzc.Base.Globs.GlobsConfig]. Each result is a [Catzc.Base.Globs.GlobSet]
-    carrying the compiled include/exclude patterns, Matches(), and the unit's MarkerPath. An unknown name
-    throws, naming the config file.
+    carrying the compiled include/exclude patterns and Matches(). An unknown name throws, naming the
+    config file.
 .PARAMETER Name
     The globset name(s) to return. Omit for every globset, in registry order.
 .EXAMPLE
     Get-GlobSet
 .EXAMPLE
-    (Get-GlobSet -Name automation).MarkerPath
+    (Get-GlobSet -Name automation).Matches('automation/importer.ps1')
 #>
 function Get-GlobSet {
     [CmdletBinding()]

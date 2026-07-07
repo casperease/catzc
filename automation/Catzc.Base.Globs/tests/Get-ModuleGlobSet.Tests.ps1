@@ -1,6 +1,6 @@
 # The derived globsets (ADR-PROTGLOB:7): folder = module = set (readme-kebab name), one single-file set per
 # internal .psm1 module, reserved infra scopes, one shared name space with the declared registry. Derived
-# sets never enter GlobsConfig but DO persist their own sha-markers (Update-ShaMarker iterates them).
+# sets never enter GlobsConfig but scope protection and blast radius through the same Matches() machinery.
 Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
@@ -14,7 +14,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         # Neutral fixture globset name (widget), not the real 'automation' set (ADR-TEST:3); this declared
         # set only needs to exist so the shadow-check has a registry to compare the derived names against.
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
-                globsets = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**'); exclude = @('.sha-markers/**') } }
+                globsets = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**') } }
             })
     }
 

@@ -1,13 +1,20 @@
 # cspell:ignore dedupe
 # The globs.yml registry gate: strict shape (unknown keys rejected), every entry a valid GlobSet with a
-# declared layer (ADR-GLOBS:7), compose resolving acyclically to declared sets (ADR-GLOBS:8), and the
-# self-exclusion rule — no globset may have a sha-marker file or the config itself as an effective member
-# (ADR-GLOBS:6).
+# declared layer (ADR-GLOBS:7), and compose resolving acyclically to declared sets (ADR-GLOBS:8).
 Describe 'GlobsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {
             param([hashtable] $globsets)
             [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $globsets })
+        }
+        # Render a set's flattened scan program as '+ pattern' / '- pattern' lines (ADR-GLOBS:4/8) — the
+        # ordered membership program, the durable behaviour the removed marker rendering used to show.
+        $script:program = {
+            param($set)
+            foreach ($rule in $set.ScanProgram()) {
+                $op = if ($rule.Select) { '+' } else { '-' }
+                "$op $($rule.Pattern.Pattern)"
+            }
         }
     }
 
@@ -22,7 +29,6 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $c.Names | Should -Contain 'widget'
             $c.Contains('gadget') | Should -BeTrue
             $c.Contains('nope') | Should -BeFalse
-            $c.Get('gadget').MarkerPath | Should -Be '.sha-markers/gadget.yml'
             $c.Get('gadget').Layer | Should -Be 'deployable-unit'
             $c.Get('gadget').Matches('lib/x/readme.md') | Should -BeFalse
         }
@@ -57,26 +63,15 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $set.Matches('other/a.txt') | Should -BeFalse
         }
 
-        It 'flattens the composed surface into the marker scan program, own rules last (ADR-GLOBS:8, ADR-GLOBS:9)' {
+        It 'flattens the composed surface into the scan program, own rules last (ADR-GLOBS:8)' {
             $c = & $script:make @{
                 'base' = @{ description = 'd'; layer = 'deployable-unit'; include = @('shared/**'); exclude = @('shared/config/**') }
                 'unit' = @{ description = 'd'; layer = 'deployable-unit'; compose = @('base'); include = @('mine/**'); pipeline = 'cd-unit' }
             }
-            $expectedLines = @(
-                'name: unit'
-                'description: d'
-                'layer: deployable-unit'
-                'pipeline: cd-unit'
-                'compose:'
-                '- base'
-                'scan:'
-                "- '+ shared/**'"      # base rules first...
-                "- '- shared/config/**'"
-                "- '+ mine/**'"        # ...then unit's own rule last
-            )
-            $c.Get('unit').Representation | Should -Be (($expectedLines -join "`n") + "`n")
+            # base rules first, then unit's own rule last (own-rules-last)
+            (& $script:program $c.Get('unit')) | Should -Be @('+ shared/**', '- shared/config/**', '+ mine/**')
             # the base set composes nothing, so its program is just its own rules
-            $c.Get('base').Representation | Should -Match "scan:`n- '\+ shared/\*\*'`n- '- shared/config/\*\*'`n"
+            (& $script:program $c.Get('base')) | Should -Be @('+ shared/**', '- shared/config/**')
         }
 
         It 'flattens transitively, each rule appearing once — dedupe keeps the last occurrence (ADR-GLOBS:8)' {
@@ -86,8 +81,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
                 'top'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('mid', 'leaf'); include = @('top/**') }
             }
             # top composes [mid, leaf]; mid already pulls leaf. Raw: +leaf,+mid,+leaf,+top -> dedupe-last: +mid,+leaf,+top
-            $rep = $c.Get('top').Representation
-            $rep | Should -Match "scan:`n- '\+ mid/\*\*'`n- '\+ leaf/\*\*'`n- '\+ top/\*\*'`n"
+            (& $script:program $c.Get('top')) | Should -Be @('+ mid/**', '+ leaf/**', '+ top/**')
         }
 
         It 'rejects a compose reference to an unknown set' {
@@ -139,86 +133,10 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'persistence policy (ADR-GLOBS, ADR-PROTGLOB:7)' {
-        It 'persists a declared set by default and does not persist an unknown (derived) name' {
-            $c = & $script:make @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**') } }
-            $c.ShouldPersist('widget') | Should -BeTrue
-            $c.ShouldPersist('some-module-live') | Should -BeFalse   # derived: not declared, not opted in
-            $c.PersistModules.Count | Should -Be 0
-        }
-
-        It 'opts a declared set OUT with persist: false' {
-            $c = & $script:make @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**'); persist = $false } }
-            $c.ShouldPersist('widget') | Should -BeFalse
-        }
-
-        It 'opts a derived set IN via top-level persist_modules and exposes the list' {
-            $c = [Catzc.Base.Globs.GlobsConfig]::new(@{
-                    globsets        = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**') } }
-                    persist_modules = @('some-module-live')
-                })
-            $c.ShouldPersist('some-module-live') | Should -BeTrue
-            $c.PersistModules | Should -Be @('some-module-live')
-        }
-
-        It 'rejects <why>' -ForEach @(
-            @{ why = 'persist: false on a pipeline-bound set'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'deployable-unit'; include = @('a/**'); pipeline = 'cd-u'; persist = $false } } }) } }
-            @{ why = 'a non-boolean persist value'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'loose-fileset'; include = @('a/**'); persist = 'sometimes' } } }) } }
-            @{ why = 'persist_modules naming a declared set'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'loose-fileset'; include = @('a/**') } }; persist_modules = @('u') }) } }
-            @{ why = 'a duplicate persist_modules entry'; block = { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = @{ u = @{ description = 'd'; layer = 'loose-fileset'; include = @('a/**') } }; persist_modules = @('mod-x', 'mod-x') }) } }
-        ) {
-            $block | Should -Throw
-        }
-    }
-
-    Context 'self-exclusion (ADR-GLOBS:6)' {
-        It 'rejects a set matching its own marker file' {
-            { & $script:make @{ unit = @{ description = 'd'; layer = 'loose-fileset'; include = @('.sha-markers/unit.yml') } } } |
-                Should -Throw '*ADR-GLOBS:6*'
-        }
-
-        It "rejects a set matching another set's marker file" {
-            {
-                & $script:make @{
-                    'a-unit' = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**') }
-                    'b-unit' = @{ description = 'd'; layer = 'loose-fileset'; include = @('.sha-markers/a-unit.yml') }
-                }
-            } | Should -Throw '*ADR-GLOBS:6*'
-        }
-
-        It 'rejects a catch-all include via the canary probe' {
-            { & $script:make @{ unit = @{ description = 'd'; layer = 'loose-fileset'; include = @('**') } } } |
-                Should -Throw '*ADR-GLOBS:6*'
-        }
-
-        It 'rejects a marker file inherited through compose' {
-            # 'leaky' matches the COMPOSING set's marker, so only the effective (composed) membership of
-            # 'unit' trips the probe — proving the self-exclusion check sees through compose.
-            {
-                & $script:make @{
-                    'leaky' = @{ description = 'd'; layer = 'loose-fileset'; include = @('.sha-markers/unit.yml') }
-                    'unit'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('leaky') }
-                }
-            } | Should -Throw '*ADR-GLOBS:6*'
-        }
-
-        It 'accepts a set including the config itself — an ordinary tracked file' {
+    Context 'the config file is an ordinary member' {
+        It 'accepts a set including the config file itself — an ordinary tracked file, not an output' {
             $c = & $script:make @{ unit = @{ description = 'd'; layer = 'loose-fileset'; include = @('automation/Catzc.Base.Globs/configs/*.yml') } }
             $c.Get('unit').Matches('automation/Catzc.Base.Globs/configs/globs.yml') | Should -BeTrue
-        }
-
-        It 'accepts a catch-all whose exclude carves out .sha-markers/' {
-            $c = & $script:make @{
-                everything = @{
-                    description = 'the whole tree'
-                    layer       = 'loose-fileset'
-                    include     = @('**')
-                    exclude     = @('.sha-markers/**')
-                }
-            }
-            $c.Get('everything').Matches('docs/index.md') | Should -BeTrue
-            $c.Get('everything').Matches('automation/Catzc.Base.Globs/configs/globs.yml') | Should -BeTrue
-            $c.Get('everything').Matches('.sha-markers/everything.yml') | Should -BeFalse
         }
     }
 }

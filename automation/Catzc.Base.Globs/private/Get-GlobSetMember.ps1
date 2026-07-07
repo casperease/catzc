@@ -5,9 +5,8 @@
     The one definition of "what is IN the package" (ADR-GLOBS:4): the matching universe (`git ls-files`)
     intersected with the set's final membership (GlobSet.Matches, last-match-wins), ordinal-sorted. Every
     consumer of the member list routes through here — the durable content SHA (Get-GlobSetHash), the public
-    Get-GlobSetFile, and the resolution (Get-GlobSetResolution) — so the scoped list can never drift between
-    the hash, the marker's scoped_sha256, and the companion's included list. A member may be missing on disk
-    (an unstaged deletion); it is still a member.
+    Get-GlobSetFile — so the scoped list can never drift between the hash and the public file list. A member
+    may be missing on disk (an unstaged deletion); it is still a member.
 .PARAMETER GlobSet
     The globset instance to resolve (declared or derived).
 .EXAMPLE
