@@ -8,4 +8,4 @@ scan:
 - '+ automation/Catzc.Tooling.Python/configs/**'
 files: 13
 scoped_sha256: 32a30457bf77cb9b8fe8c2d0a214b3b4f049c66960ddc6e2dbe6d98425ebc8aa
-sha256: 8ac52cf289e05beb6e61a53c52fbc726565ea73eb5d2c847d7191d3714ac2523
+sha256: 91a23f6f4fd5b5ca52cc1d995a2fec168f12c2962c82d5aa59b1e7c2b697bd22
