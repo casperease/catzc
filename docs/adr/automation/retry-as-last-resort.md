@@ -70,7 +70,7 @@ A retry is a **last-ditch** mechanism for a genuinely-transient external failure
   contained blast radius.
 - A genuinely broken system fails immediately, with the real error, instead of after N slow, noisy attempts that bury the cause.
 
-## Dora explains:
+## Dora explains
 
 Restricting retry to idempotent operations at the lowest level keeps test results trustworthy and failures visible. This discipline is
 essential for reliable CI and for surfacing degrading systems before they cascade.

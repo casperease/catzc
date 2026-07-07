@@ -102,7 +102,7 @@ unavoidable platform logic as `$IsWindows` / `$IsLinux` branches — all validat
 - Path handling is consistent everywhere — `Join-Path` is the only way to build paths.
 - New platforms (macOS) can be added by extending the `Install-*` functions without touching business logic.
 
-## Dora explains:
+## Dora explains
 
 DORA's research on flexible infrastructure links platform-agnostic code to deployment reliability—and PowerShell's cross-platform support
 enables one codebase on Windows and Linux. Catching platform incompatibilities at analysis time rather than at runtime reduces the friction

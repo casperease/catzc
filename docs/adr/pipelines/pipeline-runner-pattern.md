@@ -178,7 +178,7 @@ The `displayName` mirrors the command, so the ADO UI shows exactly what ran — 
 - Step templates compose cleanly — add authentication, artifact handling, or diagnostics without touching the command.
 - The runner is itself testable — import + execute is a pure pattern with no hidden state.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links local reproducibility and test automation to faster problem diagnosis and reduced mean time to recovery. This ADR's
 runner pattern keeps pipeline steps locally reproducible and testable, centralizes bootstrap logic in one place, and separates orchestration

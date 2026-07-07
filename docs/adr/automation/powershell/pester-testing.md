@@ -150,7 +150,7 @@ Describe 'sample (real az)' -Tag 'L2', 'logic' {
 - Mocking whole boundary functions keeps tests decoupled from implementation — a refactor inside a seam never rewrites the suite.
 - The gotchas are institutional memory: each entry is a failure mode that cost real debugging time, written down so it is paid once.
 
-## Dora explains:
+## Dora explains
 
 DORA's research on test automation emphasizes isolation and reproducibility—and Pester's gotchas tempt tightly coupled tests that fail
 mysteriously or mock so broadly they test nothing. Isolating logic through seams (template roots, config discovery), mocking whole functions

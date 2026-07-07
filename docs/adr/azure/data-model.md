@@ -324,7 +324,7 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
   (every root config must resolve to exactly one non-customer subscription per env). That is the deliberate trade: the conventional tree
   stays two-coordinate (root or customer), with no third naming axis to invent.
 
-## Dora explains:
+## Dora explains
 
 DORA's research connects infrastructure-as-code and version-controlled configuration to lower deployment lead time and enable rapid,
 reliable infrastructure changes. This ADR encodes Azure infrastructure as derived, deterministic config with no hand-typed values, enabling

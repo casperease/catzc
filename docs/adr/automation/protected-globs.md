@@ -178,7 +178,7 @@ red.
 - [caching](caching.md) — the general caching rules; this map is deliberately narrower (session memory, never persisted).
 - [reduce-waste](../principles/reduce-waste.md), [poka-yoke](../principles/poka-yoke.md) — the principles the gate instantiates.
 
-## Dora explains:
+## Dora explains
 
 Session-memory gating of repeated scans over unchanged inputs cuts inner-loop feedback time without compromising CI proof. Fail-open
 architecture ensures every pipeline run proves the full set, maintaining fast-feedback and reliability together.

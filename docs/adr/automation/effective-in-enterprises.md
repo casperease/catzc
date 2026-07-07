@@ -86,7 +86,7 @@ the language layer, [module-path-hygiene](powershell/module-path-hygiene.md) (`A
   [module-path-hygiene](powershell/module-path-hygiene.md), and the cold-import antivirus cost is mitigated by an exclusion, not a code
   change.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links self-contained, network-independent automation to reliable deployments in diverse enterprise environments. Vendoring
 all dependencies and avoiding runtime access to external feeds ensures the system works behind firewalls and without privileged access.

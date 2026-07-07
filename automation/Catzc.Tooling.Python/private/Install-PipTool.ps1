@@ -29,9 +29,11 @@ function Install-PipTool {
         $Version = $config.version
     }
 
-    # Target the uv-managed Python explicitly (by its locked version), not `--system`: `uv pip --system` installs
-    # into whatever interpreter uv discovers on PATH, which can be a stray system Python that shadows the managed
-    # one. `--python <pin>` always lands in the interpreter the toolchain provisions.
+    # Pin the interpreter with `--python <pin>` AND allow the non-virtual install with `--system`. uv refuses to
+    # install into a non-venv interpreter without it ("pass --system to install into a non-virtual
+    # environment"). `--python <pin>` fixes WHICH interpreter — so `--system` cannot drift to a stray system
+    # Python — and `--system` permits landing in that interpreter's global site-packages: the importable
+    # uv-managed Python (ADR-UVPY:2, `uv pip install --system`).
     $pythonVersion = (Get-ToolConfig -Tool 'python').version
 
     # Idempotent: skip if already installed at the correct version.
@@ -48,7 +50,7 @@ function Install-PipTool {
         }
         elseif ($Force) {
             Write-Verbose "$Tool $installed found — uninstalling before installing $Version"
-            Invoke-Pip "uninstall --python $pythonVersion $($config.pip_package)"
+            Invoke-Pip "uninstall --python $pythonVersion --system $($config.pip_package)"
         }
         else {
             $location = (Get-Command $config.command).Source
@@ -56,9 +58,9 @@ function Install-PipTool {
         }
     }
 
-    # Install into the uv-managed Python (by locked version) so the package is importable in the interpreter the
-    # toolchain provisions, not trapped in an isolated tool env or a stray system Python.
-    Invoke-Pip "install --python $pythonVersion $($config.pip_package)==$Version.*"
+    # Install into the uv-managed Python (pinned interpreter, `--system` for its non-virtual site-packages) so
+    # the package is importable in the interpreter the toolchain provisions, not trapped in an isolated tool env.
+    Invoke-Pip "install --python $pythonVersion --system $($config.pip_package)==$Version.*"
 
     Sync-SessionPath
 

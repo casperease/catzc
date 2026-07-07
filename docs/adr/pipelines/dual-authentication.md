@@ -174,7 +174,7 @@ security audit trail.
 - The step template controls token visibility, making it auditable which pipeline steps have API access.
 - No token caching or refresh logic — tokens are acquired fresh per call, matching their short-lived nature.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links explicit security controls and clear error handling to both high delivery performance and low change failure rates.
 This ADR's discipline of deterministic credential selection with mandatory org/tenant proof prevents silent auth failures and audit gaps

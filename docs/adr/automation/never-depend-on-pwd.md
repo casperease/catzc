@@ -53,7 +53,7 @@ All functions must work correctly regardless of the caller's `$PWD`.
 - Every path resolves from a stable anchor, so a function behaves identically wherever it is called from — the anchor idioms live in
   [working-directory-mechanics](powershell/working-directory-mechanics.md).
 
-## Dora explains:
+## Dora explains
 
 Absolute path resolution is essential to making functions composable and reproducible across environments. This discipline enables
 consistent behavior in CI pipelines, scheduled tasks, and nested function calls—all prerequisites for reliable automation.

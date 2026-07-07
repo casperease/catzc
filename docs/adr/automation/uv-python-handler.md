@@ -112,7 +112,7 @@ Provision Python with `uv python install --default`, and install Python-based CL
 - uv-installed tools resolve in every session once the tool-bin is on PATH; the session janitor makes that self-healing.
 - The toolchain depends on uv itself being present and pinned — uv is provisioned first (its dependents declare `depends_on: uv`).
 
-## Dora explains:
+## Dora explains
 
 User-space Python provisioning via uv removes admin barriers, isolates tool dependencies, and ensures deterministic, reproducible versions.
 This enables self-service infrastructure provisioning while maintaining strict version control for CI/CD.

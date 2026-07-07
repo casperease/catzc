@@ -185,7 +185,7 @@ extracted step template (`invoke-automation.yaml`) and `pipelines/extends/` hold
 - The layout is rigid by design (the cost of [conventional-folders](../repository/conventional-folders.md)): pipelines cannot be foldered by
   team or domain, and fragment folders are a closed set. The predictability is worth more than the flexibility.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links code organization and consistency to faster review cycles and lower defect introduction rates. This ADR's semantic
 layout convention — type-prefixed pipelines in one flat directory and per-kind template folders — eliminates guesswork about structure,

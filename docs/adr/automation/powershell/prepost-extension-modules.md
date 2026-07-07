@@ -183,7 +183,7 @@ There are **no default hooks**. `assets/PrePost.psm1` is a copy-in starter only 
 - Future extension points of the same shape (a small group of related hooks loaded on demand from a consumer-supplied module) can reuse this
   pattern: a starter file plus a per-consumer module, invoked only when present.
 
-## Dora explains:
+## Dora explains
 
 DORA's research connects loosely coupled architectures to faster delivery and better team autonomy. A single, clearly-defined extension
 point for per-template hooks allows teams to customize deployments without scattered code or central orchestration.

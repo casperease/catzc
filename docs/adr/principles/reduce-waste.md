@@ -86,7 +86,7 @@ finite resource.
     Toyota Production System) to software development. The seven wastes provide a taxonomy for identifying non-value-adding work in any
     software delivery process.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links small batch sizes and streamlined approvals to faster deployment frequency and lower change failure rates. Reducing
 waste eliminates handoffs, delays, and rework, accelerating the flow from development to production.

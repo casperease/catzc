@@ -100,7 +100,7 @@ zero or minimal arguments.
   call sites.
 - New team members can use functions immediately without reading the help to find out what to pass.
 
-## Dora explains:
+## Dora explains
 
 Smart defaults pulled from configuration enable self-service platform capabilities and reduce the friction of automation. Functions that
 work on zero arguments with sensible behavior lower adoption barriers and speed up iteration.

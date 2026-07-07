@@ -103,7 +103,7 @@ If the answer to either question is unsatisfying, the design is not done.
 - The cost of this is rigidity. The conventions are not optional. The tradeoff is deliberate: individual flexibility is sacrificed for
   collective reliability.
 
-## Dora explains:
+## Dora explains
 
 Structural prevention of errors and zero-ceremony onboarding dramatically lower the barrier to contribution and enable faster iteration.
 This foundation — making the common path frictionless and the wrong path invisible — is what lets platforms scale.

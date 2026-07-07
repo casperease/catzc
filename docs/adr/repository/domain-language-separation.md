@@ -203,7 +203,7 @@ the domains; a file-glob spell-checker is not used, because it cannot separate i
 - [poka-yoke](../principles/poka-yoke.md), [reduce-variability](../principles/reduce-variability.md) — the principles a mechanical,
   low-ceremony gate instantiates.
 
-## Dora explains:
+## Dora explains
 
 DORA's research on pervasive security and streamlining change approval emphasizes preventing configuration drift and production leaks; a
 tag-aware AST gate that enforces domain boundaries catches silent violations where text-based checks cannot, so live identities never leak

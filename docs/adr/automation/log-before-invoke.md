@@ -84,7 +84,7 @@ Every function that invokes an external command must log the exact command strin
 - No one needs to re-run a pipeline with `-Verbose` to find out what happened — the information is already there.
 - Secret masking is ADO's responsibility. The automation code logs freely and ADO redacts what needs redacting.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links comprehensive, automatic logging and rapid troubleshooting to deployment reliability and reduced incident response
 time. Logging the exact command before every invocation ensures the log contains the information needed to reproduce and diagnose failures

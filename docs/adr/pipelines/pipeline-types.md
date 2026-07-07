@@ -342,7 +342,7 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
   [one-config-to-rule-them-all](../../notes/one-config-to-rule-them-all.md),
   [classic-cmdb-vs-version-controlled-change](../../notes/classic-cmdb-vs-version-controlled-change.md).
 
-## Dora explains:
+## Dora explains
 
 DORA's research distinguishes Continuous Delivery (human-gated production changes) from Continuous Deployment (automated prod roll), and
 links explicit deployment governance to faster cycle times and lower failure rates. This ADR's taxonomy makes these distinctions explicit

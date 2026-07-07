@@ -163,7 +163,7 @@ the same arguments must produce the same system state as running them once.
 - Setup instructions simplify to "run this script" — no "but only if you haven't already" caveats.
 - Functions become more predictable: same inputs always produce the same system state, regardless of starting state.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links idempotent state operations to reliable retry-safe automation and reduced operational risk. Functions that check
 before acting and produce identical results whether run once or multiple times enable safe re-execution and simplify error recovery in

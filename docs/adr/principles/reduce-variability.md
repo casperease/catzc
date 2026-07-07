@@ -87,7 +87,7 @@ enables quality.
     standardize the process and tooling while preserving variation in the design space. Taiichi Ohno's observation that "where there is no
     standard there can be no kaizen" applies to the delivery process, not to the creative work.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links reduced variability to faster, more reliable delivery outcomes. Standardizing processes, tooling, and artifact
 structure makes deviations visible, enabling early detection of defects and predictable performance across environments.

@@ -119,7 +119,7 @@ accepted rather than compensated for with a rewritten copy.
 - The cost is the link base: relative links inside an article are guaranteed to resolve only at the source's own location, so the docs tree
   is the canonical reading surface and the README is the pointer to it.
 
-## Dora explains:
+## Dora explains
 
 DORA's research on code maintainability and documentation quality emphasizes single sources of truth and automatic, drift-free maintenance;
 linking READMEs to their authored sources ensures documentation is always current and prevents the divergence that hand-kept copies

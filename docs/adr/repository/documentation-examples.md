@@ -58,7 +58,7 @@ in function help.
 - A new example reaches for the discovery family first; adding a fourth example name extends the same exploration vocabulary rather than
   inventing an unrelated token.
 
-## Dora explains:
+## Dora explains
 
 DORA's research on learning culture and code maintainability emphasizes clear, consistent documentation; fictional example names make the
 narrative legible and prevent confusion between illustration and production.

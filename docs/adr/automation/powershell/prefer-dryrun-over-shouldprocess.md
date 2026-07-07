@@ -130,7 +130,7 @@ It 'in dry-run, returns the command and does not execute' {
   We accept that — testability and a low-ceremony, hard-to-misuse API win.
 - No `SupportsShouldProcess` exists in the codebase, so no un-suppressable `What if:` lines surface in the test run.
 
-## Dora explains:
+## Dora explains
 
 DORA research shows that explicit, observable test data and return values improve test effectiveness and deployment safety. Capturable
 dry-run values enable tests to verify plans without side effects, eliminating both hidden failures and test noise.

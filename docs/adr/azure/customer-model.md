@@ -152,7 +152,7 @@ whether it may deploy into customer subscriptions.
 - The cost is one more asset and one more variant to keep in step — reconciled by the two integrity tests, which are the only place the
   catalogue, the enabled set, and the subscriptions are checked against one another.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links single-source-of-truth configuration and one-living-version practices to faster, more reliable delivery. This ADR
 encodes the customer catalogue as the authoritative source, enabling predictable customer-scoped deployments without policy coupling.

@@ -328,7 +328,7 @@ Environment variables remain the right answer when your config is genuinely a fl
   `Write-EnvironmentSet` (ADR-ENVVAR:7) — `SecureString` in, masked in logs, decrypted only at the assignment, scoped by default — so there
   is a single function to review rather than scattered ad-hoc secret-into-env writes.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links clear module boundaries and explicit state passing to maintainability and reduced coupling. Confining environment
 variables to external tool contracts prevents invisible coupling through global mutable state and keeps secrets out of process-wide

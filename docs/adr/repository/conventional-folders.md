@@ -402,7 +402,7 @@ folder must exist.
 - The tradeoff is rigidity. You cannot call the test folder `spec/` because you prefer RSpec conventions. You cannot call the private folder
   `internal/` because Go uses that name. The platform's consistency is worth more than individual naming preferences.
 
-## Dora explains:
+## Dora explains
 
 DORA's research into code maintainability and loosely coupled teams emphasizes clear structure and self-documenting boundaries; conventional
 folders encode those boundaries into the filesystem so structure is enforced and visibility is instant.

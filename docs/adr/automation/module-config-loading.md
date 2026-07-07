@@ -130,7 +130,7 @@ The registry is for the cases convention cannot express. Most configs need neith
 - Test isolation is simple: mock the discovery seam (`Resolve-ConfigEntry`) or the whole boundary (`Get-Config`) — see
   [test-automation](test-automation.md).
 
-## Dora explains:
+## Dora explains
 
 A single config reader eliminates drift and ensures consistent validation, both core to reliable system behavior. This pattern reduces
 variability in configuration handling across modules, lowering defect rates and deployment risk.

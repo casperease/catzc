@@ -145,7 +145,7 @@ PowerShell files follow the repo-wide baseline plus the PowerShell-specific rule
 - The cross-language baseline is single-sourced in [uniform-formatting](../../repository/uniform-formatting.md); this ADR holds only the
   PowerShell layer, so the two never duplicate or drift.
 
-## Dora explains:
+## Dora explains
 
 DORA research links consistent code formatting to improved code maintainability. Mechanical enforcement of uniform standards removes
 variation and lets teams focus on logic rather than style.

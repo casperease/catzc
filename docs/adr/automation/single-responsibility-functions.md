@@ -187,7 +187,7 @@ silently does something else too.
 - Code review is easier because each function has one thing to evaluate.
 - Scripts read as a sequence of named steps, not as nested abstractions that hide behavior.
 
-## Dora explains:
+## Dora explains
 
 Single-responsibility functions are easier to test, reuse, and reason about. Clear separation of concerns makes error messages actionable,
 reduces testing complexity, and enables callers to compose steps toward their own goals.

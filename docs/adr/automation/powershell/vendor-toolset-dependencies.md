@@ -104,7 +104,7 @@ All PowerShell module dependencies used by the toolset are vendored in `automati
 - Module upgrades show up as explicit diffs in pull requests, making version changes reviewable.
 - Az modules must be managed through other mechanisms (system install, workstation provisioning, CI image) — see the prefer-az-cli ADR.
 
-## Dora explains:
+## Dora explains
 
 DORA research shows that vendored dependencies and version pinning reduce deployment variability and enable reproducible builds. Checking
 modules into git guarantees every developer and CI run uses identical code, eliminating version-skew bugs and network brittleness.

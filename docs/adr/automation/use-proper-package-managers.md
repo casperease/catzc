@@ -108,7 +108,7 @@ Windows tool installation uses `winget`. Chocolatey is not used.
   a winget manifest upstream.
 - Any Chocolatey install on a target machine is removed automatically by `Install-DevBoxTools`. No manual intervention required.
 
-## Dora explains:
+## Dora explains
 
 Using platform-native package managers with strong security models — hash verification, code review, no arbitrary script execution — is
 foundational to supply-chain security. Rejecting structurally weak alternatives keeps the toolchain's attack surface minimal.

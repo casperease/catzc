@@ -118,7 +118,7 @@ correctness check is config-driven, the config keys that express it (tenant, sub
   throws.
 - The cost is more small functions instead of one "check and fix" helper — which is the point: each answers one question.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links robust authentication and authorization practices to reliable, secure deployments. Layering session verification and
 keeping concerns separate enables safe, auditable automation while maintaining module independence.

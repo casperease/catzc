@@ -60,7 +60,7 @@ proof of parity.
 - [reduce-variability](reduce-variability.md), [one-living-version](one-living-version.md) — the principles this specialises to two
   environments
 
-## Dora explains:
+## Dora explains
 
 DORA's research links continuous integration to faster deployment frequency and lower change failure rate. Devbox/pipeline parity ensures
 the same code path runs locally and in CI, eliminating "works on my machine" failures and accelerating feedback loops.

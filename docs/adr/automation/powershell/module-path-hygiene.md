@@ -125,7 +125,7 @@ intact so the core modules stay discoverable, is read once at startup rather tha
   importer. This is intentional — the automation session uses what it ships.
 - System-installed modules that do not collide with a vendored module remain available; only the colliding paths are stripped.
 
-## Dora explains:
+## Dora explains
 
 DORA's research on flexible infrastructure emphasizes deterministic dependencies—and network module paths destroy performance in enterprise
 environments. Vendoring PowerShell modules and keeping the module path local by default eliminates network round-trips, makes module loading

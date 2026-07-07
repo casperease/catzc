@@ -138,7 +138,7 @@ sees. An address is a _reference_ to a config value, with the same discipline a 
 - Mistakes fail loudly at the call site — a wrong name or a wrong key throws with the offending address — instead of leaking a `$null`
   downstream.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links version-controlled configuration and single source of truth to reliable, maintainable delivery. Providing a uniform
 addressing grammar for config values ensures every reference points to a canonical, committed source and fails fast on mistakes.

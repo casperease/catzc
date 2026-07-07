@@ -108,7 +108,7 @@ Session caches are module `$script:` hashtables keyed by resolved input, populat
   other's slots (each process imports its own).
 - Tests stay honest: mocking the boundary function works whether the cache is cold or warm, and only deliberate cache tests touch the slot.
 
-## Dora explains:
+## Dora explains
 
 DORA research shows that caching frequently-recomputed data improves deployment speed and reliability. Tying cache lifetime to module import
 creates a predictable, testable contract: the same data for the entire session, with one invalidation knob.

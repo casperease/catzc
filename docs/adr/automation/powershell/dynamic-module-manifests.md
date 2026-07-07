@@ -133,7 +133,7 @@ defining file.
 - The cost is that the manifest is invisible as an artifact: a reader who wants a module's export list reads the directory (which is the
   point), or lets an import materialize the `.psd1`.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links loosely coupled architecture to deployment frequency—and dynamic manifests enable teams to add functions without
 editing shared files or resolving merge conflicts. Convention-based discovery (filesystem-as-manifest) eliminates the "add function, edit

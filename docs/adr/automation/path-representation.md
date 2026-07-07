@@ -238,7 +238,7 @@ hand-builds a communicated path from `$env:RepositoryRoot` or normalizes separat
 - The cost is a small, explicit conversion at each boundary: relativize on the way out, resolve on the way in. The pair round-trips, so the
   cost is mechanical, not a source of new error.
 
-## Dora explains:
+## Dora explains
 
 Distinguishing communication form (relative, portable) from binding form (absolute, deterministic) eliminates a major class of path-based
 bugs and makes artifacts portable across machines and pipeline stages. This discipline is essential for reproducible, auditable deployments.

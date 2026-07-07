@@ -258,7 +258,7 @@ gives functions a shared, spelled-out vocabulary, and this gives the same to the
   than a reflex to silence the gate.
 - The cost lands on the author (a few more keystrokes, fully absorbed by tab-completion), and the benefit lands on every reader.
 
-## Dora explains:
+## Dora explains
 
 DORA research shows that consistent naming conventions improve code readability and enable reliable refactoring. Full, spelled-out
 identifiers are self-documenting, searchable by grep, and shared across the team, eliminating the translation cost of invented

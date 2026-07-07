@@ -160,7 +160,7 @@ variables on the next line.
 - No performance cost — variables are references, not copies.
 - Slightly more lines of code, which is a worthwhile trade for readability, debuggability, and assertability.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links code clarity and structured logic to deployment frequency and reliability. Splitting nested expressions into named
 intermediate steps makes code more maintainable, easier to review, and simpler to diagnose when failures occur.

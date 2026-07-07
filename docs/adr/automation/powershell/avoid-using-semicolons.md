@@ -121,7 +121,7 @@ Semicolons are permitted for chaining statements on a single line, in `for` loop
 - Developers with C# habits get immediate feedback from the linter rather than accumulating semicolons over time.
 - The `for` loop exception is narrow and unambiguous — no judgment calls needed.
 
-## Dora explains:
+## Dora explains
 
 DORA's research on code maintainability shows that reducing syntactic noise and following language idioms correlates with faster code review
 cycles and fewer defects. Semicolon-free PowerShell code reads as idiomatic, lowers cognitive load, and improves team velocity.

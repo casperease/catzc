@@ -92,7 +92,7 @@ is in use.
     DORA, [Version control](https://dora.dev/capabilities/version-control/) — Research-backed capability identifying comprehensive version
     control as a predictor of continuous delivery, with reproducibility and traceability as the two core requirements.
 
-## Dora explains:
+## Dora explains
 
 DORA identifies comprehensive version control as a predictor of continuous delivery. Everything-as-code ensures reproducibility,
 traceability, and version alignment by storing all artifacts in a single source of truth.

@@ -137,7 +137,7 @@ asserted at the point where the assumption is made.
   hours of debugging) is orders of magnitude higher.
 - Pester tests focus on behavior and integration, not on re-checking assumptions that the code already asserts on every execution.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links early failure detection and clear error messages to deployment reliability and reduced debugging time. Inline
 assertions at every assumption point catch problems before they propagate, enabling fast diagnosis and reducing the cost of failures caught

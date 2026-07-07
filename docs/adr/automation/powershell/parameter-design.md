@@ -77,7 +77,7 @@ parameters.
 - Switch propagation is mechanical (`-DryRun:$DryRun`), so a flag travels a call chain without boolean plumbing.
 - The cost is one judgment per function — which parameter is primary — made once by the author instead of on every call.
 
-## Dora explains:
+## Dora explains
 
 DORA's research on code maintainability shows that clear interfaces reduce cognitive load—and well-designed parameters make call sites
 self-documenting. Positional primaries and switches for opt-in behavior surface intent at the call site, eliminating named-parameter noise

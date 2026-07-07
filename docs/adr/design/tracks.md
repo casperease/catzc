@@ -127,7 +127,7 @@ bind pipelines 1-1 (ADR-TRACK:5).
 - The cost is discipline at the root: no drive-by root folders, no second stack smuggled into an existing track, and the registry has to
   stay curated as tracks grow.
 
-## Dora explains:
+## Dora explains
 
 DORA identifies loosely coupled teams and code maintainability as drivers of delivery performance. Tracks establish named concerns with
 clear ownership, tech-stacks, and subscription boundaries, enabling independent verification and blast-radius isolation through durable

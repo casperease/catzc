@@ -139,7 +139,7 @@ it is not a detection signal. Detection (am I in a pipeline?) goes through `Test
 - Context-dependent behavior is greppable: search for `Test-IsRunningInPipeline` to find every place the code branches on execution context.
 - Functions that use `Get-OutputRoot` work in both contexts without modification — artifacts land in the right place automatically.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links code maintainability and comprehensive testing to reduced defects and faster deployment cycles. Centralizing platform
 detection in a single function keeps context-dependent logic greppable, testable, and consistent, preventing silent cross-platform

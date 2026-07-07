@@ -221,7 +221,7 @@ control flow is needed.
   dangerous cases automatically.
 - `ForEach-Object -Parallel` usage requires deliberate design — no accidental use as a "faster loop."
 
-## Dora explains:
+## Dora explains
 
 DORA research shows that correct language semantics and predictable control flow reduce debugging time and test failures. Using foreach for
 iteration eliminates entire classes of bugs where control flow keywords behave unexpectedly in scriptblock contexts.

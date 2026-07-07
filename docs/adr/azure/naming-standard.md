@@ -253,7 +253,7 @@ Per-customer rows use customer `apex` (shortcode `ap`):
   (env/slot/region/org/short*name/customer/role/type); the subscription never appears in them. The **customer** that does render is
   \_derived* from that subscription (`subscription.customer`). See [`data-model`](data-model.md).
 
-## Dora explains:
+## Dora explains
 
 DORA research shows that standardized, maintainable naming and configuration-driven automation reduce deployment lead time and errors. This
 ADR encodes deterministic, derived resource names that are never hand-typed, enabling safe infrastructure automation.

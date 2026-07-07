@@ -109,7 +109,7 @@ environments:
 - Per-subscription identity environments stay network-free by design.
 - The network plan is a separate, self-contained asset — extending it (new env, new range) is a one-file change, validated on load.
 
-## Dora explains:
+## Dora explains
 
 DORA's research shows that infrastructure-as-code and centralized, single-source-of-truth configuration reduce errors and deployment lead
 time. This ADR encodes the network plan as a versioned asset, with cross-asset integrity rules preventing configuration drift.

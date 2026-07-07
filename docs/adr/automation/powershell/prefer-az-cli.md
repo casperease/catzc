@@ -116,7 +116,7 @@ functionality.
   functions.
 - Functions that call `az` return plain objects (from JSON), not Az SDK types. This is simpler to work with and has no hidden dependencies.
 
-## Dora explains:
+## Dora explains
 
 DORA research links tool standardization and process isolation to faster deployments and fewer failures. Using a single executable tool
 across all environments removes version skew and assembly conflicts.

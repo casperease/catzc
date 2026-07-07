@@ -197,7 +197,7 @@ what the code used to be lives in git and nowhere else — not in retained files
 - The cost is discipline and nerve: you must change every caller now and trust git to hold the past, rather than hedging with a copy. In an
   all-in-tree mono-repo that trust is well-founded.
 
-## Dora explains:
+## Dora explains
 
 DORA identifies version control and trunk-based development as predictors of delivery performance. One living version enforces a single
 source of truth, eliminating the cognitive load and defects that parallel paths create, enabling fast, atomic change propagation across the

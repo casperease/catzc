@@ -70,7 +70,7 @@ and compiles per unit root with `AspectPartition`; `Get-ModuleGlobSet` derives `
 - [repo-variants](../repository/repo-variants.md) — the `aspects` variant's home (`ADR-VARIANT`)
 - [test-automation](../automation/test-automation.md) — logic vs integrity tests, the `tests/` surface aspects isolate
 
-## Dora explains:
+## Dora explains
 
 DORA identifies loosely coupled teams and code maintainability as predictors of delivery performance. Partitioning modules into live and
 test aspects creates clear ownership boundaries, prevents accidental shipping of unreviewed code, and enables independent reasoning about

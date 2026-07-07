@@ -159,7 +159,7 @@ cannot see).
   rewrite of the source (healed on the next import) and the per-consumer proof that the tool reads the root path through a link, which is
   why the flip is a per-entry, one-line decision rather than a mode.
 
-## Dora explains:
+## Dora explains
 
 DORA's research on continuous delivery and code maintainability emphasizes reproducible, drift-free automation; centralizing root config
 generation into one registry and one writer ensures every build produces byte-identical artifacts and config changes stay reviewable.

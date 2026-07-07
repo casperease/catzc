@@ -164,7 +164,7 @@ type system, [native-csharp-types](BCL/native-csharp-types.md) (`ADR-TYPES`).
 - Tests inject the descriptor by mocking the cached function itself (already the established pattern), and reset the `$script:` slot only
   when exercising cache behavior directly.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links efficient, deterministic information retrieval to deployment frequency and reliability. Caching static reads and
 filesystem-derived information within session boundaries reduces waste and ensures every automation run sees a consistent, self-determined

@@ -124,7 +124,7 @@ automation code portable: the same function runs locally (silently skipping the 
 - The same code runs locally and in pipelines without conditional guards. Local runs silently skip the ADO commands.
 - Output variable semantics are explicit in the function call, not hidden in a `##vso` flag string.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links explicit validation and observability to reduced defects and faster incident resolution. This ADR's discipline of
 centralizing pipeline variable manipulation in a validated function makes variable usage greppable and testable, prevents silent failures

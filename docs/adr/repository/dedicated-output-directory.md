@@ -108,7 +108,7 @@ of truth.
 - The distinction between source (committed) and output (transient) is structural, by convention.
 - Output location is determined by convention, not by the function author.
 
-## Dora explains:
+## Dora explains
 
 DORA's research connects version control discipline to deployment predictability; separating source and output prevents dirty working trees
 and makes CI artifact collection trivial and reliable.

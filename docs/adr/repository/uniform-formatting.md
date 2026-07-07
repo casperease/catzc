@@ -125,7 +125,7 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - Formatting discussions never happen — the baseline is fixed and the per-language layers are mechanical.
 - Adding a file type is a small, bounded act: add its `.editorconfig` section (and formatter), inheriting the baseline.
 
-## Dora explains:
+## Dora explains
 
 DORA's research on code maintainability and continuous delivery emphasizes clean diffs and reproducible builds; mechanical formatting
 eliminates style noise from code review and ensures generated artifacts are byte-identical across runs, keeping blame and CI history

@@ -131,7 +131,7 @@ controlled domains this makes self-service and auditability the same mechanism r
 - Paul Hammant et al., Trunk-Based Development — the branching model and its guardrails:
   [trunkbaseddevelopment.com](https://trunkbaseddevelopment.com/)
 
-## Dora explains:
+## Dora explains
 
 DORA's research consistently ties elite delivery performance to exactly the practices this ADR makes structural — version control as the
 single source of truth, trunk-based development, and automated deployment — and to lightweight, built-in change approval over heavyweight

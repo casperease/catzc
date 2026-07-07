@@ -88,7 +88,7 @@ on Linux.
 - Developers can debug any CI issue locally because the code paths are identical.
 - Platform-specific concerns are isolated to the installer layer; the rest of the codebase is platform-agnostic.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links multi-platform software development to reliable deployment across diverse infrastructure. Writing platform-agnostic
 code and running the same code paths locally and in CI ensures bugs are caught early and deployments work uniformly across environments.

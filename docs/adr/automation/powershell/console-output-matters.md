@@ -278,7 +278,7 @@ blocks so silence never reads as a hang.
 - The output is the documentation. When a user runs `Install-DevBoxTools`, the console tells them what was installed, at what versions, and
   whether it succeeded. No README needed for the happy path.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links monitoring and observability to deployment frequency and change failure rates—and console output is the automation's
 sole window into what is happening. Structured, meaningful logging that announces long operations and stays silent on success enables fast

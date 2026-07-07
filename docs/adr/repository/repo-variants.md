@@ -139,7 +139,7 @@ is self-contained, and the primitives are therefore callable from any module abo
 - The cost is one indirection (a primitive per variant instead of a raw read) and the layering rule that the module stays self-contained;
   both are what keep the construct legible and cycle-free.
 
-## Dora explains:
+## Dora explains
 
 DORA's research on code maintainability and platform engineering emphasizes sensible defaults and low-ceremony guard mechanisms; typed
 variant primitives (`Test-`/`Assert-`) make repo-wide decisions auditable and testable from anywhere, so the only stop condition is

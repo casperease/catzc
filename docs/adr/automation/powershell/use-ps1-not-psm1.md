@@ -78,7 +78,7 @@ None of these are per-function files within a module, so the rule above is intac
 - Private functions are automatically available to public functions
 - Aligns with the established PowerShell community convention
 
-## Dora explains:
+## Dora explains
 
 DORA research shows that aligning code structure with established community patterns improves maintainability and reduces onboarding
 friction. Using .ps1 files for module functions eliminates scope isolation and boilerplate, letting developers focus on logic rather than

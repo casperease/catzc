@@ -112,7 +112,7 @@ The module-dependency graph this ADR references (`dependencies.yml`, `groups:`/`
 - The tradeoff is rigidity: modules that do not follow convention are invisible to the system. This is intentional — the cost of one naming
   fix is far lower than the cost of maintaining special-case infrastructure.
 
-## Dora explains:
+## Dora explains
 
 Convention-driven discovery eliminates merge conflicts and hand-maintained registrations, letting teams extend the system without
 coordinating around shared infrastructure. This is foundational to scaling development velocity without bottlenecks.

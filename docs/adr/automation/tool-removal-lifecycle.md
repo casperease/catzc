@@ -211,7 +211,7 @@ off-config binary shadows the managed install — and only recommends `Remove-` 
 - [uv-python-handler](uv-python-handler.md) (`ADR-UVPY`) — the user-space goal the scoped-elevation rule serves.
 - [idempotent-state-functions](idempotent-state-functions.md) (`ADR-IDEM`) — `Install-`/`Uninstall-`/`Remove-` are idempotent.
 
-## Dora explains:
+## Dora explains
 
 Clean separation of managed removal from destructive eviction, with safe default behavior, makes provisioning reliable and auditable.
 Double-gated destructive operations prevent accidental data loss while enabling systematic cleanup when needed.

@@ -220,7 +220,7 @@ describes, and adding or moving a dependency is a reviewed change.
   any machine — and offline for everything vendored. An internal change shows up as a diff in `dependencies.yml` or `.vendor/`, an external
   one as a diff in the stitch config, so nothing enters the build as an unreviewed ambient fact.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links clear dependency structures and acyclic, well-defined interfaces to team independence and deployment reliability.
 Declaring and enforcing the module dependency graph enables teams to work on isolated modules safely while preventing the layer inversions

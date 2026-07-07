@@ -155,7 +155,7 @@ All errors are terminating. All warnings are terminating. Functions use `throw` 
 - Third-party cmdlets that emit warnings will terminate under the default settings. Handle these with `-WarningAction SilentlyContinue` on
   the specific call, or use `-AllowWarnings` on the importer as a last resort.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links fail-fast patterns to deployment reliability—and PowerShell's complex error model tempts silent failures. Using
 terminating errors with `throw` and self-contained assertions eliminates the "maybe wrong" middle ground, surfaces problems immediately, and

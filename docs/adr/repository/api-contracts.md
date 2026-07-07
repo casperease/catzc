@@ -133,7 +133,7 @@ contract testing so a break is caught in CI, not in production. Everything outsi
 - The cost is real and bounded: each live version is maintained and tested for as long as a consumer pins it. That cost buys the one thing
   it should — external consumers that keep working across change.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links test automation and continuous delivery to predictable deployment outcomes; contract testing applies these findings to
 the public boundary, catching breaking changes in CI rather than in production.

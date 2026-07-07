@@ -229,7 +229,7 @@ All functions must use approved PowerShell verbs. No exceptions.
 - PSScriptAnalyzer warns on unapproved verbs, catching mistakes before code review.
 - New team members familiar with any PowerShell module can immediately navigate the codebase because the vocabulary is shared.
 
-## Dora explains:
+## Dora explains
 
 DORA research shows that consistent naming conventions improve code maintainability and enable teams to understand unfamiliar code by name
 alone. Using PowerShell's approved verbs as the shared vocabulary transforms function names into behavioral contracts every team member

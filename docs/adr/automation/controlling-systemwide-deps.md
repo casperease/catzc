@@ -256,7 +256,7 @@ before every use. The platform works without a container runtime on Windows, mac
 - CI pipelines are self-provisioning — they do not depend on runner image contents.
 - The platform works on bare metal, VMs, workstations, and CI runners without requiring Docker.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links reliable, reproducible external tool provisioning to deployment frequency and platform independence. Locking tool
 versions in configuration and asserting them at runtime ensures consistent behavior across local and CI environments without requiring

@@ -133,7 +133,7 @@ RM via Bicep plus a curated az CLI.
 - Gregor Hohpe, _Platform Strategy: Innovation Through Harmonization_ (Architect Elevator series):
   [The Architect Elevator](https://architectelevator.com) — platforms harmonize through abstraction; build abstractions, not illusions.
 
-## Dora explains:
+## Dora explains
 
 DORA's research identifies flexible infrastructure and tool empowerment as drivers of team autonomy and delivery performance. Thin platforms
 harmonize the vendor surface through a CLI abstraction, reducing cognitive load while keeping consequential decisions visible and delegating

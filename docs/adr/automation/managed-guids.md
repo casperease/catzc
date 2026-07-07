@@ -138,7 +138,7 @@ invisible to cspell.
 - The cost is one registry entry per GUID and the discipline to mint rather than invent — a small tax that buys an inventory of every
   identity the repository carries.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links explicit identity management and auditability to security, reliability, and compliance. Registering every GUID literal
 and describing its purpose makes identity boundaries explicit, prevents drift, and ensures external-facing and placeholder identities are

@@ -328,7 +328,7 @@ name. Grep the `param()` block for `Validate` before reusing a name.
 - The `$?` ban is enforced statically by PSScriptAnalyzer. Other variables are enforced by code review and this ADR.
 - All error handling follows the patterns in [error-handling](error-handling.md).
 
-## Dora explains:
+## Dora explains
 
 DORA's research links code maintainability to delivery performance—and automatic-variable pitfalls are a major class of silent bugs that
 slip through code review. Handling automatic variables safely (read immediately, capture in locals, prefer wrappers) builds the robust error

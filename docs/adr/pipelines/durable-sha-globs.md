@@ -297,7 +297,7 @@ one pass always converges.
 - [everything-as-code](../principles/everything-as-code.md), [poka-yoke](../principles/poka-yoke.md),
   [reduce-variability](../principles/reduce-variability.md) — the principles this mechanism instantiates
 
-## Dora explains:
+## Dora explains
 
 DORA's research links version-controlled infrastructure and deterministic deployment triggering to faster, more reliable deployments. This
 ADR's design of durable-SHA markers as the single source of truth for area-of-control boundaries reduces deployment drift, makes CI trigger

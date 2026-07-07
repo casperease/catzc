@@ -513,7 +513,7 @@ is written.
 - The cost: two artifacts to maintain (fixture config + shipped config). They are independent by design; the fixture tracks the test's
   needs, the shipped file tracks reality, and the integrity test guards the latter.
 
-## Dora explains:
+## Dora explains
 
 Separating logic tests from integrity tests, isolating via seams and fixtures, and pushing rule-checks left into fast L0 gates keeps the
 test suite hermetic and rapid. This layered approach to testing enables reliable, fast feedback without sacrificing coverage.

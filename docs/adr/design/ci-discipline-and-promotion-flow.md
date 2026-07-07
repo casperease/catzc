@@ -250,7 +250,7 @@ under instead of leaving "CD" to mean both.
   version-aligned artifact are these principles applied to the flow.
 - Notes: [shared-fate-ci](../../notes/shared-fate-ci.md) — the failure mode when a slow suite squats in the fast CI slot.
 
-## Dora explains:
+## Dora explains
 
 DORA's research links continuous integration, continuous delivery, and deployment automation to faster, safer releases. Separating CI, CD,
 and DEPLOY as distinct domains keyed by immutable artifacts enables fast feedback loops, reliable promotion, and clear governance
