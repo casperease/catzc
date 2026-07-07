@@ -1,6 +1,6 @@
-generated_at: 2026-07-07T01:45:08Z
+generated_at: 2026-07-07T01:47:38Z
 scoped_sha256: 3764a2894192f7728fd93588666c04db1cdd42e4bb4c2e70bf27d6f2e030da88
-filtered_sha256: 0f3b2e99c6854c538b5a205f0608fe69e30e5650be1b225d52908e68d678e9dc
+filtered_sha256: ab750c3f0e7a722f847cbccc467d7e7cfedbc17f2ad1556ae738921bd3a3fbca
 scan:
 - '+ **/*.md'
 - '+ .markdownlint.yml'
@@ -201,6 +201,7 @@ filtered:
 - automation/Catzc.Tooling.Toolchain/README.md
 - contracts/README.md
 - docs/adr/README.md
+- docs/adr/automation/tool-removal-lifecycle.md
 - infrastructure/README.md
 - infrastructure/modules/README.md
 - infrastructure/templates/foundation/README.md
