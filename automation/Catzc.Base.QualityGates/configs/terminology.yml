@@ -104,6 +104,16 @@ terms:
       meaning: "a chokepoint"
     - term: cli
       meaning: "command-line interface (CLI)"
+    - term: provenance
+      meaning: "build provenance — verifiable evidence of how an artifact was produced (supply-chain integrity)"
+    - term: auditability
+      meaning: "auditability — the property of a system whose changes can be independently audited"
+    - term: attestation
+      meaning: "a signed attestation — a verifiable claim about how an artifact was built (SLSA)"
+    - term: attestations
+      meaning: "plural of attestation"
+    - term: reproducibility
+      meaning: "reproducibility — the property that a build yields bit-for-bit identical output from the same source"
     - term: cmdb
       meaning: "configuration management database (CMDB)"
     - term: dotfiles
@@ -198,6 +208,15 @@ terms:
     - term: auth
       meaning: "authentication / authorization"
       expands_to: "authentication"
+    - term: dora
+      meaning: "DevOps Research and Assessment (DORA) — the research program and its DevOps capability model, cited as a cross-cutting source"
+      expands_to: "DevOps Research and Assessment"
+    - term: devops
+      meaning: "development and operations (DevOps)"
+      expands_to: "development and operations"
+    - term: slsa
+      meaning: "Supply-chain Levels for Software Artifacts (SLSA) — the supply-chain integrity framework, cited for build provenance"
+      expands_to: "Supply-chain Levels for Software Artifacts"
     - term: depm
       meaning:
         "module dependencies — dependencies BETWEEN modules, never on systems (those are deps); the [Catzc.Module.Depm] type-accelerator
@@ -913,6 +932,8 @@ terms:
       meaning: "Richard Bown (surname of a cited author)"
     - term: deming
       meaning: "W. Edwards Deming (cited author)"
+    - term: hammant
+      meaning: "Paul Hammant (surname of a cited author; trunkbaseddevelopment.com)"
     - term: hohpe
       meaning: "Gregor Hohpe (surname of a cited author)"
     - term: liskov
