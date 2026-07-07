@@ -9,18 +9,14 @@
 // Representation renders it as the scan: block, and the durable SHA (ADR-GLOBS:5) is computed over exactly
 // what the program selects.
 // Verify (test blast-radius scope) and Pipeline (the trigger-role binding) are declarative meta annotations.
-// MarkerPath is the set's committed sha-marker path (.sha-markers/<name>.yml, ADR-GLOBS:1, ADR-GLOBS:9),
-// whose content is MarkerContent(sha256): the meta + the scan: program + the durable SHA — one immutable lock
-// whose scan: body changes when the definition changes and whose sha256 line changes when selected content
-// changes. No globset may match its own marker file or the config itself (ADR-GLOBS:6), which GlobsConfig
-// asserts across the whole registry at construction — compose resolution included.
+// A globset never composes itself and the compose graph is acyclic (ADR-GLOBS:8), which GlobsConfig asserts
+// across the whole registry at construction.
 // Per-layer independence (ADR-GLOBS:10) is decided on OWN membership (OwnMatches — the set's own rules only,
 // compose ignored): within a non-loose layer no two sets may select a common file on their OWN contribution.
 // See docs/adr/pipelines/durable-sha-globs.md.
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Globs;

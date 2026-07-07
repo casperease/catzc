@@ -40,24 +40,6 @@ public static class DurableHash
         }
     }
 
-    // The LIST identity (ADR-GLOBS:5): SHA-256 (lowercase hex) over the newline-joined path list (names
-    // only, one '<path>\n' per entry) — distinct from HashFold's content folds. Captures "which files are
-    // in the set" independent of their content, so a large package's exact membership is verifiable from
-    // one hex value (the marker's scoped_sha256). The caller sorts ordinal first; an empty list hashes the
-    // empty string, matching HashFold.
-    public static string HashPathList(System.Collections.Generic.IReadOnlyList<string> sortedPaths)
-    {
-        StringBuilder text = new StringBuilder();
-        if (sortedPaths != null)
-        {
-            foreach (string path in sortedPaths)
-            {
-                text.Append(path).Append('\n');
-            }
-        }
-        return HashFold(text.ToString());
-    }
-
     private static string ToHex(byte[] digest)
     {
         StringBuilder hex = new StringBuilder(digest.Length * 2);
