@@ -48,8 +48,29 @@ function Test-LogicTestIdentity {
             Sort-Object
     }
 
+    # Parse only files that COULD carry a finding — a provable SUPERSET, so no leak is ever skipped. A finding
+    # needs either an exact-match token as a string-literal value (which therefore appears word-bounded in the
+    # source — `'apex'`, `-Customer apex`) or an ambiguous env/shortcode bound to an identity parameter (so the
+    # parameter name is in the source). Every other file cannot match and is skipped parse-free — the AST parse
+    # is the whole cost, and ~95% of the tree contains no live token at all, so this is a cheap text scan for
+    # them. Word boundaries keep 2-char shortcodes (ap/nv/de/…) from matching inside ordinary words.
+    $exactTokens = @($live.Values | Where-Object { $_.MatchMode -eq 'exact' } | ForEach-Object { $_.Token })
+    $tokenRegex = if ($exactTokens.Count) {
+        [regex]::new('\b(' + (($exactTokens | ForEach-Object { [regex]::Escape($_) }) -join '|') + ')\b',
+            [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+    }
+    else {
+        $null
+    }
+    $identityParamRegex = [regex]::new('-(Environment|Env|Shortcode)\b',
+        [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+
     $findings = [System.Collections.Generic.List[object]]::new()
     foreach ($file in $Path) {
+        $text = [System.IO.File]::ReadAllText($file)
+        if (-not (($tokenRegex -and $tokenRegex.IsMatch($text)) -or $identityParamRegex.IsMatch($text))) {
+            continue
+        }
         foreach ($finding in (Get-LogicTestIdentityFinding -Path $file -LiveToken $live)) {
             $findings.Add($finding)
         }
