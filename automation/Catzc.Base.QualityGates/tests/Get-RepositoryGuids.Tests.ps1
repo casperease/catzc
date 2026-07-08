@@ -58,7 +58,7 @@ Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Repository guid integrity' -Tag 'L1', 'integrity' {
+Describe 'Repository guid integrity' -Tag 'L2', 'integrity' {
     It 'every guid in tracked text is registered, and every registry entry is live' {
         # The scan reads nearly the whole tree plus its own config, so it protects against the
         # repository-wide set, like the spelling scan (ADR-PROTGLOB:6).

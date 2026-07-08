@@ -88,13 +88,37 @@ its L3 leg runs in the CD pipeline's post-commit path.
 
 **RC and RBC are the two hands-on release gates, and they are gates, not pipelines.** A promotion toward production stops at a **manual,
 human-owned certification gate** on an always-on environment: **RC** (Release Certification) gates at **main-UAT**, and **RBC** (Release
-Branch Certification) gates at **release-uat**. Each is a hands-on stop where a human certifies the environment's current occupant
-(ADR-LIFE:5) before it may advance. The gate is distinct from the **DEPLOY** pipeline that actuates the advance once the gate clears
-(ADR-FLOW:6): RC/RBC decide _whether_ to proceed, DEPLOY performs the roll. Clearing a gate is a promotion; failing it holds or discards the
-occupant. Whether a human owns the gate (delivery) or the pipeline advances past it automatically (deployment) is the CD-vs-CDe posture of
-ADR-FLOW:6/ADR-FLOW:7.
+Branch Certification) gates at **release-uat**. Each clears when its **acceptance testing (AT)** is verified — RC on **main-AT** (AT against
+the `main-uat` environment), RBC on **release-AT** (AT against `release-uat`), the automated and manual tests a commit must pass there
+(ADR-FLOW:10) — with a human certifying the environment's current occupant (ADR-LIFE:5) before it may advance. The gate is distinct from the
+**DEPLOY** pipeline that actuates the advance once the gate clears (ADR-FLOW:6): RC/RBC decide _whether_ to proceed, DEPLOY performs the
+roll. Clearing a gate is a promotion; failing it holds or discards the occupant. Whether a human owns the gate (delivery) or the pipeline
+advances past it automatically (deployment) is the CD-vs-CDe posture of ADR-FLOW:6/ADR-FLOW:7.
 
 - [RC and RBC: the two hands-on release gates](#rc-and-rbc-the-two-hands-on-release-gates)
+
+### Rule ADR-FLOW:10
+
+**Acceptance testing (AT) is the verification; a UAT is the environment it runs in — two distinct concepts, not one renamed to the other.**
+A **UAT** (User Acceptance Testing environment) is a running deployment a user-mimic can interact with — `main-uat` (tracking main) and
+`release-uat` (the release branch). **AT** (Acceptance Testing) is the verification _activity_: the **automated and manual** acceptance
+tests a commit must pass in that environment to be release-verified. So a stage's `-AT` name marks the testing and a `-uat` name marks the
+environment: **`L3-vertical-AT`** is the automated AT run in an on-demand slot (the automatic L3 gate); **`main-AT`** is the AT against
+`main-uat` (the manual RC gate, ADR-FLOW:9); **`release-AT`** is the AT against `release-uat` (the manual RBC gate). A commit state
+`release-at-verified (main-uat)` reads "passed AT, in the main-uat environment" — the `-AT` is the testing, the `(…-uat)` is where.
+
+- [AT is the verification, UAT is the environment](#at-is-the-verification-uat-is-the-environment)
+
+### Rule ADR-FLOW:11
+
+**The prod tail adds a pre-prod rung, and DEPLOY splits by target into non-prod and prod.** Past the RBC gate the artifact is promoted
+through a **pre-prod** environment (staged, not yet live) before **production**, so the promotion ladder's tail is
+`release-uat → pre-prod → production` (ADR-LIFE:1). The DEPLOY activity (ADR-FLOW:6) is correspondingly two-part on the same build-once
+artifact: **DEPLOY-Non-Prod** drives it into the non-prod AT environments (the on-demand slots, `main-uat`, `release-uat`), and
+**DEPLOY-Prod** drives the RBC-cleared artifact through `pre-prod` into `production`. Only the target and its governance differ; the tagged
+artifact is identical across both.
+
+- [Pre-prod, and DEPLOY split non-prod / prod](#pre-prod-and-deploy-split-non-prod--prod)
 
 ## Context
 
@@ -265,6 +289,31 @@ certified artifact onward once the gate clears. Keeping them distinct is what le
 Continuous **Deployment** (CDe) posture internalize the roll (ADR-FLOW:7) by automating past the point where RC/RBC would otherwise stop it.
 Which gates a unit passes through — and whether a human or the pipeline owns the decision to advance — is the delivery-vs-deployment posture
 of ADR-FLOW:6/ADR-FLOW:7.
+
+### AT is the verification, UAT is the environment
+
+The value chain names two layers that are easy to conflate. A **UAT** is a _place_ — a running environment where the built artifact is
+deployed and a human (or an automated user-mimic) can exercise it; the diagram's env lane labels these `main-uat` and `release-uat`. **AT**
+is what happens there — the acceptance testing, automated and manual, that a commit must pass before it is release-verified. Keeping the two
+apart is what lets one environment host successive commits' testing over time (the UAT persists; each commit's AT is a fresh verification),
+and lets the same verification idea span an automated slice (`L3-vertical-AT`) and manual slices (`main-AT`, `release-AT`).
+
+The `-AT` / `-uat` suffixes are a deliberate two-word grammar, not redundancy: `main-AT` is the acceptance testing performed against the
+`main-uat` environment, and clearing it is the RC gate; `release-AT` is the acceptance testing against `release-uat`, and clearing it is the
+RBC gate. A commit labelled `release-at-verified (main-uat)` has passed its AT in the main-uat environment. The environment is durable and
+shared; the AT is per-commit and is what the gate certifies.
+
+### Pre-prod, and DEPLOY split non-prod / prod
+
+The promotion tail is longer than "non-prod, then prod." After the RBC gate the artifact lands first in a **pre-prod** environment — staged
+and inactive, a last rehearsal of the exact bytes before they go live — and only then in **production**. So the ladder gains a rung,
+`release-uat → pre-prod → production` (ADR-LIFE:1), and pre-prod is a single-occupant environment like the others (ADR-LIFE:5).
+
+Because the deploy activity now spans several environments with different governance, it reads as two named halves of one build-once flow.
+**DEPLOY-Non-Prod** is the deploy into the non-prod AT environments — the on-demand L3 slots, `main-uat`, and `release-uat` — the targets
+CD's automated direction covers (ADR-FLOW:5). **DEPLOY-Prod** is the governed deploy of the RBC-cleared artifact through `pre-prod` into
+`production` (ADR-FLOW:6, and [ADR-PIPETYPE:11](../pipelines/pipeline-types.md#rule-adr-pipetype11)). The split is by _target and
+governance_, not by artifact: the same tagged build flows through both, so build-once / deploy-many holds end to end.
 
 ## How this is enforced
 

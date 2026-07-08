@@ -10,15 +10,20 @@
     (build twice from one commit -> identical hash).
 .PARAMETER Path
     The root directory whose file tree to hash (recursively).
+.PARAMETER Exclude
+    Path-relative, forward-slashed file paths to omit from the hash — e.g. a build.json sidecar that itself
+    carries the hash, so it cannot be part of the content it identifies.
 .EXAMPLE
-    Get-CatzcContentHash -Path (Join-Path (Get-OutputRoot) 'catzc/6.6.666')
+    Get-CatzcContentHash -Path (Join-Path (Get-OutputRoot) 'catzc/6.6.666') -Exclude 'build.json'
 #>
 function Get-CatzcContentHash {
     [CmdletBinding()]
     [OutputType([string])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [string] $Path
+        [string] $Path,
+
+        [string[]] $Exclude = @()
     )
 
     Assert-PathExist $Path -PathType Container
@@ -28,7 +33,10 @@ function Get-CatzcContentHash {
 
     $relativePaths = [System.Collections.Generic.List[string]]::new()
     foreach ($file in $files) {
-        $relativePaths.Add([System.IO.Path]::GetRelativePath($rootFull, $file).Replace('\', '/'))
+        $relativePath = [System.IO.Path]::GetRelativePath($rootFull, $file).Replace('\', '/')
+        if ($relativePath -notin $Exclude) {
+            $relativePaths.Add($relativePath)
+        }
     }
     $relativePaths.Sort([System.StringComparer]::Ordinal)
 

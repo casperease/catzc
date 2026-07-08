@@ -39,6 +39,10 @@
     rematerialise what it removed, so one -CleanClone import leaves a pristine, fully-generated clone
     (the module manifests reappear on the next import, exactly as on a fresh clone). Ignored under
     -SkipJanitors.
+.PARAMETER Bundle
+    Load as an installed bundle rather than the mono repo: honour the pre-set $env:CatzcModulesRoot (the
+    bundle's own automation/, set by its Catzc.psm1) instead of deriving it from RepositoryRoot, and force
+    -SkipJanitors. Only the bundle bootstrap passes it; the mono shim never does.
 .EXAMPLE
     Invoke-Importer -DiagnoseLoadTime
 #>
@@ -73,7 +77,13 @@ function Invoke-Importer {
         # Opt IN to a whitelisted deep clean as the janitor run's first step (Reset-GitCleanFxd): delete
         # only the auto-controlled generated artifacts, keep and report everything else, and let the
         # regenerating janitors below rematerialise the tree.
-        [switch] $CleanClone
+        [switch] $CleanClone,
+
+        # Load as an installed bundle, not the mono repo. Honour the pre-set $env:CatzcModulesRoot (the bundle's
+        # own automation/, set by its Catzc.psm1) instead of deriving it from RepositoryRoot, and force
+        # -SkipJanitors (a bundle is a read-only install with no git work tree). Only the bundle bootstrap passes
+        # this; the mono shim never does, so an inherited CatzcModulesRoot can never divert a mono/fixture load.
+        [switch] $Bundle
     )
 
     # Hard floor: the toolset requires PowerShell 7.4+. Among other things the vendor functions
@@ -127,10 +137,28 @@ function Invoke-Importer {
     }
     $global:InformationPreference = 'Continue'
 
-    # Repository root — set on $env by the shim (importer.ps1 sets $env:RepositoryRoot = $PSScriptRoot). Read it
-    # here; the rest of the toolset also anchors on $env:RepositoryRoot.
+    # Repository root — the WORKING root (out/, repo-relative paths, git), set on $env by the shim
+    # (importer.ps1 sets $env:RepositoryRoot = $PSScriptRoot). Read it here; working-root readers anchor on it.
     $repoRoot = $env:RepositoryRoot
     Write-Verbose "RepositoryRoot: $repoRoot"
+
+    # Catzc code anchor — the automation/ tree that holds the loaded modules; config, type and vendor discovery
+    # follow THIS, not RepositoryRoot (see Get-CatzcModulesRoot). In the mono repo it equals <repoRoot>/automation
+    # and nothing pre-sets it, so it is derived here (a no-op split). An installed bundle's Catzc.psm1 pre-sets it
+    # to the bundle's own automation/, so the importer honours that — this is what makes catzc relocatable.
+    if ($Bundle -and $env:CatzcModulesRoot) {
+        $modulesRoot = $env:CatzcModulesRoot
+    }
+    else {
+        $modulesRoot = Join-Path $repoRoot $automationFolder
+    }
+    $env:CatzcModulesRoot = $modulesRoot
+    Write-Verbose "CatzcModulesRoot: $modulesRoot"
+
+    # A bundle is a read-only install with no git work tree: never run the tree/git-mutating janitors.
+    if ($Bundle) {
+        $SkipJanitors = $true
+    }
 
     # The .internal shared-code loader is already imported by the shim (it provides Import-InternalModule).
     # Load the rest of the shared modules on demand. Bootstrap does the import-time discovery/loading and is
@@ -145,24 +173,17 @@ function Invoke-Importer {
     }
 
     # Custom error view — shows ScriptStackTrace for unhandled errors
-    Update-FormatData -PrependPath (Join-Path $repoRoot "$automationFolder/.internal/assets/ErrorView.format.ps1xml")
+    Update-FormatData -PrependPath (Join-Path $modulesRoot '.internal/assets/ErrorView.format.ps1xml')
 
     # Load vendored dependencies first
-    $vendorRoot = Join-Path $repoRoot "$automationFolder/$vendorFolder"
+    $vendorRoot = Join-Path $modulesRoot $vendorFolder
     Write-Verbose "Loading vendor modules from: $vendorRoot"
     Import-VendorModules -VendorRoot $vendorRoot -Lazy 'Pester', 'PSScriptAnalyzer' -DiagnoseLoadTime:$DiagnoseLoadTime
     if ($DiagnoseLoadTime) {
         Write-LoadTime 'Vendor modules loaded'
     }
 
-    # Discover and import all modules
-    $modulesRoot = Join-Path $repoRoot $automationFolder
-
-    # Catzc code anchor — the automation/ tree that holds the loaded modules. Config, type and vendor discovery
-    # follow this, NOT RepositoryRoot: in the mono repo it equals <RepositoryRoot>/automation, but an installed
-    # bundle points it at its own automation/ so catzc is relocatable. Read it via Get-CatzcModulesRoot.
-    $env:CatzcModulesRoot = $modulesRoot
-
+    # Discover and import all modules from the catzc code anchor computed above ($modulesRoot).
     # Optionally wipe compiled type DLLs first so the import below rebuilds them from source.
     if ($ClearCompiledTypes) {
         Clear-CompiledType -ModulesRoot $modulesRoot

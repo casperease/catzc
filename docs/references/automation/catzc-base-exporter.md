@@ -1,57 +1,78 @@
 # Catzc.Base.Exporter
 
-The module that packages the catzc platform into an installable, versioned, content-addressed bundle. It owns the exported artifact's
-**identity** — the version every install carries and the durable content hash that proves an export is reproducible — so a bundle built from
-one commit is byte-identical wherever it is built and can be traced back to its source. It is the platform-level expression of a
-reproducible, content-addressed, self-service artifact (see [self-service](../../adr/design/self-service.md)); the hash it computes is the
-durable-SHA identity the globsets also use (see [durable-sha-globs](../../adr/pipelines/durable-sha-globs.md)). It is a member of the `Base`
-group and depends on [Catzc.Base.Config](catzc-base-config.md) (to read its config), [Catzc.Base.Globs](catzc-base-globs.md) (the
-durable-SHA primitives), and [Catzc.Base.Asserts](catzc-base-asserts.md).
+The module that packages the catzc platform into an installable, versioned, content-addressed bundle and installs it onto a destination
+outside the mono repo. It owns the whole export path: build a self-contained copy of the platform into `out/`, then place it — as a module
+plus a root `importer.ps1` — where it is consumed. The bundle carries a runtime payload, the vendored dependencies, and the prebuilt
+combined-types assembly, so it loads in a bare pwsh 7 with no git repo and no Roslyn. It is the platform-level expression of a reproducible,
+content-addressed, self-service artifact (see [self-service](../../adr/design/self-service.md)) and of build-once / deploy-many (see
+[ci-discipline-and-promotion-flow](../../adr/design/ci-discipline-and-promotion-flow.md)); the identity it computes reuses the durable-SHA
+recipe of [durable-sha-globs](../../adr/pipelines/durable-sha-globs.md). It is a member of the `Base` group and depends on
+[Catzc.Base.ModuleSystem](catzc-base-modulesystem.md), [Catzc.Base.Config](catzc-base-config.md), [Catzc.Base.Globs](catzc-base-globs.md),
+[Catzc.Base.Files](catzc-base-files.md), [Catzc.Base.Repository](catzc-base-repository.md), [Catzc.Base.Writers](catzc-base-writers.md), and
+[Catzc.Base.Asserts](catzc-base-asserts.md).
 
 ## Domains
 
 | Domain   | Area     | Name                                                               |
 | -------- | -------- | ------------------------------------------------------------------ |
-| domain:1 | version  | [Bundle version](#domain1--bundle-version)                         |
-| domain:2 | identity | [Content-addressed identity](#domain2--content-addressed-identity) |
+| domain:1 | build    | [Bundle build](#domain1--bundle-build)                             |
+| domain:2 | deliver  | [On-disk export and install](#domain2--on-disk-export-and-install) |
+| domain:3 | identity | [Identity and verification](#domain3--identity-and-verification)   |
 
-### domain:1 — Bundle version
+### domain:1 — Bundle build
 
-The version a bundle carries, read from the single export config `exporter.yml`. `Get-CatzcVersion` returns the **direct-install sentinel**
-(`6.6.666`) by default — the fixed, obviously-not-published number every on-disk install uses, overwritten in place on re-install — and the
-**published version** under `-Published`, the number the future package artifact ships under. Both are numeric `MAJOR.MINOR.PATCH` strings,
-a shape the config validator enforces. `exporter.yml` is the one place the repository states how it wants to export itself (the version,
-plus the scope options a build reads); every read routes through `Get-Config`, so a test can substitute a fixture config through the same
-seam.
+Assembling the immutable bundle into `out/`. `Build-Catzc` resolves a module profile, copies each module's runtime surface — its tracked
+files minus the `tests/` verification surface, so a running module keeps its `assets/` and `configs/` but ships no tests — together with the
+`.internal` loader, the vendored dependencies (per policy), and the single committed combined-types DLL, mirroring the repository layout so
+the same path-resolution seams work unchanged. It generates a bundle `importer.ps1` and a `build.json` provenance record carrying the
+content hash, source commit, profile, and file counts. What the bundle contains is the tracked runtime payload, which is deliberately
+broader than the protection `live` aspect (that aspect excludes `assets/` for marker isolation; a runnable bundle needs them). Build
+defaults — profile, vendor policy, version — come from `exporter.yml`.
 
-### domain:2 — Content-addressed identity
+### domain:2 — On-disk export and install
 
-The reproducible identity of a built tree. `Get-CatzcContentHash` applies the durable-SHA recipe to every file under a directory — a SHA-256
-over each file's bytes with carriage returns stripped (so a CRLF and an LF working tree agree), folded as `path|digest` lines in ordinal
-path order, then one combined SHA-256 over the fold. The result is a 64-character identity that is stable wherever the tree is copied and
-changes on any content, addition, removal, or rename. This is the proof an exported bundle is reproducible: build the same commit twice and
-the hash is identical.
+Delivering a built bundle to where it is used, as two artifacts in two places (the working root need not be the mono repo). `Install-Catzc`
+copies the module to `<Root>/.vendor/Catzc/<version>/` and writes a root `importer.ps1` whose location becomes the working `RepositoryRoot`
+(so `out/` and repo-relative paths resolve there) and which points `CatzcModulesRoot` at the installed module. Dot-sourcing that importer
+loads the whole platform from the install. It is idempotent — a re-install with the same content hash refreshes only the root importer — and
+verifies the source bundle before touching the destination. `Export-Catzc` is the top-level entry: it builds and then installs in one call
+(the on-disk path), and reserves a `nuget` path that packs and publishes the artifact once the publish pipeline exists.
+
+### domain:3 — Identity and verification
+
+The artifact's identity and its integrity gate. `Get-CatzcVersion` reads the two versions in `exporter.yml` — the fixed `6.6.666`
+direct-install sentinel every on-disk install carries, and the published version number under `-Published`. `Get-CatzcContentHash` applies
+the durable-SHA recipe to a built tree (CR-stripped per file, folded in ordinal path order) for a reproducible, EOL-insensitive,
+64-character identity that changes on any content, rename, or removal. `Assert-CatzcBundle` is the gate: it verifies a bundle's recorded
+hash still matches the tree, that no tests leaked in, that exactly one prebuilt types DLL is present, and that the bundle importer exists —
+throwing with every violation. `Build-Catzc` runs it as a self-check on what it produces.
 
 ## What the module does
 
-The module gives the exported artifact a stable identity, which is what makes an export trustworthy: a consumer can name exactly which
-version they installed, and anyone can rebuild that version from source and confirm the bytes match. The two responsibilities are the two
-halves of that identity. The version (domain 1) is the human-facing label — a fixed sentinel for the fast on-disk install path, a real
-number for a published artifact — and it is configuration, so changing how the repository exports is a reviewed edit to one file rather than
-a code change. The content hash (domain 2) is the machine-checkable half — a durable, end-to-end-verifiable digest of what a build actually
-produced — reusing the same durable-SHA primitives the globsets rest on rather than a second hashing scheme.
+The module turns the running repository into an artifact that other places can install and trust. The three domains are the pipeline from
+source to install: build assembles the payload (domain 1), export/install places it (domain 2), and identity/verification make the result
+addressable and checkable (domain 3). The load-bearing design choice is the split between the two roots — the working `RepositoryRoot`
+(where the user runs, where `out/` goes) and `CatzcModulesRoot` (where the catzc code lives). In the mono repo they coincide; an install
+makes them differ, which is what lets the module be carried out of the repo and still resolve its own config, types, and vendored deps. The
+bundle is deliberately a session-establishing install, not a passive library: its `importer.ps1` reproduces the tested load sequence in a
+read-only `-Bundle` mode (janitors off, the prebuilt DLL loaded without Roslyn), so what runs from an install is byte-for-byte the platform
+the commit built.
 
-Both halves route through the platform's own seams: the version through `Get-Config` (so it is validated on load and swappable in tests),
-the hash through the native durable-SHA type (so a large binary like the committed type assembly hashes in milliseconds). Keeping the
-identity in this `Base`-layer module is what lets the higher-level build, export, and install work rest on a version and a hash without
-re-deriving either.
+Everything routes through the platform's own seams — the version and options through `Get-Config` (validated on load, swappable in tests),
+the module selection through the profile/dependency-closure machinery, the hash through the native durable-SHA type — so the exporter adds
+an artifact lifecycle on top of the existing platform rather than a parallel one. The near-term surface is direct on-disk install from the
+mono repo; the NuGet/PSGallery publish is a designed seam, disabled until its pipeline lands.
 
 ## Division
 
-The module's public functions, sorted into the domains above.
+The module's public functions and configuration, sorted into the domains above.
 
 | Domain                                | Function               |
 | ------------------------------------- | ---------------------- |
-| domain:1 — Bundle version             | `Get-CatzcVersion`     |
+| domain:1 — Bundle build               | `Build-Catzc`          |
 | config                                | `exporter.yml`         |
-| domain:2 — Content-addressed identity | `Get-CatzcContentHash` |
+| domain:2 — On-disk export and install | `Export-Catzc`         |
+|                                       | `Install-Catzc`        |
+| domain:3 — Identity and verification  | `Get-CatzcVersion`     |
+|                                       | `Get-CatzcContentHash` |
+|                                       | `Assert-CatzcBundle`   |

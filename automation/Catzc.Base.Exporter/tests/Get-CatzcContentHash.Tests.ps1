@@ -35,4 +35,10 @@ Describe 'Get-CatzcContentHash' -Tag 'L0', 'logic' {
     It 'throws on a missing path' {
         { Get-CatzcContentHash -Path (Join-Path $TestDrive 'does-not-exist') } | Should -Throw
     }
+
+    It 'omits an excluded file so a hash-carrying sidecar does not change the hash' {
+        $before = Get-CatzcContentHash -Path $tree
+        [System.IO.File]::WriteAllText((Join-Path $tree 'build.json'), '{ "contentHash": "x" }')
+        Get-CatzcContentHash -Path $tree -Exclude 'build.json' | Should -Be $before
+    }
 }

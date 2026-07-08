@@ -13,10 +13,12 @@ and the upstream/downstream sync semantics.
 ### Rule ADR-LIFE:1
 
 **A commit holds one lifecycle state at a time; the state advances one rung along the promotion ladder or leaves it, and never moves
-backward.** The ladder is: topic (brown) → landed on main (grey) → BVT-verified (yellow) → L3-verified (blue) → main-UAT (light-blue) →
-release-verified (light-green) → in production (mint). At any rung a commit may advance, **hold** as an environment's current occupant, or
-**leave the ladder** into a terminal state (discarded, retired, or superseded). It never regresses to an earlier rung — a commit is not
-"re-verified" downward; a new attempt is a new commit.
+backward.** The ladder is: topic (brown) → landed on main (grey) → BVT-verified (yellow) → L3-verified (blue) → main-UAT / main-AT-verified
+(light-blue) → release-uat / release-AT-verified (light-green) → **pre-prod** (staged, not yet live) → in production (green). The `main-UAT`
+and `release-uat` rungs are reached by clearing their **acceptance testing** — `main-AT` and `release-AT` — at the RC and RBC gates
+(ADR-FLOW:9/ADR-FLOW:10). At any rung a commit may advance, **hold** as an environment's current occupant, or **leave the ladder** into a
+terminal state (discarded, retired, or superseded). It never regresses to an earlier rung — a commit is not "re-verified" downward; a new
+attempt is a new commit.
 
 - [The ladder and its one direction](#the-ladder-and-its-one-direction)
 
@@ -50,10 +52,10 @@ and "delivered then retired": valid, but not chosen.
 
 ### Rule ADR-LIFE:5
 
-**Each always-on environment hosts exactly one current commit, plus a history.** `main-UAT`, `release-uat`, and `production` are stateful,
-not pass-through: at any moment each holds one **current occupant** — the commit presently deployed there — and a trail of the commits it
-held before. An environment box in the diagram is a neutral container naming one live commit, drawn in that occupant's current state colour
-(ADR-VISUAL:13), so reading its occupant tells you the true state of that environment right now.
+**Each always-on environment hosts exactly one current commit, plus a history.** `main-UAT`, `release-uat`, `pre-prod`, and `production` are
+stateful, not pass-through: at any moment each holds one **current occupant** — the commit presently deployed there — and a trail of the
+commits it held before. An environment box in the diagram is a neutral container naming one live commit, drawn in that occupant's current
+state colour (ADR-VISUAL:13), so reading its occupant tells you the true state of that environment right now.
 
 - [Environments have a single occupant](#environments-have-a-single-occupant)
 
@@ -122,7 +124,7 @@ and a lead.
 The most consequential distinction in the lifecycle is that leaving production is usually a _win_. A commit reaches production, serves real
 traffic, and is eventually replaced by a newer production commit; at that point it retires. Collapsing retirement into discard would make
 the diagram claim that a commit which delivered months of value "failed", which is the opposite of the truth. Retirement is drawn as the
-production colour moved into the retired lane — the commit keeps the mint of what it achieved.
+production colour moved into the retired lane — the commit keeps the green of what it achieved.
 
 ## Supersession abandons without rejecting
 

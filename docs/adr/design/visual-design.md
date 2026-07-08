@@ -45,9 +45,9 @@ The **commit-colour palette is fixed**:
 - **ghost-yellow** (faded, dashed) — a _pre-verified_ BVT result that is **not on main/master**: produced either by the pre-commit
   build-validation / PR-gate pipeline on a brown topic commit, or by a local devbox invocation of the BVT process. It is not the
   version-controlled BVT artifact and confers no promotion.
-- **blue / light-blue / light-green / mint** — the post-BVT promotion states owned by `ADR-FLOW`: **blue** is L3-verified on the on-demand
+- **blue / light-blue / light-green / green** — the post-BVT promotion states owned by `ADR-FLOW`: **blue** is L3-verified on the on-demand
   environment; **light-blue** is rolled onto the always-on `main-UAT` non-prod environment; **light-green** is release-verified on the
-  release-uat track; **mint** is in production.
+  release-uat track; **green** is in production.
 - **red** — rejected by any process and must not progress further. Red is the one colour allowed on **every** branch (topic, release, or
   mainline), because rejection can happen anywhere.
 
@@ -78,8 +78,8 @@ the source of truth.
 
 **Promotion is a funnel: population strictly thins as state advances.** Across any one diagram the count of commits in each state decreases
 along the promotion order — more brown than grey, fewer yellow than grey, fewer blue than yellow, fewer light-blue than blue, fewer
-light-green than light-blue, fewer mint than light-green. A drawing that shows as many promoted commits as candidates misrepresents the gate
-as a pass-through.
+light-green than light-blue, fewer green than light-green. A drawing that shows as many promoted commits as candidates misrepresents the
+gate as a pass-through.
 
 - [The funnel thins](#the-funnel-thins)
 
@@ -87,7 +87,7 @@ as a pass-through.
 
 **Colour is temporal: it is the commit's state at a moment, and one commit may be drawn at several colours to show its progression.** A
 commit does not own a fixed colour — it starts brown or grey and is recoloured as it moves through the flow (brown → grey → yellow → blue →
-light-blue → light-green → mint), or terminates (→ red, or is left as a ghost). Showing the same commit at grey in git, yellow in the BVT
+light-blue → light-green → green), or terminates (→ red, or is left as a ghost). Showing the same commit at grey in git, yellow in the BVT
 lane, and red in the discard lane is not a contradiction; it is the commit's history rendered as colour-over-time.
 
 - [Colour is a moment, not a label](#colour-is-a-moment-not-a-label)
@@ -106,7 +106,11 @@ red.** The contract is what a stage box in the pipeline lane means:
   **RC** (Release Certification, ADR-FLOW:9).
 - **release-uat** accepts **light-blue** and produces **light-green** (release-verified). Its manual release gate is **RBC** (Release Branch
   Certification, ADR-FLOW:9).
-- **DEPLOY** accepts **light-green** and produces **mint** (in production).
+- **DEPLOY-Prod** takes **light-green** (release-verified) through a **pre-prod** staging environment and produces **green** (in
+  production); **DEPLOY-Non-Prod** is the deploy into the earlier non-prod AT environments (ADR-FLOW:11).
+
+Env boxes carry **`-uat`** labels (the environment) and stage/gate boxes carry **`-AT`** labels (the acceptance testing) — two layers, per
+ADR-FLOW:10: `main-AT`/`release-AT` are the testing drawn at the RC/RBC gates, `main-uat`/`release-uat` the environments they run against.
 
 A stage never emits a colour outside its contract, so the palette doubles as the flow's type system.
 
@@ -146,7 +150,7 @@ commit was discarded, abandoned, or promoted.
 **An environment box is a neutral container; the commit inside it is its current occupant, in that commit's own state colour.** The hexagon
 is drawn as neutral chrome — its label names the environment (on-demand, main-UAT, release-uat, production) and it carries no per-stage tint
 and no state colour of its own. The single commit drawn _inside_ — generic or numbered — is the environment's **current occupant**
-(ADR-LIFE:5), coloured for whatever state that commit is in right now, not for a fixed property of the box. So production holds a **mint**
+(ADR-LIFE:5), coloured for whatever state that commit is in right now, not for a fixed property of the box. So production holds a **green**
 commit, release-uat a **light-green** one, main-UAT a **light-blue** one, and the on-demand L3 slot whatever it is hosting at the moment (a
 **yellow** commit mid-verification, a **blue** one just verified). Reading the inner colour tells you the state of what currently lives
 there; the label tells you where.
@@ -157,10 +161,10 @@ there; the label tells you where.
 
 **The lifecycle endings each have a distinct rendering; they are not all red.** The commit lifecycle states owned by
 [ADR-LIFE](commit-lifecycle.md) are drawn as: **discarded** — red, on the line and in the DISCARDED/Retired lane; **retired** — kept in its
-production colour (mint) and moved into the DISCARDED/Retired lane, never repainted red; **superseded** — its last promotion colour drawn as
-a ghost (faded), because it was valid but abandoned; **dirty HEAD** — its failed-stage colour with a rejection mark, distinct from a clean
-occupant; **in-process** — the input colour drawn inside the stage box; **environment occupant** — the single numbered commit inside an
-environment box. The ② lane is therefore labelled _DISCARDED / Retired_, because retirement is a success that shares the lane, not the
+production colour (green) and moved into the DISCARDED/Retired lane, never repainted red; **superseded** — its last promotion colour drawn
+as a ghost (faded), because it was valid but abandoned; **dirty HEAD** — its failed-stage colour with a rejection mark, distinct from a
+clean occupant; **in-process** — the input colour drawn inside the stage box; **environment occupant** — the single numbered commit inside
+an environment box. The ② lane is therefore labelled _DISCARDED / Retired_, because retirement is a success that shares the lane, not the
 colour, of discard.
 
 - [Lifecycle endings are not all red](#lifecycle-endings-are-not-all-red)
@@ -188,7 +192,7 @@ colour (red or ghost-grey). The pipeline and discard lanes work on _projections_
 
 A fixed palette is what makes the diagrams a language rather than a set of one-off pictures. Each hue is bound to exactly one delivery
 state, and the binding is the same in every diagram, so a colour never has to be re-explained. The promotion hues (yellow → blue →
-light-blue → mint) share a warm-to-cool progression that reads as forward motion through the flow; brown and grey are the pre-promotion
+light-blue → green) share a warm-to-cool progression that reads as forward motion through the flow; brown and grey are the pre-promotion
 states; red is terminal rejection and is the only colour that may appear on any branch.
 
 ## The BVT boundary and its ghost
@@ -209,7 +213,7 @@ the mainline authoritative.
 
 Every gate exists to reject; a diagram that shows equal populations before and after a gate quietly claims the gate rejects nothing. The
 grammar therefore requires the drawn counts to strictly decrease along the promotion order, so the shape of the cloud communicates the
-selectivity of the flow at a glance — a wide brown/grey base narrowing to a few mint commits in production.
+selectivity of the flow at a glance — a wide brown/grey base narrowing to a few green commits in production.
 
 ## Colour is a moment, not a label
 
@@ -230,7 +234,7 @@ and cannot do. The full contract:
 | L3                                 | yellow (validates/continues); brown/grey only by manual invocation | blue                                                     | red (may invalidate its inputs)    |
 | main-UAT (gate: RC)                | blue                                                               | light-blue (rolled onto always-on non-prod)              | — (held at the gate, not rejected) |
 | release-uat (gate: RBC)            | light-blue                                                         | light-green (release-verified)                           | — (held at the gate, not rejected) |
-| DEPLOY                             | light-green                                                        | mint (in production)                                     | —                                  |
+| DEPLOY-Prod (through pre-prod)     | light-green                                                        | green (in production)                                    | —                                  |
 
 Grey and brown can be _run_ through BVT or L3 by hand, but only yellow is what L3 _validates and continues_; the manual-run cases are the
 exception the contract names rather than hides. Because each stage emits exactly one promotion colour, the palette is the flow's type
@@ -264,36 +268,45 @@ where it was discarded, abandoned, or promoted.
 An environment is not a commit, so it is drawn as a container — and the container itself is **neutral chrome**: it carries no state colour
 and no per-stage tint, only a label naming which environment it is. What it does carry is its **current occupant**: the one commit deployed
 there right now (ADR-LIFE:5), drawn in that commit's own current state colour. So the inner colour is not a fixed property of the box — it
-is whatever state the resident commit is in: production shows a mint occupant, release-uat a light-green one, main-UAT a light-blue one, and
-the on-demand L3 slot whatever it currently hosts. Reading the inner colour tells you the state of what lives there now; the label tells you
-where. This defers to `ADR-LIFE:5` (each always-on environment hosts exactly one current commit) rather than colouring the box by what it
-validates — an environment's picture is "what is deployed here", not "what this stage is for".
+is whatever state the resident commit is in: production shows a green occupant, release-uat a light-green one, main-UAT a light-blue one,
+and the on-demand L3 slot whatever it currently hosts. Reading the inner colour tells you the state of what lives there now; the label tells
+you where. This defers to `ADR-LIFE:5` (each always-on environment hosts exactly one current commit) rather than colouring the box by what
+it validates — an environment's picture is "what is deployed here", not "what this stage is for".
 
 ## Canonical palette (locked)
 
 These hex pairs are the single source of truth; the enforcing values live in the diagram files, but the meaning-to-hex binding is fixed
 here. Any other hex for one of these meanings is drift and must be normalised.
 
-| State / role                                 | Fill                                                 | Stroke              |
-| -------------------------------------------- | ---------------------------------------------------- | ------------------- |
-| brown — off-main / development               | `#C4915C`                                            | `#7A4B25`           |
-| grey — landed on main                        | `#C9CCD1`                                            | `#6B7178`           |
-| yellow — BVT-verified                        | `#FFE082`                                            | `#F9A825`           |
-| blue — L3-verified                           | `#64B5F6`                                            | `#1565C0`           |
-| light-blue — main-UAT (always-on non-prod)   | `#dae8fc`                                            | `#6c8ebf`           |
-| light-green — release-verified (release-uat) | `#d5e8d4`                                            | `#82b366`           |
-| mint — in production                         | `#9BE7C4`                                            | `#0E9F6E`           |
-| red — rejected / discarded (any branch)      | `#EF9A9A`                                            | `#C62828`           |
-| ghost — any state, faded                     | that state's fill at reduced opacity, dashed outline | that state's stroke |
+| State / role                                                      | Fill                                                 | Stroke              |
+| ----------------------------------------------------------------- | ---------------------------------------------------- | ------------------- |
+| brown — off-main / development                                    | `#C4915C`                                            | `#7A4B25`           |
+| grey — landed on main                                             | `#C9CCD1`                                            | `#6B7178`           |
+| yellow — BVT-verified                                             | `#FFE082`                                            | `#F9A825`           |
+| blue — L3-verified                                                | `#64B5F6`                                            | `#1565C0`           |
+| light-blue — main-UAT (always-on non-prod)                        | `#dae8fc`                                            | `#6c8ebf`           |
+| light-green — release-verified (release-uat)                      | `#d5e8d4`                                            | `#82b366`           |
+| green — in production (pre-prod and production occupants)         | `#60a917`                                            | `#2D7600`           |
+| red — rejected / discarded (any branch)                           | `#EF9A9A`                                            | `#C62828`           |
+| ghost-topic — topic candidate in the Authoring / Pre-Commit queue | `#F47847`                                            | `#6D1F00`           |
+| ghost-BVT — BVT-verified candidate queued for L3                  | `#FFF2CC`                                            | `#D6B656`           |
+| ghost-L3 — L3-verified candidate queued for main-UAT              | `#1DB6FF`                                            | `#006EAF`           |
+| ghost — any other state, faded                                    | that state's fill at reduced opacity, dashed outline | that state's stroke |
+
+The three named `ghost-*` hexes above are dedicated tones for the busiest candidate queues (a commit that _has been / is queued_ in that
+stage — the "ghost = been in this state" legend form), drawn as their own colour rather than a reduced-opacity fill so they read in a
+crowded queue lane. Every other state's ghost is still that state's fill faded (the last row).
 
 Ghost-grey and ghost-yellow are the grey and yellow members of the ghost family; there is no separate ghost hex. Pipeline **stage-box**
-tints (sienna, slate, azure, orange) are _chrome_, not commit states, and are not part of this locked commit palette. **Environment** boxes
-carry no tint at all — they are neutral containers coloured only by their occupant (ADR-VISUAL:13).
+tints (sienna, slate, azure, orange, and the pale green `#9BE7C4`/`#0E9F6E` on the pre-prod and production boxes) are _chrome_, not commit
+states, and are not part of this locked commit palette — a production commit is the saturated green `#60a917` above, while `#9BE7C4` is only
+the pre-prod / production box tint. **Environment** boxes carry no tint at all — they are neutral containers coloured only by their occupant
+(ADR-VISUAL:13).
 
 ## Lifecycle endings are not all red
 
 The single biggest legibility risk is painting every "not in production" commit red, which would erase the difference between a defect and a
-success. So the endings are drawn apart: red for rejection, mint-in-the-retired-lane for a commit that served and was decommissioned, a
+success. So the endings are drawn apart: red for rejection, green-in-the-retired-lane for a commit that served and was decommissioned, a
 faded ghost for one that was valid but overtaken, and a marked HEAD for the latest-but-broken tip. The colour still carries the state; the
 _lane_ and the _fade/mark_ carry the ending. [ADR-LIFE](commit-lifecycle.md) owns what these endings mean; this rule owns how they look.
 

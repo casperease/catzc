@@ -80,11 +80,14 @@ which is what makes a locked release commit certifiable. It never deploys from a
 ### Rule ADR-PIPETYPE:11
 
 DEPLOY exists to make an environment's governance a first-class pipeline construct — one place for access control, isolation, and audit
-history over a manually-gated environment. Its two canonical targets are the two hands-on release gates of
-[ADR-FLOW:9](../design/ci-discipline-and-promotion-flow.md#rule-adr-flow9): **RBC** — a release-branch certification environment
-(release-uat) locked to a commit for stabilization — and **RC** — an automated pre-prod rollover onto main-UAT chained to a manual
-prod-approval gate. The **gate** is the ADR-FLOW concept — the human certification (RC / RBC) that decides _whether_ to proceed; DEPLOY is
-only the **actuator** that drives the pinned artifact onward once that gate clears. DEPLOY never owns the decision.
+history over a manually-gated environment. It **splits by target** on the one build-once artifact
+([ADR-FLOW:11](../design/ci-discipline-and-promotion-flow.md#rule-adr-flow11)): **DEPLOY-Non-Prod** drives it into the non-prod AT
+environments (the on-demand slots, `main-uat`, `release-uat`), and **DEPLOY-Prod** drives the RBC-cleared artifact through **pre-prod** into
+**production**. The human certifications are the two hands-on release gates of
+[ADR-FLOW:9](../design/ci-discipline-and-promotion-flow.md#rule-adr-flow9): **RC** clears when `main-AT` — acceptance testing against
+`main-uat` — is verified, **RBC** when `release-AT` against `release-uat` is verified. The **gate** is the ADR-FLOW concept — the human
+certification that decides _whether_ to proceed; DEPLOY is only the **actuator** that drives the pinned artifact onward once that gate
+clears. DEPLOY never owns the decision.
 
 - [DEPLOY — the governed deploy tail, extracted](#deploy--the-governed-deploy-tail-extracted)
 

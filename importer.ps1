@@ -11,7 +11,8 @@ param(
     [switch] $NonSilentClear,
     [switch] $SkipJanitors,
     [switch] $NoCommitShaMarkersInDevBox,
-    [switch] $CleanClone
+    [switch] $CleanClone,
+    [switch] $Bundle
 )
 
 Set-StrictMode -Version Latest
