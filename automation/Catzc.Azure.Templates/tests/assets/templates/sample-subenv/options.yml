@@ -1,4 +1,4 @@
 # Fixture: a subscription-kind template (environment_kind: subscription) — its configs use the
-# per-subscription envs subn/subp. Exercises the env-class bit. short_name is unique across fixtures.
+# per-subscription envs nsub/psub. Exercises the env-class bit. short_name is unique across fixtures.
 short_name: subx
 environment_kind: subscription

@@ -1,0 +1,7 @@
+# foundation, nova nonprod subscription (env nsub, customer nova). nova is dev-only -> nonprod only.
+ParametersFile:
+  parameters:
+    logAnalyticsName:
+      value: nsub-weu-zct-fnd-nova-log
+    keyVaultName:
+      value: sn-weu-zct-fnd-nv-kv

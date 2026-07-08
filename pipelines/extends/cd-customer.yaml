@@ -17,8 +17,8 @@
 # discovery/expedition reference, so it deploys first (dependsOn).
 #
 # The three flat lists render cleanly with ${{ each }} — one deployment job per entry. Each entry
-# carries its own serviceConnection (tier -> SC: the nonprod sub serves subn/dev/test, the prod sub
-# serves subp/preprod/prod) plus the matching subscriptionIdAssertIs GUID from azure.yml. Reference
+# carries its own serviceConnection (tier -> SC: the nonprod sub serves nsub/dev/test, the prod sub
+# serves psub/preprod/prod) plus the matching subscriptionIdAssertIs GUID from azure.yml. Reference
 # shapes only: real service connections + a non-placeholder azure.yml are required to actually deploy.
 #
 # Triggers live in the thin root pipelines that extend this template — `trigger:` / `pr:` are honored
@@ -28,7 +28,7 @@ parameters:
   - name: Customer
     type: string
   - name: Foundations
-    type: object # [ {env: subn, serviceConnection: sc-<owner>-nonprod, subscriptionIdAssertIs: <guid>}, {env: subp, ...} ]
+    type: object # [ {env: nsub, serviceConnection: sc-<owner>-nonprod, subscriptionIdAssertIs: <guid>}, {env: psub, ...} ]
   - name: Discoveries
     type: object # [ {env: dev, serviceConnection: sc-<owner>-nonprod, subscriptionIdAssertIs: <guid>}, ... ]
   - name: Expeditions

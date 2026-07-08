@@ -1,7 +1,0 @@
-# foundation, shared nonprod subscription (env subn). One config file ⟷ one resource group.
-ParametersFile:
-  parameters:
-    logAnalyticsName:
-      value: subn-weu-zct-fnd-log
-    keyVaultName:
-      value: sn-weu-zct-fnd-kv

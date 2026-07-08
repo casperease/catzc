@@ -641,14 +641,14 @@ terms:
       meaning: "subscription-scoped deployment ('subdeploy')"
     - term: subenv
       meaning: "sub-environment ('subenv') in the Azure data model"
-    - term: subn
-      meaning: "the nonprod subscription token 'subn' (azure.yml subscription model)"
+    - term: nsub
+      meaning: "the nonprod subscription token 'nsub' (azure.yml subscription model)"
     - term: subnet
       meaning: "subnet"
     - term: subnets
       meaning: "subnets"
-    - term: subp
-      meaning: "the prod subscription token 'subp' (azure.yml subscription model)"
+    - term: psub
+      meaning: "the prod subscription token 'psub' (azure.yml subscription model)"
     - term: synw
       meaning: "Azure Synapse workspace resource-type token (synw)"
     - term: vnet

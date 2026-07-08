@@ -2,7 +2,7 @@
 # Vault). Its Key Vault holds the SQL admin password that consuming templates reference.
 #
 # Classification (docs/adr/azure/data-model.md):
-#   environment_kind: subscription  -> configs use per-subscription envs (subn/subp), once per sub
+#   environment_kind: subscription  -> configs use per-subscription envs (nsub/psub), once per sub
 # (Slot is per-config, not a template bit — foundation's configs simply carry no slot.)
 short_name: fnd
 environment_kind: subscription

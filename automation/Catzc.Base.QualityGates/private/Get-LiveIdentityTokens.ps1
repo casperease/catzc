@@ -55,7 +55,7 @@ function Get-LiveIdentityTokens {
     }
 
     # Environment names and shortcodes (azure.yml) — ambiguous words ('test'/'dev'), so 'position' match only
-    # (a value bound to -Environment/-Env/-Shortcode). The per-subscription identity envs (subn/subp) are
+    # (a value bound to -Environment/-Env/-Shortcode). The per-subscription identity envs (nsub/psub) are
     # shared structural vocabulary, not a discriminating identity, and are skipped.
     if ($azure.Contains('environments')) {
         foreach ($envName in $azure.environments.Keys) {

@@ -35,13 +35,13 @@ environments:
     shortcode: dl
     region: westeurope
     region_code: weu
-  # Per-subscription envs (per_subscription) for the fixture — subn (lower/nonprod), subp (upper/prod).
-  subn:
+  # Per-subscription envs (per_subscription) for the fixture — nsub (lower/nonprod), psub (upper/prod).
+  nsub:
     shortcode: sn
     region: westeurope
     region_code: weu
     per_subscription: true
-  subp:
+  psub:
     shortcode: sp
     region: westeurope
     region_code: weu
@@ -59,15 +59,15 @@ subscriptions:
     environments:
       - alpha
       - beta
-      - subn
+      - nsub
   core_upper:
     id: 50a0ed00-000d-50b0-0000-000000000000
     tenant: fixtenant
     environments:
       - gamma
       - delta
-      - subp
-  # cross_shared — single subscription serving all standard envs + subp identity (the single-sub shape).
+      - psub
+  # cross_shared — single subscription serving all standard envs + psub identity (the single-sub shape).
   cross_shared:
     id: a0e00000-de00-50b0-0000-000000000000
     tenant: fixtenant
@@ -76,7 +76,7 @@ subscriptions:
       - beta
       - gamma
       - delta
-      - subp
+      - psub
   acme_lower:
     id: a0e00000-000d-50b0-0000-000000000000
     tenant: fixtenant
@@ -84,7 +84,7 @@ subscriptions:
     environments:
       - alpha
       - beta
-      - subn
+      - nsub
   acme_upper:
     id: 000a0000-de00-50b0-0000-000000000000
     tenant: fixtenant
@@ -92,7 +92,7 @@ subscriptions:
     environments:
       - gamma
       - delta
-      - subp
+      - psub
   # globex_short — binds its customer by the 2-char SHORTCODE ('gx') instead of the key, exercising the
   # by-shortcode reference form (Get-AzureSubscription normalizes it to the key 'globex'). Its own
   # customer keeps customer 'acme' env-disjoint (the per-customer load rule).
@@ -102,4 +102,4 @@ subscriptions:
     customer: gx
     environments:
       - alpha
-      - subn
+      - nsub

@@ -17,7 +17,7 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
                 environments  = [ordered]@{
                     alpha = @{ shortcode = 'al' }
                     beta  = @{ shortcode = 'bt' }
-                    subn  = @{ shortcode = 'sn'; per_subscription = $true }
+                    nsub  = @{ shortcode = 'sn'; per_subscription = $true }
                 }
             }
         }
@@ -48,12 +48,12 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
         ($tokens | Where-Object { $_.Kind -in 'deployable-unit', 'pipeline' }) | Should -BeNullOrEmpty
     }
 
-    It 'derives environments as position-match tokens, excluding the shared subn/subp identity envs' {
+    It 'derives environments as position-match tokens, excluding the shared nsub/psub identity envs' {
         $tokens = & $script:run
         $envs = @($tokens | Where-Object { $_.Kind -eq 'environment' })
         $envs.Token | Should -Contain 'alpha'
         $envs.Token | Should -Contain 'beta'
-        $envs.Token | Should -Not -Contain 'subn'
+        $envs.Token | Should -Not -Contain 'nsub'
         ($envs | ForEach-Object { $_.MatchMode } | Select-Object -Unique) | Should -Be 'position'
         ($tokens | Where-Object { $_.Token -eq 'al' }).Kind | Should -Be 'environment-shortcode'
     }

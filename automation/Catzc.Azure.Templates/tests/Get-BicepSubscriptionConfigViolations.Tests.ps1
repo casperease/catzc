@@ -4,11 +4,11 @@ Describe 'Get-BicepSubscriptionConfigViolations' -Tag 'L0', 'logic' {
         # rogue non-customer subscription that overlaps core_lower on beta (the root-ambiguity case).
         $script:azure = [ordered]@{
             subscriptions = [ordered]@{
-                core_lower = [ordered]@{ environments = @('alpha', 'beta', 'subn') }
-                core_upper = [ordered]@{ environments = @('gamma', 'delta', 'subp') }
+                core_lower = [ordered]@{ environments = @('alpha', 'beta', 'nsub') }
+                core_upper = [ordered]@{ environments = @('gamma', 'delta', 'psub') }
                 rogue_beta = [ordered]@{ environments = @('beta') }
-                acme_lower = [ordered]@{ customer = 'acme'; environments = @('alpha', 'subn') }
-                acme_upper = [ordered]@{ customer = 'acme'; environments = @('gamma', 'subp') }
+                acme_lower = [ordered]@{ customer = 'acme'; environments = @('alpha', 'nsub') }
+                acme_upper = [ordered]@{ customer = 'acme'; environments = @('gamma', 'psub') }
             }
         }
         # The customer catalogue reads are whole-boundary mocks (ADR-PESTER:3) — the rule needs the key

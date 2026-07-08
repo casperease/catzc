@@ -34,13 +34,13 @@ environments:
     shortcode: dl
     region: westeurope
     region_code: weu
-  # Per-subscription envs (per_subscription) for the fixture — subn (lower/nonprod), subp (upper/prod).
-  subn:
+  # Per-subscription envs (per_subscription) for the fixture — nsub (lower/nonprod), psub (upper/prod).
+  nsub:
     shortcode: sn
     region: westeurope
     region_code: weu
     per_subscription: true
-  subp:
+  psub:
     shortcode: sp
     region: westeurope
     region_code: weu
@@ -58,14 +58,14 @@ subscriptions:
     environments:
       - alpha
       - beta
-      - subn
+      - nsub
   core_upper:
     id: 50a0ed00-000d-50b0-0000-000000000000
     tenant: fixtenant
     environments:
       - gamma
       - delta
-      - subp
+      - psub
   acme_lower:
     id: a0e00000-000d-50b0-0000-000000000000
     tenant: fixtenant
@@ -73,7 +73,7 @@ subscriptions:
     environments:
       - alpha
       - beta
-      - subn
+      - nsub
   acme_upper:
     id: 000a0000-de00-50b0-0000-000000000000
     tenant: fixtenant
@@ -81,4 +81,4 @@ subscriptions:
     environments:
       - gamma
       - delta
-      - subp
+      - psub

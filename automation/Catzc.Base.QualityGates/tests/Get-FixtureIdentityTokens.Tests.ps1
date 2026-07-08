@@ -18,9 +18,9 @@ Describe 'Get-FixtureIdentityTokens' -Tag 'L1', 'integrity' {
         $script:tokens | Should -Contain 'faketool'
     }
 
-    It 'excludes the shared structural subn/subp identity envs' {
-        $script:tokens | Should -Not -Contain 'subn'
-        $script:tokens | Should -Not -Contain 'subp'
+    It 'excludes the shared structural nsub/psub identity envs' {
+        $script:tokens | Should -Not -Contain 'nsub'
+        $script:tokens | Should -Not -Contain 'psub'
     }
 
     It 'does NOT include any live identity (the sets are disjoint)' {

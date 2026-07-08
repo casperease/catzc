@@ -1,7 +1,0 @@
-# foundation, flux nonprod subscription (env subn, customer flux). flux is dev-only -> nonprod only.
-ParametersFile:
-  parameters:
-    logAnalyticsName:
-      value: subn-weu-zct-fnd-flux-log
-    keyVaultName:
-      value: sn-weu-zct-fnd-fl-kv

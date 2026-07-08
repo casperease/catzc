@@ -1,7 +1,0 @@
-# foundation, shared prod subscription (env subp). One config file ⟷ one resource group.
-ParametersFile:
-  parameters:
-    logAnalyticsName:
-      value: subp-weu-zct-fnd-log
-    keyVaultName:
-      value: sp-weu-zct-fnd-kv

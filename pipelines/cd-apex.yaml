@@ -2,8 +2,8 @@
 #
 # Supplies only meta selection criteria: the customer key and the per-deployment env/slot/service-
 # connection/assert map. All structure (CI build, foundation -> discovery -> expedition ordering) lives
-# in /pipelines/extends/cd-customer.yaml. apex has both tiers — nonprod (subn/dev/test) and prod
-# (subp/preprod/prod). The target subscription is what each service connection logs into; the
+# in /pipelines/extends/cd-customer.yaml. apex has both tiers — nonprod (nsub/dev/test) and prod
+# (psub/preprod/prod). The target subscription is what each service connection logs into; the
 # subscriptionIdAssertIs GUID (from azure.yml) pins it. Triggers live here because they are honored
 # only at the pipeline root.
 #
@@ -42,8 +42,8 @@ extends:
   parameters:
     Customer: apex
     Foundations:
-      - { env: subn, serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
-      - { env: subp, serviceConnection: sc-apex-prod, subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000 }
+      - { env: nsub, serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
+      - { env: psub, serviceConnection: sc-apex-prod, subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000 }
     Discoveries:
       - { env: dev, serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
       - { env: test, serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }

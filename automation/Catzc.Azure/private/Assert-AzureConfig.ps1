@@ -11,7 +11,7 @@
                                      2-char shortcode. Its presence marks a customer subscription; the
                                      customer renders into resource names. Allowed on any subscription.
       environments:        map; name -> { shortcode, region, region_code [, per_subscription] }
-                           per_subscription: true marks a once-per-subscription env (subn/subp); absent ⇒ false
+                           per_subscription: true marks a once-per-subscription env (nsub/psub); absent ⇒ false
       (all named entities are maps keyed by name — duplicate names are structurally impossible)
       (customer DEFINITIONS live in customer.yml — see Assert-CustomerConfig / docs/adr/azure/customer-model.md)
 
@@ -138,7 +138,7 @@ function Assert-AzureConfig {
         elseif ("$($entry.region_code)" -cnotmatch '^[a-z]{3}$') {
             $errors.Add("environment '$env' has invalid region_code '$($entry.region_code)' (must be 3 lowercase letters, e.g. weu)")
         }
-        # per_subscription (optional): marks an env as once-per-subscription (subn/subp). See data-model.md.
+        # per_subscription (optional): marks an env as once-per-subscription (nsub/psub). See data-model.md.
         if ($entry.Contains('per_subscription') -and $entry.per_subscription -isnot [bool]) {
             $errors.Add("environment '$env' has invalid per_subscription '$($entry.per_subscription)' (must be a boolean: true or false)")
         }

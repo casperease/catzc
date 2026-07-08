@@ -9,7 +9,7 @@
     - names are valid lower-snake_case identifiers
     - vnet_address_space and default_subnet are IPv4 CIDR (a.b.c.d/n, 0 <= n <= 32)
     - cross-asset sync with azure.yml: every network environment is a defined azure.yml environment,
-      and every *standard* azure.yml environment has a network entry (per-subscription envs subn/subp
+      and every *standard* azure.yml environment has a network entry (per-subscription envs nsub/psub
       are exempt — they carry no vnet); and there is no plan for a ghost environment
 
     Auto-dispatched by Get-Config when loading the 'network' config.
@@ -70,7 +70,7 @@ function Assert-NetworkConfig {
     }
 
     # Cross-asset integrity: the IP plan and azure.yml's environments must stay in sync. Per-subscription
-    # environments (subn/subp) are exempt — they identify a subscription (foundation: Log Analytics + Key
+    # environments (nsub/psub) are exempt — they identify a subscription (foundation: Log Analytics + Key
     # Vault) and carry no vnet, so they need no IP plan.
     $azure = Get-Config -Config azure
     $azureEnvs = @($azure.environments.Keys)

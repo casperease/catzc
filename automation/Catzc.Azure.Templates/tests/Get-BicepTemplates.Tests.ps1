@@ -157,10 +157,10 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
             $acmeSlots | Should -Be @('', '001')
         }
 
-        It 'reads environment_kind: subscription and accepts per-subscription envs (subn/subp)' {
+        It 'reads environment_kind: subscription and accepts per-subscription envs (nsub/psub)' {
             $se = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample-subenv' } | Select-Object -First 1
             $se.environment_kind | Should -Be 'subscription'
-            @($se.slots | ForEach-Object { $_.environment } | Sort-Object -Unique) | Should -Be @('subn', 'subp')
+            @($se.slots | ForEach-Object { $_.environment } | Sort-Object -Unique) | Should -Be @('nsub', 'psub')
         }
     }
 

@@ -1,0 +1,7 @@
+# foundation, shared nonprod subscription (env nsub). One config file ⟷ one resource group.
+ParametersFile:
+  parameters:
+    logAnalyticsName:
+      value: nsub-weu-zct-fnd-log
+    keyVaultName:
+      value: sn-weu-zct-fnd-kv

@@ -32,8 +32,8 @@ One address space per environment — multi-region-per-environment is out of sco
 
 ### Rule ADR-NETWORK:4
 
-Per-subscription envs (`subn`/`subp`) need no network entry — they carry no vnet, so the standard-env requirement skips them (a
-`subn`/`subp` entry is not forbidden, just pointless).
+Per-subscription envs (`nsub`/`psub`) need no network entry — they carry no vnet, so the standard-env requirement skips them (a
+`nsub`/`psub` entry is not forbidden, just pointless).
 
 - [Validation (`Assert-NetworkConfig`)](#validation-assert-networkconfig)
 
@@ -90,7 +90,7 @@ environments:
 - **Cross-asset integrity with `azure.yml`** (the join):
   - every network environment is a **defined `azure.yml` environment** (no ghost entries);
   - every **standard** `azure.yml` environment has a network entry;
-  - **per-subscription** environments (`per_subscription: true` — `subn`/`subp`) are **exempt**: they identify a subscription's foundation
+  - **per-subscription** environments (`per_subscription: true` — `nsub`/`psub`) are **exempt**: they identify a subscription's foundation
     (Log Analytics + Key Vault) and carry no vnet, so they need no IP plan.
 - All violations are collected and thrown together (fail with the full list, not the first error).
 

@@ -134,7 +134,7 @@ erDiagram
         string shortcode        UK "2 letters, unique (de/pp/…); tight-pattern env-segment"
         string region           "Azure location"
         string region_code      "3 letters (name component)"
-        bool   per_subscription "optional; true marks a sub-identity env (subn/subp) for environment_kind: subscription"
+        bool   per_subscription "optional; true marks a sub-identity env (nsub/psub) for environment_kind: subscription"
     }
     SUBSCRIPTION {
         string name     PK "map key (the config-folder name)"
@@ -231,7 +231,7 @@ erDiagram
   (strict schema, validated at discovery by `Read-BicepTemplateOptions`). It does **not** declare which subscriptions the template targets —
   that follows from its configuration coordinates. See [`naming-standard`](naming-standard.md#rule-adr-naming2).
 - `environment_kind` (`standard` | `subscription`, default `standard`) is the template's one classification bit: every config's env must
-  match it — `subscription` ⇒ a `per_subscription` env (`subn`/`subp`, deployed once per subscription), `standard` ⇒ an ordinary env
+  match it — `subscription` ⇒ a `per_subscription` env (`nsub`/`psub`, deployed once per subscription), `standard` ⇒ an ordinary env
   (`dev`/`test`/…). Enforced per-config by `Get-BicepConfigClassViolations` (shared by discovery and `Assert-BicepTemplate`). The slot is
   NOT a template-level bit — a single template may freely **mix** a base `<env>.yml` and slotted `<env>-<slot>.yml` configs.
 - The slot **metadata** is `{ name, environment, slot, subscription, customer }`, parsed from the path (`[<customer>/]<env>[-<slot>]`) by
@@ -274,7 +274,7 @@ The config is resolved into runtime objects on demand — where the "complex joi
   the map key.
 - `Get-AzureEnvironment <env> -Subscription <sub>` → `{ name, shortcode, region, region_code, subscription }`; asserts the subscription
   serves the env and embeds `Get-AzureSubscription <sub>` — the check that a session cannot deploy an env its subscription does not serve.
-- `Get-AzureSubscriptionEnvironment <sub>` → the subscription's per-subscription identity env (subn/subp), for templates that must locate
+- `Get-AzureSubscriptionEnvironment <sub>` → the subscription's per-subscription identity env (nsub/psub), for templates that must locate
   the once-per-subscription foundation in the same sub.
 - `Get-BicepDeploymentContext` → three concern-objects: **plan** (`deployment`), **artifacts**, and **identity** (`environment`) — composed
   from the session-determined subscription; the customer that renders into names is read off it.

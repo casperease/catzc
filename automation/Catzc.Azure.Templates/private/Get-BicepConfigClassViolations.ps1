@@ -6,7 +6,7 @@
 .DESCRIPTION
     Checks one config against the template's env-class bit and returns a (possibly empty) array of
     human-readable violation strings:
-      - env-class bit: subscription ⇒ the config env must be a per_subscription env (subn/subp);
+      - env-class bit: subscription ⇒ the config env must be a per_subscription env (nsub/psub);
                        standard ⇒ it must be a standard env.
     The slot is a per-config dimension, not a template-level bit — a template may freely mix slotted
     (<env>-<slot>.yml) and non-slotted (<env>.yml) configs — so there is no slot rule here.
@@ -35,7 +35,7 @@ function Get-BicepConfigClassViolations {
     $environmentEntry = $AzureConfig.environments[$Environment]
     $environmentPerSubscription = ($null -ne $environmentEntry -and $environmentEntry.Contains('per_subscription') -and $environmentEntry['per_subscription'])
     if ($EnvironmentKind -eq 'subscription' -and -not $environmentPerSubscription) {
-        $violations += "$Location uses standard env '$Environment', but the template is environment_kind 'subscription' — use a per-subscription env (subn/subp)"
+        $violations += "$Location uses standard env '$Environment', but the template is environment_kind 'subscription' — use a per-subscription env (nsub/psub)"
     }
     if ($EnvironmentKind -eq 'standard' -and $environmentPerSubscription) {
         $violations += "$Location uses per-subscription env '$Environment', but the template is environment_kind 'standard' — set 'environment_kind: subscription' in options.yml"

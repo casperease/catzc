@@ -66,8 +66,8 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
         }
 
         It 'reports an env-class violation (per-subscription env on a standard template)' {
-            # subn is a per-subscription env; placing it on a standard template trips the env-class rule.
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/subn.yml'), "ParametersFile:`n  parameters: {}")
+            # nsub is a per-subscription env; placing it on a standard template trips the env-class rule.
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/nsub.yml'), "ParametersFile:`n  parameters: {}")
             { Assert-BicepTemplate sample } | Should -Throw '*environment_kind*'
         }
 
@@ -100,7 +100,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
         It 'collects multiple violations into one consolidated error' {
             # One config trips two rules at once: a per-subscription env on a standard template (env-class)
             # AND a parameter main.bicep does not declare.
-            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/subn.yml'), "ParametersFile:`n  parameters:`n    bogusParam:`n      value: 1")
+            [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/nsub.yml'), "ParametersFile:`n  parameters:`n    bogusParam:`n      value: 1")
             $err = $null
             try {
                 Assert-BicepTemplate sample

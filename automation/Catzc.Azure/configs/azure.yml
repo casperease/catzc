@@ -52,14 +52,14 @@ environments:
     region: westeurope
     region_code: weu
   # Per-subscription environments (per_subscription: true) — exactly one per subscription (the sub's
-  # identity env), used by environment_kind: subscription templates (e.g. foundation). subn = the
-  # nonprod subscription, subp = the prod subscription. Standard envs (above) are many-per-subscription.
-  subn:
+  # identity env), used by environment_kind: subscription templates (e.g. foundation). nsub = the
+  # nonprod subscription, psub = the prod subscription. Standard envs (above) are many-per-subscription.
+  nsub:
     shortcode: sn
     region: westeurope
     region_code: weu
     per_subscription: true
-  subp:
+  psub:
     shortcode: sp
     region: westeurope
     region_code: weu
@@ -76,25 +76,25 @@ environments:
 # customer.yml, by key or 2-char shortcode) — the single source of "is this a customer subscription?";
 # the customer renders into the resource names of anything deployed here (see
 # docs/adr/azure/naming-standard.md). A subscription's `environments` may freely mix standard envs
-# (dev/test/preprod/prod) with AT MOST ONE per-subscription identity env (subn xor subp) — the identity
+# (dev/test/preprod/prod) with AT MOST ONE per-subscription identity env (nsub xor psub) — the identity
 # env addresses once-per-subscription templates (environment_kind: subscription).
 subscriptions:
   # The shared platform pair — the only non-customer subscriptions, so every root config's env resolves
-  # to exactly one of them (nonprod serves dev/test/subn; prod serves preprod/prod/subp).
+  # to exactly one of them (nonprod serves dev/test/nsub; prod serves preprod/prod/psub).
   shared_nonprod:
     id: 50a0ed00-de00-50b0-0000-000000000000
     tenant: placeholder
     environments:
       - dev
       - test
-      - subn
+      - nsub
   shared_prod:
     id: 50a0ed00-000d-50b0-0000-000000000000
     tenant: placeholder
     environments:
       - preprod
       - prod
-      - subp
+      - psub
   # Customer subscriptions — carry a `customer` key; their configs live under the
   # configuration/<customer>/ subfolder. One pair per customer (nova/flux are nonprod-only for now).
   apex_nonprod:
@@ -104,7 +104,7 @@ subscriptions:
     environments:
       - dev
       - test
-      - subn
+      - nsub
   apex_prod:
     id: a0e00000-000d-50b0-0000-000000000000
     tenant: placeholder
@@ -112,7 +112,7 @@ subscriptions:
     environments:
       - preprod
       - prod
-      - subp
+      - psub
   nova_nonprod:
     id: 000a0000-de00-50b0-0000-000000000000
     tenant: placeholder
@@ -120,7 +120,7 @@ subscriptions:
     environments:
       - dev
       - test
-      - subn
+      - nsub
   flux_nonprod:
     id: f1000000-de00-50b0-0000-000000000000
     tenant: placeholder
@@ -128,4 +128,4 @@ subscriptions:
     environments:
       - dev
       - test
-      - subn
+      - nsub

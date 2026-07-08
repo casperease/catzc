@@ -1,5 +1,5 @@
 // foundation — the once-per-subscription baseline: a Log Analytics workspace + a Key Vault. Deployed
-// once per subscription (envs subn/subp), in the shared subscription and in each customer's. The Key
+// once per subscription (envs nsub/psub), in the shared subscription and in each customer's. The Key
 // Vault holds shared secrets for that subscription — notably the SQL admin password that consuming
 // templates reference. Resources come from the reusable modules in infrastructure/modules/.
 

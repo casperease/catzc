@@ -10,19 +10,19 @@ Describe 'Get-AzureSubscriptionEnvironment' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
     }
 
-    It 'resolves the nonprod identity env (subn) for a nonprod subscription' {
-        Get-AzureSubscriptionEnvironment core_lower | Should -Be 'subn'
-        Get-AzureSubscriptionEnvironment acme_lower | Should -Be 'subn'
+    It 'resolves the nonprod identity env (nsub) for a nonprod subscription' {
+        Get-AzureSubscriptionEnvironment core_lower | Should -Be 'nsub'
+        Get-AzureSubscriptionEnvironment acme_lower | Should -Be 'nsub'
     }
 
-    It 'resolves the prod identity env (subp) for a prod subscription' {
-        Get-AzureSubscriptionEnvironment core_upper | Should -Be 'subp'
-        Get-AzureSubscriptionEnvironment acme_upper | Should -Be 'subp'
+    It 'resolves the prod identity env (psub) for a prod subscription' {
+        Get-AzureSubscriptionEnvironment core_upper | Should -Be 'psub'
+        Get-AzureSubscriptionEnvironment acme_upper | Should -Be 'psub'
     }
 
     It 'resolves the identity env of a single-subscription that serves all standard envs' {
-        # cross_shared serves all standard envs + subp as its one identity env.
-        Get-AzureSubscriptionEnvironment cross_shared | Should -Be 'subp'
+        # cross_shared serves all standard envs + psub as its one identity env.
+        Get-AzureSubscriptionEnvironment cross_shared | Should -Be 'psub'
     }
 
     It 'rejects an unknown subscription via ValidateScript' {
