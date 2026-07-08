@@ -74,6 +74,7 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 | `ADR-CFGADDR`  | [config-value-addressing](automation/config-value-addressing.md)                 |
 | `ADR-PROTGLOB` | [protected-globs](automation/protected-globs.md)                                 |
 | `ADR-GUIDS`    | [managed-guids](automation/managed-guids.md)                                     |
+| `ADR-BUNDLE`   | [platform-bundle](automation/platform-bundle.md)                                 |
 
 #### automation/powershell/
 

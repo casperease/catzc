@@ -139,4 +139,4 @@ How Azure DevOps pipelines interact with the automation layer.
 
 ## Other
 
-- [FAQ](faq.md) — common questions about the module system
+- [FAQ](docs\how-to\getting-started\automation\faq.md.md) — common questions about the module system
