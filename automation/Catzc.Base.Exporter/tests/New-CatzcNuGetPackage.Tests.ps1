@@ -15,7 +15,7 @@ InModuleScope Catzc.Base.Exporter {
 
             # Fixture export config so the test is hermetic (neutral values, ADR-TEST:3).
             $fixture = [ordered]@{
-                module_guid = 'ca72c000-00d0-1e00-0000-000000000000'
+                module_guid = '211b36c7-f7eb-4f3c-93f5-9132b535fa56'
                 package     = [ordered]@{
                     author      = 'Test Author'
                     company     = 'Test Co'
@@ -39,7 +39,7 @@ InModuleScope Catzc.Base.Exporter {
         It 'writes a manifest with the configured identity and the locked function inventory' {
             $pkg = New-CatzcNuGetPackage -Source $source -Version '1.2.3' -DestinationPath $dest
             $m = Test-ModuleManifest -Path $pkg.Manifest
-            $m.Guid | Should -Be 'ca72c000-00d0-1e00-0000-000000000000'
+            $m.Guid | Should -Be '211b36c7-f7eb-4f3c-93f5-9132b535fa56'
             $m.Version.ToString() | Should -Be '1.2.3'
             $m.Author | Should -Be 'Test Author'
             $pkg.FunctionCount | Should -Be 2
@@ -51,6 +51,29 @@ InModuleScope Catzc.Base.Exporter {
             $pkg = New-CatzcNuGetPackage -Source $source -Version '1.2.3' -DestinationPath $dest
             Test-Path (Join-Path $pkg.ModulePath 'automation/Catzc.Base.Widget/Get-Widget.ps1') | Should -BeTrue
             Test-Path (Join-Path $pkg.ModulePath 'importer.ps1') | Should -BeTrue
+        }
+
+        It 'falls back to a default project and license URI when config leaves them blank' {
+            $pkg = New-CatzcNuGetPackage -Source $source -Version '1.2.3' -DestinationPath $dest
+            $m = Test-ModuleManifest -Path $pkg.Manifest
+            "$($m.ProjectUri)" | Should -Be 'https://github.com/catzc/catzc'
+            "$($m.LicenseUri)" | Should -Be 'https://github.com/catzc/catzc/blob/main/LICENSE'
+        }
+
+        It 'uses the configured project and license URI when set' {
+            $custom = [ordered]@{
+                module_guid = '211b36c7-f7eb-4f3c-93f5-9132b535fa56'
+                package     = [ordered]@{
+                    author = 'Test Author'; company = 'Test Co'; description = 'A test package.'
+                    tags = @('widget'); project_uri = 'https://forge.example/repo'
+                    license_uri = 'https://forge.example/repo/license'
+                }
+            }
+            Mock Get-Config { $custom } -ParameterFilter { $Config -eq 'exporter' }
+            $pkg = New-CatzcNuGetPackage -Source $source -Version '1.2.3' -DestinationPath $dest
+            $m = Test-ModuleManifest -Path $pkg.Manifest
+            "$($m.ProjectUri)" | Should -Be 'https://forge.example/repo'
+            "$($m.LicenseUri)" | Should -Be 'https://forge.example/repo/license'
         }
     }
 }

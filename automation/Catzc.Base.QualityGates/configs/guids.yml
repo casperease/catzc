@@ -35,7 +35,7 @@ guids:
     sentence: catzc types project
     description: the Catzc.Types.csproj project id in catzc.sln (the IDE-only mirror of the combined type assembly)
   catzc_module:
-    guid: ca72c000-00d0-1e00-0000-000000000000
+    guid: 211b36c7-f7eb-4f3c-93f5-9132b535fa56
     sentence: catzc module
     description: the Catzc PowerShell module's stable identity (Catzc.psd1 GUID) for NuGet/PSGallery — exporter.yml module_guid
 

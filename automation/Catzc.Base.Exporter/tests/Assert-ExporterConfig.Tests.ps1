@@ -7,7 +7,7 @@ Describe 'Assert-ExporterConfig' -Tag 'L0', 'logic' {
                 default_profile        = 'full'
                 default_aspect         = 'live'
                 vendor_policy          = 'runtime'
-                module_guid            = 'ca72c000-00d0-1e00-0000-000000000000'
+                module_guid            = '211b36c7-f7eb-4f3c-93f5-9132b535fa56'
                 package                = [ordered]@{
                     author = 'A'; company = 'C'; description = 'D'; tags = @('x'); project_uri = ''; license_uri = ''
                 }
@@ -33,7 +33,7 @@ Describe 'Assert-ExporterConfig' -Tag 'L0', 'logic' {
             $config = [ordered]@{
                 direct_install_version = '6.6.666'; version = '0.1.0'
                 default_profile = 'full'; default_aspect = 'live'; vendor_policy = 'runtime'
-                module_guid = 'ca72c000-00d0-1e00-0000-000000000000'
+                module_guid = '211b36c7-f7eb-4f3c-93f5-9132b535fa56'
                 package     = [ordered]@{ company = 'C'; description = 'D'; tags = @('x') }
             }
             { Assert-ExporterConfig $config } | Should -Throw -ExpectedMessage '*package.author is required*'

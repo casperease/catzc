@@ -75,12 +75,18 @@ function New-CatzcNuGetPackage {
         AliasesToExport   = @()
         Tags              = [string[]] @($package.tags)
     }
-    if (-not [string]::IsNullOrWhiteSpace("$($package.project_uri)")) {
-        $manifestArgs.ProjectUri = "$($package.project_uri)"
+    # The Gallery links come from config; fall back to sensible dummies when blank, so the manifest is always
+    # complete rather than silently missing a field.
+    $projectUri = "$($package.project_uri)"
+    if ([string]::IsNullOrWhiteSpace($projectUri)) {
+        $projectUri = 'https://github.com/catzc/catzc'
     }
-    if (-not [string]::IsNullOrWhiteSpace("$($package.license_uri)")) {
-        $manifestArgs.LicenseUri = "$($package.license_uri)"
+    $licenseUri = "$($package.license_uri)"
+    if ([string]::IsNullOrWhiteSpace($licenseUri)) {
+        $licenseUri = "$projectUri/blob/main/LICENSE"
     }
+    $manifestArgs.ProjectUri = $projectUri
+    $manifestArgs.LicenseUri = $licenseUri
     New-ModuleManifest @manifestArgs
 
     # Pack (no publish). Compress-PSResource emits <Name>.<Version>.nupkg into DestinationPath.
