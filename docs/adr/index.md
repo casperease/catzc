@@ -36,6 +36,8 @@ a normative summary plus internal links to the prose that justifies it).
 | `ADR-TRACK`    | [tracks](design/tracks.md)                                                     |
 | `ADR-THINPLAT` | [thin-platforms](design/thin-platforms.md)                                     |
 | `ADR-SELFSERV` | [self-service](design/self-service.md)                                         |
+| `ADR-VISUAL`   | [visual-design](design/visual-design.md)                                       |
+| `ADR-LIFE`     | [commit-lifecycle](design/commit-lifecycle.md)                                 |
 
 ### automation/
 
