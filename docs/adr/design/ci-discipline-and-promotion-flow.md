@@ -120,6 +120,18 @@ artifact is identical across both.
 
 - [Pre-prod, and DEPLOY split non-prod / prod](#pre-prod-and-deploy-split-non-prod--prod)
 
+### Rule ADR-FLOW:12
+
+**Deploy-to-prod is a two-slot activation: stage the artifact _inactive_ in pre-prod, validate the exact bytes, then activate it _live_ to
+production.** DEPLOY-Prod never deploys straight into the serving environment. It first deploys the RBC-cleared artifact to **pre-prod** — a
+production-grade environment that is **not serving live traffic** (the "inactive" slot) — where the identical bytes get a final rehearsal
+against production-shaped dependencies. Only then is that same artifact **activated to live production** (the inactive → live cutover). The
+go-live is therefore a **promotion of already-validated bytes, not a fresh untested deploy**, which is what keeps the production cutover
+low-risk. When the new version goes live, the previous production occupant is superseded and steps down (ADR-LIFE:3/ADR-LIFE:4). Build-once
+holds throughout: pre-prod and production receive the identical tagged artifact (ADR-FLOW:3).
+
+- [Deploy-to-prod: stage inactive, then activate live](#deploy-to-prod-stage-inactive-then-activate-live)
+
 ## Context
 
 [pipeline-types](../pipelines/pipeline-types.md) is the _taxonomy_ — it fixes what each of the six ADO artifact kinds **is**. This ADR is
@@ -314,6 +326,23 @@ Because the deploy activity now spans several environments with different govern
 CD's automated direction covers (ADR-FLOW:5). **DEPLOY-Prod** is the governed deploy of the RBC-cleared artifact through `pre-prod` into
 `production` (ADR-FLOW:6, and [ADR-PIPETYPE:11](../pipelines/pipeline-types.md#rule-adr-pipetype11)). The split is by _target and
 governance_, not by artifact: the same tagged build flows through both, so build-once / deploy-many holds end to end.
+
+### Deploy-to-prod: stage inactive, then activate live
+
+Going to production is not one step of "push the bytes at the live environment." It is two, and separating them is the point. First,
+**DEPLOY-Prod deploys the RBC-cleared artifact into `pre-prod` — a production-grade environment that is _inactive_** (staged, not serving
+live traffic). This is the last place the _exact_ bytes that will go live are exercised against production-shaped dependencies, with real
+production configuration, before any user sees them. Second, once pre-prod is good, **the same artifact is _activated_ to
+`live / production`** — the inactive slot becomes the serving one. The two boxes in the diagram, `inactive / pre-prod` and
+`live / production`, are precisely these two states of the prod deploy: staged-but-dark, then live.
+
+The reason to split them is risk. Because the live cutover is the **activation of bytes already validated in a prod-identical environment**,
+not a fresh deploy of something only ever seen in non-prod, the moment of going live carries almost no new risk — nothing is compiled,
+rendered, or first-run at cutover (build-once, ADR-FLOW:3). What flips is _which slot serves traffic_, not _what the bytes are_. When the
+new version goes live, the previous production occupant is superseded and steps down (ADR-LIFE:4) — the diagram shows the new version
+occupying both `pre-prod` and `production` at the moment of cutover, and the version it replaced leaving. Whether that activation is a
+human-triggered DEPLOY (delivery) or an automated continuation (CDe, deployment) is the posture of ADR-FLOW:6/ADR-FLOW:7; either way the
+mechanic — stage inactive, validate, activate live — is the same.
 
 ## How this is enforced
 
