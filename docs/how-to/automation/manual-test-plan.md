@@ -73,7 +73,7 @@ A check **passes** when its assertions are green. A few L2 checks shell out to a
 | 30  | L1   | automation/Catzc.Base.ModuleSystem/tests/Get-ModuleGroupConfig.Tests.ps1                     | integrity (shipped config)                                           | The shipped `dependencies.yml` `groups` section loads without throwing.                                                                                                                                        |
 | 31  | L1   | automation/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1                      | never plans the live combined build for deletion (real repo, DryRun) | The live combined types DLL is never marked for deletion.                                                                                                                                                      |
 | 32  | L1   | automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1                   | Test-FunctionDependency                                              | Every cross-module function call in the real repo is declared.                                                                                                                                                 |
-| 33  | L1   | automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1                               | exclude filtering                                                    | The `.git` directory is excluded from YAML discovery.                                                                                                                                                          |
+| 33  | L0   | automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1                               | excludes .git directory by default                                   | The `.git` directory is excluded from YAML discovery.                                                                                                                                                          |
 | 34  | L1   | automation/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1                   | Manual test plan covers every integrity check                        | This document lists every integrity check, with no stale rows.                                                                                                                                                 |
 | 35  | L2   | automation/.internal/tests/Test-ScriptAnalyzer.Tests.ps1                                     | PSScriptAnalyzer                                                     | All module code passes PSScriptAnalyzer (style + custom rules).                                                                                                                                                |
 | 36  | L2   | automation/.internal/tests/Import-CSharpTypes.Tests.ps1                                      | combined types assembly is committed and current                     | The committed combined types DLL matches current sources (no drift).                                                                                                                                           |
@@ -402,7 +402,7 @@ A check **passes** when its assertions are green. A few L2 checks shell out to a
 
 - `Test-FunctionDependency` returns a boolean, and returns true when all dependencies are satisfied.
 
-### 33. exclude filtering
+### 33. excludes .git directory by default
 
 **Guards:** the `.git` directory is excluded from YAML discovery.
 

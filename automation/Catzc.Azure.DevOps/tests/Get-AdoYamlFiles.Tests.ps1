@@ -195,16 +195,11 @@ Describe 'Get-AdoYamlFiles' -Tag 'L0' {
             $errors = $results | Where-Object { $_.ParseError }
             $errors | Should -BeNullOrEmpty
         }
-    }
 
-    Context 'exclude filtering' -Tag 'L1', 'integrity' {
-        BeforeAll {
-            $script:repoRoot = $env:RepositoryRoot
-        }
-
-        It 'excludes .git directory by default' {
-            $results = Get-AdoYamlFiles -Path $repoRoot
-            $gitFiles = $results | Where-Object { $_.RelativePath -match '^\\.git/' -or $_.RelativePath -match '^\.git/' }
+        # Its own integrity tag keeps this a distinct, named check in the manual test plan (a facet worth
+        # citing on its own), while reusing the one scan above rather than re-walking the repo (ADR-TEST:20).
+        It 'excludes .git directory by default' -Tag 'integrity' {
+            $gitFiles = @($results | Where-Object { $_.RelativePath -match '^\\.git/' -or $_.RelativePath -match '^\.git/' })
             $gitFiles | Should -BeNullOrEmpty
         }
     }

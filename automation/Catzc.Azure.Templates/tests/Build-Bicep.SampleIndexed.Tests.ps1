@@ -29,6 +29,11 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
             }
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
+
+        # Warm the discovery + config caches once, so the first It doesn't pay the cold Get-BicepTemplate
+        # derive (template-tree enumeration + config load) inside its own timing (ADR-TEST:19). Every test
+        # here reads the same fixture template, and BeforeEach wipes only the build output, not the caches.
+        Get-BicepTemplate sample-indexed | Out-Null
     }
 
     BeforeEach {
