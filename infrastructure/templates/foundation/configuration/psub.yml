@@ -4,4 +4,4 @@ ParametersFile:
     logAnalyticsName:
       value: psub-weu-zct-fnd-log
     keyVaultName:
-      value: sp-weu-zct-fnd-kv
+      value: ps-weu-zct-fnd-kv

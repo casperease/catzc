@@ -110,15 +110,15 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
 
         It 'throws when a subscription lists more than one per-subscription env' {
             $bad = Copy-Object $baseConfig
-            $bad.environments.nsub = [ordered]@{ shortcode = 'sn'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
-            $bad.environments.psub = [ordered]@{ shortcode = 'sp'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
+            $bad.environments.nsub = [ordered]@{ shortcode = 'ns'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
+            $bad.environments.psub = [ordered]@{ shortcode = 'ps'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
             $bad.subscriptions.core_lower.environments = @('alpha', 'nsub', 'psub')
             { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $bad } | Should -Throw '*more than one per-subscription*'
         }
 
         It 'passes with exactly one per-subscription env per subscription' {
             $ok = Copy-Object $baseConfig
-            $ok.environments.nsub = [ordered]@{ shortcode = 'sn'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
+            $ok.environments.nsub = [ordered]@{ shortcode = 'ns'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
             $ok.subscriptions.core_lower.environments = @('alpha', 'nsub')
             { & (Get-Module Catzc.Azure) { Assert-AzureConfig $args[0] } $ok } | Should -Not -Throw
         }

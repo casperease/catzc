@@ -55,12 +55,12 @@ environments:
   # identity env), used by environment_kind: subscription templates (e.g. foundation). nsub = the
   # nonprod subscription, psub = the prod subscription. Standard envs (above) are many-per-subscription.
   nsub:
-    shortcode: sn
+    shortcode: ns
     region: westeurope
     region_code: weu
     per_subscription: true
   psub:
-    shortcode: sp
+    shortcode: ps
     region: westeurope
     region_code: weu
     per_subscription: true

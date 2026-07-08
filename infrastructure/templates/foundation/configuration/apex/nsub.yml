@@ -4,4 +4,4 @@ ParametersFile:
     logAnalyticsName:
       value: nsub-weu-zct-fnd-apex-log
     keyVaultName:
-      value: sn-weu-zct-fnd-ap-kv
+      value: ns-weu-zct-fnd-ap-kv

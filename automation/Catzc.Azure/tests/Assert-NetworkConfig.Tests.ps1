@@ -31,8 +31,8 @@ Describe 'Assert-NetworkConfig' -Tag 'L0' {
                     beta  = [ordered]@{ shortcode = 'bt'; region = 'westeurope'; region_code = 'weu' }
                     gamma = [ordered]@{ shortcode = 'gm'; region = 'westeurope'; region_code = 'weu' }
                     delta = [ordered]@{ shortcode = 'dl'; region = 'westeurope'; region_code = 'weu' }
-                    nsub  = [ordered]@{ shortcode = 'sn'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
-                    psub  = [ordered]@{ shortcode = 'sp'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
+                    nsub  = [ordered]@{ shortcode = 'ns'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
+                    psub  = [ordered]@{ shortcode = 'ps'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
                 }
             }
             Mock Get-Config { $script:fixtureAzure } -ParameterFilter { $Config -eq 'azure' } -ModuleName Catzc.Azure

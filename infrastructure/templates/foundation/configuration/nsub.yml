@@ -4,4 +4,4 @@ ParametersFile:
     logAnalyticsName:
       value: nsub-weu-zct-fnd-log
     keyVaultName:
-      value: sn-weu-zct-fnd-kv
+      value: ns-weu-zct-fnd-kv

@@ -17,7 +17,7 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
                 environments  = [ordered]@{
                     alpha = @{ shortcode = 'al' }
                     beta  = @{ shortcode = 'bt' }
-                    nsub  = @{ shortcode = 'sn'; per_subscription = $true }
+                    nsub  = @{ shortcode = 'ns'; per_subscription = $true }
                 }
             }
         }

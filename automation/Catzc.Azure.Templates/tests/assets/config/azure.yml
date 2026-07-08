@@ -36,12 +36,12 @@ environments:
     region_code: weu
   # Per-subscription envs (per_subscription) for the fixture — nsub (lower/nonprod), psub (upper/prod).
   nsub:
-    shortcode: sn
+    shortcode: ns
     region: westeurope
     region_code: weu
     per_subscription: true
   psub:
-    shortcode: sp
+    shortcode: ps
     region: westeurope
     region_code: weu
     per_subscription: true
