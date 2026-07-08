@@ -65,6 +65,31 @@ public sealed class RainbowColor
         return builder.ToString();
     }
 
+    // The inverse of ToString: parse a rainbow token into a profile, or return null when the text is not one
+    // (so a caller can fall through to a plain ConsoleColor parse). "rainbow" anchors on the ring head (Red),
+    // so it walks the full chromatic ring; "<base>-rainbow" (the ToString form) anchors on that base, so the
+    // string round-trips. Matching is case-insensitive, matching how a ConsoleColor name parses.
+    public static RainbowColor FromString(string text)
+    {
+        if (string.IsNullOrWhiteSpace(text)) { return null; }
+        string token = text.Trim();
+        if (string.Equals(token, "rainbow", StringComparison.OrdinalIgnoreCase))
+        {
+            return new RainbowColor(Ring[0]);
+        }
+        const string suffix = "-rainbow";
+        if (token.Length > suffix.Length && token.EndsWith(suffix, StringComparison.OrdinalIgnoreCase))
+        {
+            string basePart = token.Substring(0, token.Length - suffix.Length);
+            if (Enum.TryParse(basePart, ignoreCase: true, out ConsoleColor baseColor)
+                && Enum.IsDefined(typeof(ConsoleColor), baseColor))
+            {
+                return new RainbowColor(baseColor);
+            }
+        }
+        return null;
+    }
+
     // Side-grade: when only one colour is needed, a profile IS its base colour. This is what lets a profile be
     // passed to any [ConsoleColor] sink (Write-Message, a plain -ForegroundColor) and degrade cleanly.
     public static implicit operator ConsoleColor(RainbowColor profile)

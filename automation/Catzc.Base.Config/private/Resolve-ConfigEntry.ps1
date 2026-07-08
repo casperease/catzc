@@ -23,7 +23,7 @@ function Resolve-ConfigEntry {
 
     if (-not $script:configIndex) {
         $script:configIndex = @{}
-        $automationRoot = Join-Path (Get-RepositoryRoot) 'automation'
+        $automationRoot = Get-CatzcModulesRoot
         foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($automationRoot)) {
             $moduleName = [System.IO.Path]::GetFileName($moduleDir)
             if ($moduleName.StartsWith('.')) {

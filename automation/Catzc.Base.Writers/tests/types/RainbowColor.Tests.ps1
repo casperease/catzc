@@ -49,4 +49,23 @@ Describe 'RainbowColor' -Tag 'L0', 'logic' {
     It 'names itself with the base-colour prefix' {
         $script:green.ToString() | Should -BeExactly 'green-rainbow'
     }
+
+    It 'FromString parses the bare word to a ring-head (red) anchor' {
+        $ret = [Catzc.Base.Writers.RainbowColor]::FromString('rainbow')
+        [System.ConsoleColor]$ret | Should -Be ([System.ConsoleColor]::Red)
+    }
+
+    It 'FromString round-trips the ToString form, case-insensitively' {
+        [System.ConsoleColor]([Catzc.Base.Writers.RainbowColor]::FromString($script:green.ToString())) |
+            Should -Be ([System.ConsoleColor]::Green)
+        [System.ConsoleColor]([Catzc.Base.Writers.RainbowColor]::FromString('CYAN-RAINBOW')) |
+            Should -Be ([System.ConsoleColor]::Cyan)
+    }
+
+    It 'FromString returns null for a non-rainbow token (so a caller falls through to ConsoleColor)' {
+        [Catzc.Base.Writers.RainbowColor]::FromString('cyan') | Should -BeNullOrEmpty
+        [Catzc.Base.Writers.RainbowColor]::FromString('nope-rainbow') | Should -BeNullOrEmpty
+        [Catzc.Base.Writers.RainbowColor]::FromString('-rainbow') | Should -BeNullOrEmpty
+        [Catzc.Base.Writers.RainbowColor]::FromString('') | Should -BeNullOrEmpty
+    }
 }

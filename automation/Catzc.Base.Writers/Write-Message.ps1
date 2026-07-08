@@ -17,7 +17,10 @@
 .PARAMETER NoHeader
     Omits the [caller] prefix.
 .PARAMETER ForegroundColor
-    Text color. When a header is shown, the color applies to the whole line (header included).
+    Text color. When a header is shown, the color applies to the whole line (header included). Accepts a
+    [System.ConsoleColor] (or its name), a 'rainbow' / '<base>-rainbow' bareword, or a
+    [Catzc.Base.Writers.RainbowColor] profile — a status line is solid, so a rainbow input side-grades to its
+    base colour rather than drawing a gradient (a gradient rule is a header/footer concern).
 .PARAMETER Warning
     Render the line yellow on the information stream (ADR-CONSOLE:7 yellow = warning) — a non-fatal, attention-drawing
     status line, NOT the terminating Write-Warning stream. The importer sets $WarningPreference = 'Stop', so a
@@ -41,7 +44,7 @@ function Write-Message {
         [switch] $NoHeader,
 
         [Parameter(ParameterSetName = 'Color')]
-        [System.ConsoleColor] $ForegroundColor,
+        [object] $ForegroundColor,
 
         [Parameter(ParameterSetName = 'Warning')]
         [Alias('Warn')]
@@ -89,7 +92,11 @@ function Write-Message {
         Write-InformationColored $line -ForegroundColor Yellow
     }
     elseif ($PSBoundParameters.ContainsKey('ForegroundColor')) {
-        Write-InformationColored $line -ForegroundColor $ForegroundColor
+        # A status line is one solid line, not a rule, so a rainbow input side-grades to its base colour: the
+        # shared resolver flattens a ConsoleColor, its name, a 'rainbow'/'<base>-rainbow' bareword, or a
+        # RainbowColor profile to one ConsoleColor. Passing a rainbow to Write-Message therefore just works.
+        $plan = Resolve-WriterColor -ForegroundColor $ForegroundColor -Bound
+        Write-InformationColored $line -ForegroundColor $plan.Base
     }
     else {
         Write-InformationColored $line

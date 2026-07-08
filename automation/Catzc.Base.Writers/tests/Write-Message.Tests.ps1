@@ -91,4 +91,29 @@ Describe 'Write-Message' -Tag 'L0', 'logic' {
     It '-Warning and -ForegroundColor are mutually exclusive' {
         { Write-Message 'x' -Warning -ForegroundColor Green } | Should -Throw
     }
+
+    Context '-ForegroundColor accepts rainbow input, side-grading to its base colour' {
+        It 'a plain ConsoleColor name still renders that colour' {
+            Write-Message 'plain' -ForegroundColor Green -NoHeader -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
+            (($iv | ForEach-Object { [string]$_.MessageData }) -join '') | Should -Match ([regex]::Escape("`e[92m"))
+        }
+
+        It 'a RainbowColor profile renders its base colour (a status line is solid, not a gradient)' {
+            $green = [Catzc.Base.Writers.RainbowColor]::new([System.ConsoleColor]::Green)
+            Write-Message 'solid' -ForegroundColor $green -NoHeader -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
+            $text = ($iv | ForEach-Object { [string]$_.MessageData }) -join ''
+            $text | Should -Match ([regex]::Escape("`e[92m"))   # green base
+            @([regex]::Matches($text, '\e\[(9[0-9])m')).Count | Should -Be 1   # one colour, no gradient
+        }
+
+        It "a 'rainbow' bareword side-grades to the ring head, red" {
+            Write-Message 'bare' -ForegroundColor rainbow -NoHeader -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
+            (($iv | ForEach-Object { [string]$_.MessageData }) -join '') | Should -Match ([regex]::Escape("`e[91m"))   # red
+        }
+
+        It "a '<base>-rainbow' bareword side-grades to that base" {
+            Write-Message 'based' -ForegroundColor green-rainbow -NoHeader -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
+            (($iv | ForEach-Object { [string]$_.MessageData }) -join '') | Should -Match ([regex]::Escape("`e[92m"))   # green
+        }
+    }
 }

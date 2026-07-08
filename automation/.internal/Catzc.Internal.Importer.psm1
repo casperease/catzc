@@ -158,6 +158,11 @@ function Invoke-Importer {
     # Discover and import all modules
     $modulesRoot = Join-Path $repoRoot $automationFolder
 
+    # Catzc code anchor — the automation/ tree that holds the loaded modules. Config, type and vendor discovery
+    # follow this, NOT RepositoryRoot: in the mono repo it equals <RepositoryRoot>/automation, but an installed
+    # bundle points it at its own automation/ so catzc is relocatable. Read it via Get-CatzcModulesRoot.
+    $env:CatzcModulesRoot = $modulesRoot
+
     # Optionally wipe compiled type DLLs first so the import below rebuilds them from source.
     if ($ClearCompiledTypes) {
         Clear-CompiledType -ModulesRoot $modulesRoot

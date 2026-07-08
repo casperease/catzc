@@ -8,21 +8,23 @@
       Stars:   ****************
       Heavy:   ╚══════════════╝
 
-    -ForegroundColor takes either a [System.ConsoleColor] (or its string name) or a
-    [Catzc.Base.Writers.RainbowColor] profile, which renders the closing rule as a per-character gradient.
+    -ForegroundColor takes either a [System.ConsoleColor] (or its string name), a 'rainbow' / '<base>-rainbow'
+    bareword, or a [Catzc.Base.Writers.RainbowColor] profile — the last three render the closing rule as a
+    per-character gradient.
 .PARAMETER Style
     Visual style: Curved, Stars, or Heavy. Defaults to Curved.
 .PARAMETER Width
     Total width of the line. Defaults to 78.
 .PARAMETER ForegroundColor
-    Colour for the output: a [System.ConsoleColor] (or its name), or a [Catzc.Base.Writers.RainbowColor]
-    profile for a gradient rule. No colour by default (renders as terminal default).
+    Colour for the output: a [System.ConsoleColor] (or its name), a 'rainbow' / '<base>-rainbow' bareword, or a
+    [Catzc.Base.Writers.RainbowColor] profile — the last three give a gradient rule. No colour by default
+    (renders as terminal default).
 .EXAMPLE
     Write-Header 'Deploying'
     Deploy-App
     Write-Footer
 .EXAMPLE
-    Write-Footer -ForegroundColor ([Catzc.Base.Writers.RainbowColor]::new('Green'))
+    Write-Footer -ForegroundColor rainbow
 #>
 function Write-Footer {
     [CmdletBinding()]

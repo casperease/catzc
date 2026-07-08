@@ -72,5 +72,24 @@ Describe 'Write-Header' -Tag 'L0', 'logic' {
             $raw | Should -Match '\e\[92m╭'
             $raw | Should -Match '\e\[92m│ PASSED'
         }
+
+        It 'a bareword -ForegroundColor rainbow draws the gradient anchored on red' {
+            Write-Header 'PASSED' -Width 20 -ForegroundColor rainbow -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
+            $raw = ($iv | ForEach-Object { $_.MessageData }) -join "`n"
+
+            $codes = [regex]::Matches($raw, '\e\[(\d+)m') | ForEach-Object { $_.Groups[1].Value } |
+                Where-Object { $_ -ne '0' } | Select-Object -Unique
+            @($codes).Count | Should -BeGreaterThan 3
+
+            # char 0 of the rule is the ring head, red (91).
+            $raw | Should -Match '\e\[91m╭'
+        }
+
+        It "a bareword '<base>-rainbow' anchors on that base colour" {
+            Write-Header 'PASSED' -Width 20 -ForegroundColor green-rainbow -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
+            $raw = ($iv | ForEach-Object { $_.MessageData }) -join "`n"
+            $raw | Should -Match '\e\[92m╭'
+            $raw | Should -Match '\e\[92m│ PASSED'
+        }
     }
 }
