@@ -1,11 +1,14 @@
 # cspell:ignore alweutstscusst alweutstscusacst
-# serial: wipes and rebuilds the shared out/template/sample-customer folder, which Build-Bicep.L2.Tests.ps1
-# also builds — a parallel worker would race it (see the test-automation ADR's serial tag).
-Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic', 'serial' {
+Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic' {
     # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
     # build output folder is wiped per test, since the build tests write into it (ADR-TEST:19/ADR-TEST:4).
     BeforeAll {
-        $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-customer'
+        # Isolate build output to this file's throwaway $TestDrive via the output-root seam (ADR-PESTER:2), so
+        # it never shares out/template/<name> with Build-Bicep.L2 or the other sample files — the sharing the
+        # 'serial' tag used to work around (ADR-TEST:26). Mocking the seam removes the sharing (so this runs in
+        # parallel), and Pester auto-cleans $TestDrive, so no manual output teardown is needed.
+        Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
+        $script:outputRoot = Join-Path $TestDrive 'out/template/sample-customer'
 
         Mock Invoke-AzCli {
             if ($Arguments -match 'bicep version') {
@@ -27,16 +30,14 @@ Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic', 'serial' {
             }
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
+
+        # Warm the discovery + config caches once so the first It doesn't pay the cold Get-BicepTemplate derive
+        # inside its own timing now that this file runs in the (timed) parallel phase (ADR-TEST:19).
+        Get-BicepTemplate sample-customer | Out-Null
     }
 
     BeforeEach {
         if ([System.IO.Directory]::Exists($script:outputRoot)) {
-            [System.IO.Directory]::Delete($script:outputRoot, $true)
-        }
-    }
-
-    AfterAll {
-        if ($script:outputRoot -and [System.IO.Directory]::Exists($script:outputRoot)) {
             [System.IO.Directory]::Delete($script:outputRoot, $true)
         }
     }

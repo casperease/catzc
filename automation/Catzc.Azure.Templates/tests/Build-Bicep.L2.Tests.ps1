@@ -18,11 +18,16 @@
 #
 # Isolation is the standard seam swap (ADR-PESTER:2): redirect the template tree to tests/assets/templates and the
 # azure/network configs to the fixtures, so these bind to the sample-* assets, never to shipped templates.
-# serial: builds sample-customer / sample-subscription / sample-with-module into the shared out/template/<name>
-# folders that Build-Bicep.Sample*.Tests.ps1 also write — a parallel worker building the same template races
-# the output folder (see the test-automation ADR's serial tag).
-Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'serial' {
+# greedy, not serial: it drives real `az bicep build` child processes (consuming the machine beyond this
+# process — ADR-TEST:26) but shares no mutable state. The build output is isolated to this file's own root via
+# the Get-BicepTemplatesOutputRoot seam (below), so it no longer races the L0 Build-Bicep.Sample*.Tests.ps1
+# files on out/template/<name> — which is what previously forced the serial tag.
+Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greedy' {
     BeforeAll {
+        # Isolate build output to this file's throwaway $TestDrive (ADR-PESTER:2) so the real-az builds never
+        # share out/template/<name> with the L0 sample files — removing the sharing that forced a serial tag.
+        # Pester auto-cleans $TestDrive, so the per-test output teardown below is belt-and-suspenders only.
+        Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
@@ -41,7 +46,7 @@ Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'seria
     }
 
     It 'real az bicep build compiles a multi-slot template to main.json (sample-customer)' {
-        $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-customer'
+        $script:outputRoot = Join-Path $TestDrive 'out/template/sample-customer'
         if (-not (Get-Command az -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_az_missing'
             return
@@ -57,7 +62,7 @@ Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'seria
     }
 
     It 'a subscription-scoped template compiles end-to-end (targetScope = subscription) (sample-subscription)' {
-        $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-subscription'
+        $script:outputRoot = Join-Path $TestDrive 'out/template/sample-subscription'
         if (-not (Get-Command az -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_az_missing'
             return
@@ -71,7 +76,7 @@ Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'seria
     }
 
     It 'real az inlines a local reusable module into main.json (sample-with-module)' {
-        $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-with-module'
+        $script:outputRoot = Join-Path $TestDrive 'out/template/sample-with-module'
         if (-not (Get-Command az -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_az_missing'
             return

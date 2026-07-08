@@ -38,7 +38,11 @@ function Invoke-BicepPostDeploy {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
+        # 'customer' is mocked alongside azure/network so template discovery validates the sample-customer
+        # fixture (its configuration/<customer>/ folders) against the fixture customer.yml, not the shipped one.
+        # Without it this file is not hermetic — it passed only when Build-Bicep.SampleCustomer happened to
+        # share a worker and pre-populate the template-descriptor cache (ADR-TEST:4/ADR-TEST:19).
+        Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }

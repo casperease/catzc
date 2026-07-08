@@ -1,8 +1,9 @@
 # ADR: The commit lifecycle — states, environment occupancy, and the stable sync point
 
-The value-chain diagram encodes more than a promotion ladder: it encodes what _happens to a commit_ — how it advances, where it dies, how it
-retires, how it is overtaken by a newer commit, which commit an environment currently hosts, and which commit the outside world should
-integrate from. This ADR states that lifecycle and integration model. The pipeline _domains_ (CI / CD / DEPLOY, the tagged artifact,
+The value-chain diagrams under `docs/.assets/commits-quality` — the `value-chain` promotion diagram and its `state-changes` flow-variant
+companion — encode more than a promotion ladder: they encode what _happens to a commit_ — how it advances, where it dies, how it retires,
+how it is overtaken by a newer commit, which commit an environment currently hosts, and which commit the outside world should integrate
+from. This ADR states that lifecycle and integration model. The pipeline _domains_ (CI / CD / DEPLOY, the tagged artifact,
 build-once-deploy-many) are owned by [ci-discipline-and-promotion-flow](ci-discipline-and-promotion-flow.md) (`ADR-FLOW`); the _visual
 grammar_ (colours, lanes, ghosts, numbers) by [visual-design](visual-design.md) (`ADR-VISUAL`). This ADR owns the commit's lifecycle states
 and the upstream/downstream sync semantics.
@@ -22,9 +23,10 @@ release-verified (light-green) → in production (mint). At any rung a commit ma
 ### Rule ADR-LIFE:2
 
 **Discard is terminal rejection at a named stage, and the discarded commit stays in history.** A process rejects a candidate: **BVT** and
-**L3** discard automatically, **release-uat** discards through its manual gate, and **main-UAT** can kill a commit that fails there. A
-discarded commit is coloured red, remains on the line where it was committed (history is never rewritten), and can never progress. The
-diagram records _where_ it died, because "discarded at BVT" and "discarded at release-uat" are different facts about the same outcome.
+**L3** discard automatically, **release-uat** discards through its manual gate (**RBC**, ADR-FLOW:9), and **main-UAT** can kill a commit
+that fails there or hold it at its manual gate (**RC**, ADR-FLOW:9). A discarded commit is coloured red, remains on the line where it was
+committed (history is never rewritten), and can never progress. The diagram records _where_ it died, because "discarded at BVT" and
+"discarded at release-uat" are different facts about the same outcome.
 
 - [Discard is rejection, and it is named](#discard-is-rejection-and-it-is-named)
 
@@ -50,8 +52,8 @@ and "delivered then retired": valid, but not chosen.
 
 **Each always-on environment hosts exactly one current commit, plus a history.** `main-UAT`, `release-uat`, and `production` are stateful,
 not pass-through: at any moment each holds one **current occupant** — the commit presently deployed there — and a trail of the commits it
-held before. An environment box in the diagram therefore names one live commit, and reading its occupant tells you the true state of that
-environment right now.
+held before. An environment box in the diagram is a neutral container naming one live commit, drawn in that occupant's current state colour
+(ADR-VISUAL:13), so reading its occupant tells you the true state of that environment right now.
 
 - [Environments have a single occupant](#environments-have-a-single-occupant)
 
@@ -110,9 +112,10 @@ terminal.
 ## Discard is rejection, and it is named
 
 Every gate exists to reject, and the diagram records not just that a commit was rejected but by which gate, because the gate is the
-diagnosis. BVT and L3 reject automatically the moment their checks fail; release-uat rejects only when a human opens its manual gate the
-wrong way; `main-UAT` rejects a commit that cannot stand up on the always-on environment. Keeping the rejection point in the record turns
-"it was discarded" into "it was discarded at L3", which is the difference between a shrug and a lead.
+diagnosis. BVT and L3 reject automatically the moment their checks fail; release-uat rejects only when a human opens its manual gate (RBC)
+the wrong way; `main-UAT` rejects a commit that cannot stand up on the always-on environment, or that a human holds at its gate (RC).
+Keeping the rejection point in the record turns "it was discarded" into "it was discarded at L3", which is the difference between a shrug
+and a lead.
 
 ## Retirement is success, not rejection
 
@@ -176,7 +179,7 @@ These commits are the canonical encoding of the model; each number is one commit
 
 | #   | Journey                                    | Ending                                                                   |
 | --- | ------------------------------------------ | ------------------------------------------------------------------------ |
-| 0   | progressed up the ladder to release-uat    | **discarded** — manually rejected at the release-uat gate                |
+| 0   | progressed up the ladder to release-uat    | **discarded** — manually rejected at the release-uat gate (RBC)          |
 | 1   | reached production and served there        | **retired** — decommissioned after a successor took over                 |
 | 2   | progressed to L3-vertical on main          | **discarded** — auto-rejected in L3-vertical                             |
 | 3   | reached release-uat, valid                 | **superseded** — overtaken by 4's rollover                               |

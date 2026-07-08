@@ -4,7 +4,7 @@
 
 ### Rule ADR-PIPETYPE:1
 
-Every ADO artifact is exactly one of the six types — CRON, CI, CD, CDE, DEPLOY, or INPUT. An artifact that does not fit is a design problem
+Every ADO artifact is exactly one of the six types — CRON, CI, CD, CDe, DEPLOY, or INPUT. An artifact that does not fit is a design problem
 to resolve, not a seventh type to invent.
 
 - [Decision](#decision)
@@ -80,35 +80,38 @@ which is what makes a locked release commit certifiable. It never deploys from a
 ### Rule ADR-PIPETYPE:11
 
 DEPLOY exists to make an environment's governance a first-class pipeline construct — one place for access control, isolation, and audit
-history over a manually-gated environment. Its two canonical targets are a release-branch certification environment locked to a commit for
-stabilization, and an automated pre-prod rollover chained to a manual prod-approval gate.
+history over a manually-gated environment. Its two canonical targets are the two hands-on release gates of
+[ADR-FLOW:9](../design/ci-discipline-and-promotion-flow.md#rule-adr-flow9): **RBC** — a release-branch certification environment
+(release-uat) locked to a commit for stabilization — and **RC** — an automated pre-prod rollover onto main-UAT chained to a manual
+prod-approval gate. The **gate** is the ADR-FLOW concept — the human certification (RC / RBC) that decides _whether_ to proceed; DEPLOY is
+only the **actuator** that drives the pinned artifact onward once that gate clears. DEPLOY never owns the decision.
 
 - [DEPLOY — the governed deploy tail, extracted](#deploy--the-governed-deploy-tail-extracted)
 
 ### Rule ADR-PIPETYPE:12
 
-CDE (Continuous Deployment) is a CD that **internalizes and automates the roll to production**. It runs the same CI engine and the same
+CDe (Continuous Deployment) is a CD that **internalizes and automates the roll to production**. It runs the same CI engine and the same
 deploy-and-verify path as CD (ADR-PIPETYPE:3, ADR-PIPETYPE:9), builds nothing new, and drives the CI engine's tagged, commit-pinned artifact
 all the way to prod. Its defining trait: the promotion of a locked commit-and-build to production is an **automated activity of the
 pipeline**, not a separately-triggered DEPLOY.
 
-- [CDE — Continuous Deployment, the prod roll internalized](#cde--continuous-deployment-the-prod-roll-internalized)
+- [CDe — Continuous Deployment, the prod roll internalized](#cde--continuous-deployment-the-prod-roll-internalized)
 
 ### Rule ADR-PIPETYPE:13
 
-A CDE may contain **internal** manual gates — an approval before the production stage — but they are checkpoints _inside_ an automated
-promotion. Such a gate does not make it a DEPLOY: what separates CDE (deployment) from CD → DEPLOY (delivery) is that the roll-to-prod
+A CDe may contain **internal** manual gates — an approval before the production stage — but they are checkpoints _inside_ an automated
+promotion. Such a gate does not make it a DEPLOY: what separates CDe (deployment) from CD → DEPLOY (delivery) is that the roll-to-prod
 activity is automatically determined, not human-initiated.
 
-- [CDE — Continuous Deployment, the prod roll internalized](#cde--continuous-deployment-the-prod-roll-internalized)
+- [CDe — Continuous Deployment, the prod roll internalized](#cde--continuous-deployment-the-prod-roll-internalized)
 
 ### Rule ADR-PIPETYPE:14
 
-CDE shares the one deploy-and-verify path with CD and DEPLOY (ADR-PIPETYPE:9) — never a second deploy implementation. A deployable unit's
-production promotion is governed as **either** CD → DEPLOY (delivery, human-governed prod) **or** CDE (deployment, automated prod), never
+CDe shares the one deploy-and-verify path with CD and DEPLOY (ADR-PIPETYPE:9) — never a second deploy implementation. A deployable unit's
+production promotion is governed as **either** CD → DEPLOY (delivery, human-governed prod) **or** CDe (deployment, automated prod), never
 both; the choice is a per-unit governance posture.
 
-- [CDE — Continuous Deployment, the prod roll internalized](#cde--continuous-deployment-the-prod-roll-internalized)
+- [CDe — Continuous Deployment, the prod roll internalized](#cde--continuous-deployment-the-prod-roll-internalized)
 
 ## Context
 
@@ -128,7 +131,7 @@ not specify the deploy orchestration, the INPUT translator internals, or the YAM
 
 ### The CI engine — shared by three of the six types
 
-Three of the six types (CI, CD, CDE) are built from the same component, so it is named once here and referenced by all three: the **CI
+Three of the six types (CI, CD, CDe) are built from the same component, so it is named once here and referenced by all three: the **CI
 engine**.
 
 The CI engine is **build-and-verify**, run in two trigger contexts on the same code:
@@ -145,20 +148,20 @@ to publish (see CI-automation below).
 
 ## Decision
 
-There are exactly six pipeline types: **CRON**, **CI**, **CD**, **CDE**, **DEPLOY**, and **INPUT**.
+There are exactly six pipeline types: **CRON**, **CI**, **CD**, **CDe**, **DEPLOY**, and **INPUT**.
 
 | Type       | What it actually is                            | Trigger                                  | Components                                   | Produces                                    |
 | ---------- | ---------------------------------------------- | ---------------------------------------- | -------------------------------------------- | ------------------------------------------- |
 | **CRON**   | Automation job on a timer (not a pipeline)     | Schedule                                 | One automation invocation                    | A side effect (e.g. rotated cert)           |
 | **CI**     | A CD pipeline with the deploy removed          | PR build validation + post-commit master | The CI engine only                           | A pass/fail signal (no artifact, no deploy) |
 | **CD**     | CI + CD: the CI engine, then deploy + verify   | PR build validation + post-commit master | The CI engine, then deploy & system tests    | A verified artifact, then a deployment      |
-| **CDE**    | CD with the prod roll internalized & automated | PR build validation + post-commit master | The CI engine, then deploy + verify to prod  | An automated production deployment          |
+| **CDe**    | CD with the prod roll internalized & automated | PR build validation + post-commit master | The CI engine, then deploy + verify to prod  | An automated production deployment          |
 | **DEPLOY** | CD's deploy tail, extracted and human-governed | Manual/chained, pinned to a commit       | Deploy & system tests over a pinned artifact | A governed, audited deployment              |
 | **INPUT**  | Self-service input turned into a config change | Manual, with ADO pipeline parameters     | Param intake → checkout → write config files | A version-controlled change (a commit)      |
 
-CDE is the fullest — the CI engine, then deploy-and-verify across non-prod and prod, automated end to end; CD is CDE with the production
+CDe is the fullest — the CI engine, then deploy-and-verify across non-prod and prod, automated end to end; CD is CDe with the production
 roll left to a separately-governed step; CI is CD with the deploy and system-test stages amputated; and DEPLOY is exactly those amputated
-stages given their own human-governed pipeline. CI, CD, and CDE share **one** CI engine; CD, CDE, and DEPLOY share **one** deploy path.
+stages given their own human-governed pipeline. CI, CD, and CDe share **one** CI engine; CD, CDe, and DEPLOY share **one** deploy path.
 
 ### CRON — automation jobs on a timer
 
@@ -239,38 +242,40 @@ Concretely:
 
 **Two canonical targets:**
 
-1. **Release-branch certification environment.** Locked to a specific commit — a release-branch head or a `main` commit — so the environment
-   holds **stable** while a release variant is certified against exactly that commit. Because DEPLOY is deterministic (ADR-PIPETYPE:10),
-   re-running it re-materialises the same artifact, which is what "certified at commit X" means. This is the deploy half of release-branch
-   stabilization.
-2. **Pre-prod rollover, then a manual prod gate.** The pipeline **automatically** rolls pre-prod over to the pinned artifact and runs its L3
-   / end-to-end system tests there, then **chains to a manual approval gate** before deploy-to-prod. The automated pre-prod rollover and its
-   green L3 run are the evidence that gates the human production approval; the production cutover itself is human-approved. One pipeline
-   construct carries the whole promotion — automated where it can be, human where the organization requires it.
+1. **Release-branch certification environment — the RBC gate** (release-uat, ADR-FLOW:9). Locked to a specific commit — a release-branch
+   head or a `main` commit — so the environment holds **stable** while a release variant is certified against exactly that commit. Because
+   DEPLOY is deterministic (ADR-PIPETYPE:10), re-running it re-materialises the same artifact, which is what "certified at commit X" means.
+   This is the deploy half of release-branch stabilization; **RBC** is the human certification at that environment, and DEPLOY the actuator
+   once it clears.
+2. **Pre-prod rollover, then a manual prod gate — the RC gate** (main-UAT, ADR-FLOW:9). The pipeline **automatically** rolls pre-prod over
+   to the pinned artifact and runs its L3 / end-to-end system tests there, then **chains to a manual approval gate** before deploy-to-prod.
+   The automated pre-prod rollover and its green L3 run are the evidence that gates the human production approval; **RC** is that human
+   certification and the production cutover itself is human-approved. One pipeline construct carries the whole promotion — automated where
+   it can be, human where the organization requires it.
 
-### CDE — Continuous Deployment, the prod roll internalized
+### CDe — Continuous Deployment, the prod roll internalized
 
-A CDE pipeline is a **CD pipeline that internalizes and automates the roll to production**. Where a CD pipeline stops at non-prod and hands
-the production cutover to a separately-triggered, human-governed DEPLOY — Continuous _Delivery_ — a CDE pipeline continues past non-prod and
+A CDe pipeline is a **CD pipeline that internalizes and automates the roll to production**. Where a CD pipeline stops at non-prod and hands
+the production cutover to a separately-triggered, human-governed DEPLOY — Continuous _Delivery_ — a CDe pipeline continues past non-prod and
 drives the same tagged artifact into production **automatically** — Continuous _Deployment_. It runs the same CI engine (ADR-PIPETYPE:3) and
 the same deploy-and-verify path (ADR-PIPETYPE:9, ADR-PIPETYPE:14) as CD and DEPLOY — it forks neither — and it **builds nothing** new: the
 artifact it rolls to prod is the CI engine's build-once output, pinned to the locked commit.
 
-What makes it CDE rather than CD → DEPLOY is **where the promotion decision lives**. In CD → DEPLOY the decision to go to prod is external —
-a human starts, or approves the cutover inside, a DEPLOY pipeline (ADR-PIPETYPE:8). In CDE the decision is internalized: for a locked commit
-and its verified build, the pipeline advances to prod **automatically**. A CDE may still pause at an **internal** approval gate before its
+What makes it CDe rather than CD → DEPLOY is **where the promotion decision lives**. In CD → DEPLOY the decision to go to prod is external —
+a human starts, or approves the cutover inside, a DEPLOY pipeline (ADR-PIPETYPE:8). In CDe the decision is internalized: for a locked commit
+and its verified build, the pipeline advances to prod **automatically**. A CDe may still pause at an **internal** approval gate before its
 production stage, but that gate is a checkpoint _inside_ an automated promotion, not a separate construct someone must trigger; the activity
 — "roll this locked artifact to prod" — is determined by the pipeline.
 
 This is the sharp line against DEPLOY's second canonical target (the automated pre-prod rollover chained to a manual prod gate): there, the
-production cutover is **required** to be human-approved — that gate is the pipeline's _primary_ governance, and it is Delivery. In a CDE, a
+production cutover is **required** to be human-approved — that gate is the pipeline's _primary_ governance, and it is Delivery. In a CDe, a
 prod gate is optional and, when present, _internal_ to an otherwise automated roll — the promotion is Deployment.
 
 - **Trigger:** the CI engine triggers as for CD (PR build validation + post-commit master); the non-prod deploy, the production roll, and
   any internal gate run as automated continuations once the post-commit build is green.
 - **Components:** the CI engine, then the shared deploy-and-verify path across non-prod and prod, over the one immutable tagged artifact —
   build-once, deploy-many.
-- **Contract:** one CDE pipeline per deployable unit whose production promotion is automated. It deploys and verifies; it does not build,
+- **Contract:** one CDe pipeline per deployable unit whose production promotion is automated. It deploys and verifies; it does not build,
   re-run the CI engine, or render config (git-resident already). Its defining trait versus CD is that **the production roll is an automated
   activity of the pipeline**, not a human-triggered DEPLOY; versus DEPLOY, that any prod gate is an _internal_ approval in an automated
   flow, not the pipeline's _primary_ manual governance.
@@ -305,7 +310,7 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 
 ## How this is enforced
 
-- **The taxonomy is the review checklist.** A new ADO artifact is classified as CRON / CI / CD / CDE / DEPLOY / INPUT at review. An artifact
+- **The taxonomy is the review checklist.** A new ADO artifact is classified as CRON / CI / CD / CDe / DEPLOY / INPUT at review. An artifact
   that cannot be cleanly classified does not merge until it can.
 - **The pipelines in `pipelines/`** are the canonical shape for each type — the patterns new pipelines copy, the way the exemplars work
   elsewhere in this codebase.
@@ -318,9 +323,9 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 - A manually-governed deploy has a name and a home: it is a DEPLOY pipeline, so a production or certification cutover under SOP/ITSM gates
   is a separate, access-controlled, auditable construct — not an approval stage buried inside a CD pipeline built to run automatically. CD
   and DEPLOY still share one deploy path, so the extraction costs no duplicated deploy logic.
-- Continuous Deployment is named apart from Delivery: a unit that auto-rolls to prod is a **CDE**, a unit that leaves prod to a
+- Continuous Deployment is named apart from Delivery: a unit that auto-rolls to prod is a **CDe**, a unit that leaves prod to a
   human-governed cutover is **CD → DEPLOY**. The promotion posture is stated, not inferred from whether a stage happens to be automated —
-  and CDE reuses the one CI engine and the one deploy path, so it too costs no forked build or deploy logic.
+  and CDe reuses the one CI engine and the one deploy path, so it too costs no forked build or deploy logic.
 - CI and CD stay coherent because they are the same engine plus or minus a deploy — there is one definition of "build and verify," used
   twice.
 - The pre-commit gate stays fast (5–10 min) because slow system-level tests have a named home: the CD post-commit deploy path.
@@ -332,7 +337,7 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 ## Related
 
 - [ci-discipline-and-promotion-flow](../design/ci-discipline-and-promotion-flow.md) — the design layer above this taxonomy: CI as a
-  discipline, and how CI / CD / CDE / DEPLOY key together into a promotion flow via the tagged artifact.
+  discipline, and how CI / CD / CDe / DEPLOY key together into a promotion flow via the tagged artifact.
 - [pipeline-runner-pattern](pipeline-runner-pattern.md) — how all six invoke PowerShell.
 - [custom-template-discipline](custom-template-discipline.md) — YAML carries ADO concerns only.
 - [pipeline-detection](pipeline-detection.md), [pipeline-variables](pipeline-variables.md), [dual-authentication](dual-authentication.md) —
@@ -352,7 +357,7 @@ governance contract and trigger model.
 
 - [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — CD pattern with explicit build-once-deploy-many and
   human-gated production.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — DEPLOY and CDE have named, first-class deployment
+- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — DEPLOY and CDe have named, first-class deployment
   constructs.
 - [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — CI/CD both run post-commit on master, the single
   source of truth.

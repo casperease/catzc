@@ -106,7 +106,8 @@ needed to cross-check another asset would belong to that asset's layer, not here
 - **`git_workspace`** — how changes reach main (`ADR-VARIANT:6`), `main-direct | main-via-pr`, default `main-direct`. Committing is always
   allowed in both modes — a solo trunk commits to main directly, and PR-mode work lives on branches where committing is equally fine; the
   variant exists for the one asymmetry, `main-via-pr` **and** standing on main/master locally, which is the only stop condition automation
-  enforces (`Sync-GeneratedFile`'s branch guard reads `Test-GitWorkspace -MainViaPr`).
+  enforces (`Sync-GeneratedFile`'s branch guard reads `Test-GitWorkspace -MainViaPr`). This is the **PR-vs-Direct** integration axis the
+  value-chain diagrams (`ADR-FLOW`) prefix a flow with (`PR + CD + …` vs a `Direct` flow).
 - **`have_customers`** — the enabled-customer set (`ADR-VARIANT:5`), tri-state `false | all | [names]`. It is the gate for customer
   deployments and the source of the per-template `customer_deployment` default (see [customer-model](../azure/customer-model.md)). Keeping
   the enabled set in the variant (rather than deriving it from `customer.yml`) is what lets the `HaveCustomer(s)` primitives answer "is this
