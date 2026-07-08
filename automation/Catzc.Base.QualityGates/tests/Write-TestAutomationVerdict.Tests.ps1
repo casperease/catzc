@@ -15,10 +15,10 @@ Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-CONSOLE#7' {
         # The presenter is a private (module-scoped) function, so it is invoked through InModuleScope
         # (ADR-PESTER:4). Returns the RAW banner (ANSI intact) so a caller can assert on colour or strip for text.
         function Get-VerdictRaw {
-            param($Result, $Summary, $PassedCount = 0, $FailedCount = 0, $SkippedCount = 0, $DurationSeconds = 0)
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ R = $Result; S = $Summary; P = $PassedCount; F = $FailedCount; K = $SkippedCount; D = $DurationSeconds } {
-                param($R, $S, $P, $F, $K, $D)
-                Write-TestAutomationVerdict -Result $R -Summary $S -PassedCount $P -FailedCount $F -SkippedCount $K -DurationSeconds $D `
+            param($Result, $Summary, $PassedCount = 0, $FailedCount = 0, $SkippedCount = 0, $DurationSeconds = 0, $ReportPath = '')
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ R = $Result; S = $Summary; P = $PassedCount; F = $FailedCount; K = $SkippedCount; D = $DurationSeconds; RP = $ReportPath } {
+                param($R, $S, $P, $F, $K, $D, $RP)
+                Write-TestAutomationVerdict -Result $R -Summary $S -PassedCount $P -FailedCount $F -SkippedCount $K -DurationSeconds $D -ReportPath $RP `
                     -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
                 ($iv | ForEach-Object { [string]$_.MessageData }) -join "`n"
             }
@@ -52,6 +52,18 @@ Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-CONSOLE#7' {
         $raw = Get-VerdictRaw -Result 'Passed' -Summary 'x' -PassedCount 1
         $lines = (StripAnsi $raw) -split "`n" | Where-Object { $_ -ne '' }
         $lines[-1] | Should -Match '^╰─+╯$'
+    }
+
+    It 'carries the report location inside the bracket, above the closing rule' {
+        $raw = Get-VerdictRaw -Result 'Passed' -Summary 'x' -PassedCount 1 -ReportPath 'C:\out\test-automation\20260708-101112'
+        $lines = (StripAnsi $raw) -split "`n" | Where-Object { $_ -ne '' }
+        $lines[-2] | Should -Match 'Report: C:\\out\\test-automation\\20260708-101112'
+        $lines[-1] | Should -Match '^╰─+╯$'   # the report line sits before the closing footer, still inside the bracket
+    }
+
+    It 'omits the report line when no location is given' {
+        $plain = StripAnsi (Get-VerdictRaw -Result 'Passed' -Summary 'x' -PassedCount 1)
+        $plain | Should -Not -Match 'Report:'
     }
 
     It 'rejects a verdict outside the two expected values (fail-fast at binding)' {

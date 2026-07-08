@@ -25,6 +25,9 @@
     Skipped-test count, rendered on the detail line.
 .PARAMETER DurationSeconds
     Wall-clock duration, rendered on the detail line.
+.PARAMETER ReportPath
+    The run's report directory. Rendered on its own line inside the closing bracket so the "where do I look"
+    pointer travels with the verdict itself rather than adrift in earlier output. Omitted (empty) prints no line.
 #>
 function Write-TestAutomationVerdict {
     [CmdletBinding()]
@@ -42,7 +45,9 @@ function Write-TestAutomationVerdict {
 
         [int] $SkippedCount,
 
-        [double] $DurationSeconds
+        [double] $DurationSeconds,
+
+        [string] $ReportPath
     )
 
     # Green-rainbow celebrates a pass, red-rainbow marks a fail — the gradient lives in this one end-of-run
@@ -58,7 +63,14 @@ function Write-TestAutomationVerdict {
 
     Write-Message '' -NoHeader
     Write-Header "Test Automation $($Result.ToUpperInvariant()) — $Summary" -ForegroundColor $rainbow
-    $detail = '{0} passed · {1} skipped · {2} failed · {3:N1}s wall clock' -f $PassedCount, $SkippedCount, $FailedCount, $DurationSeconds
+    # Invariant so the duration reads the same on any devbox culture (ADR-XPLAT:6), matching the title's summary.
+    $detail = [string]::Format([System.Globalization.CultureInfo]::InvariantCulture,
+        '{0} passed · {1} skipped · {2} failed · {3:N1}s wall clock', $PassedCount, $SkippedCount, $FailedCount, $DurationSeconds)
     Write-Message $detail -NoHeader
+    # The report pointer rides inside the bracket, on its own default-coloured line — the verdict is where a
+    # reader looks last, so it is where "and here is the full report" belongs.
+    if ($ReportPath) {
+        Write-Message "Report: $ReportPath" -NoHeader
+    }
     Write-Footer -ForegroundColor $rainbow
 }

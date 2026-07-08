@@ -7,8 +7,8 @@ committed prebuild, and the cache-state behaviour — is the [native-csharp-type
 
 ## What lives here
 
-- **`DictionaryRecord`** — the shared base for dictionary-compatible data records, in [`Catzc.Base.Objects`](../catzc-base-objects.md). It
-  supplies a dictionary view over a record's own public properties and the protected extraction helpers derived records use.
+- **`DictionaryRecord`** — the shared base for dictionary-compatible data records, in [`Catzc.Base.Objects`](../catzc-base-objects.md).
+  It supplies a dictionary view over a record's own public properties and the protected extraction helpers derived records use.
 - **Type-accelerator aliases** — a type may publish a short `[Catzc.*]` accelerator, registered after the assembly loads, so
   `[Catzc.Module.X]` resolves at the call site.
 - **The IDE project** — [`Catzc.Base.TypesSystem`](../catzc-base-typessystem.md) drives the editor-facing `dotnet build` of the

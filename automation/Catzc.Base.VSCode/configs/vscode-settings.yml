@@ -86,6 +86,17 @@ settings:
     '**/*.yaml': azure-pipelines
     '**/.markdownlintignore': ignore
 
+  # Route *.drawio.png to VS Code's built-in image preview editor (viewType imagePreview.previewEditor, from
+  # the bundled media-preview extension) instead of the Draw.io extension's binary custom editor. This is
+  # what makes git Compare show a real raw-pixel image diff (side-by-side / slider) instead of the Draw.io
+  # tool, which cannot diff. NOTE: the value must be the image-preview viewType, NOT "default" — "default"
+  # is the built-in *text* editor and yields "file is binary or uses an unsupported encoding" on a PNG.
+  # VS Code has no way to pick an editor by diff-vs-open, so this association also applies to a plain open:
+  # double-clicking a .drawio.png shows the image; to EDIT the diagram, right-click -> Reopen Editor With ->
+  # "Draw.io (Binary)". Pixels-first was the deliberate call: these diagrams are compared far more than edited.
+  workbench.editorAssociations:
+    '*.drawio.png': imagePreview.previewEditor
+
   # Prettier is the .yaml (ADO pipeline) formatter, the same engine Format-Pipelines runs — so the editor
   # and the catzc gate produce byte-identical output (ADR-FORMAT). `.yaml` is the azure-pipelines language
   # (files.associations above), a custom language prettier-vscode does not format by default, so

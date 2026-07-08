@@ -330,36 +330,18 @@ function Test-Automation {
         $passedCount = @($rows | Where-Object { $_.Result -eq 'Passed' }).Count
         $skippedCount = @($rows | Where-Object { $_.Result -eq 'Skipped' }).Count
 
-        # A timing-only failure fails the run without changing $runResult (only $manifestStatus), so the banner's
-        # verdict folds it in — the closing bracket must read FAILED whenever the run fails, for any reason.
-        $verdictResult = if ($runResult -ne 'Passed' -or $timingFailure) {
-            'Failed'
-        }
-        else {
-            'Passed'
-        }
-        # One reason line, reused by the banner and the throw. On a pass it is the counts-in-time; on a fail it
-        # names the cause (failed tests, a failed shard with no failed test, or an -EnforceTimings over-limit).
-        $verdictSummary = if ($verdictResult -eq 'Passed') {
-            "$passedCount passed, $skippedCount skipped in $([math]::Round($workerRun.DurationSeconds, 1))s"
-        }
-        elseif ($failedCount -gt 0) {
-            "$failedCount test(s) failed"
-        }
-        elseif ($failedShardLabels.Count -gt 0) {
-            "worker(s) $($failedShardLabels -join ', ') reported a failed run with no failed tests (a container/discovery error — see the output above)"
-        }
-        else {
-            $timingViolationCount = @(Get-TestTimingViolation -Rows $rows -Limits $limits).Count
-            "$timingViolationCount test(s) exceeded their level time limit (-EnforceTimings)"
-        }
+        # Derive the verdict (Result + one-line reason) once; the closing banner and the failure throw both
+        # consume it, so the reason wording lives in exactly one place.
+        $verdict = Get-TestAutomationVerdict -Rows $rows -Limits $limits -RunResult $runResult `
+            -FailedCount $failedCount -FailedShardLabels $failedShardLabels -TimingFailure:$timingFailure `
+            -PassedCount $passedCount -SkippedCount $skippedCount -DurationSeconds $workerRun.DurationSeconds
 
         # The closing bracket prints on every exit path — pass, fail, and -PassThru alike — so a run is always
         # visually closed. Console UX is orthogonal to the -PassThru data return (banner on the information
         # stream, object on the output stream), and orthogonal to the throw that still fires last on a fail.
-        Write-TestAutomationVerdict -Result $verdictResult -Summary $verdictSummary `
+        Write-TestAutomationVerdict -Result $verdict.Result -Summary $verdict.Summary `
             -PassedCount $passedCount -FailedCount $failedCount -SkippedCount $skippedCount `
-            -DurationSeconds $workerRun.DurationSeconds
+            -DurationSeconds $workerRun.DurationSeconds -ReportPath $runDir
 
         if ($PassThru) {
             [pscustomobject]@{
@@ -377,7 +359,7 @@ function Test-Automation {
             }
         }
         elseif ($runResult -ne 'Passed' -or $timingFailure) {
-            throw "Test-Automation failed: $verdictSummary"
+            throw "Test-Automation failed: $($verdict.Summary)"
         }
     }
     finally {

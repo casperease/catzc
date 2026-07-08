@@ -39,6 +39,7 @@ Modules are layered — a module may only call into the modules it declares in `
 | [Catzc.Base.TypesSystem](catzc-base-typessystem.md)                         | The native C# type system — compiled-assembly cache and cross-module type-ref scanning        |
 | [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md)                       | The module/function dependency graph, integrity, and vendoring                                |
 | [Catzc.Base.QualityGates](catzc-base-qualitygates.md)                       | The repository's self-check gates — tests, spelling, markdownlint, formatting                 |
+| [Catzc.Base.Exporter](catzc-base-exporter.md)                               | The installable-bundle exporter — bundle version and content-addressed identity               |
 | [Catzc.Base.Docs](catzc-base-docs.md)                                       | Generated module READMEs, copy-in from a docs source, gitignored                              |
 | [Catzc.Base.Git](catzc-base-git.md)                                         | The declarative gitignore — explained zones in `gitignore.yml`, rendered by `New-GitIgnore`   |
 | [Catzc.Base.VSCode](catzc-base-vscode.md)                                   | The declarative editor settings — `vscode-settings.yml` rendered into `.vscode/settings.json` |

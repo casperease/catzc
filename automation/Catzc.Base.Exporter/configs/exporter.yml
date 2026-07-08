@@ -1,0 +1,23 @@
+# The single config for how this repository exports itself as an installable Catzc bundle.
+#
+# Build-Catzc/Export-Catzc read their defaults from here (Get-Config -Config exporter); explicit params
+# override for ad-hoc builds. Because every read routes through the Get-Config / Resolve-ConfigEntry seam,
+# Pester property tests swap in a fixture exporter.yml to vary these options without touching the shipped
+# config — the repo keeps exactly one real export config. Validated on load by Assert-ExporterConfig.
+# See docs/adr/automation/platform-bundle.md and out/plan-export-catzc.md.
+
+# Two numeric (PSModulePath-legal MAJOR.MINOR.PATCH) versions:
+#   direct_install_version — the fixed sentinel every on-disk direct install carries (Catzc/<v>/); obviously
+#                            not a published number, and a re-install overwrites it in place.
+#   version                — the real semver the future NuGet/PSGallery artifact publishes under.
+direct_install_version: 6.6.666
+version: 0.1.0
+
+# The currently-configured export scope:
+#   default_profile — which module set to bundle (a profiles.yml key: full ships everything).
+#   default_aspect  — live ships only the prod-going surface (drops tests/, default-deny); full includes tests.
+#   vendor_policy   — runtime ships only the runtime-required vendored module (powershell-yaml); full also
+#                     ships Pester/PSScriptAnalyzer for a bundle that runs the quality gates.
+default_profile: full
+default_aspect: live
+vendor_policy: runtime

@@ -67,8 +67,6 @@ function Write-TestAutomationArtifacts {
         Write-TestAutomationReport -Rows $Rows -OutputFolder $RunDirectory -Level $MaxLevel -Limits $Limits `
             -RunResult $RunResult -DurationSeconds $DurationSeconds -TimingsEnforced:$EnforceTimings
         Set-Content -Path (Join-Path $OutputFolder 'latest.txt') -Value (Split-Path $RunDirectory -Leaf) -Encoding utf8
-        Write-Message '' -NoHeader
-        Write-Message "Test report: $RunDirectory" -ForegroundColor Cyan -NoHeader
     }
     catch {
         Write-Message "Could not write test report to ${RunDirectory}: $_" -ForegroundColor Yellow -NoHeader
