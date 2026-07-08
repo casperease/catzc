@@ -35,8 +35,9 @@ Delivering a built bundle to where it is used, as two artifacts in two places (t
 copies the module to `<Root>/.vendor/Catzc/<version>/` and writes a root `importer.ps1` whose location becomes the working `RepositoryRoot`
 (so `out/` and repo-relative paths resolve there) and which points `CatzcModulesRoot` at the installed module. Dot-sourcing that importer
 loads the whole platform from the install. It is idempotent — a re-install with the same content hash refreshes only the root importer — and
-verifies the source bundle before touching the destination. `Export-Catzc` is the top-level entry: it builds and then installs in one call
-(the on-disk path), and reserves a `nuget` path that packs and publishes the artifact once the publish pipeline exists.
+verifies the source bundle before touching the destination. `Export-Catzc` is the top-level entry: `-To disk` builds and then installs in
+one call; `-To nuget` builds and packs a `.nupkg` with a PSGallery-compatible module manifest (`Catzc.psd1` + a `Catzc.psm1` RootModule)
+into `out/catzc-nuget/`, the artifact the GitHub release workflow publishes ([github-release](../../adr/pipelines/github-release.md)).
 
 ### domain:3 — Identity and verification
 
@@ -60,8 +61,10 @@ the commit built.
 
 Everything routes through the platform's own seams — the version and options through `Get-Config` (validated on load, swappable in tests),
 the module selection through the profile/dependency-closure machinery, the hash through the native durable-SHA type — so the exporter adds
-an artifact lifecycle on top of the existing platform rather than a parallel one. The near-term surface is direct on-disk install from the
-mono repo; the NuGet/PSGallery publish is a designed seam, disabled until its pipeline lands.
+an artifact lifecycle on top of the existing platform rather than a parallel one. Two delivery shapes share the one bundle: a direct on-disk
+install from the mono repo, and a NuGet package (the `.nupkg` + a `Catzc.psd1` manifest) that the manually-triggered release workflow
+publishes GitHub-first on the built-in token, with the PowerShell Gallery an opt-in target
+([github-release](../../adr/pipelines/github-release.md)).
 
 ## Division
 

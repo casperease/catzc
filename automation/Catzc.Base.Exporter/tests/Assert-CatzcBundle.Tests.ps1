@@ -7,6 +7,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
         $moduleDir = Join-Path $bundle 'automation/Catzc.Base.Widget'
         [System.IO.Directory]::CreateDirectory($moduleDir) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $moduleDir 'Get-Widget.ps1'), 'function Get-Widget { }')
+        [System.IO.File]::WriteAllText((Join-Path $moduleDir 'Catzc.Base.Widget.psd1'), '@{ }')
         [System.IO.File]::WriteAllText((Join-Path $bundle 'importer.ps1'), '# bundle importer')
 
         $hash = Get-CatzcContentHash -Path $bundle -Exclude 'build.json'
@@ -42,5 +43,10 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
     It 'throws when build.json is missing' {
         [System.IO.File]::Delete((Join-Path $bundle 'build.json'))
         { Assert-CatzcBundle -Path $bundle } | Should -Throw -ExpectedMessage '*build.json*'
+    }
+
+    It 'throws when a module is missing its pre-generated manifest (read-only readiness)' {
+        [System.IO.File]::Delete((Join-Path $bundle 'automation/Catzc.Base.Widget/Catzc.Base.Widget.psd1'))
+        { Assert-CatzcBundle -Path $bundle } | Should -Throw -ExpectedMessage '*missing its pre-generated manifest*'
     }
 }

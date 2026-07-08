@@ -21,3 +21,21 @@ version: 0.1.0
 default_profile: full
 default_aspect: live
 vendor_policy: runtime
+
+# NuGet/PSGallery package identity and metadata — Export-Catzc -To nuget builds the .nupkg and the module
+# manifest (Catzc.psd1) from these. module_guid is the module's stable identity across versions (a registered
+# managed GUID, ADR-GUIDS). project_uri/license_uri are optional — set them to enrich the Gallery listing; an
+# empty string omits the field.
+module_guid: ca72c000-00d0-1e00-0000-000000000000
+package:
+  author: Casper Leon Nielsen
+  company: Catzc
+  description: Catzc (cats) — a zero-ceremony PowerShell 7 module system, packaged as an installable, content-addressed bundle.
+  tags:
+    - catzc
+    - cats
+    - powershell
+    - automation
+    - module-system
+  project_uri: ''
+  license_uri: ''

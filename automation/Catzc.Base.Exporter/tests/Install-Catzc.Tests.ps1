@@ -8,6 +8,7 @@ Describe 'Install-Catzc' -Tag 'L0', 'logic' {
         $moduleDir = Join-Path $source 'automation/Catzc.Base.Widget'
         [System.IO.Directory]::CreateDirectory($moduleDir) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $moduleDir 'Get-Widget.ps1'), 'function Get-Widget { }')
+        [System.IO.File]::WriteAllText((Join-Path $moduleDir 'Catzc.Base.Widget.psd1'), '@{ }')
         [System.IO.File]::WriteAllText((Join-Path $source 'importer.ps1'), '# source bundle importer')
         $hash = Get-CatzcContentHash -Path $source -Exclude 'build.json'
         [System.IO.File]::WriteAllText((Join-Path $source 'build.json'), (@{ contentHash = $hash } | ConvertTo-Json))
@@ -71,6 +72,10 @@ Describe 'Catzc bundle install-and-load (walking skeleton)' -Tag 'L2', 'integrit
         $script:root = Join-Path $TestDrive 'destination'
         Install-Catzc -Root $script:root -Source $built.Path -Version $built.Version -Silent | Out-Null
 
+        # Snapshot the installed module tree so we can prove a -Bundle load writes nothing into it (read-only).
+        $script:moduleAutomation = Join-Path $script:root '.vendor/Catzc/6.6.666/automation'
+        $script:hashBefore = Get-CatzcContentHash -Path $script:moduleAutomation
+
         $probe = Join-Path $TestDrive 'probe.ps1'
         $template = @'
 . (Join-Path 'ROOT_PLACEHOLDER' 'importer.ps1')
@@ -78,6 +83,8 @@ Describe 'Catzc bundle install-and-load (walking skeleton)' -Tag 'L2', 'integrit
 '@
         [System.IO.File]::WriteAllText($probe, $template.Replace('ROOT_PLACEHOLDER', $script:root))
         $script:loaded = pwsh -NoProfile -File $probe | ConvertFrom-Json
+
+        $script:hashAfter = Get-CatzcContentHash -Path $script:moduleAutomation
     }
 
     It 'loads the platform from the installed root, outside the repo (no .git)' {
@@ -100,5 +107,9 @@ Describe 'Catzc bundle install-and-load (walking skeleton)' -Tag 'L2', 'integrit
 
     It 'reports the direct-install sentinel version' {
         $script:loaded.Ver | Should -Be '6.6.666'
+    }
+
+    It 'loads read-only — no writes into the installed module tree (prebuilt manifests + DLL)' {
+        $script:hashAfter | Should -Be $script:hashBefore
     }
 }

@@ -51,13 +51,6 @@ function Export-Catzc {
         [switch] $Silent
     )
 
-    if ($To -eq 'nuget') {
-        Write-Message 'NuGet/PSGallery export is designed but not yet enabled — the publish targets in artifacts.yml are disabled. Build the artifact with Build-Catzc and wire the publish pipeline (Phase 2) to enable it.'
-        return
-    }
-
-    Assert-NotNullOrWhitespace $Root
-
     $buildArgs = @{ Silent = $Silent }
     if ($ModuleProfile) {
         $buildArgs.ModuleProfile = $ModuleProfile
@@ -65,6 +58,26 @@ function Export-Catzc {
     if ($VendorPolicy) {
         $buildArgs.VendorPolicy = $VendorPolicy
     }
+
+    if ($To -eq 'nuget') {
+        # Produce the NuGet artifact (the .nupkg + the PSGallery manifest) under out/catzc-nuget/. The published
+        # semver (exporter.yml version), not the direct-install sentinel, names the package. Publishing is the
+        # release workflow's job (GitHub Release / GitHub Packages via the GitHub token, or PSGallery with a key).
+        $packageVersion = $Version
+        if (-not $packageVersion) {
+            $packageVersion = Get-CatzcVersion -Published
+        }
+        $buildArgs.Version = $packageVersion
+        $built = Build-Catzc @buildArgs
+        $destination = Join-Path (Get-OutputRoot -EnsureExists) 'catzc-nuget'
+        $package = New-CatzcNuGetPackage -Source $built.Path -Version $packageVersion -DestinationPath $destination
+        if (-not $Silent) {
+            Write-Message "Packed Catzc $packageVersion ($($package.FunctionCount) functions) -> $(ConvertTo-RepoRelativePath $package.NuPkg)"
+        }
+        return $package
+    }
+
+    Assert-NotNullOrWhitespace $Root
     if ($Version) {
         $buildArgs.Version = $Version
     }

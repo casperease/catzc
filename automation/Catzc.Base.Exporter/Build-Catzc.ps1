@@ -55,6 +55,23 @@ function Build-Catzc {
     $payload = Copy-CatzcLiveTree -Destination $bundleRoot -Module $modules -VendorPolicy $VendorPolicy
     Write-CatzcBundleBootstrap -Root $bundleRoot -Version $Version | Out-Null
 
+    # Pre-generate every module manifest into the bundle so it loads read-only — a -Bundle import never
+    # writes a .psd1 (New-DynamicManifest -ReadOnly asserts it is present). The .psd1 are deterministic, so
+    # they are part of the content hash. New-DynamicManifest is a non-exported bootstrap helper (bootstrap is
+    # removed after a normal import), so it is resolved as a command object in the bootstrap module's scope and
+    # invoked dynamically — which keeps it off the static function-dependency graph, the ADR-PREPOST pattern for
+    # a function that is not part of a stable module API.
+    Import-InternalModule Bootstrap
+    $bootstrap = Get-Module Catzc.Internal.Bootstrap
+    $generateManifest = & $bootstrap { Get-Command 'New-DynamicManifest' }
+    $bundleAutomation = Join-Path $bundleRoot 'automation'
+    foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($bundleAutomation)) {
+        if ([System.IO.Path]::GetFileName($moduleDir).StartsWith('.')) {
+            continue
+        }
+        & $generateManifest -ModulePath $moduleDir | Out-Null
+    }
+
     # Content-addressed identity over the payload; build.json (written below) is excluded — it carries the hash.
     $contentHash = Get-CatzcContentHash -Path $bundleRoot -Exclude 'build.json'
 

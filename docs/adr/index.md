@@ -38,6 +38,7 @@ a normative summary plus internal links to the prose that justifies it).
 | `ADR-SELFSERV` | [self-service](design/self-service.md)                                         |
 | `ADR-VISUAL`   | [visual-design](design/visual-design.md)                                       |
 | `ADR-LIFE`     | [commit-lifecycle](design/commit-lifecycle.md)                                 |
+| `ADR-REMOTE`   | [server-remote-integration](design/server-remote-integration.md)               |
 
 ### automation/
 
@@ -121,6 +122,7 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 | `ADR-PIPENAME` | [pipeline-naming-and-placement](pipelines/pipeline-naming-and-placement.md) |
 | `ADR-TEMPLATE` | [custom-template-discipline](pipelines/custom-template-discipline.md)       |
 | `ADR-GLOBS`    | [durable-sha-globs](pipelines/durable-sha-globs.md)                         |
+| `ADR-RELEASE`  | [github-release](pipelines/github-release.md)                               |
 
 ### azure/
 

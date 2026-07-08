@@ -57,6 +57,20 @@ function Assert-CatzcBundle {
         $violations.Add("expected exactly one prebuilt types DLL under automation/.compiled, found $($dlls.Count)")
     }
 
+    # Read-only ready: every module ships its pre-generated manifest, so a -Bundle load never writes a .psd1.
+    $bundleAutomation = Join-Path $Path 'automation'
+    if (Test-Path $bundleAutomation) {
+        foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($bundleAutomation)) {
+            $moduleName = [System.IO.Path]::GetFileName($moduleDir)
+            if ($moduleName.StartsWith('.')) {
+                continue
+            }
+            if (-not (Test-Path (Join-Path $moduleDir "$moduleName.psd1"))) {
+                $violations.Add("module '$moduleName' is missing its pre-generated manifest ($moduleName.psd1) — the bundle would write it on load")
+            }
+        }
+    }
+
     if ($violations.Count -gt 0) {
         throw "Catzc bundle at '$Path' is invalid:`n$($violations -join "`n")"
     }

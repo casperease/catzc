@@ -34,6 +34,10 @@ guids:
     guid: ca72c000-700e-5000-0000-ec7000000000
     sentence: catzc types project
     description: the Catzc.Types.csproj project id in catzc.sln (the IDE-only mirror of the combined type assembly)
+  catzc_module:
+    guid: ca72c000-00d0-1e00-0000-000000000000
+    sentence: catzc module
+    description: the Catzc PowerShell module's stable identity (Catzc.psd1 GUID) for NuGet/PSGallery — exporter.yml module_guid
 
   # -- shipped placeholder topology: the minted ids in the shipped azure.yml demo config -------------------
   tenant_placeholder:

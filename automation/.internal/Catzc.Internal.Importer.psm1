@@ -190,7 +190,7 @@ function Invoke-Importer {
     }
 
     Write-Verbose "Discovering modules in: $modulesRoot"
-    Import-AllModules -ModulesRoot $modulesRoot -ExportPrivates:$ExportPrivates -DiagnoseLoadTime:$DiagnoseLoadTime
+    Import-AllModules -ModulesRoot $modulesRoot -ExportPrivates:$ExportPrivates -DiagnoseLoadTime:$DiagnoseLoadTime -Bundle:$Bundle
     if ($DiagnoseLoadTime) {
         Write-LoadTime 'All modules loaded'
     }

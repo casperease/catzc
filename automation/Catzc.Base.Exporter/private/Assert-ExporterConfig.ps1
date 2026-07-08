@@ -11,6 +11,9 @@
                               to keep this Base validator self-contained — an integrity test confirms it exists)
       default_aspect          'live' or 'full'
       vendor_policy           'runtime' or 'full'
+      module_guid             a GUID — the NuGet/PSGallery module's stable identity (a registered managed GUID)
+      package                 a map: author, company, description (non-empty strings), tags (a non-empty list),
+                              and optional project_uri / license_uri (strings; empty omits the field)
 
     Unknown keys throw (a typo fails fast at load). Auto-dispatched by Get-Config when loading 'exporter'.
 #>
@@ -23,7 +26,7 @@ function Assert-ExporterConfig {
 
     $errors = [System.Collections.Generic.List[string]]::new()
 
-    $allowedKeys = @('direct_install_version', 'version', 'default_profile', 'default_aspect', 'vendor_policy')
+    $allowedKeys = @('direct_install_version', 'version', 'default_profile', 'default_aspect', 'vendor_policy', 'module_guid', 'package')
     foreach ($key in @($Config.Keys)) {
         if ($key -notin $allowedKeys) {
             $errors.Add("unknown key '$key' (allowed: $($allowedKeys -join ', '))")
@@ -58,6 +61,28 @@ function Assert-ExporterConfig {
     }
     elseif ("$($Config.vendor_policy)" -cnotmatch '^(runtime|full)$') {
         $errors.Add("invalid vendor_policy '$($Config.vendor_policy)' (valid: runtime, full)")
+    }
+
+    if (-not $Config.Contains('module_guid')) {
+        $errors.Add("missing required key 'module_guid'")
+    }
+    elseif (-not [System.Guid]::TryParse("$($Config.module_guid)", [ref]([System.Guid]::Empty))) {
+        $errors.Add("invalid module_guid '$($Config.module_guid)' (must be a GUID)")
+    }
+
+    if (-not $Config.Contains('package')) {
+        $errors.Add("missing required key 'package'")
+    }
+    else {
+        $package = $Config['package']
+        foreach ($field in @('author', 'company', 'description')) {
+            if (-not $package.Contains($field) -or [string]::IsNullOrWhiteSpace("$($package[$field])")) {
+                $errors.Add("package.$field is required and must be a non-empty string")
+            }
+        }
+        if (-not $package.Contains('tags') -or @($package['tags']).Count -eq 0) {
+            $errors.Add('package.tags is required and must be a non-empty list')
+        }
     }
 
     if ($errors.Count -gt 0) {

@@ -1,0 +1,85 @@
+name: Release
+
+# Manual only — the trigger is intentionally NOT wired to push/tag/globset. A release is a deliberate act, so
+# it runs on workflow_dispatch and nothing else. Every run BUILDS the artifact (the .nupkg + the PSGallery
+# module manifest) and uploads it; the publish steps are opt-in and each no-ops without its token, so a run with
+# no inputs simply produces the package. GitHub publishing uses the built-in GITHUB_TOKEN (no PSGallery key
+# needed); PSGallery publishing needs the PSGALLERY_API_KEY secret and is skipped when it is empty.
+# See docs/adr/pipelines/github-release.md (ADR-RELEASE).
+
+on:
+  workflow_dispatch:
+    inputs:
+      github_release:
+        description: Attach the .nupkg to a GitHub Release (gh + GITHUB_TOKEN)
+        type: boolean
+        default: true
+      github_packages:
+        description: Push the package to GitHub Packages (dotnet nuget push + GITHUB_TOKEN)
+        type: boolean
+        default: false
+      psgallery:
+        description: Publish to the PowerShell Gallery (needs the PSGALLERY_API_KEY secret; skipped if empty)
+        type: boolean
+        default: false
+
+permissions:
+  contents: write # gh release create
+  packages: write # GitHub Packages push
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the NuGet package and the PSGallery manifest
+        shell: pwsh
+        run: |
+          . ./importer.ps1
+          $pkg = Export-Catzc -To nuget
+          "NUPKG=$($pkg.NuPkg)" >> $env:GITHUB_ENV
+          "PKG_VERSION=$($pkg.Version)" >> $env:GITHUB_ENV
+          "PKG_MODULE_DIR=$(Split-Path $pkg.Manifest -Parent)" >> $env:GITHUB_ENV
+          Write-Host "Built Catzc $($pkg.Version) — $($pkg.FunctionCount) functions — $($pkg.NuPkg)"
+
+      # The artifact is always produced, even when nothing is published.
+      - name: Upload the package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: catzc-nupkg
+          path: out/catzc-nuget/*.nupkg
+          if-no-files-found: error
+
+      - name: Publish to a GitHub Release (gh CLI + GITHUB_TOKEN)
+        if: ${{ inputs.github_release }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: pwsh
+        run: |
+          gh release create "v$env:PKG_VERSION" "$env:NUPKG" `
+            --title "Catzc $env:PKG_VERSION" `
+            --notes "Catzc $env:PKG_VERSION — installable platform bundle (NuGet package + PSGallery manifest)." `
+            --clobber
+
+      - name: Publish to GitHub Packages (dotnet nuget push + GITHUB_TOKEN)
+        if: ${{ inputs.github_packages }}
+        shell: pwsh
+        run: |
+          dotnet nuget push "$env:NUPKG" `
+            --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" `
+            --api-key "${{ github.token }}" `
+            --skip-duplicate
+
+      - name: Publish to the PowerShell Gallery (only if the API key is set)
+        if: ${{ inputs.psgallery }}
+        env:
+          PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+        shell: pwsh
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:PSGALLERY_API_KEY)) {
+            Write-Host '::warning::PSGALLERY_API_KEY is empty — skipping the PSGallery publish. The .nupkg and manifest are still built and uploaded.'
+            exit 0
+          }
+          . ./importer.ps1
+          Publish-PSResource -Path $env:PKG_MODULE_DIR -Repository PSGallery -ApiKey $env:PSGALLERY_API_KEY

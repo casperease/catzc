@@ -870,6 +870,8 @@ terms:
       meaning: "PowerShell [pscustomobject]"
     - term: psd1
       meaning: "PowerShell data/manifest file extension (.psd1)"
+    - term: psgallery
+      meaning: "the PowerShell Gallery (PSGallery) module registry"
     - term: pshome
       meaning: "the $PSHOME location"
     - term: psitem

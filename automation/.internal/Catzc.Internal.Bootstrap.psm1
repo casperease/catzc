@@ -75,11 +75,23 @@ function New-DynamicManifest {
         [Parameter(Mandatory)]
         [string]$ModulePath,
 
-        [switch]$ExportPrivates
+        [switch]$ExportPrivates,
+
+        # Read-only load (a bundle): never generate or write the manifest — it must already be present
+        # (Build-Catzc pre-generates every module's manifest), so a read-only install store is never written to.
+        [switch]$ReadOnly
     )
 
     $moduleName = Split-Path $ModulePath -Leaf
     $manifestPath = Join-Path $ModulePath "$moduleName.psd1"
+
+    if ($ReadOnly) {
+        if (-not [System.IO.File]::Exists($manifestPath)) {
+            throw "Read-only load: module '$moduleName' is missing its generated manifest ($manifestPath). Rebuild the bundle — Build-Catzc pre-generates every module manifest."
+        }
+        return $manifestPath
+    }
+
     $pathPrefixLength = $ModulePath.Length + 1
 
     # Collect public .ps1 files (root level) — .NET API avoids Get-ChildItem pipeline overhead
@@ -251,7 +263,11 @@ function Import-CSharpTypes {
         [Parameter(Mandatory)]
         [string]$ModulesRoot,
 
-        [switch]$DiagnoseLoadTime
+        [switch]$DiagnoseLoadTime,
+
+        # Prebuilt-only load (a bundle): load the shipped combined-types assembly, and throw if it is absent —
+        # never invoke Roslyn and never write. A bundle ships the DLL, so a read-only install never compiles.
+        [switch]$PrebuiltOnly
     )
 
     # The enumeration, deterministic ordering, per-file EOL-insensitive digest, combined hash, and per-file
@@ -369,6 +385,9 @@ function Import-CSharpTypes {
     # when the types are already in the AppDomain (idempotent, self-healing re-import).
     $didCompile = $false
     if (-not [System.IO.File]::Exists($dll)) {
+        if ($PrebuiltOnly) {
+            throw "Bundle is missing its prebuilt combined-types assembly ($dll). The bundle is incomplete or corrupt — rebuild it (Build-Catzc ships the DLL); a bundle never compiles types."
+        }
         if (-not [System.IO.Directory]::Exists($compiledDir)) {
             New-Item -ItemType Directory -Path $compiledDir -Force | Out-Null
         }
@@ -593,7 +612,11 @@ function Import-AllModules {
         # Import-Module (parse). Surfaced by importer.ps1 -DiagnoseLoadTime so an author can see WHICH
         # module(s) are slow and whether the cost is file I/O (raw-read column) or parse (import column);
         # manifest enumeration is native .NET and consistently ~1-7ms. Off = no overhead.
-        [switch]$DiagnoseLoadTime
+        [switch]$DiagnoseLoadTime,
+
+        # Read-only bundle load: manifests must be pre-generated (never written), and the combined-types DLL
+        # must be shipped (never compiled). Passed by Invoke-Importer -Bundle; off for the mono repo.
+        [switch]$Bundle
     )
 
     $moduleDirs = Get-ChildItem -Path $ModulesRoot -Directory |
@@ -631,13 +654,13 @@ function Import-AllModules {
     # Native C# types (every module's types/*.cs) compile/load ONCE, before any module's functions, into a
     # single combined assembly — so a function (or a module's load-time code) can reference any type, and a
     # type in one module can reference a type in another. Module import order below is therefore irrelevant.
-    Import-CSharpTypes -ModulesRoot $ModulesRoot -DiagnoseLoadTime:$DiagnoseLoadTime
+    Import-CSharpTypes -ModulesRoot $ModulesRoot -DiagnoseLoadTime:$DiagnoseLoadTime -PrebuiltOnly:$Bundle
 
     foreach ($dir in $moduleDirs) {
         if ($DiagnoseLoadTime) {
             $sw.Restart()
         }
-        $manifestPath = New-DynamicManifest -ModulePath $dir.FullName -ExportPrivates:$ExportPrivates
+        $manifestPath = New-DynamicManifest -ModulePath $dir.FullName -ExportPrivates:$ExportPrivates -ReadOnly:$Bundle
         $manifestMs = if ($DiagnoseLoadTime) {
             [int]$sw.Elapsed.TotalMilliseconds
         }

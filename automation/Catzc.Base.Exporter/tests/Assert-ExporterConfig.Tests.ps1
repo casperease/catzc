@@ -7,8 +7,36 @@ Describe 'Assert-ExporterConfig' -Tag 'L0', 'logic' {
                 default_profile        = 'full'
                 default_aspect         = 'live'
                 vendor_policy          = 'runtime'
+                module_guid            = 'ca72c000-00d0-1e00-0000-000000000000'
+                package                = [ordered]@{
+                    author = 'A'; company = 'C'; description = 'D'; tags = @('x'); project_uri = ''; license_uri = ''
+                }
             }
             { Assert-ExporterConfig $config } | Should -Not -Throw
+        }
+    }
+
+    It 'rejects a non-GUID module_guid' {
+        InModuleScope Catzc.Base.Exporter {
+            $config = [ordered]@{
+                direct_install_version = '6.6.666'; version = '0.1.0'
+                default_profile = 'full'; default_aspect = 'live'; vendor_policy = 'runtime'
+                module_guid = 'not-a-guid'
+                package     = [ordered]@{ author = 'A'; company = 'C'; description = 'D'; tags = @('x') }
+            }
+            { Assert-ExporterConfig $config } | Should -Throw -ExpectedMessage '*invalid module_guid*'
+        }
+    }
+
+    It 'rejects a package missing a required field' {
+        InModuleScope Catzc.Base.Exporter {
+            $config = [ordered]@{
+                direct_install_version = '6.6.666'; version = '0.1.0'
+                default_profile = 'full'; default_aspect = 'live'; vendor_policy = 'runtime'
+                module_guid = 'ca72c000-00d0-1e00-0000-000000000000'
+                package     = [ordered]@{ company = 'C'; description = 'D'; tags = @('x') }
+            }
+            { Assert-ExporterConfig $config } | Should -Throw -ExpectedMessage '*package.author is required*'
         }
     }
 
