@@ -56,15 +56,15 @@ domains:
       server-remote-integration: { external: ADR-DSGN-REMOTE }
 
   flow:
-    code: FLOW
+    code: FLOW-CD # compound domain code — the root ADR cites ADR-FLOW-CD, the rest ADR-FLOW-CD-<NAME>
     role: architecture # the platform-agnostic flow model that ADO (PIPE) and GitHub (GH) implement
     depends_on: [research, principles, process, design]
     rulesets:
       cd-discipline-and-promotion-flow: { external: ADR-FLOW-CD }
-      pipeline-runner-pattern: { external: ADR-FLOW-RUNNER }
-      pipeline-detection: { external: ADR-FLOW-DETECT }
-      pipeline-types: { external: ADR-FLOW-TYPE }
-      durable-sha-globs: { external: ADR-FLOW-GLOBS }
+      pipeline-runner-pattern: { external: ADR-FLOW-CD-RUNNER }
+      pipeline-detection: { external: ADR-FLOW-CD-DETECT }
+      pipeline-types: { external: ADR-FLOW-CD-TYPE }
+      durable-sha-globs: { external: ADR-FLOW-CD-GLOBS }
 
   automation:
     code: AUTO

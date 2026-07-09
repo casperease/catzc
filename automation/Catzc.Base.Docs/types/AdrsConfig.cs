@@ -7,11 +7,14 @@
 // Load-time rules (self-contained — no filesystem or other-config reads; folder↔domain and terminology-token
 // cross-checks are shipped-asset integrity TESTS, mirroring the one-directional coupling of the customer
 // model, ADR-AZ-CUSTOMER:3):
-//   - domains is a non-empty map; each domain has code (^[A-Z]{2,4}$), a non-empty role, a depends_on list,
-//     and a non-empty rulesets map;
+//   - domains is a non-empty map; each domain has code (^[A-Z]{2,4}$, optionally a compound of two segments
+//     like FLOW-CD), a non-empty role, a depends_on list, and a non-empty rulesets map;
 //   - every depends_on target resolves to a declared domain, no self-edge, and the domain graph is acyclic;
-//   - each ruleset external is ^ADR-[A-Z]{2,4}-[A-Z]+$, the leaf code (if any) is ^[A-Z]{2,4}$, the EFFECTIVE
-//     code (leaf override else domain code) equals the external's domain segment, and every external is unique.
+//   - each ruleset external is ADR-<code>[-<NAME>…] (^ADR-[A-Z]{2,4}(-[A-Z]+)+$), the leaf code (if any)
+//     matches the domain-code pattern, and the EFFECTIVE code (leaf override else domain code) is the
+//     external's domain segment — the external is 'ADR-<effective>' or begins 'ADR-<effective>-' (so a
+//     compound-code domain cites its root ADR as ADR-FLOW-CD and the rest as ADR-FLOW-CD-<NAME>); every
+//     external is unique.
 
 using System;
 using System.Collections;
@@ -22,8 +25,8 @@ namespace Catzc.Base.Docs;
 
 public sealed class AdrsConfig
 {
-    private static readonly Regex CodeRe = new Regex("^[A-Z]{2,4}$", RegexOptions.Compiled);
-    private static readonly Regex ExternalRe = new Regex("^ADR-[A-Z]{2,4}-[A-Z]+$", RegexOptions.Compiled);
+    private static readonly Regex CodeRe = new Regex("^[A-Z]{2,4}(-[A-Z]{2,4})?$", RegexOptions.Compiled);
+    private static readonly Regex ExternalRe = new Regex("^ADR-[A-Z]{2,4}(-[A-Z]+)+$", RegexOptions.Compiled);
 
     public IReadOnlyList<AdrDomain> Domains { get; }
     public IReadOnlyList<AdrRuleSet> RuleSets { get; }
@@ -122,11 +125,16 @@ public sealed class AdrsConfig
                     string effective = leaf != null ? leaf : code;
                     string terminology = r.Contains("terminology") && r["terminology"] != null ? r["terminology"].ToString() : null;
 
-                    int lastDash = external.LastIndexOf('-');
-                    string dcSegment = external.Substring(4, lastDash - 4);
-                    if (!string.Equals(dcSegment, effective, StringComparison.Ordinal))
+                    // The external's domain segment is the effective code: the external is either the
+                    // domain-root citation 'ADR-<effective>' or a named 'ADR-<effective>-<NAME>'. A compound
+                    // domain code (e.g. FLOW-CD, whose ADRs cite ADR-FLOW-CD and ADR-FLOW-CD-<NAME>) is matched
+                    // by this prefix rule without splitting on a specific dash.
+                    string expectedPrefix = "ADR-" + effective;
+                    bool domainSegmentMatches = string.Equals(external, expectedPrefix, StringComparison.Ordinal)
+                        || external.StartsWith(expectedPrefix + "-", StringComparison.Ordinal);
+                    if (!domainSegmentMatches)
                     {
-                        errors.Add(string.Format("ruleset '{0}/{1}': external '{2}' domain segment '{3}' does not match effective code '{4}'", name, slug, external, dcSegment, effective));
+                        errors.Add(string.Format("ruleset '{0}/{1}': external '{2}' domain segment does not match effective code '{3}'", name, slug, external, effective));
                     }
 
                     AdrRuleSet one = new AdrRuleSet(name, role, slug, external, effective, code, terminology);
