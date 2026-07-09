@@ -19,7 +19,7 @@
     answers "where does output go," not "am I in a pipeline," and its read is
     confined to Get-OutputRoot.
 
-    See ADR: docs/adr/pipelines/pipeline-detection.md#rule-adr-pipedet1 (rule ADR-PIPEDET:1).
+    See ADR: docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1 (rule ADR-FLOW-CD-DETECT:1).
 #>
 
 function Measure-NoRawPipelineDetection {
@@ -48,7 +48,7 @@ function Measure-NoRawPipelineDetection {
     $exemptFunction = 'Test-IsRunningInPipeline'
     $detectionVars = @('env:TF_BUILD', 'env:GITHUB_ACTIONS')
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-PSFORMAT:6).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
     $isVariable = {
         param($node)
         $node -is [System.Management.Automation.Language.VariableExpressionAst]

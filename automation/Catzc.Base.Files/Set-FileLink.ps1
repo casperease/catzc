@@ -52,7 +52,7 @@ function Set-FileLink {
         $resolved = $item.ResolveLinkTarget($true)
         if ($resolved) {
             $resolvedActual = [System.IO.Path]::GetFullPath($resolved.FullName)
-            # Path equality is case-insensitive on Windows, case-sensitive elsewhere (ADR-XPLAT:7).
+            # Path equality is case-insensitive on Windows, case-sensitive elsewhere (ADR-AUTO-XPLAT:7).
             $current = if ($IsWindows) {
                 $resolvedActual -ieq $resolvedTarget
             }

@@ -1,8 +1,8 @@
 # ADR: DORA — Flexible infrastructure
 
-## Rules: ADR-DORAFI
+## Rules: ADR-DORA-FLEXINFRA
 
-### Rule ADR-DORAFI:1
+### Rule ADR-DORA-FLEXINFRA:1
 
 Flexible infrastructure means five NIST characteristics together — on-demand self-service, broad network access, resource pooling, rapid
 elasticity, and measured service — not any single one of them in isolation; a system that scales but still needs a human to provision it is
@@ -10,28 +10,28 @@ not flexible infrastructure.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAFI:2
+### Rule ADR-DORA-FLEXINFRA:2
 
 Infrastructure configuration is checked into version control, and provisioning, configuration changes, and deployments happen through an
 automated mechanism — never through console clicks, manual tickets, or an undocumented runbook.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAFI:3
+### Rule ADR-DORA-FLEXINFRA:3
 
 Adopting infrastructure as code is a cross-functional change, not a tooling swap — it touches information-security controls and approval
 policy as much as it touches provisioning scripts, so it rolls out through a single, low-risk pilot application before it scales org-wide.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAFI:4
+### Rule ADR-DORA-FLEXINFRA:4
 
 Self-service infrastructure stays a guardrail, never a gate: an Internal Developer Platform that mandates rigid, one-size-fits-all
 infrastructure or requires a manual ticket to reach cloud resources has negated the capability it claims to offer.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORAFI:5
+### Rule ADR-DORA-FLEXINFRA:5
 
 Measure the capability by what NIST's characteristics predict — time to provision, self-service adoption rate, elasticity, and cost
 transparency — never by the raw percentage of workloads hosted on cloud servers or by migration volume and speed.
@@ -79,10 +79,10 @@ automated process on a single, low-risk application before scaling it further.
 
 Flexible infrastructure is the engine that platform engineering runs on: an Internal Developer Platform built on top of it can prioritize
 self-service and autonomy, so developers focus on writing application code instead of waiting on infrastructure. This platform realizes that
-model as a thin CLI over the Azure control plane ([ADR-THINPLAT](../design/thin-platforms.md)), with self-service provisioning made safe by
-routing every change through a single versioned source of truth and trunk-based guardrails rather than a manual ticket
-([ADR-SELFSERV](../design/self-service.md)). The Azure data model turns environment, subscription, and resource-group identity into
-resolved, config-driven values instead of hand-typed ones ([ADR-DATAMOD](../azure/azure-data-model.md)), which is what lets provisioning
+model as a thin CLI over the Azure control plane ([ADR-DSGN-THINPLAT](../design/thin-platforms.md)), with self-service provisioning made
+safe by routing every change through a single versioned source of truth and trunk-based guardrails rather than a manual ticket
+([ADR-DSGN-SELFSERV](../design/self-service.md)). The Azure data model turns environment, subscription, and resource-group identity into
+resolved, config-driven values instead of hand-typed ones ([ADR-AZ-DATAMOD](../azure/azure-data-model.md)), which is what lets provisioning
 scale elastically across environments and customers without hand-authored drift.
 
 Align incentives alongside the technical change — give system owners both the visibility to build more efficient systems and the incentive

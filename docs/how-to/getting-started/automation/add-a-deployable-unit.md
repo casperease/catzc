@@ -3,7 +3,7 @@
 A deployable unit is defined exactly once, as a **globset** in `automation/Catzc.Base.Globs/configs/globs.yml` — a named set of glob
 patterns over the files under version control. Pipelines and workflows trigger on the globset's **native path-filter projection** (generated
 from the set, never hand-authored), and "did this change touch the unit?" is reflected from git at the real refs — nothing is committed per
-set. The full model is the [durable-sha-globs](../../../adr/pipelines/durable-sha-globs.md) ADR; this page is the workflow.
+set. The full model is the [durable-sha-globs](../../../adr/flow/durable-sha-globs.md) ADR; this page is the workflow.
 
 ## Define the globset
 
@@ -55,7 +55,7 @@ Point every pipeline or workflow that should fire for this unit at its projectio
   projection.
 
 The exact YAML shapes are in the ADR's
-[native-projection section](../../../adr/pipelines/durable-sha-globs.md#native-projection-the-no-start-trigger).
+[native-projection section](../../../adr/flow/durable-sha-globs.md#native-projection-the-no-start-trigger).
 
 ## The daily discipline
 

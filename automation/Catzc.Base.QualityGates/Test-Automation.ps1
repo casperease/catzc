@@ -10,7 +10,7 @@
     'greedy'-tagged test (tests that fan out heavy machine load of their own but share no state) follow as
     single-file shards through the pool, one file per worker slot; files containing a 'serial'-tagged test
     (tests that mutate state shared across processes) run last in a one-worker phase, alone — see
-    ADR-TEST:26. Pester executes tests sequentially within a worker; a single file never splits across
+    ADR-AUTO-TEST:26. Pester executes tests sequentially within a worker; a single file never splits across
     workers.
 .PARAMETER MaxLevel
     Maximum test level to run (alias: -Level). Defaults to 2 (L0 + L1 + L2) — the L2 tier drives the
@@ -55,13 +55,13 @@
     DurationSeconds, Rows (the aggregated per-test rows), RunDirectory, and Shards (the shard descriptors).
     By default, no object is returned.
 .PARAMETER Rule
-    Run only the tests that cite one of these ADR rules (the provenance filter) — e.g. `-Rule ADR-ERROR#3`.
+    Run only the tests that cite one of these ADR rules (the provenance filter) — e.g. `-Rule ADR-AUTO-ERROR#3`.
     Each value is a citation in `ADR-<CODE>#<n>` form. The run narrows to the files carrying a matching test
     and, within them, to the cited tests (Pester tag include). Composes with -Level/-Category/-Modules. It is
     the executable companion of the rule-coverage report: find a rule's tests, then run just them.
 .PARAMETER Marker
     Run a marker's declared blast radius: the named globset's `verify:` scope in globs.yml resolves to
-    the module list and tier to run (ADR-GLOBS:7) — "which tests do I need to run to verify a change in
+    the module list and tier to run (ADR-FLOW-CD-GLOBS:7) — "which tests do I need to run to verify a change in
     that area-of-control". Mutually exclusive with -Modules; a marker without a verify scope throws with
     the remedy. Find the touched markers for a change with Get-MarkerBlastRadius.
 .PARAMETER EnforceTimings
@@ -94,7 +94,7 @@
 .EXAMPLE
     Test-Automation -EnforceTimings   # fail if any test is over its level's limit
 .EXAMPLE
-    Test-Automation -Rule ADR-ERROR#3   # run only the tests that cite ADR-ERROR#3
+    Test-Automation -Rule ADR-AUTO-ERROR#3   # run only the tests that cite ADR-AUTO-ERROR#3
 .EXAMPLE
     Test-Automation -Marker foundation   # run the foundation unit's declared verify scope (globs.yml)
 .EXAMPLE
@@ -130,7 +130,7 @@ function Test-Automation {
 
         [switch] $EnforceTimings,
 
-        [ValidatePattern('^ADR-[A-Z]+#\d+$')]
+        [ValidatePattern('^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$')]
         [string[]] $Rule = @(),
 
         [ArgumentCompleter({ (Get-Config -Config globs).Names })]
@@ -144,7 +144,7 @@ function Test-Automation {
     }
 
     # -Marker: run the named area-of-control's declared blast radius — its globs.yml verify scope resolves
-    # to the module list and tier (Resolve-MarkerVerify, ADR-GLOBS:7).
+    # to the module list and tier (Resolve-MarkerVerify, ADR-FLOW-CD-GLOBS:7).
     if ($Marker) {
         if ($Modules.Count -gt 0) {
             throw 'Pass -Marker or -Modules, not both — a marker resolves its own module scope.'
@@ -250,13 +250,13 @@ function Test-Automation {
         }
 
         # Three execution phases — parallel shards, greedy single-file shards, strict serial (see
-        # Split-TestAutomationFiles / ADR-TEST:26).
+        # Split-TestAutomationFiles / ADR-AUTO-TEST:26).
         $phases = Split-TestAutomationFiles -Discovery $discovery -TestFiles $testFiles
         $parallelFiles = @($phases.Parallel)
         $greedyFiles = @($phases.Greedy)
         $serialFiles = @($phases.Serial)
 
-        # Per-module protection (ADR-PROTGLOB:9): units whose composite identity is unchanged since their last
+        # Per-module protection (ADR-REPO-PROTGLOB:9): units whose composite identity is unchanged since their last
         # green run this session are dropped from the work-list here in the orchestrator (workers never see
         # the map; in a pipeline the selection is a pass-through). The key carries the run parameters, so an
         # L0-L1 green never skips an L2 run.

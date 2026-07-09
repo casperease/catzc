@@ -1,29 +1,29 @@
 # ADR: DORA — Team experimentation
 
-## Rules: ADR-DORATE
+## Rules: ADR-DORA-EXPERIMENT
 
-### Rule ADR-DORATE:1
+### Rule ADR-DORA-EXPERIMENT:1
 
 Teams work on new ideas and test solutions with real users to achieve business outcomes without asking permission from outside the team —
 treat that freedom as the capability itself, not a side effect of trust granted for other reasons.
 
 - [Summary](#summary)
 
-### Rule ADR-DORATE:2
+### Rule ADR-DORA-EXPERIMENT:2
 
 A story card is a reminder of an ongoing conversation between the customer and the team, not a fixed contract; teams write and change
 specifications during development as they learn, rather than executing a specification handed down before work started.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORATE:3
+### Rule ADR-DORA-EXPERIMENT:3
 
 Treat technical staff as the experts on implementation details. Giving specific direction on how the work is done, rather than what outcome
 it must reach, removes the judgment the capability depends on.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORATE:4
+### Rule ADR-DORA-EXPERIMENT:4
 
 Provide the information, context, and dedicated time for a team to design and run its own experiments; withholding any of the three
 forecloses the capability even where permission to experiment exists in principle.
@@ -64,12 +64,13 @@ after the fact, when it is most expensive to fix.
 ## How to apply
 
 This platform realizes the capability by removing the outside gate a team would otherwise wait behind. Self-service
-([ADR-SELFSERV](../design/self-service.md)) lets a consumer provision and change managed infrastructure directly, through the CLI, without
-filing a ticket to a central gatekeeper — the same freedom DORA measures as working on new ideas without permission from outside the team.
-The thin platform ([ADR-THINPLAT](../design/thin-platforms.md)) gives consumers a CLI surface where they edit configuration and compose
-functions themselves, trusting them as the experts on their own implementation rather than routing every change through the platform team.
-Agile's customer-collaboration value ([ADR-VALUES](../process/agile-values.md)) treats a story as an ongoing conversation to be revised as
-understanding grows, not a contract executed as originally written — the same posture that lets specifications change during development.
+([ADR-DSGN-SELFSERV](../design/self-service.md)) lets a consumer provision and change managed infrastructure directly, through the CLI,
+without filing a ticket to a central gatekeeper — the same freedom DORA measures as working on new ideas without permission from outside the
+team. The thin platform ([ADR-DSGN-THINPLAT](../design/thin-platforms.md)) gives consumers a CLI surface where they edit configuration and
+compose functions themselves, trusting them as the experts on their own implementation rather than routing every change through the platform
+team. Agile's customer-collaboration value ([ADR-PROC-VALUES](../process/agile-values.md)) treats a story as an ongoing conversation to be
+revised as understanding grows, not a contract executed as originally written — the same posture that lets specifications change during
+development.
 
 ## Common pitfalls
 

@@ -6,7 +6,7 @@
     both run in the same Test-Automation invocation: a 'pester-test' (a test tagged with the rule's citation,
     read from each row's Rules column) or a 'pssa-rule' (a PSScriptAnalyzer rule mapped to the rule, from
     Get-AnalyzerAdrCoverage). Counting the analyzer rules is what makes the "uncovered" list honest — a rule
-    like ADR-NOPWD reads as covered because its custom analyzer fails the build on every run.
+    like ADR-AUTO-NOPWD reads as covered because its custom analyzer fails the build on every run.
 
     A pure function of its inputs (no config or ADR reads of its own), so the caller passes the rule universe
     and the analyzer coverage in. Report-only: it never throws on an uncovered rule — many rules are enforced

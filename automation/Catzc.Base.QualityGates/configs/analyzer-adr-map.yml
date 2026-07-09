@@ -7,23 +7,23 @@
 # A rule that maps to no ADR is simply absent. Every custom analyzer rule MUST appear here (integrity-tested),
 # so a new custom rule cannot ship unmapped; a built-in appears only when it genuinely enforces an ADR and is
 # enabled in PSScriptAnalyzerSettings.psd1. Shape is validated at load (Assert-AnalyzerAdrMapConfig); id
-# existence is checked by an integrity test, not at load (so config load stays hermetic — the ADR-CUSTOMER:3
+# existence is checked by an integrity test, not at load (so config load stays hermetic — the ADR-AZ-CUSTOMER:3
 # pattern).
 analyzers:
     # Custom rules (automation/.scriptanalyzer)
-    Measure-VariableCasing: [ADR-PSFORMAT#4]
-    Measure-NeverDependOnPwd: [ADR-NOPWD#1, ADR-PSPWD#2]
-    Measure-FunctionLength: [ADR-ONEJOB#4]
-    Measure-NoWriteErrorOrWarning: [ADR-ERROR#3, ADR-ERROR#5]
-    Measure-NoAzModuleNaming: [ADR-AZCLI#3]
-    Measure-NoAutomaticVariableMisuse: [ADR-AUTOVAR#1]
-    Measure-NoForEachObjectControlFlow: [ADR-FOREACH#3]
-    Measure-NoRawVsoCommand: [ADR-PIPEVAR#1]
-    Measure-NoRawPipelineDetection: [ADR-PIPEDET#1]
-    Measure-NoRawInformationStream: [ADR-CONSOLE#2]
-    Measure-SpellOutIdentifiers: [ADR-SPELL#9]
+    Measure-VariableCasing: [ADR-AUTO-PSFORMAT#4]
+    Measure-NeverDependOnPwd: [ADR-AUTO-NOPWD#1, ADR-AUTO-PSPWD#2]
+    Measure-FunctionLength: [ADR-AUTO-ONEJOB#4]
+    Measure-NoWriteErrorOrWarning: [ADR-AUTO-ERROR#3, ADR-AUTO-ERROR#5]
+    Measure-NoAzModuleNaming: [ADR-AUTO-AZCLI#3]
+    Measure-NoAutomaticVariableMisuse: [ADR-AUTO-AUTOVAR#1]
+    Measure-NoForEachObjectControlFlow: [ADR-AUTO-FOREACH#3]
+    Measure-NoRawVsoCommand: [ADR-PIPE-VAR#1]
+    Measure-NoRawPipelineDetection: [ADR-FLOW-CD-DETECT#1]
+    Measure-NoRawInformationStream: [ADR-AUTO-CONSOLE#2]
+    Measure-SpellOutIdentifiers: [ADR-AUTO-SPELL#9]
 
     # Enabled built-in rules that enforce an ADR
-    PSUseApprovedVerbs: [ADR-VERBS#1]
-    PSAvoidSemicolonsAsLineTerminators: [ADR-NOSEMI#1]
-    PSPlaceOpenBrace: [ADR-PSFORMAT#2]
+    PSUseApprovedVerbs: [ADR-AUTO-VERBS#1]
+    PSAvoidSemicolonsAsLineTerminators: [ADR-AUTO-NOSEMI#1]
+    PSPlaceOpenBrace: [ADR-AUTO-PSFORMAT#2]

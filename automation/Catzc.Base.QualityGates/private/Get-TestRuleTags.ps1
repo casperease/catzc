@@ -4,7 +4,7 @@
     ancestor blocks, unioned.
 .DESCRIPTION
     The optional third tag dimension (provenance): which ADR rule(s) a test enforces, cited in the
-    docs/adr/index.md '#' form (e.g. 'ADR-ERROR#3'). Unlike the tier and category axes — single-valued and
+    docs/adr/index.md '#' form (e.g. 'ADR-AUTO-ERROR#3'). Unlike the tier and category axes — single-valued and
     resolved nearest-contributing-block-wins (Get-TestBlockTag) — provenance is SET-VALUED and ADDITIVE: a
     Describe may enforce a broad rule and an inner It a specific one, and both hold. So this UNIONS every
     well-formed citation across the test's own It-tags and every ancestor block (root excluded), returning them
@@ -15,7 +15,7 @@
     A Pester test object (a discovery-pass test, or an item of $result.Tests). Its .Tag and .Block chain carry
     the tags.
 .OUTPUTS
-    [string[]] the distinct citations (e.g. 'ADR-ERROR#3'), ordinally sorted (empty when none).
+    [string[]] the distinct citations (e.g. 'ADR-AUTO-ERROR#3'), ordinally sorted (empty when none).
 #>
 function Get-TestRuleTags {
     [CmdletBinding()]
@@ -41,7 +41,7 @@ function Get-TestRuleTags {
         foreach ($tag in $levelTags) {
             # Strict, case-sensitive citation grammar: only a well-formed 'ADR-<CODE>#<n>' contributes. A
             # miscased or malformed tag is Get-TestTagViolations' concern, not a coverage row's.
-            if ($tag -cmatch '^ADR-[A-Z]+#\d+$') {
+            if ($tag -cmatch '^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$') {
                 [void]$ids.Add($tag)
             }
         }

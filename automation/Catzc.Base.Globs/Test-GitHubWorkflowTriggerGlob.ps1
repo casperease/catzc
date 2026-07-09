@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Checks a GitHub workflow's trigger path filters against a globset's projection — the trigger-drift gate
-    for GitHub Actions (ADR-GLOBS:1).
+    for GitHub Actions (ADR-FLOW-CD-GLOBS:1).
 .DESCRIPTION
     The GitHub sibling of Test-AdoPipelineTriggerGlob: recomputes the ordered, '!'-negation `paths` list a
     globset projects to (Get-GlobSetTrigger) and compares it against what a workflow actually declares

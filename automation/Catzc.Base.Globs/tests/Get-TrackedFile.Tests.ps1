@@ -1,5 +1,5 @@
 # cspell:ignore nsrc  -- the escape-sequence artifact in the "a.txt`nsrc/b.cs" fixture strings
-# The matching universe (ADR-GLOBS:4): tracked files from `git ls-files`, repo-relative, quotepath off.
+# The matching universe (ADR-FLOW-CD-GLOBS:4): tracked files from `git ls-files`, repo-relative, quotepath off.
 Describe 'Get-TrackedFile' -Tag 'L0', 'logic' {
     It 'splits git output into paths and drops empty lines' {
         Mock Invoke-Executable {

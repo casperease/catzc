@@ -1,9 +1,9 @@
 # The in-pipeline "is there anything here for us to process?" gate — reflects the context's diff and reports
-# whether the named unit is touched, fail-open on any doubt (ADR-PROTGLOB:5), fail-fast on a typo'd name.
+# whether the named unit is touched, fail-open on any doubt (ADR-REPO-PROTGLOB:5), fail-fast on a typo'd name.
 Describe 'Test-GlobSetAffected' -Tag 'L0', 'logic' {
     BeforeAll {
         # Neutral fixture names (widget/gadget), not the shipped set names, so this logic test owns its
-        # inputs (ADR-TEST:3).
+        # inputs (ADR-AUTO-TEST:3).
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
                     'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**') }

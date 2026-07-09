@@ -1,11 +1,11 @@
 # This whole file is `integrity` — it binds the REAL shipped config (the live-identity set is derived from it),
-# so it also names live identities (e.g. 'apex') as fixture data; the integrity tag is both correct (ADR-TEST:1)
+# so it also names live identities (e.g. 'apex') as fixture data; the integrity tag is both correct (ADR-AUTO-TEST:1)
 # and what exempts this file from the gate's own self-scan.
 Describe 'Test-LogicTestIdentity' -Tag 'L1', 'integrity' {
     It 'the automation test tree is free of live-identity leaks in logic tests' {
         $result = Test-LogicTestIdentity -PassThru
         $leaks = @($result.Findings | ForEach-Object { "$(ConvertTo-RepoRelativePath $_.File):$($_.Line) -> $($_.Token)" })
-        $result.FindingCount | Should -Be 0 -Because "logic tests must use fixtures, not live identities (ADR-LANG):`n$($leaks -join "`n")"
+        $result.FindingCount | Should -Be 0 -Because "logic tests must use fixtures, not live identities (ADR-REPO-LANG):`n$($leaks -join "`n")"
     }
 
     It 'catches a live customer planted in a logic-test file' {

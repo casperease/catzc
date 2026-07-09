@@ -32,7 +32,7 @@ function Get-CatsAdrIndex {
 
     $lines = [System.IO.File]::ReadAllLines($IndexPath)
     $ret = foreach ($line in $lines) {
-        if ($line -notmatch '^\|\s*`(?<code>ADR-[A-Z]+)`\s*\|\s*\[(?<title>[^\]]+)\]\((?<path>[^)]+)\)') {
+        if ($line -notmatch '^\|\s*`(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)`\s*\|\s*\[(?<title>[^\]]+)\]\((?<path>[^)]+)\)') {
             continue
         }
         [pscustomobject]@{

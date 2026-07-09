@@ -61,7 +61,7 @@ Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
 Describe 'Repository guid integrity' -Tag 'L2', 'integrity' {
     It 'every guid in tracked text is registered, and every registry entry is live' {
         # The scan reads nearly the whole tree plus its own config, so it protects against the
-        # repository-wide set, like the spelling scan (ADR-PROTGLOB:6).
+        # repository-wide set, like the spelling scan (ADR-REPO-PROTGLOB:6).
         if (Test-GlobSetProtection -Test 'guids' -Name 'automation') {
             Set-ItResult -Skipped -Because 'protected_globset_unchanged_since_green_run'
             return

@@ -12,7 +12,7 @@
          would otherwise have no repo-relative form (it lives outside the repo) is captured here.
       2. Under the REPOSITORY root (Get-RepositoryRoot) -> a plain repo-relative path (forward slashes).
       3. Under neither -> returned absolute (normalized). No repo/out-relative form exists; degrade
-         honestly (ADR-PATH:5) rather than emit a hybrid.
+         honestly (ADR-AUTO-PATH:5) rather than emit a hybrid.
 
     Pairs with Resolve-RepoPath, which turns the result back into an absolute path against the matching
     root.

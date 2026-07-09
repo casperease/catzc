@@ -29,7 +29,7 @@ function Get-AutomationModules {
     Assert-PathExist $AutomationRoot -PathType Container
 
     # [System.IO] (sorted ordinally) instead of Get-ChildItem -Directory — the cmdlet carries ~20ms of
-    # per-call provider overhead the raw .NET enumeration avoids (ADR-TEST:18); the ordinal sort is
+    # per-call provider overhead the raw .NET enumeration avoids (ADR-AUTO-TEST:18); the ordinal sort is
     # culture-independent (cross-platform).
     $names = [System.Collections.Generic.List[string]]::new()
     foreach ($dir in [System.IO.Directory]::EnumerateDirectories($AutomationRoot)) {

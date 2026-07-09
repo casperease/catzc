@@ -22,7 +22,7 @@ function Get-AutomationFunctions {
         [string] $AutomationRoot = (Join-Path $env:RepositoryRoot 'automation')
     )
 
-    $moduleNames = Get-AutomationModules -AutomationRoot $AutomationRoot   # [System.IO] enumeration (ADR-TEST:18)
+    $moduleNames = Get-AutomationModules -AutomationRoot $AutomationRoot   # [System.IO] enumeration (ADR-AUTO-TEST:18)
 
     $modules = Get-Module | Where-Object { $_.Name -in $moduleNames }
 

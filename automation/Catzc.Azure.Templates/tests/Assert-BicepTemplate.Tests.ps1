@@ -20,7 +20,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
 
     Context 'valid templates (read-only)' {
         # These never mutate the tree, so they validate the COMMITTED fixtures directly — no per-test
-        # Copy-Directory (~41ms each, ADR-TEST:19). Assert-BicepTemplate only reads; it cannot corrupt them.
+        # Copy-Directory (~41ms each, ADR-AUTO-TEST:19). Assert-BicepTemplate only reads; it cannot corrupt them.
         BeforeAll {
             Mock Get-BicepTemplatesRoot { $script:fixtureTemplates } -ModuleName Catzc.Azure.Templates
         }
@@ -50,7 +50,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
             # test under $TestDrive (Pester auto-cleans it) is required. A unique dir is also never re-deleted
             # mid-run, so it cannot race a concurrent file scanner (on-access AV / search indexer) holding the
             # just-copied PrePost.psm1 open and intermittently throwing "used by another process". Scratch
-            # lives in temp, not out/ (docs/adr/repository/dedicated-output-directory.md, ADR-OUTDIR:3).
+            # lives in temp, not out/ (docs/adr/repository/dedicated-output-directory.md, ADR-REPO-OUTDIR:3).
             # Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse: ~15x faster per tree here.
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot

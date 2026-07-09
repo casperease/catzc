@@ -1,8 +1,8 @@
 # ADR: Avoid deep nesting in statements and expressions
 
-## Rules: ADR-NONEST
+## Rules: ADR-AUTO-NONEST
 
-### Rule ADR-NONEST:1
+### Rule ADR-AUTO-NONEST:1
 
 One operation per line — a pipeline, a method call, or an indexing operation per assignment. Chaining two is often fine; three or more
 almost always needs splitting.
@@ -10,26 +10,26 @@ almost always needs splitting.
 - [Why splitting makes debugging easier](#why-splitting-makes-debugging-easier)
 - [Why splitting has zero performance cost](#why-splitting-has-zero-performance-cost)
 
-### Rule ADR-NONEST:2
+### Rule ADR-AUTO-NONEST:2
 
 Name the intermediate result — the variable name documents what the value represents (`$active` over a buried `.Where(...)`).
 
 - [Why splitting makes debugging easier](#why-splitting-makes-debugging-easier)
 
-### Rule ADR-NONEST:3
+### Rule ADR-AUTO-NONEST:3
 
 Assert between steps: once intermediate values have names, inject `Assert-*` calls to verify assumptions before the next step uses the
 value.
 
 - [Why splitting enables assertions](#why-splitting-enables-assertions)
 
-### Rule ADR-NONEST:4
+### Rule ADR-AUTO-NONEST:4
 
 Give conditionals the same treatment — do not bury logic inside `if (...)`. Compute the value, optionally assert it, then test it.
 
 - [Why splitting enables assertions](#why-splitting-enables-assertions)
 
-### Rule ADR-NONEST:5
+### Rule ADR-AUTO-NONEST:5
 
 Simple expressions are exempt: `Join-Path`, single property access, straightforward casts, and other operations that cannot fail in
 surprising ways do not need their own line.

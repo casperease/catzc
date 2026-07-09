@@ -1,6 +1,6 @@
 Describe 'New-GitIgnore' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the config seam (ADR-PESTER:2): a small fixture registry with one static zone (a
+        # Isolate through the config seam (ADR-AUTO-PESTER:2): a small fixture registry with one static zone (a
         # noted and a bare pattern) and one injected zone.
         Mock Get-Config -ModuleName Catzc.Base.Git {
             [pscustomobject]@{

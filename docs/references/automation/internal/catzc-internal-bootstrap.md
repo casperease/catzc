@@ -20,7 +20,7 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   [use-ps1-not-psm1](../../../adr/automation/powershell/use-ps1-not-psm1.md). `Get-DynamicManifestContent` renders the manifest text: the
   `=` column is computed from the longest key rather than hand-padded, endings are LF, and the output is formatter-stable — running the
   formatter over it is a no-op — so the bytes are identical on every platform and every build of a commit
-  ([ADR-FORMAT#1](../../../adr/repository/uniform-formatting.md)).
+  ([ADR-REPO-FORMAT#1](../../../adr/repository/uniform-formatting.md)).
 - **C# type compile and load** — `Import-CSharpTypes` compiles every module's `types/*.cs` into one hash-keyed assembly,
   `automation/.compiled/Catzc.Types.<hash>.dll`, so a type in one module can reference a type in another. It keys the assembly off the
   combined source hash from [Catzc.Internal.Types](catzc-internal-types.md) (the same hash the cache janitor uses, so the two can never

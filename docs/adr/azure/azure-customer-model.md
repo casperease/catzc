@@ -3,9 +3,9 @@
 Pairs with [`data-model`](azure-data-model.md) (identity + templating) and [`naming-standard`](azure-naming-standard.md); the
 enabled-customer set is the `have_customers` repo variant ([repo-variants](../repository/repo-variants.md)).
 
-## Rules: ADR-CUSTOMER
+## Rules: ADR-AZ-CUSTOMER
 
-### Rule ADR-CUSTOMER:1
+### Rule ADR-AZ-CUSTOMER:1
 
 Customer **definitions** live only in `automation/Catzc.Azure/configs/customer.yml` — the catalogue of who the repo's customers are, each a
 readable `key` plus a 2-char `shortcode` (and optional `details`). It is split out of `azure.yml` (as `network.yml` split out the IP plan),
@@ -13,7 +13,7 @@ loaded by `Get-Config -Config customer` and validated by `Assert-CustomerConfig`
 
 - [The catalogue](#the-catalogue)
 
-### Rule ADR-CUSTOMER:2
+### Rule ADR-AZ-CUSTOMER:2
 
 A subscription binds a customer **two ways**: its `customer` field in `azure.yml` may name the customer by **either** its key (`apex`)
 **or** its 2-char shortcode (`ap`). Both resolve to the same customer; `Get-AzureCustomer` is the single resolver (keys first, then
@@ -22,7 +22,7 @@ forbids any key from equalling any shortcode.
 
 - [Two names, one binding](#two-names-one-binding)
 
-### Rule ADR-CUSTOMER:3
+### Rule ADR-AZ-CUSTOMER:3
 
 The subscription→customer reference is **not** validated when `azure.yml` loads. Cross-checking it there would make every `azure.yml` read
 also read `customer.yml`, coupling nearly every Azure test to the catalogue. Instead the reference is enforced two other ways: a
@@ -32,7 +32,7 @@ Azure layer reads the customer catalogue, never the reverse.
 
 - [The reference is checked by integrity and at runtime, not at load](#the-reference-is-checked-by-integrity-and-at-runtime-not-at-load)
 
-### Rule ADR-CUSTOMER:4
+### Rule ADR-AZ-CUSTOMER:4
 
 Whether the repo does customer deployments — and for which customers — is the `have_customers` **variant** (`false` | `all` | `[names]`),
 not `customer.yml`. `customer.yml` is the catalogue of who exists; the variant is which of them this repo actually deploys for. The variant
@@ -42,7 +42,7 @@ holds the enabled set so its `Test-`/`Assert-HaveCustomer(s)` primitives can liv
 
 - [Catalogue vs enabled set](#catalogue-vs-enabled-set)
 
-### Rule ADR-CUSTOMER:5
+### Rule ADR-AZ-CUSTOMER:5
 
 A template declares whether it is a customer template with an `options.yml` `customer_deployment` bit (bool), which **defaults to the
 `have_customers` variant** (`Test-HaveCustomers`). An explicit `customer_deployment: true` is only permitted when customers are enabled (the
@@ -52,10 +52,10 @@ shared rule used by `Get-BicepTemplates` (fail-fast) and `Assert-BicepTemplate` 
 
 - [The per-template switch and its gate](#the-per-template-switch-and-its-gate)
 
-### Rule ADR-CUSTOMER:6
+### Rule ADR-AZ-CUSTOMER:6
 
 The customer **key is the configuration subfolder name**: a template's customer configs live at `configuration/<key>/<env>[-<slot>].yml`,
-and a subfolder that is not a defined key is a discovery error ([data-model](azure-data-model.md#rule-adr-datamod3)). The shortcode never
+and a subfolder that is not a defined key is a discovery error ([data-model](azure-data-model.md#rule-adr-az-datamod3)). The shortcode never
 names a folder — one spelling on disk, the canonical key.
 
 - [The catalogue](#the-catalogue)
@@ -75,8 +75,8 @@ separate from the catalogue of who the customers are.
 subscription may reference, and the name of the customer's `configuration/<key>/` subfolder in every template), with a 2-char
 **`shortcode`** (unique; the customer-segment of the restricted patterns) and optional `details`. This mirrors the name/shortcode split
 environments already carry. `Assert-CustomerConfig` validates it: key format (`^[a-z][a-z0-9]+$`), shortcode format (`^[a-z]{2}$`),
-shortcode uniqueness, and the no-key-equals-a-shortcode rule (ADR-CUSTOMER:2). It is self-contained — it does not read `azure.yml`, so the
-customer catalogue sits below the subscriptions that reference it and validation stays one-directional.
+shortcode uniqueness, and the no-key-equals-a-shortcode rule (ADR-AZ-CUSTOMER:2). It is self-contained — it does not read `azure.yml`, so
+the customer catalogue sits below the subscriptions that reference it and validation stays one-directional.
 
 ### Two names, one binding
 

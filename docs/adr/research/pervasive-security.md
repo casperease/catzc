@@ -1,35 +1,35 @@
 # ADR: DORA — Pervasive security
 
-## Rules: ADR-DORAPS
+## Rules: ADR-DORA-SECURITY
 
-### Rule ADR-DORAPS:1
+### Rule ADR-DORA-SECURITY:1
 
 Treat security as a property everyone building the system owns, not a gate a separate team enforces at the end — security quality is built
 in throughout the lifecycle, the same way test quality is, not inspected in afterward.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAPS:2
+### Rule ADR-DORA-SECURITY:2
 
 Shift security left: raise a security concern at design time, when it costs a conversation, rather than at release time, when it costs an
 architectural change.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORAPS:3
+### Rule ADR-DORA-SECURITY:3
 
 Make the secure path the automated path — preapproved libraries and toolchains, and security tests embedded in continuous integration — so
 verification scales without a manual review on every change.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAPS:4
+### Rule ADR-DORA-SECURITY:4
 
 Keep InfoSec engaged across the whole lifecycle — design, demos, code review, test, and release — not at a single checkpoint near delivery.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORAPS:5
+### Rule ADR-DORA-SECURITY:5
 
 Measure security integration the same way delivery performance is measured — review coverage, lifecycle involvement, automated test
 coverage, and approved-tool adoption — rather than treating a passed audit as proof the capability exists.
@@ -68,11 +68,11 @@ earlier, avoiding the expensive rework that surfaces only once a problem reaches
 
 This platform realizes the capability where it has concrete surface. Authentication code proves every credential against the configured org
 and tenant before it is used, rather than trusting a token that merely authenticates somewhere
-([ADR-AUTH](../pipelines/dual-authentication.md)); session verification is layered so automation checks a session is pointed at the
-config-declared target before any deployment proceeds ([ADR-AZSESS](../automation/az-session-verification.md)); and tool installation uses a
-platform-native, hash-verified, reviewed package manager instead of a structurally weaker alternative
-([ADR-PKGMGR](../automation/use-proper-package-managers.md)). Each of these treats a security property as a built-in, automatically checked
-default rather than a manual review step bolted on afterward.
+([ADR-PIPE-AUTH](../pipelines/dual-authentication.md)); session verification is layered so automation checks a session is pointed at the
+config-declared target before any deployment proceeds ([ADR-AZ-SESSION](../automation/az-session-verification.md)); and tool installation
+uses a platform-native, hash-verified, reviewed package manager instead of a structurally weaker alternative
+([ADR-AUTO-PKGMGR](../automation/use-proper-package-managers.md)). Each of these treats a security property as a built-in, automatically
+checked default rather than a manual review step bolted on afterward.
 
 ## Common pitfalls
 

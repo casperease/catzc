@@ -7,12 +7,12 @@
     writes them as UNCATEGORIZED STUBS to a triage queue under out/ (terminology-triage.yml). Nothing here is
     accepted vocabulary: a flagged token joins the dictionary only when a human moves it into the terminology
     registry (configs/terminology.yml) with a real meaning and category, or spells the token out in the code
-    (docs/adr/automation/spell-out-names.md, ADR-SPELL:7). The queue is a to-do list, not a dictionary — cspell
+    (docs/adr/automation/spell-out-names.md, ADR-AUTO-SPELL:7). The queue is a to-do list, not a dictionary — cspell
     never reads it, so a token sitting in the queue is still flagged until promoted.
 
     This replaces the old "sweep every flagged word into cspell.yml" behaviour, which was the pump that filled
     the dictionary with unexplained coinages. The accepted-word list is now generated from the registry
-    (Build-TerminologyDictionary) and is never appended to by a tool (ADR-SPELL:5).
+    (Build-TerminologyDictionary) and is never appended to by a tool (ADR-AUTO-SPELL:5).
 
     Tokens already in the registry are skipped (cspell accepts them, so they are not flagged in the first
     place); only genuinely new, unaccepted tokens reach the queue.
@@ -131,14 +131,14 @@ function Format-Spelling {
     if (-not $DryRun) {
         # Emit paste-ready stubs. The blank meaning/category are intentional: a stub pasted into
         # terminology.yml as-is fails to load and fails Test-Terminology, forcing a human to classify it
-        # (ADR-SPELL:6, ADR-SPELL:7) before it becomes accepted vocabulary.
+        # (ADR-AUTO-SPELL:6, ADR-AUTO-SPELL:7) before it becomes accepted vocabulary.
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add('# Terminology triage queue — spell-checker-flagged tokens awaiting classification.')
         $lines.Add('#')
         $lines.Add('# Move each entry into the terminology registry')
         $lines.Add('# (automation/Catzc.Base.QualityGates/configs/terminology.yml): add it under its category group')
         $lines.Add('# in the terms: map (pick a category from categories:; an abbreviation also needs expands_to), OR')
-        $lines.Add('# spell the token out in the code. Nothing here is accepted until promoted (ADR-SPELL:7). This file')
+        $lines.Add('# spell the token out in the code. Nothing here is accepted until promoted (ADR-AUTO-SPELL:7). This file')
         $lines.Add('# is gitignored output — cspell never reads it.')
         foreach ($token in $ret) {
             $lines.Add("- term: $token")

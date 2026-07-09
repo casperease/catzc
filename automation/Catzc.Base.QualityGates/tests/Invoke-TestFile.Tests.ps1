@@ -11,7 +11,7 @@ Describe 'Invoke-TestFile (real worker)' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
 
-        # The regression that motivated the function (ADR-TEST:25 parity): from an importer session the
+        # The regression that motivated the function (ADR-AUTO-TEST:25 parity): from an importer session the
         # top scope is strict, so a bare Invoke-Pester runs tests strict — a '<token>' It title throws at
         # Pester's name expansion and scalar .Count access throws. Through the worker chain the same file
         # must run green, exactly as it does under Test-Automation.

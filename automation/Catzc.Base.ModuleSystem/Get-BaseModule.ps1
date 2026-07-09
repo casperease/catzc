@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Returns the automation modules as typed BaseModule objects, by kind — the native domain model (ADR-TYPES:9).
+    Returns the automation modules as typed BaseModule objects, by kind — the native domain model (ADR-AUTO-TYPES:9).
 .DESCRIPTION
     The typed view of the module system. Two facets, six kinds:
 

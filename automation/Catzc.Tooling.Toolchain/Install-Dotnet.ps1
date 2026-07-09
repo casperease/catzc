@@ -55,7 +55,7 @@ function Install-Dotnet {
 
     # Decide whether to run the install script. Our own install dir wins the check: when it already holds
     # the locked version the download is skipped, but the environment is STILL converged below — re-running
-    # repairs a lost PATH/DOTNET_ROOT persistence instead of returning past it (ADR-IDEM:1). Without this,
+    # repairs a lost PATH/DOTNET_ROOT persistence instead of returning past it (ADR-AUTO-IDEM:1). Without this,
     # a session where dotnet resolves through the session janitor's PATH hints masks a broken persistent
     # PATH forever, and every non-repo process (an editor's language server) fails to find dotnet.
     $needsInstall = $true

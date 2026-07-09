@@ -1,29 +1,29 @@
 # ADR: DORA — Well-being
 
-## Rules: ADR-DORAWB
+## Rules: ADR-DORA-WELLBEING
 
-### Rule ADR-DORAWB:1
+### Rule ADR-DORA-WELLBEING:1
 
 Well-being is a directly measured outcome — individuals' happiness and job satisfaction — because DORA's research ties it to organizational
 performance and job tenure, not a soft afterthought layered onto delivery metrics after the fact.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAWB:2
+### Rule ADR-DORA-WELLBEING:2
 
 Reduce deployment pain — the fear and anxiety of pushing code to production — with the same technical practices that drive continuous
 delivery; a painful release process is a well-being problem with a delivery-practice fix, not a separate morale program.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAWB:3
+### Rule ADR-DORA-WELLBEING:3
 
 Track and shrink rework — unplanned, reactive work such as break/fix, emergency patches, and firefighting — because the ratio of new work to
 rework is simultaneously a quality signal and a well-being signal: teams that spend more time firefighting report worse outcomes on both.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORAWB:4
+### Rule ADR-DORA-WELLBEING:4
 
 Treat burnout as a property of the work environment, never a property of the person — address Maslach's six organizational risk factors
 (overload, lack of control, insufficient reward, breakdown of community, absence of fairness, value conflict) by changing how work is
@@ -66,13 +66,14 @@ conditions that produce burnout.
 ## How to apply
 
 This platform reduces the two contributors within engineering's direct control. Deployment pain shrinks through the CI discipline and
-promotion flow ([ADR-FLOW](../design/ci-discipline-and-promotion-flow.md)), which keeps releases small, frequent, and mechanically gated
+promotion flow ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)), which keeps releases small, frequent, and mechanically gated
 rather than rare and high-stakes. Rework shrinks through fail-fast inline assertions
-([ADR-FAILFAST](../automation/fail-fast-with-asserts.md)), which surface a broken assumption at its exact point of failure instead of days
-later as an unplanned firefight, and through the zero-ceremony, hard-to-fail design ([ADR-ZERO](../automation/zero-ceremony-poka-yoke.md)),
-which prevents whole classes of mistakes structurally so they never become rework at all. None of this reaches the organizational risk
-factors behind burnout directly — those are a matter of how the organization manages people, not of platform design — but shrinking
-deployment pain and rework removes two of DORA's three named contributors to poor well-being.
+([ADR-AUTO-FAILFAST](../automation/fail-fast-with-asserts.md)), which surface a broken assumption at its exact point of failure instead of
+days later as an unplanned firefight, and through the zero-ceremony, hard-to-fail design
+([ADR-AUTO-ZERO](../automation/zero-ceremony-poka-yoke.md)), which prevents whole classes of mistakes structurally so they never become
+rework at all. None of this reaches the organizational risk factors behind burnout directly — those are a matter of how the organization
+manages people, not of platform design — but shrinking deployment pain and rework removes two of DORA's three named contributors to poor
+well-being.
 
 ## Common pitfalls
 

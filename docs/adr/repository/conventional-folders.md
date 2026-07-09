@@ -1,17 +1,17 @@
 # ADR: Conventional folders — every folder in the repository, by convention
 
-## Rules: ADR-FOLDERS
+## Rules: ADR-REPO-FOLDERS
 
-### Rule ADR-FOLDERS:1
+### Rule ADR-REPO-FOLDERS:1
 
 Every folder in the repository is conventional: its name infers its contents and purpose, for humans and for tooling. No folder needs a
 mapping file or a README to be understood — the name is the meaning. At the root this goes further: every root folder names a **track** —
 the repository's unit of root concern — so adding a root folder is the decision to open a track (see [tracks](../design/tracks.md), code
-`ADR-TRACK`).
+`ADR-DSGN-TRACK`).
 
 - [The thesis: every folder infers its meaning](#the-thesis-every-folder-infers-its-meaning)
 
-### Rule ADR-FOLDERS:2
+### Rule ADR-REPO-FOLDERS:2
 
 Two kinds of conventional folder. **Contract** folders have their literal name hardcoded by tooling — a wrong name makes the content
 structurally invisible or non-functional. **Semantic** folders carry meaning a reader infers, with a freeform internal layout no tool
@@ -19,13 +19,13 @@ depends on. Know which kind a folder is before renaming it or adding to it.
 
 - [Contract folders and semantic folders](#contract-folders-and-semantic-folders)
 
-### Rule ADR-FOLDERS:3
+### Rule ADR-REPO-FOLDERS:3
 
 The root set is closed. Adding a top-level directory is a deliberate architectural decision — an amendment to this ADR — not a casual act.
 
 - [Level 1: Repository root](#level-1-repository-root)
 
-### Rule ADR-FOLDERS:4
+### Rule ADR-REPO-FOLDERS:4
 
 Dot-prefix means infrastructure/tooling, everywhere — `.github/`, `.vscode/`, `.claude/`, `.git/`, and
 `automation/.internal|.scriptanalyzer|.vendor/`. Under `automation/` it is enforced mechanically by `Import-AllModules` (dot-prefixed
@@ -34,14 +34,14 @@ directories are excluded from module discovery); elsewhere it is the same conven
 - [Level 1: Repository root](#level-1-repository-root)
 - [Level 2: `automation/` — modules vs. infrastructure](#level-2-automation--modules-vs-infrastructure)
 
-### Rule ADR-FOLDERS:5
+### Rule ADR-REPO-FOLDERS:5
 
 Semantic documentation folders are markdown-only. `docs/` and `docs/notes/**` organize their subfolders freely (the names and casing are the
 author's), but they hold only `.md` files.
 
 - [Level 1: Repository root](#level-1-repository-root)
 
-### Rule ADR-FOLDERS:6
+### Rule ADR-REPO-FOLDERS:6
 
 Module-internal folder names are fixed. Private helpers go in `private/`, tests in `tests/`, consumable assets in `assets/`, the module's
 own internal config in `configs/`, native C# sources in `types/` — never `internal/`, `helpers/`, `test/`, `spec/`, `resources/`, `config/`,
@@ -50,7 +50,7 @@ etc. The name is the contract; a different name means tooling will not find the 
 - [Level 3: Module internals](#level-3-module-internals)
 - [Violation patterns](#violation-patterns)
 
-### Rule ADR-FOLDERS:7
+### Rule ADR-REPO-FOLDERS:7
 
 Tooling hardcodes the conventional names as literal strings, not parameters or configuration: `Join-Path $ModulePath 'private'`, not
 `Join-Path $ModulePath $privateFolderName`.
@@ -58,36 +58,36 @@ Tooling hardcodes the conventional names as literal strings, not parameters or c
 - [Why hardcoding paths is a feature](#why-hardcoding-paths-is-a-feature)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-FOLDERS:8
+### Rule ADR-REPO-FOLDERS:8
 
 No module-level override of conventions. A module cannot opt out of the structure or rename a conventional folder; if `private/` means
 different things in different modules, tooling cannot rely on it.
 
 - [Why conventional structure matters](#why-conventional-structure-matters)
 
-### Rule ADR-FOLDERS:9
+### Rule ADR-REPO-FOLDERS:9
 
 New module-level folders require an ADR amendment. Adding a well-known folder name beyond `private/`, `tests/`, `assets/`, `configs/`,
 `types/` is a structural change to the contract all tooling programs against.
 
 - [Level 3: Module internals](#level-3-module-internals)
 
-### Rule ADR-FOLDERS:10
+### Rule ADR-REPO-FOLDERS:10
 
 Unknown folders are ignored, not errors. A non-conventional folder is silently skipped by the bootstrap module and test runner; the module
 just cannot expect tooling to interact with it.
 
 - [Level 3: Module internals](#level-3-module-internals)
 
-### Rule ADR-FOLDERS:11
+### Rule ADR-REPO-FOLDERS:11
 
 Versioned contracts live under the root `contracts/` folder. A contract is a **named boundary** — `contracts/<contract-name>/`, the unit,
 exactly as `infrastructure/templates/<name>/` is — and inside it each version is its own folder `v<N>`, where `<N>` is an integer with no
 leading zeros (`v1`, `v2`, … `v10`). Declared, live versions start at `v1`; `v0` is reserved for internal/draft use and is never declared as
 a live version, and zero-padded forms (`v01`, `v000`) are never used. Each version folder is a self-contained copy of that version —
-coexisting versions are deliberate and equally live (see [one-living-version](../principles/one-living-version.md#rule-adr-onelive7)), not
-legacy — and carries a checked-in `.gitkeep` so an otherwise-empty version folder stays tracked. What the contracts _are_ — the
-external-facing API surface and its contract-testing discipline — is the [api-contracts](api-contracts.md) ADR (code `ADR-CONTRACT`).
+coexisting versions are deliberate and equally live (see [one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive7)),
+not legacy — and carries a checked-in `.gitkeep` so an otherwise-empty version folder stays tracked. What the contracts _are_ — the
+external-facing API surface and its contract-testing discipline — is the [api-contracts](api-contracts.md) ADR (code `ADR-REPO-CONTRACT`).
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -217,14 +217,14 @@ identity is a separate `short_name`. See [the data model](../azure/azure-data-mo
 **`contracts/`** holds the repository's **external-facing API contracts** — binding interface definitions used for **contract testing**,
 versioned (`v1`, `v2`, …) so external consumers that pin a version keep working as the platform evolves. Each version is a separate, live
 contract, not legacy: this is the one place the repo deliberately carries backwards compatibility, because here — unlike the internal code —
-external consumers genuinely exist (see [one-living-version](../principles/one-living-version.md#rule-adr-onelive7)). A contract is a
+external consumers genuinely exist (see [one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive7)). A contract is a
 **named boundary** — `contracts/<contract-name>/`, the unit, exactly as `infrastructure/templates/<name>/` is — and inside it each version
 is its own folder: `contracts/<contract-name>/v<N>/`, where `<N>` is an integer with no leading zeros (`v1`, `v2`, … `v10`). Declared, live
 versions start at `v1`; `v0` is reserved for internal/draft use and is never declared as a live version, and zero-padded forms (`v01`,
 `v000`) are never used. Each version folder is a self-contained copy of that version of the contract; coexisting versions are deliberate and
-equally live (see [one-living-version](../principles/one-living-version.md#rule-adr-onelive7)), not legacy to be collapsed. Every contract
-version folder carries a checked-in `.gitkeep` marker — a committed, dot-prefixed git marker (the `.gitkeep` analogue) that keeps the
-directory tracked when otherwise empty and marks it as a conventional contract folder.
+equally live (see [one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive7)), not legacy to be collapsed. Every
+contract version folder carries a checked-in `.gitkeep` marker — a committed, dot-prefixed git marker (the `.gitkeep` analogue) that keeps
+the directory tracked when otherwise empty and marks it as a conventional contract folder.
 
 **`out/`** is the single home for all generated and transient files, gitignored except `.gitkeep`. The _root_ is the contract
 (`Get-OutputRoot`); the subfolders inside are ad-hoc workspaces with no fixed names. Nothing under `out/` is source. See
@@ -314,7 +314,7 @@ config goes in `configs/`, and `assets/` is reserved for templates, scripts, sch
 `Test-FolderConventions.Tests.ps1`, which allows `configs/` as a module subdirectory, requires every entry to be a flat kebab-case `.yml`
 file, and fails any module that still keeps an `assets/config/` directory. Files in `configs/` are read through the shared
 `Get-Config -Config <name>` reader rather than bespoke per-reader loaders — see
-[module-config-loading](../automation/module-config-loading.md).
+[module-config-loading](../configuration/module-config-loading.md).
 
 Not every module needs every folder. A module with no private helpers has no `private/`. A module with no assets has no `assets/`, and a
 module that loads no internal config has no `configs/`. The convention defines what the name means when the folder exists, not that every
@@ -358,10 +358,10 @@ folder must exist.
   `.yaml`); no module may have an `assets/config/` directory; and no module may have an `assets/test/` directory — test fixtures live in
   `tests/assets/`.
 
-- **Repo-wide conventions** — the closed root set (`ADR-FOLDERS:3`), the dot-prefixed roots (`ADR-FOLDERS:4`), the markdown-only rule for
-  `docs/` (`ADR-FOLDERS:5`), and the `contracts/` versioned-contract layout with its `.gitkeep` marker (`ADR-FOLDERS:11`) — are enforced by
-  **code review** against this ADR; the deep `automation/` conventions above are additionally enforced mechanically by the tooling listed
-  here.
+- **Repo-wide conventions** — the closed root set (`ADR-REPO-FOLDERS:3`), the dot-prefixed roots (`ADR-REPO-FOLDERS:4`), the markdown-only
+  rule for `docs/` (`ADR-REPO-FOLDERS:5`), and the `contracts/` versioned-contract layout with its `.gitkeep` marker (`ADR-REPO-FOLDERS:11`)
+  — are enforced by **code review** against this ADR; the deep `automation/` conventions above are additionally enforced mechanically by the
+  tooling listed here.
 
 - **Code review.** Structural conventions that tooling cannot enforce (e.g., "this YAML file belongs in `configs/`, not the module root")
   are caught in review. The uniform structure makes deviations visually obvious.

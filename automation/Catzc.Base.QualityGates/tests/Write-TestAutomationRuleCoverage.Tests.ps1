@@ -1,4 +1,4 @@
-Describe 'Write-TestAutomationRuleCoverage' -Tag 'L0', 'logic', 'ADR-TEST#28' {
+Describe 'Write-TestAutomationRuleCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#28' {
     BeforeAll {
         # A fake rule universe (not the real docs) keeps this hermetic — the writer is a pure function of its
         # inputs. Two rules covered by tests, two by analyzers, one by neither.

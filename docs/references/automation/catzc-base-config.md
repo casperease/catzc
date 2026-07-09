@@ -6,7 +6,7 @@ value on top of that reader, and the `configs.yml` override registry that lets a
 default convention. It does **not** own the validators themselves (those are private to each owning module), the config files those
 validators guard, or the object-shaping helpers that manipulate already-loaded config objects (those live in
 [Catzc.Base.Objects](catzc-base-objects.md)). The design is governed by
-[module-config-loading](../../adr/automation/module-config-loading.md).
+[module-config-loading](../../adr/configuration/module-config-loading.md).
 
 ## Domains
 
@@ -23,7 +23,7 @@ The unified path from a config name to a validated, cached object. `Get-Config` 
 owning module's scope — so private validators resolve without any dependency on the caller — and stores the result keyed by resolved file
 path. Every subsequent call for the same name returns the cached reference; the file is read once per session. Unknown and ambiguous names
 throw immediately; there is no silent fall-through. The full design — discovery, owner-scope validation, poka-yoke table — is in
-[module-config-loading](../../adr/automation/module-config-loading.md).
+[module-config-loading](../../adr/configuration/module-config-loading.md).
 
 ### domain:2 — Override registry
 
@@ -42,7 +42,7 @@ name (the owning module is discovered, not part of the address); each following 
 ordered dictionary or a typed object alike. The key path is optional — `global.<config>` addresses the whole config as a subtree. An address
 is the by-reference form of a config value: committable as data, dereferenced wherever a value is wanted without re-reading a file, and
 always read-only. Because an address only ever reaches version-controlled config, nothing addressable is a secret. The design is in
-[config-value-addressing](../../adr/automation/config-value-addressing.md).
+[config-value-addressing](../../adr/configuration/config-value-addressing.md).
 
 ## What the module does
 

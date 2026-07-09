@@ -1,29 +1,29 @@
 # Generated READMEs — one authored source, linked out per conventional folder
 
-## Rules: ADR-README
+## Rules: ADR-REPO-README
 
-### Rule ADR-README:1
+### Rule ADR-REPO-README:1
 
 A `README.md` in a mapped conventional folder is a **filesystem link** to an authored docs source, never a hand-kept copy: the README IS the
 source, so there is no second copy to drift and an edit through either path lands in the one authored file.
 
 - [Decision](#decision)
 
-### Rule ADR-README:2
+### Rule ADR-REPO-README:2
 
 Generated READMEs are derived artifacts, gitignored globally (`**/README.md`) exactly like the generated `.psd1` manifests — re-linked on
 import, never committed. History and the authored text live elsewhere (git; the source).
 
 - [Derived, not committed](#derived-not-committed)
 
-### Rule ADR-README:3
+### Rule ADR-REPO-README:3
 
 A folder keeps a hand-authored, committed README by opting out: omit it from the map and un-ignore it in `.gitignore` (`!path/README.md`). A
 folder is therefore either generated (mapped, ignored) or committed (unmapped, opted-in) — never both.
 
 - [Opt-out is explicit and located](#opt-out-is-explicit-and-located)
 
-### Rule ADR-README:4
+### Rule ADR-REPO-README:4
 
 The map from a target folder to its source lives only in `automation/Catzc.Base.Docs/configs/readme.yml` — a glob `patterns` list whose
 matched folders derive their source by convention, plus explicit `mappings` for the exceptions — validated by the `DocsConfig` type and
@@ -31,17 +31,17 @@ expanded by `Get-ReadmeMappings`; `Build-Readme` is the single writer. The mappi
 
 - [Decision](#decision)
 
-### Rule ADR-README:5
+### Rule ADR-REPO-README:5
 
 Materialisation is idempotent and runs on every import (the importer tail), through the one link mechanism owner `Set-FileLink`
-(`Catzc.Base.Files`, [ADR-ROOTCFG:7](generated-root-configs.md#rule-adr-rootcfg7)): a README that is already an effective link to its source
-is a no-op, and anything else — an old plain-file copy, a wrong or orphaned link — is recreated with the running OS's best mechanism (a
-relative symbolic link where permitted, a hard link on privilege-less Windows), so a clean tree is a fast no-op and each OS heals its own
-view at its session start.
+(`Catzc.Base.Files`, [ADR-REPO-ROOTCFG:7](generated-root-configs.md#rule-adr-repo-rootcfg7)): a README that is already an effective link to
+its source is a no-op, and anything else — an old plain-file copy, a wrong or orphaned link — is recreated with the running OS's best
+mechanism (a relative symbolic link where permitted, a hard link on privilege-less Windows), so a clean tree is a fast no-op and each OS
+heals its own view at its session start.
 
 - [Always current, at no steady-state cost](#always-current-at-no-steady-state-cost)
 
-### Rule ADR-README:6
+### Rule ADR-REPO-README:6
 
 Relative links resolve at the source. An article authors its links relative to its own `docs/` location, and the docs tree is the reading
 surface where they are guaranteed to resolve; the README path is a pointer into that surface, not a second rendering with its own link base.
@@ -51,7 +51,7 @@ them).
 
 - [The reading surface is the source](#the-reading-surface-is-the-source)
 
-### Rule ADR-README:7
+### Rule ADR-REPO-README:7
 
 Authored sources live under `docs/references/` — automation modules as the domains-first reference articles in
 `docs/references/automation/<kebab>.md`, and other folders (pipelines, infrastructure) under `docs/references/`. The source is the reviewed,
@@ -63,11 +63,11 @@ gate-checked artifact; the README link is out of markdown-gate scope.
 
 A `README.md` is what a reader sees first in a folder in an editor. Kept by hand, each drifts from the documentation it duplicates, and the
 same content is maintained in two places. The repository already treats other per-folder, convention-derived files as generated, gitignored
-artifacts ([dynamic-module-manifests](../automation/powershell/dynamic-module-manifests.md), `ADR-MANIFEST:3`), and the managed root configs
-materialise a source-backed, gitignored target as a filesystem link to its source of truth
-([generated-root-configs](generated-root-configs.md), `ADR-ROOTCFG:7`). A README is the same shape: one authored source under `docs/`, one
-derived artifact per folder — and the link form makes the artifact the source itself, so drift is impossible by construction and there is no
-banner, rebasing, or composed content to maintain.
+artifacts ([dynamic-module-manifests](../automation/powershell/dynamic-module-manifests.md), `ADR-AUTO-MANIFEST:3`), and the managed root
+configs materialise a source-backed, gitignored target as a filesystem link to its source of truth
+([generated-root-configs](generated-root-configs.md), `ADR-REPO-ROOTCFG:7`). A README is the same shape: one authored source under `docs/`,
+one derived artifact per folder — and the link form makes the artifact the source itself, so drift is impossible by construction and there
+is no banner, rebasing, or composed content to maintain.
 
 ## Decision
 
@@ -82,7 +82,7 @@ The README link is an artifact, not source. It is gitignored globally (`**/READM
 ([dedicated-output-directory](dedicated-output-directory.md) treats generated artifacts as out of the committed source set), and it is
 excluded from the markdown gate — the authored source under `docs/references/` is the reviewed artifact. Committing a link would also be
 committing a git link object, which Windows checkouts materialise unreliably — the same reason a `committed` root config is never a link
-([ADR-ROOTCFG:7](generated-root-configs.md#rule-adr-rootcfg7)).
+([ADR-REPO-ROOTCFG:7](generated-root-configs.md#rule-adr-repo-rootcfg7)).
 
 ### Opt-out is explicit and located
 

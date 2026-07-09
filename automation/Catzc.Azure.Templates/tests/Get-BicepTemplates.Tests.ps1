@@ -3,7 +3,7 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
     # Read-only discovery tests: boundary mocks + config-cache reset run ONCE, not per test. Discovery
     # (bicepTemplatesCache) already caches on the fixture root across tests, and no test mutates the fixture
     # tree or config, so the warm caches are correct to share; a per-test configCache reset only forced a
-    # needless cold re-parse (ADR-TEST:19/ADR-TEST:4). The cache-behavior tests below invalidate bicepTemplatesCache
+    # needless cold re-parse (ADR-AUTO-TEST:19/ADR-AUTO-TEST:4). The cache-behavior tests below invalidate bicepTemplatesCache
     # inside their own It, independent of this setup.
     BeforeAll {
         # Discover from the test fixtures, never the shipped infrastructure/templates — and resolve

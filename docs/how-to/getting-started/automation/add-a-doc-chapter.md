@@ -45,10 +45,10 @@ ADRs capture a decision so it can be cited and enforced. They follow a fixed sha
 ("Authoring conventions") in full before writing, and copy the structure of an existing ADR. The essentials:
 
 1. **Pick the area and a code.** ADRs are grouped into `principles/`, `automation/`, `pipelines/`, `azure/`, `repository/`. Choose a short
-   unique citation code (e.g. `ADR-CACHE`, `ADR-NAMING`, `ADR-AZSESS`).
+   unique citation code (e.g. `ADR-AUTO-CACHE`, `ADR-AZ-NAMING`, `ADR-AZ-SESSION`).
 2. **Create `docs/adr/<area>/<kebab-title>.md`.** Start with the rule registry — a `## Rules: <code>` section followed by
    `### Rule <code>:<n>` entries, each a one-paragraph normative summary that links to the prose section justifying it. These are what other
-   code and docs cite as `<code>#<n>` (e.g. `ADR-ERROR#3`).
+   code and docs cite as `<code>#<n>` (e.g. `ADR-AUTO-ERROR#3`).
 3. **Then the prose**: `## Context`, `## Decision`, optionally `## How this is enforced`, `## Consequences`.
 4. **Register it.** Add the code → ADR row to the table in `docs/adr/README.md`, and add a bullet under the right section of
    [`docs/index.md`](../../../index.md).

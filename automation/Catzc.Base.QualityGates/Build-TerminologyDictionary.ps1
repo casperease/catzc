@@ -4,7 +4,7 @@
     the terminology gate.
 .DESCRIPTION
     Reads the approved-vocabulary registry (configs/terminology.yml, via Get-Config -Config terminology)
-    and writes one plain cspell word list per category (ADR-SPELL:6) to the repository root's .cspell/<category>.txt
+    and writes one plain cspell word list per category (ADR-AUTO-SPELL:6) to the repository root's .cspell/<category>.txt
     — one file per category defined in the registry (see .cspell/README.md) — the lists cspell.yml references
     as separate dictionaries. Each carries a generated-file header comment (cspell treats
     '#' lines as comments) naming its source. Each list is lower-cased, de-duplicated, and ordinal-sorted, so the
@@ -14,10 +14,10 @@
 
     terminology.yml is the single source of truth; these lists are generated, never hand-edited. Like the
     .psd1 manifests they are gitignored and regenerated at the importer tail (see importer.ps1), so cspell
-    resolves them at fixed paths without a committed second copy of the vocabulary (ADR-OUTDIR:8).
+    resolves them at fixed paths without a committed second copy of the vocabulary (ADR-REPO-OUTDIR:8).
 
-    See docs/adr/automation/spell-out-names.md (ADR-SPELL:5, ADR-SPELL:6) and
-    docs/adr/repository/dedicated-output-directory.md (ADR-OUTDIR:8).
+    See docs/adr/automation/spell-out-names.md (ADR-AUTO-SPELL:5, ADR-AUTO-SPELL:6) and
+    docs/adr/repository/dedicated-output-directory.md (ADR-REPO-OUTDIR:8).
 .PARAMETER DryRun
     Report whether any generated list would change without writing the files. The returned content is the
     same in either mode; -DryRun simply skips the write. See
@@ -52,7 +52,7 @@ function Build-TerminologyDictionary {
 
     $config = Get-Config -Config terminology
 
-    # One dictionary per category (ADR-SPELL:6): each category's terms generate their own cspell word list, so
+    # One dictionary per category (ADR-AUTO-SPELL:6): each category's terms generate their own cspell word list, so
     # cspell.yml can reference — and scope — them independently. The category set is the registry's own
     # 'categories' map (the single source, validated by TerminologyConfig); every category's file is always
     # emitted (even when it has no terms) so the generated file set stays stable.
@@ -91,7 +91,7 @@ function Build-TerminologyDictionary {
         )
         $content = (($header + $words) -join "`n") + "`n"
 
-        # Gitignored, generated artifact at the repository root's .cspell/ (ADR-OUTDIR:8), at the fixed path
+        # Gitignored, generated artifact at the repository root's .cspell/ (ADR-REPO-OUTDIR:8), at the fixed path
         # cspell.yml references.
         $dictPath = Join-Path $cspellDir "$category.txt"
 

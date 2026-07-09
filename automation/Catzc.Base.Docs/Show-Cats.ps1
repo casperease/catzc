@@ -53,7 +53,7 @@ function Show-Cats {
             break
         }
         'adr' {
-            # Plain assignment (not @(...)): the getter returns a comma-wrapped array (ADR-CACHE exemplar),
+            # Plain assignment (not @(...)): the getter returns a comma-wrapped array (ADR-AUTO-CACHE exemplar),
             # which assignment receives intact — wrapping it again in @() would nest it one level too deep.
             $entries = Get-CatsAdrIndex
             if ($Query) {

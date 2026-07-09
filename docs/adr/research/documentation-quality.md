@@ -1,15 +1,15 @@
 # ADR: DORA — Documentation quality
 
-## Rules: ADR-DORADQ
+## Rules: ADR-DORA-DOCS
 
-### Rule ADR-DORADQ:1
+### Rule ADR-DORA-DOCS:1
 
 Documentation is an active engineering deliverable, created and maintained deliberately alongside the systems it describes, not a byproduct
 assembled once and left to age.
 
 - [Summary](#summary)
 
-### Rule ADR-DORADQ:2
+### Rule ADR-DORA-DOCS:2
 
 Quality is judged along three dimensions — clarity, discoverability, and reliability — and a document that fails any one of them fails the
 capability: accurate but unreadable, readable but undiscoverable, and discoverable but wrong are each as unhelpful as no documentation at
@@ -17,21 +17,21 @@ all.
 
 - [Summary](#summary)
 
-### Rule ADR-DORADQ:3
+### Rule ADR-DORA-DOCS:3
 
 Documentation quality is treated as a multiplier that amplifies every other technical capability — trunk-based development, continuous
 integration, continuous delivery, supply chain security, and SRE practices — rather than a standalone practice measured in isolation.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORADQ:4
+### Rule ADR-DORA-DOCS:4
 
 Ownership of documentation currency is explicit — guidelines, training, style guides, or a documentation champion own keeping authored
 material accurate — rather than leaving currency to whichever contributor happens to notice drift.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORADQ:5
+### Rule ADR-DORA-DOCS:5
 
 Stale or duplicated documentation is treated as an active defect, not a passive gap: two copies of the same material are a drift risk from
 the moment they are created, whether or not either copy has yet gone wrong.
@@ -70,11 +70,11 @@ capability is otherwise implemented.
 ## How to apply
 
 This platform realizes clarity and findability by keeping documentation examples on one consistent, obviously-fictional theme
-([ADR-EXAMPLE](../repository/documentation-examples.md)) so a reader recognizes illustrative material instantly and is never confused about
-whether an example is live data. It realizes reliability by removing the chance of drift at the source: a generated `README.md` is a
+([ADR-REPO-EXAMPLE](../repository/documentation-examples.md)) so a reader recognizes illustrative material instantly and is never confused
+about whether an example is live data. It realizes reliability by removing the chance of drift at the source: a generated `README.md` is a
 filesystem link to its single authored source rather than a hand-kept copy, so the two can never diverge
-([ADR-README](../repository/generated-readmes.md)). Both patterns follow DORA's broader guidance to invest in organizational guidelines,
-training, style guides, and named documentation ownership rather than leaving currency to incidental effort.
+([ADR-REPO-README](../repository/generated-readmes.md)). Both patterns follow DORA's broader guidance to invest in organizational
+guidelines, training, style guides, and named documentation ownership rather than leaving currency to incidental effort.
 
 ## Common pitfalls
 

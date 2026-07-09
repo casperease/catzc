@@ -24,7 +24,7 @@ vendor_policy: runtime
 
 # NuGet/PSGallery package identity and metadata — Export-Catzc -To nuget builds the .nupkg and the module
 # manifest (Catzc.psd1) from these. module_guid is the module's stable identity across versions (a registered
-# managed GUID, ADR-GUIDS). project_uri/license_uri are the Gallery listing links for this repo; leave either
+# managed GUID, ADR-AUTO-GUIDS). project_uri/license_uri are the Gallery listing links for this repo; leave either
 # blank to fall back to a sensible default (New-CatzcNuGetPackage supplies one, so the manifest is always
 # complete).
 module_guid: 211b36c7-f7eb-4f3c-93f5-9132b535fa56

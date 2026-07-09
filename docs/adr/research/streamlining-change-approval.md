@@ -1,8 +1,8 @@
 # ADR: DORA — Streamlining change approval
 
-## Rules: ADR-DORASCA
+## Rules: ADR-DORA-APPROVAL
 
-### Rule ADR-DORASCA:1
+### Rule ADR-DORA-APPROVAL:1
 
 Approve changes through peer review captured in the development platform during development, not through a centralized Change Approval Board
 (CAB) that reviews after the fact. The review and its approval live where the change was made, as part of making it, not as a separate
@@ -10,7 +10,7 @@ downstream ceremony.
 
 - [Summary](#summary)
 
-### Rule ADR-DORASCA:2
+### Rule ADR-DORA-APPROVAL:2
 
 Automation — continuous testing, continuous integration, and comprehensive monitoring — is the mechanism that catches a bad change early;
 approval is not the last line of defense against defects. A gate a human reads late is a weaker check than one a pipeline runs continuously
@@ -18,21 +18,21 @@ from the first commit.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORASCA:3
+### Rule ADR-DORA-APPROVAL:3
 
 Approval weight scales with a change's risk profile; low-risk changes carry lightweight, mostly automated approval, and only genuinely
 high-risk changes draw heavier scrutiny. Treating every change as equally risky wastes review capacity on the changes that need it least.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORASCA:4
+### Rule ADR-DORA-APPROVAL:4
 
 A centralized review body's role is cross-team coordination, process improvement, and business-level trade-off decisions — never detailed
 code-level gatekeeping. A distant reviewer without the change's context is a poor substitute for the peer who wrote and reviewed it.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORASCA:5
+### Rule ADR-DORA-APPROVAL:5
 
 Regular change management is made fast and reliable enough to also serve emergency changes, rather than keeping a separate, less-controlled
 fast path that bypasses approval under pressure. One well-built path beats two paths of different quality.
@@ -80,11 +80,11 @@ improvement, and business-level trade-off decisions rather than line-by-line cod
 is fast and reliable enough to also serve emergency changes.
 
 On this platform, the pull request is exactly this shift made concrete: it is the authenticated ingress that captures peer review as a merge
-precondition ([ADR-REMOTE](../design/server-remote-integration.md)), not a separate external gate a change waits behind. Self-service
-delivery ([ADR-SELFSERV](../design/self-service.md)) rests on that same PR as its change-approval control — reviewable, reproducible, and
-audited by construction, with no ticket to a central gatekeeper. Where a human certification gate does exist, it sits at the release
-boundary — RC and RBC ([ADR-FLOW](../design/ci-discipline-and-promotion-flow.md)) — scoped to the business decision of certifying a release
-candidate, not to re-reviewing code the PR already gated.
+precondition ([ADR-DSGN-REMOTE](../design/server-remote-integration.md)), not a separate external gate a change waits behind. Self-service
+delivery ([ADR-DSGN-SELFSERV](../design/self-service.md)) rests on that same PR as its change-approval control — reviewable, reproducible,
+and audited by construction, with no ticket to a central gatekeeper. Where a human certification gate does exist, it sits at the release
+boundary — RC and RBC ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) — scoped to the business decision of certifying a
+release candidate, not to re-reviewing code the PR already gated.
 
 ## Common pitfalls
 

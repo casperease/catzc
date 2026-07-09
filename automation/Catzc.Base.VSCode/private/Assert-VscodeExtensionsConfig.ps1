@@ -3,7 +3,7 @@
     Validates the vscode-extensions registry — the binding shape check Get-Config dispatches by convention.
 .DESCRIPTION
     Runs once on the cache miss when Get-Config -Config vscode-extensions loads the registry (see
-    docs/adr/automation/module-config-loading.md). Collects every violation and throws once with the full
+    docs/adr/configuration/module-config-loading.md). Collects every violation and throws once with the full
     list: 'recommendations' must be a non-empty list of unique publisher.name extension ids (lowercase-safe
     id characters around a single dot).
 .PARAMETER Config

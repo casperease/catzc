@@ -6,7 +6,7 @@
 #
 # FORMAT: YAML, with native `#` comments. markdownlint and the VS Code extension
 # (DavidAnson.vscode-markdownlint) auto-discover `.markdownlint.yml`. We use `.yml` (not `.yaml`)
-# deliberately: per the pipeline-naming ADR (ADR-PIPENAME:6) `.yml` is config data our tooling parses, while
+# deliberately: per the pipeline-naming ADR (ADR-PIPE-NAME:6) `.yml` is config data our tooling parses, while
 # `.yaml` is reserved for executable ADO pipelines — and .vscode/settings.json maps `*.yaml` to the
 # Azure Pipelines schema, which would mis-highlight this file.
 #
@@ -116,7 +116,7 @@ MD042: true  # no-empty-links — a link must have a destination
 MD045: true  # no-alt-text — images have alt text
 MD047: true  # single-trailing-newline — file ends with exactly one newline (matches insert_final_newline)
 # MD051 link-fragments — OFF: markdownlint's slugger cannot reproduce GitHub's anchors for the `Verb:N`
-# rule-citation headings (a colon with no following space, e.g. `### Rule ADR-TEST:1` -> GitHub `#rule-adr-test1`),
+# rule-citation headings (a colon with no following space, e.g. `### Rule ADR-AUTO-TEST:1` -> GitHub `#rule-adr-auto-test1`),
 # so it false-positives on valid same-file links. It only validates SAME-FILE `#fragment` links anyway
 # (cross-file `file.md#frag` is never checked), and our anchors are GitHub-valid per the citation registry
 # in docs/adr/README.md. Re-enable if the slugger gains a GitHub-compatible mode.

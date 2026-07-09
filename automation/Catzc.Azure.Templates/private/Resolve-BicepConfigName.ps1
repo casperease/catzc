@@ -6,7 +6,7 @@
     no hyphen, so splitting on the FIRST `-` cleanly separates them: the part before is the
     environment (must be defined in azure.yml), the remainder is the optional slot (1-3 lowercase
     alphanumeric, empty for the base slot). Used at discovery to map config filenames back to envs.
-    See docs/adr/azure/azure-data-model.md#rule-adr-datamod2.
+    See docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2.
 .PARAMETER ConfigName
     The config-name (a config filename without extension), e.g. `dev` or `dev-001`.
 .EXAMPLE

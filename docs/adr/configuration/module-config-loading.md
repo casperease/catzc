@@ -1,36 +1,36 @@
 # ADR: Module config loading — one reader (`Get-Config`), owner-scoped validation
 
-## Rules: ADR-MODCFG
+## Rules: ADR-CONF-LOADING
 
-### Rule ADR-MODCFG:1
+### Rule ADR-CONF-LOADING:1
 
 All config reads go through `Get-Config -Config <name>` (public, in `Catzc.Base.Config`) — no function re-reads a `configs/*.yml` file
 directly or keeps its own `$script:` config cache.
 
 - [Decision](#decision)
 
-### Rule ADR-MODCFG:2
+### Rule ADR-CONF-LOADING:2
 
 Existence is discovered, not declared — a private seam (`Resolve-ConfigEntry`) scans `automation/*/configs/` for `<name>.yml` and resolves
 it to its owning module. A name is global; `-Module` is only for disambiguating the same name in two modules.
 
 - [Discovery, not per-module wrappers](#discovery-not-per-module-wrappers)
 
-### Rule ADR-MODCFG:3
+### Rule ADR-CONF-LOADING:3
 
 Parse ordered, cache by resolved file path (`$script:configCache`), and invalidate only by re-import — the path key means a fixture path and
 the real path never collide.
 
 - [Decision](#decision)
 
-### Rule ADR-MODCFG:4
+### Rule ADR-CONF-LOADING:4
 
 Validation is resolved **in the owning module's scope** (`& (Get-Module $owner) { … }`), caller-independent. The default is convention: a
 private `Assert-<TitleCase(name)>Config` in the owner module (e.g. `Assert-AdoConfig`), run once on the cache miss.
 
 - [Validation runs in the owner's scope, by convention](#validation-runs-in-the-owners-scope-by-convention)
 
-### Rule ADR-MODCFG:5
+### Rule ADR-CONF-LOADING:5
 
 A `configs/configs.yml` registry overrides the convention per name: `<name>: { pwsh: <Fn> }` runs a custom-named validator in the owner's
 scope, or `<name>: { type: <C# FQN> }` constructs `[type]::new($dict)` (the C# type both maps and validates). The registry is advanced;
@@ -38,7 +38,7 @@ raw + convention cover the common cases.
 
 - [The registry override](#the-registry-override)
 
-### Rule ADR-MODCFG:6
+### Rule ADR-CONF-LOADING:6
 
 Reading a config is global access — never dependency-gated. The validators that shape it stay **private** to their owning module; only
 `Get-Config` is public.
@@ -49,7 +49,7 @@ Reading a config is global access — never dependency-gated. The validators tha
 
 A module's internal config lives in `<module>/configs/<name>.yml` (see [conventional-folders](../repository/conventional-folders.md)).
 Reading one is always the same job: find the file, assert it exists, parse the YAML, optionally validate (or map) it, and cache the result
-so the file is read once per session (see [caching](caching.md)).
+so the file is read once per session (see [caching](../automation/caching.md)).
 
 Copy-pasted load/cache/validate boilerplate, and one wrapper per config, is exactly the kind of drift this codebase avoids: a per-module
 reader wrapper would force callers to know which wrapper owns which config and to wire validation by passing in the owning module's closure.
@@ -64,7 +64,8 @@ other function reads a config file or keeps its own config cache. It:
 2. returns the cached object if `$script:configCache` already has the resolved path (same reference every call);
 3. asserts the file exists and parses it as an ordered dictionary (`ConvertFrom-Yaml -Ordered`);
 4. validates (or maps) the raw dict **in the owning module's scope**, once, on the cache miss;
-5. caches the result keyed on the resolved file path. Re-running the importer is the only invalidation (see [caching](caching.md)).
+5. caches the result keyed on the resolved file path. Re-running the importer is the only invalidation (see
+   [caching](../automation/caching.md)).
 
 Reading a config is **global access** — any function in any module calls `Get-Config -Config ado` and gets the same validated object. There
 are no per-module reader wrappers and no dependency gating. The validators stay **private** to the module that owns the config; only
@@ -77,7 +78,7 @@ A config name is **global**. `Resolve-ConfigEntry` builds a one-time `name → e
 _discovered_ from where the file lives — not declared by a wrapper and not passed by the caller. `-Module` exists only to disambiguate the
 rare case of the same config name in two modules; the seam throws on an **unknown** name and on an **ambiguous** name (asking for
 `-Module`). This is also the test seam: mock `Resolve-ConfigEntry` to return a fixture entry and the read redirects to a fixture file (see
-[test-automation](test-automation.md)).
+[test-automation](../automation/test-automation.md)).
 
 ### Validation runs in the owner's scope, by convention
 
@@ -100,7 +101,7 @@ shapes:
   the owner's scope.
 - `<name>: { type: <C# FQN> }` — construct `[type]::new($dict)`; the C# type's constructor **both maps and validates** the ordered dict into
   a typed object. This is the advanced path for configs that warrant a strongly-typed model (see
-  [native-csharp-types](BCL/native-csharp-types.md)).
+  [native-csharp-types](../automation/BCL/native-csharp-types.md)).
 
 The registry is for the cases convention cannot express. Most configs need neither — raw or a convention `Assert-…Config` covers them.
 
@@ -128,7 +129,7 @@ The registry is for the cases convention cannot express. Most configs need neith
 - One implementation of config I/O, caching, and validation; readers can't drift, and every read of a file shares the one
   `$script:configCache`.
 - Test isolation is simple: mock the discovery seam (`Resolve-ConfigEntry`) or the whole boundary (`Get-Config`) — see
-  [test-automation](test-automation.md).
+  [test-automation](../automation/test-automation.md).
 
 ## Dora explains
 

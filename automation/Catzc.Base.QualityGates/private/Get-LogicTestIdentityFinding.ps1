@@ -1,14 +1,14 @@
 <#
 .SYNOPSIS
     Scans one Pester test file's AST for a live production identity used as a code string literal OUTSIDE an
-    integrity-tagged block — the comment-blind, tag-aware check cspell cannot do (ADR-LANG).
+    integrity-tagged block — the comment-blind, tag-aware check cspell cannot do (ADR-REPO-LANG).
 .DESCRIPTION
     The PowerShell AST omits comments, here-doc trivia, and help entirely, so this reads only real code string
     literals — a config comment illustrating `[acme, globex]`, a `.EXAMPLE` help block, or demo data in a
     comment never reaches it.
 
     A live identity is legitimate ONLY inside an `integrity`-tagged block (binding the real config is an
-    integrity test's job, ADR-TEST:1); anywhere else in a logic-bearing test file it is a leak. So the scan
+    integrity test's job, ADR-AUTO-TEST:1); anywhere else in a logic-bearing test file it is a leak. So the scan
     EXCLUDES the script-block extent of every Describe/Context/It tagged `integrity`, and reports a match
     everywhere else — the shared setup, the logic Contexts, the unit tests. This makes a MIXED logic+integrity
     file work with no file split: the integrity Context's identities are carved out, the logic body is checked.
@@ -48,7 +48,7 @@ function Get-LogicTestIdentityFinding {
     $parseErrors = $null
     $ast = [System.Management.Automation.Language.Parser]::ParseFile($Path, [ref]$parseTokens, [ref]$parseErrors)
 
-    # Predicates bound to locals (never inlined in a .FindAll(...) call) — ADR-PSFORMAT:6.
+    # Predicates bound to locals (never inlined in a .FindAll(...) call) — ADR-AUTO-PSFORMAT:6.
     $isCommandNode = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]

@@ -22,7 +22,7 @@
     Remove-PermanentPath $installDir -Label 'Install-Dotnet'
 #>
 function Remove-PermanentPath {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Does not use ShouldProcess by design — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-dryrun5')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Does not use ShouldProcess by design — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun5')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]

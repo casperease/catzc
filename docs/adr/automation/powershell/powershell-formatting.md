@@ -1,8 +1,8 @@
 # ADR: PowerShell formatting — the language layer over uniform-formatting
 
-## Rules: ADR-PSFORMAT
+## Rules: ADR-AUTO-PSFORMAT
 
-### Rule ADR-PSFORMAT:1
+### Rule ADR-AUTO-PSFORMAT:1
 
 PowerShell formatting builds on the repo-wide [uniform-formatting](../../repository/uniform-formatting.md) baseline and adds the
 PowerShell-specific rules below, enforced by PSScriptAnalyzer (`PSScriptAnalyzerSettings.psd1`) plus custom analyzer rules, run in the L2
@@ -10,27 +10,27 @@ test suite.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PSFORMAT:2
+### Rule ADR-AUTO-PSFORMAT:2
 
 Brace style is K&R — the opening brace on the same line — enforced by `PSPlaceOpenBrace`.
 
 - [Brace style](#brace-style)
 
-### Rule ADR-PSFORMAT:3
+### Rule ADR-AUTO-PSFORMAT:3
 
 Indentation is 4 spaces (the PowerShell community default), set by `.editorconfig`'s `[*.{ps1,psm1,psd1}]` section on top of the repo
 baseline.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PSFORMAT:4
+### Rule ADR-AUTO-PSFORMAT:4
 
 Variable casing: PascalCase for parameters and scoped variables, camelCase for locals — enforced by the custom `Measure-VariableCasing` rule
 (scriptblock params and automatic variables excluded).
 
 - [Variable casing](#variable-casing)
 
-### Rule ADR-PSFORMAT:5
+### Rule ADR-AUTO-PSFORMAT:5
 
 Every authored PowerShell file the repository ships or runs is covered by the formatting and analysis gates — including the root
 `importer.ps1` and authored `.psd1` config — resolved through one shared selector so no file escapes by living outside the module tree.
@@ -38,7 +38,7 @@ Generated module manifests are excluded: they are build output, made canonical b
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PSFORMAT:6
+### Rule ADR-AUTO-PSFORMAT:6
 
 A multi-line predicate passed to `.FindAll(...)` (or any method call) is bound to a local variable first, never written inline inside the
 call's parentheses. A paren-nested multi-line scriptblock is the one construct where PSScriptAnalyzer versions compute

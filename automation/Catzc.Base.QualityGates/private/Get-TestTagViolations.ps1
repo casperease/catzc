@@ -77,8 +77,8 @@ function Get-TestTagViolations {
             $block = $block.Parent
         }
         foreach ($tag in $candidates) {
-            if ($tag -cnotmatch '^ADR-[A-Z]+#\d+$') {
-                $reasons += "malformed ADR citation '$tag' (want ADR-<CODE>#<n>, e.g. ADR-ERROR#3)"
+            if ($tag -cnotmatch '^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$') {
+                $reasons += "malformed ADR citation '$tag' (want ADR-<CODE>#<n>, e.g. ADR-AUTO-ERROR#3)"
                 continue
             }
             if ($null -eq $validRuleIds) {

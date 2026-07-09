@@ -2,7 +2,7 @@
 
 Azure DevOps pipelines and the templates they include. Two ADRs govern this folder:
 
-- [pipeline-types](../adr/pipelines/pipeline-types.md) — the four types of pipeline.
+- [pipeline-types](../adr/flow/pipeline-types.md) — the four types of pipeline.
 - [pipeline-naming-and-placement](../adr/pipelines/pipeline-naming-and-placement.md) — the layout and naming rules below.
 
 ## Layout
@@ -44,7 +44,7 @@ Real:
 Infrastructure (foundation / discovery / expedition) — **reference shapes**, not yet registered. The CI build path runs as-is
 (`az bicep build` is offline, no auth); the CD deploy paths need real service connections and a non-placeholder `azure.yml` (the shipped one
 has placeholder subscription GUIDs; the `sc-…` names are illustrative). They wire the templates built in the infra phase
-(`out/infra-plan.md`) per the [pipeline-types](../adr/pipelines/pipeline-types.md) and
+(`out/infra-plan.md`) per the [pipeline-types](../adr/flow/pipeline-types.md) and
 [naming-and-placement](../adr/pipelines/pipeline-naming-and-placement.md) ADRs:
 
 - `ci-infrastructure.yaml` — CI engine for all three templates (`Assert-BicepTemplate` + `Build-Bicep`), no deploy. Registered on the
@@ -66,7 +66,7 @@ canonical shapes to copy.
    `cd-shared.yaml` as a starting point).
 2. Set its `trigger:`/`pr:` path filters to the unit's native projection — `(Get-GlobSetTrigger -Name <globset>).AdoInclude`/`.AdoExclude`
    generates the exact `paths:` block from `globs.yml`; the drift gate keeps it honest (see
-   [durable-sha-globs](../adr/pipelines/durable-sha-globs.md#native-projection-the-no-start-trigger) and the
+   [durable-sha-globs](../adr/flow/durable-sha-globs.md#native-projection-the-no-start-trigger) and the
    [add-a-deployable-unit](../how-to/getting-started/automation/add-a-deployable-unit.md) how-to).
 3. Set real `ServiceConnection` names and ensure `azure.yml` has real subscription IDs.
 4. Register it: `Register-AdoPipeline '<Name>' 'pipelines/<type>-<name>.yaml'`.
@@ -76,5 +76,5 @@ canonical shapes to copy.
 ## Open decision — INPUT: PR vs direct push
 
 How an INPUT pipeline lands its commit (open a PR vs push directly) is **not yet decided** — see
-[pipeline-types](../adr/pipelines/pipeline-types.md). Either way the output is a commit, and deployment happens only via CD against version
+[pipeline-types](../adr/flow/pipeline-types.md). Either way the output is a commit, and deployment happens only via CD against version
 control.

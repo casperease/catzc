@@ -1,13 +1,13 @@
 # cspell:ignore dedupe
 # The globs.yml registry gate: strict shape (unknown keys rejected), every entry a valid GlobSet with a
-# declared layer (ADR-GLOBS:7), and compose resolving acyclically to declared sets (ADR-GLOBS:8).
+# declared layer (ADR-FLOW-CD-GLOBS:7), and compose resolving acyclically to declared sets (ADR-FLOW-CD-GLOBS:8).
 Describe 'GlobsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {
             param([hashtable] $globsets)
             [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $globsets })
         }
-        # Render a set's flattened scan program as '+ pattern' / '- pattern' lines (ADR-GLOBS:4/8) — the
+        # Render a set's flattened scan program as '+ pattern' / '- pattern' lines (ADR-FLOW-CD-GLOBS:4/8) — the
         # ordered membership program, the durable behaviour the removed marker rendering used to show.
         $script:program = {
             param($set)
@@ -25,7 +25,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
     Context 'a valid registry' {
         It 'constructs and exposes the sets with lookup' {
-            # Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names (ADR-TEST:3).
+            # Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names (ADR-AUTO-TEST:3).
             $c = & $script:make @{
                 'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**', 'main.ps1') }
                 'gadget' = @{ description = 'the gadget unit'; layer = 'deployable-unit'; include = @('lib/**'); exclude = @('**/*.md') }
@@ -55,7 +55,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'composition (ADR-GLOBS:8)' {
+    Context 'composition (ADR-FLOW-CD-GLOBS:8)' {
         It 'unions the composed set into the effective membership' {
             $c = & $script:make @{
                 'base' = @{ description = 'd'; layer = 'deployable-unit'; include = @('shared/**'); exclude = @('shared/private/**') }
@@ -68,7 +68,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $set.Matches('other/a.txt') | Should -BeFalse
         }
 
-        It 'flattens the composed surface into the scan program, own rules last (ADR-GLOBS:8)' {
+        It 'flattens the composed surface into the scan program, own rules last (ADR-FLOW-CD-GLOBS:8)' {
             $c = & $script:make @{
                 'base' = @{ description = 'd'; layer = 'deployable-unit'; include = @('shared/**'); exclude = @('shared/config/**') }
                 'unit' = @{ description = 'd'; layer = 'deployable-unit'; compose = @('base'); include = @('mine/**'); pipeline = 'cd-unit' }
@@ -79,7 +79,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             (& $script:program $c.Get('base')) | Should -Be @('+ shared/**', '- shared/config/**')
         }
 
-        It 'flattens transitively, each rule appearing once — dedupe keeps the last occurrence (ADR-GLOBS:8)' {
+        It 'flattens transitively, each rule appearing once — dedupe keeps the last occurrence (ADR-FLOW-CD-GLOBS:8)' {
             $c = & $script:make @{
                 'leaf' = @{ description = 'd'; layer = 'deployable-unit'; include = @('leaf/**') }
                 'mid'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('leaf'); include = @('mid/**') }
@@ -91,7 +91,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
         It 'rejects a compose reference to an unknown set' {
             { & $script:make @{ unit = @{ description = 'd'; layer = 'deployable-unit'; compose = @('nope') } } } |
-                Should -Throw '*unknown set*ADR-GLOBS:8*'
+                Should -Throw '*unknown set*ADR-FLOW-CD-GLOBS:8*'
         }
 
         It 'rejects a self-compose' {

@@ -2,9 +2,9 @@
 .SYNOPSIS
     Answers "which areas-of-control do these changes touch?" — one row per matched globset.
 .DESCRIPTION
-    The blast-radius query (the third marker role, ADR-GLOBS:1): maps changed files onto every globset
+    The blast-radius query (the third marker role, ADR-FLOW-CD-GLOBS:1): maps changed files onto every globset
     whose effective membership matches at least one of them — the declared registry (tracks,
-    deployable-units, scopes; compose-aware) AND the derived module sets (ADR-PROTGLOB), so the answer
+    deployable-units, scopes; compose-aware) AND the derived module sets (ADR-REPO-PROTGLOB), so the answer
     covers both "which pipelines/units this fires" (Pipeline) and "which tests verify it" (the derived
     module rows name the modules for Test-Automation -Modules; a declared row's VerifyModules/VerifyLevel
     carry its configured verify scope, consumable via Test-Automation -Marker).

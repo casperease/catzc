@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Prepares a set of $env: variables for a child or external process to read — the one sanctioned seam for
-    handing a secret to an external consumer through the environment (ADR environment-variables, ADR-ENVVAR:7).
+    handing a secret to an external consumer through the environment (ADR environment-variables, ADR-AUTO-ENVVAR:7).
 .DESCRIPTION
     Writes environment variables for an external/child/test process from three distinct, unambiguous channels,
     so intent is never guessed (poka-yoke):
@@ -27,7 +27,7 @@
     Cross-platform note (ADR cross-platform): [SecureString] is DPAPI-encrypted only on Windows; on Linux/macOS
     .NET stores it obfuscated, not encrypted. The value of the contract here is don't-log / don't-internalize /
     decrypt-only-at-the-boundary, not at-rest cryptography — the plaintext necessarily lands in $env: for the
-    instant the external tool reads it (ADR-ENVVAR:7).
+    instant the external tool reads it (ADR-AUTO-ENVVAR:7).
 .PARAMETER Set
     Map of env name (or subtree prefix) to a [SecureString] secret or a 'global.<config>...' config address.
 .PARAMETER Value

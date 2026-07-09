@@ -28,12 +28,12 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
 
-        # Warm the path-keyed session caches once, not per test (ADR-TEST#19).
+        # Warm the path-keyed session caches once, not per test (ADR-AUTO-TEST#19).
         Get-Config -Config azure | Out-Null
         Get-BicepTemplates | Out-Null
 
         # ONE build of ALL environments is the single observation every assertion below is a facet of
-        # (ADR-TEST#20) — not a rebuild per test. Building all envs yields alpha AND beta, so every
+        # (ADR-AUTO-TEST#20) — not a rebuild per test. Building all envs yields alpha AND beta, so every
         # per-env range/vnet/reference check reads the captured output rather than re-invoking Build-Bicep.
         # Under the sharded/greedy run a Build-Bicep call (PrePost import + file I/O) costs ~5-6x its warm
         # solo time from CPU/IO contention; collapsing six builds to one keeps every It off the L0 gate.

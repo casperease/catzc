@@ -1,16 +1,16 @@
 # ADR: Tracks — the repository's root concerns
 
-## Rules: ADR-TRACK
+## Rules: ADR-DSGN-TRACK
 
-### Rule ADR-TRACK:1
+### Rule ADR-DSGN-TRACK:1
 
 A **track** is a named repository root concern, mapped onto exactly one root folder and named by that folder: `automation`,
-`infrastructure`, `contracts`, and each `.<foldername>`. Every root folder names a track (`ADR-FOLDERS`); a track never spans two roots, and
-a root never carries two tracks. Tracks are what this mono repository is composed of.
+`infrastructure`, `contracts`, and each `.<foldername>`. Every root folder names a track (`ADR-REPO-FOLDERS`); a track never spans two
+roots, and a root never carries two tracks. Tracks are what this mono repository is composed of.
 
 - [What a track is](#what-a-track-is)
 
-### Rule ADR-TRACK:2
+### Rule ADR-DSGN-TRACK:2
 
 Every track carries one classification from the taxonomy: **core** (defines the internal ports the other tracks rest on — `automation`),
 **external port** (the repository's boundary/configuration for one outside concern — `contracts`, and most `.<foldername>` roots), or
@@ -20,7 +20,7 @@ rather than owning one.
 
 - [The taxonomy](#the-taxonomy)
 
-### Rule ADR-TRACK:3
+### Rule ADR-DSGN-TRACK:3
 
 A track owns one coherent **tech-stack**, and a new tech-stack opens a new track — never a subfolder inside an existing one. `automation`'s
 stack is deliberately intricate: two automation layers (PowerShell and C#) packaged as PowerShell modules. `infrastructure`'s stack is
@@ -30,16 +30,16 @@ services and C# function apps.
 
 - [A track has a tech-stack](#a-track-has-a-tech-stack)
 
-### Rule ADR-TRACK:4
+### Rule ADR-DSGN-TRACK:4
 
 Tracks are **subscribable, never path-coupled**: a consumer binds to a track through its module dependencies (depm — dependencies between
-modules, never on systems) or through its globset's native trigger projection (`ADR-GLOBS`), never by hand-matching the track's source
-paths. The globsets are the coordinating source of truth for "which tracks and deployable-units carry changes in this commit" — computed
-from git, the mechanism that keeps a change in one track from rebuilding every customer of every other track.
+modules, never on systems) or through its globset's native trigger projection (`ADR-FLOW-CD-GLOBS`), never by hand-matching the track's
+source paths. The globsets are the coordinating source of truth for "which tracks and deployable-units carry changes in this commit" —
+computed from git, the mechanism that keeps a change in one track from rebuilding every customer of every other track.
 
 - [Subscription and coordination](#subscription-and-coordination)
 
-### Rule ADR-TRACK:5
+### Rule ADR-DSGN-TRACK:5
 
 A **deployable-unit** is what ships: a whole track (`ci-automation` verifies the entire automation track) or a reduced composition (the
 shared infrastructure templates in a defined order, one customer's foundation). Deployable-units determine pipelines **1-1** — one unit, one
@@ -86,8 +86,9 @@ Two subscription surfaces exist, both derived from the same source of truth:
 
 - **depms** — the module dependencies declare which modules (and by extension which tracks) a consumer rests on; the graph gates enforce
   them. A depm is module-to-module only — a dependency on a system is a dep, a different concern with different tooling.
-- **globset projections** (`ADR-GLOBS`) — each track's globset projects to native vendor path filters that pipelines trigger on, and to a
-  git-reflected area-of-control the PR report reads; test tooling derives blast radius from the same globsets. Nothing is committed per set.
+- **globset projections** (`ADR-FLOW-CD-GLOBS`) — each track's globset projects to native vendor path filters that pipelines trigger on, and
+  to a git-reflected area-of-control the PR report reads; test tooling derives blast radius from the same globsets. Nothing is committed per
+  set.
 
 This is the coordination answer to the monorepo's core tension: everything lives together, but nothing rebuilds together unless the change
 actually touches it.
@@ -102,17 +103,17 @@ customer's configuration surface.
 
 ## Decision
 
-Name the concept: repository root concerns are **tracks** — folder-named (ADR-TRACK:1), classified core/port/adapter (ADR-TRACK:2), one
-tech-stack each (ADR-TRACK:3), subscribable only via depms and globset projections (ADR-TRACK:4), and shipped through deployable-units that
-bind pipelines 1-1 (ADR-TRACK:5).
+Name the concept: repository root concerns are **tracks** — folder-named (ADR-DSGN-TRACK:1), classified core/port/adapter
+(ADR-DSGN-TRACK:2), one tech-stack each (ADR-DSGN-TRACK:3), subscribable only via depms and globset projections (ADR-DSGN-TRACK:4), and
+shipped through deployable-units that bind pipelines 1-1 (ADR-DSGN-TRACK:5).
 
 ### How this is enforced
 
-- **`ADR-FOLDERS`** (conventional folders) keeps the root inventory deliberate — a new root folder is a reviewed decision, and under this
-  ADR it is the decision to open a track.
-- **The globset registry** (`Catzc.Base.Globs`, `ADR-GLOBS`) declares each track's file set; pipelines filter on its native projection and
-  the drift gate fails a trigger that no longer matches, while the git-reflected report answers what a change touches.
-- **depms and the dependency-graph gates** (`ADR-MODDEPS`) enforce the declared subscription edges, including the one-directional core ←
+- **`ADR-REPO-FOLDERS`** (conventional folders) keeps the root inventory deliberate — a new root folder is a reviewed decision, and under
+  this ADR it is the decision to open a track.
+- **The globset registry** (`Catzc.Base.Globs`, `ADR-FLOW-CD-GLOBS`) declares each track's file set; pipelines filter on its native
+  projection and the drift gate fails a trigger that no longer matches, while the git-reflected report answers what a change touches.
+- **depms and the dependency-graph gates** (`ADR-AUTO-DEPM`) enforce the declared subscription edges, including the one-directional core ←
   adapter/port dependency.
 - **Code review** applies the taxonomy: a new root must name its classification and tech-stack; a cross-cutting need becomes a scope
   globset, not a root.

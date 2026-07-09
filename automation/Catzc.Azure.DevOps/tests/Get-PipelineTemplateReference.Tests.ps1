@@ -1,5 +1,5 @@
 Describe 'Get-PipelineTemplateReference' -Tag 'L0', 'logic' {
-    # Get-PipelineTemplateReference is private, so it is exercised through the module (ADR-PESTER:4).
+    # Get-PipelineTemplateReference is private, so it is exercised through the module (ADR-AUTO-PESTER:4).
     BeforeAll {
         function New-Yaml {
             param([string] $Content)

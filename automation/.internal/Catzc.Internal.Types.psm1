@@ -39,7 +39,7 @@ function Get-CombinedTypeHash {
 
     # Enumerate every non-dot module's types/*.cs. Key = "<module>/<bare type>"; Path = the source file. No
     # namespace / dotted-name validation here (the loader's job). [System.IO] over Get-ChildItem for the
-    # ~20ms/call provider overhead the raw enumeration avoids (ADR-TEST:18).
+    # ~20ms/call provider overhead the raw enumeration avoids (ADR-AUTO-TEST:18).
     $files = [System.Collections.Generic.List[object]]::new()
     foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($AutomationRoot)) {
         $moduleName = [System.IO.Path]::GetFileName($moduleDir)

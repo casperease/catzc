@@ -7,7 +7,7 @@
     wipe and lock files under each other, and every such collision reads as a flaky test. This is the one
     acquisition path both entry points use: a named [System.Threading.Mutex] keyed on the repository root
     (machine-wide via the Global\ namespace), awaited through Wait-Mutex — a short glitch leaves only a
-    verbose breadcrumb, while a genuine wait announces itself and writes liveness dots (ADR-CONSOLE:10),
+    verbose breadcrumb, while a genuine wait announces itself and writes liveness dots (ADR-AUTO-CONSOLE:10),
     and an abandoned mutex (the previous holder's process died mid-run) transfers ownership and is not an
     error. The caller MUST release and dispose the returned mutex in a finally.
 .PARAMETER Reason

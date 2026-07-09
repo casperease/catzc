@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the repo-relative tracked files the managed-GUID scan reads — the scan's file universe.
 .DESCRIPTION
-    Tracked files (git ls-files — the same matching universe as the globsets, ADR-GLOBS:4), minus what the
+    Tracked files (git ls-files — the same matching universe as the globsets, ADR-FLOW-CD-GLOBS:4), minus what the
     scan must not read: vendored third-party code (automation/.vendor/), the committed compiled assembly
     (automation/.compiled/), known binary extensions, and the registry file itself — configs/guids.yml is
     the definition of the managed set, not a reference to it, and excluding it is what keeps the liveness

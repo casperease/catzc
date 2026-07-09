@@ -25,7 +25,7 @@ is in [native-csharp-types](../../../../adr/automation/BCL/native-csharp-types.m
   `System.Management.Automation` — so a PowerShell primitive (`WildcardPattern`, `PSObject`) costs a `using` namespace and nothing more.
   There is no mechanism to add NuGet references.
 - Use **PascalCase** property names — _except_ on a type that mirrors a `configs/<name>.yml` file, where the properties match the snake_case
-  YAML keys (see [native-csharp-types rule ADR-TYPES:8](../../../../adr/automation/BCL/native-csharp-types.md)).
+  YAML keys (see [native-csharp-types rule ADR-AUTO-TYPES:8](../../../../adr/automation/BCL/native-csharp-types.md)).
 
 ## Example: a plain result type
 

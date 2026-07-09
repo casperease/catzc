@@ -1,39 +1,39 @@
 # ADR: Caching — static reads and filesystem-derived information (the importer is the cache boundary)
 
-## Rules: ADR-CACHE
+## Rules: ADR-AUTO-CACHE
 
-### Rule ADR-CACHE:1
+### Rule ADR-AUTO-CACHE:1
 
 Cache static config reads: a function that loads + parses (+ validates) a checked-in file returns the parsed object from a session cache on
 repeat calls.
 
 Exemplar: `Get-Config` — every config read routes through it, keyed on the resolved file path, so every config inherits one cache (see
-[module-config-loading](module-config-loading.md)).
+[module-config-loading](../configuration/module-config-loading.md)).
 
 - [The storage idiom is the language layer](#the-storage-idiom-is-the-language-layer)
 
-### Rule ADR-CACHE:2
+### Rule ADR-AUTO-CACHE:2
 
 Cache filesystem-derived information: a function that scans the repo and derives a convention-based result computes it once and returns the
 stored result thereafter. Exemplar: `Get-BicepTemplates`.
 
 - [The cost of not caching](#the-cost-of-not-caching)
 
-### Rule ADR-CACHE:4
+### Rule ADR-AUTO-CACHE:4
 
 Key the cache by the function's inputs: no parameters → a single slot; parameters → a cache keyed on them; a resolved-input function keys on
 that input. Keys must be session-stable values, never mutable objects.
 
 - [The storage idiom is the language layer](#the-storage-idiom-is-the-language-layer)
 
-### Rule ADR-CACHE:5
+### Rule ADR-AUTO-CACHE:5
 
 Cached values are read-only to callers — a cached function returns the same object reference every call, so callers must treat it as
 immutable. A result intended to be mutated downstream is not a caching candidate.
 
 - [What is NOT cacheable](#what-is-not-cacheable)
 
-### Rule ADR-CACHE:6
+### Rule ADR-AUTO-CACHE:6
 
 The only invalidation is re-running the importer — no mtime/hash checks, TTLs, file watchers, or `-Refresh` switch. The runtime contract
 makes the importer the single sufficient knob.
@@ -41,14 +41,14 @@ makes the importer the single sufficient knob.
 - [The importer is the cache boundary](#the-importer-is-the-cache-boundary)
 - [Two runtimes fix the file set](#two-runtimes-fix-the-file-set)
 
-### Rule ADR-CACHE:7
+### Rule ADR-AUTO-CACHE:7
 
 Lazy cache-on-first-use is the default; eager compute-at-import is reserved for the bootstrap module alone. A cached function populates its
 slot on first call, never at import, because importer time is a protected budget.
 
 - [Importer run time is a protected budget](#importer-run-time-is-a-protected-budget)
 
-### Rule ADR-CACHE:8
+### Rule ADR-AUTO-CACHE:8
 
 The compiled-type prebuild is the one committed, cross-session cache: `Import-CSharpTypes` keys one committed
 `automation/.compiled/Catzc.Types.<hash>.dll` for the whole repository (the combined hash of every module's sources), loaded without Roslyn
@@ -94,8 +94,8 @@ inputs are stable, and the importer is the one knob.
 The importer is on the hot path of **every** session — every interactive shell tab a developer opens and every step a pipeline runs begins
 by dot-sourcing it. Its job is to make the module system available, fast, and nothing more: it sets error preferences and runs the bootstrap
 module to discover and import modules. It even **defers** expensive vendor modules (Pester, PSScriptAnalyzer) via lazy loading rather than
-pay for them at startup (see [vendor-toolset-dependencies](powershell/vendor-toolset-dependencies.md#rule-adr-vendor5)), and it reports its
-own load time so regressions are visible.
+pay for them at startup (see [vendor-toolset-dependencies](powershell/vendor-toolset-dependencies.md#rule-adr-auto-vendor5)), and it reports
+its own load time so regressions are visible.
 
 This makes importer time a budget to protect, and it sets the default for caching: **lazy.** Reading `azure.yml`, scanning
 `infrastructure/templates/`, or deriving any other config/information at import would tax every session for work most sessions never use.
@@ -123,7 +123,7 @@ The rule has a sharp boundary. Do **not** cache:
 
 - **Runtime / mutable state.** Anything not derived from the static repo: `az account show`, access tokens, deployment outputs, the current
   subscription context. These change _within_ a run, so a cached value would be wrong. (See
-  [dual-authentication](../pipelines/dual-authentication.md#rule-adr-auth7): tokens are acquired fresh per call, never cached.)
+  [dual-authentication](../pipelines/dual-authentication.md#rule-adr-pipe-auth7): tokens are acquired fresh per call, never cached.)
 - **Objects that callers mutate.** The per-slot parameter set returned by `Get-BicepTemplateConfiguration` is read fresh per build and then
   **mutated** by the `Invoke-BicepPrepareParameterSet` merge hook (which writes resolved values into `ParametersFile.parameters`). Caching a
   caller-mutated object would leak one build's mutations into the next. It is also cheap (one small file per slot per build), so it stays
@@ -139,9 +139,9 @@ re-running the importer. Never cache runtime state or objects callers mutate.
 ### The storage idiom is the language layer
 
 Where a cache lives, the keyed-hashtable code shape, and how tests interact with a cached function are the PowerShell layer,
-[script-scope-caching](powershell/script-scope-caching.md) (`ADR-PSCACHE`): module `$script:` state — never `$env:` or `$global:` — with
-`Get-Config` and `Get-BicepTemplates` as the exemplars. The compiled-type prebuild's own cache-key and staleness-guard rules live with the
-type system, [native-csharp-types](BCL/native-csharp-types.md) (`ADR-TYPES`).
+[script-scope-caching](powershell/script-scope-caching.md) (`ADR-AUTO-PSCACHE`): module `$script:` state — never `$env:` or `$global:` —
+with `Get-Config` and `Get-BicepTemplates` as the exemplars. The compiled-type prebuild's own cache-key and staleness-guard rules live with
+the type system, [native-csharp-types](BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`).
 
 ### How this is enforced
 

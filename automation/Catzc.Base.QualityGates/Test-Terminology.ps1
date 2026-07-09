@@ -4,15 +4,15 @@
 .DESCRIPTION
     The read-only verifier over configs/terminology.yml and its generated dictionary — the counterpart to
     Build-TerminologyDictionary. It enforces the three things code review cannot mechanically catch
-    (docs/adr/automation/spell-out-names.md, ADR-SPELL:5-ADR-SPELL:8):
+    (docs/adr/automation/spell-out-names.md, ADR-AUTO-SPELL:5-ADR-AUTO-SPELL:8):
 
       1. No drift — the generated per-category dictionaries (.cspell/<category>.txt) match what
-         Build-TerminologyDictionary would produce from the registry (ADR-SPELL:5). They are gitignored and
+         Build-TerminologyDictionary would produce from the registry (ADR-AUTO-SPELL:5). They are gitignored and
          regenerated on import, so this catches a hand-edited word list.
       2. No orphans — every registry entry is referenced somewhere in the spell-scanned tree; an entry no
-         code uses is dead vocabulary and must be removed (ADR-SPELL:8).
+         code uses is dead vocabulary and must be removed (ADR-AUTO-SPELL:8).
       3. No unjustified entry — every entry declares a category and a meaning, and every abbreviation carries
-         its expansion (ADR-SPELL:6). This is enforced by the TerminologyConfig type at load, so a malformed
+         its expansion (ADR-AUTO-SPELL:6). This is enforced by the TerminologyConfig type at load, so a malformed
          registry fails to load and is reported here.
 
     Mirrors Test-Spelling's reporting: each run writes a timestamped folder under out/test-terminology/
@@ -49,20 +49,20 @@ function Test-Terminology {
         $config = Get-Config -Config terminology
     }
     catch {
-        $issues.Add("registry does not validate (ADR-SPELL:6): $($_.Exception.Message)")
+        $issues.Add("registry does not validate (ADR-AUTO-SPELL:6): $($_.Exception.Message)")
     }
 
     if ($config) {
-        # ---- Gate 1 (no drift): every generated dictionary must match the registry (ADR-SPELL:5) ----
+        # ---- Gate 1 (no drift): every generated dictionary must match the registry (ADR-AUTO-SPELL:5) ----
         $generated = Build-TerminologyDictionary -DryRun -PassThru
         foreach ($stale in @($generated | Where-Object Changed)) {
             $issues.Add(
-                "dictionary drift (ADR-SPELL:5): .cspell/$($stale.Category).txt is out of date — " +
+                "dictionary drift (ADR-AUTO-SPELL:5): .cspell/$($stale.Category).txt is out of date — " +
                 'regenerate it with Build-TerminologyDictionary (or re-run the importer).'
             )
         }
 
-        # ---- Gate 2 (no orphans): every term must be referenced somewhere else in the tree (ADR-SPELL:8) ----
+        # ---- Gate 2 (no orphans): every term must be referenced somewhere else in the tree (ADR-AUTO-SPELL:8) ----
         # One bulk scan of the spell-checked corpus (minus the registry and its generated lists, where every
         # term trivially appears), then look each term up against it — not one grep per term. The generated
         # per-category dictionaries live at the repository root's .cspell/ (see .cspell/README.md).
@@ -72,7 +72,7 @@ function Test-Terminology {
         foreach ($term in $config.terms) {
             if (-not $corpus.Contains($term.term.ToLowerInvariant())) {
                 $issues.Add(
-                    "orphan (ADR-SPELL:8): '$($term.term)' is not referenced anywhere in the tree — remove it " +
+                    "orphan (ADR-AUTO-SPELL:8): '$($term.term)' is not referenced anywhere in the tree — remove it " +
                     'from terminology.yml.'
                 )
             }

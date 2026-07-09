@@ -1,8 +1,8 @@
 # ADR: GitHub release flow — publishing the Catzc package
 
-## Rules: ADR-RELEASE
+## Rules: ADR-GH-RELEASE
 
-### Rule ADR-RELEASE:1
+### Rule ADR-GH-RELEASE:1
 
 A release is **manual only**. `.github/workflows/release.yml` triggers on `workflow_dispatch` and nothing else — its trigger is deliberately
 not wired to push, tag, or a globset projection (unlike CI, [protected-globs](../automation/protected-globs.md)). Publishing an artifact to
@@ -10,7 +10,7 @@ the outside world is a deliberate act, so a human starts it.
 
 - [A release is a deliberate, manual act](#a-release-is-a-deliberate-manual-act)
 
-### Rule ADR-RELEASE:2
+### Rule ADR-GH-RELEASE:2
 
 Every run **builds the artifact and uploads it; publishing is separate and opt-in**. The build step runs `Export-Catzc -To nuget` to produce
 the `.nupkg` and the PSGallery module manifest and uploads them as a workflow artifact unconditionally; each publish step is gated on its
@@ -18,7 +18,7 @@ own input and no-ops without its token. A run with no publish inputs simply prod
 
 - [Build always, publish on purpose](#build-always-publish-on-purpose)
 
-### Rule ADR-RELEASE:3
+### Rule ADR-GH-RELEASE:3
 
 **GitHub is the primary target, published with the built-in `GITHUB_TOKEN`** — no PowerShell Gallery key required. A GitHub Release (with
 the `.nupkg` attached) is created with the `gh` CLI, and GitHub Packages is pushed with `dotnet nuget push`; both authenticate with the
@@ -26,7 +26,7 @@ Actions-provided `github.token`. Consumers install from the GitHub NuGet feed as
 
 - [GitHub first, on the GitHub token](#github-first-on-the-github-token)
 
-### Rule ADR-RELEASE:4
+### Rule ADR-GH-RELEASE:4
 
 **PowerShell Gallery is opt-in and needs its own key.** The PSGallery publish runs only when its input is set, reads `PSGALLERY_API_KEY`
 from secrets, and — when that secret is empty — **skips with a warning rather than failing**, leaving the built `.nupkg` and manifest in
@@ -34,7 +34,7 @@ place. The GitHub token can never publish to PSGallery; that is the one place a 
 
 - [PowerShell Gallery is opt-in](#powershell-gallery-is-opt-in)
 
-### Rule ADR-RELEASE:5
+### Rule ADR-GH-RELEASE:5
 
 The **published version is `exporter.yml`'s `version`** (a real semver), distinct from the `6.6.666` direct-install sentinel
 ([platform-bundle](../automation/platform-bundle.md)). Package identity — the stable module GUID and the author/description/tags of the
@@ -105,7 +105,7 @@ workflow.
 
 - [platform-bundle](../automation/platform-bundle.md) — the artifact this releases and the sentinel-vs-published version split.
 - [protected-globs](../automation/protected-globs.md) — the globset-projected CI trigger this workflow deliberately does not use.
-- [ci-discipline-and-promotion-flow](../design/ci-discipline-and-promotion-flow.md) — the build-once/deploy-many flow this completes at the
+- [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) — the build-once/deploy-many flow this completes at the
   publish end.
 - [vendor-toolset-dependencies](../automation/powershell/vendor-toolset-dependencies.md) — PSResourceGet, which packs and publishes the
   module.

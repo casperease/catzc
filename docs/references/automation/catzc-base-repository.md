@@ -25,7 +25,7 @@ no function anywhere in the platform depends on the current working directory (s
 ### domain:2 — Pipeline context detection
 
 Whether the code is executing inside a CI pipeline. This domain answers that one question — and it is the only sanctioned place the question
-is answered (see [pipeline-detection](../../adr/pipelines/pipeline-detection.md)). Callers branch on its result to suppress interactive
+is answered (see [pipeline-detection](../../adr/flow/pipeline-detection.md)). Callers branch on its result to suppress interactive
 prompts, skip steps that require a human, or adjust output verbosity; they never probe CI environment variables directly.
 
 ## What the module does
@@ -42,7 +42,7 @@ this function, the location is never duplicated or guessed.
 
 Pipeline detection (domain 2) is a single boolean question with a single authoritative answer. Scattering the environment-variable checks
 that answer it across modules would mean each could disagree; centralising the logic here means the answer is consistent and the detection
-heuristic can be improved in one place (see [pipeline-detection](../../adr/pipelines/pipeline-detection.md)).
+heuristic can be improved in one place (see [pipeline-detection](../../adr/flow/pipeline-detection.md)).
 
 ## Division
 

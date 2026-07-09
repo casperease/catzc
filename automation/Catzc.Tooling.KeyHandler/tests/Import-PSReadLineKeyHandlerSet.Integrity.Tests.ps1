@@ -1,6 +1,6 @@
 # Binds the SHIPPED configs (key-handler-bindings.yml + key-handler-supported.yml) through Get-Config and the
 # real convention validators — an integrity check on what the module ships, asserting structural invariants
-# only (never a specific captured key→function pair, which a re-capture may legitimately change: ADR-TEST:17).
+# only (never a specific captured key→function pair, which a re-capture may legitimately change: ADR-AUTO-TEST:17).
 Describe 'Import-PSReadLineKeyHandlerSet (shipped configs)' -Tag 'L1', 'integrity' {
 
     BeforeAll {

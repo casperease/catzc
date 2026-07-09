@@ -10,7 +10,7 @@
     it derives from tagged tests. AdrId is the docs/adr/index.md '#' citation form, matching the test tags, so
     the two enforcer kinds union on AdrId directly. See the test-automation ADR.
 .OUTPUTS
-    [pscustomobject] one per mapping: AdrId (e.g. 'ADR-NOPWD#1'), Enforcer (the analyzer rule name), Kind
+    [pscustomobject] one per mapping: AdrId (e.g. 'ADR-AUTO-NOPWD#1'), Enforcer (the analyzer rule name), Kind
     ('pssa-rule').
 #>
 function Get-AnalyzerAdrCoverage {

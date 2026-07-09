@@ -3,7 +3,7 @@
     Validates the vscode-launch registry — the binding shape check Get-Config dispatches by convention.
 .DESCRIPTION
     Runs once on the cache miss when Get-Config -Config vscode-launch loads the registry (see
-    docs/adr/automation/module-config-loading.md). Collects every violation and throws once with the full
+    docs/adr/configuration/module-config-loading.md). Collects every violation and throws once with the full
     list: a non-empty 'version' string, plus a non-empty 'configurations' list where every entry is a map
     carrying non-empty 'name', 'type', and 'request', with names unique.
 .PARAMETER Config

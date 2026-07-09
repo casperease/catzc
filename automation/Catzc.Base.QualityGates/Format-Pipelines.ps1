@@ -3,7 +3,7 @@
     Formats the repository's Azure Pipelines YAML with Prettier (the canonical YAML formatter).
 .DESCRIPTION
     Runs Prettier over the repository's ADO pipeline YAML, applying the root .prettierrc.yml. Scope is
-    every `**/*.yaml` — the pipeline-naming ADR (ADR-PIPENAME:6) makes `.yaml` the executable-artifact
+    every `**/*.yaml` — the pipeline-naming ADR (ADR-PIPE-NAME:6) makes `.yaml` the executable-artifact
     extension (pipelines and template fragments) and `.yml` config data our code parses, so `.yaml` is
     exactly the ADO-pipeline set and `.yml` config is deliberately out of scope. Third-party noise
     (automation/.vendor/, node_modules/) is excluded by the root .prettierignore.
@@ -42,7 +42,7 @@ function Format-Pipelines {
     [CmdletBinding()]
     [Alias('Invoke-PipelinePrettier')]
     param(
-        # All ADO pipeline YAML. `.yaml` is the executable-artifact extension (ADR-PIPENAME:6), so this is the
+        # All ADO pipeline YAML. `.yaml` is the executable-artifact extension (ADR-PIPE-NAME:6), so this is the
         # pipeline set; `.yml` config data is out of scope. Third-party noise lives in .prettierignore.
         [string[]] $Glob = @('**/*.yaml'),
 

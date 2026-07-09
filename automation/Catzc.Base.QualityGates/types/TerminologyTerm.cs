@@ -2,7 +2,7 @@
 // group it is listed under in the registry (terms: <category>: [...]), passed in by TerminologyConfig, so
 // the entry itself carries no category key. An abbreviation carries its full-word expansion; the other
 // categories do not. Mirrors a terminology.yml entry (snake_case keys). See
-// docs/adr/automation/spell-out-names.md (ADR-SPELL:5-ADR-SPELL:8).
+// docs/adr/automation/spell-out-names.md (ADR-AUTO-SPELL:5-ADR-AUTO-SPELL:8).
 //
 // Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
 // over its own properties and its constructor uses the base's Req/OptStr extraction helpers.

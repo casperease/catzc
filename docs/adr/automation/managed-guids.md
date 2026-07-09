@@ -1,8 +1,8 @@
 # ADR: Managed GUIDs — every GUID literal is a registered, described identity
 
-## Rules: ADR-GUIDS
+## Rules: ADR-AUTO-GUIDS
 
-### Rule ADR-GUIDS:1
+### Rule ADR-AUTO-GUIDS:1
 
 Every GUID literal in tracked text — code, configs, fixtures, pipelines, docs — is registered in the managed-GUID registry,
 `automation/Catzc.Base.QualityGates/configs/guids.yml`. No exceptions by location: a GUID in the tree is configuration
@@ -11,7 +11,7 @@ Every GUID literal in tracked text — code, configs, fixtures, pipelines, docs 
 - [The registry](#the-registry)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-GUIDS:2
+### Rule ADR-AUTO-GUIDS:2
 
 A registry entry is name-keyed and strict: `<snake_case_name>: { guid, description [, sentence] }`. The `guid` is canonical (lowercase,
 hyphenated), guid values are unique across entries — a GUID has exactly one registered name — and unknown keys are rejected. The registry
@@ -22,7 +22,7 @@ violation into one throw.
 
 - [The registry](#the-registry)
 
-### Rule ADR-GUIDS:3
+### Rule ADR-AUTO-GUIDS:3
 
 Two entry classes, one table. An **external-facing** GUID — a well-known platform id, a real tenant or subscription id — is registered
 as-is, because its value is fixed by the outside world. A **placeholder** GUID — a fixture id, a demo value proving tooling loads and
@@ -32,24 +32,24 @@ the registry, not to generate identity at runtime.
 
 - [The mint](#the-mint)
 
-### Rule ADR-GUIDS:4
+### Rule ADR-AUTO-GUIDS:4
 
 The registry holds only live entries, and the gate enforces both directions: a GUID found in tracked text but absent from the registry fails
 the suite, and a registry entry no tracked file references is dead vocabulary and fails too — the same liveness discipline as the
-terminology registry ([spell-out-names](powershell/spell-out-names.md#rule-adr-spell8)).
+terminology registry ([spell-out-names](powershell/spell-out-names.md#rule-adr-auto-spell8)).
 
 - [The gate](#the-gate)
 
-### Rule ADR-GUIDS:5
+### Rule ADR-AUTO-GUIDS:5
 
 The scan matches the canonical hyphenated GUID form only, never bare 32-hex — bare hex would false-positive on hashes (the durable SHAs are
 64 hex and unhyphenated, so they never match). The universe is tracked files (`git ls-files`, the globset matching universe of
-[durable-sha-globs](../pipelines/durable-sha-globs.md#rule-adr-globs4)), minus vendored third-party code, the compiled assembly, binary
-extensions, and the registry file itself — the registry is the definition of the managed set, not a reference to it.
+[durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)), minus vendored third-party code, the compiled assembly,
+binary extensions, and the registry file itself — the registry is the definition of the managed set, not a reference to it.
 
 - [The gate](#the-gate)
 
-### Rule ADR-GUIDS:6
+### Rule ADR-AUTO-GUIDS:6
 
 cspell never sees a GUID: the spelling config carries an `ignoreRegExpList` pattern for the hyphenated form, so GUID hex fragments generate
 no spelling noise and need no `cspell:ignore` comments. One gate owns words (cspell + the terminology registry); one owns GUIDs (this gate).
@@ -71,10 +71,10 @@ authored source of truth, deliberate reviewed entries, a liveness rule, and a ga
 ### The registry
 
 `configs/guids.yml` in `Catzc.Base.QualityGates` is the single table, read through `Get-Config -Config guids`
-([module-config-loading](module-config-loading.md)) and validated by the convention validator `Assert-GuidsConfig`. Entries are keyed by a
-snake_case name — readable diffs, and the duplicate-guid check lives in the validator where YAML's silent last-key-wins cannot hide it.
-`description` says what the GUID identifies; `sentence` is present exactly when the value was minted from a sentence, so a minted
-placeholder carries its own decoding.
+([module-config-loading](../configuration/module-config-loading.md)) and validated by the convention validator `Assert-GuidsConfig`. Entries
+are keyed by a snake_case name — readable diffs, and the duplicate-guid check lives in the validator where YAML's silent last-key-wins
+cannot hide it. `description` says what the GUID identifies; `sentence` is present exactly when the value was minted from a sentence, so a
+minted placeholder carries its own decoding.
 
 The `denied:` section is the inverse table: values that are never a legitimate identity, with the all-zeros GUID as its first entry — it is
 the unset/default value (and `SentenceGuid`'s output for an input with no mappable characters), so registering it would bless every
@@ -100,8 +100,8 @@ automation never calls it to generate identity at runtime, because a runtime-min
 `Get-RepositoryGuids` scans every tracked text file and returns one `@{ file; line; guid }` record per occurrence. The managed-guid
 integrity test asserts every found guid is registered and every registry entry is found — with the registry file itself excluded from the
 scan so an entry cannot vouch for its own liveness. The scan reads nearly the whole tree plus its own config, so it protects against the
-repository-wide globset like the spelling scan ([protected-globs](protected-globs.md#rule-adr-protglob6)): repeat local runs skip until any
-tracked file changes, and CI always scans.
+repository-wide globset like the spelling scan ([protected-globs](protected-globs.md#rule-adr-repo-protglob6)): repeat local runs skip until
+any tracked file changes, and CI always scans.
 
 ### Division of ownership
 

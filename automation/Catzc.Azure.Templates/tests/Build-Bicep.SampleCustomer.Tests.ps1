@@ -1,11 +1,11 @@
 # cspell:ignore alweutstscusst alweutstscusacst
 Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic' {
     # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
-    # build output folder is wiped per test, since the build tests write into it (ADR-TEST:19/ADR-TEST:4).
+    # build output folder is wiped per test, since the build tests write into it (ADR-AUTO-TEST:19/ADR-AUTO-TEST:4).
     BeforeAll {
-        # Isolate build output to this file's throwaway $TestDrive via the output-root seam (ADR-PESTER:2), so
+        # Isolate build output to this file's throwaway $TestDrive via the output-root seam (ADR-AUTO-PESTER:2), so
         # it never shares out/template/<name> with Build-Bicep.L2 or the other sample files — the sharing the
-        # 'serial' tag used to work around (ADR-TEST:26). Mocking the seam removes the sharing (so this runs in
+        # 'serial' tag used to work around (ADR-AUTO-TEST:26). Mocking the seam removes the sharing (so this runs in
         # parallel), and Pester auto-cleans $TestDrive, so no manual output teardown is needed.
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
         $script:outputRoot = Join-Path $TestDrive 'out/template/sample-customer'
@@ -32,7 +32,7 @@ Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
         # Warm the discovery + config caches once so the first It doesn't pay the cold Get-BicepTemplate derive
-        # inside its own timing now that this file runs in the (timed) parallel phase (ADR-TEST:19).
+        # inside its own timing now that this file runs in the (timed) parallel phase (ADR-AUTO-TEST:19).
         Get-BicepTemplate sample-customer | Out-Null
     }
 

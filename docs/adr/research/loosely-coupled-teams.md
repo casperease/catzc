@@ -1,36 +1,36 @@
 # ADR: DORA — Loosely coupled teams
 
-## Rules: ADR-DORALCT
+## Rules: ADR-DORA-LOOSETEAMS
 
-### Rule ADR-DORALCT:1
+### Rule ADR-DORA-LOOSETEAMS:1
 
 A team makes large-scale changes to the design of its own system without needing permission from anybody outside the team and without
 depending on another team's schedule to ship — that independence, not the presence of service boundaries, is the capability.
 
 - [Summary](#summary)
 
-### Rule ADR-DORALCT:2
+### Rule ADR-DORA-LOOSETEAMS:2
 
 Independent deployability is the test of loose coupling: a service deploys on demand regardless of the state of the services it depends on,
 and its functional tests run against test doubles rather than a shared, fully integrated environment.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORALCT:3
+### Rule ADR-DORA-LOOSETEAMS:3
 
 Team topology and system architecture reinforce each other on purpose — team boundaries are drawn to match the intended architecture (the
 Inverse Conway Maneuver), and one coherent concern lives behind one clear boundary rather than spilling across several teams.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORALCT:4
+### Rule ADR-DORA-LOOSETEAMS:4
 
 Interfaces between teams are explicit, versioned, and backward-compatible, so a producer can change its internals and ship on its own
 schedule while every consumer keeps working against the version it already integrated against.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORALCT:5
+### Rule ADR-DORA-LOOSETEAMS:5
 
 A "big-bang" deployment — several services released together because their interdependencies leave no other choice — is evidence of tight
 coupling, not an acceptable operating mode; treat the need for simultaneous releases as the defect to remove, not a fact to schedule around.
@@ -68,16 +68,16 @@ coordination to resolve.
 
 This platform draws the same boundary DORA describes at the repository level: a **track** is one named root concern with one tech-stack,
 classified core, external port, or adapter, and a consumer subscribes to a track only through its declared module dependencies or the
-globset's native trigger projection — never by hand-matching another track's source paths ([ADR-TRACK](../design/tracks.md)). That
+globset's native trigger projection — never by hand-matching another track's source paths ([ADR-DSGN-TRACK](../design/tracks.md)). That
 subscription surface is what keeps a change in one track from rebuilding, or blocking on, every other track's teams.
 
 Within a track, the same discipline applies one level down: the allowed edge between two modules is declared once in `dependencies.yml` and
 gated against the actual code, so a module's dependents are a checked-in fact rather than whatever the code happens to call
-([ADR-MODDEPS](../automation/controlling-module-dependencies.md)). And the platform stays open for extension without ever editing shared
+([ADR-AUTO-DEPM](../automation/controlling-module-dependencies.md)). And the platform stays open for extension without ever editing shared
 infrastructure to accommodate a new consumer — a new module, function, or dependency is a new file, never a hand-edited registration that
-every other contributor must route around ([ADR-EXTEND](../automation/open-closed-architecture.md)). Together these three give a concrete,
-computed answer to "does this change require coordinating with, or waiting on, another team" — the question this capability is built to keep
-answered "no."
+every other contributor must route around ([ADR-AUTO-EXTEND](../automation/open-closed-architecture.md)). Together these three give a
+concrete, computed answer to "does this change require coordinating with, or waiting on, another team" — the question this capability is
+built to keep answered "no."
 
 ## Common pitfalls
 

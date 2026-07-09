@@ -1,42 +1,42 @@
 # ADR: Vendor toolset dependencies
 
-## Rules: ADR-VENDOR
+## Rules: ADR-AUTO-VENDOR
 
-### Rule ADR-VENDOR:1
+### Rule ADR-AUTO-VENDOR:1
 
 Vendor modules into `automation/.vendor/<ModuleName>/<Version>/`; the version folder fixes the load path and makes upgrades visible in
 diffs.
 
 - [Vendoring solves all three](#vendoring-solves-all-three)
 
-### Rule ADR-VENDOR:2
+### Rule ADR-AUTO-VENDOR:2
 
 Check vendored modules into git so the repository alone guarantees reproducibility with no restore step.
 
 - [Vendoring solves all three](#vendoring-solves-all-three)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-VENDOR:3
+### Rule ADR-AUTO-VENDOR:3
 
 Add new modules only with `Install-VendorModule` (in `Catzc.Base.Vendor`), which downloads from the configured source into the correct
 structure; commit the result.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-VENDOR:4
+### Rule ADR-AUTO-VENDOR:4
 
 Upgrade deliberately: remove the old version folder, run `Install-VendorModule` for the new version, run tests, then commit. Never
 auto-upgrade.
 
 - [Vendoring solves all three](#vendoring-solves-all-three)
 
-### Rule ADR-VENDOR:5
+### Rule ADR-AUTO-VENDOR:5
 
 Lazy-load expensive modules (Pester, PSScriptAnalyzer) via the `Lazy` parameter in `Import-VendorModules` so they do not slow shell startup.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-VENDOR:6
+### Rule ADR-AUTO-VENDOR:6
 
 The vendor source is configurable in `vendor.yml` (`source`, default `PSGallery`; optional `sourceUrl` for a custom feed). Remove vendored
 modules only with `Remove-VendorModules`, which refuses to delete anything the source cannot restore — so the committed set stays

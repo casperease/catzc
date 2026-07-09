@@ -3,7 +3,7 @@
     The git diff range the current context measures a globset change against — the reference-commit resolver.
 .DESCRIPTION
     Answers "before versus now: which two commits?" for the in-pipeline "is this unit affected?" gate, per
-    execution context (ADR-PIPEDET), so the same globset check is correct everywhere it runs:
+    execution context (ADR-FLOW-CD-DETECT), so the same globset check is correct everywhere it runs:
 
     - Post-commit on main (the BVT / the CD engine on the merged commit): 'HEAD^1..HEAD'. main advances ONLY
       by squash-merge, so the merged commit has a single parent (the prior main tip) and its first-parent
@@ -16,7 +16,7 @@
     - Local / solo dev (not in a pipeline): 'HEAD' — the working tree against the last commit.
 
     Returns $null when a pipeline PR context names no resolvable target — the fail-open signal
-    (ADR-PROTGLOB:5): a caller treats an unknown range as "affected" and proceeds, never wrongly skipping.
+    (ADR-REPO-PROTGLOB:5): a caller treats an unknown range as "affected" and proceeds, never wrongly skipping.
     The range assumes the base commit is present in the clone; a pipeline must checkout with fetchDepth: 0,
     because a shallow (depth 1) clone cannot reach HEAD^1 or the merge-base. The post-commit range needs only
     depth >= 2 and no named-ref fetch, so the deploy-skip that matters most is the most robust; a PR range

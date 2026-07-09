@@ -1,6 +1,6 @@
 Describe 'Build-EnglishDictionary — committed dictionary drift guard' -Tag 'L1', 'integrity' {
     # Binds to the shipped english.txt.gz + its stamp and the pinned tools.yml version — an integrity test
-    # (ADR-TEST:1). It detects a stale dictionary WITHOUT re-running node: it compares the recorded cspell version
+    # (ADR-AUTO-TEST:1). It detects a stale dictionary WITHOUT re-running node: it compares the recorded cspell version
     # against the tools.yml pin, and the recorded word count against the actual gz. Re-run Build-EnglishDictionary
     # (and commit the gz + stamp) when a failure says the pin moved.
     BeforeAll {

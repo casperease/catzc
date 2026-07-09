@@ -1,5 +1,5 @@
 # cspell:ignore ntwo  -- the escape-sequence artifact in the "one`ntwo" CRLF/LF fixture strings
-# The durable SHA (ADR-GLOBS:5): 64-hex-lowercase, EOL-insensitive, path-folded, ordinal, with the
+# The durable SHA (ADR-FLOW-CD-GLOBS:5): 64-hex-lowercase, EOL-insensitive, path-folded, ordinal, with the
 # <path>|missing marker for an unstaged deletion.
 Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {
     BeforeAll {

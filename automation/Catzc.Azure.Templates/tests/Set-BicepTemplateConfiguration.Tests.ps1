@@ -29,7 +29,7 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
             # FRESH, UNIQUE root under $TestDrive (Pester auto-cleans it): a unique dir is never re-deleted
             # mid-run, so it can't race a concurrent file scanner (on-access AV / the search indexer) holding
             # a just-copied file open and intermittently throwing "used by another process". Scratch lives in
-            # temp, not out/ (docs/adr/repository/dedicated-output-directory.md, ADR-OUTDIR:3).
+            # temp, not out/ (docs/adr/repository/dedicated-output-directory.md, ADR-REPO-OUTDIR:3).
             # Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse: ~15x faster per tree here.
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot
@@ -38,7 +38,7 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
             # BeforeAll — not on the first test. The -Template [ValidateScript] runs Get-BicepTemplateNames
             # (-> Get-BicepTemplates) at parameter binding, so an unwarmed cache makes the first It pay a
             # full cold discovery (~6x inflated under Mock interception); warming here keeps that off the L0
-            # gate. These tests never mutate the tree, so the cache stays valid for all of them (ADR-TEST#19).
+            # gate. These tests never mutate the tree, so the cache stays valid for all of them (ADR-AUTO-TEST#19).
             InModuleScope Catzc.Base.Config { $script:configCache = $null }
             InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
             Get-BicepTemplates | Out-Null
@@ -88,7 +88,7 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
             # Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here so the
             # first It in this context does not pay the cold parameter-binding discovery (see the read-only
             # context's BeforeAll). Writes target distinct config paths and never invalidate the templates
-            # cache (session-scoped, ADR-CACHE:6), so one warm-up serves every test.
+            # cache (session-scoped, ADR-AUTO-CACHE:6), so one warm-up serves every test.
             InModuleScope Catzc.Base.Config { $script:configCache = $null }
             InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
             Get-BicepTemplates | Out-Null

@@ -1,22 +1,22 @@
 # ADR: Zero ceremony, hard to fail
 
-## Rules: ADR-ZERO
+## Rules: ADR-AUTO-ZERO
 
-### Rule ADR-ZERO:1
+### Rule ADR-AUTO-ZERO:1
 
 Evaluate every design choice against two questions — does this add ceremony (if the platform could do it for the author, it should), and can
 the author get this wrong (prevent it structurally or catch it immediately)? If either answer is unsatisfying, the design is not done.
 
 - [Decision](#decision)
 
-### Rule ADR-ZERO:2
+### Rule ADR-AUTO-ZERO:2
 
 Adding automation requires zero ceremony — no boilerplate, wiring, or registration: drop a `.ps1` file to get a function, create a folder to
 get a module, dot-source `importer.ps1` to get everything.
 
 - [What zero ceremony looks like](#what-zero-ceremony-looks-like)
 
-### Rule ADR-ZERO:3
+### Rule ADR-AUTO-ZERO:3
 
 The platform makes the common mistakes hard to fail — preventing them structurally (naming conventions, auto-discovery, location-based
 visibility) or catching them immediately (PSScriptAnalyzer rules, the test suite).
@@ -57,29 +57,29 @@ Each of these is a single action with no prerequisites and no follow-up steps. T
 
 ### What hard-to-fail looks like
 
-**You cannot name a file wrong.** [One function per file](powershell/one-function-per-file.md#rule-adr-onefunc1) —
+**You cannot name a file wrong.** [One function per file](powershell/one-function-per-file.md#rule-adr-auto-onefunc1) —
 `Test-Automation.Tests.ps1` validates that every file is `Verb-Noun.ps1`, contains exactly one function, and the function name matches. A
 misnamed file fails the test suite immediately.
 
-**You cannot use the wrong verb.** [Approved verbs](powershell/respect-pwsh-verb-rules.md#rule-adr-verbs1) — PSScriptAnalyzer's
+**You cannot use the wrong verb.** [Approved verbs](powershell/respect-pwsh-verb-rules.md#rule-adr-auto-verbs1) — PSScriptAnalyzer's
 `PSUseApprovedVerbs` rule rejects unapproved verbs. The author does not need to check `Get-Verb` — the tool catches it.
 
-**You cannot forget an assertion.** [Fail fast with assertions](fail-fast-with-asserts.md#rule-adr-failfast1) — the convention of asserting
-every assumption inline means errors surface at the exact point of failure with a message naming the violated assumption. Bad state cannot
-silently propagate.
+**You cannot forget an assertion.** [Fail fast with assertions](fail-fast-with-asserts.md#rule-adr-auto-failfast1) — the convention of
+asserting every assumption inline means errors surface at the exact point of failure with a message naming the violated assumption. Bad
+state cannot silently propagate.
 
-**You cannot break formatting.** [Uniform formatting](../repository/uniform-formatting.md#rule-adr-format1) — `.editorconfig` configures the
-editor. PSScriptAnalyzer rules enforce brace style and variable casing. The author does not need to think about formatting — the tools
-handle it.
+**You cannot break formatting.** [Uniform formatting](../repository/uniform-formatting.md#rule-adr-repo-format1) — `.editorconfig`
+configures the editor. PSScriptAnalyzer rules enforce brace style and variable casing. The author does not need to think about formatting —
+the tools handle it.
 
-**You cannot depend on $PWD.** [Working-directory mechanics](powershell/working-directory-mechanics.md#rule-adr-pspwd2) — a custom
+**You cannot depend on $PWD.** [Working-directory mechanics](powershell/working-directory-mechanics.md#rule-adr-auto-pspwd2) — a custom
 PSScriptAnalyzer rule flags bare `Set-Location` calls. Functions that accidentally depend on the working directory are caught before they
 run in a different context.
 
 **You cannot publish a function that doesn't exist.** [Use .ps1 not .psm1](powershell/use-ps1-not-psm1.md) — the bootstrap module derives
 exports from file names. There is no manifest to get out of sync — the file system is the source of truth.
 
-**You cannot get a stale module version.** [Vendor dependencies](powershell/vendor-toolset-dependencies.md#rule-adr-vendor2) — vendored
+**You cannot get a stale module version.** [Vendor dependencies](powershell/vendor-toolset-dependencies.md#rule-adr-auto-vendor2) — vendored
 modules are checked into the repo. There is no version resolution at runtime, no gallery call that might return a different version on a
 different machine.
 

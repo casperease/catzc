@@ -43,7 +43,7 @@ function Format-Automation {
     )
 
     if (-not (Get-Module PSScriptAnalyzer)) {
-        # First use this session pays the vendored-module import (several seconds) — announce it (ADR-CONSOLE:10).
+        # First use this session pays the vendored-module import (several seconds) — announce it (ADR-AUTO-CONSOLE:10).
         Write-Message 'Loading PSScriptAnalyzer (first use this session)...'
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
     }
@@ -71,7 +71,7 @@ function Format-Automation {
         }
     }
 
-    # Announce the loop before entering it (ADR-CONSOLE:10): formatting the whole gated set runs Invoke-Formatter
+    # Announce the loop before entering it (ADR-AUTO-CONSOLE:10): formatting the whole gated set runs Invoke-Formatter
     # per file over hundreds of files, and only CHANGED files print below — so a clean run is otherwise
     # silent for the entire pass and looks hung.
     $announceVerb = if ($DryRun) {

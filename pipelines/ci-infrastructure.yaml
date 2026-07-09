@@ -1,7 +1,7 @@
 # CI pipeline for the infrastructure templates (foundation / discovery / expedition).
 #
 # CI = the CI engine alone: build + verify, no artifact, no deploy (see
-# docs/adr/pipelines/pipeline-types.md). For each template it runs Assert-BicepTemplate (the explicit
+# docs/adr/flow/pipeline-types.md). For each template it runs Assert-BicepTemplate (the explicit
 # author/CI-facing validation: options.yml schema, env-class + slot classification, identity refs,
 # parameter alignment) and then Build-Bicep (compile main.bicep + render every per-slot parameter file +
 # run the UNDEFINED gate). Building needs no auth — `az bicep build` is offline — so Mode stays 'none'.
@@ -13,7 +13,7 @@
 #   - pre-commit  : as an ADO build validation on PRs to main (the gate)
 #   - post-commit : the same build + verify on the merged commit
 # Trigger = the 'infrastructure' globset projected into ADO-native path filters (Get-GlobSetTrigger,
-# ADR-GLOBS): the track is its own root folder (infrastructure/**), so this starts only on a real change.
+# ADR-FLOW-CD-GLOBS): the track is its own root folder (infrastructure/**), so this starts only on a real change.
 
 trigger:
   branches:

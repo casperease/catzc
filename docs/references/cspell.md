@@ -20,4 +20,4 @@ registry's `categories:`).
   clone, run `. ./importer.ps1` once so the files exist and cspell can resolve them.
 
 A hand-edit is overwritten on the next import. See [spell-out-names](../adr/automation/powershell/spell-out-names.md) and
-[dedicated-output-directory](../adr/repository/dedicated-output-directory.md) (`ADR-OUTDIR:8`).
+[dedicated-output-directory](../adr/repository/dedicated-output-directory.md) (`ADR-REPO-OUTDIR:8`).

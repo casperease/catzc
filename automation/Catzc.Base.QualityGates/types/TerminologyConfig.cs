@@ -9,7 +9,7 @@
 // source of the category set. A category with no 'scope' is GLOBAL — its terms are legitimate everywhere; a
 // category WITH a scope is DOMAIN-BOUND — its terms belong only under the scope globs, and cspell enforces
 // that (a fixture token in shipped config, or a live identity in a logic test, becomes a spelling failure).
-// See docs/adr/automation/spell-out-names.md (ADR-SPELL:5-ADR-SPELL:8).
+// See docs/adr/automation/spell-out-names.md (ADR-AUTO-SPELL:5-ADR-AUTO-SPELL:8).
 
 using System;
 using System.Collections;

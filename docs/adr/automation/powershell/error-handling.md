@@ -1,15 +1,15 @@
 # ADR: Error handling — fail immediately, no warnings
 
-## Rules: ADR-ERROR
+## Rules: ADR-AUTO-ERROR
 
-### Rule ADR-ERROR:1
+### Rule ADR-AUTO-ERROR:1
 
 Set `$ErrorActionPreference = 'Stop'` globally (the importer does this); never change it inside a function.
 
 - [Why no Write-Error](#why-no-write-error)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-ERROR:2
+### Rule ADR-AUTO-ERROR:2
 
 Set `$WarningPreference = 'Stop'` globally so every warning terminates; suppress an unavoidable third-party warning with
 `-WarningAction SilentlyContinue` on that one call only.
@@ -17,33 +17,33 @@ Set `$WarningPreference = 'Stop'` globally so every warning terminates; suppress
 - [Why no warnings](#why-no-warnings)
 - [The -AllowWarnings escape hatch](#the--allowwarnings-escape-hatch)
 
-### Rule ADR-ERROR:3
+### Rule ADR-AUTO-ERROR:3
 
 Use `throw` for errors, never `Write-Error` — `throw` always terminates, while `Write-Error` depends on the caller's preference and may not
 stop execution.
 
 - [Why no Write-Error](#why-no-write-error)
 
-### Rule ADR-ERROR:4
+### Rule ADR-AUTO-ERROR:4
 
 Use the `Assert-*` library for precondition checks instead of inlining `if (-not $x) { throw }`, so error messages are consistent and
 self-contained.
 
 - [The Assert-* pattern](#the-assert--pattern)
 
-### Rule ADR-ERROR:5
+### Rule ADR-AUTO-ERROR:5
 
 Never use `Write-Warning`. If something is wrong, throw; if it is informational, use `Write-Message` or `Write-Verbose`.
 
 - [Why no warnings](#why-no-warnings)
 
-### Rule ADR-ERROR:6
+### Rule ADR-AUTO-ERROR:6
 
 Never catch-and-continue inside a function — functions throw on failure, and whether to catch, retry, or abort is the caller's decision.
 
 - [Error recovery](#error-recovery)
 
-### Rule ADR-ERROR:7
+### Rule ADR-AUTO-ERROR:7
 
 In scripts, add `trap { Write-Exception $_; break }` after the importer for full stack traces on unhandled errors, matching the interactive
 prompt hook.
@@ -121,7 +121,7 @@ catch {
 ```
 
 Functions never catch-and-continue internally. If `Invoke-Poetry` fails, it throws. Whether to retry, fall back, or abort is the caller's
-decision (see [single-responsibility-functions](../single-responsibility-functions.md#rule-adr-onejob5)).
+decision (see [single-responsibility-functions](../single-responsibility-functions.md#rule-adr-auto-onejob5)).
 
 ### Interactive error diagnostics
 

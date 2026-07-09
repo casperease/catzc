@@ -1,16 +1,16 @@
 # ADR: Working-directory mechanics — the PowerShell layer over never-depend-on-pwd
 
-## Rules: ADR-PSPWD
+## Rules: ADR-AUTO-PSPWD
 
-### Rule ADR-PSPWD:1
+### Rule ADR-AUTO-PSPWD:1
 
-PowerShell code applies [never-depend-on-pwd](../never-depend-on-pwd.md) (`ADR-NOPWD`) with two anchors: `$PSScriptRoot` (the directory of
-the current script file) and `$env:RepositoryRoot` (the repository root set by `importer.ps1`), combined with `Join-Path` — never a path
+PowerShell code applies [never-depend-on-pwd](../never-depend-on-pwd.md) (`ADR-AUTO-NOPWD`) with two anchors: `$PSScriptRoot` (the directory
+of the current script file) and `$env:RepositoryRoot` (the repository root set by `importer.ps1`), combined with `Join-Path` — never a path
 resolved against `$PWD`.
 
 - [The anchors](#the-anchors)
 
-### Rule ADR-PSPWD:2
+### Rule ADR-AUTO-PSPWD:2
 
 Never call `Set-Location` (or `cd`) without restoring it; bare calls change `$PWD` for the rest of the session. If you must change
 directory, use `Push-Location` / `Pop-Location`.
@@ -18,7 +18,7 @@ directory, use `Push-Location` / `Pop-Location`.
 - [Changing directory safely](#changing-directory-safely)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PSPWD:3
+### Rule ADR-AUTO-PSPWD:3
 
 When a tool requires a specific working directory, use `Push-Location` / `Pop-Location` in a `try`/`finally` block to change directory and
 guarantee restoration.
@@ -68,7 +68,7 @@ Paths resolve from `$PSScriptRoot` or `$env:RepositoryRoot` with `Join-Path`; a 
 ### How this is enforced
 
 - **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`automation/.scriptanalyzer/NeverDependOnPwd.psm1`) — flags bare
-  `Set-Location`/`cd` calls (`ADR-PSPWD:2`) and `$PWD` references (`ADR-NOPWD:1`). Runs as part of the L2 test suite via
+  `Set-Location`/`cd` calls (`ADR-AUTO-PSPWD:2`) and `$PWD` references (`ADR-AUTO-NOPWD:1`). Runs as part of the L2 test suite via
   `Test-ScriptAnalyzer.Tests.ps1`.
 
 ## Consequences

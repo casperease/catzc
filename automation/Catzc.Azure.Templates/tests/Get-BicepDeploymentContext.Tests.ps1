@@ -2,11 +2,11 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
     # The config/template boundary is mocked ONCE for the whole block and the config cache reset ONCE: every
     # test reads the same fixture config, and Get-Config keys its cache on the resolved (fixture) path, so the
     # first call derives it cold (~80ms) and the rest hit the warm cache. A per-test configCache reset would
-    # force that cold re-derive on every test (ADR-TEST:19/ADR-TEST:4). Per-test we only wipe the (cheap) build folder,
+    # force that cold re-derive on every test (ADR-AUTO-TEST:19/ADR-AUTO-TEST:4). Per-test we only wipe the (cheap) build folder,
     # which a couple of tests depend on being clean.
     BeforeAll {
         # Own output root through the seam: any other file building the 'sample' fixture from a sibling
-        # worker can race the shared out/template/sample (ADR-TEST:26 — remove the sharing). Kept
+        # worker can race the shared out/template/sample (ADR-AUTO-TEST:26 — remove the sharing). Kept
         # under the repo because the repo-relative artifact contract is asserted below.
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context/template/sample'
         Mock Get-BicepTemplatesOutputRoot {
@@ -14,7 +14,7 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
         } -ModuleName Catzc.Azure.Templates
 
         # Mock Build-Bicep to materialize stub artifacts without invoking az ([System.IO], not the file cmdlets:
-        # ~0.1ms vs ~20ms/call — ADR-TEST:18).
+        # ~0.1ms vs ~20ms/call — ADR-AUTO-TEST:18).
         Mock Build-Bicep {
             $outputFolder = (Get-BicepTemplate $Template).output_folder
             [System.IO.Directory]::CreateDirectory($outputFolder) | Out-Null
@@ -25,7 +25,7 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
         } -ModuleName Catzc.Azure.Templates
 
         # The deploy target is the az session's subscription — the whole-boundary session mock stands in
-        # for the service connection / az account set (ADR-PESTER:3).
+        # for the service connection / az account set (ADR-AUTO-PESTER:3).
         Mock Get-AzCliSessionSubscription {
             [ordered]@{ name = 'core_lower'; id = '50a0ed00-de00-50b0-0000-000000000000'; customer = ''
                 tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }

@@ -1,30 +1,31 @@
 # ADR: Open/closed architecture
 
-## Rules: ADR-EXTEND
+## Rules: ADR-AUTO-EXTEND
 
-### Rule ADR-EXTEND:1
+### Rule ADR-AUTO-EXTEND:1
 
 Extend by adding, not editing: new functions, modules, and dependencies are new files and folders. Never modify infrastructure files
 (`importer.ps1`, `Bootstrap.psm1`) to accommodate new content. The same shape holds one level up: a new root concern is a new **track** — a
-new root folder with its own tech-stack — never an edit smuggled into an existing one (see [tracks](../design/tracks.md), code `ADR-TRACK`).
+new root folder with its own tech-stack — never an edit smuggled into an existing one (see [tracks](../design/tracks.md), code
+`ADR-DSGN-TRACK`).
 
 - [How the platform implements open/closed](#how-the-platform-implements-openclosed)
 
-### Rule ADR-EXTEND:3
+### Rule ADR-AUTO-EXTEND:3
 
 Keep infrastructure content-agnostic: the importer and bootstrap module must not reference specific module names, function names, or
 business logic. They operate on conventions and treat all conforming content identically.
 
 - [Patterns that violate open/closed](#patterns-that-violate-openclosed)
 
-### Rule ADR-EXTEND:4
+### Rule ADR-AUTO-EXTEND:4
 
 Conventions are mandatory, not suggestions: file name = function name, folder = module, root = public. Code that does not conform is not
 discovered; the fix is to make the code conform, not to special-case the infrastructure.
 
 - [Convention over configuration](#convention-over-configuration)
 
-### Rule ADR-EXTEND:5
+### Rule ADR-AUTO-EXTEND:5
 
 Special cases go in the module, not the loader: a module needing custom initialization handles it internally (e.g. a private helper). The
 loader never gains module-specific branches.
@@ -41,7 +42,7 @@ Module systems typically require hand-maintained manifests, explicit import list
 create merge conflicts, stale registrations, and "I added it but forgot to register it" bugs. This platform eliminates that entire class of
 problems: the bootstrap module derives every registration from the filesystem, and the importer discovers modules by convention. Adding
 capability never requires touching existing code. The PowerShell mechanics — the generated `.psd1` manifests and the collision-free function
-namespace — are the language layer, [dynamic-module-manifests](powershell/dynamic-module-manifests.md) (`ADR-MANIFEST`).
+namespace — are the language layer, [dynamic-module-manifests](powershell/dynamic-module-manifests.md) (`ADR-AUTO-MANIFEST`).
 
 ### How the platform implements open/closed
 
@@ -97,7 +98,7 @@ The platform must remain open for extension and closed for modification. Concret
 ## Disambiguation
 
 The module-dependency graph this ADR references (`dependencies.yml`, `groups:`/`modules:`, `Assert-ModuleDependency`) is owned by
-[controlling-module-dependencies](controlling-module-dependencies.md) (`ADR-MODDEPS`).
+[controlling-module-dependencies](controlling-module-dependencies.md) (`ADR-AUTO-DEPM`).
 
 ## Consequences
 

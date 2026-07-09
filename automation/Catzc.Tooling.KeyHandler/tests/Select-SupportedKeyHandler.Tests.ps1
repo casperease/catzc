@@ -1,6 +1,6 @@
 # Neutral fixture function names (widget/gadget) — Select-SupportedKeyHandler is pure classification logic,
-# so a logic fixture must not borrow real PSReadLine function names (ADR-TEST:3).
-Describe 'Select-SupportedKeyHandler' -Tag 'L0', 'logic', 'ADR-TEST#22' {
+# so a logic fixture must not borrow real PSReadLine function names (ADR-AUTO-TEST:3).
+Describe 'Select-SupportedKeyHandler' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#22' {
 
     It 'marks a binding supported only when its function is in the allow-list' {
         $result = & (Get-Module Catzc.Tooling.KeyHandler) {

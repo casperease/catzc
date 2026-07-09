@@ -1,36 +1,36 @@
 # ADR: DORA — Continuous delivery
 
-## Rules: ADR-DORACD
+## Rules: ADR-DORA-CD
 
-### Rule ADR-DORACD:1
+### Rule ADR-DORA-CD:1
 
 Continuous delivery means the software stays releasable on demand throughout its lifecycle, not that every change deploys automatically —
 treat "deployable at any time" as the property to sustain and leave the decision to deploy as a separate, later question.
 
 - [Summary](#summary)
 
-### Rule ADR-DORACD:2
+### Rule ADR-DORA-CD:2
 
 Deployability is the default state to protect, not an event to schedule: prioritize fixing whatever makes the system non-deployable over new
 feature work, and keep fast quality feedback available to everyone building toward the release, not only to a release team.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORACD:3
+### Rule ADR-DORA-CD:3
 
 Treat continuous delivery as comprehensive in scope — it applies to distributed systems, infrastructure changes, database changes, firmware,
 and mobile releases alike, not only to the application code path that is easiest to automate.
 
 - [Summary](#summary)
 
-### Rule ADR-DORACD:4
+### Rule ADR-DORA-CD:4
 
 Never mistake running the existing deployment process more often for continuous delivery. Raising deployment frequency without improving the
 underlying test automation, architecture, and process first raises the failure rate and the team's burnout, not its performance.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORACD:5
+### Rule ADR-DORA-CD:5
 
 Adopting deployment-pipeline tooling does not substitute for the technical practices and process change it is meant to carry — comprehensive
 test automation, loosely coupled architecture, and trunk-based development are the capabilities that make the pipeline trustworthy.
@@ -77,16 +77,17 @@ low-risk action any time it is needed.
 ## How to apply
 
 This platform's pipeline design realizes the delivery/deployment distinction DORA draws directly:
-[ci-discipline-and-promotion-flow](../design/ci-discipline-and-promotion-flow.md) (ADR-FLOW) names Continuous Delivery (CD) as the automated
-promotion of a build-once, tagged artifact through non-prod, left ready for production but handed to a separately governed DEPLOY step for
-the human-owned production cutover — and names Continuous Deployment (CDe) as the same flow with that last step internalized and automated.
-Keeping deployability as the property CD protects, and the production decision as a distinct governance question, is exactly the "deployable
-on demand, deploy is a separate choice" framing this capability describes.
+[cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) (ADR-FLOW-CD) names Continuous Delivery (CD) as the
+automated promotion of a build-once, tagged artifact through non-prod, left ready for production but handed to a separately governed DEPLOY
+step for the human-owned production cutover — and names Continuous Deployment (CDe) as the same flow with that last step internalized and
+automated. Keeping deployability as the property CD protects, and the production decision as a distinct governance question, is exactly the
+"deployable on demand, deploy is a separate choice" framing this capability describes.
 
-[pipeline-types](../pipelines/pipeline-types.md) (ADR-PIPETYPE) is the taxonomy underneath: one CI engine shared by CI and CD
-(ADR-PIPETYPE:3), a bounded pre-commit budget so slow verification is pushed into the deploy path rather than skipped (ADR-PIPETYPE:4), and
-a DEPLOY pipeline that never rebuilds, only promotes a pinned, already-verified artifact (ADR-PIPETYPE:8–ADR-PIPETYPE:10). That build-once
-discipline is what keeps a continuously delivered system's non-prod certification meaningful when it reaches production.
+[pipeline-types](../flow/pipeline-types.md) (ADR-FLOW-CD-TYPE) is the taxonomy underneath: one CI engine shared by CI and CD
+(ADR-FLOW-CD-TYPE:3), a bounded pre-commit budget so slow verification is pushed into the deploy path rather than skipped
+(ADR-FLOW-CD-TYPE:4), and a DEPLOY pipeline that never rebuilds, only promotes a pinned, already-verified artifact
+(ADR-FLOW-CD-TYPE:8–ADR-FLOW-CD-TYPE:10). That build-once discipline is what keeps a continuously delivered system's non-prod certification
+meaningful when it reaches production.
 
 ## Common pitfalls
 

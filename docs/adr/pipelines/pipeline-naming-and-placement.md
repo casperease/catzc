@@ -1,49 +1,49 @@
 # ADR: Pipeline naming and placement
 
-## Rules: ADR-PIPENAME
+## Rules: ADR-PIPE-NAME
 
-### Rule ADR-PIPENAME:1
+### Rule ADR-PIPE-NAME:1
 
 A pipeline's filename starts with its type — the first hyphen-delimited token is `cron`, `ci`, `cd`, `cde`, `deploy`, or `input`. No other
 prefixes.
 
 - [Pipelines live flat in `pipelines/`, named `<type>-<name>.yaml`](#1-pipelines-live-flat-in-pipelines-named-type-nameyaml)
 
-### Rule ADR-PIPENAME:2
+### Rule ADR-PIPE-NAME:2
 
 Pipelines live flat in `pipelines/` — never nested into subfolders; the type prefix is the grouping. The per-kind folders hold templates
 only, never registrable pipelines.
 
 - [Pipelines live flat in `pipelines/`, named `<type>-<name>.yaml`](#1-pipelines-live-flat-in-pipelines-named-type-nameyaml)
 
-### Rule ADR-PIPENAME:3
+### Rule ADR-PIPE-NAME:3
 
 A template lives in the folder for its kind (`steps/`, `jobs/`, `stages/`, `variables/`, `extends/`); the folder name is the contract — do
 not invent other template folders.
 
 - [Template fragments live in per-kind folders](#2-template-fragments-live-in-per-kind-folders)
 
-### Rule ADR-PIPENAME:4
+### Rule ADR-PIPE-NAME:4
 
 Templates are referenced by absolute path (`/pipelines/<kind>/<name>.yaml`) — fragments via `template:`, whole-pipeline templates via
 `extends:`.
 
 - [Template fragments live in per-kind folders](#2-template-fragments-live-in-per-kind-folders)
 
-### Rule ADR-PIPENAME:5
+### Rule ADR-PIPE-NAME:5
 
 An `extends` template is not a pipeline — it defines structure, not an entry point. What gets registered is the thin root
 `<type>-<name>.yaml` pipeline that extends it.
 
 - [Template fragments live in per-kind folders](#2-template-fragments-live-in-per-kind-folders)
 
-### Rule ADR-PIPENAME:6
+### Rule ADR-PIPE-NAME:6
 
 Executable YAML is `.yaml`; config/data our code parses is `.yml`. Never mix the two.
 
 - [`.yaml` = executable artifact, `.yml` = config data](#3-yaml--executable-artifact-yml--config-data)
 
-### Rule ADR-PIPENAME:7
+### Rule ADR-PIPE-NAME:7
 
 The runner `Invoke-AdoScript.ps1` stays at the `pipelines/` root — a `.ps1`, not a pipeline or fragment, so it takes no type prefix and is
 exempt from the `.yaml` rule.

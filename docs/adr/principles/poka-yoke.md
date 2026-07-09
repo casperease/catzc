@@ -1,36 +1,36 @@
 # Principle: Poka-yoke — make mistakes impossible
 
-## Rules: ADR-POKAYOKE
+## Rules: ADR-PRIN-POKAYOKE
 
-### Rule ADR-POKAYOKE:1
+### Rule ADR-PRIN-POKAYOKE:1
 
 Prefer structural prevention — make the wrong thing impossible to express; derive behavior from convention (naming, placement, structure) so
 there is no separate registration to fall out of sync.
 
 - [Principle](#principle)
 
-### Rule ADR-POKAYOKE:2
+### Rule ADR-PRIN-POKAYOKE:2
 
 Where prevention is impossible, detect the error at the earliest moment — authoring time, build time, or the first line of execution — never
 at production time and never silently.
 
 - [Principle](#principle)
 
-### Rule ADR-POKAYOKE:3
+### Rule ADR-PRIN-POKAYOKE:3
 
 Fail fast — stop the moment a defect is detected and fix it at source; never continue with bad state hoping something downstream compensates
 (jidoka).
 
 - [Principle](#principle)
 
-### Rule ADR-POKAYOKE:4
+### Rule ADR-PRIN-POKAYOKE:4
 
 Zero ceremony — if the platform can do a step for the author, it should; the ideal workflow is one action with no prerequisites and no
 follow-up.
 
 - [Principle](#principle)
 
-### Rule ADR-POKAYOKE:5
+### Rule ADR-PRIN-POKAYOKE:5
 
 Evaluate every design against two questions: can the author get this wrong, and does this add ceremony? If either answer is unsatisfying,
 the design is not done.

@@ -1,47 +1,47 @@
 # ADR: Automatic variable pitfalls
 
-## Rules: ADR-AUTOVAR
+## Rules: ADR-AUTO-AUTOVAR
 
-### Rule ADR-AUTOVAR:1
+### Rule ADR-AUTO-AUTOVAR:1
 
 Never use `$?` for control flow — every statement (including the read itself) overwrites it; rely on `-ErrorAction Stop` plus `try`/`catch`
 instead.
 
 - [`$?` — never use](#--never-use)
 
-### Rule ADR-AUTOVAR:2
+### Rule ADR-AUTO-AUTOVAR:2
 
 With `$LASTEXITCODE`: reset → invoke → assert → reset. Prefer `Invoke-Executable` (or its `-PassThru` result's `ExitCode`) so you never read
 the variable directly.
 
 - [`$LASTEXITCODE` — use immediately, then reset](#lastexitcode--use-immediately-then-reset)
 
-### Rule ADR-AUTOVAR:3
+### Rule ADR-AUTO-AUTOVAR:3
 
 Capture `$Matches` into a named local on the very next line after a `-match` — the next match silently clobbers it.
 
 - [`$Matches` — capture immediately](#matches--capture-immediately)
 
-### Rule ADR-AUTOVAR:4
+### Rule ADR-AUTO-AUTOVAR:4
 
 Capture `$_`/`$PSItem` into a named local before nesting pipelines or mixing pipeline with `catch`/`switch` — inner scopes shadow it.
 
 - [`$_` / `$PSItem` — scoped to the current pipeline or catch block](#_--psitem--scoped-to-the-current-pipeline-or-catch-block)
 
-### Rule ADR-AUTOVAR:5
+### Rule ADR-AUTO-AUTOVAR:5
 
 Never use `$Error` for control flow — it is a global session-wide list; handle errors with `try`/`catch`.
 
 - [`$Error` — never use for control flow](#error--never-use-for-control-flow)
 
-### Rule ADR-AUTOVAR:6
+### Rule ADR-AUTO-AUTOVAR:6
 
 Never use `??` to default a `[string]` parameter or variable — `[string]` coerces `$null` to `''`, so the default never fires; guard with
 `if`/`IsNullOrEmpty` and reserve `??` for genuinely nullable operands.
 
 - [`??` on a `[string]` value — the default never applies](#-on-a-string-value--the-default-never-applies)
 
-### Rule ADR-AUTOVAR:7
+### Rule ADR-AUTO-AUTOVAR:7
 
 Never reassign a parameter variable that carries a `Validate*` attribute (`[ValidateScript]`, `[ValidateSet]`, `[ValidateRange]`, …) — the
 validator re-fires on every assignment, not just at binding, so assigning a different-shaped value into that name throws
@@ -96,7 +96,7 @@ There is no reliable way to use `$?` in general-purpose code.
 **What to do instead:**
 
 - For **cmdlets and functions**: `-ErrorAction Stop` (set globally by the importer) so failures throw. Catch with `try`/`catch`. See
-  [error-handling](error-handling.md#rule-adr-error1).
+  [error-handling](error-handling.md#rule-adr-auto-error1).
 - For **native executables**: use `$LASTEXITCODE` (see below) or `Invoke-Executable` which handles the entire cycle.
 
 **Enforced by:** PSScriptAnalyzer custom rule `Measure-NoAutomaticVariableMisuse` (severity: Error).

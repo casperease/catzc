@@ -1,29 +1,29 @@
 # ADR: Must be cross-platform
 
-## Rules: ADR-XPLAT
+## Rules: ADR-AUTO-XPLAT
 
-### Rule ADR-XPLAT:3
+### Rule ADR-AUTO-XPLAT:3
 
 Never hardcode platform-specific paths (`C:\`, `/tmp/`, `$env:APPDATA`). Use `$env:RepositoryRoot`, `$PSScriptRoot`,
 `[IO.Path]::GetTempPath()`, or `Join-Path` from a known anchor.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-XPLAT:6
+### Rule ADR-AUTO-XPLAT:6
 
 Format and parse machine-bound strings (timestamps, numbers, dates) with `[System.Globalization.CultureInfo]::InvariantCulture` passed to
 `ToString` / `ParseExact`; converting to UTC fixes the instant, not the rendering.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-XPLAT:7
+### Rule ADR-AUTO-XPLAT:7
 
 Respect case sensitivity in file operations — Linux filesystems are case-sensitive. Use `-ieq` when comparing paths, or compare
 `[IO.Path]::GetFullPath()` results, rather than `-eq`.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-XPLAT:8
+### Rule ADR-AUTO-XPLAT:8
 
 CI and local use the same code path: the same `Install-DevBoxTools` and `importer.ps1` run on workstations and in CI. No separate scripts,
 no "CI-only" branches.
@@ -38,7 +38,7 @@ Windows and Linux for most. Everything we write must work on both — and a deve
 The runtime is cross-platform by design, but the _code_ people write in it often is not: platform-only APIs, hardcoded separators and paths,
 and shell-outs to binaries the other OS does not have all work fine on the author's machine and fail silently or loudly in CI. The concrete
 PowerShell hazards — and the analyzer profiles that catch them at analysis time — are the language layer,
-[cross-platform-powershell](powershell/cross-platform-powershell.md) (`ADR-PSXPLAT`).
+[cross-platform-powershell](powershell/cross-platform-powershell.md) (`ADR-AUTO-PSXPLAT`).
 
 The usual response is "it works in CI, we'll fix it if it breaks." This is backwards. A developer should never have to push to CI to
 discover a platform bug. If you can run it locally, you can debug it locally — fast feedback, no waiting for pipeline queues.
@@ -76,7 +76,7 @@ on Linux.
 ### How this is enforced
 
 - **The analyzer layer** — the compatibility rules, their profiles, and their on/off state are
-  [cross-platform-powershell](powershell/cross-platform-powershell.md) (`ADR-PSXPLAT`).
+  [cross-platform-powershell](powershell/cross-platform-powershell.md) (`ADR-AUTO-PSXPLAT`).
 
 - **L2 tests run locally.** Developers run the same `Test-ScriptAnalyzer.Tests.ps1` suite that CI runs. Platform compatibility violations
   are caught before push, not after.

@@ -1,15 +1,15 @@
 # ADR: DORA — Deployment automation
 
-## Rules: ADR-DORADA
+## Rules: ADR-DORA-DEPLOY
 
-### Rule ADR-DORADA:1
+### Rule ADR-DORA-DEPLOY:1
 
 Deployment automation means deploying to any environment, including production, with the push of a button — from a CI-generated package, the
 deployment scripts and configuration that place it, and environment-specific information, with all three kept in version control.
 
 - [Summary](#summary)
 
-### Rule ADR-DORADA:2
+### Rule ADR-DORA-DEPLOY:2
 
 The deployment process is identical across every environment, including production. Rehearsing the same automated steps in non-production is
 what makes the production run trustworthy; a distinct "special" production procedure is untested by every non-production deploy that
@@ -17,7 +17,7 @@ preceded it.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORADA:3
+### Rule ADR-DORA-DEPLOY:3
 
 Any credentialed person can deploy any artifact version to any environment on demand, fully automated, with no ticket-based or manual
 approval delay built into the mechanism itself. Environment-specific configuration is kept separate from the deployable package so the same
@@ -25,7 +25,7 @@ tested artifact reaches every environment unchanged.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORADA:4
+### Rule ADR-DORA-DEPLOY:4
 
 Automate deployable units that are themselves simple, idempotent, and order-independent. Automating a fragile, tightly coupled manual
 process produces fragile automation — the target for automation is decoupled, independently deployable services, not a snapshot of today's
@@ -33,7 +33,7 @@ manual orchestration.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORADA:5
+### Rule ADR-DORA-DEPLOY:5
 
 Give every deployment step an API- or configuration-driven interface. A step that still requires manual console interaction is a gap in the
 automation, not an acceptable manual exception, and it is where developers and operators drift onto different, inconsistent deployment
@@ -72,13 +72,13 @@ often as changes arrive, so testing and shipping stop competing with each other.
 ## How to apply
 
 This platform's pipeline runner pattern gives every deployment step one entry point regardless of which environment it targets
-([ADR-RUNNER](../pipelines/pipeline-runner-pattern.md)) — the same `RunCommand` a pipeline runs is the command a developer reproduces
-locally, which is what keeps the deployment process identical across environments rather than diverging as it approaches production. The
-CI-discipline and promotion-flow design carries one build-once, tagged artifact through non-production and into production without any stage
-rebuilding it ([ADR-FLOW](../design/ci-discipline-and-promotion-flow.md)), so the artifact a later environment receives is byte-identical to
-the one an earlier environment already exercised. State-changing deployment functions are required to be idempotent and safe to re-run
-([ADR-IDEM](../automation/idempotent-state-functions.md)), which is what keeps a retried or partially-failed deploy safe rather than
-compounding into duplicate or inconsistent state.
+([ADR-FLOW-CD-RUNNER](../flow/pipeline-runner-pattern.md)) — the same `RunCommand` a pipeline runs is the command a developer
+reproduces locally, which is what keeps the deployment process identical across environments rather than diverging as it approaches
+production. The CI-discipline and promotion-flow design carries one build-once, tagged artifact through non-production and into production
+without any stage rebuilding it ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)), so the artifact a later environment receives
+is byte-identical to the one an earlier environment already exercised. State-changing deployment functions are required to be idempotent and
+safe to re-run ([ADR-AUTO-IDEM](../automation/idempotent-state-functions.md)), which is what keeps a retried or partially-failed deploy safe
+rather than compounding into duplicate or inconsistent state.
 
 ## Common pitfalls
 

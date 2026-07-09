@@ -29,7 +29,7 @@
 .EXAMPLE
     Initialize-GitClone ~/catzc -DryRun
 #>
-# Uses -DryRun, not ShouldProcess/-WhatIf — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-dryrun2.
+# Uses -DryRun, not ShouldProcess/-WhatIf — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun2.
 function Initialize-GitClone {
     [CmdletBinding()]
     param(

@@ -1,7 +1,7 @@
 Describe 'Set-FileLink' -Tag 'L1', 'logic' {
     BeforeAll {
         # Capability probe: symbolic links need a privilege on Windows (Developer Mode / admin); hard links do
-        # not. The assertions branch on the probe — deterministic per machine, never a retry (ADR-RETRY:1).
+        # not. The assertions branch on the probe — deterministic per machine, never a retry (ADR-AUTO-RETRY:1).
         $probeSource = Join-Path $TestDrive 'probe-source.txt'
         Set-Content -Path $probeSource -Value 'probe'
         $script:canCreateSymbolicLink = $true

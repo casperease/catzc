@@ -1,6 +1,6 @@
 # CD pipeline for the central / shared subscription (standalone — not a customer).
 #
-# CD = CI + CD (see docs/adr/pipelines/pipeline-types.md): the SAME CI engine as ci-infrastructure.yaml
+# CD = CI + CD (see docs/adr/flow/pipeline-types.md): the SAME CI engine as ci-infrastructure.yaml
 # builds the immutable artifacts, then the deploy stages apply them — build-once / deploy-many. The
 # shared subscription deploys foundation (the per-subscription Log Analytics + Key Vault) and discovery;
 # it has no expedition (expedition is customer-only).
@@ -18,7 +18,7 @@
 # Reference only: deploying requires real Azure service connections and a non-placeholder azure.yml (the
 # shipped one has placeholder subscription GUIDs). The 'sc-shared-*' names are illustrative.
 
-# Trigger = the 'shared' globset projected into ADO-native path filters (Get-GlobSetTrigger, ADR-GLOBS):
+# Trigger = the 'shared' globset projected into ADO-native path filters (Get-GlobSetTrigger, ADR-FLOW-CD-GLOBS):
 # shared foundation + modules, plus the configuration-ROOT ymls, minus the customer subfolders. NOTE: on
 # ADO's order-independent filter, configuration/*.yml (include) and configuration/*/** (exclude) sit at the
 # SAME folder depth, so ADO may drop a root yml (it is not a deeper-folder re-add). The in-pipeline

@@ -1,36 +1,36 @@
 # ADR: DORA — Generative organizational culture
 
-## Rules: ADR-DORAGOC
+## Rules: ADR-DORA-CULTURE
 
-### Rule ADR-DORAGOC:1
+### Rule ADR-DORA-CULTURE:1
 
 Organizational culture is classified by how information flows through it, using Ron Westrum's typology of pathological (power-oriented),
 bureaucratic (rule-oriented), and generative (performance-oriented) cultures — not by any other axis of team behavior.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAGOC:2
+### Rule ADR-DORA-CULTURE:2
 
 A generative culture is defined by six concrete traits, not a slogan: high cooperation, trained messengers, shared risk, encouraged bridging
 across roles, failure met with inquiry, and novelty implemented rather than resisted. Treat all six as the working definition.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAGOC:3
+### Rule ADR-DORA-CULTURE:3
 
 Change behavior first and let belief follow. Culture shifts by changing what people do — how a postmortem runs, who owns a system in
 production, how an idea gets tried — not by first trying to change how people think.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAGOC:4
+### Rule ADR-DORA-CULTURE:4
 
 Treat a failure as information about the system, never as a reason to find someone to blame. Punishing the messenger, or the person nearest
 the incident, teaches people to hide problems instead of surfacing them.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORAGOC:5
+### Rule ADR-DORA-CULTURE:5
 
 Measure culture as a perception, not an artifact count. Westrum's six survey items, scored on a Likert scale and averaged into one score,
 are the validated instrument for this capability — not a proxy derived from delivery metrics.
@@ -77,12 +77,12 @@ ideas are welcomed. Averaging the six gives a team a single Westrum culture scor
 ## How to apply
 
 DORA's implementation guidance is behavioral: change how people behave first, and belief follows, rather than trying to change minds before
-changing practice. This platform's failure response already works that way. Holding the line ([ADR-ANDON](../process/holding-the-line.md))
-treats a stopped line as the system working, not as a fault to find someone responsible for — punishing whoever pulled the cord teaches
-people to route around it, the same messenger-punishing pattern a generative culture avoids. Inspect-and-adapt
-([ADR-KAIZEN](../process/inspect-and-adapt.md)) responds to a failure with a root-cause countermeasure drawn from evidence, not with blame,
-which is Westrum's "failure leads to inquiry" applied to the platform's own gates. Building quality in
-([ADR-BUILTIN](../process/build-quality-in.md)) removes the separate inspection phase and makes quality everyone's job rather than one
+changing practice. This platform's failure response already works that way. Holding the line
+([ADR-PROC-ANDON](../process/holding-the-line.md)) treats a stopped line as the system working, not as a fault to find someone responsible
+for — punishing whoever pulled the cord teaches people to route around it, the same messenger-punishing pattern a generative culture avoids.
+Inspect-and-adapt ([ADR-PROC-KAIZEN](../process/inspect-and-adapt.md)) responds to a failure with a root-cause countermeasure drawn from
+evidence, not with blame, which is Westrum's "failure leads to inquiry" applied to the platform's own gates. Building quality in
+([ADR-PROC-BUILTIN](../process/build-quality-in.md)) removes the separate inspection phase and makes quality everyone's job rather than one
 team's, which is the shared-risk trait a generative culture requires.
 
 Beyond what these ADRs already encode, apply the capability directly: run blameless postmortems that ask what happened rather than who did

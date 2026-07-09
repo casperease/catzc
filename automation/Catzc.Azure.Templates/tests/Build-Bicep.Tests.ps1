@@ -1,10 +1,10 @@
 # cspell:ignore alweutstsmplst
 Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
-    # build output folder is wiped per test, since the build tests write into it (ADR-TEST:19/ADR-TEST:4).
+    # build output folder is wiped per test, since the build tests write into it (ADR-AUTO-TEST:19/ADR-AUTO-TEST:4).
     BeforeAll {
         # Own output root through the seam: any other file building the 'sample' fixture from a sibling
-        # worker can race the shared out/template/sample (ADR-TEST:26 — remove the sharing).
+        # worker can race the shared out/template/sample (ADR-AUTO-TEST:26 — remove the sharing).
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep/template/sample'
         Mock Get-BicepTemplatesOutputRoot {
             Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep'
@@ -33,7 +33,7 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
         # Warm the discovery and config caches once, here — the cold re-derive the reset above forces is
-        # one-time setup cost, not the first test's duration (ADR-TEST:19; it kept tipping that test just
+        # one-time setup cost, not the first test's duration (ADR-AUTO-TEST:19; it kept tipping that test just
         # over the L0 limit).
         Get-BicepTemplates | Out-Null
         Get-Config -Config azure | Out-Null

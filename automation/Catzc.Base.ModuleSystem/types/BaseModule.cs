@@ -1,5 +1,5 @@
 // The internal domain model for an automation "module" — one concept with four kinds (native C# per
-// ADR-TYPES:9, because the platform's own logic selects on it and pins it at call sites). Two facets:
+// ADR-AUTO-TYPES:9, because the platform's own logic selects on it and pins it at call sites). Two facets:
 // on-disk (kinds 'named'/'hidden', see DiskModule) and in-session (kinds 'imported'/'residue', see
 // SessionModule). Get-BaseModule returns these; Copy-Automation and module introspection act on them.
 

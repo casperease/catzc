@@ -22,7 +22,7 @@
     [Catzc.Base.Writers.RainbowColor] profile — a status line is solid, so a rainbow input side-grades to its
     base colour rather than drawing a gradient (a gradient rule is a header/footer concern).
 .PARAMETER Warning
-    Render the line yellow on the information stream (ADR-CONSOLE:7 yellow = warning) — a non-fatal, attention-drawing
+    Render the line yellow on the information stream (ADR-AUTO-CONSOLE:7 yellow = warning) — a non-fatal, attention-drawing
     status line, NOT the terminating Write-Warning stream. The importer sets $WarningPreference = 'Stop', so a
     real warning would halt (NoWriteErrorOrWarning rule, error-handling ADR); use throw for something that must
     stop and -Warning for something worth noticing that must not. Implies yellow, so it is mutually exclusive
@@ -86,7 +86,7 @@ function Write-Message {
         return
     }
 
-    # -Warning is sugar for yellow (ADR-CONSOLE:7) on the information stream, NOT the terminating Write-Warning stream.
+    # -Warning is sugar for yellow (ADR-AUTO-CONSOLE:7) on the information stream, NOT the terminating Write-Warning stream.
     # Parameter sets make it exclusive with -ForegroundColor, so at most one of these branches carries a colour.
     if ($Warning) {
         Write-InformationColored $line -ForegroundColor Yellow

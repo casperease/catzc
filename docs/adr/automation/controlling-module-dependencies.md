@@ -1,16 +1,16 @@
 # ADR: Controlling module dependencies
 
-## Rules: ADR-MODDEPS
+## Rules: ADR-AUTO-DEPM
 
-### Rule ADR-MODDEPS:1
+### Rule ADR-AUTO-DEPM:1
 
-A module dependency (`ADR-MODDEPS`) is code the toolset is built from. Its internal edges — module A needing module B among the repository's
-own modules — are declared in `automation/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the declaration is the allow-list, and an
-actual edge with no declaration fails the build.
+A module dependency (`ADR-AUTO-DEPM`) is code the toolset is built from. Its internal edges — module A needing module B among the
+repository's own modules — are declared in `automation/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the declaration is the allow-list,
+and an actual edge with no declaration fails the build.
 
 - [The declared graph is the contract](#the-declared-graph-is-the-contract)
 
-### Rule ADR-MODDEPS:2
+### Rule ADR-AUTO-DEPM:2
 
 The graph is unified across both kinds of module content. A cross-module `pwsh` function call and a cross-module C# type reference are the
 same relationship — module A needs module B — so they live in one graph, not two: `Get-ModuleDependency` extracts the function-call edges,
@@ -18,7 +18,7 @@ same relationship — module A needs module B — so they live in one graph, not
 
 - [One graph, two kinds of edge](#one-graph-two-kinds-of-edge)
 
-### Rule ADR-MODDEPS:3
+### Rule ADR-AUTO-DEPM:3
 
 `dependencies.yml` has two sections. `groups:` declares a named set of on-disk modules with its own internal member→member DAG — a group is
 a logical concept, not a disk module. `modules:` declares, per consumer, the names it may depend on: a GROUP (loose — an edge to any member)
@@ -26,7 +26,7 @@ or a specific MODULE (tight). A module absent from `modules:` is unconstrained.
 
 - [Groups and modules](#groups-and-modules)
 
-### Rule ADR-MODDEPS:4
+### Rule ADR-AUTO-DEPM:4
 
 Integrity is group-aware and fails fast. At load, `Assert-DependenciesConfig` checks that every target resolves to a declared module or
 group, that the module graph and each group's internal DAG are acyclic, and that every declared module and group member exists on disk.
@@ -35,7 +35,7 @@ intra-group edges are a subset of the declared internal map.
 
 - [Enforcement](#enforcement)
 
-### Rule ADR-MODDEPS:5
+### Rule ADR-AUTO-DEPM:5
 
 Extend by declaring, not by importing. A new module dependency is a new declared edge in `dependencies.yml`, landed in the **same** change
 as the code that introduces it — never an ad-hoc cross-module call or type reference that merely resolves at runtime or compiles into the
@@ -43,16 +43,16 @@ combined assembly.
 
 - [Extend by declaring](#extend-by-declaring)
 
-### Rule ADR-MODDEPS:6
+### Rule ADR-AUTO-DEPM:6
 
-A module dependency (`ADR-MODDEPS`) is not a system dependency (`ADR-SYSDEPS`). A `ADR-MODDEPS` is code the toolset is built _from_ —
+A module dependency (`ADR-AUTO-DEPM`) is not a system dependency (`ADR-AUTO-DEPS`). A `ADR-AUTO-DEPM` is code the toolset is built _from_ —
 pinned, and stitched into the build (whether it is internal code the repository already holds or an external package a feed supplies); a
-`ADR-SYSDEPS` is an external runtime it runs _against_ (`pwsh`, Python, the Azure CLI), version-locked and asserted by the Tooling layer,
+`ADR-AUTO-DEPS` is an external runtime it runs _against_ (`pwsh`, Python, the Azure CLI), version-locked and asserted by the Tooling layer,
 governed by [controlling-systemwide-deps](controlling-systemwide-deps.md). Keep the two names distinct in code, config, and prose.
 
 - [Not a system dependency](#not-a-system-dependency)
 
-### Rule ADR-MODDEPS:7
+### Rule ADR-AUTO-DEPM:7
 
 Pin every module dependency to an exact version. An internal dependency is pinned by the commit — its code is in-tree, so a checkout builds
 against exactly the code that commit holds. An external dependency is pinned to an exact version in config, never a floating range or
@@ -60,15 +60,15 @@ against exactly the code that commit holds. An external dependency is pinned to 
 
 - [Pinning: an exact version](#pinning-an-exact-version)
 
-### Rule ADR-MODDEPS:8
+### Rule ADR-AUTO-DEPM:8
 
 Internal module dependencies are vendored and named. The code is in-tree — the toolset's own modules, and third-party modules vendored under
 `automation/.vendor/` ([vend](powershell/vendor-toolset-dependencies.md)) — and every edge is declared by name in `dependencies.yml`
-(ADR-MODDEPS:1). The repository alone is the internal dependency set; there is nothing to fetch.
+(ADR-AUTO-DEPM:1). The repository alone is the internal dependency set; there is nothing to fetch.
 
 - [Internal: vendored and named](#internal-vendored-and-named)
 
-### Rule ADR-MODDEPS:9
+### Rule ADR-AUTO-DEPM:9
 
 External module dependencies are stitched in at build time by the package manager named in config. A capability not worth reimplementing and
 not appropriate to vendor is pulled — at build, never at runtime — from its feed: NuGet, an Artifactory repository, an artifact an upstream
@@ -76,7 +76,7 @@ pipeline uploaded, or another feed, chosen per dependency under [use-proper-pack
 
 - [External: stitched at build time](#external-stitched-at-build-time)
 
-### Rule ADR-MODDEPS:10
+### Rule ADR-AUTO-DEPM:10
 
 The stitch is config, and the config is ours. Which external dependencies exist, at which pinned versions, from which feeds is declared as
 config in the repository — a reviewed change, not an ambient fact of a build machine — so the whole graph, internal and external, is
@@ -116,8 +116,8 @@ A module's content is of two kinds — `pwsh` functions and C# types — but a d
 which kind carries it. A cross-module function call and a cross-module type reference both mean "module A needs module B," so they are
 unified in one graph rather than split across two declarations. `Get-ModuleDependency` extracts the function-call edges and
 `Get-CSharpTypeDependency` the type-reference edges (the combined assembly means the C# compiler will not — see
-[native-csharp-types](BCL/native-csharp-types.md#rule-adr-types4)); `Assert-ModuleDependency` unions the two sets and checks them against
-the one `dependencies.yml`. There is no separate "type dependency" file to keep in sync.
+[native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types4)); `Assert-ModuleDependency` unions the two sets and checks them
+against the one `dependencies.yml`. There is no separate "type dependency" file to keep in sync.
 
 ### Groups and modules
 
@@ -152,12 +152,13 @@ as documentation to be reconciled later; it is the contract the build enforces n
 
 ### Not a system dependency
 
-"Dependency" names two different things in this repo, and they are governed by opposite disciplines. A **module dependency** (`ADR-MODDEPS`)
-is code the toolset is built _from_ — pinned to an exact version and stitched into the build, whether it is internal code the repository
-holds (vendored and named) or an external package a feed supplies. A **system dependency** (`ADR-SYSDEPS`) is an external runtime or CLI the
-automation merely runs _against_ — `pwsh`, Python, `dotnet`, the Azure CLI, git — version-locked and asserted, never built from, by the
-Tooling layer. That concern has its own ADR, [controlling-systemwide-deps](controlling-systemwide-deps.md). The two codes carry the split:
-`ADR-MODDEPS` (MOD = module) and `ADR-SYSDEPS` (SYS = system). Keeping the words distinct keeps the two from being conflated.
+"Dependency" names two different things in this repo, and they are governed by opposite disciplines. A **module dependency**
+(`ADR-AUTO-DEPM`) is code the toolset is built _from_ — pinned to an exact version and stitched into the build, whether it is internal code
+the repository holds (vendored and named) or an external package a feed supplies. A **system dependency** (`ADR-AUTO-DEPS`) is an external
+runtime or CLI the automation merely runs _against_ — `pwsh`, Python, `dotnet`, the Azure CLI, git — version-locked and asserted, never
+built from, by the Tooling layer. That concern has its own ADR, [controlling-systemwide-deps](controlling-systemwide-deps.md). The two codes
+carry the split: `ADR-AUTO-DEPM` (MOD = module) and `ADR-AUTO-DEPS` (SYS = system). Keeping the words distinct keeps the two from being
+conflated.
 
 ### Pinning: an exact version
 
@@ -199,11 +200,11 @@ describes, and adding or moving a dependency is a reviewed change.
 - **`Get-ModuleDependency`** + **`Get-CSharpTypeDependency`** — extract the actual function-call and C# type-reference edges from the code.
 - **`Assert-ModuleDependency`** — checks the extracted edges against the declaration (allow-set membership and the group's internal-map
   subset rule), failing the L2 suite on any undeclared edge.
-- **Code review** — enforces `ADR-MODDEPS:5`: a new edge is declared in the same change as the code, not deferred.
+- **Code review** — enforces `ADR-AUTO-DEPM:5`: a new edge is declared in the same change as the code, not deferred.
 - **`Install-VendorModule`** + **`Import-VendorModules`** ([vend](powershell/vendor-toolset-dependencies.md)) — pin a vendored internal
-  dependency by its `automation/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-MODDEPS:8`).
+  dependency by its `automation/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-AUTO-DEPM:8`).
 - **Pinning** — the commit pins every internal dependency; an external dependency carries its exact version in the stitch config, reviewed
-  in the diff (`ADR-MODDEPS:7`).
+  in the diff (`ADR-AUTO-DEPM:7`).
 
 ## Consequences
 

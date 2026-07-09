@@ -22,7 +22,7 @@
                          contract used by Pester against a fresh tmp directory.
       - -Force           skip the pre-scan and overwrite.
 
-    See docs/adr/automation/module-config-loading.md (files.yml), native-csharp-types.md (ADR-TYPES:9), and
+    See docs/adr/configuration/module-config-loading.md (files.yml), native-csharp-types.md (ADR-AUTO-TYPES:9), and
     path-representation.md.
 .PARAMETER Destination
     The target root the selected paths are mirrored into (created if missing).

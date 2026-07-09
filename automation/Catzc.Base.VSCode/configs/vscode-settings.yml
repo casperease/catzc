@@ -98,7 +98,7 @@ settings:
     '*.drawio.png': imagePreview.previewEditor
 
   # Prettier is the .yaml (ADO pipeline) formatter, the same engine Format-Pipelines runs — so the editor
-  # and the catzc gate produce byte-identical output (ADR-FORMAT). `.yaml` is the azure-pipelines language
+  # and the catzc gate produce byte-identical output (ADR-REPO-FORMAT). `.yaml` is the azure-pipelines language
   # (files.associations above), a custom language prettier-vscode does not format by default, so
   # documentSelectors opts those files in; the language default-formatter then routes Format Document to it.
   # Format-on-save is deliberately OFF — formatting is on demand (Shift+Alt+F) and enforced by the gate.

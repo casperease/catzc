@@ -1,36 +1,36 @@
 # ADR: DORA — Continuous integration
 
-## Rules: ADR-DORACI
+## Rules: ADR-DORA-CI
 
-### Rule ADR-DORACI:1
+### Rule ADR-DORA-CI:1
 
 Every commit to the mainline triggers an automated build and an automated test suite, and both report back within minutes — the developer
 who made the change learns the outcome before moving on to something else, not hours or a day later.
 
 - [Summary](#summary)
 
-### Rule ADR-DORACI:2
+### Rule ADR-DORA-CI:2
 
 Developers integrate their work into the mainline at least daily, in small increments. A large, infrequent merge is not continuous
 integration behind a slow gate; it is batching, and the gate is not the part to fix.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORACI:3
+### Rule ADR-DORA-CI:3
 
 A broken build is fixed before other work continues. Treat a red mainline as the team's top priority, not a queued item, because every
 commit layered on a broken build compounds on unverified ground.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORACI:4
+### Rule ADR-DORA-CI:4
 
 The automated build is itself a script, checked into version control and repeatable on demand — never a manual, undocumented sequence of
 steps that a person remembers to run in a particular order.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORACI:5
+### Rule ADR-DORA-CI:5
 
 Keep the per-commit gate fast: the build-and-test cycle that runs on every check-in stays inside a small number of minutes. Slower
 verification — exhaustive suites, system-level checks — runs somewhere else, never inside that gate.
@@ -74,14 +74,14 @@ Without daily integration, changes accumulate outside the mainline, and the diff
 
 ## How to apply
 
-This platform's CI discipline ([ADR-FLOW](../design/ci-discipline-and-promotion-flow.md)) states the same practice directly: continuous
+This platform's CI discipline ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) states the same practice directly: continuous
 integration is a discipline before it is a pipeline, bound by a 5–10 minute integration budget on every merge into main so the fast gate
 never degrades into a queue, with the Build Verification Test as the aggregate pass/fail signal a commit must clear. The pipeline taxonomy
 carries the mechanics that budget depends on — CI and CD share one build-and-verify engine, and anything slower than the budget is pushed
-into the post-commit path rather than the pre-commit gate ([ADR-PIPETYPE](../pipelines/pipeline-types.md#rule-adr-pipetype4)). Test
+into the post-commit path rather than the pre-commit gate ([ADR-FLOW-CD-TYPE](../flow/pipeline-types.md#rule-adr-flow-cd-type4)). Test
 automation supplies the tiered suite the fast gate runs: L0–L1 logic tests and L2 CLI-tool tests execute on every change and self-skip only
 when a tool is genuinely absent, while L3 cloud tests stay opt-in and out of the inner loop
-([ADR-TEST](../automation/test-automation.md#rule-adr-test8)).
+([ADR-AUTO-TEST](../automation/test-automation.md#rule-adr-auto-test8)).
 
 ## Common pitfalls
 

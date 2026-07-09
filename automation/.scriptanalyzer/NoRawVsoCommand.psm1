@@ -13,7 +13,7 @@
     OUTSIDE the function Set-AdoPipelineVariable. The canonical setter is the one
     sanctioned place that emits the raw command, so it is exempt.
 
-    See ADR: docs/adr/pipelines/pipeline-variables.md#rule-adr-pipevar1 (rule ADR-PIPEVAR:1).
+    See ADR: docs/adr/pipelines/pipeline-variables.md#rule-adr-pipe-var1 (rule ADR-PIPE-VAR:1).
 #>
 
 function Measure-NoRawVsoCommand {

@@ -1,4 +1,4 @@
-Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-TEST#27' {
+Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#27' {
     BeforeAll {
         # A fake Pester test: own It-tags, an inner block, and an optional outer block (the same shape
         # Get-TestBlockTag.Tests.ps1 uses). The test's .Block is the inner block.
@@ -34,7 +34,7 @@ Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-TEST#27' {
     }
 
     It 'ignores a malformed citation (registry colon form, missing number, wrong case)' {
-        $result = & $script:rules (New-FakeTest -InnerTags @('ADR-ERROR:3', 'ADR-ERROR', 'adr-error#3'))
+        $result = & $script:rules (New-FakeTest -InnerTags @('ADR-AUTO-ERROR:3', 'ADR-AUTO-ERROR', 'adr-error#3'))
         $result | Should -HaveCount 0
     }
 

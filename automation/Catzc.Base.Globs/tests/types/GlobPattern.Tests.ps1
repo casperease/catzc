@@ -1,4 +1,4 @@
-# The dialect's truth table (ADR-GLOBS:2) and the constructor gate (ADR-GLOBS:3): per-segment PowerShell
+# The dialect's truth table (ADR-FLOW-CD-GLOBS:2) and the constructor gate (ADR-FLOW-CD-GLOBS:3): per-segment PowerShell
 # wildcards, '**' as the only cross-segment operator (zero or more whole segments), case-sensitive; a
 # malformed pattern never produces an instance.
 Describe 'GlobPattern' -Tag 'L0', 'logic' {
@@ -58,7 +58,7 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'the constructor gate (ADR-GLOBS:3)' {
+    Context 'the constructor gate (ADR-FLOW-CD-GLOBS:3)' {
         It 'rejects <why>: <pattern>' -ForEach @(
             @{ pattern = ''; why = 'an empty pattern' }
             @{ pattern = '   '; why = 'a whitespace pattern' }

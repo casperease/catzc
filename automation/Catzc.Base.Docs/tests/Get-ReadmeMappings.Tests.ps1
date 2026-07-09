@@ -1,4 +1,4 @@
-# Get-ReadmeMappings is private, so it is exercised through the module (InModuleScope, per ADR-PESTER:4).
+# Get-ReadmeMappings is private, so it is exercised through the module (InModuleScope, per ADR-AUTO-PESTER:4).
 Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fixture repo: automation/<modules> + a dot-dir; reference sources for two of the three modules.

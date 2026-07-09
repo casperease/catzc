@@ -73,7 +73,7 @@ function Get-BicepResourceName {
     $azure = Get-Config -Config azure
     # Naming needs only the environment's IDENTITY (shortcode/region_code), never a subscription — so it
     # reads azure.yml directly and is independent of subscription group/customer. The subscription group
-    # is a resolution axis only and is never a name component (docs/adr/azure/azure-naming-standard.md#rule-adr-naming8).
+    # is a resolution axis only and is never a name component (docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming8).
     $envEntry = $azure.environments[$Environment]
 
     # The namer picks the env form by pattern (name for generous, shortcode for restricted); env and

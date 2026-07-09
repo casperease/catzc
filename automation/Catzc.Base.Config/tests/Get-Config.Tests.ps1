@@ -1,6 +1,6 @@
 Describe 'Get-Config' -Tag 'L0' {
     Context 'discovery + raw default' -Tag 'integrity' {
-        # Reads the shipped tools.yml — guards that the real raw (validator-less) config loads (ADR-TEST:14).
+        # Reads the shipped tools.yml — guards that the real raw (validator-less) config loads (ADR-AUTO-TEST:14).
         It 'discovers and loads a raw config (no validator) as an ordered dictionary' {
             $configuration = Get-Config -Config tools                       # tools.yml has no Assert-ToolsConfig -> raw
             $configuration.Keys | Should -Contain 'Python'
@@ -9,8 +9,8 @@ Describe 'Get-Config' -Tag 'L0' {
 
     Context 'caching, errors, and name binding' -Tag 'logic' {
         # Function behaviour, independent of which configs are shipped: memoization, the not-found error
-        # path, and parameter-binding validation (ADR-TEST:14). The caching test owns a fixture config
-        # through the Resolve-ConfigEntry seam, so it never reads a shipped config (ADR-TEST:3).
+        # path, and parameter-binding validation (ADR-AUTO-TEST:14). The caching test owns a fixture config
+        # through the Resolve-ConfigEntry seam, so it never reads a shipped config (ADR-AUTO-TEST:3).
         It 'returns the same cached object reference on repeat calls' {
             $dir = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             New-Item -ItemType Directory -Path $dir | Out-Null
@@ -101,7 +101,7 @@ namespace CatzcGetConfigTest {
     }
 
     Context 'registry self-validation (Catzc.Base.Config.ConfigsConfig)' -Tag 'logic' {
-        # Validator logic on inline (synthetic) registries — independent of any shipped configs.yml (ADR-TEST:14).
+        # Validator logic on inline (synthetic) registries — independent of any shipped configs.yml (ADR-AUTO-TEST:14).
         It 'accepts a valid registry (type or pwsh per entry)' {
             { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ a = @{ type = 'Foo' }; b = @{ pwsh = 'Bar' } } }) } |
                 Should -Not -Throw
@@ -126,7 +126,7 @@ namespace CatzcGetConfigTest {
     Context 'registry self-validation (shipped configs.yml)' -Tag 'integrity' {
         It 'is the live registry validator (the shipped configs.yml loads)' {
             # Get-ConfigRegistry constructs ConfigsConfig on load; a passing call proves the wiring against
-            # the real shipped configs.yml (ADR-TEST:14).
+            # the real shipped configs.yml (ADR-AUTO-TEST:14).
             { InModuleScope Catzc.Base.Config { $script:configRegistryCache = $null; Get-ConfigRegistry } } | Should -Not -Throw
         }
     }

@@ -1,4 +1,4 @@
-# Get-PipelineTrigger: read a pipeline/workflow YAML's actual trigger path filters (ADR-GLOBS:1) — the
+# Get-PipelineTrigger: read a pipeline/workflow YAML's actual trigger path filters (ADR-FLOW-CD-GLOBS:1) — the
 # on-disk side the drift gate compares against the computed projection.
 Describe 'Get-PipelineTrigger' -Tag 'L0', 'logic' {
     It 'extracts ADO trigger and pr include/exclude path filters' {

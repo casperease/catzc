@@ -1,15 +1,15 @@
 # ADR: DORA — Empowering teams to choose tools
 
-## Rules: ADR-DORAECT
+## Rules: ADR-DORA-TOOLCHOICE
 
-### Rule ADR-DORAECT:1
+### Rule ADR-DORA-TOOLCHOICE:1
 
 Tool choice is delegated, not mandated and not unconstrained. A team picks the languages, libraries, and tools that fit how it works and
 what it builds, within an organization-wide baseline that exists to bound sprawl, not to override the team's judgment.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAECT:2
+### Rule ADR-DORA-TOOLCHOICE:2
 
 The baseline is set by cross-functional representatives — covering languages, libraries, testing, deployment, monitoring, and data backends
 — and revisited periodically, in retrospectives or an equivalent forum, so it reflects how teams actually work rather than a decision frozen
@@ -17,14 +17,14 @@ at one point in time.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAECT:3
+### Rule ADR-DORA-TOOLCHOICE:3
 
 A team that needs a tool outside the baseline follows a documented exception process: the tool and the reason for it are written down, so
 the choice is discoverable for troubleshooting and can inform a future baseline revision, rather than living only in one team's head.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAECT:4
+### Rule ADR-DORA-TOOLCHOICE:4
 
 Empowerment is measured by asking teams whether they feel empowered to choose their tools, not by counting the number of tools in use or how
 often they change — neither count distinguishes a genuine choice from a mandate or from directionless sprawl.

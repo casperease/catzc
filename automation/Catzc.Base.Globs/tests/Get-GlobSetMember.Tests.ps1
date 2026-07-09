@@ -1,4 +1,4 @@
-# The single 'what is IN the package' source (ADR-GLOBS:4): `git ls-files` ∩ GlobSet.Matches, ordinal-sorted.
+# The single 'what is IN the package' source (ADR-FLOW-CD-GLOBS:4): `git ls-files` ∩ GlobSet.Matches, ordinal-sorted.
 # Tested through the module (private). The '_' args in the scriptblock take the set and mocked tree.
 Describe 'Get-GlobSetMember' -Tag 'L0', 'logic' {
     It 'returns tracked files the set matches, ordinal-sorted (case-sensitive)' {

@@ -4,9 +4,9 @@ This ADR covers the cross-cutting IP plan, which the data model deliberately lea
 
 Pairs with [`data-model`](azure-data-model.md) (identity + templating) and [`naming-standard`](azure-naming-standard.md).
 
-## Rules: ADR-NETWORK
+## Rules: ADR-AZ-NETWORK
 
-### Rule ADR-NETWORK:1
+### Rule ADR-AZ-NETWORK:1
 
 The IP plan lives only in `network.yml` — never duplicate vnet/subnet ranges into a template's per-slot config. A template that needs ranges
 reads them from `Get-Config -Config network` in its prepare hook and merges them into the parameter set.
@@ -18,19 +18,19 @@ reads them from `Get-Config -Config network` in its prepare hook and merges them
 
 - [The asset](#the-asset)
 
-### Rule ADR-NETWORK:2
+### Rule ADR-AZ-NETWORK:2
 
 Key the plan by environment name, matching `azure.yml`; the two assets stay in sync via the validator, not by convention alone.
 
 - [Validation (`Assert-NetworkConfig`)](#validation-assert-networkconfig)
 
-### Rule ADR-NETWORK:3
+### Rule ADR-AZ-NETWORK:3
 
 One address space per environment — multi-region-per-environment is out of scope (each environment maps to one region).
 
 - [The asset](#the-asset)
 
-### Rule ADR-NETWORK:4
+### Rule ADR-AZ-NETWORK:4
 
 Per-subscription envs (`nsub`/`psub`) need no network entry — they carry no vnet, so the standard-env requirement skips them (a
 `nsub`/`psub` entry is not forbidden, just pointless).

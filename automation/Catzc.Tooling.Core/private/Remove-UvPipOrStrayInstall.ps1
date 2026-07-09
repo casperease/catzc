@@ -4,7 +4,7 @@
     on-PATH binary. Both steps are user-space.
 .DESCRIPTION
     Called by Remove-LinuxToolInstall and Remove-MacToolInstall after each has tried its native package
-    manager (apt on Linux, brew on macOS). Neither step here needs elevation (ADR-REMOVE:6): the pip removal is
+    manager (apt on Linux, brew on macOS). Neither step here needs elevation (ADR-AUTO-REMOVE:6): the pip removal is
     the uv-scoped 'uv pip uninstall --system' (never a foreign system pip), and the stray delete removes only
     the resolved binary. Private to Catzc.Tooling.Core.
 .PARAMETER Config

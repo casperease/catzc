@@ -9,7 +9,7 @@
     from the harness path because it IS the harness path, one shard wide.
 
     Why a child process and not an in-session Invoke-Pester: the suite runs WITHOUT strict mode
-    (ADR-TEST:25), but the importer's dot-sourced shim sets strict mode in the session's top scope, and
+    (ADR-AUTO-TEST:25), but the importer's dot-sourced shim sets strict mode in the session's top scope, and
     Pester's test scopes chain to that top scope — no function-scope Set-StrictMode -Off can shield them. In
     a worker process the importer loads into the WORKER SCRIPT's scope, so the process top scope never goes
     strict and the shard's own Set-StrictMode -Off governs. A bare Invoke-Pester from an importer session

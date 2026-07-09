@@ -3,7 +3,7 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
     BeforeAll {
         # Fixture identity — deliberately-distinct tokens (org tst, tenant fixtenant, Greek envs, core_*
         # subscriptions) so this logic test owns its inputs and editing the shipped azure.yml can never
-        # change its outcome (ADR-TEST:1, ADR-TEST:3). Assert-AzureConfig validates the passed dict
+        # change its outcome (ADR-AUTO-TEST:1, ADR-AUTO-TEST:3). Assert-AzureConfig validates the passed dict
         # standalone, so the fixture needs no shipped config.
         $script:baseConfig = [ordered]@{
             org               = 'tst'

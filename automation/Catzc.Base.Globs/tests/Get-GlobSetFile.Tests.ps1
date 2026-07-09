@@ -1,4 +1,4 @@
-# The member list: tracked universe ∩ globset membership, ordinally sorted (ADR-GLOBS:4, ADR-GLOBS:5).
+# The member list: tracked universe ∩ globset membership, ordinally sorted (ADR-FLOW-CD-GLOBS:4, ADR-FLOW-CD-GLOBS:5).
 Describe 'Get-GlobSetFile' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{

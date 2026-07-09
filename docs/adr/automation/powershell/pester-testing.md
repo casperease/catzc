@@ -1,15 +1,15 @@
 # ADR: Pester testing — the language layer over test-automation
 
-## Rules: ADR-PESTER
+## Rules: ADR-AUTO-PESTER
 
-### Rule ADR-PESTER:1
+### Rule ADR-AUTO-PESTER:1
 
-Pester is the test framework, and a test applies the [test-automation](../test-automation.md) (`ADR-TEST`) doctrine — logic isolated through
-seams, integrity bound to the real files — with the mock idioms and file conventions below.
+Pester is the test framework, and a test applies the [test-automation](../test-automation.md) (`ADR-AUTO-TEST`) doctrine — logic isolated
+through seams, integrity bound to the real files — with the mock idioms and file conventions below.
 
 - [The idioms](#the-idioms)
 
-### Rule ADR-PESTER:2
+### Rule ADR-AUTO-PESTER:2
 
 Isolate logic tests through the seams — in `BeforeEach`, mock `Get-BicepTemplatesRoot` to a fixture template tree, and isolate config either
 by mocking the discovery seam `Resolve-ConfigEntry` (return a fixture `@{ Name; Module; Path }`) or by mocking `Get-Config` itself.
@@ -17,21 +17,21 @@ Redirecting only the template tree leaks the shipped identities back in.
 
 - [The idioms](#the-idioms)
 
-### Rule ADR-PESTER:3
+### Rule ADR-AUTO-PESTER:3
 
 Mock at module boundaries with `-ModuleName`, and mock the whole boundary function — never its internals. A cached function ignores mocked
 dependencies ([script-scope-caching](script-scope-caching.md)), and reaching into internals couples the test to implementation.
 
 - [The idioms](#the-idioms)
 
-### Rule ADR-PESTER:4
+### Rule ADR-AUTO-PESTER:4
 
 Test private functions through the module (`& (Get-Module …) { … }` or `InModuleScope`), injecting metadata by mocking the public seam —
 never by editing module-scope state except to reset a cache slot.
 
 - [The idioms](#the-idioms)
 
-### Rule ADR-PESTER:5
+### Rule ADR-AUTO-PESTER:5
 
 One test file per function, `Verb-Noun.Tests.ps1` — `Test-Automation.Tests.ps1` enforces the hyphenated basename. A cross-cutting suite is
 named after the function it most exercises plus a suffix. A test for a native C# type is named for the type and lives in `tests/types/`
@@ -103,7 +103,7 @@ Describe 'sample (real az)' -Tag 'L2', 'logic' {
   `$config`. Keep angle brackets out of test names.
 - **An unbound `[string]` parameter is `''`, not `$null`** — the engine coerces `$null`→`''` for `[string]`, so `$Customer -eq $null` is
   never true for a `[string]` param. Test emptiness with `if (-not $Customer)` or `[string]::IsNullOrEmpty($Customer)`, and never default
-  one with `??` (the default won't apply — see [automatic-variable-pitfalls](automatic-variable-pitfalls.md#rule-adr-autovar6)).
+  one with `??` (the default won't apply — see [automatic-variable-pitfalls](automatic-variable-pitfalls.md#rule-adr-auto-autovar6)).
 - **`Where-Object prop -EQ` / `ForEach-Object prop` shortcuts do not bind `[ordered]` dictionary keys** — use the script-block form. This
   codebase returns ordered dicts pervasively.
 - **A comma-wrapped array return piped directly member-enumerates.** `Get-BicepTemplates | Where …` feeds the whole array as one object;
@@ -114,10 +114,10 @@ Describe 'sample (real az)' -Tag 'L2', 'logic' {
   the prompt into a throw masks the hazard rather than removing it, so a `Test-Automation` run from a devbox shell hangs.
 - **A reused-and-deleted sandbox path races an on-access file scanner.** A `BeforeEach` that deletes and recreates one fixed sandbox dir
   intermittently throws "… being used by another process" on the delete, because a Windows AV / indexer briefly holds a just-copied file
-  open. Do not retry the delete (see [retry-as-last-resort](../retry-as-last-resort.md#rule-adr-retry2)) — remove the need: give each test a
-  unique dir, `$script:sandbox = Join-Path $TestDrive ([Guid]::NewGuid())`, copy fixtures in, and drop the cleanup entirely. Pester
+  open. Do not retry the delete (see [retry-as-last-resort](../retry-as-last-resort.md#rule-adr-auto-retry2)) — remove the need: give each
+  test a unique dir, `$script:sandbox = Join-Path $TestDrive ([Guid]::NewGuid())`, copy fixtures in, and drop the cleanup entirely. Pester
   auto-cleans `$TestDrive`, and a unique dir is never re-deleted mid-run. Scratch belongs in `$TestDrive` / `[IO.Path]::GetTempPath()`, not
-  `out/` (see [dedicated-output-directory](../../repository/dedicated-output-directory.md#rule-adr-outdir3)).
+  `out/` (see [dedicated-output-directory](../../repository/dedicated-output-directory.md#rule-adr-repo-outdir3)).
 - **Bulk deletes: use .NET, not per-item `Remove-Item`.** Clearing many entries with per-item `Remove-Item` is ~50× slower than
   `[IO.File]::Delete` / `[IO.Directory]::Delete($d, $true)` (measured ~33 s vs ~0.6 s for ~4,300 entries) — `Clear-TempFolders`
   (`Catzc.Tooling.Provisioning`) uses the .NET calls for this reason. And do not blame AV for temp slowness without checking: a bloated
@@ -136,8 +136,8 @@ Describe 'sample (real az)' -Tag 'L2', 'logic' {
 
 - **The seams exist** as mockable functions (`Get-BicepTemplatesRoot` for the template tree; `Resolve-ConfigEntry` and `Get-Config` for
   config), so isolation is a mock away and production has a single pristine default. For config, mock the discovery seam to return a fixture
-  `@{ Name; Module; Path }`, or mock `Get-Config` outright — the whole function, never its internals (`ADR-PESTER:3`). When exercising cache
-  behavior directly, reset the slot per [script-scope-caching](script-scope-caching.md) (`ADR-PSCACHE:3`).
+  `@{ Name; Module; Path }`, or mock `Get-Config` outright — the whole function, never its internals (`ADR-AUTO-PESTER:3`). When exercising
+  cache behavior directly, reset the slot per [script-scope-caching](script-scope-caching.md) (`ADR-AUTO-PSCACHE:3`).
 - **`Test-Automation.Tests.ps1`** validates the `Verb-Noun.Tests.ps1` filename convention — a type test under `tests/types/` is instead
   named for the `types/*.cs` it covers — and the one-function-per-file rules for source (see
   [one-function-per-file](one-function-per-file.md)).

@@ -1,4 +1,4 @@
-# The single ConsoleColor -> ANSI SGR map (ADR-CONSOLE:7): the escape codes Write-InformationColored and
+# The single ConsoleColor -> ANSI SGR map (ADR-AUTO-CONSOLE:7): the escape codes Write-InformationColored and
 # RainbowColor both resolve through, asserted in one place so the two can never disagree.
 Describe 'Ansi' -Tag 'L0', 'logic' {
     It 'maps <color> to its SGR foreground escape' -ForEach @(

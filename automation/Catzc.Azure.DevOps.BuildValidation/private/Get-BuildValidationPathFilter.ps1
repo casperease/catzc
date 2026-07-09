@@ -4,10 +4,10 @@
 .DESCRIPTION
     The single place the build-validation policy's `filenamePatterns` is derived (used by both
     Register- and Unregister-AdoBuildValidation), so the create side and the match-to-remove side always
-    agree. Projects the globset to its GitHub-ordered native path list (Get-GlobSetTrigger, ADR-GLOBS) —
+    agree. Projects the globset to its GitHub-ordered native path list (Get-GlobSetTrigger, ADR-FLOW-CD-GLOBS) —
     '!' negation and last-match-wins, which ADO branch-policy path filters honour — and anchors each pattern
     with a leading '/', mapping '!p' to '!/p'. This is the same set of globs the pipeline triggers on; the
-    policy is the server-side pre-commit half of that binding (ADR-PIPETYPE:4), never a committed marker.
+    policy is the server-side pre-commit half of that binding (ADR-FLOW-CD-TYPE:4), never a committed marker.
 .PARAMETER GlobSet
     The globset to project.
 .OUTPUTS

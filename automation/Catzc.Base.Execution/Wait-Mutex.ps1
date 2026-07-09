@@ -8,8 +8,8 @@
     - Acquired within -AnnounceAfterSeconds (default 2): a non-noticeable glitch — the only trace is
       a verbose breadcrumb ('Awaited the <name> in N ms'), visible under -Verbose and silent otherwise.
     - Still waiting past that threshold: a genuine halt — one announcement line names what is being
-      waited on (ADR-CONSOLE:10), then a liveness dot every -DotIntervalSeconds (default 5) until the
-      mutex is acquired (the dot-per-interval signal of ADR-CONSOLE:8), followed by an acquisition
+      waited on (ADR-AUTO-CONSOLE:10), then a liveness dot every -DotIntervalSeconds (default 5) until the
+      mutex is acquired (the dot-per-interval signal of ADR-AUTO-CONSOLE:8), followed by an acquisition
       outcome line.
 
     An abandoned mutex — the previous holder's process or thread died while owning it — transfers
@@ -50,7 +50,7 @@
 #>
 function Wait-Mutex {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = '$global:__PesterRunning (set by Test-Automation) is read to suppress the raw [Console] liveness dots during test runs — they bypass the writer chokepoint that silences everything else; global is required to cross module session-state boundaries')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Liveness dots are written via [Console]::Write specifically to bypass PowerShell output streams — the information stream cannot emit an inline (no-newline) dot, and nothing may pollute the pipeline; see .DESCRIPTION and ADR-CONSOLE:8')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Liveness dots are written via [Console]::Write specifically to bypass PowerShell output streams — the information stream cannot emit an inline (no-newline) dot, and nothing may pollute the pipeline; see .DESCRIPTION and ADR-AUTO-CONSOLE:8')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]

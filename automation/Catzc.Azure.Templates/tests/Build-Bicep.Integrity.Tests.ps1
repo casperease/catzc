@@ -4,11 +4,11 @@
 # coverage lives in the FIXTURE-based L2 'real az' logic tests (Build-Bicep.*.Tests.ps1, which mock
 # Get-BicepTemplatesRoot to tests/assets/templates/ and build a sample-* asset). This file binds to the real
 # infrastructure/templates/ + configs (it does NOT mock the Get-BicepTemplatesRoot / Resolve-ConfigEntry
-# seams — binding to the real assets is the whole point of an integrity test, ADR-TEST:1) and is generic: it
+# seams — binding to the real assets is the whole point of an integrity test, ADR-AUTO-TEST:1) and is generic: it
 # DISCOVERS the set and asserts invariants that hold for EVERY shipped template, binding to no template name
-# and no production-derived value (ADR-TEST:17).
+# and no production-derived value (ADR-AUTO-TEST:17).
 #
-# One read-only scan in BeforeAll; the It blocks assert facets of it (ADR-TEST:16/18/20). Both engines run here:
+# One read-only scan in BeforeAll; the It blocks assert facets of it (ADR-AUTO-TEST:16/18/20). Both engines run here:
 # Get-BicepTemplates (discovery — folders/files named right, options schema, identity references) and
 # Assert-BicepTemplate (the consolidated validator, every problem in one message). Neither builds.
 # NB: Get-BicepTemplates returns a comma-wrapped array — assign it (an @()-wrap nests it one level) and
@@ -63,7 +63,7 @@ Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
     }
 
     It "every shipped template's options.yml declares a short_name" {
-        $noShortName | Should -BeNullOrEmpty -Because "options.yml must declare short_name (the Azure id segment — ADR azure/naming-standard, ADR-NAMING:2):`n$($noShortName -join "`n")"
+        $noShortName | Should -BeNullOrEmpty -Because "options.yml must declare short_name (the Azure id segment — ADR azure/naming-standard, ADR-AZ-NAMING:2):`n$($noShortName -join "`n")"
     }
 
     It 'short_names are globally unique across shipped templates' {

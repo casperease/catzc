@@ -1,15 +1,15 @@
 # ADR: DORA — Test automation
 
-## Rules: ADR-DORATA
+## Rules: ADR-DORA-TESTAUTO
 
-### Rule ADR-DORATA:1
+### Rule ADR-DORA-TESTAUTO:1
 
 Automated tests run continuously across the whole delivery lifecycle, not as a separate late-stage phase, and the suite returns a result in
 minutes — the developer who made a change learns the outcome before moving on to something else, not hours or days later.
 
 - [Summary](#summary)
 
-### Rule ADR-DORATA:2
+### Rule ADR-DORA-TESTAUTO:2
 
 Developers write and own the automated suite — practicing test-driven development and authoring the acceptance tests that gate a change —
 while testers shift their effort toward continuous exploratory and usability testing and toward curating the suite, not toward manually
@@ -17,21 +17,21 @@ re-verifying every change by hand.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORATA:3
+### Rule ADR-DORA-TESTAUTO:3
 
 Follow the test pyramid: most defects are caught by fast, isolated unit tests, and a pipeline runs them before the slower acceptance and
 nonfunctional tests that follow. A suite inverted toward slow, broad tests catches the same defects later and at higher cost.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORATA:4
+### Rule ADR-DORA-TESTAUTO:4
 
 Integrate the suite into the deployment pipeline so every change triggers a build, the unit tests, then acceptance and nonfunctional tests
 against the running software — a change does not pass until all of them do, and the result is visible to the whole team.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORATA:5
+### Rule ADR-DORA-TESTAUTO:5
 
 Treat a failing test as evidence of a real defect, never as noise. Eliminate flaky tests and keep the whole suite fast enough to run locally
 and in CI — bloated, over-mocked, or slow suites get curated down, not tolerated, because a suite nobody trusts stops giving signal.
@@ -79,16 +79,16 @@ those are the units that are cheap to test.
 This platform separates every test into a **logic** test (isolated from shipped configuration through mockable seams, hermetic and fast) or
 an **integrity** test (bound deliberately to the real, shipped files) — never both at once — and tags every test with one of four
 integration tiers, `L0`–`L3`, so a suite runs unit-speed by default and only reaches a real CLI tool or the cloud when a test opts in
-([ADR-TEST](../automation/test-automation.md#rule-adr-test1), tiers at [ADR-TEST:8](../automation/test-automation.md#rule-adr-test8)). Slow,
-duplicated integration coverage is pushed left into fast L0 logic tests, leaving only a thin walking skeleton at the integration tier — one
-test per distinct integration concern, never one per input case ([ADR-TEST:22](../automation/test-automation.md#rule-adr-test22)). The
-aggregate Build Verification Test is the one pass/fail verdict a commit must clear before it reaches master
-([ADR-TEST:24](../automation/test-automation.md#rule-adr-test24)), the pipeline-level version of "a change does not pass until its tests
-do."
+([ADR-AUTO-TEST](../automation/test-automation.md#rule-adr-auto-test1), tiers at
+[ADR-AUTO-TEST:8](../automation/test-automation.md#rule-adr-auto-test8)). Slow, duplicated integration coverage is pushed left into fast L0
+logic tests, leaving only a thin walking skeleton at the integration tier — one test per distinct integration concern, never one per input
+case ([ADR-AUTO-TEST:22](../automation/test-automation.md#rule-adr-auto-test22)). The aggregate Build Verification Test is the one pass/fail
+verdict a commit must clear before it reaches master ([ADR-AUTO-TEST:24](../automation/test-automation.md#rule-adr-auto-test24)), the
+pipeline-level version of "a change does not pass until its tests do."
 
 The concrete authoring idioms — mocking at module boundaries, isolating through seams rather than editing production data, and the
 per-function test-file convention — are the Pester-specific layer under that doctrine
-([ADR-PESTER](../automation/powershell/pester-testing.md#rule-adr-pester1)).
+([ADR-AUTO-PESTER](../automation/powershell/pester-testing.md#rule-adr-auto-pester1)).
 
 ## Common pitfalls
 

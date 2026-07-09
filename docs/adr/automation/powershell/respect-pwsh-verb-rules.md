@@ -1,8 +1,8 @@
 # ADR: Respect PowerShell approved verbs
 
-## Rules: ADR-VERBS
+## Rules: ADR-AUTO-VERBS
 
-### Rule ADR-VERBS:1
+### Rule ADR-AUTO-VERBS:1
 
 Use only verbs from `Get-Verb`. If the verb you want is not in the list, find the approved verb that matches the semantics (e.g. `New-` not
 `Create-`).
@@ -10,48 +10,48 @@ Use only verbs from `Get-Verb`. If the verb you want is not in the list, find th
 - [Common mistakes](#common-mistakes)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-VERBS:2
+### Rule ADR-AUTO-VERBS:2
 
 Respect the semantic contract: a `Get-` function must not modify state, a `Test-` function must return `[bool]`, an `Assert-` function must
 throw on failure. The verb is a promise to the caller.
 
 - [Why this matters](#why-this-matters)
 
-### Rule ADR-VERBS:3
+### Rule ADR-AUTO-VERBS:3
 
 Use `Test-` for boolean queries and `Assert-` for preconditions. `Test-` returns true/false for the caller to decide; `Assert-` throws
 immediately. Never name a function `Test-` and throw, or `Assert-` and return false. (The repository quality gates are the one sanctioned
-exception — see ADR-VERBS:7.)
+exception — see ADR-AUTO-VERBS:7.)
 
 - [Why this matters](#why-this-matters)
 
-### Rule ADR-VERBS:4
+### Rule ADR-AUTO-VERBS:4
 
 Use `Invoke-` for transparent command wrappers (`Invoke-Python`, `Invoke-Poetry`): they run the underlying tool without deciding what to run
 or interpreting output. The caller controls the command.
 
 - [Why this matters](#why-this-matters)
 
-### Rule ADR-VERBS:5
+### Rule ADR-AUTO-VERBS:5
 
 Use `ConvertTo-`/`ConvertFrom-` for format transformations — not `Parse-`, `Serialize-`, `Transform-`, or `Format-` (which means "arranges
 for display").
 
 - [Common mistakes](#common-mistakes)
 
-### Rule ADR-VERBS:6
+### Rule ADR-AUTO-VERBS:6
 
 Use a **plural** noun for a function that returns a collection (`Get-AdoYamlFiles`, `Get-BicepTemplates`) and a singular noun for one that
 returns exactly one object (`Get-BicepTemplate`), so the cardinality is visible from the name.
 
 - [Cardinality: plural nouns for collections](#cardinality-plural-nouns-for-collections)
 
-### Rule ADR-VERBS:7
+### Rule ADR-AUTO-VERBS:7
 
 The repository quality gates — `Test-Automation` and the `Test-*` gates it aggregates (`Test-Spelling`, `Test-ScriptAnalyzer`,
-`Test-Markdownlint`, `Test-Types`) — are the sanctioned exception to ADR-VERBS:2/ADR-VERBS:3: each throws on failure so it can fail the
-build, and returns a result object under `-PassThru`. Their noun names a body of work to verify and enforce, not a boolean condition; a
-plain predicate (`Test-Path`, `Test-Command`) still returns `[bool]` and never throws.
+`Test-Markdownlint`, `Test-Types`) — are the sanctioned exception to ADR-AUTO-VERBS:2/ADR-AUTO-VERBS:3: each throws on failure so it can
+fail the build, and returns a result object under `-PassThru`. Their noun names a body of work to verify and enforce, not a boolean
+condition; a plain predicate (`Test-Path`, `Test-Command`) still returns `[bool]` and never throws.
 
 - [The sanctioned quality-gate exception](#the-sanctioned-quality-gate-exception)
 
@@ -203,7 +203,7 @@ This is a deliberate clarity choice over PowerShell's default lean toward singul
 
 ### The sanctioned quality-gate exception
 
-Most `Test-` functions are predicates — `Test-Path`, `Test-Command`, `Test-IsRunningInPipeline` — and obey ADR-VERBS:2: they answer a
+Most `Test-` functions are predicates — `Test-Path`, `Test-Command`, `Test-IsRunningInPipeline` — and obey ADR-AUTO-VERBS:2: they answer a
 boolean and never throw. The repository's quality gates are different in kind. `Test-Automation`, `Test-Spelling`, `Test-ScriptAnalyzer`,
 `Test-Markdownlint`, and `Test-Types` each run a body of checks and exist to **fail the build** when those checks fail — throwing is their
 job, not a broken contract. They still expose the boolean-shaped answer through `-PassThru`, which returns a result object (issue counts,

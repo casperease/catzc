@@ -1,7 +1,7 @@
 # CI pipeline — unit tests, framework integration tests, and Azure auth tests.
 #
-# Trigger = the 'automation' globset projected into ADO-native path filters (Get-GlobSetTrigger, ADR-GLOBS):
-# the track is its own root folder (automation/**, ADR-TRACK#1), so this fires exactly — and only starts at
+# Trigger = the 'automation' globset projected into ADO-native path filters (Get-GlobSetTrigger, ADR-FLOW-CD-GLOBS):
+# the track is its own root folder (automation/**, ADR-DSGN-TRACK#1), so this fires exactly — and only starts at
 # all — when the module system changes. No committed marker to go stale across a squash or concurrent merge.
 
 trigger:

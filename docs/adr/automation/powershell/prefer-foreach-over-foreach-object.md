@@ -1,22 +1,22 @@
 # ADR: Prefer foreach over ForEach-Object
 
-## Rules: ADR-FOREACH
+## Rules: ADR-AUTO-FOREACH
 
-### Rule ADR-FOREACH:1
+### Rule ADR-AUTO-FOREACH:1
 
 Default to the `foreach` statement for all iteration: it has correct, predictable `return`/`break`/`continue` semantics and is faster.
 
 - [The control flow trap](#the-control-flow-trap)
 - [Performance](#performance)
 
-### Rule ADR-FOREACH:2
+### Rule ADR-AUTO-FOREACH:2
 
 Use `ForEach-Object` only for single-expression pipeline transforms with no control flow keywords. If you need `if`, `return`, `break`,
 `continue`, or `try`/`catch`, switch to `foreach`.
 
 - [When ForEach-Object is appropriate](#when-foreach-object-is-appropriate)
 
-### Rule ADR-FOREACH:3
+### Rule ADR-AUTO-FOREACH:3
 
 Never use `return`, `break`, or `continue` inside `ForEach-Object`; they do not do what they appear to. If you need control flow, rewrite as
 `foreach`.
@@ -24,7 +24,7 @@ Never use `return`, `break`, or `continue` inside `ForEach-Object`; they do not 
 - [The control flow trap](#the-control-flow-trap)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-FOREACH:4
+### Rule ADR-AUTO-FOREACH:4
 
 Treat `ForEach-Object -Parallel` as a concurrency primitive, not a faster loop: all variables need `$using:`, module functions are
 unavailable, shared state needs thread-safe collections, errors are batched. Default to sequential `foreach`.

@@ -9,7 +9,7 @@
 # Reference shape: 'sc-flux-nonprod' is illustrative until real service connections + a non-placeholder
 # azure.yml exist.
 
-# Trigger = the 'flux' globset projected into ADO-native path filters (Get-GlobSetTrigger, ADR-GLOBS):
+# Trigger = the 'flux' globset projected into ADO-native path filters (Get-GlobSetTrigger, ADR-FLOW-CD-GLOBS):
 # shared foundation + modules, plus flux's own configuration subfolder, minus the other deployments' config.
 trigger:
   branches:

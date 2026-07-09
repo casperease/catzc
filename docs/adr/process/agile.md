@@ -1,29 +1,29 @@
 # ADR: Agile — defined by the manifesto, measured by responsiveness
 
-## Rules: ADR-AGILE
+## Rules: ADR-PROC-AGILE
 
-### Rule ADR-AGILE:1
+### Rule ADR-PROC-AGILE:1
 
-Agile is defined by the Agile Manifesto — its four values ([ADR-VALUES](agile-values.md)) and twelve principles
-([ADR-PRINCIPLES](agile-principles.md)) — not by any framework, ceremony, role, or tool.
+Agile is defined by the Agile Manifesto — its four values ([ADR-PROC-VALUES](agile-values.md)) and twelve principles
+([ADR-PRIN-PROCESS](agile-principles.md)) — not by any framework, ceremony, role, or tool.
 
 - [Decision](#decision)
 
-### Rule ADR-AGILE:2
+### Rule ADR-PROC-AGILE:2
 
 Agility is the ability to respond to change: to alter direction quickly and cheaply as understanding grows. A process that makes change
 expensive is not agile, whatever it is called.
 
 - [Decision](#decision)
 
-### Rule ADR-AGILE:3
+### Rule ADR-PROC-AGILE:3
 
 The values and principles are authoritative; a framework (Scrum, Kanban, XP) is one implementation of them and yields to them on conflict —
 when a practice contradicts a value, the value governs and the practice changes.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-AGILE:4
+### Rule ADR-PROC-AGILE:4
 
 Agility is proven by outcomes — working software delivered frequently and direction changed cheaply — never by conformance to a process. A
 team that follows every ceremony yet cannot absorb change is not agile.
@@ -70,10 +70,10 @@ authority means an adaptation can always be tested against the source rather tha
 
 When a process decision is in question, do not ask "does the framework say to do this?" — ask "does this lower the cost of responding to
 change, and which value or principle does it serve?" If a practice serves none of them, it is ceremony and can be dropped
-([ADR-NOWASTE](../principles/reduce-waste.md)). If a practice contradicts a value, change the practice, not the value.
+([ADR-PRIN-NOWASTE](../principles/reduce-waste.md)). If a practice contradicts a value, change the practice, not the value.
 
-Treat the values ([ADR-VALUES](agile-values.md)) and principles ([ADR-PRINCIPLES](agile-principles.md)) as the two companion articles that
-carry the detail; this article fixes only what agile _is_ and how the word is used across the rest of the repository's process rules.
+Treat the values ([ADR-PROC-VALUES](agile-values.md)) and principles ([ADR-PRIN-PROCESS](agile-principles.md)) as the two companion articles
+that carry the detail; this article fixes only what agile _is_ and how the word is used across the rest of the repository's process rules.
 
 ## References
 

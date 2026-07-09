@@ -1,8 +1,8 @@
 # ADR: Log the exact command before every invocation
 
-## Rules: ADR-PRELOG
+## Rules: ADR-AUTO-PRELOG
 
-### Rule ADR-PRELOG:1
+### Rule ADR-AUTO-PRELOG:1
 
 Log the full, resolved command string (all variables expanded, all arguments in place) via `Write-Message` as the last step before
 invocation. The log entry must be copy-pasteable.
@@ -10,27 +10,27 @@ invocation. The log entry must be copy-pasteable.
 - [Why this must be automatic, not opt-in](#why-this-must-be-automatic-not-opt-in)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PRELOG:2
+### Rule ADR-AUTO-PRELOG:2
 
 `Invoke-Executable` does this automatically; functions using it get logging for free. Functions that bypass it with direct `& $tool` calls
 must add their own logging.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PRELOG:3
+### Rule ADR-AUTO-PRELOG:3
 
 Do not paraphrase: log the actual command (e.g. `uv python install 3.13 --default`), not a description like "Installing Python...". A
 readable description may be added but never substituted.
 
 - [Why this must be automatic, not opt-in](#why-this-must-be-automatic-not-opt-in)
 
-### Rule ADR-PRELOG:4
+### Rule ADR-AUTO-PRELOG:4
 
 Do not conditionally log: the command is logged on every run, not behind `-Verbose` or `-Debug`.
 
 - [Why this must be automatic, not opt-in](#why-this-must-be-automatic-not-opt-in)
 
-### Rule ADR-PRELOG:5
+### Rule ADR-AUTO-PRELOG:5
 
 Use the `-Silent` switch (on `Invoke-Executable`, `Invoke-Python`, `Invoke-Poetry`, `Invoke-Dotnet`) to suppress the command log line for
 noisy plumbing calls or commands carrying a runtime secret ADO cannot mask.

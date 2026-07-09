@@ -8,7 +8,7 @@
 
     - the managed root-config registry's gitignored targets (rootconfig.yml entries with optIn and
       committed false — .editorconfig, the .vscode/ files, cspell.yml, catzc.sln, …), read through
-      Get-Config (reading a config is global access, never dependency-gated — ADR-MODCFG:6);
+      Get-Config (reading a config is global access, never dependency-gated — ADR-CONF-LOADING:6);
     - the conventional generated-artifact classes: the dynamic module manifests
       (automation/<Module>/<Module>.psd1), the generated README links (every gitignored README.md is a
       materialised link by the generated-readmes contract — a hand-authored README is only safe once
@@ -45,7 +45,7 @@ function Get-AutoControlledGlobs {
     $ret.Add('README.md')
     $ret.Add('*/README.md')
 
-    # Generated cspell dictionaries, regenerated at the importer tail (ADR-OUTDIR:8).
+    # Generated cspell dictionaries, regenerated at the importer tail (ADR-REPO-OUTDIR:8).
     $ret.Add('.cspell')
     $ret.Add('.cspell/*')
 

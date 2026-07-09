@@ -1,15 +1,15 @@
 # ADR: DORA — Platform engineering
 
-## Rules: ADR-DORAPE
+## Rules: ADR-DORA-PLATFORM
 
-### Rule ADR-DORAPE:1
+### Rule ADR-DORA-PLATFORM:1
 
 Design the internal platform as a product for developers, with a named owner accountable for developer experience, rather than as an
 infrastructure ticket queue; map the critical user journeys developers actually take through it and remove the friction points in them.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAPE:2
+### Rule ADR-DORA-PLATFORM:2
 
 Reduce a developer's cognitive load by abstracting the underlying complexity — orchestration, security policy, compliance controls — behind
 simple, opinionated "golden paths"; a developer who ships without needing to master the substrate is the capability working, not a stretch
@@ -17,7 +17,7 @@ goal.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORAPE:3
+### Rule ADR-DORA-PLATFORM:3
 
 Treat platform quality as a precondition for AI to help rather than harm delivery: on a high-quality platform, AI adoption's effect on
 organizational performance is strong and positive; on a low-quality one, the same AI-generated throughput piles up as downstream disorder in
@@ -25,14 +25,14 @@ testing, security, and deployment.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORAPE:4
+### Rule ADR-DORA-PLATFORM:4
 
 Grow the platform from its minimum viable form — the golden path for the single most common workflow — rather than building comprehensive
 coverage upfront on assumption; earn the next capability from observed usage, not from a roadmap drawn in advance.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAPE:5
+### Rule ADR-DORA-PLATFORM:5
 
 Avoid the five antipatterns that stall adoption: building on assumption instead of user research, imposing standards top-down without
 collaboration, running the platform as reactive ticket-ops, delaying release in pursuit of a "big bang" launch, and forcing
@@ -79,12 +79,12 @@ substrate has simply relocated the cognitive load rather than removed it.
 ## How to apply
 
 DORA's guidance groups into four approaches, and this platform maps to two of them directly. The thin CLI abstraction over the vendor
-substrate ([ADR-THINPLAT](../design/thin-platforms.md)) is the golden path: consumers call `Verb-Noun` functions and edit configuration,
-never touching the vendor wiring directly, which is exactly the cognitive-load shift DORA measures — and it is deliberately held to the
-smallest set of APIs, tooling, and docs that accelerates delivery, the same minimum-viable-platform discipline DORA recommends over building
-comprehensively upfront. Self-service as the platform's mode of use ([ADR-SELFSERV](../design/self-service.md)) is the other half: every
-self-service action is a reviewable, reproducible change to a single source of truth, which is what makes self-service safe to offer widely
-rather than gated behind a queue.
+substrate ([ADR-DSGN-THINPLAT](../design/thin-platforms.md)) is the golden path: consumers call `Verb-Noun` functions and edit
+configuration, never touching the vendor wiring directly, which is exactly the cognitive-load shift DORA measures — and it is deliberately
+held to the smallest set of APIs, tooling, and docs that accelerates delivery, the same minimum-viable-platform discipline DORA recommends
+over building comprehensively upfront. Self-service as the platform's mode of use ([ADR-DSGN-SELFSERV](../design/self-service.md)) is the
+other half: every self-service action is a reviewable, reproducible change to a single source of truth, which is what makes self-service
+safe to offer widely rather than gated behind a queue.
 
 Beyond what this platform already does, DORA's guidance calls for a product management mindset — a named owner for developer experience who
 maps the critical user journeys developers take and removes friction in them — and for extensibility: clear APIs and a well-defined

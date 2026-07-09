@@ -4,9 +4,9 @@
 .DESCRIPTION
     The comparison behind the trigger-drift gates (Test-AdoPipelineTriggerGlob / Test-GitHubWorkflowTriggerGlob).
     ADO path filters are order-independent (union include minus union exclude), so a set comparison is
-    correct and an ordinal sort makes it deterministic (ADR-XPLAT — Sort-Object is culture-aware). GitHub
+    correct and an ordinal sort makes it deterministic (ADR-AUTO-XPLAT — Sort-Object is culture-aware). GitHub
     paths are ordered last-match-wins ('!' negation), so -Ordered compares element by element. Matching is
-    case-sensitive (tracked paths are case-sensitive identities, ADR-GLOBS:2).
+    case-sensitive (tracked paths are case-sensitive identities, ADR-FLOW-CD-GLOBS:2).
 .PARAMETER Reference
     The expected pattern list.
 .PARAMETER Difference

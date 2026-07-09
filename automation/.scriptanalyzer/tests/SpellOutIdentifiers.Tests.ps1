@@ -32,13 +32,13 @@ Describe 'Measure-SpellOutIdentifiers' -Tag 'L0', 'logic' {
     It 'accepts a fully spelled-out name: <Code>' -ForEach @(
         @{ Code = '$ruleCollectionGroup = 1' }
         @{ Code = '$templateContext = 1' }
-        @{ Code = 'foreach ($i in 1..3) { $i }' }    # single-letter loop index (ADR-SPELL:2)
+        @{ Code = 'foreach ($i in 1..3) { $i }' }    # single-letter loop index (ADR-AUTO-SPELL:2)
         @{ Code = 'function Get-Thing { param($Path) $Path }' }
     ) {
         Test-SpellOut $Code | Should -BeNullOrEmpty
     }
 
-    It 'does not flag an external drive variable (ADR-SPELL:4): <Code>' -ForEach @(
+    It 'does not flag an external drive variable (ADR-AUTO-SPELL:4): <Code>' -ForEach @(
         @{ Code = '$env:SomeRcgValue = "x"' }        # $env: is an external contract, not our identifier
     ) {
         Test-SpellOut $Code | Should -BeNullOrEmpty

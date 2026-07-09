@@ -1,8 +1,8 @@
 # ADR: Module-path hygiene — the PowerShell layer over effective-in-enterprises
 
-## Rules: ADR-MODPATH
+## Rules: ADR-AUTO-MODPATH
 
-### Rule ADR-MODPATH:1
+### Rule ADR-AUTO-MODPATH:1
 
 Never add network paths to `$env:PSModulePath`. If a module is needed, vendor it; if it cannot be vendored (Az modules), the environment
 must install it locally.
@@ -10,7 +10,7 @@ must install it locally.
 - [The specific problem: PSModulePath](#the-specific-problem-psmodulepath)
 - [What the importer does](#what-the-importer-does)
 
-### Rule ADR-MODPATH:2
+### Rule ADR-AUTO-MODPATH:2
 
 Don't depend on the user profile at runtime. No function reads or writes `$HOME\Documents\PowerShell\` during import or a normal run; the
 one sanctioned exception is the opt-in `Set-LocalPSModulePath.ps1` helper the user runs by hand.
@@ -18,7 +18,7 @@ one sanctioned exception is the opt-in `Set-LocalPSModulePath.ps1` helper the us
 - [The one-time fix for network user paths](#the-one-time-fix-for-network-user-paths)
 - [Why the user-scope config override, and not the alternatives](#why-the-user-scope-config-override-and-not-the-alternatives)
 
-### Rule ADR-MODPATH:3
+### Rule ADR-AUTO-MODPATH:3
 
 The vendored copy of every dependency wins by **surgical removal**, never a wholesale rebuild: `Import-VendorModules` unloads any
 non-vendored copy, strips each vendored module's folders from `$env:PSModulePath`, and prepends the `.vendor/` root. The importer otherwise
@@ -28,9 +28,9 @@ leaves `$env:PSModulePath` alone and **warns** when it contains a network share,
 
 ## Context
 
-[effective-in-enterprises](../effective-in-enterprises.md) (`ADR-ENTERP`) fixes the constraints: home folders on network storage, no local
-admin, no gallery access at runtime. This ADR is the PowerShell layer under it — how the module path is kept fast, local, and deterministic
-on such a machine.
+[effective-in-enterprises](../effective-in-enterprises.md) (`ADR-AUTO-ENTERP`) fixes the constraints: home folders on network storage, no
+local admin, no gallery access at runtime. This ADR is the PowerShell layer under it — how the module path is kept fast, local, and
+deterministic on such a machine.
 
 ### The specific problem: PSModulePath
 

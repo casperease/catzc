@@ -1,6 +1,6 @@
 Describe 'New-VSCodePipelineSchema' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the config seam (ADR-PESTER:2): a small fixture schema registry.
+        # Isolate through the config seam (ADR-AUTO-PESTER:2): a small fixture schema registry.
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [ordered]@{
                 '$schema'  = 'http://example.test/schema#'

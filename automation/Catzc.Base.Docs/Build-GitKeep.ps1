@@ -52,7 +52,7 @@ function Build-GitKeep {
     # Walk the tree for .gitkeep files, skipping git's own store and the vendored modules (not ours to
     # manage). The output root's own .gitkeep is checked, but its contents — transient artifacts that may
     # carry fixture copies — are never descended into. [System.IO] over cmdlets on this hot path
-    # (ADR-TEST:18); sorted for deterministic output.
+    # (ADR-AUTO-TEST:18); sorted for deterministic output.
     $outputRoot = [System.IO.Path]::Combine($repositoryRoot, 'out')
     $found = [System.Collections.Generic.List[string]]::new()
     $stack = [System.Collections.Generic.Stack[string]]::new()

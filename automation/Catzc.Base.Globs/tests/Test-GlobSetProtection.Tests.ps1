@@ -1,4 +1,4 @@
-# The protected-glob gate (ADR-PROTGLOB): session-memory skip of a repeated green scan over an unchanged
+# The protected-glob gate (ADR-REPO-PROTGLOB): session-memory skip of a repeated green scan over an unchanged
 # globset; hash-before-scan via the pending-promote handshake; completely ignored in pipelines.
 Describe 'Test-GlobSetProtection / Protect-GlobSet' -Tag 'L0', 'logic' {
     BeforeEach {
@@ -94,7 +94,7 @@ Describe 'Test-GlobSetProtection / Protect-GlobSet' -Tag 'L0', 'logic' {
 
         It 'promotes the queried (pre-run) identity, not a later -Hash' {
             Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('c' * 64) | Out-Null
-            Protect-GlobSet -Test 'suite' -Name 'Some.Module' -Hash ('d' * 64)   # pending wins (ADR-PROTGLOB:4)
+            Protect-GlobSet -Test 'suite' -Name 'Some.Module' -Hash ('d' * 64)   # pending wins (ADR-REPO-PROTGLOB:4)
             Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('c' * 64) | Should -BeTrue
         }
 

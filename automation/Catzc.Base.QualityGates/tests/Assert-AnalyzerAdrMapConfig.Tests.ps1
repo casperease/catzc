@@ -1,4 +1,4 @@
-Describe 'Assert-AnalyzerAdrMapConfig' -Tag 'L0', 'logic', 'ADR-TEST#29' {
+Describe 'Assert-AnalyzerAdrMapConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#29' {
     BeforeAll {
         $script:assert = {
             param($Config)
@@ -26,7 +26,7 @@ Describe 'Assert-AnalyzerAdrMapConfig' -Tag 'L0', 'logic', 'ADR-TEST#29' {
     }
 
     It 'throws on a malformed citation (registry colon form)' {
-        $config = [ordered]@{ analyzers = [ordered]@{ 'Measure-X' = @('ADR-ERROR:3') } }
-        { & $script:assert $config } | Should -Throw "*malformed citation 'ADR-ERROR:3'*"
+        $config = [ordered]@{ analyzers = [ordered]@{ 'Measure-X' = @('ADR-AUTO-ERROR:3') } }
+        { & $script:assert $config } | Should -Throw "*malformed citation 'ADR-AUTO-ERROR:3'*"
     }
 }

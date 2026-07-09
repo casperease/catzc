@@ -1,6 +1,6 @@
 Describe 'Get-AzureBicepMinVersion' -Tag 'L0', 'logic' {
     # Read-only resolver tests: the config mock + cache reset run ONCE, not per test — the mocked config is
-    # identical every test and no test mutates it, so the cache stays warm (ADR-TEST:19/ADR-TEST:4).
+    # identical every test and no test mutates it, so the cache stays warm (ADR-AUTO-TEST:19/ADR-AUTO-TEST:4).
     BeforeAll {
         # Isolate from the shipped azure.yml: resolve identity from the test config fixture.
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {

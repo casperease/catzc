@@ -3,7 +3,7 @@ InModuleScope Catzc.Base.Exporter {
         BeforeAll {
             # A minimal fake built bundle (Source). Built ONCE: tests 'stages', 'writes a manifest',
             # 'carries payload', and 'falls back to default URI' all consume the identical default-fixture
-            # package, so they are facets of one pack + one manifest read (ADR-TEST#20) rather than a fresh
+            # package, so they are facets of one pack + one manifest read (ADR-AUTO-TEST#20) rather than a fresh
             # pack per assertion — packing (Compress-Archive) and Test-ModuleManifest each cost real time,
             # amplified ~5-6x under the sharded/greedy run.
             $script:source = Join-Path $TestDrive ([System.Guid]::NewGuid())
@@ -15,7 +15,7 @@ InModuleScope Catzc.Base.Exporter {
             [System.IO.File]::WriteAllText((Join-Path $source 'importer.ps1'), '# importer')
             [System.IO.File]::WriteAllText((Join-Path $source 'build.json'), '{}')
 
-            # Fixture export config so the test is hermetic (neutral values, ADR-TEST:3). Blank URIs so the
+            # Fixture export config so the test is hermetic (neutral values, ADR-AUTO-TEST:3). Blank URIs so the
             # default-fallback assertion reads this same build.
             $fixture = [ordered]@{
                 module_guid = '211b36c7-f7eb-4f3c-93f5-9132b535fa56'

@@ -12,10 +12,10 @@
       - Each shard imports the analyzer once and pipes its whole file list through a SINGLE
         Invoke-ScriptAnalyzer call, so the ~3s per-process setup is paid once per shard, not per file.
       - Shards run from the repo root (Push-Location/Pop-Location) so the settings' relative CustomRulePath
-        entries resolve (ADR working-directory-mechanics, rule ADR-PSPWD:2/ADR-PSPWD:3).
+        entries resolve (ADR working-directory-mechanics, rule ADR-AUTO-PSPWD:2/ADR-AUTO-PSPWD:3).
 
     A dot is printed per interval while shards run so the run never looks hung — a progress bar is banned
-    (ADR console-output-matters, rule ADR-CONSOLE:8). The external Invoke-ScriptAnalyzer progress bar is suppressed
+    (ADR console-output-matters, rule ADR-AUTO-CONSOLE:8). The external Invoke-ScriptAnalyzer progress bar is suppressed
     inside the worker for the same reason.
 .PARAMETER Path
     The files to analyze.
@@ -26,7 +26,7 @@
 #>
 function Get-ScriptAnalyzerDiagnostics {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = '$global:__PesterRunning (set by Test-Automation) is read to suppress the dot output during test runs; Write-Host bypasses the information stream so the writer chokepoint guard cannot silence it — the same global guard is required here, and global is needed to cross module session-state boundaries')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'ADR console-output-matters rule ADR-CONSOLE:8 prescribes Write-Host ''.'' -NoNewline for per-interval progress dots — the information stream cannot emit an inline (no-newline) dot, so Write-Host is the sanctioned tool for exactly this case')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'ADR console-output-matters rule ADR-AUTO-CONSOLE:8 prescribes Write-Host ''.'' -NoNewline for per-interval progress dots — the information stream cannot emit an inline (no-newline) dot, so Write-Host is the sanctioned tool for exactly this case')]
     [CmdletBinding()]
     [OutputType([object[]])]
     param(
@@ -67,7 +67,7 @@ function Get-ScriptAnalyzerDiagnostics {
 
         Push-Location $root
         # Invoke-ScriptAnalyzer draws its own Write-Progress bar; this repo bans progress bars (ADR
-        # console-output-matters, rule ADR-CONSOLE:8) and reports shard progress with dots instead. Suppress the
+        # console-output-matters, rule ADR-AUTO-CONSOLE:8) and reports shard progress with dots instead. Suppress the
         # external bar for the duration of the call and restore the preference in finally.
         $savedProgress = $ProgressPreference
         $ProgressPreference = 'SilentlyContinue'
@@ -78,7 +78,7 @@ function Get-ScriptAnalyzerDiagnostics {
             # flake was root-caused to the built-in PSReservedCmdletChar rule dereferencing PSScriptAnalyzer's
             # thread-unsafe helper runspace under concurrent load, and eliminated by excluding that rule in
             # PSScriptAnalyzerSettings.psd1. So there is no transient case to tolerate — any error is real and
-            # fails loudly (ADR diagnostics-over-retry; we never retry, ADR-RETRY:1).
+            # fails loudly (ADR diagnostics-over-retry; we never retry, ADR-AUTO-RETRY:1).
             $err = $null
             $diagnostics = $shardFiles | Invoke-ScriptAnalyzer -Settings $settings -ErrorVariable err -ErrorAction SilentlyContinue
             if ($err) {
@@ -97,7 +97,7 @@ function Get-ScriptAnalyzerDiagnostics {
     }
 
     # Print a dot per interval while shards run, rather than a progress bar (ADR console-output-matters,
-    # rule ADR-CONSOLE:8). Suppressed during a Pester run via the same $global:__PesterRunning chokepoint guard the
+    # rule ADR-AUTO-CONSOLE:8). Suppressed during a Pester run via the same $global:__PesterRunning chokepoint guard the
     # writers use (Write-Host bypasses the information stream, so it needs its own guard to stay out of test
     # output). $dotted tracks whether any dot was printed so the closing newline only fires when it is needed.
     $showProgress = -not $global:__PesterRunning

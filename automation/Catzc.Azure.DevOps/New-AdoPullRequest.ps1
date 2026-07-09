@@ -2,7 +2,7 @@
 .SYNOPSIS
     Creates an Azure DevOps pull request via the Git REST API.
 .DESCRIPTION
-    The "land via PR" half of an INPUT pipeline (see docs/adr/pipelines/pipeline-types.md): once an
+    The "land via PR" half of an INPUT pipeline (see docs/adr/flow/pipeline-types.md): once an
     INPUT step has committed a config change to a branch, this opens a PR so the change goes through the
     normal PR gate before the CD pipeline deploys it.
 

@@ -1,42 +1,42 @@
 # ADR: Retry is a last resort — lowest level only, never in tests
 
-## Rules: ADR-RETRY
+## Rules: ADR-AUTO-RETRY
 
-### Rule ADR-RETRY:1
+### Rule ADR-AUTO-RETRY:1
 
 Never retry in a test. A flake must surface; make the dependency deterministic (mock it) or gate it behind an explicit tier (e.g.
 `-Tag 'L3'`, skipped when unavailable). Non-L3 tests must not depend on external connectivity.
 
 - [Decision](#decision)
 
-### Rule ADR-RETRY:2
+### Rule ADR-AUTO-RETRY:2
 
 Treat retry as a last resort, not a first reflex. First remove the need: make the operation idempotent, wait on the right condition, or fix
 the call. Retry only when the failure is provably transient and external with no deterministic fix.
 
 - [Decision](#decision)
 
-### Rule ADR-RETRY:3
+### Rule ADR-AUTO-RETRY:3
 
 Retry at the lowest level possible: wrap the single external operation that can transiently fail, never a whole function, workflow, or
 pipeline step. Prefer a tool's own waiter (`az … --wait`) over a hand-rolled loop.
 
 - [Decision](#decision)
 
-### Rule ADR-RETRY:4
+### Rule ADR-AUTO-RETRY:4
 
 Only retry idempotent operations; the retried call must be safe to repeat. Never retry a non-idempotent mutation.
 
 - [Decision](#decision)
 
-### Rule ADR-RETRY:5
+### Rule ADR-AUTO-RETRY:5
 
 Keep retries bounded and visible: a small explicit attempt count, and log each retry as a warning so a degrading dependency leaves a
 breadcrumb. Never silent or unbounded.
 
 - [Decision](#decision)
 
-### Rule ADR-RETRY:6
+### Rule ADR-AUTO-RETRY:6
 
 Isolate retry in a dedicated scriptblock-taking wrapper (an `Invoke-WithRetry`-style helper), never inlined into a function that also does
 work.

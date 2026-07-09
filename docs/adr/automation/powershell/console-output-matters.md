@@ -1,70 +1,70 @@
 # ADR: Console output matters
 
-## Rules: ADR-CONSOLE
+## Rules: ADR-AUTO-CONSOLE
 
-### Rule ADR-CONSOLE:1
+### Rule ADR-AUTO-CONSOLE:1
 
 Console output is a first-class UX concern — every line must earn its place, so a reader understands what happened top-to-bottom, once,
 without re-running anything.
 
 - [What good output looks like](#what-good-output-looks-like)
 
-### Rule ADR-CONSOLE:2
+### Rule ADR-AUTO-CONSOLE:2
 
 Use the correct stream: `Write-Message` for status one-liners, `Write-Message -NoHeader` for multiline/tables, `Write-Verbose` for debugging
 detail, `Write-Output` only for return values — and never `Write-Warning`/`Write-Error` (both terminate).
 
 - [The output hierarchy](#the-output-hierarchy)
 
-### Rule ADR-CONSOLE:3
+### Rule ADR-AUTO-CONSOLE:3
 
 Log commands, not commentary — log the exact, copy-pasteable command rather than a paraphrase like "Now installing…".
 
 - [Rules for output](#rules-for-output)
 
-### Rule ADR-CONSOLE:4
+### Rule ADR-AUTO-CONSOLE:4
 
 Let tools speak for themselves — let external tool output flow to the console; do not capture and re-format it.
 
 - [Rules for output](#rules-for-output)
 
-### Rule ADR-CONSOLE:5
+### Rule ADR-AUTO-CONSOLE:5
 
 Report outcomes, not steps, and stay silent when there is nothing meaningful to report.
 
 - [Rules for output](#rules-for-output)
 
-### Rule ADR-CONSOLE:6
+### Rule ADR-AUTO-CONSOLE:6
 
 Errors must be self-contained — the thrown message alone must diagnose the problem without reading source.
 
 - [Rules for output](#rules-for-output)
 
-### Rule ADR-CONSOLE:7
+### Rule ADR-AUTO-CONSOLE:7
 
 Use color sparingly and consistently (red=error, yellow=warning, green=success, cyan=headers, default=everything else) — the default color
 is the signal that nothing is wrong.
 
 - [Rules for output](#rules-for-output)
 
-### Rule ADR-CONSOLE:8
+### Rule ADR-AUTO-CONSOLE:8
 
 No side borders or box drawing (they break copy-paste) — vertical headers and blank-line separators are fine; and no progress bars — print a
 dot per interval instead.
 
 - [Rules for output](#rules-for-output)
 
-### Rule ADR-CONSOLE:9
+### Rule ADR-AUTO-CONSOLE:9
 
 Timestamps are opt-in via `$env:CATZC_MESSAGE_TIMESTAMPS` — CI platforms already timestamp every line, so they are never needed there.
 
 - [Rules for output](#rules-for-output)
 
-### Rule ADR-CONSOLE:10
+### Rule ADR-AUTO-CONSOLE:10
 
 Announce work before it blocks. Before any operation that leaves the session unresponsive for more than ~5 seconds — a slow external tool, a
 scan or format pass over many files, a first-time lazy module load, a long cloud call — `Write-Message` first, naming what is about to
-happen, so silence never reads as a hang. This refines ADR-CONSOLE:5: staying silent is right for fast work, wrong for slow work.
+happen, so silence never reads as a hang. This refines ADR-AUTO-CONSOLE:5: staying silent is right for fast work, wrong for slow work.
 
 - [Announce work before it blocks](#announce-work-before-it-blocks)
 
@@ -153,8 +153,8 @@ skipped, what path was resolved. Both streams deserve thoughtful content.
 ### Rules for output
 
 **Log commands, not commentary.** `Invoke-XyzCli` logs the exact command before every external invocation (see
-[log-before-invoke](../log-before-invoke.md#rule-adr-prelog1)). This is the most valuable output: it tells the user what ran, and they can
-copy-paste it to reproduce. Do not add "Now installing Poetry..." before the command — the command itself is more informative.
+[log-before-invoke](../log-before-invoke.md#rule-adr-auto-prelog1)). This is the most valuable output: it tells the user what ran, and they
+can copy-paste it to reproduce. Do not add "Now installing Poetry..." before the command — the command itself is more informative.
 
 **Let tools speak for themselves.** When `poetry install` produces output, let it flow to the console. Do not capture and re-format it. Do
 not prefix each line. The user knows what poetry output looks like — wrapping it in your own formatting makes it harder to read and
@@ -236,11 +236,11 @@ process is alive and working, which is meaningful output, not noise. This is the
 of a long operation is itself an outcome worth reporting.
 
 The announcement goes _before_ the blocking call, not after — a message printed once the work is already done cannot tell the user it is in
-progress. For an operation whose duration is open-ended, pair the up-front message with a dot-per-interval liveness signal (ADR-CONSOLE:8)
-rather than leaving the console frozen. `Invoke-Executable` already covers the common case: it logs the exact command before running it
-(ADR-CONSOLE:3, [log-before-invoke](../log-before-invoke.md)), so a function whose slow step _is_ a single external call inherits the
-announcement for free. The rule bites where the slow work is not a logged external call — a large in-process loop, a module import, an
-in-memory computation — where nothing else would print.
+progress. For an operation whose duration is open-ended, pair the up-front message with a dot-per-interval liveness signal
+(ADR-AUTO-CONSOLE:8) rather than leaving the console frozen. `Invoke-Executable` already covers the common case: it logs the exact command
+before running it (ADR-AUTO-CONSOLE:3, [log-before-invoke](../log-before-invoke.md)), so a function whose slow step _is_ a single external
+call inherits the announcement for free. The rule bites where the slow work is not a logged external call — a large in-process loop, a
+module import, an in-memory computation — where nothing else would print.
 
 ## Decision
 

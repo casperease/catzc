@@ -1,4 +1,4 @@
-// A "<base>-rainbow" colour profile (ADR-CONSOLE:7): a header/footer rule rendered as a gradient anchored on
+// A "<base>-rainbow" colour profile (ADR-AUTO-CONSOLE:7): a header/footer rule rendered as a gradient anchored on
 // a base [System.ConsoleColor] — char 0 IS the base, and each subsequent char steps forward along a fixed
 // CHROMATIC ring of the console colours (dark/neutral colours never appear in the walk, so the gradient stays
 // legible on a dark ground even when the anchor is a dark colour). When only one colour is needed the profile

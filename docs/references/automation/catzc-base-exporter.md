@@ -5,8 +5,8 @@ outside the mono repo. It owns the whole export path: build a self-contained cop
 plus a root `importer.ps1` — where it is consumed. The bundle carries a runtime payload, the vendored dependencies, and the prebuilt
 combined-types assembly, so it loads in a bare pwsh 7 with no git repo and no Roslyn. It is the platform-level expression of a reproducible,
 content-addressed, self-service artifact (see [self-service](../../adr/design/self-service.md)) and of build-once / deploy-many (see
-[ci-discipline-and-promotion-flow](../../adr/design/ci-discipline-and-promotion-flow.md)); the identity it computes reuses the durable-SHA
-recipe of [durable-sha-globs](../../adr/pipelines/durable-sha-globs.md). It is a member of the `Base` group and depends on
+[cd-discipline-and-promotion-flow](../../adr/flow/cd-discipline-and-promotion-flow.md)); the identity it computes reuses the durable-SHA
+recipe of [durable-sha-globs](../../adr/flow/durable-sha-globs.md). It is a member of the `Base` group and depends on
 [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md), [Catzc.Base.Config](catzc-base-config.md), [Catzc.Base.Globs](catzc-base-globs.md),
 [Catzc.Base.Files](catzc-base-files.md), [Catzc.Base.Repository](catzc-base-repository.md), [Catzc.Base.Writers](catzc-base-writers.md), and
 [Catzc.Base.Asserts](catzc-base-asserts.md).
@@ -37,7 +37,7 @@ copies the module to `<Root>/.vendor/Catzc/<version>/` and writes a root `import
 loads the whole platform from the install. It is idempotent — a re-install with the same content hash refreshes only the root importer — and
 verifies the source bundle before touching the destination. `Export-Catzc` is the top-level entry: `-To disk` builds and then installs in
 one call; `-To nuget` builds and packs a `.nupkg` with a PSGallery-compatible module manifest (`Catzc.psd1` + a `Catzc.psm1` RootModule)
-into `out/catzc-nuget/`, the artifact the GitHub release workflow publishes ([github-release](../../adr/pipelines/github-release.md)).
+into `out/catzc-nuget/`, the artifact the GitHub release workflow publishes ([github-release](../../adr/github/github-release.md)).
 
 ### domain:3 — Identity and verification
 
@@ -64,7 +64,7 @@ the module selection through the profile/dependency-closure machinery, the hash 
 an artifact lifecycle on top of the existing platform rather than a parallel one. Two delivery shapes share the one bundle: a direct on-disk
 install from the mono repo, and a NuGet package (the `.nupkg` + a `Catzc.psd1` manifest) that the manually-triggered release workflow
 publishes GitHub-first on the built-in token, with the PowerShell Gallery an opt-in target
-([github-release](../../adr/pipelines/github-release.md)).
+([github-release](../../adr/github/github-release.md)).
 
 ## Division
 

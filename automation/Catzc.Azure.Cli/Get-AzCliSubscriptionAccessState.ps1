@@ -17,7 +17,7 @@
 
     The generic, azure.yml-free primitive — the single source of the check shared by
     Test-AzCliSubscriptionAccessible (returns a bool) and Assert-AzCliSubscriptionAccessible (throws),
-    so the two cannot drift. See docs/adr/automation/powershell/prefer-az-cli.md#rule-adr-azcli1.
+    so the two cannot drift. See docs/adr/automation/powershell/prefer-az-cli.md#rule-adr-auto-azcli1.
 
     Returns an ordered dictionary:
       { logged_in, accessible, subscription, detail }

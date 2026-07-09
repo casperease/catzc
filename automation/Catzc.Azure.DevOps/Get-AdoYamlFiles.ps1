@@ -43,7 +43,7 @@ function Get-AdoYamlFiles {
     # Recurse with [System.IO], PRUNING excluded directories during the walk rather than enumerating the whole
     # tree (including .git / node_modules / .terraform) and filtering after — Get-ChildItem -Recurse walks every
     # directory before the -Exclude post-filter ran, which dominated the scan. Raw .NET enumeration also avoids
-    # ~20ms/call cmdlet overhead (ADR-TEST:18).
+    # ~20ms/call cmdlet overhead (ADR-AUTO-TEST:18).
     $excludeSet = [System.Collections.Generic.HashSet[string]]::new(
         [string[]]$Exclude, [System.StringComparer]::OrdinalIgnoreCase)
     $ret = [System.Collections.Generic.List[string]]::new()

@@ -69,8 +69,8 @@ it, it is policed — so list it.
 
 If the module needs its own settings, drop `automation/<Module>/configs/<name>.yml` and read it anywhere with `Get-Config -Config <name>` —
 one reader, cached per session, owner-scoped validation. To validate the shape, add a private `Assert-<TitleCase(name)>Config` function in
-the module; `Get-Config` runs it automatically on load (see [module-config-loading](../../../adr/automation/module-config-loading.md)). Keep
-keys `snake_case`.
+the module; `Get-Config` runs it automatically on load (see [module-config-loading](../../../adr/configuration/module-config-loading.md)).
+Keep keys `snake_case`.
 
 ## Verify
 

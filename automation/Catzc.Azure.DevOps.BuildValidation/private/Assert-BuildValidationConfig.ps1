@@ -13,7 +13,7 @@
     Keys are snake_case (enforced by Assert-YmlNaming); globset names live in VALUES because they are
     kebab-case. Run on load by Get-Config (convention: Assert-<TitleCase(name)>Config). Globset existence
     is deliberately NOT checked here — that read would couple every config load to the globs registry; it
-    is enforced at runtime (Get-GlobSet throws) and by an integrity test (the ADR-CUSTOMER:3 pattern).
+    is enforced at runtime (Get-GlobSet throws) and by an integrity test (the ADR-AZ-CUSTOMER:3 pattern).
     Mirrors Assert-AdoConfig (collect-all-then-throw).
 .PARAMETER Config
     The parsed build-validation.yml (ordered dictionary).

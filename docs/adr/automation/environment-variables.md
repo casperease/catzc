@@ -1,20 +1,20 @@
 # ADR: Environment variables are for external boundaries, not internal state
 
-## Rules: ADR-ENVVAR
+## Rules: ADR-AUTO-ENVVAR
 
-### Rule ADR-ENVVAR:1
+### Rule ADR-AUTO-ENVVAR:1
 
 Set `$env:` only for external tool contracts. If the consumer is our own code, use parameters or module-scoped variables.
 
 - [Legitimate uses](#legitimate-uses)
 
-### Rule ADR-ENVVAR:2
+### Rule ADR-AUTO-ENVVAR:2
 
 Read `$env:` only for external system inputs — CI detection, OS paths, user-set toggles are inputs from outside our boundary.
 
 - [Legitimate uses](#legitimate-uses)
 
-### Rule ADR-ENVVAR:3
+### Rule ADR-AUTO-ENVVAR:3
 
 Never require an `$env:` variable to be set for a function to work. Use `[Parameter(Mandatory)]` instead; the function signature is the
 contract, not a hidden environment variable.
@@ -22,7 +22,7 @@ contract, not a hidden environment variable.
 - [Prohibited uses](#prohibited-uses)
 - [The correct alternative for internal state](#the-correct-alternative-for-internal-state)
 
-### Rule ADR-ENVVAR:4
+### Rule ADR-AUTO-ENVVAR:4
 
 Never mutate `$env:` mid-execution to communicate between functions. That is invisible coupling through global state; pass values through
 parameters and return values.
@@ -30,26 +30,26 @@ parameters and return values.
 - [Why environment variables are global mutable state](#why-environment-variables-are-global-mutable-state)
 - [Prohibited uses](#prohibited-uses)
 
-### Rule ADR-ENVVAR:5
+### Rule ADR-AUTO-ENVVAR:5
 
 Bootstrap anchors (`$env:RepositoryRoot`) are set once in `importer.ps1` and never modified. They are treated as constants; modifying a
 bootstrap anchor means the design is wrong.
 
 - [Legitimate uses](#legitimate-uses)
 
-### Rule ADR-ENVVAR:6
+### Rule ADR-AUTO-ENVVAR:6
 
 Never store secrets in `$env:` as internal state our own code reads back — durable state, config, or a value our own code later reads. A
 secret may cross to a child or external process through the environment only via the single disciplined seam `Write-EnvironmentSet`
-(ADR-ENVVAR:7), never written ad-hoc. `$env:` is visible to child processes, process-inspection tools, and crash dumps (CWE-526).
+(ADR-AUTO-ENVVAR:7), never written ad-hoc. `$env:` is visible to child processes, process-inspection tools, and crash dumps (CWE-526).
 
 - [They are a security surface](#they-are-a-security-surface)
 - [The one sanctioned secret hand-off](#the-one-sanctioned-secret-hand-off)
 
-### Rule ADR-ENVVAR:7
+### Rule ADR-AUTO-ENVVAR:7
 
-Handing a secret to a child or external process through the environment is a legitimate external-boundary use (ADR-ENVVAR:1), permitted only
-through `Write-EnvironmentSet` (`Catzc.Tooling.Environment`). That seam takes secrets as `[SecureString]`; never logs or returns the
+Handing a secret to a child or external process through the environment is a legitimate external-boundary use (ADR-AUTO-ENVVAR:1), permitted
+only through `Write-EnvironmentSet` (`Catzc.Tooling.Environment`). That seam takes secrets as `[SecureString]`; never logs or returns the
 plaintext (masks `***`); decrypts only at the `$env:` assignment; and defaults to scoped set/restore, persisting only on explicit
 `-Persist`. Ad-hoc `$env:TOKEN = $plaintext` stays prohibited.
 
@@ -67,7 +67,7 @@ A language gives code scoped mechanisms for its own state — parameters, return
 automatically. An environment variable set inside any function, at any call depth, persists for the entire process lifetime unless someone
 explicitly removes it; no scope exit cleans it up. The PowerShell mechanics of obeying this rule — which scoped mechanism replaces which
 `$env:` temptation, runspace sharing, test isolation — are the language layer,
-[environment-variable-mechanics](powershell/environment-variable-mechanics.md) (`ADR-PSENV`).
+[environment-variable-mechanics](powershell/environment-variable-mechanics.md) (`ADR-AUTO-PSENV`).
 
 ### Why environment variables are global mutable state
 
@@ -108,7 +108,7 @@ Information in an Environment Variable" as CWE-526. Never store secrets, tokens,
 code, use secret managers, `SecureString`, or secure parameter passing.
 
 There is one narrow exception, and it is a hand-off, not a store: when an external tool's contract is to read a secret from the environment
-(ADR-ENVVAR:1), the secret must reach it through the environment. That crossing is confined to a single disciplined seam
+(ADR-AUTO-ENVVAR:1), the secret must reach it through the environment. That crossing is confined to a single disciplined seam
 ([the one sanctioned secret hand-off](#the-one-sanctioned-secret-hand-off)); an ad-hoc `$env:TOKEN = $plaintext` remains prohibited.
 
 ### Case sensitivity is inconsistent
@@ -121,7 +121,7 @@ state means dealing with this cross-platform inconsistency in every consumer. Mo
 Internal state belongs in the mechanisms the language scopes and cleans up automatically: pass values between functions as parameters and
 return values, and keep shared state in module scope. None of these leak to child processes, pollute tests, or persist beyond their natural
 lifetime. The PowerShell mechanism table and idioms are the language layer,
-[environment-variable-mechanics](powershell/environment-variable-mechanics.md) (`ADR-PSENV`).
+[environment-variable-mechanics](powershell/environment-variable-mechanics.md) (`ADR-AUTO-PSENV`).
 
 ## Decision
 
@@ -178,9 +178,9 @@ is still an external-boundary use — the consumer is an outside process, not ou
 discipline than a bare assignment, because the plaintext must not leak into a log, a return value, or a persisted variable that outlives the
 call.
 
-`ADR-ENVVAR:6` forbids using `$env:` as a secret **store** — durable or internal state, config, or any secret our own code reads back out of
-the environment. It does not forbid a disciplined secret **hand-off** to an external consumer that reads the secret from the environment;
-that narrow, external-boundary crossing is `ADR-ENVVAR:7`, and it is permitted through exactly one seam:
+`ADR-AUTO-ENVVAR:6` forbids using `$env:` as a secret **store** — durable or internal state, config, or any secret our own code reads back
+out of the environment. It does not forbid a disciplined secret **hand-off** to an external consumer that reads the secret from the
+environment; that narrow, external-boundary crossing is `ADR-AUTO-ENVVAR:7`, and it is permitted through exactly one seam:
 
 **`Write-EnvironmentSet`** (`Catzc.Tooling.Environment`) is the sole sanctioned way to place a secret in the environment for a child or
 external process. It:
@@ -193,13 +193,13 @@ external process. It:
   environment when the block exits — and persists past the call only on an explicit `-Persist`.
 
 The plaintext does land in `$env:` for the instant the external tool reads it — that is unavoidable, because the tool's contract is to read
-it there, and it is the boundary hand-off the whole rule is about. What `ADR-ENVVAR:7` guarantees is that this is the _only_ place the
+it there, and it is the boundary hand-off the whole rule is about. What `ADR-AUTO-ENVVAR:7` guarantees is that this is the _only_ place the
 plaintext exists, that it is not logged or returned, and that it does not outlive the hand-off. `SecureString` is DPAPI-encrypted only on
 Windows; on Linux/macOS .NET stores it obfuscated rather than encrypted (see [cross-platform](cross-platform.md)). The value of the type
 here is the **contract** — do not log, do not internalize, decrypt only at the boundary — not at-rest cryptography.
 
-This _strengthens_ `ADR-ENVVAR:6` rather than weakening it: scattered ad-hoc `$env:TOKEN = $plaintext` writes are replaced by one seam that
-carries the don't-log / don't-persist / decrypt-at-boundary discipline, so a reviewer has one function to audit instead of every string
+This _strengthens_ `ADR-AUTO-ENVVAR:6` rather than weakening it: scattered ad-hoc `$env:TOKEN = $plaintext` writes are replaced by one seam
+that carries the don't-log / don't-persist / decrypt-at-boundary discipline, so a reviewer has one function to audit instead of every string
 assignment.
 
 ### Prohibited uses
@@ -325,8 +325,8 @@ Environment variables remain the right answer when your config is genuinely a fl
   our code defines for itself are the handful of `$env:CATZC_*` external/diagnostic toggles, which are read (not written) as boundary
   inputs. Internal state flows through function contracts, not the environment.
 - Secrets reach an external tool through one auditable seam. A secret bound into `$env:` for a child process goes through
-  `Write-EnvironmentSet` (ADR-ENVVAR:7) — `SecureString` in, masked in logs, decrypted only at the assignment, scoped by default — so there
-  is a single function to review rather than scattered ad-hoc secret-into-env writes.
+  `Write-EnvironmentSet` (ADR-AUTO-ENVVAR:7) — `SecureString` in, masked in logs, decrypted only at the assignment, scoped by default — so
+  there is a single function to review rather than scattered ad-hoc secret-into-env writes.
 
 ## Dora explains
 

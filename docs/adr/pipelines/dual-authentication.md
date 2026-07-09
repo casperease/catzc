@@ -1,8 +1,8 @@
 # ADR: Dual authentication — pipeline system token vs. local Az token
 
-## Rules: ADR-AUTH
+## Rules: ADR-PIPE-AUTH
 
-### Rule ADR-AUTH:1
+### Rule ADR-PIPE-AUTH:1
 
 Select the credential by which one is configured, in fixed precedence (in-pipeline token → PAT → az CLI), with no fallback on auth failure —
 a selected source's failure raises its own error rather than degrading to the next.
@@ -10,20 +10,20 @@ a selected source's failure raises its own error rather than degrading to the ne
 - [Pattern](#pattern)
 - [Decision](#decision)
 
-### Rule ADR-AUTH:2
+### Rule ADR-PIPE-AUTH:2
 
 Each source must prove it targets the configured org/tenant before returning a header (assert `SYSTEM_COLLECTIONURI`, build PAT URLs from
 `Organization`, assert the az session tenant), so a present credential never resolves to a different org by accident.
 
 - [Pattern](#pattern)
 
-### Rule ADR-AUTH:3
+### Rule ADR-PIPE-AUTH:3
 
 Make pipeline detection explicit: use `Test-IsRunningInPipeline` to gate the in-pipeline token source.
 
 - [Pattern](#pattern)
 
-### Rule ADR-AUTH:4
+### Rule ADR-PIPE-AUTH:4
 
 Keep token acquisition in a separate function. API-calling functions never inline token logic — they call `Get-AdoAuthorizationHeader`,
 which encapsulates the precedence.
@@ -31,21 +31,21 @@ which encapsulates the precedence.
 - [Why this matters](#why-this-matters)
 - [Pattern](#pattern)
 
-### Rule ADR-AUTH:5
+### Rule ADR-PIPE-AUTH:5
 
 Assert when the last source yields nothing: if the az CLI path produces no token, surface the actionable causes (set
 `$env:AZURE_DEVOPS_PAT`, or `Connect-AzCli` with an Entra ID account).
 
 - [Pattern](#pattern)
 
-### Rule ADR-AUTH:6
+### Rule ADR-PIPE-AUTH:6
 
 Step templates map the system token: `invoke-automation.yaml` maps `SYSTEM_ACCESSTOKEN: $(System.AccessToken)` when `ExposeAccessToken` is
 set. Functions read the mapped `$env:SYSTEM_ACCESSTOKEN`, never `System.AccessToken` directly.
 
 - [Step template integration](#step-template-integration)
 
-### Rule ADR-AUTH:7
+### Rule ADR-PIPE-AUTH:7
 
 Never store tokens in variables beyond the request. Acquire the token, build the header, make the call — do not cache tokens in `$script:`
 variables or pass them between functions.

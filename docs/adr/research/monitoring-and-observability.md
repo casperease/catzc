@@ -1,8 +1,8 @@
 # ADR: DORA — Monitoring and observability
 
-## Rules: ADR-DORAMO
+## Rules: ADR-DORA-OBSERV
 
-### Rule ADR-DORAMO:1
+### Rule ADR-DORA-OBSERV:1
 
 Monitoring and observability are two distinct capabilities and both are required — monitoring watches predefined metrics and logs for known
 conditions, and observability lets a team explore properties and patterns that were never defined in advance. Neither substitutes for the
@@ -10,28 +10,28 @@ other.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAMO:2
+### Rule ADR-DORA-OBSERV:2
 
 Build monitoring to serve as a leading indicator — it must surface a degradation before it becomes an outage, not only confirm an outage
 after the fact, and installing a tool is not the goal; every developer proficient with it is.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORAMO:3
+### Rule ADR-DORA-OBSERV:3
 
 Treat monitoring and alerting configuration as code — changes to it go through the same review and version control as application code, not
 an unaudited side channel.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAMO:4
+### Rule ADR-DORA-OBSERV:4
 
 Alert on symptoms, not causes — build alerting around a visible or predicted user-facing symptom, never around an enumerated list of every
 conceivable failure cause, and route each alert to a specific responsible party rather than a broad distribution list.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORAMO:5
+### Rule ADR-DORA-OBSERV:5
 
 Never centralize monitoring ownership in one person or team, and keep alerts actionable — an alert that produces no action is a candidate
 for removal, not a permanent fixture, because unactionable noise is what buries the alert that matters.
@@ -84,14 +84,14 @@ These are measures of the capability, not just of the systems it watches.
 ## How to apply
 
 This platform gives its automation the same signals a monitored production system needs. Every external command is logged in full, resolved
-form immediately before it runs ([ADR-PRELOG](../automation/log-before-invoke.md)), which is instrumentation applied to the automation's own
-inner state — the exact command a step is about to take is exposed, not inferred after the fact. Console output is treated as the
-automation's whitebox signal stream: it reports outcomes rather than step-by-step narration, stays silent when there is nothing to report,
-and announces a slow operation before it blocks so silence is never mistaken for a hang
-([ADR-CONSOLE](../automation/powershell/console-output-matters.md)) — the same symptom-first, low-noise discipline DORA asks of alerting.
-Decisions about whether work is actually done rest on the real running artifact and its real signals — a green gate, a deployed environment,
-a monitored metric — rather than on a proxy such as a task marked complete ([ADR-OBSERVEWIP](../process/observe-work.md)), which is the "go
-and see" instinct behind observability applied to the whole delivery flow, not only to production.
+form immediately before it runs ([ADR-AUTO-PRELOG](../automation/log-before-invoke.md)), which is instrumentation applied to the
+automation's own inner state — the exact command a step is about to take is exposed, not inferred after the fact. Console output is treated
+as the automation's whitebox signal stream: it reports outcomes rather than step-by-step narration, stays silent when there is nothing to
+report, and announces a slow operation before it blocks so silence is never mistaken for a hang
+([ADR-AUTO-CONSOLE](../automation/powershell/console-output-matters.md)) — the same symptom-first, low-noise discipline DORA asks of
+alerting. Decisions about whether work is actually done rest on the real running artifact and its real signals — a green gate, a deployed
+environment, a monitored metric — rather than on a proxy such as a task marked complete ([ADR-PROC-OBSERVEWIP](../process/observe-work.md)),
+which is the "go and see" instinct behind observability applied to the whole delivery flow, not only to production.
 
 ## Common pitfalls
 

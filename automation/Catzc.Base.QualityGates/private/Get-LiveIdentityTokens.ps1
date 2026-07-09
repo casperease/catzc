@@ -6,15 +6,15 @@
     The authoritative source of "what is a live identity" is the shipped config itself, not a hand-kept list:
     reading it here means the forbidden set is always current (add a customer to customer.yml and it is
     automatically banned from logic tests). Every value is read through Get-Config (the one global reader,
-    ADR-MODCFG), so a test isolates this function by mocking Get-Config / Resolve-ConfigEntry to fixtures.
+    ADR-CONF-LOADING), so a test isolates this function by mocking Get-Config / Resolve-ConfigEntry to fixtures.
 
     This is PHASE 1 — the DISTINCTIVE identities only (customers, subscriptions, org, deployable units,
     template names, ADO project). Environment names (dev/test/preprod/prod) are deliberately excluded: they
     are ambiguous ('test' is pervasive in test code) and belong to a later, position-aware phase. Each record
     carries its Source and a Suggest string so a finding can name the fixture the test should have used.
 
-    Backs Test-LogicTestIdentity (ADR-LANG): a logic test whose AST contains a string literal equal to one of
-    these tokens (or a delimited segment of one) is using a live identity where a fixture belongs (ADR-TEST:3).
+    Backs Test-LogicTestIdentity (ADR-REPO-LANG): a logic test whose AST contains a string literal equal to one of
+    these tokens (or a delimited segment of one) is using a live identity where a fixture belongs (ADR-AUTO-TEST:3).
 .OUTPUTS
     [object[]] One record per token: @{ Token; Kind; Source; Suggest }.
 #>

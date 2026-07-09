@@ -1,8 +1,8 @@
 # ADR: Custom template discipline — when and how to use ADO templates
 
-## Rules: ADR-TEMPLATE
+## Rules: ADR-PIPE-TEMPLATE
 
-### Rule ADR-TEMPLATE:1
+### Rule ADR-PIPE-TEMPLATE:1
 
 Default to a self-contained pipeline; do not create templates speculatively. Extract a template only when a fragment is genuinely reusable,
 proven by the rule of three (at least three real pipelines need the same fragment).
@@ -10,13 +10,13 @@ proven by the rule of three (at least three real pipelines need the same fragmen
 - [What goes wrong](#what-goes-wrong)
 - [Anti-patterns](#anti-patterns)
 
-### Rule ADR-TEMPLATE:2
+### Rule ADR-PIPE-TEMPLATE:2
 
 Template paths are always absolute, rooted at the repository root (`template: /pipelines/path/to/template.yaml`). Never use relative paths.
 
 - [Anti-patterns](#anti-patterns)
 
-### Rule ADR-TEMPLATE:3
+### Rule ADR-PIPE-TEMPLATE:3
 
 Templates encapsulate pipeline concerns only (task selection, service connection wiring, gates, pool selection, checkout, token mapping,
 artifacts). They must not carry automation logic, configuration resolution, business rules, or string formatting.
@@ -24,7 +24,7 @@ artifacts). They must not carry automation logic, configuration resolution, busi
 - [What templates are good at](#what-templates-are-good-at)
 - [What goes wrong](#what-goes-wrong)
 
-### Rule ADR-TEMPLATE:4
+### Rule ADR-PIPE-TEMPLATE:4
 
 Template parameters are either ADO controls or meta selection criteria (customer, environment, subscription type). The looked-up values the
 automation layer can derive from those keys must not be pipeline parameters.
@@ -32,7 +32,7 @@ automation layer can derive from those keys must not be pipeline parameters.
 - [Pipeline parameters are selection criteria](#pipeline-parameters-are-selection-criteria)
 - [The parameter needle-through problem](#the-parameter-needle-through-problem)
 
-### Rule ADR-TEMPLATE:5
+### Rule ADR-PIPE-TEMPLATE:5
 
 Minimize nesting depth. A pipeline file calls a step or job template directly; one level of inclusion is normal, two is a warning sign,
 three is a design problem. A template that exists only to forward parameters should not exist.
@@ -40,14 +40,14 @@ three is a design problem. A template that exists only to forward parameters sho
 - [What goes wrong](#what-goes-wrong)
 - [Anti-patterns](#anti-patterns)
 
-### Rule ADR-TEMPLATE:6
+### Rule ADR-PIPE-TEMPLATE:6
 
 Variables are for ADO plumbing (build numbers, artifact paths, output variables, conditional expressions). Do not use variables to transport
 script configuration — that comes from the automation layer's configuration system.
 
 - [Variables are not configuration](#variables-are-not-configuration)
 
-### Rule ADR-TEMPLATE:7
+### Rule ADR-PIPE-TEMPLATE:7
 
 Keep YAML flat and readable: a pipeline file reads top-to-bottom as stages, jobs, and steps, and a reviewer understands what it does without
 opening other files.

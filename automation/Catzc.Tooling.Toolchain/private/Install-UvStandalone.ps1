@@ -68,7 +68,7 @@ function Install-UvStandalone {
         Remove-Item $extractDirectory -Recurse -Force -ErrorAction Ignore
     }
 
-    # The uv tool-bin is normally on the persistent PATH already (ADR-UVPY); make it resolve in this session.
+    # The uv tool-bin is normally on the persistent PATH already (ADR-AUTO-UVPY); make it resolve in this session.
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $binDirectory) {
         $env:PATH = "$binDirectory$([System.IO.Path]::PathSeparator)$env:PATH"
     }

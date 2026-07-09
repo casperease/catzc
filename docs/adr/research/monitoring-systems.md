@@ -1,15 +1,15 @@
 # ADR: DORA — Monitoring systems to inform business decisions
 
-## Rules: ADR-DORAMS
+## Rules: ADR-DORA-MONITOR
 
-### Rule ADR-DORAMS:1
+### Rule ADR-DORA-MONITOR:1
 
 Monitoring exists to inform decisions, not only to detect failure. Collecting data across development, testing, QA, and operations is the
 first half of the capability; turning that data into a decision is the second, and neither half stands in for the other.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAMS:2
+### Rule ADR-DORA-MONITOR:2
 
 Present monitoring data so it is relevant, timely, accurate, and easy to understand for the audience reading it, with enough context to say
 whether a value is high or low, expected, about to change, or a departure from its historical trend — a raw number without that context is
@@ -17,21 +17,21 @@ not yet a decision input.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAMS:3
+### Rule ADR-DORA-MONITOR:3
 
 Let production signals travel upstream. Insight gathered from operations — a deployment error, a customer usage pattern, a performance
 regression — is a learning input for development and product management, not information that stops with the team that first saw it.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORAMS:4
+### Rule ADR-DORA-MONITOR:4
 
 Monitor the full pipeline, not one or two convenient stations, and judge a change by its effect on the whole system rather than by whether
 it improves the one service being watched.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORAMS:5
+### Rule ADR-DORA-MONITOR:5
 
 Alert on approach to a threshold, not only on failure, and choose what to monitor deliberately — instrumenting everything produces more
 noise than insight and buries the signal the capability exists to surface.
@@ -70,13 +70,13 @@ produce.
 ## How to apply
 
 This platform treats "go and see" the real running artifact, not a proxy, as the basis for every decision about whether work is done
-([ADR-OBSERVEWIP](../process/observe-work.md)) — a green gate, a deployed environment, a monitored metric outrank a task marked complete,
-which is the same discipline this capability asks of business decisions: ground them in what the system is actually doing, not in an
-assumption about it. Console output is the concrete channel that data travels through to reach the person who needs it: it reports outcomes
-rather than step narration, stays silent when there is nothing to report, and announces a slow operation before it blocks, so the signal
-that reaches the reader is relevant and timely rather than buried in noise
-([ADR-CONSOLE](../automation/powershell/console-output-matters.md)) — the same "relevant, timely, accurate, easy to understand" bar DORA
-sets for monitoring data aimed at a decision-maker rather than a machine.
+([ADR-PROC-OBSERVEWIP](../process/observe-work.md)) — a green gate, a deployed environment, a monitored metric outrank a task marked
+complete, which is the same discipline this capability asks of business decisions: ground them in what the system is actually doing, not in
+an assumption about it. Console output is the concrete channel that data travels through to reach the person who needs it: it reports
+outcomes rather than step narration, stays silent when there is nothing to report, and announces a slow operation before it blocks, so the
+signal that reaches the reader is relevant and timely rather than buried in noise
+([ADR-AUTO-CONSOLE](../automation/powershell/console-output-matters.md)) — the same "relevant, timely, accurate, easy to understand" bar
+DORA sets for monitoring data aimed at a decision-maker rather than a machine.
 
 ## Common pitfalls
 

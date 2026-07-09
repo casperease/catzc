@@ -1,7 +1,7 @@
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 
-Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-CONSOLE#7' {
+Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-AUTO-CONSOLE#7' {
     # The writers' chokepoint returns early during a run ($global:__PesterRunning); lift it so the banner's
     # information-stream output can be asserted (see console-output-matters / Write-InformationColored).
     BeforeAll {
@@ -13,7 +13,7 @@ Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-CONSOLE#7' {
         }
 
         # The presenter is a private (module-scoped) function, so it is invoked through InModuleScope
-        # (ADR-PESTER:4). Returns the RAW banner (ANSI intact) so a caller can assert on colour or strip for text.
+        # (ADR-AUTO-PESTER:4). Returns the RAW banner (ANSI intact) so a caller can assert on colour or strip for text.
         function Get-VerdictRaw {
             param($Result, $Summary, $PassedCount = 0, $FailedCount = 0, $SkippedCount = 0, $DurationSeconds = 0, $ReportPath = '')
             InModuleScope Catzc.Base.QualityGates -Parameters @{ R = $Result; S = $Summary; P = $PassedCount; F = $FailedCount; K = $SkippedCount; D = $DurationSeconds; RP = $ReportPath } {

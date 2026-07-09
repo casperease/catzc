@@ -133,7 +133,7 @@ function New-DynamicManifest {
         })
     [System.Array]::Sort($exportNames, [System.StringComparer]::Ordinal)
 
-    # Canonical, formatter-stable text — no hand-padded alignment (ADR-FORMAT#1); the L2 suite gates the invariant.
+    # Canonical, formatter-stable text — no hand-padded alignment (ADR-REPO-FORMAT#1); the L2 suite gates the invariant.
     $content = Get-DynamicManifestContent -NestedModule $nestedModules -FunctionToExport $exportNames -ExportAll:$ExportPrivates
 
     # Write only on drift (the janitors' write-on-drift pattern): the manifest is a pure derivation of the
@@ -155,7 +155,7 @@ function Get-DynamicManifestContent {
         Renders a module manifest hashtable as canonical .psd1 text.
     .DESCRIPTION
         The manifest is generated on every import, so it is canonical by construction: the '=' column is computed
-        from the longest key rather than hand-padded (ADR-FORMAT#1), the text uses LF endings with a trailing newline,
+        from the longest key rather than hand-padded (ADR-REPO-FORMAT#1), the text uses LF endings with a trailing newline,
         and it is formatter-stable — running Invoke-Formatter over it is a no-op (gated in the L2 suite). Callers
         pass ordinal-sorted, forward-slashed inputs, so the bytes are identical on every platform and every build
         of a commit.
@@ -194,7 +194,7 @@ function Get-DynamicManifestContent {
     }
 
     # Ordered fields with their value literals. The '=' column width is derived from the longest key, so a new
-    # field re-aligns automatically and no alignment is maintained by hand (ADR-FORMAT#1).
+    # field re-aligns automatically and no alignment is maintained by hand (ADR-REPO-FORMAT#1).
     $fields = [ordered]@{
         RootModule        = "''"
         ModuleVersion     = "'0.1.0'"

@@ -1,36 +1,36 @@
 # ADR: DORA — Database change management
 
-## Rules: ADR-DORADCM
+## Rules: ADR-DORA-DBCHANGE
 
-### Rule ADR-DORADCM:1
+### Rule ADR-DORA-DBCHANGE:1
 
 Database changes are captured as migration scripts in version control and managed the same way as application code changes — not applied ad
 hoc against a live schema outside the tracked history.
 
 - [Summary](#summary)
 
-### Rule ADR-DORADCM:2
+### Rule ADR-DORA-DBCHANGE:2
 
 Every migration is a uniquely sequenced script, and every database instance carries a record of which migrations have already run against
 it, so the current schema state is always derivable and re-applying the set of migrations is safe.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORADCM:3
+### Rule ADR-DORA-DBCHANGE:3
 
 Pending database changes are visible to, and discussed with, the people who own the production database before the change reaches it —
 coordination happens ahead of the deployment, not as a late-stage escalation.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORADCM:4
+### Rule ADR-DORA-DBCHANGE:4
 
 A schema change that must not incur downtime adds new structures alongside the old ones and cuts traffic over later, rather than modifying
 or deleting a live structure in place; the old and new structures coexist only until the cutover completes.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORADCM:5
+### Rule ADR-DORA-DBCHANGE:5
 
 Database change work is measured, not treated as invisible overhead — the failure rate attributable to database issues, the lead time
 database work adds, any scheduled downtime, and the proportion of changes that are fully automated are tracked toward a "push-button"
@@ -75,12 +75,12 @@ way to make it safe.
 
 This platform's general artifact-and-versioning discipline already covers the shape database change management asks for: every artifact
 needed to build, test, deploy, or operate a system — explicitly including "database schemas and migration scripts" — lives in version
-control ([ADR-EAC](../principles/everything-as-code.md)), so a migration script is diffed, reviewed, and rolled back exactly like any other
-change. Where a schema change cannot land atomically — the zero-downtime case DORA describes as adding new structures alongside old ones —
-the platform's branch-by-abstraction pattern is the sanctioned, temporary-coexistence route to it: a seam that lets old and new structures
-coexist for a bounded migration window, with a built-in deletion plan, rather than an indefinite compatibility shim
-([ADR-ONELIVE](../principles/one-living-version.md)). A database migration follows the same rule as every other contract change: it and its
-callers move together, with no lingering dual-read fallback left behind once the cutover completes.
+control ([ADR-PRIN-EAC](../principles/everything-as-code.md)), so a migration script is diffed, reviewed, and rolled back exactly like any
+other change. Where a schema change cannot land atomically — the zero-downtime case DORA describes as adding new structures alongside old
+ones — the platform's branch-by-abstraction pattern is the sanctioned, temporary-coexistence route to it: a seam that lets old and new
+structures coexist for a bounded migration window, with a built-in deletion plan, rather than an indefinite compatibility shim
+([ADR-PRIN-ONELIVE](../principles/one-living-version.md)). A database migration follows the same rule as every other contract change: it and
+its callers move together, with no lingering dual-read fallback left behind once the cutover completes.
 
 ## Common pitfalls
 

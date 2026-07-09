@@ -17,7 +17,7 @@
 
     A file carrying both tags is serial: strict isolation wins. Granularity is deliberately the file — a
     file is the unit a shard schedules, so one tagged test moves its whole file. See the test-automation
-    ADR (ADR-TEST:26).
+    ADR (ADR-AUTO-TEST:26).
 .PARAMETER Discovery
     The discovery-only Pester run object (Get-TestDiscovery output) whose tests are inspected.
 .PARAMETER TestFiles

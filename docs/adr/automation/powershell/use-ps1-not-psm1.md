@@ -1,15 +1,15 @@
 # ADR: Use `.ps1` for function files, not `.psm1`
 
-## Rules: ADR-USEPS
+## Rules: ADR-AUTO-USEPS
 
-### Rule ADR-USEPS:1
+### Rule ADR-AUTO-USEPS:1
 
 Use `.ps1` for all module function files — listed in the manifest's `NestedModules`, they share the module's session state, so public and
 private functions see each other without imports.
 
 - [Decision](#decision)
 
-### Rule ADR-USEPS:2
+### Rule ADR-AUTO-USEPS:2
 
 Reserve `.psm1` for genuine module or standalone files only — the `automation/.internal/*.psm1` shared modules, the
 `automation/.scriptanalyzer/*.psm1` analyzer rules, and per-template `PrePost.psm1` — never for a per-function file inside a module.

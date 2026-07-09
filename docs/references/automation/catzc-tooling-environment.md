@@ -1,12 +1,12 @@
 # Catzc.Tooling.Environment
 
 The seam that prepares a process's environment before launching a child or external tool. It is the one sanctioned way to hand a secret to
-an external consumer through the environment (ADR-ENVVAR:7) and to expose committed config values as environment variables, so that
+an external consumer through the environment (ADR-AUTO-ENVVAR:7) and to expose committed config values as environment variables, so that
 scattered ad-hoc `$env:TOKEN = $plaintext` writes are replaced by a single disciplined boundary. It owns `Write-EnvironmentSet` and the
 private process-env write seam; it does **not** own config reading or addressing (that is [Catzc.Base.Config](catzc-base-config.md)'s
 `Get-ConfigValue`) or the flattening of a config subtree (that is [Catzc.Base.Objects](catzc-base-objects.md)). The design is governed by
 [environment-variables](../../adr/automation/environment-variables.md) and
-[config-value-addressing](../../adr/automation/config-value-addressing.md).
+[config-value-addressing](../../adr/configuration/config-value-addressing.md).
 
 ## Domains
 
@@ -27,9 +27,10 @@ one of two mutually exclusive shapes: a scoped `-ScriptBlock` that snapshots, se
 ## What the module does
 
 The module exists so that the single legitimate reason to place a secret in `$env:` — an external tool whose contract is to read it there
-(ADR-ENVVAR:1) — flows through exactly one auditable function instead of bare assignments scattered across the codebase. `ADR-ENVVAR:6`
-forbids `$env:` as a secret _store_ that our own code reads back; `ADR-ENVVAR:7` permits the disciplined _hand-off_ this module implements.
-A reviewer has one place to check that a secret is `SecureString` in, masked in logs, decrypted only at the boundary, and scoped by default.
+(ADR-AUTO-ENVVAR:1) — flows through exactly one auditable function instead of bare assignments scattered across the codebase.
+`ADR-AUTO-ENVVAR:6` forbids `$env:` as a secret _store_ that our own code reads back; `ADR-AUTO-ENVVAR:7` permits the disciplined _hand-off_
+this module implements. A reviewer has one place to check that a secret is `SecureString` in, masked in logs, decrypted only at the
+boundary, and scoped by default.
 
 Its three input channels are typed and named apart so a value's intent is unmistakable (poka-yoke): a `[SecureString]` is always a secret, a
 `global.…` string is always a config address, and a plain literal must travel through `-Value` — a bare string in `-Set` is an error, not a

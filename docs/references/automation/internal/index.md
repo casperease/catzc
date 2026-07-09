@@ -8,7 +8,7 @@ toolset's import sequence and the code that BOTH the pre-module bootstrap (which
 
 These are `.psm1` files on purpose. The repository's function files are `.ps1` so they share one module scope with no import ceremony; the
 `automation/.internal/*.psm1` shared modules are the explicit, sanctioned exception — genuine standalone modules with their own scope,
-listed by name in [use-ps1-not-psm1 rule ADR-USEPS:2](../../../adr/automation/powershell/use-ps1-not-psm1.md). They carry no `types/`,
+listed by name in [use-ps1-not-psm1 rule ADR-AUTO-USEPS:2](../../../adr/automation/powershell/use-ps1-not-psm1.md). They carry no `types/`,
 generate no `README.md`, and are excluded from the module list because they are not automation modules — they are what loads them.
 
 ## The load sequence

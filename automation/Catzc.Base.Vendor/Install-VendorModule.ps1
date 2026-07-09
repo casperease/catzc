@@ -4,7 +4,7 @@
 .DESCRIPTION
     Downloads with Save-PSResource from the vendor source (configs/vendor.yml — PSGallery by default, or a
     custom feed) into automation/.vendor/<Name>/<Version>/, then removes legacy .NET Framework folders not
-    needed on PowerShell 7+. The only supported way to add a vendor module (ADR-VENDOR); commit the result.
+    needed on PowerShell 7+. The only supported way to add a vendor module (ADR-AUTO-VENDOR); commit the result.
     Must be run in a fresh session — a loaded module may lock its files.
 .PARAMETER Name
     The module name to install from the vendor source.

@@ -34,7 +34,7 @@ embedded diagram. Your job is to make the embedded XML correct and to prove it, 
 All diagrams are `.drawio.png` under `docs/.assets/`. Two families:
 
 - `docs/.assets/commits-quality/` — `value-chain.drawio.png` and `state-changes.drawio.png` (the promotion / commit-lifecycle diagrams
-  governed by `ADR-VISUAL` / `ADR-LIFE`).
+  governed by `ADR-DSGN-VISUAL` / `ADR-DSGN-LIFE`).
 - `docs/.assets/{tracks,modules,deployable-units,scopes}/` — hand-authored mirrors of `globs.yml`.
 
 Use `Glob` (`docs/.assets/**/*.drawio.png`) to locate the target. A sibling `.$<name>.drawio.png.bkp` is a draw.io autosave backup — its
@@ -120,5 +120,5 @@ print("OK", png, size_before)
 
 A style edit means changing the `style="..."` attribute of a specific `<mxCell>` (e.g. `fillColor=#64B5F6;strokeColor=#1565C0`). Identify
 the exact cell first — by its `value`, `id`, or current colour — and only touch that cell. If a requested colour is ambiguous (which cell)
-or reveals a palette that disagrees with `ADR-VISUAL`'s locked hexes, surface it rather than guessing; do not silently normalise colours you
-were not asked to change.
+or reveals a palette that disagrees with `ADR-DSGN-VISUAL`'s locked hexes, surface it rather than guessing; do not silently normalise
+colours you were not asked to change.

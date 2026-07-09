@@ -1,9 +1,9 @@
-# Get-ChangedGlobSet: the computed area-of-control of a diff (ADR-GLOBS:1) — the declared sets whose scan
+# Get-ChangedGlobSet: the computed area-of-control of a diff (ADR-FLOW-CD-GLOBS:1) — the declared sets whose scan
 # program selects a changed path, reflected from git at real refs instead of from a committed marker hash.
 Describe 'Get-ChangedGlobSet' -Tag 'L0', 'logic' {
     BeforeAll {
         # Neutral fixture globset names (widget/gadget/report), not the shipped set names, so this logic test
-        # owns its inputs (ADR-TEST:3). 'report' overlaps 'widget' on src/** (both loose-filesets, the
+        # owns its inputs (ADR-AUTO-TEST:3). 'report' overlaps 'widget' on src/** (both loose-filesets, the
         # independence-exempt layer) to prove multi-set matches come back in registry order.
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{

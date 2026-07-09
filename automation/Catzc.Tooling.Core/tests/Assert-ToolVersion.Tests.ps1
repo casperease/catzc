@@ -2,7 +2,7 @@
 Describe 'Assert-ToolVersion' -Tag 'L0', 'logic' {
     # Hermetic: every collaborator is mocked in the module scope, so the assertion binds to the version-check
     # LOGIC (pipeline lock vs devbox lever), never to the shipped tools.yml values or the installed toolchain.
-    # Fixture tools (ADR-TEST:3): faketool carries a devbox_version lever, lockedtool has none.
+    # Fixture tools (ADR-AUTO-TEST:3): faketool carries a devbox_version lever, lockedtool has none.
     BeforeEach {
         # The per-session pass cache would short-circuit repeated tool checks — clear it between cases.
         & (Get-Module Catzc.Tooling.Core) { $script:toolVersionCache = @{} }

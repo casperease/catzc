@@ -1,5 +1,5 @@
-# These are static properties of the files on disk (ADR-TEST:16), so a single BeforeAll scans the tree ONCE with
-# [System.IO] (ADR-TEST:18) and the It blocks assert facets of that one observation (ADR-TEST:20). The old shape ran a
+# These are static properties of the files on disk (ADR-AUTO-TEST:16), so a single BeforeAll scans the tree ONCE with
+# [System.IO] (ADR-AUTO-TEST:18) and the It blocks assert facets of that one observation (ADR-AUTO-TEST:20). The old shape ran a
 # BeforeDiscovery that enumerated every module with Get-ChildItem and fanned out one -ForEach Describe per
 # subdir / per misplaced file / per config entry — heavy discovery for what is a handful of whole-tree
 # invariants. Each violation now lists every offender in one message.
@@ -64,7 +64,7 @@ Describe 'Folder & file conventions' -Tag 'L0', 'integrity' {
                     $name = [System.IO.Path]::GetFileName($entry)
                     # Dot-prefixed entries are infrastructure/tooling, not module config — ignore them all (a
                     # `.not-azure-schema.json` schema sidecar, an editor dotfile, …). Same dot-prefix convention
-                    # the module scan applies above. See ADR: repository/conventional-folders (ADR-FOLDERS:4).
+                    # the module scan applies above. See ADR: repository/conventional-folders (ADR-REPO-FOLDERS:4).
                     if ($name -match '^\.') {
                         continue
                     }

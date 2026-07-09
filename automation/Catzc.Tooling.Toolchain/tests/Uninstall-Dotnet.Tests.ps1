@@ -13,17 +13,17 @@ Describe 'Uninstall-Dotnet' -Tag 'L1', 'logic' {
         Should -Invoke Remove-Dotnet -ModuleName Catzc.Tooling.Toolchain -Times 0
     }
 
-    It 'escalates to Remove-Dotnet -Force with -Remove -Force' -Tag 'ADR-REMOVE#5' {
+    It 'escalates to Remove-Dotnet -Force with -Remove -Force' -Tag 'ADR-AUTO-REMOVE#5' {
         Uninstall-Dotnet -Remove -Force
         Should -Invoke Remove-Dotnet -ModuleName Catzc.Tooling.Toolchain -Times 1 -ParameterFilter { $Force -eq $true }
     }
 
-    It 'escalates as a dry-run when -Remove has no -Force' -Tag 'ADR-REMOVE#4' {
+    It 'escalates as a dry-run when -Remove has no -Force' -Tag 'ADR-AUTO-REMOVE#4' {
         Uninstall-Dotnet -Remove
         Should -Invoke Remove-Dotnet -ModuleName Catzc.Tooling.Toolchain -Times 1 -ParameterFilter { -not $Force }
     }
 
-    It 'still evicts when the managed uninstall fails' -Tag 'ADR-REMOVE#5' {
+    It 'still evicts when the managed uninstall fails' -Tag 'ADR-AUTO-REMOVE#5' {
         Mock Get-ScriptInstallDir { throw 'boom' } -ModuleName Catzc.Tooling.Toolchain
         Uninstall-Dotnet -Remove -Force
         Should -Invoke Remove-Dotnet -ModuleName Catzc.Tooling.Toolchain -Times 1

@@ -2,7 +2,7 @@
 
 The build-validation policy module. It owns the server-side pre-commit half of a deployable unit's CI binding: the ADO build-validation
 branch policies that queue a unit's pipeline on the guarded branch, each tied to its globset by path-filtering on the globset's native
-projection (see [pipeline-types](../../adr/pipelines/pipeline-types.md) and [durable-sha-globs](../../adr/pipelines/durable-sha-globs.md)).
+projection (see [pipeline-types](../../adr/flow/pipeline-types.md) and [durable-sha-globs](../../adr/flow/durable-sha-globs.md)).
 The local `build-validation.yml` is the source of truth and the module converges the ADO project to it
 ([everything-as-code](../../adr/principles/everything-as-code.md)). What it deliberately does **not** own is the globsets themselves
 ([Catzc.Base.Globs](catzc-base-globs.md)) or the pipelines the policies queue — it binds the two together on the server, nothing more.
@@ -37,14 +37,14 @@ The module makes the server-side pre-commit gate a function of version control. 
 must build green before it merges", and which policies exist — for which units, queuing which pipelines, on which branch — is exactly the
 kind of state that drifts when it lives only in the ADO UI. Here it lives in `build-validation.yml`: each entry names a declared globset,
 and the policy's path filter is that globset's native projection, so the policy fires precisely when the unit's files change — the same
-native-projection trigger discipline of [durable-sha-globs](../../adr/pipelines/durable-sha-globs.md), applied to the one trigger surface
+native-projection trigger discipline of [durable-sha-globs](../../adr/flow/durable-sha-globs.md), applied to the one trigger surface
 that lives server-side rather than in the repository.
 
 Reconciliation is idempotent end to end: `Sync-AdoBuildValidations` can run on a schedule or after any registry edit, and a converged
 project is a no-op pass. Globset existence is checked at runtime and by an integrity test — never at config load, so reading the registry
-stays hermetic (the same pattern as the customer catalogue, [customer-model](../../adr/azure/azure-customer-model.md#rule-adr-customer3)).
-The REST calls authenticate through the dual-authentication precedence ([dual-authentication](../../adr/pipelines/dual-authentication.md))
-like the rest of the ADO surface.
+stays hermetic (the same pattern as the customer catalogue,
+[customer-model](../../adr/azure/azure-customer-model.md#rule-adr-az-customer3)). The REST calls authenticate through the
+dual-authentication precedence ([dual-authentication](../../adr/pipelines/dual-authentication.md)) like the rest of the ADO surface.
 
 ## Division
 

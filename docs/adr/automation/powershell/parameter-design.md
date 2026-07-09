@@ -1,22 +1,22 @@
 # ADR: Parameter design — the PowerShell layer over sensible-defaults
 
-## Rules: ADR-PSPARAM
+## Rules: ADR-AUTO-PSPARAM
 
-### Rule ADR-PSPARAM:1
+### Rule ADR-AUTO-PSPARAM:1
 
-A function's parameter surface applies [sensible-defaults](../sensible-defaults.md) (`ADR-DEFAULT`) with the PowerShell mechanics below: the
-common call stays short because the parameter kinds carry the intent.
+A function's parameter surface applies [sensible-defaults](../sensible-defaults.md) (`ADR-AUTO-DEFAULT`) with the PowerShell mechanics
+below: the common call stays short because the parameter kinds carry the intent.
 
 - [The primary argument is positional](#the-primary-argument-is-positional)
 
-### Rule ADR-PSPARAM:2
+### Rule ADR-AUTO-PSPARAM:2
 
 Use positional parameters for the primary argument — the most important parameter is `Position = 0` so the caller can skip the name
 (`Invoke-Poetry 'install'`).
 
 - [The primary argument is positional](#the-primary-argument-is-positional)
 
-### Rule ADR-PSPARAM:3
+### Rule ADR-AUTO-PSPARAM:3
 
 Use `[switch]`, not `[bool]`, for opt-in behavior that is off by default. Switches are self-documenting at the call site: `-PassThru` over
 `-PassThru $true`.
@@ -30,8 +30,8 @@ parameter is mandatory only when no default makes sense. This ADR is the PowerSh
 shaped so the common invocation reads naturally.
 
 The neighbouring parameter rules live where their hazards live: defaulting a `[string]` with `??` never works, and reassigning a
-`Validate*`-attributed parameter re-fires its validator ([automatic-variable-pitfalls](automatic-variable-pitfalls.md), `ADR-AUTOVAR:6`/
-`ADR-AUTOVAR:7`); the side-effect kill switch is an explicit `-DryRun` switch
+`Validate*`-attributed parameter re-fires its validator ([automatic-variable-pitfalls](automatic-variable-pitfalls.md),
+`ADR-AUTO-AUTOVAR:6`/ `ADR-AUTO-AUTOVAR:7`); the side-effect kill switch is an explicit `-DryRun` switch
 ([prefer-dryrun-over-shouldprocess](prefer-dryrun-over-shouldprocess.md)); and inputs are asserted at entry
 ([fail-fast-with-asserts](../fail-fast-with-asserts.md)).
 
@@ -65,8 +65,8 @@ parameters.
 
 ### How this is enforced
 
-- **The doctrine layer** — what defaults exist and where they come from is [sensible-defaults](../sensible-defaults.md) (`ADR-DEFAULT`);
-  this ADR only fixes the parameter mechanics.
+- **The doctrine layer** — what defaults exist and where they come from is [sensible-defaults](../sensible-defaults.md)
+  (`ADR-AUTO-DEFAULT`); this ADR only fixes the parameter mechanics.
 - **The exemplars** — the `Invoke-*` family (`Invoke-Executable`, `Invoke-Poetry`, `Invoke-Python`) is the pattern new functions copy.
 - **Code review** — a `[bool]` where a `[switch]` belongs, or a mandatory named parameter for the obvious primary argument, is rejected
   against this ADR.

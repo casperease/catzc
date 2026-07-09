@@ -36,7 +36,7 @@ Describe 'New-TestAutomationShardScript' -Tag 'logic' {
 
         It 'builds its configuration through the one shared builder, strict off' {
             # The worker and Invoke-TestFile must share New-PesterRunConfiguration (one living copy of the
-            # invocation config) and the worker turns strict mode off before Pester (ADR-TEST:25).
+            # invocation config) and the worker turns strict mode off before Pester (ADR-AUTO-TEST:25).
             $script:content | Should -Match 'New-PesterRunConfiguration'
             $script:content | Should -Match ([regex]::Escape('Set-StrictMode -Off'))
         }

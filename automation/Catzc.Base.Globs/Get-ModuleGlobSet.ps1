@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Returns the DERIVED globsets — the live/tests aspect sets per module folder, one set per internal .psm1
-    module, the reserved infra umbrellas, and the 'module-leftovers' catch-all (ADR-PROTGLOB, ADR-ASPECT).
+    module, the reserved infra umbrellas, and the 'module-leftovers' catch-all (ADR-REPO-PROTGLOB, ADR-ASPECT).
 .DESCRIPTION
     Derived sets are never written in globs.yml: the folder (or file) is the registration. Every non-dot
     module folder under automation/ partitions into live/tests aspect sets (ADR-ASPECT), named by the
@@ -13,7 +13,7 @@
     kebab convention (Catzc.Internal.Bootstrap -> 'catzc-internal-bootstrap').
     The reserved names cover the dot-prefixed infrastructure every module's test results also depend on:
     'internal', 'vendor', 'compiled', 'scriptanalyzer'. Derived sets scope protection and blast radius
-    (ADR-PROTGLOB:7). A declared globset may not shadow a derived name; the collision throws here, naming
+    (ADR-REPO-PROTGLOB:7). A declared globset may not shadow a derived name; the collision throws here, naming
     both sides.
 .PARAMETER Name
     A module folder name ('Catzc.Base.Globs'), an internal module name ('Catzc.Internal.Bootstrap'), the
@@ -55,8 +55,8 @@ function Get-ModuleGlobSet {
     }
     # The reserved umbrellas are cross-cutting check surfaces, not independent modules: 'internal' overlaps
     # every catzc-internal-* single-file set, 'vendor'/'compiled'/'scriptanalyzer' cover whole dot-folders.
-    # They are loose-filesets (ADR-GLOBS:7, overlap-exempt), not the 'module' layer whose sets are the
-    # pairwise-disjoint per-folder modules (ADR-GLOBS:10).
+    # They are loose-filesets (ADR-FLOW-CD-GLOBS:7, overlap-exempt), not the 'module' layer whose sets are the
+    # pairwise-disjoint per-folder modules (ADR-FLOW-CD-GLOBS:10).
     foreach ($reservedName in [Catzc.Base.Globs.GlobsConfig]::ReservedNames) {
         $set = [Catzc.Base.Globs.GlobSet]::new(
             $reservedName, "Derived infra scope - $($reserved[$reservedName])", 'loose-fileset',
@@ -84,14 +84,14 @@ function Get-ModuleGlobSet {
         }
         $kebab = $moduleName.ToLowerInvariant().Replace('.', '-')
         if ($kebab -in $declaredNames) {
-            throw "Declared globset '$kebab' in globs.yml shadows the derived module '$moduleName' — derived and declared sets share one name space (ADR-PROTGLOB); rename the declared set."
+            throw "Declared globset '$kebab' in globs.yml shadows the derived module '$moduleName' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
         }
         $moduleFolderGlobs.Add("automation/$moduleName/**")
         $aspectSets = [System.Collections.Generic.List[Catzc.Base.Globs.GlobSet]]::new()
         foreach ($compiled in [Catzc.Base.Globs.AspectPartition]::Compile($aspectList, "automation/$moduleName")) {
             $aspectKebab = "$kebab-$($compiled.Name)"
             if ($aspectKebab -in $declaredNames) {
-                throw "Declared globset '$aspectKebab' in globs.yml shadows the derived aspect of module '$moduleName' — derived and declared sets share one name space (ADR-PROTGLOB); rename the declared set."
+                throw "Declared globset '$aspectKebab' in globs.yml shadows the derived aspect of module '$moduleName' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
             }
             $set = [Catzc.Base.Globs.GlobSet]::new(
                 $aspectKebab, "Derived module aspect - automation/$moduleName [$($compiled.Name)]", 'module',
@@ -113,7 +113,7 @@ function Get-ModuleGlobSet {
             $internalName = [System.IO.Path]::GetFileNameWithoutExtension($internalFile)
             $kebab = $internalName.ToLowerInvariant().Replace('.', '-')
             if ($kebab -in $declaredNames) {
-                throw "Declared globset '$kebab' in globs.yml shadows the derived set of internal module '$internalName' — derived and declared sets share one name space (ADR-PROTGLOB); rename the declared set."
+                throw "Declared globset '$kebab' in globs.yml shadows the derived set of internal module '$internalName' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
             }
             $set = [Catzc.Base.Globs.GlobSet]::new(
                 $kebab, "Derived internal-module scope - automation/.internal/$internalName.psm1", 'module',
@@ -128,9 +128,9 @@ function Get-ModuleGlobSet {
     # the module layer covers module-space and a stray file cannot go unmapped — it should be empty in a
     # clean tree, but stuff can pop up (a file dropped at automation/'s root, a folder not yet a module). Its
     # OWN excludes are every module folder plus the four dot-folders, so it stays disjoint from every module
-    # set (ADR-GLOBS:10). Derived, module-layer, never declared; a declared set may not shadow it.
+    # set (ADR-FLOW-CD-GLOBS:10). Derived, module-layer, never declared; a declared set may not shadow it.
     if ('module-leftovers' -in $declaredNames) {
-        throw "Declared globset 'module-leftovers' in globs.yml shadows the derived module-space catch-all — derived and declared sets share one name space (ADR-PROTGLOB); rename the declared set."
+        throw "Declared globset 'module-leftovers' in globs.yml shadows the derived module-space catch-all — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
     }
     # Ordinal-sorted so the scan program (the marker body) is byte-identical on every machine, independent of
     # directory-enumeration and hashtable order.

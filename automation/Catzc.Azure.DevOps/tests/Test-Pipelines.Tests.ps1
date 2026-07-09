@@ -18,7 +18,7 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         $script:records = @()
         $script:refs = @()
 
-        # Isolate through the classifier + reference-scan seams (ADR-PESTER:2).
+        # Isolate through the classifier + reference-scan seams (ADR-AUTO-PESTER:2).
         Mock Get-AdoYamlFiles -ModuleName Catzc.Azure.DevOps { $script:records }
         Mock Get-PipelineTemplateReference -ModuleName Catzc.Azure.DevOps { $script:refs }
         Mock Assert-PathExist -ModuleName Catzc.Azure.DevOps { }
@@ -34,11 +34,11 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         @(Test-Pipelines -Path 'X:/pipelines') | Should -HaveCount 0
     }
 
-    It 'flags a root pipeline whose name lacks a valid type prefix (ADR-PIPENAME:1)' {
+    It 'flags a root pipeline whose name lacks a valid type prefix (ADR-PIPE-NAME:1)' {
         $script:records = @((Rec 'widget-thing.yaml' 'Pipeline'))
         $v = @(Test-Pipelines -Path 'X:/pipelines')
         $v | Should -HaveCount 1
-        $v[0].Rule | Should -Be 'ADR-PIPENAME:1'
+        $v[0].Rule | Should -Be 'ADR-PIPE-NAME:1'
     }
 
     It 'accepts every sanctioned type prefix' {
@@ -46,34 +46,34 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         @(Test-Pipelines -Path 'X:/pipelines') | Should -HaveCount 0
     }
 
-    It 'flags a .yml executable under pipelines/ (ADR-PIPENAME:6)' {
+    It 'flags a .yml executable under pipelines/ (ADR-PIPE-NAME:6)' {
         $script:records = @((Rec 'ci-thing.yml' 'Pipeline'))
         $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPENAME:6'
+        $v.Rule | Should -Be 'ADR-PIPE-NAME:6'
     }
 
-    It 'flags a template in an unsanctioned folder (ADR-PIPENAME:3)' {
+    It 'flags a template in an unsanctioned folder (ADR-PIPE-NAME:3)' {
         $script:records = @((Rec 'widgets/x.yaml' -Classification 'Template' -TemplateType 'Steps'))
         $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPENAME:3'
+        $v.Rule | Should -Be 'ADR-PIPE-NAME:3'
     }
 
-    It 'flags a template nested deeper than one level (ADR-PIPENAME:2)' {
+    It 'flags a template nested deeper than one level (ADR-PIPE-NAME:2)' {
         $script:records = @((Rec 'steps/sub/x.yaml' -Classification 'Template' -TemplateType 'Steps'))
         $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPENAME:2'
+        $v.Rule | Should -Be 'ADR-PIPE-NAME:2'
     }
 
-    It 'flags a structural pipeline hiding inside a template folder (ADR-PIPENAME:2)' {
+    It 'flags a structural pipeline hiding inside a template folder (ADR-PIPE-NAME:2)' {
         $script:records = @((Rec 'steps/sneaky.yaml' 'Pipeline'))
         $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPENAME:2'
+        $v.Rule | Should -Be 'ADR-PIPE-NAME:2'
     }
 
-    It 'flags a fragment whose kind does not match its folder (ADR-PIPENAME:3)' {
+    It 'flags a fragment whose kind does not match its folder (ADR-PIPE-NAME:3)' {
         $script:records = @((Rec 'steps/x.yaml' -Classification 'Template' -TemplateType 'Jobs'))
         $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPENAME:3'
+        $v.Rule | Should -Be 'ADR-PIPE-NAME:3'
     }
 
     It 'does not subtype-check the extends/ folder (whole-pipeline templates)' {
@@ -81,11 +81,11 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         @(Test-Pipelines -Path 'X:/pipelines') | Should -HaveCount 0
     }
 
-    It 'flags a relative template reference (ADR-PIPENAME:4)' {
+    It 'flags a relative template reference (ADR-PIPE-NAME:4)' {
         $script:records = @((Rec 'ci-x.yaml' 'Pipeline'))
         $script:refs = @('steps/local.yaml')
         $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPENAME:4'
+        $v.Rule | Should -Be 'ADR-PIPE-NAME:4'
     }
 
     It 'accepts an absolute template reference' {
@@ -97,12 +97,12 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
     It 'reports a parse failure as its own violation' {
         $script:records = @((Rec 'ci-broken.yaml' -Classification 'Unknown' -ParseError 'bad indent at line 4'))
         $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPENAME:parse'
+        $v.Rule | Should -Be 'ADR-PIPE-NAME:parse'
     }
 }
 
 Describe 'Test-Pipelines — real pipelines/ tree' -Tag 'L1', 'integrity' {
-    It 'the shipped pipelines/ tree satisfies ADR-PIPENAME (zero violations)' {
+    It 'the shipped pipelines/ tree satisfies ADR-PIPE-NAME (zero violations)' {
         @(Test-Pipelines) | Should -HaveCount 0
     }
 }

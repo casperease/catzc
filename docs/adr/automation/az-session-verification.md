@@ -1,8 +1,8 @@
 # ADR: Az CLI session verification — three layers, and verify is not connect
 
-## Rules: ADR-AZSESS
+## Rules: ADR-AZ-SESSION
 
-### Rule ADR-AZSESS:1
+### Rule ADR-AZ-SESSION:1
 
 Keep three az concerns in separate functions and do not collapse them: **availability** (`Assert-Tool 'AzCli'` in `Catzc.Tooling.Core` — is
 `az` on PATH at the locked `tools.yml` version), **by-args verification** (`Assert-AzCliConnected` / `Test-AzCliConnected` in
@@ -11,7 +11,7 @@ Keep three az concerns in separate functions and do not collapse them: **availab
 
 - [The three layers](#the-three-layers)
 
-### Rule ADR-AZSESS:2
+### Rule ADR-AZ-SESSION:2
 
 Verify is not connect. The `Assert-*` / `Test-*` functions are read-only: they check the session against what config says is correct and, on
 failure, name the `az login` / `az account set` to run. The actual connecting is `Connect-AzCli` (in `Catzc.Azure.Cli`); a verification
@@ -19,7 +19,7 @@ function never logs in.
 
 - [Verify is not connect](#verify-is-not-connect)
 
-### Rule ADR-AZSESS:3
+### Rule ADR-AZ-SESSION:3
 
 One shared comparison source. `Get-AzCliConnectionState` runs `az account show` once and both wrappers read it — `Test-` returns a bool,
 `Assert-` throws — so they cannot drift. A config-aware wrapper resolves identity from config (`Get-AzureSubscription`) and then delegates
@@ -27,7 +27,7 @@ to this primitive instead of re-implementing the comparison.
 
 - [One shared comparison source](#one-shared-comparison-source)
 
-### Rule ADR-AZSESS:4
+### Rule ADR-AZ-SESSION:4
 
 Config defines what "correct" means, and those config keys are required inputs. Whether the session is "connected to the right place" is
 decided solely by config — `azure.yml` subscription + tenant, `ado.yml` organization + tenant — never by the presence of a credential or
@@ -35,14 +35,14 @@ token alone. Every auth path proves itself against that config, so the keys that
 
 - [Config defines correct](#config-defines-correct)
 
-### Rule ADR-AZSESS:5
+### Rule ADR-AZ-SESSION:5
 
 The **reverse lookup** is the fourth layer: `Get-AzCliSessionSubscription` (in `Catzc.Azure.Cli`) reads the session's active subscription
 (`Get-CurrentAzSubscription`) and resolves its GUID to the declared `azure.yml` identity — name, customer, tenant — throwing when the
 session targets a subscription azure.yml does not declare. It makes the session usable as a **selector** (the deploy target follows the
-service connection) while config stays the authority on what exists; it is read-only like every verification (ADR-AZSESS:2), and the
+service connection) while config stays the authority on what exists; it is read-only like every verification (ADR-AZ-SESSION:2), and the
 `-SubscriptionIdAssertIs` guard on the deploy surface is its explicit pin (see
-[data-model](../azure/azure-data-model.md#rule-adr-datamod7)).
+[data-model](../azure/azure-data-model.md#rule-adr-az-datamod7)).
 
 - [The reverse lookup](#the-reverse-lookup)
 
@@ -87,9 +87,9 @@ The forward layers answer "is the session pointed where config says it should be
 "WHERE is the session pointed, in config terms?" — and is what lets the session act as the deploy-target selector: in a pipeline the service
 connection logs the session into one subscription, and `Get-AzCliSessionSubscription` maps that back to the declared `azure.yml` identity
 (name, customer, tenant) so the rest of the platform reasons in config vocabulary. A session pointed at an undeclared subscription throws —
-config defines what exists (ADR-AZSESS:4), so an unknown target is an error, never a fallback. The lookup is read-only (ADR-AZSESS:2); the
-explicit pin against mis-wiring is the deploy surface's `-SubscriptionIdAssertIs` guard, mandatory in pipelines
-([data-model](../azure/azure-data-model.md#rule-adr-datamod7)).
+config defines what exists (ADR-AZ-SESSION:4), so an unknown target is an error, never a fallback. The lookup is read-only
+(ADR-AZ-SESSION:2); the explicit pin against mis-wiring is the deploy surface's `-SubscriptionIdAssertIs` guard, mandatory in pipelines
+([data-model](../azure/azure-data-model.md#rule-adr-az-datamod7)).
 
 ### Config defines correct
 

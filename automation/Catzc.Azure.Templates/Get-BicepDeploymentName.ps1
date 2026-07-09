@@ -57,7 +57,7 @@ function Get-BicepDeploymentName {
     if (Test-IsRunningInPipeline) {
         # We already know we're in a pipeline (the one sanctioned detector said so); here we only read each
         # platform's run-id / commit DATA vars — not the detection vars TF_BUILD / GITHUB_ACTIONS, which only
-        # Test-IsRunningInPipeline may read (rule ADR-PIPEDET:1 / Measure-NoRawPipelineDetection). GitHub Actions sets
+        # Test-IsRunningInPipeline may read (rule ADR-FLOW-CD-DETECT:1 / Measure-NoRawPipelineDetection). GitHub Actions sets
         # GITHUB_RUN_ID / GITHUB_SHA; Azure DevOps sets BUILD_BUILDID / BUILD_SOURCEVERSION. The commit is
         # truncated to 7 chars.
         if ($env:GITHUB_RUN_ID) {

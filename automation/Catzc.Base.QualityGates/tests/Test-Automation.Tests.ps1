@@ -1,9 +1,9 @@
-# These checks are a pure function of the files on disk (ADR-TEST:16), so they SCAN THE TREE ONCE and assert
+# These checks are a pure function of the files on disk (ADR-AUTO-TEST:16), so they SCAN THE TREE ONCE and assert
 # invariants across the whole set, rather than spawning one Describe per file. The old shape generated ~175
 # per-file `-ForEach` Describes (heavy discovery) and parsed every source file's AST TWICE (once per file for
 # the one-function/name checks, once more for global uniqueness). Here a single BeforeAll enumerates with
-# [System.IO] (ADR-TEST:18) and parses each file exactly once into a rich observation; the It blocks assert facets
-# of it (ADR-TEST:20). A violation lists every offending file in one message.
+# [System.IO] (ADR-AUTO-TEST:18) and parses each file exactly once into a rich observation; the It blocks assert facets
+# of it (ADR-AUTO-TEST:20). A violation lists every offending file in one message.
 Describe 'Source & test file conventions' -Tag 'L0', 'integrity' {
     BeforeAll {
         $automationRoot = Join-Path $env:RepositoryRoot 'automation'

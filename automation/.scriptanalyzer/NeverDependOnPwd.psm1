@@ -5,8 +5,8 @@
     Flags:
     - References to $PWD (use $PSScriptRoot or $env:RepositoryRoot instead)
     - Bare Set-Location / cd calls (use Push-Location / Pop-Location instead)
-    See docs/adr/automation/never-depend-on-pwd.md#rule-adr-nopwd1 and
-    docs/adr/automation/powershell/working-directory-mechanics.md#rule-adr-pspwd2
+    See docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1 and
+    docs/adr/automation/powershell/working-directory-mechanics.md#rule-adr-auto-pspwd2
 #>
 
 function Measure-NeverDependOnPwd {
@@ -27,7 +27,7 @@ function Measure-NeverDependOnPwd {
     $ruleName = 'Measure-NeverDependOnPwd'
 
     # Flag $PWD references
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-PSFORMAT:6).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
     $isVariable = {
         param($node)
         $node -is [System.Management.Automation.Language.VariableExpressionAst]
@@ -46,7 +46,7 @@ function Measure-NeverDependOnPwd {
     }
 
     # Flag Set-Location / cd calls (Push-Location / Pop-Location are fine)
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-PSFORMAT:6).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
     $isCommand = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]

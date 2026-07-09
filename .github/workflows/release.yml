@@ -5,7 +5,7 @@ name: Release
 # module manifest) and uploads it; the publish steps are opt-in and each no-ops without its token, so a run with
 # no inputs simply produces the package. GitHub publishing uses the built-in GITHUB_TOKEN (no PSGallery key
 # needed); PSGallery publishing needs the PSGALLERY_API_KEY secret and is skipped when it is empty.
-# See docs/adr/pipelines/github-release.md (ADR-RELEASE).
+# See docs/adr/github/github-release.md (ADR-GH-RELEASE).
 
 on:
   workflow_dispatch:

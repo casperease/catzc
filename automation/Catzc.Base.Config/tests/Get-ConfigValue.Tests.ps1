@@ -12,7 +12,7 @@ Describe 'Get-ConfigValue' -Tag 'L0' {
         }
 
         BeforeEach {
-            # Get-ConfigValue reads through Get-Config (ADR-MODCFG:1); mock the reader, not a file.
+            # Get-ConfigValue reads through Get-Config (ADR-CONF-LOADING:1); mock the reader, not a file.
             Mock Get-Config -ModuleName Catzc.Base.Config -MockWith { $script:fixture }
         }
 
@@ -35,7 +35,7 @@ Describe 'Get-ConfigValue' -Tag 'L0' {
             $node['name'] | Should -Be 'app'
         }
 
-        It 'returns the live reference from the config (a resolved node is a read, ADR-CFGADDR:5)' {
+        It 'returns the live reference from the config (a resolved node is a read, ADR-CONF-ADDRESSING:5)' {
             $node = Get-ConfigValue -Address 'global.myconfig.database'
             [object]::ReferenceEquals($node, $script:fixture['database']) | Should -BeTrue
         }
@@ -64,7 +64,7 @@ namespace CatzcGetConfigValueTest {
         }
     }
 
-    Context 'fail-fast (ADR-CFGADDR:4)' -Tag 'logic' {
+    Context 'fail-fast (ADR-CONF-ADDRESSING:4)' -Tag 'logic' {
         BeforeEach {
             Mock Get-Config -ModuleName Catzc.Base.Config -MockWith {
                 [ordered]@{ database = [ordered]@{ host = 'db1' } }
@@ -113,7 +113,7 @@ namespace CatzcGetConfigValueTest {
 
     Context 'against a real shipped config' -Tag 'integrity' {
         It 'resolves a real config subtree through the live Get-Config' {
-            # tools.yml is a raw (validator-less) config; guards the real wiring end to end (ADR-TEST:14).
+            # tools.yml is a raw (validator-less) config; guards the real wiring end to end (ADR-AUTO-TEST:14).
             (Get-ConfigValue -Address 'global.tools').Contains('python') | Should -BeTrue
         }
     }

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Writes (or merges) a template's per-slot ParametersFile into its config file. The write half of
     the INPUT pipeline: it turns user input into a version-controlled change, never a runtime cloud
-    mutation. See docs/adr/pipelines/pipeline-types.md and docs/adr/azure/azure-data-model.md.
+    mutation. See docs/adr/flow/pipeline-types.md and docs/adr/azure/azure-data-model.md.
 .DESCRIPTION
     Resolves the config file for a (template[, customer], environment[, slot]) coordinate —
     `infrastructure/templates/<template>/configuration/[<customer>/]<env>[-<slot>].yml` — and sets the
@@ -40,7 +40,7 @@
 function Set-BicepTemplateConfiguration {
     # State-changing function deliberately uses -DryRun, not ShouldProcess — see
     # docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-dryrun5')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun5')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
     param(

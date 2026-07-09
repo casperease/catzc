@@ -2,7 +2,7 @@
 .SYNOPSIS
     The tracked files a globset finally selects — the single source of a set's included members.
 .DESCRIPTION
-    The one definition of "what is IN the package" (ADR-GLOBS:4): the matching universe (`git ls-files`)
+    The one definition of "what is IN the package" (ADR-FLOW-CD-GLOBS:4): the matching universe (`git ls-files`)
     intersected with the set's final membership (GlobSet.Matches, last-match-wins), ordinal-sorted. Every
     consumer of the member list routes through here — the durable content SHA (Get-GlobSetHash), the public
     Get-GlobSetFile — so the scoped list can never drift between the hash and the public file list. A member

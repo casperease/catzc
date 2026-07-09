@@ -4,7 +4,7 @@
 # those lists. Two roots: `categories:` defines the vocabulary classes, and `terms:` groups the words under
 # them — `terms: <category>: [ { term, meaning }, ... ]`. A term's category is the group it sits in (no
 # per-entry category field); an abbreviation entry also carries `expands_to`. See
-# docs/adr/automation/spell-out-names.md (ADR-SPELL:5-ADR-SPELL:8).
+# docs/adr/automation/spell-out-names.md (ADR-AUTO-SPELL:5-ADR-AUTO-SPELL:8).
 #
 # Loaded via Get-Config -Config terminology; validated by Catzc.Base.QualityGates.TerminologyConfig, which
 # requires every term's category to be one defined here.
@@ -15,15 +15,15 @@
 #
 # Each category is a mapping with a required `description` and an OPTIONAL `scope` — a list of repo-relative
 # `/`-separated globs DECLARING which domain a category's terms belong to (the test/example domain, the
-# live/config domain, the design/ADR domain — see ADR-LANG). `scope` is a DECLARATION of intent, not a cspell
+# live/config domain, the design/ADR domain — see ADR-REPO-LANG). `scope` is a DECLARATION of intent, not a cspell
 # rule: cspell tokenizes text, not meaning, and example/fixture vocabulary legitimately appears in comments,
 # doc-example blocks, and demo data across every file type (a config comment illustrating `[acme, globex]`,
 # a pipeline's `'Contoso Ltd'` demo record, a function's .EXAMPLE help), so a file-glob dictionary scope
 # cannot separate "fixture-as-illustration" from "fixture-as-leaked-production-data". The domain separation
-# is therefore enforced by ADR-TEST + code review (and, prospectively, a TAG-AWARE AST gate over test files —
+# is therefore enforced by ADR-AUTO-TEST + code review (and, prospectively, a TAG-AWARE AST gate over test files —
 # an extension of Get-TestTagViolations that inspects string literals, not comments), with `scope` as the
 # machine-readable domain map that gate would consume. All categories are effectively GLOBAL to cspell today.
-# See docs/adr/repository/domain-language-separation.md (ADR-LANG) and spell-out-names.md (ADR-SPELL).
+# See docs/adr/repository/domain-language-separation.md (ADR-REPO-LANG) and spell-out-names.md (ADR-AUTO-SPELL).
 categories:
   domain:
     description: "General technical or computing vocabulary this codebase uses that fits no more specific category below."
@@ -33,7 +33,7 @@ categories:
     description:
       "A hermetic TEST token or documentation placeholder — a fixture identity or example value used in tests, doc examples, and
       comment-based-help EXAMPLE blocks, but NEVER in shipped config DATA (a *.yml/*.json/*.bicep under configs/ or infrastructure/). The
-      test/example domain (ADR-LANG)."
+      test/example domain (ADR-REPO-LANG)."
     scope:
       - "**/tests/**"
       - "docs/**"
@@ -42,7 +42,7 @@ categories:
   azure-live:
     description:
       "A LIVE Azure identity — a real customer, subscription, org, or shipped-template name that the demo config maps to (the config/live
-      domain, ADR-LANG). Guarded by integrity tests; forbidden in a logic test."
+      domain, ADR-REPO-LANG). Guarded by integrity tests; forbidden in a logic test."
     scope:
       - "automation/Catzc.Azure*/configs/**"
       - "infrastructure/**"
@@ -50,7 +50,7 @@ categories:
   adr-example:
     description:
       "A DESIGN-domain example token — a discovery-theme name (discovery/expedition/survey, Contoso) or documentation placeholder used only
-      in ADRs and reference docs (ADR-EXAMPLE, ADR-LANG)."
+      in ADRs and reference docs (ADR-REPO-EXAMPLE, ADR-REPO-LANG)."
     scope:
       - "docs/**"
   adr:
@@ -74,6 +74,8 @@ terms:
   domain:
     - term: testkit
       meaning: "catzc-internal-testkit"
+    - term: adrs
+      meaning: "ADRs — plural of ADR; the adrs.yml registry of ADR domain structure and citation codes"
     - term: ast
       meaning: "abstract syntax tree (AST) — the PowerShell parser's AST"
     - term: trie
@@ -423,7 +425,7 @@ terms:
     - term: mytem
       meaning: "derived short_name of the 'my-template' example in the naming-standard ADR"
     - term: myvalue
-      meaning: "invented placeholder token cited as a bad example in the spell-out-names ADR (ADR-SPELL:12)"
+      meaning: "invented placeholder token cited as a bad example in the spell-out-names ADR (ADR-AUTO-SPELL:12)"
     - term: myvar
       meaning: "placeholder variable name 'myvar' in examples"
     - term: objout
@@ -467,172 +469,208 @@ terms:
       meaning: "live customer key 'nova' (Nova Systems) in customer.yml / azure.yml (nova_nonprod)"
   adr-example:
     - term: contoso
-      meaning: "Microsoft's canonical fictional company name (Contoso) — a design-domain example in ADRs and reference docs (ADR-EXAMPLE)"
+      meaning: "Microsoft's canonical fictional company name (Contoso) — a design-domain example in ADRs and reference docs (ADR-REPO-EXAMPLE)"
   adr:
     - term: adr
       meaning: "the ADR- rule-citation prefix; every rule code has the form ADR-<NAME> (see docs/adr/index.md)"
     - term: eac
-      meaning: "body of the ADR-EAC code (everything-as-code)"
+      meaning: "body of the ADR-PRIN-EAC code (everything-as-code)"
     - term: reducevar
-      meaning: "body of the ADR-REDUCEVAR code (reduce-variability)"
+      meaning: "body of the ADR-PRIN-REDUCEVAR code (reduce-variability)"
     - term: nowaste
-      meaning: "body of the ADR-NOWASTE code (reduce-waste)"
+      meaning: "body of the ADR-PRIN-NOWASTE code (reduce-waste)"
     - term: onelive
-      meaning: "body of the ADR-ONELIVE code (one-living-version)"
+      meaning: "body of the ADR-PRIN-ONELIVE code (one-living-version)"
     - term: leanterms
-      meaning: "body of the ADR-LEANTERMS code (process/process-terms)"
+      meaning: "body of the ADR-PROC-LEANTERMS code (process/process-terms)"
     - term: pullwork
-      meaning: "body of the ADR-PULLWORK code (pull-work)"
+      meaning: "body of the ADR-PROC-PULLWORK code (pull-work)"
     - term: queuecost
-      meaning: "body of the ADR-QUEUECOST code (queues-cost-money)"
+      meaning: "body of the ADR-PROC-QUEUECOST code (queues-cost-money)"
     - term: observewip
-      meaning: "body of the ADR-OBSERVEWIP code (observe-work)"
+      meaning: "body of the ADR-PROC-OBSERVEWIP code (observe-work)"
     - term: azcli
-      meaning: "body of the ADR-AZCLI code (prefer-az-cli); also 'az cli'"
+      meaning: "body of the ADR-AUTO-AZCLI code (prefer-az-cli); also 'az cli'"
     - term: prelog
-      meaning: "body of the ADR-PRELOG code (log-before-invoke)"
+      meaning: "body of the ADR-AUTO-PRELOG code (log-before-invoke)"
     - term: onefunc
-      meaning: "body of the ADR-ONEFUNC code (one-function-per-file)"
+      meaning: "body of the ADR-AUTO-ONEFUNC code (one-function-per-file)"
     - term: nopwd
-      meaning: "body of the ADR-NOPWD code (never-depend-on-pwd)"
+      meaning: "body of the ADR-AUTO-NOPWD code (never-depend-on-pwd)"
     - term: nonest
-      meaning: "body of the ADR-NONEST code (avoid-deep-nesting)"
+      meaning: "body of the ADR-AUTO-NONEST code (avoid-deep-nesting)"
     - term: xplat
-      meaning: "body of the ADR-XPLAT code (cross-platform)"
+      meaning: "body of the ADR-AUTO-XPLAT code (cross-platform)"
     - term: onejob
-      meaning: "body of the ADR-ONEJOB code (single-responsibility-functions)"
+      meaning: "body of the ADR-AUTO-ONEJOB code (single-responsibility-functions)"
     - term: modcfg
-      meaning: "body of the ADR-MODCFG code (module-config-loading)"
+      meaning: "body of the ADR-CONF-LOADING code (module-config-loading)"
     - term: failfast
-      meaning: "body of the ADR-FAILFAST code (fail-fast-with-asserts)"
+      meaning: "body of the ADR-AUTO-FAILFAST code (fail-fast-with-asserts)"
     - term: pkgmgr
-      meaning: "body of the ADR-PKGMGR code (use-proper-package-managers)"
+      meaning: "body of the ADR-AUTO-PKGMGR code (use-proper-package-managers)"
     - term: enterp
-      meaning: "body of the ADR-ENTERP code (effective-in-enterprises)"
+      meaning: "body of the ADR-AUTO-ENTERP code (effective-in-enterprises)"
     - term: sysdeps
-      meaning: "body of the ADR-SYSDEPS code (controlling-systemwide-deps)"
+      meaning: "body of the ADR-AUTO-DEPS code (controlling-systemwide-deps)"
     - term: moddeps
-      meaning: "body of the ADR-MODDEPS code (controlling-module-dependencies)"
+      meaning: "body of the ADR-AUTO-DEPM code (controlling-module-dependencies)"
     - term: envvar
-      meaning: "body of the ADR-ENVVAR code (environment-variables)"
+      meaning: "body of the ADR-AUTO-ENVVAR code (environment-variables)"
     - term: psenv
-      meaning: "body of the ADR-PSENV code (environment-variable-mechanics)"
+      meaning: "body of the ADR-AUTO-PSENV code (environment-variable-mechanics)"
     - term: modpath
-      meaning: "body of the ADR-MODPATH code (module-path-hygiene)"
+      meaning: "body of the ADR-AUTO-MODPATH code (module-path-hygiene)"
     - term: psparam
-      meaning: "body of the ADR-PSPARAM code (parameter-design)"
+      meaning: "body of the ADR-AUTO-PSPARAM code (parameter-design)"
     - term: pspwd
-      meaning: "body of the ADR-PSPWD code (working-directory-mechanics)"
+      meaning: "body of the ADR-AUTO-PSPWD code (working-directory-mechanics)"
     - term: psxplat
-      meaning: "body of the ADR-PSXPLAT code (cross-platform-powershell)"
+      meaning: "body of the ADR-AUTO-PSXPLAT code (cross-platform-powershell)"
     - term: pscache
-      meaning: "body of the ADR-PSCACHE code (script-scope-caching)"
+      meaning: "body of the ADR-AUTO-PSCACHE code (script-scope-caching)"
     - term: azsess
-      meaning: "body of the ADR-AZSESS code (az-session-verification)"
+      meaning: "body of the ADR-AZ-SESSION code (az-session-verification)"
     - term: cfgaddr
-      meaning: "body of the ADR-CFGADDR code (config-value-addressing)"
+      meaning: "body of the ADR-CONF-ADDRESSING code (config-value-addressing)"
     - term: protglob
-      meaning: "body of the ADR-PROTGLOB code (protected-globs)"
+      meaning: "body of the ADR-REPO-PROTGLOB code (protected-globs)"
     - term: rootcfg
-      meaning: "body of the ADR-ROOTCFG code (generated-root-configs)"
+      meaning: "body of the ADR-REPO-ROOTCFG code (generated-root-configs)"
     - term: uvpy
-      meaning: "body of the ADR-UVPY code (uv-python-handler)"
+      meaning: "body of the ADR-AUTO-UVPY code (uv-python-handler)"
     - term: nosemi
-      meaning: "body of the ADR-NOSEMI code (avoid-using-semicolons)"
+      meaning: "body of the ADR-AUTO-NOSEMI code (avoid-using-semicolons)"
     - term: useps
-      meaning: "body of the ADR-USEPS code (use-ps1-not-psm1)"
+      meaning: "body of the ADR-AUTO-USEPS code (use-ps1-not-psm1)"
     - term: autovar
-      meaning: "body of the ADR-AUTOVAR code (automatic-variable-pitfalls)"
+      meaning: "body of the ADR-AUTO-AUTOVAR code (automatic-variable-pitfalls)"
     - term: psformat
-      meaning: "body of the ADR-PSFORMAT code (powershell-formatting)"
+      meaning: "body of the ADR-AUTO-PSFORMAT code (powershell-formatting)"
     - term: pipedet
-      meaning: "body of the ADR-PIPEDET code (pipeline-detection)"
+      meaning: "body of the ADR-FLOW-CD-CI-DETECT code (pipeline-detection)"
     - term: pipetype
-      meaning: "body of the ADR-PIPETYPE code (pipeline-types)"
+      meaning: "body of the ADR-FLOW-CD-CI-TYPE code (pipeline-types)"
     - term: pipevar
-      meaning: "body of the ADR-PIPEVAR code (pipeline-variables)"
+      meaning: "body of the ADR-PIPE-VAR code (pipeline-variables)"
     - term: pipename
-      meaning: "body of the ADR-PIPENAME code (pipeline-naming-and-placement)"
+      meaning: "body of the ADR-PIPE-NAME code (pipeline-naming-and-placement)"
     - term: datamod
-      meaning: "body of the ADR-DATAMOD code (data-model)"
+      meaning: "body of the ADR-AZ-DATAMOD code (data-model)"
     - term: outdir
-      meaning: "body of the ADR-OUTDIR code (dedicated-output-directory)"
+      meaning: "body of the ADR-REPO-OUTDIR code (dedicated-output-directory)"
     - term: poka
       meaning: "the 'poka' of poka-yoke (prose)"
     - term: pokayoke
-      meaning: "body of the ADR-POKAYOKE code (poka-yoke)"
+      meaning: "body of the ADR-PRIN-POKAYOKE code (poka-yoke)"
     - term: THINPLAT
-      meaning: 'ADR-THINPLAT is the ADR on thinnest re-usable platforms API(CLI) abstraction'
+      meaning: 'ADR-DSGN-THINPLAT is the ADR on thinnest re-usable platforms API(CLI) abstraction'
     - term: selfserv
-      meaning: "body of the ADR-SELFSERV code (self-service)"
+      meaning: "body of the ADR-DSGN-SELFSERV code (self-service)"
     - term: doravc
-      meaning: "body of the ADR-DORAVC code (research/version-control)"
+      meaning: "body of the ADR-DORA-VCS code (research/version-control)"
     - term: dorasb
-      meaning: "body of the ADR-DORASB code (research/working-in-small-batches)"
+      meaning: "body of the ADR-DORA-SMALLBATCH code (research/working-in-small-batches)"
     - term: dorape
-      meaning: "body of the ADR-DORAPE code (research/platform-engineering)"
+      meaning: "body of the ADR-DORA-PLATFORM code (research/platform-engineering)"
     - term: doraucf
-      meaning: "body of the ADR-DORAUCF code (research/user-centric-focus)"
+      meaning: "body of the ADR-DORA-USERFOCUS code (research/user-centric-focus)"
     - term: doraaid
-      meaning: "body of the ADR-DORAAID code (research/ai-accessible-internal-data)"
+      meaning: "body of the ADR-DORA-AIDATA code (research/ai-accessible-internal-data)"
     - term: doraais
-      meaning: "body of the ADR-DORAAIS code (research/clear-and-communicated-ai-stance)"
+      meaning: "body of the ADR-DORA-AISTANCE code (research/clear-and-communicated-ai-stance)"
     - term: dorahde
-      meaning: "body of the ADR-DORAHDE code (research/healthy-data-ecosystems)"
+      meaning: "body of the ADR-DORA-DATAECO code (research/healthy-data-ecosystems)"
     - term: doracm
-      meaning: "body of the ADR-DORACM code (research/code-maintainability)"
+      meaning: "body of the ADR-DORA-MAINTAIN code (research/code-maintainability)"
     - term: doracd
-      meaning: "body of the ADR-DORACD code (research/continuous-delivery)"
+      meaning: "body of the ADR-DORA-CD code (research/continuous-delivery)"
     - term: doraci
-      meaning: "body of the ADR-DORACI code (research/continuous-integration)"
+      meaning: "body of the ADR-DORA-CI code (research/continuous-integration)"
     - term: doradcm
-      meaning: "body of the ADR-DORADCM code (research/database-change-management)"
+      meaning: "body of the ADR-DORA-DBCHANGE code (research/database-change-management)"
     - term: dorada
-      meaning: "body of the ADR-DORADA code (research/deployment-automation)"
+      meaning: "body of the ADR-DORA-DEPLOY code (research/deployment-automation)"
     - term: doradq
-      meaning: "body of the ADR-DORADQ code (research/documentation-quality)"
+      meaning: "body of the ADR-DORA-DOCS code (research/documentation-quality)"
     - term: dorafi
-      meaning: "body of the ADR-DORAFI code (research/flexible-infrastructure)"
+      meaning: "body of the ADR-DORA-FLEXINFRA code (research/flexible-infrastructure)"
     - term: doralct
-      meaning: "body of the ADR-DORALCT code (research/loosely-coupled-teams)"
+      meaning: "body of the ADR-DORA-LOOSETEAMS code (research/loosely-coupled-teams)"
     - term: doramo
-      meaning: "body of the ADR-DORAMO code (research/monitoring-and-observability)"
+      meaning: "body of the ADR-DORA-OBSERV code (research/monitoring-and-observability)"
     - term: doraps
-      meaning: "body of the ADR-DORAPS code (research/pervasive-security)"
+      meaning: "body of the ADR-DORA-SECURITY code (research/pervasive-security)"
     - term: dorasca
-      meaning: "body of the ADR-DORASCA code (research/streamlining-change-approval)"
+      meaning: "body of the ADR-DORA-APPROVAL code (research/streamlining-change-approval)"
     - term: dorata
-      meaning: "body of the ADR-DORATA code (research/test-automation)"
+      meaning: "body of the ADR-DORA-TESTAUTO code (research/test-automation)"
     - term: doratdm
-      meaning: "body of the ADR-DORATDM code (research/test-data-management)"
+      meaning: "body of the ADR-DORA-TESTDATA code (research/test-data-management)"
     - term: doratbd
-      meaning: "body of the ADR-DORATBD code (research/trunk-based-development)"
+      meaning: "body of the ADR-DORA-TRUNK code (research/trunk-based-development)"
     - term: doracf
-      meaning: "body of the ADR-DORACF code (research/customer-feedback)"
+      meaning: "body of the ADR-DORA-FEEDBACK code (research/customer-feedback)"
     - term: dorams
-      meaning: "body of the ADR-DORAMS code (research/monitoring-systems)"
+      meaning: "body of the ADR-DORA-MONITOR code (research/monitoring-systems)"
     - term: dorapfn
-      meaning: "body of the ADR-DORAPFN code (research/proactive-failure-notification)"
+      meaning: "body of the ADR-DORA-FAILALERT code (research/proactive-failure-notification)"
     - term: dorawv
-      meaning: "body of the ADR-DORAWV code (research/work-visibility-in-value-stream)"
+      meaning: "body of the ADR-DORA-WORKVIS code (research/work-visibility-in-value-stream)"
     - term: doravm
-      meaning: "body of the ADR-DORAVM code (research/visual-management)"
+      meaning: "body of the ADR-DORA-VISUAL code (research/visual-management)"
     - term: dorawip
-      meaning: "body of the ADR-DORAWIP code (research/wip-limits)"
+      meaning: "body of the ADR-DORA-WIP code (research/wip-limits)"
     - term: doraect
-      meaning: "body of the ADR-DORAECT code (research/teams-empowered-to-choose-tools)"
+      meaning: "body of the ADR-DORA-TOOLCHOICE code (research/teams-empowered-to-choose-tools)"
     - term: doragoc
-      meaning: "body of the ADR-DORAGOC code (research/generative-organizational-culture)"
+      meaning: "body of the ADR-DORA-CULTURE code (research/generative-organizational-culture)"
     - term: dorajs
-      meaning: "body of the ADR-DORAJS code (research/job-satisfaction)"
+      meaning: "body of the ADR-DORA-JOBSAT code (research/job-satisfaction)"
     - term: doralc
-      meaning: "body of the ADR-DORALC code (research/learning-culture)"
+      meaning: "body of the ADR-DORA-LEARNING code (research/learning-culture)"
     - term: dorate
-      meaning: "body of the ADR-DORATE code (research/team-experimentation)"
+      meaning: "body of the ADR-DORA-EXPERIMENT code (research/team-experimentation)"
     - term: doratl
-      meaning: "body of the ADR-DORATL code (research/transformational-leadership)"
+      meaning: "body of the ADR-DORA-LEADERSHIP code (research/transformational-leadership)"
     - term: dorawb
-      meaning: "body of the ADR-DORAWB code (research/well-being)"
+      meaning: "body of the ADR-DORA-WELLBEING code (research/well-being)"
+    - term: prin
+      meaning: "domain code PRIN — the principles ADR domain in adrs.yml (composes ADR-PRIN-<NAME>)"
+    - term: dsgn
+      meaning: "domain code DSGN — the design ADR domain in adrs.yml (composes ADR-DSGN-<NAME>)"
+    - term: sesverify
+      meaning: "body of the ADR-AZ-SESVERIFY code (az-session-verification)"
+    - term: aidata
+      meaning: "body of the ADR-DORA-AIDATA code (research/ai-accessible-internal-data)"
+    - term: aistance
+      meaning: "body of the ADR-DORA-AISTANCE code (research/clear-and-communicated-ai-stance)"
+    - term: dataeco
+      meaning: "body of the ADR-DORA-DATAECO code (research/healthy-data-ecosystems)"
+    - term: dbchange
+      meaning: "body of the ADR-DORA-DBCHANGE code (research/database-change-management)"
+    - term: failalert
+      meaning: "body of the ADR-DORA-FAILALERT code (research/proactive-failure-notification)"
+    - term: flexinfra
+      meaning: "body of the ADR-DORA-FLEXINFRA code (research/flexible-infrastructure)"
+    - term: jobsat
+      meaning: "body of the ADR-DORA-JOBSAT code (research/job-satisfaction)"
+    - term: looseteams
+      meaning: "body of the ADR-DORA-LOOSETEAMS code (research/loosely-coupled-teams)"
+    - term: observ
+      meaning: "body of the ADR-DORA-OBSERV code (research/monitoring-and-observability)"
+    - term: smallbatch
+      meaning: "body of the ADR-DORA-SMALLBATCH code (research/working-in-small-batches)"
+    - term: testauto
+      meaning: "body of the ADR-DORA-TESTAUTO code (research/test-automation)"
+    - term: testdata
+      meaning: "body of the ADR-DORA-TESTDATA code (research/test-data-management)"
+    - term: toolchoice
+      meaning: "body of the ADR-DORA-TOOLCHOICE code (research/teams-empowered-to-choose-tools)"
+    - term: userfocus
+      meaning: "body of the ADR-DORA-USERFOCUS code (research/user-centric-focus)"
+    - term: workvis
+      meaning: "body of the ADR-DORA-WORKVIS code (research/work-visibility-in-value-stream)"
   ado:
     - term: tf
       meaning: "the TF_BUILD predefined pipeline variable (Team Foundation Build), e.g. $savedTfBuild"
@@ -1032,7 +1070,7 @@ terms:
     - term: foldered
       meaning: "coined adjective 'foldered'"
     - term: globset
-      meaning: "coined noun 'globset' — a named set of glob patterns defining a deployable unit (ADR-GLOBS)"
+      meaning: "coined noun 'globset' — a named set of glob patterns defining a deployable unit (ADR-FLOW-CD-CI-GLOBS)"
     - term: globsets
       meaning: "plural of the coined noun 'globset'"
     - term: greppable
@@ -1050,7 +1088,7 @@ terms:
     - term: previewable
       meaning: "coined adjective 'previewable'"
     - term: protectable
-      meaning: "coined adjective 'protectable' - a scan the protected-glob gate may skip (ADR-PROTGLOB)"
+      meaning: "coined adjective 'protectable' - a scan the protected-glob gate may skip (ADR-REPO-PROTGLOB)"
     - term: stringly
       meaning: "'stringly-typed' (stringly)"
     - term: suppressable

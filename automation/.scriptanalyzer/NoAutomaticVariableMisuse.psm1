@@ -27,7 +27,7 @@ function Measure-NoAutomaticVariableMisuse {
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoAutomaticVariableMisuse'
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-PSFORMAT:6).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
     $isQuestionMarkVariable = {
         param($node)
         $node -is [System.Management.Automation.Language.VariableExpressionAst] -and

@@ -24,7 +24,7 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 ## ADRs
 
 Architecture Decision Records live under `docs/adr/`, grouped into `principles/`, `design/`, `automation/`, `pipelines/`, `azure/`, and
-`repository/`. See `docs/adr/index.md` for the index, the rule-citation codes (e.g. `ADR-ERROR#3`), and the **authoring conventions**.
+`repository/`. See `docs/adr/index.md` for the index, the rule-citation codes (e.g. `ADR-AUTO-ERROR#3`), and the **authoring conventions**.
 **Read all ADRs at the start of every session** — they define the design principles behind this codebase and must be followed when writing
 or reviewing code.
 
@@ -51,7 +51,7 @@ or reviewing code.
   Use placeholders and describe patterns, not instances.
 - **No mutating git operations**: Never run git add, commit, push, reset, checkout, rebase, merge, or other state-changing git commands
   unless the user explicitly asks. Read-only commands (status, log, diff, blame) are fine.
-- **One living version — never back-compat or legacy** (`ADR-ONELIVE`, [one-living-version](../docs/adr/principles/one-living-version.md)):
+- **One living version — never back-compat or legacy** (`ADR-PRIN-ONELIVE`, [one-living-version](../docs/adr/principles/one-living-version.md)):
   the repo carries exactly one version of every behaviour. Never add backwards-compatibility shims, deprecated-alias fields, or migration
   fallbacks (e.g. when changing `azure.yml`, the data model, `options.yml`, or the `Get-Azure*`/`Get-Bicep*` resolvers); change the contract
   and every in-tree caller in the same change, and delete the old shape. No legacy/dead code parked in the tree, no versioned variants

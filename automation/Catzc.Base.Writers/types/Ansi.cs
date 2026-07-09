@@ -2,7 +2,7 @@
 // color. Write-InformationColored (the writer chokepoint) resolves a colour's escape here instead of an
 // inline switch, and RainbowColor builds its per-character gradient from the same table — so the mapping
 // lives once. Codes are the normal/bright SGR foregrounds matching the 16 [System.ConsoleColor] values.
-// See docs/adr/automation/powershell/console-output-matters.md (ADR-CONSOLE:7).
+// See docs/adr/automation/powershell/console-output-matters.md (ADR-AUTO-CONSOLE:7).
 
 using System;
 

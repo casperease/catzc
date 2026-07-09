@@ -124,10 +124,10 @@ The "why" and "how" behind the PowerShell automation layer.
 
 How Azure DevOps pipelines interact with the automation layer.
 
-- [Pipeline runner pattern](adr/pipelines/pipeline-runner-pattern.md) — all pipeline steps invoke PowerShell through a single runner
+- [Pipeline runner pattern](adr/flow/pipeline-runner-pattern.md) — all pipeline steps invoke PowerShell through a single runner
 - [Custom template discipline](adr/pipelines/custom-template-discipline.md) — when and how to use ADO templates
 - [Pipeline variables](adr/pipelines/pipeline-variables.md) — setting ADO output variables from PowerShell
-- [Pipeline detection](adr/pipelines/pipeline-detection.md) — how functions adapt to pipeline vs. local context
+- [Pipeline detection](adr/flow/pipeline-detection.md) — how functions adapt to pipeline vs. local context
 - [Dual authentication](adr/pipelines/dual-authentication.md) — pipeline system token vs. local Az token
 
 ## Terminology

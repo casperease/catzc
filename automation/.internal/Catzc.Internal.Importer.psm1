@@ -30,7 +30,7 @@
     Opt OUT of the default dev-box auto-commit of the importer-maintained generated files
     (automation/.compiled/) via Sync-GeneratedFile — never in a pipeline (double-guarded: the call site
     skips under Test-IsRunningInPipeline and the function self-skips again), and skipped on main/master
-    when the git_workspace variant is 'main-via-pr' (ADR-VARIANT:6). Also ignored under -SkipJanitors.
+    when the git_workspace variant is 'main-via-pr' (ADR-REPO-VARIANT:6). Also ignored under -SkipJanitors.
 .PARAMETER CleanClone
     Opt IN to a whitelisted deep clean as the janitor run's first step: Reset-GitCleanFxd deletes only
     the auto-controlled generated artifacts a `git clean -fxd` would remove (managed root configs,

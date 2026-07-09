@@ -49,7 +49,7 @@ up.
 ## Using it in CI/CD
 
 Pipeline steps invoke automation through the runner, never inline PowerShell (see
-[pipeline-runner-pattern](../../../adr/pipelines/pipeline-runner-pattern.md)):
+[pipeline-runner-pattern](../../../adr/flow/pipeline-runner-pattern.md)):
 
 ```yaml
 steps:

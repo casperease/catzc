@@ -28,13 +28,13 @@ function Remove-NodeJs {
 
     $config = Get-ToolConfig -Tool 'node_js'
 
-    # Gate: managed by our tooling system → refuse, redirect to Uninstall-NodeJs (ADR-REMOVE:3).
+    # Gate: managed by our tooling system → refuse, redirect to Uninstall-NodeJs (ADR-AUTO-REMOVE:3).
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Node.js is managed by the tooling system. Use Uninstall-NodeJs instead.'
     }
 
     # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip
-    # / stray binary); elevation is scoped to the mechanism (ADR-REMOVE:6), so no admin assert here.
+    # / stray binary); elevation is scoped to the mechanism (ADR-AUTO-REMOVE:6), so no admin assert here.
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Node.js (native package / uv-Python pip / stray binary). Run with -Force to execute.'

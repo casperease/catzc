@@ -1,15 +1,15 @@
 # ADR: Prefer an explicit `-DryRun` switch over the ShouldProcess subsystem
 
-## Rules: ADR-DRYRUN
+## Rules: ADR-AUTO-DRYRUN
 
-### Rule ADR-DRYRUN:1
+### Rule ADR-AUTO-DRYRUN:1
 
 Add a `[switch] $DryRun` parameter to any function that performs a side effect (deploy, install, delete, tag, CLI invocation).
 
 - [What we use instead](#what-we-use-instead)
 - [The idiom](#the-idiom)
 
-### Rule ADR-DRYRUN:2
+### Rule ADR-AUTO-DRYRUN:2
 
 Branch before the side effect: the dry-run path returns the planned action (command string, resolved target) and mutates nothing. The result
 must be observable by return value or captured stream, never only host narration.
@@ -17,14 +17,14 @@ must be observable by return value or captured stream, never only host narration
 - [The idiom](#the-idiom)
 - [Why ShouldProcess is the wrong tool here](#why-shouldprocess-is-the-wrong-tool-here)
 
-### Rule ADR-DRYRUN:3
+### Rule ADR-AUTO-DRYRUN:3
 
 Propagate `-DryRun:$DryRun` explicitly down the call chain. No preference variables, no implicit inheritance — pass the flag like any other
 argument.
 
 - [What we use instead](#what-we-use-instead)
 
-### Rule ADR-DRYRUN:4
+### Rule ADR-AUTO-DRYRUN:4
 
 Do not reach for `-Confirm`. A genuinely destructive operation makes itself safe by idempotent design (a no-op when there is nothing to
 remove), not by the Confirm subsystem.
@@ -32,7 +32,7 @@ remove), not by the Confirm subsystem.
 - [Decision](#decision)
 - [What we use instead](#what-we-use-instead)
 
-### Rule ADR-DRYRUN:5
+### Rule ADR-AUTO-DRYRUN:5
 
 Suppress `PSUseShouldProcessForStateChangingFunctions` with a justification referencing this ADR wherever the analyzer nags, since it pushes
 the pattern we reject.

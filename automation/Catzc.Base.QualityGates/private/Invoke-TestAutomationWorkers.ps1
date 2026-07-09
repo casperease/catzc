@@ -138,7 +138,7 @@ function Invoke-TestAutomationWorkers {
     $WorkerEnvironment['CATZC_TEST_RUN_LOCK_HELD'] = '1'
 
     # Announce before the pool blocks: each worker pays its own importer + Pester load before the first
-    # Pester line streams, so silence here would read as a hang (ADR-CONSOLE:10).
+    # Pester line streams, so silence here would read as a hang (ADR-AUTO-CONSOLE:10).
     Write-Message "Running $($ParallelFiles.Count) test file(s) across $($shards.Count) parallel worker(s)$(if ($greedyShards.Count) { ", then $($GreedyFiles.Count) greedy file(s) pooled" })$(if ($serialShard) { ", then $($SerialFiles.Count) serial-tagged file(s)" })..." -NoHeader
 
     $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()

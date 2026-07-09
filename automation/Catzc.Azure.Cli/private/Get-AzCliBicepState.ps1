@@ -21,7 +21,7 @@ function Get-AzCliBicepState {
     $minVersion = Get-AzureBicepMinVersion
 
     # -Silent: a plumbing probe whose output we capture via -PassThru and parse below, so the
-    # "Bicep CLI version X" line should not echo to the console on every build. See log ADR rule ADR-PRELOG:5.
+    # "Bicep CLI version X" line should not echo to the console on every build. See log ADR rule ADR-AUTO-PRELOG:5.
     $result = Invoke-AzCli 'bicep version' -PassThru -NoAssert -Silent
     if ($result.ExitCode -ne 0) {
         return [Catzc.Azure.Cli.BicepState]::new($false, $null, $minVersion, $false)

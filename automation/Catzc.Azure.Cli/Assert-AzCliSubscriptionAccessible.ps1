@@ -11,7 +11,7 @@
     The check is a real, read-only ARM call (see Get-AzCliSubscriptionAccessState), so a pass proves
     the later call will actually reach ARM, not merely that the subscription is in the local profile.
     The generic, azure.yml-free primitive. Both Assert/Test share Get-AzCliSubscriptionAccessState.
-    See docs/adr/automation/powershell/prefer-az-cli.md#rule-adr-azcli1 and
+    See docs/adr/automation/powershell/prefer-az-cli.md#rule-adr-auto-azcli1 and
     docs/adr/automation/fail-fast-with-asserts.md.
 .PARAMETER SubscriptionId
     The subscription GUID the current login must be able to reach.

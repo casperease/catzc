@@ -16,7 +16,7 @@
     its source is a no-op, and a stale artifact (the old generated copy, a wrong or orphaned link) is
     recreated with the running OS's best mechanism.
 
-    See docs/adr/repository/generated-readmes.md and docs/adr/automation/module-config-loading.md.
+    See docs/adr/repository/generated-readmes.md and docs/adr/configuration/module-config-loading.md.
 .PARAMETER Folder
     Materialise only the mapping whose target folder equals this repo-relative path (e.g.
     'automation/Catzc.Azure.DevOps'). Throws when it matches no mapping. Default: every mapping.

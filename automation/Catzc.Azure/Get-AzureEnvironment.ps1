@@ -7,7 +7,7 @@
     (via Get-AzureSubscription). The subscription is named directly — the deploy path resolves it from
     the az session and passes it in — so it is an explicit input here. Asserts the subscription actually
     serves the environment. The embedded subscription's optional `customer` is what renders into resource
-    names. See docs/adr/azure/azure-data-model.md#rule-adr-datamod4.
+    names. See docs/adr/azure/azure-data-model.md#rule-adr-az-datamod4.
 .PARAMETER Environment
     Environment name. Must be a key in azure.yml's `environments` map.
 .PARAMETER Subscription

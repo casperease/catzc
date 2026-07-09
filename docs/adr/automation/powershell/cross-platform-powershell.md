@@ -1,37 +1,37 @@
 # ADR: Cross-platform PowerShell — the language layer over cross-platform
 
-## Rules: ADR-PSXPLAT
+## Rules: ADR-AUTO-PSXPLAT
 
-### Rule ADR-PSXPLAT:1
+### Rule ADR-AUTO-PSXPLAT:1
 
-PowerShell code meets [cross-platform](../cross-platform.md) (`ADR-XPLAT`) through the rules below, gated mechanically: PSScriptAnalyzer's
-compatibility rules validate cmdlets and .NET types against the target-platform profiles at analysis time, before the code ever runs on the
-other OS.
+PowerShell code meets [cross-platform](../cross-platform.md) (`ADR-AUTO-XPLAT`) through the rules below, gated mechanically:
+PSScriptAnalyzer's compatibility rules validate cmdlets and .NET types against the target-platform profiles at analysis time, before the
+code ever runs on the other OS.
 
 - [How the analyzer catches platform breaks](#how-the-analyzer-catches-platform-breaks)
 
-### Rule ADR-PSXPLAT:2
+### Rule ADR-AUTO-PSXPLAT:2
 
 Use `Join-Path` for all path construction; never concatenate strings with `/` or `\`. It uses the correct separator for the current
 platform.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-PSXPLAT:3
+### Rule ADR-AUTO-PSXPLAT:3
 
 Never use platform-specific cmdlets (`Get-Service`, `Get-WmiObject`, …) without a cross-platform alternative. If platform-specific behavior
 is unavoidable, gate it with `$IsWindows` / `$IsLinux` and implement both.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-PSXPLAT:4
+### Rule ADR-AUTO-PSXPLAT:4
 
 Never shell out to platform-specific binaries (`cmd /c`, `/bin/sh -c`). Use PowerShell native operations or the `Invoke-Executable` wrapper
 with tools that exist on both platforms.
 
 - [What breaks the other way](#what-breaks-the-other-way)
 
-### Rule ADR-PSXPLAT:5
+### Rule ADR-AUTO-PSXPLAT:5
 
 Gate unavoidable platform-specific logic with the built-in `$IsWindows` / `$IsLinux` automatic variables, and always provide both branches.
 
@@ -58,7 +58,7 @@ them before push.
 | Case-insensitive file lookups                          | Unix filesystems are case-sensitive   |
 
 The culture axis — a locale-dependent `ToString` producing different output on a da-DK devbox than an invariant CI agent — is a doctrine
-rule, not a language one: see [cross-platform](../cross-platform.md#rule-adr-xplat6).
+rule, not a language one: see [cross-platform](../cross-platform.md#rule-adr-auto-xplat6).
 
 ### What breaks the other way
 

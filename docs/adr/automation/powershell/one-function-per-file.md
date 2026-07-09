@@ -1,8 +1,8 @@
 # ADR: One function per file
 
-## Rules: ADR-ONEFUNC
+## Rules: ADR-AUTO-ONEFUNC
 
-### Rule ADR-ONEFUNC:1
+### Rule ADR-AUTO-ONEFUNC:1
 
 Each `.ps1` file contains exactly one exported function, and the file name matches the function name (`Get-Foo.ps1` must contain
 `function Get-Foo`).
@@ -10,7 +10,7 @@ Each `.ps1` file contains exactly one exported function, and the file name match
 - [Decision](#decision)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-ONEFUNC:2
+### Rule ADR-AUTO-ONEFUNC:2
 
 Each function file pairs one-to-one with a test file named `Verb-Noun.Tests.ps1` (`Get-Foo.ps1` → `tests/Get-Foo.Tests.ps1`).
 

@@ -16,7 +16,7 @@ using System.Text;
 /// (the domain vocabulary and the conventional-abbreviation allow-list, from terminology.yml). Both the load
 /// and the per-fragment lookup are here in C# rather than PowerShell on purpose: a PowerShell method call
 /// costs ~10 microseconds, so tokenizing and looking up thousands of fragments per file in PowerShell would
-/// dominate the analyzer's runtime, whereas the same work in C# is microseconds (ADR-TYPES:9 — a concept the
+/// dominate the analyzer's runtime, whereas the same work in C# is microseconds (ADR-AUTO-TYPES:9 — a concept the
 /// platform's own logic operates on becomes a native type).
 ///
 /// The rule decides WHICH identifiers to feed and applies AST-level exemptions (automatic variables, drive
@@ -25,7 +25,7 @@ using System.Text;
 public static class SpellingOracle
 {
     // Fragments shorter than this are never flagged: single letters are loop indices / type variables
-    // (ADR-SPELL:2), which the ADR exempts.
+    // (ADR-AUTO-SPELL:2), which the ADR exempts.
     public const int MinFragmentLength = 2;
 
     private static readonly object Gate = new object();
@@ -39,7 +39,7 @@ public static class SpellingOracle
     /// <summary>
     /// Load the oracle once: the gzip-compressed English list plus every plain-text term list. Idempotent — a
     /// second call is a no-op, so each analyzer shard pays the load once. Fixture terms are kept SEPARATE
-    /// (ADR-SPELL:6): they are accepted only when CoinedFragments is called with includeFixtures — i.e. for a test
+    /// (ADR-AUTO-SPELL:6): they are accepted only when CoinedFragments is called with includeFixtures — i.e. for a test
     /// file — so a fixture token cannot bless a real identifier in production code. Term-list lines starting
     /// with '#' (the generated-file header) and blank lines are skipped; every other token is added lower-cased.
     /// </summary>
@@ -114,7 +114,7 @@ public static class SpellingOracle
     /// the dictionary — the invented abbreviations to spell out. Returns an empty array for a fully
     /// spelled-out identifier. Fixture terms count as known only when <paramref name="includeFixtures"/> is set
     /// (the caller passes true only for a test file), so a fixture token never blesses a production identifier
-    /// (ADR-SPELL:6).
+    /// (ADR-AUTO-SPELL:6).
     /// </summary>
     public static string[] CoinedFragments(string identifier, bool includeFixtures)
     {
@@ -144,7 +144,7 @@ public static class SpellingOracle
         return coined.ToArray();
     }
 
-    /// <summary>Production-scope overload: fixture terms are not accepted (ADR-SPELL:6).</summary>
+    /// <summary>Production-scope overload: fixture terms are not accepted (ADR-AUTO-SPELL:6).</summary>
     public static string[] CoinedFragments(string identifier)
     {
         return CoinedFragments(identifier, false);

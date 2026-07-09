@@ -30,7 +30,7 @@ function Test-FunctionDependency {
     )
 
     # Parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/call provider
-    # overhead, ADR-TEST:18); the definition map and the call-resolution walk reuse these ASTs, so each file is read
+    # overhead, ADR-AUTO-TEST:18); the definition map and the call-resolution walk reuse these ASTs, so each file is read
     # and parsed a single time (it was twice before).
     $isFunction = { param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] }
     $parsed = [System.Collections.Generic.List[object]]::new()

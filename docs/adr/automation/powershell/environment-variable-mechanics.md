@@ -1,29 +1,29 @@
 # ADR: Environment-variable mechanics — the PowerShell layer over environment-variables
 
-## Rules: ADR-PSENV
+## Rules: ADR-AUTO-PSENV
 
-### Rule ADR-PSENV:1
+### Rule ADR-AUTO-PSENV:1
 
-PowerShell code applies the boundary doctrine of [environment-variables](../environment-variables.md) (`ADR-ENVVAR`) with the language
+PowerShell code applies the boundary doctrine of [environment-variables](../environment-variables.md) (`ADR-AUTO-ENVVAR`) with the language
 mechanics below: `$env:` is the boundary-only channel, and everything internal flows through PowerShell's own scoping.
 
 - [The internal-state mechanisms](#the-internal-state-mechanisms)
 
-### Rule ADR-PSENV:2
+### Rule ADR-AUTO-PSENV:2
 
 Internal state uses the language's scoped mechanisms — function parameters, return values, `$local:` locals, and module-scoped `$script:`
 state — never `$env:`. Each is destroyed or scoped automatically; `$env:` persists for the process lifetime with no scoped cleanup.
 
 - [The internal-state mechanisms](#the-internal-state-mechanisms)
 
-### Rule ADR-PSENV:3
+### Rule ADR-AUTO-PSENV:3
 
 Runspaces share one process environment block. Never read or write `$env:` inside `ForEach-Object -Parallel` or a runspace worker to
 coordinate work — concurrent access races. Pass values in with `$using:` and aggregate through pipeline output or a thread-safe collection.
 
 - [Runspaces share one environment block](#runspaces-share-one-environment-block)
 
-### Rule ADR-PSENV:4
+### Rule ADR-AUTO-PSENV:4
 
 Pester provides no `$env:` isolation. A test that must set an environment variable snapshots and restores it (`try`/`finally`, or
 `BeforeAll`/`AfterAll`), and never leaves a value behind for the next test — leaked `$env:` state creates order-dependent failures.
@@ -80,10 +80,10 @@ touch.
 
 ### How this is enforced
 
-- **The doctrine layer** — which `$env:` uses are legitimate at all is [environment-variables](../environment-variables.md) (`ADR-ENVVAR`);
-  this ADR only fixes the language mechanics.
-- **Code review** — a `$env:` read or write that is not an external-boundary use per `ADR-ENVVAR`, a `-Parallel` block touching `$env:`, or
-  a test that sets `$env:` without restoring it is rejected against this ADR.
+- **The doctrine layer** — which `$env:` uses are legitimate at all is [environment-variables](../environment-variables.md)
+  (`ADR-AUTO-ENVVAR`); this ADR only fixes the language mechanics.
+- **Code review** — a `$env:` read or write that is not an external-boundary use per `ADR-AUTO-ENVVAR`, a `-Parallel` block touching
+  `$env:`, or a test that sets `$env:` without restoring it is rejected against this ADR.
 
 ## Consequences
 

@@ -1,43 +1,43 @@
 # ADR: Single-responsibility functions
 
-## Rules: ADR-ONEJOB
+## Rules: ADR-AUTO-ONEJOB
 
-### Rule ADR-ONEJOB:1
+### Rule ADR-AUTO-ONEJOB:1
 
 Assert, don't fix. If a function needs a prerequisite, assert it with `Assert-Tool` (or `Assert-Command`); never silently install,
 configure, or repair prerequisites. Assertions are guard clauses, part of the contract.
 
 - [Patterns that violate single responsibility](#patterns-that-violate-single-responsibility)
 
-### Rule ADR-ONEJOB:2
+### Rule ADR-AUTO-ONEJOB:2
 
 The function name is the contract. `Get-Config` must not modify state; `Invoke-Poetry` must not install Poetry. If the name does not cover
 what the function does, rename it or remove the behavior.
 
 - [Composition is not the same as mixing concerns](#composition-is-not-the-same-as-mixing-concerns)
 
-### Rule ADR-ONEJOB:3
+### Rule ADR-AUTO-ONEJOB:3
 
 Orchestration functions are explicit: higher-level functions that chain a sequence are fine when the name and purpose make the composition
 obvious (`Install-DevBoxTools`, `Publish-Module`).
 
 - [Composition is not the same as mixing concerns](#composition-is-not-the-same-as-mixing-concerns)
 
-### Rule ADR-ONEJOB:4
+### Rule ADR-AUTO-ONEJOB:4
 
 Hidden bundling is the anti-pattern — not composition itself, but composition that surprises the caller. If the caller must read the
 implementation to learn what the function does, it is doing too much for its name.
 
 - [Composition is not the same as mixing concerns](#composition-is-not-the-same-as-mixing-concerns)
 
-### Rule ADR-ONEJOB:5
+### Rule ADR-AUTO-ONEJOB:5
 
 Error handling is the caller's job. Functions throw on failure; whether to retry, log, or continue is the caller's decision. Functions do
 not catch-and-retry/log/continue unless error handling is their single stated purpose.
 
 - [Patterns that violate single responsibility](#patterns-that-violate-single-responsibility)
 
-### Rule ADR-ONEJOB:6
+### Rule ADR-AUTO-ONEJOB:6
 
 State changes are explicit. Functions do not mutate ambient global state — error preferences, the working directory, environment variables —
 as a side effect; a temporary change is restored in a `finally` block.

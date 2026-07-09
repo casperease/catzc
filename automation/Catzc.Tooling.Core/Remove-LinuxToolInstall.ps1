@@ -5,7 +5,7 @@
 .DESCRIPTION
     Given a tool's tools.yml config, removes an install that did NOT come from the tool's configured manager
     — the shadow that would otherwise take precedence over the managed build — by the mechanism that placed
-    it (docs/adr/automation/tool-removal-lifecycle.md, ADR-REMOVE:7). In precedence order:
+    it (docs/adr/automation/tool-removal-lifecycle.md, ADR-AUTO-REMOVE:7). In precedence order:
 
       1. an apt-owned binary   -> sudo apt-get remove -y <owning package>   (the one step that needs root)
       2. a uv-managed-Python package -> uv pip uninstall --system <name>    (user-space, uv-scoped)
@@ -14,7 +14,7 @@
     The apt owner is resolved by 'dpkg -S <path>' (which package owns the resolved binary), so an apt
     'azure-cli' is caught even though az_cli's configured manager is uv — detection does not rely on the
     config naming an apt_package. Only the apt path asserts root; the uv-pip and stray-binary paths are
-    user-space (ADR-REMOVE:6).
+    user-space (ADR-AUTO-REMOVE:6).
 
     This is invoked from the Linux branch of a Remove-<Tool>, which owns the -Force dry-run gate and the
     managed-install refusal (Test-ExpectedPackageManager) — so this core is only ever reached for an

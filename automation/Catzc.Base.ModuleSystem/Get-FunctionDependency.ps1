@@ -20,10 +20,10 @@ function Get-FunctionDependency {
     )
 
     # Filesystem-derived information — cached for the session, lazily on first use, keyed on the resolved automation
-    # root (ADR-CACHE:2/ADR-CACHE:4). The expensive AST walk runs once and Get-ModuleDependency / Get-AutomationFunctions
+    # root (ADR-AUTO-CACHE:2/ADR-AUTO-CACHE:4). The expensive AST walk runs once and Get-ModuleDependency / Get-AutomationFunctions
     # / Get-FunctionDependencyTree (and the integrity tests) all reuse it. Re-running the importer resets the
-    # $script: state — the only invalidation (ADR-CACHE:6). A fixture root passed by a test gets its own entry, so it
-    # cannot collide with the real tree (ADR-TEST:4). Callers treat the result as read-only (ADR-CACHE:5).
+    # $script: state — the only invalidation (ADR-AUTO-CACHE:6). A fixture root passed by a test gets its own entry, so it
+    # cannot collide with the real tree (ADR-AUTO-TEST:4). Callers treat the result as read-only (ADR-AUTO-CACHE:5).
     if (-not $script:functionDependencyCache) {
         $script:functionDependencyCache = @{}
     }
@@ -32,7 +32,7 @@ function Get-FunctionDependency {
     }
 
     # Enumerate + parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/
-    # call provider overhead, ADR-TEST:18), capturing each file's top-level functions. Both the definition map and
+    # call provider overhead, ADR-AUTO-TEST:18), capturing each file's top-level functions. Both the definition map and
     # the call walk reuse these ASTs, so a file is read and parsed a single time (it was twice before).
     $isFunction = { param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] }
     $parsed = [System.Collections.Generic.List[object]]::new()

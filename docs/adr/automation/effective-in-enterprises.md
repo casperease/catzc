@@ -1,15 +1,15 @@
 # ADR: Effective in enterprise environments
 
-## Rules: ADR-ENTERP
+## Rules: ADR-AUTO-ENTERP
 
-### Rule ADR-ENTERP:3
+### Rule ADR-AUTO-ENTERP:3
 
 Never call the PowerShell Gallery at runtime. `Install-Module` and `Find-Module` need network and gallery availability; all module
 dependencies are vendored.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-ENTERP:4
+### Rule ADR-AUTO-ENTERP:4
 
 Assume no local admin. Tool installers use `winget` (per-user), `brew`, or `apt-get`, and functions must not require elevation unless
 explicitly documented.
@@ -32,7 +32,7 @@ Enterprise environments impose constraints that developer-oriented tooling rarel
 
 - **Locked-down, network-polluted module paths.** Group Policy or login scripts may add network shares to the module search path, which the
   engine then scans on every lookup. How the module path is kept local and deterministic is the language layer,
-  [module-path-hygiene](powershell/module-path-hygiene.md) (`ADR-MODPATH`).
+  [module-path-hygiene](powershell/module-path-hygiene.md) (`ADR-AUTO-MODPATH`).
 
 - **Proxy and firewall.** Gallery access (`Install-Module`, `Find-Module`) may be blocked or require proxy configuration. Operations that
   need the network at runtime are unreliable.
@@ -69,7 +69,7 @@ repository working copy and `automation/.vendor/`. (The C# in the `types/` folde
 
 We vendor every dependency and assume nothing about the machine: no gallery or network access at runtime, no elevation, no dependence on the
 user profile. The PowerShell module-path mechanics that make the vendored copies win — and the one-time fix for a network user path — are
-the language layer, [module-path-hygiene](powershell/module-path-hygiene.md) (`ADR-MODPATH`).
+the language layer, [module-path-hygiene](powershell/module-path-hygiene.md) (`ADR-AUTO-MODPATH`).
 
 ### How this is enforced
 

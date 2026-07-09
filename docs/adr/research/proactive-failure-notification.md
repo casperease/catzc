@@ -1,36 +1,36 @@
 # ADR: DORA — Proactive failure notification
 
-## Rules: ADR-DORAPFN
+## Rules: ADR-DORA-FAILALERT
 
-### Rule ADR-DORAPFN:1
+### Rule ADR-DORA-FAILALERT:1
 
 Generate a notification when a monitored value approaches a known failure threshold — not only after the system has already failed or after
 a customer has already reported it.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAPFN:2
+### Rule ADR-DORA-FAILALERT:2
 
 Choose thresholds that predict impact, not thresholds that merely exist to be measured — identify the value level that begins to cause
 user-facing impact, then trigger the alert some percentage before that value is reached, so there is room to act before harm occurs.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAPFN:3
+### Rule ADR-DORA-FAILALERT:3
 
 Automate the response to any notification whose action is always the same or requires no action at all; reserve a notification that
 interrupts a person for a condition that genuinely needs a person's judgment.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAPFN:4
+### Rule ADR-DORA-FAILALERT:4
 
 Treat every post-incident review as a search for the leading indicator that could have predicted the incident, and add an alert for that
 indicator when none exists yet.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORAPFN:5
+### Rule ADR-DORA-FAILALERT:5
 
 Guard against alert fatigue deliberately — exposing people to a large number of alarms desensitizes them to alarms, producing longer
 response times or missed alarms, so an alert that does not predict actionable impact is a liability, not a safety margin.
@@ -41,8 +41,9 @@ response times or missed alarms, so an alert that does not predict actionable im
 
 Proactive failure notification is the practice of generating a notification when a monitored value approaches a known failure threshold,
 rather than waiting for the system to fail outright or for a customer to notice and report it first. It is the alerting layer built on top
-of monitoring and observability ([ADR-DORAMO](monitoring-and-observability.md)): the signals that monitoring collects only become proactive
-once they are turned into a notification that fires before impact, not left as a number on a dashboard someone might happen to see.
+of monitoring and observability ([ADR-DORA-OBSERV](monitoring-and-observability.md)): the signals that monitoring collects only become
+proactive once they are turned into a notification that fires before impact, not left as a number on a dashboard someone might happen to
+see.
 
 DORA's research establishes proactive monitoring as a significant predictor of software delivery performance.[^1] The distinguishing factor
 is who finds out first. An organization whose own alerting notices a degrading value before it fails can diagnose and solve the problem
@@ -78,12 +79,12 @@ staying frozen at whatever was anticipated when it was first built.
 
 This platform's alerting rules live in the retry policy: a retry is permitted only for a genuinely transient, external, idempotent failure,
 and every retry is logged as a warning rather than allowed to pass silently
-([ADR-RETRY](../automation/retry-as-last-resort.md#rule-adr-retry5)). That warning is the proactive notification — it fires while the
-operation is still succeeding, before the retries are exhausted and the call fails outright, so a degrading dependency leaves a breadcrumb
-ahead of the failure it predicts. The retry itself is the automated response DORA asks for when a notification's action is always the same —
-retry the one idempotent call — and the warning is what a person reviewing the log sees if the same dependency keeps degrading across runs.
-Console output reserves yellow strictly for conditions that need attention
-([ADR-CONSOLE](../automation/powershell/console-output-matters.md#rule-adr-console7)), so that reserved channel keeps working as a
+([ADR-AUTO-RETRY](../automation/retry-as-last-resort.md#rule-adr-auto-retry5)). That warning is the proactive notification — it fires while
+the operation is still succeeding, before the retries are exhausted and the call fails outright, so a degrading dependency leaves a
+breadcrumb ahead of the failure it predicts. The retry itself is the automated response DORA asks for when a notification's action is always
+the same — retry the one idempotent call — and the warning is what a person reviewing the log sees if the same dependency keeps degrading
+across runs. Console output reserves yellow strictly for conditions that need attention
+([ADR-AUTO-CONSOLE](../automation/powershell/console-output-matters.md#rule-adr-auto-console7)), so that reserved channel keeps working as a
 notification signal instead of being drowned out by decorative color used for everything else.
 
 ## Common pitfalls

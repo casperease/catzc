@@ -1,8 +1,8 @@
 # ADR: Lean — the Toyota Production System, mapped to software by the Poppendiecks
 
-## Rules: ADR-LEAN
+## Rules: ADR-PROC-LEAN
 
-### Rule ADR-LEAN:1
+### Rule ADR-PROC-LEAN:1
 
 Lean is here the Toyota Production System applied to software delivery: its two pillars are just-in-time flow (make value move without
 waiting) and jidoka (build quality in, stop the line on a defect). Its goal is the fastest _sustainable_ flow from concept to cash with
@@ -10,7 +10,7 @@ quality built in, never inspected in.
 
 - [Decision](#decision)
 
-### Rule ADR-LEAN:2
+### Rule ADR-PROC-LEAN:2
 
 The seven Poppendieck principles are authoritative here — eliminate waste, build quality in, create knowledge, defer commitment, deliver
 fast, respect people, and optimise the whole — and each is realised by concrete rules elsewhere in this repository rather than left as
@@ -18,36 +18,36 @@ slogans.
 
 - [The seven principles](#the-seven-principles)
 
-### Rule ADR-LEAN:3
+### Rule ADR-PROC-LEAN:3
 
 Lean is quantitative, not merely cultural: Little's Law makes flow time a function of work-in-progress and throughput, and cost of delay
 makes queue time money. The platform manages batch size and work-in-progress on that basis, not by intuition
-([ADR-QUEUECOST](queues-cost-money.md)).
+([ADR-PROC-QUEUECOST](queues-cost-money.md)).
 
 - [The two laws](#the-two-laws)
 
-### Rule ADR-LEAN:4
+### Rule ADR-PROC-LEAN:4
 
 Machine time is cheap and falls on a Moore's-law cadence while human attention is the scarce constraint, so the platform spends compute
 freely — parallel gates, eager caches, ephemeral environments — to drain the human queue. A minute of CPU is cheaper than a minute of a
-person blocked ([ADR-QUEUECOST](queues-cost-money.md)).
+person blocked ([ADR-PROC-QUEUECOST](queues-cost-money.md)).
 
 - [The two laws](#the-two-laws)
 
-### Rule ADR-LEAN:5
+### Rule ADR-PROC-LEAN:5
 
-Lean and agile ([ADR-AGILE](agile.md)) describe the same responsiveness from two directions — flow of value and response to change — and
-reinforce rather than compete; where a lean rule and an agile principle meet, they say the same thing in different words.
+Lean and agile ([ADR-PROC-AGILE](agile.md)) describe the same responsiveness from two directions — flow of value and response to change —
+and reinforce rather than compete; where a lean rule and an agile principle meet, they say the same thing in different words.
 
 - [Why](#why)
 
 ## Context
 
-Agile ([ADR-AGILE](agile.md)) fixes _what responsiveness is_ and measures it by the cost of change. Lean supplies the other half: a
+Agile ([ADR-PROC-AGILE](agile.md)) fixes _what responsiveness is_ and measures it by the cost of change. Lean supplies the other half: a
 mechanical account of _how work flows_ and _where it stalls_. The two grew up together — the Agile Manifesto's authors drew directly on lean
 manufacturing — but they answer different questions, and this repository needs both. Where the agile articles define the values and
 principles, the lean articles define the flow discipline the pipeline and promotion rules specialise. Both draw on one shared vocabulary —
-constraint, throughput, lead time, work-in-progress — fixed once in [ADR-LEANTERMS](process-terms.md).
+constraint, throughput, lead time, work-in-progress — fixed once in [ADR-PROC-LEANTERMS](process-terms.md).
 
 "Lean" is as overloaded as "agile": it names Toyota's production system, a startup methodology, a family of consultancies, and a
 cost-cutting euphemism. This article fixes the one meaning that grounds decisions here — Taiichi Ohno's Toyota Production System [^1] as
@@ -64,9 +64,9 @@ Adopt lean as defined by the Toyota Production System's two pillars and the Popp
   then does production resume. Quality is a property of the process, not a phase bolted on at the end.
 
 These two pillars specialise, for CI/CD, into the six companion articles below. Everything lean-flavoured in this repository is one of them,
-and each is anchored to concrete rules — the seven wastes ([ADR-NOWASTE](../principles/reduce-waste.md)), fail-fast jidoka
-([ADR-POKAYOKE](../principles/poka-yoke.md)), the promotion flow ([ADR-FLOW](../design/ci-discipline-and-promotion-flow.md)) — so lean here
-is enacted, not merely admired.
+and each is anchored to concrete rules — the seven wastes ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md)), fail-fast jidoka
+([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)), the promotion flow ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) — so
+lean here is enacted, not merely admired.
 
 ## The seven principles
 
@@ -74,22 +74,23 @@ The Poppendiecks map the Toyota Production System to software as seven principle
 this repository's rules:
 
 1. **Eliminate waste.** Remove any work that does not contribute to the outcome — the seven wastes
-   ([ADR-NOWASTE](../principles/reduce-waste.md)).
+   ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md)).
 2. **Build quality in.** Make each step produce already-correct output; do not inspect quality in afterwards
-   ([ADR-BUILTIN](build-quality-in.md)).
+   ([ADR-PROC-BUILTIN](build-quality-in.md)).
 3. **Create knowledge.** Development is a knowledge-creating process; capture what is learned so it is not relearned
-   ([ADR-KAIZEN](inspect-and-adapt.md)).
-4. **Defer commitment.** Decide at the last responsible moment, when the most is known ([ADR-PULLWORK](pull-work.md)).
+   ([ADR-PROC-KAIZEN](inspect-and-adapt.md)).
+4. **Defer commitment.** Decide at the last responsible moment, when the most is known ([ADR-PROC-PULLWORK](pull-work.md)).
 5. **Deliver fast.** Short lead time is a competitive advantage and a prerequisite for deferring commitment; speed comes from draining
-   queues ([ADR-QUEUECOST](queues-cost-money.md)).
-6. **Respect people.** The people doing the work design the work; the system supports them ([ADR-VALUES](agile-values.md),
-   [ADR-PRINCIPLES](agile-principles.md)).
+   queues ([ADR-PROC-QUEUECOST](queues-cost-money.md)).
+6. **Respect people.** The people doing the work design the work; the system supports them ([ADR-PROC-VALUES](agile-values.md),
+   [ADR-PRIN-PROCESS](agile-principles.md)).
 7. **Optimise the whole.** Improve the end-to-end value stream, not a local step; a local optimum that starves the whole is a loss
-   ([ADR-OBSERVEWIP](observe-work.md)).
+   ([ADR-PROC-OBSERVEWIP](observe-work.md)).
 
 ## The two laws
 
-Lean's flow claims are not metaphors; two laws make them quantitative, and both are used directly in [ADR-QUEUECOST](queues-cost-money.md):
+Lean's flow claims are not metaphors; two laws make them quantitative, and both are used directly in
+[ADR-PROC-QUEUECOST](queues-cost-money.md):
 
 - **Little's Law** [^3]. For any stable system, average flow time equals average work-in-progress divided by average throughput
   (`flow time = WIP ÷ throughput`). Throughput is near-fixed in the short run, so the practical lever on lead time is work-in-progress: cut
@@ -97,13 +98,13 @@ Lean's flow claims are not metaphors; two laws make them quantitative, and both 
   batch size rather than exhorting people to hurry.
 - **Moore's Law** [^4]. Compute capacity per unit cost roughly doubles on a regular cadence, so machine time trends towards free while human
   attention stays the scarce, expensive constraint. The lean move is therefore to spend the cheap resource to save the dear one: run gates
-  in parallel, cache aggressively ([ADR-CACHE](../automation/caching.md)), stand up ephemeral environments, rebuild rather than wait. Buying
-  down a human queue with machine time is almost always the right trade.
+  in parallel, cache aggressively ([ADR-AUTO-CACHE](../automation/caching.md)), stand up ephemeral environments, rebuild rather than wait.
+  Buying down a human queue with machine time is almost always the right trade.
 
 ## Why
 
-**Agile says why; lean says how work flows.** "Respond to change cheaply" ([ADR-AGILE](agile.md)) is the goal; lean's flow, waste, and queue
-discipline is the mechanism that makes change cheap. Holding both keeps the repository's process rules anchored to a purpose _and_ a
+**Agile says why; lean says how work flows.** "Respond to change cheaply" ([ADR-PROC-AGILE](agile.md)) is the goal; lean's flow, waste, and
+queue discipline is the mechanism that makes change cheap. Holding both keeps the repository's process rules anchored to a purpose _and_ a
 mechanism.
 
 **A mechanical model beats intuition.** Little's Law and cost of delay turn "we feel slow" into "our work-in-progress is too high and our
@@ -112,15 +113,16 @@ taste.
 
 **The lineage keeps the rules honest.** Anchoring to Ohno and the Poppendiecks means an adaptation can be tested against the source rather
 than against whatever "lean" has come to mean in a given team. When a practice cannot be traced to eliminating waste, building quality in,
-or shortening flow, it is ceremony ([ADR-NOWASTE](../principles/reduce-waste.md)).
+or shortening flow, it is ceremony ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md)).
 
 ## How to apply
 
 Treat this article as the umbrella and the six companions as the detail. When a flow or process decision is in question, name which lean
-principle it serves and which companion article governs it: is this holding the line ([ADR-ANDON](holding-the-line.md)), building quality in
-([ADR-BUILTIN](build-quality-in.md)), observing the work ([ADR-OBSERVEWIP](observe-work.md)), pulling work ([ADR-PULLWORK](pull-work.md)),
-draining a queue ([ADR-QUEUECOST](queues-cost-money.md)), or inspecting and adapting ([ADR-KAIZEN](inspect-and-adapt.md))? A change that
-serves none of the seven principles is waste. When a repository rule specialises a lean principle, cite it so the lineage stays visible.
+principle it serves and which companion article governs it: is this holding the line ([ADR-PROC-ANDON](holding-the-line.md)), building
+quality in ([ADR-PROC-BUILTIN](build-quality-in.md)), observing the work ([ADR-PROC-OBSERVEWIP](observe-work.md)), pulling work
+([ADR-PROC-PULLWORK](pull-work.md)), draining a queue ([ADR-PROC-QUEUECOST](queues-cost-money.md)), or inspecting and adapting
+([ADR-PROC-KAIZEN](inspect-and-adapt.md))? A change that serves none of the seven principles is waste. When a repository rule specialises a
+lean principle, cite it so the lineage stays visible.
 
 ## References
 

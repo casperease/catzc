@@ -1,4 +1,4 @@
-# The <base>-rainbow colour profile (ADR-CONSOLE:7): char 0 is the anchor, the walk steps a chromatic-only
+# The <base>-rainbow colour profile (ADR-AUTO-CONSOLE:7): char 0 is the anchor, the walk steps a chromatic-only
 # ring (legible on a dark ground), and the profile side-grades to its base ConsoleColor.
 Describe 'RainbowColor' -Tag 'L0', 'logic' {
     BeforeAll {

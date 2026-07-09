@@ -30,7 +30,7 @@ function Install-PipTool {
     }
 
     # Land the package in the toolchain's importable Python — uv's managed CPython — which needs three flags
-    # together (ADR-UVPY:2, "installs INTO the uv-managed Python so import works"):
+    # together (ADR-AUTO-UVPY:2, "installs INTO the uv-managed Python so import works"):
     #   --python <pin>          pin WHICH interpreter, so it can never drift to a stray system Python
     #   --system                permit a non-virtual install (uv otherwise wants a venv)
     #   --break-system-packages override uv's PEP-668 EXTERNALLY-MANAGED marker on its own managed CPython

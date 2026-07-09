@@ -1,78 +1,78 @@
 # ADR: Agile principles — the twelve principles behind the manifesto
 
-## Rules: ADR-PRINCIPLES
+## Rules: ADR-PRIN-PROCESS
 
-### Rule ADR-PRINCIPLES:1
+### Rule ADR-PRIN-PROCESS:1
 
 Satisfy the customer through early and continuous delivery of valuable software — the highest priority, and the reason every other principle
 exists.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRINCIPLES:2
+### Rule ADR-PRIN-PROCESS:2
 
 Welcome changing requirements, even late — an agile process turns change into the customer's competitive advantage rather than treating it
 as a failure of planning.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRINCIPLES:3
+### Rule ADR-PRIN-PROCESS:3
 
 Deliver working software frequently — on a cadence of weeks rather than months, preferring the shorter interval.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRINCIPLES:4
+### Rule ADR-PRIN-PROCESS:4
 
 Business people and developers work together daily throughout the project — collaboration is continuous, not a hand-off at the boundaries.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRINCIPLES:5
+### Rule ADR-PRIN-PROCESS:5
 
 Build projects around motivated individuals — give them the environment and support they need, and trust them to get the job done.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRINCIPLES:6
+### Rule ADR-PRIN-PROCESS:6
 
 Favour direct conversation — the most efficient and effective way to convey information to and within a team is face-to-face.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRINCIPLES:7
+### Rule ADR-PRIN-PROCESS:7
 
 Working software is the primary measure of progress — not documents produced, hours spent, or tasks marked done.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRINCIPLES:8
+### Rule ADR-PRIN-PROCESS:8
 
 Sustain a constant pace indefinitely — sponsors, developers, and users should be able to maintain the pace without burning out; agile is a
 sustainable process, not a sprint to exhaustion.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRINCIPLES:9
+### Rule ADR-PRIN-PROCESS:9
 
 Attend continuously to technical excellence and good design — quality is what keeps the cost of change low and so enhances agility.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRINCIPLES:10
+### Rule ADR-PRIN-PROCESS:10
 
 Maximise the work not done — simplicity is essential; the cheapest, most responsive system is the one that does no more than it must.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRINCIPLES:11
+### Rule ADR-PRIN-PROCESS:11
 
 Let architectures, requirements, and designs emerge from self-organising teams — the best solutions come from the people doing the work, not
 from an authority above them.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRINCIPLES:12
+### Rule ADR-PRIN-PROCESS:12
 
 Reflect and adjust at regular intervals — the team periodically tunes its own behaviour to become more effective; continuous improvement is
 built into the process.
@@ -81,10 +81,10 @@ built into the process.
 
 ## Context
 
-Behind the four values ([ADR-VALUES](agile-values.md)) the Agile Manifesto ([ADR-AGILE](agile.md)) sets out twelve principles that make the
-values operational [^1]. Where a value is a preference, a principle is a working instruction — it says what an agile process actually does.
-The twelve are the bridge between the manifesto's short comparative statements and the concrete process rules elsewhere in this repository
-(flow, promotion, small batches, fast feedback), which are specialisations of these principles for this platform.
+Behind the four values ([ADR-PROC-VALUES](agile-values.md)) the Agile Manifesto ([ADR-PROC-AGILE](agile.md)) sets out twelve principles that
+make the values operational [^1]. Where a value is a preference, a principle is a working instruction — it says what an agile process
+actually does. The twelve are the bridge between the manifesto's short comparative statements and the concrete process rules elsewhere in
+this repository (flow, promotion, small batches, fast feedback), which are specialisations of these principles for this platform.
 
 ## The twelve principles
 
@@ -120,8 +120,8 @@ them.
 
 When shaping or judging a process, check it against the twelve: does it deliver working software frequently, welcome late change, keep the
 team sustainable, and reflect to improve? A practice that serves one of the principles has a place; a practice that serves none is ceremony
-and can be dropped ([ADR-NOWASTE](../principles/reduce-waste.md)). Where a repository process rule elaborates a principle for this platform,
-cite the principle it specialises so the lineage stays visible.
+and can be dropped ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md)). Where a repository process rule elaborates a principle for this
+platform, cite the principle it specialises so the lineage stays visible.
 
 ## References
 

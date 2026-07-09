@@ -2,9 +2,9 @@
 
 Pairs with [`naming-standard`](azure-naming-standard.md), which defines the resource-name components this model feeds.
 
-## Rules: ADR-DATAMOD
+## Rules: ADR-AZ-DATAMOD
 
-### Rule ADR-DATAMOD:1
+### Rule ADR-AZ-DATAMOD:1
 
 Two config layers — identity (`azure.yml`) and templating (`infrastructure/templates/`) — join through the conventional configuration tree:
 a config at the configuration ROOT is a shared-platform deployment, a config under a `configuration/<customer>/` subfolder is that
@@ -12,14 +12,14 @@ customer's; the subscription is always RESOLVED from that coordinate, never spel
 
 - [Layer 1 — Identity (`azure.yml`)](#layer-1--identity-azureyml)
 
-### Rule ADR-DATAMOD:2
+### Rule ADR-AZ-DATAMOD:2
 
 One config file ⟷ one (customer?, env, slot) ⟷ one subscription ⟷ one Azure resource group; every config lives at
 `configuration/[<customer>/]<env>[-<slot>].yml`, and listing that tree is the resource-group inventory.
 
 - [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating-infrastructuretemplatesname)
 
-### Rule ADR-DATAMOD:3
+### Rule ADR-AZ-DATAMOD:3
 
 All named entities in `azure.yml` are maps keyed by name, so duplicate names are structurally impossible. A configuration subfolder is
 always a customer KEY (customer.yml), and every config's coordinate must resolve to exactly ONE subscription id: a root config's env is
@@ -29,7 +29,7 @@ at discovery and by integrity tests.
 - [Layer 1 — Identity (`azure.yml`)](#layer-1--identity-azureyml)
 - [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating-infrastructuretemplatesname)
 
-### Rule ADR-DATAMOD:4
+### Rule ADR-AZ-DATAMOD:4
 
 Customer is a first-class configuration axis — the subfolder — and at deploy time it is derived from the session subscription
 (`subscription.customer`), never a deploy arg: a customer-subscription session addresses the customer's subfolder config, a non-customer
@@ -37,21 +37,21 @@ session the root config, and the customer renders into resource names.
 
 - [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating-infrastructuretemplatesname)
 
-### Rule ADR-DATAMOD:5
+### Rule ADR-AZ-DATAMOD:5
 
 The resource-group name is derived by `Get-BicepResourceGroupName`, never hand-typed; the name-component order is a durable code setting
 (`Get-AzureNameOrder`).
 
 - [The name builder](#the-name-builder)
 
-### Rule ADR-DATAMOD:6
+### Rule ADR-AZ-DATAMOD:6
 
 Resource names for a template's own parameters are written statically in the per-slot config; the build passes them through unchanged (no
 generation or validation).
 
 - [Resource names](#resource-names)
 
-### Rule ADR-DATAMOD:7
+### Rule ADR-AZ-DATAMOD:7
 
 The cross-layer joins live in PowerShell, resolved on demand (`Get-AzureSubscription`, `Get-AzureEnvironment`,
 `Get-BicepDeploymentContext`). The deploy-time subscription is determined by the az session — in a pipeline, exactly what the service
@@ -61,7 +61,7 @@ The assert is a guard, never a selector — a mismatch means a mis-wired service
 
 - [Runtime resolution (the joins)](#runtime-resolution-the-joins)
 
-### Rule ADR-DATAMOD:8
+### Rule ADR-AZ-DATAMOD:8
 
 Per-record shape is schema-validated; cross-record integrity is owned by `Assert-AzureConfig` (including per-customer environment
 disjointness — no two subscriptions of one customer serve the same env); the cross-layer link (a subfolder is a customer key; every config
@@ -175,7 +175,7 @@ sibling `infrastructure/modules/` — referenced by templates via a relative `mo
 `configuration/<customer>/<env>[-<slot>].yml`, where the folder is always a customer KEY. The filename is `<env-name>[-<slot>]` —
 `develop.yml` (the base / index-0 slot) or `develop-blue.yml` (a special slot). Discovery parses the filename by splitting on the first `-`:
 the `name` part must be a defined environment, the remainder is the optional `slot` (≤3 alnum). The subscription is resolved per config from
-the coordinate and asserted unique (ADR-DATAMOD:3).
+the coordinate and asserted unique (ADR-AZ-DATAMOD:3).
 
 **Customer is the one path dimension.** A config's customer is its subfolder ('' for a root config) — "is this a customer config?" is
 answered by the path alone. Deploy/build name the env and slot as **distinct args** (`-Environment develop [-Slot blue]`); at deploy time
@@ -229,7 +229,7 @@ erDiagram
   `Catzc.Azure.Templates.BicepShortName`; `Get-BicepTemplates` resolves it and enforces uniqueness across all templates. `options.yml` is
   **optional** and, when present, may **override** `short_name` and/or declare `deployment_mode` / `deployment_target` / `environment_kind`
   (strict schema, validated at discovery by `Read-BicepTemplateOptions`). It does **not** declare which subscriptions the template targets —
-  that follows from its configuration coordinates. See [`naming-standard`](azure-naming-standard.md#rule-adr-naming2).
+  that follows from its configuration coordinates. See [`naming-standard`](azure-naming-standard.md#rule-adr-az-naming2).
 - `environment_kind` (`standard` | `subscription`, default `standard`) is the template's one classification bit: every config's env must
   match it — `subscription` ⇒ a `per_subscription` env (`nsub`/`psub`, deployed once per subscription), `standard` ⇒ an ordinary env
   (`dev`/`test`/…). Enforced per-config by `Get-BicepConfigClassViolations` (shared by discovery and `Assert-BicepTemplate`). The slot is

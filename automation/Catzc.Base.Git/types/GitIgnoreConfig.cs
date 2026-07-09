@@ -2,7 +2,7 @@
 // explained pattern groups, each validated by GitIgnoreZone, with unique zone ids. Constructing an instance
 // validates the registry (collecting every malformed zone into one error) and exposes the parsed zones to
 // the renderer (New-GitIgnore). Registered as the `gitignore` config's type override in
-// Catzc.Base.Config/configs/configs.yml. See docs/adr/automation/module-config-loading.md and
+// Catzc.Base.Config/configs/configs.yml. See docs/adr/configuration/module-config-loading.md and
 // docs/adr/repository/generated-root-configs.md.
 
 using System;

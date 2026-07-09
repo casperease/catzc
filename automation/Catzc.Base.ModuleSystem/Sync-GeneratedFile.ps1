@@ -16,7 +16,7 @@
     - Skips in CI (Test-IsRunningInPipeline): the gates there must fail loudly, not be auto-repaired.
     - Skips on a detached HEAD: a commit there hangs off no branch and is one checkout away from lost.
     - Skips on main/master when the repo's git_workspace variant is 'main-via-pr' (Test-GitWorkspace,
-      ADR-VARIANT:6): in that mode work always happens on a branch, so standing on main locally is the
+      ADR-REPO-VARIANT:6): in that mode work always happens on a branch, so standing on main locally is the
       one place a direct commit is forbidden. In 'main-direct' (the default, a solo-author trunk) any
       named branch commits — including main, which IS the integration path (one-living-version).
 
@@ -61,7 +61,7 @@ function Sync-GeneratedFile {
         return
     }
     if ($branch -in 'main', 'master' -and (Test-GitWorkspace -MainViaPr)) {
-        Write-Message "Skipped: the git_workspace variant is 'main-via-pr' and this is $branch — commit generated files from a working branch (variants.yml, ADR-VARIANT:6)."
+        Write-Message "Skipped: the git_workspace variant is 'main-via-pr' and this is $branch — commit generated files from a working branch (variants.yml, ADR-REPO-VARIANT:6)."
         return
     }
 

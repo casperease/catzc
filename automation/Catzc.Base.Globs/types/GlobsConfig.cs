@@ -1,11 +1,11 @@
 // The globset registry (configs/globs.yml) and its validity rules: a non-empty 'globsets' map of
 // kebab-case name -> { description, layer (deployable-unit | loose-fileset — 'module' is derived-only and
-// rejected here, ADR-GLOBS:7), [include: [...]], [exclude: [...]], [compose: [...]],
+// rejected here, ADR-FLOW-CD-GLOBS:7), [include: [...]], [exclude: [...]], [compose: [...]],
 // [verify: { modules, level }], [pipeline] }, each entry a valid GlobSet, no unknown keys anywhere
-// (strict-config discipline), and compose references resolving to declared sets acyclically (ADR-GLOBS:8).
+// (strict-config discipline), and compose references resolving to declared sets acyclically (ADR-FLOW-CD-GLOBS:8).
 // The config itself is an ordinary tracked file and may be a member. Constructing an instance validates the
 // whole registry (collecting all errors) and exposes the sets in registry order.
-// See docs/adr/pipelines/durable-sha-globs.md.
+// See docs/adr/flow/durable-sha-globs.md.
 
 using System;
 using System.Collections;
@@ -18,7 +18,7 @@ public sealed class GlobsConfig
     // The config's own repo-relative path (named in lookup errors).
     public const string ConfigPath = "automation/Catzc.Base.Globs/configs/globs.yml";
 
-    // Names reserved for the DERIVED globsets (ADR-PROTGLOB): the infra scopes every module's tests depend
+    // Names reserved for the DERIVED globsets (ADR-REPO-PROTGLOB): the infra scopes every module's tests depend
     // on. Module folders derive their own sets by convention (Get-ModuleGlobSet); a declared set may not
     // shadow a reserved name — the declared registry and the derived sets share one name space.
     public static readonly string[] ReservedNames = { "internal", "vendor", "compiled", "scriptanalyzer" };
@@ -75,12 +75,12 @@ public sealed class GlobsConfig
 
             if (Array.IndexOf(ReservedNames, name) >= 0)
             {
-                errors.Add(string.Format("globset name '{0}' is reserved for a derived infra set (ADR-PROTGLOB); pick another name", name));
+                errors.Add(string.Format("globset name '{0}' is reserved for a derived infra set (ADR-REPO-PROTGLOB); pick another name", name));
                 continue;
             }
             if (ReadStr(entry, "layer") == "module")
             {
-                errors.Add(string.Format("globset '{0}': the 'module' layer is derived-only (ADR-GLOBS:7, ADR-PROTGLOB) — the folder is the registration; declared layers: {1}", name, string.Join(", ", GlobSet.DeclaredLayers)));
+                errors.Add(string.Format("globset '{0}': the 'module' layer is derived-only (ADR-FLOW-CD-GLOBS:7, ADR-REPO-PROTGLOB) — the folder is the registration; declared layers: {1}", name, string.Join(", ", GlobSet.DeclaredLayers)));
                 continue;
             }
 
@@ -135,7 +135,7 @@ public sealed class GlobsConfig
             map[set.Name] = set;
         }
 
-        // ---- compose resolution (ADR-GLOBS:8): every reference names a declared set, never itself, and
+        // ---- compose resolution (ADR-FLOW-CD-GLOBS:8): every reference names a declared set, never itself, and
         //      the reference graph is acyclic; effective membership is the union through the references. ----
         foreach (GlobSet set in sets)
         {
@@ -145,11 +145,11 @@ public sealed class GlobsConfig
                 GlobSet target;
                 if (reference == set.Name)
                 {
-                    errors.Add(string.Format("globset '{0}' composes itself (ADR-GLOBS:8)", set.Name));
+                    errors.Add(string.Format("globset '{0}' composes itself (ADR-FLOW-CD-GLOBS:8)", set.Name));
                 }
                 else if (!map.TryGetValue(reference, out target))
                 {
-                    errors.Add(string.Format("globset '{0}' composes unknown set '{1}' — compose references declared sets only (ADR-GLOBS:8)", set.Name, reference));
+                    errors.Add(string.Format("globset '{0}' composes unknown set '{1}' — compose references declared sets only (ADR-FLOW-CD-GLOBS:8)", set.Name, reference));
                 }
                 else
                 {
@@ -163,7 +163,7 @@ public sealed class GlobsConfig
             string cycle = FindComposeCycle(set, map, new List<string>());
             if (cycle != null)
             {
-                errors.Add(string.Format("compose cycle: {0} (ADR-GLOBS:8)", cycle));
+                errors.Add(string.Format("compose cycle: {0} (ADR-FLOW-CD-GLOBS:8)", cycle));
                 break;
             }
         }

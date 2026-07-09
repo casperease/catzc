@@ -1,8 +1,8 @@
 # ADR: Versioned external API contracts and contract testing
 
-## Rules: ADR-CONTRACT
+## Rules: ADR-REPO-CONTRACT
 
-### Rule ADR-CONTRACT:1
+### Rule ADR-REPO-CONTRACT:1
 
 `contracts/` is the repository's external-facing API surface: the binding interface definitions an outside consumer is allowed to depend on.
 Everything a consumer may rely on is expressed here as a contract; everything else in the repo is internal and governed by
@@ -10,24 +10,24 @@ Everything a consumer may rely on is expressed here as a contract; everything el
 
 - [The contract surface is the only public API](#the-contract-surface-is-the-only-public-api)
 
-### Rule ADR-CONTRACT:2
+### Rule ADR-REPO-CONTRACT:2
 
-Contracts are versioned by folder — `contracts/<contract-name>/v<N>/` ([conventional-folders](conventional-folders.md#rule-adr-folders11)).
-A backwards-incompatible change to a contract is a **new `v<N>` folder** beside the existing ones; the prior versions stay in place,
-unchanged.
+Contracts are versioned by folder — `contracts/<contract-name>/v<N>/`
+([conventional-folders](conventional-folders.md#rule-adr-repo-folders11)). A backwards-incompatible change to a contract is a **new `v<N>`
+folder** beside the existing ones; the prior versions stay in place, unchanged.
 
 - [A new version is a new folder](#a-new-version-is-a-new-folder)
 
-### Rule ADR-CONTRACT:3
+### Rule ADR-REPO-CONTRACT:3
 
 Keeping old versions live is the one sanctioned backwards-compatibility in the repository. External consumers genuinely exist at this
 boundary and cannot be changed in lockstep, so a published version is kept as long as a consumer pins it (this is
-[ADR-ONELIVE:7](../principles/one-living-version.md#rule-adr-onelive7) made concrete), and retired only when no consumer's contract requires
-it — a deliberate, contract-driven deprecation, not a hedge.
+[ADR-PRIN-ONELIVE:7](../principles/one-living-version.md#rule-adr-prin-onelive7) made concrete), and retired only when no consumer's
+contract requires it — a deliberate, contract-driven deprecation, not a hedge.
 
 - [Why this is the one place back-compat is owed](#why-this-is-the-one-place-back-compat-is-owed)
 
-### Rule ADR-CONTRACT:4
+### Rule ADR-REPO-CONTRACT:4
 
 Contracts are **binding**, proven by contract testing: the provider (this repo) has tests that verify it honours every declared contract
 version. A change that would break a published version fails CI here, not a consumer in production. This is what makes "kept for
@@ -36,11 +36,11 @@ back-compat" a guarantee rather than a hope.
 - [Binding, by contract testing](#binding-by-contract-testing)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-CONTRACT:5
+### Rule ADR-REPO-CONTRACT:5
 
 A published contract version is immutable. Evolving the interface means a new `v<N+1>`, never an edit to a published `v<N>` that a consumer
-already depends on. `v0` is the only mutable, pre-publication draft (per [ADR-FOLDERS:11](conventional-folders.md#rule-adr-folders11)); once
-a version is declared (`v1`+), its folder is frozen.
+already depends on. `v0` is the only mutable, pre-publication draft (per
+[ADR-REPO-FOLDERS:11](conventional-folders.md#rule-adr-repo-folders11)); once a version is declared (`v1`+), its folder is frozen.
 
 - [A published version is frozen](#a-published-version-is-frozen)
 
@@ -67,9 +67,9 @@ contract folder, and only the contract folder. This keeps the public commitment 
 
 A backwards-incompatible change does not edit the existing contract — it adds `v<N+1>/` beside it. The two versions then coexist as
 separate, equally live folders, each its own self-contained definition. This is the versioned-coexistence that
-[ADR-ONELIVE:7](../principles/one-living-version.md#rule-adr-onelive7) sanctions: not legacy kept grudgingly, but two supported versions,
-each owned and tested. A backwards-_compatible_ change (additive, non-breaking) may land in the current version, since its contract test
-still passes.
+[ADR-PRIN-ONELIVE:7](../principles/one-living-version.md#rule-adr-prin-onelive7) sanctions: not legacy kept grudgingly, but two supported
+versions, each owned and tested. A backwards-_compatible_ change (additive, non-breaking) may land in the current version, since its
+contract test still passes.
 
 ### Why this is the one place back-compat is owed
 
@@ -90,7 +90,7 @@ is enforced.
 ### A published version is frozen
 
 Once `v1` is declared, its folder is not edited — a consumer is already building against exactly those bytes. A fix or an evolution that
-changes the contract is `v2`. The only mutable version is `v0`, the pre-publication draft (ADR-FOLDERS:11), which exists precisely so a
+changes the contract is `v2`. The only mutable version is `v0`, the pre-publication draft (ADR-REPO-FOLDERS:11), which exists precisely so a
 contract can be shaped before it becomes a binding promise. This immutability is what lets a consumer pin `v1` and trust it will not move
 underneath them.
 
@@ -119,8 +119,8 @@ contract testing so a break is caught in CI, not in production. Everything outsi
   verification, golden replay) is chosen per contract and lives with it.
 
 - **Code review** guards what the tests cannot phrase: that an incompatible change adds a new `v<N>` rather than editing a published one
-  (ADR-CONTRACT:5), that the public surface stays confined to `contracts/` (ADR-CONTRACT:1), and that a retirement is justified by the
-  absence of a pinning consumer (ADR-CONTRACT:3).
+  (ADR-REPO-CONTRACT:5), that the public surface stays confined to `contracts/` (ADR-REPO-CONTRACT:1), and that a retirement is justified by
+  the absence of a pinning consumer (ADR-REPO-CONTRACT:3).
 
 ## Consequences
 

@@ -1,15 +1,15 @@
 # ADR: Script-scope caching — the PowerShell layer over caching
 
-## Rules: ADR-PSCACHE
+## Rules: ADR-AUTO-PSCACHE
 
-### Rule ADR-PSCACHE:1
+### Rule ADR-AUTO-PSCACHE:1
 
-A session cache lives in module `$script:` state, which the [caching](../caching.md) (`ADR-CACHE`) boundary maps onto exactly: `$script:`
-state is established at import and destroyed on re-import, so "re-run the importer" is the literal and only invalidation.
+A session cache lives in module `$script:` state, which the [caching](../caching.md) (`ADR-AUTO-CACHE`) boundary maps onto exactly:
+`$script:` state is established at import and destroyed on re-import, so "re-run the importer" is the literal and only invalidation.
 
 - [Why `$script:` is the cache scope](#why-script-is-the-cache-scope)
 
-### Rule ADR-PSCACHE:2
+### Rule ADR-AUTO-PSCACHE:2
 
 Use module-scoped `$script:` variables for the cache — never `$env:` or `$global:`. `$env:` leaks to child processes and is stringly-typed
 ([environment-variable-mechanics](environment-variable-mechanics.md)); `$global:` survives re-import and couples modules through shared
@@ -17,7 +17,7 @@ session state.
 
 - [Why `$script:` is the cache scope](#why-script-is-the-cache-scope)
 
-### Rule ADR-PSCACHE:3
+### Rule ADR-AUTO-PSCACHE:3
 
 Tests vary cached behavior by mocking the whole function (`Mock Get-BicepTemplates`), not its internals — a warm cache ignores mocked
 dependencies. A test exercising cache population resets the slot in module scope (`InModuleScope <Module> { $script:<slot> = $null }`), and
@@ -34,14 +34,14 @@ function is written with.
 ### Why `$script:` is the cache scope
 
 `$script:` state belongs to the module that declares it: it is created when the module imports, invisible to other modules, and discarded
-when the importer re-imports — which is precisely the session-cache lifetime `ADR-CACHE` requires, with no extra machinery. The alternatives
-both violate the doctrine structurally: `$env:` is process-global, inherited by every child process, and stores only strings; `$global:`
-outlives a re-import, so a "fresh" session would resume a stale cache, silently breaking the one invalidation contract.
+when the importer re-imports — which is precisely the session-cache lifetime `ADR-AUTO-CACHE` requires, with no extra machinery. The
+alternatives both violate the doctrine structurally: `$env:` is process-global, inherited by every child process, and stores only strings;
+`$global:` outlives a re-import, so a "fresh" session would resume a stale cache, silently breaking the one invalidation contract.
 
 ### The idioms
 
 Static read, keyed by resolved path (as in `Get-Config`, through which every config read routes — see
-[module-config-loading](../module-config-loading.md)):
+[module-config-loading](../../configuration/module-config-loading.md)):
 
 ```powershell
 function Get-Config {
@@ -96,8 +96,8 @@ Session caches are module `$script:` hashtables keyed by resolved input, populat
 
 - **The exemplars** — `Get-Config` (`Catzc.Base.Config`) and `Get-BicepTemplates` (`Catzc.Azure.Templates`) are the patterns every new
   cached function copies.
-- **The doctrine layer** — what may be cached at all, and the lazy/eager split, is [caching](../caching.md) (`ADR-CACHE`); this ADR only
-  fixes the storage idiom.
+- **The doctrine layer** — what may be cached at all, and the lazy/eager split, is [caching](../caching.md) (`ADR-AUTO-CACHE`); this ADR
+  only fixes the storage idiom.
 - **Code review** — a cache in `$env:`/`$global:`, or a test that mocks a cached function's internals, is rejected against this ADR.
 
 ## Consequences

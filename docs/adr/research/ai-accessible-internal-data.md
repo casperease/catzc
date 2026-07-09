@@ -1,8 +1,8 @@
 # ADR: DORA — AI-accessible internal data
 
-## Rules: ADR-DORAAID
+## Rules: ADR-DORA-AIDATA
 
-### Rule ADR-DORAAID:1
+### Rule ADR-DORA-AIDATA:1
 
 AI-accessible internal data means securely connecting AI systems to an organization's own proprietary information — codebases, architectural
 diagrams, wikis, documentation, style guides, operational metrics, and logs — so responses are context-aware rather than generic. Treat this
@@ -10,7 +10,7 @@ as context engineering, a discipline in its own right, not as a refinement of pr
 
 - [Summary](#summary)
 
-### Rule ADR-DORAAID:2
+### Rule ADR-DORA-AIDATA:2
 
 Internal-data access amplifies whatever AI adoption is already doing to individual effectiveness and code quality — for better when the
 underlying data is good, for worse when it is not. The capability is a multiplier on the existing signal, not a source of new signal by
@@ -18,7 +18,7 @@ itself.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORAAID:3
+### Rule ADR-DORA-AIDATA:3
 
 Build the capability in phases: start with manual context engineering and a shared, version-controlled library of reusable context
 templates; pilot automated retrieval (RAG or MCP) on a single high-impact use case before scaling; only then invest in secure internal APIs
@@ -26,14 +26,14 @@ that expose data systematically.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAAID:4
+### Rule ADR-DORA-AIDATA:4
 
 An AI connected to bad data produces bad answers — treat data quality, curation of gold-standard (not deprecated) examples, and deliberate
 context retrieval as prerequisites, not cleanup work done after the fact.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORAAID:5
+### Rule ADR-DORA-AIDATA:5
 
 Never grant an AI system blanket or shared-account access to internal data. Access travels through the same least-privilege, per-user
 credentials a human would use, so an AI query can only ever reach what its requester could already see.
@@ -77,19 +77,20 @@ In the foundational phase, engineers do context engineering manually — assembl
 architecture doc, a style guide) an AI needs to answer a question accurately — and that assembled context is captured in a shared,
 version-controlled library of reusable templates rather than re-created ad hoc each time. High-quality documentation is a primary driver of
 successful AI adoption at this stage, which is also where it is cheapest to fix: `docs/references/` as the one authored source per folder,
-linked out to `README.md` rather than duplicated ([ADR-README](../repository/generated-readmes.md)), keeps that documentation current at no
-ongoing maintenance cost — an AI reading a generated README reads the same, never-stale content a person does.
+linked out to `README.md` rather than duplicated ([ADR-REPO-README](../repository/generated-readmes.md)), keeps that documentation current
+at no ongoing maintenance cost — an AI reading a generated README reads the same, never-stale content a person does.
 
 In the pilot phase, automate retrieval for a single high-impact use case, choosing between a custom retrieval-augmented-generation (RAG)
 pipeline for precise, up-to-date retrieval and a Model Context Protocol (MCP) integration that selects and feeds only relevant context
 rather than raw documents. Either approach only has something worth retrieving because the codebase, configuration, pipelines, and governing
-docs are comprehensively kept in version control in the first place ([ADR-EAC](../principles/everything-as-code.md)) — an artifact that
+docs are comprehensively kept in version control in the first place ([ADR-PRIN-EAC](../principles/everything-as-code.md)) — an artifact that
 exists only in a UI, a wiki, or someone's head is not retrievable by either pattern.
 
 In the scale phase, secure leadership sponsorship, address foundational data-quality gaps, and build secure internal APIs that expose data
 systematically rather than through one-off pipelines. A structured, non-secret-only address grammar over version-controlled config
-([ADR-CFGADDR](../automation/config-value-addressing.md)) is the same shape this phase needs at the platform layer: a uniform, fail-fast way
-to name and resolve exactly one piece of internal data, with secrets excluded by construction rather than filtered after the fact.
+([ADR-CONF-ADDRESSING](../configuration/config-value-addressing.md)) is the same shape this phase needs at the platform layer: a uniform,
+fail-fast way to name and resolve exactly one piece of internal data, with secrets excluded by construction rather than filtered after the
+fact.
 
 ## Common pitfalls
 

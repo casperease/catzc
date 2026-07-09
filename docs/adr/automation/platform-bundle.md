@@ -1,38 +1,38 @@
 # ADR: Platform bundle — an installable, relocatable copy of catzc
 
-## Rules: ADR-BUNDLE
+## Rules: ADR-AUTO-BUNDLE
 
-### Rule ADR-BUNDLE:1
+### Rule ADR-AUTO-BUNDLE:1
 
 A **bundle** is an installable, versioned, content-addressed copy of the whole catzc platform that loads in a bare PowerShell 7 session
 **outside the mono repo** — with no git work tree, no Roslyn compile, and no working-tree writes. `Catzc.Base.Exporter` owns its lifecycle:
 `Build-Catzc` assembles it, `Install-Catzc`/`Export-Catzc` place it, `Assert-CatzcBundle` verifies it. This is the platform-level form of
-the build-once artifact ([ci-discipline-and-promotion-flow](../design/ci-discipline-and-promotion-flow.md)) and of a reproducible,
+the build-once artifact ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md)) and of a reproducible,
 content-addressed, self-service artifact ([self-service](../design/self-service.md)).
 
 - [What a bundle is](#what-a-bundle-is)
 
-### Rule ADR-BUNDLE:2
+### Rule ADR-AUTO-BUNDLE:2
 
 The platform anchors on **two roots, not one**: `$env:RepositoryRoot` — the **working root** (where `out/` goes and what repo-relative paths
 and git resolve against) — and `$env:CatzcModulesRoot` — where the **loaded catzc code** lives. Config, type, and vendor discovery follow
 the code root (`Get-CatzcModulesRoot`), never `RepositoryRoot`. In the mono repo the importer sets them equal, so the split is a no-op; an
 install makes them differ, which is exactly what lets the code be carried out of the repo. `CatzcModulesRoot` is a well-known bootstrap
-anchor set once ([environment-variables](environment-variables.md#rule-adr-envvar5)).
+anchor set once ([environment-variables](environment-variables.md#rule-adr-auto-envvar5)).
 
 - [The two roots](#the-two-roots)
 
-### Rule ADR-BUNDLE:3
+### Rule ADR-AUTO-BUNDLE:3
 
 A bundle loads by running the **one living importer** in a `-Bundle` mode, never a forked bootstrap
 ([one-living-version](../principles/one-living-version.md)). `-Bundle` honours the pre-set `CatzcModulesRoot`, forces the janitors off, and
 loads the prebuilt combined-types assembly without invoking Roslyn. Reusing the importer reproduces the exact tested load sequence — the C#
-types and their accelerators register **before** any module loads ([native-csharp-types](BCL/native-csharp-types.md#rule-adr-types10)) —
-which a single declarative module manifest cannot guarantee.
+types and their accelerators register **before** any module loads ([native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types10))
+— which a single declarative module manifest cannot guarantee.
 
 - [The bundle boots through the importer](#the-bundle-boots-through-the-importer)
 
-### Rule ADR-BUNDLE:4
+### Rule ADR-AUTO-BUNDLE:4
 
 A bundle carries the **runtime payload**: each selected module's tracked files **minus its `tests/`** verification surface, plus the
 `.internal` loader/bootstrap, the vendored dependencies per policy, and the single committed combined-types DLL. This payload is
@@ -42,17 +42,17 @@ tracked files do, so generated/gitignored files (the per-module `.psd1`, the lin
 
 - [The runtime payload](#the-runtime-payload)
 
-### Rule ADR-BUNDLE:5
+### Rule ADR-AUTO-BUNDLE:5
 
 A build is **immutable and content-addressed**: the same commit yields a byte-identical payload and an identical durable-SHA content hash
-([durable-sha-globs](../pipelines/durable-sha-globs.md#rule-adr-globs5)), and each bundle carries a `build.json` provenance record (content
-hash, source commit, profile, version, counts). `Assert-CatzcBundle` is the integrity gate: it re-verifies that the recorded hash still
-matches the tree, that no `tests/` leaked in, that exactly one prebuilt types DLL is present, and that the bundle importer exists —
+([durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)), and each bundle carries a `build.json` provenance record
+(content hash, source commit, profile, version, counts). `Assert-CatzcBundle` is the integrity gate: it re-verifies that the recorded hash
+still matches the tree, that no `tests/` leaked in, that exactly one prebuilt types DLL is present, and that the bundle importer exists —
 collecting every violation. `Build-Catzc` runs it as a self-check on its own output.
 
 - [The immutable, verified artifact](#the-immutable-verified-artifact)
 
-### Rule ADR-BUNDLE:6
+### Rule ADR-AUTO-BUNDLE:6
 
 An install is **two artifacts in two places**: the module — the payload and `build.json` — copied to `<Root>/<subfolder>/Catzc/<version>/`
 (default subfolder `.vendor`), and a root `importer.ps1` written at the **destination root**. At load time the root importer sets
@@ -62,7 +62,7 @@ refreshes only the root importer — and the source bundle is verified before th
 
 - [The two-part install](#the-two-part-install)
 
-### Rule ADR-BUNDLE:7
+### Rule ADR-AUTO-BUNDLE:7
 
 There are **two versions**, both declared in `exporter.yml`: the fixed `6.6.666` **direct-install sentinel** every on-disk install carries
 (overwritten in place — an obviously-not-published dev convenience), and the real **published version** the NuGet/PSGallery artifact ships
@@ -72,7 +72,7 @@ reviewed edit to one file and a test can substitute a fixture config through the
 
 - [Two versions, one config](#two-versions-one-config)
 
-### Rule ADR-BUNDLE:8
+### Rule ADR-AUTO-BUNDLE:8
 
 A bundle is a **session, not a passive library**. Loading it establishes the catzc session — it sets the global error/warning preferences
 exactly as the mono importer does ([error-handling](powershell/error-handling.md)), because catzc functions assume terminating semantics —
@@ -197,10 +197,10 @@ that governs it exists, so the built path is the direct on-disk install.
 ## Related
 
 - [one-living-version](../principles/one-living-version.md) — why the bundle reuses the one importer instead of forking a loader.
-- [self-service](../design/self-service.md), [ci-discipline-and-promotion-flow](../design/ci-discipline-and-promotion-flow.md) — the
+- [self-service](../design/self-service.md), [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) — the
   content-addressed artifact and build-once/deploy-many this specialises.
 - [module-aspects](../design/module-aspects.md) — the live/tests aspect the runtime payload is deliberately broader than.
-- [durable-sha-globs](../pipelines/durable-sha-globs.md) — the durable-SHA identity the content hash reuses.
+- [durable-sha-globs](../flow/durable-sha-globs.md) — the durable-SHA identity the content hash reuses.
 - [native-csharp-types](BCL/native-csharp-types.md) — the prebuilt combined assembly and the accelerator load order the bundle mode
   preserves.
 - [environment-variables](environment-variables.md) — the well-known-anchor rule `CatzcModulesRoot` follows.

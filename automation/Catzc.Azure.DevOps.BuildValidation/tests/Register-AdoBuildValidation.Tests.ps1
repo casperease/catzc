@@ -1,5 +1,5 @@
 # The write side: idempotent create-or-update of one globset's build-validation policy, everything
-# defaulted from build-validation.yml, globs.yml, and ado.yml; -DryRun returns the plan (ADR-DRYRUN).
+# defaulted from build-validation.yml, globs.yml, and ado.yml; -DryRun returns the plan (ADR-AUTO-DRYRUN).
 Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:globSet = [Catzc.Base.Globs.GlobSet]::new(

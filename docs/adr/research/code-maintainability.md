@@ -1,15 +1,15 @@
 # ADR: DORA — Code maintainability
 
-## Rules: ADR-DORACM
+## Rules: ADR-DORA-MAINTAIN
 
-### Rule ADR-DORACM:1
+### Rule ADR-DORA-MAINTAIN:1
 
 Keep the codebase reusable across team boundaries: it is easy for any team to find examples, reuse code another team owns, and propose a
 change to code it does not maintain, without waiting on that team to act first.
 
 - [Summary](#summary)
 
-### Rule ADR-DORACM:2
+### Rule ADR-DORA-MAINTAIN:2
 
 Every dependency, internal or external, is traceable to an exact version and resolves the same way on every machine — traceability (which
 version is in a given build) and reproducibility (the build process is deterministic) are the two properties dependency management exists to
@@ -17,21 +17,21 @@ serve.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORACM:3
+### Rule ADR-DORA-MAINTAIN:3
 
 Treat dependency upgrades as a routine, automated activity, not a rare, manual one: run continuous integration and testing against
 dependency changes, and keep a fast, low-friction path to pull in a new version.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORACM:4
+### Rule ADR-DORA-MAINTAIN:4
 
 Comprehensive dependency management is the scope, not partial coverage — code that is searchable and reusable but whose dependencies drift
 unpatched and unversioned is only partly maintainable, and the untracked dependency is where the next vulnerability surfaces.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORACM:5
+### Rule ADR-DORA-MAINTAIN:5
 
 Apply one consistent dependency-management approach across the organization rather than leaving it to team-by-team discretion — a uniform,
 declared strategy is what keeps dependencies traceable and upgrades tractable at scale.
@@ -76,17 +76,17 @@ against each other.
 ## How to apply
 
 This platform realizes the source-code half of the capability through the mono-repo itself: every module lives in one searchable repository,
-and the audited server remote ([ADR-REMOTE](../design/server-remote-integration.md)) is the single place a pull request can propose a change
-to code another team maintains.
+and the audited server remote ([ADR-DSGN-REMOTE](../design/server-remote-integration.md)) is the single place a pull request can propose a
+change to code another team maintains.
 
 The dependency half is realized through explicit, checked-in declaration rather than ambient install state. Internal module edges are
 declared once and gated against the code so the graph stays acyclic and legible
-([ADR-MODDEPS](../automation/controlling-module-dependencies.md)). Internal dependencies are vendored into the repository so loading is a
+([ADR-AUTO-DEPM](../automation/controlling-module-dependencies.md)). Internal dependencies are vendored into the repository so loading is a
 path read with no network call and no version drift, and an upgrade is a deliberate, reviewed diff
-([ADR-VENDOR](../automation/powershell/vendor-toolset-dependencies.md)). External dependencies are pulled at build time through the package
-manager suited to that dependency, chosen for the security and traceability of its supply chain rather than convenience
-([ADR-PKGMGR](../automation/use-proper-package-managers.md)). Together these keep every dependency, internal or external, traceable from a
-build back to an exact, pinned version.
+([ADR-AUTO-VENDOR](../automation/powershell/vendor-toolset-dependencies.md)). External dependencies are pulled at build time through the
+package manager suited to that dependency, chosen for the security and traceability of its supply chain rather than convenience
+([ADR-AUTO-PKGMGR](../automation/use-proper-package-managers.md)). Together these keep every dependency, internal or external, traceable
+from a build back to an exact, pinned version.
 
 Measuring the capability follows the same three concerns DORA highlights: how much of the codebase is searchable and how much is duplicate
 or dead; how long it takes to land a change in code the requesting team does not own; and how many distinct versions of a given library are

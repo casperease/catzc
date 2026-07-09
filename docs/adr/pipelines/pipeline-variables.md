@@ -1,43 +1,43 @@
 # ADR: Pipeline variable interface — setting ADO output variables from PowerShell
 
-## Rules: ADR-PIPEVAR
+## Rules: ADR-PIPE-VAR
 
-### Rule ADR-PIPEVAR:1
+### Rule ADR-PIPE-VAR:1
 
 Never write raw `##vso[task.setvariable]` strings. Use `Set-AdoPipelineVariable`, which handles name validation, flags, and logging.
 
 - [Why this needs a function](#why-this-needs-a-function)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PIPEVAR:2
+### Rule ADR-PIPE-VAR:2
 
 Variable names must not contain `.`, `-`, or `'` — ADO rewrites them during downstream resolution, so they are rejected by default. Use
 underscores directly; pass `-SanitizeName` only when such characters are unavoidable.
 
 - [Functions](#functions)
 
-### Rule ADR-PIPEVAR:3
+### Rule ADR-PIPE-VAR:3
 
 Always use `-IsOutput` when the variable must cross job boundaries; without it the variable is step-local and downstream jobs see an empty
 string.
 
 - [Functions](#functions)
 
-### Rule ADR-PIPEVAR:4
+### Rule ADR-PIPE-VAR:4
 
 Always use `-IsSecret` for sensitive values to mask them in ADO logs; the function replaces the value with `***` in its own output when the
 flag is set.
 
 - [Functions](#functions)
 
-### Rule ADR-PIPEVAR:5
+### Rule ADR-PIPE-VAR:5
 
 Variable names use PascalCase: ADO names are case-insensitive, but PascalCase matches the parameter convention and reads clearly in YAML
 output references.
 
 - [Functions](#functions)
 
-### Rule ADR-PIPEVAR:6
+### Rule ADR-PIPE-VAR:6
 
 Rely on the no-op-outside-pipelines behavior: `Set-AdoPipelineVariable` checks `Test-IsRunningInPipeline` and skips emission locally, so no
 `if (Test-IsRunningInPipeline)` guards are needed at call sites.

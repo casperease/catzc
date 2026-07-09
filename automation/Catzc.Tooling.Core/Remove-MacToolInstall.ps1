@@ -4,7 +4,7 @@
     tool-removal lifecycle.
 .DESCRIPTION
     The macOS counterpart to Remove-SystemInstallation (Windows) and Remove-LinuxToolInstall (Linux)
-    (docs/adr/automation/tool-removal-lifecycle.md, ADR-REMOVE:7). In precedence order:
+    (docs/adr/automation/tool-removal-lifecycle.md, ADR-AUTO-REMOVE:7). In precedence order:
 
       1. a Homebrew-owned binary -> brew uninstall <owning formula>   (user-space)
       2. a uv-managed-Python package -> uv pip uninstall --system      (user-space)
@@ -12,7 +12,7 @@
 
     The brew owner is resolved by locating the on-PATH binary under 'brew --prefix' and reading its Cellar
     symlink target for the formula name — so a brew 'azure-cli' is caught even though az_cli's configured
-    manager is uv. Every macOS mechanism is user-space; nothing here asserts elevation (ADR-REMOVE:6). Steps 2
+    manager is uv. Every macOS mechanism is user-space; nothing here asserts elevation (ADR-AUTO-REMOVE:6). Steps 2
     and 3 are the shared Unix tail (Remove-UvPipOrStrayInstall), identical to Linux.
 
     This is invoked from the Unix branch of a Remove-<Tool>, which owns the -Force dry-run gate and the

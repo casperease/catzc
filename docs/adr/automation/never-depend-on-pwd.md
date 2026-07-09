@@ -1,17 +1,17 @@
 # ADR: Never depend on `$PWD`
 
-## Rules: ADR-NOPWD
+## Rules: ADR-AUTO-NOPWD
 
-### Rule ADR-NOPWD:1
+### Rule ADR-AUTO-NOPWD:1
 
 Never use relative paths that depend on the process working directory. Resolve every path from a known anchor — in PowerShell,
 `$PSScriptRoot` or `$env:RepositoryRoot` joined with `Join-Path` (the anchor idioms are the language layer,
-[working-directory-mechanics](powershell/working-directory-mechanics.md), `ADR-PSPWD`).
+[working-directory-mechanics](powershell/working-directory-mechanics.md), `ADR-AUTO-PSPWD`).
 
 - [Rejected alternatives](#rejected-alternatives)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-NOPWD:4
+### Rule ADR-AUTO-NOPWD:4
 
 Tests must not assume `$PWD`: test setup uses absolute paths derived from `$env:RepositoryRoot` or `$PSScriptRoot`.
 
@@ -43,7 +43,7 @@ All functions must work correctly regardless of the caller's `$PWD`.
 - **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`automation/.scriptanalyzer/NeverDependOnPwd.psm1`) — warns on `$PWD`
   dependence. Runs as part of the L2 test suite via `Test-ScriptAnalyzer.Tests.ps1`.
 - **The language layer** — the anchor idioms and the one safe way to change directory (`Push-Location`/`Pop-Location` in `try`/`finally`)
-  are [working-directory-mechanics](powershell/working-directory-mechanics.md) (`ADR-PSPWD`), which the same analyzer rule enforces.
+  are [working-directory-mechanics](powershell/working-directory-mechanics.md) (`ADR-AUTO-PSPWD`), which the same analyzer rule enforces.
 
 ## Consequences
 

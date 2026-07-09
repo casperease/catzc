@@ -2,7 +2,7 @@
 .SYNOPSIS
     Gate: no LOGIC test may name a live production identity (a real customer, subscription, org, template, or
     ADO project) as a code string literal — the tag-aware, comment-blind enforcer of the test/live domain
-    separation (ADR-LANG, ADR-TEST:3).
+    separation (ADR-REPO-LANG, ADR-AUTO-TEST:3).
 .DESCRIPTION
     The forbidden set is DERIVED from the shipped config (Get-LiveIdentityTokens), so it is always current —
     add a customer to customer.yml and it is immediately banned from logic tests. Each test file is classified
@@ -12,7 +12,7 @@
 
     This is itself an INTEGRITY check (it reads the shipped config and the whole test tree), so it is tagged
     `integrity` where a Pester test wraps it. It mirrors the Test-Spelling / Test-Terminology gate shape
-    (ADR-VERBS:7): it throws on findings to fail the build, and returns a result object under -PassThru.
+    (ADR-AUTO-VERBS:7): it throws on findings to fail the build, and returns a result object under -PassThru.
 
     Phase 1 matches the DISTINCTIVE identities exactly (customers, subscriptions, org, templates, deployable
     units, ADO project); environment names (dev/test/preprod/prod) are a later, position-aware phase.

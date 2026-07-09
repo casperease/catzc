@@ -1,62 +1,62 @@
 # ADR: Controlling system-wide dependencies
 
-## Rules: ADR-SYSDEPS
+## Rules: ADR-AUTO-DEPS
 
-### Rule ADR-SYSDEPS:1
+### Rule ADR-AUTO-DEPS:1
 
 Lock every tool version in `automation/Catzc.Tooling.Core/configs/tools.yml`. Pinned tools install an explicit, reviewable version; a small
 allowlist of base tools (git, vscode) deliberately tracks `latest` and verifies integrity against the publisher's published hash.
 
 - [1. Lock versions in configuration](#1-lock-versions-in-configuration)
 
-### Rule ADR-SYSDEPS:2
+### Rule ADR-AUTO-DEPS:2
 
 Provide one `Install-*` / `Invoke-*` / `Uninstall-*` triad per tool. The installer handles platform differences, the invoker asserts version
-and presence, the uninstaller cleans up. An OS-provided prerequisite is the exception (Rule ADR-SYSDEPS:8): it is asserted, never installed,
-so it has no triad.
+and presence, the uninstaller cleans up. An OS-provided prerequisite is the exception (Rule ADR-AUTO-DEPS:8): it is asserted, never
+installed, so it has no triad.
 
 - [2. Platform-aware installers](#2-platform-aware-installers)
 
-### Rule ADR-SYSDEPS:3
+### Rule ADR-AUTO-DEPS:3
 
 Assert before every invocation. `Assert-Tool` runs `Assert-Command` and `Assert-ToolVersion` (presence and version only) before every
 external tool call; it does not resolve `depends_on`.
 
 - [3. Assert at runtime](#3-assert-at-runtime)
 
-### Rule ADR-SYSDEPS:4
+### Rule ADR-AUTO-DEPS:4
 
 Declare install-order dependencies in config. If a tool must be installed after another, add `depends_on` to its `tools.yml` entry;
 `Get-ToolInstallOrder` topologically sorts installs, and it is not a runtime assertion.
 
 - [3b. Declare tool dependencies in config](#3b-declare-tool-dependencies-in-config)
 
-### Rule ADR-SYSDEPS:5
+### Rule ADR-AUTO-DEPS:5
 
 CI and local share the same installers. No separate CI setup scripts — CI calls the same per-tool `Install-*` functions against the same
 `tools.yml`, activating cached toolchains via native ADO version tasks first rather than running `Install-DevBoxTools`.
 
 - [5. CI uses the same functions](#5-ci-uses-the-same-functions)
 
-### Rule ADR-SYSDEPS:6
+### Rule ADR-AUTO-DEPS:6
 
 Do not assume tools are pre-installed. Even on CI runners with pre-installed tools, assert the version — runner images change without
 notice.
 
 - [3. Assert at runtime](#3-assert-at-runtime)
 
-### Rule ADR-SYSDEPS:7
+### Rule ADR-AUTO-DEPS:7
 
-Two kinds of dependency, two names. A **system dependency** (`ADR-SYSDEPS`) is an external runtime or CLI the automation runs _against_ —
+Two kinds of dependency, two names. A **system dependency** (`ADR-AUTO-DEPS`) is an external runtime or CLI the automation runs _against_ —
 `pwsh`, Python, `dotnet`, the Azure CLI, git — installed at the OS level and covered by the Tooling layer (`tools.yml`, the `Install-*` /
-`Invoke-*` triads). A **module dependency** (`ADR-MODDEPS`) is an edge in the internal graph among the repo's _own_ modules, the code we
+`Invoke-*` triads). A **module dependency** (`ADR-AUTO-DEPM`) is an edge in the internal graph among the repo's _own_ modules, the code we
 _build_ — spanning both kinds of module content, `pwsh` functions and C# types — declared in `dependencies.yml`. The two codes carry the
-split: `ADR-SYSDEPS` (SYS = system) and `ADR-MODDEPS` (MOD = module). This ADR governs `ADR-SYSDEPS`; `ADR-MODDEPS` has its own ADR,
+split: `ADR-AUTO-DEPS` (SYS = system) and `ADR-AUTO-DEPM` (MOD = module). This ADR governs `ADR-AUTO-DEPS`; `ADR-AUTO-DEPM` has its own ADR,
 [controlling-module-dependencies](controlling-module-dependencies.md).
 
 - [System dependencies vs module dependencies](#system-dependencies-vs-module-dependencies)
 
-### Rule ADR-SYSDEPS:8
+### Rule ADR-AUTO-DEPS:8
 
 An OS-provided prerequisite is asserted, never installed. A tool the operating system supplies — winget (the Windows App Installer) —
 carries `system_provided: true`: the toolchain asserts it is present and keeps it on PATH through `session_path_hints`, but has no
@@ -84,16 +84,16 @@ prerequisite.
 
 "Dependency" means two different things in this repo, and the two carry distinct names so a reader never has to guess which is meant:
 
-- A **system dependency** — code **`ADR-SYSDEPS`** (SYS = system) — is something the automation _runs against_: an external runtime or CLI
+- A **system dependency** — code **`ADR-AUTO-DEPS`** (SYS = system) — is something the automation _runs against_: an external runtime or CLI
   installed at the OS level, such as `pwsh`, Python, `dotnet`, the Azure CLI, or git. These are not vendored into the repo; they are
   binaries the **Tooling** layer installs, version-locks, and asserts (`tools.yml`, `Get-ToolConfig`, the `Install-*` / `Invoke-*` /
-  `Uninstall-*` triads). This ADR — and everything under `Catzc.Tooling.*` — is about `ADR-SYSDEPS`.
-- A **module dependency** — code **`ADR-MODDEPS`** (MOD = module) — is an edge in the internal graph among the repo's _own_ modules, the
+  `Uninstall-*` triads). This ADR — and everything under `Catzc.Tooling.*` — is about `ADR-AUTO-DEPS`.
+- A **module dependency** — code **`ADR-AUTO-DEPM`** (MOD = module) — is an edge in the internal graph among the repo's _own_ modules, the
   code we _build_. It is a separate concern with its own ADR, [controlling-module-dependencies](controlling-module-dependencies.md)
-  (`ADR-MODDEPS`); this ADR does not govern it.
+  (`ADR-AUTO-DEPM`); this ADR does not govern it.
 
-The two are governed by opposite disciplines: a `ADR-SYSDEPS` is external and uncontrolled, so the rules below lock, assert, and never
-assume it; a `ADR-MODDEPS` is internal and fully ours, so it is declared once and its layering is gated (see
+The two are governed by opposite disciplines: a `ADR-AUTO-DEPS` is external and uncontrolled, so the rules below lock, assert, and never
+assume it; a `ADR-AUTO-DEPM` is internal and fully ours, so it is declared once and its layering is gated (see
 [controlling-module-dependencies](controlling-module-dependencies.md)). Keeping the words distinct keeps the two from being conflated in
 code, config, and prose.
 
@@ -127,9 +127,9 @@ tool:
 - **script-install tools** (e.g. `dotnet`) set `script_install: true` and use vendored install scripts with no package manager, plus
   install-dir fields like `windows_install_dir`.
 - **uv-managed Python family** — Python itself and the CLIs written in Python (the Azure CLI, Poetry, PySpark) install user-space through
-  uv, keyed by `uv_python` / `uv_tool` / `pip_package`; see [uv-python-handler](uv-python-handler.md) (`ADR-UVPY`).
+  uv, keyed by `uv_python` / `uv_tool` / `pip_package`; see [uv-python-handler](uv-python-handler.md) (`ADR-AUTO-UVPY`).
 - **OS-provided prerequisites** (e.g. `winget`) set `system_provided: true` — asserted and kept on PATH, never installed (Rule
-  ADR-SYSDEPS:8).
+  ADR-AUTO-DEPS:8).
 
 All entries share `Version`, `Command`, `VersionCommand`, and `VersionPattern` — the fields used for version-locking and runtime assertion.
 
@@ -142,10 +142,10 @@ Each tool has an `Install-*` function that delegates to the platform's native pa
 - **Linux:** apt-get
 
 The Python family is the exception: Python and the CLIs written in it install user-space through uv on every platform rather than the native
-manager — see [uv-python-handler](uv-python-handler.md) (`ADR-UVPY`).
+manager — see [uv-python-handler](uv-python-handler.md) (`ADR-AUTO-UVPY`).
 
 The installer is idempotent — if the tool is already installed, it returns immediately (see
-[idempotent-state-functions](idempotent-state-functions.md#rule-adr-idem1)).
+[idempotent-state-functions](idempotent-state-functions.md#rule-adr-auto-idem1)).
 
 #### 3. Assert at runtime
 

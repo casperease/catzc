@@ -1,8 +1,8 @@
 # ADR: DORA — User-centric focus
 
-## Rules: ADR-DORAUCF
+## Rules: ADR-DORA-USERFOCUS
 
-### Rule ADR-DORAUCF:1
+### Rule ADR-DORA-USERFOCUS:1
 
 Judge software by its usefulness to the individual at the end of the value chain, not by the volume of code or features produced along the
 way — understanding actual user needs and prioritizing user experience are explicit design goals, not an afterthought left to whoever
@@ -10,21 +10,21 @@ happens to talk to a customer.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAUCF:2
+### Rule ADR-DORA-USERFOCUS:2
 
 Treat AI as an amplifier of whatever focus already exists, not a substitute for it — a team without a user-centric practice that adopts AI
 does not become user-centric by accident; it produces more low-value output, faster.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORAUCF:3
+### Rule ADR-DORA-USERFOCUS:3
 
 Wire user feedback into planning as a low-latency loop, and let it actually change priorities — a channel that collects feedback but never
 causes work to be reprioritized is a suggestion box, not a feedback loop.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAUCF:4
+### Rule ADR-DORA-USERFOCUS:4
 
 Put user-experience metrics (satisfaction, adoption, retention, task completion) on the same dashboard as technical delivery metrics, and
 give engineers direct exposure to user research — observing real usage or reading raw feedback — rather than routing everything through a
@@ -32,7 +32,7 @@ distilled summary that loses signal.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAUCF:5
+### Rule ADR-DORA-USERFOCUS:5
 
 Measure and reward outcomes, not output — features shipped, story points closed, or commit volume are not evidence that value reached a
 user, and treating them as such is the feature-factory failure mode this capability exists to prevent.
@@ -70,13 +70,13 @@ more consequential.
 
 ## How to apply
 
-This platform treats console output as its user interface ([ADR-CONSOLE](../automation/powershell/console-output-matters.md)), because the
-person running an automation function has no GUI or dashboard to fall back on — every decision about what a line of output says, and whether
-it says anything at all, is a user-experience decision, not merely a logging concern. Sensible defaults
-([ADR-DEFAULT](../automation/sensible-defaults.md)) apply the same lens to the calling code itself: a function's parameter surface is
+This platform treats console output as its user interface ([ADR-AUTO-CONSOLE](../automation/powershell/console-output-matters.md)), because
+the person running an automation function has no GUI or dashboard to fall back on — every decision about what a line of output says, and
+whether it says anything at all, is a user-experience decision, not merely a logging concern. Sensible defaults
+([ADR-AUTO-DEFAULT](../automation/sensible-defaults.md)) apply the same lens to the calling code itself: a function's parameter surface is
 designed around what the caller most likely wants, so the caller's actual need drives the interface rather than the implementation's
-internal shape. Zero-ceremony design ([ADR-ZERO](../automation/zero-ceremony-poka-yoke.md)) extends this to the contributor experience of
-the platform, judging every addition by whether it removes friction for the person using it rather than by whether it is convenient to
+internal shape. Zero-ceremony design ([ADR-AUTO-ZERO](../automation/zero-ceremony-poka-yoke.md)) extends this to the contributor experience
+of the platform, judging every addition by whether it removes friction for the person using it rather than by whether it is convenient to
 build.
 
 ## Common pitfalls

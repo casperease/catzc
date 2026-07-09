@@ -1,8 +1,8 @@
 # ADR: uv is the standard Python handler; tools install user-space
 
-## Rules: ADR-UVPY
+## Rules: ADR-AUTO-UVPY
 
-### Rule ADR-UVPY:1
+### Rule ADR-AUTO-UVPY:1
 
 uv is the single handler for Python: the `python` interpreter is provisioned by `uv python install <version> --default`, which installs a
 uv-managed CPython and writes the global `python`/`python3` shims into uv's user tool-bin. No system package manager (winget, brew, apt)
@@ -10,7 +10,7 @@ installs Python.
 
 - [Why uv](#why-uv)
 
-### Rule ADR-UVPY:2
+### Rule ADR-AUTO-UVPY:2
 
 A Python-based CLI installs through uv in one of two shapes, declared in `tools.yml`: a standalone CLI (Azure CLI, Poetry) installs as an
 **isolated tool** (`uv tool install`, keyed by `uv_tool`), so its dependency graph never touches any other environment; a package that must
@@ -19,14 +19,14 @@ works.
 
 - [Two install shapes](#two-install-shapes)
 
-### Rule ADR-UVPY:3
+### Rule ADR-AUTO-UVPY:3
 
 No tool in the standard toolchain requires Administrator. uv installs entirely in user space, so a developer without elevation provisions
 the full toolchain. A machine-scope package manager is not an install path for these tools.
 
 - [User-space, no admin](#user-space-no-admin)
 
-### Rule ADR-UVPY:4
+### Rule ADR-AUTO-UVPY:4
 
 The pin is authoritative, with one devbox relaxation. `Assert-ToolVersion` and `Test-Tool` accept the locked `version`; outside a CI
 pipeline they also accept an optional `devbox_version` prefix, so a devbox runs a functional off-pin tool for local work. A pipeline session
@@ -34,7 +34,7 @@ ignores `devbox_version` and enforces `version` alone, keeping promotion determi
 
 - [The devbox lever](#the-devbox-lever)
 
-### Rule ADR-UVPY:5
+### Rule ADR-AUTO-UVPY:5
 
 uv installs executables into the user tool-bin (`~/.local/bin`). Provisioning ensures that directory is on the persistent PATH (uv's own
 `update-shell`), and the session janitor (`Sync-SessionTools`) keeps it resolvable each session, so a uv-installed CLI is found without a

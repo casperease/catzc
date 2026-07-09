@@ -3,7 +3,7 @@
     Runs Prettier over a set of globs and returns a structured result — the shared engine behind the
     Format-<language> formatters (Format-Markdown, Format-Pipelines).
 .DESCRIPTION
-    The one copy of "invoke Prettier and make sense of its output" (ADR-ONELIVE): mode selection
+    The one copy of "invoke Prettier and make sense of its output" (ADR-PRIN-ONELIVE): mode selection
     (--write / --list-different / --check), the tool-missing guard, the >1 exit-code tool-error throw, ANSI
     stripping, and the per-mode changed-file parsing. Each public formatter is a thin wrapper that supplies
     its default -Glob and a -Label for the messages; the parsing and result shape live here, once.

@@ -4,7 +4,7 @@
 .DESCRIPTION
     The counterpart to Get-GlobSetTrigger (which computes what a pipeline's trigger SHOULD be): this reads
     what it actually IS, so an integrity gate can compare the two (Test-AdoPipelineTriggerGlob /
-    Test-GitHubWorkflowTriggerGlob, ADR-GLOBS). Parses the file with ConvertFrom-Yaml and pulls the filters:
+    Test-GitHubWorkflowTriggerGlob, ADR-FLOW-CD-GLOBS). Parses the file with ConvertFrom-Yaml and pulls the filters:
 
     - Ado: trigger.paths.include/exclude and pr.paths.include/exclude.
     - GitHub: on.push.paths and on.pull_request.paths. YAML 1.1 parses the bare key 'on' as the boolean

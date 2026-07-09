@@ -10,7 +10,7 @@
 # Reference shape: 'sc-apex-*' are illustrative until real service connections + a non-placeholder
 # azure.yml exist.
 
-# Trigger = the 'apex' globset projected into ADO-native path filters (Get-GlobSetTrigger, ADR-GLOBS):
+# Trigger = the 'apex' globset projected into ADO-native path filters (Get-GlobSetTrigger, ADR-FLOW-CD-GLOBS):
 # the shared foundation + modules, plus apex's own configuration subfolder, minus the other deployments'
 # config. A deeper-folder include (configuration/apex/**) over the broader exclude, so ADO keeps it.
 trigger:

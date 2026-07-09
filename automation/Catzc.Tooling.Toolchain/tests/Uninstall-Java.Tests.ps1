@@ -1,7 +1,7 @@
 Describe 'Uninstall-Java' -Tag 'L1', 'logic' {
     BeforeAll {
         # The managed body clears JAVA_HOME (process + Windows User scope) — snapshot and restore so the test
-        # leaves no persistent env change behind (ADR-PSENV:4).
+        # leaves no persistent env change behind (ADR-AUTO-PSENV:4).
         $script:savedProcessJavaHome = $env:JAVA_HOME
         if ($IsWindows) {
             $script:savedUserJavaHome = [Environment]::GetEnvironmentVariable('JAVA_HOME', 'User')
@@ -26,17 +26,17 @@ Describe 'Uninstall-Java' -Tag 'L1', 'logic' {
         Should -Invoke Remove-Java -ModuleName Catzc.Tooling.Toolchain -Times 0
     }
 
-    It 'escalates to Remove-Java -Force with -Remove -Force' -Tag 'ADR-REMOVE#5' {
+    It 'escalates to Remove-Java -Force with -Remove -Force' -Tag 'ADR-AUTO-REMOVE#5' {
         Uninstall-Java -Remove -Force
         Should -Invoke Remove-Java -ModuleName Catzc.Tooling.Toolchain -Times 1 -ParameterFilter { $Force -eq $true }
     }
 
-    It 'escalates as a dry-run when -Remove has no -Force' -Tag 'ADR-REMOVE#4' {
+    It 'escalates as a dry-run when -Remove has no -Force' -Tag 'ADR-AUTO-REMOVE#4' {
         Uninstall-Java -Remove
         Should -Invoke Remove-Java -ModuleName Catzc.Tooling.Toolchain -Times 1 -ParameterFilter { -not $Force }
     }
 
-    It 'still evicts when the managed uninstall fails' -Tag 'ADR-REMOVE#5' {
+    It 'still evicts when the managed uninstall fails' -Tag 'ADR-AUTO-REMOVE#5' {
         Mock Uninstall-Tool { throw 'the manager cannot find this install' } -ModuleName Catzc.Tooling.Toolchain
         Uninstall-Java -Remove -Force
         Should -Invoke Remove-Java -ModuleName Catzc.Tooling.Toolchain -Times 1

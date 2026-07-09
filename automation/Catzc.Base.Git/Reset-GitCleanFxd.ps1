@@ -25,7 +25,7 @@
 .EXAMPLE
     Reset-GitCleanFxd
 #>
-# Uses -DryRun, not ShouldProcess/-WhatIf — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-dryrun2.
+# Uses -DryRun, not ShouldProcess/-WhatIf — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun2.
 function Reset-GitCleanFxd {
     [CmdletBinding()]
     param(

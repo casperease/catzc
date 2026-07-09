@@ -2,7 +2,7 @@
 // managed root-file entries, each validated by RootConfigFile, with unique targets. Constructing an instance
 // validates the registry (collecting every malformed entry into one error) and exposes the parsed entries to
 // the generator (Build-RootConfig). Registered as the `rootconfig` config's type override in
-// Catzc.Base.Config/configs/configs.yml. See docs/adr/automation/module-config-loading.md and
+// Catzc.Base.Config/configs/configs.yml. See docs/adr/configuration/module-config-loading.md and
 // docs/adr/repository/generated-root-configs.md.
 
 using System;

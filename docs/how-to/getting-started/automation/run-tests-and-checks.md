@@ -71,7 +71,7 @@ the analyzer test — so `Test-Automation -Level 2` is what catches a formatting
 
 ## Marker freshness and protected scans
 
-Two globset-backed behaviors show up in gate runs (see [durable-sha-globs](../../../adr/pipelines/durable-sha-globs.md) and
+Two globset-backed behaviors show up in gate runs (see [durable-sha-globs](../../../adr/flow/durable-sha-globs.md) and
 [protected-globs](../../../adr/automation/protected-globs.md)):
 
 - A red **Native trigger globs** test means a pipeline's `trigger:`/`pr:` `paths:` filter has drifted from its globset's projection —

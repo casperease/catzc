@@ -1,4 +1,4 @@
-# Coverage of the native-trigger projection over THIS repo's real tree (ADR-GLOBS:1). The guaranteed safety
+# Coverage of the native-trigger projection over THIS repo's real tree (ADR-FLOW-CD-GLOBS:1). The guaranteed safety
 # property: every member of a pipeline-bound set matches at least one ADO include pattern — so an ADO
 # include-only trigger is always a SUPERSET of exact membership and can never under-trigger (miss a deploy);
 # the in-pipeline Test-GlobSetAffected gate supplies exactness on top. (GitHub is exact by construction: its

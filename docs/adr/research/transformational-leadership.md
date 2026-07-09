@@ -1,8 +1,8 @@
 # ADR: DORA — Transformational leadership
 
-## Rules: ADR-DORATL
+## Rules: ADR-DORA-LEADERSHIP
 
-### Rule ADR-DORATL:1
+### Rule ADR-DORA-LEADERSHIP:1
 
 Transformational leadership is five distinct behaviors — vision, inspirational communication, intellectual stimulation, supportive
 leadership, and personal recognition — not a single trait, a job title, or a slogan; treat all five as necessary, not a menu to pick one
@@ -10,14 +10,14 @@ from.
 
 - [Summary](#summary)
 
-### Rule ADR-DORATL:2
+### Rule ADR-DORA-LEADERSHIP:2
 
 Treat leadership as an indirect lever on delivery performance: its effect runs through the technical and product-management practices it
 enables a team to adopt, not through the leader producing outcomes directly.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORATL:3
+### Rule ADR-DORA-LEADERSHIP:3
 
 Never treat strong leadership behaviors as sufficient on their own. Pair them with investment in the practices they are meant to unlock —
 leadership quality alone predicts only part of the variation in delivery performance, and even highly transformational leaders see teams
@@ -25,14 +25,14 @@ with widely varying outcomes when the underlying practices are missing.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORATL:4
+### Rule ADR-DORA-LEADERSHIP:4
 
 Set clear, measurable delivery goals, use intellectual stimulation to help a team question its own assumptions, and recognize good work and
 safe experimentation deliberately — including attempts that fail — and hold to that behavior consistently, especially under stress.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORATL:5
+### Rule ADR-DORA-LEADERSHIP:5
 
 Distribute leadership rather than concentrating it in one named role. Anyone in a position to set direction, challenge assumptions, or
 recognize good work can and should practice these five behaviors, not only the person with the title.
@@ -77,12 +77,13 @@ obstacle to adopting them, regardless of how good the practices are on paper.
 ## How to apply
 
 This platform cannot encode leadership behavior directly — it is a property of people, not of code — but two of its process decisions are
-the concrete form two of the five dimensions take here. Holding the line ([ADR-ANDON](../process/holding-the-line.md)) states plainly that
-stopping the line is cheap and expected, never a failure event, and that punishing a stop teaches people to route around the cord instead —
-that is supportive leadership applied to a specific moment: whether a team member who halts the flow to report a defect is treated with
-support or blame decides whether the andon cord gets pulled again. Inspect-and-adapt ([ADR-KAIZEN](../process/inspect-and-adapt.md)) builds
-continuous, evidence-driven reflection into the process itself — the discipline of routinely questioning how the team works and why — which
-is intellectual stimulation made a standing habit rather than an occasional leadership gesture.
+the concrete form two of the five dimensions take here. Holding the line ([ADR-PROC-ANDON](../process/holding-the-line.md)) states plainly
+that stopping the line is cheap and expected, never a failure event, and that punishing a stop teaches people to route around the cord
+instead — that is supportive leadership applied to a specific moment: whether a team member who halts the flow to report a defect is treated
+with support or blame decides whether the andon cord gets pulled again. Inspect-and-adapt
+([ADR-PROC-KAIZEN](../process/inspect-and-adapt.md)) builds continuous, evidence-driven reflection into the process itself — the discipline
+of routinely questioning how the team works and why — which is intellectual stimulation made a standing habit rather than an occasional
+leadership gesture.
 
 Beyond what a platform can enforce, apply the capability by setting delivery goals that are specific enough to be measurably true or false,
 by treating obstacles as questions to put to the team rather than answers to hand down, by rewarding deliberate experimentation even when an

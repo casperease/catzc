@@ -14,17 +14,17 @@
 # Three builds, not one per sample: each adds a DISTINCT real-compiler concern. sample-indexed and
 # sample-with-prepost are deliberately absent — their behaviour (indexed slots, the PrePost merge seam) is pure
 # PowerShell fully covered at L0, and their compile is a flat resource-group build identical to the skeleton.
-# Each It self-skips when `az` is absent (ADR-TEST:8); the skip key is the constrained `tool_az_missing` grammar.
+# Each It self-skips when `az` is absent (ADR-AUTO-TEST:8); the skip key is the constrained `tool_az_missing` grammar.
 #
-# Isolation is the standard seam swap (ADR-PESTER:2): redirect the template tree to tests/assets/templates and the
+# Isolation is the standard seam swap (ADR-AUTO-PESTER:2): redirect the template tree to tests/assets/templates and the
 # azure/network configs to the fixtures, so these bind to the sample-* assets, never to shipped templates.
 # greedy, not serial: it drives real `az bicep build` child processes (consuming the machine beyond this
-# process — ADR-TEST:26) but shares no mutable state. The build output is isolated to this file's own root via
+# process — ADR-AUTO-TEST:26) but shares no mutable state. The build output is isolated to this file's own root via
 # the Get-BicepTemplatesOutputRoot seam (below), so it no longer races the L0 Build-Bicep.Sample*.Tests.ps1
 # files on out/template/<name> — which is what previously forced the serial tag.
 Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greedy' {
     BeforeAll {
-        # Isolate build output to this file's throwaway $TestDrive (ADR-PESTER:2) so the real-az builds never
+        # Isolate build output to this file's throwaway $TestDrive (ADR-AUTO-PESTER:2) so the real-az builds never
         # share out/template/<name> with the L0 sample files — removing the sharing that forced a serial tag.
         # Pester auto-cleans $TestDrive, so the per-test output teardown below is belt-and-suspenders only.
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates

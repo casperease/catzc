@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Gate: no shipped config may carry a TEST-fixture identity in its data — the reverse of
-    Test-LogicTestIdentity, closing the other half of the domain-language separation (ADR-LANG).
+    Test-LogicTestIdentity, closing the other half of the domain-language separation (ADR-REPO-LANG).
 .DESCRIPTION
     A shipped `configs/*.yml` or `infrastructure/**` file is the config/live domain: it names real identities.
     A fixture identity (acme/globex, tst, alpha, core_lower, widget, …) appearing in one is a leak — a test
@@ -13,7 +13,7 @@
     data and is not flagged, while a real `have_customers: [acme]` value is. The terminology registry (which
     DEFINES the fixture tokens) is excluded.
 
-    Mirrors the Test-Spelling / Test-Terminology / Test-LogicTestIdentity gate shape (ADR-VERBS:7): throws on
+    Mirrors the Test-Spelling / Test-Terminology / Test-LogicTestIdentity gate shape (ADR-AUTO-VERBS:7): throws on
     findings, returns a result object under -PassThru. It reads the shipped config, so a Pester test wrapping
     it is `integrity`.
 .PARAMETER Path

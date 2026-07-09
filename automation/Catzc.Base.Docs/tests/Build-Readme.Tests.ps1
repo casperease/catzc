@@ -2,7 +2,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
 
-        # Isolate through the seams (ADR-PESTER:2): mock the config seam (Get-Config) and redirect the repository
+        # Isolate through the seams (ADR-AUTO-PESTER:2): mock the config seam (Get-Config) and redirect the repository
         # root to a fixture tree (TestKit) so Resolve-RepoPath binds inside it.
         $sourceText = @(
             '# Fixture Title'

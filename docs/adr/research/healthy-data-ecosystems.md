@@ -1,29 +1,29 @@
 # ADR: DORA — Healthy data ecosystems
 
-## Rules: ADR-DORAHDE
+## Rules: ADR-DORA-DATAECO
 
-### Rule ADR-DORAHDE:1
+### Rule ADR-DORA-DATAECO:1
 
 A data ecosystem is healthy along three properties at once — high-quality, easily accessible, and unified — and all three matter together;
 improving one while neglecting the others still leaves the ecosystem unhealthy.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAHDE:2
+### Rule ADR-DORA-DATAECO:2
 
 Data health is a moderator of AI's effect on performance, not an independent contributor: the same AI adoption compounds the strengths of a
 healthy data ecosystem and compounds the dysfunctions of an unhealthy one, so data health decides which direction the amplification runs.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORAHDE:3
+### Rule ADR-DORA-DATAECO:3
 
 Every critical data domain has a named owner or steward accountable for its accuracy, its metadata, and its access policy; data is treated
 as a product with consumers, never as incidental exhaust from the applications that happen to produce it.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAHDE:4
+### Rule ADR-DORA-DATAECO:4
 
 Data quality is checked the way code is tested — with automated, continuous checks for accuracy, completeness, and timeliness — and every
 critical dataset carries documentation and metadata alongside it, versioned as a code artifact rather than kept in a separate system that
@@ -31,14 +31,14 @@ drifts out of sync.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAHDE:5
+### Rule ADR-DORA-DATAECO:5
 
 Quality data is discoverable and accessible under governance, never locked away behind a single tool or team; a platform that makes data
 hard to find or reach is indistinguishable, in effect, from data that does not exist.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAHDE:6
+### Rule ADR-DORA-DATAECO:6
 
 Data health work starts with a pilot on one high-value dataset or service and expands from a working example, rather than attempting to fix
 an entire data estate at once.
@@ -80,11 +80,11 @@ compounds its cost. Treating data health as optional while investing in AI adopt
 ## How to apply
 
 The templating data model resolves every Azure identity fact through one config layer, keyed by name and validated by `Assert-AzureConfig`
-([ADR-DATAMOD](../azure/azure-data-model.md)) — one source of truth per record rather than a fact duplicated, and free to drift, across
+([ADR-AZ-DATAMOD](../azure/azure-data-model.md)) — one source of truth per record rather than a fact duplicated, and free to drift, across
 templates. Config-value addressing turns any committed config node into a citable, dereferenceable handle (`global.<config>.<key>`,
-[ADR-CFGADDR](../automation/config-value-addressing.md)) instead of a copied literal, keeping the documentation of "where a value comes
-from" next to the value rather than in a separate note. Module config loading's single reader and owner-scoped validation
-([ADR-MODCFG](../automation/module-config-loading.md)) give every named config exactly one cache and one automated quality gate — a
+[ADR-CONF-ADDRESSING](../configuration/config-value-addressing.md)) instead of a copied literal, keeping the documentation of "where a value
+comes from" next to the value rather than in a separate note. Module config loading's single reader and owner-scoped validation
+([ADR-CONF-LOADING](../configuration/module-config-loading.md)) give every named config exactly one cache and one automated quality gate — a
 convention-named `Assert-<Name>Config` run once on load — rather than ad hoc, per-caller checks that drift apart over time.
 
 ## Common pitfalls

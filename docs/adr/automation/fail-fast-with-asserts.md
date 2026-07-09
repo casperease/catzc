@@ -1,8 +1,8 @@
 # ADR: Fail fast with inline assertions
 
-## Rules: ADR-FAILFAST
+## Rules: ADR-AUTO-FAILFAST
 
-### Rule ADR-FAILFAST:1
+### Rule ADR-AUTO-FAILFAST:1
 
 Assert inputs at function entry. Use `Assert-NotNullOrWhitespace`, `Assert-True`, `Assert-PathExist`, `Assert-TypeIs`, and other `Assert-*`
 functions to validate variables.
@@ -10,7 +10,7 @@ functions to validate variables.
 - [The inline assertion pattern](#the-inline-assertion-pattern)
 - [What this looks like in practice](#what-this-looks-like-in-practice)
 
-### Rule ADR-FAILFAST:2
+### Rule ADR-AUTO-FAILFAST:2
 
 Assert after every external call. After `Invoke-Executable`, `Get-Content`, API calls, or any operation that talks to the outside world,
 assert the result meets expectations before passing it downstream.
@@ -18,7 +18,7 @@ assert the result meets expectations before passing it downstream.
 - [Why every fifth line](#why-every-fifth-line)
 - [What this looks like in practice](#what-this-looks-like-in-practice)
 
-### Rule ADR-FAILFAST:3
+### Rule ADR-AUTO-FAILFAST:3
 
 Assert preconditions, not just inputs. `Assert-Tool` verifies a tool's command is present and at the expected version before doing work; it
 does not validate inputs and deliberately does not resolve `DependsOn` (an install-time concern handled by `Get-ToolInstallOrder`).
@@ -26,21 +26,21 @@ does not validate inputs and deliberately does not resolve `DependsOn` (an insta
 - [Why every fifth line](#why-every-fifth-line)
 - [Decision](#decision)
 
-### Rule ADR-FAILFAST:4
+### Rule ADR-AUTO-FAILFAST:4
 
 Use the `Assert-*` library, never inline `if/throw`. The library gives consistent, greppable error messages and makes assertion intent
 visible in review; bare `if (-not $x) { throw }` obscures it.
 
 - [The inline assertion pattern](#the-inline-assertion-pattern)
 
-### Rule ADR-FAILFAST:5
+### Rule ADR-AUTO-FAILFAST:5
 
 Never catch assertion failures. Assertions indicate a bug or unmet precondition, not a recoverable error; let them propagate. Wrapping an
 assertion in `try`/`catch` means the assertion is wrong or the condition should be handled differently.
 
 - [Decision](#decision)
 
-### Rule ADR-FAILFAST:6
+### Rule ADR-AUTO-FAILFAST:6
 
 Treat assertions as documentation. `Assert-PathExist $configPath` both checks at runtime and specifies the function's expectations — more
 reliable than a comment because it executes.

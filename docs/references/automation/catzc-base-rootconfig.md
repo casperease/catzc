@@ -32,10 +32,10 @@ flipped-back entry always converts even when the composed bytes equal the source
 Which root file is managed, from what, and how it relates to git. The registry is `rootconfig.yml`: per entry a `target`, exactly one of
 `source` or `generator`, the two booleans — `optIn` (is the file managed at all; **opt-out is the default**) and `committed` (gitignored
 derived artifact vs tracked bootstrap file) — and the `copyAsLink` mechanism flag, which requires `source`, requires `committed: false`, and
-forbids a declared `comment` ([ADR-ROOTCFG:7](../../adr/repository/generated-root-configs.md)). It is validated when it loads so a malformed
-entry can never produce a run, and the integrity test asserts the registry, `.gitignore`, git's tracked set, and the link mechanism agree
-([ADR-ROOTCFG:6](../../adr/repository/generated-root-configs.md)). The registry is the single place the pairing is stated; the generator
-reads it through [Catzc.Base.Config](catzc-base-config.md) and never hard-codes a path.
+forbids a declared `comment` ([ADR-REPO-ROOTCFG:7](../../adr/repository/generated-root-configs.md)). It is validated when it loads so a
+malformed entry can never produce a run, and the integrity test asserts the registry, `.gitignore`, git's tracked set, and the link
+mechanism agree ([ADR-REPO-ROOTCFG:6](../../adr/repository/generated-root-configs.md)). The registry is the single place the pairing is
+stated; the generator reads it through [Catzc.Base.Config](catzc-base-config.md) and never hard-codes a path.
 
 ## What the module does
 

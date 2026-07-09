@@ -15,7 +15,7 @@
 #
 # Security: all flags default to off. Each flag is an explicit escalation.
 # No credentials leak to environment variables in any mode.
-# See ADR: docs/adr/pipelines/pipeline-runner-pattern.md
+# See ADR: docs/adr/flow/pipeline-runner-pattern.md
 
 parameters:
   - name: RunCommand

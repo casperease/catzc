@@ -44,7 +44,7 @@
     Note: completeness ("every environment is served") is NOT validated here, and different customers'
     subscriptions (and the shared platform's) may serve the same env — the customer axis separates them.
     The root-config uniqueness ("exactly one NON-customer subscription serves the env") is a per-config
-    discovery/integrity concern, not a load rule. See docs/adr/azure/azure-data-model.md#rule-adr-datamod7.
+    discovery/integrity concern, not a load rule. See docs/adr/azure/azure-data-model.md#rule-adr-az-datamod7.
 #>
 function Assert-AzureConfig {
     [CmdletBinding()]

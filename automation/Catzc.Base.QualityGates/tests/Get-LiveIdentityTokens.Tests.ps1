@@ -6,7 +6,7 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
     BeforeEach {
         # Fixture configs through the Get-Config seam — the derivation must reflect exactly what the shipped
         # config declares, never a hand-kept list. The 'live' identities here are the fixture identities the
-        # mocked config declares; the derivation logic is identical against the real config (ADR-TEST:3).
+        # mocked config declares; the derivation logic is identical against the real config (ADR-AUTO-TEST:3).
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'customer' } -MockWith {
             [ordered]@{ customers = [ordered]@{ acme = @{ shortcode = 'ac' }; globex = @{ shortcode = 'gx' } } }
         }

@@ -126,7 +126,7 @@ function Get-BicepTemplates {
         # short_name is the Azure id segment every resource name is built from. It is DERIVED from the folder
         # name by default; an options.yml `short_name` overrides it. BicepShortName owns the derivation +
         # format validation (a malformed override, or a folder that cannot yield a valid short_name without an
-        # override, throws here — naming the template). See docs/adr/azure/azure-naming-standard.md#rule-adr-naming2.
+        # override, throws here — naming the template). See docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2.
         $shortNameOverride = if ($options.Contains('short_name')) {
             "$($options.short_name)"
         }

@@ -1,8 +1,8 @@
 # ADR: Path representation — relative across boundaries, absolute only at the bind
 
-## Rules: ADR-PATH
+## Rules: ADR-AUTO-PATH
 
-### Rule ADR-PATH:1
+### Rule ADR-AUTO-PATH:1
 
 A path value is in one of two forms, never a third. **Communication form** is repository-root-relative (or output-root-relative),
 `/`-separated, and fully normalized — no `.` or `..` segments, no leading `./`, no backslashes, no duplicate separators. **Binding form** is
@@ -10,24 +10,24 @@ a normalized absolute path that exists only transiently at the point of use. A h
 
 - [The two forms](#the-two-forms)
 
-### Rule ADR-PATH:2
+### Rule ADR-AUTO-PATH:2
 
 A path that is stored or transported is in communication form: returned to a caller, held on a record, or written into an artifact or
 source-controlled config. The canonical representation a type holds and a record serializes is relative. `ConvertTo-RepoRelativePath`
-produces this form. How a path is _rendered_ to a log or console is a separate, per-channel decision (ADR-PATH:8), not a property of how it
-is stored.
+produces this form. How a path is _rendered_ to a log or console is a separate, per-channel decision (ADR-AUTO-PATH:8), not a property of
+how it is stored.
 
 - [The two forms](#the-two-forms)
 - [The boundary, concretely](#the-boundary-concretely)
 
-### Rule ADR-PATH:3
+### Rule ADR-AUTO-PATH:3
 
 A path is in binding form only at the point of binding — the line that performs a filesystem read or write, or hands the path to an external
 tool. Resolve to absolute immediately before that side effect with `Resolve-RepoPath`; never store, return, or log the absolute result.
 
 - [The point of binding](#the-point-of-binding)
 
-### Rule ADR-PATH:4
+### Rule ADR-AUTO-PATH:4
 
 Normalization is mandatory and centralized. Cross the boundary through `ConvertTo-RepoRelativePath` and `Resolve-RepoPath` — the only
 sanctioned crossers. Do not hand-build a communicated path with `Join-Path $env:RepositoryRoot …`, and do not normalize separators ad hoc
@@ -36,22 +36,22 @@ with `-replace '\\','/'`; both skip the normalization the converters guarantee a
 - [Why centralize on two functions](#why-centralize-on-two-functions)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PATH:5
+### Rule ADR-AUTO-PATH:5
 
 A path under neither the output root nor the repository root — the system temp directory, an unrelated absolute path, a foreign drive —
 degrades to a normalized absolute path, never to a hybrid. `ConvertTo-RepoRelativePath` does exactly this: a path under the output root
-comes back `out/`-anchored (ADR-PATH:9), a path under the repo root comes back repo-relative, a path under neither comes back absolute.
+comes back `out/`-anchored (ADR-AUTO-PATH:9), a path under the repo root comes back repo-relative, a path under neither comes back absolute.
 
 - [Degradation](#degradation)
 
-### Rule ADR-PATH:6
+### Rule ADR-AUTO-PATH:6
 
 Source-controlled config and long-lived records store communication-form paths only. A generated production artifact may embed absolute
 paths, because it is consumed at binding time on the machine that runs it — but the source that generates it holds relative paths.
 
 - [Source is relative; the bound artifact may be absolute](#source-is-relative-the-bound-artifact-may-be-absolute)
 
-### Rule ADR-PATH:7
+### Rule ADR-AUTO-PATH:7
 
 Name a path by its form. `ConvertTo-RepoRelativePath` and `Resolve-RepoPath` are the boundary crossers; `Get-RepositoryFile` /
 `Get-RepositoryFolder` are binding helpers (relative in, normalized absolute out). A record property that carries a path is named for the
@@ -59,7 +59,7 @@ form it holds (`RelativePath`, `*_file`) and the type documents that form, so a 
 
 - [The point of binding](#the-point-of-binding)
 
-### Rule ADR-PATH:8
+### Rule ADR-AUTO-PATH:8
 
 Logging, console, and other output channels are output _formats_: the path form rendered to each is a deliberate choice, not a fixed rule. A
 path-bearing type converts once in its constructor and exposes both forms, so a channel renders the relative form (the default — portable
@@ -68,7 +68,7 @@ re-deriving it. The stored field stays relative regardless of what a channel ren
 
 - [Logging is an output format](#logging-is-an-output-format)
 
-### Rule ADR-PATH:9
+### Rule ADR-AUTO-PATH:9
 
 `out/` is a reserved anchor, not an ordinary segment. A path under the output root (`Get-OutputRoot`) takes the form `out/<remainder>`, and
 `Resolve-RepoPath` re-anchors that `out/` sentinel against `Get-OutputRoot` — not the repository root. Because the output root is
@@ -78,7 +78,7 @@ machine-specific absolute.
 
 - [The output anchor](#the-output-anchor)
 
-### Rule ADR-PATH:10
+### Rule ADR-AUTO-PATH:10
 
 A published artifact that crosses a stage boundary — a build stage produces it, a later deploy stage (often a different agent) downloads and
 consumes it — is an immutable object that serializes **both** forms and is **created by the controlled type** (`ArtifactRef`). Its relative
@@ -105,9 +105,9 @@ known anchor, not the current directory.
 
 The fix is to fix the _form_ a path takes at each boundary, rather than leaving it to each function author. This ADR complements
 [never-depend-on-pwd](never-depend-on-pwd.md) (resolve against `$env:RepositoryRoot`, never `$PWD`),
-[cross-platform-powershell](powershell/cross-platform-powershell.md#rule-adr-psxplat2) (`Join-Path` and `[IO.Path]::GetFullPath`, forward
-slashes), and [dedicated-output-directory](../repository/dedicated-output-directory.md) (the `out/` root, whose paths take the same relative
-form).
+[cross-platform-powershell](powershell/cross-platform-powershell.md#rule-adr-auto-psxplat2) (`Join-Path` and `[IO.Path]::GetFullPath`,
+forward slashes), and [dedicated-output-directory](../repository/dedicated-output-directory.md) (the `out/` root, whose paths take the same
+relative form).
 
 ### The two forms
 

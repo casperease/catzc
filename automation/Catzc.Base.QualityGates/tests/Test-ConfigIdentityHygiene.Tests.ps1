@@ -3,7 +3,7 @@ Describe 'Test-ConfigIdentityHygiene' -Tag 'L1', 'integrity' {
     It 'the shipped config is free of test-fixture identities' {
         $result = Test-ConfigIdentityHygiene -PassThru
         $leaks = @($result.Findings | ForEach-Object { "$(ConvertTo-RepoRelativePath $_.File): $($_.Token) @ $($_.Location)" })
-        $result.FindingCount | Should -Be 0 -Because "a shipped config must name live identities, not fixtures (ADR-LANG):`n$($leaks -join "`n")"
+        $result.FindingCount | Should -Be 0 -Because "a shipped config must name live identities, not fixtures (ADR-REPO-LANG):`n$($leaks -join "`n")"
     }
 
     It 'catches a fixture identity planted in a config VALUE' {

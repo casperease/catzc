@@ -2,7 +2,7 @@
 .SYNOPSIS
     Records a green scan against its globset's identity, so an unchanged repeat run can be skipped.
 .DESCRIPTION
-    The record half of the protected-glob gate (ADR-PROTGLOB) — call it only AFTER the scan passes, so a
+    The record half of the protected-glob gate (ADR-REPO-PROTGLOB) — call it only AFTER the scan passes, so a
     red scan is never cached away. It promotes the pending hash Test-GlobSetProtection captured before the
     scan (falling back to computing one when the query was never asked). Session memory only; in a pipeline
     this is a no-op, so CI never records protection.
@@ -15,7 +15,7 @@
 .PARAMETER Hash
     A precomputed durable identity to record when no pending value exists for the key — for callers that
     protect directly without a prior Test-GlobSetProtection query. A pending pre-scan value always wins over
-    this (hash-before-scan, ADR-PROTGLOB:4).
+    this (hash-before-scan, ADR-REPO-PROTGLOB:4).
 .EXAMPLE
     Test-Markdownlint
     Protect-GlobSet -Test 'markdown' -Name 'markdown-scope'

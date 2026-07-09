@@ -3,8 +3,8 @@
     Scans automation/ for its modules and the public functions each exports, for Show-Cats.
 .DESCRIPTION
     Enumerates the non-dot-prefixed module folders under automation/ (a dot-prefix means infrastructure,
-    ADR-FOLDERS:4) and, for each, the public functions it exports — the root *.ps1 files, one function per file
-    (ADR-ONEFUNC). Reads the filesystem directly with [System.IO] (ADR-TEST:16, ADR-TEST:18), not the loaded
+    ADR-REPO-FOLDERS:4) and, for each, the public functions it exports — the root *.ps1 files, one function per file
+    (ADR-AUTO-ONEFUNC). Reads the filesystem directly with [System.IO] (ADR-AUTO-TEST:16, ADR-AUTO-TEST:18), not the loaded
     session, and memoizes per resolved automation root for the session (docs/adr/automation/caching.md).
 
     Private helper for Show-Cats; not exported.

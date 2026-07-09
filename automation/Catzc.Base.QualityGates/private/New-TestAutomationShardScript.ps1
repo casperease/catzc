@@ -72,7 +72,7 @@ function New-TestAutomationShardScript {
     # the full toolset imported, so it reaches the private through module scope like ConvertTo-
     # TestAutomationRowSet below. Only the strict-mode discipline stays inline: strict is scope-dynamic and
     # the test scopes chain to the process's top scope, so the worker script itself must be the one to turn
-    # it off (tests run without strict — ADR-TEST:25).
+    # it off (tests run without strict — ADR-AUTO-TEST:25).
     $content = @"
 `$ErrorActionPreference = 'Stop'
 . '$repositoryRoot/importer.ps1' -SkipJanitors

@@ -11,7 +11,7 @@
 
     Publishing is deliberately not done here: the artifact is produced, and the release workflow (or a manual
     Publish-PSResource) pushes it — to a GitHub Release / GitHub Packages via the GitHub token, or to PSGallery
-    with a PSGallery API key. See docs/adr/pipelines/github-release.md.
+    with a PSGallery API key. See docs/adr/github/github-release.md.
 .PARAMETER Source
     The built bundle root (Build-Catzc output path).
 .PARAMETER Version

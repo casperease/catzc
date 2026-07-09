@@ -30,49 +30,49 @@ The catalogue groups the capabilities four ways. Each links to its summary artic
 
 ### AI-focused
 
-- [Version control](version-control.md) — `ADR-DORAVC`
-- [Working in small batches](working-in-small-batches.md) — `ADR-DORASB`
-- [Platform engineering](platform-engineering.md) — `ADR-DORAPE`
-- [User-centric focus](user-centric-focus.md) — `ADR-DORAUCF`
-- [AI-accessible internal data](ai-accessible-internal-data.md) — `ADR-DORAAID`
-- [Clear and communicated AI stance](clear-and-communicated-ai-stance.md) — `ADR-DORAAIS`
-- [Healthy data ecosystems](healthy-data-ecosystems.md) — `ADR-DORAHDE`
+- [Version control](version-control.md) — `ADR-DORA-VCS`
+- [Working in small batches](working-in-small-batches.md) — `ADR-DORA-SMALLBATCH`
+- [Platform engineering](platform-engineering.md) — `ADR-DORA-PLATFORM`
+- [User-centric focus](user-centric-focus.md) — `ADR-DORA-USERFOCUS`
+- [AI-accessible internal data](ai-accessible-internal-data.md) — `ADR-DORA-AIDATA`
+- [Clear and communicated AI stance](clear-and-communicated-ai-stance.md) — `ADR-DORA-AISTANCE`
+- [Healthy data ecosystems](healthy-data-ecosystems.md) — `ADR-DORA-DATAECO`
 
 ### Technical
 
-- [Code maintainability](code-maintainability.md) — `ADR-DORACM`
-- [Continuous delivery](continuous-delivery.md) — `ADR-DORACD`
-- [Continuous integration](continuous-integration.md) — `ADR-DORACI`
-- [Database change management](database-change-management.md) — `ADR-DORADCM`
-- [Deployment automation](deployment-automation.md) — `ADR-DORADA`
-- [Documentation quality](documentation-quality.md) — `ADR-DORADQ`
-- [Flexible infrastructure](flexible-infrastructure.md) — `ADR-DORAFI`
-- [Loosely coupled teams](loosely-coupled-teams.md) — `ADR-DORALCT`
-- [Monitoring and observability](monitoring-and-observability.md) — `ADR-DORAMO`
-- [Pervasive security](pervasive-security.md) — `ADR-DORAPS`
-- [Streamlining change approval](streamlining-change-approval.md) — `ADR-DORASCA`
-- [Test automation](test-automation.md) — `ADR-DORATA`
-- [Test data management](test-data-management.md) — `ADR-DORATDM`
-- [Trunk-based development](trunk-based-development.md) — `ADR-DORATBD`
+- [Code maintainability](code-maintainability.md) — `ADR-DORA-MAINTAIN`
+- [Continuous delivery](continuous-delivery.md) — `ADR-DORA-CD`
+- [Continuous integration](continuous-integration.md) — `ADR-DORA-CI`
+- [Database change management](database-change-management.md) — `ADR-DORA-DBCHANGE`
+- [Deployment automation](deployment-automation.md) — `ADR-DORA-DEPLOY`
+- [Documentation quality](documentation-quality.md) — `ADR-DORA-DOCS`
+- [Flexible infrastructure](flexible-infrastructure.md) — `ADR-DORA-FLEXINFRA`
+- [Loosely coupled teams](loosely-coupled-teams.md) — `ADR-DORA-LOOSETEAMS`
+- [Monitoring and observability](monitoring-and-observability.md) — `ADR-DORA-OBSERV`
+- [Pervasive security](pervasive-security.md) — `ADR-DORA-SECURITY`
+- [Streamlining change approval](streamlining-change-approval.md) — `ADR-DORA-APPROVAL`
+- [Test automation](test-automation.md) — `ADR-DORA-TESTAUTO`
+- [Test data management](test-data-management.md) — `ADR-DORA-TESTDATA`
+- [Trunk-based development](trunk-based-development.md) — `ADR-DORA-TRUNK`
 
 ### Process and measurement
 
-- [Customer feedback](customer-feedback.md) — `ADR-DORACF`
-- [Monitoring systems to inform business decisions](monitoring-systems.md) — `ADR-DORAMS`
-- [Proactive failure notification](proactive-failure-notification.md) — `ADR-DORAPFN`
-- [Visibility of work in the value stream](work-visibility-in-value-stream.md) — `ADR-DORAWV`
-- [Visual management](visual-management.md) — `ADR-DORAVM`
-- [Work in process limits](wip-limits.md) — `ADR-DORAWIP`
+- [Customer feedback](customer-feedback.md) — `ADR-DORA-FEEDBACK`
+- [Monitoring systems to inform business decisions](monitoring-systems.md) — `ADR-DORA-MONITOR`
+- [Proactive failure notification](proactive-failure-notification.md) — `ADR-DORA-FAILALERT`
+- [Visibility of work in the value stream](work-visibility-in-value-stream.md) — `ADR-DORA-WORKVIS`
+- [Visual management](visual-management.md) — `ADR-DORA-VISUAL`
+- [Work in process limits](wip-limits.md) — `ADR-DORA-WIP`
 
 ### Organizational and cultural
 
-- [Empowering teams to choose tools](teams-empowered-to-choose-tools.md) — `ADR-DORAECT`
-- [Generative organizational culture](generative-organizational-culture.md) — `ADR-DORAGOC`
-- [Job satisfaction](job-satisfaction.md) — `ADR-DORAJS`
-- [Learning culture](learning-culture.md) — `ADR-DORALC`
-- [Team experimentation](team-experimentation.md) — `ADR-DORATE`
-- [Transformational leadership](transformational-leadership.md) — `ADR-DORATL`
-- [Well-being](well-being.md) — `ADR-DORAWB`
+- [Empowering teams to choose tools](teams-empowered-to-choose-tools.md) — `ADR-DORA-TOOLCHOICE`
+- [Generative organizational culture](generative-organizational-culture.md) — `ADR-DORA-CULTURE`
+- [Job satisfaction](job-satisfaction.md) — `ADR-DORA-JOBSAT`
+- [Learning culture](learning-culture.md) — `ADR-DORA-LEARNING`
+- [Team experimentation](team-experimentation.md) — `ADR-DORA-EXPERIMENT`
+- [Transformational leadership](transformational-leadership.md) — `ADR-DORA-LEADERSHIP`
+- [Well-being](well-being.md) — `ADR-DORA-WELLBEING`
 
 ## References
 

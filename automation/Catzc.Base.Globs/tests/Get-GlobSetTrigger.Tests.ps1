@@ -1,4 +1,4 @@
-# Get-GlobSetTrigger: project a globset's scan program into vendor-native path filters (ADR-GLOBS:1) — GitHub
+# Get-GlobSetTrigger: project a globset's scan program into vendor-native path filters (ADR-FLOW-CD-GLOBS:1) — GitHub
 # ordered '!'-negation paths (exact), ADO order-independent include/exclude (last-select-per-pattern).
 Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {
     It 'projects a simple single-include set to both dialects' {

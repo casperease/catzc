@@ -60,7 +60,7 @@ domains:
     role: architecture # the platform-agnostic flow model that ADO (PIPE) and GitHub (GH) implement
     depends_on: [research, principles, process, design]
     rulesets:
-      ci-discipline-and-promotion-flow: { external: ADR-FLOW-CI }
+      cd-discipline-and-promotion-flow: { external: ADR-FLOW-CD }
       pipeline-runner-pattern: { external: ADR-FLOW-RUNNER }
       pipeline-detection: { external: ADR-FLOW-DETECT }
       pipeline-types: { external: ADR-FLOW-TYPE }
@@ -83,20 +83,18 @@ domains:
       cross-platform: { external: ADR-AUTO-XPLAT, terminology: xplat }
       single-responsibility-functions: { external: ADR-AUTO-ONEJOB, terminology: onejob }
       caching: { external: ADR-AUTO-CACHE }
-      module-config-loading: { external: ADR-AUTO-MODCFG, terminology: modcfg }
       sensible-defaults: { external: ADR-AUTO-DEFAULT }
       fail-fast-with-asserts: { external: ADR-AUTO-FAILFAST, terminology: failfast }
       idempotent-state-functions: { external: ADR-AUTO-IDEM, terminology: idem }
       use-proper-package-managers: { external: ADR-AUTO-PKGMGR, terminology: pkgmgr }
       effective-in-enterprises: { external: ADR-AUTO-ENTERP, terminology: enterp }
-      controlling-systemwide-deps: { external: ADR-AUTO-SYSDEPS, terminology: sysdeps }
+      controlling-systemwide-deps: { external: ADR-AUTO-DEPS, terminology: deps }
       tool-removal-lifecycle: { external: ADR-AUTO-REMOVE }
-      controlling-module-dependencies: { external: ADR-AUTO-MODDEPS, terminology: moddeps }
+      controlling-module-dependencies: { external: ADR-AUTO-DEPM, terminology: depm }
       environment-variables: { external: ADR-AUTO-ENVVAR, terminology: envvar }
-      az-session-verification: { external: ADR-AUTO-AZSESS, terminology: azsess }
+      az-session-verification: { external: ADR-AZ-SESSION, code: AZ, terminology: sesverify }
       path-representation: { external: ADR-AUTO-PATH }
-      config-value-addressing: { external: ADR-AUTO-CFGADDR, terminology: cfgaddr }
-      protected-globs: { external: ADR-AUTO-PROTGLOB, terminology: protglob }
+      protected-globs: { external: ADR-REPO-PROTGLOB, code: REPO, terminology: protglob }
       managed-guids: { external: ADR-AUTO-GUIDS, terminology: guids }
       platform-bundle: { external: ADR-AUTO-BUNDLE }
       vendor-toolset-dependencies: { external: ADR-AUTO-VENDOR }
@@ -122,6 +120,14 @@ domains:
       pester-testing: { external: ADR-AUTO-PESTER }
       prefer-dryrun-over-shouldprocess: { external: ADR-AUTO-DRYRUN, terminology: dryrun }
       native-csharp-types: { external: ADR-AUTO-TYPES }
+
+  configuration:
+    code: CONF
+    role: implementation # how configuration is loaded, addressed, and validated across modules
+    depends_on: [research, principles]
+    rulesets:
+      module-config-loading: { external: ADR-CONF-LOADING }
+      config-value-addressing: { external: ADR-CONF-ADDRESSING }
 
   pipelines:
     code: PIPE

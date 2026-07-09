@@ -2,7 +2,7 @@ Describe 'Copy-CatzcLiveTree' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixtureRoot = Join-Path $TestDrive 'repo'
 
-        # Neutral fixture identities (ADR-TEST:3) — never a real module name.
+        # Neutral fixture identities (ADR-AUTO-TEST:3) — never a real module name.
         $script:members = @(
             'automation/Catzc.Base.Widget/Get-Widget.ps1'
             'automation/Catzc.Base.Widget/private/Resolve-Widget.ps1'

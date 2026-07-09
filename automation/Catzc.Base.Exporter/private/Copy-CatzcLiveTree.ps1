@@ -80,7 +80,7 @@ function Copy-CatzcLiveTree {
     }
 
     # The committed combined-types assembly is not part of the automation globset; carry the single current
-    # build so the bundle loads types without Roslyn. Exactly one must exist (ADR-TYPES: .compiled holds one).
+    # build so the bundle loads types without Roslyn. Exactly one must exist (ADR-AUTO-TYPES: .compiled holds one).
     $compiledDir = [System.IO.Path]::Combine($repoRoot, 'automation', '.compiled')
     $dlls = @([System.IO.Directory]::EnumerateFiles($compiledDir, 'Catzc.Types.*.dll'))
     if ($dlls.Count -ne 1) {

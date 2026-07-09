@@ -36,7 +36,7 @@ java:
 
 `{0}` is substituted with the version; `(?<ver>…)` captures the installed version so `Assert-Tool` can compare it to the lock. A tool may
 also declare `devbox_version` — a second version prefix accepted only outside a CI pipeline, so a devbox can run a functional off-pin build
-(ADR-UVPY#4).
+(ADR-AUTO-UVPY#4).
 
 ## Upgrade a tool
 

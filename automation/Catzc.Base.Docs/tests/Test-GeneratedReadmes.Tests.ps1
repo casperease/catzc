@@ -29,7 +29,7 @@ Describe 'Generated README links are gitignored and untracked' -Tag 'L2', 'integ
         }
 
         # Resolve the configured targets exactly as Build-Readme does: expand readme.yml through
-        # Get-ReadmeMappings (private, so reached via the module per ADR-PESTER:4) against the real repo root.
+        # Get-ReadmeMappings (private, so reached via the module per ADR-AUTO-PESTER:4) against the real repo root.
         # Each target folder's generated file is "<folder>/README.md".
         $script:mappings = @()
         $script:targets = @()

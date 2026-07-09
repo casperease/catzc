@@ -18,7 +18,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         # requires — so New-FixtureRoot auto-prepends "namespace <module>;" UNLESS the case already supplies a
         # namespace line (the negative tests ship a wrong/block-scoped one to exercise the gate). Returns the root
         # to pass as -ModulesRoot. Import-CSharpTypes writes the combined assembly to <root>/.compiled/.
-        # [System.IO] rather than New-Item/Set-Content — ~0.1ms vs ~20ms/call (ADR-TEST:18). WriteAllText writes the
+        # [System.IO] rather than New-Item/Set-Content — ~0.1ms vs ~20ms/call (ADR-AUTO-TEST:18). WriteAllText writes the
         # string verbatim (no trailing newline appended); the auto-prepend uses LF, so a fixture's line endings
         # are exactly the source's bar that one leading line — the CRLF/LF-flip regression below relies on that.
         function New-FixtureRoot {
@@ -272,7 +272,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
 Describe 'shipped C# types' -Tag 'L0', 'integrity' {
     BeforeAll {
         # Every shipped types/*.cs across all modules; its FQN is <module>.<basename> (the file is named for
-        # the bare type and declares the module's file-scoped namespace). Scanned ONCE with [System.IO] (ADR-TEST:16/18)
+        # the bare type and declares the module's file-scoped namespace). Scanned ONCE with [System.IO] (ADR-AUTO-TEST:16/18)
         # instead of a BeforeDiscovery Get-ChildItem -Recurse feeding a per-type -ForEach.
         $automationRoot = Join-Path $env:RepositoryRoot 'automation'
         $script:shippedTypes = [System.Collections.Generic.List[string]]::new()

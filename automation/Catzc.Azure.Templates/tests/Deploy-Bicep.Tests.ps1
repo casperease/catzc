@@ -5,7 +5,7 @@ Describe 'Deploy-Bicep' -Tag 'L0', 'logic' {
         # Static fixtures + boundary mocks set up ONCE (not per test). The only per-test state is the hook
         # marker files (pre-/post-called.json), cleared in BeforeEach; main.json/parameters/PrePost.psm1 never
         # change, so rebuilding them every test was pure filesystem-cmdlet tax (~5 cmdlet calls × ~20ms —
-        # ADR-TEST:18). [System.IO] writes them in ~0.1ms.
+        # ADR-AUTO-TEST:18). [System.IO] writes them in ~0.1ms.
         [System.IO.Directory]::CreateDirectory($script:tempArtifacts) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:tempArtifacts 'main.json'), '{}')
         [System.IO.File]::WriteAllText((Join-Path $script:tempArtifacts 'parameters.alpha.json'), '{}')
@@ -41,7 +41,7 @@ function Invoke-BicepPostDeploy {
         # 'customer' is mocked alongside azure/network so template discovery validates the sample-customer
         # fixture (its configuration/<customer>/ folders) against the fixture customer.yml, not the shipped one.
         # Without it this file is not hermetic — it passed only when Build-Bicep.SampleCustomer happened to
-        # share a worker and pre-populate the template-descriptor cache (ADR-TEST:4/ADR-TEST:19).
+        # share a worker and pre-populate the template-descriptor cache (ADR-AUTO-TEST:4/ADR-AUTO-TEST:19).
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"

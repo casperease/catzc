@@ -104,17 +104,17 @@ function — see [test-automation](../../../../adr/automation/test-automation.md
 ### Optionally cite the ADR rule a test enforces
 
 A test may also declare the ADR rule(s) it enforces, as an **optional** third tag — so the suite is traceable from a test to the rule behind
-it and back. Cite the rule in the index's `#` form (`ADR-<CODE>#<n>`, e.g. `ADR-ERROR#3`) as a `-Tag` beside the tier and category:
+it and back. Cite the rule in the index's `#` form (`ADR-<CODE>#<n>`, e.g. `ADR-AUTO-ERROR#3`) as a `-Tag` beside the tier and category:
 
 ```powershell
-Describe 'Invoke-Poetry' -Tag 'L1', 'logic', 'ADR-ERROR#3' {   # this test pins "throw, never Write-Error"
+Describe 'Invoke-Poetry' -Tag 'L1', 'logic', 'ADR-AUTO-ERROR#3' {   # this test pins "throw, never Write-Error"
 ```
 
 The citation is optional (absence is never a violation), but a **present** one is validated: it must be well-formed and name a real rule, or
 the run fails — so renumbering a rule turns its stale tags red. It is set-valued: put a broad rule on the `Describe` and a specific one on
 an inner `Context`/`It`, and both count (citations are unioned across the block chain, unlike the nearest-wins tier/category). Mind the two
-spellings of one rule: the **tag** uses `#` (`ADR-ERROR#3`, the citation form), while the rule's **heading** in the ADR uses `:`
-(`### Rule ADR-ERROR:3`). Each run then writes `rule-coverage.md`/`.csv` (rule → enforcers, and the uncovered), and `tests.csv` gains a
+spellings of one rule: the **tag** uses `#` (`ADR-AUTO-ERROR#3`, the citation form), while the rule's **heading** in the ADR uses `:`
+(`### Rule ADR-AUTO-ERROR:3`). Each run then writes `rule-coverage.md`/`.csv` (rule → enforcers, and the uncovered), and `tests.csv` gains a
 `Rules` column you can filter by a citation to find every test that enforces it.
 
 Citing is one of **two** ways a rule gets mechanical coverage; the other is a PSScriptAnalyzer rule. So when you add a **custom analyzer

@@ -1,29 +1,29 @@
 # ADR: DORA — Version control
 
-## Rules: ADR-DORAVC
+## Rules: ADR-DORA-VCS
 
-### Rule ADR-DORAVC:1
+### Rule ADR-DORA-VCS:1
 
 Everything required to reproduce a build, deployment, or environment lives in version control — application code, scripts, configuration,
 infrastructure definitions, and pipeline definitions — not only the application source.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAVC:2
+### Rule ADR-DORA-VCS:2
 
 Version control exists to serve two properties: reproducibility (any past state can be rebuilt from the recorded history) and traceability
 (every change is attributable to an author, a time, and a reason).
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORAVC:3
+### Rule ADR-DORA-VCS:3
 
 Comprehensive versioning is the scope, not partial versioning — a system whose code is tracked but whose configuration or infrastructure is
 not is only partly under version control, and the untracked part is where irreproducible drift accumulates.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORAVC:4
+### Rule ADR-DORA-VCS:4
 
 Inner-loop discipline is part of the capability — frequent, small commits with clear messages are what make the history a usable safety net;
 large, infrequent commits and unmanaged merge conflicts erode it.
@@ -60,10 +60,11 @@ happened. Without it, each of those becomes archaeology.
 ## How to apply
 
 This platform realizes the capability by keeping every operational artifact in the repository
-([ADR-EAC](../principles/everything-as-code.md)) and carrying exactly one living version of each
-([ADR-ONELIVE](../principles/one-living-version.md)) with all history in git rather than in retained files. Trunk-based development and
-short-lived branches ([ADR-FLOW](../design/ci-discipline-and-promotion-flow.md)) keep the inner-loop discipline this capability depends on,
-and the audited server remote ([ADR-REMOTE](../design/server-remote-integration.md)) is the single source of truth for what is on main.
+([ADR-PRIN-EAC](../principles/everything-as-code.md)) and carrying exactly one living version of each
+([ADR-PRIN-ONELIVE](../principles/one-living-version.md)) with all history in git rather than in retained files. Trunk-based development and
+short-lived branches ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) keep the inner-loop discipline this capability depends
+on, and the audited server remote ([ADR-DSGN-REMOTE](../design/server-remote-integration.md)) is the single source of truth for what is on
+main.
 
 ## Common pitfalls
 

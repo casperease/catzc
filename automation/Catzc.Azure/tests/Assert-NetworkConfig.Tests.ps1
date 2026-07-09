@@ -2,7 +2,7 @@ Describe 'Assert-NetworkConfig' -Tag 'L0' {
     BeforeAll {
         # Fixture network plan — deliberately-distinct Greek env names (alpha/beta/gamma/delta), NOT the
         # shipped dev/test/preprod/prod, so this logic test owns its identity inputs and editing azure.yml
-        # can never change its outcome (ADR-TEST:1, ADR-TEST:3).
+        # can never change its outcome (ADR-AUTO-TEST:1, ADR-AUTO-TEST:3).
         $script:baseConfig = [ordered]@{
             environments = [ordered]@{
                 alpha = [ordered]@{ vnet_address_space = '10.10.0.0/16'; default_subnet = '10.10.0.0/24' }

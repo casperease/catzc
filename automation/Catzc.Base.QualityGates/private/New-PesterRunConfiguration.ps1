@@ -8,7 +8,7 @@
     a full-name filter (the manual single-check path). Both the generated shard scripts
     (New-TestAutomationShardScript, via module scope inside the worker) and Invoke-TestFile consume this, so
     the two invocation paths cannot drift apart. The strict-mode discipline itself (Set-StrictMode -Off
-    before Invoke-Pester — tests run without strict mode, see ADR-TEST:25) stays with the CALLER: strict
+    before Invoke-Pester — tests run without strict mode, see ADR-AUTO-TEST:25) stays with the CALLER: strict
     mode is scope-dynamic, so only the scope that invokes Pester can turn it off.
 .PARAMETER Path
     The test file(s) or folder(s) to run.

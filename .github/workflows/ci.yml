@@ -1,7 +1,7 @@
 name: CI
 
 # Trigger = the 'automation' globset projected into GitHub-native path filters (Get-GlobSetTrigger,
-# ADR-GLOBS): the track is its own root folder (automation/**), so this fires exactly — and only starts at
+# ADR-FLOW-CD-GLOBS): the track is its own root folder (automation/**), so this fires exactly — and only starts at
 # all — on a real change to the module system. No committed marker to go stale across a squash merge.
 on:
   push:

@@ -1,22 +1,22 @@
 # ADR: Sensible defaults for all parameters
 
-## Rules: ADR-DEFAULT
+## Rules: ADR-AUTO-DEFAULT
 
-### Rule ADR-DEFAULT:1
+### Rule ADR-AUTO-DEFAULT:1
 
 The zero-argument call must work. If a function can do useful work without input, all parameters have defaults — `Install-Poetry` installs
 the locked version, `Test-Automation` runs L0 + L1 with normal output.
 
 - [What sensible defaults look like](#what-sensible-defaults-look-like)
 
-### Rule ADR-DEFAULT:2
+### Rule ADR-AUTO-DEFAULT:2
 
 Pull defaults from configuration, not hardcoded values. Tool versions, environment names, and other values that change over time come from
 config files; the function reads them internally so callers need not update.
 
 - [Where defaults come from](#where-defaults-come-from)
 
-### Rule ADR-DEFAULT:5
+### Rule ADR-AUTO-DEFAULT:5
 
 Make parameters mandatory only when no default makes sense. If the function would do something wrong or meaningless without the value, it is
 mandatory; if it can derive a right value, derive it.
@@ -60,7 +60,7 @@ function Install-Python {
 ```
 
 How the parameter surface itself is shaped so the common call stays short — the positional primary argument, switches over booleans — is the
-language layer, [parameter-design](powershell/parameter-design.md) (`ADR-PSPARAM`).
+language layer, [parameter-design](powershell/parameter-design.md) (`ADR-AUTO-PSPARAM`).
 
 ### The principle
 

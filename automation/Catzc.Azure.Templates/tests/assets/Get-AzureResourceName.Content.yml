@@ -4,7 +4,7 @@
 # OR an `error` wildcard (the message a bad input should throw).
 # Consumed by tests/Get-AzureResourceName.Content.Tests.ps1.
 #
-# Fixture vocabulary (ADR-TEST:3): Greek env names (alpha/gamma), org tst, customer acme — deliberately
+# Fixture vocabulary (ADR-AUTO-TEST:3): Greek env names (alpha/gamma), org tst, customer acme — deliberately
 # distinct from the shipped dev/test/preprod/prod, zct, apex, so a shipped-config edit cannot change this
 # logic test. Get-AzureResourceName is a pure assembler of the components passed in.
 #

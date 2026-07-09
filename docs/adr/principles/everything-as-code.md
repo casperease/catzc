@@ -1,22 +1,22 @@
 # Principle: Everything as code
 
-## Rules: ADR-EAC
+## Rules: ADR-PRIN-EAC
 
-### Rule ADR-EAC:1
+### Rule ADR-PRIN-EAC:1
 
 Every artifact required to build, test, deploy, or operate the system lives in version control — application code, infrastructure,
 pipelines, environment config, schemas/migrations, specs, tests, container/orchestration, networking/DNS, and governing docs.
 
 - [Principle](#principle)
 
-### Rule ADR-EAC:2
+### Rule ADR-PRIN-EAC:2
 
 If an artifact can be diffed, reviewed, and rolled back it belongs in version control; prefer tools that store their configuration as files
 over UIs, databases, or proprietary formats.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-EAC:3
+### Rule ADR-PRIN-EAC:3
 
 Never keep configuration or operational state outside version control (UI-managed settings, variable libraries, shared documents, manual
 runbooks) — it cannot be diffed or reproduced and it drifts silently.

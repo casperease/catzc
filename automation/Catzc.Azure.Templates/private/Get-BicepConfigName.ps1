@@ -5,7 +5,7 @@
     The config-name is `<environment>` for the base / index-0 slot, or `<environment>-<slot>` for a
     special slot. It names the config file (`<config>.yml`), the build artifact
     (`parameters.<config>.json`), and is 1:1 with the resource group. The inverse (parse) is
-    Resolve-BicepConfigName. See docs/adr/azure/azure-data-model.md#rule-adr-datamod2.
+    Resolve-BicepConfigName. See docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2.
 .PARAMETER Environment
     Environment name (a key in azure.yml's environments map).
 .PARAMETER Slot

@@ -1,5 +1,5 @@
 # Removal by the globset tie (the native path-filter projection): deletes the matched policy, no-ops when
-# absent (ADR-IDEM:2), and -DryRun returns the plan (ADR-DRYRUN).
+# absent (ADR-AUTO-IDEM:2), and -DryRun returns the plan (ADR-AUTO-DRYRUN).
 Describe 'Unregister-AdoBuildValidation' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:globSet = [Catzc.Base.Globs.GlobSet]::new(

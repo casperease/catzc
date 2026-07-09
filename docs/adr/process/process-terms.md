@@ -1,15 +1,15 @@
 # ADR: Process terms — the foundational vocabulary of flow
 
-## Rules: ADR-LEANTERMS
+## Rules: ADR-PROC-LEANTERMS
 
-### Rule ADR-LEANTERMS:1
+### Rule ADR-PROC-LEANTERMS:1
 
 Every process term in this repository has one canonical meaning, fixed here. The process ADRs use these terms identically; a term used with
 a private or shifting meaning is a defect, the same way an undeclared identifier is.
 
 - [The terms](#the-terms)
 
-### Rule ADR-LEANTERMS:2
+### Rule ADR-PROC-LEANTERMS:2
 
 The constraint (bottleneck) is the single step that sets the throughput of the whole system. Time saved at a non-constraint is not saved by
 the system, and time lost at the constraint is lost by the system — so improvement effort goes to the constraint, not to whichever step is
@@ -17,38 +17,38 @@ easiest to speed up.
 
 - [The constraint](#the-constraint)
 
-### Rule ADR-LEANTERMS:3
+### Rule ADR-PROC-LEANTERMS:3
 
 Optimise the whole, not the part. A local optimum that does not lift the system constraint delivers no system gain and often harms the whole
 (a faster non-constraint just piles work in front of the constraint). "This step got faster" is not an outcome; "the system got faster" is.
 
 - [The constraint](#the-constraint)
 
-### Rule ADR-LEANTERMS:4
+### Rule ADR-PROC-LEANTERMS:4
 
 Flow is measured, not felt. Throughput, work-in-progress, and lead time are defined quantities related by Little's Law
-([ADR-LEAN](lean.md)); decisions about batch size and work-in-progress rest on those measures, never on "we feel slow".
+([ADR-PROC-LEAN](lean.md)); decisions about batch size and work-in-progress rest on those measures, never on "we feel slow".
 
 - [Flow primitives](#flow-primitives)
 
-### Rule ADR-LEANTERMS:5
+### Rule ADR-PROC-LEANTERMS:5
 
 Work is classified by who acts: an automated step runs to completion with no human action, a manual step requires a person. Human attention
-is the scarce constraint and machine time is cheap and falling (Moore's Law, [ADR-LEAN](lean.md)), so the platform's direction of travel is
-to convert manual steps into automated ones — spending the cheap resource to protect the dear one.
+is the scarce constraint and machine time is cheap and falling (Moore's Law, [ADR-PROC-LEAN](lean.md)), so the platform's direction of
+travel is to convert manual steps into automated ones — spending the cheap resource to protect the dear one.
 
 - [Automated and manual](#automated-and-manual)
 
 ## Context
 
-The process ADRs — lean ([ADR-LEAN](lean.md)), pulling work ([ADR-PULLWORK](pull-work.md)), queues ([ADR-QUEUECOST](queues-cost-money.md)),
-and the rest — all reason in the same vocabulary: constraint, throughput, lead time, work-in-progress, batch, queue. That reasoning only
-holds together if the words mean exactly one thing across every article. When "bottleneck" means the constraint to one author and "the
-slowest thing I noticed" to another, a flow argument stops being checkable.
+The process ADRs — lean ([ADR-PROC-LEAN](lean.md)), pulling work ([ADR-PROC-PULLWORK](pull-work.md)), queues
+([ADR-PROC-QUEUECOST](queues-cost-money.md)), and the rest — all reason in the same vocabulary: constraint, throughput, lead time,
+work-in-progress, batch, queue. That reasoning only holds together if the words mean exactly one thing across every article. When
+"bottleneck" means the constraint to one author and "the slowest thing I noticed" to another, a flow argument stops being checkable.
 
 This article is the glossary those articles share. It fixes the primitive terms so the others can build on them without re-defining them,
-and it names the two laws — Little's and Moore's — that make the flow claims quantitative, pointing to [ADR-LEAN](lean.md) as the article
-that owns and elaborates them. It defines the nouns; the companion articles state the laws and rules that relate them.
+and it names the two laws — Little's and Moore's — that make the flow claims quantitative, pointing to [ADR-PROC-LEAN](lean.md) as the
+article that owns and elaborates them. It defines the nouns; the companion articles state the laws and rules that relate them.
 
 ## The terms
 
@@ -63,14 +63,14 @@ The base measures of how work moves. They are quantities, not moods.
   waiting.
 - **Cycle time.** The clock time an item spends being actively worked at a step, from start of work to done — a subset of lead time that
   excludes the waiting.
-- **Flow time.** Lead time viewed as the quantity Little's Law governs: `flow time = WIP ÷ throughput` ([ADR-LEAN](lean.md)). Cutting
+- **Flow time.** Lead time viewed as the quantity Little's Law governs: `flow time = WIP ÷ throughput` ([ADR-PROC-LEAN](lean.md)). Cutting
   work-in-progress lowers it arithmetically, with no one working faster.
 - **Batch size.** The amount of work moved between steps as a unit. Small batches shorten lead time and expose defects sooner; large batches
   hide both.
 - **Queue.** Items waiting between steps, not being worked. Queue time is pure waiting — the largest and most invisible component of lead
-  time, and the one the platform attacks first ([ADR-QUEUECOST](queues-cost-money.md)).
+  time, and the one the platform attacks first ([ADR-PROC-QUEUECOST](queues-cost-money.md)).
 - **Value stream.** The end-to-end sequence of steps a change passes through from idea to running in production. "The whole" that gets
-  optimised is the value stream, not any one step ([ADR-OBSERVEWIP](observe-work.md)).
+  optimised is the value stream, not any one step ([ADR-PROC-OBSERVEWIP](observe-work.md)).
 
 ### The constraint
 
@@ -90,24 +90,24 @@ Terms from the Theory of Constraints [^1] — the account of why a system has ex
 How a step is classified by the actor it requires.
 
 - **Automated.** A step that runs to completion with no human action once triggered — repeatable, unattended, and identical every time. The
-  platform's default and destination for every step it can reach ([ADR-EAC](../principles/everything-as-code.md),
-  [ADR-ZERO](../automation/zero-ceremony-poka-yoke.md)).
+  platform's default and destination for every step it can reach ([ADR-PRIN-EAC](../principles/everything-as-code.md),
+  [ADR-AUTO-ZERO](../automation/zero-ceremony-poka-yoke.md)).
 - **Manual.** A step that requires a person to act. Manual steps are legitimate where human judgement is the point (a review, a release
   decision); they are waste where they are merely un-automated toil.
 - **The direction of travel.** Because human attention is the scarce constraint and machine time is cheap and falling (Moore's Law,
-  [ADR-LEAN](lean.md)), a manual step that needs no judgement is a candidate for automation — spend compute to drain the human queue, never
-  the reverse.
+  [ADR-PROC-LEAN](lean.md)), a manual step that needs no judgement is a candidate for automation — spend compute to drain the human queue,
+  never the reverse.
 
 ### The named laws
 
-Two laws make the flow claims quantitative. [ADR-LEAN](lean.md) owns and elaborates both; they are listed here so the vocabulary is
+Two laws make the flow claims quantitative. [ADR-PROC-LEAN](lean.md) owns and elaborates both; they are listed here so the vocabulary is
 complete.
 
 - **Little's Law.** For any stable system, `flow time = WIP ÷ throughput`. The practical consequence is that work-in-progress, not effort,
-  is the lever on lead time ([ADR-LEAN](lean.md), applied in [ADR-QUEUECOST](queues-cost-money.md)).
+  is the lever on lead time ([ADR-PROC-LEAN](lean.md), applied in [ADR-PROC-QUEUECOST](queues-cost-money.md)).
 - **Moore's Law.** Compute capacity per unit cost roughly doubles on a regular cadence, so machine time trends toward free while human
   attention stays the scarce constraint — the economic basis for automating and for spending compute to save people's time
-  ([ADR-LEAN](lean.md)).
+  ([ADR-PROC-LEAN](lean.md)).
 
 ## Why
 
@@ -120,14 +120,14 @@ decidable question: which step is the constraint, and does this change lift it? 
 
 **Definitions keep automation honest.** Pinning "automated" to "no human action, identical every time" stops a hand-run script from being
 called automation, and pinning the scarce resource to human attention explains why the platform spends machine time so freely
-([ADR-LEAN](lean.md), [ADR-CACHE](../automation/caching.md)).
+([ADR-PROC-LEAN](lean.md), [ADR-AUTO-CACHE](../automation/caching.md)).
 
 ## How to apply
 
 When a process or flow decision is in question, use these words with these meanings and no others. Before proposing a speed-up, name the
 constraint and check the change against it — a change that improves a non-constraint is waste
-([ADR-NOWASTE](../principles/reduce-waste.md)). Before calling a step "automated", check it runs with no human action and is identical every
-time. When an article needs a term elaborated — Little's Law, cost of delay, pull versus push — cite the ADR that owns it rather than
+([ADR-PRIN-NOWASTE](../principles/reduce-waste.md)). Before calling a step "automated", check it runs with no human action and is identical
+every time. When an article needs a term elaborated — Little's Law, cost of delay, pull versus push — cite the ADR that owns it rather than
 redefining it here, so the vocabulary stays single-source.
 
 ## References
@@ -135,7 +135,7 @@ redefining it here, so the vocabulary stays single-source.
 [^1]:
     Eliyahu M. Goldratt and Jeff Cox, _The Goal: A Process of Ongoing Improvement_ (1984). The Theory of Constraints — that a system's
     throughput is set by a single constraint, and that improving a non-constraint yields no system gain — and the five focusing steps for
-    finding and lifting it. Little's Law and Moore's Law carry their primary references in [ADR-LEAN](lean.md).
+    finding and lifting it. Little's Law and Moore's Law carry their primary references in [ADR-PROC-LEAN](lean.md).
 
 ## Dora explains
 

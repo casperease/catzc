@@ -3,8 +3,8 @@
     Removes the build-validation branch policy tied to a globset. Idempotent — a no-op when none exists.
 .DESCRIPTION
     Finds the build-validation policy whose path filter is the globset's native projection
-    (Get-GlobSetTrigger, ADR-GLOBS — the tie between policy and globset) on the guarded branch and deletes
-    it. When no such policy exists the function reports and returns without error (ADR-IDEM:2).
+    (Get-GlobSetTrigger, ADR-FLOW-CD-GLOBS — the tie between policy and globset) on the guarded branch and deletes
+    it. When no such policy exists the function reports and returns without error (ADR-AUTO-IDEM:2).
 .PARAMETER GlobSet
     The declared globset whose policy to remove (a name in globs.yml).
 .PARAMETER Branch

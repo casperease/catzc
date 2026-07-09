@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-    The globsets a diff touches — the computed area-of-control of a change (ADR-GLOBS:1).
+    The globsets a diff touches — the computed area-of-control of a change (ADR-FLOW-CD-GLOBS:1).
 .DESCRIPTION
     Reflects a change into the globset registry: returns every declared globset whose scan program
-    (GlobSet.Matches, last-match-wins ADR-GLOBS:4) selects at least one changed path. The "which areas of
+    (GlobSet.Matches, last-match-wins ADR-FLOW-CD-GLOBS:4) selects at least one changed path. The "which areas of
     control did this change touch" fact, computed from git at the real refs — reading the merged tree as it
     actually is, so it is immune to the squash-merge and concurrent-merge staleness a per-set hash frozen on a
     branch would suffer, and correct across renames (Get-ChangedFile splits a rename into both of its paths).

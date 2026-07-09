@@ -1,4 +1,4 @@
-Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-TEST#28' {
+Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#28' {
     It 'flattens the map into one pssa-rule row per (analyzer, ADR id)' {
         InModuleScope Catzc.Base.QualityGates {
             Mock Get-Config {
@@ -18,7 +18,7 @@ Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-TEST#28' {
     }
 }
 
-Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'ADR-TEST#29' {
+Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'ADR-AUTO-TEST#29' {
     BeforeAll {
         # The shipped map, and the authoritative rule-id set in '#' (citation) form so it compares to the map.
         # Plain assignment receives the comma-wrapped getter result intact — @() would nest it (Show-Cats note).
@@ -28,7 +28,7 @@ Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'ADR-TEST#29' {
             [string[]] ($ruleIds -replace ':', '#'), [System.StringComparer]::Ordinal)
 
         # The custom analyzer rules on disk: every 'Measure-*' function declared under .scriptanalyzer. Read
-        # from the files directly (an integrity test reads the tree, not the loaded session — ADR-TEST:16).
+        # from the files directly (an integrity test reads the tree, not the loaded session — ADR-AUTO-TEST:16).
         $scriptAnalyzerDir = Resolve-RepoPath 'automation/.scriptanalyzer'
         $script:customRules = [System.Collections.Generic.List[string]]::new()
         foreach ($file in [System.IO.Directory]::EnumerateFiles($scriptAnalyzerDir, '*.psm1')) {

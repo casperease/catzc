@@ -47,7 +47,7 @@ function Get-CSharpTypeDependency {
         }
 
         # [System.IO] (sorted) instead of Get-ChildItem/Get-Content — ~20ms-per-call cmdlet overhead the raw
-        # .NET enumeration + read avoid (ADR-TEST:18).
+        # .NET enumeration + read avoid (ADR-AUTO-TEST:18).
         foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs') | Sort-Object)) {
             $csName = [System.IO.Path]::GetFileName($cs)
             # Strip block comments, line comments, then double- and single-quoted literals, so only real code

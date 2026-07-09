@@ -2,8 +2,8 @@ Describe 'Get-ToolInstallOrder' -Tag 'L0' {
     Context 'topological sort (fixture graph)' -Tag 'logic' {
         # Isolate the sort from the shipped tools.yml by mocking the config seam to a controlled graph: this
         # verifies the ALGORITHM (dependencies-before-dependents, a diamond, an independent root, and cycle
-        # detection), never the production tool set (ADR-PESTER:2/ADR-PESTER:3). 'base/mid1/mid2/top/lone' are fixture
-        # identities (ADR-TEST:3) — nothing here binds to a real tool name.
+        # detection), never the production tool set (ADR-AUTO-PESTER:2/ADR-AUTO-PESTER:3). 'base/mid1/mid2/top/lone' are fixture
+        # identities (ADR-AUTO-TEST:3) — nothing here binds to a real tool name.
         It 'orders every dependency before its dependents (diamond + independent root)' {
             $fixture = [ordered]@{
                 base = @{}
@@ -46,7 +46,7 @@ Describe 'Get-ToolInstallOrder' -Tag 'L0' {
 
     Context 'shipped tools.yml (generic invariant)' -Tag 'integrity' {
         # Binds to the shipped config as a SET, asserting invariants that hold for every tool — never a
-        # specific tool name or a hardcoded pairing (ADR-TEST:17). The ordering algorithm itself is proven by the
+        # specific tool name or a hardcoded pairing (ADR-AUTO-TEST:17). The ordering algorithm itself is proven by the
         # logic Context above.
         BeforeAll {
             $script:order = & (Get-Module Catzc.Tooling.Core) { Get-ToolInstallOrder }

@@ -1,8 +1,8 @@
 # ADR: Documentation examples — the discovery theme
 
-## Rules: ADR-EXAMPLE
+## Rules: ADR-REPO-EXAMPLE
 
-### Rule ADR-EXAMPLE:1
+### Rule ADR-REPO-EXAMPLE:1
 
 Worked examples in documentation — example infrastructure template names, sample commands, getting-started tutorials — use the **discovery**
 theme: the reader is a CLI user _discovering_ what the system can do, so example names are drawn from exploration vocabulary. The canonical
@@ -11,11 +11,11 @@ slotted, per-customer template and `survey` for a lightweight variant.
 
 - [The discovery theme](#the-discovery-theme)
 
-### Rule ADR-EXAMPLE:2
+### Rule ADR-REPO-EXAMPLE:2
 
 Examples never carry a real, customer, or internal-project name. Every placeholder is obviously fictional and theme-consistent: fictional
-companies use Microsoft's canonical Contoso and Globex; example infrastructure templates use the discovery theme (ADR-EXAMPLE:1). A real
-name in an example is a defect — it leaks context into a public repository and ties the docs to a moment in time.
+companies use Microsoft's canonical Contoso and Globex; example infrastructure templates use the discovery theme (ADR-REPO-EXAMPLE:1). A
+real name in an example is a defect — it leaks context into a public repository and ties the docs to a moment in time.
 
 - [Why fictional, themed names](#why-fictional-themed-names)
 

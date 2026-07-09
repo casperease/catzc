@@ -1,8 +1,8 @@
 # ADR: Pipeline detection — how functions adapt to their execution context
 
-## Rules: ADR-PIPEDET
+## Rules: ADR-FLOW-CD-DETECT
 
-### Rule ADR-PIPEDET:1
+### Rule ADR-FLOW-CD-DETECT:1
 
 Never check the pipeline-detection environment variables (`TF_BUILD`, `GITHUB_ACTIONS`) directly. Use `Test-IsRunningInPipeline` so the
 detection logic stays in one place.
@@ -10,28 +10,28 @@ detection logic stays in one place.
 - [The right approach: a single detection function](#the-right-approach-a-single-detection-function)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PIPEDET:2
+### Rule ADR-FLOW-CD-DETECT:2
 
 Context-dependent behavior must be intentional and visible — either through `Test-IsRunningInPipeline` in the function body or through a
 parameter the caller sets based on context.
 
 - [Decision](#decision)
 
-### Rule ADR-PIPEDET:3
+### Rule ADR-FLOW-CD-DETECT:3
 
 Prefer parameters over detection. When behavior can be controlled via a parameter (e.g. `-OutputPath`), use that; detection is a fallback
 for when the caller cannot reasonably supply the value.
 
 - [Companion: Get-OutputRoot](#companion-get-outputroot)
 
-### Rule ADR-PIPEDET:4
+### Rule ADR-FLOW-CD-DETECT:4
 
 Detection is boolean, not modal. `Test-IsRunningInPipeline` returns `$true` or `$false`: if either detection variable is set, the code is in
 a pipeline; otherwise it is not.
 
 - [Function](#function)
 
-### Rule ADR-PIPEDET:5
+### Rule ADR-FLOW-CD-DETECT:5
 
 Keep the function fast. It is called frequently, so it only reads two environment variables — no I/O, network, or computation.
 

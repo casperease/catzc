@@ -30,7 +30,7 @@ function Measure-NoForEachObjectControlFlow {
     $ruleName = 'Measure-NoForEachObjectControlFlow'
 
     # Find all ForEach-Object / % command invocations
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-PSFORMAT:6).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
     $isForEachObjectCommand = {
         param($node)
         if ($node -isnot [System.Management.Automation.Language.CommandAst]) {
@@ -55,7 +55,7 @@ function Measure-NoForEachObjectControlFlow {
             # Find return, break, continue statements that are direct children of THIS
             # scriptblock — not inside a nested foreach/for/while/do/switch/function/
             # scriptblock, where they would be valid.
-            # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-PSFORMAT:6).
+            # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
             $isControlFlowStatement = {
                 param($node)
 

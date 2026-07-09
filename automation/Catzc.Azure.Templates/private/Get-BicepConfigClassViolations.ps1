@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the env-class violations for a single resolved config — the shared rule used by both
     Get-BicepTemplates (fail-fast at discovery) and Assert-BicepTemplate (collect-all), so the two
-    never drift. See docs/adr/azure/azure-data-model.md#rule-adr-datamod8.
+    never drift. See docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8.
 .DESCRIPTION
     Checks one config against the template's env-class bit and returns a (possibly empty) array of
     human-readable violation strings:

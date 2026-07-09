@@ -1,62 +1,62 @@
 # ADR: Dedicated output directory
 
-## Rules: ADR-OUTDIR
+## Rules: ADR-REPO-OUTDIR
 
-### Rule ADR-OUTDIR:1
+### Rule ADR-REPO-OUTDIR:1
 
 Use `Get-OutputRoot` for every output path (reports, exports, generated configs, build artifacts, test results); it resolves to
 `{RepositoryRoot}/out` locally and `$env:BUILD_ARTIFACTSTAGINGDIRECTORY` in a pipeline. Pass `-EnsureExists` to create it.
 
 - [Decision](#decision)
 
-### Rule ADR-OUTDIR:2
+### Rule ADR-REPO-OUTDIR:2
 
 Functions that produce multiple or recurring files create a subdirectory under the output root rather than dumping into it directly.
 
 - [Decision](#decision)
 
-### Rule ADR-OUTDIR:3
+### Rule ADR-REPO-OUTDIR:3
 
 Use `[IO.Path]::GetTempPath()` for scratch files — intermediate files consumed and discarded within the same call belong in the system temp
 directory, not the repository.
 
 - [Scratch vs. output](#scratch-vs-output)
 
-### Rule ADR-OUTDIR:4
+### Rule ADR-REPO-OUTDIR:4
 
 Never write output files to the repository root, the script directory (`$PSScriptRoot`), or any source folder. Output does not belong next
 to source.
 
 - [Context](#context)
 
-### Rule ADR-OUTDIR:5
+### Rule ADR-REPO-OUTDIR:5
 
 The combined compiled-type prebuild at `automation/.compiled/` is not transient output: it is a committed, deterministic, hash-keyed
 vendored artifact (one assembly for the whole repository) and lives there on purpose. Only the `*.tmp` compile scratch is gitignored.
 
 - [Decision](#decision)
 
-### Rule ADR-OUTDIR:6
+### Rule ADR-REPO-OUTDIR:6
 
 `out/` is gitignored: the directory exists via `.gitkeep` but its contents are never committed, so generated files never appear in
 `git status`.
 
 - [Consequences](#consequences)
 
-### Rule ADR-OUTDIR:7
+### Rule ADR-REPO-OUTDIR:7
 
 Cleaning all output is one command: `Remove-Item (Join-Path (Get-OutputRoot) '*') -Recurse -Force`. CI and developers use the same path.
 
 - [Decision](#decision)
 
-### Rule ADR-OUTDIR:8
+### Rule ADR-REPO-OUTDIR:8
 
-The spell-checker dictionaries generated from the terminology registry (ADR-SPELL:5) are NOT committed: like the `.psd1` manifests they are
-generated (one `<category>.txt` per vocabulary category under the root `.cspell/`), gitignored, and regenerated at the importer tail from
-`configs/terminology.yml`. The registry is the single source of truth; the word lists are ephemeral build artifacts cspell resolves at a
-fixed path after an import (a fresh clone must run the importer once before cspell has them). Everything in `.cspell/` is generated — the
+The spell-checker dictionaries generated from the terminology registry (ADR-AUTO-SPELL:5) are NOT committed: like the `.psd1` manifests they
+are generated (one `<category>.txt` per vocabulary category under the root `.cspell/`), gitignored, and regenerated at the importer tail
+from `configs/terminology.yml`. The registry is the single source of truth; the word lists are ephemeral build artifacts cspell resolves at
+a fixed path after an import (a fresh clone must run the importer once before cspell has them). Everything in `.cspell/` is generated — the
 word lists, the folder's `.gitignore` (a managed root-config copy), and its `README.md` (a generated link); only the `.gitkeep` keeping the
-folder tracked is committed. This is the `.psd1`/generated-README pattern — not the committed-artifact exception of ADR-OUTDIR:5.
+folder tracked is committed. This is the `.psd1`/generated-README pattern — not the committed-artifact exception of ADR-REPO-OUTDIR:5.
 
 - [Decision](#decision)
 
@@ -95,10 +95,10 @@ Locally this is `{RepositoryRoot}/out`; in an Azure DevOps pipeline it is `$env:
 Scratch files use the system temp directory.
 
 Two classes of generated file live in the source tree rather than under `out/`. One is committed: the combined compiled-type prebuild
-(ADR-OUTDIR:5), an expensive Roslyn build kept at a fixed path so a fresh checkout and CI load without compiling — the deliberate exception
-to ADR-OUTDIR:4. The other is gitignored and regenerated on import — the `.psd1` module manifests, the generated READMEs, and the
-spell-checker dictionaries (ADR-OUTDIR:8) — cheap to reproduce, so they are never committed and the authored source stays the single source
-of truth.
+(ADR-REPO-OUTDIR:5), an expensive Roslyn build kept at a fixed path so a fresh checkout and CI load without compiling — the deliberate
+exception to ADR-REPO-OUTDIR:4. The other is gitignored and regenerated on import — the `.psd1` module manifests, the generated READMEs, and
+the spell-checker dictionaries (ADR-REPO-OUTDIR:8) — cheap to reproduce, so they are never committed and the authored source stays the
+single source of truth.
 
 ## Consequences
 

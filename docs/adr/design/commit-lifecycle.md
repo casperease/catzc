@@ -4,35 +4,35 @@ The value-chain diagrams under `docs/.assets/commits-quality` — the `value-cha
 companion — encode more than a promotion ladder: they encode what _happens to a commit_ — how it advances, where it dies, how it retires,
 how it is overtaken by a newer commit, which commit an environment currently hosts, and which commit the outside world should integrate
 from. This ADR states that lifecycle and integration model. The pipeline _domains_ (CI / CD / DEPLOY, the tagged artifact,
-build-once-deploy-many) are owned by [ci-discipline-and-promotion-flow](ci-discipline-and-promotion-flow.md) (`ADR-FLOW`); the _visual
-grammar_ (colours, lanes, ghosts, numbers) by [visual-design](visual-design.md) (`ADR-VISUAL`). This ADR owns the commit's lifecycle states
-and the upstream/downstream sync semantics.
+build-once-deploy-many) are owned by [cd-discipline-and-promotion-flow](cd-discipline-and-promotion-flow.md) (`ADR-FLOW-CD`); the _visual
+grammar_ (colours, lanes, ghosts, numbers) by [visual-design](visual-design.md) (`ADR-DSGN-VISUAL`). This ADR owns the commit's lifecycle
+states and the upstream/downstream sync semantics.
 
-## Rules: ADR-LIFE
+## Rules: ADR-DSGN-LIFE
 
-### Rule ADR-LIFE:1
+### Rule ADR-DSGN-LIFE:1
 
 **A commit holds one lifecycle state at a time; the state advances one rung along the promotion ladder or leaves it, and never moves
 backward.** The ladder is: topic (brown) → landed on main (grey) → BVT-verified (yellow) → L3-verified (blue) → main-UAT / main-AT-verified
 (light-blue) → release-uat / release-AT-verified (light-green) → **pre-prod** (staged, not yet live) → in production (green). The `main-UAT`
 and `release-uat` rungs are reached by clearing their **acceptance testing** — `main-AT` and `release-AT` — at the RC and RBC gates
-(ADR-FLOW:9/ADR-FLOW:10). At any rung a commit may advance, **hold** as an environment's current occupant, or **leave the ladder** into a
-terminal state (discarded, retired, or superseded). It never regresses to an earlier rung — a commit is not "re-verified" downward; a new
-attempt is a new commit.
+(ADR-FLOW-CD:9/ADR-FLOW-CD:10). At any rung a commit may advance, **hold** as an environment's current occupant, or **leave the ladder**
+into a terminal state (discarded, retired, or superseded). It never regresses to an earlier rung — a commit is not "re-verified" downward; a
+new attempt is a new commit.
 
 - [The ladder and its one direction](#the-ladder-and-its-one-direction)
 
-### Rule ADR-LIFE:2
+### Rule ADR-DSGN-LIFE:2
 
 **Discard is terminal rejection at a named stage, and the discarded commit stays in history.** A process rejects a candidate: **BVT** and
-**L3** discard automatically, **release-uat** discards through its manual gate (**RBC**, ADR-FLOW:9), and **main-UAT** can kill a commit
-that fails there or hold it at its manual gate (**RC**, ADR-FLOW:9). A discarded commit is coloured red, remains on the line where it was
+**L3** discard automatically, **release-uat** discards through its manual gate (**RBC**, ADR-FLOW-CD:9), and **main-UAT** can kill a commit
+that fails there or hold it at its manual gate (**RC**, ADR-FLOW-CD:9). A discarded commit is coloured red, remains on the line where it was
 committed (history is never rewritten), and can never progress. The diagram records _where_ it died, because "discarded at BVT" and
 "discarded at release-uat" are different facts about the same outcome.
 
 - [Discard is rejection, and it is named](#discard-is-rejection-and-it-is-named)
 
-### Rule ADR-LIFE:3
+### Rule ADR-DSGN-LIFE:3
 
 **Retirement is a successful end-of-life, and it is not a discard.** A commit that reached production, served there, and was then superseded
 by a newer production commit is **retired** — it did its job and was decommissioned. Retirement and discard both mean "no longer live", but
@@ -41,7 +41,7 @@ diagram that paints a retired commit the same red as a discarded one erases that
 
 - [Retirement is success, not rejection](#retirement-is-success-not-rejection)
 
-### Rule ADR-LIFE:4
+### Rule ADR-DSGN-LIFE:4
 
 **Supersession (rollover) abandons a still-valid commit that a newer commit overtook.** When a newer commit rolls over an older one that was
 still progressing toward the same environment, the older is **superseded**: it was never rejected — it was valid — but a fresher commit
@@ -50,16 +50,16 @@ and "delivered then retired": valid, but not chosen.
 
 - [Supersession abandons without rejecting](#supersession-abandons-without-rejecting)
 
-### Rule ADR-LIFE:5
+### Rule ADR-DSGN-LIFE:5
 
 **Each always-on environment hosts exactly one current commit, plus a history.** `main-UAT`, `release-uat`, `pre-prod`, and `production` are
 stateful, not pass-through: at any moment each holds one **current occupant** — the commit presently deployed there — and a trail of the
 commits it held before. An environment box in the diagram is a neutral container naming one live commit, drawn in that occupant's current
-state colour (ADR-VISUAL:13), so reading its occupant tells you the true state of that environment right now.
+state colour (ADR-DSGN-VISUAL:13), so reading its occupant tells you the true state of that environment right now.
 
 - [Environments have a single occupant](#environments-have-a-single-occupant)
 
-### Rule ADR-LIFE:6
+### Rule ADR-DSGN-LIFE:6
 
 **The stable integration point is the current `main-UAT` commit, and upstream integrators sync from it — never from HEAD.** `main-UAT` holds
 the latest commit certified onto the always-on non-prod environment; that commit, not the raw tip of main, is what external or upstream
@@ -68,16 +68,16 @@ to and including the always-on environment.
 
 - [Sync from main-UAT, not HEAD](#sync-from-main-uat-not-head)
 
-### Rule ADR-LIFE:7
+### Rule ADR-DSGN-LIFE:7
 
 **The dirty HEAD is the latest commit on main and is not a safe sync or promotion source.** HEAD is simply the newest commit; it may have
 _failed_ a downstream stage (for example, died in `main-UAT`). Such a commit is the **dirty HEAD**: it is the tip of main, but it must not
 be synced from and cannot be promoted downstream. Consumers who naively track HEAD are pointed instead at the stable `main-UAT` occupant
-(ADR-LIFE:6). "Latest" and "safe to build on" are different questions, and the model keeps them separate.
+(ADR-DSGN-LIFE:6). "Latest" and "safe to build on" are different questions, and the model keeps them separate.
 
 - [The dirty HEAD](#the-dirty-head)
 
-### Rule ADR-LIFE:8
+### Rule ADR-DSGN-LIFE:8
 
 **A commit that fails a stage cannot go downstream.** Failure at any environment stops both _promotion_ (it will not advance to a later
 environment) and _downstream consumption_ (nothing may build on it). Downstream flow is gated on the last successful state, so a failure is
@@ -85,7 +85,7 @@ a hard stop, not a soft warning.
 
 - [Failure stops downstream](#failure-stops-downstream)
 
-### Rule ADR-LIFE:9
+### Rule ADR-DSGN-LIFE:9
 
 **A topic commit can be deployed out-of-band by a workflow without integrating into main/master.** A workflow or pipeline may deploy a
 commit that still lives on a topic branch — a hotfix or an experiment — even though it has not reached main/master. That deploy is
@@ -94,12 +94,12 @@ state on the mainline.
 
 - [Out-of-band topic deploys](#out-of-band-topic-deploys)
 
-### Rule ADR-LIFE:10
+### Rule ADR-DSGN-LIFE:10
 
 **A commit's number is its time-ordered identity, and its terminal appearance is where its story ends.** Numbers run in commit time (`0`
 before `1` … before `10`); the same number reappears in each lane in its state-of-the-moment colour, and its last appearance names its
 ending — discarded, retired, superseded, in-process, an environment's current occupant, or the dirty HEAD. The numbered worked examples are
-the canonical encoding of this lifecycle (they render the grammar of [ADR-VISUAL:12](visual-design.md#rule-adr-visual12)).
+the canonical encoding of this lifecycle (they render the grammar of [ADR-DSGN-VISUAL:12](visual-design.md#rule-adr-dsgn-visual12)).
 
 - [One number, one story](#one-number-one-story)
 
@@ -171,9 +171,9 @@ nonetheless reached an environment captures that a deploy and an integration are
 ## One number, one story
 
 A single commit is hard to follow across stage-organised lanes, so each traced commit carries a time-ordered number and the number is the
-thread. Because git is the only true left-to-right timeline (ADR-VISUAL:12), the numbers restore both identity and chronology everywhere
-else: the same digit appears in each lane at its state-of-the-moment colour, and its final appearance is the verdict. The worked examples
-below are the canonical set.
+thread. Because git is the only true left-to-right timeline (ADR-DSGN-VISUAL:12), the numbers restore both identity and chronology
+everywhere else: the same digit appears in each lane at its state-of-the-moment colour, and its final appearance is the verdict. The worked
+examples below are the canonical set.
 
 ## Worked lifecycle examples
 

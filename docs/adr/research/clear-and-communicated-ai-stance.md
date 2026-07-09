@@ -1,15 +1,15 @@
 # ADR: DORA — Clear and communicated AI stance
 
-## Rules: ADR-DORAAIS
+## Rules: ADR-DORA-AISTANCE
 
-### Rule ADR-DORAAIS:1
+### Rule ADR-DORA-AISTANCE:1
 
 An AI stance is a living, actionable framework, not a static legal document — it tells developers how the organization expects them to use
 AI, which tools are sanctioned, and how the organization supports that use.
 
 - [Summary](#summary)
 
-### Rule ADR-DORAAIS:2
+### Rule ADR-DORA-AISTANCE:2
 
 A stance only works when a developer can answer four questions from it: whether AI use is expected, whether experimentation is supported,
 which tools are permitted, and how the policy applies to their own role — ambiguity in any one of these pushes developers toward hiding
@@ -17,21 +17,21 @@ their AI use or avoiding it altogether.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORAAIS:3
+### Rule ADR-DORA-AISTANCE:3
 
 Classify every tool and use case into one of three buckets — prohibited, permitted with guardrails, or allowed — and publish that
 classification as a living document with a working feedback loop, not a policy issued once and left to go stale.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORAAIS:4
+### Rule ADR-DORA-AISTANCE:4
 
 Revise the stance on a cadence that matches how fast AI tooling actually changes; treating it as fixed lets it fall behind, but revising it
 faster than developers can absorb produces policy whiplash that is just as damaging.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORAAIS:5
+### Rule ADR-DORA-AISTANCE:5
 
 Draft and own the stance with a cross-functional group — engineering, legal, security, IT, and product — so the result is practical for the
 engineering work it governs, rather than a single department's policy applied to engineering from outside.

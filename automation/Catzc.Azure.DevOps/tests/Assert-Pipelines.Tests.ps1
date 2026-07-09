@@ -11,13 +11,13 @@ Describe 'Assert-Pipelines' -Tag 'L0', 'logic' {
     It 'throws a collected error listing every violation, with rule codes' {
         Mock Test-Pipelines -ModuleName Catzc.Azure.DevOps {
             @(
-                [pscustomobject]@{ File = 'pipelines/widget-x.yaml'; Rule = 'ADR-PIPENAME:1'; Message = 'bad prefix' }
-                [pscustomobject]@{ File = 'pipelines/ci-x.yml'; Rule = 'ADR-PIPENAME:6'; Message = 'wrong ext' }
+                [pscustomobject]@{ File = 'pipelines/widget-x.yaml'; Rule = 'ADR-PIPE-NAME:1'; Message = 'bad prefix' }
+                [pscustomobject]@{ File = 'pipelines/ci-x.yml'; Rule = 'ADR-PIPE-NAME:6'; Message = 'wrong ext' }
             )
         }
         { Assert-Pipelines } | Should -Throw '*2 pipeline naming/placement violation(s)*'
-        { Assert-Pipelines } | Should -Throw '*ADR-PIPENAME:1*'
-        { Assert-Pipelines } | Should -Throw '*ADR-PIPENAME:6*'
+        { Assert-Pipelines } | Should -Throw '*ADR-PIPE-NAME:1*'
+        { Assert-Pipelines } | Should -Throw '*ADR-PIPE-NAME:6*'
     }
 
     It 'forwards -Path to Test-Pipelines' {

@@ -1,4 +1,4 @@
-# The composite protection identity (ADR-PROTGLOB:8): own set + declared dependency closure + infra scopes
+# The composite protection identity (ADR-REPO-PROTGLOB:8): own set + declared dependency closure + infra scopes
 # + the runner; widened to the repository-wide set for integrity tests, unconstrained modules, and the infra
 # test units. Memoized per run.
 Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
