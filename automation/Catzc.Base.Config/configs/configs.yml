@@ -24,3 +24,5 @@ configs:
     type: Catzc.Base.Git.GitIgnoreConfig
   globs:
     type: Catzc.Base.Globs.GlobsConfig
+  adrs:
+    type: Catzc.Base.Docs.AdrsConfig
