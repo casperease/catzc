@@ -50,7 +50,7 @@ environments:
 # configuration-ROOT config resolves against (each env is served by exactly one of them) — and a
 # customer pair (acme_lower/acme_upper, customer acme) that configuration/acme/ configs resolve
 # against. The customer subs overlap the non-customer envs on purpose: the customer axis, not the env,
-# separates them (docs/adr/azure/data-model.md).
+# separates them (docs/adr/azure/azure-data-model.md).
 subscriptions:
   core_lower:
     id: 50a0ed00-de00-50b0-0000-000000000000

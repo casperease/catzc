@@ -11,7 +11,7 @@
     (Get-BicepConfigName). The artifact names mirror the configuration tree exactly: all of a template's
     slots render into one build folder, and keying on the customer keeps them structurally
     collision-free ((customer?, env, slot) is unique) with no guard to remember. See
-    docs/adr/azure/data-model.md.
+    docs/adr/azure/azure-data-model.md.
 .PARAMETER Environment
     Environment name.
 .PARAMETER Slot

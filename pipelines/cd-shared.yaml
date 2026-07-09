@@ -12,7 +12,7 @@
 # sc-shared-prod into shared_prod (serves psub / preprod / prod). nsub / psub are ordinary -Environment
 # values (the per-subscription env class). The deploy TARGET is the az session's subscription — what the
 # service connection logged into — and every deploy pins it with -SubscriptionIdAssertIs (mandatory in a
-# pipeline — see docs/adr/azure/data-model.md). The shared platform's configs live at the template's
+# pipeline — see docs/adr/azure/azure-data-model.md). The shared platform's configs live at the template's
 # configuration ROOT, which a non-customer session addresses.
 #
 # Reference only: deploying requires real Azure service connections and a non-placeholder azure.yml (the

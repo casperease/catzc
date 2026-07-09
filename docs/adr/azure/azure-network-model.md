@@ -2,7 +2,7 @@
 
 This ADR covers the cross-cutting IP plan, which the data model deliberately leaves out of its two layers.
 
-Pairs with [`data-model`](data-model.md) (identity + templating) and [`naming-standard`](naming-standard.md).
+Pairs with [`data-model`](azure-data-model.md) (identity + templating) and [`naming-standard`](azure-naming-standard.md).
 
 ## Rules: ADR-NETWORK
 
@@ -48,7 +48,7 @@ So the IP plan is a **single source of truth** sitting beside `azure.yml`: `auto
 template merges the right ranges in at build time through its PrePost prepare hook (see
 [`prepost-extension-modules`](../automation/powershell/prepost-extension-modules.md)), so the central plan is read, never copied.
 
-This is a third global asset, distinct from the two layers in [`data-model`](data-model.md): it is not identity
+This is a third global asset, distinct from the two layers in [`data-model`](azure-data-model.md): it is not identity
 (tenant/customer/environment/subscription) and not templating (template/options/slot). It is pure topology — the network plan keyed by
 environment.
 

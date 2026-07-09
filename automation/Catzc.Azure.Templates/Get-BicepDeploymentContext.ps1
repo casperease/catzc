@@ -23,7 +23,7 @@
     The target SUBSCRIPTION is the az session's (in a pipeline: the service connection's), resolved
     against azure.yml by Get-AzCliSessionSubscription; the slot addressed is (session customer?, env,
     slot). The optional -SubscriptionIdAssertIs guard pins the target explicitly. See
-    docs/adr/azure/data-model.md.
+    docs/adr/azure/azure-data-model.md.
 .PARAMETER Environment
     Environment shortname (must be in azure.yml and in the template's environment list).
 .PARAMETER Template

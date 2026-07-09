@@ -8,7 +8,7 @@
 # Loaded by Get-Config -Config azure; validated by private/Assert-AzureConfig.
 
 # Vertical / organization shortcode — global, one per repo. The <org> component of every Azure
-# resource name (see docs/adr/azure/naming-standard.md). Placeholder — set your org's shortcode.
+# resource name (see docs/adr/azure/azure-naming-standard.md). Placeholder — set your org's shortcode.
 # (The resource-name component ORDER is NOT here — it is a durable tooling setting in code:
 #  Get-AzureNameOrder. Changing it requires re-editing every typed name in the configs.)
 org: zct
@@ -23,12 +23,12 @@ tenants:
     id: fa0e0000-7e0a-0700-1d00-000000000000
 
 # Customer DEFINITIONS live in configs/customer.yml (the catalogue), not here — see
-# docs/adr/azure/customer-model.md. A subscription below binds a customer by naming it in its `customer`
+# docs/adr/azure/azure-customer-model.md. A subscription below binds a customer by naming it in its `customer`
 # field, by EITHER its key (apex) OR its 2-char shortcode (ap); WHICH customers are enabled for deployment
 # is the `have_customers` variant in variants.yml.
 
 # Environments. The map KEY is the readable env name (the deploy handle, the config-file name, and
-# the env-segment of relaxed resource names — see docs/adr/azure/naming-standard.md); it must be
+# the env-segment of relaxed resource names — see docs/adr/azure/azure-naming-standard.md); it must be
 # unique and prefix-free (no name a prefix of another). `shortcode` is a 2-letter code, unique, used
 # as the env-segment of the restricted (tight-budget) patterns only — `kv`/`storage`/`vm` — so a
 # readable name never costs a tight name a byte; its 2nd char lets same-first-letter envs coexist
@@ -66,7 +66,7 @@ environments:
     per_subscription: true
 
 # Subscriptions. A template's configuration tree addresses subscriptions by convention
-# (docs/adr/azure/data-model.md): a config at the configuration/ ROOT (`<env>[-<slot>].yml`) is a
+# (docs/adr/azure/azure-data-model.md): a config at the configuration/ ROOT (`<env>[-<slot>].yml`) is a
 # shared-platform deployment — its env must be served by exactly ONE non-customer subscription, which is
 # the resolved target; a config under a `configuration/<customer>/` subfolder (the folder is always a
 # customer KEY from customer.yml) resolves to that customer's one subscription serving the env. The
@@ -75,7 +75,7 @@ environments:
 # -SubscriptionIdAssertIs guard. A subscription MAY carry an optional `customer` (a reference into
 # customer.yml, by key or 2-char shortcode) — the single source of "is this a customer subscription?";
 # the customer renders into the resource names of anything deployed here (see
-# docs/adr/azure/naming-standard.md). A subscription's `environments` may freely mix standard envs
+# docs/adr/azure/azure-naming-standard.md). A subscription's `environments` may freely mix standard envs
 # (dev/test/preprod/prod) with AT MOST ONE per-subscription identity env (nsub xor psub) — the identity
 # env addresses once-per-subscription templates (environment_kind: subscription).
 subscriptions:

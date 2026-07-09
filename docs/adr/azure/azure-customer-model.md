@@ -1,7 +1,7 @@
 # ADR: Customer model (`customer.yml`) — catalogue, two-name binding, and the template switch
 
-Pairs with [`data-model`](data-model.md) (identity + templating) and [`naming-standard`](naming-standard.md); the enabled-customer set is
-the `have_customers` repo variant ([repo-variants](../repository/repo-variants.md)).
+Pairs with [`data-model`](azure-data-model.md) (identity + templating) and [`naming-standard`](azure-naming-standard.md); the
+enabled-customer set is the `have_customers` repo variant ([repo-variants](../repository/repo-variants.md)).
 
 ## Rules: ADR-CUSTOMER
 
@@ -55,19 +55,19 @@ shared rule used by `Get-BicepTemplates` (fail-fast) and `Assert-BicepTemplate` 
 ### Rule ADR-CUSTOMER:6
 
 The customer **key is the configuration subfolder name**: a template's customer configs live at `configuration/<key>/<env>[-<slot>].yml`,
-and a subfolder that is not a defined key is a discovery error ([data-model](data-model.md#rule-adr-datamod3)). The shortcode never names a
-folder — one spelling on disk, the canonical key.
+and a subfolder that is not a defined key is a discovery error ([data-model](azure-data-model.md#rule-adr-datamod3)). The shortcode never
+names a folder — one spelling on disk, the canonical key.
 
 - [The catalogue](#the-catalogue)
 
 ## Context
 
 A customer is a sub-tenant a deployment is made for: its name renders into resource names (the readable key in generous patterns, the 2-char
-shortcode in the tight `kv`/`storage`/`vm` patterns — see [naming-standard](naming-standard.md)). Customers began as a `customers` map
+shortcode in the tight `kv`/`storage`/`vm` patterns — see [naming-standard](azure-naming-standard.md)). Customers began as a `customers` map
 inside `azure.yml`, referenced by a subscription's `customer` field. Two pressures pull them into their own asset. First, they are a
-distinct concern from identity/topology — the same split [`network-model`](network-model.md) makes for the IP plan. Second, "which customers
-this repo deploys for" is a repo-wide policy switch, not a per-subscription fact, and belongs with the other repo variants, kept separate
-from the catalogue of who the customers are.
+distinct concern from identity/topology — the same split [`network-model`](azure-network-model.md) makes for the IP plan. Second, "which
+customers this repo deploys for" is a repo-wide policy switch, not a per-subscription fact, and belongs with the other repo variants, kept
+separate from the catalogue of who the customers are.
 
 ### The catalogue
 
@@ -120,7 +120,7 @@ rule is asymmetric and lives in `Get-BicepCustomerClassViolations`:
   `have_customers: [acme]` rejects a `configuration/globex/` config even with the switch on); root configs are still fine.
 
 The rule is shared by discovery (`Get-BicepTemplates`, fail-fast) and the collect-all validator (`Assert-BicepTemplate`), the same
-two-caller / one-rule shape as the env-class and subscription-folder checks (see [data-model](data-model.md)).
+two-caller / one-rule shape as the env-class and subscription-folder checks (see [data-model](azure-data-model.md)).
 
 ## Decision
 

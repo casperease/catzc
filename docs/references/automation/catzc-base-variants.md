@@ -19,7 +19,7 @@ the module's `Test-`/`Assert-`/`Get-` primitives, so a repo-wide guard is a one-
 Which Azure resource-name component order the repo uses — `standard` (env/slot first) or `classic` (type first, CAF-style). `Get-AdoNaming`
 returns the value that `Get-BicepResourceName` passes to the name assembler (a key of `Get-AzureNameOrderSet`); `Test-AdoNaming` and
 `Assert-AdoNaming` guard a code path that only holds under one convention. Changing this variant re-spells every generated resource name, so
-it is a deliberate, one-time repo decision, not a runtime toggle (see [naming-standard](../../adr/azure/naming-standard.md)).
+it is a deliberate, one-time repo decision, not a runtime toggle (see [naming-standard](../../adr/azure/azure-naming-standard.md)).
 
 ### domain:2 — Enabled-customer set variant
 

@@ -2,7 +2,7 @@
 
 <!-- cspell:ignore weuwkspvm prweufindiscaphotst weufindiscxaphotst weudiscvm etlco -->
 
-Pairs with [`data-model`](data-model.md), which defines how these components are sourced and assembled.
+Pairs with [`data-model`](azure-data-model.md), which defines how these components are sourced and assembled.
 
 ## Rules: ADR-NAMING
 
@@ -251,7 +251,7 @@ Per-customer rows use customer `apex` (shortcode `ap`):
 - The **subscription** (the config folder a template deploys to) is a **resolution axis only** — it selects _which subscription_ a deploy
   targets and is **never** a resource-name component. Names are assembled from the components above
   (env/slot/region/org/short*name/customer/role/type); the subscription never appears in them. The **customer** that does render is
-  \_derived* from that subscription (`subscription.customer`). See [`data-model`](data-model.md).
+  \_derived* from that subscription (`subscription.customer`). See [`data-model`](azure-data-model.md).
 
 ## Dora explains
 

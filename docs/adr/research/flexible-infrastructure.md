@@ -82,8 +82,8 @@ self-service and autonomy, so developers focus on writing application code inste
 model as a thin CLI over the Azure control plane ([ADR-THINPLAT](../design/thin-platforms.md)), with self-service provisioning made safe by
 routing every change through a single versioned source of truth and trunk-based guardrails rather than a manual ticket
 ([ADR-SELFSERV](../design/self-service.md)). The Azure data model turns environment, subscription, and resource-group identity into
-resolved, config-driven values instead of hand-typed ones ([ADR-DATAMOD](../azure/data-model.md)), which is what lets provisioning scale
-elastically across environments and customers without hand-authored drift.
+resolved, config-driven values instead of hand-typed ones ([ADR-DATAMOD](../azure/azure-data-model.md)), which is what lets provisioning
+scale elastically across environments and customers without hand-authored drift.
 
 Align incentives alongside the technical change — give system owners both the visibility to build more efficient systems and the incentive
 to do so, so efficiency gains are pursued rather than left on the table.

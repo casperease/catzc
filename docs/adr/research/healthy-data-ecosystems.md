@@ -80,8 +80,8 @@ compounds its cost. Treating data health as optional while investing in AI adopt
 ## How to apply
 
 The templating data model resolves every Azure identity fact through one config layer, keyed by name and validated by `Assert-AzureConfig`
-([ADR-DATAMOD](../azure/data-model.md)) — one source of truth per record rather than a fact duplicated, and free to drift, across templates.
-Config-value addressing turns any committed config node into a citable, dereferenceable handle (`global.<config>.<key>`,
+([ADR-DATAMOD](../azure/azure-data-model.md)) — one source of truth per record rather than a fact duplicated, and free to drift, across
+templates. Config-value addressing turns any committed config node into a citable, dereferenceable handle (`global.<config>.<key>`,
 [ADR-CFGADDR](../automation/config-value-addressing.md)) instead of a copied literal, keeping the documentation of "where a value comes
 from" next to the value rather than in a separate note. Module config loading's single reader and owner-scoped validation
 ([ADR-MODCFG](../automation/module-config-loading.md)) give every named config exactly one cache and one automated quality gate — a

@@ -13,13 +13,13 @@
       environments:        map; name -> { shortcode, region, region_code [, per_subscription] }
                            per_subscription: true marks a once-per-subscription env (nsub/psub); absent ⇒ false
       (all named entities are maps keyed by name — duplicate names are structurally impossible)
-      (customer DEFINITIONS live in customer.yml — see Assert-CustomerConfig / docs/adr/azure/customer-model.md)
+      (customer DEFINITIONS live in customer.yml — see Assert-CustomerConfig / docs/adr/azure/azure-customer-model.md)
 
     A template's configuration tree addresses subscriptions by convention: a config at the
     configuration/ root resolves to the ONE non-customer subscription serving its env; a config under a
     configuration/<customer>/ subfolder resolves to that customer's ONE subscription serving its env.
     The per-file uniqueness is asserted at discovery and by integrity tests; the per-customer
-    disjointness rule below is the load-time half. See docs/adr/azure/data-model.md.
+    disjointness rule below is the load-time half. See docs/adr/azure/azure-data-model.md.
 
     Integrity rules:
     - names are valid lower-snake_case identifiers
@@ -44,7 +44,7 @@
     Note: completeness ("every environment is served") is NOT validated here, and different customers'
     subscriptions (and the shared platform's) may serve the same env — the customer axis separates them.
     The root-config uniqueness ("exactly one NON-customer subscription serves the env") is a per-config
-    discovery/integrity concern, not a load rule. See docs/adr/azure/data-model.md#rule-adr-datamod7.
+    discovery/integrity concern, not a load rule. See docs/adr/azure/azure-data-model.md#rule-adr-datamod7.
 #>
 function Assert-AzureConfig {
     [CmdletBinding()]
@@ -100,7 +100,7 @@ function Assert-AzureConfig {
     # validated here — that would make every azure load read customer.yml and couple ~all azure tests to it.
     # The reference is enforced two other ways: a shipped-asset integrity test (every shipped subscription's
     # customer resolves in customer.yml) and at runtime (Get-AzureCustomer throws on an unknown token). This
-    # keeps azure validation hermetic. See docs/adr/azure/customer-model.md.
+    # keeps azure validation hermetic. See docs/adr/azure/azure-customer-model.md.
 
     # --- Environments ---
     $envKeys = @($Config.environments.Keys)
@@ -138,7 +138,7 @@ function Assert-AzureConfig {
         elseif ("$($entry.region_code)" -cnotmatch '^[a-z]{3}$') {
             $errors.Add("environment '$env' has invalid region_code '$($entry.region_code)' (must be 3 lowercase letters, e.g. weu)")
         }
-        # per_subscription (optional): marks an env as once-per-subscription (nsub/psub). See data-model.md.
+        # per_subscription (optional): marks an env as once-per-subscription (nsub/psub). See azure-data-model.md.
         if ($entry.Contains('per_subscription') -and $entry.per_subscription -isnot [bool]) {
             $errors.Add("environment '$env' has invalid per_subscription '$($entry.per_subscription)' (must be a boolean: true or false)")
         }
@@ -205,7 +205,7 @@ function Assert-AzureConfig {
         }
     }
 
-    # --- Per-customer environment disjointness (docs/adr/azure/data-model.md) ---
+    # --- Per-customer environment disjointness (docs/adr/azure/azure-data-model.md) ---
     # A configuration/<customer>/<env>[-<slot>].yml config resolves to the customer's ONE subscription
     # serving the env, so no two subscriptions of one customer may serve the same environment. Grouping
     # is by the RAW customer token (normalization is a cross-asset customer.yml read this hermetic

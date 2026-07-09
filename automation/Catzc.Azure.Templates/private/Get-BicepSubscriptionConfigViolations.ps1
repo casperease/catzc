@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the subscription-resolution violations for a single config — the shared rule used by both
     Get-BicepTemplates (fail-fast at discovery) and Assert-BicepTemplate (collect-all), so the two never
-    drift. Parallels Get-BicepConfigClassViolations. See docs/adr/azure/data-model.md#rule-adr-datamod8.
+    drift. Parallels Get-BicepConfigClassViolations. See docs/adr/azure/azure-data-model.md#rule-adr-datamod8.
 .DESCRIPTION
     A config lives at `configuration/<env>[-<slot>].yml` (a shared-platform config) or
     `configuration/<customer>/<env>[-<slot>].yml` (a customer config). This checks the two conventional

@@ -3,7 +3,7 @@
     Returns the per-subscription identity environment (nsub/psub) of a named subscription.
 .DESCRIPTION
     Each subscription carries exactly one per-subscription env (nsub or psub — see
-    docs/adr/azure/data-model.md), the identity env that environment_kind:subscription templates deploy
+    docs/adr/azure/azure-data-model.md), the identity env that environment_kind:subscription templates deploy
     once-per-subscription. This returns it for a named subscription, so an environment_kind:standard
     template can locate the once-per-subscription foundation (and its Key Vault) that lives in the same
     subscription.

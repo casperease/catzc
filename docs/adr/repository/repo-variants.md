@@ -34,7 +34,7 @@ consumer; only `Config`/`Repository`/`Asserts` themselves cannot call them, and 
 `ado_naming` (`standard` | `classic`) selects the Azure resource-name component order — the key of `Get-AzureNameOrderSet` that
 `Get-BicepResourceName` passes to the name assembler. It is a **variant, not a code constant**: `Get-AdoNaming` reads it (default
 `standard`). Changing it re-spells every generated resource name, so it is a deliberate, one-time repo decision, not a runtime toggle (see
-[naming-standard](../azure/naming-standard.md)).
+[naming-standard](../azure/azure-naming-standard.md)).
 
 - [The three variants](#the-three-variants)
 
@@ -44,7 +44,7 @@ consumer; only `Config`/`Repository`/`Asserts` themselves cannot call them, and 
 is enabled), or a **list of customer names** (only those). `Get-EnabledCustomers` normalizes it; the plural `Test-`/`Assert-HaveCustomers`
 answer the repo-wide question (with an optional `-Name` list), and the singular `Test-`/`Assert-HaveCustomer` cover one customer
 (`ADR-VERBS:6` cardinality). The **enabled set lives in the variant**, not in `customer.yml`, precisely so these primitives can live in
-`Base` while `customer.yml` stays an Azure-layer catalogue (see [customer-model](../azure/customer-model.md)).
+`Base` while `customer.yml` stays an Azure-layer catalogue (see [customer-model](../azure/azure-customer-model.md)).
 
 - [The three variants](#the-three-variants)
 
@@ -109,9 +109,9 @@ needed to cross-check another asset would belong to that asset's layer, not here
   enforces (`Sync-GeneratedFile`'s branch guard reads `Test-GitWorkspace -MainViaPr`). This is the **PR-vs-Direct** integration axis the
   value-chain diagrams (`ADR-FLOW`) prefix a flow with (`PR + CD + …` vs a `Direct` flow).
 - **`have_customers`** — the enabled-customer set (`ADR-VARIANT:5`), tri-state `false | all | [names]`. It is the gate for customer
-  deployments and the source of the per-template `customer_deployment` default (see [customer-model](../azure/customer-model.md)). Keeping
-  the enabled set in the variant (rather than deriving it from `customer.yml`) is what lets the `HaveCustomer(s)` primitives answer "is this
-  customer enabled" from `Base` without reaching up into the Azure-layer catalogue.
+  deployments and the source of the per-template `customer_deployment` default (see [customer-model](../azure/azure-customer-model.md)).
+  Keeping the enabled set in the variant (rather than deriving it from `customer.yml`) is what lets the `HaveCustomer(s)` primitives answer
+  "is this customer enabled" from `Base` without reaching up into the Azure-layer catalogue.
 
 ## Decision
 

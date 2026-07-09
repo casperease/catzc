@@ -7,7 +7,7 @@
     PrePost's Invoke-BicepPrepareParameterSet is the merge seam. The resource-group name is not
     read from this file — it is derived by Get-BicepResourceGroupName.
 
-    The config address is literal (docs/adr/azure/data-model.md): a configuration-root file
+    The config address is literal (docs/adr/azure/azure-data-model.md): a configuration-root file
     `configuration/<env>[-<slot>].yml` (the shared-platform deployment), or a customer's file
     `configuration/<customer>/<env>[-<slot>].yml` when -Customer is given. No resolution machinery —
     the coordinate IS the file.

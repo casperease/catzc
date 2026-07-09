@@ -7,7 +7,7 @@
     session's customer picks the slot: a customer subscription deploys the template's
     configuration/<customer>/ config, a non-customer subscription the configuration-root one. The
     -SubscriptionIdAssertIs guard pins the target explicitly and is MANDATORY in a pipeline
-    (docs/adr/azure/data-model.md).
+    (docs/adr/azure/azure-data-model.md).
 
     Flow:
     1. Get-BicepDeploymentContext           (resolves the session target, applies the assert guard;
@@ -87,7 +87,7 @@ function Deploy-Bicep {
     # In a pipeline the target MUST be pinned explicitly — the session (the service connection) selects
     # it, and the assert guard is the pipeline's declared expectation, so a re-wired service connection
     # can never silently retarget an existing pipeline's deploy. Fail fast at the call site instead.
-    # See docs/adr/azure/data-model.md.
+    # See docs/adr/azure/azure-data-model.md.
     if ((Test-IsRunningInPipeline) -and [string]::IsNullOrEmpty($SubscriptionIdAssertIs)) {
         throw "Deploy-Bicep requires -SubscriptionIdAssertIs in a pipeline — the pipeline must pin the subscription GUID its service connection is expected to target, for template '$Template' ($Environment)."
     }

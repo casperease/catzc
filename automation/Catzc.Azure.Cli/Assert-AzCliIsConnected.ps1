@@ -6,7 +6,7 @@
     error when az is not logged in, or is logged into the wrong tenant / subscription. A connection is
     subscription-scoped, so the input is the subscription name: it resolves the subscription + tenant
     from azure.yml (Get-AzureSubscription) and delegates the check to the generic Get-AzCliConnectionState.
-    See docs/adr/azure/data-model.md.
+    See docs/adr/azure/azure-data-model.md.
 .PARAMETER Subscription
     Subscription name (a key in azure.yml's subscriptions).
 .EXAMPLE

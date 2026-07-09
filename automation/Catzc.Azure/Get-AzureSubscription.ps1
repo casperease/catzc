@@ -8,7 +8,7 @@
     join here. The matching tenant is looked up by name and embedded. A
     subscription MAY carry a `customer`, named by its key OR its 2-char shortcode (a customer in
     customer.yml); it is resolved to the canonical key and included (and renders into the resource names of
-    anything deployed there). See docs/adr/azure/data-model.md#rule-adr-datamod4 and customer-model.md.
+    anything deployed there). See docs/adr/azure/azure-data-model.md#rule-adr-datamod4 and azure-customer-model.md.
 .PARAMETER Subscription
     Subscription name — a key in azure.yml's `subscriptions`.
 .EXAMPLE
@@ -35,7 +35,7 @@ function Get-AzureSubscription {
     $tenant = [Catzc.Azure.Tenant]::new($found.tenant, $azure.tenants[$found.tenant].id)
     # The subscription's `customer` field may name a customer by its key OR its 2-char shortcode; normalize
     # to the canonical key so the resolved object is the same whichever form the config used. Empty when the
-    # subscription is not a customer subscription. See docs/adr/azure/customer-model.md.
+    # subscription is not a customer subscription. See docs/adr/azure/azure-customer-model.md.
     $customerToken = Get-AzureSubscriptionCustomer $found
     $customer = if ([string]::IsNullOrEmpty($customerToken)) {
         ''

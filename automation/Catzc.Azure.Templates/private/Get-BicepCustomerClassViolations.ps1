@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the customer-class violations for a single resolved config — the shared rule used by both
     Get-BicepTemplates (fail-fast at discovery) and Assert-BicepTemplate (collect-all), so the two never
-    drift. Parallels Get-BicepConfigClassViolations. See docs/adr/azure/customer-model.md.
+    drift. Parallels Get-BicepConfigClassViolations. See docs/adr/azure/azure-customer-model.md.
 .DESCRIPTION
     Checks one config against the template's `customer_deployment` bit and returns a (possibly empty) array
     of human-readable violation strings. The config's customer is its configuration subfolder ('' for a

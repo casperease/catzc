@@ -30,7 +30,7 @@ An **integrity** test is the one sanctioned bridge: it binds the real shipped as
 
 The **design** domain uses the discovery theme (ADR-EXAMPLE) — `discovery`/`expedition`/`survey`, `Contoso`/`Globex`, `develop`/`preprod`.
 Test fixtures never appear as ADR examples. Live identities may appear in docs, but only where an ADR documents the actual data model as its
-subject (`data-model.md` naming `apex`/`nova`), not as illustration.
+subject (`azure-data-model.md` naming `apex`/`nova`), not as illustration.
 
 - [The design domain and the doc asymmetry](#the-design-domain-and-the-doc-asymmetry)
 
@@ -69,10 +69,10 @@ parsed config's keys and values (comment-blind) rather than its raw text.
 The repository's example vocabulary is already governed in three separate places — the discovery theme for documentation
 ([documentation-examples](documentation-examples.md), `ADR-EXAMPLE`), the fixture identities for tests
 ([test-automation](../automation/test-automation.md#rule-adr-test3), `ADR-TEST:3`), and the real identities of the data model
-([data-model](../azure/data-model.md), [naming-standard](../azure/naming-standard.md), [customer-model](../azure/customer-model.md)). What
-was missing is the rule that ties them together: these are three faces of one discipline — a token belongs to exactly one domain, and it
-does not appear in the others. Without that rule, a logic test drifts into naming a real customer (testing the config by accident), an ADR
-illustrates with a test fixture, and the three vocabularies blur.
+([data-model](../azure/azure-data-model.md), [naming-standard](../azure/azure-naming-standard.md),
+[customer-model](../azure/azure-customer-model.md)). What was missing is the rule that ties them together: these are three faces of one
+discipline — a token belongs to exactly one domain, and it does not appear in the others. Without that rule, a logic test drifts into naming
+a real customer (testing the config by accident), an ADR illustrates with a test fixture, and the three vocabularies blur.
 
 This ADR names the discipline and records how it is enforced — and, as importantly, how it is **not**, because the obvious mechanism does
 not work.
@@ -113,8 +113,8 @@ leak anywhere else in a logic-bearing test file is a violation. This makes a mix
 
 Design examples are the discovery theme, and this is asymmetric on purpose. A test fixture (`acme`, `alpha`) must never appear in an ADR —
 an ADR that illustrated with test fixtures would be borrowing the wrong domain's vocabulary. But a live identity legitimately appears in a
-doc when the doc's subject **is** that identity: `data-model.md` names `apex` and `nova` because it is describing the real data model, not
-illustrating a general point. So docs admit live identities as a documented subject, never fixtures as illustration.
+doc when the doc's subject **is** that identity: `azure-data-model.md` names `apex` and `nova` because it is describing the real data model,
+not illustrating a general point. So docs admit live identities as a documented subject, never fixtures as illustration.
 
 ### Why a spell-checker cannot enforce this
 
@@ -197,8 +197,8 @@ the domains; a file-glob spell-checker is not used, because it cannot separate i
 - [documentation-examples](documentation-examples.md) (`ADR-EXAMPLE`) — the design domain's discovery-theme vocabulary.
 - [test-automation](../automation/test-automation.md) (`ADR-TEST`) — logic vs integrity, and the fixture-identity rule (`ADR-TEST:3`) this
   gate mechanizes.
-- [data-model](../azure/data-model.md), [naming-standard](../azure/naming-standard.md), [customer-model](../azure/customer-model.md) — the
-  config/live domain's real identities.
+- [data-model](../azure/azure-data-model.md), [naming-standard](../azure/azure-naming-standard.md),
+  [customer-model](../azure/azure-customer-model.md) — the config/live domain's real identities.
 - [spell-out-names](../automation/powershell/spell-out-names.md) (`ADR-SPELL`) — the terminology registry and the per-category `scope` map.
 - [poka-yoke](../principles/poka-yoke.md), [reduce-variability](../principles/reduce-variability.md) — the principles a mechanical,
   low-ceremony gate instantiates.

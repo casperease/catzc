@@ -20,7 +20,7 @@ The declared shape of the Azure estate: the tenants, the customers (each with a 
 a region, region code, and short code), and the subscriptions (each bound to a tenant, optionally to a customer, and serving a set of
 environments). Overlaid on this is the per-environment IP plan. This is data, not behaviour — it lives in two configuration assets,
 `azure.yml` and `network.yml`, and is the single source of truth the whole Azure stack resolves against. See
-[data-model](../../adr/azure/data-model.md) and [network-model](../../adr/azure/network-model.md).
+[data-model](../../adr/azure/azure-data-model.md) and [network-model](../../adr/azure/azure-network-model.md).
 
 ### domain:2 — Subscription resolution
 

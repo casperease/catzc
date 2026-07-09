@@ -295,7 +295,7 @@ An INPUT pipeline:
 1. Takes user input via **ADO pipeline parameters**.
 2. Checks out the repo.
 3. **Creates or edits infrastructure template config files** (under `infrastructure/templates/<name>/configuration/…`, see
-   [the data model](../azure/data-model.md)) to merge in the user's configuration parameters.
+   [the data model](../azure/azure-data-model.md)) to merge in the user's configuration parameters.
 
 Its output is a change to the source of truth — a commit — not a deployment. The user's parameters become git-resident config that the
 normal CI/CD path then carries to the cloud. The invariant: self-service belongs _above_ the pipeline, feeding the source of truth —

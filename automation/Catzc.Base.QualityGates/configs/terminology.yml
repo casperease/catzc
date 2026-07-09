@@ -629,6 +629,8 @@ terms:
       meaning: "body of the ADR-DORATL code (research/transformational-leadership)"
     - term: dorawb
       meaning: "body of the ADR-DORAWB code (research/well-being)"
+    - term: pterms
+      meaning: "body of the ADR-PTERMS code (process/process-terms)"
   ado:
     - term: tf
       meaning: "the TF_BUILD predefined pipeline variable (Team Foundation Build), e.g. $savedTfBuild"
@@ -1084,3 +1086,7 @@ terms:
       meaning: "Christina Maslach (surname of a cited author; burnout research)"
     - term: shoup
       meaning: "Randy Shoup (surname of a cited author)"
+    - term: goldratt
+      meaning: "Eliyahu M. Goldratt (cited author; Theory of Constraints, The Goal)"
+    - term: eliyahu
+      meaning: "Eliyahu M. Goldratt (given name of the cited author)"

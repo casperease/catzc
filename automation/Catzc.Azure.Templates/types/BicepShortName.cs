@@ -1,5 +1,5 @@
 // A template's `short_name` — the 2-5 char, lowercase-alnum Azure id segment every resource name is built
-// from (docs/adr/azure/naming-standard.md, Rule ADR-NAMING:2). A template carries TWO identifiers: its readable,
+// from (docs/adr/azure/azure-naming-standard.md, Rule ADR-NAMING:2). A template carries TWO identifiers: its readable,
 // kebab-case on-disk FOLDER name and this short_name; only the short_name is ever Azure-facing.
 //
 // The short_name is DERIVED from the folder name by default — lowercase, keep only [a-z0-9] (hyphens and any
@@ -20,7 +20,7 @@ namespace Catzc.Azure.Templates;
 public sealed class BicepShortName
 {
     // The maximum short_name length. Keeping this at 5 keeps the worst-case tight (storage) name at 23/24
-    // with a byte to spare (docs/adr/azure/naming-standard.md, "Length budget").
+    // with a byte to spare (docs/adr/azure/azure-naming-standard.md, "Length budget").
     public const int MaxLength = 5;
 
     // The template's on-disk folder name (the readable, kebab-case identifier). Always present.

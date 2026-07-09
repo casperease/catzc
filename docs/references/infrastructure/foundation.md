@@ -3,7 +3,7 @@
 The once-per-subscription baseline. `foundation` deploys the shared services every other template in the subscription depends on — a Log
 Analytics workspace and a Key Vault — and nothing customer- or environment-specific. Its Key Vault holds the SQL admin password readers read
 at deploy time (injected by their `PrePost.psm1`), so foundation must deploy before them. It is classified `environment_kind: subscription`
-— one deployment per subscription, not per environment (see[data-model](../../adr/azure/data-model.md)).
+— one deployment per subscription, not per environment (see[data-model](../../adr/azure/azure-data-model.md)).
 
 ## Resources
 

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Writes (or merges) a template's per-slot ParametersFile into its config file. The write half of
     the INPUT pipeline: it turns user input into a version-controlled change, never a runtime cloud
-    mutation. See docs/adr/pipelines/pipeline-types.md and docs/adr/azure/data-model.md.
+    mutation. See docs/adr/pipelines/pipeline-types.md and docs/adr/azure/azure-data-model.md.
 .DESCRIPTION
     Resolves the config file for a (template[, customer], environment[, slot]) coordinate —
     `infrastructure/templates/<template>/configuration/[<customer>/]<env>[-<slot>].yml` — and sets the

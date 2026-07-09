@@ -204,8 +204,8 @@ they answer to different owners and cadences (build-and-verify on every change; 
 cutover). What keeps them from being three disconnected things is that they are **keyed together by one shared object**: the immutable,
 tagged artifact. A CI component stamps it once; CD consumes exactly that tag; DEPLOY promotes exactly that tag to prod. The tag (and its
 commit) is the join key across the domains, the same way a subscription name joins the two Azure config layers
-([data-model](../azure/data-model.md)). Because the key is an immutable artifact and no domain rebuilds it — build-once, deploy-many — what
-runs in production is byte-identical to what was certified in non-prod. The domains stay small and independently reasoned; the artifact
+([data-model](../azure/azure-data-model.md)). Because the key is an immutable artifact and no domain rebuilds it — build-once, deploy-many —
+what runs in production is byte-identical to what was certified in non-prod. The domains stay small and independently reasoned; the artifact
 carries the continuity.
 
 ### A CD is a CI that keeps going

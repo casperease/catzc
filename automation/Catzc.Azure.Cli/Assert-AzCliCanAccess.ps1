@@ -11,7 +11,7 @@
     This is to access what Assert-AzCliIsConnected is to active-context: same name resolution, different
     question. "IsConnected" asks whether the session is *set to* the subscription; "CanAccess" asks
     whether the current login can *reach* it, independent of which subscription is active.
-    See docs/adr/azure/data-model.md and docs/adr/automation/powershell/prefer-az-cli.md#rule-adr-azcli1.
+    See docs/adr/azure/azure-data-model.md and docs/adr/automation/powershell/prefer-az-cli.md#rule-adr-azcli1.
 .PARAMETER Subscription
     Subscription name (a key in azure.yml's subscriptions).
 .EXAMPLE

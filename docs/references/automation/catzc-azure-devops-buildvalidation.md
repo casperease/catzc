@@ -42,9 +42,9 @@ that lives server-side rather than in the repository.
 
 Reconciliation is idempotent end to end: `Sync-AdoBuildValidations` can run on a schedule or after any registry edit, and a converged
 project is a no-op pass. Globset existence is checked at runtime and by an integrity test — never at config load, so reading the registry
-stays hermetic (the same pattern as the customer catalogue, [customer-model](../../adr/azure/customer-model.md#rule-adr-customer3)). The
-REST calls authenticate through the dual-authentication precedence ([dual-authentication](../../adr/pipelines/dual-authentication.md)) like
-the rest of the ADO surface.
+stays hermetic (the same pattern as the customer catalogue, [customer-model](../../adr/azure/azure-customer-model.md#rule-adr-customer3)).
+The REST calls authenticate through the dual-authentication precedence ([dual-authentication](../../adr/pipelines/dual-authentication.md))
+like the rest of the ADO surface.
 
 ## Division
 

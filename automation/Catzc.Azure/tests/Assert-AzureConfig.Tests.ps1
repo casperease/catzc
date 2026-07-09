@@ -41,10 +41,10 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
         }
 
         # The load-time validator groups customer subscriptions by their RAW customer token (it must not
-        # read customer.yml — see customer-model.md); this is the NORMALIZED counterpart: with shortcode
+        # read customer.yml — see azure-customer-model.md); this is the NORMALIZED counterpart: with shortcode
         # bindings resolved to canonical keys, every shipped customer still serves each env exactly once,
         # and so does the non-customer (shared) set — the uniqueness every configuration file resolution
-        # rests on (docs/adr/azure/data-model.md).
+        # rests on (docs/adr/azure/azure-data-model.md).
         It 'every shipped customer — and the non-customer set — serves each environment through exactly one subscription' {
             $azure = Get-Config -Config azure
             $servedBy = @{}

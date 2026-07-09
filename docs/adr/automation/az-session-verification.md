@@ -41,7 +41,8 @@ The **reverse lookup** is the fourth layer: `Get-AzCliSessionSubscription` (in `
 (`Get-CurrentAzSubscription`) and resolves its GUID to the declared `azure.yml` identity — name, customer, tenant — throwing when the
 session targets a subscription azure.yml does not declare. It makes the session usable as a **selector** (the deploy target follows the
 service connection) while config stays the authority on what exists; it is read-only like every verification (ADR-AZSESS:2), and the
-`-SubscriptionIdAssertIs` guard on the deploy surface is its explicit pin (see [data-model](../azure/data-model.md#rule-adr-datamod7)).
+`-SubscriptionIdAssertIs` guard on the deploy surface is its explicit pin (see
+[data-model](../azure/azure-data-model.md#rule-adr-datamod7)).
 
 - [The reverse lookup](#the-reverse-lookup)
 
@@ -88,7 +89,7 @@ connection logs the session into one subscription, and `Get-AzCliSessionSubscrip
 (name, customer, tenant) so the rest of the platform reasons in config vocabulary. A session pointed at an undeclared subscription throws —
 config defines what exists (ADR-AZSESS:4), so an unknown target is an error, never a fallback. The lookup is read-only (ADR-AZSESS:2); the
 explicit pin against mis-wiring is the deploy surface's `-SubscriptionIdAssertIs` guard, mandatory in pipelines
-([data-model](../azure/data-model.md#rule-adr-datamod7)).
+([data-model](../azure/azure-data-model.md#rule-adr-datamod7)).
 
 ### Config defines correct
 

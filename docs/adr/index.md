@@ -35,6 +35,7 @@ a normative summary plus internal links to the prose that justifies it).
 | `ADR-AGILE`    | [agile](process/agile.md)                         |
 | `ADR-AGILEV`   | [agile-values](process/agile-values.md)           |
 | `ADR-AGILEP`   | [agile-principles](process/agile-principles.md)   |
+| `ADR-PTERMS`   | [process-terms](process/process-terms.md)         |
 | `ADR-LEAN`     | [lean](process/lean.md)                           |
 | `ADR-HOLDLINE` | [holding-the-line](process/holding-the-line.md)   |
 | `ADR-BUILTIN`  | [build-quality-in](process/build-quality-in.md)   |
@@ -142,12 +143,12 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 
 ### azure/
 
-| Code           | ADR                                         |
-| -------------- | ------------------------------------------- |
-| `ADR-DATAMOD`  | [data-model](azure/data-model.md)           |
-| `ADR-NETWORK`  | [network-model](azure/network-model.md)     |
-| `ADR-NAMING`   | [naming-standard](azure/naming-standard.md) |
-| `ADR-CUSTOMER` | [customer-model](azure/customer-model.md)   |
+| Code           | ADR                                                     |
+| -------------- | ------------------------------------------------------- |
+| `ADR-DATAMOD`  | [azure-data-model](azure/azure-data-model.md)           |
+| `ADR-NETWORK`  | [azure-network-model](azure/azure-network-model.md)     |
+| `ADR-NAMING`   | [azure-naming-standard](azure/azure-naming-standard.md) |
+| `ADR-CUSTOMER` | [azure-customer-model](azure/azure-customer-model.md)   |
 
 ### repository/
 
@@ -236,10 +237,10 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   to sample or example code, because that couples durable rationale to code churn. The "How this is enforced" sections that _name_ an
   enforcing function are the established exception.
 
-- **Link granularity is per-context.** Cite a specific rule anchor (`file.md#rule-<code><n>`, e.g. `data-model.md#rule-adr-datamod2`) when
-  the citing sentence, comment, or throw-message invokes one concrete rule. Link the ADR document when the context is general — an index
-  list, a "see ADR X for the full rationale" pointer, or a citation that invokes the ADR's whole thesis. Over-narrowing a general pointer to
-  one rule is worse than leaving it doc-level.
+- **Link granularity is per-context.** Cite a specific rule anchor (`file.md#rule-<code><n>`, e.g. `azure-data-model.md#rule-adr-datamod2`)
+  when the citing sentence, comment, or throw-message invokes one concrete rule. Link the ADR document when the context is general — an
+  index list, a "see ADR X for the full rationale" pointer, or a citation that invokes the ADR's whole thesis. Over-narrowing a general
+  pointer to one rule is worse than leaving it doc-level.
 
 - **Plain language.** Write in plain English; avoid terse logic or math jargon. Never use "iff" — spell out both directions ("required when
   Y; an error otherwise", or "present exactly when Y"). Prefer "when" / "only when" / "exactly when".

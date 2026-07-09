@@ -1,3 +1,3 @@
 # Per-template options for 'sample-with-module'.
-# short_name is the globally-unique Azure id segment (2-5 alnum) — see docs/adr/azure/naming-standard.md#rule-adr-naming2.
+# short_name is the globally-unique Azure id segment (2-5 alnum) — see docs/adr/azure/azure-naming-standard.md#rule-adr-naming2.
 short_name: smod

@@ -6,7 +6,7 @@
 # service-connection/assert map. No automation config is needled through (custom-template-discipline.md).
 #
 # The deploy TARGET is the az session's subscription — exactly what each entry's service connection logs
-# into (docs/adr/azure/data-model.md). Nothing chains a subscription name; instead every entry pins its
+# into (docs/adr/azure/azure-data-model.md). Nothing chains a subscription name; instead every entry pins its
 # expectation with `subscriptionIdAssertIs` (mandatory in a pipeline), so a mis-wired service connection
 # fails loudly instead of silently retargeting. The customer that renders into names is derived from the
 # session subscription, and the session's customer picks the configuration/<customer>/ slot.

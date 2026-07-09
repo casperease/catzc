@@ -3,7 +3,7 @@
     Validates configs/customer.yml and throws with all violations collected.
 .DESCRIPTION
     The customer catalogue — the customers this repo can deploy for (split out of azure.yml; see
-    docs/adr/azure/customer-model.md).
+    docs/adr/azure/azure-customer-model.md).
 
     Required shape:
       customers:  map; name -> { shortcode [, details] }   (empty map allowed)

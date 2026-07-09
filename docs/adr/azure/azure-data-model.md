@@ -1,6 +1,6 @@
 # ADR: Templating data model (`azure.yml` + `infrastructure/`)
 
-Pairs with [`naming-standard`](naming-standard.md), which defines the resource-name components this model feeds.
+Pairs with [`naming-standard`](azure-naming-standard.md), which defines the resource-name components this model feeds.
 
 ## Rules: ADR-DATAMOD
 
@@ -80,8 +80,8 @@ coordinate resolves to exactly one subscription) is enforced at discovery by `Ge
 | 2 — Templating / deployment | the `infrastructure/templates/<name>/` filesystem (discovered)              | template, options, slot (per-RG config), deploy context |
 
 A third global asset, `configs/network.yml`, carries the cross-cutting IP plan (per-environment vnet / subnet ranges) alongside `azure.yml`.
-It is a separate concern with its own schema and cross-asset integrity rules — see [`network-model`](network-model.md). This ADR covers
-identity (Layer 1) and templating (Layer 2); the network plan is documented there.
+It is a separate concern with its own schema and cross-asset integrity rules — see [`network-model`](azure-network-model.md). This ADR
+covers identity (Layer 1) and templating (Layer 2); the network plan is documented there.
 
 The two layers join through the **conventional configuration tree**: a config at the configuration ROOT (`configuration/<env>[-<slot>].yml`)
 is a shared-platform deployment, and a config under a subfolder (`configuration/<customer>/<env>[-<slot>].yml`) is that customer's — the
@@ -146,10 +146,10 @@ erDiagram
 ```
 
 A subscription declares its **`tenant`**, the **`environments`** it serves, and — optionally — a **`customer`**, naming a customer defined
-in `customer.yml` by its key OR its 2-char shortcode (see [`customer-model`](customer-model.md)). The `customer` field is the single signal
-that a subscription belongs to a customer: it makes the subscription a candidate for the customer's `configuration/<customer>/` configs (and
-excludes it from root-config resolution), and the customer renders into the resource names of anything deployed there (see
-[`naming-standard`](naming-standard.md)).
+in `customer.yml` by its key OR its 2-char shortcode (see [`customer-model`](azure-customer-model.md)). The `customer` field is the single
+signal that a subscription belongs to a customer: it makes the subscription a candidate for the customer's `configuration/<customer>/`
+configs (and excludes it from root-config resolution), and the customer renders into the resource names of anything deployed there (see
+[`naming-standard`](azure-naming-standard.md)).
 
 A **customer** (defined in `customer.yml`) carries two stored identifiers, mirroring an environment: a readable **`key`** (the map key — the
 customer-segment of _generous_ resource names) and a 2-char **`shortcode`** (unique, the customer-segment of _restricted_
@@ -229,7 +229,7 @@ erDiagram
   `Catzc.Azure.Templates.BicepShortName`; `Get-BicepTemplates` resolves it and enforces uniqueness across all templates. `options.yml` is
   **optional** and, when present, may **override** `short_name` and/or declare `deployment_mode` / `deployment_target` / `environment_kind`
   (strict schema, validated at discovery by `Read-BicepTemplateOptions`). It does **not** declare which subscriptions the template targets —
-  that follows from its configuration coordinates. See [`naming-standard`](naming-standard.md#rule-adr-naming2).
+  that follows from its configuration coordinates. See [`naming-standard`](azure-naming-standard.md#rule-adr-naming2).
 - `environment_kind` (`standard` | `subscription`, default `standard`) is the template's one classification bit: every config's env must
   match it — `subscription` ⇒ a `per_subscription` env (`nsub`/`psub`, deployed once per subscription), `standard` ⇒ an ordinary env
   (`dev`/`test`/…). Enforced per-config by `Get-BicepConfigClassViolations` (shared by discovery and `Assert-BicepTemplate`). The slot is
@@ -317,9 +317,9 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
   customer carries a readable **`key`** + a 2-char **`shortcode`** so it stays readable in generous names and cheap (2 bytes) in tight ones.
 - Build artifacts mirror the configuration tree (`parameters.[<customer>.]<config>.json`) — uniform and structurally collision-free in the
   shared build folder, with no validation guard to remember.
-- Each environment maps to one region; multi-region-per-environment is out of scope (see [`naming-standard`](naming-standard.md)). Each env
-  carries a readable, prefix-free **`name`** (the deploy/config handle + relaxed env-segment) and a 2-char **`shortcode`** (the restricted
-  env-segment).
+- Each environment maps to one region; multi-region-per-environment is out of scope (see [`naming-standard`](azure-naming-standard.md)).
+  Each env carries a readable, prefix-free **`name`** (the deploy/config handle + relaxed env-segment) and a 2-char **`shortcode`** (the
+  restricted env-segment).
 - The cost is that a second non-customer platform cannot ship template configs — the configuration root belongs to ONE shared platform
   (every root config must resolve to exactly one non-customer subscription per env). That is the deliberate trade: the conventional tree
   stays two-coordinate (root or customer), with no third naming axis to invent.

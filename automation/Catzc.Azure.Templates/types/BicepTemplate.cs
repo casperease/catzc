@@ -58,7 +58,7 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     public string      environment_kind     { get; }
 
     // Whether this is a customer template (its configs deploy into customer subscriptions). Defaults to the
-    // have_customers repo variant; see docs/adr/azure/customer-model.md. Always present (a bool).
+    // have_customers repo variant; see docs/adr/azure/azure-customer-model.md. Always present (a bool).
     public bool        customer_deployment  { get; }
 
     // The short name used when composing resource names. Always present.

@@ -3,7 +3,7 @@
 The Bicep templating module. It is the top of the Azure stack: it discovers the deployable templates in the repository, derives the names
 their resources must carry, builds them into deployable artifacts, and deploys them. It consumes the identity model from
 [Catzc.Azure](catzc-azure.md) and the session checks from [Catzc.Azure.Cli](catzc-azure-cli.md), and is the implementation of the
-[data-model](../../adr/azure/data-model.md) and [naming-standard](../../adr/azure/naming-standard.md) decisions.
+[data-model](../../adr/azure/azure-data-model.md) and [naming-standard](../../adr/azure/azure-naming-standard.md) decisions.
 
 ## Domains
 
@@ -21,14 +21,14 @@ their resources must carry, builds them into deployable artifacts, and deploys t
 Finding the deployable templates on disk and reading their structure: the per-template options, and the per-resource-group configuration
 files that map a subscription, environment, and slot to one set of parameters. This domain also exposes the distinct customers,
 subscriptions, and slots a template targets, and writing a configuration back. One configuration file corresponds to exactly one Azure
-resource group, so this domain _is_ the resource-group inventory. See [data-model](../../adr/azure/data-model.md).
+resource group, so this domain _is_ the resource-group inventory. See [data-model](../../adr/azure/azure-data-model.md).
 
 ### domain:2 — Deterministic resource naming
 
 Assembling an Azure resource name from its canonical components — environment, slot, region, organization, template short name, optional
 customer and role, and resource type — in the active component order, rendered to each resource type's length and character budget. Names
 are deterministic, with no random suffixes, and an over-budget name fails rather than being silently truncated. This domain owns the name
-builder and the registries of orders, render patterns, and resource types. See [naming-standard](../../adr/azure/naming-standard.md).
+builder and the registries of orders, render patterns, and resource types. See [naming-standard](../../adr/azure/azure-naming-standard.md).
 
 ### domain:3 — Deployment classification
 
