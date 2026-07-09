@@ -3,7 +3,7 @@
 The PSReadLine key-binding module of the Tooling group. PSReadLine on Linux defaults to bash-style line editing, so a developer moving
 between a Windows devbox and a Linux session (or CI) meets two different editing experiences for the same shell. This module carries the
 Windows binding set as version-controlled config and replays it on Linux, so the interactive editing keys behave the same everywhere —
-[devbox/pipeline parity](../../adr/principles/devbox-pipeline-parity.md) applied to the shell's own input handling. It installs nothing and
+[devbox/pipeline parity](../../adr/automation/devbox-pipeline-parity.md) applied to the shell's own input handling. It installs nothing and
 manages no external tool, so — like [Catzc.Tooling.Github](catzc-tooling-github.md) — it rests only on the `Base` group, not on
 [Catzc.Tooling.Core](catzc-tooling-core.md).
 

@@ -138,6 +138,16 @@ terms:
       meaning: "Lean 'jidoka' (automation with a human touch)"
     - term: kaizen
       meaning: "Lean 'kaizen' (continuous improvement)"
+    - term: andon
+      meaning: "Lean 'andon' (the stop-the-line signal cord)"
+    - term: genbutsu
+      meaning: "Lean 'genchi genbutsu' (go and see the real thing)"
+    - term: genchi
+      meaning: "Lean 'genchi genbutsu' (go and see the real thing)"
+    - term: kanban
+      meaning: "Lean 'kanban' (the pull signal / card)"
+    - term: muda
+      meaning: "Lean 'muda' (waste)"
     - term: kebab
       meaning: "kebab-case"
     - term: modulesystem
@@ -449,6 +459,12 @@ terms:
       meaning: "body of the ADR-NOWASTE code (reduce-waste)"
     - term: onelive
       meaning: "body of the ADR-ONELIVE code (one-living-version)"
+    - term: agilev
+      meaning: "body of the ADR-AGILEV code (agile-values)"
+    - term: agilep
+      meaning: "body of the ADR-AGILEP code (agile-principles)"
+    - term: holdline
+      meaning: "body of the ADR-HOLDLINE code (holding-the-line)"
     - term: azcli
       meaning: "body of the ADR-AZCLI code (prefer-az-cli); also 'az cli'"
     - term: prelog
@@ -525,6 +541,74 @@ terms:
       meaning: 'ADR-THINPLAT is the ADR on thinnest re-usable platforms API(CLI) abstraction'
     - term: selfserv
       meaning: "body of the ADR-SELFSERV code (self-service)"
+    - term: doravc
+      meaning: "body of the ADR-DORAVC code (research/version-control)"
+    - term: dorasb
+      meaning: "body of the ADR-DORASB code (research/working-in-small-batches)"
+    - term: dorape
+      meaning: "body of the ADR-DORAPE code (research/platform-engineering)"
+    - term: doraucf
+      meaning: "body of the ADR-DORAUCF code (research/user-centric-focus)"
+    - term: doraaid
+      meaning: "body of the ADR-DORAAID code (research/ai-accessible-internal-data)"
+    - term: doraais
+      meaning: "body of the ADR-DORAAIS code (research/clear-and-communicated-ai-stance)"
+    - term: dorahde
+      meaning: "body of the ADR-DORAHDE code (research/healthy-data-ecosystems)"
+    - term: doracm
+      meaning: "body of the ADR-DORACM code (research/code-maintainability)"
+    - term: doracd
+      meaning: "body of the ADR-DORACD code (research/continuous-delivery)"
+    - term: doraci
+      meaning: "body of the ADR-DORACI code (research/continuous-integration)"
+    - term: doradcm
+      meaning: "body of the ADR-DORADCM code (research/database-change-management)"
+    - term: dorada
+      meaning: "body of the ADR-DORADA code (research/deployment-automation)"
+    - term: doradq
+      meaning: "body of the ADR-DORADQ code (research/documentation-quality)"
+    - term: dorafi
+      meaning: "body of the ADR-DORAFI code (research/flexible-infrastructure)"
+    - term: doralct
+      meaning: "body of the ADR-DORALCT code (research/loosely-coupled-teams)"
+    - term: doramo
+      meaning: "body of the ADR-DORAMO code (research/monitoring-and-observability)"
+    - term: doraps
+      meaning: "body of the ADR-DORAPS code (research/pervasive-security)"
+    - term: dorasca
+      meaning: "body of the ADR-DORASCA code (research/streamlining-change-approval)"
+    - term: dorata
+      meaning: "body of the ADR-DORATA code (research/test-automation)"
+    - term: doratdm
+      meaning: "body of the ADR-DORATDM code (research/test-data-management)"
+    - term: doratbd
+      meaning: "body of the ADR-DORATBD code (research/trunk-based-development)"
+    - term: doracf
+      meaning: "body of the ADR-DORACF code (research/customer-feedback)"
+    - term: dorams
+      meaning: "body of the ADR-DORAMS code (research/monitoring-systems)"
+    - term: dorapfn
+      meaning: "body of the ADR-DORAPFN code (research/proactive-failure-notification)"
+    - term: dorawv
+      meaning: "body of the ADR-DORAWV code (research/work-visibility-in-value-stream)"
+    - term: doravm
+      meaning: "body of the ADR-DORAVM code (research/visual-management)"
+    - term: dorawip
+      meaning: "body of the ADR-DORAWIP code (research/wip-limits)"
+    - term: doraect
+      meaning: "body of the ADR-DORAECT code (research/teams-empowered-to-choose-tools)"
+    - term: doragoc
+      meaning: "body of the ADR-DORAGOC code (research/generative-organizational-culture)"
+    - term: dorajs
+      meaning: "body of the ADR-DORAJS code (research/job-satisfaction)"
+    - term: doralc
+      meaning: "body of the ADR-DORALC code (research/learning-culture)"
+    - term: dorate
+      meaning: "body of the ADR-DORATE code (research/team-experimentation)"
+    - term: doratl
+      meaning: "body of the ADR-DORATL code (research/transformational-leadership)"
+    - term: dorawb
+      meaning: "body of the ADR-DORAWB code (research/well-being)"
   ado:
     - term: tf
       meaning: "the TF_BUILD predefined pipeline variable (Team Foundation Build), e.g. $savedTfBuild"
@@ -966,6 +1050,10 @@ terms:
       meaning: "Manuel Pais (surname of a cited author)"
     - term: poppendieck
       meaning: "Mary & Tom Poppendieck (cited authors)"
+    - term: poppendiecks
+      meaning: "Mary & Tom Poppendieck (plural of the cited authors' surname)"
+    - term: reinertsen
+      meaning: "Donald Reinertsen (cited author)"
     - term: skelton
       meaning: "Matthew Skelton (surname of a cited author)"
     - term: taiichi

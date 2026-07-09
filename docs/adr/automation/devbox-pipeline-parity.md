@@ -56,9 +56,9 @@ is the proof of parity.
 
 - [pipeline-detection](../pipelines/pipeline-detection.md) — the one seam detector (`ADR-PIPEDET`)
 - [durable-sha-globs](../pipelines/durable-sha-globs.md) — the globsets, the only channel between devbox and pipeline (`ADR-GLOBS`)
-- [test-automation](../automation/test-automation.md) — the L0–L3 gates that run identically in both environments (`ADR-TEST`)
-- [reduce-variability](reduce-variability.md), [one-living-version](one-living-version.md) — the principles this specialises to two
-  environments
+- [test-automation](test-automation.md) — the L0–L3 gates that run identically in both environments (`ADR-TEST`)
+- [reduce-variability](../principles/reduce-variability.md), [one-living-version](../principles/one-living-version.md) — the principles this
+  specialises to two environments
 
 ## Dora explains
 

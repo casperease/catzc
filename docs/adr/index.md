@@ -1,7 +1,8 @@
 # ADR index and rule-citation registry
 
-Architecture Decision Records live under `docs/adr/`, grouped by area (`principles/`, `design/`, `automation/`, `pipelines/`, `azure/`,
-`repository/`). **Read all ADRs at the start of every session** — they define the design principles this codebase must follow.
+Architecture Decision Records live under `docs/adr/`, grouped by area (`principles/`, `process/`, `design/`, `automation/`, `pipelines/`,
+`azure/`, `repository/`, `research/`). **Read all ADRs at the start of every session** — they define the design principles this codebase
+must follow.
 
 ## Citing a rule
 
@@ -19,14 +20,28 @@ a normative summary plus internal links to the prose that justifies it).
 
 ### principles/
 
-| Code          | ADR                                                            |
-| ------------- | -------------------------------------------------------------- |
-| `ADR-ASCODE`  | [everything-as-code](principles/everything-as-code.md)         |
-| `ADR-LESSVAR` | [reduce-variability](principles/reduce-variability.md)         |
-| `ADR-NOWASTE` | [reduce-waste](principles/reduce-waste.md)                     |
-| `ADR-POKA`    | [poka-yoke](principles/poka-yoke.md)                           |
-| `ADR-ONELIVE` | [one-living-version](principles/one-living-version.md)         |
-| `ADR-PARITY`  | [devbox-pipeline-parity](principles/devbox-pipeline-parity.md) |
+| Code          | ADR                                                    |
+| ------------- | ------------------------------------------------------ |
+| `ADR-ASCODE`  | [everything-as-code](principles/everything-as-code.md) |
+| `ADR-LESSVAR` | [reduce-variability](principles/reduce-variability.md) |
+| `ADR-NOWASTE` | [reduce-waste](principles/reduce-waste.md)             |
+| `ADR-POKA`    | [poka-yoke](principles/poka-yoke.md)                   |
+| `ADR-ONELIVE` | [one-living-version](principles/one-living-version.md) |
+
+### process/
+
+| Code           | ADR                                               |
+| -------------- | ------------------------------------------------- |
+| `ADR-AGILE`    | [agile](process/agile.md)                         |
+| `ADR-AGILEV`   | [agile-values](process/agile-values.md)           |
+| `ADR-AGILEP`   | [agile-principles](process/agile-principles.md)   |
+| `ADR-LEAN`     | [lean](process/lean.md)                           |
+| `ADR-HOLDLINE` | [holding-the-line](process/holding-the-line.md)   |
+| `ADR-BUILTIN`  | [build-quality-in](process/build-quality-in.md)   |
+| `ADR-OBSERVE`  | [observe-work](process/observe-work.md)           |
+| `ADR-PULL`     | [pull-work](process/pull-work.md)                 |
+| `ADR-QUEUE`    | [queues-cost-money](process/queues-cost-money.md) |
+| `ADR-ADAPT`    | [inspect-and-adapt](process/inspect-and-adapt.md) |
 
 ### design/
 
@@ -49,6 +64,7 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 
 | Code           | ADR                                                                              |
 | -------------- | -------------------------------------------------------------------------------- |
+| `ADR-PARITY`   | [devbox-pipeline-parity](automation/devbox-pipeline-parity.md)                   |
 | `ADR-UVPY`     | [uv-python-handler](automation/uv-python-handler.md)                             |
 | `ADR-PRELOG`   | [log-before-invoke](automation/log-before-invoke.md)                             |
 | `ADR-RETRY`    | [retry-as-last-resort](automation/retry-as-last-resort.md)                       |
@@ -146,6 +162,65 @@ The cross-cutting platform and module-system rules live at the `automation/` roo
 | `ADR-EXAMPLE`  | [documentation-examples](repository/documentation-examples.md)         |
 | `ADR-VARIANT`  | [repo-variants](repository/repo-variants.md)                           |
 | `ADR-LANG`     | [domain-language-separation](repository/domain-language-separation.md) |
+
+### research/
+
+DORA capability summaries — one ADR per capability in the [DORA Core Model](research/index.md), grouped as the DORA catalog groups them.
+These articles summarize external research; the repository's own decisions live in the areas above.
+
+#### research/ — AI-focused
+
+| Code          | ADR                                                                              |
+| ------------- | -------------------------------------------------------------------------------- |
+| `ADR-DORAAID` | [ai-accessible-internal-data](research/ai-accessible-internal-data.md)           |
+| `ADR-DORAAIS` | [clear-and-communicated-ai-stance](research/clear-and-communicated-ai-stance.md) |
+| `ADR-DORAHDE` | [healthy-data-ecosystems](research/healthy-data-ecosystems.md)                   |
+| `ADR-DORAPE`  | [platform-engineering](research/platform-engineering.md)                         |
+| `ADR-DORAUCF` | [user-centric-focus](research/user-centric-focus.md)                             |
+| `ADR-DORAVC`  | [version-control](research/version-control.md)                                   |
+| `ADR-DORASB`  | [working-in-small-batches](research/working-in-small-batches.md)                 |
+
+#### research/ — technical
+
+| Code          | ADR                                                                      |
+| ------------- | ------------------------------------------------------------------------ |
+| `ADR-DORACM`  | [code-maintainability](research/code-maintainability.md)                 |
+| `ADR-DORACD`  | [continuous-delivery](research/continuous-delivery.md)                   |
+| `ADR-DORACI`  | [continuous-integration](research/continuous-integration.md)             |
+| `ADR-DORADCM` | [database-change-management](research/database-change-management.md)     |
+| `ADR-DORADA`  | [deployment-automation](research/deployment-automation.md)               |
+| `ADR-DORADQ`  | [documentation-quality](research/documentation-quality.md)               |
+| `ADR-DORAFI`  | [flexible-infrastructure](research/flexible-infrastructure.md)           |
+| `ADR-DORALCT` | [loosely-coupled-teams](research/loosely-coupled-teams.md)               |
+| `ADR-DORAMO`  | [monitoring-and-observability](research/monitoring-and-observability.md) |
+| `ADR-DORAPS`  | [pervasive-security](research/pervasive-security.md)                     |
+| `ADR-DORASCA` | [streamlining-change-approval](research/streamlining-change-approval.md) |
+| `ADR-DORATA`  | [test-automation](research/test-automation.md)                           |
+| `ADR-DORATDM` | [test-data-management](research/test-data-management.md)                 |
+| `ADR-DORATBD` | [trunk-based-development](research/trunk-based-development.md)           |
+
+#### research/ — process and measurement
+
+| Code          | ADR                                                                            |
+| ------------- | ------------------------------------------------------------------------------ |
+| `ADR-DORACF`  | [customer-feedback](research/customer-feedback.md)                             |
+| `ADR-DORAMS`  | [monitoring-systems](research/monitoring-systems.md)                           |
+| `ADR-DORAPFN` | [proactive-failure-notification](research/proactive-failure-notification.md)   |
+| `ADR-DORAWV`  | [work-visibility-in-value-stream](research/work-visibility-in-value-stream.md) |
+| `ADR-DORAVM`  | [visual-management](research/visual-management.md)                             |
+| `ADR-DORAWIP` | [wip-limits](research/wip-limits.md)                                           |
+
+#### research/ — organizational and cultural
+
+| Code          | ADR                                                                                |
+| ------------- | ---------------------------------------------------------------------------------- |
+| `ADR-DORAECT` | [teams-empowered-to-choose-tools](research/teams-empowered-to-choose-tools.md)     |
+| `ADR-DORAGOC` | [generative-organizational-culture](research/generative-organizational-culture.md) |
+| `ADR-DORAJS`  | [job-satisfaction](research/job-satisfaction.md)                                   |
+| `ADR-DORALC`  | [learning-culture](research/learning-culture.md)                                   |
+| `ADR-DORATE`  | [team-experimentation](research/team-experimentation.md)                           |
+| `ADR-DORATL`  | [transformational-leadership](research/transformational-leadership.md)             |
+| `ADR-DORAWB`  | [well-being](research/well-being.md)                                               |
 
 ## Authoring conventions
 
