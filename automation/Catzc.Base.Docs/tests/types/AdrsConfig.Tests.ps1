@@ -1,17 +1,21 @@
 Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
-    # Neutral fixtures (ADR-REPO-LANG): invented domains/codes, never real ADR vocabulary.
-    function New-ValidRaw {
-        [ordered]@{
-            domains = [ordered]@{
-                alpha = [ordered]@{
-                    code = 'AL'; role = 'axioms'; depends_on = @()
-                    rulesets = [ordered]@{ 'thing-one' = [ordered]@{ external = 'ADR-AL-ONE' } }
-                }
-                beta = [ordered]@{
-                    code = 'BE'; role = 'implementation'; depends_on = @('alpha')
-                    rulesets = [ordered]@{
-                        'thing-two' = [ordered]@{ external = 'ADR-BE-TWO' }
-                        'thing-three' = [ordered]@{ external = 'ADR-AL-THREE'; code = 'AL' } # leaf override to alpha's code
+    BeforeAll {
+        # Neutral fixtures (ADR-REPO-LANG): invented domains/codes, never real ADR vocabulary. Defined in
+        # BeforeAll so the helper is in run-phase scope and visible to every It (a Describe-body function is
+        # only in discovery scope).
+        function New-ValidRaw {
+            [ordered]@{
+                domains = [ordered]@{
+                    alpha = [ordered]@{
+                        code = 'AL'; role = 'axioms'; depends_on = @()
+                        rulesets = [ordered]@{ 'thing-one' = [ordered]@{ external = 'ADR-AL-ONE' } }
+                    }
+                    beta  = [ordered]@{
+                        code = 'BE'; role = 'implementation'; depends_on = @('alpha')
+                        rulesets = [ordered]@{
+                            'thing-two'   = [ordered]@{ external = 'ADR-BE-TWO' }
+                            'thing-three' = [ordered]@{ external = 'ADR-AL-THREE'; code = 'AL' } # leaf override to alpha's code
+                        }
                     }
                 }
             }

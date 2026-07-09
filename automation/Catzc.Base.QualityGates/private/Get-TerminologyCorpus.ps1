@@ -53,7 +53,15 @@ function Get-TerminologyCorpus {
         '[\\/]bin[\\/]'
         '[\\/]out[\\/]'
         '[\\/]docs[\\/]notes[\\/]'
-        '[\\/]configuration[\\/]'
+    ) -join '|'
+
+    # The customer/machine-derived config tree (root configuration/, ADR-AZ-DATAMOD) and the Bicep template
+    # configuration scaffold are out of the corpus — mirror Test-Spelling's scope. Match ROOT-RELATIVE and
+    # anchored so a nested AUTHORED 'configuration' folder (e.g. docs/adr/configuration/) stays in the corpus
+    # and can justify a term (a bare '[/]configuration[/]' substring would wrongly swallow the ADR folder).
+    $configurationRegex = @(
+        '^[\\/]configuration[\\/]'
+        '^[\\/]infrastructure[\\/]templates[\\/].+[\\/]configuration[\\/]'
     ) -join '|'
 
     $excludeSet = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
@@ -71,6 +79,9 @@ function Get-TerminologyCorpus {
             continue
         }
         if ($path -match $excludeRegex) {
+            continue
+        }
+        if ($path.Substring($Root.Length) -match $configurationRegex) {
             continue
         }
         if ([System.IO.Path]::GetFileName($path) -eq 'cspell.yml') {

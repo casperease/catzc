@@ -78,7 +78,8 @@ zones:
     why: >
       The root catzc.sln references automation/.internal/assets/Catzc.Types.csproj for editor tooling, and
       MSBuild emits obj/bin next to that project. The runtime never builds it (Add-Type compiles the type
-      sources at import), so its MSBuild artifacts are transient.
+      sources at import), so its MSBuild artifacts are transient and vscode consumed only.
+      The automation types system builds via the internal builder, no csproj or sln involved.
     patterns:
       - automation/.internal/assets/obj/
       - automation/.internal/assets/bin/

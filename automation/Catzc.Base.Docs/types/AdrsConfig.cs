@@ -159,10 +159,10 @@ public sealed class AdrsConfig
         int current;
         if (state.TryGetValue(node, out current) && current != 0) { return; }
         state[node] = 1;
-        List<string> nexts;
-        if (graph.TryGetValue(node, out nexts))
+        List<string> successors;
+        if (graph.TryGetValue(node, out successors))
         {
-            foreach (string next in nexts)
+            foreach (string next in successors)
             {
                 if (!graph.ContainsKey(next)) { continue; }
                 int nextState;

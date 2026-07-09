@@ -16,8 +16,12 @@ Describe 'Get-AdrDomainEdges integrity' -Tag 'L1', 'integrity' {
         $remaining = [System.Collections.Generic.List[string]]::new()
         $script:domains | ForEach-Object { $remaining.Add($_) }
         $out = @{}
-        foreach ($domain in $script:domains) { $out[$domain] = @() }
-        foreach ($edge in $script:edges) { $out[$edge.From] += $edge.To }
+        foreach ($domain in $script:domains) {
+            $out[$domain] = @()
+        }
+        foreach ($edge in $script:edges) {
+            $out[$edge.From] += $edge.To
+        }
 
         $progress = $true
         while ($progress -and $remaining.Count -gt 0) {

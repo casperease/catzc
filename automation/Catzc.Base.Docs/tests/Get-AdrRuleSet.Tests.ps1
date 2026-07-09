@@ -32,10 +32,12 @@ Describe 'Get-AdrRuleSet integrity' -Tag 'L1', 'integrity', 'ADR-CONF-LOADING#5'
         }
     }
 
-    It 'each ADR file declares its external code as its Rules heading (adrs.yml <-> file agree)' {
+    It 'each ADR file declares its external code as its Rules heading (adrs.yml and file agree)' {
         foreach ($ruleSet in $script:ruleSets) {
             $file = $script:byKey["$($ruleSet.Domain)/$($ruleSet.Slug)"]
-            if (-not $file) { continue }
+            if (-not $file) {
+                continue
+            }
             $content = [IO.File]::ReadAllText($file)
             $content | Should -Match "(?m)^## Rules: $([regex]::Escape($ruleSet.External))\s*$" `
                 -Because "$($ruleSet.Slug).md must head with '## Rules: $($ruleSet.External)'"

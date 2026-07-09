@@ -503,18 +503,12 @@ terms:
       meaning: "body of the ADR-AUTO-XPLAT code (cross-platform)"
     - term: onejob
       meaning: "body of the ADR-AUTO-ONEJOB code (single-responsibility-functions)"
-    - term: modcfg
-      meaning: "body of the ADR-CONF-LOADING code (module-config-loading)"
     - term: failfast
       meaning: "body of the ADR-AUTO-FAILFAST code (fail-fast-with-asserts)"
     - term: pkgmgr
       meaning: "body of the ADR-AUTO-PKGMGR code (use-proper-package-managers)"
     - term: enterp
       meaning: "body of the ADR-AUTO-ENTERP code (effective-in-enterprises)"
-    - term: sysdeps
-      meaning: "body of the ADR-AUTO-DEPS code (controlling-systemwide-deps)"
-    - term: moddeps
-      meaning: "body of the ADR-AUTO-DEPM code (controlling-module-dependencies)"
     - term: envvar
       meaning: "body of the ADR-AUTO-ENVVAR code (environment-variables)"
     - term: psenv
@@ -529,10 +523,6 @@ terms:
       meaning: "body of the ADR-AUTO-PSXPLAT code (cross-platform-powershell)"
     - term: pscache
       meaning: "body of the ADR-AUTO-PSCACHE code (script-scope-caching)"
-    - term: azsess
-      meaning: "body of the ADR-AZ-SESSION code (az-session-verification)"
-    - term: cfgaddr
-      meaning: "body of the ADR-CONF-ADDRESSING code (config-value-addressing)"
     - term: protglob
       meaning: "body of the ADR-REPO-PROTGLOB code (protected-globs)"
     - term: rootcfg
@@ -547,14 +537,6 @@ terms:
       meaning: "body of the ADR-AUTO-AUTOVAR code (automatic-variable-pitfalls)"
     - term: psformat
       meaning: "body of the ADR-AUTO-PSFORMAT code (powershell-formatting)"
-    - term: pipedet
-      meaning: "body of the ADR-FLOW-CD-CI-DETECT code (pipeline-detection)"
-    - term: pipetype
-      meaning: "body of the ADR-FLOW-CD-CI-TYPE code (pipeline-types)"
-    - term: pipevar
-      meaning: "body of the ADR-PIPE-VAR code (pipeline-variables)"
-    - term: pipename
-      meaning: "body of the ADR-PIPE-NAME code (pipeline-naming-and-placement)"
     - term: datamod
       meaning: "body of the ADR-AZ-DATAMOD code (data-model)"
     - term: outdir
@@ -567,74 +549,6 @@ terms:
       meaning: 'ADR-DSGN-THINPLAT is the ADR on thinnest re-usable platforms API(CLI) abstraction'
     - term: selfserv
       meaning: "body of the ADR-DSGN-SELFSERV code (self-service)"
-    - term: doravc
-      meaning: "body of the ADR-DORA-VCS code (research/version-control)"
-    - term: dorasb
-      meaning: "body of the ADR-DORA-SMALLBATCH code (research/working-in-small-batches)"
-    - term: dorape
-      meaning: "body of the ADR-DORA-PLATFORM code (research/platform-engineering)"
-    - term: doraucf
-      meaning: "body of the ADR-DORA-USERFOCUS code (research/user-centric-focus)"
-    - term: doraaid
-      meaning: "body of the ADR-DORA-AIDATA code (research/ai-accessible-internal-data)"
-    - term: doraais
-      meaning: "body of the ADR-DORA-AISTANCE code (research/clear-and-communicated-ai-stance)"
-    - term: dorahde
-      meaning: "body of the ADR-DORA-DATAECO code (research/healthy-data-ecosystems)"
-    - term: doracm
-      meaning: "body of the ADR-DORA-MAINTAIN code (research/code-maintainability)"
-    - term: doracd
-      meaning: "body of the ADR-DORA-CD code (research/continuous-delivery)"
-    - term: doraci
-      meaning: "body of the ADR-DORA-CI code (research/continuous-integration)"
-    - term: doradcm
-      meaning: "body of the ADR-DORA-DBCHANGE code (research/database-change-management)"
-    - term: dorada
-      meaning: "body of the ADR-DORA-DEPLOY code (research/deployment-automation)"
-    - term: doradq
-      meaning: "body of the ADR-DORA-DOCS code (research/documentation-quality)"
-    - term: dorafi
-      meaning: "body of the ADR-DORA-FLEXINFRA code (research/flexible-infrastructure)"
-    - term: doralct
-      meaning: "body of the ADR-DORA-LOOSETEAMS code (research/loosely-coupled-teams)"
-    - term: doramo
-      meaning: "body of the ADR-DORA-OBSERV code (research/monitoring-and-observability)"
-    - term: doraps
-      meaning: "body of the ADR-DORA-SECURITY code (research/pervasive-security)"
-    - term: dorasca
-      meaning: "body of the ADR-DORA-APPROVAL code (research/streamlining-change-approval)"
-    - term: dorata
-      meaning: "body of the ADR-DORA-TESTAUTO code (research/test-automation)"
-    - term: doratdm
-      meaning: "body of the ADR-DORA-TESTDATA code (research/test-data-management)"
-    - term: doratbd
-      meaning: "body of the ADR-DORA-TRUNK code (research/trunk-based-development)"
-    - term: doracf
-      meaning: "body of the ADR-DORA-FEEDBACK code (research/customer-feedback)"
-    - term: dorams
-      meaning: "body of the ADR-DORA-MONITOR code (research/monitoring-systems)"
-    - term: dorapfn
-      meaning: "body of the ADR-DORA-FAILALERT code (research/proactive-failure-notification)"
-    - term: dorawv
-      meaning: "body of the ADR-DORA-WORKVIS code (research/work-visibility-in-value-stream)"
-    - term: doravm
-      meaning: "body of the ADR-DORA-VISUAL code (research/visual-management)"
-    - term: dorawip
-      meaning: "body of the ADR-DORA-WIP code (research/wip-limits)"
-    - term: doraect
-      meaning: "body of the ADR-DORA-TOOLCHOICE code (research/teams-empowered-to-choose-tools)"
-    - term: doragoc
-      meaning: "body of the ADR-DORA-CULTURE code (research/generative-organizational-culture)"
-    - term: dorajs
-      meaning: "body of the ADR-DORA-JOBSAT code (research/job-satisfaction)"
-    - term: doralc
-      meaning: "body of the ADR-DORA-LEARNING code (research/learning-culture)"
-    - term: dorate
-      meaning: "body of the ADR-DORA-EXPERIMENT code (research/team-experimentation)"
-    - term: doratl
-      meaning: "body of the ADR-DORA-LEADERSHIP code (research/transformational-leadership)"
-    - term: dorawb
-      meaning: "body of the ADR-DORA-WELLBEING code (research/well-being)"
     - term: prin
       meaning: "domain code PRIN — the principles ADR domain in adrs.yml (composes ADR-PRIN-<NAME>)"
     - term: dsgn
