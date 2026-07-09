@@ -45,7 +45,7 @@ credentials a human would use, so an AI query can only ever reach what its reque
 AI-accessible internal data sits downstream of the platform's other technical capabilities: it only pays off once the codebase, docs,
 config, and operational data it draws on are themselves version-controlled, documented, and cleanly modeled. DORA frames it as the
 discipline that turns a generic AI model into a specialized expert for a given organization by feeding it that organization's own
-proprietary information instead of leaving it to answer from general training data alone.
+proprietary information instead of leaving it to answer from general training data alone.[^1]
 
 DORA's research places this capability alongside AI adoption in the Core Model: adopting AI tools is necessary but not sufficient, and
 giving those tools access to internal data is what converts adoption into measurable gains in individual effectiveness and code quality. The

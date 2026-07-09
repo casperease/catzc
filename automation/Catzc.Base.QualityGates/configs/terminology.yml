@@ -112,6 +112,26 @@ terms:
       meaning: "a signed attestation — a verifiable claim about how an artifact was built (SLSA)"
     - term: reproducibility
       meaning: "reproducibility — the property that a build yields bit-for-bit identical output from the same source"
+    - term: preapproved
+      meaning: "pre-approved — a change approved in advance under a standing policy (DORA streamlining-change-approval)"
+    - term: reprioritize
+      meaning: "reprioritize — reorder work by priority"
+    - term: reprioritized
+      meaning: "reprioritized — past tense of reprioritize"
+    - term: unautomated
+      meaning: "unautomated — a step not yet automated (still manual)"
+    - term: incentivizing
+      meaning: "incentivizing — creating incentives for a behaviour"
+    - term: centricity
+      meaning: "centricity — degree of user-centred focus (user-centricity)"
+    - term: aarrr
+      meaning: "AARRR pirate-metrics funnel — acquisition, activation, retention, referral, revenue"
+    - term: whitebox
+      meaning: "white-box monitoring — signals from a system's instrumented internals"
+    - term: blackbox
+      meaning: "black-box monitoring — a system observed only from the outside"
+    - term: likert
+      meaning: "Likert scale — an ordinal survey rating scale"
     - term: trunkbaseddevelopment
       meaning: "trunkbaseddevelopment.com — Paul Hammant's primary-source site on trunk-based development, cited by name"
     - term: cmdb
@@ -842,6 +862,8 @@ terms:
       meaning: "YAML"
     - term: vscode
       meaning: "Visual Studio Code (VS Code) — the .vscode/ root folder, the Catzc.Base.VSCode module, and its Assert-Vscode* validators"
+    - term: liquibase
+      meaning: "Liquibase — a database schema change/migration tool (DORA database-change-management)"
   platform:
     - term: clr
       meaning: "the Common Language Runtime (CLR)"
@@ -1058,3 +1080,7 @@ terms:
       meaning: "Matthew Skelton (surname of a cited author)"
     - term: taiichi
       meaning: "Taiichi Ohno (given name; cited)"
+    - term: maslach
+      meaning: "Christina Maslach (surname of a cited author; burnout research)"
+    - term: shoup
+      meaning: "Randy Shoup (surname of a cited author)"

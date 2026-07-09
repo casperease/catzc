@@ -36,7 +36,7 @@ organized, not by asking individuals to cope better.
 Well-being sits in the DORA Core Model as an outcome, not a technical capability like version control or continuous delivery — it is a
 downstream measure of how the rest of the model's practices land on the people doing the work. DORA defines it as "a reflection of
 individuals' happiness and job satisfaction" and finds that "increased well-being predicts organizational performance and employees' job
-tenure." DORA studies three specific contributors to well-being: deployment pain, rework, and burnout.
+tenure."[^1] DORA studies three specific contributors to well-being: deployment pain, rework, and burnout.
 
 Because well-being is an outcome rather than a lever pulled directly, improving it is indirect: strengthen the technical and process
 capabilities that reduce deployment pain and rework, and address the organizational conditions — not the individuals — that produce burnout.

@@ -51,7 +51,7 @@ organizational cultures into three kinds along that single axis — how informat
 ## Summary
 
 DORA describes organizational culture as high-trust and focused on information flow, and finds it predictive of both software delivery
-performance and organizational performance in technology. The concept comes from Westrum's typology, which contrasts three culture types
+performance and organizational performance in technology.[^1] The concept comes from Westrum's typology, which contrasts three culture types
 across six dimensions: cooperation, treatment of messengers, scope of responsibility, encouragement of bridging across roles, response to
 failure, and adoption of novelty.
 

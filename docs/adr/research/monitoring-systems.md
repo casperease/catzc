@@ -41,9 +41,10 @@ noise than insight and buries the signal the capability exists to surface.
 ## Context
 
 DORA defines monitoring as "the process of collecting, analyzing, and using information to track applications and infrastructure in order to
-guide business decisions." The capability sits alongside monitoring and observability in DORA's technical practices, but it asks a different
-question: observability and monitoring-and-observability are about seeing a system's internal state; this capability is about what an
-organization does with what it sees — whether the data collected actually reaches the people who decide what to build, fix, or change next.
+guide business decisions."[^1] The capability sits alongside monitoring and observability in DORA's technical practices, but it asks a
+different question: observability and monitoring-and-observability are about seeing a system's internal state; this capability is about what
+an organization does with what it sees — whether the data collected actually reaches the people who decide what to build, fix, or change
+next.
 
 ## Summary
 

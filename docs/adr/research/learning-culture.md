@@ -25,7 +25,7 @@ risks that learning and experimentation require.
 
 ### Rule ADR-DORALC:4
 
-Keep knowledge-sharing on a standing cadence — recurring forums such as lightning talks, brownbags, or lunch-and-learns, and a share-back
+Keep knowledge-sharing on a standing cadence — recurring forums such as lightning talks, brown-bag sessions, or lunch-and-learns, and a share-back
 expectation after conferences or training — rather than leaving it to depend on individual initiative.
 
 - [How to apply](#how-to-apply)
@@ -44,7 +44,7 @@ satisfaction, transformational leadership, and well-being — the capabilities t
 work happens inside, rather than a specific technical practice.
 
 DORA defines the capability by the question it asks of an organization: does it treat learning as an investment necessary for growth, as a
-necessary burden undertaken only grudgingly, or as something avoided entirely? Research from DORA and from other fields, including
+necessary burden undertaken only grudgingly, or as something avoided entirely?[^1] Research from DORA and from other fields, including
 accounting, finds that a climate for learning is a significant predictor of software delivery performance and of organizational performance
 more broadly.
 
@@ -56,7 +56,7 @@ reduced time to restore service, reduced change failure rate, and a strong team 
 
 The climate is measured directly, by survey, rather than inferred from spend. The reference instrument asks how strongly people agree with
 three statements about their organization: learning is the key to improvement; once the organization quits learning it endangers its future;
-and learning is viewed as an investment, not an expense.
+and learning is viewed as an investment, not an expense.[^2]
 
 ## Why it matters
 

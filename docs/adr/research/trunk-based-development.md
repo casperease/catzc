@@ -43,7 +43,7 @@ Trunk-based development is one of DORA's technical capabilities, and it sits dir
 control (the mainline it merges into) and continuous integration (the discipline that validates each merge). DORA defines it in contrast to
 feature branching: "each developer divides their own work into small batches and merges that work into trunk at least once (and potentially
 several times) a day," and "branches in trunk-based development typically last no more than a few hours, with many developers merging their
-individual changes into trunk frequently."
+individual changes into trunk frequently."[^1]
 
 It sits in the DORA Core Model as a predictor of software delivery and operational performance. DORA's research (drawn from the 2016–2017
 State of DevOps work) found that teams following three practices — three or fewer active branches, merging to trunk at least once daily, and

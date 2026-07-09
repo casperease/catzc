@@ -44,9 +44,9 @@ working in small batches, and team experimentation. Where those capabilities sha
 shapes what work is worth starting: it is the mechanism that keeps a team building the right thing, not only building things right.
 
 DORA frames it as a discipline with a definite shape — gather feedback first, validate the problem, iterate a solution scoped to that
-problem, confirm viability, and track outcome metrics — rather than a vague instruction to "listen to users". The shape matters because each
-step guards against a specific failure: skipping straight to a solution, over-building past the validated problem, or declaring success on
-delivery instead of on outcome.
+problem, confirm viability, and track outcome metrics — rather than a vague instruction to "listen to users".[^1] The shape matters because
+each step guards against a specific failure: skipping straight to a solution, over-building past the validated problem, or declaring success
+on delivery instead of on outcome.
 
 ## Summary
 

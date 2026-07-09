@@ -44,8 +44,8 @@ rather than waiting for the system to fail outright or for a customer to notice 
 of monitoring and observability ([ADR-DORAMO](monitoring-and-observability.md)): the signals that monitoring collects only become proactive
 once they are turned into a notification that fires before impact, not left as a number on a dashboard someone might happen to see.
 
-DORA's research establishes proactive monitoring as a significant predictor of software delivery performance. The distinguishing factor is
-who finds out first. An organization whose own alerting notices a degrading value before it fails can diagnose and solve the problem
+DORA's research establishes proactive monitoring as a significant predictor of software delivery performance.[^1] The distinguishing factor
+is who finds out first. An organization whose own alerting notices a degrading value before it fails can diagnose and solve the problem
 quickly, on its own initiative. An organization that instead depends on a network operations center or the customers themselves to notice
 and report a problem first experiences diminished delivery performance, because the report arrives only after harm has already happened and
 only after passing through another party.

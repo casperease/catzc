@@ -56,7 +56,7 @@ much test data any suite relies on; isolate the test data that does exist so tes
 database-stored test data in favor of faster, more isolable alternatives; and make the test data that remains readily available by
 identifying the relevant subset of a data source, exporting it regularly, and exposing it to tests on demand.[^1]
 
-The throughline across all five is the same as the three principles above: test data should be abundant, on-demand, and never the limiting
+The common thread across all five is the same as the three principles above: test data should be abundant, on-demand, and never the limiting
 factor on what a team can test.
 
 ## Why it matters

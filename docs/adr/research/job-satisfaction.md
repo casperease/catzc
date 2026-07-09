@@ -49,7 +49,7 @@ working without giving people time to build the new skills spends the change aga
 
 Job satisfaction is one of DORA's cultural and people capabilities, sitting in the DORA Core Model alongside the technical and process
 capabilities as a predictor of organizational performance. DORA defines it as "doing work that's challenging and meaningful, and being
-empowered to exercise skills and judgment."
+empowered to exercise skills and judgment."[^1]
 
 Unlike most capabilities in the model, job satisfaction has no reliable proxy in system data — it cannot be read off a dashboard the way
 deployment frequency or change lead time can. DORA measures it through direct employee feedback, which makes it as much a management

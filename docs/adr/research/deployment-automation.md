@@ -46,7 +46,7 @@ methods.
 Deployment automation is one of DORA's technical capabilities, and it sits downstream of version control and continuous integration: it
 consumes the artifact CI produces and the scripts and configuration that version control holds, and it is what continuous delivery and
 continuous deployment promote that artifact through. DORA defines it plainly as what "enables you to deploy your software to testing and
-production environments with the push of a button."
+production environments with the push of a button."[^1]
 
 The capability names three required inputs to a deployment — the CI-generated package, the deployment scripts and configuration, and
 environment-specific information — and expects all three to live in version control so a deploy is reproducible rather than improvised.

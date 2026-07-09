@@ -40,9 +40,9 @@ the moment they are created, whether or not either copy has yet gone wrong.
 
 ## Context
 
-DORA frames internal documentation as "a fundamental part of software development," on par with the code, tests, and pipelines it describes.
-The capability is not "documentation exists" but documentation quality: whether the material a team produces is clear enough to read,
-findable enough to reach, and reliable enough to trust.
+DORA frames internal documentation as "a fundamental part of software development," on par with the code, tests, and pipelines it
+describes.[^1] The capability is not "documentation exists" but documentation quality: whether the material a team produces is clear enough
+to read, findable enough to reach, and reliable enough to trust.
 
 Documentation quality sits alongside DORA's other technical capabilities without being one of them in isolation — DORA's research finds it
 interacts with, and amplifies, the practices this repository's other capability ADRs already cover (version control, trunk-based

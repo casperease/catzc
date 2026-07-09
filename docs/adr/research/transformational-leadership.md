@@ -45,7 +45,7 @@ Transformational leadership is one of the capabilities in DORA's Core Model, and
 technical or process practice that a team adopts directly, it is a leadership style that predicts whether the team adopts the other
 practices at all. DORA defines it across five measured dimensions — vision, inspirational communication, intellectual stimulation,
 supportive leadership, and personal recognition — each drawn from validated leadership-behavior research and each assessed by asking team
-members how their leader actually behaves.
+members how their leader actually behaves.[^1]
 
 The capability sits upstream of the rest of the Core Model rather than beside it: DORA's validated model shows transformational leaders
 driving delivery performance by enabling adoption of technical and product-management capabilities, not by any direct action of the leader

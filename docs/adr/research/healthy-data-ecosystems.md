@@ -49,7 +49,7 @@ an entire data estate at once.
 
 Healthy data ecosystems belongs to DORA's AI-capability set, alongside AI-accessible internal data and a clear, communicated AI stance. DORA
 defines it as internal data that is "high-quality, easily accessible, and unified" and calls it "a foundational capability that
-significantly amplifies the positive influence of AI adoption on organizational performance."
+significantly amplifies the positive influence of AI adoption on organizational performance."[^1]
 
 It sits in the DORA Core Model as a moderator rather than a standalone predictor of delivery performance: it does not push performance up or
 down on its own so much as decide how much of AI's effect — in either direction — actually reaches the organization. DORA frames AI itself

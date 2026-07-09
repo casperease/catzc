@@ -41,8 +41,8 @@ test automation, loosely coupled architecture, and trunk-based development are t
 
 Continuous delivery sits in the DORA Core Model as one of the technical capabilities that predicts software delivery performance. DORA
 defines it as "the ability to release changes of all kinds — including new features, configuration changes, bug fixes, and experiments —
-into production, or into the hands of users, safely, quickly, and sustainably". A team practicing it well can make production changes during
-normal business hours, with no user-visible downtime and no need for anyone to work outside regular hours to ship.
+into production, or into the hands of users, safely, quickly, and sustainably".[^1] A team practicing it well can make production changes
+during normal business hours, with no user-visible downtime and no need for anyone to work outside regular hours to ship.
 
 DORA names fourteen technical capabilities that drive continuous delivery: test automation, deployment automation, trunk-based development,
 pervasive security, loosely coupled teams and architecture, teams empowered to choose their own tools, continuous integration, continuous

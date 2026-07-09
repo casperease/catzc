@@ -44,9 +44,9 @@ research ties team independence to software delivery performance because coordin
 delivery down. A team that must ask permission outside itself, or wait on another team's release, pays that cost on every change.
 
 DORA frames the capability as teams that "can make large-scale changes to the design of their systems without the permission of somebody
-outside the team or depending on other teams," working through well-defined interfaces and bounded contexts. It sits alongside continuous
-delivery and trunk-based development in the DORA Core Model, and it depends on the same architectural discipline that those capabilities
-assume: clear seams, explicit interfaces, and no hidden coupling through shared state or shared deployment windows.
+outside the team or depending on other teams," working through well-defined interfaces and bounded contexts.[^1] It sits alongside
+continuous delivery and trunk-based development in the DORA Core Model, and it depends on the same architectural discipline that those
+capabilities assume: clear seams, explicit interfaces, and no hidden coupling through shared state or shared deployment windows.
 
 ## Summary
 

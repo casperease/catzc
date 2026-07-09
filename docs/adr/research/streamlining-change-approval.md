@@ -47,8 +47,8 @@ lifecycle of an IT service change: who decides a change is safe to ship, and whe
 Approval Board (CAB) or an external reviewer authorizing changes before deployment, sitting apart from the team that made the change.
 
 DORA's 2019 State of DevOps Report examined this traditional shape directly and found it wanting: heavyweight external approval does not buy
-the stability it is meant to protect, and it costs delivery speed getting there. The capability is DORA's answer — shift approval into the
-development process itself, as peer review, backed by automation that finds problems before a human ever needs to look.
+the stability it is meant to protect, and it costs delivery speed getting there.[^1] The capability is DORA's answer — shift approval into
+the development process itself, as peer review, backed by automation that finds problems before a human ever needs to look.
 
 ## Summary
 

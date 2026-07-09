@@ -41,7 +41,7 @@ date, and whether anyone is acting on it — and adjust, replace, or retire it a
 
 Visual management is a lean-manufacturing practice carried into software delivery: the state of the work is put on display in a shared space
 rather than kept in status meetings, spreadsheets, or individual memory. DORA frames it as one of the technical capabilities that predicts
-software delivery performance, sitting alongside the other flow-visibility capabilities in the DORA Core Model.
+software delivery performance, sitting alongside the other flow-visibility capabilities in the DORA Core Model.[^1]
 
 Teams practicing lean development use these displays to build a shared understanding of where the team stands on operational effectiveness,
 and to help the team notice obstacles to higher performance before those obstacles are reported through some slower channel.

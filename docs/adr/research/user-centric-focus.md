@@ -44,7 +44,7 @@ user, and treating them as such is the feature-factory failure mode this capabil
 User-centric focus sits in the DORA Core Model as a capability that predicts organizational performance rather than delivery throughput
 directly: it is about whether the work a team does actually lands as value for the person using the software, not merely whether it ships.
 DORA frames the underlying claim plainly: all software exists for human users, and its worth is determined by its usefulness to the
-individual at the conclusion of the value chain.
+individual at the conclusion of the value chain.[^1]
 
 In the AI era DORA sharpens this into a warning. AI does not introduce user-centricity on its own — it amplifies whatever focus a team
 already has. A team that understands its users and prioritizes their experience gets more of that, faster, with AI's help. A team that does

@@ -42,7 +42,7 @@ verification — exhaustive suites, system-level checks — runs somewhere else,
 Continuous integration sits directly on top of version control in DORA's Core Model: it is the practice of integrating versioned changes
 continuously, so it presupposes a mainline every developer can merge into and a history every change can be attributed to. DORA defines it
 as developers integrating "all their work into the main version of the code base (known as trunk, main, or mainline) on a regular basis,"
-with each commit triggering an automated build and a test suite that reports feedback in minutes.
+with each commit triggering an automated build and a test suite that reports feedback in minutes.[^1]
 
 It is also the capability continuous delivery, deployment automation, and trunk-based development build on next: CD runs the same build step
 and then keeps going; trunk-based development is the branching discipline that makes daily integration possible; deployment automation

@@ -43,7 +43,7 @@ engineering work it governs, rather than a single department's policy applied to
 A clear and communicated AI stance is DORA's capability for how an organization tells its developers what is expected of them around AI:
 which tools they may use, what guardrails apply, and what support exists when they try. DORA frames it as a "comprehensible, widely
 socialized framework that tells developers: 'Here is how we expect you to use AI, here are the tools you can use, and here is how we support
-you.'"
+you.'"[^1]
 
 It sits among DORA's newer, AI-specific capabilities, alongside AI-accessible internal data and healthy data ecosystems: capabilities that
 condition how much benefit an organization actually captures from AI adoption, as distinct from the core capabilities that predict delivery

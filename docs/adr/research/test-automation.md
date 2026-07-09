@@ -43,7 +43,8 @@ and in CI — bloated, over-mocked, or slow suites get curated down, not tolerat
 Test automation sits alongside continuous integration and continuous delivery in DORA's Core Model: it is what makes "every commit triggers
 a build and a test suite" a meaningful gate rather than a formality. DORA frames the capability as obtaining rapid feedback about the impact
 of a change throughout the software delivery lifecycle, replacing manual testing performed in separate phases with teams that "perform all
-types of testing continuously throughout the software delivery lifecycle" and "create and curate fast, reliable suites of automated tests."
+types of testing continuously throughout the software delivery lifecycle" and "create and curate fast, reliable suites of automated
+tests."[^1]
 
 It depends on continuous integration to run the suite on every commit and feeds continuous delivery the confidence that a build is
 release-candidate quality. Without it, CI's fast build-and-test loop has nothing fast or trustworthy to run, and CD has no basis for

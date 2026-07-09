@@ -48,8 +48,8 @@ change from turning into delivery instability.
 
 Working in small batches is a DORA capability describing how work is sized and sequenced, not a tool or a pipeline stage. DORA states it
 plainly: "Working in small batches is an essential principle in any discipline where feedback loops are important, or you want to learn
-quickly from your decisions." It sits alongside continuous integration, continuous delivery, and trunk-based development in the DORA Core
-Model — those capabilities assume the work arriving at them is already sliced small enough to integrate, test, and release quickly.
+quickly from your decisions."[^1] It sits alongside continuous integration, continuous delivery, and trunk-based development in the DORA
+Core Model — those capabilities assume the work arriving at them is already sliced small enough to integrate, test, and release quickly.
 
 DORA's current framing gives the capability added weight in the AI era: generative AI tools tend to produce large, sweeping changes, and
 without a deliberate discipline of small batches that tendency erodes review quality and delivery stability. DORA finds that working in
@@ -59,7 +59,7 @@ positive.
 ## Summary
 
 The capability is sizing and sequencing work as the smallest unit that can move through the system on its own. DORA recommends the INVEST
-principle for planning: batches should be **Independent** (deployable and validatable on their own), **Negotiable** (iterable and open to
+principle for planning: batches should be **Independent** (deployable and verifiable on their own), **Negotiable** (iterable and open to
 renegotiation as feedback arrives), **Valuable** (each one delivers something a stakeholder cares about), **Estimable** (enough is known to
 scope it), **Small** (completable within hours to a couple of days inside a sprint), and **Testable** (verifiable on its own terms).
 

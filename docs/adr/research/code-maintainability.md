@@ -43,7 +43,7 @@ declared strategy is what keeps dependencies traceable and upgrades tractable at
 Code maintainability sits alongside version control among DORA's technical capabilities: it assumes a shared, versioned codebase and extends
 it with the further question of whether that codebase, and everything it depends on, stays easy to find, reuse, and change over time. DORA
 defines the capability as the team's ability "to efficiently find, reuse, and modify code across the organization's codebase," spanning both
-the discoverability of the code itself and the health of what it depends on.
+the discoverability of the code itself and the health of what it depends on.[^1]
 
 It sits in the DORA Core Model as a predictor of software delivery performance: teams that can reach and change any part of the codebase,
 and whose dependencies stay current and traceable, deliver faster and recover from incidents more quickly. A codebase that is fragmented

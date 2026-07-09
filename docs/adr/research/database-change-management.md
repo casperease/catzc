@@ -44,7 +44,7 @@ Database change management sits alongside version control and continuous deliver
 schema and data changes from becoming the part of a deployment that cannot be automated, reviewed, or rolled back like everything else.
 DORA's research finds that "integrating database work into the software delivery process positively contributes to continuous delivery," and
 the foundational practice is that teams store "database changes as scripts in version control and manage these changes in the same way they
-manage production application changes."
+manage production application changes."[^1]
 
 Database changes carry a risk profile that plain application code does not: a schema change is frequently harder to reverse than a code
 deploy, and a database is frequently shared by more than one application. The capability exists to bring that risk under the same

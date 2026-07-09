@@ -42,8 +42,8 @@ for removal, not a permanent fixture, because unactionable noise is what buries 
 
 DORA distinguishes two related but separate technical solutions. Monitoring is "tooling or a technical solution that allows teams to watch
 and understand the state of their systems," based on "gathering predefined sets of metrics or logs." Observability is "tooling or a
-technical solution that allows teams to actively debug their system," based on "exploring properties and patterns not defined in advance." A
-team needs both: monitoring answers the questions it already knew to ask, observability answers the ones it did not.
+technical solution that allows teams to actively debug their system," based on "exploring properties and patterns not defined in
+advance."[^1] A team needs both: monitoring answers the questions it already knew to ask, observability answers the ones it did not.
 
 The capability sits in the DORA Core Model as a technical practice that supports continuous delivery — comprehensive monitoring and
 observability "positively contributes to continuous delivery" by giving teams the signals they need to change software safely and recover

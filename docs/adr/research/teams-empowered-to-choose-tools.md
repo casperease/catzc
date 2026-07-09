@@ -36,7 +36,7 @@ often they change — neither count distinguishes a genuine choice from a mandat
 Empowering teams to choose tools sits among DORA's cultural and organizational capabilities, alongside capabilities like loosely coupled
 teams and platform engineering that also shape how much autonomy a team has over its own work. DORA frames the capability as teams making
 "informed choices about the tools and technologies they use to do their work," and its research ties that autonomy to both software delivery
-performance and job satisfaction.
+performance and job satisfaction.[^1]
 
 The capability sits between two failure modes DORA calls out directly: an organization that mandates every tool, and one that lets tool
 choice run unconstrained. Neither extreme is the goal; the capability is the deliberate middle ground — a baseline that most teams use by

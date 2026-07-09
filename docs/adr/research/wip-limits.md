@@ -42,7 +42,7 @@ flow is increasing, whether obstacles surface, and whether the resulting actions
 Work in process (WIP) limits are one of DORA's technical capabilities, and the one that turns pull and small batches from a description of
 flow into an enforced mechanism. DORA defines the capability as restricting "the amount of work simultaneously assigned to team members" —
 instead of multitasking across numerous assignments, a team prioritizes work, limits how much people work on, and focuses on completing a
-small number of high-priority tasks.
+small number of high-priority tasks.[^1]
 
 The capability sits close to visual management and monitoring in DORA's model: a limit only functions once the work it constrains is
 visible, and its value only shows up once the effect on flow is being watched. It formalizes the kanban half of lean thinking — pull signals

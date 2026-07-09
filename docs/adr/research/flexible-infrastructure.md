@@ -43,7 +43,7 @@ transparency — never by the raw percentage of workloads hosted on cloud server
 Flexible infrastructure is DORA's technical capability for the compute, storage, and network layer underneath everything else: continuous
 delivery, deployment automation, and platform engineering all assume that an environment can be provisioned and changed without waiting on
 hardware procurement or a manual ticket. DORA grounds the capability in the NIST definition of cloud computing, which names five essential
-characteristics — on-demand self-service, broad network access, resource pooling, rapid elasticity, and measured service.
+characteristics — on-demand self-service, broad network access, resource pooling, rapid elasticity, and measured service.[^1]
 
 DORA frames the mechanism for reaching that state as infrastructure as code: infrastructure configuration lives in version control, and
 developers provision environments, change configuration, and execute deployments through an automated path rather than a manual one.

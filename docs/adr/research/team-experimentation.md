@@ -36,7 +36,7 @@ Team experimentation sits among DORA's cultural capabilities, alongside generati
 transformational leadership: it measures whether a team is free to try new ideas and test them with real users, rather than executing a
 specification handed down by someone else. DORA defines it as the ability "to work on new ideas independently, without having to get
 permission from outside of the team," to "write and change specifications during development," and to "make changes to stories and
-specifications without having to get permission from outside of the team."
+specifications without having to get permission from outside of the team."[^1]
 
 It sits in the DORA Core Model as one of the capabilities that predict both software delivery performance and organizational performance: a
 team that can experiment ships features that add value to the organization, and ships those features more frequently, because the team

@@ -34,7 +34,8 @@ large, infrequent commits and unmanaged merge conflicts erode it.
 
 Version control is the most foundational of DORA's technical capabilities: continuous integration, continuous delivery, deployment
 automation, and trunk-based development all assume it. DORA defines it as the systems — "Git, Subversion, and Mercurial" — that "provide a
-logical means to organize files and coordinate their creation, controlled access, updating, and deletion across teams and organizations".
+logical means to organize files and coordinate their creation, controlled access, updating, and deletion across teams and
+organizations".[^1]
 
 It sits in the DORA Core Model as a predictor of software delivery performance: teams that comprehensively version their artifacts recover
 faster, audit more easily, and change more safely. In the AI era DORA frames it further as a safety net — frequent commits bound the blast

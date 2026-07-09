@@ -43,7 +43,7 @@ assuming the organization already understands its own stream or polishing the st
 
 Visibility of work in the value stream sits in DORA's lean product management cluster, alongside working in small batches, team
 experimentation, and visibility into customer feedback. DORA defines it as the extent to which teams understand how work flows from business
-through to customers and have visibility into that flow, including product and feature status.
+through to customers and have visibility into that flow, including product and feature status.[^1]
 
 DORA's research finds that this cluster of capabilities predicts both software delivery performance and organizational performance —
 measured in profitability, market share, and productivity. Visibility of work is therefore not a reporting nicety layered on top of

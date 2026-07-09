@@ -41,7 +41,7 @@ coverage, and approved-tool adoption — rather than treating a passed audit as 
 Pervasive security is one of DORA's technical capabilities in the Core Model that predict software delivery performance. DORA defines it as
 the integration of information security objectives into daily development work throughout the software lifecycle, built on the principle
 that "security is everyone's responsibility" and the practice of "shifting left" — addressing security concerns earlier in development
-rather than at the end.
+rather than at the end.[^1]
 
 The capability draws on lean manufacturing: developers work alongside security and testing experts to design and deliver work in small
 batches throughout the product lifecycle, building security quality in from the start rather than relying on end-stage inspection. It sits

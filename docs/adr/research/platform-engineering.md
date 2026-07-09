@@ -46,7 +46,7 @@ Platform engineering sits alongside flexible infrastructure and tool empowerment
 building and running the internal platform other teams build on, rather than treating infrastructure as a series of one-off requests. DORA
 frames it as a sociotechnical discipline — engineers working at the intersection of the social interactions between teams and the technical
 work of automation, self-service, and repeatability — realized as an "Internal Developer Platform" that delivers shared, high-quality tools,
-services, and golden paths so teams can build, test, and deploy applications securely and compliably.
+services, and golden paths so teams can build, test, and deploy applications securely and in compliance.[^1]
 
 By 2025 the practice reached near-universal adoption: DORA reports 90% of organizations using an internal developer platform and 76%
 establishing a dedicated platform team. The capability's newer significance is its relationship to AI: DORA's research treats AI as an
