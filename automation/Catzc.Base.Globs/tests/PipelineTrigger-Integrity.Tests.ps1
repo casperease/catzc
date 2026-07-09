@@ -13,8 +13,8 @@ Describe 'ADO pipeline trigger globs match the globset projection' -Tag 'L2', 'i
 }
 
 Describe 'GitHub workflow trigger globs match the globset projection' -Tag 'L2', 'integrity' {
-    It 'ci.yml triggers on the automation globset projection' {
-        $status = Test-GitHubWorkflowTriggerGlob -Name automation -WorkflowPath '.github/workflows/ci.yml'
+    It 'ci-automation.yml triggers on the automation globset projection' {
+        $status = Test-GitHubWorkflowTriggerGlob -Name automation -WorkflowPath '.github/workflows/ci-automation.yml'
         $status.Status | Should -Be 'Match' -Because "workflow drifted: $($status.Detail)"
     }
 }

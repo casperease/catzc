@@ -42,6 +42,9 @@ function Test-Markdownlint {
             # links whose authored source under docs/ is what is linted — linting through the link would
             # double-report the source. See docs/adr/repository/generated-readmes.md (ADR-REPO-README:7).
             '!**/README.md'
+            # docs/adr/index.md is generated from adrs.yml (Build-AdrIndex) — a derived artifact whose source
+            # (adrs.yml + the generator's prose) is what is linted, not the projection.
+            '!docs/adr/index.md'
         ),
 
         [string] $OutputFolder,

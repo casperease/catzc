@@ -55,6 +55,9 @@ function Test-Spelling {
             # '!**/README.md'). Their banner embeds the source's kebab filename, which is not a word. See
             # docs/adr/repository/generated-readmes.md (ADR-REPO-README:7).
             '**/README.md'
+            # docs/adr/index.md is generated from adrs.yml (Build-AdrIndex) — a derived artifact; its source
+            # (adrs.yml + the generator's prose) is what is reviewed, not the projection.
+            'docs/adr/index.md'
         ),
 
         [string] $OutputFolder,

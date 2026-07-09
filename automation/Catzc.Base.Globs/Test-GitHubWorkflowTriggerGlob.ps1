@@ -12,9 +12,9 @@
 .PARAMETER Name
     The globset the workflow should trigger on.
 .PARAMETER WorkflowPath
-    The workflow file, repo-relative (e.g. '.github/workflows/ci.yml') or absolute.
+    The workflow file, repo-relative (e.g. '.github/workflows/ci-automation.yml') or absolute.
 .EXAMPLE
-    Test-GitHubWorkflowTriggerGlob -Name automation -WorkflowPath .github/workflows/ci.yml
+    Test-GitHubWorkflowTriggerGlob -Name automation -WorkflowPath .github/workflows/ci-automation.yml
 #>
 function Test-GitHubWorkflowTriggerGlob {
     [CmdletBinding()]

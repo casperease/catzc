@@ -64,6 +64,16 @@ zones:
       - '!automation/.vendor/**/README.md'
       - '!automation/Catzc.Azure.Templates/tests/assets/README.md'
 
+  - id: adr-index
+    title: Generated ADR index
+    why: >
+      docs/adr/index.md is the ADR code -> rule-citation registry, generated from
+      automation/Catzc.Base.Docs/configs/adrs.yml (Build-AdrIndex, materialised on import before the folder
+      README link that points at it) — a derived artifact like the generated READMEs. adrs.yml is the single
+      source of truth; edit it, never index.md. See docs/adr/repository/generated-readmes.md.
+    patterns:
+      - docs/adr/index.md
+
   - id: compiled-types
     title: Compiled C# types — transient temp only
     why: >

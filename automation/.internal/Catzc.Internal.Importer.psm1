@@ -231,6 +231,13 @@ function Invoke-Importer {
         Clear-ModuleTypeCache -Silent:(-not $NonSilentClear)
     }
 
+    # Keep the generated ADR index current (Catzc.Base.Docs). docs/adr/index.md is the code -> ADR registry
+    # projected from adrs.yml — gitignored, reproduced here BEFORE Build-Readme (whose docs/adr/README.md link
+    # points at it), a fast no-op on a clean tree. See docs/adr/repository/generated-readmes.md.
+    if (-not $SkipJanitors -and (Get-Command Build-AdrIndex -ErrorAction Ignore)) {
+        Build-AdrIndex -Silent | Out-Null
+    }
+
     # Keep the generated README copy-ins current (Catzc.Base.Docs). Fast no-op when nothing changed — Build-Readme
     # rewrites a README only when its composed content differs (compared EOL-insensitively), so a clean tree costs
     # only a few small file reads. Guarded: absent in the bootstrap sandbox, like Clear-ModuleTypeCache.
