@@ -31,12 +31,21 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
         # Warm the path-keyed session caches once, not per test (ADR-TEST#19).
         Get-Config -Config azure | Out-Null
         Get-BicepTemplates | Out-Null
-    }
 
-    BeforeEach {
+        # ONE build of ALL environments is the single observation every assertion below is a facet of
+        # (ADR-TEST#20) — not a rebuild per test. Building all envs yields alpha AND beta, so every
+        # per-env range/vnet/reference check reads the captured output rather than re-invoking Build-Bicep.
+        # Under the sharded/greedy run a Build-Bicep call (PrePost import + file I/O) costs ~5-6x its warm
+        # solo time from CPU/IO contention; collapsing six builds to one keeps every It off the L0 gate.
+        $script:configRoot = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates/sample-with-prepost/configuration'
         if (Test-Path $script:outputRoot) {
             Remove-Item $script:outputRoot -Recurse -Force
         }
+        Build-Bicep sample-with-prepost | Out-Null
+        $script:alphaJson = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
+        $script:betaJson = Get-Content (Join-Path $script:outputRoot 'parameters.beta.json') -Raw | ConvertFrom-Json
+        $script:prepostCopied = Test-Path (Join-Path $script:outputRoot 'PrePost.psm1')
+        $script:templateDescriptor = Get-BicepTemplate sample-with-prepost
     }
 
     AfterAll {
@@ -46,48 +55,37 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
     }
 
     It 'merges the vnet ranges from the network plan into parameters.alpha.json' {
-        Build-Bicep sample-with-prepost -Environments alpha | Out-Null
-        $json = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
-        $json.parameters.addressPrefix.value | Should -Be $script:alphaNetwork.vnet_address_space
-        $json.parameters.subnetPrefix.value | Should -Be $script:alphaNetwork.default_subnet
+        $script:alphaJson.parameters.addressPrefix.value | Should -Be $script:alphaNetwork.vnet_address_space
+        $script:alphaJson.parameters.subnetPrefix.value | Should -Be $script:alphaNetwork.default_subnet
     }
 
     It 'passes the configured vnetName through alongside the merged ranges' {
-        Build-Bicep sample-with-prepost -Environments alpha | Out-Null
-        $json = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
-        $json.parameters.vnetName.value | Should -Be 'alpha-weu-tst-sppp-vnet'
+        $script:alphaJson.parameters.vnetName.value | Should -Be 'alpha-weu-tst-sppp-vnet'
     }
 
     It 'merges the per-environment ranges (alpha and beta differ)' {
-        Build-Bicep sample-with-prepost | Out-Null
-        $alpha = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
-        $beta = Get-Content (Join-Path $script:outputRoot 'parameters.beta.json') -Raw | ConvertFrom-Json
-        $alpha.parameters.addressPrefix.value | Should -Be $script:alphaNetwork.vnet_address_space
-        $beta.parameters.addressPrefix.value | Should -Be $script:betaNetwork.vnet_address_space
-        $alpha.parameters.addressPrefix.value | Should -Not -Be $beta.parameters.addressPrefix.value
+        $script:alphaJson.parameters.addressPrefix.value | Should -Be $script:alphaNetwork.vnet_address_space
+        $script:betaJson.parameters.addressPrefix.value | Should -Be $script:betaNetwork.vnet_address_space
+        $script:alphaJson.parameters.addressPrefix.value | Should -Not -Be $script:betaJson.parameters.addressPrefix.value
     }
 
     It 'injects values (the ranges) the per-slot config does not carry' {
-        $configuration = Get-Content (Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates/sample-with-prepost/configuration/alpha.yml') -Raw | ConvertFrom-Yaml
+        $configuration = Get-Content (Join-Path $script:configRoot 'alpha.yml') -Raw | ConvertFrom-Yaml
         $configuration.ParametersFile.parameters.Contains('addressPrefix') | Should -BeFalse -Because 'the merge seam, not the config, supplies the ranges'
-        Build-Bicep sample-with-prepost -Environments alpha | Out-Null
-        $json = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
-        $json.parameters.addressPrefix.value | Should -Be $script:alphaNetwork.vnet_address_space
+        $script:alphaJson.parameters.addressPrefix.value | Should -Be $script:alphaNetwork.vnet_address_space
     }
 
     It 'injects an ARM Key Vault reference for sharedReference, derived from fixture identity not config' {
         # The config does NOT carry the value — the hook injects an ARM KV *reference* (the production
         # pattern for keeping deploy-time secrets out of the repo, here proven on a fixture so no test binds
         # to a real template's secret name).
-        $configuration = Get-Content (Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates/sample-with-prepost/configuration/alpha.yml') -Raw | ConvertFrom-Yaml
+        $configuration = Get-Content (Join-Path $script:configRoot 'alpha.yml') -Raw | ConvertFrom-Yaml
         $configuration.ParametersFile.parameters.Contains('sharedReference') | Should -BeFalse -Because 'the KV reference is injected by the hook, not carried by config'
 
-        Build-Bicep sample-with-prepost -Environments alpha | Out-Null
-        $reference = (Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json).parameters.sharedReference.reference
+        $reference = $script:alphaJson.parameters.sharedReference.reference
 
         # Secret name is derived from the template's OWN short_name (fixture-defined), never a production literal.
-        $templateDescriptor = Get-BicepTemplate sample-with-prepost
-        $reference.secretName | Should -Be "$($templateDescriptor.short_name)-shared-secret"
+        $reference.secretName | Should -Be "$($script:templateDescriptor.short_name)-shared-secret"
 
         # Vault id is well-formed ARM and carries the resolved fixture subscription id.
         $subscriptionId = (Get-AzureSubscription -Subscription core_lower).id
@@ -96,13 +94,11 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
     }
 
     It 'surfaces PrePost.psm1 on template descriptor via discovery' {
-        $templateDescriptor = Get-BicepTemplate sample-with-prepost
-        $templateDescriptor.prepost_module | Should -Not -BeNullOrEmpty
-        $templateDescriptor.prepost_module | Should -Match 'PrePost\.psm1$'
+        $script:templateDescriptor.prepost_module | Should -Not -BeNullOrEmpty
+        $script:templateDescriptor.prepost_module | Should -Match 'PrePost\.psm1$'
     }
 
     It 'copies PrePost.psm1 into the build output folder' {
-        Build-Bicep sample-with-prepost -Environments alpha | Out-Null
-        Join-Path $script:outputRoot 'PrePost.psm1' | Should -Exist
+        $script:prepostCopied | Should -BeTrue
     }
 }

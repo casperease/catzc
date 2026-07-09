@@ -34,10 +34,14 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot
 
-            # Clear the caches ONCE so discovery re-derives against the fresh copy; then leave them warm —
-            # these tests never mutate the tree, so re-discovering per test would be wasted work.
+            # Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here in
+            # BeforeAll — not on the first test. The -Template [ValidateScript] runs Get-BicepTemplateNames
+            # (-> Get-BicepTemplates) at parameter binding, so an unwarmed cache makes the first It pay a
+            # full cold discovery (~6x inflated under Mock interception); warming here keeps that off the L0
+            # gate. These tests never mutate the tree, so the cache stays valid for all of them (ADR-TEST#19).
             InModuleScope Catzc.Base.Config { $script:configCache = $null }
             InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
+            Get-BicepTemplates | Out-Null
         }
 
         It 'DryRun returns the planned content without writing' {
@@ -81,9 +85,13 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot
 
-            # Clear the caches ONCE so discovery re-derives against the fresh copy, then leave them warm.
+            # Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here so the
+            # first It in this context does not pay the cold parameter-binding discovery (see the read-only
+            # context's BeforeAll). Writes target distinct config paths and never invalidate the templates
+            # cache (session-scoped, ADR-CACHE:6), so one warm-up serves every test.
             InModuleScope Catzc.Base.Config { $script:configCache = $null }
             InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
+            Get-BicepTemplates | Out-Null
         }
 
         It 'creates a new configuration-root config file for a new environment' {
