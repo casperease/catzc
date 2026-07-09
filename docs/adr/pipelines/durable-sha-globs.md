@@ -168,7 +168,7 @@ identities.
 | `pipelines/ci-*.yaml` | `pipelines/ci-automation.yaml`       | `pipelines/steps/ci-x.yaml` |
 | `**/tests/**/*.ps1`   | `automation/M/tests/a.Tests.ps1`     | `automation/M/a.ps1`        |
 
-Hygiene is structural (`ADR-POKA`): separators are `/` only, patterns are repo-relative (no leading `/`), no `.`/`..` segments, and no
+Hygiene is structural (`ADR-POKAYOKE`): separators are `/` only, patterns are repo-relative (no leading `/`), no `.`/`..` segments, and no
 backtick — `WildcardPattern` treats the backtick as an escape character, and an escape character in a path pattern signals a mistake, so the
 config loader rejects it.
 

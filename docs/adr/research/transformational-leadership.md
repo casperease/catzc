@@ -77,12 +77,12 @@ obstacle to adopting them, regardless of how good the practices are on paper.
 ## How to apply
 
 This platform cannot encode leadership behavior directly — it is a property of people, not of code — but two of its process decisions are
-the concrete form two of the five dimensions take here. Holding the line ([ADR-HOLDLINE](../process/holding-the-line.md)) states plainly
-that stopping the line is cheap and expected, never a failure event, and that punishing a stop teaches people to route around the cord
-instead — that is supportive leadership applied to a specific moment: whether a team member who halts the flow to report a defect is treated
-with support or blame decides whether the andon cord gets pulled again. Inspect-and-adapt ([ADR-ADAPT](../process/inspect-and-adapt.md))
-builds continuous, evidence-driven reflection into the process itself — the discipline of routinely questioning how the team works and why —
-which is intellectual stimulation made a standing habit rather than an occasional leadership gesture.
+the concrete form two of the five dimensions take here. Holding the line ([ADR-ANDON](../process/holding-the-line.md)) states plainly that
+stopping the line is cheap and expected, never a failure event, and that punishing a stop teaches people to route around the cord instead —
+that is supportive leadership applied to a specific moment: whether a team member who halts the flow to report a defect is treated with
+support or blame decides whether the andon cord gets pulled again. Inspect-and-adapt ([ADR-KAIZEN](../process/inspect-and-adapt.md)) builds
+continuous, evidence-driven reflection into the process itself — the discipline of routinely questioning how the team works and why — which
+is intellectual stimulation made a standing habit rather than an occasional leadership gesture.
 
 Beyond what a platform can enforce, apply the capability by setting delivery goals that are specific enough to be measurably true or false,
 by treating obstacles as questions to put to the team rather than answers to hand down, by rewarding deliberate experimentation even when an

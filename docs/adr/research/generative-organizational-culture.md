@@ -77,11 +77,11 @@ ideas are welcomed. Averaging the six gives a team a single Westrum culture scor
 ## How to apply
 
 DORA's implementation guidance is behavioral: change how people behave first, and belief follows, rather than trying to change minds before
-changing practice. This platform's failure response already works that way. Holding the line
-([ADR-HOLDLINE](../process/holding-the-line.md)) treats a stopped line as the system working, not as a fault to find someone responsible for
-— punishing whoever pulled the cord teaches people to route around it, the same messenger-punishing pattern a generative culture avoids.
-Inspect-and-adapt ([ADR-ADAPT](../process/inspect-and-adapt.md)) responds to a failure with a root-cause countermeasure drawn from evidence,
-not with blame, which is Westrum's "failure leads to inquiry" applied to the platform's own gates. Building quality in
+changing practice. This platform's failure response already works that way. Holding the line ([ADR-ANDON](../process/holding-the-line.md))
+treats a stopped line as the system working, not as a fault to find someone responsible for — punishing whoever pulled the cord teaches
+people to route around it, the same messenger-punishing pattern a generative culture avoids. Inspect-and-adapt
+([ADR-KAIZEN](../process/inspect-and-adapt.md)) responds to a failure with a root-cause countermeasure drawn from evidence, not with blame,
+which is Westrum's "failure leads to inquiry" applied to the platform's own gates. Building quality in
 ([ADR-BUILTIN](../process/build-quality-in.md)) removes the separate inspection phase and makes quality everyone's job rather than one
 team's, which is the shared-risk trait a generative culture requires.
 

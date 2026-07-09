@@ -4,8 +4,8 @@
 
 ### Rule ADR-AGILE:1
 
-Agile is defined by the Agile Manifesto — its four values ([ADR-AGILEV](agile-values.md)) and twelve principles
-([ADR-AGILEP](agile-principles.md)) — not by any framework, ceremony, role, or tool.
+Agile is defined by the Agile Manifesto — its four values ([ADR-VALUES](agile-values.md)) and twelve principles
+([ADR-PRINCIPLES](agile-principles.md)) — not by any framework, ceremony, role, or tool.
 
 - [Decision](#decision)
 
@@ -32,9 +32,9 @@ team that follows every ceremony yet cannot absorb change is not agile.
 
 ## Context
 
-"Agile" is among the most overloaded words in software. It is used to name a manifesto, a family of frameworks, a certification industry, and
-a management style — often at cross purposes. When "agile" means a stand-up meeting to one person and a two-year transformation programme to
-another, the word carries no shared meaning and cannot ground a decision.
+"Agile" is among the most overloaded words in software. It is used to name a manifesto, a family of frameworks, a certification industry,
+and a management style — often at cross purposes. When "agile" means a stand-up meeting to one person and a two-year transformation
+programme to another, the word carries no shared meaning and cannot ground a decision.
 
 This repository needs one fixed definition so that every later process rule — flow, promotion, small batches, fast feedback — rests on the
 same foundation and so that a claim of "this is more agile" can be checked against something concrete rather than asserted.
@@ -46,8 +46,8 @@ values and principles are the definition; everything commonly labelled "agile" �
 _implementation_ that may or may not realise them.
 
 The one-sentence reduction is this: **agility is the ability to respond to change.** The manifesto's authors set out to find better ways of
-developing software, and every value and principle serves the capacity to move in a new direction quickly and cheaply as the team learns what
-the customer actually needs. A process is agile to the exact degree that it keeps the cost of change low; a process that makes change
+developing software, and every value and principle serves the capacity to move in a new direction quickly and cheaply as the team learns
+what the customer actually needs. A process is agile to the exact degree that it keeps the cost of change low; a process that makes change
 expensive — heavy sign-off, large batches, long feedback loops — is not agile no matter how many of its ceremonies are observed.
 
 Because the definition is the values and principles, they sit above any framework. When a chosen practice conflicts with a value, the value
@@ -72,8 +72,8 @@ When a process decision is in question, do not ask "does the framework say to do
 change, and which value or principle does it serve?" If a practice serves none of them, it is ceremony and can be dropped
 ([ADR-NOWASTE](../principles/reduce-waste.md)). If a practice contradicts a value, change the practice, not the value.
 
-Treat the values ([ADR-AGILEV](agile-values.md)) and principles ([ADR-AGILEP](agile-principles.md)) as the two companion articles that carry
-the detail; this article fixes only what agile _is_ and how the word is used across the rest of the repository's process rules.
+Treat the values ([ADR-VALUES](agile-values.md)) and principles ([ADR-PRINCIPLES](agile-principles.md)) as the two companion articles that
+carry the detail; this article fixes only what agile _is_ and how the word is used across the rest of the repository's process rules.
 
 ## References
 
@@ -91,6 +91,6 @@ describes. Agile as defined here is the cultural and process foundation the tech
   what agility means in practice.
 - [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — the ability to release change on demand is responsiveness made
   concrete.
-- [Learning culture](https://dora.dev/capabilities/learning-culture/) — responding to change depends on a team that learns and adjusts rather
-  than conforms.
+- [Learning culture](https://dora.dev/capabilities/learning-culture/) — responding to change depends on a team that learns and adjusts
+  rather than conforms.
 - [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

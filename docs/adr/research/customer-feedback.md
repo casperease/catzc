@@ -74,10 +74,10 @@ informed.
 
 catzc treats the teams that consume the platform as its customers ([ADR-THINPLAT](../design/thin-platforms.md)) — a platform team building a
 product for other teams, not a project delivered once and left alone. The evidence this capability calls for is the same evidence the
-platform's own inspect-and-adapt loop already consumes ([ADR-ADAPT](../process/inspect-and-adapt.md)): that loop's outermost turn closes on
+platform's own inspect-and-adapt loop already consumes ([ADR-KAIZEN](../process/inspect-and-adapt.md)): that loop's outermost turn closes on
 what a consuming team actually experiences, not on an assumption about what it wants, which is exactly the "gather feedback, validate the
 problem" sequence this capability describes. The agile value of customer collaboration over contract negotiation
-([ADR-AGILEV](../process/agile-values.md#rule-adr-agilev3)) is the standing commitment behind it: a continuing relationship with consuming
+([ADR-VALUES](../process/agile-values.md#rule-adr-values3)) is the standing commitment behind it: a continuing relationship with consuming
 teams, not a fixed specification agreed once, is what is allowed to steer what the platform builds next.
 
 ## Common pitfalls

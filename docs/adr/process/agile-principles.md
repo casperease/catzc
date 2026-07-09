@@ -1,78 +1,78 @@
 # ADR: Agile principles — the twelve principles behind the manifesto
 
-## Rules: ADR-AGILEP
+## Rules: ADR-PRINCIPLES
 
-### Rule ADR-AGILEP:1
+### Rule ADR-PRINCIPLES:1
 
 Satisfy the customer through early and continuous delivery of valuable software — the highest priority, and the reason every other principle
 exists.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-AGILEP:2
+### Rule ADR-PRINCIPLES:2
 
-Welcome changing requirements, even late — an agile process turns change into the customer's competitive advantage rather than treating it as
-a failure of planning.
+Welcome changing requirements, even late — an agile process turns change into the customer's competitive advantage rather than treating it
+as a failure of planning.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-AGILEP:3
+### Rule ADR-PRINCIPLES:3
 
 Deliver working software frequently — on a cadence of weeks rather than months, preferring the shorter interval.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-AGILEP:4
+### Rule ADR-PRINCIPLES:4
 
 Business people and developers work together daily throughout the project — collaboration is continuous, not a hand-off at the boundaries.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-AGILEP:5
+### Rule ADR-PRINCIPLES:5
 
 Build projects around motivated individuals — give them the environment and support they need, and trust them to get the job done.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-AGILEP:6
+### Rule ADR-PRINCIPLES:6
 
 Favour direct conversation — the most efficient and effective way to convey information to and within a team is face-to-face.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-AGILEP:7
+### Rule ADR-PRINCIPLES:7
 
 Working software is the primary measure of progress — not documents produced, hours spent, or tasks marked done.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-AGILEP:8
+### Rule ADR-PRINCIPLES:8
 
 Sustain a constant pace indefinitely — sponsors, developers, and users should be able to maintain the pace without burning out; agile is a
 sustainable process, not a sprint to exhaustion.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-AGILEP:9
+### Rule ADR-PRINCIPLES:9
 
 Attend continuously to technical excellence and good design — quality is what keeps the cost of change low and so enhances agility.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-AGILEP:10
+### Rule ADR-PRINCIPLES:10
 
 Maximise the work not done — simplicity is essential; the cheapest, most responsive system is the one that does no more than it must.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-AGILEP:11
+### Rule ADR-PRINCIPLES:11
 
-Let architectures, requirements, and designs emerge from self-organizing teams — the best solutions come from the people doing the work, not
+Let architectures, requirements, and designs emerge from self-organising teams — the best solutions come from the people doing the work, not
 from an authority above them.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-AGILEP:12
+### Rule ADR-PRINCIPLES:12
 
 Reflect and adjust at regular intervals — the team periodically tunes its own behaviour to become more effective; continuous improvement is
 built into the process.
@@ -81,7 +81,7 @@ built into the process.
 
 ## Context
 
-Behind the four values ([ADR-AGILEV](agile-values.md)) the Agile Manifesto ([ADR-AGILE](agile.md)) sets out twelve principles that make the
+Behind the four values ([ADR-VALUES](agile-values.md)) the Agile Manifesto ([ADR-AGILE](agile.md)) sets out twelve principles that make the
 values operational [^1]. Where a value is a preference, a principle is a working instruction — it says what an agile process actually does.
 The twelve are the bridge between the manifesto's short comparative statements and the concrete process rules elsewhere in this repository
 (flow, promotion, small batches, fast feedback), which are specialisations of these principles for this platform.
@@ -95,7 +95,7 @@ The principles group into a few themes, though the manifesto lists them as a fla
 - **Embrace change** (principles 2, 10). Late change is welcomed and turned to advantage, and simplicity — maximising the work _not_ done —
   keeps the system cheap to change.
 - **Build around people** (principles 4, 5, 6, 11). Motivated individuals, trusted and supported, collaborating daily and face-to-face, and
-  self-organizing around the work, produce the best architectures and designs.
+  self-organising around the work, produce the best architectures and designs.
 - **Sustain and improve** (principles 8, 9, 12). A constant, indefinitely maintainable pace; continuous attention to technical excellence;
   and regular reflection that tunes the team's own behaviour keep the process healthy over the long run.
 
@@ -112,8 +112,9 @@ act on and check itself against.
 loops are this platform's concrete expression of principles 1, 3, and 12. Holding the twelve as the source keeps those specific rules
 anchored to something durable rather than to a framework's current fashion.
 
-**Quality and sustainability are first-class, not afterthoughts.** Principles 8, 9, and 10 make technical excellence, a sustainable pace, and
-simplicity part of the definition of agile — not optional extras a team gets to once the features are done. Low change-cost depends on them.
+**Quality and sustainability are first-class, not afterthoughts.** Principles 8, 9, and 10 make technical excellence, a sustainable pace,
+and simplicity part of the definition of agile — not optional extras a team gets to once the features are done. Low change-cost depends on
+them.
 
 ## How to apply
 
@@ -137,7 +138,7 @@ change-cost, team autonomy, and continuous improvement.
   working software.
 - [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — welcoming late change is only affordable when releasing is
   routine.
-- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — self-organizing teams that own their work reflect
+- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — self-organising teams that own their work reflect
   principles 5 and 11.
 - [Learning culture](https://dora.dev/capabilities/learning-culture/) — regular reflection that tunes the team's behaviour is a learning
   culture in practice.

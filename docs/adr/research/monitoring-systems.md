@@ -70,12 +70,13 @@ produce.
 ## How to apply
 
 This platform treats "go and see" the real running artifact, not a proxy, as the basis for every decision about whether work is done
-([ADR-OBSERVE](../process/observe-work.md)) — a green gate, a deployed environment, a monitored metric outrank a task marked complete, which
-is the same discipline this capability asks of business decisions: ground them in what the system is actually doing, not in an assumption
-about it. Console output is the concrete channel that data travels through to reach the person who needs it: it reports outcomes rather than
-step narration, stays silent when there is nothing to report, and announces a slow operation before it blocks, so the signal that reaches
-the reader is relevant and timely rather than buried in noise ([ADR-CONSOLE](../automation/powershell/console-output-matters.md)) — the same
-"relevant, timely, accurate, easy to understand" bar DORA sets for monitoring data aimed at a decision-maker rather than a machine.
+([ADR-OBSERVEWIP](../process/observe-work.md)) — a green gate, a deployed environment, a monitored metric outrank a task marked complete,
+which is the same discipline this capability asks of business decisions: ground them in what the system is actually doing, not in an
+assumption about it. Console output is the concrete channel that data travels through to reach the person who needs it: it reports outcomes
+rather than step narration, stays silent when there is nothing to report, and announces a slow operation before it blocks, so the signal
+that reaches the reader is relevant and timely rather than buried in noise
+([ADR-CONSOLE](../automation/powershell/console-output-matters.md)) — the same "relevant, timely, accurate, easy to understand" bar DORA
+sets for monitoring data aimed at a decision-maker rather than a machine.
 
 ## Common pitfalls
 

@@ -20,29 +20,29 @@ a normative summary plus internal links to the prose that justifies it).
 
 ### principles/
 
-| Code          | ADR                                                    |
-| ------------- | ------------------------------------------------------ |
-| `ADR-ASCODE`  | [everything-as-code](principles/everything-as-code.md) |
-| `ADR-LESSVAR` | [reduce-variability](principles/reduce-variability.md) |
-| `ADR-NOWASTE` | [reduce-waste](principles/reduce-waste.md)             |
-| `ADR-POKA`    | [poka-yoke](principles/poka-yoke.md)                   |
-| `ADR-ONELIVE` | [one-living-version](principles/one-living-version.md) |
+| Code            | ADR                                                    |
+| --------------- | ------------------------------------------------------ |
+| `ADR-EAC`       | [everything-as-code](principles/everything-as-code.md) |
+| `ADR-REDUCEVAR` | [reduce-variability](principles/reduce-variability.md) |
+| `ADR-NOWASTE`   | [reduce-waste](principles/reduce-waste.md)             |
+| `ADR-POKAYOKE`  | [poka-yoke](principles/poka-yoke.md)                   |
+| `ADR-ONELIVE`   | [one-living-version](principles/one-living-version.md) |
 
 ### process/
 
-| Code           | ADR                                               |
-| -------------- | ------------------------------------------------- |
-| `ADR-AGILE`    | [agile](process/agile.md)                         |
-| `ADR-AGILEV`   | [agile-values](process/agile-values.md)           |
-| `ADR-AGILEP`   | [agile-principles](process/agile-principles.md)   |
-| `ADR-PTERMS`   | [process-terms](process/process-terms.md)         |
-| `ADR-LEAN`     | [lean](process/lean.md)                           |
-| `ADR-HOLDLINE` | [holding-the-line](process/holding-the-line.md)   |
-| `ADR-BUILTIN`  | [build-quality-in](process/build-quality-in.md)   |
-| `ADR-OBSERVE`  | [observe-work](process/observe-work.md)           |
-| `ADR-PULL`     | [pull-work](process/pull-work.md)                 |
-| `ADR-QUEUE`    | [queues-cost-money](process/queues-cost-money.md) |
-| `ADR-ADAPT`    | [inspect-and-adapt](process/inspect-and-adapt.md) |
+| Code             | ADR                                               |
+| ---------------- | ------------------------------------------------- |
+| `ADR-AGILE`      | [agile](process/agile.md)                         |
+| `ADR-VALUES`     | [agile-values](process/agile-values.md)           |
+| `ADR-PRINCIPLES` | [agile-principles](process/agile-principles.md)   |
+| `ADR-LEANTERMS`  | [process-terms](process/process-terms.md)         |
+| `ADR-LEAN`       | [lean](process/lean.md)                           |
+| `ADR-ANDON`      | [holding-the-line](process/holding-the-line.md)   |
+| `ADR-BUILTIN`    | [build-quality-in](process/build-quality-in.md)   |
+| `ADR-OBSERVEWIP` | [observe-work](process/observe-work.md)           |
+| `ADR-PULLWORK`   | [pull-work](process/pull-work.md)                 |
+| `ADR-QUEUECOST`  | [queues-cost-money](process/queues-cost-money.md) |
+| `ADR-KAIZEN`     | [inspect-and-adapt](process/inspect-and-adapt.md) |
 
 ### design/
 

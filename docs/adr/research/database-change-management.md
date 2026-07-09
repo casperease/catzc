@@ -75,10 +75,10 @@ way to make it safe.
 
 This platform's general artifact-and-versioning discipline already covers the shape database change management asks for: every artifact
 needed to build, test, deploy, or operate a system — explicitly including "database schemas and migration scripts" — lives in version
-control ([ADR-ASCODE](../principles/everything-as-code.md)), so a migration script is diffed, reviewed, and rolled back exactly like any
-other change. Where a schema change cannot land atomically — the zero-downtime case DORA describes as adding new structures alongside old
-ones — the platform's branch-by-abstraction pattern is the sanctioned, temporary-coexistence route to it: a seam that lets old and new
-structures coexist for a bounded migration window, with a built-in deletion plan, rather than an indefinite compatibility shim
+control ([ADR-EAC](../principles/everything-as-code.md)), so a migration script is diffed, reviewed, and rolled back exactly like any other
+change. Where a schema change cannot land atomically — the zero-downtime case DORA describes as adding new structures alongside old ones —
+the platform's branch-by-abstraction pattern is the sanctioned, temporary-coexistence route to it: a seam that lets old and new structures
+coexist for a bounded migration window, with a built-in deletion plan, rather than an indefinite compatibility shim
 ([ADR-ONELIVE](../principles/one-living-version.md)). A database migration follows the same rule as every other contract change: it and its
 callers move together, with no lingering dual-read fallback left behind once the cutover completes.
 

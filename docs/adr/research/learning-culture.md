@@ -25,8 +25,8 @@ risks that learning and experimentation require.
 
 ### Rule ADR-DORALC:4
 
-Keep knowledge-sharing on a standing cadence — recurring forums such as lightning talks, brown-bag sessions, or lunch-and-learns, and a share-back
-expectation after conferences or training — rather than leaving it to depend on individual initiative.
+Keep knowledge-sharing on a standing cadence — recurring forums such as lightning talks, brown-bag sessions, or lunch-and-learns, and a
+share-back expectation after conferences or training — rather than leaving it to depend on individual initiative.
 
 - [How to apply](#how-to-apply)
 
@@ -73,11 +73,11 @@ other fields such as accounting, of organizational performance generally.
 ## How to apply
 
 Catzc treats capturing what is learned as a first-class step in its own improvement loop rather than an optional afterthought
-([ADR-ADAPT](../process/inspect-and-adapt.md)): when something is learned, it is encoded as a convention, a gate, or an ADR so the next
+([ADR-KAIZEN](../process/inspect-and-adapt.md)): when something is learned, it is encoded as a convention, a gate, or an ADR so the next
 person inherits the knowledge instead of rediscovering it, which is the direct countermeasure to relearning
 ([ADR-NOWASTE](../principles/reduce-waste.md), the relearning waste). The platform's stopped-line discipline treats a caught defect as a
 root-cause investigation rather than a blame event, and warns explicitly that punishing a stop teaches people to route around it
-([ADR-HOLDLINE](../process/holding-the-line.md)) — the same safety-to-fail stance DORA describes for post-mortems, applied to the gate that
+([ADR-ANDON](../process/holding-the-line.md)) — the same safety-to-fail stance DORA describes for post-mortems, applied to the gate that
 catches the defect in the first place.
 
 ## Common pitfalls

@@ -74,7 +74,7 @@ This platform renders the flow rather than reporting on it: the value-chain diag
 position is time, colour is the furthest state reached — so a reader decodes where a change sits without asking anyone
 ([ADR-VISUAL](../design/visual-design.md)). The underlying discipline that diagram specialises is stated generally: treat the state of work
 as something rendered and observed, not inferred from memory, and judge progress from the real running artifact rather than a proxy like a
-ticket status ([ADR-OBSERVE](../process/observe-work.md)).
+ticket status ([ADR-OBSERVEWIP](../process/observe-work.md)).
 
 Applying the capability elsewhere follows the same shape: pick a flow worth mapping, walk it end to end with the people who actually do each
 step, record where time is spent rather than assuming, and put the resulting picture somewhere everyone can see it without asking — a

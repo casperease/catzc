@@ -14,7 +14,7 @@ what make self-service safe in tightly controlled and managed domains, rather th
 ### Rule ADR-SELFSERV:2
 
 The repository is the **single source of truth** for everything the platform manages — automation, configuration, infrastructure, and pinned
-tooling — all represented as code (`ADR-ASCODE`). Self-service means editing that source and letting the platform apply it; it never means
+tooling — all represented as code (`ADR-EAC`). Self-service means editing that source and letting the platform apply it; it never means
 clicking a portal or running an out-of-band command. State that diverges from the repository is **drift**, and drift is reconciled _to_ the
 repository, never blessed after the fact. One authoritative source is the precondition for every downstream guarantee: you cannot audit,
 reproduce, or review what is not written down.
@@ -60,9 +60,9 @@ simply not allowed.
 
 The resolution is to make self-service _safe by construction_. catzc rests on four properties that, together, make "anyone can change it
 themselves" and "every change is controlled, reproducible, and auditable" the same statement rather than opposing ones: a **single source of
-truth** (`ADR-ASCODE`), **immutable and reproducibly-built artifacts** with provenance, **trunk-based development** with automated
-guardrails (`ADR-ONELIVE`), and the **thin CLI** as the only way to act (`ADR-THINPLAT`). Each one is load-bearing; remove any and
-self-service stops being safe.
+truth** (`ADR-EAC`), **immutable and reproducibly-built artifacts** with provenance, **trunk-based development** with automated guardrails
+(`ADR-ONELIVE`), and the **thin CLI** as the only way to act (`ADR-THINPLAT`). Each one is load-bearing; remove any and self-service stops
+being safe.
 
 ### Self-service, not free-for-all
 
@@ -116,7 +116,7 @@ controlled domains this makes self-service and auditability the same mechanism r
 
 ### How this is enforced
 
-- **Everything-as-code** (`ADR-ASCODE`) keeps the repository the sole authoritative source; there is no supported out-of-band channel.
+- **Everything-as-code** (`ADR-EAC`) keeps the repository the sole authoritative source; there is no supported out-of-band channel.
 - **The globset durable-SHA identities** (`ADR-GLOBS`) content-address every shippable unit, giving each deployment a single verifiable
   identity.
 - **One living version** (`ADR-ONELIVE`) forbids long-lived branches and legacy variants, keeping trunk the one always-releasable source.

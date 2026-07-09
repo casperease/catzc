@@ -1,22 +1,22 @@
 # Principle: Reduce variability
 
-## Rules: ADR-LESSVAR
+## Rules: ADR-REDUCEVAR
 
-### Rule ADR-LESSVAR:1
+### Rule ADR-REDUCEVAR:1
 
 Reduce variability in processes, tooling, and artifacts so outcomes are predictable and deviations stand out — build/test/deploy through the
 same steps, the same tools and versions, and a uniform artifact structure.
 
 - [Principle](#principle)
 
-### Rule ADR-LESSVAR:2
+### Rule ADR-REDUCEVAR:2
 
 Standardize the process and tooling, not the design space — uniformity in how work is delivered must not constrain architectural or creative
 judgment.
 
 - [Principle](#principle)
 
-### Rule ADR-LESSVAR:3
+### Rule ADR-REDUCEVAR:3
 
 Eliminate accidental differences and make essential ones explicit; prefer convention over configuration, derived behavior over manual
 registration, and one way to do something over many.

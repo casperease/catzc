@@ -206,6 +206,6 @@ churn.
   delivery pipeline this capability governs.
 - [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — automatic discard at BVT/L3 and the out-of-band topic
   deploy are automated-deployment behaviours.
-- [Version control](https://dora.dev/capabilities/version-control/) — "history is never rewritten; a discarded commit stays on the record" is
-  a version-control discipline.
+- [Version control](https://dora.dev/capabilities/version-control/) — "history is never rewritten; a discarded commit stays on the record"
+  is a version-control discipline.
 - [DORA research overview](https://dora.dev/research/).

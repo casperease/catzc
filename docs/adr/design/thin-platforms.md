@@ -32,9 +32,9 @@ teams above.
 ### Rule ADR-THINPLAT:4
 
 Everything the platform covers is **represented as code** — the automation itself, the configs, the tooling versions, and the vendor
-bindings (Bicep modules and az invocations) — in exactly one living version (`ADR-ASCODE`, `ADR-ONELIVE`). There is no console-clicked
-state, no out-of-band tooling, and no drift between "what the docs say" and "what runs": the platform _is_ its repository. Full EaC
-representation is what makes the thin abstraction reproducible and reviewable.
+bindings (Bicep modules and az invocations) — in exactly one living version (`ADR-EAC`, `ADR-ONELIVE`). There is no console-clicked state,
+no out-of-band tooling, and no drift between "what the docs say" and "what runs": the platform _is_ its repository. Full EaC representation
+is what makes the thin abstraction reproducible and reviewable.
 
 - [Everything the platform covers is code](#everything-the-platform-covers-is-code)
 
@@ -93,10 +93,10 @@ re-wire what happens behind it — swap a Bicep module, change an az invocation,
 ### Everything the platform covers is code
 
 A thin abstraction is only trustworthy if it is fully materialized. Everything the platform touches is checked in and versioned as one
-living source of truth (`ADR-ASCODE`, `ADR-ONELIVE`): the PowerShell/C# automation, the Bicep infrastructure, the per-target configuration,
-the pinned tool versions, and the vendored dependencies. Nothing is configured by clicking a console, and nothing is a "we usually run this
-by hand" step. This is what lets the thin layer stay thin without becoming lossy — the full representation is in the repo, so the
-abstraction can be reproduced, reviewed, and diffed rather than trusted on faith.
+living source of truth (`ADR-EAC`, `ADR-ONELIVE`): the PowerShell/C# automation, the Bicep infrastructure, the per-target configuration, the
+pinned tool versions, and the vendored dependencies. Nothing is configured by clicking a console, and nothing is a "we usually run this by
+hand" step. This is what lets the thin layer stay thin without becoming lossy — the full representation is in the repo, so the abstraction
+can be reproduced, reviewed, and diffed rather than trusted on faith.
 
 ### Owned as a product, over a swappable substrate
 
@@ -121,7 +121,7 @@ RM via Bicep plus a curated az CLI.
   model (a platform team develops and manages it as X-as-a-Service).
 - **Hohpe's _Platform Strategy_** supplies the discipline (harmonize, don't reimplement; build abstractions, not illusions) and the
   guardrail (surface the decisions that scale-time cost punishes).
-- **`ADR-ASCODE` / `ADR-ONELIVE`** keep the abstraction fully materialized and singular — no drift, no legacy shims behind the thin layer.
+- **`ADR-EAC` / `ADR-ONELIVE`** keep the abstraction fully materialized and singular — no drift, no legacy shims behind the thin layer.
 - **`ADR-AZCLI` and the Bicep infrastructure track** are the concrete substrate bindings the CLI delegates to today.
 - **`ADR-PARITY`** keeps the one CLI surface identical on a developer box and in the pipeline, which is what makes it a real service
   boundary.

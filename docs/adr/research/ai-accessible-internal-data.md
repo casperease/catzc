@@ -83,7 +83,7 @@ ongoing maintenance cost — an AI reading a generated README reads the same, ne
 In the pilot phase, automate retrieval for a single high-impact use case, choosing between a custom retrieval-augmented-generation (RAG)
 pipeline for precise, up-to-date retrieval and a Model Context Protocol (MCP) integration that selects and feeds only relevant context
 rather than raw documents. Either approach only has something worth retrieving because the codebase, configuration, pipelines, and governing
-docs are comprehensively kept in version control in the first place ([ADR-ASCODE](../principles/everything-as-code.md)) — an artifact that
+docs are comprehensively kept in version control in the first place ([ADR-EAC](../principles/everything-as-code.md)) — an artifact that
 exists only in a UI, a wiki, or someone's head is not retrievable by either pattern.
 
 In the scale phase, secure leadership sponsorship, address foundational data-quality gaps, and build secure internal APIs that expose data

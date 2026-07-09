@@ -471,20 +471,22 @@ terms:
   adr:
     - term: adr
       meaning: "the ADR- rule-citation prefix; every rule code has the form ADR-<NAME> (see docs/adr/index.md)"
-    - term: ascode
-      meaning: "body of the ADR-ASCODE code (everything-as-code)"
-    - term: lessvar
-      meaning: "body of the ADR-LESSVAR code (reduce-variability)"
+    - term: eac
+      meaning: "body of the ADR-EAC code (everything-as-code)"
+    - term: reducevar
+      meaning: "body of the ADR-REDUCEVAR code (reduce-variability)"
     - term: nowaste
       meaning: "body of the ADR-NOWASTE code (reduce-waste)"
     - term: onelive
       meaning: "body of the ADR-ONELIVE code (one-living-version)"
-    - term: agilev
-      meaning: "body of the ADR-AGILEV code (agile-values)"
-    - term: agilep
-      meaning: "body of the ADR-AGILEP code (agile-principles)"
-    - term: holdline
-      meaning: "body of the ADR-HOLDLINE code (holding-the-line)"
+    - term: leanterms
+      meaning: "body of the ADR-LEANTERMS code (process/process-terms)"
+    - term: pullwork
+      meaning: "body of the ADR-PULLWORK code (pull-work)"
+    - term: queuecost
+      meaning: "body of the ADR-QUEUECOST code (queues-cost-money)"
+    - term: observewip
+      meaning: "body of the ADR-OBSERVEWIP code (observe-work)"
     - term: azcli
       meaning: "body of the ADR-AZCLI code (prefer-az-cli); also 'az cli'"
     - term: prelog
@@ -556,7 +558,9 @@ terms:
     - term: outdir
       meaning: "body of the ADR-OUTDIR code (dedicated-output-directory)"
     - term: poka
-      meaning: "body of the ADR-POKA code (poka-yoke); also 'poka-yoke'"
+      meaning: "the 'poka' of poka-yoke (prose)"
+    - term: pokayoke
+      meaning: "body of the ADR-POKAYOKE code (poka-yoke)"
     - term: THINPLAT
       meaning: 'ADR-THINPLAT is the ADR on thinnest re-usable platforms API(CLI) abstraction'
     - term: selfserv
@@ -629,8 +633,6 @@ terms:
       meaning: "body of the ADR-DORATL code (research/transformational-leadership)"
     - term: dorawb
       meaning: "body of the ADR-DORAWB code (research/well-being)"
-    - term: pterms
-      meaning: "body of the ADR-PTERMS code (process/process-terms)"
   ado:
     - term: tf
       meaning: "the TF_BUILD predefined pipeline variable (Team Foundation Build), e.g. $savedTfBuild"

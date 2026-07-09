@@ -60,7 +60,7 @@ happened. Without it, each of those becomes archaeology.
 ## How to apply
 
 This platform realizes the capability by keeping every operational artifact in the repository
-([ADR-ASCODE](../principles/everything-as-code.md)) and carrying exactly one living version of each
+([ADR-EAC](../principles/everything-as-code.md)) and carrying exactly one living version of each
 ([ADR-ONELIVE](../principles/one-living-version.md)) with all history in git rather than in retained files. Trunk-based development and
 short-lived branches ([ADR-FLOW](../design/ci-discipline-and-promotion-flow.md)) keep the inner-loop discipline this capability depends on,
 and the audited server remote ([ADR-REMOTE](../design/server-remote-integration.md)) is the single source of truth for what is on main.

@@ -90,8 +90,8 @@ automation's whitebox signal stream: it reports outcomes rather than step-by-ste
 and announces a slow operation before it blocks so silence is never mistaken for a hang
 ([ADR-CONSOLE](../automation/powershell/console-output-matters.md)) — the same symptom-first, low-noise discipline DORA asks of alerting.
 Decisions about whether work is actually done rest on the real running artifact and its real signals — a green gate, a deployed environment,
-a monitored metric — rather than on a proxy such as a task marked complete ([ADR-OBSERVE](../process/observe-work.md)), which is the "go and
-see" instinct behind observability applied to the whole delivery flow, not only to production.
+a monitored metric — rather than on a proxy such as a task marked complete ([ADR-OBSERVEWIP](../process/observe-work.md)), which is the "go
+and see" instinct behind observability applied to the whole delivery flow, not only to production.
 
 ## Common pitfalls
 

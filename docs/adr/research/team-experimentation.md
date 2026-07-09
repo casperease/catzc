@@ -68,7 +68,7 @@ This platform realizes the capability by removing the outside gate a team would 
 filing a ticket to a central gatekeeper — the same freedom DORA measures as working on new ideas without permission from outside the team.
 The thin platform ([ADR-THINPLAT](../design/thin-platforms.md)) gives consumers a CLI surface where they edit configuration and compose
 functions themselves, trusting them as the experts on their own implementation rather than routing every change through the platform team.
-Agile's customer-collaboration value ([ADR-AGILEV](../process/agile-values.md)) treats a story as an ongoing conversation to be revised as
+Agile's customer-collaboration value ([ADR-VALUES](../process/agile-values.md)) treats a story as an ongoing conversation to be revised as
 understanding grows, not a contract executed as originally written — the same posture that lets specifications change during development.
 
 ## Common pitfalls

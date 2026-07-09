@@ -1,29 +1,29 @@
 # ADR: The money is lost in the queues — Little's Law and the cost of delay
 
-## Rules: ADR-QUEUE
+## Rules: ADR-QUEUECOST
 
-### Rule ADR-QUEUE:1
+### Rule ADR-QUEUECOST:1
 
 The dominant cost in delivery is queue time, not work time. An item spends most of its lead time waiting between steps, so the largest lever
 on speed is shortening queues, not speeding up the work — the money is lost in the queues.
 
 - [Decision](#decision)
 
-### Rule ADR-QUEUE:2
+### Rule ADR-QUEUECOST:2
 
-Little's Law governs flow: average flow time equals work-in-progress divided by throughput. Throughput is near-fixed in the short run, so
-lead time falls by cutting work-in-progress ([ADR-PULL](pull-work.md)), not by exhortation to hurry.
+Little's Law governs flow: average flow time equals average work-in-progress divided by average throughput. Throughput is near-fixed in the
+short run, so lead time falls by cutting work-in-progress ([ADR-PULLWORK](pull-work.md)), not by exhortation to hurry.
 
 - [The arithmetic](#the-arithmetic)
 
-### Rule ADR-QUEUE:3
+### Rule ADR-QUEUECOST:3
 
 Delay has a measurable price. Cost of delay turns queue time into money and sets priority: work the highest cost-of-delay item first, and
 treat a long feedback queue as an ongoing expense rather than a neutral wait.
 
 - [The arithmetic](#the-arithmetic)
 
-### Rule ADR-QUEUE:4
+### Rule ADR-QUEUECOST:4
 
 Machine time is cheap and follows Moore's law; human attention is the constraint. So spend compute to drain the human queue — parallel
 gates, eager caches ([ADR-CACHE](../automation/caching.md)), ephemeral environments, rebuild-don't-wait. A minute of CPU is cheaper than a
@@ -31,9 +31,9 @@ minute of a person blocked.
 
 - [Decision](#decision)
 
-### Rule ADR-QUEUE:5
+### Rule ADR-QUEUECOST:5
 
-Batch size drives queue size. Large batches inflate queues and their variability; small batches ([ADR-PULL](pull-work.md)) keep both the
+Batch size drives queue size. Large batches inflate queues and their variability; small batches ([ADR-PULLWORK](pull-work.md)) keep both the
 queue and its cost of delay low. Reduce batch size before adding capacity.
 
 - [How to apply](#how-to-apply)
@@ -58,17 +58,17 @@ Manage the queues, not just the work. Concretely:
   and shorten that queue before optimising any step's runtime. Delays are the largest waste ([ADR-NOWASTE](../principles/reduce-waste.md))
   and the hardest to see because they look like idle time, not cost.
 - **Lower work-in-progress to lower lead time.** By Little's Law, with throughput fixed, cutting the number of items in flight cuts lead
-  time directly ([ADR-PULL](pull-work.md)). This needs no one to work faster.
+  time directly ([ADR-PULLWORK](pull-work.md)). This needs no one to work faster.
 - **Spend the cheap resource to save the dear one.** Human wait is expensive and machine time is cheap and getting cheaper (Moore's law), so
   run gates in parallel, cache results so nothing is recomputed ([ADR-CACHE](../automation/caching.md)), and stand up throwaway environments
   rather than queueing for a shared one. Buying down a human queue with compute is almost always the right trade.
 
 ## The arithmetic
 
-**Little's Law** [^2]. For any stable system, `average flow time = average work-in-progress ÷ average throughput`. Read it as a lever:
-throughput (how many changes the pipeline completes per unit time) is roughly fixed by the system's design in the short run, so the term you
-can move today is work-in-progress. Halving the number of changes in flight halves their average lead time — arithmetic, not effort. This is
-the formal reason [ADR-PULL](pull-work.md) caps work-in-progress.
+**Little's Law** [^2]. For any stable system, average flow time equals average work-in-progress divided by average throughput
+(`flow time = WIP ÷ throughput`). Read it as a lever: throughput (how many changes the pipeline completes per unit time) is roughly fixed by
+the system's design in the short run, so the term you can move is work-in-progress. Halving the number of changes in flight halves their
+average lead time — arithmetic, not effort. This is the formal reason [ADR-PULLWORK](pull-work.md) caps work-in-progress.
 
 **Cost of delay** [^1]. Every item has a cost of delay — the value lost per unit time it is late. Multiplying queue time by cost of delay
 turns a wait into a number, which does two things: it sets priority (work the highest cost-of-delay item first, not the biggest or the
@@ -88,7 +88,7 @@ wait.
 
 **A queue whose cost is never measured gets tolerated.** A wait that no one has put a number on looks like harmless idle time, so it
 survives. Attaching a cost of delay to it makes the expense visible and the case for removing it obvious — the same reason lean insists on
-making the work visible ([ADR-OBSERVE](observe-work.md)).
+making the work visible ([ADR-OBSERVEWIP](observe-work.md)).
 
 **Compute is the cheapest lever left.** Most other ways to shorten a queue cost human effort or organisational change. Spending machine time
 — which halves in price on a predictable cadence — is the one lever that keeps getting cheaper, so it should usually be reached for first.
@@ -96,10 +96,10 @@ making the work visible ([ADR-OBSERVE](observe-work.md)).
 ## How to apply
 
 When something feels slow, measure where the change waits before optimising how fast any step runs, and shorten the largest queue first.
-Keep work-in-progress low ([ADR-PULL](pull-work.md)) — it is the Little's-Law lever on lead time. Reduce batch size before adding capacity,
-because large batches are what inflate the queue in the first place. And prefer spending compute over spending human wait: parallelise
-gates, cache so nothing is recomputed across a session ([ADR-CACHE](../automation/caching.md)), and use ephemeral environments rather than
-queueing for shared ones.
+Keep work-in-progress low ([ADR-PULLWORK](pull-work.md)) — it is the Little's-Law lever on lead time. Reduce batch size before adding
+capacity, because large batches are what inflate the queue in the first place. And prefer spending compute over spending human wait:
+parallelise gates, cache so nothing is recomputed across a session ([ADR-CACHE](../automation/caching.md)), and use ephemeral environments
+rather than queueing for shared ones.
 
 ## References
 

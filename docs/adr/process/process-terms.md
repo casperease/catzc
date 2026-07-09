@@ -1,15 +1,15 @@
 # ADR: Process terms — the foundational vocabulary of flow
 
-## Rules: ADR-PTERMS
+## Rules: ADR-LEANTERMS
 
-### Rule ADR-PTERMS:1
+### Rule ADR-LEANTERMS:1
 
 Every process term in this repository has one canonical meaning, fixed here. The process ADRs use these terms identically; a term used with
 a private or shifting meaning is a defect, the same way an undeclared identifier is.
 
 - [The terms](#the-terms)
 
-### Rule ADR-PTERMS:2
+### Rule ADR-LEANTERMS:2
 
 The constraint (bottleneck) is the single step that sets the throughput of the whole system. Time saved at a non-constraint is not saved by
 the system, and time lost at the constraint is lost by the system — so improvement effort goes to the constraint, not to whichever step is
@@ -17,21 +17,21 @@ easiest to speed up.
 
 - [The constraint](#the-constraint)
 
-### Rule ADR-PTERMS:3
+### Rule ADR-LEANTERMS:3
 
 Optimise the whole, not the part. A local optimum that does not lift the system constraint delivers no system gain and often harms the whole
 (a faster non-constraint just piles work in front of the constraint). "This step got faster" is not an outcome; "the system got faster" is.
 
 - [The constraint](#the-constraint)
 
-### Rule ADR-PTERMS:4
+### Rule ADR-LEANTERMS:4
 
 Flow is measured, not felt. Throughput, work-in-progress, and lead time are defined quantities related by Little's Law
 ([ADR-LEAN](lean.md)); decisions about batch size and work-in-progress rest on those measures, never on "we feel slow".
 
 - [Flow primitives](#flow-primitives)
 
-### Rule ADR-PTERMS:5
+### Rule ADR-LEANTERMS:5
 
 Work is classified by who acts: an automated step runs to completion with no human action, a manual step requires a person. Human attention
 is the scarce constraint and machine time is cheap and falling (Moore's Law, [ADR-LEAN](lean.md)), so the platform's direction of travel is
@@ -41,10 +41,10 @@ to convert manual steps into automated ones — spending the cheap resource to p
 
 ## Context
 
-The process ADRs — lean ([ADR-LEAN](lean.md)), pulling work ([ADR-PULL](pull-work.md)), queues ([ADR-QUEUE](queues-cost-money.md)), and the
-rest — all reason in the same vocabulary: constraint, throughput, lead time, work-in-progress, batch, queue. That reasoning only holds
-together if the words mean exactly one thing across every article. When "bottleneck" means the constraint to one author and "the slowest
-thing I noticed" to another, a flow argument stops being checkable.
+The process ADRs — lean ([ADR-LEAN](lean.md)), pulling work ([ADR-PULLWORK](pull-work.md)), queues ([ADR-QUEUECOST](queues-cost-money.md)),
+and the rest — all reason in the same vocabulary: constraint, throughput, lead time, work-in-progress, batch, queue. That reasoning only
+holds together if the words mean exactly one thing across every article. When "bottleneck" means the constraint to one author and "the
+slowest thing I noticed" to another, a flow argument stops being checkable.
 
 This article is the glossary those articles share. It fixes the primitive terms so the others can build on them without re-defining them,
 and it names the two laws — Little's and Moore's — that make the flow claims quantitative, pointing to [ADR-LEAN](lean.md) as the article
@@ -68,9 +68,9 @@ The base measures of how work moves. They are quantities, not moods.
 - **Batch size.** The amount of work moved between steps as a unit. Small batches shorten lead time and expose defects sooner; large batches
   hide both.
 - **Queue.** Items waiting between steps, not being worked. Queue time is pure waiting — the largest and most invisible component of lead
-  time, and the one the platform attacks first ([ADR-QUEUE](queues-cost-money.md)).
+  time, and the one the platform attacks first ([ADR-QUEUECOST](queues-cost-money.md)).
 - **Value stream.** The end-to-end sequence of steps a change passes through from idea to running in production. "The whole" that gets
-  optimised is the value stream, not any one step ([ADR-OBSERVE](observe-work.md)).
+  optimised is the value stream, not any one step ([ADR-OBSERVEWIP](observe-work.md)).
 
 ### The constraint
 
@@ -90,7 +90,7 @@ Terms from the Theory of Constraints [^1] — the account of why a system has ex
 How a step is classified by the actor it requires.
 
 - **Automated.** A step that runs to completion with no human action once triggered — repeatable, unattended, and identical every time. The
-  platform's default and destination for every step it can reach ([ADR-ASCODE](../principles/everything-as-code.md),
+  platform's default and destination for every step it can reach ([ADR-EAC](../principles/everything-as-code.md),
   [ADR-ZERO](../automation/zero-ceremony-poka-yoke.md)).
 - **Manual.** A step that requires a person to act. Manual steps are legitimate where human judgement is the point (a review, a release
   decision); they are waste where they are merely un-automated toil.
@@ -104,7 +104,7 @@ Two laws make the flow claims quantitative. [ADR-LEAN](lean.md) owns and elabora
 complete.
 
 - **Little's Law.** For any stable system, `flow time = WIP ÷ throughput`. The practical consequence is that work-in-progress, not effort,
-  is the lever on lead time ([ADR-LEAN](lean.md), applied in [ADR-QUEUE](queues-cost-money.md)).
+  is the lever on lead time ([ADR-LEAN](lean.md), applied in [ADR-QUEUECOST](queues-cost-money.md)).
 - **Moore's Law.** Compute capacity per unit cost roughly doubles on a regular cadence, so machine time trends toward free while human
   attention stays the scarce constraint — the economic basis for automating and for spending compute to save people's time
   ([ADR-LEAN](lean.md)).
