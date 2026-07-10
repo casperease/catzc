@@ -85,16 +85,3 @@ working: fix it there, where it is a one-line change, rather than pushing and le
 [^2]:
     Mary and Tom Poppendieck, _Lean Software Development: An Agile Toolkit_ (2003). "Stop the line" mapped to software: a failing build is a
     pulled andon cord, and the team swarms to restore flow before doing anything else.
-
-## Dora explains
-
-DORA finds that keeping the mainline releasable — fixing a broken build as the top priority — is a defining practice of high-performing
-teams, and that trunk-based development depends on it.
-
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — a failing build stops the line and is fixed within
-  minutes; that discipline is what CI measures.
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — building only on a green mainline is what makes a
-  shared trunk safe.
-- [Test automation](https://dora.dev/capabilities/test-automation/) — automated gates are the cords that can stop the line the instant a
-  defect appears.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

@@ -97,11 +97,12 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
 - **Blank-line padding.** Pad every section: a blank line immediately after each `##`/`###` heading, and a blank line before the next
   heading. This applies to the `## Rules: <code>` registries and the `### Rule <code>:<n>` entries as well.
 
-- **`## Dora explains` closes every ADR.** The final section of each ADR is `## Dora explains` — a short, present-tense paragraph tying the
-  ADR's topic to [DORA](https://dora.dev/research/) research, followed by a bullet list of the domain-relevant DORA capability links (2–4
-  capabilities, each as `[Capability](https://dora.dev/capabilities/<slug>/) — why it is relevant`, plus the research-overview link). DORA
-  is the repository's cross-cutting authoritative source on delivery performance; link only the capabilities that genuinely bear on the
-  ADR's domain, never the whole catalog.
+- **`dora-explains.md` collects each domain's DORA rationale.** An individual ADR carries no `## Dora explains` section; instead every
+  domain folder keeps a `dora-explains.md` that consolidates, one entry per ADR, the short present-tense paragraph tying that ADR's topic to
+  [DORA](https://dora.dev/research/) research and its 2–4 domain-relevant capability links (each `[Capability](https://dora.dev/capabilities/<slug>/) — why it is relevant`,
+  plus the research-overview link). DORA is the repository's cross-cutting authoritative source on delivery performance; link only the
+  capabilities that genuinely bear on an ADR's domain, never the whole catalog. The `research/` domain is the exception — its ADRs are the
+  DORA capability records themselves, so it has no `dora-explains.md`.
 '@
 
     $adrs = Get-Config -Config adrs

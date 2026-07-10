@@ -85,16 +85,3 @@ the language layer, [module-path-hygiene](powershell/module-path-hygiene.md) (`A
 - Machine-specific slowness has environmental fixes, not code workarounds: the module-path mechanics live in
   [module-path-hygiene](powershell/module-path-hygiene.md), and the cold-import antivirus cost is mitigated by an exclusion, not a code
   change.
-
-## Dora explains
-
-DORA's research links self-contained, network-independent automation to reliable deployments in diverse enterprise environments. Vendoring
-all dependencies and avoiding runtime access to external feeds ensures the system works behind firewalls and without privileged access.
-
-- [Flexible infrastructure](https://dora.dev/capabilities/flexible-infrastructure/) — vendored dependencies and user-scope installers enable
-  automation on machines without local admin or gallery access.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — vendoring dependencies and eliminating runtime network calls
-  make the dependency set explicit and reproducible across all machines.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — eliminating external runtime dependencies enables
-  reliable, self-provisioning automation in firewalled enterprise networks.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

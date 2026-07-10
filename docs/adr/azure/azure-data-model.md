@@ -323,16 +323,3 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
 - The cost is that a second non-customer platform cannot ship template configs — the configuration root belongs to ONE shared platform
   (every root config must resolve to exactly one non-customer subscription per env). That is the deliberate trade: the conventional tree
   stays two-coordinate (root or customer), with no third naming axis to invent.
-
-## Dora explains
-
-DORA's research connects infrastructure-as-code and version-controlled configuration to lower deployment lead time and enable rapid,
-reliable infrastructure changes. This ADR encodes Azure infrastructure as derived, deterministic config with no hand-typed values, enabling
-safe automation.
-
-- [Version control](https://dora.dev/capabilities/version-control/) — configuration is the single source of truth for Azure resources.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — templates and configs drive repeatable Azure deployments.
-- [Flexible infrastructure](https://dora.dev/capabilities/flexible-infrastructure/) — infrastructure-as-code model with config-driven
-  subscriptions.
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — one-living-version data model (no legacy shapes).
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

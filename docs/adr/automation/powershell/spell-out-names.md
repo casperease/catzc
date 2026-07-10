@@ -259,13 +259,3 @@ gives functions a shared, spelled-out vocabulary, and this gives the same to the
 - The terminology registry becomes a meaningful glossary of real domain terms, and each new entry is a small, deliberate decision rather
   than a reflex to silence the gate.
 - The cost lands on the author (a few more keystrokes, fully absorbed by tab-completion), and the benefit lands on every reader.
-
-## Dora explains
-
-DORA research shows that consistent naming conventions improve code readability and enable reliable refactoring. Full, spelled-out
-identifiers are self-documenting, searchable by grep, and shared across the team, eliminating the translation cost of invented
-abbreviations.
-
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — full names enable reliable search and refactoring.
-- [Documentation quality](https://dora.dev/capabilities/documentation-quality/) — identifiers are self-documenting without translation.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

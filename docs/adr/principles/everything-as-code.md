@@ -91,16 +91,3 @@ is in use.
 [^1]:
     DORA, [Version control](https://dora.dev/capabilities/version-control/) — Research-backed capability identifying comprehensive version
     control as a predictor of continuous delivery, with reproducibility and traceability as the two core requirements.
-
-## Dora explains
-
-DORA identifies comprehensive version control as a predictor of continuous delivery. Everything-as-code ensures reproducibility,
-traceability, and version alignment by storing all artifacts in a single source of truth.
-
-- [Version control](https://dora.dev/capabilities/version-control/) — comprehensive coverage of all artifacts enables reproducibility and
-  traceability.
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — requires all artifacts in version control for safe,
-  rapid integration.
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — version control enables short-lived branches and
-  frequent commits.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

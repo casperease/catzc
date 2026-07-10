@@ -137,17 +137,3 @@ invisible to cspell.
 - Dead identities cannot accumulate: removing a GUID's last reference forces its entry out in the same change.
 - The cost is one registry entry per GUID and the discipline to mint rather than invent — a small tax that buys an inventory of every
   identity the repository carries.
-
-## Dora explains
-
-DORA's research links explicit identity management and auditability to security, reliability, and compliance. Registering every GUID literal
-and describing its purpose makes identity boundaries explicit, prevents drift, and ensures external-facing and placeholder identities are
-visibly distinct.
-
-- [Pervasive security](https://dora.dev/capabilities/pervasive-security/) — registering and categorizing every GUID literal prevents
-  production identity leakage and makes unregistered identities detectable.
-- [Version control](https://dora.dev/capabilities/version-control/) — the managed-GUID registry is version-controlled configuration, making
-  every identity change a reviewed diff with full audit trail.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — named registry entries and self-describing minted GUIDs make
-  code and fixtures legible, and dead entries are caught by liveness rules.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

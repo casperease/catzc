@@ -124,16 +124,3 @@ intact so the core modules stay discoverable, is read once at startup rather tha
 - A non-vendored personal module that shares a name with a vendored one is shadowed by the vendored copy in sessions that dot-source the
   importer. This is intentional — the automation session uses what it ships.
 - System-installed modules that do not collide with a vendored module remain available; only the colliding paths are stripped.
-
-## Dora explains
-
-DORA's research on flexible infrastructure emphasizes deterministic dependencies—and network module paths destroy performance in enterprise
-environments. Vendoring PowerShell modules and keeping the module path local by default eliminates network round-trips, makes module loading
-predictable, and enables fast automation everywhere.
-
-- [Flexible infrastructure](https://dora.dev/capabilities/flexible-infrastructure/) — running reliably in enterprise environments without
-  network delays.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — deterministic, local dependencies enable consistent
-  automation across machines.
-- [Version control](https://dora.dev/capabilities/version-control/) — vendored modules are reproducible and tracked without gallery access.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

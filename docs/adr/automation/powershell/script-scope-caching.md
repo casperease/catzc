@@ -107,14 +107,3 @@ Session caches are module `$script:` hashtables keyed by resolved input, populat
 - Caches are module-private by construction — no cross-module coupling through shared cache state, and parallel test workers cannot see each
   other's slots (each process imports its own).
 - Tests stay honest: mocking the boundary function works whether the cache is cold or warm, and only deliberate cache tests touch the slot.
-
-## Dora explains
-
-DORA research shows that caching frequently-recomputed data improves deployment speed and reliability. Tying cache lifetime to module import
-creates a predictable, testable contract: the same data for the entire session, with one invalidation knob.
-
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — caching eliminates redundant parsing, accelerating operations.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — consistent cache lifetime ensures predictable automation
-  behavior.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — simple, isolated idiom follows one repeatable pattern.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

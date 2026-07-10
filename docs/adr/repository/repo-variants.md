@@ -139,17 +139,3 @@ is self-contained, and the primitives are therefore callable from any module abo
   wiring.
 - The cost is one indirection (a primitive per variant instead of a raw read) and the layering rule that the module stays self-contained;
   both are what keep the construct legible and cycle-free.
-
-## Dora explains
-
-DORA's research on code maintainability and platform engineering emphasizes sensible defaults and low-ceremony guard mechanisms; typed
-variant primitives (`Test-`/`Assert-`) make repo-wide decisions auditable and testable from anywhere, so the only stop condition is
-mechanical, not procedural.
-
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — typed guards instead of raw config reads make repo-wide
-  decisions explicit and enforceable.
-- [Platform engineering](https://dora.dev/capabilities/platform-engineering/) — zero-ceremony access to sensible defaults makes repo-wide
-  settings usable as simple, one-liner guards everywhere.
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — session-cached variants mean config is locked for the
-  run and unchanged across parallel build steps.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

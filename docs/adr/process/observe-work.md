@@ -87,16 +87,3 @@ find where items wait, rather than at how fast any single station runs.
 [^2]:
     Mary and Tom Poppendieck, _Lean Software Development: An Agile Toolkit_ (2003), "See the whole" — optimise the end-to-end value stream
     rather than local measures, which requires making the whole stream visible.
-
-## Dora explains
-
-DORA finds that visibility of work across the value stream, visual management, and monitoring are capabilities that distinguish
-high-performing teams — seeing the work is a precondition for improving its flow.
-
-- [Visibility of work in the value stream](https://dora.dev/capabilities/work-visibility-in-value-stream/) — a rendered end-to-end flow is
-  exactly this capability.
-- [Visual management](https://dora.dev/capabilities/visual-management/) — making state visible at a glance is the visual factory applied to
-  delivery.
-- [Monitoring and observability](https://dora.dev/capabilities/monitoring-and-observability/) — going to see the real running artifact
-  depends on real signals from it.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

@@ -81,16 +81,3 @@ that carry the detail; this article fixes only what agile _is_ and how the word 
     Kent Beck et al., _Manifesto for Agile Software Development_ (2001), <https://agilemanifesto.org>. Seventeen practitioners meeting at
     Snowbird, Utah, set out to uncover better ways of developing software; the result is four values and twelve supporting principles. The
     manifesto is deliberately short and comparative — it prizes one thing over another rather than rejecting either side.
-
-## Dora explains
-
-DORA's research frames delivery performance as the capacity to make changes safely and quickly — the same responsiveness the manifesto
-describes. Agile as defined here is the cultural and process foundation the technical capabilities below make measurable.
-
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — small batches keep the cost of change low, which is
-  what agility means in practice.
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — the ability to release change on demand is responsiveness made
-  concrete.
-- [Learning culture](https://dora.dev/capabilities/learning-culture/) — responding to change depends on a team that learns and adjusts
-  rather than conforms.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

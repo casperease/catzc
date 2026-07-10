@@ -135,19 +135,3 @@ direct commit; the moment there is more than one author, the PR ingress is what 
 - [repo-variants](../repository/repo-variants.md) (`ADR-REPO-VARIANT:6`) — the `git_workspace` PR-vs-Direct integration mode.
 - [cd-discipline-and-promotion-flow](cd-discipline-and-promotion-flow.md) (`ADR-FLOW-CD`) — the verification the "verified commit" has
   cleared.
-
-## Dora explains
-
-DORA identifies trunk-based development, version control, and lightweight change approval as predictors of delivery performance. Integrating
-from the last verified commit keeps the trunk continuously integrable without exposing consumers to a dirty tip, and making the PR the
-authenticated ingress keeps change approval built-in and the audit trail complete.
-
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — integrate from the stable verified point so the trunk
-  stays continuously integrable and a dirty tip never propagates.
-- [Version control](https://dora.dev/capabilities/version-control/) — the audited server remote is the single source of truth with a
-  complete, attributable history.
-- [Streamlining change approval](https://dora.dev/capabilities/streamlining-change-approval/) — the PR is built-in, authenticated ingress
-  and approval, not a heavyweight external gate.
-- [Pervasive security](https://dora.dev/capabilities/pervasive-security/) — authenticating every ingress at the PR keeps every commit on
-  main attributable to a known principal.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

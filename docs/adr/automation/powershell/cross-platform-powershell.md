@@ -101,16 +101,3 @@ unavoidable platform logic as `$IsWindows` / `$IsLinux` branches — all validat
   platform-agnostic.
 - Path handling is consistent everywhere — `Join-Path` is the only way to build paths.
 - New platforms (macOS) can be added by extending the `Install-*` functions without touching business logic.
-
-## Dora explains
-
-DORA's research on flexible infrastructure links platform-agnostic code to deployment reliability—and PowerShell's cross-platform support
-enables one codebase on Windows and Linux. Catching platform incompatibilities at analysis time rather than at runtime reduces the friction
-of multi-platform deployment and enables confident automation across all environments.
-
-- [Flexible infrastructure](https://dora.dev/capabilities/flexible-infrastructure/) — running on Windows and Linux from one codebase.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — platform-agnostic patterns centralize business logic away
-  from environment-specific concerns.
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — analyzer catches platform breaks at analysis time,
-  before code runs on different OSes.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

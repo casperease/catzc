@@ -316,18 +316,3 @@ declared a `module` fails as a named pair.
 - [native-csharp-types](../automation/BCL/native-csharp-types.md) — the host-guaranteed type set the dialect implementation draws on.
 - [everything-as-code](../principles/everything-as-code.md), [poka-yoke](../principles/poka-yoke.md),
   [reduce-variability](../principles/reduce-variability.md) — the principles this mechanism instantiates.
-
-## Dora explains
-
-DORA's research links version-controlled configuration and deterministic deployment triggering to faster, more reliable deployments. Keeping
-area-of-control boundaries as one declarative source of truth — projected into native trigger filters and reflected from git history rather
-than frozen into committed per-set hashes — reduces deployment drift, keeps the mainline continuously integrable (no false-red from a stale
-marker), and makes CI trigger points reviewable as a first-class concern.
-
-- [Version control](https://dora.dev/capabilities/version-control/) — area-of-control boundaries as one committed source of truth, the
-  single configuration point.
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — squash-safe, rename-correct triggering that never
-  false-reds the mainline.
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — one unit change is one `globs.yml` edit, its area of
-  control computed, not argued.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

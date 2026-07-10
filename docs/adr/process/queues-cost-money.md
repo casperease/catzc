@@ -115,17 +115,3 @@ environments rather than queueing for shared ones.
 [^3]:
     Gordon E. Moore, "Cramming More Components onto Integrated Circuits", _Electronics_ (1965). Used here for its economic consequence:
     compute grows cheap relative to human time, so trading machine time for human wait is a trade that keeps improving.
-
-## Dora explains
-
-DORA's flow metrics — lead time and deployment frequency — are queue measurements, and the practices that improve them are the ones that
-drain queues: small batches, low work-in-progress, and elastic infrastructure.
-
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — small batches keep queue length and its cost of
-  delay low.
-- [Work in process limits](https://dora.dev/capabilities/wip-limits/) — capping work-in-progress is the Little's-Law lever on lead time.
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — fast, parallel, cached gates shorten the feedback queue
-  every change waits in.
-- [Flexible infrastructure](https://dora.dev/capabilities/flexible-infrastructure/) — ephemeral, elastic compute is how machine time is
-  spent to drain a human queue.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

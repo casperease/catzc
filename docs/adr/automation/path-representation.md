@@ -237,15 +237,3 @@ hand-builds a communicated path from `$env:RepositoryRoot` or normalizes separat
   about instead of every author's bespoke `Join-Path`.
 - The cost is a small, explicit conversion at each boundary: relativize on the way out, resolve on the way in. The pair round-trips, so the
   cost is mechanical, not a source of new error.
-
-## Dora explains
-
-Distinguishing communication form (relative, portable) from binding form (absolute, deterministic) eliminates a major class of path-based
-bugs and makes artifacts portable across machines and pipeline stages. This discipline is essential for reproducible, auditable deployments.
-
-- [Version control](https://dora.dev/capabilities/version-control/) — relative paths in configs and artifacts are portable and committable.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — deterministic path resolution against known anchors, never
-  $PWD, makes artifacts work identically across devbox and pipeline.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — centralized converters eliminate path-normalization bugs and
-  hand-built Join-Path variants.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

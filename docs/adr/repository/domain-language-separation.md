@@ -203,17 +203,3 @@ the domains; a file-glob spell-checker is not used, because it cannot separate i
   map.
 - [poka-yoke](../principles/poka-yoke.md), [reduce-variability](../principles/reduce-variability.md) — the principles a mechanical,
   low-ceremony gate instantiates.
-
-## Dora explains
-
-DORA's research on pervasive security and streamlining change approval emphasizes preventing configuration drift and production leaks; a
-tag-aware AST gate that enforces domain boundaries catches silent violations where text-based checks cannot, so live identities never leak
-into test code.
-
-- [Pervasive security](https://dora.dev/capabilities/pervasive-security/) — mechanical enforcement prevents live identities from leaking
-  into logic tests where they could cause production incidents.
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — AST-based gates run on every build and fail with exact,
-  actionable messages.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — semantic enforcement (not text-based) is what lets
-  illustration remain legible while protecting the boundary.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

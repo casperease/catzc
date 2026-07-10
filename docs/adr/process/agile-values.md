@@ -75,16 +75,3 @@ compliance. If a practice can be justified by none of the four values, it is cer
     Kent Beck et al., _Manifesto for Agile Software Development_ (2001), <https://agilemanifesto.org>. The four value statements and the
     closing clause — "That is, while there is value in the items on the right, we value the items on the left more" — are quoted from the
     manifesto text.
-
-## Dora explains
-
-DORA's research consistently finds that team capability and culture, not tooling or documentation weight, predict delivery performance — the
-same ordering the four values assert.
-
-- [Teams empowered to choose tools](https://dora.dev/capabilities/teams-empowered-to-choose-tools/) — putting people ahead of imposed
-  tooling reflects individuals and interactions over processes and tools.
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — small batches are what make responding to change
-  over following a plan affordable.
-- [Learning culture](https://dora.dev/capabilities/learning-culture/) — customer collaboration and change response both depend on a team
-  that treats a plan as a hypothesis to revise.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

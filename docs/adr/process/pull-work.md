@@ -90,16 +90,3 @@ responsible moment, and keep the number of changes in flight small enough that t
 [^2]:
     Mary and Tom Poppendieck, _Lean Software Development: An Agile Toolkit_ (2003), principles "Deliver fast" and "Defer commitment" — pull,
     small batches, and last-responsible-moment decisions applied to software.
-
-## Dora explains
-
-DORA finds that working in small batches and limiting work in progress are among the strongest predictors of short lead time and stable
-delivery — the pull discipline measured directly.
-
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — the core pull move and the strongest single lever on
-  lead time.
-- [Work in process limits](https://dora.dev/capabilities/wip-limits/) — a WIP cap is what turns pull and small batches into an enforced
-  mechanism.
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — pulling small increments to done on demand is continuous
-  delivery in practice.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

@@ -136,18 +136,3 @@ redefining it here, so the vocabulary stays single-source.
     Eliyahu M. Goldratt and Jeff Cox, _The Goal: A Process of Ongoing Improvement_ (1984). The Theory of Constraints — that a system's
     throughput is set by a single constraint, and that improving a non-constraint yields no system gain — and the five focusing steps for
     finding and lifting it. Little's Law and Moore's Law carry their primary references in [ADR-PROC-LEAN](lean.md).
-
-## Dora explains
-
-DORA's delivery metrics are this vocabulary measured: deployment frequency and change lead time are throughput and lead time, and DORA's
-finding that small batches drive both is Little's Law reading out on real systems.
-
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — batch size defined here is the lever DORA finds most
-  strongly tied to short lead time.
-- [Work in process limits](https://dora.dev/capabilities/wip-limits/) — limiting work-in-progress is Little's Law applied to the flow
-  primitives above.
-- [Visibility of work in the value stream](https://dora.dev/capabilities/work-visibility-in-value-stream/) — you cannot find the constraint
-  in a value stream you cannot see.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — the automated/manual distinction made concrete at the
-  deployment step.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

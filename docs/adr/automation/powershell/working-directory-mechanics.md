@@ -78,15 +78,3 @@ Paths resolve from `$PSScriptRoot` or `$env:RepositoryRoot` with `Join-Path`; a 
 - Tools that need a working directory get it scoped and restored, so a throw mid-operation never strands the session in a foreign directory.
 - The anchor idioms are uniform: module-local paths hang off `$PSScriptRoot`, repository paths off `$env:RepositoryRoot` — one convention to
   read, one for the analyzer to check.
-
-## Dora explains
-
-DORA research shows that eliminating implicit dependencies on environmental state improves code reliability and team velocity. Anchoring
-paths to fixed locations and restoring working directory in try/finally guarantees functions compose correctly and never pollute session
-state.
-
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — explicit anchors eliminate hidden state pollution and
-  failures.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — location-independent functions compose and work
-  everywhere.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

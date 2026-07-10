@@ -384,16 +384,3 @@ folder must exist.
   that is easy to diagnose.
 - The tradeoff is rigidity. You cannot call the test folder `spec/` because you prefer RSpec conventions. You cannot call the private folder
   `internal/` because Go uses that name. The platform's consistency is worth more than individual naming preferences.
-
-## Dora explains
-
-DORA's research into code maintainability and loosely coupled teams emphasizes clear structure and self-documenting boundaries; conventional
-folders encode those boundaries into the filesystem so structure is enforced and visibility is instant.
-
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — fixed structure is self-documenting and makes deviations
-  visibly obvious.
-- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — clear folder boundaries and tooling contracts decouple
-  teams from coordination on naming.
-- [Version control](https://dora.dev/capabilities/version-control/) — the single source of truth for structure is the repository layout
-  itself, not a mapping file.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

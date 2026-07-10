@@ -129,15 +129,3 @@ It 'in dry-run, returns the command and does not execute' {
 - The cost: we forgo the engine's free `-WhatIf`/`-Confirm` common parameters and the analyzer's blessing (suppressed with a pointer here).
   We accept that — testability and a low-ceremony, hard-to-misuse API win.
 - No `SupportsShouldProcess` exists in the codebase, so no un-suppressable `What if:` lines surface in the test run.
-
-## Dora explains
-
-DORA research shows that explicit, observable test data and return values improve test effectiveness and deployment safety. Capturable
-dry-run values enable tests to verify plans without side effects, eliminating both hidden failures and test noise.
-
-- [Test automation](https://dora.dev/capabilities/test-automation/) — capturable return values enable testable assertions without side
-  effects.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — explicit dry-run prevents silent failures in automation.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — explicit parameters reduce hidden behavior and implicit
-  magic.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

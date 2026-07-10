@@ -87,18 +87,3 @@ every change, not only at a milestone.
 [^2]:
     Taiichi Ohno, _Toyota Production System: Beyond Large-Scale Production_ (1988), on kaizen and the "five whys" — a stopped line triggers
     root-cause analysis and a permanent countermeasure, so improvement is continuous and built into daily work.
-
-## Dora explains
-
-DORA finds that a learning culture and deliberate experimentation are among the strongest cultural predictors of delivery performance —
-inspect-and-adapt, made continuous, is what those capabilities describe.
-
-- [Learning culture](https://dora.dev/capabilities/learning-culture/) — treating the process as something to inspect and improve is a
-  learning culture in practice.
-- [Team experimentation](https://dora.dev/capabilities/team-experimentation/) — adapting from evidence means running and learning from small
-  changes to how the team works.
-- [Customer feedback](https://dora.dev/capabilities/customer-feedback/) — the outermost inspect-and-adapt loop closes on what the customer
-  actually experiences.
-- [Generative organizational culture](https://dora.dev/capabilities/generative-organizational-culture/) — a blameless, evidence-driven
-  response to a stopped line is what lets the loop run at all.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

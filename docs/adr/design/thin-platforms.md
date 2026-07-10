@@ -134,17 +134,3 @@ covering Azure and Azure RM via Bicep plus a curated az CLI.
   [What is a Thinnest Viable Platform (TVP)?](https://teamtopologies.com/key-concepts-content/what-is-a-thinnest-viable-platform-tvp)
 - Gregor Hohpe, _Platform Strategy: Innovation Through Harmonization_ (Architect Elevator series):
   [The Architect Elevator](https://architectelevator.com) — platforms harmonize through abstraction; build abstractions, not illusions.
-
-## Dora explains
-
-DORA's research identifies flexible infrastructure and tool empowerment as drivers of team autonomy and delivery performance. Thin platforms
-harmonize the vendor surface through a CLI abstraction, reducing cognitive load while keeping consequential decisions visible and delegating
-to the vendor's own primitives.
-
-- [Flexible infrastructure](https://dora.dev/capabilities/flexible-infrastructure/) — the thin abstraction keeps the vendor swappable behind
-  the CLI.
-- [Empowering teams to choose tools](https://dora.dev/capabilities/teams-empowered-to-choose-tools/) — the platform surfaces vendor
-  decisions, not hiding them.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — delegation over reimplementation keeps the platform small
-  and maintainable.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

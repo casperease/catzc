@@ -85,14 +85,3 @@ finite resource.
     Mary and Tom Poppendieck, _Lean Software Development: An Agile Toolkit_ (2003) — Mapped the seven manufacturing wastes (Taiichi Ohno,
     Toyota Production System) to software development. The seven wastes provide a taxonomy for identifying non-value-adding work in any
     software delivery process.
-
-## Dora explains
-
-DORA's research links small batch sizes and streamlined approvals to faster deployment frequency and lower change failure rates. Reducing
-waste eliminates handoffs, delays, and rework, accelerating the flow from development to production.
-
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — small batches reduce delays, task switching, and
-  feedback loops.
-- [Streamlining change approval](https://dora.dev/capabilities/streamlining-change-approval/) — automated gates and self-service reduce
-  approval delays and handoffs.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

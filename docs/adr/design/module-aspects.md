@@ -69,15 +69,3 @@ and compiles per unit root with `AspectPartition`; `Get-ModuleGlobSet` derives `
   (`ADR-FLOW-CD-GLOBS:7`)
 - [repo-variants](../repository/repo-variants.md) — the `aspects` variant's home (`ADR-REPO-VARIANT`)
 - [test-automation](../automation/test-automation.md) — logic vs integrity tests, the `tests/` surface aspects isolate
-
-## Dora explains
-
-DORA identifies loosely coupled teams and code maintainability as predictors of delivery performance. Partitioning modules into live and
-test aspects creates clear ownership boundaries, prevents accidental shipping of unreviewed code, and enables independent reasoning about
-each concern.
-
-- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — aspects partition code and tests, enabling independent
-  change and verification.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — explicit, convention-driven partitions reduce cognitive load
-  and prevent silent errors.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

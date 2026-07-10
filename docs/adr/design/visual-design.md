@@ -311,17 +311,3 @@ success. So the endings are drawn apart: red for rejection, green-in-the-retired
 faded ghost for one that was valid but overtaken, and a marked HEAD for the latest-but-broken tip. The colour still carries the state; the
 _lane_ and the _fade/mark_ carry the ending. [ADR-DSGN-LIFE](commit-lifecycle.md) owns what these endings mean; this rule owns how they
 look.
-
-## Dora explains
-
-Visual grammar is a communication artifact, and DORA treats the clarity of a team's delivery model as part of how well the team can improve
-it: a shared, unambiguous picture of how work flows from commit to production is what lets a team reason about its own bottlenecks. Fixing
-branch geometry and colour semantics makes the value stream legible, which is a precondition for the measurement-and-improvement loop DORA
-describes.
-
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — the diagrams model the promotion flow this capability governs.
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — the up/release, down/topic geometry and the
-  fix-forward-then-cherry-pick rule encode a trunk-based branching model.
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — the funnel-thinning rule makes batch size and gate
-  selectivity visible.
-- [DORA research overview](https://dora.dev/research/).

@@ -115,14 +115,3 @@ functionality.
 - The rare cases that need Az modules are handled at the environment level with explicit version pinning, not silently inside automation
   functions.
 - Functions that call `az` return plain objects (from JSON), not Az SDK types. This is simpler to work with and has no hidden dependencies.
-
-## Dora explains
-
-DORA research links tool standardization and process isolation to faster deployments and fewer failures. Using a single executable tool
-across all environments removes version skew and assembly conflicts.
-
-- [Flexible infrastructure](https://dora.dev/capabilities/flexible-infrastructure/) — single tool, process isolation, no hidden
-  dependencies.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — single tool eliminates environment-specific failures.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — explicit dependencies and simple return types reduce risk.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

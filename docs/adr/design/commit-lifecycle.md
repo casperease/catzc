@@ -192,20 +192,3 @@ These commits are the canonical encoding of the model; each number is one commit
 | 8   | landed on main, entered BVT                | **in-process** — currently being BVT-verified                            |
 | 9   | topic commit, deployed by a workflow       | **off-main** — out-of-band deployed, not yet integrated to main/master   |
 | 10  | latest commit; entered main-UAT and failed | **dirty HEAD** — tip of main, not a sync/downstream source (use 6)       |
-
-## Dora explains
-
-This model is a statement about how change flows into, through, and out of the mainline, which is the core of what DORA measures. A clear
-lifecycle — one direction, named rejection points, a distinction between rejected/retired/superseded, a single stable integration point that
-is not HEAD — is what lets a team keep the mainline continuously integrable and lets its consumers depend on it without inheriting its
-churn.
-
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — the HEAD-vs-stable-sync-point rule and the
-  one-directional ladder are how a trunk stays continuously integrable.
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — the promotion ladder and single-occupant environments are the
-  delivery pipeline this capability governs.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — automatic discard at BVT/L3 and the out-of-band topic
-  deploy are automated-deployment behaviours.
-- [Version control](https://dora.dev/capabilities/version-control/) — "history is never rewritten; a discarded commit stays on the record"
-  is a version-control discipline.
-- [DORA research overview](https://dora.dev/research/).

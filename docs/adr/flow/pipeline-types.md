@@ -350,18 +350,3 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 - Notes: [shared-fate-ci](../../notes/shared-fate-ci.md), [ado-as-self-service-layer](../../notes/ado-as-self-service-layer.md),
   [one-config-to-rule-them-all](../../notes/one-config-to-rule-them-all.md),
   [classic-cmdb-vs-version-controlled-change](../../notes/classic-cmdb-vs-version-controlled-change.md).
-
-## Dora explains
-
-DORA's research distinguishes Continuous Delivery (human-gated production changes) from Continuous Deployment (automated prod roll), and
-links explicit deployment governance to faster cycle times and lower failure rates. This ADR's taxonomy makes these distinctions explicit
-and nameable, preventing anti-patterns from hiding behind overloaded terminology and enabling each pipeline type to carry its proper
-governance contract and trigger model.
-
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — CD pattern with explicit build-once-deploy-many and
-  human-gated production.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — DEPLOY and CDe have named, first-class deployment
-  constructs.
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — CI/CD both run post-commit on master, the single
-  source of truth.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

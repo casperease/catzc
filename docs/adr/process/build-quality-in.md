@@ -87,16 +87,3 @@ replaces. A change is finished when its gates are green, not when a later stage 
 [^2]:
     Taiichi Ohno, _Toyota Production System: Beyond Large-Scale Production_ (1988), on jidoka; and W. Edwards Deming, _Out of the Crisis_
     (1986), "Cease dependence on inspection to achieve quality" — the origin of building quality in rather than inspecting it in.
-
-## Dora explains
-
-DORA finds that automated testing and continuous integration — quality produced as part of the work — predict both higher throughput and
-higher stability, contradicting the assumption that quality trades against speed.
-
-- [Test automation](https://dora.dev/capabilities/test-automation/) — automated tests build quality into every change instead of inspecting
-  it in later.
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — gates that run as the work is produced are how quality
-  is built in continuously.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — correct-by-construction code, enforced structurally, is what
-  keeps change cheap.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

@@ -277,17 +277,3 @@ blocks so silence never reads as a hang.
 - Copy-paste debugging works — commands are logged exactly as executed.
 - The output is the documentation. When a user runs `Install-DevBoxTools`, the console tells them what was installed, at what versions, and
   whether it succeeded. No README needed for the happy path.
-
-## Dora explains
-
-DORA's research links monitoring and observability to deployment frequency and change failure rates—and console output is the automation's
-sole window into what is happening. Structured, meaningful logging that announces long operations and stays silent on success enables fast
-troubleshooting without re-running, reducing mean time to recovery.
-
-- [Monitoring and observability](https://dora.dev/capabilities/monitoring-and-observability/) — clear logging enables quick diagnosis of
-  failures without re-running operations.
-- [Documentation quality](https://dora.dev/capabilities/documentation-quality/) — output serves as the primary documentation of what
-  happened and what failed.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — consistent output patterns make automation behavior easy to
-  reason about and review.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

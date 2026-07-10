@@ -107,16 +107,3 @@ Windows tool installation uses `winget`. Chocolatey is not used.
 - Tools not yet available in the winget repository must be installed via direct download with checksum verification, or the team must submit
   a winget manifest upstream.
 - Any Chocolatey install on a target machine is removed automatically by `Install-DevBoxTools`. No manual intervention required.
-
-## Dora explains
-
-Using platform-native package managers with strong security models — hash verification, code review, no arbitrary script execution — is
-foundational to supply-chain security. Rejecting structurally weak alternatives keeps the toolchain's attack surface minimal.
-
-- [Pervasive security](https://dora.dev/capabilities/pervasive-security/) — platform-native managers with hash verification prevent
-  supply-chain attacks and arbitrary code execution during tool installation.
-- [Flexible infrastructure](https://dora.dev/capabilities/flexible-infrastructure/) — platform-native managers (winget, brew, apt-get)
-  provide consistent, trusted tool provisioning across operating systems.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — standard package managers reduce special-case installation
-  logic and keep provisioning scripts clear and reviewable.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

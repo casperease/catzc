@@ -142,18 +142,3 @@ lean principle, cite it so the lineage stays visible.
 [^4]:
     Gordon E. Moore, "Cramming More Components onto Integrated Circuits", _Electronics_ (1965). Used here for its economic consequence —
     compute grows cheap relative to human time — rather than as a claim about transistor counts.
-
-## Dora explains
-
-DORA's research frames elite delivery as fast, stable flow — short lead times and small batches with quality held constant — which is lean
-flow discipline measured. The lean principles here are the practices those metrics reward.
-
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — small batches are the core lean flow move and the
-  strongest predictor of short lead time.
-- [Work in process limits](https://dora.dev/capabilities/wip-limits/) — limiting work-in-progress is Little's Law applied: it lowers lead
-  time directly.
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — delivering fast and building quality in are the two pillars
-  made continuous.
-- [Learning culture](https://dora.dev/capabilities/learning-culture/) — creating knowledge and optimising the whole depend on a team that
-  learns from the flow it can see.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

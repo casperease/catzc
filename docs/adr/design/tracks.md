@@ -126,15 +126,3 @@ shipped through deployable-units that bind pipelines 1-1 (ADR-DSGN-TRACK:5).
   untouched by construction.
 - The cost is discipline at the root: no drive-by root folders, no second stack smuggled into an existing track, and the registry has to
   stay curated as tracks grow.
-
-## Dora explains
-
-DORA identifies loosely coupled teams and code maintainability as drivers of delivery performance. Tracks establish named concerns with
-clear ownership, tech-stacks, and subscription boundaries, enabling independent verification and blast-radius isolation through
-git-reflected globsets.
-
-- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — tracks partition ownership, prevent cross-cutting
-  coupling, and isolate blast radius.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — named concerns, one tech-stack per track, and clear taxonomy
-  reduce cognitive load.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

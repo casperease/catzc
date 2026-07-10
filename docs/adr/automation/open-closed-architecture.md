@@ -112,15 +112,3 @@ The module-dependency graph this ADR references (`dependencies.yml`, `groups:`/`
   ([dynamic-module-manifests](powershell/dynamic-module-manifests.md)).
 - The tradeoff is rigidity: modules that do not follow convention are invisible to the system. This is intentional — the cost of one naming
   fix is far lower than the cost of maintaining special-case infrastructure.
-
-## Dora explains
-
-Convention-driven discovery eliminates merge conflicts and hand-maintained registrations, letting teams extend the system without
-coordinating around shared infrastructure. This is foundational to scaling development velocity without bottlenecks.
-
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — conventions make extension predictable and reduce
-  special-case infrastructure.
-- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — adding capability never requires touching shared bootstrap
-  code.
-- [Platform engineering](https://dora.dev/capabilities/platform-engineering/) — self-service extension through stable conventions.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

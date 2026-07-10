@@ -158,16 +158,3 @@ cannot see).
 - A `copyAsLink` target has zero drift surface and zero generated content — the honest cost is the hard-link orphan window after a git
   rewrite of the source (healed on the next import) and the per-consumer proof that the tool reads the root path through a link, which is
   why the flip is a per-entry, one-line decision rather than a mode.
-
-## Dora explains
-
-DORA's research on continuous delivery and code maintainability emphasizes reproducible, drift-free automation; centralizing root config
-generation into one registry and one writer ensures every build produces byte-identical artifacts and config changes stay reviewable.
-
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — idempotent generation with content-only comparison produces
-  reproducible, byte-identical artifacts across builds.
-- [Version control](https://dora.dev/capabilities/version-control/) — managed-file headers and the registry keep the source of truth
-  explicit and drifts reviewable.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — one registry and one writer eliminate per-file drift logic
-  and per-format special cases.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

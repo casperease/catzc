@@ -133,17 +133,3 @@ artifact with provenance** (ADR-DSGN-SELFSERV:3), landed via **trunk-based devel
 - SLSA (Supply-chain Levels for Software Artifacts) — build provenance and attestation: [slsa.dev](https://slsa.dev/)
 - Paul Hammant et al., Trunk-Based Development — the branching model and its guardrails:
   [trunkbaseddevelopment.com](https://trunkbaseddevelopment.com/)
-
-## Dora explains
-
-DORA's research consistently ties elite delivery performance to exactly the practices this ADR makes structural — version control as the
-single source of truth, trunk-based development, and automated deployment — and to lightweight, built-in change approval over heavyweight
-external review. Relevant DORA capabilities:
-
-- [Version control](https://dora.dev/capabilities/version-control/) — the single source of truth for all production artifacts.
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — small batches on trunk, short-lived branches.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — self-service delivery without manual gatekeeping.
-- [Streamlining change approval](https://dora.dev/capabilities/streamlining-change-approval/) — peer review over external change-advisory
-  boards.
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — the batch size that keeps self-service safe.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

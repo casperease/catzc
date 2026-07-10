@@ -128,18 +128,3 @@ platform, cite the principle it specialises so the lineage stays visible.
 [^1]:
     _Principles behind the Agile Manifesto_ (2001), <https://agilemanifesto.org/principles.html>. The twelve principles that accompany and
     elaborate the four values of the [Manifesto for Agile Software Development](https://agilemanifesto.org).
-
-## Dora explains
-
-DORA's technical and management capabilities are, in large part, measurable realisations of these principles — frequent delivery, low
-change-cost, team autonomy, and continuous improvement.
-
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — the operational form of early, frequent delivery of
-  working software.
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — welcoming late change is only affordable when releasing is
-  routine.
-- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — self-organising teams that own their work reflect
-  principles 5 and 11.
-- [Learning culture](https://dora.dev/capabilities/learning-culture/) — regular reflection that tunes the team's behaviour is a learning
-  culture in practice.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

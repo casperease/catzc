@@ -154,17 +154,3 @@ All errors are terminating. All warnings are terminating. Functions use `throw` 
 - The codebase has exactly two output paths: success (information stream) and failure (throw). No third path for "maybe wrong."
 - Third-party cmdlets that emit warnings will terminate under the default settings. Handle these with `-WarningAction SilentlyContinue` on
   the specific call, or use `-AllowWarnings` on the importer as a last resort.
-
-## Dora explains
-
-DORA's research links fail-fast patterns to deployment reliability—and PowerShell's complex error model tempts silent failures. Using
-terminating errors with `throw` and self-contained assertions eliminates the "maybe wrong" middle ground, surfaces problems immediately, and
-enables CI to fail clearly instead of succeeding with warnings.
-
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — fail-fast patterns prevent silent failures and corrupted
-  state.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — two-state error handling (success or throw) is simpler than
-  distinguishing warnings from errors.
-- [Test automation](https://dora.dev/capabilities/test-automation/) — deterministic error behavior makes test assertions reliable and
-  failures easy to diagnose.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.

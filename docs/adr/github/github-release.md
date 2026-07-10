@@ -109,16 +109,3 @@ workflow.
   publish end.
 - [vendor-toolset-dependencies](../automation/powershell/vendor-toolset-dependencies.md) — PSResourceGet, which packs and publishes the
   module.
-
-## Dora explains
-
-DORA links deployment automation and continuous delivery to delivery performance: a release should be a repeatable, low-ceremony, auditable
-act. A manually-dispatched workflow that always builds the artifact and publishes it GitHub-first on the built-in token makes releasing
-catzc a single deliberate action, with the credential-heavy path (the Gallery) isolated behind an opt-in key.
-
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — one dispatch builds and publishes the package to GitHub
-  with no bespoke credentials.
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — every run yields a versioned, downloadable artifact,
-  publishable the moment it is wanted.
-- [Version control](https://dora.dev/capabilities/version-control/) — a GitHub Release ties each published package to a tagged commit.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
