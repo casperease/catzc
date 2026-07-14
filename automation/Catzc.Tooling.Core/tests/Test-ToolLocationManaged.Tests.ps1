@@ -1,6 +1,9 @@
 Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
     # Prefix logic keyed on Windows paths; the Unix branches are analogous and not exercised here.
-    BeforeAll {
+    # Set-ItResult is legal only in a per-test scope, so the non-Windows skip must run in BeforeEach, not
+    # BeforeAll — calling it in BeforeAll throws and fails the whole Describe off-Windows (it silently passed
+    # on Windows only because the guard was false there).
+    BeforeEach {
         if (-not $IsWindows) {
             Set-ItResult -Skipped -Because 'windows_only_paths'
         }

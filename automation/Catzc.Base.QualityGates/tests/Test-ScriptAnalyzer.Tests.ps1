@@ -27,7 +27,7 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
 
     It 'throws when the analyzer reports violations' {
         $script:diagnostics = @(
-            [pscustomobject]@{ ScriptPath = 'C:\repo\a.ps1'; Line = 3; Column = 5; Severity = 'Warning'; RuleName = 'PSAvoidUsingCmdletAliases'; Message = 'Avoid alias' }
+            [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 3; Column = 5; Severity = 'Warning'; RuleName = 'PSAvoidUsingCmdletAliases'; Message = 'Avoid alias' }
         )
         { Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase } |
             Should -Throw '*PSScriptAnalyzer violation*'
@@ -35,9 +35,9 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
 
     It 'with -PassThru returns the violation and file counts instead of throwing' {
         $script:diagnostics = @(
-            [pscustomobject]@{ ScriptPath = 'C:\repo\a.ps1'; Line = 1; Column = 1; Severity = 'Warning'; RuleName = 'PSUseConsistentIndentation'; Message = 'Indent' }
-            [pscustomobject]@{ ScriptPath = 'C:\repo\a.ps1'; Line = 2; Column = 1; Severity = 'Warning'; RuleName = 'PSPlaceOpenBrace'; Message = 'Brace' }
-            [pscustomobject]@{ ScriptPath = 'C:\repo\b.ps1'; Line = 9; Column = 3; Severity = 'Error'; RuleName = 'PSAvoidExclaimOperator'; Message = 'Bang' }
+            [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 1; Column = 1; Severity = 'Warning'; RuleName = 'PSUseConsistentIndentation'; Message = 'Indent' }
+            [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 2; Column = 1; Severity = 'Warning'; RuleName = 'PSPlaceOpenBrace'; Message = 'Brace' }
+            [pscustomobject]@{ ScriptPath = 'repo/b.ps1'; Line = 9; Column = 3; Severity = 'Error'; RuleName = 'PSAvoidExclaimOperator'; Message = 'Bang' }
         )
         $result = Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase -PassThru
         $result.IssueCount | Should -Be 3
@@ -46,7 +46,7 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
 
     It 'writes the violations into the report file, not a console dump' {
         $script:diagnostics = @(
-            [pscustomobject]@{ ScriptPath = 'C:\repo\a.ps1'; Line = 7; Column = 1; Severity = 'Warning'; RuleName = 'PSUseConsistentWhitespace'; Message = 'Whitespace' }
+            [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 7; Column = 1; Severity = 'Warning'; RuleName = 'PSUseConsistentWhitespace'; Message = 'Whitespace' }
         )
         $result = Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase -PassThru
         (Get-Content (Join-Path $result.ReportPath 'scriptanalyzer.md') -Raw) | Should -Match 'PSUseConsistentWhitespace'
@@ -56,9 +56,9 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
 
     It 'prints one console line per file with its violation count (count-descending)' {
         $script:diagnostics = @(
-            [pscustomobject]@{ ScriptPath = 'C:\repo\a.ps1'; Line = 1; Column = 1; Severity = 'Warning'; RuleName = 'R1'; Message = 'm' }
-            [pscustomobject]@{ ScriptPath = 'C:\repo\a.ps1'; Line = 2; Column = 1; Severity = 'Warning'; RuleName = 'R2'; Message = 'm' }
-            [pscustomobject]@{ ScriptPath = 'C:\repo\b.ps1'; Line = 9; Column = 3; Severity = 'Warning'; RuleName = 'R3'; Message = 'm' }
+            [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 1; Column = 1; Severity = 'Warning'; RuleName = 'R1'; Message = 'm' }
+            [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 2; Column = 1; Severity = 'Warning'; RuleName = 'R2'; Message = 'm' }
+            [pscustomobject]@{ ScriptPath = 'repo/b.ps1'; Line = 9; Column = 3; Severity = 'Warning'; RuleName = 'R3'; Message = 'm' }
         )
         Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase -PassThru | Out-Null
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -eq 'a.ps1: 2' }
