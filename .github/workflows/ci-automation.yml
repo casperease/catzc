@@ -21,11 +21,11 @@ jobs:
       - uses: actions/checkout@v4
 
       # Pin Node to the version tools.yml expects (Assert-Tool node_js enforces it before the npm installs
-      # below). GitHub is migrating runners' default Node 20 → 24, so without this the version check fails
-      # intermittently depending on which runner image we land on.
+      # below — it pins the LTS major, currently 24). GitHub is migrating runners' default Node 20 → 24, so
+      # without this the version check fails intermittently depending on which runner image we land on.
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
 
       - name: Run tests
         shell: pwsh
