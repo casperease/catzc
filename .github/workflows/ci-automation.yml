@@ -10,6 +10,9 @@ on:
   pull_request:
     branches: [main]
     paths: [automation/**]
+  # On-demand run: the push/PR triggers fire only on automation/** changes, so a fix to the workflow itself
+  # (or the tool pins it depends on) can't be validated without this. Lets a run be kicked off manually.
+  workflow_dispatch:
 
 jobs:
   test:
