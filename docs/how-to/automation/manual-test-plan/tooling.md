@@ -9,7 +9,7 @@ check.
 
 | #   | Tier | Test file                                                          | FullNameFilter                           | Guards                                                                                                                                           |
 | --- | ---- | ------------------------------------------------------------------ | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1   | L0   | automation/Catzc.Tooling.Core/tests/Assert-ToolsConfig.Tests.ps1   | integrity (shipped tools.yml)            | The shipped `tools.yml` conforms to the validator (snake_case keys).                                                                             |
+| 1 | L0 | automation/Catzc.Tooling.Core/tests/types/ToolsConfig.Tests.ps1 | integrity (shipped tools.yml) | The shipped `tools.yml` constructs a `ToolsConfig` (snake_case keys). |
 | 2   | L0   | automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1 | shipped tools.yml (generic invariant)    | The `tools.yml` dependency graph is acyclic and install order is valid.                                                                          |
 | 3   | L0   | automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1       | asset dependencies                       | Required tooling asset files are present.                                                                                                        |
 | 4   | L0   | automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1       | structural validation                    | Every `tools.yml` entry has required fields and a valid install method.                                                                          |
@@ -18,13 +18,13 @@ check.
 
 ## Checks
 
-### 1. integrity (shipped tools.yml) — Assert-ToolsConfig
+### 1. integrity (shipped tools.yml) — ToolsConfig
 
-**Guards:** the shipped `tools.yml` conforms to its validator.
+**Guards:** the shipped `tools.yml` conforms to its config type.
 
 **Checks:**
 
-- `Assert-ToolsConfig` accepts the shipped `tools.yml` (all keys snake_case).
+- The `ToolsConfig` constructor accepts the shipped `tools.yml` (all keys snake_case).
 
 ### 2. shipped tools.yml (generic invariant)
 

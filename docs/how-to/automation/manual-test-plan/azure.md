@@ -6,13 +6,14 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 ## Index
 
-| #   | Tier | Test file                                                              | FullNameFilter                   | Guards                                                                                                    |
-| --- | ---- | ---------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| 1 | L0 | automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1 | integrity (shipped azure.yml) | The shipped `azure.yml` loads through `AzureConfig` (schema + cross-record validation), and its customer references resolve. |
-| 2 | L0 | automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1 | integrity (shipped network.yml) | The shipped `network.yml` loads through `NetworkConfig`: valid CIDRs and env completeness. |
-| 3   | L0   | automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1 | Shipped template integrity       | Every shipped template is discoverable, well-formed, and structurally valid.                              |
-| 4   | L0   | automation/Catzc.Azure.Templates/tests/Get-Config.Integrity.Tests.ps1  | Shipped asset integrity          | Templates reference only defined environments and customers.                                              |
-| 5 | L0 | automation/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1 | integrity (shipped customer.yml) | The shipped customer.yml loads through `CustomerConfig` — customer keys/shortcodes are well-formed, unique, and non-colliding. |
+| #   | Tier | Test file                                                              | FullNameFilter                   | Guards                                                                                                                         |
+| --- | ---- | ---------------------------------------------------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | L0   | automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1               | integrity (shipped azure.yml)    | The shipped `azure.yml` loads through `AzureConfig` (schema + cross-record validation), and its customer references resolve.   |
+| 2   | L0   | automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1             | integrity (shipped network.yml)  | The shipped `network.yml` loads through `NetworkConfig`: well-formed entries with valid CIDRs. |
+| 3   | L0   | automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1 | Shipped template integrity       | Every shipped template is discoverable, well-formed, and structurally valid.                                                   |
+| 4   | L0   | automation/Catzc.Azure.Templates/tests/Get-Config.Integrity.Tests.ps1  | Shipped asset integrity          | Templates reference only defined environments and customers.                                                                   |
+| 5   | L0   | automation/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1            | integrity (shipped customer.yml) | The shipped customer.yml loads through `CustomerConfig` — customer keys/shortcodes are well-formed, unique, and non-colliding. |
+| 6 | L0 | automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1 | Azure network plan sync | `Test-AzureNetworkPlan` reports 0 issues: the shipped `network.yml` and the `azure.yml` environments are in sync (ADR-AZ-NETWORK#2). |
 
 ## Checks
 
@@ -28,11 +29,11 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 ### 2. integrity (shipped network.yml)
 
-**Guards:** the shipped `network.yml` is valid and complete relative to `azure.yml`.
+**Guards:** the shipped `network.yml` is valid on its own; its sync with `azure.yml` is row 6.
 
 **Checks:**
 
-- The shipped `network.yml` loads through `Get-Config` as a `NetworkConfig` (valid CIDRs, every standard env present).
+- The shipped `network.yml` loads through `Get-Config` as a `NetworkConfig` (well-formed entries, valid CIDRs).
 
 ### 3. Shipped template integrity
 

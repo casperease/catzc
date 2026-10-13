@@ -21,8 +21,9 @@ of the Azure stack needs. It holds the source-of-truth configuration; the templa
 The declared shape of the Azure estate: the tenants, the customers (each with a readable key and a short code), the environments (each with
 a region, region code, and short code), and the subscriptions (each bound to a tenant, optionally to a customer, and serving a set of
 environments). Overlaid on this is the per-environment IP plan. This is data, not behaviour — it lives in two configuration assets,
-`azure.yml` and `network.yml`, and is the single source of truth the whole Azure stack resolves against. See
-[data-model](../../adr/azure/azure-data-model.md) and [network-model](../../adr/azure/azure-network-model.md).
+`azure.yml` and `network.yml`, and is the single source of truth the whole Azure stack resolves against; a quality gate keeps the IP plan in
+step with the environments. See [data-model](../../adr/azure/azure-data-model.md) and
+[network-model](../../adr/azure/azure-network-model.md).
 
 ### domain:2 — Subscription resolution
 
@@ -43,9 +44,10 @@ estate requires. These are thin readers over the identity model for callers that
 ## What the module does
 
 This module is pure resolution over a declared model. It performs no Azure API calls and changes no state — it reads `azure.yml` and
-`network.yml`, validates their internal consistency on load, and answers questions about identity. The governing principle is "optimise for
-ease of configuration and codebase-as-source-of-truth": the configuration is shaped for a human to read and edit, and the non-trivial joins
-between its dimensions live here, in code, rather than being denormalised into the config.
+`network.yml`, validates each through its config type on load, checks with a quality gate that the network plan and the environments stay in
+sync, and answers questions about identity. The governing principle is "optimise for ease of configuration and codebase-as-source-of-truth":
+the configuration is shaped for a human to read and edit, and the non-trivial joins between its dimensions live here, in code, rather than
+being denormalised into the config.
 
 The model has two independent dimensions — subscriptions and environments — that meet at deployment time. Domain 2 resolves the subscription
 dimension, domain 3 resolves the environment dimension _in the context of_ a subscription, and the catalog accessors in domain 4 expose the
@@ -62,7 +64,8 @@ The module's public functions and configuration, sorted into the domains above.
 
 | Domain                                 | Function                           |
 | -------------------------------------- | ---------------------------------- |
-| domain:1 — Identity and topology model | `azure.yml`                        |
+| domain:1 — Identity and topology model | `Test-AzureNetworkPlan`            |
+| config                                 | `azure.yml`                        |
 |                                        | `network.yml`                      |
 | domain:2 — Subscription resolution     | `Get-AzureSubscription`            |
 |                                        | `Get-AzureSubscriptionCustomer`    |

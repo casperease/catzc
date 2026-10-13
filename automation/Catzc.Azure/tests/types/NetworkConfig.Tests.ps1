@@ -22,27 +22,7 @@ Describe 'NetworkConfig' -Tag 'L0' {
 
     Context 'logic (fixture configs)' -Tag 'logic' {
         BeforeAll {
-            # The type cross-checks the network plan against azure.yml's environments. The two-argument
-            # constructor takes a fixture azure config with the SAME Greek env set, so the logic test is hermetic
-            # — it does not depend on which environments the shipped azure.yml happens to declare today.
-            $environment = { param($code) [ordered]@{ shortcode = $code; region = 'westeurope'; region_code = 'weu' } }
-            $script:fixtureAzure = [Catzc.Azure.AzureConfig]::new([ordered]@{
-                    org               = 'tst'
-                    bicep_min_version = '0.30.0'
-                    tenants           = [ordered]@{ fixtenant = [ordered]@{ id = 'fa0e0000-7e0a-0700-1d00-000000000000' } }
-                    subscriptions     = [ordered]@{
-                        core_lower = [ordered]@{ id = '50a0ed00-de00-50b0-0000-000000000000'; tenant = 'fixtenant'; environments = @('alpha') }
-                    }
-                    environments      = [ordered]@{
-                        alpha = (& $environment 'al')
-                        beta  = (& $environment 'bt')
-                        gamma = (& $environment 'gm')
-                        delta = (& $environment 'dl')
-                        nsub  = [ordered]@{ shortcode = 'ns'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
-                        psub  = [ordered]@{ shortcode = 'ps'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
-                    }
-                })
-            $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Azure.NetworkConfig]::new($raw, $script:fixtureAzure) }
+            $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Azure.NetworkConfig]::new($raw) }
         }
 
         It 'passes for a minimal valid config' {
@@ -87,18 +67,6 @@ Describe 'NetworkConfig' -Tag 'L0' {
             { & $script:make $bad } | Should -Throw '*invalid vnet_address_space*'
         }
 
-        It 'throws when a network environment is not defined in azure.yml' -Tag 'ADR-AZ-NETWORK#2' {
-            $bad = Copy-Object $baseConfig
-            $bad.environments.Add('ghost', [ordered]@{ vnet_address_space = '10.99.0.0/16'; default_subnet = '10.99.0.0/24' })
-            { & $script:make $bad } | Should -Throw '*not a defined azure.yml environment*'
-        }
-
-        It 'throws when an azure.yml environment has no network entry' -Tag 'ADR-AZ-NETWORK#2' {
-            $bad = Copy-Object $baseConfig
-            $bad.environments.Remove('delta')
-            { & $script:make $bad } | Should -Throw "*environment 'delta' has no network entry*"
-        }
-
         It 'throws when an environment key is not a valid identifier' {
             $bad = Copy-Object $baseConfig
             $bad.environments.Add('Bad-Env', [ordered]@{ vnet_address_space = '10.50.0.0/16'; default_subnet = '10.50.0.0/24' })
@@ -117,28 +85,10 @@ Describe 'NetworkConfig' -Tag 'L0' {
         It 'reports every violation in one throw' {
             $bad = Copy-Object $baseConfig
             $bad.environments.alpha.vnet_address_space = 'not-a-cidr'
-            $bad.environments.Remove('delta')
+            $bad.environments.beta.Remove('default_subnet')
             $err = { & $script:make $bad } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike '*invalid vnet_address_space*'
-            $err.Exception.Message | Should -BeLike "*environment 'delta' has no network entry*"
-        }
-    }
-
-    Context 'logic (registry path reads the session azure config)' -Tag 'logic' {
-        It 'checks the plan against Get-Config -Config azure when given no azure config' {
-            # The fixture azure.yml/network.yml pair (Greek envs) through the discovery seam.
-            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
-                @{ Name = $Config; Module = 'Catzc.Azure'
-                    Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure/tests/assets/config/$Config.yml"
-                }
-            }
-            InModuleScope Catzc.Base.Config { $script:configCache = $null }
-            (Get-Config -Config network).environments.Keys | Should -Contain 'alpha'
-            $bad = Copy-Object $baseConfig
-            $bad.environments.Add('ghost', [ordered]@{ vnet_address_space = '10.99.0.0/16'; default_subnet = '10.99.0.0/24' })
-            { InModuleScope Catzc.Base.Config -Parameters @{ Raw = $bad } { [Catzc.Azure.NetworkConfig]::new($Raw) } } |
-                Should -Throw "*network environment 'ghost' is not a defined azure.yml environment*"
-            InModuleScope Catzc.Base.Config { $script:configCache = $null }
+            $err.Exception.Message | Should -BeLike "*missing 'default_subnet'*"
         }
     }
 }

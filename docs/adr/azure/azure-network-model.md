@@ -21,8 +21,8 @@ reads them from `Get-Config -Config network` in its prepare hook and merges them
 
 ### Rule ADR-AZ-NETWORK:2
 
-Key the plan by environment name, matching `azure.yml`; the two assets stay in sync via the config type's load-time check, not by convention
-alone.
+Key the plan by environment name, matching `azure.yml`; the two assets stay in sync through a quality gate, `Test-AzureNetworkPlan`, not by
+convention alone. Each config type checks only its own file; the join of the two is the gate's.
 
 - [Validation (`NetworkConfig`)](#validation)
 
@@ -91,7 +91,7 @@ environments:
 - **Required shape.** Top-level `environments` map; each entry has `vnet_address_space` and `default_subnet`.
 - **Format.** Each environment name is a valid lower-snake_case identifier (`^[a-z][a-z0-9_]*$`); each range is an IPv4 CIDR (`a.b.c.d/n`,
   `0 ≤ n ≤ 32`), validated with `[System.Net.IPAddress]`.
-- **Cross-asset integrity with `azure.yml`** (the join):
+- **Cross-asset integrity with `azure.yml`** (the join, checked by the quality gate `Test-AzureNetworkPlan`, not by the type):
   - every network environment is a **defined `azure.yml` environment** (no ghost entries);
   - every **standard** `azure.yml` environment has a network entry;
   - **per-subscription** environments (`per_subscription: true` — `nsub`/`psub`) are **exempt**: they identify a subscription's foundation
@@ -101,8 +101,9 @@ environments:
 ### How this is enforced
 
 - `Get-Config -Config network` loads and validates the file through its registered config type, `NetworkConfig`.
-- `NetworkConfig` (with `NetworkEnvironment` for each entry) performs the shape, format, and cross-asset checks above; the cross-asset join
-  reads `azure.yml` through `Get-Config`.
+- `NetworkConfig` (with `NetworkEnvironment` for each entry) performs the shape and format checks above, on `network.yml` alone.
+- `Test-AzureNetworkPlan` (a quality gate, [`test-automation`](../automation/test-automation.md) `ADR-AUTO-TEST#35`) performs the
+  cross-asset join over the two loaded configs and lists every violation; its integrity test runs it over the shipped files.
 - The shipped `network.yml` is exercised by the same integrity discipline as `azure.yml` (see
   [`test-automation`](../automation/test-automation.md)).
 

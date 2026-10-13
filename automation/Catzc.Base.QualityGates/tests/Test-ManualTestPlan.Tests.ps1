@@ -3,7 +3,8 @@
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {
     BeforeAll {
-        function Set-FixtureFile([string] $Path, [string] $Content) {
+        function Set-FixtureFile {
+            param([string] $Path, [string] $Content)
             $full = Join-Path $TestDrive "repo/$Path"
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($full))
             [System.IO.File]::WriteAllText($full, $Content)

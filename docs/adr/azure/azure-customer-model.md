@@ -92,7 +92,8 @@ only because keys and shortcodes are disjoint name-spaces (a key that equalled a
 
 `The reference is checked by integrity and at runtime, not at load`
 
-`network.yml` cross-checks `azure.yml` during its own validation because few tests load `network.yml`. `azure.yml` is different: it is
+A config type validates its own file and never reads another config: a cross-asset join is checked outside the load (the
+`network.yml`↔`azure.yml` join is the `Test-AzureNetworkPlan` quality gate). The customer reference matters most because `azure.yml` is
 loaded by almost every Azure test, so making `AzureConfig` read `customer.yml` to validate the `customer` FK would couple all of them to the
 catalogue (and its fixture). The reference is therefore enforced where it costs nothing hermetic:
 
