@@ -175,7 +175,7 @@ sibling `infrastructure/modules/` — referenced by templates via a relative `mo
 `configuration/<customer>/<env>[-<slot>].yml`, where the folder is always a customer KEY. The filename is `<env-name>[-<slot>]` —
 `develop.yml` (the base / index-0 slot) or `develop-blue.yml` (a special slot). Discovery parses the filename by splitting on the first `-`:
 the `name` part must be a defined environment, the remainder is the optional `slot` (≤3 alnum). The subscription is resolved per config from
-the coordinate and asserted unique (ADR-AZ-DATAMOD:3).
+the coordinate and asserted unique (ADR-AZ-DATAMOD#3).
 
 **Customer is the one path dimension.** A config's customer is its subfolder ('' for a root config) — "is this a customer config?" is
 answered by the path alone. Deploy/build name the env and slot as **distinct args** (`-Environment develop [-Slot blue]`); at deploy time

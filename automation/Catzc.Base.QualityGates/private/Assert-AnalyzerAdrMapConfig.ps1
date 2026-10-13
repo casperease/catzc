@@ -9,7 +9,8 @@
     non-empty, that every rule maps to at least one id, and that each id is a well-formed 'ADR-<CODE>#<n>'. It
     does NOT check that each id names a real rule, nor that every custom analyzer is mapped: those cross-asset
     facts are enforced by an integrity test, not at load, so loading this config never reads the ADR tree or
-    the .scriptanalyzer folder (the ADR-AZ-CUSTOMER:3 pattern — keep config load hermetic).
+    the .scriptanalyzer folder (the [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)
+    pattern — keep config load hermetic).
 
     Auto-dispatched by Get-Config when loading the 'analyzer-adr-map' config.
 #>

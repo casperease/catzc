@@ -103,9 +103,9 @@ customer's configuration surface.
 
 ## Decision
 
-Name the concept: repository root concerns are **tracks** — folder-named (ADR-DSGN-TRACK:1), classified core/port/adapter
-(ADR-DSGN-TRACK:2), one tech-stack each (ADR-DSGN-TRACK:3), subscribable only via depms and globset projections (ADR-DSGN-TRACK:4), and
-shipped through deployable-units that bind pipelines 1-1 (ADR-DSGN-TRACK:5).
+Name the concept: repository root concerns are **tracks** — folder-named (ADR-DSGN-TRACK#1), classified core/port/adapter
+(ADR-DSGN-TRACK#2), one tech-stack each (ADR-DSGN-TRACK#3), subscribable only via depms and globset projections (ADR-DSGN-TRACK#4), and
+shipped through deployable-units that bind pipelines 1-1 (ADR-DSGN-TRACK#5).
 
 ### How this is enforced
 

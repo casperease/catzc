@@ -11,7 +11,8 @@ Describe 'Build-EnglishDictionary' -Tag 'L0', 'logic' {
 # source-only: it reads the committed artifact in the repository, which gives the same answer in both run modes.
 Describe 'Build-EnglishDictionary — committed dictionary drift guard' -Tag 'L1', 'integrity', 'source-only' {
     # Binds to the shipped english.txt.gz + its stamp and the pinned tools.yml version — an integrity test
-    # (ADR-AUTO-TEST:1). It detects a stale dictionary WITHOUT re-running node: it compares the recorded cspell version
+    # ([ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1)). It detects a stale dictionary
+    # WITHOUT re-running node: it compares the recorded cspell version
     # against the tools.yml pin, and the recorded word count against the actual gz. Re-run Build-EnglishDictionary
     # (and commit the gz + stamp) when a failure says the pin moved.
     BeforeAll {

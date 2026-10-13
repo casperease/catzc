@@ -6,10 +6,11 @@
     managed uninstall. Idempotent — skips if the directory does not exist. For a .NET installed OUTSIDE the
     tooling system (a system SDK, an apt package), escalate with -Remove -Force: the managed uninstall runs
     best-effort and then falls through to Remove-Dotnet, which evicts whatever the configured manager did not
-    own (docs/adr/automation/tool-removal-lifecycle.md, ADR-AUTO-REMOVE:5).
+    own ([ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
 .PARAMETER Remove
     After the managed uninstall, escalate to Remove-Dotnet to evict an off-config install. Pair with -Force to
-    actually remove; -Remove alone reports the plan (ADR-AUTO-REMOVE:4).
+    actually remove; -Remove alone reports the plan
+    ([ADR-AUTO-REMOVE#4](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)).
 .PARAMETER Force
     Confirm the destructive Remove-Dotnet step of the escalation. Ignored without -Remove.
 .EXAMPLE
@@ -25,7 +26,8 @@ function Uninstall-Dotnet {
     )
 
     # Managed uninstall best-effort; with -Remove a failure is logged and the escalation proceeds, without
-    # -Remove it propagates (ADR-AUTO-ERROR:6, ADR-AUTO-REMOVE:5).
+    # -Remove it propagates ([ADR-AUTO-ERROR#6](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error6),
+    # [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
     try {
         $config = Get-ToolConfig -Tool 'dotnet'
 

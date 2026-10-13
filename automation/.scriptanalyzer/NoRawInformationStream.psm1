@@ -17,7 +17,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Write-ImporterMessage, is exempt for the same reason: it is the writer of the import itself, which runs before
     Write-Message is loaded.
 
-    See ADR: docs/adr/automation/test-automation.md (the Pester-suppression chokepoint).
+    See ADR: [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md) (the Pester-suppression chokepoint).
 #>
 
 function Measure-NoRawInformationStream {
@@ -33,7 +33,8 @@ function Measure-NoRawInformationStream {
     $ruleName = 'Measure-NoRawInformationStream'
     $exemptFunctions = @('Write-InformationColored', 'Write-ImporterMessage')
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
+    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
     $isCommand = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]

@@ -1,4 +1,5 @@
-# Assert-VscodeLaunchConfig is private, so it is exercised through the module (ADR-AUTO-PESTER:4).
+# Assert-VscodeLaunchConfig is private, so it is exercised through the module
+# ([ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)).
 Describe 'Assert-VscodeLaunchConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:assert = {

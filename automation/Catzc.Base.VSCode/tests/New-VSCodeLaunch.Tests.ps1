@@ -1,6 +1,8 @@
 Describe 'New-VSCodeLaunch' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the config seam (ADR-AUTO-PESTER:2): a small fixture registry.
+        # Isolate through the config seam
+        # ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)): a small
+        # fixture registry.
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [ordered]@{
                 version        = '0.2.0'

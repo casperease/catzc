@@ -9,7 +9,8 @@
 # Reference shape: 'sc-nova-nonprod' is illustrative until real service connections + a non-placeholder
 # azure.yml exist.
 
-# Trigger = the 'nova' globset projected into ADO-native path filters (Get-GlobSetTrigger, ADR-FLOW-CD-GLOBS):
+# Trigger = the 'nova' globset projected into ADO-native path filters (Get-GlobSetTrigger,
+# [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)):
 # shared foundation + modules, plus nova's own configuration subfolder, minus the other deployments' config.
 trigger:
   branches:

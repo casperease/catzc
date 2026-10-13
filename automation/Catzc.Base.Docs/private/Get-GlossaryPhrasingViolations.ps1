@@ -3,8 +3,10 @@
     Lists the uses of avoided phrasings within each glossary source's scope (gate G4) — one message per use.
 .DESCRIPTION
     An avoided phrasing blurs a defined term, so prose within its source's scope never uses it
-    (docs/adr/repository/controlled-vocabulary.md, ADR-REPO-VOCAB:5). For every source whose `gates` include `avoid`,
-    this reads the tracked files its `scope` matches and its `exclude` does not (ADR-REPO-VOCAB:2), on the text
+    ([ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)). For every source whose
+    `gates` include `avoid`,
+    this reads the tracked files its `scope` matches and its `exclude` does not
+    ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)), on the text
     surfaces its `surfaces` name:
       - markdown — the prose of `*.md` files: fenced code blocks are skipped;
       - comments — PowerShell comments that are not comment-based help;

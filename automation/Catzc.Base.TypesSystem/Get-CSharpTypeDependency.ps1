@@ -21,7 +21,7 @@
     acyclic allow-list (configs/dependencies.yml, asserted by the L2 tests) governs C# type layering.
 
     Reads the per-module types/*.cs sources, which exist only in the source tree, so it stops with a named
-    error in build mode (Assert-SourceTree, ADR-DSGN-RUNMODE).
+    error in build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to $env:RepositoryRoot/automation.
 .EXAMPLE
@@ -51,7 +51,8 @@ function Get-CSharpTypeDependency {
         }
 
         # [System.IO] (sorted) instead of Get-ChildItem/Get-Content — ~20ms-per-call cmdlet overhead the raw
-        # .NET enumeration + read avoid (ADR-AUTO-TEST:18).
+        # .NET enumeration + read avoid
+        # ([ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)).
         foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs') | Sort-Object)) {
             $csName = [System.IO.Path]::GetFileName($cs)
             # Strip block comments, line comments, then double- and single-quoted literals, so only real code

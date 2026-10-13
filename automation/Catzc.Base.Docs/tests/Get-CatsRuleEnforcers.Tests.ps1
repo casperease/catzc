@@ -9,7 +9,8 @@ Describe 'Get-CatsRuleEnforcers integrity' -Tag 'L1', 'integrity', 'source-only'
     }
 
     It 'credits a tagged test, read from the tree by its -Tag citation' {
-        # ADR-AUTO-TEST#27 is cited as a -Tag by the provenance tests, so those files enforce it.
+        # [ADR-AUTO-TEST#27](/docs/adr/automation/test-automation.md#rule-adr-auto-test27) is cited as a -Tag by the
+        # provenance tests, so those files enforce it.
         $script:enforcers.ContainsKey('ADR-AUTO-TEST#27') | Should -BeTrue
         ($script:enforcers['ADR-AUTO-TEST#27'].Tests -join ';') | Should -Match 'Get-TestRuleTags\.Tests\.ps1'
     }

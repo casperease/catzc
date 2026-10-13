@@ -2,7 +2,8 @@
 .SYNOPSIS
     Returns the controlled vocabulary: every concept of every glossary source, merged and sorted by term.
 .DESCRIPTION
-    Merges the opting-in modules' configs/glossary.yml sources (Get-GlossarySources, ADR-REPO-VOCAB:2) into one
+    Merges the opting-in modules' configs/glossary.yml sources (Get-GlossarySources,
+    [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)) into one
     list of Catzc.Base.Docs.GlossaryEntry: each concept with the module that declares it, that source's
     repo-relative path, and the source's defaulted options. Sorted by term (ordinal), so the result reads like a
     glossary and is stable across runs.
@@ -11,7 +12,8 @@
     a contrast that is not reciprocal, an untracked source — are not checked here. They belong to the glossary
     gates (Get-GlossarySourceViolations), so a reader always gets the vocabulary as declared.
 
-    The result is cached for the session per repository root (ADR-AUTO-PSCACHE); re-run the importer to pick up
+    The result is cached for the session per repository root
+    ([ADR-AUTO-PSCACHE](/docs/adr/automation/powershell/script-scope-caching.md)); re-run the importer to pick up
     an edited glossary. Callers treat it as read-only (the same array is returned on every call).
 .OUTPUTS
     [Catzc.Base.Docs.GlossaryEntry[]] Empty when no module ships a glossary.
@@ -24,7 +26,8 @@ function Get-Glossary {
     param()
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:glossaryCache')) {
-        $script:glossaryCache = @{}   # strict-clean probe of the lazy slot (ADR-AUTO-PSCACHE:4)
+        $script:glossaryCache = @{}   # strict-clean probe of the lazy slot
+                                      # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
     }
     $cacheKey = Get-RepositoryRoot
     if ($script:glossaryCache.ContainsKey($cacheKey)) {

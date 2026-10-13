@@ -7,13 +7,15 @@
     Assert-<Name>Config convention or load raw). Loaded directly here (not via Get-Config, to avoid
     circularity), validated by the C# type Catzc.Base.Config.ConfigsConfig (which the registry registers for
     its own 'configs' config), and cached for the session. The file is located through Get-CatzcModuleRoot, so
-    the shipped registry resolves inside the loaded module in both run modes (ADR-AUTO-ASSETDEP:1).
+    the shipped registry resolves inside the loaded module in both run modes
+    ([ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)).
 #>
 function Get-ConfigRegistry {
     [OutputType([System.Collections.IDictionary])]
     param()
 
-    $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:configRegistryCache')   # strict-clean (ADR-AUTO-PSCACHE:4)
+    $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:configRegistryCache')   # strict-clean
+                                                                                                 # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
     if ($null -ne $cached) {
         return $cached
     }

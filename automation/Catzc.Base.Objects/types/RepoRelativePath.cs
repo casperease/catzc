@@ -1,12 +1,14 @@
-// A path value that carries both forms of the path-representation contract (docs/adr/automation/path-representation.md):
+// A path value that carries both forms of the path-representation contract ([ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)):
 // it stores the canonical repo-root-RELATIVE form (forward slashes, normalized) and derives the absolute
 // BINDING form on demand via ToAbsolute(root). Storing relative keeps records/configs portable and
 // machine-independent; deriving absolute only at the bind keeps the value root-agnostic and serialization-safe
 // (the relative string is the only thing persisted). A channel that renders the value picks: ToString()/Relative
-// for logs and storage (ADR-AUTO-PATH:8), ToAbsolute(root) at the point of binding (ADR-AUTO-PATH:3).
+// for logs and storage ([ADR-AUTO-PATH#8](/docs/adr/automation/path-representation.md#rule-adr-auto-path8)), ToAbsolute(root) at the point
+// of binding ([ADR-AUTO-PATH#3](/docs/adr/automation/path-representation.md#rule-adr-auto-path3)).
 //
 // Input is a communication-form path string. A rooted input has no
-// repo-relative form and is kept as a normalized absolute path — the degrade case (ADR-AUTO-PATH:5). A relative input
+// repo-relative form and is kept as a normalized absolute path — the degrade case
+// ([ADR-AUTO-PATH#5](/docs/adr/automation/path-representation.md#rule-adr-auto-path5)). A relative input
 // that escapes the root (a leading '..') has no valid communication form and throws.
 
 using System;
@@ -21,7 +23,8 @@ public sealed class RepoRelativePath
     // otherwise a normalized absolute path (the degrade case). This is the only field persisted.
     public string Relative { get; }
 
-    // True when there is no repo-relative form and Relative holds a normalized absolute path (ADR-AUTO-PATH:5).
+    // True when there is no repo-relative form and Relative holds a normalized absolute path
+    // ([ADR-AUTO-PATH#5](/docs/adr/automation/path-representation.md#rule-adr-auto-path5)).
     public bool IsRooted { get; }
 
     public RepoRelativePath(string path)

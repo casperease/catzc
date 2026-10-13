@@ -1,4 +1,5 @@
-# The derived globsets (ADR-REPO-PROTGLOB:7): folder = module = set (readme-kebab name), one single-file set per
+# The derived globsets ([ADR-REPO-PROTGLOB#7](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob7)): folder
+# = module = set (readme-kebab name), one single-file set per
 # internal .psm1 module, reserved infra scopes, one shared name space with the declared registry. Derived
 # sets never enter GlobsConfig but scope protection and blast radius through the same Matches() machinery.
 Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
@@ -11,7 +12,8 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
             'automation/.internal/Catzc.Internal.Alpha.psm1' = 'function Test-InternalAlpha {}'
             'automation/.internal/Catzc.Internal.Beta.psm1'  = 'function Test-InternalBeta {}'
         }
-        # Neutral fixture globset name (widget), not the real 'automation' set (ADR-AUTO-TEST:3); this declared
+        # Neutral fixture globset name (widget), not the real 'automation' set
+        # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); this declared
         # set only needs to exist so the shadow-check has a registry to compare the derived names against.
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**') } }
@@ -96,7 +98,8 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
     }
 }
 
-# The reserved-name guard lives in the registry type itself (ADR-REPO-PROTGLOB:7).
+# The reserved-name guard lives in the registry type itself
+# ([ADR-REPO-PROTGLOB#7](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob7)).
 Describe 'GlobsConfig reserved names' -Tag 'L0', 'logic' {
     It 'rejects a declared set named after a reserved infra scope' {
         {

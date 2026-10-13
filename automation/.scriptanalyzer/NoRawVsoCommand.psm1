@@ -15,7 +15,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     OUTSIDE the function Set-AdoPipelineVariable. The canonical setter is the one
     sanctioned place that emits the raw command, so it is exempt.
 
-    See ADR: docs/adr/pipelines/pipeline-variables.md#rule-adr-pipe-var1 (rule ADR-PIPE-VAR:1).
+    See ADR: [ADR-PIPE-VAR#1](/docs/adr/pipelines/pipeline-variables.md#rule-adr-pipe-var1).
 #>
 
 function Measure-NoRawVsoCommand {

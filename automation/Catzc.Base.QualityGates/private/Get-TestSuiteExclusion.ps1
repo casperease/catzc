@@ -2,7 +2,8 @@
 .SYNOPSIS
     Lists the tests a suite opt-out tag removes from a run, so the exclusion is visible, never silent.
 .DESCRIPTION
-    The build suite (Test-CatzcBuild) excludes every test tagged 'source-only' (ADR-AUTO-TEST:31) and must count
+    The build suite (Test-CatzcBuild) excludes every test tagged 'source-only'
+    ([ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)) and must count
     and list each one it leaves out. This walks the run's discovery and returns, for every test in the run's
     files that resolves to the tag along its block chain (Get-TestBlockTag — own It-tags, then each ancestor),
     one row — but only when the run would otherwise have executed it: a test whose tier or category is already

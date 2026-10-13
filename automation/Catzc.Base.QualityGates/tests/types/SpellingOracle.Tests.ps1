@@ -32,7 +32,8 @@ Describe 'SpellingOracle.Tokenize' -Tag 'L0', 'logic' {
 Describe 'SpellingOracle.CoinedFragments (shipped dictionary)' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         # Binds to the shipped English list + the generated term lists — an integrity test by construction
-        # (ADR-AUTO-TEST:1): it verifies the real oracle, not a fixture. The static load is idempotent, so this is safe
+        # ([ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1)): it verifies the real oracle,
+        # not a fixture. The static load is idempotent, so this is safe
         # to run alongside any other consumer in the same process.
         $englishPath = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/assets/english.txt.gz'
         $allTermPaths = @(Get-ChildItem (Join-Path (Get-RepositoryRoot) '.cspell/*.txt') | ForEach-Object FullName)

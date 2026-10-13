@@ -2,7 +2,9 @@
 .SYNOPSIS
     Runs the build suite: the same tests as Test-Automation, against a fresh build of the selected modules.
 .DESCRIPTION
-    The second of the two suites over one body of tests (ADR-AUTO-TEST:30, ADR-DSGN-RUNMODE:6). It builds the
+    The second of the two suites over one body of tests
+    ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30),
+    [ADR-DSGN-RUNMODE#6](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode6)). It builds the
     selected modules with Build-Modules (vendor policy 'full', so Pester and PSScriptAnalyzer ship with the build)
     into a fresh temporary destination, then runs the Test-Automation harness unchanged in shape — discovery,
     the tier/category tag gates, sharding, rows, reports — with one seam swapped: each shard worker dot-sources
@@ -10,7 +12,8 @@
     against the merged, built modules while out/ and the test fixtures keep resolving in the repository.
 
     Test files come from the source tree, limited to the tests/ folders of the modules the selection resolves to
-    (the dependency closure Build-Modules computes). Tests tagged 'source-only' (ADR-AUTO-TEST:31) are excluded
+    (the dependency closure Build-Modules computes). Tests tagged 'source-only'
+    ([ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)) are excluded
     and counted and listed — on the console and in excluded-tests.csv in the run directory — never silently.
     Reports go to <out>/test-catzc-build/, so the two suites' reports never overwrite each other. The build is
     deleted when the run ends.
@@ -29,7 +32,8 @@
     Minimum test tier. Defaults to 0.
 .PARAMETER MaxLevel
     Maximum test tier (alias: -Level). Defaults to 3, as in Test-Automation: L0-L3 when the run owns the
-    working folder, L0-L2 in a snapshot, which skips L3 and says so (ADR-AUTO-TEST:33).
+    working folder, L0-L2 in a snapshot, which skips L3 and says so
+    ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
 .PARAMETER Category
     Logic, Integrity, or Both (the default) — as in Test-Automation.
 .PARAMETER Workers

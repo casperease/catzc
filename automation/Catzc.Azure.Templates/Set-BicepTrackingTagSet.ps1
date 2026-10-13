@@ -29,7 +29,7 @@
 #>
 function Set-BicepTrackingTagSet {
     # State-changing function deliberately uses -DryRun, not ShouldProcess — see
-    # docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    # [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-AUTO-DRYRUN#5')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]

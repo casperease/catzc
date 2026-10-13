@@ -80,10 +80,10 @@ This platform separates every test into a **logic** test (isolated from shipped 
 an **integrity** test (bound deliberately to the real, shipped files) — never both at once — and tags every test with one of four
 integration tiers, `L0`–`L3`, so a suite runs unit-speed by default and only reaches a real CLI tool or the cloud when a test opts in
 ([ADR-AUTO-TEST](../automation/test-automation.md#rule-adr-auto-test1), tiers at
-[ADR-AUTO-TEST:8](../automation/test-automation.md#rule-adr-auto-test8)). Slow, duplicated integration coverage is pushed left into fast L0
+[ADR-AUTO-TEST#8](../automation/test-automation.md#rule-adr-auto-test8)). Slow, duplicated integration coverage is pushed left into fast L0
 logic tests, leaving only a thin walking skeleton at the integration tier — one test per distinct integration concern, never one per input
-case ([ADR-AUTO-TEST:22](../automation/test-automation.md#rule-adr-auto-test22)). The aggregate Build Verification Test is the one pass/fail
-verdict a commit must clear before it reaches master ([ADR-AUTO-TEST:24](../automation/test-automation.md#rule-adr-auto-test24)), the
+case ([ADR-AUTO-TEST#22](../automation/test-automation.md#rule-adr-auto-test22)). The aggregate Build Verification Test is the one pass/fail
+verdict a commit must clear before it reaches master ([ADR-AUTO-TEST#24](../automation/test-automation.md#rule-adr-auto-test24)), the
 pipeline-level version of "a change does not pass until its tests do."
 
 The concrete authoring idioms — mocking at module boundaries, isolating through seams rather than editing production data, and the

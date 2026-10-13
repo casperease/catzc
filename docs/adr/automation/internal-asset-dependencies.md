@@ -23,14 +23,14 @@ keep in step.
 
 Every function with an internal asset dependency is covered by at least one test that reads the real asset (the read is not mocked away),
 carries the citation tag `ADR-AUTO-ASSETDEP#3`, and is not tagged `source-only`, so it runs in both the source suite and the build suite.
-Because it reads a shipped asset, it is an `integrity` test (ADR-AUTO-TEST:1); the function's logic tests keep using fixtures.
+Because it reads a shipped asset, it is an `integrity` test (ADR-AUTO-TEST#1); the function's logic tests keep using fixtures.
 
 - [A real-asset test that runs in both suites](#a-real-asset-test-that-runs-in-both-suites)
 
 ### Rule ADR-AUTO-ASSETDEP:4
 
 The rule is gated mechanically. A coverage gate fails the run when a function listed by `Get-InternalAssetDependency` has no test that
-satisfies ADR-AUTO-ASSETDEP:3, naming the function and its uncovered child paths. A build gate fails `Build-Modules` when any listed
+satisfies ADR-AUTO-ASSETDEP#3, naming the function and its uncovered child paths. A build gate fails `Build-Modules` when any listed
 (module, child path) is absent from the built output.
 
 - [Two gates: coverage and presence](#two-gates-coverage-and-presence)
@@ -112,8 +112,8 @@ the coverage gate is red, so the change cannot merge ([poka-yoke](../principles/
 - **`Get-CatzcModuleRoot`** (`Catzc.Base.Repository`) — the one helper for a module's own content.
 - **`Measure-NoScriptRootAnchor`** (`automation/.scriptanalyzer/`) — flags `$PSScriptRoot` in module function files.
 - **`Get-InternalAssetDependency`** (`Catzc.Base.ModuleSystem`) — derives the inventory from the code.
-- **The coverage gate** — an integrity test over the inventory, in both suites (ADR-AUTO-ASSETDEP:4).
-- **The build gate** — `Build-Modules` / `Assert-CatzcBundle` check every inventoried path in the built output (ADR-AUTO-ASSETDEP:4).
+- **The coverage gate** — an integrity test over the inventory, in both suites (ADR-AUTO-ASSETDEP#4).
+- **The build gate** — `Build-Modules` / `Assert-CatzcBundle` check every inventoried path in the built output (ADR-AUTO-ASSETDEP#4).
 - **`Test-CatzcBuild`** — runs every `ADR-AUTO-ASSETDEP#3` test against the build.
 
 ## Consequences

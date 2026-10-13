@@ -2,7 +2,7 @@
 .SYNOPSIS
     Derives the set of TEST-fixture identity tokens — the deliberately-distinct customers, subscriptions, org,
     tenants, and environments the hermetic tests use — that must NEVER appear in a shipped config value
-    (ADR-REPO-LANG, the reverse of Get-LiveIdentityTokens).
+    ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md), the reverse of Get-LiveIdentityTokens).
 .DESCRIPTION
     Symmetric to Get-LiveIdentityTokens: the authoritative source is the config itself, here the FIXTURE
     configs under every `tests/assets/config/` (the `azure.yml` / `customer.yml` / `network.yml` a logic test

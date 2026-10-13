@@ -2,7 +2,8 @@
 .SYNOPSIS
     Returns a track/container's ordered aspect classification — the facets its units partition into.
 .DESCRIPTION
-    The `aspects` repo-wide variant (configs/variants.yml, ADR-DSGN-ASPECT) is a per-track/per-container map of
+    The `aspects` repo-wide variant (configs/variants.yml,
+    [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)) is a per-track/per-container map of
     ordered first-match (fallthrough) classifications, patterns relative to the unit root. Each aspect is
     { Name, Patterns }; evaluated in order, first match wins, the LAST aspect is the '**' catch-all remainder.
     The catch-all's liveness is the container's call: 'automation' (code) keeps 'live' closed so a stray file

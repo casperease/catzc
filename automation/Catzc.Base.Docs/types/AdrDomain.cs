@@ -1,7 +1,7 @@
 // One ADR domain (a docs/adr/<area>/ folder) from adrs.yml: its Name, 2-4 letter Code, Role, the reader-facing
 // Description rendered under the domain's heading in the generated index, the DependsOn links that form the
 // domain DAG, and the RuleSets it owns. Built and validated by AdrsConfig
-// (docs/adr/automation/BCL/native-csharp-types.md, ADR-AUTO-TYPES:9).
+// ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
 
 using System.Collections.Generic;
 

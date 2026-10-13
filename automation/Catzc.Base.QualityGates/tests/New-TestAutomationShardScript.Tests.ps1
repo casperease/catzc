@@ -37,7 +37,8 @@ Describe 'New-TestAutomationShardScript' {
 
         It 'builds its configuration through the one shared builder, strict on' {
             # The worker and Invoke-TestFile must share New-PesterRunConfiguration (one living copy of the
-            # invocation config) and the worker sets strict mode before Pester, so tests run strict (ADR-AUTO-TEST:25).
+            # invocation config) and the worker sets strict mode before Pester, so tests run strict
+            # ([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)).
             $script:content | Should -Match 'New-PesterRunConfiguration'
             $script:content | Should -Match ([regex]::Escape('Set-StrictMode -Version Latest'))
             $script:content | Should -Not -Match ([regex]::Escape('Set-StrictMode -Off'))
@@ -103,7 +104,8 @@ Describe 'New-TestAutomationShardScript' {
 
     # greedy: spawns a full importer-loading pwsh worker — stacked on the parallel pool that
     # oversubscribes the box (see the test-automation ADR's greedy tag).
-    # integrity + ADR-AUTO-ASSETDEP#3: the real worker imports the shipped, vendored Pester from its code root,
+    # integrity + [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3):
+    # the real worker imports the shipped, vendored Pester from its code root,
     # nothing mocked — the real-asset test, not source-only, so it runs in the source and the build suite.
     Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP#3' {
         It 'runs a generated shard end to end: results.xml, rows sidecar, and a green exit code' {

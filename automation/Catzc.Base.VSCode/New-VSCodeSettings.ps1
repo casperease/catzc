@@ -16,7 +16,7 @@
     This is a pure renderer: it returns the content and writes nothing — it is the `generator` the
     root-config registry names for the .vscode/settings.json target, and Build-RootConfig owns the write. It
     reads only its own registry, never rootconfig.yml, so the dependency edge stays one-way
-    (RootConfig -> VSCode; see docs/adr/repository/generated-root-configs.md).
+    (RootConfig -> VSCode; see [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)).
 .PARAMETER ManagedTarget
     The managed root-config target paths to complete `search.exclude` with (repo-root-relative). Supplied by
     the generator dispatch; empty renders the authored settings alone.

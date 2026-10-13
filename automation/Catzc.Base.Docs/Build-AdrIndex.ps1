@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Generates docs/adr/index.md — the ADR code -> rule-citation registry — from adrs.yml, the single source
+    Generates [index](/docs/adr/index.md) — the ADR code -> rule-citation registry — from adrs.yml, the single source
     of truth for the ADR domain structure.
 .DESCRIPTION
     index.md is a derived projection of automation/Catzc.Base.Docs/configs/adrs.yml: authored preamble and
@@ -8,15 +8,16 @@
     ADR row is `| ``<external>`` | [<slug>](<path>) |` — the format Get-CatsAdrIndex parses and the citation
     grammar Show-Cats presents. Each link path is resolved to the real docs/adr/<domain>/**/<slug>.md file.
 
-    The index is gitignored and reproduced on every import (before Build-Readme, whose docs/adr/README.md link
+    The index is gitignored and reproduced on every import (before Build-Readme, whose
+    [README](/docs/adr/README.md) link
     points at it), so adrs.yml is the ONLY place the registry is edited — a hand-edit to index.md is overwritten
-    on the next load. See docs/adr/repository/generated-readmes.md for the generated-file pattern.
+    on the next load. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md) for the generated-file pattern.
 
     Idempotent and fast: the write goes through Write-FileIfChanged (canonical output, EOL-insensitive compare,
     write only on drift), so a clean tree costs one file read.
 .PARAMETER DryRun
     Report whether index.md would change without writing it. See
-    docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
 .PARAMETER Silent
     The wrote / would-write status line is verbose-level — -Silent suppresses it (used by the importer tail).
 .PARAMETER PassThru
@@ -164,7 +165,8 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
         $lines.Add('')
 
         # The domain's description, greedily wrapped at the 140-column markdown width (the same fill Prettier's
-        # proseWrap: always produces), so the generated prose is formatter-stable (ADR-REPO-FORMAT:5).
+        # proseWrap: always produces), so the generated prose is formatter-stable
+        # ([ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)).
         $words = $domain.Description -split '\s+'
         $line = ''
         foreach ($word in $words) {

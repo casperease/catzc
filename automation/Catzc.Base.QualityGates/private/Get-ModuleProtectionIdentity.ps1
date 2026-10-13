@@ -2,7 +2,8 @@
 .SYNOPSIS
     Composes a module's protection identity — the durable SHA of everything its test results depend on.
 .DESCRIPTION
-    The composite (ADR-REPO-PROTGLOB): a hash-of-hashes fold over (1) the module's own derived globset, (2) the
+    The composite ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)): a hash-of-hashes fold over (1) the
+    module's own derived globset, (2) the
     derived sets of its declared dependency closure from dependencies.yml (transitive; a group reference
     permits any member, so it expands to all members), (3) the four reserved infra scopes (internal, vendor,
     compiled, scriptanalyzer), and (4) the runner's own set (catzc-base-qualitygates — an edit to the harness
@@ -42,7 +43,8 @@ function Get-ModuleProtectionIdentity {
                 Get-GlobSetHash -Name repository
             }
             else {
-                # A module name resolves to its live/tests aspect sets (ADR-DSGN-ASPECT); a reserved/single set to
+                # A module name resolves to its live/tests aspect sets
+                # ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)); a reserved/single set to
                 # one. Fold the aspect hashes (name|hash, ordinal by name) so the constituent hash covers the
                 # module's whole content — identical protection semantics to the pre-aspect whole-module set.
                 $sets = @(Get-ModuleGlobSet -Name $setName) | Sort-Object Name
@@ -130,7 +132,8 @@ function Get-ModuleProtectionIdentity {
         [void]$constituents.Add('repository')
     }
 
-    # ---- fold: name|hash lines, ordinal by name — the ADR-FLOW-CD-GLOBS:5 recipe over set hashes ----
+    # ---- fold: name|hash lines, ordinal by name — the
+    # [ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5) recipe over set hashes ----
     $names = [string[]]$constituents
     [System.Array]::Sort($names, [System.StringComparer]::Ordinal)
     $stringBuilder = [System.Text.StringBuilder]::new()

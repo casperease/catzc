@@ -74,7 +74,8 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
     Context 'the optional ADR provenance axis' -Tag 'ADR-AUTO-TEST#27' {
         BeforeAll {
             # A fixture rule-id set (registry ':' form) so the validation is hermetic — it never reads the
-            # shipped ADR tree. Mocking the whole boundary function is the seam (ADR-AUTO-TEST).
+            # shipped ADR tree. Mocking the whole boundary function is the seam
+            # ([ADR-AUTO-TEST](/docs/adr/automation/test-automation.md)).
             Mock Get-CatsAdrRuleIds { @('ADR-AUTO-ERROR:3', 'ADR-AUTO-IDEM:1') } -ModuleName Catzc.Base.QualityGates
 
             # The fake discovery is plain data, so it is built here (Pester scope) and passed INTO InModuleScope

@@ -29,13 +29,16 @@ function Remove-Java {
 
     $config = Get-ToolConfig -Tool 'java'
 
-    # Gate: managed by our tooling system → refuse, redirect to Uninstall-Java (ADR-AUTO-REMOVE:3).
+    # Gate: managed by our tooling system → refuse, redirect to Uninstall-Java
+    # ([ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)).
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Java is managed by the tooling system. Use Uninstall-Java instead.'
     }
 
     # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip
-    # / stray binary); elevation is scoped to the mechanism (ADR-AUTO-REMOVE:6), so no admin assert here.
+    # / stray binary); elevation is scoped to the mechanism
+    # ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)), so no admin assert
+    # here.
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Java (native package / uv-Python pip / stray binary). Run with -Force to execute.'

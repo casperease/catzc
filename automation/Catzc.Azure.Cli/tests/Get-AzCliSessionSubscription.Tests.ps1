@@ -1,5 +1,7 @@
 Describe 'Get-AzCliSessionSubscription' -Tag 'L0', 'logic' {
-    # The session read is a whole-function boundary mock (ADR-AUTO-PESTER:3); config discovery redirects to
+    # The session read is a whole-function boundary mock
+    # ([ADR-AUTO-PESTER#3](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester3)); config discovery
+    # redirects to
     # the fixture identities, so nothing production is in play.
     BeforeAll {
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'customer' } -MockWith {

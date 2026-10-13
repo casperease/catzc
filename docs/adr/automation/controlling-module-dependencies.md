@@ -64,7 +64,7 @@ against exactly the code that commit holds. An external dependency is pinned to 
 
 Internal module dependencies are vendored and named. The code is in-tree — the toolset's own modules, and third-party modules vendored under
 `automation/.vendor/` ([vend](powershell/vendor-toolset-dependencies.md)) — and every edge is declared by name in `dependencies.yml`
-(ADR-AUTO-DEPM:1). The repository alone is the internal dependency set; there is nothing to fetch.
+(ADR-AUTO-DEPM#1). The repository alone is the internal dependency set; there is nothing to fetch.
 
 - [Internal: vendored and named](#internal-vendored-and-named)
 

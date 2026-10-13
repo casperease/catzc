@@ -1,7 +1,9 @@
 # Get-Glossary merges the glossary sources into GlossaryEntry records. Discovery is mocked at Get-GlossarySources
 # (its own tests cover the config seam and git), and the sources are built from the real GlossaryConfig type.
-# Get-Glossary caches per repository root, so every test resets the slot (ADR-AUTO-PSCACHE:3). Fixture terms are
-# neutral (widget/gadget, ADR-AUTO-TEST:3).
+# Get-Glossary caches per repository root, so every test resets the slot
+# ([ADR-AUTO-PSCACHE#3](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache3)). Fixture terms
+# are
+# neutral (widget/gadget, [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
         $concept = {

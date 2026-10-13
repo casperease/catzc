@@ -1,6 +1,7 @@
 Describe 'Get-BicepTrackTagNameSet' -Tag 'L0', 'logic' {
     # Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked
-    # config is identical every test and no test mutates it, so the cache stays warm (ADR-AUTO-TEST:19/ADR-AUTO-TEST:4).
+    # config is identical every test and no test mutates it, so the cache stays warm
+    # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)/[ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)).
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'

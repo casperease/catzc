@@ -34,7 +34,7 @@ expanded by `Get-ReadmeMappings`; `Build-Readme` is the single writer. The mappi
 ### Rule ADR-REPO-README:5
 
 Materialisation is idempotent and runs on every import (the importer tail), through the one link mechanism owner `Set-FileLink`
-(`Catzc.Base.Files`, [ADR-REPO-ROOTCFG:7](generated-root-configs.md#rule-adr-repo-rootcfg7)): a README that is already an effective link to
+(`Catzc.Base.Files`, [ADR-REPO-ROOTCFG#7](generated-root-configs.md#rule-adr-repo-rootcfg7)): a README that is already an effective link to
 its source is a no-op, and anything else — an old plain-file copy, a wrong or orphaned link — is recreated with the running OS's best
 mechanism (a relative symbolic link where permitted, a hard link on privilege-less Windows), so a clean tree is a fast no-op and each OS
 heals its own view at its session start.
@@ -83,7 +83,7 @@ The README link is an artifact, not source. It is gitignored globally (`**/READM
 ([dedicated-output-directory](dedicated-output-directory.md) treats generated artifacts as out of the committed source set), and it is
 excluded from the markdown gate — the authored source under `docs/references/` is the reviewed artifact. Committing a link would also be
 committing a git link object, which Windows checkouts materialise unreliably — the same reason a `committed` root config is never a link
-([ADR-REPO-ROOTCFG:7](generated-root-configs.md#rule-adr-repo-rootcfg7)).
+([ADR-REPO-ROOTCFG#7](generated-root-configs.md#rule-adr-repo-rootcfg7)).
 
 ### Opt-out is explicit and located
 

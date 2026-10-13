@@ -4,7 +4,8 @@
 .DESCRIPTION
     Reads the file whole and returns it as one segment starting at line 1, with fenced code blocks (``` or ~~~)
     blanked and mentions blanked (Remove-GlossaryMentions), so code and quoted phrases never match and a match's
-    offset still maps to its line (docs/adr/repository/controlled-vocabulary.md, ADR-REPO-VOCAB:5).
+    offset still maps to its line
+    ([ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)).
 
     Private helper for the glossary gates; not exported.
 .PARAMETER Path

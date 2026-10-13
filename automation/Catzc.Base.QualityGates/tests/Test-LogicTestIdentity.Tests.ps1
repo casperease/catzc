@@ -1,5 +1,6 @@
 # This whole file is `integrity` — it binds the REAL shipped config (the live-identity set is derived from it),
-# so it also names live identities (e.g. 'apex') as fixture data; the integrity tag is both correct (ADR-AUTO-TEST:1)
+# so it also names live identities (e.g. 'apex') as fixture data; the integrity tag is both correct
+# ([ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1))
 # and what exempts this file from the gate's own self-scan. source-only: it scans the repository's test files,
 # which give the same answer in both run modes.
 Describe 'Test-LogicTestIdentity' -Tag 'L1', 'integrity', 'source-only' {

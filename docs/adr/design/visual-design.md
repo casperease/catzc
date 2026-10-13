@@ -35,7 +35,7 @@ _project_ or _discard_ a copy, but the commit itself stays in history.
 
 The **commit-colour palette is fixed**:
 
-- **brown** — a development commit. Lives on topic branches; release branches may also carry brown (see ADR-DSGN-VISUAL:6). Never an
+- **brown** — a development commit. Lives on topic branches; release branches may also carry brown (see ADR-DSGN-VISUAL#6). Never an
   integrated mainline state.
 - **grey** — integrated onto `main` / `master` / `release`. Grey never appears on a topic branch (a topic commit that has not integrated is
   brown, not grey).
@@ -103,14 +103,14 @@ red.** The contract is what a stage box in the pipeline lane means:
 - **The PR gate / pre-commit build-validation** is human-initiated: a developer opts a **brown** topic commit into pre-commit validation,
   yielding a **ghost-yellow** (pre-verified, off main) — via the build-validation/PR pipeline or a local devbox BVT run.
 - **main-UAT** accepts **blue** and produces **light-blue** (rolled onto the always-on non-prod environment). Its manual release gate is
-  **RC** (Release Certification, ADR-FLOW-CD:9).
+  **RC** (Release Certification, ADR-FLOW-CD#9).
 - **release-uat** accepts **light-blue** and produces **light-green** (release-verified). Its manual release gate is **RBC** (Release Branch
-  Certification, ADR-FLOW-CD:9).
+  Certification, ADR-FLOW-CD#9).
 - **DEPLOY-Prod** takes **light-green** (release-verified) through a **pre-prod** staging environment and produces **green** (in
-  production); **DEPLOY-Non-Prod** is the deploy into the earlier non-prod AT environments (ADR-FLOW-CD:11).
+  production); **DEPLOY-Non-Prod** is the deploy into the earlier non-prod AT environments (ADR-FLOW-CD#11).
 
 Env boxes carry **`-uat`** labels (the environment) and stage/gate boxes carry **`-AT`** labels (the acceptance testing) — two layers, per
-ADR-FLOW-CD:10: `main-AT`/`release-AT` are the testing drawn at the RC/RBC gates, `main-uat`/`release-uat` the environments they run
+ADR-FLOW-CD#10: `main-AT`/`release-AT` are the testing drawn at the RC/RBC gates, `main-uat`/`release-uat` the environments they run
 against.
 
 A stage never emits a colour outside its contract, so the palette doubles as the flow's type system.
@@ -151,7 +151,7 @@ commit was discarded, abandoned, or promoted.
 **An environment box is a neutral container; the commit inside it is its current occupant, in that commit's own state colour.** The hexagon
 is drawn as neutral chrome — its label names the environment (on-demand, main-UAT, release-uat, production) and it carries no per-stage tint
 and no state colour of its own. The single commit drawn _inside_ — generic or numbered — is the environment's **current occupant**
-(ADR-DSGN-LIFE:5), coloured for whatever state that commit is in right now, not for a fixed property of the box. So production holds a
+(ADR-DSGN-LIFE#5), coloured for whatever state that commit is in right now, not for a fixed property of the box. So production holds a
 **green** commit, release-uat a **light-green** one, main-UAT a **light-blue** one, and the on-demand L3 slot whatever it is hosting at the
 moment (a **yellow** commit mid-verification, a **blue** one just verified). Reading the inner colour tells you the state of what currently
 lives there; the label tells you where.
@@ -268,7 +268,7 @@ where it was discarded, abandoned, or promoted.
 
 An environment is not a commit, so it is drawn as a container — and the container itself is **neutral chrome**: it carries no state colour
 and no per-stage tint, only a label naming which environment it is. What it does carry is its **current occupant**: the one commit deployed
-there right now (ADR-DSGN-LIFE:5), drawn in that commit's own current state colour. So the inner colour is not a fixed property of the box —
+there right now (ADR-DSGN-LIFE#5), drawn in that commit's own current state colour. So the inner colour is not a fixed property of the box —
 it is whatever state the resident commit is in: production shows a green occupant, release-uat a light-green one, main-UAT a light-blue one,
 and the on-demand L3 slot whatever it currently hosts. Reading the inner colour tells you the state of what lives there now; the label tells
 you where. This defers to `ADR-DSGN-LIFE:5` (each always-on environment hosts exactly one current commit) rather than colouring the box by
@@ -302,7 +302,7 @@ Ghost-grey and ghost-yellow are the grey and yellow members of the ghost family;
 tints (sienna, slate, azure, orange, and the pale green `#9BE7C4`/`#0E9F6E` on the pre-prod and production boxes) are _chrome_, not commit
 states, and are not part of this locked commit palette — a production commit is the saturated green `#60a917` above, while `#9BE7C4` is only
 the pre-prod / production box tint. **Environment** boxes carry no tint at all — they are neutral containers coloured only by their occupant
-(ADR-DSGN-VISUAL:13).
+(ADR-DSGN-VISUAL#13).
 
 ## Lifecycle endings are not all red
 

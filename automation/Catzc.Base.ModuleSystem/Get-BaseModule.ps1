@@ -1,6 +1,7 @@
 <#
 .SYNOPSIS
-    Returns the automation modules as typed BaseModule objects, by kind — the native domain model (ADR-AUTO-TYPES:9).
+    Returns the automation modules as typed BaseModule objects, by kind — the native domain model
+    ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
 .DESCRIPTION
     The typed view of the module system. Two facets, six kinds:
 
@@ -17,7 +18,8 @@
         'residue'  genuinely foreign        — anything else (user profile, PowerShell Gallery, manual import)
 
     Both facets classify against the code root, not <RepositoryRoot>/automation, so the answer is correct in
-    both run modes (ADR-DSGN-RUNMODE): in build mode the loaded modules live in the built package.
+    both run modes
+    ([ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)): in build mode the loaded modules live in the built package.
 
     Default returns the on-disk kinds (named + hidden). Copy-Automation and the module completers act on those;
     the session kinds map what is loaded and where it came from (diagnostics, collision reporting).

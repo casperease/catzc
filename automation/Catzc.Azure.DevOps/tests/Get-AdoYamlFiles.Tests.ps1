@@ -203,7 +203,8 @@ Describe 'Get-AdoYamlFiles' -Tag 'L0' {
         }
 
         # Its own integrity tag keeps this a distinct, named check in the manual test plan (a facet worth
-        # citing on its own), while reusing the one scan above rather than re-walking the repo (ADR-AUTO-TEST:20).
+        # citing on its own), while reusing the one scan above rather than re-walking the repo
+        # ([ADR-AUTO-TEST#20](/docs/adr/automation/test-automation.md#rule-adr-auto-test20)).
         It 'excludes .git directory by default' -Tag 'integrity' {
             $gitFiles = @($results | Where-Object { $_.RelativePath -match '^\\.git/' -or $_.RelativePath -match '^\.git/' })
             $gitFiles | Should -BeNullOrEmpty

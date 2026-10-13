@@ -41,7 +41,8 @@ function Measure-VariableCasing {
 
     # Collect all parameter names (for excluding from local-variable check)
     $paramNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
+    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
     $isParameter = {
         param($node)
         $node -is [System.Management.Automation.Language.ParameterAst]
@@ -72,7 +73,8 @@ function Measure-VariableCasing {
     }
 
     # Check variable assignments
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
+    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
     $isAssignment = {
         param($node)
         $node -is [System.Management.Automation.Language.AssignmentStatementAst]

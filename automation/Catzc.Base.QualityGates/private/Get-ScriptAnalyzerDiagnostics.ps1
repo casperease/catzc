@@ -13,10 +13,13 @@
         Invoke-ScriptAnalyzer call, so the ~3s per-process setup is paid once per shard, not per file.
       - Each shard imports the vendored analyzer from the loaded code root (Get-CatzcModulesRoot/.vendor).
       - Shards run from the repo root (Push-Location/Pop-Location) so the settings' relative CustomRulePath
-        entries resolve (ADR working-directory-mechanics, rule ADR-AUTO-PSPWD:2/ADR-AUTO-PSPWD:3).
+        entries resolve (ADR working-directory-mechanics, rule
+        [ADR-AUTO-PSPWD#2](/docs/adr/automation/powershell/working-directory-mechanics.md#rule-adr-auto-pspwd2)/[ADR-AUTO-PSPWD#3](/docs/adr/automation/powershell/working-directory-mechanics.md#rule-adr-auto-pspwd3)).
 
     A dot is printed per interval while shards run so the run never looks hung — a progress bar is banned
-    (ADR console-output-matters, rule ADR-AUTO-CONSOLE:8). The external Invoke-ScriptAnalyzer progress bar is suppressed
+    (ADR console-output-matters, rule
+    [ADR-AUTO-CONSOLE#8](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console8)). The
+    external Invoke-ScriptAnalyzer progress bar is suppressed
     inside the worker for the same reason.
 .PARAMETER Path
     The files to analyze.
@@ -44,7 +47,8 @@ function Get-ScriptAnalyzerDiagnostics {
         return @()
     }
 
-    # The vendored analyzer ships inside the code tree, so it resolves from the code root (ADR-AUTO-ASSETDEP:1).
+    # The vendored analyzer ships inside the code tree, so it resolves from the code root
+    # ([ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)).
     # The shards still run from the repository root: the settings' CustomRulePath entries are relative to it.
     $root = Get-RepositoryRoot
     $analyzerPath = Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer'
@@ -69,7 +73,9 @@ function Get-ScriptAnalyzerDiagnostics {
 
         Push-Location $root
         # Invoke-ScriptAnalyzer draws its own Write-Progress bar; this repo bans progress bars (ADR
-        # console-output-matters, rule ADR-AUTO-CONSOLE:8) and reports shard progress with dots instead. Suppress the
+        # console-output-matters, rule
+        # [ADR-AUTO-CONSOLE#8](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console8)) and
+        # reports shard progress with dots instead. Suppress the
         # external bar for the duration of the call and restore the preference in finally.
         $savedProgress = $ProgressPreference
         $ProgressPreference = 'SilentlyContinue'
@@ -80,7 +86,8 @@ function Get-ScriptAnalyzerDiagnostics {
             # flake was root-caused to the built-in PSReservedCmdletChar rule dereferencing PSScriptAnalyzer's
             # thread-unsafe helper runspace under concurrent load, and eliminated by excluding that rule in
             # PSScriptAnalyzerSettings.psd1. So there is no transient case to tolerate — any error is real and
-            # fails loudly (ADR diagnostics-over-retry; we never retry, ADR-AUTO-RETRY:1).
+            # fails loudly (ADR diagnostics-over-retry; we never retry,
+            # [ADR-AUTO-RETRY#1](/docs/adr/automation/retry-as-last-resort.md#rule-adr-auto-retry1)).
             $err = $null
             $diagnostics = $shardFiles | Invoke-ScriptAnalyzer -Settings $settings -ErrorVariable err -ErrorAction SilentlyContinue
             if ($err) {
@@ -99,7 +106,10 @@ function Get-ScriptAnalyzerDiagnostics {
     }
 
     # Print a dot per interval while shards run, rather than a progress bar (ADR console-output-matters,
-    # rule ADR-AUTO-CONSOLE:8). The dots go through the writer chokepoint (ADR-AUTO-ANNOUNCE:1), so a Pester run
+    # rule [ADR-AUTO-CONSOLE#8](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console8)). The
+    # dots go through the writer chokepoint
+    # ([ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1)), so a
+    # Pester run
     # silences them with everything else. $dotted tracks whether any dot was written so the closing newline only
     # fires when it is needed.
     $dotted = $false

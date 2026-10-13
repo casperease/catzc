@@ -11,7 +11,7 @@
 
     This is a pure renderer: it returns the content and writes nothing — it is the `generator` the
     root-config registry names for the .vscode/launch.json target, and Build-RootConfig owns the write.
-    See docs/adr/repository/generated-root-configs.md.
+    See [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
 .OUTPUTS
     [string] The rendered launch.json content (LF-joined; the writer canonicalises).
 .EXAMPLE

@@ -3,7 +3,9 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
     BeforeAll {
         # Fixture identity — deliberately-distinct tokens (org tst, tenant fixtenant, Greek envs, core_*
         # subscriptions) so this logic test owns its inputs and editing the shipped azure.yml can never
-        # change its outcome (ADR-AUTO-TEST:1, ADR-AUTO-TEST:3). Assert-AzureConfig validates the passed dict
+        # change its outcome ([ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1),
+        # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). Assert-AzureConfig validates
+        # the passed dict
         # standalone, so the fixture needs no shipped config.
         $script:baseConfig = [ordered]@{
             org               = 'tst'
@@ -41,10 +43,11 @@ Describe 'Assert-AzureConfig' -Tag 'L0' {
         }
 
         # The load-time validator groups customer subscriptions by their RAW customer token (it must not
-        # read customer.yml — see azure-customer-model.md); this is the NORMALIZED counterpart: with shortcode
+        # read customer.yml — see [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)); this is the NORMALIZED
+        # counterpart: with shortcode
         # bindings resolved to canonical keys, every shipped customer still serves each env exactly once,
         # and so does the non-customer (shared) set — the uniqueness every configuration file resolution
-        # rests on (docs/adr/azure/azure-data-model.md).
+        # rests on ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)).
         It 'every shipped customer — and the non-customer set — serves each environment through exactly one subscription' {
             $azure = Get-Config -Config azure
             $servedBy = @{}

@@ -1,4 +1,5 @@
-# The GitHub slug and anchor set a markdown link's #fragment must name (ADR-REPO-LINK#2). The slug cases are the
+# The GitHub slug and anchor set a markdown link's #fragment must name
+# ([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)). The slug cases are the
 # shapes the repository's headings take: rule headings, domain headings with an em dash, code spans, and duplicates.
 Describe 'GitHubAnchor' -Tag 'L0', 'logic' {
     It 'slugs a rule heading to rule- plus the lowercased code and number' -Tag 'ADR-REPO-LINK#2' {

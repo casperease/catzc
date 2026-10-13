@@ -1,12 +1,15 @@
-// The link-alignment settings (configs/links.yml, ADR-REPO-LINK#8), and the single declaration of their sensible
+// The link-alignment settings (configs/links.yml,
+// [ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)), and the single declaration of their sensible
 // defaults: every key is optional, and an omitted key — or a fresh checkout with no file — behaves exactly like
-// the default, so no function restates a value (ADR-AUTO-DEFAULT#6). A Format-Links parameter overrides the
-// resolved value per call (ADR-AUTO-PSPARAM#4).
+// the default, so no function restates a value
+// ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). A Format-Links parameter overrides the
+// resolved value per call ([ADR-AUTO-PSPARAM#4](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam4)).
 //   wrap               — how an aligned comment line that outgrows its limit is wrapped (break | off; default break)
 //   line_limit         — per-extension limit overrides ({ .ps1: 120 }); default none, so .editorconfig decides
 //   default_line_limit — the limit for an extension .editorconfig gives no max_line_length (default 140, the
 //                        repository's prose target)
-// Property names mirror the YAML keys (snake_case, ADR-AUTO-TYPES#8).
+// Property names mirror the YAML keys (snake_case,
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
 
 using System;
 using System.Collections;

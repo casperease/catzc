@@ -1,6 +1,7 @@
 Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'ADR-REPO-README#7' {
     BeforeAll {
-        # The importer's janitor tail materialised docs/adr/index.md before this run; check it without writing.
+        # The importer's janitor tail materialised
+        # [index](/docs/adr/index.md) before this run; check it without writing.
         $script:report = Build-AdrIndex -DryRun -PassThru
         $script:indexEntries = & (Get-Module Catzc.Base.Docs) { Get-CatsAdrIndex }
         $script:ruleSets = Get-AdrRuleSet

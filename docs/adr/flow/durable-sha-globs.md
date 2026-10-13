@@ -46,14 +46,14 @@ A globset's **identity** is its durable SHA: per member file, SHA-256 over the C
 (`Get-GlobSetHash`) and is **never committed**: it keys the session-memory protection map (`ADR-REPO-PROTGLOB`) and answers "did these
 inputs change?" for the local inner loop. It is not a trigger and not a committed artifact — a committed whole-set hash is a lockfile that
 serializes writers and false-reds a busy mainline after a server-side squash merge, which is why triggering projects to native filters
-(ADR-FLOW-CD-GLOBS:6) and reflects git (ADR-FLOW-CD-GLOBS:9) instead.
+(ADR-FLOW-CD-GLOBS#6) and reflects git (ADR-FLOW-CD-GLOBS#9) instead.
 
 - [Why the identity is live, never committed](#why-the-identity-is-live-never-committed)
 
 ### Rule ADR-FLOW-CD-GLOBS:6
 
 A pipeline, workflow, or build-validation policy triggers on the globset's **native path-filter projection** (`Get-GlobSetTrigger`): the
-flattened scan program (ADR-FLOW-CD-GLOBS:4/8) rendered into the vendor's own `paths` dialect — GitHub `on.*.paths` with ordered `!`
+flattened scan program (ADR-FLOW-CD-GLOBS#4/8) rendered into the vendor's own `paths` dialect — GitHub `on.*.paths` with ordered `!`
 negation (exact, the same last-match-wins evaluator as `GlobSet.Matches`); Azure DevOps `trigger.paths.include`/`exclude` and branch-policy
 `filenamePatterns` (order-independent — union include minus union exclude — so each pattern is collapsed to its last select, and a compose
 re-add becomes a deeper-folder include ADO keeps). Modern vendors (ADO Services / Server 2022+, GitHub) accept wildcards anywhere in a path
@@ -91,13 +91,13 @@ globset earns its cost.
 
 ### Rule ADR-FLOW-CD-GLOBS:8
 
-A globset may **compose** other declared sets (`compose:`): its scan program (ADR-FLOW-CD-GLOBS:4) is the composed sets' programs first — in
+A globset may **compose** other declared sets (`compose:`): its scan program (ADR-FLOW-CD-GLOBS#4) is the composed sets' programs first — in
 dependency order, deepest base first, each set once — then the set's own `+`/`-` rules **last**, so the set's own rules override its base. A
 unit re-adds a slice its base dropped exactly this way (`+ configuration/apex/**` after the base's `- configuration/*/**`). References
 resolve to declared sets only, never to the set itself, and the reference graph must be acyclic — all validated at config load. Composition
 is how a configured deployable-unit shares a base (e.g. every customer/platform unit composing `template-azure-subscription-foundation`, the
 config-free foundation surface) without one deployment's configuration change firing another's pipeline. The flattened program is what both
-the native projection (ADR-FLOW-CD-GLOBS:6) and the durable SHA (ADR-FLOW-CD-GLOBS:5) are computed from — no reference-chasing at trigger or
+the native projection (ADR-FLOW-CD-GLOBS#6) and the durable SHA (ADR-FLOW-CD-GLOBS#5) are computed from — no reference-chasing at trigger or
 hash time.
 
 - [One configuration point](#one-configuration-point)
@@ -156,7 +156,7 @@ removing files from a unit — or adding a whole customer — is a config edit; 
 ### The dialect
 
 Vendor path-filter dialects need not leak into ours: membership is decided in our own code against the tracked-file list, and only the
-**projection** (ADR-FLOW-CD-GLOBS:6) crosses into a vendor dialect, mechanically. That frees the authoring dialect to be the one this
+**projection** (ADR-FLOW-CD-GLOBS#6) crosses into a vendor dialect, mechanically. That frees the authoring dialect to be the one this
 repository's users already know — within a segment, a pattern means exactly what it means to PowerShell's `-like` operator, delegated to
 `System.Management.Automation.WildcardPattern` (a host-guaranteed type; see
 [native-csharp-types](../automation/BCL/native-csharp-types.md)). Matching is case-sensitive because tracked paths are case-sensitive
@@ -183,7 +183,7 @@ or ignored file can never change a globset's membership.
 
 ### Why the identity is live, never committed
 
-The durable SHA (ADR-FLOW-CD-GLOBS:5) is a genuine identity — EOL-insensitive (CR stripped before hashing), path-folded (a rename or move
+The durable SHA (ADR-FLOW-CD-GLOBS#5) is a genuine identity — EOL-insensitive (CR stripped before hashing), path-folded (a rename or move
 changes it even when content does not), and order-free (lines ordinal-sorted). It is exactly right for the one job it keeps: keying the
 session-memory protection map (`ADR-REPO-PROTGLOB`), where "this session already proved this input state green" is a live, in-process fact.
 
@@ -191,13 +191,13 @@ What it must **not** be is a committed artifact gating the mainline. A committed
 requests that touch different files of the same set both freeze the hash against their own branch state, and after a server-side squash
 merge the mainline holds the union while each frozen hash saw only its own half — an integrity gate recomputing the set would red the
 mainline with neither change individually wrong, and no merge conflict to warn anyone. Because the squash commit is a tree the client never
-hashed, any client-frozen hash is suspect. So the identity stays live and local; the trigger is a native projection (ADR-FLOW-CD-GLOBS:6)
-and the "did this change?" question is answered from git at the real refs (ADR-FLOW-CD-GLOBS:9), both of which see the merged tree as it
+hashed, any client-frozen hash is suspect. So the identity stays live and local; the trigger is a native projection (ADR-FLOW-CD-GLOBS#6)
+and the "did this change?" question is answered from git at the real refs (ADR-FLOW-CD-GLOBS#9), both of which see the merged tree as it
 actually is.
 
 ### Native projection: the no-start trigger
 
-`Get-GlobSetTrigger` projects a globset's flattened scan program (ADR-FLOW-CD-GLOBS:4/8) into each vendor's native path-filter dialect:
+`Get-GlobSetTrigger` projects a globset's flattened scan program (ADR-FLOW-CD-GLOBS#4/8) into each vendor's native path-filter dialect:
 
 - **GitHub** `on.*.paths`: the program in order, each `-` rule rendered as a `!` negation. GitHub paths are ordered and last-match-wins —
   the same evaluator as `GlobSet.Matches` — so the projection is **exact**.

@@ -22,7 +22,7 @@
 .PARAMETER DryRun
     Report what would be removed without deleting anything. The returned summary's Removed count is the
     number of top-level entries that would be deleted; nothing is touched. See
-    docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
 #>
 function Clear-TempFolders {
     [CmdletBinding()]

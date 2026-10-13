@@ -3,8 +3,8 @@
 // least one entry across the two. Constructing an instance validates the registry (throwing on the first
 // malformed shape) and exposes the parsed patterns and mappings to the generator (Build-Readme, which expands
 // the patterns against the filesystem via Get-ReadmeMappings). Registered as the `readme` config's type
-// override in Catzc.Base.Config/configs/configs.yml. See docs/adr/configuration/module-config-loading.md and
-// docs/adr/repository/generated-readmes.md.
+// override in Catzc.Base.Config/configs/configs.yml. See [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md) and
+// [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
 
 using System;
 using System.Collections;

@@ -7,7 +7,7 @@
 The codebase expresses exactly one version of every **internal** behaviour — the current one. No legacy variant of our own code coexists
 (`Verb-NounV2`, `*_old`, `legacy/`, a parallel "new" path beside the old); replacing behaviour means changing it **in place**, not adding a
 second copy. This governs the codebase's own behaviour — not version as a deliberate contract value, which is legitimate
-(ADR-PRIN-ONELIVE:7).
+(ADR-PRIN-ONELIVE#7).
 
 - [One version, by construction](#one-version-by-construction)
 - [Version as a first-class contract is not legacy](#version-as-a-first-class-contract-is-not-legacy)
@@ -17,7 +17,7 @@ second copy. This governs the codebase's own behaviour — not version as a deli
 No backwards-compatibility shims. No deprecated aliases, compatibility fields, dual-read fallbacks, or migration bridges live in current
 code. When a contract changes — a config schema, a data model, a function signature — every caller is updated in the **same** change, and
 the old shape leaves no residue. The one bounded exception is a temporary branch-by-abstraction seam during a wholesale swap
-(ADR-PRIN-ONELIVE:8), which exists only to be removed.
+(ADR-PRIN-ONELIVE#8), which exists only to be removed.
 
 - [Why an internal mono-repo owes no back-compat](#why-an-internal-mono-repo-owes-no-back-compat)
 - [Branch by abstraction: temporary coexistence for a wholesale swap](#branch-by-abstraction-temporary-coexistence-for-a-wholesale-swap)
@@ -56,7 +56,7 @@ Docs read present-tense, like the code. An ADR, README, or help block describes 
 
 Version as a first-class contract is not legacy. Pinning an external tool, vendored module, or API version — or an explicit `schema_version`
 you own and validate — is a deliberate contract value, and versioned coexistence is legitimate there. The line from forbidden back-compat
-(ADR-PRIN-ONELIVE:2): every supported version is **equally live and intended**, owned and tested — not a deprecated shadow kept only to
+(ADR-PRIN-ONELIVE#2): every supported version is **equally live and intended**, owned and tested — not a deprecated shadow kept only to
 defer changing callers. Versioned contracts have a structural home: `contracts/<contract-name>/v<N>/`
 ([conventional-folders](../repository/conventional-folders.md#rule-adr-repo-folders11)).
 
@@ -67,7 +67,7 @@ defer changing callers. Versioned contracts have a structural home: `contracts/<
 A wholesale replacement may use **branch by abstraction**: a temporary seam behind which the old and new implementations coexist for a few
 integrations to master — optionally config-selected — so the swap lands incrementally on trunk instead of on a long-lived branch. It is
 bounded and removed on cutover (the seam, the old implementation, and any toggle deleted together), landing back on one living version. It
-is a migration scaffold with a built-in deletion plan and a deadline, not the indefinite back-compat ADR-PRIN-ONELIVE:2 forbids.
+is a migration scaffold with a built-in deletion plan and a deadline, not the indefinite back-compat ADR-PRIN-ONELIVE#2 forbids.
 
 - [Branch by abstraction: temporary coexistence for a wholesale swap](#branch-by-abstraction-temporary-coexistence-for-a-wholesale-swap)
 
@@ -81,7 +81,7 @@ The one place external consumers _do_ exist is the repository's deliberately pub
 explicitly — as binding contracts under `contracts/<name>/v<N>/`, kept honest by contract testing (see
 [api-contracts](../repository/api-contracts.md)). Back-compat for those consumers is legitimate and lives **there**, as separate live
 versions — never as a shim smeared through the internal code. Everything below is about the inside; the external API boundary is the
-deliberate, versioned exception (ADR-PRIN-ONELIVE:7).
+deliberate, versioned exception (ADR-PRIN-ONELIVE#7).
 
 Without that reason, legacy is pure cost. Two versions of a behaviour double the surface to read, test, and reason about; they drift; and
 every reader must first work out which one is live. A deprecated alias kept "for safety" is a second source of truth that quietly diverges.
@@ -133,7 +133,7 @@ inherently versioned, and pinning or supporting a specific version is the spec, 
 
 The tell that separates a versioned contract from legacy: in a versioned contract, **every supported version is equally live and intended**
 — each fully owned and tested. In legacy, one version is the real one and the other is kept alive grudgingly to defer changing callers,
-which is what ADR-PRIN-ONELIVE:2 forbids. Versioned coexistence is fair for the former and forbidden for the latter.
+which is what ADR-PRIN-ONELIVE#2 forbids. Versioned coexistence is fair for the former and forbidden for the latter.
 
 Versioned contracts also have a **structural home**, which keeps them from being mistaken for legacy: the root
 `contracts/<contract-name>/v<N>/` convention ([conventional-folders](../repository/conventional-folders.md#rule-adr-repo-folders11)) — one
@@ -160,7 +160,7 @@ branch would. Use it to _get to_ one version; the failure mode is letting the se
 1. **Deprecation cycles in internal code** (mark an internal shape old, keep it for N releases) — rejected: a deprecation window serves
    external consumers who migrate on their own schedule, and internal code has none — all callers are in-tree and move with the change. At
    the published API boundary it is different: retiring a `contracts/<name>/v<N>` version is a deliberate, contract-tested deprecation,
-   because external consumers genuinely pin it (ADR-PRIN-ONELIVE:7). What is rejected is deprecation as a hedge in internal code, not the
+   because external consumers genuinely pin it (ADR-PRIN-ONELIVE#7). What is rejected is deprecation as a hedge in internal code, not the
    versioned external contracts. (A bounded branch-by-abstraction swap is also not this: it has a deadline and a deletion plan, and serves
    the migration itself.)
 
@@ -179,13 +179,13 @@ what the code used to be lives in git and nowhere else — not in retained files
 
 - **Code review** is the primary gate: a reviewer rejects an unplanned `V2`-beside current-`V1`, a deprecated alias, a commented-out block,
   a "legacy" note, or a long-lived version branch, against this ADR. A bounded branch-by-abstraction seam with a stated deletion plan
-  (ADR-PRIN-ONELIVE:8) is the exception — the reviewer checks that the scaffold is temporary and tracked, not that it merely exists.
+  (ADR-PRIN-ONELIVE#8) is the exception — the reviewer checks that the scaffold is temporary and tracked, not that it merely exists.
 
 - **Strict config validation** keeps the principle structural where it can: the `Assert-*Config` schema checkers reject unknown / deprecated
   keys, so a compatibility field cannot quietly linger in a config — removing the key from the schema forces it out of every file in the
   same change.
 
-- **The present-tense ADR/doc convention** (`docs/adr/README.md`, "Present tense, not a changelog") enforces ADR-PRIN-ONELIVE:6 in review
+- **The present-tense ADR/doc convention** (`docs/adr/README.md`, "Present tense, not a changelog") enforces ADR-PRIN-ONELIVE#6 in review
   for all documentation.
 
 ## Consequences

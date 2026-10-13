@@ -1,6 +1,7 @@
 <#
 .SYNOPSIS
-    The link gate: fails on any off-form, dangling, or dead link or citation (ADR-REPO-LINK).
+    The link gate: fails on any off-form, dangling, or dead link or citation
+    ([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)).
 .DESCRIPTION
     Runs the same engine as Format-Links, read-only, and reports every violation: a code link not yet in canonical
     repository-rooted form, a markdown link that is rooted or climbs above the repository root, a rule citation

@@ -33,7 +33,7 @@ private `$global:__<Name>` bookkeeping, and the state a test sets and restores a
 
 ### Rule ADR-AUTO-ANNOUNCE:4
 
-A child process's own output is the tool speaking (ADR-AUTO-CONSOLE:4): it is relayed to the console as it streams, not re-written through
+A child process's own output is the tool speaking (ADR-AUTO-CONSOLE#4): it is relayed to the console as it streams, not re-written through
 the chokepoint. Only what the toolset itself says goes through the information stream.
 
 - [Child-process output is relayed, not re-written](#child-process-output-is-relayed-not-re-written)
@@ -48,7 +48,7 @@ because its caller owns the wording, such as one that masks a secret — the cha
 
 ### Rule ADR-AUTO-ANNOUNCE:6
 
-The importer's own load sequence is the one exception to ADR-AUTO-ANNOUNCE:2: the state changes it makes itself (session preferences, roots,
+The importer's own load sequence is the one exception to ADR-AUTO-ANNOUNCE#2: the state changes it makes itself (session preferences, roots,
 vendor modules, `PSModulePath`, the types assembly, the catzc modules) are announced on the verbose stream through
 `Write-ImporterMessage -StateChange`, shown by `. .\importer.ps1 -Verbose`. A plain import shows only its `Loaded in N seconds` line and
 genuine warnings. The functions the importer calls announce on the information stream as everywhere else.
@@ -80,7 +80,7 @@ Pester run, because `Write-InformationColored` returns before writing while `$gl
 output and no test needs its own guard. And it is headed with its caller (`[Invoke-Importer] ...`), so every line names the function that
 wrote it.
 
-The one thing a raw write offers is a dot without a line break, which a liveness signal needs (ADR-AUTO-CONSOLE:8). The chokepoint offers
+The one thing a raw write offers is a dot without a line break, which a liveness signal needs (ADR-AUTO-CONSOLE#8). The chokepoint offers
 that too: `-NoNewline` wraps the text in a `HostInformationMessage` with `NoNewLine` set, the same record `Write-Host` emits internally, so
 the host renders it inline while it stays an ordinary information record. A dot written from a background thread job uses the same writer:
 the job streams to the caller's host (`Start-ThreadJob -StreamingHost`) and imports the loaded Writers module, so its dots behave like a
@@ -104,7 +104,7 @@ A state change is anything that makes a later command in the same session behave
 Loading a binary is a state change like any other, and the clearest case for announcing one: a .NET assembly cannot be unloaded, so the
 build the session holds decides which types every later call sees until the process ends. The importer therefore names the assembly it loads
 (`Loaded types automation/.compiled/Catzc.Types.<hash>.dll`), the vendor modules it imports, and the modules it loads, evicts, or drops, on
-its verbose load record (ADR-AUTO-ANNOUNCE:6).
+its verbose load record (ADR-AUTO-ANNOUNCE#6).
 
 Writing a file in the repository is not a session state change; the repository's own rules govern those. The user and machine environment
 and the profile are the exception, because they are what the next session starts from: changing them is changing the console the user opens
@@ -117,11 +117,11 @@ The announcement sits in the block that makes the change, so it runs exactly whe
 change and print nothing. The line names the target and the value: `Session PATH: prepended 'C:\...\dotnet'`,
 `User environment: JAVA_HOME='...'`, `Loaded vendor module powershell-yaml 0.4.12`. A function that makes several related changes may
 announce them on one line built as it goes, and a function that only converges announces the changes it actually made: an installer re-run
-on a box that already has the right `JAVA_HOME` writes nothing and says nothing. That keeps this rule consistent with ADR-AUTO-CONSOLE:5: a
+on a box that already has the right `JAVA_HOME` writes nothing and says nothing. That keeps this rule consistent with ADR-AUTO-CONSOLE#5: a
 state change is always worth reporting, and a no-op is not a change.
 
 `-Verbose` does not announce. A state change is a fact about the session, and the always-on information stream is where facts go; the
-verbose stream is for the diagnostic detail behind them (ADR-AUTO-CONSOLE:2). The importer's own load record is the one exception
+verbose stream is for the diagnostic detail behind them (ADR-AUTO-CONSOLE#2). The importer's own load record is the one exception
 ([below](#the-importers-load-record-is-verbose)).
 
 ### What is not a state change of this session
@@ -140,7 +140,7 @@ Some changes leave the session as they found it, or never touch it, and announci
 
 ### Child-process output is relayed, not re-written
 
-When the toolset runs an external tool, the tool's output streams to the console as it arrives (ADR-AUTO-CONSOLE:4), and a parallel test
+When the toolset runs an external tool, the tool's output streams to the console as it arrives (ADR-AUTO-CONSOLE#4), and a parallel test
 runner relays each worker's output the same way. That output is the child's own bytes, never a PowerShell record, so the C# relays
 (`Invoke-ExecutableStreamed`'s runner, the Pester worker pool) write it to the console directly, saving and restoring the console encoding
 around the run. The command that started the child is announced before it runs ([log-before-invoke](../log-before-invoke.md)); the relay
@@ -158,7 +158,7 @@ plaintext secret if it announced its own writes. The changing function then carr
 
 `. .\importer.ps1` runs at the start of every session and makes the same expected changes each time: it sets the preferences, anchors the
 roots, imports the vendor modules, prepends the vendor root to `PSModulePath`, loads the types assembly, and loads the catzc modules.
-Printing those lines at every shell open is noise (ADR-AUTO-CONSOLE:5), so they are written with `Write-ImporterMessage -StateChange`, which
+Printing those lines at every shell open is noise (ADR-AUTO-CONSOLE#5), so they are written with `Write-ImporterMessage -StateChange`, which
 puts them on the verbose stream. A plain import shows one `Loaded in N seconds (...)` line, plus anything that actually needs attention: a
 warning, `Built <dll>` for a freshly compiled assembly to commit, the stale-types notice, and the `-DiagnoseLoadTime` timings.
 `. .\importer.ps1 -Verbose` shows the full record.
@@ -167,7 +167,7 @@ The shim is an advanced script so that it accepts `-Verbose`. Dot-sourced, it se
 the import, and PowerShell restores it afterwards. `-Verbose` reaches Invoke-Importer, but not the bootstrap and vendor module functions
 that make the changes, so Invoke-Importer hands it to the bootstrap writer with `Set-ImporterVerbosity`. The setting lives in the bootstrap
 module and goes away with it. While the import runs, Invoke-Importer quiets the session-wide preference and restores it in a `finally`
-(ADR-AUTO-ANNOUNCE:3), so `-Verbose` shows the load record rather than every function each `Import-Module` dot-sources and exports.
+(ADR-AUTO-ANNOUNCE#3), so `-Verbose` shows the load record rather than every function each `Import-Module` dot-sources and exports.
 
 The exception covers only the importer's own load. The functions it calls, such as the janitors that adjust `PATH`, are ordinary public
 functions and announce on the information stream like any other caller's. A clean devbox gives them nothing to report.
@@ -185,8 +185,8 @@ not announced; child-process output is relayed as the tool's own; a delegated an
   `[Console]::Out`/`Error`, and the `$Host.UI` writers. It supersedes the built-in `PSAvoidUsingWriteHost`, which the analyzer settings
   exclude so a `Write-Host` is reported once.
 - **`Measure-AnnounceStateChange`** (`automation/.scriptanalyzer/AnnounceStateChange.psm1`) flags a state change of the kinds in the table
-  above that no information-stream writer (or `Write-ImporterMessage -StateChange`, ADR-AUTO-ANNOUNCE:6) in the same or an enclosing block
-  announces, and passes the exemptions of ADR-AUTO-ANNOUNCE:3. It checks that a change is announced; what the line says is a review concern.
+  above that no information-stream writer (or `Write-ImporterMessage -StateChange`, ADR-AUTO-ANNOUNCE#6) in the same or an enclosing block
+  announces, and passes the exemptions of ADR-AUTO-ANNOUNCE#3. It checks that a change is announced; what the line says is a review concern.
 - **`Measure-NoRawInformationStream`** keeps `Write-Information` inside the two chokepoint functions, `Write-InformationColored` and
   `Write-ImporterMessage`.
 - **`Write-Message -NoNewline`** provides the inline dot, so no liveness signal needs a raw write.

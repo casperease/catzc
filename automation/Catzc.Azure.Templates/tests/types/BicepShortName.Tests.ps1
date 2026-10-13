@@ -1,6 +1,7 @@
 # cspell:ignore deriv abcdef
 Describe 'BicepShortName' -Tag 'L0', 'logic' {
-    # The C# type that owns short_name derivation + validation (docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2).
+    # The C# type that owns short_name derivation + validation
+    # ([ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2)).
     # Loaded by the Import-CSharpTypes pre-pass; referenced by FQN here.
 
     Context 'Derive (folder name -> short_name)' {

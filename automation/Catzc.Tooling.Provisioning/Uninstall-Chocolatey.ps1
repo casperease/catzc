@@ -41,7 +41,8 @@ function Uninstall-Chocolatey {
     Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope Machine
     Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope User
 
-    # Remove Chocolatey from PATH — through the PATH seams, which announce the change (ADR-AUTO-TEST:33)
+    # Remove Chocolatey from PATH — through the PATH seams, which announce the change
+    # ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33))
     foreach ($scope in 'Machine', 'User') {
         $path = Get-EnvironmentPath -Scope $scope
         if (-not $path) {

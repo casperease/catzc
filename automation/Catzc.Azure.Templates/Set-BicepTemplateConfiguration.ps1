@@ -2,7 +2,8 @@
 .SYNOPSIS
     Writes (or merges) a template's per-slot ParametersFile into its config file. The write half of
     the INPUT pipeline: it turns user input into a version-controlled change, never a runtime cloud
-    mutation. See docs/adr/flow/pipeline-types.md and docs/adr/azure/azure-data-model.md.
+    mutation. See [ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md) and
+    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md).
 .DESCRIPTION
     Resolves the config file for a (template[, customer], environment[, slot]) coordinate —
     `infrastructure/templates/<template>/configuration/[<customer>/]<env>[-<slot>].yml` — and sets the
@@ -31,7 +32,7 @@
     coordinate must resolve to exactly one subscription (the same rule discovery enforces).
 .PARAMETER DryRun
     Preview only — returns the planned path and content without writing. See
-    docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
 .EXAMPLE
     Set-BicepTemplateConfiguration discovery dev -Parameters @{ sqlAdminLogin = 'admin' }
 .EXAMPLE
@@ -39,7 +40,7 @@
 #>
 function Set-BicepTemplateConfiguration {
     # State-changing function deliberately uses -DryRun, not ShouldProcess — see
-    # docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    # [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-AUTO-DRYRUN#5')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]

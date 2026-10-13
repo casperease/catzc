@@ -2,7 +2,8 @@
 .SYNOPSIS
     Runs one test suite through the parallel harness — the shared core of Test-Automation and Test-CatzcBuild.
 .DESCRIPTION
-    The harness both suites share (ADR-AUTO-TEST:30): lazy-load Pester from the code root, scan the selected
+    The harness both suites share ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)):
+    lazy-load Pester from the code root, scan the selected
     modules' tests/ folders, discover once, enforce the mandatory tag axes, build the tier/category filter, open
     a timestamped run directory with its run.json state record, split the files into parallel/greedy/serial
     phases, apply per-module protection, run the workers, and write the timing check, reports, verdict, and
@@ -11,7 +12,8 @@
     - the entry script each shard worker dot-sources (-EntryScript/-EntryParameter, empty for the source
       importer; the build's Import-Catzc.ps1 for the build suite) — the one seam;
     - an opt-out tag (-SuiteExcludeTag 'source-only' for the build suite): its tests are excluded from the run
-      and counted and listed on the console and in excluded-tests.csv in the run directory (ADR-AUTO-TEST:31);
+      and counted and listed on the console and in excluded-tests.csv in the run directory
+      ([ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31));
     - the suite's name (-Suite), which names the default report folder under out/, the protection key, and
       the failure message; and the banner title (-Title).
 .PARAMETER Suite
@@ -172,7 +174,8 @@ function Invoke-TestAutomationSuite {
             }
         }
 
-        # The suite's opt-out tag (the build suite's 'source-only', ADR-AUTO-TEST:31): exclude its tests from the
+        # The suite's opt-out tag (the build suite's 'source-only',
+        # [ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)): exclude its tests from the
         # run, drop files left with nothing to run, and count and list every excluded test — never silently.
         if ($SuiteExcludeTag.Count -gt 0) {
             $suiteExclusion = Get-TestSuiteExclusion -Discovery $discovery -Tag $SuiteExcludeTag `
@@ -187,13 +190,15 @@ function Invoke-TestAutomationSuite {
         }
 
         # Three execution phases — parallel shards, greedy single-file shards, strict serial (see
-        # Split-TestAutomationFiles / ADR-AUTO-TEST:26).
+        # Split-TestAutomationFiles / [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26)).
         $phases = Split-TestAutomationFiles -Discovery $discovery -TestFiles $testFiles
         $parallelFiles = @($phases.Parallel)
         $greedyFiles = @($phases.Greedy)
         $serialFiles = @($phases.Serial)
 
-        # Per-module protection (ADR-REPO-PROTGLOB:9): units whose composite identity is unchanged since their last
+        # Per-module protection
+        # ([ADR-REPO-PROTGLOB#9](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob9)): units whose
+        # composite identity is unchanged since their last
         # green run this session are dropped from the work-list here in the orchestrator (workers never see
         # the map; in a pipeline the selection is a pass-through). The key carries the suite and the run
         # parameters, so an L0-L1 green never skips an L2 run and a source-suite green never skips the build suite.

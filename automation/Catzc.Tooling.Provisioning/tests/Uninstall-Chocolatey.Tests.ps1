@@ -1,7 +1,8 @@
 Describe 'Uninstall-Chocolatey' -Tag 'L0', 'logic' {
     # Hermetic: every boundary outside the repository is mocked — the admin check, the directory delete, the
     # persistent variable (Set-PermanentEnvironmentVariable) and the persistent PATH (Get-/Set-EnvironmentPath).
-    # The seams' real registry round trips are their own L3 system tests (ADR-AUTO-TEST:33).
+    # The seams' real registry round trips are their own L3 system tests
+    # ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
     BeforeEach {
         Mock Assert-IsAdministrator { } -ModuleName Catzc.Tooling.Provisioning
         Mock Remove-Item { } -ModuleName Catzc.Tooling.Provisioning

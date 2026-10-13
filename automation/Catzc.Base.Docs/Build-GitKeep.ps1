@@ -14,10 +14,10 @@
     Idempotent and fast by construction, so the importer runs it on every load beside Build-Readme: writes go
     through Write-FileIfChanged (canonical output, EOL-insensitive compare, write only on drift). .gitkeep
     files are committed — tracking the folder is their whole job — so a source change lands as a reviewable
-    diff across every location. See docs/adr/repository/generated-readmes.md.
+    diff across every location. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
 .PARAMETER DryRun
     Report what would change without writing any file. See
-    docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
 .PARAMETER Silent
     The per-file status lines are verbose-level — -Silent suppresses them entirely, even under -Verbose
     (used by the importer tail).
@@ -53,7 +53,8 @@ function Build-GitKeep {
     # Walk the tree for .gitkeep files, skipping git's own store and the vendored modules (not ours to
     # manage). The output root's own .gitkeep is checked, but its contents — transient artifacts that may
     # carry fixture copies — are never descended into. [System.IO] over cmdlets on this hot path
-    # (ADR-AUTO-TEST:18); sorted for deterministic output.
+    # ([ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)); sorted for deterministic
+    # output.
     $outputRoot = [System.IO.Path]::Combine($repositoryRoot, 'out')
     $found = [System.Collections.Generic.List[string]]::new()
     $stack = [System.Collections.Generic.Stack[string]]::new()

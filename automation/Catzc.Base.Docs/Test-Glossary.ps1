@@ -2,7 +2,7 @@
 .SYNOPSIS
     Checks the controlled vocabulary against the repository: every glossary gate, every issue in one report.
 .DESCRIPTION
-    Runs the glossary gates of docs/adr/repository/controlled-vocabulary.md (ADR-REPO-VOCAB) over every glossary
+    Runs the glossary gates of [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md) over every glossary
     source, in order:
       - G1 — the facts that span sources (Get-GlossarySourceViolations);
       - G2 — every term anchored on its defining rule (Get-GlossaryAnchorViolations);
@@ -11,7 +11,8 @@
       - G5 — every realized concept enforced (Get-GlossaryEnforcementViolations).
     Each source's own shape is validated when it loads (Catzc.Base.Docs.GlossaryConfig), so a malformed source
     fails before any gate runs. Writes out/test-glossary/<yyyyMMdd-HHmmss>/glossary.md (and latest.txt beside the
-    run folders), prints the report path, and throws once with every issue in the message (ADR-AUTO-FAILFAST).
+    run folders), prints the report path, and throws once with every issue in the message
+    ([ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)).
     The gates read the source tree's ADRs, tests, and tracked files, so it runs in source mode only.
 .PARAMETER OutputFolder
     Folder for the timestamped report. Defaults to out/test-glossary under the repository output root.

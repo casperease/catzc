@@ -53,9 +53,9 @@ function Test-Spelling {
             # Generated README copy-ins (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored
             # and their authored source under docs/ is what is spell-checked (mirrors Test-Markdownlint's
             # '!**/README.md'). Their banner embeds the source's kebab filename, which is not a word. See
-            # docs/adr/repository/generated-readmes.md (ADR-REPO-README:7).
+            # [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7).
             '**/README.md'
-            # docs/adr/index.md is generated from adrs.yml (Build-AdrIndex) — a derived artifact; its source
+            # [index](/docs/adr/index.md) is generated from adrs.yml (Build-AdrIndex) — a derived artifact; its source
             # (adrs.yml + the generator's prose) is what is reviewed, not the projection.
             'docs/adr/index.md'
         ),
@@ -182,7 +182,8 @@ function Test-Spelling {
 
     if ($issueCount -gt 0) {
         # Name the offending words in the throw itself, so the failure is diagnosable from the message
-        # alone (ADR-AUTO-CONSOLE:6) — the report still carries the full per-issue detail. An issue line reads
+        # alone ([ADR-AUTO-CONSOLE#6](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console6))
+        # — the report still carries the full per-issue detail. An issue line reads
         # '<path>:<line>:<col> - Unknown word (word) [fix: (suggestion)]'; take the first parenthesized
         # token after the ' - ' separator.
         $issueWords = foreach ($issueLine in $issueLines) {

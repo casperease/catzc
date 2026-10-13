@@ -13,13 +13,15 @@
     are the same fact — never a sibling path that happened to be clean.
 
     Guards, in order — each skip is one explanatory message and leaves the working tree untouched:
-    - Skips in build mode (Get-CatzcRunMode, ADR-DSGN-RUNMODE): the generated files belong to the source tree,
+    - Skips in build mode (Get-CatzcRunMode,
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)): the generated files belong to the source tree,
       and the session runs a built package. A skip, not a throw, because the importer's janitor tail calls
       this on every load and a janitor never breaks the load.
     - Skips in CI (Test-IsRunningInPipeline): the gates there must fail loudly, not be auto-repaired.
     - Skips on a detached HEAD: a commit there hangs off no branch and is one checkout away from lost.
     - Skips on main/master when the repo's git_workspace variant is 'main-via-pr' (Test-GitWorkspace,
-      ADR-REPO-VARIANT:6): in that mode work always happens on a branch, so standing on main locally is the
+      [ADR-REPO-VARIANT#6](/docs/adr/repository/repo-variants.md#rule-adr-repo-variant6)): in that mode work always
+      happens on a branch, so standing on main locally is the
       one place a direct commit is forbidden. In 'main-direct' (the default, a solo-author trunk) any
       named branch commits — including main, which IS the integration path (one-living-version).
     - Holds back automation/.compiled while it holds anything but the current build
@@ -81,7 +83,9 @@ function Sync-GeneratedFile {
     # stamp commit stages and names exactly what this sync did, never a sibling path that was clean.
     $changed = @($generatedPaths.Keys | Where-Object { Test-GitPathChanged $_ })
 
-    # .compiled must hold exactly the current build (ADR-AUTO-TYPES:6). A superseded DLL that survived the
+    # .compiled must hold exactly the current build
+    # ([ADR-AUTO-TYPES#6](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types6)). A superseded DLL that
+    # survived the
     # janitor (a session still holds it) would otherwise be committed next to the new one — the +1 without
     # the -1. Hold the .compiled commit back until it is tidy; any other changed generated path still commits.
     if ($changed -contains 'automation/.compiled') {

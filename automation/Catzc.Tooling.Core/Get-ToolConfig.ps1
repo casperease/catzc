@@ -30,7 +30,8 @@ function Get-ToolConfig {
     # (so callers get one ToolConfig instance); after a cache reset Get-Config yields a new entry object,
     # which misses here and rebuilds — tying the ToolConfig's lifetime to the config it mirrors.
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:toolConfigCache')) {
-        $script:toolConfigCache = @{}   # strict-clean probe of the lazy slot (ADR-AUTO-PSCACHE:4)
+        $script:toolConfigCache = @{}   # strict-clean probe of the lazy slot
+                                        # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
     }
     if (-not $script:toolConfigCache.ContainsKey($config)) {
         $script:toolConfigCache[$config] = [Catzc.Tooling.Core.ToolConfig]::new($config)

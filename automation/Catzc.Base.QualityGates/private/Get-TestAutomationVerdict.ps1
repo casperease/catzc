@@ -64,7 +64,8 @@ function Get-TestAutomationVerdict {
     }
 
     $summary = if ($result -eq 'Passed') {
-        # Invariant so the duration reads the same on any devbox culture (ADR-AUTO-XPLAT:6) — a da-DK box would
+        # Invariant so the duration reads the same on any devbox culture
+        # ([ADR-AUTO-XPLAT#6](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat6)) — a da-DK box would
         # otherwise render '42,3s' and diverge from CI's '42.3s'.
         $seconds = [math]::Round($DurationSeconds, 1).ToString([System.Globalization.CultureInfo]::InvariantCulture)
         "$PassedCount passed, $SkippedCount skipped in ${seconds}s"

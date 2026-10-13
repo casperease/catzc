@@ -1,4 +1,5 @@
-# Parity (ADR-DSGN-RUNMODE:2): every built module is the same module as its source folder — its exported command
+# Parity ([ADR-DSGN-RUNMODE#2](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode2)): every built module is the same
+# module as its source folder — its exported command
 # set equals the folder's public function files, and its private function set equals the folder's private/ files.
 # The source side is read from the files; the build side from the modules as a build-mode session actually loads
 # them. source-only: it compares the source tree with a fresh build of it, entered in its own child pwsh, so the

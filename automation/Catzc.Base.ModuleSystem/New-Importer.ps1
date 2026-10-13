@@ -13,7 +13,7 @@
     is repository-root-relative, so nothing absolute is baked in.
 
     Writes the source tree's entry point from the source overlay, so it stops with a named error in build mode
-    (Assert-SourceTree, ADR-DSGN-RUNMODE).
+    (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
 .PARAMETER RepositoryRoot
     The repository root to generate importer.ps1 into (and whose overlay is read). Defaults to this repository.
 .PARAMETER Force
@@ -72,12 +72,16 @@ function New-Importer {
         }
         "    [$typeText] `$$($parameter.Name.VariablePath.UserPath)"
     }
-    # The shim sets $env:RepositoryRoot, but its announcement is delegated (ADR-AUTO-ANNOUNCE:2): Invoke-Importer
+    # The shim sets $env:RepositoryRoot, but its announcement is delegated
+    # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)):
+    # Invoke-Importer
     # names it on its Roots line, the first point a writer is loaded.
     $suppression = "[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', " +
     "Justification = 'Invoke-Importer announces RepositoryRoot on its Roots line, the first point a writer is loaded')]"
     # [CmdletBinding()] makes the shim accept -Verbose (forwarded to Invoke-Importer by @PSBoundParameters), which
-    # shows the importer's own state-change record (ADR-AUTO-ANNOUNCE:6). Dot-sourced, the preference stays inside
+    # shows the importer's own state-change record
+    # ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)).
+    # Dot-sourced, the preference stays inside
     # the import and does not leak into the caller's session.
     $paramBlock = "$suppression`n" + "[CmdletBinding()]`n" + "param(`n" + ($paramLines -join ",`n") + "`n)"
 

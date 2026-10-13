@@ -21,7 +21,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     answers "where does output go," not "am I in a pipeline," and its read is
     confined to Get-OutputRoot.
 
-    See ADR: docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1 (rule ADR-FLOW-CD-DETECT:1).
+    See ADR: [ADR-FLOW-CD-DETECT#1](/docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1).
 #>
 
 function Measure-NoRawPipelineDetection {
@@ -44,7 +44,8 @@ function Measure-NoRawPipelineDetection {
     $exemptFunction = 'Test-IsRunningInPipeline'
     $detectionVars = @('env:TF_BUILD', 'env:GITHUB_ACTIONS')
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
+    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
     $isVariable = {
         param($node)
         $node -is [System.Management.Automation.Language.VariableExpressionAst]

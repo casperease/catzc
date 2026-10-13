@@ -17,15 +17,16 @@
 #              mapping WINS over any pattern that also matches its folder.
 #
 # All paths are repository-root-relative and forward-slashed (communication form; see
-# docs/adr/automation/path-representation.md). Loaded via Get-Config -Config readme; the shape is validated by
+# [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)). Loaded via Get-Config -Config readme; the shape is validated by
 # Catzc.Base.Docs.DocsConfig and the patterns are expanded by Get-ReadmeMappings. See
-# docs/adr/repository/generated-readmes.md.
+# [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
 patterns:
   - glob: automation/*
     source: docs/references/automation/{kebab}.md
 mappings:
   # The ADR folder's README IS its index — same folder, so index.md's own relative links resolve unchanged
-  # through the README pointer (the ideal link-base case, generated-readmes.md ADR-REPO-README:6).
+  # through the README pointer (the ideal link-base case,
+  # [ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)).
   - folder: docs/adr
     source: docs/adr/index.md
   - folder: pipelines

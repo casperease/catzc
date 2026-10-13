@@ -1,4 +1,6 @@
-# The dialect's truth table (ADR-FLOW-CD-GLOBS:2) and the constructor gate (ADR-FLOW-CD-GLOBS:3): per-segment PowerShell
+# The dialect's truth table ([ADR-FLOW-CD-GLOBS#2](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs2)) and the
+# constructor gate
+# ([ADR-FLOW-CD-GLOBS#3](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs3)): per-segment PowerShell
 # wildcards, '**' as the only cross-segment operator (zero or more whole segments), case-sensitive; a
 # malformed pattern never produces an instance.
 Describe 'GlobPattern' -Tag 'L0', 'logic' {

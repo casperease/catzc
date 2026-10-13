@@ -2,7 +2,8 @@
 Describe 'Get-GlobSet' -Tag 'L0', 'logic' {
     BeforeAll {
         # Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names, so
-        # this logic test owns its inputs and editing the shipped globs.yml can never change its outcome (ADR-AUTO-TEST:3).
+        # this logic test owns its inputs and editing the shipped globs.yml can never change its outcome
+        # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
                     'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**') }

@@ -4,7 +4,8 @@
 .DESCRIPTION
     Enumerates the code root (Get-CatzcModulesRoot) and returns each module folder name — the same set
     Import-AllModules discovers and imports. The code root is <RepositoryRoot>/automation in source mode and the
-    built package in build mode (ADR-DSGN-RUNMODE); both hold one folder per module under the same name, so the
+    built package in build mode
+    ([ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)); both hold one folder per module under the same name, so the
     list describes the loaded modules in either mode. A non-dot directory is a module; dot-prefixed folders (.internal, .vendor,
     .scriptanalyzer, .compiled) are infrastructure and are excluded (see conventional-folders).
 
@@ -31,7 +32,8 @@ function Get-AutomationModules {
     Assert-PathExist $AutomationRoot -PathType Container
 
     # [System.IO] (sorted ordinally) instead of Get-ChildItem -Directory — the cmdlet carries ~20ms of
-    # per-call provider overhead the raw .NET enumeration avoids (ADR-AUTO-TEST:18); the ordinal sort is
+    # per-call provider overhead the raw .NET enumeration avoids
+    # ([ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)); the ordinal sort is
     # culture-independent (cross-platform).
     $names = [System.Collections.Generic.List[string]]::new()
     foreach ($dir in [System.IO.Directory]::EnumerateDirectories($AutomationRoot)) {

@@ -31,7 +31,8 @@ Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-only', 'AD
 
         # The custom analyzer checks on disk: every 'Measure-*' function declared under .scriptanalyzer, except the
         # entry rule (CatzcRules.psm1), which only dispatches to the checks and enforces nothing itself. Read from the
-        # files directly (an integrity test reads the tree, not the loaded session — ADR-AUTO-TEST:16).
+        # files directly (an integrity test reads the tree, not the loaded session —
+        # [ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16)).
         $scriptAnalyzerDir = Resolve-RepoPath 'automation/.scriptanalyzer'
         $script:customRules = [System.Collections.Generic.List[string]]::new()
         $checkFiles = [System.IO.Directory]::EnumerateFiles($scriptAnalyzerDir, '*.psm1') |

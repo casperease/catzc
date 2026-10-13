@@ -49,7 +49,8 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         & $isControlled 'docs/adr/index.md' | Should -BeTrue
         & $isControlled 'docs/adr/repository/new-draft.md' | Should -BeFalse
         & $isControlled 'out/report-widget.md' | Should -BeTrue
-        # the authored plan files are working notes, not output (ADR-REPO-OUTDIR:10)
+        # the authored plan files are working notes, not output
+        # ([ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10))
         & $isControlled 'out/plan-widget.md' | Should -BeFalse
         & $isControlled 'automation/Catzc.Base.Git/New-Draft.ps1' | Should -BeFalse
         & $isControlled 'automation/.compiled/Catzc.Types.abc123.dll' | Should -BeFalse

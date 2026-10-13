@@ -1,12 +1,13 @@
 # Whole-pipeline (extends) template — the ONE shared structure for every customer CD.
 #
-# Per docs/adr/pipelines/pipeline-naming-and-placement.md, customer CD is the sanctioned large-template
+# Per [ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md), customer CD is the sanctioned large-template
 # case: every customer's thin pipeline (cd-apex.yaml, cd-nova.yaml, cd-flux.yaml) `extends:` this file
 # and supplies only meta selection criteria — the customer key and the per-deployment env/slot/
-# service-connection/assert map. No automation config is needled through (custom-template-discipline.md).
+# service-connection/assert map. No automation config is needled through
+# ([ADR-PIPE-TEMPLATE](/docs/adr/pipelines/custom-template-discipline.md)).
 #
 # The deploy TARGET is the az session's subscription — exactly what each entry's service connection logs
-# into (docs/adr/azure/azure-data-model.md). Nothing chains a subscription name; instead every entry pins its
+# into ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)). Nothing chains a subscription name; instead every entry pins its
 # expectation with `subscriptionIdAssertIs` (mandatory in a pipeline), so a mis-wired service connection
 # fails loudly instead of silently retargeting. The customer that renders into names is derived from the
 # session subscription, and the session's customer picks the configuration/<customer>/ slot.

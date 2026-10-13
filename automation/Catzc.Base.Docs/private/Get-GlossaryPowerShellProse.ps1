@@ -4,7 +4,8 @@
     gate (G4).
 .DESCRIPTION
     Parses the file ([System.Management.Automation.Language.Parser]::ParseFile) and returns one segment per piece
-    of prose, never a regex over the source text (docs/adr/repository/controlled-vocabulary.md, ADR-REPO-VOCAB:5):
+    of prose, never a regex over the source text
+    ([ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)):
       - help — a block comment holding .SYNOPSIS or .DESCRIPTION (comment-based help);
       - comments — every other comment token;
       - messages — the strings passed to throw, Write-Message, Write-Warning, Write-Error, or Write-Host, and the

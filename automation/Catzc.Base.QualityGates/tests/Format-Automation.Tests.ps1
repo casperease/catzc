@@ -1,4 +1,6 @@
-# The real-asset test of ADR-AUTO-ASSETDEP:3: Format-Automation imports the vendored PSScriptAnalyzer
+# The real-asset test of
+# [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3): Format-Automation
+# imports the vendored PSScriptAnalyzer
 # (<code root>/.vendor) and formats with the shipped settings file (<code root>/.internal/assets), nothing mocked —
 # integrity, and not source-only, so it runs in the source and the build suite. An explicit -Path over a
 # throwaway file keeps it off the source tree, which the default file set needs.

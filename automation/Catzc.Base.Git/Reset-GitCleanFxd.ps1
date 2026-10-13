@@ -15,7 +15,9 @@
 
     Everything deleted is rematerialised by the next import (dot-source importer.ps1) except out/,
     whose content is transient by contract (dedicated-output-directory) — gone means gone, by design.
-    The authored plan files (out/plan-*.md, ADR-REPO-OUTDIR:10) are the exception: kept and reported.
+    The authored plan files (out/plan-*.md,
+    [ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10)) are the exception:
+    kept and reported.
 .PARAMETER DryRun
     Classify without deleting: return the plan as an object with the Remove and Keep lists.
 .OUTPUTS
@@ -26,7 +28,8 @@
 .EXAMPLE
     Reset-GitCleanFxd
 #>
-# Uses -DryRun, not ShouldProcess/-WhatIf — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun2.
+# Uses -DryRun, not ShouldProcess/-WhatIf — see
+# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun2).
 function Reset-GitCleanFxd {
     [CmdletBinding()]
     param(

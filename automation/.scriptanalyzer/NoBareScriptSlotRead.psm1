@@ -4,10 +4,12 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: a function file reads a lazy $script: slot only after probing or assigning it.
 .DESCRIPTION
-    A module function file holds one function and no top-level statements (ADR-AUTO-ONEFUNC), so nothing declares
+    A module function file holds one function and no top-level statements
+    ([ADR-AUTO-ONEFUNC](/docs/adr/automation/powershell/one-function-per-file.md)), so nothing declares
     a $script: slot at import: the first call reads a variable that was never set, and strict mode throws.
     The function must either assign the slot before reading it, or probe it with
-    `$ExecutionContext.SessionState.PSVariable.GetValue('script:<slot>')` (ADR-AUTO-PSCACHE:4).
+    `$ExecutionContext.SessionState.PSVariable.GetValue('script:<slot>')`
+    ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4)).
 
     Scope: everything except a .psm1 and a Pester file. A .psm1 module can declare its slots at load, and a Pester
     file shares state through $script: on purpose. Within a function, a read is accepted when the same function probes
@@ -34,7 +36,8 @@ function Measure-NoBareScriptSlotRead {
         return $results.ToArray()
     }
 
-    # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
+    # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew
+    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
     $isFunction = {
         param($node)
         $node -is [System.Management.Automation.Language.FunctionDefinitionAst]

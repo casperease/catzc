@@ -58,7 +58,8 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
 }
 
 # Reads the SHIPPED assets/gitkeep through Build-GitKeep's real lookup (nothing mocked on the read) and writes
-# only into a fixture repository, so it runs in both the source suite and the build suite (ADR-AUTO-ASSETDEP:3).
+# only into a fixture repository, so it runs in both the source suite and the build suite
+# ([ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)).
 Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         Import-InternalModule TestKit

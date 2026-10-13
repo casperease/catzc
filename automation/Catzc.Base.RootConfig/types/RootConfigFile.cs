@@ -7,7 +7,7 @@
 // header included. `copyAsLink` (default false) materialises the target as a filesystem link to the source
 // instead of a generated copy: it requires `source`, requires committed false, and forbids a declared
 // `comment` (a link carries no generated content). Paths are repository-root-relative, '/'-separated
-// communication-form values (see docs/adr/automation/path-representation.md). Mirrors a rootconfig.yml files
+// communication-form values (see [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)). Mirrors a rootconfig.yml files
 // entry (snake_case keys).
 //
 // Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary

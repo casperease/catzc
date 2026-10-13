@@ -6,7 +6,8 @@
     Canonicalises the given content (LF endings, exactly one trailing newline) and compares it to what is on
     disk, ignoring line endings (CR stripped) — so a CRLF working tree (git core.autocrlf, an editor's
     format-on-save) never triggers a spurious rewrite (mirrors the compiled-type cache guard — see
-    docs/adr/automation/caching.md). Only on a real content difference is the file written, as UTF-8 without
+    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)). Only on a real content difference is the file written, as UTF-8
+    without
     BOM; a missing parent directory is created. Returns whether the file changed (or would change under
     -DryRun), so a caller can drive its own status line.
 
@@ -16,7 +17,8 @@
 
     This is the write tail every generated-artifact builder shares (Build-RootConfig, Build-GitKeep, …) —
     one living copy of the canonicalise/compare/write logic instead of one per builder (see
-    docs/adr/principles/one-living-version.md). It is a pure primitive: no console output — callers own
+    [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)). It is a pure primitive: no console output — callers
+    own
     their reporting.
 .PARAMETER Path
     Path of the target file to write.
@@ -25,7 +27,7 @@
     collapsed to exactly one.
 .PARAMETER DryRun
     Report whether the file would change without writing it. See
-    docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
 .OUTPUTS
     [bool] $true when the file was written (or would be, under -DryRun); $false when already current.
 .EXAMPLE

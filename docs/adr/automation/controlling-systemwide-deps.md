@@ -12,7 +12,7 @@ allowlist of base tools (git, vscode) deliberately tracks `latest` and verifies 
 ### Rule ADR-AUTO-DEPS:2
 
 Provide one `Install-*` / `Invoke-*` / `Uninstall-*` triad per tool. The installer handles platform differences, the invoker asserts version
-and presence, the uninstaller cleans up. An OS-provided prerequisite is the exception (Rule ADR-AUTO-DEPS:8): it is asserted, never
+and presence, the uninstaller cleans up. An OS-provided prerequisite is the exception (Rule ADR-AUTO-DEPS#8): it is asserted, never
 installed, so it has no triad.
 
 - [2. Platform-aware installers](#2-platform-aware-installers)
@@ -129,7 +129,7 @@ tool:
 - **uv-managed Python family** — Python itself and the CLIs written in Python (the Azure CLI, Poetry, PySpark) install user-space through
   uv, keyed by `uv_python` / `uv_tool` / `pip_package`; see [uv-python-handler](uv-python-handler.md) (`ADR-AUTO-UVPY`).
 - **OS-provided prerequisites** (e.g. `winget`) set `system_provided: true` — asserted and kept on PATH, never installed (Rule
-  ADR-AUTO-DEPS:8).
+  ADR-AUTO-DEPS#8).
 
 All entries share `version`, `command`, `version_command`, and `version_pattern` — the fields used for version-locking and runtime
 assertion.

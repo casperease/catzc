@@ -4,7 +4,8 @@
 # those lists. Two roots: `categories:` defines the vocabulary classes, and `terms:` groups the words under
 # them — `terms: <category>: [ { term, meaning }, ... ]`. A term's category is the group it sits in (no
 # per-entry category field); an abbreviation entry also carries `expands_to`. See
-# docs/adr/automation/spell-out-names.md (ADR-AUTO-SPELL:5-ADR-AUTO-SPELL:8).
+# [ADR-AUTO-SPELL](/docs/adr/automation/powershell/spell-out-names.md)
+# ([ADR-AUTO-SPELL#5](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell5)-[ADR-AUTO-SPELL#8](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell8)).
 #
 # Loaded via Get-Config -Config terminology; validated by Catzc.Base.QualityGates.TerminologyConfig, which
 # requires every term's category to be one defined here.
@@ -15,15 +16,18 @@
 #
 # Each category is a mapping with a required `description` and an OPTIONAL `scope` — a list of repo-relative
 # `/`-separated globs DECLARING which domain a category's terms belong to (the test/example domain, the
-# live/config domain, the design/ADR domain — see ADR-REPO-LANG). `scope` is a DECLARATION of intent, not a cspell
+# live/config domain, the design/ADR domain — see
+# [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)). `scope` is a DECLARATION of intent, not a cspell
 # rule: cspell tokenizes text, not meaning, and example/fixture vocabulary legitimately appears in comments,
 # doc-example blocks, and demo data across every file type (a config comment illustrating `[acme, globex]`,
 # a pipeline's `'Contoso Ltd'` demo record, a function's .EXAMPLE help), so a file-glob dictionary scope
 # cannot separate "fixture-as-illustration" from "fixture-as-leaked-production-data". The domain separation
-# is therefore enforced by ADR-AUTO-TEST + code review (and, prospectively, a TAG-AWARE AST gate over test files —
+# is therefore enforced by
+# [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md) + code review (and, prospectively, a TAG-AWARE AST gate over test files —
 # an extension of Get-TestTagViolations that inspects string literals, not comments), with `scope` as the
 # machine-readable domain map that gate would consume. All categories are effectively GLOBAL to cspell today.
-# See docs/adr/repository/domain-language-separation.md (ADR-REPO-LANG) and spell-out-names.md (ADR-AUTO-SPELL).
+# See [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md) and
+# [ADR-AUTO-SPELL](/docs/adr/automation/powershell/spell-out-names.md).
 categories:
   domain:
     description: "General technical or computing vocabulary this codebase uses that fits no more specific category below."
@@ -727,6 +731,8 @@ terms:
   tool:
     - term: csharp
       meaning: "C# (the csharp language / file token)"
+    - term: regexrobin
+      meaning: "the Regex Robin VS Code extension's settings prefix (regexrobin.rules) — makes code links clickable"
     - term: dtmp
       meaning: "draw.io desktop's temporary-file extension (*.dtmp), written beside a diagram while it is open; gitignored"
     - term: py

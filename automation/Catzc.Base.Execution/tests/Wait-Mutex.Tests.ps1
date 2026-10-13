@@ -3,7 +3,9 @@ param()
 
 Describe 'Wait-Mutex' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The writer is the observable boundary (ADR-AUTO-PESTER:3): assert which message shape each path emits.
+        # The writer is the observable boundary
+        # ([ADR-AUTO-PESTER#3](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester3)): assert which
+        # message shape each path emits.
         Mock Write-Message { } -ModuleName Catzc.Base.Execution
     }
 

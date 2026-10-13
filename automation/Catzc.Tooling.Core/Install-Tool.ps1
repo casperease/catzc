@@ -86,7 +86,7 @@ function Install-Tool {
         Assert-NotNullOrWhitespace $config.apt_package -ErrorText "$Tool has no AptPackage — use Install-$command directly"
         # Linux package installation via apt-get requires root. The user-space uv family never routes here:
         # Install-Uv bootstraps uv from Astral's standalone release, and the Python-based CLIs install
-        # through uv (docs/adr/automation/uv-python-handler.md).
+        # through uv ([ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)).
         Assert-IsAdministrator -ErrorText "Install-$command on Linux requires root (apt-get). Run as root or install $Tool manually."
         Assert-Command apt-get
         $package = $config.apt_package -f $Version

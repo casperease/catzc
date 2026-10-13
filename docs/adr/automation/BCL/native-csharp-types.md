@@ -93,7 +93,7 @@ A type publishes a PowerShell type-accelerator by carrying `[Catzc.Base.Objects.
 after loading the assembly, so `[Name]` resolves to that type (`[Catzc.Module.Depm]::Puml`). Names carry a `Catzc.` prefix — a registration
 reclaims only our own accelerator — and the alias literal is authored in the decorated source, so a search for it lands on the type. This is
 registration, not compilation: `Add-Type` stays the sole compiler, and the decoration's cross-module edge is governed by the dependency
-graph (Rule ADR-AUTO-TYPES:4) like any other.
+graph (Rule ADR-AUTO-TYPES#4) like any other.
 
 - [Type-accelerator aliases, and backtracking to source](#type-accelerator-aliases-and-backtracking-to-source)
 
@@ -156,7 +156,7 @@ One combined assembly dissolves the problem entirely rather than working around 
   therefore stays the compiler, with no `dotnet`/`csc` build step, no topological compile order, and no transitive references.
 
 The cost is that the compiler does not structurally forbid a layer inversion (a base-module type referencing a leaf-module type) — in one
-compilation unit that just compiles. That enforcement moves to the linter (see Rule ADR-AUTO-TYPES:4): `Get-CSharpTypeDependency` reports
+compilation unit that just compiles. That enforcement moves to the linter (see Rule ADR-AUTO-TYPES#4): `Get-CSharpTypeDependency` reports
 the cross-module C# edges and the acyclic allow-list in `configs/dependencies.yml` governs them, failing L1 on an undeclared edge.
 
 ## Decision
@@ -198,13 +198,13 @@ compiles. The repo ships an **IDE-only** `Catzc.Types.csproj` (under `automation
 type source) and a classic root `catzc.sln` (Dev Kit loads a `.sln`, not a `.slnx`; kept at the repo root so the editor auto-loads it, and
 it references the project by relative path) that mirror `Add-Type`'s compile — `Nullable` and `ImplicitUsings` off, .NET 10 — so the
 editor's feedback equals the runtime's: real namespaces (no `CA1050`), with two deliberate opt-outs stated in `.editorconfig` — `IDE1006`
-(snake_case config-mirroring props, Rule ADR-AUTO-TYPES:8) and `IDE0130` (the namespace mirrors the module, not the project's physical
-folder path, Rule ADR-AUTO-TYPES:2). The runtime never builds the project; `Add-Type` stays the compiler, and `Invoke-BuildForVSCode` builds
+(snake_case config-mirroring props, Rule ADR-AUTO-TYPES#8) and `IDE0130` (the namespace mirrors the module, not the project's physical
+folder path, Rule ADR-AUTO-TYPES#2). The runtime never builds the project; `Add-Type` stays the compiler, and `Invoke-BuildForVSCode` builds
 the IDE project on demand for the editor (see below). The [poka-yoke](../../principles/poka-yoke.md) is preserved because the namespace is
 folder-derived by `Format-Types` and gated by `Test-Types`, not a second hand-maintained source of truth that could drift.
 
 To keep that IDE artifact honest, the project **stamps its version from the committed `Catzc.Types.<hash>.dll`** — the runtime assembly's
-own identity (Rule ADR-AUTO-TYPES:6) — so its build metadata (the `deps.json` project entry) reads `Catzc.Types/1.0.0-<hash>`, not the
+own identity (Rule ADR-AUTO-TYPES#6) — so its build metadata (the `deps.json` project entry) reads `Catzc.Types/1.0.0-<hash>`, not the
 accidental default `1.0.0`. It is trust-but-verify: the build recomputes the combined source hash with the loader's algorithm and **fails
 when the committed DLL is stale, missing, or ambiguous**, so the editor's project can never present a version that outruns the sources it
 claims to describe. That makes the hashing a fourth mirror of the same algorithm (loader, `Clear-ModuleTypeCache`, the drift-guard tests)
@@ -213,7 +213,7 @@ that must stay in step.
 ### Type-accelerator aliases, and backtracking to source
 
 A type exposes a short alias for its fully-qualified name by carrying one or more `[Catzc.Base.Objects.PSTypeAlias("Catzc.Module.Depm")]`
-attributes (Rule ADR-AUTO-TYPES:10). After loading the combined assembly, `Import-CSharpTypes` reflects for the attribute and registers each
+attributes (Rule ADR-AUTO-TYPES#10). After loading the combined assembly, `Import-CSharpTypes` reflects for the attribute and registers each
 name with `System.Management.Automation.TypeAccelerators` — the table behind `[regex]` and `[ordered]` — so `[Catzc.Module.Depm]::Puml`
 resolves to `Catzc.Base.ModuleSystem.ModuleDependencyFormat`. Registration is idempotent (remove-then-add), so a re-import never throws on a
 duplicate key, and the `Catzc.` prefix keeps it from reclaiming another module's accelerator.
@@ -229,10 +229,10 @@ restore the trail, and the design leans on both:
 - **The IDE project makes the C# navigable.** With `Catzc.Types.csproj` built, every `types/*.cs` is a first-class Dev Kit symbol, so
   Go-to-Symbol on `ModuleDependencyFormat` jumps to source.
 
-That editor build is the second of two pathways over the same sources: `Add-Type` compiles for the runtime (Rule ADR-AUTO-TYPES:3), and
+That editor build is the second of two pathways over the same sources: `Add-Type` compiles for the runtime (Rule ADR-AUTO-TYPES#3), and
 `dotnet build` compiles for the editor. `Invoke-BuildForVSCode` drives the editor half — a `dotnet build` of `Catzc.Types.csproj` — and it
 doubles as a gate: the project's stamp task fails when the committed `Catzc.Types.<hash>.dll` is stale versus the sources (Rule
-ADR-AUTO-TYPES:6), so a green build also proves the IDE project matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable`,
+ADR-AUTO-TYPES#6), so a green build also proves the IDE project matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable`,
 not the Tooling layer's `Invoke-Dotnet`, which a `Base` module must not depend on.
 
 A short accelerator trades some of the [spell-out ADR](../powershell/spell-out-names.md)'s self-describing-name value for terseness at the
@@ -262,7 +262,7 @@ and, on Windows, its holders (`Get-FileLockingProcess`, via the Restart Manager)
 load completes. `-StopLockingProcesses` on `Clear-ModuleTypeCache` stops each holder, announcing each stop, then retries the delete over a
 short window (Windows releases an exited process's mapped image a moment after the exit). It never stops the session asking or any of its
 parents. A hand-run `Clear-ModuleTypeCache` stops nothing unless asked, because a stopped process loses its unsaved work; the importer
-decides by who is running it (ADR-AUTO-TYPES:13) — a person's import stops the holders, an agent's import and a pipeline never do. The
+decides by who is running it (ADR-AUTO-TYPES#13) — a person's import stops the holders, an agent's import and a pipeline never do. The
 invariant is guarded at three points:
 
 - **Devbox auto-commit:** `Sync-GeneratedFile` holds `automation/.compiled` back, with one red line naming the surplus DLLs, while
@@ -329,7 +329,7 @@ crossing the boundary; the model built from it is typed.
 - **`Import-CSharpTypes`** rejects a dotted filename and a source whose declared namespace is missing, mismatched, or block-scoped (the same
   invariant `Test-Types` enforces, checked at load), compiles all modules' sources **as authored** into one assembly (`Add-Type -Path`, one
   compilation unit per file), verifies every `types/*.cs` produced `<module>.<filename>` (else "was not produced"), and registers each
-  `[Catzc.Base.Objects.PSTypeAlias]` name as a type-accelerator (Rule ADR-AUTO-TYPES:10).
+  `[Catzc.Base.Objects.PSTypeAlias]` name as a type-accelerator (Rule ADR-AUTO-TYPES#10).
 
 - **`Invoke-BuildForVSCode`** (in `Catzc.Base.TypesSystem`) drives the editor-facing `dotnet build` of `Catzc.Types.csproj` through
   `Invoke-Executable`, so a dev or CI builds and verifies the IDE project on demand; the project's stamp task fails the build on a stale
@@ -362,7 +362,7 @@ crossing the boundary; the model built from it is typed.
 
 ## Disambiguation
 
-The module-dependency graph that governs cross-module C# type edges (ADR-AUTO-TYPES:4) is owned by
+The module-dependency graph that governs cross-module C# type edges (ADR-AUTO-TYPES#4) is owned by
 [controlling-module-dependencies](../controlling-module-dependencies.md) (`ADR-AUTO-DEPM`); this ADR covers the type system itself.
 
 ## Consequences

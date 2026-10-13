@@ -2,7 +2,9 @@
 .SYNOPSIS
     Claims where a test run executes: in place in the working folder, or in an isolated snapshot of it.
 .DESCRIPTION
-    A test run never waits for another (ADR-AUTO-TEST:32). Concurrent runs share real state in a checkout —
+    A test run never waits for another
+    ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)). Concurrent runs share real state
+    in a checkout —
     the out/ build folders, the .compiled assembly, the git index and working tree — so only one run at a
     time may use the working folder itself. This is the one claim path both entry points use:
 

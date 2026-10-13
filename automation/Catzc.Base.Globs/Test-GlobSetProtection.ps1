@@ -2,7 +2,8 @@
 .SYNOPSIS
     True when a scan may be skipped: this test already ran green against this globset's current identity.
 .DESCRIPTION
-    The query half of the protected-glob gate (ADR-REPO-PROTGLOB): a heavy read-only scan is a pure function of
+    The query half of the protected-glob gate
+    ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)): a heavy read-only scan is a pure function of
     its globset's durable SHA, so a repeat run against an unchanged set proves nothing. The protection map
     is session memory only — keyed <test>|<globset>, holding the durable SHA of the last green run — and in
     a pipeline it is never consulted: this returns $false unconditionally, so CI always scans full.
@@ -44,7 +45,8 @@ function Test-GlobSetProtection {
     }
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:protectedGlobSets')) {
-        $script:protectedGlobSets = @{}   # strict-clean probe of the lazy slots (ADR-AUTO-PSCACHE:4)
+        $script:protectedGlobSets = @{}   # strict-clean probe of the lazy slots
+                                          # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
         $script:pendingGlobProtections = @{}
     }
 

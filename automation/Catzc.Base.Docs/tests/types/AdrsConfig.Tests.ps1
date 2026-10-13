@@ -1,6 +1,7 @@
 Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     BeforeAll {
-        # Neutral fixtures (ADR-REPO-LANG): invented domains/codes, never real ADR vocabulary. Defined in
+        # Neutral fixtures ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)): invented
+        # domains/codes, never real ADR vocabulary. Defined in
         # BeforeAll so the helper is in run-phase scope and visible to every It (a Describe-body function is
         # only in discovery scope).
         function New-ValidRaw {

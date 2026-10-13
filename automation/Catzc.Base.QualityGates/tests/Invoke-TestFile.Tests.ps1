@@ -11,7 +11,8 @@ Describe 'Invoke-TestFile (real worker)' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
 
-        # The strict contract (ADR-AUTO-TEST:25): the worker runs every test strict, and a test that genuinely
+        # The strict contract ([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)): the
+        # worker runs every test strict, and a test that genuinely
         # needs non-strict semantics opts out locally, in its own It body. The fixture holds the same strict-hostile
         # read (.Count on a scalar) twice — bare, and behind the opt-out — plus a plain test for the filter.
         $script:fixture = Join-Path $TestDrive 'StrictHostile.Tests.ps1'
@@ -62,11 +63,13 @@ Describe 'Failing' -Tag 'L0', 'logic' {
         $run.ExitCode | Should -Be 1
     }
 
-    # The walking skeleton of the snapshot path (ADR-AUTO-TEST:32): a real snapshot, primed, a real worker
+    # The walking skeleton of the snapshot path
+    # ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)): a real snapshot, primed, a
+    # real worker
     # loading it. -Isolated takes the path deterministically; when it is taken because another run holds the
     # working folder is Enter-TestRunSlot's L0 concern.
     # The fixture also carries an L3 block, so the same worker spawn proves a snapshot skips the vertical system
-    # tests (Resolve-TestRunMaxLevel, ADR-AUTO-TEST:33).
+    # tests (Resolve-TestRunMaxLevel, [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
     It 'runs in a snapshot: the worker loads the snapshot, the report and the rows come home, the snapshot is removed' {
         Mock Write-Message -ModuleName Catzc.Base.Git { }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }

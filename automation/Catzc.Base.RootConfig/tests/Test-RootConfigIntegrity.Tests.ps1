@@ -7,7 +7,7 @@
 #                      from tracking (removed with `git rm --cached` if it was ever committed).
 #   committed true  -> the target is tracked (needed before the importer runs) and NOT ignored.
 # Mirrors the generated-README integrity gate (Test-GeneratedReadmes.Tests.ps1). See
-# docs/adr/repository/generated-root-configs.md.
+# [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
 Describe 'Managed root config files agree with .gitignore and git tracking' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
@@ -31,7 +31,8 @@ Describe 'Managed root config files agree with .gitignore and git tracking' -Tag
         }
 
         # Resolve the opted-in entries exactly as Build-RootConfig does (private resolver, reached via the
-        # module per ADR-AUTO-PESTER:4) against the real registry.
+        # module per [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4))
+        # against the real registry.
         $script:entries = @()
         if (-not $script:skip) {
             $config = Get-Config -Config rootconfig

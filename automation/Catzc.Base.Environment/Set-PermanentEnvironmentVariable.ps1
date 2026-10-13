@@ -8,7 +8,8 @@
     which every other process and every concurrent test run on the machine shares. User/Machine scopes are a
     Windows concept; callers gate Windows-only use behind $IsWindows.
 
-    Because every such write passes through here, this is also where it is announced (ADR-AUTO-ANNOUNCE:2): one
+    Because every such write passes through here, this is also where it is announced
+    ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)): one
     line names the scope, the variable and the change. Writing the value the scope already holds — or removing a
     variable that is not set — is a no-op, so it neither writes nor announces.
 

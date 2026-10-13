@@ -1,6 +1,7 @@
 <#
 .SYNOPSIS
-    The protection decision (ADR-REPO-PROTGLOB:9): drops the test files of every unit whose composite identity is
+    The protection decision ([ADR-REPO-PROTGLOB#9](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob9)):
+    drops the test files of every unit whose composite identity is
     unchanged since its last green run this session.
 .DESCRIPTION
     Groups the run's test files by unit (Get-TestFileModule), composes each unit's protection identity

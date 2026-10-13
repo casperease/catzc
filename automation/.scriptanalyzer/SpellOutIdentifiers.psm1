@@ -4,7 +4,8 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: enforce spelled-out identifier names — no invented local abbreviations.
 .DESCRIPTION
-    Backs docs/adr/automation/spell-out-names.md (ADR-AUTO-SPELL:1). Every variable name, parameter name, and the noun
+    Backs [ADR-AUTO-SPELL#1](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell1). Every variable
+    name, parameter name, and the noun
     of every function name is tokenized (camelCase / PascalCase / snake_case) and each fragment is checked
     against the SpellingOracle — the union of cspell's English words (assets/english.txt.gz) and the approved
     terminology (.cspell/*.txt: domain vocabulary + the conventional-abbreviation allow-list). A fragment that
@@ -57,7 +58,9 @@ function Initialize-SpellingOracle {
     else {
         [string[]] @()
     }
-    # Fixture terms (.cspell/fixture.txt) are test-only vocabulary (ADR-AUTO-SPELL:6): kept separate so the oracle
+    # Fixture terms (.cspell/fixture.txt) are test-only vocabulary
+    # ([ADR-AUTO-SPELL#6](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell6)): kept separate so
+    # the oracle
     # accepts them only when analyzing a test file, never in production code.
     $fixturePaths = [string[]] @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -eq 'fixture.txt' })
     $termPaths = [string[]] @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -ne 'fixture.txt' })
@@ -95,7 +98,9 @@ function Measure-SpellOutIdentifiers {
 
     Initialize-SpellingOracle
 
-    # A test file may use fixture vocabulary (ADR-AUTO-SPELL:6); production code may not. Fixture terms are accepted
+    # A test file may use fixture vocabulary
+    # ([ADR-AUTO-SPELL#6](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell6)); production code may
+    # not. Fixture terms are accepted
     # only when the file under analysis is a test (`*.Tests.ps1` or under a `tests/` folder).
     $file = $ScriptBlockAst.Extent.File
     $isTestScope = [bool] $file -and ($file -match '\.Tests\.ps1$' -or $file -match '[\\/]tests[\\/]')
@@ -107,14 +112,16 @@ function Measure-SpellOutIdentifiers {
     $reported = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
     # Every variable reference — assignment targets, parameters, loop variables, and reads — so a coined name
-    # is caught wherever it is defined. Predicate as a local (ADR-AUTO-PSFORMAT:6).
+    # is caught wherever it is defined. Predicate as a local
+    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
     $isVariable = {
         param($node)
         $node -is [System.Management.Automation.Language.VariableExpressionAst]
     }
     foreach ($variable in $ScriptBlockAst.FindAll($isVariable, $true)) {
         $variablePath = $variable.VariablePath
-        # $env:, $function:, $variable: … — an external/special drive, not an identifier we choose (ADR-AUTO-SPELL:4).
+        # $env:, $function:, $variable: … — an external/special drive, not an identifier we choose
+        # ([ADR-AUTO-SPELL#4](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell4)).
         if ($variablePath.DriveName) {
             continue
         }
@@ -138,7 +145,8 @@ function Measure-SpellOutIdentifiers {
         }
     }
 
-    # The noun of each function name (the verb is gated by PSUseApprovedVerbs). Predicate as a local (ADR-AUTO-PSFORMAT:6).
+    # The noun of each function name (the verb is gated by PSUseApprovedVerbs). Predicate as a local
+    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
     $isFunction = {
         param($node)
         $node -is [System.Management.Automation.Language.FunctionDefinitionAst]

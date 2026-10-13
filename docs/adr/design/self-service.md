@@ -110,10 +110,10 @@ construction" means: the fast path and the compliant path are the same path.
 ## Decision
 
 Make self-service the platform's mode of use, and make it safe by construction: every self-service action is a change to the **single source
-of truth** (ADR-DSGN-SELFSERV:2), applied only through the **thin CLI** (ADR-DSGN-SELFSERV:1), shipped as an **immutable, reproducibly-built
-artifact with provenance** (ADR-DSGN-SELFSERV:3), landed via **trunk-based development behind automated, mandatory guardrails**
-(ADR-DSGN-SELFSERV:4). In controlled domains this makes self-service and auditability the same mechanism rather than competing ones
-(ADR-DSGN-SELFSERV:5).
+of truth** (ADR-DSGN-SELFSERV#2), applied only through the **thin CLI** (ADR-DSGN-SELFSERV#1), shipped as an **immutable, reproducibly-built
+artifact with provenance** (ADR-DSGN-SELFSERV#3), landed via **trunk-based development behind automated, mandatory guardrails**
+(ADR-DSGN-SELFSERV#4). In controlled domains this makes self-service and auditability the same mechanism rather than competing ones
+(ADR-DSGN-SELFSERV#5).
 
 ### How this is enforced
 

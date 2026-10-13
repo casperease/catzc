@@ -15,9 +15,9 @@
 #
 # `comment` ('hash' | 'none', default 'none') picks the generated-file header for non-link `source` copy-ins;
 # a `generator` owns its whole output, header included, and takes no `comment`. All paths are repository-root-
-# relative and forward-slashed (communication form; see docs/adr/automation/path-representation.md). Loaded
+# relative and forward-slashed (communication form; see [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)). Loaded
 # via Get-Config -Config rootconfig; the shape is validated by Catzc.Base.RootConfig.RootConfigFiles. See
-# docs/adr/repository/generated-root-configs.md.
+# [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
 files:
   - target: PSScriptAnalyzerSettings.psd1
     source: automation/.internal/assets/PSScriptAnalyzerSettings.psd1

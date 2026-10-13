@@ -60,7 +60,8 @@ function Sync-SessionPath {
         }
     }
 
-    # Rewrite the session PATH only when an entry arrives or leaves, and say which (ADR-AUTO-ANNOUNCE:2) — on a
+    # Rewrite the session PATH only when an entry arrives or leaves, and say which
+    # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)) — on a
     # clean devbox nothing changes, so the import stays quiet.
     $added = @($newPaths)
     $dropped = @($currentPaths | Where-Object { $_ -notin @($kept) })

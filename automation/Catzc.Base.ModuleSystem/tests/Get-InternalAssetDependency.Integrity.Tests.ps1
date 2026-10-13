@@ -1,5 +1,8 @@
-# The coverage gate (ADR-AUTO-ASSETDEP:4) over the real tree: every function that reads an internal asset through
-# Get-CatzcModuleRoot has a test citing ADR-AUTO-ASSETDEP#3 that is not source-only, so the read is exercised in
+# The coverage gate ([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4))
+# over the real tree: every function that reads an internal asset through
+# Get-CatzcModuleRoot has a test citing
+# [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3) that is not
+# source-only, so the read is exercised in
 # both the source suite and the build suite. It scans the source files (per-function .ps1 and tests/), which
 # only the source tree has — so the gate itself is source-only.
 Describe 'Internal asset dependency coverage (real tree)' -Tag 'L1', 'integrity', 'source-only', 'ADR-AUTO-ASSETDEP#4' {

@@ -1,6 +1,8 @@
 Describe 'Install-Catzc' -Tag 'L0', 'logic' {
     BeforeEach {
-        # A fixture build (neutral names, ADR-AUTO-TEST:3). Its integrity gate is a boundary here (Assert-CatzcBundle
+        # A fixture build (neutral names,
+        # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). Its integrity gate is a
+        # boundary here (Assert-CatzcBundle
         # has its own tests); the fixture's Import-Catzc.ps1 records how it was invoked, so dot-sourcing the
         # generated root importer proves the wiring without loading a platform.
         $script:source = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))/Catzc/1.2.3"

@@ -1,8 +1,8 @@
 // One ADR rule-set (an ADR) as declared in adrs.yml: its internal kebab Slug, full External citation code
 // (ADR-<DC>-<NAME>), the effective domain Code (a leaf override, else the domain default DomainCode), the
 // folder-owning Domain and its Role, and the optional Terminology token. A processed record built and
-// validated by AdrsConfig — not a raw YAML mirror, so PascalCase (docs/adr/automation/BCL/native-csharp-types.md,
-// ADR-AUTO-TYPES:9). See the ADR domain-wiring plan.
+// validated by AdrsConfig — not a raw YAML mirror, so PascalCase ([ADR-AUTO-TYPES](/docs/adr/automation/BCL/native-csharp-types.md),
+// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)). See the ADR domain-wiring plan.
 
 namespace Catzc.Base.Docs;
 

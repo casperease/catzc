@@ -1,6 +1,7 @@
 # glossary.yml — the Catzc.Base.Docs glossary source: the repository-wide vocabulary this module owns, the words
-# for the ADRs themselves (docs/adr/repository/controlled-vocabulary.md, ADR-REPO-VOCAB). Every option is defaulted:
-# all four gates, the whole repository, every text surface (ADR-REPO-VOCAB:2). Checked by Test-Glossary.
+# for the ADRs themselves ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)). Every option is defaulted:
+# all four gates, the whole repository, every text surface
+# ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). Checked by Test-Glossary.
 concepts:
     domain rules:
         key: domain_rules

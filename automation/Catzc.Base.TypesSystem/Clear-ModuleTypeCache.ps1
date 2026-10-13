@@ -9,7 +9,8 @@
     version of a type. The current build is never deleted, so the committed file stays put on every platform.
 
     Nothing in catzc holds a .compiled DLL open: every load goes through a per-user shadow copy
-    (Import-TypesAssembly, ADR-AUTO-TYPES:6), so a superseded build is always expected to delete. A delete that
+    (Import-TypesAssembly, [ADR-AUTO-TYPES#6](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types6)), so
+    a superseded build is always expected to delete. A delete that
     still fails means something outside catzc holds the file (an antivirus scan, an indexer, a session started
     before shadow loading). The janitor removes every deletable build first, then throws one error naming each
     file it could not remove and, on Windows, the processes holding it (Get-FileLockingProcess) — a silent skip
@@ -25,7 +26,8 @@
     The combined hash comes from the ONE shared implementation (Get-CombinedTypeHash in the .internal shared
     module) that the loader (Import-CSharpTypes) also calls, so the janitor cannot drift from the loader and plan
     the live build for deletion. A test against the real repo still guards that the live build is never planned.
-    A devbox janitor only: in build mode (ADR-DSGN-RUNMODE) the default code root is an installed Catzc
+    A devbox janitor only: in build mode
+    ([ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)) the default code root is an installed Catzc
     package, whose .compiled holds the one assembly the build produced and is never a cache to tidy, so the
     call is a no-op that reports why. An explicit -AutomationRoot other than the loaded code root is still
     cleaned in either mode.

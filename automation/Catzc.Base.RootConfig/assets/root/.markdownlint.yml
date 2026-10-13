@@ -6,7 +6,8 @@
 #
 # FORMAT: YAML, with native `#` comments. markdownlint and the VS Code extension
 # (DavidAnson.vscode-markdownlint) auto-discover `.markdownlint.yml`. We use `.yml` (not `.yaml`)
-# deliberately: per the pipeline-naming ADR (ADR-PIPE-NAME:6) `.yml` is config data our tooling parses, while
+# deliberately: per the pipeline-naming ADR ([ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6))
+# `.yml` is config data our tooling parses, while
 # `.yaml` is reserved for executable ADO pipelines — and .vscode/settings.json maps `*.yaml` to the
 # Azure Pipelines schema, which would mis-highlight this file.
 #
@@ -119,7 +120,7 @@ MD047: true  # single-trailing-newline — file ends with exactly one newline (m
 # rule-citation headings (a colon with no following space, e.g. `### Rule ADR-AUTO-TEST:1` -> GitHub `#rule-adr-auto-test1`),
 # so it false-positives on valid same-file links. It only validates SAME-FILE `#fragment` links anyway
 # (cross-file `file.md#frag` is never checked). Every fragment, same-file and cross-file, is checked against
-# GitHub's own slugs by Test-Links (ADR-REPO-LINK#2) instead.
+# GitHub's own slugs by Test-Links ([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)) instead.
 MD051: false
 MD052: true  # reference-links-images — reference-style links/images resolve to a definition
 MD053: true  # link-image-reference-definitions — no unused reference definitions

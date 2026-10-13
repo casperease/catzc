@@ -2,18 +2,20 @@
 // VALIDATES the parsed YAML (throwing with every violation collected) and exposes the typed Domains and the
 // flattened RuleSets. Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Docs.AdrsConfig)
 // so Get-Config -Config adrs returns this typed model rather than a slippery ordered dictionary
-// (docs/adr/automation/module-config-loading.md ADR-CONF-LOADING:5, native-csharp-types.md ADR-AUTO-TYPES:9).
+// ([ADR-CONF-LOADING#5](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading5),
+// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
 //
 // Load-time rules (self-contained — no filesystem or other-config reads; folder↔domain and terminology-token
 // cross-checks are shipped-asset integrity TESTS, mirroring the one-directional coupling of the customer
-// model, ADR-AZ-CUSTOMER:3):
+// model, [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)):
 //   - domains is a non-empty map; each domain has code (^[A-Z]{2,4}$, optionally a compound of two segments
 //     like FLOW-CD), a non-empty role, a non-empty description, a depends_on list, and a non-empty rulesets map;
 //   - every depends_on target resolves to a declared domain, no self-edge, and the domain graph is acyclic;
 //   - each ruleset external is ADR-<code>[-<NAME>…] (^ADR-[A-Z]{2,4}(-[A-Z]+)+$), the leaf code (if any)
 //     matches the domain-code pattern, and the EFFECTIVE code (leaf override else domain code) is the
 //     external's domain segment — the external is 'ADR-<effective>' or begins 'ADR-<effective>-' (so a
-//     compound-code domain cites its root ADR as ADR-FLOW-CD and the rest as ADR-FLOW-CD-<NAME>); every
+//     compound-code domain cites its root ADR as [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md) and the rest as
+// [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)-<NAME>); every
 //     external is unique.
 
 using System;
@@ -132,7 +134,8 @@ public sealed class AdrsConfig
 
                     // The external's domain segment is the effective code: the external is either the
                     // domain-root citation 'ADR-<effective>' or a named 'ADR-<effective>-<NAME>'. A compound
-                    // domain code (e.g. FLOW-CD, whose ADRs cite ADR-FLOW-CD and ADR-FLOW-CD-<NAME>) is matched
+                    // domain code (e.g. FLOW-CD, whose ADRs cite [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md) and
+                    // [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)-<NAME>) is matched
                     // by this prefix rule without splitting on a specific dash.
                     string expectedPrefix = "ADR-" + effective;
                     bool domainSegmentMatches = string.Equals(external, expectedPrefix, StringComparison.Ordinal)

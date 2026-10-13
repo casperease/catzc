@@ -23,7 +23,7 @@
 .PARAMETER DryRun
     Report which files would change without writing them. The returned list of changed files is the
     same in either mode (observable by return value); -DryRun simply skips the write. See
-    docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
 .OUTPUTS
     [string[]] The paths of the files that changed (or, under -DryRun, would change).
 .EXAMPLE
@@ -46,13 +46,15 @@ function Format-Automation {
     )
 
     if (-not (Get-Module PSScriptAnalyzer)) {
-        # First use this session pays the vendored-module import (several seconds) — announce it (ADR-AUTO-CONSOLE:10).
+        # First use this session pays the vendored-module import (several seconds) — announce it
+        # ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console10)).
         Write-Message 'Loading PSScriptAnalyzer (first use this session)...'
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
     }
 
     # The vendored analyzer and its one settings file ship inside the code tree, so both resolve from the code
-    # root (ADR-AUTO-ASSETDEP:1) — the same answer in source and build mode.
+    # root ([ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)) — the
+    # same answer in source and build mode.
     $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
     $files = [System.Collections.Generic.List[string]]::new()
 
@@ -76,7 +78,9 @@ function Format-Automation {
         }
     }
 
-    # Announce the loop before entering it (ADR-AUTO-CONSOLE:10): formatting the whole gated set runs Invoke-Formatter
+    # Announce the loop before entering it
+    # ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console10)):
+    # formatting the whole gated set runs Invoke-Formatter
     # per file over hundreds of files, and only CHANGED files print below — so a clean run is otherwise
     # silent for the entire pass and looks hung.
     $announceVerb = if ($DryRun) {

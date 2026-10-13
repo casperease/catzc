@@ -14,14 +14,14 @@
     to a content copy, which would silently reintroduce the drift the link exists to remove.
 
     A pure primitive like Write-FileIfChanged: no console output — callers own their reporting. See
-    docs/adr/repository/generated-root-configs.md.
+    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
 .PARAMETER Path
     Path of the link file to create or verify.
 .PARAMETER Target
     Path of the existing source file the link must resolve to.
 .PARAMETER DryRun
     Report whether the link would change without touching the filesystem. See
-    docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
 .OUTPUTS
     [bool] $true when the link was (re)created (or would be, under -DryRun); $false when already current.
 .EXAMPLE
@@ -52,7 +52,8 @@ function Set-FileLink {
         $resolved = $item.ResolveLinkTarget($true)
         if ($resolved) {
             $resolvedActual = [System.IO.Path]::GetFullPath($resolved.FullName)
-            # Path equality is case-insensitive on Windows, case-sensitive elsewhere (ADR-AUTO-XPLAT:7).
+            # Path equality is case-insensitive on Windows, case-sensitive elsewhere
+            # ([ADR-AUTO-XPLAT#7](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat7)).
             $current = if ($IsWindows) {
                 $resolvedActual -ieq $resolvedTarget
             }

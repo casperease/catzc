@@ -1,10 +1,12 @@
-// Finds the comment spans of a source file — the only places a code link lives (ADR-REPO-LINK#1) — per language
+// Finds the comment spans of a source file — the only places a code link lives
+// ([ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1)) — per language
 // family, by file extension:
 //   PowerShell (.ps1 .psm1 .psd1)   the real PowerShell tokenizer's Comment tokens (line comments and <# #> blocks)
 //   C family   (.cs .bicep)         // and /* */ (/// included), skipping string, verbatim, raw, and char literals
 //   Hash       (.yml .yaml)         # at line start or after whitespace, outside quoted scalars and block scalars
 //   XML        (.csproj .props .targets)  <!-- -->
-// It also returns PowerShell string-literal spans, which hold docs paths as data (ADR-REPO-LINK#6). Spans are
+// It also returns PowerShell string-literal spans, which hold docs paths as data
+// ([ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6)). Spans are
 // (Start, Length) offsets into the text, in document order.
 
 using System;

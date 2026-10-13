@@ -1,7 +1,8 @@
 # Validates the compiled GlossaryConfig type and the records it builds (GlossaryOptions, GlossaryConcept,
 # GlossaryRealization, GlossaryAvoid) directly — the constructor is the gate that stops a malformed glossary source
 # from ever producing an instance. Only the self-contained load-time rules live here; the cross-source and
-# cross-file checks belong to the glossary gates. Fixture terms are neutral (widget/gadget, ADR-AUTO-TEST:3).
+# cross-file checks belong to the glossary gates. Fixture terms are neutral (widget/gadget,
+# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {

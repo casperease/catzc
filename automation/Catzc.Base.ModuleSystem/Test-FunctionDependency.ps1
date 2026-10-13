@@ -16,7 +16,7 @@
 
     Must run post-import so Get-Command covers all loaded modules. Reads the per-function source files, which
     exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
-    ADR-DSGN-RUNMODE).
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to $env:RepositoryRoot/automation.
 .EXAMPLE
@@ -34,7 +34,8 @@ function Test-FunctionDependency {
     Assert-SourceTree
 
     # Parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/call provider
-    # overhead, ADR-AUTO-TEST:18); the definition map and the call-resolution walk reuse these ASTs, so each file is read
+    # overhead, [ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)); the definition map
+    # and the call-resolution walk reuse these ASTs, so each file is read
     # and parsed a single time (it was twice before).
     $isFunction = { param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] }
     $parsed = [System.Collections.Generic.List[object]]::new()

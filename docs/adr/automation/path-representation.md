@@ -14,7 +14,7 @@ a normalized absolute path that exists only transiently at the point of use. A h
 
 A path that is stored or transported is in communication form: returned to a caller, held on a record, or written into an artifact or
 source-controlled config. The canonical representation a type holds and a record serializes is relative. `ConvertTo-RepoRelativePath`
-produces this form. How a path is _rendered_ to a log or console is a separate, per-channel decision (ADR-AUTO-PATH:8), not a property of
+produces this form. How a path is _rendered_ to a log or console is a separate, per-channel decision (ADR-AUTO-PATH#8), not a property of
 how it is stored.
 
 - [The two forms](#the-two-forms)
@@ -40,7 +40,7 @@ with `-replace '\\','/'`; both skip the normalization the converters guarantee a
 
 A path under neither the output root nor the repository root — the system temp directory, an unrelated absolute path, a foreign drive —
 degrades to a normalized absolute path, never to a hybrid. `ConvertTo-RepoRelativePath` does exactly this: a path under the output root
-comes back `out/`-anchored (ADR-AUTO-PATH:9), a path under the repo root comes back repo-relative, a path under neither comes back absolute.
+comes back `out/`-anchored (ADR-AUTO-PATH#9), a path under the repo root comes back repo-relative, a path under neither comes back absolute.
 
 - [Degradation](#degradation)
 

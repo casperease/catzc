@@ -50,7 +50,7 @@ pattern.
 ### Rule ADR-REPO-VOCAB:7
 
 The repository's conventions and decision records — its ADRs and the rules they state — are its **domain rules**, also called ADR rules.
-Prose names them that way; an informal stand-in such as "house rules" is an avoided phrasing (ADR-REPO-VOCAB:5).
+Prose names them that way; an informal stand-in such as "house rules" is an avoided phrasing (ADR-REPO-VOCAB#5).
 
 - [Domain rules](#domain-rules)
 
@@ -126,36 +126,36 @@ with their replacements. A source's options default sensibly, and a source overr
 - **`Catzc.Base.Docs.GlossaryConfig`** is the glossary source's type, registered for the `glossary` config in
   `Catzc.Base.Config/configs/configs.yml`, so every source is validated when it is read (`Get-Config -Config glossary -Module <owner>`). It
   checks the source's own shape: the allowed keys, the term, key, domain, and citation forms, a known realization kind with a pattern
-  exactly when the kind is not `prose-only` (ADR-REPO-VOCAB:6), a replacement for every avoided phrase and no avoided phrase that is a
-  defined term (ADR-REPO-VOCAB:5), an explanation for every contrast (ADR-REPO-VOCAB:4), repo-relative globs and no URL anywhere
-  (ADR-REPO-VOCAB:3), and the option defaults (ADR-REPO-VOCAB:2). Every violation is reported in one throw.
+  exactly when the kind is not `prose-only` (ADR-REPO-VOCAB#6), a replacement for every avoided phrase and no avoided phrase that is a
+  defined term (ADR-REPO-VOCAB#5), an explanation for every contrast (ADR-REPO-VOCAB#4), repo-relative globs and no URL anywhere
+  (ADR-REPO-VOCAB#3), and the option defaults (ADR-REPO-VOCAB#2). Every violation is reported in one throw.
 
 - **`Get-GlossarySourceViolations`** (`Catzc.Base.Docs`) checks the facts that span sources, over every source `Get-GlossarySources`
   discovers (`Get-Config -Config glossary -ListOwners`): a term or machine key declared by two sources and a domain that `adrs.yml` does not
-  declare (ADR-REPO-VOCAB:1), a contrast or relation target that no source defines and a source that git does not track (ADR-REPO-VOCAB:3),
-  a contrast that is not reciprocal (ADR-REPO-VOCAB:4), and an avoided phrase that is another source's term (ADR-REPO-VOCAB:5). It names the
+  declare (ADR-REPO-VOCAB#1), a contrast or relation target that no source defines and a source that git does not track (ADR-REPO-VOCAB#3),
+  a contrast that is not reciprocal (ADR-REPO-VOCAB#4), and an avoided phrase that is another source's term (ADR-REPO-VOCAB#5). It names the
   source path and the term in one message per violation.
 
 - **`Get-GlossaryAnchorViolations`** (`Catzc.Base.Docs`) checks that every term is anchored on its defining rule: its `defined_by` names a
-  rule of an indexed ADR, and that rule's normative summary bolds the term (ADR-REPO-VOCAB:1). Only the normative summary counts — bold text
+  rule of an indexed ADR, and that rule's normative summary bolds the term (ADR-REPO-VOCAB#1). Only the normative summary counts — bold text
   in the ADR body, in the rule's linked bullets, or inside a code span never anchors a term.
 
 - **`Get-GlossaryDefinitionViolations`** (`Catzc.Base.Docs`) checks that no rule other than the defining one defines the term a second time
-  — a normative summary that says `**<term>** is` (ADR-REPO-VOCAB:1). A rule that merely bolds the term is not a definition, and ADR bodies
+  — a normative summary that says `**<term>** is` (ADR-REPO-VOCAB#1). A rule that merely bolds the term is not a definition, and ADR bodies
   are never read.
 
 - **`Get-GlossaryEnforcementViolations`** (`Catzc.Base.Docs`) checks that every concept realized in code has an enforcer: an analyzer rule
-  or a test that cites its defining rule, found through the same rule-citation link `Show-Cats` reports (ADR-REPO-VOCAB:6). A `prose-only`
+  or a test that cites its defining rule, found through the same rule-citation link `Show-Cats` reports (ADR-REPO-VOCAB#6). A `prose-only`
   concept is exempt.
 
-- **`Get-GlossaryPhrasingViolations`** (`Catzc.Base.Docs`) checks that prose avoids the avoided phrasings (ADR-REPO-VOCAB:5): in the tracked
+- **`Get-GlossaryPhrasingViolations`** (`Catzc.Base.Docs`) checks that prose avoids the avoided phrasings (ADR-REPO-VOCAB#5): in the tracked
   files a source's `scope` matches and its `exclude` does not, on the surfaces its `surfaces` name — markdown prose outside fenced code,
   and, read through the PowerShell parser, comments, comment-based help, and the static text of messages (`throw`, the `Write-*` writers,
   `-ErrorText`, `-Because`). A phrase matches case-insensitively, as whole words, across line breaks; a mention in backticks or quotes is
   exempt. Each use is reported as `<file>:<line> says "<phrase>" — say "<say>" (<defined_by>)`.
 
 - Each of these gates reads only the concepts of sources whose `gates` option includes it (`anchored`, `single`, `avoid`, `enforced`), so a
-  source that opts out of a gate is not checked by it (ADR-REPO-VOCAB:2).
+  source that opts out of a gate is not checked by it (ADR-REPO-VOCAB#2).
 
 - **`Test-Glossary`** (`Catzc.Base.Docs`) runs every gate over every source, writes one report under `out/test-glossary/`, and fails once
   with every issue. An L2 integrity test runs every gate over the real tree, so every rule here is checked mechanically.

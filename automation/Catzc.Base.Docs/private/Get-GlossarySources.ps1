@@ -2,11 +2,15 @@
 .SYNOPSIS
     Lists every glossary source — each opting-in module's configs/glossary.yml — with its validated config.
 .DESCRIPTION
-    A module opts into the controlled vocabulary by shipping configs/glossary.yml (ADR-REPO-VOCAB:2), so the
+    A module opts into the controlled vocabulary by shipping configs/glossary.yml
+    ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)), so the
     sources are discovered, not declared: Get-Config -Config glossary -ListOwners lists every owner, and each
     source is read through Get-Config -Config glossary -Module <owner>, so the GlossaryConfig type validates its
-    shape on load (ADR-CONF-LOADING:1/2). One git query then records whether each source file is tracked: a
-    source lives in the repository (ADR-REPO-VOCAB:3), and Get-GlossarySourceViolations reports one that is not.
+    shape on load ([ADR-CONF-LOADING#1](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading1)/2). One
+    git query then records whether each source file is tracked: a
+    source lives in the repository
+    ([ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3)), and
+    Get-GlossarySourceViolations reports one that is not.
 
     Reads the source tree's configs and git, so it runs in source mode only (Assert-SourceTree). Private helper
     for Get-Glossary and the glossary gates; not exported.

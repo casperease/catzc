@@ -1,4 +1,5 @@
-Set-StrictMode -Version Latest   # hooks run strict (Build-Bicep / Deploy-Bicep also set it on import) — ADR-AUTO-ERROR:8
+Set-StrictMode -Version Latest   # hooks run strict (Build-Bicep / Deploy-Bicep also set it on import) —
+                                 # [ADR-AUTO-ERROR#8](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error8)
 
 <#
 .SYNOPSIS

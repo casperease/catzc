@@ -10,9 +10,11 @@
       Show-Cats module [name]   the modules; with a name substring, the public functions they export
       Show-Cats verbs           the approved verbs in use across the tree
 
-    Output is presentation only (the information stream, docs/adr/automation/powershell/console-output-matters.md);
+    Output is presentation only (the information stream,
+    [ADR-AUTO-CONSOLE](/docs/adr/automation/powershell/console-output-matters.md));
     the function returns nothing. Live bicep templates are out of scope here — use Get-BicepTemplates. The ADR
-    reads are memoized for the session by the private getters (docs/adr/automation/caching.md); the module and
+    reads are memoized for the session by the private getters
+    ([ADR-AUTO-CACHE](/docs/adr/automation/caching.md)); the module and
     verb areas read the loaded modules' exports, so they answer the same in source mode and build mode.
 .PARAMETER Area
     What to ask about: adr, module, or verbs. Omitted (the default) prints the overview.
@@ -54,7 +56,8 @@ function Show-Cats {
             break
         }
         'adr' {
-            # Plain assignment (not @(...)): the getter returns a comma-wrapped array (ADR-AUTO-CACHE exemplar),
+            # Plain assignment (not @(...)): the getter returns a comma-wrapped array
+            # ([ADR-AUTO-CACHE](/docs/adr/automation/caching.md) exemplar),
             # which assignment receives intact — wrapping it again in @() would nest it one level too deep.
             $entries = Get-CatsAdrIndex
             if ($Query) {
@@ -78,7 +81,7 @@ function Show-Cats {
                         Write-Message "  $($rule.Id)  $summary" -NoHeader
 
                         # Show what mechanically enforces this rule (tests + analyzer rules), if anything —
-                        # the citation is the '#' form of the registry id (docs/adr/index.md).
+                        # the citation is the '#' form of the registry id ([index](/docs/adr/index.md)).
                         $entryEnforcers = $enforcers[($rule.Id -replace ':', '#')]
                         if ($entryEnforcers) {
                             $parts = @()

@@ -1,7 +1,10 @@
 # Get-GlossaryPhrasingViolations is private, so it is exercised through the module (InModuleScope, per
-# ADR-AUTO-PESTER:4). Each test writes its own fixture file under $TestDrive and passes it as the only tracked file
+# [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)). Each test writes its
+# own fixture file under $TestDrive and passes it as the only tracked file
 # (-TrackedFile, -Root), so no git process runs; the glossary is built in memory from the real types. Fixture terms
-# and rule codes are neutral (widget/gadget, tst — ADR-AUTO-TEST:3): the avoided phrase is 'widget bundle'.
+# and rule codes are neutral (widget/gadget, tst —
+# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): the avoided phrase is 'widget
+# bundle'.
 Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         # One widget-source entry avoiding 'widget bundle' (say 'widget suite'), with optional source options.

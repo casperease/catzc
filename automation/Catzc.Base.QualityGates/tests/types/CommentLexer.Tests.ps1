@@ -1,5 +1,7 @@
-# CommentLexer finds the comment spans a code link may live in (ADR-REPO-LINK#1) and must never mistake a string for
-# one (ADR-REPO-LINK#6). Each case asserts the comment texts found in a small widget/gadget source.
+# CommentLexer finds the comment spans a code link may live in
+# ([ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1)) and must never mistake a string for
+# one ([ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6)). Each case asserts the comment
+# texts found in a small widget/gadget source.
 Describe 'CommentLexer' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:commentTexts = {

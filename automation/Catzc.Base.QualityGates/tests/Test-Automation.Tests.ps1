@@ -1,9 +1,13 @@
-# These checks are a pure function of the files on disk (ADR-AUTO-TEST:16), so they SCAN THE TREE ONCE and assert
+# These checks are a pure function of the files on disk
+# ([ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16)), so they SCAN THE TREE ONCE and
+# assert
 # invariants across the whole set, rather than spawning one Describe per file. The old shape generated ~175
 # per-file `-ForEach` Describes (heavy discovery) and parsed every source file's AST TWICE (once per file for
 # the one-function/name checks, once more for global uniqueness). Here a single BeforeAll enumerates with
-# [System.IO] (ADR-AUTO-TEST:18) and parses each file exactly once into a rich observation; the It blocks assert facets
-# of it (ADR-AUTO-TEST:20). A violation lists every offending file in one message.
+# [System.IO] ([ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)) and parses each file
+# exactly once into a rich observation; the It blocks assert facets
+# of it ([ADR-AUTO-TEST#20](/docs/adr/automation/test-automation.md#rule-adr-auto-test20)). A violation lists every
+# offending file in one message.
 # source-only: it reads the per-function source files, which give the same answer in both run modes.
 Describe 'Source & test file conventions' -Tag 'L0', 'integrity', 'source-only' {
     BeforeAll {
@@ -260,7 +264,9 @@ Describe 'Module dependencies' -Tag 'L0', 'integrity', 'source-only' {
     }
 }
 
-# The real-asset test of ADR-AUTO-ASSETDEP:3 for Test-Automation's one internal asset: the vendored Pester under
+# The real-asset test of
+# [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3) for
+# Test-Automation's one internal asset: the vendored Pester under
 # the code root. Pester is already loaded in this worker, so the lazy-load branch is forced by hiding it from
 # Get-Module, and the re-import is intercepted (re-importing Pester mid-run would unload the running harness);
 # the run stops at the first step after the import. The path it chose is then checked against the real shipped

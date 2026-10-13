@@ -1,5 +1,7 @@
-# Test-Links is the link gate (ADR-REPO-LINK#8): the same engine as Format-Links, read-only. A fixture repository in
-# $TestDrive (neutral widget/gadget codes, ADR-AUTO-TEST#3) holds the files under test.
+# Test-Links is the link gate ([ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)): the same
+# engine as Format-Links, read-only. A fixture repository in
+# $TestDrive (neutral widget/gadget codes,
+# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) holds the files under test.
 Describe 'Test-Links' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {

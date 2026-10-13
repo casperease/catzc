@@ -55,7 +55,8 @@ function Get-TerminologyCorpus {
         '[\\/]docs[\\/]notes[\\/]'
     ) -join '|'
 
-    # The customer/machine-derived config tree (root configuration/, ADR-AZ-DATAMOD) and the Bicep template
+    # The customer/machine-derived config tree (root configuration/,
+    # [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)) and the Bicep template
     # configuration scaffold are out of the corpus — mirror Test-Spelling's scope. Match ROOT-RELATIVE and
     # anchored so a nested AUTHORED 'configuration' folder (e.g. docs/adr/configuration/) stays in the corpus
     # and can justify a term (a bare '[/]configuration[/]' substring would wrongly swallow the ADR folder).
@@ -71,7 +72,8 @@ function Get-TerminologyCorpus {
     }
 
     # Enumerate with [System.IO] rather than Get-ChildItem — no per-file PSObject wrapping, so a whole-tree
-    # scan is markedly faster (ADR-AUTO-TEST:18). Directory/name filtering is done inline on the raw path string.
+    # scan is markedly faster ([ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)).
+    # Directory/name filtering is done inline on the raw path string.
     $ret = [System.Text.StringBuilder]::new()
     foreach ($path in [System.IO.Directory]::EnumerateFiles($Root, '*', [System.IO.SearchOption]::AllDirectories)) {
         if (-not $exts.Contains([System.IO.Path]::GetExtension($path)) -and

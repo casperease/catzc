@@ -7,11 +7,13 @@
     (-SkipJanitors), starts watching the process that launched it (WorkerParentWatch — the worker kills itself
     when that parent is gone, so a run whose parent died never leaves workers behind), then sets strict mode
     for its own scope, whichever entry script loaded the modules: the
-    test scopes chain to that scope, so every test body runs strict (ADR-AUTO-TEST:25) — the module code under
+    test scopes chain to that scope, so every test body runs strict
+    ([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)) — the module code under
     test is strict through its own module scope. It then imports vendored Pester — resolved inside the worker,
     after the import, from the worker's own code root (Get-CatzcModulesRoot/.vendor/Pester), so Pester always
     comes from the tree the worker loaded
-    (ADR-AUTO-ASSETDEP:1) — builds its run configuration through the ONE shared builder
+    ([ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)) — builds its
+    run configuration through the ONE shared builder
     (New-PesterRunConfiguration, reached via module scope — the same builder Invoke-TestFile uses, so the
     worker and manual paths cannot drift), runs the shard's test files with the run's exclude tags, writes
     Pester's NUnit results to results-shard-<N>.xml, reduces its live result to rows (ConvertTo-
@@ -30,7 +32,8 @@
 .PARAMETER Verbosity
     Pester output verbosity inside the worker (the run's -Output value).
 .PARAMETER EntryScript
-    The suite seam (ADR-AUTO-TEST:30): the script the worker dot-sources to load the modules. Empty (the
+    The suite seam ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)): the script the
+    worker dot-sources to load the modules. Empty (the
     default) is the source suite's `<repo>/importer.ps1 -SkipJanitors`; the build suite passes the build's
     `Import-Catzc.ps1`. Everything after the load — Pester from the code root, the shared configuration
     builder, the row sidecar — is identical for both suites.
@@ -109,7 +112,7 @@ function New-TestAutomationShardScript {
     # the full toolset imported, so it reaches the private through module scope like ConvertTo-
     # TestAutomationRowSet below. Only the strict-mode discipline stays inline: strict is scope-dynamic and
     # the test scopes chain to the process's top scope, so the worker script itself must be the one to set
-    # it (tests run strict — ADR-AUTO-TEST:25).
+    # it (tests run strict — [ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)).
     $content = @"
 `$ErrorActionPreference = 'Stop'
 $entryLine

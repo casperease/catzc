@@ -207,7 +207,7 @@ the registry — not this paragraph — is the authoritative domain list. `refer
 sources the generated READMEs link to ([generated-readmes](generated-readmes.md)) and the DORA research reference under `references/dora/`.
 `how-to/` holds task-oriented guides. These three are **markdown-only**; their subfolders are author-organized topic buckets. The
 dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown content under `docs/`,
-set apart by the dot-prefix convention (ADR-REPO-FOLDERS:4).
+set apart by the dot-prefix convention (ADR-REPO-FOLDERS#4).
 
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's

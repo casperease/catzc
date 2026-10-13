@@ -11,7 +11,8 @@
     Unlike the .cspell/*.txt term lists (regenerated cheaply from terminology.yml on every import), this list
     is EXPENSIVE to regenerate — it needs node, npx, and cspell's bundled tries — and it is needed on a fresh
     checkout by the L2 analyzer gate (Measure-SpellOutIdentifiers). So it is COMMITTED, the same call the
-    compiled-type prebuild makes (docs/adr/repository/dedicated-output-directory.md, ADR-REPO-OUTDIR:5): a deterministic,
+    compiled-type prebuild makes
+    ([ADR-REPO-OUTDIR#5](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir5)): a deterministic,
     expensive-to-regenerate artifact kept in the tree, not regenerated at import. Alongside the gz it writes a
     committed stamp (`assets/english.stamp`) recording the cspell + dict package versions it was flattened
     from and the word count. The drift gate (Build-EnglishDictionary.Tests.ps1) compares that stamp's cspell
@@ -22,10 +23,12 @@
 
     SpellingOracle (Catzc.Base.QualityGates/types) loads this list plus every .cspell/*.txt term list into one
     set. English recognizes the spelled-out words (rule, collection, group); the term lists carry the domain
-    vocabulary and the conventional-abbreviation allow-list. See docs/adr/automation/spell-out-names.md.
+    vocabulary and the conventional-abbreviation allow-list. See
+    [ADR-AUTO-SPELL](/docs/adr/automation/powershell/spell-out-names.md).
 .PARAMETER DryRun
     Report whether the committed list would change without writing it. The returned content is the same in
-    either mode; -DryRun skips the write. See docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    either mode; -DryRun skips the write. See
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
 .PARAMETER PassThru
     Return a result object ({ Path, WordCount, Changed, DryRun }) instead of the path string.
 .OUTPUTS
@@ -78,7 +81,8 @@ function Build-EnglishDictionary {
     }
 
     # cspell-trie reads a trie and prints its words. Pin to the cspell 10 line to match the installed tries.
-    # This shells out to npx (a cold run downloads cspell-trie) and reads ~440k words — announce it (ADR-AUTO-CONSOLE:10).
+    # This shells out to npx (a cold run downloads cspell-trie) and reads ~440k words — announce it
+    # ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console10)).
     Write-Message 'Flattening cspell English dictionaries (en_US, en_GB) via cspell-trie — this can take a while...'
 
     $set = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)

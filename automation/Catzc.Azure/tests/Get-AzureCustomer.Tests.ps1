@@ -1,6 +1,7 @@
 Describe 'Get-AzureCustomer' -Tag 'L0', 'logic' {
     # Redirect the 'customer' config to the fixture catalogue (acme/ac, globex/gx). Read-only resolver, so
-    # the mock + cache reset run once (ADR-AUTO-TEST:19).
+    # the mock + cache reset run once
+    # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)).
     BeforeAll {
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'customer' } -MockWith {
             @{ Name = 'customer'; Module = 'Catzc.Azure'

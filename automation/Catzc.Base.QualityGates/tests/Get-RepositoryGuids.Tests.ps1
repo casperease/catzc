@@ -72,7 +72,8 @@ Describe 'Repository guid integrity' -Tag 'L2', 'integrity', 'source-only' {
 
     It 'every guid in tracked text is registered, and every registry entry is live' {
         # The scan reads every tracked text file under every named root plus its own config, so it protects
-        # against the whole-repository set, which covers both (ADR-REPO-PROTGLOB:6).
+        # against the whole-repository set, which covers both
+        # ([ADR-REPO-PROTGLOB#6](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob6)).
         if (Test-GlobSetProtection -Test 'guids' -Name 'repository') {
             Set-ItResult -Skipped -Because 'protected_globset_unchanged_since_green_run'
             return

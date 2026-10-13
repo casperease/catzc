@@ -1,5 +1,7 @@
 # The globset record: membership is decided by the scan program — an ordered +/- rule list, last-match-wins
-# (ADR-FLOW-CD-GLOBS:4), flattened through compose with own-rules-last (ADR-FLOW-CD-GLOBS:8); and the constructor gates the
+# ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)), flattened through compose with
+# own-rules-last
+# ([ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8)); and the constructor gates the
 # shape (kebab-case name, required description, a declared layer, include or compose present, no duplicate
 # patterns).
 Describe 'GlobSet' -Tag 'L0', 'logic' {

@@ -21,7 +21,7 @@ throw on failure. The verb is a promise to the caller.
 
 Use `Test-` for boolean queries and `Assert-` for preconditions. `Test-` returns true/false for the caller to decide; `Assert-` throws
 immediately. Never name a function `Test-` and throw, or `Assert-` and return false. (The repository quality gates are the one sanctioned
-exception — see ADR-AUTO-VERBS:7.)
+exception — see ADR-AUTO-VERBS#7.)
 
 - [Why this matters](#why-this-matters)
 
@@ -49,7 +49,7 @@ returns exactly one object (`Get-BicepTemplate`), so the cardinality is visible 
 ### Rule ADR-AUTO-VERBS:7
 
 The repository quality gates — `Test-Automation` and the `Test-*` gates it aggregates (`Test-Spelling`, `Test-ScriptAnalyzer`,
-`Test-Markdownlint`, `Test-Types`) — are the sanctioned exception to ADR-AUTO-VERBS:2/ADR-AUTO-VERBS:3: each throws on failure so it can
+`Test-Markdownlint`, `Test-Types`) — are the sanctioned exception to ADR-AUTO-VERBS#2/ADR-AUTO-VERBS#3: each throws on failure so it can
 fail the build, and returns a result object under `-PassThru`. Their noun names a body of work to verify and enforce, not a boolean
 condition; a plain predicate (`Test-Path`, `Test-Command`) still returns `[bool]` and never throws.
 
@@ -203,7 +203,7 @@ This is a deliberate clarity choice over PowerShell's default lean toward singul
 
 ### The sanctioned quality-gate exception
 
-Most `Test-` functions are predicates — `Test-Path`, `Test-Command`, `Test-IsRunningInPipeline` — and obey ADR-AUTO-VERBS:2: they answer a
+Most `Test-` functions are predicates — `Test-Path`, `Test-Command`, `Test-IsRunningInPipeline` — and obey ADR-AUTO-VERBS#2: they answer a
 boolean and never throw. The repository's quality gates are different in kind. `Test-Automation`, `Test-Spelling`, `Test-ScriptAnalyzer`,
 `Test-Markdownlint`, and `Test-Types` each run a body of checks and exist to **fail the build** when those checks fail — throwing is their
 job, not a broken contract. They still expose the boolean-shaped answer through `-PassThru`, which returns a result object (issue counts,

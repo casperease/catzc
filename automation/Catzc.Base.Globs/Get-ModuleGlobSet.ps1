@@ -1,10 +1,13 @@
 <#
 .SYNOPSIS
     Returns the DERIVED globsets — the live/tests aspect sets per module folder, one set per internal .psm1
-    module, the reserved infra umbrellas, and the 'module-leftovers' catch-all (ADR-REPO-PROTGLOB, ADR-DSGN-ASPECT).
+    module, the reserved infra umbrellas, and the 'module-leftovers' catch-all
+    ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md),
+    [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)).
 .DESCRIPTION
     Derived sets are never written in globs.yml: the folder (or file) is the registration. Every non-dot
-    module folder under automation/ partitions into live/tests aspect sets (ADR-DSGN-ASPECT), named by the
+    module folder under automation/ partitions into live/tests aspect sets
+    ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)), named by the
     readme-kebab convention plus the aspect (Catzc.Base.Globs -> 'catzc-base-globs-live' and
     'catzc-base-globs-tests') — 'live' the module's shippable surface (functions, private helpers, types,
     configs), 'tests' its verification harness; the two are disjoint and cover the folder. The whole-module
@@ -13,11 +16,13 @@
     kebab convention (Catzc.Internal.Bootstrap -> 'catzc-internal-bootstrap').
     The reserved names cover the dot-prefixed infrastructure every module's test results also depend on:
     'internal', 'vendor', 'compiled', 'scriptanalyzer'. Derived sets scope protection and blast radius
-    (ADR-REPO-PROTGLOB:7). A declared globset may not shadow a derived name; the collision throws here, naming
+    ([ADR-REPO-PROTGLOB#7](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob7)). A declared globset may not
+    shadow a derived name; the collision throws here, naming
     both sides.
 
     The derived sets are repository-relative globs over the source tree's module folders (git-tracked
-    paths), so it stops with a named error in build mode (Assert-SourceTree, ADR-DSGN-RUNMODE).
+    paths), so it stops with a named error in build mode (Assert-SourceTree,
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
 .PARAMETER Name
     A module folder name ('Catzc.Base.Globs'), an internal module name ('Catzc.Internal.Bootstrap'), the
     kebab form of either ('catzc-base-globs', 'catzc-internal-bootstrap'), or a reserved infra name
@@ -60,8 +65,10 @@ function Get-ModuleGlobSet {
     }
     # The reserved umbrellas are cross-cutting check surfaces, not independent modules: 'internal' overlaps
     # every catzc-internal-* single-file set, 'vendor'/'compiled'/'scriptanalyzer' cover whole dot-folders.
-    # They are loose-filesets (ADR-FLOW-CD-GLOBS:7, overlap-exempt), not the 'module' layer whose sets are the
-    # pairwise-disjoint per-folder modules (ADR-FLOW-CD-GLOBS:10).
+    # They are loose-filesets ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),
+    # overlap-exempt), not the 'module' layer whose sets are the
+    # pairwise-disjoint per-folder modules
+    # ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)).
     foreach ($reservedName in [Catzc.Base.Globs.GlobsConfig]::ReservedNames) {
         $set = [Catzc.Base.Globs.GlobSet]::new(
             $reservedName, "Derived infra scope - $($reserved[$reservedName])", 'loose-fileset',
@@ -69,7 +76,8 @@ function Get-ModuleGlobSet {
         $derived[$reservedName] = $set
     }
 
-    # The aspect convention (ADR-DSGN-ASPECT): each module folder partitions into disjoint, exhaustive aspect sets
+    # The aspect convention ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)): each module folder partitions into
+    # disjoint, exhaustive aspect sets
     # (live/tests by default) from the 'aspects' variant. The whole-module set is the union of its aspects
     # (a shipped module = 1 live + 1 tests, isolated: a test-only change never re-keys live). Compiled per
     # unit root by AspectPartition.
@@ -133,7 +141,8 @@ function Get-ModuleGlobSet {
     # the module layer covers module-space and a stray file cannot go unmapped — it should be empty in a
     # clean tree, but stuff can pop up (a file dropped at automation/'s root, a folder not yet a module). Its
     # OWN excludes are every module folder plus the four dot-folders, so it stays disjoint from every module
-    # set (ADR-FLOW-CD-GLOBS:10). Derived, module-layer, never declared; a declared set may not shadow it.
+    # set ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)). Derived, module-layer,
+    # never declared; a declared set may not shadow it.
     if ('module-leftovers' -in $declaredNames) {
         throw "Declared globset 'module-leftovers' in globs.yml shadows the derived module-space catch-all — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
     }

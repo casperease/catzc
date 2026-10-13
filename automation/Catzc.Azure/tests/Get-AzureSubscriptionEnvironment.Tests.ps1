@@ -1,6 +1,7 @@
 Describe 'Get-AzureSubscriptionEnvironment' -Tag 'L0', 'logic' {
     # Read-only resolver tests: the config mock + cache reset run ONCE, not per test — the mocked config is
-    # identical every test and no test mutates it, so the cache stays warm (ADR-AUTO-TEST:19/ADR-AUTO-TEST:4).
+    # identical every test and no test mutates it, so the cache stays warm
+    # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)/[ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)).
     BeforeAll {
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure'

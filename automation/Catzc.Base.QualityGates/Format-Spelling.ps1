@@ -7,12 +7,14 @@
     writes them as UNCATEGORIZED STUBS to a triage queue under out/ (terminology-triage.yml). Nothing here is
     accepted vocabulary: a flagged token joins the dictionary only when a human moves it into the terminology
     registry (configs/terminology.yml) with a real meaning and category, or spells the token out in the code
-    (docs/adr/automation/spell-out-names.md, ADR-AUTO-SPELL:7). The queue is a to-do list, not a dictionary — cspell
+    ([ADR-AUTO-SPELL#7](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell7)). The queue is a to-do
+    list, not a dictionary — cspell
     never reads it, so a token sitting in the queue is still flagged until promoted.
 
     This replaces the old "sweep every flagged word into cspell.yml" behaviour, which was the pump that filled
     the dictionary with unexplained coinages. The accepted-word list is now generated from the registry
-    (Build-TerminologyDictionary) and is never appended to by a tool (ADR-AUTO-SPELL:5).
+    (Build-TerminologyDictionary) and is never appended to by a tool
+    ([ADR-AUTO-SPELL#5](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell5)).
 
     Tokens already in the registry are skipped (cspell accepts them, so they are not flagged in the first
     place); only genuinely new, unaccepted tokens reach the queue.
@@ -26,7 +28,8 @@
     scope to spell-check, matching Test-Spelling so the tokens queued are exactly the tokens the gate flags.
 .PARAMETER DryRun
     Report which tokens would be queued without writing the triage file. The returned list is the same in
-    either mode; -DryRun simply skips the write. See docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    either mode; -DryRun simply skips the write. See
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
 .OUTPUTS
     [string[]] The flagged tokens queued for triage (or, under -DryRun, that would be queued), ordinal-sorted.
 .EXAMPLE
@@ -131,7 +134,9 @@ function Format-Spelling {
     if (-not $DryRun) {
         # Emit paste-ready stubs. The blank meaning/category are intentional: a stub pasted into
         # terminology.yml as-is fails to load and fails Test-Terminology, forcing a human to classify it
-        # (ADR-AUTO-SPELL:6, ADR-AUTO-SPELL:7) before it becomes accepted vocabulary.
+        # ([ADR-AUTO-SPELL#6](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell6),
+        # [ADR-AUTO-SPELL#7](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell7)) before it becomes
+        # accepted vocabulary.
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add('# Terminology triage queue — spell-checker-flagged tokens awaiting classification.')
         $lines.Add('#')

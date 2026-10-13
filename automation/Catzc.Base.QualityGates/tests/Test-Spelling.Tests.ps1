@@ -129,8 +129,11 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
 
 # Integrity: the ACTUAL repository content is spell-clean. Unlike the logic test above (real cspell over a
 # fixture file), this binds to the real repo — Test-Spelling with no -Glob scans its default content scope
-# (ADR-AUTO-TEST:14). L2 because it drives the cspell CLI; self-skips when cspell is absent (ADR-AUTO-TEST:8/9).
-# Protected-glob gated (ADR-REPO-PROTGLOB): a repeat local run over an unchanged 'repository' globset
+# ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)). L2 because it drives the cspell
+# CLI; self-skips when cspell is absent
+# ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)/9).
+# Protected-glob gated ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)): a repeat local run over an
+# unchanged 'repository' globset
 # (every tracked file under every named root — a covering superset of cspell's content scope and its
 # own configs) is skipped; in a pipeline the protection is ignored and the scan always runs full. source-only: it
 # reads the repository's files, which give the same answer in both run modes.

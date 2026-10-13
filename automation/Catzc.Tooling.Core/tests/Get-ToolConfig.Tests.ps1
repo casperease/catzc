@@ -77,7 +77,8 @@ Describe 'Get-ToolConfig' -Tag 'L0' {
 
         It 'caches across calls' {
             # Hermetic fixture tool through the Get-Config seam, so the cache test never depends on the
-            # shipped tools.yml (ADR-AUTO-TEST:3). The mock returns a STABLE object (Get-ToolConfig inherits its
+            # shipped tools.yml ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). The
+            # mock returns a STABLE object (Get-ToolConfig inherits its
             # same-reference caching from Get-Config's cached read), so both calls see one tool entry.
             $script:toolsFixture = @{ faketool = @{
                     version         = '1.0'

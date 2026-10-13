@@ -1,6 +1,6 @@
 # VS Code workspace-settings registry — the single authored source for .vscode/settings.json. The settings
 # file the editor reads is a managed, COMMITTED copy rendered from this registry by New-VSCodeSettings
-# (wired through Build-RootConfig; see rootconfig.yml and docs/adr/repository/generated-root-configs.md) —
+# (wired through Build-RootConfig; see rootconfig.yml and [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)) —
 # edit THIS file, never settings.json. Explanations live here as comments; the rendered JSON carries only a
 # generated-file header (VS Code reads JSONC, so the header is legal).
 #
@@ -98,7 +98,8 @@ settings:
     '*.drawio.png': imagePreview.previewEditor
 
   # Prettier is the .yaml (ADO pipeline) formatter, the same engine Format-Pipelines runs — so the editor
-  # and the catzc gate produce byte-identical output (ADR-REPO-FORMAT). `.yaml` is the azure-pipelines language
+  # and the catzc gate produce byte-identical output
+  # ([ADR-REPO-FORMAT](/docs/adr/repository/uniform-formatting.md)). `.yaml` is the azure-pipelines language
   # (files.associations above), a custom language prettier-vscode does not format by default, so
   # documentSelectors opts those files in; the language default-formatter then routes Format Document to it.
   # Format-on-save is deliberately OFF — formatting is on demand (Shift+Alt+F) and enforced by the gate.
@@ -114,6 +115,19 @@ settings:
   # configs/vscode-pipeline-schema.yml, rendered by New-VSCodePipelineSchema) drops that anyOf and keeps the
   # structural checks worth having. The extension exposes no severity/ignore knob — only this override.
   azure-pipelines.customSchemaFile: ./.vscode/azure-pipelines-schema.json
+
+  # Code links in comments — `[ADR-<CODE>#<n>](/docs/adr/<path>.md#rule-…)`
+  # ([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)) — are repository-rooted
+  # markdown links, which core VS Code does not link outside .md files. This Regex Robin rule (the extension is
+  # recommended in vscode-extensions.yml) makes the whole link Ctrl+clickable in every language by opening the
+  # ADR file in the workspace. The #fragment is not passed on: the editor opens files by line, not by heading.
+  # In .md files the built-in markdown links already resolve, and a markdown link there is relative, so the
+  # rule does not match it.
+  regexrobin.rules:
+    - regex: '\[[^\]\r\n]+\]\(/(docs/adr/[^)#\s]+\.md)(#[^)\s]*)?\)'
+      editor:
+        - link: 'file:///${workspaceFolder}/$1'
+          hoverMessage: 'Open $1$2'
 
   # Spell checking — the single repo dictionary lives in /cspell.yml (auto-discovered by Code Spell
   # Checker; the extension is recommended in .vscode/extensions.json).

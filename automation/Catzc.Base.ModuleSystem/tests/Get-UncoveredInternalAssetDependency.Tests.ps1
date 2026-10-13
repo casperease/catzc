@@ -1,6 +1,10 @@
-# The coverage gate's engine (ADR-AUTO-ASSETDEP:4) over a TestKit fixture tree: which functions with an internal
-# asset dependency lack a test that cites ADR-AUTO-ASSETDEP#3 and is not source-only. The fixture test files are
-# parsed, never run. Neutral names (ADR-AUTO-TEST:3).
+# The coverage gate's engine
+# ([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)) over a TestKit
+# fixture tree: which functions with an internal
+# asset dependency lack a test that cites
+# [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3) and is not
+# source-only. The fixture test files are
+# parsed, never run. Neutral names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-UncoveredInternalAssetDependency' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

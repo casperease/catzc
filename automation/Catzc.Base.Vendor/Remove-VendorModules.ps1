@@ -15,7 +15,8 @@
     reproducible before deleting.
 
     Deletes from the source tree's .vendor, so it stops with a named error in build mode (Assert-SourceTree,
-    ADR-DSGN-RUNMODE) — an installed package's vendored modules are never removed by it.
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)) — an installed package's vendored modules are never removed by
+    it.
 .PARAMETER Name
     Vendored module names to target. Defaults to every vendored module.
 .PARAMETER Force

@@ -1,7 +1,9 @@
 # Get-GlossaryEnforcementViolations is private, so it is exercised through the module (InModuleScope, per
-# ADR-AUTO-PESTER:4). The glossary is built in memory from the real GlossaryEntry/GlossaryConcept/GlossaryOptions
+# [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)). The glossary is built
+# in memory from the real GlossaryEntry/GlossaryConcept/GlossaryOptions
 # types and the enforcer map is passed in, in Get-CatsRuleEnforcers' shape, so no test file is read. Fixture terms
-# and rule codes are neutral (widget/gadget, tst — ADR-AUTO-TEST:3).
+# and rule codes are neutral (widget/gadget, tst —
+# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         # One merged glossary entry from the widget source: realized as a tag unless said otherwise.

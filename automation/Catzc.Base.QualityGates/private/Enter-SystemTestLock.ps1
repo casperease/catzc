@@ -3,11 +3,13 @@
     Tries, without waiting, to take the user's system-test lock — the right to run L3 on this account.
 .DESCRIPTION
     L3 holds the vertical system tests, which change state outside the repository: the user's PATH and other
-    persistent environment variables, the registry, installed tools (ADR-AUTO-TEST:33). That state belongs to the
+    persistent environment variables, the registry, installed tools
+    ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)). That state belongs to the
     user, not to a checkout, so the working-folder slot (one per checkout) cannot guard it: two clones — or a clone
     and an installed build — each own their own working folder and would run L3 against the same user state at
     once. This lock is keyed on the user instead: a named [System.Threading.Mutex], machine-wide through the
-    Global\ namespace, tried with a zero timeout. A run never waits for it (ADR-AUTO-TEST:32): taken, the run may
+    Global\ namespace, tried with a zero timeout. A run never waits for it
+    ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)): taken, the run may
     run L3; held, it skips L3 and names the holder.
 
     Taken (or abandoned — the previous holder died mid-run), the holder writes its lock record

@@ -1,5 +1,5 @@
 // A template's `short_name` — the 2-5 char, lowercase-alnum Azure id segment every resource name is built
-// from (docs/adr/azure/azure-naming-standard.md, Rule ADR-AZ-NAMING:2). A template carries TWO identifiers: its readable,
+// from ([ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2)). A template carries TWO identifiers: its readable,
 // kebab-case on-disk FOLDER name and this short_name; only the short_name is ever Azure-facing.
 //
 // The short_name is DERIVED from the folder name by default — lowercase, keep only [a-z0-9] (hyphens and any
@@ -8,7 +8,7 @@
 // (Read-BicepTemplateOptions). This type makes the two identifiers, the derivation, and the format validation
 // ONE construction-time invariant, so no caller re-implements the rule and a malformed name cannot exist.
 //
-// A plain domain type (docs/adr/automation/native-csharp-types.md, Rule ADR-AUTO-TYPES:9) — Get-BicepTemplates
+// A plain domain type ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)) — Get-BicepTemplates
 // constructs one per template and pins its .value as the short_name; it does not mirror a YAML file, so it
 // keeps default validation and derivation logic here rather than a loose dictionary.
 
@@ -20,7 +20,7 @@ namespace Catzc.Azure.Templates;
 public sealed class BicepShortName
 {
     // The maximum short_name length. Keeping this at 5 keeps the worst-case tight (storage) name at 23/24
-    // with a byte to spare (docs/adr/azure/azure-naming-standard.md, "Length budget").
+    // with a byte to spare ([ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md), "Length budget").
     public const int MaxLength = 5;
 
     // The template's on-disk folder name (the readable, kebab-case identifier). Always present.
@@ -89,7 +89,8 @@ public sealed class BicepShortName
     }
 
     // A well-formed short_name: 2-MaxLength chars, a leading letter then lowercase-alnum. Mirrors the
-    // options.yml schema regex ^[a-z][a-z0-9]{1,4}$ (Read-BicepTemplateOptions) and naming-standard Rule ADR-AZ-NAMING:6.
+    // options.yml schema regex ^[a-z][a-z0-9]{1,4}$ (Read-BicepTemplateOptions) and naming-standard Rule
+    // [ADR-AZ-NAMING#6](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming6).
     public static bool IsValid(string value)
     {
         if (string.IsNullOrEmpty(value)) { return false; }

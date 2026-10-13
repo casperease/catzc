@@ -1,5 +1,7 @@
-# Get-GlossaryRuleStatements is private, so it is exercised through the module (InModuleScope, per ADR-AUTO-PESTER:4)
-# over a fixture ADR index and two ADRs in $TestDrive. Fixture rule codes are neutral (tst — ADR-AUTO-TEST:3).
+# Get-GlossaryRuleStatements is private, so it is exercised through the module (InModuleScope, per
+# [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4))
+# over a fixture ADR index and two ADRs in $TestDrive. Fixture rule codes are neutral (tst —
+# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-GlossaryRuleStatements' -Tag 'L0', 'logic' {
     BeforeAll {
         $adrRoot = Join-Path $TestDrive 'adr'

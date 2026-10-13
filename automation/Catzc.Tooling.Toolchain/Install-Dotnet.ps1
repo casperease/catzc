@@ -56,7 +56,8 @@ function Install-Dotnet {
 
     # Decide whether to run the install script. Our own install dir wins the check: when it already holds
     # the locked version the download is skipped, but the environment is STILL converged below — re-running
-    # repairs a lost PATH/DOTNET_ROOT persistence instead of returning past it (ADR-AUTO-IDEM:1). Without this,
+    # repairs a lost PATH/DOTNET_ROOT persistence instead of returning past it
+    # ([ADR-AUTO-IDEM#1](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem1)). Without this,
     # a session where dotnet resolves through the session janitor's PATH hints masks a broken persistent
     # PATH forever, and every non-repo process (an editor's language server) fails to find dotnet.
     $needsInstall = $true
@@ -94,7 +95,8 @@ function Install-Dotnet {
     }
 
     if ($needsInstall) {
-        # Resolve the vendored install script shipped in this module's assets/ (ADR-AUTO-ASSETDEP:1)
+        # Resolve the vendored install script shipped in this module's assets/
+        # ([ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1))
         if ($IsWindows) {
             $scriptPath = Get-CatzcModuleRoot 'assets/scripts/dotnet-install.ps1'
             Assert-PathExist $scriptPath
@@ -111,7 +113,8 @@ function Install-Dotnet {
 
     # Converge the environment on every run that owns the install — session + persistent, both idempotent.
     # This is the PATH non-repo processes resolve dotnet through.
-    # Each change is announced where it happens, and only when it changes something (ADR-AUTO-ANNOUNCE:2).
+    # Each change is announced where it happens, and only when it changes something
+    # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)).
     if ($env:DOTNET_ROOT -ne $installDir) {
         $env:DOTNET_ROOT = $installDir
         Write-Message "Session: DOTNET_ROOT='$installDir'"

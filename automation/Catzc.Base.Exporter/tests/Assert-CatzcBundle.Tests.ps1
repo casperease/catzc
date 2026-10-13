@@ -1,7 +1,9 @@
 # cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
     BeforeAll {
-        # A hand-made, well-formed build of two neutral modules (ADR-AUTO-TEST:3): widget is selected (its type source
+        # A hand-made, well-formed build of two neutral modules
+        # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): widget is selected (its type
+        # source
         # ships under Catzc.Base.Widget/types/), gadget's type source rides along under .compiled/types/ (every build
         # ships the full type set). typesHash comes from the one implementation, over the same two sources.
         $script:newFixtureBuild = {

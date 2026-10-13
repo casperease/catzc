@@ -1,5 +1,6 @@
 # Keeps docs/how-to/automation/manual-test-plan.md in sync with the suite. This is itself an integrity check
-# (it reads the real repo), so per ADR-AUTO-TEST:16 it derives its fact by PARSING the test files with the AST — never by
+# (it reads the real repo), so per [ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16) it
+# derives its fact by PARSING the test files with the AST — never by
 # booting Pester discovery (a nested Invoke-Pester inside a run is unsafe). It is self-referential: its own
 # Describe is integrity-tagged, so the plan must list it too (row 34). source-only: it reads the repository's test
 # files and the plan document, which give the same answer in both run modes.
@@ -9,7 +10,8 @@ Describe 'Manual test plan covers every integrity check' -Tag 'L1', 'integrity',
         $automationRoot = Join-Path $repoRoot 'automation'
         $script:planPath = Join-Path $repoRoot 'docs/how-to/automation/manual-test-plan.md'
 
-        # 1. Discover every integrity-tagged Describe/Context/It across the suite by AST (ADR-AUTO-TEST:16). A block is
+        # 1. Discover every integrity-tagged Describe/Context/It across the suite by AST
+        # ([ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16)). A block is
         # integrity when its own -Tag argument array contains the literal 'integrity'; the block name is the
         # command's first positional string. Key each block by (relativeFile, blockName) — block names are NOT
         # unique across files (e.g. 'integrity (shipped config + real code)' is in two files), so the pair is

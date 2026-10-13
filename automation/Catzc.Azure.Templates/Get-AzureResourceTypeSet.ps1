@@ -14,10 +14,12 @@
                 org/customer/role to fit 15 — the resource group already encodes them). `type` is
                 never omitted.
 
-    The `type` segment is 2-5 chars (see azure-naming-standard.md); the widened 5-char form is only for
+    The `type` segment is 2-5 chars (see
+    [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)); the widened 5-char form is only for
     `long` types — the restricted `storage`/`vm` patterns keep a short 2-4 char abbreviation.
 
-    Starter set from docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming4 — extend as the consuming repos need.
+    Starter set from [ADR-AZ-NAMING#4](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming4) — extend as the
+    consuming repos need.
 .EXAMPLE
     (Get-AzureResourceTypeSet).st   # -> @{ pattern = 'storage' }
 #>

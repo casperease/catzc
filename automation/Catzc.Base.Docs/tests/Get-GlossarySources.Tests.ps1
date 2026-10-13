@@ -1,8 +1,9 @@
-# Get-GlossarySources is private, so it is exercised through the module (InModuleScope, per ADR-AUTO-PESTER:4).
+# Get-GlossarySources is private, so it is exercised through the module (InModuleScope, per
+# [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)).
 # Discovery is redirected to the fixture sources under tests/assets/glossary/ through the Resolve-ConfigEntry seam,
 # so every source still loads through Get-Config and the GlossaryConfig type; git is mocked at Get-GitTrackedPath.
 # The fixture owners are loaded modules (Get-Config resolves validation in the owner's scope); the fixture terms
-# are neutral (widget/gadget, ADR-AUTO-TEST:3).
+# are neutral (widget/gadget, [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-GlossarySources' -Tag 'L0', 'logic' {
     BeforeAll {
         $assets = 'automation/Catzc.Base.Docs/tests/assets/glossary'

@@ -73,7 +73,9 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
     }
 }
 
-# The real-asset test of ADR-AUTO-ASSETDEP:3: the gate runs over throwaway files with nothing mocked, so it reads
+# The real-asset test of
+# [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3): the gate runs over
+# throwaway files with nothing mocked, so it reads
 # the shipped settings file (<code root>/.internal/assets/PSScriptAnalyzerSettings.psd1) and the vendored
 # analyzer (<code root>/.vendor) — integrity, and not source-only, so it runs in the source and the build suite.
 # The repo-wide "all module code is analyzer-clean" check is the sharded L2 'PSScriptAnalyzer' test in

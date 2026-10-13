@@ -7,7 +7,7 @@
     session's customer picks the slot: a customer subscription deploys the template's
     configuration/<customer>/ config, a non-customer subscription the configuration-root one. The
     -SubscriptionIdAssertIs guard pins the target explicitly and is MANDATORY in a pipeline
-    (docs/adr/azure/azure-data-model.md).
+    ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)).
 
     Flow:
     1. Get-BicepDeploymentContext           (resolves the session target, applies the assert guard;
@@ -24,7 +24,7 @@
 
     Pass -DryRun to preview: it runs `az deployment ... create --what-if` (Azure's server-side preview)
     and skips the real deploy, the post-deploy hook, and tag-setting. See
-    docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
 .PARAMETER Environment
     Environment shortname.
 .PARAMETER Template
@@ -55,7 +55,7 @@
 #>
 function Deploy-Bicep {
     # State-changing function deliberately uses -DryRun, not ShouldProcess — see
-    # docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    # [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-AUTO-DRYRUN#5')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
@@ -87,7 +87,7 @@ function Deploy-Bicep {
     # In a pipeline the target MUST be pinned explicitly — the session (the service connection) selects
     # it, and the assert guard is the pipeline's declared expectation, so a re-wired service connection
     # can never silently retarget an existing pipeline's deploy. Fail fast at the call site instead.
-    # See docs/adr/azure/azure-data-model.md.
+    # See [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md).
     if ((Test-IsRunningInPipeline) -and [string]::IsNullOrEmpty($SubscriptionIdAssertIs)) {
         throw "Deploy-Bicep requires -SubscriptionIdAssertIs in a pipeline — the pipeline must pin the subscription GUID its service connection is expected to target, for template '$Template' ($Environment)."
     }
@@ -129,7 +129,8 @@ function Deploy-Bicep {
     if ($null -ne $context.artifacts.prepost_module) {
         Write-Message "Importing per-template PrePost: $($context.artifacts.prepost_module)"
         $prepostModule = Import-Module (Resolve-RepoPath $context.artifacts.prepost_module) -Scope Local -Force -PassThru
-        # The template's hooks run strict like every catzc module, whoever wrote them (ADR-AUTO-ERROR:8).
+        # The template's hooks run strict like every catzc module, whoever wrote them
+        # ([ADR-AUTO-ERROR#8](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error8)).
         . $prepostModule { Set-StrictMode -Version Latest }
         if ($prepostModule.ExportedCommands.ContainsKey('Invoke-BicepPreDeploy')) {
             $preDeployHook = $prepostModule.ExportedCommands['Invoke-BicepPreDeploy']
@@ -142,7 +143,7 @@ function Deploy-Bicep {
     # The deploy invocation — the arguments this deploy is acting on (incl. Mode). DryRun is passed
     # as its own first-class parameter to PreDeploy (it's the side-effect kill switch — too special
     # to hide in a bag). Computed descriptor objects stay separate.
-    # See docs/adr/automation/powershell/prepost-extension-modules.md.
+    # See [ADR-AUTO-PREPOST](/docs/adr/automation/powershell/prepost-extension-modules.md).
     $deployInvocation = [ordered]@{
         Template     = $Template
         Environment  = $Environment

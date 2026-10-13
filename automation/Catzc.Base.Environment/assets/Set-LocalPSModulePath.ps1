@@ -16,7 +16,9 @@
     No admin required. Idempotent — safe to run repeatedly.
 
     It runs before catzc is loaded, so it writes through Write-Information directly rather than the writer
-    chokepoint — the same information stream (ADR-AUTO-ANNOUNCE:1), always shown, colour as embedded ANSI.
+    chokepoint — the same information stream
+    ([ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1)), always
+    shown, colour as embedded ANSI.
 .EXAMPLE
     & 'automation\Catzc.Base.Environment\assets\Set-LocalPSModulePath.ps1'
 #>

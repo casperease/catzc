@@ -1,5 +1,6 @@
 # The build-validation.yml shape validator (collect-all-then-throw), plus the shipped-config integrity
-# check: every entry ties to a declared globset and resolves a pipeline (the ADR-AZ-CUSTOMER:3 pattern — the
+# check: every entry ties to a declared globset and resolves a pipeline (the
+# [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3) pattern — the
 # cross-config reference is enforced here and at runtime, never at config load).
 Describe 'Assert-BuildValidationConfig' -Tag 'L0', 'logic' {
     BeforeAll {
@@ -9,7 +10,8 @@ Describe 'Assert-BuildValidationConfig' -Tag 'L0', 'logic' {
         }
         # Neutral fixture globset/pipeline names (widget/gadget) — Assert-BuildValidationConfig checks SHAPE
         # only (globset existence is enforced by the integrity test below and at runtime), so a logic fixture
-        # must not borrow real deployable-unit names (ADR-AUTO-TEST:3).
+        # must not borrow real deployable-unit names
+        # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
         $script:valid = [ordered]@{
             branch      = 'main'
             validations = @(

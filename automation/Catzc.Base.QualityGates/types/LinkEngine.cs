@@ -1,8 +1,10 @@
-// The link engine behind Format-Links and Test-Links (ADR-REPO-LINK#8): runs over a list of repository files in
-// parallel and, per file, by kind (ADR-REPO-LINK#1):
+// The link engine behind Format-Links and Test-Links
+// ([ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)): runs over a list of repository files in
+// parallel and, per file, by kind ([ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1)):
 //   Code      — every comment span (CommentLexer) is rewritten into canonical code links (CodeLinkRewriter); a
 //               comment line that outgrows its limit is wrapped per the configured LinkWrap; a PowerShell string
-//               naming a docs/adr path that does not exist is reported (strings are data, ADR-REPO-LINK#6).
+//               naming a docs/adr path that does not exist is reported (strings are data,
+// [ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6)).
 //   Markdown  — the file's links are checked and aligned (MarkdownLinkScanner).
 // It reads files and never writes them: the result carries each changed file's new text. Findings carry real
 // 1-based line and column numbers of the original text.

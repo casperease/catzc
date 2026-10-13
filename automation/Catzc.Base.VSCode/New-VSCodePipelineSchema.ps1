@@ -14,7 +14,7 @@
     connected to an Azure DevOps org — is gone, while the structural checks worth keeping remain. The
     authored yml carries the full rationale; this is a pure renderer that returns the content and writes
     nothing. It is the `generator` the root-config registry names for the .vscode/azure-pipelines-schema.json
-    target, and Build-RootConfig owns the write. See docs/adr/repository/generated-root-configs.md.
+    target, and Build-RootConfig owns the write. See [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
 .OUTPUTS
     [string] The rendered azure-pipelines-schema.json content (LF-joined; the writer canonicalises).
 .EXAMPLE

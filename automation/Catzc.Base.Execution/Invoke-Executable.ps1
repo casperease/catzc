@@ -59,7 +59,8 @@
 .EXAMPLE
     Invoke-Executable 'python --version' -DryRun
 #>
-# Uses -DryRun, not ShouldProcess/-WhatIf — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun2.
+# Uses -DryRun, not ShouldProcess/-WhatIf — see
+# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun2).
 function Invoke-Executable {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingInvokeExpression', '', Justification = 'By design — executes CLI commands via private helpers')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseOutputTypeCorrectly', '', Justification = 'Returns string in -DryRun, Catzc.Base.Execution.CliResult in -PassThru')]
@@ -84,7 +85,7 @@ function Invoke-Executable {
     # throws). When a unit (L1) run sets $env:CATZC_BLOCK_REAL_PROCESS, a real process launch means a Mock
     # failed to intercept — almost always a -ModuleName pointing at the wrong module — so the test was
     # silently hitting the live tool. Fail loudly instead. -DryRun is exempt (it never launches).
-    # See docs/adr/automation/test-automation.md.
+    # See [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md).
     if ($env:CATZC_BLOCK_REAL_PROCESS -and -not $DryRun) {
         throw (
             "Blocked a real process launch during a unit test: '$Command'. A Mock did not intercept it — " +

@@ -4,7 +4,8 @@ Describe 'Get-CSharpTypeDependency' -Tag 'L0', 'source-only' {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
 
         # Writes <root>/<module>/types/<type>.cs for each entry. Module names double as namespaces.
-        # [System.IO] rather than New-Item/Set-Content — ~0.1ms vs ~20ms/call (ADR-AUTO-TEST:18).
+        # [System.IO] rather than New-Item/Set-Content — ~0.1ms vs ~20ms/call
+        # ([ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)).
         function New-TypeModule {
             param([string] $Module, [hashtable] $Files)
             $td = Join-Path $root "$Module/types"

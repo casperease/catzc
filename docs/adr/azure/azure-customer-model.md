@@ -75,7 +75,7 @@ catalogue of who the customers are.
 subscription may reference, and the name of the customer's `configuration/<key>/` subfolder in every template), with a 2-char
 **`shortcode`** (unique; the customer-segment of the restricted patterns) and optional `details`. This mirrors the name/shortcode split
 environments carry. `Assert-CustomerConfig` validates it: key format (`^[a-z][a-z0-9]+$`), shortcode format (`^[a-z]{2}$`), shortcode
-uniqueness, and the no-key-equals-a-shortcode rule (ADR-AZ-CUSTOMER:2). It is self-contained — it does not read `azure.yml`, so the customer
+uniqueness, and the no-key-equals-a-shortcode rule (ADR-AZ-CUSTOMER#2). It is self-contained — it does not read `azure.yml`, so the customer
 catalogue sits below the subscriptions that reference it and validation stays one-directional.
 
 ### Two names, one binding

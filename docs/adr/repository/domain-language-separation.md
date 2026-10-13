@@ -14,7 +14,7 @@ real-customer-shaped names the demo deployment maps to). A token from one domain
 ### Rule ADR-REPO-LANG:2
 
 A **logic** test names **fixture** identities, never **live** ones. Using a real customer, subscription, org, template, or ADO-project name
-as a value in a logic test couples it to the shipped config (ADR-AUTO-TEST:3) and blurs the test/live vocabulary; it uses `acme`/`globex`,
+as a value in a logic test couples it to the shipped config (ADR-AUTO-TEST#3) and blurs the test/live vocabulary; it uses `acme`/`globex`,
 `alpha`/`beta`, `tst`, `sample`, `widget` instead.
 
 - [The test/live boundary is the enforced one](#the-testlive-boundary-is-the-enforced-one)
@@ -22,7 +22,7 @@ as a value in a logic test couples it to the shipped config (ADR-AUTO-TEST:3) an
 ### Rule ADR-REPO-LANG:3
 
 An **integrity** test is the one sanctioned bridge: it binds the real shipped assets and therefore names live identities by design
-(ADR-AUTO-TEST:1). Live identities are legitimate inside an `integrity`-tagged block and nowhere else in a logic-bearing test file.
+(ADR-AUTO-TEST#1). Live identities are legitimate inside an `integrity`-tagged block and nowhere else in a logic-bearing test file.
 
 - [The test/live boundary is the enforced one](#the-testlive-boundary-is-the-enforced-one)
 
@@ -170,9 +170,9 @@ the domains; a file-glob spell-checker is not used, because it cannot separate i
   the test configs, and disjoint from the live set by construction.
 
 - **The terminology `scope` map** ([spell-out-names](../automation/powershell/spell-out-names.md)) records each category's domain, and
-  `Test-Terminology` keeps the registry honest — but cspell does not scope on it (ADR-REPO-LANG:5).
+  `Test-Terminology` keeps the registry honest — but cspell does not scope on it (ADR-REPO-LANG#5).
 
-- **Code review** covers the design-domain rules a gate does not — an ADR illustrating with a test fixture (ADR-REPO-LANG:4), or a live
+- **Code review** covers the design-domain rules a gate does not — an ADR illustrating with a test fixture (ADR-REPO-LANG#4), or a live
   identity in a doc that is not documenting that identity as its subject.
 
 ## Consequences

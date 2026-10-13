@@ -17,13 +17,14 @@
     recreated with the running OS's best mechanism. It writes into the catzc source tree, so it runs in source
     mode only (Assert-SourceTree); a session running a built package stops with a named error.
 
-    See docs/adr/repository/generated-readmes.md and docs/adr/configuration/module-config-loading.md.
+    See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md) and
+    [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md).
 .PARAMETER Folder
     Materialise only the mapping whose target folder equals this repo-relative path (e.g.
     'automation/Catzc.Azure.DevOps'). Throws when it matches no mapping. Default: every mapping.
 .PARAMETER DryRun
     Report what would change without touching the filesystem. See
-    docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
 .PARAMETER Silent
     The per-README status lines are verbose-level — shown only when this function is run with -Verbose.
     -Silent suppresses them entirely, even under -Verbose (used by the importer tail so a session with

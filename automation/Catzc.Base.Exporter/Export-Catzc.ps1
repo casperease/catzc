@@ -3,7 +3,8 @@
     Exports catzc — builds it (Build-Modules), then installs it beside a working root or packs it for
     Install-PSResource.
 .DESCRIPTION
-    The top-level export (ADR-AUTO-BUNDLE:6). It builds with Build-Modules (exporter.yml defaults; the build
+    The top-level export ([ADR-AUTO-BUNDLE#6](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle6)). It builds
+    with Build-Modules (exporter.yml defaults; the build
     parameters pass through) and delivers the build:
       - disk (default): the two-part install to -Root (Install-Catzc) — the build under <Root>/.vendor/Catzc/<version>/
         and a root importer.ps1 that enters it with <Root> as the working root;

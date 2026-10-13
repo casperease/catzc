@@ -1,4 +1,5 @@
-// What the link engine found at one place in a file (ADR-REPO-LINK). The fixable types are rewritten by
+// What the link engine found at one place in a file
+// ([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)). The fixable types are rewritten by
 // Format-Links and reported by Test-Links until they are; the rest cannot be fixed mechanically and need a
 // person. Overlong is informational: a line that stays over its limit after the aligner did what it can.
 
@@ -9,7 +10,8 @@ public enum LinkFindingType
     // Code kind — fixable.
     Bare,           // a bare docs/adr path in a comment becomes a code link
     Relative,       // a ../ or rooted-but-unlinked path becomes a code link
-    SlugOnly,       // an ADR file name alone (caching.md) becomes a code link when the slug is unique
+    SlugOnly,       // an ADR file name alone
+                    // ([ADR-AUTO-CACHE](/docs/adr/automation/caching.md)) becomes a code link when the slug is unique
     Adjacent,       // a path immediately followed by its own citation merges into one code link
     Citation,       // a bare citation code in a comment becomes a code link
     Stale,          // a path to a moved ADR is re-pointed from its citation code or unique file name

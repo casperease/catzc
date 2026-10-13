@@ -15,10 +15,11 @@
 
     dotnet runs through Invoke-Executable rather than Invoke-Dotnet: that wrapper (with its locked-SDK
     assertion) lives in the Tooling layer, which this Base module must not depend on. So there is no
-    locked-version check here; dotnet must be on PATH. See docs/adr/automation/native-csharp-types.md.
+    locked-version check here; dotnet must be on PATH. See
+    [ADR-AUTO-TYPES](/docs/adr/automation/BCL/native-csharp-types.md).
 
     The project builds the source tree's types/*.cs, so it stops with a named error in build mode
-    (Assert-SourceTree, ADR-DSGN-RUNMODE).
+    (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
 .PARAMETER Configuration
     The MSBuild configuration to build. Defaults to Debug.
 .PARAMETER PassThru

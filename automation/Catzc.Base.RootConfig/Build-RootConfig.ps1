@@ -14,9 +14,10 @@
 
     Idempotent and fast by construction, so the importer runs it on every load (see importer.ps1): the write
     goes through Write-FileIfChanged (canonical UTF-8/LF output, EOL-insensitive compare, write-on-change), so
-    a clean tree is a true no-op. See docs/adr/repository/generated-root-configs.md.
+    a clean tree is a true no-op. See [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
 
-    The managed root files are materialised from the source tree, so in build mode (ADR-DSGN-RUNMODE) this is a
+    The managed root files are materialised from the source tree, so in build mode
+    ([ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)) this is a
     no-op that reports why and returns nothing — a skip, not a throw, because the importer's janitor tail calls
     it on every load and a janitor never breaks the load.
 .PARAMETER Target
@@ -24,7 +25,7 @@
     Throws when it matches no opted-in entry. Default: every opted-in entry.
 .PARAMETER DryRun
     Report what would change without writing any file. The composed content is the same either way; -DryRun
-    only skips the write. See docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
+    only skips the write. See [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
 .PARAMETER Silent
     The per-file status lines are verbose-level — shown only when this function is run with -Verbose. -Silent
     suppresses them entirely, even under -Verbose (used by the importer tail so a session with -Verbose on

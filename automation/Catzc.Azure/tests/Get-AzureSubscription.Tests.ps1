@@ -1,6 +1,7 @@
 Describe 'Get-AzureSubscription' -Tag 'L0', 'logic' {
     # Read-only resolver tests: the config mock + cache reset run ONCE, not per test — the mocked config is
-    # identical every test and no test mutates it, so the cache stays warm (ADR-AUTO-TEST:19/ADR-AUTO-TEST:4).
+    # identical every test and no test mutates it, so the cache stays warm
+    # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)/[ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)).
     BeforeAll {
         # Redirect the config-assets root to the test fixture so this logic test owns its identity
         # inputs and never depends on the shipped azure.yml.

@@ -20,7 +20,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     A script analysed without a file path (Invoke-ScriptAnalyzer -ScriptDefinition) has no location and is not
     flagged.
 
-    See ADR: docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1 (rule ADR-AUTO-ASSETDEP:1).
+    See ADR: [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1).
 #>
 
 function Measure-NoScriptRootAnchor {
@@ -47,7 +47,8 @@ function Measure-NoScriptRootAnchor {
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoScriptRootAnchor'
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
+    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
     $isVariable = {
         param($node)
         $node -is [System.Management.Automation.Language.VariableExpressionAst]

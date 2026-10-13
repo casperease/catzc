@@ -83,7 +83,8 @@ function Get-AzureResourceName {
     $pattern = $patterns[$specification.pattern]
 
     # A type may omit components from its render — e.g. the Windows `vm` (15-char cap) drops
-    # org/customer/role, which the resource group already encodes (see azure-naming-standard.md). The `type`
+    # org/customer/role, which the resource group already encodes (see
+    # [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)). The `type`
     # segment is never omitted.
     $omit = if ($specification.Contains('omit')) {
         @($specification.omit)
@@ -93,7 +94,8 @@ function Get-AzureResourceName {
     }
 
     # The env-segment is the readable name for the generous `long` pattern, the 2-char shortcode for
-    # the restricted patterns (kv/storage/vm) — see docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming4.
+    # the restricted patterns (kv/storage/vm) — see
+    # [ADR-AZ-NAMING#4](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming4).
     $envValue = if ($specification.pattern -eq 'long') {
         $Env
     }
@@ -120,7 +122,8 @@ function Get-AzureResourceName {
         }
     }
 
-    # Component format checks (case-sensitive, lowercase) — see docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming6.
+    # Component format checks (case-sensitive, lowercase) — see
+    # [ADR-AZ-NAMING#6](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming6).
     $checks = [ordered]@{
         Env        = @{ value = $Env; pattern = '^[a-z][a-z0-9]+$'; desc = '2+ alphanumeric, leading letter' }
         RegionCode = @{ value = $RegionCode; pattern = '^[a-z]{3}$'; desc = '3 lowercase letters' }

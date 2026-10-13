@@ -2,8 +2,11 @@
 InModuleScope Catzc.Base.Exporter {
     Describe 'New-CatzcNuGetPackage' -Tag 'L0', 'logic' {
         BeforeAll {
-            # A minimal fixture build (neutral names, ADR-AUTO-TEST:3), packed ONCE: every assertion below is a facet
-            # of the one pack (ADR-AUTO-TEST:20) — Compress-PSResource costs real time.
+            # A minimal fixture build (neutral names,
+            # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)), packed ONCE: every
+            # assertion below is a facet
+            # of the one pack ([ADR-AUTO-TEST#20](/docs/adr/automation/test-automation.md#rule-adr-auto-test20)) —
+            # Compress-PSResource costs real time.
             $script:source = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))/Catzc/1.2.3"
             $write = {
                 param($relative, $content)

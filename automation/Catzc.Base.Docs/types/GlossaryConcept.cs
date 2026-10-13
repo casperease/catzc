@@ -1,12 +1,16 @@
 // One defined term of the controlled vocabulary (a configs/glossary.yml `concepts:` entry, keyed by the term). It
-// carries the term's machine key, its ADR domain, the ONE rule that defines it (ADR-REPO-VOCAB:1), a one-line
+// carries the term's machine key, its ADR domain, the ONE rule that defines it
+// ([ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)), a one-line
 // definition, how it exists in the repository (GlossaryRealization), and optionally its relations to other terms,
-// its contrasts with similar terms (each explained, ADR-REPO-VOCAB:4), and its avoided phrasings (GlossaryAvoid,
-// ADR-REPO-VOCAB:5). Mirrors the YAML entry (snake_case keys, ADR-AUTO-TYPES:8).
+// its contrasts with similar terms (each explained,
+// [ADR-REPO-VOCAB#4](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab4)), and its avoided phrasings (GlossaryAvoid,
+// [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)). Mirrors the YAML entry (snake_case keys,
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
 //
 // Only the entry's own shape is checked here. Whether `defined_by` names a real rule, `domain` a declared ADR
 // domain, and the relation/contrast targets real concepts are cross-file facts, checked by the glossary gates
-// (Test-Glossary), not on load — so loading a glossary stays hermetic (the ADR-AZ-CUSTOMER:3 pattern).
+// (Test-Glossary), not on load — so loading a glossary stays hermetic (the
+// [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3) pattern).
 
 using System;
 using System.Collections;
@@ -31,7 +35,9 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // A machine key: snake_case ('test_suite', 'all_tests').
     public static readonly Regex KeyRe = new Regex("^[a-z][a-z0-9]*(_[a-z0-9]+)*$", RegexOptions.Compiled);
 
-    // A rule citation in the '#' form: ADR-<code>[-<NAME>…]#<n> (ADR-AUTO-TEST#30, ADR-FLOW-CD#2).
+    // A rule citation in the '#' form: ADR-<code>[-<NAME>…]#<n>
+    // ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30),
+    // [ADR-FLOW-CD#2](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd2)).
     public static readonly Regex CitationRe = new Regex("^ADR-[A-Z]{2,4}(-[A-Z]+)+#[1-9][0-9]*$", RegexOptions.Compiled);
 
     // An ADR domain key, as adrs.yml spells it ('automation', 'repository').

@@ -13,7 +13,7 @@
 #             DC-segment equals the effective code (`^[A-Z]{2,4}$`).
 #
 # Loaded via Get-Config -Config adrs; validated by Assert-AdrsConfig. index.md is a generated projection of
-# this file (Build-AdrIndex) — see docs/adr/repository/generated-readmes.md pattern.
+# this file (Build-AdrIndex) — see [ADR-REPO-README](/docs/adr/repository/generated-readmes.md) pattern.
 
 domains:
   principles:
@@ -33,7 +33,8 @@ domains:
 
   process:
     code: PROC
-    role: optimisable # our own continuously-improved way of working (ADR-PROC-KAIZEN); Design/Exploration + ASM
+    role: optimisable # our own continuously-improved way of working
+                      # ([ADR-PROC-KAIZEN](/docs/adr/process/inspect-and-adapt.md)); Design/Exploration + ASM
     description: >-
       How the team works: the Agile Manifesto's values and principles, lean flow as the Toyota Production System maps to software, and one
       shared vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`ADR-PROC-KAIZEN`); the design,
@@ -73,7 +74,8 @@ domains:
       module-aspects: { external: ADR-DSGN-ASPECT }
 
   flow:
-    code: FLOW-CD # compound domain code — the root ADR cites ADR-FLOW-CD, the rest ADR-FLOW-CD-<NAME>
+    code: FLOW-CD # compound domain code — the root ADR cites [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md), the rest
+                  # [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)-<NAME>
     role: architecture # the platform-agnostic flow model that ADO (PIPE) and GitHub (GH) implement
     description: >-
       The vendor-neutral delivery-flow model: continuous integration as a discipline with a 5–10 minute integration budget, the closed set of

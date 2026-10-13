@@ -1,7 +1,8 @@
 # cspell:ignore weutstsidxst
 Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
     # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
-    # build output folder is wiped per test, since the build tests write into it (ADR-AUTO-TEST:19/ADR-AUTO-TEST:4).
+    # build output folder is wiped per test, since the build tests write into it
+    # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)/[ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)).
     BeforeAll {
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-indexed'
 
@@ -31,7 +32,8 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
         # Warm the discovery + config caches once, so the first It doesn't pay the cold Get-BicepTemplate
-        # derive (template-tree enumeration + config load) inside its own timing (ADR-AUTO-TEST:19). Every test
+        # derive (template-tree enumeration + config load) inside its own timing
+        # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)). Every test
         # here reads the same fixture template, and BeforeEach wipes only the build output, not the caches.
         Get-BicepTemplate sample-indexed | Out-Null
     }

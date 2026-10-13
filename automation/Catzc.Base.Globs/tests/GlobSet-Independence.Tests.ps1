@@ -1,4 +1,6 @@
-# Integrity: per-layer independence (ADR-FLOW-CD-GLOBS:10) holds in the REAL repository — within every non-loose
+# Integrity: per-layer independence
+# ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)) holds in the REAL repository —
+# within every non-loose
 # layer, no two globsets (declared or derived) select a common file on their OWN contribution. The
 # 'loose-fileset' layer is exempt: its sets are cross-cutting check surfaces (a track's root concern, a scan
 # scope, the reserved umbrellas) and overlap by design. A module or deployable-unit that starts containing

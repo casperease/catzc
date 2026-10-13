@@ -10,7 +10,8 @@
 
     Why a child process and not an in-session Invoke-Pester: a worker starts from a fresh process — a freshly
     imported toolset with empty session caches, no state left by earlier commands, and its own top scope set
-    strict by the shard script (ADR-AUTO-TEST:25) — exactly the conditions CI runs under. A bare Invoke-Pester
+    strict by the shard script ([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)) —
+    exactly the conditions CI runs under. A bare Invoke-Pester
     from an interactive session runs the same tests against whatever that session has accumulated; this entry
     point closes that gap.
 
@@ -19,15 +20,17 @@
     check should run exactly that check. The run's artifacts (worker script, results-shard-0.xml,
     rows-shard-0.json) land in a timestamped folder under out/test-file/.
 
-    It never waits for another test run's use of the working folder (ADR-AUTO-TEST:32, Enter-TestRunSlot):
+    It never waits for another test run's use of the working folder
+    ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32), Enter-TestRunSlot):
     when the working folder is free it runs in place; when another run holds it, it runs in a verified
     snapshot of the working folder instead — the test files map to the same repository-relative paths inside
     the snapshot, a test file outside the repository runs as given, and the artifacts still land in the
     working folder's out/test-file/. Every tier runs in place; a snapshot run skips the L3 vertical system tests,
-    which change state outside the repository, and says so (Resolve-TestRunMaxLevel, ADR-AUTO-TEST:33).
+    which change state outside the repository, and says so (Resolve-TestRunMaxLevel,
+    [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
 .PARAMETER Path
     The test file(s) to run — absolute, or repository-root-relative (never resolved against $PWD; see
-    docs/adr/automation/never-depend-on-pwd.md).
+    [ADR-AUTO-NOPWD](/docs/adr/automation/never-depend-on-pwd.md)).
 .PARAMETER FullNameFilter
     Filter to tests whose full name contains this text (wrapped in wildcards) — the manual-test-plan row's
     FullNameFilter column, verbatim.

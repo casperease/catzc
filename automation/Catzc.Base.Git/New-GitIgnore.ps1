@@ -14,7 +14,7 @@
     root-config registry names for the .gitignore target, and Build-RootConfig owns the write (through the
     same idempotent Write-FileIfChanged path as every managed file). It reads only its own registry, never
     rootconfig.yml, so Catzc.Base.Git carries no dependency on Catzc.Base.RootConfig (the composition edge
-    runs the other way; see docs/adr/repository/generated-root-configs.md).
+    runs the other way; see [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)).
 .PARAMETER Inject
     Render-time patterns per provider name (e.g. @{ 'rootconfig-committed-false' = '/.editorconfig', … }).
     Every `inject` provider the registry names must be supplied — an unknown provider throws; an empty list

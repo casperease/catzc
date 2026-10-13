@@ -1,6 +1,7 @@
 Describe 'Remove-LinuxToolInstall' -Tag 'L1', 'logic' {
     BeforeEach {
-        # A neutral fixture tool (ADR-AUTO-TEST:3) — never a real tool identity.
+        # A neutral fixture tool
+        # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) — never a real tool identity.
         $script:config = [pscustomobject]@{ command = 'widget'; pip_package = 'widgetlib' }
 
         Mock Write-Message { } -ModuleName Catzc.Tooling.Core

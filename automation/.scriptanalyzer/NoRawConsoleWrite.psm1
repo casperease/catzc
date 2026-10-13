@@ -5,7 +5,9 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: forbid writing to the console past the information stream.
 .DESCRIPTION
     Every write to the console goes through the information stream, by way of the writer chokepoint
-    (Write-Message -> Write-InformationColored -> Write-Information) — ADR-AUTO-ANNOUNCE:1. Only there is the
+    (Write-Message -> Write-InformationColored -> Write-Information) —
+    [ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1). Only there
+    is the
     output controllable ($InformationPreference, -InformationAction, 6> redirection), silenced during a Pester
     run (the chokepoint guard), and headed with its caller. A write that goes around the stream bypasses all
     three, so this rule flags every way to do it:
@@ -25,7 +27,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     This supersedes the built-in PSAvoidUsingWriteHost, which is excluded in PSScriptAnalyzerSettings.psd1: one
     rule owns the console bypass, and it covers every route, not only Write-Host.
 
-    See ADR: docs/adr/automation/powershell/announce-state-changes.md (ADR-AUTO-ANNOUNCE:1).
+    See ADR: [ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1).
 #>
 
 function Measure-NoRawConsoleWrite {
@@ -60,7 +62,8 @@ function Measure-NoRawConsoleWrite {
         $node.Expression.TypeName.FullName -in $consoleTypes
     }
 
-    # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
+    # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew
+    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
     $isCandidate = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst] -or

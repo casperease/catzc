@@ -85,7 +85,7 @@ function Get-TestTagViolations {
                 $validRuleIds = [System.Collections.Generic.HashSet[string]]::new(
                     [string[]] (Get-CatsAdrRuleIds), [System.StringComparer]::Ordinal)
             }
-            # Citations are '#' form; the rule-id set is registry ':' form (see docs/adr/index.md).
+            # Citations are '#' form; the rule-id set is registry ':' form (see [index](/docs/adr/index.md)).
             if (-not $validRuleIds.Contains(($tag -replace '#', ':'))) {
                 $reasons += "unknown ADR rule '$tag' — no such rule in docs/adr"
             }

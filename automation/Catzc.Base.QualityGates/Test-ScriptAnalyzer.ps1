@@ -50,7 +50,8 @@ function Test-ScriptAnalyzer {
     )
 
     $root = Get-RepositoryRoot
-    # The one settings file ships inside the code tree, so it resolves from the code root (ADR-AUTO-ASSETDEP:1).
+    # The one settings file ships inside the code tree, so it resolves from the code root
+    # ([ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)).
     $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
     Assert-PathExist $settingsPath
 

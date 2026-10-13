@@ -14,7 +14,7 @@ slotted, per-customer template and `survey` for a lightweight variant.
 ### Rule ADR-REPO-EXAMPLE:2
 
 Examples never carry a real, customer, or internal-project name. Every placeholder is obviously fictional and theme-consistent: fictional
-companies use Microsoft's canonical Contoso and Globex; example infrastructure templates use the discovery theme (ADR-REPO-EXAMPLE:1). A
+companies use Microsoft's canonical Contoso and Globex; example infrastructure templates use the discovery theme (ADR-REPO-EXAMPLE#1). A
 real name in an example is a defect — it leaks context into a public repository and ties the docs to a moment in time.
 
 - [Why fictional, themed names](#why-fictional-themed-names)

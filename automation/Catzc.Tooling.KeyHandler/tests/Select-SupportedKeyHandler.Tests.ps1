@@ -1,5 +1,6 @@
 # Neutral fixture function names (widget/gadget) — Select-SupportedKeyHandler is pure classification logic,
-# so a logic fixture must not borrow real PSReadLine function names (ADR-AUTO-TEST:3).
+# so a logic fixture must not borrow real PSReadLine function names
+# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Select-SupportedKeyHandler' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#22' {
 
     It 'marks a binding supported only when its function is in the allow-list' {

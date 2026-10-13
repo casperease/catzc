@@ -1,4 +1,5 @@
-# Scope isolation (ADR-DSGN-RUNMODE:3): two catzc modules that hold a $script: slot of the same name never see
+# Scope isolation ([ADR-DSGN-RUNMODE#3](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode3)): two catzc modules that
+# hold a $script: slot of the same name never see
 # each other's value — in either run mode. The probe slot name is the test's own and is removed afterwards; no
 # module code reads it. The modules are chosen generically (the first two loaded catzc modules by name), never by
 # a production identity.

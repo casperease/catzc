@@ -41,14 +41,14 @@ bootstrap anchor means the design is wrong.
 
 Never store secrets in `$env:` as internal state our own code reads back — durable state, config, or a value our own code later reads. A
 secret may cross to a child or external process through the environment only via the single disciplined seam `Write-EnvironmentSet`
-(ADR-AUTO-ENVVAR:7), never written ad-hoc. `$env:` is visible to child processes, process-inspection tools, and crash dumps (CWE-526).
+(ADR-AUTO-ENVVAR#7), never written ad-hoc. `$env:` is visible to child processes, process-inspection tools, and crash dumps (CWE-526).
 
 - [They are a security surface](#they-are-a-security-surface)
 - [The one sanctioned secret hand-off](#the-one-sanctioned-secret-hand-off)
 
 ### Rule ADR-AUTO-ENVVAR:7
 
-Handing a secret to a child or external process through the environment is a legitimate external-boundary use (ADR-AUTO-ENVVAR:1), permitted
+Handing a secret to a child or external process through the environment is a legitimate external-boundary use (ADR-AUTO-ENVVAR#1), permitted
 only through `Write-EnvironmentSet` (`Catzc.Tooling.Environment`). That seam takes secrets as `[SecureString]`; never logs or returns the
 plaintext (masks `***`); decrypts only at the `$env:` assignment; and defaults to scoped set/restore, persisting only on explicit
 `-Persist`. Ad-hoc `$env:TOKEN = $plaintext` stays prohibited.
@@ -108,7 +108,7 @@ Information in an Environment Variable" as CWE-526. Never store secrets, tokens,
 code, use secret managers, `SecureString`, or secure parameter passing.
 
 There is one narrow exception, and it is a hand-off, not a store: when an external tool's contract is to read a secret from the environment
-(ADR-AUTO-ENVVAR:1), the secret must reach it through the environment. That crossing is confined to a single disciplined seam
+(ADR-AUTO-ENVVAR#1), the secret must reach it through the environment. That crossing is confined to a single disciplined seam
 ([the one sanctioned secret hand-off](#the-one-sanctioned-secret-hand-off)); an ad-hoc `$env:TOKEN = $plaintext` remains prohibited.
 
 ### Case sensitivity is inconsistent
@@ -326,5 +326,5 @@ Environment variables remain the right answer when your config is genuinely a fl
   are the handful of `$env:CATZC_*` external/diagnostic toggles, which are read (not written) as boundary inputs. Internal state flows
   through function contracts, not the environment.
 - Secrets reach an external tool through one auditable seam. A secret bound into `$env:` for a child process goes through
-  `Write-EnvironmentSet` (ADR-AUTO-ENVVAR:7) — `SecureString` in, masked in logs, decrypted only at the assignment, scoped by default — so
+  `Write-EnvironmentSet` (ADR-AUTO-ENVVAR#7) — `SecureString` in, masked in logs, decrypted only at the assignment, scoped by default — so
   there is a single function to review rather than scattered ad-hoc secret-into-env writes.

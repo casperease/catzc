@@ -3,12 +3,15 @@
     Resolves the version a Catzc build carries — the devbox placeholder, a calculated pipeline version, or an
     explicit MAJOR.MINOR.PATCH.
 .DESCRIPTION
-    The one place a build version is decided (ADR-AUTO-BUNDLE:7); every value comes from configs/exporter.yml
+    The one place a build version is decided
+    ([ADR-AUTO-BUNDLE#7](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle7)); every value comes from
+    configs/exporter.yml
     (Get-Config -Config exporter):
 
       -Version auto, on a devbox    the fixed direct_install_version placeholder (6.6.666), announced by a yellow
                                     Write-Message notice — never Write-Warning, which terminates under the catzc
-                                    session's preferences (ADR-AUTO-ERROR:2). A rebuild overwrites it in place.
+                                    session's preferences
+                                    ([ADR-AUTO-ERROR#2](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error2)). A rebuild overwrites it in place.
       -Version auto, in a pipeline  <MAJOR.MINOR from exporter.yml version>.<first-parent commit count of HEAD>,
                                     so the same commit always gets the same version and versions rise along main.
                                     Needs the full history; a shallow clone throws instead of miscounting.

@@ -2,7 +2,8 @@
 .SYNOPSIS
     Installs a Catzc build — two-part beside a working root, or into the current user's module path.
 .DESCRIPTION
-    Places a build (Build-Modules' Catzc/<version>/ folder) where it is consumed (ADR-AUTO-BUNDLE:6):
+    Places a build (Build-Modules' Catzc/<version>/ folder) where it is consumed
+    ([ADR-AUTO-BUNDLE#6](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle6)):
 
       -Root <dir>            the two-part install. The build is copied to <dir>/.vendor/Catzc/<version>/, and a
                              root importer.ps1 is written at <dir> that dot-sources the installed Import-Catzc.ps1
@@ -32,7 +33,8 @@
 .EXAMPLE
     Install-Catzc -Scope CurrentUser
 #>
-# Uses -DryRun, not ShouldProcess/-WhatIf — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun2.
+# Uses -DryRun, not ShouldProcess/-WhatIf — see
+# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun2).
 function Install-Catzc {
     [CmdletBinding(DefaultParameterSetName = 'Root')]
     [OutputType([pscustomobject])]

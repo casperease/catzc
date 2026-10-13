@@ -5,7 +5,7 @@
 ### Rule ADR-REPO-ROOTCFG:1
 
 An opted-in repository-root config file is **fully managed by the source-of-truth automation**: it is materialised from exactly one in-repo
-source of truth — a `source` file (an authored config copied out, or linked out under `copyAsLink` — ADR-REPO-ROOTCFG:7) or a `generator`
+source of truth — a `source` file (an authored config copied out, or linked out under `copyAsLink` — ADR-REPO-ROOTCFG#7) or a `generator`
 function (e.g. `New-Importer`). Corrections go to the source: a reproduced copy is a rendering and is never hand-edited; a link target IS
 the source, so an edit through either path lands in the one authored file.
 
@@ -34,7 +34,7 @@ Generation is idempotent and runs on every import (the importer tail). All conte
 `Write-FileIfChanged` (`Catzc.Base.Files`): canonical output (UTF-8 no BOM, LF, one trailing newline), an EOL-insensitive compare, write
 only on a real content change — so a clean tree is a fast no-op and a CRLF/LF flip never forces a rewrite. A changed write is
 delete-then-write, never in-place, so it can never write through a linked target into a source of truth. Link targets are materialised by
-`Set-FileLink` (ADR-REPO-ROOTCFG:7) instead of a content write.
+`Set-FileLink` (ADR-REPO-ROOTCFG#7) instead of a content write.
 
 - [Always current, at no steady-state cost](#always-current-at-no-steady-state-cost)
 
@@ -104,7 +104,7 @@ and commit. This keeps the model honest — a copy-in and `importer.ps1` differ 
 Reproducing content is the honest form for a generator (there is no single file to point at) and for a target that must be a real tracked
 file. For a source-backed, gitignored target, a link is the stronger form: the root path and the authored source are **one file**, so there
 is no copy to drift, no injected header to explain, and an edit through the root path lands in the source of truth — which is the intent,
-not a hazard. `Set-FileLink` owns the mechanism (ADR-REPO-ROOTCFG:7): it verifies an existing artifact as a symbolic link resolving to the
+not a hazard. `Set-FileLink` owns the mechanism (ADR-REPO-ROOTCFG#7): it verifies an existing artifact as a symbolic link resolving to the
 source or a hard link with identical bytes, and deletes-and-recreates anything else — including a plain file whose content happens to match,
 because content equality is not the contract; being the same file is.
 
@@ -122,9 +122,9 @@ keeps the old bytes until the next import re-links it. That window is bounded by
 changing files on disk — and CI always starts from a fresh import.
 
 The reverse transition is guarded twice. `Write-FileIfChanged`'s delete-then-write means a content write can never tunnel through a link
-into a source (ADR-REPO-ROOTCFG:4), and `Build-RootConfig`'s copy branch treats a target that is currently a link as stale regardless of
+into a source (ADR-REPO-ROOTCFG#4), and `Build-RootConfig`'s copy branch treats a target that is currently a link as stale regardless of
 content equality — a `comment: none` entry composes bytes identical to its source, which a content compare alone would read through the link
-and call current, leaving the mechanism disagreeing with the registry. The inverse integrity assertion (ADR-REPO-ROOTCFG:6) is the backstop.
+and call current, leaving the mechanism disagreeing with the registry. The inverse integrity assertion (ADR-REPO-ROOTCFG#6) is the backstop.
 
 ### Always current, at no steady-state cost
 

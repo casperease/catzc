@@ -1,5 +1,7 @@
-# Format-Links is the link aligner and the repository-wide migration (ADR-REPO-LINK#8), tested in isolation: every test
-# builds its own fixture repository in $TestDrive — a two-ADR index with neutral widget/gadget codes (ADR-AUTO-TEST#3),
+# Format-Links is the link aligner and the repository-wide migration
+# ([ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)), tested in isolation: every test
+# builds its own fixture repository in $TestDrive — a two-ADR index with neutral widget/gadget codes
+# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)),
 # an .editorconfig, and the source files under test — and aligns only that tree (-RepositoryRoot, -Path).
 Describe 'Format-Links' -Tag 'L0', 'logic' {
     BeforeAll {
@@ -103,6 +105,11 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
     }
 
     Context 'what stays as written' {
+        It 'leaves a path glued to a placeholder alone' -Tag 'ADR-REPO-LINK#3' {
+            $text = "# Reads <root>/docs/adr/widget/widget-rules.md and x/gadget-rules.md.`n"
+            & $alignFile $root 'src/widget.ps1' $text | Should -BeExactly $text
+        }
+
         It 'never rewrites a citation or path inside a PowerShell string' -Tag 'ADR-REPO-LINK#6' {
             $text = "`$tag = 'ADR-TST-WIDGET:2'`n`$path = 'docs/adr/widget/widget-rules.md'`n"
             & $alignFile $root 'src/widget.ps1' $text | Should -BeExactly $text

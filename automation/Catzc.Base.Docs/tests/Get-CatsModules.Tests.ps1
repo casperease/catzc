@@ -1,4 +1,5 @@
-# Get-CatsModules is private, so it is exercised through the module (& (Get-Module …), per ADR-AUTO-PESTER:4).
+# Get-CatsModules is private, so it is exercised through the module (& (Get-Module …), per
+# [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)).
 Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fixture modules loaded from a fixture code root: two catzc-shaped modules, one dot-prefixed
@@ -46,7 +47,8 @@ Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
 }
 
 # Reads the REAL loaded session (nothing mocked), so it runs in both the source suite and the build suite and
-# proves Show-Cats lists the modules of whichever tree is loaded (ADR-AUTO-ASSETDEP:3).
+# proves Show-Cats lists the modules of whichever tree is loaded
+# ([ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)).
 Describe 'Get-CatsModules — loaded catzc modules' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         $script:modules = & (Get-Module Catzc.Base.Docs) { Get-CatsModules }

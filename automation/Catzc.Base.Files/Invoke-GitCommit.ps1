@@ -6,19 +6,19 @@
     `git add -A`) and commits exactly those paths with the given message. All policy — branch guards,
     CI detection, which paths deserve auto-committing — belongs to the caller.
 
-    Idempotent (see docs/adr/automation/idempotent-state-functions.md): `git commit` itself is not, so
+    Idempotent (see [ADR-AUTO-IDEM](/docs/adr/automation/idempotent-state-functions.md)): `git commit` itself is not, so
     the wrapper checks first — when `git status --porcelain` reports nothing under -Path, it returns
     nothing and runs no side effect. Re-running after a successful commit is a quiet no-op.
 
     Both git invocations run through Invoke-Executable, so the exact commands are logged before they run
-    (docs/adr/automation/log-before-invoke.md) and a non-zero exit throws.
+    ([ADR-AUTO-PRELOG](/docs/adr/automation/log-before-invoke.md)) and a non-zero exit throws.
 .PARAMETER Path
     The repository-relative, '/'-separated paths (files or folders) whose changes make up the commit.
 .PARAMETER Message
     The commit message. Double quotes are rejected — the message is embedded in a quoted command string.
 .PARAMETER DryRun
     Return the planned command strings without touching git at all (not even the status check) — see
-    docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
 .OUTPUTS
     [string] The new commit's full SHA; the planned commands with -DryRun; nothing when there was
     nothing to commit.

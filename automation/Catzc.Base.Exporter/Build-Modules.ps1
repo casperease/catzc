@@ -2,7 +2,8 @@
 .SYNOPSIS
     Builds the selected modules into one installable, versioned Catzc module — build mode's code root.
 .DESCRIPTION
-    The public entry to the build (ADR-AUTO-BUNDLE:1). It settles the build's inputs from configs/exporter.yml
+    The public entry to the build ([ADR-AUTO-BUNDLE#1](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle1)).
+    It settles the build's inputs from configs/exporter.yml
     (Get-Config -Config exporter), hands them to the engine (Invoke-ModuleBuild in Catzc.Internal.Builder), and
     verifies what the engine wrote with Assert-CatzcBundle:
 
@@ -38,7 +39,8 @@
 .EXAMPLE
     Build-Modules Catzc.Base.Config -DryRun
 #>
-# Uses -DryRun, not ShouldProcess/-WhatIf — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun2.
+# Uses -DryRun, not ShouldProcess/-WhatIf — see
+# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun2).
 function Build-Modules {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '', Justification = 'Builds a set of modules; the plural is the contract name (ADR-AUTO-BUNDLE:1)')]
     [CmdletBinding()]

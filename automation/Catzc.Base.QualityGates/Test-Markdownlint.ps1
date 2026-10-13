@@ -40,9 +40,10 @@ function Test-Markdownlint {
             '!**/node_modules'
             # Generated README links (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored
             # links whose authored source under docs/ is what is linted — linting through the link would
-            # double-report the source. See docs/adr/repository/generated-readmes.md (ADR-REPO-README:7).
+            # double-report the source. See
+            # [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7).
             '!**/README.md'
-            # docs/adr/index.md is generated from adrs.yml (Build-AdrIndex) — a derived artifact whose source
+            # [index](/docs/adr/index.md) is generated from adrs.yml (Build-AdrIndex) — a derived artifact whose source
             # (adrs.yml + the generator's prose) is what is linted, not the projection.
             '!docs/adr/index.md'
         ),

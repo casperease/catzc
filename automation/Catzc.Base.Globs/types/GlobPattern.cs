@@ -4,7 +4,9 @@
 // System.Management.Automation.WildcardPattern, matched case-sensitively. The constructor is the gate:
 // it rejects '\', a leading '/', empty segments, '.'/'..' segments, a backtick (the dialect has no escape
 // character), and '**' embedded inside a segment — a malformed pattern never produces an instance.
-// See docs/adr/flow/durable-sha-globs.md (ADR-FLOW-CD-GLOBS:2, ADR-FLOW-CD-GLOBS:3).
+// See [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
+// ([ADR-FLOW-CD-GLOBS#2](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs2),
+// [ADR-FLOW-CD-GLOBS#3](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs3)).
 
 using System;
 using System.Management.Automation;

@@ -5,7 +5,7 @@
 #   1. matched by a .gitignore ignore rule (so a fresh Build-Readme output is never accidentally stageable), and
 #   2. absent from git tracking (removed with `git rm --cached` if it was ever committed).
 # Hand-authored READMEs are exactly the folders NOT in readme.yml; they are individually un-ignored in
-# .gitignore and are out of scope here. See docs/adr/repository/generated-readmes.md.
+# .gitignore and are out of scope here. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
 #
 # Reads only the repository's files and git index (through the source-tree-only Get-ReadmeMappings) — the same
 # answer in both run modes, so the build suite skips it.
@@ -32,7 +32,9 @@ Describe 'Generated README links are gitignored and untracked' -Tag 'L2', 'integ
         }
 
         # Resolve the configured targets exactly as Build-Readme does: expand readme.yml through
-        # Get-ReadmeMappings (private, so reached via the module per ADR-AUTO-PESTER:4) against the real repo root.
+        # Get-ReadmeMappings (private, so reached via the module per
+        # [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)) against the real
+        # repo root.
         # Each target folder's generated file is "<folder>/README.md".
         $script:mappings = @()
         $script:targets = @()

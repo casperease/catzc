@@ -23,10 +23,11 @@
       - -Force           skip the pre-scan and overwrite.
 
     The copy is of the source tree (per-function files, tests/, root packages), so it stops with a named error
-    in build mode (Assert-SourceTree, ADR-DSGN-RUNMODE).
+    in build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
 
-    See docs/adr/configuration/module-config-loading.md (files.yml), native-csharp-types.md (ADR-AUTO-TYPES:9), and
-    path-representation.md.
+    See [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md) (files.yml),
+    [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9), and
+    [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md).
 .PARAMETER Destination
     The target root the selected paths are mirrored into (created if missing).
 .PARAMETER ModuleNames

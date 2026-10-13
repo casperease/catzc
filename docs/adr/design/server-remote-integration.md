@@ -20,9 +20,9 @@ branch's view of "main" is provisional until it is what the server holds. The se
 ### Rule ADR-DSGN-REMOTE:2
 
 **Integrate from the last remote-verified commit, never from the current remote HEAD.** The tip of the server's main (its HEAD) may be a
-**dirty HEAD** — landed but still unverified, or verified-then-failed downstream (ADR-DSGN-LIFE:7). Any consumer that builds on the mainline
+**dirty HEAD** — landed but still unverified, or verified-then-failed downstream (ADR-DSGN-LIFE#7). Any consumer that builds on the mainline
 — a developer starting work, a downstream deployable-unit, an upstream integrator — syncs against the **last commit the server proved
-verified** (the stable point of ADR-DSGN-LIFE:6), not the raw tip. "Latest" and "safe to build on" are different questions; this rule
+verified** (the stable point of ADR-DSGN-LIFE#6), not the raw tip. "Latest" and "safe to build on" are different questions; this rule
 answers the second.
 
 - [Integrate from verified, not HEAD](#integrate-from-verified-not-head)
@@ -31,7 +31,7 @@ answers the second.
 
 **Integrating from verified avoids ever having to reconcile a rewritten or superseded tip.** A dirty HEAD is provisional: it may be fixed
 forward by a successor, superseded by a newer commit that overtakes it, or — where the failed tail is reconciled — cut back. A consumer that
-built on the verified point never has to negotiate any of that, because the verified history is stable and monotonic (ADR-DSGN-LIFE:1) and
+built on the verified point never has to negotiate any of that, because the verified history is stable and monotonic (ADR-DSGN-LIFE#1) and
 does not move under it. A consumer that built on the dirty tip inherits its instability and must reconcile when the tip is later fixed.
 Integrate from verified and the reconciliation problem does not exist.
 
@@ -40,11 +40,11 @@ Integrate from verified and the reconciliation problem does not exist.
 ### Rule ADR-DSGN-REMOTE:4
 
 **A pull request is the authenticated ingress engine, not merely a review.** In the audited regime (`git_workspace: main-via-pr`,
-[ADR-REPO-VARIANT:6](../repository/repo-variants.md#rule-adr-repo-variant6)) the PR is the one sanctioned way a change enters the server's
+[ADR-REPO-VARIANT#6](../repository/repo-variants.md#rule-adr-repo-variant6)) the PR is the one sanctioned way a change enters the server's
 `main` / `master`: it **authenticates** the author against the server's identity model, runs the mandatory gates as a merge precondition,
 and **performs the merge** itself. Review is one gate a PR can carry, but the load-bearing role is authentication-plus-merge: the PR is the
 audited doorway, and closing every other door — no direct push to the protected branch — is what lets the `git log` audit trail be trusted
-as complete. Solo `main-direct` is the deliberate single-author exception (ADR-REPO-VARIANT:6).
+as complete. Solo `main-direct` is the deliberate single-author exception (ADR-REPO-VARIANT#6).
 
 - [PR is authenticated ingress, not just review](#pr-is-authenticated-ingress-not-just-review)
 
@@ -78,8 +78,8 @@ is not "on main" in the sense that governs; it is working state that has not yet
 ### Integrate from verified, not HEAD
 
 The server's main advances by landing commits, but landing is not the same as being verified. At any moment the tip may be a commit whose
-gates have not run, or one that ran them and failed — a dirty HEAD (ADR-DSGN-LIFE:7). Reading the tip therefore gives "the newest commit,"
-which is precisely not "the newest commit safe to build on." The last commit the server proved verified — the stable point ADR-DSGN-LIFE:6
+gates have not run, or one that ran them and failed — a dirty HEAD (ADR-DSGN-LIFE#7). Reading the tip therefore gives "the newest commit,"
+which is precisely not "the newest commit safe to build on." The last commit the server proved verified — the stable point ADR-DSGN-LIFE#6
 names as the always-on environment's occupant — is the one to integrate from. A developer branches from it; a downstream unit builds against
 it; an upstream consumer syncs to it. The rule is uniform across every consumer of the mainline: integrate from the last verified commit,
 never the raw HEAD.
@@ -87,7 +87,7 @@ never the raw HEAD.
 ### Why verified is stable and the tip is not
 
 The verified history is monotonic and immutable: a commit that reached the verified point is a durable fact no later event un-makes
-(ADR-DSGN-LIFE:1, `ADR-PRIN-ONELIVE`). The dirty tip is the opposite — provisional. It might be fixed forward by a successor, superseded by
+(ADR-DSGN-LIFE#1, `ADR-PRIN-ONELIVE`). The dirty tip is the opposite — provisional. It might be fixed forward by a successor, superseded by
 a newer commit that overtakes it, or, when the failed tail is reconciled, cut back. Whatever happens, the tip is subject to change while the
 verified point is not. So the choice of integration base is a choice between a stable anchor and a moving one. Building on the stable anchor
 means a later fix to the tip is simply the next thing you pull; building on the moving tip means that same fix can rewrite the ground under

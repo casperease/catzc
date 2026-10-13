@@ -7,7 +7,7 @@
     nodes and cross-references them against the map.
 
     Reads the per-function source files, which exist only in the source tree, so it stops with a named error
-    in build mode (Assert-SourceTree, ADR-DSGN-RUNMODE).
+    in build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to $env:RepositoryRoot/automation.
 .EXAMPLE
@@ -25,19 +25,25 @@ function Get-FunctionDependency {
     Assert-SourceTree
 
     # Filesystem-derived information — cached for the session, lazily on first use, keyed on the resolved automation
-    # root (ADR-AUTO-CACHE:2/ADR-AUTO-CACHE:4). The expensive AST walk runs once and Get-ModuleDependency / Get-AutomationFunctions
+    # root
+    # ([ADR-AUTO-CACHE#2](/docs/adr/automation/caching.md#rule-adr-auto-cache2)/[ADR-AUTO-CACHE#4](/docs/adr/automation/caching.md#rule-adr-auto-cache4)). The expensive AST walk runs once and Get-ModuleDependency / Get-AutomationFunctions
     # / Get-FunctionDependencyTree (and the integrity tests) all reuse it. Re-running the importer resets the
-    # $script: state — the only invalidation (ADR-AUTO-CACHE:6). A fixture root passed by a test gets its own entry, so it
-    # cannot collide with the real tree (ADR-AUTO-TEST:4). Callers treat the result as read-only (ADR-AUTO-CACHE:5).
+    # $script: state — the only invalidation ([ADR-AUTO-CACHE#6](/docs/adr/automation/caching.md#rule-adr-auto-cache6)).
+    # A fixture root passed by a test gets its own entry, so it
+    # cannot collide with the real tree
+    # ([ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)). Callers treat the result as
+    # read-only ([ADR-AUTO-CACHE#5](/docs/adr/automation/caching.md#rule-adr-auto-cache5)).
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:functionDependencyCache')) {
-        $script:functionDependencyCache = @{}   # strict-clean probe of the lazy slot (ADR-AUTO-PSCACHE:4)
+        $script:functionDependencyCache = @{}   # strict-clean probe of the lazy slot
+                                                # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
     }
     if ($script:functionDependencyCache.ContainsKey($AutomationRoot)) {
         return $script:functionDependencyCache[$AutomationRoot]
     }
 
     # Enumerate + parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/
-    # call provider overhead, ADR-AUTO-TEST:18), capturing each file's top-level functions. Both the definition map and
+    # call provider overhead, [ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)),
+    # capturing each file's top-level functions. Both the definition map and
     # the call walk reuse these ASTs, so a file is read and parsed a single time (it was twice before).
     $isFunction = { param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] }
     $parsed = [System.Collections.Generic.List[object]]::new()

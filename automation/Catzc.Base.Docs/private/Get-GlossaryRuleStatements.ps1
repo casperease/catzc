@@ -4,9 +4,11 @@
 .DESCRIPTION
     Walks the ADRs the index lists (Get-CatsAdrIndex) and reads each one's rules (Get-CatsAdrRules), keeping each
     rule's Statement — its whole normative summary on one line — with inline code spans removed. A code span is a
-    mention, never a definition (ADR-REPO-VOCAB:5), so `A **<term>** is …` written in backticks neither anchors nor
+    mention, never a definition
+    ([ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)), so `A **<term>** is …`
+    written in backticks neither anchors nor
     defines a term. This is the one text the anchoring (G2) and single-definition (G3) gates match against
-    (ADR-REPO-VOCAB:1); ADR bodies are never read.
+    ([ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)); ADR bodies are never read.
 
     Private helper for the glossary gates; not exported.
 .PARAMETER IndexPath

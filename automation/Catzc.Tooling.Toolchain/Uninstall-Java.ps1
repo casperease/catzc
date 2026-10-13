@@ -6,12 +6,13 @@
     $PROFILE) — the managed uninstall. For a Java installed OUTSIDE the tooling system (a foreign JDK, an apt
     package on a uv-first box), escalate with -Remove -Force: the managed uninstall runs best-effort and then
     falls through to Remove-Java, which evicts whatever the configured manager did not own
-    (docs/adr/automation/tool-removal-lifecycle.md, ADR-AUTO-REMOVE:5).
+    ([ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
 .PARAMETER Version
     Java version to uninstall. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Remove
     After the managed uninstall, escalate to Remove-Java to evict an off-config install. Pair with -Force to
-    actually remove; -Remove alone reports the plan (ADR-AUTO-REMOVE:4).
+    actually remove; -Remove alone reports the plan
+    ([ADR-AUTO-REMOVE#4](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)).
 .PARAMETER Force
     Confirm the destructive Remove-Java step of the escalation. Ignored without -Remove.
 .EXAMPLE
@@ -28,12 +29,14 @@ function Uninstall-Java {
     )
 
     # Managed uninstall best-effort; with -Remove a failure is logged and the escalation proceeds, without
-    # -Remove it propagates (ADR-AUTO-ERROR:6, ADR-AUTO-REMOVE:5).
+    # -Remove it propagates ([ADR-AUTO-ERROR#6](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error6),
+    # [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
     try {
         Uninstall-Tool -Tool 'java' -Version $Version
 
         # Clean up JAVA_HOME. Each removal is announced where it happens, and only when there was something to
-        # remove (ADR-AUTO-ANNOUNCE:2).
+        # remove
+        # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)).
         if ($env:JAVA_HOME) {
             $env:JAVA_HOME = $null
             Write-Message 'Session: removed JAVA_HOME'

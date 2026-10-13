@@ -10,7 +10,8 @@
 
     "IsConnected" asks whether the session is *set to* the subscription; "CanAccess" asks whether the
     current login can *reach* it, independent of which subscription is active.
-    See docs/adr/azure/azure-data-model.md and docs/adr/automation/powershell/prefer-az-cli.md#rule-adr-auto-azcli1.
+    See [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md) and
+    [ADR-AUTO-AZCLI#1](/docs/adr/automation/powershell/prefer-az-cli.md#rule-adr-auto-azcli1).
 .PARAMETER Subscription
     Subscription name (a key in azure.yml's subscriptions).
 .EXAMPLE

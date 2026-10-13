@@ -97,13 +97,13 @@ The platform must remain open for extension and closed for modification. Concret
 
 - **Growth is additive.** A new function is a new `Verb-Noun.ps1` file, a new module is a new folder under `automation/`, a new vendor
   dependency is a new folder under `.vendor/`, and a new root concern is a new track. None of these edits `importer.ps1`, the bootstrap
-  module, or any other module's files (ADR-AUTO-EXTEND:1).
+  module, or any other module's files (ADR-AUTO-EXTEND#1).
 - **The infrastructure knows conventions, not content.** The importer and the bootstrap module discover modules, exports, and visibility
-  from names and locations alone; they never name a specific module, function, or business rule (ADR-AUTO-EXTEND:3).
+  from names and locations alone; they never name a specific module, function, or business rule (ADR-AUTO-EXTEND#3).
 - **Non-conforming code is fixed, not accommodated.** Code that does not follow file name = function name, folder = module, and root =
-  public is not discovered; the remedy is to rename or move it, never to teach the loader an exception (ADR-AUTO-EXTEND:4).
+  public is not discovered; the remedy is to rename or move it, never to teach the loader an exception (ADR-AUTO-EXTEND#4).
 - **Special needs stay inside the module.** A module that needs custom initialization or extra wiring implements it with its own private
-  helpers; the loader gains no module-specific branch (ADR-AUTO-EXTEND:5).
+  helpers; the loader gains no module-specific branch (ADR-AUTO-EXTEND#5).
 
 ### How this is enforced
 

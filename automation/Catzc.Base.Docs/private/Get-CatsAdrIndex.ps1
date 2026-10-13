@@ -1,15 +1,17 @@
 <#
 .SYNOPSIS
-    Parses the ADR index (docs/adr/index.md) into the code -> ADR entries that Show-Cats presents.
+    Parses the ADR index ([index](/docs/adr/index.md)) into the code -> ADR entries that Show-Cats presents.
 .DESCRIPTION
-    Reads the rule-citation registry tables in docs/adr/index.md and returns one entry per ADR: its citation
+    Reads the rule-citation registry tables in [index](/docs/adr/index.md) and returns one entry per ADR: its citation
     code, its title slug, and its index-relative path. A pure function of the file on disk, memoized per
-    resolved index path for the session (re-run the importer to refresh — see docs/adr/automation/caching.md).
+    resolved index path for the session (re-run the importer to refresh — see
+    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)).
     Inline code-span mentions of a code (in prose) are not table rows and are ignored.
 
     Private helper for Show-Cats; not exported.
 .PARAMETER IndexPath
-    Absolute path to the ADR index. Defaults to docs/adr/index.md under the repository root. A test points this
+    Absolute path to the ADR index. Defaults to
+    [index](/docs/adr/index.md) under the repository root. A test points this
     at a fixture index; the cache keys on the path, so a fixture path and the real path never collide.
 .OUTPUTS
     [object[]] One { Code; Title; Path } per ADR row in the index.
@@ -22,7 +24,8 @@ function Get-CatsAdrIndex {
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrIndexCache')) {
-        $script:catsAdrIndexCache = @{}   # strict-clean probe of the lazy slot (ADR-AUTO-PSCACHE:4)
+        $script:catsAdrIndexCache = @{}   # strict-clean probe of the lazy slot
+                                          # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
     }
     if ($script:catsAdrIndexCache.ContainsKey($IndexPath)) {
         return , $script:catsAdrIndexCache[$IndexPath]

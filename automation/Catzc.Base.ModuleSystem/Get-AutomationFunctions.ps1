@@ -8,7 +8,8 @@
     With -NotUsedInternally, filters to functions that are never called by
     another automation function (no incoming edges in the call graph).
 
-    The listing describes the loaded modules, so it works in both run modes (ADR-DSGN-RUNMODE).
+    The listing describes the loaded modules, so it works in both run modes
+    ([ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
     -NotUsedInternally reads the per-function source files, so it stops with a named error in build mode
     (Assert-SourceTree).
 .PARAMETER NotUsedInternally
@@ -30,7 +31,8 @@ function Get-AutomationFunctions {
         Assert-SourceTree
     }
 
-    $moduleNames = Get-AutomationModules -AutomationRoot $AutomationRoot   # [System.IO] enumeration (ADR-AUTO-TEST:18)
+    $moduleNames = Get-AutomationModules -AutomationRoot $AutomationRoot   # [System.IO] enumeration
+                                                                           # ([ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18))
 
     $modules = Get-Module | Where-Object { $_.Name -in $moduleNames }
 

@@ -8,18 +8,20 @@
 
     - the managed root-config registry's gitignored targets (rootconfig.yml entries with optIn and
       committed false — .editorconfig, the .vscode/ files, cspell.yml, catzc.sln, …), read through
-      Get-Config (reading a config is global access, never dependency-gated — ADR-CONF-LOADING:6);
+      Get-Config (reading a config is global access, never dependency-gated —
+      [ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6));
     - the conventional generated-artifact classes: the dynamic module manifests
       (automation/<Module>/<Module>.psd1), the generated README links (every gitignored README.md is a
       materialised link by the generated-readmes contract — a hand-authored README is only safe once
-      opted in and committed), the generated ADR index (docs/adr/index.md), the generated cspell
+      opted in and committed), the generated ADR index ([index](/docs/adr/index.md)), the generated cspell
       dictionaries (.cspell/), the transient output root (out/ — disposable by the
       dedicated-output-directory contract), the IDE-only C# project's build output (bin/obj under
       automation/.internal/assets), the compiled-type *.tmp scratch, and the drawio editor's autosave
       shadows ('.$*.drawio.png.bkp' beside a committed .drawio.png asset).
 
     Minus the exclusions, written gitignore-style with a leading '!': a path matching an exclusion is
-    never auto-controlled, whatever else it matches (the authored out/plan-*.md files, ADR-REPO-OUTDIR:10).
+    never auto-controlled, whatever else it matches (the authored out/plan-*.md files,
+    [ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10)).
 
     Patterns are repo-relative, '/'-separated -like globs; a directory is listed both bare and with a
     trailing /* so a whole-folder candidate from `git clean` matches too.
@@ -52,12 +54,14 @@ function Get-AutoControlledGlobs {
     # The generated ADR index — a derived projection of adrs.yml, rebuilt on import (Build-AdrIndex).
     $ret.Add('docs/adr/index.md')
 
-    # Generated cspell dictionaries, regenerated at the importer tail (ADR-REPO-OUTDIR:8).
+    # Generated cspell dictionaries, regenerated at the importer tail
+    # ([ADR-REPO-OUTDIR#8](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8)).
     $ret.Add('.cspell')
     $ret.Add('.cspell/*')
 
     # The output root — transient by contract (dedicated-output-directory) — except the authored plan files,
-    # which are working notes, not output (ADR-REPO-OUTDIR:10).
+    # which are working notes, not output
+    # ([ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10)).
     $ret.Add('out')
     $ret.Add('out/*')
     $ret.Add('!out/plan-*.md')

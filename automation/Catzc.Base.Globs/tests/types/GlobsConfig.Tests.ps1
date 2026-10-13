@@ -1,13 +1,16 @@
 # cspell:ignore dedupe
 # The globs.yml registry gate: strict shape (unknown keys rejected), every entry a valid GlobSet with a
-# declared layer (ADR-FLOW-CD-GLOBS:7), and compose resolving acyclically to declared sets (ADR-FLOW-CD-GLOBS:8).
+# declared layer ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)), and compose
+# resolving acyclically to declared sets
+# ([ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8)).
 Describe 'GlobsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {
             param([hashtable] $globsets)
             [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $globsets })
         }
-        # Render a set's flattened scan program as '+ pattern' / '- pattern' lines (ADR-FLOW-CD-GLOBS:4/8) — the
+        # Render a set's flattened scan program as '+ pattern' / '- pattern' lines
+        # ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)/8) — the
         # ordered membership program, the durable behaviour the removed marker rendering used to show.
         $script:program = {
             param($set)
@@ -25,7 +28,8 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
     Context 'a valid registry' {
         It 'constructs and exposes the sets with lookup' {
-            # Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names (ADR-AUTO-TEST:3).
+            # Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names
+            # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
             $c = & $script:make @{
                 'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**', 'main.ps1') }
                 'gadget' = @{ description = 'the gadget unit'; layer = 'deployable-unit'; include = @('lib/**'); exclude = @('**/*.md') }

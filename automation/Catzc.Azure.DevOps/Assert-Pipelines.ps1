@@ -1,6 +1,7 @@
 <#
 .SYNOPSIS
-    Asserts the pipelines/ tree obeys the naming-and-placement contract (ADR-PIPE-NAME); throws on any
+    Asserts the pipelines/ tree obeys the naming-and-placement contract
+    ([ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md)); throws on any
     violation — the gate half of the pipeline-layout check.
 .DESCRIPTION
     Runs Test-Pipelines (the query form) and throws a single, collected error listing every violation when
@@ -8,8 +9,10 @@
     Assert-* pairs with Test-* elsewhere, and the form wired into the L2 tests of Test-Automation so a
     mis-named or misplaced pipeline fails CI.
 
-    See Test-Pipelines for the rules enforced (ADR-PIPE-NAME:1/2/3/4/6) and docs/adr/pipelines/
-    pipeline-naming-and-placement.md for the contract itself.
+    See Test-Pipelines for the rules enforced
+    ([ADR-PIPE-NAME#1](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name1)/2/3/4/6) and
+    docs/adr/pipelines/
+    [ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md) for the contract itself.
 .PARAMETER Path
     The pipelines/ directory to check. Defaults to `<repo>/pipelines`.
 .EXAMPLE

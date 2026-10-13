@@ -6,7 +6,7 @@
     untracked in the working folder. With -Path, the given files and the files under the given folders, from the
     filesystem. Either way a few places are never aligned: the vendored third-party tree (automation/.vendor/),
     test fixture trees (**/tests/assets/**, whose links are data on purpose), and the generated ADR index
-    (docs/adr/index.md — Build-AdrIndex writes it, so its source is aligned instead).
+    ([index](/docs/adr/index.md) — Build-AdrIndex writes it, so its source is aligned instead).
 .PARAMETER RepositoryRoot
     The repository root the returned paths are relative to.
 .PARAMETER Path

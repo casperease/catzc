@@ -10,12 +10,14 @@
     'greedy'-tagged test (tests that fan out heavy machine load of their own but share no state) follow as
     single-file shards through the pool, one file per worker slot; files containing a 'serial'-tagged test
     (tests that mutate state shared across processes) run last in a one-worker phase, alone — see
-    ADR-AUTO-TEST:26. Pester executes tests sequentially within a worker; a single file never splits across
+    [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26). Pester executes tests sequentially
+    within a worker; a single file never splits across
     workers.
 .PARAMETER MaxLevel
     Maximum test level to run (alias: -Level). Defaults to 3: every tier the run's slot allows. A run that
     owns the working folder runs L0-L3; a run in a snapshot (another run holds the working folder, or
-    -Isolated) skips L3 and says so (ADR-AUTO-TEST:33). Tests self-skip when their tool or access is absent,
+    -Isolated) skips L3 and says so ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
+    Tests self-skip when their tool or access is absent,
     so the default stays green on a machine that is missing one.
     Tiers are defined by what a test integrates with (not by speed):
     L0/L1 = unit tests — pure logic with every external boundary mocked. L2 = integrates with a local CLI
@@ -61,7 +63,8 @@
     the executable companion of the rule-coverage report: find a rule's tests, then run just them.
 .PARAMETER Marker
     Run a marker's declared blast radius: the named globset's `verify:` scope in globs.yml resolves to
-    the module list and tier to run (ADR-FLOW-CD-GLOBS:7) — "which tests do I need to run to verify a change in
+    the module list and tier to run ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7))
+    — "which tests do I need to run to verify a change in
     that area-of-control". Mutually exclusive with -Modules; a marker without a verify scope throws with
     the remedy. Find the touched markers for a change with Get-MarkerBlastRadius.
 .PARAMETER EnforceTimings
@@ -75,7 +78,8 @@
     locally, the artifact staging directory in a pipeline).
 .PARAMETER Isolated
     Run in an isolated snapshot of the working folder even when it is free. A run never waits for another
-    (ADR-AUTO-TEST:32): when another run holds the working folder this one runs in a snapshot anyway; this
+    ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)): when another run holds the
+    working folder this one runs in a snapshot anyway; this
     switch asks for a snapshot up front — a deterministic run, immune to edits made in the working folder
     while it runs. The report lands in the working folder's out/ either way, and run.json records where the
     run executed.
@@ -158,7 +162,8 @@ function Test-Automation {
     }
 
     # -Marker: run the named area-of-control's declared blast radius — its globs.yml verify scope resolves
-    # to the module list and tier (Resolve-MarkerVerify, ADR-FLOW-CD-GLOBS:7).
+    # to the module list and tier (Resolve-MarkerVerify,
+    # [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)).
     if ($Marker) {
         if ($Modules.Count -gt 0) {
             throw 'Pass -Marker or -Modules, not both — a marker resolves its own module scope.'
@@ -169,7 +174,9 @@ function Test-Automation {
     }
 
     # The harness itself — discovery, tag gates, sharding, workers, rows, reports — is the core both suites
-    # share (Invoke-TestAutomationSuite, ADR-AUTO-TEST:30). The source suite loads each worker through the
+    # share (Invoke-TestAutomationSuite,
+    # [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)). The source suite loads each
+    # worker through the
     # repository importer, the core's default.
     Invoke-TestAutomationSuite -Suite 'Test-Automation' -Title 'Test Automation' -MinLevel $MinLevel -MaxLevel $MaxLevel `
         -Modules $Modules -Category $Category -Workers $Workers -TimeoutSeconds $TimeoutSeconds -Output $Output `

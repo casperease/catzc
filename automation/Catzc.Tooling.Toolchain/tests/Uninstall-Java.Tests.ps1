@@ -4,7 +4,7 @@
 Describe 'Uninstall-Java' -Tag 'L1', 'logic' {
     BeforeAll {
         # The managed body clears the session JAVA_HOME — restore it so the test leaves the process as it found it
-        # (ADR-AUTO-PSENV:4).
+        # ([ADR-AUTO-PSENV#4](/docs/adr/automation/powershell/environment-variable-mechanics.md#rule-adr-auto-psenv4)).
         $script:savedProcessJavaHome = $env:JAVA_HOME
     }
     AfterAll {

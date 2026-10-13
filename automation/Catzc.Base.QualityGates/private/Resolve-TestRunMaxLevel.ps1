@@ -3,7 +3,9 @@
     Resolves the highest tier a test run executes, from the slot it runs in.
 .DESCRIPTION
     L3 holds the vertical system tests: they change or depend on state outside the repository — the cloud, the
-    user's environment, installed tools (ADR-AUTO-TEST:33). A snapshot isolates a run from the working folder,
+    user's environment, installed tools
+    ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)). A snapshot isolates a run from
+    the working folder,
     never from that outside state, so only the run that owns the working folder (the in-place slot) runs L3 —
     and since that state belongs to the user, not to one checkout, only while it also holds the user's
     system-test lock (Enter-SystemTestLock). Two concurrent runs — from one checkout or from two — never both
@@ -13,7 +15,7 @@
     a lower -MaxLevel). Otherwise — in a snapshot, or in place while another run on this account holds the
     system-test lock — a request that reaches L3 is capped at L2, and the cap is announced: the run says it
     skips L3 and who holds the working folder or the lock, so a missing tier is never silent
-    (ADR-AUTO-CONSOLE:10).
+    ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console10)).
 .PARAMETER Slot
     The slot Enter-TestRunSlot returned.
 .PARAMETER Requested

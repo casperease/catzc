@@ -1,4 +1,5 @@
-// Checks and aligns the markdown links of one .md file (ADR-REPO-LINK#2, #5, #7). A markdown link is relative to its
+// Checks and aligns the markdown links of one .md file
+// ([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2), #5, #7). A markdown link is relative to its
 // own file: a repository-rooted link is rewritten relative, and a rule citation spelled `ADR-X:n` in prose becomes
 // `ADR-X#n` (the ':' form lives only in a rule's own '### Rule' heading). Reported, not fixable: a target that does
 // not exist, a #fragment naming no heading or anchor of its target, a relative link that climbs above the

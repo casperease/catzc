@@ -4,7 +4,7 @@
 # override for ad-hoc builds. Because every read routes through the Get-Config / Resolve-ConfigEntry seam,
 # Pester tests swap in a fixture exporter.yml to vary these options without touching the shipped config — the
 # repo keeps exactly one real export config. Validated on load by Assert-ExporterConfig.
-# See docs/adr/automation/platform-bundle.md.
+# See [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md).
 
 # Versions (Resolve-CatzcBuildVersion turns -Version auto into one of these):
 #   direct_install_version — numeric MAJOR.MINOR.PATCH placeholder every devbox build carries
@@ -25,7 +25,7 @@ vendor_policy: runtime
 
 # Package identity and metadata — Build-Modules hands these to the build engine, which writes them into the
 # build's top-level Catzc.psd1 (the manifest Install-PSResource and the PowerShell Gallery read). module_guid is
-# the module's stable identity across versions (a registered managed GUID, ADR-AUTO-GUIDS).
+# the module's stable identity across versions (a registered managed GUID, [ADR-AUTO-GUIDS](/docs/adr/automation/managed-guids.md)).
 module_guid: 211b36c7-f7eb-4f3c-93f5-9132b535fa56
 package:
   author: Casper Leon Nielsen

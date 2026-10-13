@@ -11,7 +11,9 @@
     The test citations are read by PARSING each test file's AST and taking only the `-Tag` arguments of
     Describe/Context/It — never a text scan, which would false-match a citation-shaped string in a fixture or
     an assertion. The analyzer map is read through Get-Config (a global config read; owned by the QualityGates
-    module but reachable from anywhere — ADR-CONF-LOADING:6 — so no module dependency on it is taken). A pure
+    module but reachable from anywhere —
+    [ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6) — so no module
+    dependency on it is taken). A pure
     function of the files on disk, memoized for the session (re-run the importer to refresh). It reads the
     source tree's tests, so it runs in source mode only (Assert-SourceTree).
 
@@ -27,7 +29,8 @@ function Get-CatsRuleEnforcers {
     # The test citations are read from the source tree's *.Tests.ps1 files, which a built package does not ship.
     Assert-SourceTree
 
-    $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:catsRuleEnforcersCache')   # strict-clean (ADR-AUTO-PSCACHE:4)
+    $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:catsRuleEnforcersCache')   # strict-clean
+                                                                                                    # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
     if ($null -ne $cached) {
         return $cached
     }

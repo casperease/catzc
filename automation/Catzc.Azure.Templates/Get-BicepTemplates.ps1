@@ -8,7 +8,8 @@
     a `main.bicep` and a `configuration/` subfolder. A config lives at the configuration ROOT —
     `configuration/<env>[-<slot>].yml`, a shared-platform deployment — or under a customer subfolder,
     `configuration/<customer>/<env>[-<slot>].yml`, where the folder is always a customer KEY from
-    customer.yml. One config file ⟷ one resource group (docs/adr/azure/azure-data-model.md). The filename
+    customer.yml. One config file ⟷ one resource group
+    ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)). The filename
     resolves (Resolve-BicepConfigName) to its environment + optional slot: `dev.yml` (base slot of env
     `dev`), `dev-001.yml` (slot `001`). The SUBSCRIPTION is resolved per config
     (Get-BicepConfigSubscriptionCandidates): a root config's env must be served by exactly one
@@ -32,7 +33,8 @@
       output_folder         — where Build-Bicep writes main.json + parameters.<subscription>.<slot>.json
       deployment_mode       — 'Incremental' unless overridden by options.yml
       deployment_target     — 'ResourceGroup' unless overridden by options.yml
-      environment_kind      — 'standard' unless options.yml sets it; the env-class bit (standard|subscription, see azure-data-model.md)
+      environment_kind      — 'standard' unless options.yml sets it; the env-class bit (standard|subscription, see
+      [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md))
       customer_deployment   — whether this is a customer template; defaults to the have_customers variant unless options.yml sets it
       prepost_module        — path to PrePost.psm1 if present (key omitted otherwise)
       resources             — extra files in resources/ if present (key omitted otherwise)
@@ -55,14 +57,16 @@ function Get-BicepTemplates {
     $outputRoot = Get-BicepTemplatesOutputRoot
 
     # Filesystem-derived information is cached for the session, lazily on first use, keyed on the discovery
-    # root + the output root — see docs/adr/automation/caching.md. The on-disk file set is fixed at importer time
+    # root + the output root — see
+    # [ADR-AUTO-CACHE](/docs/adr/automation/caching.md). The on-disk file set is fixed at importer time
     # (pipeline: static checkout; devbox: re-run the importer after editing files), so re-running the
     # importer is the only invalidation. Keying on the root lets tests redirect discovery to a fixture
     # tree (Mock Get-BicepTemplatesRoot) or the build output to a folder of their own (Mock
     # Get-BicepTemplatesOutputRoot) without colliding with the real cache entry. Callers must
     # treat the result as read-only (the same object is returned every call).
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:bicepTemplatesCache')) {
-        $script:bicepTemplatesCache = @{}   # strict-clean probe of the lazy slot (ADR-AUTO-PSCACHE:4)
+        $script:bicepTemplatesCache = @{}   # strict-clean probe of the lazy slot
+                                            # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
     }
     $cacheKey = "$infrastructureRoot|$outputRoot"
     if ($script:bicepTemplatesCache.ContainsKey($cacheKey)) {
@@ -94,7 +98,7 @@ function Get-BicepTemplates {
         Assert-PathExist $configurationFolder -PathType Container
 
         $options = Read-BicepTemplateOptions $folderPath
-        # Env-class template classification (docs/adr/azure/azure-data-model.md): the env-class bit
+        # Env-class template classification ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)): the env-class bit
         # (standard/subscription, default standard). Every config below must match it. The slot is a
         # per-config dimension, not a template bit — a template may mix slotted and non-slotted configs.
         $environmentKind = if ($options.Contains('environment_kind')) {
@@ -104,7 +108,8 @@ function Get-BicepTemplates {
             'standard'
         }
 
-        # Customer-class bit (docs/adr/azure/azure-customer-model.md): whether this is a customer template. It
+        # Customer-class bit
+        # ([ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)): whether this is a customer template. It
         # defaults to the have_customers repo variant (Test-HaveCustomers) unless options.yml sets it. An
         # explicit customer_deployment: true is only allowed when customers are enabled (the repo gate).
         $customerDeploymentOption = if ($options.Contains('customer_deployment')) {
@@ -126,7 +131,8 @@ function Get-BicepTemplates {
         # short_name is the Azure id segment every resource name is built from. It is DERIVED from the folder
         # name by default; an options.yml `short_name` overrides it. BicepShortName owns the derivation +
         # format validation (a malformed override, or a folder that cannot yield a valid short_name without an
-        # override, throws here — naming the template). See docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2.
+        # override, throws here — naming the template). See
+        # [ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2).
         $shortNameOverride = if ($options.Contains('short_name')) {
             "$($options.short_name)"
         }

@@ -1,4 +1,5 @@
-// Rewrites the ADR references in one comment into canonical code links (ADR-REPO-LINK#3):
+// Rewrites the ADR references in one comment into canonical code links
+// ([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)):
 //   `[ADR-<CODE>](/docs/adr/<path>.md)`                       a whole ADR
 //   `[ADR-<CODE>#<n>](/docs/adr/<path>.md#rule-adr-<code><n>)` one rule
 // Every legacy spelling is recognised — a bare, ./, ../ or rooted docs/adr path, an ADR file name alone, a bare
@@ -23,11 +24,13 @@ public sealed class CodeLinkRewriter
     // One reference in a comment. Alternation order matters: an existing link swallows the citation in its text.
     static readonly Regex Reference = new Regex(
         @"(?<link>\[(?<text>[^\]\r\n]*)\]\((?<dest>[^)\s]+)\))" +
-        @"|(?<path>(?<![\w/.\-])(?:\.{1,2}/)*/?docs/adr/[A-Za-z0-9_\-./]+?\.md)(?<frag>#[A-Za-z0-9_\-]+)?(?![\w/])" +
+        // A path or file name starts a word: it follows the comment start, a space, or opening punctuation, never
+        // another character — `<root>/docs/adr/index.md` is a placeholder path, not a reference.
+        @"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?docs/adr/[A-Za-z0-9_\-./]+?\.md)(?<frag>#[A-Za-z0-9_\-]+)?(?![\w/])" +
         // A citation is not glued to a word; a '-' before it is allowed only as a range dash after a rule number
         // (`ADR-X:5-ADR-X:8`).
         @"|(?<cite>(?<!\w)(?<!(?:^|\D)-)(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:(?<sep>[:#])(?<rule>\d+))?(?(rule)(?!\d)|(?![\w*]|-[A-Z*])))" +
-        @"|(?<slug>(?<![\w/.\-])(?<name>[a-z0-9]+(?:-[a-z0-9]+)*)\.md(?![\w/]))",
+        @"|(?<slug>(?<![^\s(\[{,;:'""*])(?<name>[a-z0-9]+(?:-[a-z0-9]+)*)\.md(?![\w/]))",
         RegexOptions.Compiled);
 
     // A citation, alone — the whole text of a link, or the citation right after a path.

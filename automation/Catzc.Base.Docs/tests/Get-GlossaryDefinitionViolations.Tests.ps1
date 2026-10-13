@@ -1,7 +1,8 @@
 # Get-GlossaryDefinitionViolations is private, so it is exercised through the module (InModuleScope, per
-# ADR-AUTO-PESTER:4). A fixture ADR index and two ADRs live in $TestDrive, and the glossary is built in memory from
+# [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)). A fixture ADR index and
+# two ADRs live in $TestDrive, and the glossary is built in memory from
 # the real GlossaryEntry/GlossaryConcept/GlossaryOptions types. Fixture terms and rule codes are neutral
-# (widget/gadget, tst — ADR-AUTO-TEST:3).
+# (widget/gadget, tst — [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-GlossaryDefinitionViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         $adrRoot = Join-Path $TestDrive 'adr'

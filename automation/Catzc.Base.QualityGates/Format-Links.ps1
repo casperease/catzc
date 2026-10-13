@@ -1,8 +1,10 @@
 <#
 .SYNOPSIS
-    Aligns the repository's links in place: code links repository-rooted, markdown links relative (ADR-REPO-LINK).
+    Aligns the repository's links in place: code links repository-rooted, markdown links relative
+    ([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)).
 .DESCRIPTION
-    The link aligner and the repository-wide migration in one command (ADR-REPO-LINK#8). Every ADR reference in a
+    The link aligner and the repository-wide migration in one command
+    ([ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)). Every ADR reference in a
     comment of a code file becomes a canonical code link — `[ADR-<CODE>#<n>](/docs/adr/<path>.md#rule-adr-<code><n>)`,
     or `[ADR-<CODE>](/docs/adr/<path>.md)` for a whole ADR — whatever spelling it had: a bare, ../, or rooted docs/adr
     path, an ADR file name, a bare citation (`ADR-X`, `ADR-X:n`, `ADR-X#n`), a path followed by its citation, or a

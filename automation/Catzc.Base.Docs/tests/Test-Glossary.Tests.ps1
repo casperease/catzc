@@ -1,5 +1,6 @@
 # Test-Glossary orchestrates the five gates; here every gate and the glossary readers are mocked, so the tests pin
-# the order, the report, the PassThru shape, and the single aggregate throw (ADR-AUTO-FAILFAST). The gates
+# the order, the report, the PassThru shape, and the single aggregate throw
+# ([ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)). The gates
 # themselves are covered by their own L0 files; the real-tree run is the L2 integrity block at the end of this file.
 Describe 'Test-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
