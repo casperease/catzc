@@ -9,10 +9,10 @@ deliberately does **not** decide what a gate checks — that stays with each gat
 
 ## Domains
 
-| Domain   | Area     | Name                                                         |
-| -------- | -------- | ------------------------------------------------------------ |
-| domain:1 | report   | [Quality-gate reporting](#domain1--quality-gate-reporting)   |
-| domain:2 | settings | [Report settings](#domain2--report-settings)                 |
+| Domain   | Area     | Name                                                       |
+| -------- | -------- | ---------------------------------------------------------- |
+| domain:1 | report   | [Quality-gate reporting](#domain1--quality-gate-reporting) |
+| domain:2 | settings | [Report settings](#domain2--report-settings)               |
 
 ### domain:1 — Quality-gate reporting
 
@@ -37,7 +37,7 @@ dependency cycle.
 
 Each function belongs to one domain.
 
-| Domain                           | Function                  |
-| -------------------------------- | ------------------------- |
+| Domain                            | Function                  |
+| --------------------------------- | ------------------------- |
 | domain:1 — Quality-gate reporting | `Write-QualityGateReport` |
-| domain:2 — Report settings       | `reports.yml`             |
+| domain:2 — Report settings        | `reports.yml`             |
