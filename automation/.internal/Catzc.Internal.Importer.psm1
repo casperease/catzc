@@ -254,17 +254,11 @@ function Invoke-Importer {
             Invoke-TypeCacheJanitor -NonSilentClear:$NonSilentClear
         }
 
-        # Keep the generated ADR index current (Catzc.Base.Docs). [index](/docs/adr/index.md) is the code -> ADR registry
-        # projected from adrs.yml — gitignored, reproduced here BEFORE Build-Readme (whose [README](/docs/adr/README.md)
-        # link points at it), a fast no-op on a clean tree. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+        # Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/adr/index.md) from adrs.yml and
+        # [glossary](/docs/adr/glossary.md) from the glossary sources — gitignored, rebuilt BEFORE Build-Readme (its
+        # [README](/docs/adr/README.md) links the index). See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
         if (-not $SkipJanitors -and (Get-Command Build-AdrIndex -ErrorAction Ignore)) {
             Build-AdrIndex -Silent | Out-Null
-        }
-
-        # Keep the generated glossary current (Catzc.Base.Docs). [glossary](/docs/adr/glossary.md) is the controlled
-        # vocabulary projected from the modules' configs/glossary.yml sources — gitignored like the ADR index, written
-        # only when its content changes. See [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md).
-        if (-not $SkipJanitors -and (Get-Command Build-Glossary -ErrorAction Ignore)) {
             Build-Glossary -Silent | Out-Null
         }
 

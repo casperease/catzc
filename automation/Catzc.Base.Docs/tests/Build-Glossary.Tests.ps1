@@ -21,14 +21,14 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         }
         $entries = [Catzc.Base.Docs.GlossaryEntry[]] @(
             (& $entry 'gadget run' 'automation' @{
-                    realized_by = [ordered]@{ kind = 'tag'; pattern = 'gadget' }
-                    relations   = @{ part_of = @('widget suite') }
-                    contrasts   = @{ 'widget suite' = 'A widget suite is files at rest; a gadget run executes.' }
-                })
+                realized_by = [ordered]@{ kind = 'tag'; pattern = 'gadget' }
+                relations   = @{ part_of = @('widget suite') }
+                contrasts   = @{ 'widget suite' = 'A widget suite is files at rest; a gadget run executes.' }
+            })
             (& $entry 'widget suite' 'repository' @{
-                    contrasts = @{ 'gadget run' = 'A gadget run executes; a widget suite is files at rest.' }
-                    avoid     = @(@{ phrase = 'widget bundle'; say = 'widget suite' })
-                })
+                contrasts = @{ 'gadget run' = 'A gadget run executes; a widget suite is files at rest.' }
+                avoid     = @(@{ phrase = 'widget bundle'; say = 'widget suite' })
+            })
         )
         $citations = [Catzc.Base.Docs.AdrCitationMap]::new(
             @{ 'ADR-TST-WIDGET' = @{ path = 'docs/adr/repository/widget-thing.md'; rules = @(1) } },
@@ -72,8 +72,8 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
     }
 }
 
-# The real glossary page against the real sources. The importer's janitor materialises docs/adr/glossary.md (gitignored,
-# like the ADR index), so a current page means the generator, the sources, and the ADR citations agree. Reads only the
+# The real glossary page against the real sources. The importer's janitor materialises the
+# [glossary](/docs/adr/glossary.md) (gitignored, like the ADR index), so a current page means the generator, the sources, and the ADR citations agree. Reads only the
 # repository's files — the same answer in both run modes, so the build run skips it.
 Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README#7' {
     It 'the on-disk glossary is current — no drift from the glossary sources' {

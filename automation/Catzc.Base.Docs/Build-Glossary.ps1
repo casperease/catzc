@@ -1,6 +1,7 @@
 <#
 .SYNOPSIS
-    Generates docs/adr/glossary.md — the controlled vocabulary as one readable page — from the glossary sources.
+    Generates the [glossary](/docs/adr/glossary.md) — the controlled vocabulary as one readable page — from the
+    glossary sources.
 .DESCRIPTION
     Projects Get-Glossary (every concept of every configs/glossary.yml source,
     [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)) into one markdown page: a section per ADR domain,
@@ -13,7 +14,7 @@
     ([ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)). It is written only when its
     content changes, and emitted already formatted (Format-GlossaryParagraph), so Format-Markdown is a no-op on it.
 .PARAMETER Path
-    The page to write. Defaults to docs/adr/glossary.md; a test points it at a fixture path.
+    The page to write. Defaults to the [glossary](/docs/adr/glossary.md); a test points it at a fixture path.
 .PARAMETER DryRun
     Report whether the page would change without writing it.
 .PARAMETER Silent
