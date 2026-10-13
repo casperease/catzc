@@ -65,8 +65,8 @@ drawn in that commit's state colour (ADR-DSGN-VISUAL#13), so reading the occupan
 
 **The stable integration point is the current `main-UAT` commit, and upstream integrators sync from it — never from HEAD.** `main-UAT` holds
 the latest commit certified onto the always-on non-prod environment; that commit, not the raw tip of main, is what external or upstream
-consumers integrate against for stability. "Sync from main-UAT" is the safe default because that commit has cleared every automated gate up
-to and including the always-on environment.
+consumers integrate against for stability. "Sync from main-UAT" is the safe default because that commit has cleared every gate that a
+machine decides, up to and including the always-on environment.
 
 - [Sync from main-UAT, not HEAD](#sync-from-main-uat-not-head)
 
@@ -82,8 +82,8 @@ be synced from and cannot be promoted downstream. Consumers who naively track HE
 ### Rule ADR-DSGN-LIFE:8
 
 **A commit that fails a stage cannot go downstream.** Failure at any environment stops both _promotion_ (it will not advance to a later
-environment) and _downstream consumption_ (nothing may build on it). Downstream flow is gated on the last successful state, so a failure is
-a hard stop, not a soft warning.
+environment) and _downstream consumption_ (nothing may build on it). Downstream flow proceeds only from the last successful state, so a
+failure is a hard stop, not a soft warning.
 
 - [Failure stops downstream](#failure-stops-downstream)
 
@@ -193,7 +193,7 @@ These commits are the canonical encoding of the model; each number is one commit
 
 | #   | Journey                                    | Ending                                                                 |
 | --- | ------------------------------------------ | ---------------------------------------------------------------------- |
-| 0   | progressed up the ladder to release-uat    | **discarded** — manually rejected at the release-uat gate (RBC)        |
+| 0   | progressed up the ladder to release-uat    | **discarded** — manually rejected at the RBC gate on release-uat       |
 | 1   | reached production and served there        | **retired** — decommissioned after a successor took over               |
 | 2   | progressed to L3-vertical on main          | **discarded** — auto-rejected in L3-vertical                           |
 | 3   | reached release-uat, valid                 | **superseded** — overtaken by 4's rollover                             |

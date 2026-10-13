@@ -7,10 +7,10 @@
     of its body joined into one line (Statement). The blank-line-padding authoring convention
     ([index](/docs/adr/index.md))
     makes that paragraph the rule's normative summary, ending at the blank line before its linked bullets, so
-    Statement never includes them. The glossary gates read Statement: a term bolded on a wrapped line still
+    Statement never includes them. The glossary checks read Statement: a term bolded on a wrapped line still
     belongs to the rule ([ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)).
 
-    Private helper for Show-Cats and the glossary gates; not exported.
+    Private helper for Show-Cats and the glossary checks; not exported.
 .PARAMETER AdrPath
     Absolute path to the ADR markdown file.
 .OUTPUTS

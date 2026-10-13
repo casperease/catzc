@@ -297,7 +297,7 @@ Describe 'Get-BicepDeploymentContext (pipeline)' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Get-BicepDeploymentContext (DoNotRun gate)' -Tag 'L0', 'logic' {
+Describe 'Get-BicepDeploymentContext (DoNotRun guard)' -Tag 'L0', 'logic' {
     # Boundary mocked + config cache reset ONCE (see the devbox block's note); per-test only the build folder
     # is wiped (one test builds into it).
     BeforeAll {

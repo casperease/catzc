@@ -8,7 +8,7 @@
     convenience and removes the hazard: it asks git what a clean would remove (`git clean -xdn`, the
     dry-run listing), classifies every candidate against the in-memory auto-controlled whitelist
     (Get-AutoControlledGlobs — the managed root-config targets from rootconfig.yml plus the
-    conventional generated classes: module manifests, README links, cspell dictionaries, out/, the IDE
+    conventional generated classes: module manifests, generated READMEs, cspell dictionaries, out/, the IDE
     project's bin/obj, compiled-type scratch), deletes exactly the auto-controlled candidates through
     pathspec-limited `git clean -fxd -- <paths>` calls, and reports every candidate it refused to
     touch — the untracked files that are NOT ours to delete.

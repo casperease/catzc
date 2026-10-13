@@ -108,14 +108,14 @@ hash time.
 
 Whether a change touches a unit is **computed from git at real refs**, never from a committed hash. `Get-ChangedGlobSet` diffs a commit
 range (`Get-ChangedFile`, `git diff --name-only --no-renames`) and matches the changed paths against the registry; `Test-GlobSetAffected`
-answers the in-pipeline "is there anything here for us to process?" gate, resolving the reference commit per context
+answers the in-pipeline check "is there anything here for us to process?", resolving the reference commit per context
 (`Get-GlobSetChangeRange`: post-commit first-parent `HEAD^1..HEAD` — squash-safe; PR merge-base `origin/<target>...HEAD`; local working
 tree) and **failing open** on any doubt so a wrong skip can never drop a deploy. The same computation is the PR area-of-control report.
 Because it is recomputed at the actual refs after the merge exists, it is immune to the squash-merge and concurrent-merge staleness a
 committed hash suffers, and correct across renames (a rename is split into both its paths). A pipeline must checkout with sufficient depth
 (`fetchDepth: 0`) so the base ref is reachable.
 
-- [Git reflection: the in-pipeline gate and the PR report](#git-reflection-the-in-pipeline-gate-and-the-pr-report)
+- [Git reflection: the in-pipeline check and the PR report](#git-reflection-the-in-pipeline-check-and-the-pr-report)
 
 ### Rule ADR-FLOW-CD-GLOBS:10
 
@@ -191,13 +191,13 @@ The durable SHA (ADR-FLOW-CD-GLOBS#5) is a genuine identity — EOL-insensitive 
 changes it even when content does not), and order-free (lines ordinal-sorted). It is exactly right for the one job it keeps: keying the
 session-memory protection map (`ADR-REPO-PROTGLOB`), where "this session already proved this input state green" is a live, in-process fact.
 
-What it must **not** be is a committed artifact gating the mainline. A committed whole-set hash is a lockfile over that set: two pull
+What it must **not** be is a committed artifact that blocks the mainline. A committed whole-set hash is a lockfile over that set: two pull
 requests that touch different files of the same set both freeze the hash against their own branch state, and after a server-side squash
-merge the mainline holds the union while each frozen hash saw only its own half — an integrity gate recomputing the set would red the
-mainline with neither change individually wrong, and no merge conflict to warn anyone. Because the squash commit is a tree the client never
-hashed, any client-frozen hash is suspect. So the identity stays live and local; the trigger is a native projection (ADR-FLOW-CD-GLOBS#6)
-and the "did this change?" question is answered from git at the real refs (ADR-FLOW-CD-GLOBS#9), both of which see the merged tree as it
-actually is.
+merge the mainline holds the union while each frozen hash saw only its own half — an integrity quality gate recomputing the set would red
+the mainline with neither change individually wrong, and no merge conflict to warn anyone. Because the squash commit is a tree the client
+never hashed, any client-frozen hash is suspect. So the identity stays live and local; the trigger is a native projection
+(ADR-FLOW-CD-GLOBS#6) and the "did this change?" question is answered from git at the real refs (ADR-FLOW-CD-GLOBS#9), both of which see the
+merged tree as it actually is.
 
 ### Native projection: the no-start trigger
 
@@ -248,7 +248,7 @@ on:
 An ADO build-validation policy lives server-side, not in the repository: its path filter is set to the same projection, `/`-anchored
 (`Get-BuildValidationPathFilter`). The policy is a registration like any other — the unit's composition still lives only in `globs.yml`.
 
-### Git reflection: the in-pipeline gate and the PR report
+### Git reflection: the in-pipeline check and the PR report
 
 A native trigger is content-blind at the vendor's grain, and a coarse or over-approximating filter may start a run the unit doesn't actually
 need. `Test-GlobSetAffected` is the exact backstop the pipeline runs first — "is there anything here for us to process?" — and the same
@@ -294,20 +294,20 @@ umbrella mistakenly declared a `module` fails as a named pair.
 - The `Test-GlobSetTriggerCoverage` quality gate confirms every member of a pipeline-bound set is covered by an ADO include pattern — an
   include-only projection is a safe superset that can never under-trigger, with `Test-GlobSetAffected` supplying exactness on top.
 - Grep-ability: `paths:` filters in `pipelines/*.yaml` and `.github/workflows/` are generated from `globs.yml`; a filter that disagrees with
-  the projection is findable by the drift gate and wrong by rule (`ADR-FLOW-CD-GLOBS:6`).
+  the projection is findable by the drift quality gates and wrong by rule (`ADR-FLOW-CD-GLOBS:6`).
 
 ## Consequences
 
 - One edit point: recomposing a deployable unit touches `globs.yml`, and the projected triggers regenerate from it — never N pipelines by
   hand in two vendor dialects.
-- No false-red mainline: because nothing per-set is committed and gated, a busy mainline cannot go red from a stale, forgotten, or
+- No false-red mainline: because nothing per-set is committed and checked, a busy mainline cannot go red from a stale, forgotten, or
   concurrently-merged marker — the failure mode a committed-hash design carries.
 - No-start where it can be: modern ADO and GitHub filter on the projected patterns directly, so a pipeline whose unit is untouched does not
-  start at all; the in-pipeline `Test-GlobSetAffected` gate is the exact backstop for the residue.
+  start at all; the in-pipeline `Test-GlobSetAffected` check is the exact backstop for the residue.
 - Reviewable deploys: "this change touches unit X" is the computed area-of-control report over the PR diff — derived, so it can never go
   stale, and correct across renames.
-- Contributors carry no marker-regeneration duty; the drift gate keeps the generated triggers honest, and the identity used for protection
-  is live, per session.
+- Contributors carry no marker-regeneration duty; the drift quality gates keep the generated triggers honest, and the identity used for
+  protection is live, per session.
 
 ## Related
 

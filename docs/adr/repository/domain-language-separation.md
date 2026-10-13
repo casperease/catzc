@@ -38,8 +38,8 @@ actual data model as its subject (`azure-data-model.md` naming `apex`/`nova`), n
 
 ### Rule ADR-REPO-LANG:5
 
-Enforcement is **semantic, not textual**: the tag-aware AST gate `Test-LogicTestIdentity` resolves each test's Pester tag and reads its
-**AST string literals** — comments, help, and here-doc trivia are not AST nodes, so illustration is invisible to it — forbidding a live
+Enforcement is **semantic, not textual**: the tag-aware AST quality gate `Test-LogicTestIdentity` resolves each test's Pester tag and reads
+its **AST string literals** — comments, help, and here-doc trivia are not AST nodes, so illustration is invisible to it — forbidding a live
 identity everywhere except inside an `integrity` block. A file-glob spell-checker cannot draw this line: it tokenizes text, not meaning, and
 example vocabulary legitimately pervades comments, doc-example blocks, and demo data in every file type, so cspell does not enforce the
 separation.
@@ -107,11 +107,11 @@ rarely connected; the one sanctioned crossing is an integrity test, which reache
 
 `The test/live boundary is the enforced one`
 
-Of the three pairwise boundaries, the test/live one is where a mechanical gate earns its keep, because it is the one a logic test can
-silently violate — hardcoding a real customer name reads fine and passes, yet couples the test to the shipped config. The rule is therefore
-sharp: a live identity is legitimate **only** inside an `integrity`-tagged block (where binding the real config is the whole point), and a
-leak anywhere else in a logic-bearing test file is a violation. This makes a mixed file — one `Describe` with both a `logic` and an
-`integrity` Context — work without being split: the integrity block's identities are carved out, and the rest is held to fixtures.
+Of the three pairwise boundaries, the test/live one is where a mechanical quality gate earns its keep, because it is the one a logic test
+can silently violate — hardcoding a real customer name reads fine and passes, yet couples the test to the shipped config. The rule is
+therefore sharp: a live identity is legitimate **only** inside an `integrity`-tagged block (where binding the real config is the whole
+point), and a leak anywhere else in a logic-bearing test file is a violation. This makes a mixed file — one `Describe` with both a `logic`
+and an `integrity` Context — work without being split: the integrity block's identities are carved out, and the rest is held to fixtures.
 
 ### The design domain
 
@@ -156,14 +156,14 @@ config, not its text. The bias throughout is toward a gate that is right when it
 ## Decision
 
 The repository carries three domains — design, test, config/live — each with its own terminology, and a token from one does not appear in
-another. The test/live boundary is enforced mechanically by a tag-aware, comment-blind AST gate: a logic test may not name a live identity
-as a string literal outside an `integrity` block. The forbidden set is derived from the shipped config; the terminology `scope` map declares
-the domains; a file-glob spell-checker is not used, because it cannot separate illustration from data.
+another. The test/live boundary is enforced mechanically by a tag-aware, comment-blind AST quality gate: a logic test may not name a live
+identity as a string literal outside an `integrity` block. The forbidden set is derived from the shipped config; the terminology `scope` map
+declares the domains; a file-glob spell-checker is not used, because it cannot separate illustration from data.
 
 ### How this is enforced
 
 - **`Test-LogicTestIdentity`** (`Catzc.Base.QualityGates`) is the gate: it builds the live-identity set, scans every logic-bearing test
-  file, and throws on a leak. It runs as an `integrity` test, so it gates every build.
+  file, and throws on a leak. It runs as an `integrity` test, so a leak fails every build.
 
 - **`Get-LiveIdentityTokens`** (private) derives the forbidden set from `customer.yml`, `azure.yml`, `ado.yml`, and the shipped templates —
   the set is always current with the config.
@@ -172,7 +172,7 @@ the domains; a file-glob spell-checker is not used, because it cannot separate i
   script-block extent of every `integrity`-tagged block, reports an exact-match live identity anywhere else, and reports an environment
   identity bound to an identity parameter. Comments and help are not AST nodes, so illustration is invisible to it.
 
-- **`Test-ConfigIdentityHygiene`** (`Catzc.Base.QualityGates`) is the mirror gate — the reverse boundary: it walks every shipped
+- **`Test-ConfigIdentityHygiene`** (`Catzc.Base.QualityGates`) is the mirror quality gate — the reverse boundary: it walks every shipped
   `configs/*.yml` and `infrastructure/**` file's parsed keys and values and throws on a test-fixture identity, so a fixture is never
   committed as production data. It too runs as an `integrity` test.
 
@@ -212,4 +212,4 @@ the domains; a file-glob spell-checker is not used, because it cannot separate i
 - [spell-out-names](../automation/powershell/spell-out-names.md) (`ADR-AUTO-SPELL`) — the terminology registry and the per-category `scope`
   map.
 - [poka-yoke](../principles/poka-yoke.md), [reduce-variability](../principles/reduce-variability.md) — the principles a mechanical,
-  low-ceremony gate instantiates.
+  low-ceremony quality gate instantiates.

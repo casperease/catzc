@@ -4,22 +4,23 @@
 
 The quality-gate module. It **runs every check the repository applies to itself** — all tests (with tag-enforcement and timestamped
 reporting), the repository-wide quality gates, the spell-checker, the Markdown linter, the formatters, the terminology registry, and the
-managed-GUID registry. What it deliberately does **not** own is the tests themselves (each module keeps its own `tests/` folder), the gates
-whose property belongs to another module (the module-graph gates live in [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md)), or the
-per-tool configuration (cSpell, markdownlint, and Prettier each carry their own config at the repository root). A quality gate collects
-every issue, writes its report through [Catzc.Base.Reports](catzc-base-reports.md), and throws once listing them all
+managed-GUID registry. What it deliberately does **not** own is the tests themselves (each module keeps its own `tests/` folder), the
+quality gates whose property belongs to another module (the module-graph quality gates live in
+[Catzc.Base.ModuleSystem](catzc-base-modulesystem.md)), or the per-tool configuration (cSpell, markdownlint, and Prettier each carry their
+own config at the repository root). A quality gate collects every issue, writes its report through
+[Catzc.Base.Reports](catzc-base-reports.md), and throws once listing them all
 ([test-automation](../../adr/automation/test-automation.md#rule-adr-auto-test35)); the tier and category tag rules the Pester runner
 enforces are the subject of the same ADR.
 
 ## Domains
 
-| Domain   | Area        | Name                                                                               |
-| -------- | ----------- | ---------------------------------------------------------------------------------- |
-| domain:1 | runner      | [Test runner](#domain1--test-runner)                                               |
-| domain:2 | gates       | [Repository quality gates](#domain2--repository-quality-gates)                     |
-| domain:3 | formatting  | [Document and code formatting gates](#domain3--document-and-code-formatting-gates) |
-| domain:4 | terminology | [Terminology and dictionaries](#domain4--terminology-and-dictionaries)             |
-| domain:5 | guids       | [Managed GUIDs](#domain5--managed-guids)                                           |
+| Domain   | Area        | Name                                                                   |
+| -------- | ----------- | ---------------------------------------------------------------------- |
+| domain:1 | runner      | [Test runner](#domain1--test-runner)                                   |
+| domain:2 | gates       | [Repository quality gates](#domain2--repository-quality-gates)         |
+| domain:3 | formatting  | [Document and code formatting](#domain3--document-and-code-formatting) |
+| domain:4 | terminology | [Terminology and dictionaries](#domain4--terminology-and-dictionaries) |
+| domain:5 | guids       | [Managed GUIDs](#domain5--managed-guids)                               |
 
 ### domain:1 — Test runner
 
@@ -41,13 +42,13 @@ the analyzer-to-ADR map cites only real rules and maps every custom analyzer rul
 production identities never cross — no logic test names a live identity, no shipped config carries a test-fixture one, and no fixture
 identity is also a live one. An integrity test runs each gate at its tier, so every default test run and every CI run includes it.
 
-### domain:3 — Document and code formatting gates
+### domain:3 — Document and code formatting
 
 How the repository checks and enforces the style of its written and source content. This domain runs the spell-checker (and collects its
 flagged tokens into a triage queue), the Markdown linter, the Markdown formatter (which aligns tables and wraps prose in place), the
-Markdown title and heading formatter and gate, the ADO pipeline YAML formatter (`Format-Pipelines`, the same Prettier engine as
+Markdown title and heading formatter and quality gate, the ADO pipeline YAML formatter (`Format-Pipelines`, the same Prettier engine as
 `Format-Markdown` — they share one private `Invoke-Prettier`), the PowerShell auto-formatter, the C# type-namespace formatter, and the link
-aligner and gate, which keep code links repository-rooted and markdown links relative and resolving
+aligner and quality gate, which keep code links repository-rooted and markdown links relative and resolving
 ([markdown-links](../../adr/repository/markdown-links.md)). The domain owns the invocation of each tool, not the tool itself or its per-tool
 configuration.
 
@@ -55,24 +56,24 @@ configuration.
 
 The terminology registry (`terminology.yml`) is the single authored source of the repository's approved vocabulary, grouped by category.
 This domain generates the per-category spell-checker dictionaries from it and the committed English word list the spell-out-names analyzer
-rule checks identifiers against, and gates the registry: no drift between it and the generated dictionaries, no orphan entries, no
+rule checks identifiers against, and checks the registry: no drift between it and the generated dictionaries, no orphan entries, no
 unjustified ones.
 
 ### domain:5 — Managed GUIDs
 
 The managed-GUID registry (`guids.yml`) names every GUID the repository is allowed to carry
 ([managed-guids](../../adr/automation/managed-guids.md)). This domain reads the registry, answers or asserts whether one GUID is registered,
-scans tracked text for GUID literals, mints a readable GUID from a sentence, and gates the repository: every GUID in tracked text is
+scans tracked text for GUID literals, mints a readable GUID from a sentence, and checks the repository: every GUID in tracked text is
 registered, none is denied, and every entry is live.
 
 ## What the module does
 
 The module is the repository's self-check harness. The test runner (domain 1) checks behaviour — does every function do what it claims? —
-and runs every gate through the integrity tests that call it. The repository gates (domain 2) check the properties no single function owns:
-generated files, formatting, the built artifact, the shipped configs, and the conventions. The formatting gates (domain 3) check form — are
-the prose, markup, and source consistently shaped? The terminology (domain 4) and managed-GUID (domain 5) registries turn two open-ended
-vocabularies — accepted words and allowed GUIDs — into reviewed, gated lists. All answer to the same contract: these are the gates a change
-is measured against before it merges.
+and runs every gate through the integrity tests that call it. The repository quality gates (domain 2) check the properties no single
+function owns: generated files, formatting, the built artifact, the shipped configs, and the conventions. The formatting quality gates
+(domain 3) check form — are the prose, markup, and source consistently shaped? The terminology (domain 4) and managed-GUID (domain 5)
+registries turn two open-ended vocabularies — accepted words and allowed GUIDs — into reviewed, checked lists. All answer to the same
+contract: these are the gates a change is measured against before it merges.
 
 Domain 1 carries the most machinery. The test runner does not simply invoke Pester; it enforces the two-tag contract on every run. A
 discovery-only pass — driven by private helpers that perform nearest-contributing-block tag resolution across the `Describe`/`Context` chain
@@ -91,44 +92,44 @@ reports, and assertions) this module composes. It does not depend on any domain 
 
 The module's public functions and configuration files, sorted into the domains above.
 
-| Domain                                        | Function                      |
-| --------------------------------------------- | ----------------------------- |
-| domain:1 — Test runner                        | `Test-Automation`             |
-|                                               | `Invoke-TestFile`             |
-|                                               | `Test-CatzcBuild`             |
-|                                               | `Test-InIsolation`            |
-| domain:2 — Repository quality gates           | `Test-GeneratedFiles`         |
-|                                               | `Test-Formatting`             |
-|                                               | `Test-BuildArtifact`          |
-|                                               | `Test-ShippedConfigs`         |
-|                                               | `Test-SourceConventions`      |
-|                                               | `Test-TestTitles`             |
-|                                               | `Test-ManualTestPlan`         |
-|                                               | `Test-AnalyzerAdrMap`         |
-|                                               | `Test-ScriptAnalyzer`         |
-|                                               | `Test-LogicTestIdentity`      |
-|                                               | `Test-ConfigIdentityHygiene`  |
-| config                                        | `analyzer-adr-map.yml`        |
-| domain:3 — Document and code formatting gates | `Test-Spelling`               |
-|                                               | `Format-Spelling`             |
-|                                               | `Test-Markdownlint`           |
-|                                               | `Format-Markdown`             |
-|                                               | `Format-MarkdownTitle`        |
-|                                               | `Test-MarkdownTitle`          |
-|                                               | `Format-Pipelines`            |
-|                                               | `Format-Automation`           |
-|                                               | `Format-Types`                |
-|                                               | `Format-Links`                |
-|                                               | `Test-Links`                  |
-| config                                        | `links.yml`                   |
-| domain:4 — Terminology and dictionaries       | `Build-TerminologyDictionary` |
-|                                               | `Build-EnglishDictionary`     |
-|                                               | `Test-Terminology`            |
-| config                                        | `terminology.yml`             |
-| domain:5 — Managed GUIDs                      | `Get-ManagedGuids`            |
-|                                               | `Test-ManagedGuid`            |
-|                                               | `Assert-ManagedGuid`          |
-|                                               | `Get-RepositoryGuids`         |
-|                                               | `ConvertTo-Guid`              |
-|                                               | `Test-ManagedGuids`           |
-| config                                        | `guids.yml`                   |
+| Domain                                  | Function                      |
+| --------------------------------------- | ----------------------------- |
+| domain:1 — Test runner                  | `Test-Automation`             |
+|                                         | `Invoke-TestFile`             |
+|                                         | `Test-CatzcBuild`             |
+|                                         | `Test-InIsolation`            |
+| domain:2 — Repository quality gates     | `Test-GeneratedFiles`         |
+|                                         | `Test-Formatting`             |
+|                                         | `Test-BuildArtifact`          |
+|                                         | `Test-ShippedConfigs`         |
+|                                         | `Test-SourceConventions`      |
+|                                         | `Test-TestTitles`             |
+|                                         | `Test-ManualTestPlan`         |
+|                                         | `Test-AnalyzerAdrMap`         |
+|                                         | `Test-ScriptAnalyzer`         |
+|                                         | `Test-LogicTestIdentity`      |
+|                                         | `Test-ConfigIdentityHygiene`  |
+| config                                  | `analyzer-adr-map.yml`        |
+| domain:3 — Document and code formatting | `Test-Spelling`               |
+|                                         | `Format-Spelling`             |
+|                                         | `Test-Markdownlint`           |
+|                                         | `Format-Markdown`             |
+|                                         | `Format-MarkdownTitle`        |
+|                                         | `Test-MarkdownTitle`          |
+|                                         | `Format-Pipelines`            |
+|                                         | `Format-Automation`           |
+|                                         | `Format-Types`                |
+|                                         | `Format-Links`                |
+|                                         | `Test-Links`                  |
+| config                                  | `links.yml`                   |
+| domain:4 — Terminology and dictionaries | `Build-TerminologyDictionary` |
+|                                         | `Build-EnglishDictionary`     |
+|                                         | `Test-Terminology`            |
+| config                                  | `terminology.yml`             |
+| domain:5 — Managed GUIDs                | `Get-ManagedGuids`            |
+|                                         | `Test-ManagedGuid`            |
+|                                         | `Assert-ManagedGuid`          |
+|                                         | `Get-RepositoryGuids`         |
+|                                         | `ConvertTo-Guid`              |
+|                                         | `Test-ManagedGuids`           |
+| config                                  | `guids.yml`                   |

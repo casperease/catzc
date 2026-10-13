@@ -212,10 +212,10 @@ level, and each has its own conventional sub-layout:
 `automation/Catzc.Base.Docs/configs/adrs.yml`: `principles/`, `process/`, `design/`, `flow/`, `automation/`, `configuration/`, `pipelines/`,
 `github/`, `azure/`, `repository/` (this ADR), and `research/`. Its `index.md` is generated from that registry and describes each domain, so
 the registry — not this paragraph — is the authoritative domain list. `references/` holds the authored reference articles, including the
-sources the generated READMEs link to ([generated-readmes](generated-readmes.md)) and the DORA research reference under `references/dora/`.
-`how-to/` holds task-oriented guides. These three are **markdown-only**; their subfolders are author-organized topic buckets. The
-dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown content under `docs/`,
-set apart by the dot-prefix convention (ADR-REPO-FOLDERS#4).
+sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference under
+`references/dora/`. `how-to/` holds task-oriented guides. These three are **markdown-only**; their subfolders are author-organized topic
+buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown content
+under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS#4).
 
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's
@@ -290,7 +290,7 @@ every module, without exception.
 
 **`types/`** contains C# source files (`*.cs`) compiled and loaded as .NET types at import time by the bootstrap module's
 `Import-CSharpTypes`, before any module's functions. **The filename is the bare type name** the file must produce, and **the file declares a
-file-scoped `namespace <module>;`** — derived from its `types/` folder, written and repaired by `Format-Types` and gated by
+file-scoped `namespace <module>;`** — derived from its `types/` folder, written and repaired by `Format-Types` and checked by
 `Test-Formatting`, so the fully-qualified type is `<module>.<filename>` (`types/CliRunner.cs` in `Catzc.Base.Execution` →
 `Catzc.Base.Execution.CliRunner`). The loader identifies the type from the filename with no source parsing — one type per file (the analogue
 of one-function-per-file) — and rejects a dotted filename or a missing, mismatched, or block-scoped namespace. Every module's sources

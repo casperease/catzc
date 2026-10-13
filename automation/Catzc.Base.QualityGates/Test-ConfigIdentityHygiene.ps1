@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Gate: no shipped config may carry a TEST-fixture identity in its data — the reverse of
+    Quality gate: no shipped config may carry a TEST-fixture identity in its data — the reverse of
     Test-LogicTestIdentity, closing the other half of the domain-language separation
     ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)).
 .DESCRIPTION
@@ -20,8 +20,8 @@
     A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
     through Write-QualityGateReport, which writes out/test-config-identity-hygiene/, prints every finding, and
     throws once listing them all; -PassThru returns the result instead. It reads the shipped config, so a Pester
-    test wrapping it is `integrity`. A source-tree gate: the fixture identities live in the repository's tests/,
-    so it throws in build mode (Assert-SourceTree).
+    test wrapping it is `integrity`. It needs the source tree: the fixture identities live in the repository's
+    tests/, so the source-tree guard (Assert-SourceTree) throws in build mode.
 .PARAMETER Path
     Config files to check. Defaults to every module `configs/*.yml` (except the terminology registry) and every
     `infrastructure/**` yml.

@@ -7,7 +7,7 @@
     is genuinely referenced. The net is deliberately WIDER than Test-Spelling's lint scope: on top of the
     spell-scanned extensions it also scans the authored config files with no extension (.gitignore, .gitattributes,
     .markdownlintignore, .prettierignore), because a term can be justified solely by a usage there — e.g. a
-    *.stackdump ignore pattern in .gitignore that the editor's cspell flags but the lint gate never scans.
+    *.stackdump ignore pattern in .gitignore that the editor's cspell flags but Test-Spelling never scans.
     Narrowing the orphan net to the lint scope manufactures false orphans, so it searches the whole tree.
 
     Excludes the registry and its generated dictionaries — where every term trivially appears — so a hit in the

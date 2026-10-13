@@ -39,19 +39,25 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         Remove-Item $script:readme -Force -ErrorAction Ignore
     }
 
-    It 'materialises the README as a link whose content IS the source' {
+    It 'generates a plain-file copy whose links resolve from the README folder, under a line naming the source' {
         Build-Readme | Out-Null
-        (Get-Item -LiteralPath $script:readme -Force).LinkType | Should -Not -BeNullOrEmpty
-        [System.IO.File]::ReadAllText($script:readme) |
-            Should -Be ([System.IO.File]::ReadAllText($script:source))
+        (Get-Item -LiteralPath $script:readme -Force).LinkType | Should -BeNullOrEmpty
+        [System.IO.File]::ReadAllText($script:readme) | Should -BeExactly (@(
+                '# Fixture Title'
+                ''
+                '> Generated from [docs/references/automation/foo.md](../../docs/references/automation/foo.md) — edit the source; this copy is rewritten on every import.'
+                ''
+                'Prose with a [sibling link](../../docs/references/automation/catzc-base-asserts.md) that resolves at the source location.'
+                ''
+            ) -join "`n")
     }
 
-    It 'replaces a plain file (the old generated copy) with a link' {
+    It 'rewrites a stale copy' {
         [System.IO.File]::WriteAllText($script:readme, "# Old generated copy`n")
 
         $result = Build-Readme -PassThru
         $result[0].Changed | Should -BeTrue
-        (Get-Item -LiteralPath $script:readme -Force).LinkType | Should -Not -BeNullOrEmpty
+        [System.IO.File]::ReadAllText($script:readme) | Should -BeLike '*Generated from*'
     }
 
     It 'is idempotent — a second run changes nothing' {
@@ -60,13 +66,15 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         ($result | Where-Object Changed) | Should -BeNullOrEmpty
     }
 
-    It 'an edit through the README path lands in the source' {
-        Build-Readme | Out-Null
-        [System.IO.File]::WriteAllText($script:readme, "# Edited through the README`n")
-        [System.IO.File]::ReadAllText($script:source) | Should -Be "# Edited through the README`n"
+    It 'severs a README that is a hard link to its source, leaving the source untouched' {
+        $before = [System.IO.File]::ReadAllText($script:source)
+        New-Item -ItemType HardLink -Path $script:readme -Target $script:source | Out-Null
 
-        # Restore the fixture source for the sibling tests.
-        [System.IO.File]::WriteAllText($script:source, "# Fixture Title`n")
+        Build-Readme | Out-Null
+
+        [System.IO.File]::ReadAllText($script:source) | Should -BeExactly $before
+        [System.IO.File]::ReadAllText($script:readme) | Should -BeLike '*Generated from*'
+        (Get-Item -LiteralPath $script:source).LinkType | Should -BeNullOrEmpty -Because 'the source is no longer one of two hard-linked names'
     }
 
     It 'with -DryRun does not write a missing README' {
@@ -98,7 +106,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
 # build run skips it.
 Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity', 'source-only' {
     # The real readme.yml registry is consistent with the repository — every resolved README's source exists
-    # (Set-FileLink asserts it), every automation module is covered by the pattern, and the generated/committed
+    # (Get-ReadmeContent asserts it), every automation module is covered by the pattern, and the generated/committed
     # split matches .gitignore (every mapped README is ignored; none is opted back in). Resolves through the
     # public generator (Build-Readme -DryRun -PassThru) since the pattern expansion (Get-ReadmeMappings) is
     # private. Closes the poka-yoke gap of the two-place "generated vs committed" convention (readme.yml <->
@@ -114,11 +122,11 @@ Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity', 'source-only
         )
     }
 
-    It 'resolves every README without a missing-source throw (Set-FileLink asserts each source exists)' {
+    It 'resolves every README without a missing-source throw (Get-ReadmeContent asserts each source exists)' {
         { Build-Readme -DryRun -Silent | Out-Null } | Should -Not -Throw
     }
 
-    It 'every README link is current — no drift from readme.yml (Test-GeneratedFiles)' {
+    It 'every README is current — no drift from readme.yml or its source (Test-GeneratedFiles)' {
         $result = Test-GeneratedFiles -Generator Build-Readme -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

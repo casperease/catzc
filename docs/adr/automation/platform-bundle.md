@@ -58,7 +58,7 @@ and an identical durable-SHA content hash ([durable-sha-globs](../flow/durable-s
 build ships the **full** type set whatever its module selection, so its `typesHash` (the combined hash of every `types/*.cs` source, which
 names the DLL) equals the source tree's, and the build copies the source tree's `Catzc.Types.<typesHash>.dll` instead of compiling — it
 compiles only when that DLL is missing. Each bundle carries a `build.json` provenance record (version, content hash, `typesHash`, the
-type-source list, source commit, modules). `Assert-CatzcBundle` is the integrity gate: it re-verifies the recorded hash, that no `tests/`
+type-source list, source commit, modules). `Assert-CatzcBundle` is the integrity guard: it re-verifies the recorded hash, that no `tests/`
 leaked in, that exactly one types DLL is present and its name matches `typesHash`, that every module has its manifest and merged
 `.functions.ps1`, that every manifest export resolves to a function in its merged file, and that every inventoried internal asset is present
 ([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep4)) — collecting every violation. `Build-Modules` runs
@@ -263,7 +263,7 @@ release act governed by its own workflow ([github-release](../github/github-rele
 - [one-living-version](../principles/one-living-version.md) — why the bundle reuses the one importer instead of forking a loader.
 - [self-service](../design/self-service.md), [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) — the
   content-addressed artifact and build-once/deploy-many this specialises.
-- [internal-asset-dependencies](internal-asset-dependencies.md) — the asset inventory the build gate checks.
+- [internal-asset-dependencies](internal-asset-dependencies.md) — the asset inventory the build's presence check verifies.
 - [module-aspects](../design/module-aspects.md) — the live/tests aspect the runtime payload is deliberately broader than.
 - [durable-sha-globs](../flow/durable-sha-globs.md) — the durable-SHA identity the content hash reuses.
 - [native-csharp-types](BCL/native-csharp-types.md) — the combined assembly and the accelerator load order the bundle mode preserves.

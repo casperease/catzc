@@ -48,7 +48,7 @@ The module depends on [Catzc.Tooling.Core](catzc-tooling-core.md) and only that 
 tool name to Core's engine, which reads `tools.yml` for the locked version and the per-platform identifier and then installs, asserts, or
 removes idempotently. The one piece this module adds of its own is the vendored `dotnet-install.{ps1,sh}` scripts: .NET has no single native
 package manager across platforms, so the official install script is checked in under `assets/scripts/` (excluded from the spelling and lint
-gates) and the engine runs it as a script-based install.
+quality gates) and the engine runs it as a script-based install.
 
 The binary-versus-session split is the deliberate counterpart to [Catzc.Azure.Cli](catzc-azure-cli.md): this module owns the `az` **binary**
 (install as a uv tool, uninstall, and the `tools.yml` version lock asserted by Core's `Assert-Tool`), while that module owns the `az`

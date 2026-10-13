@@ -4,7 +4,7 @@
 .DESCRIPTION
     Reads the required `bicep_min_version` global from configs/azure.yml (validated as MAJOR.MINOR.PATCH
     by the AzureConfig type on load) and returns it as a [version] for comparison. Assert-AzCliBicep /
-    Test-AzCliBicep use it to gate `az bicep build`.
+    Test-AzCliBicep use it to decide whether `az bicep build` may run.
 .EXAMPLE
     Get-AzureBicepMinVersion   # -> 0.30.0
 #>

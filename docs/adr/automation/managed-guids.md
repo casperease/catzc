@@ -116,8 +116,8 @@ exact-match semantics.
 ## Decision
 
 Every GUID literal in tracked text is a registered entry in `guids.yml` — external-facing values as-is, placeholders minted with
-`ConvertTo-Guid` so the value spells its sentence — validated on load, enforced both directions by the repository-wide integrity gate, and
-invisible to cspell.
+`ConvertTo-Guid` so the value spells its sentence — validated on load, enforced both directions by the repository-wide `Test-ManagedGuids`
+quality gate, and invisible to cspell.
 
 ### How this is enforced
 
@@ -128,8 +128,8 @@ invisible to cspell.
   integrity test** (`Get-RepositoryGuids.Tests.ps1`) runs it, protected-globs-wrapped for the local inner loop.
 - **`Assert-ManagedGuid` / `Test-ManagedGuid`** — the one shared lookup (`Resolve-ManagedGuid`) behind the throwing and boolean checks, for
   any code or operator that needs to assert a GUID against the table.
-- **The cspell config** (`ignoreRegExpList`, in the managed root `cspell.yml` source) — keeps GUID fragments out of the spelling gate, so
-  the two gates cannot double-report.
+- **The cspell config** (`ignoreRegExpList`, in the managed root `cspell.yml` source) — keeps GUID fragments out of `Test-Spelling`, so the
+  two quality gates cannot double-report.
 - **Code review** — classifies a new entry (external-facing vs placeholder) and checks a placeholder was minted, not invented.
 
 ## Consequences

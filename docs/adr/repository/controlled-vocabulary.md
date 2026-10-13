@@ -14,7 +14,7 @@ used with a private or shifting meaning, or defined a second time elsewhere, is 
 ### Rule ADR-REPO-VOCAB:2
 
 A **glossary source** is a module's `configs/glossary.yml`; it registers that module's defined terms, and using one is opt-in. Nothing is
-checked against a term until a source declares it. A source's `options:` are parameters with sensible defaults — which gates its terms take
+checked against a term until a source declares it. A source's `options:` are parameters with sensible defaults — which checks its terms take
 part in, where and on which text surfaces its avoided phrasings are scanned — and a source overrides only what differs.
 
 - [Opt-in sources](#opt-in-sources)
@@ -56,6 +56,13 @@ Prose names them that way; an informal stand-in such as "house rules" is an avoi
 
 - [Domain rules](#domain-rules)
 
+### Rule ADR-REPO-VOCAB:8
+
+A term that names a family declares its **forms** — the words that may qualify its head word. Within a source's scope, any other qualified
+use, and the head word used as a verb, is a defect; the bare head word is always allowed, and a mention is exempt (ADR-REPO-VOCAB#5).
+
+- [Qualified forms](#qualified-forms)
+
 ## Context
 
 The repository already controls its words at the spelling level: `terminology.yml` approves every token, and `Test-Terminology` and the
@@ -81,10 +88,10 @@ the same term as its definition is the contradiction the rule forbids.
 
 A glossary source is a module's `configs/glossary.yml`, so the module that owns a concept owns its vocabulary, and the folder convention is
 the registration ([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md)). A module without a source contributes no terms and
-has nothing checked on its behalf. Within a source, `options:` sets the checks its terms take part in (`gates`), where its avoided phrasings
-are scanned (`scope`, `exclude`), and which kinds of text are read there (`surfaces`). Every option has a default that suits most sources,
-so a typical source carries no options at all ([sensible-defaults](../automation/sensible-defaults.md)). The default excludes — the DORA
-research text, generated output, vendored code — are always kept, because external language is not this repository's to correct.
+has nothing checked on its behalf. Within a source, `options:` sets the checks its terms take part in (`checks`), where its avoided
+phrasings are scanned (`scope`, `exclude`), and which kinds of text are read there (`surfaces`). Every option has a default that suits most
+sources, so a typical source carries no options at all ([sensible-defaults](../automation/sensible-defaults.md)). The default excludes — the
+DORA research text, generated output, vendored code — are always kept, because external language is not this repository's to correct.
 
 ### Everything in the repository
 
@@ -108,6 +115,17 @@ and requiring it on both sides keeps the pair from drifting apart in one directi
 A phrasing that blurs a defined term is listed as avoided, with the wording to use instead, so a violation always carries its fix. The rule
 is about _use_, not _mention_: the ADR that defines a term, the glossary itself, and guidance that says "avoid `X`" all need to write the
 avoided phrase, and they do so inside backticks or quotes.
+
+### Qualified forms
+
+`One word, its declared forms, nothing else`
+
+An avoided phrasing catches only what someone thought to list. A word that names a family — `gate`, which is any flow decision point and,
+qualified, one kind of it — drifts the other way: every new check, guard, or verb use borrows it, until "gate" names five things and none
+precisely. Declaring the family's forms closes the set. `gate` takes `quality`, `CI`, `RC`, `RBC`, `release`, `manual`, `PR`, `merge`,
+`commit`, `approval`, `production`, and `push`; anything else is reworded — a check inside a quality gate is a **check**, a precondition is
+a **guard**, and the verb becomes what the gate does ("blocks", "decides whether … proceeds"). Function words that only point at or count
+the noun ("the gate", "each gate", "two gates") are not qualifiers, so they are always allowed.
 
 ### Realized concepts are enforced
 
@@ -162,12 +180,17 @@ with their replacements. A source's options default sensibly, and a source overr
   `-ErrorText`, `-Because`). A phrase matches case-insensitively, as whole words, across line breaks; a mention in backticks or quotes is
   exempt. Each use is reported as `<file>:<line> says "<phrase>" — say "<say>" (<defined_by>)`.
 
-- Each of these gates reads only the concepts of sources whose `gates` option includes it (`anchored`, `single`, `avoid`, `enforced`), so a
-  source that opts out of a gate is not checked by it (ADR-REPO-VOCAB#2).
+- **`Get-GlossaryFormViolations`** (`Catzc.Base.Docs`) checks that every concept with `forms:` is qualified only by them (ADR-REPO-VOCAB#8),
+  on the same files and surfaces as the phrasing check: a "`<word> <head>`" or "`<word>-<head>`" whose word is neither a declared form nor a
+  function word, and the head word's verb forms. Each use is reported as
+  `<file>:<line> says "<use>" — "<term>" takes only: <forms> (<defined_by>)`.
 
-- **`Test-Glossary`** (`Catzc.Base.Docs`) runs every gate over every source, writes one report under `out/test-glossary/`, and fails once
-  with every issue. An L2 integrity test runs every gate over the real tree, so every rule here is checked mechanically; it is L2 because
-  the source and phrasing checks ask git which files are tracked (ADR-AUTO-TEST#9).
+- Each of these checks reads only the concepts of sources whose `checks` option includes it (`anchored`, `single`, `avoid`, `enforced`,
+  `forms`), so a source that opts out of a check is not checked by it (ADR-REPO-VOCAB#2).
+
+- **`Test-Glossary`** (`Catzc.Base.Docs`) runs every check, G1 to G6, over every source, writes one report under `out/test-glossary/`, and
+  fails once with every issue. An L2 integrity test runs every check over the real tree, so every rule here is checked mechanically; it is
+  L2 because the source and phrasing checks ask git which files are tracked (ADR-AUTO-TEST#9).
 
 - **`Build-Glossary`** (`Catzc.Base.Docs`) projects every source into one readable page, `docs/adr/glossary.md`: per ADR domain, each term
   with its definition, a link to its defining rule, its realization, relations, contrasts, and avoided phrasings. The page is a derived

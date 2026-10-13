@@ -3,7 +3,8 @@
     Evicts an off-config .NET install — one the tooling's managed user-space install does not own.
 .DESCRIPTION
     The destructive escape hatch beside Install-/Uninstall-Dotnet
-    ([ADR-AUTO-REMOVE](/docs/adr/automation/tool-removal-lifecycle.md)). It refuses the managed install — Uninstall-Dotnet
+    ([ADR-AUTO-REMOVE](/docs/adr/automation/tool-removal-lifecycle.md)). It refuses the managed install —
+    Uninstall-Dotnet
     owns that — and decides "managed" for the folder it is about to remove, not for whatever `dotnet` resolves to on
     PATH: in a catzc session PATH always leads to the managed install, so asking about PATH would refuse every stray one.
 
@@ -11,7 +12,8 @@
     C:\Program Files\dotnet. A folder that Windows-registered products own (the .NET SDK / runtime installers, listed in
     Apps & features) is not deleted by hand — that would orphan every entry — so each product is listed with the winget
     command that removes it by its own mechanism, and nothing is touched. Only an unregistered folder is deleted, with
-    its machine PATH entry and DOTNET_ROOT (needs Administrator, ADR-AUTO-REMOVE#6).
+    its machine PATH entry and DOTNET_ROOT (needs Administrator,
+    [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)).
 
     Linux / macOS: evicts an off-config install by the mechanism that placed it (native package / uv-Python pip /
     stray binary).
@@ -77,11 +79,10 @@ function Remove-Dotnet {
     # ([ADR-AUTO-REMOVE#7](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove7)).
     # The .NET installers place their products in the machine-wide folders; a stray copy elsewhere is nobody's.
     $machineFolders = @('C:\Program Files\dotnet', 'C:\Program Files (x86)\dotnet')
-    $products = if ($resolvedDir -in $machineFolders) {
-        @(Get-RegisteredInstallProduct '^Microsoft (ASP\.NET Core|\.NET|Windows Desktop Runtime)\b|^Microsoft\.NET\.')
-    }
-    else {
-        @()
+    # Assigned in the branch: an `if` expression would turn an empty @() into $null.
+    [object[]] $products = @()
+    if ($resolvedDir -in $machineFolders) {
+        $products = @(Get-RegisteredInstallProduct '^Microsoft (ASP\.NET Core|\.NET|Windows Desktop Runtime)\b|^Microsoft\.NET\.')
     }
     if ($products.Count -gt 0) {
         Write-Message "'$resolvedDir' is owned by $($products.Count) Windows-registered .NET product(s); deleting it by hand would orphan them. Remove them by their own installer:" -ForegroundColor Yellow
@@ -98,7 +99,8 @@ function Remove-Dotnet {
         return
     }
 
-    # Deleting the folder and the machine PATH entry needs Administrator — asserted for this step only (ADR-AUTO-REMOVE#6).
+    # Deleting the folder and the machine PATH entry needs Administrator — asserted for this step only
+    # ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)).
     Assert-IsAdministrator
     Write-Message "Removing: $resolvedDir"
     $pathChanged = Remove-SystemInstallation -InstallDir $resolvedDir -EnvironmentVariables 'DOTNET_ROOT'

@@ -20,7 +20,7 @@ is in [native-csharp-types](../../../../adr/automation/BCL/native-csharp-types.m
 
 - **One type per file**, filename = type name (the analogue of one-function-per-file). The loader identifies the type from the filename — it
   does not parse the body — so a dotted filename, or a missing, mismatched, or block-scoped namespace, is rejected. The namespace must be
-  the file-scoped form `namespace <Module>;` matching the module (folder-derived by `Format-Types`, gated by `Test-Formatting`).
+  the file-scoped form `namespace <Module>;` matching the module (folder-derived by `Format-Types`, checked by `Test-Formatting`).
 - `types/CliRunner.cs` in `Catzc.Base.Execution` becomes `Catzc.Base.Execution.CliRunner`. FQN collisions across modules are therefore
   impossible.
 - **Host-guaranteed assemblies only.** Types compile with `Add-Type` against its default reference set — the shared framework plus

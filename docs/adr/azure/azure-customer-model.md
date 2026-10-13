@@ -48,9 +48,9 @@ holds the enabled set so its `Test-`/`Assert-HaveCustomer(s)` primitives can liv
 
 A template declares whether it is a customer template with an `options.yml` `customer_deployment` bit (bool), which **defaults to the
 `have_customers` variant** (`Test-HaveCustomers`). An explicit `customer_deployment: true` is only permitted when customers are enabled (the
-repo gate). The class rule per config is asymmetric: `false` ⇒ the config must **not** live under a customer subfolder (root configs only);
-`true` ⇒ a customer subfolder is allowed but its customer must be **enabled** by the variant. `Get-BicepCustomerClassViolations` is the
-shared rule used by `Get-BicepTemplates` (fail-fast) and `Assert-BicepTemplate` (collect-all), so the two never drift.
+repo-level guard). The class rule per config is asymmetric: `false` ⇒ the config must **not** live under a customer subfolder (root configs
+only); `true` ⇒ a customer subfolder is allowed but its customer must be **enabled** by the variant. `Get-BicepCustomerClassViolations` is
+the shared rule used by `Get-BicepTemplates` (fail-fast) and `Assert-BicepTemplate` (collect-all), so the two never drift.
 
 - [The per-template switch](#the-per-template-switch)
 
@@ -118,8 +118,8 @@ must be a defined customer.
 
 A template says whether it is a customer template with `options.yml` `customer_deployment` (bool). Its effective value defaults to the
 `have_customers` variant (`Test-HaveCustomers`) unless the template sets it, so a repo with customers disabled (`false`) has only
-non-customer templates by default, and an explicit `customer_deployment: true` there is a fail-fast error (the repo gate). The per-config
-rule is asymmetric and lives in `Get-BicepCustomerClassViolations`:
+non-customer templates by default, and an explicit `customer_deployment: true` there is a fail-fast error (the repo-level guard). The
+per-config rule is asymmetric and lives in `Get-BicepCustomerClassViolations`:
 
 - `customer_deployment: false` ⇒ the config must not live under a customer subfolder — a non-customer template ships configuration-root
   configs only;
@@ -133,7 +133,7 @@ two-caller / one-rule shape as the env-class and subscription-folder checks (see
 
 Customer definitions live in `customer.yml` (a self-contained catalogue), referenced by a subscription's `customer` field by key or
 shortcode and resolved through `Get-AzureCustomer`; the FK is enforced by integrity + runtime, not at azure load. Which customers are
-enabled is the `have_customers` variant, and a template's `customer_deployment` bit (defaulting to that variant, gated by it) decides
+enabled is the `have_customers` variant, and a template's `customer_deployment` bit (defaulting to that variant, guarded by it) decides
 whether it may deploy into customer subscriptions.
 
 ### How this is enforced
@@ -154,7 +154,7 @@ whether it may deploy into customer subscriptions.
 - A subscription may reference a customer by the readable key or the terse shortcode, and everything downstream sees the canonical key.
 - Azure-config loading stays hermetic — the customer FK is guarded by integrity and runtime, not by coupling every azure read to the
   catalogue.
-- The per-template `customer_deployment` bit makes customer-ness an explicit, gated property: disabled repos are non-customer-only by
+- The per-template `customer_deployment` bit makes customer-ness an explicit, guarded property: disabled repos are non-customer-only by
   default, and a template can only deploy for a customer the repo has enabled.
 - The cost is one more asset and one more variant to keep in step — reconciled by the two integrity tests, which are the only place the
   catalogue, the enabled set, and the subscriptions are checked against one another.

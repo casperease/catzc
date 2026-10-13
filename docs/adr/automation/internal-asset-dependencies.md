@@ -31,18 +31,18 @@ Because it reads a shipped asset, it is an `integrity` test (ADR-AUTO-TEST#1); t
 
 ### Rule ADR-AUTO-ASSETDEP:4
 
-The rule is gated mechanically. A coverage gate fails the run when a function listed by `Get-InternalAssetDependency` has no test that
-satisfies ADR-AUTO-ASSETDEP#3, naming the function and its uncovered child paths. A build gate fails `Build-Modules` when any listed
+The rule is enforced mechanically. A coverage check fails the run when a function listed by `Get-InternalAssetDependency` has no test that
+satisfies ADR-AUTO-ASSETDEP#3, naming the function and its uncovered child paths. A presence check fails `Build-Modules` when any listed
 (module, child path) is absent from the built output.
 
-- [Two gates: coverage and presence](#two-gates-coverage-and-presence)
+- [Two checks: coverage and presence](#two-checks-coverage-and-presence)
 
 ### Rule ADR-AUTO-ASSETDEP:5
 
 A new internal asset dependency lands together with its covering test in the same change. Adding the read without the test turns the
-coverage gate red, so the omission cannot merge.
+coverage check red, so the omission cannot merge.
 
-- [Two gates: coverage and presence](#two-gates-coverage-and-presence)
+- [Two checks: coverage and presence](#two-checks-coverage-and-presence)
 
 ## Context
 
@@ -66,8 +66,8 @@ written and tested, so review and source-mode tests cannot be what catches it.
 ## Decision
 
 Internal assets are located through one helper whose answer is correct in both modes, every such lookup is visible in the code as a literal
-path, and every function that performs one is tested against the real asset in both test runs. Coverage and presence are checked by gates,
-not by review.
+path, and every function that performs one is tested against the real asset in both test runs. Coverage and presence are checked
+mechanically, not by review.
 
 ### One helper
 
@@ -88,7 +88,7 @@ content.
 Because every call passes a literal child path, the dependency set is a pure function of the code: `Get-InternalAssetDependency` walks the
 syntax trees of the module function files and returns one `@{ Module; Function; ChildPath; File; Line }` per call site. A computed child
 path would hide the dependency from that scan, so the literal is part of the rule. No registry file lists the dependencies — a hand-kept
-list would drift from the code it describes, and the code says everything the gates need
+list would drift from the code it describes, and the code says everything the checks need
 ([open-closed-architecture](open-closed-architecture.md)).
 
 ### A real-asset test in both runs
@@ -98,28 +98,28 @@ list would drift from the code it describes, and the code says everything the ga
 A function that reads a shipped asset is covered by a test that lets the read happen: it loads the module, calls the function, and asserts
 on what the real asset produced. Mocking the read away would test the mock, which is the one thing that does not change between the modes.
 The test reads the shipped file, so it is an `integrity` test, and it is never `source-only`, so the build run executes it against the built
-module ([test-automation](test-automation.md#rule-adr-auto-test31)). The citation tag `ADR-AUTO-ASSETDEP#3` is what lets the coverage gate
+module ([test-automation](test-automation.md#rule-adr-auto-test31)). The citation tag `ADR-AUTO-ASSETDEP#3` is what lets the coverage check
 find it. The function's other behaviour stays in its logic tests, on fixtures, as usual — the real-asset test exists to prove the lookup,
 not to re-test the logic.
 
-### Two gates: coverage and presence
+### Two checks: coverage and presence
 
-The **coverage gate** is an integrity test that runs in both test runs: for every function in the inventory it looks in that function's
+The **coverage check** is an integrity test that runs in both test runs: for every function in the inventory it looks in that function's
 `Verb-Noun.Tests.ps1` for a test that cites `ADR-AUTO-ASSETDEP#3` and is not `source-only`, and fails with the function and its uncovered
-child paths when there is none. The **build gate** is part of `Build-Modules`' self-check
+child paths when there is none. The **presence check** is part of `Build-Modules`' self-check
 ([platform-bundle](platform-bundle.md#rule-adr-auto-bundle5)): every inventoried (module, child path) must exist in the built output, so a
 side folder the build forgot to copy fails the build, not a user's session.
 
 Together they make the rule self-maintaining. A new asset read appears in the inventory the moment it is written; without its covering test
-the coverage gate is red, so the change cannot merge ([poka-yoke](../principles/poka-yoke.md)).
+the coverage check is red, so the change cannot merge ([poka-yoke](../principles/poka-yoke.md)).
 
 ### How this is enforced
 
 - **`Get-CatzcModuleRoot`** (`Catzc.Base.Repository`) — the one helper for a module's own content.
 - **`Measure-NoScriptRootAnchor`** (`automation/.scriptanalyzer/`) — flags `$PSScriptRoot` in module function files.
 - **`Get-InternalAssetDependency`** (`Catzc.Base.ModuleSystem`) — derives the inventory from the code.
-- **The coverage gate** — an integrity test over the inventory, in both test runs (ADR-AUTO-ASSETDEP#4).
-- **The build gate** — `Build-Modules` / `Assert-CatzcBundle` check every inventoried path in the built output (ADR-AUTO-ASSETDEP#4).
+- **The coverage check** — an integrity test over the inventory, in both test runs (ADR-AUTO-ASSETDEP#4).
+- **The presence check** — `Build-Modules` / `Assert-CatzcBundle` check every inventoried path in the built output (ADR-AUTO-ASSETDEP#4).
 - **`Test-CatzcBuild`** — runs every `ADR-AUTO-ASSETDEP#3` test against the build.
 
 ## Consequences

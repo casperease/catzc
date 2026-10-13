@@ -9,8 +9,7 @@
 Never use relative paths that depend on the process working directory. Resolve every path from a known anchor — in PowerShell, the code root
 (`Get-CatzcModuleRoot`, `Get-CatzcModulesRoot`) for content that ships with the code ([rule 5](#rule-adr-auto-nopwd5)) and
 `Get-RepositoryRoot` for the working tree ([rule 6](#rule-adr-auto-nopwd6)), joined with `Join-Path` (the anchor idioms are the language
-layer,
-[working-directory-mechanics](powershell/working-directory-mechanics.md), `ADR-AUTO-PSPWD`).
+layer, [working-directory-mechanics](powershell/working-directory-mechanics.md), `ADR-AUTO-PSPWD`).
 
 - [Rejected alternatives](#rejected-alternatives)
 - [How this is enforced](#how-this-is-enforced)
@@ -84,7 +83,7 @@ through the folder its file happens to sit in.
   dependence. Runs as one of the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
 - **Custom PSScriptAnalyzer rule `Measure-NoScriptRootAnchor`** (`automation/.scriptanalyzer/NoScriptRootAnchor.psm1`) — flags
   `$PSScriptRoot` in any module function file (root or `private/`), exempting tests, `assets/`, and `.internal`
-  ([rule 5](#rule-adr-auto-nopwd5)). Runs in the same analyzer gate, in the L2 tests.
+  ([rule 5](#rule-adr-auto-nopwd5)). Runs in the same `Test-ScriptAnalyzer` quality gate, in the L2 tests.
 - **The language layer** — the anchor idioms and the one safe way to change directory (`Push-Location`/`Pop-Location` in `try`/`finally`)
   are [working-directory-mechanics](powershell/working-directory-mechanics.md) (`ADR-AUTO-PSPWD`), which the same analyzer rule enforces.
 

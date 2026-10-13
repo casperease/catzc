@@ -1,4 +1,4 @@
-# The in-pipeline "is there anything here for us to process?" gate — reflects the context's diff and reports
+# The in-pipeline "is there anything here for us to process?" check — reflects the context's diff and reports
 # whether the named unit is touched, fail-open on any doubt
 # ([ADR-REPO-PROTGLOB#5](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob5)), fail-fast on a typo'd name.
 Describe 'Test-GlobSetAffected' -Tag 'L0', 'logic' {

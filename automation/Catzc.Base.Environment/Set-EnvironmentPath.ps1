@@ -5,8 +5,8 @@
     The single seam through which the PATH helpers (Add-/Remove-PermanentPath, the tooling uninstallers)
     WRITE the persistent PATH, so tests can Mock the registry boundary
     (`Mock Set-EnvironmentPath -ModuleName <module>`) instead of mutating the real machine PATH (which also
-    broadcasts WM_SETTINGCHANGE). User/Machine scopes are a Windows concept; callers gate Windows-only use
-    behind $IsWindows. This is the deliberately thin, un-mockable I/O boundary, so it has no unit test of its
+    broadcasts WM_SETTINGCHANGE). User/Machine scopes are a Windows concept; callers guard Windows-only use
+    with $IsWindows. This is the deliberately thin, un-mockable I/O boundary, so it has no unit test of its
     own.
 
     Because every persistent PATH write passes through here, this is also where it is announced

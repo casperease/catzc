@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the repository-relative Markdown files whose title is their path.
 .DESCRIPTION
-    Every git-tracked *.md file — the repository as committed, so a gitignored README link is never in scope while
+    Every git-tracked *.md file — the repository as committed, so a gitignored generated README is never in scope while
     its tracked source is — minus the classes .gitattributes declares: linguist-vendored and linguist-generated (not
     authored here), catzc-fixture (test fixture trees, data on purpose), and -catzc-path-title (a file that keeps its
     own title, the repository landing page). No list of its own: a new exception is declared in the .gitattributes

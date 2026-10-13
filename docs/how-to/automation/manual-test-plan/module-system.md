@@ -33,7 +33,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 **Checks:**
 
 - The shipped `dependencies.yml` loads and validates as a `DependenciesConfig` (acyclic, every target declared). A declared module missing
-  on disk is the module dependency gate's finding (row 7), not a load check.
+  on disk is a `Test-ModuleDependency` finding (row 7), not a load check.
 
 ### 2. Get-FunctionDependency
 

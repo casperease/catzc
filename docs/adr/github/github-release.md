@@ -15,7 +15,7 @@ artifact to the outside world is a deliberate act, so a human starts it.
 ### Rule ADR-GH-RELEASE:2
 
 Every run **builds the artifact and uploads it; publishing is separate and opt-in**. The build step runs `Export-Catzc -To nuget` to produce
-the `.nupkg` and the PSGallery module manifest and uploads them as a workflow artifact unconditionally; each publish step is gated on its
+the `.nupkg` and the PSGallery module manifest and uploads them as a workflow artifact unconditionally; each publish step is guarded by its
 own input and no-ops without its token. A run with no publish inputs simply produces the package — the "just build it" path.
 
 - [Build always, publish on purpose](#build-always-publish-on-purpose)

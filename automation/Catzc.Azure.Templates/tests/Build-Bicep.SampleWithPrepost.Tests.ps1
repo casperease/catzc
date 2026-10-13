@@ -22,7 +22,7 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
             }
         } -ModuleName Catzc.Azure.Templates
         Mock Assert-Tool { } -ModuleName Catzc.Azure.Templates
-        # The Bicep CLI gate now lives in Catzc.Azure.Cli; mock the boundary so its internal az probe never runs.
+        # The Bicep CLI guard lives in Catzc.Azure.Cli; mock the boundary so its internal az probe never runs.
         Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
@@ -38,7 +38,7 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
         # Building all envs yields alpha AND beta, so every
         # per-env range/vnet/reference check reads the captured output rather than re-invoking Build-Bicep.
         # Under the sharded/greedy run a Build-Bicep call (PrePost import + file I/O) costs ~5-6x its warm
-        # solo time from CPU/IO contention; collapsing six builds to one keeps every It off the L0 gate.
+        # solo time from CPU/IO contention; collapsing six builds to one keeps every It within the L0 time budget.
         $script:configRoot = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates/sample-with-prepost/configuration'
         if (Test-Path $script:outputRoot) {
             Remove-Item $script:outputRoot -Recurse -Force

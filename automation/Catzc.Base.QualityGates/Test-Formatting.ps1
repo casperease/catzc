@@ -8,7 +8,7 @@
 
       Format-Markdown    the in-scope Markdown (Prettier, -Check)
       Format-Pipelines   the pipeline YAML, **/*.yaml (Prettier, -Check)
-      Format-Automation  the gated PowerShell set (Invoke-Formatter + the .editorconfig rules, -DryRun)
+      Format-Automation  the checked PowerShell set (Invoke-Formatter + the .editorconfig rules, -DryRun)
       Format-Types       the C# type sources' file-scoped namespace (-DryRun): a missing or wrong one, and a
                          block-scoped one, which Format-Types cannot fix and the gate reports for a hand edit
 

@@ -36,10 +36,10 @@ the Reproducible Builds project on the source-to-binary verification path, and S
 ### Rule ADR-DSGN-SELFSERV:4
 
 Changes reach production through **trunk-based development with automated guardrails**. Work lands on trunk in small batches behind
-short-lived branches that are gated by CI and deleted after merge; there are no long-lived divergent branches and no legacy variants of our
-own code (`ADR-PRIN-ONELIVE`). The guardrails — asserts (`ADR-AUTO-FAILFAST`), the quality gates, the freshness/marker checks, and code
-review — are **automated and mandatory**, so self-service cannot merge a change that skips them. Speed and control are the same mechanism
-here, not a trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
+short-lived branches that must pass the CI gate and are deleted after merge; there are no long-lived divergent branches and no legacy
+variants of our own code (`ADR-PRIN-ONELIVE`). The guardrails — asserts (`ADR-AUTO-FAILFAST`), the quality gates, the freshness/marker
+checks, and code review — are **automated and mandatory**, so self-service cannot merge a change that skips them. Speed and control are the
+same mechanism here, not a trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
 
 - [Trunk-based development](#trunk-based-development)
 
@@ -97,7 +97,7 @@ because it can be traced back to a reviewed commit and rebuilt to match.
 Trunk-based development is what keeps the single source of truth actually single and actually current. trunkbaseddevelopment.com defines it
 as "a source-control branching model where developers collaborate on code in a single branch called 'trunk' and resist any pressure to
 create other long-lived development branches". The practices that matter here are its guardrails: small, frequent commits to trunk;
-short-lived branches used only for review and CI, then deleted; and a mandatory build/gate that a commit must pass. Because those gates are
+short-lived branches used only for review and CI, then deleted; and a mandatory CI gate that a commit must pass. Because those gates are
 automated and stand between every change and trunk, self-service cannot merge something that skips review, fails an assert, or leaves a
 stale marker. The branching discipline and the no-legacy rule (`ADR-PRIN-ONELIVE`) are two faces of the same commitment: one living version,
 on trunk, always releasable.
@@ -128,8 +128,8 @@ artifact with provenance** (ADR-DSGN-SELFSERV#3), landed via **trunk-based devel
   verifiable identity.
 - **One living version** (`ADR-PRIN-ONELIVE`) forbids long-lived branches and legacy variants, keeping trunk the one always-releasable
   source.
-- **Fail-fast asserts and the quality gates** (`ADR-AUTO-FAILFAST`, the spell/terminology/freshness gates) are the automated guardrails a
-  self-service change must clear before it can merge.
+- **Fail-fast asserts and the quality gates** (`ADR-AUTO-FAILFAST`, the spelling, terminology and freshness quality gates) are the automated
+  guardrails a self-service change must clear before it can merge.
 - **The thin CLI** (`ADR-DSGN-THINPLAT`) is the only actuator, so no self-service action can bypass the record.
 
 ## References

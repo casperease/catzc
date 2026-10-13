@@ -6,7 +6,7 @@
 
 ### Rule ADR-AUTO-RETRY:1
 
-Never retry in a test. A flake must surface; make the dependency deterministic (mock it) or gate it behind an explicit tier (e.g.
+Never retry in a test. A flake must surface; make the dependency deterministic (mock it) or move it behind an explicit tier (e.g.
 `-Tag 'L3'`, skipped when unavailable). Non-L3 tests must not depend on external connectivity.
 
 - [Decision](#decision)

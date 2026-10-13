@@ -74,7 +74,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 - [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — the up/release, down/topic geometry and the
   fix-forward-then-cherry-pick rule encode a trunk-based branching model.
 - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — the funnel-thinning rule makes batch size and
-  gate selectivity visible.
+  how selective each gate is visible.
 - [DORA research reference](../../references/dora/index.md).
 
 ## Commit lifecycle
@@ -113,7 +113,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 - [Version control](../../references/dora/capabilities.md#version-control) — the audited server remote is the single source of truth with a
   complete, attributable history.
 - [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — the PR is built-in, authenticated
-  ingress and approval, not a heavyweight external gate.
+  ingress and approval, not a heavyweight external approval gate.
 - [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — authenticating every ingress at the PR keeps every commit
   on main attributable to a known principal.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

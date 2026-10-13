@@ -13,7 +13,7 @@
     Get-GlossarySourceViolations reports one that is not.
 
     Reads the source tree's configs and git, so it runs in source mode only (Assert-SourceTree). Private helper
-    for Get-Glossary and the glossary gates; not exported.
+    for Get-Glossary and the glossary checks; not exported.
 .OUTPUTS
     [pscustomobject] One { Owner; Path; Config; Tracked } per source, sorted by owner (ordinal): Path is
     repo-relative, Config the source's Catzc.Base.Docs.GlossaryConfig, Tracked whether git tracks Path.

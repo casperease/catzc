@@ -670,9 +670,8 @@ function Invoke-ModuleBuild {
 
         Every check runs before anything is written, and each collects every violation before it throws: the
         merge preconditions of every source file
-        ([ADR-AUTO-BUNDLE#4](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle4)), and the build gate — every
-        internal asset
-        dependency of the selected modules (Get-InternalAssetDependency) is present in the planned output
+        ([ADR-AUTO-BUNDLE#4](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle4)), and the asset-dependency
+        guard — every internal asset dependency of the selected modules (Get-InternalAssetDependency) is present in the planned output
         ([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)). Writes are
         converging: text through Write-FileIfChanged, copies only on a byte
         difference, and files the plan omits removed — so a rebuild of an unchanged commit writes nothing.
@@ -755,7 +754,7 @@ function Invoke-ModuleBuild {
             ($plan.Violations -join "`n  "))
     }
 
-    # The build gate
+    # The asset-dependency guard
     # ([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)), checked
     # against the plan so a missing asset fails before any write.
     $plannedPaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)

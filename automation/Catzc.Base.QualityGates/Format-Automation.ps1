@@ -14,7 +14,7 @@
     IgnoreAssignmentOperatorInsideHashTable = $true so the aligned spaces are not flagged. Editor,
     Format-Automation, and the analyzer therefore agree on aligned '='.
 .PARAMETER Path
-    One or more files or directories to format. Defaults to the canonical gated set (Get-AutomationSourceFiles):
+    One or more files or directories to format. Defaults to the canonical checked set (Get-AutomationSourceFiles):
     module root *.ps1, private/, tests/, the .internal and .scriptanalyzer infrastructure folders (bootstrap,
     TestKit, custom analyzer rules, and their tests), the root importer.ps1, and authored .psd1 config. The
     default set is the catzc source tree, so it needs source mode; an explicit -Path works in either run mode.
@@ -70,7 +70,7 @@ function Format-Automation {
         }
     }
     else {
-        # The canonical gated set — shared with Test-ScriptAnalyzer and the L2 analyzer test so they cannot
+        # The canonical checked set — shared with Test-ScriptAnalyzer and the L2 analyzer test so they cannot
         # drift. Includes the .internal/.scriptanalyzer infrastructure folders, the root importer.ps1, and
         # authored .psd1 config; excludes .vendor, .compiled, and generated manifests.
         foreach ($f in (Get-AutomationSourceFiles)) {
@@ -80,7 +80,7 @@ function Format-Automation {
 
     # Announce the loop before entering it
     # ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console10)):
-    # formatting the whole gated set runs Invoke-Formatter
+    # formatting the whole checked set runs Invoke-Formatter
     # per file over hundreds of files, and only CHANGED files print below — so a clean run is otherwise
     # silent for the entire pass and looks hung.
     $announceVerb = if ($DryRun) {

@@ -110,7 +110,7 @@ function Invoke-TestRun {
         throw 'No test folders found'
     }
 
-    # One discovery-only pass feeds every pre-run inspection: the tag gate below and the phase split
+    # One discovery-only pass feeds every pre-run inspection: the tag check below and the phase split
     # (Split-TestAutomationFiles) share it, so the tree is discovered once per run.
     $discovery = Get-TestDiscovery -TestPath $testPaths
 

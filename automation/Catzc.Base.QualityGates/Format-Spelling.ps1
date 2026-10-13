@@ -22,7 +22,7 @@
     cspell must be on PATH — install it once with Install-Cspell (or: npm install -g cspell).
 .PARAMETER Glob
     Globs/paths to scan. Defaults to the repository's known text file types — the same scope Test-Spelling
-    gates. cspell still applies the ignorePaths from cspell.yml.
+    checks. cspell still applies the ignorePaths from cspell.yml.
 .PARAMETER Exclude
     Globs to skip, passed to cspell as --exclude. Defaults to the authored/generated trees that are out of
     scope to spell-check, matching Test-Spelling so the tokens queued are exactly the tokens the gate flags.

@@ -21,7 +21,7 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
             }
         } -ModuleName Catzc.Azure.Templates
         Mock Assert-Tool { } -ModuleName Catzc.Azure.Templates
-        # The Bicep CLI gate now lives in Catzc.Azure.Cli; mock the boundary so its internal az probe never runs.
+        # The Bicep CLI guard lives in Catzc.Azure.Cli; mock the boundary so its internal az probe never runs.
         Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
         # Discover from the test fixtures and resolve identity from the test config fixture.
         Mock Get-BicepTemplatesRoot {
@@ -103,8 +103,8 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     }
 
     It 'asserts the Bicep CLI is available before building' {
-        # The Bicep CLI gate (Assert-AzCliBicep, in Catzc.Azure.Cli) throws -> Build-Bicep stops before any
-        # az bicep build runs. Mock the gate boundary (its own az-version behaviour is covered in Cli tests).
+        # The Bicep CLI guard (Assert-AzCliBicep, in Catzc.Azure.Cli) throws -> Build-Bicep stops before any
+        # az bicep build runs. Mock the guard boundary (its own az-version behaviour is covered in Cli tests).
         Mock Assert-AzCliBicep { throw 'Bicep CLI not available. Run az bicep install.' } -ModuleName Catzc.Azure.Templates
         { Build-Bicep sample -Environments alpha } | Should -Throw '*az bicep install*'
         Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.Templates -Times 0 -ParameterFilter { $Arguments -match 'bicep build' }

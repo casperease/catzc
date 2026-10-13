@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Lists the glossary facts that span sources (gate G1, cross-source) — one message per violation.
+    Lists the glossary facts that span sources (check G1, cross-source) — one message per violation.
 .DESCRIPTION
     The GlossaryConfig type checks each source on its own when it loads; this checks what no single source can
     see ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)):
@@ -19,7 +19,7 @@
     The first source in owner order keeps a duplicated term or key; every later one is reported. Each message
     starts with the reporting source's repo-relative path and names the term, so it points at the line to fix.
 
-    Private helper for the glossary gates; not exported.
+    Private helper for the glossary checks; not exported.
 .PARAMETER Source
     The glossary sources, as Get-GlossarySources returns them ({ Owner; Path; Config; Tracked }). Defaults to
     every source in the repository.

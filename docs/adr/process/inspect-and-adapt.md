@@ -52,7 +52,7 @@ Build improvement into the process as a continuous, evidence-driven loop:
 - **Inspect and adapt continuously.** The team routinely examines how it works — where the line stops, where items wait
   ([ADR-PROC-QUEUECOST](queues-cost-money.md)), what the gates catch — and adjusts. This is a standing reflex, not a quarterly initiative.
 - **Decide from evidence.** Process changes follow observed signals from the real system ([ADR-PROC-OBSERVEWIP](observe-work.md)), not
-  opinion. A recurring failure, a lengthening queue, or a flaky gate is data that motivates a specific countermeasure.
+  opinion. A recurring failure, a lengthening queue, or a flaky quality gate is data that motivates a specific countermeasure.
 - **Amplify learning by capturing it.** When something is learned, it is encoded where it will hold — a convention that makes the mistake
   impossible to express ([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)), a gate that catches it
   ([ADR-AUTO-TEST](../automation/test-automation.md)), or an ADR that records the decision — so the next person inherits the knowledge

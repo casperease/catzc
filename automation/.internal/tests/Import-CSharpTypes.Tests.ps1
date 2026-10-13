@@ -256,7 +256,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         It 'throws when a type file declares the WRONG namespace (not its module folder)' {
             $namespace = "CatzcTestNs$runId"
             # The source must declare its module's file-scoped namespace; a different one is the mismatch the
-            # loader rejects (the same invariant Test-Formatting gates). The explicit namespace bypasses auto-prepend.
+            # loader rejects (the same invariant Test-Formatting checks). The explicit namespace bypasses auto-prepend.
             $root = New-FixtureRoot @{ $namespace = @{ Widget = "namespace Other;`npublic class Widget { }" } }
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                 Should -Throw '*must declare*'
@@ -375,16 +375,16 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
 }
 
 Describe 'shipped C# types' -Tag 'L0', 'integrity' {
-    It 'every shipped C# type resolves after import (Test-ShippedTypes gate)' {
+    It 'every shipped C# type resolves after import (Test-ShippedTypes quality gate)' {
         $result = Test-ShippedTypes -PassThru -OutputFolder (Join-Path $TestDrive 'shipped-types')
         $result.Types | Should -BeGreaterThan 0 -Because 'the gate must find shipped C# type sources (no silent no-op)'
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 
-    It 'every shipped C# type declares its module file-scoped namespace (Test-Formatting gate)' {
+    It 'every shipped C# type declares its module file-scoped namespace (Test-Formatting quality gate)' {
         # The loader enforces this at import (it throws on a missing/mismatched namespace); this asserts the same
-        # invariant through Test-Formatting's Format-Types check, the authored gate, so a drift is a named failure,
-        # not a load-time throw.
+        # invariant through Test-Formatting's Format-Types check, the authored quality gate, so a drift is a named
+        # failure, not a load-time throw.
         if (-not (Get-Command Test-Formatting -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'harness_test_formatting'; return
         }

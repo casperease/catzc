@@ -14,10 +14,10 @@ clears it, and `Clear-GlobSetProtection` clears it without reloading.
 
 ### Rule ADR-REPO-PROTGLOB:2
 
-CI is never protected: in a pipeline the map is neither read nor written, and every scan runs full, every time. The gate is purely a local
-inner-loop optimization.
+CI is never protected: in a pipeline the map is neither read nor written, and every scan runs full, every time. The protection skip is
+purely a local inner-loop optimization.
 
-- [Why CI never gates](#why-ci-never-gates)
+- [Why CI is never protected](#why-ci-is-never-protected)
 
 ### Rule ADR-REPO-PROTGLOB:3
 
@@ -106,7 +106,7 @@ scan that fails never reaches the promote call, so a red result is never cached 
 the recorded pre-scan identity, so the next query re-scans. Keep this property named — hashing at promote time would silently protect a
 state the scan never read.
 
-### Why CI never gates
+### Why CI is never protected
 
 CI's job is proof, and the map's guarantee ("this session already proved it") is worthless across machines and runs. In a pipeline
 (`Test-IsRunningInPipeline`), `Test-GlobSetProtection` answers `$false` unconditionally and `Protect-GlobSet` is a no-op — the
@@ -151,11 +151,11 @@ re-run more — the failure mode is a redundant run, never a wrong skip.
 
 ### Protection across a test run
 
-`Test-Automation` applies the gate per module, in the orchestrator, around the sharded execution engine: after discovery, each in-scope
-unit's composite identity is computed and queried — a protected unit's test files are dropped from the work-list before sharding, reported
-one line per unit and as `ProtectedModules` on the `-PassThru` object; after the workers return, every unit that produced no failed row is
-promoted (the pending pre-run identity, `ADR-REPO-PROTGLOB:4`). Anything unattributable is conservative: a failed shard container, or a
-failed row with no file, promotes nothing. Workers never read or write the map — a worker is a fresh process whose module state could not
+`Test-Automation` applies the protection skip per module, in the orchestrator, around the sharded execution engine: after discovery, each
+in-scope unit's composite identity is computed and queried — a protected unit's test files are dropped from the work-list before sharding,
+reported one line per unit and as `ProtectedModules` on the `-PassThru` object; after the workers return, every unit that produced no failed
+row is promoted (the pending pre-run identity, `ADR-REPO-PROTGLOB:4`). Anything unattributable is conservative: a failed shard container, or
+a failed row with no file, promotes nothing. Workers never read or write the map — a worker is a fresh process whose module state could not
 see it anyway. In a pipeline the whole block is bypassed before any identity is computed, so CI pays nothing and skips nothing. A run keyed
 `test-automation|L0-L1|Logic` protects only that scope; the default `L0-L2|Both` run has its own key, so a narrow green never hides a wide
 red.
@@ -170,7 +170,7 @@ red.
 
 ## Consequences
 
-- The local inner loop stops re-paying for unchanged proof: repeat gate runs skip the heavy scans until an in-scope file (or scan config)
+- The local inner loop stops re-paying for unchanged proof: repeat test runs skip the heavy scans until an in-scope file (or scan config)
   actually changes.
 - Skips are trustworthy by construction: working-tree identity, record-only-on-green, pre-scan hashing, and fail-open leave no path to a
   false green — the worst failure mode is a redundant scan.
@@ -179,7 +179,7 @@ red.
 
 ## Related
 
-- [durable-sha-globs](../flow/durable-sha-globs.md) — the globsets and durable SHA this gate keys on.
+- [durable-sha-globs](../flow/durable-sha-globs.md) — the globsets and durable SHA the protection skip keys on.
 - [test-automation](test-automation.md) — the tier/category system the protected integrity scans run under.
 - [caching](caching.md) — the general caching rules; this map is deliberately narrower (session memory, never persisted).
-- [reduce-waste](../principles/reduce-waste.md), [poka-yoke](../principles/poka-yoke.md) — the principles the gate instantiates.
+- [reduce-waste](../principles/reduce-waste.md), [poka-yoke](../principles/poka-yoke.md) — the principles the protection skip instantiates.

@@ -59,7 +59,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
     }
 }
 
-# Integrity: the real repository is formatted — Markdown (Prettier), the gated PowerShell set, and the C# type
+# Integrity: the real repository is formatted — Markdown (Prettier), the checked PowerShell set, and the C# type
 # namespaces (each source declares its module's file-scoped namespace, the invariant the type loader also enforces). The pipeline YAML has its own block (Format-Pipelines.Tests.ps1). L2 because it drives the Prettier CLI
 # and the vendored analyzer's formatter; self-skips when prettier is absent
 # ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)/9). source-only: it reads the

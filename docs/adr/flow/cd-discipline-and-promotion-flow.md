@@ -54,11 +54,11 @@ automatically reconciled to latest main — is fixed here; its _name_ is org sem
 ### Rule ADR-FLOW-CD:6
 
 **Progression toward prod leaves the automated flow and enters DEPLOY.** From non-prod, the same tagged artifact is promoted toward
-production via **DEPLOY** activities — a solo, manually-governed DEPLOY pipeline that drives the artifact into a **non-automated (manually
-gated)** environment ([ADR-FLOW-CD-TYPE#8–ADR-FLOW-CD-TYPE#11](../flow/pipeline-types.md#deploy)). The boundary between CD and DEPLOY is the
-automated/manual-governance line: CD owns the automated non-prod direction; the human certification is a hands-on gate — **RC** at main-UAT
-or **RBC** at release-uat (ADR-FLOW-CD#9) — and **DEPLOY** is the pipeline that actuates the roll to prod once that gate clears. RC/RBC
-decide _whether_ to proceed; DEPLOY performs the advance.
+production via **DEPLOY** activities — a solo, manually-governed DEPLOY pipeline that drives the artifact into a **non-automated**
+environment behind a manual gate ([ADR-FLOW-CD-TYPE#8–ADR-FLOW-CD-TYPE#11](../flow/pipeline-types.md#deploy)). The boundary between CD and
+DEPLOY is the automated/manual-governance line: CD owns the automated non-prod direction; the human certification is a manual gate — **RC**
+at main-UAT or **RBC** at release-uat (ADR-FLOW-CD#9) — and **DEPLOY** is the pipeline that actuates the roll to prod once that gate clears.
+RC/RBC decide _whether_ to proceed; DEPLOY performs the advance.
 
 - [The boundary to prod is DEPLOY](#the-boundary-to-prod-is-deploy)
 
@@ -77,25 +77,25 @@ tagged artifact CI stamped and never rebuilds; internalizing the prod step chang
 ### Rule ADR-FLOW-CD:8
 
 **The CI discipline has an inner loop and an outer loop, and integration is not complete until the outer loop returns.** The **inner CI
-loop** is the fast build-validation gate bound by the 5–10 minute budget (ADR-FLOW-CD#2) — L0–L2 and the BVT — proving at machine speed that
-the merge is integrable. The **outer CI+ loop** adds the post-commit **system tests** (the L3-vertical run of ADR-FLOW-CD#5) and is
-deliberately **not** bound by that budget: it can take an hour or two. A green inner CI is necessary but not sufficient — from the
+loop** is the CI gate, the fast build-validation bound by the 5–10 minute budget (ADR-FLOW-CD#2) — L0–L2 and the BVT — proving at machine
+speed that the merge is integrable. The **outer CI+ loop** adds the post-commit **system tests** (the L3-vertical run of ADR-FLOW-CD#5) and
+is deliberately **not** bound by that budget: it can take an hour or two. A green inner CI is necessary but not sufficient — from the
 contributor's view the change is not truly integrated until the CI+ outer loop reports back — so CI+ is where the slow verification the
-inner gate cannot afford is allowed to live. CI+ is a part of the CI discipline, not a separate pipeline domain (ADR-FLOW-CD#3);
+inner CI gate cannot afford is allowed to live. CI+ is a part of the CI discipline, not a separate pipeline domain (ADR-FLOW-CD#3);
 mechanically its L3 leg runs in the CD pipeline's post-commit path.
 
 - [The outer CI+ loop](#the-outer-ci-loop)
 
 ### Rule ADR-FLOW-CD:9
 
-**RC and RBC are the two hands-on release gates, and they are gates, not pipelines.** A promotion toward production stops at a **manual,
-human-owned certification gate** on an always-on environment: **RC** (Release Certification) gates at **main-UAT**, and **RBC** (Release
-Branch Certification) gates at **release-uat**. Each clears when its **acceptance testing (AT)** is verified — RC on **main-AT** (AT against
-the `main-uat` environment), RBC on **release-AT** (AT against `release-uat`), the automated and manual tests a commit must pass there
-(ADR-FLOW-CD#10) — with a human certifying the environment's occupant (ADR-DSGN-LIFE#5) before it may advance. The gate is distinct from the
-**DEPLOY** pipeline that actuates the advance once the gate clears (ADR-FLOW-CD#6): RC/RBC decide _whether_ to proceed, DEPLOY performs the
-roll. Clearing a gate is a promotion; failing it holds or discards the occupant. Whether a human owns the gate (delivery) or the pipeline
-advances past it automatically (deployment) is the CD-vs-CDe posture of ADR-FLOW-CD#6/ADR-FLOW-CD#7.
+**RC and RBC are the two hands-on release gates, and each is a gate, not a pipeline.** A promotion toward production stops at a **manual
+gate**, a human-owned certification, on an always-on environment: **RC** (Release Certification) is the gate at **main-UAT**, and **RBC**
+(Release Branch Certification) is the gate at **release-uat**. Each clears when its **acceptance testing (AT)** is verified — RC on
+**main-AT** (AT against the `main-uat` environment), RBC on **release-AT** (AT against `release-uat`), the automated and manual tests a
+commit must pass there (ADR-FLOW-CD#10) — with a human certifying the environment's occupant (ADR-DSGN-LIFE#5) before it may advance. The
+gate is distinct from the **DEPLOY** pipeline that actuates the advance once the gate clears (ADR-FLOW-CD#6): RC/RBC decide _whether_ to
+proceed, DEPLOY performs the roll. Clearing a gate is a promotion; failing it holds or discards the occupant. Whether a human owns the gate
+(delivery) or the pipeline advances past it automatically (deployment) is the CD-vs-CDe posture of ADR-FLOW-CD#6/ADR-FLOW-CD#7.
 
 - [RC and RBC](#rc-and-rbc)
 
@@ -105,9 +105,9 @@ advances past it automatically (deployment) is the CD-vs-CDe posture of ADR-FLOW
 A **UAT** (User Acceptance Testing environment) is a running deployment a user-mimic can interact with — `main-uat` (tracking main) and
 `release-uat` (the release branch). **AT** (Acceptance Testing) is the verification _activity_: the **automated and manual** acceptance
 tests a commit must pass in that environment to be release-verified. So a stage's `-AT` name marks the testing and a `-uat` name marks the
-environment: **`L3-vertical-AT`** is the automated AT run in an on-demand slot (the automatic L3 gate); **`main-AT`** is the AT against
-`main-uat` (the manual RC gate, ADR-FLOW-CD#9); **`release-AT`** is the AT against `release-uat` (the manual RBC gate). A commit state
-`release-at-verified (main-uat)` reads "passed AT, in the main-uat environment" — the `-AT` is the testing, the `(…-uat)` is where.
+environment: **`L3-vertical-AT`** is the automated AT run in an on-demand slot (the gate L3 decides automatically); **`main-AT`** is the AT
+against `main-uat` (the manual RC gate, ADR-FLOW-CD#9); **`release-AT`** is the AT against `release-uat` (the manual RBC gate). A commit
+state `release-at-verified (main-uat)` reads "passed AT, in the main-uat environment" — the `-AT` is the testing, the `(…-uat)` is where.
 
 - [AT and UAT](#at-and-uat)
 
@@ -136,10 +136,10 @@ Build-once holds throughout: pre-prod and production receive the identical tagge
 
 ### Rule ADR-FLOW-CD:13
 
-A **gate** is a check whose verdict decides whether work may proceed past a point in the flow: it clears or holds, never half. An automated
-gate gives its verdict by machine — a quality gate (ADR-AUTO-TEST#35), run inside the inner CI gate and its integration budget
-(ADR-FLOW-CD#2); a manual gate is a human certification — RC and RBC (ADR-FLOW-CD#9). A gate decides; the pipeline that acts once a gate
-clears (DEPLOY, ADR-FLOW-CD#6) is not a gate.
+A **gate** is a check whose verdict decides whether work may proceed past a point in the flow: it clears or holds, never half. A gate gives
+its verdict either by machine — a quality gate (ADR-AUTO-TEST#35), run inside the inner CI gate and its integration budget (ADR-FLOW-CD#2) —
+or by human certification, as a manual gate — RC and RBC (ADR-FLOW-CD#9). A gate decides; the pipeline that acts once a gate clears (DEPLOY,
+ADR-FLOW-CD#6) is not a gate.
 
 - [RC and RBC](#rc-and-rbc)
 
@@ -170,8 +170,8 @@ The word "CI" carries both meanings, and conflating them is the mistake this ADR
 YAML file that compiles something. Read as a discipline, it is the team-scale practice — small, frequent integrations into one mainline,
 each proven fast — that the pipeline exists to _serve_. The 5–10 minute budget, the always-on environment that mirrors main, and the
 build-once artifact that flows to prod are all consequences of taking the discipline as primary. The complement is
-[continuous integration](../research/continuous-integration.md), whose fast-gate budget is what a slow release-candidate test run breaks
-when it squats in the fast CI slot.
+[continuous integration](../research/continuous-integration.md), whose CI-gate budget is what a slow release-candidate test run breaks when
+it squats in the fast CI slot.
 
 ## Decision
 
@@ -193,7 +193,7 @@ CD (pipeline = CI component + direction)
       │
       ├─ delivery (CD → RC/RBC gate → DEPLOY):  a human certifies (RC @ main-UAT / RBC @ release-uat), then DEPLOY rolls to prod
       │     DEPLOY (pipeline — solo, the actuator once the gate clears)
-      │        └─ promote → non-automated / manually-gated environment → … → prod
+      │        └─ promote → non-automated environment behind a manual gate → … → prod
       │
       └─ deployment (CDe):  the CD internalized the prod roll — no separate trigger
             └─ automatically advance the locked artifact → [optional internal approval] → prod
@@ -215,8 +215,8 @@ pipeline "CI" is correct, but it is the instrument, not the idea. When a design 
 
 The discipline only works if integrating _into_ main is cheap and fast for the whole team at once. That is the 5–10 minute figure (Farley's
 pre-commit budget; DORA's ten-minute working number). It is a **team** constraint, not an individual one: one contributor waiting fifteen
-minutes is an annoyance, but a fifteen-minute gate applied to every merge across a team is a standing queue, and a queue is the opposite of
-_continuous_ integration. So the budget is a hard design constraint on the CI pipeline concept, enforced there
+minutes is an annoyance, but a gate that takes fifteen minutes on every merge across a team is a standing queue, and a queue is the opposite
+of _continuous_ integration. So the budget is a hard design constraint on the CI pipeline concept, enforced there
 ([ADR-FLOW-CD-TYPE#4](../flow/pipeline-types.md#rule-adr-flow-cd-type4)); this ADR records that the reason is the discipline, not the
 pipeline's convenience. Work too slow for the budget is pushed right — into the CD deploy path or a DEPLOY step — never into the pre-commit
 gate.
@@ -224,8 +224,8 @@ gate.
 ### Separate domains, one key
 
 CI, CD, and DEPLOY are deliberately **separate ADO constructs** — separate triggers, separate governance, separate run histories — because
-they answer to different owners and cadences (build-and-verify on every change; automated non-prod promotion; human-gated production
-cutover). What keeps them from being three disconnected things is that they are **keyed together by one shared object**: the immutable,
+they answer to different owners and cadences (build-and-verify on every change; automated non-prod promotion; production cutover behind a
+manual gate). What keeps them from being three disconnected things is that they are **keyed together by one shared object**: the immutable,
 tagged artifact. A CI component stamps it once; CD consumes exactly that tag; DEPLOY promotes exactly that tag to prod. The tag (and its
 commit) is the join key across the domains, the same way a subscription name joins the two Azure config layers
 ([data-model](../azure/azure-data-model.md)). Because the key is an immutable artifact and no domain rebuilds it — build-once, deploy-many —
@@ -263,11 +263,11 @@ All of this is automated and lives entirely in non-prod. CD never touches produc
 
 The step from non-prod to production is where automation stops and organizational governance begins, and that is exactly the CD/DEPLOY
 boundary. From the certified non-prod state, the **same tagged artifact** is promoted toward prod through **DEPLOY** activities: a solo,
-manually-governed DEPLOY pipeline that drives the artifact into a **non-automated, manually-gated** environment
+manually-governed DEPLOY pipeline that drives the artifact into a **non-automated** environment behind a manual gate
 ([ADR-FLOW-CD-TYPE#8–ADR-FLOW-CD-TYPE#11](../flow/pipeline-types.md#deploy)). A DEPLOY pipeline is where a certification environment locked
-to a release commit, or an approval-gated production cutover, lives. The line is clean: **CD is the automated non-prod direction; DEPLOY is
-the human-governed step toward prod** — two domains, one artifact, keyed together at the boundary rather than fused into a single pipeline
-that would bury the manual gate inside an automated flow.
+to a release commit, or a production cutover behind an approval gate, lives. The line is clean: **CD is the automated non-prod direction;
+DEPLOY is the human-governed step toward prod** — two domains, one artifact, keyed together at the boundary rather than fused into a single
+pipeline that would bury the manual gate inside an automated flow.
 
 ### CDe
 
@@ -283,7 +283,7 @@ What defines CDe is _where the promotion decision lives_, not whether a human ev
 - In **CD → DEPLOY**, the decision to roll to prod is **external**: a person starts a DEPLOY pipeline, which owns the prod step with its own
   trigger, governance, and history.
 - In **CDe**, the decision is **internalized**: for a locked commit and its build, the pipeline itself advances toward prod automatically. A
-  CDe may still **pause at an internal gate** — a required approval before the production stage — but that gate is a checkpoint _inside_ an
+  CDe may still **pause at an approval gate** — a required approval before the production stage — but that gate is a checkpoint _inside_ an
   automated promotion, not a separate pipeline someone must remember to go and start. The activity, "advance this locked artifact toward
   prod," is determined by the pipeline.
 
@@ -306,10 +306,10 @@ ADR-FLOW-CD#5), and those cannot be made to fit the inner budget: they take an h
 exactly the shared-fate failure the budget rule exists to prevent.
 
 The discipline's honesty depends on naming this. A green inner CI proves the merge builds and passes the fast checks; it does not prove the
-system works. Integration, as the contributor experiences it, is not finished until the CI+ outer loop returns — that feedback, not the fast
-gate, is what closes the loop. So CI+ is not a weaker or optional CI: it is the part of the discipline the fast gate deliberately defers,
-run post-commit where its cost is affordable, and a change is "integrated" only once it is green. Because CI+ is discipline, not a domain,
-it adds no ADO pipeline kind (ADR-FLOW-CD#3) — its L3 leg is the CD pipeline's on-demand system test, named as the outer loop rather than
+system works. Integration, as the contributor experiences it, is not finished until the CI+ outer loop returns — that feedback, not the CI
+gate, is what closes the loop. So CI+ is not a weaker or optional CI: it is the part of the discipline the CI gate deliberately defers, run
+post-commit where its cost is affordable, and a change is "integrated" only once it is green. Because CI+ is discipline, not a domain, it
+adds no ADO pipeline kind (ADR-FLOW-CD#3) — its L3 leg is the CD pipeline's on-demand system test, named as the outer loop rather than
 forked into a second pipeline.
 
 ### RC and RBC
@@ -317,8 +317,8 @@ forked into a second pipeline.
 `RC and RBC: the two hands-on release gates`
 
 The automated flow (ADR-FLOW-CD#5) carries the artifact through non-prod on its own. Progression toward production, by contrast, passes
-through **human certification** — and there are two such gates, one per always-on release environment, each a deliberate hands-on stop
-rather than an automated check:
+through **human certification** — at two manual gates, one per always-on release environment, each a deliberate hands-on stop rather than an
+automated check:
 
 - **RC — Release Certification**, at **main-UAT**. The always-on environment that tracks latest main holds one occupant (ADR-DSGN-LIFE#5);
   RC is the human decision to certify the main-UAT occupant for onward release. It is the gate a Continuous **Delivery** posture stops at,
@@ -326,7 +326,7 @@ rather than an automated check:
 - **RBC — Release Branch Certification**, at **release-uat**. When a release variant is stabilized on a release branch, RBC is the human
   certification of the release-uat occupant before it is cut to production.
 
-Both are **gates, not pipelines**. The gate is the human decision; the **DEPLOY** pipeline (ADR-FLOW-CD#6) is the actuator that rolls the
+Each is a **gate, not a pipeline**. The gate is the human decision; the **DEPLOY** pipeline (ADR-FLOW-CD#6) is the actuator that rolls the
 certified artifact onward once the gate clears. Keeping them distinct is what lets one DEPLOY mechanism serve either gate, and lets a
 Continuous **Deployment** (CDe) posture internalize the roll (ADR-FLOW-CD#7) by automating past the point where RC/RBC would otherwise stop
 it. Which gates a unit passes through — and whether a human or the pipeline owns the decision to advance — is the delivery-vs-deployment
@@ -390,14 +390,14 @@ the mechanic — stage inactive, validate, activate live — is the same.
   the CI component's tagged artifact — violates ADR-FLOW-CD#3 and is caught in review: the same tag must flow from CI through the non-prod
   direction to the prod step (DEPLOY's, or CDe's internalized one), never re-derived.
 - **Delivery vs deployment is a named posture.** Review checks that a unit that auto-rolls to prod is a **CDe** (ADR-FLOW-CD#7) — the prod
-  promotion internalized and automated, with any human step expressed as an _internal_ gate — and not a DEPLOY's human-owned cutover fused
-  into a CD under the "CD" label. Which posture a unit is under is a deliberate, reviewable choice, not an accident of where a stage was
-  placed.
+  promotion internalized and automated, with any human step expressed as an _internal_ approval gate — and not a DEPLOY's human-owned
+  cutover fused into a CD under the "CD" label. Which posture a unit is under is a deliberate, reviewable choice, not an accident of where a
+  stage was placed.
 - **The environment shape, not its name, is the contract.** Review checks that the always-on non-prod environment is auto-reconciled to
   latest main (ADR-FLOW-CD#5), whatever the org names it — a manually-refreshed "UAT" that drifts from main is not the always-on mirror this
   flow requires.
 - **CI+ and the release gates are review-checked.** Review confirms the slow system tests live in the CI+ outer loop, never the inner CI
-  gate (ADR-FLOW-CD#2/ADR-FLOW-CD#8), and that a promotion to prod passes a named hands-on gate — RC at main-UAT or RBC at release-uat
+  gate (ADR-FLOW-CD#2/ADR-FLOW-CD#8), and that a promotion to prod passes a named manual gate — RC at main-UAT or RBC at release-uat
   (ADR-FLOW-CD#9) — with DEPLOY as the actuator, not a human cutover fused into CD under another label.
 
 ## Consequences
@@ -408,14 +408,14 @@ the mechanic — stage inactive, validate, activate live — is the same.
   promotes it to prod — one artifact keying three independently-governed domains.
 - Build-once, deploy-many is structural: because the tagged artifact is the join key and no domain rebuilds, production runs exactly the
   bytes non-prod certified.
-- The manual/automated line has a home: under **delivery**, everything automated lives in CD's non-prod direction and everything human-gated
-  lives in DEPLOY, with the boundary explicit rather than an approval buried in an automated pipeline. Under **deployment (CDe)**, the prod
-  roll is internalized and automated, and the boundary moves _inside_ the pipeline as an optional approval gate — still explicit, but now a
-  checkpoint in an automated flow rather than a separately-triggered construct.
+- The manual/automated line has a home: under **delivery**, everything automated lives in CD's non-prod direction and everything behind a
+  manual gate lives in DEPLOY, with the boundary explicit rather than an approval buried in an automated pipeline. Under **deployment
+  (CDe)**, the prod roll is internalized and automated, and the boundary moves _inside_ the pipeline as an optional approval gate — still
+  explicit, but now a checkpoint in an automated flow rather than a separately-triggered construct.
 - "CD" stops meaning two things: Continuous **Delivery** (prod is a human-triggered DEPLOY) and Continuous **Deployment** (CDe — the prod
   roll is automated) are named apart, so a unit's promotion posture is stated, not inferred.
 - The cost is that promotion is several keyed constructs rather than one monolith. That is the intended trade: separate domains with their
-  own access, isolation, and history, held together by an immutable artifact — not a single pipeline that conflates a fast team gate, an
+  own access, isolation, and history, held together by an immutable artifact — not a single pipeline that conflates the team's CI gate, an
   automated non-prod rollout, and a governed production cutover.
 
 ## Related

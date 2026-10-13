@@ -1,18 +1,18 @@
 <#
 .SYNOPSIS
-    Lists the glossary terms that are not anchored on their defining rule (gate G2) — one message per violation.
+    Lists the glossary terms that are not anchored on their defining rule (check G2) — one message per violation.
 .DESCRIPTION
     A defined term has one home: the ADR rule its concept names in `defined_by`, whose normative summary bolds it
     ([ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)). For every concept whose
     source takes part in
-    the `anchored` gate, this reports:
+    the `anchored` check, this reports:
       - a `defined_by` citation that names no rule of any indexed ADR;
       - a defining rule whose normative summary does not contain `**<term>**` (case-insensitive, whitespace
         collapsed, so a term bolded across a wrapped line still counts).
     Only the normative summary counts (Get-CatsAdrRules' Statement): bold text in the ADR body or in the rule's
     linked bullets never anchors a term, and neither does a mention inside an inline code span.
 
-    Private helper for the glossary gates; not exported.
+    Private helper for the glossary checks; not exported.
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.
 .PARAMETER IndexPath
@@ -38,7 +38,7 @@ function Get-GlossaryAnchorViolations {
 
     $violations = [System.Collections.Generic.List[string]]::new()
     foreach ($item in $Entry) {
-        if ($item.Options.gates -notcontains 'anchored') {
+        if ($item.Options.checks -notcontains 'anchored') {
             continue
         }
         $term = $item.Concept.term

@@ -7,7 +7,7 @@
     [ADR-DSGN-RUNMODE#6](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode6)). It builds the
     selected modules with Build-Modules (vendor policy 'full', so Pester and PSScriptAnalyzer ship with the build)
     into a fresh temporary destination, then runs the Test-Automation harness unchanged in shape — discovery,
-    the tier/category tag gates, sharding, rows, reports — with one seam swapped: each shard worker dot-sources
+    the tier/category tag checks, sharding, rows, reports — with one seam swapped: each shard worker dot-sources
     the build's Import-Catzc.ps1 -RepositoryRoot <repo> instead of the repository importer, so every test runs
     against the merged, built modules while out/ and the test fixtures keep resolving in the repository.
 

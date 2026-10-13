@@ -42,13 +42,13 @@ The two derivations that replace a committed per-set marker. The **projection** 
 vendor's native path-filter dialect — GitHub `on.*.paths` with ordered `!` negation (exact), Azure DevOps `trigger.paths.include`/`exclude`
 and branch-policy `filenamePatterns` (order-independent, last-select-per-pattern) — so a pipeline triggers, or does not start at all, on the
 real files. Quality gates ([ADR-AUTO-TEST#35](../../adr/automation/test-automation.md#rule-adr-auto-test35)) guard the projection: the drift
-gates compare each ADO pipeline's or GitHub workflow's declared trigger to the projection and report one issue per drifted or missing
-pipeline, and the coverage gate confirms every member of a pipeline-bound set matches an ADO include pattern, so an include-only trigger can
-never under-trigger. The **git reflection** answers "did this change touch the unit?" from git at the real refs: it diffs a commit range
-(resolving the reference commit per context — post-commit first-parent `HEAD^1..HEAD`, PR merge-base, or local working tree) and matches the
-changed paths against the registry, the same computation the in-pipeline "stop, nothing here for us" gate and the PR area-of-control report
-use. Because it reads the merged tree as it actually is, it is immune to squash-merge and concurrent-merge staleness and correct across
-renames.
+quality gates compare each ADO pipeline's or GitHub workflow's declared trigger to the projection and report one issue per drifted or
+missing pipeline, and the coverage quality gate confirms every member of a pipeline-bound set matches an ADO include pattern, so an
+include-only trigger can never under-trigger. The **git reflection** answers "did this change touch the unit?" from git at the real refs: it
+diffs a commit range (resolving the reference commit per context — post-commit first-parent `HEAD^1..HEAD`, PR merge-base, or local working
+tree) and matches the changed paths against the registry, the same computation the in-pipeline "stop, nothing here for us" early exit and
+the PR area-of-control report use. Because it reads the merged tree as it actually is, it is immune to squash-merge and concurrent-merge
+staleness and correct across renames.
 
 ### domain:4 — Protected scans
 
@@ -64,9 +64,9 @@ per-module protection identities.
 
 One configuration point defines what each deployable unit _is_; everything else derives. Because the identity and membership are pure
 functions of tracked bytes, the module serves three consumers from one dialect: the native projection ADO and GitHub path filters trigger on
-(generated, drift-checked), the git-reflected area-of-control the PR report and the in-pipeline gate read, and the in-session protection map
-that spares the local inner loop repeated proof. None of them parses vendor glob dialects — matching happens here, once, against
-`git ls-files` — and none commits a per-set artifact, so a busy mainline never goes red from a stale marker.
+(generated, drift-checked), the git-reflected area-of-control the PR report and the in-pipeline early exit read, and the in-session
+protection map that spares the local inner loop repeated proof. None of them parses vendor glob dialects — matching happens here, once,
+against `git ls-files` — and none commits a per-set artifact, so a busy mainline never goes red from a stale marker.
 
 The module sits in the Base cluster and stays primitive: it knows nothing about pipelines, Pester, or the scans it protects.
 `Catzc.Base.QualityGates` consumes it from above (the trigger-drift and protected integrity tests); the pipeline YAML consumes its

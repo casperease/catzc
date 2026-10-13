@@ -4,7 +4,7 @@
 .DESCRIPTION
     For each target slot (one per configuration/[<customer>/]<config>.yml):
     1. Loads the slot's config via Get-BicepTemplateConfiguration.
-    2. Runs the UNDEFINED gate (throws if any flattened leaf is the literal string 'UNDEFINED').
+    2. Runs the UNDEFINED guard (throws if any flattened leaf is the literal string 'UNDEFINED').
     3. If the template ships `infrastructure/templates/<name>/PrePost.psm1` exporting
        Invoke-BicepPrepareParameterSet, runs it — the merge seam between per-slot config and the
        global asset configs in `Catzc.Azure.Templates/assets/*.yml`. With no such hook the step is a no-op

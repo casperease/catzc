@@ -51,7 +51,11 @@ function Build-Modules {
         [string[]] $Module,
 
         # The exporter's default profile, unless -Module names the selection.
-        [string] $ModuleProfile = $(if (-not $Module) { "$((Get-Config -Config exporter).default_profile)" }),
+        [string] $ModuleProfile = $(
+            if (-not $Module) {
+                "$((Get-Config -Config exporter).default_profile)"
+            }
+        ),
 
         [ValidateSet('runtime', 'full')]
         [string] $VendorPolicy = "$((Get-Config -Config exporter).vendor_policy)",

@@ -3,7 +3,7 @@
 `Catzc.Tooling.Node`
 
 The Node.js ecosystem module of the Tooling group. It owns the Node runtime and npm, and the npm-delivered quality tools the repository's
-gates run on — cSpell, markdownlint, and Prettier — each pinned to its locked version through the generic engine in
+quality gates run on — cSpell, markdownlint, and Prettier — each pinned to its locked version through the generic engine in
 [Catzc.Tooling.Core](catzc-tooling-core.md). It carries no engine of its own; it is the thin, Node-specific surface over Core, and it
 installs through npm per [use-proper-package-managers](../../adr/automation/use-proper-package-managers.md) and
 [controlling-systemwide-deps](../../adr/automation/controlling-systemwide-deps.md).

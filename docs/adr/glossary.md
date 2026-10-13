@@ -46,6 +46,8 @@ A check whose verdict decides whether work may proceed — automated (a quality 
 - **Defined by:** [ADR-FLOW-CD#13](flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
+- **Forms:** `quality gate`, `CI gate`, `RC gate`, `RBC gate`, `release gate`, `manual gate`, `PR gate`, `merge gate`, `commit gate`,
+  `approval gate`, `production gate`, `push gate`, and the bare `gate`
 - **Contrasts:**
   - [quality gate](#quality-gate): A quality gate is one automated check of the repository; a gate is any decision point, human or
     automated.
@@ -92,14 +94,15 @@ Every test in the repository — every test file of every module, at every tier 
 
 ### build verification test
 
-The BVT — the aggregate gate that certifies a commit, the end gate before and after a commit reaches master.
+The BVT — the gate that certifies a commit by running the quality gates together, before and after the commit reaches master.
 
 - **Defined by:** [ADR-AUTO-TEST#24](automation/test-automation.md#rule-adr-auto-test24)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Kind of:** [gate](#gate)
 - **Contrasts:**
-  - [quality gate](#quality-gate): A quality gate is one check inside the BVT; the BVT is the aggregate gate that certifies a commit.
+  - [quality gate](#quality-gate): A quality gate is one check inside the BVT; the BVT certifies a commit by running the quality gates
+    together.
 
 ### category
 
@@ -127,21 +130,21 @@ One of a test run's three scheduling stages, in order — parallel shards, greed
 
 ### quality gate
 
-An automated gate checking one property of the whole repository — one Test-<subject> function that reports through Write-QualityGateReport
-and throws once with every issue.
+A gate checking one property of the whole repository automatically — one Test-<subject> function that reports through
+Write-QualityGateReport and throws once with every issue.
 
 - **Defined by:** [ADR-AUTO-TEST#35](automation/test-automation.md#rule-adr-auto-test35)
 - **Realized by:** function `Write-QualityGateReport`
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Kind of:** [gate](#gate)
 - **Contrasts:**
-  - [build verification test](#build-verification-test): The BVT is the aggregate gate that certifies a commit; a quality gate is one check
-    inside it.
+  - [build verification test](#build-verification-test): The BVT certifies a commit by running the quality gates together; a quality gate is
+    one check inside it.
   - [gate](#gate): A gate is any decision point, human or automated; a quality gate is one automated check of the repository.
 
-| Avoid            | Say instead       |
-| ---------------- | ----------------- |
-| `analyzer suite` | the analyzer gate |
+| Avoid            | Say instead                                     |
+| ---------------- | ----------------------------------------------- |
+| `analyzer suite` | the analyzer quality gate (Test-ScriptAnalyzer) |
 
 ### test
 

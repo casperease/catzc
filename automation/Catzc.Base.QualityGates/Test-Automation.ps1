@@ -173,7 +173,7 @@ function Test-Automation {
         $MaxLevel = $suiteScope.Level
     }
 
-    # The harness itself — discovery, tag gates, sharding, workers, rows, reports — is the core both runs
+    # The harness itself — discovery, tag checks, sharding, workers, rows, reports — is the core both runs
     # share (Invoke-TestRun,
     # [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)). The source run loads each
     # worker through the

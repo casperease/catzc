@@ -28,11 +28,18 @@ function Get-RegisteredInstallProduct {
     $products = foreach ($root in $roots) {
         foreach ($key in @(Get-ChildItem -LiteralPath $root -ErrorAction Ignore)) {
             $entry = Get-ItemProperty -LiteralPath $key.PSPath -ErrorAction Ignore
-            $name = if ($entry -and $entry.PSObject.Properties['DisplayName']) { "$($entry.DisplayName)" } else { '' }
+            $name = ''
+            if ($entry -and $entry.PSObject.Properties['DisplayName']) {
+                $name = "$($entry.DisplayName)"
+            }
             if ($name -and $name -match $NamePattern) {
+                $version = ''
+                if ($entry.PSObject.Properties['DisplayVersion']) {
+                    $version = "$($entry.DisplayVersion)"
+                }
                 [pscustomobject]@{
                     DisplayName    = $name
-                    DisplayVersion = if ($entry.PSObject.Properties['DisplayVersion']) { "$($entry.DisplayVersion)" } else { '' }
+                    DisplayVersion = $version
                     ProductCode    = $key.PSChildName
                 }
             }

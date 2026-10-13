@@ -6,7 +6,7 @@
 
 ### Rule ADR-PROC-ANDON:1
 
-A failing gate stops the line: the failing change goes no further, and restoring green takes priority over starting new work. This is the
+A gate that fails stops the line: the failing change goes no further, and restoring green takes priority over starting new work. This is the
 andon cord — anyone, or any gate, can and must halt the flow the moment a defect appears (jidoka).
 
 - [Decision](#decision)
@@ -75,7 +75,7 @@ to route around the cord, which is how defects reach production.
 
 Make the stop automatic and total. A gate that detects a problem throws ([ADR-AUTO-ERROR](../automation/powershell/error-handling.md)) — it
 does not `Write-Warning` and carry on, because a warning that does not stop is a defect waved through. When the mainline is red, treat
-restoring it as the top priority and do not integrate new work onto it. When you hit a red gate on your own machine, that is the system
+restoring it as the top priority and do not integrate new work onto it. When a gate goes red on your own machine, that is the system
 working: fix it there, where it is a one-line change, rather than pushing and letting the pipeline catch it.
 
 ## References

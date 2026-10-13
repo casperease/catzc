@@ -21,7 +21,7 @@ Each source must prove it targets the configured org/tenant before returning a h
 
 ### Rule ADR-PIPE-AUTH:3
 
-Make pipeline detection explicit: use `Test-IsRunningInPipeline` to gate the in-pipeline token source.
+Make pipeline detection explicit: use `Test-IsRunningInPipeline` to guard the in-pipeline token source.
 
 - [Pattern](#pattern)
 

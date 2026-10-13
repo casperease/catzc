@@ -31,8 +31,8 @@ makes queue time money. The platform manages batch size and work-in-progress on 
 ### Rule ADR-PROC-LEAN:4
 
 Machine time is cheap and falls on a Moore's-law cadence while human attention is the scarce constraint, so the platform spends compute
-freely — parallel gates, eager caches, ephemeral environments — to drain the human queue. A minute of CPU is cheaper than a minute of a
-person blocked ([ADR-PROC-QUEUECOST](queues-cost-money.md)).
+freely — parallel quality gates, eager caches, ephemeral environments — to drain the human queue. A minute of CPU is cheaper than a minute
+of a person blocked ([ADR-PROC-QUEUECOST](queues-cost-money.md)).
 
 - [The two laws](#the-two-laws)
 
@@ -99,9 +99,9 @@ Lean's flow claims are not metaphors; two laws make them quantitative, and both 
   the queue and lead time falls, arithmetically, with no one working faster. This is why the platform limits work-in-progress and shrinks
   batch size rather than exhorting people to hurry.
 - **Moore's Law** [^4]. Compute capacity per unit cost roughly doubles on a regular cadence, so machine time trends towards free while human
-  attention stays the scarce, expensive constraint. The lean move is therefore to spend the cheap resource to save the dear one: run gates
-  in parallel, cache aggressively ([ADR-AUTO-CACHE](../automation/caching.md)), stand up ephemeral environments, rebuild rather than wait.
-  Buying down a human queue with machine time is almost always the right trade.
+  attention stays the scarce, expensive constraint. The lean move is therefore to spend the cheap resource to save the dear one: run quality
+  gates in parallel, cache aggressively ([ADR-AUTO-CACHE](../automation/caching.md)), stand up ephemeral environments, rebuild rather than
+  wait. Buying down a human queue with machine time is almost always the right trade.
 
 ## Why
 
@@ -110,8 +110,8 @@ queue discipline is the mechanism that makes change cheap. Holding both keeps th
 mechanism.
 
 **A mechanical model beats intuition.** Little's Law and cost of delay turn "we feel slow" into "our work-in-progress is too high and our
-queues are expensive" — a checkable claim with a known remedy. Decisions about batch size, parallelism, and gating rest on the model, not on
-taste.
+queues are expensive" — a checkable claim with a known remedy. Decisions about batch size, parallelism, and where each gate sits rest on the
+model, not on taste.
 
 **The lineage keeps the rules honest.** Anchoring to Ohno and the Poppendiecks means an adaptation can be tested against the source rather
 than against whatever "lean" has come to mean in a given team. When a practice cannot be traced to eliminating waste, building quality in,

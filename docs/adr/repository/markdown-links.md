@@ -95,10 +95,10 @@ outside quoted and block scalars, XML `<!-- -->`. Inline code spans and a help b
 ### Markdown links are relative
 
 A document links its neighbours relative to itself. The relative form resolves identically on GitHub (on any branch), in VS Code, in a
-clone, and in an exported copy of the tree, and it is what every generated README link depends on
+clone, and in an exported copy of the tree, and it is what lets a generated README rebase every link to its own folder
 ([generated-readmes](generated-readmes.md)). A repository-rooted link in a `.md` file is off-form and is aligned to relative.
 
-GitHub, the renderer that follows these links, has only what git tracks. A gitignored file — a generated README link, a local-only draft —
+GitHub, the renderer that follows these links, has only what git tracks. A gitignored file — a generated README, a local-only draft —
 satisfies a check against the disk and still 404s there, so `Test-Links` resolves a markdown link's target against the tracked files and
 reports a target that exists only locally as untracked: commit it, or link its tracked source. Code links are checked against the disk: no
 hosted renderer follows a comment, and the editor that does reads the working folder.
@@ -146,7 +146,7 @@ is one search away. Markdown links need no rule; the built-in markdown support a
 The same registry turns on VS Code's built-in markdown link validation (`markdown.validate.*`), so a dangling file or a bad `#fragment` in a
 `.md` file shows as a warning while it is being written, and `markdown.updateLinksOnFileMove` offers to re-point relative links when a file
 or folder moves. VS Code slugs headings with the same `github-slugger` algorithm GitHub uses, so its warnings agree with `Test-Links`. Its
-reference-link check stays off: it reads every footnote use (`[^1]`) as an undefined reference, and markdownlint's MD052 already gates real
+reference-link check stays off: it reads every footnote use (`[^1]`) as an undefined reference, and markdownlint's MD052 already checks real
 reference links. The editor feedback is early warning only; `Test-Links` stays the gate.
 
 ### References point one way
@@ -178,7 +178,7 @@ under `.github/` — and it appears nowhere else.
 
 Markdown links are relative to their file; code links are repository-rooted markdown links whose text is the citation code and whose
 destination is derived from it. Rule citations are spelled `ADR-<CODE>#<n>` everywhere outside a rule's own heading. `Format-Links` aligns
-both kinds mechanically and `Test-Links` gates them.
+both kinds mechanically and `Test-Links` checks them.
 
 ### How this is enforced
 

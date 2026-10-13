@@ -175,7 +175,7 @@ collides on globally-unique types).
 - `org`, `short_name`, `role`, env `name`, customer `key` **start with a letter** (Key Vault and others reject leading digits). Only `slot`
   may be all-digit.
 - Key regexes (matched with the case-sensitive `-cmatch`/`-cnotmatch`):
-  - `type`: `^[a-z]{2,5}$` (2–5 letters; also gated by membership in the type registry)
+  - `type`: `^[a-z]{2,5}$` (2–5 letters; also guarded by membership in the type registry)
   - `short_name`: `^[a-z][a-z0-9]{1,4}$` (2–5)
   - folder name: `^[a-z][a-z0-9-]*$` (kebab, starts with a letter)
   - `region`: `^[a-z]{3}$`

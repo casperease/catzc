@@ -15,7 +15,7 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
             }
         } -ModuleName Catzc.Azure.Templates
         Mock Assert-Tool { } -ModuleName Catzc.Azure.Templates
-        # The Bicep CLI gate now lives in Catzc.Azure.Cli; mock the boundary so its internal az probe never runs.
+        # The Bicep CLI guard lives in Catzc.Azure.Cli; mock the boundary so its internal az probe never runs.
         Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
         # Devbox path: under CI the real Test-IsRunningInPipeline returns $true ($env:GITHUB_ACTIONS), and the
         # deployment-name test then hits Get-BicepDeploymentName's pipeline branch, which requires ADO-only

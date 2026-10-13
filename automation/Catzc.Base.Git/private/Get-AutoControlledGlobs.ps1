@@ -11,8 +11,8 @@
       Get-Config (reading a config is global access, never dependency-gated —
       [ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6));
     - the conventional generated-artifact classes: the dynamic module manifests
-      (automation/<Module>/<Module>.psd1), the generated README links (every gitignored README.md is a
-      materialised link by the generated-readmes contract — a hand-authored README is only safe once
+      (automation/<Module>/<Module>.psd1), the generated READMEs (every gitignored README.md is a
+      generated copy by the generated-readmes contract — a hand-authored README is only safe once
       opted in and committed), the generated cspell dictionaries (.cspell/), the transient output root (out/ — disposable by the
       dedicated-output-directory contract), the IDE-only C# project's build output (bin/obj under
       automation/.internal/assets), the compiled-type *.tmp scratch, and the drawio editor's autosave
@@ -46,7 +46,7 @@ function Get-AutoControlledGlobs {
     # can never appear among untracked clean candidates).
     $ret.Add('automation/*/*.psd1')
 
-    # Generated README links (generated-readmes): a gitignored README.md is a link by construction.
+    # Generated READMEs (generated-readmes): a gitignored README.md is a generated copy by construction.
     $ret.Add('README.md')
     $ret.Add('*/README.md')
 

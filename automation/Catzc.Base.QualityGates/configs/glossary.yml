@@ -1,6 +1,6 @@
 # glossary.yml — the Catzc.Base.QualityGates glossary source: the vocabulary of the quality gates this module owns — the
-# test vocabulary of Test-Automation and the link vocabulary of Test-Links ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)). Every option is defaulted: all four
-# gates, the whole repository, every text surface
+# test vocabulary of Test-Automation and the link vocabulary of Test-Links ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)). Every option is defaulted: all five
+# checks, the whole repository, every text surface
 # ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). Checked by Test-Glossary.
 concepts:
     tier:
@@ -50,21 +50,22 @@ concepts:
         defined_by: ADR-FLOW-CD#13
         short: A check whose verdict decides whether work may proceed — automated (a quality gate, the CI gate) or human (RC, RBC).
         realized_by: { kind: prose-only }
+        forms: [quality, CI, RC, RBC, release, manual, PR, merge, commit, approval, production, push]
         contrasts:
             quality gate: A quality gate is one automated check of the repository; a gate is any decision point, human or automated.
     quality gate:
         key: quality_gate
         domain: automation
         defined_by: ADR-AUTO-TEST#35
-        short: An automated gate checking one property of the whole repository — one Test-<subject> function that reports through Write-QualityGateReport and throws once with every issue.
+        short: A gate checking one property of the whole repository automatically — one Test-<subject> function that reports through Write-QualityGateReport and throws once with every issue.
         realized_by: { kind: function, pattern: 'Write-QualityGateReport' }
         relations:
             kind_of: [gate]
         contrasts:
             gate: A gate is any decision point, human or automated; a quality gate is one automated check of the repository.
-            build verification test: The BVT is the aggregate gate that certifies a commit; a quality gate is one check inside it.
+            build verification test: The BVT certifies a commit by running the quality gates together; a quality gate is one check inside it.
         avoid:
-            - { phrase: analyzer suite, say: the analyzer gate }
+            - { phrase: analyzer suite, say: the analyzer quality gate (Test-ScriptAnalyzer) }
     test file:
         key: test_file
         domain: automation
@@ -108,12 +109,12 @@ concepts:
         key: bvt
         domain: automation
         defined_by: ADR-AUTO-TEST#24
-        short: The BVT — the aggregate gate that certifies a commit, the end gate before and after a commit reaches master.
+        short: The BVT — the gate that certifies a commit by running the quality gates together, before and after the commit reaches master.
         realized_by: { kind: prose-only }
         relations:
             kind_of: [gate]
         contrasts:
-            quality gate: A quality gate is one check inside the BVT; the BVT is the aggregate gate that certifies a commit.
+            quality gate: A quality gate is one check inside the BVT; the BVT certifies a commit by running the quality gates together.
     all tests:
         key: all_tests
         domain: automation

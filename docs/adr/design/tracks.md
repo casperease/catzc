@@ -78,16 +78,16 @@ globset selecting through tracks — not a new root.
 
 The stack is the reason tracks exist as _separate roots_ rather than folders inside one tree: each stack brings its own toolchain, its own
 verification, and its own failure modes. Keeping one stack per track keeps every gate honest — the automation tests verify PowerShell/C#,
-the infrastructure gates verify Bicep against its configuration model — and keeps the door open for new stacks (`frontend`, `services`)
-without disturbing the existing ones. The dependency between stacks is explicit and one-directional: adapters and ports rest on the core
-(`infrastructure` consumes `automation` for context and execution), never the reverse.
+the infrastructure quality gates verify Bicep against its configuration model — and keeps the door open for new stacks (`frontend`,
+`services`) without disturbing the existing ones. The dependency between stacks is explicit and one-directional: adapters and ports rest on
+the core (`infrastructure` consumes `automation` for context and execution), never the reverse.
 
 ### Subscription and coordination
 
 Two subscription surfaces exist, both derived from the same source of truth:
 
-- **depms** — the module dependencies declare which modules (and by extension which tracks) a consumer rests on; the graph gates enforce
-  them. A depm is module-to-module only — a dependency on a system is a dep, a different concern with different tooling.
+- **depms** — the module dependencies declare which modules (and by extension which tracks) a consumer rests on; the graph quality gates
+  enforce them. A depm is module-to-module only — a dependency on a system is a dep, a different concern with different tooling.
 - **globset projections** (`ADR-FLOW-CD-GLOBS`) — each track's globset projects to native vendor path filters that pipelines trigger on, and
   to a git-reflected area-of-control the PR report reads; test tooling derives blast radius from the same globsets. Nothing is committed per
   set.
@@ -114,9 +114,10 @@ shipped through deployable-units that bind pipelines 1-1 (ADR-DSGN-TRACK#5).
 - **`ADR-REPO-FOLDERS`** (conventional folders) keeps the root inventory deliberate — a new root folder is a reviewed decision, and under
   this ADR it is the decision to open a track.
 - **The globset registry** (`Catzc.Base.Globs`, `ADR-FLOW-CD-GLOBS`) declares each track's file set; pipelines filter on its native
-  projection and the drift gate fails a trigger that no longer matches, while the git-reflected report answers what a change touches.
-- **depms and the dependency-graph gates** (`ADR-AUTO-DEPM`) enforce the declared subscription edges, including the one-directional core ←
-  adapter/port dependency.
+  projection and the drift quality gate fails a trigger that no longer matches, while the git-reflected report answers what a change
+  touches.
+- **depms and the dependency-graph quality gates** (`ADR-AUTO-DEPM`) enforce the declared subscription edges, including the one-directional
+  core ← adapter/port dependency.
 - **Code review** applies the taxonomy: a new root must name its classification and tech-stack; a cross-cutting need becomes a scope
   globset, not a root.
 

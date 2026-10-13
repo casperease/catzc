@@ -25,13 +25,15 @@ leftover — and it does not try; that is `Remove-<Tool>`'s job.
 
 `Remove-<Tool>` refuses a **managed** install and redirects to `Uninstall-<Tool>`. Whether an install is managed is decided by the single
 oracle `Test-ExpectedPackageManager`, which both verbs consult — so Remove- only ever acts on an install the configured manager does not
-own, and the destructive verb never fires on a cleanly-managed one.
+own, and the destructive verb never fires on a cleanly-managed one. Remove- asks about the folder it is about to remove (`-Path`), never
+about whatever the command resolves to on `PATH`: the session puts the managed install first, so a `PATH`-based answer would call every
+stray install managed and leave it unremovable.
 
 - [Uninstall vs Remove](#uninstall-vs-remove)
 
 ### Rule ADR-AUTO-REMOVE:4
 
-Destructive removal is **double-gated**. `-Force` confirms the action — without it the function reports the plan and changes nothing (the
+Destructive removal is **doubly guarded**. `-Force` confirms the action — without it the function reports the plan and changes nothing (the
 dry-run discipline of `ADR-AUTO-DRYRUN`), so the destructive step never runs on host narration alone. Through the escalation, a separate
 `-Remove` switch opts in, so neither switch alone deletes anything.
 
@@ -60,7 +62,10 @@ Three platform cores carry the destructive mechanics, and `Remove-<Tool>` delega
 `Remove-SystemInstallation` (Windows — delete the install directory, strip it from the machine `PATH`, clear its env vars),
 `Remove-LinuxToolInstall` (Linux — `apt-get remove` a dpkg-owned shadow), and `Remove-MacToolInstall` (macOS — `brew uninstall` a
 Cellar-owned formula). The two Unix cores share one user-space tail — `uv pip uninstall --system` a package in the uv-managed Python, else
-delete a stray on-`PATH` binary — so only the apt step needs root.
+delete a stray on-`PATH` binary — so only the apt step needs root. On Windows the delete is for an unregistered install only: a folder that
+Windows-registered products own (an MSI/bundle installer's Apps & features entries) is removed by that installer, so `Remove-<Tool>` lists
+each owning product with its `winget uninstall --product-code` command and deletes nothing — deleting the folder would orphan every entry,
+the same "evict by the mechanism that placed it" the Unix cores follow.
 
 - [The platform cores](#the-platform-cores)
 
@@ -122,7 +127,7 @@ a cleanly-managed install, and the managed verb never pretends to evict a foreig
 
 ### Default-safe by construction
 
-Nothing destructive happens by default. `Remove-<Tool>` (and the escalation) is **double-gated**:
+Nothing destructive happens by default. `Remove-<Tool>` (and the escalation) is **doubly guarded**:
 
 - **`-Force` confirms the action.** Without it, the function reports the plan — the directory it would delete, the package it would remove —
   and changes nothing. This is the dry-run discipline of [prefer-dryrun-over-shouldprocess](powershell/prefer-dryrun-over-shouldprocess.md):
@@ -189,7 +194,7 @@ off-config binary shadows the managed install — and only recommends `Remove-` 
   (the two Unix cores sharing `Remove-UvPipOrStrayInstall`); a `Remove-<Tool>` delegates to the one for the running OS and adds only the
   tool's own detection.
 - **The `-Force` dry-run discipline** ([prefer-dryrun-over-shouldprocess](powershell/prefer-dryrun-over-shouldprocess.md)) and the `-Remove`
-  escalation switch are the two gates; a removal with neither is a plan, not an action.
+  escalation switch are the two guards; a removal with neither is a plan, not an action.
 - **`Get-ToolsStatus`** names the correct verb per tool state, and recommends `Remove- -Force` only for a tool that defines a `Remove-`.
 - **`Uninstall-Chocolatey`** is the exemplar eviction the pattern generalizes
   ([use-proper-package-managers](use-proper-package-managers.md)).
@@ -214,7 +219,7 @@ off-config binary shadows the managed install — and only recommends `Remove-` 
 - [controlling-systemwide-deps](controlling-systemwide-deps.md) (`ADR-AUTO-DEPS`) — the `Install-` / `Invoke-` / `Uninstall-` triad this
   extends, and `Test-ExpectedPackageManager`.
 - [use-proper-package-managers](use-proper-package-managers.md) (`ADR-AUTO-PKGMGR`) — `Uninstall-Chocolatey`, the exemplar eviction.
-- [prefer-dryrun-over-shouldprocess](powershell/prefer-dryrun-over-shouldprocess.md) (`ADR-AUTO-DRYRUN`) — the `-Force` dry-run gate.
+- [prefer-dryrun-over-shouldprocess](powershell/prefer-dryrun-over-shouldprocess.md) (`ADR-AUTO-DRYRUN`) — the `-Force` dry-run guard.
 - [respect-pwsh-verb-rules](powershell/respect-pwsh-verb-rules.md) (`ADR-AUTO-VERBS`) — the `Uninstall-` vs `Remove-` verb contracts.
 - [uv-python-handler](uv-python-handler.md) (`ADR-AUTO-UVPY`) — the user-space goal the scoped-elevation rule serves.
 - [idempotent-state-functions](idempotent-state-functions.md) (`ADR-AUTO-IDEM`) — `Install-`/`Uninstall-`/`Remove-` are idempotent.

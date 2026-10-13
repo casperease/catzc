@@ -28,9 +28,9 @@ what differs, and a typed config validates it on load.
 
 ## What the module does
 
-A quality gate is a check of one property of the whole repository. What differs between gates is the check; what must not differ is how a
-gate reports, because people and CI read every gate's output the same way. This module is that shared ending. It sits low in the module
-graph — above the config reader, the output-root anchor, and the console writers — so a gate in any module can use it without a new
+A quality gate is a check of one property of the whole repository. What differs between quality gates is the check; what must not differ is
+how a gate reports, because people and CI read every gate's output the same way. This module is that shared ending. It sits low in the
+module graph — above the config reader, the output-root anchor, and the console writers — so a gate in any module can use it without a new
 dependency cycle.
 
 ## Division

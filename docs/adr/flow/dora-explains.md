@@ -68,13 +68,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-FLOW-CD-TYPE](pipeline-types.md)
 
-> DORA's research distinguishes Continuous Delivery (human-gated production changes) from Continuous Deployment (automated prod roll), and
-> links explicit deployment governance to faster cycle times and lower failure rates. This ADR's taxonomy makes these distinctions explicit
-> and nameable, preventing anti-patterns from hiding behind overloaded terminology and enabling each pipeline type to carry its proper
-> governance contract and trigger model.
+> DORA's research distinguishes Continuous Delivery (production changes behind a manual gate) from Continuous Deployment (automated prod
+> roll), and links explicit deployment governance to faster cycle times and lower failure rates. This ADR's taxonomy makes these
+> distinctions explicit and nameable, preventing anti-patterns from hiding behind overloaded terminology and enabling each pipeline type to
+> carry its proper governance contract and trigger model.
 
-- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — CD pattern with explicit build-once-deploy-many and
-  human-gated production.
+- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — CD pattern with explicit build-once-deploy-many and a
+  manual production gate.
 - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — DEPLOY and CDe have named, first-class deployment
   constructs.
 - [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — CI/CD both run post-commit on master, the

@@ -1,0 +1,70 @@
+# Get-GlossaryFormViolations is private, so it is exercised through the module (InModuleScope, per
+# [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)). Each test writes its
+# own fixture file under $TestDrive and passes it as the only tracked file (-TrackedFile, -Root), so no git process
+# runs; the glossary is built in memory from the real types. Fixture terms and rule codes are neutral (widget/gadget,
+# tst — [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): the family is 'widget', with
+# the forms 'gadget' and 'CI'.
+Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:entry = {
+            param([System.Collections.IDictionary] $options = @{})
+            $concept = [Catzc.Base.Docs.GlossaryConcept]::new('widget', [ordered]@{
+                    key         = 'widget'
+                    domain      = 'repository'
+                    defined_by  = 'ADR-TST-WIDGET#1'
+                    short       = 'A widget.'
+                    realized_by = [ordered]@{ kind = 'prose-only' }
+                    forms       = @('gadget', 'CI')
+                })
+            [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'automation/Catzc.Widget/configs/glossary.yml',
+                [Catzc.Base.Docs.GlossaryOptions]::new($options))
+        }
+        $script:scan = {
+            param([System.Collections.IDictionary] $files, [System.Collections.IDictionary] $options = @{})
+            foreach ($relative in $files.Keys) {
+                $full = Join-Path $TestDrive $relative
+                [System.IO.Directory]::CreateDirectory((Split-Path $full -Parent)) | Out-Null
+                [System.IO.File]::WriteAllText($full, ($files[$relative] -join "`n"))
+            }
+            $parameters = @{ Entries = @(& $script:entry $options); Files = [string[]] @($files.Keys); Root = [string] $TestDrive }
+            $found = @(InModuleScope Catzc.Base.Docs -Parameters $parameters {
+                    Get-GlossaryFormViolations -Entry $Entries -TrackedFile $Files -Root $Root
+                })
+            Write-Output -NoEnumerate $found
+        }
+        $script:tail = '"widget" takes only: gadget widget, CI widget, widget (ADR-TST-WIDGET#1)'
+    }
+
+    It 'reports a qualifier outside the forms with its file, line, use, the allowed forms, and the defining rule' -Tag 'ADR-REPO-VOCAB#8' {
+        $found = & $script:scan @{ 'docs/alpha.md' = @('# Alpha', '', 'The sprocket widget runs.') }
+        $found | Should -Be @("docs/alpha.md:3 says `"sprocket widget`" — $script:tail")
+    }
+
+    It 'allows the bare word, a declared form in any case, a function word, and a number' -Tag 'ADR-REPO-VOCAB#8' {
+        $text = @('A widget, the gadget widget, the ci widgets, each widget, two widgets, 3 widgets.')
+        & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
+    }
+
+    It 'reports a hyphenated or line-wrapped qualifier, and the verb forms' -Tag 'ADR-REPO-VOCAB#8' {
+        $found = & $script:scan @{ 'docs/alpha.md' = @('A pre-sprocket widget, a sprocket-widget, a sprocket', 'widget; it is widgeted, double-widgeting.') }
+        $found | Should -HaveCount 4
+        $found | Should -Contain "docs/alpha.md:1 says `"sprocket widget`" — $script:tail"
+        $found | Should -Contain "docs/alpha.md:1 says `"sprocket-widget`" — $script:tail"
+        $found | Should -Contain "docs/alpha.md:2 says `"widgeted`" — $script:tail"
+        $found | Should -Contain "docs/alpha.md:2 says `"widgeting`" — $script:tail"
+    }
+
+    It 'exempts a mention in backticks or quotes, and never matches inside a longer word' -Tag 'ADR-REPO-VOCAB#8' {
+        & $script:scan @{ 'docs/alpha.md' = @('Avoid `sprocket widget` and "sprocket widget"; a gadgetwidget, the widgetry.') } | Should -BeNullOrEmpty
+    }
+
+    It 'reads PowerShell comments through the parser' -Tag 'ADR-REPO-VOCAB#8' {
+        $found = & $script:scan @{ 'automation/Catzc.Widget/Get-Widget.ps1' = @('# the sprocket widget', 'function Get-Widget { }') }
+        $found | Should -Be @("automation/Catzc.Widget/Get-Widget.ps1:1 says `"sprocket widget`" — $script:tail")
+    }
+
+    It 'skips a source that opts out of the forms check' -Tag 'ADR-REPO-VOCAB#2' {
+        & $script:scan @{ 'docs/alpha.md' = @('The sprocket widget runs.') } @{ checks = @('anchored', 'single', 'avoid', 'enforced') } |
+            Should -BeNullOrEmpty
+    }
+}

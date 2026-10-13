@@ -102,7 +102,7 @@ mechanically, not by review vigilance — and it keeps a single, legible answer 
 
 ## Decision
 
-Module dependencies are declared in one place and gated against the code. The declaration lives in
+Module dependencies are declared in one place and checked against the code. The declaration lives in
 `automation/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the actual function-call and C# type edges are extracted and checked against
 it.
 
@@ -179,7 +179,7 @@ single version, not a `2.x` range or `latest` — so its feed resolves the same 
 An internal module dependency is visible in the repository two ways at once. It is **vendored** — the code is in-tree, whether the toolset's
 own modules under `automation/` or a third-party module checked in under `automation/.vendor/<Name>/<Version>/`
 ([vend](powershell/vendor-toolset-dependencies.md)) — so loading is a path read with no network. And it is **named** — the edge is declared
-in `dependencies.yml` and gated (the graph rules above). Vendored gives the code; named gives the layering. Together they make the
+in `dependencies.yml` and checked (the graph rules above). Vendored gives the code; named gives the layering. Together they make the
 repository alone the internal dependency set: nothing is fetched and nothing is resolved.
 
 ### External: stitched at build time
@@ -223,8 +223,8 @@ describes, and adding or moving a dependency is a reviewed change.
 - Function-call and type-reference edges obey one graph, so a module's dependencies read the same whether they cross via a call or a type.
 - Cycles and layer inversions are caught mechanically — at load for the declaration, in L1 for the code — instead of surfacing as a
   confusing load-order or assembly problem later.
-- Groups let a cluster be depended on as a unit while still gating the layering among its members, so the declaration stays compact without
-  losing precision.
+- Groups let a cluster be depended on as a unit while still enforcing the layering among its members, so the declaration stays compact
+  without losing precision.
 - The cost is one declared edge per real dependency, added in the same change: a small, mechanical tax that buys a drift-free, acyclic
   graph.
 - A build is reproducible from the checkout: internal code by path (vendored), external code by a pinned feed fetch (stitched), the same on

@@ -112,7 +112,7 @@ function Get-BicepTemplates {
         # Customer-class bit
         # ([ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)): whether this is a customer template. It
         # defaults to the have_customers repo variant (Test-HaveCustomers) unless options.yml sets it. An
-        # explicit customer_deployment: true is only allowed when customers are enabled (the repo gate).
+        # explicit customer_deployment: true is only allowed when customers are enabled (the repo-level guard).
         $customerDeploymentOption = if ($options.Contains('customer_deployment')) {
             [bool]$options.customer_deployment
         }

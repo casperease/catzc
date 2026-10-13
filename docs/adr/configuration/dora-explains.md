@@ -17,7 +17,7 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one reader eliminates boilerplate and drift across
   modules.
-- [Version control](../../references/dora/capabilities.md#version-control) — configs flow through a single validation gate, making their
+- [Version control](../../references/dora/capabilities.md#version-control) — configs flow through a single validation guard, making their
   state auditable and consistent.
 - [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — validation is owner-scoped and centralized, reducing the
   surface for misconfiguration.

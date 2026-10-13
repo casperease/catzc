@@ -67,7 +67,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 > essential for reliable CI and for surfacing degrading systems before they cascade.
 
 - [Test automation](../../references/dora/capabilities.md#test-automation) — tests never retry, so flakiness surfaces immediately and must
-  be fixed or gated behind an explicit tier.
+  be fixed or moved behind an explicit tier.
 - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — honest, fast failures prevent masking real
   defects and keep merge gates reliable.
 - [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — every retry is logged as a warning so
@@ -141,7 +141,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-AUTO-TEST](test-automation.md)
 
-> Separating logic tests from integrity tests, isolating via seams and fixtures, and pushing rule-checks left into fast L0 gates keeps all
+> Separating logic tests from integrity tests, isolating via seams and fixtures, and pushing rule-checks left into fast L0 tests keeps all
 > tests hermetic and rapid. This layered approach to testing enables reliable, fast feedback without sacrificing coverage.
 
 - [Test automation](../../references/dora/capabilities.md#test-automation) — logic tests isolated via seams run fast and deterministically;
@@ -212,8 +212,8 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 > gives every gate one exact answer at the cost of a file read, so the gates that scope by tracked files run as fast, process-free tests
 > instead of slow integration tests.
 
-- [Test automation](../../references/dora/capabilities.md#test-automation) — tracked-file gates run without launching git, so they stay in
-  the fast unit and integrity tiers.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — tracked-file quality gates run without launching git, so they
+  stay in the fast unit and integrity tiers.
 - [Version control](../../references/dora/capabilities.md#version-control) — "tracked" means exactly what git's index holds, read the same
   way by every gate.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one seam replaces per-caller git calls, each with its
@@ -332,14 +332,14 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 [ADR-AUTO-REMOVE](tool-removal-lifecycle.md)
 
 > Clean separation of managed removal from destructive eviction, with safe default behavior, makes provisioning reliable and auditable.
-> Double-gated destructive operations prevent accidental data loss while enabling systematic cleanup when needed.
+> Doubly guarded destructive operations prevent accidental data loss while enabling systematic cleanup when needed.
 
 - [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — uniform tool management across platforms, with
   clear remediation paths for off-config installs.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — idempotent, double-gated removal ensures machines
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — idempotent, doubly guarded removal ensures machines
   converge predictably and safely to the configured state.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — clear verb contracts (Install/Uninstall/Remove) and
-  safe-by-default gates make tool management auditable and reviewable.
+  safe-by-default guards make tool management auditable and reviewable.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Module dependencies
@@ -419,13 +419,13 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-REPO-PROTGLOB](protected-globs.md)
 
-> Session-memory gating of repeated scans over unchanged inputs cuts inner-loop feedback time without compromising CI proof. Fail-open
+> Session-memory skipping of repeated scans over unchanged inputs cuts inner-loop feedback time without compromising CI proof. Fail-open
 > architecture ensures every pipeline run proves the full set, maintaining fast-feedback and reliability together.
 
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — CI never gates, always scans full, so protection
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — CI never skips, always scans full, so protection
   never hides a violation from the merge gate.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — heavy read-only scans are gated by globset identity, providing
-  rapid feedback on unchanged inputs.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — heavy read-only scans are skipped on an unchanged globset
+  identity, providing rapid feedback on unchanged inputs.
 - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — skipped scans cut iteration time in local
   inner loop.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
@@ -480,7 +480,8 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 > installed package.
 
 - [Test automation](../../references/dora/capabilities.md#test-automation) — a real-asset test per dependency runs in both test runs.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — the build gate guarantees every needed asset ships.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — the build's presence check guarantees every needed
+  asset ships.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — the dependency inventory is derived from the code,
   never hand-kept.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

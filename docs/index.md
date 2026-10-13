@@ -97,7 +97,7 @@ The "why" and "how" behind the PowerShell automation layer.
   test isolation
 - [Cross-platform](adr/automation/cross-platform.md) — runs on Windows, Linux, and macOS
 - [Cross-platform PowerShell](adr/automation/powershell/cross-platform-powershell.md) — the language layer: Join-Path, compatible cmdlets,
-  platform gating
+  platform guards
 - [Script-scope caching](adr/automation/powershell/script-scope-caching.md) — the PowerShell layer under
   [caching](adr/automation/caching.md): `$script:` slots, mock-the-whole-function
 - [Avoid deep nesting](adr/automation/avoid-deep-nesting.md) — flat code is readable code

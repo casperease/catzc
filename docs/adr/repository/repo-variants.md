@@ -55,7 +55,7 @@ answer the repo-wide question (with an optional `-Name` list), and the singular 
 ### Rule ADR-REPO-VARIANT:6
 
 `git_workspace` (`main-direct` | `main-via-pr`, default `main-direct`) declares how changes reach main — the solo-author trunk versus
-everything-through-a-PR (the deliberate flip when the repo goes from one author to more). It gates automation that **commits**
+everything-through-a-PR (the deliberate flip when the repo goes from one author to more). It guards automation that **commits**
 (`Sync-GeneratedFile` and anything that follows it): in `main-direct`, any named branch commits — including main, which IS the integration
 path (one-living-version); in `main-via-pr`, work always happens on a branch, so committing is still always allowed there — the **single
 stop condition** is a direct commit made while standing on main/master locally. Read it through `Get-GitWorkspace` /
@@ -114,7 +114,7 @@ variant that needed to cross-check another asset would belong to that asset's la
   the variant exists for the one asymmetry, `main-via-pr` **and** standing on main/master locally, which is the only stop condition
   automation enforces (`Sync-GeneratedFile`'s branch guard reads `Test-GitWorkspace -MainViaPr`). This is the **PR-vs-Direct** integration
   axis the value-chain diagrams (`ADR-FLOW-CD`) prefix a flow with (`PR + CD + …` vs a `Direct` flow).
-- **`have_customers`** — the enabled-customer set (`ADR-REPO-VARIANT:5`), tri-state `false | all | [names]`. It is the gate for customer
+- **`have_customers`** — the enabled-customer set (`ADR-REPO-VARIANT:5`), tri-state `false | all | [names]`. It is the guard for customer
   deployments and the source of the per-template `customer_deployment` default (see [customer-model](../azure/azure-customer-model.md)).
   Keeping the enabled set in the variant (rather than deriving it from `customer.yml`) is what lets the `HaveCustomer(s)` primitives answer
   "is this customer enabled" from `Base` without reaching up into the Azure-layer catalogue.

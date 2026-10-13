@@ -4,7 +4,7 @@
 .DESCRIPTION
     Validates the aggregated per-test rows against the per-level duration limits (L0 < 400ms, L1 < 2s,
     L2 < 120s, L3 < 30s). Only passed tests are checked — a failed test's duration is noise — and a row with
-    no resolved tier is skipped (the tag gate already reported it). Test-Automation reports the lines and
+    no resolved tier is skipped (the tag check already reported it). Test-Automation reports the lines and
     fails the run only under -EnforceTimings.
 .PARAMETER Rows
     The run's aggregated per-test rows.

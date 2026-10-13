@@ -167,8 +167,8 @@ pipelines/
 
 ## How this is enforced
 
-- **Code review** against this ADR is the primary gate — the uniform layout makes a misplaced fragment or a mis-typed pipeline name visible
-  at a glance.
+- **Code review** against this ADR, at the PR gate, is the primary enforcement — the uniform layout makes a misplaced fragment or a
+  mis-typed pipeline name visible at a glance.
 - **`Get-AdoYamlFiles` / `Get-AdoYamlInventory`** scan and classify YAML by top-level-key heuristics (plus ADO registration data, in the
   inventory), distinguishing pipelines from fragments by _structure_ rather than by filename prefix. A pipeline that is not at the root, or
   a fragment outside its kind folder, stands out against the convention.

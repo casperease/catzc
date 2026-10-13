@@ -3,7 +3,7 @@
     Verifies a Catzc build (or an install of one) is complete and unchanged since it was built; throws with every
     violation.
 .DESCRIPTION
-    The build's integrity gate ([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)).
+    The build's integrity guard ([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)).
     Given a build root — out/automation/build/Catzc/<version>/,
     or an installed copy — it asserts:
       - layout: build.json, Catzc.psd1, Catzc.psm1, Import-Catzc.ps1 and the .internal loader are present, and the

@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Returns the prose of one PowerShell file as the comments, help, and messages surfaces of the avoided-phrasing
-    gate (G4).
+    check (G4).
 .DESCRIPTION
     Parses the file ([System.Management.Automation.Language.Parser]::ParseFile) and returns one segment per piece
     of prose, never a regex over the source text
@@ -14,7 +14,7 @@
     Each segment's mentions are blanked (Remove-GlossaryMentions) and it carries the line it starts on, so a match's
     offset maps to its line. A string is read once even when several of these contexts hold it.
 
-    Private helper for the glossary gates; not exported.
+    Private helper for the glossary checks; not exported.
 .PARAMETER Path
     Absolute path to the .ps1 or .psm1 file.
 .OUTPUTS

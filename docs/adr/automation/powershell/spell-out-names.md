@@ -69,8 +69,8 @@ registry entry a human adds. No tool registers a flagged token on its own.
 
 ### Rule ADR-AUTO-SPELL:8
 
-The registry holds only live vocabulary. An entry no code in the tree references is removed, and the terminology gate rejects an
-unreferenced entry.
+The registry holds only live vocabulary. An entry no code in the tree references is removed, and `Test-Terminology` rejects an unreferenced
+entry.
 
 - [From backstop to registry](#from-backstop-to-registry)
 
@@ -81,7 +81,7 @@ parameter name, and function noun (camelCase / PascalCase / snake_case) and flag
 approved registry term. It applies no minimum word length, so it catches the short and compound coined abbreviations cspell's
 `minWordLength` lets through (`$rcg`, `$tfPath`) — a class left to code review alone. Its oracle is a native type (`SpellingOracle`) over
 cspell's own English words (`Build-EnglishDictionary` flattens them to `assets/english.txt.gz`) combined with the registry term lists, so
-the analyzer and the spell gate agree on what a word is. It cannot separate an abbreviation that is also a real dictionary word (`$spec`,
+the analyzer and `Test-Spelling` agree on what a word is. It cannot separate an abbreviation that is also a real dictionary word (`$spec`,
 `$info`) from a genuine short word; those remain a code-review concern.
 
 - [The dictionary is the backstop](#the-dictionary-is-the-backstop)
@@ -114,7 +114,7 @@ A short-lived, throwaway intermediate — a value assigned and consumed within a
 domain meaning worth naming (ADR-AUTO-SPELL#1), no return role (ADR-AUTO-SPELL#10), and no type worth stating (ADR-AUTO-SPELL#11) — takes a
 **generic blessed placeholder** rather than a coined bespoke name. The sanctioned generic is **`$obj`**. This is what keeps trivial scratch
 from minting one-off vocabulary — the `myapp` / `myvalue` / `myproject` / `myvar` placeholders that otherwise each need a `fixture` registry
-entry just to clear the spelling gate. It applies equally to example and test placeholder data: reach for the generic blessed token (`$obj`,
+entry just to clear `Test-Spelling`. It applies equally to example and test placeholder data: reach for the generic blessed token (`$obj`,
 `'obj'`) before coining a new word. The bar is deliberately high — `$obj` is for the genuinely nameless intermediate, never a licence to
 blur a value that has a real meaning, a return role, or a type worth a glance.
 
@@ -222,7 +222,7 @@ on its own (ADR-AUTO-SPELL#7): a human either spells it out or adds a categorize
 tokens to the accepted list is the junk drawer this ADR forbids — it teaches the vocabulary it was only meant to tolerate.
 
 The registry also stays honest about what is live. A term worth keeping is used consistently and stays referenced; an entry no code
-references is dead vocabulary and is removed (ADR-AUTO-SPELL#8). The terminology gate enforces both directions — a flagged coinage cannot
+references is dead vocabulary and is removed (ADR-AUTO-SPELL#8). `Test-Terminology` enforces both directions — a flagged coinage cannot
 enter except as a reviewed entry, and an unreferenced entry cannot remain.
 
 ## Decision
@@ -235,13 +235,14 @@ gives functions a shared, spelled-out vocabulary, and this gives the same to the
 
 ### How this is enforced
 
-- **`Measure-SpellOutIdentifiers`** (custom PSScriptAnalyzer rule, ADR-AUTO-SPELL#9, in the L2 analyzer gate) is the primary automatic
-  enforcer: it tokenizes every variable name, parameter name, and function noun and flags any fragment that is neither a real English word
-  nor an approved registry term, with no minimum length — so it catches the short and compound coined abbreviations (`$rcg`, `$tfPath`) that
-  cspell's `minWordLength` lets through. A flagged fragment is spelled out or blessed as a reviewed registry entry (ADR-AUTO-SPELL#7).
-- **cspell / `Test-Spelling`** (the L2 spelling gate) is the complementary net over prose and comments (not just identifiers); it flags
-  coined tokens its dictionaries do not recognize. A blessed term added to the terminology registry (ADR-AUTO-SPELL#3) is a reviewed change
-  visible in the diff.
+- **`Measure-SpellOutIdentifiers`** (custom PSScriptAnalyzer rule, ADR-AUTO-SPELL#9, in the L2 `Test-ScriptAnalyzer` quality gate) is the
+  primary automatic enforcer: it tokenizes every variable name, parameter name, and function noun and flags any fragment that is neither a
+  real English word nor an approved registry term, with no minimum length — so it catches the short and compound coined abbreviations
+  (`$rcg`, `$tfPath`) that cspell's `minWordLength` lets through. A flagged fragment is spelled out or blessed as a reviewed registry entry
+  (ADR-AUTO-SPELL#7).
+- **cspell / `Test-Spelling`** (the L2 spelling quality gate) is the complementary net over prose and comments (not just identifiers); it
+  flags coined tokens its dictionaries do not recognize. A blessed term added to the terminology registry (ADR-AUTO-SPELL#3) is a reviewed
+  change visible in the diff.
 - **Code review** covers what neither gate can: an abbreviation that is also a real dictionary word (`$spec`, `$info`, `$prop`), which
   membership alone cannot distinguish from a genuine short word, is spelled out in review.
 - **`Test-Terminology`** is the gate over the registry itself: it fails when the generated word lists differ from the registry
@@ -250,7 +251,7 @@ gives functions a shared, spelled-out vocabulary, and this gives the same to the
 - **The English half of the oracle is a committed, version-stamped artifact.** `Build-EnglishDictionary` flattens cspell's bundled `en`/
   `en-GB` dictionaries to `assets/english.txt.gz` and writes a sidecar `assets/english.stamp` recording the cspell + dict versions it was
   built from. Regenerating needs node, so — like the compiled-type prebuild (ADR-REPO-OUTDIR#5) — the artifact is committed rather than
-  rebuilt at import. A drift gate (`Build-EnglishDictionary.Tests.ps1`) compares the stamp's cspell version against the `tools.yml` pin and
+  rebuilt at import. A drift check (`Build-EnglishDictionary.Tests.ps1`) compares the stamp's cspell version against the `tools.yml` pin and
   its word count against the gz, with no node round-trip, so a cspell bump that leaves the dictionary stale fails in CI with "re-run
   Build-EnglishDictionary".
 

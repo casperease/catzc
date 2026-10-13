@@ -35,9 +35,9 @@ Describe 'Get-GlossaryAnchorViolations' -Tag 'L0', 'logic' {
                     'A **gadget run** executes widgets.'
                 ) -join "`n"))
 
-        # One merged glossary entry: a prose-only concept from the widget source, with optional source gates.
+        # One merged glossary entry: a prose-only concept from the widget source, with the source's optional checks.
         $script:entry = {
-            param([string] $term, [string] $definedBy, [string[]] $gates)
+            param([string] $term, [string] $definedBy, [string[]] $checks)
             $concept = [Catzc.Base.Docs.GlossaryConcept]::new($term, [ordered]@{
                     key         = $term.Replace(' ', '_')
                     domain      = 'repository'
@@ -46,8 +46,8 @@ Describe 'Get-GlossaryAnchorViolations' -Tag 'L0', 'logic' {
                     realized_by = [ordered]@{ kind = 'prose-only' }
                 })
             $options = @{}
-            if ($PSBoundParameters.ContainsKey('gates')) {
-                $options['gates'] = $gates
+            if ($PSBoundParameters.ContainsKey('checks')) {
+                $options['checks'] = $checks
             }
             [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'automation/Catzc.Widget/configs/glossary.yml',
                 [Catzc.Base.Docs.GlossaryOptions]::new($options))
@@ -83,7 +83,7 @@ Describe 'Get-GlossaryAnchorViolations' -Tag 'L0', 'logic' {
         $found[0] | Should -BeLike "*concept 'gadget run': the normative summary of ADR-TST-WIDGET#2 does not bold '**gadget run**'*"
     }
 
-    It 'skips a source that opts out of the anchored gate' -Tag 'ADR-REPO-VOCAB#2' {
+    It 'skips a source that opts out of the anchored check' -Tag 'ADR-REPO-VOCAB#2' {
         $entries = @(
             & $script:entry 'gadget run' 'ADR-TST-WIDGET#2' @('single', 'avoid', 'enforced')
             & $script:entry 'widget suite' 'ADR-TST-WIDGET#9' @()

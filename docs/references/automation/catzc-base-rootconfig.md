@@ -17,7 +17,7 @@ only the pairing and the materialisation.
 | -------- | -------- | ---------------------------------------------------------------------- |
 | domain:1 | render   | [Managed-file materialisation](#domain1--managed-file-materialisation) |
 | domain:2 | registry | [Root-config registry](#domain2--root-config-registry)                 |
-| domain:3 | gates    | [Root-config gates](#domain3--root-config-gates)                       |
+| domain:3 | gates    | [Root-config quality gates](#domain3--root-config-quality-gates)       |
 
 ### domain:1 — Managed-file materialisation
 
@@ -39,7 +39,7 @@ forbids a declared `comment` ([ADR-REPO-ROOTCFG#7](../../adr/repository/generate
 malformed entry can never produce a run. The registry is the single place the pairing is stated; the generator reads it through
 [Catzc.Base.Config](catzc-base-config.md) and never hard-codes a path.
 
-### domain:3 — Root-config gates
+### domain:3 — Root-config quality gates
 
 The quality gates ([ADR-AUTO-TEST#35](../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the materialised result. One
 checks that the registry, `.gitignore`, git's tracked set, and the link mechanism agree for every opted-in entry
@@ -68,5 +68,5 @@ The module's public surface, sorted into the domains above.
 | --------------------------------------- | --------------------------- |
 | domain:1 — Managed-file materialisation | `Build-RootConfig`          |
 | domain:2 — Root-config registry         | `rootconfig.yml`            |
-| domain:3 — Root-config gates            | `Test-RootConfigFiles`      |
+| domain:3 — Root-config quality gates    | `Test-RootConfigFiles`      |
 |                                         | `Test-RootAnalyzerSettings` |

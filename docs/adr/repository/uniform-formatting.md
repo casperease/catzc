@@ -45,7 +45,7 @@ cleanly across commits. It is never hand-formatted, not even inside a generator'
 
 Every git-tracked Markdown file opens — after any YAML front matter — with the H1 `# <repository-relative path>`, e.g.
 `# docs/references/infrastructure/foundation.md`, and nothing else on that line. `Format-MarkdownTitle` writes it — a replaced title's
-wording is kept between single backticks as the body's first line, so no authored text is lost — and `Test-MarkdownTitle` gates it. The
+wording is kept between single backticks as the body's first line, so no authored text is lost — and `Test-MarkdownTitle` checks it. The
 scope follows the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored`,
 `linguist-generated`, or `catzc-fixture` (the test fixture trees), and those it marks `-catzc-path-title` (the repository landing page,
 which keeps its own title). A new exception is declared in the `.gitattributes` source, never in a list of the gate's own.
@@ -58,7 +58,7 @@ A Markdown heading below the title is plain words with an anchor unique in its d
 spans and separators — a file name, a path, a citation — sits on its own line directly below the heading instead, groups joined by `·` and a
 citation written as a link to its ADR; code that is the heading's subject stays in it. In ex. a `dora-explains.md` file each entry's DORA
 paragraph is a `>` blockquote, so paraphrased research reads as grey text. `Format-MarkdownTitle` writes this form and `Test-MarkdownTitle`
-gates it.
+checks it.
 
 - [Headings are plain words](#headings-are-plain-words)
 
@@ -95,12 +95,12 @@ The baseline is the floor. Each language adds its own `.editorconfig` section (i
 formatter/analyzer. The exact per-language values live in `.editorconfig`; this ADR does not restate them — it records only which tool
 governs each language:
 
-| Language                            | Governed by                                                                                                                                                |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PowerShell (`.ps1`/`.psm1`/`.psd1`) | `.editorconfig` + `PSScriptAnalyzerSettings.psd1` — see [powershell-formatting](../automation/powershell/powershell-formatting.md)                         |
-| YAML (`.yml`/`.yaml`)               | `.editorconfig`; `.yaml` pipelines additionally formatted by Prettier (`Format-Pipelines`) and gated on naming/placement (`Test-Pipelines`, ADR-PIPE-NAME) |
-| JSON                                | `.editorconfig`                                                                                                                                            |
-| Markdown (`.md`)                    | `.editorconfig` + `.markdownlint.yml`, formatted by Prettier                                                                                               |
+| Language                            | Governed by                                                                                                                                                   |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PowerShell (`.ps1`/`.psm1`/`.psd1`) | `.editorconfig` + `PSScriptAnalyzerSettings.psd1` — see [powershell-formatting](../automation/powershell/powershell-formatting.md)                            |
+| YAML (`.yml`/`.yaml`)               | `.editorconfig`; `.yaml` pipelines additionally formatted by Prettier (`Format-Pipelines`) and checked for naming/placement (`Test-Pipelines`, ADR-PIPE-NAME) |
+| JSON                                | `.editorconfig`                                                                                                                                               |
+| Markdown (`.md`)                    | `.editorconfig` + `.markdownlint.yml`, formatted by Prettier                                                                                                  |
 
 Adding a language means adding its `.editorconfig` section (and, if it has one, wiring its formatter into the tests as a quality gate) — not
 inventing a new formatting philosophy.
@@ -124,8 +124,8 @@ forbids, merely moved into code; it drifts the moment a field is added and churn
 ### Markdown titles are paths
 
 A hand-written title is the author's guess at a name — usually the file's leaf name, which says nothing about where the document lives. The
-same document is read through a generated README link, a search result, a printout, or a pasted excerpt, and each of those loses the folder
-it came from. A title that is the repository-relative path names the document exactly in all of them, cannot drift when the file is renamed
+same document is read through a generated README, a search result, a printout, or a pasted excerpt, and each of those loses the folder it
+came from. A title that is the repository-relative path names the document exactly in all of them, cannot drift when the file is renamed
 (the formatter rewrites it), and leaves nothing to judge, so a tool owns it like every other formatting choice. The path is plain text, with
 its `.md` extension, so it can be copied straight into a link or a terminal. What the document is about is said in its first paragraph: when
 the formatter replaces an authored title, that title's wording is kept below the path between single backticks, marked as the old title
@@ -163,17 +163,17 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - **Per-language analyzers** — each language's specific rules run in its own gate. For PowerShell this is PSScriptAnalyzer plus custom rules
   in the L2 tests (see [powershell-formatting](../automation/powershell/powershell-formatting.md)). For Markdown it is markdownlint
   (`.markdownlint.yml`), formatted by Prettier and kept in sync with it. For ADO pipeline YAML (`.yaml`) it is Prettier (`Format-Pipelines`,
-  the same engine as Markdown, checked by the `Test-Formatting` gate in an L2 test) plus the naming-and-placement gate `Test-Pipelines`
-  ([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md), an L1 integrity test) — both run in every CI test run, so
-  drifted or misplaced pipeline YAML fails CI.
+  the same engine as Markdown, checked by the `Test-Formatting` gate in an L2 test) plus the naming-and-placement quality gate
+  `Test-Pipelines` ([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md), an L1 integrity test) — both run in
+  every CI test run, so drifted or misplaced pipeline YAML fails CI.
 - **Generated artifacts** — a build-generated artifact is emitted canonical by its generator (the module-manifest emitter), and an L2 test
   asserts the formatter is a no-op over generated output, so its bytes cannot drift from the standard.
 - **Links** — `Format-Links` aligns every link mechanically (code links repository-rooted, markdown links relative, rule citations spelled
-  `ADR-<CODE>#<n>`) and `Test-Links` gates them; an L2 test asserts `Format-Links` is a no-op over the tracked tree
+  `ADR-<CODE>#<n>`) and `Test-Links` checks them; an L2 test asserts `Format-Links` is a no-op over the tracked tree
   ([markdown-links](markdown-links.md)).
 - **Markdown titles** — `Format-MarkdownTitle` titles every in-scope Markdown file with its repository path, brings its headings into normal
   form (moving trailing reference groups out, quoting `dora-explains` paragraphs, and re-pointing every link to a heading whose anchor
-  changed), and `Test-MarkdownTitle` gates both, including duplicate anchors; an L1 test asserts the tracked tree has no finding.
+  changed), and `Test-MarkdownTitle` checks both, including duplicate anchors; an L1 test asserts the tracked tree has no finding.
 
 ## Consequences
 

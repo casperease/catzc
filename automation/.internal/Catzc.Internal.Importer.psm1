@@ -30,7 +30,7 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 .PARAMETER CleanClone
     Opt IN to a whitelisted deep clean as the janitor run's first step: Reset-GitCleanFxd deletes only
     the auto-controlled generated artifacts a `git clean -fxd` would remove (managed root configs,
-    module manifests, README links, cspell dictionaries, out/, IDE bin/obj) and keeps — reported — any
+    module manifests, generated READMEs, cspell dictionaries, out/, IDE bin/obj) and keeps — reported — any
     untracked file that is not the automation's to delete. The regenerating janitors that follow
     rematerialise what it removed, so one -CleanClone import leaves a pristine, fully-generated clone
     (the module manifests reappear on the next import, exactly as on a fresh clone). Ignored under
@@ -239,7 +239,7 @@ function Invoke-Importer {
 
         # Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/adr/index.md) from adrs.yml and
         # [glossary](/docs/adr/glossary.md) from the glossary sources — committed so GitHub has them, rebuilt BEFORE
-        # Build-Readme (its README link points at the index). See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+        # Build-Readme (the docs/adr README is generated from the index). See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
         if (-not $SkipJanitors -and (Get-Command Build-AdrIndex -ErrorAction Ignore)) {
             Build-AdrIndex -Silent | Out-Null
             Build-Glossary -Silent | Out-Null

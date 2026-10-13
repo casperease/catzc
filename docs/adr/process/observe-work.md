@@ -52,8 +52,8 @@ Treat visibility of the work as a requirement, not a nicety, and treat direct ob
 - **Render the flow.** The position and state of every commit is shown by construction, not reconstructed on demand
   ([ADR-DSGN-VISUAL](../design/visual-design.md)): position is time, colour is the furthest state reached, and a glance decodes where a
   change is. The value stream is the visual factory.
-- **Go and see.** Judge progress from the real running artifact and real signals — a green gate, a deployed environment, a monitored metric
-  — not from a proxy. "Done" means the software does the thing, observed, not a task ticked ([ADR-PRIN-PROCESS](agile-principles.md),
+- **Go and see.** Judge progress from the real running artifact and real signals — a gate that passed, a deployed environment, a monitored
+  metric — not from a proxy. "Done" means the software does the thing, observed, not a task ticked ([ADR-PRIN-PROCESS](agile-principles.md),
   working software is the measure).
 - **Announce, don't bury.** When something happens that a human needs to know — a slow step about to block, a problem detected — it is said
   plainly on the console at the moment it happens ([ADR-AUTO-CONSOLE](../automation/powershell/console-output-matters.md)), not swallowed

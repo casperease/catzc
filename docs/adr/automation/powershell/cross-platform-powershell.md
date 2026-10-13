@@ -6,7 +6,7 @@
 
 ### Rule ADR-AUTO-PSXPLAT:1
 
-PowerShell code meets [cross-platform](../cross-platform.md) (`ADR-AUTO-XPLAT`) through the rules below, gated mechanically:
+PowerShell code meets [cross-platform](../cross-platform.md) (`ADR-AUTO-XPLAT`) through the rules below, enforced mechanically:
 PSScriptAnalyzer's compatibility rules validate cmdlets and .NET types against the target-platform profiles at analysis time, before the
 code ever runs on the other OS.
 
@@ -22,7 +22,7 @@ platform.
 ### Rule ADR-AUTO-PSXPLAT:3
 
 Never use platform-specific cmdlets (`Get-Service`, `Get-WmiObject`, …) without a cross-platform alternative. If platform-specific behavior
-is unavoidable, gate it with `$IsWindows` / `$IsLinux` and implement both.
+is unavoidable, branch on `$IsWindows` / `$IsLinux` and implement both.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
@@ -35,7 +35,7 @@ with tools that exist on both platforms.
 
 ### Rule ADR-AUTO-PSXPLAT:5
 
-Gate unavoidable platform-specific logic with the built-in `$IsWindows` / `$IsLinux` automatic variables, and always provide both branches.
+Branch unavoidable platform-specific logic on the built-in `$IsWindows` / `$IsLinux` automatic variables, and always provide both branches.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
@@ -78,7 +78,7 @@ rule, not a language one: see [cross-platform](../cross-platform.md#rule-adr-aut
 **PSScriptAnalyzer** validates cmdlets and .NET types against Windows and Ubuntu profiles at analysis time, catching Windows-only APIs
 _before the code runs_ — in the L2 tests, on every developer's machine. The rules that do this (`PSUseCompatibleCmdlets`,
 `PSUseCompatibleTypes`), their target profiles, and their current on/off state are defined in `PSScriptAnalyzerSettings.psd1`, documented
-inline (they are cost-gated and may be toggled — the psd1 is authoritative).
+inline (they are costly to run and may be toggled — the psd1 is authoritative).
 
 **Why no macOS profile?** PSScriptAnalyzer's built-in compatibility catalog only ships with Windows and Ubuntu profiles — there is no macOS
 catalog. In practice this is fine: macOS and Linux both run .NET on Unix, so the cmdlet and type surface is nearly identical. The Ubuntu
@@ -88,8 +88,9 @@ profile effectively covers macOS. If Microsoft ever ships a macOS catalog, we ad
 
 ## Decision
 
-PowerShell code constructs every path with `Join-Path`, uses no platform-only cmdlet or binary without a gated alternative, and expresses
-unavoidable platform logic as `$IsWindows` / `$IsLinux` branches — all validated by the analyzer's compatibility profiles before push.
+PowerShell code constructs every path with `Join-Path`, uses no platform-only cmdlet or binary without a branch for the other platform, and
+expresses unavoidable platform logic as `$IsWindows` / `$IsLinux` branches — all validated by the analyzer's compatibility profiles before
+push.
 
 ### How this is enforced
 
@@ -101,7 +102,7 @@ unavoidable platform logic as `$IsWindows` / `$IsLinux` branches — all validat
 ## Consequences
 
 - Code that passes L2 tests locally on Windows is validated against Linux compatibility without needing a Linux machine.
-- Platform-specific concerns are isolated to `Install-*` functions and gated with `$IsWindows` / `$IsLinux`; the rest of the codebase is
+- Platform-specific concerns are isolated to `Install-*` functions and branched on `$IsWindows` / `$IsLinux`; the rest of the codebase is
   platform-agnostic.
 - Path handling is consistent everywhere — `Join-Path` is the only way to build paths.
 - New platforms (macOS) can be added by extending the `Install-*` functions without touching business logic.

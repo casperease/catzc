@@ -1,7 +1,7 @@
 # Validates the compiled GlossaryConfig type and the records it builds (GlossaryOptions, GlossaryConcept,
-# GlossaryRealization, GlossaryAvoid) directly — the constructor is the gate that stops a malformed glossary source
+# GlossaryRealization, GlossaryAvoid) directly — the constructor is the guard that stops a malformed glossary source
 # from ever producing an instance. Only the self-contained load-time rules live here; the cross-source and
-# cross-file checks belong to the glossary gates. Fixture terms are neutral (widget/gadget,
+# cross-file checks belong to the glossary checks. Fixture terms are neutral (widget/gadget,
 # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
     BeforeAll {
@@ -34,7 +34,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $c.concepts[0].relations.Count | Should -Be 0
         $c.concepts[0].contrasts.Count | Should -Be 0
         $c.concepts[0].avoid.Count | Should -Be 0
-        $c.options.gates | Should -Be @('anchored', 'single', 'avoid', 'enforced')
+        $c.options.checks | Should -Be @('anchored', 'single', 'avoid', 'enforced', 'forms')
         $c.options.surfaces | Should -Be @('markdown', 'comments', 'help', 'messages')
         $c.options.scope | Should -Be @('**')
         $c.options.exclude | Should -Be @('docs/adr/research/**', 'docs/references/dora/**', 'out/**', 'automation/.vendor/**')
@@ -49,24 +49,24 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
 
     It 'overrides only the options a source sets, and always keeps the default excludes first' -Tag 'ADR-REPO-VOCAB#2' {
         $c = & $script:make ([ordered]@{
-                options  = [ordered]@{ gates = @('avoid'); scope = @('docs/**'); exclude = @('docs/widget/**', 'out/**') }
+                options  = [ordered]@{ checks = @('avoid'); scope = @('docs/**'); exclude = @('docs/widget/**', 'out/**') }
                 concepts = [ordered]@{ 'widget suite' = (& $script:concept) }
             })
-        $c.options.gates | Should -Be @('avoid')
+        $c.options.checks | Should -Be @('avoid')
         $c.options.scope | Should -Be @('docs/**')
         $c.options.surfaces | Should -Be @('markdown', 'comments', 'help', 'messages')
         $c.options.exclude | Should -Be @('docs/adr/research/**', 'docs/references/dora/**', 'out/**', 'automation/.vendor/**', 'docs/widget/**')
     }
 
-    It 'accepts an explicit empty gates list (opted in, structural check only)' -Tag 'ADR-REPO-VOCAB#2' {
-        $c = & $script:make ([ordered]@{ options = @{ gates = @() }; concepts = [ordered]@{ 'widget suite' = (& $script:concept) } })
-        $c.options.gates.Count | Should -Be 0
+    It 'accepts an explicit empty checks list (opted in, structural check only)' -Tag 'ADR-REPO-VOCAB#2' {
+        $c = & $script:make ([ordered]@{ options = @{ checks = @() }; concepts = [ordered]@{ 'widget suite' = (& $script:concept) } })
+        $c.options.checks.Count | Should -Be 0
     }
 
-    It 'rejects an unknown option key, gate, or surface' -Tag 'ADR-REPO-VOCAB#2' {
+    It 'rejects an unknown option key, check, or surface' -Tag 'ADR-REPO-VOCAB#2' {
         $body = [ordered]@{ 'widget suite' = (& $script:concept) }
         { & $script:make ([ordered]@{ options = @{ colour = 'blue' }; concepts = $body }) } | Should -Throw "*unknown key 'colour'*"
-        { & $script:make ([ordered]@{ options = @{ gates = @('widget') }; concepts = $body }) } | Should -Throw "*options.gates: 'widget' is not one of*"
+        { & $script:make ([ordered]@{ options = @{ checks = @('widget') }; concepts = $body }) } | Should -Throw "*options.checks: 'widget' is not one of*"
         { & $script:make ([ordered]@{ options = @{ surfaces = @('gadget') }; concepts = $body }) } | Should -Throw "*options.surfaces: 'gadget' is not one of*"
     }
 
@@ -120,6 +120,19 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
             $body.defined_by = $citation
             { & $script:single $body } | Should -Throw '*must be a rule citation*' -Because "'$citation' is not the '#' citation form"
         }
+    }
+
+    It 'keeps declared forms in order, empty when none, and rejects a non-word or a repeated form' -Tag 'ADR-REPO-VOCAB#8' {
+        (& $script:single (& $script:concept)).concepts[0].forms.Count | Should -Be 0
+        $body = & $script:concept
+        $body.forms = @('gadget', 'CI')
+        (& $script:single $body).concepts[0].forms | Should -Be @('gadget', 'CI')
+        $body.forms = @('gadget run', 'ci', 'CI')
+        $thrown = { & $script:single $body } | Should -Throw -PassThru
+        $thrown.Exception.Message | Should -BeLike "*forms: 'gadget run' must be one word*"
+        $thrown.Exception.Message | Should -BeLike "*forms: 'CI' is listed twice*"
+        $body.forms = 'gadget'
+        { & $script:single $body } | Should -Throw '*forms must be a list of single qualifier words*'
     }
 
     It 'rejects an unknown concept key' {

@@ -8,7 +8,7 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         # One merged glossary entry from the widget source: realized as a tag unless said otherwise.
         $script:entry = {
-            param([string] $term, [string] $definedBy, [string] $kind = 'tag', [string[]] $gates)
+            param([string] $term, [string] $definedBy, [string] $kind = 'tag', [string[]] $checks)
             $realization = [ordered]@{ kind = $kind }
             if ($kind -ne 'prose-only') {
                 $realization['pattern'] = 'widget'
@@ -21,8 +21,8 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
                     realized_by = $realization
                 })
             $options = @{}
-            if ($PSBoundParameters.ContainsKey('gates')) {
-                $options['gates'] = $gates
+            if ($PSBoundParameters.ContainsKey('checks')) {
+                $options['checks'] = $checks
             }
             [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'automation/Catzc.Widget/configs/glossary.yml',
                 [Catzc.Base.Docs.GlossaryOptions]::new($options))
@@ -64,7 +64,7 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
         & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#4' 'prose-only') | Should -BeNullOrEmpty
     }
 
-    It 'skips a source that opts out of the enforced gate' -Tag 'ADR-REPO-VOCAB#2' {
+    It 'skips a source that opts out of the enforced check' -Tag 'ADR-REPO-VOCAB#2' {
         & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#4' 'tag' @('anchored', 'single', 'avoid')) | Should -BeNullOrEmpty
     }
 

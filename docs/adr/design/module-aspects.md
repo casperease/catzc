@@ -47,8 +47,8 @@ they carry the degenerate one-artifact partition.
 
 ### Rule ADR-DSGN-ASPECT:5
 
-The partition invariant — disjoint + exhaustive over `git ls-files` — is an integrity gate: a file claimed by two aspects, or by none, fails
-it (`AspectPartition.Validate`). The `module-leftovers` catch-all (`ADR-REPO-PROTGLOB`) is the module-space complement — files under
+The partition invariant — disjoint + exhaustive over `git ls-files` — is an integrity check: a file claimed by two aspects, or by none,
+fails it (`AspectPartition.Validate`). The `module-leftovers` catch-all (`ADR-REPO-PROTGLOB`) is the module-space complement — files under
 `automation/` that no module partition claims — and stays empty in a clean tree.
 
 - [Decision](#decision)

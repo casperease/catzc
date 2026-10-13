@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Extracts the template references (`template:` values) from a pipeline YAML file — the paths a
-    naming/placement gate checks for absoluteness
+    naming/placement quality gate checks for absoluteness
     ([ADR-PIPE-NAME#4](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name4)).
 .DESCRIPTION
     Reads the file and returns each `template:` mapping value, whether written as a `steps`/`jobs`/… include

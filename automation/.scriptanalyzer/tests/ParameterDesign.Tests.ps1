@@ -23,26 +23,26 @@ Describe 'Measure-ParameterFillIn' -Tag 'L0', 'logic', 'ADR-AUTO-PSPARAM#4' {
         @{ Description = '$P = $P ?? …'; Body = "`$Label = `$Label ?? 'widget'" }
     ) {
         $code = "function Get-Widget {`n    param([string] `$Label)`n    $Body`n    `$Label`n}"
-        $records = @(Get-RuleRecord 'Measure-ParameterFillIn' $code 'automation/Catzc.Widget/Get-Widget.ps1')
+        $records = @(Get-RuleRecord -Rule 'Measure-ParameterFillIn' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1')
         $records.Count | Should -Be 1
         $records | ForEach-Object { $_.RuleName } | Should -Be 'Measure-ParameterFillIn'
     }
 
     It 'accepts a declared default' {
         $code = "function Get-Widget {`n    param([string] `$Label = 'widget')`n    `$Label`n}"
-        @(Get-RuleRecord 'Measure-ParameterFillIn' $code 'automation/Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
+        @(Get-RuleRecord -Rule 'Measure-ParameterFillIn' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
     }
 
     It 'leaves a test file alone' {
         $code = "function Get-Widget {`n    param([string] `$Label)`n    if (-not `$Label) { `$Label = 'widget' }`n}"
-        @(Get-RuleRecord 'Measure-ParameterFillIn' $code 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 0
+        @(Get-RuleRecord -Rule 'Measure-ParameterFillIn' -Code $code -RelativePath 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 0
     }
 }
 
 Describe 'Measure-PrimaryArgumentPosition' -Tag 'L0', 'logic', 'ADR-AUTO-PSPARAM#2' {
     It 'flags a public function whose one mandatory parameter is named-only' {
         $code = "function Get-Widget {`n    param([Parameter(Mandatory)] [string] `$Name, [int] `$Count = 1)`n}"
-        $records = @(Get-RuleRecord 'Measure-PrimaryArgumentPosition' $code 'automation/Catzc.Widget/Get-Widget.ps1')
+        $records = @(Get-RuleRecord -Rule 'Measure-PrimaryArgumentPosition' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1')
         $records.Count | Should -Be 1
         $records | ForEach-Object { $_.Message } | Should -BeLike '*-Name*Position = 0*'
     }
@@ -54,11 +54,11 @@ Describe 'Measure-PrimaryArgumentPosition' -Tag 'L0', 'logic', 'ADR-AUTO-PSPARAM
         @{ Description = 'no mandatory parameter'; Param = '[string] $Name' }
     ) {
         $code = "function Get-Widget {`n    param($Param)`n}"
-        @(Get-RuleRecord 'Measure-PrimaryArgumentPosition' $code 'automation/Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
+        @(Get-RuleRecord -Rule 'Measure-PrimaryArgumentPosition' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
     }
 
     It 'leaves a private helper alone' {
         $code = "function Get-Widget {`n    param([Parameter(Mandatory)] [string] `$Name)`n}"
-        @(Get-RuleRecord 'Measure-PrimaryArgumentPosition' $code 'automation/Catzc.Widget/private/Get-Widget.ps1').Count | Should -Be 0
+        @(Get-RuleRecord -Rule 'Measure-PrimaryArgumentPosition' -Code $code -RelativePath 'automation/Catzc.Widget/private/Get-Widget.ps1').Count | Should -Be 0
     }
 }

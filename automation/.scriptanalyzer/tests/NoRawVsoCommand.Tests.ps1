@@ -1,4 +1,4 @@
-# This file is covered by the analysis gate like all authored PowerShell (Get-AutomationSourceFiles). Its
+# This file is covered by Test-ScriptAnalyzer like all authored PowerShell (Get-AutomationSourceFiles). Its
 # fixtures deliberately embed raw ##vso[task.*] strings so the rule can prove it flags them, which the rule
 # itself would then report against this file — suppress it here for the whole file rather than mangle the
 # fixtures.

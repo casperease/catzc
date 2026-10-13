@@ -219,7 +219,7 @@ function New-DynamicManifest {
     [System.Array]::Sort($exportNames, [System.StringComparer]::Ordinal)
 
     # Canonical, formatter-stable text — no hand-padded alignment
-    # ([ADR-REPO-FORMAT#1](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format1)); the L2 tests gate the
+    # ([ADR-REPO-FORMAT#1](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format1)); the L2 tests guard the
     # invariant.
     $content = Get-DynamicManifestContent -NestedModule $nestedModules -FunctionToExport $exportNames -ExportAll:$ExportPrivates
     Write-DynamicManifest -Path $manifestPath -Content $content
@@ -263,7 +263,7 @@ function Get-DynamicManifestContent {
         from the longest key rather than hand-padded
         ([ADR-REPO-FORMAT#1](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format1)), the text uses LF
         endings with a trailing newline,
-        and it is formatter-stable — running Invoke-Formatter over it is a no-op (gated by the L2 tests). Callers
+        and it is formatter-stable — running Invoke-Formatter over it is a no-op (guarded by the L2 tests). Callers
         pass ordinal-sorted, forward-slashed inputs, so the bytes are identical on every platform and every build
         of a commit.
     #>
@@ -333,7 +333,7 @@ function Get-DynamicManifestContent {
     Autoloads all modules' types/ folders as a SINGLE assembly (automation/.compiled/Catzc.Types.<hash>.dll),
     so a type in one module can reference a type in another — a shared base class, a layered record graph.
     Each .cs file is named for the BARE type it must produce and declares the file-scoped namespace of its
-    module ("namespace <module>;"), maintained by Format-Types and gated by Test-Formatting. The loader compiles the
+    module ("namespace <module>;"), maintained by Format-Types and checked by Test-Formatting. The loader compiles the
     sources AS AUTHORED (Add-Type -Path, one compilation unit per file, so each file's file-scoped namespace is
     legal) and derives the expected type as <module>.<filename>: types/CliRunner.cs in module Catzc.Base.Execution
     -> type Catzc.Base.Execution.CliRunner. The loader requires each source's declared namespace to match its

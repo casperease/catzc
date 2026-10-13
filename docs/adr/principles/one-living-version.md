@@ -187,9 +187,10 @@ what the code used to be lives in git and nowhere else — not in retained files
 
 ### How this is enforced
 
-- **Code review** is the primary gate: a reviewer rejects an unplanned `V2`-beside current-`V1`, a deprecated alias, a commented-out block,
-  a "legacy" note, or a long-lived version branch, against this ADR. A bounded branch-by-abstraction seam with a stated deletion plan
-  (ADR-PRIN-ONELIVE#8) is the exception — the reviewer checks that the scaffold is temporary and tracked, not that it merely exists.
+- **Code review**, at the PR gate, is the primary enforcement: a reviewer rejects an unplanned `V2`-beside current-`V1`, a deprecated alias,
+  a commented-out block, a "legacy" note, or a long-lived version branch, against this ADR. A bounded branch-by-abstraction seam with a
+  stated deletion plan (ADR-PRIN-ONELIVE#8) is the exception — the reviewer checks that the scaffold is temporary and tracked, not that it
+  merely exists.
 
 - **Strict config validation** keeps the principle structural where it can: every shipped config's C# config type rejects unknown /
   deprecated keys at load (ADR-CONF-LOADING#4), so a compatibility field cannot quietly linger in a config — removing the property from the

@@ -10,7 +10,7 @@
 
       Build-AdrIndex               [index](/docs/adr/index.md) from adrs.yml
       Build-Glossary               [glossary](/docs/adr/glossary.md) from the configs/glossary.yml sources
-      Build-Readme                 the README links to their docs/references articles (readme.yml)
+      Build-Readme                 the READMEs generated from their docs/references articles (readme.yml)
       Build-GitKeep                every managed .gitkeep from the shipped assets/gitkeep
       Build-TerminologyDictionary  the .cspell/<category>.txt lists from terminology.yml
       Build-EnglishDictionary      the committed english.txt.gz, checked from its stamp (Get-EnglishDictionaryDrift)

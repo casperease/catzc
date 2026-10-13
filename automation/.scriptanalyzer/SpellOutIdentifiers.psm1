@@ -12,7 +12,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     terminology (.cspell/*.txt: domain vocabulary + the conventional-abbreviation allow-list). A fragment that
     is neither a real word nor approved vocabulary is an invented abbreviation and is flagged.
 
-    This catches what the cspell gate cannot: cspell's minWordLength (4) lets short coined tokens (rcg, and
+    This catches what Test-Spelling cannot: cspell's minWordLength (4) lets short coined tokens (rcg, and
     camelCase fragments <= 3 chars) pass silently; tokenizing identifiers with no length floor catches them.
 
     The oracle (load + tokenize + lookup) is a native C# type because a PowerShell method call costs
@@ -145,7 +145,7 @@ function Measure-SpellOutIdentifiers {
         }
     }
 
-    # The noun of each function name (the verb is gated by PSUseApprovedVerbs). Predicate as a local
+    # The noun of each function name (the verb is checked by PSUseApprovedVerbs). Predicate as a local
     # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
     $isFunction = {
         param($node)

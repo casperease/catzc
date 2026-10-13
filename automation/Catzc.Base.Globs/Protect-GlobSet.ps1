@@ -2,7 +2,7 @@
 .SYNOPSIS
     Records a green scan against its globset's identity, so an unchanged repeat run can be skipped.
 .DESCRIPTION
-    The record half of the protected-glob gate
+    The record half of the protected-glob skip
     ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)) — call it only AFTER the scan passes, so a
     red scan is never cached away. It promotes the pending hash Test-GlobSetProtection captured before the
     scan (falling back to computing one when the query was never asked). Session memory only; in a pipeline

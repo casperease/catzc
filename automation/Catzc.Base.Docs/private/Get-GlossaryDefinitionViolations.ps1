@@ -1,16 +1,16 @@
 <#
 .SYNOPSIS
-    Lists the glossary terms that a second ADR rule defines (gate G3) — one message per violation.
+    Lists the glossary terms that a second ADR rule defines (check G3) — one message per violation.
 .DESCRIPTION
     A defined term is fixed by exactly one rule
     ([ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)).
-    For every concept whose source takes part in the `single` gate, this reports each rule other than its
+    For every concept whose source takes part in the `single` check, this reports each rule other than its
     `defined_by` whose normative summary defines the term again: `**<term>** is` (case-insensitive, whitespace
     collapsed). The pattern is deliberately conservative — a rule that merely bolds the term is not a definition —
     and only normative summaries count (Get-GlossaryRuleStatements): bold text in an ADR body or inside an inline
     code span never does.
 
-    Private helper for the glossary gates; not exported.
+    Private helper for the glossary checks; not exported.
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.
 .PARAMETER IndexPath
@@ -38,7 +38,7 @@ function Get-GlossaryDefinitionViolations {
 
     $violations = [System.Collections.Generic.List[string]]::new()
     foreach ($item in $Entry) {
-        if ($item.Options.gates -notcontains 'single') {
+        if ($item.Options.checks -notcontains 'single') {
             continue
         }
         $term = $item.Concept.term

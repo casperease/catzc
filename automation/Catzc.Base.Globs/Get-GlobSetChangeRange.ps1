@@ -2,7 +2,7 @@
 .SYNOPSIS
     The git diff range the current context measures a globset change against — the reference-commit resolver.
 .DESCRIPTION
-    Answers "before versus now: which two commits?" for the in-pipeline "is this unit affected?" gate, per
+    Answers "before versus now: which two commits?" for the in-pipeline "is this unit affected?" check, per
     execution context ([ADR-FLOW-CD-DETECT](/docs/adr/flow/pipeline-detection.md)), so the same globset check is correct
     everywhere it runs:
 

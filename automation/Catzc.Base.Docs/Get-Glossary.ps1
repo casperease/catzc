@@ -10,7 +10,7 @@
 
     Each source is validated on load by its type; the facts that span sources — a term or key declared twice,
     a contrast that is not reciprocal, an untracked source — are not checked here. They belong to the glossary
-    gates (Get-GlossarySourceViolations), so a reader always gets the vocabulary as declared.
+    checks (Get-GlossarySourceViolations), so a reader always gets the vocabulary as declared.
 
     The result is cached for the session per repository root
     ([ADR-AUTO-PSCACHE](/docs/adr/automation/powershell/script-scope-caching.md)); re-run the importer to pick up

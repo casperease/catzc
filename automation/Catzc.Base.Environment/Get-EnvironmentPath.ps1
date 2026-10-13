@@ -5,8 +5,8 @@
     The single seam through which the PATH helpers (Add-/Remove-PermanentPath, Sync-SessionPath, the tooling
     uninstallers) READ the persistent PATH, so tests can Mock the registry boundary
     (`Mock Get-EnvironmentPath -ModuleName <module>`) instead of reading the real machine. Paired with
-    Set-EnvironmentPath for writes. User/Machine scopes are a Windows concept; callers gate Windows-only use
-    behind $IsWindows. This is the deliberately thin, un-mockable I/O boundary, so it has no unit test of its
+    Set-EnvironmentPath for writes. User/Machine scopes are a Windows concept; callers guard Windows-only use
+    with $IsWindows. This is the deliberately thin, un-mockable I/O boundary, so it has no unit test of its
     own.
 .PARAMETER Scope
     Which environment scope to read: User (default), Machine, or Process.

@@ -45,8 +45,8 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — small batches reduce delays, task switching,
   and feedback loops.
-- [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — automated gates and self-service
-  reduce approval delays and handoffs.
+- [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — automated quality gates and
+  self-service reduce approval delays and handoffs.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Poka-yoke

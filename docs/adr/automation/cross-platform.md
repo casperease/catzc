@@ -85,7 +85,7 @@ on Linux.
 
 ## Consequences
 
-- Code that passes the local gates is validated against the other platform without needing a machine running it.
+- Code that passes the local quality gates is validated against the other platform without needing a machine running it.
 - CI failures caused by platform-specific code are caught before push, not in the pipeline queue.
 - Developers can debug any CI issue locally because the code paths are identical.
 - Platform-specific concerns are isolated to the installer layer; the rest of the codebase is platform-agnostic.

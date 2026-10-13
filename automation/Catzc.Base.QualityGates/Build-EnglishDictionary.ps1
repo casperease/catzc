@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Generates the committed English word list the spell-out-names analyzer rule checks identifiers against —
-    flattened from cspell's own bundled dictionaries so the two gates agree on "what is a word".
+    flattened from cspell's own bundled dictionaries so the two checks agree on "what is a word".
 .DESCRIPTION
     Reads cspell's bundled en_US and en_GB tries (the same dictionaries cspell.yml's `language: en,en-GB`
     resolves), flattens each to a word list with `cspell-trie reader`, unions them, keeps only lower-cased
@@ -10,12 +10,12 @@
 
     Unlike the .cspell/*.txt term lists (regenerated cheaply from terminology.yml on every import), this list
     is EXPENSIVE to regenerate — it needs node, npx, and cspell's bundled tries — and it is needed on a fresh
-    checkout by the L2 analyzer gate (Measure-SpellOutIdentifiers). So it is COMMITTED, the same call the
+    checkout by the L2 analyzer rule (Measure-SpellOutIdentifiers). So it is COMMITTED, the same call the
     compiled-type prebuild makes
     ([ADR-REPO-OUTDIR#5](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir5)): a deterministic,
     expensive-to-regenerate artifact kept in the tree, not regenerated at import. Alongside the gz it writes a
     committed stamp (`assets/english.stamp`) recording the cspell + dict package versions it was flattened
-    from and the word count. The drift gate (Build-EnglishDictionary.Tests.ps1) compares that stamp's cspell
+    from and the word count. The drift check (Build-EnglishDictionary.Tests.ps1) compares that stamp's cspell
     version against the tools.yml pin — cheaply, with no node round-trip — and fails when they diverge, so a
     cspell bump that leaves this artifact stale is caught in CI. Re-run this (and commit the gz + stamp) when
     bumping cspell; `-DryRun` reports whether either would change. It writes the source module in the
@@ -70,7 +70,7 @@ function Build-EnglishDictionary {
         $found
     }
 
-    # Record what the committed dictionary is flattened from, so a drift gate can detect staleness WITHOUT
+    # Record what the committed dictionary is flattened from, so a drift check can detect staleness WITHOUT
     # re-running node (Build-EnglishDictionary.Tests.ps1): the installed cspell version — compared against the
     # tools.yml pin — plus the exact dict package versions, read from each trie's sibling package.json.
     $cspellVersion = (Invoke-Executable 'cspell --version' -PassThru -Silent).Output.Trim()
@@ -123,7 +123,7 @@ function Build-EnglishDictionary {
     $stampPath = Join-Path $assetsDir 'english.stamp'
 
     # The stamp locks the artifact to its source versions. word_count also ties the stamp to THIS gz, so the
-    # drift gate can catch a stamp/gz mismatch by decompressing and counting — no node needed.
+    # drift check can catch a stamp/gz mismatch by decompressing and counting — no node needed.
     $stamp = [ordered]@{
         cspell     = $cspellVersion
         dicts      = $dictVersions

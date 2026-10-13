@@ -1,7 +1,6 @@
 // A glossary source's parameters (the optional configs/glossary.yml `options:` mapping), with every key defaulted:
-// a source overrides only what differs ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). `gates`
-// picks which checks the source's concepts take
-// part in; `scope` and `exclude` bound where its avoided phrasings are scanned; `surfaces` picks which kinds of text
+// a source overrides only what differs ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). `checks`
+// picks which glossary checks the source's concepts take part in; `scope` and `exclude` bound where its avoided phrasings are scanned; `surfaces` picks which kinds of text
 // are read there. The default excludes (external language, generated output, vendored code) are ALWAYS added to a
 // source's own, so no source can scan DORA's research text or out/. Scope and exclude globs are repo-relative
 // ('/'-separated, no leading '/', no drive, no '..', never a URL —
@@ -17,8 +16,8 @@ namespace Catzc.Base.Docs;
 
 public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
 {
-    // The closed set of gates a source may take part in (the structural check always runs).
-    public static readonly IReadOnlyList<string> Gates = new[] { "anchored", "single", "avoid", "enforced" };
+    // The closed set of glossary checks a source may take part in (the structural check always runs).
+    public static readonly IReadOnlyList<string> Checks = new[] { "anchored", "single", "avoid", "enforced", "forms" };
 
     // The closed set of text surfaces the avoided-phrasing scan can read.
     public static readonly IReadOnlyList<string> Surfaces = new[] { "markdown", "comments", "help", "messages" };
@@ -34,10 +33,10 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
 
     private static readonly Regex DriveRe = new Regex("^[A-Za-z]:", RegexOptions.Compiled);
 
-    // The gates this source's concepts take part in. Default: all of Gates.
-    public IReadOnlyList<string> gates { get; }
+    // The glossary checks this source's concepts take part in. Default: all of Checks.
+    public IReadOnlyList<string> checks { get; }
 
-    // Where this source's avoided phrasings are scanned. Default: DefaultScope.
+    // Where this source's avoided phrasings and qualified forms are scanned. Default: DefaultScope.
     public IReadOnlyList<string> scope { get; }
 
     // DefaultExclude followed by the source's own excludes (deduplicated, in order).
@@ -55,14 +54,14 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
             foreach (object k in d.Keys)
             {
                 string key = k == null ? null : k.ToString();
-                if (key != "gates" && key != "scope" && key != "exclude" && key != "surfaces")
+                if (key != "checks" && key != "scope" && key != "exclude" && key != "surfaces")
                 {
-                    errors.Add(string.Format("options: unknown key '{0}' (allowed: gates, scope, exclude, surfaces)", key));
+                    errors.Add(string.Format("options: unknown key '{0}' (allowed: checks, scope, exclude, surfaces)", key));
                 }
             }
         }
 
-        gates    = ClosedList(d, "gates", Gates, errors);
+        checks   = ClosedList(d, "checks", Checks, errors);
         surfaces = ClosedList(d, "surfaces", Surfaces, errors);
         scope    = (d != null && d.Contains("scope")) ? GlobList(d, "scope", errors) : DefaultScope;
 
@@ -80,7 +79,7 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
     }
 
     // A list option restricted to a closed set; absent -> the whole set. An explicit empty list is allowed (a source
-    // that opts out of every gate still gets the structural check).
+    // that opts out of every check still gets the structural check).
     private static IReadOnlyList<string> ClosedList(IDictionary d, string key, IReadOnlyList<string> allowed, List<string> errors)
     {
         if (d == null || !d.Contains(key)) { return allowed; }

@@ -129,8 +129,8 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
             & $script:scan @{ 'out/report.md' = @('the widget bundle') } | Should -BeNullOrEmpty
         }
 
-        It 'skips a source that opts out of the avoid gate' -Tag 'ADR-REPO-VOCAB#2' {
-            & $script:scan @{ 'docs/alpha.md' = @('the widget bundle') } @{ gates = @('anchored', 'single', 'enforced') } | Should -BeNullOrEmpty
+        It 'skips a source that opts out of the avoid check' -Tag 'ADR-REPO-VOCAB#2' {
+            & $script:scan @{ 'docs/alpha.md' = @('the widget bundle') } @{ checks = @('anchored', 'single', 'enforced', 'forms') } | Should -BeNullOrEmpty
         }
 
         It 'reads no file type that is not a surface' -Tag 'ADR-REPO-VOCAB#2' {

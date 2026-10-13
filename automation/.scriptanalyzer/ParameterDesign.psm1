@@ -2,17 +2,20 @@ Set-StrictMode -Version Latest   # this module's scope: the rules run strict ins
 
 <#
 .SYNOPSIS
-    Custom PSScriptAnalyzer rules for a function's parameter surface (ADR-AUTO-PSPARAM).
+    Custom PSScriptAnalyzer rules for a function's parameter surface
+    ([ADR-AUTO-PSPARAM](/docs/adr/automation/powershell/parameter-design.md)).
 .DESCRIPTION
     Two checks over the functions in a module function file — a .ps1 directly under automation/<Module>/ (public) or
     automation/<Module>/private/ (private); tests, assets, dot-prefixed infrastructure, and files outside automation/
     are exempt by path, as for Measure-NoScriptRootAnchor:
 
-    Measure-ParameterFillIn ([ADR-AUTO-PSPARAM#4](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam4)):
+    Measure-ParameterFillIn
+    ([ADR-AUTO-PSPARAM#4](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam4)):
     the body fills an empty parameter in — `if (-not $P) { $P = … }` or `$P = $P ?? …` — instead of declaring the default.
     The cases a declaration cannot express carry a SuppressMessageAttribute naming the reason.
 
-    Measure-PrimaryArgumentPosition ([ADR-AUTO-PSPARAM#2](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam2)):
+    Measure-PrimaryArgumentPosition
+    ([ADR-AUTO-PSPARAM#2](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam2)):
     a public function with exactly one mandatory parameter, and no parameter at Position 0, leaves its primary argument
     named-only. Private helpers are exempt: they are called by name from inside their module.
 #>

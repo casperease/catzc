@@ -175,7 +175,7 @@ asserting the derived mode, the exclusivity check, a call into each module, and 
 - A built module's errors point into its merged file; the source markers there map each line back to a source file, and debugging happens
   against source.
 - The cost is discipline in module code — content located only through the code root, source-tree tools guarded — enforced by an analyzer
-  rule, the asset-dependency gates, and the build run.
+  rule, the asset-dependency checks, and the build run.
 
 ## Related
 

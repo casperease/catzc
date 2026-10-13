@@ -56,7 +56,7 @@ Describe 'Get-GlossarySources' -Tag 'L0', 'logic' {
         $sources.Owner | Should -Be @('Catzc.Base.Docs', 'Catzc.Base.Files')
         $sources[0].Config.concepts.term | Should -Be @('gadget run')
         $sources[1].Config.concepts.term | Should -Be @('widget suite', 'alpha widget')
-        $sources[1].Config.options.gates | Should -Be @('avoid')
+        $sources[1].Config.options.checks | Should -Be @('avoid')
     }
 
     It 'asks git about every source in one query and marks an untracked one' -Tag 'ADR-REPO-VOCAB#3' {

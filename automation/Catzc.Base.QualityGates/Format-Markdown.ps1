@@ -6,7 +6,7 @@
     printWidth 140 and proseWrap: always, so the formatter wraps prose to satisfy markdownlint MD013
     (line-length 140). Third-party noise (automation/.vendor/, node_modules/) is excluded by the root
     .prettierignore; the content the bulk formatter skips by default (out/, docs/notes — the same content
-    scope the Test-Markdownlint / Test-Spelling gates use) is coded into the -Glob default as '!'-negation
+    scope Test-Markdownlint and Test-Spelling use) is coded into the -Glob default as '!'-negation
     globs, NOT the root config. Pass -Glob to format those on demand (e.g. a plan under out/).
 
     This is the companion to Test-Markdownlint: Format-Markdown brings files INTO compliance with the
@@ -25,8 +25,8 @@
 .PARAMETER Check
     Check-only (verify) mode — do NOT write. Runs prettier --check, which names every unformatted file and
     keeps Prettier's [warn]/[error] diagnostics (surfaced via -PassThru's Warnings). This is the "report,
-    change nothing" mode every formatter exposes (prettier --check, gofmt -l, black --check). Use it to gate
-    CI or preview drift; -DryRun is the quieter variant that returns only the file list. -Check supersedes
+    change nothing" mode every formatter exposes (prettier --check, gofmt -l, black --check). Use it to fail
+    CI on drift or to preview drift; -DryRun is the quieter variant that returns only the file list. -Check supersedes
     -DryRun if both are given.
 .PARAMETER DryRun
     Do not write. List the files Prettier WOULD reformat (via prettier --list-different) and return them.
@@ -46,7 +46,7 @@ function Format-Markdown {
     [Alias('Invoke-MarkdownPrettier')]
     param(
         # All Markdown minus the content the bulk formatter skips by default (out/, docs/notes — the same
-        # content scope the gates use). Third-party noise (vendor, node_modules) lives in .prettierignore.
+        # content scope the quality gates use). Third-party noise (vendor, node_modules) lives in .prettierignore.
         [string[]] $Glob = @(
             '**/*.md'
             '!out'

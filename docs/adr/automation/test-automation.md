@@ -153,7 +153,7 @@ A cluster of slow integration tests that differ only by input — each re-provin
 design signal, not a cost to accept: **push the per-case assertions left** into fast, deterministic, mocked **L0** logic tests, and leave
 the integration tier a thin walking skeleton. The thing under test is **the-state-of-this-commit** — everything-as-code (IaC templates, the
 `*.yml` configs, the module/type/function graph; see [everything-as-code](../principles/everything-as-code.md)) is a static, hermetic
-property of the committed artifacts — so the per-case behaviour is pure logic provable on mocks, and the default gate is a fast check on
+property of the committed artifacts — so the per-case behaviour is pure logic provable on mocks, and the default test run is a fast check on
 those artifacts rather than a slow tool or cloud round-trip.
 
 - [Shift checks left](#shift-checks-left)
@@ -170,10 +170,10 @@ redundant copy; collapse them.
 
 ### Rule ADR-AUTO-TEST:24
 
-The **Build Verification Test** (BVT) is the aggregate gate that certifies a commit: it runs every gated test up to the target level
+The **Build Verification Test** (BVT) certifies a commit with one aggregate verdict: it runs every selected test up to the target level
 together with the built-artifact checks of `Test-BuildArtifact` — the build itself plus its `Types`, `Load`, `Parity`, and `Manifest` facets
-— and is the end gate of both pre- and post-commit-to-master in trunk-based development. A commit reaches master only when its BVT is green,
-and the canonical module-manifest artifact a passing build produces is the BVT's gold output.
+— and is the commit gate of both pre- and post-commit-to-master in trunk-based development. A commit reaches master only when its BVT is
+green, and the canonical module-manifest artifact a passing build produces is the BVT's gold output.
 
 - [Build Verification Test](#build-verification-test)
 
@@ -203,7 +203,7 @@ whole file (serial wins over greedy):
 - **`serial`** — the test mutates state shared across worker processes: the committed `.compiled` assembly, a fixed `out/` path two files
   both write (e.g. the `out/template/<name>` build folders). Its file runs in the final **one-worker phase**, strictly alone, one file after
   another.
-- **`greedy`** — the test consumes the machine beyond its own process (the PSScriptAnalyzer gate's background-process pool, tests that spawn
+- **`greedy`** — the test consumes the machine beyond its own process (`Test-ScriptAnalyzer`'s background-process pool, tests that spawn
   importer-loading pwsh workers) but shares no mutable state with other files. Its file runs in the **greedy phase** between the parallel
   shards and the serial phase: single-file shards through the worker pool, one file per worker slot, so greedy files overlap each other
   (their tests carry L2-scale time limits) but never the parallel phase whose L0/L1 timings they would inflate.
@@ -229,11 +229,12 @@ own It-tags and every ancestor block, so a broad `Describe` rule and a specific 
 
 ### Rule ADR-AUTO-TEST:28
 
-Rule-enforcement **coverage is reported, never gated**, and counts **two enforcer kinds run in the same `Test-Automation` invocation**: a
-**`pester-test`** (a test tagged with the rule's citation — the `Rules` column of `tests.csv` is the backtrack table, filterable by a
-citation to find every enforcing test) and a **`pssa-rule`** (a PSScriptAnalyzer rule mapped to the rule, which the L2 analyzer gate runs on
-every build). `Write-TestAutomationRuleCoverage` writes `rule-coverage.md`/`.csv` — each rule's enforcers and the genuinely-uncovered list.
-It is report-only because a rule may be enforced structurally or by review, so "no mechanical enforcer" is information, not a defect.
+Rule-enforcement **coverage is reported and never blocks a run**, and counts **two enforcer kinds run in the same `Test-Automation`
+invocation**: a **`pester-test`** (a test tagged with the rule's citation — the `Rules` column of `tests.csv` is the backtrack table,
+filterable by a citation to find every enforcing test) and a **`pssa-rule`** (a PSScriptAnalyzer rule mapped to the rule, which the L2
+`Test-ScriptAnalyzer` quality gate runs on every build). `Write-TestAutomationRuleCoverage` writes `rule-coverage.md`/`.csv` — each rule's
+enforcers and the genuinely-uncovered list. It is report-only because a rule may be enforced structurally or by review, so "no mechanical
+enforcer" is information, not a defect.
 
 - [Provenance and rule coverage](#provenance-and-rule-coverage)
 
@@ -252,7 +253,7 @@ renumber breaks the build. Id existence is checked by that gate, not at load, ke
 The same tests run in two kinds of test run (ADR-AUTO-TEST#34), one per run mode ([run-modes](../design/run-modes.md)): the source run
 (`Test-Automation`) loads the modules through `importer.ps1` from `automation/`, and the build run (`Test-CatzcBuild`) builds the selected
 modules and loads them through the build's `Import-Catzc.ps1`. Both run the same `automation/<Module>/tests/*.Tests.ps1` files at every tier
-their slot allows by default (ADR-AUTO-TEST#33), with the same discovery, tag gates, sharding, and reports — the build run swaps only the
+their slot allows by default (ADR-AUTO-TEST#33), with the same discovery, tag checks, sharding, and reports — the build run swaps only the
 entry script each shard worker dot-sources, and writes its reports to `out/test-catzc-build/`. No test is copied or rewritten for the build
 run.
 
@@ -308,15 +309,15 @@ selection — in a block under its banner and under `context` in `run.json`, so 
 
 ### Rule ADR-AUTO-TEST:35
 
-A **quality gate** is an automated gate ([ADR-FLOW-CD#13](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13)) that checks one
-property of the whole repository (or its declared scope): one public `Test-<subject>` function that collects every issue, writes its report
-through `Write-QualityGateReport` (`out/test-<subject>/`, settings in `reports.yml`), and throws once listing them all; `-PassThru` returns
-the result instead. Every repository check is a quality gate — a generator's drift (`Test-GeneratedFiles`), formatting (`Test-Formatting`),
-the shipped configs (`Test-ShippedConfigs`), and the built artifact (`Test-BuildArtifact`) included — and an integrity test runs it at its
-tier, so every default test run and every CI run (`-Level 2`, the BVT) includes it; a gate whose answer cannot differ by run mode is
-`source-only`, and the tag axes are the run's own check. No gate runs at import: the import stays cheap, so a gate's cost — a full
-call-graph scan for `Test-ModuleDependency` — is paid in a test run, never on every load. A `Test-*`/`Assert-*` pair over **one value or
-session state** (`Test-IsGuid`, `Test-AzCliConnected`) is not a quality gate: its `Test-*` answers a bool and its `Assert-*` throws.
+A **quality gate** is a gate ([ADR-FLOW-CD#13](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13)), decided automatically, that
+checks one property of the whole repository (or its declared scope): one public `Test-<subject>` function that collects every issue, writes
+its report through `Write-QualityGateReport` (`out/test-<subject>/`, settings in `reports.yml`), and throws once listing them all;
+`-PassThru` returns the result instead. Every repository check is a quality gate — a generator's drift (`Test-GeneratedFiles`), formatting
+(`Test-Formatting`), the shipped configs (`Test-ShippedConfigs`), and the built artifact (`Test-BuildArtifact`) included — and an integrity
+test runs it at its tier, so every default test run and every CI run (`-Level 2`, the BVT) includes it; a gate whose answer cannot differ by
+run mode is `source-only`, and the tag axes are the run's own check. No gate runs at import: the import stays cheap, so a gate's cost — a
+full call-graph scan for `Test-ModuleDependency` — is paid in a test run, never on every load. A `Test-*`/`Assert-*` pair over **one value
+or session state** (`Test-IsGuid`, `Test-AzCliConnected`) is not a quality gate: its `Test-*` answers a bool and its `Assert-*` throws.
 
 - [Build Verification Test](#build-verification-test)
 
@@ -462,20 +463,20 @@ two ways. It is **optional**: a test carries a citation only when it meaningfull
 `Describe`-level rule and an inner `It`-level rule both hold, so `Get-TestRuleTags` **unions** the citations across the whole block chain
 rather than taking the nearest like the single-valued axes.
 
-What keeps the optional axis honest is that a **present** citation is validated. `Get-TestTagViolations` — the same discovery-pass gate that
-enforces the mandatory axes — rejects any `ADR-` tag that is malformed or names a rule absent from `Get-CatsAdrRuleIds` (the flat set parsed
-from every ADR's rule registry). So a citation cannot silently rot: renumbering a rule turns its stale tags red. The check is lazy — it
-reads the ADR tree only when a test actually carries a citation — so a test run with none stays hermetic.
+What keeps the optional axis honest is that a **present** citation is validated. `Get-TestTagViolations` — the same discovery-pass check
+that enforces the mandatory axes — rejects any `ADR-` tag that is malformed or names a rule absent from `Get-CatsAdrRuleIds` (the flat set
+parsed from every ADR's rule registry). So a citation cannot silently rot: renumbering a rule turns its stale tags red. The check is lazy —
+it reads the ADR tree only when a test actually carries a citation — so a test run with none stays hermetic.
 
-Coverage is the payoff, and it is **reported, not gated**. `Write-TestAutomationRuleCoverage` writes `rule-coverage.md`/`.csv` beside the
-run report, mapping every rule to its enforcers and listing the genuinely-uncovered. Crucially it counts **two** enforcer kinds, because two
-mechanisms run inside the one `Test-Automation` invocation: a **`pester-test`** (a tagged test — the `tests.csv` `Rules` column is the
+Coverage is the payoff, and it is **reported, never blocking**. `Write-TestAutomationRuleCoverage` writes `rule-coverage.md`/`.csv` beside
+the run report, mapping every rule to its enforcers and listing the genuinely-uncovered. Crucially it counts **two** enforcer kinds, because
+two mechanisms run inside the one `Test-Automation` invocation: a **`pester-test`** (a tagged test — the `tests.csv` `Rules` column is the
 backtrack table) and a **`pssa-rule`** (a PSScriptAnalyzer rule that enforces the rule on every build). Counting the analyzer rules is what
 makes the uncovered list honest: a rule like `ADR-AUTO-NOPWD` reads as covered because its custom analyzer fails the build, not falsely bare
 for lack of a Pester test. The analyzer→ADR mapping lives in `configs/analyzer-adr-map.yml` (custom `Measure-*` rules and enabled
 built-ins), shape-validated at load and integrity-tested for id existence and custom-rule completeness (ADR-AUTO-TEST#29). The report never
 fails the run — many rules are enforced structurally or by review, so a missing mechanical enforcer is a prompt, not a defect — but the data
-is shaped so a future gate is one flag away.
+is shaped so making it a quality gate is one flag away.
 
 ### Test tiers: the test onion
 
@@ -502,7 +503,7 @@ flowchart TB
   change. (The tier tag is mandatory — there is no default; see ADR-AUTO-TEST#13.)
 - **L2 — vertical, through the local-tool ring.** Drives a local tool for real — `git`, `az bicep build`, `python`, `dotnet`, `poetry`,
   Pester, … No cloud. Runs on a devbox **and in fast CI** (where the tools are installed); a test **self-skips** when its specific tool is
-  absent. The pipelines pin `-Level 2`, the fast build-validation gate and the BVT; `-Level 1` excludes L2 for a core-only pass.
+  absent. The pipelines pin `-Level 2`, the CI gate's fast build validation and the BVT; `-Level 1` excludes L2 for a core-only pass.
 - **L3 — vertical system tests, through both rings.** Changes or depends on state outside the repository: the real cloud API layer (maybe
   through a CLI tool, e.g. `az deployment create` / `az account show`), the user's persistent environment, installed tools. It
   **self-skips** when its prerequisite (cloud access, the platform) is missing, and runs only in the working-folder slot (ADR-AUTO-TEST#33),
@@ -564,10 +565,10 @@ This is sound because the state under test is **the-state-of-this-commit**. Ever
 the module/type/function graph — so what a test checks is a static, hermetic property of the committed artifacts
 ([everything-as-code](../principles/everything-as-code.md)): which parameter file a template renders, what name a resource resolves to,
 which slots a config set discovers. None of that needs a tool or the cloud to decide; it is fixed by the files in the commit, and a mocked
-L0 gate checks it in milliseconds, deterministically, on every change. The one thing the real tool decides that the files do not is the
+L0 test checks it in milliseconds, deterministically, on every change. The one thing the real tool decides that the files do not is the
 _integration concern itself_ — what the compiler, CLI, or cloud actually does with those artifacts — and that is exactly, and only, what the
 walking skeleton covers. [Fail-fast](fail-fast-with-asserts.md) argues that confidence comes from the integration run; this keeps that run
-thin and pushes everything it does not uniquely prove down to the fast gates (ADR-AUTO-TEST#7, ADR-AUTO-TEST#8), which is also where
+thin and pushes everything it does not uniquely prove down to the fast tiers (ADR-AUTO-TEST#7, ADR-AUTO-TEST#8), which is also where
 [reduce-waste](../principles/reduce-waste.md) points — the inner loop pays for the slow tier on every change.
 
 The walking-skeleton set is **one test per distinct integration concern, never one per case**. A concern is something the mock necessarily
@@ -688,16 +689,16 @@ Both runs execute in CI on every push, so "works in both modes" is checked befor
 ### Build Verification Test
 
 The tiers above answer "what does one test integrate with"; the Build Verification Test (BVT) answers "is this commit shippable at all". It
-is the aggregate gate — every gated test up to the target level, plus the built-artifact checks — run as one verdict on
-the-state-of-this-commit. `Test-BuildArtifact` builds the selected modules once — the build succeeds and passes its own bundle check — and
-verifies the build facet by facet (`-Facet` selects): **`Types`** (the committed `.compiled` assembly is the current one), **`Load`** (the
-build loads cold in a fresh process — every module, the types and their accelerators, every shipped config), **`Parity`** (every built
-module exports exactly its source folder's public functions and defines exactly its private ones), and **`Manifest`** (every built manifest
-is formatter-stable, so a published manifest never churns). The L2 integrity tests run it one facet each, so the BVT includes every facet.
-Because everything is a static, hermetic property of the committed artifacts (ADR-AUTO-TEST#22), that verdict is reproducible: the same
-commit yields the same result on a devbox and in CI.
+aggregates every selected test up to the target level, plus the built-artifact checks, into one verdict on the-state-of-this-commit.
+`Test-BuildArtifact` builds the selected modules once — the build succeeds and passes its own bundle check — and verifies the build facet by
+facet (`-Facet` selects): **`Types`** (the committed `.compiled` assembly is the current one), **`Load`** (the build loads cold in a fresh
+process — every module, the types and their accelerators, every shipped config), **`Parity`** (every built module exports exactly its source
+folder's public functions and defines exactly its private ones), and **`Manifest`** (every built manifest is formatter-stable, so a
+published manifest never churns). The L2 integrity tests run it one facet each, so the BVT includes every facet. Because everything is a
+static, hermetic property of the committed artifacts (ADR-AUTO-TEST#22), that verdict is reproducible: the same commit yields the same
+result on a devbox and in CI.
 
-In trunk-based development ([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive4)) the BVT is the end gate on
+In trunk-based development ([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive4)) the BVT is the commit gate on
 both sides of master — a change integrates only when its BVT is green, and master stays green because nothing merges that has not passed it.
 Its gold output is the canonical module-manifest artifact a passing build produces — the reproducible encapsulation of what the commit
 built, byte-identical for a given commit.

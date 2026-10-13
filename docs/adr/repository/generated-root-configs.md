@@ -53,10 +53,10 @@ at all — nothing is generated, and where a format wants a managed-file marker 
 
 The registry, `.gitignore`, and git's tracked set must agree, and an integrity test asserts it: every opted-in `committed: false` target is
 matched by an ignore rule and untracked; every `committed: true` target is tracked and not ignored; a generator target matches its
-generator's output (the drift check). The same gate covers the link mechanism both ways: every `copyAsLink` target is an effective link to
+generator's output (the drift check). The same test covers the link mechanism both ways: every `copyAsLink` target is an effective link to
 its source from the running OS, and no other managed target is a link.
 
-- [The integrity gate](#the-integrity-gate)
+- [The integrity test](#the-integrity-test)
 
 ### Rule ADR-REPO-ROOTCFG:7
 
@@ -141,12 +141,12 @@ file); `Set-FileLink` answers "already the right link" with no write at all. The
 generated-artifact builder — one living copy of that logic (see [one-living-version](../principles/one-living-version.md)) instead of a
 per-builder reimplementation.
 
-### The integrity gate
+### The integrity test
 
 Three parties must stay consistent: the registry (what is managed and how), `.gitignore` (what git ignores), and the index (what git
 tracks). Any pairwise drift is a defect — a managed copy that is tracked, a committed bootstrap file that an ignore rule swallows, an
 opted-in target with no ignore rule. The integrity test (`Test-RootConfigIntegrity.Tests.ps1`) asserts all of it from the registry outward,
-so adding an entry without its `.gitignore` line, or opting in a file without `git rm --cached`, fails the gate with the exact remediation.
+so adding an entry without its `.gitignore` line, or opting in a file without `git rm --cached`, fails the test with the exact remediation.
 The mechanism dimension is asserted both ways: every `copyAsLink` target is an effective link to its source from the running OS (the failure
 names the remediation — re-run the importer), and no other managed target is a link (the flipped-back `comment: none` case a content compare
 cannot see).

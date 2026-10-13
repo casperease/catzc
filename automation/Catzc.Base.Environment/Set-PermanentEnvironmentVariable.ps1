@@ -6,7 +6,7 @@
     own, Set-EnvironmentPath), so a logic test can Mock the registry boundary
     (`Mock Set-PermanentEnvironmentVariable -ModuleName <module>`) instead of changing the real user environment,
     which every other process and every concurrent test run on the machine shares. User/Machine scopes are a
-    Windows concept; callers gate Windows-only use behind $IsWindows.
+    Windows concept; callers guard Windows-only use with $IsWindows.
 
     Because every such write passes through here, this is also where it is announced
     ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)): one

@@ -40,7 +40,7 @@
 .PARAMETER DoNotRebuild
     Devbox-only. Reuse an existing build in the template's output_folder instead of rebuilding.
 .PARAMETER OverrideDoNotRunAndRun
-    Devbox-only. Bypass the DoNotRun gate (returns context instead of $null).
+    Devbox-only. Bypass the DoNotRun guard (returns context instead of $null).
 .EXAMPLE
     $context = Get-BicepDeploymentContext -Environment dev -Template sample
 #>

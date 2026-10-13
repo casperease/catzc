@@ -2,7 +2,7 @@
 .SYNOPSIS
     Splits the run's test files into the three execution phases: parallel, greedy, and serial.
 .DESCRIPTION
-    Inspects a discovery-only Pester result (Get-TestDiscovery — the same pass the tag gate consumes) and
+    Inspects a discovery-only Pester result (Get-TestDiscovery — the same pass the tag check consumes) and
     classifies every file by the optional phase tags its tests resolve through their block chains
     (Get-TestBlockTag, nearest contributing block wins — the same resolution as the tier/category axes):
 

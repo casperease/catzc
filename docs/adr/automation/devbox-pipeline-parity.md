@@ -14,7 +14,7 @@ assumes it.
 
 ### Rule ADR-AUTO-PARITY:2
 
-Both environments are **equally gated**: `Test-Automation` and its L0–L3 tiers run on the devbox AND in the pipeline, and must agree.
+Both environments are **checked equally**: `Test-Automation` and its L0–L3 tiers run on the devbox AND in the pipeline, and must agree.
 Shift-left means a failure surfaces on the devbox _first_ — not that the pipeline is the only place the code runs. A test that needs a
 pipeline to pass, or cannot run in one, is mis-tiered (`ADR-AUTO-TEST`), never a licence to fork behaviour.
 
@@ -30,8 +30,9 @@ runs are not one of them: a run that finds the working folder busy runs in a sna
 
 The two environments **connect only via the EAC** — the version-controlled globsets and their generated trigger projections
 (`ADR-FLOW-CD-GLOBS`). The devbox shoots: it edits the source and its projected triggers, and commits them. The pipeline verifies: it
-reflects the same globsets against git at the merged commit and gates, then delivers. Nothing else crosses between devbox and pipeline — no
-shared runtime state, only the committed source. So "did this change" and "what ships" are the same fact on both sides, by construction.
+reflects the same globsets against git at the merged commit, decides whether it proceeds, then delivers. Nothing else crosses between devbox
+and pipeline — no shared runtime state, only the committed source. So "did this change" and "what ships" are the same fact on both sides, by
+construction.
 
 ## Context
 
@@ -59,6 +60,6 @@ is the proof of parity.
 
 - [pipeline-detection](../flow/pipeline-detection.md) — the one seam detector (`ADR-FLOW-CD-DETECT`)
 - [durable-sha-globs](../flow/durable-sha-globs.md) — the globsets, the only channel between devbox and pipeline (`ADR-FLOW-CD-GLOBS`)
-- [test-automation](test-automation.md) — the L0–L3 gates that run identically in both environments (`ADR-AUTO-TEST`)
+- [test-automation](test-automation.md) — the L0–L3 test tiers that run identically in both environments (`ADR-AUTO-TEST`)
 - [reduce-variability](../principles/reduce-variability.md), [one-living-version](../principles/one-living-version.md) — the principles this
   specialises to two environments

@@ -69,8 +69,8 @@ are real process launches, so a test that runs one is L2.
 
 Many parts of the platform scope their work by the files git tracks: the globsets select from them
 ([durable-sha-globs](../flow/durable-sha-globs.md)), the managed-GUID scan reads them ([managed-guids](managed-guids.md)), the Markdown
-title and link gates check them, and the glossary gates read their prose. "Tracked" is the repository as committed and staged — not build
-residue, not a scratch file — and that is the set every one of these checks means.
+title and link quality gates check them, and the glossary checks read their prose. "Tracked" is the repository as committed and staged — not
+build residue, not a scratch file — and that is the set every one of these checks means.
 
 ### One question, one answer
 
@@ -139,6 +139,6 @@ index shapes it cannot read correctly. Questions about untracked, ignored, or at
 - Reading the tracked set costs a file read and a hash; on a repository of about 1,600 files that is around a millisecond once the index is
   parsed.
 - Gates that only read tracked files run as L1 integrity tests instead of L2.
-- A repository with a split or sparse index, or in the SHA-256 object format, gets a clear error from every tracked-file gate until the
-  feature is turned off; supporting one of them is a change to the reader and its tests.
+- A repository with a split or sparse index, or in the SHA-256 object format, gets a clear error from every tracked-file quality gate until
+  the feature is turned off; supporting one of them is a change to the reader and its tests.
 - Untracked, ignored, and attribute questions keep their git process and their L2 tests.

@@ -110,8 +110,8 @@ the ADRs themselves; this file carries only their DORA rationale.
   within minutes; that discipline is what CI measures.
 - [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — building only on a green mainline is what makes
   a shared trunk safe.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — automated gates are the cords that can stop the line the
-  instant a defect appears.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — automated quality gates are the cords that can stop the line
+  the instant a defect appears.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Build quality in
@@ -178,8 +178,8 @@ the ADRs themselves; this file carries only their DORA rationale.
   of delay low.
 - [Work in process limits](../../references/dora/capabilities.md#wip-limits) — capping work-in-progress is the Little's-Law lever on lead
   time.
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — fast, parallel, cached gates shorten the feedback
-  queue every change waits in.
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — fast, parallel, cached quality gates shorten the
+  feedback queue every change waits in.
 - [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — ephemeral, elastic compute is how machine time
   is spent to drain a human queue.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

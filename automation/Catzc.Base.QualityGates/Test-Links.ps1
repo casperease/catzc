@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    The link gate: fails on any off-form, dangling, or dead link or citation
+    The link quality gate: fails on any off-form, dangling, or dead link or citation
     ([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)).
 .DESCRIPTION
     Runs the same engine as Format-Links, read-only, and reports every violation: a code link not yet in canonical
@@ -12,7 +12,7 @@
 
     A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
     through Write-QualityGateReport, which writes out/test-links/, prints every issue, and throws once listing them
-    all. Each issue reads '<file>:<line>:<column> [<type>] <message>'. A source-tree gate: it throws in build mode.
+    all. Each issue reads '<file>:<line>:<column> [<type>] <message>'. It needs the source tree: it throws in build mode.
 .PARAMETER Path
     Files or folders to check. Default: every git-tracked file.
 .PARAMETER Kind

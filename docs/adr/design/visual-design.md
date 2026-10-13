@@ -205,7 +205,7 @@ states; red is terminal rejection and is the only colour that may appear on any 
 The single most consequential line in the palette is grey-to-yellow: it is where an integrated commit gains a governed, immutable,
 version-controlled build artifact. Drawing the local pre-flight BVT in the same solid yellow would let a developer's dry run look like a
 certified artifact, so the local case is drawn ghost-yellow — visibly not the real thing. The ghost treatment is a poka-yoke against
-mistaking a local simulation for a governed gate.
+mistaking a local simulation for the governed CI gate.
 
 ## Fix forward, cherry-pick up
 

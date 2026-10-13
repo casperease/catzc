@@ -34,7 +34,7 @@ Variable casing: PascalCase for parameters and scoped variables, camelCase for l
 
 ### Rule ADR-AUTO-PSFORMAT:5
 
-Every authored PowerShell file the repository ships or runs is covered by the formatting and analysis gates — including the root
+Every authored PowerShell file the repository ships or runs is covered by the formatting and analysis quality gates — including the root
 `importer.ps1` and authored `.psd1` config — resolved through one shared selector so no file escapes by living outside the module tree.
 Generated module manifests are excluded: they are build output, made canonical by their generator.
 
@@ -117,7 +117,7 @@ $nodes = $ScriptBlockAst.FindAll($isCommand, $true)
 
 Max line length is 120 for `.ps1`/`.psm1`/`.psd1`, set in `.editorconfig`. Encoding is UTF-8 without BOM (the repo baseline — see
 [uniform-formatting](../../repository/uniform-formatting.md)). Which analyzer rules are on or off — and why (for example, line length is
-enforced by `.editorconfig`, not the analyzer gate) — is documented inline in `PSScriptAnalyzerSettings.psd1`.
+enforced by `.editorconfig`, not `Test-ScriptAnalyzer`) — is documented inline in `PSScriptAnalyzerSettings.psd1`.
 
 ## Decision
 
@@ -132,9 +132,9 @@ PowerShell files follow the repo-wide baseline plus the PowerShell-specific rule
   `automation/.scriptanalyzer/`, one check module each. The settings hand the engine one entry rule, `CatzcRules.psm1`, which runs every
   check once per file (the engine otherwise calls a script rule once per script block); a new check module is added to its list. Each check
   keeps its own rule name, so diagnostics and `SuppressMessageAttribute` name the check.
-- **Shared gated set** — `Get-AutomationSourceFiles` names the canonical set the gates cover: every module `*.ps1` (module root, `private/`,
-  `tests/`), the `.internal` and `.scriptanalyzer` infrastructure folders (every `.internal/*.psm1` internal module, the custom analyzer
-  rules `*.psm1`, and their `tests/`), the root `importer.ps1`, and authored `.psd1` config (`PSScriptAnalyzerSettings.psd1`).
+- **Shared source set** — `Get-AutomationSourceFiles` names the canonical set the quality gates cover: every module `*.ps1` (module root,
+  `private/`, `tests/`), the `.internal` and `.scriptanalyzer` infrastructure folders (every `.internal/*.psm1` internal module, the custom
+  analyzer rules `*.psm1`, and their `tests/`), the root `importer.ps1`, and authored `.psd1` config (`PSScriptAnalyzerSettings.psd1`).
   `Format-Automation`, `Test-ScriptAnalyzer`, and the L2 `Test-ScriptAnalyzer.Tests.ps1` all draw from it — the L2 test shards the resulting
   list across processes for speed — so no gate can drift from the others. The dot-prefixed `.vendor` (third-party) and `.compiled` (build
   output) folders, `assets/`, and generated module manifests are excluded as vendored or generated rather than authored source. A custom

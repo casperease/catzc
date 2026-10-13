@@ -67,7 +67,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 > DORA's research links test automation and continuous delivery to predictable deployment outcomes; contract testing applies these findings
 > to the public boundary, catching breaking changes in CI rather than in production.
 
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — contract tests run in CI and gate breaking
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — contract tests run in CI and block breaking
   changes before merge.
 - [Test automation](../../references/dora/capabilities.md#test-automation) — published contracts are verified mechanically by provider-side
   tests on every build.
@@ -77,20 +77,20 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 ## Generated READMEs
 
-`Generated READMEs — one authored source, linked out per conventional folder`
+`Generated READMEs — one authored source, copied out per conventional folder with its links rebased`
 
 [ADR-REPO-README](generated-readmes.md)
 
 > DORA's research on code maintainability and documentation quality emphasizes single sources of truth and automatic, drift-free
-> maintenance; linking READMEs to their authored sources ensures documentation is always current and prevents the divergence that hand-kept
-> copies introduce.
+> maintenance; generating READMEs from their authored sources on every import keeps documentation current, readable where it is opened, and
+> free of the divergence that hand-kept copies introduce.
 
-- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — single-sourced, automatically-linked documentation
-  eliminates drift and keeps all channels current.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — filesystem links encode "one file, reachable from two
-  paths" directly, removing an entire class of maintenance burden.
-- [Version control](../../references/dora/capabilities.md#version-control) — no second copy means no mirror to drift from or to be mistaken
-  for a second truth.
+- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — single-sourced, regenerated documentation whose
+  links work from every folder it appears in.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — the README is generated, never edited, so one
+  authored article is the whole maintenance burden.
+- [Version control](../../references/dora/capabilities.md#version-control) — only the source is committed; the generated copy is never
+  mistaken for a second truth.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Generated root configs
@@ -152,13 +152,13 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 [ADR-REPO-LANG](domain-language-separation.md)
 
 > DORA's research on pervasive security and streamlining change approval emphasizes preventing configuration drift and production leaks; a
-> tag-aware AST gate that enforces domain boundaries catches silent violations where text-based checks cannot, so live identities never leak
-> into test code.
+> tag-aware AST quality gate that enforces domain boundaries catches silent violations where text-based checks cannot, so live identities
+> never leak into test code.
 
 - [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — mechanical enforcement prevents live identities from
   leaking into logic tests where they could cause production incidents.
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — AST-based gates run on every build and fail with
-  exact, actionable messages.
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — AST-based quality gates run on every build and
+  fail with exact, actionable messages.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — semantic enforcement (not text-based) is what lets
   illustration remain legible while protecting the boundary.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

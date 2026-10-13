@@ -97,7 +97,7 @@ prerequisite.
   (`ADR-AUTO-DEPM`); this ADR does not govern it.
 
 The two are governed by opposite disciplines: a `ADR-AUTO-DEPS` is external and uncontrolled, so the rules below lock, assert, and never
-assume it; a `ADR-AUTO-DEPM` is internal and fully ours, so it is declared once and its layering is gated (see
+assume it; a `ADR-AUTO-DEPM` is internal and fully ours, so it is declared once and its layering is checked (see
 [controlling-module-dependencies](controlling-module-dependencies.md)). Keeping the words distinct keeps the two from being conflated in
 code, config, and prose.
 

@@ -290,7 +290,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
             [System.IO.Directory]::Exists($destination) | Should -BeFalse
         }
 
-        It 'fails the build gate listing every internal asset dependency the output would miss' {
+        It 'fails the asset-dependency guard listing every internal asset dependency the output would miss' {
             Mock Get-InternalAssetDependency -ModuleName Catzc.Internal.Builder {
                 [pscustomobject]@{ Module = 'Catzc.Base.Widget'; Function = 'Get-Widget'; ChildPath = 'assets/missing.txt'; File = 'automation/Catzc.Base.Widget/Get-Widget.ps1'; Line = 5 }
                 [pscustomobject]@{ Module = 'Catzc.Base.Gizmo'; Function = 'Get-Widget'; ChildPath = 'configs/gizmo.yml'; File = 'automation/Catzc.Base.Widget/Get-Widget.ps1'; Line = 6 }

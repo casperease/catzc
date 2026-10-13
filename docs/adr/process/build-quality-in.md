@@ -7,7 +7,7 @@
 ### Rule ADR-PROC-BUILTIN:1
 
 Quality is built into the process, not inspected in afterwards. Every step produces already-correct output; there is no separate phase that
-blesses defective work as finished. The definition of done includes green gates, not a later sign-off.
+blesses defective work as finished. The definition of done includes green quality gates, not a later sign-off.
 
 - [Decision](#decision)
 
@@ -20,9 +20,9 @@ build, or the first line of execution — never at production time and never sil
 
 ### Rule ADR-PROC-BUILTIN:3
 
-Tests and gates are part of producing the work, not a checkpoint bolted on after it. They run identically on the devbox and in the pipeline
-and must agree ([ADR-AUTO-PARITY](../automation/devbox-pipeline-parity.md), [ADR-AUTO-TEST](../automation/test-automation.md)), so quality
-is proven where the work is done.
+Tests and quality gates are part of producing the work, not a checkpoint bolted on after it. They run identically on the devbox and in the
+pipeline and must agree ([ADR-AUTO-PARITY](../automation/devbox-pipeline-parity.md), [ADR-AUTO-TEST](../automation/test-automation.md)), so
+quality is proven where the work is done.
 
 - [How to apply](#how-to-apply)
 
@@ -53,8 +53,8 @@ Quality is a property of how the work is produced, not a gate at the end of it. 
   change is not "done pending QA" — it is done when its gates are green ([ADR-AUTO-TEST](../automation/test-automation.md)).
 - **Prevent, then detect.** The first choice is to make the defect impossible to express — derive behaviour from convention so there is
   nothing to get wrong ([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md), [ADR-PRIN-REDUCEVAR](../principles/reduce-variability.md)). Where
-  that is impossible, catch it at the earliest moment: an editor rule, a static-analysis gate, an assertion at the first line of execution
-  ([ADR-AUTO-FAILFAST](../automation/fail-fast-with-asserts.md)).
+  that is impossible, catch it at the earliest moment: an editor rule, a static-analysis quality gate, an assertion at the first line of
+  execution ([ADR-AUTO-FAILFAST](../automation/fail-fast-with-asserts.md)).
 - **Same gates everywhere.** The quality checks are the same on the devbox and in the pipeline and must agree
   ([ADR-AUTO-PARITY](../automation/devbox-pipeline-parity.md)), so "it passed on my machine" and "it passed in CI" are the same statement.
 

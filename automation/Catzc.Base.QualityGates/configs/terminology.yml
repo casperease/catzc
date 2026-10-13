@@ -409,6 +409,14 @@ terms:
       meaning: "test fixture token 'fixtenant'"
     - term: fixtype
       meaning: "test fixture token 'fixtype'"
+    - term: widgeted
+      meaning: "fixture verb form of 'widget' in the qualified-forms check tests (G6)"
+    - term: widgeting
+      meaning: "fixture verb form of 'widget' in the qualified-forms check tests (G6)"
+    - term: gadgetwidget
+      meaning: "fixture compound word the qualified-forms check (G6) must not split"
+    - term: widgetry
+      meaning: "fixture longer word the qualified-forms check (G6) must not match"
     - term: faketool
       meaning: "placeholder tool name 'faketool' in Resolve-SessionToolHint tests"
     - term: hintbin
@@ -922,6 +930,8 @@ terms:
       meaning: "git worktree"
     - term: worktrees
       meaning: "git worktrees (also the .git/worktrees/ folder)"
+    - term: readmes
+      meaning: "README.md files (plural of README)"
     - term: gitdir
       meaning: "the 'gitdir:' pointer a linked worktree's .git file holds"
     - term: dirc
@@ -1012,6 +1022,8 @@ terms:
     - term: whatifpreference
       meaning: "PowerShell $WhatIfPreference variable"
   coined:
+    - term: rebaser
+      meaning: "coined noun 'rebaser' — rewrites relative links for a new base folder (MarkdownLinkRebaser)"
     - term: arrayifies
       meaning: "coined verb (arrayifies) — wraps a scalar in an array"
     - term: assertability

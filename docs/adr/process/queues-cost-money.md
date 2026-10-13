@@ -28,8 +28,8 @@ treat a long feedback queue as an ongoing expense rather than a neutral wait.
 ### Rule ADR-PROC-QUEUECOST:4
 
 Machine time is cheap and follows Moore's law; human attention is the constraint. So spend compute to drain the human queue — parallel
-gates, eager caches ([ADR-AUTO-CACHE](../automation/caching.md)), ephemeral environments, rebuild-don't-wait. A minute of CPU is cheaper
-than a minute of a person blocked.
+quality gates, eager caches ([ADR-AUTO-CACHE](../automation/caching.md)), ephemeral environments, rebuild-don't-wait. A minute of CPU is
+cheaper than a minute of a person blocked.
 
 - [Decision](#decision)
 
@@ -62,7 +62,7 @@ Manage the queues, not just the work. Concretely:
 - **Lower work-in-progress to lower lead time.** By Little's Law, with throughput fixed, cutting the number of items in flight cuts lead
   time directly ([ADR-PROC-PULLWORK](pull-work.md)). This needs no one to work faster.
 - **Spend the cheap resource to save the dear one.** Human wait is expensive and machine time is cheap and getting cheaper (Moore's law), so
-  run gates in parallel, cache results so nothing is recomputed ([ADR-AUTO-CACHE](../automation/caching.md)), and stand up throwaway
+  run quality gates in parallel, cache results so nothing is recomputed ([ADR-AUTO-CACHE](../automation/caching.md)), and stand up throwaway
   environments rather than queueing for a shared one. Buying down a human queue with compute is almost always the right trade.
 
 ## The arithmetic
@@ -100,7 +100,7 @@ making the work visible ([ADR-PROC-OBSERVEWIP](observe-work.md)).
 When something feels slow, measure where the change waits before optimising how fast any step runs, and shorten the largest queue first.
 Keep work-in-progress low ([ADR-PROC-PULLWORK](pull-work.md)) — it is the Little's-Law lever on lead time. Reduce batch size before adding
 capacity, because large batches are what inflate the queue in the first place. And prefer spending compute over spending human wait:
-parallelise gates, cache so nothing is recomputed across a session ([ADR-AUTO-CACHE](../automation/caching.md)), and use ephemeral
+parallelise quality gates, cache so nothing is recomputed across a session ([ADR-AUTO-CACHE](../automation/caching.md)), and use ephemeral
 environments rather than queueing for shared ones.
 
 ## References

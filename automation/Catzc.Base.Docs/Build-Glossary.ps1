@@ -6,8 +6,8 @@
     Projects Get-Glossary (every concept of every configs/glossary.yml source,
     [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)) into one markdown page: a section per ADR domain,
     in adrs.yml order, and per term its one-line definition, a link to the rule that defines it, how it is realized,
-    its source, its relations and contrasts (linked to the related terms), and its avoided phrasings with what to say
-    instead. Terms sort by term within a domain, so the output is deterministic.
+    its source, its relations, its allowed forms, its contrasts (linked to the related terms), and its avoided phrasings
+    with what to say instead. Terms sort by term within a domain, so the output is deterministic.
 
     The page is a derived artifact like the ADR index: committed so GitHub has it (linguist-generated, so its diff
     collapses) and rebuilt on import, its sources (the glossary files and this generator) are what is reviewed and
@@ -102,6 +102,15 @@ function Build-Glossary {
                 }
                 $targets = @($concept.relations[$kind] | ForEach-Object { "[$_](#$($_ -replace ' ', '-'))" }) -join ', '
                 $lines.Add("- **$($relationLabels[$kind]):** $targets")
+            }
+
+            if ($concept.forms.Count -gt 0) {
+                # Each form in backticks: the page mentions them, so the forms check (G6) never reads them as uses.
+                $head = @($concept.term -split '[ -]')[-1]
+                $forms = (@($concept.forms | ForEach-Object { "``$_ $head``" }) -join ', ') + ", and the bare ``$head``"
+                foreach ($line in (Format-MarkdownParagraph -Text "**Forms:** $forms" -FirstPrefix '- ' -ContinuationPrefix '  ')) {
+                    $lines.Add($line)
+                }
             }
 
             if ($concept.contrasts.Count -gt 0) {

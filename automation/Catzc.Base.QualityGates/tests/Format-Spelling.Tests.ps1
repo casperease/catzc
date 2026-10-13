@@ -8,7 +8,7 @@ Describe 'Format-Spelling' -Tag 'L0', 'logic' {
 
         $script:cspellExit = 1
         # Build the newline-delimited output by joining real words, so the test's own source carries no
-        # coined tokens for the spelling gate to flag. Apple/mango are 'known' via the mocked registry below.
+        # coined tokens for Test-Spelling to flag. Apple/mango are 'known' via the mocked registry below.
         $script:cspellOut = @('mango', 'banana', 'Apple', 'kiwi') -join "`n"
 
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }

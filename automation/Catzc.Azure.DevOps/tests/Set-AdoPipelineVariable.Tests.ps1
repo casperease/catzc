@@ -4,12 +4,24 @@ param()
 Describe 'Set-AdoPipelineVariable' -Tag 'L0', 'logic' {
     # The ##vso line goes through the writer chokepoint, which a test run silences; lift the guard so the tests can
     # capture it (every call below captures with 6>&1, so nothing reaches a real pipeline log).
+    # The guard exists only under Test-Automation, so it is read strict-clean and, when it was absent, removed again.
     BeforeAll {
-        $script:savedGuard = $global:__PesterRunning
+        $script:guard = Get-Variable -Name '__PesterRunning' -Scope Global -ErrorAction Ignore
+        $script:savedGuard = if ($script:guard) {
+            $script:guard.Value
+        }
+        else {
+            $null
+        }
         $global:__PesterRunning = $false
     }
     AfterAll {
-        $global:__PesterRunning = $script:savedGuard
+        if ($script:guard) {
+            $global:__PesterRunning = $script:savedGuard
+        }
+        else {
+            Remove-Variable -Name '__PesterRunning' -Scope Global -ErrorAction Ignore
+        }
     }
 
     Context 'name validation' {

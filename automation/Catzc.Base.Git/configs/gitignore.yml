@@ -53,11 +53,11 @@ zones:
     inject: rootconfig-committed-false
 
   - id: readmes
-    title: Generated README links
+    title: Generated READMEs
     why: >
-      A README.md in a mapped conventional folder is a filesystem link to an authored docs source
+      A README.md in a mapped conventional folder is a generated copy of an authored docs source
       (Build-Readme, Catzc.Base.Docs; see docs/adr/repository/generated-readmes.md) — derived artifacts like
-      the module manifests, re-linked on every import. Hand-authored READMEs are exactly the unmapped
+      the module manifests, regenerated on every import. Hand-authored READMEs are exactly the unmapped
       folders and opt back in below. The generated cspell dictionaries under .cspell/ are ignored by the
       folder's own managed .gitignore (a root-config copy), so only that folder's .gitkeep is committed.
     patterns:

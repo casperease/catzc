@@ -1,20 +1,21 @@
 <#
 .SYNOPSIS
-    Checks the controlled vocabulary against the repository: every glossary gate, every issue in one report.
+    Checks the controlled vocabulary against the repository: every glossary check, every issue in one report.
 .DESCRIPTION
-    Runs the glossary gates of [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md) over every glossary
+    Runs the glossary checks of [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md) over every glossary
     source, in order:
       - G1 — the facts that span sources (Get-GlossarySourceViolations);
       - G2 — every term anchored on its defining rule (Get-GlossaryAnchorViolations);
       - G3 — no second rule defining a term (Get-GlossaryDefinitionViolations);
       - G4 — no avoided phrasing used within a source's scope (Get-GlossaryPhrasingViolations);
-      - G5 — every realized concept enforced (Get-GlossaryEnforcementViolations).
+      - G5 — every realized concept enforced (Get-GlossaryEnforcementViolations);
+      - G6 — no term qualified outside its declared forms (Get-GlossaryFormViolations).
     Each source's own shape is validated when it loads (Catzc.Base.Docs.GlossaryConfig), so a malformed source
-    fails before any gate runs. A quality gate
+    fails before any check runs. A quality gate
     ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends through
     Write-QualityGateReport, which writes out/test-glossary/, prints every issue, and throws once listing them all
     ([ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)).
-    The gates read the source tree's ADRs, tests, and tracked files, so it runs in source mode only.
+    The checks read the source tree's ADRs, tests, and tracked files, so it runs in source mode only.
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-glossary under the repository output root.
 .PARAMETER PassThru
@@ -54,6 +55,9 @@ function Test-Glossary {
     }
     foreach ($issue in @(Get-GlossaryEnforcementViolations -Entry $entries)) {
         $issues.Add("G5 $issue")
+    }
+    foreach ($issue in @(Get-GlossaryFormViolations -Entry $entries)) {
+        $issues.Add("G6 $issue")
     }
 
     $facts = [ordered]@{

@@ -55,7 +55,7 @@ history, which would false-alarm.
 ## What the module does
 
 The four domains form a single pipeline with the verification primitive threaded through both ends of it. A rewrite produces a token-free
-local history; the preflight gates the irreversible move; the purge makes that history the remote's only history and destroys the old
+local history; the preflight guards the irreversible move; the purge makes that history the remote's only history and destroys the old
 objects with the repository that held them; and verification runs before the push against the local ref and again after it against a mirror
 clone, so no step is trusted without independent proof from the server. The rewrite offers two routes because completeness and convenience
 trade off: rebuilding from a clean tree leaves nothing to scrub and no residual objects but discards the original commit shape, while an

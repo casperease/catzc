@@ -44,13 +44,14 @@ installs (`-To disk`) or packs the build folder itself into `out/automation/pack
 
 ### domain:3 — Version, identity and verification
 
-The build's version, identity, and integrity gate. `Resolve-CatzcBuildVersion` decides the version: on a devbox `-Version auto` is the fixed
-`6.6.666` placeholder, announced by a yellow notice; in a pipeline it is calculated — `MAJOR.MINOR` from `exporter.yml` and the first-parent
-commit count of the built commit as `PATCH` — so the same commit always gets the same version; an explicit `MAJOR.MINOR.PATCH` is honoured,
-except the placeholder in a pipeline. `Get-CatzcContentHash` applies the durable-SHA recipe to a tree (CR-stripped per file, folded in
-ordinal path order) for a reproducible, EOL-insensitive identity. `Assert-CatzcBundle` is the gate: the layout files, no `tests/`, exactly
-one types DLL named for the recorded `typesHash` and built from the recorded type sources, every module's manifest and merged file, every
-manifest export resolving to a function in its merged file, and the recorded content hash — throwing with every violation.
+The build's version, identity, and integrity guard. `Resolve-CatzcBuildVersion` decides the version: on a devbox `-Version auto` is the
+fixed `6.6.666` placeholder, announced by a yellow notice; in a pipeline it is calculated — `MAJOR.MINOR` from `exporter.yml` and the
+first-parent commit count of the built commit as `PATCH` — so the same commit always gets the same version; an explicit `MAJOR.MINOR.PATCH`
+is honoured, except the placeholder in a pipeline. `Get-CatzcContentHash` applies the durable-SHA recipe to a tree (CR-stripped per file,
+folded in ordinal path order) for a reproducible, EOL-insensitive identity. `Assert-CatzcBundle` is the guard: the layout files, no
+`tests/`, exactly one types DLL named for the recorded `typesHash` and built from the recorded type sources, every module's manifest and
+merged file, every manifest export resolving to a function in its merged file, and the recorded content hash — throwing with every
+violation.
 
 ## What the module does
 

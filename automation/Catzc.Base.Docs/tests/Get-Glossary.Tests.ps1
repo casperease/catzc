@@ -17,7 +17,7 @@ Describe 'Get-Glossary' -Tag 'L0', 'logic' {
             }
         }
         $widgets = [Catzc.Base.Docs.GlossaryConfig]::new([ordered]@{
-                options  = [ordered]@{ gates = @('avoid') }
+                options  = [ordered]@{ checks = @('avoid') }
                 concepts = [ordered]@{
                     'widget suite' = (& $concept 'widget_suite' 'ADR-AUTO-TEST#30')
                     'alpha widget' = (& $concept 'alpha_widget' 'ADR-AUTO-TEST#31')
@@ -50,8 +50,8 @@ Describe 'Get-Glossary' -Tag 'L0', 'logic' {
         $widget | Should -BeOfType ([Catzc.Base.Docs.GlossaryEntry])
         $widget.Owner | Should -Be 'Catzc.Widget'
         $widget.SourcePath | Should -Be 'automation/Catzc.Widget/configs/glossary.yml'
-        $widget.Options.gates | Should -Be @('avoid')
-        ($glossary | Where-Object { $_.Concept.term -eq 'gadget run' }).Options.gates | Should -Be @('anchored', 'single', 'avoid', 'enforced')
+        $widget.Options.checks | Should -Be @('avoid')
+        ($glossary | Where-Object { $_.Concept.term -eq 'gadget run' }).Options.checks | Should -Be @('anchored', 'single', 'avoid', 'enforced', 'forms')
     }
 
     It 'sorts the merged concepts by term (ordinal), across sources' {

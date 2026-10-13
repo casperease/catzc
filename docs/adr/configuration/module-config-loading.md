@@ -47,7 +47,7 @@ module.
 
 ### Rule ADR-CONF-LOADING:6
 
-Reading a config is global access — never dependency-gated. Only `Get-Config` is public; the config types live in the owning module's
+Reading a config is global access — never guarded by dependencies. Only `Get-Config` is public; the config types live in the owning module's
 `types/`, and a PowerShell validator stays **private** to its owning module.
 
 - [Decision](#decision)
@@ -75,7 +75,7 @@ other function reads a config file or keeps its own config cache. It:
    [caching](../automation/caching.md)).
 
 Reading a config is **global access** — any function in any module calls `Get-Config -Config ado` and gets the same validated object. There
-are no per-module reader wrappers and no dependency gating. Only `Get-Config` is public.
+are no per-module reader wrappers and no dependency guard. Only `Get-Config` is public.
 
 ### Discovery
 

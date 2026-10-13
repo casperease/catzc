@@ -1,10 +1,10 @@
-# Test-Glossary orchestrates the five gates; here every gate and the glossary readers are mocked, so the tests pin
+# Test-Glossary orchestrates the six checks; here every check and the glossary readers are mocked, so the tests pin
 # the order, the report, the PassThru shape, and the single aggregate throw
-# ([ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)). The gates
+# ([ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)). The checks
 # themselves are covered by their own L0 files; the real-tree run is the L2 integrity block at the end of this file.
 Describe 'Test-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Two real entries: the mocked gates keep their typed -Entry parameter, so the glossary must bind to it.
+        # Two real entries: the mocked checks keep their typed -Entry parameter, so the glossary must bind to it.
         $script:entries = [Catzc.Base.Docs.GlossaryEntry[]] @(foreach ($term in 'gadget run', 'widget suite') {
                 $concept = [Catzc.Base.Docs.GlossaryConcept]::new($term, [ordered]@{
                         key         = $term.Replace(' ', '_')
@@ -29,6 +29,7 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
         Mock Get-GlossaryDefinitionViolations -ModuleName Catzc.Base.Docs { }
         Mock Get-GlossaryPhrasingViolations -ModuleName Catzc.Base.Docs { }
         Mock Get-GlossaryEnforcementViolations -ModuleName Catzc.Base.Docs { }
+        Mock Get-GlossaryFormViolations -ModuleName Catzc.Base.Docs { }
         $script:out = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
     }
 
@@ -43,14 +44,15 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
         (Get-Content (Join-Path $script:out 'latest.txt')) | Should -Be (Split-Path $result.ReportPath -Leaf)
     }
 
-    It 'throws once with every gate''s issues, prefixed by the gate, in gate order' -Tag 'ADR-REPO-VOCAB#5', 'ADR-AUTO-TEST#35' {
+    It 'throws once with every check''s issues, prefixed by the check, in check order' -Tag 'ADR-REPO-VOCAB#5', 'ADR-AUTO-TEST#35' {
         Mock Get-GlossarySourceViolations -ModuleName Catzc.Base.Docs { 'widget: duplicate' }
         Mock Get-GlossaryPhrasingViolations -ModuleName Catzc.Base.Docs { 'docs/alpha.md:3 says "widget bundle"'; 'docs/beta.md:1 says "widget bundle"' }
         Mock Get-GlossaryEnforcementViolations -ModuleName Catzc.Base.Docs { 'widget: unenforced' }
+        Mock Get-GlossaryFormViolations -ModuleName Catzc.Base.Docs { 'docs/alpha.md:5 says "widget-gadget run"' }
         $thrown = { Test-Glossary -OutputFolder $script:out } | Should -Throw -PassThru
         $message = $thrown.Exception.Message
-        $message | Should -BeLike 'Test-Glossary failed: 4 issue(s)*'
-        $order = @('G1 widget: duplicate', 'G4 docs/alpha.md:3', 'G4 docs/beta.md:1', 'G5 widget: unenforced') |
+        $message | Should -BeLike 'Test-Glossary failed: 5 issue(s)*'
+        $order = @('G1 widget: duplicate', 'G4 docs/alpha.md:3', 'G4 docs/beta.md:1', 'G5 widget: unenforced', 'G6 docs/alpha.md:5') |
             ForEach-Object { $message.IndexOf($_) }
         $order | Should -Not -Contain -1
         $order | Should -Be @($order | Sort-Object)
@@ -74,7 +76,7 @@ Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity', 'sour
         $script:entries = Get-Glossary
     }
 
-    It 'the glossary gate passes over the real sources' -Tag 'ADR-AUTO-TEST#35' {
+    It 'Test-Glossary passes over the real sources' -Tag 'ADR-AUTO-TEST#35' {
         (Test-Glossary -PassThru -OutputFolder (Join-Path $TestDrive 'glossary')).IssueCount | Should -Be 0
     }
 

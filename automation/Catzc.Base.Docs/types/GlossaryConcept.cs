@@ -4,11 +4,12 @@
 // definition, how it exists in the repository (GlossaryRealization), and optionally its relations to other terms,
 // its contrasts with similar terms (each explained,
 // [ADR-REPO-VOCAB#4](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab4)), and its avoided phrasings (GlossaryAvoid,
-// [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)). Mirrors the YAML entry (snake_case keys,
+// [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)), and the words allowed to qualify its
+// head word (forms, [ADR-REPO-VOCAB#8](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab8)). Mirrors the YAML entry (snake_case keys,
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
 //
 // Only the entry's own shape is checked here. Whether `defined_by` names a real rule, `domain` a declared ADR
-// domain, and the relation/contrast targets real concepts are cross-file facts, checked by the glossary gates
+// domain, and the relation/contrast targets real concepts are cross-file facts, checked by the glossary checks
 // (Test-Glossary), not on load — so loading a glossary stays hermetic (the
 // [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3) pattern).
 
@@ -26,7 +27,7 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
 
     private static readonly string[] AllowedKeys =
     {
-        "key", "domain", "defined_by", "short", "realized_by", "relations", "contrasts", "avoid"
+        "key", "domain", "defined_by", "short", "realized_by", "relations", "contrasts", "avoid", "forms"
     };
 
     // A term: lower-case words joined by single spaces or hyphens ('test suite', 'deployable-unit').
@@ -39,6 +40,9 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30),
     // [ADR-FLOW-CD#2](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd2)).
     public static readonly Regex CitationRe = new Regex("^ADR-[A-Z]{2,4}(-[A-Z]+)+#[1-9][0-9]*$", RegexOptions.Compiled);
+
+    // One qualifier word in a concept's forms ('quality', 'CI').
+    public static readonly Regex FormRe = new Regex("^[A-Za-z0-9]+$", RegexOptions.Compiled);
 
     // An ADR domain key, as adrs.yml spells it ('automation', 'repository').
     private static readonly Regex DomainRe = new Regex("^[a-z]+(-[a-z]+)*$", RegexOptions.Compiled);
@@ -69,6 +73,10 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
 
     // The avoided phrasings, in entry order. Empty when the entry avoids none.
     public IReadOnlyList<GlossaryAvoid> avoid { get; }
+
+    // The words allowed to qualify the term's head word ('quality' in 'quality gate'), in entry order. Empty when the
+    // entry declares no forms; then the qualified-forms check (G6) does not look at the term.
+    public IReadOnlyList<string> forms { get; }
 
     public GlossaryConcept(string term, IDictionary d)
     {
@@ -113,6 +121,7 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
         relations = ParseRelations(d, errors);
         contrasts = ParseContrasts(d, errors);
         avoid     = ParseAvoid(d, errors);
+        forms     = ParseForms(d, errors);
 
         if (errors.Count > 0) { throw Fail(term, errors); }
     }
@@ -171,6 +180,27 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
             map[other] = why;
         }
         return map;
+    }
+
+    private static IReadOnlyList<string> ParseForms(IDictionary d, List<string> errors)
+    {
+        List<string> list = new List<string>();
+        if (!d.Contains("forms") || d["forms"] == null) { return list; }
+        object raw = d["forms"];
+        if (raw is string || raw is IDictionary || !(raw is IEnumerable))
+        {
+            errors.Add("forms must be a list of single qualifier words");
+            return list;
+        }
+        HashSet<string> seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (object item in (IEnumerable)raw)
+        {
+            string word = item == null ? null : item.ToString().Trim();
+            if (word == null || !FormRe.IsMatch(word)) { errors.Add(string.Format("forms: '{0}' must be one word (letters and digits)", word)); continue; }
+            if (!seen.Add(word)) { errors.Add(string.Format("forms: '{0}' is listed twice", word)); continue; }
+            list.Add(word);
+        }
+        return list;
     }
 
     private static IReadOnlyList<GlossaryAvoid> ParseAvoid(IDictionary d, List<string> errors)

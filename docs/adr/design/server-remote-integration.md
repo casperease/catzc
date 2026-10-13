@@ -43,10 +43,10 @@ Integrate from verified and the reconciliation problem does not exist.
 
 **A pull request is the authenticated ingress engine, not merely a review.** In the audited regime (`git_workspace: main-via-pr`,
 [ADR-REPO-VARIANT#6](../repository/repo-variants.md#rule-adr-repo-variant6)) the PR is the one sanctioned way a change enters the server's
-`main` / `master`: it **authenticates** the author against the server's identity model, runs the mandatory gates as a merge precondition,
-and **performs the merge** itself. Review is one gate a PR can carry, but the load-bearing role is authentication-plus-merge: the PR is the
-audited doorway, and closing every other door — no direct push to the protected branch — is what lets the `git log` audit trail be trusted
-as complete. Solo `main-direct` is the deliberate single-author exception (ADR-REPO-VARIANT#6).
+`main` / `master`: it **authenticates** the author against the server's identity model, runs the mandatory merge gates, and **performs the
+merge** itself. Review is one gate a PR can carry, but the load-bearing role is authentication-plus-merge: the PR is the audited doorway,
+and closing every other door — no direct push to the protected branch — is what lets the `git log` audit trail be trusted as complete. Solo
+`main-direct` is the deliberate single-author exception (ADR-REPO-VARIANT#6).
 
 - [PR as authenticated ingress](#pr-as-authenticated-ingress)
 
@@ -54,8 +54,8 @@ as complete. Solo `main-direct` is the deliberate single-author exception (ADR-R
 
 Trunk-based development ([one-living-version](../principles/one-living-version.md), `ADR-PRIN-ONELIVE:4`) puts one mainline at the centre,
 and [self-service](self-service.md) (`ADR-DSGN-SELFSERV`) rests its whole audit-and-approval story on that mainline living somewhere every
-change is attributed, gated, and recorded. That somewhere is the **server** git remote — the ADO or GitHub repository whose branch policy
-and identity model make those guarantees real. Developer and CI machines are clients that clone and bridge to it.
+change is attributed, passes its merge gate, and is recorded. That somewhere is the **server** git remote — the ADO or GitHub repository
+whose branch policy and identity model make those guarantees real. Developer and CI machines are clients that clone and bridge to it.
 
 Two questions arise at that client/server boundary, and this ADR answers both. Reading _from_ the remote: the tip of main is not always safe
 to build on, because it can be a dirty HEAD (the worked example in [commit-lifecycle](commit-lifecycle.md) makes this concrete — a tip that
@@ -75,9 +75,9 @@ for everyone downstream and keep the audit trail complete.
 
 The mainline is not a local artifact — it is the branch the server remote enforces, and the server is where identity, branch protection, and
 the immutable audit log live. A local clone is a bridge: it fetches from and pushes toward that remote, but "what is on main" is decided by
-the server, not by any client's local `main`. The guarantees the platform depends on — every change on main attributed, reviewed, and gated
-(`ADR-DSGN-SELFSERV`) — are server-side facts. A local `main` that has diverged, or a local commit never pushed through the sanctioned path,
-is not "on main" in the sense that governs; it is working state that has not yet crossed the boundary.
+the server, not by any client's local `main`. The guarantees the platform depends on — every change on main attributed, reviewed, and past
+its merge gate (`ADR-DSGN-SELFSERV`) — are server-side facts. A local `main` that has diverged, or a local commit never pushed through the
+sanctioned path, is not "on main" in the sense that governs; it is working state that has not yet crossed the boundary.
 
 ### Integrate from verified
 
@@ -108,12 +108,12 @@ non-event for everyone downstream.
 
 It is easy to read a pull request as a review checkpoint — a second pair of eyes. That undersells it. In the audited regime the PR is the
 **only** ingress into the server's mainline, and it is what makes ingress _safe_: it authenticates the change against the server's identity
-model (so every commit on main is attributable to an authenticated principal), runs the mandatory gates as a merge precondition, and
-performs the merge itself — the change reaches `main` / `master` by no other route. Review is one of the gates a PR can carry; the
-load-bearing property is authentication-plus-merge. The PR is the audited doorway, and closing every other door (no direct push to the
-protected branch) is what lets the audit trail in `git log` be trusted as complete. The solo `main-direct` mode (`ADR-REPO-VARIANT:6`) is
-the deliberate exception for a single-author trunk, where the author _is_ the sole authenticated principal and the doorway collapses to a
-direct commit; the moment there is more than one author, the PR ingress is what keeps the mainline audited.
+model (so every commit on main is attributable to an authenticated principal), runs the mandatory merge gates, and performs the merge itself
+— the change reaches `main` / `master` by no other route. Review is one of the gates a PR can carry; the load-bearing property is
+authentication-plus-merge. The PR is the audited doorway, and closing every other door (no direct push to the protected branch) is what lets
+the audit trail in `git log` be trusted as complete. The solo `main-direct` mode (`ADR-REPO-VARIANT:6`) is the deliberate exception for a
+single-author trunk, where the author _is_ the sole authenticated principal and the doorway collapses to a direct commit; the moment there
+is more than one author, the PR ingress is what keeps the mainline audited.
 
 ## How this is enforced
 
@@ -134,7 +134,7 @@ direct commit; the moment there is more than one author, the PR ingress is what 
   a competing truth.
 - The audit trail in `git log` is trustworthy as complete, because the PR is the only authenticated doorway into the protected mainline.
 - The cost is discipline: consumers must resolve the last-verified commit rather than grab the tip, and every ingress pays the PR's
-  authenticate-and-gate step — which is exactly the step that earns the audit and stability guarantees.
+  authenticate-and-merge-gate step — which is exactly the step that earns the audit and stability guarantees.
 
 ## Related
 

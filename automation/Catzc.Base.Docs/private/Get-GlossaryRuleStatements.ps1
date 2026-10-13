@@ -7,10 +7,10 @@
     mention, never a definition
     ([ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)), so `A **<term>** is …`
     written in backticks neither anchors nor
-    defines a term. This is the one text the anchoring (G2) and single-definition (G3) gates match against
+    defines a term. This is the one text the anchoring (G2) and single-definition (G3) checks match against
     ([ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)); ADR bodies are never read.
 
-    Private helper for the glossary gates; not exported.
+    Private helper for the glossary checks; not exported.
 .PARAMETER IndexPath
     Absolute path to the ADR index. ADR paths in it resolve against the index's own folder, so a test can point
     this at a fixture index beside fixture ADR files.

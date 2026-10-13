@@ -14,8 +14,8 @@ says how to run a check.
 | 3   | L1   | automation/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1                      | Build-Glossary — generated glossary page                   | The generated docs/adr/glossary.md is current: `Test-GeneratedFiles -Generator Build-Glossary` reports no drift from the modules' configs/glossary.yml sources.                        |
 | 4   | L2   | automation/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1               | Repository spelling integrity                              | All in-scope repository content passes spell-check.                                                                                                                                    |
 | 5   | L2   | automation/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1 | Build-TerminologyDictionary — real registry                | The generated terminology dictionaries match the registry (`Test-GeneratedFiles -Generator Build-TerminologyDictionary` reports 0 issues) and are lower-cased, unique, ordinal-sorted. |
-| 6   | L2   | automation/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1            | Terminology registry integrity                             | The shipped terminology registry passes every gate: no drift, no orphans, every entry justified.                                                                                       |
-| 7   | L2   | automation/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1                       | Test-Glossary — real glossary sources                      | At least one glossary source exists, and the real sources pass every glossary gate (G1–G5) over the real ADRs, tests, and tracked files.                                               |
+| 6   | L2   | automation/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1            | Terminology registry integrity                             | The shipped terminology registry passes every check: no drift, no orphans, every entry justified.                                                                                      |
+| 7   | L2   | automation/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1                       | Test-Glossary — real glossary sources                      | At least one glossary source exists, and the real sources pass every glossary check (G1–G5) over the real ADRs, tests, and tracked files.                                              |
 
 ## Checks
 
@@ -41,7 +41,7 @@ says how to run a check.
 
 ### 6. Terminology registry integrity
 
-**Guards:** the shipped terminology registry passes every terminology gate.
+**Guards:** the shipped terminology registry passes every `Test-Terminology` check.
 
 **Checks:**
 

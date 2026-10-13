@@ -9,8 +9,8 @@
     grammar Show-Cats presents. Each link path is resolved to the real docs/adr/<domain>/**/<slug>.md file.
 
     The index is committed — so GitHub has it, and every ADR citation's link resolves there — marked
-    linguist-generated so its diff collapses, and reproduced on every import (before Build-Readme, whose README link
-    points at it), so adrs.yml is the ONLY place the registry is edited — a hand-edit to index.md is overwritten
+    linguist-generated so its diff collapses, and reproduced on every import (before Build-Readme, which generates
+    the docs/adr README from it), so adrs.yml is the ONLY place the registry is edited — a hand-edit to index.md is overwritten
     on the next load. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md) for the generated-file pattern.
 
     Idempotent and fast: the write goes through Write-FileIfChanged (canonical output, EOL-insensitive compare,

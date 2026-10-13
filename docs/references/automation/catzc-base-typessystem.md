@@ -63,7 +63,7 @@ matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable` rathe
 
 Proving every shipped type is present in the session: each `<module>/types/<Name>.cs` under the loaded code root declares `<module>.<Name>`,
 so after import that full name must resolve. The quality gate lists every type that does not, in either run mode; how the files are written
-(their file-scoped namespace) is the formatting gate's concern.
+(their file-scoped namespace) is the concern of `Test-Formatting`.
 
 ## What the module does
 

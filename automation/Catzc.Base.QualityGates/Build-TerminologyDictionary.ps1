@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Generates the per-category spell-checker dictionaries from the terminology registry — the writer half of
-    the terminology gate.
+    Test-Terminology.
 .DESCRIPTION
     Reads the approved-vocabulary registry (configs/terminology.yml, via Get-Config -Config terminology)
     and writes one plain cspell word list per category

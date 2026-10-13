@@ -76,7 +76,7 @@ members they are allowed to depend on — the group's internal member-to-member 
 of real modules and declares the layering among them. `modules:` lists, per consumer module, the targets it may depend on; each target is
 either a group name — loose, meaning any member of that group — or a specific module name — tight, meaning only that exact module. The
 file's config type checks the declaration when it loads: every target is declared, and the module graph and each group's internal DAG are
-acyclic. The dependency gate then resolves each declared target to a member set, unions the sets for a given consumer, and verifies that
+acyclic. `Test-ModuleDependency` then resolves each declared target to a member set, unions the sets for a given consumer, and verifies that
 every actual edge from that consumer falls within the resolved allow-set and that every declared module exists on disk.
 
 The `Base` group is the primary instance of this schema: it holds the cluster of small, focused `Catzc.Base.*` libraries, and
@@ -87,8 +87,8 @@ The gates are the mechanical evidence that the [open-closed-architecture](../../
 extending the platform means adding new files, and the gates are what prove no addition created a layering violation or broke a module
 convention. The cross-module C# type edges that PowerShell call-site analysis cannot see are computed by
 [Catzc.Base.TypesSystem](catzc-base-typessystem.md)'s `Get-CSharpTypeDependency` (see
-[native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)) and folded into the dependency gate, completing the edge set it runs
-against.
+[native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)) and folded into `Test-ModuleDependency`, completing the edge set it
+runs against.
 
 ## Division
 

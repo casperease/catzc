@@ -27,14 +27,14 @@ Pipelines are flat in the root and named for their type. Templates live in the f
 
 ## The six types
 
-| Type   | What it is                                                                                                                       | Trigger / Deploy Targets in Scope                             |
-| ------ | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| INPUT  | Self-service input turned into a commit                                                                                          | Manual, with parameters                                       |
-| CRON   | Automation job on a timer (not really a pipeline, can direct-affect live/prod)                                                   | `schedules:`                                                  |
-| CI     | CI/ci - Continuous _Integration_ - The CI engine alone — build + verify, no artifact, no deploy                                  | PR build validation + post-commit `main` (BVT)                |
-| CD     | CD/cd - Continuous _Delivery_ - (CI engine + deploy + system test) (internal deploys for auto-tests + UAT, but not towards prod) | post-commit `main`                                            |
-| CDE    | CDE/CDe - Continuous _Deployment_                                                                                                | deployment to prod also, but can be manually gated downstream |
-| DEPLOY | The Tail-end of a CD pipeline, detaches the live deploy from CDE pipeline                                                        | to prod but can be manually gated downstream                  |
+| Type   | What it is                                                                                                                       | Trigger / Deploy Targets in Scope                                     |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| INPUT  | Self-service input turned into a commit                                                                                          | Manual, with parameters                                               |
+| CRON   | Automation job on a timer (not really a pipeline, can direct-affect live/prod)                                                   | `schedules:`                                                          |
+| CI     | CI/ci - Continuous _Integration_ - The CI engine alone — build + verify, no artifact, no deploy                                  | PR build validation + post-commit `main` (BVT)                        |
+| CD     | CD/cd - Continuous _Delivery_ - (CI engine + deploy + system test) (internal deploys for auto-tests + UAT, but not towards prod) | post-commit `main`                                                    |
+| CDE    | CDE/CDe - Continuous _Deployment_                                                                                                | deployment to prod also, but can wait behind a manual gate downstream |
+| DEPLOY | The Tail-end of a CD pipeline, detaches the live deploy from CDE pipeline                                                        | to prod but can wait behind a manual gate downstream                  |
 
 ## Pipelines here
 
@@ -67,7 +67,7 @@ canonical shapes to copy.
 1. Create a `<type>-<name>.yaml` pointed at your real deployable unit (copy an existing one like `ci-infrastructure.yaml` or
    `cd-shared.yaml` as a starting point).
 2. Set its `trigger:`/`pr:` path filters to the unit's native projection — `(Get-GlobSetTrigger -Name <globset>).AdoInclude`/`.AdoExclude`
-   generates the exact `paths:` block from `globs.yml`; the drift gate keeps it honest (see
+   generates the exact `paths:` block from `globs.yml`; the drift quality gate keeps it honest (see
    [durable-sha-globs](../adr/flow/durable-sha-globs.md#native-projection-the-no-start-trigger) and the
    [add-a-deployable-unit](../how-to/getting-started/automation/add-a-deployable-unit.md) how-to).
 3. Set real `ServiceConnection` names and ensure `azure.yml` has real subscription IDs.

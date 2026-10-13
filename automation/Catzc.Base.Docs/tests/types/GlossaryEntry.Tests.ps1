@@ -25,7 +25,7 @@ Describe 'GlossaryEntry' -Tag 'L0', 'logic' {
         $entry.Concept.term | Should -Be 'widget suite'
         $entry.Owner | Should -Be 'Catzc.Widget'
         $entry.SourcePath | Should -Be 'automation/Catzc.Widget/configs/glossary.yml'
-        $entry.Options.gates | Should -Be @('anchored', 'single', 'avoid', 'enforced')
+        $entry.Options.checks | Should -Be @('anchored', 'single', 'avoid', 'enforced', 'forms')
     }
 
     It 'rejects a source path that is not repo-relative' -Tag 'ADR-REPO-VOCAB#3' {

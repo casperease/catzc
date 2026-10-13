@@ -116,7 +116,7 @@ globsets:
 
   # The markdown scan scope: exactly what Test-Markdownlint reads - every in-scope markdown file plus the
   # scan's own config (a scan's globset includes its configuration). The excludes mirror the scan's default
-  # negation globs. Consumed by the protected-glob gate: a repeated local scan is skipped while this set's
+  # negation globs. Consumed by the protected-glob skip: a repeated local scan is skipped while this set's
   # durable SHA is unchanged since the last green run in the session.
   markdown-scope:
     description: The markdown integrity scan's inputs - in-scope markdown plus the markdownlint config.

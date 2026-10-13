@@ -256,7 +256,7 @@ function Get-Config {
 }
 ```
 
-**Never use `$env:` to gate functionality:**
+**Never make functionality depend on `$env:` being set:**
 
 ```powershell
 # BAD — "if this env is not defined, we don't work"
