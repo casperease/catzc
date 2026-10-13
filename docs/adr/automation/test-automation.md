@@ -188,9 +188,9 @@ opts out locally ([pester-testing](powershell/pester-testing.md)).
 
 ### Rule ADR-AUTO-TEST:26
 
-Two optional phase tags (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`) name tests that must not share the
+Three optional phase tags (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`) name tests that must not share the
 machine with the parallel pool; `Split-TestAutomationFiles` owns the split, and a file is the scheduling unit, so one tagged test moves its
-whole file (serial wins when a file carries both):
+whole file (serial wins over greedy, and a machine file is serial whatever else it carries):
 
 - **`serial`** — the test mutates state shared across worker processes: the committed `.compiled` assembly, a fixed `out/` path two files
   both write (e.g. the `out/template/<name>` build folders). Its file runs in the final **one-worker phase**, strictly alone, one file after
@@ -199,6 +199,10 @@ whole file (serial wins when a file carries both):
   importer-loading pwsh workers) but shares no mutable state with other files. Its file runs in the **greedy phase** between the parallel
   shards and the serial phase: single-file shards through the worker pool, one file per worker slot, so greedy files overlap each other
   (their tests carry L2-scale time limits) but never the parallel phase whose L0/L1 timings they would inflate.
+- **`machine`** — the test changes state of the machine or the user rather than the repository: the user `PATH` or another user-level
+  environment variable, installed tools. Its file runs in the serial phase, and that phase holds the **machine-wide test lock** while it
+  runs — one lock for every checkout on the machine, because a snapshot (ADR-AUTO-TEST:32) isolates a run from the working folder, never
+  from the machine. `Invoke-TestFile` takes the same lock for a machine-tagged file.
 
 A parallel-run flake root-caused to a shared resource is fixed by tagging it serial (or removing the sharing) — never by retrying
 (ADR-AUTO-RETRY:1).
@@ -265,7 +269,8 @@ in a **verified snapshot** of the working folder instead — HEAD plus every unc
 git does not ignore, byte-identical, checked by `git status` equality before anything runs, and primed by one import that materialises the
 generated files. Both entry points (`Test-Automation`, `Invoke-TestFile`) claim their slot the same way (`Enter-TestRunSlot`), a busy
 working folder is announced together with the run that holds it, the report lands in the working folder's `out/` either way, and `run.json`
-records where the run executed. `-Isolated` asks for a snapshot up front.
+records where the run executed. `-Isolated` asks for a snapshot up front. The one exception is machine-wide state, which no snapshot
+isolates: `machine`-tagged tests wait for the machine-wide test lock (ADR-AUTO-TEST:26).
 
 - [One working folder; concurrent runs in snapshots](#one-working-folder-concurrent-runs-in-snapshots)
 
@@ -514,8 +519,14 @@ working folder's `out/` — reports land where a reader always looks, with row p
 records the location and the snapshot's provenance. The snapshot is removed afterwards unless `-KeepSandbox` keeps it for a post-mortem.
 
 A snapshot is also frozen: edits made in the working folder while it runs never reach it. `-Isolated` takes the snapshot even when the lock
-is free, for a deterministic run against the tree as it was when the run started. A snapshot isolates the repository, not the machine: a
-test that changes user-level state (the user `PATH`, installed tools) is not made safe by it.
+is free, for a deterministic run against the tree as it was when the run started.
+
+A snapshot isolates the repository, not the machine. A test that changes user-level state — the user `PATH` or another user-level
+environment variable, installed tools — collides with the same test in any concurrent run, from any checkout, snapshot or not. Such a test
+carries the `machine` tag (ADR-AUTO-TEST:26), and the phase that runs it holds a machine-wide lock: the one place a run waits for another,
+narrowed to exactly the tests that need it and announced when the wait is noticeable. Most tests never touch user-level state — they mock
+the seam that writes it (`Set-EnvironmentPath`, for the user `PATH`) — and a test that does both writes and restores it, so the tag marks
+the exception, not the rule.
 
 ### Two suites, one body of tests
 

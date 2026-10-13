@@ -1,3 +1,6 @@
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The lock-holding helper''s Name parameter is consumed via $using: inside its Start-ThreadJob scriptblock, which this rule does not trace')]
+param()
+
 # L1: real named mutexes, held and abandoned from thread jobs — the snapshot itself is mocked.
 Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
     BeforeAll {
@@ -98,7 +101,7 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
         }
     }
 
-    It 'removes the snapshot and rethrows when priming it fails' {
+    It 'removes the snapshot and fails when priming it fails' {
         Mock Invoke-Executable { throw 'import failed' } -ModuleName Catzc.Base.QualityGates
         { InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Test-Automation' -Isolated } } | Should -Throw '*import failed*'
         Should -Invoke Remove-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Path -like '*catzc-run-*' }

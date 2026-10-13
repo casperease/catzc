@@ -50,7 +50,7 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
         Mock Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{
                 Rows = @([pscustomobject]@{ Result = 'Passed'; Level = 'L0'; DurationMs = 1 })
-                FailedShardLabels = @(); ShardExitCodes = @{}; DurationSeconds = 0.1; Shards = @(); WorkerSummaries = @()
+                FailedShardLabels = @(); ShardExitCodes = @{}; DurationSeconds = 0.1; Shards = @(); WorkerSummaries = @(); Location = $null
             }
         }
         Mock Write-TestAutomationHeader -ModuleName Catzc.Base.QualityGates { }
@@ -145,7 +145,7 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
             Mock Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates {
                 [pscustomobject]@{
                     Rows = @([pscustomobject]@{ Result = 'Failed'; Level = 'L0'; DurationMs = 1 })
-                    FailedShardLabels = @('shard-0'); ShardExitCodes = @{}; DurationSeconds = 0.1; Shards = @(); WorkerSummaries = @()
+                    FailedShardLabels = @('shard-0'); ShardExitCodes = @{}; DurationSeconds = 0.1; Shards = @(); WorkerSummaries = @(); Location = $null
                 }
             }
             $arguments = $script:buildArguments.Clone()

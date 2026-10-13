@@ -13,9 +13,14 @@
         pool, spawns importer-loading pwsh workers) but shares no mutable state with other files. Its file
         runs in the greedy phase: single-file shards through the worker pool, one file per worker slot, so
         greedy files overlap each other but never the parallel phase they would otherwise starve.
+      - 'machine' — the test changes state of the machine or the user rather than the repository (the user
+        PATH or another user-level environment variable, installed tools): state a repository snapshot cannot
+        isolate (ADR-AUTO-TEST:32). Its file runs in the serial phase, and that phase holds the machine-wide
+        test lock while it runs, so no concurrent run on any checkout changes the same state underneath it.
       - untagged — the parallel phase (the round-robin shards).
 
-    A file carrying both tags is serial: strict isolation wins. Granularity is deliberately the file — a
+    A file carrying both serial and greedy is serial: strict isolation wins; a machine file is serial whatever
+    else it carries. Granularity is deliberately the file — a
     file is the unit a shard schedules, so one tagged test moves its whole file. See the test-automation
     ADR (ADR-AUTO-TEST:26).
 .PARAMETER Discovery
@@ -24,7 +29,8 @@
     The run's test files (absolute paths), already filtered to the run's scope.
 .OUTPUTS
     [pscustomobject] with Parallel, Greedy, and Serial — each a sorted string[] of absolute file paths
-    (empty when nothing falls in that phase); every input file lands in exactly one.
+    (empty when nothing falls in that phase); every input file lands in exactly one — and Machine, the
+    machine-tagged subset of Serial.
 #>
 function Split-TestAutomationFiles {
     [CmdletBinding()]
@@ -40,6 +46,7 @@ function Split-TestAutomationFiles {
 
     $serialLookup = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     $greedyLookup = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    $machineLookup = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($test in $Discovery.Tests) {
         if (-not $test.ScriptBlock.File) {
             continue
@@ -50,13 +57,21 @@ function Split-TestAutomationFiles {
         if ((Get-TestBlockTag -Test $test -Valid 'greedy').Count -gt 0) {
             [void]$greedyLookup.Add($test.ScriptBlock.File)
         }
+        if ((Get-TestBlockTag -Test $test -Valid 'machine').Count -gt 0) {
+            [void]$machineLookup.Add($test.ScriptBlock.File)
+        }
     }
 
     $parallelFiles = [System.Collections.Generic.List[string]]::new()
     $greedyFiles = [System.Collections.Generic.List[string]]::new()
     $serialFiles = [System.Collections.Generic.List[string]]::new()
+    $machineFiles = [System.Collections.Generic.List[string]]::new()
     foreach ($file in ($TestFiles | Sort-Object)) {
-        if ($serialLookup.Contains($file)) {
+        if ($machineLookup.Contains($file)) {
+            $serialFiles.Add($file)
+            $machineFiles.Add($file)
+        }
+        elseif ($serialLookup.Contains($file)) {
             $serialFiles.Add($file)
         }
         elseif ($greedyLookup.Contains($file)) {
@@ -71,5 +86,6 @@ function Split-TestAutomationFiles {
         Parallel = @($parallelFiles)
         Greedy   = @($greedyFiles)
         Serial   = @($serialFiles)
+        Machine  = @($machineFiles)
     }
 }

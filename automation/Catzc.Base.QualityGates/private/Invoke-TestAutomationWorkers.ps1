@@ -24,6 +24,9 @@
     empty).
 .PARAMETER SerialFiles
     The serial-tagged test files for the final one-worker phase (may be empty).
+.PARAMETER MachineFiles
+    The machine-tagged files (a subset of the serial files, from Split-TestAutomationFiles): when the serial
+    phase holds any of them it runs under the machine-wide test lock (Enter-MachineTestLock).
 .PARAMETER RunDirectory
     The run directory the shard scripts and their artifacts are written into.
 .PARAMETER ExcludeTag
@@ -70,6 +73,9 @@ function Invoke-TestAutomationWorkers {
         [AllowEmptyCollection()]
         [string[]] $SerialFiles,
 
+        [AllowEmptyCollection()]
+        [string[]] $MachineFiles = @(),
+
         [Parameter(Mandatory)]
         [string] $RunDirectory,
 
@@ -114,44 +120,23 @@ function Invoke-TestAutomationWorkers {
     $greedyPhaseOffsetMs = 0
     $serialPhaseOffsetMs = 0
 
+    # Read before the snapshot mapping below, while both lists hold working-folder paths.
+    $holdsMachineFiles = @($SerialFiles | Where-Object { $_ -in $MachineFiles }).Count -gt 0
+
     try {
-        if ($slot.Mode -eq 'Snapshot') {
-            $ParallelFiles = @(Convert-TestRunSlotPath -Slot $slot -Path $ParallelFiles)
-            $GreedyFiles = @(Convert-TestRunSlotPath -Slot $slot -Path $GreedyFiles)
-            $SerialFiles = @(Convert-TestRunSlotPath -Slot $slot -Path $SerialFiles)
-            if ($EntryScript) {
-                # The suite's own entry script (the build's Import-Catzc.ps1) lives outside the repository; only
-                # the repository paths it is handed move into the snapshot.
-                $mappedParameter = @{}
-                foreach ($name in $EntryParameter.Keys) {
-                    $value = $EntryParameter[$name]
-                    $mappedParameter[$name] = if ($value -is [string]) {
-                        Convert-TestRunSlotPath -Slot $slot -Path $value
-                    }
-                    else {
-                        $value
-                    }
-                }
-                $EntryParameter = $mappedParameter
-            }
-            else {
-                # The source suite loads the snapshot's own importer, so every path a worker resolves — out/,
-                # .compiled, git — lands inside the snapshot (ADR-AUTO-NOPWD).
-                $EntryScript = Join-Path $slot.Root 'importer.ps1'
-                $EntryParameter = @{ SkipJanitors = $true }
-            }
-        }
+        # The test files and the entry script, as seen from the root the run executes in (a no-op in place).
+        $ParallelFiles = @(Convert-TestRunSlotPath -Slot $slot -Path $ParallelFiles)
+        $GreedyFiles = @(Convert-TestRunSlotPath -Slot $slot -Path $GreedyFiles)
+        $SerialFiles = @(Convert-TestRunSlotPath -Slot $slot -Path $SerialFiles)
 
         # The shard-script arguments every phase shares — including the suite seam (which entry script loads
         # the modules in each worker).
         $shardArguments = @{
-            RunDirectory   = $RunDirectory
-            ExcludeTag     = $ExcludeTag
-            IncludeTag     = $IncludeTag
-            Verbosity      = $Verbosity
-            EntryScript    = $EntryScript
-            EntryParameter = $EntryParameter
-        }
+            RunDirectory = $RunDirectory
+            ExcludeTag   = $ExcludeTag
+            IncludeTag   = $IncludeTag
+            Verbosity    = $Verbosity
+        } + (Get-TestRunSlotEntry -Slot $slot -EntryScript $EntryScript -EntryParameter $EntryParameter)
 
         # Pool size: explicit -Workers, else ProcessorCount / 4 — measured on the full suite, wall clock is flat
         # from PC/4 up to PC/2 workers (the box saturates), while per-test wall clock inflates with every extra
@@ -236,13 +221,25 @@ function Invoke-TestAutomationWorkers {
         }
 
         # The serial phase runs last, alone — its files mutate state no other worker may see changing
-        # underneath it.
+        # underneath it. When it holds machine-tagged files it also holds the machine-wide test lock, which no
+        # snapshot replaces (Enter-MachineTestLock owns the why); its worker inherits the held marker.
         if ($serialShard) {
             Write-Message "Serial phase: $($SerialFiles.Count) serial-tagged file(s) in one worker..." -NoHeader
             $serialPhaseOffsetMs = $stopwatch.ElapsedMilliseconds
-            $serialRunner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-                [string[]] @($serialShard.ScriptPath), [string[]] @($serialShard.Label), 1,
-                $WorkerEnvironment, $TimeoutSeconds, $false)
+            $serialEnvironment = $WorkerEnvironment.Clone()
+            $machineLock = $null
+            if ($holdsMachineFiles) {
+                $machineLock = Enter-MachineTestLock
+                $serialEnvironment['CATZC_TEST_MACHINE_LOCK_HELD'] = '1'
+            }
+            try {
+                $serialRunner = [Catzc.Base.QualityGates.PesterRunner]::Run(
+                    [string[]] @($serialShard.ScriptPath), [string[]] @($serialShard.Label), 1,
+                    $serialEnvironment, $TimeoutSeconds, $false)
+            }
+            finally {
+                Exit-MachineTestLock -Lock $machineLock
+            }
             $workerResults.AddRange($serialRunner.Results)
             $allShards.Add($serialShard)
         }

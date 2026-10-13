@@ -89,14 +89,8 @@ function Invoke-TestAutomationSuite {
     # The suite's key: its default report folder under out/ and its protection-key prefix.
     $suiteKey = @{ 'Test-Automation' = 'test-automation'; 'Test-CatzcBuild' = 'test-catzc-build' }[$Suite]
 
-    # Lazy-load Pester — deferred at import time for speed. The parent needs it only for the discovery pass;
-    # each worker imports its own copy for the actual run. Pester is vendored inside the code tree, so it
-    # resolves from the code root (ADR-AUTO-ASSETDEP:1).
-    if (-not (Get-Module Pester)) {
-        $pesterPath = Join-Path (Get-CatzcModulesRoot) '.vendor/Pester'
-        $pester = Import-Module $pesterPath -Scope Global -Force -PassThru | Select-Object -First 1
-        Write-Message "Loaded vendor module Pester $($pester.Version) from '$pesterPath'"
-    }
+    # The parent needs Pester only for the discovery pass; each worker imports its own copy for the actual run.
+    Import-VendoredPester
 
     # The run's tests folders, foundation-first — module dependency order, dot-prefixed infrastructure last
     # (Get-TestAutomationTestPaths owns the scan and the ordering).
@@ -227,11 +221,11 @@ function Invoke-TestAutomationSuite {
         # When protection drained the whole work-list, there is nothing to execute: the run is vacuously green.
         $workerRun = if (($parallelFiles.Count + $greedyFiles.Count + $serialFiles.Count) -eq 0) {
             Write-Message 'Every module in scope is protected — nothing to run.' -ForegroundColor Yellow
-            [pscustomobject]@{ Rows = @(); FailedShardLabels = @(); DurationSeconds = 0.0; Shards = @(); WorkerSummaries = @() }
+            [pscustomobject]@{ Rows = @(); FailedShardLabels = @(); DurationSeconds = 0.0; Shards = @(); WorkerSummaries = @(); Location = $null }
         }
         else {
             Invoke-TestAutomationWorkers -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
-                -SerialFiles @($serialFiles) `
+                -SerialFiles @($serialFiles) -MachineFiles @($phases.Machine) `
                 -RunDirectory $runDir -ExcludeTag $excludeTags -IncludeTag $Rule -Verbosity $Output -Workers $Workers `
                 -TimeoutSeconds $TimeoutSeconds -WorkerEnvironment $workerEnvironment `
                 -EntryScript $EntryScript -EntryParameter $EntryParameter `
@@ -239,28 +233,6 @@ function Invoke-TestAutomationSuite {
         }
         $rows = @($workerRun.Rows)
         $failedShardLabels = @($workerRun.FailedShardLabels)
-
-        # Where the run executed (Enter-TestRunSlot) — the report header's Location line; run.json records the
-        # same in the finally below. A fully protected run executed nowhere and records none.
-        $locationText = ''
-        if ($workerRun.PSObject.Properties['Location']) {
-            $location = $workerRun.Location
-            $locationText = if ($location.Snapshot) {
-                $snapshot = $location.Snapshot
-                '{0} of {1} @ {2} + {3} modified, {4} untracked, {5} deleted file(s) in {6} ({7})' -f $location.Mode,
-                $snapshot.SourceRoot, $snapshot.Commit.Substring(0, [Math]::Min(7, $snapshot.Commit.Length)),
-                $snapshot.Modified, $snapshot.Untracked, $snapshot.Deleted, $snapshot.Path,
-                $(if ($location.Kept) {
-                        'kept'
-                    }
-                    else {
-                        'removed'
-                    })
-            }
-            else {
-                $location.Mode
-            }
-        }
         Write-TestAutomationWorkerSummary -WorkerSummaries @($workerRun.WorkerSummaries) -DurationSeconds $workerRun.DurationSeconds
 
         # Promote protection for every candidate unit that came back green — per-module attribution over the
@@ -291,7 +263,8 @@ function Invoke-TestAutomationSuite {
         # the run outcome (Write-TestAutomationArtifacts owns the guards).
         Write-TestAutomationArtifacts -Rows $rows -RunDirectory $runDir -OutputFolder $OutputFolder `
             -MaxLevel $MaxLevel -Limits $limits -RunResult $runResult -DurationSeconds $workerRun.DurationSeconds `
-            -EnforceTimings:$EnforceTimings -MinLevel $MinLevel -Category $Category -Location $locationText
+            -EnforceTimings:$EnforceTimings -MinLevel $MinLevel -Category $Category `
+            -Location (Get-TestRunLocationSummary -Location $workerRun.Location).Text
 
         $passedCount = @($rows | Where-Object { $_.Result -eq 'Passed' }).Count
         $skippedCount = @($rows | Where-Object { $_.Result -eq 'Skipped' }).Count
@@ -343,36 +316,11 @@ function Invoke-TestAutomationSuite {
             modules           = @($Modules)
             failedCount       = $failedCount
             failedShardLabels = @($failedShardLabels)
-            shardExitCodes    = $(if ($workerRun -and $workerRun.PSObject.Properties['ShardExitCodes']) {
-                    $workerRun.ShardExitCodes
-                }
-                else {
-                    @{}
-                })
-            durationSeconds   = $(if ($workerRun) {
-                    [math]::Round($workerRun.DurationSeconds, 2)
-                }
-                else {
-                    0
-                })
         }
-        # Where the run executed: in place in the working folder, or in a snapshot of it — with the
-        # snapshot's provenance, so a report is always traceable to the exact tree it ran against.
-        if ($workerRun -and $workerRun.PSObject.Properties['Location']) {
-            $finalManifest['location'] = $workerRun.Location.Mode
-            if ($workerRun.Location.Snapshot) {
-                $snapshot = $workerRun.Location.Snapshot
-                $finalManifest['snapshot'] = [ordered]@{
-                    path       = $snapshot.Path
-                    sourceRoot = $snapshot.SourceRoot
-                    commit     = $snapshot.Commit
-                    modified   = $snapshot.Modified
-                    untracked  = $snapshot.Untracked
-                    deleted    = $snapshot.Deleted
-                    kept       = $workerRun.Location.Kept
-                    holder     = $workerRun.Location.Holder
-                }
-            }
+        # What only the worker run knows: shard exit codes, duration, and where it executed (with a snapshot's provenance).
+        $workerEntries = ConvertTo-TestRunManifestEntry -WorkerRun $workerRun
+        foreach ($key in $workerEntries.Keys) {
+            $finalManifest[$key] = $workerEntries[$key]
         }
         if ($SuiteExcludeTag.Count -gt 0) {
             $finalManifest['suiteExcludeTag'] = @($SuiteExcludeTag)

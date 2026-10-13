@@ -128,43 +128,6 @@ function Invoke-Importer {
         $global:__CatzcLoadTimings = [System.Collections.Generic.List[object]]::new()
     }
 
-    # Configuration
-    $automationFolder = 'automation'
-    $vendorFolder = '.vendor'
-
-    # Global error handling — fail fast on errors and warnings by default
-    $global:ErrorActionPreference = 'Stop'
-    $global:WarningPreference = if ($AllowWarnings) {
-        'Continue'
-    }
-    else {
-        'Stop'
-    }
-    $global:InformationPreference = 'Continue'
-
-    # Repository root — the WORKING root (out/, repo-relative paths, git), set on $env by the shim
-    # (importer.ps1 sets $env:RepositoryRoot = $PSScriptRoot). Read it here; working-root readers anchor on it.
-    $repoRoot = $env:RepositoryRoot
-    Write-Verbose "RepositoryRoot: $repoRoot"
-
-    # Catzc code anchor — the automation/ tree that holds the loaded modules; config, type and vendor discovery
-    # follow THIS, not RepositoryRoot (see Get-CatzcModulesRoot). In the mono repo it equals <repoRoot>/automation
-    # and nothing pre-sets it, so it is derived here (a no-op split). An installed bundle's Catzc.psm1 pre-sets it
-    # to the bundle's own automation/, so the importer honours that — this is what makes catzc relocatable.
-    if ($Bundle -and $env:CatzcModulesRoot) {
-        $modulesRoot = $env:CatzcModulesRoot
-    }
-    else {
-        $modulesRoot = Join-Path $repoRoot $automationFolder
-    }
-    $env:CatzcModulesRoot = $modulesRoot
-    Write-Verbose "CatzcModulesRoot: $modulesRoot"
-
-    # A bundle is a read-only install with no git work tree: never run the tree/git-mutating janitors.
-    if ($Bundle) {
-        $SkipJanitors = $true
-    }
-
     # -Verbose shows the importer's own state-change record (ADR-AUTO-ANNOUNCE:6). The dot-sourced shim binds it in
     # the caller's scope, so for the import the session-wide preference is quieted, restored in the finally below:
     # otherwise every Import-Module the load runs would list each function it dot-sources and exports.
@@ -172,6 +135,43 @@ function Invoke-Importer {
     $callerVerbosePreference = $global:VerbosePreference
     $global:VerbosePreference = 'SilentlyContinue'
     try {
+        # Configuration
+        $automationFolder = 'automation'
+        $vendorFolder = '.vendor'
+
+        # Global error handling — fail fast on errors and warnings by default
+        $global:ErrorActionPreference = 'Stop'
+        $global:WarningPreference = if ($AllowWarnings) {
+            'Continue'
+        }
+        else {
+            'Stop'
+        }
+        $global:InformationPreference = 'Continue'
+
+        # Repository root — the WORKING root (out/, repo-relative paths, git), set on $env by the shim
+        # (importer.ps1 sets $env:RepositoryRoot = $PSScriptRoot). Read it here; working-root readers anchor on it.
+        $repoRoot = $env:RepositoryRoot
+        Write-Verbose "RepositoryRoot: $repoRoot"
+
+        # Catzc code anchor — the automation/ tree that holds the loaded modules; config, type and vendor discovery
+        # follow THIS, not RepositoryRoot (see Get-CatzcModulesRoot). In the mono repo it equals <repoRoot>/automation
+        # and nothing pre-sets it, so it is derived here (a no-op split). An installed bundle's Catzc.psm1 pre-sets it
+        # to the bundle's own automation/, so the importer honours that — this is what makes catzc relocatable.
+        if ($Bundle -and $env:CatzcModulesRoot) {
+            $modulesRoot = $env:CatzcModulesRoot
+        }
+        else {
+            $modulesRoot = Join-Path $repoRoot $automationFolder
+        }
+        $env:CatzcModulesRoot = $modulesRoot
+        Write-Verbose "CatzcModulesRoot: $modulesRoot"
+
+        # A bundle is a read-only install with no git work tree: never run the tree/git-mutating janitors.
+        if ($Bundle) {
+            $SkipJanitors = $true
+        }
+
         # The .internal shared-code loader is already imported by the shim (it provides Import-InternalModule).
         # Load the rest of the shared modules on demand. Bootstrap does the import-time discovery/loading and is
         # removed at the end; the loader, Types and Vendor stay in the session (NOT removed), so post-import Catzc
@@ -230,24 +230,7 @@ function Invoke-Importer {
         }
 
         if ($DiagnoseLoadTime) {
-            Write-ImporterMessage '  ---- summary ----' -ForegroundColor DarkGray
-
-            # raw-read is a pure [IO.File]::ReadAllText of every .ps1 BEFORE Import-Module, so it isolates the cold
-            # file-READ I/O (disk / network share / antivirus-on-read) from the parse. It is warm-cached after the
-            # first access — small here does NOT mean "no AV": an AV that scans on script *parse* (AMSI) is not a
-            # read, so that cost lands in parse/compile below, not here. Don't read this as "antivirus time".
-            $scanMs = [int](($global:__CatzcLoadTimings | Measure-Object ReadMs -Sum).Sum)
-            $scanFiles = [int](($global:__CatzcLoadTimings | Measure-Object FileCount -Sum).Sum)
-            $parseMs = [int](($global:__CatzcLoadTimings | Measure-Object ImportMs -Sum).Sum)
-            Write-ImporterMessage ('  file-read I/O (cold; warm-cached after 1st access): {0}ms across {1} .ps1 files' -f $scanMs, $scanFiles) -ForegroundColor DarkGray
-            Write-ImporterMessage ('  Import-Module parse/compile (incl. any AV/AMSI scan-on-parse): {0}ms' -f $parseMs) -ForegroundColor DarkGray
-            # The native C# type compile/load (every module's types/*.cs via Import-CSharpTypes) appears as one
-            # 'types (combined)' row below; a 'compile+load' row is a cold cache (Roslyn), a 'cache load' row reused
-            # the committed automation/.compiled DLL.
-            $top = $global:__CatzcLoadTimings | Sort-Object Ms -Descending | Select-Object -First 3
-            foreach ($t in $top) {
-                Write-ImporterMessage ('  slowest: {0,6}ms  {1}' -f $t.Ms, $t.Stage) -ForegroundColor DarkGray
-            }
+            Write-LoadTimeSummary
         }
 
         # Opt-in deep clean (-CleanClone): the whitelisted git clean -fxd (Reset-GitCleanFxd) deletes only the
@@ -398,6 +381,39 @@ function Assert-CatzcRunModeExclusive {
     $header = "Run-mode exclusivity violated: the active CatzcModulesRoot is '$ModulesRoot', but $($offenders.Count) loaded catzc module(s) come from another root ('$($otherRoots -join "', '")'):"
     $footer = 'Restart PowerShell, or re-run the entry script of the mode you want.'
     throw ((@($header) + @($lines) + @($footer)) -join "`n")
+}
+
+<#
+.SYNOPSIS
+    Writes the -DiagnoseLoadTime summary: file-read and parse totals, and the three slowest load stages.
+.DESCRIPTION
+    Reads the $global:__CatzcLoadTimings collector Invoke-Importer creates under -DiagnoseLoadTime and the Bootstrap
+    loaders append to. Internal to the importer overlay: it writes through the transient bootstrap's
+    Write-ImporterMessage, which is still loaded at this point.
+#>
+function Write-LoadTimeSummary {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Reads $global:__CatzcLoadTimings, the cross-module load-timing collector Invoke-Importer creates under -DiagnoseLoadTime')]
+    [CmdletBinding()]
+    param()
+
+    Write-ImporterMessage '  ---- summary ----' -ForegroundColor DarkGray
+
+    # raw-read is a pure [IO.File]::ReadAllText of every .ps1 BEFORE Import-Module, so it isolates the cold
+    # file-READ I/O (disk / network share / antivirus-on-read) from the parse. It is warm-cached after the
+    # first access — small here does NOT mean "no AV": an AV that scans on script *parse* (AMSI) is not a
+    # read, so that cost lands in parse/compile below, not here. Don't read this as "antivirus time".
+    $scanMs = [int](($global:__CatzcLoadTimings | Measure-Object ReadMs -Sum).Sum)
+    $scanFiles = [int](($global:__CatzcLoadTimings | Measure-Object FileCount -Sum).Sum)
+    $parseMs = [int](($global:__CatzcLoadTimings | Measure-Object ImportMs -Sum).Sum)
+    Write-ImporterMessage ('  file-read I/O (cold; warm-cached after 1st access): {0}ms across {1} .ps1 files' -f $scanMs, $scanFiles) -ForegroundColor DarkGray
+    Write-ImporterMessage ('  Import-Module parse/compile (incl. any AV/AMSI scan-on-parse): {0}ms' -f $parseMs) -ForegroundColor DarkGray
+    # The native C# type compile/load (every module's types/*.cs via Import-CSharpTypes) appears as one
+    # 'types (combined)' row below; a 'compile+load' row is a cold cache (Roslyn), a 'cache load' row reused
+    # the committed automation/.compiled DLL.
+    $top = $global:__CatzcLoadTimings | Sort-Object Ms -Descending | Select-Object -First 3
+    foreach ($t in $top) {
+        Write-ImporterMessage ('  slowest: {0,6}ms  {1}' -f $t.Ms, $t.Stage) -ForegroundColor DarkGray
+    }
 }
 
 Export-ModuleMember -Function Invoke-Importer

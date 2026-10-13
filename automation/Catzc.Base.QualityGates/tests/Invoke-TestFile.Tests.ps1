@@ -65,14 +65,15 @@ Describe 'Failing' -Tag 'L0', 'logic' {
     # The walking skeleton of the snapshot path (ADR-AUTO-TEST:32): a real snapshot, primed, a real worker
     # loading it. -Isolated takes the path deterministically; when it is taken because another run holds the
     # working folder is Enter-TestRunSlot's L0 concern.
+    # The probe is machine-tagged too, so the same worker spawn proves the machine-wide lock reaches the worker.
     It 'runs in a snapshot: the worker loads the snapshot, the report and the rows come home, the snapshot is removed' {
         Mock Write-Message -ModuleName Catzc.Base.Git { }
         $probe = Join-Path $TestDrive 'probe.json'
         $fixture = Join-Path $TestDrive 'Probe.Tests.ps1'
         [System.IO.File]::WriteAllText($fixture, @"
-Describe 'Probe' -Tag 'L0', 'logic' {
+Describe 'Probe' -Tag 'L0', 'logic', 'machine' {
     It 'records the root it runs in' {
-        `$observation = @{ Root = (Get-RepositoryRoot); ModuleBase = (Get-Module Catzc.Base.Git).ModuleBase }
+        `$observation = @{ Root = (Get-RepositoryRoot); ModuleBase = (Get-Module Catzc.Base.Git).ModuleBase; MachineLockHeld = `$env:CATZC_TEST_MACHINE_LOCK_HELD }
         [System.IO.File]::WriteAllText('$probe', (ConvertTo-Json -InputObject `$observation))
     }
 }
@@ -89,6 +90,7 @@ Describe 'Probe' -Tag 'L0', 'logic' {
         $observation.Root | Should -BeLike '*catzc-run-*'
         $observation.ModuleBase | Should -BeLike "$($observation.Root)*" -Because 'the worker loads the snapshot''s modules, not the working folder''s'
         [System.IO.Directory]::Exists($observation.Root) | Should -BeFalse -Because 'the snapshot is removed after the run'
+        $observation.MachineLockHeld | Should -Be '1' -Because 'a machine-tagged file runs under the machine-wide test lock'
         @($run.Rows | Where-Object File -EQ $repositoryTest).Count | Should -BeGreaterThan 0 -Because 'row paths map back to the working folder'
     }
 }

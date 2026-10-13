@@ -19,10 +19,13 @@
     named check should run exactly that check. The run's artifacts (worker script, results-shard-0.xml,
     rows-shard-0.json) land in a timestamped folder under out/test-file/.
 
-    It never waits for another test run (ADR-AUTO-TEST:32, Enter-TestRunSlot): when the working folder is
-    free it runs in place; when another run holds it, it runs in a verified snapshot of the working folder
-    instead — the test files map to the same repository-relative paths inside the snapshot, a test file
-    outside the repository runs as given, and the artifacts still land in the working folder's out/test-file/.
+    It never waits for another test run's use of the working folder (ADR-AUTO-TEST:32, Enter-TestRunSlot):
+    when the working folder is free it runs in place; when another run holds it, it runs in a verified
+    snapshot of the working folder instead — the test files map to the same repository-relative paths inside
+    the snapshot, a test file outside the repository runs as given, and the artifacts still land in the
+    working folder's out/test-file/. The one wait left is for machine-tagged files (ADR-AUTO-TEST:26): they
+    change user-level state no snapshot isolates, so their run holds the machine-wide test lock
+    (Enter-MachineTestLock), found by a discovery pass over the given files.
 .PARAMETER Path
     The test file(s) to run — absolute, or repository-root-relative (never resolved against $PWD; see
     docs/adr/automation/never-depend-on-pwd.md).
@@ -83,8 +86,15 @@ function Invoke-TestFile {
                 Join-Path $repositoryRoot $testPath
             }
             Assert-PathExist $full -PathType Leaf
-            $full
+            # Normalised, so it compares equal to the path Pester's discovery reports for the same file.
+            [System.IO.Path]::GetFullPath($full)
         })
+
+    # A machine-tagged file changes user-level state no snapshot isolates: its run holds the machine-wide test
+    # lock, as the suite's serial phase does (Enter-MachineTestLock owns the why). One discovery pass reads the
+    # tags through the same split the suite uses.
+    Import-VendoredPester
+    $machineFiles = @((Split-TestAutomationFiles -Discovery (Get-TestDiscovery -TestPath $resolved) -TestFiles $resolved).Machine)
 
     # A timestamped run folder under out/test-file/, like the harness's out/test-automation/<stamp>/.
     $runDirectory = Join-Path (Join-Path (Get-OutputRoot -EnsureExists) 'test-file') `
@@ -97,20 +107,24 @@ function Invoke-TestFile {
     # root rather than claiming a slot of its own.
     $slot = Enter-TestRunSlot -EntryPoint 'Invoke-TestFile' -RunDirectory $runDirectory -Isolated:$Isolated
     try {
-        # A snapshot run loads the snapshot's own importer, so every path the worker resolves — out/,
-        # .compiled, git — lands inside the snapshot (ADR-AUTO-NOPWD); the test files map to it alike.
-        $entry = if ($slot.Mode -eq 'Snapshot') {
-            @{ EntryScript = Join-Path $slot.Root 'importer.ps1'; EntryParameter = @{ SkipJanitors = $true } }
-        }
-        else {
-            @{}
-        }
+        # The worker loads from the root the run executes in (Get-TestRunSlotEntry); the test files map to it alike.
+        $entry = Get-TestRunSlotEntry -Slot $slot
         $shard = New-TestAutomationShardScript -ShardIndex 0 -TestPath @(Convert-TestRunSlotPath -Slot $slot -Path $resolved) `
             -RunDirectory $runDirectory -Verbosity $Output -FullNameFilter $FullNameFilter @entry
 
         $workerEnvironment = @{ CATZC_TEST_RUN_SLOT_HELD = '1' }
-        $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-            [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $workerEnvironment, $TimeoutSeconds, $true)
+        $machineLock = $null
+        if ($machineFiles.Count -gt 0) {
+            $machineLock = Enter-MachineTestLock
+            $workerEnvironment['CATZC_TEST_MACHINE_LOCK_HELD'] = '1'
+        }
+        try {
+            $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
+                [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $workerEnvironment, $TimeoutSeconds, $true)
+        }
+        finally {
+            Exit-MachineTestLock -Lock $machineLock
+        }
     }
     finally {
         Exit-TestRunSlot -Slot $slot -KeepSandbox:$KeepSandbox

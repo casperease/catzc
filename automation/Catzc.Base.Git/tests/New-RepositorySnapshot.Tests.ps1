@@ -5,7 +5,7 @@ Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.Git
 
-        $script:source = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-snapsrc-' + [guid]::NewGuid().ToString('N').Substring(0, 12))
+        $script:source = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-snapshot-source-' + [guid]::NewGuid().ToString('N').Substring(0, 12))
         [System.IO.Directory]::CreateDirectory($script:source) | Out-Null
         $source = $script:source
         $write = {
@@ -89,7 +89,7 @@ Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {
     }
 
     It 'throws and removes the half-built snapshot when its status differs from the source' {
-        $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-snapbad-' + [guid]::NewGuid().ToString('N').Substring(0, 12))
+        $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-snapshot-mismatch-' + [guid]::NewGuid().ToString('N').Substring(0, 12))
         Mock Invoke-Executable {
             [pscustomobject]@{ ExitCode = 0; Output = '? phantom.txt' }
         } -ModuleName Catzc.Base.Git -ParameterFilter { $Command -like '*status --porcelain=v2*' -and $Command -like "*$destination*" }

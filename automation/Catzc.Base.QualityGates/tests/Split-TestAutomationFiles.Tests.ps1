@@ -52,6 +52,25 @@ Describe 'Split-TestAutomationFiles' -Tag 'L0', 'logic' {
         $split.Parallel | Should -HaveCount 0
     }
 
+    It 'runs a machine-tagged file in the serial phase and lists it as a machine file, whatever else it carries' {
+        $discovered = [pscustomobject]@{
+            Tests = @(
+                (New-FakeTest -File 'C:\x\Widget.Tests.ps1' -BlockTags @('L1', 'logic', 'greedy'))
+                (New-FakeTest -File 'C:\x\Widget.Tests.ps1' -BlockTags @('L1', 'logic') -ItTags @('machine'))
+                (New-FakeTest -File 'C:\x\Gadget.Tests.ps1' -BlockTags @('L2', 'logic', 'serial'))
+            )
+        }
+
+        $split = InModuleScope Catzc.Base.QualityGates -Parameters @{ D = $discovered } {
+            param($D)
+            Split-TestAutomationFiles -Discovery $D -TestFiles @('C:\x\Widget.Tests.ps1', 'C:\x\Gadget.Tests.ps1')
+        }
+
+        $split.Serial | Should -Be @('C:\x\Gadget.Tests.ps1', 'C:\x\Widget.Tests.ps1')
+        $split.Machine | Should -Be @('C:\x\Widget.Tests.ps1')
+        $split.Greedy | Should -HaveCount 0
+    }
+
     It 'returns everything parallel when nothing carries a phase tag' {
         $discovered = [pscustomobject]@{
             Tests = @(
@@ -67,5 +86,6 @@ Describe 'Split-TestAutomationFiles' -Tag 'L0', 'logic' {
         $split.Parallel | Should -Be @('C:\x\Alpha.Tests.ps1')
         $split.Greedy | Should -HaveCount 0
         $split.Serial | Should -HaveCount 0
+        $split.Machine | Should -HaveCount 0
     }
 }

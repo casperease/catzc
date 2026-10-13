@@ -64,7 +64,7 @@ function New-RepositorySnapshot {
     $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
     $commit = (Invoke-Executable "git -C `"$SourceRoot`" rev-parse HEAD" -PassThru -Silent).Output.Trim()
 
-    # A half-built snapshot is never left behind: every failure below removes it before rethrowing.
+    # A half-built snapshot is never left behind: every failure below removes it, then lets the error propagate.
     try {
         Invoke-Executable "git clone --quiet --shared --no-checkout `"$SourceRoot`" `"$Destination`"" -PassThru -Silent | Out-Null
 

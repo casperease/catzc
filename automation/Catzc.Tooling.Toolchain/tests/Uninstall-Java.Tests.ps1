@@ -1,4 +1,6 @@
-Describe 'Uninstall-Java' -Tag 'L1', 'logic' {
+# machine: the managed body writes the real Windows User-scope JAVA_HOME — user-level state shared by every
+# concurrent run on the machine, which no repository snapshot isolates (ADR-AUTO-TEST:26).
+Describe 'Uninstall-Java' -Tag 'L1', 'logic', 'machine' {
     BeforeAll {
         # The managed body clears JAVA_HOME (process + Windows User scope) — snapshot and restore so the test
         # leaves no persistent env change behind (ADR-AUTO-PSENV:4).
