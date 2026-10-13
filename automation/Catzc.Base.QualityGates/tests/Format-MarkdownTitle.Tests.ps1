@@ -32,7 +32,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-
         [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/widget.md')) | Should -BeLike '# widget*'
     }
 
-    It 'gates the untitled file and points at the formatter' {
+    It 'flags the untitled file and points at the formatter' {
         { Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase } |
             Should -Throw "Test-MarkdownTitle failed: 1 issue(s)*docs/widget.md:1 ``[Wrong``] expected '# docs/widget.md', found '# widget' — run Format-MarkdownTitle*"
     }
@@ -81,7 +81,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', '
         [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) | Should -BeLike '*widget.md#validation)*'
     }
 
-    It 'gates a duplicate anchor, and the formatter leaves it for the author' {
+    It 'flags a duplicate anchor, and the formatter leaves it for the author' {
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# docs/gadget.md`n`n## Gadget`n`n### Gadget`n")
         { Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase } |
             Should -Throw '*docs/gadget.md:5 `[Duplicate`]*reword it by hand*'

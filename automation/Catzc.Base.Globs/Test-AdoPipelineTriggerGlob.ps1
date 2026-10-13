@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Quality gate: checks each ADO pipeline's trigger path filters against its globset's projection — the
-    trigger-drift gate ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)).
+    trigger-drift quality gate ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)).
 .DESCRIPTION
     Answers "do the ADO pipelines have the proper glob trigger setup?": for every pipeline-bound globset, it
     recomputes the vendor-native trigger the set projects to (Get-GlobSetTrigger) and compares it against what

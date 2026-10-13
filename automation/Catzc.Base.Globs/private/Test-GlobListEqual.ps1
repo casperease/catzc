@@ -2,7 +2,7 @@
 .SYNOPSIS
     Compares two glob-pattern lists for equality — ordered for GitHub, as a set for Azure DevOps.
 .DESCRIPTION
-    The comparison behind the trigger-drift gates (Test-AdoPipelineTriggerGlob / Test-GitHubWorkflowTriggerGlob).
+    The comparison behind the trigger-drift quality gates (Test-AdoPipelineTriggerGlob / Test-GitHubWorkflowTriggerGlob).
     ADO path filters are order-independent (union include minus union exclude), so a set comparison is
     correct and an ordinal sort makes it deterministic
     ([ADR-AUTO-XPLAT](/docs/adr/automation/cross-platform.md) — Sort-Object is culture-aware). GitHub

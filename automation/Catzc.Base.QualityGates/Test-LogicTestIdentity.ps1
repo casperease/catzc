@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Gate: no LOGIC test may name a live production identity (a real customer, subscription, org, template, or
+    Quality gate: no LOGIC test may name a live production identity (a real customer, subscription, org, template, or
     ADO project) as a code string literal — the tag-aware, comment-blind enforcer of the test/live domain
     separation ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md),
     [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

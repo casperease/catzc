@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
-    The Markdown title and heading gate: fails on any in-scope file whose title is not its repository path or whose
-    headings are not in normal form
+    The Markdown title and heading quality gate: fails on any in-scope file whose title is not its repository path
+    or whose headings are not in normal form
     ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6),
     [ADR-REPO-FORMAT#7](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format7)).
 .DESCRIPTION
@@ -11,7 +11,7 @@
     Format-MarkdownTitle fixes all of them except a Duplicate, which the author rewords; each issue says which.
     A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
     through Write-QualityGateReport, which writes out/test-markdown-title/, prints every issue, and throws once
-    listing them all. A source-tree gate: it throws in build mode.
+    listing them all. It needs the source tree: it throws in build mode.
 .PARAMETER Path
     Files or folders to check. Default: every in-scope file.
 .PARAMETER RepositoryRoot

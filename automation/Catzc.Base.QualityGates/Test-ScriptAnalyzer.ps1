@@ -20,7 +20,7 @@
 
     PSScriptAnalyzer is vendored under the code root's .vendor/ — no install step is needed.
 .PARAMETER Path
-    One or more files or directories to analyze. Defaults to the canonical gated set (Get-AutomationSourceFiles):
+    One or more files or directories to analyze. Defaults to the canonical checked set (Get-AutomationSourceFiles):
     module root *.ps1, private/, tests/, the .internal and .scriptanalyzer infrastructure folders (bootstrap,
     TestKit, custom analyzer rules, and their tests), the root importer.ps1, and authored .psd1 config. The
     default set is the catzc source tree, so it needs source mode; an explicit -Path works in either run mode.
@@ -69,7 +69,7 @@ function Test-ScriptAnalyzer {
         }
     }
     else {
-        # The canonical gated set — shared with Format-Automation and the L2 analyzer test so they cannot
+        # The canonical checked set — shared with Format-Automation and the L2 analyzer test so they cannot
         # drift. Includes the root importer.ps1 and authored .psd1 config; excludes generated manifests.
         foreach ($f in (Get-AutomationSourceFiles)) {
             $files.Add($f)

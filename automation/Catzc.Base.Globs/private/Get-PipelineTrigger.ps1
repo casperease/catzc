@@ -3,7 +3,7 @@
     Reads a pipeline or workflow YAML's trigger path filters — the actual, on-disk trigger globs.
 .DESCRIPTION
     The counterpart to Get-GlobSetTrigger (which computes what a pipeline's trigger SHOULD be): this reads
-    what it actually IS, so an integrity gate can compare the two (Test-AdoPipelineTriggerGlob /
+    what it actually IS, so an integrity quality gate can compare the two (Test-AdoPipelineTriggerGlob /
     Test-GitHubWorkflowTriggerGlob, [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)). Parses the file with
     ConvertFrom-Yaml and pulls the filters:
 
