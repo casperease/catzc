@@ -7,10 +7,10 @@
     ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)). Its safety property: every
     member of a pipeline-bound set matches at least one ADO include pattern (Get-GlobSetTrigger), so an ADO
     include-only trigger is always a SUPERSET of exact membership and can never under-trigger (miss a deploy); the
-    in-pipeline Test-GlobSetAffected gate supplies exactness on top. Each uncovered member is an issue. (GitHub is exact
+    in-pipeline Test-GlobSetAffected check supplies exactness on top. Each uncovered member is an issue. (GitHub is exact
     by construction: its ordered '!'-negation paths are the scan program itself.)
 
-    Whether a pipeline file declares the projected trigger is a separate gate (Test-AdoPipelineTriggerGlob).
+    Whether a pipeline file declares the projected trigger is a separate quality gate (Test-AdoPipelineTriggerGlob).
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-glob-set-trigger-coverage/ (Write-QualityGateReport).
 .PARAMETER PassThru
