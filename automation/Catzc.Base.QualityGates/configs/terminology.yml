@@ -877,7 +877,7 @@ terms:
     - term: filetime
       meaning: "Win32 FILETIME struct (100-ns ticks since 1601)"
     - term: finalizer
-      meaning: ".NET finalizer — the teardown counterpart of a constructor; the importer's post-import phase"
+      meaning: "the importer's post-import phase (janitors) — the teardown counterpart of its session initializer"
     - term: ntfs
       meaning: "NTFS file system"
     - term: osarchitecture

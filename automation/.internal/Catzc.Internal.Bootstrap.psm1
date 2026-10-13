@@ -112,7 +112,7 @@ function New-DynamicManifest {
         [switch]$ExportPrivates,
 
         # Read-only load (a bundle): never generate or write the manifest — it must already be present
-        # (Build-Catzc pre-generates every module's manifest), so a read-only install store is never written to.
+        # (Build-Modules pre-generates every module's manifest), so a read-only install store is never written to.
         [switch]$ReadOnly,
 
         [Parameter(Mandatory, ParameterSetName = 'Explicit')]
@@ -128,7 +128,7 @@ function New-DynamicManifest {
 
     if ($ReadOnly) {
         if (-not [System.IO.File]::Exists($manifestPath)) {
-            throw "Read-only load: module '$moduleName' is missing its generated manifest ($manifestPath). Rebuild the bundle — Build-Catzc pre-generates every module manifest."
+            throw "Read-only load: module '$moduleName' is missing its generated manifest ($manifestPath). Rebuild the bundle — Build-Modules pre-generates every module manifest."
         }
         return $manifestPath
     }
@@ -490,7 +490,7 @@ function Import-CSharpTypes {
     $didCompile = $false
     if (-not [System.IO.File]::Exists($dll)) {
         if ($PrebuiltOnly) {
-            throw "Bundle is missing its prebuilt combined-types assembly ($dll). The bundle is incomplete or corrupt — rebuild it (Build-Catzc ships the DLL); a bundle never compiles types."
+            throw "Bundle is missing its prebuilt combined-types assembly ($dll). The bundle is incomplete or corrupt — rebuild it (Build-Modules ships the DLL); a bundle never compiles types."
         }
         # The ONE compile path (Build-CombinedTypeAssembly in Catzc.Internal.Types, shared with a build): it
         # compiles the validated sources to a temp file and moves it into place, so a concurrent import never

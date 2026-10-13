@@ -1,3 +1,5 @@
+Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
+
 <#
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid raw pipeline-detection env reads.

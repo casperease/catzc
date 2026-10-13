@@ -1,3 +1,5 @@
+Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
+
 <#
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: a function that changes the session's state must announce it.
