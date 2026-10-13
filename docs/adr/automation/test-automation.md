@@ -56,7 +56,8 @@ lowercase alnum segments joined by `_`, never free prose — so the skip report 
 
 No test below L3 may depend on cloud connectivity or change state outside the repository (the user's environment, installed tools). Unit
 tests mock those boundaries; L2 needs only the local CLI tool. A test failing because `az` was not connected is a mis-tiered test, not a
-flake.
+flake. `git` is such a local tool: a test that asks git about the repository — its tracked files, index, status, or history — is L2, and git
+is a prerequisite of every source-tree L2 run rather than a tool its tests skip without.
 
 - [Test tiers (by integration layer)](#test-tiers-by-integration-layer)
 
@@ -454,8 +455,8 @@ with**, not by speed:
 
 - **L0 / L1 — unit.** Pure logic + orchestration wiring, with every external boundary mocked. Deterministic and hermetic. Run on every
   change. (The tier tag is mandatory — there is no default; see ADR-AUTO-TEST#13.)
-- **L2 — CLI-tool integration.** Drives a local CLI tool for real — `az bicep build`, `python`, `dotnet`, `poetry`, … No cloud. Runs on a
-  devbox **and in fast CI** (where the tools are installed); a test **self-skips** when its specific tool is absent. The pipelines pin
+- **L2 — CLI-tool integration.** Drives a local CLI tool for real — `git`, `az bicep build`, `python`, `dotnet`, `poetry`, … No cloud. Runs
+  on a devbox **and in fast CI** (where the tools are installed); a test **self-skips** when its specific tool is absent. The pipelines pin
   `-Level 2`, the fast build-validation gate; `-Level 1` excludes L2 for a faster unit-only pass.
 - **L3 — vertical system tests.** Changes or depends on state outside the repository: the real cloud API layer (maybe through a CLI tool,
   e.g. `az deployment create` / `az account show`), the user's persistent environment, installed tools. It **self-skips** when its

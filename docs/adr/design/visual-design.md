@@ -150,13 +150,13 @@ commit was discarded, abandoned, or promoted.
 
 ### Rule ADR-DSGN-VISUAL:13
 
-**An environment box is a neutral container; the commit inside it is its current occupant, in that commit's own state colour.** The hexagon
-is drawn as neutral chrome — its label names the environment (on-demand, main-UAT, release-uat, production) and it carries no per-stage tint
-and no state colour of its own. The single commit drawn _inside_ — generic or numbered — is the environment's **current occupant**
-(ADR-DSGN-LIFE#5), coloured for whatever state that commit is in right now, not for a fixed property of the box. So production holds a
-**green** commit, release-uat a **light-green** one, main-UAT a **light-blue** one, and the on-demand L3 slot whatever it is hosting at the
-moment (a **yellow** commit mid-verification, a **blue** one just verified). Reading the inner colour tells you the state of what currently
-lives there; the label tells you where.
+**An environment box is a neutral container; the commit inside it is its occupant, in that commit's own state colour.** The hexagon is drawn
+as neutral chrome — its label names the environment (on-demand, main-UAT, release-uat, production) and it carries no per-stage tint and no
+state colour of its own. The single commit drawn _inside_ — generic or numbered — is the environment's occupant (ADR-DSGN-LIFE#5), coloured
+for whatever state that commit is in right now, not for a fixed property of the box. So production holds a **green** commit, release-uat a
+**light-green** one, main-UAT a **light-blue** one, and the on-demand L3 slot whatever it is hosting at the moment (a **yellow** commit
+mid-verification, a **blue** one just verified). Reading the inner colour tells you the state of what currently lives there; the label tells
+you where.
 
 - [Environment boxes: a neutral container showing its occupant](#environment-boxes-a-neutral-container-showing-its-occupant)
 
@@ -166,9 +166,9 @@ lives there; the label tells you where.
 [ADR-DSGN-LIFE](commit-lifecycle.md) are drawn as: **discarded** — red, on the line and in the DISCARDED/Retired lane; **retired** — kept in
 its production colour (green) and moved into the DISCARDED/Retired lane, never repainted red; **superseded** — its last promotion colour
 drawn as a ghost (faded), because it was valid but abandoned; **dirty HEAD** — its failed-stage colour with a rejection mark, distinct from
-a clean occupant; **in-process** — the input colour drawn inside the stage box; **environment occupant** — the single numbered commit inside
-an environment box. The ② lane is therefore labelled _DISCARDED / Retired_, because retirement is a success that shares the lane, not the
-colour, of discard.
+an occupant in a clean state; **in-process** — the input colour drawn inside the stage box; **environment occupant** — the single numbered
+commit inside an environment box. The ② lane is therefore labelled _DISCARDED / Retired_, because retirement is a success that shares the
+lane, not the colour, of discard.
 
 - [Lifecycle endings are not all red](#lifecycle-endings-are-not-all-red)
 
@@ -269,12 +269,12 @@ where it was discarded, abandoned, or promoted.
 ## Environment boxes: a neutral container showing its occupant
 
 An environment is not a commit, so it is drawn as a container — and the container itself is **neutral chrome**: it carries no state colour
-and no per-stage tint, only a label naming which environment it is. What it does carry is its **current occupant**: the one commit deployed
-there right now (ADR-DSGN-LIFE#5), drawn in that commit's own current state colour. So the inner colour is not a fixed property of the box —
-it is whatever state the resident commit is in: production shows a green occupant, release-uat a light-green one, main-UAT a light-blue one,
-and the on-demand L3 slot whatever it currently hosts. Reading the inner colour tells you the state of what lives there now; the label tells
-you where. This defers to `ADR-DSGN-LIFE:5` (each always-on environment hosts exactly one current commit) rather than colouring the box by
-what it validates — an environment's picture is "what is deployed here", not "what this stage is for".
+and no per-stage tint, only a label naming which environment it is. What it does carry is its **occupant**: the one commit deployed there
+right now (ADR-DSGN-LIFE#5), drawn in that commit's own current state colour. So the inner colour is not a fixed property of the box — it is
+whatever state the occupant is in: the production occupant is drawn green, the release-uat occupant light-green, the main-UAT occupant
+light-blue, and the on-demand L3 slot whatever it currently hosts. Reading the inner colour tells you the state of what lives there now; the
+label tells you where. This defers to `ADR-DSGN-LIFE:5` (each always-on environment hosts exactly one commit) rather than colouring the box
+by what it validates — an environment's picture is "what is deployed here", not "what this stage is for".
 
 ## Canonical palette (locked)
 

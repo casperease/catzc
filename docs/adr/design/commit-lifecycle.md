@@ -18,9 +18,9 @@ lifecycle states and the upstream/downstream sync semantics.
 backward.** The ladder is: topic (brown) → landed on main (grey) → BVT-verified (yellow) → L3-verified (blue) → main-UAT / main-AT-verified
 (light-blue) → release-uat / release-AT-verified (light-green) → **pre-prod** (staged, not yet live) → in production (green). The `main-UAT`
 and `release-uat` rungs are reached by clearing their **acceptance testing** — `main-AT` and `release-AT` — at the RC and RBC gates
-(ADR-FLOW-CD#9/ADR-FLOW-CD#10). At any rung a commit may advance, **hold** as an environment's current occupant, or **leave the ladder**
-into a terminal state (discarded, retired, or superseded). It never regresses to an earlier rung — a commit is not "re-verified" downward; a
-new attempt is a new commit.
+(ADR-FLOW-CD#9/ADR-FLOW-CD#10). At any rung a commit may advance, **hold** as an environment's occupant, or **leave the ladder** into a
+terminal state (discarded, retired, or superseded). It never regresses to an earlier rung — a commit is not "re-verified" downward; a new
+attempt is a new commit.
 
 - [The ladder and its one direction](#the-ladder-and-its-one-direction)
 
@@ -54,10 +54,10 @@ and "delivered then retired": valid, but not chosen.
 
 ### Rule ADR-DSGN-LIFE:5
 
-**Each always-on environment hosts exactly one current commit, plus a history.** `main-UAT`, `release-uat`, `pre-prod`, and `production` are
-stateful, not pass-through: at any moment each holds one **current occupant** — the commit presently deployed there — and a trail of the
-commits it held before. An environment box in the diagram is a neutral container naming one live commit, drawn in that occupant's current
-state colour (ADR-DSGN-VISUAL#13), so reading its occupant tells you the true state of that environment right now.
+**Each always-on environment hosts exactly one commit, plus a history.** `main-UAT`, `release-uat`, `pre-prod`, and `production` are
+stateful, not pass-through: at any moment each holds one **occupant** — the commit deployed there, as the release candidate built from it
+(ADR-FLOW-CD#14) — and a trail of the commits it held before. An environment box in the diagram is a neutral container naming its occupant,
+drawn in that commit's state colour (ADR-DSGN-VISUAL#13), so reading the occupant tells you the true state of that environment right now.
 
 - [Environments have a single occupant](#environments-have-a-single-occupant)
 
@@ -100,8 +100,8 @@ state on the mainline.
 
 **A commit's number is its time-ordered identity, and its terminal appearance is where its story ends.** Numbers run in commit time (`0`
 before `1` … before `10`); the same number reappears in each lane in its state-of-the-moment colour, and its last appearance names its
-ending — discarded, retired, superseded, in-process, an environment's current occupant, or the dirty HEAD. The numbered worked examples are
-the canonical encoding of this lifecycle (they render the grammar of [ADR-DSGN-VISUAL#12](visual-design.md#rule-adr-dsgn-visual12)).
+ending — discarded, retired, superseded, in-process, an environment's occupant, or the dirty HEAD. The numbered worked examples are the
+canonical encoding of this lifecycle (they render the grammar of [ADR-DSGN-VISUAL#12](visual-design.md#rule-adr-dsgn-visual12)).
 
 - [One number, one story](#one-number-one-story)
 
@@ -181,16 +181,16 @@ examples below are the canonical set.
 
 These commits are the canonical encoding of the model; each number is one commit's whole journey and its ending.
 
-| #   | Journey                                    | Ending                                                                   |
-| --- | ------------------------------------------ | ------------------------------------------------------------------------ |
-| 0   | progressed up the ladder to release-uat    | **discarded** — manually rejected at the release-uat gate (RBC)          |
-| 1   | reached production and served there        | **retired** — decommissioned after a successor took over                 |
-| 2   | progressed to L3-vertical on main          | **discarded** — auto-rejected in L3-vertical                             |
-| 3   | reached release-uat, valid                 | **superseded** — overtaken by 4's rollover                               |
-| 4   | rolled over 3 and shipped                  | **in production (current occupant)**                                     |
-| 5   | promoted into release-uat                  | **in release-uat (current occupant)** — the release candidate under test |
-| 6   | promoted onto main-UAT                     | **main-UAT (current occupant)** — the stable point upstream syncs from   |
-| 7   | entered BVT                                | **discarded** — auto-rejected at BVT                                     |
-| 8   | landed on main, entered BVT                | **in-process** — currently being BVT-verified                            |
-| 9   | topic commit, deployed by a workflow       | **off-main** — out-of-band deployed, not yet integrated to main/master   |
-| 10  | latest commit; entered main-UAT and failed | **dirty HEAD** — tip of main, not a sync/downstream source (use 6)       |
+| #   | Journey                                    | Ending                                                                 |
+| --- | ------------------------------------------ | ---------------------------------------------------------------------- |
+| 0   | progressed up the ladder to release-uat    | **discarded** — manually rejected at the release-uat gate (RBC)        |
+| 1   | reached production and served there        | **retired** — decommissioned after a successor took over               |
+| 2   | progressed to L3-vertical on main          | **discarded** — auto-rejected in L3-vertical                           |
+| 3   | reached release-uat, valid                 | **superseded** — overtaken by 4's rollover                             |
+| 4   | rolled over 3 and shipped                  | **the production occupant**                                            |
+| 5   | promoted into release-uat                  | **the release-uat occupant** — the release candidate under test        |
+| 6   | promoted onto main-UAT                     | **the main-UAT occupant** — the stable point upstream syncs from       |
+| 7   | entered BVT                                | **discarded** — auto-rejected at BVT                                   |
+| 8   | landed on main, entered BVT                | **in-process** — currently being BVT-verified                          |
+| 9   | topic commit, deployed by a workflow       | **off-main** — out-of-band deployed, not yet integrated to main/master |
+| 10  | latest commit; entered main-UAT and failed | **dirty HEAD** — tip of main, not a sync/downstream source (use 6)     |

@@ -160,7 +160,8 @@ with their replacements. A source's options default sensibly, and a source overr
   source that opts out of a gate is not checked by it (ADR-REPO-VOCAB#2).
 
 - **`Test-Glossary`** (`Catzc.Base.Docs`) runs every gate over every source, writes one report under `out/test-glossary/`, and fails once
-  with every issue. An L2 integrity test runs every gate over the real tree, so every rule here is checked mechanically.
+  with every issue. An L2 integrity test runs every gate over the real tree, so every rule here is checked mechanically; it is L2 because
+  the source and phrasing checks ask git which files are tracked (ADR-AUTO-TEST#9).
 
 - **`Build-Glossary`** (`Catzc.Base.Docs`) projects every source into one readable page, `docs/adr/glossary.md`: per ADR domain, each term
   with its definition, a link to its defining rule, its realization, relations, contrasts, and avoided phrasings. The page is a derived

@@ -92,10 +92,10 @@ mechanically its L3 leg runs in the CD pipeline's post-commit path.
 human-owned certification gate** on an always-on environment: **RC** (Release Certification) gates at **main-UAT**, and **RBC** (Release
 Branch Certification) gates at **release-uat**. Each clears when its **acceptance testing (AT)** is verified — RC on **main-AT** (AT against
 the `main-uat` environment), RBC on **release-AT** (AT against `release-uat`), the automated and manual tests a commit must pass there
-(ADR-FLOW-CD#10) — with a human certifying the environment's current occupant (ADR-DSGN-LIFE#5) before it may advance. The gate is distinct
-from the **DEPLOY** pipeline that actuates the advance once the gate clears (ADR-FLOW-CD#6): RC/RBC decide _whether_ to proceed, DEPLOY
-performs the roll. Clearing a gate is a promotion; failing it holds or discards the occupant. Whether a human owns the gate (delivery) or
-the pipeline advances past it automatically (deployment) is the CD-vs-CDe posture of ADR-FLOW-CD#6/ADR-FLOW-CD#7.
+(ADR-FLOW-CD#10) — with a human certifying the environment's occupant (ADR-DSGN-LIFE#5) before it may advance. The gate is distinct from the
+**DEPLOY** pipeline that actuates the advance once the gate clears (ADR-FLOW-CD#6): RC/RBC decide _whether_ to proceed, DEPLOY performs the
+roll. Clearing a gate is a promotion; failing it holds or discards the occupant. Whether a human owns the gate (delivery) or the pipeline
+advances past it automatically (deployment) is the CD-vs-CDe posture of ADR-FLOW-CD#6/ADR-FLOW-CD#7.
 
 - [RC and RBC: the two hands-on release gates](#rc-and-rbc-the-two-hands-on-release-gates)
 
@@ -145,10 +145,10 @@ clears (DEPLOY, ADR-FLOW-CD#6) is not a gate.
 
 ### Rule ADR-FLOW-CD:14
 
-A **release candidate** is one commit's build-once artifact of a deployable-unit while it occupies a certification environment — `main-uat`
-or `release-uat` — awaiting that environment's gate (RC or RBC, ADR-FLOW-CD#9). Acceptance testing there verifies it, the certification
-decides it, and a cleared gate promotes it; until then it is a candidate, not a release. Its verification is a release-candidate test run —
-CD's post-commit system test, never part of the fast CI gate (ADR-FLOW-CD#2).
+A **release candidate** is the immutable, tagged artifact a CI component builds from one commit of a deployable-unit (ADR-FLOW-CD#3):
+versioned, never rebuilt, and promotable toward production. Every gate it clears promotes the same bytes, and the environment it is deployed
+to has the commit it was built from as its occupant (ADR-DSGN-LIFE#5). Its verification beyond the fast CI gate is a release-candidate test
+run — CD's post-commit system test (ADR-FLOW-CD#2).
 
 - [RC and RBC: the two hands-on release gates](#rc-and-rbc-the-two-hands-on-release-gates)
 
@@ -310,9 +310,9 @@ The automated flow (ADR-FLOW-CD#5) carries the artifact through non-prod on its 
 through **human certification** — and there are two such gates, one per always-on release environment, each a deliberate hands-on stop
 rather than an automated check:
 
-- **RC — Release Certification**, at **main-UAT**. The always-on environment that tracks latest main holds a current occupant
-  (ADR-DSGN-LIFE#5); RC is the human decision to certify that occupant for onward release. It is the gate a Continuous **Delivery** posture
-  stops at, handing the production step to DEPLOY.
+- **RC — Release Certification**, at **main-UAT**. The always-on environment that tracks latest main holds one occupant (ADR-DSGN-LIFE#5);
+  RC is the human decision to certify the main-UAT occupant for onward release. It is the gate a Continuous **Delivery** posture stops at,
+  handing the production step to DEPLOY.
 - **RBC — Release Branch Certification**, at **release-uat**. When a release variant is stabilized on a release branch, RBC is the human
   certification of the release-uat occupant before it is cut to production.
 

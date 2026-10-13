@@ -1,5 +1,5 @@
 # glossary.yml — the Catzc.Base.ModuleSystem glossary source: the vocabulary of what ships and how it advances —
-# deployable-units and the release candidates built from them ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)).
+# deployable-units, the release candidates built from them, and the environments' occupants ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)).
 # Every option is defaulted: all four gates, the whole repository, every text surface
 # ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). Checked by Test-Glossary.
 concepts:
@@ -10,16 +10,29 @@ concepts:
         short: What ships — a whole track or a reduced composition — bound one-to-one to its pipeline.
         realized_by: { kind: config-key, pattern: 'automation/Catzc.Base.Globs/configs/globs.yml' }
         contrasts:
-            release candidate: A release candidate is one commit's build of a deployable-unit awaiting its gate; a deployable-unit is the composition that ships, whichever commit is built.
+            release candidate: A release candidate is one commit's tagged, immutable build of a deployable-unit; a deployable-unit is the composition that ships, whichever commit is built.
     release candidate:
         key: release_candidate
         domain: flow
         defined_by: ADR-FLOW-CD#14
-        short: One commit's build-once artifact of a deployable-unit while it occupies main-uat or release-uat, awaiting RC or RBC.
+        short: The immutable, tagged artifact a CI component builds from one commit — versioned, never rebuilt, promotable toward production.
         realized_by: { kind: prose-only }
         contrasts:
-            deployable-unit: A deployable-unit is the composition that ships, whichever commit is built; a release candidate is one commit's build of it awaiting its gate.
+            deployable-unit: A deployable-unit is the composition that ships, whichever commit is built; a release candidate is one commit's tagged, immutable build of it.
+            occupant: An occupant is the commit an environment holds; a release candidate is the artifact built from it, the same bytes wherever it is deployed.
             test run: A test run executes tests; a release candidate is the artifact a release-candidate test run verifies.
             test suite: A test suite is the declared selection of tests that verifies a change; a release candidate is the artifact under test.
         avoid:
             - { phrase: release-candidate suite, say: release-candidate test run }
+    occupant:
+        key: occupant
+        domain: design
+        defined_by: ADR-DSGN-LIFE#5
+        short: The one commit an always-on environment holds, deployed there as its release candidate — named by its environment.
+        realized_by: { kind: prose-only }
+        contrasts:
+            release candidate: A release candidate is the artifact, the same bytes wherever it is deployed; an occupant is the commit one environment holds.
+        avoid:
+            - { phrase: current occupant, say: occupant (the <environment> occupant) }
+            - { phrase: current occupants, say: occupants }
+            - { phrase: resident commit, say: occupant }
