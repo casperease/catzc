@@ -1,24 +1,64 @@
-# Reads the repository's own test files — the same answer in both run modes, so the build run skips it.
-Describe 'Get-CatsRuleEnforcers integrity' -Tag 'L1', 'integrity', 'source-only' {
+# Get-CatsRuleEnforcers over a fixture test tree in $TestDrive and a mocked analyzer map: the AST reader credits
+# only -Tag citations, never a citation-shaped string elsewhere. The repository facts behind it (every cited id is a
+# real rule) are quality gates of their own. Neutral fixture names
+# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'Get-CatsRuleEnforcers' -Tag 'L0', 'logic' {
     BeforeAll {
+        $script:repo = Join-Path $TestDrive 'repo'
+        $tests = Join-Path $script:repo 'automation/Widget/tests'
+        $vendor = Join-Path $script:repo 'automation/.vendor/Gadget/tests'
+        [void][System.IO.Directory]::CreateDirectory($tests)
+        [void][System.IO.Directory]::CreateDirectory($vendor)
+        # The citations are assembled from parts so this file's own -Tag scan (the real tree) never sees them as tags.
+        $tagged = 'ADR-WI-TAG' + '#1'
+        $context = 'ADR-WI-CTX' + '#2'
+        $data = 'ADR-WI-DATA' + '#3'
+        [System.IO.File]::WriteAllText((Join-Path $tests 'Widget.Tests.ps1'), @"
+Describe 'widget' -Tag 'L0', 'logic', '$tagged' {
+    Context 'gadget' -Tag:@('$context') {
+        It 'holds' { '$data' | Should -Not -BeNullOrEmpty }
+    }
+}
+"@)
+        [System.IO.File]::WriteAllText((Join-Path $vendor 'Gadget.Tests.ps1'), "Describe 'gadget' -Tag 'ADR-WI-VENDOR#4' { }")
+
+        function Reset-EnforcerCache {
+            InModuleScope Catzc.Base.Docs { $script:catsRuleEnforcersCache = $null }
+        }
+    }
+
+    BeforeEach {
+        Reset-EnforcerCache
+        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'analyzer-adr-map' } {
+            @{ analyzers = @{ 'Measure-Widget' = @('ADR-WI-TAG#1', 'ADR-WI-RULE#5') } }
+        }
+        Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq 'automation' } { Join-Path $script:repo 'automation' }
+        Mock ConvertTo-RepoRelativePath -ModuleName Catzc.Base.Docs {
+            $Path.Substring($script:repo.Length + 1).Replace('\', '/')
+        }
         $script:enforcers = InModuleScope Catzc.Base.Docs { Get-CatsRuleEnforcers }
     }
 
-    It 'credits an analyzer rule from the shipped analyzer-adr-map' {
-        $script:enforcers['ADR-AUTO-NOPWD#1'].Analyzers | Should -Contain 'Measure-NeverDependOnPwd'
+    AfterAll {
+        Reset-EnforcerCache
     }
 
-    It 'credits a tagged test, read from the tree by its -Tag citation' {
-        # [ADR-AUTO-TEST#27](/docs/adr/automation/test-automation.md#rule-adr-auto-test27) is cited as a -Tag by the
-        # provenance tests, so those files enforce it.
-        $script:enforcers.ContainsKey('ADR-AUTO-TEST#27') | Should -BeTrue
-        ($script:enforcers['ADR-AUTO-TEST#27'].Tests -join ';') | Should -Match 'Get-TestRuleTags\.Tests\.ps1'
+    It 'credits an analyzer rule from the analyzer map' {
+        $script:enforcers['ADR-WI-RULE#5'].Analyzers | Should -Be @('Measure-Widget')
+        $script:enforcers['ADR-WI-RULE#5'].Tests | Should -HaveCount 0
     }
 
-    It 'ignores a citation-shaped string that is not a -Tag (AST, not text scan)' {
-        # 'ADR-AUTO-ERROR#999' appears only as fixture DATA inside a test body (never as a -Tag), and is not a real
-        # rule — so a precise AST reader must not surface it as an enforced citation.
-        $script:enforcers.ContainsKey('ADR-AUTO-ERROR#999') | Should -BeFalse
+    It 'credits a test file for each -Tag citation of Describe and Context, beside its analyzer' {
+        $script:enforcers['ADR-WI-TAG#1'].Tests | Should -Be @('automation/Widget/tests/Widget.Tests.ps1')
+        $script:enforcers['ADR-WI-TAG#1'].Analyzers | Should -Be @('Measure-Widget')
+        $script:enforcers['ADR-WI-CTX#2'].Tests | Should -Be @('automation/Widget/tests/Widget.Tests.ps1')
+    }
+
+    It 'ignores a citation-shaped string that is not a -Tag (AST, not text scan), and the vendored tree' {
+        $script:enforcers.ContainsKey('ADR-WI-DATA#3') | Should -BeFalse
+        $script:enforcers.ContainsKey('ADR-WI-VENDOR#4') | Should -BeFalse
+        $script:enforcers.ContainsKey('L0') | Should -BeFalse
     }
 }
 

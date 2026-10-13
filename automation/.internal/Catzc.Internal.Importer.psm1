@@ -25,17 +25,8 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
     Emit per-stage load timings and an end-of-load summary.
 .PARAMETER ClearCompiledTypes
     Delete every compiled C# type DLL before importing so types rebuild from source.
-.PARAMETER NonSilentClear
-    Surface the post-import type-cache janitor's report (off by default).
 .PARAMETER SkipJanitors
     Skip the post-import janitors and the PSModulePath check — a lean load for a copied subset.
-.PARAMETER NoCommitShaMarkersInDevBox
-    Opt OUT of the default dev-box auto-commit of the importer-maintained generated files
-    (automation/.compiled/) via Sync-GeneratedFile — never in a pipeline (double-guarded: the call site
-    skips under Test-IsRunningInPipeline and the function self-skips again), and skipped on main/master
-    when the git_workspace variant is 'main-via-pr'
-    ([ADR-REPO-VARIANT#6](/docs/adr/repository/repo-variants.md#rule-adr-repo-variant6)). Also ignored under
-    -SkipJanitors.
 .PARAMETER CleanClone
     Opt IN to a whitelisted deep clean as the janitor run's first step: Reset-GitCleanFxd deletes only
     the auto-controlled generated artifacts a `git clean -fxd` would remove (managed root configs,
@@ -64,19 +55,11 @@ function Invoke-Importer {
         # loaded from its committed/cached assembly. Use it to build from source (e.g. verify a clean rebuild).
         [switch] $ClearCompiledTypes,
 
-        # Show the post-import type-cache janitor's report (off by default: Clear-ModuleTypeCache runs -Silent).
-        [switch] $NonSilentClear,
-
         # Skip the post-import janitors (Clear-ModuleTypeCache, Build-Readme, Build-TerminologyDictionary,
         # Build-RootConfig) and the PSModulePath check — a lean/optimized load for a copied subset
         # (Test-InIsolation). Type loading still fast-paths on the committed .compiled DLL; only the tail
         # maintenance is skipped.
         [switch] $SkipJanitors,
-
-        # Opt OUT of the default auto-commit of the generated files the importer maintains
-        # (automation/.compiled/) — the janitor tail's last step (Sync-GeneratedFile, which self-guards:
-        # never a pipeline, main allowed only in the main-direct git_workspace variant).
-        [switch] $NoCommitShaMarkersInDevBox,
 
         # Opt IN to a whitelisted deep clean as the janitor run's first step (Reset-GitCleanFxd): delete
         # only the auto-controlled generated artifacts, keep and report everything else, and let the
@@ -251,7 +234,7 @@ function Invoke-Importer {
 
         # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff) — see Invoke-TypeCacheJanitor.
         if (-not $SkipJanitors) {
-            Invoke-TypeCacheJanitor -NonSilentClear:$NonSilentClear
+            Invoke-TypeCacheJanitor -ShowReport:$showStateChanges
         }
 
         # Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/adr/index.md) from adrs.yml and
@@ -300,15 +283,14 @@ function Invoke-Importer {
             Sync-SessionTools
         }
 
-        # Default-on for dev boxes (opt out: -NoCommitShaMarkersInDevBox): auto-commit the generated files the
-        # importer maintains (automation/.compiled/). Deliberately the LAST janitor, so tracked files the
-        # janitors above touch (the .compiled DLL swap) are in their final state before it commits. NEVER in a
-        # pipeline — guarded here so CI imports stay silent, and again inside Sync-GeneratedFile (which also
-        # guards: main only in the main-direct git_workspace variant). Guarded: absent in the bootstrap sandbox.
-        if (-not $NoCommitShaMarkersInDevBox -and -not $SkipJanitors -and
-            (Get-Command Sync-GeneratedFile -ErrorAction Ignore) -and
-            (Get-Command Test-IsRunningInPipeline -ErrorAction Ignore) -and
-            -not (Test-IsRunningInPipeline)) {
+        # Commit the generated files the importer maintains (automation/.compiled/) — who is running decides
+        # ([ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)): a person's session
+        # commits, an agent's announces what changed and leaves the commit to the person, a test-run snapshot never
+        # commits, and a pipeline is not even asked, so CI imports stay silent. Deliberately the LAST janitor, so
+        # tracked files the janitors above touch (the .compiled DLL swap) are in their final state.
+        # Guarded: absent in the bootstrap sandbox.
+        if (-not $SkipJanitors -and (Get-Command Sync-GeneratedFile -ErrorAction Ignore) -and
+            (Get-SessionActor) -ne 'Pipeline') {
             Sync-GeneratedFile | Out-Null
         }
 
@@ -404,24 +386,24 @@ function Invoke-TypeCacheJanitor {
     .SYNOPSIS
         Runs the post-import type-cache janitor (Clear-ModuleTypeCache) without ever failing the load.
     .DESCRIPTION
-        -Silent unless -NonSilentClear; CI self-skips inside Clear-ModuleTypeCache. A superseded build it cannot
-        delete (held outside catzc) becomes one red line, never a failed load. Holders are stopped in a person's
-        session only — never an agent's, never CI's
-        ([ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)). A no-op when
+        -Silent unless -ShowReport (the importer passes its -Verbose); CI self-skips inside Clear-ModuleTypeCache. A
+        superseded build it cannot delete (held outside catzc) becomes one red line, never a failed load. Holders are
+        stopped in a person's session only — never an agent's, never CI's (Get-SessionActor,
+        [ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)). A no-op when
         Clear-ModuleTypeCache is absent (the bootstrap sandbox).
-    .PARAMETER NonSilentClear
+    .PARAMETER ShowReport
         Show the janitor's end-state report.
     #>
     [CmdletBinding()]
     param(
-        [switch] $NonSilentClear
+        [switch] $ShowReport
     )
 
     if (-not (Get-Command Clear-ModuleTypeCache -ErrorAction Ignore)) {
         return
     }
     try {
-        Clear-ModuleTypeCache -Silent:(-not $NonSilentClear) -StopLockingProcesses:(-not (Test-IsRunningInPipeline) -and -not (Test-IsRunningAsAgent))
+        Clear-ModuleTypeCache -Silent:(-not $ShowReport) -StopLockingProcesses:((Get-SessionActor) -eq 'Person')
     }
     catch {
         Write-ImporterMessage $_.Exception.Message -ForegroundColor Red

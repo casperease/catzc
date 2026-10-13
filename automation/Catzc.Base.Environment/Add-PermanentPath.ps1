@@ -33,16 +33,12 @@ function Add-PermanentPath {
 
         [switch] $Prepend,
 
-        [string] $Label,
+        [string] $Label = (Split-Path $Path -Leaf),
 
         [switch] $Sync
     )
 
     Assert-PathExist $Path -PathType Container
-
-    if (-not $Label) {
-        $Label = Split-Path $Path -Leaf
-    }
 
     $separator = [System.IO.Path]::PathSeparator
     $normalizedPath = $Path.TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar)

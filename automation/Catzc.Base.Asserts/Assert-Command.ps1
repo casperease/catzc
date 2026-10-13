@@ -14,13 +14,10 @@ function Assert-Command {
         [Parameter(Mandatory, Position = 0)]
         [string] $Command,
 
-        [string] $ErrorText
+        [string] $ErrorText = "$Command is not installed"
     )
 
     if (-not (Test-Command $Command)) {
-        if (-not $ErrorText) {
-            $ErrorText = "$Command is not installed"
-        }
         throw $ErrorText
     }
 }

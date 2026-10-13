@@ -781,6 +781,14 @@ terms:
       meaning: "Microsoft Dev Box"
     - term: dotnet
       meaning: ".NET CLI (dotnet)"
+    - term: hostfxr
+      meaning: ".NET host resolver library (host/fxr/<version>/hostfxr)"
+    - term: muxer
+      meaning: ".NET muxer — the dotnet executable that dispatches to an SDK or runtime"
+    - term: apphost
+      meaning: ".NET apphost — a native launcher executable for a .NET application"
+    - term: vbcs
+      meaning: "the VBCSCompiler.exe Roslyn compiler server"
     - term: dpkg
       meaning: "Debian dpkg"
     - term: enduml

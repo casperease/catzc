@@ -1,21 +1,22 @@
-Describe 'Get-RepositoryFile' -Tag 'L0', 'integrity' {
-    It 'returns the normalized absolute path for a relative file' {
-        $result = Get-RepositoryFile 'importer.ps1'
-        $result | Should -Be ([IO.Path]::GetFullPath((Join-Path $env:RepositoryRoot 'importer.ps1')))
+# Get-RepositoryFile over a $TestDrive root (Get-RepositoryRoot mocked): path normalization against the root, never
+# $PWD. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'Get-RepositoryFile' -Tag 'L0', 'logic' {
+    BeforeEach {
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Repository { Join-Path $TestDrive 'repo' }
+        $script:root = Join-Path $TestDrive 'repo'
     }
 
-    It 'returns a path that exists for a known file' {
-        Test-Path (Get-RepositoryFile 'importer.ps1') | Should -BeTrue
+    It 'returns the normalized absolute path for a relative file' {
+        Get-RepositoryFile 'widget.ps1' | Should -Be ([IO.Path]::GetFullPath((Join-Path $script:root 'widget.ps1')))
     }
 
     It 'collapses a leading dot segment instead of leaking it into the result' {
-        $result = Get-RepositoryFile './importer.ps1'
-        $result | Should -Be ([IO.Path]::GetFullPath((Join-Path $env:RepositoryRoot 'importer.ps1')))
+        $result = Get-RepositoryFile './widget.ps1'
+        $result | Should -Be ([IO.Path]::GetFullPath((Join-Path $script:root 'widget.ps1')))
         $result | Should -Not -Match '[\\/]\.[\\/]'
     }
 
     It 'collapses a parent (..) segment' {
-        $result = Get-RepositoryFile 'automation/../importer.ps1'
-        $result | Should -Be ([IO.Path]::GetFullPath((Join-Path $env:RepositoryRoot 'importer.ps1')))
+        Get-RepositoryFile 'gadget/../widget.ps1' | Should -Be ([IO.Path]::GetFullPath((Join-Path $script:root 'widget.ps1')))
     }
 }

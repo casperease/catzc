@@ -1,32 +1,79 @@
-# Integrity — it reads the real tests/assets/config fixtures to derive the fixture-identity set. source-only: those
-# are repository files, which give the same answer in both run modes.
-Describe 'Get-FixtureIdentityTokens' -Tag 'L1', 'integrity', 'source-only' {
+# Get-FixtureIdentityTokens over a fixture automation tree in $TestDrive (Get-RepositoryRoot mocked): the fixture
+# azure.yml / customer.yml are constructed as their registered C# config types, so the YAML below is a valid instance
+# of each. L1: it reads files and constructs the registered types. Neutral fixture names
+# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); the disjointness from the live
+# identities is the quality gate Test-ConfigIdentityHygiene.
+Describe 'Get-FixtureIdentityTokens' -Tag 'L1', 'logic' {
     BeforeAll {
-        $script:tokens = & (Get-Module Catzc.Base.QualityGates) { Get-FixtureIdentityTokens }
+        $script:config = Join-Path $TestDrive 'repo/automation/Catzc.Widget/tests/assets/config'
+        [void][System.IO.Directory]::CreateDirectory($script:config)
+        [void][System.IO.Directory]::CreateDirectory((Join-Path $TestDrive 'repo/automation/Catzc.Widget/configs'))
+        $script:azure = @'
+org: wdg
+bicep_min_version: "0.30.0"
+tenants:
+  gizmo_tenant:
+    id: TENANT_GUID
+environments:
+  sprocket:
+    shortcode: sp
+    region: westeurope
+    region_code: weu
+  pooled:
+    shortcode: po
+    region: westeurope
+    region_code: weu
+    per_subscription: true
+subscriptions:
+  gizmo_lower:
+    id: SUBSCRIPTION_GUID
+    tenant: gizmo_tenant
+    environments:
+      - sprocket
+      - pooled
+'@
+        # The guids are built at runtime, so the repository guid scan never reads them as unregistered guids.
+        $prefix = 'a100a000-7e57-7e0a-0700-00000000000'
+        $script:azure = $script:azure.Replace('TENANT_GUID', $prefix + '1').Replace('SUBSCRIPTION_GUID', $prefix + '2')
+        $script:customer = @'
+customers:
+  gizmo:
+    shortcode: gz
+    details: Gizmo Fixture Co
+'@
+        # A shipped config of the same name is not a fixture: only tests/assets/config/ is read.
+        [System.IO.File]::WriteAllText((Join-Path $TestDrive 'repo/automation/Catzc.Widget/configs/customer.yml'), "customers: {}`n")
     }
 
-    It 'derives the fixture identities from the tests/assets/config fixtures' {
-        $script:tokens | Should -Contain 'acme'
-        $script:tokens | Should -Contain 'globex'
-        $script:tokens | Should -Contain 'alpha'
-        $script:tokens | Should -Contain 'tst'
-        $script:tokens | Should -Contain 'core_lower'
+    BeforeEach {
+        [System.IO.File]::WriteAllText((Join-Path $script:config 'azure.yml'), $script:azure)
+        [System.IO.File]::WriteAllText((Join-Path $script:config 'customer.yml'), $script:customer)
+        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo' }
+    }
+
+    It 'derives the org, tenants, subscriptions, environments, and customers from the fixture configs' {
+        $tokens = InModuleScope Catzc.Base.QualityGates { Get-FixtureIdentityTokens }
+        foreach ($token in 'wdg', 'gizmo_tenant', 'gizmo_lower', 'sprocket', 'sp', 'gizmo', 'gz') {
+            $tokens | Should -Contain $token
+        }
     }
 
     It 'includes the neutral in-memory fixtures (globset / tool)' {
-        $script:tokens | Should -Contain 'widget'
-        $script:tokens | Should -Contain 'gadget'
-        $script:tokens | Should -Contain 'faketool'
+        $tokens = InModuleScope Catzc.Base.QualityGates { Get-FixtureIdentityTokens }
+        $tokens | Should -Contain 'widget'
+        $tokens | Should -Contain 'gadget'
+        $tokens | Should -Contain 'faketool'
     }
 
-    It 'excludes the shared structural nsub/psub identity envs' {
-        $script:tokens | Should -Not -Contain 'nsub'
-        $script:tokens | Should -Not -Contain 'psub'
+    It 'excludes a per_subscription identity environment' {
+        $tokens = InModuleScope Catzc.Base.QualityGates { Get-FixtureIdentityTokens }
+        $tokens | Should -Not -Contain 'pooled'
+        $tokens | Should -Not -Contain 'po'
     }
 
-    It 'does NOT include any live identity (the sets are disjoint)' {
-        $script:tokens | Should -Not -Contain 'apex'
-        $script:tokens | Should -Not -Contain 'nova'
-        $script:tokens | Should -Not -Contain 'zct'
+    It 'fails on a malformed fixture config, as its registered type does for a shipped one' {
+        [System.IO.File]::WriteAllText((Join-Path $script:config 'customer.yml'), ("customers: {}`n" + "sprocket: 1`n"))
+        { InModuleScope Catzc.Base.QualityGates { Get-FixtureIdentityTokens } } | Should -Throw "*unknown top-level key 'sprocket'*"
     }
 }

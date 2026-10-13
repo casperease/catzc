@@ -14,6 +14,9 @@
     data and is not flagged, while a real `have_customers: [acme]` value is. The terminology registry (which
     DEFINES the fixture tokens) is excluded.
 
+    It also checks that the two identity sets are disjoint: a fixture token that is also a live identity
+    (Get-LiveIdentityTokens, derived from the shipped config) is an issue, whatever -Path names.
+
     A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
     through Write-QualityGateReport, which writes out/test-config-identity-hygiene/, prints every finding, and
     throws once listing them all; -PassThru returns the result instead. It reads the shipped config, so a Pester
@@ -25,7 +28,7 @@
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-config-identity-hygiene.
 .PARAMETER PassThru
-    Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount }) instead of throwing.
+    Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount; LiveTokens }) instead of throwing.
 .OUTPUTS
     None (throws on findings), or the result object with -PassThru.
 #>
@@ -96,10 +99,20 @@ function Test-ConfigIdentityHygiene {
         }
     }
 
-    $issues = @(foreach ($finding in $findings) {
-            "$(ConvertTo-RepoRelativePath $finding.File): fixture identity '$($finding.Token)' at $($finding.Location) — a shipped config must name a live identity"
-        })
+    $issues = [System.Collections.Generic.List[string]]::new()
+
+    # The two identity sets are disjoint: a fixture token that is also a live identity is no fixture at all.
+    $liveTokens = @(Get-LiveIdentityTokens)
+    foreach ($live in $liveTokens) {
+        if ($fixture.Contains($live.Token)) {
+            $issues.Add("fixture identity '$($live.Token)' is also a live identity ($($live.Kind) in $($live.Source)) — a test fixture must be distinct from every live identity")
+        }
+    }
+
+    foreach ($finding in $findings) {
+        $issues.Add("$(ConvertTo-RepoRelativePath $finding.File): fixture identity '$($finding.Token)' at $($finding.Location) — a shipped config must name a live identity")
+    }
 
     Write-QualityGateReport -Subject config-identity-hygiene -Title Test-ConfigIdentityHygiene -Issues $issues `
-        -Facts ([ordered]@{ FileCount = @($Path).Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
+        -Facts ([ordered]@{ FileCount = @($Path).Count; LiveTokens = $liveTokens.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

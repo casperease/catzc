@@ -52,7 +52,7 @@ function New-RepositorySnapshot {
     param(
         [string] $SourceRoot = (Get-RepositoryRoot),
 
-        [string] $Destination,
+        [string] $Destination = (Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-snapshot-' + [guid]::NewGuid().ToString('N'))),
 
         [ValidateRange(1, 10)]
         [int] $Attempts = 3
@@ -61,9 +61,6 @@ function New-RepositorySnapshot {
     Assert-Command git
     $SourceRoot = [System.IO.Path]::GetFullPath($SourceRoot).TrimEnd('\', '/')
     Assert-PathExist (Join-Path $SourceRoot '.git')
-    if (-not $Destination) {
-        $Destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-snapshot-' + [guid]::NewGuid().ToString('N'))
-    }
     $Destination = [System.IO.Path]::GetFullPath($Destination).TrimEnd('\', '/')
     if (Test-Path -LiteralPath $Destination) {
         throw "Cannot create a repository snapshot at '$Destination': the folder already exists."

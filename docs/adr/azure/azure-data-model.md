@@ -134,7 +134,7 @@ erDiagram
         string details
     }
     ENVIRONMENT {
-        string name             PK "map key; readable (develop/preprod/…), unique, prefix-free"
+        string name             PK "map key; readable (develop/preprod/…), unique"
         string shortcode        UK "2 letters, unique (de/pp/…); tight-pattern env-segment"
         string region           "Azure location"
         string region_code      "3 letters (name component)"
@@ -304,10 +304,10 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
 ### Validation
 
 - **Per-record shape** (identifiers, GUIDs, enums, formats) is schema-expressible.
-- **Cross-record integrity** (FKs, env name/shortcode uniqueness + prefix-free names, ≤1 per-subscription env per subscription, per-customer
-  environment disjointness by raw token) is owned by the `AzureConfig` config type, checked at load; the `customer` reference into
-  `customer.yml`, the normalized (key-vs-shortcode) per-customer grouping, and the non-customer set's disjointness are shipped-asset
-  integrity tests (see [`customer-model`](azure-customer-model.md#rule-adr-az-customer3)).
+- **Cross-record integrity** (FKs, env name/shortcode uniqueness, ≤1 per-subscription env per subscription, per-customer environment
+  disjointness by raw token) is owned by the `AzureConfig` config type, checked at load; the `customer` reference into `customer.yml`, the
+  normalized (key-vs-shortcode) per-customer grouping, and the non-customer set's disjointness are shipped-asset integrity tests (see
+  [`customer-model`](azure-customer-model.md#rule-adr-az-customer3)).
 - The **cross-layer** link is enforced at **discovery** (`Get-BicepTemplates`) and collected by `Assert-BicepTemplate`, sharing the
   per-config rule `Get-BicepSubscriptionConfigViolations`: a configuration subfolder is a **defined customer key**, and every config's
   (customer?, env) coordinate resolves to **exactly one subscription id** (`Get-BicepConfigSubscriptionCandidates`).
@@ -327,7 +327,7 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
 - Build artifacts mirror the configuration tree (`parameters.[<customer>.]<config>.json`) — uniform and structurally collision-free in the
   shared build folder, with no validation guard to remember.
 - Each environment maps to one region; multi-region-per-environment is out of scope (see [`naming-standard`](azure-naming-standard.md)).
-  Each env carries a readable, prefix-free **`name`** (the deploy/config handle + relaxed env-segment) and a 2-char **`shortcode`** (the
+  Each env carries a readable, unique **`name`** (the deploy/config handle + relaxed env-segment) and a 2-char **`shortcode`** (the
   restricted env-segment).
 - The cost is that a second non-customer platform cannot ship template configs — the configuration root belongs to ONE shared platform
   (every root config must resolve to exactly one non-customer subscription per env). That is the deliberate trade: the conventional tree

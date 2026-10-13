@@ -16,7 +16,7 @@ function Get-TestFileModule {
         [string] $Path
     )
 
-    $automationRoot = [System.IO.Path]::Combine($env:RepositoryRoot, 'automation')
+    $automationRoot = [System.IO.Path]::Combine((Get-RepositoryRoot), 'automation')
     $relative = $Path.Substring($automationRoot.Length).TrimStart('\', '/')
     ($relative -split '[\\/]')[0]
 }

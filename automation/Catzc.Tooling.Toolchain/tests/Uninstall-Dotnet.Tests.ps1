@@ -35,7 +35,8 @@ Describe 'Uninstall-Dotnet' -Tag 'L1', 'logic' {
     }
 
     # The installed path: every boundary that touches state outside the repository is mocked — the folder delete,
-    # the PATH seam (Remove-PermanentPath) and the persistent variable seam (Set-PermanentEnvironmentVariable).
+    # the PATH seam (Remove-PermanentPath), the persistent variable seam (Set-PermanentEnvironmentVariable), the
+    # lock query (Get-DotnetInstallHolder), the process stop (Stop-DotnetInstallHolder) and the elevation probe.
     Context 'an installed SDK' {
         BeforeAll {
             $script:savedDotnetRoot = $env:DOTNET_ROOT
@@ -50,6 +51,10 @@ Describe 'Uninstall-Dotnet' -Tag 'L1', 'logic' {
             Mock Remove-Item { } -ModuleName Catzc.Tooling.Toolchain
             Mock Remove-PermanentPath { } -ModuleName Catzc.Tooling.Toolchain
             Mock Set-PermanentEnvironmentVariable { } -ModuleName Catzc.Tooling.Toolchain
+            Mock Get-DotnetInstallHolder { } -ModuleName Catzc.Tooling.Toolchain
+            Mock Stop-DotnetInstallHolder { } -ModuleName Catzc.Tooling.Toolchain
+            Mock Test-IsAdministrator { $false } -ModuleName Catzc.Tooling.Toolchain
+            $script:widgetHolder = [Catzc.Base.Files.FileLockingProcess]::new(4242, 'widget', [datetime]'2026-01-01')
         }
 
         It 'deletes the install folder and drops it from the session and the persistent PATH' {
@@ -71,6 +76,41 @@ Describe 'Uninstall-Dotnet' -Tag 'L1', 'logic' {
             Should -Invoke Set-PermanentEnvironmentVariable -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter {
                 $Name -eq 'DOTNET_ROOT' -and [string]::IsNullOrEmpty($Value)
             }
+        }
+
+        It 'throws naming every holder and deletes nothing when the install is in use' {
+            Mock Get-DotnetInstallHolder { $script:widgetHolder } -ModuleName Catzc.Tooling.Toolchain
+            { Uninstall-Dotnet } | Should -Throw '*in use by: widget (PID 4242*rerun with -Force*'
+            Should -Invoke Stop-DotnetInstallHolder -ModuleName Catzc.Tooling.Toolchain -Times 0
+            Should -Invoke Remove-Item -ModuleName Catzc.Tooling.Toolchain -Times 0
+        }
+
+        It 'with -Force stops exactly the named holders, then deletes' {
+            Mock Get-DotnetInstallHolder { $script:widgetHolder } -ModuleName Catzc.Tooling.Toolchain
+            Uninstall-Dotnet -Force
+            Should -Invoke Stop-DotnetInstallHolder -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter {
+                $InstallDir -eq $script:installDir -and @($Holder).Count -eq 1 -and $Holder[0].ProcessId -eq 4242
+            }
+            Should -Invoke Remove-Item -ModuleName Catzc.Tooling.Toolchain -Times 1
+        }
+
+        It 'stops nothing when nothing holds the install' {
+            Uninstall-Dotnet -Force
+            Should -Invoke Stop-DotnetInstallHolder -ModuleName Catzc.Tooling.Toolchain -Times 0
+            Should -Invoke Remove-Item -ModuleName Catzc.Tooling.Toolchain -Times 1
+        }
+
+        It 'refuses an elevated shell on Windows before stopping or deleting anything, even with -Force' {
+            if (-not $IsWindows) {
+                Set-ItResult -Skipped -Because 'windows_only_elevation_gate'
+                return
+            }
+            Mock Test-IsAdministrator { $true } -ModuleName Catzc.Tooling.Toolchain
+            Mock Get-DotnetInstallHolder { $script:widgetHolder } -ModuleName Catzc.Tooling.Toolchain
+            { Uninstall-Dotnet -Force } | Should -Throw '*elevated*user-space install*winget*'
+            Should -Invoke Stop-DotnetInstallHolder -ModuleName Catzc.Tooling.Toolchain -Times 0
+            Should -Invoke Remove-Item -ModuleName Catzc.Tooling.Toolchain -Times 0
+            Should -Invoke Remove-PermanentPath -ModuleName Catzc.Tooling.Toolchain -Times 0
         }
     }
 }

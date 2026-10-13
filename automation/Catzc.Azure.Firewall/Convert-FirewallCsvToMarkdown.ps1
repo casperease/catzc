@@ -27,7 +27,8 @@
 .PARAMETER InputObject
     A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the pipeline (Object set).
 .PARAMETER OutputFolder
-    Destination directory in Object mode; the file is named <original-name>.md. Defaults to <repo>/out/markdown.
+    Destination directory in Object mode; the file is named <original-name>.md. Defaults to the markdown folder
+    under the output root (Get-OutputRoot: <repo>/out locally, the artifact staging directory in a pipeline).
 .PARAMETER RuleNameColumn
     CSV column used as the rule name / first table column. Default 'Name'.
 .PARAMETER CompositeColumns
@@ -139,7 +140,7 @@ function Convert-FirewallCsvToMarkdown {
 
         # Where the .md goes in Object mode. Output file is <original-name>.md.
         [Parameter(ParameterSetName = 'Object')]
-        [string]$OutputFolder = (Join-Path (Join-Path (Get-RepositoryRoot) 'out') 'markdown'),
+        [string]$OutputFolder = (Join-Path (Get-OutputRoot) 'markdown'),
 
         # Sentence under '## Rules' describing the ordering.
         [Parameter()]

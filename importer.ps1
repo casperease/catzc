@@ -10,9 +10,7 @@ param(
     [switch] $AllowWarnings,
     [switch] $DiagnoseLoadTime,
     [switch] $ClearCompiledTypes,
-    [switch] $NonSilentClear,
     [switch] $SkipJanitors,
-    [switch] $NoCommitShaMarkersInDevBox,
     [switch] $CleanClone,
     [switch] $Bundle
 )

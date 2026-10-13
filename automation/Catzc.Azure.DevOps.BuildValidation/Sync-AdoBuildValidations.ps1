@@ -13,8 +13,7 @@
 .PARAMETER Organization
     Azure DevOps organization URL. Defaults to the value in ado.yml.
 .PARAMETER RepositoryName
-    Name of the Azure Repos Git repository. Defaults to $env:BUILD_REPOSITORY_NAME or the leaf folder of
-    $env:RepositoryRoot.
+    Name of the Azure Repos Git repository. Defaults to this checkout's repository (Get-AdoRepositoryName).
 .PARAMETER DryRun
     Return every entry's planned action (Create/Update/Unchanged) without touching the server.
 .EXAMPLE
@@ -32,7 +31,7 @@ function Sync-AdoBuildValidations {
 
         [string] $Organization,
 
-        [string] $RepositoryName,
+        [string] $RepositoryName = (Get-AdoRepositoryName),
 
         [switch] $DryRun
     )

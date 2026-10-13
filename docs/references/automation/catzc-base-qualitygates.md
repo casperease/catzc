@@ -38,8 +38,8 @@ registered C# config type and loads through it
 ([module-config-loading](../../adr/configuration/module-config-loading.md#rule-adr-conf-loading4)); the source and test files follow the
 naming and one-function conventions; test titles carry no unfilled template token; the manual test plan lists every integrity check once;
 the analyzer-to-ADR map cites only real rules and maps every custom analyzer rule; the PowerShell passes PSScriptAnalyzer; and test and
-production identities never cross — no logic test names a live identity, and no shipped config carries a test-fixture one. An integrity test
-runs each gate at its tier, so every default test run and every CI run includes it.
+production identities never cross — no logic test names a live identity, no shipped config carries a test-fixture one, and no fixture
+identity is also a live one. An integrity test runs each gate at its tier, so every default test run and every CI run includes it.
 
 ### domain:3 — Document and code formatting gates
 

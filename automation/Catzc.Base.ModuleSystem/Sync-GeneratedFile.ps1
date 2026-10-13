@@ -2,8 +2,8 @@
 .SYNOPSIS
     Commits the importer-maintained generated files to git — the dev-box janitor.
 .DESCRIPTION
-    The dev-box janitor the importer runs by default (opt out: -NoCommitShaMarkersInDevBox): commits what
-    actually differs from HEAD under the generated-file paths — automation/.compiled/ (the committed
+    The dev-box janitor the importer runs on every load: in a person's session it commits what actually
+    differs from HEAD under the generated-file paths — automation/.compiled/ (the committed
     compiled type assembly) — via Invoke-GitCommit. Deriving the commit set from git status rather than
     this run's reports also picks up a generated file an earlier import wrote but never committed (the
     .compiled DLL swap happens during load, before any switch is consulted).
@@ -17,7 +17,13 @@
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)): the generated files belong to the source tree,
       and the session runs a built package. A skip, not a throw, because the importer's janitor tail calls
       this on every load and a janitor never breaks the load.
-    - Skips in CI (Test-IsRunningInPipeline): the gates there must fail loudly, not be auto-repaired.
+    - Skips, silently, in a test-run snapshot (Test-RepositorySnapshot): the disposable clone a test run
+      executes in is never committed to.
+    - Who is running decides (Get-SessionActor,
+      [ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)): a pipeline skips —
+      the gates there must fail loudly, not be auto-repaired — and an agent never commits: it announces which
+      generated paths changed and leaves the commit to the person, whose repository it is. Only a person's
+      session commits.
     - Skips on a detached HEAD: a commit there hangs off no branch and is one checkout away from lost.
     - Skips on main/master when the repo's git_workspace variant is 'main-via-pr' (Test-GitWorkspace,
       [ADR-REPO-VARIANT#6](/docs/adr/repository/repo-variants.md#rule-adr-repo-variant6)): in that mode work always
@@ -64,8 +70,21 @@ function Sync-GeneratedFile {
         return
     }
 
-    if (Test-IsRunningInPipeline) {
+    # A test-run snapshot is a disposable clone: what it generates is never committed there.
+    if (Test-RepositorySnapshot) {
+        return
+    }
+
+    $actor = Get-SessionActor
+    if ($actor -eq 'Pipeline') {
         Write-Message 'Skipped: running in a pipeline — CI gates verify generated files, they never auto-commit them.'
+        return
+    }
+    if ($actor -eq 'Agent') {
+        $pending = @($generatedPaths.Keys | Where-Object { Test-GitPathChanged $_ })
+        if ($pending.Count) {
+            Write-Message "Not committed: this is an agent session — generated files changed ($($pending -join ', ')); commit them." -ForegroundColor Yellow
+        }
         return
     }
 

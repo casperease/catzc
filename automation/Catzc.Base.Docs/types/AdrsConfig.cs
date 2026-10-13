@@ -2,11 +2,11 @@
 // VALIDATES the parsed YAML (throwing with every violation collected) and exposes the typed Domains, the
 // flattened RuleSets, and the domain dependency Edges (AdrDomainEdge, one per depends_on link). Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Docs.AdrsConfig)
 // so Get-Config -Config adrs returns this typed model rather than a slippery ordered dictionary
-// ([ADR-CONF-LOADING#5](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading5),
+// ([ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4),
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
 //
 // Load-time rules (self-contained — no filesystem or other-config reads; folder↔domain and terminology-token
-// cross-checks are shipped-asset integrity TESTS, mirroring the one-directional coupling of the customer
+// cross-checks are the quality gate Test-AdrRegistry and shipped-asset integrity tests, mirroring the one-directional coupling of the customer
 // model, [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)):
 //   - domains is a non-empty map; each domain has code (^[A-Z]{2,4}$, optionally a compound of two segments
 //     like FLOW-CD), a non-empty role, a non-empty description, a depends_on list, and a non-empty rulesets map;

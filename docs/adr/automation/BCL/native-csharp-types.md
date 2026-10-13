@@ -125,10 +125,18 @@ drifted files and both hashes so the cause is diagnosable from the error text al
 
 ### Rule ADR-AUTO-TYPES:13
 
-Who runs the importer decides whether its type-cache janitor stops the processes holding a superseded build. A person's session stops them
-by default (`Clear-ModuleTypeCache -StopLockingProcesses`): the stale sessions are the person's own. An agent's session
-(`Test-IsRunningAsAgent`) never stops them — they are the person's, not the agent's — and works from its own shadow copy, leaving the stale
-build reported. A pipeline never stops anything and only asserts that `.compiled` holds exactly one build.
+Who runs the importer decides what its janitors may change outside the session, read from one place: `Get-SessionActor` → `Person`, `Agent`,
+or `Pipeline` (a pipeline wins over an agent running in it). No switch overrides it.
+
+| Janitor action                              | Person | Agent                                        | Pipeline                       |
+| ------------------------------------------- | ------ | -------------------------------------------- | ------------------------------ |
+| Stop processes holding a superseded build   | yes    | no — the stale build is reported             | no — asserts exactly one build |
+| Commit the generated `automation/.compiled` | yes    | no — announces what changed, to be committed | no                             |
+| Regenerate the gitignored generated files   | yes    | yes                                          | yes                            |
+
+The stale sessions and the repository are the person's: their session may stop the one and commit to the other. An agent leaves both to the
+person and says what it left; a pipeline only asserts. A test-run snapshot (`Test-RepositorySnapshot`) is never committed to, whoever runs
+it.
 
 - [The cache-state contract](#the-cache-state-contract)
 

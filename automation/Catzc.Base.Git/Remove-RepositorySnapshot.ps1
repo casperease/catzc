@@ -24,7 +24,7 @@ function Remove-RepositorySnapshot {
     if (-not [System.IO.Directory]::Exists($Path)) {
         return
     }
-    if (-not [System.IO.File]::Exists((Join-Path $Path '.git/catzc-snapshot.json'))) {
+    if (-not (Test-RepositorySnapshot $Path)) {
         throw "Refusing to delete '$Path': it is not a repository snapshot (no .git/catzc-snapshot.json marker)."
     }
 

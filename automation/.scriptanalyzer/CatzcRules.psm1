@@ -18,6 +18,7 @@ $checks = @(
     'AnnounceStateChange'
     'SpellOutIdentifiers'
     'NoScriptRootAnchor'
+    'NoEnvRepositoryRoot'
     'NoUnsafeFirstIndex'
     'NoBareScriptSlotRead'
 )

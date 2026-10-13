@@ -20,7 +20,7 @@
     exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
 .PARAMETER AutomationRoot
-    Path to the automation directory. Defaults to $env:RepositoryRoot/automation.
+    Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-function-dependency.
 .PARAMETER PassThru
@@ -36,7 +36,7 @@ function Test-FunctionDependency {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [string] $AutomationRoot = (Join-Path $env:RepositoryRoot 'automation'),
+        [string] $AutomationRoot = (Get-CatzcModulesRoot),
 
         [string] $OutputFolder,
 

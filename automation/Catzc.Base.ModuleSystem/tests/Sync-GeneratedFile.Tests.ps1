@@ -2,7 +2,9 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
     BeforeEach {
         # Source mode unless a test flips it, so the cases run the same in the source and build runs.
         Mock Get-CatzcRunMode { 'source' } -ModuleName Catzc.Base.ModuleSystem
-        Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.ModuleSystem
+        # A person's devbox session unless a test flips it — the one actor that commits.
+        Mock Get-SessionActor { 'Person' } -ModuleName Catzc.Base.ModuleSystem
+        Mock Test-RepositorySnapshot { $false } -ModuleName Catzc.Base.ModuleSystem
         Mock Get-GitCurrentBranch { 'feature/sync' } -ModuleName Catzc.Base.ModuleSystem
         Mock Test-GitPathChanged { $true } -ModuleName Catzc.Base.ModuleSystem
         Mock Invoke-GitCommit { 'abc1234567890abcdef1234567890abcdef12345' } -ModuleName Catzc.Base.ModuleSystem
@@ -22,10 +24,33 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
     }
 
     It 'skips in a pipeline before committing anything' {
-        Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Base.ModuleSystem
+        Mock Get-SessionActor { 'Pipeline' } -ModuleName Catzc.Base.ModuleSystem
         Sync-GeneratedFile | Should -BeNullOrEmpty
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter { $Message -like '*pipeline*' }
+    }
+
+    It 'never commits in an agent session, and announces what the person should commit' -Tag 'ADR-AUTO-TYPES#13' {
+        Mock Get-SessionActor { 'Agent' } -ModuleName Catzc.Base.ModuleSystem
+        Sync-GeneratedFile | Should -BeNullOrEmpty
+        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter {
+            $Message -like '*agent session*automation/.compiled*commit them*'
+        }
+    }
+
+    It 'never commits inside a test-run snapshot, whoever runs it' {
+        Mock Test-RepositorySnapshot { $true } -ModuleName Catzc.Base.ModuleSystem
+        Sync-GeneratedFile | Should -BeNullOrEmpty
+        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
+        Should -Invoke Test-GitPathChanged -ModuleName Catzc.Base.ModuleSystem -Times 0
+    }
+
+    It 'stays quiet in an agent session when no generated file changed' {
+        Mock Get-SessionActor { 'Agent' } -ModuleName Catzc.Base.ModuleSystem
+        Mock Test-GitPathChanged { $false } -ModuleName Catzc.Base.ModuleSystem
+        Sync-GeneratedFile | Should -BeNullOrEmpty
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0
     }
 
     It 'skips on a detached HEAD with a message and no commit' {

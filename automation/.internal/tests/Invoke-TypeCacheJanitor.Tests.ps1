@@ -13,8 +13,7 @@ Describe 'Invoke-TypeCacheJanitor' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Clear-ModuleTypeCache { } -ModuleName Catzc.Internal.Importer
         Mock Write-ImporterMessage { } -ModuleName Catzc.Internal.Importer
-        Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Internal.Importer
-        Mock Test-IsRunningAsAgent { $false } -ModuleName Catzc.Internal.Importer
+        Mock Get-SessionActor { 'Person' } -ModuleName Catzc.Internal.Importer
     }
 
     It 'runs the janitor silently and stops holders in a person''s devbox session' {
@@ -24,18 +23,14 @@ Describe 'Invoke-TypeCacheJanitor' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'shows the report with -NonSilentClear' {
-        InModuleScope Catzc.Internal.Importer { Invoke-TypeCacheJanitor -NonSilentClear }
+    It 'shows the report with -ShowReport' {
+        InModuleScope Catzc.Internal.Importer { Invoke-TypeCacheJanitor -ShowReport }
         Should -Invoke Clear-ModuleTypeCache -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter { -not $Silent }
     }
 
-    It 'never stops holders in <_>' -ForEach 'a pipeline', 'an agent session' {
-        if ($_ -eq 'a pipeline') {
-            Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Internal.Importer
-        }
-        else {
-            Mock Test-IsRunningAsAgent { $true } -ModuleName Catzc.Internal.Importer
-        }
+    It 'never stops holders in a <_> session' -ForEach 'Pipeline', 'Agent' {
+        $actor = $_
+        Mock Get-SessionActor { $actor } -ModuleName Catzc.Internal.Importer
         InModuleScope Catzc.Internal.Importer { Invoke-TypeCacheJanitor }
         Should -Invoke Clear-ModuleTypeCache -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter { -not $StopLockingProcesses }
     }

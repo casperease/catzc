@@ -25,7 +25,8 @@
 .PARAMETER InputObject
     A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the pipeline (Object set).
 .PARAMETER OutputFolder
-    Destination directory in Object mode; the file is named <original-name>.yaml. Defaults to <repo>/out/yaml.
+    Destination directory in Object mode; the file is named <original-name>.yaml. Defaults to the yaml folder
+    under the output root (Get-OutputRoot: <repo>/out locally, the artifact staging directory in a pipeline).
 .PARAMETER MultiValueFields
     Fields split into YAML arrays on -SplitPattern.
 .PARAMETER SplitPattern
@@ -60,7 +61,7 @@ function Convert-FirewallCsvToYaml {
 
         # Where the .yaml goes in Object mode. Output file is <original-name>.yaml.
         [Parameter(ParameterSetName = 'Object')]
-        [string]$OutputFolder = (Join-Path (Join-Path (Get-RepositoryRoot) 'out') 'yaml'),
+        [string]$OutputFolder = (Join-Path (Get-OutputRoot) 'yaml'),
 
         [Parameter()]
         [string[]]$MultiValueFields = @(

@@ -1,40 +1,40 @@
-# source-only: it scans the repository's tests/ folders, which give the same answer in both run modes.
-Describe 'Get-TestAutomationTestPaths' -Tag 'L1', 'integrity', 'source-only' {
+# Get-TestAutomationTestPaths over a fixture automation tree in $TestDrive (Get-RepositoryRoot and
+# Get-ModuleTestOrder mocked): two modules with tests, one without, and one dot-prefixed infrastructure folder.
+# Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
+        $script:automation = Join-Path $TestDrive 'repo/automation'
+        foreach ($folder in 'Catzc.Widget/tests', 'Catzc.Gadget/tests', 'Catzc.Gizmo', '.internal/tests') {
+            [void][System.IO.Directory]::CreateDirectory((Join-Path $script:automation $folder))
+        }
+        function Get-FixtureTests {
+            param([string] $Folder)
+            [System.IO.Path]::Combine($script:automation, $Folder, 'tests')
+        }
     }
 
-    It 'returns existing tests folders only, for the whole tree' {
-        $script:paths.Count | Should -BeGreaterThan 10
-        # One Should over the violating set — a Should per discovered folder pays Pester's
-        # per-assertion cost times the whole tree.
-        $violations = foreach ($path in $script:paths) {
-            if ([System.IO.Path]::GetFileName($path) -ne 'tests') {
-                "not a tests folder: $path"
-            }
-            elseif (-not [System.IO.Directory]::Exists($path)) {
-                "missing on disk: $path"
-            }
-        }
-        @($violations) | Should -BeNullOrEmpty
+    BeforeEach {
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo' }
+        Mock Get-ModuleTestOrder -ModuleName Catzc.Base.QualityGates { @('Catzc.Widget', 'Catzc.Gizmo', 'Catzc.Gadget') }
     }
 
-    It 'puts dot-prefixed infrastructure after every module' {
-        $isInfra = @(foreach ($path in $script:paths) {
-                [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName($path)).StartsWith('.')
-            })
-        # Once the list switches to infrastructure it never switches back — modules first, infra last.
-        $firstInfra = [array]::IndexOf([bool[]] $isInfra, $true)
-        if ($firstInfra -ge 0) {
-            @($isInfra[$firstInfra..($isInfra.Count - 1)]) | Should -Not -Contain $false
-        }
+    It 'returns the existing tests folders in dependency order, dot-prefixed infrastructure last' {
+        $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
+        $paths | Should -Be @((Get-FixtureTests 'Catzc.Widget'), (Get-FixtureTests 'Catzc.Gadget'), (Get-FixtureTests '.internal'))
+    }
+
+    It 'falls back to the ordinal module order when the dependency order cannot be computed' {
+        Mock Get-ModuleTestOrder -ModuleName Catzc.Base.QualityGates { throw 'Cycle in the widget graph' }
+        $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
+        $paths | Should -Be @((Get-FixtureTests 'Catzc.Gadget'), (Get-FixtureTests 'Catzc.Widget'), (Get-FixtureTests '.internal'))
     }
 
     It 'narrows to the named modules and drops infrastructure when filtered' {
-        $narrowed = @(InModuleScope Catzc.Base.QualityGates {
-                Get-TestAutomationTestPaths -Modules 'Catzc.Base.QualityGates'
-            })
-        $narrowed | Should -HaveCount 1
-        $narrowed[0] | Should -BeLike '*Catzc.Base.QualityGates*tests'
+        $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths -Modules 'Catzc.Gadget' })
+        $paths | Should -Be @((Get-FixtureTests 'Catzc.Gadget'))
+    }
+
+    It 'returns nothing when no named module has a tests folder' {
+        @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths -Modules 'Catzc.Gizmo' }) | Should -HaveCount 0
     }
 }

@@ -32,12 +32,7 @@ function Write-TestAutomationHeader {
         [string] $Title = 'Test Automation'
     )
 
-    $scope = if ($MinLevel -eq $MaxLevel) {
-        "L$MaxLevel"
-    }
-    else {
-        "L$MinLevel-L$MaxLevel"
-    }
+    $scope = Format-TierRange -MinLevel $MinLevel -MaxLevel $MaxLevel
     if ($Category -ne 'Both') {
         $scope += ", $Category"
     }

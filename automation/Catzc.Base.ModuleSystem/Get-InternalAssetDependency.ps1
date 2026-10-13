@@ -27,7 +27,7 @@
     Reads the per-function source files, which exist only in the source tree, so it stops with a named error
     in build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
 .PARAMETER AutomationRoot
-    Path to the automation directory to scan. Defaults to <RepositoryRoot>/automation.
+    Path to the automation directory to scan. Defaults to the loaded code root (Get-CatzcModulesRoot).
 .PARAMETER Module
     Scan only these module folders. Default: every module folder (non-dot) under the automation root.
 .PARAMETER Violation
@@ -45,7 +45,7 @@ function Get-InternalAssetDependency {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [string] $AutomationRoot = (Join-Path (Get-RepositoryRoot) 'automation'),
+        [string] $AutomationRoot = (Get-CatzcModulesRoot),
 
         [string[]] $Module,
 

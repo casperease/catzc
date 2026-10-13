@@ -1,0 +1,56 @@
+<#
+.SYNOPSIS
+    Prints a test run's context block under its banner: one line per fact.
+.DESCRIPTION
+    Renders Get-TestRunContext's record so a reader sees, before any test output, what the run is and where it
+    runs — the entry point and code root, the slot and why, the tiers asked for and running (and why they
+    differ), who is running it, which local tools are present, and what is selected:
+
+        entry point  Test-Automation · source run · code root C:\repo\automation
+        slot         snapshot (working folder held by Test-Automation, pid 4242)
+        tiers        asked L0-L3 · running L0-L2 — L3 skipped: snapshot slot
+        actor        Person
+        tools        git yes · az no · dotnet yes
+        selection    suite infrastructure; modules: Catzc.Azure.Templates
+.PARAMETER Context
+    The record Get-TestRunContext returned.
+.EXAMPLE
+    Write-TestRunContext -Context $context
+#>
+function Write-TestRunContext {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [System.Collections.IDictionary] $Context
+    )
+
+    $slot = $Context.slot
+    if ($Context.slotReason) {
+        $slot += " ($($Context.slotReason))"
+    }
+    $tiers = "asked $($Context.tiersRequested) · running $($Context.tiersRunning)"
+    if ($Context.tierCap) {
+        $tiers += " — $($Context.tierCap)"
+    }
+    $tools = @($Context.tools.Keys | ForEach-Object {
+            $state = if ($Context.tools[$_]) {
+                'yes'
+            }
+            else {
+                'no'
+            }
+            "$_ $state"
+        }) -join ' · '
+
+    $lines = [ordered]@{
+        'entry point' = "$($Context.entryPoint) · $($Context.run) run · code root $($Context.codeRoot)"
+        'slot'        = $slot
+        'tiers'       = $tiers
+        'actor'       = $Context.actor
+        'tools'       = $tools
+        'selection'   = $Context.selection
+    }
+    foreach ($label in $lines.Keys) {
+        Write-Message ('  {0,-12} {1}' -f $label, $lines[$label]) -NoHeader
+    }
+}

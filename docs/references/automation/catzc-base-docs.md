@@ -59,7 +59,8 @@ readme-mapped target (domain:2), so dropping a `.gitkeep` anywhere demands its r
 
 The ADR domain structure as data: `adrs.yml` declares each domain, its role and dependencies, and each ADR's citation code. This domain
 generates the committed ADR index from it on every import, reads the declared rule-sets, the flat set of rule ids, and the citation map
-every rule reference resolves through, and renders the domain dependency graph as edges or a diagram.
+every rule reference resolves through, and renders the domain dependency graph as typed edges or a diagram. A quality gate keeps the
+registry and the ADR files in step: one rule file per declared rule-set, headed by its citation code, and no rule file left unregistered.
 
 ### domain:5 — Controlled vocabulary
 
@@ -103,6 +104,7 @@ The module's public surface, sorted into the domains above.
 |                                   | `Get-AdrCitationMap`         |
 |                                   | `Get-AdrDomainEdges`         |
 |                                   | `ConvertTo-AdrDomainDiagram` |
+|                                   | `Test-AdrRegistry`           |
 | config                            | `adrs.yml`                   |
 | domain:5 — Controlled vocabulary  | `Get-Glossary`               |
 |                                   | `Build-Glossary`             |

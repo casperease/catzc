@@ -20,14 +20,15 @@
 .PARAMETER Module
     Module names to build (closure-expanded by the engine).
 .PARAMETER ModuleProfile
-    A profiles.yml key whose modules to build (combinable with -Module).
+    A profiles.yml key whose modules to build (combinable with -Module). Defaults to the exporter config's
+    default_profile when -Module is not given.
 .PARAMETER VendorPolicy
     runtime ships only powershell-yaml; full also ships Pester and PSScriptAnalyzer (needed by a build run, which runs the
     tests against the build). Defaults to exporter.yml's vendor_policy.
 .PARAMETER Version
     'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH — see Resolve-CatzcBuildVersion.
 .PARAMETER Destination
-    The parent folder the Catzc/<version>/ build is written under.
+    The parent folder the Catzc/<version>/ build is written under. Defaults to <Get-OutputRoot>/automation/build.
 .PARAMETER DryRun
     Return the build plan without writing anything.
 .PARAMETER Silent
@@ -49,14 +50,15 @@ function Build-Modules {
         [Parameter(Position = 0)]
         [string[]] $Module,
 
-        [string] $ModuleProfile,
+        # The exporter's default profile, unless -Module names the selection.
+        [string] $ModuleProfile = $(if (-not $Module) { "$((Get-Config -Config exporter).default_profile)" }),
 
         [ValidateSet('runtime', 'full')]
         [string] $VendorPolicy = "$((Get-Config -Config exporter).vendor_policy)",
 
         [string] $Version = 'auto',
 
-        [string] $Destination,
+        [string] $Destination = (Join-Path (Get-OutputRoot) 'automation/build'),
 
         [switch] $DryRun,
 
@@ -64,12 +66,6 @@ function Build-Modules {
     )
 
     $config = Get-Config -Config exporter
-    if (-not $Module -and -not $ModuleProfile) {
-        $ModuleProfile = "$($config.default_profile)"
-    }
-    if (-not $Destination) {
-        $Destination = Join-Path (Get-OutputRoot) 'automation/build'
-    }
     $resolvedVersion = Resolve-CatzcBuildVersion -Version $Version -Silent:$Silent
 
     $package = $config.package

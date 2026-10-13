@@ -61,7 +61,7 @@ function Wait-Mutex {
 
         [string] $Name = 'mutex',
 
-        [string] $AnnounceText,
+        [string] $AnnounceText = "Waiting for the $Name — another process holds it",
 
         [ValidateRange(0, 3600)]
         [double] $AnnounceAfterSeconds = 2,
@@ -73,9 +73,6 @@ function Wait-Mutex {
         [double] $TimeoutSeconds = 0
     )
 
-    if (-not $AnnounceText) {
-        $AnnounceText = "Waiting for the $Name — another process holds it"
-    }
     $emitVerbose = $VerbosePreference -eq 'Continue'
 
     $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()

@@ -45,6 +45,7 @@
     Test-InIsolation -Modules Catzc.Base.Config -Isolation InProcess -PassThru
 #>
 function Test-InIsolation {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoEnvRepositoryRoot', '', Justification = 'The InProcess mode swaps $env:RepositoryRoot for the sandbox and restores it: the variable itself is the subject, so it saves the hand-off value, not the root through the accessor')]
     [CmdletBinding(DefaultParameterSetName = 'ModuleProfile')]
     [OutputType([pscustomobject])]
     param(

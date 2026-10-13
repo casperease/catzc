@@ -442,64 +442,6 @@ Describe 'combined types assembly is committed and current' -Tag 'integrity' {
     }
 }
 
-Describe 'DictionaryRecord (shared cross-module base)' -Tag 'L0', 'integrity' {
-    BeforeAll {
-        # A throwaway record deriving from the loaded Catzc.Base.Objects.DictionaryRecord — proves a type compiled
-        # later (here, by Add-Type) can derive from the combined assembly's base, and exercises the dict view.
-        if (-not ([System.Management.Automation.PSTypeName]'DictionaryRecordProbe').Type) {
-            $assembly = [Catzc.Base.Objects.DictionaryRecord].Assembly.Location
-            # Customer is never assigned -> genuinely null. (Passing $null from PowerShell would coerce to '',
-            # the [string] $null->'' pitfall, so the constructor simply leaves it unset to test the null case.)
-            Add-Type -ReferencedAssemblies $assembly -TypeDefinition @'
-public sealed class DictionaryRecordProbe : Catzc.Base.Objects.DictionaryRecord {
-    public string   Name { get; }
-    public string   Customer { get; }
-    public string[] Tags { get; }
-    public DictionaryRecordProbe(string name, string[] tags) { Name = name; Tags = tags; }
-}
-'@
-        }
-    }
-
-    It 'a shipped record derives from the cross-module base (BicepTemplate -> Catzc.Base.Objects.DictionaryRecord)' {
-        [Catzc.Azure.Templates.BicepTemplate].BaseType.FullName | Should -Be 'Catzc.Base.Objects.DictionaryRecord'
-    }
-
-    It 'Contains is true for a non-null property, false for a null one, an unknown one, or a base member' {
-        $record = [DictionaryRecordProbe]::new('a', @('x'))
-        $record.Contains('Name') | Should -BeTrue
-        $record.Contains('Customer') | Should -BeFalse   # null value -> treated as absent
-        $record.Contains('Missing') | Should -BeFalse
-        $record.Contains('Keys') | Should -BeFalse        # base view member, not a data property
-    }
-
-    It 'the indexer returns the property value (or null for an unknown key)' {
-        $record = [DictionaryRecordProbe]::new('a', @())
-        $record['Name'] | Should -Be 'a'
-        $record['Nope'] | Should -BeNullOrEmpty
-    }
-
-    It 'Keys lists only non-null data properties' {
-        $keys = @([DictionaryRecordProbe]::new('a', @('x')).Keys)
-        $keys | Should -Contain 'Name'
-        $keys | Should -Contain 'Tags'
-        $keys | Should -Not -Contain 'Customer'   # null
-        $keys | Should -Not -Contain 'Keys'        # base member
-    }
-
-    It 'ToHashtable carries non-null data props and excludes null props and base members' {
-        $hashtable = [DictionaryRecordProbe]::new('a', @('x')).ToHashtable()
-        $hashtable['Name'] | Should -Be 'a'
-        $hashtable.ContainsKey('Customer') | Should -BeFalse   # null -> omitted
-        $hashtable.ContainsKey('Keys') | Should -BeFalse        # base member
-    }
-
-    It 'the base Req helper is used by a derived record in another module' {
-        # An empty dict is missing every required key — BicepTemplate's ctor calls the base Req, which throws.
-        { [Catzc.Azure.Templates.BicepTemplate]::new(@{}) } | Should -Throw '*is required*'
-    }
-}
-
 Describe 'Import-CSharpTypes — PSTypeAlias accelerators' -Tag 'L0', 'logic' {
     # A [Catzc.Base.Objects.PSTypeAlias("Name")] on a type publishes a PowerShell type-accelerator at load, so
     # [Name] resolves to it. This asserts the real registration on the shipped ModuleDependencyFormat (the

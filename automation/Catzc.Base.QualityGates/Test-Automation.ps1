@@ -180,6 +180,6 @@ function Test-Automation {
     # repository importer, the core's default.
     Invoke-TestRun -EntryPoint 'Test-Automation' -Title 'Test Automation' -MinLevel $MinLevel -MaxLevel $MaxLevel `
         -Modules $Modules -Category $Category -Workers $Workers -TimeoutSeconds $TimeoutSeconds -Output $Output `
-        -PassThru:$PassThru -EnforceTimings:$EnforceTimings -Rule $Rule -OutputFolder $OutputFolder `
+        -PassThru:$PassThru -EnforceTimings:$EnforceTimings -Rule $Rule -Suite $Suite -OutputFolder $OutputFolder `
         -Isolated:$Isolated -KeepSandbox:$KeepSandbox
 }

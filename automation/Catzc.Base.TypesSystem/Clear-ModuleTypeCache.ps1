@@ -38,7 +38,7 @@
     Return the list of cache files that would be deleted, without deleting anything.
 .PARAMETER Silent
     Suppress the per-file and end-state 'type cache: …' messages. The importer passes this on its automatic
-    janitor call so a normal load stays quiet (importer.ps1 -NonSilentClear turns it back on); a manual
+    janitor call so a normal load stays quiet (importer.ps1 -Verbose turns it back on); a manual
     Clear-ModuleTypeCache omits it, so a hand-run always reports the state it left. A failed delete still throws.
 .PARAMETER StopLockingProcesses
     The kill switch. When a superseded build will not delete, stop every process holding it (Stop-FileLockingProcess:

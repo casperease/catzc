@@ -2,8 +2,16 @@
 .SYNOPSIS
     Uninstalls the .NET SDK installed by Install-Dotnet.
 .DESCRIPTION
-    Removes the ~/.dotnet directory and cleans persistent environment variables (DOTNET_ROOT and PATH) — the
-    managed uninstall. Idempotent — skips if the directory does not exist. For a .NET installed OUTSIDE the
+    Removes the managed user-space install directory and cleans persistent environment variables (DOTNET_ROOT
+    and PATH) — the managed uninstall. Idempotent — skips if the directory does not exist.
+
+    Nothing is deleted while a process holds the install open (Get-DotnetInstallHolder — an MSBuild node, the
+    compiler server, an editor's C# language server): the uninstall throws, naming each holder, so a locked file
+    can never leave a half-deleted install. -Force stops exactly those named processes first. On Windows it also
+    refuses to run elevated: the managed install is user-space and needs no elevation, so an elevated shell means
+    the target is a machine-scope .NET (C:\Program Files\dotnet), which winget removes — never this one.
+
+    For a .NET installed OUTSIDE the
     tooling system (a system SDK, an apt package), escalate with -Remove -Force: the managed uninstall runs
     best-effort and then falls through to Remove-Dotnet, which evicts whatever the configured manager did not
     own ([ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
@@ -12,9 +20,12 @@
     actually remove; -Remove alone reports the plan
     ([ADR-AUTO-REMOVE#4](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)).
 .PARAMETER Force
-    Confirm the destructive Remove-Dotnet step of the escalation. Ignored without -Remove.
+    Confirm the destructive steps: stop the processes named as holding the install open, and — with -Remove —
+    the Remove-Dotnet eviction.
 .EXAMPLE
     Uninstall-Dotnet
+.EXAMPLE
+    Uninstall-Dotnet -Force    # also stops the named processes holding the install open
 .EXAMPLE
     Uninstall-Dotnet -Remove -Force
 #>
@@ -38,6 +49,22 @@ function Uninstall-Dotnet {
             Write-Message "Dotnet is not installed at '$installDir' — nothing to do"
         }
         else {
+            # Everything that can refuse runs before anything is deleted, so a refusal leaves the install whole.
+            $holders = @(Get-DotnetInstallHolder -InstallDir $installDir)
+            if ($holders.Count -gt 0 -and -not $Force) {
+                throw "Uninstall-Dotnet: '$installDir' is in use by: $(($holders | ForEach-Object { "$_" }) -join '; '). " +
+                'Stop them (`dotnet build-server shutdown` stops the MSBuild and compiler servers; quit VS Code for its C# servers), ' +
+                'or rerun with -Force to stop exactly these processes.'
+            }
+            if ($IsWindows -and (Test-IsAdministrator)) {
+                throw "Uninstall-Dotnet: this shell is elevated, but '$installDir' is the managed user-space install, which needs no elevation. " +
+                'A machine-scope .NET (C:\Program Files\dotnet) is removed with winget (winget list Microsoft.DotNet); ' +
+                'to remove the user-space install, rerun from a non-elevated shell.'
+            }
+            if ($holders.Count -gt 0) {
+                Stop-DotnetInstallHolder -InstallDir $installDir -Holder $holders
+            }
+
             Write-Message "Removing '$installDir'"
             Remove-Item $installDir -Recurse -Force
 

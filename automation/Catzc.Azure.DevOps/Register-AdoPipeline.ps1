@@ -23,7 +23,7 @@
     Azure DevOps organization URL. Defaults to the value in ado.yml.
 .PARAMETER RepositoryName
     Name of the Azure Repos Git repository. Ignored when -GitHubRepository is set.
-    Defaults to $env:BUILD_REPOSITORY_NAME or the leaf folder of $env:RepositoryRoot.
+    Defaults to this checkout's repository (Get-AdoRepositoryName).
 .PARAMETER FolderPath
     Pipeline folder path in ADO. Defaults to root ('\').
 .EXAMPLE
@@ -53,7 +53,7 @@ function Register-AdoPipeline {
         [string] $Organization = (Get-Config -Config ado)['organization'],
 
         [Parameter(ParameterSetName = 'AzureRepos')]
-        [string] $RepositoryName,
+        [string] $RepositoryName = (Get-AdoRepositoryName),
 
         [string] $FolderPath = '\'
     )
@@ -93,15 +93,7 @@ function Register-AdoPipeline {
         }
     }
     else {
-        if (-not $RepositoryName) {
-            $RepositoryName = if ($env:BUILD_REPOSITORY_NAME) {
-                $env:BUILD_REPOSITORY_NAME
-            }
-            else {
-                Split-Path $env:RepositoryRoot -Leaf
-            }
-            Assert-NotNullOrWhitespace $RepositoryName -ErrorText 'RepositoryName is required. Set -RepositoryName, or ensure $env:BUILD_REPOSITORY_NAME or $env:RepositoryRoot is set.'
-        }
+        Assert-NotNullOrWhitespace $RepositoryName -ErrorText 'RepositoryName is required. Set -RepositoryName, or run inside a checkout or a pipeline.'
 
         $repos = Invoke-AdoRestMethod -Uri "$apiBase/git/repositories?api-version=7.1"
         $repo = $repos | Where-Object { $_.name -eq $RepositoryName } | Select-Object -First 1

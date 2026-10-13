@@ -29,7 +29,7 @@ tenants:
 
 # Environments. The map KEY is the readable env name (the deploy handle, the config-file name, and
 # the env-segment of relaxed resource names — see [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)); it must be
-# unique and prefix-free (no name a prefix of another). `shortcode` is a 2-letter code, unique, used
+# unique. `shortcode` is a 2-letter code, unique, used
 # as the env-segment of the restricted (tight-budget) patterns only — `kv`/`storage`/`vm` — so a
 # readable name never costs a tight name a byte; its 2nd char lets same-first-letter envs coexist
 # (e.g. preprod `pp` vs prod `pr`). `region` is the Azure deployment location; `region_code`

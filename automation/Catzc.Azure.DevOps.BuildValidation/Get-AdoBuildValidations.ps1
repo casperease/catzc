@@ -19,8 +19,7 @@
 .PARAMETER Organization
     Azure DevOps organization URL. Defaults to the value in ado.yml.
 .PARAMETER RepositoryName
-    Name of the Azure Repos Git repository. Defaults to $env:BUILD_REPOSITORY_NAME or the leaf folder of
-    $env:RepositoryRoot.
+    Name of the Azure Repos Git repository. Defaults to this checkout's repository (Get-AdoRepositoryName).
 .EXAMPLE
     Get-AdoBuildValidations
 .EXAMPLE
@@ -37,7 +36,7 @@ function Get-AdoBuildValidations {
 
         [string] $Organization = (Get-Config -Config ado)['organization'],
 
-        [string] $RepositoryName
+        [string] $RepositoryName = (Get-AdoRepositoryName)
     )
 
     $context = Resolve-AdoBuildValidationContext -Project $Project -Organization $Organization -RepositoryName $RepositoryName

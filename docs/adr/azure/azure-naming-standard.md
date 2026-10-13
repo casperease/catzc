@@ -179,7 +179,7 @@ collides on globally-unique types).
   - `short_name`: `^[a-z][a-z0-9]{1,4}$` (2–5)
   - folder name: `^[a-z][a-z0-9-]*$` (kebab, starts with a letter)
   - `region`: `^[a-z]{3}$`
-  - env `name`: `^[a-z][a-z0-9]+$` (the azure.yml key; unique, prefix-free)
+  - env `name`: `^[a-z][a-z0-9]+$` (the azure.yml key; unique)
   - env `shortcode`: `^[a-z]{2}$` (unique)
   - customer `key`: `^[a-z][a-z0-9]+$` (the customer.yml key; unique)
   - customer `shortcode`: `^[a-z]{2}$` (unique)

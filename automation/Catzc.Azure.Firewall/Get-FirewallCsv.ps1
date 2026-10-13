@@ -3,7 +3,7 @@
     Downloads the newest firewall-rule CSV(s) from a blob container — one per requested rule type.
 .DESCRIPTION
     For each requested -Type (application and/or network), locates the newest matching *.csv in the
-    container and downloads it to <repo>/out/download (overridable via -DownloadPath). Emits one flat
+    container and downloads it to the output root's download folder (overridable via -DownloadPath). Emits one flat
     object per type as a stream, so the default (both types) yields two objects.
 
     "Newest" is decided by the UTC timestamp embedded in the filename (e.g. ...-16-06-2026-10-32.csv),
@@ -27,7 +27,8 @@
     Which rule type(s) to fetch: 'application', 'network', or both (the default when omitted). The type
     word is also used as the case-insensitive name filter for selecting the blob.
 .PARAMETER DownloadPath
-    Destination directory. Defaults to <repo-root>/out/download. Created if absent.
+    Destination directory. Defaults to the download folder under the output root (Get-OutputRoot: <repo>/out
+    locally, the artifact staging directory in a pipeline). Created if absent.
 .PARAMETER TimestampPattern
     Regex capturing the timestamp substring in the filename. Default '\d{2}-\d{2}-\d{4}-\d{2}-\d{2}'.
 .PARAMETER TimestampFormat
@@ -55,7 +56,7 @@ function Get-FirewallCsv {
         [string]$ContainerName,
 
         [Parameter()]
-        [string]$DownloadPath = (Join-Path (Join-Path (Get-RepositoryRoot) 'out') 'download'),
+        [string]$DownloadPath = (Join-Path (Get-OutputRoot) 'download'),
 
         # One or both rule types. Empty/omitted = both. The type word also serves as the name filter
         # ('application' matches ...ApplicationRules..., 'network' matches ...NetworkRules...).
@@ -130,10 +131,6 @@ function Get-FirewallCsv {
             throw "No CSV matching /$Pattern/ with a parseable /$TimestampPattern/ timestamp in container '$ContainerName' of '$StorageAccountName'."
         }
         $candidates[0]
-    }
-
-    if (-not $Type) {
-        $Type = @('application', 'network')
     }
 
     foreach ($ruleType in $Type) {

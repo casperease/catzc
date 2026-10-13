@@ -46,15 +46,12 @@ function Install-Catzc {
         [ValidateSet('CurrentUser')]
         [string] $Scope,
 
-        [string] $Source,
+        [string] $Source = (Join-Path (Get-OutputRoot) "automation/build/Catzc/$((Get-Config -Config exporter).direct_install_version)"),
         [switch] $Force,
         [switch] $DryRun,
         [switch] $Silent
     )
 
-    if (-not $Source) {
-        $Source = Join-Path (Get-OutputRoot) "automation/build/Catzc/$((Get-Config -Config exporter).direct_install_version)"
-    }
     Assert-CatzcBundle -Path $Source
 
     $sourceBuild = [System.IO.File]::ReadAllText((Join-Path $Source 'build.json')) | ConvertFrom-Json

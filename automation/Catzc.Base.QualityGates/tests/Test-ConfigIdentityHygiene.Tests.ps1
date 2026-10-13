@@ -3,7 +3,7 @@
 # neutral token ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) and pins the gate's
 # uniform shape ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
 Describe 'Test-ConfigIdentityHygiene' -Tag 'L1', 'integrity', 'source-only' {
-    It 'the shipped config is free of test-fixture identities' {
+    It 'the shipped config is free of test-fixture identities, and no fixture identity is a live one' {
         $result = Test-ConfigIdentityHygiene -PassThru -OutputFolder (Join-Path $TestDrive 'config-identity-hygiene')
         $result.IssueCount | Should -Be 0 -Because "a shipped config must name live identities, not fixtures (ADR-REPO-LANG):`n$($result.Issues -join "`n")"
     }
@@ -38,6 +38,9 @@ Describe 'Test-ConfigIdentityHygiene — gate shape' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-FixtureIdentityTokens -ModuleName Catzc.Base.QualityGates { 'gizmo' }
+        Mock Get-LiveIdentityTokens -ModuleName Catzc.Base.QualityGates {
+            , @([pscustomobject]@{ Token = 'sprocket'; Kind = 'customer-key'; Source = 'customer.yml'; Suggest = ''; MatchMode = 'exact' })
+        }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         $script:reportBase = Join-Path $TestDrive "reports-$([guid]::NewGuid().ToString('N'))"
         $script:clean = Join-Path $TestDrive 'widget.yml'
@@ -59,11 +62,21 @@ Describe 'Test-ConfigIdentityHygiene — gate shape' -Tag 'L0', 'logic' {
         $message | Should -Match "gadget.yml: fixture identity 'gizmo' at /gadgets/gizmo/name"
     }
 
+    It 'reports a fixture identity that is also a live identity, whatever the scanned files' {
+        Mock Get-LiveIdentityTokens -ModuleName Catzc.Base.QualityGates {
+            , @([pscustomobject]@{ Token = 'GIZMO'; Kind = 'customer-key'; Source = 'customer.yml'; Suggest = ''; MatchMode = 'exact' })
+        }
+        $result = Test-ConfigIdentityHygiene -Path $script:clean -OutputFolder $script:reportBase -PassThru
+        $result.IssueCount | Should -Be 1
+        $result.Issues[0] | Should -BeLike "fixture identity 'GIZMO' is also a live identity (customer-key in customer.yml)*"
+    }
+
     It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
         $result = Test-ConfigIdentityHygiene -Path $script:clean, $script:leaky -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'config-identity-hygiene'
         $result.IssueCount | Should -Be 2
         $result.FileCount | Should -Be 2
+        $result.LiveTokens | Should -Be 1
         Test-Path (Join-Path $result.ReportPath 'config-identity-hygiene.md') | Should -BeTrue
     }
 }

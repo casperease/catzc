@@ -8,7 +8,8 @@
 
 Never use relative paths that depend on the process working directory. Resolve every path from a known anchor — in PowerShell, the code root
 (`Get-CatzcModuleRoot`, `Get-CatzcModulesRoot`) for content that ships with the code ([rule 5](#rule-adr-auto-nopwd5)) and
-`$env:RepositoryRoot` for the working tree, joined with `Join-Path` (the anchor idioms are the language layer,
+`Get-RepositoryRoot` for the working tree ([rule 6](#rule-adr-auto-nopwd6)), joined with `Join-Path` (the anchor idioms are the language
+layer,
 [working-directory-mechanics](powershell/working-directory-mechanics.md), `ADR-AUTO-PSPWD`).
 
 - [Rejected alternatives](#rejected-alternatives)
@@ -28,6 +29,15 @@ in module function files (a module's root and `private/` `.ps1` files); tests, `
 `Measure-NoScriptRootAnchor` enforces the ban.
 
 - [The code root](#the-code-root)
+- [How this is enforced](#how-this-is-enforced)
+
+### Rule ADR-AUTO-NOPWD:6
+
+Module code reads the working-tree anchor only through `Get-RepositoryRoot`, never `$env:RepositoryRoot` directly — the variable is the
+importer's hand-off, the accessor is the one reader, so a change to where the root comes from lands in one place. A function whose job is
+the variable itself (`Test-InIsolation` swaps it for a sandbox and restores it) carries a justified suppression. Tests and `.internal` keep
+the variable (rule 4). The analyzer rule `Measure-NoEnvRepositoryRoot` enforces it.
+
 - [How this is enforced](#how-this-is-enforced)
 
 ## Context

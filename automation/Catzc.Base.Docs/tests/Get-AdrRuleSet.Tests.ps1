@@ -1,51 +1,45 @@
-Describe 'Get-AdrRuleSet integrity' -Tag 'L1', 'integrity', 'ADR-CONF-LOADING#4' {
+# Get-AdrRuleSet over a fixture AdrsConfig (Get-Config mocked): the flattening and effective codes are AdrsConfig
+# construction rules (its type test), so this pins only the projection and the -Domain filter. Neutral fixture names
+# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'Get-AdrRuleSet' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:ruleSets = Get-AdrRuleSet
-        $adrRoot = Resolve-RepoPath 'docs/adr'
-        # index every ADR .md by "<domainFolder>/<slug>" so a slug shared across domains (e.g.
-        # test-automation in automation/ and research/) stays distinct.
-        $script:byKey = @{}
-        foreach ($file in [IO.Directory]::EnumerateFiles($adrRoot, '*.md', 'AllDirectories')) {
-            $rel = ($file.Substring($adrRoot.Length).TrimStart('\', '/')) -replace '\\', '/'
-            $domainFolder = ($rel -split '/')[0]
-            $slug = [IO.Path]::GetFileNameWithoutExtension($file)
-            $script:byKey["$domainFolder/$slug"] = $file
-        }
+        $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
+                domains = [ordered]@{
+                    widget = [ordered]@{
+                        code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
+                        rulesets = [ordered]@{ 'widget-one' = [ordered]@{ external = 'ADR-WI-ONE' } }
+                    }
+                    gadget = [ordered]@{
+                        code = 'GA'; role = 'implementation'; description = 'The gadget implementation.'; depends_on = @('widget')
+                        rulesets = [ordered]@{
+                            'gadget-one' = [ordered]@{ external = 'ADR-GA-ONE' }
+                            'gadget-two' = [ordered]@{ external = 'ADR-GA-TWO' }
+                        }
+                    }
+                }
+            })
     }
 
-    It 'returns the flattened typed rule-sets' {
-        $script:ruleSets.Count | Should -BeGreaterThan 100
-        $script:ruleSets[0] | Should -BeOfType 'Catzc.Base.Docs.AdrRuleSet'
+    BeforeEach {
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adrs' } { $script:fixture }
     }
 
-    It 'captures a leaf code override as the effective code, not the folder domain code' {
-        $override = $script:ruleSets | Where-Object Slug -EQ 'az-session-verification'
-        $override.External | Should -Be 'ADR-AZ-SESSION'
-        $override.Code | Should -Be 'AZ'
-        $override.DomainCode | Should -Be 'AUTO'
+    It 'returns every typed rule set in declaration order' {
+        $ruleSets = Get-AdrRuleSet
+        $ruleSets | Should -HaveCount 3
+        $ruleSets[0] | Should -BeOfType 'Catzc.Base.Docs.AdrRuleSet'
+        @($ruleSets.External) | Should -Be @('ADR-WI-ONE', 'ADR-GA-ONE', 'ADR-GA-TWO')
     }
 
-    It 'each rule-set has exactly one ADR file under its own domain folder' {
-        foreach ($ruleSet in $script:ruleSets) {
-            $script:byKey.ContainsKey("$($ruleSet.Domain)/$($ruleSet.Slug)") |
-                Should -BeTrue -Because "docs/adr/$($ruleSet.Domain)/**/$($ruleSet.Slug).md must exist"
-        }
+    It 'restricts to one folder-owning domain with -Domain' {
+        @((Get-AdrRuleSet -Domain gadget).Slug) | Should -Be @('gadget-one', 'gadget-two')
     }
+}
 
-    It 'each ADR file declares its external code as its Rules heading (adrs.yml and file agree)' {
-        foreach ($ruleSet in $script:ruleSets) {
-            $file = $script:byKey["$($ruleSet.Domain)/$($ruleSet.Slug)"]
-            if (-not $file) {
-                continue
-            }
-            $content = [IO.File]::ReadAllText($file)
-            $content | Should -Match "(?m)^## Rules: $([regex]::Escape($ruleSet.External))\s*$" `
-                -Because "$($ruleSet.Slug).md must head with '## Rules: $($ruleSet.External)'"
-        }
-    }
-
-    It 'every external citation code is unique' {
-        $externals = @($script:ruleSets.External)
-        @($externals | Sort-Object -Unique).Count | Should -Be $externals.Count
+# Integrity: adrs.yml and the ADR rule files agree, through the quality gate Test-AdrRegistry
+# ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
+Describe 'Get-AdrRuleSet integrity' -Tag 'L1', 'integrity', 'ADR-CONF-LOADING#4' {
+    It 'Test-AdrRegistry reports no issue: one ADR file per rule set, headed by its external code, none unregistered' {
+        (Test-AdrRegistry -PassThru -OutputFolder (Join-Path $TestDrive 'adr-registry')).IssueCount | Should -Be 0
     }
 }

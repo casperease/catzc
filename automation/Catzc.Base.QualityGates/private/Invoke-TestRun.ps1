@@ -75,6 +75,9 @@ function Invoke-TestRun {
         [AllowEmptyCollection()]
         [string[]] $Rule = @(),
 
+        # A test suite's name, when -Modules was resolved from one (Test-Automation -Suite); the context block names it.
+        [string] $Suite,
+
         [string] $OutputFolder,
 
         [AllowEmptyCollection()]
@@ -132,11 +135,18 @@ function Invoke-TestRun {
     $failedShardLabels = @()
     $workerRun = $null
     $optOutExcludedTests = @()
+    $context = $null
 
     # try/finally: the slot is released and the terminal manifest stamped on every exit path — pass, fail, or crash.
     # The stamp is what makes run.json trustworthy, so it sits in the finally, not in a best-effort catch.
     try {
+        $requestedMaxLevel = $MaxLevel
         $MaxLevel = Resolve-TestRunMaxLevel -Slot $slot -Requested $MaxLevel -MinLevel $MinLevel
+
+        # The run's context — what it is and where it runs — printed under the banner and recorded in run.json
+        # (Get-TestRunContext).
+        $context = Get-TestRunContext -EntryPoint $EntryPoint -EntryScript $EntryScript -Slot $slot -MinLevel $MinLevel `
+            -RequestedMaxLevel $requestedMaxLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Suite $Suite -Rule $Rule
 
         # Build tag filter — exclude tiers outside [MinLevel, MaxLevel] and (when -Category is given) the other
         # category, so only the requested category's tests run. ExcludeTag matches an item's own tag, so a mixed
@@ -156,6 +166,7 @@ function Invoke-TestRun {
                 maxLevel   = $MaxLevel
                 category   = $Category
                 modules    = @($Modules)
+                context    = $context
             }) | Out-Null
 
         # The run's test files in foundation-first folder order (Get-TestAutomationTestFiles owns the scan).
@@ -220,6 +231,7 @@ function Invoke-TestRun {
         }
 
         Write-TestAutomationHeader -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Title $Title
+        Write-TestRunContext -Context $context
 
         # Shard, run the pool (then the greedy and serial phases), and aggregate the row sidecars — the engine.
         # When protection drained the whole work-list, there is nothing to execute: the run is vacuously green.
@@ -310,26 +322,10 @@ function Invoke-TestRun {
         }
     }
     finally {
-        $finalManifest = [ordered]@{
-            status            = $manifestStatus
-            startedAt         = $runStartedAt
-            finishedAt        = [DateTimeOffset]::UtcNow.ToString('o')
-            minLevel          = $MinLevel
-            maxLevel          = $MaxLevel
-            category          = $Category
-            modules           = @($Modules)
-            failedCount       = $failedCount
-            failedShardLabels = @($failedShardLabels)
-        }
-        # What only the worker run knows: shard exit codes, duration, and where it executed (with a snapshot's provenance).
-        $workerEntries = ConvertTo-TestRunManifestEntry -WorkerRun $workerRun
-        foreach ($key in $workerEntries.Keys) {
-            $finalManifest[$key] = $workerEntries[$key]
-        }
-        if ($OptOutTag.Count -gt 0) {
-            $finalManifest['optOutTag'] = @($OptOutTag)
-            $finalManifest['optOutExcludedCount'] = @($optOutExcludedTests).Count
-        }
+        $finalManifest = New-TestRunFinalManifest -Status $manifestStatus -StartedAt $runStartedAt -MinLevel $MinLevel `
+            -MaxLevel $MaxLevel -Category $Category -Modules $Modules -FailedCount $failedCount `
+            -FailedShardLabels $failedShardLabels -Context $context -WorkerRun $workerRun -OptOutTag $OptOutTag `
+            -OptOutExcludedCount (@($optOutExcludedTests).Count)
         try {
             Write-TestRunManifest -RunDirectory $runDir -Manifest $finalManifest | Out-Null
         }

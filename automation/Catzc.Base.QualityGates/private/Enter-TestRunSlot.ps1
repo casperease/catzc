@@ -122,10 +122,11 @@ function Enter-TestRunSlot {
     # Prime the snapshot with one full import, as a fresh clone's first import does: the janitors materialise
     # the generated, gitignored files the snapshot does not carry (module manifests, READMEs, root configs,
     # cspell dictionaries), once, before any worker starts — workers import with -SkipJanitors and would
-    # otherwise find them missing, or race each other generating manifests. Never auto-commit the snapshot.
+    # otherwise find them missing, or race each other generating manifests. The snapshot is never committed to:
+    # Sync-GeneratedFile recognises it by its provenance marker (Test-RepositorySnapshot).
     Write-Message 'Priming the snapshot: one import materialises its generated files...'
     try {
-        Invoke-Executable "pwsh -NoProfile -File `"$(Join-Path $slot.Snapshot.Path 'importer.ps1')`" -NoCommitShaMarkersInDevBox" `
+        Invoke-Executable "pwsh -NoProfile -File `"$(Join-Path $slot.Snapshot.Path 'importer.ps1')`"" `
             -WorkingDirectory $slot.Snapshot.Path -PassThru -Silent | Out-Null
     }
     catch {

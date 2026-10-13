@@ -19,8 +19,7 @@
 .PARAMETER Description
     Optional PR description.
 .PARAMETER RepositoryName
-    Azure Repos Git repository name. Defaults to $env:BUILD_REPOSITORY_NAME or the leaf of
-    $env:RepositoryRoot.
+    Azure Repos Git repository name. Defaults to this checkout's repository (Get-AdoRepositoryName).
 .PARAMETER Project
     Azure DevOps project. Defaults to ado.yml.
 .PARAMETER Organization
@@ -43,7 +42,7 @@ function New-AdoPullRequest {
 
         [string] $Description = '',
 
-        [string] $RepositoryName,
+        [string] $RepositoryName = (Get-AdoRepositoryName),
 
         [string] $Project = (Get-Config -Config ado)['project'],
 
@@ -57,15 +56,7 @@ function New-AdoPullRequest {
     Assert-NotNullOrWhitespace $Organization -ErrorText 'Organization is required. Set -Organization or configure ado.yml.'
     $Organization = $Organization.TrimEnd('/')
 
-    if (-not $RepositoryName) {
-        $RepositoryName = if ($env:BUILD_REPOSITORY_NAME) {
-            $env:BUILD_REPOSITORY_NAME
-        }
-        else {
-            Split-Path $env:RepositoryRoot -Leaf
-        }
-        Assert-NotNullOrWhitespace $RepositoryName -ErrorText 'RepositoryName is required. Set -RepositoryName, or ensure $env:BUILD_REPOSITORY_NAME or $env:RepositoryRoot is set.'
-    }
+    Assert-NotNullOrWhitespace $RepositoryName -ErrorText 'RepositoryName is required. Set -RepositoryName, or run inside a checkout or a pipeline.'
 
     $apiBase = "$Organization/$Project/_apis"
 

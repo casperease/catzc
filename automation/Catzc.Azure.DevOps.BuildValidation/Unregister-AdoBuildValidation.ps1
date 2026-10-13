@@ -16,8 +16,7 @@
 .PARAMETER Organization
     Azure DevOps organization URL. Defaults to the value in ado.yml.
 .PARAMETER RepositoryName
-    Name of the Azure Repos Git repository. Defaults to $env:BUILD_REPOSITORY_NAME or the leaf folder of
-    $env:RepositoryRoot.
+    Name of the Azure Repos Git repository. Defaults to this checkout's repository (Get-AdoRepositoryName).
 .PARAMETER DryRun
     Return the planned removal (the matched policy id) without touching the server.
 .EXAMPLE
@@ -37,7 +36,7 @@ function Unregister-AdoBuildValidation {
 
         [string] $Organization = (Get-Config -Config ado)['organization'],
 
-        [string] $RepositoryName,
+        [string] $RepositoryName = (Get-AdoRepositoryName),
 
         [switch] $DryRun
     )

@@ -123,7 +123,7 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
         $script:slot.Holder.Known | Should -BeTrue
         Should -Invoke New-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $SourceRoot -eq $script:root }
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
-            $Command -like 'pwsh -NoProfile -File *catzc-run-*importer.ps1* -NoCommitShaMarkersInDevBox'
+            $Command -like 'pwsh -NoProfile -File *catzc-run-*importer.ps1"'
         }
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
             $Message -like "The repository is busy: Test-Automation (pid $PID, started *, run 20261013-174616) holds the test-run lock."

@@ -43,19 +43,19 @@ Describe 'Get-ModuleTestOrder' -Tag 'L0', 'logic' {
 
         { Get-ModuleTestOrder } | Should -Throw '*Cycle*'
     }
-}
 
-Describe 'Get-ModuleTestOrder (real dependency graph)' -Tag 'L0', 'integrity' {
-    It 'returns every on-disk module exactly once' {
-        $order = @(Get-ModuleTestOrder)
-        $expected = @(Get-AutomationModules)
-        $order.Count | Should -Be $expected.Count
-        ($order | Sort-Object) | Should -Be ($expected | Sort-Object)
-    }
+    It 'returns every module exactly once, an undeclared one among the roots' {
+        Mock Get-AutomationModules { @('Catzc.Widget', 'Catzc.Gadget', 'Catzc.Gizmo', 'Catzc.Base.Widget') } -ModuleName Catzc.Base.ModuleSystem
+        Mock Get-ModuleGroupConfig {
+            [ordered]@{ Base = [ordered]@{ 'Catzc.Base.Widget' = @() } }
+        } -ModuleName Catzc.Base.ModuleSystem
+        Mock Get-ModuleDependencyConfig {
+            [ordered]@{ 'Catzc.Widget' = @('Base'); 'Catzc.Gadget' = @('Catzc.Widget') }
+        } -ModuleName Catzc.Base.ModuleSystem
 
-    It 'orders a base module before a module that depends on it' {
         $order = @(Get-ModuleTestOrder)
-        [array]::IndexOf($order, 'Catzc.Base.Asserts') |
-            Should -BeLessThan ([array]::IndexOf($order, 'Catzc.Azure.Templates'))
+        $order | Should -HaveCount 4
+        @($order | Sort-Object -Unique) | Should -HaveCount 4
+        $order | Should -Be @('Catzc.Base.Widget', 'Catzc.Gizmo', 'Catzc.Widget', 'Catzc.Gadget')
     }
 }

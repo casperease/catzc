@@ -11,14 +11,11 @@ Folder, file, and naming conventions, the repository path helpers, the git index
 | --- | ---- | --------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | 1   | L0   | automation/.internal/tests/Test-FolderConventions.Tests.ps1                 | Folder & file conventions                                         | Conventional folder structure, naming, and no duplicate function exports.                                                       |
 | 2   | L0   | automation/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1          | Source & test file conventions                                    | One-function-per-file, Verb-Noun naming, repo-wide unique function names.                                                       |
-| 3   | L0   | automation/Catzc.Base.Repository/tests/Get-RepositoryRoot.Tests.ps1         | Get-RepositoryRoot                                                | The repository root resolves and exists on disk.                                                                                |
-| 4   | L0   | automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1       | Get-RepositoryFolder                                              | Repository folder paths join to root and exist.                                                                                 |
-| 5   | L0   | automation/Catzc.Base.Repository/tests/Get-RepositoryFile.Tests.ps1         | Get-RepositoryFile                                                | Repository file paths join to root and exist.                                                                                   |
-| 6   | L1   | automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1                 | Get-TrackedFile (real index)                                      | The real tracked-file universe comes back repo-relative and /-separated, read in-process from the git index.                    |
-| 7   | L1   | automation/Catzc.Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1 | Test titles use angle-bracket templates only on data-driven tests | No It/Describe title carries a Pester template token without -ForEach data — the strict-caller name-expansion trap is banned.   |
-| 8   | L1   | automation/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1      | Repository guid integrity                                         | Every GUID literal in tracked text is registered in guids.yml, and every registry entry is live (referenced by a tracked file). |
-| 9   | L2   | automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1   | Checked-in binaries are stored as binary, not text                | Checked-in binaries have binary EOL handling + explicit `.gitattributes`.                                                       |
-| 10  | L2   | automation/Catzc.Base.Files/tests/Get-GitTrackedPath.Tests.ps1              | Get-GitTrackedPath (real git)                                     | The in-process git index reader answers exactly what `git ls-files` prints for this repository, whole and pathspec-limited.     |
+| 3   | L1   | automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1                 | Get-TrackedFile (real index)                                      | The real tracked-file universe comes back repo-relative and /-separated, read in-process from the git index.                    |
+| 4   | L1   | automation/Catzc.Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1 | Test titles use angle-bracket templates only on data-driven tests | No It/Describe title carries a Pester template token without -ForEach data — the strict-caller name-expansion trap is banned.   |
+| 5   | L1   | automation/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1      | Repository guid integrity                                         | Every GUID literal in tracked text is registered in guids.yml, and every registry entry is live (referenced by a tracked file). |
+| 6   | L2   | automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1   | Checked-in binaries are stored as binary, not text                | Checked-in binaries have binary EOL handling + explicit `.gitattributes`.                                                       |
+| 7   | L2   | automation/Catzc.Base.Files/tests/Get-GitTrackedPath.Tests.ps1              | Get-GitTrackedPath (real git)                                     | The in-process git index reader answers exactly what `git ls-files` prints for this repository, whole and pathspec-limited.     |
 
 ## Checks
 
@@ -44,31 +41,7 @@ Folder, file, and naming conventions, the repository path helpers, the git index
 - Every test file is `Verb-Noun.Tests.ps1`.
 - Every function name (public and private) is defined in exactly one file across the repo.
 
-### 3. Get-RepositoryRoot
-
-**Guards:** the repository root resolves and exists.
-
-**Checks:**
-
-- Returns the repo root (matching `$env:RepositoryRoot`); the path exists.
-
-### 4. Get-RepositoryFolder
-
-**Guards:** repository folder paths resolve and exist.
-
-**Checks:**
-
-- Joins a relative path to the root; a known folder resolves to an existing path.
-
-### 5. Get-RepositoryFile
-
-**Guards:** repository file paths resolve and exist.
-
-**Checks:**
-
-- Joins a relative path to the root; a known file resolves to an existing path.
-
-### 8. Repository guid integrity
+### 5. Repository guid integrity
 
 **Guards:** the managed-GUID registry and the tracked tree agree in both directions.
 
@@ -78,7 +51,7 @@ Folder, file, and naming conventions, the repository path helpers, the git index
   `Catzc.Base.QualityGates/configs/guids.yml`.
 - Every registry entry is live — at least one tracked file references its guid.
 
-### 9. Checked-in binaries are stored as binary, not text
+### 6. Checked-in binaries are stored as binary, not text
 
 **Guards:** checked-in binaries are stored without EOL conversion.
 

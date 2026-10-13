@@ -52,7 +52,7 @@ function Reset-GitHubRepository {
         [Parameter(Mandatory, Position = 0)]
         [string] $Repo,
 
-        [string] $NewName,
+        [string] $NewName = $Repo,
 
         [string] $Branch = 'main',
 
@@ -72,10 +72,6 @@ function Reset-GitHubRepository {
 
         [switch] $DryRun
     )
-
-    if (-not $NewName) {
-        $NewName = $Repo
-    }
 
     # Preflight — throws on any gap. Never mutates.
     Assert-GitHubPurgeReady -Repo $Repo -BackupBundle $BackupBundle -RepositoryPath $RepositoryPath -AllowForks:$AllowForks

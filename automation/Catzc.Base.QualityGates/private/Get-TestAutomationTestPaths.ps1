@@ -24,7 +24,7 @@ function Get-TestAutomationTestPaths {
         [string[]] $Modules = @()
     )
 
-    $automationRoot = Join-Path $env:RepositoryRoot 'automation'
+    $automationRoot = Join-Path (Get-RepositoryRoot) 'automation'
     $allDirs = [System.IO.Directory]::GetDirectories($automationRoot)
     [Array]::Sort($allDirs)
 

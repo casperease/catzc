@@ -92,6 +92,19 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
             Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like 'Skipping L3:*' }
             $manifest = Get-Content -LiteralPath (Join-Path $summary.RunDirectory 'run.json') -Raw | ConvertFrom-Json
             $manifest.maxLevel | Should -Be 2
+            $manifest.context.slot | Should -Be 'snapshot'
+            $manifest.context.tiersRequested | Should -Be 'L0-L3'
+            $manifest.context.tiersRunning | Should -Be 'L0-L2'
+            $manifest.context.tierCap | Should -Be 'L3 skipped: snapshot slot'
+            Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like '  tiers *asked L0-L3 · running L0-L2*' }
+        }
+
+        It 'names a test suite in the context it records' -Tag 'ADR-AUTO-TEST#37' {
+            $summary = Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; Suite = 'widget'; Modules = @('TstWidget') }
+            $manifest = Get-Content -LiteralPath (Join-Path $summary.RunDirectory 'run.json') -Raw | ConvertFrom-Json
+            $manifest.context.selection | Should -Be 'suite widget; modules: TstWidget'
+            $manifest.context.run | Should -Be 'source'
+            $manifest.context.entryPoint | Should -Be 'Test-Automation'
         }
 
         It 'keeps an explicit lower level as given' {

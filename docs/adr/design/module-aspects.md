@@ -25,9 +25,11 @@ first-match makes the partition disjoint and exhaustive _by construction_: `Aspe
 
 ### Rule ADR-DSGN-ASPECT:3
 
-The catch-all remainder is **non-live** (`tests` is declared last). `live` — the shipped surface — is never the fallthrough, so a stray or
-unclassified file lands on the verification side and can **never silently ship** (default-deny). The `VariantsConfig` config type enforces
-its structure at load: the last aspect is the `**` catch-all, and no earlier aspect uses it.
+Which aspect is the catch-all remainder is each **track's** call, declared in its `aspects` entry. A **code** track (`automation`) keeps
+`live` closed and declares the non-live `tests` last, so a stray or unclassified file lands on the verification side and can **never
+silently ship** (default-deny). A **deployment** track (`infrastructure`) declares `live` last, because everything under a template deploys,
+and only an explicit `tests/` folder is non-live. The `VariantsConfig` config type enforces the structure at load: the last aspect is the
+`**` catch-all, and no earlier aspect uses it.
 
 - [Decision](#decision)
 - [Consequences](#consequences)
@@ -59,20 +61,22 @@ this module change" — even though nothing shippable moved. Isolation demands t
 
 ## Decision
 
-Aspects make the split first-class and fail-safe. The `live` surface is a **closed, explicit** convention; everything it does not claim —
-tests, docs, editor droppings, a file dropped at a module's root — falls through to the non-live `tests` remainder. Shipping is therefore
-default-deny: a new file can only enter `live` by an explicit convention change, never by accident. The two aspects partition the module
-exactly (ordered first-match with a `**` remainder guarantees it), and each is locked and versioned on its own.
+Aspects make the split first-class and fail-safe. In the code track the `live` surface is a **closed, explicit** convention; everything it
+does not claim — tests, docs, editor droppings, a file dropped at a module's root — falls through to the non-live `tests` remainder.
+Shipping code is therefore default-deny: a new file can only enter `live` by an explicit convention change, never by accident. A deployment
+track inverts the remainder: a template ships whole, so its `tests` is the closed, explicit head and `live` is the remainder. The two
+aspects partition the module exactly (ordered first-match with a `**` remainder guarantees it), and each is locked and versioned on its own.
 
-The convention lives in the `aspects` variant so the vocabulary can evolve (a future `config`/`docs` aspect is one more ordered rule, `live`
-still the closed head and the `**` remainder still non-live) without touching the engine. `Catzc.Base.Globs` reads it through `Get-Aspect`
-and compiles per unit root with `AspectPartition`; `Get-ModuleGlobSet` derives `<module>-live` / `<module>-tests` and their markers.
+The convention lives in the `aspects` variant so the vocabulary can evolve (a future `config`/`docs` aspect is one more ordered rule, and
+each track still names its own remainder) without touching the engine. `Catzc.Base.Globs` reads it through `Get-Aspect` and compiles per
+unit root with `AspectPartition`; `Get-ModuleGlobSet` derives `<module>-live` / `<module>-tests` and their markers.
 
 ## Consequences
 
 - **Isolated identities.** A test edit and a runtime edit touch different markers; downstream (protection, blast-radius, triggers) sees the
   precise one.
-- **Fail-safe shipping.** An unclassified file defaults to non-live — it cannot ride into production unnoticed.
+- **Fail-safe shipping of code.** In the code track an unclassified file defaults to non-live — it cannot ride into production unnoticed. A
+  deployment track ships a template whole, so there the explicit `tests/` folder is the only non-live part.
 - **One convention, many granularities.** The same ordered rule set that partitions a module is what a track's `-live`/`-tests` delivery
   packages use when derived — one convention, module and track alike.
 - **Protection covers the whole module.** A module's protection identity folds both aspect hashes (`Get-ModuleProtectionIdentity`), so it
