@@ -1,6 +1,6 @@
 # docs/adr/research/teams-empowered-to-choose-tools.md
 
-ADR: DORA — Empowering teams to choose tools
+`ADR: DORA — Empowering teams to choose tools`
 
 ## Rules: ADR-DORA-TOOLCHOICE
 

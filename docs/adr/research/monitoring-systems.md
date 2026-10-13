@@ -1,6 +1,6 @@
 # docs/adr/research/monitoring-systems.md
 
-ADR: DORA — Monitoring systems to inform business decisions
+`ADR: DORA — Monitoring systems to inform business decisions`
 
 ## Rules: ADR-DORA-MONITOR
 

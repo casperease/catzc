@@ -22,24 +22,24 @@ Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6' {
         $finding.Fixed | Should -Be $text
     }
 
-    It 'replaces an H1 with other text and keeps the old title fenced as the first body block' {
+    It 'replaces an H1 with other text and keeps the old title in backticks as the first body line' {
         $finding = Get-Finding (Join-Lines '# widget', '', 'Body.', '')
         $finding.Kind | Should -Be 'Wrong'
         $finding.Actual | Should -Be '# widget'
         $finding.Line | Should -Be 1
-        $finding.Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '```text', 'widget', '```', '', 'Body.', '')
+        $finding.Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '`widget`', '', 'Body.', '')
     }
 
-    It 'fences an old title that holds backticks of its own' {
-        (Get-Finding (Join-Lines '# Widget (`gadget.yml`)', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '```text', 'Widget (`gadget.yml`)', '```', '')
+    It 'wraps an old title that holds backticks of its own in single backticks too' {
+        (Get-Finding (Join-Lines '# Widget (`gadget.yml`)', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '`Widget (`gadget.yml`)`', '')
     }
 
     It 'pads the kept old title from a body line that followed the heading directly' {
-        (Get-Finding (Join-Lines '# widget', 'Body.', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '```text', 'widget', '```', '', 'Body.', '')
+        (Get-Finding (Join-Lines '# widget', 'Body.', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '`widget`', '', 'Body.', '')
     }
 
     It 'keeps an old title that ends the file' {
-        (Get-Finding (Join-Lines '# widget', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '```text', 'widget', '```', '')
+        (Get-Finding (Join-Lines '# widget', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '`widget`', '')
     }
 
     It 'is case-sensitive about the path' {
@@ -60,7 +60,7 @@ Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6' {
         $finding = Get-Finding (Join-Lines '---', 'name: widget', '---', '', '# widget', '', 'Body.', '')
         $finding.Kind | Should -Be 'Wrong'
         $finding.Line | Should -Be 5
-        $finding.Fixed | Should -Be (Join-Lines '---', 'name: widget', '---', '', '# docs/widget.md', '', '```text', 'widget', '```', '', 'Body.', '')
+        $finding.Fixed | Should -Be (Join-Lines '---', 'name: widget', '---', '', '# docs/widget.md', '', '`widget`', '', 'Body.', '')
     }
 
     It 'never reads a # line in a later code fence as the title' {
@@ -70,7 +70,7 @@ Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6' {
 
     It 'keeps CRLF line endings' {
         $fixed = (Get-Finding (Join-Lines '# widget', '', 'Body.', '' -Newline "`r`n")).Fixed
-        $fixed | Should -Be (Join-Lines '# docs/widget.md', '', '```text', 'widget', '```', '', 'Body.', '' -Newline "`r`n")
+        $fixed | Should -Be (Join-Lines '# docs/widget.md', '', '`widget`', '', 'Body.', '' -Newline "`r`n")
     }
 
     It 'titles an empty file' {

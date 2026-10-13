@@ -1,6 +1,6 @@
 # docs/adr/design/commit-lifecycle.md
 
-ADR: The commit lifecycle — states, environment occupancy, and the stable sync point
+`ADR: The commit lifecycle — states, environment occupancy, and the stable sync point`
 
 The value-chain diagrams under `docs/.assets/commits-quality` — the `value-chain` promotion diagram and its `state-changes` flow-variant
 companion — encode more than a promotion ladder: they encode what _happens to a commit_ — how it advances, where it dies, how it retires,

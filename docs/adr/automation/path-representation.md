@@ -1,6 +1,6 @@
 # docs/adr/automation/path-representation.md
 
-ADR: Path representation — relative across boundaries, absolute only at the bind
+`ADR: Path representation — relative across boundaries, absolute only at the bind`
 
 ## Rules: ADR-AUTO-PATH
 

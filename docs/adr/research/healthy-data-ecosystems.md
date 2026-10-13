@@ -1,6 +1,6 @@
 # docs/adr/research/healthy-data-ecosystems.md
 
-ADR: DORA — Healthy data ecosystems
+`ADR: DORA — Healthy data ecosystems`
 
 ## Rules: ADR-DORA-DATAECO
 

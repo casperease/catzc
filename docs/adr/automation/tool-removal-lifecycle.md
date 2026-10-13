@@ -1,6 +1,6 @@
 # docs/adr/automation/tool-removal-lifecycle.md
 
-ADR: Install / Uninstall / Remove — the tool lifecycle and the destructive-eviction escalation
+`ADR: Install / Uninstall / Remove — the tool lifecycle and the destructive-eviction escalation`
 
 ## Rules: ADR-AUTO-REMOVE
 

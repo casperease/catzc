@@ -1,6 +1,6 @@
 # docs/references/infrastructure/foundation.md
 
-foundation
+`foundation`
 
 The once-per-subscription baseline. `foundation` deploys the shared services every other template in the subscription depends on — a Log
 Analytics workspace and a Key Vault — and nothing customer- or environment-specific. Its Key Vault holds the SQL admin password readers read

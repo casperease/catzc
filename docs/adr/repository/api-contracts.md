@@ -1,6 +1,6 @@
 # docs/adr/repository/api-contracts.md
 
-ADR: Versioned external API contracts and contract testing
+`ADR: Versioned external API contracts and contract testing`
 
 ## Rules: ADR-REPO-CONTRACT
 

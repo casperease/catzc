@@ -1,6 +1,6 @@
 # docs/adr/azure/azure-naming-standard.md
 
-ADR: Azure resource naming standard
+`ADR: Azure resource naming standard`
 
 <!-- cspell:ignore weuwkspvm prweufindiscaphotst weufindiscxaphotst weudiscvm etlco -->
 

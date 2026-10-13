@@ -1,6 +1,6 @@
 # docs/adr/automation/az-session-verification.md
 
-ADR: Az CLI session verification — three layers, and verify is not connect
+`ADR: Az CLI session verification — three layers, and verify is not connect`
 
 ## Rules: ADR-AZ-SESSION
 

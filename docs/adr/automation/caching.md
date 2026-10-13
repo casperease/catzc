@@ -1,6 +1,6 @@
 # docs/adr/automation/caching.md
 
-ADR: Caching — static reads and filesystem-derived information (the importer is the cache boundary)
+`ADR: Caching — static reads and filesystem-derived information (the importer is the cache boundary)`
 
 ## Rules: ADR-AUTO-CACHE
 

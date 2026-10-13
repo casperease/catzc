@@ -1,6 +1,6 @@
 # docs/adr/repository/markdown-links.md
 
-ADR: Markdown links — relative in documents, repository-rooted out of code
+`ADR: Markdown links — relative in documents, repository-rooted out of code`
 
 ## Rules: ADR-REPO-LINK
 

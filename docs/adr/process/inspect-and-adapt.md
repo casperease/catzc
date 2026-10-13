@@ -1,6 +1,6 @@
 # docs/adr/process/inspect-and-adapt.md
 
-ADR: Inspect and adapt — kaizen built into the process
+`ADR: Inspect and adapt — kaizen built into the process`
 
 ## Rules: ADR-PROC-KAIZEN
 

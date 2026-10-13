@@ -1,6 +1,6 @@
 # docs/adr/research/pervasive-security.md
 
-ADR: DORA — Pervasive security
+`ADR: DORA — Pervasive security`
 
 ## Rules: ADR-DORA-SECURITY
 

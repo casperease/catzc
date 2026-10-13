@@ -1,6 +1,6 @@
 # docs/adr/research/customer-feedback.md
 
-ADR: DORA — Customer feedback
+`ADR: DORA — Customer feedback`
 
 ## Rules: ADR-DORA-FEEDBACK
 

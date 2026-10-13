@@ -1,6 +1,6 @@
 # docs/adr/repository/documentation-examples.md
 
-ADR: Documentation examples — the discovery theme
+`ADR: Documentation examples — the discovery theme`
 
 ## Rules: ADR-REPO-EXAMPLE
 

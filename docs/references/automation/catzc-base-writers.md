@@ -1,6 +1,6 @@
 # docs/references/automation/catzc-base-writers.md
 
-Catzc.Base.Writers
+`Catzc.Base.Writers`
 
 The console output module. It owns the **one colour-aware writer family** the entire platform logs through — every status line, header,
 table, and object dump flows through this module's stream — and the diagnostic renderers that surface exceptions, call stacks, bound

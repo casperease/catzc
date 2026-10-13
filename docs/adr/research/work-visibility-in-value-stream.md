@@ -1,6 +1,6 @@
 # docs/adr/research/work-visibility-in-value-stream.md
 
-ADR: DORA — Visibility of work in the value stream
+`ADR: DORA — Visibility of work in the value stream`
 
 ## Rules: ADR-DORA-WORKVIS
 

@@ -1,6 +1,6 @@
 # docs/adr/configuration/config-value-addressing.md
 
-ADR: Config value addressing — a by-reference handle into a named config
+`ADR: Config value addressing — a by-reference handle into a named config`
 
 ## Rules: ADR-CONF-ADDRESSING
 

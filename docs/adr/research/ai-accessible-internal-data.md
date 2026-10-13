@@ -1,6 +1,6 @@
 # docs/adr/research/ai-accessible-internal-data.md
 
-ADR: DORA — AI-accessible internal data
+`ADR: DORA — AI-accessible internal data`
 
 ## Rules: ADR-DORA-AIDATA
 

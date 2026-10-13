@@ -4,8 +4,8 @@
     ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6)).
 .DESCRIPTION
     Makes each file's first line after any YAML front matter the H1 `# <repository-relative path>`: a different H1 is
-    replaced and its wording kept as the body's first block (path H1, blank line, old title in a `text` fence), and
-    a file that opens without one gets the title inserted. The scope is every git-tracked *.md file
+    replaced and its wording kept as the body's first line (path H1, blank line, old title between single
+    backticks), and a file that opens without one gets the title inserted. The scope is every git-tracked *.md file
     except those .gitattributes marks vendored or generated and the test fixture trees (Get-MarkdownTitleScope).
     Files are written as UTF-8 without a BOM, with their own line endings kept; a file already titled is not
     touched, so a second run changes nothing. Test-MarkdownTitle is the gate. A source-tree tool: it throws in

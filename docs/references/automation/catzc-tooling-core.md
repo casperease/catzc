@@ -1,6 +1,6 @@
 # docs/references/automation/catzc-tooling-core.md
 
-Catzc.Tooling.Core
+`Catzc.Tooling.Core`
 
 The foundation of the Tooling group. It owns the single source of truth for which external command-line tool is locked to which version —
 the `tools.yml` config and the `ToolConfig` type that models it — and the generic, tool-agnostic engine that reads that contract to assert a

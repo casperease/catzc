@@ -1,6 +1,6 @@
 # docs/references/pipelines.md
 
-pipelines
+`pipelines`
 
 Azure DevOps pipelines and the templates they include. Two ADRs govern this folder:
 

@@ -1,6 +1,6 @@
 # docs/adr/repository/controlled-vocabulary.md
 
-ADR: Controlled vocabulary — one definition per term, opt-in glossary sources
+`ADR: Controlled vocabulary — one definition per term, opt-in glossary sources`
 
 ## Rules: ADR-REPO-VOCAB
 

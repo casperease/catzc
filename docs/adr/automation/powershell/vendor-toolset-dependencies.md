@@ -1,6 +1,6 @@
 # docs/adr/automation/powershell/vendor-toolset-dependencies.md
 
-ADR: Vendor toolset dependencies
+`ADR: Vendor toolset dependencies`
 
 ## Rules: ADR-AUTO-VENDOR
 

@@ -1,6 +1,6 @@
 # docs/adr/principles/reduce-variability.md
 
-Principle: Reduce variability
+`Principle: Reduce variability`
 
 ## Rules: ADR-PRIN-REDUCEVAR
 

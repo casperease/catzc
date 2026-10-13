@@ -22,12 +22,9 @@ $checks = @(
     'NoBareScriptSlotRead'
 )
 
-# Each check module loads nested in this one, so its Measure-* functions are visible here but not exported to the
-# engine. A module may export more than one check.
-$script:measures = @(foreach ($check in $checks) {
-        $module = Import-Module (Join-Path $PSScriptRoot "$check.psm1") -PassThru
-        $module.ExportedFunctions.Values | Where-Object { $_.Name -like 'Measure-*' }
-    })
+# The check modules' Measure-* functions, loaded on the first root block (see Measure-CatzcRules); declared at load so
+# the guard reads it strict-clean.
+$script:measures = $null
 
 <#
 .SYNOPSIS
@@ -37,6 +34,10 @@ $script:measures = @(foreach ($check in $checks) {
     script block literal) and pays a fixed cost per call, even for a rule that does nothing. This entry rule acts only
     on the file's root block and hands it to each check, so every check runs once per file and walks the whole tree
     from there.
+
+    The engine loads this module far more often than it hands it a root block (measured: 404 loads for 124 files),
+    and loading the check modules costs ~65 ms per load — ~4x the checks' own run time. So the checks load lazily,
+    on the first root block a loaded copy of this module sees, never at module load.
 
     Each check lives in its own module next to this one, with its own tests, and keeps its own RuleName on the records
     it emits. Diagnostics, SuppressMessageAttribute('Measure-<Check>', …) and analyzer-adr-map.yml all name the check,
@@ -57,6 +58,15 @@ function Measure-CatzcRules {
     # Only the file's root block: every check walks the whole tree from it.
     if ($ScriptBlockAst.Parent) {
         return
+    }
+
+    # Each check module loads nested in this one, so its Measure-* functions are visible here but not exported to the
+    # engine. A module may export more than one check.
+    if ($null -eq $script:measures) {
+        $script:measures = @(foreach ($check in $checks) {
+                $module = Import-Module (Join-Path $PSScriptRoot "$check.psm1") -PassThru
+                $module.ExportedFunctions.Values | Where-Object { $_.Name -like 'Measure-*' }
+            })
     }
 
     foreach ($measure in $script:measures) {

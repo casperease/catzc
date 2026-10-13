@@ -1,6 +1,6 @@
 # docs/adr/github/github-release.md
 
-ADR: GitHub release flow — publishing the Catzc package
+`ADR: GitHub release flow — publishing the Catzc package`
 
 ## Rules: ADR-GH-RELEASE
 

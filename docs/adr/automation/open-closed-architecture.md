@@ -1,6 +1,6 @@
 # docs/adr/automation/open-closed-architecture.md
 
-ADR: Open/closed architecture
+`ADR: Open/closed architecture`
 
 ## Rules: ADR-AUTO-EXTEND
 

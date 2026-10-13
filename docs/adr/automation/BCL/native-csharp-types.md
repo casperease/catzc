@@ -1,6 +1,6 @@
 # docs/adr/automation/BCL/native-csharp-types.md
 
-ADR: Native C# types — one combined assembly, namespace per module
+`ADR: Native C# types — one combined assembly, namespace per module`
 
 ## Rules: ADR-AUTO-TYPES
 

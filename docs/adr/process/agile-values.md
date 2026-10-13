@@ -1,6 +1,6 @@
 # docs/adr/process/agile-values.md
 
-ADR: Agile values — the four preferences of the manifesto
+`ADR: Agile values — the four preferences of the manifesto`
 
 ## Rules: ADR-PROC-VALUES
 

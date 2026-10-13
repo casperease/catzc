@@ -1,6 +1,6 @@
 # docs/references/automation/catzc-base-execution.md
 
-Catzc.Base.Execution
+`Catzc.Base.Execution`
 
 The external-process boundary module. It **owns the complete lifecycle of running an external tool from PowerShell** — logging the exact
 command before it executes (see [log-before-invoke](../../adr/automation/log-before-invoke.md)), capturing separated standard output and

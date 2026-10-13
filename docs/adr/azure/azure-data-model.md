@@ -1,6 +1,6 @@
 # docs/adr/azure/azure-data-model.md
 
-ADR: Templating data model (`azure.yml` + `infrastructure/`)
+`ADR: Templating data model (`azure.yml` + `infrastructure/`)`
 
 Pairs with [`naming-standard`](azure-naming-standard.md), which defines the resource-name components this model feeds.
 

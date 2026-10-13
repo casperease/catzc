@@ -1,6 +1,6 @@
 # docs/adr/research/trunk-based-development.md
 
-ADR: DORA — Trunk-based development
+`ADR: DORA — Trunk-based development`
 
 ## Rules: ADR-DORA-TRUNK
 

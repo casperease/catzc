@@ -1,6 +1,6 @@
 # docs/adr/automation/sensible-defaults.md
 
-ADR: Sensible defaults for all parameters
+`ADR: Sensible defaults for all parameters`
 
 ## Rules: ADR-AUTO-DEFAULT
 

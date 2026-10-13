@@ -1,6 +1,6 @@
 # docs/adr/automation/controlling-systemwide-deps.md
 
-ADR: Controlling system-wide dependencies
+`ADR: Controlling system-wide dependencies`
 
 ## Rules: ADR-AUTO-DEPS
 

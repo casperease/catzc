@@ -1,6 +1,6 @@
 # docs/adr/automation/powershell/spell-out-names.md
 
-ADR: Spell out names — no invented abbreviations
+`ADR: Spell out names — no invented abbreviations`
 
 ## Rules: ADR-AUTO-SPELL
 

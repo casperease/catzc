@@ -1,6 +1,6 @@
 # docs/references/contracts.md
 
-The contracts surface
+`The contracts surface`
 
 This folder is the repository's **only public API**: the binding, versioned interface definitions an outside consumer is allowed to depend
 on. Everything else in the repository is internal and follows [one living version](../adr/principles/one-living-version.md) — changed in

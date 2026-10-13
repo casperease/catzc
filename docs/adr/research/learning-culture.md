@@ -1,6 +1,6 @@
 # docs/adr/research/learning-culture.md
 
-ADR: DORA — Learning culture
+`ADR: DORA — Learning culture`
 
 ## Rules: ADR-DORA-LEARNING
 

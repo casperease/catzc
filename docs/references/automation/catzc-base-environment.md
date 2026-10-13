@@ -1,6 +1,6 @@
 # docs/references/automation/catzc-base-environment.md
 
-Catzc.Base.Environment
+`Catzc.Base.Environment`
 
 The host environment and PATH module. It owns reading and writing the **persistent PATH** — the durable, system-level value that survives a
 shell restart — adding and removing individual entries, and re-syncing the live session after a change. It is a member of the `Base` group

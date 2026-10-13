@@ -1,6 +1,6 @@
 # docs/how-to/getting-started/automation/run-tests-and-checks.md
 
-Run tests and checks
+`Run tests and checks`
 
 `Test-Automation` is the single entry point for all tests. It discovers every `tests/*.Tests.ps1` file across all modules, runs them through
 Pester, and writes a timestamped report under `out/`. Linting, spell-check, and formatting are separate one-call functions.

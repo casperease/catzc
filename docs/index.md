@@ -1,6 +1,6 @@
 # docs/index.md
 
-Documentation
+`Documentation`
 
 **CATZC — Cloud Automation Toolkit, Zero-Ceremony.** A PowerShell 7.4+ module system with Azure/Bicep infrastructure-as-code and Azure
 DevOps pipelines.

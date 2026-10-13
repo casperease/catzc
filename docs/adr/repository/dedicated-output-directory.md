@@ -1,6 +1,6 @@
 # docs/adr/repository/dedicated-output-directory.md
 
-ADR: Dedicated output directory
+`ADR: Dedicated output directory`
 
 ## Rules: ADR-REPO-OUTDIR
 

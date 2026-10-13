@@ -1,6 +1,6 @@
 # docs/adr/automation/devbox-pipeline-parity.md
 
-ADR: Devbox / pipeline parity — the automation track is a CLI that runs everywhere
+`ADR: Devbox / pipeline parity — the automation track is a CLI that runs everywhere`
 
 ## Rules: ADR-AUTO-PARITY
 

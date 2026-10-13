@@ -1,6 +1,6 @@
 # docs/adr/automation/powershell/environment-variable-mechanics.md
 
-ADR: Environment-variable mechanics — the PowerShell layer over environment-variables
+`ADR: Environment-variable mechanics — the PowerShell layer over environment-variables`
 
 ## Rules: ADR-AUTO-PSENV
 

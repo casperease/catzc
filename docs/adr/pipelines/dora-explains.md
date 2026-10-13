@@ -1,6 +1,6 @@
 # docs/adr/pipelines/dora-explains.md
 
-DORA explanations — pipelines
+`DORA explanations — pipelines`
 
 The `Dora explains` rationale for the ADRs in the `pipelines/` domain, consolidated in one place. Each entry names its ADR and rule code,
 then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions

@@ -1,6 +1,6 @@
 # docs/references/automation/catzc-tooling-python.md
 
-Catzc.Tooling.Python
+`Catzc.Tooling.Python`
 
 The Python ecosystem module of the Tooling group. It owns the Python interpreter — provisioned by uv — and the Python tooling layered on it:
 installing, invoking, and removing python and its uv-pip layer, and the tools Poetry and PySpark, each pinned to its locked version through

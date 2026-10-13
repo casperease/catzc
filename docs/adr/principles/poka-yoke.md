@@ -1,6 +1,6 @@
 # docs/adr/principles/poka-yoke.md
 
-Principle: Poka-yoke — make mistakes impossible
+`Principle: Poka-yoke — make mistakes impossible`
 
 ## Rules: ADR-PRIN-POKAYOKE
 

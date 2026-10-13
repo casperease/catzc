@@ -1,6 +1,6 @@
 # docs/references/automation/catzc-base-qualitygates.md
 
-Catzc.Base.QualityGates
+`Catzc.Base.QualityGates`
 
 The quality-gate module. It **runs every check the repository applies to itself** — all tests (with tag-enforcement and timestamped
 reporting), the spell-checker, the Markdown linter, the Markdown formatter, and the PowerShell auto-formatter. What it deliberately does

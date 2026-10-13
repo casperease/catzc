@@ -1,6 +1,6 @@
 # docs/adr/pipelines/pipeline-naming-and-placement.md
 
-ADR: Pipeline naming and placement
+`ADR: Pipeline naming and placement`
 
 ## Rules: ADR-PIPE-NAME
 

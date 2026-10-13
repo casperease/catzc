@@ -1,6 +1,6 @@
 # docs/adr/configuration/dora-explains.md
 
-DORA explanations — configuration
+`DORA explanations — configuration`
 
 The `Dora explains` rationale for the ADRs in the `configuration/` domain, consolidated in one place. Each entry names its ADR and rule
 code, then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The

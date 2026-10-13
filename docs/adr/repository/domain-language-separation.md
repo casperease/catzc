@@ -1,6 +1,6 @@
 # docs/adr/repository/domain-language-separation.md
 
-ADR: Domain-language separation — three domains, three terminologies
+`ADR: Domain-language separation — three domains, three terminologies`
 
 ## Rules: ADR-REPO-LANG
 

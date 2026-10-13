@@ -1,6 +1,6 @@
 # docs/adr/automation/controlling-module-dependencies.md
 
-ADR: Controlling module dependencies
+`ADR: Controlling module dependencies`
 
 ## Rules: ADR-AUTO-DEPM
 

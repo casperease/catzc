@@ -1,6 +1,6 @@
 # docs/adr/flow/cd-discipline-and-promotion-flow.md
 
-ADR: The CI discipline and the promotion flow — domains keyed by the tagged artifact
+`ADR: The CI discipline and the promotion flow — domains keyed by the tagged artifact`
 
 ## Rules: ADR-FLOW-CD
 

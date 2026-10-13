@@ -1,6 +1,6 @@
 # docs/adr/automation/powershell/module-path-hygiene.md
 
-ADR: Module-path hygiene — the PowerShell layer over effective-in-enterprises
+`ADR: Module-path hygiene — the PowerShell layer over effective-in-enterprises`
 
 ## Rules: ADR-AUTO-MODPATH
 

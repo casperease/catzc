@@ -1,6 +1,6 @@
 # docs/adr/automation/fail-fast-with-asserts.md
 
-ADR: Fail fast with inline assertions
+`ADR: Fail fast with inline assertions`
 
 ## Rules: ADR-AUTO-FAILFAST
 

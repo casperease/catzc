@@ -1,6 +1,6 @@
 # docs/adr/research/flexible-infrastructure.md
 
-ADR: DORA — Flexible infrastructure
+`ADR: DORA — Flexible infrastructure`
 
 ## Rules: ADR-DORA-FLEXINFRA
 

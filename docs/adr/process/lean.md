@@ -1,6 +1,6 @@
 # docs/adr/process/lean.md
 
-ADR: Lean — the Toyota Production System, mapped to software by the Poppendiecks
+`ADR: Lean — the Toyota Production System, mapped to software by the Poppendiecks`
 
 ## Rules: ADR-PROC-LEAN
 

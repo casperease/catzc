@@ -1,6 +1,6 @@
 # docs/adr/research/code-maintainability.md
 
-ADR: DORA — Code maintainability
+`ADR: DORA — Code maintainability`
 
 ## Rules: ADR-DORA-MAINTAIN
 

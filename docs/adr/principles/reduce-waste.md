@@ -1,6 +1,6 @@
 # docs/adr/principles/reduce-waste.md
 
-Principle: Reduce waste
+`Principle: Reduce waste`
 
 ## Rules: ADR-PRIN-NOWASTE
 

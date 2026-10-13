@@ -1,6 +1,6 @@
 # docs/adr/research/platform-engineering.md
 
-ADR: DORA — Platform engineering
+`ADR: DORA — Platform engineering`
 
 ## Rules: ADR-DORA-PLATFORM
 

@@ -1,6 +1,6 @@
 # docs/how-to/getting-started/automation/faq.md
 
-FAQ
+`FAQ`
 
 ## But if we import all the functions all the time, won't we waste time?
 

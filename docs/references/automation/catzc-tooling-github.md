@@ -1,6 +1,6 @@
 # docs/references/automation/catzc-tooling-github.md
 
-Catzc.Tooling.Github
+`Catzc.Tooling.Github`
 
 Erases a token — a leaked secret, or a name being scrubbed — from a GitHub repository's entire history and its remote object store, then
 proves it is gone. The module exists because an ordinary force-push erases nothing: the old commits become unreachable but stay stored on

@@ -1,6 +1,6 @@
 # docs/references/automation/catzc-azure-devops.md
 
-Catzc.Azure.DevOps
+`Catzc.Azure.DevOps`
 
 The Azure DevOps integration module. It is the boundary between the automation layer and an Azure DevOps organization: authenticating to it,
 calling its REST API, taking inventory of the pipeline YAML in the repository, and bridging a running pipeline back to PowerShell. Its

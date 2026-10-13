@@ -1,6 +1,6 @@
 # docs/adr/automation/powershell/working-directory-mechanics.md
 
-ADR: Working-directory mechanics — the PowerShell layer over never-depend-on-pwd
+`ADR: Working-directory mechanics — the PowerShell layer over never-depend-on-pwd`
 
 ## Rules: ADR-AUTO-PSPWD
 

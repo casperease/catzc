@@ -1,6 +1,6 @@
 # docs/adr/process/observe-work.md
 
-ADR: Observe the work — make it visible, and go and see
+`ADR: Observe the work — make it visible, and go and see`
 
 ## Rules: ADR-PROC-OBSERVEWIP
 

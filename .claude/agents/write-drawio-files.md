@@ -12,7 +12,7 @@ model: sonnet
 
 # .claude/agents/write-drawio-files.md
 
-write-drawio-files
+`write-drawio-files`
 
 <!-- cspell:ignore IDAT IEND mxfile urlencode startswith compressobj pnginfo -->
 

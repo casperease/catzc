@@ -1,6 +1,6 @@
 # docs/adr/automation/never-depend-on-pwd.md
 
-ADR: Never depend on `$PWD`
+`ADR: Never depend on `$PWD``
 
 ## Rules: ADR-AUTO-NOPWD
 

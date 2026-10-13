@@ -1,6 +1,6 @@
 # docs/adr/research/database-change-management.md
 
-ADR: DORA — Database change management
+`ADR: DORA — Database change management`
 
 ## Rules: ADR-DORA-DBCHANGE
 

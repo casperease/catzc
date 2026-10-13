@@ -1,6 +1,6 @@
 # docs/references/automation/BCL/index.md
 
-BCL (C# / .NET types) — automation reference
+`BCL (C# / .NET types) — automation reference`
 
 **BCL** is the .NET **Base Class Library** — the standard set of libraries built into the .NET runtime, spanning the `System.*` (and, to a
 limited extent, `Microsoft.*`) namespaces. It is the general-purpose, lower-level framework that every higher-level .NET framework builds

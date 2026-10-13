@@ -1,6 +1,6 @@
 # docs/adr/automation/powershell/automatic-variable-pitfalls.md
 
-ADR: Automatic variable pitfalls
+`ADR: Automatic variable pitfalls`
 
 ## Rules: ADR-AUTO-AUTOVAR
 

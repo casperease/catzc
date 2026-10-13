@@ -1,6 +1,6 @@
 # docs/adr/automation/powershell/parameter-design.md
 
-ADR: Parameter design — the PowerShell layer over sensible-defaults
+`ADR: Parameter design — the PowerShell layer over sensible-defaults`
 
 ## Rules: ADR-AUTO-PSPARAM
 

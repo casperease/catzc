@@ -1,6 +1,6 @@
 # docs/adr/research/well-being.md
 
-ADR: DORA — Well-being
+`ADR: DORA — Well-being`
 
 ## Rules: ADR-DORA-WELLBEING
 

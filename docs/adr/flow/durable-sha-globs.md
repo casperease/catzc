@@ -1,6 +1,6 @@
 # docs/adr/flow/durable-sha-globs.md
 
-ADR: Globset triggers — areas-of-control projected to native filters and reflected from git
+`ADR: Globset triggers — areas-of-control projected to native filters and reflected from git`
 
 ## Rules: ADR-FLOW-CD-GLOBS
 

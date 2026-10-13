@@ -1,6 +1,6 @@
 # docs/adr/automation/idempotent-state-functions.md
 
-ADR: State-changing functions must be idempotent
+`ADR: State-changing functions must be idempotent`
 
 ## Rules: ADR-AUTO-IDEM
 

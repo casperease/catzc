@@ -1,6 +1,6 @@
 # docs/adr/research/transformational-leadership.md
 
-ADR: DORA — Transformational leadership
+`ADR: DORA — Transformational leadership`
 
 ## Rules: ADR-DORA-LEADERSHIP
 

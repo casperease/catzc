@@ -1,6 +1,6 @@
 # docs/adr/automation/powershell/announce-state-changes.md
 
-ADR: Announce every state change on the information stream
+`ADR: Announce every state change on the information stream`
 
 ## Rules: ADR-AUTO-ANNOUNCE
 

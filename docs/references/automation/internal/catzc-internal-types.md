@@ -1,6 +1,6 @@
 # docs/references/automation/internal/catzc-internal-types.md
 
-Catzc.Internal.Types
+`Catzc.Internal.Types`
 
 The single implementation of the combined C# type-source hash. Its one export, `Get-CombinedTypeHash`, enumerates, orders, and hashes every
 module's `types/*.cs` exactly the way the committed `automation/.compiled/Catzc.Types.<hash>.dll` is keyed. It lives in `.internal` because

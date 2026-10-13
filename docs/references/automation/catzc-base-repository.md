@@ -1,6 +1,6 @@
 # docs/references/automation/catzc-base-repository.md
 
-Catzc.Base.Repository
+`Catzc.Base.Repository`
 
 The path-anchor module. It is the **single source of truth for where files live** — locating the repository root, resolving repo-relative
 and absolute paths, pointing to the dedicated output directory, and detecting whether code is running inside a CI pipeline. No other module

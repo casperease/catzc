@@ -1,6 +1,6 @@
 # docs/adr/automation/use-proper-package-managers.md
 
-ADR: Use proper package managers
+`ADR: Use proper package managers`
 
 ## Rules: ADR-AUTO-PKGMGR
 

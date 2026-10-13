@@ -1,6 +1,6 @@
 # docs/adr/automation/test-automation.md
 
-ADR: Test automation — logic tests vs integrity tests, and how to isolate
+`ADR: Test automation — logic tests vs integrity tests, and how to isolate`
 
 ## Rules: ADR-AUTO-TEST
 

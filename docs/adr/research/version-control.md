@@ -1,6 +1,6 @@
 # docs/adr/research/version-control.md
 
-ADR: DORA — Version control
+`ADR: DORA — Version control`
 
 ## Rules: ADR-DORA-VCS
 

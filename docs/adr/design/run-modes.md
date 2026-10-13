@@ -1,6 +1,6 @@
 # docs/adr/design/run-modes.md
 
-ADR: Run modes — source mode and build mode
+`ADR: Run modes — source mode and build mode`
 
 ## Rules: ADR-DSGN-RUNMODE
 

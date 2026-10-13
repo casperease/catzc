@@ -1,6 +1,6 @@
 # docs/references/automation/catzc-base-git.md
 
-Catzc.Base.Git
+`Catzc.Base.Git`
 
 The declarative git-configuration module. It owns the rule that **what git ignores is declared, explained, and generated**: the
 repository-root `.gitignore` is rendered in full from a zone registry (`gitignore.yml`) — every rule under a titled, explained comment block

@@ -1,6 +1,6 @@
 # docs/adr/automation/uv-python-handler.md
 
-ADR: uv is the standard Python handler; tools install user-space
+`ADR: uv is the standard Python handler; tools install user-space`
 
 ## Rules: ADR-AUTO-UVPY
 

@@ -1,6 +1,6 @@
 # docs/adr/automation/powershell/dynamic-module-manifests.md
 
-ADR: Dynamic module manifests — the PowerShell layer over open-closed-architecture
+`ADR: Dynamic module manifests — the PowerShell layer over open-closed-architecture`
 
 ## Rules: ADR-AUTO-MANIFEST
 

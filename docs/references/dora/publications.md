@@ -1,6 +1,6 @@
 # docs/references/dora/publications.md
 
-DORA publications
+`DORA publications`
 
 This file lists every publication on DORA's [publications page](https://dora.dev/research/publications/) and its
 [research archive](https://dora.dev/research/), newest first. Each heading has the form `<year> <title>`, so the anchor is

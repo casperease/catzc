@@ -1,6 +1,6 @@
 # docs/adr/flow/pipeline-runner-pattern.md
 
-ADR: Pipeline runner pattern — how pipelines invoke automation
+`ADR: Pipeline runner pattern — how pipelines invoke automation`
 
 ## Rules: ADR-FLOW-CD-RUNNER
 

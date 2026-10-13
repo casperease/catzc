@@ -1,6 +1,6 @@
 # docs/references/automation/internal/catzc-internal-bootstrap.md
 
-Catzc.Internal.Bootstrap
+`Catzc.Internal.Bootstrap`
 
 The import-time engine. It does the heavy lifting the [Importer overlay](catzc-internal-importer.md) delegates to: discovering the modules
 on disk, generating each module's manifest, compiling and loading every module's native C# types into one assembly, and guarding against

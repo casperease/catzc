@@ -1,6 +1,6 @@
 # docs/adr/automation/avoid-deep-nesting.md
 
-ADR: Avoid deep nesting in statements and expressions
+`ADR: Avoid deep nesting in statements and expressions`
 
 ## Rules: ADR-AUTO-NONEST
 

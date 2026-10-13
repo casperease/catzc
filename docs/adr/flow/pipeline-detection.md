@@ -1,6 +1,6 @@
 # docs/adr/flow/pipeline-detection.md
 
-ADR: Pipeline detection — how functions adapt to their execution context
+`ADR: Pipeline detection — how functions adapt to their execution context`
 
 ## Rules: ADR-FLOW-CD-DETECT
 

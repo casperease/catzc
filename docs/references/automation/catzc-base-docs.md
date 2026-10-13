@@ -1,6 +1,6 @@
 # docs/references/automation/catzc-base-docs.md
 
-Catzc.Base.Docs
+`Catzc.Base.Docs`
 
 The generated-README module. It owns the rule that a `README.md` in a conventional folder is a **filesystem link** to one authored docs
 source, never a hand-kept copy (see [generated-readmes](../../adr/repository/generated-readmes.md)): the README IS the source, so an edit

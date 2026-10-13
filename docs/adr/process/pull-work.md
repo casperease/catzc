@@ -1,6 +1,6 @@
 # docs/adr/process/pull-work.md
 
-ADR: Pull work through the system — do not push it
+`ADR: Pull work through the system — do not push it`
 
 ## Rules: ADR-PROC-PULLWORK
 

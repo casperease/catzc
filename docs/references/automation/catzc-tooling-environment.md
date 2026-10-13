@@ -1,6 +1,6 @@
 # docs/references/automation/catzc-tooling-environment.md
 
-Catzc.Tooling.Environment
+`Catzc.Tooling.Environment`
 
 The seam that prepares a process's environment before launching a child or external tool. It is the one sanctioned way to hand a secret to
 an external consumer through the environment (ADR-AUTO-ENVVAR#7) and to expose committed config values as environment variables, so that
