@@ -66,12 +66,9 @@ function Test-AdrRegistry {
     foreach ($ruleSet in $ruleSets) {
         $key = "$($ruleSet.Domain)/$($ruleSet.Slug)"
         [void]$registeredKeys.Add($key)
-        $files = if ($filesByKey.ContainsKey($key)) {
-            @($filesByKey[$key])
-        }
-        else {
-            @()
-        }
+        $files = @(if ($filesByKey.ContainsKey($key)) {
+                $filesByKey[$key]
+            })
         if ($files.Count -eq 0) {
             $issues.Add("$($ruleSet.External): no ADR file docs/adr/$($ruleSet.Domain)/**/$($ruleSet.Slug).md")
             continue
