@@ -2,18 +2,22 @@
 
 `Authoring a module reference`
 
+```text
 This directory holds one **domains-first** reference article per automation module, named `<module-in-kebab>.md` (`Catzc.Azure.Cli` →
 `catzc-azure-cli.md`). `index.md` is the reader's guide and the module list; this file is the author's guide. The canonical, correct example
 to copy is **`catzc-azure-cli.md`** — when in doubt, match it.
 
 A reference article describes a module by the **domains** (areas of responsibility) it owns, not by walking its functions. The domains are
 the stable contract; the function list is an appendix indexed by them.
+```
 
 ## Document structure
 
 Every article has these five parts, in this order:
 
-1. **`# <Module name>`** — H1, the exact module name (`# Catzc.Azure.Cli`). One H1 per file.
+1. **`# docs/references/automation/<kebab>.md`** — H1, the file's repository path, then the exact module name in single backticks on the
+   line below (`` `Catzc.Azure.Cli` ``). One H1 per file. `Format-MarkdownTitle` writes the H1
+   ([uniform-formatting](../../adr/repository/uniform-formatting.md), ADR-REPO-FORMAT#6).
 2. **Lead paragraph** (directly under the title) — what the module _is_, in one or two sentences: its single most important responsibility
    first, what it owns and (where it clarifies the boundary) what it deliberately does **not** own, with links to the governing ADR(s). Lead
    with the thesis, not a feature list.
