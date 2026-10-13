@@ -118,6 +118,11 @@ Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity', 'source-only
         { Build-Readme -DryRun -Silent | Out-Null } | Should -Not -Throw
     }
 
+    It 'every README link is current — no drift from readme.yml (Test-GeneratedFiles)' {
+        $result = Test-GeneratedFiles -Generator Build-Readme -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
+    }
+
     It 'covers every automation module — the pattern derives a reference article for each' {
         $automationRoot = Join-Path $script:root 'automation'
         $modules = @([System.IO.Directory]::EnumerateDirectories($automationRoot) |

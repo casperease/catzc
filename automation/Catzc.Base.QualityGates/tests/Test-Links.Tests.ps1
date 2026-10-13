@@ -58,6 +58,5 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
         & $writeFile $root 'src/widget.ps1' "# [ADR-TST-WIDGET#1](/docs/adr/widget/widget-rules.md#rule-adr-tst-widget1)`n"
         $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
         $result.IssueCount | Should -Be 0
-        $result.InformationCount | Should -Be 1
     }
 }

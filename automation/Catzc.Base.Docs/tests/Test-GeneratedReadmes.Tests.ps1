@@ -1,9 +1,78 @@
-# Integrity gate for generated README links.
+# Test-GeneratedReadmes over fixture READMEs in $TestDrive: the mappings, git's ignore check, and the index are
+# mocked, so each test pins one rule. A hard link stands in for a materialised link (no privilege needed). Neutral
+# fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $root = Join-Path $TestDrive 'repo'
+        foreach ($folder in 'docs', 'widget', 'gadget') {
+            [void][System.IO.Directory]::CreateDirectory((Join-Path $root $folder))
+        }
+        [System.IO.File]::WriteAllText((Join-Path $root 'docs/widget.md'), "# Widget`n")
+        [System.IO.File]::WriteAllText((Join-Path $root 'docs/gadget.md'), "# Gadget`n")
+        New-Item -ItemType HardLink -Path (Join-Path $root 'widget/README.md') -Value (Join-Path $root 'docs/widget.md') | Out-Null
+        New-Item -ItemType HardLink -Path (Join-Path $root 'gadget/README.md') -Value (Join-Path $root 'docs/gadget.md') | Out-Null
+        $script:out = Join-Path $TestDrive 'out'
+    }
+
+    BeforeEach {
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Docs { Join-Path $TestDrive 'repo' }
+        Mock Write-Message -ModuleName Catzc.Base.Reports { }
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'readme' } { [pscustomobject]@{} }
+        Mock Get-ReadmeMappings -ModuleName Catzc.Base.Docs {
+            [pscustomobject]@{ folder = 'widget'; source = 'docs/widget.md' }
+            [pscustomobject]@{ folder = 'gadget'; source = 'docs/gadget.md' }
+        }
+        $script:ignored = @('widget/README.md', 'gadget/README.md')
+        Mock Invoke-Executable -ModuleName Catzc.Base.Docs -ParameterFilter { $Command -match ' check-ignore --no-index ' } {
+            [pscustomobject]@{ Output = $ignored -join "`n"; Errors = ''; ExitCode = [int]($ignored.Count -eq 0) }
+        }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Docs { }
+    }
+
+    It 'passes when every generated README is ignored, untracked, and a link to its source' {
+        $result = Test-GeneratedReadmes -OutputFolder $out -PassThru
+        $result.IssueCount | Should -Be 0
+        $result.Readmes | Should -Be 2
+    }
+
+    It 'throws once naming an unignored, a tracked, and a broken README' {
+        $script:ignored = @('gadget/README.md')
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Docs { 'gadget/README.md' }
+        Mock Get-ReadmeMappings -ModuleName Catzc.Base.Docs {
+            [pscustomobject]@{ folder = 'widget'; source = 'docs/widget.md' }
+            [pscustomobject]@{ folder = 'gadget'; source = 'docs/widget.md' }
+        }
+        $thrown = { Test-GeneratedReadmes -OutputFolder $out } | Should -Throw -PassThru
+        $message = $thrown.Exception.Message
+        $message | Should -BeLike 'Test-GeneratedReadmes failed: 3 issue(s)*'
+        $message | Should -Match 'widget/README.md: no .gitignore rule ignores this generated README'
+        $message | Should -Match "gadget/README.md: committed, but a generated README is a gitignored artifact"
+        $message | Should -Match 'gadget/README.md: missing, stale, or not a link to docs/widget.md'
+    }
+
+    It 'throws on a git failure rather than reporting every README unignored' {
+        Mock Invoke-Executable -ModuleName Catzc.Base.Docs -ParameterFilter { $Command -match ' check-ignore ' } {
+            [pscustomobject]@{ Output = ''; Errors = 'fatal: not a git repository'; ExitCode = 128 }
+        }
+        { Test-GeneratedReadmes -OutputFolder $out } | Should -Throw '*git check-ignore failed (128)*'
+    }
+
+    It 'returns the issues under -PassThru instead of throwing' {
+        $script:ignored = @('widget/README.md')
+        $result = Test-GeneratedReadmes -OutputFolder $out -PassThru
+        $result.Subject | Should -Be 'generated-readmes'
+        $result.Issues | Should -HaveCount 1
+    }
+}
+
+# Integrity gate for generated README links, over the real repository through Test-GeneratedReadmes
+# ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
 #
 # readme.yml (expanded by Get-ReadmeMappings) is the registry of folders whose README.md is a LINK to a
 # docs/ source — a derived artifact, never authored in place. Every such README must therefore be:
 #   1. matched by a .gitignore ignore rule (so a fresh Build-Readme output is never accidentally stageable), and
-#   2. absent from git tracking (removed with `git rm --cached` if it was ever committed).
+#   2. absent from git tracking (removed with `git rm --cached` if it was ever committed), and
+#   3. an effective link to its source.
 # Hand-authored READMEs are exactly the folders NOT in readme.yml; they are individually un-ignored in
 # .gitignore and are out of scope here. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
 #
@@ -31,19 +100,9 @@ Describe 'Generated README links are gitignored and untracked' -Tag 'L2', 'integ
             }
         }
 
-        # Resolve the configured targets exactly as Build-Readme does: expand readme.yml through
-        # Get-ReadmeMappings (private, so reached via the module per
-        # [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)) against the real
-        # repo root.
-        # Each target folder's generated file is "<folder>/README.md".
-        $script:mappings = @()
-        $script:targets = @()
+        $script:result = $null
         if (-not $script:skip) {
-            $config = Get-Config -Config readme
-            $script:mappings = @(InModuleScope Catzc.Base.Docs -Parameters @{ Config = $config } {
-                    param($Config) Get-ReadmeMappings -Config $Config
-                })
-            $script:targets = @($script:mappings.folder | ForEach-Object { "$_/README.md" } | Sort-Object -Unique)
+            $script:result = Test-GeneratedReadmes -PassThru -OutputFolder (Join-Path $TestDrive 'generated-readmes')
         }
     }
 
@@ -51,62 +110,13 @@ Describe 'Generated README links are gitignored and untracked' -Tag 'L2', 'integ
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return
         }
-        @($script:targets).Count | Should -BeGreaterThan 0
+        $result.Readmes | Should -BeGreaterThan 0
     }
 
-    It 'covers every generated README with a .gitignore ignore rule' {
+    It 'ignores, untracks, and links every generated README' {
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return
         }
-
-        # --no-index evaluates the ignore RULES alone. Default check-ignore consults the index and would report
-        # a wrongly-tracked file as "not ignored", masking the very defect the next test isolates. Exit 0 = the
-        # path is ignored; a negated/opted-in path exits non-zero, which for a configured target is itself a
-        # violation worth surfacing here.
-        $notIgnored = @($script:targets | Where-Object {
-                & git -C $script:repoRoot check-ignore --no-index -- $_ *> $null
-                $LASTEXITCODE -ne 0
-            })
-        $notIgnored | Should -HaveCount 0 -Because "no .gitignore rule ignores these generated READMEs: $($notIgnored -join '; ')"
-    }
-
-    It 'tracks none of the generated READMEs in git' {
-        if ($script:skip) {
-            Set-ItResult -Skipped -Because $script:skip; return
-        }
-
-        # A generated artifact that is tracked must be removed from the index: `git rm --cached <path>` (the file
-        # stays on disk, now correctly ignored).
-        $tracked = @(Get-GitTrackedPath $script:targets)
-        $tracked | Should -HaveCount 0 -Because "these generated READMEs are committed but must be gitignored artifacts — run 'git rm --cached <path>': $($tracked -join '; ')"
-    }
-
-    It 'materialises every mapped README as an effective link to its source' {
-        if ($script:skip) {
-            Set-ItResult -Skipped -Because $script:skip; return
-        }
-
-        # Effective from THIS OS: a symbolic link resolving to the mapping's source, or a hard link whose
-        # bytes are CR-insensitively identical to it. Anything else is a broken or stale artifact.
-        $broken = @(foreach ($mapping in $script:mappings) {
-                $readmePath = Join-Path $script:repoRoot "$($mapping.folder)/README.md"
-                $sourcePath = Join-Path $script:repoRoot $mapping.source
-                $item = Get-Item -LiteralPath $readmePath -Force -ErrorAction Ignore
-                $effective = $false
-                if ($item -and $item.LinkType -eq 'SymbolicLink') {
-                    $resolved = $item.ResolveLinkTarget($true)
-                    $effective = $resolved -and (
-                        [System.IO.Path]::GetFullPath($resolved.FullName) -eq [System.IO.Path]::GetFullPath($sourcePath))
-                }
-                elseif ($item -and $item.LinkType -eq 'HardLink') {
-                    $readmeText = [System.IO.File]::ReadAllText($readmePath) -replace "`r", ''
-                    $sourceText = [System.IO.File]::ReadAllText($sourcePath) -replace "`r", ''
-                    $effective = $readmeText -ceq $sourceText
-                }
-                if (-not $effective) {
-                    "$($mapping.folder)/README.md"
-                }
-            })
-        $broken | Should -HaveCount 0 -Because "these README links are missing, stale, or not links — re-run the importer (Build-Readme re-links): $($broken -join '; ')"
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }
