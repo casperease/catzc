@@ -267,4 +267,27 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
             $result.ElapsedMs | Should -BeLessThan 5000
         }
     }
+
+    Context 'the summary line' {
+        BeforeEach {
+            Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
+            $script:messageRoot = & $script:newRepository
+        }
+
+        It 'says plainly that everything is already aligned when there is nothing to do' {
+            & $script:writeFile $script:messageRoot 'src/widget.ps1' "# A widget with no citations at all.`n`$x = 1`n"
+            Format-Links -RepositoryRoot $script:messageRoot -Path (Join-Path $script:messageRoot 'src') | Out-Null
+            Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $Message -like 'Links: all 1 file(s) already aligned (* ms).'
+            }
+        }
+
+        It 'counts what it aligned, and leaves out "need a person" when nobody is needed' {
+            & $script:writeFile $script:messageRoot 'src/widget.ps1' "# Widget per ADR-TST-WIDGET:2.`n`$x = 1`n"
+            Format-Links -RepositoryRoot $script:messageRoot -Path (Join-Path $script:messageRoot 'src') | Out-Null
+            Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $Message -like 'Links: aligned 1 link(s) in 1 of 1 file(s) (* ms).'
+            }
+        }
+    }
 }

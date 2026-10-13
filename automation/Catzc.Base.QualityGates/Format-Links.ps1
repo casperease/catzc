@@ -80,7 +80,20 @@ function Format-Links {
     else {
         'aligned'
     }
-    Write-Message "Links: $verb $($fixed.Count) link(s) in $($changedFiles.Count) of $($result.FileCount) file(s) in $($stopwatch.ElapsedMilliseconds) ms; $($unfixable.Count) need a person (run Test-Links to list them)."
+    $elapsed = "$($stopwatch.ElapsedMilliseconds) ms"
+    $needPerson = "$($unfixable.Count) need a person (run Test-Links to list them)"
+    if ($fixed.Count -eq 0 -and $unfixable.Count -eq 0) {
+        Write-Message "Links: all $($result.FileCount) file(s) already aligned ($elapsed)."
+    }
+    elseif ($fixed.Count -eq 0) {
+        Write-Message "Links: nothing to align in $($result.FileCount) file(s) ($elapsed); $needPerson."
+    }
+    elseif ($unfixable.Count -eq 0) {
+        Write-Message "Links: $verb $($fixed.Count) link(s) in $($changedFiles.Count) of $($result.FileCount) file(s) ($elapsed)."
+    }
+    else {
+        Write-Message "Links: $verb $($fixed.Count) link(s) in $($changedFiles.Count) of $($result.FileCount) file(s) ($elapsed); $needPerson."
+    }
 
     if ($PassThru) {
         return [pscustomobject]@{
