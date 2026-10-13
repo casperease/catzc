@@ -1,4 +1,6 @@
-# ADR: Log the exact command before every invocation
+# docs/adr/automation/log-before-invoke.md
+
+ADR: Log the exact command before every invocation
 
 ## Rules: ADR-AUTO-PRELOG
 

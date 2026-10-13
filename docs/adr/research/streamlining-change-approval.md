@@ -1,4 +1,6 @@
-# ADR: DORA — Streamlining change approval
+# docs/adr/research/streamlining-change-approval.md
+
+ADR: DORA — Streamlining change approval
 
 ## Rules: ADR-DORA-APPROVAL
 

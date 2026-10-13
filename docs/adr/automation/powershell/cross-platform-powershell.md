@@ -1,4 +1,6 @@
-# ADR: Cross-platform PowerShell — the language layer over cross-platform
+# docs/adr/automation/powershell/cross-platform-powershell.md
+
+ADR: Cross-platform PowerShell — the language layer over cross-platform
 
 ## Rules: ADR-AUTO-PSXPLAT
 

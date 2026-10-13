@@ -1,4 +1,6 @@
-# Catzc.Base.ModuleSystem
+# docs/references/automation/catzc-base-modulesystem.md
+
+Catzc.Base.ModuleSystem
 
 The module-system introspection module: the one place the platform turns to reason about its own shape — which modules and functions exist
 on disk, what the module-to-module and function-to-function dependency edges actually are, and whether those edges — together with the

@@ -1,4 +1,6 @@
-# ADR: Holding the line — a failing gate stops the flow until it is green
+# docs/adr/process/holding-the-line.md
+
+ADR: Holding the line — a failing gate stops the flow until it is green
 
 ## Rules: ADR-PROC-ANDON
 

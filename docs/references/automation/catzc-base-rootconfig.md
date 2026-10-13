@@ -1,4 +1,6 @@
-# Catzc.Base.RootConfig
+# docs/references/automation/catzc-base-rootconfig.md
+
+Catzc.Base.RootConfig
 
 The managed root-config module. It owns the rule that an opted-in repository-root configuration file is **fully managed by the
 source-of-truth automation** — materialised on every import from exactly one in-repo source of truth (see

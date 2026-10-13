@@ -1,4 +1,6 @@
-# ADR: Process terms — the foundational vocabulary of flow
+# docs/adr/process/process-terms.md
+
+ADR: Process terms — the foundational vocabulary of flow
 
 ## Rules: ADR-PROC-LEANTERMS
 

@@ -1,4 +1,6 @@
-# Catzc.Internal.Loader
+# docs/references/automation/internal/catzc-internal-loader.md
+
+Catzc.Internal.Loader
 
 The always-loaded entry point for `.internal` shared code. It is the one thing the generated `importer.ps1` shim imports unconditionally,
 and — unlike the transient bootstrap and importer overlay — it **stays in the session** for the whole life of the shell. Its single export,

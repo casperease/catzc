@@ -1,4 +1,6 @@
-# ADR: Repo-wide variants — session-fixed settings behind `Test-`/`Assert-` primitives
+# docs/adr/repository/repo-variants.md
+
+ADR: Repo-wide variants — session-fixed settings behind `Test-`/`Assert-` primitives
 
 ## Rules: ADR-REPO-VARIANT
 

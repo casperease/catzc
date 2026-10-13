@@ -1,4 +1,6 @@
-# infrastructure
+# docs/references/infrastructure/overview.md
+
+infrastructure
 
 Bicep for the templating system, in two folders:
 

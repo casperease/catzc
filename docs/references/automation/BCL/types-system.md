@@ -1,4 +1,6 @@
-# The BCL type system
+# docs/references/automation/BCL/types-system.md
+
+The BCL type system
 
 The automation platform compiles every module's `types/*.cs` sources into **one** combined assembly for the whole repository, loaded at
 import before any module's functions. A type in any module can therefore reference a type in any other; the layering is governed by the

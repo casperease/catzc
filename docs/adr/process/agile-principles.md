@@ -1,4 +1,6 @@
-# ADR: Agile principles — the twelve principles behind the manifesto
+# docs/adr/process/agile-principles.md
+
+ADR: Agile principles — the twelve principles behind the manifesto
 
 ## Rules: ADR-PRIN-PROCESS
 

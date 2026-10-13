@@ -1,4 +1,6 @@
-# ADR: Avoid using semicolons
+# docs/adr/automation/powershell/avoid-using-semicolons.md
+
+ADR: Avoid using semicolons
 
 ## Rules: ADR-AUTO-NOSEMI
 

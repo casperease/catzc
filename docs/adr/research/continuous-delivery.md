@@ -1,4 +1,6 @@
-# ADR: DORA — Continuous delivery
+# docs/adr/research/continuous-delivery.md
+
+ADR: DORA — Continuous delivery
 
 ## Rules: ADR-DORA-CD
 

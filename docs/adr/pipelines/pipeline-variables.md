@@ -1,4 +1,6 @@
-# ADR: Pipeline variable interface — setting ADO output variables from PowerShell
+# docs/adr/pipelines/pipeline-variables.md
+
+ADR: Pipeline variable interface — setting ADO output variables from PowerShell
 
 ## Rules: ADR-PIPE-VAR
 

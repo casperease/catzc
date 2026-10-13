@@ -1,4 +1,6 @@
-# ADR: DORA — Test data management
+# docs/adr/research/test-data-management.md
+
+ADR: DORA — Test data management
 
 ## Rules: ADR-DORA-TESTDATA
 

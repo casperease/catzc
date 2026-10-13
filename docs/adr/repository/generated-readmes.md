@@ -1,4 +1,6 @@
-# Generated READMEs — one authored source, linked out per conventional folder
+# docs/adr/repository/generated-readmes.md
+
+Generated READMEs — one authored source, linked out per conventional folder
 
 ## Rules: ADR-REPO-README
 

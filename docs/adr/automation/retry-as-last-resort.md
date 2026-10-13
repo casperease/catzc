@@ -1,4 +1,6 @@
-# ADR: Retry is a last resort — lowest level only, never in tests
+# docs/adr/automation/retry-as-last-resort.md
+
+ADR: Retry is a last resort — lowest level only, never in tests
 
 ## Rules: ADR-AUTO-RETRY
 

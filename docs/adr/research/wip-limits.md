@@ -1,4 +1,6 @@
-# ADR: DORA — Work in process limits
+# docs/adr/research/wip-limits.md
+
+ADR: DORA — Work in process limits
 
 ## Rules: ADR-DORA-WIP
 

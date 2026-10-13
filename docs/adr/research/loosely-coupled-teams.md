@@ -1,4 +1,6 @@
-# ADR: DORA — Loosely coupled teams
+# docs/adr/research/loosely-coupled-teams.md
+
+ADR: DORA — Loosely coupled teams
 
 ## Rules: ADR-DORA-LOOSETEAMS
 

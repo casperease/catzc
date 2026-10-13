@@ -1,4 +1,6 @@
-# ADR: DORA — Monitoring and observability
+# docs/adr/research/monitoring-and-observability.md
+
+ADR: DORA — Monitoring and observability
 
 ## Rules: ADR-DORA-OBSERV
 

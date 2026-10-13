@@ -1,4 +1,6 @@
-# ADR: Script-scope caching — the PowerShell layer over caching
+# docs/adr/automation/powershell/script-scope-caching.md
+
+ADR: Script-scope caching — the PowerShell layer over caching
 
 ## Rules: ADR-AUTO-PSCACHE
 

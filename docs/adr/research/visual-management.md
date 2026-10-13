@@ -1,4 +1,6 @@
-# ADR: DORA — Visual management
+# docs/adr/research/visual-management.md
+
+ADR: DORA — Visual management
 
 ## Rules: ADR-DORA-VISUAL
 

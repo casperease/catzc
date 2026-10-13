@@ -1,4 +1,6 @@
-# ADR: Agile — defined by the manifesto, measured by responsiveness
+# docs/adr/process/agile.md
+
+ADR: Agile — defined by the manifesto, measured by responsiveness
 
 ## Rules: ADR-PROC-AGILE
 

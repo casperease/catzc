@@ -1,4 +1,6 @@
-# Catzc.Base.Objects
+# docs/references/automation/catzc-base-objects.md
+
+Catzc.Base.Objects
 
 The object-shaping and serialization module. It owns the conversions between the typed object model and the mutable, flat, sorted, or
 YAML-serializable forms the rest of the platform needs — the object-shaping helpers that convert typed objects to mutable dictionaries,

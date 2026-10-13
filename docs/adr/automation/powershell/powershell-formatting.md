@@ -1,4 +1,6 @@
-# ADR: PowerShell formatting — the language layer over uniform-formatting
+# docs/adr/automation/powershell/powershell-formatting.md
+
+ADR: PowerShell formatting — the language layer over uniform-formatting
 
 ## Rules: ADR-AUTO-PSFORMAT
 

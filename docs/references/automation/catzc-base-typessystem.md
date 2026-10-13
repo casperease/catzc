@@ -1,4 +1,6 @@
-# Catzc.Base.TypesSystem
+# docs/references/automation/catzc-base-typessystem.md
+
+Catzc.Base.TypesSystem
 
 The native C# type system's support layer: it keeps the single committed combined type assembly under `automation/.compiled/` clean,
 computes the cross-module C# type-reference edges that [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md) folds into its dependency

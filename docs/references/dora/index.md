@@ -1,4 +1,6 @@
-# DORA research reference
+# docs/references/dora/index.md
+
+DORA research reference
 
 This folder is the repository's local, citable copy of the structure of the [DORA research program](https://dora.dev/research/): its model,
 its metrics, its capability catalogue, and its publications. DORA is the theory every ADR domain in this repository depends on (see the

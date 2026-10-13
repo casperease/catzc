@@ -1,4 +1,6 @@
-# ADR: DORA — Generative organizational culture
+# docs/adr/research/generative-organizational-culture.md
+
+ADR: DORA — Generative organizational culture
 
 ## Rules: ADR-DORA-CULTURE
 

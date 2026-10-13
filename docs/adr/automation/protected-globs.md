@@ -1,4 +1,6 @@
-# ADR: Protected globs — session-memory skip of repeated scans over an unchanged globset
+# docs/adr/automation/protected-globs.md
+
+ADR: Protected globs — session-memory skip of repeated scans over an unchanged globset
 
 ## Rules: ADR-REPO-PROTGLOB
 

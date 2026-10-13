@@ -1,4 +1,6 @@
-# ADR: DORA — Deployment automation
+# docs/adr/research/deployment-automation.md
+
+ADR: DORA — Deployment automation
 
 ## Rules: ADR-DORA-DEPLOY
 

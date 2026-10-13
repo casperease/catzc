@@ -1,6 +1,13 @@
 Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6' {
     BeforeAll {
-        function script:Get-Finding([string] $Text) {
+        # Fixture text is built from lines, so every escape stays apart from the words around it.
+        function script:Join-Lines {
+            param([string[]] $Lines, [string] $Newline = "`n")
+            $Lines -join $Newline
+        }
+
+        function script:Get-Finding {
+            param([string] $Text)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Text = $Text } {
                 param($Text)
                 Get-MarkdownTitleFinding -RelativePath 'docs/widget.md' -Text $Text
@@ -9,50 +16,60 @@ Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6' {
     }
 
     It 'accepts a file already titled with its path' {
-        $finding = Get-Finding "# docs/widget.md`n`nBody.`n"
+        $text = Join-Lines '# docs/widget.md', '', 'Body.', ''
+        $finding = Get-Finding $text
         $finding.Kind | Should -Be 'Ok'
-        $finding.Fixed | Should -Be "# docs/widget.md`n`nBody.`n"
+        $finding.Fixed | Should -Be $text
     }
 
-    It 'replaces an H1 with other text' {
-        $finding = Get-Finding "# widget`n`nBody.`n"
+    It 'replaces an H1 with other text and keeps the old title as the first body line' {
+        $finding = Get-Finding (Join-Lines '# widget', '', 'Body.', '')
         $finding.Kind | Should -Be 'Wrong'
         $finding.Actual | Should -Be '# widget'
         $finding.Line | Should -Be 1
-        $finding.Fixed | Should -Be "# docs/widget.md`n`nBody.`n"
+        $finding.Fixed | Should -Be (Join-Lines '# docs/widget.md', '', 'widget', '', 'Body.', '')
+    }
+
+    It 'pads the kept old title from a body line that followed the heading directly' {
+        (Get-Finding (Join-Lines '# widget', 'Body.', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', 'widget', '', 'Body.', '')
+    }
+
+    It 'keeps an old title that ends the file' {
+        (Get-Finding (Join-Lines '# widget', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', 'widget', '')
     }
 
     It 'is case-sensitive about the path' {
-        (Get-Finding "# Docs/Widget.md`n").Kind | Should -Be 'Wrong'
+        (Get-Finding (Join-Lines '# Docs/Widget.md', '')).Kind | Should -Be 'Wrong'
     }
 
     It 'inserts the title when the file opens without an H1' {
-        $finding = Get-Finding "Body.`n"
+        $finding = Get-Finding (Join-Lines 'Body.', '')
         $finding.Kind | Should -Be 'Missing'
-        $finding.Fixed | Should -Be "# docs/widget.md`n`nBody.`n"
+        $finding.Fixed | Should -Be (Join-Lines '# docs/widget.md', '', 'Body.', '')
     }
 
     It 'treats a second-level heading as no title' {
-        (Get-Finding "## widget`n").Fixed | Should -Be "# docs/widget.md`n`n## widget`n"
+        (Get-Finding (Join-Lines '## widget', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '## widget', '')
     }
 
     It 'titles after YAML front matter and leaves the front matter alone' {
-        $finding = Get-Finding "---`nname: widget`n---`n`n# widget`n`nBody.`n"
+        $finding = Get-Finding (Join-Lines '---', 'name: widget', '---', '', '# widget', '', 'Body.', '')
         $finding.Kind | Should -Be 'Wrong'
         $finding.Line | Should -Be 5
-        $finding.Fixed | Should -Be "---`nname: widget`n---`n`n# docs/widget.md`n`nBody.`n"
+        $finding.Fixed | Should -Be (Join-Lines '---', 'name: widget', '---', '', '# docs/widget.md', '', 'widget', '', 'Body.', '')
     }
 
     It 'never reads a # line in a later code fence as the title' {
-        $text = "# docs/widget.md`n`n``````powershell`n# gadget comment`n```````n"
+        $text = Join-Lines '# docs/widget.md', '', '```powershell', '# gadget comment', '```', ''
         (Get-Finding $text).Kind | Should -Be 'Ok'
     }
 
     It 'keeps CRLF line endings' {
-        (Get-Finding "# widget`r`n`r`nBody.`r`n").Fixed | Should -Be "# docs/widget.md`r`n`r`nBody.`r`n"
+        $fixed = (Get-Finding (Join-Lines '# widget', '', 'Body.', '' -Newline "`r`n")).Fixed
+        $fixed | Should -Be (Join-Lines '# docs/widget.md', '', 'widget', '', 'Body.', '' -Newline "`r`n")
     }
 
     It 'titles an empty file' {
-        (Get-Finding '').Fixed | Should -Be "# docs/widget.md`n"
+        (Get-Finding '').Fixed | Should -Be (Join-Lines '# docs/widget.md', '')
     }
 }

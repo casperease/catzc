@@ -13,7 +13,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-
         $changed | Should -Be @('docs/widget.md')
         $bytes = [System.IO.File]::ReadAllBytes((Join-Path $script:widgetRoot 'docs/widget.md'))
         $bytes[0] | Should -Be ([byte] [char] '#')
-        [System.Text.Encoding]::UTF8.GetString($bytes) | Should -Be "# docs/widget.md`r`n`r`nBody.`r`n"
+        [System.Text.Encoding]::UTF8.GetString($bytes) | Should -Be (('# docs/widget.md', '', 'widget', '', 'Body.', '') -join "`r`n")
     }
 
     It 'changes nothing on a second run' {

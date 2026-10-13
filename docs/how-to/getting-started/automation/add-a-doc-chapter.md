@@ -1,4 +1,6 @@
-# Add a doc chapter
+# docs/how-to/getting-started/automation/add-a-doc-chapter.md
+
+Add a doc chapter
 
 The repository has three kinds of prose, each with a home and a format:
 

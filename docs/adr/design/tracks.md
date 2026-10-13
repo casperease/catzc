@@ -1,4 +1,6 @@
-# ADR: Tracks — the repository's root concerns
+# docs/adr/design/tracks.md
+
+ADR: Tracks — the repository's root concerns
 
 ## Rules: ADR-DSGN-TRACK
 

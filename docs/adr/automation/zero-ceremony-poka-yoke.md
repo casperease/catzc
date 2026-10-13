@@ -1,4 +1,6 @@
-# ADR: Zero ceremony, hard to fail
+# docs/adr/automation/zero-ceremony-poka-yoke.md
+
+ADR: Zero ceremony, hard to fail
 
 ## Rules: ADR-AUTO-ZERO
 

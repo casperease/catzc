@@ -1,4 +1,6 @@
-# ADR: Thin platforms — an API/CLI abstraction over a vendor layer
+# docs/adr/design/thin-platforms.md
+
+ADR: Thin platforms — an API/CLI abstraction over a vendor layer
 
 ## Rules: ADR-DSGN-THINPLAT
 

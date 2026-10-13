@@ -1,4 +1,6 @@
-# ADR: PrePost extension modules
+# docs/adr/automation/powershell/prepost-extension-modules.md
+
+ADR: PrePost extension modules
 
 ## Rules: ADR-AUTO-PREPOST
 

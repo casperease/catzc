@@ -1,4 +1,6 @@
-# Catzc.Internal.Vendor
+# docs/references/automation/internal/catzc-internal-vendor.md
+
+Catzc.Internal.Vendor
 
 The shared vendored-module loader. It imports the third-party modules under `automation/.vendor/<Name>/<Version>/` into the session, and it
 lives in `.internal` for the same reason the other shared libraries do: vendored modules are loaded **before** any `Catzc` module exists

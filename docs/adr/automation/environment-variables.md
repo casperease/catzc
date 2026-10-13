@@ -1,4 +1,6 @@
-# ADR: Environment variables are for external boundaries, not internal state
+# docs/adr/automation/environment-variables.md
+
+ADR: Environment variables are for external boundaries, not internal state
 
 ## Rules: ADR-AUTO-ENVVAR
 

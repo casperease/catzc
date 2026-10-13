@@ -1,4 +1,6 @@
-# Catzc.Base.VSCode
+# docs/references/automation/catzc-base-vscode.md
+
+Catzc.Base.VSCode
 
 The declarative editor-config module. It owns the rule that **the editor is glued to the tooling**: every file in `.vscode/` —
 `settings.json`, `extensions.json`, `launch.json`, the Azure Pipelines schema, and the markdown-preview CSS — is a gitignored, generated

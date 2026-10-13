@@ -1,4 +1,6 @@
-# ADR: Build quality in — you cannot inspect it in at the end
+# docs/adr/process/build-quality-in.md
+
+ADR: Build quality in — you cannot inspect it in at the end
 
 ## Rules: ADR-PROC-BUILTIN
 

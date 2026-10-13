@@ -1,4 +1,6 @@
-# ADR: Conventional folders — every folder in the repository, by convention
+# docs/adr/repository/conventional-folders.md
+
+ADR: Conventional folders — every folder in the repository, by convention
 
 ## Rules: ADR-REPO-FOLDERS
 

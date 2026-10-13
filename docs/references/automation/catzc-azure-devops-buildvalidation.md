@@ -1,4 +1,6 @@
-# Catzc.Azure.DevOps.BuildValidation
+# docs/references/automation/catzc-azure-devops-buildvalidation.md
+
+Catzc.Azure.DevOps.BuildValidation
 
 The build-validation policy module. It owns the server-side pre-commit half of a deployable unit's CI binding: the ADO build-validation
 branch policies that queue a unit's pipeline on the guarded branch, each tied to its globset by path-filtering on the globset's native

@@ -1,4 +1,6 @@
-# ADR: DORA — Proactive failure notification
+# docs/adr/research/proactive-failure-notification.md
+
+ADR: DORA — Proactive failure notification
 
 ## Rules: ADR-DORA-FAILALERT
 

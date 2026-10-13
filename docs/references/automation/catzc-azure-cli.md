@@ -1,4 +1,6 @@
-# Catzc.Azure.Cli
+# docs/references/automation/catzc-azure-cli.md
+
+Catzc.Azure.Cli
 
 The Azure CLI module. It **encapsulates every interaction with the `az` CLI** — issuing commands, establishing and selecting the session,
 and verifying that the session points where configuration says it should. It is the single boundary the whole platform runs `az` through.

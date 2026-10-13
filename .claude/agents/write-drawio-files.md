@@ -10,7 +10,9 @@ tools: Bash, Read, Glob, Grep, Write
 model: sonnet
 ---
 
-# write-drawio-files
+# .claude/agents/write-drawio-files.md
+
+write-drawio-files
 
 <!-- cspell:ignore IDAT IEND mxfile urlencode startswith compressobj pnginfo -->
 

@@ -1,4 +1,6 @@
-# ADR: Self-service — safe by construction in controlled domains
+# docs/adr/design/self-service.md
+
+ADR: Self-service — safe by construction in controlled domains
 
 ## Rules: ADR-DSGN-SELFSERV
 

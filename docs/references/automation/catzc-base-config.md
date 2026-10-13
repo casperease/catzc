@@ -1,4 +1,6 @@
-# Catzc.Base.Config
+# docs/references/automation/catzc-base-config.md
+
+Catzc.Base.Config
 
 The single config reader for the platform. It owns `Get-Config` — the one public function every module calls to find, parse, validate, and
 cache a named config file — `Get-ConfigValue`, the by-reference addressing layer that resolves a `global.<config>.<key.path>` address to a

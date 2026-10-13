@@ -1,4 +1,6 @@
-# ADR: Effective in enterprise environments
+# docs/adr/automation/effective-in-enterprises.md
+
+ADR: Effective in enterprise environments
 
 ## Rules: ADR-AUTO-ENTERP
 

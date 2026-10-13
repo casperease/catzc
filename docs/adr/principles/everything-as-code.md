@@ -1,4 +1,6 @@
-# Principle: Everything as code
+# docs/adr/principles/everything-as-code.md
+
+Principle: Everything as code
 
 ## Rules: ADR-PRIN-EAC
 

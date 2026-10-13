@@ -1,4 +1,6 @@
-# Add a module
+# docs/how-to/getting-started/automation/add-a-module.md
+
+Add a module
 
 A module is just a folder. Create a non-dot directory under `automation/`, drop `.ps1` files in it, and the importer discovers it — no
 registration, no manifest, no edit to any loader (see [open-closed-architecture](../../../adr/automation/open-closed-architecture.md)).

@@ -1,4 +1,6 @@
-# CATZC — Cloud Automation Toolkit, Zero-Ceremony
+# .github/README.md
+
+CATZC — Cloud Automation Toolkit, Zero-Ceremony
 
 <!-- cspell:ignore utomation oolkit ero eremony -- the bold-initial expansion below splits into these fragments -->
 

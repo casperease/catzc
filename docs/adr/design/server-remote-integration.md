@@ -1,4 +1,6 @@
-# ADR: The audited server git remote — verified integration and PR ingress
+# docs/adr/design/server-remote-integration.md
+
+ADR: The audited server git remote — verified integration and PR ingress
 
 The mainline lives on an **audited server git remote** (Azure DevOps or GitHub); every developer box and CI agent is a client that bridges
 to it. This ADR fixes how work crosses that boundary in both directions: what a consumer reads _out_ (integrate from the last verified

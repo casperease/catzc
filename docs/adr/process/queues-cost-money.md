@@ -1,4 +1,6 @@
-# ADR: The money is lost in the queues — Little's Law and the cost of delay
+# docs/adr/process/queues-cost-money.md
+
+ADR: The money is lost in the queues — Little's Law and the cost of delay
 
 ## Rules: ADR-PROC-QUEUECOST
 

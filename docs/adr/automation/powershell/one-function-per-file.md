@@ -1,4 +1,6 @@
-# ADR: One function per file
+# docs/adr/automation/powershell/one-function-per-file.md
+
+ADR: One function per file
 
 ## Rules: ADR-AUTO-ONEFUNC
 

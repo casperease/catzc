@@ -1,4 +1,6 @@
-# infrastructure/modules
+# docs/references/infrastructure/modules.md
+
+infrastructure/modules
 
 Reusable bicep modules, shared across templates in `infrastructure/templates/`.
 

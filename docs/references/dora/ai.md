@@ -1,4 +1,6 @@
-# DORA and AI-assisted software development
+# docs/references/dora/ai.md
+
+DORA and AI-assisted software development
 
 Since 2024 DORA's research has centred on AI. The [AI section](https://dora.dev/ai/) summarizes that line of work as AI reshaping software
 delivery and organizational performance. Its central finding, from the

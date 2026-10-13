@@ -1,4 +1,6 @@
-# Module reference
+# docs/references/automation/index.md
+
+Module reference
 
 One article per automation module. Each is written **domains-first**: it does not walk through individual functions — it declares the
 _domains_ the module owns, explains the module in terms of those domains, and only at the end sorts the module's functions and configuration

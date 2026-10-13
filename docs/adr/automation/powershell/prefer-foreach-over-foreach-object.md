@@ -1,4 +1,6 @@
-# ADR: Prefer foreach over ForEach-Object
+# docs/adr/automation/powershell/prefer-foreach-over-foreach-object.md
+
+ADR: Prefer foreach over ForEach-Object
 
 ## Rules: ADR-AUTO-FOREACH
 

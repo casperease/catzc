@@ -1,4 +1,6 @@
-# Authoring a module reference
+# docs/references/automation/CLAUDE.md
+
+Authoring a module reference
 
 This directory holds one **domains-first** reference article per automation module, named `<module-in-kebab>.md` (`Catzc.Azure.Cli` →
 `catzc-azure-cli.md`). `index.md` is the reader's guide and the module list; this file is the author's guide. The canonical, correct example

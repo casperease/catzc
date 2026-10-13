@@ -1,4 +1,6 @@
-# Getting started with the automation system
+# docs/how-to/getting-started/automation/index.md
+
+Getting started with the automation system
 
 A PowerShell 7.4+ module system for this monorepo. **Drop a file, get a function** — no manifests, no installers, no registration.
 Dot-source one script and every function from every module is available.

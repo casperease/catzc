@@ -1,4 +1,6 @@
-# ADR: DORA — Documentation quality
+# docs/adr/research/documentation-quality.md
+
+ADR: DORA — Documentation quality
 
 ## Rules: ADR-DORA-DOCS
 

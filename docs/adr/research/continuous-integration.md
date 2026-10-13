@@ -1,4 +1,6 @@
-# ADR: DORA — Continuous integration
+# docs/adr/research/continuous-integration.md
+
+ADR: DORA — Continuous integration
 
 ## Rules: ADR-DORA-CI
 

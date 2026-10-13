@@ -1,4 +1,6 @@
-# Catzc.Internal.TestKit
+# docs/references/automation/internal/catzc-internal-testkit.md
+
+Catzc.Internal.TestKit
 
 An on-demand Pester fixture library. Many tests stand up a synthetic repository on disk — a temp root, an `automation/<module>` tree, and
 `$env:RepositoryRoot` pointed at it (restored afterward) — and this module centralizes that boilerplate. Unlike the other `.internal` shared

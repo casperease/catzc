@@ -1,4 +1,6 @@
-# Add an infrastructure template
+# docs/how-to/getting-started/automation/add-an-infrastructure-template.md
+
+Add an infrastructure template
 
 <!-- cspell:ignore deweuzctsurvecorst deweuzctsurvestast deweuzctsurvemaadf -->
 

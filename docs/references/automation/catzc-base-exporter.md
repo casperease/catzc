@@ -1,4 +1,6 @@
-# Catzc.Base.Exporter
+# docs/references/automation/catzc-base-exporter.md
+
+Catzc.Base.Exporter
 
 The module that builds the catzc platform into one installable, versioned, content-addressed `Catzc` module — build mode's code root
 ([run-modes](../../adr/design/run-modes.md)) — and delivers it: beside a working root outside the mono repo, into the user's module path, or

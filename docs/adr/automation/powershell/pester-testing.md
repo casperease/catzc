@@ -1,4 +1,6 @@
-# ADR: Pester testing — the language layer over test-automation
+# docs/adr/automation/powershell/pester-testing.md
+
+ADR: Pester testing — the language layer over test-automation
 
 ## Rules: ADR-AUTO-PESTER
 

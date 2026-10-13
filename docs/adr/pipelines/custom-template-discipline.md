@@ -1,4 +1,6 @@
-# ADR: Custom template discipline — when and how to use ADO templates
+# docs/adr/pipelines/custom-template-discipline.md
+
+ADR: Custom template discipline — when and how to use ADO templates
 
 ## Rules: ADR-PIPE-TEMPLATE
 

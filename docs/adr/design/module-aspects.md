@@ -1,4 +1,6 @@
-# ADR: Module aspects — a unit's files partition into live and tests
+# docs/adr/design/module-aspects.md
+
+ADR: Module aspects — a unit's files partition into live and tests
 
 ## Rules: ADR-DSGN-ASPECT
 

@@ -1,4 +1,6 @@
-# ADR: Visual design of the value-chain diagrams — branch geometry and commit-colour semantics
+# docs/adr/design/visual-design.md
+
+ADR: Visual design of the value-chain diagrams — branch geometry and commit-colour semantics
 
 The value-chain / promotion diagrams under `docs/.assets/commits-quality` are a domain language: a reader must be able to decode a commit's
 delivery state and a branch's role from position and colour alone, without a per-diagram key. This ADR fixes that grammar so every diagram

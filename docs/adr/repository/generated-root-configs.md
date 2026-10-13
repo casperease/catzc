@@ -1,4 +1,6 @@
-# Generated root configs — every managed root file from one in-repo source of truth
+# docs/adr/repository/generated-root-configs.md
+
+Generated root configs — every managed root file from one in-repo source of truth
 
 ## Rules: ADR-REPO-ROOTCFG
 

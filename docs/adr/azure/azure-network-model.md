@@ -1,4 +1,6 @@
-# ADR: Network model (`network.yml`)
+# docs/adr/azure/azure-network-model.md
+
+ADR: Network model (`network.yml`)
 
 This ADR covers the cross-cutting IP plan, which the data model deliberately leaves out of its two layers.
 

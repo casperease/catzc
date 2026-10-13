@@ -1,4 +1,6 @@
-# Principle: One living version — no legacy, no back-compat, history in git
+# docs/adr/principles/one-living-version.md
+
+Principle: One living version — no legacy, no back-compat, history in git
 
 ## Rules: ADR-PRIN-ONELIVE
 

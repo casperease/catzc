@@ -1,4 +1,6 @@
-# ADR: Platform bundle — the merged, versioned, installable Catzc build
+# docs/adr/automation/platform-bundle.md
+
+ADR: Platform bundle — the merged, versioned, installable Catzc build
 
 ## Rules: ADR-AUTO-BUNDLE
 

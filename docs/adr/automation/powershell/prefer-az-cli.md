@@ -1,4 +1,6 @@
-# ADR: Prefer Az CLI over Az PowerShell modules
+# docs/adr/automation/powershell/prefer-az-cli.md
+
+ADR: Prefer Az CLI over Az PowerShell modules
 
 ## Rules: ADR-AUTO-AZCLI
 

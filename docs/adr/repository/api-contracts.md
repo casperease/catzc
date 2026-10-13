@@ -1,4 +1,6 @@
-# ADR: Versioned external API contracts and contract testing
+# docs/adr/repository/api-contracts.md
+
+ADR: Versioned external API contracts and contract testing
 
 ## Rules: ADR-REPO-CONTRACT
 

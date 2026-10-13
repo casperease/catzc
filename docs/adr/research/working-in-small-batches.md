@@ -1,4 +1,6 @@
-# ADR: DORA — Working in small batches
+# docs/adr/research/working-in-small-batches.md
+
+ADR: DORA — Working in small batches
 
 ## Rules: ADR-DORA-SMALLBATCH
 

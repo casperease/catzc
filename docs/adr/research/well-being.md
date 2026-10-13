@@ -1,4 +1,6 @@
-# ADR: DORA — Well-being
+# docs/adr/research/well-being.md
+
+ADR: DORA — Well-being
 
 ## Rules: ADR-DORA-WELLBEING
 

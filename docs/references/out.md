@@ -1,4 +1,6 @@
-# The output directory
+# docs/references/out.md
+
+The output directory
 
 Every generated and transient file the automation produces lands here — reports, exports, build artifacts, test results, plans. The folder
 is the single, cleanable home for output: locally it is `{repository}/out`, in a pipeline the same paths resolve to the agent's artifact

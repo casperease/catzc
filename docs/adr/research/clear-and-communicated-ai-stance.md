@@ -1,4 +1,6 @@
-# ADR: DORA — Clear and communicated AI stance
+# docs/adr/research/clear-and-communicated-ai-stance.md
+
+ADR: DORA — Clear and communicated AI stance
 
 ## Rules: ADR-DORA-AISTANCE
 

@@ -1,4 +1,6 @@
-# Catzc.Tooling.Provisioning
+# docs/references/automation/catzc-tooling-provisioning.md
+
+Catzc.Tooling.Provisioning
 
 The orchestration module of the Tooling group. It converges a whole development workstation to the complete locked tool set in dependency
 order, reports and asserts the aggregate status of every tool, and keeps the machine clean of package managers the platform refuses to

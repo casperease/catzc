@@ -1,4 +1,6 @@
-# ADR: Single-responsibility functions
+# docs/adr/automation/single-responsibility-functions.md
+
+ADR: Single-responsibility functions
 
 ## Rules: ADR-AUTO-ONEJOB
 

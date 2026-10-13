@@ -1,4 +1,6 @@
-# ADR: Respect PowerShell approved verbs
+# docs/adr/automation/powershell/respect-pwsh-verb-rules.md
+
+ADR: Respect PowerShell approved verbs
 
 ## Rules: ADR-AUTO-VERBS
 

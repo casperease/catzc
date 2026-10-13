@@ -1,4 +1,6 @@
-# ADR: DORA — Job satisfaction
+# docs/adr/research/job-satisfaction.md
+
+ADR: DORA — Job satisfaction
 
 ## Rules: ADR-DORA-JOBSAT
 

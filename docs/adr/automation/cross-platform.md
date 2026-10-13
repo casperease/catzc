@@ -1,4 +1,6 @@
-# ADR: Must be cross-platform
+# docs/adr/automation/cross-platform.md
+
+ADR: Must be cross-platform
 
 ## Rules: ADR-AUTO-XPLAT
 

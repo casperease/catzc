@@ -1,4 +1,6 @@
-# The cspell dictionary folder
+# docs/references/cspell.md
+
+The cspell dictionary folder
 
 Generated cspell word lists — **do not edit, do not commit.**
 

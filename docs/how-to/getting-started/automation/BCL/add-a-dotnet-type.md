@@ -1,4 +1,6 @@
-# Add a C# type
+# docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
+
+Add a C# type
 
 Some logic is better as a native .NET type than as PowerShell — a process runner, or a validated data record that replaces a loose
 hashtable. Drop a `.cs` file in a module's `types/` folder and the importer compiles and loads it before any function runs. The full design

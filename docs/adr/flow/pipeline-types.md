@@ -1,4 +1,6 @@
-# ADR: Pipeline types — the six kinds of ADO artifact, named
+# docs/adr/flow/pipeline-types.md
+
+ADR: Pipeline types — the six kinds of ADO artifact, named
 
 ## Rules: ADR-FLOW-CD-TYPE
 

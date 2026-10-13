@@ -1,4 +1,6 @@
-# ADR: Console output matters
+# docs/adr/automation/powershell/console-output-matters.md
+
+ADR: Console output matters
 
 ## Rules: ADR-AUTO-CONSOLE
 

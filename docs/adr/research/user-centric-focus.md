@@ -1,4 +1,6 @@
-# ADR: DORA — User-centric focus
+# docs/adr/research/user-centric-focus.md
+
+ADR: DORA — User-centric focus
 
 ## Rules: ADR-DORA-USERFOCUS
 

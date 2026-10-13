@@ -1,4 +1,6 @@
-# ADR: Error handling — fail immediately, no warnings
+# docs/adr/automation/powershell/error-handling.md
+
+ADR: Error handling — fail immediately, no warnings
 
 ## Rules: ADR-AUTO-ERROR
 

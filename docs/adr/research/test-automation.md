@@ -1,4 +1,6 @@
-# ADR: DORA — Test automation
+# docs/adr/research/test-automation.md
+
+ADR: DORA — Test automation
 
 ## Rules: ADR-DORA-TESTAUTO
 

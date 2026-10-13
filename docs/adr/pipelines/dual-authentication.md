@@ -1,4 +1,6 @@
-# ADR: Dual authentication — pipeline system token vs. local Az token
+# docs/adr/pipelines/dual-authentication.md
+
+ADR: Dual authentication — pipeline system token vs. local Az token
 
 ## Rules: ADR-PIPE-AUTH
 

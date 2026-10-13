@@ -1,4 +1,6 @@
-# ADR: DORA — Team experimentation
+# docs/adr/research/team-experimentation.md
+
+ADR: DORA — Team experimentation
 
 ## Rules: ADR-DORA-EXPERIMENT
 
