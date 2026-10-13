@@ -85,7 +85,7 @@ history over a manually-gated environment. It **splits by target** on the one bu
 environments (the on-demand slots, `main-uat`, `release-uat`), and **DEPLOY-Prod** drives the RBC-cleared artifact through **pre-prod** into
 **production**. The human certifications are the two hands-on release gates of
 [ADR-FLOW-CD#9](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9): **RC** clears when `main-AT` — acceptance testing against
-`main-uat` — is verified, **RBC** when `release-AT` against `release-uat` is verified. The **gate** is the ADR-FLOW-CD concept — the human
+`main-uat` — is verified, **RBC** when `release-AT` against `release-uat` is verified. Each is a gate (ADR-FLOW-CD#13) — the human
 certification that decides _whether_ to proceed; DEPLOY is only the **actuator** that drives the pinned artifact onward once that gate
 clears. DEPLOY never owns the decision.
 

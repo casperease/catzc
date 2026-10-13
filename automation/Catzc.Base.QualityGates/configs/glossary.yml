@@ -35,6 +35,26 @@ concepts:
             - { phrase: source suite, say: source run }
             - { phrase: build suite, say: build run }
             - { phrase: build suites, say: build runs }
+    gate:
+        key: gate
+        domain: flow
+        defined_by: ADR-FLOW-CD#13
+        short: A check whose verdict decides whether work may proceed — automated (a quality gate, the CI gate) or human (RC, RBC).
+        realized_by: { kind: prose-only }
+        contrasts:
+            quality gate: A quality gate is one automated check of the repository; a gate is any decision point, human or automated.
+    quality gate:
+        key: quality_gate
+        domain: automation
+        defined_by: ADR-AUTO-TEST#35
+        short: An automated gate over the repository — one Test-* or Assert-* check that reports every issue at once and fails on any.
+        realized_by: { kind: file-pattern, pattern: 'automation/Catzc.Base.QualityGates/Test-*.ps1' }
+        relations:
+            kind_of: [gate]
+        contrasts:
+            gate: A gate is any decision point, human or automated; a quality gate is one automated check of the repository.
+        avoid:
+            - { phrase: analyzer suite, say: the analyzer gate }
     markdown link:
         key: markdown_link
         domain: repository

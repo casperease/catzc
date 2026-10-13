@@ -35,9 +35,8 @@ function Test-FunctionDependency {
 
     # Parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/call provider
     # overhead, [ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)); the definition map
-    # and the call-resolution walk reuse these ASTs, so each file is read
-    # and parsed a single time (it was twice before).
-    $isFunction = { param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] }
+    # and the call-resolution walk reuse these ASTs, so each file is read and parsed a single time. The walk itself is
+    # [Catzc.Base.ModuleSystem.FunctionCallCollector] — one C# pass per function, not scriptblock-predicate FindAll calls.
     $parsed = [System.Collections.Generic.List[object]]::new()
     $definitions = @{}
 
@@ -61,12 +60,13 @@ function Test-FunctionDependency {
             $tokens = $null
             $errors = $null
             $ast = [System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$tokens, [ref]$errors)
-            $fns = @($ast.FindAll($isFunction, $false) | Where-Object { $_.Parent.Parent -eq $ast })
+            $collectors = [Catzc.Base.ModuleSystem.FunctionCallCollector]::Collect($ast)
             $isPrivate = $rel -match '^[/\\]private[/\\]'
 
-            $parsed.Add([pscustomobject]@{ Module = $module; FileName = $name; Functions = $fns })
+            $parsed.Add([pscustomobject]@{ Module = $module; FileName = $name; Functions = $collectors })
 
-            foreach ($fn in $fns) {
+            foreach ($collector in $collectors) {
+                $fn = $collector.Function
                 $info = @{ Module = $module; File = $name; Line = $fn.Extent.StartLineNumber; Private = $isPrivate }
 
                 if (-not $definitions.ContainsKey($fn.Name)) {
@@ -92,25 +92,21 @@ function Test-FunctionDependency {
         }
     }
 
-    # Walk each already-parsed function body for calls → flag any that resolve to nothing.
-    $isCommand = { param($n) $n -is [System.Management.Automation.Language.CommandAst] }
+    # Check each collected call → flag any that resolve to nothing. Get-Command runs once per distinct external name
+    # in this run (a whole-session Get-Command snapshot measures slower than the few dozen lookups the memo leaves).
     $unresolved = [System.Collections.Generic.List[PSObject]]::new()
+    $isLoadedCommand = [System.Collections.Generic.Dictionary[string, bool]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
     foreach ($entry in $parsed) {
-        foreach ($fn in $entry.Functions) {
-            # Collect nested function names defined inside this function body
-            $nestedNames = $fn.Body.FindAll($isFunction, $true) | ForEach-Object { $_.Name }
+        foreach ($collector in $entry.Functions) {
             $localDefs = [System.Collections.Generic.HashSet[string]]::new(
-                [string[]]@($nestedNames | Where-Object { $_ }),
+                $collector.NestedFunctionNames,
                 [System.StringComparer]::OrdinalIgnoreCase
             )
 
-            foreach ($call in $fn.Body.FindAll($isCommand, $true)) {
-                $cmdName = $call.GetCommandName()
-                if (-not $cmdName) {
-                    continue
-                }
-                if ($cmdName -notmatch '-') {
+            foreach ($call in $collector.Calls) {
+                $cmdName = $call.Name
+                if (-not $cmdName.Contains('-')) {
                     continue
                 }
                 if ($definitions.ContainsKey($cmdName)) {
@@ -119,15 +115,18 @@ function Test-FunctionDependency {
                 if ($localDefs.Contains($cmdName)) {
                     continue
                 }
-                if (Get-Command $cmdName -ErrorAction Ignore) {
+                if (-not $isLoadedCommand.ContainsKey($cmdName)) {
+                    $isLoadedCommand[$cmdName] = [bool](Get-Command $cmdName -ErrorAction Ignore)
+                }
+                if ($isLoadedCommand[$cmdName]) {
                     continue
                 }
 
                 $unresolved.Add([PSCustomObject]@{
                         CallerModule   = $entry.Module
-                        CallerFunction = $fn.Name
+                        CallerFunction = $collector.Function.Name
                         CallerFile     = $entry.FileName
-                        CallerLine     = $call.Extent.StartLineNumber
+                        CallerLine     = $call.Line
                         MissingCommand = $cmdName
                     })
             }

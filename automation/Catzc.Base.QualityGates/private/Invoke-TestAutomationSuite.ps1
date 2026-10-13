@@ -124,8 +124,7 @@ function Invoke-TestAutomationSuite {
     Set-AbandonedTestRun -OutputFolder $OutputFolder | Out-Null
     $runDir = New-TestAutomationRunDirectory -OutputFolder $OutputFolder
 
-    # Claim where the run executes before anything is filtered or generated (Enter-TestRunSlot); the slot also
-    # decides the top tier (Resolve-TestRunMaxLevel). The finally below releases it.
+    # Claim the slot before anything is filtered (Enter-TestRunSlot; it decides the top tier); the finally releases it.
     $slot = Enter-TestRunSlot -EntryPoint $Suite -RunDirectory $runDir -Isolated:$Isolated
     $runStartedAt = [DateTimeOffset]::UtcNow.ToString('o')
     $manifestStatus = 'crashed'
@@ -134,9 +133,8 @@ function Invoke-TestAutomationSuite {
     $workerRun = $null
     $suiteExcludedTests = @()
 
-    # Everything below runs inside try/finally so the slot is released and the terminal manifest is stamped on
-    # every exit path — pass, fail (the throw at the tail), or crash (any unexpected throw). The stamp must never
-    # be skipped: it is what makes run.json trustworthy, so it sits in the finally, not in a best-effort catch.
+    # try/finally: the slot is released and the terminal manifest stamped on every exit path — pass, fail, or crash.
+    # The stamp is what makes run.json trustworthy, so it sits in the finally, not in a best-effort catch.
     try {
         $MaxLevel = Resolve-TestRunMaxLevel -Slot $slot -Requested $MaxLevel -MinLevel $MinLevel
 

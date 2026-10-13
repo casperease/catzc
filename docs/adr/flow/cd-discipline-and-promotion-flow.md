@@ -132,6 +132,15 @@ Build-once holds throughout: pre-prod and production receive the identical tagge
 
 - [Deploy-to-prod: stage inactive, then activate live](#deploy-to-prod-stage-inactive-then-activate-live)
 
+### Rule ADR-FLOW-CD:13
+
+A **gate** is a check whose verdict decides whether work may proceed past a point in the flow: it clears or holds, never half. An automated
+gate gives its verdict by machine — a quality gate (ADR-AUTO-TEST#35), run inside the inner CI gate and its integration budget
+(ADR-FLOW-CD#2); a manual gate is a human certification — RC and RBC (ADR-FLOW-CD#9). A gate decides; the pipeline that acts once a gate
+clears (DEPLOY, ADR-FLOW-CD#6) is not a gate.
+
+- [RC and RBC: the two hands-on release gates](#rc-and-rbc-the-two-hands-on-release-gates)
+
 ## Context
 
 [pipeline-types](../flow/pipeline-types.md) is the _taxonomy_ — it fixes what each of the six ADO artifact kinds **is**. This ADR is the

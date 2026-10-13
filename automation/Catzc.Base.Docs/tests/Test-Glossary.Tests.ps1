@@ -41,7 +41,7 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
         (Get-Content (Join-Path $script:out 'latest.txt')) | Should -Be (Split-Path $result.ReportPath -Leaf)
     }
 
-    It 'throws once with every gate''s issues, prefixed by the gate, in gate order' -Tag 'ADR-REPO-VOCAB#5' {
+    It 'throws once with every gate''s issues, prefixed by the gate, in gate order' -Tag 'ADR-REPO-VOCAB#5', 'ADR-AUTO-TEST#35' {
         Mock Get-GlossarySourceViolations -ModuleName Catzc.Base.Docs { 'widget: duplicate' }
         Mock Get-GlossaryPhrasingViolations -ModuleName Catzc.Base.Docs { 'docs/alpha.md:3 says "widget bundle"'; 'docs/beta.md:1 says "widget bundle"' }
         Mock Get-GlossaryEnforcementViolations -ModuleName Catzc.Base.Docs { 'widget: unenforced' }

@@ -299,6 +299,15 @@ under `out/`. A test run in source mode is a **source run** (`Test-Automation`, 
 
 - [Two test runs, one body of tests](#two-test-runs-one-body-of-tests)
 
+### Rule ADR-AUTO-TEST:35
+
+A **quality gate** is an automated gate ([ADR-FLOW-CD#13](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13)) over the
+repository: one `Test-*` or `Assert-*` check — spelling, terminology, the analyzer, the glossary, the tag axes — that examines the whole
+tree (or its declared scope), reports every issue it finds at once, and fails on any. Each quality gate runs inside every test run — as an
+integrity test, or as the run's own check (the tag axes) — so a red gate turns the run red; it is never an optional step beside them.
+
+- [The Build Verification Test](#the-build-verification-test)
+
 ## Context
 
 [Fail fast with inline assertions](fail-fast-with-asserts.md) makes the case that automation code is mostly _impure_ — it orchestrates

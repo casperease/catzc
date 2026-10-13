@@ -115,7 +115,7 @@ $nodes = $ScriptBlockAst.FindAll($isCommand, $true)
 
 Max line length is 120 for `.ps1`/`.psm1`/`.psd1`, set in `.editorconfig`. Encoding is UTF-8 without BOM (the repo baseline — see
 [uniform-formatting](../../repository/uniform-formatting.md)). Which analyzer rules are on or off — and why (for example, line length is
-enforced by `.editorconfig`, not the analyzer suite) — is documented inline in `PSScriptAnalyzerSettings.psd1`.
+enforced by `.editorconfig`, not the analyzer gate) — is documented inline in `PSScriptAnalyzerSettings.psd1`.
 
 ## Decision
 
@@ -127,9 +127,9 @@ PowerShell files follow the repo-wide baseline plus the PowerShell-specific rule
   baseline.
 - **PSScriptAnalyzer** — the full rule set, options, and on/off rationale live in `PSScriptAnalyzerSettings.psd1` (every rule folded out
   with inline comments). Custom analyzer rules, including `Measure-VariableCasing` (the casing rule above), live in
-  `automation/.scriptanalyzer/`, one check module each. The settings hand the engine one entry rule, `CatzcRules.psm1`, which runs
-  every check once per file (the engine otherwise calls a script rule once per script block); a new check module is added to its
-  list. Each check keeps its own rule name, so diagnostics and `SuppressMessageAttribute` name the check.
+  `automation/.scriptanalyzer/`, one check module each. The settings hand the engine one entry rule, `CatzcRules.psm1`, which runs every
+  check once per file (the engine otherwise calls a script rule once per script block); a new check module is added to its list. Each check
+  keeps its own rule name, so diagnostics and `SuppressMessageAttribute` name the check.
 - **Shared gated set** — `Get-AutomationSourceFiles` names the canonical set the gates cover: every module `*.ps1` (module root, `private/`,
   `tests/`), the `.internal` and `.scriptanalyzer` infrastructure folders (every `.internal/*.psm1` internal module, the custom analyzer
   rules `*.psm1`, and their `tests/`), the root `importer.ps1`, and authored `.psd1` config (`PSScriptAnalyzerSettings.psd1`).

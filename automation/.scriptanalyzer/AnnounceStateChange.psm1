@@ -158,11 +158,11 @@ function Measure-AnnounceStateChange {
         'Remove-Module'               = 'module'
         'Push-Location'               = 'location'
         'Pop-Location'                = 'location'
-        'Set-PSReadLineOption'        = 'psreadline'
-        'Set-PSReadLineKeyHandler'    = 'psreadline'
-        'Remove-PSReadLineKeyHandler' = 'psreadline'
-        'Update-TypeData'             = 'typedata'
-        'Update-FormatData'           = 'formatdata'
+        'Set-PSReadLineOption'        = 'line editor'
+        'Set-PSReadLineKeyHandler'    = 'line editor'
+        'Remove-PSReadLineKeyHandler' = 'line editor'
+        'Update-TypeData'             = 'type data'
+        'Update-FormatData'           = 'format data'
     }
 
     # Classify a node: the target it changes ('env:path', 'module', ...), or $null when it changes nothing.
