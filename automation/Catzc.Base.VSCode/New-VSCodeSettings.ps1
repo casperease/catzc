@@ -4,7 +4,8 @@
     editor's behaviour in sync with the tooling.
 .DESCRIPTION
     Reads the authored settings registry (configs/vscode-settings.yml, via Get-Config -Config
-    vscode-settings) and renders it to the settings.json content: a generated-file header (JSONC — VS Code
+    vscode-settings — the validated VscodeSettingsConfig, whose read-only `settings` map it renders from a
+    copy) and renders it to the settings.json content: a generated-file header (JSONC — VS Code
     reads comments in settings.json) followed by the settings as JSON, in registry order. The explanations
     live as comments in the yml — the authored, searched artifact — not in the rendering.
 
@@ -34,17 +35,26 @@ function New-VSCodeSettings {
     )
 
     $config = Get-Config -Config vscode-settings
-    $settings = $config.settings
+
+    # The typed registry is the cached, read-only config: render from a copy of its settings.
+    $settings = [ordered]@{}
+    foreach ($key in $config.settings.Keys) {
+        $settings[$key] = $config.settings[$key]
+    }
 
     # Complete search.exclude with the managed targets — authored keys win, injected keys append in order.
-    if (-not $settings.Contains('search.exclude')) {
-        $settings['search.exclude'] = [ordered]@{}
-    }
-    foreach ($target in $ManagedTarget) {
-        if (-not $settings['search.exclude'].Contains($target)) {
-            $settings['search.exclude'][$target] = $true
+    $exclude = [ordered]@{}
+    if ($settings.Contains('search.exclude')) {
+        foreach ($glob in $settings['search.exclude'].Keys) {
+            $exclude[$glob] = $settings['search.exclude'][$glob]
         }
     }
+    foreach ($target in $ManagedTarget) {
+        if (-not $exclude.Contains($target)) {
+            $exclude[$target] = $true
+        }
+    }
+    $settings['search.exclude'] = $exclude
 
     $header = @(
         '// GENERATED FILE — do not edit. Single source of truth:'

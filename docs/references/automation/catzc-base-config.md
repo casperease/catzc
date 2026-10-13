@@ -4,10 +4,10 @@
 
 The single config reader for the platform. It owns `Get-Config` — the one public function every module calls to find, parse, validate, and
 cache a named config file — `Get-ConfigValue`, the by-reference addressing layer that resolves a `global.<config>.<key.path>` address to a
-value on top of that reader, and the `configs.yml` override registry that lets a module substitute a custom validator or a C# type for the
-default convention. It does **not** own the validators themselves (those are private to each owning module), the config files those
-validators guard, or the object-shaping helpers that manipulate already-loaded config objects (those live in
-[Catzc.Base.Objects](catzc-base-objects.md)). The design is governed by
+value on top of that reader, and the `configs.yml` registry that binds every shipped config to its C# config type. It does **not** own the
+config types themselves (each lives in its owning module's `types/`), the config files they guard, the PowerShell validator extension point
+(that is [Catzc.Base.ConfigExtensions](catzc-base-configextensions.md)), or the object-shaping helpers that manipulate already-loaded config
+objects (those live in [Catzc.Base.Objects](catzc-base-objects.md)). The design is governed by
 [module-config-loading](../../adr/configuration/module-config-loading.md).
 
 ## Domains
@@ -15,26 +15,25 @@ validators guard, or the object-shaping helpers that manipulate already-loaded c
 | Domain   | Area       | Name                                                               |
 | -------- | ---------- | ------------------------------------------------------------------ |
 | domain:1 | loading    | [Config loading and caching](#domain1--config-loading-and-caching) |
-| domain:2 | registry   | [Override registry](#domain2--override-registry)                   |
+| domain:2 | registry   | [Config type registry](#domain2--config-type-registry)             |
 | domain:3 | addressing | [Config value addressing](#domain3--config-value-addressing)       |
 
 ### domain:1 — Config loading and caching
 
 The unified path from a config name to a validated, cached object. `Get-Config` discovers the file by scanning
-`automation/*/configs/<name>.yml` (via the private `Resolve-ConfigEntry` seam), parses it as an ordered dictionary, runs validation in the
-owning module's scope — so private validators resolve without any dependency on the caller — and stores the result keyed by resolved file
-path. Every subsequent call for the same name returns the cached reference; the file is read once per session. Unknown and ambiguous names
-throw immediately; there is no silent fall-through. The full design — discovery, owner-scope validation, poka-yoke table — is in
+`automation/*/configs/<name>.yml` (via the private `Resolve-ConfigEntry` seam), parses it as an ordered dictionary, constructs its
+registered C# config type — which maps and validates it — and stores the result keyed by resolved file path; a config with no registered
+type comes back raw. Every subsequent call for the same name returns the cached reference; the file is read once per session. Unknown and
+ambiguous names throw immediately; there is no silent fall-through. The full design — discovery, typed configs, poka-yoke table — is in
 [module-config-loading](../../adr/configuration/module-config-loading.md).
 
-### domain:2 — Override registry
+### domain:2 — Config type registry
 
-A `configs.yml` file that maps a config name to a non-default validator. The default convention (`Assert-<TitleCase(name)>Config` as a
-private function in the owning module) covers most configs without any registration. The registry is for the cases it cannot express: a
-`pwsh:` entry runs a custom-named validator in the owner's scope; a `type:` entry constructs `[type]::new($dict)` so a C# class both maps
-and validates the ordered dict into a strongly-typed object. `ConfigsConfig` (`Catzc.Base.Config.ConfigsConfig`) is the C# type that
-validates this registry file itself. See [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md) for the type-entry
-mechanism.
+A `configs.yml` file that binds each shipped config name to its C# config type (`<name>: { type: <C# FQN> }`). `Get-Config` constructs
+`[type]::new($dict)`, so the type both maps and validates the ordered dict into a typed object and reports every violation at once.
+`ConfigsConfig` (`Catzc.Base.Config.ConfigsConfig`) is the C# type that validates this registry file itself and exposes its entries. The
+quality gate `Test-ShippedConfigs` keeps the registry and the shipped configs in step. See
+[native-csharp-types](../../adr/automation/BCL/native-csharp-types.md) for the type mechanism.
 
 ### domain:3 — Config value addressing
 
@@ -48,15 +47,14 @@ always read-only. Because an address only ever reaches version-controlled config
 
 ## What the module does
 
-This module is a single-function reader with a pluggable validation back-end. Domain 1 is the invariant: `Get-Config` is the one place in
-the platform where a config file is opened, parsed, and cached. No other module keeps its own cache, re-reads a file, or re-implements
-parse-and-validate. Because validation runs in the owning module's scope (not the caller's), it is caller-independent — the same validated
-object comes back no matter who asked, and the owning module's private validators never need to be exposed.
+This module is a single-function reader with a typed back-end. Domain 1 is the invariant: `Get-Config` is the one place in the platform
+where a config file is opened, parsed, and cached. No other module keeps its own cache, re-reads a file, or re-implements
+parse-and-validate. Because validation is the config type's constructor, it is caller-independent — the same validated object comes back no
+matter who asked.
 
-Domain 2 is the escape hatch. Convention handles the common case for free; the registry is the mechanism for the unusual cases. When a
-config's validation logic has a name that does not follow the `Assert-<TitleCase(name)>Config` pattern, or when the config warrants a
-strongly-typed C# model, a single entry in `configs.yml` redirects `Get-Config` without any change to the reader itself. The registry file
-is validated by `ConfigsConfig`, which is itself loaded through `Get-Config` — the mechanism eats its own cooking.
+Domain 2 is the binding between a config file and its shape. Adding a config is a file, a C# type in the owning module, and one registry
+line — no change to the reader. The registry file is validated by `ConfigsConfig`, which is itself loaded through `Get-Config` — the
+mechanism eats its own cooking.
 
 Domain 3 is a thin read on top of domain 1. `Get-ConfigValue` adds a grammar and a key-path walk over the object `Get-Config` already loaded
 and cached — it opens no file and keeps no cache of its own, so the one-reader invariant holds. An address is how a config value earns a
@@ -74,5 +72,5 @@ The module's public function and configuration file, sorted into the domains abo
 | Domain                                | Function          |
 | ------------------------------------- | ----------------- |
 | domain:1 — Config loading and caching | `Get-Config`      |
-| domain:2 — Override registry          | `configs.yml`     |
+| domain:2 — Config type registry       | `configs.yml`     |
 | domain:3 — Config value addressing    | `Get-ConfigValue` |

@@ -4,12 +4,12 @@ Describe 'New-VSCodePipelineSchema' -Tag 'L0', 'logic' {
         # ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)): a small
         # fixture schema registry.
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
-            [ordered]@{
-                '$schema'  = 'http://example.test/schema#'
-                title      = 'fixture'
-                type       = 'object'
-                properties = [ordered]@{ widget = [ordered]@{ type = 'string' } }
-            }
+            [Catzc.Base.VSCode.VscodePipelineSchemaConfig]::new([ordered]@{
+                    '$schema'  = 'http://example.test/schema#'
+                    title      = 'fixture'
+                    type       = 'object'
+                    properties = [ordered]@{ widget = [ordered]@{ type = 'string' } }
+                })
         }
     }
 

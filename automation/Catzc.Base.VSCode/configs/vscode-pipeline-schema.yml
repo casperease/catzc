@@ -21,7 +21,10 @@
 #   additionalProperties: true accept anything), so this schema never invents a NEW false positive. It is a
 #   deliberately permissive compliance net, not a re-implementation of the full Azure Pipelines schema.
 #
-# Loaded raw via Get-Config -Config vscode-pipeline-schema (free-form JSON-Schema keys; no shape to validate).
+# Loaded via Get-Config -Config vscode-pipeline-schema as Catzc.Base.VSCode.VscodePipelineSchemaConfig: the
+# JSON-Schema keywords stay a free-form, ordered passthrough map; the type turns the rationale above into checks
+# (the root is an open `type: object`, nothing sets `additionalProperties: false`, the `step` definition has no
+# anyOf/oneOf, every `#/definitions/` $ref resolves).
 $schema: http://json-schema.org/draft-07/schema#
 title: Azure Pipelines (catzc, relaxed)
 type: object

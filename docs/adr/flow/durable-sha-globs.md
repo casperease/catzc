@@ -60,8 +60,8 @@ negation (exact, the same last-match-wins evaluator as `GlobSet.Matches`); Azure
 `filenamePatterns` (order-independent — union include minus union exclude — so each pattern is collapsed to its last select, and a compose
 re-add becomes a deeper-folder include ADO keeps). Modern vendors (ADO Services / Server 2022+, GitHub) accept wildcards anywhere in a path
 filter, so the projection is a true no-start trigger. The projected filters are generated from `globs.yml`, never hand-authored, and the
-drift gate (`Test-AdoPipelineTriggerGlob` / `Test-GitHubWorkflowTriggerGlob`) fails a pipeline whose declared trigger no longer equals its
-projection.
+drift quality gates (`Test-AdoPipelineTriggerGlob` / `Test-GitHubWorkflowTriggerGlob`) report one issue per pipeline whose declared trigger
+no longer equals its projection, or whose file is missing.
 
 - [Native projection: the no-start trigger](#native-projection-the-no-start-trigger)
 - [How this is enforced](#how-this-is-enforced)
@@ -212,10 +212,10 @@ actually is.
 
 The projected filters are **generated** from `globs.yml` into the orchestration YAML (the generated-root-config contract), never
 hand-authored. A registration is therefore behaviourally the unit's real path filter — including renames and moves, which content-blind hand
-filters miss — and the drift gate (`Test-AdoPipelineTriggerGlob` / `Test-GitHubWorkflowTriggerGlob`) fails any pipeline whose declared
-trigger no longer equals its projection. The one semantic seam — ADO's order-independence versus our positional last-match-wins — coincides
-for every folder-shaped set; a set whose ADO projection cannot reproduce exact membership is caught at generation time, not silently
-mis-triggered.
+filters miss — and the drift quality gates (`Test-AdoPipelineTriggerGlob` / `Test-GitHubWorkflowTriggerGlob`) report every pipeline whose
+declared trigger no longer equals its projection. The one semantic seam — ADO's order-independence versus our positional last-match-wins —
+coincides for every folder-shaped set; a set whose ADO projection cannot reproduce exact membership is caught at generation time, not
+silently mis-triggered.
 
 An Azure DevOps root pipeline (the `trigger:`/`pr:` keys are honored only at the pipeline root, never inside a template):
 
@@ -287,11 +287,12 @@ umbrella mistakenly declared a `module` fails as a named pair.
 
 - `GlobsConfig` validates the schema and every pattern at config load, rejecting unknown keys, malformed patterns (`ADR-FLOW-CD-GLOBS:3`),
   and cyclic or self-referential compose (`ADR-FLOW-CD-GLOBS:8`).
-- `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` recompute each pipeline-bound globset's native projection and compare
-  it to what the bound pipeline/workflow actually declares; integrity-tagged tests assert every trigger is a `Match`, so a hand-edited or
-  drifted `paths:` filter fails `Test-Automation` locally and in CI.
-- The coverage integrity test confirms every member of a pipeline-bound set is covered by an ADO include pattern — an include-only
-  projection is a safe superset that can never under-trigger, with `Test-GlobSetAffected` supplying exactness on top.
+- `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` are quality gates
+  ([ADR-AUTO-TEST#35](../automation/test-automation.md#rule-adr-auto-test35)): each recomputes the native projection of its pipeline-bound
+  globsets and compares it to what the bound pipeline/workflow actually declares, reporting one issue per drifted or missing pipeline. Their
+  integrity tests require zero issues, so a hand-edited or drifted `paths:` filter fails `Test-Automation` locally and in CI.
+- The `Test-GlobSetTriggerCoverage` quality gate confirms every member of a pipeline-bound set is covered by an ADO include pattern — an
+  include-only projection is a safe superset that can never under-trigger, with `Test-GlobSetAffected` supplying exactness on top.
 - Grep-ability: `paths:` filters in `pipelines/*.yaml` and `.github/workflows/` are generated from `globs.yml`; a filter that disagrees with
   the projection is findable by the drift gate and wrong by rule (`ADR-FLOW-CD-GLOBS:6`).
 

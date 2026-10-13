@@ -9,7 +9,9 @@
 # the editor stays glued to the tooling with no second list to maintain. Authored entries below win over an
 # injected key of the same name.
 #
-# Loaded via Get-Config -Config vscode-settings (raw — free-form VS Code keys; no shape to validate).
+# Loaded via Get-Config -Config vscode-settings as Catzc.Base.VSCode.VscodeSettingsConfig: the settings stay a
+# free-form, ordered passthrough map of VS Code keys; the type checks the shape (only `settings`, non-empty; a
+# `[language]` override is a map; `search.exclude` maps each glob to true/false).
 settings:
   # Markdown settings (built-in preview)
   markdown.preview.fontFamily: "Consolas, 'Courier New', monospace"

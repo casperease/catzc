@@ -117,4 +117,3 @@ function Get-GlossaryPhrasingViolations {
     [string[]] @($hits | Sort-Object -Property @{ Expression = 'File' }, @{ Expression = 'Line' }, @{ Expression = 'Message' } -Unique |
             ForEach-Object Message)
 }
-

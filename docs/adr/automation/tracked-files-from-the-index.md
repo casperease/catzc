@@ -6,9 +6,9 @@
 
 ### Rule ADR-AUTO-TRACKED:1
 
-One seam answers "which files does git track": `Get-GitTrackedPath`. No other code launches `git ls-files` to list tracked files or to
-test whether a path is tracked. A domain function that names a tracked universe of its own (`Get-TrackedFile`, the globset matching
-universe; `Get-GuidScanFiles`, the managed-GUID scan) delegates to the seam and adds only its own filtering.
+One seam answers "which files does git track": `Get-GitTrackedPath`. No other code launches `git ls-files` to list tracked files or to test
+whether a path is tracked. A domain function that names a tracked universe of its own (`Get-TrackedFile`, the globset matching universe;
+`Get-GuidScanFiles`, the managed-GUID scan) delegates to the seam and adds only its own filtering.
 
 - [One question, one answer](#one-question-one-answer)
 
@@ -52,8 +52,8 @@ the seam, not taken from the checksum git writes at the end of the file, because
 
 ### Rule ADR-AUTO-TRACKED:7
 
-The reader is tested at L0 against index bytes the test builds itself, covering every shape it reads and every shape it refuses; one L2
-test pins it to real `git ls-files` on the repository's own index, for the whole repository and for a pathspec.
+The reader is tested at L0 against index bytes the test builds itself, covering every shape it reads and every shape it refuses; one L2 test
+pins it to real `git ls-files` on the repository's own index, for the whole repository and for a pathspec.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -99,8 +99,8 @@ costs: the call is a file read, and the gates that use it run as ordinary L1 int
 
 The tracked set changes while a session runs: a commit, a `git add`, or a parallel session's commit rewrites the index. So the seam cannot
 keep a listing for the session's lifetime, which is the default for filesystem-derived information
-([caching](caching.md#rule-adr-auto-cache6)). It hashes the index file on every call — cheap next to parsing it — and parses again only
-when the hash differs. Equal bytes give an equal answer, so the cached listing can never be stale (ADR-AUTO-CACHE#9).
+([caching](caching.md#rule-adr-auto-cache6)). It hashes the index file on every call — cheap next to parsing it — and parses again only when
+the hash differs. Equal bytes give an equal answer, so the cached listing can never be stale (ADR-AUTO-CACHE#9).
 
 ### Refuse rather than guess
 

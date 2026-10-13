@@ -58,8 +58,8 @@ them).
 Authored sources live under `docs/references/` — automation modules as the domains-first reference articles in
 `docs/references/automation/<kebab>.md`, and other folders (pipelines, infrastructure, `out/`, `.cspell/`, `contracts/`) under
 `docs/references/`. The one mapping outside it is `docs/adr/`, whose README links to the folder's own generated index, `docs/adr/index.md`.
-That index and the generated glossary are committed, unlike the README links — every ADR citation links the index, so GitHub must have
-it — and marked `linguist-generated` so their diffs collapse. The source is the reviewed, gate-checked artifact; the README link is out of
+That index and the generated glossary are committed, unlike the README links — every ADR citation links the index, so GitHub must have it —
+and marked `linguist-generated` so their diffs collapse. The source is the reviewed, gate-checked artifact; the README link is out of
 markdown-gate scope.
 
 - [Derived, not committed](#derived-not-committed)
@@ -106,8 +106,8 @@ Because the links are cheap to verify and must never go stale, the importer re-m
 `Set-FileLink` is idempotent: an effective link (a symbolic link resolving to the source, or a hard link with identical bytes) is a no-op,
 and anything else is deleted and recreated — including a plain file whose content happens to match, because content equality is not the
 contract; being the same file is. The per-OS healing contract is the mechanism owner's
-([generated-root-configs](generated-root-configs.md#copy-as-link)): a Windows session typically holds hard links, a
-Linux session symbolic links, and each session verifies and heals its own view at import.
+([generated-root-configs](generated-root-configs.md#copy-as-link)): a Windows session typically holds hard links, a Linux session symbolic
+links, and each session verifies and heals its own view at import.
 
 ### The reading surface
 

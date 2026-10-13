@@ -65,7 +65,7 @@ The assert is a guard, never a selector — a mismatch means a mis-wired service
 
 ### Rule ADR-AZ-DATAMOD:8
 
-Per-record shape is schema-validated; cross-record integrity is owned by `Assert-AzureConfig` (including per-customer environment
+Per-record shape is schema-validated; cross-record integrity is owned by the `AzureConfig` config type (including per-customer environment
 disjointness — no two subscriptions of one customer serve the same env); the cross-layer link (a subfolder is a customer key; every config
 coordinate resolves to exactly one subscription) is enforced at discovery by `Get-BicepTemplates` via the shared
 `Get-BicepSubscriptionConfigViolations`, and over the shipped tree by integrity tests.
@@ -164,7 +164,7 @@ resolution) and `Get-BicepConfigSubscriptionCandidates` (config-coordinate resol
 
 **Uniqueness is per coordinate, not global.** Different customers' subscriptions — and the shared platform's — may serve the same
 environment (e.g. `shared_nonprod` and a customer's `apex_nonprod` both serve `dev`); the customer axis separates them. What must be unique
-is the resolution within one coordinate: no two subscriptions of one customer serve the same env (`Assert-AzureConfig`, plus the normalized
+is the resolution within one coordinate: no two subscriptions of one customer serve the same env (`AzureConfig`, plus the normalized
 integrity test), and a root config's env must be served by exactly one non-customer subscription (asserted per config file at discovery —
 the "every file resolves to ONE subscription id" rule). Which subscription a deploy targets is the az session's — never an argument.
 
@@ -305,9 +305,9 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
 
 - **Per-record shape** (identifiers, GUIDs, enums, formats) is schema-expressible.
 - **Cross-record integrity** (FKs, env name/shortcode uniqueness + prefix-free names, ≤1 per-subscription env per subscription, per-customer
-  environment disjointness by raw token) is owned by `Assert-AzureConfig`; the `customer` reference into `customer.yml`, the normalized
-  (key-vs-shortcode) per-customer grouping, and the non-customer set's disjointness are shipped-asset integrity tests (see
-  [`customer-model`](azure-customer-model.md#rule-adr-az-customer3)).
+  environment disjointness by raw token) is owned by the `AzureConfig` config type, checked at load; the `customer` reference into
+  `customer.yml`, the normalized (key-vs-shortcode) per-customer grouping, and the non-customer set's disjointness are shipped-asset
+  integrity tests (see [`customer-model`](azure-customer-model.md#rule-adr-az-customer3)).
 - The **cross-layer** link is enforced at **discovery** (`Get-BicepTemplates`) and collected by `Assert-BicepTemplate`, sharing the
   per-config rule `Get-BicepSubscriptionConfigViolations`: a configuration subfolder is a **defined customer key**, and every config's
   (customer?, env) coordinate resolves to **exactly one subscription id** (`Get-BicepConfigSubscriptionCandidates`).

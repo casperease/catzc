@@ -70,8 +70,7 @@ other function reads a config file or keeps its own config cache. It:
    `<name>.yml`;
 2. returns the cached object if `$script:configCache` already has the resolved path (same reference every call);
 3. asserts the file exists and parses it as an ordered dictionary (`ConvertFrom-Yaml -Ordered`);
-4. constructs the registered C# config type from the raw dict, once, on the cache miss — or returns the raw dict when no type is
-   registered;
+4. constructs the registered C# config type from the raw dict, once, on the cache miss — or returns the raw dict when no type is registered;
 5. caches the result keyed on the resolved file path. Re-running the importer is the only invalidation (see
    [caching](../automation/caching.md)).
 
@@ -101,14 +100,14 @@ without loading anything; the reader then loads each with `-Module`, so every fi
 `Every shipped config is a C# type`
 
 A config's shape is a **C# config type** in its owning module's `types/` — a YAML mirror with snake_case properties that derives
-`DictionaryRecord` (see [native-csharp-types](../automation/BCL/native-csharp-types.md)). The registry, `Catzc.Base.Config/configs/configs.yml`,
-binds each config name to its type, and `Get-Config` constructs `[type]::new($dict)`: the constructor maps the ordered dict into a typed
-object and validates it, collecting every violation into one `ArgumentException`. A malformed config therefore never produces an
-instance, and every consumer reads typed properties.
+`DictionaryRecord` (see [native-csharp-types](../automation/BCL/native-csharp-types.md)). The registry,
+`Catzc.Base.Config/configs/configs.yml`, binds each config name to its type, and `Get-Config` constructs `[type]::new($dict)`: the
+constructor maps the ordered dict into a typed object and validates it, collecting every violation into one `ArgumentException`. A malformed
+config therefore never produces an instance, and every consumer reads typed properties.
 
 The registry validates itself through its own type, `Catzc.Base.Config.ConfigsConfig`: each entry holds exactly one non-blank `type`. An
-unregistered config — a test fixture, or a config checked through the PowerShell extension point — is returned **raw**, as the ordered
-dict. `Test-ShippedConfigs` keeps the registry and the shipped configs in step: a shipped config without a type, an entry without a shipped
+unregistered config — a test fixture, or a config checked through the PowerShell extension point — is returned **raw**, as the ordered dict.
+`Test-ShippedConfigs` keeps the registry and the shipped configs in step: a shipped config without a type, an entry without a shipped
 config, a type that does not resolve, and a shipped config that does not load are each an issue.
 
 ### The PowerShell extension point
@@ -118,23 +117,23 @@ config, a type that does not resolve, and a shipped config that does not load ar
 Not every owner of a config can ship a C# type: types compile only from `automation/<module>/types/`, and a track or deployable-unit that
 carries its own configuration rests on PowerShell extension points instead (`ADR-DSGN-TRACK:3`). For those, `Catzc.Base.ConfigExtensions`
 keeps the PowerShell validator form. `Invoke-ConfigValidator -Config <dict> -Name <name> -Module <owner>` finds the validator by convention
-(`Assert-<TitleCase(name)>Config`, so `widget-parts` → `Assert-WidgetPartsConfig`) or by `-Validator`, and runs it **in the owning
-module's scope** — `& (Get-Module $owner) { … }` — so a private validator resolves. A conventional validator that does not exist is a
-no-op; a named one that does not exist throws.
+(`Assert-<TitleCase(name)>Config`, so `widget-parts` → `Assert-WidgetPartsConfig`) or by `-Validator`, and runs it **in the owning module's
+scope** — `& (Get-Module $owner) { … }` — so a private validator resolves. A conventional validator that does not exist is a no-op; a named
+one that does not exist throws.
 
 The extension point sits outside `Get-Config`, so the core reader stays one path (typed, or raw). `Test-ConfigValidators` guards the
 convention: a validator whose name maps to no shipped config of its module is never called, so each one is an issue.
 
 ### Poka-yoke
 
-| Situation                                         | What `Get-Config` does                                                                         |
-| ------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `configs.yml` entry (`type:`)                     | Constructs the C# type — maps and validates, every violation in one exception                  |
-| No registry entry                                 | Returns the **raw** ordered dict; `Test-ShippedConfigs` flags a shipped config without a type  |
-| Registry entry with no shipped config             | `Test-ShippedConfigs` flags it                                                                 |
-| `Assert-…Config` with no matching config name     | Never invoked by `Invoke-ConfigValidator`; `Test-ConfigValidators` flags it                    |
-| Unknown name (no `<name>.yml` anywhere)           | `Resolve-ConfigEntry` **throws** — fail-fast, no silent empty read                             |
-| Ambiguous name (same `<name>.yml` in two modules) | `Resolve-ConfigEntry` **throws**, asking for `-Module` — no accidental wrong file              |
+| Situation                                         | What `Get-Config` does                                                                        |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `configs.yml` entry (`type:`)                     | Constructs the C# type — maps and validates, every violation in one exception                 |
+| No registry entry                                 | Returns the **raw** ordered dict; `Test-ShippedConfigs` flags a shipped config without a type |
+| Registry entry with no shipped config             | `Test-ShippedConfigs` flags it                                                                |
+| `Assert-…Config` with no matching config name     | Never invoked by `Invoke-ConfigValidator`; `Test-ConfigValidators` flags it                   |
+| Unknown name (no `<name>.yml` anywhere)           | `Resolve-ConfigEntry` **throws** — fail-fast, no silent empty read                            |
+| Ambiguous name (same `<name>.yml` in two modules) | `Resolve-ConfigEntry` **throws**, asking for `-Module` — no accidental wrong file             |
 
 ## Consequences
 
@@ -142,8 +141,8 @@ convention: a validator whose name maps to no shipped config of its module is ne
   hand-pass.
 - **Fail loud.** Unknown and ambiguous names throw at resolution; a missing file throws at read. There is no silent fall-through to an empty
   or wrong config.
-- **Pluggable.** Adding a config is: drop `configs/<name>.yml`, write its C# config type in the module's `types/`, and add one
-  `configs.yml` line. No edits to `Get-Config`, no new wrapper.
+- **Pluggable.** Adding a config is: drop `configs/<name>.yml`, write its C# config type in the module's `types/`, and add one `configs.yml`
+  line. No edits to `Get-Config`, no new wrapper.
 - **Validation is uniform and caller-independent.** It runs exactly once per file per session, at construction, no matter which module
   called `Get-Config` — and every consumer reads a typed object.
 - One implementation of config I/O, caching, and validation; readers can't drift, and every read of a file shares the one

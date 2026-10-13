@@ -11,7 +11,7 @@ enabled-customer set is the `have_customers` repo variant ([repo-variants](../re
 
 Customer **definitions** live only in `automation/Catzc.Azure/configs/customer.yml` — the catalogue of who the repo's customers are, each a
 readable `key` plus a 2-char `shortcode` (and optional `details`). It is separate from `azure.yml` (as `network.yml` holds the IP plan),
-loaded by `Get-Config -Config customer` and validated by `Assert-CustomerConfig`.
+loaded by `Get-Config -Config customer` and validated by its config type, `CustomerConfig`.
 
 - [The catalogue](#the-catalogue)
 
@@ -19,8 +19,8 @@ loaded by `Get-Config -Config customer` and validated by `Assert-CustomerConfig`
 
 A subscription binds a customer **two ways**: its `customer` field in `azure.yml` may name the customer by **either** its key (`apex`)
 **or** its 2-char shortcode (`ap`). Both resolve to the same customer; `Get-AzureCustomer` is the single resolver (keys first, then
-shortcodes) and `Get-AzureSubscription` normalizes the token to the canonical key. To keep the binding unambiguous, `Assert-CustomerConfig`
-forbids any key from equalling any shortcode.
+shortcodes) and `Get-AzureSubscription` normalizes the token to the canonical key. To keep the binding unambiguous, `CustomerConfig` forbids
+any key from equalling any shortcode.
 
 - [Two names, one binding](#two-names-one-binding)
 
@@ -29,8 +29,8 @@ forbids any key from equalling any shortcode.
 The subscription→customer reference is **not** validated when `azure.yml` loads. Cross-checking it there would make every `azure.yml` read
 also read `customer.yml`, coupling nearly every Azure test to the catalogue. Instead the reference is enforced two other ways: a
 shipped-asset **integrity test** (every shipped subscription's customer resolves in `customer.yml`) and **at runtime** (`Get-AzureCustomer`
-throws on an unknown token). So `Assert-AzureConfig` validates only azure's own shape, and the cross-asset read is one-directional — the
-Azure layer reads the customer catalogue, never the reverse.
+throws on an unknown token). So `AzureConfig` validates only azure's own shape, and the cross-asset read is one-directional — the Azure
+layer reads the customer catalogue, never the reverse.
 
 - [Checking the reference](#checking-the-reference)
 
@@ -76,9 +76,9 @@ catalogue of who the customers are.
 `customer.yml` declares one entity — a customer — keyed by a readable **`key`** (the customer-segment of relaxed resource names, the value a
 subscription may reference, and the name of the customer's `configuration/<key>/` subfolder in every template), with a 2-char
 **`shortcode`** (unique; the customer-segment of the restricted patterns) and optional `details`. This mirrors the name/shortcode split
-environments carry. `Assert-CustomerConfig` validates it: key format (`^[a-z][a-z0-9]+$`), shortcode format (`^[a-z]{2}$`), shortcode
-uniqueness, and the no-key-equals-a-shortcode rule (ADR-AZ-CUSTOMER#2). It is self-contained — it does not read `azure.yml`, so the customer
-catalogue sits below the subscriptions that reference it and validation stays one-directional.
+environments carry. Its config type, `CustomerConfig`, validates it at load: key format (`^[a-z][a-z0-9]+$`), shortcode format
+(`^[a-z]{2}$`), shortcode uniqueness, and the no-key-equals-a-shortcode rule (ADR-AZ-CUSTOMER#2). It is self-contained — it does not read
+`azure.yml`, so the customer catalogue sits below the subscriptions that reference it and validation stays one-directional.
 
 ### Two names, one binding
 
@@ -86,21 +86,21 @@ A customer has a pair of names — the readable key and the terse shortcode — 
 resolves a token to the canonical record by trying keys first, then shortcodes; `Get-AzureSubscription` runs the raw `customer` token
 through it so the resolved subscription always carries the canonical **key**, whichever form the config used. The binding is unambiguous
 only because keys and shortcodes are disjoint name-spaces (a key that equalled a shortcode would match two customers), which
-`Assert-CustomerConfig` enforces. This is the [poka-yoke](../principles/poka-yoke.md) form of "accept either spelling, store one".
+`CustomerConfig` enforces. This is the [poka-yoke](../principles/poka-yoke.md) form of "accept either spelling, store one".
 
 ### Checking the reference
 
 `The reference is checked by integrity and at runtime, not at load`
 
 `network.yml` cross-checks `azure.yml` during its own validation because few tests load `network.yml`. `azure.yml` is different: it is
-loaded by almost every Azure test, so making `Assert-AzureConfig` read `customer.yml` to validate the `customer` FK would couple all of them
-to the catalogue (and its fixture). The reference is therefore enforced where it costs nothing hermetic:
+loaded by almost every Azure test, so making `AzureConfig` read `customer.yml` to validate the `customer` FK would couple all of them to the
+catalogue (and its fixture). The reference is therefore enforced where it costs nothing hermetic:
 
 - a **shipped-asset integrity test** — every shipped subscription's `customer` token resolves via `Get-AzureCustomer`;
 - **at runtime** — `Get-AzureSubscription`/`Get-AzureCustomer` throw on an unknown token the moment the subscription is resolved.
 
-So `Assert-AzureConfig` validates only azure's own shape, azure-loading stays hermetic, and the cross-asset dependency runs one way: the
-Azure layer reads the customer catalogue, the catalogue reads nothing back.
+So `AzureConfig` validates only azure's own shape, azure-loading stays hermetic, and the cross-asset dependency runs one way: the Azure
+layer reads the customer catalogue, the catalogue reads nothing back.
 
 ### Catalogue vs enabled set
 
@@ -137,8 +137,8 @@ whether it may deploy into customer subscriptions.
 
 ### How this is enforced
 
-- **`Assert-CustomerConfig`** (private, convention-dispatched) validates `customer.yml` shape, shortcode uniqueness, and the key≠shortcode
-  rule.
+- **`CustomerConfig`** (the C# config type registered for `customer` in `configs.yml`) validates `customer.yml` at load: its shape, key and
+  shortcode formats, shortcode uniqueness, and the key≠shortcode rule, reporting every violation in one error.
 - **`Get-AzureCustomer`** resolves a key-or-shortcode token to the canonical record and throws on an unknown token;
   **`Get-AzureSubscription`** normalizes a subscription's `customer` to the canonical key.
 - **Integrity tests** — every shipped subscription's customer resolves in `customer.yml`; every name in a `have_customers` list is a defined

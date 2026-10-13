@@ -4,7 +4,8 @@
     repo-controlled JSON Schema the Azure Pipelines extension validates our pipeline YAML against.
 .DESCRIPTION
     Reads the authored schema registry (configs/vscode-pipeline-schema.yml, via Get-Config -Config
-    vscode-pipeline-schema — raw, free-form JSON-Schema keys) and renders it to the schema file content:
+    vscode-pipeline-schema — the validated VscodePipelineSchemaConfig, whose `document` is the authored
+    JSON-Schema passthrough map) and renders it to the schema file content:
     strict JSON, no comment header. Unlike settings/extensions/launch.json (which VS Code reads as JSONC),
     this file is consumed by the extension's schema validator as strict JSON, so the provenance marker cannot
     be a leading '//' block — it travels as a JSON-Schema '$comment' key the validator ignores.
@@ -25,22 +26,20 @@ function New-VSCodePipelineSchema {
     [OutputType([string])]
     param()
 
-    $config = Get-Config -Config vscode-pipeline-schema
+    $document = (Get-Config -Config vscode-pipeline-schema).document
 
     # Front the schema with its meta-schema declaration, then a '$comment' provenance marker (JSON has no
     # comment syntax and the validator parses this file strictly), then the authored body in registry order.
     $rendered = [ordered]@{}
-    if ($config.Contains('$schema')) {
-        $rendered['$schema'] = $config['$schema']
-    }
+    $rendered['$schema'] = $document['$schema']
     $rendered['$comment'] = 'GENERATED FILE — do not edit. Source of truth: ' +
     'automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml (authored schema + rationale). ' +
     'Regenerated on import by Build-RootConfig; edit the yml, not this file.'
-    foreach ($key in $config.Keys) {
+    foreach ($key in $document.Keys) {
         if ($key -eq '$schema') {
             continue
         }
-        $rendered[$key] = $config[$key]
+        $rendered[$key] = $document[$key]
     }
 
     (ConvertTo-Json -InputObject $rendered -Depth 20) + "`n"

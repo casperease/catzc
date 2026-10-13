@@ -13,7 +13,7 @@ Pairs with [`data-model`](azure-data-model.md) (identity + templating) and [`nam
 The IP plan lives only in `network.yml` — never duplicate vnet/subnet ranges into a template's per-slot config. A template that needs ranges
 reads them from `Get-Config -Config network` in its prepare hook and merges them into the parameter set.
 
-> **Status.** The asset, its validator, and the prepare-hook range-merge mechanism are built and exercised by a fixture test (the
+> **Status.** The asset, its config type, and the prepare-hook range-merge mechanism are built and exercised by a fixture test (the
 > `sample-with-prepost` template merges `vnet_address_space` / `default_subnet` into its parameter set). The shipped production templates do
 > not create a vnet, so none of them consumes `network.yml` ranges; a production template that needs a vnet uses the same mechanism.
 
@@ -21,9 +21,10 @@ reads them from `Get-Config -Config network` in its prepare hook and merges them
 
 ### Rule ADR-AZ-NETWORK:2
 
-Key the plan by environment name, matching `azure.yml`; the two assets stay in sync via the validator, not by convention alone.
+Key the plan by environment name, matching `azure.yml`; the two assets stay in sync via the config type's load-time check, not by convention
+alone.
 
-- [Validation (`Assert-NetworkConfig`)](#validation)
+- [Validation (`NetworkConfig`)](#validation)
 
 ### Rule ADR-AZ-NETWORK:3
 
@@ -36,7 +37,7 @@ One address space per environment — multi-region-per-environment is out of sco
 Per-subscription envs (`nsub`/`psub`) need no network entry — they carry no vnet, so the standard-env requirement skips them (a
 `nsub`/`psub` entry is not forbidden, just pointless).
 
-- [Validation (`Assert-NetworkConfig`)](#validation)
+- [Validation (`NetworkConfig`)](#validation)
 
 ## Context
 
@@ -58,8 +59,8 @@ environment.
 ### The asset
 
 `configs/network.yml` declares one entity — a per-environment IP plan — keyed by environment **name** (the same keys as `azure.yml`'s
-`environments`). It is loaded by `Get-Config -Config network`, which auto-dispatches the private `Assert-NetworkConfig` (by the
-`Assert-<TitleCase(name)>Config` convention, in the owning module's scope) on load (a bad file throws at read time).
+`environments`). It is loaded by `Get-Config -Config network`, which constructs its C# config type, `NetworkConfig` (every shipped config
+has one, [ADR-CONF-LOADING#4](../configuration/module-config-loading.md#rule-adr-conf-loading4)), so a bad file throws at read time.
 
 ```mermaid
 erDiagram
@@ -85,7 +86,7 @@ environments:
 
 ### Validation
 
-`Assert-NetworkConfig`
+`NetworkConfig`
 
 - **Required shape.** Top-level `environments` map; each entry has `vnet_address_space` and `default_subnet`.
 - **Format.** Each environment name is a valid lower-snake_case identifier (`^[a-z][a-z0-9_]*$`); each range is an IPv4 CIDR (`a.b.c.d/n`,
@@ -99,8 +100,9 @@ environments:
 
 ### How this is enforced
 
-- `Get-Config -Config network` loads and auto-validates via the convention validator `Assert-NetworkConfig`.
-- `Assert-NetworkConfig` performs the shape, format, and cross-asset checks above.
+- `Get-Config -Config network` loads and validates the file through its registered config type, `NetworkConfig`.
+- `NetworkConfig` (with `NetworkEnvironment` for each entry) performs the shape, format, and cross-asset checks above; the cross-asset join
+  reads `azure.yml` through `Get-Config`.
 - The shipped `network.yml` is exercised by the same integrity discipline as `azure.yml` (see
   [`test-automation`](../automation/test-automation.md)).
 

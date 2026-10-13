@@ -5,15 +5,15 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
         # fixture registry with an authored
         # search.exclude carrying an explicit un-exclude (false) that injection must not override.
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
-            [pscustomobject]@{
-                settings = [ordered]@{
-                    'editor.tabSize' = 4
-                    'search.exclude' = [ordered]@{
-                        'automation/.vendor'   = $true
-                        'keep/searchable.psd1' = $false
+            [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
+                    settings = [ordered]@{
+                        'editor.tabSize' = 4
+                        'search.exclude' = [ordered]@{
+                            'automation/.vendor'   = $true
+                            'keep/searchable.psd1' = $false
+                        }
                     }
-                }
-            }
+                })
         }
     }
 
@@ -40,11 +40,20 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
 
     It 'creates the search.exclude map when the registry has none' {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
-            [pscustomobject]@{ settings = [ordered]@{ 'editor.tabSize' = 2 } }
+            [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{ settings = [ordered]@{ 'editor.tabSize' = 2 } })
         }
         $text = New-VSCodeSettings -ManagedTarget 'importer.ps1'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $json.'search.exclude'.'importer.ps1' | Should -BeTrue
+    }
+
+    It 'leaves the cached config untouched when it completes search.exclude' {
+        $fixture = [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
+                settings = [ordered]@{ 'search.exclude' = [ordered]@{ 'automation/.vendor' = $true } }
+            })
+        Mock Get-Config -ModuleName Catzc.Base.VSCode { $fixture }
+        $null = New-VSCodeSettings -ManagedTarget 'importer.ps1'
+        @($fixture.settings['search.exclude'].Keys) | Should -Be @('automation/.vendor')
     }
 }
 

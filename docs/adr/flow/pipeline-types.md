@@ -215,10 +215,10 @@ _then_, once that is green, it orchestrates **deployment** of the deployable uni
   against the deployed unit. The artifact built once is what flows to each environment — build-once, deploy-many (Humble & Farley; see
   [continuous delivery](../../references/dora/capabilities.md#continuous-delivery)).
 - **Contract:** one CD pipeline per deployable unit. Deploys run against version control — the artifact and config are functions of the
-  repository, not of runtime input (see [INPUT](#input)). The system-level tests that are too slow
-  for the 5–10 min pre-commit budget live _here_, post-commit, on the way to production — not in the pre-commit slot. When a target
-  environment is governed by manual, organizational gates rather than continuous delivery, CD's deploy tail is **extracted** into a separate
-  DEPLOY pipeline (below) instead of chaining automatically after the post-commit build.
+  repository, not of runtime input (see [INPUT](#input)). The system-level tests that are too slow for the 5–10 min pre-commit budget live
+  _here_, post-commit, on the way to production — not in the pre-commit slot. When a target environment is governed by manual,
+  organizational gates rather than continuous delivery, CD's deploy tail is **extracted** into a separate DEPLOY pipeline (below) instead of
+  chaining automatically after the post-commit build.
 
 ### DEPLOY
 

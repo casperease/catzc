@@ -136,6 +136,12 @@ namespace CatzcGetConfigTest {
                 Should -Not -Throw
         }
 
+        It 'exposes the registry as config name to type, in file order' {
+            $registry = [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ widget = @{ type = 'Tst.Widget' }; gadget = @{ type = ' Tst.Gadget ' } } })
+            @($registry.configs.Keys) | Should -Be @('widget', 'gadget')
+            $registry.configs['gadget'] | Should -Be 'Tst.Gadget'
+        }
+
         It 'accepts an absent or empty configs map' {
             { [Catzc.Base.Config.ConfigsConfig]::new(@{}) } | Should -Not -Throw
             { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{} }) } | Should -Not -Throw

@@ -67,3 +67,5 @@ configs:
     type: Catzc.Azure.DevOps.PipelineEnvConfig
   artifacts:
     type: Catzc.Base.ModuleSystem.ArtifactsConfig
+  vscode-settings:
+    type: Catzc.Base.VSCode.VscodeSettingsConfig

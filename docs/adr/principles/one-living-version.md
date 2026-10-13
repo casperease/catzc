@@ -195,8 +195,8 @@ what the code used to be lives in git and nowhere else — not in retained files
   keys, so a compatibility field cannot quietly linger in a config — removing the key from the schema forces it out of every file in the
   same change.
 
-- **The present-tense ADR/doc convention** (`docs/adr/index.md`, "Present tense, not a changelog") enforces ADR-PRIN-ONELIVE#6 in review
-  for all documentation.
+- **The present-tense ADR/doc convention** (`docs/adr/index.md`, "Present tense, not a changelog") enforces ADR-PRIN-ONELIVE#6 in review for
+  all documentation.
 
 ## Consequences
 

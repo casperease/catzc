@@ -55,10 +55,10 @@ automatically reconciled to latest main — is fixed here; its _name_ is org sem
 
 **Progression toward prod leaves the automated flow and enters DEPLOY.** From non-prod, the same tagged artifact is promoted toward
 production via **DEPLOY** activities — a solo, manually-governed DEPLOY pipeline that drives the artifact into a **non-automated (manually
-gated)** environment ([ADR-FLOW-CD-TYPE#8–ADR-FLOW-CD-TYPE#11](../flow/pipeline-types.md#deploy)). The
-boundary between CD and DEPLOY is the automated/manual-governance line: CD owns the automated non-prod direction; the human certification is
-a hands-on gate — **RC** at main-UAT or **RBC** at release-uat (ADR-FLOW-CD#9) — and **DEPLOY** is the pipeline that actuates the roll to
-prod once that gate clears. RC/RBC decide _whether_ to proceed; DEPLOY performs the advance.
+gated)** environment ([ADR-FLOW-CD-TYPE#8–ADR-FLOW-CD-TYPE#11](../flow/pipeline-types.md#deploy)). The boundary between CD and DEPLOY is the
+automated/manual-governance line: CD owns the automated non-prod direction; the human certification is a hands-on gate — **RC** at main-UAT
+or **RBC** at release-uat (ADR-FLOW-CD#9) — and **DEPLOY** is the pipeline that actuates the roll to prod once that gate clears. RC/RBC
+decide _whether_ to proceed; DEPLOY performs the advance.
 
 - [The boundary to prod is DEPLOY](#the-boundary-to-prod-is-deploy)
 
@@ -264,10 +264,10 @@ All of this is automated and lives entirely in non-prod. CD never touches produc
 The step from non-prod to production is where automation stops and organizational governance begins, and that is exactly the CD/DEPLOY
 boundary. From the certified non-prod state, the **same tagged artifact** is promoted toward prod through **DEPLOY** activities: a solo,
 manually-governed DEPLOY pipeline that drives the artifact into a **non-automated, manually-gated** environment
-([ADR-FLOW-CD-TYPE#8–ADR-FLOW-CD-TYPE#11](../flow/pipeline-types.md#deploy)). A DEPLOY pipeline is where
-a certification environment locked to a release commit, or an approval-gated production cutover, lives. The line is clean: **CD is the
-automated non-prod direction; DEPLOY is the human-governed step toward prod** — two domains, one artifact, keyed together at the boundary
-rather than fused into a single pipeline that would bury the manual gate inside an automated flow.
+([ADR-FLOW-CD-TYPE#8–ADR-FLOW-CD-TYPE#11](../flow/pipeline-types.md#deploy)). A DEPLOY pipeline is where a certification environment locked
+to a release commit, or an approval-gated production cutover, lives. The line is clean: **CD is the automated non-prod direction; DEPLOY is
+the human-governed step toward prod** — two domains, one artifact, keyed together at the boundary rather than fused into a single pipeline
+that would bury the manual gate inside an automated flow.
 
 ### CDe
 

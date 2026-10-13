@@ -216,8 +216,8 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   the fast unit and integrity tiers.
 - [Version control](../../references/dora/capabilities.md#version-control) — "tracked" means exactly what git's index holds, read the same
   way by every gate.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one seam replaces per-caller git calls, each with
-  its own parsing.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one seam replaces per-caller git calls, each with its
+  own parsing.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Sensible defaults

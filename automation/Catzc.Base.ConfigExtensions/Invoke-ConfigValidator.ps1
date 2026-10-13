@@ -48,7 +48,12 @@ function Invoke-ConfigValidator {
     }
 
     $explicit = [bool] $Validator
-    $function = if ($explicit) { $Validator } else { Get-ConfigValidatorName -Name $Name }
+    $function = if ($explicit) {
+        $Validator
+    }
+    else {
+        Get-ConfigValidatorName -Name $Name
+    }
 
     $found = & $owner { param($fn) [bool](Get-Command $fn -CommandType Function -ErrorAction Ignore) } $function
     if (-not $found) {
