@@ -4,6 +4,7 @@
 # Invoke-Importer in automation/.internal/Catzc.Internal.Importer.psm1 (the single living copy). It is
 # dot-sourced (. ./importer.ps1), so its $global:/$env: effects land in the caller's session.
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Invoke-Importer announces RepositoryRoot on its Roots line, the first point a writer is loaded')]
+[CmdletBinding()]
 param(
     [switch] $ExportPrivates,
     [switch] $AllowWarnings,
@@ -22,12 +23,13 @@ Set-StrictMode -Version Latest
 $env:RepositoryRoot = $PSScriptRoot
 
 # Load the .internal shared-code loader (the one module imported by path), then the importer overlay, and
-# delegate. Catzc.Internal.Importer is import-time orchestration — remove it once the load returns.
-Import-Module (Join-Path $PSScriptRoot 'automation/.internal/Catzc.Internal.Loader.psm1') -Scope Global -Force
-Import-InternalModule Importer -Force
+# delegate. Catzc.Internal.Importer is import-time orchestration — remove it once the load returns. -Verbose is
+# for Invoke-Importer's state-change record, not these imports' per-function detail.
+Import-Module (Join-Path $PSScriptRoot 'automation/.internal/Catzc.Internal.Loader.psm1') -Scope Global -Force -Verbose:$false
+Import-InternalModule Importer -Force -Verbose:$false
 try {
     Invoke-Importer @PSBoundParameters
 }
 finally {
-    Remove-Module Catzc.Internal.Importer -Force -ErrorAction SilentlyContinue
+    Remove-Module Catzc.Internal.Importer -Force -ErrorAction SilentlyContinue -Verbose:$false
 }

@@ -41,6 +41,12 @@ Describe 'New-Importer' -Tag 'L0', 'logic', 'source-only' {
         $errors | Should -BeNullOrEmpty
         $content | Should -Match 'Invoke-Importer @PSBoundParameters'
     }
+
+    It 'generates an advanced shim, so -Verbose binds and is forwarded to Invoke-Importer' {
+        $content = New-Importer -RepositoryRoot $script:sandbox -DryRun
+        $ast = [System.Management.Automation.Language.Parser]::ParseInput($content, [ref] $null, [ref] $null)
+        $ast.ParamBlock.Attributes.TypeName.Name | Should -Contain 'CmdletBinding'
+    }
 }
 
 Describe 'New-Importer — build mode' -Tag 'L0', 'logic' {

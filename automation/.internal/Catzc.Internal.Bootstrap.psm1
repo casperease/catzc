@@ -10,10 +10,15 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
     importer output reads consistently with the rest of the toolset's '[Caller] ...' messages, carries the
     colour as embedded ANSI, and is silent during a Pester run ($global:__PesterRunning), exactly as the Writers
     chokepoint is. .internal code only ever runs from the importer. An empty message writes a blank line.
+
+    A -StateChange line is one of the importer's own load announcements, which go to the verbose stream instead
+    (ADR-AUTO-ANNOUNCE:6): shown when the import runs with -Verbose (Set-ImporterVerbosity), silent otherwise.
 .PARAMETER Message
     The message text.
 .PARAMETER ForegroundColor
-    Optional text color (e.g. DarkGray for diagnostics, Yellow for warnings).
+    Optional text color (e.g. DarkGray for diagnostics, Yellow for warnings). Not applied to a -StateChange line.
+.PARAMETER StateChange
+    The line announces a state change of the importer's own load sequence: write it on the verbose stream.
 #>
 function Write-ImporterMessage {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = '$global:__PesterRunning (set by Test-Automation) silences the chokepoint during a test run, as in Write-InformationColored; global is required to cross module session-state boundaries')]
@@ -23,7 +28,9 @@ function Write-ImporterMessage {
         [AllowEmptyString()]
         [string] $Message,
 
-        [System.ConsoleColor] $ForegroundColor
+        [System.ConsoleColor] $ForegroundColor,
+
+        [switch] $StateChange
     )
 
     # Read through Get-Variable: the flag is unset outside a test run, and strict mode rejects an unset variable.
@@ -36,11 +43,40 @@ function Write-ImporterMessage {
     else {
         ''
     }
+    if ($StateChange) {
+        Write-Verbose $line -Verbose:$script:importerVerbose
+        return
+    }
     if ($PSBoundParameters.ContainsKey('ForegroundColor')) {
         # $PSStyle, not the Writers' Ansi type: this runs before the combined types assembly is loaded.
         $line = "$($PSStyle.Foreground.FromConsoleColor($ForegroundColor))$line$($PSStyle.Reset)"
     }
     Write-Information $line -InformationAction Continue
+}
+
+# Whether Write-ImporterMessage -StateChange lines are shown. Module state, so it lives exactly as long as the
+# bootstrap: a fresh import starts it at $false and the importer's teardown removes it with the module.
+$script:importerVerbose = $false
+
+<#
+.SYNOPSIS
+    Sets whether the importer's state-change lines (Write-ImporterMessage -StateChange) are shown.
+.DESCRIPTION
+    -Verbose on the importer sets $VerbosePreference only in Invoke-Importer's own scope; the bootstrap and vendor
+    module functions that announce the load do not inherit it. Invoke-Importer hands the setting over here once,
+    and Write-ImporterMessage reads it for every -StateChange line.
+.PARAMETER Enabled
+    Show the state-change lines on the verbose stream.
+#>
+function Set-ImporterVerbosity {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Sets a bootstrap-private output flag for the duration of one import; nothing to confirm')]
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [bool] $Enabled
+    )
+
+    $script:importerVerbose = $Enabled
 }
 
 <#
@@ -524,11 +560,12 @@ function Import-CSharpTypes {
     }
 
     # Load the assembly if not already in the AppDomain (a reimport keeps the live copy). Verify EVERY type.
-    # Loading a binary into the session is a state change, so it is announced (ADR-AUTO-ANNOUNCE:2) — always,
-    # naming the DLL; a reimport that keeps the live copy loads nothing and says nothing.
+    # Loading a binary into the session is a state change, so it is announced (ADR-AUTO-ANNOUNCE:2) on the
+    # importer's verbose record (ADR-AUTO-ANNOUNCE:6), naming the DLL; a reimport that keeps the live copy loads
+    # nothing and says nothing.
     if (-not $loaded) {
         Add-Type -Path $dll
-        Write-ImporterMessage "Loaded types $(([System.IO.Path]::GetRelativePath($env:RepositoryRoot, $dll)) -replace '\\', '/')"
+        Write-ImporterMessage "Loaded types $(([System.IO.Path]::GetRelativePath($env:RepositoryRoot, $dll)) -replace '\\', '/')" -StateChange
         foreach ($tf in $arr) {
             if (-not ([System.Management.Automation.PSTypeName]$tf.Type).Type) {
                 throw "Compiled C# types but '$($tf.Type)' was not produced. $($tf.File) must declare a public class named '$([System.IO.Path]::GetFileNameWithoutExtension($tf.Path))' (the module namespace '$($tf.Module)' is added automatically)."
@@ -909,7 +946,8 @@ function Import-AllModules {
         }
     }
 
-    # Loading and unloading modules changes the session, so it is announced (ADR-AUTO-ANNOUNCE:2): one line names
+    # Loading and unloading modules changes the session, so it is announced (ADR-AUTO-ANNOUNCE:2) on the importer's
+    # verbose record (ADR-AUTO-ANNOUNCE:6): one line names
     # the load, plus any module that left the session for good — evicted from another root, or gone from the tree.
     # A re-import's remove-then-reload of the same modules is not a departure and is not listed.
     $summary = "Loaded $($imported.Count) modules from '$ModulesRoot'"
@@ -924,7 +962,7 @@ function Import-AllModules {
     if ($gone.Count) {
         $summary += "; removed, no longer in the tree: $($gone -join ', ')"
     }
-    Write-ImporterMessage $summary
+    Write-ImporterMessage $summary -StateChange
 }
 
-Export-ModuleMember -Function 'Import-AllModules', 'Write-ImporterMessage', 'Clear-CompiledType', 'Get-ForeignCatzcModule'
+Export-ModuleMember -Function 'Import-AllModules', 'Write-ImporterMessage', 'Set-ImporterVerbosity', 'Clear-CompiledType', 'Get-ForeignCatzcModule'

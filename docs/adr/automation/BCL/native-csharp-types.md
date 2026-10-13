@@ -250,7 +250,10 @@ only skip). On Windows the warning names the holding processes (`Get-FileLocking
 time, "this session" or the VS Code PowerShell extension — so the session to restart is known, not guessed; the lookup is best-effort and
 falls back to the holder-free wording. In a **pipeline** the same coexistence is a hard `throw`: two committed builds mean a locked stale
 DLL was committed instead of deleted, so CI is the gate that stops it reaching trunk — the fix is to restart PowerShell on the devbox
-(releasing the lock), re-run `Clear-ModuleTypeCache`, and commit the single remaining build.
+(releasing the lock), re-run `Clear-ModuleTypeCache`, and commit the single remaining build. Before CI, the devbox's own auto-commit
+guards the same invariant: `Sync-GeneratedFile` holds `automation/.compiled` back, with one red line naming the surplus DLLs, while
+`Clear-ModuleTypeCache -DryRun` lists anything but the current build. A surviving locked build therefore never rides along as the +1
+without its −1.
 
 ### The `DictionaryRecord` base (dictionary-compatible data records)
 
@@ -322,6 +325,10 @@ crossing the boundary; the model built from it is typed.
 - **`Clear-ModuleTypeCache`** keeps the current `automation/.compiled/Catzc.Types.<hash>.dll` and prunes the rest (deleting on a devbox
   only). It also enforces the one-committed-build invariant: when a second `Catzc.Types.*.dll` coexists it always warns (yellow), and in a
   pipeline it throws — a stale committed build must not reach trunk.
+
+- **`Sync-GeneratedFile`** (in `Catzc.Base.ModuleSystem`, the importer's auto-commit) refuses to commit `automation/.compiled` while it holds
+  anything but the current build (the `Clear-ModuleTypeCache -DryRun` surplus). It skips with a red line, so a superseded DLL is never
+  committed next to the new one. `Sync-GeneratedFile.Tests.ps1` covers the probe, the hold-back, and the no-probe case when nothing changed.
 
 ## Disambiguation
 

@@ -110,14 +110,14 @@ function Import-VendorModules {
         }
 
         # The load, the system copy it replaced, and the PSModulePath entries it dropped are one state change of
-        # the session, announced on one line (ADR-AUTO-ANNOUNCE:2).
+        # the session, announced on one line (ADR-AUTO-ANNOUNCE:2) on the importer's verbose record (ADR-AUTO-ANNOUNCE:6).
         if ($existing) {
             $line += "; replaced $($existing.Name) $($existing.Version) from '$($existing.ModuleBase)'"
         }
         if ($dropped.Count) {
             $line += "; dropped from PSModulePath: '$($dropped -join "', '")'"
         }
-        Write-ImporterMessage $line
+        Write-ImporterMessage $line -StateChange
         if ($DiagnoseLoadTime) {
             $vendorMs = [int]$vendorStopwatch.Elapsed.TotalMilliseconds
             Write-ImporterMessage ('    {0,6}ms  vendor {1}' -f $vendorMs, $dir.Name) -ForegroundColor DarkGray
@@ -131,7 +131,7 @@ function Import-VendorModules {
     if ($Lazy.Count -gt 0) {
         if ($env:PSModulePath -split $sep -notcontains $VendorRoot) {
             $env:PSModulePath = $VendorRoot + $sep + $env:PSModulePath
-            Write-ImporterMessage "PSModulePath now starts with '$VendorRoot', so $($Lazy -join ', ') load from it on first use"
+            Write-ImporterMessage "PSModulePath now starts with '$VendorRoot', so $($Lazy -join ', ') load from it on first use" -StateChange
         }
     }
 }

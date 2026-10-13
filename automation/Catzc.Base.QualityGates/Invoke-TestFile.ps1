@@ -18,6 +18,11 @@
     test file and (optionally) its FullNameFilter. No tier/category exclusion is applied — a hand-run of a
     named check should run exactly that check. The run's artifacts (worker script, results-shard-0.xml,
     rows-shard-0.json) land in a timestamped folder under out/test-file/.
+
+    It never waits for another test run (ADR-AUTO-TEST:32, Enter-TestRunSlot): when the working folder is
+    free it runs in place; when another run holds it, it runs in a verified snapshot of the working folder
+    instead — the test files map to the same repository-relative paths inside the snapshot, a test file
+    outside the repository runs as given, and the artifacts still land in the working folder's out/test-file/.
 .PARAMETER Path
     The test file(s) to run — absolute, or repository-root-relative (never resolved against $PWD; see
     docs/adr/automation/never-depend-on-pwd.md).
@@ -28,10 +33,15 @@
     Pester output verbosity inside the worker. Defaults to 'Detailed' — a hand-run wants one line per test.
 .PARAMETER TimeoutSeconds
     Hard ceiling for the worker; on expiry it is killed and this throws. Defaults to 600.
+.PARAMETER Isolated
+    Run in a snapshot of the working folder even when it is free — immune to edits made while it runs.
+.PARAMETER KeepSandbox
+    Keep the snapshot (when the run used one) after the run instead of deleting it, for a post-mortem.
 .PARAMETER PassThru
-    Return a result object ({ Result, ExitCode, Rows, RunDirectory }) instead of nothing. Rows are the
-    worker's per-test rows (the same shape Test-Automation aggregates) — the live Pester object cannot cross
-    the process boundary.
+    Return a result object ({ Result, ExitCode, Rows, RunDirectory, Location }) instead of nothing. Rows are
+    the worker's per-test rows (the same shape Test-Automation aggregates; File paths are working-folder
+    paths even for a snapshot run) — the live Pester object cannot cross the process boundary. Location is
+    'in-place' or 'snapshot'.
 .OUTPUTS
     None by default; the result object with -PassThru. The worker's Pester output streams either way.
 .EXAMPLE
@@ -55,6 +65,10 @@ function Invoke-TestFile {
         [ValidateRange(60, 86400)]
         [int] $TimeoutSeconds = 600,
 
+        [switch] $Isolated,
+
+        [switch] $KeepSandbox,
+
         [switch] $PassThru
     )
 
@@ -77,24 +91,29 @@ function Invoke-TestFile {
     ((Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0, 6))
     New-Item -ItemType Directory -Path $runDirectory -Force | Out-Null
 
-    $shard = New-TestAutomationShardScript -ShardIndex 0 -TestPath $resolved -RunDirectory $runDirectory `
-        -Verbosity $Output -FullNameFilter $FullNameFilter
-
-    # One worker, live output — the same runner the harness pools, behind the same machine-wide run lock
-    # (a file run launched mid-suite would race the suite's shared build folders; Wait-TestRunMutex owns
-    # the why). The worker inherits CATZC_TEST_RUN_LOCK_HELD, as Test-Automation's workers do, so a test that
-    # drives Invoke-TestFile for real inside this run never waits on its own parent's lock.
-    $runMutex = Wait-TestRunMutex -Reason 'test file run'
+    # Claim where the run executes — in place, or in a snapshot when another run holds the working folder
+    # (Enter-TestRunSlot owns the why). The worker inherits CATZC_TEST_RUN_SLOT_HELD, as Test-Automation's
+    # workers do, so a test that drives Invoke-TestFile for real inside this run runs in place in this run's
+    # root rather than claiming a slot of its own.
+    $slot = Enter-TestRunSlot -EntryPoint 'Invoke-TestFile' -RunDirectory $runDirectory -Isolated:$Isolated
     try {
-        $workerEnvironment = @{ CATZC_TEST_RUN_LOCK_HELD = '1' }
+        # A snapshot run loads the snapshot's own importer, so every path the worker resolves — out/,
+        # .compiled, git — lands inside the snapshot (ADR-AUTO-NOPWD); the test files map to it alike.
+        $entry = if ($slot.Mode -eq 'Snapshot') {
+            @{ EntryScript = Join-Path $slot.Root 'importer.ps1'; EntryParameter = @{ SkipJanitors = $true } }
+        }
+        else {
+            @{}
+        }
+        $shard = New-TestAutomationShardScript -ShardIndex 0 -TestPath @(Convert-TestRunSlotPath -Slot $slot -Path $resolved) `
+            -RunDirectory $runDirectory -Verbosity $Output -FullNameFilter $FullNameFilter @entry
+
+        $workerEnvironment = @{ CATZC_TEST_RUN_SLOT_HELD = '1' }
         $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
             [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $workerEnvironment, $TimeoutSeconds, $true)
     }
     finally {
-        if ($runMutex) {
-            $runMutex.ReleaseMutex()
-            $runMutex.Dispose()
-        }
+        Exit-TestRunSlot -Slot $slot -KeepSandbox:$KeepSandbox
     }
     $exitCode = $runner.Results[0].ExitCode
 
@@ -113,7 +132,13 @@ function Invoke-TestFile {
     else {
         'Failed'
     }
-    Write-Message "$result — artifacts in $runDirectory" -ForegroundColor $(if ($exitCode -eq 0) {
+    $location = if ($slot.Mode -eq 'Snapshot') {
+        'snapshot'
+    }
+    else {
+        'in-place'
+    }
+    Write-Message "$result ($location) — artifacts in $runDirectory" -ForegroundColor $(if ($exitCode -eq 0) {
             'Green'
         }
         else {
@@ -121,11 +146,16 @@ function Invoke-TestFile {
         })
 
     if ($PassThru) {
+        $rows = @([System.IO.File]::ReadAllText($shard.RowsPath) | ConvertFrom-Json)
+        foreach ($row in $rows) {
+            $row.File = Convert-TestRunSlotPath -Slot $slot -Path $row.File -ToSource
+        }
         [pscustomobject]@{
             Result       = $result
             ExitCode     = $exitCode
-            Rows         = @([System.IO.File]::ReadAllText($shard.RowsPath) | ConvertFrom-Json)
+            Rows         = $rows
             RunDirectory = $runDirectory
+            Location     = $location
         }
     }
 }

@@ -27,6 +27,8 @@
     The run's minimum tier (skip-report scope).
 .PARAMETER Category
     The run's category (skip-report scope).
+.PARAMETER Location
+    Where the run executed (report metadata) — 'in-place', or the snapshot's provenance.
 #>
 function Write-TestAutomationArtifacts {
     [CmdletBinding()]
@@ -58,14 +60,16 @@ function Write-TestAutomationArtifacts {
         [int] $MinLevel,
 
         [Parameter(Mandatory)]
-        [string] $Category
+        [string] $Category,
+
+        [string] $Location
     )
 
     # Persist the run report (summary.md + tests.csv) beside the per-shard results — written before any
     # throw, so a failing run still produces it.
     try {
         Write-TestAutomationReport -Rows $Rows -OutputFolder $RunDirectory -Level $MaxLevel -Limits $Limits `
-            -RunResult $RunResult -DurationSeconds $DurationSeconds -TimingsEnforced:$EnforceTimings
+            -RunResult $RunResult -DurationSeconds $DurationSeconds -TimingsEnforced:$EnforceTimings -Location $Location
         Set-Content -Path (Join-Path $OutputFolder 'latest.txt') -Value (Split-Path $RunDirectory -Leaf) -Encoding utf8
     }
     catch {

@@ -1,3 +1,4 @@
+# cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
     BeforeAll {
         # A hand-made, well-formed build of two neutral modules (ADR-AUTO-TEST:3): widget is selected (its type source

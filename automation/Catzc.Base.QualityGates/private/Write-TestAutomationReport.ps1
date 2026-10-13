@@ -27,6 +27,8 @@
     How many slowest passed tests to list. Defaults to 20.
 .PARAMETER TimingsEnforced
     Whether -EnforceTimings was set (annotates the over-limit section).
+.PARAMETER Location
+    Where the run executed — 'in-place', or the snapshot's provenance — recorded in the header when given.
 #>
 function Write-TestAutomationReport {
     [CmdletBinding()]
@@ -48,7 +50,9 @@ function Write-TestAutomationReport {
 
         [int] $SlowestCount = 20,
 
-        [switch] $TimingsEnforced
+        [switch] $TimingsEnforced,
+
+        [string] $Location
     )
 
     if (-not (Test-Path $OutputFolder -PathType Container)) {
@@ -103,6 +107,9 @@ function Write-TestAutomationReport {
     [void]$stringBuilder.AppendLine("- Pester: $pesterVersion")
     [void]$stringBuilder.AppendLine("- Duration: ${totalSeconds}s")
     [void]$stringBuilder.AppendLine("- Result: $RunResult")
+    if ($Location) {
+        [void]$stringBuilder.AppendLine("- Location: $Location")
+    }
     [void]$stringBuilder.AppendLine('')
     [void]$stringBuilder.AppendLine('## Counts')
     [void]$stringBuilder.AppendLine('')

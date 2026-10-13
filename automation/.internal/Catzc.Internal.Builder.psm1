@@ -16,7 +16,7 @@ Set-StrictMode -Version Latest
 $script:testToolVendorModules = @('Pester', 'PSScriptAnalyzer')
 
 # The runtime loader a build carries under .internal/: Import-Catzc.ps1 boots Invoke-Importer -Bundle, which loads
-# Bootstrap, Types and Vendor and applies the error view. Builder, TestKit and the tests never ship.
+# Bootstrap, Types and Vendor and applies the error view. Builder and the tests never ship.
 $script:runtimeInternalFiles = @(
     'Catzc.Internal.Bootstrap.psm1'
     'Catzc.Internal.Importer.psm1'
@@ -26,8 +26,12 @@ $script:runtimeInternalFiles = @(
     'assets/ErrorView.format.ps1xml'
 )
 
-# The analyzer settings travel with the analyzer itself (vendor_policy 'full'), like .scriptanalyzer/.
-$script:fullPolicyInternalFiles = @('assets/PSScriptAnalyzerSettings.psd1')
+# What a test-capable build (vendor_policy 'full') adds: the analyzer settings, which travel with the analyzer like
+# .scriptanalyzer/, and the TestKit the test files load (Import-InternalModule TestKit) — the build suite runs them.
+$script:fullPolicyInternalFiles = @(
+    'Catzc.Internal.TestKit.psm1'
+    'assets/PSScriptAnalyzerSettings.psd1'
+)
 
 # The merged function file of a built module is <Module>.functions.ps1, never <Module>.ps1: a nested script
 # module is named for its file, so <Module>.ps1 would load a second module named <Module> under the manifest's,

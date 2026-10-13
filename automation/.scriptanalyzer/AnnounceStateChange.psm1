@@ -22,7 +22,9 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 
     The writers that count as an announcement are Write-Message, Write-InformationColored (the chokepoint) and
     Write-ImporterMessage (the bootstrap's chokepoint, used before Write-Message is loaded) — on the information
-    stream, so a Write-Message with -Verbose bound does not count. A writer announces a change only when it runs
+    stream, so a Write-Message with -Verbose bound does not count. The one exception is Write-ImporterMessage
+    -StateChange, which counts: it is the importer's own load record, announced on the verbose stream
+    (ADR-AUTO-ANNOUNCE:6). A writer announces a change only when it runs
     whenever the change runs: it must sit in the change's own statement block or an enclosing one, so a writer
     inside an unrelated branch (if ($diagnose) { Write-Message ... }) does not cover a change outside it. The
     rule checks that the change is announced; what the line says is a review concern (it must name what changed).

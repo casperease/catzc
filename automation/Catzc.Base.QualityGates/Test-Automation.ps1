@@ -73,8 +73,18 @@
     (<OutputFolder>/yyyyMMdd-HHmmss/) holding the per-shard results-shard-<N>.xml (Pester NUnit), the
     rows-shard-<N>.json sidecars, summary.md, and tests.csv. Defaults to <out>/test-automation (out/
     locally, the artifact staging directory in a pipeline).
+.PARAMETER Isolated
+    Run in an isolated snapshot of the working folder even when it is free. A run never waits for another
+    (ADR-AUTO-TEST:32): when another run holds the working folder this one runs in a snapshot anyway; this
+    switch asks for a snapshot up front — a deterministic run, immune to edits made in the working folder
+    while it runs. The report lands in the working folder's out/ either way, and run.json records where the
+    run executed.
+.PARAMETER KeepSandbox
+    Keep the snapshot (when the run used one) after the run instead of deleting it, for a post-mortem.
 .EXAMPLE
     Test-Automation
+.EXAMPLE
+    Test-Automation -Isolated -KeepSandbox   # run in a frozen snapshot of the working folder and keep it
 .EXAMPLE
     Test-Automation -Level 2
 .EXAMPLE
@@ -136,7 +146,11 @@ function Test-Automation {
         [ArgumentCompleter({ (Get-Config -Config globs).Names })]
         [string] $Marker,
 
-        [string] $OutputFolder
+        [string] $OutputFolder,
+
+        [switch] $Isolated,
+
+        [switch] $KeepSandbox
     )
 
     if ($MinLevel -gt $MaxLevel) {
@@ -159,5 +173,6 @@ function Test-Automation {
     # repository importer, the core's default.
     Invoke-TestAutomationSuite -Suite 'Test-Automation' -Title 'Test Automation' -MinLevel $MinLevel -MaxLevel $MaxLevel `
         -Modules $Modules -Category $Category -Workers $Workers -TimeoutSeconds $TimeoutSeconds -Output $Output `
-        -PassThru:$PassThru -EnforceTimings:$EnforceTimings -Rule $Rule -OutputFolder $OutputFolder
+        -PassThru:$PassThru -EnforceTimings:$EnforceTimings -Rule $Rule -OutputFolder $OutputFolder `
+        -Isolated:$Isolated -KeepSandbox:$KeepSandbox
 }

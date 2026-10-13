@@ -2,7 +2,7 @@ BeforeAll {
     Import-InternalModule Builder
     $script:repositoryRoot = Get-RepositoryRoot
     $script:metadata = @{
-        Guid        = '6f0c4f2e-2d1a-4a8e-9b51-0d7c3c1e5a11'
+        Guid        = '01d6e700-b011-d000-0000-000000000000'
         Author      = 'Widget Author'
         CompanyName = 'Gadget Co'
         Description = 'Walking-skeleton build'

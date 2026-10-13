@@ -22,6 +22,10 @@
       ADR-REPO-VARIANT:6): in that mode work always happens on a branch, so standing on main locally is the
       one place a direct commit is forbidden. In 'main-direct' (the default, a solo-author trunk) any
       named branch commits — including main, which IS the integration path (one-living-version).
+    - Holds back automation/.compiled while it holds anything but the current build
+      (Clear-ModuleTypeCache -DryRun lists the surplus): a superseded DLL a live session still locks
+      would otherwise be committed next to the new one. One red line names the surplus; any other
+      changed generated path still commits.
 
     Past the guards it always commits what changed under the generated paths — a dirty or even staged
     working tree does not hold the stamp commit back. Invoke-GitCommit stages and commits by PATHSPEC
@@ -76,6 +80,19 @@ function Sync-GeneratedFile {
     # Which generated paths actually changed decides both the commit's pathspec and its message — the
     # stamp commit stages and names exactly what this sync did, never a sibling path that was clean.
     $changed = @($generatedPaths.Keys | Where-Object { Test-GitPathChanged $_ })
+
+    # .compiled must hold exactly the current build (ADR-AUTO-TYPES:6). A superseded DLL that survived the
+    # janitor (a session still holds it) would otherwise be committed next to the new one — the +1 without
+    # the -1. Hold the .compiled commit back until it is tidy; any other changed generated path still commits.
+    if ($changed -contains 'automation/.compiled') {
+        $surplus = @(Clear-ModuleTypeCache -DryRun -Silent)
+        if ($surplus.Count) {
+            $names = ($surplus | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Sort-Object) -join ', '
+            Write-Message "Skipped automation/.compiled: superseded type assemblies remain ($names). Restart the session holding them, run Clear-ModuleTypeCache, then re-import." -ForegroundColor Red
+            $changed = @($changed | Where-Object { $_ -ne 'automation/.compiled' })
+        }
+    }
+
     if (-not $changed.Count) {
         return
     }

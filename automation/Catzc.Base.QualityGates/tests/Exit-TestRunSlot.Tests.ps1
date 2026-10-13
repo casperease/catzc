@@ -1,4 +1,5 @@
-Describe 'Exit-TestRunSlot' -Tag 'L0', 'logic' {
+# L1: a real named mutex, checked from a thread job — the snapshot removal itself is mocked.
+Describe 'Exit-TestRunSlot' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Remove-RepositorySnapshot { } -ModuleName Catzc.Base.QualityGates

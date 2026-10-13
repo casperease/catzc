@@ -13,12 +13,13 @@
       holds the folder.
     - Held: the run announces who holds the folder (from the lock record, or plainly that the record is
       missing or stale) and runs in a verified snapshot of the working folder instead
-      (New-RepositorySnapshot) — HEAD plus every uncommitted change, frozen at this moment.
+      (New-RepositorySnapshot) — HEAD plus every uncommitted change, frozen at this moment — primed by one
+      full import that materialises its generated files.
     - -Isolated: the run takes the snapshot path without touching the lock, for a deterministic run that is
       immune to edits made in the working folder while it runs.
     - Inside a worker of a run that already holds a slot (CATZC_TEST_RUN_SLOT_HELD): the parent's slot covers
       this process and its repository root — the claim returns in place without a lock (claiming would
-      only ever find our own parent's lock).
+      only ever find our own parent's lock). An explicit -Isolated still gets its snapshot.
 
     The caller MUST pass the returned slot to Exit-TestRunSlot in a finally.
 .PARAMETER EntryPoint
@@ -57,15 +58,15 @@ function Enter-TestRunSlot {
         Snapshot   = $null
     }
 
-    if ($env:CATZC_TEST_RUN_SLOT_HELD -eq '1') {
+    if ($env:CATZC_TEST_RUN_SLOT_HELD -eq '1' -and -not $Isolated) {
         return $slot
     }
 
-    $lockPath = Join-Path (Get-OutputRoot -EnsureExists) '.test-run-lock.json'
     if ($Isolated) {
         Write-Message "Running in an isolated snapshot of '$sourceRoot' (-Isolated)."
     }
     else {
+        $lockPath = Join-Path (Get-OutputRoot -EnsureExists) '.test-run-lock.json'
         $mutexKey = [Convert]::ToHexString(
             [System.Security.Cryptography.SHA256]::HashData(
                 [System.Text.Encoding]::UTF8.GetBytes($sourceRoot.ToLowerInvariant())))
@@ -103,6 +104,20 @@ function Enter-TestRunSlot {
     $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-run-' + [guid]::NewGuid().ToString('N'))
     Write-Message "Running in an isolated snapshot instead: $destination" -ForegroundColor Yellow
     $slot.Snapshot = New-RepositorySnapshot -SourceRoot $sourceRoot -Destination $destination
+
+    # Prime the snapshot with one full import, as a fresh clone's first import does: the janitors materialise
+    # the generated, gitignored files the snapshot does not carry (module manifests, READMEs, root configs,
+    # cspell dictionaries), once, before any worker starts — workers import with -SkipJanitors and would
+    # otherwise find them missing, or race each other generating manifests. Never auto-commit the snapshot.
+    Write-Message 'Priming the snapshot: one import materialises its generated files...'
+    try {
+        Invoke-Executable "pwsh -NoProfile -File `"$(Join-Path $slot.Snapshot.Path 'importer.ps1')`" -NoCommitShaMarkersInDevBox" `
+            -WorkingDirectory $slot.Snapshot.Path -PassThru -Silent | Out-Null
+    }
+    catch {
+        Remove-RepositorySnapshot $slot.Snapshot.Path
+        throw
+    }
     $slot.Mode = 'Snapshot'
     $slot.Root = $slot.Snapshot.Path
     $slot

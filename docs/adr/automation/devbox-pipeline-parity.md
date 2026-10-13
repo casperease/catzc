@@ -20,8 +20,9 @@ pipeline to pass, or cannot run in one, is mis-tiered (`ADR-AUTO-TEST`), never a
 
 The **one seam** between the two is `Test-IsRunningInPipeline` (`ADR-FLOW-CD-DETECT`) — the CI orchestrator (Azure DevOps / GitHub) already
 knows it is CI, so the CLI only asks that one question. A command branches on the seam solely where the environments _genuinely_ differ, and
-those differences are small and already owned: where output goes (`Get-OutputRoot`), syncing concurrent runs (`Wait-Mutex`), skipping the
-dev-box auto-commit in CI. Never branch on the seam to change _what a command does_ — that is a parity violation.
+those differences are small and already owned: where output goes (`Get-OutputRoot`), skipping the dev-box auto-commit in CI. Concurrent
+test runs are not one of them: a run that finds the working folder busy runs in a snapshot of it, the same way in both environments
+(`ADR-AUTO-TEST`). Never branch on the seam to change _what a command does_ — that is a parity violation.
 
 ### Rule ADR-AUTO-PARITY:4
 

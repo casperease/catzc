@@ -7,6 +7,8 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Mock Test-GitPathChanged { $true } -ModuleName Catzc.Base.ModuleSystem
         Mock Invoke-GitCommit { 'abc1234567890abcdef1234567890abcdef12345' } -ModuleName Catzc.Base.ModuleSystem
         Mock Write-Message { } -ModuleName Catzc.Base.ModuleSystem
+        # A tidy .compiled (only the current build) unless a test plants a superseded one.
+        Mock Clear-ModuleTypeCache { } -ModuleName Catzc.Base.ModuleSystem
         # main-direct workspace (the shipped default) unless a test flips it.
         Mock Test-GitWorkspace { $false } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $MainViaPr }
     }
@@ -61,6 +63,30 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter {
             $Message -eq 'Synced compiled types to feature/sync'
         }
+    }
+
+    It 'probes .compiled for superseded builds read-only and silently before committing it' {
+        Sync-GeneratedFile | Should -Not -BeNullOrEmpty
+        Should -Invoke Clear-ModuleTypeCache -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter { $DryRun -and $Silent }
+    }
+
+    It 'holds back .compiled with a red line naming the surplus while a superseded build remains' {
+        Mock Clear-ModuleTypeCache {
+            (Join-Path $TestDrive 'Catzc.Types.widget02.dll'), (Join-Path $TestDrive 'Catzc.Types.widget01.dll')
+        } -ModuleName Catzc.Base.ModuleSystem
+
+        Sync-GeneratedFile | Should -BeNullOrEmpty
+        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
+            $Message -like '*Catzc.Types.widget01.dll, Catzc.Types.widget02.dll*' -and $ForegroundColor -eq 'Red'
+        }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0 -ParameterFilter { $Message -like 'Synced*' }
+    }
+
+    It 'does not probe .compiled when it matches HEAD' {
+        Mock Test-GitPathChanged { $false } -ModuleName Catzc.Base.ModuleSystem
+        Sync-GeneratedFile | Should -BeNullOrEmpty
+        Should -Invoke Clear-ModuleTypeCache -ModuleName Catzc.Base.ModuleSystem -Times 0
     }
 
     It 'commits the generated path even while other tracked or staged work is in flight' {

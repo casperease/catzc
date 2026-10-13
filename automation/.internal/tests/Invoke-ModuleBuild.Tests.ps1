@@ -1,3 +1,4 @@
+# cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 BeforeAll {
     Import-InternalModule TestKit
     Import-InternalModule Builder
@@ -40,7 +41,7 @@ BeforeAll {
         'automation/.internal/Catzc.Internal.Types.psm1'                 = '# types'
         'automation/.internal/Catzc.Internal.Vendor.psm1'                = '# vendor'
         'automation/.internal/Catzc.Internal.Builder.psm1'               = '# builder (never ships)'
-        'automation/.internal/Catzc.Internal.TestKit.psm1'               = '# testkit (never ships)'
+        'automation/.internal/Catzc.Internal.TestKit.psm1'               = '# testkit (ships under full only)'
         'automation/.internal/tests/Get-Loader.Tests.ps1'                = '# test (never ships)'
         'automation/.internal/assets/ErrorView.format.ps1xml'            = '<Configuration />'
         'automation/.internal/assets/PSScriptAnalyzerSettings.psd1'      = '@{ }'
@@ -59,7 +60,7 @@ BeforeAll {
     [System.IO.File]::WriteAllBytes((Join-Path $compiled "Catzc.Types.$fullHash.dll"), [byte[]] @(77, 90, 1, 2, 3))
 
     $script:metadata = @{
-        Guid        = '6f0c4f2e-2d1a-4a8e-9b51-0d7c3c1e5a11'
+        Guid        = '01d6e700-b011-d000-0000-000000000000'
         Author      = 'Widget Author'
         CompanyName = 'Gadget Co'
         Description = "Widget's package"
@@ -266,9 +267,10 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
     }
 
     Context 'the full vendor policy' {
-        It 'also ships the test tooling, the analyzer settings, and the analyzer rules without their tests' {
+        It 'also ships the test tooling, the TestKit, the analyzer settings, and the analyzer rules without their tests' {
             $built = Invoke-ModuleBuild @buildArguments -VendorPolicy full -Module 'Catzc.Base.Widget' -Destination (Join-Path $TestDrive 'full')
             Test-Path (Join-Path $built.BuildRoot '.vendor/Pester/5.7.1/Pester.psd1') | Should -BeTrue
+            Test-Path (Join-Path $built.BuildRoot '.internal/Catzc.Internal.TestKit.psm1') | Should -BeTrue
             Test-Path (Join-Path $built.BuildRoot '.internal/assets/PSScriptAnalyzerSettings.psd1') | Should -BeTrue
             Test-Path (Join-Path $built.BuildRoot '.scriptanalyzer/WidgetRule.psm1') | Should -BeTrue
             Test-Path (Join-Path $built.BuildRoot '.scriptanalyzer/tests') | Should -BeFalse

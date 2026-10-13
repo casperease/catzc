@@ -70,6 +70,10 @@ guids:
     description: shipped azure.yml 'flux_nonprod' subscription id
 
   # -- test fixtures and documentation examples -------------------------------------------------------------
+  fixture_widget_build:
+    guid: 01d6e700-b011-d000-0000-000000000000
+    sentence: widget build
+    description: Invoke-ModuleBuild / Import-Catzc test fixture — the package GUID of a fixture build's Catzc.psd1
   fixture_unknown_tenant_subscription:
     guid: 10570000-7e0a-0700-50b0-000000000000
     sentence: lost tenant sub

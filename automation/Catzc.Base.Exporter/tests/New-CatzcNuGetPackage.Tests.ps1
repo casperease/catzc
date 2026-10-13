@@ -1,3 +1,4 @@
+# cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 InModuleScope Catzc.Base.Exporter {
     Describe 'New-CatzcNuGetPackage' -Tag 'L0', 'logic' {
         BeforeAll {

@@ -37,6 +37,13 @@ session: the tests would run against whatever that session has accumulated — w
 A check **passes** when its assertions are green. A few L2 checks shell out to a tool (git, PSScriptAnalyzer, cspell, markdownlint-cli2) and
 **self-skip** when that tool is absent — a skip is not a failure (see the end-of-run skip report).
 
+**While another run is going.** A test run never waits for another (`ADR-AUTO-TEST:32`). When a suite or another session already holds the
+working folder, your run says who holds it and runs in a verified snapshot of your working folder instead — your uncommitted changes
+included, frozen at the moment the run started. The artifacts still land in `out/test-automation/<stamp>/` (or `out/test-file/<stamp>/`):
+a suite's `run.json` and `summary.md` record the snapshot location and provenance, and `Invoke-TestFile` names the location on its closing
+line. Add `-KeepSandbox` to keep the snapshot for a post-mortem (its
+path is printed at the end), or `-Isolated` to run in a snapshot even when the working folder is free.
+
 ## Index
 
 | #   | Tier | Test file                                                                                    | FullNameFilter                                                       | Guards                                                                                                                                                                                                          |

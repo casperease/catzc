@@ -61,4 +61,34 @@ Describe 'Failing' -Tag 'L0', 'logic' {
         $run.Result | Should -Be 'Failed'
         $run.ExitCode | Should -Be 1
     }
+
+    # The walking skeleton of the snapshot path (ADR-AUTO-TEST:32): a real snapshot, primed, a real worker
+    # loading it. -Isolated takes the path deterministically; when it is taken because another run holds the
+    # working folder is Enter-TestRunSlot's L0 concern.
+    It 'runs in a snapshot: the worker loads the snapshot, the report and the rows come home, the snapshot is removed' {
+        Mock Write-Message -ModuleName Catzc.Base.Git { }
+        $probe = Join-Path $TestDrive 'probe.json'
+        $fixture = Join-Path $TestDrive 'Probe.Tests.ps1'
+        [System.IO.File]::WriteAllText($fixture, @"
+Describe 'Probe' -Tag 'L0', 'logic' {
+    It 'records the root it runs in' {
+        `$observation = @{ Root = (Get-RepositoryRoot); ModuleBase = (Get-Module Catzc.Base.Git).ModuleBase }
+        [System.IO.File]::WriteAllText('$probe', (ConvertTo-Json -InputObject `$observation))
+    }
+}
+"@)
+        $repositoryTest = [System.IO.Path]::GetFullPath(
+            (Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/tests/Convert-TestRunSlotPath.Tests.ps1'))
+
+        $run = Invoke-TestFile $fixture, $repositoryTest -Isolated -Output Minimal -PassThru
+
+        $run.Result | Should -Be 'Passed'
+        $run.Location | Should -Be 'snapshot'
+        $run.RunDirectory | Should -BeLike "$(Get-OutputRoot)*" -Because 'the report lands in the working folder''s out/'
+        $observation = [System.IO.File]::ReadAllText($probe) | ConvertFrom-Json
+        $observation.Root | Should -BeLike '*catzc-run-*'
+        $observation.ModuleBase | Should -BeLike "$($observation.Root)*" -Because 'the worker loads the snapshot''s modules, not the working folder''s'
+        [System.IO.Directory]::Exists($observation.Root) | Should -BeFalse -Because 'the snapshot is removed after the run'
+        @($run.Rows | Where-Object File -EQ $repositoryTest).Count | Should -BeGreaterThan 0 -Because 'row paths map back to the working folder'
+    }
 }

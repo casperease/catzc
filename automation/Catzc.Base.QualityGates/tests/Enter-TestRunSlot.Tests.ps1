@@ -1,4 +1,5 @@
-Describe 'Enter-TestRunSlot' -Tag 'L0', 'logic' {
+# L1: real named mutexes, held and abandoned from thread jobs — the snapshot itself is mocked.
+Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
     BeforeAll {
         # A lock held by another thread: a mutex is re-entrant on its owning thread, so a held lock is only
         # observable from a different thread. The thread job owns the named mutex until $release is set.
@@ -38,11 +39,18 @@ Describe 'Enter-TestRunSlot' -Tag 'L0', 'logic' {
         Mock New-RepositorySnapshot {
             [pscustomobject]@{ Path = $Destination; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 1; Untracked = 0; Deleted = 0 }
         } -ModuleName Catzc.Base.QualityGates
+        Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = '' } } -ModuleName Catzc.Base.QualityGates
+        Mock Remove-RepositorySnapshot { } -ModuleName Catzc.Base.QualityGates
         $script:slot = $null
         $script:holder = $null
+        # These tests run inside a harness worker, which carries the parent run's slot marker; each test starts
+        # from a process that holds no slot, and the worker case sets the marker itself.
+        $script:savedSlotHeld = $env:CATZC_TEST_RUN_SLOT_HELD
+        $env:CATZC_TEST_RUN_SLOT_HELD = $null
     }
 
     AfterEach {
+        $env:CATZC_TEST_RUN_SLOT_HELD = $script:savedSlotHeld
         if ($script:slot) {
             InModuleScope Catzc.Base.QualityGates -Parameters @{ S = $script:slot } { param($S) Exit-TestRunSlot -Slot $S -KeepSandbox }
         }
@@ -83,9 +91,18 @@ Describe 'Enter-TestRunSlot' -Tag 'L0', 'logic' {
         $script:slot.SourceRoot | Should -Be $script:root
         $script:slot.Holder.Known | Should -BeTrue
         Should -Invoke New-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $SourceRoot -eq $script:root }
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Command -like "pwsh -NoProfile -File *catzc-run-*importer.ps1* -NoCommitShaMarkersInDevBox"
+        }
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
             $Message -like "The repository is busy: Test-Automation (pid $PID, started *, run 20261013-174616) holds the test-run lock."
         }
+    }
+
+    It 'removes the snapshot and rethrows when priming it fails' {
+        Mock Invoke-Executable { throw 'import failed' } -ModuleName Catzc.Base.QualityGates
+        { InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Test-Automation' -Isolated } } | Should -Throw '*import failed*'
+        Should -Invoke Remove-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Path -like '*catzc-run-*' }
     }
 
     It 'says plainly when the holder left no lock record' {
@@ -136,5 +153,18 @@ Describe 'Enter-TestRunSlot' -Tag 'L0', 'logic' {
         $script:slot.Mode | Should -Be 'InPlace'
         $script:slot.Mutex | Should -BeNullOrEmpty
         $script:slot.LockPath | Should -BeNullOrEmpty
+    }
+
+    It 'still runs in a snapshot when -Isolated is asked for inside such a worker' {
+        $saved = $env:CATZC_TEST_RUN_SLOT_HELD
+        $env:CATZC_TEST_RUN_SLOT_HELD = '1'
+        try {
+            $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Invoke-TestFile' -Isolated }
+        }
+        finally {
+            $env:CATZC_TEST_RUN_SLOT_HELD = $saved
+        }
+        $script:slot.Mode | Should -Be 'Snapshot'
+        $script:slot.Mutex | Should -BeNullOrEmpty
     }
 }

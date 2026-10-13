@@ -76,7 +76,10 @@ function New-Importer {
     # names it on its Roots line, the first point a writer is loaded.
     $suppression = "[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', " +
     "Justification = 'Invoke-Importer announces RepositoryRoot on its Roots line, the first point a writer is loaded')]"
-    $paramBlock = "$suppression`n" + "param(`n" + ($paramLines -join ",`n") + "`n)"
+    # [CmdletBinding()] makes the shim accept -Verbose (forwarded to Invoke-Importer by @PSBoundParameters), which
+    # shows the importer's own state-change record (ADR-AUTO-ANNOUNCE:6). Dot-sourced, the preference stays inside
+    # the import and does not leak into the caller's session.
+    $paramBlock = "$suppression`n" + "[CmdletBinding()]`n" + "param(`n" + ($paramLines -join ",`n") + "`n)"
 
     # Fixed template around the generated param block. Single-quoted here-strings keep $env:/$PSScriptRoot/
     # @PSBoundParameters literal. The one living copy of the shim body lives here; importer.ps1 is generated.
@@ -95,14 +98,15 @@ Set-StrictMode -Version Latest
 $env:RepositoryRoot = $PSScriptRoot
 
 # Load the .internal shared-code loader (the one module imported by path), then the importer overlay, and
-# delegate. Catzc.Internal.Importer is import-time orchestration — remove it once the load returns.
-Import-Module (Join-Path $PSScriptRoot 'automation/.internal/Catzc.Internal.Loader.psm1') -Scope Global -Force
-Import-InternalModule Importer -Force
+# delegate. Catzc.Internal.Importer is import-time orchestration — remove it once the load returns. -Verbose is
+# for Invoke-Importer's state-change record, not these imports' per-function detail.
+Import-Module (Join-Path $PSScriptRoot 'automation/.internal/Catzc.Internal.Loader.psm1') -Scope Global -Force -Verbose:$false
+Import-InternalModule Importer -Force -Verbose:$false
 try {
     Invoke-Importer @PSBoundParameters
 }
 finally {
-    Remove-Module Catzc.Internal.Importer -Force -ErrorAction SilentlyContinue
+    Remove-Module Catzc.Internal.Importer -Force -ErrorAction SilentlyContinue -Verbose:$false
 }
 '@
 

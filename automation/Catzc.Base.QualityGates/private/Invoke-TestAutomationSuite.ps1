@@ -29,6 +29,10 @@
     Named arguments for -EntryScript.
 .PARAMETER OutputFolder
     Report base; empty resolves to <out>/<suite in lowercase>.
+.PARAMETER Isolated
+    Run in a snapshot of the working folder even when it is free (Enter-TestRunSlot).
+.PARAMETER KeepSandbox
+    Keep the snapshot (when the run used one) after the run, for a post-mortem.
 .NOTES
     The remaining parameters are Test-Automation's own, passed through unchanged — see its help.
 #>
@@ -75,7 +79,11 @@ function Invoke-TestAutomationSuite {
 
         [string] $EntryScript,
 
-        [hashtable] $EntryParameter = @{}
+        [hashtable] $EntryParameter = @{},
+
+        [switch] $Isolated,
+
+        [switch] $KeepSandbox
     )
 
     # The suite's key: its default report folder under out/ and its protection-key prefix.
@@ -226,10 +234,33 @@ function Invoke-TestAutomationSuite {
                 -SerialFiles @($serialFiles) `
                 -RunDirectory $runDir -ExcludeTag $excludeTags -IncludeTag $Rule -Verbosity $Output -Workers $Workers `
                 -TimeoutSeconds $TimeoutSeconds -WorkerEnvironment $workerEnvironment `
-                -EntryScript $EntryScript -EntryParameter $EntryParameter
+                -EntryScript $EntryScript -EntryParameter $EntryParameter `
+                -EntryPoint $Suite -Isolated:$Isolated -KeepSandbox:$KeepSandbox
         }
         $rows = @($workerRun.Rows)
         $failedShardLabels = @($workerRun.FailedShardLabels)
+
+        # Where the run executed (Enter-TestRunSlot) — the report header's Location line; run.json records the
+        # same in the finally below. A fully protected run executed nowhere and records none.
+        $locationText = ''
+        if ($workerRun.PSObject.Properties['Location']) {
+            $location = $workerRun.Location
+            $locationText = if ($location.Snapshot) {
+                $snapshot = $location.Snapshot
+                '{0} of {1} @ {2} + {3} modified, {4} untracked, {5} deleted file(s) in {6} ({7})' -f $location.Mode,
+                $snapshot.SourceRoot, $snapshot.Commit.Substring(0, [Math]::Min(7, $snapshot.Commit.Length)),
+                $snapshot.Modified, $snapshot.Untracked, $snapshot.Deleted, $snapshot.Path,
+                $(if ($location.Kept) {
+                        'kept'
+                    }
+                    else {
+                        'removed'
+                    })
+            }
+            else {
+                $location.Mode
+            }
+        }
         Write-TestAutomationWorkerSummary -WorkerSummaries @($workerRun.WorkerSummaries) -DurationSeconds $workerRun.DurationSeconds
 
         # Promote protection for every candidate unit that came back green — per-module attribution over the
@@ -260,7 +291,7 @@ function Invoke-TestAutomationSuite {
         # the run outcome (Write-TestAutomationArtifacts owns the guards).
         Write-TestAutomationArtifacts -Rows $rows -RunDirectory $runDir -OutputFolder $OutputFolder `
             -MaxLevel $MaxLevel -Limits $limits -RunResult $runResult -DurationSeconds $workerRun.DurationSeconds `
-            -EnforceTimings:$EnforceTimings -MinLevel $MinLevel -Category $Category
+            -EnforceTimings:$EnforceTimings -MinLevel $MinLevel -Category $Category -Location $locationText
 
         $passedCount = @($rows | Where-Object { $_.Result -eq 'Passed' }).Count
         $skippedCount = @($rows | Where-Object { $_.Result -eq 'Skipped' }).Count
@@ -324,6 +355,24 @@ function Invoke-TestAutomationSuite {
                 else {
                     0
                 })
+        }
+        # Where the run executed: in place in the working folder, or in a snapshot of it — with the
+        # snapshot's provenance, so a report is always traceable to the exact tree it ran against.
+        if ($workerRun -and $workerRun.PSObject.Properties['Location']) {
+            $finalManifest['location'] = $workerRun.Location.Mode
+            if ($workerRun.Location.Snapshot) {
+                $snapshot = $workerRun.Location.Snapshot
+                $finalManifest['snapshot'] = [ordered]@{
+                    path       = $snapshot.Path
+                    sourceRoot = $snapshot.SourceRoot
+                    commit     = $snapshot.Commit
+                    modified   = $snapshot.Modified
+                    untracked  = $snapshot.Untracked
+                    deleted    = $snapshot.Deleted
+                    kept       = $workerRun.Location.Kept
+                    holder     = $workerRun.Location.Holder
+                }
+            }
         }
         if ($SuiteExcludeTag.Count -gt 0) {
             $finalManifest['suiteExcludeTag'] = @($SuiteExcludeTag)
