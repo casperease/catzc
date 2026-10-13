@@ -1,34 +1,46 @@
 <#
 .SYNOPSIS
-    Tests whether all function-to-function calls resolve to a defined command.
+    The function dependency gate: every function-to-function call resolves to a defined command.
 .DESCRIPTION
     Parses every .ps1 file (excluding tests) under the automation root using AST,
     then checks each function call against: (a) the definitions map of automation
     functions, and (b) Get-Command for built-ins, vendor modules, and other loaded
     commands.
 
-    Returns $true when all calls resolve, $false when any are unresolved.
-    Unresolved calls are written to the Verbose stream with caller and target details.
+    An issue is an unresolved call ('<caller> -> <missing> (<module>/<file>:<line>)') or two modules defining the
+    same public (module-root) function name — exported names must be globally unique, mirroring the importer's
+    Assert-UniqueModuleFunctionName. Duplicate private names across modules are allowed (privates are
+    module-scoped and not exported).
 
-    Throws if two modules define the same public (module-root) function name — exported names must be globally
-    unique, mirroring the importer's Assert-UniqueModuleFunctionName. Duplicate private names across modules are
-    allowed (privates are module-scoped and not exported).
+    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
+    through Write-QualityGateReport, which writes out/test-function-dependency/, prints every issue, and throws
+    once listing them all; -PassThru returns the result instead.
 
     Must run post-import so Get-Command covers all loaded modules. Reads the per-function source files, which
     exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to $env:RepositoryRoot/automation.
+.PARAMETER OutputFolder
+    The report base folder. Defaults to <out>/test-function-dependency.
+.PARAMETER PassThru
+    Return a result object ({ Subject; IssueCount; Issues; ReportPath; FunctionCount }) instead of throwing.
+.OUTPUTS
+    Throws on any issue; with -PassThru, returns the result object.
 .EXAMPLE
     Test-FunctionDependency
 .EXAMPLE
-    Test-FunctionDependency -Verbose
+    (Test-FunctionDependency -PassThru).Issues
 #>
 function Test-FunctionDependency {
     [CmdletBinding()]
-    [OutputType([bool])]
+    [OutputType([pscustomobject])]
     param(
-        [string] $AutomationRoot = (Join-Path $env:RepositoryRoot 'automation')
+        [string] $AutomationRoot = (Join-Path $env:RepositoryRoot 'automation'),
+
+        [string] $OutputFolder,
+
+        [switch] $PassThru
     )
 
     Assert-SourceTree
@@ -39,6 +51,7 @@ function Test-FunctionDependency {
     # [Catzc.Base.ModuleSystem.FunctionCallCollector] — one C# pass per function, not scriptblock-predicate FindAll calls.
     $parsed = [System.Collections.Generic.List[object]]::new()
     $definitions = @{}
+    $issues = [System.Collections.Generic.List[string]]::new()
 
     foreach ($moduleDir in ([System.IO.Directory]::EnumerateDirectories($AutomationRoot) | Sort-Object)) {
         $module = [System.IO.Path]::GetFileName($moduleDir)
@@ -75,15 +88,14 @@ function Test-FunctionDependency {
                 }
 
                 # Two PUBLIC (module-root) definitions of one name is a real collision — the module imported
-                # last silently shadows the other. Fail fast rather than overwrite silently (defense-in-depth;
-                # the importer's Assert-UniqueModuleFunctionName already blocks this at load). Duplicate PRIVATE
-                # names across modules are legal (privates are module-scoped, not exported): keep first-wins,
-                # but prefer a public definition over a private one for resolution and reporting.
+                # last silently shadows the other (defense-in-depth; the importer's Assert-UniqueModuleFunctionName
+                # already blocks this at load). Duplicate PRIVATE names across modules are legal (privates are
+                # module-scoped, not exported): keep first-wins, but prefer a public definition over a private one
+                # for resolution and reporting.
                 $existing = $definitions[$fn.Name]
                 if (-not $isPrivate -and -not $existing.Private) {
-                    $a = "$($existing.Module)/$($existing.File)"
-                    $b = "$module/$name"
-                    throw "Duplicate public function '$($fn.Name)' in $a and $b (exported names must be unique)."
+                    $issues.Add("Duplicate public function '$($fn.Name)' in $($existing.Module)/$($existing.File) and $module/$name (exported names must be unique).")
+                    continue
                 }
                 if ($existing.Private -and -not $isPrivate) {
                     $definitions[$fn.Name] = $info
@@ -94,7 +106,6 @@ function Test-FunctionDependency {
 
     # Check each collected call → flag any that resolve to nothing. Get-Command runs once per distinct external name
     # in this run (a whole-session Get-Command snapshot measures slower than the few dozen lookups the memo leaves).
-    $unresolved = [System.Collections.Generic.List[PSObject]]::new()
     $isLoadedCommand = [System.Collections.Generic.Dictionary[string, bool]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
     foreach ($entry in $parsed) {
@@ -122,20 +133,11 @@ function Test-FunctionDependency {
                     continue
                 }
 
-                $unresolved.Add([PSCustomObject]@{
-                        CallerModule   = $entry.Module
-                        CallerFunction = $collector.Function.Name
-                        CallerFile     = $entry.FileName
-                        CallerLine     = $call.Line
-                        MissingCommand = $cmdName
-                    })
+                $issues.Add("$($collector.Function.Name) -> $cmdName ($($entry.Module)/$($entry.FileName):$($call.Line)) does not resolve to a command.")
             }
         }
     }
 
-    foreach ($entry in $unresolved) {
-        Write-Message "$($entry.CallerFunction) -> $($entry.MissingCommand) ($($entry.CallerFile):$($entry.CallerLine))" -ForegroundColor Red
-    }
-
-    $unresolved.Count -eq 0
+    Write-QualityGateReport -Subject function-dependency -Title Test-FunctionDependency -Issues $issues.ToArray() `
+        -Facts ([ordered]@{ FunctionCount = $definitions.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

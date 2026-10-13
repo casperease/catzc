@@ -4,12 +4,12 @@ Describe 'New-VSCodeLaunch' -Tag 'L0', 'logic' {
         # ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)): a small
         # fixture registry.
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
-            [ordered]@{
-                version        = '0.2.0'
-                configurations = @(
-                    [ordered]@{ name = 'Fixture'; type = 'PowerShell'; request = 'launch'; script = 'x.ps1' }
-                )
-            }
+            [Catzc.Base.VSCode.VscodeLaunchConfig]::new([ordered]@{
+                    version        = '0.2.0'
+                    configurations = @(
+                        [ordered]@{ name = 'Fixture'; type = 'PowerShell'; request = 'launch'; script = 'x.ps1' }
+                    )
+                })
         }
     }
 
@@ -25,7 +25,7 @@ Describe 'New-VSCodeLaunch' -Tag 'L0', 'logic' {
 
 Describe 'New-VSCodeLaunch — real vscode-launch.yml' -Tag 'L1', 'integrity' {
     It 'renders the shipped registry with the importer debug profile intact' {
-        # Get-Config dispatches Assert-VscodeLaunchConfig on load, so a render is also the shape proof.
+        # Get-Config constructs the VscodeLaunchConfig type on load, so a render is also the shape proof.
         $text = New-VSCodeLaunch
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         @($json.configurations).Count | Should -BeGreaterThan 0

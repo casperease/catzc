@@ -9,36 +9,36 @@
 Check before acting. Before creating, installing, or modifying, check whether the desired state already exists; if it does, return early or
 silently succeed.
 
-- [Common patterns for achieving idempotency](#common-patterns-for-achieving-idempotency)
-- [What idempotent means in practice](#what-idempotent-means-in-practice)
+- [Idempotency patterns](#idempotency-patterns)
+- [Idempotent in practice](#idempotent-in-practice)
 
 ### Rule ADR-AUTO-IDEM:2
 
 Prefer graceful handling of "already exists" or "already removed". A function that throws on a no-op re-run is still idempotent, but guard
 clauses with early returns make re-runs seamless and spare callers from handling expected errors.
 
-- [What idempotent means in practice](#what-idempotent-means-in-practice)
+- [Idempotent in practice](#idempotent-in-practice)
 
 ### Rule ADR-AUTO-IDEM:3
 
 Prefer overwrite over append. Use `Set-Content` not `Add-Content`, `PUT` not `POST`, create-or-update over create-only. Appending is
 inherently non-idempotent.
 
-- [Common patterns for achieving idempotency](#common-patterns-for-achieving-idempotency)
+- [Idempotency patterns](#idempotency-patterns)
 
 ### Rule ADR-AUTO-IDEM:4
 
 Return the resulting state. An idempotent function returns the same result whether it did work or short-circuited — `New-ServicePrincipal`
 returns the SP object whether it created it or found it already present.
 
-- [What idempotent means in practice](#what-idempotent-means-in-practice)
+- [Idempotent in practice](#idempotent-in-practice)
 
 ### Rule ADR-AUTO-IDEM:5
 
 Document the idempotency contract. A function's comment-based help should state that it is idempotent, and note when it wraps a
 non-idempotent external command.
 
-- [Which functions this applies to](#which-functions-this-applies-to)
+- [Where it applies](#where-it-applies)
 
 ## Context
 
@@ -60,7 +60,9 @@ If state-changing functions are not idempotent, re-runs cause one of three probl
 
 Idempotent functions eliminate all three. Running them once or five times produces the same system state. Re-runs are always safe.
 
-### What idempotent means in practice
+### Idempotent in practice
+
+`What idempotent means in practice`
 
 A function is idempotent when calling it N times with the same arguments leaves the system in the same state as calling it once. The
 function may do work on the first call and skip it on subsequent calls, or it may overwrite the same state each time — either approach is
@@ -108,7 +110,9 @@ function New-ServicePrincipal {
 }
 ```
 
-### Which functions this applies to
+### Where it applies
+
+`Which functions this applies to`
 
 | Category                  | Idempotent? | Why                                                             |
 | ------------------------- | ----------- | --------------------------------------------------------------- |
@@ -128,7 +132,9 @@ mean adding extra checks. If the underlying tool already guarantees idempotency 
 overwrites to the same result), lean on that contract instead of adding redundant guards. Know the tools you wrap — _unnecessary_ checks are
 waste, not safety.
 
-### Common patterns for achieving idempotency
+### Idempotency patterns
+
+`Common patterns for achieving idempotency`
 
 **Check-then-act.** Query the current state, compare to desired state, only act if they differ. This is the most common pattern for
 `Install-*` and `New-*` functions.

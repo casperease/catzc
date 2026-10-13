@@ -11,7 +11,7 @@ Every write to the console goes through the information stream, by way of the wr
 calls `Write-Host`, `Out-Host`, `Write-Progress`, `Clear-Host`, a `[Console]` write method, or a `$Host.UI` writer, and nothing assigns a
 console property (title, colour, cursor, encoding). An inline liveness dot is `Write-Message '.' -NoHeader -NoNewline`.
 
-- [One stream for everything the console shows](#one-stream-for-everything-the-console-shows)
+- [One stream](#one-stream)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-AUTO-ANNOUNCE:2
@@ -31,14 +31,14 @@ A change that is not a lasting change of this session is not announced: a change
 block), a change made in another runspace or process (a job, a parallel `ForEach-Object`), PowerShell's own `$LASTEXITCODE`, the toolset's
 private `$global:__<Name>` bookkeeping, and the state a test sets and restores around itself.
 
-- [What is not a state change of this session](#what-is-not-a-state-change-of-this-session)
+- [Not a state change](#not-a-state-change)
 
 ### Rule ADR-AUTO-ANNOUNCE:4
 
 A child process's own output is the tool speaking (ADR-AUTO-CONSOLE#4): it is relayed to the console as it streams, not re-written through
 the chokepoint. Only what the toolset itself says goes through the information stream.
 
-- [Child-process output is relayed, not re-written](#child-process-output-is-relayed-not-re-written)
+- [Child-process output](#child-process-output)
 
 ### Rule ADR-AUTO-ANNOUNCE:5
 
@@ -55,7 +55,7 @@ vendor modules, `PSModulePath`, the types assembly, the catzc modules) are annou
 `Write-ImporterMessage -StateChange`, shown by `. .\importer.ps1 -Verbose`. A plain import shows only its `Loaded in N seconds` line and
 genuine warnings. The functions the importer calls announce on the information stream as everywhere else.
 
-- [The importer's load record is verbose](#the-importers-load-record-is-verbose)
+- [The importer's load record](#the-importers-load-record)
 
 ## Context
 
@@ -69,7 +69,9 @@ this `PSModulePath` entry go. The only way to find out is to read source or re-r
 So the scrollback is made a complete record of how the session reached its state. Every change is announced as it happens, with the value it
 set, and every announcement travels the same stream as every other line the toolset writes.
 
-### One stream for everything the console shows
+### One stream
+
+`One stream for everything the console shows`
 
 The information stream is the one channel the toolset writes to the console through, because it is the one that stays in the caller's
 control. A record on it obeys `$InformationPreference` and `-InformationAction`, can be redirected with `6>` or captured with `6>&1` and
@@ -124,9 +126,11 @@ state change is always worth reporting, and a no-op is not a change.
 
 `-Verbose` does not announce. A state change is a fact about the session, and the always-on information stream is where facts go; the
 verbose stream is for the diagnostic detail behind them (ADR-AUTO-CONSOLE#2). The importer's own load record is the one exception
-([below](#the-importers-load-record-is-verbose)).
+([below](#the-importers-load-record)).
 
-### What is not a state change of this session
+### Not a state change
+
+`What is not a state change of this session`
 
 Some changes leave the session as they found it, or never touch it, and announcing them would be noise:
 
@@ -140,7 +144,9 @@ Some changes leave the session as they found it, or never touch it, and announci
   crosses module scopes for the toolset's own use. The state it records is announced where that state changes.
 - **Tests.** A test sets state on purpose and restores it in `AfterEach`/`AfterAll`, and its output belongs to Pester.
 
-### Child-process output is relayed, not re-written
+### Child-process output
+
+`Child-process output is relayed, not re-written`
 
 When the toolset runs an external tool, the tool's output streams to the console as it arrives (ADR-AUTO-CONSOLE#4), and a parallel test
 runner relays each worker's output the same way. That output is the child's own bytes, never a PowerShell record, so the C# relays
@@ -156,7 +162,9 @@ caller owns the wording, such as the process-environment seam behind `Write-Envi
 plaintext secret if it announced its own writes. The changing function then carries a `SuppressMessageAttribute` for
 `Measure-AnnounceStateChange` whose justification names where the announcement happens, so a reader of either function finds the other.
 
-### The importer's load record is verbose
+### The importer's load record
+
+`The importer's load record is verbose`
 
 `. .\importer.ps1` runs at the start of every session and makes the same expected changes each time: it sets the preferences, anchors the
 roots, imports the vendor modules, prepends the vendor root to `PSModulePath`, loads the types assembly, and loads the catzc modules.

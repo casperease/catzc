@@ -9,15 +9,15 @@
 Use `winget` for Windows package installations, never Chocolatey. No tool in `tools.yml` carries a `ChocolateyId` and no installer shells
 out to `choco`; Windows installs use winget, pip, or a vendored script.
 
-- [Winget is structurally more secure](#winget-is-structurally-more-secure)
-- [Chocolatey's security model is structurally weak](#chocolateys-security-model-is-structurally-weak)
+- [Winget's security model](#wingets-security-model)
+- [Chocolatey's security model](#chocolateys-security-model)
 
 ### Rule ADR-AUTO-PKGMGR:2
 
 Do not introduce Chocolatey as a dependency. No function should shell out to `choco`, reference a Chocolatey package, or assume Chocolatey
 is installed.
 
-- [Chocolatey's security model is structurally weak](#chocolateys-security-model-is-structurally-weak)
+- [Chocolatey's security model](#chocolateys-security-model)
 
 ### Rule ADR-AUTO-PKGMGR:3
 
@@ -52,7 +52,9 @@ TLS-only exception.
 System-wide tools are installed by platform-native package managers (see [controlling-systemwide-deps](controlling-systemwide-deps.md)). On
 Windows, the choice of package manager matters because not all options carry the same security properties.
 
-### Chocolatey's security model is structurally weak
+### Chocolatey's security model
+
+`Chocolatey's security model is structurally weak`
 
 Chocolatey installs packages by downloading and executing PowerShell scripts as administrator. Both the package script
 (`chocolateyInstall.ps1`) and the installer it fetches are attack surface — effectively doubling the vectors compared to a manager that only
@@ -80,7 +82,9 @@ Specific problems:
 Chocolatey for Business mitigates some of these issues with internal repositories, package internalization, and runtime malware scanning —
 but that is a paid product, and none of those controls exist in the free tier that most setups use.
 
-### Winget is structurally more secure
+### Winget's security model
+
+`Winget is structurally more secure`
 
 Winget ships with Windows 11 and Windows 10 (via App Installer). It is the first-party Microsoft package manager.
 

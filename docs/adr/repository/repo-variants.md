@@ -30,7 +30,7 @@ is `Variants → Config`, which is acyclic because `Config` never depends on `Va
 callable from any module **above the Config layer** (all of `AzureExt`, `Tooling`, and the upper `Base` modules) — which is every real
 consumer; only `Config`/`Repository`/`Asserts` themselves cannot call them, and they have no need to.
 
-- [Why a Base module, and how far it reaches](#why-a-base-module-and-how-far-it-reaches)
+- [A Base module](#a-base-module)
 
 ### Rule ADR-REPO-VARIANT:4
 
@@ -91,7 +91,9 @@ A flat config value read ad hoc gives every caller its own defaulting and interp
 All of them route through one private reader, `Get-Variant -Name <key> -Default <x>`, so the growing dictionary has a single access point
 and each variant's defaulting lives in exactly one place. A caller never mentions `variants.yml` or a raw key; it asks a named question.
 
-### Why a Base module, and how far it reaches
+### A Base module
+
+`Why a Base module, and how far it reaches`
 
 The primitives must be usable as trivial guards wherever a repo-wide decision matters — deep in the Azure templating layer, in a tooling
 step, anywhere. That argues for a low, widely-dependable **Base** module rather than the Azure layer. Reading a config never bypasses

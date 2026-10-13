@@ -12,7 +12,7 @@ second copy. This governs the codebase's own behaviour — not version as a deli
 (ADR-PRIN-ONELIVE#7).
 
 - [One version, by construction](#one-version-by-construction)
-- [Version as a first-class contract is not legacy](#version-as-a-first-class-contract-is-not-legacy)
+- [Versioned contracts](#versioned-contracts)
 
 ### Rule ADR-PRIN-ONELIVE:2
 
@@ -21,8 +21,8 @@ code. When a contract changes — a config schema, a data model, a function sign
 the old shape leaves no residue. The one bounded exception is a temporary branch-by-abstraction seam during a wholesale swap
 (ADR-PRIN-ONELIVE#8), which exists only to be removed.
 
-- [Why an internal mono-repo owes no back-compat](#why-an-internal-mono-repo-owes-no-back-compat)
-- [Branch by abstraction: temporary coexistence for a wholesale swap](#branch-by-abstraction-temporary-coexistence-for-a-wholesale-swap)
+- [No back-compat in a mono-repo](#no-back-compat-in-a-mono-repo)
+- [Branch by abstraction](#branch-by-abstraction)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-PRIN-ONELIVE:3
@@ -30,7 +30,7 @@ the old shape leaves no residue. The one bounded exception is a temporary branch
 No legacy or dead code kept "just in case." Code that nothing reaches is **deleted** — not commented out, not parked behind a disabled flag,
 not moved to an `old/` folder. If it is ever needed again, it is recovered from git.
 
-- [History lives in git, not in the tree](#history-lives-in-git-not-in-the-tree)
+- [History lives in git](#history-lives-in-git)
 
 ### Rule ADR-PRIN-ONELIVE:4
 
@@ -44,7 +44,7 @@ an alternate version of the code. Branches are short-lived and merge back. The t
 History lives in git, not in the working tree. The record of what the code used to be is `git log` / `git blame` — never a retained old
 file, a `# previously …` comment, an in-code changelog, or a commented-out alternative. The working tree shows only the present.
 
-- [History lives in git, not in the tree](#history-lives-in-git-not-in-the-tree)
+- [History lives in git](#history-lives-in-git)
 
 ### Rule ADR-PRIN-ONELIVE:6
 
@@ -52,7 +52,7 @@ Docs read present-tense, like the code. An ADR, README, or help block describes 
 "deprecated", "legacy", "as of vX", "we used to", "this replaces". That history is in git. This is the [authoring convention](../index.md)
 ("Present tense, not a changelog") applied to the whole tree, not only to ADRs.
 
-- [History lives in git, not in the tree](#history-lives-in-git-not-in-the-tree)
+- [History lives in git](#history-lives-in-git)
 
 ### Rule ADR-PRIN-ONELIVE:7
 
@@ -62,7 +62,7 @@ you own and validate — is a deliberate contract value, and versioned coexisten
 defer changing callers. Versioned contracts have a structural home: `contracts/<contract-name>/v<N>/`
 ([conventional-folders](../repository/conventional-folders.md#rule-adr-repo-folders11)).
 
-- [Version as a first-class contract is not legacy](#version-as-a-first-class-contract-is-not-legacy)
+- [Versioned contracts](#versioned-contracts)
 
 ### Rule ADR-PRIN-ONELIVE:8
 
@@ -71,7 +71,7 @@ integrations to master — optionally config-selected — so the swap lands incr
 bounded and removed on cutover (the seam, the old implementation, and any toggle deleted together), landing back on one living version. It
 is a migration scaffold with a built-in deletion plan and a deadline, not the indefinite back-compat ADR-PRIN-ONELIVE#2 forbids.
 
-- [Branch by abstraction: temporary coexistence for a wholesale swap](#branch-by-abstraction-temporary-coexistence-for-a-wholesale-swap)
+- [Branch by abstraction](#branch-by-abstraction)
 
 ## Context
 
@@ -101,7 +101,9 @@ There is one definition of each behaviour, and changing behaviour edits that def
 single-source-of-truth that [everything-as-code](everything-as-code.md) depends on. One version is also what makes the platform legible: a
 reader who finds a function knows it is **the** function, not one of several vintages.
 
-### Why an internal mono-repo owes no back-compat
+### No back-compat in a mono-repo
+
+`Why an internal mono-repo owes no back-compat`
 
 Backwards compatibility buys a grace period for consumers who cannot change in lockstep with a producer. Here there are no such consumers —
 every caller is in the tree and moves with the change. So the producer pays the full cost of a compatibility layer (the shim, its tests, the
@@ -109,7 +111,9 @@ cognitive load of "which path runs when") to buy nothing. The honest move is the
 and delete the old shape in the same commit. This is permanent and repo-wide, not a temporary stance: the mono-repo's all-callers-in-tree
 property is what makes backwards compatibility pointless, and that property holds for every change.
 
-### History lives in git, not in the tree
+### History lives in git
+
+`History lives in git, not in the tree`
 
 Every past version of every line is preserved, perfectly and for free, in git. Keeping a second copy in the working tree — a commented-out
 block, an `_old` file, a "# was: …" note — duplicates what git holds, except worse: it is unversioned, untested, and misleads the next
@@ -121,7 +125,9 @@ Trunk-based development is the workflow that makes "one version" hold over time.
 a branch name: it carries an alternate version of the code that drifts from trunk and eventually demands a back-merge or a compatibility
 shim. Short-lived branches that merge back keep the trunk as the single, living version at all times.
 
-### Version as a first-class contract is not legacy
+### Versioned contracts
+
+`Version as a first-class contract is not legacy`
 
 This principle governs the codebase's own behaviour; it does not forbid _version_ as a deliberate value of the domain. Some contracts are
 inherently versioned, and pinning or supporting a specific version is the spec, not residue:
@@ -144,7 +150,9 @@ self-contained, checked-in folder (kept by a `.gitkeep`), so coexistence is expl
 the original in the code. These are the repository's external-facing API contracts, binding and contract-tested — see
 [api-contracts](../repository/api-contracts.md).
 
-### Branch by abstraction: temporary coexistence for a wholesale swap
+### Branch by abstraction
+
+`Branch by abstraction: temporary coexistence for a wholesale swap`
 
 Replacing a module or component wholesale is exactly the case trunk-based development handles with **branch by abstraction**, and it is
 sanctioned here. Introduce an abstraction seam in front of the thing being replaced; build the new implementation behind the same seam; let

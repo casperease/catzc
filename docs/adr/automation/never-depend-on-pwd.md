@@ -27,7 +27,7 @@ Module code locates its own content — its `configs/`, its `assets/`, another m
 in module function files (a module's root and `private/` `.ps1` files); tests, `assets/`, and `.internal` keep it. The analyzer rule
 `Measure-NoScriptRootAnchor` enforces the ban.
 
-- [The code root, not the script's folder](#the-code-root-not-the-scripts-folder)
+- [The code root](#the-code-root)
 - [How this is enforced](#how-this-is-enforced)
 
 ## Context
@@ -47,7 +47,9 @@ expected.
 2. **A global `Set-Location` at the top of scripts** — unsafe: it changes `$PWD` for every function called afterward and does not compose in
    concurrent or nested scenarios.
 
-### The code root, not the script's folder
+### The code root
+
+`The code root, not the script's folder`
 
 `$PSScriptRoot` is the folder of the file that is executing, which makes it an anchor for the file's location rather than for the module.
 The toolset runs in two modes ([run-modes](../design/run-modes.md)): in source mode a function file sits in `automation/<Module>/` or its

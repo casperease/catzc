@@ -20,7 +20,7 @@ Describe 'Test-Types' -Tag 'L0', 'logic' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates -MockWith { $repositoryRoot }.GetNewClosure()
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
-        & $writeType $script:root 'Catzc.Widget' 'Widget' "namespace Catzc.Widget;`n`npublic sealed class Widget { }`n"
+        & $writeType $script:root 'Catzc.Widget' 'Widget' ('namespace Catzc.Widget;', '', 'public sealed class Widget { }', '' -join "`n")
     }
 
     It 'passes when every type declares its module namespace' -Tag 'ADR-AUTO-TEST#35' {
@@ -28,7 +28,7 @@ Describe 'Test-Types' -Tag 'L0', 'logic' {
     }
 
     It 'throws once listing every mismatched, block-scoped, and missing namespace' -Tag 'ADR-AUTO-TEST#35' {
-        & $writeType $script:root 'Catzc.Widget' 'Gadget' "namespace Catzc.Gadget;`n`npublic sealed class Gadget { }`n"
+        & $writeType $script:root 'Catzc.Widget' 'Gadget' ('namespace Catzc.Gadget;', '', 'public sealed class Gadget { }', '' -join "`n")
         & $writeType $script:root 'Catzc.Gadget' 'Gizmo' "namespace Catzc.Gadget`n{`n    public sealed class Gizmo { }`n}`n"
         & $writeType $script:root 'Catzc.Gadget' 'Bare' "public sealed class Bare { }`n"
         $thrown = { Test-Types -Path (Join-Path $script:root 'automation') -OutputFolder $script:reportBase } |

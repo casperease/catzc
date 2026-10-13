@@ -12,33 +12,11 @@ Describe 'Build-EnglishDictionary' -Tag 'L0', 'logic' {
 Describe 'Build-EnglishDictionary — committed dictionary drift guard' -Tag 'L1', 'integrity', 'source-only' {
     # Binds to the shipped english.txt.gz + its stamp and the pinned tools.yml version — an integrity test
     # ([ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1)). It detects a stale dictionary
-    # WITHOUT re-running node: it compares the recorded cspell version
-    # against the tools.yml pin, and the recorded word count against the actual gz. Re-run Build-EnglishDictionary
-    # (and commit the gz + stamp) when a failure says the pin moved.
-    BeforeAll {
-        $assetsDir = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/assets'
-        $script:gzipPath = Join-Path $assetsDir 'english.txt.gz'
-        $script:stampPath = Join-Path $assetsDir 'english.stamp'
-    }
-
-    It 'ships the committed english.txt.gz and its stamp' {
-        $script:gzipPath | Should -Exist
-        $script:stampPath | Should -Exist
-    }
-
-    It 'the stamp records a cspell version matching the tools.yml pin' {
-        $stamp = Get-Content $script:stampPath -Raw | ConvertFrom-Json
-        $pinned = (Get-ToolConfig -Tool 'cspell').version
-        $stamp.cspell.StartsWith($pinned) |
-            Should -BeTrue -Because "english.txt.gz was flattened from cspell $($stamp.cspell) but tools.yml now pins '$pinned' — re-run Build-EnglishDictionary and commit the gz + stamp"
-    }
-
-    It 'the stamp word count matches the committed gz' {
-        $bytes = [System.IO.File]::ReadAllBytes($script:gzipPath)
-        $text = [System.Text.Encoding]::UTF8.GetString([Catzc.Base.QualityGates.GzipText]::Decompress($bytes))
-        $actual = @($text -split "`n" | Where-Object { $_ }).Count
-        $stamp = Get-Content $script:stampPath -Raw | ConvertFrom-Json
-        $actual |
-            Should -Be $stamp.word_count -Because 'the committed gz and its stamp are out of sync — re-run Build-EnglishDictionary and commit both'
+    # WITHOUT re-running node: Test-GeneratedFiles (through Get-EnglishDictionaryDrift) checks that the gz and its
+    # stamp ship, that the recorded cspell version matches the tools.yml pin, and that the recorded word count
+    # matches the actual gz. Re-run Build-EnglishDictionary (and commit the gz + stamp) when it reports drift.
+    It 'the committed english.txt.gz and its stamp match the tools.yml pin and each other (Test-GeneratedFiles)' {
+        $result = Test-GeneratedFiles -Generator Build-EnglishDictionary -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

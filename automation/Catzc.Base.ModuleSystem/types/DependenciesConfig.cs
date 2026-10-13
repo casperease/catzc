@@ -47,7 +47,7 @@ public sealed class DependenciesConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
-        // --- groups: each a ModuleGroup (shape, closed-within-group, internal acyclicity) -------------------
+        // --- groups: each a ModuleGroup (shape, closed-within-group, no internal cycle) ---------------------
         OrderedDictionary groupMap = new OrderedDictionary(StringComparer.OrdinalIgnoreCase);
         object groupsRaw = raw.Contains("groups") ? raw["groups"] : null;
         if (groupsRaw != null && !(groupsRaw is IDictionary)) { errors.Add("'groups' must be a map of group name -> member map"); }

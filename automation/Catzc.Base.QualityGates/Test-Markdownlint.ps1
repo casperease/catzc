@@ -9,9 +9,10 @@
     apply .markdownlintignore to globs passed on the command line, so the exclusions are passed explicitly.
     The root .markdownlintignore mirrors these for the editor extension's benefit.
 
-    Mirrors Test-Automation's reporting: each run writes a timestamped folder under out/test-markdownlint/
-    (markdownlint.md), updates latest.txt, and prints the report path — rather than dumping every issue to
-    the console. Throws when issues are found (so it can gate CI); -PassThru returns a result object instead.
+    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): every
+    violation line ('<path>:<line>:<col> <rule id>/<rule name> …') is an issue, and the gate ends through
+    Write-QualityGateReport, which writes out/test-markdownlint/, prints every issue, and throws once listing them
+    all; -PassThru returns the result object instead. A tool error (exit > 1) throws before the report.
 
     markdownlint-cli2 must be on PATH — install it once with Install-Markdownlint (or: npm install -g
     markdownlint-cli2).
@@ -19,10 +20,9 @@
     Globs/paths to lint. Defaults to the repository's in-scope Markdown, with the out-of-scope trees excluded
     via '!'-negation globs.
 .PARAMETER OutputFolder
-    Base directory for the run report. Each run writes a timestamped subfolder
-    (<OutputFolder>/yyyyMMdd-HHmmss/). Defaults to <out>/test-markdownlint.
+    The report base folder. Defaults to <out>/test-markdownlint.
 .PARAMETER PassThru
-    Return a result object ({ IssueCount, FileCount, ExitCode, ReportPath }) instead of throwing.
+    Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount, ExitCode }) instead of throwing.
 .EXAMPLE
     Test-Markdownlint
 .EXAMPLE
@@ -72,7 +72,7 @@ function Test-Markdownlint {
     }
     $command = "markdownlint-cli2 $($quotedGlobs -join ' ')"
 
-    # -Silent: capture markdownlint-cli2's output instead of streaming it to the console (no per-issue dump).
+    # -Silent: capture markdownlint-cli2's output instead of streaming it to the console; the report prints the issues.
     $result = Invoke-Executable $command -PassThru -NoAssert -Silent
 
     # markdownlint-cli2 exit codes: 0 = clean, 1 = lint violations found, >1 = tool error.
@@ -81,69 +81,16 @@ function Test-Markdownlint {
     }
 
     # Violation lines look like:  path/to/file.md:12:5 MD013/line-length Line length [Expected: 140; ...]
-    $issueLines = @($result.Full -split '\r?\n' | Where-Object { $_ -match ' MD\d{3}/' })
-    $issueCount = $issueLines.Count
-    $fileCount = @($issueLines | ForEach-Object { ($_ -split ':')[0] } | Select-Object -Unique).Count
-
-    # Resolve the run directory — a timestamped subfolder under the report base (mirrors Test-Automation),
-    # so each run's report is preserved and cleared with the rest of out/.
-    if (-not $OutputFolder) {
-        $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) 'test-markdownlint'
-    }
-    $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
-    $runDir = Join-Path $OutputFolder $stamp
-    $i = 2
-    while (Test-Path $runDir) {
-        $runDir = Join-Path $OutputFolder "$stamp-$i"
-        $i++
-    }
-    New-Item -ItemType Directory -Path $runDir -Force | Out-Null
-
-    # Write the markdown report — the issues land here, not on the console.
-    $lines = [System.Collections.Generic.List[string]]::new()
-    $lines.Add('# Markdownlint report')
-    $lines.Add('')
-    $lines.Add("- Generated: $stamp")
-    if ($issueCount -eq 0) {
-        $lines.Add('- Result: no markdownlint issues')
-    }
-    else {
-        $lines.Add("- Issues: $issueCount across $fileCount file(s)")
-        $lines.Add('')
-        $lines.Add('## Issues')
-        $lines.Add('')
-        foreach ($line in $issueLines) {
-            $lines.Add("- $line")
-        }
-    }
-    Set-Content -Path (Join-Path $runDir 'markdownlint.md') -Value $lines -Encoding utf8
-    Set-Content -Path (Join-Path $OutputFolder 'latest.txt') -Value (Split-Path $runDir -Leaf) -Encoding utf8
-
-    # Console — one line per file with its issue count; full per-issue detail is saved in the report.
-    if ($issueCount -eq 0) {
-        Write-Message 'No markdownlint issues found.'
-    }
-    else {
-        $perFile = $issueLines |
-            Group-Object -Property { ($_ -split ':')[0] } |
-            Sort-Object @{ Expression = 'Count'; Descending = $true }, Name
-        foreach ($file in $perFile) {
-            Write-Message ('{0}: {1}' -f $file.Name, $file.Count) -NoHeader
-        }
-        Write-Message "$issueCount markdownlint issue(s) across $fileCount file(s)."
-    }
-    Write-Message "Markdownlint report: $runDir" -ForegroundColor Cyan -NoHeader
-
-    if ($PassThru) {
-        return [pscustomobject]@{
-            IssueCount = $issueCount
-            FileCount  = $fileCount
-            ExitCode   = $result.ExitCode
-            ReportPath = $runDir
-        }
+    $issues = @($result.Full -split '\r?\n' | Where-Object { $_ -match ' MD\d{3}/' })
+    if ($result.ExitCode -ne 0 -and $issues.Count -eq 0) {
+        # A failing exit with no parsable violation line: the wording changed — report the raw output, never pass.
+        $issues = @("markdownlint-cli2 exited $($result.ExitCode) with no parsable violation line: $($result.Full)")
     }
 
-    if ($result.ExitCode -ne 0) {
-        throw "Test-Markdownlint failed: $issueCount markdownlint issue(s) found — see $runDir"
+    $facts = [ordered]@{
+        FileCount = @($issues | ForEach-Object { ($_ -split ':')[0] } | Select-Object -Unique).Count
+        ExitCode  = $result.ExitCode
     }
+    Write-QualityGateReport -Subject markdownlint -Title Test-Markdownlint -Issues $issues -Facts $facts `
+        -OutputFolder $OutputFolder -PassThru:$PassThru
 }

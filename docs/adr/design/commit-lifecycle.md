@@ -22,7 +22,7 @@ and `release-uat` rungs are reached by clearing their **acceptance testing** —
 terminal state (discarded, retired, or superseded). It never regresses to an earlier rung — a commit is not "re-verified" downward; a new
 attempt is a new commit.
 
-- [The ladder and its one direction](#the-ladder-and-its-one-direction)
+- [The ladder](#the-ladder)
 
 ### Rule ADR-DSGN-LIFE:2
 
@@ -32,7 +32,7 @@ that fails there or hold it at its manual gate (**RC**, ADR-FLOW-CD#9). A discar
 committed (history is never rewritten), and can never progress. The diagram records _where_ it died, because "discarded at BVT" and
 "discarded at release-uat" are different facts about the same outcome.
 
-- [Discard is rejection, and it is named](#discard-is-rejection-and-it-is-named)
+- [Discard](#discard)
 
 ### Rule ADR-DSGN-LIFE:3
 
@@ -41,7 +41,7 @@ by a newer production commit is **retired** — it did its job and was decommiss
 they are opposite outcomes: discard is rejection before value was delivered; retirement is graceful hand-off after value was delivered. A
 diagram that paints a retired commit the same red as a discarded one erases that difference.
 
-- [Retirement is success, not rejection](#retirement-is-success-not-rejection)
+- [Retirement](#retirement)
 
 ### Rule ADR-DSGN-LIFE:4
 
@@ -50,7 +50,7 @@ still progressing toward the same environment, the older is **superseded**: it w
 became the one carried forward, so the older is abandoned in place. Supersession is the third distinct ending, between "rejected" (discard)
 and "delivered then retired": valid, but not chosen.
 
-- [Supersession abandons without rejecting](#supersession-abandons-without-rejecting)
+- [Supersession](#supersession)
 
 ### Rule ADR-DSGN-LIFE:5
 
@@ -59,7 +59,7 @@ stateful, not pass-through: at any moment each holds one **occupant** — the co
 (ADR-FLOW-CD#14) — and a trail of the commits it held before. An environment box in the diagram is a neutral container naming its occupant,
 drawn in that commit's state colour (ADR-DSGN-VISUAL#13), so reading the occupant tells you the true state of that environment right now.
 
-- [Environments have a single occupant](#environments-have-a-single-occupant)
+- [One occupant per environment](#one-occupant-per-environment)
 
 ### Rule ADR-DSGN-LIFE:6
 
@@ -105,7 +105,9 @@ canonical encoding of this lifecycle (they render the grammar of [ADR-DSGN-VISUA
 
 - [One number, one story](#one-number-one-story)
 
-## The ladder and its one direction
+## The ladder
+
+`The ladder and its one direction`
 
 Promotion is monotonic because each rung is a stronger claim about the same artifact, and a stronger claim is never un-made by moving a
 commit backward. A commit that has reached `main-UAT` is not demoted to "just BVT-verified"; if something is wrong, the commit is discarded
@@ -113,7 +115,9 @@ and a _new_ commit carries the fix forward. Modelling the ladder as one-directio
 is L3-verified") rather than a mutable label, and it is why the three ways off the ladder — discard, retirement, supersession — are all
 terminal.
 
-## Discard is rejection, and it is named
+## Discard
+
+`Discard is rejection, and it is named`
 
 Every gate exists to reject, and the diagram records not just that a commit was rejected but by which gate, because the gate is the
 diagnosis. BVT and L3 reject automatically the moment their checks fail; release-uat rejects only when a human opens its manual gate (RBC)
@@ -121,21 +125,27 @@ the wrong way; `main-UAT` rejects a commit that cannot stand up on the always-on
 Keeping the rejection point in the record turns "it was discarded" into "it was discarded at L3", which is the difference between a shrug
 and a lead.
 
-## Retirement is success, not rejection
+## Retirement
+
+`Retirement is success, not rejection`
 
 The most consequential distinction in the lifecycle is that leaving production is usually a _win_. A commit reaches production, serves real
 traffic, and is eventually replaced by a newer production commit; at that point it retires. Collapsing retirement into discard would make
 the diagram claim that a commit which delivered months of value "failed", which is the opposite of the truth. Retirement is drawn as the
 production colour moved into the retired lane — the commit keeps the green of what it achieved.
 
-## Supersession abandons without rejecting
+## Supersession
+
+`Supersession abandons without rejecting`
 
 Not every commit that fails to reach production was wrong; some were simply overtaken. When a newer commit rolls over an older one on the
 way to an environment, the older commit was valid at the moment it was abandoned — no gate rejected it — but a fresher commit became the one
 carried forward. Naming this as its own ending (rather than lumping it with discard) matters because a superseded commit tells you the
 pipeline was _moving fast_, whereas a discarded commit tells you the pipeline _caught a defect_; conflating them hides both signals.
 
-## Environments have a single occupant
+## One occupant per environment
+
+`Environments have a single occupant`
 
 An always-on environment is a place, and a place holds one thing at a time. `main-UAT`, `release-uat`, `pre-prod`, and `production` each
 have exactly one current commit deployed, and treating them as stateful — occupant plus history — is what makes questions like "what is in

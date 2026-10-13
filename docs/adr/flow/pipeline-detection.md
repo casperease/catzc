@@ -9,7 +9,7 @@
 Never check the pipeline-detection environment variables (`TF_BUILD`, `GITHUB_ACTIONS`) directly. Use `Test-IsRunningInPipeline` so the
 detection logic stays in one place.
 
-- [The right approach: a single detection function](#the-right-approach-a-single-detection-function)
+- [One detection function](#one-detection-function)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-FLOW-CD-DETECT:2
@@ -53,13 +53,17 @@ GitHub Actions). Some behavior must differ between these contexts:
 
 The question is: how should a function know which context it is in?
 
-### The wrong approach: implicit detection everywhere
+### Implicit detection
+
+`The wrong approach: implicit detection everywhere`
 
 If every function that behaves differently in a pipeline has its own `if ($env:TF_BUILD)` check, the detection logic is scattered and
 inconsistent. Different functions may check different environment variables, some may check for the variable's existence while others check
 its value, some may forget GitHub Actions entirely, and the logic is never tested.
 
-### The right approach: a single detection function
+### One detection function
+
+`The right approach: a single detection function`
 
 One function answers the question. All other functions call it. The detection logic is in one place, testable, and the environment variables
 it checks are an implementation detail.

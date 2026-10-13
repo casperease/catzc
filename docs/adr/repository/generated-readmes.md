@@ -23,7 +23,7 @@ import, never committed. History and the authored text live elsewhere (git; the 
 A folder keeps a hand-authored, committed README by opting out: omit it from the map and un-ignore it in `.gitignore` (`!path/README.md`). A
 folder is therefore either generated (mapped, ignored) or committed (unmapped, opted-in) — never both.
 
-- [Opt-out is explicit and located](#opt-out-is-explicit-and-located)
+- [Explicit opt-out](#explicit-opt-out)
 
 ### Rule ADR-REPO-README:4
 
@@ -41,7 +41,7 @@ its source is a no-op, and anything else — an old plain-file copy, a wrong or 
 mechanism (a relative symbolic link where permitted, a hard link on privilege-less Windows), so a clean tree is a fast no-op and each OS
 heals its own view at its session start.
 
-- [Always current, at no steady-state cost](#always-current-at-no-steady-state-cost)
+- [Always current](#always-current)
 
 ### Rule ADR-REPO-README:6
 
@@ -51,7 +51,7 @@ A consumer that resolves a relative reference against the README's folder rather
 base — the accepted cost of the link form, bounded by the fact that the links are gitignored and local-only (no hosted renderer ever serves
 them).
 
-- [The reading surface is the source](#the-reading-surface-is-the-source)
+- [The reading surface](#the-reading-surface)
 
 ### Rule ADR-REPO-README:7
 
@@ -89,23 +89,29 @@ excluded from the markdown gate — the authored source under `docs/references/`
 committing a git link object, which Windows checkouts materialise unreliably — the same reason a `committed` root config is never a link
 ([ADR-REPO-ROOTCFG#7](generated-root-configs.md#rule-adr-repo-rootcfg7)).
 
-### Opt-out is explicit and located
+### Explicit opt-out
+
+`Opt-out is explicit and located`
 
 Some READMEs are genuinely authored in place — a GitHub profile landing page, a third-party README, a fixture. Such a folder is simply not
 mapped, and its README is un-ignored in `.gitignore` with a `!path/README.md` line. The two expressions stay consistent by construction: a
 mapped folder's README is ignored and unmapped-opted-in READMEs are committed, and an integrity test asserts no mapped target is opted back
 in.
 
-### Always current, at no steady-state cost
+### Always current
+
+`Always current, at no steady-state cost`
 
 Because the links are cheap to verify and must never go stale, the importer re-materialises them on every load. This is safe only because
 `Set-FileLink` is idempotent: an effective link (a symbolic link resolving to the source, or a hard link with identical bytes) is a no-op,
 and anything else is deleted and recreated — including a plain file whose content happens to match, because content equality is not the
 contract; being the same file is. The per-OS healing contract is the mechanism owner's
-([generated-root-configs](generated-root-configs.md#copy-as-link-the-target-is-the-source)): a Windows session typically holds hard links, a
+([generated-root-configs](generated-root-configs.md#copy-as-link)): a Windows session typically holds hard links, a
 Linux session symbolic links, and each session verifies and heals its own view at import.
 
-### The reading surface is the source
+### The reading surface
+
+`The reading surface is the source`
 
 An authored article links to its neighbours — sibling references, ADRs — relative to its own location, and those links are checked by the
 markdown gate at that location. The README makes the article reachable from the folder it documents; reading it there shows the source

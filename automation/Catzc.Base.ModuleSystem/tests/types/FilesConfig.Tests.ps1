@@ -4,8 +4,13 @@ Describe 'Catzc.Base.ModuleSystem.FilesConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {
             param($Raw)
-            $thrown = { [Catzc.Base.ModuleSystem.FilesConfig]::new($Raw) } | Should -Throw -PassThru
-            $thrown.Exception.InnerException.Message
+            try {
+                [void] [Catzc.Base.ModuleSystem.FilesConfig]::new($Raw)
+            }
+            catch {
+                return $_.Exception.InnerException.Message
+            }
+            throw 'expected the FilesConfig constructor to throw'
         }
     }
 

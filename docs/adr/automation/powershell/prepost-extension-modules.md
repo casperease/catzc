@@ -9,28 +9,28 @@
 `PrePost.psm1` is the only `.psm1` allowed under `infrastructure/`. Under `automation/`, `.psm1` is reserved for genuine module/standalone
 files (the `automation/.internal/*.psm1` shared modules, the analyzer rule modules, the PrePost starter); all other PowerShell uses `.ps1`.
 
-- [Why this does not conflict with `use-ps1-not-psm1`](#why-this-does-not-conflict-with-use-ps1-not-psm1)
-- [Why a single `.psm1` (not three `.ps1` files)](#why-a-single-psm1-not-three-ps1-files)
+- [No conflict with use-ps1-not-psm1](#no-conflict-with-use-ps1-not-psm1)
+- [One `.psm1`](#one-psm1)
 
 ### Rule ADR-AUTO-PREPOST:2
 
 `Catzc.Azure.Templates/assets/PrePost.psm1` is a starter reference, not loaded by any code. It is one of the few `.psm1` files under
 `automation/`, but it is data authors copy, not an imported module.
 
-- [`assets/PrePost.psm1` is a copy-in starter, not a loaded default](#assetsprepostpsm1-is-a-copy-in-starter-not-a-loaded-default)
+- [The copy-in starter](#the-copy-in-starter)
 
 ### Rule ADR-AUTO-PREPOST:3
 
 The file name is exactly `PrePost.psm1` at the template-folder root. Discovery in `Get-BicepTemplates` looks for that exact filename.
 
-- [Where per-template hooks live — `infrastructure/templates/<name>/PrePost.psm1`](#where-per-template-hooks-live--infrastructuretemplatesnameprepostpsm1)
+- [Per-template hooks](#per-template-hooks)
 
 ### Rule ADR-AUTO-PREPOST:4
 
 A template's `PrePost.psm1` may export any subset of the three hooks. Hooks it does not export are no-ops (skipped) — there is no
 fall-through to a default.
 
-- [Where per-template hooks live — `infrastructure/templates/<name>/PrePost.psm1`](#where-per-template-hooks-live--infrastructuretemplatesnameprepostpsm1)
+- [Per-template hooks](#per-template-hooks)
 
 ### Rule ADR-AUTO-PREPOST:5
 
@@ -55,7 +55,9 @@ pipeline agent, where `Get-BicepDeploymentContext` re-keys its path into `ctx.ar
 - **`Invoke-BicepPreDeploy`** — pre-deploy. State-changing prep (create queues, fetch key-vault material) and readiness checks.
 - **`Invoke-BicepPostDeploy`** — post-deploy. Fixups (e.g. Functions runtime settings) and verification.
 
-### Hook arguments — an invocation collection, not raw scalars
+### Hook arguments
+
+`Hook arguments — an invocation collection, not raw scalars`
 
 Each hook receives the build/deploy invocation as a **single collection**, plus the computed descriptor objects. The invocation collection
 carries the _arguments the operation is acting on_ — so adding a dimension (customer, mode, …) is a new key, never a new parameter on every
@@ -81,7 +83,11 @@ corresponding step is simply skipped — the _code_ supplies the no-op, not a lo
 The shape used for a template's PrePost is **one `.psm1` file containing the hooks it overrides**. A starter (`assets/PrePost.psm1`) ships
 the canonical shape — three no-op hooks — purely as a copy-in template. This ADR explains both choices.
 
-### Why a single `.psm1` (not three `.ps1` files)
+### One `.psm1`
+
+```text
+Why a single `.psm1` (not three `.ps1` files)
+```
 
 The three hooks are **conceptually grouped**: they form one extension surface that runs the template-specific orchestration around a deploy.
 A template that needs to provision a queue in `PreDeploy` almost always wants to tear it down (or verify it) in `PostDeploy`, and frequently
@@ -99,7 +105,11 @@ A single `.psm1` also:
   invocation logic in `Build-Bicep` / `Deploy-Bicep` is one path, not three.
 - **Mirrors the source.** Eases the manual copy-in step for a template that ships as a single `.psm1`.
 
-### `assets/PrePost.psm1` is a copy-in starter, not a loaded default
+### The copy-in starter
+
+```text
+`assets/PrePost.psm1` is a copy-in starter, not a loaded default
+```
 
 `assets/PrePost.psm1` sits in the `Catzc.Azure.Templates` module's `assets/` folder. It is **not loaded or called by any production code** —
 it exists only as the canonical shape an author copies to `infrastructure/templates/<name>/PrePost.psm1`. Its three hooks are no-ops: a
@@ -109,7 +119,11 @@ There is deliberately **no default hook** loaded into the module's session state
 code to an asset module, put the asset on the call graph, and make the build/deploy functions call hook names that resolve only at runtime.
 The only PrePost code that ever runs is a template's own.
 
-### Where per-template hooks live — `infrastructure/templates/<name>/PrePost.psm1`
+### Per-template hooks
+
+```text
+Where per-template hooks live — `infrastructure/templates/<name>/PrePost.psm1`
+```
 
 A template that needs a hook ships one file:
 
@@ -132,7 +146,11 @@ under `automation/` contains **no reference** to hook functions that live only i
 Per-template modules do NOT live under `automation/` and are NOT loaded by the bootstrap module. They are loaded on demand. The `.psm1`
 extension is exactly the right tool: an isolated scope that can be cleanly imported, expose any subset of three exports, and be discarded.
 
-### Why this does not conflict with `use-ps1-not-psm1`
+### No conflict with use-ps1-not-psm1
+
+```text
+Why this does not conflict with `use-ps1-not-psm1`
+```
 
 [`use-ps1-not-psm1`](use-ps1-not-psm1.md) governs **function files inside `automation/`** that declare the module's regular per-function
 exports. Its goal is shared scope across one module's internals.
@@ -146,7 +164,11 @@ Neither `assets/PrePost.psm1` nor `infrastructure/templates/<name>/PrePost.psm1`
 The `use-ps1-not-psm1` "shared scope across module internals" use case and this ADR's "isolated extension point loaded on demand" use case
 have different scope requirements. The two ADRs apply in different parts of the repo and do not contradict each other.
 
-### Why not three separate `.ps1` files
+### Not three `.ps1` files
+
+```text
+Why not three separate `.ps1` files
+```
 
 A three-`.ps1` shape would break the atomic copy-in unit and the starter-matches-override symmetry, forcing an author to assemble three
 files instead of editing one. The single-`.psm1` form is what authors actually copy.

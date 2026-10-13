@@ -5,9 +5,13 @@
     Runs the Code Spell Checker CLI (cspell) over the repository's known text file types — Markdown,
     PowerShell, YAML, JSON, C#, and Bicep — applying the single repo dictionary at /cspell.yml.
 
-    Mirrors Test-Automation's reporting: each run writes a timestamped folder under out/test-spelling/
-    (spelling.md), updates latest.txt, and prints the report path — rather than dumping every issue to the
-    console. Throws when issues are found (so it can gate CI); -PassThru returns a result object instead.
+    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): every
+    cspell issue line ('<path>:<line>:<col> - Unknown word (<word>) …') is an issue, and the gate ends through
+    Write-QualityGateReport, which writes out/test-spelling/, prints every issue, and throws once listing them all
+    — so the misspelled words are named in the failure itself
+    ([ADR-AUTO-CONSOLE#6](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console6)).
+    -PassThru returns the result object instead. A cspell tool error (exit > 1) or a scan that matched no files
+    throws before the report: there is no verdict to report.
 
     cspell must be on PATH — install it once with Install-Cspell (or: npm install -g cspell).
 .PARAMETER Glob
@@ -19,10 +23,9 @@
     trees). Non-authored noise (vendor, install scripts, compiled output, binaries) lives in cspell.yml
     ignorePaths instead — this parameter is for content scope, not third-party noise.
 .PARAMETER OutputFolder
-    Base directory for the run report. Each run writes a timestamped subfolder
-    (<OutputFolder>/yyyyMMdd-HHmmss/). Defaults to <out>/test-spelling.
+    The report base folder. Defaults to <out>/test-spelling.
 .PARAMETER PassThru
-    Return a result object ({ IssueCount, FileCount, ExitCode, ReportPath }) instead of throwing.
+    Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount, ExitCode }) instead of throwing.
 .EXAMPLE
     Test-Spelling
 .EXAMPLE
@@ -92,7 +95,7 @@ function Test-Spelling {
         "--config '$configPath' --no-progress --no-color --relative"
     )
 
-    # -Silent: capture cspell's output instead of streaming it to the console (no per-issue screen dump).
+    # -Silent: capture cspell's output instead of streaming it to the console; the report prints the issues.
     $result = Invoke-Executable $command -PassThru -NoAssert -Silent
 
     # cspell exit codes: 0 = clean, 1 = spelling issues found, >1 = tool error.
@@ -100,112 +103,30 @@ function Test-Spelling {
         throw "cspell failed (exit $($result.ExitCode)): $($result.Full)"
     }
 
-    # cspell prints an authoritative summary ("Files checked: N, Issues found: M in K file(s)"); parse that,
-    # falling back to counting the per-issue detail lines if the wording ever changes. cspell globs are
-    # relative to the working directory (the repo root here), so an empty match means a bad -Glob.
+    # cspell prints a summary ("Files checked: N, Issues found: M in K file(s)"). cspell globs are relative to the
+    # working directory (the repo root here), so an empty match means a bad -Glob.
     $checkedMatch = [regex]::Match($result.Full, 'Files checked:\s*(?<n>\d+)')
-    $filesChecked = if ($checkedMatch.Success) {
-        [int]$checkedMatch.Groups['n'].Value
-    }
-    else {
-        -1
-    }
-    if ($result.ExitCode -ne 0 -and $filesChecked -eq 0) {
+    if ($result.ExitCode -ne 0 -and $checkedMatch.Success -and [int]$checkedMatch.Groups['n'].Value -eq 0) {
         throw "Test-Spelling matched no files for the given globs: $($Glob -join ', ')."
     }
 
-    $issueLines = @($result.Full -split '\r?\n' | Where-Object { $_ -match ':\d+:\d+ - ' })
+    $issues = @($result.Full -split '\r?\n' | Where-Object { $_ -match ':\d+:\d+ - ' })
+    if ($result.ExitCode -ne 0 -and $issues.Count -eq 0) {
+        # A failing exit with no parsable issue line: the wording changed — report the raw output, never pass.
+        $issues = @("cspell exited $($result.ExitCode) with no parsable issue line: $($result.Full)")
+    }
     $issuesMatch = [regex]::Match($result.Full, 'Issues found:\s*(?<issues>\d+)\s+in\s+(?<files>\d+)\s+files?')
-    if ($issuesMatch.Success) {
-        $issueCount = [int]$issuesMatch.Groups['issues'].Value
-        $fileCount = [int]$issuesMatch.Groups['files'].Value
+    $fileCount = if ($issuesMatch.Success) {
+        [int]$issuesMatch.Groups['files'].Value
     }
     else {
-        $issueCount = $issueLines.Count
-        $fileCount = @($issueLines | ForEach-Object { ($_ -split ':')[0] } | Select-Object -Unique).Count
+        @($issues | ForEach-Object { ($_ -split ':')[0] } | Select-Object -Unique).Count
     }
 
-    # Resolve the run directory — a timestamped subfolder under the report base (mirrors Test-Automation),
-    # so each run's report is preserved and cleared with the rest of out/.
-    if (-not $OutputFolder) {
-        $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) 'test-spelling'
+    $facts = [ordered]@{
+        FileCount = $fileCount
+        ExitCode  = $result.ExitCode
     }
-    $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
-    $runDir = Join-Path $OutputFolder $stamp
-    $i = 2
-    while (Test-Path $runDir) {
-        $runDir = Join-Path $OutputFolder "$stamp-$i"
-        $i++
-    }
-    New-Item -ItemType Directory -Path $runDir -Force | Out-Null
-
-    # Write the markdown report — the issues land here, not on the console.
-    $lines = [System.Collections.Generic.List[string]]::new()
-    $lines.Add('# Spelling report')
-    $lines.Add('')
-    $lines.Add("- Generated: $stamp")
-    if ($issueCount -eq 0) {
-        $lines.Add('- Result: no spelling issues')
-    }
-    else {
-        $lines.Add("- Issues: $issueCount across $fileCount file(s)")
-        $lines.Add('')
-        $lines.Add('## Issues')
-        $lines.Add('')
-        foreach ($line in $issueLines) {
-            $lines.Add("- $line")
-        }
-    }
-    Set-Content -Path (Join-Path $runDir 'spelling.md') -Value $lines -Encoding utf8
-    Set-Content -Path (Join-Path $OutputFolder 'latest.txt') -Value (Split-Path $runDir -Leaf) -Encoding utf8
-
-    # Console — one line per file with its issue count; full per-issue detail is saved in the report.
-    if ($issueCount -eq 0) {
-        Write-Message 'No spelling issues found.'
-    }
-    else {
-        $perFile = $issueLines |
-            Group-Object -Property { ($_ -split ':')[0] } |
-            Sort-Object @{ Expression = 'Count'; Descending = $true }, Name
-        foreach ($file in $perFile) {
-            Write-Message ('{0}: {1}' -f $file.Name, $file.Count) -NoHeader
-        }
-        Write-Message "$issueCount spelling issue(s) across $fileCount file(s)."
-    }
-    Write-Message "Spelling report: $runDir" -ForegroundColor Cyan -NoHeader
-
-    if ($PassThru) {
-        return [pscustomobject]@{
-            IssueCount = $issueCount
-            FileCount  = $fileCount
-            ExitCode   = $result.ExitCode
-            ReportPath = $runDir
-        }
-    }
-
-    if ($issueCount -gt 0) {
-        # Name the offending words in the throw itself, so the failure is diagnosable from the message
-        # alone ([ADR-AUTO-CONSOLE#6](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console6))
-        # — the report still carries the full per-issue detail. An issue line reads
-        # '<path>:<line>:<col> - Unknown word (word) [fix: (suggestion)]'; take the first parenthesized
-        # token after the ' - ' separator.
-        $issueWords = foreach ($issueLine in $issueLines) {
-            $wordMatch = [regex]::Match($issueLine, ' - [^(]*\((?<word>[^)]+)\)')
-            if ($wordMatch.Success) {
-                $wordMatch.Groups['word'].Value
-            }
-        }
-        $words = @($issueWords | Select-Object -Unique)
-        $preview = @($words | Select-Object -First 5)
-        $wordSummary = if ($preview.Count -eq 0) {
-            ''
-        }
-        elseif ($words.Count -gt $preview.Count) {
-            " — first $($preview.Count) misspelled words: $($preview -join ', '), ... $($words.Count - $preview.Count) more"
-        }
-        else {
-            " — misspelled word(s): $($preview -join ', ')"
-        }
-        throw "Test-Spelling failed: $issueCount spelling issue(s) found$wordSummary — see $runDir"
-    }
+    Write-QualityGateReport -Subject spelling -Title Test-Spelling -Issues $issues -Facts $facts `
+        -OutputFolder $OutputFolder -PassThru:$PassThru
 }

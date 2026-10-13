@@ -1,0 +1,55 @@
+// One debug launch profile of configs/vscode-launch.yml (an entry of `configurations:`), rendered verbatim into the
+// managed .vscode/launch.json. A profile carries VS Code's own launch keys (camelCase — script, cwd, args, …), so
+// besides the three it must carry, the type keeps the profile's full key -> value map in authored order (`fields`)
+// for the renderer. Constructing one MAPS and VALIDATES the entry: it is a mapping carrying non-empty 'name',
+// 'type', and 'request' strings; every violation is reported in one throw.
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+
+namespace Catzc.Base.VSCode;
+
+public sealed class VscodeLaunchProfile : Catzc.Base.Objects.DictionaryRecord
+{
+    // The profile's display name in the Run and Debug view (unique within the registry).
+    public string name { get; }
+
+    // The debugger type (e.g. 'PowerShell').
+    public string type { get; }
+
+    // 'launch' or 'attach'.
+    public string request { get; }
+
+    // Every key of the profile (name/type/request included), in authored order — what launch.json receives; read-only.
+    public OrderedDictionary fields { get; }
+
+    public VscodeLaunchProfile(object raw)
+    {
+        IDictionary entry = raw as IDictionary;
+        if (entry == null) { throw new ArgumentException("each configurations entry must be a mapping"); }
+
+        List<string> errors = new List<string>();
+        name = Required(entry, "name", errors);
+        type = Required(entry, "type", errors);
+        request = Required(entry, "request", errors);
+
+        OrderedDictionary map = new OrderedDictionary(StringComparer.OrdinalIgnoreCase);
+        foreach (object k in entry.Keys) { map[k == null ? "" : k.ToString()] = entry[k]; }
+        fields = map.AsReadOnly();
+
+        if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }
+    }
+
+    private static string Required(IDictionary entry, string key, List<string> errors)
+    {
+        string value = entry.Contains(key) ? entry[key] as string : null;
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            errors.Add(string.Format("a configurations entry is missing a non-empty '{0}'", key));
+            return null;
+        }
+        return value;
+    }
+}

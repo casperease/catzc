@@ -35,7 +35,7 @@ reads each module's prebuilt manifest, and loads the prebuilt combined-types ass
 reproduces the exact tested load sequence — the C# types and their accelerators register **before** any module loads
 ([native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types10)) — which a single declarative module manifest cannot guarantee.
 
-- [The bundle boots through the importer](#the-bundle-boots-through-the-importer)
+- [Booting through the importer](#booting-through-the-importer)
 
 ### Rule ADR-AUTO-BUNDLE:4
 
@@ -64,7 +64,7 @@ leaked in, that exactly one types DLL is present and its name matches `typesHash
 ([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep4)) — collecting every violation. `Build-Modules` runs
 it as a self-check on its own output.
 
-- [The immutable, verified artifact](#the-immutable-verified-artifact)
+- [The verified artifact](#the-verified-artifact)
 
 ### Rule ADR-AUTO-BUNDLE:6
 
@@ -90,7 +90,7 @@ the `Catzc/<version>/` folder is a valid module version. Export options — prof
 `Get-Config` ([sensible-defaults](sensible-defaults.md)), so a build's shape is a reviewed edit to one file and a test can substitute a
 fixture config through the same seam.
 
-- [Versions: a local placeholder, a calculated pipeline version](#versions-a-local-placeholder-a-calculated-pipeline-version)
+- [Versions](#versions)
 
 ### Rule ADR-AUTO-BUNDLE:8
 
@@ -141,7 +141,9 @@ the destination folder, and the code root is the installed module, which may sit
 be relocated — a scan that anchored on `RepositoryRoot` would look in the wrong place the moment the code and the work were not the same
 tree.
 
-### The bundle boots through the importer
+### Booting through the importer
+
+`The bundle boots through the importer`
 
 A bundle does not carry its own loader. Its `Import-Catzc.ps1` — a checked-in, authored file under `automation/.internal/assets/`, copied
 verbatim into the build — sets the two anchors and calls the same `Invoke-Importer` the mono shim calls, in a `-Bundle` mode; the build's
@@ -172,7 +174,9 @@ copied verbatim from `.vendor/` per `vendor_policy` — `runtime` ships `powersh
 which the build run needs — and are never re-downloaded or republished. Default-deny keeps the verification surface out: no `tests/` tree
 travels.
 
-### The immutable, verified artifact
+### The verified artifact
+
+`The immutable, verified artifact`
 
 A bundle is content-addressed. `Build-Modules` writes its output canonically — UTF-8 without BOM, LF, one trailing newline, through
 `Write-FileIfChanged` — so rebuilding a commit rewrites nothing, the DLL included, because it is the same copied file — and computes a
@@ -199,7 +203,9 @@ Two other placements use the same build. `Install-Catzc -Scope CurrentUser` copi
 into `out/automation/packages/`; a client registers that folder as a PSResource repository and runs `Install-PSResource Catzc`. The vendored
 dependencies ride inside the package's own `.vendor/`, so nothing is republished or fetched at install.
 
-### Versions: a local placeholder, a calculated pipeline version
+### Versions
+
+`Versions: a local placeholder, a calculated pipeline version`
 
 A build on a devbox is a local convenience, not a release, so it carries the fixed `6.6.666` placeholder and overwrites in place — an
 obviously-unreal number that reads as "built locally" — and `Build-Modules` says so with a yellow `Write-Message` line. It is never a

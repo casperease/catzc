@@ -46,8 +46,9 @@ Describe 'Build-TerminologyDictionary' -Tag 'L0', 'logic' {
 # same answer in both run modes.
 Describe 'Build-TerminologyDictionary — real registry' -Tag 'L2', 'integrity', 'source-only' {
     It 'every generated dictionary is current (no drift from the registry)' {
-        @(Build-TerminologyDictionary -DryRun -PassThru | Where-Object Changed) |
-            Should -BeNullOrEmpty -Because 'the importer regenerates the gitignored dictionaries; re-run . ./importer.ps1'
+        # The importer regenerates the gitignored dictionaries; the gate names each drifted one.
+        $result = Test-GeneratedFiles -Generator Build-TerminologyDictionary -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 
     It 'each generated dictionary is lower-cased, unique, and ordinal-sorted' {

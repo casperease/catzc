@@ -43,7 +43,7 @@ function Get-AdoAuthorizationHeader {
     }
 
     # Prove the az session is in the Entra directory that backs the org before minting a token.
-    # (tenant is a required, validated key — Assert-AdoConfig guarantees it on load.)
+    # (tenant is a required, validated key — the AdoConfig type guarantees it on load.)
     Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant
 
     $result = Invoke-Executable "az account get-access-token --resource $ResourceUrl --query accessToken -o tsv" -PassThru -NoAssert -Silent

@@ -103,7 +103,9 @@ Logic tests run on fixtures/mocks and are hermetic; mock only real boundaries (f
 function — see [test-automation](../../../../adr/automation/test-automation.md) for tiers and tagging, and
 [pester-testing](../../../../adr/automation/powershell/pester-testing.md) for the isolation idioms.
 
-### Optionally cite the ADR rule a test enforces
+### Citing the enforced rule
+
+`Optionally cite the ADR rule a test enforces`
 
 A test may also declare the ADR rule(s) it enforces, as an **optional** third tag — so each test is traceable to the rule behind it and
 back. Cite the rule in the index's `#` form (`ADR-<CODE>#<n>`, e.g. `ADR-AUTO-ERROR#3`) as a `-Tag` beside the tier and category:

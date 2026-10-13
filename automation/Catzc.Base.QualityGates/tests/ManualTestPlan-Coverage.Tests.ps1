@@ -1,4 +1,4 @@
-# Keeps docs/how-to/automation/manual-test-plan.md in sync with the tests, through its quality gate
+# Keeps the manual test plan's category files (docs/how-to/automation/manual-test-plan/) in sync with the tests, through its quality gate
 # (Test-ManualTestPlan — [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). The gate
 # derives the integrity blocks by PARSING the test files, never by booting Pester discovery
 # ([ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16)). It is self-referential: this

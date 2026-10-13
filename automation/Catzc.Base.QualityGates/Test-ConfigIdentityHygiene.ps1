@@ -14,16 +14,18 @@
     data and is not flagged, while a real `have_customers: [acme]` value is. The terminology registry (which
     DEFINES the fixture tokens) is excluded.
 
-    Mirrors the Test-Spelling / Test-Terminology / Test-LogicTestIdentity gate shape
-    ([ADR-AUTO-VERBS#7](/docs/adr/automation/powershell/respect-pwsh-verb-rules.md#rule-adr-auto-verbs7)): throws on
-    findings, returns a result object under -PassThru. It reads the shipped config, so a Pester test wrapping
-    it is `integrity`. A source-tree gate: the fixture identities live in the repository's tests/, so it throws
-    in build mode (Assert-SourceTree).
+    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
+    through Write-QualityGateReport, which writes out/test-config-identity-hygiene/, prints every finding, and
+    throws once listing them all; -PassThru returns the result instead. It reads the shipped config, so a Pester
+    test wrapping it is `integrity`. A source-tree gate: the fixture identities live in the repository's tests/,
+    so it throws in build mode (Assert-SourceTree).
 .PARAMETER Path
     Config files to check. Defaults to every module `configs/*.yml` (except the terminology registry) and every
     `infrastructure/**` yml.
+.PARAMETER OutputFolder
+    The report base folder. Defaults to <out>/test-config-identity-hygiene.
 .PARAMETER PassThru
-    Return a result object ({ FindingCount; Findings }) instead of throwing.
+    Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount }) instead of throwing.
 .OUTPUTS
     None (throws on findings), or the result object with -PassThru.
 #>
@@ -31,6 +33,8 @@ function Test-ConfigIdentityHygiene {
     [CmdletBinding()]
     param(
         [string[]] $Path,
+
+        [string] $OutputFolder,
 
         [switch] $PassThru
     )
@@ -92,23 +96,10 @@ function Test-ConfigIdentityHygiene {
         }
     }
 
-    if ($PassThru) {
-        return [pscustomobject]@{
-            FindingCount = $findings.Count
-            Findings     = @($findings)
-        }
-    }
+    $issues = @(foreach ($finding in $findings) {
+            "$(ConvertTo-RepoRelativePath $finding.File): fixture identity '$($finding.Token)' at $($finding.Location) — a shipped config must name a live identity"
+        })
 
-    if ($findings.Count -eq 0) {
-        Write-Message "No test-fixture identities in shipped config across $($Path.Count) file(s)."
-        return
-    }
-
-    foreach ($finding in $findings) {
-        $relative = ConvertTo-RepoRelativePath $finding.File
-        Write-Message "${relative}: fixture identity '$($finding.Token)' at $($finding.Location) — a shipped config must name a live identity" -NoHeader -ForegroundColor Red
-    }
-
-    $preview = @($findings | Select-Object -First 5 | ForEach-Object { "$($_.Token) ($([System.IO.Path]::GetFileName($_.File)))" })
-    throw "Test-ConfigIdentityHygiene failed: $($findings.Count) fixture identity value(s) in shipped config — $($preview -join ', ')"
+    Write-QualityGateReport -Subject config-identity-hygiene -Title Test-ConfigIdentityHygiene -Issues $issues `
+        -Facts ([ordered]@{ FileCount = @($Path).Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

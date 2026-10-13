@@ -23,20 +23,20 @@ sanctioned exception: the `ci-automation-expected-failures` guardrail pipeline.)
 CI and CD share one CI engine — the pre-commit build validation and the post-commit build-and-verify on master are the same component; do
 not fork a second build path for CD.
 
-- [CD — CI, then deploy and verify](#cd--ci-then-deploy-and-verify)
+- [CD](#cd)
 
 ### Rule ADR-FLOW-CD-TYPE:4
 
 The pre-commit budget is 5–10 minutes; anything slower belongs post-commit, in a CD pipeline's deploy path, not in pre-commit validation.
 
-- [CI — build and verify, no deploy](#ci--build-and-verify-no-deploy)
+- [CI](#ci)
 
 ### Rule ADR-FLOW-CD-TYPE:5
 
 CRON is a scheduler, not a pipeline — a schedule plus a `RunCommand` invoking an idempotent automation function; no build, artifact, or
 deploy in the YAML.
 
-- [CRON — automation jobs on a timer](#cron--automation-jobs-on-a-timer)
+- [CRON](#cron)
 
 ### Rule ADR-FLOW-CD-TYPE:6
 
@@ -46,15 +46,15 @@ button-press input. DEPLOY is human-triggered, but its parameters are version-co
 governed target), never config: the config it deploys is already git-resident, and the artifact it deploys is the immutable, tagged output
 that CD's CI engine already built and published.
 
-- [INPUT — self-service input, turned into a commit](#input--self-service-input-turned-into-a-commit)
-- [DEPLOY — the governed deploy tail, extracted](#deploy--the-governed-deploy-tail-extracted)
+- [INPUT](#input)
+- [DEPLOY](#deploy)
 
 ### Rule ADR-FLOW-CD-TYPE:7
 
 INPUT produces commits, never deployments — its terminal output is a version-controlled change; deploying that change is CD's or DEPLOY's
 job.
 
-- [INPUT — self-service input, turned into a commit](#input--self-service-input-turned-into-a-commit)
+- [INPUT](#input)
 
 ### Rule ADR-FLOW-CD-TYPE:8
 
@@ -63,21 +63,21 @@ elsewhere (the CI engine's build-once output) pinned to an explicit commit, trus
 and drives it into an environment whose gate is manual and organizational — a standard operating procedure, an ITSM change-management
 approval, a human sign-off. It builds nothing and re-runs no CI engine.
 
-- [DEPLOY — the governed deploy tail, extracted](#deploy--the-governed-deploy-tail-extracted)
+- [DEPLOY](#deploy)
 
 ### Rule ADR-FLOW-CD-TYPE:9
 
 DEPLOY and CD share one deploy-and-verify path — the same deploy orchestration and the same system tests. Extracting the deploy into a
 DEPLOY pipeline must never fork a second deploy implementation, exactly as CI and CD share one CI engine (ADR-FLOW-CD-TYPE#3).
 
-- [DEPLOY — the governed deploy tail, extracted](#deploy--the-governed-deploy-tail-extracted)
+- [DEPLOY](#deploy)
 
 ### Rule ADR-FLOW-CD-TYPE:10
 
 DEPLOY is pinned and deterministic — it deploys the artifact of one chosen commit, so the same commit deploys the same bytes on every run,
 which is what makes a locked release commit certifiable. It never deploys from a floating `latest` and never renders config at deploy time.
 
-- [DEPLOY — the governed deploy tail, extracted](#deploy--the-governed-deploy-tail-extracted)
+- [DEPLOY](#deploy)
 
 ### Rule ADR-FLOW-CD-TYPE:11
 
@@ -91,7 +91,7 @@ environments (the on-demand slots, `main-uat`, `release-uat`), and **DEPLOY-Prod
 certification that decides _whether_ to proceed; DEPLOY is only the **actuator** that drives the pinned artifact onward once that gate
 clears. DEPLOY never owns the decision.
 
-- [DEPLOY — the governed deploy tail, extracted](#deploy--the-governed-deploy-tail-extracted)
+- [DEPLOY](#deploy)
 
 ### Rule ADR-FLOW-CD-TYPE:12
 
@@ -100,7 +100,7 @@ deploy-and-verify path as CD (ADR-FLOW-CD-TYPE#3, ADR-FLOW-CD-TYPE#9), builds no
 artifact all the way to prod. Its defining trait: the promotion of a locked commit-and-build to production is an **automated activity of the
 pipeline**, not a separately-triggered DEPLOY.
 
-- [CDe — Continuous Deployment, the prod roll internalized](#cde--continuous-deployment-the-prod-roll-internalized)
+- [CDe](#cde)
 
 ### Rule ADR-FLOW-CD-TYPE:13
 
@@ -108,7 +108,7 @@ A CDe may contain **internal** manual gates — an approval before the productio
 promotion. Such a gate does not make it a DEPLOY: what separates CDe (deployment) from CD → DEPLOY (delivery) is that the roll-to-prod
 activity is automatically determined, not human-initiated.
 
-- [CDe — Continuous Deployment, the prod roll internalized](#cde--continuous-deployment-the-prod-roll-internalized)
+- [CDe](#cde)
 
 ### Rule ADR-FLOW-CD-TYPE:14
 
@@ -116,7 +116,7 @@ CDe shares the one deploy-and-verify path with CD and DEPLOY (ADR-FLOW-CD-TYPE#9
 unit's production promotion is governed as **either** CD → DEPLOY (delivery, human-governed prod) **or** CDe (deployment, automated prod),
 never both; the choice is a per-unit governance posture.
 
-- [CDe — Continuous Deployment, the prod roll internalized](#cde--continuous-deployment-the-prod-roll-internalized)
+- [CDe](#cde)
 
 ## Context
 
@@ -125,7 +125,7 @@ timer-driven automation job, a build-and-test gate, a full deploy, a manually-go
 When one noun covers all of them, the organisation loses the language it needs to distinguish their failure modes: a "pipeline" that is
 really a release-candidate test run hung in the pre-commit slot (breaking the fast-gate budget of
 [continuous integration](../research/continuous-integration.md)), and a "pipeline" that is really a parameterised RPC call wearing
-continuous delivery's name (the anti-pattern [INPUT](#input--self-service-input-turned-into-a-commit) replaces).
+continuous delivery's name (the anti-pattern [INPUT](#input) replaces).
 
 The repair those notes prescribe is not a new mechanism. It is **precise naming**: call each artifact what it is, give each its own trigger
 model and contract, and make the differences visible. This ADR establishes a **closed set of six pipeline types**. Every ADO artifact in
@@ -169,7 +169,9 @@ CDe is the fullest — the CI engine, then deploy-and-verify across non-prod and
 roll left to a separately-governed step; CI is CD with the deploy and system-test stages amputated; and DEPLOY is exactly those amputated
 stages given their own human-governed pipeline. CI, CD, and CDe share **one** CI engine; CD, CDe, and DEPLOY share **one** deploy path.
 
-### CRON — automation jobs on a timer
+### CRON
+
+`CRON — automation jobs on a timer`
 
 A CRON pipeline is, same as INPUT, **not really a pipeline**. It is the ADO pipeline mechanism used as a _scheduler_: a timer that runs an
 automation job (e.g. certificate rotation, scheduled cleanup, drift checks). It does not build, does not test a unit, produces no artifact,
@@ -181,7 +183,9 @@ and deploys nothing. It invokes one automation function on a clock.
   [idempotent-state-functions](../automation/idempotent-state-functions.md)), not in YAML. The pipeline names a `RunCommand` and a schedule;
   nothing more.
 
-### CI — build and verify, no deploy
+### CI
+
+`CI — build and verify, no deploy`
 
 A CI pipeline is a CD pipeline with the deployment removed. It is the **CI engine and nothing else**: pre-commit build validation (5–10 min)
 plus the same build-and-verify post-commit on master. It produces a pass/fail signal — no artifact, no deployment — because there is no
@@ -198,7 +202,9 @@ This is "the CI pipeline" and, identically, "the CI part of the CD pipeline."
 - **Contract:** unit-scoped and fast. The pre-commit budget is 5–10 minutes. A CI pipeline never deploys and never publishes a deployable
   artifact; if it needs to, it is a CD pipeline.
 
-### CD — CI, then deploy and verify
+### CD
+
+`CD — CI, then deploy and verify`
 
 A CD pipeline is **CI + CD**. It runs the same CI engine — pre-commit build validation and post-commit build-and-verify on master — and
 _then_, once that is green, it orchestrates **deployment** of the deployable unit and **system-level testing** of what it deployed.
@@ -209,12 +215,14 @@ _then_, once that is green, it orchestrates **deployment** of the deployable uni
   against the deployed unit. The artifact built once is what flows to each environment — build-once, deploy-many (Humble & Farley; see
   [continuous delivery](../../references/dora/capabilities.md#continuous-delivery)).
 - **Contract:** one CD pipeline per deployable unit. Deploys run against version control — the artifact and config are functions of the
-  repository, not of runtime input (see [INPUT](#input--self-service-input-turned-into-a-commit)). The system-level tests that are too slow
+  repository, not of runtime input (see [INPUT](#input)). The system-level tests that are too slow
   for the 5–10 min pre-commit budget live _here_, post-commit, on the way to production — not in the pre-commit slot. When a target
   environment is governed by manual, organizational gates rather than continuous delivery, CD's deploy tail is **extracted** into a separate
   DEPLOY pipeline (below) instead of chaining automatically after the post-commit build.
 
-### DEPLOY — the governed deploy tail, extracted
+### DEPLOY
+
+`DEPLOY — the governed deploy tail, extracted`
 
 A DEPLOY pipeline is **CD's deploy-and-verify tail lifted out into its own pipeline**. Where a CD pipeline chains its deploy automatically
 after the post-commit build, a DEPLOY pipeline is triggered on its own — usually by a human — and drives an already-built, already-verified
@@ -260,7 +268,9 @@ Concretely:
    The green pre-prod run is the evidence the production approval reviews, and the production cutover itself is human-approved. One pipeline
    construct carries the prod tail — automated where it can be, human where the organization requires it.
 
-### CDe — Continuous Deployment, the prod roll internalized
+### CDe
+
+`CDe — Continuous Deployment, the prod roll internalized`
 
 A CDe pipeline is a **CD pipeline that internalizes and automates the roll to production**. Where a CD pipeline stops at non-prod and hands
 the production cutover to a separately-triggered, human-governed DEPLOY — Continuous _Delivery_ — a CDe pipeline continues past non-prod and
@@ -287,7 +297,9 @@ prod gate is optional and, when present, _internal_ to an otherwise automated ro
   activity of the pipeline**, not a human-triggered DEPLOY; versus DEPLOY, that any prod gate is an _internal_ approval in an automated
   flow, not the pipeline's _primary_ manual governance.
 
-### INPUT — self-service input, turned into a commit
+### INPUT
+
+`INPUT — self-service input, turned into a commit`
 
 INPUT is the self-service primitive: it accepts user parameters and turns them into a **version-controlled change**. User input becomes
 git-resident config, not a runtime merge into a hidden config program on its way to the cloud — the config tree of

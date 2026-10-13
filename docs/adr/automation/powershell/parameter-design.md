@@ -9,14 +9,14 @@
 A function's parameter surface applies [sensible-defaults](../sensible-defaults.md) (`ADR-AUTO-DEFAULT`) with the PowerShell mechanics
 below: the common call stays short because the parameter kinds carry the intent.
 
-- [The primary argument is positional](#the-primary-argument-is-positional)
+- [Positional primary argument](#positional-primary-argument)
 
 ### Rule ADR-AUTO-PSPARAM:2
 
 Use positional parameters for the primary argument — the most important parameter is `Position = 0` so the caller can skip the name
 (`Invoke-Poetry 'install'`).
 
-- [The primary argument is positional](#the-primary-argument-is-positional)
+- [Positional primary argument](#positional-primary-argument)
 
 ### Rule ADR-AUTO-PSPARAM:3
 
@@ -45,7 +45,9 @@ The neighbouring parameter rules live where their hazards live: defaulting a `[s
 ([prefer-dryrun-over-shouldprocess](prefer-dryrun-over-shouldprocess.md)); and inputs are asserted at entry
 ([fail-fast-with-asserts](../fail-fast-with-asserts.md)).
 
-### The primary argument is positional
+### Positional primary argument
+
+`The primary argument is positional`
 
 The one value a caller always supplies goes first and needs no name:
 

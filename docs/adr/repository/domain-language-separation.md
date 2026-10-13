@@ -19,14 +19,14 @@ A **logic** test names **fixture** identities, never **live** ones. Using a real
 as a value in a logic test couples it to the shipped config (ADR-AUTO-TEST#3) and blurs the test/live vocabulary; it uses `acme`/`globex`,
 `alpha`/`beta`, `tst`, `sample`, `widget` instead.
 
-- [The test/live boundary is the enforced one](#the-testlive-boundary-is-the-enforced-one)
+- [The test/live boundary](#the-testlive-boundary)
 
 ### Rule ADR-REPO-LANG:3
 
 An **integrity** test is the one sanctioned bridge: it binds the real shipped assets and therefore names live identities by design
 (ADR-AUTO-TEST#1). Live identities are legitimate inside an `integrity`-tagged block and nowhere else in a logic-bearing test file.
 
-- [The test/live boundary is the enforced one](#the-testlive-boundary-is-the-enforced-one)
+- [The test/live boundary](#the-testlive-boundary)
 
 ### Rule ADR-REPO-LANG:4
 
@@ -34,7 +34,7 @@ The **design** domain uses the discovery theme (ADR-REPO-EXAMPLE) — `discovery
 `develop`/`preprod`. Test fixtures never appear as ADR examples. Live identities may appear in docs, but only where an ADR documents the
 actual data model as its subject (`azure-data-model.md` naming `apex`/`nova`), not as illustration.
 
-- [The design domain and the doc asymmetry](#the-design-domain-and-the-doc-asymmetry)
+- [The design domain](#the-design-domain)
 
 ### Rule ADR-REPO-LANG:5
 
@@ -44,7 +44,7 @@ identity everywhere except inside an `integrity` block. A file-glob spell-checke
 example vocabulary legitimately pervades comments, doc-example blocks, and demo data in every file type, so cspell does not enforce the
 separation.
 
-- [Why a spell-checker cannot enforce this](#why-a-spell-checker-cannot-enforce-this)
+- [Beyond a spell-checker](#beyond-a-spell-checker)
 
 ### Rule ADR-REPO-LANG:6
 
@@ -53,7 +53,7 @@ The forbidden live-identity set is **derived from the shipped config** (`Get-Liv
 tests. The terminology registry's per-category `scope` (ADR-AUTO-SPELL) is the machine-readable **domain map** the gate reads to know which
 category is `fixture` vs `azure-live` vs `adr-example`; it is a declaration of domain membership, not itself a cspell rule.
 
-- [The forbidden set is derived, and the scope map is the source of intent](#the-forbidden-set-is-derived-and-the-scope-map-is-the-source-of-intent)
+- [The forbidden set](#the-forbidden-set)
 
 ### Rule ADR-REPO-LANG:7
 
@@ -103,7 +103,9 @@ real, so a reviewer who sees `acme`/`alpha`/`tst` knows nothing production is in
 it maps to real-customer-shaped identities because it is the demonstration deployment, and it must read like a real one. The three are
 rarely connected; the one sanctioned crossing is an integrity test, which reaches from the test tree into the live config on purpose.
 
-### The test/live boundary is the enforced one
+### The test/live boundary
+
+`The test/live boundary is the enforced one`
 
 Of the three pairwise boundaries, the test/live one is where a mechanical gate earns its keep, because it is the one a logic test can
 silently violate — hardcoding a real customer name reads fine and passes, yet couples the test to the shipped config. The rule is therefore
@@ -111,14 +113,18 @@ sharp: a live identity is legitimate **only** inside an `integrity`-tagged block
 leak anywhere else in a logic-bearing test file is a violation. This makes a mixed file — one `Describe` with both a `logic` and an
 `integrity` Context — work without being split: the integrity block's identities are carved out, and the rest is held to fixtures.
 
-### The design domain and the doc asymmetry
+### The design domain
+
+`The design domain and the doc asymmetry`
 
 Design examples are the discovery theme, and this is asymmetric on purpose. A test fixture (`acme`, `alpha`) must never appear in an ADR —
 an ADR that illustrated with test fixtures would be borrowing the wrong domain's vocabulary. But a live identity legitimately appears in a
 doc when the doc's subject **is** that identity: `azure-data-model.md` names `apex` and `nova` because it is describing the real data model,
 not illustrating a general point. So docs admit live identities as a documented subject, never fixtures as illustration.
 
-### Why a spell-checker cannot enforce this
+### Beyond a spell-checker
+
+`Why a spell-checker cannot enforce this`
 
 The tempting mechanism is a domain-scoped spelling dictionary — accept `acme` only under tests, `apex` only under configs. It does not work,
 because a spell-checker tokenizes text and cannot tell an illustration from a datum. Example vocabulary legitimately pervades every file
@@ -128,7 +134,9 @@ legitimate illustration, and silencing each with an inline ignore is exactly the
 ([poka-yoke](../principles/poka-yoke.md)). So the separation is not a spelling rule. It is enforced semantically, by a gate that reads
 structure, not text.
 
-### The forbidden set is derived, and the scope map is the source of intent
+### The forbidden set
+
+`The forbidden set is derived, and the scope map is the source of intent`
 
 The set of live identities a logic test may not name is not a maintained list — it is read from the shipped config, so it cannot drift: a
 customer added to `customer.yml` is banned from logic tests the moment it exists, and one renamed updates the ban automatically. The

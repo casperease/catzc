@@ -8,7 +8,8 @@ Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($full))
             [System.IO.File]::WriteAllText($full, $Content)
         }
-        $script:planPath = 'docs/how-to/automation/manual-test-plan.md'
+        $script:planFolder = 'docs/how-to/automation/manual-test-plan'
+        $script:planPath = "$planFolder/widgets.md"
         $script:widgetRow = '| 1 | automation/Widget/tests/Get-Widget.Tests.ps1 | Widget integrity |'
         $script:gadgetRow = '| 2 | automation/Widget/tests/Get-Widget.Tests.ps1 | Gadget check |'
     }
@@ -32,6 +33,26 @@ Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {
         $result.IssueCount | Should -Be 0
         $result.IntegrityBlocks | Should -Be 2
         $result.PlanRows | Should -Be 2
+        $result.CategoryFiles | Should -Be 1
+    }
+
+    It 'collects the rows across every category file' {
+        Set-FixtureFile $planPath "$widgetRow`n"
+        Set-FixtureFile "$planFolder/gadgets.md" "$gadgetRow`n"
+        $result = Test-ManualTestPlan -OutputFolder $out -PassThru
+        $result.IssueCount | Should -Be 0
+        $result.PlanRows | Should -Be 2
+        $result.CategoryFiles | Should -Be 2
+    }
+
+    It 'reports more than 13 category files' {
+        Set-FixtureFile $planPath "$widgetRow`n$gadgetRow`n"
+        foreach ($n in 1..13) {
+            Set-FixtureFile "$planFolder/widget-$n.md" "# Widgets $n`n"
+        }
+        $result = Test-ManualTestPlan -OutputFolder $out -PassThru
+        $result.Issues | Should -HaveCount 1
+        $result.Issues[0] | Should -Match '14 category files, at most 13'
     }
 
     It 'throws once naming the uncovered block and the row-count mismatch' {
@@ -53,6 +74,6 @@ Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {
     It 'reports a missing plan' {
         $result = Test-ManualTestPlan -OutputFolder $out -PassThru
         $result.Subject | Should -Be 'manual-test-plan'
-        $result.Issues | Should -Contain "${planPath}: the manual test plan is missing"
+        $result.Issues | Should -Contain "${planFolder}/: the manual test plan has no category files"
     }
 }

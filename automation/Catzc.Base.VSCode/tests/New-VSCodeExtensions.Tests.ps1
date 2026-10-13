@@ -4,7 +4,7 @@ Describe 'New-VSCodeExtensions' -Tag 'L0', 'logic' {
         # ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)): a small
         # fixture registry.
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
-            [ordered]@{ recommendations = @('acme.tool-one', 'globex.tool-two') }
+            [Catzc.Base.VSCode.VscodeExtensionsConfig]::new([ordered]@{ recommendations = @('acme.tool-one', 'globex.tool-two') })
         }
     }
 
@@ -18,7 +18,7 @@ Describe 'New-VSCodeExtensions' -Tag 'L0', 'logic' {
 
 Describe 'New-VSCodeExtensions — real vscode-extensions.yml' -Tag 'L1', 'integrity' {
     It 'renders the shipped registry to a non-empty, validated recommendation list' {
-        # Get-Config dispatches Assert-VscodeExtensionsConfig on load, so a render is also the shape proof.
+        # Get-Config constructs the VscodeExtensionsConfig type on load, so a render is also the shape proof.
         $text = New-VSCodeExtensions
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         @($json.recommendations).Count | Should -BeGreaterThan 0

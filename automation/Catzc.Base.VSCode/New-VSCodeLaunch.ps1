@@ -4,7 +4,7 @@
     editor offers.
 .DESCRIPTION
     Reads the authored launch-profile registry (configs/vscode-launch.yml, via Get-Config -Config
-    vscode-launch, which validates it as binding shape) and renders it to the launch.json content: a
+    vscode-launch, which maps and validates it as a VscodeLaunchConfig) and renders it to the launch.json content: a
     generated-file header (JSONC — VS Code reads comments in launch.json) followed by the version and
     configurations as JSON, in registry order. The per-profile explanations live as comments in the yml — the
     authored, searched artifact — not in the rendering.
@@ -25,8 +25,8 @@ function New-VSCodeLaunch {
     $config = Get-Config -Config vscode-launch
 
     $rendered = [ordered]@{
-        version        = $config['version']
-        configurations = @($config['configurations'])
+        version        = $config.version
+        configurations = @($config.configurations | ForEach-Object { $_.fields })
     }
 
     $header = @(

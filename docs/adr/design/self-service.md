@@ -41,7 +41,7 @@ own code (`ADR-PRIN-ONELIVE`). The guardrails — asserts (`ADR-AUTO-FAILFAST`),
 review — are **automated and mandatory**, so self-service cannot merge a change that skips them. Speed and control are the same mechanism
 here, not a trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
 
-- [Trunk-based development is the guardrail](#trunk-based-development-is-the-guardrail)
+- [Trunk-based development](#trunk-based-development)
 
 ### Rule ADR-DSGN-SELFSERV:5
 
@@ -51,7 +51,7 @@ the audit log, the markers _are_ the provenance record, and code review _is_ the
 auditability are therefore not in tension — the same trunk-based, everything-as-code pipeline that lets a consumer move quickly is also the
 one that produces a complete, tamper-evident record of who changed what, when, and why.
 
-- [Why this is safe where control matters most](#why-this-is-safe-where-control-matters-most)
+- [Safe where control matters](#safe-where-control-matters)
 
 ## Context
 
@@ -90,7 +90,9 @@ code", which is exactly the property an auditor needs. Provenance carries the ch
 verifiable evidence of _how_ an artifact was produced. Together they mean a deployed artifact is not trusted on faith — it is trusted
 because it can be traced back to a reviewed commit and rebuilt to match.
 
-### Trunk-based development is the guardrail
+### Trunk-based development
+
+`Trunk-based development is the guardrail`
 
 Trunk-based development is what keeps the single source of truth actually single and actually current. trunkbaseddevelopment.com defines it
 as "a source-control branching model where developers collaborate on code in a single branch called 'trunk' and resist any pressure to
@@ -100,7 +102,9 @@ automated and stand between every change and trunk, self-service cannot merge so
 stale marker. The branching discipline and the no-legacy rule (`ADR-PRIN-ONELIVE`) are two faces of the same commitment: one living version,
 on trunk, always releasable.
 
-### Why this is safe where control matters most
+### Safe where control matters
+
+`Why this is safe where control matters most`
 
 The domains where self-service seems most dangerous — regulated, audited, compliance-bound — are the ones this design serves best, because
 it makes the compliance artifacts fall out of the normal workflow instead of being assembled after the fact. The audit trail is `git log`:

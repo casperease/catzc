@@ -10,7 +10,7 @@
 Everything a consumer may rely on is expressed here as a contract; everything else in the repo is internal and governed by
 [one living version](../principles/one-living-version.md) (change in place, no back-compat).
 
-- [The contract surface is the only public API](#the-contract-surface-is-the-only-public-api)
+- [The only public API](#the-only-public-api)
 
 ### Rule ADR-REPO-CONTRACT:2
 
@@ -27,7 +27,7 @@ boundary and cannot be changed in lockstep, so a published version is kept as lo
 [ADR-PRIN-ONELIVE#7](../principles/one-living-version.md#rule-adr-prin-onelive7) made concrete), and retired only when no consumer's
 contract requires it — a deliberate, contract-driven deprecation, not a hedge.
 
-- [Why this is the one place back-compat is owed](#why-this-is-the-one-place-back-compat-is-owed)
+- [Where back-compat is owed](#where-back-compat-is-owed)
 
 ### Rule ADR-REPO-CONTRACT:4
 
@@ -58,7 +58,9 @@ compatibility shim threaded through internal code.
 implementation detail), versioned (so an incompatible change is a new thing beside the old, not a mutation of it), and testable (so the
 promise is verified mechanically, not asserted in a README).
 
-### The contract surface is the only public API
+### The only public API
+
+`The contract surface is the only public API`
 
 Everything outside `contracts/` is internal. A consumer that reaches past the contract surface — into a module function, an internal config
 schema, a data record — gets no compatibility promise and may break on any change, exactly as internal code does. The boundary is the
@@ -73,7 +75,9 @@ separate, equally live folders, each its own self-contained definition. This is 
 versions, each owned and tested. A backwards-_compatible_ change (additive, non-breaking) may land in the current version, since its
 contract test still passes.
 
-### Why this is the one place back-compat is owed
+### Where back-compat is owed
+
+`Why this is the one place back-compat is owed`
 
 Backwards compatibility buys a grace period for consumers who cannot change in lockstep with the producer. Internally there are none — so
 internally it is rejected. At the published boundary there genuinely are, so a published version stays live while a consumer pins it. The

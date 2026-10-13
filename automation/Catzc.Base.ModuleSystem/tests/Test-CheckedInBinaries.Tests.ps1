@@ -18,11 +18,13 @@ Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {
         $script:eol = @{ 'widget.dll' = '-text'; 'gadget.dll' = '-text' }
         $script:attr = @{ 'widget.dll' = 'set'; 'gadget.dll' = 'set' }
         Mock Invoke-Executable -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Command -match ' ls-files ' } {
+            # git separates the EOL columns from the path with a tab.
+            $tab = [char]9
             $lines = @(
-                "i/$($eol['widget.dll'])  w/-text attr/-text      `tautomation/.vendor/Widget/widget.dll"
-                "i/$($eol['gadget.dll'])  w/-text attr/-text      `tautomation/.vendor/Widget/gadget.dll"
-                "i/lf    w/lf    attr/                 `tautomation/.vendor/Widget/widget.psd1"
-                "i/-text w/      attr/                 `tautomation/.vendor/Widget/gone.dll"
+                "i/$($eol['widget.dll'])  w/-text attr/-text      ${tab}automation/.vendor/Widget/widget.dll"
+                "i/$($eol['gadget.dll'])  w/-text attr/-text      ${tab}automation/.vendor/Widget/gadget.dll"
+                "i/lf    w/lf    attr/                 ${tab}automation/.vendor/Widget/widget.psd1"
+                "i/-text w/      attr/                 ${tab}automation/.vendor/Widget/gone.dll"
             )
             [pscustomobject]@{ Output = $lines -join "`n" }
         }

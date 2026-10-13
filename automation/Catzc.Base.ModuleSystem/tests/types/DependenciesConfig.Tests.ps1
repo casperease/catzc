@@ -8,8 +8,13 @@ Describe 'Catzc.Base.ModuleSystem.DependenciesConfig' -Tag 'L0' {
 
         function Get-ViolationMessage {
             param($Raw)
-            $thrown = { New-DependenciesConfig $Raw } | Should -Throw -PassThru
-            $thrown.Exception.InnerException.Message
+            try {
+                [void] (New-DependenciesConfig $Raw)
+            }
+            catch {
+                return $_.Exception.InnerException.Message
+            }
+            throw 'expected the DependenciesConfig constructor to throw'
         }
     }
 

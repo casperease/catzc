@@ -14,63 +14,46 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
             }
         }
         Mock Test-Command -ModuleName Catzc.Base.QualityGates { $true }
-        Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
+        Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
-    It 'returns clean (IssueCount 0) and writes a report when cspell finds no issues' {
+    It 'passes and writes a report when cspell finds no issues' -Tag 'ADR-AUTO-TEST#35' {
+        { Test-Spelling -OutputFolder $script:reportBase } | Should -Not -Throw
         $result = Test-Spelling -OutputFolder $script:reportBase -PassThru
+        $result.Subject | Should -Be 'spelling'
         $result.IssueCount | Should -Be 0
         $result.ExitCode | Should -Be 0
-        $result.ReportPath | Should -Exist
         (Join-Path $result.ReportPath 'spelling.md') | Should -Exist
     }
 
-    It 'throws when cspell reports spelling issues, naming the word in the message' {
-        $script:cspellExit = 1
-        $script:cspellOut = "docs/x.md:1:1 - Unknown word (mispeld) fix: (misspelled)`nCSpell: Files checked: 1, Issues found: 1 in 1 file."
-        { Test-Spelling -OutputFolder $script:reportBase } | Should -Throw '*spelling issue*misspelled word(s): mispeld*'
-    }
-
-    It 'names the first five distinct misspelled words in the throw and counts the rest' {
+    It 'throws once listing every issue line, so each misspelled word is named' -Tag 'ADR-AUTO-TEST#35' {
         $script:cspellExit = 1
         $script:cspellOut = (@(
-                'a.md:1:1 - Unknown word (alpha) fix: (alpine)'
-                'a.md:2:1 - Unknown word (bravo)'
-                'a.md:3:1 - Unknown word (alpha)'
-                'b.md:1:1 - Unknown word (charlie)'
-                'b.md:2:1 - Unknown word (delta)'
-                'b.md:3:1 - Unknown word (echo)'
-                'b.md:4:1 - Unknown word (foxtrot)'
-                'CSpell: Files checked: 2, Issues found: 7 in 2 files.'
+                'a.md:1:1 - Unknown word (mispeld) fix: (misspelled)'
+                'b.md:2:1 - Unknown word (bravo)'
+                'CSpell: Files checked: 2, Issues found: 2 in 2 files.'
             ) -join "`n")
-        { Test-Spelling -OutputFolder $script:reportBase } |
-            Should -Throw '*first 5 misspelled words: alpha, bravo, charlie, delta, echo, ... 1 more*'
+        $thrown = { Test-Spelling -OutputFolder $script:reportBase } | Should -Throw -PassThru
+        $message = $thrown.Exception.Message
+        $message | Should -BeLike 'Test-Spelling failed: 2 issue(s)*'
+        $message | Should -Match 'a\.md:1:1 - Unknown word \(mispeld\)'
+        $message | Should -Match 'b\.md:2:1 - Unknown word \(bravo\)'
     }
 
-    It 'with -PassThru returns the issue and file counts from cspell''s summary' {
+    It 'with -PassThru returns the issues and the file count from cspell''s summary' -Tag 'ADR-AUTO-TEST#35' {
         $script:cspellExit = 1
         $script:cspellOut = "a.md:1:1 - Unknown word (foo)`na.md:2:1 - Unknown word (baz)`nb.ps1:2:3 - Unknown word (bar)`nCSpell: Files checked: 5, Issues found: 3 in 2 files."
         $result = Test-Spelling -OutputFolder $script:reportBase -PassThru
         $result.IssueCount | Should -Be 3
         $result.FileCount | Should -Be 2
         $result.ExitCode | Should -Be 1
+        (Get-Content (Join-Path $result.ReportPath 'spelling.md') -Raw) | Should -Match 'b\.ps1:2:3 - Unknown word \(bar\)'
     }
 
-    It 'prints one console line per file with its issue count (count-descending)' {
+    It 'never passes a failing cspell run whose output it cannot parse' {
         $script:cspellExit = 1
-        $script:cspellOut = "a.md:1:1 - Unknown word (foo)`na.md:2:1 - Unknown word (baz)`nb.ps1:2:3 - Unknown word (bar)`nCSpell: Files checked: 5, Issues found: 3 in 2 files."
-        Test-Spelling -OutputFolder $script:reportBase -PassThru | Out-Null
-        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -eq 'a.md: 2' }
-        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -eq 'b.ps1: 1' }
-    }
-
-    It 'writes the issues into the report file, not a console dump' {
-        $script:cspellExit = 1
-        $script:cspellOut = "docs/x.md:1:1 - Unknown word (mispeld) fix: (misspelled)`nCSpell: Files checked: 1, Issues found: 1 in 1 file."
-        $result = Test-Spelling -OutputFolder $script:reportBase -PassThru
-        (Get-Content (Join-Path $result.ReportPath 'spelling.md') -Raw) | Should -Match 'mispeld'
-        # Exactly one colored line (the report path) — issues are not dumped line-by-line to the console.
-        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $ForegroundColor -eq 'Cyan' }
+        $script:cspellOut = 'CSpell: Files checked: 3, something new happened'
+        { Test-Spelling -OutputFolder $script:reportBase } | Should -Throw '*cspell exited 1 with no parsable issue line*'
     }
 
     It 'throws "no files" when the globs match nothing' {
@@ -164,7 +147,7 @@ Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {
             Set-ItResult -Skipped -Because 'protected_globset_unchanged_since_green_run'
             return
         }
-        { Test-Spelling -OutputFolder (Join-Path $TestDrive 'reports') } | Should -Not -Throw
+        (Test-Spelling -PassThru -OutputFolder (Join-Path $TestDrive 'spelling')).IssueCount | Should -Be 0
         Protect-GlobSet -Test 'spelling' -Name 'repository'
     }
 }

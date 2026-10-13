@@ -22,14 +22,14 @@ Never require an `$env:` variable to be set for a function to work. Use `[Parame
 contract, not a hidden environment variable.
 
 - [Prohibited uses](#prohibited-uses)
-- [The correct alternative for internal state](#the-correct-alternative-for-internal-state)
+- [Internal state instead](#internal-state-instead)
 
 ### Rule ADR-AUTO-ENVVAR:4
 
 Never mutate `$env:` mid-execution to communicate between functions. That is invisible coupling through global state; pass values through
 parameters and return values.
 
-- [Why environment variables are global mutable state](#why-environment-variables-are-global-mutable-state)
+- [Global mutable state](#global-mutable-state)
 - [Prohibited uses](#prohibited-uses)
 
 ### Rule ADR-AUTO-ENVVAR:5
@@ -46,7 +46,7 @@ secret may cross to a child or external process through the environment only via
 (ADR-AUTO-ENVVAR#7), never written ad-hoc. `$env:` is visible to child processes, process-inspection tools, and crash dumps (CWE-526).
 
 - [They are a security surface](#they-are-a-security-surface)
-- [The one sanctioned secret hand-off](#the-one-sanctioned-secret-hand-off)
+- [The secret hand-off](#the-secret-hand-off)
 
 ### Rule ADR-AUTO-ENVVAR:7
 
@@ -55,7 +55,7 @@ only through `Write-EnvironmentSet` (`Catzc.Tooling.Environment`). That seam tak
 plaintext (masks `***`); decrypts only at the `$env:` assignment; and defaults to scoped set/restore, persisting only on explicit
 `-Persist`. Ad-hoc `$env:TOKEN = $plaintext` stays prohibited.
 
-- [The one sanctioned secret hand-off](#the-one-sanctioned-secret-hand-off)
+- [The secret hand-off](#the-secret-hand-off)
 
 ## Context
 
@@ -71,7 +71,9 @@ explicitly removes it; no scope exit cleans it up. The PowerShell mechanics of o
 `$env:` temptation, runspace sharing, test isolation — are the language layer,
 [environment-variable-mechanics](powershell/environment-variable-mechanics.md) (`ADR-AUTO-PSENV`).
 
-### Why environment variables are global mutable state
+### Global mutable state
+
+`Why environment variables are global mutable state`
 
 - **Global.** `$env:FOO` is readable and writable from any function, any module, any scope. There is no access control. Any code — yours,
   vendored, third-party — can read or mutate any environment variable. This couples all code together: you must reason about the entire
@@ -95,7 +97,9 @@ Every process spawned via `Start-Process`, `Start-Job`, `&`, or external tool in
 parent. A child process (a linter, a build tool, a third-party CLI) sees every `$env:` variable the parent set, even if it has no need for
 them. This violates least privilege and creates an invisible coupling between parent and child.
 
-### They break parallel execution and poison tests
+### Parallel runs and tests
+
+`They break parallel execution and poison tests`
 
 Environment variables are process-wide, so concurrent workers share one mutable namespace — parallel reads and writes race — and a value set
 in one test leaks into the next, producing order-dependent failures that are extremely difficult to diagnose. The PowerShell specifics
@@ -111,14 +115,18 @@ code, use secret managers, `SecureString`, or secure parameter passing.
 
 There is one narrow exception, and it is a hand-off, not a store: when an external tool's contract is to read a secret from the environment
 (ADR-AUTO-ENVVAR#1), the secret must reach it through the environment. That crossing is confined to a single disciplined seam
-([the one sanctioned secret hand-off](#the-one-sanctioned-secret-hand-off)); an ad-hoc `$env:TOKEN = $plaintext` remains prohibited.
+([the one sanctioned secret hand-off](#the-secret-hand-off)); an ad-hoc `$env:TOKEN = $plaintext` remains prohibited.
 
-### Case sensitivity is inconsistent
+### Inconsistent case sensitivity
+
+`Case sensitivity is inconsistent`
 
 `$env:Path` and `$env:PATH` refer to the same variable on Windows but different variables on Linux. Using environment variables for internal
 state means dealing with this cross-platform inconsistency in every consumer. Module-scoped variables have no such problem.
 
-### The correct alternative for internal state
+### Internal state instead
+
+`The correct alternative for internal state`
 
 Internal state belongs in the mechanisms the language scopes and cleans up automatically: pass values between functions as parameters and
 return values, and keep shared state in module scope. None of these leak to child processes, pollute tests, or persist beyond their natural
@@ -172,7 +180,9 @@ is effectively a constant — a process-wide anchor that removes the need to dep
 never mutated, and serves the same role as a tool's contract variable (every function needs a stable root, and `$env:` is the only mechanism
 that crosses module boundaries without passing parameters through every call).
 
-### The one sanctioned secret hand-off
+### The secret hand-off
+
+`The one sanctioned secret hand-off`
 
 Setting a variable for an external tool (legitimate use 1) covers non-secret contract values directly — `$env:GIT_TERMINAL_PROMPT = '0'`.
 Some external contracts are for a **secret**: a CLI or container that reads its token, key, or connection string from the environment. That
@@ -270,7 +280,9 @@ function Deploy-App {
 The parameter approach gives you type validation, tab completion, mandatory enforcement, and documentation — all for free. The `$env:`
 approach gives you a stringly-typed global that the caller has to know about by reading the implementation.
 
-## On twelve-factor app configuration
+## Twelve-factor configuration
+
+`On twelve-factor app configuration`
 
 The twelve-factor app methodology recommends storing configuration in environment variables that are "granular controls, each fully
 orthogonal to other env vars" and "never grouped together as environments."

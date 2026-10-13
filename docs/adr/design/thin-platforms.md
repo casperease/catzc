@@ -20,7 +20,7 @@ everything else to the vendor's own primitives — Bicep for ARM templating, the
 to _harmonize_ (one calling convention, one auth path, one set of defaults), never to hide the substrate or clone its behaviour. In Hohpe's
 terms: build abstractions, not illusions — a thick wrapper that re-implements the cloud is a liability, not a platform.
 
-- [Thin means delegation, not reimplementation](#thin-means-delegation-not-reimplementation)
+- [Delegation](#delegation)
 
 ### Rule ADR-DSGN-THINPLAT:3
 
@@ -38,7 +38,7 @@ bindings (Bicep modules and az invocations) — in exactly one living version (`
 console-clicked state, no out-of-band tooling, and no drift between "what the docs say" and "what runs": the platform _is_ its repository.
 Full EaC representation is what makes the thin abstraction reproducible and reviewable.
 
-- [Everything the platform covers is code](#everything-the-platform-covers-is-code)
+- [Everything is code](#everything-is-code)
 
 ### Rule ADR-DSGN-THINPLAT:5
 
@@ -47,7 +47,7 @@ manage it (Team Topologies). It is reusable across consumers and CD pipelines, a
 substrate — without re-shaping the consumer's API. The abstraction stays honest: the decisions a consumer must own (cost, region, scale,
 blast radius) are surfaced through configuration, not buried under a convenience default.
 
-- [Owned as a product, over a swappable substrate](#owned-as-a-product-over-a-swappable-substrate)
+- [Owned as a product](#owned-as-a-product)
 
 ## Context
 
@@ -75,7 +75,9 @@ reproducible install), and the **vendor bindings** (which Bicep modules and whic
 _change_ is a config edit; everything they want to _add_ is a new template or test. The TVP test applies literally: if a wiki page would do,
 we do not build a function.
 
-### Thin means delegation, not reimplementation
+### Delegation
+
+`Thin means delegation, not reimplementation`
 
 The platform never re-implements what the vendor already does well. ARM templating is Bicep's job; the platform composes Bicep modules and
 supplies their configuration, it does not generate ARM by hand. Control-plane and account actions are the az CLI's job; the platform curates
@@ -93,7 +95,9 @@ and in a pipeline (`ADR-AUTO-PARITY`). Consumers get X-as-a-Service: they call `
 platform team is free to re-wire what happens behind it — swap a Bicep module, change an az invocation, re-pin a tool — without touching a
 single consumer.
 
-### Everything the platform covers is code
+### Everything is code
+
+`Everything the platform covers is code`
 
 A thin abstraction is only trustworthy if it is fully materialized. Everything the platform touches is checked in and versioned as one
 living source of truth (`ADR-PRIN-EAC`, `ADR-PRIN-ONELIVE`): the PowerShell/C# automation, the Bicep infrastructure, the per-target
@@ -101,7 +105,9 @@ configuration, the pinned tool versions, and the vendored dependencies. Nothing 
 usually run this by hand" step. This is what lets the thin layer stay thin without becoming lossy — the full representation is in the repo,
 so the abstraction can be reproduced, reviewed, and diffed rather than trusted on faith.
 
-### Owned as a product, over a swappable substrate
+### Owned as a product
+
+`Owned as a product, over a swappable substrate`
 
 The platform is developed and managed as a product with a lifecycle, not a one-off scaffold — versioned, tested, and evolved on behalf of
 its consumers by the platform team. Its value compounds because it is reusable: the same CLI backs every developer box and every CD

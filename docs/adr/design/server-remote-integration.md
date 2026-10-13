@@ -17,7 +17,7 @@ commit-lifecycle states it builds on — the stable sync point and the dirty HEA
 immutable audit history are enforced. A developer box and a CI agent each hold a **local clone** that bridges to that remote; a local
 branch's view of "main" is provisional until it is what the server holds. The server is the authority; the client is a working copy.
 
-- [The server remote is the authority](#the-server-remote-is-the-authority)
+- [The authoritative remote](#the-authoritative-remote)
 
 ### Rule ADR-DSGN-REMOTE:2
 
@@ -27,7 +27,7 @@ branch's view of "main" is provisional until it is what the server holds. The se
 verified** (the stable point of ADR-DSGN-LIFE#6), not the raw tip. "Latest" and "safe to build on" are different questions; this rule
 answers the second.
 
-- [Integrate from verified, not HEAD](#integrate-from-verified-not-head)
+- [Integrate from verified](#integrate-from-verified)
 
 ### Rule ADR-DSGN-REMOTE:3
 
@@ -37,7 +37,7 @@ built on the verified point never has to negotiate any of that, because the veri
 does not move under it. A consumer that built on the dirty tip inherits its instability and must reconcile when the tip is later fixed.
 Integrate from verified and the reconciliation problem does not exist.
 
-- [Why verified is stable and the tip is not](#why-verified-is-stable-and-the-tip-is-not)
+- [Why verified is stable](#why-verified-is-stable)
 
 ### Rule ADR-DSGN-REMOTE:4
 
@@ -48,7 +48,7 @@ and **performs the merge** itself. Review is one gate a PR can carry, but the lo
 audited doorway, and closing every other door — no direct push to the protected branch — is what lets the `git log` audit trail be trusted
 as complete. Solo `main-direct` is the deliberate single-author exception (ADR-REPO-VARIANT#6).
 
-- [PR is authenticated ingress, not just review](#pr-is-authenticated-ingress-not-just-review)
+- [PR as authenticated ingress](#pr-as-authenticated-ingress)
 
 ## Context
 
@@ -69,7 +69,9 @@ Treat the server git remote as the audited source of truth, bridged by local clo
 not the remote HEAD**. Changes enter only through a **PR that authenticates and merges** them. Together these make a dirty HEAD a non-event
 for everyone downstream and keep the audit trail complete.
 
-### The server remote is the authority
+### The authoritative remote
+
+`The server remote is the authority`
 
 The mainline is not a local artifact — it is the branch the server remote enforces, and the server is where identity, branch protection, and
 the immutable audit log live. A local clone is a bridge: it fetches from and pushes toward that remote, but "what is on main" is decided by
@@ -77,7 +79,9 @@ the server, not by any client's local `main`. The guarantees the platform depend
 (`ADR-DSGN-SELFSERV`) — are server-side facts. A local `main` that has diverged, or a local commit never pushed through the sanctioned path,
 is not "on main" in the sense that governs; it is working state that has not yet crossed the boundary.
 
-### Integrate from verified, not HEAD
+### Integrate from verified
+
+`Integrate from verified, not HEAD`
 
 The server's main advances by landing commits, but landing is not the same as being verified. At any moment the tip may be a commit whose
 gates have not run, or one that ran them and failed — a dirty HEAD (ADR-DSGN-LIFE#7). Reading the tip therefore gives "the newest commit,"
@@ -86,7 +90,9 @@ names as the always-on environment's occupant — is the one to integrate from. 
 it; an upstream consumer syncs to it. The rule is uniform across every consumer of the mainline: integrate from the last verified commit,
 never the raw HEAD.
 
-### Why verified is stable and the tip is not
+### Why verified is stable
+
+`Why verified is stable and the tip is not`
 
 The verified history is monotonic and immutable: a commit that reached the verified point is a durable fact no later event un-makes
 (ADR-DSGN-LIFE#1, `ADR-PRIN-ONELIVE`). The dirty tip is the opposite — provisional. It might be fixed forward by a successor, superseded by
@@ -96,7 +102,9 @@ means a later fix to the tip is simply the next thing you pull; building on the 
 your work and force a reconciliation you did not need to have. Integrating from verified is what makes "the dirty HEAD got fixed later" a
 non-event for everyone downstream.
 
-### PR is authenticated ingress, not just review
+### PR as authenticated ingress
+
+`PR is authenticated ingress, not just review`
 
 It is easy to read a pull request as a review checkpoint — a second pair of eyes. That undersells it. In the audited regime the PR is the
 **only** ingress into the server's mainline, and it is what makes ingress _safe_: it authenticates the change against the server's identity

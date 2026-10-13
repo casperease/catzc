@@ -20,7 +20,7 @@ not part of the address); each following segment is a key walked into the parsed
 dictionary and a typed (C#/`Assert-…`-validated) object: each segment resolves as a key on a dictionary node, otherwise as a property.
 
 - [The address grammar](#the-address-grammar)
-- [Traversal is uniform over dict and typed object](#traversal-is-uniform-over-dict-and-typed-object)
+- [Uniform traversal](#uniform-traversal)
 
 ### Rule ADR-CONF-ADDRESSING:3
 
@@ -28,7 +28,7 @@ An address references **only** version-controlled config (ADR-PRIN-EAC): everyth
 in git, so anything addressable is non-secret by definition. Secrets never have addresses — they travel out-of-band as `[SecureString]`,
 handed to an external consumer through the one sanctioned seam (ADR-AUTO-ENVVAR#7).
 
-- [Addresses are for committed config only](#addresses-are-for-committed-config-only)
+- [Committed config only](#committed-config-only)
 
 ### Rule ADR-CONF-ADDRESSING:4
 
@@ -44,7 +44,7 @@ A resolved node is a **read**. The returned value may be a live reference into t
 mutated — mutating it would corrupt the shared cached config for every later reader. An address is the by-reference form of a config value:
 usable anywhere a value is wanted without re-reading a file, and read-only like every other view of the cache.
 
-- [A resolved node is a read, not a copy](#a-resolved-node-is-a-read-not-a-copy)
+- [A read, not a copy](#a-read-not-a-copy)
 
 ## Context
 
@@ -80,7 +80,9 @@ be dereferenced anywhere a value is wanted.
 
 The grammar is fixed by a `ValidatePattern` on `Get-ConfigValue` so a malformed address is rejected at the call site, not deep in traversal.
 
-### The address grammar, concretely
+### Grammar examples
+
+`The address grammar, concretely`
 
 ```powershell
 Get-ConfigValue -Address 'global.myproperty.name'     # scalar leaf → the value at myproperty → name
@@ -95,7 +97,9 @@ and walks the key path with the private `Resolve-ConfigKeyPath`. It does not ope
 `Get-Config` already loaded and validated (ADR-CONF-LOADING#1). The traversal lives in `Resolve-ConfigKeyPath` alone so `Get-ConfigValue`
 stays a thin strip-split-walk and the walk is unit-testable in isolation.
 
-### Traversal is uniform over dict and typed object
+### Uniform traversal
+
+`Traversal is uniform over dict and typed object`
 
 A config is either a raw ordered dictionary (no validator) or a typed object (a C# type or an `Assert-…`-validated shape) — see
 [module-config-loading](module-config-loading.md). `Resolve-ConfigKeyPath` handles both with one rule per segment: resolve the segment as a
@@ -103,7 +107,9 @@ A config is either a raw ordered dictionary (no validator) or a typed object (a 
 its config happens to be modelled; the same `global.<config>.<key>` works whether the owner validates into a typed object or leaves the
 config raw.
 
-### Addresses are for committed config only
+### Committed config only
+
+`Addresses are for committed config only`
 
 An address only ever reaches into a `configs/*.yml` file, which is version-controlled (ADR-PRIN-EAC). It follows that nothing an address can
 name is a secret: if it were addressable it would be sitting in git. This is deliberate and load-bearing — it is why a consumer can treat an
@@ -123,7 +129,9 @@ Every failure mode throws rather than returning `$null`, so a mistyped address s
 A silent `$null` would let a wrong address flow downstream as an empty value and fail somewhere far from its cause; addressing never does
 that.
 
-### A resolved node is a read, not a copy
+### A read, not a copy
+
+`A resolved node is a read, not a copy`
 
 `Get-Config` returns the _same reference_ on every call (ADR-CONF-LOADING#3), and `Get-ConfigValue` walks into that reference — so a
 resolved subtree (or a leaf that is itself an object) may be a live view into the shared config cache. Callers treat a resolved node as

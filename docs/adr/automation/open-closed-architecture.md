@@ -11,14 +11,14 @@ Extend by adding, not editing: new functions, modules, and dependencies are new 
 new root folder with its own tech-stack — never an edit smuggled into an existing one (see [tracks](../design/tracks.md), code
 `ADR-DSGN-TRACK`).
 
-- [How the platform implements open/closed](#how-the-platform-implements-openclosed)
+- [How the platform does it](#how-the-platform-does-it)
 
 ### Rule ADR-AUTO-EXTEND:3
 
 Keep infrastructure content-agnostic: the importer and bootstrap module must not reference specific module names, function names, or
 business logic. They operate on conventions and treat all conforming content identically.
 
-- [Patterns that violate open/closed](#patterns-that-violate-openclosed)
+- [Violations](#violations)
 
 ### Rule ADR-AUTO-EXTEND:4
 
@@ -32,7 +32,7 @@ discovered; the fix is to make the code conform, not to special-case the infrast
 Special cases go in the module, not the loader: a module needing custom initialization handles it internally (e.g. a private helper). The
 loader never gains module-specific branches.
 
-- [Patterns that violate open/closed](#patterns-that-violate-openclosed)
+- [Violations](#violations)
 
 ## Context
 
@@ -46,7 +46,9 @@ problems: the bootstrap module derives every registration from the filesystem, a
 capability never requires touching existing code. The PowerShell mechanics — the generated `.psd1` manifests and the collision-free function
 namespace — are the language layer, [dynamic-module-manifests](powershell/dynamic-module-manifests.md) (`ADR-AUTO-MANIFEST`).
 
-### How the platform implements open/closed
+### How the platform does it
+
+`How the platform implements open/closed`
 
 | Extension point            | How you extend it                        | What you never modify                    |
 | -------------------------- | ---------------------------------------- | ---------------------------------------- |
@@ -57,7 +59,9 @@ namespace — are the language layer, [dynamic-module-manifests](powershell/dyna
 
 Every row follows the same pattern: the extension is a new file or folder, and the infrastructure discovers it automatically.
 
-### Patterns that violate open/closed
+### Violations
+
+`Patterns that violate open/closed`
 
 | Pattern                                                         | Problem                                                    | Fix                                                                        |
 | --------------------------------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------- |
@@ -81,7 +85,7 @@ structure, the bootstrap module could not derive registrations automatically, an
 Convention-as-source-of-truth carries one assumption: that a name means exactly one thing. That is the one open/closed seam where
 "non-conforming code is invisible" does not hold — two definitions of one name are both discovered, and one quietly wins. The import
 therefore fails fast on any collision; the mechanics live in
-[dynamic-module-manifests](powershell/dynamic-module-manifests.md#one-global-collision-free-function-namespace).
+[dynamic-module-manifests](powershell/dynamic-module-manifests.md#one-function-namespace).
 
 ### Module dependency graph
 

@@ -5,7 +5,7 @@
 # Global Azure identity for the templating system.
 #
 # Placeholder GUIDs — replace with real tenant/subscription IDs per deployment target.
-# Loaded by Get-Config -Config azure; validated by private/Assert-AzureConfig.
+# Loaded by Get-Config -Config azure; validated by the AzureConfig type.
 
 # Vertical / organization shortcode — global, one per repo. The <org> component of every Azure
 # resource name (see [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)). Placeholder — set your org's shortcode.

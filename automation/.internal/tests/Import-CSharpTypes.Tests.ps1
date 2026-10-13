@@ -408,25 +408,16 @@ Describe 'combined types assembly is committed and current' -Tag 'integrity' {
     }
 
     # Drift guard: the importer (which ran before this test file) rebuilds automation/.compiled/Catzc.Types.<hash>.dll
-    # from source whenever a types/*.cs changed. If that rebuild was not committed, .compiled shows pending git
-    # changes here — a forgotten commit of the prebuilt assembly. (Stays red until the rebuilt DLL is committed.)
-    It 'has no pending git changes in automation/.compiled after import' -Tag 'L2' {
+    # from source whenever a types/*.cs changed, and every build copies that DLL. Test-BuildArtifact's types facet
+    # checks it is exactly one assembly named for the current sources' hash, with no pending git change (a
+    # forgotten commit of the prebuilt assembly stays red until it is committed). source-only: it reads the
+    # repository's own .compiled through the source tree.
+    It 'is exactly one committed assembly whose hash matches the current sources (Test-BuildArtifact)' -Tag 'L2', 'source-only' {
         if (-not (Get-Command git -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }
-        $status = & git -C $env:RepositoryRoot status --porcelain -- automation/.compiled 2>$null
-        $status | Should -BeNullOrEmpty -Because 'a rebuilt Catzc.Types.<hash>.dll must be committed — run the importer, then commit automation/.compiled/'
-    }
-
-    It 'is exactly one assembly whose hash matches the current sources' -Tag 'L0' {
-        $compiledRoot = Join-Path $env:RepositoryRoot 'automation/.compiled'
-        # @() wraps the whole if so a single match stays a one-element ARRAY (an @() inside the branch would be
-        # unrolled to a scalar on assignment, and .Count then throws under StrictMode).
-        $dlls = @(if ([System.IO.Directory]::Exists($compiledRoot)) {
-                [System.IO.Directory]::EnumerateFiles($compiledRoot, 'Catzc.Types.*.dll')
-            })
-        $dlls.Count | Should -Be 1 -Because 'the janitor keeps exactly the current combined build'
-        [System.IO.Path]::GetFileName($dlls[0]) | Should -Be "Catzc.Types.$currentHash.dll"
+        $result = Test-BuildArtifact -Facet Types -PassThru -OutputFolder (Join-Path $TestDrive 'build-artifact')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 
     # The IDE project (Catzc.Types.csproj) stamps its version from the committed .compiled DLL and FAILS its

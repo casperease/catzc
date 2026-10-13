@@ -38,7 +38,7 @@ only on a real content change — so a clean tree is a fast no-op and a CRLF/LF 
 delete-then-write, never in-place, so it can never write through a linked target into a source of truth. Link targets are materialised by
 `Set-FileLink` (ADR-REPO-ROOTCFG#7) instead of a content write.
 
-- [Always current, at no steady-state cost](#always-current-at-no-steady-state-cost)
+- [Always current](#always-current)
 
 ### Rule ADR-REPO-ROOTCFG:5
 
@@ -71,7 +71,7 @@ drift the link removes. The link is verified from the running OS and healed at t
 orphaned by a git rewrite of its source holds stale bytes until the next import re-links it — the standing "re-run the importer after
 changing files on disk" contract.
 
-- [Copy-as-link: the target is the source](#copy-as-link-the-target-is-the-source)
+- [Copy-as-link](#copy-as-link)
 
 ## Context
 
@@ -101,7 +101,9 @@ means "reproduced from one in-repo source of truth", not "absent from git". `com
 writer, same drift guarantee; the only difference is that the target stays tracked and a regeneration shows up as a normal diff to review
 and commit. This keeps the model honest — a copy-in and `importer.ps1` differ by one boolean, not by which system owns them.
 
-### Copy-as-link: the target is the source
+### Copy-as-link
+
+`Copy-as-link: the target is the source`
 
 Reproducing content is the honest form for a generator (there is no single file to point at) and for a target that must be a real tracked
 file. For a source-backed, gitignored target, a link is the stronger form: the root path and the authored source are **one file**, so there
@@ -128,7 +130,9 @@ into a source (ADR-REPO-ROOTCFG#4), and `Build-RootConfig`'s copy branch treats 
 content equality — a `comment: none` entry composes bytes identical to its source, which a content compare alone would read through the link
 and call current, leaving the mechanism disagreeing with the registry. The inverse integrity assertion (ADR-REPO-ROOTCFG#6) is the backstop.
 
-### Always current, at no steady-state cost
+### Always current
+
+`Always current, at no steady-state cost`
 
 Because the targets are cheap to reproduce and must never go stale, the importer regenerates them on every load, exactly like the README
 links ([generated-readmes](generated-readmes.md)). This is safe only because generation is idempotent: `Write-FileIfChanged` canonicalises,

@@ -31,7 +31,7 @@ external tool call; it does not resolve `depends_on`.
 Declare install-order dependencies in config. If a tool must be installed after another, add `depends_on` to its `tools.yml` entry;
 `Get-ToolInstallOrder` topologically sorts installs, and it is not a runtime assertion.
 
-- [3b. Declare tool dependencies in config](#3b-declare-tool-dependencies-in-config)
+- [3b. Tool dependencies in config](#3b-tool-dependencies-in-config)
 
 ### Rule ADR-AUTO-DEPS:5
 
@@ -56,7 +56,7 @@ _build_ — spanning both kinds of module content, `pwsh` functions and C# types
 split: `ADR-AUTO-DEPS` (SYS = system) and `ADR-AUTO-DEPM` (MOD = module). This ADR governs `ADR-AUTO-DEPS`; `ADR-AUTO-DEPM` has its own ADR,
 [controlling-module-dependencies](controlling-module-dependencies.md).
 
-- [System dependencies vs module dependencies](#system-dependencies-vs-module-dependencies)
+- [System vs module dependencies](#system-vs-module-dependencies)
 
 ### Rule ADR-AUTO-DEPS:8
 
@@ -82,7 +82,9 @@ available, that is the right approach.
 But the platform must also work on machines where Docker is not available. The automation cannot require a container runtime as a
 prerequisite.
 
-### System dependencies vs module dependencies
+### System vs module dependencies
+
+`System dependencies vs module dependencies`
 
 "Dependency" means two different things in this repo, and the two carry distinct names so a reader never has to guess which is meant:
 
@@ -99,7 +101,9 @@ assume it; a `ADR-AUTO-DEPM` is internal and fully ours, so it is declared once 
 [controlling-module-dependencies](controlling-module-dependencies.md)). Keeping the words distinct keeps the two from being conflated in
 code, config, and prose.
 
-### How we control system-wide dependencies
+### Controlling them
+
+`How we control system-wide dependencies`
 
 #### 1. Lock versions in configuration
 
@@ -165,7 +169,9 @@ missing or at the wrong version, the error says so directly ("python is not inst
 
 Version checks are cached per session — the first `Invoke-Python` call validates, subsequent calls skip the check.
 
-#### 3c. Devbox version lever (local-only relaxation)
+#### 3c. Devbox version lever
+
+`3c. Devbox version lever (local-only relaxation)`
 
 `Assert-ToolVersion` accepts the locked `version` everywhere. A tool may also declare an optional `devbox_version` in `tools.yml`:
 **outside** a CI pipeline (`Test-IsRunningInPipeline` is false), an installed version matching **either** the locked `version` or the
@@ -174,7 +180,9 @@ immediate upgrade — a team-tuned balancing lever, not a second pin. A pipeline
 `version` alone, so main/master builds stay deterministically locked: a developer's own tooling can be relaxed, but it never relaxes the
 pipeline's.
 
-#### 3b. Declare tool dependencies in config
+#### 3b. Tool dependencies in config
+
+`3b. Declare tool dependencies in config`
 
 Some tools must be installed after another — the Azure CLI and Poetry install as isolated uv tools, so `uv` must be present; PySpark
 installs into the uv-managed Python, so `python` must be present; the winget tools need `winget`. These dependencies are declared in
@@ -208,7 +216,9 @@ a prerequisite, not a target:
 The winget-based tools (`node_js`, `java`, `terraform`, and uv's fresh bootstrap) declare `depends_on: winget`, so it is ordered and
 asserted before anything that needs it.
 
-#### 3e. The session runs the best install home
+#### 3e. The best install home
+
+`3e. The session runs the best install home`
 
 A tool can be installed more than once on one machine, and the first one on PATH is not always usable. On Windows the machine PATH always
 precedes the user PATH, so a machine-wide install of the same command, such as a runtime-only `C:\Program Files\dotnet` with no SDK,

@@ -90,8 +90,8 @@ steps:
     }
 }
 
-# Integrity: the ACTUAL repository pipeline YAML is Prettier-clean. Binds to the real repo — Format-Pipelines
-# with no -Glob scans its default **/*.yaml scope. L2 because it drives the Prettier CLI; self-skips when the
+# Integrity: the ACTUAL repository pipeline YAML is Prettier-clean. Binds to the real repo — Test-Formatting runs
+# Format-Pipelines -Check over its default **/*.yaml scope. L2 because it drives the Prettier CLI; self-skips when the
 # tool is absent ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)/9). This is the
 # formatting half of the L2 pipeline gate (Test-Pipelines is the
 # naming/placement half); a drifted .yaml fails CI here. source-only: it reads the repository's pipeline files,
@@ -102,7 +102,7 @@ Describe 'Repository pipeline formatting integrity' -Tag 'L2', 'integrity', 'sou
             Set-ItResult -Skipped -Because 'tool_prettier_missing'
             return
         }
-        $result = Format-Pipelines -Check -PassThru
-        $result.ChangedCount | Should -Be 0 -Because "run Format-Pipelines to fix: $($result.ChangedFiles -join ', ')"
+        $result = Test-Formatting -Formatter Format-Pipelines -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

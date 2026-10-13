@@ -58,57 +58,19 @@ Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
     }
 }
 
-# source-only: it scans the repository's tracked files, which give the same answer in both run modes.
+# source-only: it scans the repository's tracked files, which give the same answer in both run modes. The check is the
+# quality gate Test-ManagedGuids ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): the
+# scan against the registry, and the 'repository' globset covering everything the scan reads — so the protection
+# skip below is sound ([ADR-REPO-PROTGLOB#6](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob6)).
 Describe 'Repository guid integrity' -Tag 'L2', 'integrity', 'source-only' {
-    It 'the repository globset covers the scan universe and the registry' -Tag 'ADR-REPO-PROTGLOB#6' {
-        # The protection identity must cover everything the scan reads — every named root, not one — and its
-        # own config; a file the scan reads outside it could change the result without re-keying protection.
-        $registryFile = 'automation/Catzc.Base.QualityGates/configs/guids.yml'
-        $scanFiles = & (Get-Module Catzc.Base.QualityGates) { Get-GuidScanFiles }
-        $members = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GlobSetFile -Name 'repository'), [System.StringComparer]::Ordinal)
-        $uncovered = @(@(@($scanFiles) + $registryFile) | Where-Object { -not $members.Contains($_) })
-        $uncovered | Should -BeNullOrEmpty -Because 'every file the guid scan reads must re-key its protection identity (globs.yml repository)'
-    }
-
-    It 'every guid in tracked text is registered, and every registry entry is live' {
-        # The scan reads every tracked text file under every named root plus its own config, so it protects
-        # against the whole-repository set, which covers both
-        # ([ADR-REPO-PROTGLOB#6](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob6)).
+    It 'every guid in tracked text is registered, every registry entry is live, and the repository globset covers the scan' -Tag 'ADR-REPO-PROTGLOB#6' {
         if (Test-GlobSetProtection -Test 'guids' -Name 'repository') {
             Set-ItResult -Skipped -Because 'protected_globset_unchanged_since_green_run'
             return
         }
 
-        $entries = Get-ManagedGuids
-        $registered = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-        foreach ($name in @($entries.Keys)) {
-            [void]$registered.Add("$($entries[$name].guid)")
-        }
-        $deniedEntries = (Get-Config -Config guids).denied
-        if ($null -eq $deniedEntries) {
-            $deniedEntries = [ordered]@{}
-        }
-        $denied = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-        foreach ($name in @($deniedEntries.Keys)) {
-            [void]$denied.Add("$($deniedEntries[$name].guid)")
-        }
-
-        $found = @(Get-RepositoryGuids)
-
-        $deniedFound = @($found | Where-Object { $denied.Contains($_.guid) })
-        $deniedReport = @($deniedFound | ForEach-Object { "$($_.file):$($_.line) $($_.guid)" })
-        $deniedReport | Should -BeNullOrEmpty -Because 'a denied guid (guids.yml `denied:`) is never a legitimate identity and must not appear in tracked text — construct it at runtime (e.g. [guid]::Empty) instead'
-
-        $unregistered = @($found | Where-Object { -not $registered.Contains($_.guid) })
-        $unregisteredReport = @($unregistered | ForEach-Object { "$($_.file):$($_.line) $($_.guid)" })
-        $unregisteredReport | Should -BeNullOrEmpty -Because 'every guid in tracked text must be registered in Catzc.Base.QualityGates/configs/guids.yml — mint a readable placeholder with ConvertTo-Guid, or remove the guid'
-
-        $foundValues = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-        foreach ($record in $found) {
-            [void]$foundValues.Add($record.guid)
-        }
-        $deadEntries = @(@($entries.Keys) | Where-Object { -not $foundValues.Contains("$($entries[$_].guid)") })
-        $deadEntries | Should -BeNullOrEmpty -Because 'a guids.yml entry no tracked file references is dead vocabulary and must be removed'
+        $result = Test-ManagedGuids -PassThru -OutputFolder (Join-Path $TestDrive 'managed-guids')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
 
         Protect-GlobSet -Test 'guids' -Name 'repository'
     }

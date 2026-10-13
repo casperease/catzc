@@ -35,7 +35,7 @@ Normalization is mandatory and centralized. Cross the boundary through `ConvertT
 sanctioned crossers. Do not hand-build a communicated path with `Join-Path $env:RepositoryRoot …`, and do not normalize separators ad hoc
 with `-replace '\\','/'`; both skip the normalization the converters guarantee and let a `.\` or a backslash leak downstream.
 
-- [Why centralize on two functions](#why-centralize-on-two-functions)
+- [Two functions](#two-functions)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-AUTO-PATH:5
@@ -51,7 +51,7 @@ comes back `out/`-anchored (ADR-AUTO-PATH#9), a path under the repo root comes b
 Source-controlled config and long-lived records store communication-form paths only. A generated production artifact may embed absolute
 paths, because it is consumed at binding time on the machine that runs it — but the source that generates it holds relative paths.
 
-- [Source is relative; the bound artifact may be absolute](#source-is-relative-the-bound-artifact-may-be-absolute)
+- [Source is relative; the bound artifact may be absolute](#relative-source-absolute-artifact)
 
 ### Rule ADR-AUTO-PATH:7
 
@@ -154,7 +154,9 @@ A path handed to an external tool through `Invoke-Executable` does not even need
 (the default working directory), so a repo-relative path resolves there on its own. `Resolve-RepoPath` is for the PowerShell-side consumers
 — `Import-Module`, `Get-Content`, `Test-Path` — that resolve against `$PWD` unless given an absolute path.
 
-### Why centralize on two functions
+### Two functions
+
+`Why centralize on two functions`
 
 Every path that crosses a boundary going out goes through `ConvertTo-RepoRelativePath`, and every path that binds coming back goes through
 `Resolve-RepoPath`. The pair round-trips: relativizing a path under the root and resolving it again yields the original absolute path.
@@ -189,7 +191,9 @@ materializes both — and it exposes the consumer's verification (`ResolveAt`, t
 "check at the other end" lives on the type rather than in every consumer. `RepoRelativePath` stays repo-root-pure (source paths,
 relative-only); the cross-stage artifact is the separate, dual-form case.
 
-### Source-is-relative, the bound artifact may be absolute
+### Relative source, absolute artifact
+
+`Source-is-relative, the bound artifact may be absolute`
 
 The rule governs _source_ and _long-lived data_. A generated production artifact is different: a bound bicep parameter JSON is produced for,
 and consumed by, the deployment on a specific machine, so it may contain absolute paths. The distinction is provenance — the checked-in

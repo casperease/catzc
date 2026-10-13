@@ -11,7 +11,7 @@ and `assets/`, another module's (a cross-module edge declared in `dependencies.y
 is located only through `Get-CatzcModuleRoot -ChildPath '<literal>'`, or `Get-CatzcModulesRoot` for the dot-prefixed infrastructure — never
 through `$PSScriptRoot`, `Get-RepositoryRoot`, or a hand-built `automation/...` path.
 
-- [One helper, one answer in both modes](#one-helper-one-answer-in-both-modes)
+- [One helper](#one-helper)
 
 ### Rule ADR-AUTO-ASSETDEP:2
 
@@ -27,7 +27,7 @@ Every function with an internal asset dependency is covered by at least one test
 carries the citation tag `ADR-AUTO-ASSETDEP#3`, and is not tagged `source-only`, so it runs in both the source run and the build run.
 Because it reads a shipped asset, it is an `integrity` test (ADR-AUTO-TEST#1); the function's logic tests keep using fixtures.
 
-- [A real-asset test that runs in both test runs](#a-real-asset-test-that-runs-in-both-test-runs)
+- [A real-asset test in both runs](#a-real-asset-test-in-both-runs)
 
 ### Rule ADR-AUTO-ASSETDEP:4
 
@@ -69,7 +69,9 @@ Internal assets are located through one helper whose answer is correct in both m
 path, and every function that performs one is tested against the real asset in both test runs. Coverage and presence are checked by gates,
 not by review.
 
-### One helper, one answer in both modes
+### One helper
+
+`One helper, one answer in both modes`
 
 `Get-CatzcModuleRoot` returns the calling module's folder under the active code root (`CatzcModulesRoot`) —
 `<RepositoryRoot>/automation/<Module>` in source mode, `<build>/<Module>` in build mode — joined with `-ChildPath` when given. The layout
@@ -89,7 +91,9 @@ path would hide the dependency from that scan, so the literal is part of the rul
 list would drift from the code it describes, and the code says everything the gates need
 ([open-closed-architecture](open-closed-architecture.md)).
 
-### A real-asset test that runs in both test runs
+### A real-asset test in both runs
+
+`A real-asset test that runs in both test runs`
 
 A function that reads a shipped asset is covered by a test that lets the read happen: it loads the module, calls the function, and asserts
 on what the real asset produced. Mocking the read away would test the mock, which is the one thing that does not change between the modes.

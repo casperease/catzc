@@ -70,7 +70,9 @@ dictionary view (`Contains`, the `[key]` indexer, `Keys`, `ToHashtable()`) and p
 Because that is a cross-module reference, the owning module must declare `Catzc.Base.Objects` in `dependencies.yml` (see
 [Add a module](../add-a-module.md#declaring-dependencies)). Properties match the snake_case config keys they mirror.
 
-## How compilation and caching work
+## Compilation and caching
+
+`How compilation and caching work`
 
 - Every module's `types/*.cs` compile into **one** assembly for the whole repository, committed at
   `automation/.compiled/Catzc.Types.<hash>.dll`. The hash is derived from every type's source, so a fresh checkout and CI load the committed

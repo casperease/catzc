@@ -17,7 +17,7 @@ Branch before the side effect: the dry-run path returns the planned action (comm
 must be observable by return value or captured stream, never only host narration.
 
 - [The idiom](#the-idiom)
-- [Why ShouldProcess is the wrong tool here](#why-shouldprocess-is-the-wrong-tool-here)
+- [Why not ShouldProcess](#why-not-shouldprocess)
 
 ### Rule ADR-AUTO-DRYRUN:3
 
@@ -49,7 +49,9 @@ for previewing and for tests that must verify _what would happen_ without making
 PSScriptAnalyzer even nags for it (`PSUseShouldProcessForStateChangingFunctions`). It looks like the idiomatic choice. We deliberately do
 **not** use it.
 
-### Why ShouldProcess is the wrong tool here
+### Why not ShouldProcess
+
+`Why ShouldProcess is the wrong tool here`
 
 - **Its output is not capturable, so it is not testable.** The `-WhatIf` narration ("What if: Performing the operation …") is written
   **directly to the host** — not the information stream, and unaffected by `-InformationAction`/`6>$null` (verified). A test cannot capture

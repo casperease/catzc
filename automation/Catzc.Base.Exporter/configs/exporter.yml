@@ -3,7 +3,7 @@
 # Build-Modules / Export-Catzc read their defaults from here (Get-Config -Config exporter); explicit params
 # override for ad-hoc builds. Because every read routes through the Get-Config / Resolve-ConfigEntry seam,
 # Pester tests swap in a fixture exporter.yml to vary these options without touching the shipped config — the
-# repo keeps exactly one real export config. Validated on load by Assert-ExporterConfig.
+# repo keeps exactly one real export config. Validated on load by the ExporterConfig type.
 # See [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md).
 
 # Versions (Resolve-CatzcBuildVersion turns -Version auto into one of these):

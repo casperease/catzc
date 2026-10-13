@@ -9,7 +9,7 @@
 Never add network paths to `$env:PSModulePath`. If a module is needed, vendor it; if it cannot be vendored (Az modules), the environment
 must install it locally.
 
-- [The specific problem: PSModulePath](#the-specific-problem-psmodulepath)
+- [PSModulePath](#psmodulepath)
 - [What the importer does](#what-the-importer-does)
 
 ### Rule ADR-AUTO-MODPATH:2
@@ -17,8 +17,8 @@ must install it locally.
 Don't depend on the user profile at runtime. No function reads or writes `$HOME\Documents\PowerShell\` during import or a normal run; the
 one sanctioned exception is the opt-in `Set-LocalPSModulePath.ps1` helper the user runs by hand.
 
-- [The one-time fix for network user paths](#the-one-time-fix-for-network-user-paths)
-- [Why the user-scope config override, and not the alternatives](#why-the-user-scope-config-override-and-not-the-alternatives)
+- [Network user paths](#network-user-paths)
+- [The user-scope override](#the-user-scope-override)
 
 ### Rule ADR-AUTO-MODPATH:3
 
@@ -34,7 +34,9 @@ leaves `$env:PSModulePath` alone and **warns** when it contains a network share,
 local admin, no gallery access at runtime. This ADR is the PowerShell layer under it — how the module path is kept fast, local, and
 deterministic on such a machine.
 
-### The specific problem: PSModulePath
+### PSModulePath
+
+`The specific problem: PSModulePath`
 
 PowerShell's default `$env:PSModulePath` includes:
 
@@ -75,7 +77,9 @@ win, by **surgical removal** — not a wholesale rebuild:
 The importer does **not** otherwise enumerate or delete the user profile path. What it does do is **warn** when `$env:PSModulePath` contains
 a UNC/network share, and point the user at the one-time fix below (see `Invoke-Importer` in `Catzc.Internal.Importer`).
 
-### The one-time fix for network user paths
+### Network user paths
+
+`The one-time fix for network user paths`
 
 The slow-network-path problem is solved by `automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`, a one-time helper the user
 runs themselves. It writes a user-scope `powershell.config.json` (under `Documents\PowerShell`, even when that is on DFS) that overrides the
@@ -86,7 +90,9 @@ This helper _does_ touch the user profile (it writes the config file there and m
 point: it is the user opting in to a permanent local redirect, run once, not something the automation does on every import. No admin is
 required and it is idempotent.
 
-### Why the user-scope config override, and not the alternatives
+### The user-scope override
+
+`Why the user-scope config override, and not the alternatives`
 
 The fix targets the user-scope `powershell.config.json` deliberately, because every other way to keep the network path out of
 `$env:PSModulePath` is worse:

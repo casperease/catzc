@@ -146,24 +146,14 @@ Describe 'New-DynamicManifest explicit lists load a merged module' -Tag 'L1', 'l
     }
 }
 
-Describe 'Get-DynamicManifestContent is formatter-stable' -Tag 'L2', 'integrity' {
-    BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
-        $script:settingsPath = Join-Path $env:RepositoryRoot 'automation/.internal/assets/PSScriptAnalyzerSettings.psd1'
-    }
-
-    AfterAll {
-        Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue
-    }
-
-    It 'Invoke-Formatter leaves a generated manifest byte-for-byte unchanged' {
+# source-only: Test-BuildArtifact builds from the source tree, then checks the manifests the build wrote.
+Describe 'Get-DynamicManifestContent is formatter-stable' -Tag 'L2', 'integrity', 'source-only' {
+    It 'Invoke-Formatter leaves every built manifest byte-for-byte unchanged (Test-BuildArtifact)' {
         # The published manifest is a versioned immutable artifact, so its canonical form must equal what the
-        # repo formatter would produce — otherwise a later touch would re-format and churn the gold bytes.
-        $text = InModuleScope Catzc.Internal.Bootstrap {
-            Get-DynamicManifestContent -NestedModule @('private/Get-TestSkipReason.ps1', 'Test-Spelling.ps1') -FunctionToExport @('Test-Spelling')
-        }
-        $formatted = Invoke-Formatter -ScriptDefinition $text -Settings $settingsPath
-        $formatted | Should -BeExactly $text
+        # repo formatter would produce — otherwise a later touch would re-format and churn the gold bytes. Every
+        # <Module>.psd1 in a build comes from Get-DynamicManifestContent (New-DynamicManifest).
+        $result = Test-BuildArtifact -Facet Manifest -PassThru -OutputFolder (Join-Path $TestDrive 'build-artifact')
+        $result.Modules | Should -BeGreaterThan 0
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

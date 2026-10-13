@@ -3,15 +3,18 @@
     Quality gate: the manual test plan lists every integrity check, once.
 .DESCRIPTION
     A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) keeping
-    docs/how-to/automation/manual-test-plan.md in step with the tests. It finds every integrity-tagged Describe,
+    the manual test plan in step with the tests. The plan is the overview docs/how-to/automation/manual-test-plan.md
+    plus one category file per category (at most 13) in docs/how-to/automation/manual-test-plan/; the index rows live
+    in the category files. It finds every integrity-tagged Describe,
     Context, and It across the test files (except the vendored ones) by PARSING them — never by Pester discovery, as a
     nested Invoke-Pester inside a run is unsafe ([ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16)).
     A block is integrity when its own -Tag array holds the literal 'integrity'; its identity is the pair (repository-
     relative file, block name), as block names repeat across files.
 
-    The plan's index rows are its markdown table rows that name a .Tests.ps1 path. Issues:
+    The plan's index rows are the category files' markdown table rows that name a .Tests.ps1 path. Issues:
 
-      - the plan file is missing;
+      - the category folder is missing, or holds no category file;
+      - the category folder holds more than 13 category files;
       - an integrity block has no row naming both its file and its block name;
       - the row count differs from the block count (a stale or duplicate row, or a renamed or removed block).
 
@@ -19,7 +22,7 @@
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-manual-test-plan/ (Write-QualityGateReport).
 .PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; IntegrityBlocks; PlanRows }) instead of throwing
+    Return the result ({ Subject; IssueCount; Issues; ReportPath; IntegrityBlocks; PlanRows; CategoryFiles }) instead of throwing
     on issues.
 .OUTPUTS
     [pscustomobject] With -PassThru only.
@@ -38,8 +41,9 @@ function Test-ManualTestPlan {
     Assert-SourceTree
     $repositoryRoot = Get-RepositoryRoot
     $automationRoot = Join-Path $repositoryRoot 'automation'
-    $planRelative = 'docs/how-to/automation/manual-test-plan.md'
+    $planRelative = 'docs/how-to/automation/manual-test-plan'
     $planPath = Join-Path $repositoryRoot $planRelative
+    $maxCategories = 13
     $isCommand = { param($node) $node -is [System.Management.Automation.Language.CommandAst] }
     $isString = { param($node) $node -is [System.Management.Automation.Language.StringConstantExpressionAst] }
 
@@ -88,14 +92,20 @@ function Test-ManualTestPlan {
     }
 
     $issues = [System.Collections.Generic.List[string]]::new()
-    $rows = @()
-    if ([System.IO.File]::Exists($planPath)) {
-        $rows = @([System.IO.File]::ReadAllText($planPath) -split '\r?\n' |
-                Where-Object { $_.TrimStart().StartsWith('|') -and $_ -match '\.Tests\.ps1' })
+    $categoryFiles = @()
+    if ([System.IO.Directory]::Exists($planPath)) {
+        $categoryFiles = @([System.IO.Directory]::GetFiles($planPath, '*.md') | Sort-Object)
     }
-    else {
-        $issues.Add("${planRelative}: the manual test plan is missing")
+    if ($categoryFiles.Count -eq 0) {
+        $issues.Add("${planRelative}/: the manual test plan has no category files")
     }
+    if ($categoryFiles.Count -gt $maxCategories) {
+        $issues.Add("${planRelative}/: $($categoryFiles.Count) category files, at most $maxCategories — merge categories")
+    }
+    $rows = @(foreach ($categoryFile in $categoryFiles) {
+            [System.IO.File]::ReadAllText($categoryFile) -split '\r?\n' |
+                Where-Object { $_.TrimStart().StartsWith('|') -and $_ -match '\.Tests\.ps1' }
+        })
 
     foreach ($block in $blocks) {
         $matched = @($rows | Where-Object { $_.Contains($block.File) -and $_.Contains($block.Block) })
@@ -108,6 +118,6 @@ function Test-ManualTestPlan {
     }
 
     Write-QualityGateReport -Subject 'manual-test-plan' -Title 'Test-ManualTestPlan' -Issues $issues `
-        -Facts ([ordered]@{ IntegrityBlocks = $blocks.Count; PlanRows = $rows.Count }) `
+        -Facts ([ordered]@{ IntegrityBlocks = $blocks.Count; PlanRows = $rows.Count; CategoryFiles = $categoryFiles.Count }) `
         -OutputFolder $OutputFolder -PassThru:$PassThru
 }

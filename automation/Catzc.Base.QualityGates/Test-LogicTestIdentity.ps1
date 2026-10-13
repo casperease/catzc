@@ -12,28 +12,33 @@
     is reported as needing a split.
 
     This is itself an INTEGRITY check (it reads the shipped config and the whole test tree), so it is tagged
-    `integrity` where a Pester test wraps it. It mirrors the Test-Spelling / Test-Terminology gate shape
-    ([ADR-AUTO-VERBS#7](/docs/adr/automation/powershell/respect-pwsh-verb-rules.md#rule-adr-auto-verbs7)): it throws on
-    findings to fail the build, and returns a result object under -PassThru.
+    `integrity` where a Pester test wraps it. A quality gate
+    ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends through
+    Write-QualityGateReport, which writes out/test-logic-test-identity/, prints every finding as
+    '<file>:<line>: <message>', and throws once listing them all; -PassThru returns the result instead.
 
     Phase 1 matches the DISTINCTIVE identities exactly (customers, subscriptions, org, templates, deployable
     units, ADO project); environment names (dev/test/preprod/prod) are a later, position-aware phase.
 .PARAMETER Path
     Test files to check. Defaults to every *.Tests.ps1 under automation/ (excluding vendored modules) — the
     catzc source tree, so the default needs source mode (Assert-SourceTree); an explicit -Path works in either.
+.PARAMETER OutputFolder
+    The report base folder. Defaults to <out>/test-logic-test-identity.
 .PARAMETER PassThru
-    Return a result object ({ FindingCount; MixedCount; Findings }) instead of throwing.
+    Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount }) instead of throwing.
 .OUTPUTS
     None (throws on findings), or the result object with -PassThru.
 .EXAMPLE
     Test-LogicTestIdentity
 .EXAMPLE
-    $r = Test-LogicTestIdentity -PassThru; $r.Findings
+    $r = Test-LogicTestIdentity -PassThru; $r.Issues
 #>
 function Test-LogicTestIdentity {
     [CmdletBinding()]
     param(
         [string[]] $Path,
+
+        [string] $OutputFolder,
 
         [switch] $PassThru
     )
@@ -70,34 +75,17 @@ function Test-LogicTestIdentity {
     $identityParamRegex = [regex]::new('-(Environment|Env|Shortcode)\b',
         [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
 
-    $findings = [System.Collections.Generic.List[object]]::new()
+    $issues = [System.Collections.Generic.List[string]]::new()
     foreach ($file in $Path) {
         $text = [System.IO.File]::ReadAllText($file)
         if (-not (($tokenRegex -and $tokenRegex.IsMatch($text)) -or $identityParamRegex.IsMatch($text))) {
             continue
         }
         foreach ($finding in (Get-LogicTestIdentityFinding -Path $file -LiveToken $live)) {
-            $findings.Add($finding)
+            $issues.Add("$(ConvertTo-RepoRelativePath $finding.File):$($finding.Line): $($finding.Message)")
         }
     }
 
-    if ($PassThru) {
-        return [pscustomobject]@{
-            FindingCount = $findings.Count
-            Findings     = @($findings)
-        }
-    }
-
-    if ($findings.Count -eq 0) {
-        Write-Message "No logic-test identity violations across $($Path.Count) test file(s)."
-        return
-    }
-
-    foreach ($finding in $findings) {
-        $relative = ConvertTo-RepoRelativePath $finding.File
-        Write-Message "${relative}:$($finding.Line): $($finding.Message)" -NoHeader -ForegroundColor Red
-    }
-
-    $preview = @($findings | Select-Object -First 5 | ForEach-Object { "$($_.Token) ($([System.IO.Path]::GetFileName($_.File)):$($_.Line))" })
-    throw "Test-LogicTestIdentity failed: $($findings.Count) live-identity use(s) in logic tests — $($preview -join ', ')"
+    Write-QualityGateReport -Subject logic-test-identity -Title Test-LogicTestIdentity -Issues $issues.ToArray() `
+        -Facts ([ordered]@{ FileCount = @($Path).Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

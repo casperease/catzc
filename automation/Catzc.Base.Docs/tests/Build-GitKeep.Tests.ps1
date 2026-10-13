@@ -92,14 +92,9 @@ Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L1', 'integrity', 'sou
 
     It 'finds the .gitkeep set and every file carries the generic source content (no drift)' {
         $script:report.Count | Should -BeGreaterThan 0
-        # A foreach projection, not member enumeration: .Path on the (passing) empty set throws under strict mode.
-        $drifted = @(foreach ($entry in $script:report) {
-                if ($entry.Changed) {
-                    $entry.Path
-                }
-            })
-        $drifted | Should -BeNullOrEmpty -Because (
-            'every .gitkeep is a managed copy of assets/gitkeep — re-run the importer and commit the result')
+        # Every .gitkeep is a managed copy of assets/gitkeep; the gate names each drifted one.
+        $result = Test-GeneratedFiles -Generator Build-GitKeep -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 
     It 'every .gitkeep folder is a readme-mapped target — the pointer at README.md must be honest' {

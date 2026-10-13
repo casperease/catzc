@@ -89,7 +89,9 @@ ParametersFile:
 Every config's environment must match `environment_kind`. The shipped `foundation` template (Log Analytics + Key Vault, once per
 subscription) sets `environment_kind: subscription`; data templates leave it at `standard`.
 
-## Optional: PrePost hooks
+## PrePost hooks
+
+`Optional: PrePost hooks`
 
 If the template needs build- or deploy-time logic, copy the starter `automation/Catzc.Azure.Templates/assets/PrePost.psm1` to
 `infrastructure/templates/<name>/PrePost.psm1`, keep the hook(s) you need, delete the rest. The three opt-in hooks are:

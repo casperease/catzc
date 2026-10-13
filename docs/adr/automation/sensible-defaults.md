@@ -10,7 +10,7 @@ The zero-argument call must work. If a function can do useful work without input
 the locked version, `Test-Automation` runs every tier its slot allows (L0–L3 in the working folder, L0–L2 in a snapshot) with detailed
 output.
 
-- [What sensible defaults look like](#what-sensible-defaults-look-like)
+- [Examples](#examples)
 
 ### Rule ADR-AUTO-DEFAULT:2
 
@@ -44,7 +44,9 @@ arguments.
 PowerShell makes this easy: parameters can have default values, can pull from configuration, and can be positional. But it requires
 discipline to design every function with the "just call it" experience in mind.
 
-### What sensible defaults look like
+### Examples
+
+`What sensible defaults look like`
 
 ```powershell
 # GOOD — most common case needs zero arguments

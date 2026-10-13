@@ -136,9 +136,9 @@ Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L1', 'integrity', 'sou
         @($result).Count | Should -BeGreaterThan 0
     }
 
-    It 'renders importer.ps1 drift-free — the committed shim matches its generator' {
-        $importer = @(Build-RootConfig -DryRun -PassThru -Silent | Where-Object { $_.Target -eq 'importer.ps1' })
-        $importer | Should -HaveCount 1
-        $importer[0].Changed | Should -BeFalse -Because 'the committed importer.ps1 must equal what New-Importer renders (regenerate with New-Importer -Force)'
+    It 'renders every managed root file drift-free, importer.ps1 included (Test-GeneratedFiles)' {
+        @(Build-RootConfig -DryRun -PassThru -Silent | Where-Object { $_.Target -eq 'importer.ps1' }) | Should -HaveCount 1
+        $result = Test-GeneratedFiles -Generator Build-RootConfig -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

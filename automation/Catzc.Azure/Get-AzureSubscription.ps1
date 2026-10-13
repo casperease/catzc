@@ -31,7 +31,7 @@ function Get-AzureSubscription {
     $azure = Get-Config -Config azure
     $found = $azure.subscriptions[$Subscription]
     Assert-True ($null -ne $found) -ErrorText "Unknown subscription '$Subscription' in azure.yml"
-    Assert-True ($azure.tenants.Contains($found.tenant)) -ErrorText "Subscription '$Subscription' references unknown tenant '$($found.tenant)'"
+    Assert-True ($azure.tenants.ContainsKey($found.tenant)) -ErrorText "Subscription '$Subscription' references unknown tenant '$($found.tenant)'"
 
     $tenant = [Catzc.Azure.Tenant]::new($found.tenant, $azure.tenants[$found.tenant].id)
     # The subscription's `customer` field may name a customer by its key OR its 2-char shortcode; normalize

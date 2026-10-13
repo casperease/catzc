@@ -1,47 +1,64 @@
 # The integrity invariant — the real repository's function dependency graph is satisfied — needs exactly one
-# scan of the real automation tree. The [bool] return contract is pure logic, so it is proven at L0 against a
-# fixture root rather than by a second full-tree scan.
+# scan of the real automation tree. The gate's uniform shape
+# ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) is pure logic, so it is proven at
+# L0 against fixture roots rather than by a second full-tree scan.
 Describe 'Test-FunctionDependency' -Tag 'L1', 'integrity', 'source-only' {
     It 'the real repository dependency graph is satisfied' {
-        # -BeTrue also confirms the return is a truthy [bool]; the type contract itself is covered at L0 below.
-        Test-FunctionDependency | Should -BeTrue
+        $result = Test-FunctionDependency -PassThru -OutputFolder (Join-Path $TestDrive 'function-dependency')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }
 
 Describe 'Test-FunctionDependency (fixture roots)' -Tag 'L0', 'logic', 'source-only' {
     BeforeAll {
         function New-FunctionFile {
-            param([string]$Root, [string]$Module, [string]$Name, [switch]$Private)
+            param([string]$Root, [string]$Module, [string]$Name, [switch]$Private, [string]$Body = '')
             $dir = Join-Path $Root $Module
             if ($Private) {
                 $dir = Join-Path $dir 'private'
             }
             New-Item $dir -ItemType Directory -Force | Out-Null
-            Set-Content (Join-Path $dir "$Name.ps1") "function $Name { }"
+            Set-Content (Join-Path $dir "$Name.ps1") "function $Name { $Body }"
         }
     }
 
-    It 'returns a boolean' {
-        $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-        New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-AThing'
-        Test-FunctionDependency -AutomationRoot $root | Should -BeOfType [bool]
+    BeforeEach {
+        Mock Write-Message -ModuleName Catzc.Base.Reports { }
+        $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        $script:reportBase = Join-Path $TestDrive "reports-$([guid]::NewGuid().ToString('N'))"
     }
 
-    It 'throws when two modules define the same public function' {
-        $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-        New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-Dupe'
+    It 'passes when every call resolves' -Tag 'ADR-AUTO-TEST#35' {
+        New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-AThing' -Body 'Get-BThing; Write-Output 1'
+        New-FunctionFile -Root $root -Module 'ModB' -Name 'Get-BThing'
+        { Test-FunctionDependency -AutomationRoot $root -OutputFolder $reportBase } | Should -Not -Throw
+    }
+
+    It 'throws once listing every unresolved call and duplicate public function' -Tag 'ADR-AUTO-TEST#35' {
+        New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-Dupe' -Body 'Get-NoSuchWidget'
         New-FunctionFile -Root $root -Module 'ModB' -Name 'Get-Dupe'
-        { Test-FunctionDependency -AutomationRoot $root } |
-            Should -Throw -ExpectedMessage "*Duplicate public function 'Get-Dupe'*"
+        $thrown = { Test-FunctionDependency -AutomationRoot $root -OutputFolder $reportBase } | Should -Throw -PassThru
+        $message = $thrown.Exception.Message
+        $message | Should -BeLike 'Test-FunctionDependency failed: 2 issue(s)*'
+        $message | Should -BeLike "*Duplicate public function 'Get-Dupe'*"
+        $message | Should -BeLike '*Get-Dupe -> Get-NoSuchWidget (ModA/Get-Dupe.ps1:1)*'
+    }
+
+    It 'returns the result with the function count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+        New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-AThing' -Body 'Get-NoSuchGadget'
+        $result = Test-FunctionDependency -AutomationRoot $root -OutputFolder $reportBase -PassThru
+        $result.Subject | Should -Be 'function-dependency'
+        $result.IssueCount | Should -Be 1
+        $result.FunctionCount | Should -Be 1
+        Test-Path (Join-Path $result.ReportPath 'function-dependency.md') | Should -BeTrue
     }
 
     It 'allows the same private function name in two modules' {
-        $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-AThing'
         New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-Shared' -Private
         New-FunctionFile -Root $root -Module 'ModB' -Name 'Get-BThing'
         New-FunctionFile -Root $root -Module 'ModB' -Name 'Get-Shared' -Private
-        { Test-FunctionDependency -AutomationRoot $root } | Should -Not -Throw
+        { Test-FunctionDependency -AutomationRoot $root -OutputFolder $reportBase } | Should -Not -Throw
     }
 }
 

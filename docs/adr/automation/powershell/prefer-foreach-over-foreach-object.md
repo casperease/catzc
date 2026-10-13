@@ -16,7 +16,7 @@ Default to the `foreach` statement for all iteration: it has correct, predictabl
 Use `ForEach-Object` only for single-expression pipeline transforms with no control flow keywords. If you need `if`, `return`, `break`,
 `continue`, or `try`/`catch`, switch to `foreach`.
 
-- [When ForEach-Object is appropriate](#when-foreach-object-is-appropriate)
+- [When ForEach-Object fits](#when-foreach-object-fits)
 
 ### Rule ADR-AUTO-FOREACH:3
 
@@ -82,7 +82,11 @@ function Get-FirstAdmin {
 }
 ```
 
-#### `break` does not break the pipeline
+#### `break`
+
+```text
+`break` does not break the pipeline
+```
 
 ```powershell
 # BROKEN — break affects the enclosing loop, not ForEach-Object
@@ -104,7 +108,11 @@ $items | ForEach-Object {
 }
 ```
 
-#### `continue` does not skip to the next item
+#### `continue`
+
+```text
+`continue` does not skip to the next item
+```
 
 ```powershell
 # BROKEN — continue skips the outer loop iteration, not the pipeline item
@@ -133,7 +141,9 @@ The performance difference is measurable — typically 3-10x for tight loops. Fo
 materialized, this rarely matters in wall-clock time. But there is **no performance reason** to prefer `ForEach-Object` over `foreach`
 unless streaming is specifically needed.
 
-### When ForEach-Object is appropriate
+### When ForEach-Object fits
+
+`When ForEach-Object is appropriate`
 
 `ForEach-Object` is the right choice when:
 

@@ -13,48 +13,43 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
             }
         }
         Mock Test-Command -ModuleName Catzc.Base.QualityGates { $true }
-        Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
+        Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
-    It 'returns clean (IssueCount 0) and writes a report when markdownlint finds no issues' {
+    It 'passes and writes a report when markdownlint finds no issues' -Tag 'ADR-AUTO-TEST#35' {
         $script:markdownlintExit = 0
+        { Test-Markdownlint -OutputFolder $script:reportBase } | Should -Not -Throw
         $result = Test-Markdownlint -OutputFolder $script:reportBase -PassThru
+        $result.Subject | Should -Be 'markdownlint'
         $result.IssueCount | Should -Be 0
         $result.ExitCode | Should -Be 0
-        $result.ReportPath | Should -Exist
         (Join-Path $result.ReportPath 'markdownlint.md') | Should -Exist
     }
 
-    It 'throws when markdownlint reports violations' {
+    It 'throws once listing every violation' -Tag 'ADR-AUTO-TEST#35' {
         $script:markdownlintExit = 1
-        $script:markdownlintOut = "docs/x.md:1:1 MD041/first-line-heading First line in a file should be a top-level heading`n"
-        { Test-Markdownlint -OutputFolder $script:reportBase } | Should -Throw '*markdownlint issue*'
+        $script:markdownlintOut = ('docs/x.md:1:1 MD041/first-line-heading First line', 'docs/y.md:3:1 MD013/line-length Line length', '' -join "`n")
+        $thrown = { Test-Markdownlint -OutputFolder $script:reportBase } | Should -Throw -PassThru
+        $message = $thrown.Exception.Message
+        $message | Should -BeLike 'Test-Markdownlint failed: 2 issue(s)*'
+        $message | Should -Match 'docs/x\.md:1:1 MD041/first-line-heading'
+        $message | Should -Match 'docs/y\.md:3:1 MD013/line-length'
     }
 
-    It 'with -PassThru returns the issue and file counts instead of throwing' {
+    It 'with -PassThru returns the issues and file count instead of throwing' -Tag 'ADR-AUTO-TEST#35' {
         $script:markdownlintExit = 1
         $script:markdownlintOut = "a.md:1:1 MD013/line-length Line length`na.md:2:1 MD049/emphasis-style Emphasis`nb.md:2:3 MD040/fenced-code-language Fenced`n"
         $result = Test-Markdownlint -OutputFolder $script:reportBase -PassThru
         $result.IssueCount | Should -Be 3
         $result.FileCount | Should -Be 2
         $result.ExitCode | Should -Be 1
+        (Get-Content (Join-Path $result.ReportPath 'markdownlint.md') -Raw) | Should -Match 'MD040'
     }
 
-    It 'writes the issues into the report file, not a console dump' {
+    It 'never passes a failing run whose output it cannot parse' {
         $script:markdownlintExit = 1
-        $script:markdownlintOut = "docs/x.md:7:1 MD013/line-length Line length [Expected: 140; Actual: 180]`n"
-        $result = Test-Markdownlint -OutputFolder $script:reportBase -PassThru
-        (Get-Content (Join-Path $result.ReportPath 'markdownlint.md') -Raw) | Should -Match 'MD013'
-        # Exactly one colored line (the report path) — issues are not dumped line-by-line to the console.
-        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $ForegroundColor -eq 'Cyan' }
-    }
-
-    It 'prints one console line per file with its issue count (count-descending)' {
-        $script:markdownlintExit = 1
-        $script:markdownlintOut = "a.md:1:1 MD013/line-length L`na.md:2:1 MD049/emphasis-style E`nb.md:2:3 MD040/fenced-code-language F`n"
-        Test-Markdownlint -OutputFolder $script:reportBase -PassThru | Out-Null
-        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -eq 'a.md: 2' }
-        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -eq 'b.md: 1' }
+        $script:markdownlintOut = "Summary: 1 error(s)`n"
+        { Test-Markdownlint -OutputFolder $script:reportBase } | Should -Throw '*markdownlint-cli2 exited 1 with no parsable violation line*'
     }
 
     It 'ignores banner lines that carry no MD rule id' {
@@ -124,7 +119,7 @@ Describe 'Repository markdown integrity' -Tag 'L2', 'integrity', 'source-only' {
             Set-ItResult -Skipped -Because 'protected_globset_unchanged_since_green_run'
             return
         }
-        { Test-Markdownlint -OutputFolder (Join-Path $TestDrive 'reports') } | Should -Not -Throw
+        (Test-Markdownlint -PassThru -OutputFolder (Join-Path $TestDrive 'markdownlint')).IssueCount | Should -Be 0
         Protect-GlobSet -Test 'markdown' -Name 'markdown-scope'
     }
 }

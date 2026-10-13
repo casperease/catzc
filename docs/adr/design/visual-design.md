@@ -31,7 +31,7 @@ that tells release work apart from topic work, so it is never inverted or mixed.
 state, not a separate token. A rejected or ignored commit keeps its place on the line in its terminal colour; the pipeline lanes may
 _project_ or _discard_ a copy, but the commit itself stays in history.
 
-- [Colour is state, history is permanent](#colour-is-state-history-is-permanent)
+- [Colour and history](#colour-and-history)
 
 ### Rule ADR-DSGN-VISUAL:4
 
@@ -92,7 +92,7 @@ commit does not own a fixed colour — it starts brown or grey and is recoloured
 light-blue → light-green → green), or terminates (→ red, or is left as a ghost). Showing the same commit at grey in git, yellow in the BVT
 lane, and red in the discard lane is not a contradiction; it is the commit's history rendered as colour-over-time.
 
-- [Colour is a moment, not a label](#colour-is-a-moment-not-a-label)
+- [Colour as a moment](#colour-as-a-moment)
 
 ### Rule ADR-DSGN-VISUAL:9
 
@@ -126,7 +126,7 @@ small digit (1, 2, 3, …) drawn on it, and every later appearance of that commi
 same digit. The number is the thread that lets a reader follow one commit's colour-over-time across the lanes without guessing which dot is
 which.
 
-- [Numbers thread one commit across lanes](#numbers-thread-one-commit-across-lanes)
+- [Commit numbers](#commit-numbers)
 
 ### Rule ADR-DSGN-VISUAL:11
 
@@ -158,7 +158,7 @@ for whatever state that commit is in right now, not for a fixed property of the 
 mid-verification, a **blue** one just verified). Reading the inner colour tells you the state of what currently lives there; the label tells
 you where.
 
-- [Environment boxes: a neutral container showing its occupant](#environment-boxes-a-neutral-container-showing-its-occupant)
+- [Environment boxes](#environment-boxes)
 
 ### Rule ADR-DSGN-VISUAL:14
 
@@ -170,7 +170,7 @@ an occupant in a clean state; **in-process** — the input colour drawn inside t
 commit inside an environment box. The ② lane is therefore labelled _DISCARDED / Retired_, because retirement is a success that shares the
 lane, not the colour, of discard.
 
-- [Lifecycle endings are not all red](#lifecycle-endings-are-not-all-red)
+- [Lifecycle endings](#lifecycle-endings)
 
 ## One axis, read left to right
 
@@ -185,7 +185,9 @@ promotion-bearing — sit above the spine; topic branches — short-lived develo
 colour channel free for delivery state and means the reader never has to read a label to know which kind of branch a line is. Mixing the
 directions, or drawing a topic branch above the line, destroys that one-glance decode.
 
-## Colour is state, history is permanent
+## Colour and history
+
+`Colour is state, history is permanent`
 
 Git history is append-only, and the diagram mirrors that: a commit is placed once and thereafter only changes colour as its state advances
 or terminates. Redrawing a rejected commit as "gone" would contradict the history it belongs to; instead it stays in place in its terminal
@@ -218,7 +220,9 @@ Every gate exists to reject; a diagram that shows equal populations before and a
 grammar therefore requires the drawn counts to strictly decrease along the promotion order, so the shape of the cloud communicates the
 selectivity of the flow at a glance — a wide brown/grey base narrowing to a few green commits in production.
 
-## Colour is a moment, not a label
+## Colour as a moment
+
+`Colour is a moment, not a label`
 
 A commit's colour answers "what state is this commit in right now", not "what kind of commit is this". Because the flow moves a commit
 through states, the honest way to draw its life is to recolour it at each step and, where a diagram wants to show the motion, to draw the
@@ -243,7 +247,9 @@ Grey and brown can be _run_ through BVT or L3 by hand, but only yellow is what L
 exception the contract names rather than hides. Because each stage emits exactly one promotion colour, the palette is the flow's type
 system: an arrow leaving L3 that is any colour but blue or red is a drawing error.
 
-## Numbers thread one commit across lanes
+## Commit numbers
+
+`Numbers thread one commit across lanes`
 
 Tracing a specific commit is how the diagram teaches the temporal-colour idea concretely, and a bare dot cannot be tracked across three
 lanes of similar dots. A single digit solves it: commit `#1` grey on the mainline and commit `#1` red in the discard lane are visibly the
@@ -266,7 +272,9 @@ be a mistake. The digits 0–9 are how time survives the crossing: a numbered co
 lands in a stage-organised lane, and following a single number across the lanes reconstructs that one commit's journey and shows exactly
 where it was discarded, abandoned, or promoted.
 
-## Environment boxes: a neutral container showing its occupant
+## Environment boxes
+
+`Environment boxes: a neutral container showing its occupant`
 
 An environment is not a commit, so it is drawn as a container — and the container itself is **neutral chrome**: it carries no state colour
 and no per-stage tint, only a label naming which environment it is. What it does carry is its **occupant**: the one commit deployed there
@@ -306,7 +314,9 @@ states, and are not part of this locked commit palette — a production commit i
 the pre-prod / production box tint. **Environment** boxes carry no tint at all — they are neutral containers coloured only by their occupant
 (ADR-DSGN-VISUAL#13).
 
-## Lifecycle endings are not all red
+## Lifecycle endings
+
+`Lifecycle endings are not all red`
 
 The single biggest legibility risk is painting every "not in production" commit red, which would erase the difference between a defect and a
 success. So the endings are drawn apart: red for rejection, green-in-the-retired-lane for a commit that served and was decommissioned, a

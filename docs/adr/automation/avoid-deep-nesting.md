@@ -9,27 +9,27 @@
 One operation per line — a pipeline, a method call, or an indexing operation per assignment. Chaining two is often fine; three or more
 almost always needs splitting.
 
-- [Why splitting makes debugging easier](#why-splitting-makes-debugging-easier)
-- [Why splitting has zero performance cost](#why-splitting-has-zero-performance-cost)
+- [Easier debugging](#easier-debugging)
+- [No performance cost](#no-performance-cost)
 
 ### Rule ADR-AUTO-NONEST:2
 
 Name the intermediate result — the variable name documents what the value represents (`$active` over a buried `.Where(...)`).
 
-- [Why splitting makes debugging easier](#why-splitting-makes-debugging-easier)
+- [Easier debugging](#easier-debugging)
 
 ### Rule ADR-AUTO-NONEST:3
 
 Assert between steps: once intermediate values have names, inject `Assert-*` calls to verify assumptions before the next step uses the
 value.
 
-- [Why splitting enables assertions](#why-splitting-enables-assertions)
+- [Room for assertions](#room-for-assertions)
 
 ### Rule ADR-AUTO-NONEST:4
 
 Give conditionals the same treatment — do not bury logic inside `if (...)`. Compute the value, optionally assert it, then test it.
 
-- [Why splitting enables assertions](#why-splitting-enables-assertions)
+- [Room for assertions](#room-for-assertions)
 
 ### Rule ADR-AUTO-NONEST:5
 
@@ -69,7 +69,9 @@ if ($scripts.Count -gt 5) {
 
 This is not about line length or aesthetics. Deep nesting has concrete costs for debugging, assertability, and code review.
 
-### Why splitting has zero performance cost
+### No performance cost
+
+`Why splitting has zero performance cost`
 
 PowerShell variables are references to .NET objects on the heap, not copies. When you write
 `$config = Get-Content $path | ConvertFrom-Json`, the variable `$config` holds a pointer to the object that already exists in memory. No
@@ -80,7 +82,9 @@ This is true for strings, arrays, hashtables, and custom objects alike. Splittin
 variables does not allocate three times the memory or run three times slower. It runs the same operations in the same order and produces the
 same objects — the variables are just names for things that already exist.
 
-### Why splitting makes debugging easier
+### Easier debugging
+
+`Why splitting makes debugging easier`
 
 When a deeply nested expression throws, the error points at the entire line:
 
@@ -101,7 +105,9 @@ At C:\projects\catzc\automation\Catzc.Tooling.Toolchain\Install-Dotnet.ps1:44
 
 Line 44 is `$name = $active[0].Name.ToLower()` — so `$active` is null or empty. The previous line produced it. The diagnosis is immediate.
 
-### Why splitting enables assertions
+### Room for assertions
+
+`Why splitting enables assertions`
 
 The [fail-fast-with-asserts](fail-fast-with-asserts.md) ADR establishes that roughly every fifth line should be an assertion. You cannot
 assert intermediate values that do not exist as variables:

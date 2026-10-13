@@ -9,7 +9,7 @@
 Log the full, resolved command string (all variables expanded, all arguments in place) via `Write-Message` as the last step before
 invocation. The log entry must be copy-pasteable.
 
-- [Why this must be automatic, not opt-in](#why-this-must-be-automatic-not-opt-in)
+- [Automatic, not opt-in](#automatic-not-opt-in)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-AUTO-PRELOG:2
@@ -24,13 +24,13 @@ must add their own logging.
 Do not paraphrase: log the actual command (e.g. `uv python install 3.13 --default`), not a description like "Installing Python...". A
 readable description may be added but never substituted.
 
-- [Why this must be automatic, not opt-in](#why-this-must-be-automatic-not-opt-in)
+- [Automatic, not opt-in](#automatic-not-opt-in)
 
 ### Rule ADR-AUTO-PRELOG:4
 
 Do not conditionally log: the command is logged on every run, not behind `-Verbose` or `-Debug`.
 
-- [Why this must be automatic, not opt-in](#why-this-must-be-automatic-not-opt-in)
+- [Automatic, not opt-in](#automatic-not-opt-in)
 
 ### Rule ADR-AUTO-PRELOG:5
 
@@ -49,7 +49,9 @@ PowerShell automation is fundamentally about orchestrating external tools — `a
 dozens of flags, and the difference between success and failure is often a single argument or a missing quote. If the exact invocation is
 not in the log, you are guessing.
 
-### Why this must be automatic, not opt-in
+### Automatic, not opt-in
+
+`Why this must be automatic, not opt-in`
 
 **Developers will not add logging.** If logging is a conscious choice per call site, it will be missing from exactly the call that fails.
 The function that "obviously works" and does not need logging is the one that breaks at 3 AM in production.

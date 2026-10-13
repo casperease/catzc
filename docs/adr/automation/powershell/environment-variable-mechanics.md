@@ -23,14 +23,14 @@ state — never `$env:`. Each is destroyed or scoped automatically; `$env:` pers
 Runspaces share one process environment block. Never read or write `$env:` inside `ForEach-Object -Parallel` or a runspace worker to
 coordinate work — concurrent access races. Pass values in with `$using:` and aggregate through pipeline output or a thread-safe collection.
 
-- [Runspaces share one environment block](#runspaces-share-one-environment-block)
+- [One environment block](#one-environment-block)
 
 ### Rule ADR-AUTO-PSENV:4
 
 Pester provides no `$env:` isolation. A test that must set an environment variable snapshots and restores it (`try`/`finally`, or
 `BeforeAll`/`AfterAll`), and never leaves a value behind for the next test — leaked `$env:` state creates order-dependent failures.
 
-- [Tests get no environment isolation](#tests-get-no-environment-isolation)
+- [No test isolation](#no-test-isolation)
 
 ## Context
 
@@ -58,7 +58,9 @@ module-scoped variable (see [caching](../caching.md)). None of these leak to chi
 lifetime — and unlike `$env:` (always strings), each carries the type system: `[int]`, `[switch]`, `[ValidateRange()]` catch errors at the
 call site.
 
-### Runspaces share one environment block
+### One environment block
+
+`Runspaces share one environment block`
 
 All runspaces in a `ForEach-Object -Parallel` block share the same process environment block. Environment variables are not isolated per
 runspace — they are process-wide. Concurrent reads and writes to the same `$env:` variable from different runspaces produce race conditions.
@@ -66,7 +68,9 @@ Unlike `$using:` variables (which are copied per-runspace), `$env:` is a single 
 value takes it through `$using:`, and one that produces results emits them through the pipeline or a thread-safe collection (see
 [prefer-foreach-over-foreach-object](prefer-foreach-over-foreach-object.md) for the wider `-Parallel` rules).
 
-### Tests get no environment isolation
+### No test isolation
+
+`Tests get no environment isolation`
 
 Environment variables set in one test leak into subsequent tests. If Test A sets `$env:MODE = 'test'` and forgets to clean up, Test B runs
 with an unexpected `$env:MODE` — an order-dependent failure that is extremely difficult to diagnose. Pester provides `TestDrive:` for file

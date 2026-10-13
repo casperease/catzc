@@ -21,8 +21,8 @@ function Import-PSReadLineKeyHandlerSet {
         [switch] $DryRun
     )
 
-    $bindings = Get-Config -Config key-handler-bindings
-    $supported = @((Get-Config -Config key-handler-supported)['functions'])
+    $bindings = (Get-Config -Config key-handler-bindings).bindings
+    $supported = @((Get-Config -Config key-handler-supported).functions)
     $plan = @(Select-SupportedKeyHandler -Binding $bindings -SupportedFunction $supported)
 
     if ($DryRun) {

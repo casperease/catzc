@@ -9,7 +9,7 @@
 A session cache lives in module `$script:` state, which the [caching](../caching.md) (`ADR-AUTO-CACHE`) boundary maps onto exactly:
 `$script:` state is established at import and destroyed on re-import, so "re-run the importer" is the literal and only invalidation.
 
-- [Why `$script:` is the cache scope](#why-script-is-the-cache-scope)
+- [The `$script:` scope](#the-script-scope)
 
 ### Rule ADR-AUTO-PSCACHE:2
 
@@ -17,7 +17,7 @@ Use module-scoped `$script:` variables for the cache — never `$env:` or `$glob
 ([environment-variable-mechanics](environment-variable-mechanics.md)); `$global:` survives re-import and couples modules through shared
 session state.
 
-- [Why `$script:` is the cache scope](#why-script-is-the-cache-scope)
+- [The `$script:` scope](#the-script-scope)
 
 ### Rule ADR-AUTO-PSCACHE:3
 
@@ -41,7 +41,11 @@ falls through to `$global:` when the module's slot is unset.
 input, lazily, with the importer as the one invalidation knob. This ADR is the PowerShell layer under it — the `$script:` idioms a cached
 function is written with.
 
-### Why `$script:` is the cache scope
+### The `$script:` scope
+
+```text
+Why `$script:` is the cache scope
+```
 
 `$script:` state belongs to the module that declares it: it is created when the module imports, invisible to other modules, and discarded
 when the importer re-imports — which is precisely the session-cache lifetime `ADR-AUTO-CACHE` requires, with no extra machinery. The

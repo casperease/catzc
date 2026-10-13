@@ -19,7 +19,7 @@ beside them.
 uv / script) and nothing else. It cannot evict a foreign install — winget does not know an apt package, a uv venv does not know a `pip`
 leftover — and it does not try; that is `Remove-<Tool>`'s job.
 
-- [Uninstall is managed, Remove is source-agnostic](#uninstall-is-managed-remove-is-source-agnostic)
+- [Uninstall vs Remove](#uninstall-vs-remove)
 
 ### Rule ADR-AUTO-REMOVE:3
 
@@ -27,7 +27,7 @@ leftover — and it does not try; that is `Remove-<Tool>`'s job.
 oracle `Test-ExpectedPackageManager`, which both verbs consult — so Remove- only ever acts on an install the configured manager does not
 own, and the destructive verb never fires on a cleanly-managed one.
 
-- [Uninstall is managed, Remove is source-agnostic](#uninstall-is-managed-remove-is-source-agnostic)
+- [Uninstall vs Remove](#uninstall-vs-remove)
 
 ### Rule ADR-AUTO-REMOVE:4
 
@@ -52,7 +52,7 @@ machine `PATH`, an `apt-get remove` — while user-space evictions (`uv pip unin
 assert nothing. A non-elevated run performs every user-space removal and asks for elevation only when a system step is unavoidable, matching
 the all-user-space goal (`ADR-AUTO-UVPY`).
 
-- [Elevation follows the mechanism](#elevation-follows-the-mechanism)
+- [Elevation](#elevation)
 
 ### Rule ADR-AUTO-REMOVE:7
 
@@ -71,7 +71,7 @@ hand-built binary — that would shadow the managed build. It is not minted for 
 an eviction hole exists. `Get-ToolsStatus` names the correct verb per state: `Uninstall-` for a managed wrong version, `Remove- -Force` for
 an off-config shadow.
 
-- [Not every tool needs a destructive Remove](#not-every-tool-needs-a-destructive-remove)
+- [When Remove is needed](#when-remove-is-needed)
 
 ## Context
 
@@ -108,7 +108,9 @@ The verbs keep their PowerShell contracts ([respect-pwsh-verb-rules](powershell/
 resource from a location the manager owns; `Remove-` deletes a resource from a container — the blunter delete, which is why the destructive
 operation carries that verb rather than overloading `Uninstall-`.
 
-### Uninstall is managed, Remove is source-agnostic
+### Uninstall vs Remove
+
+`Uninstall is managed, Remove is source-agnostic`
 
 `Uninstall-<Tool>` knows exactly one mechanism: the configured manager's own uninstall. Handed an install that manager did not place, it has
 nothing to do, and it does not guess. `Remove-<Tool>` is the opposite — it inspects how the install actually reached the machine and removes
@@ -142,7 +144,9 @@ manager did not own, evict that too."
 `-Remove` reads as intent ("escalate to destructive eviction if the managed uninstall leaves something"); `-Force` confirms the destructive
 step. A plain `Uninstall-<Tool>` stays managed-only and safe.
 
-### Elevation follows the mechanism
+### Elevation
+
+`Elevation follows the mechanism`
 
 A removal asserts elevation only for the step that genuinely needs it, never as a blanket precondition of the verb. Deleting a directory and
 editing the machine `PATH` on Windows needs Administrator; an `apt-get remove` needs root. But a `uv pip uninstall --system`, or deleting a
@@ -166,7 +170,9 @@ The two Unix cores share their tail (`Remove-UvPipOrStrayInstall`): `uv pip unin
 elevation is confined to the Linux apt step. A `Remove-<Tool>` selects the core for the running OS, exactly as `Install-<Tool>` selects the
 installer.
 
-### Not every tool needs a destructive Remove
+### When Remove is needed
+
+`Not every tool needs a destructive Remove`
 
 The `Install-` / `Uninstall-` pair is universal (the `ADR-AUTO-DEPS:2` triad); `Remove-<Tool>` is not. It is added only where a tool has
 **historically been installed off-config** and so has a real eviction hole — the tools a machine tends to already carry a foreign copy of: a

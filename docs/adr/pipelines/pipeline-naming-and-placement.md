@@ -9,41 +9,41 @@
 A pipeline's filename starts with its type — the first hyphen-delimited token is `cron`, `ci`, `cd`, `cde`, `deploy`, or `input`. No other
 prefixes.
 
-- [Pipelines live flat in `pipelines/`, named `<type>-<name>.yaml`](#1-pipelines-live-flat-in-pipelines-named-type-nameyaml)
+- [Pipelines live flat in `pipelines/`, named `<type>-<name>.yaml`](#1-flat-pipelines)
 
 ### Rule ADR-PIPE-NAME:2
 
 Pipelines live flat in `pipelines/` — never nested into subfolders; the type prefix is the grouping. The per-kind folders hold templates
 only, never registrable pipelines.
 
-- [Pipelines live flat in `pipelines/`, named `<type>-<name>.yaml`](#1-pipelines-live-flat-in-pipelines-named-type-nameyaml)
+- [Pipelines live flat in `pipelines/`, named `<type>-<name>.yaml`](#1-flat-pipelines)
 
 ### Rule ADR-PIPE-NAME:3
 
 A template lives in the folder for its kind (`steps/`, `jobs/`, `stages/`, `variables/`, `extends/`); the folder name is the contract — do
 not invent other template folders.
 
-- [Template fragments live in per-kind folders](#2-template-fragments-live-in-per-kind-folders)
+- [Template fragments live in per-kind folders](#2-per-kind-template-folders)
 
 ### Rule ADR-PIPE-NAME:4
 
 Templates are referenced by absolute path (`/pipelines/<kind>/<name>.yaml`) — fragments via `template:`, whole-pipeline templates via
 `extends:`.
 
-- [Template fragments live in per-kind folders](#2-template-fragments-live-in-per-kind-folders)
+- [Template fragments live in per-kind folders](#2-per-kind-template-folders)
 
 ### Rule ADR-PIPE-NAME:5
 
 An `extends` template is not a pipeline — it defines structure, not an entry point. What gets registered is the thin root
 `<type>-<name>.yaml` pipeline that extends it.
 
-- [Template fragments live in per-kind folders](#2-template-fragments-live-in-per-kind-folders)
+- [Template fragments live in per-kind folders](#2-per-kind-template-folders)
 
 ### Rule ADR-PIPE-NAME:6
 
 Executable YAML is `.yaml`; config/data our code parses is `.yml`. Never mix the two.
 
-- [`.yaml` = executable artifact, `.yml` = config data](#3-yaml--executable-artifact-yml--config-data)
+- [`.yaml` = executable artifact, `.yml` = config data](#3-yaml-vs-yml)
 
 ### Rule ADR-PIPE-NAME:7
 
@@ -71,7 +71,11 @@ an executable ADO artifact or data our code reads.
 
 ## Decision
 
-### 1. Pipelines live flat in `pipelines/`, named `<type>-<name>.yaml`
+### 1. Flat pipelines
+
+```text
+1. Pipelines live flat in `pipelines/`, named `<type>-<name>.yaml`
+```
 
 A pipeline (the file ADO registers and runs) sits directly in `pipelines/`, not in a subfolder. Its name **starts with its type** — one of
 `cron`, `ci`, `cd`, `cde`, `deploy`, `input` — followed by a descriptive name:
@@ -94,7 +98,9 @@ what a file is. `Get-AdoYamlFiles` / `Get-AdoYamlInventory` classify each YAML f
 Unknown and to attach the registered pipeline name/id. The filename prefix carries the _intended_ type for readers; the tooling reads
 structure and ADO, not the prefix.
 
-### 2. Template fragments live in per-kind folders
+### 2. Per-kind template folders
+
+`2. Template fragments live in per-kind folders`
 
 ADO templates come in five kinds, each consumed at a distinct site. Four are _fragments_ included into a pipeline (`steps:`, `jobs:`,
 `stages:`, `variables:`); the fifth is a _whole-pipeline_ template a thin pipeline **extends**. Each kind gets its own folder, named for its
@@ -122,7 +128,11 @@ mechanism when many pipelines must share one governed structure — e.g. **custo
 [custom-template-discipline](custom-template-discipline.md): it earns its existence through genuine, proven many-pipeline reuse, and its
 parameters are meta keys only — never config the automation layer can derive.
 
-### 3. `.yaml` = executable artifact, `.yml` = config data
+### 3. `.yaml` vs `.yml`
+
+```text
+3. `.yaml` = executable artifact, `.yml` = config data
+```
 
 - **`.yaml`** — pipelines and template fragments. Anything ADO executes.
 - **`.yml`** — configuration/data files our own code reads (`azure.yml`, `options.yml`, `tools.yml`, `ado.yml`, a template's

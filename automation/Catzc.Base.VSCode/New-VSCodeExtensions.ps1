@@ -4,7 +4,7 @@
     list the editor offers on workspace open.
 .DESCRIPTION
     Reads the authored recommendation registry (configs/vscode-extensions.yml, via Get-Config -Config
-    vscode-extensions, which validates it as binding shape) and renders it to the extensions.json content: a
+    vscode-extensions, which maps and validates it as a VscodeExtensionsConfig) and renders it to the extensions.json content: a
     generated-file header (JSONC — VS Code reads comments in extensions.json) followed by the recommendations
     as JSON, in registry order. The per-extension explanations live as comments in the yml — the authored,
     searched artifact — not in the rendering.
@@ -25,7 +25,7 @@ function New-VSCodeExtensions {
     $config = Get-Config -Config vscode-extensions
 
     $rendered = [ordered]@{
-        recommendations = @($config['recommendations'])
+        recommendations = @($config.recommendations)
     }
 
     $header = @(

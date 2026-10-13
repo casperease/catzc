@@ -93,9 +93,8 @@ Describe 'New-Importer — importer.ps1 drift guard' -Tag 'L2', 'integrity', 'so
         $shim | Should -BeExactly $overlay
     }
 
-    It 'committed importer.ps1 equals New-Importer output (regenerate with New-Importer -Force)' {
-        $generated = (New-Importer -RepositoryRoot $script:repoRoot -DryRun) -replace "`r", ''
-        $committed = (Get-Content -Raw $script:importer) -replace "`r", ''
-        $generated | Should -BeExactly $committed
+    It 'committed importer.ps1 equals New-Importer output (Test-GeneratedFiles)' {
+        $result = Test-GeneratedFiles -Generator New-Importer -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

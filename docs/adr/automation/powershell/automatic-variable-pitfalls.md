@@ -9,39 +9,39 @@
 Never use `$?` for control flow — every statement (including the read itself) overwrites it; rely on `-ErrorAction Stop` plus `try`/`catch`
 instead.
 
-- [`$?` — never use](#--never-use)
+- [The `$?` flag](#the--flag)
 
 ### Rule ADR-AUTO-AUTOVAR:2
 
 With `$LASTEXITCODE`: reset → invoke → assert → reset. Prefer `Invoke-Executable` (or its `-PassThru` result's `ExitCode`) so you never read
 the variable directly.
 
-- [`$LASTEXITCODE` — use immediately, then reset](#lastexitcode--use-immediately-then-reset)
+- [`$LASTEXITCODE`](#lastexitcode)
 
 ### Rule ADR-AUTO-AUTOVAR:3
 
 Capture `$Matches` into a named local on the very next line after a `-match` — the next match silently clobbers it.
 
-- [`$Matches` — capture immediately](#matches--capture-immediately)
+- [`$Matches`](#matches)
 
 ### Rule ADR-AUTO-AUTOVAR:4
 
 Capture `$_`/`$PSItem` into a named local before nesting pipelines or mixing pipeline with `catch`/`switch` — inner scopes shadow it.
 
-- [`$_` / `$PSItem` — scoped to the current pipeline or catch block](#_--psitem--scoped-to-the-current-pipeline-or-catch-block)
+- [`$_` / `$PSItem`](#_--psitem)
 
 ### Rule ADR-AUTO-AUTOVAR:5
 
 Never use `$Error` for control flow — it is a global session-wide list; handle errors with `try`/`catch`.
 
-- [`$Error` — never use for control flow](#error--never-use-for-control-flow)
+- [`$Error`](#error)
 
 ### Rule ADR-AUTO-AUTOVAR:6
 
 Never use `??` to default a `[string]` parameter or variable — `[string]` coerces `$null` to `''`, so the default never fires; guard with
 `if`/`IsNullOrEmpty` and reserve `??` for genuinely nullable operands.
 
-- [`??` on a `[string]` value — the default never applies](#-on-a-string-value--the-default-never-applies)
+- [`??` on a `[string]`](#-on-a-string)
 
 ### Rule ADR-AUTO-AUTOVAR:7
 
@@ -49,7 +49,7 @@ Never reassign a parameter variable that carries a `Validate*` attribute (`[Vali
 validator re-fires on every assignment, not just at binding, so assigning a different-shaped value into that name throws
 `ValidationMetadataException`. Give the derived value a fresh local name.
 
-- [`Validate*` parameters — never reassign](#validate-parameters--never-reassign)
+- [`Validate*` parameters](#validate-parameters)
 
 ## Context
 
@@ -75,7 +75,11 @@ Automatic variables that carry implicit state must be handled according to the r
 
 ---
 
-### `$?` — never use
+### The `$?` flag
+
+```text
+`$?` — never use
+```
 
 `$?` contains the success/failure status of the **last statement**. Every statement overwrites it — including the statement that tries to
 read it.
@@ -105,7 +109,11 @@ There is no reliable way to use `$?` in general-purpose code.
 
 ---
 
-### `$LASTEXITCODE` — use immediately, then reset
+### `$LASTEXITCODE`
+
+```text
+`$LASTEXITCODE` — use immediately, then reset
+```
 
 `$LASTEXITCODE` holds the exit code of the last native executable. Unlike `$?`, it **persists** until the next native executable runs. This
 means a stale `$LASTEXITCODE` from a previous call can leak across function boundaries and appear to belong to a later operation.
@@ -176,7 +184,11 @@ $myvar = $result.Output | ConvertFrom-Json
 
 ---
 
-### `$Matches` — capture immediately
+### `$Matches`
+
+```text
+`$Matches` — capture immediately
+```
 
 `$Matches` is overwritten by every `-match` or `-replace` operation. Sequential matches silently clobber previous results.
 
@@ -200,7 +212,11 @@ $version = $Matches[1]
 
 ---
 
-### `$_` / `$PSItem` — scoped to the current pipeline or catch block
+### `$_` / `$PSItem`
+
+```text
+`$_` / `$PSItem` — scoped to the current pipeline or catch block
+```
 
 `$_` is set by the pipeline, `ForEach-Object`, `Where-Object`, `catch`, `trap`, and `switch`. Each of these scopes overwrites `$_` — inner
 pipelines shadow the outer `$_` silently.
@@ -230,7 +246,11 @@ block.
 
 ---
 
-### `$Error` — never use for control flow
+### `$Error`
+
+```text
+`$Error` — never use for control flow
+```
 
 `$Error` is a global list that **accumulates every error** across the entire session. It is not scoped to your function or script.
 
@@ -249,7 +269,11 @@ code with a legitimate need to read the global error list; it is not control flo
 
 ---
 
-### `??` on a `[string]` value — the default never applies
+### `??` on a `[string]`
+
+```text
+`??` on a `[string]` value — the default never applies
+```
 
 Not an automatic variable, but the same class of surprise: an implicit coercion that makes a read return something other than what the
 author expects, so it belongs with the others here.
@@ -285,7 +309,11 @@ nullable operands (untyped variables, object/hashtable properties).
 
 ---
 
-### `Validate*` parameters — never reassign
+### `Validate*` parameters
+
+```text
+`Validate*` parameters — never reassign
+```
 
 A validation attribute (`[ValidateScript]`, `[ValidateSet]`, `[ValidateRange]`, …) does not only run when the parameter is bound — it
 re-runs on **every assignment to that variable**. Variable names are case-insensitive, so reassigning a value into a name that matches the

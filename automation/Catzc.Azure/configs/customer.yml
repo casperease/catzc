@@ -1,6 +1,6 @@
 # Customer catalogue — the customers this repo can deploy for. Split out of azure.yml (see
 # [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)). Loaded by Get-Config -Config customer; validated by
-# private/Assert-CustomerConfig.
+# the CustomerConfig type.
 #
 # A subscription in azure.yml binds to a customer by naming it in its `customer` field — by EITHER the
 # readable key (apex) OR the 2-char shortcode (ap); both resolve to the same customer. The key is the

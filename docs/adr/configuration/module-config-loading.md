@@ -17,7 +17,7 @@ Existence is discovered, not declared — a private seam (`Resolve-ConfigEntry`)
 it to its owning module. A name is global; `-Module` is only for disambiguating the same name in several modules, and
 `Get-Config -Config <name> -ListOwners` lists those modules — for a config that modules opt into by shipping it.
 
-- [Discovery, not per-module wrappers](#discovery-not-per-module-wrappers)
+- [Discovery](#discovery)
 
 ### Rule ADR-CONF-LOADING:3
 
@@ -31,7 +31,7 @@ the real path never collide.
 Validation is resolved **in the owning module's scope** (`& (Get-Module $owner) { … }`), caller-independent. The default is convention: a
 private `Assert-<TitleCase(name)>Config` in the owner module (e.g. `Assert-AdoConfig`), run once on the cache miss.
 
-- [Validation runs in the owner's scope, by convention](#validation-runs-in-the-owners-scope-by-convention)
+- [Owner-scoped validation](#owner-scoped-validation)
 
 ### Rule ADR-CONF-LOADING:5
 
@@ -74,7 +74,9 @@ Reading a config is **global access** — any function in any module calls `Get-
 are no per-module reader wrappers and no dependency gating. The validators stay **private** to the module that owns the config; only
 `Get-Config` is public.
 
-### Discovery, not per-module wrappers
+### Discovery
+
+`Discovery, not per-module wrappers`
 
 A config name is **global**. `Resolve-ConfigEntry` builds a one-time `name → entries` index by scanning every
 `automation/<module>/configs/*.yml`, then resolves the requested name to a single `@{ Name; Module; Path }`. The owning module is
@@ -90,7 +92,9 @@ without loading anything; the reader then loads each with `-Module`, so every fi
 `Resolve-ConfigEntry` is also the test seam: mock `Resolve-ConfigEntry` to return a fixture entry and the read redirects to a fixture file
 (see [test-automation](../automation/test-automation.md)).
 
-### Validation runs in the owner's scope, by convention
+### Owner-scoped validation
+
+`Validation runs in the owner's scope, by convention`
 
 A config's validator is a **private** function of its owning module, and a function in `Catzc.Base.Config` cannot see another module's
 private functions from its own scope. The caller is not in the loop: `Get-Config` resolves validation against the owner it discovered, by

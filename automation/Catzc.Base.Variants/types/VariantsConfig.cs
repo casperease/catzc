@@ -1,0 +1,204 @@
+// The repo-wide variants (configs/variants.yml, [ADR-REPO-VARIANT](/docs/adr/repository/repo-variants.md)) —
+// settings fixed for the importer session. Registered in Catzc.Base.Config/configs/configs.yml
+// (type: Catzc.Base.Variants.VariantsConfig), so Get-Config -Config variants returns this typed record; the
+// private Get-Variant reads one key off it and the named primitives (Get-AdoNaming, Get-EnabledCustomers,
+// Get-Aspect, …) default an absent key. Mirrors the YAML mapping (snake_case keys,
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)); an absent key is null,
+// so the record's Contains(key) answers "is it set".
+//
+// Constructing an instance validates the file, collecting every violation into one ArgumentException. Every key is
+// optional, and an unknown key throws (a typo fails fast at load):
+//   ado_naming      'standard' | 'classic' (the keys of Get-AzureNameOrderSet, mirrored as literals because this
+//                   Base type must not depend up into the Azure/Templates layer)
+//   git_workspace   'main-direct' | 'main-via-pr'
+//   have_customers  a boolean (false = none, true = all), the literal 'all', or a list of unique customer-name
+//                   tokens (^[a-z][a-z0-9]+$; empty = none). Not cross-checked against customer.yml (one layer up,
+//                   in Catzc.Azure) — an Azure-layer integrity test confirms every listed name is a customer.
+//   aspects         a non-empty map of track -> ordered list of single-key {name: [patterns]} entries
+//                   ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)): kebab-case unique names, non-empty
+//                   patterns, the LAST entry the bare '**' catch-all remainder and no earlier entry using it. The
+//                   catch-all's liveness is the container's call, and glob syntax is the Globs aspect engine's
+//                   check — structural checks only.
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
+namespace Catzc.Base.Variants;
+
+public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
+{
+    private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "aspects" };
+    private static readonly Regex CustomerName = new Regex("^[a-z][a-z0-9]+$");
+    private static readonly Regex AspectName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
+
+    // Azure resource-name component order: 'standard' or 'classic'. Null when unset.
+    public string ado_naming { get; }
+
+    // How changes reach main: 'main-direct' or 'main-via-pr'. Null when unset.
+    public string git_workspace { get; }
+
+    // The enabled-customer set as written: a bool, the string 'all', or a string[] of customer names. Null when
+    // unset. Get-EnabledCustomers is its single interpreter.
+    public object have_customers { get; }
+
+    // Per-track ordered aspect classifications. Null when unset.
+    public IReadOnlyDictionary<string, IReadOnlyList<VariantAspect>> aspects { get; }
+
+    public VariantsConfig(IDictionary d)
+    {
+        List<string> errors = new List<string>();
+        if (d != null)
+        {
+            foreach (object k in d.Keys)
+            {
+                string key = k == null ? null : k.ToString();
+                if (Array.IndexOf(AllowedKeys, key) < 0)
+                {
+                    errors.Add(string.Format("unknown key '{0}' (allowed: {1})", key, string.Join(", ", AllowedKeys)));
+                }
+            }
+        }
+
+        if (Has(d, "ado_naming"))
+        {
+            string value = Text(d["ado_naming"]);
+            if (value == "standard" || value == "classic") { ado_naming = value; }
+            else { errors.Add(string.Format("invalid ado_naming '{0}' (valid: standard, classic)", value)); }
+        }
+
+        if (Has(d, "git_workspace"))
+        {
+            string value = Text(d["git_workspace"]);
+            if (value == "main-direct" || value == "main-via-pr") { git_workspace = value; }
+            else { errors.Add(string.Format("invalid git_workspace '{0}' (valid: main-direct, main-via-pr)", value)); }
+        }
+
+        if (Has(d, "have_customers")) { have_customers = ReadCustomers(d["have_customers"], errors); }
+
+        if (Has(d, "aspects")) { aspects = ReadAspects(d["aspects"], errors); }
+
+        if (errors.Count > 0)
+        {
+            throw new ArgumentException("variants configuration validation failed:\n" + string.Join("\n", errors));
+        }
+    }
+
+    private static bool Has(IDictionary d, string key) => d != null && d.Contains(key);
+
+    private static string Text(object value) => value == null ? "" : value.ToString();
+
+    // A YAML value as a list: a sequence is itself, null is empty, and a scalar or mapping is a one-item list.
+    private static List<object> Items(object value)
+    {
+        List<object> items = new List<object>();
+        if (value == null) { return items; }
+        IList list = value as IList;
+        if (list == null) { items.Add(value); return items; }
+        foreach (object item in list) { items.Add(item); }
+        return items;
+    }
+
+    private static object ReadCustomers(object value, List<string> errors)
+    {
+        if (value is bool) { return value; }
+        string text = value as string;
+        if (text != null)
+        {
+            if (text == "all") { return text; }
+            errors.Add(string.Format("invalid have_customers '{0}' (a string must be 'all'; use a list for specific customers)", text));
+            return null;
+        }
+        IEnumerable seq = value as IEnumerable;
+        if (seq == null || value is IDictionary)
+        {
+            errors.Add(string.Format("invalid have_customers '{0}' (must be false, 'all', or a list of customer names)", Text(value)));
+            return null;
+        }
+        List<string> names = new List<string>();
+        foreach (object item in seq)
+        {
+            string name = Text(item);
+            if (!CustomerName.IsMatch(name))
+            {
+                errors.Add(string.Format("invalid have_customers customer name '{0}' (must be 2+ lowercase alphanumeric chars, leading letter)", name));
+            }
+            else if (names.Contains(name))
+            {
+                errors.Add(string.Format("duplicate have_customers customer name '{0}'", name));
+            }
+            else { names.Add(name); }
+        }
+        return names.ToArray();
+    }
+
+    private static IReadOnlyDictionary<string, IReadOnlyList<VariantAspect>> ReadAspects(object value, List<string> errors)
+    {
+        IDictionary tracks = value as IDictionary;
+        if (tracks == null)
+        {
+            errors.Add("invalid aspects (must be a map of track -> ordered [ {name: [patterns]}, … ])");
+            return null;
+        }
+        if (tracks.Count == 0)
+        {
+            errors.Add("aspects must define at least one track convention");
+            return null;
+        }
+
+        Dictionary<string, IReadOnlyList<VariantAspect>> result = new Dictionary<string, IReadOnlyList<VariantAspect>>(StringComparer.Ordinal);
+        foreach (object trackKey in tracks.Keys)
+        {
+            string track = Text(trackKey);
+            List<object> items = Items(tracks[trackKey]);
+            if (items.Count == 0)
+            {
+                errors.Add(string.Format("aspects['{0}'] must list at least one aspect (the last is the '**' catch-all)", track));
+                continue;
+            }
+
+            List<VariantAspect> aspects = new List<VariantAspect>();
+            HashSet<string> seen = new HashSet<string>(StringComparer.Ordinal);
+            for (int i = 0; i < items.Count; i++)
+            {
+                IDictionary item = items[i] as IDictionary;
+                if (item == null || item.Count != 1)
+                {
+                    errors.Add(string.Format("aspects['{0}'][{1}] must be a single-key mapping {{name: [patterns]}}", track, i));
+                    continue;
+                }
+                object nameKey = null;
+                foreach (object k in item.Keys) { nameKey = k; }
+                string name = Text(nameKey);
+                if (!AspectName.IsMatch(name))
+                {
+                    errors.Add(string.Format("aspects['{0}']: invalid aspect name '{1}' (kebab-case)", track, name));
+                }
+                else if (!seen.Add(name))
+                {
+                    errors.Add(string.Format("aspects['{0}']: duplicate aspect '{1}'", track, name));
+                }
+
+                List<string> patterns = new List<string>();
+                foreach (object p in Items(item[nameKey])) { patterns.Add(Text(p)); }
+                if (patterns.Count == 0 || patterns.Exists(string.IsNullOrWhiteSpace))
+                {
+                    errors.Add(string.Format("aspects['{0}'].{1} needs at least one non-empty pattern", track, name));
+                }
+                bool isLast = i == items.Count - 1;
+                if (isLast && (patterns.Count != 1 || patterns[0] != "**"))
+                {
+                    errors.Add(string.Format("aspects['{0}']: the last aspect ('{1}') must be the '**' catch-all remainder", track, name));
+                }
+                else if (!isLast && patterns.Contains("**"))
+                {
+                    errors.Add(string.Format("aspects['{0}'].{1} uses the bare '**' catch-all but is not last — only the final aspect is the remainder", track, name));
+                }
+                aspects.Add(new VariantAspect(name, patterns.ToArray()));
+            }
+            result[track] = aspects;
+        }
+        return result;
+    }
+}

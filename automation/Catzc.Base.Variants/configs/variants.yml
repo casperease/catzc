@@ -1,7 +1,7 @@
 # Repo-wide variants — settings fixed for the importer session (see [ADR-REPO-VARIANT](/docs/adr/repository/repo-variants.md)).
 # A growing dictionary of repo-wide switches: edit a value and re-run the importer to apply it. Read only
 # through the module's Test-/Assert-/Get- primitives; loaded by Get-Config -Config variants and validated
-# by private/Assert-VariantsConfig.
+# by the VariantsConfig type.
 
 # Azure resource-name component order — the segment order every generated resource name uses.
 # standard | classic (the keys of Get-AzureNameOrderSet). See [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md).

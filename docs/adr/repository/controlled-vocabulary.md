@@ -17,7 +17,7 @@ A **glossary source** is a module's `configs/glossary.yml`; it registers that mo
 checked against a term until a source declares it. A source's `options:` are parameters with sensible defaults — which gates its terms take
 part in, where and on which text surfaces its avoided phrasings are scanned — and a source overrides only what differs.
 
-- [Opt-in sources with sensible defaults](#opt-in-sources-with-sensible-defaults)
+- [Opt-in sources](#opt-in-sources)
 
 ### Rule ADR-REPO-VOCAB:3
 
@@ -32,14 +32,14 @@ vocabulary (DORA) enters only through its in-repository reference and the ADR th
 Similar terms are contrasted. A concept that names a similar term explains, in one sentence, how it differs; the contrast is reciprocal, so
 both terms carry an explanation of the difference.
 
-- [Contrasts make neighbouring terms distinct](#contrasts-make-neighbouring-terms-distinct)
+- [Contrasts](#contrasts)
 
 ### Rule ADR-REPO-VOCAB:5
 
 An avoided phrasing is named together with its replacement. Within a source's scope, prose that uses an avoided phrasing is a defect; a
 _mention_ — the phrase inside backticks or quotes — is exempt, so the vocabulary can talk about itself.
 
-- [Avoided phrasings name their replacement](#avoided-phrasings-name-their-replacement)
+- [Avoided phrasings](#avoided-phrasings)
 
 ### Rule ADR-REPO-VOCAB:6
 
@@ -75,7 +75,9 @@ does not restate the definition; it points at the one rule that holds it (`defin
 messages. Anchoring every term on one rule makes the definition findable and makes a second definition detectable — two rules that both bold
 the same term as its definition is the contradiction the rule forbids.
 
-### Opt-in sources with sensible defaults
+### Opt-in sources
+
+`Opt-in sources with sensible defaults`
 
 A glossary source is a module's `configs/glossary.yml`, so the module that owns a concept owns its vocabulary, and the folder convention is
 the registration ([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md)). A module without a source contributes no terms and
@@ -91,13 +93,17 @@ A glossary is part of the codebase it governs, and it is versioned, reviewed, an
 without a commit, and would make the checks depend on the network. So a definition is an in-repository ADR rule, every pattern and glob is
 repo-relative, and outside vocabulary arrives through the repository's own reference material.
 
-### Contrasts make neighbouring terms distinct
+### Contrasts
+
+`Contrasts make neighbouring terms distinct`
 
 Most confusion is between near neighbours, not distant words: a test suite and a test run, a release candidate and a deployable unit. A
 definition read alone rarely settles which is meant. A contrast — one sentence on how this concept differs from a named neighbour — does,
 and requiring it on both sides keeps the pair from drifting apart in one direction only.
 
-### Avoided phrasings name their replacement
+### Avoided phrasings
+
+`Avoided phrasings name their replacement`
 
 A phrasing that blurs a defined term is listed as avoided, with the wording to use instead, so a violation always carries its fix. The rule
 is about _use_, not _mention_: the ADR that defines a term, the glossary itself, and guidance that says "avoid `X`" all need to write the

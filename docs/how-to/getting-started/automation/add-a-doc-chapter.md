@@ -13,7 +13,9 @@ The repository has three kinds of prose, each with a home and a format:
 
 All of `docs/` is **markdown only**. Decide which kind you're writing, then follow the matching recipe below.
 
-## Formatting (applies to all docs)
+## Formatting
+
+`Formatting (applies to all docs)`
 
 - Match the cross-language baseline: UTF-8 (no BOM), LF endings, final newline, no trailing whitespace (except a Markdown hard line break).
   This is enforced by `.editorconfig` (see [uniform-formatting](../../../adr/repository/uniform-formatting.md)).
@@ -29,7 +31,9 @@ All of `docs/` is **markdown only**. Decide which kind you're writing, then foll
 - One `#` H1 per file (the title); a blank line after every heading and before the next; fenced code blocks carry a language; tables have a
   header separator row.
 
-## Writing a getting-started or how-to article (like this one)
+## Writing a how-to article
+
+`Writing a getting-started or how-to article (like this one)`
 
 1. Create the file in kebab-case, named for the task (`add-a-thing.md`). An **onboarding/common-job** guide goes in
    `docs/how-to/getting-started/<area>/`; a **standalone how-to** for one specific task (e.g. the manual test plan) goes in
@@ -55,7 +59,9 @@ ADRs capture a decision so it can be cited and enforced. They follow a fixed sha
 4. **Register it.** Add the ruleset to its domain in `automation/Catzc.Base.Docs/configs/adrs.yml` (the next import regenerates the code →
    ADR table in `docs/adr/index.md`), and add a bullet under the right section of [`docs/index.md`](../../../index.md).
 
-### ADR authoring conventions (the ones people miss)
+### ADR authoring conventions
+
+`ADR authoring conventions (the ones people miss)`
 
 - **Decision and rationale, not config values.** Name the enforcing file (`PSScriptAnalyzerSettings.psd1`, `.editorconfig`) as a pointer;
   don't paste rule tables that will drift.

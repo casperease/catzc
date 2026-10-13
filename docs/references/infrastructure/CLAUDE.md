@@ -12,7 +12,9 @@ Each article is also the **link source** for its folder's generated `README.md` 
 from folder to source lives in `automation/Catzc.Base.Docs/configs/readme.yml`. Author links relative to _this_ directory — the docs tree is
 the reading surface where they resolve; the README is a pointer to the article, not a second rendering.
 
-## Document structure — a template article
+## Document structure
+
+`Document structure — a template article`
 
 A template article describes a template by **what it deploys and how it is configured**, not by walking its bicep. Five parts, in order:
 

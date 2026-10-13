@@ -10,12 +10,15 @@ Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {
             [System.IO.File]::WriteAllText($full, '')
         }
         New-Module -Name TstWidget -ScriptBlock {
-            function Assert-WidgetPartsConfig { }
+            function Assert-WidgetPartsConfig {
+            }
             Export-ModuleMember
         } | Import-Module
         New-Module -Name TstGadget -ScriptBlock {
-            function Assert-GadgetConfig { }
-            function Assert-SprocketConfig { }
+            function Assert-GadgetConfig {
+            }
+            function Assert-SprocketConfig {
+            }
             Export-ModuleMember
         } | Import-Module
         $script:out = Join-Path $TestDrive 'out'

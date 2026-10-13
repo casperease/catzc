@@ -20,7 +20,7 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
 
     BeforeEach {
         Mock Get-Config {
-            [ordered]@{
+            [Catzc.Base.Exporter.ExporterConfig]::new([ordered]@{
                 direct_install_version = '6.6.666'
                 version                = '0.1'
                 default_profile        = 'widget-set'
@@ -30,7 +30,7 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
                     author = 'Test Author'; company = 'Test Co'; description = 'A test package.'
                     tags = @('widget', 'gadget'); project_uri = 'https://forge.example/widget'; license_uri = 'https://forge.example/widget/license'
                 }
-            }
+            })
         } -ModuleName Catzc.Base.Exporter -ParameterFilter { $Config -eq 'exporter' }
         Mock Get-OutputRoot { (Join-Path $TestDrive 'out') } -ModuleName Catzc.Base.Exporter
         Mock Resolve-CatzcBuildVersion { '6.6.666' } -ModuleName Catzc.Base.Exporter

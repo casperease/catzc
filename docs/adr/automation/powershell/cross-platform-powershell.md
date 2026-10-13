@@ -10,7 +10,7 @@ PowerShell code meets [cross-platform](../cross-platform.md) (`ADR-AUTO-XPLAT`) 
 PSScriptAnalyzer's compatibility rules validate cmdlets and .NET types against the target-platform profiles at analysis time, before the
 code ever runs on the other OS.
 
-- [How the analyzer catches platform breaks](#how-the-analyzer-catches-platform-breaks)
+- [Analyzer coverage](#analyzer-coverage)
 
 ### Rule ADR-AUTO-PSXPLAT:2
 
@@ -71,7 +71,9 @@ rule, not a language one: see [cross-platform](../cross-platform.md#rule-adr-aut
 | `/tmp`, `/dev/null` in paths                          | Not valid Windows paths                      |
 | `apt-get`, `brew` assumed available                   | Windows uses `winget`                        |
 
-### How the analyzer catches platform breaks
+### Analyzer coverage
+
+`How the analyzer catches platform breaks`
 
 **PSScriptAnalyzer** validates cmdlets and .NET types against Windows and Ubuntu profiles at analysis time, catching Windows-only APIs
 _before the code runs_ — in the L2 tests, on every developer's machine. The rules that do this (`PSUseCompatibleCmdlets`,

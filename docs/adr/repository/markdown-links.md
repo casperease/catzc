@@ -27,8 +27,8 @@ Every ADR citation in a comment is a code link: `[ADR-<CODE>](/docs/adr/<path>.m
 `[ADR-<CODE>#<n>](/docs/adr/<path>.md#rule-adr-<code><n>)` for one rule. The text is the citation; the repository-rooted destination is
 derived from it, so the same checked-in text resolves from any file depth wherever it is rendered as markdown.
 
-- [Code links are repository-rooted](#code-links-are-repository-rooted)
-- [The citation is the source of truth](#the-citation-is-the-source-of-truth)
+- [Repository-rooted code links](#repository-rooted-code-links)
+- [The citation decides](#the-citation-decides)
 - [Code links in the editor](#code-links-in-the-editor)
 
 ### Rule ADR-REPO-LINK:4
@@ -111,7 +111,9 @@ fenced block is not a heading; an explicit `<a id="…">` is an anchor too. A ru
 lowercased and the `:` dropped. markdownlint's own fragment rule (MD051) cannot reproduce these slugs, so it stays off and `Test-Links`
 checks every fragment against the target's headings instead.
 
-### Code links are repository-rooted
+### Repository-rooted code links
+
+`Code links are repository-rooted`
 
 A comment cannot know how deep its file sits relative to `docs/adr/`, and a relative path would change with every file move. The
 repository-rooted destination `/docs/adr/<path>.md` is one string from any file at any depth, and it is the tail of the file's GitHub URL on
@@ -121,7 +123,9 @@ reader on another branch, an older commit, a fork, or an exported copy is sent t
 The leading `/` is link syntax meaning "the repository root"; the path after it is the communication form of
 [path-representation](../automation/path-representation.md), not a third path form.
 
-### The citation is the source of truth
+### The citation decides
+
+`The citation is the source of truth`
 
 The link text is the citation — `ADR-AUTO-ERROR#3`, or `ADR-AUTO-ERROR` for a whole ADR — and the destination is derived from it through the
 ADR index, exactly as `Format-Types` derives a type's namespace from its folder. When an ADR moves, one `Format-Links` run re-points every

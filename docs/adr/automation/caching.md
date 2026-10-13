@@ -12,7 +12,7 @@ repeat calls.
 Exemplar: `Get-Config` — every config read routes through it, keyed on the resolved file path, so every config inherits one cache (see
 [module-config-loading](../configuration/module-config-loading.md)).
 
-- [The storage idiom is the language layer](#the-storage-idiom-is-the-language-layer)
+- [The storage idiom](#the-storage-idiom)
 
 ### Rule ADR-AUTO-CACHE:2
 
@@ -26,7 +26,7 @@ stored result thereafter. Exemplar: `Get-BicepTemplates`.
 Key the cache by the function's inputs: no parameters → a single slot; parameters → a cache keyed on them; a resolved-input function keys on
 that input. Keys must be session-stable values, never mutable objects.
 
-- [The storage idiom is the language layer](#the-storage-idiom-is-the-language-layer)
+- [The storage idiom](#the-storage-idiom)
 
 ### Rule ADR-AUTO-CACHE:5
 
@@ -41,7 +41,7 @@ The only invalidation is re-running the importer — no mtime/hash checks, TTLs,
 makes the importer the single sufficient knob. Git state that changes inside a session is not invalidated at all: it is keyed on its own
 content (ADR-AUTO-CACHE#9).
 
-- [The importer is the cache boundary](#the-importer-is-the-cache-boundary)
+- [The cache boundary](#the-cache-boundary)
 - [Two runtimes fix the file set](#two-runtimes-fix-the-file-set)
 
 ### Rule ADR-AUTO-CACHE:7
@@ -49,7 +49,7 @@ content (ADR-AUTO-CACHE#9).
 Lazy cache-on-first-use is the default; eager compute-at-import is reserved for the bootstrap module alone. A cached function populates its
 slot on first call, never at import, because importer time is a protected budget.
 
-- [Importer run time is a protected budget](#importer-run-time-is-a-protected-budget)
+- [Importer run-time budget](#importer-run-time-budget)
 
 ### Rule ADR-AUTO-CACHE:8
 
@@ -68,7 +68,7 @@ its bytes on disk on every call, never under a session-lifetime slot. Exemplar: 
 the parsed listing on the SHA-256 of the index file, so the answer always equals `git ls-files` for the index as it is now (see
 [tracked-files-from-the-index](tracked-files-from-the-index.md)).
 
-- [Git state is keyed on its content](#git-state-is-keyed-on-its-content)
+- [Content-keyed git state](#content-keyed-git-state)
 
 ## Context
 
@@ -96,14 +96,18 @@ The automation runs in exactly two contexts, and both make the on-disk file set 
 In both runtimes the **importer invocation is the boundary** at which the file set becomes the session's truth. Nothing the automation
 should react to changes the file set mid-session.
 
-### The importer is the cache boundary
+### The cache boundary
+
+`The importer is the cache boundary`
 
 It follows that **anything derived from the on-disk file set may be memoized for the lifetime of the session**, and the single, sufficient
 way to invalidate is to **re-run the importer** — which starts a fresh process (pipeline) or re-imports the modules (devbox), discarding all
 module-scoped `$script:` state. There is no need for timestamp checks, file watchers, or TTLs; the runtime contract already guarantees the
 inputs are stable, and the importer is the one knob.
 
-### Importer run time is a protected budget
+### Importer run-time budget
+
+`Importer run time is a protected budget`
 
 The importer is on the hot path of **every** session — every interactive shell tab a developer opens and every step a pipeline runs begins
 by dot-sourcing it. Its job is to make the module system available, fast, and nothing more: it sets error preferences and runs the bootstrap
@@ -144,7 +148,9 @@ The rule has a sharp boundary. Do **not** cache:
   uncached.
 - **Side-effecting / output functions.** `Uninstall-*`, `Install-*`, `Deploy-*` — they do work, they do not return a reusable derivation.
 
-### Git state is keyed on its content
+### Content-keyed git state
+
+`Git state is keyed on its content`
 
 The tracked-file set is not part of the file set the importer fixes: the session's own `Invoke-GitCommit`, a developer's `git add`, or a
 parallel session's commit rewrites the git index while the session runs. A session-lifetime slot would serve the listing from before that
@@ -162,7 +168,9 @@ Cache, for the lifetime of the session, the results of (a) **static config-file 
 Store the cache in module state per the language layer ([script-scope-caching](powershell/script-scope-caching.md)). Invalidate only by
 re-running the importer. Never cache runtime state or objects callers mutate.
 
-### The storage idiom is the language layer
+### The storage idiom
+
+`The storage idiom is the language layer`
 
 Where a cache lives, the keyed-hashtable code shape, and how tests interact with a cached function are the PowerShell layer,
 [script-scope-caching](powershell/script-scope-caching.md) (`ADR-AUTO-PSCACHE`): module `$script:` state — never `$env:` or `$global:` —

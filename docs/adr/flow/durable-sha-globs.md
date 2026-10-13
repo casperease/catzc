@@ -50,7 +50,7 @@ inputs change?" for the local inner loop. It is not a trigger and not a committe
 serializes writers and false-reds a busy mainline after a server-side squash merge, which is why triggering projects to native filters
 (ADR-FLOW-CD-GLOBS#6) and reflects git (ADR-FLOW-CD-GLOBS#9) instead.
 
-- [Why the identity is live, never committed](#why-the-identity-is-live-never-committed)
+- [A live identity](#a-live-identity)
 
 ### Rule ADR-FLOW-CD-GLOBS:6
 
@@ -183,7 +183,9 @@ Patterns select from the output of `git ls-files` — the set of tracked files. 
 deterministic on every checkout, independent of build residue, and governed by the repository's own definition of what exists. An untracked
 or ignored file can never change a globset's membership.
 
-### Why the identity is live, never committed
+### A live identity
+
+`Why the identity is live, never committed`
 
 The durable SHA (ADR-FLOW-CD-GLOBS#5) is a genuine identity — EOL-insensitive (CR stripped before hashing), path-folded (a rename or move
 changes it even when content does not), and order-free (lines ordinal-sorted). It is exactly right for the one job it keeps: keying the

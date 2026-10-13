@@ -10,7 +10,7 @@ A module dependency (`ADR-AUTO-DEPM`) is code the toolset is built from. Its int
 repository's own modules — are declared in `automation/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the declaration is the allow-list,
 and an actual edge with no declaration fails the build.
 
-- [The declared graph is the contract](#the-declared-graph-is-the-contract)
+- [The declared graph](#the-declared-graph)
 
 ### Rule ADR-AUTO-DEPM:2
 
@@ -84,7 +84,7 @@ The stitch is config, and the config is ours. Which external dependencies exist,
 config in the repository — a reviewed change, not an ambient fact of a build machine — so the whole graph, internal and external, is
 reproducible from the checkout.
 
-- [The stitch is config, and it is ours](#the-stitch-is-config-and-it-is-ours)
+- [The stitch is config](#the-stitch-is-config)
 
 ## Context
 
@@ -105,7 +105,9 @@ Module dependencies are declared in one place and gated against the code. The de
 `automation/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the actual function-call and C# type edges are extracted and checked against
 it.
 
-### The declared graph is the contract
+### The declared graph
+
+`The declared graph is the contract`
 
 `dependencies.yml` is the single declaration of which module may depend on which. It is an allow-list, and the direction of truth is
 one-way: the code is checked against the declaration, never the reverse. An edge that exists in the code but not in the declaration is a
@@ -186,7 +188,9 @@ is a system dependency's discipline applied to the wrong thing. The manager and 
 depends on the dependency: NuGet from a gallery, an Artifactory repository, an artifact an upstream pipeline uploaded, or another feed,
 under [use-proper-package-managers](use-proper-package-managers.md).
 
-### The stitch is config, and it is ours
+### The stitch is config
+
+`The stitch is config, and it is ours`
 
 Which external dependencies exist, at which versions, from which feeds — the stitch — is the toolset's own concern, declared as config in
 the repository rather than left to a build machine or a hand-run install. An internal change shows up as a diff in `dependencies.yml` or

@@ -10,7 +10,7 @@ Assert inputs at function entry. Use `Assert-NotNullOrWhitespace`, `Assert-True`
 functions to validate variables.
 
 - [The inline assertion pattern](#the-inline-assertion-pattern)
-- [What this looks like in practice](#what-this-looks-like-in-practice)
+- [In practice](#in-practice)
 
 ### Rule ADR-AUTO-FAILFAST:2
 
@@ -18,7 +18,7 @@ Assert after every external call. After `Invoke-Executable`, `Get-Content`, API 
 assert the result meets expectations before passing it downstream.
 
 - [Why every fifth line](#why-every-fifth-line)
-- [What this looks like in practice](#what-this-looks-like-in-practice)
+- [In practice](#in-practice)
 
 ### Rule ADR-AUTO-FAILFAST:3
 
@@ -76,7 +76,7 @@ every assumption at the point where it is made.** On average, roughly every fift
 This is not a replacement for Pester tests — it is a complementary strategy. Pester tests verify behavior in controlled conditions. Inline
 assertions verify assumptions in _every_ execution, including production, including the edge cases no test anticipated.
 
-### What this looks like in practice
+### In practice
 
 ```powershell
 function Invoke-Poetry {

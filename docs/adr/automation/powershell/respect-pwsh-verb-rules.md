@@ -46,7 +46,7 @@ for display").
 Use a **plural** noun for a function that returns a collection (`Get-AdoYamlFiles`, `Get-BicepTemplates`) and a singular noun for one that
 returns exactly one object (`Get-BicepTemplate`), so the cardinality is visible from the name.
 
-- [Cardinality: plural nouns for collections](#cardinality-plural-nouns-for-collections)
+- [Plural nouns](#plural-nouns)
 
 ### Rule ADR-AUTO-VERBS:7
 
@@ -55,7 +55,7 @@ The repository quality gates — `Test-Automation` and the `Test-*` gates it agg
 fail the build, and returns a result object under `-PassThru`. Their noun names a body of work to verify and enforce, not a boolean
 condition; a plain predicate (`Test-Path`, `Test-Command`) still returns `[bool]` and never throws.
 
-- [The sanctioned quality-gate exception](#the-sanctioned-quality-gate-exception)
+- [The quality-gate exception](#the-quality-gate-exception)
 
 ## Context
 
@@ -193,7 +193,9 @@ verbs break this workflow and hide functions from discovery.
 | `Fetch-Data`           | `Get-Data`                         | `Fetch` is not approved; `Get` means "retrieves a resource"             |
 | `Execute-Command`      | `Invoke-Command`                   | `Execute` is not approved; `Invoke` means "performs an action"          |
 
-### Cardinality: plural nouns for collections
+### Plural nouns
+
+`Cardinality: plural nouns for collections`
 
 The verb carries the action; the **noun carries the cardinality**. A function that returns a set or list takes a plural noun, and one that
 returns a single object takes the singular — so a caller knows from the name alone whether to expect a collection:
@@ -203,7 +205,9 @@ returns a single object takes the singular — so a caller knows from the name a
 
 This is a deliberate clarity choice over PowerShell's default lean toward singular nouns; the number of the noun is part of the contract.
 
-### The sanctioned quality-gate exception
+### The quality-gate exception
+
+`The sanctioned quality-gate exception`
 
 Most `Test-` functions are predicates — `Test-Path`, `Test-Command`, `Test-IsRunningInPipeline` — and obey ADR-AUTO-VERBS#2: they answer a
 boolean and never throw. The repository's quality gates are different in kind. `Test-Automation`, `Test-Spelling`, `Test-ScriptAnalyzer`,

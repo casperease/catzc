@@ -4,7 +4,7 @@
 # never launch.json. Explanations live here as comments; the rendered JSON carries only a generated-file
 # header (VS Code reads JSONC, so the header is legal).
 #
-# Loaded via Get-Config -Config vscode-launch and validated by private/Assert-VscodeLaunchConfig: a version
+# Loaded via Get-Config -Config vscode-launch and validated by the VscodeLaunchConfig type: a version
 # string plus a non-empty configurations list, each entry carrying name/type/request, names unique.
 version: '0.2.0'
 configurations:

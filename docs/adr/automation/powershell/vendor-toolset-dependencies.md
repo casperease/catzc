@@ -83,7 +83,9 @@ loads from disk with no network call, no version resolution, and no surprises.
 - **Explicit.** The `.vendor` folder is visible in the repository. You can see exactly which modules are vendored, at which versions.
   Upgrading is a conscious decision: delete the old folder, add the new one, commit.
 
-### Exception: Az PowerShell modules
+### The Az PowerShell exception
+
+`Exception: Az PowerShell modules`
 
 The Azure PowerShell modules (`Az.*`) are not vendored. They are too large (hundreds of megabytes), update frequently with Azure API
 changes, and carry .NET assembly dependencies that conflict when multiple versions coexist in-process. Vendoring them would bloat the

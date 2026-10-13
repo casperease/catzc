@@ -9,42 +9,42 @@
 Assert, don't fix. If a function needs a prerequisite, assert it with `Assert-Tool` (or `Assert-Command`); never silently install,
 configure, or repair prerequisites. Assertions are guard clauses, part of the contract.
 
-- [Patterns that violate single responsibility](#patterns-that-violate-single-responsibility)
+- [Violations](#violations)
 
 ### Rule ADR-AUTO-ONEJOB:2
 
 The function name is the contract. `Get-Config` must not modify state; `Invoke-Poetry` must not install Poetry. If the name does not cover
 what the function does, rename it or remove the behavior.
 
-- [Composition is not the same as mixing concerns](#composition-is-not-the-same-as-mixing-concerns)
+- [Composition vs mixing](#composition-vs-mixing)
 
 ### Rule ADR-AUTO-ONEJOB:3
 
 Orchestration functions are explicit: higher-level functions that chain a sequence are fine when the name and purpose make the composition
 obvious (`Install-DevBoxTools`, `Publish-Module`).
 
-- [Composition is not the same as mixing concerns](#composition-is-not-the-same-as-mixing-concerns)
+- [Composition vs mixing](#composition-vs-mixing)
 
 ### Rule ADR-AUTO-ONEJOB:4
 
 Hidden bundling is the anti-pattern — not composition itself, but composition that surprises the caller. If the caller must read the
 implementation to learn what the function does, it is doing too much for its name.
 
-- [Composition is not the same as mixing concerns](#composition-is-not-the-same-as-mixing-concerns)
+- [Composition vs mixing](#composition-vs-mixing)
 
 ### Rule ADR-AUTO-ONEJOB:5
 
 Error handling is the caller's job. Functions throw on failure; whether to retry, log, or continue is the caller's decision. Functions do
 not catch-and-retry/log/continue unless error handling is their single stated purpose.
 
-- [Patterns that violate single responsibility](#patterns-that-violate-single-responsibility)
+- [Violations](#violations)
 
 ### Rule ADR-AUTO-ONEJOB:6
 
 State changes are explicit. Functions do not mutate ambient global state — error preferences, the working directory, environment variables —
 as a side effect; a temporary change is restored in a `finally` block.
 
-- [Why this is critical for PowerShell specifically](#why-this-is-critical-for-powershell-specifically)
+- [Why PowerShell](#why-powershell)
 
 ## Context
 
@@ -60,7 +60,9 @@ valid (just different) result, that sub-step is an independent concern and belon
 This matters more in PowerShell than in compiled languages because there is no compiler to catch the breakage — you find out at runtime,
 often in production.
 
-### Why this is critical for PowerShell specifically
+### Why PowerShell
+
+`Why this is critical for PowerShell specifically`
 
 **No compile-time safety.** A C# method that calls a renamed function fails at compile time. A PowerShell function that calls a renamed
 function fails when that line executes — which may be a rare branch that CI never hits. The more a function does, the more surface area for
@@ -83,7 +85,9 @@ If the function only deployed, the failure would point directly at the deploymen
 validates-then-deploys cannot be called when you need to deploy without validation (emergency hotfix). The caller ends up duplicating the
 part they need because they cannot use the function without the part they do not want.
 
-### Patterns that violate single responsibility
+### Violations
+
+`Patterns that violate single responsibility`
 
 | Pattern                                                    | Problem                                          | Fix                                                                      |
 | ---------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------ |
@@ -95,7 +99,9 @@ part they need because they cannot use the function without the part they do not
 | Function creates a resource, then configures it            | Partial failure leaves orphaned resource         | Separate `New-*` and `Set-*`; caller composes them                       |
 | Function logs before/after its work                        | Logging concerns change independently            | Use `Write-Verbose`/`Write-Debug` (built-in), or wrap at the call site   |
 
-### Composition is not the same as mixing concerns
+### Composition vs mixing
+
+`Composition is not the same as mixing concerns`
 
 Higher-level functions that call lower-level functions are fine — that is normal composition. The problem is when a function bundles
 sub-steps that produce independently valid results. The test: **if you removed a sub-step, would the remaining steps still produce a

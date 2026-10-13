@@ -75,7 +75,9 @@ canonical shapes to copy.
 5. For CI/CD, set it as the branch's build validation (the pre-commit half): `Register-AdoBuildValidation <globset>` sets the policy's path
    filter to the same native projection.
 
-## Open decision — INPUT: PR vs direct push
+## INPUT: PR or direct push
+
+`Open decision — INPUT: PR vs direct push`
 
 How an INPUT pipeline lands its commit (open a PR vs push directly) is **not yet decided** — see
 [pipeline-types](../adr/flow/pipeline-types.md). Either way the output is a commit, and deployment happens only via CD against version

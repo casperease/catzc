@@ -31,7 +31,7 @@ artifacts). They must not carry automation logic, configuration resolution, busi
 Template parameters are either ADO controls or meta selection criteria (customer, environment, subscription type). The looked-up values the
 automation layer can derive from those keys must not be pipeline parameters.
 
-- [Pipeline parameters are selection criteria](#pipeline-parameters-are-selection-criteria)
+- [Parameters select](#parameters-select)
 - [The parameter needle-through problem](#the-parameter-needle-through-problem)
 
 ### Rule ADR-PIPE-TEMPLATE:5
@@ -105,7 +105,9 @@ that adds boilerplate, merge-conflict surface, and cognitive load without provid
 `templateContext` [^2] to reduce parameter proliferation between template layers — a platform-level acknowledgment that parameter explosion
 is a recognized, widespread problem.
 
-### Pipeline parameters are selection criteria
+### Parameters select
+
+`Pipeline parameters are selection criteria`
 
 Pipeline parameters serve as **meta-level selection criteria** — they identify _which_ customer, environment, or subscription type the
 pipeline run targets. These are values like `Customer`, `Environment` — high-level keys that the user selects when queuing a run, and that

@@ -48,7 +48,7 @@ a sparse index, an index version outside 2–4, and a checksum mismatch (a corru
 The parsed index is cached under the SHA-256 of the index file's bytes, recomputed on every call (ADR-AUTO-CACHE#9). The key is computed by
 the seam, not taken from the checksum git writes at the end of the file, because git writes that checksum as zeros under `index.skipHash`.
 
-- [The answer follows the index on disk](#the-answer-follows-the-index-on-disk)
+- [Following the index](#following-the-index)
 
 ### Rule ADR-AUTO-TRACKED:7
 
@@ -93,7 +93,9 @@ what a logic test may not do: the L0/L1 tripwire (ADR-AUTO-TEST#10) blocks it, s
 `git ls-files` must be mocked at the git call or run at L2, even when all it does is read files. Reading the index in-process removes both
 costs: the call is a file read, and the gates that use it run as ordinary L1 integrity tests on the real repository.
 
-### The answer follows the index on disk
+### Following the index
+
+`The answer follows the index on disk`
 
 The tracked set changes while a session runs: a commit, a `git add`, or a parallel session's commit rewrites the index. So the seam cannot
 keep a listing for the session's lifetime, which is the default for filesystem-derived information

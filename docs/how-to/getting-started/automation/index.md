@@ -156,7 +156,9 @@ Looking for what a specific module does rather than how to do a task? See the [m
 
 ---
 
-## How it works (the 30-second version)
+## How it works
+
+`How it works (the 30-second version)`
 
 1. `importer.ps1` sets error preferences, loads the bootstrap module, and points `$env:PSModulePath` at the vendored copies (stripping
    network paths so startup stays fast).

@@ -15,25 +15,31 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
         # cmdlet inside it; the helper has its own L2 real-analyzer coverage below.)
         Mock Get-ScriptAnalyzerDiagnostics -ModuleName Catzc.Base.QualityGates { $script:diagnostics }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
+        Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
-    It 'returns clean (IssueCount 0) and writes a report when the analyzer finds no violations' {
+    It 'passes and writes a report when the analyzer finds no violations' -Tag 'ADR-AUTO-TEST#35' {
+        { Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase } | Should -Not -Throw
         $result = Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase -PassThru
+        $result.Subject | Should -Be 'script-analyzer'
         $result.IssueCount | Should -Be 0
         $result.FileCount | Should -Be 0
-        $result.ReportPath | Should -Exist
-        (Join-Path $result.ReportPath 'scriptanalyzer.md') | Should -Exist
+        (Join-Path $result.ReportPath 'script-analyzer.md') | Should -Exist
     }
 
-    It 'throws when the analyzer reports violations' {
+    It 'throws once listing every violation' -Tag 'ADR-AUTO-TEST#35' {
         $script:diagnostics = @(
             [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 3; Column = 5; Severity = 'Warning'; RuleName = 'PSAvoidUsingCmdletAliases'; Message = 'Avoid alias' }
+            [pscustomobject]@{ ScriptPath = 'repo/b.ps1'; Line = 9; Column = 3; Severity = 'Error'; RuleName = 'PSAvoidExclaimOperator'; Message = 'Bang' }
         )
-        { Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase } |
-            Should -Throw '*PSScriptAnalyzer violation*'
+        $thrown = { Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase } | Should -Throw -PassThru
+        $message = $thrown.Exception.Message
+        $message | Should -BeLike 'Test-ScriptAnalyzer failed: 2 issue(s)*'
+        $message | Should -Match 'repo/a\.ps1:3:5 Warning PSAvoidUsingCmdletAliases Avoid alias'
+        $message | Should -Match 'repo/b\.ps1:9:3 Error PSAvoidExclaimOperator Bang'
     }
 
-    It 'with -PassThru returns the violation and file counts instead of throwing' {
+    It 'with -PassThru returns the violation and file counts instead of throwing' -Tag 'ADR-AUTO-TEST#35' {
         $script:diagnostics = @(
             [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 1; Column = 1; Severity = 'Warning'; RuleName = 'PSUseConsistentIndentation'; Message = 'Indent' }
             [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 2; Column = 1; Severity = 'Warning'; RuleName = 'PSPlaceOpenBrace'; Message = 'Brace' }
@@ -44,25 +50,14 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
         $result.FileCount | Should -Be 2
     }
 
-    It 'writes the violations into the report file, not a console dump' {
+    It 'writes the violations into the report file, sorted by file, line, and column' {
         $script:diagnostics = @(
+            [pscustomobject]@{ ScriptPath = 'repo/b.ps1'; Line = 2; Column = 1; Severity = 'Warning'; RuleName = 'PSPlaceOpenBrace'; Message = 'Brace' }
             [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 7; Column = 1; Severity = 'Warning'; RuleName = 'PSUseConsistentWhitespace'; Message = 'Whitespace' }
         )
         $result = Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase -PassThru
-        (Get-Content (Join-Path $result.ReportPath 'scriptanalyzer.md') -Raw) | Should -Match 'PSUseConsistentWhitespace'
-        # Exactly one coloured line (the report path) — violations are not dumped line-by-line to the console.
-        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $ForegroundColor -eq 'Cyan' }
-    }
-
-    It 'prints one console line per file with its violation count (count-descending)' {
-        $script:diagnostics = @(
-            [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 1; Column = 1; Severity = 'Warning'; RuleName = 'R1'; Message = 'm' }
-            [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 2; Column = 1; Severity = 'Warning'; RuleName = 'R2'; Message = 'm' }
-            [pscustomobject]@{ ScriptPath = 'repo/b.ps1'; Line = 9; Column = 3; Severity = 'Warning'; RuleName = 'R3'; Message = 'm' }
-        )
-        Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase -PassThru | Out-Null
-        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -eq 'a.ps1: 2' }
-        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -eq 'b.ps1: 1' }
+        (Get-Content (Join-Path $result.ReportPath 'script-analyzer.md') -Raw) | Should -Match 'PSUseConsistentWhitespace'
+        $result.Issues[0] | Should -BeLike 'repo/a.ps1:7:1 *'
     }
 
     It 'analyzes with the repo PSScriptAnalyzerSettings.psd1' {
@@ -98,6 +93,6 @@ Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'integrity', 'greedy',
 
         $result.IssueCount | Should -BeGreaterThan 0
         $result.FileCount | Should -Be 1   # only the violating file has issues; the clean one contributes none
-        (Get-Content (Join-Path $result.ReportPath 'scriptanalyzer.md') -Raw) | Should -Match 'PSAvoidUsingCmdletAliases'
+        (Get-Content (Join-Path $result.ReportPath 'script-analyzer.md') -Raw) | Should -Match 'PSAvoidUsingCmdletAliases'
     }
 }

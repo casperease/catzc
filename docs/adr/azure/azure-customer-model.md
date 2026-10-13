@@ -32,7 +32,7 @@ shipped-asset **integrity test** (every shipped subscription's customer resolves
 throws on an unknown token). So `Assert-AzureConfig` validates only azure's own shape, and the cross-asset read is one-directional — the
 Azure layer reads the customer catalogue, never the reverse.
 
-- [The reference is checked by integrity and at runtime, not at load](#the-reference-is-checked-by-integrity-and-at-runtime-not-at-load)
+- [Checking the reference](#checking-the-reference)
 
 ### Rule ADR-AZ-CUSTOMER:4
 
@@ -52,7 +52,7 @@ repo gate). The class rule per config is asymmetric: `false` ⇒ the config must
 `true` ⇒ a customer subfolder is allowed but its customer must be **enabled** by the variant. `Get-BicepCustomerClassViolations` is the
 shared rule used by `Get-BicepTemplates` (fail-fast) and `Assert-BicepTemplate` (collect-all), so the two never drift.
 
-- [The per-template switch and its gate](#the-per-template-switch-and-its-gate)
+- [The per-template switch](#the-per-template-switch)
 
 ### Rule ADR-AZ-CUSTOMER:6
 
@@ -88,7 +88,9 @@ through it so the resolved subscription always carries the canonical **key**, wh
 only because keys and shortcodes are disjoint name-spaces (a key that equalled a shortcode would match two customers), which
 `Assert-CustomerConfig` enforces. This is the [poka-yoke](../principles/poka-yoke.md) form of "accept either spelling, store one".
 
-### The reference is checked by integrity and at runtime, not at load
+### Checking the reference
+
+`The reference is checked by integrity and at runtime, not at load`
 
 `network.yml` cross-checks `azure.yml` during its own validation because few tests load `network.yml`. `azure.yml` is different: it is
 loaded by almost every Azure test, so making `Assert-AzureConfig` read `customer.yml` to validate the `customer` FK would couple all of them
@@ -109,7 +111,9 @@ this repo deploy for** is the `have_customers` variant (`false`/`all`/`[names]`,
 pure list of identities with no policy baked in. The join between them is one integrity test: every name a `have_customers` list enables
 must be a defined customer.
 
-### The per-template switch and its gate
+### The per-template switch
+
+`The per-template switch and its gate`
 
 A template says whether it is a customer template with `options.yml` `customer_deployment` (bool). Its effective value defaults to the
 `have_customers` variant (`Test-HaveCustomers`) unless the template sets it, so a repo with customers disabled (`false`) has only

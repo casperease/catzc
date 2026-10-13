@@ -25,14 +25,14 @@ Only its on-disk form differs.
 Each module keeps its own script scope in both modes. Built modules are separate PowerShell modules inside the one package, so no module
 ever shares `$script:` state with another.
 
-- [One scope per module, never shared](#one-scope-per-module-never-shared)
+- [One scope per module](#one-scope-per-module)
 
 ### Rule ADR-DSGN-RUNMODE:4
 
 The mode is derived, never stored: `Get-CatzcRunMode` answers `source` when the code root (`CatzcModulesRoot`) is
 `<RepositoryRoot>/automation`, and `build` otherwise.
 
-- [The mode is derived from the code root](#the-mode-is-derived-from-the-code-root)
+- [Deriving the mode](#deriving-the-mode)
 
 ### Rule ADR-DSGN-RUNMODE:5
 
@@ -47,7 +47,7 @@ be swapped is the loaded C# types assembly, which is reused when both modes' typ
 Both modes are tested by the same tests: the source run (`Test-Automation`) and the build run (`Test-CatzcBuild`) execute the same test
 files up to L2, and a test opts out of the build run only with the `source-only` tag.
 
-- [One body of tests proves both modes](#one-body-of-tests-proves-both-modes)
+- [One body of tests](#one-body-of-tests)
 
 ## Context
 
@@ -103,7 +103,9 @@ that every such lookup is inventoried and tested in both modes
 dependency tooling, README and dictionary generators — operate on per-function files and git by definition; they assert that they run in
 source mode (`Assert-SourceTree`) and fail fast in a build rather than reading the wrong tree.
 
-### One scope per module, never shared
+### One scope per module
+
+`One scope per module, never shared`
 
 Merging every module into one flat scope would be the simplest build and the wrong one. Module scope is a contract: each module's `$script:`
 caches belong to it alone ([script-scope-caching](../automation/powershell/script-scope-caching.md)), and config validation, mocks, and
@@ -111,7 +113,9 @@ module queries all name a module. So the package `Catzc` is a container, not a s
 module with its own session state, exactly as in source mode. Two modules that hold a `$script:` slot of the same name never see each
 other's value, in either mode, and a scope-isolation test proves it.
 
-### The mode is derived from the code root
+### Deriving the mode
+
+`The mode is derived from the code root`
 
 There is no run-mode variable. `CatzcModulesRoot` is set once per load by the entry point
 ([environment-variables](../automation/environment-variables.md#rule-adr-auto-envvar5)), and the mode follows from it: when the code root is
@@ -138,7 +142,9 @@ mutual exclusion:
   contract applies: a devbox keeps the loaded types and asks for a fresh PowerShell, and a pipeline throws
   ([native-csharp-types](../automation/BCL/native-csharp-types.md)).
 
-### One body of tests proves both modes
+### One body of tests
+
+`One body of tests proves both modes`
 
 "Every module works in both modes" is a checked property, not a hope. The source run and the build run execute the **same** test files — no
 copy, no second set to drift — through the same harness, differing only in the entry script each worker loads

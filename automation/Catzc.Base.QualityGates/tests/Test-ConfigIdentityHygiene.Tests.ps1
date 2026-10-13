@@ -1,10 +1,11 @@
 # Integrity — it reads the real shipped config (and derives from the real fixture configs). source-only: those are
-# repository files, which give the same answer in both run modes.
+# repository files, which give the same answer in both run modes. The logic block mocks the fixture set with a
+# neutral token ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) and pins the gate's
+# uniform shape ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
 Describe 'Test-ConfigIdentityHygiene' -Tag 'L1', 'integrity', 'source-only' {
     It 'the shipped config is free of test-fixture identities' {
-        $result = Test-ConfigIdentityHygiene -PassThru
-        $leaks = @($result.Findings | ForEach-Object { "$(ConvertTo-RepoRelativePath $_.File): $($_.Token) @ $($_.Location)" })
-        $result.FindingCount | Should -Be 0 -Because "a shipped config must name live identities, not fixtures (ADR-REPO-LANG):`n$($leaks -join "`n")"
+        $result = Test-ConfigIdentityHygiene -PassThru -OutputFolder (Join-Path $TestDrive 'config-identity-hygiene')
+        $result.IssueCount | Should -Be 0 -Because "a shipped config must name live identities, not fixtures (ADR-REPO-LANG):`n$($result.Issues -join "`n")"
     }
 
     It 'catches a fixture identity planted in a config VALUE' {
@@ -15,9 +16,9 @@ customers:
     shortcode: ac
 '@
         [System.IO.File]::WriteAllText($path, $yaml)
-        $result = Test-ConfigIdentityHygiene -Path $path -PassThru
-        $result.FindingCount | Should -BeGreaterThan 0
-        $result.Findings.Token | Should -Contain 'acme'
+        $result = Test-ConfigIdentityHygiene -Path $path -PassThru -OutputFolder (Join-Path $TestDrive 'planted')
+        $result.IssueCount | Should -BeGreaterThan 0
+        ($result.Issues -join "`n") | Should -Match "fixture identity 'acme'"
     }
 
     It 'is comment-blind — a fixture identity in a config COMMENT is not a finding' {
@@ -29,6 +30,40 @@ customers:
     shortcode: ap
 '@
         [System.IO.File]::WriteAllText($path, $yaml)
-        (Test-ConfigIdentityHygiene -Path $path -PassThru).FindingCount | Should -Be 0
+        (Test-ConfigIdentityHygiene -Path $path -PassThru -OutputFolder (Join-Path $TestDrive 'commented')).IssueCount | Should -Be 0
+    }
+}
+
+Describe 'Test-ConfigIdentityHygiene — gate shape' -Tag 'L0', 'logic' {
+    BeforeEach {
+        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-FixtureIdentityTokens -ModuleName Catzc.Base.QualityGates { 'gizmo' }
+        Mock Write-Message -ModuleName Catzc.Base.Reports { }
+        $script:reportBase = Join-Path $TestDrive "reports-$([guid]::NewGuid().ToString('N'))"
+        $script:clean = Join-Path $TestDrive 'widget.yml'
+        [System.IO.File]::WriteAllText($script:clean, "widgets:`n  - widget`n")
+        $script:leaky = Join-Path $TestDrive 'gadget.yml'
+        [System.IO.File]::WriteAllText($script:leaky, "gadgets:`n  gizmo:`n    name: gizmo`n")
+    }
+
+    It 'passes when no config names a fixture identity' -Tag 'ADR-AUTO-TEST#35' {
+        { Test-ConfigIdentityHygiene -Path $script:clean -OutputFolder $script:reportBase } | Should -Not -Throw
+    }
+
+    It 'throws once listing every fixture identity, key and value' -Tag 'ADR-AUTO-TEST#35' {
+        $thrown = { Test-ConfigIdentityHygiene -Path $script:clean, $script:leaky -OutputFolder $script:reportBase } |
+            Should -Throw -PassThru
+        $message = $thrown.Exception.Message
+        $message | Should -BeLike 'Test-ConfigIdentityHygiene failed: 2 issue(s)*'
+        $message | Should -Match "gadget.yml: fixture identity 'gizmo' at /gadgets/gizmo \(key\)"
+        $message | Should -Match "gadget.yml: fixture identity 'gizmo' at /gadgets/gizmo/name"
+    }
+
+    It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+        $result = Test-ConfigIdentityHygiene -Path $script:clean, $script:leaky -OutputFolder $script:reportBase -PassThru
+        $result.Subject | Should -Be 'config-identity-hygiene'
+        $result.IssueCount | Should -Be 2
+        $result.FileCount | Should -Be 2
+        Test-Path (Join-Path $result.ReportPath 'config-identity-hygiene.md') | Should -BeTrue
     }
 }

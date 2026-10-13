@@ -2,8 +2,13 @@ Describe 'Catzc.Base.QualityGates.AnalyzerAdrMapConfig' -Tag 'L0', 'logic', 'ADR
     BeforeAll {
         function Get-ViolationMessage {
             param($Raw)
-            $thrown = { [Catzc.Base.QualityGates.AnalyzerAdrMapConfig]::new($Raw) } | Should -Throw -PassThru
-            $thrown.Exception.InnerException.Message
+            try {
+                [void] [Catzc.Base.QualityGates.AnalyzerAdrMapConfig]::new($Raw)
+            }
+            catch {
+                return $_.Exception.InnerException.Message
+            }
+            throw 'expected the AnalyzerAdrMapConfig constructor to throw'
         }
     }
 

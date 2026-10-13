@@ -10,7 +10,7 @@ A release is **manual only**. `.github/workflows/release-automation.yml` trigger
 deliberately not wired to push, tag, or a globset projection (unlike CI, [durable-sha-globs](../flow/durable-sha-globs.md)). Publishing an
 artifact to the outside world is a deliberate act, so a human starts it.
 
-- [A release is a deliberate, manual act](#a-release-is-a-deliberate-manual-act)
+- [A manual act](#a-manual-act)
 
 ### Rule ADR-GH-RELEASE:2
 
@@ -26,7 +26,7 @@ own input and no-ops without its token. A run with no publish inputs simply prod
 the `.nupkg` attached) is created with the `gh` CLI, and GitHub Packages is pushed with `dotnet nuget push`; both authenticate with the
 Actions-provided `github.token`. Consumers install from the GitHub NuGet feed as a registered PSResource repository.
 
-- [GitHub first, on the GitHub token](#github-first-on-the-github-token)
+- [GitHub first](#github-first)
 
 ### Rule ADR-GH-RELEASE:4
 
@@ -44,7 +44,7 @@ commit count of the built commit — distinct from the `6.6.666` local-build pla
 author/description/tags of the manifest — is that same one export config, so what the package claims about itself is reviewed data, not
 workflow literals.
 
-- [One version, one identity, from config](#one-version-one-identity-from-config)
+- [One version, from config](#one-version-from-config)
 
 ## Context
 
@@ -60,7 +60,9 @@ NuGet feed accept it, so the primary distribution can ride the token the platfor
 Ship a manually-triggered release workflow that always builds the package and publishes it, GitHub-first, on the GitHub token — with the
 PowerShell Gallery as an opt-in target behind its own key.
 
-### A release is a deliberate, manual act
+### A manual act
+
+`A release is a deliberate, manual act`
 
 The workflow triggers only on `workflow_dispatch`. There is no push/tag/globset trigger, so nothing publishes by accident: a maintainer
 starts a release and chooses, per run, what to publish. This is the opposite of CI, which fires automatically on a change to its globset — a
@@ -73,7 +75,9 @@ where a token is involved, by that token's presence. So a run is a spectrum: wit
 attached, nothing leaves), and each input turns on exactly one destination. "Just build the package and the manifest" is therefore the
 default behaviour, not a special mode.
 
-### GitHub first, on the GitHub token
+### GitHub first
+
+`GitHub first, on the GitHub token`
 
 GitHub distribution uses the `gh` CLI and `dotnet nuget push`, both authenticated by the Actions `github.token` — no PowerShell Gallery key
 is involved. A GitHub Release tags the version and attaches the `.nupkg` for direct download; GitHub Packages exposes it as a NuGet v3 feed
@@ -87,7 +91,9 @@ that secret is absent or empty, it prints a warning and exits success, so a main
 failed run. The GitHub token has no power on the Gallery — the Gallery is the one target that needs its own credential — so the two paths
 stay cleanly separate.
 
-### One version, one identity, from config
+### One version, from config
+
+`One version, one identity, from config`
 
 The package publishes under the version the pipeline calculates for the built commit — `exporter.yml`'s `MAJOR.MINOR` plus the commit's
 first-parent count as `PATCH` — never the `6.6.666` placeholder that names a local build. The same commit always yields the same version, so

@@ -4,8 +4,13 @@ Describe 'Catzc.Base.ModuleSystem.ProfilesConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {
             param($Raw)
-            $thrown = { [Catzc.Base.ModuleSystem.ProfilesConfig]::new($Raw) } | Should -Throw -PassThru
-            $thrown.Exception.InnerException.Message
+            try {
+                [void] [Catzc.Base.ModuleSystem.ProfilesConfig]::new($Raw)
+            }
+            catch {
+                return $_.Exception.InnerException.Message
+            }
+            throw 'expected the ProfilesConfig constructor to throw'
         }
     }
 

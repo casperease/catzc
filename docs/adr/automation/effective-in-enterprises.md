@@ -44,7 +44,9 @@ Enterprise environments impose constraints that developer-oriented tooling rarel
   the scan cache is warm, steady-state imports are sub-second; the scan does not recur until files change again. See "antivirus file
   scanning" below.
 
-### The other problem: antivirus file scanning
+### Antivirus file scanning
+
+`The other problem: antivirus file scanning`
 
 One-function-per-file (see [use-ps1-not-psm1](powershell/use-ps1-not-psm1.md)) means the importer opens ~400 `.ps1` files. Real-time
 antivirus scans each on **first** open and caches it clean, so the _first_ import in a fresh checkout/session is slow and every later one is

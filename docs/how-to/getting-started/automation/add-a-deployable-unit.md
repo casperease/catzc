@@ -73,7 +73,9 @@ if (-not (Test-GlobSetAffected -Name my-unit)) { return }   # nothing here for u
 `Test-GlobSetAffected` reflects the context's diff (post-commit first-parent, PR merge-base, or local working tree), fails open on any
 doubt, and needs the pipeline checked out with `fetchDepth: 0` so the base commit is reachable.
 
-## Protected scans (what the skip messages mean)
+## Protected scans
+
+`Protected scans (what the skip messages mean)`
 
 Repeated local gate runs skip the heavy repository scans (spelling, markdownlint) while their globset's durable SHA is unchanged since the
 last green run in the session — you will see `Scan '<test>' skipped: globset '<name>' … unchanged`. That is the protected-glob gate

@@ -29,7 +29,7 @@ any other — only cross-_namespace_ references inside a single assembly, never 
 is irrelevant because the assembly is a leaf in the reference graph: nothing references it by assembly identity, and PowerShell resolves
 `[Namespace.Type]` by FQN. `Add-Type` stays the compiler.
 
-- [Why one assembly, not one per module](#why-one-assembly-not-one-per-module)
+- [One assembly](#one-assembly)
 
 ### Rule ADR-AUTO-TYPES:4
 
@@ -38,7 +38,7 @@ target in `configs/dependencies.yml`. The compiler does not enforce the layering
 extracts the C# edges and `Assert-ModuleDependency` fails the L1 integrity tests on an undeclared one. There is **one** shared
 `Catzc.Base.Objects.DictionaryRecord`, not a per-module copy.
 
-- [The `DictionaryRecord` base](#the-dictionaryrecord-base-dictionary-compatible-data-records)
+- [The `DictionaryRecord` base](#the-dictionaryrecord-base)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-AUTO-TYPES:5
@@ -47,7 +47,7 @@ Host-guaranteed assemblies only — types reference the BCL plus `System.Managem
 default reference set, and both are loaded in every process that can load the compiled assembly, so a `using` namespace is the whole
 binding. No external packages, no NuGet.
 
-- [The reference set: host-guaranteed assemblies](#the-reference-set-host-guaranteed-assemblies)
+- [The reference set](#the-reference-set)
 
 ### Rule ADR-AUTO-TYPES:6
 
@@ -77,7 +77,7 @@ Use snake_case property names **only** on a type that mirrors a YAML config (so 
 every other type — results, CLI state, REST shapes such as `CliResult` / `CliRunner` — keeps default .NET PascalCase. snake_case is a
 YAML-interop rule scoped to config-mirroring types, not a repository-wide naming convention.
 
-- [snake_case is for config-mirroring records only](#snake_case-is-for-config-mirroring-records-only)
+- [snake_case records](#snake_case-records)
 
 ### Rule ADR-AUTO-TYPES:9
 
@@ -87,7 +87,7 @@ kinds, `CliResult`) is a C# type, so its shape is fixed, discoverable, and valid
 config-shaped data crossing a boundary (a parsed `.yml`, a splat) — but the moment the code acts on the shape as a domain concept, it is a
 type.
 
-- [The domain model is C#, not a loose dictionary](#the-domain-model-is-c-not-a-loose-dictionary)
+- [A C# domain model](#a-c-domain-model)
 
 ### Rule ADR-AUTO-TYPES:10
 
@@ -97,7 +97,7 @@ reclaims only our own accelerator — and the alias literal is authored in the d
 registration, not compilation: `Add-Type` stays the sole compiler, and the decoration's cross-module edge is governed by the dependency
 graph (Rule ADR-AUTO-TYPES#4) like any other.
 
-- [Type-accelerator aliases, and backtracking to source](#type-accelerator-aliases-and-backtracking-to-source)
+- [Type-accelerator aliases](#type-accelerator-aliases)
 
 ### Rule ADR-AUTO-TYPES:11
 
@@ -142,7 +142,9 @@ dictionary-compatible data-record base) and layered records (a record in one mod
 classes want most. Compiling one assembly per module would forbid those cross-module references; the cost of the single assembly is that
 layering discipline is policed by the dependency checker rather than structurally by the compiler.
 
-### Why one assembly, not one per module
+### One assembly
+
+`Why one assembly, not one per module`
 
 The blocker for cross-module references under a per-module design is `Add-Type`: it assigns a **random** assembly name (verified —
 `Add-Type -OutputAssembly` produces e.g. `khuvslfy.cez`, and a rebuild of identical source produces a _different_ random name). A dependent
@@ -172,7 +174,9 @@ Types may reference each other across modules (one assembly); the dependency gra
 The mechanism is `Import-CSharpTypes` in `automation/.internal/Catzc.Internal.Bootstrap.psm1`, run once as a pre-pass by `Import-AllModules`
 before the module loop.
 
-### The reference set: host-guaranteed assemblies
+### The reference set
+
+`The reference set: host-guaranteed assemblies`
 
 A type may reference exactly what the host guarantees is present: the BCL and `System.Management.Automation` (SMA). The types compile and
 run exclusively inside a `pwsh` session's CLR — `Add-Type` is the only compiler, and its default reference set includes SMA alongside the
@@ -187,7 +191,9 @@ guarantee — that logic belongs in PowerShell calling a vendored tool, not in `
 **compile-time-only** (never copied to output), so the editor analyzes the same reference set the runtime compiles against and the project
 build cannot change what `Add-Type` sees.
 
-### Why the namespace is declared, and an IDE project alongside
+### Declared namespaces and the IDE project
+
+`Why the namespace is declared, and an IDE project alongside`
 
 The namespace is **declared in the source** rather than wrapped in by the loader so the same files are valid, analyzable C# to the editor —
 [everything-as-code](../../principles/everything-as-code.md). A file that declares no namespace becomes well-formed only after a loader's
@@ -212,7 +218,9 @@ when the committed DLL is stale, missing, or ambiguous**, so the editor's projec
 claims to describe. That makes the hashing a fourth mirror of the same algorithm (loader, `Clear-ModuleTypeCache`, the drift-guard tests)
 that must stay in step.
 
-### Type-accelerator aliases, and backtracking to source
+### Type-accelerator aliases
+
+`Type-accelerator aliases, and backtracking to source`
 
 A type exposes a short alias for its fully-qualified name by carrying one or more `[Catzc.Base.Objects.PSTypeAlias("Catzc.Module.Depm")]`
 attributes (Rule ADR-AUTO-TYPES#10). After loading the combined assembly, `Import-CSharpTypes` reflects for the attribute and registers each
@@ -283,7 +291,11 @@ that later compiles against the types (`Add-Type -ReferencedAssemblies`) needs a
 move, shared by every session and clone with the same sources, and pruned once it has gone a day without a load. Nothing there is committed,
 so a locked leftover copy is harmless.
 
-### The `DictionaryRecord` base (dictionary-compatible data records)
+### The `DictionaryRecord` base
+
+```text
+The `DictionaryRecord` base (dictionary-compatible data records)
+```
 
 A data record backed by an `[ordered]@{}` / `[pscustomobject]` shape may inherit the single, shared `Catzc.Base.Objects.DictionaryRecord`
 (the combined assembly makes the cross-module reference possible). It supplies two things a derived record would otherwise implement:
@@ -298,7 +310,9 @@ A deriving module must declare `Catzc.Base.Objects` (directly or through the `Ba
 module declares `Base`). A record names its properties to match the dict keys it mirrors (snake_case where the keys are snake_case).
 `BicepTemplate` is an example that derives from it.
 
-### snake_case is for config-mirroring records only
+### snake_case records
+
+`snake_case is for config-mirroring records only`
 
 The "same name inside and outside" snake_case rule is a **YAML-interop** concern, not a repository-wide naming convention: it applies only
 to a type whose properties mirror the keys of a `configs/<name>.yml` file, so the YAML key and the C# property are literally the same
@@ -307,7 +321,9 @@ identifier (the YAML side is enforced by `Assert-YmlNaming`). A type with no bac
 emits snake keys from an external tool (for example an `az` CLI `logged_in` field), match the existing keys to avoid breaking consumers —
 but do not force a universal flip.
 
-### The domain model is C#, not a loose dictionary
+### A C# domain model
+
+`The domain model is C#, not a loose dictionary`
 
 There are two kinds of structured data in the platform, and they get different treatment. **Boundary data** — a parsed `configs/*.yml`, an
 `az` CLI JSON blob, a splatted parameter set — is shaped by something outside our code and is fine as an `[ordered]@{}` /

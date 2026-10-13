@@ -4,8 +4,8 @@
 # Resolve-ConfigEntry (config discovery) / Get-BicepTemplatesRoot seams. Nothing else depends on them.
 Describe 'Shipped asset integrity' -Tag 'L0', 'integrity' {
 
-    It 'the shipped azure.yml loads and passes Assert-AzureConfig' {
-        # Get-Config runs the validator on load, so a bad file throws here.
+    It 'the shipped azure.yml loads and passes its AzureConfig type' {
+        # Get-Config constructs the type on load, so a bad file throws here.
         { Get-Config -Config azure } | Should -Not -Throw
     }
 

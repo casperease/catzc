@@ -44,3 +44,25 @@ configs:
     type: Catzc.Base.QualityGates.AnalyzerAdrMapConfig
   vendor:
     type: Catzc.Base.Vendor.VendorConfig
+  guids:
+    type: Catzc.Base.QualityGates.GuidsConfig
+  exporter:
+    type: Catzc.Base.Exporter.ExporterConfig
+  vscode-extensions:
+    type: Catzc.Base.VSCode.VscodeExtensionsConfig
+  ado:
+    type: Catzc.Azure.DevOps.AdoConfig
+  build-validation:
+    type: Catzc.Azure.DevOps.BuildValidation.BuildValidationConfig
+  vscode-launch:
+    type: Catzc.Base.VSCode.VscodeLaunchConfig
+  key-handler-bindings:
+    type: Catzc.Tooling.KeyHandler.KeyHandlerBindingsConfig
+  key-handler-supported:
+    type: Catzc.Tooling.KeyHandler.KeyHandlerSupportedConfig
+  variants:
+    type: Catzc.Base.Variants.VariantsConfig
+  customer:
+    type: Catzc.Azure.CustomerConfig
+  azure:
+    type: Catzc.Azure.AzureConfig

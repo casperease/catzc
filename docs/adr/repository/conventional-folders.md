@@ -11,7 +11,7 @@ mapping file or a README to be understood — the name is the meaning. At the ro
 the repository's unit of root concern — so adding a root folder is the decision to open a track (see [tracks](../design/tracks.md), code
 `ADR-DSGN-TRACK`).
 
-- [The thesis: every folder infers its meaning](#the-thesis-every-folder-infers-its-meaning)
+- [The thesis](#the-thesis)
 
 ### Rule ADR-REPO-FOLDERS:2
 
@@ -34,7 +34,7 @@ Dot-prefix means infrastructure/tooling, everywhere — `.github/`, `.vscode/`, 
 (dot-prefixed directories are excluded from module discovery); elsewhere it is the same convention applied repo-wide.
 
 - [Level 1: Repository root](#level-1-repository-root)
-- [Level 2: `automation/` — modules vs. infrastructure](#level-2-automation--modules-vs-infrastructure)
+- [Level 2: `automation/`](#level-2-automation)
 
 ### Rule ADR-REPO-FOLDERS:5
 
@@ -57,7 +57,7 @@ etc. The name is the contract; a different name means tooling will not find the 
 Tooling hardcodes the conventional names as literal strings, not parameters or configuration: `Join-Path $ModulePath 'private'`, not
 `Join-Path $ModulePath $privateFolderName`.
 
-- [Why hardcoding paths is a feature](#why-hardcoding-paths-is-a-feature)
+- [Hardcoded paths](#hardcoded-paths)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-REPO-FOLDERS:8
@@ -65,7 +65,7 @@ Tooling hardcodes the conventional names as literal strings, not parameters or c
 No module-level override of conventions. A module cannot opt out of the structure or rename a conventional folder; if `private/` means
 different things in different modules, tooling cannot rely on it.
 
-- [Why conventional structure matters](#why-conventional-structure-matters)
+- [Why convention](#why-convention)
 
 ### Rule ADR-REPO-FOLDERS:9
 
@@ -105,7 +105,9 @@ This platform takes the opposite approach. The folder structure is fixed, semant
 well-known names directly. There are no path parameters, no configuration files mapping folder names to meanings, and no per-module
 overrides. The folder name IS the contract.
 
-### The thesis: every folder infers its meaning
+### The thesis
+
+`The thesis: every folder infers its meaning`
 
 This is the organizing principle of the whole repository, not just of `automation/`: **every folder is conventional.** You can tell what a
 folder holds — and what new content belongs in it — from its name alone, without opening a README or consulting a mapping file. The
@@ -125,7 +127,9 @@ Conventional folders come in two kinds, and the difference is _who relies on the
 Both are conventional — the name infers the meaning either way. The distinction tells you the cost of getting a name wrong: renaming a
 contract folder breaks tooling; renaming a semantic folder is harmless. Know which kind you are touching.
 
-### Why conventional structure matters
+### Why convention
+
+`Why conventional structure matters`
 
 **Tooling becomes trivial.** When every module puts private functions in `private/`, the bootstrap module can hardcode
 `Join-Path $ModulePath 'private'` and be done. No parameter, no config, no "discover the helpers folder" heuristic. `New-DynamicManifest`
@@ -143,7 +147,9 @@ is invisible to tooling. This is poka-yoke: the wrong thing does not silently wo
 `-PrivatePath 'helpers'`, or a convention file at the root. Every mapping layer is a source of truth that must stay in sync with the actual
 folders. When the folder name IS the meaning, there is no mapping to maintain, no configuration to drift, no abstraction to debug.
 
-### Why hardcoding paths is a feature
+### Hardcoded paths
+
+`Why hardcoding paths is a feature`
 
 The instinct from application development is that hardcoded paths are a smell. In application code, that instinct is correct — you want to
 inject dependencies so you can test against fakes. In a mono-repo's internal tooling, the calculus is different:
@@ -247,7 +253,11 @@ name-inferred role. (The authored PSScriptAnalyzer config lives under `automatio
 see [native-csharp-types](../automation/BCL/native-csharp-types.md) — not at the root.) Adding a new top-level directory is a conscious
 architectural decision — an amendment to this ADR — not a casual act.
 
-### Level 2: `automation/` — modules vs. infrastructure
+### Level 2: `automation/`
+
+```text
+Level 2: `automation/` — modules vs. infrastructure
+```
 
 | Convention             | Meaning                                         | Examples                                                            |
 | ---------------------- | ----------------------------------------------- | ------------------------------------------------------------------- |
