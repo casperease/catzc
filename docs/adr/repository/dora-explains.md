@@ -145,8 +145,8 @@ that documentation accurate as it grows, and an in-repository glossary keeps it 
 
 DORA's research on documentation quality finds that documentation helps only while it is accurate and findable; a pointer from code to the
 decision behind it is documentation too, and a pointer that silently rots — a bare path to a moved ADR, a citation of a renumbered rule —
-sends the reader to the wrong rationale or none. Checking every link and deriving each code link from its citation keeps those pointers
-true as the documents move.
+sends the reader to the wrong rationale or none. Checking every link and deriving each code link from its citation keeps those pointers true
+as the documents move.
 
 - [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — every link from code and between documents
   resolves, so the documentation a reader follows is the documentation that exists.

@@ -49,8 +49,8 @@ reproducible.
 ### Rule ADR-AUTO-VENDOR:7
 
 A vendored module carries only what the toolset loads. Folders it never loads are pruned at install time by `Install-VendorModule`, never by
-hand, so a reinstall or upgrade (ADR-AUTO-VENDOR#4) reproduces the same trimmed copy. A folder comes back only by removing it from the
-prune list and reinstalling.
+hand, so a reinstall or upgrade (ADR-AUTO-VENDOR#4) reproduces the same trimmed copy. A folder comes back only by removing it from the prune
+list and reinstalling.
 
 - [Pruned folders](#pruned-folders)
 - [How this is enforced](#how-this-is-enforced)
@@ -93,9 +93,9 @@ See [ADR: prefer-az-cli](prefer-az-cli.md) for how we handle Azure operations wi
 
 ### Pruned folders
 
-A gallery package ships content for hosts and features this toolset never uses, and every tracked byte costs on each clone and on every
-read of the whole repository: the protection identities hash every tracked file
-([protected-globs](../protected-globs.md)). Two kinds of folder are pruned:
+A gallery package ships content for hosts and features this toolset never uses, and every tracked byte costs on each clone and on every read
+of the whole repository: the protection identities hash every tracked file ([protected-globs](../protected-globs.md)). Two kinds of folder
+are pruned:
 
 - **Legacy .NET Framework builds** (`net4x` and older). The toolset targets PowerShell 7.4+ on .NET, so it never loads them.
 - **PSScriptAnalyzer's `compatibility_profiles`.** About 280 MB of platform profiles, read only by the `PSUseCompatible*` rules, which
@@ -111,9 +111,8 @@ All PowerShell module dependencies used by the toolset are vendored in `automati
 - **`Catzc.Base.Vendor`** — owns the vendored-module lifecycle. `Install-VendorModule` is the only supported way to add one: it downloads
   with `Save-PSResource` from the configured source (`vendor.yml` — the PowerShell Gallery by default, or a custom feed) into the correct
   `automation/.vendor/<Name>/<Version>/` structure, then prunes the folders the toolset never loads ([Pruned folders](#pruned-folders)).
-  `Remove-VendorModules` deletes only after `Assert-VendorModuleAvailable` confirms the
-  source can restore each target, so removal is always reversible. It uses the bundled `Microsoft.PowerShell.PSResourceGet` (PowerShell
-  7.4+), not a vendored dependency of its own.
+  `Remove-VendorModules` deletes only after `Assert-VendorModuleAvailable` confirms the source can restore each target, so removal is always
+  reversible. It uses the bundled `Microsoft.PowerShell.PSResourceGet` (PowerShell 7.4+), not a vendored dependency of its own.
 - **`Import-VendorModules`** — the internal, pre-module-system loader (`Catzc.Internal.Vendor`) the importer runs before any module exists.
   Loads only from the `.vendor` directory; system-installed versions are removed from `$env:PSModulePath` to prevent auto-loading from
   outside the vendor folder.

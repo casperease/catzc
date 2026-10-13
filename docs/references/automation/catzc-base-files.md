@@ -24,9 +24,9 @@ materialises a file as a filesystem link to a source of truth (a relative symbol
 Windows, a throw — never a content copy). The directory copy uses the .NET APIs directly for efficiency — no shelling out, no intermediate
 listings. The lock check reports whether a file is held open by another process; the Assert/Test pairs make both the throwing and querying
 forms available, so callers with different error-handling needs can choose without duplicating the detection logic. The holder lookup goes
-one step further and names _which_ processes hold the file (id, executable, start time, command line, parent process), through the Windows Restart
-Manager — no admin rights needed, and it sees a loaded DLL as well as an open handle; on Linux/macOS, where locks are advisory, it reports
-none.
+one step further and names _which_ processes hold the file (id, executable, start time, command line, parent process), through the Windows
+Restart Manager — no admin rights needed, and it sees a loaded DLL as well as an open handle; on Linux/macOS, where locks are advisory, it
+reports none.
 
 ### domain:2 — Source-control facts
 

@@ -46,9 +46,9 @@ cleanly across commits. It is never hand-formatted, not even inside a generator'
 Every git-tracked Markdown file opens — after any YAML front matter — with the H1 `# <repository-relative path>`, e.g.
 `# docs/references/infrastructure/foundation.md`, and nothing else on that line. `Format-MarkdownTitle` writes it — a replaced title's
 wording is kept as the first line of the body, so no authored text is lost — and `Test-MarkdownTitle` gates it. The scope follows the
-repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored` or `linguist-generated`
-and the test fixture trees (`**/tests/assets/**`). A new exception is declared in the `.gitattributes` source, never in a list of the
-gate's own.
+repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored` or `linguist-generated` and
+the test fixture trees (`**/tests/assets/**`). A new exception is declared in the `.gitattributes` source, never in a list of the gate's
+own.
 
 - [Markdown titles are paths](#markdown-titles-are-paths)
 
@@ -115,14 +115,14 @@ forbids, merely moved into code; it drifts the moment a field is added and churn
 
 A hand-written title is the author's guess at a name — usually the file's leaf name, which says nothing about where the document lives. The
 same document is read through a generated README link, a search result, a printout, or a pasted excerpt, and each of those loses the folder
-it came from. A title that is the repository-relative path names the document exactly in all of them, cannot drift when the file is
-renamed (the formatter rewrites it), and leaves nothing to judge, so a tool owns it like every other formatting choice. The path is
-plain text, with its `.md` extension, so it can be copied straight into a link or a terminal. What the document is about is said in its
-first paragraph: when the formatter replaces an authored title, that title's wording becomes the body's first line, below the path.
+it came from. A title that is the repository-relative path names the document exactly in all of them, cannot drift when the file is renamed
+(the formatter rewrites it), and leaves nothing to judge, so a tool owns it like every other formatting choice. The path is plain text, with
+its `.md` extension, so it can be copied straight into a link or a terminal. What the document is about is said in its first paragraph: when
+the formatter replaces an authored title, that title's wording becomes the body's first line, below the path.
 
 The scope reuses the classes the repository already declares instead of keeping its own: git decides what is committed (a gitignored
-generated file is out, its tracked source is in), and `.gitattributes` decides what is vendored or generated. Test fixture trees are data
-on purpose, as they are for links.
+generated file is out, its tracked source is in), and `.gitattributes` decides what is vendored or generated. Test fixture trees are data on
+purpose, as they are for links.
 
 ## Decision
 
