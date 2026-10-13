@@ -29,11 +29,14 @@ Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-only', 'AD
         $script:validIds = [System.Collections.Generic.HashSet[string]]::new(
             [string[]] ($ruleIds -replace ':', '#'), [System.StringComparer]::Ordinal)
 
-        # The custom analyzer rules on disk: every 'Measure-*' function declared under .scriptanalyzer. Read
-        # from the files directly (an integrity test reads the tree, not the loaded session — ADR-AUTO-TEST:16).
+        # The custom analyzer checks on disk: every 'Measure-*' function declared under .scriptanalyzer, except the
+        # entry rule (CatzcRules.psm1), which only dispatches to the checks and enforces nothing itself. Read from the
+        # files directly (an integrity test reads the tree, not the loaded session — ADR-AUTO-TEST:16).
         $scriptAnalyzerDir = Resolve-RepoPath 'automation/.scriptanalyzer'
         $script:customRules = [System.Collections.Generic.List[string]]::new()
-        foreach ($file in [System.IO.Directory]::EnumerateFiles($scriptAnalyzerDir, '*.psm1')) {
+        $checkFiles = [System.IO.Directory]::EnumerateFiles($scriptAnalyzerDir, '*.psm1') |
+            Where-Object { [System.IO.Path]::GetFileName($_) -ne 'CatzcRules.psm1' }
+        foreach ($file in $checkFiles) {
             foreach ($match in [regex]::Matches([System.IO.File]::ReadAllText($file), '(?m)^\s*function\s+(Measure-\w+)')) {
                 $script:customRules.Add($match.Groups[1].Value)
             }

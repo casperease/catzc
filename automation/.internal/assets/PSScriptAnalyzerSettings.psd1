@@ -6,23 +6,10 @@
     # line below is silently ignored. This flag is what makes this file the single source of truth.
     IncludeDefaultRules = $true
 
+    # One entry rule runs every custom check once per file (PSScriptAnalyzer calls a script rule once per
+    # ScriptBlockAst). Add a new check module to the list in CatzcRules.psm1, not here.
     CustomRulePath      = @(
-        'automation/.scriptanalyzer/VariableCasing.psm1'
-        'automation/.scriptanalyzer/NeverDependOnPwd.psm1'
-        'automation/.scriptanalyzer/FunctionLength.psm1'
-        'automation/.scriptanalyzer/NoWriteErrorOrWarning.psm1'
-        'automation/.scriptanalyzer/NoAzModuleNaming.psm1'
-        'automation/.scriptanalyzer/NoAutomaticVariableMisuse.psm1'
-        'automation/.scriptanalyzer/NoForEachObjectControlFlow.psm1'
-        'automation/.scriptanalyzer/NoRawVsoCommand.psm1'
-        'automation/.scriptanalyzer/NoRawPipelineDetection.psm1'
-        'automation/.scriptanalyzer/NoRawInformationStream.psm1'
-        'automation/.scriptanalyzer/NoRawConsoleWrite.psm1'
-        'automation/.scriptanalyzer/AnnounceStateChange.psm1'
-        'automation/.scriptanalyzer/SpellOutIdentifiers.psm1'
-        'automation/.scriptanalyzer/NoScriptRootAnchor.psm1'
-        'automation/.scriptanalyzer/NoUnsafeFirstIndex.psm1'
-        'automation/.scriptanalyzer/NoBareScriptSlotRead.psm1'
+        'automation/.scriptanalyzer/CatzcRules.psm1'
     )
 
     ExcludeRules        = @(

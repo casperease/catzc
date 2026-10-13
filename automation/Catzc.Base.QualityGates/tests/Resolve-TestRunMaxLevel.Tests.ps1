@@ -1,9 +1,16 @@
 Describe 'Resolve-TestRunMaxLevel' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
-        $script:inPlace = [pscustomobject]@{ Mode = 'InPlace'; Holder = $null }
-        $script:snapshot = [pscustomobject]@{ Mode = 'Snapshot'; Holder = [pscustomobject]@{ Description = 'Test-Automation (pid 4242)' } }
-        $script:isolated = [pscustomobject]@{ Mode = 'Snapshot'; Holder = $null }
+        $script:inPlace = [pscustomobject]@{ Mode = 'InPlace'; Holder = $null; SystemTests = $true; SystemTestHolder = $null }
+        $script:snapshot = [pscustomobject]@{
+            Mode = 'Snapshot'; Holder = [pscustomobject]@{ Description = 'Test-Automation (pid 4242)' }; SystemTests = $false; SystemTestHolder = $null
+        }
+        $script:isolated = [pscustomobject]@{ Mode = 'Snapshot'; Holder = $null; SystemTests = $false; SystemTestHolder = $null }
+        # In place, but another checkout's run holds the user's system-test lock.
+        $script:inPlaceLocked = [pscustomobject]@{
+            Mode = 'InPlace'; Holder = $null; SystemTests = $false
+            SystemTestHolder = [pscustomobject]@{ Description = 'Test-Automation (pid 4343, in C:\widget-clone)' }
+        }
 
         function Invoke-Resolve {
             param($Slot, $Requested)
@@ -48,5 +55,23 @@ Describe 'Resolve-TestRunMaxLevel' -Tag 'L0', 'logic' {
     It 'leaves a request below L3 untouched in a snapshot, silently' {
         Invoke-Resolve $script:snapshot 2 | Should -Be 2
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 0
+    }
+
+    It 'caps an in-place run at L2 when another checkout holds the system-test lock, naming it' {
+        Invoke-Resolve $script:inPlaceLocked $null | Should -Be 2
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+            $Message -like 'Skipping L3:*pid 4343, in C:\widget-clone*system-test lock*'
+        }
+    }
+
+    It 'leaves a request below L3 untouched in place without the system-test lock, silently' {
+        Invoke-Resolve $script:inPlaceLocked 2 | Should -Be 2
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 0
+    }
+
+    It 'fails an L3-only run that cannot take the system-test lock, naming the holder' {
+        $parameters = @{ S = $script:inPlaceLocked }
+        { InModuleScope Catzc.Base.QualityGates -Parameters $parameters { param($S) Resolve-TestRunMaxLevel -Slot $S -MinLevel 3 } } |
+            Should -Throw -ExpectedMessage '*pid 4343*holds the system-test lock*'
     }
 }

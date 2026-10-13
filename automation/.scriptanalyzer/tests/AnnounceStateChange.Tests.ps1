@@ -180,7 +180,8 @@ Describe 'Measure-PersistentWriteThroughSeam' -Tag 'L0', 'logic', 'ADR-AUTO-TEST
     }
 
     It 'names the seams and the rule in its message' {
-        $diagnostic = @(Test-PersistentWrite "function Clear-Widget { [Environment]::SetEnvironmentVariable('WIDGET', `$null, 'User') }")[0]
+        $diagnostic = Test-PersistentWrite "function Clear-Widget { [Environment]::SetEnvironmentVariable('WIDGET', `$null, 'User') }" |
+            Select-Object -First 1
         $diagnostic.RuleName | Should -Be 'Measure-PersistentWriteThroughSeam'
         $diagnostic.Message | Should -Match 'Set-PermanentEnvironmentVariable'
         $diagnostic.Message | Should -Match 'Set-EnvironmentPath'

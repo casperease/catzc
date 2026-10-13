@@ -11,8 +11,8 @@ Set-StrictMode -Version Latest   # this module's scope: the entry rule runs stri
 
     Each check lives in its own module next to this one, with its own tests, and keeps its own RuleName on the records
     it emits. Diagnostics, SuppressMessageAttribute('Measure-<Check>', …) and analyzer-adr-map.yml all name the check,
-    never this entry rule. Add a new check to $checks below; the engine-wiring test (CustomRuleWiring.Tests.ps1)
-    proves each one fires through the engine.
+    never this entry rule. Add a new check module to $checks below (every Measure-* function it exports runs); the
+    engine-wiring test (CustomRuleWiring.Tests.ps1) proves each check fires through the engine.
 #>
 
 $checks = @(
@@ -34,10 +34,11 @@ $checks = @(
     'NoBareScriptSlotRead'
 )
 
-# Each check module loads nested in this one, so its Measure-* function is visible here but not exported to the engine.
+# Each check module loads nested in this one, so its Measure-* functions are visible here but not exported to the
+# engine. A module may export more than one check.
 $script:measures = @(foreach ($check in $checks) {
         $module = Import-Module (Join-Path $PSScriptRoot "$check.psm1") -PassThru
-        $module.ExportedFunctions["Measure-$check"]
+        $module.ExportedFunctions.Values | Where-Object { $_.Name -like 'Measure-*' }
     })
 
 function Measure-CatzcRules {

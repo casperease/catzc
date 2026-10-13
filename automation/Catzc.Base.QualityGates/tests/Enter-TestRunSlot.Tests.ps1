@@ -43,6 +43,11 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
         } -ModuleName Catzc.Base.QualityGates
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = '' } } -ModuleName Catzc.Base.QualityGates
         Mock Remove-RepositorySnapshot { } -ModuleName Catzc.Base.QualityGates
+        # The user's system-test lock is its own unit (Enter-SystemTestLock.Tests); here it is a seam, so no test
+        # takes the real per-user lock. By default another run holds it; the cases below override.
+        Mock Enter-SystemTestLock {
+            [pscustomobject]@{ Acquired = $false; Mutex = $null; LockPath = $null; Holder = [pscustomobject]@{ Description = 'Test-Automation (pid 4343)' } }
+        } -ModuleName Catzc.Base.QualityGates
         $script:slot = $null
         $script:holder = $null
         # These tests run inside a harness worker, which carries the parent run's slot marker; each test starts
@@ -73,6 +78,30 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
         $record.pid | Should -Be $PID
         $record.entryPoint | Should -Be 'Test-Automation'
         $record.runDirectory | Should -Be 'C:\out\20261013-174616'
+        $record.repositoryRoot | Should -Be $script:root
+    }
+
+    It 'may run L3 in place when it also takes the user''s system-test lock' {
+        $systemMutex = [System.Threading.Mutex]::new($false, 'Global\catzc-widget-system-' + [guid]::NewGuid().ToString('N'))
+        [void]$systemMutex.WaitOne(0)
+        $lock = [pscustomobject]@{ Acquired = $true; Mutex = $systemMutex; LockPath = $null; Holder = $null }
+        Mock Enter-SystemTestLock { $lock } -ModuleName Catzc.Base.QualityGates
+
+        $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Test-Automation' }
+        $script:slot.Mode | Should -Be 'InPlace'
+        $script:slot.SystemTests | Should -BeTrue
+        $script:slot.SystemTestLock | Should -Be $lock
+        $script:slot.SystemTestHolder | Should -BeNullOrEmpty
+        Should -Invoke Enter-SystemTestLock -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $RepositoryRoot -eq $script:root }
+    }
+
+    It 'runs in place without L3 when another checkout holds the system-test lock, and names it' {
+        $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Test-Automation' }
+        $script:slot.Mode | Should -Be 'InPlace'
+        $script:slot.Mutex | Should -Not -BeNullOrEmpty
+        $script:slot.SystemTests | Should -BeFalse
+        $script:slot.SystemTestLock | Should -BeNullOrEmpty
+        $script:slot.SystemTestHolder.Description | Should -Be 'Test-Automation (pid 4343)'
     }
 
     It 'runs in a snapshot without waiting when another run holds the lock, and names the holder' {
@@ -140,6 +169,8 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
         $script:slot.Mode | Should -Be 'Snapshot'
         $script:slot.Mutex | Should -BeNullOrEmpty
         $script:slot.Holder | Should -BeNullOrEmpty
+        $script:slot.SystemTests | Should -BeFalse
+        Should -Invoke Enter-SystemTestLock -ModuleName Catzc.Base.QualityGates -Times 0
         [System.IO.File]::Exists((Join-Path $script:outRoot '.test-run-lock.json')) | Should -BeFalse
     }
 
@@ -155,6 +186,9 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
         $script:slot.Mode | Should -Be 'InPlace'
         $script:slot.Mutex | Should -BeNullOrEmpty
         $script:slot.LockPath | Should -BeNullOrEmpty
+        # The parent run's slot decided L3 for the whole run; the worker inherits it and takes no lock itself.
+        $script:slot.SystemTests | Should -BeTrue
+        Should -Invoke Enter-SystemTestLock -ModuleName Catzc.Base.QualityGates -Times 0
     }
 
     It 'still runs in a snapshot when -Isolated is asked for inside such a worker' {

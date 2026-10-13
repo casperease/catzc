@@ -21,6 +21,12 @@
       this process and its repository root — the claim returns in place without a lock (claiming would
       only ever find our own parent's lock). An explicit -Isolated still gets its snapshot.
 
+    A run that takes the working folder also tries the user's system-test lock (Enter-SystemTestLock), without
+    waiting: L3 changes state that belongs to the user, not to this checkout, so a second clone's in-place run
+    must not run L3 at the same time. SystemTests on the slot says whether this run may run L3; a run that owns
+    the working folder but not the system-test lock names its holder (SystemTestHolder), and
+    Resolve-TestRunMaxLevel skips L3 for it.
+
     The caller MUST pass the returned slot to Exit-TestRunSlot in a finally.
 .PARAMETER EntryPoint
     The entry point claiming the slot ('Test-Automation', 'Invoke-TestFile', …) — written to the lock record
@@ -32,8 +38,10 @@
 .OUTPUTS
     [pscustomobject] the slot: Mode ('InPlace'|'Snapshot'), SourceRoot (the working folder), Root (where the
     run executes — the working folder, or the snapshot), Mutex (owned, or $null), LockPath (the lock record
-    this slot wrote, or $null), Holder (who held the folder when this run went to a snapshot, or $null), and
-    Snapshot (New-RepositorySnapshot's result, or $null).
+    this slot wrote, or $null), Holder (who held the folder when this run went to a snapshot, or $null),
+    Snapshot (New-RepositorySnapshot's result, or $null), SystemTests (whether this run may run L3),
+    SystemTestLock (Enter-SystemTestLock's result when this run took it, or $null), and SystemTestHolder (who
+    holds the system-test lock when this run owns the working folder but not that lock, or $null).
 #>
 function Enter-TestRunSlot {
     [CmdletBinding()]
@@ -49,13 +57,17 @@ function Enter-TestRunSlot {
 
     $sourceRoot = Get-RepositoryRoot
     $slot = [pscustomobject]@{
-        Mode       = 'InPlace'
-        SourceRoot = $sourceRoot
-        Root       = $sourceRoot
-        Mutex      = $null
-        LockPath   = $null
-        Holder     = $null
-        Snapshot   = $null
+        Mode             = 'InPlace'
+        SourceRoot       = $sourceRoot
+        Root             = $sourceRoot
+        Mutex            = $null
+        LockPath         = $null
+        Holder           = $null
+        Snapshot         = $null
+        # A worker's in-place slot inherits its parent's right to run L3; every other path decides below.
+        SystemTests      = $true
+        SystemTestLock   = $null
+        SystemTestHolder = $null
     }
 
     if ($env:CATZC_TEST_RUN_SLOT_HELD -eq '1' -and -not $Isolated) {
@@ -81,18 +93,18 @@ function Enter-TestRunSlot {
         }
 
         if ($acquired) {
-            $record = [ordered]@{
-                pid              = $PID
-                processStartedAt = [System.Diagnostics.Process]::GetCurrentProcess().StartTime.ToUniversalTime().ToString('o')
-                entryPoint       = $EntryPoint
-                startedAt        = [DateTimeOffset]::Now.ToString('o')
-                runDirectory     = $RunDirectory
-            }
-            $temp = "$lockPath.$PID.tmp"
-            [System.IO.File]::WriteAllText($temp, (ConvertTo-Json -InputObject $record), [System.Text.UTF8Encoding]::new($false))
-            [System.IO.File]::Move($temp, $lockPath, $true)
+            Write-TestRunLockRecord -Path $lockPath -EntryPoint $EntryPoint -RunDirectory $RunDirectory -RepositoryRoot $sourceRoot
             $slot.Mutex = $mutex
             $slot.LockPath = $lockPath
+
+            $systemTestLock = Enter-SystemTestLock -EntryPoint $EntryPoint -RunDirectory $RunDirectory -RepositoryRoot $sourceRoot
+            $slot.SystemTests = $systemTestLock.Acquired
+            if ($systemTestLock.Acquired) {
+                $slot.SystemTestLock = $systemTestLock
+            }
+            else {
+                $slot.SystemTestHolder = $systemTestLock.Holder
+            }
             return $slot
         }
 
@@ -120,5 +132,6 @@ function Enter-TestRunSlot {
     }
     $slot.Mode = 'Snapshot'
     $slot.Root = $slot.Snapshot.Path
+    $slot.SystemTests = $false
     $slot
 }

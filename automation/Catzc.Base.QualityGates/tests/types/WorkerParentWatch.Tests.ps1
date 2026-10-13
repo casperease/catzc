@@ -49,7 +49,7 @@ Describe 'WorkerParentWatch' -Tag 'logic' {
     Context 'a real worker whose parent dies' -Tag 'L2', 'greedy' {
         BeforeAll {
             $script:started = [System.Collections.Generic.List[System.Diagnostics.Process]]::new()
-            $script:workRoot = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-parent-watch-' +[guid]::NewGuid().ToString('N'))
+            $script:workRoot = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-parent-watch-' + [guid]::NewGuid().ToString('N'))
             [System.IO.Directory]::CreateDirectory($script:workRoot) | Out-Null
 
             function script:Start-Pwsh {

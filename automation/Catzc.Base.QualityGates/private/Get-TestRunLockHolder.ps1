@@ -79,6 +79,10 @@ function Get-TestRunLockHolder {
     if ($record.PSObject.Properties['runDirectory'] -and $record.runDirectory) {
         $details.Add('run ' + [System.IO.Path]::GetFileName([string] $record.runDirectory))
     }
+    # A user-wide lock (the system-test lock) is held from any checkout: name it.
+    if ($record.PSObject.Properties['repositoryRoot'] -and $record.repositoryRoot) {
+        $details.Add("in $($record.repositoryRoot)")
+    }
     $entryPoint = if ($record.PSObject.Properties['entryPoint'] -and $record.entryPoint) {
         $record.entryPoint
     }

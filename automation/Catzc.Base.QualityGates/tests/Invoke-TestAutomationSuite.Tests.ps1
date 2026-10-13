@@ -66,7 +66,10 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
         # The slot: in place by default; a test that needs a snapshot run overrides the mock.
         $script:slotMode = 'InPlace'
         Mock Enter-TestRunSlot -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ Mode = $script:slotMode; SourceRoot = 'C:\repo'; Root = 'C:\repo'; Mutex = $null; LockPath = $null; Holder = $null; Snapshot = $null }
+            [pscustomobject]@{
+                Mode = $script:slotMode; SourceRoot = 'C:\repo'; Root = 'C:\repo'; Mutex = $null; LockPath = $null; Holder = $null; Snapshot = $null
+                SystemTests = $script:slotMode -eq 'InPlace'; SystemTestLock = $null; SystemTestHolder = $null
+            }
         }
         Mock Exit-TestRunSlot -ModuleName Catzc.Base.QualityGates { }
     }

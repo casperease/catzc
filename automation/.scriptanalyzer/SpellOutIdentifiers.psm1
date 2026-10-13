@@ -93,13 +93,6 @@ function Measure-SpellOutIdentifiers {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    # PSScriptAnalyzer invokes a [ScriptBlockAst] rule once per scriptblock in the file — the top-level one and
-    # every nested one. FindAll below already recurses, so process only the top-level scriptblock; a nested
-    # invocation would re-find and re-report the same identifiers.
-    if ($null -ne $ScriptBlockAst.Parent) {
-        return
-    }
-
     Initialize-SpellingOracle
 
     # A test file may use fixture vocabulary (ADR-AUTO-SPELL:6); production code may not. Fixture terms are accepted

@@ -280,9 +280,11 @@ L3 tier's, and only the run that owns the working folder runs L3 (ADR-AUTO-TEST:
 
 **L3 holds the vertical system tests**: a test that changes or depends on state outside the repository — the cloud, the user's environment
 (the user `PATH`, other persistent environment variables, the registry), installed tools — is L3, and only the run that owns the working
-folder (the in-place slot) runs L3. A run's top tier defaults to 3 and the slot caps it (`Resolve-TestRunMaxLevel`): in place every
-requested tier runs; a snapshot run skips L3 — an explicit `-MaxLevel 3` and `-Isolated` included — and says so, naming who holds the
-working folder; a run that asks only for L3 in a snapshot fails with that reason. Every L3 test keeps its logic covered below it: the code
+folder (the in-place slot) **and** the user's system-test lock (`Enter-SystemTestLock`, one per user account, taken without waiting) runs
+L3. A run's top tier defaults to 3 and the slot caps it (`Resolve-TestRunMaxLevel`): in place with the lock every requested tier runs; a
+snapshot run, or an in-place run while another checkout's run holds the lock, skips L3 — an explicit `-MaxLevel 3` and `-Isolated`
+included — and says so, naming who holds the working folder or the lock; a run that asks only for L3 when it cannot run it fails with that
+reason. Every L3 test keeps its logic covered below it: the code
 it drives reaches the outside state through a mockable seam, and an L1 test mocks that seam.
 
 - [System tests run in the working-folder slot](#system-tests-run-in-the-working-folder-slot)
@@ -557,9 +559,13 @@ The tier stays thin because the logic it touches is covered below it. Code reach
 seam, so an L1 test proves what the code asks for and the one L3 test per seam proves the real round trip. A test below L3 that writes real
 outside state is a mis-tiered test (ADR-AUTO-TEST:9): its logic moves to L1 against the seam, and only the real round trip stays at L3.
 
-Two different checkouts on one machine each own their own working folder, so each may run its L3 tests; a system test therefore works on
-state it owns (a scratch variable, a uniquely named resource) and removes it whatever happens, never on a shared value such as the user's
-real `JAVA_HOME`.
+The working folder's lock is keyed on the checkout, but the state a system test touches belongs to the user: two clones of the repository,
+or a clone and an installed build, each own their own working folder and would run L3 against the same user `PATH` at once. So L3 also
+needs the user's **system-test lock** — a machine-wide named mutex keyed on the user account, with a per-user record of who holds it.
+The run that takes the working folder tries it without waiting: taken, the run executes L3; held, the run stays in place for every other
+tier, skips L3, and names the holder and its checkout. One run per user account runs system tests at a time, and no run ever waits.
+A system test still works on state it owns (a scratch variable, a uniquely named resource) and removes it whatever happens, never on a
+shared value such as the user's real `JAVA_HOME`: the lock serialises system tests against each other, not against the user's own shell.
 
 ### Two suites, one body of tests
 

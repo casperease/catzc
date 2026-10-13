@@ -41,16 +41,15 @@ function Uninstall-Chocolatey {
     Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope Machine
     Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope User
 
-    # Remove Chocolatey from PATH
+    # Remove Chocolatey from PATH — through the PATH seams, which announce the change (ADR-AUTO-TEST:33)
     foreach ($scope in 'Machine', 'User') {
-        $path = [System.Environment]::GetEnvironmentVariable('PATH', $scope)
+        $path = Get-EnvironmentPath -Scope $scope
         if (-not $path) {
             continue
         }
         $cleaned = ($path -split ';' | Where-Object { $_ -notmatch 'chocolatey' }) -join ';'
         if ($cleaned -ne $path) {
-            Write-Verbose "Removing Chocolatey from $scope PATH"
-            [System.Environment]::SetEnvironmentVariable('PATH', $cleaned, $scope)
+            Set-EnvironmentPath $cleaned -Scope $scope
         }
     }
 

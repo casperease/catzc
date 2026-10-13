@@ -2,10 +2,16 @@
 .SYNOPSIS
     Removes an installation directory and cleans it from system PATH.
 .DESCRIPTION
-    Private helper for Remove-NodeJs, Remove-Python, etc. Deletes the
-    directory, removes matching entries from the system PATH registry
-    key, clears specified environment variables, and broadcasts
-    WM_SETTINGCHANGE. Windows-only.
+    Shared helper for Remove-NodeJs, Remove-Python, etc. Deletes the
+    directory, removes matching entries from the system (Machine) PATH,
+    and clears the specified Machine environment variables. Windows-only.
+
+    Every persistent write goes through its seam — Set-EnvironmentPath for
+    the PATH, Set-PermanentEnvironmentVariable for a variable — which
+    announces the change; Windows broadcasts WM_SETTINGCHANGE on each
+    persistent write, so running shells pick it up (ADR-AUTO-TEST:33).
+.OUTPUTS
+    [bool] Whether the system PATH changed.
 .PARAMETER InstallDir
     Resolved absolute path to the installation directory.
 .PARAMETER ExtraPathDirs
@@ -38,42 +44,19 @@ function Remove-SystemInstallation {
         $removePaths += Join-Path $InstallDir $subdirectory
     }
 
-    Write-Message 'Clean system PATH'
-    $registryKey = 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment'
-    $currentPath = (Get-ItemProperty -Path $registryKey -Name Path).Path
-    $entries = $currentPath -split ';' | Where-Object { $_ -ne '' }
-    $filtered = $entries | Where-Object {
-        [System.IO.Path]::GetFullPath($_) -notin $removePaths
-    }
+    $entries = @((Get-EnvironmentPath -Scope Machine) -split ';' | Where-Object { $_ -ne '' })
+    $filtered = @($entries | Where-Object {
+            [System.IO.Path]::GetFullPath($_) -notin $removePaths
+        })
 
     $ret = $filtered.Count -lt $entries.Count
     if ($ret) {
-        Set-ItemProperty -Path $registryKey -Name Path -Value ($filtered -join ';')
+        Set-EnvironmentPath ($filtered -join ';') -Scope Machine
     }
 
-    Write-Message 'Clear environment variables'
+    # The seam no-ops a variable that is not set, so only a real removal is written and announced.
     foreach ($variableName in $EnvironmentVariables) {
-        $value = [Environment]::GetEnvironmentVariable($variableName, 'Machine')
-        if ($null -ne $value) {
-            [Environment]::SetEnvironmentVariable($variableName, $null, 'Machine')
-        }
-    }
-
-    Write-Message 'Broadcast WM_SETTINGCHANGE so running Explorer/shells pick up the change'
-    if ($ret -or $EnvironmentVariables.Count -gt 0) {
-        if (-not ('Win32.NativeMethods' -as [type])) {
-            Add-Type -Namespace Win32 -Name NativeMethods -MemberDefinition @'
-[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-public static extern IntPtr SendMessageTimeout(
-    IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam,
-    uint fuFlags, uint uTimeout, out UIntPtr lpdwResult);
-'@
-        }
-        $result = [UIntPtr]::Zero
-        [Win32.NativeMethods]::SendMessageTimeout(
-            [IntPtr]0xffff, 0x001A, [UIntPtr]::Zero,
-            'Environment', 0x0002, 5000, [ref]$result
-        ) | Out-Null
+        Set-PermanentEnvironmentVariable $variableName $null -Scope Machine
     }
 
     return $ret
