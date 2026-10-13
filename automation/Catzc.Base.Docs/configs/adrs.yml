@@ -12,7 +12,7 @@
 #             `code` may be set on a LEAF to OVERRIDE the domain default; the validator asserts the external's
 #             DC-segment equals the effective code (`^[A-Z]{2,4}$`).
 #
-# Loaded via Get-Config -Config adrs; validated by Assert-AdrsConfig. index.md is a generated projection of
+# Loaded via Get-Config -Config adrs; validated by its config type, AdrsConfig. index.md is a generated projection of
 # this file (Build-AdrIndex) — see [ADR-REPO-README](/docs/adr/repository/generated-readmes.md) pattern.
 
 domains:

@@ -32,8 +32,8 @@ bindings apply, which are skipped) on any platform without touching the session.
 
 ## What the module does
 
-Both binding sets are the module's own config, read through the one config reader `Get-Config` and shape-validated on load by the private
-convention validators `Assert-KeyHandlerBindingsConfig` / `Assert-KeyHandlerSupportedConfig`
+Both binding sets are the module's own config, read through the one config reader `Get-Config` and shape-validated on load by their C#
+config types `KeyHandlerBindingsConfig` / `KeyHandlerSupportedConfig`
 ([module-config-loading](../../adr/configuration/module-config-loading.md)). The decision — which captured binding is supported on this
 platform — is a pure function, `Select-SupportedKeyHandler`, split out from the side-effecting import so it is deterministic and unit-tested
 on mocks rather than through a live PSReadLine session ([test-automation](../../adr/automation/test-automation.md) push-left). `Import-` is

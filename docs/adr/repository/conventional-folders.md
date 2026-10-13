@@ -290,14 +290,14 @@ every module, without exception.
 
 **`types/`** contains C# source files (`*.cs`) compiled and loaded as .NET types at import time by the bootstrap module's
 `Import-CSharpTypes`, before any module's functions. **The filename is the bare type name** the file must produce, and **the file declares a
-file-scoped `namespace <module>;`** — derived from its `types/` folder, written and repaired by `Format-Types` and gated by `Test-Types`, so
-the fully-qualified type is `<module>.<filename>` (`types/CliRunner.cs` in `Catzc.Base.Execution` → `Catzc.Base.Execution.CliRunner`). The
-loader identifies the type from the filename with no source parsing — one type per file (the analogue of one-function-per-file) — and
-rejects a dotted filename or a missing, mismatched, or block-scoped namespace. Every module's sources compile together into **one**
-committed assembly for the whole repository, `automation/.compiled/Catzc.Types.<hash>.dll` (vendored, hash-keyed, like `.vendor/`), so a
-fresh checkout and CI load it without invoking Roslyn. A module with no native types has no `types/` folder. The full contract — the single
-combined assembly, `namespace = module`, the cross-module references governed by the dependency graph, the cache-state behaviour, the
-fail-fast on edit, and the one shared `DictionaryRecord` data-record base — lives in its own ADR,
+file-scoped `namespace <module>;`** — derived from its `types/` folder, written and repaired by `Format-Types` and gated by
+`Test-Formatting`, so the fully-qualified type is `<module>.<filename>` (`types/CliRunner.cs` in `Catzc.Base.Execution` →
+`Catzc.Base.Execution.CliRunner`). The loader identifies the type from the filename with no source parsing — one type per file (the analogue
+of one-function-per-file) — and rejects a dotted filename or a missing, mismatched, or block-scoped namespace. Every module's sources
+compile together into **one** committed assembly for the whole repository, `automation/.compiled/Catzc.Types.<hash>.dll` (vendored,
+hash-keyed, like `.vendor/`), so a fresh checkout and CI load it without invoking Roslyn. A module with no native types has no `types/`
+folder. The full contract — the single combined assembly, `namespace = module`, the cross-module references governed by the dependency
+graph, the cache-state behaviour, the fail-fast on edit, and the one shared `DictionaryRecord` data-record base — lives in its own ADR,
 [native-csharp-types](../automation/BCL/native-csharp-types.md).
 
 **`tests/`** contains `*.Tests.ps1` files. `Test-Automation` scans `Join-Path $moduleDir 'tests'` for every module. Tests go here and

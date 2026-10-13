@@ -32,7 +32,7 @@ Describe 'Get-AdrDomainEdges' -Tag 'L0', 'logic' {
         @($edges | ForEach-Object { "$($_.From)->$($_.To)" }) | Should -Be @('gadget->widget', 'gizmo->widget', 'gizmo->gadget')
     }
 
-    It 'returns an empty array for a registry with no dependency links' {
+    It 'returns no edges for a registry with no dependency links' {
         $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
                 domains = [ordered]@{
                     widget = [ordered]@{
@@ -41,8 +41,6 @@ Describe 'Get-AdrDomainEdges' -Tag 'L0', 'logic' {
                     }
                 }
             })
-        $edges = Get-AdrDomainEdges
-        , $edges | Should -BeOfType [object[]]
-        $edges | Should -HaveCount 0
+        @(Get-AdrDomainEdges) | Should -HaveCount 0
     }
 }

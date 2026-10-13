@@ -6,10 +6,10 @@ The native C# type system's support layer: it keeps the single committed combine
 computes the cross-module C# type-reference edges that [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md) folds into its dependency
 integrity check, and owns the on-disk module enumeration the whole platform reads its module-name list from. It deliberately does **not**
 own the _runtime_ type compilation or loading — that is the importer's `Import-CSharpTypes` (in
-`automation/.internal/Catzc.Internal.Bootstrap.psm1`), and the authoring gates `Format-Types` / `Test-Types` live in
-[Catzc.Base.QualityGates](catzc-base-qualitygates.md). The one build it does drive is the editor-facing MSBuild of those same sources
-(`Invoke-BuildForVSCode`), which never feeds the runtime — it exists so VS Code's C# analysis matches the `Add-Type` compile. The full
-type-system contract is [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md).
+`automation/.internal/Catzc.Internal.Bootstrap.psm1`), and the namespace formatter `Format-Types` and the `Test-Formatting` gate that checks
+it live in [Catzc.Base.QualityGates](catzc-base-qualitygates.md). The one build it does drive is the editor-facing MSBuild of those same
+sources (`Invoke-BuildForVSCode`), which never feeds the runtime — it exists so VS Code's C# analysis matches the `Add-Type` compile. The
+full type-system contract is [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md).
 
 ## Domains
 
@@ -19,6 +19,7 @@ type-system contract is [native-csharp-types](../../adr/automation/BCL/native-cs
 | domain:2 | graph  | [Cross-module type dependency analysis](#domain2--cross-module-type-dependency-analysis) |
 | domain:3 | list   | [Automation-module enumeration](#domain3--automation-module-enumeration)                 |
 | domain:4 | editor | [Editor type-project build](#domain4--editor-type-project-build)                         |
+| domain:5 | gate   | [Shipped-type coverage](#domain5--shipped-type-coverage)                                 |
 
 ### domain:1 — Compiled type-assembly cache
 
@@ -58,6 +59,12 @@ which fails when the committed `.compiled` assembly is stale versus the sources,
 matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable` rather than the Tooling layer's `Invoke-Dotnet`, which this
 `Base` module must not depend on.
 
+### domain:5 — Shipped-type coverage
+
+Proving every shipped type is present in the session: each `<module>/types/<Name>.cs` under the loaded code root declares `<module>.<Name>`,
+so after import that full name must resolve. The quality gate lists every type that does not, in either run mode; how the files are written
+(their file-scoped namespace) is the formatting gate's concern.
+
 ## What the module does
 
 The module is the part of the native-type system that runs _outside_ the importer. Type compilation and loading happen once, eagerly, in the
@@ -84,3 +91,4 @@ The module's public functions, sorted into the domains above.
 | domain:2 — Cross-module type dependency analysis | `Get-CSharpTypeDependency` |
 | domain:3 — Automation-module enumeration         | `Get-AutomationModules`    |
 | domain:4 — Editor type-project build             | `Invoke-BuildForVSCode`    |
+| domain:5 — Shipped-type coverage                 | `Test-ShippedTypes`        |

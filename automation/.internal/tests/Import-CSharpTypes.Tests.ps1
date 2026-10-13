@@ -375,31 +375,10 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
 }
 
 Describe 'shipped C# types' -Tag 'L0', 'integrity' {
-    BeforeAll {
-        # Every shipped types/*.cs across all modules; its FQN is <module>.<basename> (the file is named for
-        # the bare type and declares the module's file-scoped namespace). Scanned ONCE with [System.IO]
-        # ([ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16)/18)
-        # instead of a BeforeDiscovery Get-ChildItem -Recurse feeding a per-type -ForEach.
-        $automationRoot = Join-Path $env:RepositoryRoot 'automation'
-        $script:shippedTypes = [System.Collections.Generic.List[string]]::new()
-        foreach ($typesDirectory in [System.IO.Directory]::EnumerateDirectories($automationRoot, 'types', [System.IO.SearchOption]::AllDirectories)) {
-            $moduleName = [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName($typesDirectory))
-            if ($moduleName -match '^\.') {
-                continue
-            }
-            foreach ($csharpFile in ([System.IO.Directory]::EnumerateFiles($typesDirectory, '*.cs') | Sort-Object)) {
-                $script:shippedTypes.Add("$moduleName.$([System.IO.Path]::GetFileNameWithoutExtension($csharpFile))")
-            }
-        }
-    }
-
-    It 'found shipped C# type sources (guards against a silent no-op)' {
-        $script:shippedTypes.Count | Should -BeGreaterThan 0
-    }
-
-    It 'every shipped C# type resolves after import' {
-        $unresolved = @($script:shippedTypes | Where-Object { -not ([System.Management.Automation.PSTypeName]$_).Type })
-        $unresolved | Should -BeNullOrEmpty -Because "these shipped types did not resolve after import:`n$($unresolved -join "`n")"
+    It 'every shipped C# type resolves after import (Test-ShippedTypes gate)' {
+        $result = Test-ShippedTypes -PassThru -OutputFolder (Join-Path $TestDrive 'shipped-types')
+        $result.Types | Should -BeGreaterThan 0 -Because 'the gate must find shipped C# type sources (no silent no-op)'
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 
     It 'every shipped C# type declares its module file-scoped namespace (Test-Formatting gate)' {

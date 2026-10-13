@@ -13,7 +13,7 @@
     Each domain's `role` (from Get-Config -Config adrs) annotates its node, so a reader sees which domains are
     axioms / architecture / implementation / reference at a glance.
 .PARAMETER Edge
-    The edges to render (pipeline). Produced by Get-AdrDomainEdges.
+    The edges to render (pipeline), as Catzc.Base.Docs.AdrDomainEdge. Produced by Get-AdrDomainEdges.
 .PARAMETER As
     Output format: Puml | Mermaid | Markdown. Defaults to Puml.
 .EXAMPLE
@@ -24,14 +24,14 @@ function ConvertTo-AdrDomainDiagram {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, ValueFromPipeline)]
-        [object[]] $Edge,
+        [Catzc.Base.Docs.AdrDomainEdge[]] $Edge,
 
         [ValidateSet('Puml', 'Mermaid', 'Markdown')]
         [string] $As = 'Puml'
     )
 
     begin {
-        $edges = [System.Collections.Generic.List[object]]::new()
+        $edges = [System.Collections.Generic.List[Catzc.Base.Docs.AdrDomainEdge]]::new()
     }
     process {
         foreach ($item in $Edge) {

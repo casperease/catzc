@@ -6,7 +6,7 @@
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
 //
 // Load-time rules are self-contained — this one file only, no filesystem reads (a declared module that is missing
-// on disk is Assert-ModuleDependency's finding, not load's):
+// on disk is a Test-ModuleDependency finding, not load's):
 //   - only the top-level keys 'groups' (optional map of ModuleGroup) and 'modules' (required map);
 //   - every group is well-formed (ModuleGroup: closed, no self-dependency, acyclic);
 //   - each module maps to a list of names (not a single string), never itself, and each target is a declared
