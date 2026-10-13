@@ -14,17 +14,35 @@ Describe 'Get-CatsAdrRules' -Tag 'L0', 'logic' {
             ''
             '### Rule ADR-ALPHA:2'
             ''
-            'Beta never happens without alpha.'
+            'Beta never happens without alpha. A **widget'
+            'suite** wraps onto a second line.'
+            ''
+            '- [**gadget**](#anchor)'
+            ''
+            '### Rule ADR-ALPHA:3'
+            ''
+            '## Context'
         ) -join "`n"
         [System.IO.File]::WriteAllText($script:adrPath, $content)
+        $script:rules = & (Get-Module Catzc.Base.Docs) { param($p) Get-CatsAdrRules -AdrPath $p } $script:adrPath
     }
 
     It 'returns one entry per rule heading with its first-line summary' {
-        $rules = & (Get-Module Catzc.Base.Docs) { param($p) Get-CatsAdrRules -AdrPath $p } $script:adrPath
-        @($rules).Count | Should -Be 2
-        $rules[0].Id | Should -Be 'ADR-ALPHA:1'
-        $rules[0].Summary | Should -Be 'Alpha does the first thing deterministically.'
-        $rules[1].Id | Should -Be 'ADR-ALPHA:2'
-        $rules[1].Summary | Should -Be 'Beta never happens without alpha.'
+        @($script:rules).Count | Should -Be 3
+        $script:rules[0].Id | Should -Be 'ADR-ALPHA:1'
+        $script:rules[0].Summary | Should -Be 'Alpha does the first thing deterministically.'
+        $script:rules[1].Id | Should -Be 'ADR-ALPHA:2'
+        $script:rules[1].Summary | Should -Be 'Beta never happens without alpha. A **widget'
+    }
+
+    It 'returns the whole normative paragraph as one line, without the linked bullets' -Tag 'ADR-REPO-VOCAB#1' {
+        $script:rules[0].Statement | Should -Be 'Alpha does the first thing deterministically.'
+        $script:rules[1].Statement | Should -Be 'Beta never happens without alpha. A **widget suite** wraps onto a second line.'
+    }
+
+    It 'returns an empty summary and statement for a rule with no body' {
+        $script:rules[2].Id | Should -Be 'ADR-ALPHA:3'
+        $script:rules[2].Summary | Should -Be ''
+        $script:rules[2].Statement | Should -Be ''
     }
 }

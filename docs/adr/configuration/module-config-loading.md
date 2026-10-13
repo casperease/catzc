@@ -12,7 +12,8 @@ directly or keeps its own `$script:` config cache.
 ### Rule ADR-CONF-LOADING:2
 
 Existence is discovered, not declared — a private seam (`Resolve-ConfigEntry`) scans `automation/*/configs/` for `<name>.yml` and resolves
-it to its owning module. A name is global; `-Module` is only for disambiguating the same name in two modules.
+it to its owning module. A name is global; `-Module` is only for disambiguating the same name in several modules, and
+`Get-Config -Config <name> -ListOwners` lists those modules — for a config that modules opt into by shipping it.
 
 - [Discovery, not per-module wrappers](#discovery-not-per-module-wrappers)
 
@@ -77,8 +78,15 @@ A config name is **global**. `Resolve-ConfigEntry` builds a one-time `name → e
 `automation/<module>/configs/*.yml`, then resolves the requested name to a single `@{ Name; Module; Path }`. The owning module is
 _discovered_ from where the file lives — not declared by a wrapper and not passed by the caller. `-Module` exists only to disambiguate the
 rare case of the same config name in two modules; the seam throws on an **unknown** name and on an **ambiguous** name (asking for
-`-Module`). This is also the test seam: mock `Resolve-ConfigEntry` to return a fixture entry and the read redirects to a fixture file (see
-[test-automation](../automation/test-automation.md)).
+`-Module`).
+
+A few configs are shipped by several modules on purpose: each module opts in by shipping its own file, and a reader wants all of them — a
+module's `configs/glossary.yml` is one ([controlled-vocabulary](../repository/controlled-vocabulary.md)).
+`Get-Config -Config <name> -ListOwners` lists every owner's entry, sorted by module name (ordinal) and empty when no module ships the name,
+without loading anything; the reader then loads each with `-Module`, so every file still goes through the one cached, validated read.
+
+`Resolve-ConfigEntry` is also the test seam: mock `Resolve-ConfigEntry` to return a fixture entry and the read redirects to a fixture file
+(see [test-automation](../automation/test-automation.md)).
 
 ### Validation runs in the owner's scope, by convention
 

@@ -77,7 +77,7 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
     It 'names the process holding the surviving build in the warning' -Tag 'logic' {
         Mock Test-FileIsLocked { $true } -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Path -like '*deadbeef*' }
         Mock Get-FileLockingProcess {
-            [Catzc.Base.Files.FileLockingProcess]::new(4242, 'widget.exe', 'Widget', [datetime] '2026-01-02 03:04', 'widget.exe -run', 1, $null)
+            [Catzc.Base.Files.FileLockingProcess]::new(4242, 'widget.exe', 'Widget', [datetime] '2026-01-02 03:04', 'widget.exe -run', 1)
         } -ModuleName Catzc.Base.TypesSystem
         Clear-ModuleTypeCache -AutomationRoot $fakeRoot
         Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter {
@@ -89,7 +89,7 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
     It 'labels a VS Code PowerShell extension host by name in the warning' -Tag 'logic' {
         Mock Test-FileIsLocked { $true } -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Path -like '*deadbeef*' }
         Mock Get-FileLockingProcess {
-            [Catzc.Base.Files.FileLockingProcess]::new(4242, 'pwsh.exe', 'PowerShell 7', [datetime] '2026-01-02 03:04', 'pwsh.exe -Command Start-EditorServices PowerShellEditorServices', 1, $null)
+            [Catzc.Base.Files.FileLockingProcess]::new(4242, 'pwsh.exe', 'PowerShell 7', [datetime] '2026-01-02 03:04', 'pwsh.exe -Command Start-EditorServices PowerShellEditorServices', 1)
         } -ModuleName Catzc.Base.TypesSystem
         Clear-ModuleTypeCache -AutomationRoot $fakeRoot
         Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Warning -and $Message -like '*the VS Code PowerShell extension*' }

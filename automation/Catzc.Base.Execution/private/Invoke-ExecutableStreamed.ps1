@@ -55,8 +55,9 @@ function Invoke-ExecutableStreamed {
     # Console.Write, which bypasses the Write-Message/Write-Object suppression (so a real tool's chatter —
     # e.g. an `az bicep` upgrade nag — would otherwise leak into test logs). Output is still captured into
     # the result, so -PassThru and the exit-code assertion are unaffected. Same global the writers read,
-    # set by Test-Automation. The variable is scope-qualified, so it reads as $null when unset (no strict-mode error).
-    $suppressOutput = [bool]$Silent -or [bool]$global:__PesterRunning
+    # set by Test-Automation. Read through Get-Variable: the flag is unset outside a test run, and strict mode
+    # rejects an unset variable even when scope-qualified.
+    $suppressOutput = [bool]$Silent -or [bool](Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore)
 
     # CliRunner is autoloaded at import time from types/ (Bootstrap's Import-CSharpTypes).
     $runResult = [Catzc.Base.Execution.CliRunner]::Run($Command, $suppressOutput, $WorkingDirectory)

@@ -1,0 +1,95 @@
+# Get-GlossaryDefinitionViolations is private, so it is exercised through the module (InModuleScope, per
+# ADR-AUTO-PESTER:4). A fixture ADR index and two ADRs live in $TestDrive, and the glossary is built in memory from
+# the real GlossaryEntry/GlossaryConcept/GlossaryOptions types. Fixture terms and rule codes are neutral
+# (widget/gadget, tst — ADR-AUTO-TEST:3).
+Describe 'Get-GlossaryDefinitionViolations' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $adrRoot = Join-Path $TestDrive 'adr'
+        [System.IO.Directory]::CreateDirectory((Join-Path $adrRoot 'repository')) | Out-Null
+        $script:indexPath = Join-Path $adrRoot 'index.md'
+        [System.IO.File]::WriteAllText($script:indexPath, (@(
+                    '| Code | ADR |'
+                    '| ---- | --- |'
+                    '| `ADR-TST-WIDGET` | [widget-thing](repository/widget-thing.md) |'
+                    '| `ADR-TST-GADGET` | [gadget-thing](repository/gadget-thing.md) |'
+                ) -join "`n"))
+        [System.IO.File]::WriteAllText((Join-Path $adrRoot 'repository/widget-thing.md'), (@(
+                    '### Rule ADR-TST-WIDGET:1'
+                    ''
+                    'A **widget suite** is every widget file at rest.'
+                    ''
+                    '### Rule ADR-TST-WIDGET:2'
+                    ''
+                    'A **gadget run** is one execution of widgets.'
+                    ''
+                    '## Context'
+                    ''
+                    'Here a **widget suite** is described again, in the body.'
+                ) -join "`n"))
+        [System.IO.File]::WriteAllText((Join-Path $adrRoot 'repository/gadget-thing.md'), (@(
+                    '### Rule ADR-TST-GADGET:1'
+                    ''
+                    'Every **widget suite** runs in a **gadget run**, and `**widget suite** is` is only a mention.'
+                    ''
+                    '### Rule ADR-TST-GADGET:2'
+                    ''
+                    'The **Gadget'
+                    'Run** is what a widget suite selects.'
+                ) -join "`n"))
+
+        # One merged glossary entry: a prose-only concept from the widget source, with optional source gates.
+        $script:entry = {
+            param([string] $term, [string] $definedBy, [string[]] $gates)
+            $concept = [Catzc.Base.Docs.GlossaryConcept]::new($term, [ordered]@{
+                    key         = $term.Replace(' ', '_')
+                    domain      = 'repository'
+                    defined_by  = $definedBy
+                    short       = "The $term."
+                    realized_by = [ordered]@{ kind = 'prose-only' }
+                })
+            $options = @{}
+            if ($PSBoundParameters.ContainsKey('gates')) {
+                $options['gates'] = $gates
+            }
+            [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'automation/Catzc.Widget/configs/glossary.yml',
+                [Catzc.Base.Docs.GlossaryOptions]::new($options))
+        }
+        $script:violations = {
+            param([object[]] $entries)
+            $found = @(InModuleScope Catzc.Base.Docs -Parameters @{ Entries = $entries; IndexPath = $script:indexPath } {
+                    Get-GlossaryDefinitionViolations -Entry $Entries -IndexPath $IndexPath
+                })
+            Write-Output -NoEnumerate $found   # keep a single violation an array, so .Count and [0] mean what they say
+        }
+    }
+
+    It 'reports nothing when only the defining rule defines the term — ADR bodies and code spans never count' -Tag 'ADR-REPO-VOCAB#1' {
+        & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#1') | Should -BeNullOrEmpty
+    }
+
+    It 'reports a second rule whose summary defines the term, across a wrapped line and in any case' -Tag 'ADR-REPO-VOCAB#1' {
+        $found = & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-WIDGET#2')
+        $found.Count | Should -Be 1
+        $found[0] | Should -Be "automation/Catzc.Widget/configs/glossary.yml: concept 'gadget run': ADR-TST-GADGET#2 defines '**gadget run**' a second time — it is defined by ADR-TST-WIDGET#2 (ADR-REPO-VOCAB:1)"
+    }
+
+    It 'does not count a rule that only bolds the term' -Tag 'ADR-REPO-VOCAB#1' {
+        # ADR-TST-GADGET:1 bolds both terms without defining either; only ADR-TST-GADGET:2 defines 'gadget run'.
+        $found = & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-GADGET#2')
+        $found.Count | Should -Be 1
+        $found[0] | Should -BeLike "*: ADR-TST-WIDGET#2 defines '**gadget run**' a second time*"
+    }
+
+    It 'skips a source that opts out of the single gate' -Tag 'ADR-REPO-VOCAB#2' {
+        & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-WIDGET#2' @('anchored', 'avoid', 'enforced')) | Should -BeNullOrEmpty
+    }
+
+    It 'reads the repository glossary by default' -Tag 'ADR-REPO-VOCAB#1' {
+        # Get-Glossary returns its array as one object (', $sorted'); the default must bind that shape.
+        $entries = [Catzc.Base.Docs.GlossaryEntry[]] @(& $script:entry 'gadget run' 'ADR-TST-WIDGET#2')
+        Mock Get-Glossary -ModuleName Catzc.Base.Docs -MockWith { , $entries }.GetNewClosure()
+        $found = @(InModuleScope Catzc.Base.Docs -Parameters @{ IndexPath = $script:indexPath } { Get-GlossaryDefinitionViolations -IndexPath $IndexPath })
+        $found.Count | Should -Be 1
+        $found[0] | Should -BeLike "*: ADR-TST-GADGET#2 defines '**gadget run**' a second time*"
+    }
+}

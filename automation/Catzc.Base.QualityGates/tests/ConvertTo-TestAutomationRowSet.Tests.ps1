@@ -19,6 +19,7 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
                 @()
             }
             [pscustomobject]@{
+                Tag          = @()   # the It's own tags (a Pester test always carries the member); these sit on the block
                 Result       = $Result
                 Duration     = [timespan]::FromMilliseconds($Ms)
                 ExpandedPath = $Path

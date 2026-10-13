@@ -106,7 +106,7 @@ function Clear-ModuleTypeCache {
     }
 
     if (Test-IsRunningInPipeline) {
-        $typeDlls = & $getTypeDlls
+        $typeDlls = @(& $getTypeDlls)   # @(): invoking the block unrolls a 0/1-item list
         if ($typeDlls.Count -gt 1) {
             $names = ($typeDlls | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Sort-Object) -join ', '
             throw "More than one compiled type assembly is committed in automation/.compiled ($names). The committed .compiled must contain exactly one build; a superseded DLL reached CI because a console session locked it on the devbox and it was committed instead of deleted. On the devbox, restart PowerShell to release the lock, run Clear-ModuleTypeCache, and commit the single remaining build."
@@ -217,7 +217,7 @@ function Clear-ModuleTypeCache {
         }
     }
 
-    $remaining = & $getTypeDlls
+    $remaining = @(& $getTypeDlls)   # @(): invoking the block unrolls a 0/1-item list
     if ($remaining.Count -gt 1) {
         $heldBy = foreach ($dll in $remaining) {
             if ($keep -and [System.IO.Path]::GetFileName($dll) -ieq $keep) {

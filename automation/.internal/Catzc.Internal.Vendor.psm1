@@ -7,6 +7,8 @@
 # .internal shared libraries (Types, the Loader), this module stays in the session; it is NOT removed with
 # the transient bootstrap. Loaded on demand through Import-InternalModule Vendor.
 
+Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
+
 <#
 .SYNOPSIS
     Imports third-party modules from a vendor directory.
@@ -119,7 +121,7 @@ function Import-VendorModules {
         if ($DiagnoseLoadTime) {
             $vendorMs = [int]$vendorStopwatch.Elapsed.TotalMilliseconds
             Write-ImporterMessage ('    {0,6}ms  vendor {1}' -f $vendorMs, $dir.Name) -ForegroundColor DarkGray
-            if ($null -ne $global:__CatzcLoadTimings) {
+            if ($null -ne (Get-Variable -Name '__CatzcLoadTimings' -Scope Global -ValueOnly -ErrorAction Ignore)) {
                 $global:__CatzcLoadTimings.Add([pscustomobject]@{ Stage = "vendor $($dir.Name)"; Ms = $vendorMs; ReadMs = 0; ImportMs = 0; FileCount = 0 })
             }
         }

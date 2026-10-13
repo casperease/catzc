@@ -18,13 +18,14 @@ function Get-ToolInstallOrder {
     # Build adjacency: tool → list of tools it depends on
     $dependencies = @{}
     foreach ($name in $allTools.Keys) {
-        $dependency = $allTools[$name].depends_on
-        $dependencies[$name] = if ($dependency) {
-            @($dependency)
-        }
-        else {
-            @()
-        }
+        # depends_on is optional: index it (a dotted read of an absent key throws under strict), and keep the
+        # value an array — an if-expression would unroll a one-item list to a scalar
+        $dependency = $allTools[$name]['depends_on']
+        $dependencies[$name] = [string[]] @(
+            if ($dependency) {
+                $dependency
+            }
+        )
     }
 
     # Kahn's algorithm — topological sort

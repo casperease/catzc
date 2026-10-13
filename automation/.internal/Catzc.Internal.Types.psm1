@@ -1,3 +1,5 @@
+Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
+
 <#
 .SYNOPSIS
     The single implementation of the combined C# type-source hash — enumerate, order, and hash every module's
@@ -24,7 +26,8 @@ function Get-CombinedTypeHash {
         The automation directory. Its non-dot subfolders are the modules whose types/*.cs are hashed.
     .PARAMETER Module
         Restricts the hash to these module folders (a build of a module subset). Omitted, every non-dot module
-        folder is hashed. A named module without a types/ folder simply contributes nothing.
+        folder is hashed, plus a build's .compiled/types/<module>/*.cs (the unselected modules' sources). A named
+        module without a types/ folder simply contributes nothing.
     .OUTPUTS
         [pscustomobject] with:
           CombinedHash  the 8-char lowercase hex hash (the Catzc.Types.<hash>.dll key), or $null when no module
@@ -70,6 +73,25 @@ function Get-CombinedTypeHash {
                     Key    = "$moduleName/$base"
                     Path   = $sourcePath
                 })
+        }
+    }
+
+    # A build ships the full type set but only the selected modules' folders; the other modules' sources sit
+    # under .compiled/types/<module>/ so the importer never mistakes them for module folders. Keyed the same way,
+    # so the hash equals the full source hash. A source tree has no .compiled/types, so this adds nothing there.
+    $compiledTypesDir = [System.IO.Path]::Combine($AutomationRoot, '.compiled', 'types')
+    if ($null -eq $selected -and [System.IO.Directory]::Exists($compiledTypesDir)) {
+        foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($compiledTypesDir)) {
+            $moduleName = [System.IO.Path]::GetFileName($moduleDir)
+            foreach ($sourcePath in [System.IO.Directory]::EnumerateFiles($moduleDir, '*.cs')) {
+                $base = [System.IO.Path]::GetFileNameWithoutExtension($sourcePath)
+                $files.Add([pscustomobject]@{
+                        Module = $moduleName
+                        Base   = $base
+                        Key    = "$moduleName/$base"
+                        Path   = $sourcePath
+                    })
+            }
         }
     }
 

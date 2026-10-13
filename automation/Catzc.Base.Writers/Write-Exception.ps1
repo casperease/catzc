@@ -23,7 +23,8 @@ function Write-Exception {
         [int] $GlobalErrorIndex = 0
     )
 
-    if (-not $ErrorRecord) {
+    # bounds-checked: indexing past the end of $Error throws under strict mode
+    if (-not $ErrorRecord -and $GlobalErrorIndex -lt $global:Error.Count) {
         $ErrorRecord = $global:Error[$GlobalErrorIndex]
     }
 

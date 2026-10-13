@@ -6,6 +6,8 @@
 # unconditionally; it stays in the session (it is NOT removed with Bootstrap), so a post-import Catzc cover
 # function can ensure a shared module is present before delegating to it.
 
+Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
+
 $script:internalRoot = $PSScriptRoot
 
 function Import-InternalModule {

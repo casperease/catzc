@@ -6,6 +6,8 @@
 # Like the transient bootstrap, this module is import-time orchestration, not shared library code: the shim
 # removes it after Invoke-Importer returns.
 
+Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
+
 <#
 .SYNOPSIS
     Runs the toolset's whole load sequence — the single living copy of the importer body.

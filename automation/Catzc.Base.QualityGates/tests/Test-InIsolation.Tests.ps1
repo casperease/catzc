@@ -67,7 +67,8 @@ Describe 'Test-InIsolation' -Tag 'L0', 'logic' {
 Describe 'Test-InIsolation (vendored Pester)' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         Mock Get-Module -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'Pester' } { }
-        Mock Import-Module -ModuleName Catzc.Base.QualityGates -ParameterFilter { "$Name" -like '*Pester*' } { }
+        # -PassThru answers with the module, as the real import does: the already-running Pester
+        Mock Import-Module -ModuleName Catzc.Base.QualityGates -ParameterFilter { "$Name" -like '*Pester*' } { Get-Module Pester }
         Mock Get-ModuleProfile -ModuleName Catzc.Base.QualityGates { throw 'stop after the Pester import' }
     }
 

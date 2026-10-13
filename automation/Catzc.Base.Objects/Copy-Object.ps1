@@ -69,7 +69,7 @@ function Copy-Object {
             }
 
             # PSCustomObject
-            if ($Object.PSObject.Properties.Count -gt 0 -and
+            if (@($Object.PSObject.Properties).Count -gt 0 -and
                 $Object.GetType().Name -eq 'PSCustomObject') {
                 if (-not $warned -and -not $AcceptWarnings) {
                     Write-Verbose 'Only copying note properties'

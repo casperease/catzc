@@ -14,24 +14,40 @@
       3. Raw: neither → the ordered dictionary, unvalidated (the sensible default).
     Resolution always targets the owner module (`& (Get-Module $owner) { … }`), so validators stay private
     and the result is the same no matter which module called Get-Config. See ADR module-config-loading.
+
+    -ListOwners loads nothing: it lists every module that ships the config, as @{ Name; Module; Path } sorted
+    by module name (ordinal), and nothing when none does. A config several modules opt into by shipping it
+    (glossary) is read by listing its owners and then reading each with -Module.
 .PARAMETER Config
     The config's global lowercase name (kebab-case), without the .yml extension — e.g. 'ado', 'pipeline-env'.
 .PARAMETER Module
     Disambiguates when the same config name exists in more than one module.
+.PARAMETER ListOwners
+    Lists the owning modules' entries instead of loading the config.
 .EXAMPLE
     (Get-Config -Config ado).organization
 .EXAMPLE
     Get-Config -Config tools
+.EXAMPLE
+    Get-Config -Config glossary -ListOwners | ForEach-Object { Get-Config -Config glossary -Module $_.Module }
 #>
 function Get-Config {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = 'Load')]
     param(
         [Parameter(Mandatory, Position = 0)]
         [ValidatePattern('(?-i)^[a-z0-9]+(-[a-z0-9]+)*$')]
         [string] $Config,
 
-        [string] $Module
+        [Parameter(ParameterSetName = 'Load')]
+        [string] $Module,
+
+        [Parameter(Mandatory, ParameterSetName = 'ListOwners')]
+        [switch] $ListOwners
     )
+
+    if ($ListOwners) {
+        return Resolve-ConfigEntry -Config $Config -All
+    }
 
     $entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name; Module; Path }
 

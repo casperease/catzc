@@ -1,18 +1,28 @@
 <#
 .SYNOPSIS
-    Verifies a built Catzc bundle is well-formed and reproducible; throws with every violation.
+    Verifies a Catzc build (or an install of one) is complete and unchanged since it was built; throws with every
+    violation.
 .DESCRIPTION
-    The bundle integrity gate. Given a bundle root (from Build-Catzc, or an installed bundle), it asserts:
-      - build.json is present and its recorded content hash matches the tree recomputed now (reproducibility —
-        the same bytes yield the same hash, and nothing drifted after the build);
-      - the bundle importer.ps1 is present (the load entry point);
-      - no tests/ verification surface leaked in (aspect purity — a bundle ships runtime, not its own tests);
-      - exactly one prebuilt combined-types DLL is present, so the bundle loads without Roslyn.
-    The content hash excludes build.json itself (it carries the hash). Collects all violations and throws once.
+    The build's integrity gate (ADR-AUTO-BUNDLE:5). Given a build root — out/automation/build/Catzc/<version>/,
+    or an installed copy — it asserts:
+      - layout: build.json, Catzc.psd1, Catzc.psm1, Import-Catzc.ps1 and the .internal loader are present, and the
+        folder is named for build.json's version (a valid Catzc/<version>/ module folder);
+      - no tests/ surface anywhere outside .vendor/ (vendored modules are copied verbatim, by rule);
+      - types: exactly one .compiled/Catzc.Types.<hash>.dll, named for build.json typesHash. Every build ships the
+        full type set: the selected modules' sources under <Module>/types/, every other module's under
+        .compiled/types/<Module>/. build.json typeSources lists them all (build-relative paths); each must exist,
+        no shipped source may be missing from the list, and the listed sources must hash (Get-CombinedTypeHash,
+        the one implementation) to typesHash — "the DLL was built from these sources" is proven by hash;
+      - modules: the module folders are exactly build.json's modules; each has its <Module>.psd1 and merged
+        <Module>.ps1, and every FunctionsToExport name resolves to a top-level function in the merged file (AST);
+      - content: Get-CatzcContentHash over the tree (build.json excluded — it carries the hash) equals build.json
+        contentHash, so nothing drifted after the build.
+    Collects every violation and throws once. Build-Modules runs it on its own output; Install-Catzc runs it on
+    the build before touching a destination.
 .PARAMETER Path
-    The bundle root to verify.
+    The build root to verify (the Catzc/<version>/ folder).
 .EXAMPLE
-    Assert-CatzcBundle -Path (Join-Path (Get-OutputRoot) 'catzc/6.6.666')
+    Assert-CatzcBundle -Path (Join-Path (Get-OutputRoot) 'automation/build/Catzc/6.6.666')
 #>
 function Assert-CatzcBundle {
     [CmdletBinding()]
@@ -22,56 +32,173 @@ function Assert-CatzcBundle {
     )
 
     Assert-PathExist $Path -PathType Container
+    $root = [System.IO.Path]::GetFullPath($Path).TrimEnd('\', '/')
     $violations = [System.Collections.Generic.List[string]]::new()
 
-    $buildFile = Join-Path $Path 'build.json'
-    if (-not (Test-Path $buildFile)) {
-        $violations.Add('missing build.json')
-    }
-    else {
-        $build = Get-Content $buildFile -Raw | ConvertFrom-Json
-        $actual = Get-CatzcContentHash -Path $Path -Exclude 'build.json'
-        if ($actual -ne $build.contentHash) {
-            $violations.Add("content hash mismatch: build.json records $($build.contentHash) but the tree hashes to $actual")
+    foreach ($required in @('Catzc.psd1', 'Catzc.psm1', 'Import-Catzc.ps1', '.internal/Catzc.Internal.Loader.psm1')) {
+        if (-not [System.IO.File]::Exists([System.IO.Path]::Combine($root, $required))) {
+            $violations.Add("missing $required")
         }
     }
 
-    if (-not (Test-Path (Join-Path $Path 'importer.ps1'))) {
-        $violations.Add('missing bundle importer.ps1')
-    }
-
-    $leaked = @([System.IO.Directory]::EnumerateFiles($Path, '*', [System.IO.SearchOption]::AllDirectories) |
-            Where-Object { $_.Replace('\', '/') -like '*/tests/*' })
-    if ($leaked.Count -gt 0) {
-        $violations.Add("$($leaked.Count) test file(s) leaked into the bundle (aspect purity)")
-    }
-
-    $compiledDir = Join-Path $Path 'automation/.compiled'
-    $dlls = if (Test-Path $compiledDir) {
-        @([System.IO.Directory]::EnumerateFiles($compiledDir, 'Catzc.Types.*.dll'))
+    $build = $null
+    $buildFile = [System.IO.Path]::Combine($root, 'build.json')
+    if (-not [System.IO.File]::Exists($buildFile)) {
+        $violations.Add('missing build.json')
     }
     else {
-        @()
-    }
-    if ($dlls.Count -ne 1) {
-        $violations.Add("expected exactly one prebuilt types DLL under automation/.compiled, found $($dlls.Count)")
+        $build = [System.IO.File]::ReadAllText($buildFile) | ConvertFrom-Json -AsHashtable
+        foreach ($field in @('version', 'contentHash', 'typesHash', 'typeSources', 'modules')) {
+            if (-not $build.ContainsKey($field) -or @($build[$field]).Count -eq 0 -or "$($build[$field])" -eq '') {
+                $violations.Add("build.json records no $field")
+            }
+        }
     }
 
-    # Read-only ready: every module ships its pre-generated manifest, so a -Bundle load never writes a .psd1.
-    $bundleAutomation = Join-Path $Path 'automation'
-    if (Test-Path $bundleAutomation) {
-        foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($bundleAutomation)) {
-            $moduleName = [System.IO.Path]::GetFileName($moduleDir)
-            if ($moduleName.StartsWith('.')) {
-                continue
+    # Every file once, build-relative and forward-slashed: the tests/ scan and the shipped type sources read it.
+    $files = foreach ($file in [System.IO.Directory]::EnumerateFiles($root, '*', [System.IO.SearchOption]::AllDirectories)) {
+        [System.IO.Path]::GetRelativePath($root, $file).Replace('\', '/')
+    }
+    $files = @($files)
+
+    # No verification surface ships. Vendored modules are verbatim copies (powershell-yaml carries its own Tests/).
+    $leaked = @($files | Where-Object { -not $_.StartsWith('.vendor/') -and "/$_" -match '(?i)/tests/' })
+    if ($leaked.Count -gt 0) {
+        $violations.Add("$($leaked.Count) test file(s) shipped in the build: $(@($leaked | Select-Object -First 5) -join ', ')")
+    }
+
+    $dlls = @($files | Where-Object { $_ -match '^\.compiled/Catzc\.Types\.[^/]+\.dll$' })
+    if ($dlls.Count -ne 1) {
+        $violations.Add("expected exactly one .compiled/Catzc.Types.<hash>.dll, found $($dlls.Count) $($dlls -join ', ')".TrimEnd())
+    }
+
+    if ($null -ne $build) {
+        if ($build['version'] -and [System.IO.Path]::GetFileName($root) -ne "$($build['version'])") {
+            $violations.Add("folder '$([System.IO.Path]::GetFileName($root))' does not match build.json version $($build['version']) (a build lives in Catzc/<version>/)")
+        }
+
+        $typesHash = "$($build['typesHash'])"
+        if ($typesHash -and $dlls.Count -eq 1 -and $dlls[0] -ne ".compiled/Catzc.Types.$typesHash.dll") {
+            $violations.Add("types DLL $($dlls[0]) does not match build.json typesHash $typesHash")
+        }
+
+        $recordedSources = @($build['typeSources'] | Where-Object { $_ } | ForEach-Object { "$_" })
+        if ($typesHash -and $recordedSources.Count -gt 0) {
+            # Shipped sources: <Module>/types/<File>.cs (selected) and .compiled/types/<Module>/<File>.cs (the rest).
+            $shipped = @($files | Where-Object { $_ -match '^[^./][^/]*/types/[^/]+\.cs$' -or $_ -match '^\.compiled/types/[^/]+/[^/]+\.cs$' })
+            foreach ($source in $shipped) {
+                if ($source -notin $recordedSources) {
+                    $violations.Add("type source $source ships but is not in build.json typeSources")
+                }
             }
-            if (-not (Test-Path (Join-Path $moduleDir "$moduleName.psd1"))) {
-                $violations.Add("module '$moduleName' is missing its pre-generated manifest ($moduleName.psd1) — the bundle would write it on load")
+
+            # Stage the recorded sources in the one layout Get-CombinedTypeHash reads (<Module>/types/<File>.cs), so the
+            # hash comes from the one implementation rather than a second copy of its recipe.
+            $staging = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "catzc-types-$([System.Guid]::NewGuid().ToString('N'))")
+            try {
+                $sourcesComplete = $true
+                foreach ($source in $recordedSources) {
+                    $module = $null
+                    if ($source -match '^(?<module>[^./][^/]*)/types/(?<file>[^/]+\.cs)$' -or $source -match '^\.compiled/types/(?<module>[^/]+)/(?<file>[^/]+\.cs)$') {
+                        $module = $Matches['module']
+                        $fileName = $Matches['file']
+                    }
+                    $absolute = [System.IO.Path]::Combine($root, $source)
+                    if ($null -eq $module) {
+                        $violations.Add("build.json typeSources entry '$source' is neither <Module>/types/<File>.cs nor .compiled/types/<Module>/<File>.cs")
+                        $sourcesComplete = $false
+                    }
+                    elseif (-not [System.IO.File]::Exists($absolute)) {
+                        $violations.Add("type source $source is recorded in build.json but missing")
+                        $sourcesComplete = $false
+                    }
+                    else {
+                        $stagedDir = [System.IO.Path]::Combine($staging, $module, 'types')
+                        [System.IO.Directory]::CreateDirectory($stagedDir) | Out-Null
+                        [System.IO.File]::Copy($absolute, [System.IO.Path]::Combine($stagedDir, $fileName), $true)
+                    }
+                }
+                if ($sourcesComplete) {
+                    Import-InternalModule Types
+                    $actualTypesHash = (Get-CombinedTypeHash -AutomationRoot $staging).CombinedHash
+                    if ($actualTypesHash -ne $typesHash) {
+                        $violations.Add("type sources hash to $actualTypesHash but build.json typesHash is $typesHash (the DLL was not built from the shipped sources)")
+                    }
+                }
             }
+            finally {
+                if ([System.IO.Directory]::Exists($staging)) {
+                    [System.IO.Directory]::Delete($staging, $true)
+                }
+            }
+        }
+
+        if ($build['contentHash']) {
+            $actual = Get-CatzcContentHash -Path $root -Exclude 'build.json'
+            if ($actual -ne "$($build['contentHash'])") {
+                $violations.Add("content hash mismatch: build.json records $($build['contentHash']) but the tree hashes to $actual")
+            }
+        }
+    }
+
+    # Modules: the folders on disk are what the importer loads; build.json is what was built. They must agree.
+    $onDisk = @(foreach ($directory in [System.IO.Directory]::EnumerateDirectories($root)) {
+            $name = [System.IO.Path]::GetFileName($directory)
+            if (-not $name.StartsWith('.')) {
+                $name
+            }
+        })
+    if ($null -ne $build -and $build['modules']) {
+        $recorded = @($build['modules'] | ForEach-Object { "$_" })
+        foreach ($name in @($recorded | Where-Object { $_ -notin $onDisk })) {
+            $violations.Add("module '$name' is recorded in build.json but has no folder")
+        }
+        foreach ($name in @($onDisk | Where-Object { $_ -notin $recorded })) {
+            $violations.Add("module folder '$name' is not recorded in build.json")
+        }
+    }
+
+    $isFunction = { param($node) $node -is [System.Management.Automation.Language.FunctionDefinitionAst] }
+    foreach ($name in $onDisk) {
+        $manifestPath = [System.IO.Path]::Combine($root, $name, "$name.psd1")
+        $mergedPath = [System.IO.Path]::Combine($root, $name, "$name.ps1")
+        $hasManifest = [System.IO.File]::Exists($manifestPath)
+        $hasMerged = [System.IO.File]::Exists($mergedPath)
+        if (-not $hasManifest) {
+            $violations.Add("module '$name' is missing its manifest $name/$name.psd1")
+        }
+        if (-not $hasMerged) {
+            $violations.Add("module '$name' is missing its merged $name/$name.ps1")
+        }
+        if (-not ($hasManifest -and $hasMerged)) {
+            continue
+        }
+
+        $tokens = $null
+        $parseErrors = $null
+        $ast = [System.Management.Automation.Language.Parser]::ParseFile($mergedPath, [ref]$tokens, [ref]$parseErrors)
+        if ($parseErrors.Count -gt 0) {
+            $violations.Add("module '$name': $name.ps1 does not parse ($($parseErrors[0].Message))")
+            continue
+        }
+        # Top-level functions only — a function nested in another is not what the manifest exports.
+        $defined = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+        foreach ($function in $ast.FindAll($isFunction, $false)) {
+            [void]$defined.Add($function.Name)
+        }
+
+        $manifest = Import-PowerShellDataFile -Path $manifestPath
+        $exports = @()
+        if ($manifest.ContainsKey('FunctionsToExport')) {
+            $exports = @($manifest['FunctionsToExport'] | Where-Object { $_ })
+        }
+        $unresolved = @($exports | Where-Object { -not $defined.Contains("$_") })
+        if ($unresolved.Count -gt 0) {
+            $violations.Add("module '$name' exports function(s) its merged $name.ps1 does not define: $($unresolved -join ', ')")
         }
     }
 
     if ($violations.Count -gt 0) {
-        throw "Catzc bundle at '$Path' is invalid:`n$($violations -join "`n")"
+        throw "Catzc build at '$Path' is invalid:`n$($violations -join "`n")"
     }
 }

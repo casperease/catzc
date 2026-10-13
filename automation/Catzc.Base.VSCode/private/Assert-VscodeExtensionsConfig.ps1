@@ -20,11 +20,11 @@ function Assert-VscodeExtensionsConfig {
 
     $violations = [System.Collections.Generic.List[string]]::new()
 
-    $recommendations = if ($Config.Contains('recommendations')) {
-        @($Config['recommendations'])
-    }
-    else {
-        @()
+    # assigned in the branch, not from an if-expression (which unrolls a 0/1-item array to $null/a scalar); an
+    # absent key and an empty (null) value are both an empty list
+    $recommendations = @()
+    if ($null -ne $Config['recommendations']) {
+        $recommendations = @($Config['recommendations'])
     }
     if ($recommendations.Count -eq 0) {
         $violations.Add("'recommendations' must be a non-empty list of extension ids")

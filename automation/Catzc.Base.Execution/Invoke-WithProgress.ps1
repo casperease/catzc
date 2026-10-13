@@ -56,7 +56,7 @@ function Invoke-WithProgress {
     # Writers module this session loaded, and copies this session's Pester-run guard, so its dots behave
     # exactly like a Write-Message on this thread.
     $writersPath = (Get-Module Catzc.Base.Writers).Path
-    $silenced = [bool]$global:__PesterRunning
+    $silenced = [bool](Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore)   # unset outside a test run
     $dotJob = Start-ThreadJob -StreamingHost $Host -ScriptBlock {
         $global:__PesterRunning = $using:silenced
         $global:InformationPreference = 'Continue'

@@ -1,3 +1,5 @@
+Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
+
 <#
 .SYNOPSIS
     Writes a bootstrap/importer console message, prefixed to match Write-Message's [Caller] style.
@@ -24,7 +26,8 @@ function Write-ImporterMessage {
         [System.ConsoleColor] $ForegroundColor
     )
 
-    if ($global:__PesterRunning) {
+    # Read through Get-Variable: the flag is unset outside a test run, and strict mode rejects an unset variable.
+    if (Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore) {
         return
     }
     $line = if ($Message) {
@@ -397,7 +400,7 @@ function Import-CSharpTypes {
     # with no record of its own is compared per file against the root that loaded the types (cross-root, below).
     # The message names which files drifted (added/removed/changed) and both hashes or roots, so the cause is
     # diagnosable from the error text alone (a pure CRLF/LF flip never reaches here — the digests strip CR).
-    if (-not $global:__CatzcTypes) {
+    if (-not (Get-Variable -Name '__CatzcTypes' -Scope Global -ValueOnly -ErrorAction Ignore)) {
         $global:__CatzcTypes = @{}
     }
     $rootKey = [System.IO.Path]::GetFullPath($ModulesRoot)
@@ -568,7 +571,7 @@ function Import-CSharpTypes {
             'cache load'
         }
         Write-ImporterMessage ('    {0,6}ms  types (combined, {1} files) ({2})' -f $ms, $arr.Count, $label) -ForegroundColor DarkGray
-        if ($null -ne $global:__CatzcLoadTimings) {
+        if ($null -ne (Get-Variable -Name '__CatzcLoadTimings' -Scope Global -ValueOnly -ErrorAction Ignore)) {
             $global:__CatzcLoadTimings.Add([pscustomobject]@{ Stage = 'types (combined)'; Ms = $ms; ReadMs = 0; ImportMs = 0; FileCount = $arr.Count })
         }
     }
@@ -883,13 +886,16 @@ function Import-AllModules {
             if ($DiagnoseLoadTime) {
                 $sw.Restart()
             }
-            Import-Module $manifestPath -Scope Global -Force
+            $importedModule = Import-Module $manifestPath -Scope Global -Force -PassThru | Select-Object -First 1
+            # A session-level Set-StrictMode does not reach module code, so strict mode is set in each module's own
+            # script scope, which every function in the module inherits (docs/adr/automation/powershell/error-handling.md).
+            . $importedModule { Set-StrictMode -Version Latest }
             $imported.Add($dir.Name)
             if ($DiagnoseLoadTime) {
                 $importMs = [int]$sw.Elapsed.TotalMilliseconds
                 $total = $manifestMs + $readMs + $importMs
                 Write-ImporterMessage ('    {0,6}ms  {1} (manifest {2}ms + raw-read {3}ms + import {4}ms)' -f $total, $dir.Name, $manifestMs, $readMs, $importMs) -ForegroundColor DarkGray
-                if ($null -ne $global:__CatzcLoadTimings) {
+                if ($null -ne (Get-Variable -Name '__CatzcLoadTimings' -Scope Global -ValueOnly -ErrorAction Ignore)) {
                     $global:__CatzcLoadTimings.Add([pscustomobject]@{ Stage = $dir.Name; Ms = $total; ReadMs = $readMs; ImportMs = $importMs; FileCount = $fileCount })
                 }
             }

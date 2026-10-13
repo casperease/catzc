@@ -48,6 +48,39 @@ Describe 'Get-Config' -Tag 'L0' {
                 }
             }
         }
+
+        It 'lists every owner of a name sorted by module (ordinal), and nothing for an unknown name' {
+            InModuleScope Catzc.Base.Config {
+                $list = [System.Collections.Generic.List[hashtable]]::new()
+                $list.Add(@{ Name = 'widget'; Module = 'b'; Path = 'b.yml' })
+                $list.Add(@{ Name = 'widget'; Module = 'B'; Path = 'B.yml' })
+                $list.Add(@{ Name = 'widget'; Module = 'A'; Path = 'A.yml' })
+                $script:configIndex = @{ widget = $list }
+                try {
+                    (Get-Config -Config widget -ListOwners).Module | Should -Be @('A', 'B', 'b')
+                    @(Get-Config -Config gadget -ListOwners).Count | Should -Be 0
+                }
+                finally {
+                    $script:configIndex = $null
+                }
+            }
+        }
+
+        It 'lists a single owner without loading its config' {
+            InModuleScope Catzc.Base.Config {
+                $list = [System.Collections.Generic.List[hashtable]]::new()
+                $list.Add(@{ Name = 'widget'; Module = 'A'; Path = 'TestDrive:/absent/widget.yml' })
+                $script:configIndex = @{ widget = $list }
+                try {
+                    $owners = @(Get-Config -Config widget -ListOwners)
+                    $owners.Count | Should -Be 1
+                    $owners[0].Path | Should -Be 'TestDrive:/absent/widget.yml'
+                }
+                finally {
+                    $script:configIndex = $null
+                }
+            }
+        }
     }
 
     Context 'convention validation (owner scope)' -Tag 'integrity' {

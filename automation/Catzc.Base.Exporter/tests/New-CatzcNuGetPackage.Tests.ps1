@@ -1,80 +1,68 @@
 InModuleScope Catzc.Base.Exporter {
     Describe 'New-CatzcNuGetPackage' -Tag 'L0', 'logic' {
         BeforeAll {
-            # A minimal fake built bundle (Source). Built ONCE: tests 'stages', 'writes a manifest',
-            # 'carries payload', and 'falls back to default URI' all consume the identical default-fixture
-            # package, so they are facets of one pack + one manifest read (ADR-AUTO-TEST#20) rather than a fresh
-            # pack per assertion — packing (Compress-Archive) and Test-ModuleManifest each cost real time,
-            # amplified ~5-6x under the sharded/greedy run.
-            $script:source = Join-Path $TestDrive ([System.Guid]::NewGuid())
-            $moduleDir = Join-Path $source 'automation/Catzc.Base.Widget'
-            [System.IO.Directory]::CreateDirectory($moduleDir) | Out-Null
-            [System.IO.File]::WriteAllText((Join-Path $moduleDir 'Get-Widget.ps1'), 'function Get-Widget { }')
-            [System.IO.File]::WriteAllText((Join-Path $moduleDir 'Set-Widget.ps1'), 'function Set-Widget { }')
-            [System.IO.File]::WriteAllText((Join-Path $moduleDir 'Catzc.Base.Widget.psd1'), '@{ }')
-            [System.IO.File]::WriteAllText((Join-Path $source 'importer.ps1'), '# importer')
-            [System.IO.File]::WriteAllText((Join-Path $source 'build.json'), '{}')
-
-            # Fixture export config so the test is hermetic (neutral values, ADR-AUTO-TEST:3). Blank URIs so the
-            # default-fallback assertion reads this same build.
-            $fixture = [ordered]@{
-                module_guid = '211b36c7-f7eb-4f3c-93f5-9132b535fa56'
-                package     = [ordered]@{
-                    author      = 'Test Author'
-                    company     = 'Test Co'
-                    description = 'A test package.'
-                    tags        = @('widget', 'gadget')
-                    project_uri = ''
-                    license_uri = ''
-                }
+            # A minimal fixture build (neutral names, ADR-AUTO-TEST:3), packed ONCE: every assertion below is a facet
+            # of the one pack (ADR-AUTO-TEST:20) — Compress-PSResource costs real time.
+            $script:source = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))/Catzc/1.2.3"
+            $write = {
+                param($relative, $content)
+                $target = Join-Path $script:source $relative
+                [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($target)) | Out-Null
+                [System.IO.File]::WriteAllText($target, $content)
             }
-            Mock Get-Config { $fixture } -ParameterFilter { $Config -eq 'exporter' }
+            & $write 'Catzc.psm1' '. (Join-Path $PSScriptRoot ''Import-Catzc.ps1'')'
+            & $write 'Import-Catzc.ps1' '# initializer'
+            & $write 'build.json' '{}'
+            & $write '.internal/Catzc.Internal.Loader.psm1' '# loader'
+            & $write '.compiled/Catzc.Types.abc12345.dll' 'MZ'
+            & $write '.vendor/powershell-yaml/0.4.12/README.md' 'vendored'
+            & $write 'Catzc.Base.Widget/Catzc.Base.Widget.psd1' "@{ FunctionsToExport = @('Get-Widget', 'Set-Widget') }"
+            & $write 'Catzc.Base.Widget/Catzc.Base.Widget.ps1' "function Get-Widget { }`nfunction Set-Widget { }`n"
+            & $write 'Catzc.Base.Gadget/Catzc.Base.Gadget.psd1' "@{ FunctionsToExport = @('Get-Gadget') }"
+            & $write 'Catzc.Base.Gadget/Catzc.Base.Gadget.ps1' "function Get-Gadget { }`n"
+            New-ModuleManifest -Path (Join-Path $script:source 'Catzc.psd1') -RootModule 'Catzc.psm1' -ModuleVersion '1.2.3' `
+                -Guid '211b36c7-f7eb-4f3c-93f5-9132b535fa56' -Author 'Test Author' -CompanyName 'Test Co' -Description 'A test package.' `
+                -PowerShellVersion '7.4' -FunctionsToExport @() -CmdletsToExport @() -VariablesToExport @() -AliasesToExport @() -Tags 'widget', 'gadget'
 
-            $script:pkg = New-CatzcNuGetPackage -Source $source -Version '1.2.3' -DestinationPath (Join-Path $TestDrive ([System.Guid]::NewGuid()))
-            $script:manifest = Test-ModuleManifest -Path $script:pkg.Manifest
+            $script:destination = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))"
+            $script:pkg = New-CatzcNuGetPackage -Source $script:source -DestinationPath $script:destination
+
+            Add-Type -AssemblyName System.IO.Compression.FileSystem
+            $zip = [System.IO.Compression.ZipFile]::OpenRead($script:pkg.NuPkg)
+            try {
+                $script:entries = @($zip.Entries | ForEach-Object { [System.Uri]::UnescapeDataString($_.FullName.Replace('\', '/')) })
+            }
+            finally {
+                $zip.Dispose()
+            }
         }
 
-        It 'stages a packable module (RootModule + manifest) and produces the .nupkg' {
-            Test-Path (Join-Path $script:pkg.ModulePath 'Catzc.psm1') | Should -BeTrue
-            Test-Path $script:pkg.Manifest | Should -BeTrue
+        It 'packs the build folder into a version-named Catzc .nupkg at the destination' {
             Test-Path $script:pkg.NuPkg | Should -BeTrue
             [System.IO.Path]::GetFileName($script:pkg.NuPkg) | Should -Be 'Catzc.1.2.3.nupkg'
+            $script:pkg.Version | Should -Be '1.2.3'
+            $script:pkg.Manifest | Should -Be (Join-Path $script:source 'Catzc.psd1')
+            $script:pkg.ModulePath | Should -Be $script:source
         }
 
-        It 'writes a manifest with the configured identity and the locked function inventory' {
-            $script:manifest.Guid | Should -Be '211b36c7-f7eb-4f3c-93f5-9132b535fa56'
-            $script:manifest.Version.ToString() | Should -Be '1.2.3'
-            $script:manifest.Author | Should -Be 'Test Author'
-            $script:pkg.FunctionCount | Should -Be 2
-            $script:manifest.ExportedFunctions.Keys | Should -Contain 'Get-Widget'
-            $script:manifest.ExportedFunctions.Keys | Should -Contain 'Set-Widget'
+        It 'counts the public functions the inner modules export' {
+            $script:pkg.FunctionCount | Should -Be 3
         }
 
-        It 'carries the bundle payload into the package' {
-            Test-Path (Join-Path $script:pkg.ModulePath 'automation/Catzc.Base.Widget/Get-Widget.ps1') | Should -BeTrue
-            Test-Path (Join-Path $script:pkg.ModulePath 'importer.ps1') | Should -BeTrue
+        It 'carries the whole build, dot folders included (loader, types DLL, vendored dependencies)' {
+            $script:entries | Should -Contain 'Catzc.psd1'
+            $script:entries | Should -Contain 'Catzc.psm1'
+            $script:entries | Should -Contain 'Import-Catzc.ps1'
+            $script:entries | Should -Contain 'Catzc.Base.Widget/Catzc.Base.Widget.ps1'
+            $script:entries | Should -Contain '.internal/Catzc.Internal.Loader.psm1'
+            $script:entries | Should -Contain '.compiled/Catzc.Types.abc12345.dll'
+            $script:entries | Should -Contain '.vendor/powershell-yaml/0.4.12/README.md'
         }
 
-        It 'falls back to a default project and license URI when config leaves them blank' {
-            "$($script:manifest.ProjectUri)" | Should -Be 'https://github.com/catzc/catzc'
-            "$($script:manifest.LicenseUri)" | Should -Be 'https://github.com/catzc/catzc/blob/main/LICENSE'
-        }
-
-        It 'uses the configured project and license URI when set' {
-            $custom = [ordered]@{
-                module_guid = '211b36c7-f7eb-4f3c-93f5-9132b535fa56'
-                package     = [ordered]@{
-                    author = 'Test Author'; company = 'Test Co'; description = 'A test package.'
-                    tags = @('widget'); project_uri = 'https://forge.example/repo'
-                    license_uri = 'https://forge.example/repo/license'
-                }
-            }
-            Mock Get-Config { $custom } -ParameterFilter { $Config -eq 'exporter' }
-            # Own build (custom config) into a distinct dest — the shared BeforeAll package uses blank URIs.
-            $pkg = New-CatzcNuGetPackage -Source $source -Version '1.2.3' -DestinationPath (Join-Path $TestDrive ([System.Guid]::NewGuid()))
-            $m = Test-ModuleManifest -Path $pkg.Manifest
-            "$($m.ProjectUri)" | Should -Be 'https://forge.example/repo'
-            "$($m.LicenseUri)" | Should -Be 'https://forge.example/repo/license'
+        It 'refuses a folder that is not a build (no Catzc.psd1)' {
+            $empty = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))"
+            [System.IO.Directory]::CreateDirectory($empty) | Out-Null
+            { New-CatzcNuGetPackage -Source $empty -DestinationPath $script:destination } | Should -Throw
         }
     }
 }

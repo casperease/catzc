@@ -1,6 +1,19 @@
 Describe 'Install-UvTool' -Tag 'L0', 'logic' {
+    BeforeAll {
+        # Get-ToolConfig returns the typed record, so the mocks do too: an optional key the entry omits reads as its
+        # default, exactly as in production.
+        function New-TestToolConfig {
+            param([hashtable] $Keys)
+            $entry = @{ version = '2.87'; command = 'az'; version_command = 'az --version'; version_pattern = '(?<ver>.+)' }
+            foreach ($key in $Keys.Keys) {
+                $entry[$key] = $Keys[$key]
+            }
+            [Catzc.Tooling.Core.ToolConfig]::new($entry)
+        }
+    }
+
     BeforeEach {
-        Mock Get-ToolConfig { [pscustomobject]@{ uv_tool = 'azure-cli'; command = 'az'; version = '2.87' } } -ModuleName Catzc.Tooling.Core
+        Mock Get-ToolConfig { New-TestToolConfig @{ uv_tool = 'azure-cli' } } -ModuleName Catzc.Tooling.Core
         Mock Get-ToolCommandSuffix { 'AzCli' } -ModuleName Catzc.Tooling.Core
         Mock Sync-SessionPath { } -ModuleName Catzc.Tooling.Core
         Mock Assert-Command { } -ModuleName Catzc.Tooling.Core
@@ -18,7 +31,7 @@ Describe 'Install-UvTool' -Tag 'L0', 'logic' {
     }
 
     It 'passes --prerelease=allow when the tool allows pre-releases' {
-        Mock Get-ToolConfig { [pscustomobject]@{ uv_tool = 'azure-cli'; command = 'az'; version = '2.87'; uv_allow_prerelease = $true } } -ModuleName Catzc.Tooling.Core
+        Mock Get-ToolConfig { New-TestToolConfig @{ uv_tool = 'azure-cli'; uv_allow_prerelease = $true } } -ModuleName Catzc.Tooling.Core
         Mock Test-Command { $false } -ModuleName Catzc.Tooling.Core
         Mock Get-ToolVersion { '2.87.0' } -ModuleName Catzc.Tooling.Core
         Install-UvTool -Tool 'az_cli'
@@ -51,7 +64,7 @@ Describe 'Install-UvTool' -Tag 'L0', 'logic' {
     }
 
     It 'throws when the tool declares no uv_tool' {
-        Mock Get-ToolConfig { [pscustomobject]@{ uv_tool = $null; command = 'az'; version = '2.87' } } -ModuleName Catzc.Tooling.Core
+        Mock Get-ToolConfig { New-TestToolConfig @{} } -ModuleName Catzc.Tooling.Core
         { Install-UvTool -Tool 'az_cli' } | Should -Throw '*no uv_tool*'
     }
 }

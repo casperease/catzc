@@ -5,21 +5,29 @@
     Scans <module>/configs/*.yml under the loaded code root (Get-CatzcModulesRoot — the source tree's
     automation/ or a built package) once (cached) into a name -> entries index, and resolves a
     requested name to a single @{ Name; Module; Path }. -Module disambiguates a name present in more than one
-    module. Throws when the name is unknown or ambiguous. Mock this to redirect a config to a fixture in
-    logic tests (see ADR test-automation).
+    module. Throws when the name is unknown or ambiguous. -All instead returns every entry of the name, one
+    per owning module sorted by module name (ordinal), and nothing when no module has it — the listing for a
+    config several modules opt into by shipping it. Mock this to redirect a config to a fixture in logic tests
+    (see ADR test-automation).
 .PARAMETER Config
     The config name (without the .yml extension).
 .PARAMETER Module
     Disambiguates a name present in multiple modules.
+.PARAMETER All
+    Returns every module's entry for the name instead of resolving a single one.
 #>
 function Resolve-ConfigEntry {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = 'One')]
     [OutputType([hashtable])]
     param(
         [Parameter(Mandatory, Position = 0)]
         [string] $Config,
 
-        [string] $Module
+        [Parameter(ParameterSetName = 'One')]
+        [string] $Module,
+
+        [Parameter(Mandatory, ParameterSetName = 'All')]
+        [switch] $All
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configIndex')) {
@@ -42,6 +50,16 @@ function Resolve-ConfigEntry {
                 $script:configIndex[$configName].Add(@{ Name = $configName; Module = $moduleName; Path = $file })
             }
         }
+    }
+
+    if ($All) {
+        if ($script:configIndex.ContainsKey($Config)) {
+            $entries = $script:configIndex[$Config].ToArray()
+            $owners = [string[]] @($entries | ForEach-Object { $_.Module })
+            [System.Array]::Sort($owners, $entries, [System.StringComparer]::Ordinal)
+            $entries
+        }
+        return
     }
 
     if (-not $script:configIndex.ContainsKey($Config)) {

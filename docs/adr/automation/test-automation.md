@@ -180,8 +180,9 @@ dot-sources the importer, runs its shard, writes `results-shard-<N>.xml`, and re
 (`ConvertTo-TestAutomationRowSet` — tier/category resolution walks the live `.Block` chain, which does not survive a process boundary) into
 a `rows-shard-<N>.json` sidecar. The parent aggregates rows — never a Pester object across a boundary — and every run report (tests.csv,
 summary.md, the timing check, the skip report) consumes rows. A worker exits 0/1; any other exit code, or a missing sidecar, is a worker
-crash the parent surfaces loudly. Workers run tests **without** strict mode, matching Pester invoked from module session state, which global
-strict never reaches.
+crash the parent surfaces loudly. Workers run tests **under strict mode** (`Set-StrictMode -Version Latest`, set by the shard script before
+Pester), matching the module code under test, which runs strict in its own module scope; a test that genuinely needs non-strict semantics
+opts out locally ([pester-testing](powershell/pester-testing.md)).
 
 - [The parallel harness](#the-parallel-harness)
 
@@ -472,9 +473,10 @@ check and every report. Pester's NUnit output is per shard (`results-shard-<N>.x
 Files containing a `greedy`-tagged test (ADR-AUTO-TEST:26) follow the parallel shards as single-file shards through the pool, one per worker
 slot; files containing a `serial`-tagged test run last in a one-worker phase, alone.
 
-Two deliberate consequences: workers run tests **without strict mode** (parity — Pester invoked from module session state never sees global
-strict mode, and the suite is not written to run strict); and the protected-glob session map ([protected-globs](protected-globs.md)) is per
-worker session, so a protected scan never skips under the harness — it runs concurrently with the other shards instead.
+Two deliberate consequences: workers run tests **under strict mode** (parity — the code under test is strict in its module scope, so the
+tests that drive it are strict too, and a strict-hostile test opts out only in its own `It` body); and the protected-glob session map
+([protected-globs](protected-globs.md)) is per worker session, so a protected scan never skips under the harness — it runs concurrently with
+the other shards instead.
 
 ### Two suites, one body of tests
 

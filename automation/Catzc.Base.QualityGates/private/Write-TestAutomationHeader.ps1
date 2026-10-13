@@ -14,6 +14,9 @@
     The run's category filter (Logic / Integrity / Both); named in the scope only when it is not Both.
 .PARAMETER Modules
     The modules the run was scoped to; named in the scope only when non-empty.
+.PARAMETER Title
+    The suite's name on the banner: 'Test Automation' (the source suite, the default) or the build suite's
+    'Catzc Build Suite' (ADR-AUTO-TEST:30).
 #>
 function Write-TestAutomationHeader {
     [CmdletBinding()]
@@ -24,7 +27,9 @@ function Write-TestAutomationHeader {
 
         [string] $Category = 'Both',
 
-        [string[]] $Modules = @()
+        [string[]] $Modules = @(),
+
+        [string] $Title = 'Test Automation'
     )
 
     $scope = if ($MinLevel -eq $MaxLevel) {
@@ -39,5 +44,5 @@ function Write-TestAutomationHeader {
     if ($Modules) {
         $scope += ", modules: $($Modules -join ', ')"
     }
-    Write-Header "Test Automation — $scope" -ForegroundColor Cyan
+    Write-Header "$Title — $scope" -ForegroundColor Cyan
 }

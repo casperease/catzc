@@ -4,9 +4,8 @@
 # as "$($word)" in the test's scope at name-expansion time. With -ForEach/-TestCases data that is the
 # intended feature; WITHOUT data the token is almost always prose (e.g. "configs/<name>.yml") — it silently
 # expands to empty in a non-strict scope and THROWS ("the variable '$word' cannot be retrieved") in a strict
-# one. The suite runs without strict mode under the harness (ADR-AUTO-TEST:25), so such a title is a trap that
-# only fires when someone runs the file by hand from a strict importer session — the worst place to discover
-# it. This gate bans the pattern outright: a title with a <token> must carry -ForEach data.
+# one — and the suite runs strict (ADR-AUTO-TEST:25), so such a title fails its file at name expansion, far from
+# the cause. This gate bans the pattern outright: a title with a <token> must carry -ForEach data.
 # (These titles themselves spell out "angle-bracket token" — a literal one here would fire the very trap.)
 # source-only: it parses the repository's test files, which give the same answer in both run modes.
 Describe 'Test titles use angle-bracket templates only on data-driven tests' -Tag 'L1', 'integrity', 'source-only' {

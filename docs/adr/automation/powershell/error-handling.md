@@ -143,7 +143,13 @@ All errors are terminating. All warnings are terminating. Functions use `throw` 
 ### How this is enforced
 
 - **`importer.ps1`** — sets `$ErrorActionPreference = 'Stop'` and `$WarningPreference = 'Stop'` globally.
-- **`Set-StrictMode -Version Latest`** — catches uninitialized variables and other common mistakes at runtime.
+- **`Set-StrictMode -Version Latest`** — catches uninitialized variables, absent properties, out-of-range indexes, and other common
+  mistakes at runtime. Strict mode belongs to a scope, and a session-level `Set-StrictMode` does not reach module code, so it is set where
+  the code runs: `Import-AllModules` sets it in each `Catzc.*` module's own script scope right after importing it (every function of the
+  module inherits it, in the source tree and in an installed bundle alike), and each `.internal` module declares it at its top. All code
+  is therefore written strict-clean: an optional key is read through `.Contains()` or an indexer (or the typed config record), never as
+  a bare property; a list is wrapped in `@()` before `.Count`; a lazy `$script:` slot is probed as
+  [script-scope-caching](script-scope-caching.md#rule-adr-auto-pscache4) prescribes.
 - **Interactive prompt hook** — `Write-Exception` fires automatically after every failed command, providing full diagnostics.
 
 ## Consequences

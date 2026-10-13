@@ -56,7 +56,8 @@ function Get-FixtureIdentityTokens {
         }
         if ($config.Contains('environments')) {
             foreach ($key in $config.environments.Keys) {
-                if ($config.environments[$key].per_subscription) {
+                $environmentEntry = $config.environments[$key]
+                if ($environmentEntry.Contains('per_subscription') -and $environmentEntry['per_subscription']) {
                     continue
                 }
                 & $add $key

@@ -4,11 +4,11 @@
 .DESCRIPTION
     Writes <RunDirectory>/shard-<N>.ps1 — the script a PesterRunner worker executes as `pwsh -NoProfile
     -File` (modeled on Test-InIsolation's generated runner). The worker dot-sources the repository importer
-    (-SkipJanitors), then turns strict mode OFF for its own scope: invoking Pester from a scope the importer
-    made strict would leak strict mode into every test body — a behaviour the suite is not written under
-    (the harness has always invoked Pester from module session state, which global strict never reaches).
-    It then imports vendored Pester — resolved inside the worker, after the import, from the worker's own code
-    root (Get-CatzcModulesRoot/.vendor/Pester), so Pester always comes from the tree the worker loaded
+    (-SkipJanitors), then sets strict mode for its own scope, whichever entry script loaded the modules: the
+    test scopes chain to that scope, so every test body runs strict (ADR-AUTO-TEST:25) — the module code under
+    test is strict through its own module scope. It then imports vendored Pester — resolved inside the worker,
+    after the import, from the worker's own code root (Get-CatzcModulesRoot/.vendor/Pester), so Pester always
+    comes from the tree the worker loaded
     (ADR-AUTO-ASSETDEP:1) — builds its run configuration through the ONE shared builder
     (New-PesterRunConfiguration, reached via module scope — the same builder Invoke-TestFile uses, so the
     worker and manual paths cannot drift), runs the shard's test files with the run's exclude tags, writes
@@ -27,6 +27,15 @@
     Tags excluded from the worker's run (from Get-TestExcludeTag). Empty means no tag filter.
 .PARAMETER Verbosity
     Pester output verbosity inside the worker (the run's -Output value).
+.PARAMETER EntryScript
+    The suite seam (ADR-AUTO-TEST:30): the script the worker dot-sources to load the modules. Empty (the
+    default) is the source suite's `<repo>/importer.ps1 -SkipJanitors`; the build suite passes the build's
+    `Import-Catzc.ps1`. Everything after the load — Pester from the code root, the shared configuration
+    builder, the row sidecar — is identical for both suites.
+.PARAMETER EntryParameter
+    Named arguments for -EntryScript, rendered into the dot-source line as `-Name 'value'` (a $true value
+    renders as a bare switch). Ignored without -EntryScript. The build suite passes
+    @{ RepositoryRoot = <repo> } so out/ and repo-relative paths keep resolving in the repository.
 .OUTPUTS
     [pscustomobject] with ShardIndex, Label, ScriptPath, ResultsPath, RowsPath.
 #>
@@ -53,12 +62,36 @@ function New-TestAutomationShardScript {
 
         # Filter the worker's run to tests whose full name contains this text — the manual single-check path
         # (Invoke-TestFile). Empty means no name filter (the harness never sets one).
-        [string] $FullNameFilter
+        [string] $FullNameFilter,
+
+        [string] $EntryScript,
+
+        [hashtable] $EntryParameter = @{}
     )
 
     Assert-PathExist $RunDirectory -PathType Container
 
     $repositoryRoot = Get-RepositoryRoot
+
+    # The one seam between the two suites: which entry script loads the modules. Source suite (default) —
+    # the repository importer; build suite — the build's Import-Catzc.ps1 with its named arguments.
+    $entryLine = if ($EntryScript) {
+        $entryArguments = foreach ($name in ($EntryParameter.Keys | Sort-Object)) {
+            $value = $EntryParameter[$name]
+            if ($value -is [bool] -or $value -is [switch]) {
+                if ($value) {
+                    "-$name"
+                }
+            }
+            else {
+                "-$name '$("$value" -replace "'", "''")'"
+            }
+        }
+        (@(". '$($EntryScript -replace "'", "''")'") + @($entryArguments)) -join ' '
+    }
+    else {
+        ". '$repositoryRoot/importer.ps1' -SkipJanitors"
+    }
     $scriptPath = Join-Path $RunDirectory "shard-$ShardIndex.ps1"
     $resultsPath = Join-Path $RunDirectory "results-shard-$ShardIndex.xml"
     $rowsPath = Join-Path $RunDirectory "rows-shard-$ShardIndex.json"
@@ -73,12 +106,12 @@ function New-TestAutomationShardScript {
     # worker path and the manual single-check path (Invoke-TestFile) can never drift apart — the worker has
     # the full toolset imported, so it reaches the private through module scope like ConvertTo-
     # TestAutomationRowSet below. Only the strict-mode discipline stays inline: strict is scope-dynamic and
-    # the test scopes chain to the process's top scope, so the worker script itself must be the one to turn
-    # it off (tests run without strict — ADR-AUTO-TEST:25).
+    # the test scopes chain to the process's top scope, so the worker script itself must be the one to set
+    # it (tests run strict — ADR-AUTO-TEST:25).
     $content = @"
 `$ErrorActionPreference = 'Stop'
-. '$repositoryRoot/importer.ps1' -SkipJanitors
-Set-StrictMode -Off
+$entryLine
+Set-StrictMode -Version Latest
 Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/Pester') -Force
 `$global:__PesterRunning = `$true
 `$config = & (Get-Module Catzc.Base.QualityGates) {

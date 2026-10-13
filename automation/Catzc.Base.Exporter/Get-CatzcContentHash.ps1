@@ -14,7 +14,7 @@
     Path-relative, forward-slashed file paths to omit from the hash — e.g. a build.json sidecar that itself
     carries the hash, so it cannot be part of the content it identifies.
 .EXAMPLE
-    Get-CatzcContentHash -Path (Join-Path (Get-OutputRoot) 'catzc/6.6.666') -Exclude 'build.json'
+    Get-CatzcContentHash -Path (Join-Path (Get-OutputRoot) 'automation/build/Catzc/6.6.666') -Exclude 'build.json'
 #>
 function Get-CatzcContentHash {
     [CmdletBinding()]

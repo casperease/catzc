@@ -31,6 +31,11 @@
     Hard ceiling per execution phase; on expiry the pool is killed and the run throws.
 .PARAMETER WorkerEnvironment
     Extra environment variables for each worker's process (the L0/L1 tripwire) — never the parent's $env:.
+.PARAMETER EntryScript
+    The suite seam passed to every shard script (New-TestAutomationShardScript): empty loads the source
+    importer; the build suite passes the build's Import-Catzc.ps1.
+.PARAMETER EntryParameter
+    Named arguments for -EntryScript (the build suite's @{ RepositoryRoot = <repo> }).
 .OUTPUTS
     [pscustomobject] with Rows (aggregated, in shard order), FailedShardLabels (shards that exited 1),
     ShardExitCodes (label -> exit code, for the run manifest), Shards (the shard descriptors, serial last),
@@ -70,8 +75,23 @@ function Invoke-TestAutomationWorkers {
         [ValidateRange(60, 86400)]
         [int] $TimeoutSeconds = 3600,
 
-        [hashtable] $WorkerEnvironment
+        [hashtable] $WorkerEnvironment,
+
+        [string] $EntryScript,
+
+        [hashtable] $EntryParameter = @{}
     )
+
+    # The shard-script arguments every phase shares — including the suite seam (which entry script loads the
+    # modules in each worker).
+    $shardArguments = @{
+        RunDirectory   = $RunDirectory
+        ExcludeTag     = $ExcludeTag
+        IncludeTag     = $IncludeTag
+        Verbosity      = $Verbosity
+        EntryScript    = $EntryScript
+        EntryParameter = $EntryParameter
+    }
 
     # Pool size: explicit -Workers, else ProcessorCount / 4 — measured on the full suite, wall clock is flat
     # from PC/4 up to PC/2 workers (the box saturates), while per-test wall clock inflates with every extra
@@ -101,8 +121,7 @@ function Invoke-TestAutomationWorkers {
         if ($shardFiles[$shardIndex].Count -eq 0) {
             continue
         }
-        $shard = New-TestAutomationShardScript -ShardIndex $shardIndex -TestPath $shardFiles[$shardIndex] `
-            -RunDirectory $RunDirectory -ExcludeTag $ExcludeTag -IncludeTag $IncludeTag -Verbosity $Verbosity
+        $shard = New-TestAutomationShardScript -ShardIndex $shardIndex -TestPath $shardFiles[$shardIndex] @shardArguments
         $shards.Add($shard)
         $shardFileCounts[$shard.Label] = $shardFiles[$shardIndex].Count
     }
@@ -111,8 +130,7 @@ function Invoke-TestAutomationWorkers {
     $greedyShards = [System.Collections.Generic.List[object]]::new()
     $nextShardIndex = $workerCount
     foreach ($greedyFile in $GreedyFiles) {
-        $shard = New-TestAutomationShardScript -ShardIndex $nextShardIndex -TestPath @($greedyFile) `
-            -RunDirectory $RunDirectory -ExcludeTag $ExcludeTag -IncludeTag $IncludeTag -Verbosity $Verbosity
+        $shard = New-TestAutomationShardScript -ShardIndex $nextShardIndex -TestPath @($greedyFile) @shardArguments
         $greedyShards.Add($shard)
         $shardFileCounts[$shard.Label] = 1
         $nextShardIndex++
@@ -120,8 +138,7 @@ function Invoke-TestAutomationWorkers {
 
     $serialShard = $null
     if ($SerialFiles.Count -gt 0) {
-        $serialShard = New-TestAutomationShardScript -ShardIndex $nextShardIndex -TestPath $SerialFiles `
-            -RunDirectory $RunDirectory -ExcludeTag $ExcludeTag -IncludeTag $IncludeTag -Verbosity $Verbosity
+        $serialShard = New-TestAutomationShardScript -ShardIndex $nextShardIndex -TestPath $SerialFiles @shardArguments
         $shardFileCounts[$serialShard.Label] = $SerialFiles.Count
     }
 
@@ -224,7 +241,8 @@ function Invoke-TestAutomationWorkers {
         # the pool, serial last), start is on the run's single wall-clock timeline (each later phase's
         # workers offset by their phase boundary).
         $isSerial = $serialShard -and $shard.Label -eq $serialShard.Label
-        $isGreedy = -not $isSerial -and $shard.Label -in @($greedyShards.Label)
+        # ForEach-Object, not .Label: member enumeration on an empty list throws under strict mode (no greedy files).
+        $isGreedy = -not $isSerial -and $shard.Label -in @($greedyShards | ForEach-Object { $_.Label })
         $phaseOffsetMs = if ($isSerial) {
             $serialPhaseOffsetMs
         }

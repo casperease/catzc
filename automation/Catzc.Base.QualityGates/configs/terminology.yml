@@ -876,6 +876,8 @@ terms:
       meaning: "rstrtmgr.dll — the Windows Restart Manager library (RmStartSession / RmGetList)"
     - term: filetime
       meaning: "Win32 FILETIME struct (100-ns ticks since 1601)"
+    - term: finalizer
+      meaning: ".NET finalizer — the teardown counterpart of a constructor; the importer's post-import phase"
     - term: ntfs
       meaning: "NTFS file system"
     - term: osarchitecture

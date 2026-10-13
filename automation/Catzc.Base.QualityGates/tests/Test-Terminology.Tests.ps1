@@ -4,16 +4,21 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
         Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
 
-        # Default happy path: config loads, dictionary is current, every term is referenced.
+        # Default happy path: config loads, dictionary is current, every term is referenced. Both mocks return the
+        # production shapes — the typed registry record and Build-TerminologyDictionary's per-category rows.
         Mock Get-Config -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ terms = @(
-                    [pscustomobject]@{ term = 'bicep' }
-                    [pscustomobject]@{ term = 'entra' }
-                )
-            }
+            [Catzc.Base.QualityGates.TerminologyConfig]::new([ordered]@{
+                    categories = [ordered]@{ widget = [ordered]@{ description = 'widget vocabulary' } }
+                    terms      = [ordered]@{
+                        widget = @(
+                            [ordered]@{ term = 'bicep'; meaning = 'a widget term' }
+                            [ordered]@{ term = 'entra'; meaning = 'a widget term' }
+                        )
+                    }
+                })
         }
         Mock Build-TerminologyDictionary -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ Path = 'x'; WordCount = 2; Changed = $false; DryRun = $true }
+            [pscustomobject]@{ Category = 'widget'; Path = 'x'; WordCount = 2; Changed = $false; DryRun = $true }
         }
         Mock Get-TerminologyCorpus -ModuleName Catzc.Base.QualityGates { 'bicep entra other content' }
     }
@@ -26,7 +31,7 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
 
     It 'reports drift when the checked-in dictionary is stale (ADR-AUTO-SPELL:5)' {
         Mock Build-TerminologyDictionary -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ Path = 'x'; WordCount = 2; Changed = $true; DryRun = $true }
+            [pscustomobject]@{ Category = 'widget'; Path = 'x'; WordCount = 2; Changed = $true; DryRun = $true }
         }
         $r = Test-Terminology -PassThru
         $r.IssueCount | Should -Be 1
@@ -49,7 +54,7 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
 
     It 'throws (without -PassThru) when there are issues' {
         Mock Build-TerminologyDictionary -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ Path = 'x'; WordCount = 2; Changed = $true; DryRun = $true }
+            [pscustomobject]@{ Category = 'widget'; Path = 'x'; WordCount = 2; Changed = $true; DryRun = $true }
         }
         { Test-Terminology } | Should -Throw '*Test-Terminology failed*'
     }

@@ -8,12 +8,11 @@
     (PesterRunner, live output). Parity is by construction, not imitation — the manual path cannot drift
     from the harness path because it IS the harness path, one shard wide.
 
-    Why a child process and not an in-session Invoke-Pester: the suite runs WITHOUT strict mode
-    (ADR-AUTO-TEST:25), but the importer's dot-sourced shim sets strict mode in the session's top scope, and
-    Pester's test scopes chain to that top scope — no function-scope Set-StrictMode -Off can shield them. In
-    a worker process the importer loads into the WORKER SCRIPT's scope, so the process top scope never goes
-    strict and the shard's own Set-StrictMode -Off governs. A bare Invoke-Pester from an importer session
-    therefore runs the same tests under different semantics than CI; this entry point closes that gap.
+    Why a child process and not an in-session Invoke-Pester: a worker starts from a fresh process — a freshly
+    imported toolset with empty session caches, no state left by earlier commands, and its own top scope set
+    strict by the shard script (ADR-AUTO-TEST:25) — exactly the conditions CI runs under. A bare Invoke-Pester
+    from an interactive session runs the same tests against whatever that session has accumulated; this entry
+    point closes that gap.
 
     Use it for the manual single-check flow in docs/how-to/automation/manual-test-plan.md: pass the row's
     test file and (optionally) its FullNameFilter. No tier/category exclusion is applied — a hand-run of a

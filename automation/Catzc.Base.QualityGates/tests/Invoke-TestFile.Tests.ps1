@@ -11,18 +11,23 @@ Describe 'Invoke-TestFile (real worker)' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
 
-        # The regression that motivated the function (ADR-AUTO-TEST:25 parity): from an importer session the
-        # top scope is strict, so a bare Invoke-Pester runs tests strict — a '<token>' It title throws at
-        # Pester's name expansion and scalar .Count access throws. Through the worker chain the same file
-        # must run green, exactly as it does under Test-Automation.
+        # The strict contract (ADR-AUTO-TEST:25): the worker runs every test strict, and a test that genuinely
+        # needs non-strict semantics opts out locally, in its own It body. The fixture holds the same strict-hostile
+        # read (.Count on a scalar) twice — bare, and behind the opt-out — plus a plain test for the filter.
         $script:fixture = Join-Path $TestDrive 'StrictHostile.Tests.ps1'
         $fixtureContent = @'
 Describe 'StrictHostile' -Tag 'L0', 'logic' {
-    It 'has a template-looking <token> in its title' {
+    It 'reads Count on a scalar without opting out' {
         $scalar = 'one'
         $scalar.Count | Should -Be 1
     }
-    It 'is a second test the filter can exclude' {
+    It 'reads Count on a scalar behind an It-level opt-out' {
+        # non-strict IS the behaviour under test here: scalar .Count
+        Set-StrictMode -Off
+        $scalar = 'one'
+        $scalar.Count | Should -Be 1
+    }
+    It 'is a plain test the filter can isolate' {
         1 | Should -Be 1
     }
 }
@@ -30,15 +35,17 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:fixture, $fixtureContent)
     }
 
-    It 'runs a strict-hostile test file green (the harness parity contract)' {
+    It 'runs tests strict, and an It-level opt-out runs that test non-strict (the harness parity contract)' {
         $run = Invoke-TestFile $script:fixture -Output Minimal -PassThru
-        $run.Result | Should -Be 'Passed' -Because 'the worker runs tests without strict mode, like every harness shard'
-        $run.ExitCode | Should -Be 0
-        @($run.Rows) | Should -HaveCount 2
+        $run.Result | Should -Be 'Failed' -Because 'the worker runs tests strict, like every harness shard'
+        $run.ExitCode | Should -Be 1
+        @($run.Rows) | Should -HaveCount 3
+        @($run.Rows | Where-Object ExpandedName -EQ 'reads Count on a scalar without opting out').Result | Should -Be 'Failed'
+        @($run.Rows | Where-Object ExpandedName -EQ 'reads Count on a scalar behind an It-level opt-out').Result | Should -Be 'Passed'
     }
 
     It 'honours -FullNameFilter and returns the rows for just the matched test' {
-        $run = Invoke-TestFile $script:fixture -FullNameFilter 'second test' -Output Minimal -PassThru
+        $run = Invoke-TestFile $script:fixture -FullNameFilter 'plain test' -Output Minimal -PassThru
         $run.Result | Should -Be 'Passed'
         @($run.Rows | Where-Object Result -EQ 'Passed') | Should -HaveCount 1
     }

@@ -1,6 +1,6 @@
 // A process that holds a file open, as reported by the Windows Restart Manager (RestartManager) and enriched
 // with the process's own facts. The Restart Manager part (ProcessId, AppName, Started) is always present; the
-// enrichment (Name, CommandLine, ParentProcessId, User) is null when the process exited between the two lookups.
+// enrichment (Name, CommandLine, ParentProcessId) is null when the process exited between the two lookups.
 
 using System;
 using System.Globalization;
@@ -27,15 +27,12 @@ public sealed class FileLockingProcess
     // The parent process's id; null when the process is gone.
     public int?     ParentProcessId { get; }
 
-    // The owner as DOMAIN\user; null when the process is gone or the caller may not read it.
-    public string   User            { get; }
-
     public FileLockingProcess(int processId, string appName, DateTime started)
-        : this(processId, null, appName, started, null, null, null)
+        : this(processId, null, appName, started, null, null)
     {
     }
 
-    public FileLockingProcess(int processId, string name, string appName, DateTime started, string commandLine, int? parentProcessId, string user)
+    public FileLockingProcess(int processId, string name, string appName, DateTime started, string commandLine, int? parentProcessId)
     {
         ProcessId = processId;
         Name = name;
@@ -43,7 +40,6 @@ public sealed class FileLockingProcess
         Started = started;
         CommandLine = commandLine;
         ParentProcessId = parentProcessId;
-        User = user;
     }
 
     // "pwsh.exe (PID 10276, started 2026-10-13 14:10)" — the executable name, else the Restart Manager's app name.

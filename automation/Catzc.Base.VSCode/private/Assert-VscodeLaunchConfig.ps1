@@ -30,11 +30,11 @@ function Assert-VscodeLaunchConfig {
         $violations.Add("'version' must be a non-empty string (VS Code launch schema version, e.g. '0.2.0')")
     }
 
-    $configurations = if ($Config.Contains('configurations')) {
-        @($Config['configurations'])
-    }
-    else {
-        @()
+    # assigned in the branch, not from an if-expression (which unrolls a 0/1-item array to $null/a scalar); an
+    # absent key and an empty (null) value are both an empty list
+    $configurations = @()
+    if ($null -ne $Config['configurations']) {
+        $configurations = @($Config['configurations'])
     }
     if ($configurations.Count -eq 0) {
         $violations.Add("'configurations' must be a non-empty list of launch profiles")

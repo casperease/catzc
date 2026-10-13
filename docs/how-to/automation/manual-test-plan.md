@@ -31,8 +31,8 @@ Invoke-TestFile <Test file> -FullNameFilter '<FullNameFilter>'
 ```
 
 `Invoke-TestFile` runs the file as a one-shard worker — the exact discipline `Test-Automation` uses (same generated runner, same Pester
-configuration builder, tests run without strict mode per `ADR-AUTO-TEST:25`). Do **not** call `Invoke-Pester` directly from an importer
-session: the dot-sourced shim leaves the session strict, and Pester then runs the same tests under different semantics than the harness.
+configuration builder, tests run under strict mode per `ADR-AUTO-TEST:25`). Do **not** call `Invoke-Pester` directly from an importer
+session: the tests would run against whatever that session has accumulated — warm caches, leftover state — instead of a fresh worker's.
 
 A check **passes** when its assertions are green. A few L2 checks shell out to a tool (git, PSScriptAnalyzer, cspell, markdownlint-cli2) and
 **self-skip** when that tool is absent — a skip is not a failure (see the end-of-run skip report).

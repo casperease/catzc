@@ -52,7 +52,8 @@ function Write-InformationColored {
 
     # Suppress during Pester runs (flag set by Test-Automation). The single chokepoint for all writers,
     # so nothing routed through here can leak into test output. See .DESCRIPTION for why a flag, not a stream.
-    if ($global:__PesterRunning) {
+    # Read through Get-Variable: the flag is unset outside a test run, and strict mode rejects an unset variable.
+    if (Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore) {
         return
     }
 

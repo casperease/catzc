@@ -1,0 +1,18 @@
+# Fixture glossary source (Get-GlossarySources / Get-Glossary L0 tests) — neutral terms (ADR-AUTO-TEST:3).
+options:
+    gates: [avoid]
+concepts:
+    widget suite:
+        key: widget_suite
+        domain: automation
+        defined_by: ADR-AUTO-TEST#30
+        short: A named folder of widget files.
+        realized_by: { kind: folder, pattern: 'automation/*/tests/widgets/<name>/' }
+        contrasts:
+            gadget run: A gadget run executes; a widget suite is files at rest.
+    alpha widget:
+        key: alpha_widget
+        domain: automation
+        defined_by: ADR-AUTO-TEST#31
+        short: The first widget.
+        realized_by: { kind: prose-only }

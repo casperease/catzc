@@ -1,16 +1,19 @@
 <#
 .SYNOPSIS
-    Extracts the id and one-line summary of each rule in a single ADR file, for Show-Cats.
+    Extracts the id, one-line summary, and normative statement of each rule in a single ADR file.
 .DESCRIPTION
-    Reads an ADR markdown file and returns one entry per `### Rule <CODE>:<n>` heading: the rule id and the
-    first non-empty line of its body. The blank-line-padding authoring convention (docs/adr/index.md) makes
-    that first line the rule's normative summary.
+    Reads an ADR markdown file and returns one entry per `### Rule <CODE>:<n>` heading: the rule id, the
+    first non-empty line of its body (Summary, the one-liner Show-Cats lists), and the whole first paragraph
+    of its body joined into one line (Statement). The blank-line-padding authoring convention (docs/adr/index.md)
+    makes that paragraph the rule's normative summary, ending at the blank line before its linked bullets, so
+    Statement never includes them. The glossary gates read Statement: a term bolded on a wrapped line still
+    belongs to the rule (ADR-REPO-VOCAB:1).
 
-    Private helper for Show-Cats; not exported.
+    Private helper for Show-Cats and the glossary gates; not exported.
 .PARAMETER AdrPath
     Absolute path to the ADR markdown file.
 .OUTPUTS
-    [object[]] One { Id; Summary } per rule heading, in document order.
+    [object[]] One { Id; Summary; Statement } per rule heading, in document order.
 #>
 function Get-CatsAdrRules {
     [OutputType([object[]])]
@@ -29,18 +32,31 @@ function Get-CatsAdrRules {
         }
         $ruleId = $Matches['id']
 
-        $summary = ''
+        # The first paragraph: skip the padding blank lines, then read until the next blank line or heading.
+        $paragraph = [System.Collections.Generic.List[string]]::new()
         for ($j = $i + 1; $j -lt $lines.Count; $j++) {
             $candidate = $lines[$j].Trim()
-            if ($candidate -ne '') {
-                $summary = $candidate
+            if ($candidate -eq '') {
+                if ($paragraph.Count -gt 0) {
+                    break
+                }
+                continue
+            }
+            if ($candidate.StartsWith('#')) {
                 break
             }
+            $paragraph.Add($candidate)
+        }
+
+        $summary = ''
+        if ($paragraph.Count -gt 0) {
+            $summary = $paragraph[0]
         }
 
         [pscustomobject]@{
-            Id      = $ruleId
-            Summary = $summary
+            Id        = $ruleId
+            Summary   = $summary
+            Statement = $paragraph -join ' '
         }
     }
 

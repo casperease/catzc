@@ -26,11 +26,10 @@ function Test-HaveCustomers {
 
     $enabled = Get-EnabledCustomers
     $isAll = ($enabled -is [string]) -and ($enabled -ceq 'all')
-    $enabledList = if ($isAll) {
-        @()
-    }
-    else {
-        @($enabled)
+    # assigned in the branch, not from an if-expression, which would unroll a 0/1-item array to $null/a scalar
+    $enabledList = @()
+    if (-not $isAll) {
+        $enabledList = @($enabled)
     }
     $any = $isAll -or ($enabledList.Count -gt 0)
 

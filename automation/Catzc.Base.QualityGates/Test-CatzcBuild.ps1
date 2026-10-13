@@ -1,0 +1,134 @@
+<#
+.SYNOPSIS
+    Runs the build suite: the same tests as Test-Automation, against a fresh build of the selected modules.
+.DESCRIPTION
+    The second of the two suites over one body of tests (ADR-AUTO-TEST:30, ADR-DSGN-RUNMODE:6). It builds the
+    selected modules with Build-Modules (vendor policy 'full', so Pester and PSScriptAnalyzer ship with the build)
+    into a fresh temporary destination, then runs the Test-Automation harness unchanged in shape — discovery,
+    the tier/category tag gates, sharding, rows, reports — with one seam swapped: each shard worker dot-sources
+    the build's Import-Catzc.ps1 -RepositoryRoot <repo> instead of the repository importer, so every test runs
+    against the merged, built modules while out/ and the test fixtures keep resolving in the repository.
+
+    Test files come from the source tree, limited to the tests/ folders of the modules the selection resolves to
+    (the dependency closure Build-Modules computes). Tests tagged 'source-only' (ADR-AUTO-TEST:31) are excluded
+    and counted and listed — on the console and in excluded-tests.csv in the run directory — never silently.
+    Reports go to <out>/test-catzc-build/, so the two suites' reports never overwrite each other. The build is
+    deleted when the run ends.
+
+    The harness's own module is always built too (each worker reaches its configuration builder and row reducer
+    through that module's scope), but its tests run only when the selection includes it.
+
+    Test-CatzcBuild operates on the source tree — it builds from it and reads its tests — so it runs in source
+    mode only (Assert-SourceTree).
+.PARAMETER Module
+    Modules to build and test (combinable with -ModuleProfile; closure-expanded by Build-Modules). Neither ->
+    the exporter's default profile.
+.PARAMETER ModuleProfile
+    A module profile (profiles.yml) to build and test.
+.PARAMETER MinLevel
+    Minimum test tier. Defaults to 0.
+.PARAMETER MaxLevel
+    Maximum test tier (alias: -Level). Defaults to 2 (L0-L2); L3 is opt-in, as in Test-Automation.
+.PARAMETER Category
+    Logic, Integrity, or Both (the default) — as in Test-Automation.
+.PARAMETER Workers
+    Worker pool size; 0 (the default) sizes it automatically — as in Test-Automation.
+.PARAMETER Output
+    Pester output verbosity inside each worker. Defaults to 'Detailed'.
+.PARAMETER PassThru
+    Returns the run summary object (as Test-Automation's, plus ExcludedTests — the 'source-only' rows — and
+    Build — the Build-Modules result).
+.EXAMPLE
+    Test-CatzcBuild
+.EXAMPLE
+    Test-CatzcBuild -Module Catzc.Base.Config -Level 1
+.EXAMPLE
+    Test-CatzcBuild -ModuleProfile base -Category Logic -PassThru
+#>
+function Test-CatzcBuild {
+    [CmdletBinding()]
+    param(
+        [ArgumentCompleter({ Get-AutomationModules })]
+        [string[]] $Module = @(),
+
+        [string] $ModuleProfile,
+
+        [ValidateSet(0, 1, 2, 3)]
+        [int] $MinLevel = 0,
+
+        [ValidateSet(0, 1, 2, 3)]
+        [Alias('Level')]
+        [int] $MaxLevel = 2,
+
+        [ValidateSet('Logic', 'Integrity', 'Both')]
+        [string] $Category = 'Both',
+
+        [ValidateRange(0, 64)]
+        [int] $Workers = 0,
+
+        [ValidateSet('Minimal', 'Normal', 'Detailed', 'Diagnostic')]
+        [string] $Output = 'Detailed',
+
+        [switch] $PassThru
+    )
+
+    Assert-SourceTree
+
+    if ($MinLevel -gt $MaxLevel) {
+        throw "MinLevel ($MinLevel) cannot exceed MaxLevel ($MaxLevel)."
+    }
+
+    $selection = @{}
+    if ($Module.Count -gt 0) {
+        $selection['Module'] = $Module
+    }
+    if ($ModuleProfile) {
+        $selection['ModuleProfile'] = $ModuleProfile
+    }
+
+    # The modules under test: the selection's closure, resolved without writing anything (-DryRun).
+    $plan = Build-Modules @selection -VendorPolicy full -DryRun -Silent
+    $testedModules = @($plan.Modules)
+    if ($testedModules.Count -eq 0) {
+        throw 'Build-Modules resolved the selection to no modules — nothing to build or test.'
+    }
+
+    # The harness's own module rides in every build: workers reach its configuration builder and row reducer
+    # through its module scope. Its tests still run only when the selection includes it.
+    # The build names the resolved modules explicitly (closure-expanded again, so the harness's dependencies
+    # come along).
+    $harnessModule = $MyInvocation.MyCommand.Module.Name
+    $buildSelection = $selection
+    if ($harnessModule -notin $testedModules) {
+        $buildSelection = @{ Module = @($testedModules) + @($harnessModule) }
+    }
+
+    $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-build-suite-' + [guid]::NewGuid().ToString('N'))
+    Write-Message "Building $($testedModules.Count) module(s) for the build suite into '$destination'..."
+    try {
+        $build = Build-Modules @buildSelection -VendorPolicy full -Destination $destination -Silent
+        $entryScript = Join-Path $build.BuildRoot 'Import-Catzc.ps1'
+        Assert-PathExist $entryScript -PathType Leaf
+        Write-Message "Built Catzc $($build.Version) ($(@($build.Modules).Count) module(s)) at '$($build.BuildRoot)'"
+
+        $summary = Invoke-TestAutomationSuite -Suite 'Test-CatzcBuild' -Title 'Catzc Build Suite' `
+            -MinLevel $MinLevel -MaxLevel $MaxLevel -Modules $testedModules -Category $Category -Workers $Workers `
+            -Output $Output -PassThru:$PassThru -SuiteExcludeTag 'source-only' `
+            -EntryScript $entryScript -EntryParameter @{ RepositoryRoot = (Get-RepositoryRoot) }
+
+        if ($PassThru) {
+            $summary | Add-Member -NotePropertyName Build -NotePropertyValue $build -PassThru
+        }
+    }
+    finally {
+        # The build is a disposable test fixture: the workers have exited, so nothing holds its files.
+        if ([System.IO.Directory]::Exists($destination)) {
+            try {
+                [System.IO.Directory]::Delete($destination, $true)
+            }
+            catch {
+                Write-Message "Could not remove the build-suite build '$destination': $($_.Exception.Message)" -ForegroundColor Yellow
+            }
+        }
+    }
+}

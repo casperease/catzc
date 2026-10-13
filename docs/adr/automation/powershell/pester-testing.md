@@ -39,6 +39,22 @@ named after the function it most exercises plus a suffix. A test for a native C#
 
 - [How this is enforced](#how-this-is-enforced)
 
+### Rule ADR-AUTO-PESTER:6
+
+Tests run under strict mode. A test whose subject genuinely is non-strict behaviour opts out in its own `It` body — `Set-StrictMode -Off`
+as the body's first statement, under a comment saying why — never in a `BeforeAll`, a `Describe` body, or the file, and never to get past
+a strict failure that a code or fixture fix would remove.
+
+- [Tests under strict mode](#tests-under-strict-mode)
+
+### Rule ADR-AUTO-PESTER:7
+
+A mock or fixture returns the production shape: the typed record the real function returns (`[Catzc.Tooling.Core.ToolConfig]::new(…)`,
+`[Catzc.Azure.Templates.BicepArtifacts]::new(…)`), or an object carrying every member the code under test reads — never a partial
+`[pscustomobject]` that omits an optional member.
+
+- [Tests under strict mode](#tests-under-strict-mode)
+
 ## Context
 
 [test-automation](../test-automation.md) fixes the doctrine: what a test may depend on (logic vs integrity), the L0–L3 tiers, the mandatory
@@ -96,6 +112,28 @@ Describe 'sample (real az)' -Tag 'L2', 'logic' {
     }
 }
 ```
+
+### Tests under strict mode
+
+The code under test runs strict in its own module scope ([error-handling](error-handling.md)), and the harness worker sets strict mode
+before it invokes Pester ([test-automation](../test-automation.md#rule-adr-auto-test25)), so the test code runs strict too. Strict mode
+belongs to a scope and Pester runs each `It` body in a child scope of its block: `Set-StrictMode -Off` in one `It` body covers that body
+alone — the next `It` and every sibling block stay strict — and never reaches the module code the test calls, which keeps its own scope.
+The `It` body is therefore the narrowest place an opt-out works and the only place it belongs; a `BeforeAll` or `Describe`-level opt-out
+silently relaxes every test in the block.
+
+```powershell
+It 'reads Count on a scalar' {
+    # non-strict IS the behaviour under test here: scalar .Count
+    Set-StrictMode -Off
+    'one'.Count | Should -Be 1
+}
+```
+
+Strict mode also makes a partial fake fail where production succeeds: reading a member an object does not carry throws, so a mock that
+returns a `[pscustomobject]` without an optional key fails on a read the real typed record answers with its default. Returning the
+production shape (`ADR-AUTO-PESTER:7`) keeps the test honest about the contract — a member the real record does not map is absent in the
+test exactly as in production.
 
 ### Gotchas
 

@@ -12,6 +12,8 @@
 #   }
 #   AfterAll { Remove-FakeRepositoryRoot $script:fake }
 
+Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
+
 function New-ModuleFolder {
     <#
     .SYNOPSIS
@@ -65,10 +67,13 @@ function New-ModuleFolder {
 function New-FakeRepositoryRoot {
     <#
     .SYNOPSIS
-        Create a fresh temp repository root, populate it, point $env:RepositoryRoot at it, and return a handle
+        Create a fresh temp repository root, populate it, point $env:RepositoryRoot at it and $env:CatzcModulesRoot
+        at its automation/ folder (so the fake tree reads as source mode), and return a handle
         { Root; Automation; Saved } to pass to Remove-FakeRepositoryRoot. -Modules maps a module name to a spec
         (@{ Public=..; Private=..; Files=.. }; $null/empty = a bare folder). -Files maps repo-root-relative
-        paths to content (importer.ps1, .editorconfig, …).
+        paths to content (importer.ps1, .editorconfig, …). -WorkingRootOnly moves only $env:RepositoryRoot and
+        leaves the code root on the loaded modules — for a test that writes into a fixture working root while
+        reading the real assets of the loaded code (in either run mode).
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: the swap lives inside one test''s lifecycle and Remove-FakeRepositoryRoot restores it (the split form of ADR-AUTO-ANNOUNCE:3); its output belongs to Pester')]
     [CmdletBinding()]
@@ -76,7 +81,9 @@ function New-FakeRepositoryRoot {
     param(
         [hashtable] $Modules = @{},
 
-        [hashtable] $Files = @{}
+        [hashtable] $Files = @{},
+
+        [switch] $WorkingRootOnly
     )
 
     $utf8 = [System.Text.UTF8Encoding]::new($false)
@@ -105,15 +112,22 @@ function New-FakeRepositoryRoot {
         [System.IO.File]::WriteAllText($path, [string] $Files[$relative], $utf8)
     }
 
-    $saved = $env:RepositoryRoot
+    # Both roots move together, so the fake tree reads as source mode (Get-CatzcRunMode compares them,
+    # ADR-DSGN-RUNMODE:4): the code root is the fake repository's own automation/ folder.
+    $saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot = $env:CatzcModulesRoot }
+    $automation = Join-Path $root 'automation'
     $env:RepositoryRoot = $root
-    @{ Root = $root; Automation = (Join-Path $root 'automation'); Saved = $saved }
+    if (-not $WorkingRootOnly) {
+        $env:CatzcModulesRoot = $automation
+    }
+    @{ Root = $root; Automation = $automation; Saved = $saved }
 }
 
 function Remove-FakeRepositoryRoot {
     <#
     .SYNOPSIS
-        Restore $env:RepositoryRoot to what it was before New-FakeRepositoryRoot and delete the temp tree.
+        Restore $env:RepositoryRoot and $env:CatzcModulesRoot to what they were before New-FakeRepositoryRoot and
+        delete the temp tree.
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: restores the swap New-FakeRepositoryRoot made inside the same test (the split form of ADR-AUTO-ANNOUNCE:3); its output belongs to Pester')]
     [CmdletBinding()]
@@ -122,10 +136,179 @@ function Remove-FakeRepositoryRoot {
         [hashtable] $Handle
     )
 
-    $env:RepositoryRoot = $Handle.Saved
+    $env:RepositoryRoot = $Handle.Saved.RepositoryRoot
+    $env:CatzcModulesRoot = $Handle.Saved.CatzcModulesRoot
     if ($Handle.Root -and (Test-Path $Handle.Root)) {
         Remove-Item $Handle.Root -Recurse -Force -ErrorAction SilentlyContinue
     }
 }
 
-Export-ModuleMember -Function New-ModuleFolder, New-FakeRepositoryRoot, Remove-FakeRepositoryRoot
+function New-BuiltCatzcRoot {
+    <#
+    .SYNOPSIS
+        Build the selected modules into a fresh temp folder for a build-mode test, and return a handle
+        { BuildRoot; WorkingRoot; Saved; Destination; Modules; Build } to pass to Invoke-InBuiltCatzc and
+        Remove-BuiltCatzcRoot.
+    .DESCRIPTION
+        Runs Build-Modules (Catzc.Base.Exporter) with the 'full' vendor policy — so Pester and PSScriptAnalyzer ship
+        with the build — into <temp>/catzc-built-<guid>/. -Module and -ModuleProfile combine as in Build-Modules;
+        neither builds the exporter's default profile. The build is never loaded into this session: a test reaches
+        it only through Invoke-InBuiltCatzc's child pwsh, because loaded assemblies and $env: are process-global
+        (ADR-AUTO-TEST:30). WorkingRoot is the -RepositoryRoot the child passes to Import-Catzc.ps1 — the current
+        repository root by default, so out/ and test fixtures keep resolving there. Building reads the source tree,
+        so the session must be in source mode.
+    #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: builds into a temp folder inside one test''s lifecycle and Remove-BuiltCatzcRoot removes it; its output belongs to Pester')]
+    [CmdletBinding()]
+    [OutputType([hashtable])]
+    param(
+        [string[]] $Module = @(),
+
+        [string] $ModuleProfile,
+
+        [string] $WorkingRoot
+    )
+
+    if (-not (Get-Command Build-Modules -ErrorAction Ignore)) {
+        throw 'New-BuiltCatzcRoot needs Build-Modules (Catzc.Base.Exporter), which is not loaded in this session.'
+    }
+    if (-not $WorkingRoot) {
+        $WorkingRoot = $env:RepositoryRoot
+    }
+
+    $selection = @{}
+    if ($Module.Count -gt 0) {
+        $selection['Module'] = $Module
+    }
+    if ($ModuleProfile) {
+        $selection['ModuleProfile'] = $ModuleProfile
+    }
+
+    $saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot = $env:CatzcModulesRoot }
+    $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-built-' + [guid]::NewGuid().ToString('N'))
+    try {
+        $build = Build-Modules @selection -VendorPolicy full -Destination $destination -Silent
+    }
+    catch {
+        if ([System.IO.Directory]::Exists($destination)) {
+            [System.IO.Directory]::Delete($destination, $true)
+        }
+        throw
+    }
+
+    @{
+        BuildRoot   = [string] $build.BuildRoot
+        WorkingRoot = $WorkingRoot
+        Saved       = $saved
+        Destination = $destination
+        Modules     = @($build.Modules)
+        Build       = $build
+    }
+}
+
+function Invoke-InBuiltCatzc {
+    <#
+    .SYNOPSIS
+        Run a script block in a child pwsh that has entered build mode through the handle's Import-Catzc.ps1, and
+        return the block's output.
+    .DESCRIPTION
+        The child runs `pwsh -NoProfile -NonInteractive -File <runner>`; the runner dot-sources
+        <BuildRoot>/Import-Catzc.ps1 -RepositoryRoot <WorkingRoot>, then invokes the block with -ArgumentList.
+        The block's output — or the error it threw — travels back through a CliXml file, never stdout, so the
+        importer's own console lines cannot corrupt it. Values cross the process boundary serialized (CliXml):
+        strings, numbers, and collections of them round-trip as themselves; richer objects arrive as property
+        bags. The block cannot see the caller's variables; pass them with -ArgumentList. A throw inside the
+        block, or a child that never wrote its result, throws here with the child's error and output tail.
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [hashtable] $Handle,
+
+        [Parameter(Mandatory)]
+        [scriptblock] $ScriptBlock,
+
+        [object[]] $ArgumentList = @()
+    )
+
+    $importScript = Join-Path $Handle.BuildRoot 'Import-Catzc.ps1'
+    if (-not [System.IO.File]::Exists($importScript)) {
+        throw "Invoke-InBuiltCatzc: no Import-Catzc.ps1 in the build root '$($Handle.BuildRoot)'."
+    }
+
+    $work = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-inbuilt-' + [guid]::NewGuid().ToString('N'))
+    [System.IO.Directory]::CreateDirectory($work) | Out-Null
+    try {
+        $utf8 = [System.Text.UTF8Encoding]::new($false)
+        $blockPath = Join-Path $work 'block.ps1'
+        $argumentsPath = Join-Path $work 'arguments.clixml'
+        $resultPath = Join-Path $work 'result.clixml'
+        $runnerPath = Join-Path $work 'runner.ps1'
+        [System.IO.File]::WriteAllText($blockPath, $ScriptBlock.ToString(), $utf8)
+        # Wrapped in a table: a bare top-level array round-trips through CliXml as one object, not its elements.
+        Export-Clixml -InputObject @{ Arguments = @($ArgumentList) } -LiteralPath $argumentsPath -Depth 5
+
+        $runner = @'
+param([string] $CatzcChildImportScript, [string] $CatzcChildWorkingRoot, [string] $CatzcChildBlockPath,
+    [string] $CatzcChildArgumentsPath, [string] $CatzcChildResultPath)
+$ErrorActionPreference = 'Stop'
+$catzcChildOutcome = @{ Output = @(); Error = $null }
+try {
+    . $CatzcChildImportScript -RepositoryRoot $CatzcChildWorkingRoot
+    $catzcChildBlock = [scriptblock]::Create([System.IO.File]::ReadAllText($CatzcChildBlockPath))
+    $catzcChildArguments = @((Import-Clixml -LiteralPath $CatzcChildArgumentsPath).Arguments)
+    $catzcChildOutcome.Output = @(& $catzcChildBlock @catzcChildArguments)
+}
+catch {
+    $catzcChildOutcome.Error = "$($_.Exception.Message)`n$($_.ScriptStackTrace)"
+}
+Export-Clixml -InputObject $catzcChildOutcome -LiteralPath $CatzcChildResultPath -Depth 5
+exit ([int][bool]$catzcChildOutcome.Error)
+'@
+        [System.IO.File]::WriteAllText($runnerPath, $runner, $utf8)
+
+        $pwsh = [System.Environment]::ProcessPath
+        $childOutput = & $pwsh -NoProfile -NonInteractive -File $runnerPath -CatzcChildImportScript $importScript `
+            -CatzcChildWorkingRoot $Handle.WorkingRoot -CatzcChildBlockPath $blockPath `
+            -CatzcChildArgumentsPath $argumentsPath -CatzcChildResultPath $resultPath 2>&1
+        $exitCode = $LASTEXITCODE
+        $outputTail = (@($childOutput | Select-Object -Last 20) | ForEach-Object { "$_" }) -join "`n"
+
+        if (-not [System.IO.File]::Exists($resultPath)) {
+            throw "Invoke-InBuiltCatzc: the child pwsh exited $exitCode without writing its result. Output:`n$outputTail"
+        }
+        $outcome = Import-Clixml -LiteralPath $resultPath
+        if ($outcome.Error) {
+            throw "Invoke-InBuiltCatzc: the block failed in the built session: $($outcome.Error)"
+        }
+        foreach ($item in @($outcome.Output)) {
+            $item
+        }
+    }
+    finally {
+        [System.IO.Directory]::Delete($work, $true)
+    }
+}
+
+function Remove-BuiltCatzcRoot {
+    <#
+    .SYNOPSIS
+        Restore $env:RepositoryRoot and $env:CatzcModulesRoot to what they were before New-BuiltCatzcRoot and
+        delete the build.
+    #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: removes the temp build New-BuiltCatzcRoot made inside the same test; its output belongs to Pester')]
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [hashtable] $Handle
+    )
+
+    $env:RepositoryRoot = $Handle.Saved.RepositoryRoot
+    $env:CatzcModulesRoot = $Handle.Saved.CatzcModulesRoot
+    if ($Handle.Destination -and [System.IO.Directory]::Exists($Handle.Destination)) {
+        [System.IO.Directory]::Delete($Handle.Destination, $true)
+    }
+}
+
+Export-ModuleMember -Function New-ModuleFolder, New-FakeRepositoryRoot, Remove-FakeRepositoryRoot, `
+    New-BuiltCatzcRoot, Invoke-InBuiltCatzc, Remove-BuiltCatzcRoot

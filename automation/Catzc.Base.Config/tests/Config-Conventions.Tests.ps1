@@ -16,7 +16,8 @@ Describe 'Config conventions' -Tag 'L0', 'integrity' {
             }
 
             # Private functions are scope-isolated, so this lists only THIS module's validators.
-            $validators = @(& $mod { (Get-Item Function:\Assert-*Config -ErrorAction Ignore).Name })
+            # piped, not member-enumerated: .Name over an empty result throws in the (strict) module scope
+            $validators = @(& $mod { Get-Item Function:\Assert-*Config -ErrorAction Ignore | Select-Object -ExpandProperty Name })
             if (-not $validators) {
                 continue
             }

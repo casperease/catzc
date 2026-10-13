@@ -116,9 +116,28 @@ with their replacements. A source's options default sensibly, and a source overr
   defined term (ADR-REPO-VOCAB:5), an explanation for every contrast (ADR-REPO-VOCAB:4), repo-relative globs and no URL anywhere
   (ADR-REPO-VOCAB:3), and the option defaults (ADR-REPO-VOCAB:2). Every violation is reported in one throw.
 
-- **Code review** covers the rules that reach beyond one source file: that a defining rule exists and bolds its term and that no second rule
-  defines it (ADR-REPO-VOCAB:1), that terms and keys are unique and contrasts reciprocal across sources (ADR-REPO-VOCAB:4), that prose
-  avoids the avoided phrasings (ADR-REPO-VOCAB:5), and that a realized concept has an enforcer (ADR-REPO-VOCAB:6).
+- **`Get-GlossarySourceViolations`** (`Catzc.Base.Docs`) checks the facts that span sources, over every source `Get-GlossarySources`
+  discovers (`Get-Config -Config glossary -ListOwners`): a term or machine key declared by two sources and a domain that `adrs.yml` does not
+  declare (ADR-REPO-VOCAB:1), a contrast or relation target that no source defines and a source that git does not track (ADR-REPO-VOCAB:3),
+  a contrast that is not reciprocal (ADR-REPO-VOCAB:4), and an avoided phrase that is another source's term (ADR-REPO-VOCAB:5). It names the
+  source path and the term in one message per violation.
+
+- **`Get-GlossaryAnchorViolations`** (`Catzc.Base.Docs`) checks that every term is anchored on its defining rule: its `defined_by` names a
+  rule of an indexed ADR, and that rule's normative summary bolds the term (ADR-REPO-VOCAB:1). Only the normative summary counts — bold text
+  in the ADR body, in the rule's linked bullets, or inside a code span never anchors a term.
+
+- **`Get-GlossaryDefinitionViolations`** (`Catzc.Base.Docs`) checks that no rule other than the defining one defines the term a second time
+  — a normative summary that says `**<term>** is` (ADR-REPO-VOCAB:1). A rule that merely bolds the term is not a definition, and ADR bodies
+  are never read.
+
+- **`Get-GlossaryEnforcementViolations`** (`Catzc.Base.Docs`) checks that every concept realized in code has an enforcer: an analyzer rule
+  or a test that cites its defining rule, found through the same rule-citation link `Show-Cats` reports (ADR-REPO-VOCAB:6). A `prose-only`
+  concept is exempt.
+
+- Each of these gates reads only the concepts of sources whose `gates` option includes it (`anchored`, `single`, `enforced`), so a source
+  that opts out of a gate is not checked by it (ADR-REPO-VOCAB:2).
+
+- **Code review** covers the remaining rule that reaches beyond one source file: that prose avoids the avoided phrasings (ADR-REPO-VOCAB:5).
 
 ## Consequences
 

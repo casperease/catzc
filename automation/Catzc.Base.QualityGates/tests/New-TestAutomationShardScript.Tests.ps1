@@ -35,11 +35,12 @@ Describe 'New-TestAutomationShardScript' {
             $script:content | Should -Match 'ConvertTo-TestAutomationRowSet'
         }
 
-        It 'builds its configuration through the one shared builder, strict off' {
+        It 'builds its configuration through the one shared builder, strict on' {
             # The worker and Invoke-TestFile must share New-PesterRunConfiguration (one living copy of the
-            # invocation config) and the worker turns strict mode off before Pester (ADR-AUTO-TEST:25).
+            # invocation config) and the worker sets strict mode before Pester, so tests run strict (ADR-AUTO-TEST:25).
             $script:content | Should -Match 'New-PesterRunConfiguration'
-            $script:content | Should -Match ([regex]::Escape('Set-StrictMode -Off'))
+            $script:content | Should -Match ([regex]::Escape('Set-StrictMode -Version Latest'))
+            $script:content | Should -Not -Match ([regex]::Escape('Set-StrictMode -Off'))
         }
 
         It 'carries the exclude tags and exits with the not-passed flag' {
@@ -65,6 +66,28 @@ Describe 'New-TestAutomationShardScript' {
             $content = Get-Content -LiteralPath $ruled.ScriptPath -Raw
             $content | Should -Match ([regex]::Escape("@('L3') @('ADR-FAKE#1')"))
             $content | Should -Match ([regex]::Escape('-IncludeTag $includeTag'))
+        }
+
+        It 'loads the source suite through the repository importer by default' {
+            $script:content | Should -Match ([regex]::Escape(". '$(Get-RepositoryRoot)/importer.ps1' -SkipJanitors"))
+            $script:content | Should -Not -Match 'Import-Catzc'
+        }
+
+        It 'loads the build suite through the given entry script with its named arguments' {
+            $built = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
+                param($Dir)
+                New-TestAutomationShardScript -ShardIndex 6 -TestPath @('C:\repo\a.Tests.ps1') -RunDirectory $Dir `
+                    -EntryScript "C:\build's\Catzc\6.6.666\Import-Catzc.ps1" `
+                    -EntryParameter @{ RepositoryRoot = 'C:\repo'; AllowWarnings = $true; Quiet = $false }
+            }
+            $content = Get-Content -LiteralPath $built.ScriptPath -Raw
+            # Quotes doubled, arguments in name order, a $true switch bare, a $false switch omitted.
+            $content | Should -Match ([regex]::Escape(". 'C:\build''s\Catzc\6.6.666\Import-Catzc.ps1' -AllowWarnings -RepositoryRoot 'C:\repo'"))
+            $content | Should -Not -Match 'importer\.ps1'
+            $content | Should -Not -Match '-Quiet'
+            # Everything after the load is the same for both suites.
+            $content | Should -Match ([regex]::Escape("Join-Path (Get-CatzcModulesRoot) '.vendor/Pester'"))
+            $content | Should -Match 'ConvertTo-TestAutomationRowSet'
         }
     }
 
@@ -116,7 +139,7 @@ Describe 'ShardFixtureWide' -Tag 'L2', 'logic' {
             $rows = @(Get-Content -LiteralPath $shard.RowsPath -Raw | ConvertFrom-Json)
             $rows | Should -HaveCount 4
             $passed = @($rows | Where-Object Result -EQ 'Passed')
-            $passed | Should -HaveCount 2 -Because "failed rows: $(($rows | Where-Object Result -EQ 'Failed').ErrorMessage)"
+            $passed | Should -HaveCount 2 -Because "failed rows: $(@($rows | Where-Object Result -EQ 'Failed' | ForEach-Object { $_.ErrorMessage }) -join '; ')"
             $passed.ExpandedPath | Should -Match 'passes'
             ($rows | Where-Object Result -EQ 'Skipped').SkipReason | Should -Be 'tool_obj_missing'
             ($rows | Where-Object Result -EQ 'NotRun').Level | Should -Be 'L2'

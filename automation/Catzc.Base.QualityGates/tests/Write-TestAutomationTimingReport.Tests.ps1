@@ -4,8 +4,9 @@ Describe 'Write-TestAutomationTimingReport' -Tag 'L0', 'logic' {
         Mock Write-Footer -ModuleName Catzc.Base.QualityGates { }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         $script:limits = @{ 'L0' = 400 }
-        $script:overRow = [pscustomobject]@{ ExpandedPath = 'X.slow'; Result = 'Passed'; DurationMs = 900; Level = 'L0' }
-        $script:okRow = [pscustomobject]@{ ExpandedPath = 'X.fast'; Result = 'Passed'; DurationMs = 10; Level = 'L0' }
+        # the row fields ConvertTo-TestAutomationRowSet emits that the timing check reads
+        $script:overRow = [pscustomobject]@{ ExpandedPath = 'X.slow'; ExpandedName = 'slow'; Result = 'Passed'; DurationMs = 900; Level = 'L0' }
+        $script:okRow = [pscustomobject]@{ ExpandedPath = 'X.fast'; ExpandedName = 'fast'; Result = 'Passed'; DurationMs = 10; Level = 'L0' }
     }
 
     It 'is silent and returns false when nothing is over its limit' {

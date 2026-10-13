@@ -59,7 +59,8 @@ function Get-LiveIdentityTokens {
     # shared structural vocabulary, not a discriminating identity, and are skipped.
     if ($azure.Contains('environments')) {
         foreach ($envName in $azure.environments.Keys) {
-            if ($azure.environments[$envName].per_subscription) {
+            $environmentEntry = $azure.environments[$envName]
+            if ($environmentEntry.Contains('per_subscription') -and $environmentEntry['per_subscription']) {
                 continue
             }
             & $add $envName 'environment' 'azure.yml' 'a fixture environment (alpha / beta / gamma / delta)' 'position'
