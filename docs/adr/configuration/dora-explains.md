@@ -6,7 +6,9 @@ The `Dora explains` rationale for the ADRs in the `configuration/` domain, conso
 code, then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The
 decisions live in the ADRs themselves; this file carries only their DORA rationale.
 
-## Module config loading — one reader (`Get-Config`), owner-scoped validation
+## Module config loading
+
+`Module config loading — one reader (Get-Config), owner-scoped validation`
 
 [ADR-CONF-LOADING](module-config-loading.md)
 
@@ -21,7 +23,9 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
   surface for misconfiguration.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Config value addressing — a by-reference handle into a named config
+## Config value addressing
+
+`Config value addressing — a by-reference handle into a named config`
 
 [ADR-CONF-ADDRESSING](config-value-addressing.md)
 

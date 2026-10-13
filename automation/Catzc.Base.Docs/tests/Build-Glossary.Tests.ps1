@@ -77,9 +77,8 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
 # repository's files — the same answer in both run modes, so the build run skips it.
 Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README#7' {
     It 'the on-disk glossary is current — no drift from the glossary sources' {
-        $report = Build-Glossary -DryRun -PassThru -Silent
-        $report.ConceptCount | Should -BeGreaterThan 0
-        $report.Changed | Should -BeFalse -Because (
-            'docs/adr/glossary.md is generated from the configs/glossary.yml sources (Build-Glossary) — re-run the importer to regenerate it')
+        (Build-Glossary -DryRun -PassThru -Silent).ConceptCount | Should -BeGreaterThan 0
+        $result = Test-GeneratedFiles -Generator Build-Glossary -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

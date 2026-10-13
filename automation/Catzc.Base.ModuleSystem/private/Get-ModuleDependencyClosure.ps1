@@ -4,7 +4,7 @@
     depend on (directly or indirectly), per configs/dependencies.yml.
 .DESCRIPTION
     Breadth-first over the declared dependency map (Get-ModuleDependencyMap). The declared graph is a superset
-    of the real code edges (Assert-ModuleDependency enforces actual ⊆ declared), so the closure is guaranteed
+    of the real code edges (Test-ModuleDependency enforces actual ⊆ declared), so the closure is guaranteed
     to contain every module the seeds need to load — copying it (Get-ModuleProfile → Copy-Automation) yields a
     loadable subset. A group dependency was already expanded to its members when the map was built. Result is
     ordinal-sorted for determinism. Seeds that are not on-disk modules contribute themselves but no edges.

@@ -78,16 +78,16 @@ Describe 'Get-ToolConfig' -Tag 'L0' {
         It 'caches across calls' {
             # Hermetic fixture tool through the Get-Config seam, so the cache test never depends on the
             # shipped tools.yml ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). The
-            # mock returns a STABLE object (Get-ToolConfig inherits its
-            # same-reference caching from Get-Config's cached read), so both calls see one tool entry.
-            $script:toolsFixture = @{ faketool = @{
-                    version         = '1.0'
-                    command         = 'faketool'
-                    version_command = 'faketool --version'
-                    version_pattern = '^(?<ver>.+)$'
-                    winget_id       = 'Fake.Tool'
-                }
-            }
+            # mock returns a STABLE typed ToolsConfig (Get-ToolConfig inherits its
+            # same-reference caching from Get-Config's cached read), so both calls see one ToolConfig.
+            $script:toolsFixture = [Catzc.Tooling.Core.ToolsConfig]::new(@{ faketool = @{
+                        version         = '1.0'
+                        command         = 'faketool'
+                        version_command = 'faketool --version'
+                        version_pattern = '^(?<ver>.+)$'
+                        winget_id       = 'Fake.Tool'
+                    }
+                })
             Mock Get-Config -ModuleName Catzc.Tooling.Core -ParameterFilter { $Config -eq 'tools' } -MockWith { $script:toolsFixture }
             $script:first = & (Get-Module Catzc.Tooling.Core) { Get-ToolConfig -Tool 'faketool' }
             $script:second = & (Get-Module Catzc.Tooling.Core) { Get-ToolConfig -Tool 'faketool' }

@@ -2,10 +2,9 @@
 .SYNOPSIS
     Returns the locked configuration for a CLI tool as a validated ToolConfig.
 .DESCRIPTION
-    Binds one tool's locked definition from configs/tools.yml (loaded and cached for the session via
-    Get-Config) to a Catzc.Tooling.Core.ToolConfig — the ctor validates the required keys. The bound
-    object is memoized by the config entry's identity, so repeated calls return the same instance; when
-    the config cache is reset the entry object is new, so a fresh ToolConfig is built.
+    Looks one tool's locked definition up in configs/tools.yml, read through Get-Config — which constructs the
+    typed Catzc.Tooling.Core.ToolsConfig once per session (validating every entry) and caches it, so repeated
+    calls return the same ToolConfig instance.
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (e.g., 'python', 'az_cli').
 .EXAMPLE
@@ -20,22 +19,8 @@ function Get-ToolConfig {
     )
 
     $allTools = Get-Config -Config tools
-
-    $config = $allTools[$Tool]
-    if (-not $config) {
+    if (-not $allTools.Contains($Tool)) {
         throw "Unknown tool '$Tool'. Known tools: $($allTools.Keys -join ', ')"
     }
-
-    # Memoize by the cached entry's identity: while the config cache is warm the entry is the same object
-    # (so callers get one ToolConfig instance); after a cache reset Get-Config yields a new entry object,
-    # which misses here and rebuilds — tying the ToolConfig's lifetime to the config it mirrors.
-    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:toolConfigCache')) {
-        # strict-clean probe of the lazy slot
-        # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
-        $script:toolConfigCache = @{}
-    }
-    if (-not $script:toolConfigCache.ContainsKey($config)) {
-        $script:toolConfigCache[$config] = [Catzc.Tooling.Core.ToolConfig]::new($config)
-    }
-    $script:toolConfigCache[$config]
+    $allTools[$Tool]
 }

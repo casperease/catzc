@@ -1,16 +1,15 @@
-Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'ADR-REPO-README#7' {
+Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README#7' {
     BeforeAll {
-        # The importer's janitor tail materialised
-        # [index](/docs/adr/index.md) before this run; check it without writing.
-        $script:report = Build-AdrIndex -DryRun -PassThru
         $script:indexEntries = & (Get-Module Catzc.Base.Docs) { Get-CatsAdrIndex }
         $script:ruleSets = Get-AdrRuleSet
         $script:adrRoot = Resolve-RepoPath 'docs/adr'
     }
 
-    It 'the on-disk index is current — no drift from adrs.yml' {
-        $script:report.Changed | Should -BeFalse -Because (
-            'docs/adr/index.md is generated from adrs.yml (Build-AdrIndex) — re-run the importer to regenerate it')
+    It 'the on-disk index is current — no drift from adrs.yml (Test-GeneratedFiles)' {
+        # The importer's janitor tail materialised [index](/docs/adr/index.md) before this run; the gate checks it
+        # without writing.
+        $result = Test-GeneratedFiles -Generator Build-AdrIndex -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 
     It 'every adrs.yml ruleset is one parseable index row (codes agree with the flattened rule-sets)' {

@@ -6,7 +6,9 @@ The `Dora explains` rationale for the ADRs in the `pipelines/` domain, consolida
 then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions
 live in the ADRs themselves; this file carries only their DORA rationale.
 
-## Dual authentication — pipeline system token vs. local Az token
+## Dual authentication
+
+`Dual authentication — pipeline system token vs. local Az token`
 
 [ADR-PIPE-AUTH](dual-authentication.md)
 
@@ -22,7 +24,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   specific missing credential.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Pipeline variable interface — setting ADO output variables from PowerShell
+## Pipeline variables
+
+`Pipeline variable interface — setting ADO output variables from PowerShell`
 
 [ADR-PIPE-VAR](pipeline-variables.md)
 
@@ -54,7 +58,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   and tooling built on known patterns.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Custom template discipline — when and how to use ADO templates
+## Custom templates
+
+`Custom template discipline — when and how to use ADO templates`
 
 [ADR-PIPE-TEMPLATE](custom-template-discipline.md)
 

@@ -127,10 +127,11 @@ One of a test run's three scheduling stages, in order — parallel shards, greed
 
 ### quality gate
 
-An automated gate over the repository — one Test-* or Assert-* check that reports every issue at once and fails on any.
+An automated gate checking one property of the whole repository — one Test-<subject> function that reports through Write-QualityGateReport
+and throws once with every issue.
 
 - **Defined by:** [ADR-AUTO-TEST#35](automation/test-automation.md#rule-adr-auto-test35)
-- **Realized by:** file-pattern `automation/Catzc.Base.QualityGates/Test-*.ps1`
+- **Realized by:** function `Write-QualityGateReport`
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Kind of:** [gate](#gate)
 - **Contrasts:**

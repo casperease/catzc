@@ -32,3 +32,15 @@ configs:
     type: Catzc.Base.Docs.GlossaryConfig
   reports:
     type: Catzc.Base.Reports.ReportsConfig
+  tools:
+    type: Catzc.Tooling.Core.ToolsConfig
+  dependencies:
+    type: Catzc.Base.ModuleSystem.DependenciesConfig
+  files:
+    type: Catzc.Base.ModuleSystem.FilesConfig
+  profiles:
+    type: Catzc.Base.ModuleSystem.ProfilesConfig
+  analyzer-adr-map:
+    type: Catzc.Base.QualityGates.AnalyzerAdrMapConfig
+  vendor:
+    type: Catzc.Base.Vendor.VendorConfig

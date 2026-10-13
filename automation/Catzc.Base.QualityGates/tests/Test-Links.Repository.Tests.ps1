@@ -5,27 +5,30 @@
 # Rule-tag citations and analyzer mappings are validated elsewhere (Get-TestTagViolations, Get-AnalyzerAdrCoverage).
 Describe 'Repository code links (automation comments)' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
-        $script:result = Test-Links -Path (Join-Path (Get-RepositoryRoot) 'automation') -Kind Code -PassThru
+        $script:result = Test-Links -Path (Join-Path (Get-RepositoryRoot) 'automation') -Kind Code -PassThru `
+            -OutputFolder (Join-Path $TestDrive 'links-code')
     }
 
     It 'every ADR reference in an automation comment is a canonical code link that resolves' -Tag 'ADR-REPO-LINK#3', 'ADR-REPO-LINK#5' {
         $result.FileCount | Should -BeGreaterThan 0
-        @($result.Violations | ForEach-Object { "$_" }) | Should -BeNullOrEmpty -Because 'Format-Links aligns code links; the rest need a person'
+        $result.Issues | Should -BeNullOrEmpty -Because 'Format-Links aligns code links; the rest need a person'
+        $result.IssueCount | Should -Be 0
     }
 
     It 'every docs path in an automation string names a file that exists' -Tag 'ADR-REPO-LINK#6' {
-        @($result.Violations | Where-Object { "$($_.Type)" -eq 'StringPathMissing' } | ForEach-Object { "$_" }) | Should -BeNullOrEmpty
+        @($result.Issues | Where-Object { $_ -match '\[StringPathMissing\]' }) | Should -BeNullOrEmpty
     }
 }
 
 Describe 'Repository links (every tracked file)' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
-        $script:result = Test-Links -PassThru
+        $script:result = Test-Links -PassThru -OutputFolder (Join-Path $TestDrive 'links')
     }
 
     It 'every markdown link and code link in a tracked file is aligned and resolves, fragments included' -Tag 'ADR-REPO-LINK#2', 'ADR-REPO-LINK#7' {
         $result.FileCount | Should -BeGreaterThan 0
-        @($result.Violations | ForEach-Object { "$_" }) | Should -BeNullOrEmpty -Because 'run Format-Links, then fix what remains by hand'
+        $result.Issues | Should -BeNullOrEmpty -Because 'run Format-Links, then fix what remains by hand'
+        $result.IssueCount | Should -Be 0
     }
 
     It 'Format-Links changes nothing on the aligned repository' -Tag 'ADR-REPO-LINK#8' {

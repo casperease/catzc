@@ -2,10 +2,10 @@ Describe 'Get-ModuleGroupConfig' {
     Context 'logic (mocked Get-Config)' -Tag 'L0', 'logic' {
         It 'returns the groups map when the config declares groups' {
             InModuleScope Catzc.Base.ModuleSystem {
-                Mock Get-Config { [ordered]@{
-                        groups  = [ordered]@{ G = [ordered]@{ M1 = @() } }
-                        modules = [ordered]@{ A = @('G') }
-                    } } -ParameterFilter { $Config -eq 'dependencies' }
+                Mock Get-Config { [Catzc.Base.ModuleSystem.DependenciesConfig]::new([ordered]@{
+                            groups  = [ordered]@{ G = [ordered]@{ M1 = @() } }
+                            modules = [ordered]@{ A = @('G') }
+                        }) } -ParameterFilter { $Config -eq 'dependencies' }
 
                 $groups = Get-ModuleGroupConfig
                 $groups.Contains('G') | Should -BeTrue
@@ -15,7 +15,9 @@ Describe 'Get-ModuleGroupConfig' {
 
         It 'returns an empty ordered dictionary when the config declares no groups' {
             InModuleScope Catzc.Base.ModuleSystem {
-                Mock Get-Config { [ordered]@{ modules = [ordered]@{ A = @() } } } -ParameterFilter { $Config -eq 'dependencies' }
+                Mock Get-Config {
+                    [Catzc.Base.ModuleSystem.DependenciesConfig]::new([ordered]@{ modules = [ordered]@{ A = @() } })
+                } -ParameterFilter { $Config -eq 'dependencies' }
 
                 $groups = Get-ModuleGroupConfig
                 @($groups.Keys).Count | Should -Be 0

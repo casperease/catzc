@@ -7,17 +7,17 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
     BeforeEach {
         # a small declared graph: Base group {Alpha <- Beta}; Gamma declared against the Base group;
         # 'Catzc.Unknown' appears nowhere (unconstrained).
-        $script:dependencies = [ordered]@{
-            groups  = [ordered]@{
-                Base = [ordered]@{
-                    'Catzc.Base.Alpha' = @()
-                    'Catzc.Base.Beta'  = @('Catzc.Base.Alpha')
+        $script:dependencies = [Catzc.Base.ModuleSystem.DependenciesConfig]::new([ordered]@{
+                groups  = [ordered]@{
+                    Base = [ordered]@{
+                        'Catzc.Base.Alpha' = @()
+                        'Catzc.Base.Beta'  = @('Catzc.Base.Alpha')
+                    }
                 }
-            }
-            modules = [ordered]@{
-                'Catzc.Gamma' = @('Base')
-            }
-        }
+                modules = [ordered]@{
+                    'Catzc.Gamma' = @('Base')
+                }
+            })
         # per-set hashes keyed by name; a test flips one entry to prove it re-keys (or not) the composite
         $script:setHashes = @{}
         foreach ($setName in @('catzc-base-alpha', 'catzc-base-beta', 'catzc-gamma', 'internal', 'vendor',

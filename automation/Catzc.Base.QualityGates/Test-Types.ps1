@@ -11,22 +11,29 @@
     The matching declared namespace is also what lets the editor's C# toolchain compile and analyze these
     files (no false CA1050), so passing this gate keeps the in-editor feedback aligned with the rules.
 
-    A source-tree gate: it reads the repository's type sources, so it throws in build mode (Assert-SourceTree).
+    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
+    through Write-QualityGateReport, which writes out/test-types/, prints every issue, and throws once listing
+    them all. A source-tree gate: it reads the repository's type sources, so it throws in build mode
+    (Assert-SourceTree).
 .PARAMETER Path
     One or more files or directories to check. Defaults to every automation/<Module>/types/*.cs file.
+.PARAMETER OutputFolder
+    The report base folder. Defaults to <out>/test-types.
 .PARAMETER PassThru
-    Return a result object ({ ViolationCount, Violations }) instead of throwing.
+    Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount }) instead of throwing.
 .OUTPUTS
     Throws on any violation; with -PassThru, returns the result object.
 .EXAMPLE
     Test-Types
 .EXAMPLE
-    $result = Test-Types -PassThru; $result.ViolationCount
+    $result = Test-Types -PassThru; $result.IssueCount
 #>
 function Test-Types {
     [CmdletBinding()]
     param(
         [string[]] $Path,
+
+        [string] $OutputFolder,
 
         [switch] $PassThru
     )
@@ -68,32 +75,17 @@ function Test-Types {
         $relative = $file.Substring($root.Length).TrimStart('\', '/') -replace '\\', '/'
         if ($content -match '(?m)^\s*namespace\s+(\S+?)\s*;\s*$') {
             if ($Matches[1] -ne $module) {
-                $violations.Add("${relative}: declares namespace '$($Matches[1])' but its module folder is '$module'.")
+                $violations.Add("${relative}: declares namespace '$($Matches[1])' but its module folder is '$module' — run Format-Types.")
             }
         }
         elseif ($content -match '(?m)^\s*namespace\s+(\S+?)\s*\{') {
-            $violations.Add("${relative}: uses a block-scoped namespace '$($Matches[1])'; types use a file-scoped 'namespace $module;'.")
+            $violations.Add("${relative}: uses a block-scoped namespace '$($Matches[1])'; types use a file-scoped 'namespace $module;' — run Format-Types.")
         }
         else {
-            $violations.Add("${relative}: declares no namespace; expected file-scoped 'namespace $module;'.")
+            $violations.Add("${relative}: declares no namespace; expected file-scoped 'namespace $module;' — run Format-Types.")
         }
     }
 
-    if ($violations.Count -eq 0) {
-        Write-Message "All $($files.Count) C# type file(s) declare the namespace of their module folder."
-    }
-    else {
-        Write-Message "$($violations.Count) of $($files.Count) C# type file(s) have a namespace mismatch (run Format-Types)."
-    }
-
-    if ($PassThru) {
-        return [pscustomobject]@{
-            ViolationCount = $violations.Count
-            Violations     = $violations.ToArray()
-        }
-    }
-
-    if ($violations.Count -gt 0) {
-        throw "Test-Types failed: $($violations.Count) C# type file(s) have a namespace mismatch — run Format-Types:`n$($violations -join "`n")"
-    }
+    Write-QualityGateReport -Subject types -Title Test-Types -Issues $violations.ToArray() `
+        -Facts ([ordered]@{ FileCount = $files.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

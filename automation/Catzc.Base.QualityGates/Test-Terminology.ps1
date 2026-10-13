@@ -20,16 +20,15 @@
          This is enforced by the TerminologyConfig type at load, so a malformed
          registry fails to load and is reported here.
 
-    Mirrors Test-Spelling's reporting: each run writes a timestamped folder under out/test-terminology/
-    (terminology.md), updates latest.txt, and prints the report path. Throws when issues are found (so it can
-    gate CI); -PassThru returns a result object instead.
+    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
+    through Write-QualityGateReport, which writes out/test-terminology/, prints every issue, and throws once
+    listing them all; -PassThru returns the result object instead.
 
     A source-tree gate: it scans the catzc repository, so it throws in build mode (Assert-SourceTree).
 .PARAMETER OutputFolder
-    Base directory for the run report. Each run writes a timestamped subfolder
-    (<OutputFolder>/yyyyMMdd-HHmmss/). Defaults to <out>/test-terminology.
+    The report base folder. Defaults to <out>/test-terminology.
 .PARAMETER PassThru
-    Return a result object ({ IssueCount, TermCount, Issues, ReportPath }) instead of throwing.
+    Return a result object ({ Subject, IssueCount, Issues, ReportPath, TermCount }) instead of throwing.
 .OUTPUTS
     Throws on any issue; with -PassThru, returns the result object.
 .EXAMPLE
@@ -100,60 +99,6 @@ function Test-Terminology {
         0
     }
 
-    # ---- report (mirrors Test-Spelling): timestamped folder under out/test-terminology/ ----
-    if (-not $OutputFolder) {
-        $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) 'test-terminology'
-    }
-    $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
-    $runDir = Join-Path $OutputFolder $stamp
-    $i = 2
-    while (Test-Path $runDir) {
-        $runDir = Join-Path $OutputFolder "$stamp-$i"
-        $i++
-    }
-    New-Item -ItemType Directory -Path $runDir -Force | Out-Null
-
-    $lines = [System.Collections.Generic.List[string]]::new()
-    $lines.Add('# Terminology report')
-    $lines.Add('')
-    $lines.Add("- Generated: $stamp")
-    $lines.Add("- Terms: $termCount")
-    if ($issues.Count -eq 0) {
-        $lines.Add('- Result: no terminology issues')
-    }
-    else {
-        $lines.Add("- Issues: $($issues.Count)")
-        $lines.Add('')
-        $lines.Add('## Issues')
-        $lines.Add('')
-        foreach ($issue in $issues) {
-            $lines.Add("- $issue")
-        }
-    }
-    Set-Content -Path (Join-Path $runDir 'terminology.md') -Value $lines -Encoding utf8
-    Set-Content -Path (Join-Path $OutputFolder 'latest.txt') -Value (Split-Path $runDir -Leaf) -Encoding utf8
-
-    if ($issues.Count -eq 0) {
-        Write-Message "No terminology issues found across $termCount term(s)."
-    }
-    else {
-        foreach ($issue in $issues) {
-            Write-Message $issue -NoHeader
-        }
-        Write-Message "$($issues.Count) terminology issue(s)."
-    }
-    Write-Message "Terminology report: $runDir" -ForegroundColor Cyan -NoHeader
-
-    if ($PassThru) {
-        return [pscustomobject]@{
-            IssueCount = $issues.Count
-            TermCount  = $termCount
-            Issues     = $issues.ToArray()
-            ReportPath = $runDir
-        }
-    }
-
-    if ($issues.Count -gt 0) {
-        throw "Test-Terminology failed: $($issues.Count) issue(s) found — see $runDir"
-    }
+    Write-QualityGateReport -Subject terminology -Title Test-Terminology -Issues $issues.ToArray() `
+        -Facts ([ordered]@{ TermCount = $termCount }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

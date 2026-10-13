@@ -41,15 +41,11 @@ function Assert-ToolVersion {
     }
 
     # Accepted prefixes: always the locked version; on a devbox (non-pipeline) also the optional devbox_version
-    # lever from tools.yml. Read from the raw config — devbox_version is a version-check policy field, not part
-    # of the typed ToolConfig install mirror. A pipeline enforces the locked version alone.
+    # lever from tools.yml. A pipeline enforces the locked version alone.
     $accepted = [System.Collections.Generic.List[string]]::new()
     $accepted.Add($config.version)
-    if (-not (Test-IsRunningInPipeline)) {
-        $devboxVersion = (Get-Config -Config tools)[$Tool]['devbox_version']
-        if ($devboxVersion) {
-            $accepted.Add($devboxVersion)
-        }
+    if ($config.devbox_version -and -not (Test-IsRunningInPipeline)) {
+        $accepted.Add($config.devbox_version)
     }
 
     $matched = $accepted | Where-Object { $installed.StartsWith($_) } | Select-Object -First 1

@@ -20,7 +20,7 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
 
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
-        Mock Write-Message -ModuleName Catzc.Base.Docs { }
+        Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-GlossarySources -ModuleName Catzc.Base.Docs { [pscustomobject]@{ Owner = 'Catzc.Widget' } }
         $entries = $script:entries
         Mock Get-Glossary -ModuleName Catzc.Base.Docs -MockWith { , $entries }.GetNewClosure()
@@ -33,7 +33,9 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
     }
 
     It 'reports no issues, writes the report, and points latest.txt at it' -Tag 'ADR-REPO-VOCAB#1' {
+        { Test-Glossary -OutputFolder $script:out } | Should -Not -Throw
         $result = Test-Glossary -OutputFolder $script:out -PassThru
+        $result.Subject | Should -Be 'glossary'
         $result.IssueCount | Should -Be 0
         $result.ConceptCount | Should -Be 2
         $result.SourceCount | Should -Be 1
@@ -70,6 +72,10 @@ Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity', 'sour
     BeforeAll {
         $script:sources = @(InModuleScope Catzc.Base.Docs { Get-GlossarySources })
         $script:entries = Get-Glossary
+    }
+
+    It 'the glossary gate passes over the real sources' -Tag 'ADR-AUTO-TEST#35' {
+        (Test-Glossary -PassThru -OutputFolder (Join-Path $TestDrive 'glossary')).IssueCount | Should -Be 0
     }
 
     It 'discovers at least one glossary source' -Tag 'ADR-REPO-VOCAB#2' {

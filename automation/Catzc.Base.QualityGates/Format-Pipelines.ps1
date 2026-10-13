@@ -10,7 +10,7 @@
     exactly the ADO-pipeline set and `.yml` config is deliberately out of scope. Third-party noise
     (automation/.vendor/, node_modules/) is excluded by the root .prettierignore.
 
-    This is the companion to Assert-Pipelines (naming/placement) the way Format-Markdown pairs with
+    This is the companion to Test-Pipelines (naming/placement) the way Format-Markdown pairs with
     Test-Markdownlint: Format-Pipelines brings the YAML INTO Prettier's deterministic shape; Format-Pipelines
     -Check verifies it. Idempotent — re-running formats nothing new. It shares the one Prettier engine
     (Invoke-Prettier) with Format-Markdown, so its modes and result shape are identical.

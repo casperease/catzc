@@ -66,8 +66,8 @@ function Get-BaseModule {
                 continue
             }
             $packages = [System.Collections.Generic.List[Catzc.Base.ModuleSystem.ModulePackage]]::new()
-            if ($bindings -and $bindings.Contains($name) -and $bindings[$name].Contains('packages')) {
-                $packageMap = $bindings[$name]['packages']
+            if ($bindings.Contains($name)) {
+                $packageMap = $bindings[$name].packages
                 foreach ($packageName in $packageMap.Keys) {
                     $paths = [string[]] @($packageMap[$packageName])
                     $packages.Add([Catzc.Base.ModuleSystem.ModulePackage]::new($packageName, $paths))

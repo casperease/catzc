@@ -56,8 +56,8 @@ concepts:
         key: quality_gate
         domain: automation
         defined_by: ADR-AUTO-TEST#35
-        short: An automated gate over the repository — one Test-* or Assert-* check that reports every issue at once and fails on any.
-        realized_by: { kind: file-pattern, pattern: 'automation/Catzc.Base.QualityGates/Test-*.ps1' }
+        short: An automated gate checking one property of the whole repository — one Test-<subject> function that reports through Write-QualityGateReport and throws once with every issue.
+        realized_by: { kind: function, pattern: 'Write-QualityGateReport' }
         relations:
             kind_of: [gate]
         contrasts:

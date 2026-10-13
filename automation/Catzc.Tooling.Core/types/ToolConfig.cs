@@ -1,19 +1,42 @@
 // One tool's locked definition from configs/tools.yml — its required version, how to detect it, and the
 // per-manager install metadata for each platform. Mirrors a tools.yml entry (snake_case keys); each tool
-// carries only the install metadata its supported platforms need, so most fields are optional.
+// carries only the install metadata its supported platforms need, so most fields are optional. ToolsConfig
+// builds one per entry and prefixes every violation with the tool's name.
+//
+// Constructing an instance validates the entry, collecting every violation into one ArgumentException:
+//   - only the known keys below (an unknown key would be silently invisible to every caller);
+//   - version, command, version_command and version_pattern are required
+//     ([ADR-AUTO-DEPS#1](/docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps1));
+//   - version_pattern captures the version as the named group (?<ver>...);
+//   - every session_host_probes entry ends with the {version} segment.
 //
 // Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
-// over its own properties and its constructor uses the base's Req/OptStr/Flag extraction helpers.
+// over its own properties and its constructor uses the base's OptStr/StrArr/Flag extraction helpers.
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Catzc.Tooling.Core;
 
 public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
 {
+    private static readonly string[] AllowedKeys =
+    {
+        "version", "devbox_version", "command", "version_command", "version_pattern", "winget_id", "winget_scope",
+        "brew_formula", "apt_package", "pip_package", "npm_package", "uv_tool", "uv_allow_prerelease", "uv_venv",
+        "max_python", "uv_python", "script_install", "system_provided", "windows_only", "admin_only",
+        "linux_admin_only", "windows_install_dir", "unix_install_dir", "depends_on", "session_path_hints",
+        "session_host_probes",
+    };
+
     // The locked version the tool must satisfy. Required.
     public string version             { get; }
+
+    // Devbox lever: outside a CI pipeline, an installed version starting with this prefix is also accepted
+    // (Assert-ToolVersion, Test-Tool). A pipeline ignores it and enforces `version` alone. Null when the tool has
+    // no lever.
+    public string devbox_version      { get; }
 
     // The command/executable name used to invoke the tool. Required.
     public string command             { get; }
@@ -21,7 +44,7 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // The command that prints the installed version. Required.
     public string version_command     { get; }
 
-    // The regex that extracts the version from version_command's output. Required.
+    // The regex that extracts the version from version_command's output, as the named group (?<ver>...). Required.
     public string version_pattern     { get; }
 
     // winget package id. Null when winget is not an install path for this tool.
@@ -55,8 +78,8 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // in ~/.local/bin breaks. Null when venv install is not the path.
     public string uv_venv             { get; }
 
-    // Highest Python version this tool supports (runs under). The Assert-ToolsConfig gate fails the build if the
-    // toolchain's python pin exceeds it — keeping Python off a bleeding-edge release a dependent cannot use.
+    // Highest Python version this tool supports (runs under). ToolsConfig rejects a toolchain whose python pin
+    // exceeds it — keeping Python off a bleeding-edge release a dependent cannot use.
     public string max_python          { get; }
 
     // True when this tool is Python itself, provisioned by `uv python install --default`. Null/false otherwise.
@@ -86,7 +109,8 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // The install directory on Unix. Null when not applicable.
     public string unix_install_dir    { get; }
 
-    // The name of a tool that must be installed first. Null when the tool has no prerequisite.
+    // The name of a tool that must be installed first. Null when the tool has no prerequisite. ToolsConfig checks
+    // it names a declared tool.
     public string depends_on          { get; }
 
     // Extra directories the session janitor (Sync-SessionTools) prepends to PATH to point THIS session at
@@ -102,14 +126,34 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // SDK at the locked version beats a runtime-only host. Empty when the tool has a single obvious install.
     public string[] session_host_probes { get; }
 
-    // Constructed from the parsed tools.yml dictionary; the constructor validates the required keys.
+    // True when the entry declares how the toolchain gets it: a package-manager id, script_install, a uv shape,
+    // or system_provided (asserted, never installed). ToolsConfig requires it of every shipped entry.
+    public bool HasInstallMechanism()
+    {
+        return winget_id != null || brew_formula != null || apt_package != null || pip_package != null
+            || npm_package != null || uv_tool != null || uv_venv != null || uv_python || script_install || system_provided;
+    }
+
+    // Constructed from one parsed tools.yml entry; throws one ArgumentException listing every violation.
     public ToolConfig(IDictionary d)
     {
-        if (d == null) { throw new ArgumentException("ToolConfig requires a dictionary"); }
-        version             = Req(d, "version");
-        command             = Req(d, "command");
-        version_command     = Req(d, "version_command");
-        version_pattern     = Req(d, "version_pattern");
+        if (d == null) { throw new ArgumentException("a tool entry must be a mapping"); }
+        List<string> errors = new List<string>();
+
+        foreach (object k in d.Keys)
+        {
+            string key = k == null ? null : k.ToString();
+            if (Array.IndexOf(AllowedKeys, key) < 0)
+            {
+                errors.Add(string.Format("unknown key '{0}' (allowed: {1})", key, string.Join(", ", AllowedKeys)));
+            }
+        }
+
+        version             = Required(d, "version", errors);
+        devbox_version      = OptStr(d, "devbox_version");
+        command             = Required(d, "command", errors);
+        version_command     = Required(d, "version_command", errors);
+        version_pattern     = Required(d, "version_pattern", errors);
         winget_id           = OptStr(d, "winget_id");
         winget_scope        = OptStr(d, "winget_scope");
         brew_formula        = OptStr(d, "brew_formula");
@@ -131,13 +175,27 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
         depends_on          = OptStr(d, "depends_on");
         session_path_hints  = StrArr(d, "session_path_hints");
         session_host_probes = StrArr(d, "session_host_probes");
+
+        if (version_pattern != null && !version_pattern.Contains("(?<ver>"))
+        {
+            errors.Add(string.Format("version_pattern '{0}' must capture the version as the named group (?<ver>...)", version_pattern));
+        }
+
         foreach (string probe in session_host_probes)
         {
-            if (probe == null || !probe.EndsWith("{version}", StringComparison.Ordinal))
+            if (!probe.EndsWith("{version}", StringComparison.Ordinal))
             {
-                throw new ArgumentException(string.Format(
-                    "tool '{0}': session_host_probes entry '{1}' must end with the {{version}} segment", command, probe));
+                errors.Add(string.Format("session_host_probes entry '{0}' must end with the {{version}} segment", probe));
             }
         }
+
+        if (errors.Count > 0) { throw new ArgumentException(string.Join("; ", errors)); }
+    }
+
+    private static string Required(IDictionary d, string key, List<string> errors)
+    {
+        string value = OptStr(d, key);
+        if (value == null) { errors.Add(key + " is required"); }
+        return value;
     }
 }

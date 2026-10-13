@@ -390,8 +390,8 @@ Describe 'shipped C# types' -Tag 'L0', 'integrity' {
         if (-not (Get-Command Test-Types -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'harness_test_types'; return
         }
-        $result = Test-Types -PassThru
-        $result.ViolationCount | Should -Be 0 -Because "run Format-Types to fix:`n$($result.Violations -join "`n")"
+        $result = Test-Types -PassThru -OutputFolder (Join-Path $TestDrive 'types')
+        $result.IssueCount | Should -Be 0 -Because "run Format-Types to fix:`n$($result.Issues -join "`n")"
     }
 }
 

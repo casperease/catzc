@@ -49,7 +49,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   reduce approval delays and handoffs.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Poka-yoke — make mistakes impossible
+## Poka-yoke
+
+`Poka-yoke — make mistakes impossible`
 
 [ADR-PRIN-POKAYOKE](poka-yoke.md)
 
@@ -62,7 +64,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   follow-up steps, reducing defect introduction.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## One living version — no legacy, no back-compat, history in git
+## One living version
+
+`One living version — no legacy, no back-compat, history in git`
 
 [ADR-PRIN-ONELIVE](one-living-version.md)
 

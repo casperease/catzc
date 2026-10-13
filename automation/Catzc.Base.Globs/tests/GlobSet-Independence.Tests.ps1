@@ -8,10 +8,7 @@
 # CI. L2 because the tracked-file universe comes from the real git CLI.
 Describe 'GlobSet independence' -Tag 'L2', 'integrity', 'source-only' {
     It 'every non-loose layer is pairwise-disjoint on OWN membership (ADR-FLOW-CD-GLOBS:10)' {
-        $violations = @(Test-GlobSetIndependence)
-        $report = ($violations | ForEach-Object {
-                "$($_.Layer): $($_.A) <-> $($_.B) ($($_.SharedCount) shared, e.g. $($_.Shared[0]))"
-            }) -join '; '
-        $violations.Count | Should -Be 0 -Because "same-layer globsets must not overlap on OWN contribution (ADR-FLOW-CD-GLOBS:10) — [$report]"
+        $result = Test-GlobSetIndependence -PassThru -OutputFolder (Join-Path $TestDrive 'globset-independence')
+        $result.IssueCount | Should -Be 0 -Because "same-layer globsets must not overlap on OWN contribution (ADR-FLOW-CD-GLOBS:10) — [$($result.Issues -join '; ')]"
     }
 }

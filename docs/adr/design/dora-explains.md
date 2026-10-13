@@ -6,7 +6,9 @@ The `Dora explains` rationale for the ADRs in the `design/` domain, consolidated
 reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in
 the ADRs themselves; this file carries only their DORA rationale.
 
-## Tracks — the repository's root concerns
+## Tracks
+
+`Tracks — the repository's root concerns`
 
 [ADR-DSGN-TRACK](tracks.md)
 
@@ -20,7 +22,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   taxonomy reduce cognitive load.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Thin platforms — an API/CLI abstraction over a vendor layer
+## Thin platforms
+
+`Thin platforms — an API/CLI abstraction over a vendor layer`
 
 [ADR-DSGN-THINPLAT](thin-platforms.md)
 
@@ -36,7 +40,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   small and maintainable.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Self-service — safe by construction in controlled domains
+## Self-service
+
+`Self-service — safe by construction in controlled domains`
 
 [ADR-DSGN-SELFSERV](self-service.md)
 
@@ -52,7 +58,9 @@ the ADRs themselves; this file carries only their DORA rationale.
 - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — the batch size that keeps self-service safe.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Visual design of the value-chain diagrams — branch geometry and commit-colour semantics
+## Value-chain diagrams
+
+`Visual design of the value-chain diagrams — branch geometry and commit-colour semantics`
 
 [ADR-DSGN-VISUAL](visual-design.md)
 
@@ -69,7 +77,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   gate selectivity visible.
 - [DORA research reference](../../references/dora/index.md).
 
-## The commit lifecycle — states, environment occupancy, and the stable sync point
+## Commit lifecycle
+
+`The commit lifecycle — states, environment occupancy, and the stable sync point`
 
 [ADR-DSGN-LIFE](commit-lifecycle.md)
 
@@ -88,7 +98,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   record" is a version-control discipline.
 - [DORA research reference](../../references/dora/index.md).
 
-## The audited server git remote — verified integration and PR ingress
+## Audited git remote
+
+`The audited server git remote — verified integration and PR ingress`
 
 [ADR-DSGN-REMOTE](server-remote-integration.md)
 
@@ -106,7 +118,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   on main attributable to a known principal.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Run modes — source mode and build mode
+## Run modes
+
+`Run modes — source mode and build mode`
 
 [ADR-DSGN-RUNMODE](run-modes.md)
 
@@ -121,7 +135,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   copy to drift.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Module aspects — a unit's files partition into live and tests
+## Module aspects
+
+`Module aspects — a unit's files partition into live and tests`
 
 [ADR-DSGN-ASPECT](module-aspects.md)
 

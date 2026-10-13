@@ -1,9 +1,8 @@
 <#
 .SYNOPSIS
-    Reports per-layer independence violations
-    ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)): same-layer globsets that
-    select a common
-    file on their OWN contribution.
+    Quality gate: checks per-layer independence
+    ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)) — no two same-layer
+    globsets select a common file on their OWN contribution.
 .DESCRIPTION
     Within a layer, no two globsets may match a common file on their OWN membership (GlobSet.OwnMatches —
     the set's own include/exclude program, compose IGNORED). Two that do "contain parts of each other" and
@@ -15,18 +14,29 @@
 
     Evaluates the declared registry (Get-GlobSet) AND the derived module sets (Get-ModuleGlobSet,
     [ADR-REPO-PROTGLOB#7](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob7)) against the tracked-file
-    universe, and returns one object per violating pair — Layer, A,
-    B, SharedCount, Shared (the first few shared paths). The output is empty exactly when every non-loose
-    layer is pairwise-disjoint on OWN membership; the module's integrity test asserts empty.
+    universe, collects one issue per violating pair ('<layer>: <A> <-> <B> share N file(s), e.g. ...'), and ends
+    with Write-QualityGateReport ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
+    the report lands in out/test-globset-independence/, and the gate throws once listing every pair (or returns
+    the result with -PassThru).
+.PARAMETER OutputFolder
+    The report base folder. Defaults to Write-QualityGateReport's (out/test-globset-independence).
+.PARAMETER PassThru
+    Return the gate result { Subject; IssueCount; Issues; ReportPath; GlobSets; Files } instead of throwing.
+.OUTPUTS
+    [pscustomobject] With -PassThru only.
 .EXAMPLE
     Test-GlobSetIndependence
 .EXAMPLE
-    @(Test-GlobSetIndependence).Count -eq 0
+    (Test-GlobSetIndependence -PassThru).Issues
 #>
 function Test-GlobSetIndependence {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
-    param()
+    param(
+        [string] $OutputFolder,
+
+        [switch] $PassThru
+    )
 
     # loose-filesets are cross-cutting and overlap-exempt
     # ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)/10); every other layer is
@@ -42,9 +52,10 @@ function Test-GlobSetIndependence {
     $own = @{}
     foreach ($set in $sets) {
         $own[$set.Name] = [System.Collections.Generic.HashSet[string]]::new(
-            $set.SelectOwnMembers($tracked), [System.StringComparer]::Ordinal)
+            [string[]] @($set.SelectOwnMembers($tracked)), [System.StringComparer]::Ordinal)
     }
 
+    $issues = [System.Collections.Generic.List[string]]::new()
     foreach ($layer in $sets | Group-Object Layer) {
         if ($layer.Name -eq $exemptLayer) {
             continue
@@ -64,16 +75,12 @@ function Test-GlobSetIndependence {
                         $shared.Add($path)
                     }
                 }
-                if ($shared.Count -gt 0) {
-                    [pscustomobject]@{
-                        Layer       = $layer.Name
-                        A           = $a
-                        B           = $b
-                        SharedCount = $shared.Count
-                        Shared      = @($shared | Select-Object -First 5)
-                    }
-                }
+                $sample = @($shared | Select-Object -First 5) -join ', '
+                $issues.Add("$($layer.Name): $a <-> $b share $($shared.Count) file(s), e.g. $sample (ADR-FLOW-CD-GLOBS:10)")
             }
         }
     }
+
+    Write-QualityGateReport -Subject globset-independence -Title Test-GlobSetIndependence -Issues $issues.ToArray() `
+        -Facts ([ordered]@{ GlobSets = $sets.Count; Files = $tracked.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

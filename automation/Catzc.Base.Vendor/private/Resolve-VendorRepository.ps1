@@ -22,10 +22,10 @@ function Resolve-VendorRepository {
     }
 
     $config = Get-Config -Config vendor
-    $source = "$($config.source)"
+    $source = $config.source
 
-    if ($config.Contains('sourceUrl')) {
-        $url = "$($config.sourceUrl)"
+    if ($config.sourceUrl) {
+        $url = $config.sourceUrl
         if (-not (Get-PSResourceRepository -Name $source -ErrorAction SilentlyContinue)) {
             Register-PSResourceRepository -Name $source -Uri $url -Trusted -ErrorAction Stop | Out-Null
             Write-Message "Registered vendor repository '$source' -> $url"

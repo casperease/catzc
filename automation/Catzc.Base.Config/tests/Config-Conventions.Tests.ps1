@@ -1,48 +1,16 @@
 # Poka-yoke backstops for the config convention (see ADR module-config-loading):
-#  - no orphan validators: every private Assert-<Name>Config maps to a real configs/<name>.yml
+#  - no orphan validators: every private Assert-<Name>Config maps to a real configs/<name>.yml (Test-ConfigValidators)
 #  - wiring: each validated shipped config actually rejects a malformed file through Get-Config
 
 Describe 'Config conventions' -Tag 'L0', 'integrity' {
     # Title deliberately avoids Pester's <var> name-template syntax — under the importer's strict mode an
     # unmatched <name> token in an It title throws at name-expansion time instead of expanding to empty.
     It 'every Assert-*Config validator maps to a configs/*.yml in its module (no orphans)' {
-        # The loaded code root, so the check binds the shipped configs of whichever tree the modules were loaded
-        # from — the source tree or a built package
-        # ([ADR-DSGN-RUNMODE#2](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode2)).
-        $modulesRoot = Get-CatzcModulesRoot
-        foreach ($moduleDir in (Get-ChildItem $modulesRoot -Directory | Where-Object { $_.Name -notmatch '^\.' })) {
-            $mod = Get-Module $moduleDir.Name
-            if (-not $mod) {
-                continue
-            }
-
-            # Private functions are scope-isolated, so this lists only THIS module's validators.
-            # piped, not member-enumerated: .Name over an empty result throws in the (strict) module scope
-            $validators = @(& $mod { Get-Item Function:\Assert-*Config -ErrorAction Ignore | Select-Object -ExpandProperty Name })
-            if (-not $validators) {
-                continue
-            }
-
-            $expected = @()
-            $configsDir = Join-Path $moduleDir.FullName 'configs'
-            if (Test-Path $configsDir) {
-                foreach ($file in (Get-ChildItem $configsDir -Filter '*.yml')) {
-                    $title = -join ($file.BaseName -split '-' | ForEach-Object {
-                            [cultureinfo]::InvariantCulture.TextInfo.ToTitleCase($_)
-                        })
-                    $expected += "Assert-${title}Config"
-                }
-            }
-
-            # One Should over the violating set — a Should per validator pays Pester's per-assertion
-            # cost times every discovered module's validators.
-            $violations = foreach ($validator in $validators) {
-                if ($validator -notin $expected) {
-                    "validator '$validator' in $($moduleDir.Name) has no matching configs/*.yml — rename it to Assert-<TitleCase(name)>Config or add the config"
-                }
-            }
-            @($violations) | Should -BeNullOrEmpty
-        }
+        # The quality gate (Test-ConfigValidators, in Catzc.Base.QualityGates: Catzc.Base.Reports depends on
+        # Catzc.Base.Config, so the gate cannot live here) lists every orphan over the loaded code root
+        # ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
+        $result = Test-ConfigValidators -PassThru -OutputFolder (Join-Path $TestDrive 'config-validators')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 
     It 'every validated shipped config rejects a malformed file through Get-Config' {

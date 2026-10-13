@@ -82,18 +82,18 @@ function Get-ModuleProtectionIdentity {
     else {
         [void]$constituents.Add($Module.ToLowerInvariant().Replace('.', '-'))
 
-        # declared dependency closure from dependencies.yml (raw shape: groups: <g>: <member>: [deps];
-        # modules: <m>: [group-or-module]). A group reference permits ANY member, so it expands to all.
+        # declared dependency closure from dependencies.yml (DependenciesConfig: groups: <g> -> ModuleGroup
+        # with members <member> -> [deps]; modules: <m> -> [group-or-module]). A group reference permits ANY
+        # member, so it expands to all.
         $dependencies = Get-Config -Config dependencies
-        $groups = $dependencies['groups']
-        $moduleDeclarations = $dependencies['modules']
+        $moduleDeclarations = $dependencies.modules
 
         $groupMembers = @{}
         $memberIntraDependencies = @{}
-        foreach ($groupName in $groups.Keys) {
-            $groupMembers[$groupName] = @($groups[$groupName].Keys)
-            foreach ($member in $groups[$groupName].Keys) {
-                $memberIntraDependencies[$member] = @($groups[$groupName][$member])
+        foreach ($group in $dependencies.groups.Values) {
+            $groupMembers[$group.name] = @($group.members.Keys)
+            foreach ($member in $group.members.Keys) {
+                $memberIntraDependencies[$member] = @($group.members[$member])
             }
         }
 

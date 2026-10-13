@@ -1,18 +1,29 @@
 <#
 .SYNOPSIS
-    Checks a GitHub workflow's trigger path filters against a globset's projection — the trigger-drift gate
-    for GitHub Actions ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)).
+    Quality gate: checks a GitHub workflow's trigger path filters against a globset's projection — the
+    trigger-drift gate for GitHub Actions ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)).
 .DESCRIPTION
     The GitHub sibling of Test-AdoPipelineTriggerGlob: recomputes the ordered, '!'-negation `paths` list a
     globset projects to (Get-GlobSetTrigger) and compares it against what a workflow actually declares
     (Get-PipelineTrigger) — both on.push.paths and on.pull_request.paths. GitHub paths are ordered
     (last-match-wins), so the comparison is element-by-element, not a set. Unlike ADO, a GitHub workflow is
-    not named in globs.yml, so the globset-to-workflow pairing is passed explicitly. Returns one status
-    object — Match, Drift (Detail names the filter), or Missing (no workflow file).
+    not named in globs.yml, so the globset-to-workflow pairing is passed explicitly.
+
+    A drifted workflow is one issue naming the filters that differ, and a missing workflow file is one issue.
+    The gate ends with Write-QualityGateReport
+    ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): the report lands in
+    out/test-github-workflow-trigger-glob/, and the gate throws once listing every issue (or returns the result
+    with -PassThru).
 .PARAMETER Name
     The globset the workflow should trigger on.
 .PARAMETER WorkflowPath
     The workflow file, repo-relative (e.g. '.github/workflows/ci-automation.yml') or absolute.
+.PARAMETER OutputFolder
+    The report base folder. Defaults to Write-QualityGateReport's (out/test-github-workflow-trigger-glob).
+.PARAMETER PassThru
+    Return the gate result { Subject; IssueCount; Issues; ReportPath; GlobSet; Workflow } instead of throwing.
+.OUTPUTS
+    [pscustomobject] With -PassThru only.
 .EXAMPLE
     Test-GitHubWorkflowTriggerGlob -Name automation -WorkflowPath .github/workflows/ci-automation.yml
 #>
@@ -25,7 +36,11 @@ function Test-GitHubWorkflowTriggerGlob {
         [string] $Name,
 
         [Parameter(Mandatory, Position = 1)]
-        [string] $WorkflowPath
+        [string] $WorkflowPath,
+
+        [string] $OutputFolder,
+
+        [switch] $PassThru
     )
 
     $root = Get-RepositoryRoot
@@ -38,39 +53,25 @@ function Test-GitHubWorkflowTriggerGlob {
         [System.IO.Path]::Combine($root, $WorkflowPath)
     }
 
-    if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
-        return [pscustomobject]@{
-            GlobSet  = $set.Name
-            Workflow = $WorkflowPath
-            Vendor   = 'GitHub'
-            Status   = 'Missing'
-            Detail   = "workflow file not found: $WorkflowPath"
-            Expected = $expected
-            Actual   = $null
-        }
-    }
-
-    $actual = Get-PipelineTrigger -Path $path -Vendor GitHub
     $issues = [System.Collections.Generic.List[string]]::new()
-    if (-not (Test-GlobListEqual -Reference $expected.GitHub -Difference $actual.PushPaths -Ordered)) {
-        $issues.Add('on.push.paths')
+    if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
+        $issues.Add("$($set.Name): workflow file not found: $WorkflowPath")
     }
-    if (-not (Test-GlobListEqual -Reference $expected.GitHub -Difference $actual.PrPaths -Ordered)) {
-        $issues.Add('on.pull_request.paths')
+    else {
+        $actual = Get-PipelineTrigger -Path $path -Vendor GitHub
+        $drift = [System.Collections.Generic.List[string]]::new()
+        if (-not (Test-GlobListEqual -Reference $expected.GitHub -Difference $actual.PushPaths -Ordered)) {
+            $drift.Add('on.push.paths')
+        }
+        if (-not (Test-GlobListEqual -Reference $expected.GitHub -Difference $actual.PrPaths -Ordered)) {
+            $drift.Add('on.pull_request.paths')
+        }
+        if ($drift.Count -gt 0) {
+            $issues.Add("$($set.Name): $WorkflowPath trigger drifted from the globset projection on $($drift -join ', ')")
+        }
     }
 
-    [pscustomobject]@{
-        GlobSet  = $set.Name
-        Workflow = $WorkflowPath
-        Vendor   = 'GitHub'
-        Status   = if ($issues.Count -eq 0) {
-            'Match'
-        }
-        else {
-            'Drift'
-        }
-        Detail   = $issues -join ', '
-        Expected = $expected
-        Actual   = $actual
-    }
+    Write-QualityGateReport -Subject github-workflow-trigger-glob -Title Test-GitHubWorkflowTriggerGlob `
+        -Issues $issues.ToArray() -Facts ([ordered]@{ GlobSet = $set.Name; Workflow = $WorkflowPath }) `
+        -OutputFolder $OutputFolder -PassThru:$PassThru
 }

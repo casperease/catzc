@@ -6,7 +6,9 @@ The `Dora explains` rationale for the ADRs in the `process/` domain, consolidate
 reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in
 the ADRs themselves; this file carries only their DORA rationale.
 
-## Agile — defined by the manifesto, measured by responsiveness
+## Agile
+
+`Agile — defined by the manifesto, measured by responsiveness`
 
 [ADR-PROC-AGILE](agile.md)
 
@@ -21,7 +23,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   adjusts rather than conforms.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Agile values — the four preferences of the manifesto
+## Agile values
+
+`Agile values — the four preferences of the manifesto`
 
 [ADR-PROC-VALUES](agile-values.md)
 
@@ -36,7 +40,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   team that treats a plan as a hypothesis to revise.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Agile principles — the twelve principles behind the manifesto
+## Agile principles
+
+`Agile principles — the twelve principles behind the manifesto`
 
 [ADR-PRIN-PROCESS](agile-principles.md)
 
@@ -53,7 +59,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   learning culture in practice.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Process terms — the foundational vocabulary of flow
+## Process terms
+
+`Process terms — the foundational vocabulary of flow`
 
 [ADR-PROC-LEANTERMS](process-terms.md)
 
@@ -70,7 +78,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   the deployment step.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Lean — the Toyota Production System, mapped to software by the Poppendiecks
+## Lean
+
+`Lean — the Toyota Production System, mapped to software by the Poppendiecks`
 
 [ADR-PROC-LEAN](lean.md)
 
@@ -87,7 +97,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   that learns from the flow it can see.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Holding the line — a failing gate stops the flow until it is green
+## Holding the line
+
+`Holding the line — a failing gate stops the flow until it is green`
 
 [ADR-PROC-ANDON](holding-the-line.md)
 
@@ -102,7 +114,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   instant a defect appears.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Build quality in — you cannot inspect it in at the end
+## Build quality in
+
+`Build quality in — you cannot inspect it in at the end`
 
 [ADR-PROC-BUILTIN](build-quality-in.md)
 
@@ -117,7 +131,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   is what keeps change cheap.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Observe the work — make it visible, and go and see
+## Observe the work
+
+`Observe the work — make it visible, and go and see`
 
 [ADR-PROC-OBSERVEWIP](observe-work.md)
 
@@ -132,7 +148,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   artifact depends on real signals from it.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Pull work through the system — do not push it
+## Pull, don't push
+
+`Pull work through the system — do not push it`
 
 [ADR-PROC-PULLWORK](pull-work.md)
 
@@ -147,7 +165,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   continuous delivery in practice.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## The money is lost in the queues — Little's Law and the cost of delay
+## The money is lost in the queues
+
+`The money is lost in the queues — Little's Law and the cost of delay`
 
 [ADR-PROC-QUEUECOST](queues-cost-money.md)
 
@@ -164,7 +184,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   is spent to drain a human queue.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Inspect and adapt — kaizen built into the process
+## Inspect and adapt
+
+`Inspect and adapt — kaizen built into the process`
 
 [ADR-PROC-KAIZEN](inspect-and-adapt.md)
 

@@ -9,10 +9,10 @@ Describe 'Get-BaseModule' -Tag 'L0', 'logic' {
         Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.ModuleSystem { $script:fake.Automation }
 
         Mock Get-Config -ModuleName Catzc.Base.ModuleSystem {
-            [pscustomobject]@{ modules = [ordered]@{
-                    'Catzc.Base.Alpha' = [ordered]@{ packages = [ordered]@{ demo = @('docs/demo.md', 'x.txt') } }
-                }
-            }
+            [Catzc.Base.ModuleSystem.FilesConfig]::new([ordered]@{ modules = [ordered]@{
+                        'Catzc.Base.Alpha' = [ordered]@{ packages = [ordered]@{ demo = @('docs/demo.md', 'x.txt') } }
+                    }
+                })
         }
     }
 

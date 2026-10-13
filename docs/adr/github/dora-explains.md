@@ -6,7 +6,9 @@ The `Dora explains` rationale for the ADRs in the `github/` domain, consolidated
 reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in
 the ADRs themselves; this file carries only their DORA rationale.
 
-## GitHub release flow — publishing the Catzc package
+## GitHub release flow
+
+`GitHub release flow — publishing the Catzc package`
 
 [ADR-GH-RELEASE](github-release.md)
 

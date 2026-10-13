@@ -12,6 +12,11 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
                 ParseError        = $ParseError
             }
         }
+
+        # The gate's issues for the current fixture, through -PassThru (the report goes to $TestDrive).
+        function Get-Issues {
+            @((Test-Pipelines -Path 'X:/pipelines' -PassThru -OutputFolder (Join-Path $TestDrive 'pipelines')).Issues)
+        }
     }
 
     BeforeEach {
@@ -23,6 +28,7 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         Mock Get-AdoYamlFiles -ModuleName Catzc.Azure.DevOps { $script:records }
         Mock Get-PipelineTemplateReference -ModuleName Catzc.Azure.DevOps { $script:refs }
         Mock Assert-PathExist -ModuleName Catzc.Azure.DevOps { }
+        Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
     It 'passes a compliant tree with no violations' {
@@ -32,78 +38,89 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
             (Rec 'steps/invoke-automation.yaml' -Classification 'Template' -TemplateType 'Steps')
             (Rec 'extends/cd-customer.yaml' -Classification 'Template' -TemplateType 'Stages')
         )
-        @(Test-Pipelines -Path 'X:/pipelines') | Should -HaveCount 0
+        { Test-Pipelines -Path 'X:/pipelines' -OutputFolder (Join-Path $TestDrive 'pipelines') } | Should -Not -Throw
+    }
+
+    It 'throws once listing every violation' -Tag 'ADR-AUTO-TEST#35' {
+        $script:records = @((Rec 'widget-thing.yaml' 'Pipeline'), (Rec 'ci-gadget.yml' 'Pipeline'))
+        $thrown = { Test-Pipelines -Path 'X:/pipelines' -OutputFolder (Join-Path $TestDrive 'pipelines') } |
+            Should -Throw -PassThru
+        $thrown.Exception.Message | Should -BeLike 'Test-Pipelines failed: 2 issue(s)*'
+        $thrown.Exception.Message | Should -Match 'ADR-PIPE-NAME:1'
+        $thrown.Exception.Message | Should -Match 'ADR-PIPE-NAME:6'
+    }
+
+    It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+        $script:records = @((Rec 'widget-thing.yaml' 'Pipeline'), (Rec 'ci-gadget.yaml' 'Pipeline'))
+        $result = Test-Pipelines -Path 'X:/pipelines' -PassThru -OutputFolder (Join-Path $TestDrive 'pipelines')
+        $result.Subject | Should -Be 'pipelines'
+        $result.IssueCount | Should -Be 1
+        $result.Files | Should -Be 2
+        $result.Issues[0] | Should -BeLike '`[ADR-PIPE-NAME:1`] pipelines/widget-thing.yaml: *'
     }
 
     It 'flags a root pipeline whose name lacks a valid type prefix (ADR-PIPE-NAME:1)' {
         $script:records = @((Rec 'widget-thing.yaml' 'Pipeline'))
-        $v = @(Test-Pipelines -Path 'X:/pipelines')
+        $v = @(Get-Issues)
         $v | Should -HaveCount 1
-        $v[0].Rule | Should -Be 'ADR-PIPE-NAME:1'
+        $v[0] | Should -Match 'ADR-PIPE-NAME:1'
     }
 
     It 'accepts every sanctioned type prefix' {
         $script:records = @('cron', 'ci', 'cd', 'cde', 'deploy', 'input' | ForEach-Object { Rec "$_-x.yaml" 'Pipeline' })
-        @(Test-Pipelines -Path 'X:/pipelines') | Should -HaveCount 0
+        Get-Issues | Should -HaveCount 0
     }
 
     It 'flags a .yml executable under pipelines/ (ADR-PIPE-NAME:6)' {
         $script:records = @((Rec 'ci-thing.yml' 'Pipeline'))
-        $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPE-NAME:6'
+        Get-Issues | Should -Match 'ADR-PIPE-NAME:6'
     }
 
     It 'flags a template in an unsanctioned folder (ADR-PIPE-NAME:3)' {
         $script:records = @((Rec 'widgets/x.yaml' -Classification 'Template' -TemplateType 'Steps'))
-        $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPE-NAME:3'
+        Get-Issues | Should -Match 'ADR-PIPE-NAME:3'
     }
 
     It 'flags a template nested deeper than one level (ADR-PIPE-NAME:2)' {
         $script:records = @((Rec 'steps/sub/x.yaml' -Classification 'Template' -TemplateType 'Steps'))
-        $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPE-NAME:2'
+        Get-Issues | Should -Match 'ADR-PIPE-NAME:2'
     }
 
     It 'flags a structural pipeline hiding inside a template folder (ADR-PIPE-NAME:2)' {
         $script:records = @((Rec 'steps/sneaky.yaml' 'Pipeline'))
-        $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPE-NAME:2'
+        Get-Issues | Should -Match 'ADR-PIPE-NAME:2'
     }
 
     It 'flags a fragment whose kind does not match its folder (ADR-PIPE-NAME:3)' {
         $script:records = @((Rec 'steps/x.yaml' -Classification 'Template' -TemplateType 'Jobs'))
-        $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPE-NAME:3'
+        Get-Issues | Should -Match 'ADR-PIPE-NAME:3'
     }
 
     It 'does not subtype-check the extends/ folder (whole-pipeline templates)' {
         $script:records = @((Rec 'extends/cd-customer.yaml' -Classification 'Template' -TemplateType 'Jobs'))
-        @(Test-Pipelines -Path 'X:/pipelines') | Should -HaveCount 0
+        Get-Issues | Should -HaveCount 0
     }
 
     It 'flags a relative template reference (ADR-PIPE-NAME:4)' {
         $script:records = @((Rec 'ci-x.yaml' 'Pipeline'))
         $script:refs = @('steps/local.yaml')
-        $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPE-NAME:4'
+        Get-Issues | Should -Match 'ADR-PIPE-NAME:4'
     }
 
     It 'accepts an absolute template reference' {
         $script:records = @((Rec 'ci-x.yaml' 'Pipeline'))
         $script:refs = @('/pipelines/steps/invoke-automation.yaml')
-        @(Test-Pipelines -Path 'X:/pipelines') | Should -HaveCount 0
+        Get-Issues | Should -HaveCount 0
     }
 
     It 'reports a parse failure as its own violation' {
         $script:records = @((Rec 'ci-broken.yaml' -Classification 'Unknown' -ParseError 'bad indent at line 4'))
-        $v = @(Test-Pipelines -Path 'X:/pipelines')
-        $v.Rule | Should -Be 'ADR-PIPE-NAME:parse'
+        Get-Issues | Should -Match 'ADR-PIPE-NAME:parse'
     }
 }
 
 Describe 'Test-Pipelines — real pipelines/ tree' -Tag 'L1', 'integrity' {
     It 'the shipped pipelines/ tree satisfies ADR-PIPE-NAME (zero violations)' {
-        @(Test-Pipelines) | Should -HaveCount 0
+        (Test-Pipelines -PassThru -OutputFolder (Join-Path $TestDrive 'pipelines')).IssueCount | Should -Be 0
     }
 }

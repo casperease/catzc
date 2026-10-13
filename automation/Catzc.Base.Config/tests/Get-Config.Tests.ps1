@@ -1,10 +1,11 @@
 Describe 'Get-Config' -Tag 'L0' {
     Context 'discovery + raw default' -Tag 'integrity' {
-        # Reads the shipped tools.yml — guards that the real raw (validator-less) config loads
-        # ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)).
-        It 'discovers and loads a raw config (no validator) as an ordered dictionary' {
-            $configuration = Get-Config -Config tools                       # tools.yml has no Assert-ToolsConfig -> raw
-            $configuration.Keys | Should -Contain 'Python'
+        # Reads the shipped tools.yml — guards that a real config is discovered in its owning module and loads
+        # ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)). The raw default itself
+        # is pinned hermetically below, on a fixture config with no validator and no registry entry.
+        It 'discovers and loads a shipped config from its owning module' {
+            $configuration = Get-Config -Config tools                       # registry type: Catzc.Tooling.Core.ToolsConfig
+            $configuration.Keys | Should -Contain 'python'
         }
     }
 
@@ -25,6 +26,18 @@ Describe 'Get-Config' -Tag 'L0' {
             $first = Get-Config -Config myconfig
             $second = Get-Config -Config myconfig
             [object]::ReferenceEquals($first, $second) | Should -BeTrue
+        }
+
+        It 'returns a config with no validator and no registry entry raw, as an ordered dictionary' {
+            $dir = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path $dir | Out-Null
+            Set-Content -Path (Join-Path $dir 'widgetconfig.yml') -Value "gadget: tst`nwidget: 1"
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'widgetconfig' } -MockWith {
+                @{ Name = 'widgetconfig'; Module = 'Catzc.Base.Config'; Path = (Join-Path $dir 'widgetconfig.yml') }
+            }
+            $configuration = Get-Config -Config widgetconfig
+            $configuration | Should -BeOfType [System.Collections.Specialized.OrderedDictionary]
+            @($configuration.Keys) | Should -Be @('gadget', 'widget')
         }
 
         It 'throws for an unknown config name' {
@@ -89,7 +102,8 @@ Describe 'Get-Config' -Tag 'L0' {
 
     Context 'convention validation (owner scope)' -Tag 'integrity' {
         It 'loads a convention-validated config and passes (real dependencies.yml)' {
-            # dependencies has a private Assert-DependenciesConfig in Catzc.Base.ModuleSystem, run by convention.
+            # dependencies maps to the registered C# type Catzc.Base.ModuleSystem.DependenciesConfig, whose
+            # dictionary view still answers the 'modules' key.
             (Get-Config -Config dependencies)['modules'] | Should -Not -BeNullOrEmpty
         }
     }

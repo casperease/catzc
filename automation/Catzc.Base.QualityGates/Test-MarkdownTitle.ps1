@@ -8,20 +8,24 @@
     Runs the same check as Format-MarkdownTitle, read-only, and reports every file whose first line after any YAML
     front matter is not the H1 `# <repository-relative path>`, every heading with a trailing reference group, every
     unquoted dora-explains paragraph, every link to an anchor that moves, and every duplicate anchor. Running
-    Format-MarkdownTitle fixes all of them except a Duplicate, which the author rewords. A source-tree gate: it throws
-    in build mode.
+    Format-MarkdownTitle fixes all of them except a Duplicate, which the author rewords; each issue says which.
+    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
+    through Write-QualityGateReport, which writes out/test-markdown-title/, prints every issue, and throws once
+    listing them all. A source-tree gate: it throws in build mode.
 .PARAMETER Path
     Files or folders to check. Default: every in-scope file.
 .PARAMETER RepositoryRoot
     The repository root titles are relative to. Default: the loaded repository root.
+.PARAMETER OutputFolder
+    The report base folder. Defaults to <out>/test-markdown-title.
 .PARAMETER PassThru
-    Return a result object ({ ViolationCount; Violations; FileCount }) instead of throwing.
+    Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount }) instead of throwing.
 .OUTPUTS
     Throws on any violation; with -PassThru, returns the result object.
 .EXAMPLE
     Test-MarkdownTitle
 .EXAMPLE
-    (Test-MarkdownTitle -PassThru).Violations | Format-Table Path, Line, Actual
+    (Test-MarkdownTitle -PassThru).Issues
 #>
 function Test-MarkdownTitle {
     [CmdletBinding()]
@@ -30,44 +34,24 @@ function Test-MarkdownTitle {
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),
 
+        [string] $OutputFolder,
+
         [switch] $PassThru
     )
 
     Assert-SourceTree
 
     $result = Invoke-MarkdownTitleEngine -RepositoryRoot $RepositoryRoot -Path $Path
-    $violations = @($result.Files | ForEach-Object { $_.Findings } | ForEach-Object {
-            [pscustomobject]@{
-                Path    = $_.Path
-                Line    = $_.Line
-                Kind    = $_.Kind
-                Actual  = $_.Actual
-                Message = "$($_.Path):$($_.Line) [$($_.Kind)] expected '$($_.Expected)', found '$($_.Actual)'"
+    $issues = @($result.Files | ForEach-Object { $_.Findings } | ForEach-Object {
+            $remedy = if ("$($_.Kind)" -eq 'Duplicate') {
+                'reword it by hand'
             }
+            else {
+                'run Format-MarkdownTitle'
+            }
+            "$($_.Path):$($_.Line) [$($_.Kind)] expected '$($_.Expected)', found '$($_.Actual)' — $remedy"
         })
 
-    if ($violations.Count -eq 0) {
-        Write-Message "All $($result.FileCount) Markdown file(s) are titled with their path and their headings are in normal form."
-    }
-    else {
-        Write-Message "$($violations.Count) title or heading finding(s) in $($result.FileCount) Markdown file(s) — run Format-MarkdownTitle; reword a Duplicate by hand."
-    }
-
-    if ($PassThru) {
-        return [pscustomobject]@{
-            ViolationCount = $violations.Count
-            Violations     = $violations
-            FileCount      = $result.FileCount
-        }
-    }
-    if ($violations.Count -gt 0) {
-        $listing = ($violations | Select-Object -First 50 | ForEach-Object { "  $($_.Message)" }) -join "`n"
-        $more = if ($violations.Count -gt 50) {
-            "`n  … and $($violations.Count - 50) more (use -PassThru for all)"
-        }
-        else {
-            ''
-        }
-        throw "Test-MarkdownTitle failed: $($violations.Count) title or heading finding(s) — run Format-MarkdownTitle (reword a Duplicate by hand):`n$listing$more"
-    }
+    Write-QualityGateReport -Subject markdown-title -Title Test-MarkdownTitle -Issues $issues `
+        -Facts ([ordered]@{ FileCount = $result.FileCount }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

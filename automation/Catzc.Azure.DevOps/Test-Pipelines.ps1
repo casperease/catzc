@@ -1,15 +1,15 @@
 <#
 .SYNOPSIS
-    Checks the pipelines/ tree against the naming-and-placement contract
-    ([ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md)) and returns the
-    violations — the query half of the pipeline-layout gate.
+    Quality gate: checks the pipelines/ tree against the naming-and-placement contract
+    ([ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md)).
 .DESCRIPTION
     Classifies every YAML under pipelines/ with Get-AdoYamlFiles (offline — structure heuristics, no ADO
-    call) and applies the deterministic [ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md) rules,
-    returning one record per violation. It reports;
-    it does not throw — Assert-Pipelines is the throwing gate that wraps it.
+    call), applies the deterministic [ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md) rules,
+    collects every violation, and ends with Write-QualityGateReport
+    ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): the report lands in
+    out/test-pipelines/, and the gate throws once listing every violation (or returns the result with -PassThru).
 
-    Rules enforced (each violation carries its rule code):
+    Rules enforced (each violation names its rule code, as '[<rule>] pipelines/<file>: <message>'):
 
       [ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6)  Executable YAML is
       `.yaml`; there is no `.yml` under pipelines/ (config is `.yml`, but
@@ -32,19 +32,26 @@
     fails to parse is reported as a violation so a broken pipeline cannot slip through silently.
 .PARAMETER Path
     The pipelines/ directory to check. Defaults to `<repo>/pipelines`.
+.PARAMETER OutputFolder
+    The report base folder. Defaults to Write-QualityGateReport's (out/test-pipelines).
+.PARAMETER PassThru
+    Return the gate result { Subject; IssueCount; Issues; ReportPath; Files } instead of throwing on violations.
 .OUTPUTS
-    [pscustomobject[]] One per violation: { File (repo-relative), Rule, Message }. Empty when the tree is
-    compliant.
+    [pscustomobject] With -PassThru only.
 .EXAMPLE
     Test-Pipelines
 .EXAMPLE
-    Test-Pipelines | Format-Table File, Rule, Message
+    (Test-Pipelines -PassThru).Issues
 #>
 function Test-Pipelines {
     [CmdletBinding()]
-    [OutputType([pscustomobject[]])]
+    [OutputType([pscustomobject])]
     param(
-        [string] $Path
+        [string] $Path,
+
+        [string] $OutputFolder,
+
+        [switch] $PassThru
     )
 
     $pipelinesRoot = if ($Path) {
@@ -61,15 +68,11 @@ function Test-Pipelines {
     $folderKind = @{ steps = 'Steps'; jobs = 'Jobs'; stages = 'Stages'; variables = 'Variables' }
 
     $records = @(Get-AdoYamlFiles -Path $pipelinesRoot)
-    $violations = [System.Collections.Generic.List[pscustomobject]]::new()
+    $violations = [System.Collections.Generic.List[string]]::new()
 
     function New-Violation {
         param($RelativePath, $Rule, $Message)
-        [pscustomobject]@{
-            File    = "pipelines/$RelativePath"
-            Rule    = $Rule
-            Message = $Message
-        }
+        "[$Rule] pipelines/${RelativePath}: $Message"
     }
 
     foreach ($record in $records) {
@@ -143,5 +146,6 @@ function Test-Pipelines {
         }
     }
 
-    $violations.ToArray()
+    Write-QualityGateReport -Subject pipelines -Title Test-Pipelines -Issues $violations.ToArray() `
+        -Facts ([ordered]@{ Files = $records.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

@@ -6,7 +6,9 @@ The `Dora explains` rationale for the ADRs in the `repository/` domain, consolid
 then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions
 live in the ADRs themselves; this file carries only their DORA rationale.
 
-## Conventional folders — every folder in the repository, by convention
+## Conventional folders
+
+`Conventional folders — every folder in the repository, by convention`
 
 [ADR-REPO-FOLDERS](conventional-folders.md)
 
@@ -21,7 +23,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   layout itself, not a mapping file.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Dedicated output directory
+## Output directory
+
+`Dedicated output directory`
 
 [ADR-REPO-OUTDIR](dedicated-output-directory.md)
 
@@ -36,7 +40,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   self-enforcing, not a style agreement.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Uniform formatting — the whole repository, one mechanical standard
+## Uniform formatting
+
+`Uniform formatting — the whole repository, one mechanical standard`
 
 [ADR-REPO-FORMAT](uniform-formatting.md)
 
@@ -52,7 +58,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   output across builds, so CI diffs are trustworthy.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Versioned external API contracts and contract testing
+## API contracts
+
+`Versioned external API contracts and contract testing`
 
 [ADR-REPO-CONTRACT](api-contracts.md)
 
@@ -67,7 +75,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   stay deployable and unbroken across releases.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Generated READMEs — one authored source, linked out per conventional folder
+## Generated READMEs
+
+`Generated READMEs — one authored source, linked out per conventional folder`
 
 [ADR-REPO-README](generated-readmes.md)
 
@@ -83,7 +93,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   for a second truth.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Generated root configs — every managed root file from one in-repo source of truth
+## Generated root configs
+
+`Generated root configs — every managed root file from one in-repo source of truth`
 
 [ADR-REPO-ROOTCFG](generated-root-configs.md)
 
@@ -98,7 +110,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   logic and per-format special cases.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Documentation examples — the discovery theme
+## Documentation examples
+
+`Documentation examples — the discovery theme`
 
 [ADR-REPO-EXAMPLE](documentation-examples.md)
 
@@ -113,7 +127,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   reduce confusion.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Repo-wide variants — session-fixed settings behind `Test-`/`Assert-` primitives
+## Repo-wide variants
+
+`Repo-wide variants — session-fixed settings behind Test-/Assert- primitives`
 
 [ADR-REPO-VARIANT](repo-variants.md)
 
@@ -129,7 +145,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   the run and unchanged across parallel build steps.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Domain-language separation — three domains, three terminologies
+## Domain-language separation
+
+`Domain-language separation — three domains, three terminologies`
 
 [ADR-REPO-LANG](domain-language-separation.md)
 
@@ -145,7 +163,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   illustration remain legible while protecting the boundary.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Controlled vocabulary — one definition per term, opt-in glossary sources
+## Controlled vocabulary
+
+`Controlled vocabulary — one definition per term, opt-in glossary sources`
 
 [ADR-REPO-VOCAB](controlled-vocabulary.md)
 
@@ -161,7 +181,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   is internal knowledge an assistant can read and apply exactly, rather than guess from usage.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Markdown links — relative in documents, repository-rooted out of code
+## Markdown links
+
+`Markdown links — relative in documents, repository-rooted out of code`
 
 [ADR-REPO-LINK](markdown-links.md)
 

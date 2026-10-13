@@ -10,14 +10,15 @@
       - G4 — no avoided phrasing used within a source's scope (Get-GlossaryPhrasingViolations);
       - G5 — every realized concept enforced (Get-GlossaryEnforcementViolations).
     Each source's own shape is validated when it loads (Catzc.Base.Docs.GlossaryConfig), so a malformed source
-    fails before any gate runs. Writes out/test-glossary/<yyyyMMdd-HHmmss>/glossary.md (and latest.txt beside the
-    run folders), prints the report path, and throws once with every issue in the message
+    fails before any gate runs. A quality gate
+    ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends through
+    Write-QualityGateReport, which writes out/test-glossary/, prints every issue, and throws once listing them all
     ([ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)).
     The gates read the source tree's ADRs, tests, and tracked files, so it runs in source mode only.
 .PARAMETER OutputFolder
-    Folder for the timestamped report. Defaults to out/test-glossary under the repository output root.
+    The report base folder. Defaults to out/test-glossary under the repository output root.
 .PARAMETER PassThru
-    Returns { IssueCount; ConceptCount; SourceCount; Issues; ReportPath } instead of throwing on issues.
+    Returns { Subject; IssueCount; Issues; ReportPath; ConceptCount; SourceCount } instead of throwing on issues.
 .OUTPUTS
     [pscustomobject] With -PassThru only.
 .EXAMPLE
@@ -55,61 +56,10 @@ function Test-Glossary {
         $issues.Add("G5 $issue")
     }
 
-    if (-not $OutputFolder) {
-        $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) 'test-glossary'
+    $facts = [ordered]@{
+        SourceCount  = $sources.Count
+        ConceptCount = $entries.Count
     }
-    $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
-    $runDir = Join-Path $OutputFolder $stamp
-    $i = 2
-    while (Test-Path $runDir) {
-        $runDir = Join-Path $OutputFolder "$stamp-$i"
-        $i++
-    }
-    New-Item -ItemType Directory -Path $runDir -Force | Out-Null
-
-    $lines = [System.Collections.Generic.List[string]]::new()
-    $lines.Add('# Glossary report')
-    $lines.Add('')
-    $lines.Add("- Generated: $stamp")
-    $lines.Add("- Sources: $($sources.Count)")
-    $lines.Add("- Concepts: $($entries.Count)")
-    if ($issues.Count -eq 0) {
-        $lines.Add('- Result: no glossary issues')
-    }
-    else {
-        $lines.Add("- Issues: $($issues.Count)")
-        $lines.Add('')
-        $lines.Add('## Issues')
-        $lines.Add('')
-        foreach ($issue in $issues) {
-            $lines.Add("- $issue")
-        }
-    }
-    Set-Content -Path (Join-Path $runDir 'glossary.md') -Value $lines -Encoding utf8
-    Set-Content -Path (Join-Path $OutputFolder 'latest.txt') -Value (Split-Path $runDir -Leaf) -Encoding utf8
-
-    if ($issues.Count -eq 0) {
-        Write-Message "No glossary issues found across $($entries.Count) concept(s) in $($sources.Count) source(s)."
-    }
-    else {
-        foreach ($issue in $issues) {
-            Write-Message $issue -NoHeader
-        }
-        Write-Message "$($issues.Count) glossary issue(s)."
-    }
-    Write-Message "Glossary report: $runDir" -ForegroundColor Cyan -NoHeader
-
-    if ($PassThru) {
-        return [pscustomobject]@{
-            IssueCount   = $issues.Count
-            ConceptCount = $entries.Count
-            SourceCount  = $sources.Count
-            Issues       = $issues.ToArray()
-            ReportPath   = $runDir
-        }
-    }
-
-    if ($issues.Count -gt 0) {
-        throw "Test-Glossary failed: $($issues.Count) issue(s) — see $runDir`n$($issues -join "`n")"
-    }
+    Write-QualityGateReport -Subject glossary -Title Test-Glossary -Issues $issues.ToArray() -Facts $facts `
+        -OutputFolder $OutputFolder -PassThru:$PassThru
 }

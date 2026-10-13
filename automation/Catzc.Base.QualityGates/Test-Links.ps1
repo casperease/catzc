@@ -7,22 +7,29 @@
     repository-rooted form, a markdown link that is rooted or climbs above the repository root, a rule citation
     spelled `ADR-X:n`, a link target or #fragment that does not exist, an unknown citation code or rule, an absolute
     URL into this repository outside .github/, and a docs path in a PowerShell string that names no file. A fixable
-    violation is fixed by running Format-Links; the rest need a person. Informational findings (a comment line
-    that stays over its limit) are listed but never fail the gate. A source-tree gate: it throws in build mode.
+    violation is fixed by running Format-Links, and its issue says so; the rest need a person. Informational
+    findings (a comment line that stays over its limit) are counted but never fail the gate.
+
+    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
+    through Write-QualityGateReport, which writes out/test-links/, prints every issue, and throws once listing them
+    all. Each issue reads '<file>:<line>:<column> [<type>] <message>'. A source-tree gate: it throws in build mode.
 .PARAMETER Path
     Files or folders to check. Default: every git-tracked file.
 .PARAMETER Kind
     Which link kinds to check: Code, Markdown, or Both (default).
 .PARAMETER RepositoryRoot
     The repository root links resolve against. Default: the loaded repository root.
+.PARAMETER OutputFolder
+    The report base folder. Defaults to <out>/test-links.
 .PARAMETER PassThru
-    Return a result object ({ ViolationCount, Violations, Information, FileCount }) instead of throwing.
+    Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount, FixableCount, InformationCount })
+    instead of throwing.
 .OUTPUTS
     Throws on any violation; with -PassThru, returns the result object.
 .EXAMPLE
     Test-Links
 .EXAMPLE
-    (Test-Links -Kind Code -PassThru).Violations | Format-Table File, Line, Type, Message
+    (Test-Links -Kind Code -PassThru).Issues
 #>
 function Test-Links {
     [CmdletBinding()]
@@ -33,6 +40,8 @@ function Test-Links {
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),
 
+        [string] $OutputFolder,
+
         [switch] $PassThru
     )
 
@@ -41,32 +50,20 @@ function Test-Links {
     $result = Invoke-LinkEngine -RepositoryRoot $RepositoryRoot -Path $Path -Kind $Kind -Wrap (Get-Config -Config links).wrap
     $violations = @($result.Findings | Where-Object { $_.IsViolation })
     $information = @($result.Findings | Where-Object { -not $_.IsViolation })
+    $issues = @(foreach ($violation in $violations) {
+            if ($violation.IsFixable) {
+                "$violation — run Format-Links"
+            }
+            else {
+                "$violation"
+            }
+        })
 
-    if ($violations.Count -eq 0) {
-        Write-Message "All links in $($result.FileCount) file(s) are aligned and resolve."
+    $facts = [ordered]@{
+        FileCount        = $result.FileCount
+        FixableCount     = @($violations | Where-Object { $_.IsFixable }).Count
+        InformationCount = $information.Count
     }
-    else {
-        $fixable = @($violations | Where-Object { $_.IsFixable }).Count
-        Write-Message "$($violations.Count) link violation(s) in $($result.FileCount) file(s): $fixable fixable by Format-Links, $($violations.Count - $fixable) need a person."
-    }
-
-    if ($PassThru) {
-        return [pscustomobject]@{
-            ViolationCount = $violations.Count
-            Violations     = $violations
-            Information    = $information
-            FileCount      = $result.FileCount
-        }
-    }
-
-    if ($violations.Count -gt 0) {
-        $listing = ($violations | Select-Object -First 50 | ForEach-Object { "  $_" }) -join "`n"
-        $more = if ($violations.Count -gt 50) {
-            "`n  … and $($violations.Count - 50) more (use -PassThru for all)"
-        }
-        else {
-            ''
-        }
-        throw "Test-Links failed: $($violations.Count) link violation(s) — run Format-Links, then fix what remains by hand:`n$listing$more"
-    }
+    Write-QualityGateReport -Subject links -Title Test-Links -Issues $issues -Facts $facts `
+        -OutputFolder $OutputFolder -PassThru:$PassThru
 }

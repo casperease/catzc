@@ -344,7 +344,7 @@ function Get-DynamicManifestContent {
     in the assembly-reference graph (nothing references it by assembly identity; PowerShell resolves
     [Namespace.Type] by FQN), so the Roslyn-assigned random assembly name is irrelevant and Add-Type stays the
     compiler. The module dependency graph is NOT enforced by the compiler here — it is policed by
-    Get-CSharpTypeDependency / Assert-ModuleDependency in the L2 tests.
+    Get-CSharpTypeDependency / Test-ModuleDependency in the L1 integrity tests.
 
     The assembly is committed as automation/.compiled/Catzc.Types.<combinedHash8>.dll (deterministic per the
     combined source hash, like .vendor) so a fresh checkout and CI load it without invoking Roslyn. The

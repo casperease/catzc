@@ -8,7 +8,7 @@
     Then topologically sorts (Kahn's algorithm) with an ordinal-alphabetical tie-break for a stable order.
 
     Every on-disk module (Get-AutomationModules) appears exactly once; a module with no declared dependencies
-    sorts among the roots. Throws on a cycle (which Assert-DependenciesConfig already prevents at load).
+    sorts among the roots. Throws on a cycle (which the DependenciesConfig type already prevents at load).
 
     Test-Automation uses this to run module tests foundation-first, so a broken base module's failures
     surface before the dependents that cascade from it.

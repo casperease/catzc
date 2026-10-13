@@ -20,12 +20,15 @@
     or UndeclaredTypeDependency (C# type). A declared module — or a group member — that does not exist on
     disk is an UnknownModule (typo catch). Group names themselves are concepts and are not checked on disk.
 
-    Returns a list of violation objects { Kind, Message }; empty when the code conforms.
-    This is the shared collector behind Test-ModuleDependency and Assert-ModuleDependency.
+    Returns one message per violation, each led by its kind ('[UndeclaredDependency] A -> C ...'); empty when
+    the code conforms. This is the query behind the Test-ModuleDependency quality gate.
+.OUTPUTS
+    [string[]] One message per violation.
 .EXAMPLE
     Get-ModuleDependencyViolations
 #>
 function Get-ModuleDependencyViolations {
+    [OutputType([string[]])]
     param()
 
     $declared = Get-ModuleDependencyConfig
@@ -33,7 +36,7 @@ function Get-ModuleDependencyViolations {
     $modules = Get-AutomationModules
     $edges = Get-ModuleDependency
 
-    $violations = [System.Collections.Generic.List[PSObject]]::new()
+    $violations = [System.Collections.Generic.List[string]]::new()
 
     # group name -> member set; member module -> its in-group allowed list (internal DAG).
     $groupMembers = @{}
@@ -75,10 +78,7 @@ function Get-ModuleDependencyViolations {
     # Declared modules must exist on disk (typo catch).
     foreach ($module in $declared.Keys) {
         if ($module -notin $modules) {
-            $violations.Add([PSCustomObject]@{
-                    Kind    = 'UnknownModule'
-                    Message = "[UnknownModule] $module  -- declared in configuration but no such module on disk"
-                })
+            $violations.Add("[UnknownModule] $module  -- declared in configuration but no such module on disk")
         }
     }
 
@@ -86,10 +86,7 @@ function Get-ModuleDependencyViolations {
     foreach ($group in $groups.Keys) {
         foreach ($member in $groups[$group].Keys) {
             if ($member -notin $modules) {
-                $violations.Add([PSCustomObject]@{
-                        Kind    = 'UnknownModule'
-                        Message = "[UnknownModule] $member  -- declared in group '$group' but no such module on disk"
-                    })
+                $violations.Add("[UnknownModule] $member  -- declared in group '$group' but no such module on disk")
             }
         }
     }
@@ -102,10 +99,7 @@ function Get-ModuleDependencyViolations {
         }   # unconstrained source
         if ($edge.To -notin $resolved.Allowed) {
             $funcs = $edge.Functions -join ', '
-            $violations.Add([PSCustomObject]@{
-                    Kind    = 'UndeclaredDependency'
-                    Message = "[UndeclaredDependency] $($edge.From) -> $($edge.To)  ($funcs)  -- not allowed for $($edge.From)"
-                })
+            $violations.Add("[UndeclaredDependency] $($edge.From) -> $($edge.To)  ($funcs)  -- not allowed for $($edge.From)")
         }
     }
 
@@ -119,12 +113,9 @@ function Get-ModuleDependencyViolations {
         }   # unconstrained source
         if ($edge.To -notin $resolved.Allowed) {
             $refs = $edge.References -join ', '
-            $violations.Add([PSCustomObject]@{
-                    Kind    = 'UndeclaredTypeDependency'
-                    Message = "[UndeclaredTypeDependency] $($edge.From) -> $($edge.To)  ($refs)  -- not allowed for $($edge.From)"
-                })
+            $violations.Add("[UndeclaredTypeDependency] $($edge.From) -> $($edge.To)  ($refs)  -- not allowed for $($edge.From)")
         }
     }
 
-    $violations
+    $violations.ToArray()
 }

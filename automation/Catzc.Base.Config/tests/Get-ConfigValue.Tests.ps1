@@ -115,7 +115,7 @@ namespace CatzcGetConfigValueTest {
 
     Context 'against a real shipped config' -Tag 'integrity' {
         It 'resolves a real config subtree through the live Get-Config' {
-            # tools.yml is a raw (validator-less) config; guards the real wiring end to end
+            # tools.yml loads as the typed ToolsConfig (a read-only tool map); guards the real wiring end to end
             # ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)).
             (Get-ConfigValue -Address 'global.tools').Contains('python') | Should -BeTrue
         }

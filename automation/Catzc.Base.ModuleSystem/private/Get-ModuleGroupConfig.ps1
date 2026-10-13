@@ -8,20 +8,19 @@
     contract that an ex-monolith enforced "inside one module".
 
     Loads the optional top-level 'groups' map via Get-Config (same parse + validation +
-    session cache as Get-ModuleDependencyConfig). The returned object is an ordered dictionary:
-    group name -> (ordered dictionary: member module -> list of members it may depend on).
-    A file with no 'groups' key returns an empty ordered dictionary (groups are optional).
+    session cache as Get-ModuleDependencyConfig) and projects each Catzc.Base.ModuleSystem.ModuleGroup
+    to its member map. The returned object is an ordered dictionary: group name -> (read-only ordered
+    dictionary: member module -> list of members it may depend on). A file with no 'groups' key
+    returns an empty ordered dictionary (groups are optional).
 .EXAMPLE
     (Get-ModuleGroupConfig)['Base']['Catzc.Base.Writers']
 #>
 function Get-ModuleGroupConfig {
     param()
 
-    $config = Get-Config -Config dependencies
-    if ($config.Contains('groups')) {
-        $config['groups']
+    $groups = [ordered]@{}
+    foreach ($group in (Get-Config -Config dependencies).groups.Values) {
+        $groups[$group.name] = $group.members
     }
-    else {
-        [ordered]@{}
-    }
+    $groups
 }

@@ -6,6 +6,8 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# docs/gadget.md`n")
         Mock Get-MarkdownTitleScope { , [string[]] @('docs/widget.md', 'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
+        Mock Write-Message { } -ModuleName Catzc.Base.Reports
+        $script:reportBase = Join-Path $script:widgetRoot 'reports'
         Mock Get-AdrCitationPath { @{ 'ADR-TST-WIDGET' = 'docs/widget.md' } } -ModuleName Catzc.Base.QualityGates
     }
 
@@ -31,12 +33,21 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-
     }
 
     It 'gates the untitled file and points at the formatter' {
-        { Test-MarkdownTitle -RepositoryRoot $script:widgetRoot } | Should -Throw "*run Format-MarkdownTitle*docs/widget.md:1 ``[Wrong``] expected '# docs/widget.md', found '# widget'*"
+        { Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase } |
+            Should -Throw "Test-MarkdownTitle failed: 1 issue(s)*docs/widget.md:1 ``[Wrong``] expected '# docs/widget.md', found '# widget' — run Format-MarkdownTitle*"
+    }
+
+    It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+        $result = Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase -PassThru
+        $result.Subject | Should -Be 'markdown-title'
+        $result.IssueCount | Should -Be 1
+        $result.FileCount | Should -Be 2
+        Test-Path (Join-Path $result.ReportPath 'markdown-title.md') | Should -BeTrue
     }
 
     It 'passes once the files are titled' {
         Format-MarkdownTitle -RepositoryRoot $script:widgetRoot | Out-Null
-        (Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -PassThru).ViolationCount | Should -Be 0
+        { Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase } | Should -Not -Throw
     }
 }
 
@@ -48,6 +59,8 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', '
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# docs/gadget.md`n`nSee [validation](widget.md#validation-assert-widget).`n")
         Mock Get-MarkdownTitleScope { , [string[]] @('docs/widget.md', 'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
+        Mock Write-Message { } -ModuleName Catzc.Base.Reports
+        $script:reportBase = Join-Path $script:widgetRoot 'reports'
         Mock Get-AdrCitationPath { @{} } -ModuleName Catzc.Base.QualityGates
     }
 
@@ -55,7 +68,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', '
         Format-MarkdownTitle -RepositoryRoot $script:widgetRoot | Should -Be @('docs/gadget.md', 'docs/widget.md')
         [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/widget.md')) | Should -Be "# docs/widget.md`n`n## Validation`n`n``Assert-Widget```n`nBody.`n"
         [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) | Should -Be "# docs/gadget.md`n`nSee [validation](widget.md#validation).`n"
-        (Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -PassThru).ViolationCount | Should -Be 0
+        (Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase -PassThru).IssueCount | Should -Be 0
     }
 
     It 're-points links in the whole scope when -Path narrows the check' {
@@ -66,7 +79,8 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', '
 
     It 'gates a duplicate anchor, and the formatter leaves it for the author' {
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# docs/gadget.md`n`n## Gadget`n`n### Gadget`n")
-        { Test-MarkdownTitle -RepositoryRoot $script:widgetRoot } | Should -Throw '*docs/gadget.md:5 `[Duplicate`]*'
+        { Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase } |
+            Should -Throw '*docs/gadget.md:5 `[Duplicate`]*reword it by hand*'
         Format-MarkdownTitle -RepositoryRoot $script:widgetRoot | Out-Null
         [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) | Should -Be "# docs/gadget.md`n`n## Gadget`n`n### Gadget`n"
     }

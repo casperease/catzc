@@ -6,7 +6,9 @@ The `Dora explains` rationale for the ADRs in the `flow/` domain, consolidated i
 reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in
 the ADRs themselves; this file carries only their DORA rationale.
 
-## The CI discipline and the promotion flow — domains keyed by the tagged artifact
+## CI discipline and promotion
+
+`The CI discipline and the promotion flow — domains keyed by the tagged artifact`
 
 [ADR-FLOW-CD](cd-discipline-and-promotion-flow.md)
 
@@ -24,7 +26,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   automated validation from human governance.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Pipeline runner pattern — how pipelines invoke automation
+## Pipeline runner pattern
+
+`Pipeline runner pattern — how pipelines invoke automation`
 
 [ADR-FLOW-CD-RUNNER](pipeline-runner-pattern.md)
 
@@ -40,7 +44,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   PowerShell testable.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Pipeline detection — how functions adapt to their execution context
+## Pipeline detection
+
+`Pipeline detection — how functions adapt to their execution context`
 
 [ADR-FLOW-CD-DETECT](pipeline-detection.md)
 
@@ -56,7 +62,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   GitHub Actions prevents platform-specific failures.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Pipeline types — the six kinds of ADO artifact, named
+## Pipeline types
+
+`Pipeline types — the six kinds of ADO artifact, named`
 
 [ADR-FLOW-CD-TYPE](pipeline-types.md)
 
@@ -79,7 +87,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   pull request, the lightweight peer-review approval the research favours over external approval boards.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Globset triggers — areas-of-control projected to native filters and reflected from git
+## Globset triggers
+
+`Globset triggers — areas-of-control projected to native filters and reflected from git`
 
 [ADR-FLOW-CD-GLOBS](durable-sha-globs.md)
 

@@ -1,8 +1,8 @@
 Describe 'Test-Terminology' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
-        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
-        Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
+        Mock Write-Message -ModuleName Catzc.Base.Reports { }
+        $script:reportBase = Join-Path $TestDrive 'test-terminology'
         # The source-tree guard is its own unit; here the fixture stands in for the source tree in either run mode.
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
 
@@ -26,7 +26,7 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
     }
 
     It 'passes clean when the registry validates, has no drift, and no orphans' {
-        $r = Test-Terminology -PassThru
+        $r = Test-Terminology -OutputFolder $script:reportBase -PassThru
         $r.IssueCount | Should -Be 0
         $r.TermCount | Should -Be 2
     }
@@ -35,21 +35,21 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
         Mock Build-TerminologyDictionary -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Category = 'widget'; Path = 'x'; WordCount = 2; Changed = $true; DryRun = $true }
         }
-        $r = Test-Terminology -PassThru
+        $r = Test-Terminology -OutputFolder $script:reportBase -PassThru
         $r.IssueCount | Should -Be 1
         $r.Issues -join "`n" | Should -Match 'drift'
     }
 
     It 'reports an orphan when a term is not referenced anywhere (ADR-AUTO-SPELL:8)' {
         Mock Get-TerminologyCorpus -ModuleName Catzc.Base.QualityGates { 'bicep only, no second term here' }
-        $r = Test-Terminology -PassThru
+        $r = Test-Terminology -OutputFolder $script:reportBase -PassThru
         $r.IssueCount | Should -Be 1
         $r.Issues -join "`n" | Should -Match "orphan.*'entra'"
     }
 
     It 'reports a validation failure when the registry does not load (ADR-AUTO-SPELL:6)' {
         Mock Get-Config -ModuleName Catzc.Base.QualityGates { throw 'category is required' }
-        $r = Test-Terminology -PassThru
+        $r = Test-Terminology -OutputFolder $script:reportBase -PassThru
         $r.IssueCount | Should -Be 1
         $r.Issues -join "`n" | Should -Match 'does not validate'
     }
@@ -58,17 +58,21 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
         Mock Build-TerminologyDictionary -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Category = 'widget'; Path = 'x'; WordCount = 2; Changed = $true; DryRun = $true }
         }
-        { Test-Terminology } | Should -Throw '*Test-Terminology failed*'
+        { Test-Terminology -OutputFolder $script:reportBase } | Should -Throw '*Test-Terminology failed: 1 issue(s)*drift*'
+    }
+
+    It 'passes clean without -PassThru' {
+        { Test-Terminology -OutputFolder $script:reportBase } | Should -Not -Throw
     }
 
     It 'writes a report and updates latest.txt' {
-        Test-Terminology -PassThru | Out-Null
-        $latest = Get-Content (Join-Path $TestDrive 'test-terminology/latest.txt')
-        Test-Path (Join-Path $TestDrive "test-terminology/$latest/terminology.md") | Should -BeTrue
+        Test-Terminology -OutputFolder $script:reportBase -PassThru | Out-Null
+        $latest = Get-Content (Join-Path $script:reportBase 'latest.txt')
+        Test-Path (Join-Path $script:reportBase "$latest/terminology.md") | Should -BeTrue
     }
 
     It 'excludes the registry file of the scanned repository tree from the corpus' {
-        Test-Terminology -PassThru | Out-Null
+        Test-Terminology -OutputFolder $script:reportBase -PassThru | Out-Null
         $registry = Join-Path $TestDrive 'automation/Catzc.Base.QualityGates/configs/terminology.yml'
         Should -Invoke Get-TerminologyCorpus -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
             $Root -eq $TestDrive -and $Exclude -contains $registry
@@ -85,6 +89,6 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
 # source-only: it scans the repository's files, which give the same answer in both run modes.
 Describe 'Terminology registry integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'the real registry passes every terminology gate (no drift, no orphans, all justified)' {
-        { Test-Terminology -OutputFolder (Join-Path $TestDrive 'reports') } | Should -Not -Throw
+        (Test-Terminology -PassThru -OutputFolder (Join-Path $TestDrive 'terminology')).IssueCount | Should -Be 0
     }
 }

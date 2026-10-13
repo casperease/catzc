@@ -1,3 +1,69 @@
+# Test-CheckedInBinaries over fixture files in $TestDrive with the git CLI mocked: `ls-files --eol` and
+# `check-attr binary` answer from each test's listing, so each test pins one storage rule. Neutral fixture names
+# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $root = Join-Path $TestDrive 'repo'
+        $vendor = Join-Path $root 'automation/.vendor/Widget'
+        [void][System.IO.Directory]::CreateDirectory($vendor)
+        [System.IO.File]::WriteAllBytes((Join-Path $vendor 'widget.dll'), [byte[]](77, 90, 0, 1))
+        [System.IO.File]::WriteAllBytes((Join-Path $vendor 'gadget.dll'), [byte[]](77, 90, 0, 2))
+        [System.IO.File]::WriteAllText((Join-Path $vendor 'widget.psd1'), '@{ }')
+        $script:out = Join-Path $TestDrive 'out'
+    }
+
+    BeforeEach {
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.ModuleSystem { Join-Path $TestDrive 'repo' }
+        Mock Write-Message -ModuleName Catzc.Base.Reports { }
+        $script:eol = @{ 'widget.dll' = '-text'; 'gadget.dll' = '-text' }
+        $script:attr = @{ 'widget.dll' = 'set'; 'gadget.dll' = 'set' }
+        Mock Invoke-Executable -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Command -match ' ls-files ' } {
+            $lines = @(
+                "i/$($eol['widget.dll'])  w/-text attr/-text      `tautomation/.vendor/Widget/widget.dll"
+                "i/$($eol['gadget.dll'])  w/-text attr/-text      `tautomation/.vendor/Widget/gadget.dll"
+                "i/lf    w/lf    attr/                 `tautomation/.vendor/Widget/widget.psd1"
+                "i/-text w/      attr/                 `tautomation/.vendor/Widget/gone.dll"
+            )
+            [pscustomobject]@{ Output = $lines -join "`n" }
+        }
+        Mock Invoke-Executable -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Command -match ' check-attr ' } {
+            $lines = @(
+                "automation/.vendor/Widget/widget.dll: binary: $($attr['widget.dll'])"
+                "automation/.vendor/Widget/gadget.dll: binary: $($attr['gadget.dll'])"
+            )
+            [pscustomobject]@{ Output = $lines -join "`n" }
+        }
+    }
+
+    It 'passes when every binary is stored as -text under an explicit binary rule, and counts only the binaries' {
+        $result = Test-CheckedInBinaries -OutputFolder $out -PassThru
+        $result.IssueCount | Should -Be 0
+        $result.Binaries | Should -Be 2
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
+            $Command -match ' check-attr binary -- "automation/.vendor/Widget/widget.dll" "automation/.vendor/Widget/gadget.dll"$'
+        }
+    }
+
+    It 'throws once naming a binary stored as text and one with no binary rule' {
+        $eol['widget.dll'] = 'crlf'
+        $attr['gadget.dll'] = 'unspecified'
+        $thrown = { Test-CheckedInBinaries -OutputFolder $out } | Should -Throw -PassThru
+        $message = $thrown.Exception.Message
+        $message | Should -BeLike 'Test-CheckedInBinaries failed: 2 issue(s)*'
+        $message | Should -Match 'widget.dll: stored as text, not binary \(git index eol = crlf\)'
+        $message | Should -Match 'gadget.dll: no explicit binary .gitattributes rule'
+    }
+
+    It 'returns the issues under -PassThru instead of throwing' {
+        $eol['gadget.dll'] = 'mixed'
+        $result = Test-CheckedInBinaries -OutputFolder $out -PassThru
+        $result.Subject | Should -Be 'checked-in-binaries'
+        $result.Issues | Should -HaveCount 1
+    }
+}
+
+# The real repository through the quality gate (Test-CheckedInBinaries —
+# [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
 Describe 'Checked-in binaries are stored as binary, not text' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
@@ -20,52 +86,9 @@ Describe 'Checked-in binaries are stored as binary, not text' -Tag 'L2', 'integr
             }
         }
 
-        # The two locations that hold checked-in binaries:
-        #   automation/.vendor/**     — vendored modules' .dll/.pdb/...
-        #   automation/.compiled/**   — the committed combined C# types assembly (see caching ADR)
-        # A file is "binary" the way git itself decides — a NUL byte in the first 8000 bytes — so the test
-        # tracks reality rather than an extension allow-list. For each binary we read git's index EOL:
-        # `git ls-files --eol` => "i/<index> w/<worktree> attr/<attr><TAB><path>". A binary stored as text
-        # would show i/lf | i/crlf | i/mixed (git applied EOL conversion and corrupted the bytes); a
-        # correctly-stored binary is i/-text (no conversion, byte-exact).
-        $script:binaries = @()
+        $script:result = $null
         if (-not $script:skip) {
-            foreach ($line in (& git -C $repoRoot ls-files --eol -- automation)) {
-                if ($line -notmatch '^i/(?<idx>\S+)\s+w/\S*\s+attr/\S*\s+(?<path>.+)$') {
-                    continue
-                }
-                $idx = $Matches['idx']
-                $path = $Matches['path'].Trim()                     # NOTE: any later -match overwrites $Matches
-                if ($path -notmatch '^automation/\.vendor/' -and $path -notmatch '^automation/\.compiled/') {
-                    continue
-                }
-
-                $full = Join-Path $repoRoot $path
-                if (-not (Test-Path -LiteralPath $full)) {
-                    continue
-                }
-
-                $stream = [System.IO.File]::OpenRead($full)
-                try {
-                    $buf = [byte[]]::new(8000)
-                    $read = $stream.Read($buf, 0, $buf.Length)
-                }
-                finally {
-                    $stream.Dispose()
-                }
-
-                $isBinary = $false
-                for ($i = 0; $i -lt $read; $i++) {
-                    if ($buf[$i] -eq 0) {
-                        $isBinary = $true; break
-                    }
-                }
-                if (-not $isBinary) {
-                    continue
-                }
-
-                $script:binaries += [pscustomobject]@{ Path = $path; IndexEol = $idx }
-            }
+            $script:result = Test-CheckedInBinaries -PassThru -OutputFolder (Join-Path $TestDrive 'checked-in-binaries')
         }
     }
 
@@ -73,32 +96,13 @@ Describe 'Checked-in binaries are stored as binary, not text' -Tag 'L2', 'integr
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return
         }
-        @($script:binaries).Count | Should -BeGreaterThan 0
+        $result.Binaries | Should -BeGreaterThan 0
     }
 
-    It 'stores every binary with no EOL conversion (git index is i/-text)' {
+    It 'stores every binary byte-exact under an explicit binary attribute' {
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return
         }
-
-        $textified = @($script:binaries | Where-Object { $_.IndexEol -in @('lf', 'crlf', 'mixed') })
-        $detail = ($textified | ForEach-Object { "$($_.Path) (git index eol = $($_.IndexEol))" }) -join '; '
-        $textified | Should -HaveCount 0 -Because "these binaries are stored as text, not binary: $detail"
-    }
-
-    It 'carries an explicit binary attribute (a .gitattributes rule, not just auto-detection)' {
-        if ($script:skip) {
-            Set-ItResult -Skipped -Because $script:skip; return
-        }
-
-        # `git check-attr binary` reports the `binary` macro as `set` ONLY when an attributes rule applies —
-        # it never content-sniffs — so `set` proves an explicit .gitattributes rule rather than git's
-        # auto-detection. It resolves from the committed/staged .gitattributes, so this guards CI too: it
-        # fails if a rule is removed, before any actual byte corruption could occur. Each output line is
-        # "<path>: binary: set" (or "binary: unspecified" when no rule matches).
-        $paths = @($script:binaries.Path)
-        $lines = & git -C $repoRoot check-attr binary -- $paths
-        $unmarked = @($lines | Where-Object { $_ -notmatch ':\s*binary:\s*set$' })
-        $unmarked | Should -HaveCount 0 -Because "these paths lack an explicit binary .gitattributes rule: $($unmarked -join '; ')"
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

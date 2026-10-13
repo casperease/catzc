@@ -38,7 +38,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   setup.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Azure resource naming standard
+## Resource naming
+
+`Azure resource naming standard`
 
 [ADR-AZ-NAMING](azure-naming-standard.md)
 
@@ -53,7 +55,9 @@ the ADRs themselves; this file carries only their DORA rationale.
   auditable.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Customer model (`customer.yml`) — catalogue, two-name binding, and the template switch
+## Customer model
+
+`Customer model (customer.yml) — catalogue, two-name binding, and the template switch`
 
 [ADR-AZ-CUSTOMER](azure-customer-model.md)
 

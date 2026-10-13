@@ -1,0 +1,119 @@
+# Test-GeneratedFiles is a quality gate (ADR-AUTO-TEST#35): each L0 case mocks every generator at the module
+# boundary and reads the collected issues; the report goes to $TestDrive. The integrity blocks that run it over
+# the real tree live beside each generator's own tests.
+Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
+    BeforeEach {
+        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Build-AdrIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/index.md'; Changed = $false; DryRun = $true } }
+        Mock Build-Glossary -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/glossary.md'; Changed = $false; DryRun = $true; ConceptCount = 2 } }
+        Mock Build-Readme -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Folder = 'widget'; Source = 'docs/widget.md'; Readme = 'widget/README.md'; Changed = $false; DryRun = $true } }
+        Mock Build-GitKeep -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'widget/.gitkeep'; Changed = $false; DryRun = $true } }
+        Mock Build-TerminologyDictionary -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Category = 'widget'; Path = '.cspell/widget.txt'; WordCount = 3; Changed = $false; DryRun = $true } }
+        Mock Get-ConfigValue -ModuleName Catzc.Base.QualityGates { '10' }
+        Mock Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates { }
+        Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VSCodeSettings'; Changed = $false; DryRun = $true }
+            [pscustomobject]@{ Target = '.gadgetrc'; Source = 'assets/.gadgetrc'; Generator = $null; Changed = $false; DryRun = $true }
+        }
+        $script:reportFolder = Join-Path $TestDrive 'generated-files'
+    }
+
+    It 'passes a tree where no generator would change a file' -Tag 'ADR-AUTO-TEST#35' {
+        { Test-GeneratedFiles -OutputFolder $script:reportFolder } | Should -Not -Throw
+        Should -Invoke Build-AdrIndex -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and $PassThru }
+        Should -Invoke Build-RootConfig -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and $PassThru }
+    }
+
+    It 'throws once listing every stale file with its generator and regenerate command' -Tag 'ADR-AUTO-TEST#35' {
+        Mock Build-GitKeep -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Path = 'widget/.gitkeep'; Changed = $true; DryRun = $true }
+            [pscustomobject]@{ Path = 'gadget/.gitkeep'; Changed = $true; DryRun = $true }
+        }
+        Mock Build-AdrIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/index.md'; Changed = $true; DryRun = $true } }
+
+        $thrown = { Test-GeneratedFiles -OutputFolder $script:reportFolder } | Should -Throw -PassThru
+        $thrown.Exception.Message | Should -BeLike 'Test-GeneratedFiles failed: 3 issue(s)*'
+        $thrown.Exception.Message | Should -BeLike '*docs/widget/index.md: stale — Build-AdrIndex would change it; regenerate with: Build-AdrIndex*'
+        $thrown.Exception.Message | Should -BeLike '*widget/.gitkeep: stale — Build-GitKeep*'
+        $thrown.Exception.Message | Should -BeLike '*gadget/.gitkeep: stale — Build-GitKeep*'
+    }
+
+    It 'returns the result with the generator count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+        Mock Build-Readme -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Folder = 'widget'; Source = 'docs/widget.md'; Readme = 'widget/README.md'; Changed = $true; DryRun = $true } }
+
+        $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
+        $result.Subject | Should -Be 'generated-files'
+        $result.IssueCount | Should -Be 1
+        $result.Issues[0] | Should -Be 'widget/README.md: stale — Build-Readme would change it; regenerate with: Build-Readme'
+        $result.Generators | Should -Be 13
+    }
+
+    It 'attributes a rendered root file to its generator and a copied one to Build-RootConfig' {
+        Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VSCodeSettings'; Changed = $true; DryRun = $true }
+            [pscustomobject]@{ Target = '.gadgetrc'; Source = 'assets/.gadgetrc'; Generator = $null; Changed = $true; DryRun = $true }
+        }
+
+        $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
+        $result.Issues | Should -Contain "widget.json: stale — New-VSCodeSettings would change it; regenerate with: Build-RootConfig 'widget.json'"
+        $result.Issues | Should -Contain ".gadgetrc: stale — Build-RootConfig would change it; regenerate with: Build-RootConfig '.gadgetrc'"
+    }
+
+    It 'checks only the selected generators, and a rendered generator selects only its own root files' {
+        Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VSCodeSettings'; Changed = $true; DryRun = $true }
+            [pscustomobject]@{ Target = '.gadgetrc'; Source = 'assets/.gadgetrc'; Generator = $null; Changed = $true; DryRun = $true }
+        }
+
+        $result = Test-GeneratedFiles -Generator New-VSCodeSettings -PassThru -OutputFolder $script:reportFolder
+        $result.Issues | Should -Be @("widget.json: stale — New-VSCodeSettings would change it; regenerate with: Build-RootConfig 'widget.json'")
+        $result.Generators | Should -Be 1
+        Should -Invoke Build-AdrIndex -ModuleName Catzc.Base.QualityGates -Times 0
+        Should -Invoke Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates -Times 0
+    }
+
+    It 'reports each English dictionary drift reason against the tools.yml cspell pin' {
+        Mock Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates { "flattened from cspell '9.1.0' but tools.yml pins '$PinnedCspell'" }
+
+        $result = Test-GeneratedFiles -Generator Build-EnglishDictionary -PassThru -OutputFolder $script:reportFolder
+        $result.IssueCount | Should -Be 1
+        $result.Issues[0] | Should -BeLike "automation/Catzc.Base.QualityGates/assets/english.txt.gz: stale — flattened from cspell '9.1.0' but tools.yml pins '10'; regenerate with: Build-EnglishDictionary*"
+        Should -Invoke Get-ConfigValue -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Address -eq 'global.tools.cspell.version' }
+    }
+}
+
+Describe 'Get-EnglishDictionaryDrift' -Tag 'L0', 'logic' {
+    BeforeEach {
+        $script:assets = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        [System.IO.Directory]::CreateDirectory($script:assets) | Out-Null
+        $words = [System.Text.Encoding]::UTF8.GetBytes("gadget`nwidget`n")
+        [System.IO.File]::WriteAllBytes((Join-Path $script:assets 'english.txt.gz'), [Catzc.Base.QualityGates.GzipText]::Compress($words))
+        $script:writeStamp = {
+            param([string] $Cspell, [int] $WordCount)
+            [System.IO.File]::WriteAllText((Join-Path $script:assets 'english.stamp'), (@{ cspell = $Cspell; word_count = $WordCount } | ConvertTo-Json))
+        }
+    }
+
+    It 'reports nothing when the stamp matches the pin and the gz' {
+        & $script:writeStamp '10.0.1' 2
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ Assets = $script:assets } {
+            @(Get-EnglishDictionaryDrift -AssetsFolder $Assets -PinnedCspell '10') | Should -BeNullOrEmpty
+        }
+    }
+
+    It 'reports a moved cspell pin and a word count that no longer matches the gz' {
+        & $script:writeStamp '9.1.0' 5
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ Assets = $script:assets } {
+            $reasons = @(Get-EnglishDictionaryDrift -AssetsFolder $Assets -PinnedCspell '10')
+            $reasons | Should -HaveCount 2
+            $reasons[0] | Should -Be "flattened from cspell '9.1.0' but tools.yml pins '10'"
+            $reasons[1] | Should -Be 'holds 2 word(s) but its stamp records 5'
+        }
+    }
+
+    It 'reports a missing stamp' {
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ Assets = $script:assets } {
+            Get-EnglishDictionaryDrift -AssetsFolder $Assets -PinnedCspell '10' | Should -Be 'english.stamp is missing'
+        }
+    }
+}
