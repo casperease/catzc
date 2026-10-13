@@ -1,39 +1,48 @@
-Describe 'Get-AdrDomainEdges integrity' -Tag 'L1', 'integrity' {
+# Get-AdrDomainEdges over a fixture AdrsConfig (Get-Config mocked): the registry's own construction holds the
+# edge invariants (declared ends, no self-edge, acyclic), so this pins only the projection. Neutral fixture names
+# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'Get-AdrDomainEdges' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:edges = Get-AdrDomainEdges
-        $script:domains = @((Get-Config -Config adrs).Domains.Name)
-    }
-
-    It 'produces one edge per declared depends_on link, both ends real domains' {
-        $script:edges.Count | Should -BeGreaterThan 0
-        foreach ($edge in $script:edges) {
-            $edge.From | Should -BeIn $script:domains
-            $edge.To | Should -BeIn $script:domains
-        }
-    }
-
-    It 'the domain dependency graph is acyclic (Kahn: every node becomes removable)' {
-        $remaining = [System.Collections.Generic.List[string]]::new()
-        $script:domains | ForEach-Object { $remaining.Add($_) }
-        $out = @{}
-        foreach ($domain in $script:domains) {
-            $out[$domain] = @()
-        }
-        foreach ($edge in $script:edges) {
-            $out[$edge.From] += $edge.To
-        }
-
-        $progress = $true
-        while ($progress -and $remaining.Count -gt 0) {
-            $progress = $false
-            foreach ($node in @($remaining)) {
-                $pending = @($out[$node] | Where-Object { $_ -in $remaining })
-                if ($pending.Count -eq 0) {
-                    [void]$remaining.Remove($node)
-                    $progress = $true
+        $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
+                domains = [ordered]@{
+                    widget = [ordered]@{
+                        code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
+                        rulesets = [ordered]@{ 'widget-one' = [ordered]@{ external = 'ADR-WI-ONE' } }
+                    }
+                    gadget = [ordered]@{
+                        code = 'GA'; role = 'implementation'; description = 'The gadget implementation.'; depends_on = @('widget')
+                        rulesets = [ordered]@{ 'gadget-one' = [ordered]@{ external = 'ADR-GA-ONE' } }
+                    }
+                    gizmo  = [ordered]@{
+                        code = 'GI'; role = 'reference'; description = 'The gizmo reference.'; depends_on = @('widget', 'gadget')
+                        rulesets = [ordered]@{ 'gizmo-one' = [ordered]@{ external = 'ADR-GI-ONE' } }
+                    }
                 }
-            }
-        }
-        $remaining.Count | Should -Be 0 -Because 'a cycle would leave nodes that can never be removed'
+            })
+    }
+
+    BeforeEach {
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adrs' } { $script:fixture }
+    }
+
+    It 'returns one typed edge per depends_on link, in declaration order' {
+        $edges = Get-AdrDomainEdges
+        $edges | Should -HaveCount 3
+        $edges[0] | Should -BeOfType 'Catzc.Base.Docs.AdrDomainEdge'
+        @($edges | ForEach-Object { "$($_.From)->$($_.To)" }) | Should -Be @('gadget->widget', 'gizmo->widget', 'gizmo->gadget')
+    }
+
+    It 'returns an empty array for a registry with no dependency links' {
+        $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
+                domains = [ordered]@{
+                    widget = [ordered]@{
+                        code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
+                        rulesets = [ordered]@{ 'widget-one' = [ordered]@{ external = 'ADR-WI-ONE' } }
+                    }
+                }
+            })
+        $edges = Get-AdrDomainEdges
+        , $edges | Should -BeOfType [object[]]
+        $edges | Should -HaveCount 0
     }
 }
