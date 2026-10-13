@@ -45,13 +45,22 @@ cleanly across commits. It is never hand-formatted, not even inside a generator'
 
 Every git-tracked Markdown file opens — after any YAML front matter — with the H1 `# <repository-relative path>`, e.g.
 `# docs/references/infrastructure/foundation.md`, and nothing else on that line. `Format-MarkdownTitle` writes it — a replaced title's
-wording is kept between single backticks as the body's first line, so no authored text is lost — and `Test-MarkdownTitle` gates it. The scope
-follows the
-repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored` or `linguist-generated` and
-the test fixture trees (`**/tests/assets/**`). A new exception is declared in the `.gitattributes` source, never in a list of the gate's
-own.
+wording is kept between single backticks as the body's first line, so no authored text is lost — and `Test-MarkdownTitle` gates it. The
+scope follows the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored` or
+`linguist-generated` and the test fixture trees (`**/tests/assets/**`). A new exception is declared in the `.gitattributes` source, never in
+a list of the gate's own.
 
 - [Markdown titles are paths](#markdown-titles-are-paths)
+
+### Rule ADR-REPO-FORMAT:7
+
+A Markdown heading below the title is plain words with an anchor unique in its document. A trailing parenthesized group that holds only code
+spans and separators — a file name, a path, a citation — sits on its own line directly below the heading instead, groups joined by `·` and a
+citation written as a link to its ADR; code that is the heading's subject stays in it. In ex. a `dora-explains.md` file each entry's DORA
+paragraph is a `>` blockquote, so paraphrased research reads as grey text. `Format-MarkdownTitle` writes this form and `Test-MarkdownTitle`
+gates it.
+
+- [Headings are plain words](#headings-are-plain-words)
 
 ## Context
 
@@ -119,12 +128,26 @@ same document is read through a generated README link, a search result, a printo
 it came from. A title that is the repository-relative path names the document exactly in all of them, cannot drift when the file is renamed
 (the formatter rewrites it), and leaves nothing to judge, so a tool owns it like every other formatting choice. The path is plain text, with
 its `.md` extension, so it can be copied straight into a link or a terminal. What the document is about is said in its first paragraph: when
-the formatter replaces an authored title, that title's wording is kept below the path between single backticks,
-marked as the old title rather than read as prose.
+the formatter replaces an authored title, that title's wording is kept below the path between single backticks, marked as the old title
+rather than read as prose. The title's own backticks are dropped, since inside that one code span they would split it.
 
 The scope reuses the classes the repository already declares instead of keeping its own: git decides what is committed (a gitignored
 generated file is out, its tracked source is in), and `.gitattributes` decides what is vendored or generated. Test fixture trees are data on
 purpose, as they are for links.
+
+### Headings are plain words
+
+A heading's anchor is how every other document reaches it, so the heading is written to be linked: `## Templating data model` gives
+`#templating-data-model`, while the same heading with ``(`azure.yml` + `infrastructure/`) (`ADR-AZ-DATAMOD`)`` appended gives an anchor that
+spells out file names and a citation code. Those trailing groups are reference material, not the heading's words, so they move to the line
+below it, where they still read at a glance and a citation becomes a checked link instead of an inert code span. Only a group of code spans
+and separators moves; a group holding prose, or code that is the heading's subject (`` `$Matches` — capture immediately ``), is the author's
+wording and stays. Duplicate anchors are reported, never renumbered: GitHub's `-1` suffix is an anchor nobody can predict, and choosing
+distinct words is the author's call. A rule's registry heading (`### Rule ADR-<CODE>:<n>`) already has the form its citations need.
+
+Cited or paraphrased content reads grey. A `dora-explains.md` entry's opening paragraph restates DORA's research rather than this
+repository's decision, so it is a blockquote — the one Markdown construct GitHub renders as muted text, and the repository's VS Code preview
+style renders it the same way.
 
 ## Decision
 
@@ -147,8 +170,9 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - **Links** — `Format-Links` aligns every link mechanically (code links repository-rooted, markdown links relative, rule citations spelled
   `ADR-<CODE>#<n>`) and `Test-Links` gates them; an L2 test asserts `Format-Links` is a no-op over the tracked tree
   ([markdown-links](markdown-links.md)).
-- **Markdown titles** — `Format-MarkdownTitle` titles every in-scope Markdown file with its repository path and `Test-MarkdownTitle` gates
-  it; an L1 test asserts the tracked tree has no finding.
+- **Markdown titles** — `Format-MarkdownTitle` titles every in-scope Markdown file with its repository path, brings its headings into normal
+  form (moving trailing reference groups out, quoting `dora-explains` paragraphs, and re-pointing every link to a heading whose anchor
+  changed), and `Test-MarkdownTitle` gates both, including duplicate anchors; an L1 test asserts the tracked tree has no finding.
 
 ## Consequences
 

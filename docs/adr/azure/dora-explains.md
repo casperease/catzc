@@ -6,11 +6,13 @@ The `Dora explains` rationale for the ADRs in the `azure/` domain, consolidated 
 reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in
 the ADRs themselves; this file carries only their DORA rationale.
 
-## Templating data model (`azure.yml` + `infrastructure/`) (`ADR-AZ-DATAMOD`)
+## Templating data model
 
-DORA's research connects infrastructure-as-code and version-controlled configuration to lower deployment lead time and enable rapid,
-reliable infrastructure changes. This ADR encodes Azure infrastructure as derived, deterministic config with no hand-typed values, enabling
-safe automation.
+`azure.yml` + `infrastructure/` · [ADR-AZ-DATAMOD](azure-data-model.md)
+
+> DORA's research connects infrastructure-as-code and version-controlled configuration to lower deployment lead time and enable rapid,
+> reliable infrastructure changes. This ADR encodes Azure infrastructure as derived, deterministic config with no hand-typed values,
+> enabling safe automation.
 
 - [Version control](../../references/dora/capabilities.md#version-control) — configuration is the single source of truth for Azure
   resources.
@@ -22,10 +24,12 @@ safe automation.
   shapes).
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Network model (`network.yml`) (`ADR-AZ-NETWORK`)
+## Network model
 
-DORA's research shows that infrastructure-as-code and centralized, single-source-of-truth configuration reduce errors and deployment lead
-time. This ADR encodes the network plan as a versioned asset, with cross-asset integrity rules preventing configuration drift.
+`network.yml` · [ADR-AZ-NETWORK](azure-network-model.md)
+
+> DORA's research shows that infrastructure-as-code and centralized, single-source-of-truth configuration reduce errors and deployment lead
+> time. This ADR encodes the network plan as a versioned asset, with cross-asset integrity rules preventing configuration drift.
 
 - [Version control](../../references/dora/capabilities.md#version-control) — IP plan is a versioned, authoritative source.
 - [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — network topology defined as declarative
@@ -34,10 +38,12 @@ time. This ADR encodes the network plan as a versioned asset, with cross-asset i
   setup.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Azure resource naming standard (`ADR-AZ-NAMING`)
+## Azure resource naming standard
 
-DORA research shows that standardized, maintainable naming and configuration-driven automation reduce deployment lead time and errors. This
-ADR encodes deterministic, derived resource names that are never hand-typed, enabling safe infrastructure automation.
+[ADR-AZ-NAMING](azure-naming-standard.md)
+
+> DORA research shows that standardized, maintainable naming and configuration-driven automation reduce deployment lead time and errors.
+> This ADR encodes deterministic, derived resource names that are never hand-typed, enabling safe infrastructure automation.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — standardized, deterministic naming rules reduce
   cognitive load.
@@ -47,10 +53,12 @@ ADR encodes deterministic, derived resource names that are never hand-typed, ena
   auditable.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Customer model (`customer.yml`) — catalogue, two-name binding, and the template switch (`ADR-AZ-CUSTOMER`)
+## Customer model (`customer.yml`) — catalogue, two-name binding, and the template switch
 
-DORA's research links single-source-of-truth configuration and one-living-version practices to faster, more reliable delivery. This ADR
-encodes the customer catalogue as the authoritative source, enabling predictable customer-scoped deployments without policy coupling.
+[ADR-AZ-CUSTOMER](azure-customer-model.md)
+
+> DORA's research links single-source-of-truth configuration and one-living-version practices to faster, more reliable delivery. This ADR
+> encodes the customer catalogue as the authoritative source, enabling predictable customer-scoped deployments without policy coupling.
 
 - [Version control](../../references/dora/capabilities.md#version-control) — customer catalogue as a versioned, authoritative asset.
 - [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — one-living-version principle (no legacy

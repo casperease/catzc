@@ -6,6 +6,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# docs/gadget.md`n")
         Mock Get-MarkdownTitleScope { , [string[]] @('docs/widget.md', 'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
+        Mock Get-AdrCitationPath { @{ 'ADR-TST-WIDGET' = 'docs/widget.md' } } -ModuleName Catzc.Base.QualityGates
     }
 
     It 'titles the wrong file only, keeping its line endings and writing no BOM' {
@@ -30,11 +31,43 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-
     }
 
     It 'gates the untitled file and points at the formatter' {
-        { Test-MarkdownTitle -RepositoryRoot $script:widgetRoot } | Should -Throw "*run Format-MarkdownTitle*docs/widget.md:1 expected '# docs/widget.md', found '# widget'*"
+        { Test-MarkdownTitle -RepositoryRoot $script:widgetRoot } | Should -Throw "*run Format-MarkdownTitle*docs/widget.md:1 ``[Wrong``] expected '# docs/widget.md', found '# widget'*"
     }
 
     It 'passes once the files are titled' {
         Format-MarkdownTitle -RepositoryRoot $script:widgetRoot | Out-Null
         (Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -PassThru).ViolationCount | Should -Be 0
+    }
+}
+
+Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#7' {
+    BeforeEach {
+        $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# docs/widget.md`n`n## Validation (``Assert-Widget``)`n`nBody.`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# docs/gadget.md`n`nSee [validation](widget.md#validation-assert-widget).`n")
+        Mock Get-MarkdownTitleScope { , [string[]] @('docs/widget.md', 'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
+        Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
+        Mock Get-AdrCitationPath { @{} } -ModuleName Catzc.Base.QualityGates
+    }
+
+    It 'moves the trailing group out and re-points the link to the renamed anchor' {
+        Format-MarkdownTitle -RepositoryRoot $script:widgetRoot | Should -Be @('docs/gadget.md', 'docs/widget.md')
+        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/widget.md')) | Should -Be "# docs/widget.md`n`n## Validation`n`n``Assert-Widget```n`nBody.`n"
+        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) | Should -Be "# docs/gadget.md`n`nSee [validation](widget.md#validation).`n"
+        (Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -PassThru).ViolationCount | Should -Be 0
+    }
+
+    It 're-points links in the whole scope when -Path narrows the check' {
+        Mock Get-MarkdownTitleScope { , [string[]] @('docs/widget.md') } -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Path }
+        Format-MarkdownTitle -RepositoryRoot $script:widgetRoot -Path (Join-Path $script:widgetRoot 'docs/widget.md') | Out-Null
+        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) | Should -BeLike '*widget.md#validation)*'
+    }
+
+    It 'gates a duplicate anchor, and the formatter leaves it for the author' {
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# docs/gadget.md`n`n## Gadget`n`n### Gadget`n")
+        { Test-MarkdownTitle -RepositoryRoot $script:widgetRoot } | Should -Throw '*docs/gadget.md:5 `[Duplicate`]*'
+        Format-MarkdownTitle -RepositoryRoot $script:widgetRoot | Out-Null
+        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) | Should -Be "# docs/gadget.md`n`n## Gadget`n`n### Gadget`n"
     }
 }

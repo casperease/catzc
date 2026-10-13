@@ -30,8 +30,8 @@ Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6' {
         $finding.Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '`widget`', '', 'Body.', '')
     }
 
-    It 'wraps an old title that holds backticks of its own in single backticks too' {
-        (Get-Finding (Join-Lines '# Widget (`gadget.yml`)', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '`Widget (`gadget.yml`)`', '')
+    It 'drops an old title''s own backticks so it stays one code span' {
+        (Get-Finding (Join-Lines '# Widget (`gadget.yml`)', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '`Widget (gadget.yml)`', '')
     }
 
     It 'pads the kept old title from a body line that followed the heading directly' {

@@ -1,6 +1,6 @@
 # docs/adr/azure/azure-customer-model.md
 
-`ADR: Customer model (`customer.yml`) — catalogue, two-name binding, and the template switch`
+`ADR: Customer model (customer.yml) — catalogue, two-name binding, and the template switch`
 
 Pairs with [`data-model`](azure-data-model.md) (identity + templating) and [`naming-standard`](azure-naming-standard.md); the
 enabled-customer set is the `have_customers` repo variant ([repo-variants](../repository/repo-variants.md)).

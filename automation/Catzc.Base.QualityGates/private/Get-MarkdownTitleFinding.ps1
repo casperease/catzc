@@ -72,7 +72,8 @@ function Get-MarkdownTitleFinding {
 
     if ($kind -eq 'Wrong') {
         # Keep the old title's wording as the body's first line, in backticks; pad it so the heading and what follows stay apart.
-        $oldTitle = ($actual -replace '^#\s+', '').TrimEnd()
+        # The title's own backticks are dropped: inside the one code span they would split it.
+        $oldTitle = ($actual -replace '^#\s+', '' -replace '`', '').TrimEnd()
         $replacement = [System.Collections.Generic.List[string]]::new([string[]] @($expected, '', "``$oldTitle``"))
         $next = $titleIndex + 1
         if ($next -lt $lines.Count -and $lines[$next].Trim() -ne '') {

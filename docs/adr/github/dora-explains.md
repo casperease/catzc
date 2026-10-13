@@ -6,11 +6,13 @@ The `Dora explains` rationale for the ADRs in the `github/` domain, consolidated
 reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in
 the ADRs themselves; this file carries only their DORA rationale.
 
-## GitHub release flow — publishing the Catzc package (`ADR-GH-RELEASE`)
+## GitHub release flow — publishing the Catzc package
 
-DORA links deployment automation and continuous delivery to delivery performance: a release should be a repeatable, low-ceremony, auditable
-act. A manually-dispatched workflow that always builds the artifact and publishes it GitHub-first on the built-in token makes releasing
-catzc a single deliberate action, with the credential-heavy path (the Gallery) isolated behind an opt-in key.
+[ADR-GH-RELEASE](github-release.md)
+
+> DORA links deployment automation and continuous delivery to delivery performance: a release should be a repeatable, low-ceremony,
+> auditable act. A manually-dispatched workflow that always builds the artifact and publishes it GitHub-first on the built-in token makes
+> releasing catzc a single deliberate action, with the credential-heavy path (the Gallery) isolated behind an opt-in key.
 
 - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — one dispatch builds and publishes the package to
   GitHub with no bespoke credentials.

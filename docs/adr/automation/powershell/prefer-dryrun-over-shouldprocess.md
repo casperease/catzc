@@ -1,6 +1,6 @@
 # docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md
 
-`ADR: Prefer an explicit `-DryRun` switch over the ShouldProcess subsystem`
+`ADR: Prefer an explicit -DryRun switch over the ShouldProcess subsystem`
 
 ## Rules: ADR-AUTO-DRYRUN
 

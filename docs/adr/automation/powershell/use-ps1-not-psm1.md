@@ -1,6 +1,6 @@
 # docs/adr/automation/powershell/use-ps1-not-psm1.md
 
-`ADR: Use `.ps1` for function files, not `.psm1``
+`ADR: Use .ps1 for function files, not .psm1`
 
 ## Rules: ADR-AUTO-USEPS
 

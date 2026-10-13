@@ -1,6 +1,6 @@
 # docs/adr/azure/azure-network-model.md
 
-`ADR: Network model (`network.yml`)`
+`ADR: Network model (network.yml)`
 
 This ADR covers the cross-cutting IP plan, which the data model deliberately leaves out of its two layers.
 
@@ -23,7 +23,7 @@ reads them from `Get-Config -Config network` in its prepare hook and merges them
 
 Key the plan by environment name, matching `azure.yml`; the two assets stay in sync via the validator, not by convention alone.
 
-- [Validation (`Assert-NetworkConfig`)](#validation-assert-networkconfig)
+- [Validation (`Assert-NetworkConfig`)](#validation)
 
 ### Rule ADR-AZ-NETWORK:3
 
@@ -36,7 +36,7 @@ One address space per environment — multi-region-per-environment is out of sco
 Per-subscription envs (`nsub`/`psub`) need no network entry — they carry no vnet, so the standard-env requirement skips them (a
 `nsub`/`psub` entry is not forbidden, just pointless).
 
-- [Validation (`Assert-NetworkConfig`)](#validation-assert-networkconfig)
+- [Validation (`Assert-NetworkConfig`)](#validation)
 
 ## Context
 
@@ -83,7 +83,9 @@ environments:
   # … one entry per standard environment
 ```
 
-### Validation (`Assert-NetworkConfig`)
+### Validation
+
+`Assert-NetworkConfig`
 
 - **Required shape.** Top-level `environments` map; each entry has `vnet_address_space` and `default_subnet`.
 - **Format.** Each environment name is a valid lower-snake_case identifier (`^[a-z][a-z0-9_]*$`); each range is an IPv4 CIDR (`a.b.c.d/n`,

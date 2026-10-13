@@ -6,10 +6,12 @@ The `Dora explains` rationale for the ADRs in the `repository/` domain, consolid
 then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions
 live in the ADRs themselves; this file carries only their DORA rationale.
 
-## Conventional folders — every folder in the repository, by convention (`ADR-REPO-FOLDERS`)
+## Conventional folders — every folder in the repository, by convention
 
-DORA's research into code maintainability and loosely coupled teams emphasizes clear structure and self-documenting boundaries; conventional
-folders encode those boundaries into the filesystem so structure is enforced and visibility is instant.
+[ADR-REPO-FOLDERS](conventional-folders.md)
+
+> DORA's research into code maintainability and loosely coupled teams emphasizes clear structure and self-documenting boundaries;
+> conventional folders encode those boundaries into the filesystem so structure is enforced and visibility is instant.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — fixed structure is self-documenting and makes
   deviations visibly obvious.
@@ -19,10 +21,12 @@ folders encode those boundaries into the filesystem so structure is enforced and
   layout itself, not a mapping file.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Dedicated output directory (`ADR-REPO-OUTDIR`)
+## Dedicated output directory
 
-DORA's research connects version control discipline to deployment predictability; separating source and output prevents dirty working trees
-and makes CI artifact collection trivial and reliable.
+[ADR-REPO-OUTDIR](dedicated-output-directory.md)
+
+> DORA's research connects version control discipline to deployment predictability; separating source and output prevents dirty working
+> trees and makes CI artifact collection trivial and reliable.
 
 - [Version control](../../references/dora/capabilities.md#version-control) — a clean working tree with no stray generated files keeps
   history and blame legible.
@@ -32,11 +36,13 @@ and makes CI artifact collection trivial and reliable.
   self-enforcing, not a style agreement.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Uniform formatting — the whole repository, one mechanical standard (`ADR-REPO-FORMAT`)
+## Uniform formatting — the whole repository, one mechanical standard
 
-DORA's research on code maintainability and continuous delivery emphasizes clean diffs and reproducible builds; mechanical formatting
-eliminates style noise from code review and ensures generated artifacts are byte-identical across runs, keeping blame and CI history
-legible.
+[ADR-REPO-FORMAT](uniform-formatting.md)
+
+> DORA's research on code maintainability and continuous delivery emphasizes clean diffs and reproducible builds; mechanical formatting
+> eliminates style noise from code review and ensures generated artifacts are byte-identical across runs, keeping blame and CI history
+> legible.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — automated formatting removes style noise and keeps
   `git blame` pointing at the author of logic, not reformatting.
@@ -46,10 +52,12 @@ legible.
   output across builds, so CI diffs are trustworthy.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Versioned external API contracts and contract testing (`ADR-REPO-CONTRACT`)
+## Versioned external API contracts and contract testing
 
-DORA's research links test automation and continuous delivery to predictable deployment outcomes; contract testing applies these findings to
-the public boundary, catching breaking changes in CI rather than in production.
+[ADR-REPO-CONTRACT](api-contracts.md)
+
+> DORA's research links test automation and continuous delivery to predictable deployment outcomes; contract testing applies these findings
+> to the public boundary, catching breaking changes in CI rather than in production.
 
 - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — contract tests run in CI and gate breaking
   changes before merge.
@@ -59,11 +67,13 @@ the public boundary, catching breaking changes in CI rather than in production.
   stay deployable and unbroken across releases.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Generated READMEs — one authored source, linked out per conventional folder (`ADR-REPO-README`)
+## Generated READMEs — one authored source, linked out per conventional folder
 
-DORA's research on code maintainability and documentation quality emphasizes single sources of truth and automatic, drift-free maintenance;
-linking READMEs to their authored sources ensures documentation is always current and prevents the divergence that hand-kept copies
-introduce.
+[ADR-REPO-README](generated-readmes.md)
+
+> DORA's research on code maintainability and documentation quality emphasizes single sources of truth and automatic, drift-free
+> maintenance; linking READMEs to their authored sources ensures documentation is always current and prevents the divergence that hand-kept
+> copies introduce.
 
 - [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — single-sourced, automatically-linked documentation
   eliminates drift and keeps all channels current.
@@ -73,10 +83,12 @@ introduce.
   for a second truth.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Generated root configs — every managed root file from one in-repo source of truth (`ADR-REPO-ROOTCFG`)
+## Generated root configs — every managed root file from one in-repo source of truth
 
-DORA's research on continuous delivery and code maintainability emphasizes reproducible, drift-free automation; centralizing root config
-generation into one registry and one writer ensures every build produces byte-identical artifacts and config changes stay reviewable.
+[ADR-REPO-ROOTCFG](generated-root-configs.md)
+
+> DORA's research on continuous delivery and code maintainability emphasizes reproducible, drift-free automation; centralizing root config
+> generation into one registry and one writer ensures every build produces byte-identical artifacts and config changes stay reviewable.
 
 - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — idempotent generation with content-only comparison
   produces reproducible, byte-identical artifacts across builds.
@@ -86,10 +98,12 @@ generation into one registry and one writer ensures every build produces byte-id
   logic and per-format special cases.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Documentation examples — the discovery theme (`ADR-REPO-EXAMPLE`)
+## Documentation examples — the discovery theme
 
-DORA's research on learning culture and code maintainability emphasizes clear, consistent documentation; fictional example names make the
-narrative legible and prevent confusion between illustration and production.
+[ADR-REPO-EXAMPLE](documentation-examples.md)
+
+> DORA's research on learning culture and code maintainability emphasizes clear, consistent documentation; fictional example names make the
+> narrative legible and prevent confusion between illustration and production.
 
 - [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — consistent example names make documentation legible
   and trustworthy.
@@ -99,11 +113,13 @@ narrative legible and prevent confusion between illustration and production.
   reduce confusion.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Repo-wide variants — session-fixed settings behind `Test-`/`Assert-` primitives (`ADR-REPO-VARIANT`)
+## Repo-wide variants — session-fixed settings behind `Test-`/`Assert-` primitives
 
-DORA's research on code maintainability and platform engineering emphasizes sensible defaults and low-ceremony guard mechanisms; typed
-variant primitives (`Test-`/`Assert-`) make repo-wide decisions auditable and testable from anywhere, so the only stop condition is
-mechanical, not procedural.
+[ADR-REPO-VARIANT](repo-variants.md)
+
+> DORA's research on code maintainability and platform engineering emphasizes sensible defaults and low-ceremony guard mechanisms; typed
+> variant primitives (`Test-`/`Assert-`) make repo-wide decisions auditable and testable from anywhere, so the only stop condition is
+> mechanical, not procedural.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — typed guards instead of raw config reads make
   repo-wide decisions explicit and enforceable.
@@ -113,11 +129,13 @@ mechanical, not procedural.
   the run and unchanged across parallel build steps.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Domain-language separation — three domains, three terminologies (`ADR-REPO-LANG`)
+## Domain-language separation — three domains, three terminologies
 
-DORA's research on pervasive security and streamlining change approval emphasizes preventing configuration drift and production leaks; a
-tag-aware AST gate that enforces domain boundaries catches silent violations where text-based checks cannot, so live identities never leak
-into test code.
+[ADR-REPO-LANG](domain-language-separation.md)
+
+> DORA's research on pervasive security and streamlining change approval emphasizes preventing configuration drift and production leaks; a
+> tag-aware AST gate that enforces domain boundaries catches silent violations where text-based checks cannot, so live identities never leak
+> into test code.
 
 - [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — mechanical enforcement prevents live identities from
   leaking into logic tests where they could cause production incidents.
@@ -127,11 +145,13 @@ into test code.
   illustration remain legible while protecting the boundary.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Controlled vocabulary — one definition per term, opt-in glossary sources (`ADR-REPO-VOCAB`)
+## Controlled vocabulary — one definition per term, opt-in glossary sources
 
-DORA's research on documentation quality finds that accurate, well-organized internal documentation amplifies every other technical
-capability; a term that means one thing everywhere, anchored on the rule that defines it and contrasted with its neighbours, is what keeps
-that documentation accurate as it grows, and an in-repository glossary keeps it versioned and checked like the code.
+[ADR-REPO-VOCAB](controlled-vocabulary.md)
+
+> DORA's research on documentation quality finds that accurate, well-organized internal documentation amplifies every other technical
+> capability; a term that means one thing everywhere, anchored on the rule that defines it and contrasted with its neighbours, is what keeps
+> that documentation accurate as it grows, and an in-repository glossary keeps it versioned and checked like the code.
 
 - [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — one definition per term, with its differences from
   similar terms spelled out, keeps every ADR, help text, and message consistent.
@@ -141,12 +161,14 @@ that documentation accurate as it grows, and an in-repository glossary keeps it 
   is internal knowledge an assistant can read and apply exactly, rather than guess from usage.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Markdown links — relative in documents, repository-rooted out of code (`ADR-REPO-LINK`)
+## Markdown links — relative in documents, repository-rooted out of code
 
-DORA's research on documentation quality finds that documentation helps only while it is accurate and findable; a pointer from code to the
-decision behind it is documentation too, and a pointer that silently rots — a bare path to a moved ADR, a citation of a renumbered rule —
-sends the reader to the wrong rationale or none. Checking every link and deriving each code link from its citation keeps those pointers true
-as the documents move.
+[ADR-REPO-LINK](markdown-links.md)
+
+> DORA's research on documentation quality finds that documentation helps only while it is accurate and findable; a pointer from code to the
+> decision behind it is documentation too, and a pointer that silently rots — a bare path to a moved ADR, a citation of a renumbered rule —
+> sends the reader to the wrong rationale or none. Checking every link and deriving each code link from its citation keeps those pointers
+> true as the documents move.
 
 - [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — every link from code and between documents
   resolves, so the documentation a reader follows is the documentation that exists.

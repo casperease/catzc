@@ -2,6 +2,26 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
     It 'throws on a missing test file before spawning anything' {
         { Invoke-TestFile (Join-Path $TestDrive 'nope.Tests.ps1') } | Should -Throw
     }
+
+    It 'hands -FullNameFilter to the worker''s shard script' {
+        $testFile = Join-Path $TestDrive 'widget.Tests.ps1'
+        [System.IO.File]::WriteAllText($testFile, '')
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
+        Mock Enter-TestRunSlot -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Mode = 'InPlace' } }
+        Mock Exit-TestRunSlot -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-TestRunSlotEntry -ModuleName Catzc.Base.QualityGates { @{} }
+        Mock Resolve-TestRunMaxLevel -ModuleName Catzc.Base.QualityGates { 3 }
+        Mock Convert-TestRunSlotPath -ModuleName Catzc.Base.QualityGates { $Path }
+        # The shard script is the last stop before a real worker spawns: stop there.
+        Mock New-TestAutomationShardScript -ModuleName Catzc.Base.QualityGates { throw 'stop before spawning' }
+
+        { Invoke-TestFile $testFile -FullNameFilter 'widget''s gadget' } | Should -Throw '*stop before spawning*'
+
+        Should -Invoke New-TestAutomationShardScript -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $FullNameFilter -eq 'widget''s gadget'
+        }
+        Should -Invoke Exit-TestRunSlot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
+    }
 }
 
 # L2: drives a real child pwsh worker through the same generator + runner chain as the harness.
@@ -14,7 +34,10 @@ Describe 'Invoke-TestFile (real worker)' -Tag 'L2', 'integrity', 'greedy' {
         # The strict contract ([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)): the
         # worker runs every test strict, and a test that genuinely
         # needs non-strict semantics opts out locally, in its own It body. The fixture holds the same strict-hostile
-        # read (.Count on a scalar) twice — bare, and behind the opt-out — plus a plain test for the filter.
+        # read (.Count on a scalar) twice — bare, and behind the opt-out — plus a plain passing test. The bare read
+        # fails, so the same spawn also proves a failing file reports Failed (exit 1) without throwing; how
+        # -FullNameFilter reaches the worker is proven at L0 (here and in New-TestAutomationShardScript.Tests.ps1),
+        # one spawn per distinct concern ([ADR-AUTO-TEST#23](/docs/adr/automation/test-automation.md#rule-adr-auto-test23)).
         $script:fixture = Join-Path $TestDrive 'StrictHostile.Tests.ps1'
         $fixtureContent = @'
 Describe 'StrictHostile' -Tag 'L0', 'logic' {
@@ -28,7 +51,7 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
         $scalar = 'one'
         $scalar.Count | Should -Be 1
     }
-    It 'is a plain test the filter can isolate' {
+    It 'is a plain passing test' {
         1 | Should -Be 1
     }
 }
@@ -37,30 +60,13 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
     }
 
     It 'runs tests strict, and an It-level opt-out runs that test non-strict (the harness parity contract)' {
-        $run = Invoke-TestFile $script:fixture -Output Minimal -PassThru
+        { $script:run = Invoke-TestFile $script:fixture -Output Minimal -PassThru } | Should -Not -Throw -Because 'a failing file is a result, not an error'
+        $run = $script:run
         $run.Result | Should -Be 'Failed' -Because 'the worker runs tests strict, like every harness shard'
         $run.ExitCode | Should -Be 1
         @($run.Rows) | Should -HaveCount 3
         @($run.Rows | Where-Object ExpandedName -EQ 'reads Count on a scalar without opting out').Result | Should -Be 'Failed'
         @($run.Rows | Where-Object ExpandedName -EQ 'reads Count on a scalar behind an It-level opt-out').Result | Should -Be 'Passed'
-    }
-
-    It 'honours -FullNameFilter and returns the rows for just the matched test' {
-        $run = Invoke-TestFile $script:fixture -FullNameFilter 'plain test' -Output Minimal -PassThru
-        $run.Result | Should -Be 'Passed'
-        @($run.Rows | Where-Object Result -EQ 'Passed') | Should -HaveCount 1
-    }
-
-    It 'reports a failing file as Failed without throwing' {
-        $failing = Join-Path $TestDrive 'Failing.Tests.ps1'
-        [System.IO.File]::WriteAllText($failing, @'
-Describe 'Failing' -Tag 'L0', 'logic' {
-    It 'fails' { 1 | Should -Be 2 }
-}
-'@)
-        $run = Invoke-TestFile $failing -Output Minimal -PassThru
-        $run.Result | Should -Be 'Failed'
-        $run.ExitCode | Should -Be 1
     }
 
     # The walking skeleton of the snapshot path

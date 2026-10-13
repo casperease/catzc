@@ -6,10 +6,12 @@ The `Dora explains` rationale for the ADRs in the `configuration/` domain, conso
 code, then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The
 decisions live in the ADRs themselves; this file carries only their DORA rationale.
 
-## Module config loading — one reader (`Get-Config`), owner-scoped validation (`ADR-CONF-LOADING`)
+## Module config loading — one reader (`Get-Config`), owner-scoped validation
 
-A single config reader eliminates drift and ensures consistent validation, both core to reliable system behavior. This pattern reduces
-variability in configuration handling across modules, lowering defect rates and deployment risk.
+[ADR-CONF-LOADING](module-config-loading.md)
+
+> A single config reader eliminates drift and ensures consistent validation, both core to reliable system behavior. This pattern reduces
+> variability in configuration handling across modules, lowering defect rates and deployment risk.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one reader eliminates boilerplate and drift across
   modules.
@@ -19,10 +21,12 @@ variability in configuration handling across modules, lowering defect rates and 
   surface for misconfiguration.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Config value addressing — a by-reference handle into a named config (`ADR-CONF-ADDRESSING`)
+## Config value addressing — a by-reference handle into a named config
 
-DORA's research links version-controlled configuration and single source of truth to reliable, maintainable delivery. Providing a uniform
-addressing grammar for config values ensures every reference points to a canonical, committed source and fails fast on mistakes.
+[ADR-CONF-ADDRESSING](config-value-addressing.md)
+
+> DORA's research links version-controlled configuration and single source of truth to reliable, maintainable delivery. Providing a uniform
+> addressing grammar for config values ensures every reference points to a canonical, committed source and fails fast on mistakes.
 
 - [Version control](../../references/dora/capabilities.md#version-control) — all addressable config lives in version-controlled files,
   making every reference traceable and auditable.

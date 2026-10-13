@@ -1,6 +1,6 @@
 # docs/adr/configuration/module-config-loading.md
 
-`ADR: Module config loading — one reader (`Get-Config`), owner-scoped validation`
+`ADR: Module config loading — one reader (Get-Config), owner-scoped validation`
 
 ## Rules: ADR-CONF-LOADING
 

@@ -79,6 +79,17 @@ Describe 'New-TestAutomationShardScript' {
             $content | Should -Match ([regex]::Escape('-IncludeTag $includeTag'))
         }
 
+        It 'threads -FullNameFilter into the worker configuration, apostrophes doubled' {
+            $filtered = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
+                param($Dir)
+                New-TestAutomationShardScript -ShardIndex 6 -TestPath @('C:\repo\a.Tests.ps1') -RunDirectory $Dir `
+                    -FullNameFilter "widget's gadget"
+            }
+            $content = Get-Content -LiteralPath $filtered.ScriptPath -Raw
+            $content | Should -Match ([regex]::Escape("'widget''s gadget'"))
+            $content | Should -Match ([regex]::Escape('-FullNameFilter $fullNameFilter'))
+        }
+
         It 'loads the source run through the repository importer by default' {
             $script:content | Should -Match ([regex]::Escape(". '$(Get-RepositoryRoot)/importer.ps1' -SkipJanitors"))
             $script:content | Should -Not -Match 'Import-Catzc'

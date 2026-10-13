@@ -1,11 +1,15 @@
 <#
 .SYNOPSIS
-    The Markdown title gate: fails on any in-scope file whose title is not its repository path
-    ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6)).
+    The Markdown title and heading gate: fails on any in-scope file whose title is not its repository path or whose
+    headings are not in normal form
+    ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6),
+    [ADR-REPO-FORMAT#7](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format7)).
 .DESCRIPTION
     Runs the same check as Format-MarkdownTitle, read-only, and reports every file whose first line after any YAML
-    front matter is not the H1 `# <repository-relative path>`. Every violation is fixed by running
-    Format-MarkdownTitle. A source-tree gate: it throws in build mode.
+    front matter is not the H1 `# <repository-relative path>`, every heading with a trailing reference group, every
+    unquoted dora-explains paragraph, every link to an anchor that moves, and every duplicate anchor. Running
+    Format-MarkdownTitle fixes all of them except a Duplicate, which the author rewords. A source-tree gate: it throws
+    in build mode.
 .PARAMETER Path
     Files or folders to check. Default: every in-scope file.
 .PARAMETER RepositoryRoot
@@ -32,21 +36,21 @@ function Test-MarkdownTitle {
     Assert-SourceTree
 
     $result = Invoke-MarkdownTitleEngine -RepositoryRoot $RepositoryRoot -Path $Path
-    $violations = @($result.Findings | Where-Object { $_.Kind -ne 'Ok' } | ForEach-Object {
+    $violations = @($result.Files | ForEach-Object { $_.Findings } | ForEach-Object {
             [pscustomobject]@{
                 Path    = $_.Path
                 Line    = $_.Line
                 Kind    = $_.Kind
                 Actual  = $_.Actual
-                Message = "$($_.Path):$($_.Line) expected '$($_.Expected)', found '$($_.Actual)'"
+                Message = "$($_.Path):$($_.Line) [$($_.Kind)] expected '$($_.Expected)', found '$($_.Actual)'"
             }
         })
 
     if ($violations.Count -eq 0) {
-        Write-Message "All $($result.FileCount) Markdown file(s) are titled with their path."
+        Write-Message "All $($result.FileCount) Markdown file(s) are titled with their path and their headings are in normal form."
     }
     else {
-        Write-Message "$($violations.Count) of $($result.FileCount) Markdown file(s) are not titled with their path — run Format-MarkdownTitle."
+        Write-Message "$($violations.Count) title or heading finding(s) in $($result.FileCount) Markdown file(s) — run Format-MarkdownTitle; reword a Duplicate by hand."
     }
 
     if ($PassThru) {
@@ -64,6 +68,6 @@ function Test-MarkdownTitle {
         else {
             ''
         }
-        throw "Test-MarkdownTitle failed: $($violations.Count) file(s) not titled with their path — run Format-MarkdownTitle:`n$listing$more"
+        throw "Test-MarkdownTitle failed: $($violations.Count) title or heading finding(s) — run Format-MarkdownTitle (reword a Duplicate by hand):`n$listing$more"
     }
 }

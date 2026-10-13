@@ -1,6 +1,6 @@
 # docs/adr/azure/azure-data-model.md
 
-`ADR: Templating data model (`azure.yml` + `infrastructure/`)`
+`ADR: Templating data model (azure.yml+infrastructure/**)`
 
 Pairs with [`naming-standard`](azure-naming-standard.md), which defines the resource-name components this model feeds.
 
@@ -12,14 +12,14 @@ Two config layers — identity (`azure.yml`) and templating (`infrastructure/tem
 a config at the configuration ROOT is a shared-platform deployment, a config under a `configuration/<customer>/` subfolder is that
 customer's; the subscription is always RESOLVED from that coordinate, never spelled into a path, and there is no subscription-group entity.
 
-- [Layer 1 — Identity (`azure.yml`)](#layer-1--identity-azureyml)
+- [Layer 1 — Identity (`azure.yml`)](#layer-1--identity)
 
 ### Rule ADR-AZ-DATAMOD:2
 
 One config file ⟷ one (customer?, env, slot) ⟷ one subscription ⟷ one Azure resource group; every config lives at
 `configuration/[<customer>/]<env>[-<slot>].yml`, and listing that tree is the resource-group inventory.
 
-- [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating-infrastructuretemplatesname)
+- [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)
 
 ### Rule ADR-AZ-DATAMOD:3
 
@@ -28,8 +28,8 @@ always a customer KEY (customer.yml), and every config's coordinate must resolve
 served by exactly one non-customer subscription; a customer config's env by exactly one of that customer's subscriptions. Asserted per file
 at discovery and by integrity tests.
 
-- [Layer 1 — Identity (`azure.yml`)](#layer-1--identity-azureyml)
-- [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating-infrastructuretemplatesname)
+- [Layer 1 — Identity (`azure.yml`)](#layer-1--identity)
+- [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)
 
 ### Rule ADR-AZ-DATAMOD:4
 
@@ -37,7 +37,7 @@ Customer is a first-class configuration axis — the subfolder — and at deploy
 (`subscription.customer`), never a deploy arg: a customer-subscription session addresses the customer's subfolder config, a non-customer
 session the root config, and the customer renders into resource names.
 
-- [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating-infrastructuretemplatesname)
+- [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)
 
 ### Rule ADR-AZ-DATAMOD:5
 
@@ -98,7 +98,9 @@ Governing principle:
 
 ## Decision
 
-### Layer 1 — Identity (`azure.yml`)
+### Layer 1 — Identity
+
+`azure.yml`
 
 All named entities are **maps keyed by name** (uniform access; duplicate names are structurally impossible). One global — `org` — supplies a
 name component. The component _order_ is **not** here — it is the `ado_naming` repo variant, `Get-AdoNaming` (see
@@ -166,7 +168,9 @@ is the resolution within one coordinate: no two subscriptions of one customer se
 integrity test), and a root config's env must be served by exactly one non-customer subscription (asserted per config file at discovery —
 the "every file resolves to ONE subscription id" rule). Which subscription a deploy targets is the az session's — never an argument.
 
-### Layer 2 — Templating (`infrastructure/templates/<name>/`)
+### Layer 2 — Templating
+
+`infrastructure/templates/<name>/`
 
 Deployable templates live in `infrastructure/templates/<name>/` (discovered by `Get-BicepTemplates`). Reusable bicep modules live in the
 sibling `infrastructure/modules/` — referenced by templates via a relative `module` declaration and inlined by `az bicep build`; they are
