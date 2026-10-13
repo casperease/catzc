@@ -47,7 +47,9 @@
         # Sibling rules that use the same helper path (PSReservedParams, PSUseApprovedVerbs) do NOT trip the
         # NRE and stay enabled.
         'PSReservedCmdletChar'
-        # Superseded by the custom Measure-NoRawConsoleWrite (ADR-AUTO-ANNOUNCE:1), which flags Write-Host AND
+        # Superseded by the custom Measure-NoRawConsoleWrite
+        # ([ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1)),
+        # which flags Write-Host AND
         # every other way past the information stream ([Console]::Write, $Host.UI, Out-Host, Write-Progress, ...).
         # One rule owns the console bypass, so a Write-Host is reported once, not twice.
         'PSAvoidUsingWriteHost'

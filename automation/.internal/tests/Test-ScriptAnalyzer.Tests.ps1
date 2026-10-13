@@ -9,7 +9,9 @@ Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {
         $analyzerPath = Join-Path $automationRoot '.vendor/PSScriptAnalyzer'
 
         # Draw the exact files from the one shared selector (Get-AutomationSourceFiles), so this gate cannot
-        # drift from Format-Automation / Test-ScriptAnalyzer (ADR-AUTO-PSFORMAT:5). The selector covers module *.ps1
+        # drift from Format-Automation / Test-ScriptAnalyzer
+        # ([ADR-AUTO-PSFORMAT#5](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat5)). The
+        # selector covers module *.ps1
         # (root, private/), tests/**/*.Tests.ps1 recursively (so tests/types/ is included), the
         # .internal/.scriptanalyzer infrastructure folders (bootstrap, TestKit, custom analyzer rules, and
         # their tests), the root importer.ps1, and authored .psd1 config; .vendor, .compiled, and generated
@@ -43,7 +45,8 @@ Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {
 
             # The settings' relative CustomRulePath entries resolve against the working directory. Set it
             # with Push-Location/Pop-Location in try/finally so $PWD is always restored — never a bare
-            # Set-Location (ADR working-directory-mechanics, rule ADR-AUTO-PSPWD:2/ADR-AUTO-PSPWD:3).
+            # Set-Location (ADR working-directory-mechanics, rule
+            # [ADR-AUTO-PSPWD#2](/docs/adr/automation/powershell/working-directory-mechanics.md#rule-adr-auto-pspwd2)/[ADR-AUTO-PSPWD#3](/docs/adr/automation/powershell/working-directory-mechanics.md#rule-adr-auto-pspwd3)).
             Push-Location $root
             try {
                 # Capture non-terminating analyzer errors and surface any as a shard failure — a silently
@@ -52,7 +55,8 @@ Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {
                 # was root-caused to the built-in PSReservedCmdletChar rule dereferencing PSScriptAnalyzer's
                 # thread-unsafe helper runspace under concurrent load, and eliminated by excluding that rule in
                 # PSScriptAnalyzerSettings.psd1. So any error now is real and fails loudly (ADR
-                # diagnostics-over-retry; never retry in a test, ADR-AUTO-RETRY:1).
+                # diagnostics-over-retry; never retry in a test,
+                # [ADR-AUTO-RETRY#1](/docs/adr/automation/retry-as-last-resort.md#rule-adr-auto-retry1)).
                 $err = $null
                 $diagnostics = $shardFiles | Invoke-ScriptAnalyzer -Settings $settings -ErrorVariable err -ErrorAction SilentlyContinue
                 if ($err) {

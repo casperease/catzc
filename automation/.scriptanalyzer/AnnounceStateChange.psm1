@@ -5,7 +5,9 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: a function that changes the session's state must announce it.
 .DESCRIPTION
     Every lasting change a function makes to the state of the console session is announced on the information
-    stream, through the writer chokepoint (ADR-AUTO-ANNOUNCE:2). This rule flags a state change in a function (or
+    stream, through the writer chokepoint
+    ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)). This
+    rule flags a state change in a function (or
     in a script's top-level code) that never calls a writer. The changes it recognises:
 
       - environment variables: $env:<Name> = ..., [Environment]::SetEnvironmentVariable(...), and
@@ -24,12 +26,14 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Write-ImporterMessage (the bootstrap's chokepoint, used before Write-Message is loaded) — on the information
     stream, so a Write-Message with -Verbose bound does not count. The one exception is Write-ImporterMessage
     -StateChange, which counts: it is the importer's own load record, announced on the verbose stream
-    (ADR-AUTO-ANNOUNCE:6). A writer announces a change only when it runs
+    ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)). A writer
+    announces a change only when it runs
     whenever the change runs: it must sit in the change's own statement block or an enclosing one, so a writer
     inside an unrelated branch (if ($diagnose) { Write-Message ... }) does not cover a change outside it. The
     rule checks that the change is announced; what the line says is a review concern (it must name what changed).
 
-    These are not changes of this session and pass (ADR-AUTO-ANNOUNCE:3):
+    These are not changes of this session and pass
+    ([ADR-AUTO-ANNOUNCE#3](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce3)):
 
       - a change the function undoes before it returns: when a finally block in the same function changes the
         same target (the same env var or global, any Remove-Module for an Import-Module, Pop-Location for
@@ -46,7 +50,8 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     suppressed for its function with SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification =
     ...), the justification naming where the announcement happens.
 
-    See ADR: docs/adr/automation/powershell/announce-state-changes.md (ADR-AUTO-ANNOUNCE:2, :3).
+    See ADR: [ADR-AUTO-ANNOUNCE](/docs/adr/automation/powershell/announce-state-changes.md)
+    ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2), :3).
 #>
 
 # Whether a command binds the named parameter.
@@ -298,7 +303,8 @@ function Measure-AnnounceStateChange {
         $false
     }
 
-    # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
+    # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew
+    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
     $isCandidate = {
         param($node)
         $node -is [System.Management.Automation.Language.AssignmentStatementAst] -or
@@ -370,6 +376,121 @@ function Measure-AnnounceStateChange {
                     Severity = 'Warning'
                 })
         }
+    }
+
+    return $results.ToArray()
+}
+
+<#
+.SYNOPSIS
+    Custom PSScriptAnalyzer rule: persistent environment and registry writes go only through their seams.
+.DESCRIPTION
+    State outside the repository — the persistent (User/Machine) environment and the registry — is shared by every
+    process and every concurrent test run on the machine, so the code that changes it reaches it through one thin,
+    mockable seam: Set-PermanentEnvironmentVariable for a persistent variable, Set-EnvironmentPath for the
+    persistent PATH. A logic test mocks the seam, and only the seam's own vertical system test (L3) touches the real
+    state ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)). A direct write elsewhere
+    cannot be mocked, so its test either changes the machine or
+    leaves the path untested. This rule reports, outside those two seam functions:
+
+      - [Environment]::SetEnvironmentVariable(..., ..., <scope>) whose scope is not the literal Process scope —
+        a 'User'/'Machine' literal, [EnvironmentVariableTarget]::User/Machine, or a variable (unknowable here);
+      - Set-Item / New-Item / Remove-Item / Clear-Item / Set-ItemProperty / New-ItemProperty /
+        Remove-ItemProperty / Clear-ItemProperty on a literal HKCU:, HKLM: or Registry:: path.
+
+    A registry path held in a variable is not seen; the seam rule is a guard, not a proof. Test files
+    (*.Tests.ps1) are skipped: the seams' own L3 tests write the real state on purpose. A deliberate exception is
+    suppressed for its function with SuppressMessageAttribute('Measure-PersistentWriteThroughSeam', '',
+    Justification = ...).
+
+    See ADR: [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33).
+#>
+function Measure-PersistentWriteThroughSeam {
+    [CmdletBinding()]
+    [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
+    param(
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
+    )
+
+    # Root only — PSScriptAnalyzer calls custom rules for every ScriptBlockAst, and FindAll recurses.
+    if ($ScriptBlockAst.Parent) {
+        return @()
+    }
+    $file = $ScriptBlockAst.Extent.File
+    if ($file -and $file -like '*.Tests.ps1') {
+        return @()
+    }
+
+    $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
+    $ruleName = 'Measure-PersistentWriteThroughSeam'
+    $seams = @('Set-PermanentEnvironmentVariable', 'Set-EnvironmentPath')
+    $environmentTypes = @('Environment', 'System.Environment')
+    $registryCommands = @('Set-Item', 'New-Item', 'Remove-Item', 'Clear-Item',
+        'Set-ItemProperty', 'New-ItemProperty', 'Remove-ItemProperty', 'Clear-ItemProperty')
+
+    # Whether a node sits inside one of the seam functions themselves.
+    $isInSeam = {
+        param($node)
+        $parent = $node.Parent
+        while ($null -ne $parent) {
+            if ($parent -is [System.Management.Automation.Language.FunctionDefinitionAst]) {
+                return $parent.Name -in $seams
+            }
+            $parent = $parent.Parent
+        }
+        $false
+    }
+
+    # What a node writes persistently ('the User/Machine environment', 'the registry'), or $null.
+    $getPersistentWrite = {
+        param($node)
+        if ($node -is [System.Management.Automation.Language.InvokeMemberExpressionAst]) {
+            if (-not ($node.Static -and $node.Expression -is [System.Management.Automation.Language.TypeExpressionAst])) {
+                return $null
+            }
+            if ($node.Expression.TypeName.FullName -notin $environmentTypes -or $node.Member.Extent.Text -ne 'SetEnvironmentVariable') {
+                return $null
+            }
+            if (-not $node.Arguments -or $node.Arguments.Count -lt 3) {
+                return $null
+            }
+            $scopeText = (Get-ArgumentText $node.Arguments[2]).Trim("'", '"')
+            if ($scopeText -eq 'Process' -or $scopeText -match '^\[(System\.)?EnvironmentVariableTarget\]::Process$') {
+                return $null
+            }
+            return 'the persistent environment'
+        }
+        if ($node -is [System.Management.Automation.Language.CommandAst] -and $node.GetCommandName() -in $registryCommands) {
+            $pathArgument = Get-CommandArgument $node 'Path'
+            if (-not $pathArgument) {
+                $pathArgument = Get-CommandArgument $node 'LiteralPath'
+            }
+            if ($pathArgument -and (Get-ArgumentText $pathArgument) -match '^(HKCU:|HKLM:|Registry::)') {
+                return 'the registry'
+            }
+        }
+        $null
+    }
+
+    $isCandidate = {
+        param($node)
+        $node -is [System.Management.Automation.Language.InvokeMemberExpressionAst] -or
+        $node -is [System.Management.Automation.Language.CommandAst]
+    }
+
+    foreach ($node in $ScriptBlockAst.FindAll($isCandidate, $true)) {
+        $target = & $getPersistentWrite $node
+        if (-not $target -or (& $isInSeam $node)) {
+            continue
+        }
+        $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
+                Message  = "This writes $target directly. Go through the seam — Set-PermanentEnvironmentVariable for a persistent variable, Set-EnvironmentPath for the persistent PATH — so a logic test can mock it and only the seam's own system test (L3) touches the machine (ADR-AUTO-TEST:33)."
+                Extent   = $node.Extent
+                RuleName = $ruleName
+                Severity = 'Warning'
+            })
     }
 
     return $results.ToArray()

@@ -6,13 +6,16 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 .DESCRIPTION
     The importer and its .internal bootstrap run before the module system (and Write-Message) are available,
     so this is their writer chokepoint: the bootstrap's counterpart of Write-InformationColored, and like it the
-    one place besides it that may call Write-Information (ADR-AUTO-ANNOUNCE:1). It prepends '[Importer.ps1] ' so
+    one place besides it that may call Write-Information
+    ([ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1)). It
+    prepends '[Importer.ps1] ' so
     importer output reads consistently with the rest of the toolset's '[Caller] ...' messages, carries the
     colour as embedded ANSI, and is silent during a Pester run ($global:__PesterRunning), exactly as the Writers
     chokepoint is. .internal code only ever runs from the importer. An empty message writes a blank line.
 
     A -StateChange line is one of the importer's own load announcements, which go to the verbose stream instead
-    (ADR-AUTO-ANNOUNCE:6): shown when the import runs with -Verbose (Set-ImporterVerbosity), silent otherwise.
+    ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)): shown
+    when the import runs with -Verbose (Set-ImporterVerbosity), silent otherwise.
 .PARAMETER Message
     The message text.
 .PARAMETER ForegroundColor
@@ -215,7 +218,9 @@ function New-DynamicManifest {
         })
     [System.Array]::Sort($exportNames, [System.StringComparer]::Ordinal)
 
-    # Canonical, formatter-stable text — no hand-padded alignment (ADR-REPO-FORMAT#1); the L2 tests gate the invariant.
+    # Canonical, formatter-stable text — no hand-padded alignment
+    # ([ADR-REPO-FORMAT#1](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format1)); the L2 tests gate the
+    # invariant.
     $content = Get-DynamicManifestContent -NestedModule $nestedModules -FunctionToExport $exportNames -ExportAll:$ExportPrivates
     Write-DynamicManifest -Path $manifestPath -Content $content
 }
@@ -255,7 +260,9 @@ function Get-DynamicManifestContent {
         Renders a module manifest hashtable as canonical .psd1 text.
     .DESCRIPTION
         The manifest is generated on every import, so it is canonical by construction: the '=' column is computed
-        from the longest key rather than hand-padded (ADR-REPO-FORMAT#1), the text uses LF endings with a trailing newline,
+        from the longest key rather than hand-padded
+        ([ADR-REPO-FORMAT#1](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format1)), the text uses LF
+        endings with a trailing newline,
         and it is formatter-stable — running Invoke-Formatter over it is a no-op (gated by the L2 tests). Callers
         pass ordinal-sorted, forward-slashed inputs, so the bytes are identical on every platform and every build
         of a commit.
@@ -294,7 +301,8 @@ function Get-DynamicManifestContent {
     }
 
     # Ordered fields with their value literals. The '=' column width is derived from the longest key, so a new
-    # field re-aligns automatically and no alignment is maintained by hand (ADR-REPO-FORMAT#1).
+    # field re-aligns automatically and no alignment is maintained by hand
+    # ([ADR-REPO-FORMAT#1](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format1)).
     $fields = [ordered]@{
         RootModule        = "''"
         ModuleVersion     = "'0.1.0'"
@@ -560,8 +568,11 @@ function Import-CSharpTypes {
     }
 
     # Load the assembly if not already in the AppDomain (a reimport keeps the live copy). Verify EVERY type.
-    # Loading a binary into the session is a state change, so it is announced (ADR-AUTO-ANNOUNCE:2) on the
-    # importer's verbose record (ADR-AUTO-ANNOUNCE:6), naming the DLL; a reimport that keeps the live copy loads
+    # Loading a binary into the session is a state change, so it is announced
+    # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)) on the
+    # importer's verbose record
+    # ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)), naming
+    # the DLL; a reimport that keeps the live copy loads
     # nothing and says nothing. The load goes through a per-user shadow copy (Import-TypesAssembly), never the
     # .compiled file itself, so no session ever locks a build inside the repository; the message names the
     # committed DLL, the artifact a reader recognizes.
@@ -786,7 +797,8 @@ function Get-ForeignCatzcModule {
 .SYNOPSIS
     Imports all module directories under a given root path.
 .DESCRIPTION
-    Before anything loads it evicts the other run mode (ADR-DSGN-RUNMODE:5): every catzc module loaded from a
+    Before anything loads it evicts the other run mode
+    ([ADR-DSGN-RUNMODE#5](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode5)): every catzc module loaded from a
     different root is removed, and a Catzc.Internal.* module from a different root is re-imported from this
     root's .internal (Import-InternalModule -Force semantics, anchored at this root). The running importer
     modules (Importer, Bootstrap) are never touched mid-load; the shims import them from the active root by
@@ -927,7 +939,8 @@ function Import-AllModules {
             }
             $importedModule = Import-Module $manifestPath -Scope Global -Force -PassThru | Select-Object -First 1
             # A session-level Set-StrictMode does not reach module code, so strict mode is set in each module's own
-            # script scope, which every function in the module inherits (docs/adr/automation/powershell/error-handling.md).
+            # script scope, which every function in the module inherits
+            # ([ADR-AUTO-ERROR](/docs/adr/automation/powershell/error-handling.md)).
             . $importedModule { Set-StrictMode -Version Latest }
             $imported.Add($dir.Name)
             if ($DiagnoseLoadTime) {
@@ -948,8 +961,12 @@ function Import-AllModules {
         }
     }
 
-    # Loading and unloading modules changes the session, so it is announced (ADR-AUTO-ANNOUNCE:2) on the importer's
-    # verbose record (ADR-AUTO-ANNOUNCE:6): one line names
+    # Loading and unloading modules changes the session, so it is announced
+    # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)) on the
+    # importer's
+    # verbose record
+    # ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)): one
+    # line names
     # the load, plus any module that left the session for good — evicted from another root, or gone from the tree.
     # A re-import's remove-then-reload of the same modules is not a departure and is not listed.
     $summary = "Loaded $($imported.Count) modules from '$ModulesRoot'"

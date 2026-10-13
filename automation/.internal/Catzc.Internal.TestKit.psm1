@@ -113,7 +113,8 @@ function New-FakeRepositoryRoot {
     }
 
     # Both roots move together, so the fake tree reads as source mode (Get-CatzcRunMode compares them,
-    # ADR-DSGN-RUNMODE:4): the code root is the fake repository's own automation/ folder.
+    # [ADR-DSGN-RUNMODE#4](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode4)): the code root is the fake
+    # repository's own automation/ folder.
     $saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot = $env:CatzcModulesRoot }
     $automation = Join-Path $root 'automation'
     $env:RepositoryRoot = $root
@@ -154,7 +155,8 @@ function New-BuiltCatzcRoot {
         with the build — into <temp>/catzc-built-<guid>/. -Module and -ModuleProfile combine as in Build-Modules;
         neither builds the exporter's default profile. The build is never loaded into this session: a test reaches
         it only through Invoke-InBuiltCatzc's child pwsh, because loaded assemblies and $env: are process-global
-        (ADR-AUTO-TEST:30). WorkingRoot is the -RepositoryRoot the child passes to Import-Catzc.ps1 — the current
+        ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)). WorkingRoot is the
+        -RepositoryRoot the child passes to Import-Catzc.ps1 — the current
         repository root by default, so out/ and test fixtures keep resolving there. Building reads the source tree,
         so the session must be in source mode.
     #>

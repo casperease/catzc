@@ -25,10 +25,10 @@ function Measure-NoBareScriptSlotRead {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
 
-    # Act once, at the root block (the engine calls a rule for every ScriptBlockAst node), and skip a .psm1 (it can
-    # declare its slots at load) and a Pester file. An in-memory definition has no file and is analysed.
+    # Skip a .psm1 (it can declare its slots at load) and a Pester file. An in-memory definition has no file and is
+    # analysed.
     $path = "$($ScriptBlockAst.Extent.File)"
-    if ($ScriptBlockAst.Parent -or $path.EndsWith('.psm1', [System.StringComparison]::OrdinalIgnoreCase) -or
+    if ($path.EndsWith('.psm1', [System.StringComparison]::OrdinalIgnoreCase) -or
         $path.EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase)) {
         return $results.ToArray()
     }

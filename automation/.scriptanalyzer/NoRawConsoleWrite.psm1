@@ -37,12 +37,6 @@ function Measure-NoRawConsoleWrite {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    # PSScriptAnalyzer invokes custom rules for every ScriptBlockAst in the parse tree; FindAll recurses, so
-    # only process the root to avoid duplicate diagnostics.
-    if ($ScriptBlockAst.Parent) {
-        return @()
-    }
-
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoRawConsoleWrite'
     $advice = 'Write through the information stream instead: Write-Message (with -NoHeader / -ForegroundColor / -NoNewline as needed) — ADR-AUTO-ANNOUNCE:1.'

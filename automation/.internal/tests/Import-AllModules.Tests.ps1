@@ -22,7 +22,9 @@ BeforeAll {
 
     function Invoke-Sandbox {
         # ONE cold import in a child pwsh; $Capture is evaluated AFTER the import and returned as parsed JSON. The
-        # import's announcements are information records (ADR-AUTO-ANNOUNCE:2), so 6>$null keeps them out of the JSON.
+        # import's announcements are information records
+        # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)), so
+        # 6>$null keeps them out of the JSON.
         param([Parameter(Mandatory)][string]$Capture)
         $script = ". '$sandbox/importer.ps1' 6>`$null`n$Capture | ConvertTo-Json -Depth 6 -Compress"
         $raw = pwsh -NoProfile -Command $script 2>&1
@@ -194,7 +196,8 @@ Describe 'Bootstrap' -Tag 'L0', 'logic' {
 }
 
 # Greedy: one child pwsh dot-sources three importers in sequence (process-global module state), so it consumes the
-# machine beyond its own process and carries an L2-scale budget (ADR-AUTO-TEST:26).
+# machine beyond its own process and carries an L2-scale budget
+# ([ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26)).
 Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {
     BeforeAll {
         # Two complete sandbox roots (importer + .internal + .vendor) — stand-ins for a source tree and a build.

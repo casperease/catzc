@@ -33,12 +33,6 @@ function Measure-NoRawPipelineDetection {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    # PSScriptAnalyzer invokes custom rules for every ScriptBlockAst in the parse
-    # tree. FindAll recurses, so only process the root to avoid duplicate diagnostics.
-    if ($ScriptBlockAst.Parent) {
-        return @()
-    }
-
     # Exempt test files — they set/restore the detection variables for isolation.
     $file = $ScriptBlockAst.Extent.File
     if ($file -and $file -like '*.Tests.ps1') {

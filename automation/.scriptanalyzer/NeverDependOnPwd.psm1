@@ -7,8 +7,8 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Flags:
     - References to $PWD (use $PSScriptRoot or $env:RepositoryRoot instead)
     - Bare Set-Location / cd calls (use Push-Location / Pop-Location instead)
-    See docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1 and
-    docs/adr/automation/powershell/working-directory-mechanics.md#rule-adr-auto-pspwd2
+    See [ADR-AUTO-NOPWD#1](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1) and
+    [ADR-AUTO-PSPWD#2](/docs/adr/automation/powershell/working-directory-mechanics.md#rule-adr-auto-pspwd2)
 #>
 
 function Measure-NeverDependOnPwd {
@@ -20,16 +20,12 @@ function Measure-NeverDependOnPwd {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    # Only run on the root script block — skip nested invocations for function bodies
-    if ($ScriptBlockAst.Parent -is [System.Management.Automation.Language.FunctionDefinitionAst]) {
-        return @()
-    }
-
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NeverDependOnPwd'
 
     # Flag $PWD references
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
+    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
     $isVariable = {
         param($node)
         $node -is [System.Management.Automation.Language.VariableExpressionAst]
@@ -48,7 +44,8 @@ function Measure-NeverDependOnPwd {
     }
 
     # Flag Set-Location / cd calls (Push-Location / Pop-Location are fine)
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
+    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
     $isCommand = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]

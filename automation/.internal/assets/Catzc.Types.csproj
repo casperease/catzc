@@ -67,7 +67,8 @@
   <!--
     Stamp this project's version from the sources' identity. The RUNTIME (Import-CSharpTypes) writes
     automation/.compiled/Catzc.Types.<hash>.dll, where <hash> is the combined hash of every module's
-    types/*.cs (ADR native-csharp-types, ADR-AUTO-TYPES#6) — that hash IS the assembly's identity. The task computes
+    types/*.cs (ADR native-csharp-types, [ADR-AUTO-TYPES#6](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types6)) — that
+    hash IS the assembly's identity. The task computes
     the same hash from the sources with the SAME algorithm the loader uses (per file: SHA-256 of the bytes with
     every CR (0x0D) stripped, upper-hex; one line "<module>/<type>|<upper-hex>\n" per file in ordinal
     <module>/<type> order; SHA-256 of that text; first 8 hex, lower-cased) and stamps it, so the IDE build's

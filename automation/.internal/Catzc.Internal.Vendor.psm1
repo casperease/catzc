@@ -3,7 +3,8 @@
 # Loading the vendored modules under automation/.vendor/<Name>/<Version>/ happens BEFORE any Catzc module
 # exists (the importer loads vendor dependencies first), so the implementation cannot live in a Catzc module.
 # It also must be callable AFTER import by the Catzc.Base.Vendor cover functions that delegate to it — the
-# single home for what both layers share (see docs/adr/principles/one-living-version.md). Like the other
+# single home for what both layers share (see
+# [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)). Like the other
 # .internal shared libraries (Types, the Loader), this module stays in the session; it is NOT removed with
 # the transient bootstrap. Loaded on demand through Import-InternalModule Vendor.
 
@@ -110,7 +111,10 @@ function Import-VendorModules {
         }
 
         # The load, the system copy it replaced, and the PSModulePath entries it dropped are one state change of
-        # the session, announced on one line (ADR-AUTO-ANNOUNCE:2) on the importer's verbose record (ADR-AUTO-ANNOUNCE:6).
+        # the session, announced on one line
+        # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)) on
+        # the importer's verbose record
+        # ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)).
         if ($existing) {
             $line += "; replaced $($existing.Name) $($existing.Version) from '$($existing.ModuleBase)'"
         }

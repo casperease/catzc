@@ -139,3 +139,57 @@ function Invoke-Widget {
         }
     }
 }
+
+Describe 'Measure-PersistentWriteThroughSeam' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#33' {
+    BeforeAll {
+        Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/AnnounceStateChange.psm1') -Force
+        if (-not (Get-Module PSScriptAnalyzer)) {
+            Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
+        }
+
+        function Test-PersistentWrite {
+            param([string] $Code)
+            $ast = [System.Management.Automation.Language.Parser]::ParseInput($Code, [ref]$null, [ref]$null)
+            Measure-PersistentWriteThroughSeam -ScriptBlockAst $ast
+        }
+    }
+
+    It 'flags <Desc>' -ForEach @(
+        @{ Desc = 'a User-scope variable write'; Code = "function Clear-Widget { [Environment]::SetEnvironmentVariable('WIDGET_HOME', `$null, 'User') }" }
+        @{ Desc = 'a Machine-scope write through System.Environment'; Code = "function Clear-Widget { [System.Environment]::SetEnvironmentVariable('WIDGET_HOME', `$null, 'Machine') }" }
+        @{ Desc = 'an EnvironmentVariableTarget scope'; Code = "function Clear-Widget { [Environment]::SetEnvironmentVariable('WIDGET', 'x', [EnvironmentVariableTarget]::User) }" }
+        @{ Desc = 'a scope held in a variable'; Code = "function Clear-Widget { [Environment]::SetEnvironmentVariable('PATH', `$cleaned, `$scope) }" }
+        @{ Desc = 'Set-ItemProperty on HKCU:'; Code = "function Set-Widget { Set-ItemProperty -Path 'HKCU:\Environment' -Name WIDGET -Value 'x' }" }
+        @{ Desc = 'Remove-ItemProperty on HKLM:'; Code = "function Clear-Widget { Remove-ItemProperty 'HKLM:\SOFTWARE\Widget' -Name Gadget }" }
+        @{ Desc = 'New-Item on a Registry:: path'; Code = "function New-Widget { New-Item -Path 'Registry::HKEY_CURRENT_USER\Software\Widget' }" }
+    ) {
+        Test-PersistentWrite $Code | Should -Not -BeNullOrEmpty
+    }
+
+    It 'passes <Desc>' -ForEach @(
+        @{ Desc = 'a Process-scope write'; Code = "function Set-Widget { [Environment]::SetEnvironmentVariable('WIDGET', 'x', 'Process') }" }
+        @{ Desc = 'a two-argument (process) write'; Code = "function Set-Widget { [Environment]::SetEnvironmentVariable('WIDGET', 'x') }" }
+        @{ Desc = 'an EnvironmentVariableTarget Process scope'; Code = "function Set-Widget { [Environment]::SetEnvironmentVariable('WIDGET', 'x', [System.EnvironmentVariableTarget]::Process) }" }
+        @{ Desc = 'a read of the persistent environment'; Code = "function Get-Widget { [Environment]::GetEnvironmentVariable('WIDGET', 'User') }" }
+        @{ Desc = 'a call to the variable seam'; Code = "function Clear-Widget { Set-PermanentEnvironmentVariable WIDGET_HOME `$null -Scope Machine }" }
+        @{ Desc = 'a file-system Set-ItemProperty'; Code = "function Set-Widget { Set-ItemProperty -Path 'C:\widget.txt' -Name IsReadOnly -Value `$true }" }
+        @{ Desc = 'the variable seam itself'; Code = "function Set-PermanentEnvironmentVariable { [System.Environment]::SetEnvironmentVariable(`$Name, `$Value, `$Scope) }" }
+        @{ Desc = 'the PATH seam itself'; Code = "function Set-EnvironmentPath { [System.Environment]::SetEnvironmentVariable('PATH', `$Value, `$Scope) }" }
+    ) {
+        Test-PersistentWrite $Code | Should -BeNullOrEmpty
+    }
+
+    It 'names the seams and the rule in its message' {
+        $diagnostic = @(Test-PersistentWrite "function Clear-Widget { [Environment]::SetEnvironmentVariable('WIDGET', `$null, 'User') }")[0]
+        $diagnostic.RuleName | Should -Be 'Measure-PersistentWriteThroughSeam'
+        $diagnostic.Message | Should -Match 'Set-PermanentEnvironmentVariable'
+        $diagnostic.Message | Should -Match 'Set-EnvironmentPath'
+    }
+
+    It 'skips test files, where the seams'' own system tests write the real state' {
+        $path = Join-Path $TestDrive 'Widget.Tests.ps1'
+        [System.IO.File]::WriteAllText($path, "[Environment]::SetEnvironmentVariable('WIDGET', 'x', 'User')")
+        $ast = [System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$null, [ref]$null)
+        Measure-PersistentWriteThroughSeam -ScriptBlockAst $ast | Should -BeNullOrEmpty
+    }
+}

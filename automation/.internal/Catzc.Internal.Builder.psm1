@@ -1,7 +1,9 @@
 # Catzc.Internal.Builder — the build-mode engine (Invoke-ModuleBuild).
 #
-# Builds the selected modules into one installable, versioned Catzc package (docs/adr/automation/platform-bundle.md,
-# docs/adr/design/run-modes.md): every module stays its own PowerShell module of the same name, its function files
+# Builds the selected modules into one installable, versioned Catzc package
+# ([ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md),
+# [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)): every module stays its own PowerShell module of the same name, its
+# function files
 # merged into one <Module>.functions.ps1 behind a generated manifest, beside the runtime loader (.internal), the vendored
 # dependencies (.vendor), the full combined-types DLL and its sources (.compiled) and the package entry points. It
 # is a .internal multi-function module (the one-function-per-file convention does not apply), loaded on demand
@@ -80,10 +82,12 @@ function Get-MergePreconditionViolation {
     .SYNOPSIS
         Returns every reason a module function file cannot be merged verbatim into its module's <Module>.functions.ps1.
     .DESCRIPTION
-        The merge preconditions of ADR-AUTO-BUNDLE:4, read from the file's syntax tree: it parses; it defines
+        The merge preconditions of [ADR-AUTO-BUNDLE#4](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle4),
+        read from the file's syntax tree: it parses; it defines
         exactly one function, named for the file, and nothing else at the top level (no param block, no
         begin/process blocks, no other statement); it carries no `using` statement and no `#requires`; and it
-        never reads $PSScriptRoot, which names the merged file's folder in a build (ADR-AUTO-ASSETDEP:1).
+        never reads $PSScriptRoot, which names the merged file's folder in a build
+        ([ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)).
     #>
     [CmdletBinding()]
     [OutputType([string])]
@@ -257,7 +261,8 @@ function Get-ModuleBuildPlan {
         Pure with respect to the build destination: reads the source modules and infrastructure, writes nothing.
         Returns the plan entries (build-relative Path, Kind Text/Copy/Manifest/Types, Content or Source), the
         type-source hash, the union of the public functions, and the collected violations — merge preconditions
-        (ADR-AUTO-BUNDLE:4), missing modules, missing infrastructure.
+        ([ADR-AUTO-BUNDLE#4](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle4)), missing modules, missing
+        infrastructure.
     #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -410,7 +415,9 @@ function Format-CatzcPackageManifest {
         Renders the package manifest Catzc.psd1 as canonical, deterministic text.
     .DESCRIPTION
         Rendered here rather than by New-ModuleManifest, whose output carries a generation date and so differs on
-        every build; the same commit must yield the same bytes (ADR-AUTO-BUNDLE:5). Values are single-quoted with
+        every build; the same commit must yield the same bytes
+        ([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)). Values are single-quoted
+        with
         embedded quotes doubled. Blank ProjectUri/LicenseUri are left out.
     #>
     [CmdletBinding()]
@@ -646,7 +653,8 @@ function Invoke-ModuleBuild {
     .SYNOPSIS
         Builds the selected modules into one installable, versioned Catzc package — build mode's code root.
     .DESCRIPTION
-        The engine behind Build-Modules (Catzc.Base.Exporter; docs/adr/automation/platform-bundle.md). Resolves
+        The engine behind Build-Modules (Catzc.Base.Exporter;
+        [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md)). Resolves
         the module set (-Module and/or -ModuleProfile, closure-expanded over dependencies.yml), then converges
         <Destination>/Catzc/<Version>/ to:
 
@@ -661,9 +669,12 @@ function Invoke-ModuleBuild {
           <Module>/{configs,assets,types}/           shipped side folders, verbatim — never tests/
 
         Every check runs before anything is written, and each collects every violation before it throws: the
-        merge preconditions of every source file (ADR-AUTO-BUNDLE:4), and the build gate — every internal asset
+        merge preconditions of every source file
+        ([ADR-AUTO-BUNDLE#4](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle4)), and the build gate — every
+        internal asset
         dependency of the selected modules (Get-InternalAssetDependency) is present in the planned output
-        (ADR-AUTO-ASSETDEP:4). Writes are converging: text through Write-FileIfChanged, copies only on a byte
+        ([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)). Writes are
+        converging: text through Write-FileIfChanged, copies only on a byte
         difference, and files the plan omits removed — so a rebuild of an unchanged commit writes nothing.
 
         The types assembly is always the full type set: the committed <source>/.compiled/Catzc.Types.<hash>.dll
@@ -685,7 +696,8 @@ function Invoke-ModuleBuild {
     .PARAMETER PackageMetadata
         Catzc.psd1 metadata: Guid, Author, CompanyName, Description, Tags, ProjectUri, LicenseUri.
     .PARAMETER DryRun
-        Return the plan and write nothing (docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+        Return the plan and write nothing
+        ([ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md)).
     .OUTPUTS
         [pscustomobject] BuildRoot, Version, Modules, TypesHash, ContentHash ($null under -DryRun), FileCount,
         DryRun.
@@ -743,7 +755,9 @@ function Invoke-ModuleBuild {
             ($plan.Violations -join "`n  "))
     }
 
-    # The build gate (ADR-AUTO-ASSETDEP:4), checked against the plan so a missing asset fails before any write.
+    # The build gate
+    # ([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)), checked
+    # against the plan so a missing asset fails before any write.
     $plannedPaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($entry in $plan.Entries) {
         [void] $plannedPaths.Add($entry.Path)

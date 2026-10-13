@@ -32,12 +32,6 @@ function Measure-NoScriptRootAnchor {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    # PSScriptAnalyzer invokes custom rules for every ScriptBlockAst in the parse tree; FindAll recurses, so
-    # only process the root to avoid duplicate diagnostics.
-    if ($ScriptBlockAst.Parent) {
-        return @()
-    }
-
     # Only module function files are in scope: automation/<Module>/<File>.ps1 or automation/<Module>/private/<File>.ps1,
     # where <Module> is not dot-prefixed (.internal, .scriptanalyzer, .vendor are infrastructure).
     $file = $ScriptBlockAst.Extent.File

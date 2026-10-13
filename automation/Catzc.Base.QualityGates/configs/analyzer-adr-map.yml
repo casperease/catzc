@@ -23,6 +23,7 @@ analyzers:
     Measure-NoRawInformationStream: [ADR-AUTO-CONSOLE#2]
     Measure-NoRawConsoleWrite: [ADR-AUTO-ANNOUNCE#1]
     Measure-AnnounceStateChange: [ADR-AUTO-ANNOUNCE#2, ADR-AUTO-ANNOUNCE#3]
+    Measure-PersistentWriteThroughSeam: [ADR-AUTO-TEST#33]
     Measure-SpellOutIdentifiers: [ADR-AUTO-SPELL#9]
     Measure-NoScriptRootAnchor: [ADR-AUTO-NOPWD#5, ADR-AUTO-ASSETDEP#1]
     Measure-NoUnsafeFirstIndex: [ADR-AUTO-ERROR#8]

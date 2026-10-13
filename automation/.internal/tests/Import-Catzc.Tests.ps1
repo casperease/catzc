@@ -10,7 +10,8 @@ BeforeAll {
     }
 
     # One cold load of a build in a child pwsh (loaded assemblies and $env: are process-global), observed once and
-    # asserted facet by facet (ADR-AUTO-TEST:20). The observation is written to a file, so the importer's console
+    # asserted facet by facet ([ADR-AUTO-TEST#20](/docs/adr/automation/test-automation.md#rule-adr-auto-test20)). The
+    # observation is written to a file, so the importer's console
     # lines never mix into it. -ScopeModule names a module to enter with Pester's InModuleScope, which rejects a
     # module name that more than one loaded module carries.
     $script:probe = @'

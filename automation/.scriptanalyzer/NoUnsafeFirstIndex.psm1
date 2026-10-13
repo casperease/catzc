@@ -26,12 +26,6 @@ function Measure-NoUnsafeFirstIndex {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
 
-    # Act once, at the root block: the engine calls a rule for every ScriptBlockAst node, and the walk below
-    # already covers the nested ones.
-    if ($ScriptBlockAst.Parent) {
-        return $results.ToArray()
-    }
-
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
     $isFirstIndex = {
         param($node)
