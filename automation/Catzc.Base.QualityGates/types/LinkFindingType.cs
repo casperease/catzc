@@ -25,6 +25,7 @@ public enum LinkFindingType
 
     // Not fixable.
     Dangling,       // the link target does not exist
+    Untracked,      // a markdown link target exists on disk but git does not track it, so GitHub cannot resolve it
     UnknownCode,    // the citation code is not in the ADR index
     UnknownRule,    // the ADR declares no such rule
     BadAnchor,      // the #fragment names no heading or anchor of the target

@@ -4,7 +4,9 @@
 // `ADR-X#n` (the ':' form lives only in a rule's own '### Rule' heading). Reported, not fixable: a target that does
 // not exist, a #fragment naming no heading or anchor of its target, a relative link that climbs above the
 // repository root, and an absolute URL into this repository outside .github/. Fenced code blocks and inline code
-// spans are literal. Pure apart from the existence checks it makes against the repository on disk.
+// spans are literal. Pure apart from the existence checks it makes against the repository on disk. Given the tracked
+// paths, a target that exists on disk but is not committed is reported too: GitHub, which renders these links, does not
+// have it. Code links are not checked this way — no hosted renderer follows a comment.
 
 using System;
 using System.Collections.Generic;
@@ -29,13 +31,33 @@ public sealed class MarkdownLinkScanner
     readonly string root;
     readonly Func<string, IReadOnlyCollection<string>> anchorsOf;
     readonly string selfUrlPrefix;
+    readonly HashSet<string> tracked;
 
     // selfUrlPrefix: this repository's web URL (https://github.com/<owner>/<repo>), or null to skip that check.
-    public MarkdownLinkScanner(string repositoryRoot, Func<string, IReadOnlyCollection<string>> anchorsOf, string selfUrlPrefix)
+    // trackedFiles: the repository-relative paths git tracks, or null to skip the tracked check (a scratch root that is
+    // not a git work tree). A folder counts as tracked when any tracked file lies under it.
+    public MarkdownLinkScanner(string repositoryRoot, Func<string, IReadOnlyCollection<string>> anchorsOf, string selfUrlPrefix,
+        IEnumerable<string> trackedFiles)
     {
         root = Path.GetFullPath(repositoryRoot ?? throw new ArgumentNullException(nameof(repositoryRoot)));
         this.anchorsOf = anchorsOf ?? throw new ArgumentNullException(nameof(anchorsOf));
         this.selfUrlPrefix = string.IsNullOrEmpty(selfUrlPrefix) ? null : selfUrlPrefix.TrimEnd('/');
+        tracked = trackedFiles == null ? null : TrackedWithFolders(trackedFiles);
+    }
+
+    static HashSet<string> TrackedWithFolders(IEnumerable<string> trackedFiles)
+    {
+        var set = new HashSet<string>(StringComparer.Ordinal);
+        foreach (string file in trackedFiles)
+        {
+            string path = file.Replace('\\', '/');
+            set.Add(path);
+            for (int slash = path.LastIndexOf('/'); slash > 0; slash = path.LastIndexOf('/', slash - 1))
+            {
+                if (!set.Add(path.Substring(0, slash))) { break; }
+            }
+        }
+        return set;
     }
 
     // Scans one markdown file (repoPath is repository-relative, '/'-separated). Returns the aligned text; hits are
@@ -166,6 +188,17 @@ public sealed class MarkdownLinkScanner
         {
             hits.Add(new CodeLinkRewriter.Hit(offset, LinkFindingType.Dangling,
                 string.Format(CultureInfo.InvariantCulture, "link target '{0}' does not exist", targetRepoPath), string.Empty));
+            return;
+        }
+        // The file itself (an in-file anchor) and the repository root are never the problem.
+        string trackedPath = targetRepoPath.TrimEnd('/');
+        bool isSelfOrRoot = pathPart.Length == 0 || trackedPath.Length == 0 || trackedPath == ".";
+        if (tracked != null && !isSelfOrRoot && !tracked.Contains(trackedPath))
+        {
+            hits.Add(new CodeLinkRewriter.Hit(offset, LinkFindingType.Untracked,
+                string.Format(CultureInfo.InvariantCulture,
+                    "link target '{0}' exists locally but is not committed, so GitHub cannot resolve it: commit it, or link its tracked source",
+                    targetRepoPath), string.Empty));
             return;
         }
         if (fragment.Length > 0 && targetRepoPath.EndsWith(".md", StringComparison.OrdinalIgnoreCase) && File.Exists(targetFull))

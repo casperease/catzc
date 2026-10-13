@@ -38,7 +38,8 @@ immutable. A result intended to be mutated downstream is not a caching candidate
 ### Rule ADR-AUTO-CACHE:6
 
 The only invalidation is re-running the importer — no mtime/hash checks, TTLs, file watchers, or `-Refresh` switch. The runtime contract
-makes the importer the single sufficient knob.
+makes the importer the single sufficient knob. Git state that changes inside a session is not invalidated at all: it is keyed on its own
+content (ADR-AUTO-CACHE#9).
 
 - [The importer is the cache boundary](#the-importer-is-the-cache-boundary)
 - [Two runtimes fix the file set](#two-runtimes-fix-the-file-set)
@@ -59,6 +60,14 @@ on a fresh checkout and self-invalidating on any source change. Sessions load it
 [native-csharp-types](BCL/native-csharp-types.md) for the full contract.
 
 - [What is NOT cacheable](#what-is-not-cacheable)
+
+### Rule ADR-AUTO-CACHE:9
+
+Git state that a session itself changes — the tracked-file set a `git add` or a commit rewrites — is cached only under a key computed from
+its bytes on disk on every call, never under a session-lifetime slot. Exemplar: `Get-GitTrackedPath` reads the index in-process and keys
+the parsed listing on the SHA-256 of the index file, so the answer always equals `git ls-files` for the index as it is now.
+
+- [Git state is keyed on its content](#git-state-is-keyed-on-its-content)
 
 ## Context
 
@@ -133,6 +142,18 @@ The rule has a sharp boundary. Do **not** cache:
   caller-mutated object would leak one build's mutations into the next. It is also cheap (one small file per slot per build), so it stays
   uncached.
 - **Side-effecting / output functions.** `Uninstall-*`, `Install-*`, `Deploy-*` — they do work, they do not return a reusable derivation.
+
+### Git state is keyed on its content
+
+The tracked-file set is not part of the file set the importer fixes: the session's own `Invoke-GitCommit`, a developer's `git add`, or a
+parallel session's commit rewrites the git index while the session runs. A session-lifetime slot would serve the listing from before that
+change, and a gate that scopes itself by tracked files would then check the wrong set. Launching `git ls-files` on every call is correct
+but slow, and it is a real process that a unit test cannot run (ADR-AUTO-TEST#10).
+
+Plain `git ls-files` is exactly the index's entry list, so the index file's bytes determine the answer completely. Hashing those bytes is
+cheap next to parsing them, so `Get-GitTrackedPath` hashes the file on every call and reuses the parsed listing only while the hash is
+unchanged. This is a cache key, not an invalidation check: equal bytes give an equal answer by construction, so the cache can never be
+stale, and nothing ever has to clear it.
 
 ## Decision
 

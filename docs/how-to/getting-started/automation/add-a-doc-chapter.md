@@ -43,7 +43,7 @@ to how-to churn).
 
 ## Writing an ADR
 
-ADRs capture a decision so it can be cited and enforced. They follow a fixed shape — read [`docs/adr/README.md`](../../../adr/README.md)
+ADRs capture a decision so it can be cited and enforced. They follow a fixed shape — read [`docs/adr/index.md`](../../../adr/index.md)
 ("Authoring conventions") in full before writing, and copy the structure of an existing ADR. The essentials:
 
 1. **Pick the area and a code.** ADRs are grouped into `principles/`, `automation/`, `pipelines/`, `azure/`, `repository/`. Choose a short
@@ -52,8 +52,8 @@ ADRs capture a decision so it can be cited and enforced. They follow a fixed sha
    `### Rule <code>:<n>` entries, each a one-paragraph normative summary that links to the prose section justifying it. These are what other
    code and docs cite as `<code>#<n>` (e.g. `ADR-AUTO-ERROR#3`).
 3. **Then the prose**: `## Context`, `## Decision`, optionally `## How this is enforced`, `## Consequences`.
-4. **Register it.** Add the code → ADR row to the table in `docs/adr/README.md`, and add a bullet under the right section of
-   [`docs/index.md`](../../../index.md).
+4. **Register it.** Add the ruleset to its domain in `automation/Catzc.Base.Docs/configs/adrs.yml` (the next import regenerates the code →
+   ADR table in `docs/adr/index.md`), and add a bullet under the right section of [`docs/index.md`](../../../index.md).
 
 ### ADR authoring conventions (the ones people miss)
 

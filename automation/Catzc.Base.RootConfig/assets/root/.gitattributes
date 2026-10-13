@@ -6,7 +6,8 @@
 # Line endings are pinned only where bytes matter (binaries, the C# cache key, the generated root files). There
 # is deliberately NO `* text=auto` rule, so existing text files keep their current storage and are not
 # mass-renormalized by adding this file. The linguist-* attributes at the end only steer GitHub's language
-# statistics and diff display; they change no bytes.
+# statistics and diff display, and the catzc-* attributes declare this repository's own file classes to its
+# tools; neither changes any bytes.
 
 # Committed combined C# types assembly — whole directory, any extension, since it is byte-exact build output.
 automation/.compiled/** binary
@@ -20,6 +21,7 @@ automation/.compiled/** binary
 *.dylib  binary
 *.png    binary
 *.drawio.png binary
+*.gz     binary
 
 # C# type sources are the byte-exact key of the compiled-type cache — their combined hash names the committed
 # automation/.compiled/Catzc.Types.<hash>.dll. Pin them to LF so every clone/checkout materializes identical
@@ -40,9 +42,20 @@ automation/.compiled/** binary
 automation/.vendor/** linguist-vendored
 
 # GitHub (linguist): committed files the automation writes are generated — out of the statistics, and collapsed
-# in pull-request diffs so review lands on their sources (the New-Importer shim and the managed root-config
-# copies; see docs/adr/repository/generated-root-configs.md).
+# in pull-request diffs so review lands on their sources (the New-Importer shim, the managed root-config copies,
+# and the generated ADR pages; see docs/adr/repository/generated-root-configs.md). The ADR index and glossary are
+# committed so GitHub has them — every ADR citation links the index — and Build-AdrIndex / Build-Glossary rewrite
+# them on import from adrs.yml and the glossary sources.
 automation/.compiled/** linguist-generated
 /importer.ps1   linguist-generated
 /.gitattributes linguist-generated
 /.gitignore     linguist-generated
+/docs/adr/index.md    linguist-generated
+/docs/adr/glossary.md linguist-generated
+
+# catzc: test fixture trees are data on purpose — the link and Markdown-title tools leave them as written.
+**/tests/assets/** catzc-fixture
+
+# catzc: the repository landing page keeps its own title, not the path title every other Markdown file carries
+# (docs/adr/repository/uniform-formatting.md, ADR-REPO-FORMAT#6).
+/.github/README.md -catzc-path-title

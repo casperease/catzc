@@ -1,39 +1,17 @@
-# cspell:ignore nsrc  -- the escape-sequence artifact in the "a.txt`nsrc/b.cs" fixture strings
 # The matching universe ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)): tracked
-# files from `git ls-files`, repo-relative, quotepath off.
+# files as `git ls-files` defines them, repo-relative — answered by Get-GitTrackedPath for the whole repository.
 Describe 'Get-TrackedFile' -Tag 'L0', 'logic' {
-    It 'splits git output into paths and drops empty lines' {
-        Mock Invoke-Executable {
-            [pscustomobject]@{ Output = "a.txt`nsrc/b.cs`n`nsrc/c.cs`n"; ExitCode = 0 }
-        } -ModuleName Catzc.Base.Globs
+    It "returns the whole repository's tracked set from Get-GitTrackedPath" {
+        Mock Get-GitTrackedPath { @('a.txt', 'src/b.cs') } -ModuleName Catzc.Base.Globs
 
-        $files = InModuleScope Catzc.Base.Globs { Get-TrackedFile }
-        $files | Should -Be @('a.txt', 'src/b.cs', 'src/c.cs')
-    }
-
-    It 'handles CRLF-separated output' {
-        Mock Invoke-Executable {
-            [pscustomobject]@{ Output = "a.txt`r`nb.txt`r`n"; ExitCode = 0 }
-        } -ModuleName Catzc.Base.Globs
-
-        InModuleScope Catzc.Base.Globs { Get-TrackedFile } | Should -Be @('a.txt', 'b.txt')
-    }
-
-    It 'invokes git ls-files with quotepath off, silently' {
-        Mock Invoke-Executable {
-            [pscustomobject]@{ Output = "a.txt`n"; ExitCode = 0 }
-        } -ModuleName Catzc.Base.Globs
-
-        InModuleScope Catzc.Base.Globs { Get-TrackedFile } | Out-Null
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Globs -ParameterFilter {
-            $Command -eq 'git -c core.quotepath=off ls-files' -and $Silent
-        }
+        InModuleScope Catzc.Base.Globs { Get-TrackedFile } | Should -Be @('a.txt', 'src/b.cs')
+        Should -Invoke Get-GitTrackedPath -ModuleName Catzc.Base.Globs -Times 1 -Exactly -ParameterFilter { $Path -eq '.' }
     }
 }
 
-# The real boundary, integration-tested: this repository's own tracked files come back repo-relative with
-# forward slashes, including this test file.
-Describe 'Get-TrackedFile (real git)' -Tag 'L2', 'integrity', 'source-only' {
+# The real universe: this repository's own tracked files come back repo-relative with forward slashes,
+# including this test file — read in-process from the real index, so no git process runs.
+Describe 'Get-TrackedFile (real index)' -Tag 'L1', 'integrity', 'source-only' {
     It 'lists this repository''s tracked files as /-separated repo-relative paths' {
         # @()-wrap both counts: under the importer's strict mode, .Count on a scalar (or an empty pipeline
         # result) throws instead of adapting.

@@ -9,8 +9,9 @@
     its source, its relations and contrasts (linked to the related terms), and its avoided phrasings with what to say
     instead. Terms sort by term within a domain, so the output is deterministic.
 
-    The page is a derived artifact like the ADR index: gitignored and rebuilt on import, its sources (the glossary
-    files and this generator) are what is reviewed and checked
+    The page is a derived artifact like the ADR index: committed so GitHub has it (linguist-generated, so its diff
+    collapses) and rebuilt on import, its sources (the glossary files and this generator) are what is reviewed and
+    checked
     ([ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)). It is written only when its
     content changes, and emitted already formatted (Format-GlossaryParagraph), so Format-Markdown is a no-op on it.
 .PARAMETER Path

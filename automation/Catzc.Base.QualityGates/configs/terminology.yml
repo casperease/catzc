@@ -912,6 +912,14 @@ terms:
       meaning: "Windows Defender Application Control (WDAC)"
     - term: worktree
       meaning: "git worktree"
+    - term: worktrees
+      meaning: "git worktrees (also the .git/worktrees/ folder)"
+    - term: gitdir
+      meaning: "the 'gitdir:' pointer a linked worktree's .git file holds"
+    - term: dirc
+      meaning: "the 'DIRC' signature that opens a git index file"
+    - term: varint
+      meaning: "git's variable-length integer encoding (varint.c)"
     - term: wsl
       meaning: "Windows Subsystem for Linux (WSL)"
     - term: mingw

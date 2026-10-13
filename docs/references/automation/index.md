@@ -8,7 +8,7 @@ into them.
 
 ## How to read these articles
 
-Every article has the same three parts, mirroring the rule registry of an [ADR](../../adr/README.md):
+Every article has the same three parts, mirroring the rule registry of an [ADR](../../adr/index.md):
 
 1. **Domains** — an ordered, named registry. Each entry is a `domain:<n>` heading with a definition of one area of responsibility the module
    owns. This is the vocabulary the rest of the article uses.

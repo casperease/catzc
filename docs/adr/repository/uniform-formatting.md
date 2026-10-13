@@ -46,9 +46,9 @@ cleanly across commits. It is never hand-formatted, not even inside a generator'
 Every git-tracked Markdown file opens — after any YAML front matter — with the H1 `# <repository-relative path>`, e.g.
 `# docs/references/infrastructure/foundation.md`, and nothing else on that line. `Format-MarkdownTitle` writes it — a replaced title's
 wording is kept between single backticks as the body's first line, so no authored text is lost — and `Test-MarkdownTitle` gates it. The
-scope follows the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored` or
-`linguist-generated` and the test fixture trees (`**/tests/assets/**`). A new exception is declared in the `.gitattributes` source, never in
-a list of the gate's own.
+scope follows the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored`,
+`linguist-generated`, or `catzc-fixture` (the test fixture trees), and those it marks `-catzc-path-title` (the repository landing page,
+which keeps its own title). A new exception is declared in the `.gitattributes` source, never in a list of the gate's own.
 
 - [Markdown titles are paths](#markdown-titles-are-paths)
 
@@ -132,8 +132,9 @@ the formatter replaces an authored title, that title's wording is kept below the
 rather than read as prose. The title's own backticks are dropped, since inside that one code span they would split it.
 
 The scope reuses the classes the repository already declares instead of keeping its own: git decides what is committed (a gitignored
-generated file is out, its tracked source is in), and `.gitattributes` decides what is vendored or generated. Test fixture trees are data on
-purpose, as they are for links.
+generated file is out, its tracked source is in), and `.gitattributes` decides what is vendored, generated, or a fixture (`catzc-fixture`:
+data on purpose, which the link tools skip too). The landing page is the one file whose title is its first impression on GitHub, not a
+location, so it opts out with `-catzc-path-title`.
 
 ### Headings are plain words
 

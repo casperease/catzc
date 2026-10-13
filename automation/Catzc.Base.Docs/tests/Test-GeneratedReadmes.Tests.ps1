@@ -75,12 +75,9 @@ Describe 'Generated README links are gitignored and untracked' -Tag 'L2', 'integ
             Set-ItResult -Skipped -Because $script:skip; return
         }
 
-        # ls-files --error-unmatch exits 0 only when the path is tracked. A generated artifact that is tracked
-        # must be removed from the index: `git rm --cached <path>` (the file stays on disk, now correctly ignored).
-        $tracked = @($script:targets | Where-Object {
-                & git -C $script:repoRoot ls-files --error-unmatch -- $_ *> $null
-                $LASTEXITCODE -eq 0
-            })
+        # A generated artifact that is tracked must be removed from the index: `git rm --cached <path>` (the file
+        # stays on disk, now correctly ignored).
+        $tracked = @(Get-GitTrackedPath $script:targets)
         $tracked | Should -HaveCount 0 -Because "these generated READMEs are committed but must be gitignored artifacts — run 'git rm --cached <path>': $($tracked -join '; ')"
     }
 

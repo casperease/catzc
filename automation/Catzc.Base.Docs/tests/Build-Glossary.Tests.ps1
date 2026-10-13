@@ -73,7 +73,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
 }
 
 # The real glossary page against the real sources. The importer's janitor materialises the
-# [glossary](/docs/adr/glossary.md) (gitignored, like the ADR index), so a current page means the generator, the sources, and the ADR citations agree. Reads only the
+# [glossary](/docs/adr/glossary.md) (committed and rebuilt, like the ADR index), so a current page means the generator, the sources, and the ADR citations agree. Reads only the
 # repository's files — the same answer in both run modes, so the build run skips it.
 Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README#7' {
     It 'the on-disk glossary is current — no drift from the glossary sources' {

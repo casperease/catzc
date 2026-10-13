@@ -46,8 +46,9 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         }
         & $isControlled 'automation/Catzc.Base.Git/Catzc.Base.Git.psd1' | Should -BeTrue
         & $isControlled 'infrastructure/README.md' | Should -BeTrue
-        & $isControlled 'docs/adr/index.md' | Should -BeTrue
-        & $isControlled 'docs/adr/glossary.md' | Should -BeTrue
+        # the generated ADR pages are committed, so a clean never deletes them
+        & $isControlled 'docs/adr/index.md' | Should -BeFalse
+        & $isControlled 'docs/adr/glossary.md' | Should -BeFalse
         & $isControlled 'docs/adr/repository/new-draft.md' | Should -BeFalse
         & $isControlled 'out/report-widget.md' | Should -BeTrue
         # the authored plan files are working notes, not output

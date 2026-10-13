@@ -40,17 +40,17 @@ The category (`logic`/`integrity`) is orthogonal to the L0–L3 tier — an L2 t
 integrity test per logic test. Pure-logic tests use fixtures via the seams; tests that deliberately read the shipped assets to verify real
 templates are legitimate and stay on the shipped files — but they bind to the template _set_, never to a named template (ADR-AUTO-TEST#17).
 
-- [Test tiers (by integration layer)](#test-tiers-by-integration-layer)
+- [Test tiers: the test onion](#test-tiers-the-test-onion)
 
 ### Rule ADR-AUTO-TEST:8
 
-Tag CLI-tool integration `L2` and vertical system tests `L3` (ADR-AUTO-TEST#33), each in its own `Describe`, and make both self-skip via
-`Set-ItResult -Skipped` when the tool, the platform, or cloud access is missing. The `-Because` reason is a **constrained skip key** —
-lowercase alnum segments joined by `_`, never free prose — so the skip report groups by a stable, sortable vocabulary: platform skips are
-`<os>_<only|not>_<detail>` (os = `windows`|`unix`; `only` = runs only there, `not` = cannot run there), tool skips are
-`tool_<name>_missing`. `Test-Automation.Tests.ps1` enforces the key grammar.
+Tag the vertical tests by their outermost ring (ADR-AUTO-TEST#38) — local-tool tests `L2`, system tests `L3` (ADR-AUTO-TEST#33) — each in
+its own `Describe`, and make both self-skip via `Set-ItResult -Skipped` when the tool, the platform, or cloud access is missing. The
+`-Because` reason is a **constrained skip key** — lowercase alnum segments joined by `_`, never free prose — so the skip report groups by a
+stable, sortable vocabulary: platform skips are `<os>_<only|not>_<detail>` (os = `windows`|`unix`; `only` = runs only there, `not` = cannot
+run there), tool skips are `tool_<name>_missing`. `Test-Automation.Tests.ps1` enforces the key grammar.
 
-- [Test tiers (by integration layer)](#test-tiers-by-integration-layer)
+- [Test tiers: the test onion](#test-tiers-the-test-onion)
 
 ### Rule ADR-AUTO-TEST:9
 
@@ -59,7 +59,7 @@ tests mock those boundaries; L2 needs only the local CLI tool. A test failing be
 flake. `git` is such a local tool: a test that asks git about the repository — its tracked files, index, status, or history — is L2, and git
 is a prerequisite of every source-tree L2 run rather than a tool its tests skip without.
 
-- [Test tiers (by integration layer)](#test-tiers-by-integration-layer)
+- [Test tiers: the test onion](#test-tiers-the-test-onion)
 
 ### Rule ADR-AUTO-TEST:10
 
@@ -332,6 +332,16 @@ test suite: an ad-hoc selection is named by what it selects.
 
 - [Two test runs, one body of tests](#two-test-runs-one-body-of-tests)
 
+### Rule ADR-AUTO-TEST:38
+
+Tests sit in an onion of rings around the code. The **core** is the code alone — L0/L1, every boundary mocked; the L2 ring adds the local
+tools the code drives (`git`, `az bicep build`, `python`, `dotnet`, Pester); the L3 ring adds the state outside the repository (the cloud,
+the user's environment, installed tools). A **vertical test** cuts from an outer ring through to the core: an L2 vertical test crosses the
+local-tool ring, an L3 vertical system test crosses both rings. A test's tier is its outermost ring, and a run's top tier is the outermost
+ring it includes — the BVT includes the core and the L2 ring, the in-place devbox run all three.
+
+- [Test tiers: the test onion](#test-tiers-the-test-onion)
+
 ## Context
 
 [Fail fast with inline assertions](fail-fast-with-asserts.md) makes the case that automation code is mostly _impure_ — it orchestrates
@@ -448,23 +458,39 @@ built-ins), shape-validated at load and integrity-tested for id existence and cu
 fails the run — many rules are enforced structurally or by review, so a missing mechanical enforcer is a prompt, not a defect — but the data
 is shaped so a future gate is one flag away.
 
-### Test tiers (by integration layer)
+### Test tiers: the test onion
 
 Vendor test tooling is lazy-loaded to protect importer time (see
 [vendor-toolset-dependencies](powershell/vendor-toolset-dependencies.md#rule-adr-auto-vendor5)). Tests are tagged by **what they integrate
-with**, not by speed:
+with**, not by speed — and what a test integrates with is a ring of an onion around the code (ADR-AUTO-TEST#38). The core holds the code
+alone; each ring outward adds a kind of dependency; a vertical test cuts from its outermost ring through to the core, and a run includes
+every ring up to its top tier:
 
-- **L0 / L1 — unit.** Pure logic + orchestration wiring, with every external boundary mocked. Deterministic and hermetic. Run on every
+```mermaid
+flowchart TB
+    subgraph ring3["L3 ring — state outside the repository: the cloud · the user's environment · installed tools"]
+        subgraph ring2["L2 ring — local tools: git · az bicep build · python · dotnet · Pester"]
+            core(["core — the code alone<br/>L0 / L1, every boundary mocked"])
+        end
+    end
+    t2["L2 vertical test"] -- "crosses the local-tool ring" --> core
+    t3["L3 vertical system test"] -- "crosses both rings" --> core
+    bvt["BVT · CI -Level 2"] -. "includes core + L2 ring" .-> ring2
+    devbox["in-place devbox run"] -. "includes all three" .-> ring3
+```
+
+- **L0 / L1 — the core.** Pure logic + orchestration wiring, with every external boundary mocked. Deterministic and hermetic. Run on every
   change. (The tier tag is mandatory — there is no default; see ADR-AUTO-TEST#13.)
-- **L2 — CLI-tool integration.** Drives a local CLI tool for real — `git`, `az bicep build`, `python`, `dotnet`, `poetry`, … No cloud. Runs
-  on a devbox **and in fast CI** (where the tools are installed); a test **self-skips** when its specific tool is absent. The pipelines pin
-  `-Level 2`, the fast build-validation gate; `-Level 1` excludes L2 for a faster unit-only pass.
-- **L3 — vertical system tests.** Changes or depends on state outside the repository: the real cloud API layer (maybe through a CLI tool,
-  e.g. `az deployment create` / `az account show`), the user's persistent environment, installed tools. It **self-skips** when its
-  prerequisite (cloud access, the platform) is missing, and runs only in the working-folder slot (ADR-AUTO-TEST#33), so a devbox run that
-  owns the folder includes it by default. This is the integration sliver that [fail-fast](fail-fast-with-asserts.md) argues you cannot rely
-  on alone — kept thin, one test per distinct outside boundary, each a worked example of its kind (the persistent-environment seam's real
-  round trip, `Set-PermanentEnvironmentVariable.Tests.ps1`, is one). A test that only drives a local tool inside the repository is L2.
+- **L2 — vertical, through the local-tool ring.** Drives a local tool for real — `git`, `az bicep build`, `python`, `dotnet`, `poetry`,
+  Pester, … No cloud. Runs on a devbox **and in fast CI** (where the tools are installed); a test **self-skips** when its specific tool is
+  absent. The pipelines pin `-Level 2`, the fast build-validation gate and the BVT; `-Level 1` excludes L2 for a core-only pass.
+- **L3 — vertical system tests, through both rings.** Changes or depends on state outside the repository: the real cloud API layer (maybe
+  through a CLI tool, e.g. `az deployment create` / `az account show`), the user's persistent environment, installed tools. It
+  **self-skips** when its prerequisite (cloud access, the platform) is missing, and runs only in the working-folder slot (ADR-AUTO-TEST#33),
+  so a devbox run that owns the folder includes it by default. This is the integration sliver that [fail-fast](fail-fast-with-asserts.md)
+  argues you cannot rely on alone — kept thin, one test per distinct outside boundary, each a worked example of its kind (the
+  persistent-environment seam's real round trip, `Set-PermanentEnvironmentVariable.Tests.ps1`, is one). A test that only drives a local tool
+  inside the repository is L2.
 
 ### Keeping logic tests fast
 

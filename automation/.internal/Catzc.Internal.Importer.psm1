@@ -255,8 +255,8 @@ function Invoke-Importer {
         }
 
         # Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/adr/index.md) from adrs.yml and
-        # [glossary](/docs/adr/glossary.md) from the glossary sources — gitignored, rebuilt BEFORE Build-Readme (its
-        # [README](/docs/adr/README.md) links the index). See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+        # [glossary](/docs/adr/glossary.md) from the glossary sources — committed so GitHub has them, rebuilt BEFORE
+        # Build-Readme (its README link points at the index). See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
         if (-not $SkipJanitors -and (Get-Command Build-AdrIndex -ErrorAction Ignore)) {
             Build-AdrIndex -Silent | Out-Null
             Build-Glossary -Silent | Out-Null

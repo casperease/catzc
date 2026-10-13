@@ -4,10 +4,10 @@
 .DESCRIPTION
     With no -Path, every git-tracked file (Get-GitTrackedPath) — the repository as committed, not whatever lies
     untracked in the working folder. With -Path, the given files and the files under the given folders, from the
-    filesystem. Either way a few places are never aligned: the vendored third-party tree (automation/.vendor/),
-    test fixture trees (**/tests/assets/**, whose links are data on purpose), and the generated ADR index and glossary
-    ([index](/docs/adr/index.md), [glossary](/docs/adr/glossary.md) — Build-AdrIndex and Build-Glossary write them, so
-    their sources are aligned instead).
+    filesystem. Either way the classes .gitattributes declares are never aligned: linguist-vendored (the third-party
+    tree), catzc-fixture (test fixture trees, whose links are data on purpose), and linguist-generated (files the
+    automation writes — the ADR index and glossary, the managed root-config copies — whose sources are aligned
+    instead). No list of its own: a new class is declared in the .gitattributes source.
 .PARAMETER RepositoryRoot
     The repository root the returned paths are relative to.
 .PARAMETER Path
@@ -53,11 +53,13 @@ function Get-LinkScope {
         Get-GitTrackedPath '.'
     }
 
-    @($files | Where-Object {
-            $_ -notmatch '^automation/\.vendor/' -and
-            $_ -notmatch '(^|/)tests/assets/' -and
-            $_ -ne 'docs/adr/index.md' -and
-            $_ -ne 'docs/adr/glossary.md' -and
-            $_ -notmatch '^\.\./'
+    $inRepository = @($files | Where-Object { $_ -notmatch '^\.\./' })
+    $attributes = Get-GitAttributeValue -RepositoryRoot $root -Path $inRepository -Attribute linguist-vendored, linguist-generated, catzc-fixture
+    @($inRepository | Where-Object {
+            $classes = $attributes[$_]
+            -not $classes -or -not (
+                $classes['linguist-vendored'] -in 'set', 'true' -or
+                $classes['linguist-generated'] -in 'set', 'true' -or
+                $classes['catzc-fixture'] -in 'set', 'true')
         })
 }

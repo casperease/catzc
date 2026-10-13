@@ -142,9 +142,7 @@ Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {
         # The spelling scan's default content types; cspell.yml ignorePaths drops vendored code. Any such
         # tracked file outside repository could change the scan's outcome without re-keying protection.
         $spelledExtensions = @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.bicep')
-        $result = Invoke-Executable 'git -c core.quotepath=off ls-files' -PassThru -Silent
-        $tracked = $result.Output -split "`r?`n" | Where-Object { $_ -ne '' }
-        $spelled = foreach ($file in $tracked) {
+        $spelled = foreach ($file in (Get-GitTrackedPath '.')) {
             if ($file.StartsWith('automation/.vendor/')) {
                 continue
             }

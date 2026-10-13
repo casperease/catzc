@@ -77,8 +77,7 @@ Describe 'Managed root config files agree with .gitignore and git tracking' -Tag
                 if ($entry.committed) {
                     continue
                 }
-                & git -C $script:repoRoot ls-files --error-unmatch -- $entry.target *> $null
-                if ($LASTEXITCODE -eq 0) {
+                if (@(Get-GitTrackedPath $entry.target).Count -gt 0) {
                     $entry.target
                 }
             })
@@ -94,8 +93,7 @@ Describe 'Managed root config files agree with .gitignore and git tracking' -Tag
                 if (-not $entry.committed) {
                     continue
                 }
-                & git -C $script:repoRoot ls-files --error-unmatch -- $entry.target *> $null
-                if ($LASTEXITCODE -ne 0) {
+                if (@(Get-GitTrackedPath $entry.target).Count -eq 0) {
                     $entry.target
                 }
             })

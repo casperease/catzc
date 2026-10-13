@@ -78,7 +78,7 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
     Context 'unit-test tripwire (CATZC_BLOCK_REAL_PROCESS)' {
         AfterEach { Remove-Item Env:\CATZC_BLOCK_REAL_PROCESS -ErrorAction Ignore }
 
-        It 'throws instead of launching a real process when the flag is set' {
+        It 'throws instead of launching a real process when the flag is set' -Tag 'ADR-AUTO-TEST#10', 'ADR-AUTO-TEST#38' {
             $env:CATZC_BLOCK_REAL_PROCESS = '1'
             { Invoke-Executable $simpleCmd -Silent } | Should -Throw '*Blocked a real process*'
         }

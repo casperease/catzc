@@ -13,6 +13,7 @@ concepts:
             category: A category says what a test reads (logic or integrity); a tier says what it may touch and when it runs.
             phase: A phase is when a test's file runs within a run (parallel, greedy, serial); a tier is what the test may touch.
             test suite: A test suite is a declared selection of modules up to a top tier; a tier is one level a single test carries.
+            vertical test: A vertical test is an L2 or L3 test that cuts from its ring through to the core; a tier names the ring, any test has one.
         avoid:
             - { phrase: L2 suite, say: the L2 tests / the L2 tier }
             - { phrase: L2 test suite, say: the L2 tests / the L2 tier }
@@ -138,6 +139,14 @@ concepts:
             test run: A test run executes a selection, a test suite or an ad-hoc one; a test suite is the declared selection at rest.
             tier: A tier is one level a single test carries; a test suite selects whole modules up to a top tier.
             release candidate: A release candidate is the artifact under test; a test suite is the declared selection of tests that verifies a change.
+    vertical test:
+        key: vertical_test
+        domain: automation
+        defined_by: ADR-AUTO-TEST#38
+        short: An L2 or L3 test that cuts from an outer ring of the test onion (local tools; outside state) through to the core, the code alone.
+        realized_by: { kind: tag, pattern: 'L2|L3' }
+        contrasts:
+            tier: A tier names a test's outermost ring and every test has one; a vertical test is an L2 or L3 test, one that crosses a ring.
     markdown link:
         key: markdown_link
         domain: repository

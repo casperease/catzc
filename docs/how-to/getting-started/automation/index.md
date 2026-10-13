@@ -9,7 +9,7 @@ This guide gets you productive: how to load the system, how to use it in a scrip
 articles for the things you will actually do (add a function, add a module, add a C# type, add an infrastructure template, debug in VS Code,
 and so on).
 
-The _why_ behind every rule here lives in the [architecture decision records](../../../adr/README.md). This guide is the _how_.
+The _why_ behind every rule here lives in the [architecture decision records](../../../adr/index.md). This guide is the _how_.
 
 ---
 

@@ -113,7 +113,7 @@ Describe 'Shipped asset integrity' -Tag 'L1', 'integrity' {
 }
 ```
 
-A CLI-tool integration test (L2 — drives `az bicep build`), tagged and self-skipping:
+An L2 vertical test (it crosses the local-tool ring — drives `az bicep build`), tagged and self-skipping:
 
 ```powershell
 Describe 'sample (real az)' -Tag 'L2', 'logic' {

@@ -58,7 +58,9 @@ them).
 Authored sources live under `docs/references/` — automation modules as the domains-first reference articles in
 `docs/references/automation/<kebab>.md`, and other folders (pipelines, infrastructure, `out/`, `.cspell/`, `contracts/`) under
 `docs/references/`. The one mapping outside it is `docs/adr/`, whose README links to the folder's own generated index, `docs/adr/index.md`.
-The source is the reviewed, gate-checked artifact; the README link is out of markdown-gate scope.
+That index and the generated glossary are committed, unlike the README links — every ADR citation links the index, so GitHub must have
+it — and marked `linguist-generated` so their diffs collapse. The source is the reviewed, gate-checked artifact; the README link is out of
+markdown-gate scope.
 
 - [Derived, not committed](#derived-not-committed)
 

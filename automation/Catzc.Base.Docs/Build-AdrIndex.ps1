@@ -8,8 +8,8 @@
     ADR row is `| ``<external>`` | [<slug>](<path>) |` — the format Get-CatsAdrIndex parses and the citation
     grammar Show-Cats presents. Each link path is resolved to the real docs/adr/<domain>/**/<slug>.md file.
 
-    The index is gitignored and reproduced on every import (before Build-Readme, whose
-    [README](/docs/adr/README.md) link
+    The index is committed — so GitHub has it, and every ADR citation's link resolves there — marked
+    linguist-generated so its diff collapses, and reproduced on every import (before Build-Readme, whose README link
     points at it), so adrs.yml is the ONLY place the registry is edited — a hand-edit to index.md is overwritten
     on the next load. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md) for the generated-file pattern.
 

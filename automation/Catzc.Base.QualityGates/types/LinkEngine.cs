@@ -38,7 +38,9 @@ public sealed class LinkEngine
 
     // lineLimits: extension ('.ps1') -> line limit; an extension not listed takes defaultLineLimit.
     // selfUrlPrefix: this repository's web URL, or null to skip the self-URL check.
-    public LinkEngine(string repositoryRoot, AdrCitationMap map, LinkWrap wrap, IDictionary<string, int> lineLimits, int defaultLineLimit, string selfUrlPrefix)
+    // trackedFiles: the paths git tracks, so a markdown link to a file GitHub does not have is reported; null to skip.
+    public LinkEngine(string repositoryRoot, AdrCitationMap map, LinkWrap wrap, IDictionary<string, int> lineLimits, int defaultLineLimit, string selfUrlPrefix,
+        IEnumerable<string> trackedFiles)
     {
         root = Path.GetFullPath(repositoryRoot ?? throw new ArgumentNullException(nameof(repositoryRoot)));
         this.map = map ?? throw new ArgumentNullException(nameof(map));
@@ -46,7 +48,7 @@ public sealed class LinkEngine
         this.lineLimits = new Dictionary<string, int>(lineLimits ?? new Dictionary<string, int>(), StringComparer.OrdinalIgnoreCase);
         this.defaultLineLimit = defaultLineLimit;
         rewriter = new CodeLinkRewriter(map, AnchorsOf);
-        scanner = new MarkdownLinkScanner(root, AnchorsOf, selfUrlPrefix);
+        scanner = new MarkdownLinkScanner(root, AnchorsOf, selfUrlPrefix, trackedFiles);
     }
 
     public LinkEngineResult Run(IEnumerable<string> files, LinkKind kind)

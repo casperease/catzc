@@ -33,10 +33,10 @@ run fails fast if any test is missing — or ambiguous on — either tag.
 
 | Tier | Scope                                           | Time budget |
 | ---- | ----------------------------------------------- | ----------- |
-| L0   | Pure logic, no I/O                              | < 400 ms    |
-| L1   | Unit tests, may touch disk                      | < 2 s       |
-| L2   | CLI-tool integration (spawns `az`, `dotnet`, …) | < 120 s     |
-| L3   | Cloud-API integration — opt-in, self-skips      | —           |
+| L0   | The core: pure logic, no I/O                    | < 400 ms    |
+| L1   | The core: unit tests, may touch disk            | < 2 s       |
+| L2   | Vertical, local-tool ring (`git`, `az`, …)      | < 120 s     |
+| L3   | Vertical system tests, outside state; self-skip | —           |
 
 L2/L3 tests **self-skip** when their tool or cloud access is missing, so the default devbox run stays green without `az` configured. See
 [test-automation](../../../adr/automation/test-automation.md) for the logic-vs-integrity split and the isolation idioms, and

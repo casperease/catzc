@@ -49,7 +49,7 @@ file, a `# previously …` comment, an in-code changelog, or a commented-out alt
 ### Rule ADR-PRIN-ONELIVE:6
 
 Docs read present-tense, like the code. An ADR, README, or help block describes the current design as if it had always been so — no
-"deprecated", "legacy", "as of vX", "we used to", "this replaces". That history is in git. This is the [authoring convention](../README.md)
+"deprecated", "legacy", "as of vX", "we used to", "this replaces". That history is in git. This is the [authoring convention](../index.md)
 ("Present tense, not a changelog") applied to the whole tree, not only to ADRs.
 
 - [History lives in git, not in the tree](#history-lives-in-git-not-in-the-tree)
@@ -187,7 +187,7 @@ what the code used to be lives in git and nowhere else — not in retained files
   keys, so a compatibility field cannot quietly linger in a config — removing the key from the schema forces it out of every file in the
   same change.
 
-- **The present-tense ADR/doc convention** (`docs/adr/README.md`, "Present tense, not a changelog") enforces ADR-PRIN-ONELIVE#6 in review
+- **The present-tense ADR/doc convention** (`docs/adr/index.md`, "Present tense, not a changelog") enforces ADR-PRIN-ONELIVE#6 in review
   for all documentation.
 
 ## Consequences

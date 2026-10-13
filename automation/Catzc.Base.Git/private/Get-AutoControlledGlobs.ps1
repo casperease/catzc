@@ -13,8 +13,7 @@
     - the conventional generated-artifact classes: the dynamic module manifests
       (automation/<Module>/<Module>.psd1), the generated README links (every gitignored README.md is a
       materialised link by the generated-readmes contract — a hand-authored README is only safe once
-      opted in and committed), the generated ADR index ([index](/docs/adr/index.md)), the generated cspell
-      dictionaries (.cspell/), the transient output root (out/ — disposable by the
+      opted in and committed), the generated cspell dictionaries (.cspell/), the transient output root (out/ — disposable by the
       dedicated-output-directory contract), the IDE-only C# project's build output (bin/obj under
       automation/.internal/assets), the compiled-type *.tmp scratch, and the drawio editor's autosave
       shadows ('.$*.drawio.png.bkp' beside a committed .drawio.png asset).
@@ -50,12 +49,6 @@ function Get-AutoControlledGlobs {
     # Generated README links (generated-readmes): a gitignored README.md is a link by construction.
     $ret.Add('README.md')
     $ret.Add('*/README.md')
-
-    # The generated ADR index — a derived projection of adrs.yml, rebuilt on import (Build-AdrIndex).
-    $ret.Add('docs/adr/index.md')
-
-    # The generated glossary — a derived projection of the configs/glossary.yml sources, rebuilt on import (Build-Glossary).
-    $ret.Add('docs/adr/glossary.md')
 
     # Generated cspell dictionaries, regenerated at the importer tail
     # ([ADR-REPO-OUTDIR#8](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8)).

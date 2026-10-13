@@ -10,7 +10,7 @@
     up in the registry (an unknown name throws there, naming the config) and returns that scope. A globset without a
     verify scope is not a test suite; it throws with the remedy: declare one in globs.yml.
 .PARAMETER Name
-    The test suite's name — the globset name (globs.yml).
+    The name of a test suite — its globset's name (globs.yml).
 .OUTPUTS
     [pscustomobject] with Modules (string[]) and Level (int 0-3).
 #>

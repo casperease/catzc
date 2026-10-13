@@ -165,7 +165,8 @@ with their replacements. A source's options default sensibly, and a source overr
 
 - **`Build-Glossary`** (`Catzc.Base.Docs`) projects every source into one readable page, `docs/adr/glossary.md`: per ADR domain, each term
   with its definition, a link to its defining rule, its realization, relations, contrasts, and avoided phrasings. The page is a derived
-  artifact like the ADR index — gitignored and rebuilt on import — and an L1 integrity test fails when it drifts from the sources.
+  artifact like the ADR index — committed so GitHub has it, and rebuilt on import — and an L1 integrity test fails when it drifts from the
+  sources.
 
 ## Consequences
 

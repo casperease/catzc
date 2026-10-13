@@ -15,7 +15,8 @@ any other tracked text file. Every function that reads or aligns links names the
 ### Rule ADR-REPO-LINK:2
 
 A markdown link is relative to its own file — no repository-root `/` and no absolute URL into this repository. Its target exists in the
-repository, and its `#fragment` names a heading or explicit anchor of that file as GitHub slugs it.
+repository — tracked by git, not merely present on disk — and its `#fragment` names a heading or explicit anchor of that file as GitHub
+slugs it.
 
 - [Markdown links are relative](#markdown-links-are-relative)
 - [Anchors are GitHub's](#anchors-are-githubs)
@@ -96,6 +97,11 @@ outside quoted and block scalars, XML `<!-- -->`. Inline code spans and a help b
 A document links its neighbours relative to itself. The relative form resolves identically on GitHub (on any branch), in VS Code, in a
 clone, and in an exported copy of the tree, and it is what every generated README link depends on
 ([generated-readmes](generated-readmes.md)). A repository-rooted link in a `.md` file is off-form and is aligned to relative.
+
+GitHub, the renderer that follows these links, has only what git tracks. A gitignored file — a generated README link, a local-only draft —
+satisfies a check against the disk and still 404s there, so `Test-Links` resolves a markdown link's target against the tracked files and
+reports a target that exists only locally as untracked: commit it, or link its tracked source. Code links are checked against the disk:
+no hosted renderer follows a comment, and the editor that does reads the working folder.
 
 ### Anchors are GitHub's
 
