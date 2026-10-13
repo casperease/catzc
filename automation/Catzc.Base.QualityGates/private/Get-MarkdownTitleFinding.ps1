@@ -5,8 +5,9 @@
     The title is the first non-blank line after an optional YAML front-matter block; it must be the H1
     `# <repository-relative path>`. Only that line is read as the title, so a `#` line in a later fenced code block
     never counts. Kind is Ok, Wrong (an H1 with other text), or Missing (the first line is not an H1). A Wrong title
-    is replaced and its old text kept as the first line of the body — the path H1, a blank line, the old title's
-    text, then a blank line before what followed — so no authored wording is lost. A Missing title is inserted with
+    is replaced and its old text kept as the body's first block — the path H1, a blank line, the old title's text in
+    a `text` code fence, then a blank line before what followed — so no authored wording is lost and the kept title
+    reads as the old title, not as prose. A Missing title is inserted with
     a blank line before the first line. Fixed is the corrected file text, keeping the file's own line endings; it
     equals the input when Kind is Ok.
 .PARAMETER RelativePath
@@ -70,9 +71,9 @@ function Get-MarkdownTitleFinding {
     }
 
     if ($kind -eq 'Wrong') {
-        # Keep the old title's wording as the body's first line; pad it so the heading and what follows stay apart.
+        # Keep the old title's wording as the body's first block, fenced; pad it so the heading and what follows stay apart.
         $oldTitle = ($actual -replace '^#\s+', '').TrimEnd()
-        $replacement = [System.Collections.Generic.List[string]]::new([string[]] @($expected, '', $oldTitle))
+        $replacement = [System.Collections.Generic.List[string]]::new([string[]] @($expected, '', '```text', $oldTitle, '```'))
         $next = $titleIndex + 1
         if ($next -lt $lines.Count -and $lines[$next].Trim() -ne '') {
             $replacement.Add('')
