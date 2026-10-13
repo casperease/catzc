@@ -53,6 +53,14 @@ function Get-Widget {
         Test-SlotReadInFile 'Gadget.psm1' 'function Get-Gadget { $script:gadgetCache }' | Should -BeNullOrEmpty
     }
 
+    It 'accepts a slot the script declares at top level, even with no file name (an editor buffer)' {
+        $code = @'
+$script:gadgetCache = @{}
+function Get-Gadget { $script:gadgetCache }
+'@
+        Test-SlotRead $code | Should -BeNullOrEmpty
+    }
+
     It 'leaves a Pester file alone: it shares state through $script: on purpose' {
         Test-SlotReadInFile 'Get-Gadget.Tests.ps1' 'function Get-Gadget { $script:gadgetCache }' | Should -BeNullOrEmpty
     }

@@ -11,7 +11,8 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 
     Scope: everything except a .psm1 and a Pester file. A .psm1 module can declare its slots at load, and a Pester
     file shares state through $script: on purpose. Within a function, a read is accepted when the same function probes
-    that slot with GetValue('script:<slot>') anywhere, or assigns it (a plain `$script:<slot> = …`) earlier in the text.
+    that slot with GetValue('script:<slot>') anywhere, or assigns it (a plain `$script:<slot> = …`) earlier in the text,
+    or when the script declares that slot at top level, outside any function.
 #>
 
 function Measure-NoBareScriptSlotRead {
@@ -47,6 +48,17 @@ function Measure-NoBareScriptSlotRead {
         $node -is [System.Management.Automation.Language.VariableExpressionAst] -and $node.VariablePath.IsScript
     }
 
+    # Slots the script itself declares at load (a top-level `$script:<slot> = …`, outside any function). This covers a
+    # .psm1 the editor analyses as an in-memory buffer, where the file name — and so the skip above — is lost.
+    $declared = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    foreach ($assignment in $ScriptBlockAst.FindAll($isAssignment, $false)) {
+        $left = $assignment.Left
+        $isPlain = $assignment.Operator -eq [System.Management.Automation.Language.TokenKind]::Equals
+        if ($isPlain -and $left -is [System.Management.Automation.Language.VariableExpressionAst] -and $left.VariablePath.IsScript) {
+            [void]$declared.Add(($left.VariablePath.UserPath -replace '^(?i)script:', ''))
+        }
+    }
+
     foreach ($function in $ScriptBlockAst.FindAll($isFunction, $true)) {
         $body = $function.Body
         $probed = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
@@ -74,7 +86,7 @@ function Measure-NoBareScriptSlotRead {
             $variable.Parent.Left -eq $variable -and
             $variable.Parent.Operator -eq [System.Management.Automation.Language.TokenKind]::Equals
             $assignedBefore = $firstAssignment.ContainsKey($name) -and $firstAssignment[$name] -lt $variable.Extent.StartOffset
-            if ($isWrite -or $assignedBefore -or $probed.Contains($name)) {
+            if ($isWrite -or $assignedBefore -or $probed.Contains($name) -or $declared.Contains($name)) {
                 continue
             }
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
