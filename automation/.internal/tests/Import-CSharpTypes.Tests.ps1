@@ -8,7 +8,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         $script:fixtureRoot = Join-Path ([System.IO.Path]::GetTempPath()) "importcs-$([guid]::NewGuid().ToString('N'))"
 
         # Per-run-unique module/type suffix. .NET types persist for the whole process, so a fixed name would
-        # be already-loaded on a second suite run in the same session — the loader would then take its no-op
+        # be already-loaded on a second test run in the same session — the loader would then take its no-op
         # branch and skip the compile. A fresh suffix per run keeps the "fresh type" precondition true.
         $script:runId = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
 
@@ -400,14 +400,14 @@ Describe 'shipped C# types' -Tag 'L0', 'integrity' {
 Describe 'combined types assembly is committed and current' -Tag 'integrity' {
     BeforeAll {
         # The current combined hash comes from the ONE shared implementation (Get-CombinedTypeHash, loaded by the
-        # importer that ran before this suite) — the same function the loader and the janitor call, so there is no
+        # importer that ran before this test file) — the same function the loader and the janitor call, so there is no
         # separate PowerShell mirror to keep in step. The independent oracle that would catch a bug IN that
         # function is the cross-language MSBuild stamp checked by the 'IDE project build stamps …' test below (a
         # genuinely separate C# implementation of the same hash; see native-csharp-types).
         $script:currentHash = (Get-CombinedTypeHash (Join-Path $env:RepositoryRoot 'automation')).CombinedHash
     }
 
-    # Drift guard: the importer (which ran before this suite) rebuilds automation/.compiled/Catzc.Types.<hash>.dll
+    # Drift guard: the importer (which ran before this test file) rebuilds automation/.compiled/Catzc.Types.<hash>.dll
     # from source whenever a types/*.cs changed. If that rebuild was not committed, .compiled shows pending git
     # changes here — a forgotten commit of the prebuilt assembly. (Stays red until the rebuilt DLL is committed.)
     It 'has no pending git changes in automation/.compiled after import' -Tag 'L2' {

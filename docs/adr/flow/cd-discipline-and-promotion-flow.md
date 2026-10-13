@@ -410,5 +410,5 @@ the mechanic — stage inactive, validate, activate live — is the same.
   the value-chain diagrams prefix a flow with.
 - [everything-as-code](../principles/everything-as-code.md), [reduce-waste](../principles/reduce-waste.md) — build-once/deploy-many and the
   version-aligned artifact are these principles applied to the flow.
-- DORA: [continuous integration](../../references/dora/capabilities.md#continuous-integration) — the fast-feedback budget a slow suite in
+- DORA: [continuous integration](../../references/dora/capabilities.md#continuous-integration) — the fast-feedback budget a slow test run in
   the fast CI slot breaks.

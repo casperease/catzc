@@ -20,5 +20,6 @@ concepts:
         contrasts:
             deployable-unit: A deployable-unit is the composition that ships, whichever commit is built; a release candidate is one commit's build of it awaiting its gate.
             test run: A test run executes tests; a release candidate is the artifact a release-candidate test run verifies.
+            test suite: A test suite is the declared selection of tests that verifies a change; a release candidate is the artifact under test.
         avoid:
             - { phrase: release-candidate suite, say: release-candidate test run }

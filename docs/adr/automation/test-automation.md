@@ -167,7 +167,7 @@ redundant copy; collapse them.
 
 ### Rule ADR-AUTO-TEST:24
 
-The **Build Verification Test** (BVT) is the aggregate gate that certifies a commit: it runs the full gated suite for the target level
+The **Build Verification Test** (BVT) is the aggregate gate that certifies a commit: it runs every gated test up to the target level
 together with the artifact-canonicalization checks, and is the end gate of both pre- and post-commit-to-master in trunk-based development. A
 commit reaches master only when its BVT is green, and the canonical module-manifest artifact a passing build produces is the BVT's gold
 output.
@@ -318,6 +318,16 @@ selection — some modules, some tiers, one test file — is named by what it se
 
 - [Two test runs, one body of tests](#two-test-runs-one-body-of-tests)
 
+### Rule ADR-AUTO-TEST:37
+
+A **test suite** is a named, declared selection of tests that runs as one unit: a set of modules and a top tier, declared in configuration
+rather than typed at a prompt. Today a test suite is a globset's `verify:` scope in `globs.yml` (`modules` + `level`, the test blast-radius
+scope of [ADR-FLOW-CD-GLOBS#7](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)), which a pipeline runs when that set changes. A test
+suite is configuration at rest: executing it is a test run (ADR-AUTO-TEST#34), and it is narrower than all tests (ADR-AUTO-TEST#36) unless
+it names every module. Not every test run executes a test suite: an ad-hoc selection is named by what it selects.
+
+- [Two test runs, one body of tests](#two-test-runs-one-body-of-tests)
+
 ## Context
 
 [Fail fast with inline assertions](fail-fast-with-asserts.md) makes the case that automation code is mostly _impure_ — it orchestrates
@@ -360,8 +370,8 @@ An integrity test that builds shipped templates verifies "what we ship actually 
 the template _set_, not any one member — so the test must **discover** the set and assert invariants that hold for every template, never
 hardcode a template name or a value derived from one. A test that calls `Build-Bicep <name>` for a specific shipped template and asserts a
 magic rendered value (a secret name, a resource name, a parameter-file name) takes production hostage — rename that template, retune its Key
-Vault, or delete it, and a green suite turns red for a change that is correct. A test must never be the reason a production refactor cannot
-happen.
+Vault, or delete it, and a green test run turns red for a change that is correct. A test must never be the reason a production refactor
+cannot happen.
 
 The design is two-layered, and the split falls out of [ADR-AUTO-TEST#1](#rule-adr-auto-test1)'s logic-vs-integrity line:
 
@@ -406,11 +416,11 @@ category (omit it to run both). Both work by excluding the unwanted tags, so a m
 the `Describe` carries only the tier.
 
 Beyond the two mandatory axes there are **optional** tags: the phase tags `serial` and `greedy` (ADR-AUTO-TEST#26), the provenance citations
-of the next section, and the `source-only` suite opt-out (ADR-AUTO-TEST#31).
+of the next section, and the `source-only` build-run opt-out (ADR-AUTO-TEST#31).
 
 ### The optional provenance axis and rule-enforcement coverage
 
-A test may also declare **which ADR rule(s) it enforces**, so the suite is traceable both ways: from a test to the rule behind it, and from
+A test may also declare **which ADR rule(s) it enforces**, so the tests are traceable both ways: from a test to the rule behind it, and from
 a rule to the tests that pin it. The citation is a tag in the `docs/adr/index.md` `#` form — `ADR-AUTO-ERROR#3` — chosen so the one reserved
 `ADR-` marker greps uniformly across a rule's prose, the code that cites it, and its tests. This dimension differs from tier and category in
 two ways. It is **optional**: a test carries a citation only when it meaningfully enforces a specific rule, and absence is never a violation
@@ -422,7 +432,7 @@ rather than taking the nearest like the single-valued axes.
 What keeps the optional axis honest is that a **present** citation is validated. `Get-TestTagViolations` — the same discovery-pass gate that
 enforces the mandatory axes — rejects any `ADR-` tag that is malformed or names a rule absent from `Get-CatsAdrRuleIds` (the flat set parsed
 from every ADR's rule registry). So a citation cannot silently rot: renumbering a rule turns its stale tags red. The check is lazy — it
-reads the ADR tree only when a test actually carries a citation — so a suite with none stays hermetic.
+reads the ADR tree only when a test actually carries a citation — so a test run with none stays hermetic.
 
 Coverage is the payoff, and it is **reported, not gated**. `Write-TestAutomationRuleCoverage` writes `rule-coverage.md`/`.csv` beside the
 run report, mapping every rule to its enforcers and listing the genuinely-uncovered. Crucially it counts **two** enforcer kinds, because two
@@ -468,7 +478,7 @@ Logic tests run on every change, so their speed compounds. Four effects dominate
 - **Don't redo expensive setup per test (ADR-AUTO-TEST#19).** `Get-BicepTemplates`/`Get-Config` key their session cache on the resolved
   root/path (ADR-AUTO-TEST#4). A `BeforeEach` that assigns each test a fresh `Join-Path $TestDrive ([Guid]::NewGuid())` root, or re-runs
   `InModuleScope … { $script:configCache = $null }`, defeats that cache and pays a full cold re-derive **every test** — on the order of a
-  second per test for a template-configuration suite. The fixture copy **and** the one-time cache reset belong in `BeforeAll`, with the few
+  second per test for template-configuration tests. The fixture copy **and** the one-time cache reset belong in `BeforeAll`, with the few
   mutating tests pointed at distinct config paths so they can share one tree and one warm import. Reset a cache per test only when the test
   mutates the cached input.
 
@@ -521,7 +531,7 @@ template. A new sample that varies only its inputs adds L0 rule-checks and no ne
 
 ### The parallel harness
 
-`Test-Automation` runs the suite across parallel worker **processes**, not runspaces — the same isolation doctrine as the PSSA shards and
+`Test-Automation` runs its tests across parallel worker **processes**, not runspaces — the same isolation doctrine as the PSSA shards and
 the cold-import gotcha above: process-global state (env vars, loaded assemblies, thread-unsafe engines) makes in-process parallelism unsafe,
 and a child process is fully isolated. The unit of scheduling is the **whole test file**: files are round-robin sharded across a CPU-capped
 pool (`-Workers` overrides), each worker imports the repository (`-SkipJanitors` — and manifest generation writes only on drift, so
@@ -619,7 +629,7 @@ Both runs execute in CI on every push, so "works in both modes" is checked befor
 ### The Build Verification Test
 
 The tiers above answer "what does one test integrate with"; the Build Verification Test (BVT) answers "is this commit shippable at all". It
-is the aggregate gate — the whole gated suite for the target level, plus the artifact-canonicalization checks that keep generated manifests
+is the aggregate gate — every gated test up to the target level, plus the artifact-canonicalization checks that keep generated manifests
 deterministic and formatter-stable — run as one verdict on the-state-of-this-commit. Because everything is a static, hermetic property of
 the committed artifacts (ADR-AUTO-TEST#22), that verdict is reproducible: the same commit yields the same result on a devbox and in CI.
 

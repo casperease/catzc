@@ -78,8 +78,8 @@ on Linux.
 - **The analyzer layer** — the compatibility rules, their profiles, and their on/off state are
   [cross-platform-powershell](powershell/cross-platform-powershell.md) (`ADR-AUTO-PSXPLAT`).
 
-- **L2 tests run locally.** Developers run the same `Test-ScriptAnalyzer.Tests.ps1` suite that CI runs. Platform compatibility violations
-  are caught before push, not after.
+- **L2 tests run locally.** Developers run the same `Test-ScriptAnalyzer.Tests.ps1` test file that CI runs. Platform compatibility
+  violations are caught before push, not after.
 
 ## Consequences
 

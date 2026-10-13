@@ -74,7 +74,7 @@ Under the sharded test harness, protection decisions live only in the orchestrat
 and promoted after aggregation; workers never read or write the map. The protection key carries the run parameters
 (`test-automation|L<min>-L<max>|<category>`), so a narrower run's green never skips a wider run.
 
-- [Whole-suite protection](#whole-suite-protection)
+- [Protection across a test run](#protection-across-a-test-run)
 
 ## Context
 
@@ -128,7 +128,7 @@ per-module globsets are derived, not declared (`Get-ModuleGlobSet`): folder = mo
 `automation/<Module>/**` — the module's functions, private helpers, native types, configs, and its own tests, so editing a test re-keys its
 module. Each internal shared module `automation/.internal/<Name>.psm1` derives a single-file set the same way — the file is the
 registration, as the folder is for a module. The reserved names `internal`, `vendor`, `compiled`, and `scriptanalyzer` derive the
-dot-prefixed infrastructure scopes the suite also depends on. Derived and declared sets share one name space — a shadowing declared name is
+dot-prefixed infrastructure scopes all tests also depend on. Derived and declared sets share one name space — a shadowing declared name is
 rejected at load — and derived sets scope protection and blast-radius alongside the declared registry through the same `Matches()`
 machinery, so a module's identity is a live, reviewable area-of-control in the PR report, while pipelines keep registering only on declared
 deployable-unit projections.
@@ -147,7 +147,7 @@ module that is unconstrained in `dependencies.yml`, a module whose tests carry t
 that is the category's definition), and the infra test units themselves. The widened identity changes on any tracked edit, so those units
 re-run more — the failure mode is a redundant run, never a wrong skip.
 
-### Whole-suite protection
+### Protection across a test run
 
 `Test-Automation` applies the gate per module, in the orchestrator, around the sharded execution engine: after discovery, each in-scope
 unit's composite identity is computed and queried — a protected unit's test files are dropped from the work-list before sharding, reported

@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Lists the tests a suite opt-out tag removes from a run, so the exclusion is visible, never silent.
+    Lists the tests a test run's opt-out tag removes from a run, so the exclusion is visible, never silent.
 .DESCRIPTION
     The build run (Test-CatzcBuild) excludes every test tagged 'source-only'
     ([ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)) and must count
@@ -54,7 +54,7 @@ function Get-TestSuiteExclusion {
         }
         $file = $test.ScriptBlock.File
 
-        # Out of the run's scope by tier or category: neither excluded by the suite nor runnable.
+        # Out of the run's scope by tier or category: neither excluded by the opt-out tag nor runnable.
         $level = Get-TestBlockTag -Test $test -Valid 'L0', 'L1', 'L2', 'L3'
         $category = Get-TestBlockTag -Test $test -Valid 'logic', 'integrity'
         $outOfScope = @(@($level) + @($category) | Where-Object { $_ -in $ExcludeTag }).Count -gt 0

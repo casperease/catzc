@@ -19,7 +19,7 @@ version: '0.1'
 #   default_profile — the module set to build when neither -Module nor -ModuleProfile is given (a profiles.yml
 #                     key: full builds everything).
 #   vendor_policy   — runtime ships only the runtime-required vendored module (powershell-yaml); full also
-#                     ships Pester/PSScriptAnalyzer for a build that runs the test suite.
+#                     ships Pester/PSScriptAnalyzer for a build that runs the tests.
 default_profile: full
 vendor_policy: runtime
 

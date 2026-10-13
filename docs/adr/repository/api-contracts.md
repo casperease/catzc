@@ -84,8 +84,8 @@ guessed-at calendar.
 A contract is only a promise if breaking it is caught. The provider side of this repo carries contract tests that assert it still satisfies
 every declared `contracts/<name>/v<N>`. The concrete form is chosen per contract — schema validation of a published shape, provider/consumer
 (e.g. Pact-style) verification of a request/response surface, golden examples a consumer can replay — but the discipline is the same: a
-change that violates a published version turns the suite red before it ships. Without the test, "we keep v1 working" is a hope; with it, it
-is enforced.
+change that violates a published version turns the test run red before it ships. Without the test, "we keep v1 working" is a hope; with it,
+it is enforced.
 
 ### A published version is frozen
 
@@ -115,7 +115,7 @@ contract testing so a break is caught in CI, not in production. Everything outsi
 ### How this is enforced
 
 - **Contract tests** verify, provider-side, that the repo honours every declared `contracts/<name>/v<N>`. They run in CI alongside the rest
-  of the suite; a change that breaks a published version fails there. The concrete mechanism (schema validation, provider/consumer
+  of the tests; a change that breaks a published version fails there. The concrete mechanism (schema validation, provider/consumer
   verification, golden replay) is chosen per contract and lives with it.
 
 - **Code review** guards what the tests cannot phrase: that an incompatible change adds a new `v<N>` rather than editing a published one

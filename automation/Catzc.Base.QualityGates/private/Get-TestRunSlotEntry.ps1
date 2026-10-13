@@ -15,7 +15,7 @@
 .PARAMETER Slot
     The slot Enter-TestRunSlot returned.
 .PARAMETER EntryScript
-    The suite's entry script; empty for the source importer.
+    The test run's entry script; empty for the source importer.
 .PARAMETER EntryParameter
     Named arguments for -EntryScript.
 .OUTPUTS

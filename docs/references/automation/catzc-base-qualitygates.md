@@ -10,10 +10,10 @@ tag rules that the Pester runner enforces are the subject of [test-automation](.
 
 | Domain   | Area   | Name                                                                               |
 | -------- | ------ | ---------------------------------------------------------------------------------- |
-| domain:1 | runner | [Test suite runner](#domain1--test-suite-runner)                                   |
+| domain:1 | runner | [Test runner](#domain1--test-runner)                                               |
 | domain:2 | gates  | [Document and code formatting gates](#domain2--document-and-code-formatting-gates) |
 
-### domain:1 — Test suite runner
+### domain:1 — Test runner
 
 How the repository runs and validates all its tests. This domain discovers tests across every module, runs them at the requested tier level
 (L0–L3) and optional category filter (`logic`/`integrity`), and writes a timestamped report. Before any test executes, a discovery-only pass
@@ -59,7 +59,7 @@ The module's public functions, sorted into the domains above.
 
 | Domain                                        | Function            |
 | --------------------------------------------- | ------------------- |
-| domain:1 — Test suite runner                  | `Test-Automation`   |
+| domain:1 — Test runner                        | `Test-Automation`   |
 |                                               | `Invoke-TestFile`   |
 | domain:2 — Document and code formatting gates | `Test-Spelling`     |
 |                                               | `Test-Markdownlint` |

@@ -11,7 +11,7 @@
     system-test lock (Enter-SystemTestLock). Two concurrent runs — from one checkout or from two — never both
     execute system tests against the same user's state, and nobody waits.
 
-    In place with the system-test lock, the requested level stands (the suites ask for 3 unless the caller bound
+    In place with the system-test lock, the requested level stands (both runs ask for 3 unless the caller bound
     a lower -MaxLevel). Otherwise — in a snapshot, or in place while another run on this account holds the
     system-test lock — a request that reaches L3 is capped at L2, and the cap is announced: the run says it
     skips L3 and who holds the working folder or the lock, so a missing tier is never silent

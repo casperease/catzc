@@ -1,36 +1,36 @@
 <#
 .SYNOPSIS
-    Runs one test suite through the parallel harness — the shared core of Test-Automation and Test-CatzcBuild.
+    Performs one test run through the parallel harness — the shared core of Test-Automation and Test-CatzcBuild.
 .DESCRIPTION
-    The harness both suites share ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)):
+    The harness both runs share ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)):
     lazy-load Pester from the code root, scan the selected
     modules' tests/ folders, discover once, enforce the mandatory tag axes, build the tier/category filter, open
     a timestamped run directory with its run.json state record, split the files into parallel/greedy/serial
     phases, apply per-module protection, run the workers, and write the timing check, reports, verdict, and
-    -PassThru summary. The suites differ only in what they pass in:
+    -PassThru summary. The two test runs differ only in what they pass in:
 
     - the entry script each shard worker dot-sources (-EntryScript/-EntryParameter, empty for the source
       importer; the build's Import-Catzc.ps1 for the build run) — the one seam;
     - an opt-out tag (-SuiteExcludeTag 'source-only' for the build run): its tests are excluded from the run
       and counted and listed on the console and in excluded-tests.csv in the run directory
       ([ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31));
-    - the suite's name (-Suite), which names the default report folder under out/, the protection key, and
+    - the entry point's name (-Suite), which names the default report folder under out/, the protection key, and
       the failure message; and the banner title (-Title).
 .PARAMETER Suite
-    The suite's command name: 'Test-Automation' or 'Test-CatzcBuild'. Its key names the default report folder
+    The entry point's command name: 'Test-Automation' or 'Test-CatzcBuild'. Its key names the default report folder
     (out/test-automation, out/test-catzc-build) and prefixes the protection key.
 .PARAMETER Title
     The banner title (Write-TestAutomationHeader).
 .PARAMETER Modules
     The modules whose tests/ folders run; empty runs every module plus the dot-prefixed infrastructure.
 .PARAMETER SuiteExcludeTag
-    Opt-out tags of this suite: tests carrying one are excluded, counted, and listed — never silently.
+    Opt-out tags of this test run: tests carrying one are excluded, counted, and listed — never silently.
 .PARAMETER EntryScript
     The script each worker dot-sources to load the modules; empty is the source importer.
 .PARAMETER EntryParameter
     Named arguments for -EntryScript.
 .PARAMETER OutputFolder
-    Report base; empty resolves to <out>/<suite in lowercase>.
+    Report base; empty resolves to <out>/<entry point in lowercase>.
 .PARAMETER Isolated
     Run in a snapshot of the working folder even when it is free (Enter-TestRunSlot).
 .PARAMETER KeepSandbox
@@ -89,7 +89,7 @@ function Invoke-TestAutomationSuite {
         [switch] $KeepSandbox
     )
 
-    # The suite's key: its default report folder under out/ and its protection-key prefix.
+    # The entry point's key: its default report folder under out/ and its protection-key prefix.
     $suiteKey = @{ 'Test-Automation' = 'test-automation'; 'Test-CatzcBuild' = 'test-catzc-build' }[$Suite]
 
     # The parent needs Pester only for the discovery pass; each worker imports its own copy for the actual run.
@@ -198,7 +198,7 @@ function Invoke-TestAutomationSuite {
         # ([ADR-REPO-PROTGLOB#9](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob9)): units whose
         # composite identity is unchanged since their last
         # green run this session are dropped from the work-list here in the orchestrator (workers never see
-        # the map; in a pipeline the selection is a pass-through). The key carries the suite and the run
+        # the map; in a pipeline the selection is a pass-through). The key carries the entry point and the run
         # parameters, so an L0-L1 green never skips an L2 run and a green source run never skips the build run.
         $protectionKey = "$suiteKey|L$MinLevel-L$MaxLevel|$Category|$($Rule -join ',')"
         $protectionPlan = Select-ProtectedTestFile -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `

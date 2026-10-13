@@ -93,12 +93,12 @@ function Get-BicepTemplates {
 
 ### Probing an unset slot
 
-All code runs under `Set-StrictMode -Version Latest` ([error-handling](error-handling.md)), where reading a variable that was never
-assigned throws. A cache slot is exactly such a variable on the first call: nothing declares it at import, because a function file holds
-one function and no top-level statements ([one-function-per-file](one-function-per-file.md)). The probe therefore asks the session state
-for the value instead of reading the variable: `PSVariable.GetValue('script:<slot>')` returns `$null` for an unset slot and for a slot a
-test reset to `$null`, and resolves the module's own `$script:` scope — a same-named function local, caller variable, or `$global:` never
-answers for it. Without the `script:` qualifier the lookup walks the scope chain and returns a `$global:` of the same name.
+All code runs under `Set-StrictMode -Version Latest` ([error-handling](error-handling.md)), where reading a variable that was never assigned
+throws. A cache slot is exactly such a variable on the first call: nothing declares it at import, because a function file holds one function
+and no top-level statements ([one-function-per-file](one-function-per-file.md)). The probe therefore asks the session state for the value
+instead of reading the variable: `PSVariable.GetValue('script:<slot>')` returns `$null` for an unset slot and for a slot a test reset to
+`$null`, and resolves the module's own `$script:` scope — a same-named function local, caller variable, or `$global:` never answers for it.
+Without the `script:` qualifier the lookup walks the scope chain and returns a `$global:` of the same name.
 
 The probe costs a few microseconds per call, a small share of even the hottest cached function (`Get-Config`). The alternatives are worse:
 
@@ -115,7 +115,7 @@ Only the probe changes: once the slot is initialised in the same function, the f
 A warm cache short-circuits before any dependency runs, so mocking a cached function's _internals_ silently tests nothing — the mock never
 fires. A test therefore mocks the **whole boundary function** and lets the cache be an implementation detail. The one exception is a test
 whose subject _is_ the cache: it resets the module-scope slot first (`InModuleScope Catzc.Base.Config { $script:configCache = $null }`) and
-pays the cold derive deliberately. Resetting per test everywhere else defeats the cache and multiplies suite time (see
+pays the cold derive deliberately. Resetting per test everywhere else defeats the cache and multiplies test-run time (see
 [test-automation](../test-automation.md)).
 
 ## Decision

@@ -37,12 +37,12 @@ session: the tests would run against whatever that session has accumulated — w
 A check **passes** when its assertions are green. A few L2 checks shell out to a tool (git, PSScriptAnalyzer, cspell, markdownlint-cli2) and
 **self-skip** when that tool is absent — a skip is not a failure (see the end-of-run skip report).
 
-**While another run is going.** A test run never waits for another (`ADR-AUTO-TEST:32`). When a suite or another session already holds the
+**While another run is going.** A test run never waits for another (`ADR-AUTO-TEST:32`). When another test run or session already holds the
 working folder, your run says who holds it and runs in a verified snapshot of your working folder instead — your uncommitted changes
 included, frozen at the moment the run started. The artifacts still land in `out/test-automation/<stamp>/` (or `out/test-file/<stamp>/`): a
-suite's `run.json` and `summary.md` record the snapshot location and provenance, and `Invoke-TestFile` names the location on its closing
-line. Add `-KeepSandbox` to keep the snapshot for a post-mortem (its path is printed at the end), or `-Isolated` to run in a snapshot even
-when the working folder is free.
+`Test-Automation` run's `run.json` and `summary.md` record the snapshot location and provenance, and `Invoke-TestFile` names the location on
+its closing line. Add `-KeepSandbox` to keep the snapshot for a post-mortem (its path is printed at the end), or `-Isolated` to run in a
+snapshot even when the working folder is free.
 
 ## Index
 
@@ -138,7 +138,7 @@ when the working folder is free.
 | 86  | L1   | automation/Catzc.Base.Docs/tests/Build-AdrIndex.Tests.ps1                                    | Build-AdrIndex — generated ADR index                                 | docs/adr/index.md is the code-to-ADR registry generated from adrs.yml (Build-AdrIndex), gitignored and reproduced on import; every ruleset is one parseable row linking to a real ADR file, with no drift.      |
 | 87  | L1   | automation/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1                                     | Build-GitKeep — shipped assets/gitkeep                               | Build-GitKeep writes the content of the `assets/gitkeep` shipped in the loaded module (ADR-AUTO-ASSETDEP#3).                                                                                                    |
 | 88  | L1   | automation/Catzc.Base.Docs/tests/Get-CatsModules.Tests.ps1                                   | Get-CatsModules — loaded catzc modules                               | Show-Cats' module list is read from the loaded modules under the code root: exact exports, no privates, no infrastructure.                                                                                      |
-| 89  | L1   | automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1     | Internal asset dependency coverage (real tree)                       | Every internal asset dependency is a literal `Get-CatzcModuleRoot` call and has a real-asset `ADR-AUTO-ASSETDEP#3` test that runs in both suites (ADR-AUTO-ASSETDEP#4).                                         |
+| 89  | L1   | automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1     | Internal asset dependency coverage (real tree)                       | Every internal asset dependency is a literal `Get-CatzcModuleRoot` call and has a real-asset `ADR-AUTO-ASSETDEP#3` test that runs in both test runs (ADR-AUTO-ASSETDEP#4).                                      |
 | 90  | L2   | automation/Catzc.Base.QualityGates/tests/Format-Automation.Tests.ps1                         | Format-Automation (real vendored analyzer and settings)              | Format-Automation loads PSScriptAnalyzer and its settings from the active code root (`.vendor`, `.internal/assets`).                                                                                            |
 | 91  | L2   | automation/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1             | Get-ScriptAnalyzerDiagnostics (real vendored analyzer)               | The analysis engine imports the vendored PSScriptAnalyzer from the active code root and reports real diagnostics.                                                                                               |
 | 92  | L2   | automation/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1                       | Test-ScriptAnalyzer (real analyzer)                                  | The analyzer gate runs the vendored PSScriptAnalyzer with the shipped settings from the active code root.                                                                                                       |
@@ -440,11 +440,11 @@ when the working folder is free.
 
 ### 34. Manual test plan covers every integrity check
 
-**Guards:** this document stays in sync with the suite (the drift guard for this plan).
+**Guards:** this document stays in sync with the tests (the drift guard for this plan).
 
 **Checks:**
 
-- It AST-discovers every `integrity`-tagged `Describe`/`Context`/`It` in the suite.
+- It AST-discovers every `integrity`-tagged `Describe`/`Context`/`It` across all tests.
 - Every discovered `(test file, block)` pair has a row in the index table above.
 - The number of index rows equals the number of discovered integrity blocks (no stale or duplicate rows).
 

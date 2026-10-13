@@ -2,7 +2,7 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
     # The fixture DLL name (BeforeEach) and the real-repo drift check both use the ONE shared hash
     # (Get-CombinedTypeHash, loaded by the importer) — the same function the janitor under test calls, so there is
     # no separate mirror to keep in step. The independent oracle for that function is the cross-language MSBuild
-    # stamp (see the Import-CSharpTypes suite's 'IDE project build stamps …' test).
+    # stamp (see the Import-CSharpTypes test file's 'IDE project build stamps …' test).
 
     BeforeEach {
         # Default: source mode, not a pipeline, so the function actually runs (in the source and build runs).

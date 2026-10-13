@@ -2,7 +2,7 @@
 .SYNOPSIS
     Runs a build run: the same tests as Test-Automation, against a fresh build of the selected modules.
 .DESCRIPTION
-    The second of the two suites over one body of tests
+    The second of the two test runs over one body of tests
     ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30),
     [ADR-DSGN-RUNMODE#6](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode6)). It builds the
     selected modules with Build-Modules (vendor policy 'full', so Pester and PSScriptAnalyzer ship with the build)
@@ -15,7 +15,7 @@
     (the dependency closure Build-Modules computes). Tests tagged 'source-only'
     ([ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)) are excluded
     and counted and listed — on the console and in excluded-tests.csv in the run directory — never silently.
-    Reports go to <out>/test-catzc-build/, so the two suites' reports never overwrite each other. The build is
+    Reports go to <out>/test-catzc-build/, so the two test runs' reports never overwrite each other. The build is
     deleted when the run ends.
 
     The harness's own module is always built too (each worker reaches its configuration builder and row reducer
@@ -132,7 +132,7 @@ function Test-CatzcBuild {
                 [System.IO.Directory]::Delete($destination, $true)
             }
             catch {
-                Write-Message "Could not remove the build-suite build '$destination': $($_.Exception.Message)" -ForegroundColor Yellow
+                Write-Message "Could not remove the build run's build '$destination': $($_.Exception.Message)" -ForegroundColor Yellow
             }
         }
     }

@@ -94,10 +94,10 @@ external-facing API surface and its contract-testing discipline — is the [api-
 ## Context
 
 A mono-repository without a fixed folder structure degenerates into a naming negotiation. Every new module, every new config file, every new
-test suite raises the same questions: where does this go? What do I call the folder? Do I need to tell something about it? The answers
-depend on who you ask, what existed before, and what the last person did. Over time the layout drifts — one module puts helpers in
-`internal/`, another in `helpers/`, a third in `util/`. Tooling cannot program against a layout that changes per module, so configuration
-files, path arguments, and environment variables proliferate to bridge the gap.
+test file raises the same questions: where does this go? What do I call the folder? Do I need to tell something about it? The answers depend
+on who you ask, what existed before, and what the last person did. Over time the layout drifts — one module puts helpers in `internal/`,
+another in `helpers/`, a third in `util/`. Tooling cannot program against a layout that changes per module, so configuration files, path
+arguments, and environment variables proliferate to bridge the gap.
 
 This platform takes the opposite approach. The folder structure is fixed, semantic, and the same everywhere. Tooling hardcodes the
 well-known names directly. There are no path parameters, no configuration files mapping folder names to meanings, and no per-module

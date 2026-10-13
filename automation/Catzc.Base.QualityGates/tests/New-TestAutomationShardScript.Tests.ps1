@@ -96,7 +96,7 @@ Describe 'New-TestAutomationShardScript' {
             $content | Should -Match ([regex]::Escape(". 'C:\build''s\Catzc\6.6.666\Import-Catzc.ps1' -AllowWarnings -RepositoryRoot 'C:\repo'"))
             $content | Should -Not -Match 'importer\.ps1'
             $content | Should -Not -Match '-Quiet'
-            # Everything after the load is the same for both suites.
+            # Everything after the load is the same for both runs.
             $content | Should -Match ([regex]::Escape("Join-Path (Get-CatzcModulesRoot) '.vendor/Pester'"))
             $content | Should -Match 'ConvertTo-TestAutomationRowSet'
         }
@@ -111,11 +111,11 @@ Describe 'New-TestAutomationShardScript' {
         It 'runs a generated shard end to end: results.xml, rows sidecar, and a green exit code' {
             # The walking skeleton for the whole worker chain: generator → PesterRunner → importer →
             # Pester → row sidecar. One real worker; the per-case behaviour lives in the L0 tests above
-            # and in ConvertTo-TestAutomationRowSet's own suite.
+            # and in ConvertTo-TestAutomationRowSet's own test file.
             $runDirectory = Join-Path $TestDrive 'live-run'
             [void][System.IO.Directory]::CreateDirectory($runDirectory)
 
-            # A fixture suite exercising all row kinds: a pass, a self-skip, and a tag-excluded test — plus a
+            # A fixture test file exercising all row kinds: a pass, a self-skip, and a tag-excluded test — plus a
             # pass proving the worker's Pester is the vendored copy under the worker's own code root.
             $fixture = Join-Path $TestDrive 'ShardFixture.Tests.ps1'
             $fixtureContent = @'

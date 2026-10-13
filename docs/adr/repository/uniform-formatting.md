@@ -39,6 +39,16 @@ cleanly across commits. It is never hand-formatted, not even inside a generator'
 
 - [Generated artifacts are canonical too](#generated-artifacts-are-canonical-too)
 
+### Rule ADR-REPO-FORMAT:6
+
+Every git-tracked Markdown file opens — after any YAML front matter — with the H1 `# <repository-relative path>`, e.g.
+`# docs/references/infrastructure/foundation.md`, and nothing else on that line. `Format-MarkdownTitle` writes it and `Test-MarkdownTitle`
+gates it. The scope follows the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks
+`linguist-vendored` or `linguist-generated` and the test fixture trees (`**/tests/assets/**`). A new exception is declared in the
+`.gitattributes` source, never in a list of the gate's own.
+
+- [Markdown titles are paths](#markdown-titles-are-paths)
+
 ## Context
 
 The repository holds many file types — PowerShell (`.ps1`/`.psm1`/`.psd1`), Bicep, YAML pipelines, Markdown, JSON, C#. When formatting is
@@ -98,6 +108,19 @@ keys ordered deterministically, the `=` column computed rather than hand-padded,
 formatter-stable: running the formatter over it changes nothing. A hand-padded string template is the same hand-formatting ADR-REPO-FORMAT#1
 forbids, merely moved into code; it drifts the moment a field is added and churns the diff on every build.
 
+### Markdown titles are paths
+
+A hand-written title is the author's guess at a name — usually the file's leaf name, which says nothing about where the document lives. The
+same document is read through a generated README link, a search result, a printout, or a pasted excerpt, and each of those loses the folder
+it came from. A title that is the repository-relative path names the document exactly in all of them, cannot drift when the file is
+renamed (the formatter rewrites it), and leaves nothing to judge, so a tool owns it like every other formatting choice. The path is
+plain text, with its `.md` extension, so it can be copied straight into a link or a terminal. What the document is about is said in its
+first paragraph.
+
+The scope reuses the classes the repository already declares instead of keeping its own: git decides what is committed (a gitignored
+generated file is out, its tracked source is in), and `.gitattributes` decides what is vendored or generated. Test fixture trees are data
+on purpose, as they are for links.
+
 ## Decision
 
 The whole repository follows a single, mechanically enforced formatting baseline, with per-language layers on top. No exceptions, no
@@ -119,6 +142,8 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - **Links** — `Format-Links` aligns every link mechanically (code links repository-rooted, markdown links relative, rule citations spelled
   `ADR-<CODE>#<n>`) and `Test-Links` gates them; an L2 test asserts `Format-Links` is a no-op over the tracked tree
   ([markdown-links](markdown-links.md)).
+- **Markdown titles** — `Format-MarkdownTitle` titles every in-scope Markdown file with its repository path and `Test-MarkdownTitle` gates
+  it; an L1 test asserts the tracked tree has no finding.
 
 ## Consequences
 

@@ -75,7 +75,7 @@ globset selecting through tracks — not a new root.
 ### A track has a tech-stack
 
 The stack is the reason tracks exist as _separate roots_ rather than folders inside one tree: each stack brings its own toolchain, its own
-verification, and its own failure modes. Keeping one stack per track keeps every gate honest — the automation suite verifies PowerShell/C#,
+verification, and its own failure modes. Keeping one stack per track keeps every gate honest — the automation tests verify PowerShell/C#,
 the infrastructure gates verify Bicep against its configuration model — and keeps the door open for new stacks (`frontend`, `services`)
 without disturbing the existing ones. The dependency between stacks is explicit and one-directional: adapters and ports rest on the core
 (`infrastructure` consumes `automation` for context and execution), never the reverse.

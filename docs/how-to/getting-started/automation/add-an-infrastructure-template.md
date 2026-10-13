@@ -130,7 +130,7 @@ target with `-SubscriptionIdAssertIs <guid>` (mandatory there); on a devbox the 
 ## Verify
 
 `Test-Automation` includes generic integrity tests that build **every** shipped template and check each references only defined
-environments/subscriptions and renders well-formed names — so a misnamed config folder or an undefined environment fails the suite. Run it
+environments/subscriptions and renders well-formed names — so a misnamed config folder or an undefined environment fails the tests. Run it
 after adding a template:
 
 ```powershell

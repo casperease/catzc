@@ -1,4 +1,4 @@
-# Source-tree tooling (Assert-SourceTree): its scans need the per-module types/*.cs, so the suite is source-only.
+# Source-tree tooling (Assert-SourceTree): its scans need the per-module types/*.cs, so this test file is source-only.
 Describe 'Get-CSharpTypeDependency' -Tag 'L0', 'source-only' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

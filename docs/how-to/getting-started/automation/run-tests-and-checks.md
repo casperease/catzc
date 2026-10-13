@@ -66,7 +66,7 @@ Format-Spelling            # register flagged words into cspell.yml (-DryRun to 
 top-level `words:` list in `cspell.yml`, so the dictionary diff is the review surface. Use it to accept new content words; an invented
 identifier abbreviation is spelled out instead (see [spell-out-names](../../../adr/automation/powershell/spell-out-names.md)).
 
-PSScriptAnalyzer itself (style, approved verbs, the custom rules under `automation/.scriptanalyzer/`) runs as part of the **L2** suite via
+PSScriptAnalyzer itself (style, approved verbs, the custom rules under `automation/.scriptanalyzer/`) runs as part of the **L2** tests via
 the analyzer test — so `Test-Automation -Level 2` is what catches a formatting or convention violation before CI does.
 
 ## Marker freshness and protected scans

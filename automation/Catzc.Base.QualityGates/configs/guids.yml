@@ -1,7 +1,7 @@
 # Managed-GUID registry — the single authored source of every GUID literal the repository carries.
 #
 # Every GUID found in tracked text (code, configs, fixtures, pipelines, docs) must be registered here; the
-# integrity gate enforces both directions — an unregistered guid fails the suite, and so does a dead entry
+# integrity gate enforces both directions — an unregistered guid fails the tests, and so does a dead entry
 # no tracked file references. Two entry classes: an external-facing GUID is registered as-is (its value is
 # fixed by the outside world); a placeholder GUID is minted with ConvertTo-Guid so the value spells its
 # `sentence`.

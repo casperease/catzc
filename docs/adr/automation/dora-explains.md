@@ -358,7 +358,7 @@ DORA links test automation and deployment automation to stable delivery. Locatin
 such read against the real asset in both run modes, catches a lookup that only works in the source tree before it reaches an installed
 package.
 
-- [Test automation](../../references/dora/capabilities.md#test-automation) — a real-asset test per dependency runs in both suites.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — a real-asset test per dependency runs in both test runs.
 - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — the build gate guarantees every needed asset ships.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — the dependency inventory is derived from the code,
   never hand-kept.
@@ -640,7 +640,7 @@ only, and splitting logic from integrity tests ensures fast, reliable test feedb
 - [Test automation](../../references/dora/capabilities.md#test-automation) — hermetic logic tests with seam mocks catch regressions fast
   without process-global state leakage.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — seam-based mocking keeps tests decoupled from
-  implementation so refactors do not rewrite the suite.
+  implementation so refactors do not rewrite the tests.
 - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — splitting logic and integrity tests provides both
   fast feedback and real-world coverage.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

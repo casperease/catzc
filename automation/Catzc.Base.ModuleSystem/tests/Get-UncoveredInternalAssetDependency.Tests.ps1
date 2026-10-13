@@ -18,7 +18,7 @@ Describe 'Get-UncoveredInternalAssetDependency' -Tag 'L0', 'logic' {
                     # covered: the citation on the Describe, the It inherits it
                     'Get-Gadget.ps1'                         = & $functionFile 'Get-Gadget' 'assets/gadget.txt'
                     'tests/Get-Gadget.Tests.ps1'             = "Describe 'g' -Tag 'L1', 'integrity', '$citation' {`n    It 'reads' { }`n}"
-                    # covered through a suffixed suite, the citation on the It itself (colon form on the Context)
+                    # covered through a suffixed test file, the citation on the It itself (colon form on the Context)
                     'Get-Sprocket.ps1'                       = & $functionFile 'Get-Sprocket' 'configs/sprocket.yml'
                     'tests/Get-Sprocket.Tests.ps1'           = "Describe 's' -Tag 'L0', 'logic' { It 'logic' { } }"
                     'tests/Get-Sprocket.Integrity.Tests.ps1' = "Describe 's' {`n    Context 'real' -Tag:@('L1', 'integrity') {`n        It 'reads' -Tag '$citation' { }`n    }`n}"

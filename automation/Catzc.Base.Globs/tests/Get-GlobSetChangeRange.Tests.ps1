@@ -3,7 +3,7 @@
 # post-commit first-parent (squash-proof), or the PR merge-base — with a fail-open null.
 Describe 'Get-GlobSetChangeRange' -Tag 'L0', 'logic' {
     BeforeEach {
-        # A clean, deterministic env regardless of where the suite runs (a real pipeline sets some of these).
+        # A clean, deterministic env regardless of where the tests run (a real pipeline sets some of these).
         $env:SYSTEM_PULLREQUEST_PULLREQUESTID = $null
         $env:SYSTEM_PULLREQUEST_TARGETBRANCH = $null
         $env:GITHUB_EVENT_NAME = $null

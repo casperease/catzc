@@ -1,6 +1,6 @@
 Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
     BeforeAll {
-        # Build-Modules (Catzc.Base.Exporter) is the boundary: mocked here, so this suite proves the wiring
+        # Build-Modules (Catzc.Base.Exporter) is the boundary: mocked here, so this test file proves the wiring
         # without a real build.
         $script:harness = 'Catzc.Base.QualityGates'
     }

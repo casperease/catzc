@@ -25,7 +25,7 @@ Every function with an internal asset dependency is covered by at least one test
 carries the citation tag `ADR-AUTO-ASSETDEP#3`, and is not tagged `source-only`, so it runs in both the source run and the build run.
 Because it reads a shipped asset, it is an `integrity` test (ADR-AUTO-TEST#1); the function's logic tests keep using fixtures.
 
-- [A real-asset test that runs in both suites](#a-real-asset-test-that-runs-in-both-suites)
+- [A real-asset test that runs in both test runs](#a-real-asset-test-that-runs-in-both-test-runs)
 
 ### Rule ADR-AUTO-ASSETDEP:4
 
@@ -64,8 +64,8 @@ written and tested, so review and source-mode tests cannot be what catches it.
 ## Decision
 
 Internal assets are located through one helper whose answer is correct in both modes, every such lookup is visible in the code as a literal
-path, and every function that performs one is tested against the real asset in both suites. Coverage and presence are checked by gates, not
-by review.
+path, and every function that performs one is tested against the real asset in both test runs. Coverage and presence are checked by gates,
+not by review.
 
 ### One helper, one answer in both modes
 
@@ -87,7 +87,7 @@ path would hide the dependency from that scan, so the literal is part of the rul
 list would drift from the code it describes, and the code says everything the gates need
 ([open-closed-architecture](open-closed-architecture.md)).
 
-### A real-asset test that runs in both suites
+### A real-asset test that runs in both test runs
 
 A function that reads a shipped asset is covered by a test that lets the read happen: it loads the module, calls the function, and asserts
 on what the real asset produced. Mocking the read away would test the mock, which is the one thing that does not change between the modes.
@@ -98,7 +98,7 @@ not to re-test the logic.
 
 ### Two gates: coverage and presence
 
-The **coverage gate** is an integrity test that runs in both suites: for every function in the inventory it looks in that function's
+The **coverage gate** is an integrity test that runs in both test runs: for every function in the inventory it looks in that function's
 `Verb-Noun.Tests.ps1` for a test that cites `ADR-AUTO-ASSETDEP#3` and is not `source-only`, and fails with the function and its uncovered
 child paths when there is none. The **build gate** is part of `Build-Modules`' self-check
 ([platform-bundle](platform-bundle.md#rule-adr-auto-bundle5)): every inventoried (module, child path) must exist in the built output, so a
@@ -112,7 +112,7 @@ the coverage gate is red, so the change cannot merge ([poka-yoke](../principles/
 - **`Get-CatzcModuleRoot`** (`Catzc.Base.Repository`) — the one helper for a module's own content.
 - **`Measure-NoScriptRootAnchor`** (`automation/.scriptanalyzer/`) — flags `$PSScriptRoot` in module function files.
 - **`Get-InternalAssetDependency`** (`Catzc.Base.ModuleSystem`) — derives the inventory from the code.
-- **The coverage gate** — an integrity test over the inventory, in both suites (ADR-AUTO-ASSETDEP#4).
+- **The coverage gate** — an integrity test over the inventory, in both test runs (ADR-AUTO-ASSETDEP#4).
 - **The build gate** — `Build-Modules` / `Assert-CatzcBundle` check every inventoried path in the built output (ADR-AUTO-ASSETDEP#4).
 - **`Test-CatzcBuild`** — runs every `ADR-AUTO-ASSETDEP#3` test against the build.
 
@@ -129,6 +129,6 @@ the coverage gate is red, so the change cannot merge ([poka-yoke](../principles/
 - [run-modes](../design/run-modes.md) — the two modes this rule keeps equivalent.
 - [never-depend-on-pwd](never-depend-on-pwd.md) — the code-root anchor and the `$PSScriptRoot` ban.
 - [platform-bundle](platform-bundle.md) — the build and its self-check.
-- [test-automation](test-automation.md) — logic vs integrity tests, the two suites, and the `source-only` tag.
+- [test-automation](test-automation.md) — logic vs integrity tests, the two test runs, and the `source-only` tag.
 - [controlling-module-dependencies](controlling-module-dependencies.md) — the declared edge a cross-module asset read implies.
 - [conventional-folders](../repository/conventional-folders.md) — the `configs/` and `assets/` folders the lookups resolve into.

@@ -4,7 +4,7 @@
 # as "$($word)" in the test's scope at name-expansion time. With -ForEach/-TestCases data that is the
 # intended feature; WITHOUT data the token is almost always prose (e.g. "configs/<name>.yml") — it silently
 # expands to empty in a non-strict scope and THROWS ("the variable '$word' cannot be retrieved") in a strict
-# one — and the suite runs strict ([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)), so
+# one — and the tests run strict ([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)), so
 # such a title fails its file at name expansion, far from
 # the cause. This gate bans the pattern outright: a title with a <token> must carry -ForEach data.
 # (These titles themselves spell out "angle-bracket token" — a literal one here would fire the very trap.)

@@ -91,8 +91,8 @@ unavoidable platform logic as `$IsWindows` / `$IsLinux` branches — all validat
 
 - **PSScriptAnalyzer compatibility rules** — `PSUseCompatibleCmdlets` and `PSUseCompatibleTypes` flag cmdlets and .NET types not available
   on all target platforms. The rules, their profiles, and their on/off state live in `PSScriptAnalyzerSettings.psd1`.
-- **L2 tests run locally** — developers run the same `Test-ScriptAnalyzer.Tests.ps1` suite that CI runs, so platform violations are caught
-  before push, not in the pipeline queue.
+- **L2 tests run locally** — developers run the same `Test-ScriptAnalyzer.Tests.ps1` test file that CI runs, so platform violations are
+  caught before push, not in the pipeline queue.
 
 ## Consequences
 

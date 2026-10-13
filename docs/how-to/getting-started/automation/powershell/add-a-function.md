@@ -103,8 +103,8 @@ function — see [test-automation](../../../../adr/automation/test-automation.md
 
 ### Optionally cite the ADR rule a test enforces
 
-A test may also declare the ADR rule(s) it enforces, as an **optional** third tag — so the suite is traceable from a test to the rule behind
-it and back. Cite the rule in the index's `#` form (`ADR-<CODE>#<n>`, e.g. `ADR-AUTO-ERROR#3`) as a `-Tag` beside the tier and category:
+A test may also declare the ADR rule(s) it enforces, as an **optional** third tag — so each test is traceable to the rule behind it and
+back. Cite the rule in the index's `#` form (`ADR-<CODE>#<n>`, e.g. `ADR-AUTO-ERROR#3`) as a `-Tag` beside the tier and category:
 
 ```powershell
 Describe 'Invoke-Poetry' -Tag 'L1', 'logic', 'ADR-AUTO-ERROR#3' {   # this test pins "throw, never Write-Error"

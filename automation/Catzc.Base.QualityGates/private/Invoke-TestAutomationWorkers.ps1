@@ -2,7 +2,7 @@
 .SYNOPSIS
     Runs the test files through the parallel worker pool (and the serial phase) and aggregates the rows.
 .DESCRIPTION
-    Test-Automation's execution engine. Runs in the slot its suite claimed (Enter-TestRunSlot — a run never
+    Test-Automation's execution engine. Runs in the slot its test run claimed (Enter-TestRunSlot — a run never
     waits for another: it runs in place when the working folder is free, and in a verified snapshot of it
     when another run holds it; [ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)),
     round-robins the parallel files across worker shards
@@ -15,7 +15,7 @@
     the shard rather than reporting a partial run as the whole truth.
 
     In a snapshot run the test files map to the same repository-relative paths inside the snapshot, each
-    worker loads the snapshot's own importer (or the suite's entry script with its repository root mapped to
+    worker loads the snapshot's own importer (or the test run's entry script with its repository root mapped to
     the snapshot), and the run directory stays in the working folder's out/ — the shard results land home by
     construction, and the rows' File paths map back to working-folder paths before aggregation.
 .PARAMETER ParallelFiles
@@ -26,7 +26,7 @@
 .PARAMETER SerialFiles
     The serial-tagged test files for the final one-worker phase (may be empty).
 .PARAMETER Slot
-    The slot the suite claimed (Enter-TestRunSlot) — where the run executes. The suite releases it.
+    The slot the test run claimed (Enter-TestRunSlot) — where the run executes. The caller releases it.
 .PARAMETER RunDirectory
     The run directory the shard scripts and their artifacts are written into.
 .PARAMETER ExcludeTag
@@ -45,7 +45,7 @@
 .PARAMETER EntryParameter
     Named arguments for -EntryScript (the build run's @{ RepositoryRoot = <repo> }).
 .PARAMETER KeepSandbox
-    Whether the suite keeps the snapshot (when the run used one) after the run — reported in Location.Kept.
+    Whether the test run keeps the snapshot (when the run used one) after the run — reported in Location.Kept.
 .OUTPUTS
     [pscustomobject] with Rows (aggregated, in shard order), FailedShardLabels (shards that exited 1),
     ShardExitCodes (label -> exit code, for the run manifest), Shards (the shard descriptors, serial last),
@@ -113,7 +113,7 @@ function Invoke-TestAutomationWorkers {
     $GreedyFiles = @(Convert-TestRunSlotPath -Slot $slot -Path $GreedyFiles)
     $SerialFiles = @(Convert-TestRunSlotPath -Slot $slot -Path $SerialFiles)
 
-    # The shard-script arguments every phase shares — including the suite seam (which entry script loads
+    # The shard-script arguments every phase shares — including the entry-script seam (which entry script loads
     # the modules in each worker).
     $shardArguments = @{
         RunDirectory = $RunDirectory

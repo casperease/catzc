@@ -1,5 +1,5 @@
 BeforeAll {
-    # The transient importer modules are removed after every import, so the suite loads its own copies.
+    # The transient importer modules are removed after every import, so this test file loads its own copies.
     Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
     Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Importer.psm1') -Force
 }

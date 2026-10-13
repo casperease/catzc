@@ -1,4 +1,4 @@
-# Keeps docs/how-to/automation/manual-test-plan.md in sync with the suite. This is itself an integrity check
+# Keeps docs/how-to/automation/manual-test-plan.md in sync with the tests. This is itself an integrity check
 # (it reads the real repo), so per [ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16) it
 # derives its fact by PARSING the test files with the AST — never by
 # booting Pester discovery (a nested Invoke-Pester inside a run is unsafe). It is self-referential: its own
@@ -10,7 +10,7 @@ Describe 'Manual test plan covers every integrity check' -Tag 'L1', 'integrity',
         $automationRoot = Join-Path $repoRoot 'automation'
         $script:planPath = Join-Path $repoRoot 'docs/how-to/automation/manual-test-plan.md'
 
-        # 1. Discover every integrity-tagged Describe/Context/It across the suite by AST
+        # 1. Discover every integrity-tagged Describe/Context/It across all tests by AST
         # ([ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16)). A block is
         # integrity when its own -Tag argument array contains the literal 'integrity'; the block name is the
         # command's first positional string. Key each block by (relativeFile, blockName) — block names are NOT
@@ -108,7 +108,7 @@ Describe 'Manual test plan covers every integrity check' -Tag 'L1', 'integrity',
 
     It 'the plan has no stale or duplicate index rows (row count equals discovered blocks)' {
         $script:entryRows.Count | Should -Be $script:integrityBlocks.Count -Because (
-            "the plan has $($script:entryRows.Count) index rows but the suite has $($script:integrityBlocks.Count) integrity blocks — a stale/duplicate row, or a renamed/removed block"
+            "the plan has $($script:entryRows.Count) index rows but the tests have $($script:integrityBlocks.Count) integrity blocks — a stale/duplicate row, or a renamed/removed block"
         )
     }
 }

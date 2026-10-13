@@ -35,7 +35,7 @@ the registry, not to generate identity at runtime.
 ### Rule ADR-AUTO-GUIDS:4
 
 The registry holds only live entries, and the gate enforces both directions: a GUID found in tracked text but absent from the registry fails
-the suite, and a registry entry no tracked file references is dead vocabulary and fails too — the same liveness discipline as the
+the test run, and a registry entry no tracked file references is dead vocabulary and fails too — the same liveness discipline as the
 terminology registry ([spell-out-names](powershell/spell-out-names.md#rule-adr-auto-spell8)).
 
 - [The gate](#the-gate)

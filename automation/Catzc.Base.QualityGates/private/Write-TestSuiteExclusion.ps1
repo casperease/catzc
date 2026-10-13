@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Prints and records the tests a suite opt-out tag excluded — the visible half of
+    Prints and records the tests a test run's opt-out tag excluded — the visible half of
     [ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31).
 .DESCRIPTION
     The build run never drops a test silently: every test it leaves out by its opt-out tag ('source-only') is

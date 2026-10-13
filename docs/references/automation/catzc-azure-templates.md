@@ -70,7 +70,7 @@ before it acts, so a deployment can never run against the wrong subscription.
 
 The classification vocabularies (domain 3) are the small enumerations that keep options and deploys honest, and integrity validation
 (domain 6) is the safety net: it binds to the _set_ of shipped templates and asserts the invariants that must hold for every one of them, so
-a misnamed config folder or an undefined environment fails the suite rather than a deployment. Throughout, identity comes from the
+a misnamed config folder or an undefined environment fails the tests rather than a deployment. Throughout, identity comes from the
 [Catzc.Azure](catzc-azure.md) model — this module owns no configuration of its own; it reads `azure.yml` and `network.yml` through that
 module.
 

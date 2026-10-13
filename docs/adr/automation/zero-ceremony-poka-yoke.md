@@ -90,7 +90,7 @@ Every design choice in this project is evaluated against two questions:
 1. **Does this add ceremony?** If the author has to do something that the platform could do for them, the platform should do it.
 
 2. **Can the author get this wrong?** If a mistake is possible, the system should either prevent it structurally (file naming conventions,
-   bootstrap-module auto-discovery) or catch it immediately (PSScriptAnalyzer rules, test suite assertions).
+   bootstrap-module auto-discovery) or catch it immediately (PSScriptAnalyzer rules, test assertions).
 
 If the answer to either question is unsatisfying, the design is not done.
 

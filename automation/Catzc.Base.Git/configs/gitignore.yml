@@ -12,10 +12,11 @@ zones:
   - id: local
     title: Local, never-committed files
     why: >
-      Per-machine working files: local agent instructions and MCP wiring, scratch folders, editor backups,
+      Per-machine working files: local agent instructions, settings and MCP wiring, scratch folders, editor backups,
       and the occasional bash-on-Windows crash dump.
     patterns:
       - .claude/CLAUDE.local.md
+      - .claude/settings.local.json
       - .mcp.json
       - tmp
       - '*.bkp'
