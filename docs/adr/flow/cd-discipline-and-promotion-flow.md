@@ -141,6 +141,15 @@ clears (DEPLOY, ADR-FLOW-CD#6) is not a gate.
 
 - [RC and RBC: the two hands-on release gates](#rc-and-rbc-the-two-hands-on-release-gates)
 
+### Rule ADR-FLOW-CD:14
+
+A **release candidate** is one commit's build-once artifact of a deployable-unit while it occupies a certification environment — `main-uat`
+or `release-uat` — awaiting that environment's gate (RC or RBC, ADR-FLOW-CD#9). Acceptance testing there verifies it, the certification
+decides it, and a cleared gate promotes it; until then it is a candidate, not a release. Its verification is a release-candidate test run —
+CD's post-commit system test, never part of the fast CI gate (ADR-FLOW-CD#2).
+
+- [RC and RBC: the two hands-on release gates](#rc-and-rbc-the-two-hands-on-release-gates)
+
 ## Context
 
 [pipeline-types](../flow/pipeline-types.md) is the _taxonomy_ — it fixes what each of the six ADO artifact kinds **is**. This ADR is the
@@ -159,8 +168,8 @@ The word "CI" carries both meanings, and conflating them is the mistake this ADR
 YAML file that compiles something. Read as a discipline, it is the team-scale practice — small, frequent integrations into one mainline,
 each proven fast — that the pipeline exists to _serve_. The 5–10 minute budget, the always-on environment that mirrors main, and the
 build-once artifact that flows to prod are all consequences of taking the discipline as primary. The complement is
-[continuous integration](../research/continuous-integration.md), whose fast-gate budget is what a slow release-candidate suite breaks when
-it squats in the fast CI slot.
+[continuous integration](../research/continuous-integration.md), whose fast-gate budget is what a slow release-candidate test run breaks
+when it squats in the fast CI slot.
 
 ## Decision
 

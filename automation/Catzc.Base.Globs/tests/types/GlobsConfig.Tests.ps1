@@ -47,7 +47,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             { $c.Get('missing') } | Should -Throw "*no globset named 'missing'*"
         }
 
-        It 'carries the pipeline binding and the verify scope' {
+        It 'carries the pipeline binding and the verify scope' -Tag 'ADR-DSGN-TRACK#5' {
             $c = & $script:make @{
                 unit = @{ description = 'd'; layer = 'deployable-unit'; include = @('src/**')
                     pipeline = 'cd-unit'; verify = @{ modules = @('Catzc.Azure.Templates'); level = 2 }

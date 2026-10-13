@@ -31,6 +31,8 @@ concepts:
         defined_by: ADR-AUTO-TEST#34
         short: One invocation of Test-Automation, Test-CatzcBuild, or Invoke-TestFile over a selection of test files, in one slot, with one report.
         realized_by: { kind: artifact, pattern: 'out/test-*/*/run.json' }
+        contrasts:
+            release candidate: A release candidate is the artifact a release-candidate test run verifies; a test run executes tests.
         avoid:
             - { phrase: source suite, say: source run }
             - { phrase: build suite, say: build run }

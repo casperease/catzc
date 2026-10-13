@@ -121,7 +121,7 @@ never both; the choice is a per-unit governance posture.
 In Azure DevOps, every YAML-defined, agent-executed artifact is called a "pipeline." The word covers structurally different things: a
 timer-driven automation job, a build-and-test gate, a full deploy, a manually-governed deploy of a locked commit, and a user-facing form.
 When one noun covers all of them, the organisation loses the language it needs to distinguish their failure modes: a "pipeline" that is
-really a release-candidate suite hung in the pre-commit slot (breaking the fast-gate budget of
+really a release-candidate test run hung in the pre-commit slot (breaking the fast-gate budget of
 [continuous integration](../research/continuous-integration.md)), and a "pipeline" that is really a parameterised RPC call wearing
 continuous delivery's name (the anti-pattern [INPUT](#input--self-service-input-turned-into-a-commit) replaces).
 
@@ -322,8 +322,9 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 
 ## Consequences
 
-- The four failure modes the notes catalogue become nameable and therefore preventable: a release-candidate suite cannot hide in the CI slot
-  (it is CD's post-commit system test), and a self-service RPC cannot masquerade as CD (it is an INPUT pipeline that produces a commit).
+- The four failure modes the notes catalogue become nameable and therefore preventable: a release-candidate test run cannot hide in the CI
+  slot (it is CD's post-commit system test), and a self-service RPC cannot masquerade as CD (it is an INPUT pipeline that produces a
+  commit).
 - A manually-governed deploy has a name and a home: it is a DEPLOY pipeline, so a production or certification cutover under SOP/ITSM gates
   is a separate, access-controlled, auditable construct — not an approval stage buried inside a CD pipeline built to run automatically. CD
   and DEPLOY still share one deploy path, so the extraction costs no duplicated deploy logic.
