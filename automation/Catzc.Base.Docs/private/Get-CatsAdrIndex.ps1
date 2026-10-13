@@ -21,8 +21,8 @@ function Get-CatsAdrIndex {
         [string] $IndexPath = (Resolve-RepoPath 'docs/adr/index.md')
     )
 
-    if (-not $script:catsAdrIndexCache) {
-        $script:catsAdrIndexCache = @{}
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrIndexCache')) {
+        $script:catsAdrIndexCache = @{}   # strict-clean probe of the lazy slot (ADR-AUTO-PSCACHE:4)
     }
     if ($script:catsAdrIndexCache.ContainsKey($IndexPath)) {
         return , $script:catsAdrIndexCache[$IndexPath]

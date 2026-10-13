@@ -28,8 +28,8 @@ function Get-CatsAdrRuleIds {
         [string] $IndexPath = (Resolve-RepoPath 'docs/adr/index.md')
     )
 
-    if (-not $script:catsAdrRuleIdsCache) {
-        $script:catsAdrRuleIdsCache = @{}
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrRuleIdsCache')) {
+        $script:catsAdrRuleIdsCache = @{}   # strict-clean probe of the lazy slot (ADR-AUTO-PSCACHE:4)
     }
     if ($script:catsAdrRuleIdsCache.ContainsKey($IndexPath)) {
         return , $script:catsAdrRuleIdsCache[$IndexPath]

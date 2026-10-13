@@ -74,6 +74,34 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Warning }
     }
 
+    It 'names the process holding the surviving build in the warning' -Tag 'logic' {
+        Mock Test-FileIsLocked { $true } -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Path -like '*deadbeef*' }
+        Mock Get-FileLockingProcess {
+            [Catzc.Base.Files.FileLockingProcess]::new(4242, 'widget.exe', 'Widget', [datetime] '2026-01-02 03:04', 'widget.exe -run', 1, $null)
+        } -ModuleName Catzc.Base.TypesSystem
+        Clear-ModuleTypeCache -AutomationRoot $fakeRoot
+        Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter {
+            $Warning -and $Message -like '*Catzc.Types.deadbeef.dll is held by widget.exe (PID 4242, started 2026-01-02 03:04)*'
+        }
+        Should -Invoke Get-FileLockingProcess -ModuleName Catzc.Base.TypesSystem -Times 0 -ParameterFilter { $Path -eq $currentDll }
+    }
+
+    It 'labels a VS Code PowerShell extension host by name in the warning' -Tag 'logic' {
+        Mock Test-FileIsLocked { $true } -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Path -like '*deadbeef*' }
+        Mock Get-FileLockingProcess {
+            [Catzc.Base.Files.FileLockingProcess]::new(4242, 'pwsh.exe', 'PowerShell 7', [datetime] '2026-01-02 03:04', 'pwsh.exe -Command Start-EditorServices PowerShellEditorServices', 1, $null)
+        } -ModuleName Catzc.Base.TypesSystem
+        Clear-ModuleTypeCache -AutomationRoot $fakeRoot
+        Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Warning -and $Message -like '*the VS Code PowerShell extension*' }
+    }
+
+    It 'still warns, holder-free, when the holder lookup fails — and never throws' -Tag 'logic' {
+        Mock Test-FileIsLocked { $true } -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Path -like '*deadbeef*' }
+        Mock Get-FileLockingProcess { throw 'widget lookup failure' } -ModuleName Catzc.Base.TypesSystem
+        { Clear-ModuleTypeCache -AutomationRoot $fakeRoot -Silent } | Should -Not -Throw
+        Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Warning -and $Message -like '*is a console session locking it?*' }
+    }
+
     It 'does NOT warn when the superseded build is freely deletable (cleaned up silently)' -Tag 'logic' {
         # The fix: the warning is no longer emitted preemptively on a mere two-dlls-on-disk state. The fixture's
         # stale build is unlocked, so the delete removes it and only the current build remains — no warning.
@@ -185,7 +213,7 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         $stream = [System.IO.File]::Open($staleDll, 'Open', 'Read', 'None')   # a loaded-DLL analogue: locked handle
         try {
             { Clear-ModuleTypeCache -AutomationRoot $fakeRoot -ThrowOnNonReleasedFromClrTypesDll } |
-                Should -Throw '*restart PowerShell*'
+                Should -Throw "*Catzc.Types.deadbeef.dll by this session (PID $PID)*restart PowerShell*"
             $staleDll | Should -Exist        # the still-loaded one survives (it is named in the throw)
             $stale2 | Should -Not -Exist     # the deletable stale build was removed first
             $currentDll | Should -Exist      # the current build is always kept

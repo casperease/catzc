@@ -1,0 +1,94 @@
+// Asks the Windows Restart Manager (rstrtmgr.dll) which processes hold a file open — the API behind
+// Explorer's "file in use by …" dialog. It needs no admin rights and sees both an open handle and a mapped
+// (loaded) DLL image. Windows-only: the P/Invoke binds lazily, so the type loads on every platform, but
+// GetHolders must only be called on Windows (it throws PlatformNotSupportedException elsewhere).
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+
+namespace Catzc.Base.Files;
+
+public static class RestartManager
+{
+    const int ErrorMoreData = 234;
+    const int MaxListAttempts = 5;
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct UniqueProcess
+    {
+        public int ProcessId;
+        public System.Runtime.InteropServices.ComTypes.FILETIME ProcessStartTime;
+    }
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    struct ProcessInfo
+    {
+        public UniqueProcess Process;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)] public string AppName;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)] public string ServiceShortName;
+        public int ApplicationType;
+        public uint AppStatus;
+        public uint TerminalServicesSessionId;
+        [MarshalAs(UnmanagedType.Bool)] public bool Restartable;
+    }
+
+    [DllImport("rstrtmgr.dll", CharSet = CharSet.Unicode)]
+    static extern int RmStartSession(out uint sessionHandle, int sessionFlags, string sessionKey);
+
+    [DllImport("rstrtmgr.dll")]
+    static extern int RmEndSession(uint sessionHandle);
+
+    [DllImport("rstrtmgr.dll", CharSet = CharSet.Unicode)]
+    static extern int RmRegisterResources(uint sessionHandle, uint fileCount, string[] files, uint applicationCount, IntPtr applications, uint serviceCount, string[] services);
+
+    [DllImport("rstrtmgr.dll")]
+    static extern int RmGetList(uint sessionHandle, out uint needed, ref uint count, [In, Out] ProcessInfo[] processes, ref uint rebootReasons);
+
+    // Every process holding the file, with the Restart Manager's facts only (id, app name, start time).
+    public static IReadOnlyList<FileLockingProcess> GetHolders(string path)
+    {
+        if (!OperatingSystem.IsWindows())
+        {
+            throw new PlatformNotSupportedException("The Restart Manager is Windows-only.");
+        }
+
+        uint session;
+        // The session key is a caller-chosen unique string (at most 32 chars + NUL); a GUID's "N" form is exactly 32.
+        int rc = RmStartSession(out session, 0, Guid.NewGuid().ToString("N"));
+        if (rc != 0) { throw new Win32Exception(rc); }
+        try
+        {
+            rc = RmRegisterResources(session, 1, new[] { path }, 0, IntPtr.Zero, 0, null);
+            if (rc != 0) { throw new Win32Exception(rc); }
+
+            // The holder list can grow between the sizing call and the fetch — ERROR_MORE_DATA again — so re-size and retry.
+            var processes = new ProcessInfo[0];
+            for (int attempt = 0; attempt < MaxListAttempts; attempt++)
+            {
+                uint count = (uint)processes.Length;
+                uint rebootReasons = 0;
+                rc = RmGetList(session, out uint needed, ref count, processes.Length == 0 ? null : processes, ref rebootReasons);
+                if (rc == 0)
+                {
+                    var holders = new List<FileLockingProcess>((int)count);
+                    for (int i = 0; i < count; i++)
+                    {
+                        var p = processes[i];
+                        long fileTime = ((long)(uint)p.Process.ProcessStartTime.dwHighDateTime << 32) | (uint)p.Process.ProcessStartTime.dwLowDateTime;
+                        holders.Add(new FileLockingProcess(p.Process.ProcessId, p.AppName, DateTime.FromFileTime(fileTime)));
+                    }
+                    return holders;
+                }
+                if (rc != ErrorMoreData) { throw new Win32Exception(rc); }
+                processes = new ProcessInfo[needed];
+            }
+            throw new Win32Exception(rc);
+        }
+        finally
+        {
+            RmEndSession(session);
+        }
+    }
+}

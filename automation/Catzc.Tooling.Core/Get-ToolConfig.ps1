@@ -29,8 +29,8 @@ function Get-ToolConfig {
     # Memoize by the cached entry's identity: while the config cache is warm the entry is the same object
     # (so callers get one ToolConfig instance); after a cache reset Get-Config yields a new entry object,
     # which misses here and rebuilds — tying the ToolConfig's lifetime to the config it mirrors.
-    if (-not $script:toolConfigCache) {
-        $script:toolConfigCache = @{}
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:toolConfigCache')) {
+        $script:toolConfigCache = @{}   # strict-clean probe of the lazy slot (ADR-AUTO-PSCACHE:4)
     }
     if (-not $script:toolConfigCache.ContainsKey($config)) {
         $script:toolConfigCache[$config] = [Catzc.Tooling.Core.ToolConfig]::new($config)

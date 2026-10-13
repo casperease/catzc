@@ -22,8 +22,8 @@ function Resolve-ConfigEntry {
         [string] $Module
     )
 
-    if (-not $script:configIndex) {
-        $script:configIndex = @{}
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configIndex')) {
+        $script:configIndex = @{}   # strict-clean probe of the lazy slot (ADR-AUTO-PSCACHE:4)
         $automationRoot = Get-CatzcModulesRoot
         foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($automationRoot)) {
             $moduleName = [System.IO.Path]::GetFileName($moduleDir)

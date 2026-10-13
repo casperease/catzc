@@ -13,8 +13,9 @@ function Get-ConfigRegistry {
     [OutputType([System.Collections.IDictionary])]
     param()
 
-    if ($null -ne $script:configRegistryCache) {
-        return $script:configRegistryCache
+    $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:configRegistryCache')   # strict-clean (ADR-AUTO-PSCACHE:4)
+    if ($null -ne $cached) {
+        return $cached
     }
 
     $path = Get-CatzcModuleRoot 'configs/configs.yml'

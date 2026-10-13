@@ -872,6 +872,10 @@ terms:
       meaning: 'the %LOCALAPPDATA%\Microsoft\WindowsApps directory — winget / App Installer command aliases'
     - term: lpdw
       meaning: "Win32 P/Invoke out-parameter name 'lpdwResult' (long pointer to DWORD)"
+    - term: rstrtmgr
+      meaning: "rstrtmgr.dll — the Windows Restart Manager library (RmStartSession / RmGetList)"
+    - term: filetime
+      meaning: "Win32 FILETIME struct (100-ns ticks since 1601)"
     - term: ntfs
       meaning: "NTFS file system"
     - term: osarchitecture

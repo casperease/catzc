@@ -111,6 +111,9 @@ function Invoke-Importer {
     if ($isConsoleSession) {
         $sw = [Diagnostics.Stopwatch]::StartNew()
     }
+    # Times only the module import (vendor + automation modules), so the console load line can split it from
+    # the constructor/finalizer around it (session setup and internal modules before, janitors after).
+    $importSw = [Diagnostics.Stopwatch]::new()
 
     if ($DiagnoseLoadTime) {
         $script:diagSw = [Diagnostics.Stopwatch]::StartNew()
@@ -186,9 +189,11 @@ function Invoke-Importer {
         'internal modules Catzc.Internal.Loader, Catzc.Internal.Types, Catzc.Internal.Vendor')
 
     # Load vendored dependencies first
+    $importSw.Start()
     $vendorRoot = Join-Path $modulesRoot $vendorFolder
     Write-Verbose "Loading vendor modules from: $vendorRoot"
     Import-VendorModules -VendorRoot $vendorRoot -Lazy 'Pester', 'PSScriptAnalyzer' -DiagnoseLoadTime:$DiagnoseLoadTime
+    $importSw.Stop()
     if ($DiagnoseLoadTime) {
         Write-LoadTime 'Vendor modules loaded'
     }
@@ -199,8 +204,11 @@ function Invoke-Importer {
         Clear-CompiledType -ModulesRoot $modulesRoot
     }
 
+    $importSw.Start()
+
     Write-Verbose "Discovering modules in: $modulesRoot"
     Import-AllModules -ModulesRoot $modulesRoot -ExportPrivates:$ExportPrivates -DiagnoseLoadTime:$DiagnoseLoadTime -Bundle:$Bundle
+    $importSw.Stop()
 
     # The two run modes never coexist (ADR-DSGN-RUNMODE:5): Import-AllModules evicted the other mode, and this
     # proves it before any janitor touches the tree from a mixed session.
@@ -326,11 +334,14 @@ function Invoke-Importer {
     Write-Verbose 'Removing Catzc.Internal.Bootstrap module'
     Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue
 
-    # Console session: load timer.
+    # Console session: load timer, split into the module import and the constructor/finalizer around it.
     # In scripts, authors add `trap { Write-Exception $_; break }` after the importer.
     if ($isConsoleSession) {
         if (Get-Command Write-Message -ErrorAction Ignore) {
-            Write-Message "Loaded in $([math]::Round($sw.Elapsed.TotalSeconds, 1)) seconds"
+            $totalSeconds = [math]::Round($sw.Elapsed.TotalSeconds, 1)
+            $importSeconds = [math]::Round($importSw.Elapsed.TotalSeconds, 1)
+            $frameSeconds = [math]::Round($sw.Elapsed.TotalSeconds - $importSw.Elapsed.TotalSeconds, 1)
+            Write-Message "Loaded in $totalSeconds seconds (module import ${importSeconds}s, constructor/finalizer ${frameSeconds}s)"
         }
     }
 }

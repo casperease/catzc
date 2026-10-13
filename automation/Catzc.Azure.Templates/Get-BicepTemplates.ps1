@@ -61,8 +61,8 @@ function Get-BicepTemplates {
     # tree (Mock Get-BicepTemplatesRoot) or the build output to a folder of their own (Mock
     # Get-BicepTemplatesOutputRoot) without colliding with the real cache entry. Callers must
     # treat the result as read-only (the same object is returned every call).
-    if (-not $script:bicepTemplatesCache) {
-        $script:bicepTemplatesCache = @{}
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:bicepTemplatesCache')) {
+        $script:bicepTemplatesCache = @{}   # strict-clean probe of the lazy slot (ADR-AUTO-PSCACHE:4)
     }
     $cacheKey = "$infrastructureRoot|$outputRoot"
     if ($script:bicepTemplatesCache.ContainsKey($cacheKey)) {

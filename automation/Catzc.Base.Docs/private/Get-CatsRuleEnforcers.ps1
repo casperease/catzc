@@ -27,8 +27,9 @@ function Get-CatsRuleEnforcers {
     # The test citations are read from the source tree's *.Tests.ps1 files, which a built package does not ship.
     Assert-SourceTree
 
-    if ($script:catsRuleEnforcersCache) {
-        return $script:catsRuleEnforcersCache
+    $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:catsRuleEnforcersCache')   # strict-clean (ADR-AUTO-PSCACHE:4)
+    if ($null -ne $cached) {
+        return $cached
     }
 
     $enforcers = @{}

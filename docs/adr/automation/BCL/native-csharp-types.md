@@ -246,9 +246,11 @@ assembly — one combined hash, one committed DLL, paid once by the editor.
 `.compiled` must hold **exactly one** `Catzc.Types.*.dll`. Whenever a second one coexists, `Clear-ModuleTypeCache` reacts before its
 delete/skip pass, in both runtimes: it always emits a yellow warning ("Two dll exists in .compiled - is a console session locking it?"),
 because the usual devbox cause is another console session holding the old DLL so it could not be deleted (a Windows lock the janitor can
-only skip). In a **pipeline** the same coexistence is a hard `throw`: two committed builds mean a locked stale DLL was committed instead of
-deleted, so CI is the gate that stops it reaching trunk — the fix is to restart PowerShell on the devbox (releasing the lock), re-run
-`Clear-ModuleTypeCache`, and commit the single remaining build.
+only skip). On Windows the warning names the holding processes (`Get-FileLockingProcess`, via the Restart Manager) — executable, PID, start
+time, "this session" or the VS Code PowerShell extension — so the session to restart is known, not guessed; the lookup is best-effort and
+falls back to the holder-free wording. In a **pipeline** the same coexistence is a hard `throw`: two committed builds mean a locked stale
+DLL was committed instead of deleted, so CI is the gate that stops it reaching trunk — the fix is to restart PowerShell on the devbox
+(releasing the lock), re-run `Clear-ModuleTypeCache`, and commit the single remaining build.
 
 ### The `DictionaryRecord` base (dictionary-compatible data records)
 

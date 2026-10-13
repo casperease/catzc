@@ -29,8 +29,12 @@
     COMMITTED — a hard throw, the gate that stops a stale build reaching trunk. On a devbox the janitor first
     deletes the superseded build, then warns 'Two dll exists in .compiled - is a console session locking it?'
     (yellow, ignoring -Silent — a locked/stale DLL is actionable, not routine chatter) ONLY when a build actually
-    survives the delete — i.e. another session is holding the old DLL so it could not be removed. The warning is
-    never emitted when the stale build was freely deletable and just got cleaned up.
+    survives the delete — i.e. another session is holding the old DLL so it could not be removed. The warning
+    names each surviving build's holders (Get-FileLockingProcess: executable, PID, start time; "this session"
+    for the current process, and the VS Code PowerShell extension by name), so you know which session to
+    restart; when no holder can be found (Linux/macOS, or the lookup fails) it keeps the holder-free wording
+    above. The lookup is best-effort and never breaks the caller. The warning is never emitted when the stale
+    build was freely deletable and just got cleaned up.
 
     The combined hash comes from the ONE shared implementation (Get-CombinedTypeHash in the .internal shared
     module) that the loader (Import-CSharpTypes) also calls, so the janitor cannot drift from the loader and plan
@@ -47,8 +51,8 @@
 .PARAMETER ThrowOnNonReleasedFromClrTypesDll
     Windows-only, opt-in fail-fast. When a superseded assembly is still loaded — the CLR has not released the
     file, so Windows cannot delete it — throw instead of silently skipping (after removing every deletable
-    stale build first). The message names the file and says to restart PowerShell, which releases the CLR's
-    handle. Off by default so the importer's automatic cleanup never breaks; a no-op on Unix.
+    stale build first). The message names the file and the processes holding it, and says to restart
+    PowerShell in that session, which releases the CLR's handle. Off by default so the importer's automatic cleanup never breaks; a no-op on Unix.
 .PARAMETER Silent
     Suppress all console output — the per-file and end-state 'type cache: …' messages. The importer passes
     this on its automatic janitor call so a normal load stays quiet (importer.ps1 -NonSilentClear turns it
@@ -200,9 +204,36 @@ function Clear-ModuleTypeCache {
     # that a stale build could not be removed because a live console session is locking it. Deferred to here (not
     # hoisted above the delete like the pipeline check) so it never fires when the stale build was freely deletable
     # and just got cleaned up. Ignores -Silent — a leftover locked build is actionable, not routine load chatter.
+    # Who holds a file, as one phrase — or $null when nobody is found. Best-effort: the lookup only enriches a
+    # message, so any failure (a Restart Manager error, an access-denied CIM query) degrades to holder-free
+    # wording and never breaks the importer's janitor call.
+    $describeHolders = {
+        param([string] $File)
+        try {
+            Format-FileLockingProcess @(Get-FileLockingProcess $File)
+        }
+        catch {
+            $null
+        }
+    }
+
     $remaining = & $getTypeDlls
     if ($remaining.Count -gt 1) {
-        Write-Message -Warning 'Two dll exists in .compiled - is a console session locking it?'
+        $heldBy = foreach ($dll in $remaining) {
+            if ($keep -and [System.IO.Path]::GetFileName($dll) -ieq $keep) {
+                continue
+            }
+            $holders = & $describeHolders $dll
+            if ($holders) {
+                "$([System.IO.Path]::GetFileName($dll)) is held by $holders"
+            }
+        }
+        if ($heldBy) {
+            Write-Message -Warning "Two dll exists in .compiled — $($heldBy -join '; '). Restart that session, then run Clear-ModuleTypeCache."
+        }
+        else {
+            Write-Message -Warning 'Two dll exists in .compiled - is a console session locking it?'
+        }
     }
 
     # Opt-in, Windows-only fail-fast: a superseded build the CLR still holds cannot be deleted until the process
@@ -216,6 +247,18 @@ function Clear-ModuleTypeCache {
         else {
             'superseded C# type assemblies are'
         }
-        throw "Cannot remove $names — $subject still loaded in this session; the CLR has not released the file. A loaded assembly cannot be deleted on Windows, so restart PowerShell to release it, then re-run Clear-ModuleTypeCache."
+        $heldBy = foreach ($dll in ($notReleased | Sort-Object)) {
+            $holders = & $describeHolders $dll
+            if ($holders) {
+                "$([System.IO.Path]::GetFileName($dll)) by $holders"
+            }
+        }
+        $where = if ($heldBy) {
+            "still held — $($heldBy -join '; ')"
+        }
+        else {
+            'still loaded by a PowerShell session'
+        }
+        throw "Cannot remove $names — $subject $where; the CLR has not released the file. A loaded assembly cannot be deleted on Windows, so restart PowerShell in the holding session to release it, then re-run Clear-ModuleTypeCache."
     }
 }

@@ -25,6 +25,14 @@ only such a test does.
 
 - [Testing cached functions](#testing-cached-functions)
 
+### Rule ADR-AUTO-PSCACHE:4
+
+A function probes its cache slot with `$ExecutionContext.SessionState.PSVariable.GetValue('script:<slot>')`, never with a bare
+`$script:<slot>` read, and initialises the slot when the probe returns `$null`. The `script:` qualifier is required: an unqualified name
+falls through to `$global:` when the module's slot is unset.
+
+- [Probing an unset slot](#probing-an-unset-slot)
+
 ## Context
 
 [caching](../caching.md) fixes the doctrine: static config reads and filesystem-derived information are cached for the session, keyed by
@@ -48,7 +56,9 @@ function Get-Config {
     param([string] $Config, [string] $Module)
 
     $entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name; Module; Path } (discovery seam)
-    if (-not $script:configCache) { $script:configCache = @{} }
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configCache')) {
+        $script:configCache = @{}                    # strict-clean probe of a possibly unset slot
+    }
     if ($script:configCache.ContainsKey($entry.Path)) {
         return $script:configCache[$entry.Path]      # same object every call
     }
@@ -66,7 +76,9 @@ Filesystem-derived information, keyed by resolved root (as in `Get-BicepTemplate
 ```powershell
 function Get-BicepTemplates {
     $root = Get-BicepTemplatesRoot                                               # the mockable seam (one prod answer)
-    if (-not $script:bicepTemplatesCache) { $script:bicepTemplatesCache = @{} }
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:bicepTemplatesCache')) {
+        $script:bicepTemplatesCache = @{}
+    }
     if ($script:bicepTemplatesCache.ContainsKey($root)) {
         return , $script:bicepTemplatesCache[$root]                              # comma preserves array-ness
     }
@@ -79,6 +91,25 @@ function Get-BicepTemplates {
 
 (Resetting the whole `$script:bicepTemplatesCache` to `$null` discards every keyed entry, which is the intended hard reset.)
 
+### Probing an unset slot
+
+All code runs under `Set-StrictMode -Version Latest` ([error-handling](error-handling.md)), where reading a variable that was never
+assigned throws. A cache slot is exactly such a variable on the first call: nothing declares it at import, because a function file holds
+one function and no top-level statements ([one-function-per-file](one-function-per-file.md)). The probe therefore asks the session state
+for the value instead of reading the variable: `PSVariable.GetValue('script:<slot>')` returns `$null` for an unset slot and for a slot a
+test reset to `$null`, and resolves the module's own `$script:` scope — a same-named function local, caller variable, or `$global:` never
+answers for it. Without the `script:` qualifier the lookup walks the scope chain and returns a `$global:` of the same name.
+
+The probe costs a few microseconds per call, a small share of even the hottest cached function (`Get-Config`). The alternatives are worse:
+
+- **A bare read** (`-not $script:x`, `$null -ne $script:x`) and **`$script:x ??= @{}`** read the unset variable and throw under strict mode.
+- **`Get-Variable -Scope Script -ValueOnly`** and **`Test-Path variable:script:x`** are correct but cost two to three times the probe, on
+  the path every cache hit takes.
+- **`try { $script:x } catch { }`** is the cheapest, but it is a catch-and-continue inside a function, which
+  [error-handling](error-handling.md#rule-adr-auto-error6) forbids.
+
+Only the probe changes: once the slot is initialised in the same function, the function reads and writes `$script:<slot>` directly.
+
 ### Testing cached functions
 
 A warm cache short-circuits before any dependency runs, so mocking a cached function's _internals_ silently tests nothing — the mock never
@@ -90,7 +121,8 @@ pays the cold derive deliberately. Resetting per test everywhere else defeats th
 ## Decision
 
 Session caches are module `$script:` hashtables keyed by resolved input, populated on first use, discarded by re-import — never `$env:` or
-`$global:` — and tests mock the cached function whole, resetting the slot only to exercise cache behavior itself.
+`$global:` — probed strict-clean through `PSVariable.GetValue('script:<slot>')`, and tests mock the cached function whole, resetting the
+slot only to exercise cache behavior itself.
 
 ### How this is enforced
 

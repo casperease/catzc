@@ -29,8 +29,8 @@ function Get-FunctionDependency {
     # / Get-FunctionDependencyTree (and the integrity tests) all reuse it. Re-running the importer resets the
     # $script: state — the only invalidation (ADR-AUTO-CACHE:6). A fixture root passed by a test gets its own entry, so it
     # cannot collide with the real tree (ADR-AUTO-TEST:4). Callers treat the result as read-only (ADR-AUTO-CACHE:5).
-    if (-not $script:functionDependencyCache) {
-        $script:functionDependencyCache = @{}
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:functionDependencyCache')) {
+        $script:functionDependencyCache = @{}   # strict-clean probe of the lazy slot (ADR-AUTO-PSCACHE:4)
     }
     if ($script:functionDependencyCache.ContainsKey($AutomationRoot)) {
         return $script:functionDependencyCache[$AutomationRoot]

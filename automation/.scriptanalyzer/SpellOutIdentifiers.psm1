@@ -22,6 +22,7 @@
 # shards are bare pwsh processes with neither our module system nor $env:RepositoryRoot. So resolve paths
 # from $PSScriptRoot (this file lives at automation/.scriptanalyzer/) and load the committed types assembly
 # here. Idempotent: guarded by a module-scope flag, and Add-Type is skipped when the type already resolves.
+$script:oracleReady = $false   # declared at load so the guard reads it strict-clean
 function Initialize-SpellingOracle {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Runs inside the analyzer engine, whose custom rules may emit only diagnostic records; it binds the committed types assembly the importer already loaded and announced, and in a bare analyzer shard process there is no console session to announce to')]
     param()

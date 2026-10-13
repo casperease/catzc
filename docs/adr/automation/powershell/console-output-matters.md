@@ -89,7 +89,7 @@ Both fail the same test: **can the user understand what happened by reading the 
 Good output tells a story: what is happening, what happened, and what went wrong — in that order of priority, with nothing else.
 
 ```text
-[importer.ps1] Loaded in 0.5 seconds
+[Invoke-Importer] Loaded in 0.5 seconds (module import 0.3s, constructor/finalizer 0.2s)
 [Install-Poetry] poetry install --no-root
 [Invoke-Executable] poetry install --no-root
 Installing dependencies from lock file

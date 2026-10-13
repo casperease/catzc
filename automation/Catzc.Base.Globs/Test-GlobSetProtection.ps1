@@ -43,8 +43,8 @@ function Test-GlobSetProtection {
         return $false
     }
 
-    if (-not $script:protectedGlobSets) {
-        $script:protectedGlobSets = @{}
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:protectedGlobSets')) {
+        $script:protectedGlobSets = @{}   # strict-clean probe of the lazy slots (ADR-AUTO-PSCACHE:4)
         $script:pendingGlobProtections = @{}
     }
 
