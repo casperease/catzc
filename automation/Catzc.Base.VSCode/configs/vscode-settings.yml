@@ -28,6 +28,9 @@ settings:
   markdown.validate.fileLinks.enabled: warning
   markdown.validate.fragmentLinks.enabled: warning
   markdown.validate.fileLinks.markdownFragmentLinks: warning
+  # Off: VS Code reads every footnote use ([^1]) as an undefined reference link; markdownlint MD052 already
+  # gates real reference links
+  markdown.validate.referenceLinks.enabled: ignore
   # Offer to rewrite relative links in .md files when a linked file or folder is moved or renamed
   markdown.updateLinksOnFileMove.enabled: prompt
   markdown.updateLinksOnFileMove.enableForDirectories: true

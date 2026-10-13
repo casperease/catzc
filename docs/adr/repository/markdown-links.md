@@ -133,6 +133,12 @@ path in the checked-out workspace — so it works in any clone without per-user 
 `#rule-…` fragment is not passed to the editor, which opens a file by line rather than by heading: the click lands on the ADR, and the rule
 is one search away. Markdown links need no rule; the built-in markdown support already resolves them.
 
+The same registry turns on VS Code's built-in markdown link validation (`markdown.validate.*`), so a dangling file or a bad `#fragment` in
+a `.md` file shows as a warning while it is being written, and `markdown.updateLinksOnFileMove` offers to re-point relative links when a
+file or folder moves. VS Code slugs headings with the same `github-slugger` algorithm GitHub uses, so its warnings agree with `Test-Links`.
+Its reference-link check stays off: it reads every footnote use (`[^1]`) as an undefined reference, and markdownlint's MD052 already gates
+real reference links. The editor feedback is early warning only; `Test-Links` stays the gate.
+
 ### References point one way
 
 Code cites the decisions it implements; the decisions do not track their implementations. An ADR's "How this is enforced" section names the
@@ -177,7 +183,8 @@ both kinds mechanically and `Test-Links` gates them.
 - **One engine** — both commands drive the compiled `Catzc.Base.QualityGates.LinkEngine` over the files in parallel, with the citation map
   from `Get-AdrCitationMap` (in `Catzc.Base.Docs`), so the aligner and the gate cannot disagree.
 - **The VS Code registries** — `vscode-extensions.yml` recommends Regex Robin and `vscode-settings.yml` carries the `regexrobin.rules`
-  code-link rule; `Build-RootConfig` renders both into `.vscode/`, so every clone gets the same Ctrl+clickable code links.
+  code-link rule, and `vscode-settings.yml` enables markdown link validation and link updates on file moves; `Build-RootConfig` renders
+  both into `.vscode/`, so every clone gets the same Ctrl+clickable code links and in-editor link warnings.
 
 ## Consequences
 
