@@ -9,7 +9,7 @@ Describe 'Shipped asset integrity' -Tag 'L0', 'integrity' {
         { Get-Config -Config azure } | Should -Not -Throw
     }
 
-    It 'the shipped network.yml loads and passes Assert-NetworkConfig' {
+    It 'the shipped network.yml loads and passes its NetworkConfig type' {
         { Get-Config -Config network } | Should -Not -Throw
     }
 

@@ -66,3 +66,5 @@ configs:
     type: Catzc.Azure.CustomerConfig
   azure:
     type: Catzc.Azure.AzureConfig
+  network:
+    type: Catzc.Azure.NetworkConfig

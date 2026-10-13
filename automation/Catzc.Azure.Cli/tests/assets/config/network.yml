@@ -1,5 +1,5 @@
 # Test-only IP-plan fixture (pairs with tests/assets/config/azure.yml). Its environment set must equal
-# the fixture azure.yml's (Assert-NetworkConfiguration cross-checks). Distinct ranges per env so merge
+# the fixture azure.yml's (the NetworkConfig type cross-checks). Distinct ranges per env so merge
 # tests can assert they differ.
 
 environments:
