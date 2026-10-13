@@ -18,7 +18,7 @@
     Globs/paths to check. Defaults to the repository's known file types. cspell still applies the
     ignorePaths from cspell.yml.
 .PARAMETER Exclude
-    Globs the spelling GATE skips, passed to cspell as --exclude. Defaults to the authored/generated trees
+    Globs the spelling QUALITY GATE skips, passed to cspell as --exclude. Defaults to the authored/generated trees
     that are out of scope to spell-check (out/, docs/notes, the machine-derived configuration/**
     trees). Non-authored noise (vendor, install scripts, compiled output, binaries) lives in cspell.yml
     ignorePaths instead — this parameter is for content scope, not third-party noise.
@@ -47,7 +47,7 @@ function Test-Spelling {
             '**/*.bicep'
         ),
 
-        # Content the spelling gate does NOT check (authored/generated text, not third-party noise — that
+        # Content the spelling quality gate does NOT check (authored/generated text, not third-party noise — that
         # lives in cspell.yml ignorePaths). Passed to cspell as --exclude globs.
         [string[]] $Exclude = @(
             'out/**'
