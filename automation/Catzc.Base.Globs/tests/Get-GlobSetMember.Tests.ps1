@@ -24,4 +24,13 @@ Describe 'Get-GlobSetMember' -Tag 'L0', 'logic' {
                 Get-GlobSetMember -GlobSet $set
             }).Count | Should -Be 0
     }
+
+    It 'selects from a passed tracked-file list without fetching its own' {
+        Mock Get-TrackedFile { @('src/never.cs') } -ModuleName Catzc.Base.Globs
+        & (Get-Module Catzc.Base.Globs) {
+            $set = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @('src/**'), @(), @(), @(), -1, $null)
+            Get-GlobSetMember -GlobSet $set -TrackedFile @('src/b.cs', 'other/x.cs', 'src/a.cs')
+        } | Should -Be @('src/a.cs', 'src/b.cs')
+        Should -Invoke Get-TrackedFile -ModuleName Catzc.Base.Globs -Exactly -Times 0
+    }
 }

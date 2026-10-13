@@ -1,4 +1,5 @@
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
+. (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
 <#
 .SYNOPSIS
@@ -133,8 +134,7 @@ function Measure-AnnounceStateChange {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    $file = $ScriptBlockAst.Extent.File
-    if ($file -and $file -like '*.Tests.ps1') {
+    if (Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst) {
         return @()
     }
 
@@ -409,8 +409,7 @@ function Measure-PersistentWriteThroughSeam {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    $file = $ScriptBlockAst.Extent.File
-    if ($file -and $file -like '*.Tests.ps1') {
+    if (Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst) {
         return @()
     }
 

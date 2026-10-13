@@ -82,8 +82,12 @@ if (-not $Wrap) { $Wrap = (Get-Config -Config links).wrap }
 ```
 
 PowerShell evaluates a default expression only when the caller omits the parameter, so an explicit `-Wrap Off` never reads the config at
-all. The expression runs in the module's scope, so a test isolates it by mocking `Get-Config` (`ADR-AUTO-PESTER#3`) — the same seam the
-function uses.
+all. A default expression may read an earlier parameter (`[string] $Version = (Get-ToolConfig -Tool $Tool).version`), so a generic function
+keyed by its primary argument declares its default the same way. A wrapper that forwards the parameter declares the same default, because an
+explicit empty value passed down the chain would win over the callee's default. A value that is derived rather than configured stays in the
+body: one chosen from several sources in turn, or one that applies only when another argument is absent (`-ModuleProfile` when no `-Module`
+is given). The expression runs in the module's scope, so a test isolates it by mocking `Get-Config` (`ADR-AUTO-PESTER#3`) — the same seam
+the function uses.
 
 ## Decision
 

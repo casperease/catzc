@@ -32,8 +32,9 @@ Describe 'Measure-SpellOutIdentifiers' -Tag 'L0', 'logic' {
     It 'accepts a fully spelled-out name: <Code>' -ForEach @(
         @{ Code = '$ruleCollectionGroup = 1' }
         @{ Code = '$templateContext = 1' }
-        @{ Code = 'foreach ($i in 1..3) { $i }' }    # single-letter loop index
-                                                     # ([ADR-AUTO-SPELL#2](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell2))
+        # single-letter loop index
+        # ([ADR-AUTO-SPELL#2](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell2))
+        @{ Code = 'foreach ($i in 1..3) { $i }' }
         @{ Code = 'function Get-Thing { param($Path) $Path }' }
     ) {
         Test-SpellOut $Code | Should -BeNullOrEmpty

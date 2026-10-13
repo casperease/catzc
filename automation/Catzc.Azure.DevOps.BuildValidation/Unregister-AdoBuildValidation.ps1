@@ -31,11 +31,11 @@ function Unregister-AdoBuildValidation {
         [Parameter(Mandatory, Position = 0)]
         [string] $GlobSet,
 
-        [string] $Branch,
+        [string] $Branch = (Get-Config -Config build-validation).branch,
 
-        [string] $Project,
+        [string] $Project = (Get-Config -Config ado)['project'],
 
-        [string] $Organization,
+        [string] $Organization = (Get-Config -Config ado)['organization'],
 
         [string] $RepositoryName,
 
@@ -45,10 +45,6 @@ function Unregister-AdoBuildValidation {
     Assert-NotNullOrWhitespace $GlobSet
 
     $set = Get-GlobSet -Name $GlobSet
-    $config = Get-Config -Config build-validation
-    if (-not $Branch) {
-        $Branch = $config.branch
-    }
     Assert-NotNullOrWhitespace $Branch -ErrorText 'Branch is required. Set -Branch or configure build-validation.yml.'
 
     $context = Resolve-AdoBuildValidationContext -Project $Project -Organization $Organization -RepositoryName $RepositoryName

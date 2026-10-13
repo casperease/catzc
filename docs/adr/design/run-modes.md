@@ -42,8 +42,8 @@ be swapped is the loaded C# types assembly, which is reused when both modes' typ
 
 ### Rule ADR-DSGN-RUNMODE:6
 
-Both modes are tested by the same tests: the source suite (`Test-Automation`) and the build suite (`Test-CatzcBuild`) run the same test
-files up to L2, and a test opts out of the build suite only with the `source-only` tag.
+Both modes are tested by the same tests: the source run (`Test-Automation`) and the build run (`Test-CatzcBuild`) execute the same test
+files up to L2, and a test opts out of the build run only with the `source-only` tag.
 
 - [One body of tests proves both modes](#one-body-of-tests-proves-both-modes)
 
@@ -138,10 +138,10 @@ mutual exclusion:
 
 ### One body of tests proves both modes
 
-"Every module works in both modes" is a checked property, not a hope. The source suite and the build suite run the **same** test files — no
+"Every module works in both modes" is a checked property, not a hope. The source run and the build run execute the **same** test files — no
 copy, no second set to drift — through the same harness, differing only in the entry script each worker loads
 ([test-automation](../automation/test-automation.md#rule-adr-auto-test30)). Tests whose answer cannot depend on the mode, because they read
-only the repository's files, carry `source-only` and run once, in the source suite
+only the repository's files, carry `source-only` and run once, in the source run
 ([test-automation](../automation/test-automation.md#rule-adr-auto-test31)); everything that exercises loaded code runs in both. Switching
 itself is tested by child-process sequences — source to build, build to source, each mode twice in a row, and a longer alternation — each
 asserting the derived mode, the exclusivity check, a call into each module, and a fresh script cache.
@@ -154,26 +154,26 @@ asserting the derived mode, the exclusivity check, a call into each module, and 
   and the cross-root types guard.
 - **`Build-Modules`** — builds same-named modules with their own manifests and merged files, and self-checks the result
   ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle5)).
-- **`Test-Automation` and `Test-CatzcBuild`** — the two suites over one body of tests; the scope-isolation test, the parity test (each built
-  module's public and private function sets equal its source folder's), and the switch-sequence tests.
+- **`Test-Automation` and `Test-CatzcBuild`** — the two test runs over one body of tests; the scope-isolation test, the parity test (each
+  built module's public and private function sets equal its source folder's), and the switch-sequence tests.
 - **`Measure-NoScriptRootAnchor`** — the analyzer rule that keeps module code from anchoring on its own file's folder.
 
 ## Consequences
 
 - One body of modules, one importer, and one body of tests stand behind both the developed form and the shipped form; a defect that shows
-  only in the build turns the build suite red before anything merges.
+  only in the build turns the build run red before anything merges.
 - Developers keep one function per file; machines that run the installed package open one function file per module.
 - A session is always in exactly one mode, readable from the code root and printed by the load banner; switching is safe in any order.
 - A built module's errors point into its merged file; the source markers there map each line back to a source file, and debugging happens
   against source.
 - The cost is discipline in module code — content located only through the code root, source-tree tools guarded — enforced by an analyzer
-  rule, the asset-dependency gates, and the build suite.
+  rule, the asset-dependency gates, and the build run.
 
 ## Related
 
 - [platform-bundle](../automation/platform-bundle.md) — the build itself: layout, merge, versioning, install.
 - [internal-asset-dependencies](../automation/internal-asset-dependencies.md) — how a module's content is located and tested in both modes.
-- [test-automation](../automation/test-automation.md) — the source and build suites and the `source-only` tag.
+- [test-automation](../automation/test-automation.md) — the source and build runs and the `source-only` tag.
 - [never-depend-on-pwd](../automation/never-depend-on-pwd.md) — the code-root anchor and the `$PSScriptRoot` ban in module function files.
 - [script-scope-caching](../automation/powershell/script-scope-caching.md) — the per-module `$script:` caches the modes keep isolated.
 - [native-csharp-types](../automation/BCL/native-csharp-types.md) — the one combined types assembly both modes share.

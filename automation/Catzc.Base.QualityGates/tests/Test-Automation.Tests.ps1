@@ -270,7 +270,7 @@ Describe 'Module dependencies' -Tag 'L0', 'integrity', 'source-only' {
 # the code root. Pester is already loaded in this worker, so the lazy-load branch is forced by hiding it from
 # Get-Module, and the re-import is intercepted (re-importing Pester mid-run would unload the running harness);
 # the run stops at the first step after the import. The path it chose is then checked against the real shipped
-# module on disk — integrity, and not source-only, so it runs in the source and the build suite.
+# module on disk — integrity, and not source-only, so it runs in the source and the build run.
 Describe 'Test-Automation (vendored Pester)' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         Mock Get-Module -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'Pester' } { }

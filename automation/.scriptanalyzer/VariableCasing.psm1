@@ -1,4 +1,5 @@
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
+. (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
 <#
 .SYNOPSIS
@@ -80,6 +81,8 @@ function Measure-VariableCasing {
         $node -is [System.Management.Automation.Language.AssignmentStatementAst]
     }
     $assignments = $ScriptBlockAst.FindAll($isAssignment, $true)
+    # In test files, $script: is Pester's way of sharing state between It blocks — treat as local
+    $isTestFile = Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst
 
     foreach ($a in $assignments) {
         $left = $a.Left
@@ -93,8 +96,6 @@ function Measure-VariableCasing {
             continue
         }
 
-        # In test files, $script: is Pester's way of sharing state between It blocks — treat as local
-        $isTestFile = $ScriptBlockAst.Extent.File -like '*.Tests.ps1'
         $isScoped = -not $isTestFile -and $varPath.IsGlobal
 
         $name = $varPath.UserPath

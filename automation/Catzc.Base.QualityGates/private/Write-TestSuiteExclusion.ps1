@@ -3,7 +3,7 @@
     Prints and records the tests a suite opt-out tag excluded — the visible half of
     [ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31).
 .DESCRIPTION
-    The build suite never drops a test silently: every test it leaves out by its opt-out tag ('source-only') is
+    The build run never drops a test silently: every test it leaves out by its opt-out tag ('source-only') is
     counted and listed on the console, grouped by file (repository-relative), and written to
     excluded-tests.csv in the run directory (File, ExpandedPath, Level, Category) beside tests.csv. Nothing to
     exclude still prints its one-line count, so a reader sees the exclusion was considered.
@@ -47,7 +47,7 @@ function Write-TestSuiteExclusion {
     }
 
     $fileGroups = @($rows | Group-Object -Property File)
-    Write-Message "$($rows.Count) test(s) in $($fileGroups.Count) file(s) excluded by '$tagText' — they run in the source suite only (list: $csvPath)" -ForegroundColor Yellow -NoHeader
+    Write-Message "$($rows.Count) test(s) in $($fileGroups.Count) file(s) excluded by '$tagText' — only the source run executes them (list: $csvPath)" -ForegroundColor Yellow -NoHeader
     foreach ($group in $fileGroups) {
         Write-Message "  $($group.Name) ($($group.Count))" -ForegroundColor Yellow -NoHeader
         foreach ($row in $group.Group) {

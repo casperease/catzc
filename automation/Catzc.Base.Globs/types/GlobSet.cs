@@ -146,6 +146,37 @@ public sealed class GlobSet
         return selected;
     }
 
+    // The members of a tracked-file universe (`git ls-files`, fetched once by the caller and passed in — never
+    // cached here, since staging changes it) that the set selects (Matches), in ordinal order: one call per set
+    // instead of one Matches call per path from PowerShell.
+    public string[] SelectMembers(IReadOnlyList<string> tracked)
+    {
+        return Select(tracked, Matches);
+    }
+
+    // The OWN members (OwnMatches, compose ignored) of a tracked-file universe, in ordinal order — the per-layer
+    // independence check's input ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)).
+    public string[] SelectOwnMembers(IReadOnlyList<string> tracked)
+    {
+        return Select(tracked, OwnMatches);
+    }
+
+    private static string[] Select(IReadOnlyList<string> tracked, Func<string, bool> predicate)
+    {
+        if (tracked == null)
+        {
+            throw new ArgumentNullException(nameof(tracked));
+        }
+        List<string> members = new List<string>();
+        foreach (string path in tracked)
+        {
+            if (predicate(path)) { members.Add(path); }
+        }
+        string[] sorted = members.ToArray();
+        Array.Sort(sorted, StringComparer.Ordinal);
+        return sorted;
+    }
+
     // The flattened scan program ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)/8): the composed sets'
     // programs first (dependency order,
     // deepest base first), then this set's own rules (includes as '+', excludes as '-') LAST, so own rules

@@ -15,8 +15,8 @@
 .PARAMETER Modules
     The modules the run was scoped to; named in the scope only when non-empty.
 .PARAMETER Title
-    The suite's name on the banner: 'Test Automation' (the source suite, the default) or the build suite's
-    'Catzc Build Suite' ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)).
+    The run's name on the banner: "Test Automation" (the source run, the default) or the build run's
+    "Catzc Build Suite" ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)).
 #>
 function Write-TestAutomationHeader {
     [CmdletBinding()]

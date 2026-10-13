@@ -77,7 +77,7 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
 # [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3): the gate runs over
 # throwaway files with nothing mocked, so it reads
 # the shipped settings file (<code root>/.internal/assets/PSScriptAnalyzerSettings.psd1) and the vendored
-# analyzer (<code root>/.vendor) — integrity, and not source-only, so it runs in the source and the build suite.
+# analyzer (<code root>/.vendor) — integrity, and not source-only, so it runs in the source and the build run.
 # The repo-wide "all module code is analyzer-clean" check is the sharded L2 'PSScriptAnalyzer' test in
 # automation/.internal/tests — not duplicated here.
 # greedy: the real analyzer fans out Start-Job pwsh processes of its own — stacked on the parallel pool

@@ -115,7 +115,7 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'the source suite (no opt-out tag, default entry script)' {
+    Context 'the source run (no opt-out tag, default entry script)' {
         It 'runs every file through the default importer and excludes nothing beyond the tier/category filter' {
             $summary = Invoke-Suite @{ OutputFolder = $script:outputFolder; PassThru = $true }
 
@@ -131,7 +131,7 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'the build suite (source-only opt-out, build entry script)' -Tag 'ADR-AUTO-TEST#30', 'ADR-AUTO-TEST#31' {
+    Context 'the build run (source-only opt-out, build entry script)' -Tag 'ADR-AUTO-TEST#30', 'ADR-AUTO-TEST#31' {
         BeforeAll {
             $script:buildArguments = @{
                 Suite           = 'Test-CatzcBuild'
@@ -171,7 +171,7 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
             }
         }
 
-        It 'writes its reports under the suite''s own folder by default' {
+        It 'writes its reports under the run''s own folder by default' -Tag 'ADR-AUTO-TEST#34' {
             Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
             $summary = Invoke-Suite $script:buildArguments
 
@@ -181,7 +181,7 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
             }
         }
 
-        It 'keys protection on the suite, so a source-suite green never skips the build suite' {
+        It 'keys protection on the run, so a green source run never skips the build run' {
             $arguments = $script:buildArguments.Clone()
             $arguments['OutputFolder'] = $script:outputFolder
             Invoke-Suite $arguments | Out-Null

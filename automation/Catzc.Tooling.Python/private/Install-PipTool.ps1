@@ -8,7 +8,7 @@
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (must declare pip_package).
 .PARAMETER Version
-    Version override. Defaults to the locked version.
+    Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
 .PARAMETER Force
     Uninstall a wrong version before installing the correct one.
 #>
@@ -17,7 +17,7 @@ function Install-PipTool {
     param(
         [Parameter(Mandatory)]
         [string] $Tool,
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool $Tool).version,
         [switch] $Force
     )
 
@@ -25,9 +25,6 @@ function Install-PipTool {
     $command = Get-ToolCommandSuffix -Tool $Tool
     Assert-NotNullOrWhitespace $config.pip_package -ErrorText "$Tool has no pip_package in tools.yml — cannot install via uv pip"
 
-    if (-not $Version) {
-        $Version = $config.version
-    }
 
     # Land the package in the toolchain's importable Python — uv's managed CPython — which needs three flags
     # together ([ADR-AUTO-UVPY#2](/docs/adr/automation/uv-python-handler.md#rule-adr-auto-uvpy2), "installs INTO the

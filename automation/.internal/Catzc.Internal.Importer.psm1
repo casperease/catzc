@@ -249,24 +249,14 @@ function Invoke-Importer {
             Reset-GitCleanFxd
         }
 
-        # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff); CI self-skips, -NonSilentClear shows the report.
-        # An undeletable build (held outside catzc) is one red line, never a failed load. Absent in the bootstrap sandbox.
-        # Stop the holders in a person's session only — never an agent's, never CI's
-        # ([ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)).
-        if (-not $SkipJanitors -and (Get-Command Clear-ModuleTypeCache -ErrorAction Ignore)) {
-            try {
-                Clear-ModuleTypeCache -Silent:(-not $NonSilentClear) -StopLockingProcesses:(-not (Test-IsRunningInPipeline) -and -not (Test-IsRunningAsAgent))
-            }
-            catch {
-                Write-ImporterMessage $_.Exception.Message -ForegroundColor Red
-            }
+        # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff) — see Invoke-TypeCacheJanitor.
+        if (-not $SkipJanitors) {
+            Invoke-TypeCacheJanitor -NonSilentClear:$NonSilentClear
         }
 
-        # Keep the generated ADR index current (Catzc.Base.Docs).
-        # [index](/docs/adr/index.md) is the code -> ADR registry
-        # projected from adrs.yml — gitignored, reproduced here BEFORE Build-Readme (whose
-        # [README](/docs/adr/README.md) link
-        # points at it), a fast no-op on a clean tree. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+        # Keep the generated ADR index current (Catzc.Base.Docs). [index](/docs/adr/index.md) is the code -> ADR registry
+        # projected from adrs.yml — gitignored, reproduced here BEFORE Build-Readme (whose [README](/docs/adr/README.md)
+        # link points at it), a fast no-op on a clean tree. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
         if (-not $SkipJanitors -and (Get-Command Build-AdrIndex -ErrorAction Ignore)) {
             Build-AdrIndex -Silent | Out-Null
         }
@@ -280,8 +270,7 @@ function Invoke-Importer {
 
         # Keep the managed .gitkeep files current (Catzc.Base.Docs). Every .gitkeep is a committed copy of the
         # one generic source, pointing at its folder's generated README — reproduced here so a source change
-        # propagates, and a fast no-op on a clean tree. See
-        # [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+        # propagates, and a fast no-op on a clean tree. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
         if (-not $SkipJanitors -and (Get-Command Build-GitKeep -ErrorAction Ignore)) {
             Build-GitKeep -Silent | Out-Null
         }
@@ -297,8 +286,7 @@ function Invoke-Importer {
         # reproduced from its single in-repo source of truth — an authored source copied out with a generated-file
         # header (e.g. the root PSScriptAnalyzerSettings.psd1 from .internal/assets), or a generator's rendered
         # output (e.g. New-Importer for importer.ps1). Rewrites only on drift, so a clean tree is a fast no-op.
-        # Guarded: absent in the bootstrap sandbox. See
-        # [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
+        # Guarded: absent in the bootstrap sandbox. See [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
         if (-not $SkipJanitors -and (Get-Command Build-RootConfig -ErrorAction Ignore)) {
             Build-RootConfig -Silent | Out-Null
         }
@@ -410,6 +398,35 @@ function Assert-CatzcRunModeExclusive {
     loaders append to. Internal to the importer overlay: it writes through the transient bootstrap's
     Write-ImporterMessage, which is still loaded at this point.
 #>
+function Invoke-TypeCacheJanitor {
+    <#
+    .SYNOPSIS
+        Runs the post-import type-cache janitor (Clear-ModuleTypeCache) without ever failing the load.
+    .DESCRIPTION
+        -Silent unless -NonSilentClear; CI self-skips inside Clear-ModuleTypeCache. A superseded build it cannot
+        delete (held outside catzc) becomes one red line, never a failed load. Holders are stopped in a person's
+        session only — never an agent's, never CI's
+        ([ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)). A no-op when
+        Clear-ModuleTypeCache is absent (the bootstrap sandbox).
+    .PARAMETER NonSilentClear
+        Show the janitor's end-state report.
+    #>
+    [CmdletBinding()]
+    param(
+        [switch] $NonSilentClear
+    )
+
+    if (-not (Get-Command Clear-ModuleTypeCache -ErrorAction Ignore)) {
+        return
+    }
+    try {
+        Clear-ModuleTypeCache -Silent:(-not $NonSilentClear) -StopLockingProcesses:(-not (Test-IsRunningInPipeline) -and -not (Test-IsRunningAsAgent))
+    }
+    catch {
+        Write-ImporterMessage $_.Exception.Message -ForegroundColor Red
+    }
+}
+
 function Write-LoadTimeSummary {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Reads $global:__CatzcLoadTimings, the cross-module load-timing collector Invoke-Importer creates under -DiagnoseLoadTime')]
     [CmdletBinding()]

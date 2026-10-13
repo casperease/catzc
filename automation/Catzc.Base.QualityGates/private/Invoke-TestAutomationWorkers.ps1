@@ -40,10 +40,10 @@
 .PARAMETER WorkerEnvironment
     Extra environment variables for each worker's process (the L0/L1 tripwire) — never the parent's $env:.
 .PARAMETER EntryScript
-    The suite seam passed to every shard script (New-TestAutomationShardScript): empty loads the source
-    importer; the build suite passes the build's Import-Catzc.ps1.
+    The run seam passed to every shard script (New-TestAutomationShardScript): empty loads the source
+    importer; the build run passes the build's Import-Catzc.ps1.
 .PARAMETER EntryParameter
-    Named arguments for -EntryScript (the build suite's @{ RepositoryRoot = <repo> }).
+    Named arguments for -EntryScript (the build run's @{ RepositoryRoot = <repo> }).
 .PARAMETER KeepSandbox
     Whether the suite keeps the snapshot (when the run used one) after the run — reported in Location.Kept.
 .OUTPUTS

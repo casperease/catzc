@@ -32,7 +32,7 @@
 function Install-Dotnet {
     [CmdletBinding()]
     param(
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool 'dotnet').version,
         [switch] $Force
     )
 
@@ -42,9 +42,6 @@ function Install-Dotnet {
     )
 
     $config = Get-ToolConfig -Tool 'dotnet'
-    if (-not $Version) {
-        $Version = $config.version
-    }
 
     $installDir = Get-ScriptInstallDir -Config $config
     $ourBinary = if ($IsWindows) {

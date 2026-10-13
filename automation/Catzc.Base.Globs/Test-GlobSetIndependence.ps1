@@ -34,20 +34,15 @@ function Test-GlobSetIndependence {
     $exemptLayer = 'loose-fileset'
 
     $sets = @(Get-GlobSet) + @(Get-ModuleGlobSet)
-    $tracked = @(Get-TrackedFile)
+    $tracked = [string[]] @(Get-TrackedFile)
 
     # OWN members per set (compose ignored,
     # [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)), computed once as a set for
     # O(1) intersection.
     $own = @{}
     foreach ($set in $sets) {
-        $members = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-        foreach ($path in $tracked) {
-            if ($set.OwnMatches($path)) {
-                [void]$members.Add($path)
-            }
-        }
-        $own[$set.Name] = $members
+        $own[$set.Name] = [System.Collections.Generic.HashSet[string]]::new(
+            $set.SelectOwnMembers($tracked), [System.StringComparer]::Ordinal)
     }
 
     foreach ($layer in $sets | Group-Object Layer) {
@@ -59,6 +54,10 @@ function Test-GlobSetIndependence {
             for ($j = $i + 1; $j -lt $names.Count; $j++) {
                 $a = $names[$i]
                 $b = $names[$j]
+                # The common case, a disjoint pair, is decided in one .NET call; only a violation lists its paths.
+                if (-not $own[$a].Overlaps($own[$b])) {
+                    continue
+                }
                 $shared = [System.Collections.Generic.List[string]]::new()
                 foreach ($path in $own[$a]) {
                     if ($own[$b].Contains($path)) {

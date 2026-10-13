@@ -46,7 +46,7 @@ Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
     }
 }
 
-# Reads the REAL loaded session (nothing mocked), so it runs in both the source suite and the build suite and
+# Reads the REAL loaded session (nothing mocked), so it runs in both the source run and the build run and
 # proves Show-Cats lists the modules of whichever tree is loaded
 # ([ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)).
 Describe 'Get-CatsModules — loaded catzc modules' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {

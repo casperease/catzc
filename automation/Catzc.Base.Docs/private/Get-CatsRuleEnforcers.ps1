@@ -29,8 +29,9 @@ function Get-CatsRuleEnforcers {
     # The test citations are read from the source tree's *.Tests.ps1 files, which a built package does not ship.
     Assert-SourceTree
 
-    $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:catsRuleEnforcersCache')   # strict-clean
-                                                                                                    # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+    # strict-clean
+    # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+    $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:catsRuleEnforcersCache')
     if ($null -ne $cached) {
         return $cached
     }

@@ -23,7 +23,7 @@
     A profiles.yml key whose modules to build (combinable with -Module).
 .PARAMETER VendorPolicy
     runtime ships only powershell-yaml; full also ships Pester and PSScriptAnalyzer (needed to run the test suite
-    against the build).
+    against the build). Defaults to exporter.yml's vendor_policy.
 .PARAMETER Version
     'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH — see Resolve-CatzcBuildVersion.
 .PARAMETER Destination
@@ -52,7 +52,7 @@ function Build-Modules {
         [string] $ModuleProfile,
 
         [ValidateSet('runtime', 'full')]
-        [string] $VendorPolicy,
+        [string] $VendorPolicy = "$((Get-Config -Config exporter).vendor_policy)",
 
         [string] $Version = 'auto',
 
@@ -66,9 +66,6 @@ function Build-Modules {
     $config = Get-Config -Config exporter
     if (-not $Module -and -not $ModuleProfile) {
         $ModuleProfile = "$($config.default_profile)"
-    }
-    if (-not $VendorPolicy) {
-        $VendorPolicy = "$($config.vendor_policy)"
     }
     if (-not $Destination) {
         $Destination = Join-Path (Get-OutputRoot) 'automation/build'

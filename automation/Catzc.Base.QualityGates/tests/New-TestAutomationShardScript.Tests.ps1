@@ -106,7 +106,7 @@ Describe 'New-TestAutomationShardScript' {
     # oversubscribes the box (see the test-automation ADR's greedy tag).
     # integrity + [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3):
     # the real worker imports the shipped, vendored Pester from its code root,
-    # nothing mocked — the real-asset test, not source-only, so it runs in the source and the build suite.
+    # nothing mocked — the real-asset test, not source-only, so it runs in the source and the build run.
     Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP#3' {
         It 'runs a generated shard end to end: results.xml, rows sidecar, and a green exit code' {
             # The walking skeleton for the whole worker chain: generator → PesterRunner → importer →

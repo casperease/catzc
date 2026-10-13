@@ -24,7 +24,7 @@
 function Install-Python {
     [CmdletBinding()]
     param(
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool 'python').version,
         [switch] $Force
     )
 
@@ -34,9 +34,6 @@ function Install-Python {
     )
 
     $config = Get-ToolConfig -Tool 'python'
-    if (-not $Version) {
-        $Version = $config.version
-    }
 
     # Idempotent: skip if already at the correct version (unless forcing a reinstall).
     if (-not $Force -and (Test-Command $config.command)) {

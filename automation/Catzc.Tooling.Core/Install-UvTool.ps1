@@ -9,7 +9,7 @@
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (must declare uv_tool).
 .PARAMETER Version
-    Version override. Defaults to the locked version.
+    Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
 .PARAMETER Force
     Uninstall a wrong version before installing the correct one.
 #>
@@ -18,7 +18,7 @@ function Install-UvTool {
     param(
         [Parameter(Mandatory, Position = 0)]
         [string] $Tool,
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool $Tool).version,
         [switch] $Force
     )
 
@@ -26,9 +26,6 @@ function Install-UvTool {
     $command = Get-ToolCommandSuffix -Tool $Tool
     Assert-NotNullOrWhitespace $config.uv_tool -ErrorText "$Tool has no uv_tool in tools.yml — cannot install via uv tool"
 
-    if (-not $Version) {
-        $Version = $config.version
-    }
 
     # Idempotent: skip if already installed at the correct version (no uv needed to notice this).
     if (Test-Command $config.command) {

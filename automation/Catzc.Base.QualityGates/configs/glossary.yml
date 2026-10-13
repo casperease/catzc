@@ -1,5 +1,5 @@
-# glossary.yml — the Catzc.Base.QualityGates glossary source: the test vocabulary this module owns, as the home of
-# Test-Automation ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)). Every option is defaulted: all four
+# glossary.yml — the Catzc.Base.QualityGates glossary source: the vocabulary of the quality gates this module owns — the
+# test vocabulary of Test-Automation and the link vocabulary of Test-Links ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)). Every option is defaulted: all four
 # gates, the whole repository, every text surface
 # ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). Checked by Test-Glossary.
 concepts:
@@ -9,10 +9,32 @@ concepts:
         defined_by: ADR-AUTO-TEST#13
         short: A test's level, L0 to L3 — one mandatory tag that sets what the test may touch and when it runs.
         realized_by: { kind: tag, pattern: 'L0|L1|L2|L3' }
+        contrasts:
+            category: A category says what a test reads (logic or integrity); a tier says what it may touch and when it runs.
         avoid:
             - { phrase: L2 suite, say: the L2 tests / the L2 tier }
             - { phrase: L2 test suite, say: the L2 tests / the L2 tier }
             - { phrase: L3 suites, say: the L3 tests / the L3 tier }
+    category:
+        key: category
+        domain: automation
+        defined_by: ADR-AUTO-TEST#1
+        short: A test's kind, logic or integrity — one mandatory tag saying whether it runs on fixtures or reads the shipped assets.
+        realized_by: { kind: tag, pattern: 'logic|integrity' }
+        contrasts:
+            tier: A tier says what a test may touch and when it runs; a category says what it reads (logic or integrity).
+        avoid:
+            - { phrase: integrity suite, say: the integrity tests }
+    test run:
+        key: test_run
+        domain: automation
+        defined_by: ADR-AUTO-TEST#34
+        short: One invocation of Test-Automation, Test-CatzcBuild, or Invoke-TestFile over a selection of test files, in one slot, with one report.
+        realized_by: { kind: artifact, pattern: 'out/test-*/*/run.json' }
+        avoid:
+            - { phrase: source suite, say: source run }
+            - { phrase: build suite, say: build run }
+            - { phrase: build suites, say: build runs }
     markdown link:
         key: markdown_link
         domain: repository

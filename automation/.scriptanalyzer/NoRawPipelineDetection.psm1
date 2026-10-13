@@ -1,4 +1,5 @@
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
+. (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
 <#
 .SYNOPSIS
@@ -34,8 +35,7 @@ function Measure-NoRawPipelineDetection {
     )
 
     # Exempt test files — they set/restore the detection variables for isolation.
-    $file = $ScriptBlockAst.Extent.File
-    if ($file -and $file -like '*.Tests.ps1') {
+    if (Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst) {
         return @()
     }
 

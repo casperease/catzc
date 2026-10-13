@@ -105,8 +105,8 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
     }
 
     Context 'what stays as written' {
-        It 'leaves a path glued to a placeholder alone' -Tag 'ADR-REPO-LINK#3' {
-            $text = "# Reads <root>/docs/adr/widget/widget-rules.md and x/gadget-rules.md.`n"
+        It 'leaves a path glued to a placeholder, and a code with a placeholder suffix, alone' -Tag 'ADR-REPO-LINK#3' {
+            $text = "# Reads <root>/docs/adr/widget/widget-rules.md and x/gadget-rules.md; codes ADR-TST-WIDGET-<NAME>.`n"
             & $alignFile $root 'src/widget.ps1' $text | Should -BeExactly $text
         }
 
@@ -179,9 +179,24 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
                 Should -BeExactly "    # Widgets nest gadgets per`n    # $widget2 always.`n"
         }
 
-        It 'continues a trailing comment under its own #' -Tag 'ADR-REPO-LINK#8' {
-            & $alignFile $root 'src/widget.ps1' "`$x = 1   # widget per ADR-TST-WIDGET:2`n" |
-                Should -BeExactly "`$x = 1   # widget per`n         # $widget2`n"
+        It 'moves a trailing comment that outgrows its line above the statement, at the statement''s indentation' -Tag 'ADR-REPO-LINK#8' {
+            & $alignFile $root 'src/widget.ps1' "    `$x = 1   # widget per ADR-TST-WIDGET:2`n" |
+                Should -BeExactly "    # widget per`n    # $widget2`n    `$x = 1`n"
+        }
+
+        It 'repairs a code link continued under a trailing comment''s marker by moving the comment above' -Tag 'ADR-REPO-LINK#8' {
+            & $alignFile $root 'src/widget.ps1' "    `$x = 1   # widget per`n             # $widget2`n" |
+                Should -BeExactly "    # widget per`n    # $widget2`n    `$x = 1`n"
+        }
+
+        It 'leaves an aligned trailing comment block without a code link as written' -Tag 'ADR-REPO-LINK#8' {
+            $text = "`$x = 1   # widget`n         # gadget note`n"
+            & $alignFile $root 'src/widget.ps1' $text | Should -BeExactly $text
+        }
+
+        It 'ends an inserted break with the file''s CRLF line ending' -Tag 'ADR-REPO-LINK#8' {
+            & $alignFile $root 'src/widget.ps1' "    # Widgets nest gadgets per ADR-TST-WIDGET:2 always.`r`n`$x = 1`r`n" |
+                Should -BeExactly "    # Widgets nest gadgets per`r`n    # $widget2 always.`r`n`$x = 1`r`n"
         }
 
         It 'reports instead of breaking under -Wrap Off' -Tag 'ADR-REPO-LINK#8' {

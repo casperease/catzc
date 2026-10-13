@@ -115,26 +115,78 @@ public sealed class LinkEngine
 
         var output = new StringBuilder(text.Length + 256);
         int copied = 0;
-        foreach ((int start, int length) in comments)
+        bool changed = false;
+        for (int index = 0; index < comments.Count; index++)
         {
+            (int start, int length) = comments[index];
             string comment = text.Substring(start, length);
+            string marker = CommentLexer.LineMarker(comment);
+            int lineStart = start == 0 ? 0 : text.LastIndexOf('\n', start - 1) + 1;
+            int column = start - lineStart;
+            string codeBefore = text.Substring(lineStart, column);
+            bool trailing = marker != null && codeBefore.Trim().Length > 0;
+
+            // A trailing comment may already have been continued on the following lines, indented under its marker
+            // (`$x = 1   # text` then `         # more`): those lines belong to it and are merged back before aligning.
+            int end = start + length;
+            string logical = comment;
+            int continuations = 0;
+            while (trailing && index + continuations + 1 < comments.Count)
+            {
+                (int nextStart, int nextLength) = comments[index + continuations + 1];
+                string nextComment = text.Substring(nextStart, nextLength);
+                int nextLineStart = text.LastIndexOf('\n', nextStart - 1) + 1;
+                bool onNextLine = text.Substring(end, nextLineStart - end).Trim().Length == 0 && text.IndexOf('\n', end) == nextLineStart - 1;
+                bool alignedUnder = nextStart - nextLineStart == column && text.Substring(nextLineStart, column).Trim().Length == 0;
+                if (!onNextLine || !alignedUnder || CommentLexer.LineMarker(nextComment) != marker) { break; }
+                logical = logical.TrimEnd() + " " + nextComment.Substring(marker.Length).Trim();
+                end = nextStart + nextLength;
+                continuations++;
+            }
+
             var local = new List<CodeLinkRewriter.Hit>();
-            var inserted = new List<string>();
-            string rewritten = rewriter.Rewrite(comment, isTestFile, local, inserted);
+            string rewritten = rewriter.Rewrite(logical, isTestFile, local, new List<string>());
+
+            // Continuation lines are merged only to repair a code link wrapped under its marker; any other aligned
+            // comment block is left as written, and the trailing comment is aligned on its own.
+            if (continuations > 0 && !InsertedLink.IsMatch(rewritten))
+            {
+                continuations = 0;
+                logical = comment;
+                end = start + length;
+                local.Clear();
+                rewritten = rewriter.Rewrite(logical, isTestFile, local, new List<string>());
+            }
             foreach (CodeLinkRewriter.Hit hit in local)
             {
-                hits.Add(new CodeLinkRewriter.Hit(start + hit.Offset, hit.Type, hit.Message, hit.Fix));
+                hits.Add(new CodeLinkRewriter.Hit(start + Math.Min(hit.Offset, length), hit.Type, hit.Message, hit.Fix));
             }
-            if (ReferenceEquals(rewritten, comment) || string.Equals(rewritten, comment, StringComparison.Ordinal)) { continue; }
+            bool rewrote = !string.Equals(rewritten, logical, StringComparison.Ordinal);
 
-            int column = start - (text.LastIndexOf('\n', Math.Max(0, start - 1)) + 1);
-            if (start == 0) { column = 0; }
-            rewritten = Wrap(rewritten, column, CommentLexer.LineMarker(comment), newline, limit, start, hits);
+            // A trailing comment that no longer fits beside its code — or that had been continued under its marker —
+            // moves onto its own line above the statement, at the statement's indentation, and wraps there.
+            if (trailing && (continuations > 0 || (rewrote && column + rewritten.Length > limit)))
+            {
+                string indent = codeBefore.Substring(0, codeBefore.Length - codeBefore.TrimStart().Length);
+                string above = Wrap(rewritten, indent.Length, marker, newline, limit, start, hits);
+                output.Append(text, copied, lineStart - copied)
+                    .Append(indent).Append(above).Append(newline)
+                    .Append(codeBefore.TrimEnd());
+                hits.Add(new CodeLinkRewriter.Hit(start, LinkFindingType.NonCanonical,
+                    "trailing comment too long for its line: moved above the statement", "(moved above the statement)"));
+                copied = end;
+                changed = true;
+                index += continuations;
+                continue;
+            }
+            if (!rewrote) { continue; }
 
+            rewritten = Wrap(rewritten, column, marker, newline, limit, start, hits);
             output.Append(text, copied, start - copied).Append(rewritten);
-            copied = start + length;
+            copied = end;
+            changed = true;
         }
-        if (copied == 0) { return text; }
+        if (!changed) { return text; }
         output.Append(text, copied, text.Length - copied);
         return output.ToString();
     }
@@ -175,7 +227,7 @@ public sealed class LinkEngine
                 if (breakAt <= 0) { break; }
                 string head = current.Substring(0, breakAt).TrimEnd();
                 string tail = prefix + current.Substring(breakAt).TrimStart();
-                result.Add(head + (carriage ? "\r" : string.Empty));
+                result.Add(head + (newline == "\r\n" ? "\r" : string.Empty));   // an inserted break uses the file's own line ending
                 current = tail;
                 currentOffset = 0;
             }

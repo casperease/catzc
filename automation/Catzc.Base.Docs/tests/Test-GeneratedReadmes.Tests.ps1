@@ -8,7 +8,7 @@
 # .gitignore and are out of scope here. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
 #
 # Reads only the repository's files and git index (through the source-tree-only Get-ReadmeMappings) — the same
-# answer in both run modes, so the build suite skips it.
+# answer in both run modes, so the build run skips it.
 Describe 'Generated README links are gitignored and untracked' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot

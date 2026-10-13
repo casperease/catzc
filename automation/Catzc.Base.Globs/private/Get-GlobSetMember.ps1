@@ -11,6 +11,9 @@
     may be missing on disk (an unstaged deletion); it is still a member.
 .PARAMETER GlobSet
     The globset instance to resolve (declared or derived).
+.PARAMETER TrackedFile
+    The tracked-file universe (Get-TrackedFile), fetched once by a caller resolving many sets and passed in.
+    Omitted, it is fetched for this call.
 .EXAMPLE
     Get-GlobSetMember -GlobSet (Get-GlobSet -Name automation)
 #>
@@ -19,18 +22,15 @@ function Get-GlobSetMember {
     [OutputType([string[]])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [Catzc.Base.Globs.GlobSet] $GlobSet
+        [Catzc.Base.Globs.GlobSet] $GlobSet,
+
+        [AllowEmptyCollection()]
+        [string[]] $TrackedFile
     )
 
-    $members = [System.Collections.Generic.List[string]]::new()
-    foreach ($path in Get-TrackedFile) {
-        if ($GlobSet.Matches($path)) {
-            $members.Add($path)
-        }
+    if (-not $PSBoundParameters.ContainsKey('TrackedFile')) {
+        $TrackedFile = [string[]] @(Get-TrackedFile)
     }
-
-    # Deterministic, culture-independent order (Sort-Object is culture-aware — cross-platform ADR).
-    $sorted = $members.ToArray()
-    [System.Array]::Sort($sorted, [System.StringComparer]::Ordinal)
-    $sorted
+    # Ordinal (culture-independent) order, selected in one call (GlobSet.SelectMembers).
+    $GlobSet.SelectMembers($TrackedFile)
 }

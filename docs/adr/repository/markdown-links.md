@@ -26,6 +26,7 @@ derived from it, so the same checked-in text resolves from any file depth wherev
 
 - [Code links are repository-rooted](#code-links-are-repository-rooted)
 - [The citation is the source of truth](#the-citation-is-the-source-of-truth)
+- [Code links in the editor](#code-links-in-the-editor)
 
 ### Rule ADR-REPO-LINK:4
 
@@ -119,6 +120,17 @@ ADR index, exactly as `Format-Types` derives a type's namespace from its folder.
 link to it; when a link's destination disagrees with its citation, the citation wins. A link to an ADR-folder document with no code of its
 own (the index, a domain's `dora-explains`) takes the file name as its text.
 
+### Code links in the editor
+
+VS Code's built-in link detection does not read markdown links outside `.md` files, so a code link needs one workspace rule to be
+Ctrl+clickable. The repository's VS Code registries carry it, version-controlled like every other editor setting: the extension
+recommendations (`automation/Catzc.Base.VSCode/configs/vscode-extensions.yml`) recommend Regex Robin, and the workspace settings
+(`vscode-settings.yml`) hold one `regexrobin.rules` entry that matches `[…](/docs/adr/<path>.md…)` in any language and opens
+`file:///${workspaceFolder}/docs/adr/<path>.md`. The rule relies only on the repository's own layout — every target exists at its rooted
+path in the checked-out workspace — so it works in any clone without per-user setup beyond installing the recommended extension. The
+`#rule-…` fragment is not passed to the editor, which opens a file by line rather than by heading: the click lands on the ADR, and the rule
+is one search away. Markdown links need no rule; the built-in markdown support already resolves them.
+
 ### References point one way
 
 Code cites the decisions it implements; the decisions do not track their implementations. An ADR's "How this is enforced" section names the
@@ -162,6 +174,8 @@ both kinds mechanically and `Test-Links` gates them.
   citation code or rule, link that climbs above the root, self-URL outside `.github/`, or missing docs path in a PowerShell string.
 - **One engine** — both commands drive the compiled `Catzc.Base.QualityGates.LinkEngine` over the files in parallel, with the citation map
   from `Get-AdrCitationMap` (in `Catzc.Base.Docs`), so the aligner and the gate cannot disagree.
+- **The VS Code registries** — `vscode-extensions.yml` recommends Regex Robin and `vscode-settings.yml` carries the `regexrobin.rules`
+  code-link rule; `Build-RootConfig` renders both into `.vscode/`, so every clone gets the same Ctrl+clickable code links.
 
 ## Consequences
 
@@ -169,6 +183,8 @@ both kinds mechanically and `Test-Links` gates them.
   `Format-Links` rather than found by a reader.
 - Comment lines grow. A code link is longer than the bare citation it replaces, so many comment lines are wrapped onto a second line; the
   aligner breaks before a link, never inside it.
-- A code link is not clickable in GitHub's source view or in VS Code's built-in link detection, which do not render markdown in code files.
-  It is a valid link wherever the text is rendered as markdown, and its rooted destination reads as the file's repository path.
+- In VS Code a code link is Ctrl+clickable through the recommended Regex Robin extension and the version-controlled workspace rule; it opens
+  the ADR file, not the rule's heading. Without the extension the link is plain text in the editor, but nothing breaks.
+- GitHub's source view does not render markdown in code files, so there a code link is text; it is a valid link wherever the text is
+  rendered as markdown, and its rooted destination reads as the file's repository path.
 - Markdown fragments are checked against GitHub's slugs, so a renamed heading breaks the build instead of silently breaking its links.

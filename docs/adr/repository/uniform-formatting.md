@@ -116,6 +116,9 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
   pipeline YAML fails CI.
 - **Generated artifacts** — a build-generated artifact is emitted canonical by its generator (the module-manifest emitter), and an L2 test
   asserts the formatter is a no-op over generated output, so its bytes cannot drift from the standard.
+- **Links** — `Format-Links` aligns every link mechanically (code links repository-rooted, markdown links relative, rule citations spelled
+  `ADR-<CODE>#<n>`) and `Test-Links` gates them; an L2 test asserts `Format-Links` is a no-op over the tracked tree
+  ([markdown-links](markdown-links.md)).
 
 ## Consequences
 

@@ -34,8 +34,9 @@ function Get-FunctionDependency {
     # ([ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)). Callers treat the result as
     # read-only ([ADR-AUTO-CACHE#5](/docs/adr/automation/caching.md#rule-adr-auto-cache5)).
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:functionDependencyCache')) {
-        $script:functionDependencyCache = @{}   # strict-clean probe of the lazy slot
-                                                # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        # strict-clean probe of the lazy slot
+        # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        $script:functionDependencyCache = @{}
     }
     if ($script:functionDependencyCache.ContainsKey($AutomationRoot)) {
         return $script:functionDependencyCache[$AutomationRoot]

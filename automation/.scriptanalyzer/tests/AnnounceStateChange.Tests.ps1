@@ -137,6 +137,17 @@ function Invoke-Widget {
             $ast = [System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$null, [ref]$null)
             Measure-AnnounceStateChange -ScriptBlockAst $ast | Should -BeNullOrEmpty
         }
+
+        It 'skips a test file analyzed as an editor buffer, which has no file name' {
+            # VS Code's PowerShell extension analyzes the open buffer as a script definition: no file name, so the
+            # Pester structure (a Describe call) is what marks it as a test file.
+            $code = "BeforeAll { Import-Module 'C:\widget' -Force }`nDescribe 'Widget' { It 'works' { } }"
+            Test-StateChange $code | Should -BeNullOrEmpty
+        }
+
+        It 'still flags an editor buffer that is not a test file' {
+            Test-StateChange "Import-Module 'C:\widget' -Force" | Should -Not -BeNullOrEmpty
+        }
     }
 }
 

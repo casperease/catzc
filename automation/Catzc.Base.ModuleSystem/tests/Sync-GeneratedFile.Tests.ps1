@@ -1,6 +1,6 @@
 Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
     BeforeEach {
-        # Source mode unless a test flips it, so the cases run the same in the source and build suites.
+        # Source mode unless a test flips it, so the cases run the same in the source and build runs.
         Mock Get-CatzcRunMode { 'source' } -ModuleName Catzc.Base.ModuleSystem
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.ModuleSystem
         Mock Get-GitCurrentBranch { 'feature/sync' } -ModuleName Catzc.Base.ModuleSystem

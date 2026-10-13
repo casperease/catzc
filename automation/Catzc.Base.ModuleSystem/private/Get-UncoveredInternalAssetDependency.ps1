@@ -12,7 +12,7 @@
     values and those of each enclosing Describe and Context (the block chain,
     [ADR-AUTO-TEST#13](/docs/adr/automation/test-automation.md#rule-adr-auto-test13)/27). A test
     qualifies when its chain carries the citation 'ADR-AUTO-ASSETDEP#3' and does not carry 'source-only' —
-    so it runs in both the source suite and the build suite.
+    so it runs in both the source run and the build run.
 
     Returns one record per uncovered function: { Module; Function; ChildPath; TestFile; Reason }, where Module
     is the module that defines the function, ChildPath the child paths its calls read (sorted, unique; '.'

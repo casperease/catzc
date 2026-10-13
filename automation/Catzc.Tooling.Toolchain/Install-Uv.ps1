@@ -18,14 +18,11 @@
 function Install-Uv {
     [CmdletBinding()]
     param(
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool 'uv').version,
         [switch] $Force
     )
 
     $config = Get-ToolConfig -Tool 'uv'
-    if (-not $Version) {
-        $Version = $config.version
-    }
 
     # Fresh machine: bootstrap per platform — winget on Windows and brew on macOS (both via Install-Tool);
     # Astral's standalone release on Linux (user-space, ~/.local/bin — there is no uv apt package).

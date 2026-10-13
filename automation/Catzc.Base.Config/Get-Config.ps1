@@ -52,8 +52,9 @@ function Get-Config {
     $entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name; Module; Path }
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configCache')) {
-        $script:configCache = @{}   # strict-clean probe of the lazy slot
-                                    # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        # strict-clean probe of the lazy slot
+        # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        $script:configCache = @{}
     }
     if ($script:configCache.ContainsKey($entry.Path)) {
         return $script:configCache[$entry.Path]

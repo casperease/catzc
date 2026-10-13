@@ -141,7 +141,7 @@ The graph is checked at two moments, and both fail fast:
   module graph and each group's internal member→member graph are acyclic; and every declared module and group member exists on disk.
 - **Against the real code** — `Assert-ModuleDependency` compares the extracted edges (`Get-ModuleDependency` + `Get-CSharpTypeDependency`)
   to the resolved allow-set: each actual edge must fall within it, and actual intra-group edges must be a subset of the group's declared
-  internal map. An undeclared edge fails the L1 integrity suite.
+  internal map. An undeclared edge fails the L1 integrity tests.
 
 ### Extend by declaring
 
@@ -199,7 +199,7 @@ describes, and adding or moving a dependency is a reviewed change.
   existence.
 - **`Get-ModuleDependency`** + **`Get-CSharpTypeDependency`** — extract the actual function-call and C# type-reference edges from the code.
 - **`Assert-ModuleDependency`** — checks the extracted edges against the declaration (allow-set membership and the group's internal-map
-  subset rule), failing the L1 integrity suite on any undeclared edge.
+  subset rule), failing the L1 integrity tests on any undeclared edge.
 - **Code review** — enforces `ADR-AUTO-DEPM:5`: a new edge is declared in the same change as the code, not deferred.
 - **`Install-VendorModule`** + **`Import-VendorModules`** ([vend](powershell/vendor-toolset-dependencies.md)) — pin a vendored internal
   dependency by its `automation/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-AUTO-DEPM:8`).

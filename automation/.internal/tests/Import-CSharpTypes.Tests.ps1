@@ -50,6 +50,10 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         # The loader announces a real build via Write-ImporterMessage. Mock it so compile tests stay quiet,
         # and so the announce test can assert the call.
         Mock Write-ImporterMessage { } -ModuleName Catzc.Internal.Bootstrap
+        # Loads go through the per-user shadow copy (Import-TypesAssembly); keep the fixtures' copies out of the
+        # real %LOCALAPPDATA%\catzc\types. Under fixtureRoot, not TestDrive: a loaded copy stays locked too.
+        $shadowRoot = Join-Path $script:fixtureRoot 'shadow'
+        Mock Get-TypesShadowRoot { $shadowRoot }.GetNewClosure() -ModuleName Catzc.Internal.Types
     }
 
     Context 'fixture' -Tag 'logic' {

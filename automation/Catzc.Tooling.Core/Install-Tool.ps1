@@ -9,7 +9,7 @@
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml.
 .PARAMETER Version
-    Version override. Defaults to the locked version.
+    Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
 .PARAMETER Force
     Automatically uninstall the wrong version before installing the correct one.
 #>
@@ -18,7 +18,7 @@ function Install-Tool {
     param(
         [Parameter(Mandatory, Position = 0)]
         [string] $Tool,
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool $Tool).version,
         [switch] $Force
     )
 
@@ -33,9 +33,6 @@ function Install-Tool {
         throw "$Tool is an npm-managed tool. Install-Tool manages winget/brew/apt packages only — use Install-$command (npm) instead."
     }
 
-    if (-not $Version) {
-        $Version = $config.version
-    }
 
     # Idempotent: skip if already installed at the correct version
     if (Test-Command $config.command) {

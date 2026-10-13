@@ -17,14 +17,11 @@
 function Install-Prettier {
     [CmdletBinding()]
     param(
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool 'prettier').version,
         [switch] $Force
     )
 
     $config = Get-ToolConfig -Tool 'prettier'
-    if (-not $Version) {
-        $Version = $config.version
-    }
 
     # npm ships with Node.js — assert it is present and at the locked version first.
     Assert-Tool 'node_js'

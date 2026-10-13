@@ -1,4 +1,5 @@
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
+. (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
 <#
 .SYNOPSIS
@@ -28,11 +29,11 @@ function Measure-NoBareScriptSlotRead {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
 
-    # Skip a .psm1 (it can declare its slots at load) and a Pester file. An in-memory definition has no file and is
-    # analysed.
+    # Skip a .psm1 (it can declare its slots at load) and a Pester file — by name, or by its Describe calls when an
+    # editor buffer has no file name. Any other in-memory definition is analysed.
     $path = "$($ScriptBlockAst.Extent.File)"
     if ($path.EndsWith('.psm1', [System.StringComparison]::OrdinalIgnoreCase) -or
-        $path.EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase)) {
+        (Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst)) {
         return $results.ToArray()
     }
 

@@ -167,7 +167,7 @@ selection: the selected modules' `types/*.cs` travel in their folders and the re
 guard re-verifies the same hash in every build, and a session that switches between modes always finds the same type identities loaded. The
 DLL is copied from the source tree's `.compiled/` when its hash matches, and compiled only when it is missing. The vendored modules are
 copied verbatim from `.vendor/` per `vendor_policy` — `runtime` ships `powershell-yaml` only; `full` also ships Pester and PSScriptAnalyzer,
-which the build suite needs — and are never re-downloaded or republished. Default-deny keeps the verification surface out: no `tests/` tree
+which the build run needs — and are never re-downloaded or republished. Default-deny keeps the verification surface out: no `tests/` tree
 travels.
 
 ### The immutable, verified artifact
@@ -230,7 +230,7 @@ release act governed by its own workflow ([github-release](../github/github-rele
 - **`Catzc.Base.Exporter`** owns the artifact: `Build-Modules`, `Resolve-CatzcBuildVersion`, `Install-Catzc`, `Export-Catzc`,
   `Assert-CatzcBundle`, `Get-CatzcContentHash`, and the `exporter.yml` config. `Build-Modules` self-checks with `Assert-CatzcBundle`; the
   walking-skeleton integrity test builds the full profile, loads it in a child `pwsh`, and calls into every module.
-- **The build suite** (`Test-CatzcBuild`, [test-automation](test-automation.md)) runs the same tests against the build that the source suite
+- **The build run** (`Test-CatzcBuild`, [test-automation](test-automation.md)) runs the same tests against the build that the source run
   runs against source.
 - **Code review** keeps the split honest: a scan of catzc's own code anchored on `RepositoryRoot` rather than `CatzcModulesRoot`, or a
   bundle loader that forks the importer, is rejected against this ADR.
@@ -247,7 +247,7 @@ release act governed by its own workflow ([github-release](../github/github-rele
 - Error line numbers inside a built module point into the merged file; the `# source:` markers map them back, and debugging happens against
   source.
 - The cost is one more concept (the bundle), one more anchor (`CatzcModulesRoot`), and the discipline that catzc's own code finds its
-  content through the code root — bounded, and enforced by an analyzer rule and the build suite.
+  content through the code root — bounded, and enforced by an analyzer rule and the build run.
 
 ## Related
 

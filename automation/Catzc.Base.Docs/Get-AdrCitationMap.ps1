@@ -29,8 +29,9 @@ function Get-AdrCitationMap {
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:adrCitationMapCache')) {
-        $script:adrCitationMapCache = @{}   # strict-clean probe of the lazy slot
-                                            # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        # strict-clean probe of the lazy slot
+        # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        $script:adrCitationMapCache = @{}
     }
     if ($script:adrCitationMapCache.ContainsKey($root)) {
         return $script:adrCitationMapCache[$root]

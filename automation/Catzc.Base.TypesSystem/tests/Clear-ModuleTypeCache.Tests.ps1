@@ -5,7 +5,7 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
     # stamp (see the Import-CSharpTypes suite's 'IDE project build stamps …' test).
 
     BeforeEach {
-        # Default: source mode, not a pipeline, so the function actually runs (in the source and build suites).
+        # Default: source mode, not a pipeline, so the function actually runs (in the source and build runs).
         Mock Get-CatzcRunMode { 'source' } -ModuleName Catzc.Base.TypesSystem
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.TypesSystem
         # Silence + capture the end-state reporting so the 'always reports' assertions can inspect it.

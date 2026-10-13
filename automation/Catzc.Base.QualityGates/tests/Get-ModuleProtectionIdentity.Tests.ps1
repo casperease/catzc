@@ -26,6 +26,7 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
         }
 
         Mock Get-Config { $script:dependencies } -ModuleName Catzc.Base.QualityGates
+        Mock Get-TrackedFile { @('x/widget.ps1', 'x/gadget.ps1') } -ModuleName Catzc.Base.QualityGates
         Mock Get-ModuleGlobSet {
             [Catzc.Base.Globs.GlobSet]::new($Name.ToLowerInvariant().Replace('.', '-'), 'd', 'module', @('x/**'), @(), @(), @(), -1, $null)
         } -ModuleName Catzc.Base.QualityGates
@@ -136,5 +137,17 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
         } | Out-Null
         # Alpha's constituents: own + 4 infra + runner = 6; Beta adds only its own set (alpha etc. cached)
         Should -Invoke Get-GlobSetHash -ModuleName Catzc.Base.QualityGates -Exactly -Times 7
+    }
+
+    It 'fetches the tracked files once per call, hands them to every set hash, and not at all when all is cached' {
+        InModuleScope Catzc.Base.QualityGates {
+            $cache = @{}
+            Get-ModuleProtectionIdentity -Module 'Catzc.Base.Alpha' -HashCache $cache | Out-Null
+            Get-ModuleProtectionIdentity -Module 'Catzc.Base.Alpha' -HashCache $cache | Out-Null
+        } | Out-Null
+        Should -Invoke Get-TrackedFile -ModuleName Catzc.Base.QualityGates -Exactly -Times 1
+        Should -Invoke Get-GlobSetHash -ModuleName Catzc.Base.QualityGates -Exactly -Times 6 -ParameterFilter {
+            "$TrackedFile" -eq 'x/widget.ps1 x/gadget.ps1'
+        }
     }
 }

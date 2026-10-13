@@ -65,8 +65,9 @@ function Get-BicepTemplates {
     # Get-BicepTemplatesOutputRoot) without colliding with the real cache entry. Callers must
     # treat the result as read-only (the same object is returned every call).
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:bicepTemplatesCache')) {
-        $script:bicepTemplatesCache = @{}   # strict-clean probe of the lazy slot
-                                            # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        # strict-clean probe of the lazy slot
+        # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        $script:bicepTemplatesCache = @{}
     }
     $cacheKey = "$infrastructureRoot|$outputRoot"
     if ($script:bicepTemplatesCache.ContainsKey($cacheKey)) {

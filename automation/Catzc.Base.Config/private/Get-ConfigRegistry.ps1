@@ -14,8 +14,9 @@ function Get-ConfigRegistry {
     [OutputType([System.Collections.IDictionary])]
     param()
 
-    $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:configRegistryCache')   # strict-clean
-                                                                                                 # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+    # strict-clean
+    # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+    $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:configRegistryCache')
     if ($null -ne $cached) {
         return $cached
     }

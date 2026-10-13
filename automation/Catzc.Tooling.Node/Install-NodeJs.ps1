@@ -26,7 +26,7 @@
 function Install-NodeJs {
     [CmdletBinding()]
     param(
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool 'node_js').version,
         [switch] $Force
     )
 
@@ -37,9 +37,6 @@ function Install-NodeJs {
 
     if ($IsLinux) {
         $config = Get-ToolConfig -Tool 'node_js'
-        if (-not $Version) {
-            $Version = $config.version
-        }
 
         # Idempotent: skip if already installed at the correct version
         if (Test-Command $config.command) {

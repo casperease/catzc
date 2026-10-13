@@ -11,7 +11,7 @@
 .PARAMETER Tool
     The snake_case tool key (must declare uv_venv).
 .PARAMETER Version
-    Version override. Defaults to the locked version.
+    Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
 .PARAMETER Force
     Rebuild the venv from scratch even when the tool is already present.
 #>
@@ -20,16 +20,13 @@ function Install-UvVenvTool {
     param(
         [Parameter(Mandatory, Position = 0)]
         [string] $Tool,
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool $Tool).version,
         [switch] $Force
     )
 
     $config = Get-ToolConfig -Tool $Tool
     Assert-NotNullOrWhitespace $config.uv_venv -ErrorText "$Tool has no uv_venv in tools.yml — cannot install into a uv venv"
 
-    if (-not $Version) {
-        $Version = $config.version
-    }
     $pythonVersion = (Get-ToolConfig -Tool 'python').version
 
     # Idempotent: skip if already installed at the correct version.

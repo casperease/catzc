@@ -58,7 +58,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
 }
 
 # Reads the SHIPPED assets/gitkeep through Build-GitKeep's real lookup (nothing mocked on the read) and writes
-# only into a fixture repository, so it runs in both the source suite and the build suite
+# only into a fixture repository, so it runs in both the source run and the build run
 # ([ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)).
 Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
@@ -83,7 +83,7 @@ Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR
 }
 
 # Reads only the repository's own .gitkeep files and readme.yml mappings — the same answer in both run modes,
-# so the build suite skips it.
+# so the build run skips it.
 Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         # The real repository's .gitkeep set, discovered by the walk without writing (-DryRun).

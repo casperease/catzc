@@ -17,7 +17,7 @@
 function Install-AzCli {
     [CmdletBinding()]
     param(
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool 'az_cli').version,
         [switch] $Force
     )
 

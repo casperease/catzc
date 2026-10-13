@@ -65,7 +65,7 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
 }
 
 # The real glossary sources against the real ADRs, tests, and tracked files. G1 and G4 reach git (the tracked-file
-# listing), so this is L2; the answer is the same in both run modes, so the build suite skips it.
+# listing), so this is L2; the answer is the same in both run modes, so the build run skips it.
 Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:sources = @(InModuleScope Catzc.Base.Docs { Get-GlossarySources })

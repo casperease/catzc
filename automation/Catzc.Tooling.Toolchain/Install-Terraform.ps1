@@ -17,15 +17,12 @@
 function Install-Terraform {
     [CmdletBinding()]
     param(
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool 'terraform').version,
         [switch] $Force
     )
 
     if ($IsLinux) {
         $config = Get-ToolConfig -Tool 'terraform'
-        if (-not $Version) {
-            $Version = $config.version
-        }
 
         # Idempotent: skip if already installed at the correct version
         if (Test-Command $config.command) {

@@ -31,8 +31,9 @@ function Get-CatsAdrRuleIds {
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrRuleIdsCache')) {
-        $script:catsAdrRuleIdsCache = @{}   # strict-clean probe of the lazy slot
-                                            # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        # strict-clean probe of the lazy slot
+        # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        $script:catsAdrRuleIdsCache = @{}
     }
     if ($script:catsAdrRuleIdsCache.ContainsKey($IndexPath)) {
         return , $script:catsAdrRuleIdsCache[$IndexPath]

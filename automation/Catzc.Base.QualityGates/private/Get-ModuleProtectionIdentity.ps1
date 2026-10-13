@@ -36,11 +36,18 @@ function Get-ModuleProtectionIdentity {
         [hashtable] $HashCache
     )
 
+    # The tracked-file universe, fetched once for this call on the first set that is not memoized yet (a holder,
+    # because the closure below runs in its own scope), then shared by every set it hashes.
+    $universe = @{}
     $setHash = {
         param([string] $setName)
         if (-not $HashCache.ContainsKey($setName)) {
+            if (-not $universe.ContainsKey('tracked')) {
+                $universe['tracked'] = [string[]] @(Get-TrackedFile)
+            }
+            $tracked = $universe['tracked']
             $HashCache[$setName] = if ($setName -eq 'repository') {
-                Get-GlobSetHash -Name repository
+                Get-GlobSetHash -Name repository -TrackedFile $tracked
             }
             else {
                 # A module name resolves to its live/tests aspect sets
@@ -50,7 +57,7 @@ function Get-ModuleProtectionIdentity {
                 $sets = @(Get-ModuleGlobSet -Name $setName) | Sort-Object Name
                 $fold = [System.Text.StringBuilder]::new()
                 foreach ($set in $sets) {
-                    [void]$fold.Append($set.Name).Append('|').Append((Get-GlobSetHash -GlobSet $set)).Append("`n")
+                    [void]$fold.Append($set.Name).Append('|').Append((Get-GlobSetHash -GlobSet $set -TrackedFile $tracked)).Append("`n")
                 }
                 [Catzc.Base.Globs.DurableHash]::HashFold($fold.ToString())
             }

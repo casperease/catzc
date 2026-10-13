@@ -22,7 +22,7 @@ keep in step.
 ### Rule ADR-AUTO-ASSETDEP:3
 
 Every function with an internal asset dependency is covered by at least one test that reads the real asset (the read is not mocked away),
-carries the citation tag `ADR-AUTO-ASSETDEP#3`, and is not tagged `source-only`, so it runs in both the source suite and the build suite.
+carries the citation tag `ADR-AUTO-ASSETDEP#3`, and is not tagged `source-only`, so it runs in both the source run and the build run.
 Because it reads a shipped asset, it is an `integrity` test (ADR-AUTO-TEST#1); the function's logic tests keep using fixtures.
 
 - [A real-asset test that runs in both suites](#a-real-asset-test-that-runs-in-both-suites)
@@ -91,7 +91,7 @@ list would drift from the code it describes, and the code says everything the ga
 
 A function that reads a shipped asset is covered by a test that lets the read happen: it loads the module, calls the function, and asserts
 on what the real asset produced. Mocking the read away would test the mock, which is the one thing that does not change between the modes.
-The test reads the shipped file, so it is an `integrity` test, and it is never `source-only`, so the build suite runs it against the built
+The test reads the shipped file, so it is an `integrity` test, and it is never `source-only`, so the build run executes it against the built
 module ([test-automation](test-automation.md#rule-adr-auto-test31)). The citation tag `ADR-AUTO-ASSETDEP#3` is what lets the coverage gate
 find it. The function's other behaviour stays in its logic tests, on fixtures, as usual — the real-asset test exists to prove the lookup,
 not to re-test the logic.
@@ -118,7 +118,7 @@ the coverage gate is red, so the change cannot merge ([poka-yoke](../principles/
 
 ## Consequences
 
-- A lookup that works only in the source tree is caught in CI, by the build suite, before it reaches an installed package.
+- A lookup that works only in the source tree is caught in CI, by the build run, before it reaches an installed package.
 - The full list of what each module reads from the code tree is one command away, always current, and never maintained by hand.
 - Every built module carries the content its code reads; a missing side folder fails the build.
 - Each asset-reading function carries one more test, an integrity test that reads the real asset — a small, fixed cost per dependency.

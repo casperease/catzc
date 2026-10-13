@@ -31,8 +31,9 @@ function Resolve-ConfigEntry {
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configIndex')) {
-        $script:configIndex = @{}   # strict-clean probe of the lazy slot
-                                    # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        # strict-clean probe of the lazy slot
+        # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        $script:configIndex = @{}
         $automationRoot = Get-CatzcModulesRoot
         foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($automationRoot)) {
             $moduleName = [System.IO.Path]::GetFileName($moduleDir)

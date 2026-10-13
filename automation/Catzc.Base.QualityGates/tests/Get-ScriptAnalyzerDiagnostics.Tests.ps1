@@ -12,7 +12,7 @@ Describe 'Get-ScriptAnalyzerDiagnostics' -Tag 'L0', 'logic' {
 # throwaway fixtures. Integrity, because it reads two shipped assets with nothing mocked: the vendored
 # analyzer (<code root>/.vendor/PSScriptAnalyzer) and the one settings file (<code root>/.internal/assets) — the
 # real-asset test of [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3),
-# so it runs in both the source and the build suite.
+# so it runs in both the source and the build run.
 Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)' -Tag 'L2', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         $script:settings = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'

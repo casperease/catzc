@@ -1,4 +1,4 @@
-# Reads the repository's own test files — the same answer in both run modes, so the build suite skips it.
+# Reads the repository's own test files — the same answer in both run modes, so the build run skips it.
 Describe 'Get-CatsRuleEnforcers integrity' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         $script:enforcers = InModuleScope Catzc.Base.Docs { Get-CatsRuleEnforcers }

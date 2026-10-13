@@ -33,7 +33,7 @@ is irrelevant because the assembly is a leaf in the reference graph: nothing ref
 
 Cross-module type references are allowed but **governed by the module dependency graph**: a deriving/referencing module must declare the
 target in `configs/dependencies.yml`. The compiler does not enforce the layering in one combined assembly, so `Get-CSharpTypeDependency`
-extracts the C# edges and `Assert-ModuleDependency` fails the L1 integrity suite on an undeclared one. There is **one** shared
+extracts the C# edges and `Assert-ModuleDependency` fails the L1 integrity tests on an undeclared one. There is **one** shared
 `Catzc.Base.Objects.DictionaryRecord`, not a per-module copy.
 
 - [The `DictionaryRecord` base](#the-dictionaryrecord-base-dictionary-compatible-data-records)
@@ -120,8 +120,8 @@ names the drifted files and both hashes so the cause is diagnosable from the err
 
 ### Rule ADR-AUTO-TYPES:13
 
-Who runs the importer decides whether its type-cache janitor stops the processes holding a superseded build. A person's session stops
-them by default (`Clear-ModuleTypeCache -StopLockingProcesses`): the stale sessions are the person's own. An agent's session
+Who runs the importer decides whether its type-cache janitor stops the processes holding a superseded build. A person's session stops them
+by default (`Clear-ModuleTypeCache -StopLockingProcesses`): the stale sessions are the person's own. An agent's session
 (`Test-IsRunningAsAgent`) never stops them — they are the person's, not the agent's — and works from its own shadow copy, leaving the stale
 build reported. A pipeline never stops anything and only asserts that `.compiled` holds exactly one build.
 

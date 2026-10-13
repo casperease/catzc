@@ -17,6 +17,9 @@
 .PARAMETER GlobSet
     A [Catzc.Base.Globs.GlobSet] instance to compute the identity for instead — the path a DERIVED set
     (Get-ModuleGlobSet) takes, since derived sets are not in the declared registry.
+.PARAMETER TrackedFile
+    The tracked-file universe (Get-TrackedFile), fetched once by a caller hashing many sets and passed in.
+    Omitted, it is fetched for this call.
 .EXAMPLE
     Get-GlobSetHash -Name automation
 .EXAMPLE
@@ -31,7 +34,10 @@ function Get-GlobSetHash {
         [string] $Name,
 
         [Parameter(Mandatory, ParameterSetName = 'ByObject')]
-        [Catzc.Base.Globs.GlobSet] $GlobSet
+        [Catzc.Base.Globs.GlobSet] $GlobSet,
+
+        [AllowEmptyCollection()]
+        [string[]] $TrackedFile
     )
 
     $root = Get-RepositoryRoot
@@ -41,7 +47,12 @@ function Get-GlobSetHash {
     else {
         $GlobSet
     }
-    $members = Get-GlobSetMember -GlobSet $set
+    $members = if ($PSBoundParameters.ContainsKey('TrackedFile')) {
+        Get-GlobSetMember -GlobSet $set -TrackedFile $TrackedFile
+    }
+    else {
+        Get-GlobSetMember -GlobSet $set
+    }
 
     $stringBuilder = [System.Text.StringBuilder]::new()
     foreach ($path in $members) {

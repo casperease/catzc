@@ -1,4 +1,5 @@
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
+. (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
 <#
 .SYNOPSIS
@@ -102,8 +103,7 @@ function Measure-SpellOutIdentifiers {
     # ([ADR-AUTO-SPELL#6](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell6)); production code may
     # not. Fixture terms are accepted
     # only when the file under analysis is a test (`*.Tests.ps1` or under a `tests/` folder).
-    $file = $ScriptBlockAst.Extent.File
-    $isTestScope = [bool] $file -and ($file -match '\.Tests\.ps1$' -or $file -match '[\\/]tests[\\/]')
+    $isTestScope = Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst -IncludeTestsFolder
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-SpellOutIdentifiers'

@@ -95,8 +95,8 @@ Describe 'Test-GlobSetProtection / Protect-GlobSet' -Tag 'L0', 'logic' {
 
         It 'promotes the queried (pre-run) identity, not a later -Hash' {
             Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('c' * 64) | Out-Null
-            Protect-GlobSet -Test 'suite' -Name 'Some.Module' -Hash ('d' * 64)   # pending wins
-                                                                                 # ([ADR-REPO-PROTGLOB#4](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob4))
+            # pending wins ([ADR-REPO-PROTGLOB#4](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob4))
+            Protect-GlobSet -Test 'suite' -Name 'Some.Module' -Hash ('d' * 64)
             Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('c' * 64) | Should -BeTrue
         }
 

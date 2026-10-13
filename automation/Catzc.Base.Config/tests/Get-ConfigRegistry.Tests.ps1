@@ -37,8 +37,8 @@ Describe 'Get-ConfigRegistry' -Tag 'L0', 'logic' {
     }
 }
 
-# Reads the SHIPPED configs.yml through the real lookup (nothing mocked), so it runs in both the source suite
-# and the build suite and proves the registry resolves inside the loaded module
+# Reads the SHIPPED configs.yml through the real lookup (nothing mocked), so it runs in both the source run
+# and the build run and proves the registry resolves inside the loaded module
 # ([ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)).
 Describe 'Get-ConfigRegistry — shipped configs.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     AfterAll {

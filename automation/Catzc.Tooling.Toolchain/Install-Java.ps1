@@ -18,14 +18,11 @@
 function Install-Java {
     [CmdletBinding()]
     param(
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool 'java').version,
         [switch] $Force
     )
 
     $config = Get-ToolConfig -Tool 'java'
-    if (-not $Version) {
-        $Version = $config.version
-    }
 
     # Skip entirely if already at correct version — no install, no profile patching
     if (Test-Command $config.command) {

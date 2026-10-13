@@ -17,14 +17,11 @@
 function Install-Markdownlint {
     [CmdletBinding()]
     param(
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool 'markdownlint').version,
         [switch] $Force
     )
 
     $config = Get-ToolConfig -Tool 'markdownlint'
-    if (-not $Version) {
-        $Version = $config.version
-    }
 
     # npm ships with Node.js — assert it is present and at the locked version first.
     Assert-Tool 'node_js'

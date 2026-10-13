@@ -29,7 +29,7 @@ $script:runtimeInternalFiles = @(
 )
 
 # What a test-capable build (vendor_policy 'full') adds: the analyzer settings, which travel with the analyzer like
-# .scriptanalyzer/, and the TestKit the test files load (Import-InternalModule TestKit) — the build suite runs them.
+# .scriptanalyzer/, and the TestKit the test files load (Import-InternalModule TestKit) — the build run executes them.
 $script:fullPolicyInternalFiles = @(
     'Catzc.Internal.TestKit.psm1'
     'assets/PSScriptAnalyzerSettings.psd1'
@@ -690,7 +690,7 @@ function Invoke-ModuleBuild {
         The resolved MAJOR.MINOR.PATCH version (the engine never resolves 'auto').
     .PARAMETER VendorPolicy
         runtime ships the runtime vendored modules only; full also ships Pester, PSScriptAnalyzer and the analyzer
-        rules and settings, which the build suite needs.
+        rules and settings, which the build run needs.
     .PARAMETER Destination
         The parent folder; the build goes to <Destination>/Catzc/<Version>/.
     .PARAMETER PackageMetadata

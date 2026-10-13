@@ -33,9 +33,9 @@ function Get-AdoBuildValidations {
         [Parameter(Position = 0)]
         [string] $Branch,
 
-        [string] $Project,
+        [string] $Project = (Get-Config -Config ado)['project'],
 
-        [string] $Organization,
+        [string] $Organization = (Get-Config -Config ado)['organization'],
 
         [string] $RepositoryName
     )

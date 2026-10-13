@@ -4,9 +4,9 @@
 
 ### Rule ADR-AUTO-TEST:1
 
-Classify every test as logic or integrity, and carry it as a mandatory `logic`/`integrity` Pester tag (see ADR-AUTO-TEST#13). A logic test
-must not read a shipped asset; an integrity test exists precisely to read them. A single test is one or the other — a file needing both
-splits them across separate `Context`/`Describe` blocks, each tagged.
+Classify every test into one **category**, logic or integrity, and carry it as a mandatory `logic`/`integrity` Pester tag (see
+ADR-AUTO-TEST#13). A logic test must not read a shipped asset; an integrity test exists precisely to read them. A single test is one or the
+other — a file needing both splits them across separate `Context`/`Describe` blocks, each tagged.
 
 - [Two kinds of test with opposite dependencies](#two-kinds-of-test-with-opposite-dependencies)
 
@@ -244,25 +244,26 @@ integrity test, not at load, keeping config load hermetic (the ADR-AZ-CUSTOMER#3
 
 ### Rule ADR-AUTO-TEST:30
 
-The same tests run in **two suites**, one per run mode ([run-modes](../design/run-modes.md)): the **source suite** (`Test-Automation`) loads
-the modules through `importer.ps1` from `automation/`, and the **build suite** (`Test-CatzcBuild`) builds the selected modules and loads
-them through the build's `Import-Catzc.ps1`. Both run the same `automation/<Module>/tests/*.Tests.ps1` files at every tier their slot allows
-by default (ADR-AUTO-TEST#33), with the same discovery, tag gates, sharding, and reports — the build suite swaps only the entry script each
-shard worker dot-sources, and writes its reports to `out/test-catzc-build/`. No test is copied or rewritten for the build suite.
+The same tests run in two kinds of test run (ADR-AUTO-TEST#34), one per run mode ([run-modes](../design/run-modes.md)): the source run
+(`Test-Automation`) loads the modules through `importer.ps1` from `automation/`, and the build run (`Test-CatzcBuild`) builds the selected
+modules and loads them through the build's `Import-Catzc.ps1`. Both run the same `automation/<Module>/tests/*.Tests.ps1` files at every tier
+their slot allows by default (ADR-AUTO-TEST#33), with the same discovery, tag gates, sharding, and reports — the build run swaps only the
+entry script each shard worker dot-sources, and writes its reports to `out/test-catzc-build/`. No test is copied or rewritten for the build
+run.
 
-- [Two suites, one body of tests](#two-suites-one-body-of-tests)
+- [Two test runs, one body of tests](#two-test-runs-one-body-of-tests)
 
 ### Rule ADR-AUTO-TEST:31
 
-**`source-only`** is the one tag by which a test opts out of the build suite. It marks a test whose answer cannot differ between the modes —
+**`source-only`** is the one tag by which a test opts out of the build run. It marks a test whose answer cannot differ between the modes —
 an integrity test that reads only the repository's files (folder conventions, syntax-tree scans, globsets, the ADR registry, managed GUIDs,
 spelling) — or a logic test of a source-tree tool that needs per-function files. It is optional, resolved along the block chain like
-`serial`/`greedy`, and validated by `Get-TestTagViolations`; the build suite counts and lists every test it excludes this way, so the
+`serial`/`greedy`, and validated by `Get-TestTagViolations`; the build run counts and lists every test it excludes this way, so the
 exclusion is visible, never silent. A test that inspects the loaded code — exports resolve, configs validate through `Get-Config`, types and
 accelerators load, an internal asset is read ([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep3)) — is
 never `source-only`.
 
-- [Two suites, one body of tests](#two-suites-one-body-of-tests)
+- [Two test runs, one body of tests](#two-test-runs-one-body-of-tests)
 
 ### Rule ADR-AUTO-TEST:32
 
@@ -282,12 +283,21 @@ L3 tier's, and only the run that owns the working folder runs L3 (ADR-AUTO-TEST#
 (the user `PATH`, other persistent environment variables, the registry), installed tools — is L3, and only the run that owns the working
 folder (the in-place slot) **and** the user's system-test lock (`Enter-SystemTestLock`, one per user account, taken without waiting) runs
 L3. A run's top tier defaults to 3 and the slot caps it (`Resolve-TestRunMaxLevel`): in place with the lock every requested tier runs; a
-snapshot run, or an in-place run while another checkout's run holds the lock, skips L3 — an explicit `-MaxLevel 3` and `-Isolated`
-included — and says so, naming who holds the working folder or the lock; a run that asks only for L3 when it cannot run it fails with that
-reason. Every L3 test keeps its logic covered below it: the code
-it drives reaches the outside state through a mockable seam, and an L1 test mocks that seam.
+snapshot run, or an in-place run while another checkout's run holds the lock, skips L3 — an explicit `-MaxLevel 3` and `-Isolated` included
+— and says so, naming who holds the working folder or the lock; a run that asks only for L3 when it cannot run it fails with that reason.
+Every L3 test keeps its logic covered below it: the code it drives reaches the outside state through a mockable seam, and an L1 test mocks
+that seam.
 
 - [System tests run in the working-folder slot](#system-tests-run-in-the-working-folder-slot)
+
+### Rule ADR-AUTO-TEST:34
+
+A **test run** is one invocation of a test entry point — `Test-Automation`, `Test-CatzcBuild`, or `Invoke-TestFile` — over one selection of
+test files (by module, tier, and category): it claims one slot (ADR-AUTO-TEST#32), runs the selection once, and records it in one report
+under `out/`. A test run in source mode is a **source run** (`Test-Automation`, `Invoke-TestFile`); one in build mode is a **build run**
+(`Test-CatzcBuild`). The test files at rest are not a run: a run is the act of executing them.
+
+- [Two test runs, one body of tests](#two-test-runs-one-body-of-tests)
 
 ## Context
 
@@ -560,32 +570,32 @@ seam, so an L1 test proves what the code asks for and the one L3 test per seam p
 outside state is a mis-tiered test (ADR-AUTO-TEST#9): its logic moves to L1 against the seam, and only the real round trip stays at L3.
 
 The working folder's lock is keyed on the checkout, but the state a system test touches belongs to the user: two clones of the repository,
-or a clone and an installed build, each own their own working folder and would run L3 against the same user `PATH` at once. So L3 also
-needs the user's **system-test lock** — a machine-wide named mutex keyed on the user account, with a per-user record of who holds it.
-The run that takes the working folder tries it without waiting: taken, the run executes L3; held, the run stays in place for every other
-tier, skips L3, and names the holder and its checkout. One run per user account runs system tests at a time, and no run ever waits.
-A system test still works on state it owns (a scratch variable, a uniquely named resource) and removes it whatever happens, never on a
-shared value such as the user's real `JAVA_HOME`: the lock serialises system tests against each other, not against the user's own shell.
+or a clone and an installed build, each own their own working folder and would run L3 against the same user `PATH` at once. So L3 also needs
+the user's **system-test lock** — a machine-wide named mutex keyed on the user account, with a per-user record of who holds it. The run that
+takes the working folder tries it without waiting: taken, the run executes L3; held, the run stays in place for every other tier, skips L3,
+and names the holder and its checkout. One run per user account runs system tests at a time, and no run ever waits. A system test still
+works on state it owns (a scratch variable, a uniquely named resource) and removes it whatever happens, never on a shared value such as the
+user's real `JAVA_HOME`: the lock serialises system tests against each other, not against the user's own shell.
 
-### Two suites, one body of tests
+### Two test runs, one body of tests
 
 Every module runs in two modes — from its source folder, and merged into the installed build — and both must work. The proof is one body of
 tests run twice, not two bodies of tests: duplicated test files would drift from each other, and a drifted copy proves nothing about the
 original ([one-living-version](../principles/one-living-version.md)). Running the same files against the build works because a built module
 is the same module — same name, same public and private functions, same `$script:` scope — so every `Mock -ModuleName`, `InModuleScope`, and
-`Get-Module` target resolves the same way in both suites.
+`Get-Module` target resolves the same way in both runs.
 
 `Test-CatzcBuild` builds the selected modules into a fresh temporary destination with the `full` vendor policy (so Pester and
 PSScriptAnalyzer ship with the build), then runs the parallel harness below unchanged in shape. The single seam is the entry script a shard
-worker dot-sources: `<repo>/importer.ps1` for the source suite, `<build>/Import-Catzc.ps1 -RepositoryRoot <repo>` for the build suite. Test
+worker dot-sources: `<repo>/importer.ps1` for the source run, `<build>/Import-Catzc.ps1 -RepositoryRoot <repo>` for the build run. Test
 files come from the source tree, limited to the built modules' `tests/`. The `Catzc.Internal.TestKit` build helpers (`New-BuiltCatzcRoot`,
 `Invoke-InBuiltCatzc`, `Remove-BuiltCatzcRoot`) give an individual test the same build in a child `pwsh` — process isolation is mandatory,
 because loaded assemblies and `$env:` are process-global.
 
 Some tests give the same answer in both modes by construction: an integrity test that reads only the repository's files never touches the
-loaded modules. Running it twice is waste ([reduce-waste](../principles/reduce-waste.md)), so it carries `source-only` and the build suite
-skips it — and lists it, so a reader sees exactly what the build suite does not run. Everything that exercises loaded code runs in both.
-Both suites run in CI on every push, so "works in both modes" is checked before anything merges.
+loaded modules. Running it twice is waste ([reduce-waste](../principles/reduce-waste.md)), so it carries `source-only` and the build run
+skips it — and lists it, so a reader sees exactly what the build run does not execute. Everything that exercises loaded code runs in both.
+Both runs execute in CI on every push, so "works in both modes" is checked before anything merges.
 
 ### The Build Verification Test
 
@@ -626,8 +636,9 @@ test is written.
   template-build integrity check) are the sanctioned exceptions — an input-source choice, not a tier — and they bind to the template _set_,
   never to a named template (ADR-AUTO-TEST#17). The fixtures under `tests/assets/` are the patterns new logic tests copy (see
   [conventional-folders](../repository/conventional-folders.md)).
-- **Two suites** — `Test-Automation` and `Test-CatzcBuild` share the harness; `Get-TestTagViolations` accepts and validates `source-only`
-  (ADR-AUTO-TEST#31), and the build suite reports the excluded count and list.
+- **Two test runs** — `Test-Automation` and `Test-CatzcBuild` share the harness; `Get-TestTagViolations` accepts and validates `source-only`
+  (ADR-AUTO-TEST#31), and the build run reports the excluded count and list. Each run claims one slot and writes one report
+  (ADR-AUTO-TEST#34).
 - **Code review** decides whether a new test verifies _pure logic_ (seam-isolated, hermetic) or _shipped templates_ (binds to assets, only
   external tools mocked), and checks it mocks the right boundaries — not too few, not too many (testing the mock).
 
@@ -642,8 +653,8 @@ test is written.
 - The shipped configuration has a guardian: the generic integrity tests fail loudly if a real template references an undefined
   environment/customer, stops building/rendering, emits a malformed Key Vault reference, or an asset stops validating — for _every_ shipped
   template, including ones added later, with no per-template test to write.
-- One body of tests proves both run modes: a module that breaks only when merged into the build turns the build suite red, with no second
-  set of tests to keep in step.
+- One body of tests proves both run modes: a module that breaks only when merged into the build turns the build run red, with no second set
+  of tests to keep in step.
 - Distinct fixture identities make a test's independence visible — a reviewer sees `alpha`/`acme`/`tst` and knows nothing production is in
   play.
 - The cost: two artifacts to maintain (fixture config + shipped config). They are independent by design; the fixture tracks the test's

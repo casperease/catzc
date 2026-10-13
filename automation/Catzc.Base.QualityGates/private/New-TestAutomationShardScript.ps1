@@ -32,14 +32,14 @@
 .PARAMETER Verbosity
     Pester output verbosity inside the worker (the run's -Output value).
 .PARAMETER EntryScript
-    The suite seam ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)): the script the
+    The run seam ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)): the script the
     worker dot-sources to load the modules. Empty (the
-    default) is the source suite's `<repo>/importer.ps1 -SkipJanitors`; the build suite passes the build's
+    default) is the source run's `<repo>/importer.ps1 -SkipJanitors`; the build run passes the build's
     `Import-Catzc.ps1`. Everything after the load — Pester from the code root, the shared configuration
-    builder, the row sidecar — is identical for both suites.
+    builder, the row sidecar — is identical for both runs.
 .PARAMETER EntryParameter
     Named arguments for -EntryScript, rendered into the dot-source line as `-Name 'value'` (a $true value
-    renders as a bare switch). Ignored without -EntryScript. The build suite passes
+    renders as a bare switch). Ignored without -EntryScript. The build run passes
     @{ RepositoryRoot = <repo> } so out/ and repo-relative paths keep resolving in the repository.
 .OUTPUTS
     [pscustomobject] with ShardIndex, Label, ScriptPath, ResultsPath, RowsPath.
@@ -78,8 +78,8 @@ function New-TestAutomationShardScript {
 
     $repositoryRoot = Get-RepositoryRoot
 
-    # The one seam between the two suites: which entry script loads the modules. Source suite (default) —
-    # the repository importer; build suite — the build's Import-Catzc.ps1 with its named arguments.
+    # The one seam between the two runs: which entry script loads the modules. Source run (default) —
+    # the repository importer; build run — the build's Import-Catzc.ps1 with its named arguments.
     $entryLine = if ($EntryScript) {
         $entryArguments = foreach ($name in ($EntryParameter.Keys | Sort-Object)) {
             $value = $EntryParameter[$name]

@@ -10,8 +10,8 @@
     -PassThru summary. The suites differ only in what they pass in:
 
     - the entry script each shard worker dot-sources (-EntryScript/-EntryParameter, empty for the source
-      importer; the build's Import-Catzc.ps1 for the build suite) — the one seam;
-    - an opt-out tag (-SuiteExcludeTag 'source-only' for the build suite): its tests are excluded from the run
+      importer; the build's Import-Catzc.ps1 for the build run) — the one seam;
+    - an opt-out tag (-SuiteExcludeTag 'source-only' for the build run): its tests are excluded from the run
       and counted and listed on the console and in excluded-tests.csv in the run directory
       ([ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31));
     - the suite's name (-Suite), which names the default report folder under out/, the protection key, and
@@ -174,7 +174,7 @@ function Invoke-TestAutomationSuite {
             }
         }
 
-        # The suite's opt-out tag (the build suite's 'source-only',
+        # The run's opt-out tag (the build run's 'source-only',
         # [ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)): exclude its tests from the
         # run, drop files left with nothing to run, and count and list every excluded test — never silently.
         if ($SuiteExcludeTag.Count -gt 0) {
@@ -201,7 +201,7 @@ function Invoke-TestAutomationSuite {
         # composite identity is unchanged since their last
         # green run this session are dropped from the work-list here in the orchestrator (workers never see
         # the map; in a pipeline the selection is a pass-through). The key carries the suite and the run
-        # parameters, so an L0-L1 green never skips an L2 run and a source-suite green never skips the build suite.
+        # parameters, so an L0-L1 green never skips an L2 run and a green source run never skips the build run.
         $protectionKey = "$suiteKey|L$MinLevel-L$MaxLevel|$Category|$($Rule -join ',')"
         $protectionPlan = Select-ProtectedTestFile -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
             -SerialFiles @($serialFiles) -Discovery $discovery -ProtectionKey $protectionKey

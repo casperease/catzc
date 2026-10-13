@@ -47,11 +47,11 @@ function Register-AdoBuildValidation {
 
         [string] $Pipeline,
 
-        [string] $Branch,
+        [string] $Branch = (Get-Config -Config build-validation).branch,
 
-        [string] $Project,
+        [string] $Project = (Get-Config -Config ado)['project'],
 
-        [string] $Organization,
+        [string] $Organization = (Get-Config -Config ado)['organization'],
 
         [string] $RepositoryName,
 
@@ -74,9 +74,6 @@ function Register-AdoBuildValidation {
     }
     Assert-NotNullOrWhitespace $Pipeline -ErrorText "No pipeline for globset '$GlobSet'. Set -Pipeline, a 'pipeline' key on its build-validation.yml entry, or a 'pipeline' annotation on the globset."
 
-    if (-not $Branch) {
-        $Branch = $config.branch
-    }
     Assert-NotNullOrWhitespace $Branch -ErrorText 'Branch is required. Set -Branch or configure build-validation.yml.'
 
     $blocking = $true

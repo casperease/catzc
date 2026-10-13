@@ -27,6 +27,25 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
         }
     }
 
+    Context 'batch selection over a tracked-file list' {
+        It 'SelectMembers returns the matching paths, ordinal-sorted (case-sensitive)' {
+            $set = & $script:make 'unit' @('src/**') @('src/gen/**')
+            $set.SelectMembers([string[]] @('src/b.cs', 'src/gen/x.cs', 'other/a.cs', 'src/B.cs', 'src/a.cs')) |
+                Should -Be @('src/B.cs', 'src/a.cs', 'src/b.cs')
+        }
+
+        It 'SelectOwnMembers returns the paths OwnMatches selects, ordinal-sorted' {
+            $set = & $script:make 'unit' @('src/**') @('src/gen/**')
+            $set.SelectOwnMembers([string[]] @('src/b.cs', 'src/gen/x.cs', 'src/a.cs')) | Should -Be @('src/a.cs', 'src/b.cs')
+        }
+
+        It 'returns an empty array for an empty list and rejects a null one' {
+            $set = & $script:make
+            @($set.SelectMembers([string[]] @())).Count | Should -Be 0
+            { $set.SelectMembers($null) } | Should -Throw -ExpectedMessage '*tracked*'
+        }
+    }
+
     Context 'the constructor gate' {
         It 'rejects <why>' -ForEach @(
             @{ why = 'a non-kebab name (uppercase)'; block = { [Catzc.Base.Globs.GlobSet]::new('MyUnit', 'd', 'loose-fileset', @('**'), @(), @(), @(), -1, $null) } }

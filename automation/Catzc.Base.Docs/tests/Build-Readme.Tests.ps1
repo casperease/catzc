@@ -95,7 +95,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
 }
 
 # Reads only the repository's readme.yml, folders, and .gitignore — the same answer in both run modes, so the
-# build suite skips it.
+# build run skips it.
 Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity', 'source-only' {
     # The real readme.yml registry is consistent with the repository — every resolved README's source exists
     # (Set-FileLink asserts it), every automation module is covered by the pattern, and the generated/committed

@@ -15,7 +15,7 @@
 function Install-PySpark {
     [CmdletBinding()]
     param(
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool 'py_spark').version,
         [switch] $Force
     )
 

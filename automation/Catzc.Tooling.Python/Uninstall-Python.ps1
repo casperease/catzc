@@ -13,13 +13,10 @@
 function Uninstall-Python {
     [CmdletBinding()]
     param(
-        [string] $Version
+        [string] $Version = (Get-ToolConfig -Tool 'python').version
     )
 
     $config = Get-ToolConfig -Tool 'python'
-    if (-not $Version) {
-        $Version = $config.version
-    }
 
     if (-not (Test-Command $config.command)) {
         Write-Message 'python is not installed — nothing to do'

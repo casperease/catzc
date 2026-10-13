@@ -173,9 +173,9 @@ function Test-Automation {
         $MaxLevel = $markerScope.Level
     }
 
-    # The harness itself — discovery, tag gates, sharding, workers, rows, reports — is the core both suites
+    # The harness itself — discovery, tag gates, sharding, workers, rows, reports — is the core both runs
     # share (Invoke-TestAutomationSuite,
-    # [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)). The source suite loads each
+    # [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)). The source run loads each
     # worker through the
     # repository importer, the core's default.
     Invoke-TestAutomationSuite -Suite 'Test-Automation' -Title 'Test Automation' -MinLevel $MinLevel -MaxLevel $MaxLevel `

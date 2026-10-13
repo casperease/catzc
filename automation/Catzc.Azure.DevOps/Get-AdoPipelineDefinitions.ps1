@@ -23,18 +23,10 @@ function Get-AdoPipelineDefinitions {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]
     param(
-        [string] $Project,
+        [string] $Project = (Get-Config -Config ado)['project'],
 
-        [string] $Organization
+        [string] $Organization = (Get-Config -Config ado)['organization']
     )
-
-    $adoConfig = Get-Config -Config ado
-    if (-not $Project) {
-        $Project = $adoConfig['project']
-    }
-    if (-not $Organization) {
-        $Organization = $adoConfig['organization']
-    }
 
     Assert-NotNullOrWhitespace $Project -ErrorText 'Project is required. Set -Project or configure ado.yml.'
     Assert-NotNullOrWhitespace $Organization -ErrorText 'Organization is required. Set -Organization or configure ado.yml.'

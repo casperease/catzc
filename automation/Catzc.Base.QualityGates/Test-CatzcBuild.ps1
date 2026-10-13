@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Runs the build suite: the same tests as Test-Automation, against a fresh build of the selected modules.
+    Runs a build run: the same tests as Test-Automation, against a fresh build of the selected modules.
 .DESCRIPTION
     The second of the two suites over one body of tests
     ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30),
@@ -109,7 +109,7 @@ function Test-CatzcBuild {
     }
 
     $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-build-suite-' + [guid]::NewGuid().ToString('N'))
-    Write-Message "Building $($testedModules.Count) module(s) for the build suite into '$destination'..."
+    Write-Message "Building $($testedModules.Count) module(s) for the build run into '$destination'..."
     try {
         $build = Build-Modules @buildSelection -VendorPolicy full -Destination $destination -Silent
         $entryScript = Join-Path $build.BuildRoot 'Import-Catzc.ps1'

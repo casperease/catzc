@@ -16,7 +16,7 @@
 function Install-Poetry {
     [CmdletBinding()]
     param(
-        [string] $Version,
+        [string] $Version = (Get-ToolConfig -Tool 'poetry').version,
         [switch] $Force
     )
 

@@ -29,7 +29,8 @@ foreach ($moduleDirectory in [System.IO.Directory]::GetDirectories($BuildRoot)) 
         $configCount++
         $name = [System.IO.Path]::GetFileNameWithoutExtension($configFile)
         try {
-            $null = Get-Config $name
+            # Read as this module's own config: a config name several modules ship (glossary) needs its owner.
+            $null = Get-Config $name -Module ([System.IO.Path]::GetFileName($moduleDirectory))
         }
         catch {
             $configFailures.Add("${name}: $($_.Exception.Message)")
@@ -94,7 +95,7 @@ if ($ScopeModule) {
 
 Describe 'Import-Catzc loads a full build (walking skeleton)' -Tag 'L2', 'integrity', 'greedy', 'source-only' {
     BeforeAll {
-        # vendor_policy full, as the build suite builds: Pester ships, so the child can enter a module's scope.
+        # vendor_policy full, as the build run builds: Pester ships, so the child can enter a module's scope.
         $script:build = Invoke-ModuleBuild -ModuleProfile full -Version 6.6.666 -VendorPolicy full -Destination (Join-Path $TestDrive 'full') -PackageMetadata $metadata
         $script:buildRoot = $build.BuildRoot
         $script:run = Invoke-BuildProbe -BuildRoot $buildRoot -Name 'full' -ScopeModule 'Catzc.Base.Config'
