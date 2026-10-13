@@ -2,7 +2,9 @@
 
 `FAQ`
 
-## But if we import all the functions all the time, won't we waste time?
+## Doesn't importing everything waste time?
+
+`But if we import all the functions all the time, won't we waste time?`
 
 No. Loading is fast because PowerShell only _parses_ the function definitions at import time — it does not _execute_ them. The cost of
 parsing a `.ps1` file with a single function is negligible (sub-millisecond).
@@ -14,7 +16,9 @@ deferred via the `Lazy` parameter and only imported on first use.
 In practice the entire import completes in under a second. You would need hundreds of modules before parsing overhead became measurable, and
 at that point the bottleneck would be disk I/O, not the function count.
 
-## But if we don't specifically declare dependencies, won't we have dependency hell?
+## What about dependency hell?
+
+`But if we don't specifically declare dependencies, won't we have dependency hell?`
 
 No. Dependency hell comes from _independently versioned and deployed_ packages that must resolve compatible version ranges at install time.
 That problem does not exist here because:
@@ -34,7 +38,9 @@ That problem does not exist here because:
 Explicit dependency declarations add value when packages are published and consumed independently. In a monorepo where everything is loaded
 as a unit, they add ceremony without benefit.
 
-## Why is this better than just having .ps1 files across the repo, where each script loads the other scripts it needs?
+## Why not plain .ps1 files?
+
+`Why is this better than just having .ps1 files across the repo, where each script loads the other scripts it needs?`
 
 That pattern — scripts dot-sourcing their own dependencies — works for small projects but breaks down quickly:
 
@@ -55,7 +61,9 @@ scope so they cannot pollute the caller. PowerShell's module loader deduplicates
 because the bootstrap module discovers files by convention, not by hardcoded path. The result is the simplicity of flat scripts with the
 safety of proper modules.
 
-## Is importing everything via importer.ps1 really as effective as dot-sourcing only the functions a script uses?
+## Why not dot-source only what a script uses?
+
+`Is importing everything via importer.ps1 really as effective as dot-sourcing only the functions a script uses?`
 
 Yes — and in practice it is _more_ effective, not less.
 
@@ -76,7 +84,9 @@ hypothetical problems — they are the daily tax of manual dependency management
 The importer loads everything once, up front, in under a second. After that your script is just logic — no boilerplate, no path management,
 no possibility of a missing import at runtime.
 
-## "Trust me, it's simple" isn't enough — what is actually under the hood?
+## What is under the hood?
+
+`"Trust me, it's simple" isn't enough — what is actually under the hood?`
 
 **Fair.** There is real complexity; it is just kept out of your way. Under the covers the system manages several kinds of dependency:
 

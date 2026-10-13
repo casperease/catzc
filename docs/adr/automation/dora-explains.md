@@ -6,7 +6,9 @@ The `Dora explains` rationale for the ADRs in the `automation/` domain, consolid
 then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions
 live in the ADRs themselves; this file carries only their DORA rationale.
 
-## Devbox / pipeline parity — the automation track is a CLI that runs everywhere
+## Devbox / pipeline parity
+
+`Devbox / pipeline parity — the automation track is a CLI that runs everywhere`
 
 [ADR-AUTO-PARITY](devbox-pipeline-parity.md)
 
@@ -20,7 +22,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   environments.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## uv is the standard Python handler; tools install user-space
+## Python via uv, user-space tools
+
+`uv is the standard Python handler; tools install user-space`
 
 [ADR-AUTO-UVPY](uv-python-handler.md)
 
@@ -35,7 +39,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   Python-based CLIs self-service and maintainable.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Log the exact command before every invocation
+## Log before invoke
+
+`Log the exact command before every invocation`
 
 [ADR-AUTO-PRELOG](log-before-invoke.md)
 
@@ -51,7 +57,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   consistency and prevents the "forgot to log" bugs in production.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Retry is a last resort — lowest level only, never in tests
+## Retry as a last resort
+
+`Retry is a last resort — lowest level only, never in tests`
 
 [ADR-AUTO-RETRY](retry-as-last-resort.md)
 
@@ -110,7 +118,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   reason about and compose.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Avoid deep nesting in statements and expressions
+## Avoid deep nesting
+
+`Avoid deep nesting in statements and expressions`
 
 [ADR-AUTO-NONEST](avoid-deep-nesting.md)
 
@@ -125,7 +135,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   supporting fail-fast testing patterns.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Test automation — logic tests vs integrity tests, and how to isolate
+## Test automation
+
+`Test automation — logic tests vs integrity tests, and how to isolate`
 
 [ADR-AUTO-TEST](test-automation.md)
 
@@ -140,7 +152,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   feedback make changes safe and error messages actionable.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Must be cross-platform
+## Cross-platform
+
+`Must be cross-platform`
 
 [ADR-AUTO-XPLAT](cross-platform.md)
 
@@ -170,7 +184,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   called in unexpected contexts without breaking assumptions.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Caching — static reads and filesystem-derived information (the importer is the cache boundary)
+## Caching
+
+`Caching — static reads and filesystem-derived information (the importer is the cache boundary)`
 
 [ADR-AUTO-CACHE](caching.md)
 
@@ -186,7 +202,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   obvious when information is recomputed versus memoized.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Sensible defaults for all parameters
+## Sensible defaults
+
+`Sensible defaults for all parameters`
 
 [ADR-AUTO-DEFAULT](sensible-defaults.md)
 
@@ -201,7 +219,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   behavior and make version/environment changes propagate uniformly.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Fail fast with inline assertions
+## Fail fast
+
+`Fail fast with inline assertions`
 
 [ADR-AUTO-FAILFAST](fail-fast-with-asserts.md)
 
@@ -217,7 +237,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   preconditions explicit and preventing failures from propagating deep into code.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## State-changing functions must be idempotent
+## Idempotent state changes
+
+`State-changing functions must be idempotent`
 
 [ADR-AUTO-IDEM](idempotent-state-functions.md)
 
@@ -233,7 +255,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   behavior: same inputs always produce identical outcomes, reducing hidden state assumptions.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Use proper package managers
+## Proper package managers
+
+`Use proper package managers`
 
 [ADR-AUTO-PKGMGR](use-proper-package-managers.md)
 
@@ -248,7 +272,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   installation logic and keep provisioning scripts clear and reviewable.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Effective in enterprise environments
+## Enterprise environments
+
+`Effective in enterprise environments`
 
 [ADR-AUTO-ENTERP](effective-in-enterprises.md)
 
@@ -263,7 +289,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   reliable, self-provisioning automation in firewalled enterprise networks.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Controlling system-wide dependencies
+## System-wide dependencies
+
+`Controlling system-wide dependencies`
 
 [ADR-AUTO-DEPS](controlling-systemwide-deps.md)
 
@@ -279,7 +307,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   make the toolchain's state clear and upgrades reviewable as config changes.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Install / Uninstall / Remove — the tool lifecycle and the destructive-eviction escalation
+## Tool lifecycle
+
+`Install / Uninstall / Remove — the tool lifecycle and the destructive-eviction escalation`
 
 [ADR-AUTO-REMOVE](tool-removal-lifecycle.md)
 
@@ -294,7 +324,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   safe-by-default gates make tool management auditable and reviewable.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Controlling module dependencies
+## Module dependencies
+
+`Controlling module dependencies`
 
 [ADR-AUTO-DEPM](controlling-module-dependencies.md)
 
@@ -310,7 +342,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   versioned in config, making every build reproducible from the checkout.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Environment variables are for external boundaries, not internal state
+## Environment variables
+
+`Environment variables are for external boundaries, not internal state`
 
 [ADR-AUTO-ENVVAR](environment-variables.md)
 
@@ -326,7 +360,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   replace invisible coupling via shared global mutable state.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Az CLI session verification — three layers, and verify is not connect
+## Az CLI session verification
+
+`Az CLI session verification — three layers, and verify is not connect`
 
 [ADR-AZ-SESSION](az-session-verification.md)
 
@@ -341,7 +377,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   automated deployments with proper auth checks at each layer.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Path representation — relative across boundaries, absolute only at the bind
+## Path representation
+
+`Path representation — relative across boundaries, absolute only at the bind`
 
 [ADR-AUTO-PATH](path-representation.md)
 
@@ -357,7 +395,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   bugs and hand-built Join-Path variants.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Protected globs — session-memory skip of repeated scans over an unchanged globset
+## Protected globs
+
+`Protected globs — session-memory skip of repeated scans over an unchanged globset`
 
 [ADR-REPO-PROTGLOB](protected-globs.md)
 
@@ -372,7 +412,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   inner loop.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Managed GUIDs — every GUID literal is a registered, described identity
+## Managed GUIDs
+
+`Managed GUIDs — every GUID literal is a registered, described identity`
 
 [ADR-AUTO-GUIDS](managed-guids.md)
 
@@ -388,7 +430,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   GUIDs make code and fixtures legible, and dead entries are caught by liveness rules.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Platform bundle — the merged, versioned, installable Catzc build
+## Platform bundle
+
+`Platform bundle — the merged, versioned, installable Catzc build`
 
 [ADR-AUTO-BUNDLE](platform-bundle.md)
 
@@ -407,7 +451,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   relocatable, running the same from the repo or an install.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Internal asset dependencies — located through one helper, tested in both run modes
+## Internal asset dependencies
+
+`Internal asset dependencies — located through one helper, tested in both run modes`
 
 [ADR-AUTO-ASSETDEP](internal-asset-dependencies.md)
 
@@ -436,7 +482,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   cycles.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Prefer Az CLI over Az PowerShell modules
+## Az CLI over Az PowerShell
+
+`Prefer Az CLI over Az PowerShell modules`
 
 [ADR-AUTO-AZCLI](powershell/prefer-az-cli.md)
 
@@ -480,7 +528,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   duplicated code.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Error handling — fail immediately, no warnings
+## Error handling
+
+`Error handling — fail immediately, no warnings`
 
 [ADR-AUTO-ERROR](powershell/error-handling.md)
 
@@ -496,7 +546,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   failures easy to diagnose.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Avoid using semicolons
+## No semicolons
+
+`Avoid using semicolons`
 
 [ADR-AUTO-NOSEMI](powershell/avoid-using-semicolons.md)
 
@@ -509,7 +561,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   self-documentation.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Console output matters
+## Console output
+
+`Console output matters`
 
 [ADR-AUTO-CONSOLE](powershell/console-output-matters.md)
 
@@ -525,7 +579,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   easy to reason about and review.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Announce every state change on the information stream
+## Announce state changes
+
+`Announce every state change on the information stream`
 
 [ADR-AUTO-ANNOUNCE](powershell/announce-state-changes.md)
 
@@ -542,7 +598,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   rule holds as code is added rather than depending on review alone.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Prefer foreach over ForEach-Object
+## foreach over ForEach-Object
+
+`Prefer foreach over ForEach-Object`
 
 [ADR-AUTO-FOREACH](powershell/prefer-foreach-over-foreach-object.md)
 
@@ -555,7 +613,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   tests.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Respect PowerShell approved verbs
+## Approved verbs
+
+`Respect PowerShell approved verbs`
 
 [ADR-AUTO-VERBS](powershell/respect-pwsh-verb-rules.md)
 
@@ -571,7 +631,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   unfamiliar code.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Spell out names — no invented abbreviations
+## Spell out names
+
+`Spell out names — no invented abbreviations`
 
 [ADR-AUTO-SPELL](powershell/spell-out-names.md)
 
@@ -584,7 +646,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   translation.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Use `.ps1` for function files, not `.psm1`
+## `.ps1` function files
+
+`Use .ps1 for function files, not .psm1`
 
 [ADR-AUTO-USEPS](powershell/use-ps1-not-psm1.md)
 
@@ -613,7 +677,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   testing.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## PowerShell formatting — the language layer over uniform-formatting
+## PowerShell formatting
+
+`PowerShell formatting — the language layer over uniform-formatting`
 
 [ADR-AUTO-PSFORMAT](powershell/powershell-formatting.md)
 
@@ -624,7 +690,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 - [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — clear structure serves as living documentation.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Environment-variable mechanics — the PowerShell layer over environment-variables
+## Environment-variable mechanics
+
+`Environment-variable mechanics — the PowerShell layer over environment-variables`
 
 [ADR-AUTO-PSENV](powershell/environment-variable-mechanics.md)
 
@@ -640,7 +708,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   and reduces deployment friction.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Module-path hygiene — the PowerShell layer over effective-in-enterprises
+## Module-path hygiene
+
+`Module-path hygiene — the PowerShell layer over effective-in-enterprises`
 
 [ADR-AUTO-MODPATH](powershell/module-path-hygiene.md)
 
@@ -656,7 +726,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   access.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Parameter design — the PowerShell layer over sensible-defaults
+## Parameter design
+
+`Parameter design — the PowerShell layer over sensible-defaults`
 
 [ADR-AUTO-PSPARAM](powershell/parameter-design.md)
 
@@ -670,7 +742,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   positional and switch conventions are widely understood.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Working-directory mechanics — the PowerShell layer over never-depend-on-pwd
+## Working-directory mechanics
+
+`Working-directory mechanics — the PowerShell layer over never-depend-on-pwd`
 
 [ADR-AUTO-PSPWD](powershell/working-directory-mechanics.md)
 
@@ -684,7 +758,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   everywhere.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Cross-platform PowerShell — the language layer over cross-platform
+## Cross-platform PowerShell
+
+`Cross-platform PowerShell — the language layer over cross-platform`
 
 [ADR-AUTO-PSXPLAT](powershell/cross-platform-powershell.md)
 
@@ -699,7 +775,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   time, before code runs on different OSes.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Dynamic module manifests — the PowerShell layer over open-closed-architecture
+## Dynamic module manifests
+
+`Dynamic module manifests — the PowerShell layer over open-closed-architecture`
 
 [ADR-AUTO-MANIFEST](powershell/dynamic-module-manifests.md)
 
@@ -715,7 +793,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   developers add functions in parallel.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Script-scope caching — the PowerShell layer over caching
+## Script-scope caching
+
+`Script-scope caching — the PowerShell layer over caching`
 
 [ADR-AUTO-PSCACHE](powershell/script-scope-caching.md)
 
@@ -730,7 +810,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   pattern.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Pester testing — the language layer over test-automation
+## Pester testing
+
+`Pester testing — the language layer over test-automation`
 
 [ADR-AUTO-PESTER](powershell/pester-testing.md)
 
@@ -746,7 +828,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   fast feedback and real-world coverage.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Prefer an explicit `-DryRun` switch over the ShouldProcess subsystem
+## `-DryRun` over ShouldProcess
+
+`Prefer an explicit -DryRun switch over the ShouldProcess subsystem`
 
 [ADR-AUTO-DRYRUN](powershell/prefer-dryrun-over-shouldprocess.md)
 
@@ -761,7 +845,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   implicit magic.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Native C# types — one combined assembly, namespace per module
+## Native C# types
+
+`Native C# types — one combined assembly, namespace per module`
 
 [ADR-AUTO-TYPES](BCL/native-csharp-types.md)
 

@@ -22,6 +22,7 @@ groups:
         Catzc.Base.Objects: [Catzc.Base.Asserts]
         Catzc.Base.Writers: [Catzc.Base.Objects, Catzc.Base.Asserts]
         Catzc.Base.Config: [Catzc.Base.Repository, Catzc.Base.Asserts]
+        Catzc.Base.Reports: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts]
         Catzc.Base.Variants: [Catzc.Base.Config, Catzc.Base.Asserts]
         Catzc.Base.Docs: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Files, Catzc.Base.Globs, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts]
         Catzc.Base.Vendor: [Catzc.Base.Config, Catzc.Base.Writers, Catzc.Base.Repository]

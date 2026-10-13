@@ -30,3 +30,5 @@ configs:
     type: Catzc.Base.Docs.AdrsConfig
   glossary:
     type: Catzc.Base.Docs.GlossaryConfig
+  reports:
+    type: Catzc.Base.Reports.ReportsConfig
