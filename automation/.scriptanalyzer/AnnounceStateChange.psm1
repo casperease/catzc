@@ -133,11 +133,6 @@ function Measure-AnnounceStateChange {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    # PSScriptAnalyzer invokes custom rules for every ScriptBlockAst in the parse tree; FindAll recurses, so
-    # only process the root to avoid duplicate diagnostics.
-    if ($ScriptBlockAst.Parent) {
-        return @()
-    }
     $file = $ScriptBlockAst.Extent.File
     if ($file -and $file -like '*.Tests.ps1') {
         return @()
@@ -414,10 +409,6 @@ function Measure-PersistentWriteThroughSeam {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    # Root only — PSScriptAnalyzer calls custom rules for every ScriptBlockAst, and FindAll recurses.
-    if ($ScriptBlockAst.Parent) {
-        return @()
-    }
     $file = $ScriptBlockAst.Extent.File
     if ($file -and $file -like '*.Tests.ps1') {
         return @()
