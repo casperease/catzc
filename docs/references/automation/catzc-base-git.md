@@ -9,10 +9,11 @@ itself is a managed, committed root file written by [Catzc.Base.RootConfig](catz
 
 ## Domains
 
-| Domain   | Area     | Name                                                 |
-| -------- | -------- | ---------------------------------------------------- |
-| domain:1 | render   | [Gitignore rendering](#domain1--gitignore-rendering) |
-| domain:2 | registry | [The zone registry](#domain2--the-zone-registry)     |
+| Domain   | Area     | Name                                                   |
+| -------- | -------- | ------------------------------------------------------ |
+| domain:1 | render   | [Gitignore rendering](#domain1--gitignore-rendering)   |
+| domain:2 | registry | [The zone registry](#domain2--the-zone-registry)       |
+| domain:3 | snapshot | [Repository snapshots](#domain3--repository-snapshots) |
 
 ### domain:1 — Gitignore rendering
 
@@ -31,6 +32,15 @@ never restated here, which is also what keeps the dependency edge one-way: `Buil
 `New-GitIgnore` never reads `rootconfig.yml`. The registry is validated when it loads (`GitIgnoreConfig` — exactly one of
 `patterns`/`inject` per zone, unique ids), so a malformed zone can never produce a run.
 
+### domain:3 — Repository snapshots
+
+A throwaway, verified copy of a working tree as it is right now. `New-RepositorySnapshot` borrows the history through a shared-object clone,
+copies the source index so staged-versus-unstaged state matches, and copies the tracked and untracked-not-ignored files byte for byte —
+never through a checkout, which re-applies line-ending conversion. It then requires the snapshot's `git status` to equal the source's line
+for line, and throws (removing the half-built copy) on any difference. Ignored content is never copied. A provenance marker inside the
+snapshot's `.git` folder lets `Remove-RepositorySnapshot` refuse anything that is not a snapshot. The test harness runs a concurrent run in
+one (see [test-automation](../../adr/automation/test-automation.md#rule-adr-auto-test32)).
+
 ## What the module does
 
 The module is small and single-purpose: it makes the repository's ignore rules a reviewed, explained artifact instead of an accreted one.
@@ -48,7 +58,8 @@ to maintain.
 
 The module's public surface, sorted into the domains above.
 
-| Domain                         | Function        |
-| ------------------------------ | --------------- |
-| domain:1 — Gitignore rendering | `New-GitIgnore` |
-| domain:2 — The zone registry   | `gitignore.yml` |
+| Domain                          | Function                                              |
+| ------------------------------- | ----------------------------------------------------- |
+| domain:1 — Gitignore rendering  | `New-GitIgnore`                                       |
+| domain:2 — The zone registry    | `gitignore.yml`                                       |
+| domain:3 — Repository snapshots | `New-RepositorySnapshot`, `Remove-RepositorySnapshot` |

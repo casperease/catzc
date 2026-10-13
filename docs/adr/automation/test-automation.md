@@ -492,30 +492,30 @@ the other shards instead.
 ### One working folder; concurrent runs in snapshots
 
 Concurrent test runs on one checkout share real state: the `out/` build folders, the `.compiled` assembly (locked while a process has it
-loaded), the git index and working tree that the L2 tests drive for real. Two runs in one working folder wipe and lock files under each other,
-and every such collision reads as a flaky test. Serialising the runs would protect correctness by spending wall clock — a queue in which a
-run waits minutes for another to finish ([queues-cost-money](../process/queues-cost-money.md)). Isolation gives the same correctness without
-the wait.
+loaded), the git index and working tree that the L2 tests drive for real. Two runs in one working folder wipe and lock files under each
+other, and every such collision reads as a flaky test. Serialising the runs would protect correctness by spending wall clock — a queue in
+which a run waits minutes for another to finish ([queues-cost-money](../process/queues-cost-money.md)). Isolation gives the same correctness
+without the wait.
 
-The working folder has one owner at a time: a machine-wide lock keyed on the repository root, tried without waiting. The run that gets it runs
-in place, at no extra cost, and writes a lock record (process, entry point, start time, run folder) so a concurrent run can say who holds the
-folder — a mutex carries no owner of its own. A run that finds the lock held runs in a snapshot of the working folder as it is at that moment
-(`New-RepositorySnapshot`): a shared-object clone carries the history, the source index is copied over so staged-versus-unstaged state
-matches, and the tracked and untracked-not-ignored files are copied byte for byte. Copying working-tree bytes keeps the snapshot exact where a
-checkout would not — a checkout re-applies line-ending conversion and can write different bytes than the working tree holds. The snapshot is
-then **verified**: its `git status` must equal the source's line for line, or the run throws, because a run on a tree that differs from its
-source proves nothing about the source.
+The working folder has one owner at a time: a machine-wide lock keyed on the repository root, tried without waiting. The run that gets it
+runs in place, at no extra cost, and writes a lock record (process, entry point, start time, run folder) so a concurrent run can say who
+holds the folder — a mutex carries no owner of its own. A run that finds the lock held runs in a snapshot of the working folder as it is at
+that moment (`New-RepositorySnapshot`): a shared-object clone carries the history, the source index is copied over so staged-versus-unstaged
+state matches, and the tracked and untracked-not-ignored files are copied byte for byte. Copying working-tree bytes keeps the snapshot exact
+where a checkout would not — a checkout re-applies line-ending conversion and can write different bytes than the working tree holds. The
+snapshot is then **verified**: its `git status` must equal the source's line for line, or the run throws, because a run on a tree that
+differs from its source proves nothing about the source.
 
 Ignored content is never copied, so a snapshot starts with a clean `out/`. The generated files the repository ignores — module manifests,
 READMEs, root configs, dictionaries — are materialised by one priming import in the snapshot, exactly as a fresh clone's first import does,
 before any worker starts; workers import without janitors and nothing is ever auto-committed. Each worker loads the snapshot's own importer,
-so every path it resolves lands inside the snapshot ([never-depend-on-pwd](never-depend-on-pwd.md)), while the run folder stays in the working
-folder's `out/` — reports land where a reader always looks, with row paths mapped back to working-folder paths, and `run.json` records the
-location and the snapshot's provenance. The snapshot is removed afterwards unless `-KeepSandbox` keeps it for a post-mortem.
+so every path it resolves lands inside the snapshot ([never-depend-on-pwd](never-depend-on-pwd.md)), while the run folder stays in the
+working folder's `out/` — reports land where a reader always looks, with row paths mapped back to working-folder paths, and `run.json`
+records the location and the snapshot's provenance. The snapshot is removed afterwards unless `-KeepSandbox` keeps it for a post-mortem.
 
-A snapshot is also frozen: edits made in the working folder while it runs never reach it. `-Isolated` takes the snapshot even when the lock is
-free, for a deterministic run against the tree as it was when the run started. A snapshot isolates the repository, not the machine: a test
-that changes user-level state (the user `PATH`, installed tools) is not made safe by it.
+A snapshot is also frozen: edits made in the working folder while it runs never reach it. `-Isolated` takes the snapshot even when the lock
+is free, for a deterministic run against the tree as it was when the run started. A snapshot isolates the repository, not the machine: a
+test that changes user-level state (the user `PATH`, installed tools) is not made safe by it.
 
 ### Two suites, one body of tests
 

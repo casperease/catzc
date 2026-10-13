@@ -42,7 +42,9 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
 The exported surface the importer calls:
 
 - `Import-AllModules` — discover, guard, and import every `automation/*` module, compiling the combined C# type assembly first.
-- `Write-ImporterMessage` — the `[Importer.ps1]`-prefixed console writer the whole importer uses before `Write-Message` is available.
+- `Write-ImporterMessage` — the `[Importer.ps1]`-prefixed console writer the whole importer uses before `Write-Message` is available;
+  `-StateChange` puts a line on the importer's verbose load record (ADR-AUTO-ANNOUNCE:6).
+- `Set-ImporterVerbosity` — hands the importer's `-Verbose` to `Write-ImporterMessage -StateChange`, for the life of the bootstrap.
 - `Clear-CompiledType` — delete the compiled type DLLs before import so the types rebuild from source (`-ClearCompiledTypes`).
 
 The module-internal engine `Import-AllModules` drives (not exported):

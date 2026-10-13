@@ -8,14 +8,13 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
             $acquired = [System.Threading.ManualResetEventSlim]::new($false)
             $release = [System.Threading.ManualResetEventSlim]::new($false)
             $job = Start-ThreadJob {
-                param($n, $acquired, $release)
-                $mutex = [System.Threading.Mutex]::new($false, $n)
+                $mutex = [System.Threading.Mutex]::new($false, $using:Name)
                 [void]$mutex.WaitOne()
-                $acquired.Set()
-                [void]$release.Wait(30000)
+                ($using:acquired).Set()
+                [void]($using:release).Wait(30000)
                 $mutex.ReleaseMutex()
                 $mutex.Dispose()
-            } -ArgumentList $Name, $acquired, $release
+            }
             [void]$acquired.Wait(10000)
             @{ Job = $job; Release = $release }
         }
@@ -92,7 +91,7 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
         $script:slot.Holder.Known | Should -BeTrue
         Should -Invoke New-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $SourceRoot -eq $script:root }
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
-            $Command -like "pwsh -NoProfile -File *catzc-run-*importer.ps1* -NoCommitShaMarkersInDevBox"
+            $Command -like 'pwsh -NoProfile -File *catzc-run-*importer.ps1* -NoCommitShaMarkersInDevBox'
         }
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
             $Message -like "The repository is busy: Test-Automation (pid $PID, started *, run 20261013-174616) holds the test-run lock."
