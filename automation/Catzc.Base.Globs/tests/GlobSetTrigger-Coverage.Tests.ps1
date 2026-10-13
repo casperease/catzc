@@ -3,7 +3,7 @@
 # (Test-GlobSetTriggerCoverage — [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). The
 # guaranteed safety property: every member of a pipeline-bound set matches at least one ADO include pattern — so an ADO
 # include-only trigger is always a SUPERSET of exact membership and can never under-trigger (miss a deploy); the
-# in-pipeline Test-GlobSetAffected gate supplies exactness on top. (GitHub is exact by construction: its ordered
+# in-pipeline Test-GlobSetAffected check supplies exactness on top. (GitHub is exact by construction: its ordered
 # '!'-negation paths ARE the scan program, the same evaluator as GlobSet.Matches — covered at L0.)
 Describe 'Native-trigger projection coverage' -Tag 'L2', 'integrity', 'source-only' {
     It 'ADO includes cover every member of every pipeline-bound set (include-only is a safe superset)' {

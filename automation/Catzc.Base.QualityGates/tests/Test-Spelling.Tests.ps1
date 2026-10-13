@@ -115,7 +115,7 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
 # ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)). L2 because it drives the cspell
 # CLI; self-skips when cspell is absent
 # ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)/9).
-# Protected-glob gated ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)): a repeat local run over an
+# Behind a protected glob ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)): a repeat local run over an
 # unchanged 'repository' globset
 # (every tracked file under every named root — a covering superset of cspell's content scope and its
 # own configs) is skipped; in a pipeline the protection is ignored and the scan always runs full. source-only: it
