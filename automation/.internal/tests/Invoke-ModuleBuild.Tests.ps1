@@ -149,10 +149,10 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
                 '.internal/Catzc.Internal.Vendor.psm1'
                 '.internal/assets/ErrorView.format.ps1xml'
                 '.vendor/powershell-yaml/0.4.12/powershell-yaml.psd1'
-                'Catzc.Base.Gadget/Catzc.Base.Gadget.ps1'
+                'Catzc.Base.Gadget/Catzc.Base.Gadget.functions.ps1'
                 'Catzc.Base.Gadget/Catzc.Base.Gadget.psd1'
                 'Catzc.Base.Gadget/types/Lever.cs'
-                'Catzc.Base.Widget/Catzc.Base.Widget.ps1'
+                'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1'
                 'Catzc.Base.Widget/Catzc.Base.Widget.psd1'
                 'Catzc.Base.Widget/assets/widget.txt'
                 'Catzc.Base.Widget/configs/widget.yml'
@@ -169,7 +169,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
         }
 
         It 'merges private/*.ps1 then the root *.ps1, each ordinal, behind one source marker per file' {
-            $text = [System.IO.File]::ReadAllText((Join-Path $root 'Catzc.Base.Widget/Catzc.Base.Widget.ps1'))
+            $text = [System.IO.File]::ReadAllText((Join-Path $root 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1'))
             $markers = @([regex]::Matches($text, '(?m)^# source: (.+)$') | ForEach-Object { $_.Groups[1].Value })
             $markers | Should -Be @(
                 'automation/Catzc.Base.Widget/private/Get-WidgetCore.ps1'
@@ -179,13 +179,13 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
         }
 
         It 'takes each file verbatim — its comment-based help stays right before its function' {
-            $text = [System.IO.File]::ReadAllText((Join-Path $root 'Catzc.Base.Widget/Catzc.Base.Widget.ps1'))
+            $text = [System.IO.File]::ReadAllText((Join-Path $root 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1'))
             $verbatim = $helpText.Replace("`r", '').TrimEnd("`n")
             $text | Should -BeLike "*# source: automation/Catzc.Base.Widget/Get-Widget.ps1`n$verbatim`n`n*"
         }
 
         It 'writes canonical bytes: UTF-8 without BOM, LF only, one trailing newline' {
-            foreach ($relativePath in 'Catzc.Base.Widget/Catzc.Base.Widget.ps1', 'Catzc.psd1', 'Catzc.psm1', 'build.json', 'Catzc.Base.Widget/Catzc.Base.Widget.psd1') {
+            foreach ($relativePath in 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1', 'Catzc.psd1', 'Catzc.psm1', 'build.json', 'Catzc.Base.Widget/Catzc.Base.Widget.psd1') {
                 $bytes = [System.IO.File]::ReadAllBytes((Join-Path $root $relativePath))
                 $bytes[0] | Should -Not -Be 0xEF -Because "$relativePath carries no BOM"
                 $bytes | Should -Not -Contain 13 -Because "$relativePath has LF endings only"
@@ -201,7 +201,8 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
 
         It 'generates each module manifest over the one merged file, exporting the public functions only' {
             $manifest = Import-PowerShellDataFile (Join-Path $root 'Catzc.Base.Widget/Catzc.Base.Widget.psd1')
-            @($manifest.NestedModules) | Should -Be @('Catzc.Base.Widget.ps1')
+            # Named apart from the manifest, so the nested script module never shares the module's name.
+            @($manifest.NestedModules) | Should -Be @('Catzc.Base.Widget.functions.ps1')
             @($manifest.FunctionsToExport) | Should -Be @('Get-Widget', 'Set-Widget')
         }
 

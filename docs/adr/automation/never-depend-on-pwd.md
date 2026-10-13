@@ -49,12 +49,12 @@ expected.
 
 `$PSScriptRoot` is the folder of the file that is executing, which makes it an anchor for the file's location rather than for the module.
 The toolset runs in two modes ([run-modes](../design/run-modes.md)): in source mode a function file sits in `automation/<Module>/` or its
-`private/` folder, and in build mode the same function sits inside one merged `<Module>.ps1` in the build. A `$PSScriptRoot`-relative lookup
-gives a different answer in each mode — and even within source mode it differs between a root file and a `private/` file, which is why such
-lookups carry `../` fragments. `Get-CatzcModuleRoot` answers with the module's folder under the active code root (`CatzcModulesRoot`) in
-both modes, so `Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'` names the same file from any function of the module, in source and in
-build alike. Because every such lookup passes a literal child path, the lookups are also an inventory the build and its tests check
-([internal-asset-dependencies](internal-asset-dependencies.md)).
+`private/` folder, and in build mode the same function sits inside one merged `<Module>.functions.ps1` in the build. A
+`$PSScriptRoot`-relative lookup gives a different answer in each mode — and even within source mode it differs between a root file and a
+`private/` file, which is why such lookups carry `../` fragments. `Get-CatzcModuleRoot` answers with the module's folder under the active
+code root (`CatzcModulesRoot`) in both modes, so `Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'` names the same file from any function
+of the module, in source and in build alike. Because every such lookup passes a literal child path, the lookups are also an inventory the
+build and its tests check ([internal-asset-dependencies](internal-asset-dependencies.md)).
 
 Tests, a module's `assets/` scripts, and the `.internal` loader keep `$PSScriptRoot`: tests run from the source tree by definition, an asset
 script is a standalone file that travels unmerged, and the loader is what sets the code root in the first place.

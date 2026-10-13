@@ -6,8 +6,8 @@
 
 The toolset runs in exactly two modes. **Source mode** loads every module from `automation/<Module>/` in a repository root, entered by
 `importer.ps1`. **Build mode** loads the same modules from a built, installable `Catzc` package — each module's functions merged into one
-`<Module>.ps1` — entered by the package's `Import-Catzc.ps1` (or `build-catzc.ps1` at the repository root, which builds and then enters
-build mode).
+`<Module>.functions.ps1` — entered by the package's `Import-Catzc.ps1` (or `build-catzc.ps1` at the repository root, which builds and then
+enters build mode).
 
 - [Two modes, two entry points](#two-modes-two-entry-points)
 
@@ -129,11 +129,12 @@ mutual exclusion:
   and both roots, when any loaded catzc module lies outside the active code root.
 - **Caches reset by construction.** An evicted module takes its script scope with it, so a switched session never sees a cache from the
   other mode. Vendored modules are reloaded from the active mode's `.vendor/`.
-- **Types are the exception.** A loaded .NET assembly cannot be unloaded. Both modes compile the same `types/*.cs` sources, so when the
-  sources are unchanged the type identities are the same and the loaded assembly is reused — a reduced-profile build, whose types are a
-  subset, included. The types guard compares the per-file digests of the loaded type set with the sources the new root needs; when a source
-  differs (a `types/*.cs` edited between the two loads), the native-types contract applies: a devbox keeps the loaded types and asks for a
-  fresh PowerShell, and a pipeline throws ([native-csharp-types](../automation/BCL/native-csharp-types.md)).
+- **Types are the exception.** A loaded .NET assembly cannot be unloaded. Every build ships the full type set — the same `types/*.cs`
+  sources and the same hash-named DLL as the source tree, whatever its module selection — so when the sources are unchanged the type
+  identities are the same and the loaded assembly is reused in any switch order. The types guard compares the per-file digests of the loaded
+  type set with the sources the new root needs; when a source differs (a `types/*.cs` edited between the two loads), the native-types
+  contract applies: a devbox keeps the loaded types and asks for a fresh PowerShell, and a pipeline throws
+  ([native-csharp-types](../automation/BCL/native-csharp-types.md)).
 
 ### One body of tests proves both modes
 

@@ -34,7 +34,8 @@ function Install-UvStandalone {
         'x86_64'
     }
     $assetName = "uv-$architecture-unknown-linux-gnu.tar.gz"
-    $asset = @($release.assets | Where-Object { $_.name -eq $assetName })[0]
+    # Select-Object -First 1 is $null on no match (indexing an empty array throws under strict), so the assert reports it
+    $asset = $release.assets | Where-Object { $_.name -eq $assetName } | Select-Object -First 1
     Assert-NotNull $asset -ErrorText "astral-sh/uv release $($release.tag_name) has no asset '$assetName'."
 
     # The GitHub release asset carries its published SHA-256 ('digest'); hard-fail rather than run an

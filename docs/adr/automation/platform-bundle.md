@@ -38,25 +38,27 @@ reproduces the exact tested load sequence — the C# types and their accelerator
 ### Rule ADR-AUTO-BUNDLE:4
 
 A bundle carries the **runtime payload in merged form**. Every selected module is its own folder holding a generated `<Module>.psd1`
-(`NestedModules` = the one merged file, `FunctionsToExport` = the module's public functions only), a generated `<Module>.ps1` that merges
-the module's `private/` and root function files, and the module's side folders (`configs/`, `assets/`, and the `types/` sources) copied
-verbatim — never its `tests/`. Beside the modules sit the `.internal` loader, the vendored dependencies per policy under `.vendor/`, the
-combined-types DLL **compiled by the build** under `.compiled/`, the top-level `Catzc.psd1`, `Catzc.psm1`, and `Import-Catzc.ps1`, and
-`build.json`. The payload is deliberately **broader** than the protection `live` aspect ([module-aspects](../design/module-aspects.md)) —
-that aspect excludes `assets/` for marker isolation, but a running module needs its `assets/`. Shipping is default-deny: the `tests/`
-surface never travels.
+(`NestedModules` = the one merged file, `FunctionsToExport` = the module's public functions only), a generated `<Module>.functions.ps1` that
+merges the module's `private/` and root function files — named apart from the module, so the nested script module never shares the manifest
+module's name — and the module's side folders (`configs/`, `assets/`, and the `types/` sources) copied verbatim — never its `tests/`. Beside
+the modules sit the `.internal` loader, the vendored dependencies per policy under `.vendor/`, the **full** combined-types DLL under
+`.compiled/` with the unselected modules' type sources under `.compiled/types/<Module>/`, the top-level `Catzc.psd1`, `Catzc.psm1`, and
+`Import-Catzc.ps1`, and `build.json`. The payload is deliberately **broader** than the protection `live` aspect
+([module-aspects](../design/module-aspects.md)) — that aspect excludes `assets/` for marker isolation, but a running module needs its
+`assets/`. Shipping is default-deny: the `tests/` surface never travels.
 
 - [The runtime payload](#the-runtime-payload)
 
 ### Rule ADR-AUTO-BUNDLE:5
 
-A build is **immutable and content-addressed**: the same commit yields byte-identical merged files and manifests and an identical
-durable-SHA content hash ([durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)). The content hash excludes the DLL's
-bytes — a compile assigns a random assembly name, so two compiles are never byte-equal — and includes the `typesHash` (the combined hash of
-the shipped `types/*.cs` sources, which names the DLL) instead. Each bundle carries a `build.json` provenance record (version, content hash,
-`typesHash`, source commit, modules). `Assert-CatzcBundle` is the integrity gate: it re-verifies the recorded hash, that no `tests/` leaked
-in, that exactly one types DLL is present and its name matches `typesHash`, that every module has its manifest and merged `.ps1`, that every
-manifest export resolves to a function in its merged file, and that every inventoried internal asset is present
+A build is **immutable and content-addressed**: the same commit yields a byte-identical build — merged files, manifests, and the types DLL —
+and an identical durable-SHA content hash ([durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)) over all of it. Every
+build ships the **full** type set whatever its module selection, so its `typesHash` (the combined hash of every `types/*.cs` source, which
+names the DLL) equals the source tree's, and the build copies the source tree's `Catzc.Types.<typesHash>.dll` instead of compiling — it
+compiles only when that DLL is missing. Each bundle carries a `build.json` provenance record (version, content hash, `typesHash`, the
+type-source list, source commit, modules). `Assert-CatzcBundle` is the integrity gate: it re-verifies the recorded hash, that no `tests/`
+leaked in, that exactly one types DLL is present and its name matches `typesHash`, that every module has its manifest and merged
+`.functions.ps1`, that every manifest export resolves to a function in its merged file, and that every inventoried internal asset is present
 ([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep4)) — collecting every violation. `Build-Modules` runs
 it as a self-check on its own output.
 
@@ -151,30 +153,34 @@ manifest read rather than generated, the prebuilt DLL loaded rather than compile
 
 ### The runtime payload
 
-What ships is what a module needs to **run**. For each selected module, `Build-Modules` merges the function files into one `<Module>.ps1` —
-`private/*.ps1` in ordinal order, then the root `*.ps1` in ordinal order, the same order the source manifest's `NestedModules` uses, so load
-semantics are identical — each file verbatim behind a `# source: automation/<Module>/<path>` marker line, so an error line in the merged
-file maps back to its source file. The module's manifest is generated by the same canonical emitter source mode uses, listing that one file
-and exporting only the public functions; privates stay internal. The side folders travel verbatim, including `assets/` (install scripts,
-hook starters, packaged data) and the `types/` sources the load-time types guard re-verifies. Before merging, the build asserts its
-preconditions on every source file — exactly one function named for the file, no top-level statements — and fails with the full list.
+What ships is what a module needs to **run**. For each selected module, `Build-Modules` merges the function files into one
+`<Module>.functions.ps1` — `private/*.ps1` in ordinal order, then the root `*.ps1` in ordinal order, the same order the source manifest's
+`NestedModules` uses, so load semantics are identical — each file verbatim behind a `# source: automation/<Module>/<path>` marker line, so
+an error line in the merged file maps back to its source file. The module's manifest is generated by the same canonical emitter source mode
+uses, listing that one file and exporting only the public functions; privates stay internal. The side folders travel verbatim, including
+`assets/` (install scripts, hook starters, packaged data) and the `types/` sources the load-time types guard re-verifies. Before merging,
+the build asserts its preconditions on every source file — exactly one function named for the file, no top-level statements — and fails with
+the full list.
 
-The infrastructure is built or copied, never fetched. The combined-types DLL is **compiled by the build** from the selected modules'
-`types/*.cs`, so a reduced profile carries a correspondingly reduced, differently-hashed assembly. The vendored modules are copied verbatim
-from `.vendor/` per `vendor_policy` — `runtime` ships `powershell-yaml` only; `full` also ships Pester and PSScriptAnalyzer, which the build
-suite needs — and are never re-downloaded or republished. Default-deny keeps the verification surface out: no `tests/` tree travels.
+The infrastructure is built or copied, never fetched. The combined-types DLL always covers the **full** type set, whatever the module
+selection: the selected modules' `types/*.cs` travel in their folders and the rest under `.compiled/types/<Module>/`, so the load-time types
+guard re-verifies the same hash in every build, and a session that switches between modes always finds the same type identities loaded. The
+DLL is copied from the source tree's `.compiled/` when its hash matches, and compiled only when it is missing. The vendored modules are
+copied verbatim from `.vendor/` per `vendor_policy` — `runtime` ships `powershell-yaml` only; `full` also ships Pester and PSScriptAnalyzer,
+which the build suite needs — and are never re-downloaded or republished. Default-deny keeps the verification surface out: no `tests/` tree
+travels.
 
 ### The immutable, verified artifact
 
 A bundle is content-addressed. `Build-Modules` writes its output canonically — UTF-8 without BOM, LF, one trailing newline, through
-`Write-FileIfChanged` — so rebuilding a commit rewrites nothing except the DLL, and computes a durable SHA over the payload with the same
-recipe the globsets use. Because no two compiles of the same sources are byte-equal, the hash covers the `typesHash` of the shipped type
-sources instead of the DLL bytes, and the DLL's own name carries that `typesHash`: "the build compiled it" is proven by hash, not by bytes.
-The content hash, `typesHash`, source commit, version, and module list travel in `build.json`, which is excluded from the hash it carries.
-`Assert-CatzcBundle` closes the loop: given any bundle, it recomputes the hash and checks it against `build.json`, confirms no test file
-leaked in, confirms exactly one types DLL whose name matches `typesHash`, confirms every module's manifest and merged file, confirms every
-manifest export resolves to a function in its merged file, and confirms every internal asset the code depends on is present — throwing with
-the full list of what is wrong. A build verifies itself with it, and an install verifies its source with it.
+`Write-FileIfChanged` — so rebuilding a commit rewrites nothing, the DLL included, because it is the same copied file — and computes a
+durable SHA over the whole payload with the same recipe the globsets use. The DLL's own name carries the `typesHash`, so which sources it
+was compiled from is proven by hash. The content hash, `typesHash`, type-source list, source commit, version, and module list travel in
+`build.json`, which is excluded from the hash it carries. `Assert-CatzcBundle` closes the loop: given any bundle, it recomputes the hash and
+checks it against `build.json`, confirms no test file leaked in, confirms exactly one types DLL whose name matches `typesHash`, confirms
+every module's manifest and merged file, confirms every manifest export resolves to a function in its merged file, and confirms every
+internal asset the code depends on is present — throwing with the full list of what is wrong. A build verifies itself with it, and an
+install verifies its source with it.
 
 ### The two-part install
 
@@ -254,7 +260,7 @@ release act governed by its own workflow ([github-release](../github/github-rele
 - [durable-sha-globs](../flow/durable-sha-globs.md) — the durable-SHA identity the content hash reuses.
 - [native-csharp-types](BCL/native-csharp-types.md) — the combined assembly and the accelerator load order the bundle mode preserves.
 - [use-ps1-not-psm1](powershell/use-ps1-not-psm1.md), [one-function-per-file](powershell/one-function-per-file.md) — the source rules the
-  merged `<Module>.ps1` is generated from.
+  merged `<Module>.functions.ps1` is generated from.
 - [environment-variables](environment-variables.md) — the well-known-anchor rule `CatzcModulesRoot` follows.
 - [github-release](../github/github-release.md) — the release workflow that publishes the build under its calculated version.
 - [conventional-folders](../repository/conventional-folders.md), [dedicated-output-directory](../repository/dedicated-output-directory.md) —

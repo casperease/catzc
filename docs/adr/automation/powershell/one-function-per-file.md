@@ -18,9 +18,9 @@ Each function file pairs one-to-one with a test file named `Verb-Noun.Tests.ps1`
 
 ### Rule ADR-AUTO-ONEFUNC:3
 
-The rule governs **source** under `automation/<Module>/`. The installed build's merged `<Module>.ps1` — every function of one module in one
-file — is a generated artifact of `Build-Modules`, derived from the one-function source files and never edited by hand; the build asserts
-the rule on its input and fails when a source file breaks it.
+The rule governs **source** under `automation/<Module>/`. The installed build's merged `<Module>.functions.ps1` — every function of one
+module in one file — is a generated artifact of `Build-Modules`, derived from the one-function source files and never edited by hand; the
+build asserts the rule on its input and fails when a source file breaks it.
 
 - [Source and the generated build](#source-and-the-generated-build)
 
@@ -64,9 +64,9 @@ Each `.ps1` file contains exactly one exported function. The file name matches t
 Every reason above is about the code a developer reads, edits, reviews, and blames, so the rule applies to source. The installed build
 ([run-modes](../../design/run-modes.md), [platform-bundle](../platform-bundle.md)) serves a different reader: a machine that loads the
 toolset and pays a per-file antivirus scan on a cold import ([effective-in-enterprises](../effective-in-enterprises.md)). For that reader
-`Build-Modules` merges a module's function files into one `<Module>.ps1`, each function preceded by a `# source:` marker line that names the
-file it came from, so an error inside the merged file traces back to its source file. The export list of the built manifest is the file
-names of the module's root `.ps1` files — the rule is what makes the merged file's exports derivable without parsing it.
+`Build-Modules` merges a module's function files into one `<Module>.functions.ps1`, each function preceded by a `# source:` marker line that
+names the file it came from, so an error inside the merged file traces back to its source file. The export list of the built manifest is the
+file names of the module's root `.ps1` files — the rule is what makes the merged file's exports derivable without parsing it.
 
 ### How this is enforced
 

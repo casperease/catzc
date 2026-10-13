@@ -14,7 +14,9 @@
         no shipped source may be missing from the list, and the listed sources must hash (Get-CombinedTypeHash,
         the one implementation) to typesHash — "the DLL was built from these sources" is proven by hash;
       - modules: the module folders are exactly build.json's modules; each has its <Module>.psd1 and merged
-        <Module>.ps1, and every FunctionsToExport name resolves to a top-level function in the merged file (AST);
+        <Module>.functions.ps1, the manifest's NestedModules is exactly that one file (a nested <Module>.ps1 would
+        load a second module named <Module>, which Get-Module, Mock -ModuleName and InModuleScope reject), and
+        every FunctionsToExport name resolves to a top-level function in the merged file (AST);
       - content: Get-CatzcContentHash over the tree (build.json excluded — it carries the hash) equals build.json
         contentHash, so nothing drifted after the build.
     Collects every violation and throws once. Build-Modules runs it on its own output; Install-Catzc runs it on
@@ -161,14 +163,15 @@ function Assert-CatzcBundle {
     $isFunction = { param($node) $node -is [System.Management.Automation.Language.FunctionDefinitionAst] }
     foreach ($name in $onDisk) {
         $manifestPath = [System.IO.Path]::Combine($root, $name, "$name.psd1")
-        $mergedPath = [System.IO.Path]::Combine($root, $name, "$name.ps1")
+        $mergedFile = "$name.functions.ps1"
+        $mergedPath = [System.IO.Path]::Combine($root, $name, $mergedFile)
         $hasManifest = [System.IO.File]::Exists($manifestPath)
         $hasMerged = [System.IO.File]::Exists($mergedPath)
         if (-not $hasManifest) {
             $violations.Add("module '$name' is missing its manifest $name/$name.psd1")
         }
         if (-not $hasMerged) {
-            $violations.Add("module '$name' is missing its merged $name/$name.ps1")
+            $violations.Add("module '$name' is missing its merged $name/$mergedFile")
         }
         if (-not ($hasManifest -and $hasMerged)) {
             continue
@@ -178,7 +181,7 @@ function Assert-CatzcBundle {
         $parseErrors = $null
         $ast = [System.Management.Automation.Language.Parser]::ParseFile($mergedPath, [ref]$tokens, [ref]$parseErrors)
         if ($parseErrors.Count -gt 0) {
-            $violations.Add("module '$name': $name.ps1 does not parse ($($parseErrors[0].Message))")
+            $violations.Add("module '$name': $mergedFile does not parse ($($parseErrors[0].Message))")
             continue
         }
         # Top-level functions only — a function nested in another is not what the manifest exports.
@@ -188,13 +191,20 @@ function Assert-CatzcBundle {
         }
 
         $manifest = Import-PowerShellDataFile -Path $manifestPath
+        $nested = @()
+        if ($manifest.ContainsKey('NestedModules')) {
+            $nested = @($manifest['NestedModules'] | Where-Object { $_ } | ForEach-Object { "$_" })
+        }
+        if ($nested.Count -ne 1 -or $nested[0] -ne $mergedFile) {
+            $violations.Add("module '$name': its manifest's NestedModules must be exactly '$mergedFile', found '$($nested -join "', '")'")
+        }
         $exports = @()
         if ($manifest.ContainsKey('FunctionsToExport')) {
             $exports = @($manifest['FunctionsToExport'] | Where-Object { $_ })
         }
         $unresolved = @($exports | Where-Object { -not $defined.Contains("$_") })
         if ($unresolved.Count -gt 0) {
-            $violations.Add("module '$name' exports function(s) its merged $name.ps1 does not define: $($unresolved -join ', ')")
+            $violations.Add("module '$name' exports function(s) its merged $mergedFile does not define: $($unresolved -join ', ')")
         }
     }
 

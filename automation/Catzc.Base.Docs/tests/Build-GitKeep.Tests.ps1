@@ -62,7 +62,9 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
 Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         Import-InternalModule TestKit
-        $script:fake = New-FakeRepositoryRoot -Files @{ 'widgets/.gitkeep' = "stale`n" }
+        # -WorkingRootOnly: the .gitkeep files live in the fixture working root, but the asset under test is the one
+        # shipped in the loaded Catzc.Base.Docs, so the code root stays on the loaded modules
+        $script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{ 'widgets/.gitkeep' = "stale`n" }
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
     }
 

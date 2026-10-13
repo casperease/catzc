@@ -52,8 +52,8 @@ else — the build — which is the mode least exercised while writing the code.
 Three anchors give a wrong answer outside the source tree, each in its own way:
 
 - **`$PSScriptRoot`** is the folder of the executing file. In source mode that is the module folder or its `private/` folder; in build mode
-  it is the folder of the one merged `<Module>.ps1`. A `'../configs/…'` hop written for a `private/` file points above the module in the
-  build.
+  it is the folder of the one merged `<Module>.functions.ps1`. A `'../configs/…'` hop written for a `private/` file points above the module
+  in the build.
 - **`Get-RepositoryRoot`** is the working root. In source mode the code lives under it; in an install it is the user's working folder, which
   holds no automation at all; and in a build loaded inside the repository it silently reads the source tree instead of the build.
 - **A hand-built `automation/<Module>/…` path** bakes the source layout into the code; a build has no `automation/` folder.

@@ -19,8 +19,8 @@ Reserve `.psm1` for genuine module or standalone files only — the `automation/
 
 ### Rule ADR-AUTO-USEPS:3
 
-These rules govern **source** — the `automation/<Module>/` tree a developer edits. The installed build's merged `<Module>.ps1` (every
-function of one module in one file, listed as that module's single `NestedModules` entry) is a **generated artifact** written by
+These rules govern **source** — the `automation/<Module>/` tree a developer edits. The installed build's merged `<Module>.functions.ps1`
+(every function of one module in one file, listed as that module's single `NestedModules` entry) is a **generated artifact** written by
 `Build-Modules`; it is never edited, never checked in, and keeps the `.ps1` extension so the module's functions share one session state
 exactly as they do in source.
 
@@ -79,18 +79,18 @@ None of these are per-function files within a module, so the rule above is intac
 
 The toolset runs in two modes ([run-modes](../../design/run-modes.md)). In source mode the generated manifest lists every `.ps1` function
 file of a module in `NestedModules`. In build mode `Build-Modules` concatenates the same files — `private/` first, then the root, each in
-ordinal order and each preceded by a `# source:` marker line naming its source path — into one `<Module>.ps1`, and the built manifest lists
-that one file. The merged file is a `.ps1` too, so the module's public and private functions share one session state in both modes, and it
-is one module per folder, so each module keeps its own `$script:` scope. It is output, not source: it exists only in a build under
-`out/automation/build/` and the installs copied from it, is rewritten on every build, and the rules of this ADR apply to the files it is
-generated from.
+ordinal order and each preceded by a `# source:` marker line naming its source path — into one `<Module>.functions.ps1`, and the built
+manifest lists that one file. The merged file is a `.ps1` too, so the module's public and private functions share one session state in both
+modes, and it is one module per folder, so each module keeps its own `$script:` scope. It is output, not source: it exists only in a build
+under `out/automation/build/` and the installs copied from it, is rewritten on every build, and the rules of this ADR apply to the files it
+is generated from.
 
 ### How this is enforced
 
 - **Bootstrap module** — `New-DynamicManifest` only scans for `*.ps1` files. Any `.psm1` file inside a module folder is silently ignored.
 - **`Test-Automation.Tests.ps1`** — only discovers `.ps1` files for validation, reinforcing that `.psm1` is not used for function files.
-- **`Build-Modules`** — reads only the source `.ps1` function files, writes the merged `<Module>.ps1` under `out/automation/build/`, and
-  `Assert-CatzcBundle` checks that every built module has its manifest and its one merged file.
+- **`Build-Modules`** — reads only the source `.ps1` function files, writes the merged `<Module>.functions.ps1` under
+  `out/automation/build/`, and `Assert-CatzcBundle` checks that every built module has its manifest and its one merged file.
 
 ## Consequences
 

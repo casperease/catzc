@@ -102,7 +102,8 @@ function New-SyntheticHistory {
     }
 
     $originProbe = Invoke-Executable 'git config --get remote.origin.url' -WorkingDirectory $RepositoryPath -PassThru -NoAssert -Silent
-    $originUrl = @($originProbe.Output -split '\r?\n' | Where-Object { $_ })[0]
+    # Select-Object -First 1 is $null when there is no origin (indexing an empty array throws under strict)
+    $originUrl = $originProbe.Output -split '\r?\n' | Where-Object { $_ } | Select-Object -First 1
 
     # Fresh orphan branch with an empty index; the working tree is kept intact.
     $orphan = Invoke-Executable "git checkout --orphan $WorkingBranch" -WorkingDirectory $RepositoryPath -PassThru -NoAssert

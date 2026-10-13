@@ -63,9 +63,9 @@ Enumeration is native `.NET` and ~1–7ms, so it is never the cause; the file op
 [one-function-per-file](powershell/one-function-per-file.md)): that is the form a developer reads, reviews, and diffs, so a devbox in source
 mode pays the cold scan, and its mitigation is environmental — an antivirus exclusion for the repository working copy and
 `automation/.vendor/`. The **installed build** is merged per module ([platform-bundle](platform-bundle.md),
-[run-modes](../design/run-modes.md)): `Build-Modules` writes each module's functions into one generated `<Module>.ps1`, so a machine that
-runs the installed `Catzc` opens one function file per module instead of one per function. That is the code-level answer to the cold-import
-antivirus cost, and it needs no exclusion. (The C# in the `types/` folders ship a committed, hash-keyed prebuilt DLL in
+[run-modes](../design/run-modes.md)): `Build-Modules` writes each module's functions into one generated `<Module>.functions.ps1`, so a
+machine that runs the installed `Catzc` opens one function file per module instead of one per function. That is the code-level answer to the
+cold-import antivirus cost, and it needs no exclusion. (The C# in the `types/` folders ship a committed, hash-keyed prebuilt DLL in
 `automation/.compiled/`, so a fresh checkout and CI load it without invoking Roslyn — only a developer who edits a type source pays the
 `~0.5s` compile, once — but that is secondary to the per-file scan.)
 
@@ -89,5 +89,5 @@ the language layer, [module-path-hygiene](powershell/module-path-hygiene.md) (`A
 - Machine-specific slowness has environmental fixes where the source form requires them: the module-path mechanics live in
   [module-path-hygiene](powershell/module-path-hygiene.md), and a source-mode devbox mitigates the cold-import antivirus cost with an
   exclusion.
-- An installed build loads one merged `<Module>.ps1` per module, so its cold import opens a few dozen function files rather than hundreds,
-  while the source a developer edits keeps one function per file.
+- An installed build loads one merged `<Module>.functions.ps1` per module, so its cold import opens a few dozen function files rather than
+  hundreds, while the source a developer edits keeps one function per file.

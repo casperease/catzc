@@ -2,7 +2,7 @@
 #
 # Builds the selected modules into one installable, versioned Catzc package (docs/adr/automation/platform-bundle.md,
 # docs/adr/design/run-modes.md): every module stays its own PowerShell module of the same name, its function files
-# merged into one <Module>.ps1 behind a generated manifest, beside the runtime loader (.internal), the vendored
+# merged into one <Module>.functions.ps1 behind a generated manifest, beside the runtime loader (.internal), the vendored
 # dependencies (.vendor), the full combined-types DLL and its sources (.compiled) and the package entry points. It
 # is a .internal multi-function module (the one-function-per-file convention does not apply), loaded on demand
 # (Import-InternalModule Builder) by Build-Modules after a normal source-mode import, so it calls catzc public
@@ -28,6 +28,11 @@ $script:runtimeInternalFiles = @(
 
 # The analyzer settings travel with the analyzer itself (vendor_policy 'full'), like .scriptanalyzer/.
 $script:fullPolicyInternalFiles = @('assets/PSScriptAnalyzerSettings.psd1')
+
+# The merged function file of a built module is <Module>.functions.ps1, never <Module>.ps1: a nested script
+# module is named for its file, so <Module>.ps1 would load a second module named <Module> under the manifest's,
+# and Get-Module <Module>, Mock -ModuleName and InModuleScope would each see two modules of that name.
+$script:mergedFileSuffix = '.functions.ps1'
 
 # A module's side folders that ship verbatim; everything else in the module folder (private/, tests/, README.md,
 # the source-mode manifest) does not.
@@ -69,7 +74,7 @@ function Resolve-BuildModuleSet {
 function Get-MergePreconditionViolation {
     <#
     .SYNOPSIS
-        Returns every reason a module function file cannot be merged verbatim into its module's <Module>.ps1.
+        Returns every reason a module function file cannot be merged verbatim into its module's <Module>.functions.ps1.
     .DESCRIPTION
         The merge preconditions of ADR-AUTO-BUNDLE:4, read from the file's syntax tree: it parses; it defines
         exactly one function, named for the file, and nothing else at the top level (no param block, no
@@ -131,7 +136,7 @@ function Get-MergePreconditionViolation {
 function Get-MergedModule {
     <#
     .SYNOPSIS
-        Merges one source module's function files into the text of its built <Module>.ps1.
+        Merges one source module's function files into the text of its built <Module>.functions.ps1.
     .DESCRIPTION
         Order is private/*.ps1 ordinal, then the root *.ps1 ordinal — the order the source manifest's NestedModules
         uses, so load semantics are identical. Each file is taken verbatim (CR stripped, trailing newlines
@@ -289,7 +294,7 @@ function Get-ModuleBuildPlan {
         }
         $exports = [string[]] @($merged.Publics)
         [System.Array]::Sort($exports, [System.StringComparer]::Ordinal)
-        $entries.Add([pscustomobject]@{ Path = "$name/$name.ps1"; Kind = 'Text'; Source = $null; Content = $merged.Content; Exports = $null })
+        $entries.Add([pscustomobject]@{ Path = "$name/$name$($script:mergedFileSuffix)"; Kind = 'Text'; Source = $null; Content = $merged.Content; Exports = $null })
         $entries.Add([pscustomobject]@{ Path = "$name/$name.psd1"; Kind = 'Manifest'; Source = $null; Content = $null; Exports = $exports })
         foreach ($folder in $script:shippedSideFolders) {
             foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($moduleDirectory, $folder)) -TargetPath "$name/$folder")) {
@@ -609,7 +614,7 @@ function Write-ModuleBuildOutput {
                 }
                 'Manifest' {
                     $moduleFolder = [System.IO.Path]::GetDirectoryName($target)
-                    $nestedModule = [System.IO.Path]::GetFileName($moduleFolder) + '.ps1'
+                    $nestedModule = [System.IO.Path]::GetFileName($moduleFolder) + $script:mergedFileSuffix
                     $exports = [string[]] @($entry.Exports)
                     & $bootstrap {
                         param($ModulePath, $NestedModule, $FunctionToExport)
@@ -647,7 +652,8 @@ function Invoke-ModuleBuild {
           .compiled/Catzc.Types.<hash>.dll           the full type set (the committed DLL, copied)
           .compiled/types/<Module>/<File>.cs         type sources of the modules not selected
           .vendor/                                   vendored modules per -VendorPolicy, verbatim
-          <Module>/<Module>.psd1, <Module>.ps1       per module: generated manifest + merged function files
+          <Module>/<Module>.psd1                     per module: generated manifest (NestedModules = the merged file)
+          <Module>/<Module>.functions.ps1            per module: merged function files
           <Module>/{configs,assets,types}/           shipped side folders, verbatim — never tests/
 
         Every check runs before anything is written, and each collects every violation before it throws: the

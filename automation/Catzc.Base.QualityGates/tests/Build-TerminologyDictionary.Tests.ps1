@@ -59,7 +59,7 @@ Describe 'Build-TerminologyDictionary — real registry' -Tag 'L2', 'integrity',
                     Where-Object { $_ -and -not $_.StartsWith('#') })
             $lower = @($words | ForEach-Object { $_.ToLowerInvariant() })
             $words | Should -Be $lower -Because "$category is lower-cased"
-            ($words | Select-Object -Unique).Count |
+            @($words | Select-Object -Unique).Count |   # @(): a one-word category unrolls to a scalar
                 Should -Be $words.Count -Because "$category is de-duplicated"
             $sorted = [string[]] $words.Clone()
             [System.Array]::Sort($sorted, [System.StringComparer]::Ordinal)

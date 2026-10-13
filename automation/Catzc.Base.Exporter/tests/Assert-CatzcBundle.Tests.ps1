@@ -16,8 +16,8 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             & $write 'Import-Catzc.ps1' '# initializer'
             & $write '.internal/Catzc.Internal.Loader.psm1' '# loader'
             & $write '.vendor/powershell-yaml/0.4.12/Tests/yaml.Tests.ps1' '# vendored verbatim, allowed'
-            & $write 'Catzc.Base.Widget/Catzc.Base.Widget.psd1' "@{ NestedModules = @('Catzc.Base.Widget.ps1'); FunctionsToExport = @('Get-Widget') }"
-            & $write 'Catzc.Base.Widget/Catzc.Base.Widget.ps1' "# source: automation/Catzc.Base.Widget/private/Get-WidgetPart.ps1`nfunction Get-WidgetPart { 'part' }`n# source: automation/Catzc.Base.Widget/Get-Widget.ps1`nfunction Get-Widget { Get-WidgetPart }`n"
+            & $write 'Catzc.Base.Widget/Catzc.Base.Widget.psd1' "@{ NestedModules = @('Catzc.Base.Widget.functions.ps1'); FunctionsToExport = @('Get-Widget') }"
+            & $write 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1' "# source: automation/Catzc.Base.Widget/private/Get-WidgetPart.ps1`nfunction Get-WidgetPart { 'part' }`n# source: automation/Catzc.Base.Widget/Get-Widget.ps1`nfunction Get-Widget { Get-WidgetPart }`n"
             & $write 'Catzc.Base.Widget/configs/widget.yml' 'size: 1'
             & $write 'Catzc.Base.Widget/types/Widget.cs' 'namespace Catzc.Base.Widget; public class Widget { }'
             & $write '.compiled/types/Catzc.Base.Gadget/Gadget.cs' 'namespace Catzc.Base.Gadget; public class Gadget { }'
@@ -139,7 +139,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
 
     It 'throws when a module is missing its <Kind>' -ForEach @(
         @{ Kind = 'manifest'; File = 'Catzc.Base.Widget.psd1' }
-        @{ Kind = 'merged'; File = 'Catzc.Base.Widget.ps1' }
+        @{ Kind = 'merged'; File = 'Catzc.Base.Widget.functions.ps1' }
     ) {
         [System.IO.File]::Delete((Join-Path $fixture.Root "Catzc.Base.Widget/$File"))
         & $script:resealBuild $fixture
@@ -147,13 +147,26 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
     }
 
     It 'throws when a manifest export has no function in the merged file' {
-        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.psd1'), "@{ FunctionsToExport = @('Get-Widget', 'Set-Widget') }")
+        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.psd1'), "@{ NestedModules = @('Catzc.Base.Widget.functions.ps1'); FunctionsToExport = @('Get-Widget', 'Set-Widget') }")
         & $script:resealBuild $fixture
         { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*does not define: Set-Widget*'
     }
 
+    It 'throws when the manifest nests a file named for the module (a second same-named module)' {
+        [System.IO.File]::Move((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1'), (Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.ps1'))
+        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.psd1'), "@{ NestedModules = @('Catzc.Base.Widget.ps1'); FunctionsToExport = @('Get-Widget') }")
+        & $script:resealBuild $fixture
+        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*missing its merged Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1*'
+    }
+
+    It 'throws when the manifest does not nest exactly the merged file' {
+        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.psd1'), "@{ NestedModules = @('Catzc.Base.Widget.ps1'); FunctionsToExport = @('Get-Widget') }")
+        & $script:resealBuild $fixture
+        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage "*NestedModules must be exactly 'Catzc.Base.Widget.functions.ps1', found 'Catzc.Base.Widget.ps1'*"
+    }
+
     It 'does not count a nested function as a top-level export' {
-        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.ps1'), "function Get-WidgetPart { function Get-Widget { } }`n")
+        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1'), "function Get-WidgetPart { function Get-Widget { } }`n")
         & $script:resealBuild $fixture
         { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*does not define: Get-Widget*'
     }
@@ -169,7 +182,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
 
     It 'collects every violation into one throw' {
         [System.IO.File]::Delete((Join-Path $fixture.Root 'Catzc.psm1'))
-        [System.IO.File]::Delete((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.ps1'))
+        [System.IO.File]::Delete((Join-Path $fixture.Root 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1'))
         $thrown = { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike '*missing Catzc.psm1*'
         $thrown.Exception.Message | Should -BeLike '*missing its merged*'

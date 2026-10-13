@@ -85,7 +85,8 @@ function Assert-GitHubPurgeReady {
     # --- 3. Local origin points at the repo we are about to delete ---
     $expectedOrigin = "https://github.com/$Repo.git"
     $originProbe = Invoke-Executable 'git config --get remote.origin.url' -WorkingDirectory $RepositoryPath -PassThru -NoAssert -Silent
-    $originUrl = @($originProbe.Output -split '\r?\n' | Where-Object { $_ })[0]
+    # Select-Object -First 1 is $null when there is no origin (indexing an empty array throws under strict)
+    $originUrl = $originProbe.Output -split '\r?\n' | Where-Object { $_ } | Select-Object -First 1
     if ($originUrl -ne $expectedOrigin) {
         throw "Local origin is '$originUrl', expected '$expectedOrigin'."
     }
