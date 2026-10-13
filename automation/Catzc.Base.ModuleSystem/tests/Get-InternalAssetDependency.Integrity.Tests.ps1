@@ -12,7 +12,7 @@ Describe 'Internal asset dependency coverage (real tree)' -Tag 'L1', 'integrity'
         $violations | Should -HaveCount 0 -Because "non-literal call sites cannot be inventoried: $report"
     }
 
-    It 'every function with an internal asset dependency has a both-suites test citing ADR-AUTO-ASSETDEP#3' {
+    It 'every function with an internal asset dependency has a both-runs test citing ADR-AUTO-ASSETDEP#3' {
         $uncovered = @(InModuleScope Catzc.Base.ModuleSystem { Get-UncoveredInternalAssetDependency })
         $report = ($uncovered | ForEach-Object { "$($_.Module)/$($_.Function) [$($_.ChildPath -join ', ')] — $($_.Reason)" }) -join '; '
         $uncovered | Should -HaveCount 0 -Because "uncovered internal asset dependencies: $report"

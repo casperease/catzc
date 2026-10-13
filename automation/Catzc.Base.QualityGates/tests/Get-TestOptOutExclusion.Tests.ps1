@@ -1,4 +1,4 @@
-Describe 'Get-TestSuiteExclusion' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#31' {
+Describe 'Get-TestOptOutExclusion' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#31' {
     BeforeAll {
         # Fake discovery objects — the same Pester test shape Get-TestBlockTag walks.
         $script:root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }
@@ -16,7 +16,7 @@ Describe 'Get-TestSuiteExclusion' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#31' {
             param($Tests, [string[]] $ExcludeTag = @(), [string[]] $TestFiles)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ D = [pscustomobject]@{ Tests = @($Tests) }; X = $ExcludeTag; F = $TestFiles } {
                 param($D, $X, $F)
-                Get-TestSuiteExclusion -Discovery $D -Tag 'source-only' -ExcludeTag $X -TestFiles $F
+                Get-TestOptOutExclusion -Discovery $D -Tag 'source-only' -ExcludeTag $X -TestFiles $F
             }
         }
     }

@@ -23,7 +23,7 @@
     FullyExcludedFiles (files whose every in-scope test carries the tag), and RemainingFiles (-TestFiles without
     them, order kept).
 #>
-function Get-TestSuiteExclusion {
+function Get-TestOptOutExclusion {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(

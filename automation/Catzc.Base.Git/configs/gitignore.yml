@@ -76,6 +76,16 @@ zones:
     patterns:
       - docs/adr/index.md
 
+  - id: adr-glossary
+    title: Generated glossary
+    why: >
+      docs/adr/glossary.md is the controlled vocabulary as one page, generated from the modules'
+      configs/glossary.yml sources (Build-Glossary, materialised on import) — a derived artifact like the ADR
+      index. The glossary sources are the single source of truth; edit them, never glossary.md. See
+      docs/adr/repository/controlled-vocabulary.md.
+    patterns:
+      - docs/adr/glossary.md
+
   - id: compiled-types
     title: Compiled C# types — transient temp only
     why: >

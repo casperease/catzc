@@ -11,19 +11,19 @@
 
     - the entry script each shard worker dot-sources (-EntryScript/-EntryParameter, empty for the source
       importer; the build's Import-Catzc.ps1 for the build run) — the one seam;
-    - an opt-out tag (-SuiteExcludeTag 'source-only' for the build run): its tests are excluded from the run
+    - an opt-out tag (-OptOutTag 'source-only' for the build run): its tests are excluded from the run
       and counted and listed on the console and in excluded-tests.csv in the run directory
       ([ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31));
-    - the entry point's name (-Suite), which names the default report folder under out/, the protection key, and
-      the failure message; and the banner title (-Title).
-.PARAMETER Suite
+    - the entry point's name (-EntryPoint), which names the default report folder under out/, the protection key,
+      and the failure message; and the banner title (-Title).
+.PARAMETER EntryPoint
     The entry point's command name: 'Test-Automation' or 'Test-CatzcBuild'. Its key names the default report folder
     (out/test-automation, out/test-catzc-build) and prefixes the protection key.
 .PARAMETER Title
     The banner title (Write-TestAutomationHeader).
 .PARAMETER Modules
     The modules whose tests/ folders run; empty runs every module plus the dot-prefixed infrastructure.
-.PARAMETER SuiteExcludeTag
+.PARAMETER OptOutTag
     Opt-out tags of this test run: tests carrying one are excluded, counted, and listed — never silently.
 .PARAMETER EntryScript
     The script each worker dot-sources to load the modules; empty is the source importer.
@@ -38,11 +38,11 @@
 .NOTES
     The remaining parameters are Test-Automation's own, passed through unchanged — see its help.
 #>
-function Invoke-TestAutomationSuite {
+function Invoke-TestRun {
     [CmdletBinding()]
     param(
         [ValidateSet('Test-Automation', 'Test-CatzcBuild')]
-        [string] $Suite = 'Test-Automation',
+        [string] $EntryPoint = 'Test-Automation',
 
         [string] $Title = 'Test Automation',
 
@@ -78,7 +78,7 @@ function Invoke-TestAutomationSuite {
         [string] $OutputFolder,
 
         [AllowEmptyCollection()]
-        [string[]] $SuiteExcludeTag = @(),
+        [string[]] $OptOutTag = @(),
 
         [string] $EntryScript,
 
@@ -90,7 +90,7 @@ function Invoke-TestAutomationSuite {
     )
 
     # The entry point's key: its default report folder under out/ and its protection-key prefix.
-    $suiteKey = @{ 'Test-Automation' = 'test-automation'; 'Test-CatzcBuild' = 'test-catzc-build' }[$Suite]
+    $entryPointKey = @{ 'Test-Automation' = 'test-automation'; 'Test-CatzcBuild' = 'test-catzc-build' }[$EntryPoint]
 
     # The parent needs Pester only for the discovery pass; each worker imports its own copy for the actual run.
     Import-VendoredPester
@@ -117,7 +117,7 @@ function Invoke-TestAutomationSuite {
     # preserved (and cleared with the rest of out/). The shard scripts, per-shard results-shard-<N>.xml and
     # rows-shard-<N>.json, and summary.md/tests.csv all land here.
     if (-not $OutputFolder) {
-        $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) $suiteKey
+        $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) $entryPointKey
     }
     # Earlier runs whose owning process died never reached their finally: mark them 'abandoned' rather than
     # leave them claiming 'running' (Set-AbandonedTestRun reads the owner recorded below).
@@ -125,13 +125,13 @@ function Invoke-TestAutomationSuite {
     $runDir = New-TestAutomationRunDirectory -OutputFolder $OutputFolder
 
     # Claim the slot before anything is filtered (Enter-TestRunSlot; it decides the top tier); the finally releases it.
-    $slot = Enter-TestRunSlot -EntryPoint $Suite -RunDirectory $runDir -Isolated:$Isolated
+    $slot = Enter-TestRunSlot -EntryPoint $EntryPoint -RunDirectory $runDir -Isolated:$Isolated
     $runStartedAt = [DateTimeOffset]::UtcNow.ToString('o')
     $manifestStatus = 'crashed'
     $failedCount = 0
     $failedShardLabels = @()
     $workerRun = $null
-    $suiteExcludedTests = @()
+    $optOutExcludedTests = @()
 
     # try/finally: the slot is released and the terminal manifest stamped on every exit path — pass, fail, or crash.
     # The stamp is what makes run.json trustworthy, so it sits in the finally, not in a best-effort catch.
@@ -175,15 +175,15 @@ function Invoke-TestAutomationSuite {
         # The run's opt-out tag (the build run's 'source-only',
         # [ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)): exclude its tests from the
         # run, drop files left with nothing to run, and count and list every excluded test — never silently.
-        if ($SuiteExcludeTag.Count -gt 0) {
-            $suiteExclusion = Get-TestSuiteExclusion -Discovery $discovery -Tag $SuiteExcludeTag `
+        if ($OptOutTag.Count -gt 0) {
+            $optOutExclusion = Get-TestOptOutExclusion -Discovery $discovery -Tag $OptOutTag `
                 -ExcludeTag $excludeTags -TestFiles @($testFiles)
-            $suiteExcludedTests = @($suiteExclusion.Tests)
-            $excludeTags = @($excludeTags) + @($SuiteExcludeTag)
-            $testFiles = [System.Collections.Generic.List[string]]::new([string[]] @($suiteExclusion.RemainingFiles))
-            Write-TestSuiteExclusion -Tests $suiteExcludedTests -Tag $SuiteExcludeTag -RunDirectory $runDir
+            $optOutExcludedTests = @($optOutExclusion.Tests)
+            $excludeTags = @($excludeTags) + @($OptOutTag)
+            $testFiles = [System.Collections.Generic.List[string]]::new([string[]] @($optOutExclusion.RemainingFiles))
+            Write-TestOptOutExclusion -Tests $optOutExcludedTests -Tag $OptOutTag -RunDirectory $runDir
             if ($testFiles.Count -eq 0) {
-                throw "Every test in scope carries $($SuiteExcludeTag -join ', ') — nothing to run in $Suite."
+                throw "Every test in scope carries $($OptOutTag -join ', ') — nothing to run in $EntryPoint."
             }
         }
 
@@ -200,7 +200,7 @@ function Invoke-TestAutomationSuite {
         # green run this session are dropped from the work-list here in the orchestrator (workers never see
         # the map; in a pipeline the selection is a pass-through). The key carries the entry point and the run
         # parameters, so an L0-L1 green never skips an L2 run and a green source run never skips the build run.
-        $protectionKey = "$suiteKey|L$MinLevel-L$MaxLevel|$Category|$($Rule -join ',')"
+        $protectionKey = "$entryPointKey|L$MinLevel-L$MaxLevel|$Category|$($Rule -join ',')"
         $protectionPlan = Select-ProtectedTestFile -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
             -SerialFiles @($serialFiles) -Discovery $discovery -ProtectionKey $protectionKey
         $parallelFiles = [System.Collections.Generic.List[string]]::new([string[]]$protectionPlan.ParallelFiles)
@@ -300,13 +300,13 @@ function Invoke-TestAutomationSuite {
                 Shards           = @($workerRun.Shards)
                 ProtectedModules = @($protectedModules)
             }
-            if ($SuiteExcludeTag.Count -gt 0) {
-                $summary | Add-Member -NotePropertyName ExcludedTests -NotePropertyValue @($suiteExcludedTests)
+            if ($OptOutTag.Count -gt 0) {
+                $summary | Add-Member -NotePropertyName ExcludedTests -NotePropertyValue @($optOutExcludedTests)
             }
             $summary
         }
         elseif ($runResult -ne 'Passed' -or $timingFailure) {
-            throw "$Suite failed: $($verdict.Summary)"
+            throw "$EntryPoint failed: $($verdict.Summary)"
         }
     }
     finally {
@@ -326,9 +326,9 @@ function Invoke-TestAutomationSuite {
         foreach ($key in $workerEntries.Keys) {
             $finalManifest[$key] = $workerEntries[$key]
         }
-        if ($SuiteExcludeTag.Count -gt 0) {
-            $finalManifest['suiteExcludeTag'] = @($SuiteExcludeTag)
-            $finalManifest['suiteExcludedCount'] = @($suiteExcludedTests).Count
+        if ($OptOutTag.Count -gt 0) {
+            $finalManifest['optOutTag'] = @($OptOutTag)
+            $finalManifest['optOutExcludedCount'] = @($optOutExcludedTests).Count
         }
         try {
             Write-TestRunManifest -RunDirectory $runDir -Manifest $finalManifest | Out-Null

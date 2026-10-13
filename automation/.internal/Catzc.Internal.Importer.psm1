@@ -261,6 +261,13 @@ function Invoke-Importer {
             Build-AdrIndex -Silent | Out-Null
         }
 
+        # Keep the generated glossary current (Catzc.Base.Docs). [glossary](/docs/adr/glossary.md) is the controlled
+        # vocabulary projected from the modules' configs/glossary.yml sources — gitignored like the ADR index, written
+        # only when its content changes. See [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md).
+        if (-not $SkipJanitors -and (Get-Command Build-Glossary -ErrorAction Ignore)) {
+            Build-Glossary -Silent | Out-Null
+        }
+
         # Keep the generated README copy-ins current (Catzc.Base.Docs). Fast no-op when nothing changed — Build-Readme
         # rewrites a README only when its composed content differs (compared EOL-insensitively), so a clean tree costs
         # only a few small file reads. Guarded: absent in the bootstrap sandbox, like Clear-ModuleTypeCache.

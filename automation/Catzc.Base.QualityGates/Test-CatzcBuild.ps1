@@ -108,7 +108,7 @@ function Test-CatzcBuild {
         $buildSelection = @{ Module = @($testedModules) + @($harnessModule) }
     }
 
-    $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-build-suite-' + [guid]::NewGuid().ToString('N'))
+    $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-build-run-' + [guid]::NewGuid().ToString('N'))
     Write-Message "Building $($testedModules.Count) module(s) for the build run into '$destination'..."
     try {
         $build = Build-Modules @buildSelection -VendorPolicy full -Destination $destination -Silent
@@ -116,9 +116,9 @@ function Test-CatzcBuild {
         Assert-PathExist $entryScript -PathType Leaf
         Write-Message "Built Catzc $($build.Version) ($(@($build.Modules).Count) module(s)) at '$($build.BuildRoot)'"
 
-        $summary = Invoke-TestAutomationSuite -Suite 'Test-CatzcBuild' -Title 'Catzc Build Suite' `
+        $summary = Invoke-TestRun -EntryPoint 'Test-CatzcBuild' -Title 'Catzc Build Run' `
             -MinLevel $MinLevel -MaxLevel $MaxLevel -Modules $testedModules -Category $Category -Workers $Workers `
-            -Output $Output -PassThru:$PassThru -SuiteExcludeTag 'source-only' `
+            -Output $Output -PassThru:$PassThru -OptOutTag 'source-only' `
             -EntryScript $entryScript -EntryParameter @{ RepositoryRoot = (Get-RepositoryRoot) }
 
         if ($PassThru) {

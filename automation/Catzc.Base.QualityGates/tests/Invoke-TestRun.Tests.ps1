@@ -1,4 +1,4 @@
-Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
+Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
     BeforeAll {
         # A fixture tests/ folder with two files: widget mixes a source-only test with a runnable one; gadget is
         # source-only throughout. Discovery is faked over them (the Pester test shape Get-TestBlockTag walks).
@@ -27,11 +27,11 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
             )
         }
 
-        function Invoke-Suite {
+        function Invoke-Run {
             param([hashtable] $Arguments)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ A = $Arguments } {
                 param($A)
-                Invoke-TestAutomationSuite @A
+                Invoke-TestRun @A
             }
         }
     }
@@ -76,7 +76,7 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
 
     Context 'the slot decides the top tier (ADR-AUTO-TEST:33)' {
         It 'runs every tier, L3 included, in place by default' {
-            Invoke-Suite @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null
 
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
                 $ExcludeTag -notcontains 'L3' -and $Slot.Mode -eq 'InPlace'
@@ -86,7 +86,7 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
 
         It 'skips L3 in a snapshot, says so, and records the level it ran' {
             $script:slotMode = 'Snapshot'
-            $summary = Invoke-Suite @{ OutputFolder = $script:outputFolder; PassThru = $true }
+            $summary = Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true }
 
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $ExcludeTag -contains 'L3' }
             Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like 'Skipping L3:*' }
@@ -95,7 +95,7 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
         }
 
         It 'keeps an explicit lower level as given' {
-            Invoke-Suite @{ OutputFolder = $script:outputFolder; PassThru = $true; MaxLevel = 1 } | Out-Null
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; MaxLevel = 1 } | Out-Null
 
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
                 $ExcludeTag -contains 'L2' -and $ExcludeTag -contains 'L3'
@@ -104,20 +104,20 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
 
         It 'refuses an L3-only run in a snapshot, and still releases the slot' {
             $script:slotMode = 'Snapshot'
-            { Invoke-Suite @{ OutputFolder = $script:outputFolder; MinLevel = 3 } } | Should -Throw '*snapshot, which skips L3*'
+            { Invoke-Run @{ OutputFolder = $script:outputFolder; MinLevel = 3 } } | Should -Throw '*snapshot, which skips L3*'
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 0
             Should -Invoke Exit-TestRunSlot -ModuleName Catzc.Base.QualityGates -Times 1
         }
 
         It 'releases the slot after a normal run' {
-            Invoke-Suite @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null
             Should -Invoke Exit-TestRunSlot -ModuleName Catzc.Base.QualityGates -Times 1
         }
     }
 
     Context 'the source run (no opt-out tag, default entry script)' {
         It 'runs every file through the default importer and excludes nothing beyond the tier/category filter' -Tag 'ADR-AUTO-TEST#36' {
-            $summary = Invoke-Suite @{ OutputFolder = $script:outputFolder; PassThru = $true }
+            $summary = Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true }
 
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
                 $ExcludeTag -notcontains 'source-only' -and -not $EntryScript -and
@@ -134,19 +134,19 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
     Context 'the build run (source-only opt-out, build entry script)' -Tag 'ADR-AUTO-TEST#30', 'ADR-AUTO-TEST#31' {
         BeforeAll {
             $script:buildArguments = @{
-                Suite           = 'Test-CatzcBuild'
-                Title           = 'Catzc Build Suite'
-                SuiteExcludeTag = @('source-only')
-                EntryScript     = 'C:\build\Catzc\6.6.666\Import-Catzc.ps1'
-                EntryParameter  = @{ RepositoryRoot = 'C:\repo' }
-                PassThru        = $true
+                EntryPoint     = 'Test-CatzcBuild'
+                Title          = 'Catzc Build Run'
+                OptOutTag      = @('source-only')
+                EntryScript    = 'C:\build\Catzc\6.6.666\Import-Catzc.ps1'
+                EntryParameter = @{ RepositoryRoot = 'C:\repo' }
+                PassThru       = $true
             }
         }
 
         It 'excludes the tag, drops fully excluded files, and swaps the entry script' {
             $arguments = $script:buildArguments.Clone()
             $arguments['OutputFolder'] = $script:outputFolder
-            Invoke-Suite $arguments | Out-Null
+            Invoke-Run $arguments | Out-Null
 
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
                 $ExcludeTag -contains 'source-only' -and
@@ -159,13 +159,13 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
         It 'counts and lists every excluded test in the summary, excluded-tests.csv, and run.json' {
             $arguments = $script:buildArguments.Clone()
             $arguments['OutputFolder'] = $script:outputFolder
-            $summary = Invoke-Suite $arguments
+            $summary = Invoke-Run $arguments
 
             @($summary.ExcludedTests.ExpandedPath) | Should -Be @('Widget.reads files', 'Gadget.reads files')
             $csv = @(Import-Csv -LiteralPath (Join-Path $summary.RunDirectory 'excluded-tests.csv'))
             @($csv.ExpandedPath) | Should -Be @('Widget.reads files', 'Gadget.reads files')
             $manifest = Get-Content -LiteralPath (Join-Path $summary.RunDirectory 'run.json') -Raw | ConvertFrom-Json
-            $manifest.suiteExcludedCount | Should -Be 2
+            $manifest.optOutExcludedCount | Should -Be 2
             Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter {
                 $Message -like "2 test(s) in 2 file(s) excluded by 'source-only'*"
             }
@@ -173,25 +173,25 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
 
         It 'writes its reports under the run''s own folder by default' -Tag 'ADR-AUTO-TEST#34' {
             Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
-            $summary = Invoke-Suite $script:buildArguments
+            $summary = Invoke-Run $script:buildArguments
 
             $summary.RunDirectory | Should -BeLike (Join-Path $TestDrive 'test-catzc-build*')
             Should -Invoke Write-TestAutomationHeader -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
-                $Title -eq 'Catzc Build Suite'
+                $Title -eq 'Catzc Build Run'
             }
         }
 
         It 'keys protection on the run, so a green source run never skips the build run' {
             $arguments = $script:buildArguments.Clone()
             $arguments['OutputFolder'] = $script:outputFolder
-            Invoke-Suite $arguments | Out-Null
+            Invoke-Run $arguments | Out-Null
 
             Should -Invoke Select-ProtectedTestFile -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
                 $ProtectionKey -like 'test-catzc-build|*'
             }
         }
 
-        It 'names the suite when the run fails' {
+        It 'names the entry point when the run fails' {
             Mock Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates {
                 [pscustomobject]@{
                     Rows = @([pscustomobject]@{ Result = 'Failed'; Level = 'L0'; DurationMs = 1 })
@@ -202,7 +202,7 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
             $arguments['OutputFolder'] = $script:outputFolder
             $arguments['PassThru'] = $false
 
-            { Invoke-Suite $arguments } | Should -Throw 'Test-CatzcBuild failed*'
+            { Invoke-Run $arguments } | Should -Throw 'Test-CatzcBuild failed*'
         }
     }
 }

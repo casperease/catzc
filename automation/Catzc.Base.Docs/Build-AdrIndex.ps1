@@ -87,6 +87,10 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   citation as its text (`[ADR-AZ-DATAMOD#2](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2)`); `Format-Links` writes it from the
   citation, and `Test-Links` checks both kinds.
 
+- **Defined terms live in the glossary.** A defined term means what the one rule that bolds it says
+  ([controlled-vocabulary](repository/controlled-vocabulary.md)); [glossary](glossary.md) lists every term with its defining rule, its
+  contrasts, and the phrasings to avoid. It is generated from the modules' `configs/glossary.yml` sources — edit a source, never the page.
+
 - **Link granularity is per-context.** Cite a specific rule anchor (`file.md#rule-<code><n>`, e.g.
   `azure-data-model.md#rule-adr-az-datamod2`) when the citing sentence, comment, or throw-message invokes one concrete rule. Link the ADR
   document when the context is general — an index list, a "see ADR X for the full rationale" pointer, or a citation that invokes the ADR's

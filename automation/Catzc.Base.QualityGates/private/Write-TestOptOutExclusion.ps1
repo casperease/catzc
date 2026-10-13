@@ -8,13 +8,13 @@
     excluded-tests.csv in the run directory (File, ExpandedPath, Level, Category) beside tests.csv. Nothing to
     exclude still prints its one-line count, so a reader sees the exclusion was considered.
 .PARAMETER Tests
-    The excluded test rows from Get-TestSuiteExclusion.
+    The excluded test rows from Get-TestOptOutExclusion.
 .PARAMETER Tag
     The opt-out tag(s), named in the message.
 .PARAMETER RunDirectory
     The run directory excluded-tests.csv is written into.
 #>
-function Write-TestSuiteExclusion {
+function Write-TestOptOutExclusion {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]

@@ -162,6 +162,10 @@ with their replacements. A source's options default sensibly, and a source overr
 - **`Test-Glossary`** (`Catzc.Base.Docs`) runs every gate over every source, writes one report under `out/test-glossary/`, and fails once
   with every issue. An L2 integrity test runs every gate over the real tree, so every rule here is checked mechanically.
 
+- **`Build-Glossary`** (`Catzc.Base.Docs`) projects every source into one readable page, `docs/adr/glossary.md`: per ADR domain, each term
+  with its definition, a link to its defining rule, its realization, relations, contrasts, and avoided phrasings. The page is a derived
+  artifact like the ADR index — gitignored and rebuilt on import — and an L1 integrity test fails when it drifts from the sources.
+
 ## Consequences
 
 - A defined term has one findable home — its defining rule — and a reader meets the same meaning in every ADR, help text, and message.

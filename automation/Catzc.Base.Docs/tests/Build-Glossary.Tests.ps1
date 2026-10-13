@@ -1,0 +1,85 @@
+# Build-Glossary renders the merged glossary into one markdown page. The logic tests mock the three inputs — the
+# glossary (real GlossaryEntry/GlossaryConcept/GlossaryOptions types), the ADR citation map (a real AdrCitationMap
+# over a fixture ADR), and the adrs.yml domains — and write into $TestDrive. Fixture terms and codes are neutral
+# (widget/gadget, tst — [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'Build-Glossary' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $entry = {
+            param([string] $term, [string] $domain, [System.Collections.IDictionary] $extra = @{})
+            $body = [ordered]@{
+                key         = $term.Replace(' ', '_')
+                domain      = $domain
+                defined_by  = 'ADR-TST-WIDGET#1'
+                short       = "The $term."
+                realized_by = [ordered]@{ kind = 'prose-only' }
+            }
+            foreach ($name in $extra.Keys) {
+                $body[$name] = $extra[$name]
+            }
+            [Catzc.Base.Docs.GlossaryEntry]::new([Catzc.Base.Docs.GlossaryConcept]::new($term, $body), 'Catzc.Widget',
+                'automation/Catzc.Widget/configs/glossary.yml', [Catzc.Base.Docs.GlossaryOptions]::new(@{}))
+        }
+        $entries = [Catzc.Base.Docs.GlossaryEntry[]] @(
+            (& $entry 'gadget run' 'automation' @{
+                    realized_by = [ordered]@{ kind = 'tag'; pattern = 'gadget' }
+                    relations   = @{ part_of = @('widget suite') }
+                    contrasts   = @{ 'widget suite' = 'A widget suite is files at rest; a gadget run executes.' }
+                })
+            (& $entry 'widget suite' 'repository' @{
+                    contrasts = @{ 'gadget run' = 'A gadget run executes; a widget suite is files at rest.' }
+                    avoid     = @(@{ phrase = 'widget bundle'; say = 'widget suite' })
+                })
+        )
+        $citations = [Catzc.Base.Docs.AdrCitationMap]::new(
+            @{ 'ADR-TST-WIDGET' = @{ path = 'docs/adr/repository/widget-thing.md'; rules = @(1) } },
+            @('docs/adr/repository/widget-thing.md'))
+        $domains = [pscustomobject]@{
+            Domains = @([pscustomobject]@{ Name = 'repository' }, [pscustomobject]@{ Name = 'automation' }, [pscustomobject]@{ Name = 'flow' })
+        }
+        Mock Get-Glossary -ModuleName Catzc.Base.Docs -MockWith { , $entries }.GetNewClosure()
+        Mock Get-AdrCitationMap -ModuleName Catzc.Base.Docs -MockWith { $citations }.GetNewClosure()
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adrs' } -MockWith { $domains }.GetNewClosure()
+        Mock Write-Message -ModuleName Catzc.Base.Docs { }
+        $script:page = Join-Path $TestDrive 'glossary.md'
+    }
+
+    It 'renders a section per domain in adrs.yml order, each term with its rule link, realization, relations, contrasts, and avoids' -Tag 'ADR-REPO-VOCAB#1' {
+        Build-Glossary -Path $script:page -Silent | Out-Null
+        $text = [System.IO.File]::ReadAllText($script:page)
+
+        $text | Should -BeLike '# docs/adr/glossary.md*'
+        $text.IndexOf('## repository') | Should -BeLessThan $text.IndexOf('## automation')
+        $text | Should -Not -Match '## flow'   # a domain without concepts gets no section
+        $text | Should -Match ([regex]::Escape('- **Defined by:** [ADR-TST-WIDGET#1](repository/widget-thing.md#rule-adr-tst-widget1)'))
+        $text | Should -Match ([regex]::Escape('- **Realized by:** tag `gadget`'))
+        $text | Should -Match ([regex]::Escape('- **Part of:** [widget suite](#widget-suite)'))
+        $text | Should -Match ([regex]::Escape('  - [gadget run](#gadget-run): A gadget run executes; a widget suite is files at rest.'))
+        $text | Should -Match ([regex]::Escape('| `widget bundle` | widget suite |'))
+    }
+
+    It 'is deterministic: a second run reports no change' -Tag 'ADR-REPO-VOCAB#1' {
+        Build-Glossary -Path $script:page -Silent | Out-Null
+        (Build-Glossary -Path $script:page -DryRun -PassThru -Silent).Changed | Should -BeFalse
+    }
+
+    It 'reports drift without writing under -DryRun' -Tag 'ADR-REPO-VOCAB#1' {
+        Build-Glossary -Path $script:page -Silent | Out-Null
+        [System.IO.File]::WriteAllText($script:page, 'stale')
+        $report = Build-Glossary -Path $script:page -DryRun -PassThru -Silent
+        $report.Changed | Should -BeTrue
+        $report.ConceptCount | Should -Be 2
+        [System.IO.File]::ReadAllText($script:page) | Should -Be 'stale'
+    }
+}
+
+# The real glossary page against the real sources. The importer's janitor materialises docs/adr/glossary.md (gitignored,
+# like the ADR index), so a current page means the generator, the sources, and the ADR citations agree. Reads only the
+# repository's files — the same answer in both run modes, so the build run skips it.
+Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README#7' {
+    It 'the on-disk glossary is current — no drift from the glossary sources' {
+        $report = Build-Glossary -DryRun -PassThru -Silent
+        $report.ConceptCount | Should -BeGreaterThan 0
+        $report.Changed | Should -BeFalse -Because (
+            'docs/adr/glossary.md is generated from the configs/glossary.yml sources (Build-Glossary) — re-run the importer to regenerate it')
+    }
+}

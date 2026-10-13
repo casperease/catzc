@@ -79,12 +79,12 @@ Describe 'New-TestAutomationShardScript' {
             $content | Should -Match ([regex]::Escape('-IncludeTag $includeTag'))
         }
 
-        It 'loads the source suite through the repository importer by default' {
+        It 'loads the source run through the repository importer by default' {
             $script:content | Should -Match ([regex]::Escape(". '$(Get-RepositoryRoot)/importer.ps1' -SkipJanitors"))
             $script:content | Should -Not -Match 'Import-Catzc'
         }
 
-        It 'loads the build suite through the given entry script with its named arguments' {
+        It 'loads the build run through the given entry script with its named arguments' {
             $built = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
                 param($Dir)
                 New-TestAutomationShardScript -ShardIndex 6 -TestPath @('C:\repo\a.Tests.ps1') -RunDirectory $Dir `

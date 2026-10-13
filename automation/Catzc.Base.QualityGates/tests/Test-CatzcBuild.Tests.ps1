@@ -20,7 +20,7 @@ Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
             $script:destinations.Add($Destination)
             [pscustomobject]@{ BuildRoot = $buildRoot; Version = '6.6.666'; Modules = @($PSBoundParameters['Module']); DryRun = $false }
         }
-        Mock Invoke-TestAutomationSuite -ModuleName Catzc.Base.QualityGates {
+        Mock Invoke-TestRun -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Result = 'Passed'; ExcludedTests = @() }
         }
     }
@@ -66,10 +66,10 @@ Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
     It 'runs the shared harness on the resolved modules with the build entry script and source-only excluded' {
         Test-CatzcBuild -Module 'Catzc.Widget' -MinLevel 1 -Level 1 -Category Logic
 
-        Should -Invoke Invoke-TestAutomationSuite -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
-            $Suite -eq 'Test-CatzcBuild' -and
+        Should -Invoke Invoke-TestRun -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+            $EntryPoint -eq 'Test-CatzcBuild' -and
             ($Modules -join ',') -eq 'Catzc.Widget,Catzc.Gadget' -and
-            $SuiteExcludeTag -contains 'source-only' -and
+            $OptOutTag -contains 'source-only' -and
             $EntryScript -like '*Catzc*6.6.666*Import-Catzc.ps1' -and
             $EntryParameter['RepositoryRoot'] -eq (Get-RepositoryRoot) -and
             $MinLevel -eq 1 -and $MaxLevel -eq 1 -and $Category -eq 'Logic'
@@ -79,14 +79,14 @@ Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
     It 'asks for every tier the slot allows (L3 runs in place only), both categories' {
         Test-CatzcBuild
 
-        Should -Invoke Invoke-TestAutomationSuite -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+        Should -Invoke Invoke-TestRun -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
             $MinLevel -eq 0 -and $MaxLevel -eq 3 -and $Category -eq 'Both'
         }
     }
 
     It 'deletes the build when the run ends, passed or failed' {
         Test-CatzcBuild
-        Mock Invoke-TestAutomationSuite -ModuleName Catzc.Base.QualityGates { throw 'Test-CatzcBuild failed: 1 failed' }
+        Mock Invoke-TestRun -ModuleName Catzc.Base.QualityGates { throw 'Test-CatzcBuild failed: 1 failed' }
         { Test-CatzcBuild } | Should -Throw '*1 failed*'
 
         $script:destinations | Should -HaveCount 2

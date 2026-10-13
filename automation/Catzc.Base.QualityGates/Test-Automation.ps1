@@ -174,11 +174,11 @@ function Test-Automation {
     }
 
     # The harness itself — discovery, tag gates, sharding, workers, rows, reports — is the core both runs
-    # share (Invoke-TestAutomationSuite,
+    # share (Invoke-TestRun,
     # [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)). The source run loads each
     # worker through the
     # repository importer, the core's default.
-    Invoke-TestAutomationSuite -Suite 'Test-Automation' -Title 'Test Automation' -MinLevel $MinLevel -MaxLevel $MaxLevel `
+    Invoke-TestRun -EntryPoint 'Test-Automation' -Title 'Test Automation' -MinLevel $MinLevel -MaxLevel $MaxLevel `
         -Modules $Modules -Category $Category -Workers $Workers -TimeoutSeconds $TimeoutSeconds -Output $Output `
         -PassThru:$PassThru -EnforceTimings:$EnforceTimings -Rule $Rule -OutputFolder $OutputFolder `
         -Isolated:$Isolated -KeepSandbox:$KeepSandbox

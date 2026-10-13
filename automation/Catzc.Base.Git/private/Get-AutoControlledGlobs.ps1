@@ -54,6 +54,9 @@ function Get-AutoControlledGlobs {
     # The generated ADR index — a derived projection of adrs.yml, rebuilt on import (Build-AdrIndex).
     $ret.Add('docs/adr/index.md')
 
+    # The generated glossary — a derived projection of the configs/glossary.yml sources, rebuilt on import (Build-Glossary).
+    $ret.Add('docs/adr/glossary.md')
+
     # Generated cspell dictionaries, regenerated at the importer tail
     # ([ADR-REPO-OUTDIR#8](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8)).
     $ret.Add('.cspell')

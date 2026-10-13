@@ -52,7 +52,7 @@ Describe 'Get-UncoveredInternalAssetDependency' -Tag 'L0', 'logic' {
         $script:uncovered.Function | Should -Be @('Find-Gadget', 'Get-Cog', 'Set-Gadget')
     }
 
-    It 'counts a citation inherited from the Describe and one on the It in a suffixed suite' {
+    It 'counts a citation inherited from the Describe and one on the It in a suffixed test file' {
         $script:uncovered.Function | Should -Not -Contain 'Get-Gadget'
         $script:uncovered.Function | Should -Not -Contain 'Get-Sprocket'
     }

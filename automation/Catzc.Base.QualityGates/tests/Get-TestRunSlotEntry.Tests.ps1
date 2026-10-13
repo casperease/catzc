@@ -17,13 +17,13 @@ Describe 'Get-TestRunSlotEntry' -Tag 'L0', 'logic' {
         $entry.EntryParameter.RepositoryRoot | Should -Be 'C:\widget'
     }
 
-    It 'loads the snapshot''s own importer, without janitors, for the source suite' {
+    It 'loads the snapshot''s own importer, without janitors, for the source run' {
         $entry = & $script:resolve $script:snapshot ''
         $entry.EntryScript | Should -Be 'C:\tmp\catzc-run-gadget\importer.ps1'
         $entry.EntryParameter.SkipJanitors | Should -BeTrue
     }
 
-    It 'keeps a suite''s own entry script and maps only its repository paths into the snapshot' {
+    It 'keeps a run''s own entry script and maps only its repository paths into the snapshot' {
         $entry = & $script:resolve $script:snapshot 'C:\build\Import-Catzc.ps1' @{ RepositoryRoot = 'C:\widget'; Silent = $true }
         $entry.EntryScript | Should -Be 'C:\build\Import-Catzc.ps1'
         $entry.EntryParameter.RepositoryRoot | Should -Be 'C:\tmp\catzc-run-gadget'

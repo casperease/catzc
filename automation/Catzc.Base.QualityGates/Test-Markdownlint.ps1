@@ -46,6 +46,9 @@ function Test-Markdownlint {
             # [index](/docs/adr/index.md) is generated from adrs.yml (Build-AdrIndex) — a derived artifact whose source
             # (adrs.yml + the generator's prose) is what is linted, not the projection.
             '!docs/adr/index.md'
+            # [glossary](/docs/adr/glossary.md) is generated from the configs/glossary.yml sources (Build-Glossary) — likewise
+            # derived; the generator emits it already formatted.
+            '!docs/adr/glossary.md'
         ),
 
         [string] $OutputFolder,

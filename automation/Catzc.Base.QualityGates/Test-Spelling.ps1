@@ -58,6 +58,9 @@ function Test-Spelling {
             # [index](/docs/adr/index.md) is generated from adrs.yml (Build-AdrIndex) — a derived artifact; its source
             # (adrs.yml + the generator's prose) is what is reviewed, not the projection.
             'docs/adr/index.md'
+            # [glossary](/docs/adr/glossary.md) is generated from the configs/glossary.yml sources (Build-Glossary) — likewise
+            # derived; the sources are what is spell-checked.
+            'docs/adr/glossary.md'
         ),
 
         [string] $OutputFolder,
