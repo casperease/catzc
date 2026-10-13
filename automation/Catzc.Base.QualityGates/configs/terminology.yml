@@ -834,7 +834,7 @@ terms:
     - term: yaml
       meaning: "YAML"
     - term: vscode
-      meaning: "Visual Studio Code (VS Code) — the .vscode/ root folder, the Catzc.Base.VSCode module, and its Assert-Vscode* validators"
+      meaning: "Visual Studio Code (VS Code) — the .vscode/ root folder, the Catzc.Base.VSCode module, and its Vscode*Config config types"
     - term: liquibase
       meaning: "Liquibase — a database schema change/migration tool (DORA database-change-management)"
   platform:
