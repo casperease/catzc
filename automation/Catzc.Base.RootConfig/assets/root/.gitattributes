@@ -3,8 +3,10 @@
 # The `binary` macro expands to `-text -diff`: no text conversion, no textual diff.
 # Verified by automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1.
 #
-# Only binary types are marked here. There is deliberately NO `* text=auto` rule, so existing text files
-# keep their current storage and are not mass-renormalized by adding this file.
+# Line endings are pinned only where bytes matter (binaries, the C# cache key, the generated root files). There
+# is deliberately NO `* text=auto` rule, so existing text files keep their current storage and are not
+# mass-renormalized by adding this file. The linguist-* attributes at the end only steer GitHub's language
+# statistics and diff display; they change no bytes.
 
 # Committed combined C# types assembly — whole directory, any extension, since it is byte-exact build output.
 automation/.compiled/** binary
@@ -32,3 +34,15 @@ automation/.compiled/** binary
 /.gitattributes text eol=lf
 /.gitignore     text eol=lf
 /importer.ps1   text eol=lf
+
+# GitHub (linguist): third-party modules are vendored — out of the language statistics. Linguist only knows
+# `vendor/`, not this repository's `.vendor/`, so it is named here.
+automation/.vendor/** linguist-vendored
+
+# GitHub (linguist): committed files the automation writes are generated — out of the statistics, and collapsed
+# in pull-request diffs so review lands on their sources (the New-Importer shim and the managed root-config
+# copies; see docs/adr/repository/generated-root-configs.md).
+automation/.compiled/** linguist-generated
+/importer.ps1   linguist-generated
+/.gitattributes linguist-generated
+/.gitignore     linguist-generated

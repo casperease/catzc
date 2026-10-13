@@ -27,6 +27,21 @@ Describe 'Install-VendorModule' -Tag 'L0', 'logic' {
         Install-VendorModule X -RequiredVersion '5.5.0'
         Should -Invoke Save-PSResource -ModuleName Catzc.Base.Vendor -ParameterFilter { $Version -eq '5.5.0' }
     }
+
+    It 'prunes the folders the toolset never loads and keeps the rest' {
+        $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        $version = Join-Path $root 'automation/.vendor/Widget/1.0.0'
+        foreach ($folder in 'net48', 'compatibility_profiles', 'net8.0', 'Settings') {
+            New-Item -ItemType Directory -Path (Join-Path $version $folder) -Force | Out-Null
+        }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Vendor { $root }.GetNewClosure()
+        Mock Get-ChildItem -ModuleName Catzc.Base.Vendor { Microsoft.PowerShell.Management\Get-ChildItem @PesterBoundParameters }
+
+        Install-VendorModule Widget
+
+        @([System.IO.Directory]::GetDirectories($version) | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Sort-Object) |
+            Should -Be @('net8.0', 'Settings')
+    }
 }
 
 Describe 'Install-VendorModule — build mode' -Tag 'L0', 'logic' {

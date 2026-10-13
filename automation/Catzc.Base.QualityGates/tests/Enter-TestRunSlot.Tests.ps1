@@ -153,11 +153,12 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
     }
 
     It 'takes over an abandoned lock and runs in place' {
+        # A child process acquires and exits without releasing -> abandoned. Not a thread job: Wait-Job returns
+        # when the job turns Completed, which can be before its thread has exited, and only the exit abandons.
         $name = & $script:mutexName $script:root
-        Start-ThreadJob {
-            $mutex = [System.Threading.Mutex]::new($false, $using:name)
-            [void]$mutex.WaitOne()   # acquire and exit without releasing -> abandoned
-        } | Wait-Job | Remove-Job
+        $acquireAndExit = "[void][System.Threading.Mutex]::new(`$false, '$name').WaitOne()"
+        $holder = Start-Process pwsh -ArgumentList '-NoProfile', '-NonInteractive', '-Command', $acquireAndExit -NoNewWindow -PassThru
+        $holder.WaitForExit()
 
         $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Test-Automation' }
         $script:slot.Mode | Should -Be 'InPlace'

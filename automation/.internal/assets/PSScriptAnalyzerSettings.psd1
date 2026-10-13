@@ -92,22 +92,26 @@
         #   - Validates code against the win + ubuntu profiles below (cross-platform check).
         #   - Was DEAD before IncludeDefaultRules = $true (CustomRulePath without that flag runs only
         #     custom rules), so it never actually checked anything — disabling is no regression.
+        #   - The profiles it reads (PSScriptAnalyzer's ~280 MB compatibility_profiles/) are not vendored:
+        #     Install-VendorModule prunes the folder, so the rule has nothing to load
+        #     ([ADR-AUTO-VENDOR#7](/docs/adr/automation/powershell/vendor-toolset-dependencies.md#rule-adr-auto-vendor7)).
         #   - When it runs, PSScriptAnalyzer merges the target profiles into a single ~42 MB
         #     union_<hash>.json written INSIDE automation/.vendor/PSScriptAnalyzer/.../
-        #     compatibility_profiles/. That dir must stay pristine (see ADRs / .gitattributes) and the
-        #     file is untracked, so it shows up as a stray 42 MB blob after every fresh run.
+        #     compatibility_profiles/, an untracked blob after every fresh run.
         #   - With PSUseCompatibleTypes it is the slowest thing here: enabling both took the L2 analyzer
         #     test from ~28 s to ~48 s.
         #
         # To re-introduce:
-        #   1. Set Enable = $true here and on PSUseCompatibleTypes (re-enable them as a pair).
-        #   2. The first run rebuilds union_<hash>.json in .vendor. The hash is keyed off the profile
+        #   1. Vendor the profiles again: drop 'compatibility_profiles' from Install-VendorModule's pruned
+        #      folders and reinstall PSScriptAnalyzer (~280 MB of tracked JSON comes back with it).
+        #   2. Set Enable = $true here and on PSUseCompatibleTypes (re-enable them as a pair).
+        #   3. The first run rebuilds union_<hash>.json in .vendor. The hash is keyed off the profile
         #      list, so it is stable while these profiles are unchanged — build once, then commit it
         #      (mark `binary` in .gitattributes given the size) to stop the churn. Cost: ~42 MB repo bloat.
-        #   3. Confirm the ~20 s/run slowdown is acceptable. We did NOT measure whether that is a one-time
+        #   4. Confirm the ~20 s/run slowdown is acceptable. We did NOT measure whether that is a one-time
         #      build vs a per-run load+compare (each shard process loads the 42 MB profile) — measure
         #      first, because if it is per-run, committing the cache does not buy back the speed.
-        #   4. Re-check that win + ubuntu are the platforms you actually target.
+        #   5. Re-check that win + ubuntu are the platforms you actually target.
         PSUseCompatibleCmdlets                    = @{
             Enable        = $false  # OFF: writes 42 MB cache into .vendor + slowest rule; see note above
             compatibility = @(
