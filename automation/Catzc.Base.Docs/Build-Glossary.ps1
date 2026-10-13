@@ -13,7 +13,7 @@
     collapses) and rebuilt on import, its sources (the glossary files and this generator) are what is reviewed and
     checked
     ([ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)). It is written only when its
-    content changes, and emitted already formatted (Format-GlossaryParagraph), so Format-Markdown is a no-op on it.
+    content changes, and emitted already formatted (Format-MarkdownParagraph), so Format-Markdown is a no-op on it.
 .PARAMETER Path
     The page to write. Defaults to the [glossary](/docs/adr/glossary.md); a test points it at a fixture path.
 .PARAMETER DryRun
@@ -53,7 +53,7 @@ function Build-Glossary {
     '`Build-Glossary` — edit a source, never this page. A term''s meaning is fixed by the one ADR rule that defines it ' +
     '([controlled-vocabulary](repository/controlled-vocabulary.md)); this page collects them, with how each differs from its ' +
     'neighbours and the phrasings to avoid. `Test-Glossary` checks the sources.'
-    foreach ($line in (Format-GlossaryParagraph -Text $intro)) {
+    foreach ($line in (Format-MarkdownParagraph -Text $intro)) {
         $lines.Add($line)
     }
 
@@ -70,7 +70,7 @@ function Build-Glossary {
             $lines.Add('')
             $lines.Add("### $($concept.term)")
             $lines.Add('')
-            foreach ($line in (Format-GlossaryParagraph -Text $concept.short)) {
+            foreach ($line in (Format-MarkdownParagraph -Text $concept.short)) {
                 $lines.Add($line)
             }
             $lines.Add('')
@@ -110,7 +110,7 @@ function Build-Glossary {
                 [System.Array]::Sort($others, [System.StringComparer]::Ordinal)
                 foreach ($other in $others) {
                     $text = "[$other](#$($other -replace ' ', '-')): $($concept.contrasts[$other])"
-                    foreach ($line in (Format-GlossaryParagraph -Text $text -FirstPrefix '  - ' -ContinuationPrefix '    ')) {
+                    foreach ($line in (Format-MarkdownParagraph -Text $text -FirstPrefix '  - ' -ContinuationPrefix '    ')) {
                         $lines.Add($line)
                     }
                 }

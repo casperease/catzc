@@ -267,7 +267,7 @@ Describe 'AzureConfig' -Tag 'L0' {
 
         It 'throws when a tenant or subscription name is not lower-snake_case' {
             $bad = Copy-Object $baseConfig
-            $bad.tenants.Add('OtherTenant', [ordered]@{ id = 'fa0e0000-7e0a-0700-1d00-000000000001' })
+            $bad.tenants.Add('OtherTenant', [ordered]@{ id = 'fa0e0000-7e0a-0700-1d00-000000000000' })
             $err = { & $script:make $bad } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*tenant name 'OtherTenant' is not a valid identifier*"
         }

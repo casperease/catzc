@@ -13,7 +13,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         Mock Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates { }
         Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VSCodeSettings'; Changed = $false; DryRun = $true }
-            [pscustomobject]@{ Target = '.gadgetrc'; Source = 'assets/.gadgetrc'; Generator = $null; Changed = $false; DryRun = $true }
+            [pscustomobject]@{ Target = 'gadget.json'; Source = 'assets/gadget.json'; Generator = $null; Changed = $false; DryRun = $true }
         }
         $script:reportFolder = Join-Path $TestDrive 'generated-files'
     }
@@ -51,18 +51,18 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
     It 'attributes a rendered root file to its generator and a copied one to Build-RootConfig' {
         Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VSCodeSettings'; Changed = $true; DryRun = $true }
-            [pscustomobject]@{ Target = '.gadgetrc'; Source = 'assets/.gadgetrc'; Generator = $null; Changed = $true; DryRun = $true }
+            [pscustomobject]@{ Target = 'gadget.json'; Source = 'assets/gadget.json'; Generator = $null; Changed = $true; DryRun = $true }
         }
 
         $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
         $result.Issues | Should -Contain "widget.json: stale — New-VSCodeSettings would change it; regenerate with: Build-RootConfig 'widget.json'"
-        $result.Issues | Should -Contain ".gadgetrc: stale — Build-RootConfig would change it; regenerate with: Build-RootConfig '.gadgetrc'"
+        $result.Issues | Should -Contain "gadget.json: stale — Build-RootConfig would change it; regenerate with: Build-RootConfig 'gadget.json'"
     }
 
     It 'checks only the selected generators, and a rendered generator selects only its own root files' {
         Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VSCodeSettings'; Changed = $true; DryRun = $true }
-            [pscustomobject]@{ Target = '.gadgetrc'; Source = 'assets/.gadgetrc'; Generator = $null; Changed = $true; DryRun = $true }
+            [pscustomobject]@{ Target = 'gadget.json'; Source = 'assets/gadget.json'; Generator = $null; Changed = $true; DryRun = $true }
         }
 
         $result = Test-GeneratedFiles -Generator New-VSCodeSettings -PassThru -OutputFolder $script:reportFolder
@@ -86,7 +86,7 @@ Describe 'Get-EnglishDictionaryDrift' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:assets = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory($script:assets) | Out-Null
-        $words = [System.Text.Encoding]::UTF8.GetBytes("gadget`nwidget`n")
+        $words = [System.Text.Encoding]::UTF8.GetBytes((@('gadget', 'widget', '') -join "`n"))
         [System.IO.File]::WriteAllBytes((Join-Path $script:assets 'english.txt.gz'), [Catzc.Base.QualityGates.GzipText]::Compress($words))
         $script:writeStamp = {
             param([string] $Cspell, [int] $WordCount)

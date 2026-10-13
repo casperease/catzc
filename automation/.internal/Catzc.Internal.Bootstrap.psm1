@@ -508,11 +508,14 @@ function Import-CSharpTypes {
             $changeSummary += ' Drifted: ' + ($drift -join '; ') + '.'
         }
         # A loaded assembly cannot be swapped in the AppDomain. In a pipeline a stale-types load is a HARD
-        # failure (CI must never run on old types); on a devbox, degrade gracefully — keep the already-loaded
-        # types this session, warn (orange), and return WITHOUT recording the new hash, so the warning repeats
-        # on every re-import until you restart. The pipeline check is INLINED because Test-IsRunningInPipeline
-        # lives in Catzc.Base.Repository, which loads AFTER this pre-pass runs and so is not callable here.
-        if (([bool]$env:TF_BUILD) -or ([bool]$env:GITHUB_ACTIONS)) {
+        # failure (CI must never run on old types). On a devbox, a type the AppDomain lacks (added, or not
+        # loaded cross-root) is a hard failure too — the code that uses it is certain to fail later, far from
+        # here. A changed or removed type degrades gracefully — keep the already-loaded types this session,
+        # warn (orange), and return WITHOUT recording the new hash, so the warning repeats on every re-import
+        # until you restart. The pipeline check is INLINED because Test-IsRunningInPipeline lives in
+        # Catzc.Base.Repository, which loads AFTER this pre-pass runs and so is not callable here.
+        $missingTypes = @($drift | Where-Object { $_.StartsWith('added ') -or $_.StartsWith('not loaded ') })
+        if (([bool]$env:TF_BUILD) -or ([bool]$env:GITHUB_ACTIONS) -or $missingTypes.Count) {
             throw "$changeSummary Restart PowerShell to pick up the change."
         }
         Write-ImporterMessage "Using old cached C# types — $changeSummary Restart PowerShell to pick up the change." -ForegroundColor DarkYellow

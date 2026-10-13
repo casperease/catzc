@@ -89,13 +89,13 @@ therefore fails fast on any collision; the mechanics live in
 
 ### Module dependency graph
 
-The allowed inter-module dependency graph is declared in `Catzc.Base.ModuleSystem/configs/dependencies.yml` and enforced by
-`Assert-ModuleDependency`. The file has two sections: `groups:` and `modules:`. A `groups:` entry declares a named set of on-disk modules
-with its own internal member→member DAG — a group is a concept, not a disk module; its name is a logical handle, not a folder. A consumer
-module's allowed-deps in `modules:` may name a GROUP (permitting an edge to any member of that group) and/or a specific MODULE (tight
-coupling). Integrity is group-aware: actual edges must fall within the resolved allow-set, each group's internal DAG must be acyclic, and
-actual intra-group edges must be a subset of the declared internal map. The `Catzc.Base.*` cluster is held together as the `Base` group —
-its modules are the group's members, each with its own intra-group layering declared in `dependencies.yml`.
+The allowed inter-module dependency graph is declared in `Catzc.Base.ModuleSystem/configs/dependencies.yml` and enforced by the
+`Test-ModuleDependency` quality gate. The file has two sections: `groups:` and `modules:`. A `groups:` entry declares a named set of on-disk
+modules with its own internal member→member DAG — a group is a concept, not a disk module; its name is a logical handle, not a folder. A
+consumer module's allowed-deps in `modules:` may name a GROUP (permitting an edge to any member of that group) and/or a specific MODULE
+(tight coupling). Integrity is group-aware: actual edges must fall within the resolved allow-set, each group's internal DAG must be acyclic,
+and actual intra-group edges must be a subset of the declared internal map. The `Catzc.Base.*` cluster is held together as the `Base` group
+— its modules are the group's members, each with its own intra-group layering declared in `dependencies.yml`.
 
 ## Decision
 
@@ -125,7 +125,7 @@ The platform must remain open for extension and closed for modification. Concret
 
 ## Disambiguation
 
-The module-dependency graph this ADR references (`dependencies.yml`, `groups:`/`modules:`, `Assert-ModuleDependency`) is owned by
+The module-dependency graph this ADR references (`dependencies.yml`, `groups:`/`modules:`, `Test-ModuleDependency`) is owned by
 [controlling-module-dependencies](controlling-module-dependencies.md) (`ADR-AUTO-DEPM`).
 
 ## Consequences

@@ -1,10 +1,9 @@
 <#
 .SYNOPSIS
-    Returns the config override registry (this module's configs/configs.yml), keyed by config name.
+    Returns the config registry (this module's configs/configs.yml), keyed by config name.
 .DESCRIPTION
-    The optional override overlay for Get-Config: maps a config name to a non-default handler — a C# type
-    (`type:`) or a custom-named pwsh validator (`pwsh:`). Most configs need no entry (they use the
-    Assert-<Name>Config convention or load raw). Loaded directly here (not via Get-Config, to avoid
+    The registry Get-Config reads: maps each shipped config name to its C# config type (`type:`). An
+    unregistered config loads raw. Loaded directly here (not via Get-Config, to avoid
     circularity), validated by the C# type Catzc.Base.Config.ConfigsConfig (which the registry registers for
     its own 'configs' config), and cached for the session. The file is located through Get-CatzcModuleRoot, so
     the shipped registry resolves inside the loaded module in both run modes

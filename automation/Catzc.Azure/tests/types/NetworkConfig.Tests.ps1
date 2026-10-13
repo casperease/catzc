@@ -34,7 +34,10 @@ Describe 'NetworkConfig' -Tag 'L0' {
                         core_lower = [ordered]@{ id = '50a0ed00-de00-50b0-0000-000000000000'; tenant = 'fixtenant'; environments = @('alpha') }
                     }
                     environments      = [ordered]@{
-                        alpha = (& $environment 'al'); beta = (& $environment 'bt'); gamma = (& $environment 'gm'); delta = (& $environment 'dl')
+                        alpha = (& $environment 'al')
+                        beta  = (& $environment 'bt')
+                        gamma = (& $environment 'gm')
+                        delta = (& $environment 'dl')
                         nsub  = [ordered]@{ shortcode = 'ns'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
                         psub  = [ordered]@{ shortcode = 'ps'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
                     }

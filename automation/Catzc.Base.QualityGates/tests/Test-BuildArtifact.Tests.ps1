@@ -81,7 +81,9 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
     }
 
     It 'turns each violation of a failed build into one issue' {
-        Mock Build-Modules -ModuleName Catzc.Base.QualityGates { throw "Catzc build at 'x' is invalid:`nmissing build.json`nmodule 'Catzc.Gadget' is missing its manifest" }
+        Mock Build-Modules -ModuleName Catzc.Base.QualityGates {
+            throw (@("Catzc build at 'x' is invalid:", 'missing build.json', "module 'Catzc.Gadget' is missing its manifest") -join "`n")
+        }
 
         $result = Test-BuildArtifact -PassThru -OutputFolder $script:reportFolder
         $result.Issues | Should -Be @(

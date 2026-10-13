@@ -175,11 +175,11 @@ pipelines/
 - **The filename prefix is the authoring contract, not the classifier.** A pipeline's type is its filename prefix for readers and for the
   directory index; the tooling above derives Pipeline-vs-Template from YAML keys and ADO data. A pipeline whose prefix disagrees with its
   structure or its ADO registration is visible as a convention break at review.
-- **`Assert-Pipelines` / `Test-Pipelines`** — an automated, offline gate (an L1 integrity test in Test-Automation) that checks the
+- **`Test-Pipelines`** — an offline quality gate ([ADR-AUTO-TEST#35](../automation/test-automation.md#rule-adr-auto-test35)) that checks the
   `pipelines/` tree against this ADR: the type prefix (:1), flat placement and the closed set of per-kind template folders with matching
-  fragment kinds (:2/:3), the `.yaml` extension (:6), and absolute `/pipelines/...` template references (:4). `Test-Pipelines` returns one
-  record per violation (with its rule code), and the L1 test requires zero of them over the real tree, so a mis-named or misplaced pipeline
-  fails CI, not just review; `Assert-Pipelines` throws the collected list.
+  fragment kinds (:2/:3), the `.yaml` extension (:6), and absolute `/pipelines/...` template references (:4). It collects one issue per
+  violation, each naming its rule code, and throws once listing them all; its L1 integrity test requires zero issues over the real tree, so
+  a mis-named or misplaced pipeline fails CI, not just review.
 
 ## Status
 

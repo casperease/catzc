@@ -29,7 +29,7 @@ Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'automation' }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.ConfigExtensions { Join-Path $TestDrive 'automation' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
@@ -54,5 +54,14 @@ Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {
         finally {
             Remove-Item (Join-Path $TestDrive 'automation/TstGadget/configs/sprocket.yml')
         }
+    }
+}
+
+Describe 'Config validator coverage' -Tag 'L0', 'integrity' {
+    # Title deliberately avoids Pester's <var> name-template syntax — under the importer's strict mode an
+    # unmatched <name> token in an It title throws at name-expansion time instead of expanding to empty.
+    It 'every Assert-*Config validator maps to a configs/*.yml in its module (no orphans)' {
+        $result = Test-ConfigValidators -PassThru -OutputFolder (Join-Path $TestDrive 'config-validators')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

@@ -95,12 +95,12 @@ The baseline is the floor. Each language adds its own `.editorconfig` section (i
 formatter/analyzer. The exact per-language values live in `.editorconfig`; this ADR does not restate them — it records only which tool
 governs each language:
 
-| Language                            | Governed by                                                                                                                                                  |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| PowerShell (`.ps1`/`.psm1`/`.psd1`) | `.editorconfig` + `PSScriptAnalyzerSettings.psd1` — see [powershell-formatting](../automation/powershell/powershell-formatting.md)                           |
-| YAML (`.yml`/`.yaml`)               | `.editorconfig`; `.yaml` pipelines additionally formatted by Prettier (`Format-Pipelines`) and gated on naming/placement (`Assert-Pipelines`, ADR-PIPE-NAME) |
-| JSON                                | `.editorconfig`                                                                                                                                              |
-| Markdown (`.md`)                    | `.editorconfig` + `.markdownlint.yml`, formatted by Prettier                                                                                                 |
+| Language                            | Governed by                                                                                                                                                |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PowerShell (`.ps1`/`.psm1`/`.psd1`) | `.editorconfig` + `PSScriptAnalyzerSettings.psd1` — see [powershell-formatting](../automation/powershell/powershell-formatting.md)                         |
+| YAML (`.yml`/`.yaml`)               | `.editorconfig`; `.yaml` pipelines additionally formatted by Prettier (`Format-Pipelines`) and gated on naming/placement (`Test-Pipelines`, ADR-PIPE-NAME) |
+| JSON                                | `.editorconfig`                                                                                                                                            |
+| Markdown (`.md`)                    | `.editorconfig` + `.markdownlint.yml`, formatted by Prettier                                                                                               |
 
 Adding a language means adding its `.editorconfig` section (and, if it has one, wiring its formatter into the tests as a quality gate) — not
 inventing a new formatting philosophy.
@@ -163,9 +163,9 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - **Per-language analyzers** — each language's specific rules run in its own gate. For PowerShell this is PSScriptAnalyzer plus custom rules
   in the L2 tests (see [powershell-formatting](../automation/powershell/powershell-formatting.md)). For Markdown it is markdownlint
   (`.markdownlint.yml`), formatted by Prettier and kept in sync with it. For ADO pipeline YAML (`.yaml`) it is Prettier (`Format-Pipelines`,
-  the same engine as Markdown) plus the naming-and-placement gate `Assert-Pipelines`
-  ([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md)) — both run in the L2 tests, so drifted or misplaced
-  pipeline YAML fails CI.
+  the same engine as Markdown, checked by the `Test-Formatting` gate in an L2 test) plus the naming-and-placement gate `Test-Pipelines`
+  ([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md), an L1 integrity test) — both run in every CI test run, so
+  drifted or misplaced pipeline YAML fails CI.
 - **Generated artifacts** — a build-generated artifact is emitted canonical by its generator (the module-manifest emitter), and an L2 test
   asserts the formatter is a no-op over generated output, so its bytes cannot drift from the standard.
 - **Links** — `Format-Links` aligns every link mechanically (code links repository-rooted, markdown links relative, rule citations spelled

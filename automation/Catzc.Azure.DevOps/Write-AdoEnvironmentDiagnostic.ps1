@@ -13,7 +13,7 @@ function Write-AdoEnvironmentDiagnostic {
     [CmdletBinding()]
     param()
 
-    $whitelist = Get-Config -Config pipeline-env
+    $whitelist = (Get-Config -Config pipeline-env).variables
 
     $entries = foreach ($name in $whitelist) {
         $value = [System.Environment]::GetEnvironmentVariable($name)

@@ -77,7 +77,7 @@ guids:
   fixture_unknown_tenant_subscription:
     guid: 10570000-7e0a-0700-50b0-000000000000
     sentence: lost tenant sub
-    description: Assert-AzureConfig test fixture — a subscription referencing an unknown tenant
+    description: AzureConfig type test fixture — a subscription referencing an unknown tenant
   fixture_wrong_subscription:
     guid: 00700000-70a7-50b0-0000-000000000000
     sentence: not that sub

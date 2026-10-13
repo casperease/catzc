@@ -16,7 +16,8 @@ and an actual edge with no declaration fails the build.
 
 The graph is unified across both kinds of module content. A cross-module `pwsh` function call and a cross-module C# type reference are the
 same relationship — module A needs module B — so they live in one graph, not two: `Get-ModuleDependency` extracts the function-call edges,
-`Get-CSharpTypeDependency` the type-reference edges, and `Assert-ModuleDependency` checks their union against the single `dependencies.yml`.
+`Get-CSharpTypeDependency` the type-reference edges, and the `Test-ModuleDependency` quality gate checks their union against the single
+`dependencies.yml`.
 
 - [One graph, two kinds of edge](#one-graph-two-kinds-of-edge)
 
@@ -30,10 +31,10 @@ or a specific MODULE (tight). A module absent from `modules:` is unconstrained.
 
 ### Rule ADR-AUTO-DEPM:4
 
-Integrity is group-aware and fails fast. At load, `Assert-DependenciesConfig` checks that every target resolves to a declared module or
-group, that the module graph and each group's internal DAG are acyclic, and that every declared module and group member exists on disk.
-Against the real code, `Assert-ModuleDependency` checks that each actual edge falls within the resolved allow-set and that actual
-intra-group edges are a subset of the declared internal map.
+Integrity is group-aware and fails fast. At load, the `DependenciesConfig` type checks the declaration's shape: every target resolves to a
+declared module or group, each group is closed over its own members, and the module graph and each group's internal DAG are acyclic. Against
+the real repository, the `Test-ModuleDependency` quality gate checks that every declared module and group member exists on disk, that each
+actual edge falls within the resolved allow-set, and that actual intra-group edges are a subset of the declared internal map.
 
 - [Enforcement](#enforcement)
 
@@ -111,8 +112,8 @@ it.
 
 `dependencies.yml` is the single declaration of which module may depend on which. It is an allow-list, and the direction of truth is
 one-way: the code is checked against the declaration, never the reverse. An edge that exists in the code but not in the declaration is a
-violation, and a declared target that does not exist on disk is rejected at load. There is no second place a dependency can be expressed —
-no per-module manifest of imports, no implicit "whatever it happens to call."
+violation, a target that is not itself declared is rejected at load, and a declared module that does not exist on disk is a gate finding.
+There is no second place a dependency can be expressed — no per-module manifest of imports, no implicit "whatever it happens to call."
 
 ### One graph, two kinds of edge
 
@@ -120,8 +121,8 @@ A module's content is of two kinds — `pwsh` functions and C# types — but a d
 which kind carries it. A cross-module function call and a cross-module type reference both mean "module A needs module B," so they are
 unified in one graph rather than split across two declarations. `Get-ModuleDependency` extracts the function-call edges and
 `Get-CSharpTypeDependency` the type-reference edges (the combined assembly means the C# compiler will not — see
-[native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types4)); `Assert-ModuleDependency` unions the two sets and checks them
-against the one `dependencies.yml`. There is no separate "type dependency" file to keep in sync.
+[native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types4)); `Test-ModuleDependency` unions the two sets and checks them against
+the one `dependencies.yml`. There is no separate "type dependency" file to keep in sync.
 
 ### Groups and modules
 
@@ -141,11 +142,13 @@ depended on as a unit without enumerating every member at every call site.
 
 The graph is checked at two moments, and both fail fast:
 
-- **At load** — `Assert-DependenciesConfig` validates `dependencies.yml` itself: every target resolves to a declared module or group; the
-  module graph and each group's internal member→member graph are acyclic; and every declared module and group member exists on disk.
-- **Against the real code** — `Assert-ModuleDependency` compares the extracted edges (`Get-ModuleDependency` + `Get-CSharpTypeDependency`)
-  to the resolved allow-set: each actual edge must fall within it, and actual intra-group edges must be a subset of the group's declared
-  internal map. An undeclared edge fails the L1 integrity tests.
+- **At load** — the `DependenciesConfig` type (with `ModuleGroup` for each group) validates `dependencies.yml` itself, without reading the
+  disk: every target resolves to a declared module or group; each group is closed over its members; and the module graph and each group's
+  internal member→member graph are acyclic.
+- **Against the real repository** — the `Test-ModuleDependency` quality gate ([ADR-AUTO-TEST#35](test-automation.md#rule-adr-auto-test35))
+  reports every declared module and group member that does not exist on disk (`UnknownModule`), and compares the extracted edges
+  (`Get-ModuleDependency` + `Get-CSharpTypeDependency`) to the resolved allow-set: each actual edge must fall within it, and actual
+  intra-group edges must be a subset of the group's declared internal map. Its L1 integrity test fails on any finding.
 
 ### Extend by declaring
 
@@ -201,11 +204,12 @@ describes, and adding or moving a dependency is a reviewed change.
 
 - **`dependencies.yml`** (`automation/Catzc.Base.ModuleSystem/configs/`) — the single declared allow-list of module edges, with its
   `groups:` and `modules:` sections.
-- **`Assert-DependenciesConfig`** — validates the declaration at load: resolvable targets, acyclic module and group graphs, on-disk
-  existence.
+- **`DependenciesConfig`** — the config type that validates the declaration at load: resolvable targets, closed groups, acyclic module and
+  group graphs.
 - **`Get-ModuleDependency`** + **`Get-CSharpTypeDependency`** — extract the actual function-call and C# type-reference edges from the code.
-- **`Assert-ModuleDependency`** — checks the extracted edges against the declaration (allow-set membership and the group's internal-map
-  subset rule), failing the L1 integrity tests on any undeclared edge.
+- **`Test-ModuleDependency`** — the quality gate that checks the declaration against the repository (every declared module and group member
+  exists on disk) and the extracted edges against the declaration (allow-set membership and the group's internal-map subset rule), failing
+  its L1 integrity test on any finding.
 - **Code review** — enforces `ADR-AUTO-DEPM:5`: a new edge is declared in the same change as the code, not deferred.
 - **`Install-VendorModule`** + **`Import-VendorModules`** ([vend](powershell/vendor-toolset-dependencies.md)) — pin a vendored internal
   dependency by its `automation/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-AUTO-DEPM:8`).

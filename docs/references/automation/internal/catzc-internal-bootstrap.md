@@ -28,9 +28,10 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   combined source hash from [Catzc.Internal.Types](catzc-internal-types.md) (the same hash the cache janitor uses, so the two can never
   drift), enforces the loader's poka-yokes (a dotted filename or a namespace that does not match the module folder is rejected — the same
   invariant `Test-Types` enforces), loads the committed DLL when its hash matches or compiles fresh through Roslyn once per hash, verifies
-  every expected type resolved, and publishes each type's `[PSTypeAlias]` accelerator. On a devbox it degrades gracefully when the live
-  types are stale (warn and keep the loaded copy); in CI a stale-types load is a hard failure. The full contract is the
-  [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md) ADR and the [BCL type-system reference](../BCL/types-system.md).
+  every expected type resolved, and publishes each type's `[PSTypeAlias]` accelerator. On a devbox it degrades gracefully when a live type
+  changed or was removed (warn and keep the loaded copy), and fails fast when a type was added since load; in CI a stale-types load is a
+  hard failure. The full contract is the [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md) ADR and the
+  [BCL type-system reference](../BCL/types-system.md).
 - **Collision guard** — `Assert-UniqueModuleFunctionName` turns PowerShell's silent last-writer-wins command shadowing into a loud, fast
   failure before anything loads. It catches two cases and reports all of them at once: two automation modules exporting the same name, and
   an automation function whose name would shadow an already-imported shipped command (a vendored module, a built-in, or an `.internal`

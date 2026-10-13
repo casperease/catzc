@@ -8,8 +8,9 @@
 #   modules: per consumer module, the names it may depend on — each a GROUP (loose: any member) or a specific
 #            MODULE (tight). A module NOT listed here is unconstrained.
 #
-# Rules (asserted at load): targets resolve to a declared module or group; the module graph and each group's
-# internal graph are acyclic; declared modules and group members exist on disk. No back-compat — one source
+# Rules checked at load (DependenciesConfig): targets resolve to a declared module or group; each group is
+# closed over its members; the module graph and each group's internal graph are acyclic. Test-ModuleDependency
+# reports a declared module or group member that does not exist on disk. No back-compat — one source
 # of truth (the infra system is pre-production).
 
 groups:
@@ -23,6 +24,7 @@ groups:
         Catzc.Base.Writers: [Catzc.Base.Objects, Catzc.Base.Asserts]
         Catzc.Base.Config: [Catzc.Base.Repository, Catzc.Base.Asserts]
         Catzc.Base.Reports: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts]
+        Catzc.Base.ConfigExtensions: [Catzc.Base.Reports, Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Asserts]
         Catzc.Base.Variants: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Asserts]
         Catzc.Base.Docs: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Files, Catzc.Base.Execution, Catzc.Base.Globs, Catzc.Base.Reports, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts]
         Catzc.Base.Vendor: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Writers, Catzc.Base.Repository]

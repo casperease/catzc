@@ -1,4 +1,4 @@
-Describe 'Get-AdrRuleSet integrity' -Tag 'L1', 'integrity', 'ADR-CONF-LOADING#5' {
+Describe 'Get-AdrRuleSet integrity' -Tag 'L1', 'integrity', 'ADR-CONF-LOADING#4' {
     BeforeAll {
         $script:ruleSets = Get-AdrRuleSet
         $adrRoot = Resolve-RepoPath 'docs/adr'

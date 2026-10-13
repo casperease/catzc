@@ -7,13 +7,10 @@
     Resolve-ConfigEntry); -Module disambiguates the rare case of the same config name in two modules. The parsed config (ConvertFrom-Yaml -Ordered) is cached per resolved
     path for the session (re-run the importer to clear) and the same reference is returned on repeat calls.
 
-    Validation/mapping is resolved against the OWNING module (from discovery), in this order:
-      1. Registry override (configs/configs.yml): `<name>: { type: <C# FQN> }` constructs [type]::new($dict)
-         (maps + validates); `<name>: { pwsh: <Fn> }` runs that function in the owner's scope.
-      2. Convention: a private Assert-<TitleCase(name)>Config in the owner module, run in the owner's scope.
-      3. Raw: neither → the ordered dictionary, unvalidated (the sensible default).
-    Resolution always targets the owner module (`& (Get-Module $owner) { … }`), so validators stay private
-    and the result is the same no matter which module called Get-Config. See ADR module-config-loading.
+    A config registered in configs/configs.yml (`<name>: { type: <C# FQN> }`) is constructed as
+    [type]::new($dict), which maps and validates it; every shipped config is registered (Test-ShippedConfigs).
+    An unregistered config — a fixture, or one a PowerShell validator checks through Invoke-ConfigValidator
+    (Catzc.Base.ConfigExtensions) — is returned raw, as the ordered dictionary. See ADR module-config-loading.
 
     -ListOwners loads nothing: it lists every module that ships the config, as @{ Name; Module; Path } sorted
     by module name (ordinal), and nothing when none does. A config several modules opt into by shipping it
@@ -63,35 +60,12 @@ function Get-Config {
     Assert-PathExist $entry.Path
     $raw = Get-Content $entry.Path -Raw | ConvertFrom-Yaml -Ordered
 
-    $owner = Get-Module $entry.Module
-    if (-not $owner) {
-        throw "Config '$($entry.Name)': owning module '$($entry.Module)' is not loaded."
-    }
-
     $ret = $raw
-    $override = (Get-ConfigRegistry)[$entry.Name]
-    if ($override) {
-        # Registry override (advanced): a C# type (maps + validates) or a custom-named pwsh validator.
-        if ($override.Contains('type') -and $override['type']) {
-            $type = [type] $override['type']
-            $ret = $type::new($raw)
-        }
-        elseif ($override.Contains('pwsh') -and $override['pwsh']) {
-            & $owner { param($fn, $c) & $fn $c } $override['pwsh'] $raw
-        }
-    }
-    else {
-        # Convention: Assert-<TitleCase(name)>Config in the owner's scope (private), if it exists.
-        $titleName = -join ($entry.Name -split '-' | ForEach-Object {
-                [cultureinfo]::InvariantCulture.TextInfo.ToTitleCase($_)
-            })
-        $convName = "Assert-${titleName}Config"
-        & $owner {
-            param($fn, $c)
-            if (Get-Command $fn -CommandType Function -ErrorAction Ignore) {
-                & $fn $c
-            }
-        } $convName $raw
+    $registered = (Get-ConfigRegistry)[$entry.Name]
+    if ($registered) {
+        # The registered C# type maps and validates the parsed dictionary at construction.
+        $type = [type] $registered['type']
+        $ret = $type::new($raw)
     }
 
     Write-Verbose "Loaded config '$($entry.Name)' from: $($entry.Path)"

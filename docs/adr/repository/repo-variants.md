@@ -24,11 +24,12 @@ reader is the single access point the primitives share.
 
 ### Rule ADR-REPO-VARIANT:3
 
-`Catzc.Base.Variants` depends only on `Catzc.Base.Config` (to read the file) and `Catzc.Base.Asserts` (for the `Assert-` guards), and its
-validator (`Assert-VariantsConfig`) is **self-contained** — it validates the parsed dictionary and reads no other config. So the only edge
-is `Variants → Config`, which is acyclic because `Config` never depends on `Variants`. The consequence is the reach: the primitives are
-callable from any module **above the Config layer** (all of `AzureExt`, `Tooling`, and the upper `Base` modules) — which is every real
-consumer; only `Config`/`Repository`/`Asserts` themselves cannot call them, and they have no need to.
+`Catzc.Base.Variants` depends only on `Catzc.Base.Config` (to read the file), `Catzc.Base.Objects` (the `DictionaryRecord` base of its config
+type), and `Catzc.Base.Asserts` (for the `Assert-` guards), and its config type (`VariantsConfig`) is **self-contained** — it validates the
+parsed dictionary and reads no other config. So the edges are `Variants → Config` and two foundation edges, all acyclic because none of
+those modules depends on `Variants`. The consequence is the reach: the primitives are callable from any module **above the Config layer**
+(all of `AzureExt`, `Tooling`, and the upper `Base` modules) — which is every real consumer; only `Config`/`Objects`/`Repository`/`Asserts`
+themselves cannot call them, and they have no need to.
 
 - [A Base module](#a-base-module)
 
@@ -75,7 +76,7 @@ re-importing. What it takes is a place to put such values and a disciplined way 
 ### What a variant is
 
 A variant is a repo-wide switch backed by `Catzc.Base.Variants/configs/variants.yml`, loaded and validated by `Get-Config -Config variants`
-(convention validator `Assert-VariantsConfig`), and cached for the session. "Fixed for the importer session" is not special machinery — it
+(through its config type `VariantsConfig`), and cached for the session. "Fixed for the importer session" is not special machinery — it
 is the ordinary `Get-Config` cache boundary (`ADR-AUTO-CACHE:6`, `ADR-AUTO-PSCACHE:1`): the value is read once, every caller sees the same
 answer, and re-running the importer is the only way to pick up an edit. The set of variants is open: `variants.yml` is a dictionary that
 grows a key (and a matching primitive) whenever a new repo-wide switch is genuinely needed.
@@ -99,8 +100,9 @@ The primitives must be usable as trivial guards wherever a repo-wide decision ma
 step, anywhere. That argues for a low, widely-dependable **Base** module rather than the Azure layer. Reading a config never bypasses
 `Get-Config` (`ADR-CONF-LOADING:1`), so `Catzc.Base.Variants` depends on `Catzc.Base.Config`; that edge is acyclic because `Config` depends
 only on `Repository` and `Asserts`, never on `Variants`. The reach follows from the graph: any module that sits **above** the Config layer
-can call the primitives — every `AzureExt`, `Tooling`, and upper-`Base` module — and the three foundation modules that cannot (`Config`,
-`Repository`, `Asserts`) never need to. The module's validator stays self-contained so validation adds no further edges; a variant that
+can call the primitives — every `AzureExt`, `Tooling`, and upper-`Base` module — and the foundation modules that cannot (`Config`,
+`Objects`, `Repository`, `Asserts`) never need to. The module's config type stays self-contained so validation adds no further edges; a
+variant that
 needed to cross-check another asset would belong to that asset's layer, not here.
 
 ### The three variants
@@ -121,16 +123,18 @@ needed to cross-check another asset would belong to that asset's layer, not here
 ## Decision
 
 Repo-wide, session-fixed settings are **variants**: keys in `Catzc.Base.Variants/configs/variants.yml`, each read only through a `Get-`/
-`Test-`/`Assert-` primitive over the shared private `Get-Variant` reader. The module depends on `Config` and `Asserts` only, its validator
-is self-contained, and the primitives are therefore callable from any module above the Config layer.
+`Test-`/`Assert-` primitive over the shared private `Get-Variant` reader. The module depends on `Config`, `Objects`, and `Asserts` only, its
+config type is self-contained, and the primitives are therefore callable from any module above the Config layer.
 
 ### How this is enforced
 
-- **`Assert-VariantsConfig`** (private, convention-dispatched by `Get-Config`) validates `variants.yml` on load: known keys only,
-  `ado_naming ∈ {standard, classic}`, `git_workspace ∈ {main-direct, main-via-pr}`, `have_customers` is `false`/`all`/a valid name list. A
-  typo fails fast at import.
-- **The dependency graph** (`dependencies.yml`, `Assert-ModuleDependency`) declares
-  `Catzc.Base.Variants: [Catzc.Base.Config, Catzc.Base.Asserts]` and would fail the L2 tests on any edge that made the graph cyclic.
+- **`VariantsConfig`** (the C# config type registered for `variants` in `configs.yml`) validates `variants.yml` when `Get-Config` loads
+  it: known keys only, `ado_naming ∈ {standard, classic}`, `git_workspace ∈ {main-direct, main-via-pr}`, `have_customers` is
+  `false`/`true`/`all`/a valid name list, and each `aspects` track is a well-formed ordered classification ending in the `**` catch-all. A
+  typo fails fast at load, with every violation in one error.
+- **The dependency graph** (`dependencies.yml`, the `Test-ModuleDependency` quality gate) declares
+  `Catzc.Base.Variants: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Asserts]` in the `Base` group; `DependenciesConfig` rejects a
+  cyclic declaration at load, and the gate's L1 integrity test fails on any actual edge outside it.
 - **Code review** keeps new repo-wide switches in this module as variants with their own primitives, rather than as ad-hoc config reads or
   environment variables.
 

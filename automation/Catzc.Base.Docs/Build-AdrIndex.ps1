@@ -128,6 +128,54 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   `dora-explains.md`.
 '@
 
+    # The authored prose above is wrapped for reading here, not for the page: reflow every paragraph and list item
+    # through Format-MarkdownParagraph (Prettier's fill), so the generated page is formatter-stable
+    # ([ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)). A heading and a blank
+    # line pass through; a '- ' line opens a list item, and an indented or plain line continues the open block.
+    $reflow = {
+        param([string] $Markdown)
+        $out = [System.Collections.Generic.List[string]]::new()
+        $block = $null
+        $flush = {
+            if ($block) {
+                $prefix = if ($block.IsItem) {
+                    '- '
+                }
+                else {
+                    ''
+                }
+                $continuation = if ($block.IsItem) {
+                    '  '
+                }
+                else {
+                    ''
+                }
+                foreach ($wrapped in (Format-MarkdownParagraph -Text $block.Text -FirstPrefix $prefix -ContinuationPrefix $continuation)) {
+                    $out.Add($wrapped)
+                }
+            }
+        }
+        foreach ($sourceLine in ($Markdown.TrimEnd() -split '\r?\n')) {
+            if ($sourceLine -match '^\s*$' -or $sourceLine.StartsWith('#')) {
+                . $flush
+                $block = $null
+                $out.Add($sourceLine.TrimEnd())
+            }
+            elseif ($sourceLine.StartsWith('- ')) {
+                . $flush
+                $block = @{ IsItem = $true; Text = $sourceLine.Substring(2) }
+            }
+            elseif ($block) {
+                $block.Text += ' ' + $sourceLine.Trim()
+            }
+            else {
+                $block = @{ IsItem = $false; Text = $sourceLine.Trim() }
+            }
+        }
+        . $flush
+        $out -join "`n"
+    }
+
     $adrs = Get-Config -Config adrs
     $adrDocsRoot = Resolve-RepoPath 'docs/adr'
     Assert-PathExist $adrDocsRoot
@@ -168,27 +216,8 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
         $lines.Add("### $($domain.Name)/")
         $lines.Add('')
 
-        # The domain's description, greedily wrapped at the 140-column markdown width (the same fill Prettier's
-        # proseWrap: always produces), so the generated prose is formatter-stable
-        # ([ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)).
-        $words = $domain.Description -split '\s+'
-        $line = ''
-        foreach ($word in $words) {
-            $candidate = if ($line) {
-                "$line $word"
-            }
-            else {
-                $word
-            }
-            if ($line -and $candidate.Length -gt 140) {
-                $lines.Add($line)
-                $line = $word
-            }
-            else {
-                $line = $candidate
-            }
-        }
-        if ($line) {
+        # The domain's description, filled the way Prettier fills it (formatter-stable, like the authored prose).
+        foreach ($line in (Format-MarkdownParagraph -Text $domain.Description)) {
             $lines.Add($line)
         }
         $lines.Add('')
@@ -209,7 +238,7 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
         $lines -join "`n"
     }
 
-    $content = $preamble.TrimEnd() + "`n`n" + ($sections -join "`n`n") + "`n`n" + $conventions.TrimEnd() + "`n"
+    $content = (& $reflow $preamble) + "`n`n" + ($sections -join "`n`n") + "`n`n" + (& $reflow $conventions) + "`n"
 
     $target = Resolve-RepoPath 'docs/adr/index.md'
     $changed = Write-FileIfChanged $target $content -DryRun:$DryRun

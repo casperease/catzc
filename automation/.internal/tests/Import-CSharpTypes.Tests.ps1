@@ -210,6 +210,25 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             }
         }
 
+        It 'on a devbox, a type added after load is a hard throw (code using it cannot run on the old types)' {
+            $savedTfBuild = $env:TF_BUILD
+            $savedGitHubActions = $env:GITHUB_ACTIONS
+            $env:TF_BUILD = ''
+            $env:GITHUB_ACTIONS = ''
+            try {
+                $namespace = "CatzcTestGammaAdd$runId"
+                $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
+                InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Delta.cs"), "namespace $namespace;`npublic class Delta { }")
+                { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
+                    Should -Throw "*added $namespace/Delta*Restart PowerShell*"
+            }
+            finally {
+                $env:TF_BUILD = $savedTfBuild
+                $env:GITHUB_ACTIONS = $savedGitHubActions
+            }
+        }
+
         It 'in a pipeline, a source changed after load is a hard throw (CI must not run on stale types)' {
             $savedTfBuild = $env:TF_BUILD
             $env:TF_BUILD = 'True'
@@ -333,15 +352,14 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
                 Should -Throw "*already loaded from*$rootA*differ from*$rootB*"
         }
 
-        It 'a type the second root needs but the AppDomain lacks (a subset loaded first) takes the stale contract' {
+        It 'on a devbox, a type the second root needs but the AppDomain lacks (a subset loaded first) is a hard throw' {
             $namespace = "CatzcTestSubset$runId"
             $rootA = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
             $rootB = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }'; Gadget = 'public class Gadget { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
-            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootB } { param($R) Import-CSharpTypes -ModulesRoot $R }
-            Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter {
-                $Message -like "Using old cached C# types*not loaded $namespace/Gadget*"
-            }
+            { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootB } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
+                Should -Throw "*not loaded $namespace/Gadget*Restart PowerShell*"
+            Should -Not -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -match 'Using old cached C# types' }
         }
 
         It 'a subset root after the full root reuses the loaded types (every needed digest matches)' {

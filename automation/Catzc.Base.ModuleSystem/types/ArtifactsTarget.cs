@@ -1,0 +1,73 @@
+// One publish target of configs/artifacts.yml (`ado:`, `github:`, `artifactory:`) — a feed a CI build promotes the
+// gold module-manifest artifact to. The shared shape every target has: an `enabled` switch plus the target's own
+// string coordinates (AdoArtifactsTarget, GithubArtifactsTarget, ArtifactoryArtifactsTarget declare them).
+// Constructing one VALIDATES the entry, collecting every violation into one throw:
+//   - the entry is a mapping carrying exactly 'enabled' and the target's coordinate keys (none missing, none extra);
+//   - 'enabled' is a boolean;
+//   - each coordinate is a string — it may be empty ('') while the target is disabled, and must be non-empty once
+//     it is enabled (an enabled target needs somewhere to publish).
+// Mirrors the YAML mapping (snake_case keys,
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace Catzc.Base.ModuleSystem;
+
+public abstract class ArtifactsTarget : Catzc.Base.Objects.DictionaryRecord
+{
+    private readonly IDictionary entry;
+
+    // Whether the build publishes to this target.
+    public bool enabled { get; }
+
+    protected ArtifactsTarget(string target, object raw, string[] coordinateKeys)
+    {
+        entry = raw as IDictionary;
+        if (entry == null) { throw new ArgumentException(string.Format("'{0}' must be a mapping", target)); }
+
+        List<string> errors = new List<string>();
+        List<string> allowed = new List<string> { "enabled" };
+        allowed.AddRange(coordinateKeys);
+        foreach (object k in entry.Keys)
+        {
+            string key = k == null ? null : k.ToString();
+            if (!allowed.Contains(key))
+            {
+                errors.Add(string.Format("'{0}' has unknown key '{1}' (allowed: {2})", target, key, string.Join(", ", allowed)));
+            }
+        }
+        foreach (string key in allowed)
+        {
+            if (!entry.Contains(key)) { errors.Add(string.Format("'{0}' is missing required key '{1}'", target, key)); }
+        }
+
+        object flag = entry.Contains("enabled") ? entry["enabled"] : null;
+        if (flag is bool) { enabled = (bool)flag; }
+        else if (entry.Contains("enabled")) { errors.Add(string.Format("'{0}.enabled' must be true or false", target)); }
+
+        foreach (string key in coordinateKeys)
+        {
+            if (!entry.Contains(key)) { continue; }
+            object value = entry[key];
+            if (value != null && !(value is string))
+            {
+                errors.Add(string.Format("'{0}.{1}' must be a string", target, key));
+            }
+            else if (enabled && string.IsNullOrWhiteSpace((string)value))
+            {
+                errors.Add(string.Format("'{0}.{1}' must be non-empty while '{0}' is enabled", target, key));
+            }
+        }
+
+        if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }
+    }
+
+    // A coordinate's validated value ('' when the YAML leaves it empty).
+    protected string Coordinate(string key)
+    {
+        object value = entry[key];
+        return value == null ? "" : (string)value;
+    }
+}

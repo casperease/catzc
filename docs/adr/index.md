@@ -1,20 +1,19 @@
 # ADR index and rule-citation registry
 
-Architecture Decision Records live under `docs/adr/`, grouped by domain — the sections below mirror the domains
-declared in `automation/Catzc.Base.Docs/configs/adrs.yml`, from which this file is generated. **Read all ADRs at
-the start of every session** — they define the design principles this codebase must follow.
+Architecture Decision Records live under `docs/adr/`, grouped by domain — the sections below mirror the domains declared in
+`automation/Catzc.Base.Docs/configs/adrs.yml`, from which this file is generated. **Read all ADRs at the start of every session** — they
+define the design principles this codebase must follow.
 
 ## Citing a rule
 
-Every ADR carries a numbered rule registry as its first content section: `## Rules: <code>`, followed by
-`### Rule <code>:<n>` entries (each a normative summary plus internal links to the prose that justifies it).
+Every ADR carries a numbered rule registry as its first content section: `## Rules: <code>`, followed by `### Rule <code>:<n>` entries (each
+a normative summary plus internal links to the prose that justifies it).
 
-- Every `<code>` has the form `ADR-<NAME>` — a literal `ADR-` prefix plus one or more uppercase segments — so
-  `ADR-` is the single searchable marker for a rule reference anywhere in the repository.
+- Every `<code>` has the form `ADR-<NAME>` — a literal `ADR-` prefix plus one or more uppercase segments — so `ADR-` is the single
+  searchable marker for a rule reference anywhere in the repository.
 - **Cite a rule** as `<code>#<n>` — e.g. `ADR-AUTO-ERROR#3`, `ADR-AUTO-CACHE#5`, `ADR-AZ-NAMING#7`.
 - That resolves to the anchor `#rule-<code><n>` with the code lowercased and the `:` dropped — e.g.
-  `automation/powershell/error-handling.md#rule-adr-auto-error3` (so it is `rule-adr-auto-error3`, not
-  `rule-adr-auto-error-3`).
+  `automation/powershell/error-handling.md#rule-adr-auto-error3` (so it is `rule-adr-auto-error3`, not `rule-adr-auto-error-3`).
 - The `<code>` is unique per ADR; the tables below are the authoritative code ↔ ADR mapping.
 - `#` is the only citation spelling — in comments, test tags, configuration, and prose. The `:` form exists only in the rule's own
   `### Rule <code>:<n>` heading (ADR-REPO-LINK#5).
@@ -325,20 +324,19 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
 - **Blank-line padding.** Pad every section: a blank line immediately after each `##`/`###` heading, and a blank line before the next
   heading. This applies to the `## Rules: <code>` registries and the `### Rule <code>:<n>` entries as well.
 
-- **Cite DORA through the local reference.** DORA is the repository's core theoretical construct, and `docs/references/dora/` is its
-  citable map: the Core Model (`core-model.md`), the delivery metrics (`metrics.md`), the capability catalogue grouped by the site's own
-  categories (`capabilities.md`), the AI Capabilities Model (`ai.md`), and every publication (`publications.md`). Each heading there has a
-  stable anchor and carries its dora.dev source URL. Link a capability as `capabilities.md#<dora-slug>`, a metric as
-  `metrics.md#<metric-name>`, a publication as `publications.md#<year>-<title>`, and the research program as `index.md` — never a deep
-  link into dora.dev, which lives only inside `docs/references/dora/` and in the research ADRs' `## References` footnotes.
+- **Cite DORA through the local reference.** DORA is the repository's core theoretical construct, and `docs/references/dora/` is its citable
+  map: the Core Model (`core-model.md`), the delivery metrics (`metrics.md`), the capability catalogue grouped by the site's own categories
+  (`capabilities.md`), the AI Capabilities Model (`ai.md`), and every publication (`publications.md`). Each heading there has a stable
+  anchor and carries its dora.dev source URL. Link a capability as `capabilities.md#<dora-slug>`, a metric as `metrics.md#<metric-name>`, a
+  publication as `publications.md#<year>-<title>`, and the research program as `index.md` — never a deep link into dora.dev, which lives
+  only inside `docs/references/dora/` and in the research ADRs' `## References` footnotes.
 
 - **`dora-explains.md` collects each domain's DORA rationale.** An ADR outside `research/` carries no `## Dora explains` section; instead
   every other domain folder keeps a `dora-explains.md` that consolidates, one entry per ADR, the short present-tense paragraph tying that
-  ADR's topic to DORA research and its 2–4 domain-relevant capability links (each `[Capability](<relative>/capabilities.md#<dora-slug>) —
-  why it is relevant`, plus a link to the reference's `index.md`). Link only the capabilities that genuinely bear on an ADR's domain, never
-  the whole catalogue.
+  ADR's topic to DORA research and its 2–4 domain-relevant capability links (each
+  `[Capability](<relative>/capabilities.md#<dora-slug>) — why it is relevant`, plus a link to the reference's `index.md`). Link only the
+  capabilities that genuinely bear on an ADR's domain, never the whole catalogue.
 
 - **The research ADRs carry their own `## Dora explains`.** Each `research/<slug>.md` is the record of one DORA capability, so it is the one
-  place an ADR ends with a `## Dora explains` section: the capability's site category and Core Model position, the publications its
-  evidence comes from, and its related capabilities, all as links into `docs/references/dora/`. `research/` therefore has no
-  `dora-explains.md`.
+  place an ADR ends with a `## Dora explains` section: the capability's site category and Core Model position, the publications its evidence
+  comes from, and its related capabilities, all as links into `docs/references/dora/`. `research/` therefore has no `dora-explains.md`.

@@ -35,7 +35,7 @@ is irrelevant because the assembly is a leaf in the reference graph: nothing ref
 
 Cross-module type references are allowed but **governed by the module dependency graph**: a deriving/referencing module must declare the
 target in `configs/dependencies.yml`. The compiler does not enforce the layering in one combined assembly, so `Get-CSharpTypeDependency`
-extracts the C# edges and `Assert-ModuleDependency` fails the L1 integrity tests on an undeclared one. There is **one** shared
+extracts the C# edges and the `Test-ModuleDependency` quality gate fails its L1 integrity test on an undeclared one. There is **one** shared
 `Catzc.Base.Objects.DictionaryRecord`, not a per-module copy.
 
 - [The `DictionaryRecord` base](#the-dictionaryrecord-base)
@@ -64,9 +64,11 @@ session ever locks `automation/.compiled`.
 ### Rule ADR-AUTO-TYPES:7
 
 Handle changed-after-load by context — a loaded assembly cannot be swapped in the AppDomain. In a **pipeline** the loader throws (CI must
-never run on stale types); on a **devbox** it degrades gracefully — warns in orange ("Using old cached C# types … restart PowerShell") and
-keeps the already-loaded types this session, so a dev editing a type mid-session is never blocked. It returns without recording the new
-hash, so the warning repeats on every re-import until you restart. The pipeline check is inlined (`$env:TF_BUILD`/`$env:GITHUB_ACTIONS`)
+never run on stale types). On a **devbox** a changed or removed type degrades gracefully — the loader warns in orange ("Using old cached C#
+types … restart PowerShell") and keeps the already-loaded types this session, so a dev editing a type mid-session is never blocked. It
+returns without recording the new hash, so the warning repeats on every re-import until you restart. A type the AppDomain lacks (added since
+load, or not loaded on behalf of another root) throws on a devbox too: the old types cannot serve code that uses it, so continuing would
+only move the failure to a confusing cast error far from the cause. The pipeline check is inlined (`$env:TF_BUILD`/`$env:GITHUB_ACTIONS`)
 because this pre-pass runs before `Catzc.Base.Repository` (Test-IsRunningInPipeline) loads.
 
 - [The cache-state contract](#the-cache-state-contract)
@@ -253,13 +255,13 @@ call site; the `Catzc.`-namespaced, source-authored literal is what keeps it dis
 Because the DLL filename _is_ the combined source hash, there is no "present but stale" state — a changed source has a different filename,
 so the current-hash DLL is simply absent until built. The loader resolves every state:
 
-| current-hash DLL                       | types loaded this session | Outcome                                                                                                                                                                                                      |
-| -------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| present                                | no                        | **Skip compile, load it.** CI / fresh-checkout hot path (no Roslyn).                                                                                                                                         |
-| present                                | yes                       | **No-op.** Types already in the AppDomain.                                                                                                                                                                   |
-| absent (new/changed/deleted source)    | no                        | **Compile** all sources → the hash-named DLL, load, verify every type.                                                                                                                                       |
-| absent (DLL deleted, source unchanged) | yes                       | **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.                                                                                                 |
-| absent because source CHANGED          | yes                       | **Devbox: warn (orange) + keep the old types** this session (return, don't record the new hash). **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped. |
+| current-hash DLL                       | types loaded this session | Outcome                                                                                                                                                                                                                                                                   |
+| -------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| present                                | no                        | **Skip compile, load it.** CI / fresh-checkout hot path (no Roslyn).                                                                                                                                                                                                      |
+| present                                | yes                       | **No-op.** Types already in the AppDomain.                                                                                                                                                                                                                                |
+| absent (new/changed/deleted source)    | no                        | **Compile** all sources → the hash-named DLL, load, verify every type.                                                                                                                                                                                                    |
+| absent (DLL deleted, source unchanged) | yes                       | **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.                                                                                                                                                              |
+| absent because source CHANGED          | yes                       | **Devbox: warn (orange) + keep the old types** this session (return, don't record the new hash) — unless a type was added, which throws "restart PowerShell". **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped. |
 
 A superseded-hash DLL (the old build after a source edit) is pruned by the loader on rebuild and by the post-import janitor
 `Clear-ModuleTypeCache` (which deletes on a devbox only; CI makes no source-control changes). Editing any `types/*.cs` re-keys the whole
@@ -326,17 +328,17 @@ but do not force a universal flip.
 `The domain model is C#, not a loose dictionary`
 
 There are two kinds of structured data in the platform, and they get different treatment. **Boundary data** — a parsed `configs/*.yml`, an
-`az` CLI JSON blob, a splatted parameter set — is shaped by something outside our code and is fine as an `[ordered]@{}` /
-`[pscustomobject]`; it is validated where it crosses in (an `Assert-*Config`, a typed config record) and then consumed. **Domain model** — a
-first-class concept the platform's _own_ logic operates on — is different: the moment code selects on it, branches on its kind, or pins it
-as a parameter/return type at a call site, its shape is part of the design and must be fixed, discoverable, and enforced. That is a native
-C# type.
+`az` CLI JSON blob, a splatted parameter set — is shaped by something outside our code; it is validated where it crosses in and then
+consumed. A shipped config crosses in through its C# config type (registered in `configs.yml`), which maps and validates it at load; the
+rest is fine as an `[ordered]@{}` / `[pscustomobject]`. **Domain model** — a first-class concept the platform's _own_ logic operates on — is
+different: the moment code selects on it, branches on its kind, or pins it as a parameter/return type at a call site, its shape is part of
+the design and must be fixed, discoverable, and enforced. That is a native C# type.
 
 `BaseModule` (and its `named`/`hidden`/`imported`/`residue` kinds) is the example: `Get-BaseModule` returns `[BaseModule]`,
 `Copy-Automation` filters modules and packages off it, and callers type against it — so it is a C# hierarchy, not a bag of hashtables that
 every call site re-interprets. A loose dictionary here would push the shape into scattered string-keys with no single definition and no
-construction-time check — the opposite of a fixed model. Config that _feeds_ the model (the `files.yml` package bindings) stays loose YAML
-crossing the boundary; the model built from it is typed.
+construction-time check — the opposite of a fixed model. Config that _feeds_ the model (the `files.yml` package bindings) crosses the
+boundary through its own config type, `FilesConfig`, which validates it at load; the model `Get-BaseModule` builds from it is typed too.
 
 ### How this is enforced
 
@@ -353,7 +355,7 @@ crossing the boundary; the model built from it is typed.
   `Invoke-Executable`, so a dev or CI builds and verifies the IDE project on demand; the project's stamp task fails the build on a stale
   committed DLL, and a `Base` module reaching the Tooling layer's `Invoke-Dotnet` would invert the dependency graph, so it does not.
 
-- **`Get-CSharpTypeDependency` + `Assert-ModuleDependency`** — the cross-module C# edges are extracted (a scan that strips comments, string
+- **`Get-CSharpTypeDependency` + `Test-ModuleDependency`** — the cross-module C# edges are extracted (a scan that strips comments, string
   literals, and each file's own `namespace <module>;` line, then maps each dotted token to its longest known-module-name prefix) and checked
   against `configs/dependencies.yml` alongside the function-call edges. An undeclared type edge fails L1. `dependencies.yml` supports a
   top-level `groups:` map — a named set of modules with its own internal member→member DAG; an allowed-deps entry may name a GROUP
