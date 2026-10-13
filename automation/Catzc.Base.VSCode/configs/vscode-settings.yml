@@ -21,6 +21,17 @@ settings:
   markdown.preview.scrollEditorWithPreview: true
   markdown.preview.markEditorSelection: true
 
+  # Markdown link validation while editing — early feedback for what Test-Links gates
+  # ([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)): dangling files and bad
+  # heading fragments are flagged as warnings in the Problems pane. http(s) links are never checked.
+  markdown.validate.enabled: true
+  markdown.validate.fileLinks.enabled: warning
+  markdown.validate.fragmentLinks.enabled: warning
+  markdown.validate.fileLinks.markdownFragmentLinks: warning
+  # Offer to rewrite relative links in .md files when a linked file or folder is moved or renamed
+  markdown.updateLinksOnFileMove.enabled: prompt
+  markdown.updateLinksOnFileMove.enableForDirectories: true
+
   # Markdown Preview Enhanced settings
   markdown-preview-enhanced.previewTheme: one-dark.css
   markdown-preview-enhanced.codeBlockTheme: one-dark.css
