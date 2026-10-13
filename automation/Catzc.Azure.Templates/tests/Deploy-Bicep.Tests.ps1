@@ -92,6 +92,12 @@ function Invoke-BicepPostDeploy {
                 }
             }
         } -ModuleName Catzc.Azure.Templates
+
+        # Warm the fixture config + template-discovery caches ONCE, under the mocks above, so the cold derive
+        # is paid here and not by whichever test happens to run first
+        # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)).
+        Get-Config -Config azure | Out-Null
+        Get-BicepTemplates | Out-Null
     }
 
     BeforeEach {

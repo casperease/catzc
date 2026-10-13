@@ -10,7 +10,7 @@
     ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)), so the answer
     covers both "which pipelines/units this fires" (Pipeline) and "which tests verify it" (the derived
     module rows name the modules for Test-Automation -Modules; a declared row's VerifyModules/VerifyLevel
-    carry its configured verify scope, consumable via Test-Automation -Marker).
+    carry its configured verify scope — its test suite, run by name with Test-Automation -Suite).
 .PARAMETER ChangedFile
     The changed files, repo-relative and '/'-separated (backslashes are normalized).
 .PARAMETER Ref

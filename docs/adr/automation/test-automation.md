@@ -324,10 +324,11 @@ selection — some modules, some tiers, one test file — is named by what it se
 ### Rule ADR-AUTO-TEST:37
 
 A **test suite** is a named, declared selection of tests that runs as one unit: a set of modules and a top tier, declared in configuration
-rather than typed at a prompt. Today a test suite is a globset's `verify:` scope in `globs.yml` (`modules` + `level`, the test blast-radius
-scope of [ADR-FLOW-CD-GLOBS#7](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)), which a pipeline runs when that set changes. A test
-suite is configuration at rest: executing it is a test run (ADR-AUTO-TEST#34), and it is narrower than all tests (ADR-AUTO-TEST#36) unless
-it names every module. Not every test run executes a test suite: an ad-hoc selection is named by what it selects.
+rather than typed at a prompt. A test suite is a globset's `verify:` scope in `globs.yml` (`modules` + `level`, the test blast-radius scope
+of [ADR-FLOW-CD-GLOBS#7](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)), named by its globset and run with
+`Test-Automation -Suite <globset>`; a pipeline runs it when that set changes. A test suite is configuration at rest: executing it is a test
+run (ADR-AUTO-TEST#34), and it is narrower than all tests (ADR-AUTO-TEST#36) unless it names every module. Not every test run executes a
+test suite: an ad-hoc selection is named by what it selects.
 
 - [Two test runs, one body of tests](#two-test-runs-one-body-of-tests)
 

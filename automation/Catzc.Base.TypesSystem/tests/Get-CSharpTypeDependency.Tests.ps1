@@ -72,7 +72,8 @@ public class Thing : Catzc.Base.Rec {
         @($e.References).Count | Should -Be 1   # Catzc.Base.Rec referenced twice, listed once
     }
 
-    Context 'integrity (real repo)' -Tag 'integrity' {
+    # L1: scans every shipped module's types/*.cs, so its cost grows with the repo, not with the logic.
+    Context 'integrity (real repo)' -Tag 'L1', 'integrity' {
         It 'scans the shipped types without error' {
             { Get-CSharpTypeDependency } | Should -Not -Throw
         }

@@ -61,12 +61,13 @@
     Each value is a citation in `ADR-<CODE>#<n>` form. The run narrows to the files carrying a matching test
     and, within them, to the cited tests (Pester tag include). Composes with -Level/-Category/-Modules. It is
     the executable companion of the rule-coverage report: find a rule's tests, then run just them.
-.PARAMETER Marker
-    Run a marker's declared blast radius: the named globset's `verify:` scope in globs.yml resolves to
-    the module list and tier to run ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7))
-    — "which tests do I need to run to verify a change in
-    that area-of-control". Mutually exclusive with -Modules; a marker without a verify scope throws with
-    the remedy. Find the touched markers for a change with Get-MarkerBlastRadius.
+.PARAMETER Suite
+    Run a test suite: the named globset's declared `verify:` scope in globs.yml, resolved to the module list and
+    tier to run ([ADR-AUTO-TEST#37](/docs/adr/automation/test-automation.md#rule-adr-auto-test37); the blast-radius
+    marker role, [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)) — "which tests do I
+    need to run to verify a change in that area-of-control". Mutually exclusive with -Modules; a globset without a
+    verify scope is not a test suite and throws with the remedy. Find the suites a change touches with
+    Get-MarkerBlastRadius.
 .PARAMETER EnforceTimings
     Fail the run when a test exceeds its level's time limit. Off by default — timings are
     machine-dependent, so the run only *reports* over-limit tests (with their durations) and stays
@@ -110,7 +111,7 @@
 .EXAMPLE
     Test-Automation -Rule ADR-AUTO-ERROR#3   # run only the tests that cite ADR-AUTO-ERROR#3
 .EXAMPLE
-    Test-Automation -Marker foundation   # run the foundation unit's declared verify scope (globs.yml)
+    Test-Automation -Suite infrastructure   # run the infrastructure test suite (its globs.yml verify scope)
 .EXAMPLE
     Test-Automation -OutputFolder C:\reports\catzc   # write the run report under a custom base
 #>
@@ -148,7 +149,7 @@ function Test-Automation {
         [string[]] $Rule = @(),
 
         [ArgumentCompleter({ (Get-Config -Config globs).Names })]
-        [string] $Marker,
+        [string] $Suite,
 
         [string] $OutputFolder,
 
@@ -161,16 +162,15 @@ function Test-Automation {
         throw "MinLevel ($MinLevel) cannot exceed MaxLevel ($MaxLevel)."
     }
 
-    # -Marker: run the named area-of-control's declared blast radius — its globs.yml verify scope resolves
-    # to the module list and tier (Resolve-MarkerVerify,
-    # [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)).
-    if ($Marker) {
+    # -Suite: run a test suite — the named globset's declared verify scope resolves to the module list and tier
+    # (Resolve-TestSuite, [ADR-AUTO-TEST#37](/docs/adr/automation/test-automation.md#rule-adr-auto-test37)).
+    if ($Suite) {
         if ($Modules.Count -gt 0) {
-            throw 'Pass -Marker or -Modules, not both — a marker resolves its own module scope.'
+            throw 'Pass -Suite or -Modules, not both — a test suite resolves its own module scope.'
         }
-        $markerScope = Resolve-MarkerVerify -Name $Marker
-        $Modules = @($markerScope.Modules)
-        $MaxLevel = $markerScope.Level
+        $suiteScope = Resolve-TestSuite -Name $Suite
+        $Modules = @($suiteScope.Modules)
+        $MaxLevel = $suiteScope.Level
     }
 
     # The harness itself — discovery, tag gates, sharding, workers, rows, reports — is the core both runs
