@@ -1,7 +1,7 @@
 # Run tests and checks
 
-`Test-Automation` is the single entry point for the test suite. It discovers every `tests/*.Tests.ps1` file across all modules, runs them
-through Pester, and writes a timestamped report under `out/`. Linting, spell-check, and formatting are separate one-call functions.
+`Test-Automation` is the single entry point for all tests. It discovers every `tests/*.Tests.ps1` file across all modules, runs them through
+Pester, and writes a timestamped report under `out/`. Linting, spell-check, and formatting are separate one-call functions.
 
 ## Run the tests
 
@@ -52,7 +52,7 @@ Every run writes to `out/test-automation/<yyyyMMdd-HHmmss>/`, and `out/test-auto
 
 ## Linters, spelling, and formatting
 
-These are independent of the Pester suite:
+These run independently of `Test-Automation`:
 
 ```powershell
 Format-Automation          # auto-format every PowerShell file (PSScriptAnalyzer + .editorconfig)
@@ -83,7 +83,7 @@ Two globset-backed behaviors show up in gate runs (see [durable-sha-globs](../..
 - A **"module(s) skipped (protected)"** line means those modules' composite identity — their own files, their declared dependencies, the
   loader/vendor/compiled-types infrastructure, and the test harness — is unchanged since their last green run this session, so their test
   files were dropped from the run. Same rules: session memory only, never in CI, and the protection key carries the run's level/category, so
-  a `-Level 1` green never skips a `-Level 2` run. `Clear-GlobSetProtection` forces the full suite.
+  a `-Level 1` green never skips a `-Level 2` run. `Clear-GlobSetProtection` makes the next run execute all tests again.
 
 ## What CI runs
 

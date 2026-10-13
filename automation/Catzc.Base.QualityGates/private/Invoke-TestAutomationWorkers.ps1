@@ -122,7 +122,7 @@ function Invoke-TestAutomationWorkers {
         Verbosity    = $Verbosity
     } + (Get-TestRunSlotEntry -Slot $slot -EntryScript $EntryScript -EntryParameter $EntryParameter)
 
-    # Pool size: explicit -Workers, else ProcessorCount / 4 — measured on the full suite, wall clock is flat
+    # Pool size: explicit -Workers, else ProcessorCount / 4 — measured on all tests, wall clock is flat
     # from PC/4 up to PC/2 workers (the box saturates), while per-test wall clock inflates with every extra
     # worker until the level time limits read as breached. PC/4 keeps the timing report honest for free.
     # Never more workers than files, and at least one when only serial files exist (that pool is skipped below).

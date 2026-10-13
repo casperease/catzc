@@ -22,8 +22,8 @@
 .PARAMETER ModuleProfile
     A profiles.yml key whose modules to build (combinable with -Module).
 .PARAMETER VendorPolicy
-    runtime ships only powershell-yaml; full also ships Pester and PSScriptAnalyzer (needed to run the test suite
-    against the build). Defaults to exporter.yml's vendor_policy.
+    runtime ships only powershell-yaml; full also ships Pester and PSScriptAnalyzer (needed by a build run, which runs the
+    tests against the build). Defaults to exporter.yml's vendor_policy.
 .PARAMETER Version
     'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH — see Resolve-CatzcBuildVersion.
 .PARAMETER Destination

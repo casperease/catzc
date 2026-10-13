@@ -79,8 +79,8 @@ governs each language:
 | JSON                                | `.editorconfig`                                                                                                                                              |
 | Markdown (`.md`)                    | `.editorconfig` + `.markdownlint.yml`, formatted by Prettier                                                                                                 |
 
-Adding a language means adding its `.editorconfig` section (and, if it has one, wiring its formatter into the test suite) — not inventing a
-new formatting philosophy.
+Adding a language means adding its `.editorconfig` section (and, if it has one, wiring its formatter into the tests as a quality gate) — not
+inventing a new formatting philosophy.
 
 ### `.gitattributes` and binary files
 

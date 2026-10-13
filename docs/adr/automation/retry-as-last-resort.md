@@ -63,7 +63,7 @@ A retry is a **last-ditch** mechanism for a genuinely-transient external failure
 
 ## Consequences
 
-- Failures are honest and fast by default; the test suite and the logs stay trustworthy.
+- Failures are honest and fast by default; the tests and the logs stay trustworthy.
 - Tests never hide flakiness: a flaky or unavailable external dependency is handled by mocking or by an explicit, skippable tier (L3) — not
   by re-running until green.
 - When a retry _is_ used it is surgical (lowest level), bounded, logged, and idempotent — easy to spot in review and to reason about, with a

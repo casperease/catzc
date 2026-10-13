@@ -109,8 +109,8 @@ intermediate steps makes code more maintainable, easier to review, and simpler t
 
 ## Test automation — logic tests vs integrity tests, and how to isolate (`ADR-AUTO-TEST`)
 
-Separating logic tests from integrity tests, isolating via seams and fixtures, and pushing rule-checks left into fast L0 gates keeps the
-test suite hermetic and rapid. This layered approach to testing enables reliable, fast feedback without sacrificing coverage.
+Separating logic tests from integrity tests, isolating via seams and fixtures, and pushing rule-checks left into fast L0 gates keeps all
+tests hermetic and rapid. This layered approach to testing enables reliable, fast feedback without sacrificing coverage.
 
 - [Test automation](../../references/dora/capabilities.md#test-automation) — logic tests isolated via seams run fast and deterministically;
   walking-skeleton integration tests prove distinct boundaries; integrity tests guard shipped assets.

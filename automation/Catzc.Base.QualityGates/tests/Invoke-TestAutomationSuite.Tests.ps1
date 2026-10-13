@@ -116,7 +116,7 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
     }
 
     Context 'the source run (no opt-out tag, default entry script)' {
-        It 'runs every file through the default importer and excludes nothing beyond the tier/category filter' {
+        It 'runs every file through the default importer and excludes nothing beyond the tier/category filter' -Tag 'ADR-AUTO-TEST#36' {
             $summary = Invoke-Suite @{ OutputFolder = $script:outputFolder; PassThru = $true }
 
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {

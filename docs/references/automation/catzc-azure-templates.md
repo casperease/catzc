@@ -50,8 +50,8 @@ state-changing domain, and it verifies the session targets the configured subscr
 ### domain:6 — Template integrity validation
 
 Checking that a template is internally consistent and conforms to the model — that its configuration sits under defined subscriptions
-serving the right environments, that its class and slots are valid, that its name renders within budget. This is the guard the test suite
-runs across every shipped template.
+serving the right environments, that its class and slots are valid, that its name renders within budget. This is the guard the integrity
+tests run across every shipped template.
 
 ## What the module does
 
@@ -97,10 +97,10 @@ The module's public functions, sorted into the domains above. This module owns n
 | domain:3 — Deployment classification                      | `Get-AzureBicepEnvironmentKinds`  |
 |                                                           | `Get-AzureBicepDeploymentModes`   |
 |                                                           | `Get-AzureBicepDeploymentTargets` |
-| domain:4 — Build                                          | `Build-Bicep`                     |
-|                                                           | `Get-BicepDeploymentContext`      |
 |                                                           | `Get-BicepDeploymentName`         |
+| domain:4 — Build                                          | `Build-Bicep`                     |
 | domain:5 — Deploy and resource-group provisioning         | `Deploy-Bicep`                    |
+|                                                           | `Get-BicepDeploymentContext`      |
 |                                                           | `Deploy-AzureResourceGroup`       |
 |                                                           | `Set-BicepTrackingTagSet`         |
 |                                                           | `Get-BicepTrackTagNameSet`        |

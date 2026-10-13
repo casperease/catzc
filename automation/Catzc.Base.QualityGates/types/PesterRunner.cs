@@ -232,7 +232,11 @@ public class PesterRunner
             CreateNoWindow = true,
             UseShellExecute = false,
             RedirectStandardOutput = true,
-            RedirectStandardError = true
+            RedirectStandardError = true,
+            // A worker is never interactive. It gets an empty, closed stdin rather than the caller's: a child
+            // that inherits a stdin pipe another thread is blocked reading hangs at startup (Git for Windows
+            // probes its std handles), and a test's own `& git` would inherit the worker's stdin.
+            RedirectStandardInput = true
         };
         psi.ArgumentList.Add("-NoProfile");
         psi.ArgumentList.Add("-File");
@@ -255,6 +259,7 @@ public class PesterRunner
 
         var process = new Process { StartInfo = psi };
         process.Start();
+        process.StandardInput.Close();
         worker.Process = process;
 
         worker.StdoutReader = new Thread(() => ReadStream(worker, isError: false)) { IsBackground = true };

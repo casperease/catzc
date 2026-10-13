@@ -1,10 +1,10 @@
 # Catzc.Base.QualityGates
 
-The quality-gate module. It **runs every check the repository applies to itself** — the Pester test suite (with tag-enforcement and
-timestamped reporting), the spell-checker, the Markdown linter, the Markdown formatter, and the PowerShell auto-formatter. What it
-deliberately does **not** own is the tests themselves (each module keeps its own `tests/` folder) or the per-tool configuration (cSpell,
-markdownlint, and Prettier each carry their own config at the repository root). This module owns the gate invocations, and nothing more. The
-tier and category tag rules that the Pester runner enforces are the subject of [test-automation](../../adr/automation/test-automation.md).
+The quality-gate module. It **runs every check the repository applies to itself** — all tests (with tag-enforcement and timestamped
+reporting), the spell-checker, the Markdown linter, the Markdown formatter, and the PowerShell auto-formatter. What it deliberately does
+**not** own is the tests themselves (each module keeps its own `tests/` folder) or the per-tool configuration (cSpell, markdownlint, and
+Prettier each carry their own config at the repository root). This module owns the gate invocations, and nothing more. The tier and category
+tag rules that the Pester runner enforces are the subject of [test-automation](../../adr/automation/test-automation.md).
 
 ## Domains
 
@@ -15,11 +15,11 @@ tier and category tag rules that the Pester runner enforces are the subject of [
 
 ### domain:1 — Test suite runner
 
-How the repository runs and validates its Pester test suite. This domain discovers tests across every module, runs them at the requested
-tier level (L0–L3) and optional category filter (`logic`/`integrity`), and writes a timestamped report. Before any test executes, a
-discovery-only pass inspects the full test tree and throws if any test is missing or ambiguous on either of the two mandatory tag axes —
-exactly one tier (`L0|L1|L2|L3`) and exactly one category (`logic|integrity`). The tag model, the two-axis tagging contract, and the tier
-definitions are the subject of [test-automation](../../adr/automation/test-automation.md).
+How the repository runs and validates all its tests. This domain discovers tests across every module, runs them at the requested tier level
+(L0–L3) and optional category filter (`logic`/`integrity`), and writes a timestamped report. Before any test executes, a discovery-only pass
+inspects the full test tree and throws if any test is missing or ambiguous on either of the two mandatory tag axes — exactly one tier
+(`L0|L1|L2|L3`) and exactly one category (`logic|integrity`). The tag model, the two-axis tagging contract, and the tier definitions are the
+subject of [test-automation](../../adr/automation/test-automation.md).
 
 ### domain:2 — Document and code formatting gates
 

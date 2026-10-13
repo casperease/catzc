@@ -113,8 +113,8 @@ deletion.
 The "source changed since loaded — restart PowerShell" guard is keyed by `ModulesRoot`. `Import-CSharpTypes` takes the tree as a parameter,
 and one session may load more than one tree (the real `automation/` plus the test-fixture trees), so the per-session record of loaded hash
 and file snapshot is stored per resolved root. A load from one root therefore never makes a re-import of another root falsely report a
-change — without this, running the test suite (which loads fixture trees) would poison the next real import's guard. The thrown message
-names the drifted files and both hashes so the cause is diagnosable from the error text alone.
+change — without this, a test run (which loads fixture trees) would poison the next real import's guard. The thrown message names the
+drifted files and both hashes so the cause is diagnosable from the error text alone.
 
 - [The cache-state contract](#the-cache-state-contract)
 

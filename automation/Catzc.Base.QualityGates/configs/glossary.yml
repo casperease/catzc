@@ -11,6 +11,7 @@ concepts:
         realized_by: { kind: tag, pattern: 'L0|L1|L2|L3' }
         contrasts:
             category: A category says what a test reads (logic or integrity); a tier says what it may touch and when it runs.
+            phase: A phase is when a test's file runs within a run (parallel, greedy, serial); a tier is what the test may touch.
         avoid:
             - { phrase: L2 suite, say: the L2 tests / the L2 tier }
             - { phrase: L2 test suite, say: the L2 tests / the L2 tier }
@@ -33,6 +34,7 @@ concepts:
         realized_by: { kind: artifact, pattern: 'out/test-*/*/run.json' }
         contrasts:
             release candidate: A release candidate is the artifact a release-candidate test run verifies; a test run executes tests.
+            all tests: All tests is every test in the repository, at rest; a test run executes one selection of them, possibly all.
         avoid:
             - { phrase: source suite, say: source run }
             - { phrase: build suite, say: build run }
@@ -55,6 +57,7 @@ concepts:
             kind_of: [gate]
         contrasts:
             gate: A gate is any decision point, human or automated; a quality gate is one automated check of the repository.
+            build verification test: The BVT is the aggregate gate that certifies a commit; a quality gate is one check inside it.
         avoid:
             - { phrase: analyzer suite, say: the analyzer gate }
     test file:
@@ -88,6 +91,37 @@ concepts:
             part_of: [test block]
         contrasts:
             test block: A test block groups tests and carries their shared tags and setup; a test is one It that passes or fails.
+    phase:
+        key: phase
+        domain: automation
+        defined_by: ADR-AUTO-TEST#26
+        short: One of a test run's three scheduling stages, in order — parallel shards, greedy, serial — chosen per file by the serial/greedy tags.
+        realized_by: { kind: tag, pattern: 'serial|greedy' }
+        contrasts:
+            tier: A tier is what a test may touch; a phase is when its file runs within a run (parallel, greedy, serial).
+    build verification test:
+        key: bvt
+        domain: automation
+        defined_by: ADR-AUTO-TEST#24
+        short: The BVT — the aggregate gate that certifies a commit, the end gate before and after a commit reaches master.
+        realized_by: { kind: prose-only }
+        relations:
+            kind_of: [gate]
+        contrasts:
+            quality gate: A quality gate is one check inside the BVT; the BVT is the aggregate gate that certifies a commit.
+    all tests:
+        key: all_tests
+        domain: automation
+        defined_by: ADR-AUTO-TEST#36
+        short: Every test in the repository — every test file of every module, at every tier and category; what a test run selects at its defaults.
+        realized_by: { kind: function, pattern: 'Test-Automation' }
+        contrasts:
+            test run: A test run executes one selection of tests, possibly all; all tests is every test in the repository, at rest.
+        avoid:
+            - { phrase: the test suite, say: all tests }
+            - { phrase: pester suite, say: all tests }
+            - { phrase: pester test suite, say: all tests }
+            - { phrase: full suite, say: all tests }
     markdown link:
         key: markdown_link
         domain: repository

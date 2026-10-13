@@ -13,7 +13,7 @@ Describe 'Split-TestAutomationFiles' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'splits files into parallel, greedy, and serial by their tests'' phase tags' {
+    It 'splits files into parallel, greedy, and serial by their tests'' phase tags' -Tag 'ADR-AUTO-TEST#26' {
         $discovered = [pscustomobject]@{
             Tests = @(
                 (New-FakeTest -File 'C:\x\Zulu.Tests.ps1' -BlockTags @('L2', 'logic', 'serial'))

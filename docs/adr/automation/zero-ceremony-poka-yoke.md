@@ -19,7 +19,7 @@ get a module, dot-source `importer.ps1` to get everything.
 ### Rule ADR-AUTO-ZERO:3
 
 The platform makes the common mistakes hard to fail — preventing them structurally (naming conventions, auto-discovery, location-based
-visibility) or catching them immediately (PSScriptAnalyzer rules, the test suite).
+visibility) or catching them immediately (PSScriptAnalyzer rules, the tests).
 
 - [What hard-to-fail looks like](#what-hard-to-fail-looks-like)
 
@@ -59,7 +59,7 @@ Each of these is a single action with no prerequisites and no follow-up steps. T
 
 **You cannot name a file wrong.** [One function per file](powershell/one-function-per-file.md#rule-adr-auto-onefunc1) —
 `Test-Automation.Tests.ps1` validates that every file is `Verb-Noun.ps1`, contains exactly one function, and the function name matches. A
-misnamed file fails the test suite immediately.
+misnamed file fails the next test run immediately.
 
 **You cannot use the wrong verb.** [Approved verbs](powershell/respect-pwsh-verb-rules.md#rule-adr-auto-verbs1) — PSScriptAnalyzer's
 `PSUseApprovedVerbs` rule rejects unapproved verbs. The author does not need to check `Get-Verb` — the tool catches it.
@@ -98,7 +98,7 @@ If the answer to either question is unsatisfying, the design is not done.
 
 - New contributors are productive in minutes. Drop a file, write a function, run `Test-Automation`. There is nothing else to learn before
   the first contribution.
-- The most common mistakes are impossible. The platform's structure prevents them, and the test suite catches the rest.
+- The most common mistakes are impossible. The platform's structure prevents them, and the tests catch the rest.
 - The automation codebase stays consistent as it grows. Conventions are enforced mechanically, not by tribal knowledge.
 - The cost of this is rigidity. The conventions are not optional. The tradeoff is deliberate: individual flexibility is sacrificed for
   collective reliability.

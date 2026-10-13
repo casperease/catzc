@@ -1,6 +1,6 @@
 # Manual test plan — integrity assertions
 
-This plan enumerates every **integrity** check in the Pester suite — the tests that read the _real repository contents_ (shipped
+This plan enumerates every **integrity** check among all tests — the tests that read the _real repository contents_ (shipped
 `azure.yml`/`network.yml`/`tools.yml`/`ado.yml`/`dependencies.yml`, real templates, the module/type/function graph, checked-in binaries,
 file & folder conventions). Logic tests (hermetic, run on mocks and fixtures) are out of scope.
 

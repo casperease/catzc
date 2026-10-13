@@ -167,9 +167,10 @@ redundant copy; collapse them.
 
 ### Rule ADR-AUTO-TEST:24
 
-The Build Verification Test is the aggregate gate that certifies a commit: it runs the full gated suite for the target level together with
-the artifact-canonicalization checks, and is the end gate of both pre- and post-commit-to-master in trunk-based development. A commit
-reaches master only when its BVT is green, and the canonical module-manifest artifact a passing build produces is the BVT's gold output.
+The **Build Verification Test** (BVT) is the aggregate gate that certifies a commit: it runs the full gated suite for the target level
+together with the artifact-canonicalization checks, and is the end gate of both pre- and post-commit-to-master in trunk-based development. A
+commit reaches master only when its BVT is green, and the canonical module-manifest artifact a passing build produces is the BVT's gold
+output.
 
 - [The Build Verification Test](#the-build-verification-test)
 
@@ -191,6 +192,7 @@ terminal `run.json` stamp is recorded `abandoned` by the next run in the same re
 
 ### Rule ADR-AUTO-TEST:26
 
+A **phase** is one of a test run's three scheduling stages, run in order: the parallel shards, then the greedy phase, then the serial phase.
 Two optional phase tags (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`) name tests that must not share the
 machine with the parallel pool; `Split-TestAutomationFiles` owns the split, and a file is the scheduling unit, so one tagged test moves its
 whole file (serial wins over greedy):
@@ -307,6 +309,14 @@ tree (or its declared scope), reports every issue it finds at once, and fails on
 integrity test, or as the run's own check (the tag axes) — so a red gate turns the run red; it is never an optional step beside them.
 
 - [The Build Verification Test](#the-build-verification-test)
+
+### Rule ADR-AUTO-TEST:36
+
+**All tests** means every test in the repository: every test file of every module, at every tier and category. It is what a test run selects
+at its defaults (a source run, less only the tiers its slot cannot run, ADR-AUTO-TEST#33), and what "every test passes" claims; a narrower
+selection — some modules, some tiers, one test file — is named by what it selects, never called all tests.
+
+- [Two test runs, one body of tests](#two-test-runs-one-body-of-tests)
 
 ## Context
 
