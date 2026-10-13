@@ -120,10 +120,8 @@ function Install-Dotnet {
 
     # Persist DOTNET_ROOT separately (not PATH — handled above)
     if ($IsWindows) {
-        if ([Environment]::GetEnvironmentVariable('DOTNET_ROOT', 'User') -ne $installDir) {
-            [Environment]::SetEnvironmentVariable('DOTNET_ROOT', $installDir, 'User')
-            Write-Message "User environment: DOTNET_ROOT='$installDir'"
-        }
+        # the seam announces the change, and does nothing when the value is already set
+        Set-PermanentEnvironmentVariable DOTNET_ROOT $installDir
     }
     else {
         $startMarker = '>>> catzc DOTNET_ROOT >>>'

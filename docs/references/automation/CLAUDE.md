@@ -52,8 +52,8 @@ definition:
   second title.
 - **Name** — the domain's full `— <Title>` text, as a link to its section. The anchor is GitHub's slug of the `### domain:N — Title` heading
   — lowercase, the `:` and `—` dropped, spaces to hyphens — so `domain:1 — Azure CLI invocation` becomes `#domain1--azure-cli-invocation`
-  (note the double hyphen left where `—` was). markdownlint's `MD051` is off (its slugger can't reproduce these colon-anchors), so these
-  same-file links are **not** auto-checked — get them right by hand.
+  (note the double hyphen left where `—` was). markdownlint's `MD051` is off (its slugger can't reproduce these colon-anchors); `Test-Links`
+  checks these same-file links against GitHub's slugs instead.
 
 ## The Division table
 

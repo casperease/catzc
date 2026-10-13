@@ -47,6 +47,13 @@ pattern.
 
 - [Realized concepts are enforced](#realized-concepts-are-enforced)
 
+### Rule ADR-REPO-VOCAB:7
+
+The repository's conventions and decision records — its ADRs and the rules they state — are its **domain rules**, also called ADR rules.
+Prose names them that way; an informal stand-in such as "house rules" is an avoided phrasing (ADR-REPO-VOCAB:5).
+
+- [Domain rules](#domain-rules)
+
 ## Context
 
 The repository already controls its words at the spelling level: `terminology.yml` approves every token, and `Test-Terminology` and the
@@ -101,6 +108,13 @@ where the concept lives, and a realized concept needs an enforcer citing its def
 `Show-Cats` reports. A pure vocabulary term (a flow measure, a principle) is `prose-only`: it has nothing in code to enforce, and saying so
 is explicit rather than an absence.
 
+### Domain rules
+
+The vocabulary starts with the name of the rules themselves. A convention here is a decision with a rationale and a citation code, recorded
+in an ADR and checked where it can be — not a habit of the house. Calling the conventions **domain rules**, or ADR rules when the source
+matters, keeps that link visible in every conversation and review, and gives the glossary a first concept that is used everywhere and
+realized nowhere in code (`prose-only`).
+
 ## Decision
 
 Defined terms are registered in opt-in, in-repository glossary sources (`configs/glossary.yml`), one per owning module. Each concept points
@@ -134,10 +148,17 @@ with their replacements. A source's options default sensibly, and a source overr
   or a test that cites its defining rule, found through the same rule-citation link `Show-Cats` reports (ADR-REPO-VOCAB:6). A `prose-only`
   concept is exempt.
 
-- Each of these gates reads only the concepts of sources whose `gates` option includes it (`anchored`, `single`, `enforced`), so a source
-  that opts out of a gate is not checked by it (ADR-REPO-VOCAB:2).
+- **`Get-GlossaryPhrasingViolations`** (`Catzc.Base.Docs`) checks that prose avoids the avoided phrasings (ADR-REPO-VOCAB:5): in the tracked
+  files a source's `scope` matches and its `exclude` does not, on the surfaces its `surfaces` name — markdown prose outside fenced code,
+  and, read through the PowerShell parser, comments, comment-based help, and the static text of messages (`throw`, the `Write-*` writers,
+  `-ErrorText`, `-Because`). A phrase matches case-insensitively, as whole words, across line breaks; a mention in backticks or quotes is
+  exempt. Each use is reported as `<file>:<line> says "<phrase>" — say "<say>" (<defined_by>)`.
 
-- **Code review** covers the remaining rule that reaches beyond one source file: that prose avoids the avoided phrasings (ADR-REPO-VOCAB:5).
+- Each of these gates reads only the concepts of sources whose `gates` option includes it (`anchored`, `single`, `avoid`, `enforced`), so a
+  source that opts out of a gate is not checked by it (ADR-REPO-VOCAB:2).
+
+- **`Test-Glossary`** (`Catzc.Base.Docs`) runs every gate over every source, writes one report under `out/test-glossary/`, and fails once
+  with every issue. An L2 integrity test runs every gate over the real tree, so every rule here is checked mechanically.
 
 ## Consequences
 

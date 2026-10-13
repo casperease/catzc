@@ -112,7 +112,7 @@ function Assert-VariantsConfig {
                         $errors.Add("aspects['$track'][$i] must be a single-key mapping {name: [patterns]}")
                         continue
                     }
-                    $name = "$(@($item.Keys)[0])"
+                    $name = "$($item.Keys | Select-Object -First 1)"
                     if ($name -cnotmatch '^[a-z][a-z0-9]*(-[a-z0-9]+)*$') {
                         $errors.Add("aspects['$track']: invalid aspect name '$name' (kebab-case)")
                     }
@@ -122,7 +122,7 @@ function Assert-VariantsConfig {
                     else {
                         $seen += $name
                     }
-                    $patterns = @($item[@($item.Keys)[0]])
+                    $patterns = @($item[($item.Keys | Select-Object -First 1)])
                     if ($patterns.Count -eq 0 -or @($patterns | Where-Object { [string]::IsNullOrWhiteSpace("$_") }).Count -gt 0) {
                         $errors.Add("aspects['$track'].$name needs at least one non-empty pattern")
                     }

@@ -7,7 +7,9 @@
     and misread a partial run as the whole truth. run.json closes that gap — Test-Automation writes it once
     at run start ({ status: 'running', … }) and once more, terminally, in a finally ({ status:
     'passed'|'failed'|'crashed', … }), so completeness is read from the manifest, never inferred from which
-    files happen to exist yet.
+    files happen to exist yet. A run whose owning process died never reaches that finally; the next run in the
+    same report folder rewrites it as 'abandoned' (Set-AbandonedTestRun, from the ownerPid/ownerStart the
+    'running' record carries).
 
     The write is atomic: the JSON lands in a temp file first and is moved over run.json in one filesystem
     operation (the compiled-DLL pattern), so a concurrent reader never sees a half-written manifest.

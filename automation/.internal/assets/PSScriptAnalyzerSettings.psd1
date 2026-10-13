@@ -21,6 +21,8 @@
         'automation/.scriptanalyzer/AnnounceStateChange.psm1'
         'automation/.scriptanalyzer/SpellOutIdentifiers.psm1'
         'automation/.scriptanalyzer/NoScriptRootAnchor.psm1'
+        'automation/.scriptanalyzer/NoUnsafeFirstIndex.psm1'
+        'automation/.scriptanalyzer/NoBareScriptSlotRead.psm1'
     )
 
     ExcludeRules        = @(

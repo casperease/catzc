@@ -74,7 +74,7 @@ Because that is a cross-module reference, the owning module must declare `Catzc.
   `automation/.compiled/Catzc.Types.<hash>.dll`. The hash is derived from every type's source, so a fresh checkout and CI load the committed
   DLL **without** invoking the Roslyn compiler — only an author who edits a source pays the sub-second recompile, once.
 - Because types share one assembly, a type in any module may reference a type in any other — but the reference is governed by the module
-  dependency graph, checked by `Get-CSharpTypeDependency` + `Assert-ModuleDependency` in the L2 suite.
+  dependency graph, checked by `Get-CSharpTypeDependency` + `Assert-ModuleDependency` in the L2 tests.
 - Editing a `.cs` re-keys the assembly. If you edit a type in a live session, the loader detects the drift on the next import and throws
   **"restart PowerShell"** — the loaded copy cannot be replaced in place.
 

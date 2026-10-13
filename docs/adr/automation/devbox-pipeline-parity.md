@@ -12,7 +12,7 @@ assumes it.
 
 ### Rule ADR-AUTO-PARITY:2
 
-Both environments are **equally gated**: `Test-Automation` and its L0–L3 suites run on the devbox AND in the pipeline, and must agree.
+Both environments are **equally gated**: `Test-Automation` and its L0–L3 tiers run on the devbox AND in the pipeline, and must agree.
 Shift-left means a failure surfaces on the devbox _first_ — not that the pipeline is the only place the code runs. A test that needs a
 pipeline to pass, or cannot run in one, is mis-tiered (`ADR-AUTO-TEST`), never a licence to fork behaviour.
 

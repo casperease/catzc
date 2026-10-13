@@ -56,7 +56,7 @@
 function Deploy-Bicep {
     # State-changing function deliberately uses -DryRun, not ShouldProcess — see
     # docs/adr/automation/prefer-dryrun-over-shouldprocess.md.
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see docs/adr/automation/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun5')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-AUTO-DRYRUN#5')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
     param(
@@ -129,6 +129,8 @@ function Deploy-Bicep {
     if ($null -ne $context.artifacts.prepost_module) {
         Write-Message "Importing per-template PrePost: $($context.artifacts.prepost_module)"
         $prepostModule = Import-Module (Resolve-RepoPath $context.artifacts.prepost_module) -Scope Local -Force -PassThru
+        # The template's hooks run strict like every catzc module, whoever wrote them (ADR-AUTO-ERROR:8).
+        . $prepostModule { Set-StrictMode -Version Latest }
         if ($prepostModule.ExportedCommands.ContainsKey('Invoke-BicepPreDeploy')) {
             $preDeployHook = $prepostModule.ExportedCommands['Invoke-BicepPreDeploy']
         }

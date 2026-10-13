@@ -52,9 +52,12 @@ binding. No external packages, no NuGet.
 The assembly is named for the combined hash of every module's sources and committed to `automation/.compiled/Catzc.Types.<hash>.dll`, so a
 fresh checkout and CI load it without Roslyn; editing any source re-keys it. The hash material is per file
 `<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally — so a move between modules (new namespace) or a rename (new
-type) re-keys even when content is byte-identical, with no dependence on the repo root.
+type) re-keys even when content is byte-identical, with no dependence on the repo root. Every process loads the assembly from a **per-user
+shadow copy** (`Import-TypesAssembly`: `%LOCALAPPDATA%\catzc\types` on Windows, `~/.local/share/catzc/types` on Unix), never in place, so no
+session ever locks `automation/.compiled`.
 
 - [The cache-state contract](#the-cache-state-contract)
+- [Why a shadow copy](#why-a-shadow-copy)
 
 ### Rule ADR-AUTO-TYPES:7
 
@@ -112,6 +115,15 @@ and one session may load more than one tree (the real `automation/` plus the tes
 and file snapshot is stored per resolved root. A load from one root therefore never makes a re-import of another root falsely report a
 change — without this, running the test suite (which loads fixture trees) would poison the next real import's guard. The thrown message
 names the drifted files and both hashes so the cause is diagnosable from the error text alone.
+
+- [The cache-state contract](#the-cache-state-contract)
+
+### Rule ADR-AUTO-TYPES:13
+
+Who runs the importer decides whether its type-cache janitor stops the processes holding a superseded build. A person's session stops
+them by default (`Clear-ModuleTypeCache -StopLockingProcesses`): the stale sessions are the person's own. An agent's session
+(`Test-IsRunningAsAgent`) never stops them — they are the person's, not the agent's — and works from its own shadow copy, leaving the stale
+build reported. A pipeline never stops anything and only asserts that `.compiled` holds exactly one build.
 
 - [The cache-state contract](#the-cache-state-contract)
 
@@ -243,17 +255,31 @@ A superseded-hash DLL (the old build after a source edit) is pruned by the loade
 `Clear-ModuleTypeCache` (which deletes on a devbox only; CI makes no source-control changes). Editing any `types/*.cs` re-keys the whole
 assembly — one combined hash, one committed DLL, paid once by the editor.
 
-`.compiled` must hold **exactly one** `Catzc.Types.*.dll`. Whenever a second one coexists, `Clear-ModuleTypeCache` reacts before its
-delete/skip pass, in both runtimes: it always emits a yellow warning ("Two dll exists in .compiled - is a console session locking it?"),
-because the usual devbox cause is another console session holding the old DLL so it could not be deleted (a Windows lock the janitor can
-only skip). On Windows the warning names the holding processes (`Get-FileLockingProcess`, via the Restart Manager) — executable, PID, start
-time, "this session" or the VS Code PowerShell extension — so the session to restart is known, not guessed; the lookup is best-effort and
-falls back to the holder-free wording. In a **pipeline** the same coexistence is a hard `throw`: two committed builds mean a locked stale
-DLL was committed instead of deleted, so CI is the gate that stops it reaching trunk — the fix is to restart PowerShell on the devbox
-(releasing the lock), re-run `Clear-ModuleTypeCache`, and commit the single remaining build. Before CI, the devbox's own auto-commit
-guards the same invariant: `Sync-GeneratedFile` holds `automation/.compiled` back, with one red line naming the surplus DLLs, while
-`Clear-ModuleTypeCache -DryRun` lists anything but the current build. A surviving locked build therefore never rides along as the +1
-without its −1.
+`.compiled` must hold **exactly one** `Catzc.Types.*.dll`. Because every load goes through the shadow copy, a superseded build is always
+expected to delete. When a delete still fails, something outside catzc holds the file (an antivirus scan, an indexer, a session started
+before shadow loading). `Clear-ModuleTypeCache` then removes every deletable build first and throws one error naming each surviving file
+and, on Windows, its holders (`Get-FileLockingProcess`, via the Restart Manager). The importer catches that error into one red line, so the
+load completes. `-StopLockingProcesses` on `Clear-ModuleTypeCache` stops each holder, announcing each stop, then retries the delete over a
+short window (Windows releases an exited process's mapped image a moment after the exit). It never stops the session asking or any of its
+parents. A hand-run `Clear-ModuleTypeCache` stops nothing unless asked, because a stopped process loses its unsaved work; the importer
+decides by who is running it (ADR-AUTO-TYPES:13) — a person's import stops the holders, an agent's import and a pipeline never do. The
+invariant is guarded at three points:
+
+- **Devbox auto-commit:** `Sync-GeneratedFile` holds `automation/.compiled` back, with one red line naming the surplus DLLs, while
+  `Clear-ModuleTypeCache -DryRun` lists anything but the current build. A surviving build never rides along as the +1 without its −1.
+- **Pipeline:** two `Catzc.Types.*.dll` are a hard `throw` in `Clear-ModuleTypeCache`. CI makes no source-control changes, so two builds
+  there were committed; the fix is to run `Clear-ModuleTypeCache` on the devbox and commit the single remaining build.
+- **IDE project:** the `Catzc.Types.csproj` stamp task warns when the git index's `.compiled` does not hold exactly the current DLL.
+
+### Why a shadow copy
+
+Windows locks a loaded file until its process exits, so loading `.compiled` in place lets any live session (a console, the VS Code
+PowerShell host, an analyzer process, a test worker) block the prune of a superseded build — and a blocked prune is how a stale build
+reached a commit. A byte load (`[Reflection.Assembly]::Load([byte[]])`) avoids the lock but leaves `Assembly.Location` empty, and anything
+that later compiles against the types (`Add-Type -ReferencedAssemblies`) needs a real path. A copy keeps `Location` valid and leaves
+`.compiled` read-only to every session. The copy is content-addressed (`Catzc.Types.<hash>.dll`), written through a temp file and an atomic
+move, shared by every session and clone with the same sources, and pruned once it has gone a day without a load. Nothing there is committed,
+so a locked leftover copy is harmless.
 
 ### The `DictionaryRecord` base (dictionary-compatible data records)
 
@@ -323,11 +349,15 @@ crossing the boundary; the model built from it is typed.
   `Set-CSharpFileScopedNamespace.Tests.ps1` unit-tests the namespace string engine behind `Format-Types`.
 
 - **`Clear-ModuleTypeCache`** keeps the current `automation/.compiled/Catzc.Types.<hash>.dll` and prunes the rest (deleting on a devbox
-  only). It also enforces the one-committed-build invariant: when a second `Catzc.Types.*.dll` coexists it always warns (yellow), and in a
-  pipeline it throws — a stale committed build must not reach trunk.
+  only). A delete that fails throws after every deletable build is gone, naming the file and its holders; the importer reports it as one red
+  line. In a pipeline it throws when a second `Catzc.Types.*.dll` is committed — a stale committed build must not reach trunk.
 
-- **`Sync-GeneratedFile`** (in `Catzc.Base.ModuleSystem`, the importer's auto-commit) refuses to commit `automation/.compiled` while it holds
-  anything but the current build (the `Clear-ModuleTypeCache -DryRun` surplus). It skips with a red line, so a superseded DLL is never
+- **`Import-TypesAssembly`** (in `.internal/Catzc.Internal.Types.psm1`) is the one load path — the bootstrap and the `SpellOutIdentifiers`
+  analyzer rule both load through the shadow copy, so no session holds `.compiled`. `Import-TypesAssembly.Tests.ps1` covers the copy, its
+  reuse, the atomic write, the concurrent-copy race, pruning, and `Location` pointing into the shadow root.
+
+- **`Sync-GeneratedFile`** (in `Catzc.Base.ModuleSystem`, the importer's auto-commit) refuses to commit `automation/.compiled` while it
+  holds anything but the current build (the `Clear-ModuleTypeCache -DryRun` surplus). It skips with a red line, so a superseded DLL is never
   committed next to the new one. `Sync-GeneratedFile.Tests.ps1` covers the probe, the hold-back, and the no-probe case when nothing changed.
 
 ## Disambiguation

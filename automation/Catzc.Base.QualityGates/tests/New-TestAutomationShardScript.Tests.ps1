@@ -43,6 +43,16 @@ Describe 'New-TestAutomationShardScript' {
             $script:content | Should -Not -Match ([regex]::Escape('Set-StrictMode -Off'))
         }
 
+        It 'watches its parent once the modules are loaded, before Pester runs' {
+            # The watch type comes from the loaded types, so the watch starts after the entry line; it must start
+            # before Pester so an orphaned worker never runs a test file unobserved.
+            $entry = $script:content.IndexOf("importer.ps1' -SkipJanitors")
+            $watch = $script:content.IndexOf('[Catzc.Base.QualityGates.WorkerParentWatch]::Start(')
+            $pester = $script:content.IndexOf('Invoke-Pester')
+            $watch | Should -BeGreaterThan $entry
+            $watch | Should -BeLessThan $pester
+        }
+
         It 'carries the exclude tags and exits with the not-passed flag' {
             $script:content | Should -Match ([regex]::Escape("@('L2', 'L3')"))
             $script:content | Should -Match ([regex]::Escape('exit ([int]($result.Result -ne ''Passed''))'))

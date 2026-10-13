@@ -23,12 +23,15 @@ Describe 'Custom PSScriptAnalyzer rules — engine wiring' -Tag 'L2', 'logic' {
             'NoRawPipelineDetection'
             'NoRawVsoCommand'
             'SpellOutIdentifiers'
+            'NoUnsafeFirstIndex'
+            'NoBareScriptSlotRead'
         )
         $rulePaths = $ruleNames | ForEach-Object { Join-Path $env:RepositoryRoot "automation/.scriptanalyzer/$_.psm1" }
 
         # One fixture that trips every rule at once: an Az-named function, a raw Write-Information, a direct
         # pipeline-detection env read, a raw ##vso command written with Write-Host (a raw console write), an
-        # unannounced env change, and a coined variable name.
+        # unannounced env change, a coined variable name, a first-element index of a collected result, and a bare
+        # lazy $script: read.
         $fixture = @'
 function Get-AzResource { }
 Write-Information 'leak'
@@ -36,6 +39,8 @@ $flag = $env:TF_BUILD
 Write-Host "##vso[task.setvariable variable=Foo]bar"
 $env:WIDGET_HOME = 'C:\widget'
 $rcg = 1
+$widget = @(Get-ChildItem)[0]
+function Get-Widget { $script:widgetCache }
 '@
         $script:firedRules = @(
             Invoke-ScriptAnalyzer -ScriptDefinition $fixture -CustomRulePath $rulePaths
@@ -50,6 +55,8 @@ $rcg = 1
         @{ Rule = 'Measure-NoRawPipelineDetection' }
         @{ Rule = 'Measure-NoRawVsoCommand' }
         @{ Rule = 'Measure-SpellOutIdentifiers' }
+        @{ Rule = 'Measure-NoUnsafeFirstIndex' }
+        @{ Rule = 'Measure-NoBareScriptSlotRead' }
     ) {
         $script:firedRules | Should -Contain $Rule
     }

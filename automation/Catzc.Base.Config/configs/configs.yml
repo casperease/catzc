@@ -16,6 +16,8 @@ configs:
     type: Catzc.Base.Config.ConfigsConfig
   terminology:
     type: Catzc.Base.QualityGates.TerminologyConfig
+  links:
+    type: Catzc.Base.QualityGates.LinksConfig
   readme:
     type: Catzc.Base.Docs.DocsConfig
   rootconfig:

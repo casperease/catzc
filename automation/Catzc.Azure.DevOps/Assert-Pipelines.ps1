@@ -5,7 +5,7 @@
 .DESCRIPTION
     Runs Test-Pipelines (the query form) and throws a single, collected error listing every violation when
     the tree is non-compliant; returns silently when it is clean. This is the throwing guard the way
-    Assert-* pairs with Test-* elsewhere, and the form wired into the Test-Automation L2 suite so a
+    Assert-* pairs with Test-* elsewhere, and the form wired into the L2 tests of Test-Automation so a
     mis-named or misplaced pipeline fails CI.
 
     See Test-Pipelines for the rules enforced (ADR-PIPE-NAME:1/2/3/4/6) and docs/adr/pipelines/

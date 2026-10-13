@@ -67,7 +67,7 @@ through the folder its file happens to sit in.
 ### How this is enforced
 
 - **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`automation/.scriptanalyzer/NeverDependOnPwd.psm1`) — warns on `$PWD`
-  dependence. Runs as part of the L2 test suite via `Test-ScriptAnalyzer.Tests.ps1`.
+  dependence. Runs as one of the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
 - **Custom PSScriptAnalyzer rule `Measure-NoScriptRootAnchor`** (`automation/.scriptanalyzer/NoScriptRootAnchor.psm1`) — flags
   `$PSScriptRoot` in any module function file (root or `private/`), exempting tests, `assets/`, and `.internal`
   ([rule 5](#rule-adr-auto-nopwd5)). Runs in the same L2 analyzer suite.

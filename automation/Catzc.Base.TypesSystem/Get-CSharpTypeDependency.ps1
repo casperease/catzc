@@ -18,7 +18,7 @@
          System.String -> none). Self-references (target == the file's own module) and BCL tokens are dropped.
 
     These edges are folded into Get-ModuleDependencyViolations beside the function-call edges, so the same
-    acyclic allow-list (configs/dependencies.yml, asserted in the L2 suite) governs C# type layering.
+    acyclic allow-list (configs/dependencies.yml, asserted by the L2 tests) governs C# type layering.
 
     Reads the per-module types/*.cs sources, which exist only in the source tree, so it stops with a named
     error in build mode (Assert-SourceTree, ADR-DSGN-RUNMODE).

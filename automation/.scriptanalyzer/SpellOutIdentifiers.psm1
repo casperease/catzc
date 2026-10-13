@@ -22,8 +22,8 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 # time, not at module load: PSScriptAnalyzer resolves and runs custom rules in its own runspace, whose
 # type-resolution table does not inherit assemblies the importer loaded in the parent — and the analyzer
 # shards are bare pwsh processes with neither our module system nor $env:RepositoryRoot. So resolve paths
-# from $PSScriptRoot (this file lives at automation/.scriptanalyzer/) and load the committed types assembly
-# here. Idempotent: guarded by a module-scope flag, and Add-Type is skipped when the type already resolves.
+# from $PSScriptRoot (this file lives at automation/.scriptanalyzer/) and load the current committed types
+# assembly here. Idempotent: guarded by a module-scope flag, and the load is skipped when the type already resolves.
 $script:oracleReady = $false   # declared at load so the guard reads it strict-clean
 function Initialize-SpellingOracle {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Runs inside the analyzer engine, whose custom rules may emit only diagnostic records; it binds the committed types assembly the importer already loaded and announced, and in a bare analyzer shard process there is no console session to announce to')]
@@ -35,13 +35,18 @@ function Initialize-SpellingOracle {
     $repoRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..' '..'))
 
     if (-not ('Catzc.Base.QualityGates.SpellingOracle' -as [type])) {
-        $typesDll = Get-ChildItem -Path (Join-Path $repoRoot 'automation/.compiled') -Filter 'Catzc.Types.*.dll' -File -ErrorAction Ignore |
-            Sort-Object LastWriteTime -Descending |
-            Select-Object -First 1
-        if (-not $typesDll) {
-            throw 'Measure-SpellOutIdentifiers: the compiled types assembly (automation/.compiled/Catzc.Types.*.dll) was not found — run the importer to build it.'
+        # The build for the CURRENT sources — keyed by the one shared hash (Get-CombinedTypeHash), never picked by
+        # file age — loaded through the one shared load path (Import-TypesAssembly: a per-user shadow copy), so an
+        # editor host or analyzer shard never locks a build inside .compiled. Catzc.Internal.Types has no importer
+        # dependencies, so it imports by path even in a bare analyzer process.
+        Import-Module (Join-Path $repoRoot 'automation/.internal/Catzc.Internal.Types.psm1')
+        $automationRoot = Join-Path $repoRoot 'automation'
+        $combinedHash = (Get-CombinedTypeHash $automationRoot).CombinedHash
+        $typesDll = Join-Path $automationRoot ".compiled/Catzc.Types.$combinedHash.dll"
+        if (-not [System.IO.File]::Exists($typesDll)) {
+            throw "Measure-SpellOutIdentifiers: the compiled types assembly for the current sources ($typesDll) was not found — run the importer to build it."
         }
-        Add-Type -Path $typesDll.FullName
+        Import-TypesAssembly -Path $typesDll | Out-Null
     }
 
     $englishPath = Join-Path $repoRoot 'automation/Catzc.Base.QualityGates/assets/english.txt.gz'

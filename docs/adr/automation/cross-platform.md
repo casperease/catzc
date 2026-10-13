@@ -62,8 +62,8 @@ The concrete PowerShell breakage tables — Windows-isms that fail on Unix and U
 ### How we enforce this
 
 **The analyzer layer** ([cross-platform-powershell](powershell/cross-platform-powershell.md)) validates cmdlets and .NET types against the
-target-platform profiles at analysis time, in the L2 test suite, on every developer's machine — so a platform break is caught before push,
-not in the pipeline queue.
+target-platform profiles at analysis time, in the L2 tests, on every developer's machine — so a platform break is caught before push, not in
+the pipeline queue.
 
 **Platform-aware installers** (see [controlling-systemwide-deps](controlling-systemwide-deps.md)) abstract package manager differences.
 `Install-NodeJs` calls `winget` on Windows and `apt-get` on Linux. The caller never writes platform-specific install logic.

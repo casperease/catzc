@@ -73,7 +73,7 @@ Paths resolve from the code root (`Get-CatzcModuleRoot`) or `$env:RepositoryRoot
 ### How this is enforced
 
 - **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`automation/.scriptanalyzer/NeverDependOnPwd.psm1`) — flags bare
-  `Set-Location`/`cd` calls (`ADR-AUTO-PSPWD:2`) and `$PWD` references (`ADR-AUTO-NOPWD:1`). Runs as part of the L2 test suite via
+  `Set-Location`/`cd` calls (`ADR-AUTO-PSPWD:2`) and `$PWD` references (`ADR-AUTO-NOPWD:1`). Runs as one of the L2 tests via
   `Test-ScriptAnalyzer.Tests.ps1`.
 - **Custom PSScriptAnalyzer rule `Measure-NoScriptRootAnchor`** (`automation/.scriptanalyzer/NoScriptRootAnchor.psm1`) — flags
   `$PSScriptRoot` in module function files (`ADR-AUTO-NOPWD:5`).

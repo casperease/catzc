@@ -120,10 +120,10 @@ never both; the choice is a per-unit governance posture.
 
 In Azure DevOps, every YAML-defined, agent-executed artifact is called a "pipeline." The word covers structurally different things: a
 timer-driven automation job, a build-and-test gate, a full deploy, a manually-governed deploy of a locked commit, and a user-facing form.
-When one noun covers all of them, the organisation loses the language it needs to distinguish their failure modes — the exact diagnosis made
-in [shared-fate-ci](../../notes/shared-fate-ci.md) (a "pipeline" that is really a release-candidate suite hung in the pre-commit slot) and
-[ado-as-self-service-layer](../../notes/ado-as-self-service-layer.md) (a "pipeline" that is really a parameterised RPC call wearing
-continuous delivery's name).
+When one noun covers all of them, the organisation loses the language it needs to distinguish their failure modes: a "pipeline" that is
+really a release-candidate suite hung in the pre-commit slot (breaking the fast-gate budget of
+[continuous integration](../research/continuous-integration.md)), and a "pipeline" that is really a parameterised RPC call wearing
+continuous delivery's name (the anti-pattern [INPUT](#input--self-service-input-turned-into-a-commit) replaces).
 
 The repair those notes prescribe is not a new mechanism. It is **precise naming**: call each artifact what it is, give each its own trigger
 model and contract, and make the differences visible. This ADR establishes a **closed set of six pipeline types**. Every ADO artifact in
@@ -141,7 +141,8 @@ The CI engine is **build-and-verify**, run in two trigger contexts on the same c
 
 1. **Pre-commit** — runs as an **ADO build validation** on the PR branch, before merge. Its job is to build the unit and verify the build.
    It is bound by a hard budget of **5–10 minutes** (Farley's pre-commit figure; DORA's ten-minute working number — see
-   [shared-fate-ci](../../notes/shared-fate-ci.md)). A gate slower than that stops being a gate and becomes a queue.
+   [test automation](../../references/dora/capabilities.md#test-automation)). A gate slower than that stops being a gate and becomes a
+   queue.
 2. **Post-commit on master** — the _same_ build-and-verify, re-run on the actual merged commit. The pre-commit validation proved the PR
    branch was green; the post-commit run proves the _merge result_ is green and produces the verified state of master.
 
@@ -203,13 +204,13 @@ _then_, once that is green, it orchestrates **deployment** of the deployable uni
 - **Trigger:** the CI engine triggers exactly as for a CI pipeline (PR build validation + post-commit master); the deploy and system-test
   stages run after the post-commit build succeeds.
 - **Components:** the CI engine (producing the verified, immutable artifact), then deploy stages, then system-level / integration tests
-  against the deployed unit. The artifact built once is what flows to each environment — build-once, deploy-many (Humble & Farley; see the
-  Tier 2 shape in [one-config-to-rule-them-all](../../notes/one-config-to-rule-them-all.md)).
+  against the deployed unit. The artifact built once is what flows to each environment — build-once, deploy-many (Humble & Farley; see
+  [continuous delivery](../../references/dora/capabilities.md#continuous-delivery)).
 - **Contract:** one CD pipeline per deployable unit. Deploys run against version control — the artifact and config are functions of the
-  repository, not of runtime input (see [ado-as-self-service-layer](../../notes/ado-as-self-service-layer.md)). The system-level tests that
-  are too slow for the 5–10 min pre-commit budget live _here_, post-commit, on the way to production — not in the pre-commit slot. When a
-  target environment is governed by manual, organizational gates rather than continuous delivery, CD's deploy tail is **extracted** into a
-  separate DEPLOY pipeline (below) instead of chaining automatically after the post-commit build.
+  repository, not of runtime input (see [INPUT](#input--self-service-input-turned-into-a-commit)). The system-level tests that are too slow
+  for the 5–10 min pre-commit budget live _here_, post-commit, on the way to production — not in the pre-commit slot. When a target
+  environment is governed by manual, organizational gates rather than continuous delivery, CD's deploy tail is **extracted** into a separate
+  DEPLOY pipeline (below) instead of chaining automatically after the post-commit build.
 
 ### DEPLOY — the governed deploy tail, extracted
 
@@ -287,9 +288,8 @@ prod gate is optional and, when present, _internal_ to an otherwise automated ro
 ### INPUT — self-service input, turned into a commit
 
 INPUT is the self-service primitive: it accepts user parameters and turns them into a **version-controlled change**. User input becomes
-git-resident config, not a runtime merge into a hidden config program on its way to the cloud — the anti-pattern dissected in
-[ado-as-self-service-layer](../../notes/ado-as-self-service-layer.md) and
-[one-config-to-rule-them-all](../../notes/one-config-to-rule-them-all.md).
+git-resident config, not a runtime merge into a hidden config program on its way to the cloud — the config tree of
+[the data model](../azure/azure-data-model.md) is the source of truth, and nothing bypasses it.
 
 An INPUT pipeline:
 
@@ -306,9 +306,9 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
   never reach the cloud directly — they are written into version control first, where the PR gate and CD can see them.
 - **How the commit lands:** an INPUT pipeline may open a **PR** (reviewed, or policy-auto-merged) or commit **directly** to a branch. The PR
   form preserves the change-approval gate that DORA's research identifies as the effective one (see
-  [classic-cmdb-vs-version-controlled-change](../../notes/classic-cmdb-vs-version-controlled-change.md)); the direct form is lower-ceremony
-  for pre-approved, bounded changes. Either way the invariant holds: **the output is a commit, and deployment happens only through CD
-  against version control** — never from the INPUT pipeline itself.
+  [streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval)); the direct form is lower-ceremony for
+  pre-approved, bounded changes. Either way the invariant holds: **the output is a commit, and deployment happens only through CD against
+  version control** — never from the INPUT pipeline itself.
 - **Contract:** an INPUT pipeline writes config and stops. It does **not** deploy, does **not** call cloud APIs to change infrastructure,
   and does **not** render the final config. It produces the same kind of diff a human would have hand-written.
 
@@ -348,6 +348,7 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
   [dual-authentication](../pipelines/dual-authentication.md) — mechanics every type relies on.
 - [durable-sha-globs](durable-sha-globs.md) — the globset projection every unit-scoped trigger registers on.
 - [test-automation](../automation/test-automation.md) — the L2/L3 tiers the CI engine runs.
-- Notes: [shared-fate-ci](../../notes/shared-fate-ci.md), [ado-as-self-service-layer](../../notes/ado-as-self-service-layer.md),
-  [one-config-to-rule-them-all](../../notes/one-config-to-rule-them-all.md),
-  [classic-cmdb-vs-version-controlled-change](../../notes/classic-cmdb-vs-version-controlled-change.md).
+- DORA: [continuous integration](../../references/dora/capabilities.md#continuous-integration),
+  [test automation](../../references/dora/capabilities.md#test-automation),
+  [streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — the capabilities behind the
+  pre-commit budget and the PR form of INPUT.

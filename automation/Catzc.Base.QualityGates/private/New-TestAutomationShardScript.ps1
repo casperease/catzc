@@ -4,7 +4,9 @@
 .DESCRIPTION
     Writes <RunDirectory>/shard-<N>.ps1 — the script a PesterRunner worker executes as `pwsh -NoProfile
     -File` (modeled on Test-InIsolation's generated runner). The worker dot-sources the repository importer
-    (-SkipJanitors), then sets strict mode for its own scope, whichever entry script loaded the modules: the
+    (-SkipJanitors), starts watching the process that launched it (WorkerParentWatch — the worker kills itself
+    when that parent is gone, so a run whose parent died never leaves workers behind), then sets strict mode
+    for its own scope, whichever entry script loaded the modules: the
     test scopes chain to that scope, so every test body runs strict (ADR-AUTO-TEST:25) — the module code under
     test is strict through its own module scope. It then imports vendored Pester — resolved inside the worker,
     after the import, from the worker's own code root (Get-CatzcModulesRoot/.vendor/Pester), so Pester always
@@ -111,6 +113,7 @@ function New-TestAutomationShardScript {
     $content = @"
 `$ErrorActionPreference = 'Stop'
 $entryLine
+[void] [Catzc.Base.QualityGates.WorkerParentWatch]::Start(2000)
 Set-StrictMode -Version Latest
 Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/Pester') -Force
 `$global:__PesterRunning = `$true

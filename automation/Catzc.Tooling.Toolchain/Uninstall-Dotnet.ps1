@@ -45,7 +45,8 @@ function Uninstall-Dotnet {
 
             # Clean persistent DOTNET_ROOT separately
             if ($IsWindows) {
-                [Environment]::SetEnvironmentVariable('DOTNET_ROOT', $null, 'User')
+                # the seam announces the removal, and does nothing when DOTNET_ROOT is not set
+                Set-PermanentEnvironmentVariable DOTNET_ROOT $null
             }
             else {
                 $profilePath = $PROFILE.CurrentUserCurrentHost

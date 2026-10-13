@@ -104,11 +104,21 @@ exit 0
         It 'replays a buffered worker after the live worker, preserving submission order on the console' {
             # Worker 0 is live but slow; worker 1 finishes first and must buffer. The pooled console
             # output still reads in submission order. Console.Out is redirected to observe it —
-            # SetOut redirection survives the runner's OutputEncoding save/restore.
+            # SetOut redirection survives the runner's OutputEncoding save/restore. A file handshake,
+            # not a sleep, makes worker 0 wait until worker 1 has written its output (exit 9 on a stall).
+            $fastDone = Join-Path $TestDrive 'fast-done.marker'
             $slow = Join-Path $TestDrive 'slow.ps1'
             $fast = Join-Path $TestDrive 'fast.ps1'
-            [System.IO.File]::WriteAllText($slow, "Start-Sleep -Milliseconds 1500`nWrite-Output 'ALPHA-MARK'")
-            [System.IO.File]::WriteAllText($fast, "Write-Output 'BRAVO-MARK'")
+            $slowContent = @"
+`$deadline = [DateTime]::UtcNow.AddSeconds(30)
+while (-not (Test-Path '$fastDone')) {
+    if ([DateTime]::UtcNow -gt `$deadline) { exit 9 }
+    Start-Sleep -Milliseconds 20
+}
+Write-Output 'ALPHA-MARK'
+"@
+            [System.IO.File]::WriteAllText($slow, $slowContent)
+            [System.IO.File]::WriteAllText($fast, "Write-Output 'BRAVO-MARK'`n[System.IO.File]::WriteAllText('$fastDone', 'done')")
 
             $writer = [System.IO.StringWriter]::new()
             $originalOut = [Console]::Out
@@ -127,7 +137,21 @@ exit 0
             $console.IndexOf('ALPHA-MARK') | Should -BeLessThan $console.IndexOf('BRAVO-MARK')
 
             # Capture is independent of the pooling: the buffered worker's result is complete.
+            $runner.Results[0].ExitCode | Should -Be 0
             $runner.Results[1].Stdout | Should -Match 'BRAVO-MARK'
+        }
+
+        It 'tells each worker who its parent is, over any caller value' {
+            $echo = Join-Path $TestDrive 'parent-echo.ps1'
+            [System.IO.File]::WriteAllText($echo, 'Write-Output "pid=$env:CATZC_TEST_PARENT_PID start=$env:CATZC_TEST_PARENT_START"')
+
+            $environment = @{ CATZC_TEST_PARENT_PID = '1'; CATZC_TEST_PARENT_START = '1' }
+            $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(@($echo), @('echo'), 1, $environment, 120, $true)
+
+            # The start time is checked through the watch's own tolerant comparison, not textually — on Linux it
+            # can differ by milliseconds between reads.
+            $runner.Results[0].Stdout -match "pid=$PID start=(\d+)" | Should -BeTrue -Because $runner.Results[0].Stdout
+            [Catzc.Base.QualityGates.WorkerParentWatch]::IsAlive($PID, [long]$Matches[1]) | Should -BeTrue
         }
 
         It 'kills the pool and throws on timeout' {

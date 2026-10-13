@@ -76,11 +76,11 @@ Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
         }
     }
 
-    It 'defaults to L0-L2, both categories' {
+    It 'asks for every tier the slot allows (L3 runs in place only), both categories' {
         Test-CatzcBuild
 
         Should -Invoke Invoke-TestAutomationSuite -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
-            $MinLevel -eq 0 -and $MaxLevel -eq 2 -and $Category -eq 'Both'
+            $MinLevel -eq 0 -and $MaxLevel -eq 3 -and $Category -eq 'Both'
         }
     }
 

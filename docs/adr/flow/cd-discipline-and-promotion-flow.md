@@ -150,8 +150,8 @@ The word "CI" carries both meanings, and conflating them is the mistake this ADR
 YAML file that compiles something. Read as a discipline, it is the team-scale practice — small, frequent integrations into one mainline,
 each proven fast — that the pipeline exists to _serve_. The 5–10 minute budget, the always-on environment that mirrors main, and the
 build-once artifact that flows to prod are all consequences of taking the discipline as primary. The complement is
-[shared-fate-ci](../../notes/shared-fate-ci.md), which diagnoses what goes wrong when a slow release-candidate suite squats in the fast CI
-slot.
+[continuous integration](../research/continuous-integration.md), whose fast-gate budget is what a slow release-candidate suite breaks when
+it squats in the fast CI slot.
 
 ## Decision
 
@@ -392,4 +392,5 @@ the mechanic — stage inactive, validate, activate live — is the same.
   the value-chain diagrams prefix a flow with.
 - [everything-as-code](../principles/everything-as-code.md), [reduce-waste](../principles/reduce-waste.md) — build-once/deploy-many and the
   version-aligned artifact are these principles applied to the flow.
-- Notes: [shared-fate-ci](../../notes/shared-fate-ci.md) — the failure mode when a slow suite squats in the fast CI slot.
+- DORA: [continuous integration](../../references/dora/capabilities.md#continuous-integration) — the fast-feedback budget a slow suite in
+  the fast CI slot breaks.

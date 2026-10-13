@@ -40,6 +40,16 @@ Describe 'Reset-GitCleanFxd' -Tag 'L0', 'logic' {
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Git -Times 0 -ParameterFilter { $Command -like 'git clean -fxd*' }
     }
 
+    It 'keeps a candidate matching a ! exclusion, even though an inclusion also matches it' {
+        Mock Get-AutoControlledGlobs { @('out', 'out/*', '!out/plan-*.md') } -ModuleName Catzc.Base.Git
+        Mock Invoke-Executable {
+            [pscustomobject]@{ ExitCode = 0; Output = "Would remove out/report.csv`nWould remove out/plan-widget.md" }
+        } -ModuleName Catzc.Base.Git -ParameterFilter { $Command -eq 'git clean -xdn' }
+        $planned = Reset-GitCleanFxd -DryRun
+        @($planned.Remove) | Should -Be @('out/report.csv')
+        @($planned.Keep) | Should -Be @('out/plan-widget.md')
+    }
+
     It 'reports a clean tree and runs no clean at all' {
         Mock Invoke-Executable {
             [pscustomobject]@{ ExitCode = 0; Output = '' }

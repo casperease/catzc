@@ -65,16 +65,24 @@ Describe 'Failing' -Tag 'L0', 'logic' {
     # The walking skeleton of the snapshot path (ADR-AUTO-TEST:32): a real snapshot, primed, a real worker
     # loading it. -Isolated takes the path deterministically; when it is taken because another run holds the
     # working folder is Enter-TestRunSlot's L0 concern.
-    # The probe is machine-tagged too, so the same worker spawn proves the machine-wide lock reaches the worker.
+    # The fixture also carries an L3 block, so the same worker spawn proves a snapshot skips the vertical system
+    # tests (Resolve-TestRunMaxLevel, ADR-AUTO-TEST:33).
     It 'runs in a snapshot: the worker loads the snapshot, the report and the rows come home, the snapshot is removed' {
         Mock Write-Message -ModuleName Catzc.Base.Git { }
+        Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         $probe = Join-Path $TestDrive 'probe.json'
+        $systemProbe = Join-Path $TestDrive 'system-probe.txt'
         $fixture = Join-Path $TestDrive 'Probe.Tests.ps1'
         [System.IO.File]::WriteAllText($fixture, @"
-Describe 'Probe' -Tag 'L0', 'logic', 'machine' {
+Describe 'Probe' -Tag 'L0', 'logic' {
     It 'records the root it runs in' {
-        `$observation = @{ Root = (Get-RepositoryRoot); ModuleBase = (Get-Module Catzc.Base.Git).ModuleBase; MachineLockHeld = `$env:CATZC_TEST_MACHINE_LOCK_HELD }
+        `$observation = @{ Root = (Get-RepositoryRoot); ModuleBase = (Get-Module Catzc.Base.Git).ModuleBase }
         [System.IO.File]::WriteAllText('$probe', (ConvertTo-Json -InputObject `$observation))
+    }
+}
+Describe 'SystemProbe' -Tag 'L3', 'logic' {
+    It 'would change state outside the repository' {
+        [System.IO.File]::WriteAllText('$systemProbe', 'ran')
     }
 }
 "@)
@@ -90,7 +98,8 @@ Describe 'Probe' -Tag 'L0', 'logic', 'machine' {
         $observation.Root | Should -BeLike '*catzc-run-*'
         $observation.ModuleBase | Should -BeLike "$($observation.Root)*" -Because 'the worker loads the snapshot''s modules, not the working folder''s'
         [System.IO.Directory]::Exists($observation.Root) | Should -BeFalse -Because 'the snapshot is removed after the run'
-        $observation.MachineLockHeld | Should -Be '1' -Because 'a machine-tagged file runs under the machine-wide test lock'
+        [System.IO.File]::Exists($systemProbe) | Should -BeFalse -Because 'a snapshot run skips the L3 system tests'
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like 'Skipping L3:*' }
         @($run.Rows | Where-Object File -EQ $repositoryTest).Count | Should -BeGreaterThan 0 -Because 'row paths map back to the working folder'
     }
 }

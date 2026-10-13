@@ -38,7 +38,8 @@
     Skip the exit code assertion. The ExitCode is still available on the
     result object when combined with -PassThru.
 .PARAMETER Silent
-    Suppress the command log line and all console output.
+    Suppress the command log line and all console output. A silent run is non-interactive: the child gets an
+    empty, closed stdin, so a prompt fails instead of waiting invisibly.
 .PARAMETER WorkingDirectory
     The directory to run the command in. Defaults to the repository root
     ($env:RepositoryRoot). Callers that need a specific directory should

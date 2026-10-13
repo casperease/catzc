@@ -219,7 +219,7 @@ All functions must use approved PowerShell verbs. No exceptions.
 ### How this is enforced
 
 - **PSScriptAnalyzer rule `PSUseApprovedVerbs`** (built-in, enabled) — warns on any function that uses a verb not in the `Get-Verb` list.
-  Runs as part of the L2 test suite via `Test-ScriptAnalyzer.Tests.ps1`.
+  Runs as one of the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
 
 ## Consequences
 

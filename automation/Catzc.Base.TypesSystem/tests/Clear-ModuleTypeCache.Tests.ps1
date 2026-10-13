@@ -64,62 +64,10 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         $currentDll | Should -Exist
     }
 
-    It 'warns when a superseded build survives the delete — a live session locking it (devbox)' -Tag 'logic' {
-        # The console-session warning fires only when a build SURVIVES the delete pass, not on a bare two-dlls-on-
-        # disk state. Report the stale build as locked, so the delete skips it and two builds remain — the exact
-        # situation the warning describes.
-        Mock Test-FileIsLocked { $true } -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Path -like '*deadbeef*' }
-        Clear-ModuleTypeCache -AutomationRoot $fakeRoot   # fixture has current + stale; stale is locked → survives
-        $staleDll | Should -Exist
-        Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Warning }
-    }
-
-    It 'names the process holding the surviving build in the warning' -Tag 'logic' {
-        Mock Test-FileIsLocked { $true } -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Path -like '*deadbeef*' }
-        Mock Get-FileLockingProcess {
-            [Catzc.Base.Files.FileLockingProcess]::new(4242, 'widget.exe', 'Widget', [datetime] '2026-01-02 03:04', 'widget.exe -run', 1)
-        } -ModuleName Catzc.Base.TypesSystem
-        Clear-ModuleTypeCache -AutomationRoot $fakeRoot
-        Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter {
-            $Warning -and $Message -like '*Catzc.Types.deadbeef.dll is held by widget.exe (PID 4242, started 2026-01-02 03:04)*'
-        }
-        Should -Invoke Get-FileLockingProcess -ModuleName Catzc.Base.TypesSystem -Times 0 -ParameterFilter { $Path -eq $currentDll }
-    }
-
-    It 'labels a VS Code PowerShell extension host by name in the warning' -Tag 'logic' {
-        Mock Test-FileIsLocked { $true } -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Path -like '*deadbeef*' }
-        Mock Get-FileLockingProcess {
-            [Catzc.Base.Files.FileLockingProcess]::new(4242, 'pwsh.exe', 'PowerShell 7', [datetime] '2026-01-02 03:04', 'pwsh.exe -Command Start-EditorServices PowerShellEditorServices', 1)
-        } -ModuleName Catzc.Base.TypesSystem
-        Clear-ModuleTypeCache -AutomationRoot $fakeRoot
-        Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Warning -and $Message -like '*the VS Code PowerShell extension*' }
-    }
-
-    It 'still warns, holder-free, when the holder lookup fails — and never throws' -Tag 'logic' {
-        Mock Test-FileIsLocked { $true } -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Path -like '*deadbeef*' }
-        Mock Get-FileLockingProcess { throw 'widget lookup failure' } -ModuleName Catzc.Base.TypesSystem
-        { Clear-ModuleTypeCache -AutomationRoot $fakeRoot -Silent } | Should -Not -Throw
-        Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Warning -and $Message -like '*is a console session locking it?*' }
-    }
-
-    It 'does NOT warn when the superseded build is freely deletable (cleaned up silently)' -Tag 'logic' {
-        # The fix: the warning is no longer emitted preemptively on a mere two-dlls-on-disk state. The fixture's
-        # stale build is unlocked, so the delete removes it and only the current build remains — no warning.
-        Clear-ModuleTypeCache -AutomationRoot $fakeRoot
-        $staleDll | Should -Not -Exist
-        Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -Times 0 -ParameterFilter { $Warning }
-    }
-
     It 'throws in a pipeline when a superseded build is committed (two dlls present)' -Tag 'logic' {
         Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Base.TypesSystem
         { Clear-ModuleTypeCache -AutomationRoot $fakeRoot } | Should -Throw '*more than one compiled type assembly*'
         $staleDll | Should -Exist   # CI made no source-control change — it threw before touching anything
-    }
-
-    It 'emits the survived-build warning even under -Silent (a locked/stale DLL must surface)' -Tag 'logic' {
-        Mock Test-FileIsLocked { $true } -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Path -like '*deadbeef*' }
-        Clear-ModuleTypeCache -AutomationRoot $fakeRoot -Silent
-        Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Warning }
     }
 
     It 'always reports its end state — even when nothing is superseded' -Tag 'logic' {
@@ -146,10 +94,9 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter { $Message -match 'dry run' }
     }
 
-    It 'with -Silent and a single clean build, writes nothing (the importer''s quiet default)' -Tag 'logic' {
-        # The two-dll gate warns even under -Silent (covered above), so isolate the quiet path to one build.
-        Remove-Item $staleDll -Force
+    It 'with -Silent, writes nothing while it cleans (the importer''s quiet default)' -Tag 'logic' {
         Clear-ModuleTypeCache -AutomationRoot $fakeRoot -Silent
+        $staleDll | Should -Not -Exist
         Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -Times 0
         $currentDll | Should -Exist
     }
@@ -178,43 +125,20 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         @($planned) | Where-Object { $_ -match "Catzc\.Types\.$h\.dll$" } | Should -BeNullOrEmpty
     }
 
-    It 'skips a locked superseded DLL and removes the rest without stalling' -Tag 'logic' {
-        if (-not $IsWindows) {
-            Set-ItResult -Skipped -Because 'windows_only_file_lock'; return
-        }
-
-        # Add a second superseded build so one can be locked and the other still removed.
-        $stale2 = Join-Path $compiled 'Catzc.Types.cafef00d.dll'
-        Set-Content -Path $stale2 -Value 'stale2'
-
-        Assert-FileIsNotLocked $staleDll                                      # precondition
-        $stream = [System.IO.File]::Open($staleDll, 'Open', 'Read', 'None')   # hold an exclusive handle
-        try {
-            Assert-FileIsLocked $staleDll                                     # the lock is real
-            { Clear-ModuleTypeCache -AutomationRoot $fakeRoot } | Should -Not -Throw
-            $staleDll | Should -Exist        # locked one survives
-            $stale2 | Should -Not -Exist     # unlocked superseded removed
-            $currentDll | Should -Exist      # current build kept
-        }
-        finally {
-            $stream.Dispose()
-        }
-    }
-
-    It 'with -ThrowOnNonReleasedFromClrTypesDll, throws on a still-loaded superseded DLL (after removing the deletable ones)' -Tag 'logic' {
+    It 'throws on a held superseded DLL, naming its holder, after removing the deletable ones' -Tag 'logic' {
         if (-not $IsWindows) {
             Set-ItResult -Skipped -Because 'windows_only_file_lock'; return
         }
 
         # A second superseded build stays deletable, so the throw only fires AFTER the removable stale is gone.
         $stale2 = Join-Path $compiled 'Catzc.Types.cafef00d.dll'
-        Set-Content -Path $stale2 -Value 'stale2'
+        [System.IO.File]::WriteAllText($stale2, 'stale2')
 
-        $stream = [System.IO.File]::Open($staleDll, 'Open', 'Read', 'None')   # a loaded-DLL analogue: locked handle
+        $stream = [System.IO.File]::Open($staleDll, 'Open', 'Read', 'None')   # something outside catzc holds it
         try {
-            { Clear-ModuleTypeCache -AutomationRoot $fakeRoot -ThrowOnNonReleasedFromClrTypesDll } |
-                Should -Throw "*Catzc.Types.deadbeef.dll by this session (PID $PID)*restart PowerShell*"
-            $staleDll | Should -Exist        # the still-loaded one survives (it is named in the throw)
+            { Clear-ModuleTypeCache -AutomationRoot $fakeRoot -Silent } |
+                Should -Throw "*Catzc.Types.deadbeef.dll, held by this session (PID $PID)*per-user shadow copy*"
+            $staleDll | Should -Exist        # the held one survives (it is named in the throw)
             $stale2 | Should -Not -Exist     # the deletable stale build was removed first
             $currentDll | Should -Exist      # the current build is always kept
         }
@@ -223,13 +147,54 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         }
     }
 
-    It 'without the switch, a still-loaded superseded DLL is skipped rather than thrown (importer-safe default)' -Tag 'logic' {
+    It 'with -StopLockingProcesses, stops the holder of a superseded DLL and then deletes it' -Tag 'logic' {
         if (-not $IsWindows) {
             Set-ItResult -Skipped -Because 'windows_only_file_lock'; return
         }
+
+        $script:stream = [System.IO.File]::Open($staleDll, 'Open', 'Read', 'None')
+        # The stop is simulated: releasing the test's own handle is what stopping the holder achieves.
+        Mock Stop-FileLockingProcess { $script:stream.Dispose() } -ModuleName Catzc.Base.TypesSystem
+        try {
+            { Clear-ModuleTypeCache -AutomationRoot $fakeRoot -Silent -StopLockingProcesses } | Should -Not -Throw
+            $staleDll | Should -Not -Exist
+            $currentDll | Should -Exist
+            Should -Invoke Stop-FileLockingProcess -ModuleName Catzc.Base.TypesSystem -Times 1 -Exactly -ParameterFilter { $Path -eq $staleDll }
+        }
+        finally {
+            $script:stream.Dispose()
+        }
+    }
+
+    It 'with -StopLockingProcesses, retries a DLL whose handle is released only after the holder exits' -Tag 'logic' {
+        if (-not $IsWindows) {
+            Set-ItResult -Skipped -Because 'windows_only_file_lock'; return
+        }
+
+        $script:stream = [System.IO.File]::Open($staleDll, 'Open', 'Read', 'None')
+        # The stop returns with the handle still held; it is released during the first back-off wait.
+        Mock Stop-FileLockingProcess { } -ModuleName Catzc.Base.TypesSystem
+        Mock Start-Sleep { $script:stream.Dispose() } -ModuleName Catzc.Base.TypesSystem
+        try {
+            { Clear-ModuleTypeCache -AutomationRoot $fakeRoot -Silent -StopLockingProcesses } | Should -Not -Throw
+            $staleDll | Should -Not -Exist
+            Should -Invoke Start-Sleep -ModuleName Catzc.Base.TypesSystem -Times 1 -Exactly
+        }
+        finally {
+            $script:stream.Dispose()
+        }
+    }
+
+    It 'with -StopLockingProcesses, still throws for a DLL that stays held after the stop' -Tag 'logic' {
+        if (-not $IsWindows) {
+            Set-ItResult -Skipped -Because 'windows_only_file_lock'; return
+        }
+
+        Mock Stop-FileLockingProcess { } -ModuleName Catzc.Base.TypesSystem
+        Mock Start-Sleep { } -ModuleName Catzc.Base.TypesSystem
         $stream = [System.IO.File]::Open($staleDll, 'Open', 'Read', 'None')
         try {
-            { Clear-ModuleTypeCache -AutomationRoot $fakeRoot } | Should -Not -Throw
+            { Clear-ModuleTypeCache -AutomationRoot $fakeRoot -Silent -StopLockingProcesses } | Should -Throw '*Catzc.Types.deadbeef.dll*'
             $staleDll | Should -Exist
         }
         finally {
@@ -237,18 +202,32 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         }
     }
 
-    It 'skips a file it cannot delete for a non-lock reason without throwing' -Tag 'logic' {
+    It 'never stops a process without -StopLockingProcesses' -Tag 'logic' {
+        if (-not $IsWindows) {
+            Set-ItResult -Skipped -Because 'windows_only_file_lock'; return
+        }
+
+        Mock Stop-FileLockingProcess { } -ModuleName Catzc.Base.TypesSystem
+        $stream = [System.IO.File]::Open($staleDll, 'Open', 'Read', 'None')
+        try {
+            { Clear-ModuleTypeCache -AutomationRoot $fakeRoot -Silent } | Should -Throw
+            Should -Invoke Stop-FileLockingProcess -ModuleName Catzc.Base.TypesSystem -Times 0
+        }
+        finally {
+            $stream.Dispose()
+        }
+    }
+
+    It 'throws with the delete error when the holder lookup finds nobody or fails' -Tag 'logic' {
         if (-not $IsWindows) {
             Set-ItResult -Skipped -Because 'windows_only_read_only_delete'; return
         }
 
-        $stale2 = Join-Path $compiled 'Catzc.Types.cafef00d.dll'
-        Set-Content -Path $stale2 -Value 'stale2'
+        Mock Get-FileLockingProcess { throw 'widget lookup failure' } -ModuleName Catzc.Base.TypesSystem
         Set-ItemProperty -Path $staleDll -Name IsReadOnly -Value $true   # File.Delete throws UnauthorizedAccess
         try {
-            { Clear-ModuleTypeCache -AutomationRoot $fakeRoot } | Should -Not -Throw
-            $staleDll | Should -Exist        # undeletable one survives, skipped
-            $stale2 | Should -Not -Exist     # the deletable one still removed
+            { Clear-ModuleTypeCache -AutomationRoot $fakeRoot } | Should -Throw '*Catzc.Types.deadbeef.dll (*'
+            $staleDll | Should -Exist
         }
         finally {
             Set-ItemProperty -Path $staleDll -Name IsReadOnly -Value $false   # so TestDrive teardown can remove it

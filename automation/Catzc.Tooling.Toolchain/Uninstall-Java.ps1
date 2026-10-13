@@ -40,10 +40,8 @@ function Uninstall-Java {
         }
 
         if ($IsWindows) {
-            if ([Environment]::GetEnvironmentVariable('JAVA_HOME', 'User')) {
-                [Environment]::SetEnvironmentVariable('JAVA_HOME', $null, 'User')
-                Write-Message 'User environment: removed JAVA_HOME'
-            }
+            # the seam announces the removal, and does nothing when JAVA_HOME is not set
+            Set-PermanentEnvironmentVariable JAVA_HOME $null
         }
         else {
             $marker = '>>> catzc Install-Java >>>'

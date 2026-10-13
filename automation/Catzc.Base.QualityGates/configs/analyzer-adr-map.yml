@@ -25,6 +25,8 @@ analyzers:
     Measure-AnnounceStateChange: [ADR-AUTO-ANNOUNCE#2, ADR-AUTO-ANNOUNCE#3]
     Measure-SpellOutIdentifiers: [ADR-AUTO-SPELL#9]
     Measure-NoScriptRootAnchor: [ADR-AUTO-NOPWD#5, ADR-AUTO-ASSETDEP#1]
+    Measure-NoUnsafeFirstIndex: [ADR-AUTO-ERROR#8]
+    Measure-NoBareScriptSlotRead: [ADR-AUTO-PSCACHE#4]
 
     # Enabled built-in rules that enforce an ADR
     PSUseApprovedVerbs: [ADR-AUTO-VERBS#1]

@@ -72,7 +72,7 @@ rule, not a language one: see [cross-platform](../cross-platform.md#rule-adr-aut
 ### How the analyzer catches platform breaks
 
 **PSScriptAnalyzer** validates cmdlets and .NET types against Windows and Ubuntu profiles at analysis time, catching Windows-only APIs
-_before the code runs_ — in the L2 test suite, on every developer's machine. The rules that do this (`PSUseCompatibleCmdlets`,
+_before the code runs_ — in the L2 tests, on every developer's machine. The rules that do this (`PSUseCompatibleCmdlets`,
 `PSUseCompatibleTypes`), their target profiles, and their current on/off state are defined in `PSScriptAnalyzerSettings.psd1`, documented
 inline (they are cost-gated and may be toggled — the psd1 is authoritative).
 

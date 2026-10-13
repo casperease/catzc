@@ -10,7 +10,7 @@ everything is self-contained: vendored dependencies, no network calls, no global
 
 In code the system is **catzc** — the `Catzc.*` modules and namespaces; in prose we call it **cats** ("ask cats").
 
-[![CI](../../../actions/workflows/ci.yml/badge.svg)](../../../actions/workflows/ci.yml)
+[![CI](https://github.com/casperease/catzc/actions/workflows/ci.yml/badge.svg)](https://github.com/casperease/catzc/actions/workflows/ci.yml)
 
 ---
 
@@ -42,8 +42,8 @@ Write-Message 'Ready to go'
   run the tests, vendor a dependency, and write a new doc chapter.
 - **[Architecture decision records](../docs/adr/README.md)** — the design rationale behind every rule: error handling, folder conventions,
   vendoring, cross-platform support, the data/naming model, and more.
-- **[FAQ](../docs/faq.md)** — why importing everything is fast, why there is no dependency hell, and why this beats flat scripts that
-  dot-source each other.
+- **[FAQ](../docs/how-to/getting-started/automation/faq.md)** — why importing everything is fast, why there is no dependency hell, and why
+  this beats flat scripts that dot-source each other.
 
 The design in one line: [**zero ceremony, hard to fail**](../docs/adr/automation/zero-ceremony-poka-yoke.md) — every choice is judged
 against _does this add ceremony?_ and _can the author get this wrong?_

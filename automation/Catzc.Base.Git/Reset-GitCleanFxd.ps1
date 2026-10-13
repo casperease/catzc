@@ -15,6 +15,7 @@
 
     Everything deleted is rematerialised by the next import (dot-source importer.ps1) except out/,
     whose content is transient by contract (dedicated-output-directory) — gone means gone, by design.
+    The authored plan files (out/plan-*.md, ADR-REPO-OUTDIR:10) are the exception: kept and reported.
 .PARAMETER DryRun
     Classify without deleting: return the plan as an object with the Remove and Keep lists.
 .OUTPUTS
@@ -47,14 +48,23 @@ function Reset-GitCleanFxd {
         return
     }
 
+    # A '!'-prefixed glob is an exclusion: it wins over every inclusion, gitignore-style.
     $globs = Get-AutoControlledGlobs
+    $includes = @($globs | Where-Object { -not $_.StartsWith('!') })
+    $excludes = @($globs | Where-Object { $_.StartsWith('!') } | ForEach-Object { $_.Substring(1) })
     $remove = [System.Collections.Generic.List[string]]::new()
     $keep = [System.Collections.Generic.List[string]]::new()
     foreach ($candidate in @($candidates)) {
         $isControlled = $false
-        foreach ($glob in $globs) {
+        foreach ($glob in $includes) {
             if ($candidate -like $glob) {
                 $isControlled = $true
+                break
+            }
+        }
+        foreach ($glob in $excludes) {
+            if ($candidate -like $glob) {
+                $isControlled = $false
                 break
             }
         }

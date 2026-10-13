@@ -61,8 +61,7 @@ function Invoke-Importer {
         # loaded from its committed/cached assembly. Use it to build from source (e.g. verify a clean rebuild).
         [switch] $ClearCompiledTypes,
 
-        # Show the post-import type-cache janitor's report. Off by default (Clear-ModuleTypeCache is run -Silent so
-        # a normal load stays quiet); pass this to see what it cleaned or that it was already clean.
+        # Show the post-import type-cache janitor's report (off by default: Clear-ModuleTypeCache runs -Silent).
         [switch] $NonSilentClear,
 
         # Skip the post-import janitors (Clear-ModuleTypeCache, Build-Readme, Build-TerminologyDictionary,
@@ -241,11 +240,16 @@ function Invoke-Importer {
             Reset-GitCleanFxd
         }
 
-        # Tidy superseded compiled type assemblies so the committed automation/.compiled stays a clean -1/+1 diff when
-        # a C# type changes. No-op in CI (Clear-ModuleTypeCache self-skips). Guarded: absent in the bootstrap sandbox.
-        # -Silent by default so a normal load is quiet; -NonSilentClear surfaces the janitor's end-state report.
+        # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff); CI self-skips, -NonSilentClear shows the report.
+        # An undeletable build (held outside catzc) is one red line, never a failed load. Absent in the bootstrap sandbox.
+        # Stop the holders in a person's session only — never an agent's, never CI's (ADR-AUTO-TYPES:13).
         if (-not $SkipJanitors -and (Get-Command Clear-ModuleTypeCache -ErrorAction Ignore)) {
-            Clear-ModuleTypeCache -Silent:(-not $NonSilentClear)
+            try {
+                Clear-ModuleTypeCache -Silent:(-not $NonSilentClear) -StopLockingProcesses:(-not (Test-IsRunningInPipeline) -and -not (Test-IsRunningAsAgent))
+            }
+            catch {
+                Write-ImporterMessage $_.Exception.Message -ForegroundColor Red
+            }
         }
 
         # Keep the generated ADR index current (Catzc.Base.Docs). docs/adr/index.md is the code -> ADR registry

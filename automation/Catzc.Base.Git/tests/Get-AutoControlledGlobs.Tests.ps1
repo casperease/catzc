@@ -29,10 +29,16 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
 
     It 'matches the generated shapes and rejects plausible in-flight work' {
         $globs = InModuleScope Catzc.Base.Git { Get-AutoControlledGlobs }
+        # Reset-GitCleanFxd's classification: any inclusion matches and no '!' exclusion does.
         $isControlled = {
             param($candidate)
             foreach ($glob in $globs) {
-                if ($candidate -like $glob) {
+                if ($glob.StartsWith('!') -and $candidate -like $glob.Substring(1)) {
+                    return $false
+                }
+            }
+            foreach ($glob in $globs) {
+                if (-not $glob.StartsWith('!') -and $candidate -like $glob) {
                     return $true
                 }
             }
@@ -40,7 +46,11 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         }
         & $isControlled 'automation/Catzc.Base.Git/Catzc.Base.Git.psd1' | Should -BeTrue
         & $isControlled 'infrastructure/README.md' | Should -BeTrue
-        & $isControlled 'out/plan-obj.md' | Should -BeTrue
+        & $isControlled 'docs/adr/index.md' | Should -BeTrue
+        & $isControlled 'docs/adr/repository/new-draft.md' | Should -BeFalse
+        & $isControlled 'out/report-widget.md' | Should -BeTrue
+        # the authored plan files are working notes, not output (ADR-REPO-OUTDIR:10)
+        & $isControlled 'out/plan-widget.md' | Should -BeFalse
         & $isControlled 'automation/Catzc.Base.Git/New-Draft.ps1' | Should -BeFalse
         & $isControlled 'automation/.compiled/Catzc.Types.abc123.dll' | Should -BeFalse
         # drawio autosave shadows are disposable clutter; the committed asset beside them is NOT

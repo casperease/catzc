@@ -126,7 +126,7 @@ is self-contained, and the primitives are therefore callable from any module abo
   `ado_naming ∈ {standard, classic}`, `git_workspace ∈ {main-direct, main-via-pr}`, `have_customers` is `false`/`all`/a valid name list. A
   typo fails fast at import.
 - **The dependency graph** (`dependencies.yml`, `Assert-ModuleDependency`) declares
-  `Catzc.Base.Variants: [Catzc.Base.Config, Catzc.Base.Asserts]` and would fail the L2 suite on any edge that made the graph cyclic.
+  `Catzc.Base.Variants: [Catzc.Base.Config, Catzc.Base.Asserts]` and would fail the L2 tests on any edge that made the graph cyclic.
 - **Code review** keeps new repo-wide switches in this module as variants with their own primitives, rather than as ad-hoc config reads or
   environment variables.
 

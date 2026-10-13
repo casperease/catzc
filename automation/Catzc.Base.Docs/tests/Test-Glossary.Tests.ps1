@@ -1,0 +1,102 @@
+# Test-Glossary orchestrates the five gates; here every gate and the glossary readers are mocked, so the tests pin
+# the order, the report, the PassThru shape, and the single aggregate throw (ADR-AUTO-FAILFAST). The gates
+# themselves are covered by their own L0 files; the real-tree run is the L2 integrity block at the end of this file.
+Describe 'Test-Glossary' -Tag 'L0', 'logic' {
+    BeforeAll {
+        # Two real entries: the mocked gates keep their typed -Entry parameter, so the glossary must bind to it.
+        $script:entries = [Catzc.Base.Docs.GlossaryEntry[]] @(foreach ($term in 'gadget run', 'widget suite') {
+                $concept = [Catzc.Base.Docs.GlossaryConcept]::new($term, [ordered]@{
+                        key         = $term.Replace(' ', '_')
+                        domain      = 'repository'
+                        defined_by  = 'ADR-TST-WIDGET#1'
+                        short       = "The $term."
+                        realized_by = [ordered]@{ kind = 'prose-only' }
+                    })
+                [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'automation/Catzc.Widget/configs/glossary.yml',
+                    [Catzc.Base.Docs.GlossaryOptions]::new(@{}))
+            })
+    }
+
+    BeforeEach {
+        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
+        Mock Write-Message -ModuleName Catzc.Base.Docs { }
+        Mock Get-GlossarySources -ModuleName Catzc.Base.Docs { [pscustomobject]@{ Owner = 'Catzc.Widget' } }
+        $entries = $script:entries
+        Mock Get-Glossary -ModuleName Catzc.Base.Docs -MockWith { , $entries }.GetNewClosure()
+        Mock Get-GlossarySourceViolations -ModuleName Catzc.Base.Docs { }
+        Mock Get-GlossaryAnchorViolations -ModuleName Catzc.Base.Docs { }
+        Mock Get-GlossaryDefinitionViolations -ModuleName Catzc.Base.Docs { }
+        Mock Get-GlossaryPhrasingViolations -ModuleName Catzc.Base.Docs { }
+        Mock Get-GlossaryEnforcementViolations -ModuleName Catzc.Base.Docs { }
+        $script:out = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
+    }
+
+    It 'reports no issues, writes the report, and points latest.txt at it' -Tag 'ADR-REPO-VOCAB#1' {
+        $result = Test-Glossary -OutputFolder $script:out -PassThru
+        $result.IssueCount | Should -Be 0
+        $result.ConceptCount | Should -Be 2
+        $result.SourceCount | Should -Be 1
+        [System.IO.File]::ReadAllText((Join-Path $result.ReportPath 'glossary.md')) | Should -Match 'no glossary issues'
+        (Get-Content (Join-Path $script:out 'latest.txt')) | Should -Be (Split-Path $result.ReportPath -Leaf)
+    }
+
+    It 'throws once with every gate''s issues, prefixed by the gate, in gate order' -Tag 'ADR-REPO-VOCAB#5' {
+        Mock Get-GlossarySourceViolations -ModuleName Catzc.Base.Docs { 'widget: duplicate' }
+        Mock Get-GlossaryPhrasingViolations -ModuleName Catzc.Base.Docs { 'docs/alpha.md:3 says "widget bundle"'; 'docs/beta.md:1 says "widget bundle"' }
+        Mock Get-GlossaryEnforcementViolations -ModuleName Catzc.Base.Docs { 'widget: unenforced' }
+        $thrown = { Test-Glossary -OutputFolder $script:out } | Should -Throw -PassThru
+        $message = $thrown.Exception.Message
+        $message | Should -BeLike 'Test-Glossary failed: 4 issue(s)*'
+        $order = @('G1 widget: duplicate', 'G4 docs/alpha.md:3', 'G4 docs/beta.md:1', 'G5 widget: unenforced') |
+            ForEach-Object { $message.IndexOf($_) }
+        $order | Should -Not -Contain -1
+        $order | Should -Be @($order | Sort-Object)
+    }
+
+    It 'returns the issues instead of throwing with -PassThru' -Tag 'ADR-REPO-VOCAB#1' {
+        Mock Get-GlossaryAnchorViolations -ModuleName Catzc.Base.Docs { 'widget: not anchored' }
+        Mock Get-GlossaryDefinitionViolations -ModuleName Catzc.Base.Docs { 'widget: defined twice' }
+        $result = Test-Glossary -OutputFolder $script:out -PassThru
+        $result.IssueCount | Should -Be 2
+        $result.Issues | Should -Be @('G2 widget: not anchored', 'G3 widget: defined twice')
+        [System.IO.File]::ReadAllText((Join-Path $result.ReportPath 'glossary.md')) | Should -Match '- G3 widget: defined twice'
+    }
+}
+
+# The real glossary sources against the real ADRs, tests, and tracked files. G1 and G4 reach git (the tracked-file
+# listing), so this is L2; the answer is the same in both run modes, so the build suite skips it.
+Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity', 'source-only' {
+    BeforeAll {
+        $script:sources = @(InModuleScope Catzc.Base.Docs { Get-GlossarySources })
+        $script:entries = Get-Glossary
+    }
+
+    It 'discovers at least one glossary source' -Tag 'ADR-REPO-VOCAB#2' {
+        $script:sources.Count | Should -BeGreaterThan 0
+    }
+
+    It 'G1 — the sources agree with each other and are tracked' -Tag 'ADR-REPO-VOCAB#3' {
+        InModuleScope Catzc.Base.Docs -Parameters @{ Sources = $script:sources } { Get-GlossarySourceViolations -Source $Sources } |
+            Should -BeNullOrEmpty
+    }
+
+    It 'G2 — every term is anchored on its defining rule' -Tag 'ADR-REPO-VOCAB#1' {
+        InModuleScope Catzc.Base.Docs -Parameters @{ Entries = $script:entries } { Get-GlossaryAnchorViolations -Entry $Entries } |
+            Should -BeNullOrEmpty
+    }
+
+    It 'G3 — no second rule defines a term' -Tag 'ADR-REPO-VOCAB#1' {
+        InModuleScope Catzc.Base.Docs -Parameters @{ Entries = $script:entries } { Get-GlossaryDefinitionViolations -Entry $Entries } |
+            Should -BeNullOrEmpty
+    }
+
+    It 'G4 — prose avoids every avoided phrasing in scope' -Tag 'ADR-REPO-VOCAB#5' {
+        InModuleScope Catzc.Base.Docs -Parameters @{ Entries = $script:entries } { Get-GlossaryPhrasingViolations -Entry $Entries } |
+            Should -BeNullOrEmpty
+    }
+
+    It 'G5 — every realized concept is enforced' -Tag 'ADR-REPO-VOCAB#6' {
+        InModuleScope Catzc.Base.Docs -Parameters @{ Entries = $script:entries } { Get-GlossaryEnforcementViolations -Entry $Entries } |
+            Should -BeNullOrEmpty
+    }
+}

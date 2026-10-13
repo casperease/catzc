@@ -6,7 +6,7 @@
 
 PowerShell formatting builds on the repo-wide [uniform-formatting](../../repository/uniform-formatting.md) baseline and adds the
 PowerShell-specific rules below, enforced by PSScriptAnalyzer (`PSScriptAnalyzerSettings.psd1`) plus custom analyzer rules, run in the L2
-test suite.
+tests.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -140,7 +140,7 @@ PowerShell files follow the repo-wide baseline plus the PowerShell-specific rule
 ## Consequences
 
 - PowerShell pull-request diffs contain only logic changes; `git blame` points at the logic author, not the last reformatter.
-- New contributors produce correctly formatted PowerShell because their editor reads `.editorconfig` and PSScriptAnalyzer plus the L2 suite
+- New contributors produce correctly formatted PowerShell because their editor reads `.editorconfig` and PSScriptAnalyzer plus the L2 tests
   catch the rest before merge.
 - The cross-language baseline is single-sourced in [uniform-formatting](../../repository/uniform-formatting.md); this ADR holds only the
   PowerShell layer, so the two never duplicate or drift.

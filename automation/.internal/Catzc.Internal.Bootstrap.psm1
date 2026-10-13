@@ -215,7 +215,7 @@ function New-DynamicManifest {
         })
     [System.Array]::Sort($exportNames, [System.StringComparer]::Ordinal)
 
-    # Canonical, formatter-stable text — no hand-padded alignment (ADR-REPO-FORMAT#1); the L2 suite gates the invariant.
+    # Canonical, formatter-stable text — no hand-padded alignment (ADR-REPO-FORMAT#1); the L2 tests gate the invariant.
     $content = Get-DynamicManifestContent -NestedModule $nestedModules -FunctionToExport $exportNames -ExportAll:$ExportPrivates
     Write-DynamicManifest -Path $manifestPath -Content $content
 }
@@ -256,7 +256,7 @@ function Get-DynamicManifestContent {
     .DESCRIPTION
         The manifest is generated on every import, so it is canonical by construction: the '=' column is computed
         from the longest key rather than hand-padded (ADR-REPO-FORMAT#1), the text uses LF endings with a trailing newline,
-        and it is formatter-stable — running Invoke-Formatter over it is a no-op (gated in the L2 suite). Callers
+        and it is formatter-stable — running Invoke-Formatter over it is a no-op (gated by the L2 tests). Callers
         pass ordinal-sorted, forward-slashed inputs, so the bytes are identical on every platform and every build
         of a commit.
     #>
@@ -336,7 +336,7 @@ function Get-DynamicManifestContent {
     in the assembly-reference graph (nothing references it by assembly identity; PowerShell resolves
     [Namespace.Type] by FQN), so the Roslyn-assigned random assembly name is irrelevant and Add-Type stays the
     compiler. The module dependency graph is NOT enforced by the compiler here — it is policed by
-    Get-CSharpTypeDependency / Assert-ModuleDependency in the L2 suite.
+    Get-CSharpTypeDependency / Assert-ModuleDependency in the L2 tests.
 
     The assembly is committed as automation/.compiled/Catzc.Types.<combinedHash8>.dll (deterministic per the
     combined source hash, like .vendor) so a fresh checkout and CI load it without invoking Roslyn. The
@@ -562,9 +562,11 @@ function Import-CSharpTypes {
     # Load the assembly if not already in the AppDomain (a reimport keeps the live copy). Verify EVERY type.
     # Loading a binary into the session is a state change, so it is announced (ADR-AUTO-ANNOUNCE:2) on the
     # importer's verbose record (ADR-AUTO-ANNOUNCE:6), naming the DLL; a reimport that keeps the live copy loads
-    # nothing and says nothing.
+    # nothing and says nothing. The load goes through a per-user shadow copy (Import-TypesAssembly), never the
+    # .compiled file itself, so no session ever locks a build inside the repository; the message names the
+    # committed DLL, the artifact a reader recognizes.
     if (-not $loaded) {
-        Add-Type -Path $dll
+        Import-TypesAssembly -Path $dll | Out-Null
         Write-ImporterMessage "Loaded types $(([System.IO.Path]::GetRelativePath($env:RepositoryRoot, $dll)) -replace '\\', '/')" -StateChange
         foreach ($tf in $arr) {
             if (-not ([System.Management.Automation.PSTypeName]$tf.Type).Type) {

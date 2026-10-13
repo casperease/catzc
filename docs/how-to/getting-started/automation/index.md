@@ -166,4 +166,4 @@ Looking for what a specific module does rather than how to do a task? See the [m
 
 The filesystem is the single source of truth. There are no hand-maintained manifests, export lists, or registration steps — which is exactly
 why "drop a file, get a function" works. For the reasoning, start with
-[zero-ceremony, hard to fail](../../../adr/automation/zero-ceremony-poka-yoke.md) and the [FAQ](../../../faq.md).
+[zero-ceremony, hard to fail](../../../adr/automation/zero-ceremony-poka-yoke.md) and the [FAQ](faq.md).

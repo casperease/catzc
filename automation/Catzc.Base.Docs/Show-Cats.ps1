@@ -50,7 +50,7 @@ function Show-Cats {
             Write-Message '  module [name]   the modules; with a name substring, the functions they export' -NoHeader
             Write-Message '  verbs           the approved verbs in use across the tree' -NoHeader
             Write-Message '' -NoHeader
-            Write-Message 'Also: how-to guides in docs/how-to, the FAQ in docs/faq.md, live bicep templates via Get-BicepTemplates.' -NoHeader
+            Write-Message 'Also: how-to guides in docs/how-to, the FAQ in docs/how-to/getting-started/automation/faq.md, live bicep templates via Get-BicepTemplates.' -NoHeader
             break
         }
         'adr' {

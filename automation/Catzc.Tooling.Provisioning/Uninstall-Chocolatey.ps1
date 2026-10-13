@@ -37,9 +37,9 @@ function Uninstall-Chocolatey {
     Write-Verbose "Removing Chocolatey directory: $chocoDir"
     Remove-Item $chocoDir -Recurse -Force
     # Remove environment variable
-    Write-Verbose 'Removing ChocolateyInstall environment variable'
-    [System.Environment]::SetEnvironmentVariable('ChocolateyInstall', $null, 'Machine')
-    [System.Environment]::SetEnvironmentVariable('ChocolateyInstall', $null, 'User')
+    # the seam announces each removal, and does nothing in a scope where the variable is not set
+    Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope Machine
+    Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope User
 
     # Remove Chocolatey from PATH
     foreach ($scope in 'Machine', 'User') {

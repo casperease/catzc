@@ -13,15 +13,15 @@
     ADR-AUTO-TEST:26. Pester executes tests sequentially within a worker; a single file never splits across
     workers.
 .PARAMETER MaxLevel
-    Maximum test level to run (alias: -Level). Defaults to 2 (L0 + L1 + L2) — the L2 tier drives the
-    locally-installed CLI tools and self-skips a test when its tool is absent, so the default stays green
-    on a machine that is missing one.
+    Maximum test level to run (alias: -Level). Defaults to 3: every tier the run's slot allows. A run that
+    owns the working folder runs L0-L3; a run in a snapshot (another run holds the working folder, or
+    -Isolated) skips L3 and says so (ADR-AUTO-TEST:33). Tests self-skip when their tool or access is absent,
+    so the default stays green on a machine that is missing one.
     Tiers are defined by what a test integrates with (not by speed):
     L0/L1 = unit tests — pure logic with every external boundary mocked. L2 = integrates with a local CLI
-    tool for real (e.g. `az bicep build`, python, dotnet);
-    runs on a devbox and in fast CI where the tools are installed, and self-skips a test when its tool
-    is absent. L3 = integrates with the cloud API layer (real cloud, maybe through a CLI tool such as
-    `az deployment create`); opt-in, needs cloud access, self-skips when unavailable.
+    tool for real (e.g. `az bicep build`, python, dotnet), inside the repository. L3 = vertical system tests:
+    they change or depend on state outside the repository — the cloud (e.g. `az deployment create`), the
+    user's environment, installed tools — so only the run that owns the working folder runs them.
     Level 1 runs L0 + L1. Level 2 runs L0 + L1 + L2. Level 3 runs all.
     Every test must carry exactly one tier tag (L0-L3) and one category tag (logic|integrity); tests
     missing a tag are reported before the run (see Get-TestTagViolations).
@@ -118,7 +118,7 @@ function Test-Automation {
 
         [ValidateSet(0, 1, 2, 3)]
         [Alias('Level')]
-        [int] $MaxLevel = 2,
+        [int] $MaxLevel = 3,
 
         [ArgumentCompleter({ Get-AutomationModules })]
         [ValidateScript({ $_ -in (Get-AutomationModules) })]

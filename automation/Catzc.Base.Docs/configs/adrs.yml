@@ -223,6 +223,7 @@ domains:
       repo-variants: { external: ADR-REPO-VARIANT }
       domain-language-separation: { external: ADR-REPO-LANG }
       controlled-vocabulary: { external: ADR-REPO-VOCAB }
+      markdown-links: { external: ADR-REPO-LINK }
 
   research:
     code: DORA # 4-letter domain code; composes ADR-DORA-<NAME> — a concise, precise capability name (no doraXXX body)

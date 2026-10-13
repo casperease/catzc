@@ -1,0 +1,30 @@
+# glossary.yml — the Catzc.Base.QualityGates glossary source: the test vocabulary this module owns, as the home of
+# Test-Automation (docs/adr/repository/controlled-vocabulary.md, ADR-REPO-VOCAB). Every option is defaulted: all four
+# gates, the whole repository, every text surface (ADR-REPO-VOCAB:2). Checked by Test-Glossary.
+concepts:
+    tier:
+        key: tier
+        domain: automation
+        defined_by: ADR-AUTO-TEST#13
+        short: A test's level, L0 to L3 — one mandatory tag that sets what the test may touch and when it runs.
+        realized_by: { kind: tag, pattern: 'L0|L1|L2|L3' }
+        avoid:
+            - { phrase: L2 suite, say: the L2 tests / the L2 tier }
+            - { phrase: L2 test suite, say: the L2 tests / the L2 tier }
+            - { phrase: L3 suites, say: the L3 tests / the L3 tier }
+    markdown link:
+        key: markdown_link
+        domain: repository
+        defined_by: ADR-REPO-LINK#1
+        short: A link inside a rendered .md file, written relative to that file so it resolves the same on GitHub and in VS Code.
+        realized_by: { kind: function, pattern: Test-Links }
+        contrasts:
+            code link: A code link lives in a comment of a non-markdown file and is repository-rooted; a markdown link lives in a .md file and is relative to it.
+    code link:
+        key: code_link
+        domain: repository
+        defined_by: ADR-REPO-LINK#1
+        short: An ADR citation in a code comment, written as a repository-rooted markdown link whose text is the citation code.
+        realized_by: { kind: function, pattern: Format-Links }
+        contrasts:
+            markdown link: A markdown link lives in a .md file and is relative to it; a code link lives in a comment of a non-markdown file and is repository-rooted.

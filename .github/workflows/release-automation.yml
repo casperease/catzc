@@ -57,6 +57,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: pwsh
         run: |
+          Set-StrictMode -Version Latest
           gh release create "v$env:PKG_VERSION" "$env:NUPKG" `
             --title "Catzc $env:PKG_VERSION" `
             --notes "Catzc $env:PKG_VERSION — installable platform bundle (NuGet package + PSGallery manifest)." `
@@ -66,6 +67,7 @@ jobs:
         if: ${{ inputs.github_packages }}
         shell: pwsh
         run: |
+          Set-StrictMode -Version Latest
           dotnet nuget push "$env:NUPKG" `
             --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" `
             --api-key "${{ github.token }}" `
@@ -77,6 +79,7 @@ jobs:
           PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
         shell: pwsh
         run: |
+          Set-StrictMode -Version Latest
           if ([string]::IsNullOrWhiteSpace($env:PSGALLERY_API_KEY)) {
             Write-Host '::warning::PSGALLERY_API_KEY is empty — skipping the PSGallery publish. The .nupkg and manifest are still built and uploaded.'
             exit 0

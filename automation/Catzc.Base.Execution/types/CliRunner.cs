@@ -58,7 +58,11 @@ public class CliRunner
             CreateNoWindow = true,
             UseShellExecute = false,
             RedirectStandardOutput = true,
-            RedirectStandardError = true
+            RedirectStandardError = true,
+            // A silent run has no audience: a prompt in it could never be answered, and an inherited stdin
+            // pipe can block the child outright (Git for Windows probes its std handles at startup). It gets an
+            // empty, closed stdin instead, so it reads EOF. A visible run keeps the caller's stdin.
+            RedirectStandardInput = silent
         };
 
         if (!string.IsNullOrEmpty(workingDirectory))
@@ -87,6 +91,10 @@ public class CliRunner
             using (var process = new Process { StartInfo = psi })
             {
                 process.Start();
+                if (psi.RedirectStandardInput)
+                {
+                    process.StandardInput.Close();
+                }
 
                 var stdoutThread = new Thread(() =>
                 {

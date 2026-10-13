@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using System.Threading;
 
@@ -245,6 +246,12 @@ public class PesterRunner
                 psi.Environment[entry.Key.ToString()] = entry.Value == null ? null : entry.Value.ToString();
             }
         }
+
+        // Who started this worker, so it can end itself if this process dies without reaping it
+        // (WorkerParentWatch). Set after the caller's extras, so a caller can never point a worker elsewhere.
+        psi.Environment[WorkerParentWatch.PidVariable] = Environment.ProcessId.ToString(CultureInfo.InvariantCulture);
+        psi.Environment[WorkerParentWatch.StartVariable] =
+            WorkerParentWatch.CurrentStartTicks().ToString(CultureInfo.InvariantCulture);
 
         var process = new Process { StartInfo = psi };
         process.Start();

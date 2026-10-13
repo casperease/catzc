@@ -23,6 +23,14 @@ Use `[switch]`, not `[bool]`, for opt-in behavior that is off by default. Switch
 
 - [Switches, not booleans](#switches-not-booleans)
 
+### Rule ADR-AUTO-PSPARAM:4
+
+A configurable parameter declares its default as the resolved setting — `[LinkWrap] $Wrap = (Get-Config -Config links).wrap` — so the
+zero-argument call follows the resolution order of `ADR-AUTO-DEFAULT#6`, an explicit argument wins, and `Get-Help` shows where the default
+comes from. The parameter never restates the value, and the function body never fills an empty parameter in.
+
+- [Configurable parameters](#configurable-parameters)
+
 ## Context
 
 [sensible-defaults](../sensible-defaults.md) fixes the doctrine: the zero-argument call works, defaults come from configuration, and a
@@ -58,10 +66,29 @@ is self-documenting at the call site (its presence is the opt-in), defaults to o
 chain as `-PassThru:$PassThru`. A `[bool]` forces every caller to write `$true`, reads ambiguously (`-Enabled $false` — is that the
 default?), and invites `$null` coercion surprises.
 
+### Configurable parameters
+
+[sensible-defaults](../sensible-defaults.md#one-resolution-order) fixes the resolution order of a configurable setting: the explicit value,
+else the module's configuration, else the sensible default declared once on the config type. In PowerShell that order is one parameter
+declaration:
+
+```powershell
+# GOOD — the default expression IS the configured value; the config type supplies the sensible default
+param([Catzc.Base.QualityGates.LinkWrap] $Wrap = (Get-Config -Config links).wrap)
+
+# BAD — the body fills the gap: a second place that knows the default, invisible to Get-Help
+param([string] $Wrap)
+if (-not $Wrap) { $Wrap = (Get-Config -Config links).wrap }
+```
+
+PowerShell evaluates a default expression only when the caller omits the parameter, so an explicit `-Wrap Off` never reads the config at
+all. The expression runs in the module's scope, so a test isolates it by mocking `Get-Config` (`ADR-AUTO-PESTER#3`) — the same seam the
+function uses.
+
 ## Decision
 
-The primary argument is positional (`Position = 0`); opt-in behavior is a `[switch]` that is off by default. Secondary inputs are named
-parameters.
+The primary argument is positional (`Position = 0`); opt-in behavior is a `[switch]` that is off by default. A configurable parameter
+declares the configured value as its default. Secondary inputs are named parameters.
 
 ### How this is enforced
 

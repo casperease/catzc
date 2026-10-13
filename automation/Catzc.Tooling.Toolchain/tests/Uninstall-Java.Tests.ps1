@@ -1,31 +1,61 @@
-# machine: the managed body writes the real Windows User-scope JAVA_HOME — user-level state shared by every
-# concurrent run on the machine, which no repository snapshot isolates (ADR-AUTO-TEST:26).
-Describe 'Uninstall-Java' -Tag 'L1', 'logic', 'machine' {
+# Hermetic logic (L1): every boundary that touches state outside the repository is mocked — the tool manager
+# (Uninstall-Tool, Remove-Java) and the persistent user environment (Set-PermanentEnvironmentVariable). The real
+# registry round trip is the seam's own L3 system test (Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1).
+Describe 'Uninstall-Java' -Tag 'L1', 'logic' {
     BeforeAll {
-        # The managed body clears JAVA_HOME (process + Windows User scope) — snapshot and restore so the test
-        # leaves no persistent env change behind (ADR-AUTO-PSENV:4).
+        # The managed body clears the session JAVA_HOME — restore it so the test leaves the process as it found it
+        # (ADR-AUTO-PSENV:4).
         $script:savedProcessJavaHome = $env:JAVA_HOME
-        if ($IsWindows) {
-            $script:savedUserJavaHome = [Environment]::GetEnvironmentVariable('JAVA_HOME', 'User')
-        }
     }
     AfterAll {
         $env:JAVA_HOME = $script:savedProcessJavaHome
-        if ($IsWindows) {
-            [Environment]::SetEnvironmentVariable('JAVA_HOME', $script:savedUserJavaHome, 'User')
-        }
     }
     BeforeEach {
         Mock Uninstall-Tool { } -ModuleName Catzc.Tooling.Toolchain
         Mock Remove-Java { } -ModuleName Catzc.Tooling.Toolchain
         Mock Write-Message { } -ModuleName Catzc.Tooling.Toolchain
-        # Skip the Unix $PROFILE marker cleanup — no fixture profile to edit.
+        Mock Set-PermanentEnvironmentVariable { } -ModuleName Catzc.Tooling.Toolchain
+        # Skip the Unix $PROFILE marker cleanup unless a test seeds a fixture profile.
         Mock Test-Path { $false } -ModuleName Catzc.Tooling.Toolchain
     }
 
     It 'runs the managed uninstall only, by default' {
         Uninstall-Java
+        Should -Invoke Uninstall-Tool -ModuleName Catzc.Tooling.Toolchain -Times 1 -ParameterFilter { $Tool -eq 'java' }
         Should -Invoke Remove-Java -ModuleName Catzc.Tooling.Toolchain -Times 0
+    }
+
+    It 'clears the session JAVA_HOME and announces it' {
+        $env:JAVA_HOME = Join-Path $TestDrive 'widget-jdk'
+        Uninstall-Java
+        $env:JAVA_HOME | Should -BeNullOrEmpty
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -ParameterFilter { $Message -eq 'Session: removed JAVA_HOME' }
+    }
+
+    It 'does not announce a session JAVA_HOME it did not have' {
+        $env:JAVA_HOME = $null
+        Uninstall-Java
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 0 -ParameterFilter { $Message -eq 'Session: removed JAVA_HOME' }
+    }
+
+    It 'removes the persistent user JAVA_HOME through the environment seam (Windows)' {
+        if (-not $IsWindows) {
+            Set-ItResult -Skipped -Because 'windows_only_persistent_user_env'
+            return
+        }
+        Uninstall-Java
+        Should -Invoke Set-PermanentEnvironmentVariable -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter {
+            $Name -eq 'JAVA_HOME' -and [string]::IsNullOrEmpty($Value)
+        }
+    }
+
+    It 'never touches the persistent environment directly off Windows' {
+        if ($IsWindows) {
+            Set-ItResult -Skipped -Because 'unix_only_profile_block'
+            return
+        }
+        Uninstall-Java
+        Should -Invoke Set-PermanentEnvironmentVariable -ModuleName Catzc.Tooling.Toolchain -Times 0
     }
 
     It 'escalates to Remove-Java -Force with -Remove -Force' -Tag 'ADR-AUTO-REMOVE#5' {

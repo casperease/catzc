@@ -109,12 +109,12 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
   save.
 - **`.gitattributes`** — marks binary files so EOL/diff normalization never corrupts them; deliberately no `* text=auto`.
 - **Per-language analyzers** — each language's specific rules run in its own gate. For PowerShell this is PSScriptAnalyzer plus custom rules
-  in the L2 test suite (see [powershell-formatting](../automation/powershell/powershell-formatting.md)). For Markdown it is markdownlint
+  in the L2 tests (see [powershell-formatting](../automation/powershell/powershell-formatting.md)). For Markdown it is markdownlint
   (`.markdownlint.yml`), formatted by Prettier and kept in sync with it. For ADO pipeline YAML (`.yaml`) it is Prettier (`Format-Pipelines`,
   the same engine as Markdown) plus the naming-and-placement gate `Assert-Pipelines`
-  ([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md)) — both run in the L2 suite, so drifted or misplaced
+  ([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md)) — both run in the L2 tests, so drifted or misplaced
   pipeline YAML fails CI.
-- **Generated artifacts** — a build-generated artifact is emitted canonical by its generator (the module-manifest emitter), and the L2 suite
+- **Generated artifacts** — a build-generated artifact is emitted canonical by its generator (the module-manifest emitter), and an L2 test
   asserts the formatter is a no-op over generated output, so its bytes cannot drift from the standard.
 
 ## Consequences

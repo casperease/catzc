@@ -42,9 +42,9 @@ templates are legitimate and stay on the shipped files — but they bind to the 
 
 ### Rule ADR-AUTO-TEST:8
 
-Tag CLI-tool integration `L2` and cloud-API integration `L3`, each in its own `Describe`, and make both self-skip via
-`Set-ItResult -Skipped` when the tool or cloud access is missing. The `-Because` reason is a **constrained skip key** — lowercase alnum
-segments joined by `_`, never free prose — so the skip report groups by a stable, sortable vocabulary: platform skips are
+Tag CLI-tool integration `L2` and vertical system tests `L3` (ADR-AUTO-TEST:33), each in its own `Describe`, and make both self-skip via
+`Set-ItResult -Skipped` when the tool, the platform, or cloud access is missing. The `-Because` reason is a **constrained skip key** —
+lowercase alnum segments joined by `_`, never free prose — so the skip report groups by a stable, sortable vocabulary: platform skips are
 `<os>_<only|not>_<detail>` (os = `windows`|`unix`; `only` = runs only there, `not` = cannot run there), tool skips are
 `tool_<name>_missing`. `Test-Automation.Tests.ps1` enforces the key grammar.
 
@@ -52,8 +52,9 @@ segments joined by `_`, never free prose — so the skip report groups by a stab
 
 ### Rule ADR-AUTO-TEST:9
 
-No test below L3 may depend on cloud connectivity. Unit tests mock those boundaries; L2 needs only the local CLI tool. A test failing
-because `az` was not connected is a mis-tiered test, not a flake.
+No test below L3 may depend on cloud connectivity or change state outside the repository (the user's environment, installed tools). Unit
+tests mock those boundaries; L2 needs only the local CLI tool. A test failing because `az` was not connected is a mis-tiered test, not a
+flake.
 
 - [Test tiers (by integration layer)](#test-tiers-by-integration-layer)
 
@@ -66,7 +67,7 @@ throws instead of launching, so a Mock that fails to intercept fails loudly.
 
 ### Rule ADR-AUTO-TEST:13
 
-Every test carries two mandatory, orthogonal tags, resolved through its block chain (nearest contributing block wins): exactly one tier
+Every test carries two mandatory, orthogonal tags, resolved through its block chain (nearest contributing block wins): exactly one **tier**
 `L0|L1|L2|L3` and exactly one category `logic|integrity`. There is no default for either — a test resolving to zero, or to two of the same
 axis, is a violation. Put both on the `Describe` for a uniform file; override on an inner block (or tag per `Context`) where the file mixes
 tiers or categories — never two tags of the same axis on one block.
@@ -182,15 +183,17 @@ a `rows-shard-<N>.json` sidecar. The parent aggregates rows — never a Pester o
 summary.md, the timing check, the skip report) consumes rows. A worker exits 0/1; any other exit code, or a missing sidecar, is a worker
 crash the parent surfaces loudly. Workers run tests **under strict mode** (`Set-StrictMode -Version Latest`, set by the shard script before
 Pester), matching the module code under test, which runs strict in its own module scope; a test that genuinely needs non-strict semantics
-opts out locally ([pester-testing](powershell/pester-testing.md)).
+opts out locally ([pester-testing](powershell/pester-testing.md)). A worker never outlives the process that started it: it watches its
+parent (`WorkerParentWatch`, by PID and start time) and kills itself when the parent is gone. A run whose owning process dies before its
+terminal `run.json` stamp is recorded `abandoned` by the next run in the same report folder (`Set-AbandonedTestRun`), never left `running`.
 
 - [The parallel harness](#the-parallel-harness)
 
 ### Rule ADR-AUTO-TEST:26
 
-Three optional phase tags (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`) name tests that must not share the
+Two optional phase tags (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`) name tests that must not share the
 machine with the parallel pool; `Split-TestAutomationFiles` owns the split, and a file is the scheduling unit, so one tagged test moves its
-whole file (serial wins over greedy, and a machine file is serial whatever else it carries):
+whole file (serial wins over greedy):
 
 - **`serial`** — the test mutates state shared across worker processes: the committed `.compiled` assembly, a fixed `out/` path two files
   both write (e.g. the `out/template/<name>` build folders). Its file runs in the final **one-worker phase**, strictly alone, one file after
@@ -199,10 +202,9 @@ whole file (serial wins over greedy, and a machine file is serial whatever else 
   importer-loading pwsh workers) but shares no mutable state with other files. Its file runs in the **greedy phase** between the parallel
   shards and the serial phase: single-file shards through the worker pool, one file per worker slot, so greedy files overlap each other
   (their tests carry L2-scale time limits) but never the parallel phase whose L0/L1 timings they would inflate.
-- **`machine`** — the test changes state of the machine or the user rather than the repository: the user `PATH` or another user-level
-  environment variable, installed tools. Its file runs in the serial phase, and that phase holds the **machine-wide test lock** while it
-  runs — one lock for every checkout on the machine, because a snapshot (ADR-AUTO-TEST:32) isolates a run from the working folder, never
-  from the machine. `Invoke-TestFile` takes the same lock for a machine-tagged file.
+
+A test that changes state outside the repository is not a phase concern: it is an L3 vertical system test, and the slot decides whether it
+runs (ADR-AUTO-TEST:33).
 
 A parallel-run flake root-caused to a shared resource is fixed by tagging it serial (or removing the sharing) — never by retrying
 (ADR-AUTO-RETRY:1).
@@ -244,9 +246,9 @@ integrity test, not at load, keeping config load hermetic (the ADR-AZ-CUSTOMER:3
 
 The same tests run in **two suites**, one per run mode ([run-modes](../design/run-modes.md)): the **source suite** (`Test-Automation`) loads
 the modules through `importer.ps1` from `automation/`, and the **build suite** (`Test-CatzcBuild`) builds the selected modules and loads
-them through the build's `Import-Catzc.ps1`. Both run the same `automation/<Module>/tests/*.Tests.ps1` files at L0–L2 by default (L3 opt-in
-in each), with the same discovery, tag gates, sharding, and reports — the build suite swaps only the entry script each shard worker
-dot-sources, and writes its reports to `out/test-catzc-build/`. No test is copied or rewritten for the build suite.
+them through the build's `Import-Catzc.ps1`. Both run the same `automation/<Module>/tests/*.Tests.ps1` files at every tier their slot allows
+by default (ADR-AUTO-TEST:33), with the same discovery, tag gates, sharding, and reports — the build suite swaps only the entry script each
+shard worker dot-sources, and writes its reports to `out/test-catzc-build/`. No test is copied or rewritten for the build suite.
 
 - [Two suites, one body of tests](#two-suites-one-body-of-tests)
 
@@ -269,10 +271,21 @@ in a **verified snapshot** of the working folder instead — HEAD plus every unc
 git does not ignore, byte-identical, checked by `git status` equality before anything runs, and primed by one import that materialises the
 generated files. Both entry points (`Test-Automation`, `Invoke-TestFile`) claim their slot the same way (`Enter-TestRunSlot`), a busy
 working folder is announced together with the run that holds it, the report lands in the working folder's `out/` either way, and `run.json`
-records where the run executed. `-Isolated` asks for a snapshot up front. The one exception is machine-wide state, which no snapshot
-isolates: `machine`-tagged tests wait for the machine-wide test lock (ADR-AUTO-TEST:26).
+records where the run executed. `-Isolated` asks for a snapshot up front. State outside the repository, which no snapshot isolates, is the
+L3 tier's, and only the run that owns the working folder runs L3 (ADR-AUTO-TEST:33).
 
 - [One working folder; concurrent runs in snapshots](#one-working-folder-concurrent-runs-in-snapshots)
+
+### Rule ADR-AUTO-TEST:33
+
+**L3 holds the vertical system tests**: a test that changes or depends on state outside the repository — the cloud, the user's environment
+(the user `PATH`, other persistent environment variables, the registry), installed tools — is L3, and only the run that owns the working
+folder (the in-place slot) runs L3. A run's top tier defaults to 3 and the slot caps it (`Resolve-TestRunMaxLevel`): in place every
+requested tier runs; a snapshot run skips L3 — an explicit `-MaxLevel 3` and `-Isolated` included — and says so, naming who holds the
+working folder; a run that asks only for L3 in a snapshot fails with that reason. Every L3 test keeps its logic covered below it: the code
+it drives reaches the outside state through a mockable seam, and an L1 test mocks that seam.
+
+- [System tests run in the working-folder slot](#system-tests-run-in-the-working-folder-slot)
 
 ## Context
 
@@ -399,12 +412,14 @@ with**, not by speed:
 - **L0 / L1 — unit.** Pure logic + orchestration wiring, with every external boundary mocked. Deterministic and hermetic. Run on every
   change. (The tier tag is mandatory — there is no default; see ADR-AUTO-TEST:13.)
 - **L2 — CLI-tool integration.** Drives a local CLI tool for real — `az bicep build`, `python`, `dotnet`, `poetry`, … No cloud. Runs on a
-  devbox **and in fast CI** (where the tools are installed); a test **self-skips** when its specific tool is absent. Both the devbox and the
-  pipeline default to Level 2, so L2 runs by default; `-Level 1` excludes it for a faster unit-only pass.
-- **L3 — cloud-API integration.** Talks to the real cloud API layer (maybe through a CLI tool, e.g. `az deployment create` /
-  `az account show`). Opt-in (`-Tag 'L3'`), needs cloud credentials / connectivity, and **self-skips** when unavailable. This is the
-  integration sliver that [fail-fast](fail-fast-with-asserts.md) argues you cannot rely on alone — kept thin and out of the inner loop. The
-  tier is reserved for tests that call a cloud API; a test that only drives a local tool is L2.
+  devbox **and in fast CI** (where the tools are installed); a test **self-skips** when its specific tool is absent. The pipelines pin
+  `-Level 2`, the fast build-validation gate; `-Level 1` excludes L2 for a faster unit-only pass.
+- **L3 — vertical system tests.** Changes or depends on state outside the repository: the real cloud API layer (maybe through a CLI tool,
+  e.g. `az deployment create` / `az account show`), the user's persistent environment, installed tools. It **self-skips** when its
+  prerequisite (cloud access, the platform) is missing, and runs only in the working-folder slot (ADR-AUTO-TEST:33), so a devbox run that
+  owns the folder includes it by default. This is the integration sliver that [fail-fast](fail-fast-with-asserts.md) argues you cannot rely
+  on alone — kept thin, one test per distinct outside boundary, each a worked example of its kind (the persistent-environment seam's real
+  round trip, `Set-PermanentEnvironmentVariable.Tests.ps1`, is one). A test that only drives a local tool inside the repository is L2.
 
 ### Keeping logic tests fast
 
@@ -483,6 +498,14 @@ concurrent worker imports never race the generated `.psd1` files), runs its shar
 the first unfinished worker is live, later workers buffer and replay in submission order, so the console reads sequentially while the wall
 clock runs in parallel (the `PesterRunner` type owns this).
 
+The pool's lifetime is bound to its parent's. The parent kills its workers on a timeout or a throw, but when the parent process itself dies
+— a closed terminal, a killed console — nothing runs in it to do that, and an orphaned worker keeps running unobserved, holding open the
+files it loaded and blocked on output nobody reads. So each worker carries its parent's PID and start time (the start time tells a reused
+PID apart) and watches it on a background thread from the moment the modules are loaded; when the parent is gone, the worker kills itself
+rather than exiting through handlers a stuck main thread could block. The same owner identity is stamped into the run's `running` record, so
+the next run in that report folder rewrites a run whose owner is gone as `abandoned` — `run.json` stays a truthful record even when its run
+could not finish it.
+
 Results cross the process boundary as **rows**, not Pester objects: each worker reduces its own live result — where the `.Block` chain still
 exists for tier/category/skip-reason resolution — to plain per-test rows in a JSON sidecar, and the parent aggregates them for the timing
 check and every report. Pester's NUnit output is per shard (`results-shard-<N>.xml`); summary.md and tests.csv are the merged artifacts.
@@ -521,12 +544,22 @@ records the location and the snapshot's provenance. The snapshot is removed afte
 A snapshot is also frozen: edits made in the working folder while it runs never reach it. `-Isolated` takes the snapshot even when the lock
 is free, for a deterministic run against the tree as it was when the run started.
 
-A snapshot isolates the repository, not the machine. A test that changes user-level state — the user `PATH` or another user-level
-environment variable, installed tools — collides with the same test in any concurrent run, from any checkout, snapshot or not. Such a test
-carries the `machine` tag (ADR-AUTO-TEST:26), and the phase that runs it holds a machine-wide lock: the one place a run waits for another,
-narrowed to exactly the tests that need it and announced when the wait is noticeable. Most tests never touch user-level state — they mock
-the seam that writes it (`Set-EnvironmentPath`, for the user `PATH`) — and a test that does both writes and restores it, so the tag marks
-the exception, not the rule.
+### System tests run in the working-folder slot
+
+A snapshot isolates the repository, not the machine or the cloud. A test that changes state outside the repository — the user `PATH` or
+another persistent environment variable, installed tools, a cloud resource — collides with the same test in any concurrent run, snapshot or
+not. Such a test is an L3 vertical system test, and the slot already decides who may run it: only the run that owns the working folder runs
+L3, so the working folder's lock is also the guard for system tests, and no run ever waits. A run in a snapshot skips L3 and says so, naming
+who holds the folder, so a missing tier is never silent; the system tests run with the next run that owns the folder.
+
+The tier stays thin because the logic it touches is covered below it. Code reaches outside state only through a mockable seam —
+`Set-EnvironmentPath` for the user `PATH`, `Set-PermanentEnvironmentVariable` for other persistent variables — and the logic tests mock the
+seam, so an L1 test proves what the code asks for and the one L3 test per seam proves the real round trip. A test below L3 that writes real
+outside state is a mis-tiered test (ADR-AUTO-TEST:9): its logic moves to L1 against the seam, and only the real round trip stays at L3.
+
+Two different checkouts on one machine each own their own working folder, so each may run its L3 tests; a system test therefore works on
+state it owns (a scratch variable, a uniquely named resource) and removes it whatever happens, never on a shared value such as the user's
+real `JAVA_HOME`.
 
 ### Two suites, one body of tests
 

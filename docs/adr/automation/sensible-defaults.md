@@ -5,7 +5,8 @@
 ### Rule ADR-AUTO-DEFAULT:1
 
 The zero-argument call must work. If a function can do useful work without input, all parameters have defaults — `Install-Poetry` installs
-the locked version, `Test-Automation` runs L0–L2 with detailed output.
+the locked version, `Test-Automation` runs every tier its slot allows (L0–L3 in the working folder, L0–L2 in a snapshot) with detailed
+output.
 
 - [What sensible defaults look like](#what-sensible-defaults-look-like)
 
@@ -22,6 +23,15 @@ Make parameters mandatory only when no default makes sense. If the function woul
 mandatory; if it can derive a right value, derive it.
 
 - [The principle](#the-principle)
+
+### Rule ADR-AUTO-DEFAULT:6
+
+A configurable setting resolves in one fixed order: the caller's explicit value; else the value in the owning module's configuration
+(`Get-Config`); else the setting's sensible default. The sensible default is declared exactly once — on the setting's config type — so an
+omitted key and a fresh checkout behave identically and no function restates the value.
+
+- [Where defaults come from](#where-defaults-come-from)
+- [One resolution order](#one-resolution-order)
 
 ## Context
 
@@ -44,11 +54,9 @@ Install-Poetry -Version '2.1'              # no default, mandatory every time
 ```
 
 ```powershell
-# GOOD — reads from config, caller overrides if needed
+# GOOD — the default is the configured value, declared on the parameter; the caller overrides if needed
 function Install-Python {
-    param([string] $Version)
-    $config = Get-ToolConfig -Tool 'Python'
-    if (-not $Version) { $Version = $config.Version }
+    param([string] $Version = (Get-ToolConfig -Tool 'Python').Version)
     # ...
 }
 
@@ -86,6 +94,22 @@ In order of preference:
 
 4. **Off, for opt-in behavior.** `-PassThru`, `-DryRun`, `-Silent`, `-NoAssert` — these default to off because the common case does not need
    them; the caller opts in explicitly when needed (expressed as a `[switch]` — see [parameter-design](powershell/parameter-design.md)).
+
+### One resolution order
+
+A setting that a team may tune — a line limit, a wrap mode, a tool version — is a configurable setting, and it resolves the same way
+everywhere:
+
+1. **The caller's explicit value.** A call that names the value gets that value; nothing overrides an explicit argument.
+2. **The owning module's configuration.** Otherwise the value comes from the module's `configs/<name>.yml`, read through `Get-Config`.
+3. **The setting's sensible default.** Otherwise — the key is omitted, or the file states nothing for it — the sensible default applies.
+
+The sensible default is declared once, on the config type that maps the file (a C# record constructed by `Get-Config`, see
+[module-config-loading](../configuration/module-config-loading.md)). An omitted key and a key set to the default therefore behave
+identically, a fresh checkout works with no configuration edits, and no function or second file restates the value. This is not a fallback
+kept for an older shape ([one-living-version](../principles/one-living-version.md)): it is the single declared default of an optional
+setting. How a PowerShell parameter expresses steps 1–2 is the language layer,
+[parameter-design](powershell/parameter-design.md#configurable-parameters) (`ADR-AUTO-PSPARAM#4`).
 
 ## Decision
 

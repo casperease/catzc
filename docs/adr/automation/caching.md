@@ -52,7 +52,9 @@ slot on first call, never at import, because importer time is a protected budget
 
 The compiled-type prebuild is the one committed, cross-session cache: `Import-CSharpTypes` keys one committed
 `automation/.compiled/Catzc.Types.<hash>.dll` for the whole repository (the combined hash of every module's sources), loaded without Roslyn
-on a fresh checkout and self-invalidating on any source change. See [native-csharp-types](BCL/native-csharp-types.md) for the full contract.
+on a fresh checkout and self-invalidating on any source change. Sessions load it through a per-user, content-addressed shadow copy
+(`Import-TypesAssembly`), an uncommitted derivative of the committed DLL that keeps `.compiled` unlocked. See
+[native-csharp-types](BCL/native-csharp-types.md) for the full contract.
 
 - [What is NOT cacheable](#what-is-not-cacheable)
 

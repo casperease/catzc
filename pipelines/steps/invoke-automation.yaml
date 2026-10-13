@@ -56,6 +56,7 @@ steps:
         inputs:
           targetType: inline
           script: |
+            Set-StrictMode -Version Latest
             $command = @'
             ${{ parameters.RunCommand }}
             '@
@@ -77,6 +78,7 @@ steps:
           scriptType: pscore
           scriptLocation: inlineScript
           inlineScript: |
+            Set-StrictMode -Version Latest
             $command = @'
             ${{ parameters.RunCommand }}
             '@
@@ -96,6 +98,7 @@ steps:
           azureSubscription: ${{ parameters.ServiceConnection }}
           ScriptType: InlineScript
           Inline: |
+            Set-StrictMode -Version Latest
             $command = @'
             ${{ parameters.RunCommand }}
             '@

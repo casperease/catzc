@@ -1,3 +1,5 @@
+Set-StrictMode -Version Latest   # hooks run strict (Build-Bicep / Deploy-Bicep also set it on import) — ADR-AUTO-ERROR:8
+
 <#
 .SYNOPSIS
     Per-template PrePost override for the 'sample-with-prepost' fixture.

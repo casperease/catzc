@@ -65,24 +65,28 @@
   </Target>
 
   <!--
-    Stamp this project's version from the committed native-types assembly's identity. The RUNTIME
-    (Import-CSharpTypes) writes automation/.compiled/Catzc.Types.<hash>.dll, where <hash> is the combined
-    hash of every module's types/*.cs (ADR native-csharp-types, ADR-TYPES:6) — that hash IS the assembly's
-    identity. The stamp is READ off that committed DLL's name, so the IDE build's version mirrors the
-    runtime artifact (deps.json -> "Catzc.Types/1.0.0-<hash>") instead of the meaningless default 1.0.0.
+    Stamp this project's version from the sources' identity. The RUNTIME (Import-CSharpTypes) writes
+    automation/.compiled/Catzc.Types.<hash>.dll, where <hash> is the combined hash of every module's
+    types/*.cs (ADR native-csharp-types, ADR-AUTO-TYPES#6) — that hash IS the assembly's identity. The task computes
+    the same hash from the sources with the SAME algorithm the loader uses (per file: SHA-256 of the bytes with
+    every CR (0x0D) stripped, upper-hex; one line "<module>/<type>|<upper-hex>\n" per file in ordinal
+    <module>/<type> order; SHA-256 of that text; first 8 hex, lower-cased) and stamps it, so the IDE build's
+    version mirrors the runtime artifact (deps.json -> "Catzc.Types/1.0.0-<hash>"). Deterministic: the same
+    sources always give the same version, whatever else lies on disk. The algorithm mirrors Import-CSharpTypes /
+    Clear-ModuleTypeCache / the drift-guard tests and MUST stay in sync.
 
-    Trust, but verify: before trusting the committed name, the task RECOMPUTES the combined hash from the
-    sources with the SAME algorithm the loader uses (per file: SHA-256 of the bytes with every CR (0x0D)
-    stripped, upper-hex; one line "<module>/<type>|<upper-hex>\n" per file in ordinal <module>/<type>
-    order; SHA-256 of that text; first 8 hex, lower-cased) and FAILS the build when the committed DLL is
-    missing, stale, or ambiguous — a stamp is never trusted past the sources it claims to describe.
-    Dot-source ./importer.ps1 to rebuild and commit automation/.compiled when this fires. The algorithm
-    mirrors Import-CSharpTypes / Clear-ModuleTypeCache / the drift-guard tests and MUST stay in sync.
+    The editor never fails over automation/.compiled: whether the code compiles is the editor's question, and
+    the committed assembly is the importer's, the tests' and the bundle gate's. It only WARNS when what git
+    will commit — the index's automation/.compiled, not the disk — does not hold exactly one
+    Catzc.Types.<hash>.dll named for the current sources. Untracked or unstaged leftovers (an old build another
+    pwsh still has loaded) never matter. Dot-source ./importer.ps1 and stage automation/.compiled when it warns.
   -->
   <UsingTask TaskName="StampCatzcTypesVersion" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
       <AutomationRoot ParameterType="System.String" Required="true" />
-      <CompiledDir ParameterType="System.String" Required="true" />
+      <!-- The index's automation/.compiled entries (git ls-files), ';'-separated; empty when git is unavailable. -->
+      <TrackedCompiled ParameterType="System.String" Required="false" />
+      <GitAvailable ParameterType="System.Boolean" Required="false" />
       <CombinedHash ParameterType="System.String" Output="true" />
     </ParameterGroup>
     <Task>
@@ -119,28 +123,24 @@
             sourceHash = BitConverter.ToString(combined).Replace("-", "").Substring(0, 8).ToLowerInvariant();
         }
 
-        var dlls = Directory.Exists(CompiledDir)
-            ? Directory.GetFiles(CompiledDir, "Catzc.Types.*.dll")
-            : new string[0];
-        if (dlls.Length != 1)
+        CombinedHash = sourceHash;   // the stamp is the sources' identity, never a file on disk
+
+        // Commit hygiene, as a warning only: what the index will commit must be exactly the current build.
+        if (GitAvailable)
         {
-            var found = dlls.Length == 0 ? "(none)" : string.Join(", ", System.Array.ConvertAll(dlls, Path.GetFileName));
-            Log.LogError("Catzc.Types stamping: expected exactly one committed automation/.compiled/Catzc.Types.<hash>.dll, "
-                + "found " + dlls.Length + ": " + found + ". Dot-source ./importer.ps1 to rebuild the combined types "
-                + "assembly (current source hash " + sourceHash + "), then commit automation/.compiled.");
-        }
-        else
-        {
-            var dllHash = Path.GetFileNameWithoutExtension(dlls[0]).Substring("Catzc.Types.".Length);
-            if (!string.Equals(dllHash, sourceHash, System.StringComparison.Ordinal))
+            var tracked = new List<string>();
+            foreach (var entry in (TrackedCompiled ?? string.Empty).Split(';'))
             {
-                Log.LogError("Catzc.Types stamping: committed automation/.compiled/Catzc.Types." + dllHash
-                    + ".dll is STALE — the current combined source hash is " + sourceHash + ". Dot-source "
-                    + "./importer.ps1 to rebuild the assembly, then commit automation/.compiled.");
+                var name = Path.GetFileName(entry.Trim());
+                if (name.StartsWith("Catzc.Types.") && name.EndsWith(".dll")) tracked.Add(name);
             }
-            else
+            var expected = "Catzc.Types." + sourceHash + ".dll";
+            if (tracked.Count != 1 || tracked[0] != expected)
             {
-                CombinedHash = dllHash;   // verified current — safe to stamp from the committed name
+                var found = tracked.Count == 0 ? "none" : string.Join(", ", tracked);
+                Log.LogWarning("Catzc.Types: the git index's automation/.compiled holds " + found + ", but a commit of "
+                    + "these sources needs exactly " + expected + ". Dot-source ./importer.ps1, then stage "
+                    + "automation/.compiled (the editor build itself is unaffected).");
             }
         }
       ]]></Code>
@@ -149,15 +149,22 @@
 
   <!-- Run before anything reads $(Version): PrepareForBuild precedes GetAssemblyVersion (assembly
        attributes) and GenerateBuildDependencyFile (the deps.json project entry). -->
-  <Target Name="StampCatzcTypesVersionFromCompiled" BeforeTargets="PrepareForBuild;GetAssemblyVersion;GenerateBuildDependencyFile">
-    <StampCatzcTypesVersion AutomationRoot="$(MSBuildProjectDirectory)/../.." CompiledDir="$(MSBuildProjectDirectory)/../../.compiled">
+  <Target Name="StampCatzcTypesVersionFromSources" BeforeTargets="PrepareForBuild;GetAssemblyVersion;GenerateBuildDependencyFile">
+    <!-- What the index will commit under automation/.compiled. No git (or not a work tree): no hygiene warning. -->
+    <Exec Command="git -C &quot;$(MSBuildProjectDirectory)/../..&quot; ls-files -- .compiled"
+          ConsoleToMSBuild="true" EchoOff="true" StandardOutputImportance="low" StandardErrorImportance="low" IgnoreExitCode="true">
+      <Output TaskParameter="ConsoleOutput" ItemName="CatzcTrackedCompiled" />
+      <Output TaskParameter="ExitCode" PropertyName="CatzcGitExitCode" />
+    </Exec>
+    <StampCatzcTypesVersion AutomationRoot="$(MSBuildProjectDirectory)/../.." TrackedCompiled="@(CatzcTrackedCompiled)"
+                            GitAvailable="$([System.String]::Equals('$(CatzcGitExitCode)', '0'))">
       <Output TaskParameter="CombinedHash" PropertyName="CatzcTypesHash" />
     </StampCatzcTypesVersion>
     <PropertyGroup>
       <Version>1.0.0-$(CatzcTypesHash)</Version>
       <InformationalVersion>$(CatzcTypesHash)</InformationalVersion>
     </PropertyGroup>
-    <Message Importance="high" Text="Catzc.Types: stamped version $(Version) from committed .compiled hash $(CatzcTypesHash)." />
+    <Message Importance="high" Text="Catzc.Types: stamped version $(Version) from the source hash $(CatzcTypesHash)." />
   </Target>
 
 </Project>

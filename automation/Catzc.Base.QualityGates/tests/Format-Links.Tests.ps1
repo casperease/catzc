@@ -1,0 +1,248 @@
+# Format-Links is the link aligner and the repository-wide migration (ADR-REPO-LINK#8), tested in isolation: every test
+# builds its own fixture repository in $TestDrive — a two-ADR index with neutral widget/gadget codes (ADR-AUTO-TEST#3),
+# an .editorconfig, and the source files under test — and aligns only that tree (-RepositoryRoot, -Path).
+Describe 'Format-Links' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:writeFile = {
+            param([string] $Root, [string] $Relative, [string] $Text)
+            $full = Join-Path $Root $Relative
+            [System.IO.Directory]::CreateDirectory((Split-Path $full -Parent)) | Out-Null
+            [System.IO.File]::WriteAllText($full, $Text)
+        }
+        $script:readFile = {
+            param([string] $Root, [string] $Relative)
+            [System.IO.File]::ReadAllText((Join-Path $Root $Relative))
+        }
+        $script:newRepository = {
+            $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120', '') -join "`n"))
+            & $script:writeFile $root 'docs/adr/index.md' ((@(
+                        '| Code | ADR |'
+                        '| ---- | --- |'
+                        '| `ADR-TST-WIDGET` | [widget-rules](widget/widget-rules.md) |'
+                        '| `ADR-TST-GADGET` | [gadget-rules](gadget/gadget-rules.md) |'
+                    ) -join "`n") + "`n")
+            & $script:writeFile $root 'docs/adr/widget/widget-rules.md' ((@(
+                        '# Widget rules', '', '### Rule ADR-TST-WIDGET:1', '', 'One.', '', '### Rule ADR-TST-WIDGET:2', '', 'Two.', '', '## Widget notes', ''
+                    ) -join "`n"))
+            & $script:writeFile $root 'docs/adr/gadget/gadget-rules.md' ((@('# Gadget rules', '', '### Rule ADR-TST-GADGET:1', '', 'One.', '') -join "`n"))
+            & $script:writeFile $root 'docs/adr/widget/dora-explains.md' "# Widget DORA`n"
+            & $script:writeFile $root 'docs/adr/gadget/dora-explains.md' "# Gadget DORA`n"
+            $root
+        }
+        # Aligns one fixture file and returns its new text.
+        $script:alignFile = {
+            param([string] $Root, [string] $Relative, [string] $Text)
+            & $script:writeFile $Root $Relative $Text
+            Format-Links -RepositoryRoot $Root -Path (Join-Path $Root $Relative) | Out-Null
+            & $script:readFile $Root $Relative
+        }
+        $script:widget2 = '[ADR-TST-WIDGET#2](/docs/adr/widget/widget-rules.md#rule-adr-tst-widget2)'
+        $script:widgetDoc = '[ADR-TST-WIDGET](/docs/adr/widget/widget-rules.md)'
+    }
+
+    BeforeEach {
+        $script:root = & $script:newRepository
+    }
+
+    Context 'code links' {
+        It 'turns a bare docs path in a comment into a code link' -Tag 'ADR-REPO-LINK#3' {
+            & $alignFile $root 'src/widget.ps1' "# See docs/adr/widget/widget-rules.md.`n" |
+                Should -BeExactly "# See $widgetDoc.`n"
+        }
+
+        It 'turns a relative docs path into a repository-rooted code link' -Tag 'ADR-REPO-LINK#3' {
+            & $alignFile $root 'src/widget.ps1' "# See ../../docs/adr/widget/widget-rules.md#rule-adr-tst-widget2.`n" |
+                Should -BeExactly "# See $widget2.`n"
+        }
+
+        It 'turns a bare rule citation, in either spelling, into a rule link' -Tag 'ADR-REPO-LINK#3', 'ADR-REPO-LINK#5' {
+            & $alignFile $root 'src/widget.ps1' "# Widgets nest (ADR-TST-WIDGET:2).`n# Gadgets too (ADR-TST-WIDGET#2).`n" |
+                Should -BeExactly "# Widgets nest ($widget2).`n# Gadgets too ($widget2).`n"
+        }
+
+        It 'turns a bare ADR code into a whole-ADR link' -Tag 'ADR-REPO-LINK#3' {
+            & $alignFile $root 'src/widget.ps1' "# Follows ADR-TST-WIDGET throughout.`n" |
+                Should -BeExactly "# Follows $widgetDoc throughout.`n"
+        }
+
+        It 'merges a path and its own citation into one link' -Tag 'ADR-REPO-LINK#3' {
+            & $alignFile $root 'src/widget.ps1' "# Per docs/adr/widget/widget-rules.md (ADR-TST-WIDGET:2) here.`n" |
+                Should -BeExactly "# Per $widget2 here.`n"
+            & $alignFile $root 'src/gadget.ps1' "# Per (docs/adr/widget/widget-rules.md, Rule ADR-TST-WIDGET:2).`n" |
+                Should -BeExactly "# Per ($widget2).`n"
+        }
+
+        It 'turns a unique ADR file name into a link, and leaves an ambiguous one alone' -Tag 'ADR-REPO-LINK#3' {
+            & $alignFile $root 'src/widget.ps1' "# See gadget-rules.md and dora-explains.md.`n" |
+                Should -BeExactly "# See [ADR-TST-GADGET](/docs/adr/gadget/gadget-rules.md) and dora-explains.md.`n"
+        }
+
+        It 're-points a path to a moved ADR from its file name' -Tag 'ADR-REPO-LINK#3' {
+            & $alignFile $root 'src/widget.ps1' "# See docs/adr/old-folder/widget-rules.md.`n" |
+                Should -BeExactly "# See $widgetDoc.`n"
+        }
+
+        It 'resolves a link whose destination disagrees with its citation in favour of the citation' -Tag 'ADR-REPO-LINK#3' {
+            & $alignFile $root 'src/widget.ps1' "# See [ADR-TST-WIDGET#2](/docs/adr/gadget/gadget-rules.md).`n" |
+                Should -BeExactly "# See $widget2.`n"
+        }
+
+        It 'links a code-less ADR-folder document with its file name as the text' -Tag 'ADR-REPO-LINK#3' {
+            & $alignFile $root 'src/widget.ps1' "# Registry: docs/adr/index.md.`n" |
+                Should -BeExactly "# Registry: [index](/docs/adr/index.md).`n"
+        }
+
+        It 'aligns C# and YAML comments too' -Tag 'ADR-REPO-LINK#1', 'ADR-REPO-LINK#3' {
+            $cSharpString = 'var s = "ADR-TST-WIDGET:2";'
+            & $alignFile $root 'src/Gadget.cs' ((@('// Per ADR-TST-WIDGET:2.', $cSharpString, '') -join "`n")) |
+                Should -BeExactly ((@("// Per $widget2.", $cSharpString, '') -join "`n"))
+            & $alignFile $root 'src/gadget.yml' "# Per ADR-TST-WIDGET:2.`nkey: ADR-TST-WIDGET:2`n" |
+                Should -BeExactly "# Per $widget2.`nkey: ADR-TST-WIDGET:2`n"
+        }
+    }
+
+    Context 'what stays as written' {
+        It 'never rewrites a citation or path inside a PowerShell string' -Tag 'ADR-REPO-LINK#6' {
+            $text = "`$tag = 'ADR-TST-WIDGET:2'`n`$path = 'docs/adr/widget/widget-rules.md'`n"
+            & $alignFile $root 'src/widget.ps1' $text | Should -BeExactly $text
+        }
+
+        It 'leaves code spans, quoted examples, and help .EXAMPLE sections literal' -Tag 'ADR-REPO-LINK#3' {
+            $text = @(
+                '<#'
+                '.DESCRIPTION'
+                "    The registry form is 'ADR-TST-WIDGET:2'; see ``ADR-TST-WIDGET:2``."
+                '.EXAMPLE'
+                '    Test-Widget -Rule ADR-TST-WIDGET#2'
+                '#>'
+                ''
+            ) -join "`n"
+            & $alignFile $root 'src/widget.ps1' $text | Should -BeExactly $text
+        }
+
+        It 'reports, without rewriting, an undeclared rule, an unknown code, and a dangling path' -Tag 'ADR-REPO-LINK#5' {
+            $text = "# ADR-TST-WIDGET#9, ADR-TST-SPROCKET, docs/adr/nowhere/sprocket.md`n"
+            & $writeFile $root 'src/widget.ps1' $text
+            $result = Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -PassThru
+            & $readFile $root 'src/widget.ps1' | Should -BeExactly $text
+            @($result.Unfixable.Type) | Should -Be @('UnknownRule', 'UnknownCode', 'Dangling')
+        }
+
+        It 'tolerates fixture codes in a test file''s comments' -Tag 'ADR-REPO-LINK#5' {
+            & $writeFile $root 'src/tests/Widget.Tests.ps1' "# Fixture ADR-TST-SPROCKET is unregistered on purpose.`n"
+            $result = Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -PassThru
+            $result.Unfixable | Should -BeNullOrEmpty
+        }
+
+        It 'reports a docs path in a string that names no file' -Tag 'ADR-REPO-LINK#6' {
+            & $writeFile $root 'src/widget.ps1' "`$path = 'docs/adr/nowhere/widget.md'`n"
+            $result = Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -PassThru
+            @($result.Unfixable.Type) | Should -Be @('StringPathMissing')
+        }
+    }
+
+    Context 'markdown links' {
+        It 'spells a prose rule citation with # and leaves the rule''s own heading alone' -Tag 'ADR-REPO-LINK#5' {
+            & $alignFile $root 'docs/widget.md' "### Rule ADR-TST-WIDGET:1`n`nAs ADR-TST-WIDGET:2 says, but ``ADR-TST-WIDGET:2`` is code.`n" |
+                Should -BeExactly "### Rule ADR-TST-WIDGET:1`n`nAs ADR-TST-WIDGET#2 says, but ``ADR-TST-WIDGET:2`` is code.`n"
+        }
+
+        It 'rewrites a repository-rooted link relative to its file' -Tag 'ADR-REPO-LINK#2' {
+            & $alignFile $root 'docs/guides/widget.md' "See [rules](/docs/adr/widget/widget-rules.md#widget-notes).`n" |
+                Should -BeExactly "See [rules](../adr/widget/widget-rules.md#widget-notes).`n"
+        }
+
+        It 'reports a dangling target, a bad anchor, and a link above the root' -Tag 'ADR-REPO-LINK#2', 'ADR-REPO-LINK#7' {
+            & $writeFile $root 'docs/widget.md' "[a](nowhere.md) [b](adr/widget/widget-rules.md#no-such-heading) [c](../../../gadget)`n"
+            $result = Format-Links -RepositoryRoot $root -Path (Join-Path $root 'docs/widget.md') -PassThru
+            @($result.Unfixable.Type) | Should -Be @('Dangling', 'BadAnchor', 'EscapesRoot')
+        }
+    }
+
+    Context 'wrapping' {
+        BeforeEach {
+            Mock Get-Config -ParameterFilter { $Config -eq 'links' } -ModuleName Catzc.Base.QualityGates -MockWith {
+                [Catzc.Base.QualityGates.LinksConfig]::new(@{ line_limit = @{ '.ps1' = 60 } })
+            }
+        }
+
+        It 'breaks an outgrown comment line before the link, keeping the comment prefix and indent' -Tag 'ADR-REPO-LINK#8' {
+            & $alignFile $root 'src/widget.ps1' "    # Widgets nest gadgets per ADR-TST-WIDGET:2 always.`n" |
+                Should -BeExactly "    # Widgets nest gadgets per`n    # $widget2 always.`n"
+        }
+
+        It 'continues a trailing comment under its own #' -Tag 'ADR-REPO-LINK#8' {
+            & $alignFile $root 'src/widget.ps1' "`$x = 1   # widget per ADR-TST-WIDGET:2`n" |
+                Should -BeExactly "`$x = 1   # widget per`n         # $widget2`n"
+        }
+
+        It 'reports instead of breaking under -Wrap Off' -Tag 'ADR-REPO-LINK#8' {
+            & $writeFile $root 'src/widget.ps1' "    # Widgets nest gadgets per ADR-TST-WIDGET:2 always.`n"
+            $findings = @(InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $root } {
+                    (Invoke-LinkEngine -RepositoryRoot $Root -Path (Join-Path $Root 'src') -Kind Code -Wrap Off).Findings
+                })
+            @($findings | ForEach-Object { "$($_.Type)" }) | Should -Contain 'Overlong'
+
+            $result = Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -Wrap Off -PassThru
+            & $readFile $root 'src/widget.ps1' | Should -BeExactly "    # Widgets nest gadgets per $widget2 always.`n"
+            $result.Unfixable | Should -BeNullOrEmpty
+        }
+
+        It 'takes the wrap mode from links.yml when -Wrap is omitted, and an explicit -Wrap wins' -Tag 'ADR-AUTO-PSPARAM#4' {
+            Mock Get-Config -ParameterFilter { $Config -eq 'links' } -ModuleName Catzc.Base.QualityGates -MockWith {
+                [Catzc.Base.QualityGates.LinksConfig]::new(@{ wrap = 'off'; line_limit = @{ '.ps1' = 60 } })
+            }
+            $text = "    # Widgets nest gadgets per ADR-TST-WIDGET:2 always.`n"
+            & $alignFile $root 'src/off.ps1' $text | Should -BeExactly "    # Widgets nest gadgets per $widget2 always.`n"
+
+            & $writeFile $root 'src/break.ps1' $text
+            Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src/break.ps1') -Wrap Break | Out-Null
+            & $readFile $root 'src/break.ps1' | Should -BeExactly "    # Widgets nest gadgets per`n    # $widget2 always.`n"
+        }
+    }
+
+    Context 'engine contract' {
+        It 'aligns only the kinds it is asked for' -Tag 'ADR-REPO-LINK#1' {
+            & $writeFile $root 'src/widget.ps1' "# ADR-TST-WIDGET:2`n"
+            & $writeFile $root 'docs/widget.md' "As ADR-TST-WIDGET:2 says.`n"
+            Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src'), (Join-Path $root 'docs/widget.md') -Kind Code | Out-Null
+            & $readFile $root 'src/widget.ps1' | Should -BeExactly "# $widget2`n"
+            & $readFile $root 'docs/widget.md' | Should -BeExactly "As ADR-TST-WIDGET:2 says.`n"
+
+            Format-Links -RepositoryRoot $root -Path (Join-Path $root 'docs/widget.md') -Kind Markdown | Out-Null
+            & $readFile $root 'docs/widget.md' | Should -BeExactly "As ADR-TST-WIDGET#2 says.`n"
+        }
+
+        It 'changes nothing on a second run' -Tag 'ADR-REPO-LINK#8' {
+            & $writeFile $root 'src/widget.ps1' "# See docs/adr/widget/widget-rules.md (ADR-TST-WIDGET:2) and ADR-TST-GADGET.`n"
+            Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src') | Out-Null
+            @(Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src')) | Should -BeNullOrEmpty
+        }
+
+        It 'writes nothing under -DryRun, and lists what would change' -Tag 'ADR-REPO-LINK#8' {
+            $text = "# ADR-TST-WIDGET:2`n"
+            & $writeFile $root 'src/widget.ps1' $text
+            $changed = @(Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -DryRun)
+            $changed | Should -Be @('src/widget.ps1')
+            & $readFile $root 'src/widget.ps1' | Should -BeExactly $text
+        }
+
+        It 'keeps the file''s CRLF line endings and writes no byte-order mark' -Tag 'ADR-REPO-LINK#8' {
+            & $writeFile $root 'src/widget.ps1' "# ADR-TST-WIDGET:2`r`n`$x = 1`r`n"
+            Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src') | Out-Null
+            $bytes = [System.IO.File]::ReadAllBytes((Join-Path $root 'src/widget.ps1'))
+            $bytes[0] | Should -Not -Be 0xEF
+            & $readFile $root 'src/widget.ps1' | Should -BeExactly "# $widget2`r`n`$x = 1`r`n"
+        }
+
+        It 'aligns a few hundred files quickly (the compiled engine, in parallel)' -Tag 'ADR-REPO-LINK#8' {
+            foreach ($n in 1..300) {
+                & $writeFile $root "src/widget$n.ps1" "# Widget $n per docs/adr/widget/widget-rules.md and ADR-TST-WIDGET:2.`n`$x = $n`n"
+            }
+            $result = Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -PassThru
+            $result.ChangedCount | Should -Be 300
+            $result.ElapsedMs | Should -BeLessThan 5000
+        }
+    }
+}

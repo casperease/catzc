@@ -42,7 +42,7 @@ function Get-Aspect {
     }
 
     foreach ($item in @($list)) {
-        $name = @($item.Keys)[0]
+        $name = $item.Keys | Select-Object -First 1
         [pscustomobject]@{
             Name     = "$name"
             Patterns = @($item[$name] | ForEach-Object { "$_" })

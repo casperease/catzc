@@ -81,7 +81,7 @@ Describe 'New-Importer — importer.ps1 drift guard' -Tag 'L2', 'integrity', 'so
             }
             $isTypeConstraint = { $_ -is [System.Management.Automation.Language.TypeConstraintAst] }
             foreach ($parameter in $block.Parameters) {
-                $typeConstraint = @($parameter.Attributes.Where($isTypeConstraint))[0]
+                $typeConstraint = $parameter.Attributes.Where($isTypeConstraint) | Select-Object -First 1
                 '{0} [{1}]' -f $parameter.Name.VariablePath.UserPath, $typeConstraint.TypeName.Name
             }
         }

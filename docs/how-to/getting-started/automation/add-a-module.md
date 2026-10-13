@@ -60,7 +60,7 @@ modules:
   Catzc.Azure.Storage: [Catzc.Base.Asserts, Catzc.Base.Repository, Catzc.Azure]
 ```
 
-`Assert-ModuleDependency` (run in the L2 suite) fails the build if your module calls into a module it does not declare, or if the
+`Assert-ModuleDependency` (run by the L2 tests) fails the build if your module calls into a module it does not declare, or if the
 declarations form a cycle. The same graph governs cross-module C# type references (see
 [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md)). A module that is **not** listed is unconstrained; once you list
 it, it is policed — so list it.

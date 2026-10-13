@@ -35,6 +35,12 @@ Describe 'Get-Glossary' -Tag 'L0', 'logic' {
         Mock Get-GlossarySources -ModuleName Catzc.Base.Docs { $script:sources }
     }
 
+    AfterAll {
+        # The cache is keyed by the REAL repository root, so a fixture glossary left in it would be served to any later
+        # caller in this worker — e.g. the real-tree glossary check.
+        InModuleScope Catzc.Base.Docs { $script:glossaryCache = $null }
+    }
+
     It 'merges every source''s concepts, each with its owner, source path, and that source''s options' -Tag 'ADR-REPO-VOCAB#2' {
         $glossary = Get-Glossary
         $glossary.Count | Should -Be 3

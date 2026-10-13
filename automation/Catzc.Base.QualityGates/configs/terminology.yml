@@ -876,6 +876,8 @@ terms:
       meaning: "rstrtmgr.dll — the Windows Restart Manager library (RmStartSession / RmGetList)"
     - term: filetime
       meaning: "Win32 FILETIME struct (100-ns ticks since 1601)"
+    - term: setext
+      meaning: "Setext heading — a markdown heading written as a text line underlined with === or ---"
     - term: finalizer
       meaning: "the importer's post-import phase (janitors) — the teardown counterpart of its session initializer"
     - term: ntfs

@@ -1,5 +1,5 @@
 Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
-    It 'flags tests missing or ambiguous on either axis, and passes fully-tagged tests' {
+    It 'flags tests missing or ambiguous on either axis, and passes fully-tagged tests' -Tag 'ADR-AUTO-TEST#13' {
         InModuleScope Catzc.Base.QualityGates {
             $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }
             function New-FakeTest {

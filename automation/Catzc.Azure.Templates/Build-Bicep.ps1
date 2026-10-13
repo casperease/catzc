@@ -94,6 +94,8 @@ function Build-Bicep {
     if ($havePrePost) {
         Write-Message "Importing per-template PrePost module: $($templateDescriptor.prepost_module)"
         $prepostModule = Import-Module $templateDescriptor.prepost_module -Scope Local -Force -PassThru
+        # The template's hooks run strict like every catzc module, whoever wrote them (ADR-AUTO-ERROR:8).
+        . $prepostModule { Set-StrictMode -Version Latest }
         if ($prepostModule.ExportedCommands.ContainsKey('Invoke-BicepPrepareParameterSet')) {
             $prepareHook = $prepostModule.ExportedCommands['Invoke-BicepPrepareParameterSet']
         }

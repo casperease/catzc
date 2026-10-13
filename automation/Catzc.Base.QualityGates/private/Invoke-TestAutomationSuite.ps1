@@ -47,8 +47,9 @@ function Invoke-TestAutomationSuite {
         [ValidateSet(0, 1, 2, 3)]
         [int] $MinLevel = 0,
 
+        # The highest tier asked for; the slot caps it (Resolve-TestRunMaxLevel): a snapshot never runs L3.
         [ValidateSet(0, 1, 2, 3)]
-        [int] $MaxLevel = 2,
+        [int] $MaxLevel = 3,
 
         [AllowEmptyCollection()]
         [string[]] $Modules = @(),
@@ -110,55 +111,55 @@ function Invoke-TestAutomationSuite {
     # Enforce the two mandatory tag axes on every test, regardless of -Level (Assert-TestTagGate).
     Assert-TestTagGate -Discovery $discovery
 
-    # Build tag filter — exclude tiers outside [MinLevel, MaxLevel] and (when -Category is given) the other
-    # category, so only the requested category's tests run. ExcludeTag matches an item's own tag, so a mixed
-    # file's per-Context category tags filter correctly. Shared with Test-InIsolation via Get-TestExcludeTag.
-    $excludeTags = Get-TestExcludeTag -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category
-
     # Resolve the run directory — a timestamped subfolder under the report base so each run's artifacts are
     # preserved (and cleared with the rest of out/). The shard scripts, per-shard results-shard-<N>.xml and
     # rows-shard-<N>.json, and summary.md/tests.csv all land here.
     if (-not $OutputFolder) {
         $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) $suiteKey
     }
+    # Earlier runs whose owning process died never reached their finally: mark them 'abandoned' rather than
+    # leave them claiming 'running' (Set-AbandonedTestRun reads the owner recorded below).
+    Set-AbandonedTestRun -OutputFolder $OutputFolder | Out-Null
     $runDir = New-TestAutomationRunDirectory -OutputFolder $OutputFolder
 
-    # The run's self-describing state record (run.json): stamped 'running' now, and terminally
-    # ('passed'|'failed'|'crashed') in the finally below — so a reader never has to infer completeness from
-    # which artifact files happen to exist yet (Write-TestRunManifest; the write is atomic).
+    # Claim where the run executes before anything is filtered or generated (Enter-TestRunSlot); the slot also
+    # decides the top tier (Resolve-TestRunMaxLevel). The finally below releases it.
+    $slot = Enter-TestRunSlot -EntryPoint $Suite -RunDirectory $runDir -Isolated:$Isolated
     $runStartedAt = [DateTimeOffset]::UtcNow.ToString('o')
-    Write-TestRunManifest -RunDirectory $runDir -Manifest ([ordered]@{
-            status    = 'running'
-            startedAt = $runStartedAt
-            minLevel  = $MinLevel
-            maxLevel  = $MaxLevel
-            category  = $Category
-            modules   = @($Modules)
-        }) | Out-Null
-
-    # Everything below runs inside try/finally so the terminal manifest is stamped on every exit path —
-    # pass, fail (the throw at the tail), or crash (any unexpected throw). The stamp must never be skipped:
-    # it is what makes run.json trustworthy, so it sits in the finally, not in a best-effort catch.
     $manifestStatus = 'crashed'
     $failedCount = 0
     $failedShardLabels = @()
     $workerRun = $null
     $suiteExcludedTests = @()
+
+    # Everything below runs inside try/finally so the slot is released and the terminal manifest is stamped on
+    # every exit path — pass, fail (the throw at the tail), or crash (any unexpected throw). The stamp must never
+    # be skipped: it is what makes run.json trustworthy, so it sits in the finally, not in a best-effort catch.
     try {
-        # Collect the run's test files in foundation-first folder order (recursing so tests/types/ is included),
-        # then split off the serial files — any file containing a 'serial'-tagged test mutates state shared
-        # across worker processes and runs in a final one-worker phase, alone.
-        $testFiles = [System.Collections.Generic.List[string]]::new()
-        foreach ($testsPath in $testPaths) {
-            $files = @([System.IO.Directory]::GetFiles($testsPath, '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories))
-            [Array]::Sort($files, [System.StringComparer]::Ordinal)
-            foreach ($file in $files) {
-                $testFiles.Add($file)
-            }
-        }
-        if ($testFiles.Count -eq 0) {
-            throw 'No test files found in the discovered tests folders.'
-        }
+        $MaxLevel = Resolve-TestRunMaxLevel -Slot $slot -Requested $MaxLevel -MinLevel $MinLevel
+
+        # Build tag filter — exclude tiers outside [MinLevel, MaxLevel] and (when -Category is given) the other
+        # category, so only the requested category's tests run. ExcludeTag matches an item's own tag, so a mixed
+        # file's per-Context category tags filter correctly. Shared with Test-InIsolation via Get-TestExcludeTag.
+        $excludeTags = Get-TestExcludeTag -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category
+
+        # The run's self-describing state record (run.json): stamped 'running' now, and terminally
+        # ('passed'|'failed'|'crashed') in the finally below — so a reader never has to infer completeness from
+        # which artifact files happen to exist yet (Write-TestRunManifest; the write is atomic). The owner (PID
+        # and start time) lets a later run tell a live run from one whose process died ('abandoned').
+        Write-TestRunManifest -RunDirectory $runDir -Manifest ([ordered]@{
+                status     = 'running'
+                startedAt  = $runStartedAt
+                ownerPid   = $PID
+                ownerStart = [Catzc.Base.QualityGates.WorkerParentWatch]::CurrentStartTicks()
+                minLevel   = $MinLevel
+                maxLevel   = $MaxLevel
+                category   = $Category
+                modules    = @($Modules)
+            }) | Out-Null
+
+        # The run's test files in foundation-first folder order (Get-TestAutomationTestFiles owns the scan).
+        $testFiles = [System.Collections.Generic.List[string]]::new([string[]] (Get-TestAutomationTestFiles -TestPath $testPaths))
 
         # -Rule: narrow the work-list to the files carrying a test that cites one of the given ADR rules (the
         # provenance filter). The worker also filters within a file via IncludeTag, so a file that mixes matched
@@ -225,11 +226,11 @@ function Invoke-TestAutomationSuite {
         }
         else {
             Invoke-TestAutomationWorkers -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
-                -SerialFiles @($serialFiles) -MachineFiles @($phases.Machine) `
+                -SerialFiles @($serialFiles) -Slot $slot `
                 -RunDirectory $runDir -ExcludeTag $excludeTags -IncludeTag $Rule -Verbosity $Output -Workers $Workers `
                 -TimeoutSeconds $TimeoutSeconds -WorkerEnvironment $workerEnvironment `
                 -EntryScript $EntryScript -EntryParameter $EntryParameter `
-                -EntryPoint $Suite -Isolated:$Isolated -KeepSandbox:$KeepSandbox
+                -KeepSandbox:$KeepSandbox
         }
         $rows = @($workerRun.Rows)
         $failedShardLabels = @($workerRun.FailedShardLabels)
@@ -326,6 +327,11 @@ function Invoke-TestAutomationSuite {
             $finalManifest['suiteExcludeTag'] = @($SuiteExcludeTag)
             $finalManifest['suiteExcludedCount'] = @($suiteExcludedTests).Count
         }
-        Write-TestRunManifest -RunDirectory $runDir -Manifest $finalManifest | Out-Null
+        try {
+            Write-TestRunManifest -RunDirectory $runDir -Manifest $finalManifest | Out-Null
+        }
+        finally {
+            Exit-TestRunSlot -Slot $slot -KeepSandbox:$KeepSandbox
+        }
     }
 }

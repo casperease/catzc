@@ -63,6 +63,53 @@ Describe 'Invoke-TestAutomationSuite' -Tag 'L0', 'logic' {
         }
         Mock Write-TestAutomationVerdict -ModuleName Catzc.Base.QualityGates { }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
+        # The slot: in place by default; a test that needs a snapshot run overrides the mock.
+        $script:slotMode = 'InPlace'
+        Mock Enter-TestRunSlot -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Mode = $script:slotMode; SourceRoot = 'C:\repo'; Root = 'C:\repo'; Mutex = $null; LockPath = $null; Holder = $null; Snapshot = $null }
+        }
+        Mock Exit-TestRunSlot -ModuleName Catzc.Base.QualityGates { }
+    }
+
+    Context 'the slot decides the top tier (ADR-AUTO-TEST:33)' {
+        It 'runs every tier, L3 included, in place by default' {
+            Invoke-Suite @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null
+
+            Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $ExcludeTag -notcontains 'L3' -and $Slot.Mode -eq 'InPlace'
+            }
+            Should -Invoke Write-TestAutomationHeader -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $MaxLevel -eq 3 }
+        }
+
+        It 'skips L3 in a snapshot, says so, and records the level it ran' {
+            $script:slotMode = 'Snapshot'
+            $summary = Invoke-Suite @{ OutputFolder = $script:outputFolder; PassThru = $true }
+
+            Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $ExcludeTag -contains 'L3' }
+            Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like 'Skipping L3:*' }
+            $manifest = Get-Content -LiteralPath (Join-Path $summary.RunDirectory 'run.json') -Raw | ConvertFrom-Json
+            $manifest.maxLevel | Should -Be 2
+        }
+
+        It 'keeps an explicit lower level as given' {
+            Invoke-Suite @{ OutputFolder = $script:outputFolder; PassThru = $true; MaxLevel = 1 } | Out-Null
+
+            Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $ExcludeTag -contains 'L2' -and $ExcludeTag -contains 'L3'
+            }
+        }
+
+        It 'refuses an L3-only run in a snapshot, and still releases the slot' {
+            $script:slotMode = 'Snapshot'
+            { Invoke-Suite @{ OutputFolder = $script:outputFolder; MinLevel = 3 } } | Should -Throw '*snapshot, which skips L3*'
+            Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 0
+            Should -Invoke Exit-TestRunSlot -ModuleName Catzc.Base.QualityGates -Times 1
+        }
+
+        It 'releases the slot after a normal run' {
+            Invoke-Suite @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null
+            Should -Invoke Exit-TestRunSlot -ModuleName Catzc.Base.QualityGates -Times 1
+        }
     }
 
     Context 'the source suite (no opt-out tag, default entry script)' {

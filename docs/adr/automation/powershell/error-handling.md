@@ -50,6 +50,14 @@ prompt hook.
 
 - [Interactive error diagnostics](#interactive-error-diagnostics)
 
+### Rule ADR-AUTO-ERROR:8
+
+All code is written strict-clean, because it runs under `Set-StrictMode -Version Latest`: take the first element of a result that may be
+empty with `<result> | Select-Object -First 1`, never `@(<result>)[0]`; wrap a producer in `@()` before reading `.Count`; read an optional
+key through `.Contains()`, an indexer, or the typed config record, never as a bare property.
+
+- [How this is enforced](#how-this-is-enforced)
+
 ## Context
 
 PowerShell has a complex error handling model: terminating errors, non-terminating errors, `$ErrorActionPreference`, `$WarningPreference`,
@@ -146,10 +154,15 @@ All errors are terminating. All warnings are terminating. Functions use `throw` 
 - **`Set-StrictMode -Version Latest`** — catches uninitialized variables, absent properties, out-of-range indexes, and other common
   mistakes at runtime. Strict mode belongs to a scope, and a session-level `Set-StrictMode` does not reach module code, so it is set where
   the code runs: `Import-AllModules` sets it in each `Catzc.*` module's own script scope right after importing it (every function of the
-  module inherits it, in the source tree and in an installed bundle alike), and each `.internal` module declares it at its top. All code
-  is therefore written strict-clean: an optional key is read through `.Contains()` or an indexer (or the typed config record), never as
-  a bare property; a list is wrapped in `@()` before `.Count`; a lazy `$script:` slot is probed as
+  module inherits it, in the source tree and in an installed bundle alike), each `.internal` module and custom analyzer rule declares it
+  at its top, and `Build-Bicep`/`Deploy-Bicep` set it in a template's `PrePost.psm1` scope after importing it. A pipeline or workflow
+  step that runs PowerShell is strict too: dot-sourcing the importer sets it for the step's scope, and a step that runs without the
+  importer declares `Set-StrictMode -Version Latest` as its first line. All code is therefore
+  written strict-clean (`ADR-AUTO-ERROR:8`); a lazy `$script:` slot is probed as
   [script-scope-caching](script-scope-caching.md#rule-adr-auto-pscache4) prescribes.
+- **Custom analyzer rules** — `Measure-NoUnsafeFirstIndex` flags `@(<result>)[0]` and `(<a | b>)[0]`, and
+  `Measure-NoBareScriptSlotRead` flags a function file reading a `$script:` slot it has neither assigned nor probed. The `.Count` and
+  optional-key forms of `ADR-AUTO-ERROR:8` need type knowledge an AST does not carry, so code review owns them.
 - **Interactive prompt hook** — `Write-Exception` fires automatically after every failed command, providing full diagnostics.
 
 ## Consequences

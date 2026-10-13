@@ -1,0 +1,63 @@
+# The per-case assertions run the rule function directly on a parsed AST (L0). The engine-wiring proof lives once,
+# for all custom rules, in CustomRuleWiring.Tests.ps1.
+Describe 'Measure-NoBareScriptSlotRead' -Tag 'L0', 'logic', 'ADR-AUTO-PSCACHE#4' {
+    BeforeAll {
+        Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoBareScriptSlotRead.psm1') -Force
+        # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly.
+        if (-not (Get-Module PSScriptAnalyzer)) {
+            Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
+        }
+
+        function Test-SlotRead {
+            param([string] $Code)
+            $ast = [System.Management.Automation.Language.Parser]::ParseInput($Code, [ref]$null, [ref]$null)
+            Measure-NoBareScriptSlotRead -ScriptBlockAst $ast
+        }
+
+        function Test-SlotReadInFile {
+            param([string] $Name, [string] $Code)
+            $path = Join-Path $TestDrive $Name
+            [System.IO.File]::WriteAllText($path, $Code)
+            $ast = [System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$null, [ref]$null)
+            Measure-NoBareScriptSlotRead -ScriptBlockAst $ast
+        }
+    }
+
+    It 'flags a lazy slot read before anything sets it: <Case>' -ForEach @(
+        @{ Case = 'truthiness check'; Code = 'function Get-Widget { if (-not $script:widgetCache) { $script:widgetCache = @{} }; $script:widgetCache }' }
+        @{ Case = 'null comparison'; Code = 'function Get-Widget { if ($null -ne $script:widgetCache) { return $script:widgetCache } }' }
+        @{ Case = 'coalescing assignment'; Code = 'function Get-Widget { $script:widgetCache ??= @{} }' }
+    ) {
+        $records = @(Test-SlotRead $Code)
+        $records.Count | Should -BeGreaterThan 0
+        $records[0].RuleName | Should -Be 'Measure-NoBareScriptSlotRead'
+    }
+
+    It 'accepts a slot probed with GetValue, then read' {
+        $code = @'
+function Get-Widget {
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:widgetCache')) {
+        $script:widgetCache = @{}
+    }
+    $script:widgetCache
+}
+'@
+        Test-SlotRead $code | Should -BeNullOrEmpty
+    }
+
+    It 'accepts a read after the function assigns the slot' {
+        Test-SlotRead 'function Reset-Widget { $script:widgetCache = @{}; $script:widgetCache.Count }' | Should -BeNullOrEmpty
+    }
+
+    It 'leaves a .psm1 alone: it can declare its slots at load' {
+        Test-SlotReadInFile 'Gadget.psm1' 'function Get-Gadget { $script:gadgetCache }' | Should -BeNullOrEmpty
+    }
+
+    It 'leaves a Pester file alone: it shares state through $script: on purpose' {
+        Test-SlotReadInFile 'Get-Gadget.Tests.ps1' 'function Get-Gadget { $script:gadgetCache }' | Should -BeNullOrEmpty
+    }
+
+    It 'checks a function file' {
+        @(Test-SlotReadInFile 'Get-Gadget.ps1' 'function Get-Gadget { $script:gadgetCache }') | Should -HaveCount 1
+    }
+}

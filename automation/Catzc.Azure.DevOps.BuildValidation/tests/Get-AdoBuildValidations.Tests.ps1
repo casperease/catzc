@@ -53,7 +53,7 @@ Describe 'Get-AdoBuildValidations' -Tag 'L0', 'logic' {
     }
 
     It 'flattens the policy into id, pipeline, branch, path filters, and flags' {
-        $row = @(Get-AdoBuildValidations -Branch main -RepositoryName catzc)[0]
+        $row = Get-AdoBuildValidations -Branch main -RepositoryName catzc | Select-Object -First 1
         $row.Id | Should -Be 7
         $row.DisplayName | Should -Be 'Build validation - unit-x'
         $row.PipelineDefinitionId | Should -Be 42

@@ -60,6 +60,8 @@ Every ADR carries a numbered rule registry as its first content section: `## Rul
   `automation/powershell/error-handling.md#rule-adr-auto-error3` (so it is `rule-adr-auto-error3`, not
   `rule-adr-auto-error-3`).
 - The `<code>` is unique per ADR; the tables below are the authoritative code ↔ ADR mapping.
+- `#` is the only citation spelling — in comments, test tags, configuration, and prose. The `:` form exists only in the rule's own
+  `### Rule <code>:<n>` heading (ADR-REPO-LINK#5).
 
 ## Codes
 '@
@@ -78,6 +80,11 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
 - **References point one way: code to ADR.** Code, function help, sample headers, and READMEs cite the relevant ADR; an ADR never links back
   to sample or example code, because that couples durable rationale to code churn. The "How this is enforced" sections that _name_ an
   enforcing function are the established exception.
+
+- **Two kinds of link (ADR-REPO-LINK).** A markdown link, in a `.md` file, is relative to its own file
+  (`[reduce-variability](../principles/reduce-variability.md)`). A code link, in a comment of any other file, is repository-rooted with the
+  citation as its text (`[ADR-AZ-DATAMOD#2](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2)`); `Format-Links` writes it from the
+  citation, and `Test-Links` checks both kinds.
 
 - **Link granularity is per-context.** Cite a specific rule anchor (`file.md#rule-<code><n>`, e.g.
   `azure-data-model.md#rule-adr-az-datamod2`) when the citing sentence, comment, or throw-message invokes one concrete rule. Link the ADR

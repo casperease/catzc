@@ -172,6 +172,19 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
         It '-Silent does not affect exit code assertion' {
             { Invoke-Executable $failCmd -Silent } | Should -Throw
         }
+
+        It '-Silent gives the child an empty, closed stdin, so a stdin reader finishes at once' {
+            # sort reads stdin to EOF; an inherited stdin would leave it waiting on the caller's input.
+            $inputReader = if ($IsWindows) {
+                "$env:SystemRoot\System32\sort.exe"
+            }
+            else {
+                'cat'
+            }
+            $result = Invoke-Executable $inputReader -PassThru -Silent
+            $result.ExitCode | Should -Be 0
+            $result.Output | Should -BeNullOrEmpty
+        }
     }
 
     Context 'Stream mode — no pipeline leak' {

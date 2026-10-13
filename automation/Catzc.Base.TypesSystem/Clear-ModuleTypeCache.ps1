@@ -8,33 +8,19 @@
     combined hash of every module's types/*.cs and deletes the rest — older builds left over from a previous
     version of a type. The current build is never deleted, so the committed file stays put on every platform.
 
-    Best-effort and cross-platform BY DEFAULT: a loaded assembly is locked on Windows, so it is skipped via
-    Test-FileIsLocked; the delete is also wrapped so any other failure (permissions, a concurrent
-    delete/lock, or an advisory-lock platform like Linux/macOS where an open file is not reported locked)
-    skips that file rather than throwing. Cleanup never breaks the caller (the importer invokes it). (Superseded
-    DLLs are not loaded, so they normally delete cleanly.)
-
-    Opt-in fail-fast with -ThrowOnNonReleasedFromClrTypesDll: on Windows a superseded ('wrong') build that is
-    still loaded — the CLR has not released the file, so it cannot be deleted until the process exits — becomes
-    a loud "restart PowerShell" red message instead of a silent skip, AFTER the deletable stale builds are removed.
-    It is off by default (so the importer's automatic cleanup never breaks) and a no-op on Unix, where deleting an
-    open file succeeds. This is the decisive, manual clean when a stale committed assembly must actually go.
+    Nothing in catzc holds a .compiled DLL open: every load goes through a per-user shadow copy
+    (Import-TypesAssembly, ADR-AUTO-TYPES:6), so a superseded build is always expected to delete. A delete that
+    still fails means something outside catzc holds the file (an antivirus scan, an indexer, a session started
+    before shadow loading). The janitor removes every deletable build first, then throws one error naming each
+    file it could not remove and, on Windows, the processes holding it (Get-FileLockingProcess) — a silent skip
+    is how a stale build reaches a commit. The importer catches that error into one red line, so the load
+    still completes.
 
     Makes no source-control changes in a pipeline (Test-IsRunningInPipeline): CI must not modify committed files,
-    so the delete/skip pass is a devbox concern — run locally so the tidied .compiled is what gets committed. The
-    importer invokes this automatically on a devbox.
-
-    One invariant is enforced in both contexts: .compiled must hold exactly one Catzc.Types.*.dll. In a pipeline,
-    where nothing is deleted (CI makes no source-control changes), a second coexisting DLL means two builds were
-    COMMITTED — a hard throw, the gate that stops a stale build reaching trunk. On a devbox the janitor first
-    deletes the superseded build, then warns 'Two dll exists in .compiled - is a console session locking it?'
-    (yellow, ignoring -Silent — a locked/stale DLL is actionable, not routine chatter) ONLY when a build actually
-    survives the delete — i.e. another session is holding the old DLL so it could not be removed. The warning
-    names each surviving build's holders (Get-FileLockingProcess: executable, PID, start time; "this session"
-    for the current process, and the VS Code PowerShell extension by name), so you know which session to
-    restart; when no holder can be found (Linux/macOS, or the lookup fails) it keeps the holder-free wording
-    above. The lookup is best-effort and never breaks the caller. The warning is never emitted when the stale
-    build was freely deletable and just got cleaned up.
+    so the delete pass is a devbox concern — run locally so the tidied .compiled is what gets committed. The
+    importer invokes this automatically on a devbox. In a pipeline it enforces the one invariant instead:
+    .compiled must hold exactly one Catzc.Types.*.dll, and a second one means two builds were COMMITTED — a hard
+    throw, the gate that stops a stale build reaching trunk.
 
     The combined hash comes from the ONE shared implementation (Get-CombinedTypeHash in the .internal shared
     module) that the loader (Import-CSharpTypes) also calls, so the janitor cannot drift from the loader and plan
@@ -48,21 +34,22 @@
     (Get-CatzcModulesRoot).
 .PARAMETER DryRun
     Return the list of cache files that would be deleted, without deleting anything.
-.PARAMETER ThrowOnNonReleasedFromClrTypesDll
-    Windows-only, opt-in fail-fast. When a superseded assembly is still loaded — the CLR has not released the
-    file, so Windows cannot delete it — throw instead of silently skipping (after removing every deletable
-    stale build first). The message names the file and the processes holding it, and says to restart
-    PowerShell in that session, which releases the CLR's handle. Off by default so the importer's automatic cleanup never breaks; a no-op on Unix.
 .PARAMETER Silent
-    Suppress all console output — the per-file and end-state 'type cache: …' messages. The importer passes
-    this on its automatic janitor call so a normal load stays quiet (importer.ps1 -NonSilentClear turns it
-    back on); a manual Clear-ModuleTypeCache omits it, so a hand-run always reports the state it left.
+    Suppress the per-file and end-state 'type cache: …' messages. The importer passes this on its automatic
+    janitor call so a normal load stays quiet (importer.ps1 -NonSilentClear turns it back on); a manual
+    Clear-ModuleTypeCache omits it, so a hand-run always reports the state it left. A failed delete still throws.
+.PARAMETER StopLockingProcesses
+    The kill switch. When a superseded build will not delete, stop every process holding it (Stop-FileLockingProcess:
+    never this session or an ancestor of it, each stop announced even under -Silent), then retry the delete over a
+    short bounded window (Windows releases an exited process's mapped image a moment after the exit).
+    A build still held afterwards — by this session itself, say — is named in the error as usual. Off by default:
+    stopping a process can lose its unsaved work, so it is asked for, never assumed.
 .EXAMPLE
     Clear-ModuleTypeCache
 .EXAMPLE
-    Clear-ModuleTypeCache -DryRun
+    Clear-ModuleTypeCache -StopLockingProcesses   # stop the sessions holding stale builds, then delete them
 .EXAMPLE
-    Clear-ModuleTypeCache -ThrowOnNonReleasedFromClrTypesDll   # fail loudly if a stale build is still loaded
+    Clear-ModuleTypeCache -DryRun
 #>
 function Clear-ModuleTypeCache {
     param(
@@ -70,9 +57,9 @@ function Clear-ModuleTypeCache {
 
         [switch] $DryRun,
 
-        [switch] $ThrowOnNonReleasedFromClrTypesDll,
+        [switch] $Silent,
 
-        [switch] $Silent
+        [switch] $StopLockingProcesses
     )
 
     # Build mode: the loaded code root is an installed package, not a devbox cache — never delete inside it.
@@ -89,27 +76,16 @@ function Clear-ModuleTypeCache {
 
     $compiledDir = Join-Path $AutomationRoot '.compiled'
 
-    # More than one Catzc.Types.*.dll means a superseded build is sitting next to the current one, but the two
-    # contexts resolve it differently, so the check is NOT hoisted above the delete pass:
-    #   - pipeline: nothing is deleted (CI makes no source-control changes), so >1 means two builds were COMMITTED
-    #     — a hard throw, checked before returning, so trunk cannot carry more than one build;
-    #   - devbox: the janitor deletes the superseded build below, then warns only if a build actually SURVIVES
-    #     (deferred to after the delete pass) — so the warning fires when a live session is locking the old DLL,
-    #     and never when the stale build was freely deletable and just got cleaned up.
-    $getTypeDlls = {
-        if (Test-Path $compiledDir -PathType Container) {
-            @([System.IO.Directory]::EnumerateFiles($compiledDir, 'Catzc.Types.*.dll'))
-        }
-        else {
-            @()
-        }
-    }
-
+    # Pipeline: nothing is deleted (CI makes no source-control changes), so more than one Catzc.Types.*.dll means
+    # two builds were COMMITTED — a hard throw, so trunk cannot carry more than one build.
     if (Test-IsRunningInPipeline) {
-        $typeDlls = @(& $getTypeDlls)   # @(): invoking the block unrolls a 0/1-item list
+        # @(): an if-expression unrolls a 0/1-item list.
+        $typeDlls = @(if (Test-Path $compiledDir -PathType Container) {
+                [System.IO.Directory]::EnumerateFiles($compiledDir, 'Catzc.Types.*.dll')
+            })
         if ($typeDlls.Count -gt 1) {
             $names = ($typeDlls | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Sort-Object) -join ', '
-            throw "More than one compiled type assembly is committed in automation/.compiled ($names). The committed .compiled must contain exactly one build; a superseded DLL reached CI because a console session locked it on the devbox and it was committed instead of deleted. On the devbox, restart PowerShell to release the lock, run Clear-ModuleTypeCache, and commit the single remaining build."
+            throw "More than one compiled type assembly is committed in automation/.compiled ($names). The committed .compiled must contain exactly one build. On the devbox, run Clear-ModuleTypeCache and commit the single remaining build."
         }
         if (-not $Silent) {
             Write-Message 'type cache: skipped — running in a pipeline (CI makes no source-control changes).'
@@ -157,23 +133,10 @@ function Clear-ModuleTypeCache {
         return $ret
     }
 
+    # Delete every superseded build, collecting the failures so every deletable build is gone before the throw.
     $removed = 0
-    $skipped = 0
-    # Superseded builds that are still LOADED (Windows lock = the CLR has not released the file). Collected so
-    # the deletable stale builds are removed first, then -ThrowOnNonReleasedFromClrTypesDll can fail loudly.
-    $notReleased = [System.Collections.Generic.List[string]]::new()
+    $failed = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($dll in $ret) {
-        # A loaded assembly is locked (Windows) — classify it as in-use and skip without attempting a delete.
-        if (Test-FileIsLocked $dll) {
-            $skipped++
-            $notReleased.Add($dll)
-            if (-not $Silent) {
-                Write-Message "In use (not released from the CLR), skipped: $dll"
-            }
-            continue
-        }
-        # Best-effort delete: tolerate any other failure (permissions, a concurrent delete/lock, or an
-        # advisory-lock platform where an open file is not reported locked) so cleanup never breaks.
         try {
             [System.IO.File]::Delete($dll)
             $removed++
@@ -182,83 +145,71 @@ function Clear-ModuleTypeCache {
             }
         }
         catch {
-            $skipped++
-            if (-not $Silent) {
-                Write-Message "Could not delete, skipped: $dll — $($_.Exception.Message)"
-            }
+            $failed.Add([pscustomobject]@{ Path = $dll; Reason = $_.Exception.Message })
         }
     }
 
-    # Always report the end state (unless -Silent, which the importer's automatic call passes) — a manual run is
-    # never silent about the cache it left behind.
+    # The kill switch: stop each process holding a build that would not delete, then retry the delete. Windows
+    # releases a stopped process's mapped image a moment after the process exits, so an immediate delete still
+    # gets access denied — retry over a short bounded window before giving up.
+    if ($StopLockingProcesses -and $failed.Count) {
+        $retried = [System.Collections.Generic.List[pscustomobject]]::new()
+        foreach ($entry in $failed) {
+            Stop-FileLockingProcess -Path $entry.Path
+            $path = $entry.Path
+            $reason = Invoke-WithProgress -Message "Waiting for $([System.IO.Path]::GetFileName($path)) to be released" -IntervalMs 200 {
+                $lastError = $null
+                for ($attempt = 1; $attempt -le 10; $attempt++) {
+                    try {
+                        [System.IO.File]::Delete($path)
+                        return $null
+                    }
+                    catch {
+                        $lastError = $_.Exception.Message
+                        Start-Sleep -Milliseconds 200
+                    }
+                }
+                $lastError
+            }
+            if ($reason) {
+                $retried.Add([pscustomobject]@{ Path = $entry.Path; Reason = $reason })
+                continue
+            }
+            $removed++
+            if (-not $Silent) {
+                Write-Message "Removed stale type assembly: $($entry.Path)"
+            }
+        }
+        $failed = $retried
+    }
+
     if (-not $Silent) {
-        if ($removed -eq 0 -and $skipped -eq 0) {
+        if ($ret.Count -eq 0) {
             Write-Message 'type cache: already clean — no superseded builds to remove.'
         }
         else {
-            Write-Message "type cache: removed $removed, skipped $skipped (in use or not deletable)."
+            Write-Message "type cache: removed $removed of $($ret.Count) superseded build(s)."
         }
     }
 
-    # Now that the delete pass has run, warn only if more than one build actually SURVIVES — the accurate signal
-    # that a stale build could not be removed because a live console session is locking it. Deferred to here (not
-    # hoisted above the delete like the pipeline check) so it never fires when the stale build was freely deletable
-    # and just got cleaned up. Ignores -Silent — a leftover locked build is actionable, not routine load chatter.
-    # Who holds a file, as one phrase — or $null when nobody is found. Best-effort: the lookup only enriches a
-    # message, so any failure (a Restart Manager error, an access-denied CIM query) degrades to holder-free
-    # wording and never breaks the importer's janitor call.
-    $describeHolders = {
-        param([string] $File)
-        try {
-            Format-FileLockingProcess @(Get-FileLockingProcess $File)
-        }
-        catch {
-            $null
-        }
-    }
-
-    $remaining = @(& $getTypeDlls)   # @(): invoking the block unrolls a 0/1-item list
-    if ($remaining.Count -gt 1) {
-        $heldBy = foreach ($dll in $remaining) {
-            if ($keep -and [System.IO.Path]::GetFileName($dll) -ieq $keep) {
-                continue
+    if ($failed.Count) {
+        # Who holds each surviving file — best-effort: the lookup only enriches the message, so a Restart Manager
+        # error or a non-Windows host degrades to the delete error alone.
+        $details = foreach ($entry in $failed) {
+            $name = [System.IO.Path]::GetFileName($entry.Path)
+            $holders = try {
+                Format-FileLockingProcess @(Get-FileLockingProcess $entry.Path)
             }
-            $holders = & $describeHolders $dll
+            catch {
+                $null
+            }
             if ($holders) {
-                "$([System.IO.Path]::GetFileName($dll)) is held by $holders"
+                "$name, held by $holders"
+            }
+            else {
+                "$name ($($entry.Reason))"
             }
         }
-        if ($heldBy) {
-            Write-Message -Warning "Two dll exists in .compiled — $($heldBy -join '; '). Restart that session, then run Clear-ModuleTypeCache."
-        }
-        else {
-            Write-Message -Warning 'Two dll exists in .compiled - is a console session locking it?'
-        }
-    }
-
-    # Opt-in, Windows-only fail-fast: a superseded build the CLR still holds cannot be deleted until the process
-    # exits. Default is best-effort (importer must not break); the switch turns it into a restart-PowerShell
-    # error, after the deletable stale builds above are already gone. Unix releases an open file on delete.
-    if ($ThrowOnNonReleasedFromClrTypesDll -and $IsWindows -and $notReleased.Count -gt 0) {
-        $names = ($notReleased | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Sort-Object) -join ', '
-        $subject = if ($notReleased.Count -eq 1) {
-            'a superseded C# type assembly is'
-        }
-        else {
-            'superseded C# type assemblies are'
-        }
-        $heldBy = foreach ($dll in ($notReleased | Sort-Object)) {
-            $holders = & $describeHolders $dll
-            if ($holders) {
-                "$([System.IO.Path]::GetFileName($dll)) by $holders"
-            }
-        }
-        $where = if ($heldBy) {
-            "still held — $($heldBy -join '; ')"
-        }
-        else {
-            'still loaded by a PowerShell session'
-        }
-        throw "Cannot remove $names — $subject $where; the CLR has not released the file. A loaded assembly cannot be deleted on Windows, so restart PowerShell in the holding session to release it, then re-run Clear-ModuleTypeCache."
+        throw "Could not remove superseded type assemblies from automation/.compiled: $($details -join '; '). Types load from a per-user shadow copy, so no catzc session holds .compiled; close what does, then re-run Clear-ModuleTypeCache."
     }
 }

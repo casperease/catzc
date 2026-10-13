@@ -361,12 +361,12 @@ Describe 'Copy-Object' -Tag 'L0', 'logic' {
         }
 
         It 'individual customer is not the same reference' {
-            $firstCustomer = @($config.customers.Keys)[0]
+            $firstCustomer = $config.customers.Keys | Select-Object -First 1
             [object]::ReferenceEquals($config.customers[$firstCustomer], $clone.customers[$firstCustomer]) | Should -BeFalse
         }
 
         It 'mutating clone customer does not affect original' {
-            $firstCustomer = @($config.customers.Keys)[0]
+            $firstCustomer = $config.customers.Keys | Select-Object -First 1
             $clone.customers[$firstCustomer].details = 'MUTATED'
             $config.customers[$firstCustomer].details | Should -Not -Be 'MUTATED'
         }

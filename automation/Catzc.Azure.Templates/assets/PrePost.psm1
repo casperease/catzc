@@ -1,3 +1,5 @@
+Set-StrictMode -Version Latest   # hooks run strict (Build-Bicep / Deploy-Bicep also set it on import) — ADR-AUTO-ERROR:8
+
 <#
 .SYNOPSIS
     PrePost extension-point starter — the copy-in template for a per-template PrePost.psm1.

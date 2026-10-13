@@ -138,3 +138,16 @@ that documentation accurate as it grows, and an in-repository glossary keeps it 
 - [AI-accessible internal data](../../references/dora/capabilities.md#ai-accessible-internal-data) — an in-repository, structured glossary
   is internal knowledge an assistant can read and apply exactly, rather than guess from usage.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Markdown links — relative in documents, repository-rooted out of code (`ADR-REPO-LINK`)
+
+DORA's research on documentation quality finds that documentation helps only while it is accurate and findable; a pointer from code to the
+decision behind it is documentation too, and a pointer that silently rots — a bare path to a moved ADR, a citation of a renumbered rule —
+sends the reader to the wrong rationale or none. Checking every link and deriving each code link from its citation keeps those pointers
+true as the documents move.
+
+- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — every link from code and between documents
+  resolves, so the documentation a reader follows is the documentation that exists.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a comment that links the rule it implements lets
+  anyone changing the code find the reason for it in one step.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

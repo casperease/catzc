@@ -1,0 +1,16 @@
+# Link alignment settings for Format-Links / Test-Links (ADR-REPO-LINK#8).
+#
+# Every key is optional: an omitted key takes the sensible default declared once on
+# Catzc.Base.QualityGates.LinksConfig (ADR-AUTO-DEFAULT#6), and a Format-Links parameter overrides the
+# resolved value per call (ADR-AUTO-PSPARAM#4).
+
+# How an aligned comment line that outgrows its limit is wrapped: break (continue the comment on a new line
+# before the link, never inside it) or off (leave it long and report it). Default: break.
+wrap: break
+
+# Per-extension line-limit overrides, e.g. { .ps1: 120 }. Default: none — the repository's .editorconfig
+# max_line_length decides, so the limit is not stated twice.
+line_limit: {}
+
+# The limit for an extension .editorconfig gives no max_line_length. Default: 140 (the prose target).
+default_line_limit: 140

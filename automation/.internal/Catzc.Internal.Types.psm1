@@ -8,7 +8,9 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
     Both the loader (Import-CSharpTypes, in the bootstrap) and the janitor (Clear-ModuleTypeCache, a Catzc module)
     must agree byte-for-byte on this hash, or the janitor plans the live build for deletion. The algorithm lives
     here once, called from both layers via Import-InternalModule (see one-living-version). The one compile path
-    for the combined assembly (Build-CombinedTypeAssembly) lives here too, shared by the loader and a build.
+    for the combined assembly (Build-CombinedTypeAssembly) lives here too, shared by the loader and a build, and so
+    does the one load path (Import-TypesAssembly — a per-user shadow copy, so no session ever locks .compiled),
+    shared by the loader and the analyzer rule that needs the types.
 
     The hash is EOL-insensitive (every CR byte stripped before the per-file digest), so a CRLF vs LF working tree
     keys the same DLL on every machine, and it folds in each file's <module>|<bare type> so a move between modules
@@ -214,4 +216,120 @@ function Build-CombinedTypeAssembly {
     }
 }
 
-Export-ModuleMember -Function Get-CombinedTypeHash, Build-CombinedTypeAssembly
+function Get-TypesShadowRoot {
+    <#
+    .SYNOPSIS
+        The per-user folder that holds the shadow copies of the combined types assembly.
+    .DESCRIPTION
+        %LOCALAPPDATA%\catzc\types on Windows, ~/.local/share/catzc/types on Unix — the same per-user catzc root
+        the tool venvs use. Shared by every session, clone, and installed version of the user: a copy is named
+        for the hash of the sources it was compiled from, so equal names mean equivalent types.
+    .OUTPUTS
+        [string] The folder path (not created here).
+    .EXAMPLE
+        Get-TypesShadowRoot
+    #>
+    [OutputType([string])]
+    param()
+
+    if ($IsWindows) {
+        Join-Path $env:LOCALAPPDATA 'catzc\types'
+    }
+    else {
+        Join-Path $HOME '.local/share/catzc/types'
+    }
+}
+
+function Import-TypesAssembly {
+    <#
+    .SYNOPSIS
+        Loads a combined types assembly from a per-user shadow copy, never from the file it is given.
+    .DESCRIPTION
+        A loaded assembly is locked on Windows for the life of the process, so loading
+        automation/.compiled/Catzc.Types.<hash>.dll in place would let any long-lived session — a console, the
+        editor's analyzer host, a test worker — pin a superseded build inside the repository. Every load goes
+        through here instead: the DLL is copied into the shadow root (Get-TypesShadowRoot) under its own name,
+        and the copy is loaded. The source file is only ever read, so .compiled can always be pruned.
+
+        A copy is named for its source hash, so it never changes once written: an existing copy is reused, and a
+        new one is written to a per-process temp file and moved into place (a concurrent writer that wins the
+        race leaves an equivalent copy, and the temp is discarded). A copy rather than a load from bytes, because
+        a byte-loaded assembly has no Location, and code that compiles against the types references it by path.
+
+        Each load refreshes its copy's write time; other copies untouched for -PruneAfter (a day by default) are
+        pruned, best-effort (a locked or vanished copy is skipped). The age bound keeps a copy that another process
+        has just written but not yet loaded from being pruned under it.
+    .PARAMETER Path
+        The assembly to load (normally automation/.compiled/Catzc.Types.<hash>.dll, or a bundle's prebuilt copy).
+    .PARAMETER ShadowRoot
+        The shadow folder. Defaults to Get-TypesShadowRoot; tests pass a throwaway folder.
+    .PARAMETER PruneAfter
+        How long another copy may go untouched before it is pruned. Defaults to one day: long enough that no
+        in-flight load loses its copy, short enough that superseded builds do not pile up.
+    .OUTPUTS
+        [string] The path of the loaded shadow copy.
+    .EXAMPLE
+        Import-TypesAssembly -Path (Join-Path $modulesRoot '.compiled/Catzc.Types.762c40fe.dll')
+    #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Writes only the per-user shadow cache, an internal load-time detail of the importer; the load itself is announced by the caller (Import-CSharpTypes).')]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Path,
+
+        [string] $ShadowRoot = (Get-TypesShadowRoot),
+
+        [TimeSpan] $PruneAfter = [TimeSpan]::FromDays(1)
+    )
+
+    if (-not [System.IO.File]::Exists($Path)) {
+        throw "Cannot load the types assembly: '$Path' does not exist."
+    }
+
+    [System.IO.Directory]::CreateDirectory($ShadowRoot) | Out-Null
+    $shadow = [System.IO.Path]::Combine($ShadowRoot, [System.IO.Path]::GetFileName($Path))
+    if (-not [System.IO.File]::Exists($shadow)) {
+        $tmp = "$shadow.$PID.tmp"
+        try {
+            [System.IO.File]::Copy($Path, $tmp, $true)
+            [System.IO.File]::Move($tmp, $shadow)
+        }
+        catch {
+            # A concurrent load that won the race left an equivalent copy; anything else is a real failure.
+            if (-not [System.IO.File]::Exists($shadow)) {
+                throw
+            }
+        }
+        finally {
+            if ([System.IO.File]::Exists($tmp)) {
+                [System.IO.File]::Delete($tmp)
+            }
+        }
+    }
+
+    # Mark this copy as in use (best-effort: a copy another process has loaded may refuse the attribute write).
+    try {
+        [System.IO.File]::SetLastWriteTimeUtc($shadow, [DateTime]::UtcNow)
+    }
+    catch {
+        Write-Verbose "Could not refresh the shadow copy's write time: $shadow"
+    }
+
+    $staleBefore = [DateTime]::UtcNow - $PruneAfter
+    foreach ($other in [System.IO.Directory]::EnumerateFiles($ShadowRoot, 'Catzc.Types.*.dll')) {
+        if ($other -eq $shadow -or [System.IO.File]::GetLastWriteTimeUtc($other) -ge $staleBefore) {
+            continue
+        }
+        try {
+            [System.IO.File]::Delete($other)
+        }
+        catch {
+            Write-Verbose "Skipped a shadow copy still in use: $other"
+        }
+    }
+
+    Add-Type -Path $shadow
+    $shadow
+}
+
+Export-ModuleMember -Function Get-CombinedTypeHash, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Import-TypesAssembly

@@ -185,7 +185,8 @@ function Get-BicepTemplates {
                 throw "Template '$name' has an invalid config: $($customerViolations -join '; ')."
             }
 
-            $subscription = @(Get-BicepConfigSubscriptionCandidates -Customer $entry.customer -Environment $resolved.environment -AzureConfig $azure)[0]
+            $subscription = Get-BicepConfigSubscriptionCandidates -Customer $entry.customer -Environment $resolved.environment -AzureConfig $azure |
+                Select-Object -First 1
             $slots.Add([Catzc.Azure.Templates.BicepSlot]::new($configName, $resolved.environment, $resolved.slot, $subscription, $entry.customer))
         }
         $environments = @($slots | ForEach-Object { $_.environment } | Select-Object -Unique)

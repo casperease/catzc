@@ -91,10 +91,8 @@ function Install-Java {
 
     # Persist for future sessions
     if ($IsWindows) {
-        if ([Environment]::GetEnvironmentVariable('JAVA_HOME', 'User') -ne $javaHome) {
-            [Environment]::SetEnvironmentVariable('JAVA_HOME', $javaHome, 'User')
-            Write-Message "User environment: JAVA_HOME='$javaHome'"
-        }
+        # the seam announces the change, and does nothing when the value is already set
+        Set-PermanentEnvironmentVariable JAVA_HOME $javaHome
     }
     else {
         $marker = '>>> catzc Install-Java >>>'

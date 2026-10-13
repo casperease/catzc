@@ -12,15 +12,19 @@
     - the conventional generated-artifact classes: the dynamic module manifests
       (automation/<Module>/<Module>.psd1), the generated README links (every gitignored README.md is a
       materialised link by the generated-readmes contract — a hand-authored README is only safe once
-      opted in and committed), the generated cspell dictionaries (.cspell/), the transient output root
-      (out/ — disposable by the dedicated-output-directory contract), the IDE-only C# project's build
-      output (bin/obj under automation/.internal/assets), the compiled-type *.tmp scratch, and the
-      drawio editor's autosave shadows ('.$*.drawio.png.bkp' beside a committed .drawio.png asset).
+      opted in and committed), the generated ADR index (docs/adr/index.md), the generated cspell
+      dictionaries (.cspell/), the transient output root (out/ — disposable by the
+      dedicated-output-directory contract), the IDE-only C# project's build output (bin/obj under
+      automation/.internal/assets), the compiled-type *.tmp scratch, and the drawio editor's autosave
+      shadows ('.$*.drawio.png.bkp' beside a committed .drawio.png asset).
+
+    Minus the exclusions, written gitignore-style with a leading '!': a path matching an exclusion is
+    never auto-controlled, whatever else it matches (the authored out/plan-*.md files, ADR-REPO-OUTDIR:10).
 
     Patterns are repo-relative, '/'-separated -like globs; a directory is listed both bare and with a
     trailing /* so a whole-folder candidate from `git clean` matches too.
 .OUTPUTS
-    [string[]] The -like patterns of the auto-controlled set.
+    [string[]] The -like patterns of the auto-controlled set; a '!'-prefixed pattern is an exclusion.
 #>
 function Get-AutoControlledGlobs {
     [CmdletBinding()]
@@ -45,13 +49,18 @@ function Get-AutoControlledGlobs {
     $ret.Add('README.md')
     $ret.Add('*/README.md')
 
+    # The generated ADR index — a derived projection of adrs.yml, rebuilt on import (Build-AdrIndex).
+    $ret.Add('docs/adr/index.md')
+
     # Generated cspell dictionaries, regenerated at the importer tail (ADR-REPO-OUTDIR:8).
     $ret.Add('.cspell')
     $ret.Add('.cspell/*')
 
-    # The output root — transient by contract (dedicated-output-directory).
+    # The output root — transient by contract (dedicated-output-directory) — except the authored plan files,
+    # which are working notes, not output (ADR-REPO-OUTDIR:10).
     $ret.Add('out')
     $ret.Add('out/*')
+    $ret.Add('!out/plan-*.md')
 
     # The generated .vscode editor config (generated-root-configs); clean may list the whole folder.
     $ret.Add('.vscode')

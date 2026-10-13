@@ -136,6 +136,9 @@ crossings, all requiring communication form:
   drawing it from a value that also holds the absolute form for the channels that bind. This is a per-channel choice, not a storage
   property.
 
+A code link's destination (`[ADR-<CODE>](/docs/adr/<path>.md)`, [markdown-links](../repository/markdown-links.md)) is a communication-form
+path wrapped in link syntax: the leading `/` means "the repository root" to the markdown renderer and is not a third path form.
+
 ### The point of binding
 
 Binding is the one place an absolute path is correct, and it is always local and transient:
