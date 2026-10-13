@@ -300,7 +300,9 @@ that seam.
 A **test run** is one invocation of a test entry point — `Test-Automation`, `Test-CatzcBuild`, or `Invoke-TestFile` — over one selection of
 test files (by module, tier, and category): it claims one slot (ADR-AUTO-TEST#32), runs the selection once, and records it in one report
 under `out/`. A test run in source mode is a **source run** (`Test-Automation`, `Invoke-TestFile`); one in build mode is a **build run**
-(`Test-CatzcBuild`). The test files at rest are not a run: a run is the act of executing them.
+(`Test-CatzcBuild`). The test files at rest are not a run: a run is the act of executing them. A run states its **context** — entry point
+and code root, slot and why, the tiers asked for and running (and why they differ), the actor, which local tools are present, and the
+selection — in a block under its banner and under `context` in `run.json`, so neither a reader nor a later run infers it.
 
 - [Source and build runs](#source-and-build-runs)
 

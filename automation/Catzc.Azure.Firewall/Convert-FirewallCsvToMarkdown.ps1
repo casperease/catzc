@@ -58,6 +58,7 @@
         Convert-FirewallCsvToMarkdown -OutputFolder .\docs
 #>
 function Convert-FirewallCsvToMarkdown {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'In Object mode -SourceName derives from the piped input, bound after defaults are evaluated (ADR-AUTO-PSPARAM#4)')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'GroupPriority is consumed inside the Sort-Object Expression scriptblock, which this rule does not trace; the render-only parameters are forwarded to Get-FirewallMarkdownTable')]
     [CmdletBinding(DefaultParameterSetName = 'Path')]
     param(
@@ -163,6 +164,8 @@ function Convert-FirewallCsvToMarkdown {
             $MarkdownPath = Join-Path $OutputFolder $markdownName
         }
 
+        # A body fill-in on purpose: in Object mode $CsvPath comes from pipeline input, bound after defaults are
+        # evaluated ([ADR-AUTO-PSPARAM#4](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam4)).
         if (-not $SourceName) {
             $SourceName = Split-Path -Path $CsvPath -Leaf
         }

@@ -12,7 +12,7 @@
 function Assert-PipelineEmpty {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory, ValueFromPipeline)]
+        [Parameter(Mandatory, Position = 0, ValueFromPipeline)]
         [AllowNull()]
         [AllowEmptyCollection()]
         [object] $InputObject

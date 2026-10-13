@@ -53,9 +53,10 @@ function New-SyntheticHistory {
         [Parameter(Mandatory)]
         [string] $AuthorEmail,
 
-        [datetime] $SpanStart,
+        # Declared before -SpanStart, so the start's default can count back from it.
+        [datetime] $SpanEnd = (Get-Date),
 
-        [datetime] $SpanEnd,
+        [datetime] $SpanStart = $SpanEnd.AddDays(-90),
 
         [string] $Branch = 'main',
 
@@ -67,12 +68,6 @@ function New-SyntheticHistory {
     Assert-Command git
     Assert-PathExist $RepositoryPath -PathType Container
 
-    if (-not $SpanEnd) {
-        $SpanEnd = Get-Date
-    }
-    if (-not $SpanStart) {
-        $SpanStart = $SpanEnd.AddDays(-90)
-    }
     if ($SpanEnd -lt $SpanStart) {
         throw "SpanEnd ($SpanEnd) is before SpanStart ($SpanStart)."
     }

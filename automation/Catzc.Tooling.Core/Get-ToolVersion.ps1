@@ -18,7 +18,7 @@ function Get-ToolVersion {
     [OutputType([string])]
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         $Config
     )
 

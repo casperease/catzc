@@ -20,7 +20,7 @@
 function Assert-YmlNaming {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         $Yaml,
 
         [string] $PropertyPath = ''

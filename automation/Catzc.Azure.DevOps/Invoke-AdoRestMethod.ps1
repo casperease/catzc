@@ -29,7 +29,7 @@
 function Invoke-AdoRestMethod {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         [string] $Uri,
 
         [ValidateSet('Get', 'Post', 'Put', 'Patch', 'Delete')]

@@ -28,6 +28,8 @@ analyzers:
     Measure-SpellOutIdentifiers: [ADR-AUTO-SPELL#9]
     Measure-NoScriptRootAnchor: [ADR-AUTO-NOPWD#5, ADR-AUTO-ASSETDEP#1]
     Measure-NoEnvRepositoryRoot: [ADR-AUTO-NOPWD#6]
+    Measure-ParameterFillIn: [ADR-AUTO-PSPARAM#4]
+    Measure-PrimaryArgumentPosition: [ADR-AUTO-PSPARAM#2]
     Measure-NoUnsafeFirstIndex: [ADR-AUTO-ERROR#8]
     Measure-NoBareScriptSlotRead: [ADR-AUTO-PSCACHE#4]
 

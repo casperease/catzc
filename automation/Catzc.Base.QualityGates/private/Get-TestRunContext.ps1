@@ -29,7 +29,7 @@
 .PARAMETER Modules
     The modules in scope; empty is every module.
 .PARAMETER Suite
-    The test suite the modules were resolved from, or empty.
+    A test suite's name, when the modules were resolved from one; otherwise empty.
 .PARAMETER Rule
     The -Rule filter.
 .OUTPUTS

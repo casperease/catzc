@@ -24,7 +24,7 @@ function ConvertTo-ModuleDependencyDiagram {
     [CmdletBinding()]
     [OutputType([string])]
     param(
-        [Parameter(Mandatory, ValueFromPipeline)]
+        [Parameter(Mandatory, Position = 0, ValueFromPipeline)]
         [Catzc.Base.ModuleSystem.ModuleDependencyEdge[]] $Edge,
 
         [Catzc.Base.ModuleSystem.ModuleDependencyFormat] $As = [Catzc.Base.ModuleSystem.ModuleDependencyFormat]::Puml

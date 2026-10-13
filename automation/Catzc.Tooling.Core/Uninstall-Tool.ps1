@@ -12,7 +12,7 @@
 function Uninstall-Tool {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         [string] $Tool,
 
         [string] $Version

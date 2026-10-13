@@ -23,7 +23,7 @@ function ConvertTo-AdrDomainDiagram {
     [OutputType([string])]
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory, ValueFromPipeline)]
+        [Parameter(Mandatory, Position = 0, ValueFromPipeline)]
         [Catzc.Base.Docs.AdrDomainEdge[]] $Edge,
 
         [ValidateSet('Puml', 'Mermaid', 'Markdown')]

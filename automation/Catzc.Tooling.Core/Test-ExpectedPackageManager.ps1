@@ -8,17 +8,28 @@
     platform fallback). Returns $false if the manager is not available.
 .PARAMETER Config
     Tool configuration hashtable from Get-ToolConfig / tools.yml.
+.PARAMETER WingetListCache
+    Pre-fetched winget list output (Get-WingetListCache), so a batch of checks lists once.
+.PARAMETER Path
+    For a script-installed tool: judge this install folder instead of the one the command resolves to on PATH.
+    A removal names the folder it is about to delete, so the managed install's position on PATH never decides
+    whether a different folder is managed
+    ([ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)).
 #>
 function Test-ExpectedPackageManager {
     [OutputType([bool])]
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         $Config,
 
         # Pre-fetched winget list output. When provided, skips the per-tool
         # winget list call — pass the result of Get-WingetListCache.
-        [string] $WingetListCache
+        [string] $WingetListCache,
+
+        # The install folder to judge, for a script-installed tool. Default: the folder the command resolves to on
+        # PATH — which, in a catzc session, is always the managed install, so a removal of another folder names it.
+        [string] $Path
     )
 
     # 0. OS-provided tools (winget) — the OS is the manager, so "managed" means simply present.
@@ -28,11 +39,15 @@ function Test-ExpectedPackageManager {
 
     # 1. Script-installed tools (e.g., Dotnet via dotnet-install scripts).
     if ($Config.script_install) {
+        $expectedDir = [System.IO.Path]::GetFullPath((Get-ScriptInstallDir -Config $Config)).TrimEnd('\', '/')
+        if ($Path) {
+            $target = [System.IO.Path]::GetFullPath($Path).TrimEnd('\', '/')
+            return $target -ieq $expectedDir -or $target -like "$expectedDir$([System.IO.Path]::DirectorySeparatorChar)*"
+        }
         if (-not (Test-Command $Config.command)) {
             return $false
         }
         $location = (Get-Command $Config.command).Source
-        $expectedDir = Get-ScriptInstallDir -Config $Config
         return $location -like "$expectedDir*"
     }
 

@@ -39,6 +39,7 @@
     Register-AdoBuildValidation nova -Branch main -DryRun
 #>
 function Register-AdoBuildValidation {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = '-Pipeline resolves from two sources keyed by -GlobSet (its build-validation.yml entry, then the globset annotation), and the body reads the same entry for -blocking; one lookup in the body beats a duplicated one in the declaration')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]

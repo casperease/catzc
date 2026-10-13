@@ -14,7 +14,7 @@ function Get-ToolConfig {
     [CmdletBinding()]
     [OutputType([Catzc.Tooling.Core.ToolConfig])]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         [string] $Tool
     )
 

@@ -19,6 +19,7 @@ $checks = @(
     'SpellOutIdentifiers'
     'NoScriptRootAnchor'
     'NoEnvRepositoryRoot'
+    'ParameterDesign'
     'NoUnsafeFirstIndex'
     'NoBareScriptSlotRead'
 )

@@ -1,0 +1,27 @@
+<#
+.SYNOPSIS
+    The .NET folder Remove-Dotnet evicts by default: the off-config install, never the managed one.
+.DESCRIPTION
+    The folder of the `dotnet` on PATH, unless that is the managed user-space install (Test-ExpectedPackageManager
+    -Path) — in a catzc session it always is, because the importer puts the managed install first — in which case the
+    machine-wide C:\Program Files\dotnet, the folder a system installer places. Remove-Dotnet's -InstallDir default
+    ([ADR-AUTO-PSPARAM#4](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam4)).
+.OUTPUTS
+    [string] The folder.
+#>
+function Resolve-DotnetRemovalTarget {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param()
+
+    $machineDefault = 'C:\Program Files\dotnet'
+    $command = Get-Command dotnet -CommandType Application -ErrorAction Ignore | Select-Object -First 1
+    if (-not $command) {
+        return $machineDefault
+    }
+    $onPath = Split-Path $command.Source -Parent
+    if (Test-ExpectedPackageManager -Config (Get-ToolConfig -Tool 'dotnet') -Path $onPath) {
+        return $machineDefault
+    }
+    $onPath
+}
