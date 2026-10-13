@@ -1,6 +1,6 @@
 // adrs.yml — the ADR domain-structure registry (RULES ↔ domains wiring). Constructing an instance MAPS and
-// VALIDATES the parsed YAML (throwing with every violation collected) and exposes the typed Domains and the
-// flattened RuleSets. Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Docs.AdrsConfig)
+// VALIDATES the parsed YAML (throwing with every violation collected) and exposes the typed Domains, the
+// flattened RuleSets, and the domain dependency Edges (AdrDomainEdge, one per depends_on link). Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Docs.AdrsConfig)
 // so Get-Config -Config adrs returns this typed model rather than a slippery ordered dictionary
 // ([ADR-CONF-LOADING#5](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading5),
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).

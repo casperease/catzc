@@ -37,6 +37,14 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
         $override.External | Should -Be 'ADR-AL-THREE'
     }
 
+    It 'exposes one typed edge per depends_on link, From depending on To' {
+        $config = [Catzc.Base.Docs.AdrsConfig]::new((New-ValidRaw))
+        $config.Edges | Should -HaveCount 1
+        $config.Edges[0] | Should -BeOfType 'Catzc.Base.Docs.AdrDomainEdge'
+        $config.Edges[0].From | Should -Be 'beta'
+        $config.Edges[0].To | Should -Be 'alpha'
+    }
+
     It 'carries each domain description, trimmed' {
         $raw = New-ValidRaw
         $raw.domains.alpha.description = "  The widget axioms.`n"
