@@ -74,7 +74,8 @@ function Invoke-WithProgress {
     }
     finally {
         # Stop and remove without Receive-Job: the dots already streamed, and receiving would replay them.
-        $dotJob | Stop-Job -PassThru | Remove-Job
+        # -Force: Stop-Job can return while a thread job is still Stopping, and a plain Remove-Job throws then.
+        $dotJob | Remove-Job -Force
         Write-Message '' -NoHeader
     }
 }

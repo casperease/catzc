@@ -1,19 +1,7 @@
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The check modules load nested in this rule module, inside the analyzer engine; nothing in the session changes, so there is no state to announce')]
+param()
+
 Set-StrictMode -Version Latest   # this module's scope: the entry rule runs strict inside the analyzer engine
-
-<#
-.SYNOPSIS
-    The one custom PSScriptAnalyzer rule the settings load: runs every repository check once per file.
-.DESCRIPTION
-    PSScriptAnalyzer calls a script rule once for every ScriptBlockAst in a file (the file, each function body, each
-    script block literal) and pays a fixed cost per call, even for a rule that does nothing. This entry rule acts only
-    on the file's root block and hands it to each check, so every check runs once per file and walks the whole tree
-    from there.
-
-    Each check lives in its own module next to this one, with its own tests, and keeps its own RuleName on the records
-    it emits. Diagnostics, SuppressMessageAttribute('Measure-<Check>', …) and analyzer-adr-map.yml all name the check,
-    never this entry rule. Add a new check module to $checks below (every Measure-* function it exports runs); the
-    engine-wiring test (CustomRuleWiring.Tests.ps1) proves each check fires through the engine.
-#>
 
 $checks = @(
     'VariableCasing'
@@ -41,6 +29,22 @@ $script:measures = @(foreach ($check in $checks) {
         $module.ExportedFunctions.Values | Where-Object { $_.Name -like 'Measure-*' }
     })
 
+<#
+.SYNOPSIS
+    The one custom PSScriptAnalyzer rule the settings load: runs every repository check once per file.
+.DESCRIPTION
+    PSScriptAnalyzer calls a script rule once for every ScriptBlockAst in a file (the file, each function body, each
+    script block literal) and pays a fixed cost per call, even for a rule that does nothing. This entry rule acts only
+    on the file's root block and hands it to each check, so every check runs once per file and walks the whole tree
+    from there.
+
+    Each check lives in its own module next to this one, with its own tests, and keeps its own RuleName on the records
+    it emits. Diagnostics, SuppressMessageAttribute('Measure-<Check>', …) and analyzer-adr-map.yml all name the check,
+    never this entry rule. Add a new check module to $checks above (every Measure-* function it exports runs); the
+    engine-wiring test (CustomRuleWiring.Tests.ps1) proves each check fires through the engine.
+.PARAMETER ScriptBlockAst
+    The script block the engine hands the rule; only a file's root block (no parent) is acted on.
+#>
 function Measure-CatzcRules {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]

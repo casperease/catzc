@@ -140,8 +140,6 @@ terms:
       meaning: "Likert scale — an ordinal survey rating scale"
     - term: trunkbaseddevelopment
       meaning: "trunkbaseddevelopment.com — Paul Hammant's primary-source site on trunk-based development, cited by name"
-    - term: cmdb
-      meaning: "configuration management database (CMDB)"
     - term: dotfiles
       meaning: "dotfiles"
     - term: dryrun
@@ -731,6 +729,8 @@ terms:
   tool:
     - term: csharp
       meaning: "C# (the csharp language / file token)"
+    - term: claudecode
+      meaning: "the CLAUDECODE environment variable Claude Code sets in its shells (Test-IsRunningAsAgent)"
     - term: regexrobin
       meaning: "the Regex Robin VS Code extension's settings prefix (regexrobin.rules) — makes code links clickable"
     - term: levett
@@ -878,8 +878,6 @@ terms:
       meaning: "the %LOCALAPPDATA% path (localappdata)"
     - term: windowsapps
       meaning: 'the %LOCALAPPDATA%\Microsoft\WindowsApps directory — winget / App Installer command aliases'
-    - term: lpdw
-      meaning: "Win32 P/Invoke out-parameter name 'lpdwResult' (long pointer to DWORD)"
     - term: rstrtmgr
       meaning: "rstrtmgr.dll — the Windows Restart Manager library (RmStartSession / RmGetList)"
     - term: filetime

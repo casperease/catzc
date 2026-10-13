@@ -83,12 +83,12 @@ $longBody
     }
 
     It "a check's own SuppressMessageAttribute silences only that check" {
-        $suppressed = @"
+        $suppressed = @'
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoAzModuleNaming', '', Justification = 'fixture')]
 param()
 function Get-AzWidget { }
 Write-Error 'widget'
-"@
+'@
         $fired = @(Invoke-ScriptAnalyzer -ScriptDefinition $suppressed -Settings $script:analyzerSettings).RuleName
         $fired | Should -Not -Contain 'Measure-NoAzModuleNaming'
         $fired | Should -Contain 'Measure-NoWriteErrorOrWarning'
