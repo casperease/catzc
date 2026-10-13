@@ -17,16 +17,16 @@ Describe 'Exit-TestRunSlot' -Tag 'L1', 'logic' {
 
         [System.IO.File]::Exists($script:lockPath) | Should -BeFalse
         # Another thread can take the lock at once: it was released, not left for abandonment.
+        $name = $script:mutexName
         $acquiredElsewhere = Start-ThreadJob {
-            param($n)
-            $other = [System.Threading.Mutex]::new($false, $n)
+            $other = [System.Threading.Mutex]::new($false, $using:name)
             $got = $other.WaitOne(0)
             if ($got) {
                 $other.ReleaseMutex()
             }
             $other.Dispose()
             $got
-        } -ArgumentList $script:mutexName | Wait-Job | Receive-Job
+        } | Wait-Job | Receive-Job
         $acquiredElsewhere | Should -BeTrue
     }
 

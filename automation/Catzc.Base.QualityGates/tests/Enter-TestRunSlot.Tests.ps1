@@ -121,11 +121,11 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
     }
 
     It 'takes over an abandoned lock and runs in place' {
+        $name = & $script:mutexName $script:root
         Start-ThreadJob {
-            param($n)
-            $mutex = [System.Threading.Mutex]::new($false, $n)
-            [void]$mutex.WaitOne()
-        } -ArgumentList (& $script:mutexName $script:root) | Wait-Job | Remove-Job
+            $mutex = [System.Threading.Mutex]::new($false, $using:name)
+            [void]$mutex.WaitOne()   # acquire and exit without releasing -> abandoned
+        } | Wait-Job | Remove-Job
 
         $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Test-Automation' }
         $script:slot.Mode | Should -Be 'InPlace'
