@@ -118,6 +118,7 @@ principles, process, and design domains into enforced code; the pipelines, githu
 | `ADR-AUTO-XPLAT`    | [cross-platform](automation/cross-platform.md)                                                    |
 | `ADR-AUTO-ONEJOB`   | [single-responsibility-functions](automation/single-responsibility-functions.md)                  |
 | `ADR-AUTO-CACHE`    | [caching](automation/caching.md)                                                                  |
+| `ADR-AUTO-TRACKED`  | [tracked-files-from-the-index](automation/tracked-files-from-the-index.md)                        |
 | `ADR-AUTO-DEFAULT`  | [sensible-defaults](automation/sensible-defaults.md)                                              |
 | `ADR-AUTO-FAILFAST` | [fail-fast-with-asserts](automation/fail-fast-with-asserts.md)                                    |
 | `ADR-AUTO-IDEM`     | [idempotent-state-functions](automation/idempotent-state-functions.md)                            |

@@ -306,10 +306,15 @@ under `out/`. A test run in source mode is a **source run** (`Test-Automation`, 
 
 ### Rule ADR-AUTO-TEST:35
 
-A **quality gate** is an automated gate ([ADR-FLOW-CD#13](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13)) over the
-repository: one `Test-*` or `Assert-*` check — spelling, terminology, the analyzer, the glossary, the tag axes — that examines the whole
-tree (or its declared scope), reports every issue it finds at once, and fails on any. Each quality gate runs inside every test run — as an
-integrity test, or as the run's own check (the tag axes) — so a red gate turns the run red; it is never an optional step beside them.
+A **quality gate** is an automated gate ([ADR-FLOW-CD#13](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13)) that checks one
+property of the whole repository (or its declared scope): one public `Test-<subject>` function that collects every issue, writes its report
+through `Write-QualityGateReport` (`out/test-<subject>/`, settings in `reports.yml`), and throws once listing them all; `-PassThru` returns
+the result instead. Every repository check is a quality gate — a generator's drift (`Test-GeneratedFiles`), formatting (`Test-Formatting`),
+the shipped configs (`Test-ShippedConfigs`), and the built artifact (`Test-BuildArtifact`) included — and an integrity test runs it at its
+tier, so every default test run and every CI run (`-Level 2`, the BVT) includes it; a gate whose answer cannot differ by run mode is
+`source-only`, `Test-ModuleDependency` also runs at import, and the tag axes are the run's own check. A `Test-*`/`Assert-*` pair over **one
+value or session state** (`Test-IsGuid`, `Test-AzCliConnected`) is not a quality gate: its `Test-*` answers a bool and its `Assert-*`
+throws.
 
 - [Build Verification Test](#build-verification-test)
 

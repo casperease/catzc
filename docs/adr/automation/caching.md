@@ -65,7 +65,8 @@ on a fresh checkout and self-invalidating on any source change. Sessions load it
 
 Git state that a session itself changes — the tracked-file set a `git add` or a commit rewrites — is cached only under a key computed from
 its bytes on disk on every call, never under a session-lifetime slot. Exemplar: `Get-GitTrackedPath` reads the index in-process and keys
-the parsed listing on the SHA-256 of the index file, so the answer always equals `git ls-files` for the index as it is now.
+the parsed listing on the SHA-256 of the index file, so the answer always equals `git ls-files` for the index as it is now (see
+[tracked-files-from-the-index](tracked-files-from-the-index.md)).
 
 - [Git state is keyed on its content](#git-state-is-keyed-on-its-content)
 

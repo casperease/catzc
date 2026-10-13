@@ -34,6 +34,7 @@ Modules are layered — a module may only call into the modules it declares in `
 | [Catzc.Base.Objects](catzc-base-objects.md)                                 | Object shaping & serialization, and the shared `DictionaryRecord` base                        |
 | [Catzc.Base.Writers](catzc-base-writers.md)                                 | Console output and diagnostics — the colour-aware writer family                               |
 | [Catzc.Base.Config](catzc-base-config.md)                                   | The single config reader (`Get-Config`) and the `configs.yml` registry                        |
+| [Catzc.Base.Reports](catzc-base-reports.md)                                 | The shared quality-gate report — one report, one printed summary, one verdict                 |
 | [Catzc.Base.Variants](catzc-base-variants.md)                               | Repo-wide variants fixed per importer session — naming order, enabled-customer set            |
 | [Catzc.Base.Execution](catzc-base-execution.md)                             | The external-process boundary — `Invoke-Executable`, `CliResult`/`CliRunner`                  |
 | [Catzc.Base.Files](catzc-base-files.md)                                     | Filesystem and source-control facts — tree copy, file locks, git branch/commit                |

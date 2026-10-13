@@ -202,6 +202,24 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   obvious when information is recomputed versus memoized.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## Tracked files from the index
+
+`Tracked files are read from the git index, in-process, through one seam`
+
+[ADR-AUTO-TRACKED](tracked-files-from-the-index.md)
+
+> DORA's research ties fast, reliable automated tests to delivery performance. Reading the tracked-file set from the git index in-process
+> gives every gate one exact answer at the cost of a file read, so the gates that scope by tracked files run as fast, process-free tests
+> instead of slow integration tests.
+
+- [Test automation](../../references/dora/capabilities.md#test-automation) — tracked-file gates run without launching git, so they stay in
+  the fast unit and integrity tiers.
+- [Version control](../../references/dora/capabilities.md#version-control) — "tracked" means exactly what git's index holds, read the same
+  way by every gate.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one seam replaces per-caller git calls, each with
+  its own parsing.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Sensible defaults
 
 `Sensible defaults for all parameters`

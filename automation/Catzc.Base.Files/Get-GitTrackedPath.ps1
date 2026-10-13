@@ -2,7 +2,8 @@
 .SYNOPSIS
     Returns the subset of the given repository paths that git tracks.
 .DESCRIPTION
-    The one place catzc answers `git ls-files -- <paths>`: every tracked file at or under the given paths, as a
+    The one place catzc answers `git ls-files -- <paths>`
+    ([ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)): every tracked file at or under the given paths, as a
     repo-relative, '/'-separated path ('.' is the whole repository). A path git does not track (new, ignored,
     or absent) contributes nothing, so "is this file under version control?" is a membership test on the
     result. A tracked file deleted from the working tree is still listed — it is still in the index.
