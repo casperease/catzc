@@ -360,3 +360,40 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
         }
     }
 }
+
+# L2: a real child pwsh whose stdin is a pipe that stays open — the shape of a worker or an agent's shell.
+Describe 'Invoke-Executable from a caller whose stdin is not a terminal' -Tag 'L2', 'logic' {
+    It 'gives a visible run an empty, closed stdin too, so a stdin reader finishes instead of waiting on the pipe' {
+        # sort reads stdin to EOF; inheriting the open pipe would leave it waiting forever.
+        $inputReader = if ($IsWindows) {
+            "$env:SystemRoot\System32\sort.exe"
+        }
+        else {
+            'cat'
+        }
+        $importer = Join-Path (Get-RepositoryRoot) 'importer.ps1'
+        $startInfo = [System.Diagnostics.ProcessStartInfo]::new('pwsh')
+        $childCommand = ". '$importer' -SkipJanitors *> `$null; exit (Invoke-Executable '$inputReader' -PassThru).ExitCode"
+        '-NoProfile', '-NonInteractive', '-Command', $childCommand | ForEach-Object { $startInfo.ArgumentList.Add($_) }
+        $startInfo.UseShellExecute = $false
+        $startInfo.RedirectStandardInput = $true   # held open and never written: the child's stdin is a live pipe
+        $startInfo.RedirectStandardOutput = $true
+        $startInfo.RedirectStandardError = $true
+        [void]$startInfo.Environment.Remove('CATZC_BLOCK_REAL_PROCESS')
+        $child = [System.Diagnostics.Process]::Start($startInfo)
+        $outputTask = $child.StandardOutput.ReadToEndAsync()
+        $errorTask = $child.StandardError.ReadToEndAsync()
+        try {
+            $exited = $child.WaitForExit(120000)
+            $exited | Should -BeTrue -Because "the child should not wait on its open stdin pipe. stderr: $(if ($errorTask.IsCompleted) { $errorTask.Result })"
+            $child.ExitCode | Should -Be 0 -Because "stdout: $($outputTask.Result) stderr: $($errorTask.Result)"
+        }
+        finally {
+            if (-not $child.HasExited) {
+                $child.Kill($true)
+            }
+            $child.StandardInput.Close()
+            $child.Dispose()
+        }
+    }
+}

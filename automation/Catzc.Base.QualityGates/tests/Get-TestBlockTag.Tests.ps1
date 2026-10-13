@@ -20,7 +20,7 @@ Describe 'Get-TestBlockTag' -Tag 'L0', 'logic' {
         $script:category = { param($Test) @(InModuleScope Catzc.Base.QualityGates -Parameters @{ T = $Test } { param($T) Get-TestBlockTag -Test $T -Valid 'logic', 'integrity' }) }
     }
 
-    It 'returns the nearest block tag (inner L2 overrides outer L1)' {
+    It 'returns the nearest block tag (inner L2 overrides outer L1)' -Tag 'ADR-AUTO-PESTER#8' {
         $result = & $script:tier (New-FakeTest -OuterTags @('L1', 'logic') -InnerTags @('L2'))
         $result | Should -HaveCount 1
         $result[0] | Should -Be 'L2'

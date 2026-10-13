@@ -16,9 +16,11 @@
        Copying the working-tree bytes (rather than `git checkout-index`) keeps the snapshot exact under
        line-ending conversion: a checkout re-applies core.autocrlf and can write different bytes than the
        working tree holds. A tracked file missing from the working tree is not copied — it stays deleted.
-    4. Verification: `git status --porcelain=v2` in the snapshot must equal the source's, line for line. Any
-       difference (a file edited during the copy, a nested repository, a split index) throws, and the
-       half-built snapshot is removed — a run never proceeds on a snapshot that differs from its source.
+    4. Verification: `git status --porcelain=v2` in the snapshot must equal the source's, line for line. On
+       any difference the snapshot is removed — a run never proceeds on a snapshot that differs from its
+       source. A difference usually means the source changed during the copy (a save, a stage or a commit by
+       another session), so the whole build is retried, announced, up to -Attempts times; a difference that
+       persists (a nested repository, a split index) then throws.
 
     A marker file inside the snapshot's .git folder records its provenance; Remove-RepositorySnapshot refuses
     any folder without it. The snapshot is announced once it is ready
@@ -28,6 +30,8 @@
 .PARAMETER Destination
     The folder to create the snapshot in; it must not exist yet. Defaults to a fresh
     <temp>/catzc-snapshot-<guid> folder.
+.PARAMETER Attempts
+    How many times to build the snapshot when verification finds it differs from its source. Default 3.
 .OUTPUTS
     [pscustomobject] with Path, SourceRoot, Commit, Modified, Untracked, Deleted (file counts relative to
     HEAD, from the verified status), and DurationSeconds.
@@ -48,7 +52,10 @@ function New-RepositorySnapshot {
     param(
         [string] $SourceRoot = (Get-RepositoryRoot),
 
-        [string] $Destination
+        [string] $Destination,
+
+        [ValidateRange(1, 10)]
+        [int] $Attempts = 3
     )
 
     Assert-Command git
@@ -63,90 +70,102 @@ function New-RepositorySnapshot {
     }
 
     $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-    $commit = (Invoke-Executable "git -C `"$SourceRoot`" rev-parse HEAD" -PassThru -Silent).Output.Trim()
+    for ($attempt = 1; ; $attempt++) {
+        $commit = (Invoke-Executable "git -C `"$SourceRoot`" rev-parse HEAD" -PassThru -Silent).Output.Trim()
+        $mismatch = $null
 
-    # A half-built snapshot is never left behind: every failure below removes it, then lets the error propagate.
-    try {
-        Invoke-Executable "git clone --quiet --shared --no-checkout `"$SourceRoot`" `"$Destination`"" -PassThru -Silent | Out-Null
+        # A half-built snapshot is never left behind: every failure below removes it, then lets the error propagate.
+        try {
+            Invoke-Executable "git clone --quiet --shared --no-checkout `"$SourceRoot`" `"$Destination`"" -PassThru -Silent | Out-Null
 
-        # The provenance marker goes in first, so the cleanup below (and any later Remove-RepositorySnapshot)
-        # recognises even a half-built snapshot as one it may delete.
-        $marker = [ordered]@{
-            sourceRoot = $SourceRoot
-            commit     = $commit
-            createdAt  = [DateTimeOffset]::UtcNow.ToString('o')
-            pid        = $PID
-        }
-        [System.IO.File]::WriteAllText((Join-Path $Destination '.git/catzc-snapshot.json'),
-            (ConvertTo-Json -InputObject $marker), [System.Text.UTF8Encoding]::new($false))
-
-        # --git-path resolves the index of a linked worktree as well as of a plain checkout.
-        $sourceIndex = (Invoke-Executable "git -C `"$SourceRoot`" rev-parse --path-format=absolute --git-path index" -PassThru -Silent).Output.Trim()
-        [System.IO.File]::Copy($sourceIndex, (Join-Path $Destination '.git/index'), $true)
-
-        $listing = Invoke-Executable "git -C `"$SourceRoot`" -c core.quotepath=off ls-files --cached --others --exclude-standard" -PassThru -Silent
-        # --cached lists an unmerged path once per stage; copy it once.
-        $relativePaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-        foreach ($line in ($listing.Output -split '\r?\n')) {
-            if ($line) {
-                [void]$relativePaths.Add($line)
+            # The provenance marker goes in first, so the cleanup below (and any later Remove-RepositorySnapshot)
+            # recognises even a half-built snapshot as one it may delete.
+            $marker = [ordered]@{
+                sourceRoot = $SourceRoot
+                commit     = $commit
+                createdAt  = [DateTimeOffset]::UtcNow.ToString('o')
+                pid        = $PID
             }
-        }
-        foreach ($relativePath in $relativePaths) {
-            $sourceFile = Join-Path $SourceRoot $relativePath
-            # A tracked file deleted from the working tree stays deleted in the snapshot.
-            if (-not [System.IO.File]::Exists($sourceFile)) {
-                continue
-            }
-            $targetFile = Join-Path $Destination $relativePath
-            [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($targetFile)) | Out-Null
-            [System.IO.File]::Copy($sourceFile, $targetFile, $true)
-        }
+            [System.IO.File]::WriteAllText((Join-Path $Destination '.git/catzc-snapshot.json'),
+                (ConvertTo-Json -InputObject $marker), [System.Text.UTF8Encoding]::new($false))
 
-        # The gate: the snapshot's status must equal the source's. --no-optional-locks keeps the source's index
-        # untouched (a plain status may rewrite it, racing other git commands on the source).
-        $statusCommand = 'git --no-optional-locks -C "{0}" -c core.quotepath=off status --porcelain=v2 --untracked-files=all'
-        $sourceStatus = @((Invoke-Executable ($statusCommand -f $SourceRoot) -PassThru -Silent).Output -split '\r?\n' | Where-Object { $_ })
-        $snapshotStatus = @((Invoke-Executable ($statusCommand -f $Destination) -PassThru -Silent).Output -split '\r?\n' | Where-Object { $_ })
-        $differences = @(Compare-Object -ReferenceObject $sourceStatus -DifferenceObject $snapshotStatus -CaseSensitive)
-        if ($differences.Count -gt 0) {
-            $sample = @($differences | Select-Object -First 5 | ForEach-Object {
-                    $side = if ($_.SideIndicator -eq '<=') {
-                        'source only'
+            # --git-path resolves the index of a linked worktree as well as of a plain checkout.
+            $sourceIndex = (Invoke-Executable "git -C `"$SourceRoot`" rev-parse --path-format=absolute --git-path index" -PassThru -Silent).Output.Trim()
+            [System.IO.File]::Copy($sourceIndex, (Join-Path $Destination '.git/index'), $true)
+
+            $listing = Invoke-Executable "git -C `"$SourceRoot`" -c core.quotepath=off ls-files --cached --others --exclude-standard" -PassThru -Silent
+            # --cached lists an unmerged path once per stage; copy it once.
+            $relativePaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+            foreach ($line in ($listing.Output -split '\r?\n')) {
+                if ($line) {
+                    [void]$relativePaths.Add($line)
+                }
+            }
+            foreach ($relativePath in $relativePaths) {
+                $sourceFile = Join-Path $SourceRoot $relativePath
+                # A tracked file deleted from the working tree stays deleted in the snapshot.
+                if (-not [System.IO.File]::Exists($sourceFile)) {
+                    continue
+                }
+                $targetFile = Join-Path $Destination $relativePath
+                [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($targetFile)) | Out-Null
+                [System.IO.File]::Copy($sourceFile, $targetFile, $true)
+            }
+
+            # The gate: the snapshot's status must equal the source's. --no-optional-locks keeps the source's index
+            # untouched (a plain status may rewrite it, racing other git commands on the source).
+            $statusCommand = 'git --no-optional-locks -C "{0}" -c core.quotepath=off status --porcelain=v2 --untracked-files=all'
+            $sourceStatus = @((Invoke-Executable ($statusCommand -f $SourceRoot) -PassThru -Silent).Output -split '\r?\n' | Where-Object { $_ })
+            $snapshotStatus = @((Invoke-Executable ($statusCommand -f $Destination) -PassThru -Silent).Output -split '\r?\n' | Where-Object { $_ })
+            $differences = @(Compare-Object -ReferenceObject $sourceStatus -DifferenceObject $snapshotStatus -CaseSensitive)
+            if ($differences.Count -gt 0) {
+                $sample = @($differences | Select-Object -First 5 | ForEach-Object {
+                        $side = if ($_.SideIndicator -eq '<=') {
+                            'source only'
+                        }
+                        else {
+                            'snapshot only'
+                        }
+                        "  [$side] $($_.InputObject)"
+                    }) -join "`n"
+                $mismatch = [pscustomobject]@{ Count = $differences.Count; Sample = $sample }
+            }
+
+            # Status counts relative to HEAD: '1'/'2'/'u' lines are changed entries (deleted when either side of
+            # the XY code is D), '?' lines are untracked files.
+            $modified = 0
+            $deleted = 0
+            $untracked = 0
+            foreach ($line in $sourceStatus) {
+                if ($line.StartsWith('? ')) {
+                    $untracked++
+                }
+                elseif ($line -match '^[12u] (\S\S) ') {
+                    if ($Matches[1].Contains('D')) {
+                        $deleted++
                     }
                     else {
-                        'snapshot only'
+                        $modified++
                     }
-                    "  [$side] $($_.InputObject)"
-                }) -join "`n"
-            throw ("The snapshot of '$SourceRoot' does not match its source ($($differences.Count) differing status line(s)) —" +
-                " was a file changed while it was copied?`n$sample")
-        }
-
-        # Status counts relative to HEAD: '1'/'2'/'u' lines are changed entries (deleted when either side of
-        # the XY code is D), '?' lines are untracked files.
-        $modified = 0
-        $deleted = 0
-        $untracked = 0
-        foreach ($line in $sourceStatus) {
-            if ($line.StartsWith('? ')) {
-                $untracked++
-            }
-            elseif ($line -match '^[12u] (\S\S) ') {
-                if ($Matches[1].Contains('D')) {
-                    $deleted++
-                }
-                else {
-                    $modified++
                 }
             }
         }
-    }
-    catch {
-        if ([System.IO.File]::Exists((Join-Path $Destination '.git/catzc-snapshot.json'))) {
-            Remove-RepositorySnapshot -Path $Destination
+        catch {
+            if ([System.IO.File]::Exists((Join-Path $Destination '.git/catzc-snapshot.json'))) {
+                Remove-RepositorySnapshot -Path $Destination
+            }
+            throw
         }
-        throw
+        if (-not $mismatch) {
+            break
+        }
+        Remove-RepositorySnapshot -Path $Destination
+        if ($attempt -ge $Attempts) {
+            throw ("The snapshot of '$SourceRoot' does not match its source ($($mismatch.Count) differing status line(s))" +
+                " after $Attempts attempt(s) — is a file changing continuously, or is there a nested repository?`n$($mismatch.Sample)")
+        }
+        Write-Message ("The source changed while the snapshot was copied ($($mismatch.Count) differing status line(s));" +
+            " rebuilding it (attempt $($attempt + 1) of $Attempts).") -ForegroundColor Yellow
     }
     $stopwatch.Stop()
 

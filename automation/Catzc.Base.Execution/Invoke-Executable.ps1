@@ -39,7 +39,8 @@
     result object when combined with -PassThru.
 .PARAMETER Silent
     Suppress the command log line and all console output. A silent run is non-interactive: the child gets an
-    empty, closed stdin, so a prompt fails instead of waiting invisibly.
+    empty, closed stdin, so a prompt fails instead of waiting invisibly. A visible run gets the same when this
+    session's stdin is not a terminal (a worker, an agent, a pipe), since no one could answer a prompt there.
 .PARAMETER WorkingDirectory
     The directory to run the command in. Defaults to the repository root
     ($env:RepositoryRoot). Callers that need a specific directory should

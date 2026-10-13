@@ -33,17 +33,18 @@ never by editing module-scope state except to reset a cache slot.
 
 ### Rule ADR-AUTO-PESTER:5
 
-One test file per function, `Verb-Noun.Tests.ps1` — `Test-Automation.Tests.ps1` enforces the hyphenated basename. A cross-cutting suite is
-named after the function it most exercises plus a suffix. A test for a native C# type is named for the type and lives in `tests/types/`
+A **test file** is one `*.Tests.ps1` file under a module's `tests/`: one per function, `Verb-Noun.Tests.ps1` — `Test-Automation.Tests.ps1`
+enforces the hyphenated basename. A cross-cutting test file is named after the function it most exercises plus a suffix
+(`Verb-Noun.<Suffix>.Tests.ps1`). A test file for a native C# type is named for the type and lives in `tests/types/`
 (`<TypeName>.Tests.ps1`) — exempt from Verb-Noun, but the gate requires the name to match a `types/*.cs` in the same module.
 
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-AUTO-PESTER:6
 
-Tests run under strict mode. A test whose subject genuinely is non-strict behaviour opts out in its own `It` body — `Set-StrictMode -Off`
-as the body's first statement, under a comment saying why — never in a `BeforeAll`, a `Describe` body, or the file, and never to get past
-a strict failure that a code or fixture fix would remove.
+Tests run under strict mode. A test whose subject genuinely is non-strict behaviour opts out in its own `It` body — `Set-StrictMode -Off` as
+the body's first statement, under a comment saying why — never in a `BeforeAll`, a `Describe` body, or the file, and never to get past a
+strict failure that a code or fixture fix would remove.
 
 - [Tests under strict mode](#tests-under-strict-mode)
 
@@ -54,6 +55,15 @@ A mock or fixture returns the production shape: the typed record the real functi
 `[pscustomobject]` that omits an optional member.
 
 - [Tests under strict mode](#tests-under-strict-mode)
+
+### Rule ADR-AUTO-PESTER:8
+
+A **test** is one Pester `It`: the smallest unit that passes or fails, and the one every report row, rule citation, and timing counts. A
+**test block** is a `Describe` or `Context` in a test file: a named group of tests (and of nested blocks) whose tags and setup
+(`BeforeAll`/`BeforeEach`) apply to everything inside it, so a test's tags resolve along its block chain, nearest block first
+(ADR-AUTO-TEST#13).
+
+- [How this is enforced](#how-this-is-enforced)
 
 ## Context
 
@@ -118,8 +128,8 @@ Describe 'sample (real az)' -Tag 'L2', 'logic' {
 The code under test runs strict in its own module scope ([error-handling](error-handling.md)), and the harness worker sets strict mode
 before it invokes Pester ([test-automation](../test-automation.md#rule-adr-auto-test25)), so the test code runs strict too. Strict mode
 belongs to a scope and Pester runs each `It` body in a child scope of its block: `Set-StrictMode -Off` in one `It` body covers that body
-alone — the next `It` and every sibling block stay strict — and never reaches the module code the test calls, which keeps its own scope.
-The `It` body is therefore the narrowest place an opt-out works and the only place it belongs; a `BeforeAll` or `Describe`-level opt-out
+alone — the next `It` and every sibling block stay strict — and never reaches the module code the test calls, which keeps its own scope. The
+`It` body is therefore the narrowest place an opt-out works and the only place it belongs; a `BeforeAll` or `Describe`-level opt-out
 silently relaxes every test in the block.
 
 ```powershell

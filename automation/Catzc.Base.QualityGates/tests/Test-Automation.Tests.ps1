@@ -167,7 +167,7 @@ Describe 'Source & test file conventions' -Tag 'L0', 'integrity', 'source-only' 
         $bad | Should -BeNullOrEmpty -Because "these files define a function whose name does not match the file:`n$($bad -join "`n")"
     }
 
-    It 'every test file is named Verb-Noun.Tests.ps1' {
+    It 'every test file is named Verb-Noun.Tests.ps1' -Tag 'ADR-AUTO-PESTER#5' {
         $bad = @($testFiles | Where-Object { ($_.BaseName -replace '\.Tests$') -notmatch '-' } |
                 ForEach-Object { "$($_.Module)/tests/$($_.BaseName).ps1" })
         $bad | Should -BeNullOrEmpty -Because "these test files are not Verb-Noun.Tests.ps1:`n$($bad -join "`n")"

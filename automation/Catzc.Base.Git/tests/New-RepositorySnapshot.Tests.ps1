@@ -88,14 +88,37 @@ Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {
         [System.IO.File]::ReadAllText((Join-Path $script:snapshot.Path 'untouched.txt')) | Should -Be "untouched`n"
     }
 
-    It 'throws and removes the half-built snapshot when its status differs from the source' {
+    It 'throws and removes the snapshot when its status keeps differing from the source, after announcing each rebuild' {
         $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-snapshot-mismatch-' + [guid]::NewGuid().ToString('N').Substring(0, 12))
         Mock Invoke-Executable {
             [pscustomobject]@{ ExitCode = 0; Output = '? phantom.txt' }
         } -ModuleName Catzc.Base.Git -ParameterFilter { $Command -like '*status --porcelain=v2*' -and $Command -like "*$destination*" }
 
-        { New-RepositorySnapshot -SourceRoot $script:source -Destination $destination } | Should -Throw '*does not match its source*'
+        { New-RepositorySnapshot -SourceRoot $script:source -Destination $destination -Attempts 2 } |
+            Should -Throw '*does not match its source*after 2 attempt(s)*'
         [System.IO.Directory]::Exists($destination) | Should -BeFalse
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Git -Times 1 -Exactly -ParameterFilter { $Message -like '*rebuilding it (attempt 2 of 2)*' }
+    }
+
+    It 'rebuilds once when the source changed during the copy, and returns the verified snapshot' {
+        $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-snapshot-mismatch-' + [guid]::NewGuid().ToString('N').Substring(0, 12))
+        # Only the first snapshot status differs; the filter stops matching after it, so the rebuild runs real git.
+        $script:statusCalls = 0
+        Mock Invoke-Executable {
+            [pscustomobject]@{ ExitCode = 0; Output = '? phantom.txt' }
+        } -ModuleName Catzc.Base.Git -ParameterFilter {
+            $Command -like '*status --porcelain=v2*' -and $Command -like "*$destination*" -and ($script:statusCalls++ -eq 0)
+        }
+
+        try {
+            $snapshot = New-RepositorySnapshot -SourceRoot $script:source -Destination $destination
+            $snapshot.Path | Should -Be $destination
+            [System.IO.File]::Exists((Join-Path $destination 'untouched.txt')) | Should -BeTrue
+            Should -Invoke Write-Message -ModuleName Catzc.Base.Git -Times 1 -Exactly -ParameterFilter { $Message -like '*rebuilding it (attempt 2 of 3)*' }
+        }
+        finally {
+            Remove-RepositorySnapshot -Path $destination
+        }
     }
 
     It 'refuses an existing destination' {

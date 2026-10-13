@@ -59,10 +59,11 @@ public class CliRunner
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
-            // A silent run has no audience: a prompt in it could never be answered, and an inherited stdin
-            // pipe can block the child outright (Git for Windows probes its std handles at startup). It gets an
-            // empty, closed stdin instead, so it reads EOF. A visible run keeps the caller's stdin.
-            RedirectStandardInput = silent
+            // A child inheriting a stdin pipe that another thread is blocked reading hangs at startup (Git for
+            // Windows probes its std handles). Whenever no person can answer a prompt anyway (a silent run, or
+            // a caller whose stdin is not a terminal), the child gets an empty, closed stdin and reads EOF. A
+            // visible run from a terminal keeps it, so interactive prompts still work.
+            RedirectStandardInput = silent || Console.IsInputRedirected
         };
 
         if (!string.IsNullOrEmpty(workingDirectory))
