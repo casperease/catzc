@@ -62,9 +62,10 @@ The exact YAML shapes are in the ADR's
 ## The daily discipline
 
 There is no per-commit marker to regenerate. The one duty is that a pipeline's declared trigger stays equal to its globset's projection: the
-**Native trigger globs** integrity gate (in `Test-Automation`, locally and in CI) fails any pipeline whose `paths:` filter has drifted from
-`Get-GlobSetTrigger`. `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` show the per-pipeline status (Match/Drift/Missing)
-without failing anything. Inside a CD pipeline, a unit's stage can stop early on a change that does not touch it:
+**trigger globs** integrity tests (in `Test-Automation`, locally and in CI) fail any pipeline whose `paths:` filter has drifted from
+`Get-GlobSetTrigger`. They run the quality gates `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob`, which you can also run
+directly: each reports one issue per drifted or missing pipeline and throws listing them (`-PassThru` returns the issues instead). Inside a
+CD pipeline, a unit's stage can stop early on a change that does not touch it:
 
 ```powershell
 if (-not (Test-GlobSetAffected -Name my-unit)) { return }   # nothing here for us to process

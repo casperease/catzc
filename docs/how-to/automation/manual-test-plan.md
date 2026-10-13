@@ -2,7 +2,7 @@
 
 `Manual test plan — integrity assertions`
 
-This plan lists every **integrity** check in the test suite. These are the tests that read the _real repository contents_: the shipped
+This plan lists every **integrity** check among all tests. These are the tests that read the _real repository contents_: the shipped
 `azure.yml`/`network.yml`/`tools.yml`/`ado.yml`/`dependencies.yml`, real templates, the module/type/function graph, checked-in binaries, and
 file & folder conventions. Logic tests (hermetic, run on mocks and fixtures) are out of scope.
 

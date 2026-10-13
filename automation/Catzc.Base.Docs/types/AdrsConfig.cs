@@ -33,9 +33,22 @@ public sealed class AdrsConfig
     public IReadOnlyList<AdrDomain> Domains { get; }
     public IReadOnlyList<AdrRuleSet> RuleSets { get; }
 
+    private static readonly string[] AllowedKeys = { "domains" };
+
     public AdrsConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
+        if (raw != null)
+        {
+            foreach (object key in raw.Keys)
+            {
+                string topKey = key == null ? string.Empty : key.ToString();
+                if (Array.IndexOf(AllowedKeys, topKey) < 0)
+                {
+                    errors.Add(string.Format("unknown top-level key '{0}' (allowed: {1})", topKey, string.Join(", ", AllowedKeys)));
+                }
+            }
+        }
 
         IDictionary domainsMap = (raw != null && raw.Contains("domains")) ? raw["domains"] as IDictionary : null;
         if (domainsMap == null || domainsMap.Count == 0)

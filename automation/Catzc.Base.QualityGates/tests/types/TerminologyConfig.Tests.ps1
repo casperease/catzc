@@ -115,4 +115,9 @@ Describe 'TerminologyConfig' -Tag 'L0', 'logic' {
         { [Catzc.Base.QualityGates.TerminologyConfig]::new(@{ categories = $script:cats }) } |
             Should -Throw "*non-empty 'terms'*"
     }
+
+    It 'rejects an unknown top-level key' {
+        $raw = @{ categories = $script:cats; terms = @{ domain = @(@{ term = 'bicep'; meaning = 'Azure Bicep' }) }; widget = 1 }
+        { [Catzc.Base.QualityGates.TerminologyConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: categories, terms)*"
+    }
 }

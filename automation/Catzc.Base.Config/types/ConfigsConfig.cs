@@ -3,8 +3,8 @@
 // construction time, so a malformed registry can never produce an instance.
 //
 // The data model it guards: under the top-level `configs` map, each entry is a map holding exactly one key,
-// `type` (a non-blank C# type FQN). An absent or empty `configs` map is valid. `configs` exposes the
-// registry as config name -> type FQN, in file order.
+// `type` (a non-blank C# type FQN); `configs` is the only top-level key. An absent or empty `configs` map is
+// valid. `configs` exposes the registry as config name -> type FQN, in file order.
 
 using System;
 using System.Collections;
@@ -22,13 +22,29 @@ public sealed class ConfigsConfig
 
     public ConfigsConfig(IDictionary registry)
     {
-        if (registry == null || !registry.Contains("configs")) { return; }
-        var entries = registry["configs"] as IDictionary;
-        if (entries == null) { return; }
-
-        var types = new Dictionary<string, string>(StringComparer.Ordinal);
+        if (registry == null) { return; }
 
         var errors = new List<string>();
+        foreach (var key in registry.Keys)
+        {
+            var topKey = key == null ? string.Empty : key.ToString();
+            if (topKey != "configs")
+            {
+                errors.Add(string.Format("unknown top-level key '{0}' (allowed: configs)", topKey));
+            }
+        }
+
+        var entries = registry.Contains("configs") ? registry["configs"] as IDictionary : null;
+        var types = new Dictionary<string, string>(StringComparer.Ordinal);
+        if (entries == null)
+        {
+            if (registry.Contains("configs") && registry["configs"] != null)
+            {
+                errors.Add("'configs' must be a map of config name -> { type }");
+            }
+            entries = new Hashtable();
+        }
+
         foreach (var key in entries.Keys)
         {
             var name = key == null ? string.Empty : key.ToString();

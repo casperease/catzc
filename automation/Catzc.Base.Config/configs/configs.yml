@@ -69,3 +69,5 @@ configs:
     type: Catzc.Base.ModuleSystem.ArtifactsConfig
   vscode-settings:
     type: Catzc.Base.VSCode.VscodeSettingsConfig
+  vscode-pipeline-schema:
+    type: Catzc.Base.VSCode.VscodePipelineSchemaConfig

@@ -18,9 +18,9 @@ Every GUID literal in tracked text — code, configs, fixtures, pipelines, docs 
 A registry entry is name-keyed and strict: `<snake_case_name>: { guid, description [, sentence] }`. The `guid` is canonical (lowercase,
 hyphenated), guid values are unique across entries — a GUID has exactly one registered name — and unknown keys are rejected. The registry
 also carries a `denied:` non-allow list — values that are never a legitimate identity, headed by the all-zeros GUID: a denied value can
-never be registered under `guids:` (the validator rejects the overlap) and must never appear in tracked text (the gate names it as denied;
-code that needs it constructs it at runtime, e.g. `[guid]::Empty`). `Assert-GuidsConfig` validates the file on load, collecting every
-violation into one throw.
+never be registered under `guids:` (the config type rejects the overlap) and must never appear in tracked text (the gate names it as denied;
+code that needs it constructs it at runtime, e.g. `[guid]::Empty`). Its config type, `GuidsConfig`, validates the file on load, collecting
+every violation into one throw.
 
 - [The registry](#the-registry)
 
@@ -73,10 +73,10 @@ authored source of truth, deliberate reviewed entries, a liveness rule, and a ga
 ### The registry
 
 `configs/guids.yml` in `Catzc.Base.QualityGates` is the single table, read through `Get-Config -Config guids`
-([module-config-loading](../configuration/module-config-loading.md)) and validated by the convention validator `Assert-GuidsConfig`. Entries
-are keyed by a snake_case name — readable diffs, and the duplicate-guid check lives in the validator where YAML's silent last-key-wins
-cannot hide it. `description` says what the GUID identifies; `sentence` is present exactly when the value was minted from a sentence, so a
-minted placeholder carries its own decoding.
+([module-config-loading](../configuration/module-config-loading.md)) and validated by its config type, `GuidsConfig`. Entries are keyed by a
+snake_case name — readable diffs, and the duplicate-guid check lives in the config type where YAML's silent last-key-wins cannot hide it.
+`description` says what the GUID identifies; `sentence` is present exactly when the value was minted from a sentence, so a minted
+placeholder carries its own decoding.
 
 The `denied:` section is the inverse table: values that are never a legitimate identity, with the all-zeros GUID as its first entry — it is
 the unset/default value (and `SentenceGuid`'s output for an input with no mappable characters), so registering it would bless every
@@ -99,12 +99,12 @@ automation never calls it to generate identity at runtime, because a runtime-min
 
 ### The gate
 
-`Get-RepositoryGuids` scans every tracked text file and returns one `@{ file; line; guid }` record per occurrence. The managed-guid
-integrity test asserts every found guid is registered and every registry entry is found — with the registry file itself excluded from the
-scan so an entry cannot vouch for its own liveness. The scan reads every tracked text file under every named root of the repository plus its
-own config, so it protects against the whole-repository `repository` globset, which covers both
-([protected-globs](protected-globs.md#rule-adr-repo-protglob6)): repeat local runs skip until a tracked file anywhere in the repository
-changes, and CI always scans. An integrity test asserts the scan's file universe and the registry stay inside `repository`.
+`Get-RepositoryGuids` scans every tracked text file and returns one `@{ file; line; guid }` record per occurrence. The `Test-ManagedGuids`
+quality gate, run by the managed-guid integrity test, reports every found guid that is not registered and every registry entry not found —
+with the registry file itself excluded from the scan so an entry cannot vouch for its own liveness. The scan reads every tracked text file
+under every named root of the repository plus its own config, so it protects against the whole-repository `repository` globset, which covers
+both ([protected-globs](protected-globs.md#rule-adr-repo-protglob6)): repeat local runs skip until a tracked file anywhere in the repository
+changes, and CI always scans. The same gate reports a scanned file, or the registry, outside `repository`.
 
 ### Division of ownership
 
@@ -121,10 +121,11 @@ invisible to cspell.
 
 ### How this is enforced
 
-- **`Assert-GuidsConfig`** (private, convention-dispatched by `Get-Config`) — validates the registry's shape, canonical guid form, guid
+- **`GuidsConfig`** (the C# config type registered for `guids` in `configs.yml`) — validates the registry's shape, canonical guid form, guid
   uniqueness, and strict keys on every load.
-- **`Get-RepositoryGuids`** + the **managed-guid integrity test** (`Get-RepositoryGuids.Tests.ps1`) — the repository-wide scan and the
-  both-directions membership assertion, protected-globs-wrapped for the local inner loop.
+- **`Test-ManagedGuids`** — the quality gate ([ADR-AUTO-TEST#35](test-automation.md#rule-adr-auto-test35)) over the repository-wide scan
+  (`Get-RepositoryGuids`): every guid in tracked text is registered, none is denied, and every entry is referenced. The **managed-guid
+  integrity test** (`Get-RepositoryGuids.Tests.ps1`) runs it, protected-globs-wrapped for the local inner loop.
 - **`Assert-ManagedGuid` / `Test-ManagedGuid`** — the one shared lookup (`Resolve-ManagedGuid`) behind the throwing and boolean checks, for
   any code or operator that needs to assert a GUID against the table.
 - **The cspell config** (`ignoreRegExpList`, in the managed root `cspell.yml` source) — keeps GUID fragments out of the spelling gate, so

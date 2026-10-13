@@ -31,18 +31,21 @@ explanations live as comments in the yml — the searched, reviewed artifact —
 
 Which editor behaviour the workspace pins, and why. Four registries, each entry carrying its rationale as a comment:
 
-- `vscode-settings.yml` — a free-form `settings:` mapping of VS Code keys (loaded raw — there is no repository-side shape to validate
-  against the editor's own schema) — notably the PowerShell `codeFormatting` block that must stay in step with
-  `PSScriptAnalyzerSettings.psd1`, and the authored `search.exclude` map for the generated manifests. The managed-targets completion is
-  deliberately **not** in this registry: it is injected by [Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s generator dispatch from its
-  own registry, so the list lives once and the dependency edge stays one-way (RootConfig → VSCode; a renderer never reads `rootconfig.yml`).
-- `vscode-extensions.yml` — the recommended-extension ids, **binding**: validated on load by the private convention validator
-  (`Assert-VscodeExtensionsConfig` — non-empty, unique `publisher.name` ids).
-- `vscode-launch.yml` — the debug launch profiles, **binding**: validated on load (`Assert-VscodeLaunchConfig` — a version plus profiles
-  each carrying `name`/`type`/`request`, names unique).
-- `vscode-pipeline-schema.yml` — the repo-controlled Azure Pipelines JSON Schema (loaded raw — free-form JSON-Schema keys), authored to
-  replace the extension's bundled per-task `anyOf` so the offline "does not match the pattern of `^PowerShell@2$`" false positives disappear
-  while the structural checks worth keeping remain. Wired to the extension by `azure-pipelines.customSchemaFile` in `vscode-settings.yml`.
+- `vscode-settings.yml` — a `settings:` mapping of VS Code's own keys, passed through to the editor as-is; its config type
+  (`VscodeSettingsConfig`) checks only the structure (a non-empty map, each language override a map, `search.exclude` a map of glob to
+  boolean) — notably the PowerShell `codeFormatting` block that must stay in step with `PSScriptAnalyzerSettings.psd1`, and the authored
+  `search.exclude` map for the generated manifests. The managed-targets completion is deliberately **not** in this registry: it is injected
+  by [Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s generator dispatch from its own registry, so the list lives once and the dependency
+  edge stays one-way (RootConfig → VSCode; a renderer never reads `rootconfig.yml`).
+- `vscode-extensions.yml` — the recommended-extension ids, **binding**: validated on load by its config type (`VscodeExtensionsConfig` —
+  non-empty, unique `publisher.name` ids).
+- `vscode-launch.yml` — the debug launch profiles, **binding**: validated on load by its config type (`VscodeLaunchConfig` — a version plus
+  profiles each carrying `name`/`type`/`request`, names unique).
+- `vscode-pipeline-schema.yml` — the repo-controlled Azure Pipelines JSON Schema, passed through as-is; its config type
+  (`VscodePipelineSchemaConfig`) checks the file's own rationale — the closed set of top-level keywords, every `#/definitions/` reference
+  resolving, no `additionalProperties: false`, and no `anyOf`/`oneOf` on the `step` definition. It is authored to replace the extension's
+  bundled per-task `anyOf` so the offline "does not match the pattern of `^PowerShell@2$`" false positives disappear while the structural
+  checks worth keeping remain. Wired to the extension by `azure-pipelines.customSchemaFile` in `vscode-settings.yml`.
 
 The module also ships the one non-JSON editor asset, `assets/markdown-preview-dark.css`, whose generated marker is authored in the source
 itself (a `/* */` block) since the copy-in injects no header.

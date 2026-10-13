@@ -16,9 +16,22 @@ public sealed class RootConfigFiles
     // Managed root-file entries, in registry order.
     public IReadOnlyList<RootConfigFile> files { get; }
 
+    private static readonly string[] AllowedKeys = { "files" };
+
     public RootConfigFiles(IDictionary raw)
     {
         List<string> errors = new List<string>();
+        if (raw != null)
+        {
+            foreach (object key in raw.Keys)
+            {
+                string topKey = key == null ? string.Empty : key.ToString();
+                if (Array.IndexOf(AllowedKeys, topKey) < 0)
+                {
+                    errors.Add(string.Format("unknown top-level key '{0}' (allowed: {1})", topKey, string.Join(", ", AllowedKeys)));
+                }
+            }
+        }
         List<RootConfigFile> list = new List<RootConfigFile>();
         HashSet<string> seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 

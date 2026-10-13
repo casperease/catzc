@@ -17,6 +17,7 @@ only the pairing and the materialisation.
 | -------- | -------- | ---------------------------------------------------------------------- |
 | domain:1 | render   | [Managed-file materialisation](#domain1--managed-file-materialisation) |
 | domain:2 | registry | [Root-config registry](#domain2--root-config-registry)                 |
+| domain:3 | gates    | [Root-config gates](#domain3--root-config-gates)                       |
 
 ### domain:1 — Managed-file materialisation
 
@@ -35,16 +36,22 @@ Which root file is managed, from what, and how it relates to git. The registry i
 `source` or `generator`, the two booleans — `optIn` (is the file managed at all; **opt-out is the default**) and `committed` (gitignored
 derived artifact vs tracked bootstrap file) — and the `copyAsLink` mechanism flag, which requires `source`, requires `committed: false`, and
 forbids a declared `comment` ([ADR-REPO-ROOTCFG#7](../../adr/repository/generated-root-configs.md)). It is validated when it loads so a
-malformed entry can never produce a run, and the integrity test asserts the registry, `.gitignore`, git's tracked set, and the link
-mechanism agree ([ADR-REPO-ROOTCFG#6](../../adr/repository/generated-root-configs.md)). The registry is the single place the pairing is
-stated; the generator reads it through [Catzc.Base.Config](catzc-base-config.md) and never hard-codes a path.
+malformed entry can never produce a run. The registry is the single place the pairing is stated; the generator reads it through
+[Catzc.Base.Config](catzc-base-config.md) and never hard-codes a path.
+
+### domain:3 — Root-config gates
+
+The quality gates ([ADR-AUTO-TEST#35](../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the materialised result. One
+checks that the registry, `.gitignore`, git's tracked set, and the link mechanism agree for every opted-in entry
+([ADR-REPO-ROOTCFG#6](../../adr/repository/generated-root-configs.md)); the other checks the consumer contract of the root
+`PSScriptAnalyzerSettings.psd1` — that a consumer opening the root path follows the link and parses a non-empty settings hashtable. Content
+drift of a generated copy is [Catzc.Base.QualityGates](catzc-base-qualitygates.md)' `Test-GeneratedFiles`.
 
 ## What the module does
 
 The module is small and single-purpose: it keeps every opted-in root config file in step with its one in-repo source of truth. It is the
 root-file counterpart of [Catzc.Base.Docs](catzc-base-docs.md) — the same registry-plus-single-writer shape, applied to configuration
-instead of prose — and it replaced the bespoke per-file builders (the old root-analyzer-settings writer is deleted; its behaviour is now one
-`source` entry).
+instead of prose — so each managed root file is one registry entry, never a bespoke builder.
 
 Two design points carry the weight. First, **opt-out is the default**: a root file with no entry (or an entry with `optIn: false`) is simply
 not touched, so takeover is always an explicit, reviewable registry change, and the rollout can proceed file by file. Second, **`committed`
@@ -57,7 +64,9 @@ tree costs a few file reads and writes nothing.
 
 The module's public surface, sorted into the domains above.
 
-| Domain                                  | Function           |
-| --------------------------------------- | ------------------ |
-| domain:1 — Managed-file materialisation | `Build-RootConfig` |
-| domain:2 — Root-config registry         | `rootconfig.yml`   |
+| Domain                                  | Function                    |
+| --------------------------------------- | --------------------------- |
+| domain:1 — Managed-file materialisation | `Build-RootConfig`          |
+| domain:2 — Root-config registry         | `rootconfig.yml`            |
+| domain:3 — Root-config gates            | `Test-RootConfigFiles`      |
+|                                         | `Test-RootAnalyzerSettings` |

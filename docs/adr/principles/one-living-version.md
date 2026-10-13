@@ -191,9 +191,9 @@ what the code used to be lives in git and nowhere else — not in retained files
   a "legacy" note, or a long-lived version branch, against this ADR. A bounded branch-by-abstraction seam with a stated deletion plan
   (ADR-PRIN-ONELIVE#8) is the exception — the reviewer checks that the scaffold is temporary and tracked, not that it merely exists.
 
-- **Strict config validation** keeps the principle structural where it can: the `Assert-*Config` schema checkers reject unknown / deprecated
-  keys, so a compatibility field cannot quietly linger in a config — removing the key from the schema forces it out of every file in the
-  same change.
+- **Strict config validation** keeps the principle structural where it can: every shipped config's C# config type rejects unknown /
+  deprecated keys at load (ADR-CONF-LOADING#4), so a compatibility field cannot quietly linger in a config — removing the property from the
+  type forces the key out of every file in the same change.
 
 - **The present-tense ADR/doc convention** (`docs/adr/index.md`, "Present tense, not a changelog") enforces ADR-PRIN-ONELIVE#6 in review for
   all documentation.

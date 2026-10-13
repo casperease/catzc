@@ -62,17 +62,18 @@ modules:
   Catzc.Azure.Storage: [Catzc.Base.Asserts, Catzc.Base.Repository, Catzc.Azure]
 ```
 
-`Assert-ModuleDependency` (run by the L2 tests) fails the build if your module calls into a module it does not declare, or if the
-declarations form a cycle. The same graph governs cross-module C# type references (see
-[native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md)). A module that is **not** listed is unconstrained; once you list
-it, it is policed — so list it.
+The `Test-ModuleDependency` quality gate (run by an L1 integrity test) fails the build if your module calls into a module it does not
+declare; a declaration that forms a cycle fails already when `dependencies.yml` loads. The same graph governs cross-module C# type
+references (see [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md)). A module that is **not** listed is
+unconstrained; once you list it, it is policed — so list it.
 
 ## Module config (optional)
 
 If the module needs its own settings, drop `automation/<Module>/configs/<name>.yml` and read it anywhere with `Get-Config -Config <name>` —
-one reader, cached per session, owner-scoped validation. To validate the shape, add a private `Assert-<TitleCase(name)>Config` function in
-the module; `Get-Config` runs it automatically on load (see [module-config-loading](../../../adr/configuration/module-config-loading.md)).
-Keep keys `snake_case`.
+one reader, cached per session, validated on load. Every shipped config has a C# config type
+([ADR-CONF-LOADING#4](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading4)): add one to the module's `types/` (see
+[add-a-dotnet-type](BCL/add-a-dotnet-type.md)) and register it in `Catzc.Base.Config/configs/configs.yml` as `<name>: { type: <FQN> }`;
+`Get-Config` constructs it on load, and its constructor validates the file. Keep keys `snake_case`.
 
 ## Verify
 

@@ -142,6 +142,11 @@ namespace CatzcGetConfigTest {
             $registry.configs['gadget'] | Should -Be 'Tst.Gadget'
         }
 
+        It 'rejects an unknown top-level key and a non-map configs value' {
+            { [Catzc.Base.Config.ConfigsConfig]::new(@{ widget = 1 }) } | Should -Throw "*unknown top-level key 'widget' (allowed: configs)*"
+            { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = 'gadget' }) } | Should -Throw "*'configs' must be a map*"
+        }
+
         It 'accepts an absent or empty configs map' {
             { [Catzc.Base.Config.ConfigsConfig]::new(@{}) } | Should -Not -Throw
             { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{} }) } | Should -Not -Throw

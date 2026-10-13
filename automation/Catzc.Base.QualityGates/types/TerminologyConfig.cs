@@ -30,9 +30,22 @@ public sealed class TerminologyConfig
     // Every approved-vocabulary entry, in registry order.
     public IReadOnlyList<TerminologyTerm> terms { get; }
 
+    private static readonly string[] AllowedKeys = { "categories", "terms" };
+
     public TerminologyConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
+        if (raw != null)
+        {
+            foreach (object key in raw.Keys)
+            {
+                string topKey = key == null ? string.Empty : key.ToString();
+                if (Array.IndexOf(AllowedKeys, topKey) < 0)
+                {
+                    errors.Add(string.Format("unknown top-level key '{0}' (allowed: {1})", topKey, string.Join(", ", AllowedKeys)));
+                }
+            }
+        }
 
         // ---- categories: a non-empty map of category name -> { description, [scope] } ----
         IDictionary categoryMap = (raw != null && raw.Contains("categories")) ? raw["categories"] as IDictionary : null;

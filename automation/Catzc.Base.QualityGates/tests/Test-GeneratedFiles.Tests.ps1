@@ -1,6 +1,7 @@
-# Test-GeneratedFiles is a quality gate (ADR-AUTO-TEST#35): each L0 case mocks every generator at the module
-# boundary and reads the collected issues; the report goes to $TestDrive. The integrity blocks that run it over
-# the real tree live beside each generator's own tests.
+# Test-GeneratedFiles is a quality gate
+# ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): each L0 case mocks every generator
+# at the module boundary and reads the collected issues; the report goes to $TestDrive. The integrity blocks that run it
+# over the real tree live beside each generator's own tests.
 Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }

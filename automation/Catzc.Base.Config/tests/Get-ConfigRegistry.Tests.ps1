@@ -9,7 +9,7 @@ Describe 'Get-ConfigRegistry' -Tag 'L0', 'logic' {
         $script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory($script:fixtureRoot) | Out-Null
         $script:fixturePath = Join-Path $script:fixtureRoot 'configs.yml'
-        [System.IO.File]::WriteAllText($script:fixturePath, "configs:`n  widget:`n    type: Catzc.Widget.WidgetConfig`n  gadget:`n    pwsh: Assert-GadgetShape`n")
+        [System.IO.File]::WriteAllText($script:fixturePath, "configs:`n  widget:`n    type: Catzc.Widget.WidgetConfig`n  gadget:`n    type: Catzc.Gadget.GadgetConfig`n")
     }
 
     AfterEach {

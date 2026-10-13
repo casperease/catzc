@@ -1,6 +1,7 @@
-# Test-BuildArtifact is a quality gate (ADR-AUTO-TEST#35): each L0 case mocks the build, the child-pwsh probe, the
-# source reads, and the formatter at the module boundary, and reads the collected issues; the report goes to
-# $TestDrive. The integrity blocks that build and load the real tree call the gate from their own test files.
+# Test-BuildArtifact is a quality gate
+# ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): each L0 case mocks the build, the
+# child-pwsh probe, the source reads, and the formatter at the module boundary, and reads the collected issues; the
+# report goes to $TestDrive. The integrity blocks that build and load the real tree call the gate from their own test files.
 Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
     BeforeAll {
         # A clean observation of a two-module build at <root>: every facet passes.

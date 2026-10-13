@@ -26,8 +26,8 @@ first-match makes the partition disjoint and exhaustive _by construction_: `Aspe
 ### Rule ADR-DSGN-ASPECT:3
 
 The catch-all remainder is **non-live** (`tests` is declared last). `live` — the shipped surface — is never the fallthrough, so a stray or
-unclassified file lands on the verification side and can **never silently ship** (default-deny). `Assert-VariantsConfig` and the aspect type
-enforce this: the last aspect is the `**` catch-all, that aspect is not `live`, and `live` uses only closed patterns.
+unclassified file lands on the verification side and can **never silently ship** (default-deny). The `VariantsConfig` config type enforces
+its structure at load: the last aspect is the `**` catch-all, and no earlier aspect uses it.
 
 - [Decision](#decision)
 - [Consequences](#consequences)

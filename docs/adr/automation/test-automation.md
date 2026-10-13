@@ -48,7 +48,7 @@ Tag the vertical tests by their outermost ring (ADR-AUTO-TEST#38) — local-tool
 its own `Describe`, and make both self-skip via `Set-ItResult -Skipped` when the tool, the platform, or cloud access is missing. The
 `-Because` reason is a **constrained skip key** — lowercase alnum segments joined by `_`, never free prose — so the skip report groups by a
 stable, sortable vocabulary: platform skips are `<os>_<only|not>_<detail>` (os = `windows`|`unix`; `only` = runs only there, `not` = cannot
-run there), tool skips are `tool_<name>_missing`. `Test-Automation.Tests.ps1` enforces the key grammar.
+run there), tool skips are `tool_<name>_missing`. The `Test-SourceConventions` quality gate enforces the key grammar.
 
 - [Test tiers: the test onion](#test-tiers-the-test-onion)
 
@@ -171,9 +171,9 @@ redundant copy; collapse them.
 ### Rule ADR-AUTO-TEST:24
 
 The **Build Verification Test** (BVT) is the aggregate gate that certifies a commit: it runs every gated test up to the target level
-together with the artifact-canonicalization checks, and is the end gate of both pre- and post-commit-to-master in trunk-based development. A
-commit reaches master only when its BVT is green, and the canonical module-manifest artifact a passing build produces is the BVT's gold
-output.
+together with the built-artifact checks of `Test-BuildArtifact` — the build itself plus its `Types`, `Load`, `Parity`, and `Manifest` facets
+— and is the end gate of both pre- and post-commit-to-master in trunk-based development. A commit reaches master only when its BVT is green,
+and the canonical module-manifest artifact a passing build produces is the BVT's gold output.
 
 - [Build Verification Test](#build-verification-test)
 
@@ -241,9 +241,9 @@ It is report-only because a rule may be enforced structurally or by review, so "
 
 The analyzer→ADR mapping — the source for the `pssa-rule` enforcer kind — lives in `Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`,
 each enabled analyzer rule (a custom `Measure-*` rule or an enabled built-in) mapped to the citation(s) it enforces. Its shape is validated
-at load (`Assert-AnalyzerAdrMapConfig`); an **integrity test** checks that every mapped id resolves to a real rule and that **every custom
-analyzer rule is mapped**, so a new custom rule cannot ship unmapped and a renumber breaks the build. Id existence is checked by that
-integrity test, not at load, keeping config load hermetic (the ADR-AZ-CUSTOMER#3 pattern).
+at load (its config type, `AnalyzerAdrMapConfig`); the `Test-AnalyzerAdrMap` quality gate checks that every mapped id resolves to a real
+rule and that **every custom analyzer rule is mapped**, and an **integrity test** runs it, so a new custom rule cannot ship unmapped and a
+renumber breaks the build. Id existence is checked by that gate, not at load, keeping config load hermetic (the ADR-AZ-CUSTOMER#3 pattern).
 
 - [Provenance and rule coverage](#provenance-and-rule-coverage)
 
@@ -312,9 +312,9 @@ through `Write-QualityGateReport` (`out/test-<subject>/`, settings in `reports.y
 the result instead. Every repository check is a quality gate — a generator's drift (`Test-GeneratedFiles`), formatting (`Test-Formatting`),
 the shipped configs (`Test-ShippedConfigs`), and the built artifact (`Test-BuildArtifact`) included — and an integrity test runs it at its
 tier, so every default test run and every CI run (`-Level 2`, the BVT) includes it; a gate whose answer cannot differ by run mode is
-`source-only`, `Test-ModuleDependency` also runs at import, and the tag axes are the run's own check. A `Test-*`/`Assert-*` pair over **one
-value or session state** (`Test-IsGuid`, `Test-AzCliConnected`) is not a quality gate: its `Test-*` answers a bool and its `Assert-*`
-throws.
+`source-only`, and the tag axes are the run's own check. No gate runs at import: the import stays cheap, so a gate's cost — a full
+call-graph scan for `Test-ModuleDependency` — is paid in a test run, never on every load. A `Test-*`/`Assert-*` pair over **one value or
+session state** (`Test-IsGuid`, `Test-AzCliConnected`) is not a quality gate: its `Test-*` answers a bool and its `Assert-*` throws.
 
 - [Build Verification Test](#build-verification-test)
 
@@ -382,10 +382,10 @@ An integrity test verifies a _static_ property of the repository — the file/fo
 function name is unique, that a shipped asset validates. It must establish that property by reading the repository directly: enumerate the
 files and parse them (AST, or just the `.ps1` basename), build the list, then assert. It must **not** boot the importer, import a module, or
 inspect a loaded session to derive a fact that is a pure function of the files on disk — that is slow, indirect, and couples the test to
-load mechanics instead of to the thing being checked. The shapes to copy are `Test-Automation.Tests.ps1`'s global function-name uniqueness
-check and `Test-FolderConventions.Tests.ps1`: scan the tree, build the list, assert. A _logic_ test that exercises importer behaviour itself
-— the bootstrap sandbox cases in `Import-AllModules.Tests.ps1` — legitimately runs the importer, because there the loader _is_ the unit
-under test, not a static fact about the files. Enforced in review.
+load mechanics instead of to the thing being checked. The shapes to copy are the `Test-SourceConventions` (global function-name uniqueness)
+and `Test-FolderConventions` quality gates: scan the tree, build the list, assert. A _logic_ test that exercises importer behaviour itself —
+the bootstrap sandbox cases in `Import-AllModules.Tests.ps1` — legitimately runs the importer, because there the loader _is_ the unit under
+test, not a static fact about the files. Enforced in review.
 
 ### Generic integrity tests
 
@@ -686,9 +686,14 @@ Both runs execute in CI on every push, so "works in both modes" is checked befor
 ### Build Verification Test
 
 The tiers above answer "what does one test integrate with"; the Build Verification Test (BVT) answers "is this commit shippable at all". It
-is the aggregate gate — every gated test up to the target level, plus the artifact-canonicalization checks that keep generated manifests
-deterministic and formatter-stable — run as one verdict on the-state-of-this-commit. Because everything is a static, hermetic property of
-the committed artifacts (ADR-AUTO-TEST#22), that verdict is reproducible: the same commit yields the same result on a devbox and in CI.
+is the aggregate gate — every gated test up to the target level, plus the built-artifact checks — run as one verdict on
+the-state-of-this-commit. `Test-BuildArtifact` builds the selected modules once — the build succeeds and passes its own bundle check — and
+verifies the build facet by facet (`-Facet` selects): **`Types`** (the committed `.compiled` assembly is the current one), **`Load`** (the
+build loads cold in a fresh process — every module, the types and their accelerators, every shipped config), **`Parity`** (every built
+module exports exactly its source folder's public functions and defines exactly its private ones), and **`Manifest`** (every built manifest
+is formatter-stable, so a published manifest never churns). The L2 integrity tests run it one facet each, so the BVT includes every facet.
+Because everything is a static, hermetic property of the committed artifacts (ADR-AUTO-TEST#22), that verdict is reproducible: the same
+commit yields the same result on a devbox and in CI.
 
 In trunk-based development ([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive4)) the BVT is the end gate on
 both sides of master — a change integrates only when its BVT is green, and master stays green because nothing merges that has not passed it.
@@ -718,8 +723,9 @@ test is written.
 - **The seams exist** as mockable functions (`Get-BicepTemplatesRoot` for the template tree; `Resolve-ConfigEntry` and `Get-Config` for
   config — see [module-config-loading](../configuration/module-config-loading.md)), so isolation is a mock away and production has a single
   pristine default. The mock idioms are [pester-testing](powershell/pester-testing.md) (`ADR-AUTO-PESTER:2`–`ADR-AUTO-PESTER:4`).
-- **`Test-Automation.Tests.ps1`** validates the test-file conventions (`ADR-AUTO-PESTER:5`) and AST-scans every test for
-  `Set-ItResult ... -Because '<literal>'`, failing any reason that is not a constrained skip key (lowercase alnum segments joined by `_`).
+- **`Test-SourceConventions`** — the quality gate that validates the test-file conventions (`ADR-AUTO-PESTER:5`) and AST-scans every test
+  for `Set-ItResult ... -Because '<literal>'`, failing any reason that is not a constrained skip key (lowercase alnum segments joined by
+  `_`); an integrity test in `Test-Automation.Tests.ps1` runs it.
 - **Seam-mocking isolates pure-logic tests;** the tests that bind to shipped assets (the cross-layer reference check and the generic
   template-build integrity check) are the sanctioned exceptions — an input-source choice, not a tier — and they bind to the template _set_,
   never to a named template (ADR-AUTO-TEST#17). The fixtures under `tests/assets/` are the patterns new logic tests copy (see

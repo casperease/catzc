@@ -4,17 +4,21 @@
 
 The repo-wide variants module — the single home for settings that are **fixed for the importer session** and read the same everywhere. A
 variant is a repo-wide switch, backed by `configs/variants.yml`, loaded once per session (re-run the importer to pick up an edit — the
-`Get-Config` cache boundary, see [caching](../../adr/automation/caching.md)). There are two today, and the file is a growing dictionary: the
-Azure resource-name component order (`ado_naming`) and the enabled-customer set (`have_customers`). Nothing reads the raw file — callers use
-the module's `Test-`/`Assert-`/`Get-` primitives, so a repo-wide guard is a one-liner anywhere above the config layer. It is a member of the
-`Base` group and depends on [Catzc.Base.Config](catzc-base-config.md) (to read the config) and [Catzc.Base.Asserts](catzc-base-asserts.md).
+`Get-Config` cache boundary, see [caching](../../adr/automation/caching.md)). The file is a growing dictionary: the Azure resource-name
+component order (`ado_naming`), the enabled-customer set (`have_customers`), how changes reach main (`git_workspace`), and the per-track
+aspect classifications (`aspects`). Nothing reads the raw file — callers use the module's `Test-`/`Assert-`/`Get-` primitives, so a
+repo-wide guard is a one-liner anywhere above the config layer (see [repo-variants](../../adr/repository/repo-variants.md)). It is a member
+of the `Base` group and depends on [Catzc.Base.Config](catzc-base-config.md) (to read the config),
+[Catzc.Base.Objects](catzc-base-objects.md) (the base of its config type), and [Catzc.Base.Asserts](catzc-base-asserts.md).
 
 ## Domains
 
-| Domain   | Area      | Name                                                                   |
-| -------- | --------- | ---------------------------------------------------------------------- |
-| domain:1 | naming    | [Resource-name order variant](#domain1--resource-name-order-variant)   |
-| domain:2 | customers | [Enabled-customer set variant](#domain2--enabled-customer-set-variant) |
+| Domain   | Area      | Name                                                                     |
+| -------- | --------- | ------------------------------------------------------------------------ |
+| domain:1 | naming    | [Resource-name order variant](#domain1--resource-name-order-variant)     |
+| domain:2 | customers | [Enabled-customer set variant](#domain2--enabled-customer-set-variant)   |
+| domain:3 | workspace | [Git workspace variant](#domain3--git-workspace-variant)                 |
+| domain:4 | aspects   | [Aspect classification variant](#domain4--aspect-classification-variant) |
 
 ### domain:1 — Resource-name order variant
 
@@ -31,12 +35,25 @@ it; the plural `Test-`/`Assert-HaveCustomers` answer "is the repo customer-enabl
 `Test-`/`Assert-HaveCustomer` cover the common one-customer check. This module owns _which customers are enabled by policy_; the catalogue
 of who the customers are lives in `customer.yml` one layer up.
 
+### domain:3 — Git workspace variant
+
+How changes reach main — `main-direct` (the default: the solo-author trunk, direct commits to main allowed) or `main-via-pr` (everything
+reaches main through a pull request). `Get-GitWorkspace` returns the mode and `Test-GitWorkspace -MainDirect|-MainViaPr` answers whether it
+is the one named; the canonical consumer is the stop condition for automated commits — a direct commit while standing on main locally in
+`main-via-pr` mode.
+
+### domain:4 — Aspect classification variant
+
+Each track's ordered, first-match classification of a unit's files into named aspects (see
+[module-aspects](../../adr/design/module-aspects.md)). `Get-Aspect` returns a track's aspects as typed records, each a name and its glob
+patterns, the last the `**` catch-all remainder; a track with no configured or default entry falls back to the `automation` convention.
+
 ## What the module does
 
-This module turns two repo-wide decisions into stable facts every caller can guard on. Both are read through one private reader
-(`Get-Variant`) over `configs/variants.yml`, which `Get-Config` parses, validates (`Assert-VariantsConfig`), and caches for the session.
-Because the file is read once and never mid-session, a variant is a fixed truth every caller agrees on, and the only way to change it is to
-edit the file and re-run the importer.
+This module turns repo-wide decisions into stable facts every caller can guard on. They are all read through one private reader
+(`Get-Variant`) over `configs/variants.yml`, which `Get-Config` parses, validates through its config type (`VariantsConfig`), and caches for
+the session. Because the file is read once and never mid-session, a variant is a fixed truth every caller agrees on, and the only way to
+change it is to edit the file and re-run the importer.
 
 The naming order (domain 1) selects, in one place, how every Azure resource name is spelled. The name assembler is order-agnostic; the
 variant picks which order it applies, so a repo commits to a naming convention as data rather than as scattered code.
@@ -46,18 +63,24 @@ templates until it deliberately opts in. When it names specific customers, a cus
 — the variant genuinely controls which customers deploy, not just whether any do. Keeping the enabled set in the variant (rather than
 reading `customer.yml`) is what lets these primitives live in the `Base` layer while `customer.yml` stays an Azure-layer concern.
 
+The git workspace (domain 3) gates automation that commits, and the aspect classification (domain 4) is the data the
+[Catzc.Base.Globs](catzc-base-globs.md) aspect engine compiles into scan programs.
+
 ## Division
 
 The module's public functions, sorted into the domains above.
 
-| Domain                                  | Function               |
-| --------------------------------------- | ---------------------- |
-| domain:1 — Resource-name order variant  | `Get-AdoNaming`        |
-|                                         | `Test-AdoNaming`       |
-|                                         | `Assert-AdoNaming`     |
-| domain:2 — Enabled-customer set variant | `Get-EnabledCustomers` |
-|                                         | `Test-HaveCustomers`   |
-|                                         | `Assert-HaveCustomers` |
-|                                         | `Test-HaveCustomer`    |
-|                                         | `Assert-HaveCustomer`  |
-| config                                  | `variants.yml`         |
+| Domain                                   | Function               |
+| ---------------------------------------- | ---------------------- |
+| domain:1 — Resource-name order variant   | `Get-AdoNaming`        |
+|                                          | `Test-AdoNaming`       |
+|                                          | `Assert-AdoNaming`     |
+| domain:2 — Enabled-customer set variant  | `Get-EnabledCustomers` |
+|                                          | `Test-HaveCustomers`   |
+|                                          | `Assert-HaveCustomers` |
+|                                          | `Test-HaveCustomer`    |
+|                                          | `Assert-HaveCustomer`  |
+| domain:3 — Git workspace variant         | `Get-GitWorkspace`     |
+|                                          | `Test-GitWorkspace`    |
+| domain:4 — Aspect classification variant | `Get-Aspect`           |
+| config                                   | `variants.yml`         |

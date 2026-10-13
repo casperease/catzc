@@ -333,11 +333,11 @@ function Get-DynamicManifestContent {
     Autoloads all modules' types/ folders as a SINGLE assembly (automation/.compiled/Catzc.Types.<hash>.dll),
     so a type in one module can reference a type in another — a shared base class, a layered record graph.
     Each .cs file is named for the BARE type it must produce and declares the file-scoped namespace of its
-    module ("namespace <module>;"), maintained by Format-Types and gated by Test-Types. The loader compiles the
+    module ("namespace <module>;"), maintained by Format-Types and gated by Test-Formatting. The loader compiles the
     sources AS AUTHORED (Add-Type -Path, one compilation unit per file, so each file's file-scoped namespace is
     legal) and derives the expected type as <module>.<filename>: types/CliRunner.cs in module Catzc.Base.Execution
     -> type Catzc.Base.Execution.CliRunner. The loader requires each source's declared namespace to match its
-    module folder (the same invariant Test-Types enforces) and identifies the type from the filename.
+    module folder (the same invariant Test-Formatting enforces) and identifies the type from the filename.
 
     Because everything is ONE assembly, there are NO cross-ASSEMBLY references — only cross-NAMESPACE
     references inside it, which the compiler and CLR resolve unconditionally. The combined assembly is a leaf
@@ -398,7 +398,7 @@ function Import-CSharpTypes {
     # Validate each source and derive its FQN (<module>.<filename>). These two poka-yokes are the loader's job,
     # deliberately NOT in the shared enumerator (the janitor must never throw on a bad source): a dotted filename
     # (the old fully-qualified style) is rejected, and a file whose declared file-scoped namespace does not match
-    # its module folder (or is missing/block-scoped) is rejected — the same invariant Test-Types enforces,
+    # its module folder (or is missing/block-scoped) is rejected — the same invariant Test-Formatting enforces,
     # checked here at load; Format-Types repairs all of them. The source list is already ordinally sorted.
     $arr = [object[]]@(foreach ($file in $hashResult.Files) {
             $moduleName = $file.Module

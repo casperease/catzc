@@ -11,7 +11,8 @@ Describe 'Test-ShippedConfigs' -Tag 'L0', 'logic' {
         }
         $script:out = Join-Path $TestDrive 'out'
 
-        function script:New-FixtureRegistry([hashtable] $Types) {
+        function script:New-FixtureRegistry {
+            param([hashtable] $Types)
             $map = [System.Collections.Generic.Dictionary[string, string]]::new()
             foreach ($key in $Types.Keys) {
                 $map[$key] = $Types[$key]

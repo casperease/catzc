@@ -9,7 +9,8 @@
       Format-Markdown    the in-scope Markdown (Prettier, -Check)
       Format-Pipelines   the pipeline YAML, **/*.yaml (Prettier, -Check)
       Format-Automation  the gated PowerShell set (Invoke-Formatter + the .editorconfig rules, -DryRun)
-      Format-Types       the C# type sources' file-scoped namespace (-DryRun)
+      Format-Types       the C# type sources' file-scoped namespace (-DryRun): a missing or wrong one, and a
+                         block-scoped one, which Format-Types cannot fix and the gate reports for a hand edit
 
     Collects every unformatted file and ends with Write-QualityGateReport: the report lands in
     out/test-formatting/, and the gate throws once listing every issue (or returns the result with -PassThru).
@@ -52,15 +53,15 @@ function Test-Formatting {
 
     $issues = [System.Collections.Generic.List[string]]::new()
     # A formatter reports absolute or repository-relative paths; an issue names the repository-relative one.
-    $addUnformatted = {
-        param([string] $Path, [string] $Name)
+    $addIssue = {
+        param([string] $Path, [string] $Problem)
         $relative = if ([System.IO.Path]::IsPathRooted($Path)) {
             ConvertTo-RepoRelativePath $Path
         }
         else {
             $Path -replace '\\', '/'
         }
-        $issues.Add("${relative}: not formatted — run $Name")
+        $issues.Add("${relative}: $Problem")
     }
 
     # The Prettier formatters: -Check names every file Prettier would reformat.
@@ -68,7 +69,7 @@ function Test-Formatting {
         if ($name -in $selected) {
             $result = & $name -Check -PassThru
             foreach ($file in @($result.ChangedFiles)) {
-                & $addUnformatted $file $name
+                & $addIssue $file "not formatted — run $name"
             }
         }
     }
@@ -76,12 +77,17 @@ function Test-Formatting {
     # The in-process formatters: -DryRun returns every file they would rewrite.
     if ('Format-Automation' -in $selected) {
         foreach ($file in @(Format-Automation -DryRun)) {
-            & $addUnformatted $file 'Format-Automation'
+            & $addIssue $file 'not formatted — run Format-Automation'
         }
     }
     if ('Format-Types' -in $selected) {
-        foreach ($file in @((Format-Types -DryRun -PassThru).ChangedFiles)) {
-            & $addUnformatted $file 'Format-Types'
+        $types = Format-Types -DryRun -PassThru
+        foreach ($file in @($types.ChangedFiles)) {
+            & $addIssue $file 'not formatted — run Format-Types'
+        }
+        # A block-scoped namespace is the one drift Format-Types leaves alone: it needs a hand edit.
+        foreach ($file in @($types.BlockScopedFiles)) {
+            & $addIssue $file "block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'"
         }
     }
 

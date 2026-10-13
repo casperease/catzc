@@ -5,19 +5,22 @@
 The module-system introspection module: the one place the platform turns to reason about its own shape — which modules and functions exist
 on disk, what the module-to-module and function-to-function dependency edges actually are, and whether those edges — together with the
 cross-module C# type edges computed by [Catzc.Base.TypesSystem](catzc-base-typessystem.md) — conform to the group-aware declared graph in
-`dependencies.yml`. The dependency integrity check is the mechanical guard that keeps the layering honest (see
-[open-closed-architecture](../../adr/automation/open-closed-architecture.md) and
-[native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)); generating the repository's `importer.ps1` entry point completes
-the module's concern. The native C# type system itself — the compiled-assembly cache and the cross-module type-reference scanner — lives in
-[Catzc.Base.TypesSystem](catzc-base-typessystem.md).
+`dependencies.yml`. Its quality gates are the mechanical guard that keeps the layering and the module conventions honest (see
+[controlling-module-dependencies](../../adr/automation/controlling-module-dependencies.md),
+[open-closed-architecture](../../adr/automation/open-closed-architecture.md), and
+[native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)); copying the toolset and generating the repository's `importer.ps1`
+entry point complete the module's concern. The native C# type system itself — the compiled-assembly cache and the cross-module
+type-reference scanner — lives in [Catzc.Base.TypesSystem](catzc-base-typessystem.md).
 
 ## Domains
 
-| Domain   | Area       | Name                                                                       |
-| -------- | ---------- | -------------------------------------------------------------------------- |
-| domain:1 | introspect | [Function enumeration](#domain1--function-enumeration)                     |
-| domain:2 | graph      | [Dependency graph and integrity](#domain2--dependency-graph-and-integrity) |
-| domain:3 | importer   | [Importer generation](#domain3--importer-generation)                       |
+| Domain   | Area        | Name                                                                       |
+| -------- | ----------- | -------------------------------------------------------------------------- |
+| domain:1 | introspect  | [Function enumeration](#domain1--function-enumeration)                     |
+| domain:2 | graph       | [Dependency graph and integrity](#domain2--dependency-graph-and-integrity) |
+| domain:3 | conventions | [Module conventions](#domain3--module-conventions)                         |
+| domain:4 | copy        | [Toolset model and copy](#domain4--toolset-model-and-copy)                 |
+| domain:5 | importer    | [Importer and generated files](#domain5--importer-and-generated-files)     |
 
 ### domain:1 — Function enumeration
 
@@ -29,64 +32,90 @@ traverses this function set to find call sites.
 ### domain:2 — Dependency graph and integrity
 
 Computing the actual dependency edges — module-to-module through PowerShell call-site analysis and function-to-function through call-graph
-traversal from a named root — then asserting those edges, together with the cross-module C# type edges that
-[Catzc.Base.TypesSystem](catzc-base-typessystem.md) computes, against the declared graph in `dependencies.yml`. The declared graph is
+traversal from a named root — rendering them, ordering the modules foundation-first, and checking them with quality gates
+([ADR-AUTO-TEST#35](../../adr/automation/test-automation.md#rule-adr-auto-test35)). The actual edges, together with the cross-module C# type
+edges that [Catzc.Base.TypesSystem](catzc-base-typessystem.md) computes, are checked against the declared graph in `dependencies.yml`; the
+whole call graph is checked for cycles; and every function call is checked to resolve to a defined command. The declared graph is
 group-aware: its `groups:` section names sets of on-disk modules each with an internal member-to-member DAG; its `modules:` section lists,
-per consumer, the allowed targets as group names (loose: any member) or specific module names (tight). Integrity validation resolves each
-declared target to a member set, takes the union, and tests that every actual edge falls within it; it also tests that the global module
-graph and each group's internal DAG are acyclic. The config this domain owns — `dependencies.yml` — is the platform's single declared
-layering contract.
+per consumer, the allowed targets as group names (loose: any member) or specific module names (tight). The config this domain owns —
+`dependencies.yml` — is the platform's single declared layering contract.
 
-### domain:3 — Importer generation
+### domain:3 — Module conventions
 
-Generating a repository's `importer.ps1` — the dot-sourced entry point that loads the toolset. `New-Importer` reads the parameter block of
-the `Invoke-Importer` overlay and renders `importer.ps1` around a fixed template, so the committed entry point can never drift from the load
-sequence it delegates to (a drift test regenerates and compares). It scaffolds into any repository root that already carries the toolset, so
-the same generator serves this repository and a vendored copy of it. The vendored modules themselves are managed by
-[Catzc.Base.Vendor](catzc-base-vendor.md).
+The quality gates over the shape of the module tree itself: every module folder follows the folder and file conventions, every checked-in
+binary under `automation/.vendor` and `automation/.compiled` is stored byte-exact, and every internal asset dependency — a module reading a
+file from its own folder — is inventoried from the code and covered by a test that runs in both run modes (see
+[conventional-folders](../../adr/repository/conventional-folders.md) and
+[internal-asset-dependencies](../../adr/automation/internal-asset-dependencies.md)).
+
+### domain:4 — Toolset model and copy
+
+The typed model of the modules and the copy built on it: the on-disk and in-session modules as typed objects by kind, named module profiles
+resolved to their dependency closure, and a deterministic copy of a selected subset of the toolset into a destination rooted like the
+repository — for testing in a temporary folder or vendoring the toolset as a package. Its configs name the extra file packages each module
+owns (`files.yml`), the module profiles (`profiles.yml`), and the publish targets for module-manifest artifacts (`artifacts.yml`).
+
+### domain:5 — Importer and generated files
+
+Generating a repository's `importer.ps1` — the dot-sourced entry point that loads the toolset — and committing the files the importer
+maintains. `New-Importer` reads the parameter block of the `Invoke-Importer` overlay and renders `importer.ps1` around a fixed template, so
+the committed entry point can never drift from the load sequence it delegates to (a drift test regenerates and compares). It scaffolds into
+any repository root that already carries the toolset, so the same generator serves this repository and a vendored copy of it. On a devbox
+the importer's janitor commits the generated files that differ from `HEAD` — the compiled type assembly — and skips in CI and in build mode.
+The vendored modules themselves are managed by [Catzc.Base.Vendor](catzc-base-vendor.md).
 
 ## What the module does
 
-The module is the platform's self-knowledge layer. Its three domains build in sequence: domain 1 enumerates the functions the modules
-define, domain 2 computes and asserts what the code actually depends on, and domain 3 generates the `importer.ps1` entry point that loads
-them.
+The module is the platform's self-knowledge layer. Domain 1 enumerates the functions the modules define, domain 2 computes and checks what
+the code actually depends on, domain 3 checks the shape of the module tree, domain 4 models the modules and copies them, and domain 5
+generates and commits the files that load them.
 
 The dependency graph half of domain 2 deserves explicit explanation because `dependencies.yml` carries a `groups` schema. The file has two
 top-level sections. `groups:` is a map where each key is a group name and each value is a map of on-disk module names to the list of other
 members they are allowed to depend on — the group's internal member-to-member DAG. A group is a concept, not a disk module: it names a set
 of real modules and declares the layering among them. `modules:` lists, per consumer module, the targets it may depend on; each target is
 either a group name — loose, meaning any member of that group — or a specific module name — tight, meaning only that exact module. The
-integrity check resolves each declared target to a member set, unions the sets for a given consumer, and verifies that every actual edge
-from that consumer falls within the resolved allow-set. It simultaneously checks that the global module graph is acyclic and that each
-group's internal DAG is acyclic; a cycle in either breaks the layering guarantee.
+file's config type checks the declaration when it loads: every target is declared, and the module graph and each group's internal DAG are
+acyclic. The dependency gate then resolves each declared target to a member set, unions the sets for a given consumer, and verifies that
+every actual edge from that consumer falls within the resolved allow-set and that every declared module exists on disk.
 
-The `Base` group is the primary instance of this schema. It holds the cluster of small, focused libraries that replaced the old
-`Catzc.Base.Utils` monolith: `Catzc.Base.Asserts`, `Catzc.Base.Repository`, `Catzc.Base.Environment`, `Catzc.Base.Objects`,
-`Catzc.Base.Writers`, `Catzc.Base.Config`, `Catzc.Base.Execution`, `Catzc.Base.Files`, `Catzc.Base.TypesSystem`, `Catzc.Base.ModuleSystem`,
-and `Catzc.Base.QualityGates`. `Catzc.Base.ModuleSystem` is itself a member of the group; its declared intra-group dependencies are
-`Catzc.Base.TypesSystem`, `Catzc.Base.Repository`, `Catzc.Base.Config`, `Catzc.Base.Files`, `Catzc.Base.Writers`, and `Catzc.Base.Asserts`.
-A domain module such as `Catzc.Azure` or `Catzc.Tooling.Core` declares `[Base]` in its `modules:` entry, which permits an edge to any of
-those eleven members without naming each individually.
+The `Base` group is the primary instance of this schema: it holds the cluster of small, focused `Catzc.Base.*` libraries, and
+`Catzc.Base.ModuleSystem` is itself a member, with its own declared intra-group dependencies. A domain module such as `Catzc.Azure` or
+`Catzc.Tooling.Core` declares `[Base]` in its `modules:` entry, which permits an edge to any member without naming each individually.
 
-The integrity check is the mechanical evidence that the [open-closed-architecture](../../adr/automation/open-closed-architecture.md) rules
-hold: extending the platform means adding new files, and the dependency graph is what proves no addition created a layering violation. The
-cross-module C# type edges that PowerShell call-site analysis cannot see are computed by
+The gates are the mechanical evidence that the [open-closed-architecture](../../adr/automation/open-closed-architecture.md) rules hold:
+extending the platform means adding new files, and the gates are what prove no addition created a layering violation or broke a module
+convention. The cross-module C# type edges that PowerShell call-site analysis cannot see are computed by
 [Catzc.Base.TypesSystem](catzc-base-typessystem.md)'s `Get-CSharpTypeDependency` (see
-[native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)) and folded into this module's integrity assertion, completing the
-edge set it runs against.
+[native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)) and folded into the dependency gate, completing the edge set it runs
+against.
 
 ## Division
 
-The module's public functions and configuration file, sorted into the domains above.
+The module's public functions and configuration files, sorted into the domains above.
 
-| Domain                                    | Function                     |
-| ----------------------------------------- | ---------------------------- |
-| domain:1 — Function enumeration           | `Get-AutomationFunctions`    |
-| domain:2 — Dependency graph and integrity | `Get-ModuleDependency`       |
-|                                           | `Get-FunctionDependency`     |
-|                                           | `Get-FunctionDependencyTree` |
-|                                           | `Assert-ModuleDependency`    |
-|                                           | `Test-ModuleDependency`      |
-|                                           | `Test-FunctionDependency`    |
-| config                                    | `dependencies.yml`           |
-| domain:3 — Importer generation            | `New-Importer`               |
+| Domain                                    | Function                            |
+| ----------------------------------------- | ----------------------------------- |
+| domain:1 — Function enumeration           | `Get-AutomationFunctions`           |
+| domain:2 — Dependency graph and integrity | `Get-ModuleDependency`              |
+|                                           | `Get-ModuleDependencyEdges`         |
+|                                           | `ConvertTo-ModuleDependencyDiagram` |
+|                                           | `Get-FunctionDependency`            |
+|                                           | `Get-FunctionDependencyTree`        |
+|                                           | `Get-ModuleTestOrder`               |
+|                                           | `Test-ModuleDependency`             |
+|                                           | `Test-ModuleCycles`                 |
+|                                           | `Test-FunctionDependency`           |
+| config                                    | `dependencies.yml`                  |
+| domain:3 — Module conventions             | `Test-FolderConventions`            |
+|                                           | `Test-CheckedInBinaries`            |
+|                                           | `Get-InternalAssetDependency`       |
+|                                           | `Test-InternalAssetDependency`      |
+| domain:4 — Toolset model and copy         | `Get-BaseModule`                    |
+|                                           | `Get-ModuleProfile`                 |
+|                                           | `Copy-Automation`                   |
+| config                                    | `files.yml`                         |
+|                                           | `profiles.yml`                      |
+|                                           | `artifacts.yml`                     |
+| domain:5 — Importer and generated files   | `New-Importer`                      |
+|                                           | `Sync-GeneratedFile`                |

@@ -5,7 +5,7 @@
 Describe 'Format-MarkdownParagraph' -Tag 'L0', 'logic' {
     It 'fills greedily within the width, prefix included' {
         $lines = InModuleScope Catzc.Base.Docs {
-            Format-MarkdownParagraph -Text "widget gadget  widget`ngadget widget" -FirstPrefix '- ' -ContinuationPrefix '  ' -Width 16
+            Format-MarkdownParagraph -Text ('widget gadget  widget' + "`n" + 'gadget widget') -FirstPrefix '- ' -ContinuationPrefix '  ' -Width 16
         }
         $lines | Should -Be @('- widget gadget', '  widget gadget', '  widget')
     }

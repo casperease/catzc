@@ -31,15 +31,15 @@ pipeline definition, and reading the pipeline definitions the organization alrea
 
 Reading the repository's own pipeline YAML: finding the YAML files and classifying each as a pipeline or a template (and which kind) from
 its structure and the organization's registration data. This answers "what pipelines and templates does this repo define?" without deploying
-anything. On top of that classification sits the naming-and-placement gate — `Test-Pipelines` reports every violation of the layout contract
-([pipeline-naming-and-placement](../../adr/pipelines/pipeline-naming-and-placement.md)) and `Assert-Pipelines` throws them as an L2 CI gate,
-both offline.
+anything. On top of that classification sits the naming-and-placement quality gate — `Test-Pipelines` collects every violation of the layout
+contract ([pipeline-naming-and-placement](../../adr/pipelines/pipeline-naming-and-placement.md)), writes its report, and throws once listing
+them all, offline; an L1 integrity test runs it over the real `pipelines/` tree.
 
 ### domain:4 — Pipeline runtime bridge
 
 The thin interface a job uses while it is running inside a pipeline: setting an output variable through the validated wrapper (never a raw
 logging command), normalising a command string handed in by the YAML layer, and emitting an environment diagnostic. These are no-ops or
-pass-through's outside a pipeline. Its environment config lives in `pipeline-env.yml`. See
+pass-through's outside a pipeline. The environment diagnostic prints the environment variables named in `pipeline-env.yml`. See
 [pipeline-variables](../../adr/pipelines/pipeline-variables.md).
 
 ## What the module does
@@ -54,8 +54,9 @@ inventoried and classified — by structure, not by filename — which is how to
 edges of Azure DevOps logging commands are handled in one place rather than scattered as raw strings, and so the same code runs unchanged on
 a developer's machine, where those operations simply do nothing.
 
-The module reads two configs. `ado.yml` carries the organization and tenant that define "correct" for authentication. `pipeline-env.yml`
-carries the environment settings the runtime bridge needs.
+The module reads two configs, each validated on load by its C# config type (`AdoConfig`, `PipelineEnvConfig`). `ado.yml` carries the
+organization and tenant that define "correct" for authentication. `pipeline-env.yml` is the list of environment variable names — build
+context, paths, agent information — that the environment diagnostic prints at the top of every pipeline script run.
 
 ## Division
 
@@ -72,7 +73,6 @@ The module's public functions and configuration, sorted into the domains above.
 | domain:3 — Pipeline YAML discovery and classification | `Get-AdoYamlFiles`               |
 |                                                       | `Get-AdoYamlInventory`           |
 |                                                       | `Test-Pipelines`                 |
-|                                                       | `Assert-Pipelines`               |
 | domain:4 — Pipeline runtime bridge                    | `Set-AdoPipelineVariable`        |
 |                                                       | `ConvertFrom-AdoPipelineCommand` |
 |                                                       | `Write-AdoEnvironmentDiagnostic` |

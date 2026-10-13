@@ -81,13 +81,14 @@ compounds its cost. Treating data health as optional while investing in AI adopt
 
 ## How to apply
 
-The templating data model resolves every Azure identity fact through one config layer, keyed by name and validated by `Assert-AzureConfig`
-([ADR-AZ-DATAMOD](../azure/azure-data-model.md)) — one source of truth per record rather than a fact duplicated, and free to drift, across
-templates. Config-value addressing turns any committed config node into a citable, dereferenceable handle (`global.<config>.<key>`,
-[ADR-CONF-ADDRESSING](../configuration/config-value-addressing.md)) instead of a copied literal, keeping the documentation of "where a value
-comes from" next to the value rather than in a separate note. Module config loading's single reader and owner-scoped validation
-([ADR-CONF-LOADING](../configuration/module-config-loading.md)) give every named config exactly one cache and one automated quality gate — a
-convention-named `Assert-<Name>Config` run once on load — rather than ad hoc, per-caller checks that drift apart over time.
+The templating data model resolves every Azure identity fact through one config layer, keyed by name and validated by its config type,
+`AzureConfig` ([ADR-AZ-DATAMOD](../azure/azure-data-model.md)) — one source of truth per record rather than a fact duplicated, and free to
+drift, across templates. Config-value addressing turns any committed config node into a citable, dereferenceable handle
+(`global.<config>.<key>`, [ADR-CONF-ADDRESSING](../configuration/config-value-addressing.md)) instead of a copied literal, keeping the
+documentation of "where a value comes from" next to the value rather than in a separate note. Module config loading's single reader and
+typed validation ([ADR-CONF-LOADING](../configuration/module-config-loading.md)) give every named config exactly one cache and one automated
+check — every shipped config has a C# config type ([ADR-CONF-LOADING#4](../configuration/module-config-loading.md#rule-adr-conf-loading4))
+that validates it once on load — rather than ad hoc, per-caller checks that drift apart over time.
 
 ## Common pitfalls
 

@@ -192,6 +192,8 @@ terms:
       meaning: "the pre/post extension-module pattern ('prepost')"
     - term: qualitygates
       meaning: "reference-doc slug segment for the Catzc.Base.QualityGates module"
+    - term: configextensions
+      meaning: "reference-doc slug segment for the Catzc.Base.ConfigExtensions module"
     - term: reformatter
       meaning: "a reformatter"
     - term: regenerable
@@ -403,8 +405,6 @@ terms:
       meaning: "sample stderr text 'errtext' in Invoke-Executable tests"
     - term: exped
       meaning: "derived short_name of the 'expedition' example template (documentation-examples ADR)"
-    - term: fixpwsh
-      meaning: "test fixture token 'fixpwsh'"
     - term: fixtenant
       meaning: "test fixture token 'fixtenant'"
     - term: fixtype
@@ -1038,8 +1038,6 @@ terms:
       meaning: "'stringly-typed' (stringly)"
     - term: suppressable
       meaning: "coined adjective 'suppressable'"
-    - term: textified
-      meaning: "coined verb 'textified'"
     - term: unparseable
       meaning: "coined adjective 'unparseable'"
   person:

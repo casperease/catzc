@@ -41,8 +41,8 @@ indent_size = 2
 #    project's physical path (Catzc.Types.automation.Catzc.Azure.types). We turn the underlying preference off
 #    (stating the policy as code) and mute the diagnostic; this rule is an editor hint, invisible to dotnet build.
 # CA1050 "Declare types in namespaces" is deliberately NOT suppressed: every source declares its module's
-# file-scoped namespace (Format-Types writes it, Test-Types gates it), so the rule passes honestly — the
-# editor reflects the rule rather than having it switched off (everything-as-code).
+# file-scoped namespace (Format-Types writes it, Test-Formatting gates it), so the rule passes honestly —
+# the editor reflects the rule rather than having it switched off (everything-as-code).
 [automation/**/types/*.cs]
 dotnet_style_namespace_match_folder = false
 dotnet_diagnostic.IDE0130.severity = none

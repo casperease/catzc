@@ -20,9 +20,22 @@ public sealed class DocsConfig
     // Explicit folder->source README copy-ins, in registry order.
     public IReadOnlyList<DocMapping> mappings { get; }
 
+    private static readonly string[] AllowedKeys = { "patterns", "mappings" };
+
     public DocsConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
+        if (raw != null)
+        {
+            foreach (object key in raw.Keys)
+            {
+                string topKey = key == null ? string.Empty : key.ToString();
+                if (Array.IndexOf(AllowedKeys, topKey) < 0)
+                {
+                    errors.Add(string.Format("unknown top-level key '{0}' (allowed: {1})", topKey, string.Join(", ", AllowedKeys)));
+                }
+            }
+        }
 
         patterns = ParsePatterns(raw, errors);
         mappings = ParseMappings(raw, errors);

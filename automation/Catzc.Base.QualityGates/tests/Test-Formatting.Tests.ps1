@@ -1,12 +1,13 @@
-# Test-Formatting is a quality gate (ADR-AUTO-TEST#35): each L0 case mocks every formatter at the module boundary
-# and reads the collected issues; the report goes to $TestDrive.
+# Test-Formatting is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
+# each L0 case mocks every formatter at the module boundary and reads the collected issues; the report goes to
+# $TestDrive.
 Describe 'Test-Formatting' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Format-Markdown -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); Warnings = @(); DryRun = $false; Check = $true; ExitCode = 0 } }
         Mock Format-Pipelines -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); Warnings = @(); DryRun = $false; Check = $true; ExitCode = 0 } }
         Mock Format-Automation -ModuleName Catzc.Base.QualityGates { }
-        Mock Format-Types -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); DryRun = $true } }
+        Mock Format-Types -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); BlockScopedFiles = @(); DryRun = $true } }
         $script:reportFolder = Join-Path $TestDrive 'formatting'
     }
 
@@ -31,8 +32,11 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
 
     It 'returns the result with the formatter count under -PassThru, naming files repository-relative' -Tag 'ADR-AUTO-TEST#35' {
         $widget = Join-Path (Get-RepositoryRoot) 'automation/Widget/Get-Widget.ps1'
+        $gizmo = Join-Path (Get-RepositoryRoot) 'automation/Widget/types/Gizmo.cs'
         Mock Format-Automation -ModuleName Catzc.Base.QualityGates -ParameterFilter { $DryRun } { $widget }
-        Mock Format-Types -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 1; ChangedFiles = @('automation\Widget\types\Gadget.cs'); DryRun = $true } }
+        Mock Format-Types -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ ChangedCount = 1; ChangedFiles = @('automation\Widget\types\Gadget.cs'); BlockScopedFiles = @($gizmo); DryRun = $true }
+        }.GetNewClosure()
 
         $result = Test-Formatting -PassThru -OutputFolder $script:reportFolder
         $result.Subject | Should -Be 'formatting'
@@ -40,6 +44,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         $result.Issues | Should -Be @(
             'automation/Widget/Get-Widget.ps1: not formatted — run Format-Automation'
             'automation/Widget/types/Gadget.cs: not formatted — run Format-Types'
+            "automation/Widget/types/Gizmo.cs: block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'"
         )
     }
 
@@ -55,7 +60,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
 }
 
 # Integrity: the real repository is formatted — Markdown (Prettier), the gated PowerShell set, and the C# type
-# namespaces. The pipeline YAML has its own block (Format-Pipelines.Tests.ps1). L2 because it drives the Prettier CLI
+# namespaces (each source declares its module's file-scoped namespace, the invariant the type loader also enforces). The pipeline YAML has its own block (Format-Pipelines.Tests.ps1). L2 because it drives the Prettier CLI
 # and the vendored analyzer's formatter; self-skips when prettier is absent
 # ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)/9). source-only: it reads the
 # repository's own files, which give the same answer in both run modes.

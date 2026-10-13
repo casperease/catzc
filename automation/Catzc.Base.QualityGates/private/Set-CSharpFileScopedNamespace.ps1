@@ -9,7 +9,7 @@
       - When it declares none, `namespace <Namespace>;` is inserted after the leading comment/using block —
         before the first type or attribute — padded by a blank line on each side.
       - A block-scoped `namespace X { … }` (not a shape this repo authors) is left untouched, so the helper
-        never double-declares; Test-Types reports it instead.
+        never double-declares; Format-Types reports it and Test-Formatting turns it into an issue.
 
     Line endings are normalised to LF and a single trailing newline is preserved (repo convention).
 .PARAMETER Content
@@ -51,7 +51,7 @@ function Set-CSharpFileScopedNamespace {
 
     # An existing namespace declaration: correct a file-scoped one in place (no-op when already right);
     # leave a block-scoped one (file-scoped lines end with ';'; anything else is a block) untouched — not a
-    # shape we author, so Test-Types reports it rather than this helper double-declaring.
+    # shape we author, so Format-Types reports it rather than this helper double-declaring.
     for ($i = 0; $i -lt $lines.Count; $i++) {
         if ($lines[$i] -match '^\s*namespace\s+\S') {
             if (($lines[$i] -match '^\s*namespace\s+(\S+?)\s*;\s*$') -and ($Matches[1] -ne $Namespace)) {

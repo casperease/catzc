@@ -8,11 +8,11 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 | #   | Tier | Test file                                                              | FullNameFilter                   | Guards                                                                                                    |
 | --- | ---- | ---------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| 1   | L0   | automation/Catzc.Azure/tests/Assert-AzureConfig.Tests.ps1              | integrity (shipped azure.yml)    | The shipped `azure.yml` passes schema + cross-record validation.                                          |
-| 2   | L0   | automation/Catzc.Azure/tests/Assert-NetworkConfig.Tests.ps1            | integrity (shipped network.yml)  | The shipped `network.yml` has valid CIDRs and env completeness.                                           |
+| 1 | L0 | automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1 | integrity (shipped azure.yml) | The shipped `azure.yml` loads through `AzureConfig` (schema + cross-record validation), and its customer references resolve. |
+| 2 | L0 | automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1 | integrity (shipped network.yml) | The shipped `network.yml` loads through `NetworkConfig`: valid CIDRs and env completeness. |
 | 3   | L0   | automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1 | Shipped template integrity       | Every shipped template is discoverable, well-formed, and structurally valid.                              |
 | 4   | L0   | automation/Catzc.Azure.Templates/tests/Get-Config.Integrity.Tests.ps1  | Shipped asset integrity          | Templates reference only defined environments and customers.                                              |
-| 5   | L0   | automation/Catzc.Azure/tests/Assert-CustomerConfig.Tests.ps1           | integrity (shipped customer.yml) | The shipped customer.yml validates — customer keys/shortcodes are well-formed, unique, and non-colliding. |
+| 5 | L0 | automation/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1 | integrity (shipped customer.yml) | The shipped customer.yml loads through `CustomerConfig` — customer keys/shortcodes are well-formed, unique, and non-colliding. |
 
 ## Checks
 
@@ -22,7 +22,9 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 **Checks:**
 
-- `Assert-AzureConfig` accepts the shipped `azure.yml` (tenants, subscriptions, environments, customers).
+- The shipped `azure.yml` loads through `Get-Config` as an `AzureConfig` (tenants, subscriptions, environments).
+- Every shipped subscription's customer resolves in `customer.yml`, by key or shortcode.
+- Every shipped customer — and the non-customer set — serves each environment through exactly one subscription.
 
 ### 2. integrity (shipped network.yml)
 
@@ -30,7 +32,7 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 **Checks:**
 
-- `Assert-NetworkConfig` accepts the shipped `network.yml` (valid CIDRs, every standard env present).
+- The shipped `network.yml` loads through `Get-Config` as a `NetworkConfig` (valid CIDRs, every standard env present).
 
 ### 3. Shipped template integrity
 
@@ -48,5 +50,5 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 **Checks:**
 
-- `azure.yml` and `network.yml` pass their validators.
+- `azure.yml` and `network.yml` load through their config types (`AzureConfig`, `NetworkConfig`).
 - Every template slot references environments and customers defined in `azure.yml`.

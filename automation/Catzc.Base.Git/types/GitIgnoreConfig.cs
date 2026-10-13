@@ -16,9 +16,22 @@ public sealed class GitIgnoreConfig
     // The zones, in registry (and render) order.
     public IReadOnlyList<GitIgnoreZone> zones { get; }
 
+    private static readonly string[] AllowedKeys = { "zones" };
+
     public GitIgnoreConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
+        if (raw != null)
+        {
+            foreach (object key in raw.Keys)
+            {
+                string topKey = key == null ? string.Empty : key.ToString();
+                if (Array.IndexOf(AllowedKeys, topKey) < 0)
+                {
+                    errors.Add(string.Format("unknown top-level key '{0}' (allowed: {1})", topKey, string.Join(", ", AllowedKeys)));
+                }
+            }
+        }
         List<GitIgnoreZone> list = new List<GitIgnoreZone>();
         HashSet<string> seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 

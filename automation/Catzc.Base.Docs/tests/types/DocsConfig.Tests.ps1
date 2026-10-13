@@ -59,4 +59,8 @@ Describe 'DocsConfig' -Tag 'L0', 'logic' {
     It 'throws when a pattern is missing a required key' {
         { & $script:make @{ patterns = @(@{ glob = 'automation/*' }) } } | Should -Throw '*source is required*'
     }
+
+    It 'rejects an unknown top-level key' {
+        { [Catzc.Base.Docs.DocsConfig]::new(@{ widget = 1 }) } | Should -Throw "*unknown top-level key 'widget'*"
+    }
 }

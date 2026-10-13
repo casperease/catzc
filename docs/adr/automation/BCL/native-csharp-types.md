@@ -8,8 +8,8 @@
 
 One type per file, named for the bare type; its fully-qualified name is `<module>.<filename>` (`types/CliRunner.cs` in
 `Catzc.Base.Execution` → `Catzc.Base.Execution.CliRunner`). The file declares the **file-scoped namespace of its module**
-(`namespace Catzc.Base.Execution;`), which `Format-Types` writes and `Test-Types` gates; the loader identifies the type from the filename,
-not by parsing the body.
+(`namespace Catzc.Base.Execution;`), which `Format-Types` writes and `Test-Formatting` gates; the loader identifies the type from the
+filename, not by parsing the body.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -17,8 +17,9 @@ not by parsing the body.
 
 Every type's namespace equals its owning module and is **declared in the source** as a file-scoped `namespace <module>;` — but it is
 **derived from the folder, not hand-authored**: `Format-Types` writes/repairs the line from the file's `types/` folder, so the folder stays
-the single source of truth and a move between modules is a safe refactor. The loader and `Test-Types` reject a missing, mismatched, or
-block-scoped namespace, and reject a dotted filename. The FQN is `<module>.<filename>`, making FQN collisions across modules impossible.
+the single source of truth and a move between modules is a safe refactor. The loader and `Test-Formatting` reject a missing, mismatched, or
+block-scoped namespace, and the loader rejects a dotted filename. The FQN is `<module>.<filename>`, making FQN collisions across modules
+impossible.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -211,7 +212,7 @@ editor's feedback equals the runtime's: real namespaces (no `CA1050`), with two 
 (snake_case config-mirroring props, Rule ADR-AUTO-TYPES#8) and `IDE0130` (the namespace mirrors the module, not the project's physical
 folder path, Rule ADR-AUTO-TYPES#2). The runtime never builds the project; `Add-Type` stays the compiler, and `Invoke-BuildForVSCode` builds
 the IDE project on demand for the editor (see below). The [poka-yoke](../../principles/poka-yoke.md) is preserved because the namespace is
-folder-derived by `Format-Types` and gated by `Test-Types`, not a second hand-maintained source of truth that could drift.
+folder-derived by `Format-Types` and gated by `Test-Formatting`, not a second hand-maintained source of truth that could drift.
 
 To keep that IDE artifact honest, the project **stamps its version from the committed `Catzc.Types.<hash>.dll`** — the runtime assembly's
 own identity (Rule ADR-AUTO-TYPES#6) — so its build metadata (the `deps.json` project entry) reads `Catzc.Types/1.0.0-<hash>`, not the
@@ -342,13 +343,14 @@ boundary through its own config type, `FilesConfig`, which validates it at load;
 
 ### How this is enforced
 
-- **`Format-Types` + `Test-Types`** (in `Catzc.Base.QualityGates`) — `Format-Types` writes/repairs each source's file-scoped
-  `namespace <module>;` from its `types/` folder (the formatter, not an ad-hoc sweep); `Test-Types` is the gate, failing on a missing,
-  mismatched, or block-scoped namespace. The folder is the single source of truth, so the namespace can never drift from it.
+- **`Format-Types` + `Test-Formatting`** (in `Catzc.Base.QualityGates`) — `Format-Types` writes/repairs each source's file-scoped
+  `namespace <module>;` from its `types/` folder (the formatter, not an ad-hoc sweep); the `Test-Formatting` quality gate runs it in its
+  report-only mode, failing on a missing, mismatched, or block-scoped namespace. The folder is the single source of truth, so the namespace
+  can never drift from it.
 
 - **`Import-CSharpTypes`** rejects a dotted filename and a source whose declared namespace is missing, mismatched, or block-scoped (the same
-  invariant `Test-Types` enforces, checked at load), compiles all modules' sources **as authored** into one assembly (`Add-Type -Path`, one
-  compilation unit per file), verifies every `types/*.cs` produced `<module>.<filename>` (else "was not produced"), and registers each
+  invariant `Test-Formatting` gates, checked at load), compiles all modules' sources **as authored** into one assembly (`Add-Type -Path`,
+  one compilation unit per file), verifies every `types/*.cs` produced `<module>.<filename>` (else "was not produced"), and registers each
   `[Catzc.Base.Objects.PSTypeAlias]` name as a type-accelerator (Rule ADR-AUTO-TYPES#10).
 
 - **`Invoke-BuildForVSCode`** (in `Catzc.Base.TypesSystem`) drives the editor-facing `dotnet build` of `Catzc.Types.csproj` through
@@ -365,8 +367,8 @@ boundary through its own config type, `FilesConfig`, which validates it at load;
   mismatched / block-scoped namespace and dotted-filename throws, the filename-type verification, the changed-after-load fail-fast,
   self-heal of a deleted DLL, the `DictionaryRecord` dictionary view, and a drift guard (the committed `Catzc.Types.<hash>.dll` matches the
   current sources, with no pending git changes). A `shipped C# types` test asserts every committed type resolves **and** declares its module
-  namespace (via `Test-Types`), and a `PSTypeAlias accelerators` test asserts a decorated type's accelerator resolves after load.
-  `Set-CSharpFileScopedNamespace.Tests.ps1` unit-tests the namespace string engine behind `Format-Types`.
+  namespace (via `Test-Formatting -Formatter Format-Types`), and a `PSTypeAlias accelerators` test asserts a decorated type's accelerator
+  resolves after load. `Set-CSharpFileScopedNamespace.Tests.ps1` unit-tests the namespace string engine behind `Format-Types`.
 
 - **`Clear-ModuleTypeCache`** keeps the current `automation/.compiled/Catzc.Types.<hash>.dll` and prunes the rest (deleting on a devbox
   only). A delete that fails throws after every deletable build is gone, naming the file and its holders; the importer reports it as one red
@@ -391,8 +393,8 @@ The module-dependency graph that governs cross-module C# type edges (ADR-AUTO-TY
   together and reference each other freely.
 
 - A type file's module identity lives in its folder; the declared `namespace <module>;` is a folder-derived mirror that `Format-Types`
-  maintains and `Test-Types` gates. Moving a `.cs` to another module stays a safe refactor — re-run `Format-Types` and the line follows the
-  folder (and `Test-Types`/the loader fail loudly if it didn't).
+  maintains and `Test-Formatting` gates. Moving a `.cs` to another module stays a safe refactor — re-run `Format-Types` and the line follows
+  the folder (and `Test-Formatting`/the loader fail loudly if it didn't).
 
 - The editor compiles and analyzes the exact sources the runtime does: with C# Dev Kit enabled, `Catzc.Types.csproj`/`catzc.sln` give real
   in-IDE analysis (no false `CA1050`, no "No solution file") that equals the `Add-Type` compile — the rules live as code, not as a disabled

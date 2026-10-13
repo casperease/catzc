@@ -2,13 +2,14 @@
 .SYNOPSIS
     Quality gate: checks that every generated file equals what its generator would write now.
 .DESCRIPTION
-    One gate for every generator's drift ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
+    One gate for every generator's drift
+    ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
     Each writer runs in its report-only mode — -DryRun -PassThru, which composes the content and writes
     nothing — and every file it reports as changed is one issue naming the file, the generator, and the
     command that regenerates it:
 
-      Build-AdrIndex               docs/adr/index.md from adrs.yml
-      Build-Glossary               docs/adr/glossary.md from the configs/glossary.yml sources
+      Build-AdrIndex               [index](/docs/adr/index.md) from adrs.yml
+      Build-Glossary               [glossary](/docs/adr/glossary.md) from the configs/glossary.yml sources
       Build-Readme                 the README links to their docs/references articles (readme.yml)
       Build-GitKeep                every managed .gitkeep from the shipped assets/gitkeep
       Build-TerminologyDictionary  the .cspell/<category>.txt lists from terminology.yml

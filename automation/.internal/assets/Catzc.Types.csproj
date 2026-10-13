@@ -6,7 +6,7 @@
   solution, managed by Build-RootConfig and kept at the repo root so Dev Kit auto-loads it) references it by
   relative path. Every
   path below is therefore project-relative: '../..' is the automation/ directory.
-  Each source declares its module's file-scoped namespace (Format-Types writes it, Test-Types gates it), so
+  Each source declares its module's file-scoped namespace (Format-Types writes it, Test-Formatting gates it), so
   the analyzer sees real namespaces and never raises a false CA1050 "Declare types in namespaces".
 
   At import time Import-CSharpTypes compiles the very same sources with

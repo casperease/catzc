@@ -41,11 +41,14 @@ the session-memory protection map keys on (domain:4), not a trigger and not a co
 The two derivations that replace a committed per-set marker. The **projection** renders a globset's flattened scan program into each
 vendor's native path-filter dialect — GitHub `on.*.paths` with ordered `!` negation (exact), Azure DevOps `trigger.paths.include`/`exclude`
 and branch-policy `filenamePatterns` (order-independent, last-select-per-pattern) — so a pipeline triggers, or does not start at all, on the
-real files; a drift gate compares each pipeline's declared trigger to the projection and fails a mismatch. The **git reflection** answers
-"did this change touch the unit?" from git at the real refs: it diffs a commit range (resolving the reference commit per context —
-post-commit first-parent `HEAD^1..HEAD`, PR merge-base, or local working tree) and matches the changed paths against the registry, the same
-computation the in-pipeline "stop, nothing here for us" gate and the PR area-of-control report use. Because it reads the merged tree as it
-actually is, it is immune to squash-merge and concurrent-merge staleness and correct across renames.
+real files. Quality gates ([ADR-AUTO-TEST#35](../../adr/automation/test-automation.md#rule-adr-auto-test35)) guard the projection: the drift
+gates compare each ADO pipeline's or GitHub workflow's declared trigger to the projection and report one issue per drifted or missing
+pipeline, and the coverage gate confirms every member of a pipeline-bound set matches an ADO include pattern, so an include-only trigger can
+never under-trigger. The **git reflection** answers "did this change touch the unit?" from git at the real refs: it diffs a commit range
+(resolving the reference commit per context — post-commit first-parent `HEAD^1..HEAD`, PR merge-base, or local working tree) and matches the
+changed paths against the registry, the same computation the in-pipeline "stop, nothing here for us" gate and the PR area-of-control report
+use. Because it reads the merged tree as it actually is, it is immune to squash-merge and concurrent-merge staleness and correct across
+renames.
 
 ### domain:4 — Protected scans
 
@@ -78,11 +81,13 @@ The module's public surface, indexed by domain.
 | domain:1 — The globset registry               | `Get-GlobSet`                    |
 |                                               | `Test-GlobSetIndependence`       |
 | config                                        | `globs.yml`                      |
-| domain:2 — Membership and durable identity    | `Get-GlobSetFile`                |
+| domain:2 — Membership and durable identity    | `Get-TrackedFile`                |
+|                                               | `Get-GlobSetFile`                |
 |                                               | `Get-GlobSetHash`                |
 | domain:3 — Native triggers and git reflection | `Get-GlobSetTrigger`             |
 |                                               | `Test-AdoPipelineTriggerGlob`    |
 |                                               | `Test-GitHubWorkflowTriggerGlob` |
+|                                               | `Test-GlobSetTriggerCoverage`    |
 |                                               | `Get-ChangedGlobSet`             |
 |                                               | `Get-GlobSetChangeRange`         |
 |                                               | `Test-GlobSetAffected`           |

@@ -76,9 +76,9 @@ the analyzer test — so `Test-Automation -Level 2` is what catches a formatting
 Two globset-backed behaviors show up in gate runs (see [durable-sha-globs](../../../adr/flow/durable-sha-globs.md) and
 [protected-globs](../../../adr/automation/protected-globs.md)):
 
-- A red **Native trigger globs** test means a pipeline's `trigger:`/`pr:` `paths:` filter has drifted from its globset's projection —
-  regenerate it from `Get-GlobSetTrigger`. `Test-AdoPipelineTriggerGlob` / `Test-GitHubWorkflowTriggerGlob` show the per-pipeline status
-  (Match/Drift/Missing) without failing anything.
+- A red **trigger globs** test means a pipeline's `trigger:`/`pr:` `paths:` filter has drifted from its globset's projection — regenerate it
+  from `Get-GlobSetTrigger`. Run `Test-AdoPipelineTriggerGlob -PassThru` / `Test-GitHubWorkflowTriggerGlob -PassThru` to list one issue per
+  drifted or missing pipeline without throwing.
 - A **skipped** repository spelling/markdown scan (`protected_globset_unchanged_since_green_run`) means that scan already ran green against
   the identical file set this session — a local-only optimization, never active in CI. `Clear-GlobSetProtection` (or reloading the importer)
   forces a full rescan.

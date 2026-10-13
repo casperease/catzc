@@ -35,4 +35,8 @@ Describe 'GitIgnoreConfig' -Tag 'L0', 'logic' {
         $construct | Should -Throw '*id is required*'
         $construct | Should -Throw '*exactly one*'
     }
+
+    It 'rejects an unknown top-level key' {
+        { [Catzc.Base.Git.GitIgnoreConfig]::new(@{ widget = 1 }) } | Should -Throw "*unknown top-level key 'widget'*"
+    }
 }

@@ -79,4 +79,10 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
         $raw.domains.alpha.depends_on = @('beta') # beta already depends on alpha
         { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw '*cycle*'
     }
+
+    It 'rejects an unknown top-level key' {
+        $raw = New-ValidRaw
+        $raw['widget'] = 1
+        { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: domains)*"
+    }
 }

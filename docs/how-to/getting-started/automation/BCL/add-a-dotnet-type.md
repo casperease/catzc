@@ -20,7 +20,7 @@ is in [native-csharp-types](../../../../adr/automation/BCL/native-csharp-types.m
 
 - **One type per file**, filename = type name (the analogue of one-function-per-file). The loader identifies the type from the filename — it
   does not parse the body — so a dotted filename, or a missing, mismatched, or block-scoped namespace, is rejected. The namespace must be
-  the file-scoped form `namespace <Module>;` matching the module (folder-derived by `Format-Types`, gated by `Test-Types`).
+  the file-scoped form `namespace <Module>;` matching the module (folder-derived by `Format-Types`, gated by `Test-Formatting`).
 - `types/CliRunner.cs` in `Catzc.Base.Execution` becomes `Catzc.Base.Execution.CliRunner`. FQN collisions across modules are therefore
   impossible.
 - **Host-guaranteed assemblies only.** Types compile with `Add-Type` against its default reference set — the shared framework plus
@@ -78,7 +78,7 @@ Because that is a cross-module reference, the owning module must declare `Catzc.
   `automation/.compiled/Catzc.Types.<hash>.dll`. The hash is derived from every type's source, so a fresh checkout and CI load the committed
   DLL **without** invoking the Roslyn compiler — only an author who edits a source pays the sub-second recompile, once.
 - Because types share one assembly, a type in any module may reference a type in any other — but the reference is governed by the module
-  dependency graph, checked by `Get-CSharpTypeDependency` + `Assert-ModuleDependency` in the L2 tests.
+  dependency graph, checked by `Get-CSharpTypeDependency` + the `Test-ModuleDependency` quality gate in an L1 integrity test.
 - Editing a `.cs` re-keys the assembly. If you edit a type in a live session, the loader detects the drift on the next import and throws
   **"restart PowerShell"** — the loaded copy cannot be replaced in place.
 

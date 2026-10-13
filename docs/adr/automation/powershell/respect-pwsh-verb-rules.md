@@ -51,8 +51,8 @@ returns exactly one object (`Get-BicepTemplate`), so the cardinality is visible 
 ### Rule ADR-AUTO-VERBS:7
 
 The repository quality gates — `Test-Automation` and the `Test-*` gates it aggregates (`Test-Spelling`, `Test-ScriptAnalyzer`,
-`Test-Markdownlint`, `Test-Types`) — are the sanctioned exception to ADR-AUTO-VERBS#2/ADR-AUTO-VERBS#3: each throws on failure so it can
-fail the build, and returns a result object under `-PassThru`. Their noun names a body of work to verify and enforce, not a boolean
+`Test-Markdownlint`, `Test-Formatting`) — are the sanctioned exception to ADR-AUTO-VERBS#2/ADR-AUTO-VERBS#3: each throws on failure so it
+can fail the build, and returns a result object under `-PassThru`. Their noun names a body of work to verify and enforce, not a boolean
 condition; a plain predicate (`Test-Path`, `Test-Command`) still returns `[bool]` and never throws.
 
 - [The quality-gate exception](#the-quality-gate-exception)
@@ -66,9 +66,10 @@ one of the language's true strengths.
 ### Why this matters
 
 **Verbs are a shared vocabulary.** When a user sees `Get-`, they know it reads without modifying. When they see `Set-`, they know it writes.
-When they see `Test-`, they know it returns a boolean. When they see `Assert-`, they know it throws on failure. This contract is universal
-across every PowerShell module, every vendor, every team. A user who has never seen your code can predict what `Get-Config` does from the
-verb alone.
+When they see `Test-`, they know it either answers a value or state question with a boolean, or is a quality gate
+([ADR-AUTO-TEST#35](../test-automation.md#rule-adr-auto-test35), ADR-AUTO-VERBS#7) that reports every issue and throws. When they see
+`Assert-`, they know it throws on failure. This contract is universal across every PowerShell module, every vendor, every team. A user who
+has never seen your code can predict what `Get-Config` does from the verb alone.
 
 **Verbs encode behavior guarantees.** The approved verbs are not just naming conventions — they carry semantic promises:
 
@@ -211,12 +212,12 @@ This is a deliberate clarity choice over PowerShell's default lean toward singul
 
 Most `Test-` functions are predicates — `Test-Path`, `Test-Command`, `Test-IsRunningInPipeline` — and obey ADR-AUTO-VERBS#2: they answer a
 boolean and never throw. The repository's quality gates are different in kind. `Test-Automation`, `Test-Spelling`, `Test-ScriptAnalyzer`,
-`Test-Markdownlint`, and `Test-Types` each run a body of checks and exist to **fail the build** when those checks fail — throwing is their
-job, not a broken contract. They still expose the boolean-shaped answer through `-PassThru`, which returns a result object (issue counts,
-report path) for a caller that wants to branch rather than break. The distinction is in the noun: `Test-Path` names a condition to evaluate;
-`Test-Spelling` names a corpus to verify and a gate to enforce. Naming these `Assert-` would be defensible, but `Test-<Area>` reads as the
-CI gate it is and keeps the gate family under one discoverable verb. This is the one place `Test-`-and-throw is correct; a genuine predicate
-that throws is still a bug.
+`Test-Markdownlint`, and `Test-Formatting` each run a body of checks and exist to **fail the build** when those checks fail — throwing is
+their job, not a broken contract. They still expose the boolean-shaped answer through `-PassThru`, which returns a result object (issue
+counts, report path) for a caller that wants to branch rather than break. The distinction is in the noun: `Test-Path` names a condition to
+evaluate; `Test-Spelling` names a corpus to verify and a gate to enforce. Naming these `Assert-` would be defensible, but `Test-<Area>`
+reads as the CI gate it is and keeps the gate family under one discoverable verb. This is the one place `Test-`-and-throw is correct; a
+genuine predicate that throws is still a bug.
 
 ## Decision
 
