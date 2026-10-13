@@ -52,9 +52,9 @@ deployable-unit that IS that track.
 
 A mono repository holds several concerns that differ in everything but their home: language, delivery target, cadence, and blast radius.
 Without a named concept for "the root concern", those differences leak everywhere — pipelines path-filter on ad-hoc folder lists, tests
-guess their scope, and a change in one corner rebuilds customers who never consumed it. The repository already had the ingredients (root
-folders with strong conventions, the globset registry with durable-SHA stamps, per-module dependency maps); what was missing was the word
-that ties them together and the rules that keep them tied.
+guess their scope, and a change in one corner rebuilds customers who never consumed it. The repository has the ingredients (root folders
+with strong conventions, the globset registry with durable-SHA stamps, per-module dependency maps); a track is the word that ties them
+together, and the rules below keep them tied.
 
 ### What a track is
 

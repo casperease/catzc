@@ -23,8 +23,8 @@ The registry is `automation/Catzc.Base.RootConfig/configs/rootconfig.yml` — va
 
 Per entry, the `committed` boolean (default false) decides git membership and nothing else. `committed: false` → the target is a derived,
 gitignored artifact, materialised on import like the generated module manifests. `committed: true` → the target stays tracked because git or
-the bootstrap reads it **before the importer runs** (`importer.ps1`), while the automation still owns its content — a source change surfaces
-as a reviewable diff. The difference between the two is one boolean, not two systems.
+the bootstrap reads it **before the importer runs** (`importer.ps1`), while the automation owns its content — a source change surfaces as a
+reviewable diff. The difference between the two is one boolean, not two systems.
 
 - [One system, one boolean](#one-system-one-boolean)
 
@@ -76,13 +76,12 @@ changing files on disk" contract.
 The repository root carries configuration files for git, editors, and quality-gate tools. Kept by hand, each is its own little source of
 truth with its own drift risk, and the tool-specific quirks (a `.psd1` that must be a literal hashtable, a JSON manifest with no comment
 syntax) get re-solved ad hoc. "Root" names the ownership — one source of truth under `automation/`, one writer — not a path constraint: the
-managed set covers the repository root and the `.vscode/` editor files (settings, extension recommendations, launch profiles, and the
-preview CSS), all `committed: false`, so the editor greys them and a fresh clone materialises them on its first import — the same contract
-as the generated cspell dictionaries ([dedicated-output-directory](dedicated-output-directory.md#rule-adr-repo-outdir8)). The repository
-already treats other per-folder derived files as generated, gitignored artifacts — the module manifests and the README links
-([generated-readmes](generated-readmes.md)) — and already generated one root file each in two one-off ways: the root analyzer settings (a
-bespoke builder) and `importer.ps1` (`New-Importer` plus a drift test). A root config file is the same pattern; what was missing was one
-registry and one writer.
+managed set covers the repository root and, below it, the `.vscode/` editor files (settings, extension recommendations, launch profiles, the
+Azure Pipelines schema, and the preview CSS) and `.cspell/.gitignore` — all of those `committed: false`, so the editor greys them and a
+fresh clone materialises them on its first import — the same contract as the generated cspell dictionaries
+([dedicated-output-directory](dedicated-output-directory.md#rule-adr-repo-outdir8)). The repository treats other per-folder derived files as
+generated, gitignored artifacts — the module manifests and the README links ([generated-readmes](generated-readmes.md)) — and a root config
+file is the same pattern, given one registry and one writer.
 
 ## Decision
 
@@ -95,10 +94,10 @@ targets, and the importer tail keeps every opted-in target current on every load
 ### One system, one boolean
 
 Some root files are read before the importer can possibly have produced them: `importer.ps1` is the load entry point itself, and git reads
-`.gitignore`/`.gitattributes` at checkout. Those files cannot be gitignored copy-ins — but they can still be fully managed, because
-"managed" means "reproduced from one in-repo source of truth", not "absent from git". `committed: true` expresses exactly that: same
-registry, same writer, same drift guarantee; the only difference is that the target stays tracked and a regeneration shows up as a normal
-diff to review and commit. This keeps the model honest — a copy-in and `importer.ps1` differ by one boolean, not by which system owns them.
+`.gitignore`/`.gitattributes` at checkout. Those files cannot be gitignored copy-ins — but they can be fully managed, because "managed"
+means "reproduced from one in-repo source of truth", not "absent from git". `committed: true` expresses exactly that: same registry, same
+writer, same drift guarantee; the only difference is that the target stays tracked and a regeneration shows up as a normal diff to review
+and commit. This keeps the model honest — a copy-in and `importer.ps1` differ by one boolean, not by which system owns them.
 
 ### Copy-as-link: the target is the source
 
@@ -151,8 +150,8 @@ cannot see).
 - A root config is authored once — in its source under `automation/` (or rendered by its generator) — and cannot drift from a second
   hand-kept root copy.
 - Taking over a root file is one registry entry plus its source; opting out is the default, so an unregistered file is simply not touched.
-- The bespoke `Build-ScriptAnalyzerSettings` is deleted; the root analyzer settings are the first migrated `source` entry, and
-  `importer.ps1` the first `generator` entry (its existing `New-Importer` drift guard now also backs `ADR-REPO-ROOTCFG:6`).
+- The root analyzer settings are an ordinary `source` entry with no bespoke builder, and `importer.ps1` is a `generator` entry whose
+  `New-Importer` drift guard also backs `ADR-REPO-ROOTCFG:6`.
 - A reader never mistakes a managed root file for a source of truth: gitignored copies carry the generated-file header; committed targets
   are named in the registry and drift-tested; a link target needs no disclaimer, because it IS the source of truth.
 - A `copyAsLink` target has zero drift surface and zero generated content — the honest cost is the hard-link orphan window after a git

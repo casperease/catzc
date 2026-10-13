@@ -13,6 +13,9 @@
     are the same fact — never a sibling path that happened to be clean.
 
     Guards, in order — each skip is one explanatory message and leaves the working tree untouched:
+    - Skips in build mode (Get-CatzcRunMode, ADR-DSGN-RUNMODE): the generated files belong to the source tree,
+      and the session runs a built package. A skip, not a throw, because the importer's janitor tail calls
+      this on every load and a janitor never breaks the load.
     - Skips in CI (Test-IsRunningInPipeline): the gates there must fail loudly, not be auto-repaired.
     - Skips on a detached HEAD: a commit there hangs off no branch and is one checkout away from lost.
     - Skips on main/master when the repo's git_workspace variant is 'main-via-pr' (Test-GitWorkspace,
@@ -48,6 +51,11 @@ function Sync-GeneratedFile {
     # The generated paths the janitor owns, each with the commit-message subject naming it.
     $generatedPaths = [ordered]@{
         'automation/.compiled' = 'compiled types'
+    }
+
+    if ((Get-CatzcRunMode) -eq 'build') {
+        Write-Message 'Skipped: this session runs a built Catzc package — generated files are committed from the source tree (importer.ps1).'
+        return
     }
 
     if (Test-IsRunningInPipeline) {

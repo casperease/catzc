@@ -103,19 +103,30 @@ notification signal instead of being drowned out by decorative color used for ev
 ## References
 
 [^1]:
-    DORA, _Proactive failure notification_ capability, <https://dora.dev/capabilities/proactive-failure-notification/>. Part of the DORA
-    Core Model of capabilities that predict software delivery performance.
+    DORA, _Proactive failure notification_ capability, <https://dora.dev/capabilities/proactive-failure-notification/>. A fast-feedback
+    capability outside the DORA Core Model.
 
 ## Dora explains
 
-Proactive failure notification is what turns the signals monitoring and observability collect into recovery: DORA ties it to faster
-diagnosis, faster resolution, and higher software delivery performance, because the team that alerts on its own thresholds finds a problem
-before a customer does.
+Proactive failure notification is a fast-feedback capability outside the Core Model, and it is what turns the signals monitoring and
+observability collect into recovery. DORA finds proactive monitoring a significant predictor of software delivery performance, because the
+team that alerts on its own thresholds can diagnose and fix a problem quickly, before a customer reports it.
 
-- [Monitoring and observability](https://dora.dev/capabilities/monitoring-and-observability/) — supplies the metrics, logs, and traces a
-  threshold-based alert is defined over; this capability is what turns those signals into a notification a team acts on before impact.
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — a team ships small changes with confidence only when it trusts
-  a regression will be flagged before it reaches customers.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — an automated deployment pipeline is where "automate the
-  response" applies most directly: a threshold breach can trigger an automatic rollback rather than waiting on a person.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Proactive failure notification](../../references/dora/capabilities.md#proactive-failure-notification)
+- **Category:** [Fast feedback](../../references/dora/capabilities.md#fast-feedback) — not in the Core Model.
+- **Evidence:**
+  - [2014 State of DevOps Report](../../references/dora/publications.md#2014-state-of-devops-report) — the capability page attributes the
+    finding that proactive monitoring predicts software delivery performance to this report.
+- **Predicts:** higher [software delivery performance](../../references/dora/core-model.md#software-delivery-performance), measured by the
+  [delivery metrics](../../references/dora/metrics.md), and quick diagnosis and repair of problems. The Core Model shows software delivery
+  performance predicting [organizational performance](../../references/dora/core-model.md#organizational-performance) and
+  [well-being](../../references/dora/core-model.md#well-being).
+- **Related capabilities:**
+  - [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — supplies the metrics, logs, and
+    traces a threshold-based alert is defined over; this capability is what turns those signals into a notification a team acts on before
+    impact.
+  - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — a team ships small changes with confidence only when
+    it trusts a regression will be flagged before it reaches customers.
+  - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — an automated deployment pipeline is where
+    "automate the response" applies most directly: a threshold breach can trigger an automatic rollback rather than waiting on a person.
+- [DORA research program](../../references/dora/index.md) — the overview these findings sit within.

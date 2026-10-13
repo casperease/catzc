@@ -8,7 +8,7 @@
 // cross-checks are shipped-asset integrity TESTS, mirroring the one-directional coupling of the customer
 // model, ADR-AZ-CUSTOMER:3):
 //   - domains is a non-empty map; each domain has code (^[A-Z]{2,4}$, optionally a compound of two segments
-//     like FLOW-CD), a non-empty role, a depends_on list, and a non-empty rulesets map;
+//     like FLOW-CD), a non-empty role, a non-empty description, a depends_on list, and a non-empty rulesets map;
 //   - every depends_on target resolves to a declared domain, no self-edge, and the domain graph is acyclic;
 //   - each ruleset external is ADR-<code>[-<NAME>…] (^ADR-[A-Z]{2,4}(-[A-Z]+)+$), the leaf code (if any)
 //     matches the domain-code pattern, and the EFFECTIVE code (leaf override else domain code) is the
@@ -68,6 +68,11 @@ public sealed class AdrsConfig
             if (string.IsNullOrWhiteSpace(role))
             {
                 errors.Add(string.Format("domain '{0}': missing 'role'", name));
+            }
+            string description = d.Contains("description") && d["description"] != null ? d["description"].ToString().Trim() : null;
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                errors.Add(string.Format("domain '{0}': missing 'description'", name));
             }
 
             List<string> deps = new List<string>();
@@ -143,7 +148,7 @@ public sealed class AdrsConfig
                 }
             }
 
-            domains.Add(new AdrDomain(name, code, role, deps, ruleSets));
+            domains.Add(new AdrDomain(name, code, role, description, deps, ruleSets));
         }
 
         // Acyclic domain graph (depth-first cycle detection: 1 = on the current stack, 2 = fully explored).

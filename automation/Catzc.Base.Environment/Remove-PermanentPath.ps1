@@ -47,12 +47,16 @@ function Remove-PermanentPath {
     else {
         [System.StringComparer]::Ordinal
     }
-    $env:PATH = ($env:PATH -split [regex]::Escape($separator) |
+    $kept = ($env:PATH -split [regex]::Escape($separator) |
             Where-Object {
                 $_ -ne '' -and -not $comparer.Equals(
                     $_.TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar),
                     $normalizedPath)
             }) -join $separator
+    if ($kept -ne $env:PATH) {
+        $env:PATH = $kept
+        Write-Message "Session PATH: removed '$Path'"
+    }
 
     # --- Persistent PATH ---
     # Get-EnvironmentPath / Set-EnvironmentPath are the registry seam — kept thin so tests Mock them instead
@@ -78,6 +82,7 @@ function Remove-PermanentPath {
             $cleaned = $content -replace "(?s)\r?\n?# $([regex]::Escape($startMarker)).*?# $([regex]::Escape($endMarker))\r?\n?", ''
             if ($cleaned -ne $content) {
                 Set-Content -Path $profilePath -Value $cleaned -NoNewline
+                Write-Message "Profile '$profilePath': removed the PATH block '$Label'"
             }
         }
     }

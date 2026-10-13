@@ -96,18 +96,29 @@ tracked from memory ([ADR-PROC-OBSERVEWIP](../process/observe-work.md#rule-adr-p
 ## References
 
 [^1]:
-    DORA, _Work in process limits_ capability, <https://dora.dev/capabilities/wip-limits/>. Part of the DORA Core Model of capabilities that
-    predict software delivery performance.
+    DORA, _Work in process limits_ capability, <https://dora.dev/capabilities/wip-limits/>. One of DORA's capabilities that predict software
+    delivery performance; not in the DORA Core Model.
 
 ## Dora explains
 
-WIP limits are one of the levers DORA ties directly to its flow metrics: capping concurrent work is what makes lead time fall and delivery
-performance rise, and the capability is strongest exactly where DORA also measures visibility and monitoring.
+WIP limits are a fast-flow capability outside the Core Model: prioritizing work and capping how much is in progress at once, so a few
+high-priority items get finished. DORA ties them to improvements in software delivery performance, especially when combined with visual
+management and feedback loops from monitoring.
 
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — the batch-size discipline that a WIP limit enforces
-  alongside pull.
-- [Work visibility in the value stream](https://dora.dev/capabilities/work-visibility-in-value-stream/) — the storyboard a WIP limit is
-  applied to.
-- [Visual management](https://dora.dev/capabilities/visual-management/) — the at-a-glance display DORA finds strengthens the effect of a WIP
-  limit.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [WIP limits](../../references/dora/capabilities.md#wip-limits) (site title: "Work in process limits")
+- **Category:** [Fast flow](../../references/dora/capabilities.md#fast-flow) — Core Model v2.1.0: not in the Core Model (no `core` tag; see
+  [core tag in the capability catalogue](../../references/dora/core-model.md#core-tag-in-the-capability-catalogue)).
+- **Evidence:** the capability page cites no report year.
+  - [2015 State of DevOps Report](../../references/dora/publications.md#2015-state-of-devops-report) — the visual management page attributes
+    the combined finding (WIP limits, visual management, and monitoring feedback) to this report.
+- **Predicts:** improvements in [software delivery performance](../../references/dora/core-model.md#software-delivery-performance),
+  especially when combined with [visual management](../../references/dora/capabilities.md#visual-management) and feedback loops from
+  [monitoring](../../references/dora/capabilities.md#monitoring-systems).
+- **Related capabilities:**
+  - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — the batch-size discipline that a WIP limit
+    enforces alongside pull.
+  - [Work visibility in value stream](../../references/dora/capabilities.md#work-visibility-in-value-stream) — the storyboard a WIP limit is
+    applied to.
+  - [Visual management](../../references/dora/capabilities.md#visual-management) — the at-a-glance display DORA finds strengthens the effect
+    of a WIP limit.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

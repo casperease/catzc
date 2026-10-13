@@ -12,12 +12,17 @@ function Get-AutomationSourceFiles {
         authored .psd1 config (PSScriptAnalyzerSettings.psd1). The .vendor (third-party) and .compiled (build
         output) folders and generated module manifests are excluded — build output made canonical by its
         generator, not hand-authored.
+
+        The set is the per-function files of the catzc source tree, so it needs source mode and throws in build
+        mode (Assert-SourceTree); every path below is a repository path by design.
     .OUTPUTS
         [string[]] Absolute paths, in discovery order.
     #>
     [CmdletBinding()]
     [OutputType([string[]])]
     param()
+
+    Assert-SourceTree
 
     $root = Get-RepositoryRoot
     $automationRoot = Join-Path $root 'automation'

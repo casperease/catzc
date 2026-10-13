@@ -113,7 +113,7 @@ means a stale `$LASTEXITCODE` from a previous call can leak across function boun
 ```powershell
 # Invoke-Executable encapsulates the entire cycle:
 #   1. Reset-LastExitCode          ← clean slate
-#   2. Invoke-Expression $Command  ← run the native call
+#   2. CliRunner::Run($Command)    ← run the native call (Invoke-Expression under -Direct)
 #   3. Assert-LastExitCodeWasZero  ← check immediately
 #   4. Reset-LastExitCode          ← clean slate for next caller
 

@@ -14,7 +14,7 @@
     (Invoke-Prettier) with Format-Markdown, so its modes and result shape are identical.
 
     Two first-class names for one command, neither deprecated. `Format-Pipelines` is the generic
-    house-convention name, matching the other formatters (Format-Markdown, Format-Automation, Format-Types).
+    domain-convention name, matching the other formatters (Format-Markdown, Format-Automation, Format-Types).
     `Invoke-PipelinePrettier` is the precise `Invoke-<tool>` name for the engine — the accurate name when you
     mean specifically Prettier. The precise name routes through the generic (it is the alias), so the
     behaviour is identical whichever you call.

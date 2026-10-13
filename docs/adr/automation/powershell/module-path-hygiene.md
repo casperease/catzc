@@ -55,8 +55,8 @@ one-time helper that points the user module path at local disk — the importer 
 
 ### What the importer does
 
-The vendor loader (`Import-VendorModules` in `automation/.internal/Catzc.Internal.Bootstrap.psm1`) makes the vendored copy of each
-dependency win, by **surgical removal** — not a wholesale rebuild:
+The vendor loader (`Import-VendorModules` in `automation/.internal/Catzc.Internal.Vendor.psm1`) makes the vendored copy of each dependency
+win, by **surgical removal** — not a wholesale rebuild:
 
 - For each vendored module, if a copy is already loaded from somewhere other than `.vendor/`, it is removed (`Remove-Module`) so the
   vendored version can take its place.
@@ -71,7 +71,7 @@ dependency win, by **surgical removal** — not a wholesale rebuild:
 - The `.vendor/` root is then prepended to `$env:PSModulePath` so deferred (lazy) vendor modules can still auto-load.
 
 The importer does **not** otherwise enumerate or delete the user profile path. What it does do is **warn** when `$env:PSModulePath` contains
-a UNC/network share, and point the user at the one-time fix below (see `importer.ps1`).
+a UNC/network share, and point the user at the one-time fix below (see `Invoke-Importer` in `Catzc.Internal.Importer`).
 
 ### The one-time fix for network user paths
 
@@ -109,7 +109,7 @@ intact so the core modules stay discoverable, is read once at startup rather tha
 
 ### How this is enforced
 
-- **`Import-VendorModules`** (in `automation/.internal/Catzc.Internal.Bootstrap.psm1`) — strips each vendored module's folder from
+- **`Import-VendorModules`** (in `automation/.internal/Catzc.Internal.Vendor.psm1`) — strips each vendored module's folder from
   `$env:PSModulePath` and unloads any non-vendored copy before importing the vendored one, so the vendored version always wins.
 - **`importer.ps1`** — warns when `$env:PSModulePath` contains a network share and points the user at `Set-LocalPSModulePath.ps1` to fix it
   permanently.

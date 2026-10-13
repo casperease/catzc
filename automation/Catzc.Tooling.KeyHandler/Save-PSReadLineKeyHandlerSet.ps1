@@ -8,15 +8,26 @@
     Writes canonically (UTF-8, LF, one trailing newline) through Write-FileIfChanged, so re-capturing an
     unchanged session is a no-op.
 .PARAMETER Path
-    Target file. Defaults to the module's configs/key-handler-bindings.yml — the config Import- reads back.
+    Target file. Defaults to the catzc source tree's
+    automation/Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml — the authored config that
+    Import-PSReadLineKeyHandlerSet reads back once loaded. The default needs a session running the source tree
+    (Assert-SourceTree), so a capture is never written into a built package.
 .EXAMPLE
     Save-PSReadLineKeyHandlerSet
+.EXAMPLE
+    Save-PSReadLineKeyHandlerSet -Path ./key-handler-bindings.yml
 #>
 function Save-PSReadLineKeyHandlerSet {
     [CmdletBinding()]
     param(
-        [string] $Path = (Join-Path $PSScriptRoot 'configs/key-handler-bindings.yml')
+        [string] $Path
     )
+
+    if (-not $Path) {
+        # The capture is an authoring step: it writes the committed source config, never the loaded copy.
+        Assert-SourceTree
+        $Path = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml'
+    }
 
     Assert-PsModule 'PSReadLine'
 

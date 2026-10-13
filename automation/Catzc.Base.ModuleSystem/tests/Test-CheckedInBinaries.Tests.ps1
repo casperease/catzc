@@ -1,4 +1,4 @@
-Describe 'Checked-in binaries are stored as binary, not text' -Tag 'L2', 'integrity' {
+Describe 'Checked-in binaries are stored as binary, not text' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
         $script:skip = $null

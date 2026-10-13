@@ -73,13 +73,14 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
     }
 }
 
-# 'logic' (not 'integrity') and self-contained fixtures, matching the 'Format-Markdown (real
-# prettier)' sibling: this exercises the gate against the REAL analyzer over throwaway files, it does not
-# assert a repo-wide fact. The repo-wide "all module code is analyzer-clean" integrity check is already the
-# sharded L2 'PSScriptAnalyzer' test in automation/.internal/tests — not duplicated here.
+# The real-asset test of ADR-AUTO-ASSETDEP:3: the gate runs over throwaway files with nothing mocked, so it reads
+# the shipped settings file (<code root>/.internal/assets/PSScriptAnalyzerSettings.psd1) and the vendored
+# analyzer (<code root>/.vendor) — integrity, and not source-only, so it runs in the source and the build suite.
+# The repo-wide "all module code is analyzer-clean" check is the sharded L2 'PSScriptAnalyzer' test in
+# automation/.internal/tests — not duplicated here.
 # greedy: the real analyzer fans out Start-Job pwsh processes of its own — stacked on the parallel pool
 # that oversubscribes the box (see the test-automation ADR's greedy tag).
-Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'logic', 'greedy' {
+Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP#3' {
     # One real-analyzer run over a clean + a violating file proves the boundary end-to-end: the real analyzer
     # flags the aliased cmdlet with the repo rule set and reports the clean file as issue-free. The throw path
     # (IssueCount > 0 without -PassThru) is pure Test-ScriptAnalyzer logic, covered by the mocked L0 block above;

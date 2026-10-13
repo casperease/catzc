@@ -27,7 +27,7 @@ git_workspace: main-direct
 # per-customer foundation), so it enables all of them; a repo with no customer templates leaves this false.
 have_customers: all
 
-# Aspects (ADR-ASPECT) — per-track/per-container conventions. Each is an ordered, first-match (fallthrough)
+# Aspects (ADR-DSGN-ASPECT) — per-track/per-container conventions. Each is an ordered, first-match (fallthrough)
 # list; the LAST aspect is the '**' catch-all remainder. The catch-all's liveness is the container's call:
 # automation is CODE, so 'live' is closed (a stray file falls to the 'tests' catch-all and never ships);
 # infrastructure is a DEPLOYMENT, so everything under a template ships and 'live' is the catch-all — only an

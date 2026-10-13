@@ -141,14 +141,14 @@ The graph is checked at two moments, and both fail fast:
   module graph and each group's internal member→member graph are acyclic; and every declared module and group member exists on disk.
 - **Against the real code** — `Assert-ModuleDependency` compares the extracted edges (`Get-ModuleDependency` + `Get-CSharpTypeDependency`)
   to the resolved allow-set: each actual edge must fall within it, and actual intra-group edges must be a subset of the group's declared
-  internal map. An undeclared edge fails the L2 suite.
+  internal map. An undeclared edge fails the L1 integrity suite.
 
 ### Extend by declaring
 
 Adding a dependency is adding a declared edge — in the same change as the code that introduces it, so the tree is never in a state where a
 call or type reference outruns the declaration. This follows [one-living-version](../principles/one-living-version.md): there is one source
 of truth for the graph and no back-compat or drift tolerated between it and the code. The failure mode to avoid is treating the declaration
-as documentation to be reconciled later; it is the contract the build enforces now.
+as documentation to be reconciled later; it is the contract the build enforces.
 
 ### Not a system dependency
 
@@ -199,7 +199,7 @@ describes, and adding or moving a dependency is a reviewed change.
   existence.
 - **`Get-ModuleDependency`** + **`Get-CSharpTypeDependency`** — extract the actual function-call and C# type-reference edges from the code.
 - **`Assert-ModuleDependency`** — checks the extracted edges against the declaration (allow-set membership and the group's internal-map
-  subset rule), failing the L2 suite on any undeclared edge.
+  subset rule), failing the L1 integrity suite on any undeclared edge.
 - **Code review** — enforces `ADR-AUTO-DEPM:5`: a new edge is declared in the same change as the code, not deferred.
 - **`Install-VendorModule`** + **`Import-VendorModules`** ([vend](powershell/vendor-toolset-dependencies.md)) — pin a vendored internal
   dependency by its `automation/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-AUTO-DEPM:8`).
@@ -211,7 +211,7 @@ describes, and adding or moving a dependency is a reviewed change.
 - There is one legible answer to "what may depend on what," and it is a checked-in file — not tribal knowledge and not whatever the code
   happens to import.
 - Function-call and type-reference edges obey one graph, so a module's dependencies read the same whether they cross via a call or a type.
-- Cycles and layer inversions are caught mechanically — at load for the declaration, in L2 for the code — instead of surfacing as a
+- Cycles and layer inversions are caught mechanically — at load for the declaration, in L1 for the code — instead of surfacing as a
   confusing load-order or assembly problem later.
 - Groups let a cluster be depended on as a unit while still gating the layering among its members, so the declaration stays compact without
   losing precision.

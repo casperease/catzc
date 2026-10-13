@@ -8,7 +8,7 @@ enabled-customer set is the `have_customers` repo variant ([repo-variants](../re
 ### Rule ADR-AZ-CUSTOMER:1
 
 Customer **definitions** live only in `automation/Catzc.Azure/configs/customer.yml` — the catalogue of who the repo's customers are, each a
-readable `key` plus a 2-char `shortcode` (and optional `details`). It is split out of `azure.yml` (as `network.yml` split out the IP plan),
+readable `key` plus a 2-char `shortcode` (and optional `details`). It is separate from `azure.yml` (as `network.yml` holds the IP plan),
 loaded by `Get-Config -Config customer` and validated by `Assert-CustomerConfig`.
 
 - [The catalogue](#the-catalogue)
@@ -63,20 +63,20 @@ names a folder — one spelling on disk, the canonical key.
 ## Context
 
 A customer is a sub-tenant a deployment is made for: its name renders into resource names (the readable key in generous patterns, the 2-char
-shortcode in the tight `kv`/`storage`/`vm` patterns — see [naming-standard](azure-naming-standard.md)). Customers began as a `customers` map
-inside `azure.yml`, referenced by a subscription's `customer` field. Two pressures pull them into their own asset. First, they are a
-distinct concern from identity/topology — the same split [`network-model`](azure-network-model.md) makes for the IP plan. Second, "which
-customers this repo deploys for" is a repo-wide policy switch, not a per-subscription fact, and belongs with the other repo variants, kept
-separate from the catalogue of who the customers are.
+shortcode in the tight `kv`/`storage`/`vm` patterns — see [naming-standard](azure-naming-standard.md)). A subscription references one
+through its `customer` field. Two pressures give customers their own asset, separate from `azure.yml`. First, they are a distinct concern
+from identity/topology — the same split [`network-model`](azure-network-model.md) makes for the IP plan. Second, "which customers this repo
+deploys for" is a repo-wide policy switch, not a per-subscription fact, and belongs with the other repo variants, kept separate from the
+catalogue of who the customers are.
 
 ### The catalogue
 
 `customer.yml` declares one entity — a customer — keyed by a readable **`key`** (the customer-segment of relaxed resource names, the value a
 subscription may reference, and the name of the customer's `configuration/<key>/` subfolder in every template), with a 2-char
 **`shortcode`** (unique; the customer-segment of the restricted patterns) and optional `details`. This mirrors the name/shortcode split
-environments already carry. `Assert-CustomerConfig` validates it: key format (`^[a-z][a-z0-9]+$`), shortcode format (`^[a-z]{2}$`),
-shortcode uniqueness, and the no-key-equals-a-shortcode rule (ADR-AZ-CUSTOMER:2). It is self-contained — it does not read `azure.yml`, so
-the customer catalogue sits below the subscriptions that reference it and validation stays one-directional.
+environments carry. `Assert-CustomerConfig` validates it: key format (`^[a-z][a-z0-9]+$`), shortcode format (`^[a-z]{2}$`), shortcode
+uniqueness, and the no-key-equals-a-shortcode rule (ADR-AZ-CUSTOMER:2). It is self-contained — it does not read `azure.yml`, so the customer
+catalogue sits below the subscriptions that reference it and validation stays one-directional.
 
 ### Two names, one binding
 

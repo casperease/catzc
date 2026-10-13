@@ -16,6 +16,9 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         $script:source = Join-Path $script:fake.Root 'docs/references/automation/foo.md'
 
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
+        # The fixture repository root is not the loaded code root, which the run-mode guard reads as a built
+        # package — the guard is its own seam, asserted separately below.
+        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
         Mock Get-Config -ModuleName Catzc.Base.Docs {
             [pscustomobject]@{
                 patterns = @()
@@ -80,9 +83,18 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
     It 'throws when -Folder matches no mapping' {
         { Build-Readme -Folder 'automation/Nope' } | Should -Throw '*No README mapping*'
     }
+
+    It 'refuses before touching anything when the session runs a built package' {
+        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { throw 'Build-Readme operates on the catzc source tree' }
+        { Build-Readme } | Should -Throw '*source tree*'
+        Test-Path $script:readme | Should -BeFalse
+        Should -Invoke Get-Config -ModuleName Catzc.Base.Docs -Times 0
+    }
 }
 
-Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity' {
+# Reads only the repository's readme.yml, folders, and .gitignore — the same answer in both run modes, so the
+# build suite skips it.
+Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity', 'source-only' {
     # The real readme.yml registry is consistent with the repository — every resolved README's source exists
     # (Set-FileLink asserts it), every automation module is covered by the pattern, and the generated/committed
     # split matches .gitignore (every mapped README is ignored; none is opted back in). Resolves through the

@@ -25,8 +25,8 @@ the old shape leaves no residue. The one bounded exception is a temporary branch
 
 ### Rule ADR-PRIN-ONELIVE:3
 
-No legacy or dead code kept "just in case." Code that is no longer reached is **deleted** — not commented out, not parked behind a disabled
-flag, not moved to an `old/` folder. If it is ever needed again, it is recovered from git.
+No legacy or dead code kept "just in case." Code that nothing reaches is **deleted** — not commented out, not parked behind a disabled flag,
+not moved to an `old/` folder. If it is ever needed again, it is recovered from git.
 
 - [History lives in git, not in the tree](#history-lives-in-git-not-in-the-tree)
 
@@ -88,9 +88,9 @@ every reader must first work out which one is live. A deprecated alias kept "for
 Commented-out code rots, because nothing compiles or tests it. The instinct to keep the old thing around is an artifact of environments
 where rollback is expensive and consumers are external — neither of which applies here.
 
-The discipline that makes this safe is already in place: trunk-based development with all callers in-tree means a contract change and every
-one of its call sites move in a **single** change, atomically. There is never a window where half the tree speaks the old contract and half
-the new — so there is nothing for a compatibility shim to bridge.
+The discipline that makes this safe is in place: trunk-based development with all callers in-tree means a contract change and every one of
+its call sites move in a **single** change, atomically. There is never a window where half the tree speaks the old contract and half the new
+— so there is nothing for a compatibility shim to bridge.
 
 ### One version, by construction
 
@@ -109,9 +109,9 @@ property is what makes backwards compatibility pointless, and that property hold
 
 ### History lives in git, not in the tree
 
-Every past version of every line is already preserved, perfectly and for free, in git. Keeping a second copy in the working tree — a
-commented-out block, an `_old` file, a "# was: …" note — duplicates what git already holds, except worse: it is unversioned, untested, and
-misleads the next reader into thinking it is live. `git log` and `git blame` are the archive. The tree is the present tense.
+Every past version of every line is preserved, perfectly and for free, in git. Keeping a second copy in the working tree — a commented-out
+block, an `_old` file, a "# was: …" note — duplicates what git holds, except worse: it is unversioned, untested, and misleads the next
+reader into thinking it is live. `git log` and `git blame` are the archive. The tree is the present tense.
 
 ### Trunk is the one version
 
@@ -166,8 +166,8 @@ branch would. Use it to _get to_ one version; the failure mode is letting the se
 
 ### Rejected alternatives
 
-1. **Commenting out / parking old code** ("might need it") — rejected: git already preserves it, versioned and recoverable. Code in the tree
-   that nothing runs is a liability, not a backup.
+1. **Commenting out / parking old code** ("might need it") — rejected: git preserves it, versioned and recoverable. Code in the tree that
+   nothing runs is a liability, not a backup.
 
 ## Decision
 

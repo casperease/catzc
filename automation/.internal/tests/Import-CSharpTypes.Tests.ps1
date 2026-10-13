@@ -267,6 +267,88 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
     } # end Context 'fixture'
+
+    Context 'cross-root types guard' -Tag 'logic' {
+        # The two run modes compile their DLLs from the same types/*.cs, so a root loading AFTER another root has
+        # put the same type names in the AppDomain compares per-file digests against that root's record: equal
+        # reuses, different (or a needed type missing) takes the stale-types contract and names both roots.
+        BeforeAll {
+            # The loader's per-root session record (the session-global __CatzcTypes), read without a $global:
+            # reference: the record for <Root>, or $null when that root never recorded.
+            function Get-TypeRecord {
+                param([string] $Root)
+                $records = Get-Variable -Name '__CatzcTypes' -Scope Global -ValueOnly
+                $records[[System.IO.Path]::GetFullPath($Root)]
+            }
+        }
+
+        BeforeEach {
+            $script:savedTfBuild = $env:TF_BUILD
+            $script:savedGitHubActions = $env:GITHUB_ACTIONS
+            $env:TF_BUILD = ''
+            $env:GITHUB_ACTIONS = ''
+        }
+
+        AfterEach {
+            $env:TF_BUILD = $script:savedTfBuild
+            $env:GITHUB_ACTIONS = $script:savedGitHubActions
+        }
+
+        It 'reuses the loaded types silently when every digest matches, and records the new root' {
+            $namespace = "CatzcTestTwin$runId"
+            $rootA = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
+            $rootB = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootB } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
+                Should -Not -Throw
+            Should -Not -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -match 'Using old cached C# types' }
+            (Get-TypeRecord $rootB).Hash | Should -Be (Get-TypeRecord $rootA).Hash
+        }
+
+        It 'on a devbox, a differing digest warns naming both roots, keeps the old types, and does not record' {
+            $namespace = "CatzcTestSplit$runId"
+            $rootA = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
+            $rootB = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { public int Gear; }' } }
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootB } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
+                Should -Not -Throw
+            Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter {
+                $Message -like "Using old cached C# types*already loaded from*$rootA*differ from*$rootB*changed $namespace/Widget*"
+            }
+            Get-TypeRecord $rootB | Should -BeNullOrEmpty
+        }
+
+        It 'in a pipeline, a differing digest is a hard throw naming both roots' {
+            $env:TF_BUILD = 'True'
+            $namespace = "CatzcTestSplitCi$runId"
+            $rootA = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
+            $rootB = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { public int Gear; }' } }
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootB } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
+                Should -Throw "*already loaded from*$rootA*differ from*$rootB*"
+        }
+
+        It 'a type the second root needs but the AppDomain lacks (a subset loaded first) takes the stale contract' {
+            $namespace = "CatzcTestSubset$runId"
+            $rootA = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
+            $rootB = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }'; Gadget = 'public class Gadget { }' } }
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootB } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter {
+                $Message -like "Using old cached C# types*not loaded $namespace/Gadget*"
+            }
+        }
+
+        It 'a subset root after the full root reuses the loaded types (every needed digest matches)' {
+            $namespace = "CatzcTestSuperset$runId"
+            $rootA = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }'; Gadget = 'public class Gadget { }' } }
+            $rootB = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootB } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            Should -Not -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -match 'Using old cached C# types' }
+            Get-TypeRecord $rootB | Should -Not -BeNullOrEmpty
+        }
+    }
 }
 
 Describe 'shipped C# types' -Tag 'L0', 'integrity' {
@@ -347,7 +429,9 @@ Describe 'combined types assembly is committed and current' -Tag 'integrity' {
     # and the stamp, or a broken stamping target, is caught automatically here rather than only at IDE-build
     # time. The stamping algorithm is a mirror of the loader's; this build proves it still agrees.
     It 'the IDE project build stamps its version to the current committed hash (dotnet build)' -Tag 'L2' {
-        if (-not (Get-Command dotnet -ErrorAction Ignore)) {
+        # Test-Tool, not Get-Command: a machine can carry the dotnet host with no SDK, and `dotnet build` needs the
+        # SDK — Test-Tool probes the pinned version, which only an installed SDK answers (as Invoke-Dotnet's L2 does).
+        if (-not (Test-Tool 'dotnet')) {
             Set-ItResult -Skipped -Because 'tool_dotnet_missing'; return
         }
         $csproj = Join-Path $env:RepositoryRoot 'automation/.internal/assets/Catzc.Types.csproj'

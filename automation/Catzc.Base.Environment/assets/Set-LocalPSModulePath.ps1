@@ -14,9 +14,18 @@
     module scanning, not reading a config file.
 
     No admin required. Idempotent — safe to run repeatedly.
+
+    It runs before catzc is loaded, so it writes through Write-Information directly rather than the writer
+    chokepoint — the same information stream (ADR-AUTO-ANNOUNCE:1), always shown, colour as embedded ANSI.
 .EXAMPLE
     & 'automation\Catzc.Base.Environment\assets\Set-LocalPSModulePath.ps1'
 #>
+
+# One information-stream line, coloured with $PSStyle (catzc's writers are not loaded here).
+function Write-SetupLine {
+    param([string] $Text, [System.ConsoleColor] $Color = [System.ConsoleColor]::Gray)
+    Write-Information "$($PSStyle.Foreground.FromConsoleColor($Color))$Text$($PSStyle.Reset)" -InformationAction Continue
+}
 
 $localModulePath = Join-Path $env:LOCALAPPDATA 'PowerShell' 'Modules'
 
@@ -42,21 +51,21 @@ else {
 if ($userConfig.PSModulePath -ne $localModulePath) {
     $userConfig | Add-Member -NotePropertyName 'PSModulePath' -NotePropertyValue $localModulePath -Force
     $userConfig | ConvertTo-Json -Depth 10 | Set-Content $userConfigFile -Encoding UTF8
-    Write-Host "PSModulePath set to '$localModulePath'" -ForegroundColor Green
-    Write-Host "  Config: $userConfigFile" -ForegroundColor Gray
+    Write-SetupLine "PSModulePath set to '$localModulePath'" Green
+    Write-SetupLine "  Config: $userConfigFile" Gray
 }
 else {
-    Write-Host "PSModulePath already configured" -ForegroundColor Green
+    Write-SetupLine "PSModulePath already configured" Green
 }
 
 # --- Check for modules left on DFS that should be moved ---
 $dfsModulePath = Join-Path $userConfigDir 'Modules'
 if ((Test-Path $dfsModulePath) -and (Get-ChildItem $dfsModulePath -Directory -ErrorAction Ignore)) {
-    Write-Host ''
-    Write-Host "You have modules at '$dfsModulePath' (DFS)." -ForegroundColor Yellow
-    Write-Host "Move them to the new local path to avoid stale copies:" -ForegroundColor Yellow
-    Write-Host "  Move-Item '$dfsModulePath\*' '$localModulePath' -Force" -ForegroundColor Cyan
+    Write-SetupLine ''
+    Write-SetupLine "You have modules at '$dfsModulePath' (DFS)." Yellow
+    Write-SetupLine "Move them to the new local path to avoid stale copies:" Yellow
+    Write-SetupLine "  Move-Item '$dfsModulePath\*' '$localModulePath' -Force" Cyan
 }
 
-Write-Host ''
-Write-Host 'Restart PowerShell for changes to take effect.' -ForegroundColor Cyan
+Write-SetupLine ''
+Write-SetupLine 'Restart PowerShell for changes to take effect.' Cyan

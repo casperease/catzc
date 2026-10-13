@@ -62,9 +62,9 @@ never on a derived module's.
 ### Rule ADR-REPO-PROTGLOB:8
 
 A module's protection identity is a composite: the fold of its own derived set, the derived sets of its declared dependency closure from
-`dependencies.yml`, the four infra scopes, and the runner's own set. It widens to include the repository-wide declared set exactly when the
-module's true read set is not derivable — when it is unconstrained in `dependencies.yml`, when its tests include the `integrity` category,
-or when it is a dot-prefixed infra test unit. Skip less, never wrongly.
+`dependencies.yml`, the four infra scopes, and the runner's own set. It widens to include the whole-repository `repository` set (every
+tracked file under every named root) exactly when the module's true read set is not derivable — when it is unconstrained in
+`dependencies.yml`, when its tests include the `integrity` category, or when it is a dot-prefixed infra test unit. Skip less, never wrongly.
 
 - [The composite identity](#the-composite-identity)
 
@@ -80,8 +80,8 @@ and promoted after aggregation; workers never read or write the map. The protect
 
 The repository-wide integrity scans (spelling, markdown lint) each take seconds to minutes and are pure functions of the files they read. In
 the local inner loop, `Test-Automation` runs them on every invocation — most of the time over byte-identical inputs, proving nothing the
-previous run did not already prove. The durable-SHA machinery ([durable-sha-globs](../flow/durable-sha-globs.md)) already reduces "did
-these inputs change" to one hash comparison, so a repeated identical scan is pure waste ([reduce-waste](../principles/reduce-waste.md)).
+previous run did not already prove. The durable-SHA machinery ([durable-sha-globs](../flow/durable-sha-globs.md)) already reduces "did these
+inputs change" to one hash comparison, so a repeated identical scan is pure waste ([reduce-waste](../principles/reduce-waste.md)).
 
 ## Decision
 
@@ -115,8 +115,11 @@ therefore bounded by the next CI run, which always scans everything.
 
 The globset must cover everything the scan reads — the scanned files **and** the scan's own configuration, since both change the outcome.
 The markdown scan protects against `markdown-scope` (in-scope markdown plus the markdownlint config, mirroring the scan's own negation
-globs); the spelling scan reads nearly the whole tree including its vocabulary registry, so it protects against the repository-wide
-`automation` set. Two scans may share one globset — the key is (test, globset), so one scan's green never skips another.
+globs). The two repository-wide scans protect against `repository` — every tracked file under every named root of the repository: the
+managed-GUID scan reads a subset of it plus its registry, and the spelling scan reads a subset of it plus its configs (the cspell config and
+the terminology registry), all inside it. A covering superset is safe — it can only cause a redundant scan, never a wrong skip — and each
+scan's integrity test asserts its read set stays inside the globset. Two scans may share one globset — the key is (test, globset), so one
+scan's green never skips another.
 
 ### Derived module globsets
 
@@ -139,10 +142,10 @@ set, its declared dependency closure from `dependencies.yml` (a group reference 
 infra scopes, and the runner's set. Each named set is hashed at most once per run (a run-owned memo), so composites cost folds, not
 re-hashing.
 
-Where the true read set is not derivable, the composite widens to include the repository-wide declared set instead of guessing: a module
-that is unconstrained in `dependencies.yml`, a module whose tests carry the `integrity` category (they read the real repository — that is
-the category's definition), and the infra test units themselves. The widened identity changes on any tracked edit, so those units re-run
-more — the failure mode is a redundant run, never a wrong skip.
+Where the true read set is not derivable, the composite widens to include the whole-repository `repository` set instead of guessing: a
+module that is unconstrained in `dependencies.yml`, a module whose tests carry the `integrity` category (they read the real repository —
+that is the category's definition), and the infra test units themselves. The widened identity changes on any tracked edit, so those units
+re-run more — the failure mode is a redundant run, never a wrong skip.
 
 ### Whole-suite protection
 

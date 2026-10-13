@@ -32,7 +32,7 @@ Describe 'Get-TrackedFile' -Tag 'L0', 'logic' {
 
 # The real boundary, integration-tested: this repository's own tracked files come back repo-relative with
 # forward slashes, including this test file.
-Describe 'Get-TrackedFile (real git)' -Tag 'L2', 'integrity' {
+Describe 'Get-TrackedFile (real git)' -Tag 'L2', 'integrity', 'source-only' {
     It 'lists this repository''s tracked files as /-separated repo-relative paths' {
         # @()-wrap both counts: under the importer's strict mode, .Count on a scalar (or an empty pipeline
         # result) throws instead of adapting.

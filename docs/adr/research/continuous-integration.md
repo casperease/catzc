@@ -39,10 +39,10 @@ verification — exhaustive suites, system-level checks — runs somewhere else,
 
 ## Context
 
-Continuous integration sits directly on top of version control in DORA's Core Model: it is the practice of integrating versioned changes
-continuously, so it presupposes a mainline every developer can merge into and a history every change can be attributed to. DORA defines it
-as developers integrating "all their work into the main version of the code base (known as trunk, main, or mainline) on a regular basis,"
-with each commit triggering an automated build and a test suite that reports feedback in minutes.[^1]
+Continuous integration builds directly on version control: it is the practice of integrating versioned changes continuously, so it
+presupposes a mainline every developer can merge into and a history every change can be attributed to. DORA defines it as developers
+integrating "all their work into the main version of the code base (known as trunk, main, or mainline) on a regular basis," with each commit
+triggering an automated build and a test suite that reports feedback in minutes.[^1]
 
 It is also the capability continuous delivery, deployment automation, and trunk-based development build on next: CD runs the same build step
 and then keeps going; trunk-based development is the branching discipline that makes daily integration possible; deployment automation
@@ -79,7 +79,7 @@ integration is a discipline before it is a pipeline, bound by a 5–10 minute in
 never degrades into a queue, with the Build Verification Test as the aggregate pass/fail signal a commit must clear. The pipeline taxonomy
 carries the mechanics that budget depends on — CI and CD share one build-and-verify engine, and anything slower than the budget is pushed
 into the post-commit path rather than the pre-commit gate ([ADR-FLOW-CD-TYPE](../flow/pipeline-types.md#rule-adr-flow-cd-type4)). Test
-automation supplies the tiered suite the fast gate runs: L0–L1 logic tests and L2 CLI-tool tests execute on every change and self-skip only
+automation supplies the tiered suite the fast gate runs: L0–L1 unit tests and L2 CLI-tool tests execute on every change and self-skip only
 when a tool is genuinely absent, while L3 cloud tests stay opt-in and out of the inner loop
 ([ADR-AUTO-TEST](../automation/test-automation.md#rule-adr-auto-test8)).
 
@@ -111,13 +111,39 @@ when a tool is genuinely absent, while L3 cloud tests stay opt-in and out of the
 
 ## Dora explains
 
-DORA's research ties continuous integration to higher deployment frequency, more stable systems, and higher software quality — the fast,
-per-commit feedback loop is the mechanism its other delivery-performance metrics depend on.
+Continuous integration is a Core Model capability in the fast-feedback group. DORA's research ties it to higher deployment frequency, more
+stable systems, and higher-quality software, and finds that merging to trunk at least daily and fixing a broken build before other work both
+predict delivery performance. The Quick Check names it one of three capabilities worth assessing first.
 
-- [Version control](https://dora.dev/capabilities/version-control/) — the recoverable, attributable history CI integrates changes into; CI
-  is not possible without it.
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — the branching discipline that keeps daily integration
-  into the mainline practical.
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — runs the same build-and-verify step CI defines and then
-  carries the result further, toward a release-ready state.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Continuous integration](../../references/dora/capabilities.md#continuous-integration)
+- **Category:** [Fast feedback](../../references/dora/capabilities.md#fast-feedback) — Core Model v2.1.0:
+  [fast feedback](../../references/dora/core-model.md#fast-feedback).
+- **Evidence:**
+  - [2014 State of DevOps Report](../../references/dora/publications.md#2014-state-of-devops-report) — CI and automated testing are key
+    practices behind high IT performance.
+  - [2015 State of DevOps Report](../../references/dora/publications.md#2015-state-of-devops-report) — the capability page cites it for
+    merging to trunk at least daily.
+  - [2016 State of DevOps Report](../../references/dora/publications.md#2016-state-of-devops-report) — cited on the capability page.
+  - [2017 State of DevOps Report](../../references/dora/publications.md#2017-state-of-devops-report) — CI is one of the practices essential
+    to continuous delivery, which lowers deployment pain.
+  - [2022 Accelerate State of DevOps Report](../../references/dora/publications.md#2022-accelerate-state-of-devops-report) — software
+    supply-chain security controls improve delivery performance only where CI is established, and CD, loosely coupled teams, version
+    control, and CI together add up to more than the sum of their parts.
+  - [2023 Accelerate State of DevOps Report](../../references/dora/publications.md#2023-accelerate-state-of-devops-report) — CI, loosely
+    coupled teams, and fast code reviews significantly improve delivery and operational performance.
+  - [2025 Impact of Generative AI](../../references/dora/publications.md#2025-impact-of-generative-ai-in-software-development) — CI catches
+    AI-introduced errors; fast, high-quality feedback loops are the counterweight to AI-generated volume.
+- **Predicts:** higher [deployment frequency](../../references/dora/metrics.md#deployment-frequency) and more stable systems (the
+  [instability](../../references/dora/metrics.md#instability) family), plus higher-quality software. As a Core Model capability it sits in
+  the column that predicts [software delivery performance](../../references/dora/core-model.md#software-delivery-performance) and
+  [reliability](../../references/dora/core-model.md#reliability), which in turn predict
+  [organizational performance](../../references/dora/core-model.md#organizational-performance) and
+  [well-being](../../references/dora/core-model.md#well-being).
+- **Related capabilities:**
+  - [Version control](../../references/dora/capabilities.md#version-control) — the recoverable, attributable history CI integrates changes
+    into; CI is not possible without it.
+  - [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — the branching discipline that keeps daily
+    integration into the mainline practical; the CI page calls it predictive of delivery performance.
+  - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — CI is one of the capabilities that drive it; CD runs
+    the same build-and-verify step and carries the result further, toward a release-ready state.
+- [DORA research program](../../references/dora/index.md) — the overview these findings sit within.

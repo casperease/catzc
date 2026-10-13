@@ -12,9 +12,8 @@ The IP plan lives only in `network.yml` — never duplicate vnet/subnet ranges i
 reads them from `Get-Config -Config network` in its prepare hook and merges them into the parameter set.
 
 > **Status.** The asset, its validator, and the prepare-hook range-merge mechanism are built and exercised by a fixture test (the
-> `sample-with-prepost` template merges `vnet_address_space` / `default_subnet` into its parameter set). No _shipped production_ template
-> consumes `network.yml` ranges yet — the shipped templates do not create a vnet. The mechanism is ready for the first production template
-> that needs one.
+> `sample-with-prepost` template merges `vnet_address_space` / `default_subnet` into its parameter set). The shipped production templates do
+> not create a vnet, so none of them consumes `network.yml` ranges; a production template that needs a vnet uses the same mechanism.
 
 - [The asset](#the-asset)
 
@@ -44,8 +43,8 @@ environment must get a non-overlapping block, and the same block must be referen
 environment's network. If the ranges lived in each template's per-slot `configuration/[<customer>/]<env>.yml`, the plan would be duplicated
 across templates and drift — the exact failure [`one-config-to-rule-them-all`](../../notes/one-config-to-rule-them-all.md) warns against.
 
-So the IP plan is a **single source of truth** sitting beside `azure.yml`: `automation/Catzc.Azure.Templates/configs/network.yml`. A
-template merges the right ranges in at build time through its PrePost prepare hook (see
+So the IP plan is a **single source of truth** sitting beside `azure.yml`: `automation/Catzc.Azure/configs/network.yml`. A template merges
+the right ranges in at build time through its PrePost prepare hook (see
 [`prepost-extension-modules`](../automation/powershell/prepost-extension-modules.md)), so the central plan is read, never copied.
 
 This is a third global asset, distinct from the two layers in [`data-model`](azure-data-model.md): it is not identity

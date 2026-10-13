@@ -72,7 +72,7 @@ quality (faster feedback loops), capacity management (horizontal scaling from kn
 ## The anti-pattern
 
 Storing configuration or operational state outside version control — in UI-managed settings, variable libraries, shared documents, or manual
-runbooks. These assets cannot be diffed, reviewed, tested, or reproduced. They drift - and sometimes fails - silently.
+runbooks. These assets cannot be diffed, reviewed, tested, or reproduced. They drift - and sometimes fail - silently.
 
 DORA's research explicitly identifies this as a common pitfall: applying version control only to application code, rather than to everything
 required to reproduce testing and production environments [^1].

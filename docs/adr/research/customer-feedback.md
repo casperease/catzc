@@ -73,10 +73,10 @@ informed.
 ## How to apply
 
 catzc treats the teams that consume the platform as its customers ([ADR-DSGN-THINPLAT](../design/thin-platforms.md)) — a platform team
-building a product for other teams, not a project delivered once and left alone. The evidence this capability calls for is the same evidence
-the platform's own inspect-and-adapt loop already consumes ([ADR-PROC-KAIZEN](../process/inspect-and-adapt.md)): that loop's outermost turn
-closes on what a consuming team actually experiences, not on an assumption about what it wants, which is exactly the "gather feedback,
-validate the problem" sequence this capability describes. The agile value of customer collaboration over contract negotiation
+building a product for other teams, not a project delivered once and left alone. The evidence-first stance this capability calls for is the
+one the platform's own inspect-and-adapt loop applies ([ADR-PROC-KAIZEN](../process/inspect-and-adapt.md)): a change rests on signals
+observed in the real system, not on an assumption or on seniority, which is the "gather feedback, validate the problem" sequence this
+capability describes, applied to the platform's own process. The agile value of customer collaboration over contract negotiation
 ([ADR-PROC-VALUES](../process/agile-values.md#rule-adr-proc-values3)) is the standing commitment behind it: a continuing relationship with
 consuming teams, not a fixed specification agreed once, is what is allowed to steer what the platform builds next.
 
@@ -97,18 +97,34 @@ consuming teams, not a fixed specification agreed once, is what is allowed to st
 ## References
 
 [^1]:
-    DORA, _Customer feedback_ capability, <https://dora.dev/capabilities/customer-feedback/>. Part of the DORA Core Model of capabilities
-    that predict software delivery performance, grouped under lean product management.
+    DORA, _Customer feedback_ capability, <https://dora.dev/capabilities/customer-feedback/>. A fast-feedback capability outside the DORA
+    Core Model, grouped under lean product management.
 
 ## Dora explains
 
-DORA ties customer feedback to both software delivery performance and organizational performance, treating it as one of the practices that
-keeps a team's delivery effort pointed at outcomes that matter rather than at output for its own sake.
+Customer feedback is a fast-feedback capability outside the Core Model. DORA treats it as one of the lean product management capabilities,
+which together predict both software delivery performance and organizational performance, and it finds that customer engagement also
+strengthens people's identification with organizational goals.
 
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — a small batch is what makes it affordable to
-  validate with the customer before committing further work.
-- [Team experimentation](https://dora.dev/capabilities/team-experimentation/) — experimentation is the mechanism that turns validated
-  feedback into a shipped, tested change.
-- [Visibility of work in the value stream](https://dora.dev/capabilities/work-visibility-in-value-stream/) — satisfaction metrics are only
-  useful when they are kept as visible as the rest of the delivery flow.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Customer feedback](../../references/dora/capabilities.md#customer-feedback)
+- **Category:** [Fast feedback](../../references/dora/capabilities.md#fast-feedback) — not in the Core Model.
+- **Evidence:**
+  - [2016 State of DevOps Report](../../references/dora/publications.md#2016-state-of-devops-report) — an experimental approach to product
+    development (small batches, visibility of workflow, customer feedback) improves IT and organizational performance.
+  - [2017 State of DevOps Report](../../references/dora/publications.md#2017-state-of-devops-report) — lean product management, including
+    customer feedback, drives organizational performance.
+  - [2019 Accelerate State of DevOps Report](../../references/dora/publications.md#2019-accelerate-state-of-devops-report) — cited on the
+    capability page.
+- **Predicts:** together with the other lean product management capabilities, software delivery performance — speed
+  ([throughput](../../references/dora/metrics.md#throughput)), stability ([instability](../../references/dora/metrics.md#instability)), and
+  availability ([reliability](../../references/dora/metrics.md#reliability)) — and
+  [organizational performance](../../references/dora/core-model.md#organizational-performance) in profitability, market share, and
+  productivity.
+- **Related capabilities:**
+  - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — a small batch is what makes it affordable
+    to validate with the customer before committing further work.
+  - [Team experimentation](../../references/dora/capabilities.md#team-experimentation) — experimentation is the mechanism that turns
+    validated feedback into a shipped, tested change.
+  - [Work visibility in value stream](../../references/dora/capabilities.md#work-visibility-in-value-stream) — satisfaction metrics are only
+    useful when they are kept as visible as the rest of the delivery flow.
+- [DORA research program](../../references/dora/index.md) — the overview these findings sit within.

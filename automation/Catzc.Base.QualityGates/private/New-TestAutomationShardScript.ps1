@@ -7,7 +7,9 @@
     (-SkipJanitors), then turns strict mode OFF for its own scope: invoking Pester from a scope the importer
     made strict would leak strict mode into every test body — a behaviour the suite is not written under
     (the harness has always invoked Pester from module session state, which global strict never reaches).
-    It then imports vendored Pester, builds its run configuration through the ONE shared builder
+    It then imports vendored Pester — resolved inside the worker, after the import, from the worker's own code
+    root (Get-CatzcModulesRoot/.vendor/Pester), so Pester always comes from the tree the worker loaded
+    (ADR-AUTO-ASSETDEP:1) — builds its run configuration through the ONE shared builder
     (New-PesterRunConfiguration, reached via module scope — the same builder Invoke-TestFile uses, so the
     worker and manual paths cannot drift), runs the shard's test files with the run's exclude tags, writes
     Pester's NUnit results to results-shard-<N>.xml, reduces its live result to rows (ConvertTo-
@@ -77,7 +79,7 @@ function New-TestAutomationShardScript {
 `$ErrorActionPreference = 'Stop'
 . '$repositoryRoot/importer.ps1' -SkipJanitors
 Set-StrictMode -Off
-Import-Module '$repositoryRoot/automation/.vendor/Pester' -Force
+Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/Pester') -Force
 `$global:__PesterRunning = `$true
 `$config = & (Get-Module Catzc.Base.QualityGates) {
     param(`$path, `$excludeTag, `$includeTag, `$verbosity, `$resultsPath, `$fullNameFilter)

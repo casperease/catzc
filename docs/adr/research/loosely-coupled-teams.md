@@ -45,8 +45,9 @@ delivery down. A team that must ask permission outside itself, or wait on anothe
 
 DORA frames the capability as teams that "can make large-scale changes to the design of their systems without the permission of somebody
 outside the team or depending on other teams," working through well-defined interfaces and bounded contexts.[^1] It sits alongside
-continuous delivery and trunk-based development in the DORA Core Model, and it depends on the same architectural discipline that those
-capabilities assume: clear seams, explicit interfaces, and no hidden coupling through shared state or shared deployment windows.
+continuous delivery in the DORA Core Model and beside trunk-based development in DORA's catalogue, and it depends on the same architectural
+discipline that those capabilities assume: clear seams, explicit interfaces, and no hidden coupling through shared state or shared
+deployment windows.
 
 ## Summary
 
@@ -101,15 +102,36 @@ built to keep answered "no."
 
 ## Dora explains
 
-Loosely coupled teams is DORA's link between organizational structure and delivery speed: the same independence that lets a team ship on its
-own schedule is what the deployment-frequency and lead-time metrics ultimately measure at the system level.
+Loosely coupled teams is DORA's link between organizational structure and delivery speed. It is a fast-flow capability in the Core Model: a
+team structure and architecture that let teams test and deploy on demand without coordinating with other teams predicts continuous delivery
+and, through it, software delivery performance.
 
-- [Team experimentation](https://dora.dev/capabilities/team-experimentation/) — independent deployability is what lets a team run its own
-  experiments without coordinating a shared release.
-- [Teams empowered to choose tools](https://dora.dev/capabilities/teams-empowered-to-choose-tools/) — a loosely coupled boundary is what
-  makes an independent tooling choice safe in the first place.
-- [Job satisfaction](https://dora.dev/capabilities/job-satisfaction/) — DORA ties reduced coordination overhead and team autonomy to lower
-  burnout and higher satisfaction.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — automates the independent, on-demand deployment that loose
-  coupling makes possible.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams)
+- **Category:** [Fast flow](../../references/dora/capabilities.md#fast-flow) — Core Model v2.1.0:
+  [fast flow](../../references/dora/core-model.md#fast-flow). Core V2 reframed the earlier loosely coupled architecture as loosely coupled
+  teams ([version history](../../references/dora/core-model.md#version-history)).
+- **Evidence:**
+  - [2017 State of DevOps Report](../../references/dora/publications.md#2017-state-of-devops-report) — loosely coupled architectures and
+    teams are crucial for continuous delivery.
+  - [2021 Accelerate State of DevOps Report](../../references/dora/publications.md#2021-accelerate-state-of-devops-report) — cited on the
+    capability page and report page as evidence for the capability.
+  - [2022 Accelerate State of DevOps Report](../../references/dora/publications.md#2022-accelerate-state-of-devops-report) — continuous
+    delivery, loosely coupled teams, version control, and continuous integration together add up to more than the sum of their parts; with
+    above-average documentation quality, the capability's lift on organizational performance rises from 46% to 313%.
+  - [2023 Accelerate State of DevOps Report](../../references/dora/publications.md#2023-accelerate-state-of-devops-report) — continuous
+    integration, loosely coupled teams, and fast code reviews significantly improve delivery and operational performance.
+- **Predicts:** [continuous delivery](../../references/dora/capabilities.md#continuous-delivery) and, through it,
+  [software delivery performance](../../references/dora/core-model.md#software-delivery-performance) — the
+  [throughput](../../references/dora/metrics.md#throughput) and [instability](../../references/dora/metrics.md#instability) metrics, which
+  in turn predict [organizational performance](../../references/dora/core-model.md#organizational-performance) and
+  [well-being](../../references/dora/core-model.md#well-being). The Quick Check names it one of three capabilities worth assessing first.
+- **Related capabilities:**
+  - [Team experimentation](../../references/dora/capabilities.md#team-experimentation) — independent deployability is what lets a team run
+    its own experiments without coordinating a shared release.
+  - [Teams empowered to choose tools](../../references/dora/capabilities.md#teams-empowered-to-choose-tools) — a loosely coupled boundary is
+    what makes an independent tooling choice safe in the first place.
+  - [Job satisfaction](../../references/dora/capabilities.md#job-satisfaction) — DORA feeds job satisfaction from continuous delivery, which
+    this capability predicts.
+  - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — automates the independent, on-demand deployment
+    that loose coupling makes possible.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

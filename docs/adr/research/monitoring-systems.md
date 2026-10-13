@@ -92,18 +92,33 @@ DORA sets for monitoring data aimed at a decision-maker rather than a machine.
 ## References
 
 [^1]:
-    DORA, _Monitoring systems to inform business decisions_ capability, <https://dora.dev/capabilities/monitoring-systems/>. Part of the
-    DORA Core Model of capabilities that predict software delivery performance.
+    DORA, _Monitoring systems to inform business decisions_ capability, <https://dora.dev/capabilities/monitoring-systems/>. A fast-feedback
+    capability outside the DORA Core Model.
 
 ## Dora explains
 
-DORA ties this capability to delivery and organizational performance through a mechanism distinct from watching systems for failure: it is
-the loop that turns collected data into the decisions that shape what a team builds and changes next.
+Monitoring systems to inform business decisions is a fast-feedback capability outside the Core Model: the loop that turns collected data
+into the decisions that shape what a team builds and changes next. Its capability page states no research finding of its own; DORA's
+evidence for it is indirect, through the [WIP limits](../../references/dora/capabilities.md#wip-limits) and
+[visual management](../../references/dora/capabilities.md#visual-management) pages, which count monitoring feedback used for business
+decisions as part of their combined effect on delivery performance.
 
-- [Monitoring and observability](https://dora.dev/capabilities/monitoring-and-observability/) — the tooling and signals this capability
-  turns into business decisions rather than only into alerts.
-- [Proactive failure notification](https://dora.dev/capabilities/proactive-failure-notification/) — the same collected data, routed to
-  surface a problem before a customer reports it.
-- [Customer feedback](https://dora.dev/capabilities/customer-feedback/) — a parallel channel of decision-informing signal, gathered from
-  users rather than from systems.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Monitoring systems](../../references/dora/capabilities.md#monitoring-systems) (site title: "Monitoring systems to
+  inform business decisions")
+- **Category:** [Fast feedback](../../references/dora/capabilities.md#fast-feedback) — not in the Core Model.
+- **Evidence:**
+  - [2015 State of DevOps Report](../../references/dora/publications.md#2015-state-of-devops-report) — the source of the combined finding:
+    visual management, WIP limits, and production feedback used for business decisions together contribute to higher delivery performance.
+    The capability page itself cites no report.
+- **Predicts:** no claim of its own. As part of the combined effect, higher
+  [software delivery performance](../../references/dora/core-model.md#software-delivery-performance), which the Core Model shows predicting
+  [organizational performance](../../references/dora/core-model.md#organizational-performance) and
+  [well-being](../../references/dora/core-model.md#well-being).
+- **Related capabilities:**
+  - [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — the tooling and signals this
+    capability turns into business decisions rather than only into alerts.
+  - [Proactive failure notification](../../references/dora/capabilities.md#proactive-failure-notification) — the same collected data, routed
+    to surface a problem before a customer reports it.
+  - [Customer feedback](../../references/dora/capabilities.md#customer-feedback) — a parallel channel of decision-informing signal, gathered
+    from users rather than from systems.
+- [DORA research program](../../references/dora/index.md) — the overview these findings sit within.

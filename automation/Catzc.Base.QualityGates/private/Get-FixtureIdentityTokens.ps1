@@ -31,7 +31,9 @@ function Get-FixtureIdentityTokens {
     }
 
     # Every fixture config tree (tests/assets/config/) — the identity-bearing azure.yml and customer.yml a
-    # logic test redirects Get-Config to. Enumerate all of them and union their identities.
+    # logic test redirects Get-Config to. Enumerate all of them and union their identities. Test fixtures live
+    # only in the catzc source tree (tests never ship in a build), hence the guard.
+    Assert-SourceTree
     $automationRoot = Join-Path (Get-RepositoryRoot) 'automation'
     $fixtureConfigs = [System.IO.Directory]::EnumerateFiles($automationRoot, '*.yml', [System.IO.SearchOption]::AllDirectories) |
         Where-Object { $_ -match '[\\/]tests[\\/]assets[\\/]config[\\/](azure|customer)\.yml$' }

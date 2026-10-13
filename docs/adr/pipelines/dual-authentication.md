@@ -91,10 +91,10 @@ by accident."
 The precedence (highest first), each with its own org/tenant proof:
 
 1. **In-pipeline agent token** — when `Test-IsRunningInPipeline` is true _and_ `$env:SYSTEM_ACCESSTOKEN` is set: assert
-   `$env:SYSTEM_COLLECTIONURI` matches `ado.yml` `Organization` (the agent token is scoped to the org the pipeline runs in — prove that is
+   `$env:SYSTEM_COLLECTIONURI` matches `ado.yml` `organization` (the agent token is scoped to the org the pipeline runs in — prove that is
    the configured org), then return `Bearer <SYSTEM_ACCESSTOKEN>`.
 2. **PAT** — when `$env:AZURE_DEVOPS_PAT` is set: return Basic auth. A PAT carries no ambient org signal, so it is bound to the configured
-   org by construction — every API URL is built from `ado.yml` `Organization`.
+   org by construction — every API URL is built from `ado.yml` `organization`.
 3. **az CLI** — otherwise: `Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant` proves the az session is in the Entra directory
    backing the org, then `az account get-access-token --resource $ResourceUrl` returns a `Bearer` token.
 
@@ -111,7 +111,7 @@ function Get-AdoAuthorizationHeader {
         $collectionUri = "$env:SYSTEM_COLLECTIONURI".TrimEnd('/')
         $org = "$((Get-Config -Config ado).organization)".TrimEnd('/')
         if ($collectionUri -and $collectionUri -ne $org) {
-            throw "Pipeline collection '$collectionUri' does not match ado.yml Organization '$org' — refusing the agent token for a different org."
+            throw "Pipeline collection '$collectionUri' does not match ado.yml organization '$org' — refusing the agent token for a different org."
         }
         return @{ 'Authorization' = "Bearer $env:SYSTEM_ACCESSTOKEN" }
     }
@@ -134,8 +134,8 @@ function Get-AdoAuthorizationHeader {
 ```
 
 The resource URL `499b84ac-1321-427f-aa17-267ca6975798` is Azure DevOps's well-known resource ID, exposed via the `-ResourceUrl` parameter.
-**Azure Resource Manager access does not exist yet.** When an ARM-calling path is added, mirror this function with resource
-`https://management.azure.com/` (and the same per-source org/tenant proof) rather than overloading the ADO header function.
+**The function covers Azure DevOps only; Azure Resource Manager access is out of its scope.** An ARM-calling path mirrors this function with
+resource `https://management.azure.com/` (and the same per-source org/tenant proof) rather than overloading the ADO header function.
 
 ### Step template integration
 

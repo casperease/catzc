@@ -16,7 +16,9 @@ Describe 'Custom PSScriptAnalyzer rules — engine wiring' -Tag 'L2', 'logic' {
             Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
         }
         $ruleNames = @(
+            'AnnounceStateChange'
             'NoAzModuleNaming'
+            'NoRawConsoleWrite'
             'NoRawInformationStream'
             'NoRawPipelineDetection'
             'NoRawVsoCommand'
@@ -25,12 +27,14 @@ Describe 'Custom PSScriptAnalyzer rules — engine wiring' -Tag 'L2', 'logic' {
         $rulePaths = $ruleNames | ForEach-Object { Join-Path $env:RepositoryRoot "automation/.scriptanalyzer/$_.psm1" }
 
         # One fixture that trips every rule at once: an Az-named function, a raw Write-Information, a direct
-        # pipeline-detection env read, a raw ##vso command, and a coined variable name.
+        # pipeline-detection env read, a raw ##vso command written with Write-Host (a raw console write), an
+        # unannounced env change, and a coined variable name.
         $fixture = @'
 function Get-AzResource { }
 Write-Information 'leak'
 $flag = $env:TF_BUILD
 Write-Host "##vso[task.setvariable variable=Foo]bar"
+$env:WIDGET_HOME = 'C:\widget'
 $rcg = 1
 '@
         $script:firedRules = @(
@@ -39,7 +43,9 @@ $rcg = 1
     }
 
     It 'PSScriptAnalyzer discovers and fires <Rule> via -CustomRulePath' -ForEach @(
+        @{ Rule = 'Measure-AnnounceStateChange' }
         @{ Rule = 'Measure-NoAzModuleNaming' }
+        @{ Rule = 'Measure-NoRawConsoleWrite' }
         @{ Rule = 'Measure-NoRawInformationStream' }
         @{ Rule = 'Measure-NoRawPipelineDetection' }
         @{ Rule = 'Measure-NoRawVsoCommand' }

@@ -73,8 +73,8 @@ as delivery performance.
 
 The same mechanism explains the platform's value independent of AI: shifting cognitive load off developers, so they do not need to master
 Kubernetes or security policy to ship, measurably improves productivity. DORA's research found this "developer independence" effect yields a
-5% improvement in productivity at both the team and individual level. A platform that instead requires developers to understand its full
-substrate has simply relocated the cognitive load rather than removed it.
+5% improvement in productivity, and a dedicated platform team raises team productivity by 6%. A platform that instead requires developers to
+understand its full substrate has simply relocated the cognitive load rather than removed it.
 
 ## How to apply
 
@@ -86,10 +86,10 @@ over building comprehensively upfront. Self-service as the platform's mode of us
 other half: every self-service action is a reviewable, reproducible change to a single source of truth, which is what makes self-service
 safe to offer widely rather than gated behind a queue.
 
-Beyond what this platform already does, DORA's guidance calls for a product management mindset — a named owner for developer experience who
-maps the critical user journeys developers take and removes friction in them — and for extensibility: clear APIs and a well-defined
-contribution model, plus clear feedback on the outcome of a developer's task, which DORA identifies as the capability most correlated with a
-positive platform experience.
+Beyond what this platform does, DORA's guidance calls for a product management mindset — a named owner for developer experience who maps the
+critical user journeys developers take and removes friction in them — and for extensibility: clear APIs and a well-defined contribution
+model, plus clear feedback on the outcome of a developer's task, which DORA identifies as the platform trait most correlated with a positive
+platform experience.
 
 Measurement follows the same four-way split: track software delivery performance (change lead time, deployment frequency, recovery time,
 failure percentage, rework rate) to confirm the platform is improving outcomes, not just activity; track developer satisfaction with CSAT or
@@ -113,19 +113,38 @@ path only counts if it is faster than the alternative it replaces.
 ## References
 
 [^1]:
-    DORA, _Platform engineering_ capability, <https://dora.dev/capabilities/platform-engineering/>. Part of the DORA Core Model of
-    capabilities that predict software delivery performance.
+    DORA, _Platform engineering_ capability, <https://dora.dev/capabilities/platform-engineering/>. Part of the DORA AI Capabilities Model
+    of capabilities that amplify the benefits of AI adoption.
 
 ## Dora explains
 
-Platform engineering is where DORA's research on AI and delivery performance converges: it is the capability that determines whether AI
-adoption amplifies an organization's strengths or its downstream disorder, which in turn shapes every one of DORA's software-delivery
-metrics — lead time, deployment frequency, recovery time, and change failure rate all move with platform quality.
+Platform engineering is where DORA's research on AI and delivery performance converges. It is one of the five capabilities DORA introduced
+with its AI Capabilities Model, outside the Core Model, and platform quality gates AI's value: on a high-quality platform AI adoption's
+effect on organizational performance is strong and positive, on a low-quality one it is negligible. Platforms raise productivity and
+organizational performance, but can lower throughput and change stability if not managed carefully.
 
-- [Flexible infrastructure](https://dora.dev/capabilities/flexible-infrastructure/) — the infrastructure substrate the platform's golden
-  paths are built on top of.
-- [Teams empowered to choose tools](https://dora.dev/capabilities/teams-empowered-to-choose-tools/) — the autonomy a golden path must
-  preserve rather than override.
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — the delivery discipline a minimum-viable platform
-  grows to support.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Platform engineering](../../references/dora/capabilities.md#platform-engineering)
+- **Category:** [AI](../../references/dora/capabilities.md#ai) — not in the Core Model; a member of the
+  [AI Capabilities Model](../../references/dora/ai.md#ai-capabilities-model) as "Quality internal platform".
+- **Evidence:**
+  - [2024 Accelerate State of DevOps Report](../../references/dora/publications.md#2024-accelerate-state-of-devops-report) — 89% of
+    respondents use an internal developer platform; platform users see 8% lower throughput; productivity is 5% higher when users can finish
+    tasks without an enabling team.
+  - [2025 State of AI-assisted Software Development](../../references/dora/publications.md#2025-state-of-ai-assisted-software-development) —
+    90% of organizations use a platform and 76% have dedicated platform teams; "clear feedback on the outcome of my tasks" is the platform
+    trait most correlated with a positive experience.
+  - [2025 DORA AI Capabilities Model](../../references/dora/publications.md#2025-dora-ai-capabilities-model) — gives implementation
+    strategies, starter tactics, and ways to monitor progress for the capability.
+- **Predicts:** with a high-quality platform, a strong positive effect of AI adoption on
+  [organizational performance](../../references/dora/ai.md#organizational-performance); the model diagram also connects it to
+  [reduced friction](../../references/dora/ai.md#reduced-friction). Without AI, platforms raise productivity and
+  [organizational performance](../../references/dora/core-model.md#organizational-performance) but can lower
+  [throughput](../../references/dora/metrics.md#throughput) and raise [instability](../../references/dora/metrics.md#instability).
+- **Related capabilities:**
+  - [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — the infrastructure substrate the platform's
+    golden paths are built on top of.
+  - [Teams empowered to choose tools](../../references/dora/capabilities.md#teams-empowered-to-choose-tools) — the autonomy a golden path
+    must preserve rather than override.
+  - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — the delivery discipline a minimum-viable
+    platform grows to support.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

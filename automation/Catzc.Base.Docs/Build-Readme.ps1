@@ -14,7 +14,8 @@
     the markdown gate — the authored source under docs/references/ is what is checked. Idempotent and fast by
     construction, so the importer runs it on every load (see importer.ps1): a link that already resolves to
     its source is a no-op, and a stale artifact (the old generated copy, a wrong or orphaned link) is
-    recreated with the running OS's best mechanism.
+    recreated with the running OS's best mechanism. It writes into the catzc source tree, so it runs in source
+    mode only (Assert-SourceTree); a session running a built package stops with a named error.
 
     See docs/adr/repository/generated-readmes.md and docs/adr/configuration/module-config-loading.md.
 .PARAMETER Folder
@@ -54,6 +55,9 @@ function Build-Readme {
 
         [switch] $PassThru
     )
+
+    # The README links live in the source tree's folders (automation/<Module>/README.md and the like).
+    Assert-SourceTree
 
     $config = Get-Config -Config readme
 

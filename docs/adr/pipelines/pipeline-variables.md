@@ -105,7 +105,7 @@ Behavior:
 - Logs the variable name and value via `Write-Message` (when `$IsSecret`, the value is shown as `***`).
 - Accepts an empty `$Value` (via `[AllowEmptyString()]`) so a caller can clear a variable or signal "no value".
 
-**`Test-IsRunningInPipeline`** — gates pipeline-specific behavior (see [pipeline-detection ADR](pipeline-detection.md)).
+**`Test-IsRunningInPipeline`** — gates pipeline-specific behavior (see [pipeline-detection ADR](../flow/pipeline-detection.md)).
 `Set-AdoPipelineVariable` uses this internally — calling it outside a pipeline is a no-op with a verbose message, not an error. This keeps
 automation code portable: the same function runs locally (silently skipping the `##vso` command) and in a pipeline (emitting it).
 
@@ -114,6 +114,8 @@ automation code portable: the same function runs locally (silently skipping the 
 - **Convention and grep-ability.** Routing all pipeline variable writes through `Set-AdoPipelineVariable` keeps raw
   `##vso[task.setvariable]` strings out of automation code: search for `Set-AdoPipelineVariable` to find every variable the automation sets,
   and for `##vso` to confirm no raw command bypasses the function.
+- **PSScriptAnalyzer.** The custom rule `Measure-NoRawVsoCommand` (`automation/.scriptanalyzer/NoRawVsoCommand.psm1`) flags any string
+  literal containing a raw `##vso[task.` command (:1).
 
 ## Consequences
 

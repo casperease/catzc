@@ -17,12 +17,21 @@ Reserve `.psm1` for genuine module or standalone files only — the `automation/
 - [Decision](#decision)
 - [How this is enforced](#how-this-is-enforced)
 
+### Rule ADR-AUTO-USEPS:3
+
+These rules govern **source** — the `automation/<Module>/` tree a developer edits. The installed build's merged `<Module>.ps1` (every
+function of one module in one file, listed as that module's single `NestedModules` entry) is a **generated artifact** written by
+`Build-Modules`; it is never edited, never checked in, and keeps the `.ps1` extension so the module's functions share one session state
+exactly as they do in source.
+
+- [Source and the generated build](#source-and-the-generated-build)
+
 ## Context
 
 We use a one-function-per-file layout with public/private separation by folder. Public functions need to call private functions without the
 author adding any imports or boilerplate. This requires all function files within a module to share the same scope.
 
-### What we learned
+### Why `.psm1` does not fit
 
 **The `.psm1` extension exists to create a scope boundary.** That is its entire purpose versus a plain `.ps1` file. Each `.psm1` loaded via
 `NestedModules` in a manifest gets its own isolated module scope — by design, not by accident.
@@ -56,8 +65,9 @@ Use `.ps1` for all function files. Reserve `.psm1` for genuine module or standal
 The sanctioned `.psm1` files are:
 
 - The `automation/.internal/*.psm1` shared modules — `Catzc.Internal.Loader` (the always-loaded entry point that provides
-  `Import-InternalModule`), `Catzc.Internal.Bootstrap` (module discovery and loading: `Import-AllModules`, `New-DynamicManifest`,
-  `Import-VendorModules`, `Import-CSharpTypes`), `Catzc.Internal.TestKit` (an on-demand Pester fixture library), and `Catzc.Internal.Types`.
+  `Import-InternalModule`), `Catzc.Internal.Importer` (the load sequence, `Invoke-Importer`), `Catzc.Internal.Bootstrap` (module discovery
+  and loading: `Import-AllModules`, `New-DynamicManifest`, `Import-CSharpTypes`), `Catzc.Internal.Vendor` (`Import-VendorModules`),
+  `Catzc.Internal.TestKit` (an on-demand Pester fixture library), and `Catzc.Internal.Types`.
 - The custom PSScriptAnalyzer rule modules under `automation/.scriptanalyzer/` (e.g. `FunctionLength.psm1`, `VariableCasing.psm1`) —
   standalone analyzer rule modules, not module function files.
 - Per-template `PrePost.psm1` files (the `Catzc.Azure.Templates/assets/PrePost.psm1` starter and any
@@ -65,10 +75,22 @@ The sanctioned `.psm1` files are:
 
 None of these are per-function files within a module, so the rule above is intact: a module's function files are always `.ps1`.
 
+### Source and the generated build
+
+The toolset runs in two modes ([run-modes](../../design/run-modes.md)). In source mode the generated manifest lists every `.ps1` function
+file of a module in `NestedModules`. In build mode `Build-Modules` concatenates the same files — `private/` first, then the root, each in
+ordinal order and each preceded by a `# source:` marker line naming its source path — into one `<Module>.ps1`, and the built manifest lists
+that one file. The merged file is a `.ps1` too, so the module's public and private functions share one session state in both modes, and it
+is one module per folder, so each module keeps its own `$script:` scope. It is output, not source: it exists only in a build under
+`out/automation/build/` and the installs copied from it, is rewritten on every build, and the rules of this ADR apply to the files it is
+generated from.
+
 ### How this is enforced
 
 - **Bootstrap module** — `New-DynamicManifest` only scans for `*.ps1` files. Any `.psm1` file inside a module folder is silently ignored.
 - **`Test-Automation.Tests.ps1`** — only discovers `.ps1` files for validation, reinforcing that `.psm1` is not used for function files.
+- **`Build-Modules`** — reads only the source `.ps1` function files, writes the merged `<Module>.ps1` under `out/automation/build/`, and
+  `Assert-CatzcBundle` checks that every built module has its manifest and its one merged file.
 
 ## Consequences
 
@@ -77,3 +99,4 @@ None of these are per-function files within a module, so the rule above is intac
 - No `_loader.psm1` workaround needed — manifest-only solution
 - Private functions are automatically available to public functions
 - Aligns with the established PowerShell community convention
+- The installed build carries one generated `.ps1` per module with the same shared-scope semantics, so source and build load the same way

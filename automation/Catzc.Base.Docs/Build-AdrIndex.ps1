@@ -97,12 +97,23 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
 - **Blank-line padding.** Pad every section: a blank line immediately after each `##`/`###` heading, and a blank line before the next
   heading. This applies to the `## Rules: <code>` registries and the `### Rule <code>:<n>` entries as well.
 
-- **`dora-explains.md` collects each domain's DORA rationale.** An individual ADR carries no `## Dora explains` section; instead every
-  domain folder keeps a `dora-explains.md` that consolidates, one entry per ADR, the short present-tense paragraph tying that ADR's topic to
-  [DORA](https://dora.dev/research/) research and its 2–4 domain-relevant capability links (each `[Capability](https://dora.dev/capabilities/<slug>/) — why it is relevant`,
-  plus the research-overview link). DORA is the repository's cross-cutting authoritative source on delivery performance; link only the
-  capabilities that genuinely bear on an ADR's domain, never the whole catalog. The `research/` domain is the exception — its ADRs are the
-  DORA capability records themselves, so it has no `dora-explains.md`.
+- **Cite DORA through the local reference.** DORA is the repository's core theoretical construct, and `docs/references/dora/` is its
+  citable map: the Core Model (`core-model.md`), the delivery metrics (`metrics.md`), the capability catalogue grouped by the site's own
+  categories (`capabilities.md`), the AI Capabilities Model (`ai.md`), and every publication (`publications.md`). Each heading there has a
+  stable anchor and carries its dora.dev source URL. Link a capability as `capabilities.md#<dora-slug>`, a metric as
+  `metrics.md#<metric-name>`, a publication as `publications.md#<year>-<title>`, and the research program as `index.md` — never a deep
+  link into dora.dev, which lives only inside `docs/references/dora/` and in the research ADRs' `## References` footnotes.
+
+- **`dora-explains.md` collects each domain's DORA rationale.** An ADR outside `research/` carries no `## Dora explains` section; instead
+  every other domain folder keeps a `dora-explains.md` that consolidates, one entry per ADR, the short present-tense paragraph tying that
+  ADR's topic to DORA research and its 2–4 domain-relevant capability links (each `[Capability](<relative>/capabilities.md#<dora-slug>) —
+  why it is relevant`, plus a link to the reference's `index.md`). Link only the capabilities that genuinely bear on an ADR's domain, never
+  the whole catalogue.
+
+- **The research ADRs carry their own `## Dora explains`.** Each `research/<slug>.md` is the record of one DORA capability, so it is the one
+  place an ADR ends with a `## Dora explains` section: the capability's site category and Core Model position, the publications its
+  evidence comes from, and its related capabilities, all as links into `docs/references/dora/`. `research/` therefore has no
+  `dora-explains.md`.
 '@
 
     $adrs = Get-Config -Config adrs
@@ -143,6 +154,39 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
 
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add("### $($domain.Name)/")
+        $lines.Add('')
+
+        # The domain's description, greedily wrapped at the 140-column markdown width (the same fill Prettier's
+        # proseWrap: always produces), so the generated prose is formatter-stable (ADR-REPO-FORMAT:5).
+        $words = $domain.Description -split '\s+'
+        $line = ''
+        foreach ($word in $words) {
+            $candidate = if ($line) {
+                "$line $word"
+            }
+            else {
+                $word
+            }
+            if ($line -and $candidate.Length -gt 140) {
+                $lines.Add($line)
+                $line = $word
+            }
+            else {
+                $line = $candidate
+            }
+        }
+        if ($line) {
+            $lines.Add($line)
+        }
+        $lines.Add('')
+
+        $dependsOn = if ($domain.DependsOn.Count) {
+            (@($domain.DependsOn) | ForEach-Object { "``$_``" }) -join ', '
+        }
+        else {
+            'none'
+        }
+        $lines.Add("**Role:** ``$($domain.Role)`` — **depends on:** $dependsOn.")
         $lines.Add('')
         $lines.Add("| $('Code'.PadRight($codeWidth)) | $('ADR'.PadRight($adrWidth)) |")
         $lines.Add("| $('-' * $codeWidth) | $('-' * $adrWidth) |")

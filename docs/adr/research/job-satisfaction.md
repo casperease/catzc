@@ -47,9 +47,9 @@ working without giving people time to build the new skills spends the change aga
 
 ## Context
 
-Job satisfaction is one of DORA's cultural and people capabilities, sitting in the DORA Core Model alongside the technical and process
-capabilities as a predictor of organizational performance. DORA defines it as "doing work that's challenging and meaningful, and being
-empowered to exercise skills and judgment."[^1]
+Job satisfaction is one of DORA's cultural and people capabilities, a predictor of organizational performance that the DORA Core Model
+places among its outcomes, under well-being, rather than alongside the technical and process capabilities. DORA defines it as "doing work
+that's challenging and meaningful, and being empowered to exercise skills and judgment."[^1]
 
 Unlike most capabilities in the model, job satisfaction has no reliable proxy in system data — it cannot be read off a dashboard the way
 deployment frequency or change lead time can. DORA measures it through direct employee feedback, which makes it as much a management
@@ -64,7 +64,7 @@ performance, and that performance compounds into organizational performance, com
 
 Two concrete levers recur in DORA's guidance: giving people the tools and resources they need, including the freedom to choose those tools,
 and assigning work that draws on their expertise rather than work that is merely busywork. Employees weigh meaningful work about as heavily
-as salary, which is why this capability sits in the model as a driver of performance rather than as a downstream reward for it.
+as salary, which is why DORA's research treats it as a driver of performance rather than as a downstream reward for it.
 
 ## Why it matters
 
@@ -104,21 +104,37 @@ autonomy, and tooling friction that blocks the tools a team would otherwise choo
 ## References
 
 [^1]:
-    DORA, _Job satisfaction_ capability, <https://dora.dev/capabilities/job-satisfaction/>. Listed as a core model capability that predicts
-    organizational performance, measured through direct employee feedback rather than system data.
+    DORA, _Job satisfaction_ capability, <https://dora.dev/capabilities/job-satisfaction/>. Tagged `core` in the catalogue (an outcome under
+    well-being in the Core Model) and a predictor of organizational performance, measured through direct employee feedback rather than
+    system data.
 
 ## Dora explains
 
-Job satisfaction is one of the people-side capabilities in DORA's Core Model — it does not show up in deployment frequency or lead-time
-numbers directly, but DORA's research treats it as part of what makes those numbers achievable, since satisfied, empowered people are the
-ones who sustain the technical practices the other capabilities describe.
+Job satisfaction is a people-side entry in DORA's catalogue that the Core Model places among its outcomes, under well-being, rather than in
+its capability column. It does not show up in deployment frequency or lead-time numbers directly, but the capability page describes a
+virtuous circle in which better work produces higher delivery performance and, through it, higher organizational performance; continuous
+delivery and teams empowered to choose tools feed it.
 
-- [Teams empowered to choose tools](https://dora.dev/capabilities/teams-empowered-to-choose-tools/) — the tool-choice autonomy DORA ties
-  directly to job satisfaction and to continuous delivery performance.
-- [Test automation](https://dora.dev/capabilities/test-automation/) — a technical practice job satisfaction sustains by giving people the
-  time and confidence to do challenging work well.
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — one of the delivery practices that engaged, empowered
-  teams are positioned to sustain.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — automation that removes rote toil, leaving room for the
-  challenging, meaningful work this capability describes.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Job satisfaction](../../references/dora/capabilities.md#job-satisfaction)
+- **Category:** [Climate for learning](../../references/dora/capabilities.md#climate-for-learning) — Core Model v2.1.0: an outcome under
+  [well-being](../../references/dora/core-model.md#well-being), not a capability, although the catalogue tags it `core`.
+- **Evidence:**
+  - [2014 State of DevOps Report](../../references/dora/publications.md#2014-state-of-devops-report) — job satisfaction is the top predictor
+    of organizational performance.
+  - [2024 Accelerate State of DevOps Report](../../references/dora/publications.md#2024-accelerate-state-of-devops-report) — AI adoption and
+    transformational leadership both raise job satisfaction.
+  - [2025 Impact of Generative AI](../../references/dora/publications.md#2025-impact-of-generative-ai-in-software-development) — heavy users
+    of generative AI report higher job satisfaction.
+- **Predicts:** [organizational performance](../../references/dora/core-model.md#organizational-performance); as part of
+  [well-being](../../references/dora/core-model.md#well-being), it also predicts how long employees stay in their jobs. The virtuous circle
+  runs through [software delivery performance](../../references/dora/core-model.md#software-delivery-performance).
+- **Related capabilities:**
+  - [Teams empowered to choose tools](../../references/dora/capabilities.md#teams-empowered-to-choose-tools) — the tool-choice autonomy DORA
+    ties directly to job satisfaction and to continuous delivery performance.
+  - [Test automation](../../references/dora/capabilities.md#test-automation) — a technical practice job satisfaction sustains by giving
+    people the time and confidence to do challenging work well.
+  - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — one of the delivery practices that engaged,
+    empowered teams are positioned to sustain.
+  - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — automation that removes rote toil, leaving room
+    for the challenging, meaningful work this capability describes.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

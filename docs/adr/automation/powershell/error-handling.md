@@ -60,7 +60,7 @@ incorrectly, leading to errors that are swallowed, warnings that nobody reads, a
 
 We simplify this to two states:
 
-1. **Everything is fine.** Execution continues. Output goes through `Write-Message`, `Write-Information` and `Write-Verbose`.
+1. **Everything is fine.** Execution continues. Output goes through `Write-Message` and `Write-Verbose`.
 2. **Something is wrong.** Execution stops immediately via `throw` or `Assert-*`. The error propagates to the caller with a clear message.
 
 There is no middle ground. No warnings, no non-terminating errors, no "something went wrong but let's keep going." Code that continues after

@@ -17,7 +17,8 @@
     Phase 1 matches the DISTINCTIVE identities exactly (customers, subscriptions, org, templates, deployable
     units, ADO project); environment names (dev/test/preprod/prod) are a later, position-aware phase.
 .PARAMETER Path
-    Test files to check. Defaults to every *.Tests.ps1 under automation/ (excluding vendored modules).
+    Test files to check. Defaults to every *.Tests.ps1 under automation/ (excluding vendored modules) — the
+    catzc source tree, so the default needs source mode (Assert-SourceTree); an explicit -Path works in either.
 .PARAMETER PassThru
     Return a result object ({ FindingCount; MixedCount; Findings }) instead of throwing.
 .OUTPUTS
@@ -42,6 +43,8 @@ function Test-LogicTestIdentity {
     }
 
     if (-not $Path) {
+        # The default set is every test file of the catzc source tree — tests never ship in a build.
+        Assert-SourceTree
         $automationRoot = Join-Path (Get-RepositoryRoot) 'automation'
         $Path = [System.IO.Directory]::EnumerateFiles($automationRoot, '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories) |
             Where-Object { $_ -notmatch '[\\/]\.vendor[\\/]' } |

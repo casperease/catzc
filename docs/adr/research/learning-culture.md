@@ -95,8 +95,8 @@ that catches the defect in the first place.
 ## References
 
 [^1]:
-    DORA, _Learning culture_ capability, <https://dora.dev/capabilities/learning-culture/>. Part of the DORA Core Model of capabilities that
-    predict software delivery performance.
+    DORA, _Learning culture_ capability, <https://dora.dev/capabilities/learning-culture/>. A climate-for-learning capability that is not
+    part of the DORA Core Model.
 
 [^2]:
     DORA cites _An empirical analysis of the levers of control framework_ as the source of the three-statement survey instrument used to
@@ -104,13 +104,24 @@ that catches the defect in the first place.
 
 ## Dora explains
 
-DORA groups learning culture with its other cultural capabilities as a predictor of delivery performance in its own right — the safety to
-fail and the discipline to capture what is learned are what let the technical capabilities keep improving.
+DORA places learning culture in its climate-for-learning category, but not in the Core Model, whose climate-for-learning group carries the
+same name. It ties an organization that treats learning as an investment rather than a cost to better software delivery performance, a
+strong team culture, and organizational performance.
 
-- [Team experimentation](https://dora.dev/capabilities/team-experimentation/) — running and learning from small changes is the learning
-  culture's climate put into practice.
-- [Generative organizational culture](https://dora.dev/capabilities/generative-organizational-culture/) — the blameless, information-rich
-  climate that makes it safe to surface and learn from failure.
-- [Job satisfaction](https://dora.dev/capabilities/job-satisfaction/) — a climate that invests in people's growth is part of what makes work
-  satisfying.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Learning culture](../../references/dora/capabilities.md#learning-culture)
+- **Category:** [Climate for learning](../../references/dora/capabilities.md#climate-for-learning) — not in the Core Model, although the
+  Core Model's [climate for learning](../../references/dora/core-model.md#climate-for-learning) group shares its name.
+- **Evidence:** the capability page cites no report year, so the catalogue attributes its findings to no specific publication.
+- **Predicts:** software delivery performance — higher [deployment frequency](../../references/dora/metrics.md#deployment-frequency),
+  shorter [change lead time](../../references/dora/metrics.md#change-lead-time) and time to restore (the metric
+  [failed deployment recovery time](../../references/dora/metrics.md#failed-deployment-recovery-time)), and a lower
+  [change fail rate](../../references/dora/metrics.md#change-fail-rate) — together with a strong team culture and
+  [organizational performance](../../references/dora/core-model.md#organizational-performance).
+- **Related capabilities:**
+  - [Team experimentation](../../references/dora/capabilities.md#team-experimentation) — running and learning from small changes is the
+    learning culture's climate put into practice.
+  - [Generative organizational culture](../../references/dora/capabilities.md#generative-organizational-culture) — the blameless,
+    information-rich climate that makes it safe to surface and learn from failure.
+  - [Job satisfaction](../../references/dora/capabilities.md#job-satisfaction) — a climate that invests in people's growth is part of what
+    makes work satisfying.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

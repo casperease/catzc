@@ -3,7 +3,7 @@
 # include-only trigger is always a SUPERSET of exact membership and can never under-trigger (miss a deploy);
 # the in-pipeline Test-GlobSetAffected gate supplies exactness on top. (GitHub is exact by construction: its
 # ordered '!'-negation paths ARE the scan program, the same evaluator as GlobSet.Matches — covered at L0.)
-Describe 'Native-trigger projection coverage' -Tag 'L2', 'integrity' {
+Describe 'Native-trigger projection coverage' -Tag 'L2', 'integrity', 'source-only' {
     BeforeDiscovery {
         $script:boundSets = @(Get-GlobSet | Where-Object Pipeline | ForEach-Object Name)
     }

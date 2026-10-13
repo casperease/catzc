@@ -106,13 +106,27 @@ that a test's data is scoped to that test and not a runtime asset masquerading a
 
 ## Dora explains
 
-Test data management is a precondition for the other technical capabilities to pay off: fast, frequent, automated testing only produces
-fast, frequent, trustworthy feedback when the data behind it is abundant, on-demand, and safe to use.
+Test data management is a Core Model capability in the fast-feedback group. DORA places it as a contributor to test automation and
+continuous integration and lists it among the drivers of continuous delivery: fast, frequent, automated testing only produces trustworthy
+feedback when the data behind it is abundant, on-demand, and safe to use.
 
-- [Test automation](https://dora.dev/capabilities/test-automation/) — the capability this one exists to serve; automated suites are only as
-  fast and reliable as the data they run against.
-- [Database change management](https://dora.dev/capabilities/database-change-management/) — shares the concern of keeping database state
-  safe, versioned, and low-risk to change.
-- [Pervasive security](https://dora.dev/capabilities/pervasive-security/) — masking or hashing sensitive data before it reaches a test
-  fixture is a security control, not just a testing convenience.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Test data management](../../references/dora/capabilities.md#test-data-management)
+- **Category:** [Fast feedback](../../references/dora/capabilities.md#fast-feedback) — Core Model v2.1.0:
+  [fast feedback](../../references/dora/core-model.md#fast-feedback).
+- **Evidence:** the capability page cites no report year, and the catalogue entry names no publication. Its standing rests on its place in
+  the Core Model, whose inclusion rules require a concept to have been researched at least twice
+  ([what qualifies for Core](../../references/dora/core-model.md#what-qualifies-for-core)).
+- **Predicts:** contributes to [test automation](../../references/dora/capabilities.md#test-automation) and
+  [continuous integration](../../references/dora/capabilities.md#continuous-integration), and through
+  [continuous delivery](../../references/dora/capabilities.md#continuous-delivery) to delivery performance. As a Core Model capability it
+  sits in the column that predicts [software delivery performance](../../references/dora/core-model.md#software-delivery-performance), which
+  in turn predicts [organizational performance](../../references/dora/core-model.md#organizational-performance) and
+  [well-being](../../references/dora/core-model.md#well-being).
+- **Related capabilities:**
+  - [Test automation](../../references/dora/capabilities.md#test-automation) — the capability this one exists to serve; automated suites are
+    only as fast and reliable as the data they run against.
+  - [Database change management](../../references/dora/capabilities.md#database-change-management) — shares the concern of keeping database
+    state safe, versioned, and low-risk to change.
+  - [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — masking or hashing sensitive data before it reaches a
+    test fixture is a security control, not just a testing convenience.
+- [DORA research program](../../references/dora/index.md) — the overview these findings sit within.

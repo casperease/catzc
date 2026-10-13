@@ -4,9 +4,9 @@ The value-chain diagrams under `docs/.assets/commits-quality` — the `value-cha
 companion — encode more than a promotion ladder: they encode what _happens to a commit_ — how it advances, where it dies, how it retires,
 how it is overtaken by a newer commit, which commit an environment currently hosts, and which commit the outside world should integrate
 from. This ADR states that lifecycle and integration model. The pipeline _domains_ (CI / CD / DEPLOY, the tagged artifact,
-build-once-deploy-many) are owned by [cd-discipline-and-promotion-flow](cd-discipline-and-promotion-flow.md) (`ADR-FLOW-CD`); the _visual
-grammar_ (colours, lanes, ghosts, numbers) by [visual-design](visual-design.md) (`ADR-DSGN-VISUAL`). This ADR owns the commit's lifecycle
-states and the upstream/downstream sync semantics.
+build-once-deploy-many) are owned by [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) (`ADR-FLOW-CD`); the
+_visual grammar_ (colours, lanes, ghosts, numbers) by [visual-design](visual-design.md) (`ADR-DSGN-VISUAL`). This ADR owns the commit's
+lifecycle states and the upstream/downstream sync semantics.
 
 ## Rules: ADR-DSGN-LIFE
 
@@ -135,10 +135,10 @@ pipeline was _moving fast_, whereas a discarded commit tells you the pipeline _c
 
 ## Environments have a single occupant
 
-An always-on environment is a place, and a place holds one thing at a time. `main-UAT`, `release-uat`, and `production` each have exactly
-one current commit deployed, and treating them as stateful — occupant plus history — is what makes questions like "what is in production
-right now" and "what should I sync from" answerable by pointing at a single dot. A pass-through mental model, where commits merely flow
-through, cannot answer those questions; the occupant model can.
+An always-on environment is a place, and a place holds one thing at a time. `main-UAT`, `release-uat`, `pre-prod`, and `production` each
+have exactly one current commit deployed, and treating them as stateful — occupant plus history — is what makes questions like "what is in
+production right now" and "what should I sync from" answerable by pointing at a single dot. A pass-through mental model, where commits
+merely flow through, cannot answer those questions; the occupant model can.
 
 ## Sync from main-UAT, not HEAD
 

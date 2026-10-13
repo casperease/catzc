@@ -1,5 +1,6 @@
-# Integrity — it reads the real tests/assets/config fixtures to derive the fixture-identity set.
-Describe 'Get-FixtureIdentityTokens' -Tag 'L1', 'integrity' {
+# Integrity — it reads the real tests/assets/config fixtures to derive the fixture-identity set. source-only: those
+# are repository files, which give the same answer in both run modes.
+Describe 'Get-FixtureIdentityTokens' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         $script:tokens = & (Get-Module Catzc.Base.QualityGates) { Get-FixtureIdentityTokens }
     }

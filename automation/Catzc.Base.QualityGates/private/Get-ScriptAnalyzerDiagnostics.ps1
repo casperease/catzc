@@ -11,6 +11,7 @@
         races and throws. Separate processes are fully isolated.
       - Each shard imports the analyzer once and pipes its whole file list through a SINGLE
         Invoke-ScriptAnalyzer call, so the ~3s per-process setup is paid once per shard, not per file.
+      - Each shard imports the vendored analyzer from the loaded code root (Get-CatzcModulesRoot/.vendor).
       - Shards run from the repo root (Push-Location/Pop-Location) so the settings' relative CustomRulePath
         entries resolve (ADR working-directory-mechanics, rule ADR-AUTO-PSPWD:2/ADR-AUTO-PSPWD:3).
 
@@ -25,8 +26,7 @@
     The PSScriptAnalyzer diagnostic records (empty when there are no violations).
 #>
 function Get-ScriptAnalyzerDiagnostics {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = '$global:__PesterRunning (set by Test-Automation) is read to suppress the dot output during test runs; Write-Host bypasses the information stream so the writer chokepoint guard cannot silence it — the same global guard is required here, and global is needed to cross module session-state boundaries')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'ADR console-output-matters rule ADR-AUTO-CONSOLE:8 prescribes Write-Host ''.'' -NoNewline for per-interval progress dots — the information stream cannot emit an inline (no-newline) dot, so Write-Host is the sanctioned tool for exactly this case')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The analyzer import runs inside each background Start-Job shard process, never in this session')]
     [CmdletBinding()]
     [OutputType([object[]])]
     param(
@@ -44,8 +44,10 @@ function Get-ScriptAnalyzerDiagnostics {
         return @()
     }
 
+    # The vendored analyzer ships inside the code tree, so it resolves from the code root (ADR-AUTO-ASSETDEP:1).
+    # The shards still run from the repository root: the settings' CustomRulePath entries are relative to it.
     $root = Get-RepositoryRoot
-    $analyzerPath = Join-Path $root 'automation/.vendor/PSScriptAnalyzer'
+    $analyzerPath = Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer'
 
     # Shard count tracks CPU but is capped so we don't spawn more process setup than the work can amortize,
     # and never exceeds the file count.
@@ -97,10 +99,9 @@ function Get-ScriptAnalyzerDiagnostics {
     }
 
     # Print a dot per interval while shards run, rather than a progress bar (ADR console-output-matters,
-    # rule ADR-AUTO-CONSOLE:8). Suppressed during a Pester run via the same $global:__PesterRunning chokepoint guard the
-    # writers use (Write-Host bypasses the information stream, so it needs its own guard to stay out of test
-    # output). $dotted tracks whether any dot was printed so the closing newline only fires when it is needed.
-    $showProgress = -not $global:__PesterRunning
+    # rule ADR-AUTO-CONSOLE:8). The dots go through the writer chokepoint (ADR-AUTO-ANNOUNCE:1), so a Pester run
+    # silences them with everything else. $dotted tracks whether any dot was written so the closing newline only
+    # fires when it is needed.
     $dotted = $false
     try {
         # Poll for shard completion so the user sees the run is alive rather than a silent wait.
@@ -109,10 +110,8 @@ function Get-ScriptAnalyzerDiagnostics {
             if ($completed -eq $shardCount) {
                 break
             }
-            if ($showProgress) {
-                Write-Host '.' -NoNewline
-                $dotted = $true
-            }
+            Write-Message '.' -NoHeader -NoNewline
+            $dotted = $true
             Start-Sleep -Seconds 1
         }
 
@@ -130,7 +129,7 @@ function Get-ScriptAnalyzerDiagnostics {
     }
     finally {
         if ($dotted) {
-            Write-Host ''   # newline to close the dot line
+            Write-Message '' -NoHeader   # newline to close the dot line
         }
         $jobs | Remove-Job -Force
     }

@@ -81,12 +81,12 @@ change to code another team maintains.
 
 The dependency half is realized through explicit, checked-in declaration rather than ambient install state. Internal module edges are
 declared once and gated against the code so the graph stays acyclic and legible
-([ADR-AUTO-DEPM](../automation/controlling-module-dependencies.md)). Internal dependencies are vendored into the repository so loading is a
-path read with no network call and no version drift, and an upgrade is a deliberate, reviewed diff
-([ADR-AUTO-VENDOR](../automation/powershell/vendor-toolset-dependencies.md)). External dependencies are pulled at build time through the
-package manager suited to that dependency, chosen for the security and traceability of its supply chain rather than convenience
-([ADR-AUTO-PKGMGR](../automation/use-proper-package-managers.md)). Together these keep every dependency, internal or external, traceable
-from a build back to an exact, pinned version.
+([ADR-AUTO-DEPM](../automation/controlling-module-dependencies.md)). Third-party PowerShell modules are vendored into the repository so
+loading is a path read with no network call and no version drift, and an upgrade is a deliberate, reviewed diff
+([ADR-AUTO-VENDOR](../automation/powershell/vendor-toolset-dependencies.md)). External tools are installed through the platform-native
+package manager, chosen for the security and traceability of its supply chain rather than convenience
+([ADR-AUTO-PKGMGR](../automation/use-proper-package-managers.md)), at the version locked in `tools.yml`. Together these keep every
+dependency, internal or external, traceable from a build back to an exact, pinned version.
 
 Measuring the capability follows the same three concerns DORA highlights: how much of the codebase is searchable and how much is duplicate
 or dead; how long it takes to land a change in code the requesting team does not own; and how many distinct versions of a given library are
@@ -109,13 +109,27 @@ running in production, and how long it takes a known vulnerability to be patched
 
 ## Dora explains
 
-Code maintainability compounds DORA's delivery metrics: a codebase any team can search and safely change, backed by dependencies that are
-traceable to an exact version, is what lets change lead time stay short and delivery stay frequent without trading away stability.
+Code maintainability sits in the Core Model's climate-for-learning group, which DORA links to better software delivery performance and
+organizational performance. Its own path runs through continuous delivery: DORA lists it among the technical practices that drive CD, so a
+codebase any team can search and safely change, backed by traceable dependencies, is part of what keeps delivery fast without trading away
+stability.
 
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — depends on a codebase and dependency tree that any team can
-  safely and quickly change.
-- [Test automation](https://dora.dev/capabilities/test-automation/) — the automated coverage that makes a dependency upgrade or a cross-team
-  change safe to land quickly.
-- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — a searchable, reusable codebase is what lets teams work
-  independently without blocking on each other's code.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Code maintainability](../../references/dora/capabilities.md#code-maintainability)
+- **Category:** [Climate for learning](../../references/dora/capabilities.md#climate-for-learning) — Core Model v2.1.0:
+  [climate for learning](../../references/dora/core-model.md#climate-for-learning).
+- **Evidence:**
+  - [2019 Accelerate State of DevOps Report](../../references/dora/publications.md#2019-accelerate-state-of-devops-report) — the report the
+    capability page cites; it finds that productivity improves with easier information search and less technical debt, and that speed and
+    stability go together.
+- **Predicts:** contributes to [continuous delivery](../../references/dora/capabilities.md#continuous-delivery), and through the
+  climate-for-learning group to [software delivery performance](../../references/dora/core-model.md#software-delivery-performance) (the
+  [throughput](../../references/dora/metrics.md#throughput) and [instability](../../references/dora/metrics.md#instability) metrics) and
+  [organizational performance](../../references/dora/core-model.md#organizational-performance).
+- **Related capabilities:**
+  - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — depends on a codebase and dependency tree that any
+    team can safely and quickly change.
+  - [Test automation](../../references/dora/capabilities.md#test-automation) — the automated coverage that makes a dependency upgrade or a
+    cross-team change safe to land quickly.
+  - [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — a searchable, reusable codebase is what lets
+    teams work independently without blocking on each other's code.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

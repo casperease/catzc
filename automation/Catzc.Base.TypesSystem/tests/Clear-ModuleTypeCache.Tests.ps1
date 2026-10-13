@@ -5,7 +5,8 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
     # stamp (see the Import-CSharpTypes suite's 'IDE project build stamps …' test).
 
     BeforeEach {
-        # Default: not a pipeline, so the function actually runs.
+        # Default: source mode, not a pipeline, so the function actually runs (in the source and build suites).
+        Mock Get-CatzcRunMode { 'source' } -ModuleName Catzc.Base.TypesSystem
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.TypesSystem
         # Silence + capture the end-state reporting so the 'always reports' assertions can inspect it.
         Mock Write-Message -ModuleName Catzc.Base.TypesSystem { }
@@ -125,7 +126,25 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         $currentDll | Should -Exist
     }
 
-    It 'never plans the live combined build for deletion (real repo, DryRun)' -Tag 'L1', 'integrity' {
+    It 'is a no-op in build mode on the loaded package root — it never deletes inside an installed build' -Tag 'logic' {
+        Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.TypesSystem
+        Mock Get-CatzcModulesRoot { $fakeRoot } -ModuleName Catzc.Base.TypesSystem
+        $planned = Clear-ModuleTypeCache -DryRun
+        @($planned).Count | Should -Be 0
+        Clear-ModuleTypeCache
+        $staleDll | Should -Exist
+        Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -ParameterFilter { "$Message" -like '*built Catzc package*' }
+    }
+
+    It 'still cleans an explicit root other than the loaded package in build mode' -Tag 'logic' {
+        Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.TypesSystem
+        Mock Get-CatzcModulesRoot { Join-Path $TestDrive 'widget-build' } -ModuleName Catzc.Base.TypesSystem
+        Clear-ModuleTypeCache -AutomationRoot $fakeRoot
+        $staleDll | Should -Not -Exist
+        $currentDll | Should -Exist
+    }
+
+    It 'never plans the live combined build for deletion (real repo, DryRun)' -Tag 'L1', 'integrity', 'source-only' {
         $h = (Get-CombinedTypeHash (Join-Path $env:RepositoryRoot 'automation')).CombinedHash
         $planned = Clear-ModuleTypeCache -DryRun
         @($planned) | Where-Object { $_ -match "Catzc\.Types\.$h\.dll$" } | Should -BeNullOrEmpty

@@ -19,8 +19,8 @@ Describe 'Get-AutomationModules' -Tag 'L0', 'logic' {
         $names | Should -Not -Contain '.compiled'
     }
 
-    It 'defaults its root to the repository automation folder via the Get-RepositoryRoot seam' {
-        Mock Get-RepositoryRoot { $script:fakeRoot } -ModuleName Catzc.Base.TypesSystem
+    It 'defaults its root to the loaded code root via the Get-CatzcModulesRoot seam' {
+        Mock Get-CatzcModulesRoot { $script:automation } -ModuleName Catzc.Base.TypesSystem
         Get-AutomationModules | Should -Be @('Alpha.Module', 'Beta.Module')
     }
 

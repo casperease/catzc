@@ -245,16 +245,17 @@ Concretely:
 
 **Two canonical targets:**
 
-1. **Release-branch certification environment — the RBC gate** (release-uat, ADR-FLOW-CD:9). Locked to a specific commit — a release-branch
-   head or a `main` commit — so the environment holds **stable** while a release variant is certified against exactly that commit. Because
-   DEPLOY is deterministic (ADR-FLOW-CD-TYPE:10), re-running it re-materialises the same artifact, which is what "certified at commit X"
-   means. This is the deploy half of release-branch stabilization; **RBC** is the human certification at that environment, and DEPLOY the
-   actuator once it clears.
-2. **Pre-prod rollover, then a manual prod gate — the RC gate** (main-UAT, ADR-FLOW-CD:9). The pipeline **automatically** rolls pre-prod
-   over to the pinned artifact and runs its L3 / end-to-end system tests there, then **chains to a manual approval gate** before
-   deploy-to-prod. The automated pre-prod rollover and its green L3 run are the evidence that gates the human production approval; **RC** is
-   that human certification and the production cutover itself is human-approved. One pipeline construct carries the whole promotion —
-   automated where it can be, human where the organization requires it.
+1. **The certification environments — the RC and RBC gates** (main-UAT and release-uat, ADR-FLOW-CD:9). **DEPLOY-Non-Prod** rolls the pinned
+   artifact onto an always-on certification environment, locked to a specific commit so the environment holds **stable** while it is
+   certified against exactly that commit. At **main-UAT** the occupant is a `main` commit, `main-AT` runs against it, and **RC** is the
+   human certification there; at **release-uat** the occupant is a release-branch head or a `main` commit, `release-AT` runs against it, and
+   **RBC** is the human certification there — the deploy half of release-branch stabilization. Because DEPLOY is deterministic
+   (ADR-FLOW-CD-TYPE:10), re-running it re-materialises the same artifact, which is what "certified at commit X" means. Each gate decides;
+   DEPLOY is the actuator once it clears.
+2. **Pre-prod rollover, then a manual prod gate** (past RBC, ADR-FLOW-CD:11). **DEPLOY-Prod** **automatically** rolls pre-prod over to the
+   RBC-cleared artifact and runs its L3 / end-to-end system tests there, then **chains to a manual approval gate** before deploy-to-prod.
+   The green pre-prod run is the evidence the production approval reviews, and the production cutover itself is human-approved. One pipeline
+   construct carries the prod tail — automated where it can be, human where the organization requires it.
 
 ### CDe — Continuous Deployment, the prod roll internalized
 
@@ -342,9 +343,9 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 - [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) — the design layer above this taxonomy: CI as a
   discipline, and how CI / CD / CDe / DEPLOY key together into a promotion flow via the tagged artifact.
 - [pipeline-runner-pattern](pipeline-runner-pattern.md) — how all six invoke PowerShell.
-- [custom-template-discipline](custom-template-discipline.md) — YAML carries ADO concerns only.
-- [pipeline-detection](pipeline-detection.md), [pipeline-variables](pipeline-variables.md), [dual-authentication](dual-authentication.md) —
-  mechanics every type relies on.
+- [custom-template-discipline](../pipelines/custom-template-discipline.md) — YAML carries ADO concerns only.
+- [pipeline-detection](pipeline-detection.md), [pipeline-variables](../pipelines/pipeline-variables.md),
+  [dual-authentication](../pipelines/dual-authentication.md) — mechanics every type relies on.
 - [durable-sha-globs](durable-sha-globs.md) — the globset projection every unit-scoped trigger registers on.
 - [test-automation](../automation/test-automation.md) — the L2/L3 tiers the CI engine runs.
 - Notes: [shared-fate-ci](../../notes/shared-fate-ci.md), [ado-as-self-service-layer](../../notes/ado-as-self-service-layer.md),

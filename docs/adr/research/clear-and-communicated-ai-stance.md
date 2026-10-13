@@ -98,13 +98,34 @@ with how the tools and the organization's experience with them change.
 
 ## Dora explains
 
-This capability sits at the front of DORA's AI-capabilities research: without a clear stance on expected, permitted, and supported AI use,
-the same tooling produces inconsistent adoption and hidden usage instead of a measurable lift in individual and organizational performance.
+Clear and communicated AI stance is one of the five capabilities DORA introduced with its AI Capabilities Model, outside the Core Model, and
+it is the most widely connected capability in that model: the diagram links it to five of the seven outcomes. Without a clear stance on
+expected, permitted, and supported AI use, the same tooling produces hidden or avoided usage instead of a lift in individual and
+organizational performance.
 
-- [AI-accessible internal data](https://dora.dev/capabilities/ai-accessible-internal-data/) — a companion AI capability; a clear stance on
-  how AI may use internal data is part of what the policy must communicate.
-- [Healthy data ecosystems](https://dora.dev/capabilities/healthy-data-ecosystems/) — the data-quality foundation an AI stance assumes when
-  it tells developers which AI-assisted uses are safe to rely on.
-- [Generative organizational culture](https://dora.dev/capabilities/generative-organizational-culture/) — the culture of trust and
-  information flow that determines whether a published stance is actually believed and followed.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Clear and communicated AI stance](../../references/dora/capabilities.md#clear-and-communicated-ai-stance)
+- **Category:** [AI](../../references/dora/capabilities.md#ai) — not in the Core Model; a member of the
+  [AI Capabilities Model](../../references/dora/ai.md#ai-capabilities-model) as "Clear + communicated AI stance".
+- **Evidence:**
+  - [2025 State of AI-assisted Software Development](../../references/dora/publications.md#2025-state-of-ai-assisted-software-development) —
+    finds that AI is mainly an amplifier of existing strengths and dysfunctions, and introduces the AI Capabilities Model.
+  - [2025 DORA AI Capabilities Model](../../references/dora/publications.md#2025-dora-ai-capabilities-model) — gives implementation
+    strategies, starter tactics, and ways to monitor progress for the capability.
+  - [2025 Impact of Generative AI](../../references/dora/publications.md#2025-impact-of-generative-ai-in-software-development) — clear
+    acceptable-use policies are associated with a 451% increase in team AI adoption.
+  - [2024 Accelerate State of DevOps Report](../../references/dora/publications.md#2024-accelerate-state-of-devops-report) — its August 2024
+    AI preview found mixed views of how transparent organizations are about AI.
+- **Predicts:** amplifies AI's positive effect on [individual effectiveness](../../references/dora/ai.md#individual-effectiveness),
+  [organizational performance](../../references/dora/ai.md#organizational-performance), and
+  [software delivery throughput](../../references/dora/ai.md#software-delivery-throughput) (the
+  [throughput](../../references/dora/metrics.md#throughput) family), and turns AI's otherwise neutral effect on friction into
+  [reduced friction](../../references/dora/ai.md#reduced-friction). The model diagram adds
+  [product performance](../../references/dora/ai.md#product-performance).
+- **Related capabilities:**
+  - [AI-accessible internal data](../../references/dora/capabilities.md#ai-accessible-internal-data) — a companion AI capability; a clear
+    stance on how AI may use internal data is part of what the policy must communicate.
+  - [Healthy data ecosystems](../../references/dora/capabilities.md#healthy-data-ecosystems) — the data-quality foundation an AI stance
+    assumes when it tells developers which AI-assisted uses are safe to rely on.
+  - [Generative organizational culture](../../references/dora/capabilities.md#generative-organizational-culture) — the culture of trust and
+    information flow that determines whether a published stance is actually believed and followed.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

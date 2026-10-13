@@ -96,15 +96,38 @@ well-being.
 
 ## Dora explains
 
-Well-being closes the loop between DORA's technical and process capabilities and the people applying them: it is not a lever pulled directly
-but the outcome those capabilities are ultimately judged by, alongside organizational performance and job tenure.
+Well-being has a catalogue page in DORA's climate-for-learning category, but in the Core Model it is an outcome, not a capability: the
+outcome the capabilities and delivery performance are ultimately judged by, beside organizational performance. DORA studies it through
+deployment pain, rework, and burnout, and finds that increased well-being predicts organizational performance and job tenure.
 
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — the practices that reduce deployment pain are the same ones
-  that predict faster, safer releases.
-- [Job satisfaction](https://dora.dev/capabilities/job-satisfaction/) — the closely related individual outcome DORA tracks alongside
-  well-being.
-- [Generative organizational culture](https://dora.dev/capabilities/generative-organizational-culture/) — the culture whose absence
-  Maslach's six burnout risk factors describe.
-- [Transformational leadership](https://dora.dev/capabilities/transformational-leadership/) — the management responsibility DORA assigns for
-  fixing the work environment rather than the individual.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Well-being](../../references/dora/capabilities.md#well-being)
+- **Category:** [Climate for learning](../../references/dora/capabilities.md#climate-for-learning) — Core Model v2.1.0: an outcome,
+  [well-being](../../references/dora/core-model.md#well-being), with job satisfaction, productivity, reduced burnout, and reduced rework as
+  its sub-entities.
+- **Evidence:**
+  - [2015 State of DevOps Report](../../references/dora/publications.md#2015-state-of-devops-report) — lean management and continuous
+    delivery reduce burnout, and deployment pain signals poorer IT performance, organizational performance, and culture.
+  - [2016 State of DevOps Report](../../references/dora/publications.md#2016-state-of-devops-report) — high performers spend 49% of their
+    time on new work and 21% on rework, against 38% and 27% for low performers.
+  - [2018 Accelerate State of DevOps Report](../../references/dora/publications.md#2018-accelerate-state-of-devops-report) — value-add time,
+    cited on the capability page.
+  - [2021 Accelerate State of DevOps Report](../../references/dora/publications.md#2021-accelerate-state-of-devops-report) — inclusive,
+    generative team cultures had less burnout during the COVID-19 pandemic.
+  - [2022 Accelerate State of DevOps Report](../../references/dora/publications.md#2022-accelerate-state-of-devops-report) — teams with low
+    security practice have 1.4× greater odds of high burnout.
+  - [2023 Accelerate State of DevOps Report](../../references/dora/publications.md#2023-accelerate-state-of-devops-report) — fair work
+    distribution reduces burnout, though not for respondents who identify as underrepresented.
+  - [2024 Accelerate State of DevOps Report](../../references/dora/publications.md#2024-accelerate-state-of-devops-report) — unstable
+    organizational priorities raise burnout substantially, while user-centricity and transformational leadership go with less of it.
+- **Predicts:** [organizational performance](../../references/dora/core-model.md#organizational-performance) and how long employees stay in
+  their jobs. Upstream, continuous delivery practices reduce deployment pain and predict less unplanned work and rework.
+- **Related capabilities:**
+  - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — the practices that reduce deployment pain are the
+    same ones that predict faster, safer releases.
+  - [Job satisfaction](../../references/dora/capabilities.md#job-satisfaction) — the closely related individual outcome DORA tracks
+    alongside well-being.
+  - [Generative organizational culture](../../references/dora/capabilities.md#generative-organizational-culture) — the culture whose absence
+    Maslach's six burnout risk factors describe.
+  - [Transformational leadership](../../references/dora/capabilities.md#transformational-leadership) — the management responsibility DORA
+    assigns for fixing the work environment rather than the individual.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

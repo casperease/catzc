@@ -5,6 +5,9 @@ Describe 'Get-BaseModule' -Tag 'L0', 'logic' {
         # Fake repo root with one named and one hidden module folder (TestKit).
         $script:fake = New-FakeRepositoryRoot -Modules @{ 'Catzc.Base.Alpha' = @{}; '.vendor' = @{} }
 
+        # The code root is the seam: Get-BaseModule classifies against Get-CatzcModulesRoot, not RepositoryRoot.
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.ModuleSystem { $script:fake.Automation }
+
         Mock Get-Config -ModuleName Catzc.Base.ModuleSystem {
             [pscustomobject]@{ modules = [ordered]@{
                     'Catzc.Base.Alpha' = [ordered]@{ packages = [ordered]@{ demo = @('docs/demo.md', 'x.txt') } }
@@ -52,5 +55,20 @@ Describe 'Get-BaseModule' -Tag 'L0', 'logic' {
         $residue = @(Get-BaseModule -Kind residue)
         $residue.Name | Should -Be 'Foreign'
         $residue[0] -is [Catzc.Base.ModuleSystem.SessionModule] | Should -BeTrue
+    }
+
+    It 'classifies by the code root, so a built package outside the repository counts as imported / vendored' {
+        $buildRoot = Join-Path ([System.IO.Path]::GetTempPath()) 'widget-build/Catzc/6.6.666'
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.ModuleSystem { $buildRoot }
+        Mock Get-Module -ModuleName Catzc.Base.ModuleSystem {
+            @(
+                [pscustomobject]@{ Name = 'Catzc.Base.Widget'; ModuleBase = (Join-Path $buildRoot 'Catzc.Base.Widget'); Version = '6.6.666' }
+                [pscustomobject]@{ Name = 'Gadget'; ModuleBase = (Join-Path $buildRoot '.vendor/Gadget/1.0.0'); Version = '1.0.0' }
+                [pscustomobject]@{ Name = 'Catzc.Base.Alpha'; ModuleBase = (Join-Path $script:fake.Root 'automation/Catzc.Base.Alpha'); Version = '0.1.0' }
+            )
+        }
+        (Get-BaseModule -Kind imported).Name | Should -Be 'Catzc.Base.Widget'
+        (Get-BaseModule -Kind vendored).Name | Should -Be 'Gadget'
+        (Get-BaseModule -Kind residue).Name | Should -Be 'Catzc.Base.Alpha'
     }
 }

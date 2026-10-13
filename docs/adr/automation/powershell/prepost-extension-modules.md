@@ -99,8 +99,8 @@ A single `.psm1` also:
 
 ### `assets/PrePost.psm1` is a copy-in starter, not a loaded default
 
-`assets/PrePost.psm1` sits in the module's `assets/` folder next to `azure.yml`. It is **not loaded or called by any production code** — it
-exists only as the canonical shape an author copies to `infrastructure/templates/<name>/PrePost.psm1`. Its three hooks are no-ops: a
+`assets/PrePost.psm1` sits in the `Catzc.Azure.Templates` module's `assets/` folder. It is **not loaded or called by any production code** —
+it exists only as the canonical shape an author copies to `infrastructure/templates/<name>/PrePost.psm1`. Its three hooks are no-ops: a
 starting point to edit, not a runtime default. (Tests that exercise the starter import it explicitly.)
 
 There is deliberately **no default hook** loaded into the module's session state. Loading a default at module-init would couple production

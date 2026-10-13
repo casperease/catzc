@@ -111,6 +111,7 @@ function Install-Tool {
                 Select-Object -First 1
             if ($exe -and (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $exe.DirectoryName)) {
                 $env:PATH = "$($exe.DirectoryName)$([System.IO.Path]::PathSeparator)$env:PATH"
+                Write-Message "Session PATH: prepended '$($exe.DirectoryName)' so $($config.command) resolves (no WinGet\Links symlink)"
             }
         }
     }

@@ -16,8 +16,8 @@ discipline is primary; the CI pipeline is its instrument.
 The discipline's binding constraint is a **5–10 minute integration cycle, on a team basis**: getting a change _into_ main/master must clear
 its build-validation inside that budget, because a gate slower than that stops being a gate and becomes a queue that stalls the whole team's
 flow into the mainline. The CI pipeline concept confines pre-commit validation and the post-commit BVT to that budget
-([pipeline-types](../flow/pipeline-types.md#rule-adr-flow-cd-type4)); this rule is _why_. The budget binds the **inner** CI gate only —
-the slower system-test **outer loop** (CI+, ADR-FLOW-CD:8) is deliberately exempt and runs post-commit, where its cost is affordable.
+([pipeline-types](../flow/pipeline-types.md#rule-adr-flow-cd-type4)); this rule is _why_. The budget binds the **inner** CI gate only — the
+slower system-test **outer loop** (CI+, ADR-FLOW-CD:8) is deliberately exempt and runs post-commit, where its cost is affordable.
 
 - [The integration budget is a team constraint](#the-integration-budget-is-a-team-constraint)
 
@@ -53,10 +53,10 @@ automatically reconciled to latest main — is fixed here; its _name_ is org sem
 
 **Progression toward prod leaves the automated flow and enters DEPLOY.** From non-prod, the same tagged artifact is promoted toward
 production via **DEPLOY** activities — a solo, manually-governed DEPLOY pipeline that drives the artifact into a **non-automated (manually
-gated)** environment ([ADR-FLOW-CD-TYPE:8–ADR-FLOW-CD-TYPE:11](../flow/pipeline-types.md#deploy--the-governed-deploy-tail-extracted)).
-The boundary between CD and DEPLOY is the automated/manual-governance line: CD owns the automated non-prod direction; the human
-certification is a hands-on gate — **RC** at main-UAT or **RBC** at release-uat (ADR-FLOW-CD:9) — and **DEPLOY** is the pipeline that
-actuates the roll to prod once that gate clears. RC/RBC decide _whether_ to proceed; DEPLOY performs the advance.
+gated)** environment ([ADR-FLOW-CD-TYPE:8–ADR-FLOW-CD-TYPE:11](../flow/pipeline-types.md#deploy--the-governed-deploy-tail-extracted)). The
+boundary between CD and DEPLOY is the automated/manual-governance line: CD owns the automated non-prod direction; the human certification is
+a hands-on gate — **RC** at main-UAT or **RBC** at release-uat (ADR-FLOW-CD:9) — and **DEPLOY** is the pipeline that actuates the roll to
+prod once that gate clears. RC/RBC decide _whether_ to proceed; DEPLOY performs the advance.
 
 - [The boundary to prod is DEPLOY](#the-boundary-to-prod-is-deploy)
 
@@ -134,11 +134,11 @@ Build-once holds throughout: pre-prod and production receive the identical tagge
 
 ## Context
 
-[pipeline-types](../flow/pipeline-types.md) is the _taxonomy_ — it fixes what each of the six ADO artifact kinds **is**. This ADR is
-the _design layer_ above it: it records that "CI" names a **discipline** before it names a pipeline, and that the pipeline kinds are not a
-flat list but **domains that compose into a directional promotion flow**, keyed together by one shared object — the tagged artifact. The
-taxonomy answers "what is a CD pipeline"; this answers "what is Continuous Integration as a practice, and how do CI, CD, and DEPLOY chain a
-commit all the way to production without any of them rebuilding it."
+[pipeline-types](../flow/pipeline-types.md) is the _taxonomy_ — it fixes what each of the six ADO artifact kinds **is**. This ADR is the
+_design layer_ above it: it records that "CI" names a **discipline** before it names a pipeline, and that the pipeline kinds are not a flat
+list but **domains that compose into a directional promotion flow**, keyed together by one shared object — the tagged artifact. The taxonomy
+answers "what is a CD pipeline"; this answers "what is Continuous Integration as a practice, and how do CI, CD, and DEPLOY chain a commit
+all the way to production without any of them rebuilding it."
 
 Two of those kinds share the letters "CD" and must not be confused. **CD is Continuous _Delivery_**: the flow is automated through non-prod
 and the artifact is left _ready_ for prod, with the production cutover handed to a separately-governed DEPLOY (ADR-FLOW-CD:5–ADR-FLOW-CD:6).
@@ -240,8 +240,8 @@ All of this is automated and lives entirely in non-prod. CD never touches produc
 The step from non-prod to production is where automation stops and organizational governance begins, and that is exactly the CD/DEPLOY
 boundary. From the certified non-prod state, the **same tagged artifact** is promoted toward prod through **DEPLOY** activities: a solo,
 manually-governed DEPLOY pipeline that drives the artifact into a **non-automated, manually-gated** environment
-([ADR-FLOW-CD-TYPE:8–ADR-FLOW-CD-TYPE:11](../flow/pipeline-types.md#deploy--the-governed-deploy-tail-extracted)). A DEPLOY pipeline is
-where a certification environment locked to a release commit, or an approval-gated production cutover, lives. The line is clean: **CD is the
+([ADR-FLOW-CD-TYPE:8–ADR-FLOW-CD-TYPE:11](../flow/pipeline-types.md#deploy--the-governed-deploy-tail-extracted)). A DEPLOY pipeline is where
+a certification environment locked to a release commit, or an approval-gated production cutover, lives. The line is clean: **CD is the
 automated non-prod direction; DEPLOY is the human-governed step toward prod** — two domains, one artifact, keyed together at the boundary
 rather than fused into a single pipeline that would bury the manual gate inside an automated flow.
 
@@ -321,7 +321,7 @@ The promotion tail is longer than "non-prod, then prod." After the RBC gate the 
 and inactive, a last rehearsal of the exact bytes before they go live — and only then in **production**. So the ladder gains a rung,
 `release-uat → pre-prod → production` (ADR-DSGN-LIFE:1), and pre-prod is a single-occupant environment like the others (ADR-DSGN-LIFE:5).
 
-Because the deploy activity now spans several environments with different governance, it reads as two named halves of one build-once flow.
+Because the deploy activity spans several environments with different governance, it reads as two named halves of one build-once flow.
 **DEPLOY-Non-Prod** is the deploy into the non-prod AT environments — the on-demand L3 slots, `main-uat`, and `release-uat` — the targets
 CD's automated direction covers (ADR-FLOW-CD:5). **DEPLOY-Prod** is the governed deploy of the RBC-cleared artifact through `pre-prod` into
 `production` (ADR-FLOW-CD:6, and [ADR-FLOW-CD-TYPE:11](../flow/pipeline-types.md#rule-adr-flow-cd-type11)). The split is by _target and

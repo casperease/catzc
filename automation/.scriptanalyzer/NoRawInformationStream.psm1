@@ -11,7 +11,9 @@
     Use Write-Message for any message from the automation to the console/log — it carries the [caller] header
     (drop it with -NoHeader) and supports -ForegroundColor, and it is guarded. Write-InformationColored is the
     low-level chokepoint Write-Message builds on; it is the one place Write-Information may be called, so a
-    Write-Information inside the function Write-InformationColored is exempt.
+    Write-Information inside the function Write-InformationColored is exempt. The bootstrap's chokepoint,
+    Write-ImporterMessage, is exempt for the same reason: it is the writer of the import itself, which runs before
+    Write-Message is loaded.
 
     See ADR: docs/adr/automation/test-automation.md (the Pester-suppression chokepoint).
 #>
@@ -33,7 +35,7 @@ function Measure-NoRawInformationStream {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoRawInformationStream'
-    $exemptFunction = 'Write-InformationColored'
+    $exemptFunctions = @('Write-InformationColored', 'Write-ImporterMessage')
 
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew (ADR-AUTO-PSFORMAT:6).
     $isCommand = {
@@ -47,12 +49,12 @@ function Measure-NoRawInformationStream {
             continue
         }
 
-        # Exempt the one sanctioned caller — the chokepoint wrapper itself.
+        # Exempt the two sanctioned callers — the chokepoint wrappers themselves.
         $insideExempt = $false
         $parent = $cmd.Parent
         while ($null -ne $parent) {
             if ($parent -is [System.Management.Automation.Language.FunctionDefinitionAst] -and
-                $parent.Name -eq $exemptFunction) {
+                $parent.Name -in $exemptFunctions) {
                 $insideExempt = $true
                 break
             }

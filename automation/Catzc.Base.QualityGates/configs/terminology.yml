@@ -246,6 +246,9 @@ terms:
     - term: devops
       meaning: "development and operations (DevOps)"
       expands_to: "development and operations"
+    - term: mttr
+      meaning: "mean time to recovery (MTTR) — DORA's earlier name for the failed-deployment recovery time metric, cited in the DORA metrics reference"
+      expands_to: "mean time to recovery"
     - term: slsa
       meaning: "Supply-chain Levels for Software Artifacts (SLSA) — the supply-chain integrity framework, cited for build provenance"
       expands_to: "Supply-chain Levels for Software Artifacts"
@@ -454,8 +457,6 @@ terms:
       meaning: "short_name 'subx' of the sample-subenv test template"
     - term: surve
       meaning: "derived short_name of the 'survey' example template (documentation-examples ADR)"
-    - term: systemet
-      meaning: "author's docs/notes topic-folder name 'systemet' cited in the conventional-folders ADR"
     - term: widgetlib
       meaning: "placeholder pip/library package name 'widgetlib' (for command 'widget') in tool-install tests (Remove-*ToolInstall, Install-PipTool)"
     - term: wksp
@@ -497,6 +498,10 @@ terms:
       meaning: "body of the ADR-AUTO-ONEFUNC code (one-function-per-file)"
     - term: nopwd
       meaning: "body of the ADR-AUTO-NOPWD code (never-depend-on-pwd)"
+    - term: assetdep
+      meaning: "body of the ADR-AUTO-ASSETDEP code (internal-asset-dependencies)"
+    - term: runmode
+      meaning: "body of the ADR-DSGN-RUNMODE code (run-modes)"
     - term: nonest
       meaning: "body of the ADR-AUTO-NONEST code (avoid-deep-nesting)"
     - term: xplat
@@ -722,6 +727,8 @@ terms:
   tool:
     - term: csharp
       meaning: "C# (the csharp language / file token)"
+    - term: dtmp
+      meaning: "draw.io desktop's temporary-file extension (*.dtmp), written beside a diagram while it is open; gitignored"
     - term: py
       meaning: "Python (the py file/command token, e.g. PySpark)"
     - term: js
@@ -1038,6 +1045,8 @@ terms:
       meaning: "Taiichi Ohno (given name; cited)"
     - term: maslach
       meaning: "Christina Maslach (surname of a cited author; burnout research)"
+    - term: goodhart
+      meaning: "Charles Goodhart (surname; Goodhart's law, cited in the DORA metrics reference)"
     - term: shoup
       meaning: "Randy Shoup (surname of a cited author)"
     - term: goldratt

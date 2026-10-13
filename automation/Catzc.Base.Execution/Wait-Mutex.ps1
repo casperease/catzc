@@ -16,9 +16,9 @@
     ownership and is treated as acquired, not as an error (a verbose breadcrumb records the transfer).
     On return the caller owns the mutex and MUST release and dispose it in a finally block.
 
-    Dots are written via [Console]::Write (bypassing the PowerShell streams, so nothing pollutes the
-    pipeline) and are suppressed during a Pester run by the same $global:__PesterRunning flag that
-    silences the writers.
+    Dots are written through the writer chokepoint (Write-Message '.' -NoHeader -NoNewline,
+    ADR-AUTO-ANNOUNCE:1): an inline information-stream record, so nothing pollutes the pipeline and a
+    Pester run silences them with every other message.
 .PARAMETER Mutex
     The mutex to await. On return the current thread owns it.
 .PARAMETER Name
@@ -49,8 +49,6 @@
     Wait-Mutex $mutex -Name 'deploy mutex' -TimeoutSeconds 300   # throw rather than wait past 5 minutes
 #>
 function Wait-Mutex {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = '$global:__PesterRunning (set by Test-Automation) is read to suppress the raw [Console] liveness dots during test runs — they bypass the writer chokepoint that silences everything else; global is required to cross module session-state boundaries')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Liveness dots are written via [Console]::Write specifically to bypass PowerShell output streams — the information stream cannot emit an inline (no-newline) dot, and nothing may pollute the pipeline; see .DESCRIPTION and ADR-AUTO-CONSOLE:8')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -91,8 +89,8 @@ function Wait-Mutex {
         if ($TimeoutSeconds -gt 0) {
             $remainingSeconds = $TimeoutSeconds - $stopwatch.Elapsed.TotalSeconds
             if ($remainingSeconds -le 0) {
-                if ($dotsWritten -and -not $global:__PesterRunning) {
-                    [Console]::WriteLine()
+                if ($dotsWritten) {
+                    Write-Message '' -NoHeader
                 }
                 throw "Timed out waiting for the $Name after $TimeoutSeconds second(s)."
             }
@@ -115,15 +113,15 @@ function Wait-Mutex {
             Write-Message $AnnounceText
             $announced = $true
         }
-        elseif (-not $global:__PesterRunning) {
-            [Console]::Write('.')
+        else {
+            Write-Message '.' -NoHeader -NoNewline
             $dotsWritten = $true
         }
     }
 
     $stopwatch.Stop()
-    if ($dotsWritten -and -not $global:__PesterRunning) {
-        [Console]::WriteLine()
+    if ($dotsWritten) {
+        Write-Message '' -NoHeader
     }
     if ($announced) {
         Write-Message ('Acquired the {0} after {1:0.#} second(s).' -f $Name, $stopwatch.Elapsed.TotalSeconds)

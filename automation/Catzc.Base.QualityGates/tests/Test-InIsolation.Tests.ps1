@@ -58,3 +58,30 @@ Describe 'Test-InIsolation' -Tag 'L0', 'logic' {
         { Test-InIsolation -ModuleProfile nope } | Should -Throw
     }
 }
+
+# The real-asset test of ADR-AUTO-ASSETDEP:3 for Test-InIsolation's lazy Pester load: the vendored Pester under
+# the code root. Pester is already loaded in this worker, so the lazy-load branch is forced by hiding it from
+# Get-Module and the re-import is intercepted (re-importing Pester mid-run would unload the running harness); the
+# run stops at the first step after the import. The chosen path is then checked against the real shipped module
+# on disk — integrity, and not source-only, so it runs in the source and the build suite.
+Describe 'Test-InIsolation (vendored Pester)' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+    BeforeAll {
+        Mock Get-Module -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'Pester' } { }
+        Mock Import-Module -ModuleName Catzc.Base.QualityGates -ParameterFilter { "$Name" -like '*Pester*' } { }
+        Mock Get-ModuleProfile -ModuleName Catzc.Base.QualityGates { throw 'stop after the Pester import' }
+    }
+
+    It 'lazy-loads the vendored Pester from the code root, a real module matching the running Pester' {
+        { Test-InIsolation -Modules 'Catzc.Base.Asserts' } | Should -Throw '*stop after the Pester import*'
+
+        $expected = Join-Path (Get-CatzcModulesRoot) '.vendor/Pester'
+        Should -Invoke Import-Module -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            "$Name" -eq $expected
+        }
+
+        $manifests = @([System.IO.Directory]::GetFiles($expected, 'Pester.psd1', [System.IO.SearchOption]::AllDirectories))
+        $manifests | Should -HaveCount 1
+        $shipped = Import-PowerShellDataFile -LiteralPath $manifests[0]
+        [version] $shipped.ModuleVersion | Should -Be (Get-Module Pester).Version
+    }
+}

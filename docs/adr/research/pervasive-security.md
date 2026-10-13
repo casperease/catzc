@@ -96,14 +96,32 @@ checked default rather than a manual review step bolted on afterward.
 
 ## Dora explains
 
-Pervasive security is one of the technical capabilities DORA's research links to software delivery performance: teams that build security in
-throughout the lifecycle spend measurably less time remediating issues than teams that treat it as a late gate, the same pattern DORA finds
-for quality practices generally.
+Pervasive security is a Core Model capability in the fast-feedback group. DORA's research ties it to higher software delivery performance
+and more secure systems, with far less time spent remediating security issues, and finds that culture, not technology, is the biggest
+predictor of security practices.
 
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — the pipeline where automated security tests run
-  alongside functional tests.
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — the batch size that makes early, cheap security
-  review possible.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — automates the preapproved, security-reviewed path from
-  commit to release.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Pervasive security](../../references/dora/capabilities.md#pervasive-security)
+- **Category:** [Fast feedback](../../references/dora/capabilities.md#fast-feedback) — Core Model v2.1.0:
+  [fast feedback](../../references/dora/core-model.md#fast-feedback).
+- **Evidence:**
+  - [2016 State of DevOps Report](../../references/dora/publications.md#2016-state-of-devops-report) — high performers spend 50% less time
+    remediating security issues.
+  - [2018 Accelerate State of DevOps Report](../../references/dora/publications.md#2018-accelerate-state-of-devops-report) — early security
+    integration is among the practices crucial to performance.
+  - [2021 Accelerate State of DevOps Report](../../references/dora/publications.md#2021-accelerate-state-of-devops-report) — a secure
+    software supply chain is essential and drives performance.
+  - [2022 Accelerate State of DevOps Report](../../references/dora/publications.md#2022-accelerate-state-of-devops-report) — culture is the
+    biggest predictor of security practices; teams with high security practice are 1.6× more likely to have high organizational performance,
+    and teams with low security practice have 1.4× greater odds of high burnout.
+- **Predicts:** higher [software delivery performance](../../references/dora/core-model.md#software-delivery-performance), more secure
+  systems, and less remediation time; high security practice goes with higher
+  [organizational performance](../../references/dora/core-model.md#organizational-performance), and low security practice with higher odds
+  of burnout, which erodes [well-being](../../references/dora/core-model.md#well-being).
+- **Related capabilities:**
+  - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — the pipeline where automated security tests run
+    alongside functional tests; the 2022 report finds supply-chain security controls help only where CI is established.
+  - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — the batch size that makes early, cheap
+    security review possible.
+  - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — automates the preapproved, security-reviewed path
+    from commit to release.
+- [DORA research program](../../references/dora/index.md) — the overview these findings sit within.

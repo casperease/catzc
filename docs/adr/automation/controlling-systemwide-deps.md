@@ -108,7 +108,7 @@ node_js:
   version: "24"
   command: node
   depends_on: winget
-  winget_id: "OpenJS.NodeJS.{0}"
+  winget_id: "OpenJS.NodeJS.LTS"
   winget_scope: user
   brew_formula: "node@{0}"
   apt_package: "nodejs"
@@ -131,7 +131,8 @@ tool:
 - **OS-provided prerequisites** (e.g. `winget`) set `system_provided: true` — asserted and kept on PATH, never installed (Rule
   ADR-AUTO-DEPS:8).
 
-All entries share `Version`, `Command`, `VersionCommand`, and `VersionPattern` — the fields used for version-locking and runtime assertion.
+All entries share `version`, `command`, `version_command`, and `version_pattern` — the fields used for version-locking and runtime
+assertion.
 
 #### 2. Platform-aware installers
 
@@ -204,6 +205,23 @@ a prerequisite, not a target:
 
 The winget-based tools (`node_js`, `java`, `terraform`, and uv's fresh bootstrap) declare `depends_on: winget`, so it is ordered and
 asserted before anything that needs it.
+
+#### 3e. The session runs the best install home
+
+A tool can be installed more than once on one machine, and the first one on PATH is not always usable. On Windows the machine PATH always
+precedes the user PATH, so a machine-wide install of the same command, such as a runtime-only `C:\Program Files\dotnet` with no SDK,
+resolves first and shadows the managed SDK. A tool that can be shadowed this way declares `session_host_probes` in `tools.yml`. These are
+ordered folder patterns that end in `{version}`, and each one marks what makes a home usable. For dotnet the list is an SDK at the locked
+version (`sdk/{version}`), and failing that a runtime at the locked version (`shared/Microsoft.NETCore.App/{version}`).
+
+The session janitor `Sync-SessionTools` applies them through `Resolve-SessionToolHost`. It looks at the candidate homes in order: the
+installer layer's own home first, then the folder of every PATH match. It takes the first probe that any home satisfies, so an SDK is loaded
+first if one is there, and a runtime at the proper version is the fallback. It moves that home to the front of the session's PATH, so every
+command the session and its child processes run uses it. The move is a state change of the session, so it is announced on the information
+stream. The check uses the filesystem only and starts no process. When no home satisfies any probe, PATH is left exactly as it was. The
+other installs are left in place — the toolchain prefers its own, it does not evict anyone else's; evicting an off-config install stays the
+explicit `Remove-<Tool> -Force` decision ([tool-removal-lifecycle](tool-removal-lifecycle.md)). Like every janitor action this is
+session-only, never writes the registry, and is a no-op in CI, where the pipeline activates the locked version natively (`UseDotNet`).
 
 #### 4. Orchestrate with Install-DevBoxTools
 

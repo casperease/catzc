@@ -18,7 +18,9 @@ Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#28' {
     }
 }
 
-Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'ADR-AUTO-TEST#29' {
+# source-only: it cross-checks the map against the repository's ADR tree and .scriptanalyzer rule files, which
+# gives the same answer in both run modes.
+Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-only', 'ADR-AUTO-TEST#29' {
     BeforeAll {
         # The shipped map, and the authoritative rule-id set in '#' (citation) form so it compares to the map.
         # Plain assignment receives the comma-wrapped getter result intact — @() would nest it (Show-Cats note).

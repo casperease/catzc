@@ -8,7 +8,8 @@
 # only fires when someone runs the file by hand from a strict importer session — the worst place to discover
 # it. This gate bans the pattern outright: a title with a <token> must carry -ForEach data.
 # (These titles themselves spell out "angle-bracket token" — a literal one here would fire the very trap.)
-Describe 'Test titles use angle-bracket templates only on data-driven tests' -Tag 'L1', 'integrity' {
+# source-only: it parses the repository's test files, which give the same answer in both run modes.
+Describe 'Test titles use angle-bracket templates only on data-driven tests' -Tag 'L1', 'integrity', 'source-only' {
     It 'finds no template-shaped token in a title without -ForEach data' {
         $automation = Join-Path $env:RepositoryRoot 'automation'
         $testFiles = @([System.IO.Directory]::GetFiles($automation, '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories) |
@@ -30,8 +31,14 @@ Describe 'Test titles use angle-bracket templates only on data-driven tests' -Ta
                 }, $true)
 
             foreach ($call in $calls) {
+                # The title is the first string ARGUMENT — element 0 is the command name itself (also a string
+                # constant). A double-quoted title parses as an expandable string, so both shapes are checked.
                 $title = $call.CommandElements |
-                    Where-Object { $_ -is [System.Management.Automation.Language.StringConstantExpressionAst] } |
+                    Select-Object -Skip 1 |
+                    Where-Object {
+                        $_ -is [System.Management.Automation.Language.StringConstantExpressionAst] -or
+                        $_ -is [System.Management.Automation.Language.ExpandableStringExpressionAst]
+                    } |
                     Select-Object -First 1
                 if (-not $title -or $title.Value -notmatch '<\w+>') {
                     continue

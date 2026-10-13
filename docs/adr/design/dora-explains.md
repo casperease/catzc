@@ -1,9 +1,8 @@
 # DORA explanations — design
 
-The `Dora explains` rationale for the ADRs in the `design/` domain, consolidated in one place. Each entry
-names its ADR and rule code, then reproduces that ADR's tie to [DORA](https://dora.dev/research/) research and
-the domain-relevant capability links. The decisions live in the ADRs themselves; this file carries only their
-DORA rationale.
+The `Dora explains` rationale for the ADRs in the `design/` domain, consolidated in one place. Each entry names its ADR and rule code, then
+reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in
+the ADRs themselves; this file carries only their DORA rationale.
 
 ## Tracks — the repository's root concerns (`ADR-DSGN-TRACK`)
 
@@ -11,11 +10,11 @@ DORA identifies loosely coupled teams and code maintainability as drivers of del
 clear ownership, tech-stacks, and subscription boundaries, enabling independent verification and blast-radius isolation through
 git-reflected globsets.
 
-- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — tracks partition ownership, prevent cross-cutting
+- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — tracks partition ownership, prevent cross-cutting
   coupling, and isolate blast radius.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — named concerns, one tech-stack per track, and clear taxonomy
-  reduce cognitive load.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — named concerns, one tech-stack per track, and clear
+  taxonomy reduce cognitive load.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Thin platforms — an API/CLI abstraction over a vendor layer (`ADR-DSGN-THINPLAT`)
 
@@ -23,13 +22,13 @@ DORA's research identifies flexible infrastructure and tool empowerment as drive
 harmonize the vendor surface through a CLI abstraction, reducing cognitive load while keeping consequential decisions visible and delegating
 to the vendor's own primitives.
 
-- [Flexible infrastructure](https://dora.dev/capabilities/flexible-infrastructure/) — the thin abstraction keeps the vendor swappable behind
-  the CLI.
-- [Empowering teams to choose tools](https://dora.dev/capabilities/teams-empowered-to-choose-tools/) — the platform surfaces vendor
+- [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — the thin abstraction keeps the vendor swappable
+  behind the CLI.
+- [Empowering teams to choose tools](../../references/dora/capabilities.md#teams-empowered-to-choose-tools) — the platform surfaces vendor
   decisions, not hiding them.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — delegation over reimplementation keeps the platform small
-  and maintainable.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — delegation over reimplementation keeps the platform
+  small and maintainable.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Self-service — safe by construction in controlled domains (`ADR-DSGN-SELFSERV`)
 
@@ -37,13 +36,13 @@ DORA's research consistently ties elite delivery performance to exactly the prac
 single source of truth, trunk-based development, and automated deployment — and to lightweight, built-in change approval over heavyweight
 external review. Relevant DORA capabilities:
 
-- [Version control](https://dora.dev/capabilities/version-control/) — the single source of truth for all production artifacts.
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — small batches on trunk, short-lived branches.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — self-service delivery without manual gatekeeping.
-- [Streamlining change approval](https://dora.dev/capabilities/streamlining-change-approval/) — peer review over external change-advisory
-  boards.
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — the batch size that keeps self-service safe.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- [Version control](../../references/dora/capabilities.md#version-control) — the single source of truth for all production artifacts.
+- [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — small batches on trunk, short-lived branches.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — self-service delivery without manual gatekeeping.
+- [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — peer review over external
+  change-advisory boards.
+- [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — the batch size that keeps self-service safe.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Visual design of the value-chain diagrams — branch geometry and commit-colour semantics (`ADR-DSGN-VISUAL`)
 
@@ -52,12 +51,13 @@ it: a shared, unambiguous picture of how work flows from commit to production is
 branch geometry and colour semantics makes the value stream legible, which is a precondition for the measurement-and-improvement loop DORA
 describes.
 
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — the diagrams model the promotion flow this capability governs.
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — the up/release, down/topic geometry and the
+- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — the diagrams model the promotion flow this capability
+  governs.
+- [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — the up/release, down/topic geometry and the
   fix-forward-then-cherry-pick rule encode a trunk-based branching model.
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — the funnel-thinning rule makes batch size and gate
-  selectivity visible.
-- [DORA research overview](https://dora.dev/research/).
+- [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — the funnel-thinning rule makes batch size and
+  gate selectivity visible.
+- [DORA research reference](../../references/dora/index.md).
 
 ## The commit lifecycle — states, environment occupancy, and the stable sync point (`ADR-DSGN-LIFE`)
 
@@ -66,15 +66,15 @@ lifecycle — one direction, named rejection points, a distinction between rejec
 is not HEAD — is what lets a team keep the mainline continuously integrable and lets its consumers depend on it without inheriting its
 churn.
 
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — the HEAD-vs-stable-sync-point rule and the
+- [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — the HEAD-vs-stable-sync-point rule and the
   one-directional ladder are how a trunk stays continuously integrable.
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — the promotion ladder and single-occupant environments are the
-  delivery pipeline this capability governs.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — automatic discard at BVT/L3 and the out-of-band topic
-  deploy are automated-deployment behaviours.
-- [Version control](https://dora.dev/capabilities/version-control/) — "history is never rewritten; a discarded commit stays on the record"
-  is a version-control discipline.
-- [DORA research overview](https://dora.dev/research/).
+- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — the promotion ladder and single-occupant environments
+  are the delivery pipeline this capability governs.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — automatic discard at BVT/L3 and the out-of-band
+  topic deploy are automated-deployment behaviours.
+- [Version control](../../references/dora/capabilities.md#version-control) — "history is never rewritten; a discarded commit stays on the
+  record" is a version-control discipline.
+- [DORA research reference](../../references/dora/index.md).
 
 ## The audited server git remote — verified integration and PR ingress (`ADR-DSGN-REMOTE`)
 
@@ -82,24 +82,37 @@ DORA identifies trunk-based development, version control, and lightweight change
 from the last verified commit keeps the trunk continuously integrable without exposing consumers to a dirty tip, and making the PR the
 authenticated ingress keeps change approval built-in and the audit trail complete.
 
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — integrate from the stable verified point so the trunk
-  stays continuously integrable and a dirty tip never propagates.
-- [Version control](https://dora.dev/capabilities/version-control/) — the audited server remote is the single source of truth with a
+- [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — integrate from the stable verified point so the
+  trunk stays continuously integrable and a dirty tip never propagates.
+- [Version control](../../references/dora/capabilities.md#version-control) — the audited server remote is the single source of truth with a
   complete, attributable history.
-- [Streamlining change approval](https://dora.dev/capabilities/streamlining-change-approval/) — the PR is built-in, authenticated ingress
-  and approval, not a heavyweight external gate.
-- [Pervasive security](https://dora.dev/capabilities/pervasive-security/) — authenticating every ingress at the PR keeps every commit on
-  main attributable to a known principal.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — the PR is built-in, authenticated
+  ingress and approval, not a heavyweight external gate.
+- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — authenticating every ingress at the PR keeps every commit
+  on main attributable to a known principal.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Module aspects — a unit's files partition into live and tests (`ADR-ASPECT`)
+## Run modes — source mode and build mode (`ADR-DSGN-RUNMODE`)
+
+DORA ties deployment automation and continuous delivery to delivery performance. Shipping the toolset as a built, installable package that
+runs the very same modules — proven by the same tests in both modes — makes the delivered artifact a verified form of the source rather than
+a separate product, and keeps one body of code and tests behind both forms.
+
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — the built package installs onto a machine in one
+  step, from one reproducible build.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — one body of tests proves the modules in both run modes.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one set of modules behind both modes, with no second
+  copy to drift.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Module aspects — a unit's files partition into live and tests (`ADR-DSGN-ASPECT`)
 
 DORA identifies loosely coupled teams and code maintainability as predictors of delivery performance. Partitioning modules into live and
 test aspects creates clear ownership boundaries, prevents accidental shipping of unreviewed code, and enables independent reasoning about
 each concern.
 
-- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — aspects partition code and tests, enabling independent
-  change and verification.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — explicit, convention-driven partitions reduce cognitive load
-  and prevent silent errors.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — aspects partition code and tests, enabling
+  independent change and verification.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — explicit, convention-driven partitions reduce
+  cognitive load and prevent silent errors.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

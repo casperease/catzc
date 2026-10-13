@@ -11,6 +11,9 @@
 
     Scaffolds into ANY repository root that already carries the .internal overlay — the loader path in the shim
     is repository-root-relative, so nothing absolute is baked in.
+
+    Writes the source tree's entry point from the source overlay, so it stops with a named error in build mode
+    (Assert-SourceTree, ADR-DSGN-RUNMODE).
 .PARAMETER RepositoryRoot
     The repository root to generate importer.ps1 into (and whose overlay is read). Defaults to this repository.
 .PARAMETER Force
@@ -34,6 +37,8 @@ function New-Importer {
 
         [switch] $DryRun
     )
+
+    Assert-SourceTree
 
     $overlayPath = Join-Path $RepositoryRoot 'automation/.internal/Catzc.Internal.Importer.psm1'
     if (-not (Test-Path -LiteralPath $overlayPath -PathType Leaf)) {
@@ -67,7 +72,11 @@ function New-Importer {
         }
         "    [$typeText] `$$($parameter.Name.VariablePath.UserPath)"
     }
-    $paramBlock = "param(`n" + ($paramLines -join ",`n") + "`n)"
+    # The shim sets $env:RepositoryRoot, but its announcement is delegated (ADR-AUTO-ANNOUNCE:2): Invoke-Importer
+    # names it on its Roots line, the first point a writer is loaded.
+    $suppression = "[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', " +
+    "Justification = 'Invoke-Importer announces RepositoryRoot on its Roots line, the first point a writer is loaded')]"
+    $paramBlock = "$suppression`n" + "param(`n" + ($paramLines -join ",`n") + "`n)"
 
     # Fixed template around the generated param block. Single-quoted here-strings keep $env:/$PSScriptRoot/
     # @PSBoundParameters literal. The one living copy of the shim body lives here; importer.ps1 is generated.

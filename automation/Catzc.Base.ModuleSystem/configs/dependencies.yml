@@ -18,7 +18,7 @@ groups:
     Base:
         Catzc.Base.Asserts: []
         Catzc.Base.Repository: [Catzc.Base.Asserts]
-        Catzc.Base.Environment: [Catzc.Base.Asserts]
+        Catzc.Base.Environment: [Catzc.Base.Writers, Catzc.Base.Asserts]
         Catzc.Base.Objects: [Catzc.Base.Asserts]
         Catzc.Base.Writers: [Catzc.Base.Objects, Catzc.Base.Asserts]
         Catzc.Base.Config: [Catzc.Base.Repository, Catzc.Base.Asserts]

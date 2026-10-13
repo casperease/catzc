@@ -94,8 +94,8 @@ ordered dictionary, which is the sensible default for a config that needs no sha
 
 ### The registry override
 
-A module may override the convention per config via `configs/configs.yml` in the owning module, mapping a name to one of two advanced
-shapes:
+The convention is overridden per config in the one registry, `Catzc.Base.Config/configs/configs.yml`, whose `configs:` map binds a name to
+one of two advanced shapes:
 
 - `<name>: { pwsh: <Fn> }` — run a **custom-named** validator (when the `Assert-<TitleCase(name)>Config` convention name does not fit) in
   the owner's scope.

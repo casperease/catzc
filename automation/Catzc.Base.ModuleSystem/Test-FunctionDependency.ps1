@@ -14,7 +14,9 @@
     unique, mirroring the importer's Assert-UniqueModuleFunctionName. Duplicate private names across modules are
     allowed (privates are module-scoped and not exported).
 
-    Must run post-import so Get-Command covers all loaded modules.
+    Must run post-import so Get-Command covers all loaded modules. Reads the per-function source files, which
+    exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
+    ADR-DSGN-RUNMODE).
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to $env:RepositoryRoot/automation.
 .EXAMPLE
@@ -28,6 +30,8 @@ function Test-FunctionDependency {
     param(
         [string] $AutomationRoot = (Join-Path $env:RepositoryRoot 'automation')
     )
+
+    Assert-SourceTree
 
     # Parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/call provider
     # overhead, ADR-AUTO-TEST:18); the definition map and the call-resolution walk reuse these ASTs, so each file is read

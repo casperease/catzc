@@ -6,7 +6,10 @@
     A lightweight, quiet-on-clean pass over the tools.yml set. For each tool it:
       - re-resolves it in the session (after a Sync-SessionPath to recover dropped registry entries), and
       - when the tool is unresolvable but declares session_path_hints (e.g. nvm-managed node), prepends the
-        hinted directory to $env:PATH so THIS session can still run it.
+        hinted directory to $env:PATH so THIS session can still run it, and
+      - when the tool declares session_host_probes and more than one install exists, moves the best one to the
+        front of $env:PATH so THIS session runs it (Resolve-SessionToolHost) — for dotnet an SDK at the locked
+        version first, else a runtime at the locked version. The other installs are left in place.
     Every present tool whose location is not owned by the installer layer (Test-ToolLocationManaged) is
     collected and reported on two lines: the advisory (the fact plus which tools) on the always-on information
     stream, and each tool's resolved location — diagnostic detail — on the verbose stream, so a plain import
@@ -42,6 +45,12 @@ function Sync-SessionTools {
         $config = Get-ToolConfig -Tool $toolName
 
         $cmd = Get-Command $config.command -CommandType Application -ErrorAction Ignore | Select-Object -First 1
+        # When several installs exist, run the best one (tools.yml session_host_probes — for dotnet an SDK at the
+        # locked version, else a runtime at the locked version). The other installs are left in place.
+        $hosted = Resolve-SessionToolHost -Config $config
+        if ($hosted) {
+            $cmd = $hosted
+        }
         if (-not $cmd) {
             # Not on PATH — try the declared hints to point this session at a known install.
             $cmd = Resolve-SessionToolHint -Config $config

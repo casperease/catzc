@@ -45,11 +45,11 @@ feature branching: "each developer divides their own work into small batches and
 several times) a day," and "branches in trunk-based development typically last no more than a few hours, with many developers merging their
 individual changes into trunk frequently."[^1]
 
-It sits in the DORA Core Model as a predictor of software delivery and operational performance. DORA's research (drawn from the 2016–2017
-State of DevOps work) found that teams following three practices — three or fewer active branches, merging to trunk at least once daily, and
-no code freezes or integration phases — achieve higher delivery speed, stability, and availability than teams that do not. Feature
-branching, by contrast, defers integration and so requires "bigger and more complex merge events" plus "additional stabilizing efforts and
-code freeze periods" to compensate.
+DORA's catalogue lists it as a predictor of software delivery and operational performance, although Core V2 removed it from the DORA Core
+Model and put working in small batches in its place. DORA's research (drawn from the 2016–2017 State of DevOps work) found that teams
+following three practices — three or fewer active branches, merging to trunk at least once daily, and no code freezes or integration phases
+— achieve higher delivery speed, stability, and availability than teams that do not. Feature branching, by contrast, defers integration and
+so requires "bigger and more complex merge events" plus "additional stabilizing efforts and code freeze periods" to compensate.
 
 ## Summary
 
@@ -95,20 +95,37 @@ to build on ([ADR-DSGN-LIFE:6](../design/commit-lifecycle.md#rule-adr-dsgn-life6
 ## References
 
 [^1]:
-    DORA, _Trunk-based development_ capability, <https://dora.dev/capabilities/trunk-based-development/>. Part of the DORA Core Model of
-    capabilities that predict software delivery performance.
+    DORA, _Trunk-based development_ capability, <https://dora.dev/capabilities/trunk-based-development/>. A capability that predicts
+    software delivery and operational performance; removed from the DORA Core Model in Core V2.
 
 ## Dora explains
 
-Trunk-based development is one of the capabilities DORA's research most directly ties to delivery speed and stability: a trunk that stays
-continuously mergeable is what lets a team deploy on demand and recover quickly, rather than accumulating risk in unmerged branches.
+Trunk-based development is a fast-flow capability that DORA's research ties to delivery speed, stability, and availability: teams with three
+or fewer active branches, at least daily merges to trunk, and no code freezes or integration phases perform better. It drives continuous
+delivery, but it is outside the Core Model: Core V2 replaced it with working in small batches.
 
-- [Version control](https://dora.dev/capabilities/version-control/) — the recoverable, attributable history a trunk-based team merges its
-  small batches into.
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — the validation discipline that proves each small,
-  frequent merge is safe to build on.
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — the batch-decomposition skill trunk-based
-  development depends on developers having.
-- [Test automation](https://dora.dev/capabilities/test-automation/) — the automated testing run against every change before it commits to
-  trunk.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development)
+- **Category:** [Fast flow](../../references/dora/capabilities.md#fast-flow) — Core Model v2.1.0: not in the Core Model (removed in V2, with
+  working in small batches taking its place; see [version history](../../references/dora/core-model.md#version-history)).
+- **Evidence:**
+  - [2016 State of DevOps Report](../../references/dora/publications.md#2016-state-of-devops-report) — cited on the capability page for the
+    trunk-based findings.
+  - [2017 State of DevOps Report](../../references/dora/publications.md#2017-state-of-devops-report) — cited on the capability page; the
+    report finds version control, continuous integration, trunk-based development, and test automation essential to continuous delivery.
+  - [2022 Accelerate State of DevOps Report](../../references/dora/publications.md#2022-accelerate-state-of-devops-report) — with
+    above-average documentation quality, trunk-based development's lift on organizational performance rises from 36% to 1525%.
+- **Predicts:** higher software delivery and operational performance — speed ([throughput](../../references/dora/metrics.md#throughput)),
+  stability ([instability](../../references/dora/metrics.md#instability)), and availability
+  ([reliability](../../references/dora/metrics.md#reliability)). It is one of the capabilities that drive
+  [continuous delivery](../../references/dora/capabilities.md#continuous-delivery), and the continuous integration page calls it predictive
+  of delivery performance.
+- **Related capabilities:**
+  - [Version control](../../references/dora/capabilities.md#version-control) — the recoverable, attributable history a trunk-based team
+    merges its small batches into.
+  - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — the validation discipline that proves each
+    small, frequent merge is safe to build on.
+  - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — the batch-decomposition skill trunk-based
+    development depends on developers having, and its replacement in the Core Model.
+  - [Test automation](../../references/dora/capabilities.md#test-automation) — the automated testing run against every change before it
+    commits to trunk.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

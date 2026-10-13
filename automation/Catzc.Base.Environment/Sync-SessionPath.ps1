@@ -60,5 +60,20 @@ function Sync-SessionPath {
         }
     }
 
-    $env:PATH = (@($kept) + @($newPaths)) -join ';'
+    # Rewrite the session PATH only when an entry arrives or leaves, and say which (ADR-AUTO-ANNOUNCE:2) — on a
+    # clean devbox nothing changes, so the import stays quiet.
+    $added = @($newPaths)
+    $dropped = @($currentPaths | Where-Object { $_ -notin @($kept) })
+    if ($added.Count -or $dropped.Count) {
+        $env:PATH = (@($kept) + $added) -join ';'
+        $change = @(
+            if ($added.Count) {
+                "added from the registry '$($added -join "', '")'"
+            }
+            if ($dropped.Count) {
+                "dropped missing '$($dropped -join "', '")'"
+            }
+        )
+        Write-Message "Session PATH: $($change -join '; ')"
+    }
 }

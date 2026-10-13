@@ -1,58 +1,53 @@
 <#
 .SYNOPSIS
-    Scans automation/ for its modules and the public functions each exports, for Show-Cats.
+    Lists the loaded catzc modules and the public functions each exports, for Show-Cats.
 .DESCRIPTION
-    Enumerates the non-dot-prefixed module folders under automation/ (a dot-prefix means infrastructure,
-    ADR-REPO-FOLDERS:4) and, for each, the public functions it exports — the root *.ps1 files, one function per file
-    (ADR-AUTO-ONEFUNC). Reads the filesystem directly with [System.IO] (ADR-AUTO-TEST:16, ADR-AUTO-TEST:18), not the loaded
-    session, and memoizes per resolved automation root for the session (docs/adr/automation/caching.md).
+    Reads the loaded session: every module whose folder sits directly under the code root (Get-CatzcModulesRoot)
+    and is not dot-prefixed (a dot-prefix means infrastructure, ADR-REPO-FOLDERS:4), with the functions it exports.
+    Because it reads what is loaded rather than the per-function files, the answer is the same in source mode and
+    in build mode, where each module's functions are merged into one file (ADR-DSGN-RUNMODE:2). Private functions
+    are never exported, so they never appear.
 
     Private helper for Show-Cats; not exported.
-.PARAMETER AutomationRoot
-    Absolute path to the automation/ folder. Defaults to automation/ under the repository root. A test points
-    this at a fixture module tree; the cache keys on the path.
+.PARAMETER ModulesRoot
+    The code root whose loaded modules to list. Defaults to Get-CatzcModulesRoot. A test points this at a fixture
+    root from which it loaded fixture modules.
 .OUTPUTS
-    [object[]] One { Module; Functions } per module, sorted by module name.
+    [object[]] One { Module; Functions } per module, sorted by module name, each Functions list sorted.
 #>
 function Get-CatsModules {
     [OutputType([object[]])]
     [CmdletBinding()]
     param(
-        [string] $AutomationRoot = (Resolve-RepoPath 'automation')
+        [string] $ModulesRoot = (Get-CatzcModulesRoot)
     )
 
-    if (-not $script:catsModulesCache) {
-        $script:catsModulesCache = @{}
-    }
-    if ($script:catsModulesCache.ContainsKey($AutomationRoot)) {
-        return , $script:catsModulesCache[$AutomationRoot]
-    }
+    $root = [System.IO.Path]::GetFullPath($ModulesRoot).TrimEnd('\', '/')
 
-    Assert-PathExist $AutomationRoot
-
-    $moduleDirs = [System.IO.Directory]::EnumerateDirectories($AutomationRoot) | Sort-Object
-    $ret = foreach ($moduleDir in $moduleDirs) {
-        $moduleName = [System.IO.Path]::GetFileName($moduleDir)
-        if ($moduleName.StartsWith('.')) {
+    # Called from inside a module, Get-Module also lists that module's own nested .ps1 function files (one per
+    # function in source mode, the merged <Module>.ps1 in build mode). A module is its folder (folder = module),
+    # so keep only the entry named for its folder whose root file is not a nested .ps1.
+    $loaded = foreach ($module in (Get-Module)) {
+        if (-not $module.ModuleBase -or $module.Name.StartsWith('.')) {
             continue
         }
-
-        $functionFiles = [System.IO.Directory]::EnumerateFiles($moduleDir, '*.ps1') | Sort-Object
-        $functions = foreach ($functionFile in $functionFiles) {
-            $functionName = [System.IO.Path]::GetFileNameWithoutExtension($functionFile)
-            if ($functionName.EndsWith('.Tests')) {
-                continue
-            }
-            $functionName
+        $base = [System.IO.Path]::GetFullPath($module.ModuleBase).TrimEnd('\', '/')
+        if ([System.IO.Path]::GetDirectoryName($base) -ine $root) {
+            continue
         }
+        if ([System.IO.Path]::GetFileName($base) -ne $module.Name -or [System.IO.Path]::GetExtension($module.Path) -eq '.ps1') {
+            continue
+        }
+        $module
+    }
 
+    $ret = foreach ($module in ($loaded | Sort-Object Name -Unique)) {
         [pscustomobject]@{
-            Module    = $moduleName
-            Functions = @($functions)
+            Module    = $module.Name
+            Functions = @($module.ExportedFunctions.Keys | Sort-Object)
         }
     }
 
     $ret = @($ret)
-    $script:catsModulesCache[$AutomationRoot] = $ret
     , $ret
 }

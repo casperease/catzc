@@ -33,13 +33,15 @@ large, infrequent commits and unmanaged merge conflicts erode it.
 ## Context
 
 Version control is the most foundational of DORA's technical capabilities: continuous integration, continuous delivery, deployment
-automation, and trunk-based development all assume it. DORA defines it as the systems — "Git, Subversion, and Mercurial" — that "provide a
-logical means to organize files and coordinate their creation, controlled access, updating, and deletion across teams and
-organizations".[^1]
+automation, and trunk-based development all assume it. DORA defines the capability as using a version control system for every production
+artifact: application code, application and system configuration, and the scripts that build and configure environments. The systems
+themselves — "Git, Subversion, and Mercurial" — "provide a logical means to organize files and coordinate their creation, controlled access,
+updating, and deletion across teams and organizations".[^1]
 
-It sits in the DORA Core Model as a predictor of software delivery performance: teams that comprehensively version their artifacts recover
-faster, audit more easily, and change more safely. In the AI era DORA frames it further as a safety net — frequent commits bound the blast
-radius of fast, machine-assisted change, and prompts and model configuration become artifacts worth versioning like any other.
+It sits in the fast-flow group of the DORA Core Model, where comprehensive use predicts continuous delivery: teams that comprehensively
+version their artifacts recover faster, audit more easily, and change more safely. In the AI era DORA frames it further as a safety net —
+frequent commits bound the blast radius of fast, machine-assisted change, and prompts and model configuration become artifacts worth
+versioning like any other.
 
 ## Summary
 
@@ -62,9 +64,8 @@ happened. Without it, each of those becomes archaeology.
 This platform realizes the capability by keeping every operational artifact in the repository
 ([ADR-PRIN-EAC](../principles/everything-as-code.md)) and carrying exactly one living version of each
 ([ADR-PRIN-ONELIVE](../principles/one-living-version.md)) with all history in git rather than in retained files. Trunk-based development and
-short-lived branches ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) keep the inner-loop discipline this capability depends
-on, and the audited server remote ([ADR-DSGN-REMOTE](../design/server-remote-integration.md)) is the single source of truth for what is on
-main.
+short-lived branches ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) keep the inner-loop discipline this capability depends on,
+and the audited server remote ([ADR-DSGN-REMOTE](../design/server-remote-integration.md)) is the single source of truth for what is on main.
 
 ## Common pitfalls
 
@@ -83,12 +84,35 @@ main.
 
 ## Dora explains
 
-Version control is the base on which DORA's delivery metrics rest: without a recoverable, attributable history there is no reliable way to
-deploy frequently, keep change lead time short, or restore service quickly after a failure.
+Version control is the base on which DORA's delivery capabilities rest. It is a fast-flow capability in the Core Model, where comprehensive
+use predicts continuous delivery, and one of the seven capabilities of the AI Capabilities Model, where strong practice — frequent commits
+and reliance on rollback — is the safety net that makes fast, AI-driven change safe to experiment with.
 
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — integrates versioned changes continuously; impossible
-  without version control.
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — the branching discipline that keeps the history a
-  usable safety net.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — automates deployment from versioned definitions.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Version control](../../references/dora/capabilities.md#version-control)
+- **Category:** [Fast flow](../../references/dora/capabilities.md#fast-flow) — Core Model v2.1.0:
+  [fast flow](../../references/dora/core-model.md#fast-flow); also a member of the
+  [AI Capabilities Model](../../references/dora/ai.md#ai-capabilities-model) as "Strong version control practices".
+- **Evidence:**
+  - [2014 State of DevOps Report](../../references/dora/publications.md#2014-state-of-devops-report) — version control and continuous
+    delivery correlate with high IT performance.
+  - [2017 State of DevOps Report](../../references/dora/publications.md#2017-state-of-devops-report) — version control is one of the
+    practices essential to continuous delivery.
+  - [2019 Accelerate State of DevOps Report](../../references/dora/publications.md#2019-accelerate-state-of-devops-report) — cited on the
+    capability page as evidence for the capability.
+  - [2022 Accelerate State of DevOps Report](../../references/dora/publications.md#2022-accelerate-state-of-devops-report) — teams combining
+    version control and continuous delivery are 2.5× more likely to have high delivery performance.
+  - [2025 State of AI-assisted Software Development](../../references/dora/publications.md#2025-state-of-ai-assisted-software-development) —
+    introduces the AI Capabilities Model, with strong version control practices as one of its seven capabilities.
+  - [2025 DORA AI Capabilities Model](../../references/dora/publications.md#2025-dora-ai-capabilities-model) — implementation strategies and
+    ways to monitor progress for each of the seven capabilities.
+- **Predicts:** comprehensive use predicts [continuous delivery](../../references/dora/capabilities.md#continuous-delivery), and through it
+  [software delivery performance](../../references/dora/core-model.md#software-delivery-performance). With AI, strong practice amplifies AI
+  adoption's positive effect on [individual effectiveness](../../references/dora/ai.md#individual-effectiveness) and
+  [team performance](../../references/dora/ai.md#team-performance).
+- **Related capabilities:**
+  - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — integrates versioned changes continuously;
+    impossible without version control.
+  - [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — the branching discipline that keeps the
+    history a usable safety net.
+  - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — automates deployment from versioned definitions.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

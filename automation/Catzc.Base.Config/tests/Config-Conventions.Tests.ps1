@@ -6,8 +6,10 @@ Describe 'Config conventions' -Tag 'L0', 'integrity' {
     # Title deliberately avoids Pester's <var> name-template syntax — under the importer's strict mode an
     # unmatched <name> token in an It title throws at name-expansion time instead of expanding to empty.
     It 'every Assert-*Config validator maps to a configs/*.yml in its module (no orphans)' {
-        $automation = Join-Path $env:RepositoryRoot 'automation'
-        foreach ($moduleDir in (Get-ChildItem $automation -Directory | Where-Object { $_.Name -notmatch '^\.' })) {
+        # The loaded code root, so the check binds the shipped configs of whichever tree the modules were loaded
+        # from — the source tree or a built package (ADR-DSGN-RUNMODE:2).
+        $modulesRoot = Get-CatzcModulesRoot
+        foreach ($moduleDir in (Get-ChildItem $modulesRoot -Directory | Where-Object { $_.Name -notmatch '^\.' })) {
             $mod = Get-Module $moduleDir.Name
             if (-not $mod) {
                 continue

@@ -92,7 +92,7 @@ Two goals shape the standard:
 
 `short_name` is **derived** from the folder name — lowercase, keep only `[a-z0-9]` (hyphens/punctuation dropped), take the first 5 chars
 (`discovery` → `disco`, `my-template` → `mytem`) — by `Catzc.Azure.Templates.BicepShortName`. A template MAY override it with an explicit
-`short_name` in its **optional** `options.yml`; `options.yml` is no longer required for identity. `BicepShortName` validates both forms
+`short_name` in its **optional** `options.yml`; `options.yml` is not required for identity. `BicepShortName` validates both forms
 (`^[a-z][a-z0-9]{1,4}$`): a malformed override, or a folder that cannot derive ≥2 valid chars without an override, throws at discovery. All
 Azure-facing identifiers (resource names, tracking-tag prefixes, deployment names) use `short_name`, never the folder name.
 
@@ -118,7 +118,7 @@ Azure-facing identifiers (resource names, tracking-tag prefixes, deployment name
 
 ### Ordering & render forms
 
-Each resource type ties to one of **three render/constraint patterns** (`Get-AzureNamePatternSet`; every type names its pattern in
+Each resource type ties to one of **four render/constraint patterns** (`Get-AzureNamePatternSet`; every type names its pattern in
 `Get-AzureResourceTypeSet`):
 
 A pattern fixes the **render separator** and the **length budget**; it also selects the **env form**:
@@ -250,5 +250,5 @@ Per-customer rows use customer `apex` (shortcode `ap`):
   `short_name` (no auto-hash).
 - The **subscription** (the config folder a template deploys to) is a **resolution axis only** — it selects _which subscription_ a deploy
   targets and is **never** a resource-name component. Names are assembled from the components above
-  (env/slot/region/org/short*name/customer/role/type); the subscription never appears in them. The **customer** that does render is
-  \_derived* from that subscription (`subscription.customer`). See [`data-model`](azure-data-model.md).
+  (env/slot/region/org/`short_name`/customer/role/type); the subscription never appears in them. The **customer** that does render is
+  _derived_ from that subscription (`subscription.customer`). See [`data-model`](azure-data-model.md).

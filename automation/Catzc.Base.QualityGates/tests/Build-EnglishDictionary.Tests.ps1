@@ -1,4 +1,15 @@
-Describe 'Build-EnglishDictionary — committed dictionary drift guard' -Tag 'L1', 'integrity' {
+Describe 'Build-EnglishDictionary' -Tag 'L0', 'logic' {
+    It 'refuses to run outside the source tree before touching node (Assert-SourceTree)' {
+        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { throw 'operates on the catzc source tree' }
+        Mock Assert-Command -ModuleName Catzc.Base.QualityGates { }
+
+        { Build-EnglishDictionary -DryRun } | Should -Throw '*operates on the catzc source tree*'
+        Should -Invoke Assert-Command -ModuleName Catzc.Base.QualityGates -Times 0
+    }
+}
+
+# source-only: it reads the committed artifact in the repository, which gives the same answer in both run modes.
+Describe 'Build-EnglishDictionary — committed dictionary drift guard' -Tag 'L1', 'integrity', 'source-only' {
     # Binds to the shipped english.txt.gz + its stamp and the pinned tools.yml version — an integrity test
     # (ADR-AUTO-TEST:1). It detects a stale dictionary WITHOUT re-running node: it compares the recorded cspell version
     # against the tools.yml pin, and the recorded word count against the actual gz. Re-run Build-EnglishDictionary

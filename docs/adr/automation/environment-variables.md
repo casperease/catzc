@@ -213,7 +213,7 @@ function Install-Tool {
     $env:LAST_INSTALLED_TOOL = $toolName      # leaks to every child process
 }
 function Show-Summary {
-    Write-Host "Installed: $env:LAST_INSTALLED_TOOL"  # invisible coupling
+    Write-Message "Installed: $env:LAST_INSTALLED_TOOL"  # invisible coupling
 }
 
 # GOOD — pass it as a return value or parameter
@@ -301,9 +301,9 @@ Selection criteria are the dimensions that determine _which_ configuration appli
 
 They are control signals — in a pipeline they control the path of flow, in a function they determine what to look up.
 
-This is what `Catzc.Azure.Templates/configs/azure.yml` and `Get-Config -Config azure` provide: the selection dimensions (customers,
-environments, types), validated for referential integrity on load. They are not the configuration system itself — they are the axes by which
-configuration is selected.
+This is what `Catzc.Azure/configs/azure.yml` and `Get-Config -Config azure` provide: the selection dimensions (customers, environments,
+types), validated for referential integrity on load. They are not the configuration system itself — they are the axes by which configuration
+is selected.
 
 The actual configuration system (resource names, connection strings, feature flags) is a separate concern that consumes these dimensions.
 
@@ -321,9 +321,10 @@ Environment variables remain the right answer when your config is genuinely a fl
 - Child processes only see variables that were set intentionally for them, not internal state that leaked.
 - Debugging is straightforward. State flows through parameters and return values — you can trace it by reading the code. Global mutable
   state requires tracing every possible mutation site in the entire process.
-- The codebase has a single persistent path anchor — `$env:RepositoryRoot`, set once at bootstrap and never modified. The only other `$env:`
-  our code defines for itself are the handful of `$env:CATZC_*` external/diagnostic toggles, which are read (not written) as boundary
-  inputs. Internal state flows through function contracts, not the environment.
+- The codebase has two persistent path anchors — `$env:RepositoryRoot` (the working root) and `$env:CatzcModulesRoot` (the code root, see
+  [platform-bundle](platform-bundle.md)), each set once at bootstrap and never modified. The only other `$env:` our code defines for itself
+  are the handful of `$env:CATZC_*` external/diagnostic toggles, which are read (not written) as boundary inputs. Internal state flows
+  through function contracts, not the environment.
 - Secrets reach an external tool through one auditable seam. A secret bound into `$env:` for a child process goes through
   `Write-EnvironmentSet` (ADR-AUTO-ENVVAR:7) — `SecureString` in, masked in logs, decrypted only at the assignment, scoped by default — so
   there is a single function to review rather than scattered ad-hoc secret-into-env writes.

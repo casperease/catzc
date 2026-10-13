@@ -8,7 +8,7 @@
 #   committed true  -> the target is tracked (needed before the importer runs) and NOT ignored.
 # Mirrors the generated-README integrity gate (Test-GeneratedReadmes.Tests.ps1). See
 # docs/adr/repository/generated-root-configs.md.
-Describe 'Managed root config files agree with .gitignore and git tracking' -Tag 'L2', 'integrity' {
+Describe 'Managed root config files agree with .gitignore and git tracking' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
         $script:skip = $null
@@ -175,7 +175,7 @@ Describe 'Managed root config files agree with .gitignore and git tracking' -Tag
 # a literal-hashtable settings file at the path it is given. The target is a copyAsLink entry, so content
 # equality with the source holds by construction (a hard link is the same bytes; a symbolic link resolves) —
 # what remains to prove is that a consumer opening the ROOT path can follow the link and parse the settings.
-Describe 'Root PSScriptAnalyzerSettings.psd1 link' -Tag 'L1', 'integrity' {
+Describe 'Root PSScriptAnalyzerSettings.psd1 link' -Tag 'L1', 'integrity', 'source-only' {
     It 'parses as a settings hashtable through the link' {
         $entry = @(Get-Config -Config rootconfig | ForEach-Object files |
                 Where-Object { $_.target -eq 'PSScriptAnalyzerSettings.psd1' -and $_.optIn })

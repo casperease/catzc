@@ -39,8 +39,8 @@ session the root config, and the customer renders into resource names.
 
 ### Rule ADR-AZ-DATAMOD:5
 
-The resource-group name is derived by `Get-BicepResourceGroupName`, never hand-typed; the name-component order is a durable code setting
-(`Get-AzureNameOrder`).
+The resource-group name is derived by `Get-BicepResourceGroupName`, never hand-typed; the name-component order is the `ado_naming` repo
+variant (`Get-AdoNaming`).
 
 - [The name builder](#the-name-builder)
 
@@ -74,10 +74,10 @@ coordinate resolves to exactly one subscription) is enforced at discovery by `Ge
 
 `Catzc.Azure.Templates` is configured by **two layers**:
 
-| Layer                       | Source of truth                                                             | Entities                                                |
-| --------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------- |
-| 1 — Identity / topology     | `automation/Catzc.Azure.Templates/configs/azure.yml` (one declarative file) | tenant, customer, environment, subscription             |
-| 2 — Templating / deployment | the `infrastructure/templates/<name>/` filesystem (discovered)              | template, options, slot (per-RG config), deploy context |
+| Layer                       | Source of truth                                                   | Entities                                                |
+| --------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------- |
+| 1 — Identity / topology     | `automation/Catzc.Azure/configs/azure.yml` (one declarative file) | tenant, customer, environment, subscription             |
+| 2 — Templating / deployment | the `infrastructure/templates/<name>/` filesystem (discovered)    | template, options, slot (per-RG config), deploy context |
 
 A third global asset, `configs/network.yml`, carries the cross-cutting IP plan (per-environment vnet / subnet ranges) alongside `azure.yml`.
 It is a separate concern with its own schema and cross-asset integrity rules — see [`network-model`](azure-network-model.md). This ADR
@@ -155,8 +155,8 @@ A **customer** (defined in `customer.yml`) carries two stored identifiers, mirro
 customer-segment of _generous_ resource names) and a 2-char **`shortcode`** (unique, the customer-segment of _restricted_
 `kv`/`storage`/`vm` names — so a readable key never costs a tight name a byte).
 
-A subscription's `customer` is read through the single accessor `Get-AzureSubscriptionCustomer`, shared by `Assert-AzureConfig` (validation)
-and `Get-AzureSubscription` (naming resolution) so the two cannot drift.
+A subscription's `customer` is read through the single accessor `Get-AzureSubscriptionCustomer`, shared by `Get-AzureSubscription` (naming
+resolution) and `Get-BicepConfigSubscriptionCandidates` (config-coordinate resolution) so the two cannot drift.
 
 **Uniqueness is per coordinate, not global.** Different customers' subscriptions — and the shared platform's — may serve the same
 environment (e.g. `shared_nonprod` and a customer's `apex_nonprod` both serve `dev`); the customer axis separates them. What must be unique
@@ -207,6 +207,7 @@ erDiagram
         string environment_kind
         string deployment_mode
         string deployment_target
+        bool   customer_deployment "optional; defaults to the have_customers variant"
     }
     SLOT {
         string name         "the config-name (<env>[-<slot>]); the (customer?,env,slot) triple is the PK, 1:1 with the RG"
@@ -228,8 +229,9 @@ erDiagram
 - `short_name` (the globally-unique Azure id segment) is **derived** from the template folder name (first 5 `[a-z0-9]`, hyphens dropped) by
   `Catzc.Azure.Templates.BicepShortName`; `Get-BicepTemplates` resolves it and enforces uniqueness across all templates. `options.yml` is
   **optional** and, when present, may **override** `short_name` and/or declare `deployment_mode` / `deployment_target` / `environment_kind`
-  (strict schema, validated at discovery by `Read-BicepTemplateOptions`). It does **not** declare which subscriptions the template targets —
-  that follows from its configuration coordinates. See [`naming-standard`](azure-naming-standard.md#rule-adr-az-naming2).
+  / `customer_deployment` (strict schema, validated at discovery by `Read-BicepTemplateOptions`; see
+  [`customer-model`](azure-customer-model.md)). It does **not** declare which subscriptions the template targets — that follows from its
+  configuration coordinates. See [`naming-standard`](azure-naming-standard.md#rule-adr-az-naming2).
 - `environment_kind` (`standard` | `subscription`, default `standard`) is the template's one classification bit: every config's env must
   match it — `subscription` ⇒ a `per_subscription` env (`nsub`/`psub`, deployed once per subscription), `standard` ⇒ an ordinary env
   (`dev`/`test`/…). Enforced per-config by `Get-BicepConfigClassViolations` (shared by discovery and `Assert-BicepTemplate`). The slot is
@@ -296,9 +298,10 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
 ### Validation
 
 - **Per-record shape** (identifiers, GUIDs, enums, formats) is schema-expressible.
-- **Cross-record integrity** (FKs, env name/shortcode uniqueness + prefix-free names, `customer` references a defined customer, ≤1
-  per-subscription env per subscription, per-customer environment disjointness by raw token) is owned by `Assert-AzureConfig`; the
-  normalized (key-vs-shortcode) per-customer grouping and the non-customer set's disjointness are shipped-asset integrity tests.
+- **Cross-record integrity** (FKs, env name/shortcode uniqueness + prefix-free names, ≤1 per-subscription env per subscription, per-customer
+  environment disjointness by raw token) is owned by `Assert-AzureConfig`; the `customer` reference into `customer.yml`, the normalized
+  (key-vs-shortcode) per-customer grouping, and the non-customer set's disjointness are shipped-asset integrity tests (see
+  [`customer-model`](azure-customer-model.md#rule-adr-az-customer3)).
 - The **cross-layer** link is enforced at **discovery** (`Get-BicepTemplates`) and collected by `Assert-BicepTemplate`, sharing the
   per-config rule `Get-BicepSubscriptionConfigViolations`: a configuration subfolder is a **defined customer key**, and every config's
   (customer?, env) coordinate resolves to **exactly one subscription id** (`Get-BicepConfigSubscriptionCandidates`).

@@ -63,11 +63,11 @@ The platform repeatedly performs two kinds of work that are **expensive to redo 
 1. **Static file reads.** Loading, parsing, and validating a checked-in config file into an in-memory object — `configs/azure.yml`,
    `configs/tools.yml`, and the like. The result is a pure function of the file's bytes.
 
-2. **[Azure|other].** _The result of scanning the on-disk file set and deriving Information and Meaning from it by convention._ This is the
-   platform's convention-handling: which folders are modules, which `.ps1` files are public vs `private/`, which folders under
-   `infrastructure/templates/` are templates, what slots and `options.yml` values they declare, whether `short_name`s are unique, the
-   env-`code` → env-name map. `Information` here is a pure function of the on-disk file set (plus the static configs it reads — see
-   [conventional-folders](../repository/conventional-folders.md)).
+2. **Filesystem-derived information.** _The result of scanning the on-disk file set and deriving Information and Meaning from it by
+   convention._ This is the platform's convention-handling: which folders are modules, which `.ps1` files are public vs `private/`, which
+   folders under `infrastructure/templates/` are templates, what slots and `options.yml` values they declare, whether `short_name`s are
+   unique, the env-`code` → env-name map. `Information` here is a pure function of the on-disk file set (plus the static configs it reads —
+   see [conventional-folders](../repository/conventional-folders.md)).
 
 Both are deterministic functions of the repository's files.
 

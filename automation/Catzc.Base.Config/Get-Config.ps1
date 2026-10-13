@@ -3,8 +3,8 @@
     Loads, validates, and caches a module's config by its global lowercase name.
 .DESCRIPTION
     The single reader for any module's internal config (configs/<name>.yml). Existence is discovered by
-    scanning automation/*/configs/ (cached, via Resolve-ConfigEntry); -Module disambiguates the rare case of
-    the same config name in two modules. The parsed config (ConvertFrom-Yaml -Ordered) is cached per resolved
+    scanning <module>/configs/ under the loaded code root, Get-CatzcModulesRoot (cached, via
+    Resolve-ConfigEntry); -Module disambiguates the rare case of the same config name in two modules. The parsed config (ConvertFrom-Yaml -Ordered) is cached per resolved
     path for the session (re-run the importer to clear) and the same reference is returned on repeat calls.
 
     Validation/mapping is resolved against the OWNING module (from discovery), in this order:

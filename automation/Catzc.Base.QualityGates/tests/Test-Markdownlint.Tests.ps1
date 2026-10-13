@@ -109,8 +109,9 @@ Describe 'Test-Markdownlint (real markdownlint-cli2)' -Tag 'L2', 'logic' {
 # scope (ADR-AUTO-TEST:14). L2 because it drives the markdownlint-cli2 CLI; self-skips when absent (ADR-AUTO-TEST:8/9).
 # Protected-glob gated (ADR-REPO-PROTGLOB): a repeat local run over an unchanged 'markdown-scope' globset (the
 # scan's inputs — in-scope markdown plus the markdownlint config) is skipped; in a pipeline the protection
-# is ignored and the scan always runs full.
-Describe 'Repository markdown integrity' -Tag 'L2', 'integrity' {
+# is ignored and the scan always runs full. source-only: it reads the repository's markdown, which gives the same
+# answer in both run modes.
+Describe 'Repository markdown integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'the real repository markdown is lint-clean (real markdownlint-cli2, default content scope)' {
         if (-not (Get-Command markdownlint-cli2 -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_markdownlint_missing'

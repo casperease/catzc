@@ -1,5 +1,7 @@
 Describe 'Install-VendorModule' -Tag 'L0', 'logic' {
     BeforeEach {
+        # The run-mode guard is its own boundary (covered in the build-mode block below).
+        Mock Assert-SourceTree -ModuleName Catzc.Base.Vendor { }
         Mock Write-Message -ModuleName Catzc.Base.Vendor { }
         Mock Resolve-VendorRepository -ModuleName Catzc.Base.Vendor { 'PSGallery' }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Vendor { 'TestDrive:' }
@@ -24,5 +26,14 @@ Describe 'Install-VendorModule' -Tag 'L0', 'logic' {
     It 'passes the required version through as -Version' {
         Install-VendorModule X -RequiredVersion '5.5.0'
         Should -Invoke Save-PSResource -ModuleName Catzc.Base.Vendor -ParameterFilter { $Version -eq '5.5.0' }
+    }
+}
+
+Describe 'Install-VendorModule — build mode' -Tag 'L0', 'logic' {
+    It 'stops with a named error when the session runs a built package, before downloading' {
+        Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
+        Mock Save-PSResource -ModuleName Catzc.Base.Vendor { }
+        { Install-VendorModule Gadget } | Should -Throw '*Install-VendorModule operates on the catzc source tree*'
+        Should -Invoke Save-PSResource -ModuleName Catzc.Base.Vendor -Times 0
     }
 }

@@ -4,17 +4,20 @@
 .DESCRIPTION
     The typed view of the module system. Two facets, six kinds:
 
-      on-disk (folders under automation/, returned as DiskModule with the folder's repo-relative path and the
-      named packages it owns from configs/files.yml):
-        'named'    a non-dot automation/* folder (Catzc.*)
+      on-disk (folders under the loaded code root, Get-CatzcModulesRoot, returned as DiskModule with the
+      folder's source-layout path, automation/<Name>, and the named packages it owns from configs/files.yml):
+        'named'    a non-dot module folder (Catzc.*)
         'hidden'   a dot-prefixed folder (.internal, .vendor, .compiled, .scriptanalyzer)
 
       in-session (every module loaded in the session, mapped by HOW IT CAME INTO PLAY — its ModuleBase
       location — returned as SessionModule with ModuleBase + Version):
-        'imported' our automation module   — ModuleBase under automation/ (not .vendor)
-        'vendored' our vendored third-party — ModuleBase under automation/.vendor/
+        'imported' our automation module   — ModuleBase under the code root (not .vendor)
+        'vendored' our vendored third-party — ModuleBase under the code root's .vendor/
         'builtin'  shipped with PowerShell  — ModuleBase under $PSHOME
         'residue'  genuinely foreign        — anything else (user profile, PowerShell Gallery, manual import)
+
+    Both facets classify against the code root, not <RepositoryRoot>/automation, so the answer is correct in
+    both run modes (ADR-DSGN-RUNMODE): in build mode the loaded modules live in the built package.
 
     Default returns the on-disk kinds (named + hidden). Copy-Automation and the module completers act on those;
     the session kinds map what is loaded and where it came from (diagnostics, collision reporting).
@@ -37,16 +40,14 @@ function Get-BaseModule {
     $diskKinds = @('named', 'hidden')
     $sessionKinds = @('imported', 'vendored', 'builtin', 'residue')
     $ret = [System.Collections.Generic.List[Catzc.Base.ModuleSystem.BaseModule]]::new()
-    $repositoryRoot = Get-RepositoryRoot
+    $modulesRoot = Get-CatzcModulesRoot
 
     # ---- on-disk: named + hidden folders under automation/, with their files.yml packages ----
     if ($Kind | Where-Object { $_ -in $diskKinds }) {
         $bindings = (Get-Config -Config files).modules
-        $automationRoot = Join-Path $repositoryRoot 'automation'
-
         # Ordinal sort for a deterministic, culture-independent order (cross-platform).
         $names = [string[]] @(
-            [System.IO.Directory]::EnumerateDirectories($automationRoot) |
+            [System.IO.Directory]::EnumerateDirectories($modulesRoot) |
                 ForEach-Object { [System.IO.Path]::GetFileName($_) }
         )
         [System.Array]::Sort($names, [System.StringComparer]::Ordinal)
@@ -76,7 +77,7 @@ function Get-BaseModule {
 
     # ---- in-session: map every loaded module by its ModuleBase location (how it came into play) ----
     if ($Kind | Where-Object { $_ -in $sessionKinds }) {
-        $automationFull = [System.IO.Path]::GetFullPath((Join-Path $repositoryRoot 'automation'))
+        $automationFull = [System.IO.Path]::GetFullPath($modulesRoot)
         $vendorFull = [System.IO.Path]::GetFullPath((Join-Path $automationFull '.vendor'))
         $psHomeFull = if ($PSHOME) {
             [System.IO.Path]::GetFullPath($PSHOME)

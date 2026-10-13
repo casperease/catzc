@@ -112,16 +112,41 @@ meaningful when it reaches production.
 
 ## Dora explains
 
-Continuous delivery is one of DORA's clearest links between technical practice and the four key metrics: teams that keep their software
-releasable on demand see shorter lead times, lower change failure rates, faster recovery, and higher deployment frequency together, not as a
-trade-off between speed and stability.
+Continuous delivery sits in the Core Model's fast-flow group and is one of DORA's clearest links between technical practice and outcomes: it
+predicts higher software delivery performance and availability together, not as a trade-off between speed and stability, and it reaches the
+people doing the work through less rework, less deployment pain, and less burnout. The catalogue lists fourteen capabilities that drive it.
 
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — the fast, frequent integration into one mainline that
-  continuous delivery builds its releasable state on top of.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — the automated, repeatable deploy mechanism continuous
-  delivery relies on to make releasing routine rather than risky.
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — the branching discipline that keeps the mainline in
-  the always-deployable state this capability requires.
-- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — architecture that lets services deploy independently,
-  identified by DORA as one of the strongest predictors of successful continuous delivery.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery)
+- **Category:** [Fast flow](../../references/dora/capabilities.md#fast-flow) — Core Model v2.1.0:
+  [fast flow](../../references/dora/core-model.md#fast-flow).
+- **Evidence:**
+  - [2014 State of DevOps Report](../../references/dora/publications.md#2014-state-of-devops-report) — version control and continuous
+    delivery correlate with high IT performance.
+  - [2015 State of DevOps Report](../../references/dora/publications.md#2015-state-of-devops-report) — lean management and continuous
+    delivery reinforce each other and reduce burnout.
+  - [2016 State of DevOps Report](../../references/dora/publications.md#2016-state-of-devops-report) — high performers spend 22% less time
+    on unplanned work and rework (cited on the capability page for rework).
+  - [2017 State of DevOps Report](../../references/dora/publications.md#2017-state-of-devops-report) — continuous delivery lowers deployment
+    pain; version control, CI, trunk-based development, and test automation are essential to it, and loosely coupled architectures and teams
+    are crucial for it.
+  - [2018 Accelerate State of DevOps Report](../../references/dora/publications.md#2018-accelerate-state-of-devops-report) — cited on the
+    capability page for its rework findings.
+  - [2019 Accelerate State of DevOps Report](../../references/dora/publications.md#2019-accelerate-state-of-devops-report) — continuous
+    delivery reduces the risk and cost of releases.
+  - [2022 Accelerate State of DevOps Report](../../references/dora/publications.md#2022-accelerate-state-of-devops-report) — teams combining
+    version control and continuous delivery are 2.5× more likely to have high delivery performance.
+- **Predicts:** higher [software delivery performance](../../references/dora/core-model.md#software-delivery-performance), measured by the
+  [throughput](../../references/dora/metrics.md#throughput) and [instability](../../references/dora/metrics.md#instability) metrics, and
+  higher availability (see [reliability](../../references/dora/metrics.md#reliability)); less rework, unplanned work, and deployment pain;
+  less burnout and higher job satisfaction, both part of the [well-being](../../references/dora/core-model.md#well-being) outcome; and
+  better culture.
+- **Related capabilities:**
+  - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — the fast, frequent integration into one
+    mainline that continuous delivery builds its releasable state on top of.
+  - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — the automated, repeatable deploy mechanism
+    continuous delivery relies on to make releasing routine rather than risky.
+  - [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — the branching discipline that keeps the
+    mainline in the always-deployable state this capability requires.
+  - [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — architecture that lets services deploy
+    independently, which DORA finds predicts continuous delivery.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

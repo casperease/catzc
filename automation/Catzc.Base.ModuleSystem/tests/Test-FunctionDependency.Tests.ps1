@@ -1,14 +1,14 @@
 # The integrity invariant — the real repository's function dependency graph is satisfied — needs exactly one
 # scan of the real automation tree. The [bool] return contract is pure logic, so it is proven at L0 against a
 # fixture root rather than by a second full-tree scan.
-Describe 'Test-FunctionDependency' -Tag 'L1', 'integrity' {
+Describe 'Test-FunctionDependency' -Tag 'L1', 'integrity', 'source-only' {
     It 'the real repository dependency graph is satisfied' {
         # -BeTrue also confirms the return is a truthy [bool]; the type contract itself is covered at L0 below.
         Test-FunctionDependency | Should -BeTrue
     }
 }
 
-Describe 'Test-FunctionDependency (fixture roots)' -Tag 'L0', 'logic' {
+Describe 'Test-FunctionDependency (fixture roots)' -Tag 'L0', 'logic', 'source-only' {
     BeforeAll {
         function New-FunctionFile {
             param([string]$Root, [string]$Module, [string]$Name, [switch]$Private)
@@ -42,5 +42,12 @@ Describe 'Test-FunctionDependency (fixture roots)' -Tag 'L0', 'logic' {
         New-FunctionFile -Root $root -Module 'ModB' -Name 'Get-BThing'
         New-FunctionFile -Root $root -Module 'ModB' -Name 'Get-Shared' -Private
         { Test-FunctionDependency -AutomationRoot $root } | Should -Not -Throw
+    }
+}
+
+Describe 'Test-FunctionDependency — build mode' -Tag 'L0', 'logic' {
+    It 'stops with a named error when the session runs a built package' {
+        Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
+        { Test-FunctionDependency -AutomationRoot $TestDrive } | Should -Throw '*Test-FunctionDependency operates on the catzc source tree*'
     }
 }

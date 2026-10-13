@@ -176,9 +176,9 @@ Anchoring it as a plain repo-relative path would resolve to `{root}/out/...` eve
 That is the **within-stage** story — the `out/` sentinel keeps an output path portable between a devbox and a pipeline. When an artifact
 crosses a **stage boundary** the anchor changes again: the build stage produces it and a later deploy stage — often a different agent —
 downloads and consumes it, and the publish step renames the artifact, stripping the `out/template/` prefix. So the producer's output root
-does not survive the boundary and the `out/` sentinel is no longer the shared anchor; the **artifact root** is (the producer's
-`output_folder`, the consumer's downloaded folder). The cross-stage descriptor is therefore an immutable `ArtifactRef` carrying **both**
-forms: an **artifact-relative** relative (e.g. `main.json`, which the consumer re-resolves against **its own** artifact root) and the
+does not survive the boundary and the `out/` sentinel is not the shared anchor; the **artifact root** is (the producer's `output_folder`,
+the consumer's downloaded folder). The cross-stage descriptor is therefore an immutable `ArtifactRef` carrying **both** forms: an
+**artifact-relative** relative (e.g. `main.json`, which the consumer re-resolves against **its own** artifact root) and the
 producing-context absolute (for audit). The type is the factory — it takes the raw path and the artifact root, converts once, and
 materializes both — and it exposes the consumer's verification (`ResolveAt`, then `ExistsAt` to assert the file exists) as a method, so the
 "check at the other end" lives on the type rather than in every consumer. `RepoRelativePath` stays repo-root-pure (source paths,

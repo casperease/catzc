@@ -44,8 +44,8 @@ terminology registry ([spell-out-names](powershell/spell-out-names.md#rule-adr-a
 
 The scan matches the canonical hyphenated GUID form only, never bare 32-hex — bare hex would false-positive on hashes (the durable SHAs are
 64 hex and unhyphenated, so they never match). The universe is tracked files (`git ls-files`, the globset matching universe of
-[durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)), minus vendored third-party code, the compiled assembly,
-binary extensions, and the registry file itself — the registry is the definition of the managed set, not a reference to it.
+[durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)), minus vendored third-party code, the compiled assembly, binary
+extensions, and the registry file itself — the registry is the definition of the managed set, not a reference to it.
 
 - [The gate](#the-gate)
 
@@ -99,9 +99,10 @@ automation never calls it to generate identity at runtime, because a runtime-min
 
 `Get-RepositoryGuids` scans every tracked text file and returns one `@{ file; line; guid }` record per occurrence. The managed-guid
 integrity test asserts every found guid is registered and every registry entry is found — with the registry file itself excluded from the
-scan so an entry cannot vouch for its own liveness. The scan reads nearly the whole tree plus its own config, so it protects against the
-repository-wide globset like the spelling scan ([protected-globs](protected-globs.md#rule-adr-repo-protglob6)): repeat local runs skip until
-any tracked file changes, and CI always scans.
+scan so an entry cannot vouch for its own liveness. The scan reads every tracked text file under every named root of the repository plus its
+own config, so it protects against the whole-repository `repository` globset, which covers both
+([protected-globs](protected-globs.md#rule-adr-repo-protglob6)): repeat local runs skip until a tracked file anywhere in the repository
+changes, and CI always scans. An integrity test asserts the scan's file universe and the registry stay inside `repository`.
 
 ### Division of ownership
 

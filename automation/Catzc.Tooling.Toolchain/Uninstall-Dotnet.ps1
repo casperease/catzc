@@ -60,7 +60,7 @@ function Uninstall-Dotnet {
                 }
             }
 
-            Write-Message "Dotnet uninstalled from '$installDir'"
+            Write-Message "Dotnet uninstalled from '$installDir'; DOTNET_ROOT removed from the session and the user environment"
         }
     }
     catch {

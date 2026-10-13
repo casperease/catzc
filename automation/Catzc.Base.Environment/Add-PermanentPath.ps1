@@ -62,9 +62,11 @@ function Add-PermanentPath {
     if (-not $alreadyInSession) {
         if ($Prepend) {
             $env:PATH = "$Path$separator$env:PATH"
+            Write-Message "Session PATH: prepended '$Path'"
         }
         else {
             $env:PATH = "$env:PATH$separator$Path"
+            Write-Message "Session PATH: appended '$Path'"
         }
     }
 
@@ -117,6 +119,7 @@ $pathLine
 # <<< catzc PATH $Label <<<
 "@
             Add-Content -Path $profilePath -Value $block
+            Write-Message "Profile '$profilePath': added the PATH block '$Label' for '$Path'"
         }
     }
 

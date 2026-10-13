@@ -5,6 +5,9 @@
     Parses every .ps1 file (excluding tests) under the automation root, builds a
     definition map of all functions, then walks each function body for CommandAst
     nodes and cross-references them against the map.
+
+    Reads the per-function source files, which exist only in the source tree, so it stops with a named error
+    in build mode (Assert-SourceTree, ADR-DSGN-RUNMODE).
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to $env:RepositoryRoot/automation.
 .EXAMPLE
@@ -18,6 +21,8 @@ function Get-FunctionDependency {
     param(
         [string] $AutomationRoot = (Join-Path $env:RepositoryRoot 'automation')
     )
+
+    Assert-SourceTree
 
     # Filesystem-derived information — cached for the session, lazily on first use, keyed on the resolved automation
     # root (ADR-AUTO-CACHE:2/ADR-AUTO-CACHE:4). The expensive AST walk runs once and Get-ModuleDependency / Get-AutomationFunctions

@@ -15,6 +15,10 @@
     Idempotent and fast by construction, so the importer runs it on every load (see importer.ps1): the write
     goes through Write-FileIfChanged (canonical UTF-8/LF output, EOL-insensitive compare, write-on-change), so
     a clean tree is a true no-op. See docs/adr/repository/generated-root-configs.md.
+
+    The managed root files are materialised from the source tree, so in build mode (ADR-DSGN-RUNMODE) this is a
+    no-op that reports why and returns nothing — a skip, not a throw, because the importer's janitor tail calls
+    it on every load and a janitor never breaks the load.
 .PARAMETER Target
     Materialise only the entry whose target equals this repo-relative path (e.g. 'PSScriptAnalyzerSettings.psd1').
     Throws when it matches no opted-in entry. Default: every opted-in entry.
@@ -53,6 +57,13 @@ function Build-RootConfig {
 
         [switch] $PassThru
     )
+
+    if ((Get-CatzcRunMode) -eq 'build') {
+        if (-not $Silent) {
+            Write-Message 'root configs: skipped — this session runs a built Catzc package; managed root files are materialised from the source tree (importer.ps1).'
+        }
+        return
+    }
 
     $config = Get-Config -Config rootconfig
 

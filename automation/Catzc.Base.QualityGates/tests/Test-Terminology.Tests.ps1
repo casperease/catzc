@@ -59,9 +59,24 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
         $latest = Get-Content (Join-Path $TestDrive 'test-terminology/latest.txt')
         Test-Path (Join-Path $TestDrive "test-terminology/$latest/terminology.md") | Should -BeTrue
     }
+
+    It 'excludes the registry file of the scanned repository tree from the corpus' {
+        Test-Terminology -PassThru | Out-Null
+        $registry = Join-Path $TestDrive 'automation/Catzc.Base.QualityGates/configs/terminology.yml'
+        Should -Invoke Get-TerminologyCorpus -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+            $Root -eq $TestDrive -and $Exclude -contains $registry
+        }
+    }
+
+    It 'refuses to run outside the source tree (Assert-SourceTree)' {
+        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { throw 'operates on the catzc source tree' }
+        { Test-Terminology -PassThru } | Should -Throw '*operates on the catzc source tree*'
+        Should -Invoke Get-TerminologyCorpus -ModuleName Catzc.Base.QualityGates -Times 0
+    }
 }
 
-Describe 'Terminology registry integrity' -Tag 'L2', 'integrity' {
+# source-only: it scans the repository's files, which give the same answer in both run modes.
+Describe 'Terminology registry integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'the real registry passes every terminology gate (no drift, no orphans, all justified)' {
         { Test-Terminology -OutputFolder (Join-Path $TestDrive 'reports') } | Should -Not -Throw
     }

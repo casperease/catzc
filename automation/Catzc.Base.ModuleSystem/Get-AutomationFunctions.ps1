@@ -7,10 +7,14 @@
 
     With -NotUsedInternally, filters to functions that are never called by
     another automation function (no incoming edges in the call graph).
+
+    The listing describes the loaded modules, so it works in both run modes (ADR-DSGN-RUNMODE).
+    -NotUsedInternally reads the per-function source files, so it stops with a named error in build mode
+    (Assert-SourceTree).
 .PARAMETER NotUsedInternally
     Only return functions that have no incoming calls from other automation functions.
 .PARAMETER AutomationRoot
-    Path to the automation directory. Defaults to $env:RepositoryRoot/automation.
+    Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
 .EXAMPLE
     Get-AutomationFunctions
 .EXAMPLE
@@ -19,8 +23,12 @@
 function Get-AutomationFunctions {
     param(
         [switch] $NotUsedInternally,
-        [string] $AutomationRoot = (Join-Path $env:RepositoryRoot 'automation')
+        [string] $AutomationRoot = (Get-CatzcModulesRoot)
     )
+
+    if ($NotUsedInternally) {
+        Assert-SourceTree
+    }
 
     $moduleNames = Get-AutomationModules -AutomationRoot $AutomationRoot   # [System.IO] enumeration (ADR-AUTO-TEST:18)
 

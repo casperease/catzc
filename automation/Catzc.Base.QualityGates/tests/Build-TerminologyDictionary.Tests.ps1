@@ -42,7 +42,9 @@ Describe 'Build-TerminologyDictionary' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Build-TerminologyDictionary — real registry' -Tag 'L2', 'integrity' {
+# source-only: it compares the repository's generated .cspell/ dictionaries with the registry, which gives the
+# same answer in both run modes.
+Describe 'Build-TerminologyDictionary — real registry' -Tag 'L2', 'integrity', 'source-only' {
     It 'every generated dictionary is current (no drift from the registry)' {
         @(Build-TerminologyDictionary -DryRun -PassThru | Where-Object Changed) |
             Should -BeNullOrEmpty -Because 'the importer regenerates the gitignored dictionaries; re-run . ./importer.ps1'

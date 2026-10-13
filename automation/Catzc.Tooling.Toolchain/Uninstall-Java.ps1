@@ -32,11 +32,18 @@ function Uninstall-Java {
     try {
         Uninstall-Tool -Tool 'java' -Version $Version
 
-        # Clean up JAVA_HOME
-        $env:JAVA_HOME = $null
+        # Clean up JAVA_HOME. Each removal is announced where it happens, and only when there was something to
+        # remove (ADR-AUTO-ANNOUNCE:2).
+        if ($env:JAVA_HOME) {
+            $env:JAVA_HOME = $null
+            Write-Message 'Session: removed JAVA_HOME'
+        }
 
         if ($IsWindows) {
-            [Environment]::SetEnvironmentVariable('JAVA_HOME', $null, 'User')
+            if ([Environment]::GetEnvironmentVariable('JAVA_HOME', 'User')) {
+                [Environment]::SetEnvironmentVariable('JAVA_HOME', $null, 'User')
+                Write-Message 'User environment: removed JAVA_HOME'
+            }
         }
         else {
             $marker = '>>> catzc Install-Java >>>'
@@ -49,6 +56,7 @@ function Uninstall-Java {
                     $pattern = "(?ms)\r?\n# $([regex]::Escape($marker)).*?# $([regex]::Escape($endMarker))\r?\n?"
                     $cleaned = $content -replace $pattern, ''
                     Set-Content -Path $profilePath -Value $cleaned -NoNewline
+                    Write-Message "Profile '$profilePath': removed the JAVA_HOME block"
                 }
             }
         }

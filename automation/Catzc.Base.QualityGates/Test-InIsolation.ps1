@@ -76,9 +76,12 @@ function Test-InIsolation {
         [switch] $PassThru
     )
 
-    # Lazy-load Pester (deferred at import time), as Test-Automation does.
+    # Lazy-load Pester (deferred at import time), as Test-Automation does — from the code root, where the
+    # vendored copy ships (ADR-AUTO-ASSETDEP:1).
     if (-not (Get-Module Pester)) {
-        Import-Module (Join-Path (Get-RepositoryRoot) 'automation/.vendor/Pester') -Scope Global -Force
+        $pesterPath = Join-Path (Get-CatzcModulesRoot) '.vendor/Pester'
+        $pester = Import-Module $pesterPath -Scope Global -Force -PassThru | Select-Object -First 1
+        Write-Message "Loaded vendor module Pester $($pester.Version) from '$pesterPath'"
     }
 
     # 1) Resolve the module set (closure + infrastructure).

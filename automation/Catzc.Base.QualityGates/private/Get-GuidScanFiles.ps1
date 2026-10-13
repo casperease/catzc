@@ -7,11 +7,15 @@
     (automation/.compiled/), known binary extensions, and the registry file itself — configs/guids.yml is
     the definition of the managed set, not a reference to it, and excluding it is what keeps the liveness
     check honest. The one place this scan shells to git; a logic test mocks this seam (returning absolute
-    fixture paths, which Resolve-RepoPath passes through unchanged).
+    fixture paths, which Resolve-RepoPath passes through unchanged). Throws in build mode (Assert-SourceTree).
 #>
 function Get-GuidScanFiles {
     [CmdletBinding()]
     param()
+
+    # The universe and its exclusions (automation/.vendor, automation/.compiled, the registry) are the catzc
+    # source repository's layout, so the scan is meaningful only over the source tree.
+    Assert-SourceTree
 
     $result = Invoke-Executable 'git -c core.quotepath=off ls-files' -PassThru -Silent
     $tracked = $result.Output -split "`r?`n" | Where-Object { $_ -ne '' }

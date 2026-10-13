@@ -1,9 +1,20 @@
-# L2: drives the real PSScriptAnalyzer across background-job shards (the whole point of the helper), over
-# throwaway fixtures. Logic, not integrity — it asserts the helper's behaviour, not a repo-wide fact.
 # Get-ScriptAnalyzerDiagnostics is a private (non-exported) function, so it is invoked via InModuleScope.
-Describe 'Get-ScriptAnalyzerDiagnostics' -Tag 'L2', 'logic' {
+Describe 'Get-ScriptAnalyzerDiagnostics' -Tag 'L0', 'logic' {
+    It 'returns empty for an empty file list (no shards spawned)' {
+        $result = InModuleScope Catzc.Base.QualityGates {
+            @(Get-ScriptAnalyzerDiagnostics -Path @() -SettingsPath 'unused')
+        }
+        @($result).Count | Should -Be 0
+    }
+}
+
+# L2: drives the real PSScriptAnalyzer across background-job shards (the whole point of the helper), over
+# throwaway fixtures. Integrity, because it reads two shipped assets with nothing mocked: the vendored
+# analyzer (<code root>/.vendor/PSScriptAnalyzer) and the one settings file (<code root>/.internal/assets) — the
+# real-asset test of ADR-AUTO-ASSETDEP:3, so it runs in both the source and the build suite.
+Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)' -Tag 'L2', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
-        $script:settings = Join-Path $env:RepositoryRoot 'automation/.internal/assets/PSScriptAnalyzerSettings.psd1'
+        $script:settings = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
 
         # @(...) re-arrayifies: InModuleScope (a pipeline boundary) unrolls a single-element array to a scalar.
         $script:run = {
@@ -31,12 +42,5 @@ Describe 'Get-ScriptAnalyzerDiagnostics' -Tag 'L2', 'logic' {
         $forBad = @($diagnostics | Where-Object ScriptPath -EQ $bad)
         $forBad.Count | Should -BeGreaterThan 0
         $forBad.RuleName | Should -Contain 'PSAvoidUsingCmdletAliases'
-    }
-
-    It 'returns empty for an empty file list (no shards spawned)' {
-        $result = InModuleScope Catzc.Base.QualityGates {
-            @(Get-ScriptAnalyzerDiagnostics -Path @() -SettingsPath 'unused')
-        }
-        @($result).Count | Should -Be 0
     }
 }

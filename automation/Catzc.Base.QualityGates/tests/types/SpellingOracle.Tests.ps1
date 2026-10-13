@@ -27,7 +27,9 @@ Describe 'SpellingOracle.Tokenize' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'SpellingOracle.CoinedFragments (shipped dictionary)' -Tag 'L1', 'integrity' {
+# source-only: it loads the repository's committed dictionary and .cspell/ lists — the inputs only the source-tree
+# analyzer rule (Measure-SpellOutIdentifiers) reads — which give the same answer in both run modes.
+Describe 'SpellingOracle.CoinedFragments (shipped dictionary)' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         # Binds to the shipped English list + the generated term lists — an integrity test by construction
         # (ADR-AUTO-TEST:1): it verifies the real oracle, not a fixture. The static load is idempotent, so this is safe

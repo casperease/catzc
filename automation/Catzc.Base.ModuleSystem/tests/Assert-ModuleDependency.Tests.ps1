@@ -49,7 +49,7 @@ Describe 'Assert-ModuleDependency' {
         }
     }
 
-    Context 'integrity (shipped config + real code)' -Tag 'L1', 'integrity' {
+    Context 'integrity (shipped config + real code)' -Tag 'L1', 'integrity', 'source-only' {
         It 'the real code conforms to the declared graph' {
             { Assert-ModuleDependency } | Should -Not -Throw
         }

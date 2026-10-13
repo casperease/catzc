@@ -1,0 +1,141 @@
+# ADR: Controlled vocabulary — one definition per term, opt-in glossary sources
+
+## Rules: ADR-REPO-VOCAB
+
+### Rule ADR-REPO-VOCAB:1
+
+A **defined term** has exactly one meaning, fixed by exactly one ADR rule whose normative summary bolds it (`A **<term>** is …`). A term
+used with a private or shifting meaning, or defined a second time elsewhere, is a defect — the same way an undeclared identifier is.
+
+- [One term, one rule](#one-term-one-rule)
+
+### Rule ADR-REPO-VOCAB:2
+
+A **glossary source** is a module's `configs/glossary.yml`; it registers that module's defined terms, and using one is opt-in. Nothing is
+checked against a term until a source declares it. A source's `options:` are parameters with sensible defaults — which gates its terms take
+part in, where and on which text surfaces its avoided phrasings are scanned — and a source overrides only what differs.
+
+- [Opt-in sources with sensible defaults](#opt-in-sources-with-sensible-defaults)
+
+### Rule ADR-REPO-VOCAB:3
+
+Every glossary source is in the repository, and so is everything it refers to: the defining rule is an ADR under `docs/adr/`, a realization
+pattern and a scan glob are repo-relative, a contrast or relation target is another defined term. A source never holds a URL, and external
+vocabulary (DORA) enters only through its in-repository reference and the ADR that cites it.
+
+- [Everything in the repository](#everything-in-the-repository)
+
+### Rule ADR-REPO-VOCAB:4
+
+Similar terms are contrasted. A concept that names a similar term explains, in one sentence, how it differs; the contrast is reciprocal, so
+both terms carry an explanation of the difference.
+
+- [Contrasts make neighbouring terms distinct](#contrasts-make-neighbouring-terms-distinct)
+
+### Rule ADR-REPO-VOCAB:5
+
+An avoided phrasing is named together with its replacement. Within a source's scope, prose that uses an avoided phrasing is a defect; a
+_mention_ — the phrase inside backticks or quotes — is exempt, so the vocabulary can talk about itself.
+
+- [Avoided phrasings name their replacement](#avoided-phrasings-name-their-replacement)
+
+### Rule ADR-REPO-VOCAB:6
+
+A concept declares how it exists in the repository (`realized_by`). A concept realized in code — a folder, file pattern, tag, config key,
+type, function, or artifact — has at least one enforcer citing its defining rule; a `prose-only` concept says so explicitly and carries no
+pattern.
+
+- [Realized concepts are enforced](#realized-concepts-are-enforced)
+
+## Context
+
+The repository already controls its words at the spelling level: `terminology.yml` approves every token, and `Test-Terminology` and the
+spell-checker keep that list honest ([spell-out-names](../automation/powershell/spell-out-names.md)). Spelling is not meaning. A correctly
+spelled word can still carry several meanings — "suite" names every test in the repository, a tier, a category, a run mode, a gate's own
+tests, and a pipeline payload, all in the same tree — and nothing in a spelling list can tell those apart.
+
+Meaning is fixed in prose today. [process-terms](../process/process-terms.md) is the model: one article that pins the flow vocabulary so the
+other process ADRs can reason with it. But prose alone leaves three things unchecked: which rule defines a term, whether other text drifts
+to a different word for it, and whether the concept a term names is enforced anywhere. This ADR turns the glossary discipline into a
+controlled vocabulary those three questions can be asked of mechanically.
+
+### One term, one rule
+
+A definition belongs to an ADR, because an ADR owns decisions and their rationale ([index](../index.md#authoring-conventions)). The glossary
+does not restate the definition; it points at the one rule that holds it (`defined_by`) and adds a one-line summary for readers and
+messages. Anchoring every term on one rule makes the definition findable and makes a second definition detectable — two rules that both bold
+the same term as its definition is the contradiction the rule forbids.
+
+### Opt-in sources with sensible defaults
+
+A glossary source is a module's `configs/glossary.yml`, so the module that owns a concept owns its vocabulary, and the folder convention is
+the registration ([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md)). A module without a source contributes no terms and
+has nothing checked on its behalf. Within a source, `options:` sets the checks its terms take part in (`gates`), where its avoided phrasings
+are scanned (`scope`, `exclude`), and which kinds of text are read there (`surfaces`). Every option has a default that suits most sources,
+so a typical source carries no options at all ([sensible-defaults](../automation/sensible-defaults.md)). The default excludes — the DORA
+research text, generated output, vendored code — are always kept, because external language is not this repository's to correct.
+
+### Everything in the repository
+
+A glossary is part of the codebase it governs, and it is versioned, reviewed, and checked like the rest of it
+([everything-as-code](../principles/everything-as-code.md)). A URL would make a definition depend on something that can change or vanish
+without a commit, and would make the checks depend on the network. So a definition is an in-repository ADR rule, every pattern and glob is
+repo-relative, and outside vocabulary arrives through the repository's own reference material.
+
+### Contrasts make neighbouring terms distinct
+
+Most confusion is between near neighbours, not distant words: a test suite and a test run, a release candidate and a deployable unit. A
+definition read alone rarely settles which is meant. A contrast — one sentence on how this concept differs from a named neighbour — does,
+and requiring it on both sides keeps the pair from drifting apart in one direction only.
+
+### Avoided phrasings name their replacement
+
+A phrasing that blurs a defined term is listed as avoided, with the wording to use instead, so a violation always carries its fix. The rule
+is about _use_, not _mention_: the ADR that defines a term, the glossary itself, and guidance that says "avoid `X`" all need to write the
+avoided phrase, and they do so inside backticks or quotes.
+
+### Realized concepts are enforced
+
+A term that names something in code — a folder convention, a tag, a type — is only as reliable as the check behind it. `realized_by` records
+where the concept lives, and a realized concept needs an enforcer citing its defining rule, found through the same rule-citation link that
+`Show-Cats` reports. A pure vocabulary term (a flow measure, a principle) is `prose-only`: it has nothing in code to enforce, and saying so
+is explicit rather than an absence.
+
+## Decision
+
+Defined terms are registered in opt-in, in-repository glossary sources (`configs/glossary.yml`), one per owning module. Each concept points
+at the one ADR rule that defines it, declares how it is realized, contrasts itself with its similar terms, and lists its avoided phrasings
+with their replacements. A source's options default sensibly, and a source overrides only what differs.
+
+### How this is enforced
+
+- **`Catzc.Base.Docs.GlossaryConfig`** is the glossary source's type, registered for the `glossary` config in
+  `Catzc.Base.Config/configs/configs.yml`, so every source is validated when it is read (`Get-Config -Config glossary -Module <owner>`). It
+  checks the source's own shape: the allowed keys, the term, key, domain, and citation forms, a known realization kind with a pattern
+  exactly when the kind is not `prose-only` (ADR-REPO-VOCAB:6), a replacement for every avoided phrase and no avoided phrase that is a
+  defined term (ADR-REPO-VOCAB:5), an explanation for every contrast (ADR-REPO-VOCAB:4), repo-relative globs and no URL anywhere
+  (ADR-REPO-VOCAB:3), and the option defaults (ADR-REPO-VOCAB:2). Every violation is reported in one throw.
+
+- **Code review** covers the rules that reach beyond one source file: that a defining rule exists and bolds its term and that no second rule
+  defines it (ADR-REPO-VOCAB:1), that terms and keys are unique and contrasts reciprocal across sources (ADR-REPO-VOCAB:4), that prose
+  avoids the avoided phrasings (ADR-REPO-VOCAB:5), and that a realized concept has an enforcer (ADR-REPO-VOCAB:6).
+
+## Consequences
+
+- A defined term has one findable home — its defining rule — and a reader meets the same meaning in every ADR, help text, and message.
+- Near-neighbour terms come with their differences spelled out, so the common confusions are answered where the terms are defined.
+- A blurring phrasing carries its replacement, so fixing one is a mechanical edit rather than a judgement call.
+- Vocabulary control is opt-in per module: a module with no glossary source pays nothing, and a source that needs a narrower scope or fewer
+  checks says so in its options.
+- The cost is a second artifact beside the ADR for every defined term — a glossary entry — and the discipline of recording contrasts in both
+  directions.
+
+## Related
+
+- [process-terms](../process/process-terms.md) (`ADR-PROC-LEANTERMS`) — the flow vocabulary; the model this ADR generalizes to every domain.
+- [spell-out-names](../automation/powershell/spell-out-names.md) (`ADR-AUTO-SPELL`) — the spelling-level registry (`terminology.yml`), which
+  controls tokens, not meanings.
+- [domain-language-separation](domain-language-separation.md) (`ADR-REPO-LANG`) — which identities belong in which domain; this ADR fixes
+  what the words themselves mean.
+- [module-config-loading](../configuration/module-config-loading.md) (`ADR-CONF-LOADING`) — how a module's `configs/glossary.yml` is
+  discovered and validated.

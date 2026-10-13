@@ -60,8 +60,8 @@ reproducible version pins. It removes three problems that a system-package-manag
   cannot break another.
 - **Determinism.** uv resolves an exact interpreter and package set from the pin in `tools.yml`, identically on a devbox and in CI.
 
-The Azure CLI is still preferred over the Az PowerShell modules for all Azure work ([prefer-az-cli](powershell/prefer-az-cli.md)); this ADR
-only changes how that CLI is installed, not that it is the chosen tool.
+The Azure CLI is preferred over the Az PowerShell modules for all Azure work ([prefer-az-cli](powershell/prefer-az-cli.md)); this ADR
+governs only how that CLI is installed, not whether it is the chosen tool.
 
 ### Two install shapes
 
@@ -78,9 +78,9 @@ Which shape a tool uses is data in `tools.yml`; the generic engine (`Install-UvT
 ### User-space, no admin
 
 Every Python-family install lands under the user profile — the uv tool-bin and uv's managed-Python data dir. Nothing writes to a
-machine-wide location, so nothing prompts for elevation. This is the decisive reason the Azure CLI moved off its machine-scope MSI: a
-developer who cannot elevate must still be able to run `az`. The same holds on Linux, where the alternative (the official apt script) needs
-root.
+machine-wide location, so nothing prompts for elevation. This is the decisive reason the Azure CLI installs through uv rather than its
+machine-scope MSI: a developer who cannot elevate must still be able to run `az`. The same holds on Linux, where the alternative (the
+official apt script) needs root.
 
 ### The devbox lever
 

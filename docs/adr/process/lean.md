@@ -65,8 +65,8 @@ Adopt lean as defined by the Toyota Production System's two pillars and the Popp
 
 These two pillars specialise, for CI/CD, into the six companion articles below. Everything lean-flavoured in this repository is one of them,
 and each is anchored to concrete rules — the seven wastes ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md)), fail-fast jidoka
-([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)), the promotion flow ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) — so
-lean here is enacted, not merely admired.
+([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)), the promotion flow ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) — so lean
+here is enacted, not merely admired.
 
 ## The seven principles
 

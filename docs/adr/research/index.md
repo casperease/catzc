@@ -1,71 +1,56 @@
 # DORA research — capability summaries
 
-This area summarizes [DORA](https://dora.dev/research/) — the DevOps Research and Assessment program — as a set of ADR-style articles, one
-per capability. Each article carries an `ADR-DORA<code>` rule domain so its findings can be cited like any other rule in this repository.
-The articles summarize external research; the repository's own decisions live in the sibling areas (`principles/`, `process/`, `design/`,
-and the rest — see the [ADR index](../index.md)).
+This area summarizes [DORA](../../references/dora/index.md) — the research program behind the repository's delivery thinking — as a set of
+ADR-style articles, one per capability. Each article carries an `ADR-DORA-<NAME>` rule domain so its findings can be cited like any other
+rule in this repository. The articles summarize external research; the repository's own decisions live in the sibling areas (`principles/`,
+`process/`, `design/`, and the rest — see the [ADR index](../index.md)).
+
+The research corpus around these articles — the Core Model, the metrics, the full catalogue with each capability's evidence, the AI
+Capabilities Model, and every publication — is the [DORA research reference](../../references/dora/index.md). Markdown anywhere in the
+repository cites DORA through that reference's stable anchors.
 
 ## What DORA is
 
-DORA is "the longest running academically rigorous research investigation of its kind" into software delivery and organizational
-performance. It applies behavioural-science methodology to uncover the predictive pathways that connect ways of working, through software
-delivery performance, to organizational goals and individual well-being.
+DORA is a long-running research program into software delivery and organizational performance. It applies behavioural-science methodology to
+survey data to trace the predictive pathways that connect ways of working, through software delivery performance, to organizational goals
+and individual well-being ([research program and methodology](../../references/dora/index.md#research-program-and-methodology)).
 
 ## The DORA Core Model
 
-DORA expresses its most firmly-established findings as the **DORA Core Model** — a collection of _capabilities_, _metrics_, and _outcomes_.
-The model is a directed set of relationships: technical, process, and cultural **capabilities** drive **software delivery performance**,
-which in turn drives **organizational outcomes** and **well-being**. The Core Model deliberately trails the leading edge of the research,
-evolving conservatively so it is safe to use as a practitioner guide.
+The [DORA Core Model](../../references/dora/core-model.md) (version 2.1.0) is DORA's conservative distillation of its most replicated
+findings: **capabilities** predict **performance**, and performance predicts **outcomes**.
 
-- **Capabilities** are the practices a team can adopt — version control, continuous delivery, a generative culture, and the rest catalogued
-  below. They are the levers.
-- **Metrics** are how delivery performance is measured — throughput (change lead time, deployment frequency) and stability (change fail
-  rate, failed-deployment recovery time). Each capability article's "Dora explains" section ties the capability back to these metrics.
-- **Outcomes** are what improved delivery performance produces — organizational performance and reduced burnout.
+- **Capabilities** are grouped by the benefit they give a team:
+  [climate for learning](../../references/dora/core-model.md#climate-for-learning),
+  [fast flow](../../references/dora/core-model.md#fast-flow), and [fast feedback](../../references/dora/core-model.md#fast-feedback).
+- **Performance** is [software delivery performance](../../references/dora/core-model.md#software-delivery-performance) — measured by five
+  metrics in two families, [throughput](../../references/dora/metrics.md#throughput) and
+  [instability](../../references/dora/metrics.md#instability) — together with [reliability](../../references/dora/metrics.md#reliability).
+- **Outcomes** are [organizational performance](../../references/dora/core-model.md#organizational-performance) and
+  [well-being](../../references/dora/core-model.md#well-being).
+
+DORA also publishes a separate [AI Capabilities Model](../../references/dora/ai.md#ai-capabilities-model), in which a set of capabilities
+amplify the effect of AI adoption on outcomes. Each article's "Dora explains" section places its capability in these models and names the
+publications its evidence comes from.
 
 ## The capabilities
 
-The catalogue groups the capabilities four ways. Each links to its summary article and rule domain.
+The catalogue below follows the categories dora.dev itself assigns
+([how the site categorizes capabilities](../../references/dora/capabilities.md#how-the-site-categorizes-capabilities)). Each entry links to
+its summary article and rule domain.
 
-### AI-focused
+### AI
 
-- [Version control](version-control.md) — `ADR-DORA-VCS`
-- [Working in small batches](working-in-small-batches.md) — `ADR-DORA-SMALLBATCH`
-- [Platform engineering](platform-engineering.md) — `ADR-DORA-PLATFORM`
-- [User-centric focus](user-centric-focus.md) — `ADR-DORA-USERFOCUS`
 - [AI-accessible internal data](ai-accessible-internal-data.md) — `ADR-DORA-AIDATA`
 - [Clear and communicated AI stance](clear-and-communicated-ai-stance.md) — `ADR-DORA-AISTANCE`
 - [Healthy data ecosystems](healthy-data-ecosystems.md) — `ADR-DORA-DATAECO`
+- [Platform engineering](platform-engineering.md) — `ADR-DORA-PLATFORM`
+- [User-centric focus](user-centric-focus.md) — `ADR-DORA-USERFOCUS`
 
-### Technical
+### Climate for learning
 
 - [Code maintainability](code-maintainability.md) — `ADR-DORA-MAINTAIN`
-- [Continuous delivery](continuous-delivery.md) — `ADR-DORA-CD`
-- [Continuous integration](continuous-integration.md) — `ADR-DORA-CI`
-- [Database change management](database-change-management.md) — `ADR-DORA-DBCHANGE`
-- [Deployment automation](deployment-automation.md) — `ADR-DORA-DEPLOY`
 - [Documentation quality](documentation-quality.md) — `ADR-DORA-DOCS`
-- [Flexible infrastructure](flexible-infrastructure.md) — `ADR-DORA-FLEXINFRA`
-- [Loosely coupled teams](loosely-coupled-teams.md) — `ADR-DORA-LOOSETEAMS`
-- [Monitoring and observability](monitoring-and-observability.md) — `ADR-DORA-OBSERV`
-- [Pervasive security](pervasive-security.md) — `ADR-DORA-SECURITY`
-- [Streamlining change approval](streamlining-change-approval.md) — `ADR-DORA-APPROVAL`
-- [Test automation](test-automation.md) — `ADR-DORA-TESTAUTO`
-- [Test data management](test-data-management.md) — `ADR-DORA-TESTDATA`
-- [Trunk-based development](trunk-based-development.md) — `ADR-DORA-TRUNK`
-
-### Process and measurement
-
-- [Customer feedback](customer-feedback.md) — `ADR-DORA-FEEDBACK`
-- [Monitoring systems to inform business decisions](monitoring-systems.md) — `ADR-DORA-MONITOR`
-- [Proactive failure notification](proactive-failure-notification.md) — `ADR-DORA-FAILALERT`
-- [Visibility of work in the value stream](work-visibility-in-value-stream.md) — `ADR-DORA-WORKVIS`
-- [Visual management](visual-management.md) — `ADR-DORA-VISUAL`
-- [Work in process limits](wip-limits.md) — `ADR-DORA-WIP`
-
-### Organizational and cultural
-
 - [Empowering teams to choose tools](teams-empowered-to-choose-tools.md) — `ADR-DORA-TOOLCHOICE`
 - [Generative organizational culture](generative-organizational-culture.md) — `ADR-DORA-CULTURE`
 - [Job satisfaction](job-satisfaction.md) — `ADR-DORA-JOBSAT`
@@ -73,6 +58,35 @@ The catalogue groups the capabilities four ways. Each links to its summary artic
 - [Team experimentation](team-experimentation.md) — `ADR-DORA-EXPERIMENT`
 - [Transformational leadership](transformational-leadership.md) — `ADR-DORA-LEADERSHIP`
 - [Well-being](well-being.md) — `ADR-DORA-WELLBEING`
+
+### Fast flow
+
+- [Continuous delivery](continuous-delivery.md) — `ADR-DORA-CD`
+- [Database change management](database-change-management.md) — `ADR-DORA-DBCHANGE`
+- [Deployment automation](deployment-automation.md) — `ADR-DORA-DEPLOY`
+- [Flexible infrastructure](flexible-infrastructure.md) — `ADR-DORA-FLEXINFRA`
+- [Loosely coupled teams](loosely-coupled-teams.md) — `ADR-DORA-LOOSETEAMS`
+- [Streamlining change approval](streamlining-change-approval.md) — `ADR-DORA-APPROVAL`
+- [Trunk-based development](trunk-based-development.md) — `ADR-DORA-TRUNK`
+- [Version control](version-control.md) — `ADR-DORA-VCS`
+- [Visual management](visual-management.md) — `ADR-DORA-VISUAL`
+- [Work in process limits](wip-limits.md) — `ADR-DORA-WIP`
+- [Working in small batches](working-in-small-batches.md) — `ADR-DORA-SMALLBATCH`
+
+### Fast feedback
+
+- [Continuous integration](continuous-integration.md) — `ADR-DORA-CI`
+- [Customer feedback](customer-feedback.md) — `ADR-DORA-FEEDBACK`
+- [Monitoring and observability](monitoring-and-observability.md) — `ADR-DORA-OBSERV`
+- [Monitoring systems to inform business decisions](monitoring-systems.md) — `ADR-DORA-MONITOR`
+- [Pervasive security](pervasive-security.md) — `ADR-DORA-SECURITY`
+- [Proactive failure notification](proactive-failure-notification.md) — `ADR-DORA-FAILALERT`
+- [Test automation](test-automation.md) — `ADR-DORA-TESTAUTO`
+- [Test data management](test-data-management.md) — `ADR-DORA-TESTDATA`
+- [Visibility of work in the value stream](work-visibility-in-value-stream.md) — `ADR-DORA-WORKVIS`
+
+The Core Model's fast-feedback group also names [reliability engineering](../../references/dora/capabilities.md#reliability-engineering),
+which has no capability page on dora.dev and therefore no summary article here.
 
 ## References
 

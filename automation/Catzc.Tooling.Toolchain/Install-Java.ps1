@@ -82,12 +82,19 @@ function Install-Java {
         return
     }
 
-    # Set for current session
-    $env:JAVA_HOME = $javaHome
+    # Set for current session. Each change is announced where it happens, and only when it changes something
+    # (ADR-AUTO-ANNOUNCE:2).
+    if ($env:JAVA_HOME -ne $javaHome) {
+        $env:JAVA_HOME = $javaHome
+        Write-Message "Session: JAVA_HOME='$javaHome'"
+    }
 
     # Persist for future sessions
     if ($IsWindows) {
-        [Environment]::SetEnvironmentVariable('JAVA_HOME', $javaHome, 'User')
+        if ([Environment]::GetEnvironmentVariable('JAVA_HOME', 'User') -ne $javaHome) {
+            [Environment]::SetEnvironmentVariable('JAVA_HOME', $javaHome, 'User')
+            Write-Message "User environment: JAVA_HOME='$javaHome'"
+        }
     }
     else {
         $marker = '>>> catzc Install-Java >>>'
@@ -107,6 +114,7 @@ function Install-Java {
 # <<< catzc Install-Java <<<
 "@
             Add-Content -Path $profilePath -Value $block
+            Write-Message "Profile '$profilePath': added the JAVA_HOME block"
         }
     }
 

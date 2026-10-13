@@ -2,7 +2,8 @@
 .SYNOPSIS
     Resolves a config name to its owning module and file path (the discovery seam).
 .DESCRIPTION
-    Scans automation/<module>/configs/*.yml once (cached) into a name -> entries index, and resolves a
+    Scans <module>/configs/*.yml under the loaded code root (Get-CatzcModulesRoot — the source tree's
+    automation/ or a built package) once (cached) into a name -> entries index, and resolves a
     requested name to a single @{ Name; Module; Path }. -Module disambiguates a name present in more than one
     module. Throws when the name is unknown or ambiguous. Mock this to redirect a config to a fixture in
     logic tests (see ADR test-automation).

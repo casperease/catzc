@@ -40,8 +40,8 @@ date, and whether anyone is acting on it — and adjust, replace, or retire it a
 ## Context
 
 Visual management is a lean-manufacturing practice carried into software delivery: the state of the work is put on display in a shared space
-rather than kept in status meetings, spreadsheets, or individual memory. DORA frames it as one of the technical capabilities that predicts
-software delivery performance, sitting alongside the other flow-visibility capabilities in the DORA Core Model.[^1]
+rather than kept in status meetings, spreadsheets, or individual memory. DORA frames it as one of the capabilities that predicts software
+delivery performance, sitting in its fast-flow category beside WIP limits, outside the DORA Core Model.[^1]
 
 Teams practicing lean development use these displays to build a shared understanding of where the team stands on operational effectiveness,
 and to help the team notice obstacles to higher performance before those obstacles are reported through some slower channel.
@@ -72,9 +72,9 @@ giving the team the information it needs, whether the information is up to date,
 driving measurable improvement toward the team's goals. A negative answer to any of those questions is the signal to investigate, then
 adjust, eliminate, or prototype a replacement display — the practice is iterative, not a one-time setup.
 
-This platform realizes the capability in a few places already. The value-chain diagrams render every commit's delivery state by construction
-— position is time, colour is the furthest state reached — so a reader decodes where a change is at a glance instead of reconstructing it
-from git history ([ADR-DSGN-VISUAL](../design/visual-design.md)). The broader principle of making the state of the work visible, and judging
+This platform realizes the capability in a few places. The value-chain diagrams render every commit's delivery state by construction —
+position is time, colour is the furthest state reached — so a reader decodes where a change is at a glance instead of reconstructing it from
+git history ([ADR-DSGN-VISUAL](../design/visual-design.md)). The broader principle of making the state of the work visible, and judging
 progress from the real running artifact rather than a proxy, is stated directly as observe-the-work
 ([ADR-PROC-OBSERVEWIP](../process/observe-work.md)). Console output is treated as the CLI automation's only user-facing display surface, and
 is held to the same bar the DORA page sets for a good dashboard — signal over noise, current, and actionable — so a console session is
@@ -94,18 +94,30 @@ itself a form of visual management for a tool with no GUI ([ADR-AUTO-CONSOLE](..
 ## References
 
 [^1]:
-    DORA, _Visual management_ capability, <https://dora.dev/capabilities/visual-management/>. Part of the DORA Core Model of capabilities
-    that predict software delivery performance.
+    DORA, _Visual management_ capability, <https://dora.dev/capabilities/visual-management/>. One of DORA's capabilities that predict
+    software delivery performance; not in the DORA Core Model.
 
 ## Dora explains
 
-Visual management is DORA's name for making the state of the value stream visible at a glance, and DORA ties it directly to two other
-capabilities it studies alongside it: limiting work in progress, and feeding real production signals back into decisions.
+Visual management is DORA's name for shared displays that give everyone a common picture of where the team stands and how to improve. It is
+a fast-flow capability outside the Core Model, and DORA ties its effect to two other practices studied alongside it: WIP limits, and feeding
+production feedback back into business decisions.
 
-- [Work visibility in the value stream](https://dora.dev/capabilities/work-visibility-in-value-stream/) — the end-to-end visibility that a
-  well-built display is one instrument of.
-- [WIP limits](https://dora.dev/capabilities/wip-limits/) — the practice DORA names as compounding with visual management to raise delivery
-  performance.
-- [Monitoring and observability](https://dora.dev/capabilities/monitoring-and-observability/) — the production telemetry that feeds the
-  monitors visual management describes.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Visual management](../../references/dora/capabilities.md#visual-management)
+- **Category:** [Fast flow](../../references/dora/capabilities.md#fast-flow) — Core Model v2.1.0: not in the Core Model (no `core` tag; see
+  [core tag in the capability catalogue](../../references/dora/core-model.md#core-tag-in-the-capability-catalogue)).
+- **Evidence:**
+  - [2015 State of DevOps Report](../../references/dora/publications.md#2015-state-of-devops-report) — cited on the capability page for the
+    combined finding; the report also finds that lean management and continuous delivery reinforce each other and reduce burnout.
+- **Predicts:** combined with [WIP limits](../../references/dora/capabilities.md#wip-limits) and production feedback used for business
+  decisions, higher [software delivery performance](../../references/dora/core-model.md#software-delivery-performance).
+- **Related capabilities:**
+  - [Work visibility in value stream](../../references/dora/capabilities.md#work-visibility-in-value-stream) — the end-to-end visibility
+    that a well-built display is one instrument of.
+  - [WIP limits](../../references/dora/capabilities.md#wip-limits) — the practice DORA names as compounding with visual management to raise
+    delivery performance.
+  - [Monitoring systems](../../references/dora/capabilities.md#monitoring-systems) — the production feedback used for business decisions
+    that completes the combination.
+  - [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — the production telemetry that feeds
+    the monitors visual management describes.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

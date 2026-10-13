@@ -174,7 +174,7 @@ Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'a customer-subscription session targets the customer RG, artifact, and configuration/<customer>/ slot' {
+    It 'a customer-subscription session targets the customer RG, artifact, and the per-customer configuration slot' {
         # The session (the service connection) is what selects the customer deployment.
         Mock Get-AzCliSessionSubscription {
             [ordered]@{ name = 'acme_lower'; id = 'a0e00000-000d-50b0-0000-000000000000'; customer = 'acme'

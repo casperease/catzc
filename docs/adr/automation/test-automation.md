@@ -180,8 +180,8 @@ dot-sources the importer, runs its shard, writes `results-shard-<N>.xml`, and re
 (`ConvertTo-TestAutomationRowSet` — tier/category resolution walks the live `.Block` chain, which does not survive a process boundary) into
 a `rows-shard-<N>.json` sidecar. The parent aggregates rows — never a Pester object across a boundary — and every run report (tests.csv,
 summary.md, the timing check, the skip report) consumes rows. A worker exits 0/1; any other exit code, or a missing sidecar, is a worker
-crash the parent surfaces loudly. Workers run tests **without** strict mode, matching what the harness has always done (it invoked Pester
-from module session state, which global strict never reaches).
+crash the parent surfaces loudly. Workers run tests **without** strict mode, matching Pester invoked from module session state, which global
+strict never reaches.
 
 - [The parallel harness](#the-parallel-harness)
 
@@ -234,6 +234,28 @@ analyzer rule is mapped**, so a new custom rule cannot ship unmapped and a renum
 integrity test, not at load, keeping config load hermetic (the ADR-AZ-CUSTOMER:3 pattern).
 
 - [The optional provenance axis and rule-enforcement coverage](#the-optional-provenance-axis-and-rule-enforcement-coverage)
+
+### Rule ADR-AUTO-TEST:30
+
+The same tests run in **two suites**, one per run mode ([run-modes](../design/run-modes.md)): the **source suite** (`Test-Automation`) loads
+the modules through `importer.ps1` from `automation/`, and the **build suite** (`Test-CatzcBuild`) builds the selected modules and loads
+them through the build's `Import-Catzc.ps1`. Both run the same `automation/<Module>/tests/*.Tests.ps1` files at L0–L2 by default (L3 opt-in
+in each), with the same discovery, tag gates, sharding, and reports — the build suite swaps only the entry script each shard worker
+dot-sources, and writes its reports to `out/test-catzc-build/`. No test is copied or rewritten for the build suite.
+
+- [Two suites, one body of tests](#two-suites-one-body-of-tests)
+
+### Rule ADR-AUTO-TEST:31
+
+**`source-only`** is the one tag by which a test opts out of the build suite. It marks a test whose answer cannot differ between the modes —
+an integrity test that reads only the repository's files (folder conventions, syntax-tree scans, globsets, the ADR registry, managed GUIDs,
+spelling) — or a logic test of a source-tree tool that needs per-function files. It is optional, resolved along the block chain like
+`serial`/`greedy`, and validated by `Get-TestTagViolations`; the build suite counts and lists every test it excludes this way, so the
+exclusion is visible, never silent. A test that inspects the loaded code — exports resolve, configs validate through `Get-Config`, types and
+accelerators load, an internal asset is read ([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep3)) — is
+never `source-only`.
+
+- [Two suites, one body of tests](#two-suites-one-body-of-tests)
 
 ## Context
 
@@ -298,12 +320,12 @@ template _name_ dimension: production identities flow into the generic check as 
 
 ### Isolation comes from seams, not from editing production
 
-The codebase already isolates the _template tree_ behind a mockable private function, `Get-BicepTemplatesRoot`, so discovery can be
-redirected to a fixture tree. Config has its own seam: `Get-Config` (in `Catzc.Base.Config`) finds a config's file by scanning
-`automation/*/configs/` through the private `Resolve-ConfigEntry`, so a logic test isolates a config by **mocking `Resolve-ConfigEntry`** to
-return a fixture `@{ Name; Module; Path }` pointing at a fixture file (or by mocking `Get-Config` outright). **A seam is a single function
-that names _where_ an input comes from**, with one production answer and a test override; it is the [poka-yoke](../principles/poka-yoke.md)
-way to isolate without touching production data.
+The codebase isolates the _template tree_ behind a mockable private function, `Get-BicepTemplatesRoot`, so discovery can be redirected to a
+fixture tree. Config has its own seam: `Get-Config` (in `Catzc.Base.Config`) finds a config's file by scanning `automation/*/configs/`
+through the private `Resolve-ConfigEntry`, so a logic test isolates a config by **mocking `Resolve-ConfigEntry`** to return a fixture
+`@{ Name; Module; Path }` pointing at a fixture file (or by mocking `Get-Config` outright). **A seam is a single function that names _where_
+an input comes from**, with one production answer and a test override; it is the [poka-yoke](../principles/poka-yoke.md) way to isolate
+without touching production data.
 
 ### Two mandatory tag axes (tier + category)
 
@@ -322,16 +344,16 @@ Each axis is also a run filter on `Test-Automation`: `-Level` bounds the tier (L
 category (omit it to run both). Both work by excluding the unwanted tags, so a mixed file's per-`Context` category tags filter correctly —
 the `Describe` carries only the tier.
 
-Beyond the two mandatory axes there are three **optional** tags: the phase tags `serial` and `greedy` (ADR-AUTO-TEST:26) and the provenance
-citations of the next section.
+Beyond the two mandatory axes there are **optional** tags: the phase tags `serial` and `greedy` (ADR-AUTO-TEST:26), the provenance citations
+of the next section, and the `source-only` suite opt-out (ADR-AUTO-TEST:31).
 
 ### The optional provenance axis and rule-enforcement coverage
 
 A test may also declare **which ADR rule(s) it enforces**, so the suite is traceable both ways: from a test to the rule behind it, and from
 a rule to the tests that pin it. The citation is a tag in the `docs/adr/index.md` `#` form — `ADR-AUTO-ERROR#3` — chosen so the one reserved
-`ADR-` marker greps uniformly across a rule's prose, the code that cites it, and now its tests. This dimension differs from tier and
-category in two ways. It is **optional**: a test carries a citation only when it meaningfully enforces a specific rule, and absence is never
-a violation — a mandatory citation would pressure forced cites for tests that enforce loose behaviour, the junk-drawer failure the
+`ADR-` marker greps uniformly across a rule's prose, the code that cites it, and its tests. This dimension differs from tier and category in
+two ways. It is **optional**: a test carries a citation only when it meaningfully enforces a specific rule, and absence is never a violation
+— a mandatory citation would pressure forced cites for tests that enforce loose behaviour, the junk-drawer failure the
 [spell-out registry](powershell/spell-out-names.md) warns against. And it is **set-valued**: a test can enforce several rules, and a
 `Describe`-level rule and an inner `It`-level rule both hold, so `Get-TestRuleTags` **unions** the citations across the whole block chain
 rather than taking the nearest like the single-valued axes.
@@ -364,42 +386,42 @@ with**, not by speed:
   pipeline default to Level 2, so L2 runs by default; `-Level 1` excludes it for a faster unit-only pass.
 - **L3 — cloud-API integration.** Talks to the real cloud API layer (maybe through a CLI tool, e.g. `az deployment create` /
   `az account show`). Opt-in (`-Tag 'L3'`), needs cloud credentials / connectivity, and **self-skips** when unavailable. This is the
-  integration sliver that [fail-fast](fail-fast-with-asserts.md) argues you cannot rely on alone — kept thin and out of the inner loop. (No
-  cloud-API tests exist yet — the tier is reserved for them.)
+  integration sliver that [fail-fast](fail-fast-with-asserts.md) argues you cannot rely on alone — kept thin and out of the inner loop. The
+  tier is reserved for tests that call a cloud API; a test that only drives a local tool is L2.
 
 ### Keeping logic tests fast
 
-Logic tests run on every change, so their speed compounds. Four effects, measured in this codebase, dominate — and the fixes are cheap:
+Logic tests run on every change, so their speed compounds. Four effects dominate, and the fixes are cheap:
 
 - **The filesystem-cmdlet tax (ADR-AUTO-TEST:18).** On Windows the PowerShell file cmdlets carry ~20 ms of per-call provider + AV/AMSI
   overhead that the raw .NET APIs avoid (~0.1 ms): `Get-ChildItem` ~20 ms/call, `Copy-Item -Recurse` ~15× a `[System.IO]` tree copy,
-  `New-Item`/`Set-Content` similar. It bites **production code** the tests exercise as much as the tests themselves — a cold
-  `Get-BicepTemplates` discovery made ~36 `Get-ChildItem` calls (~800 ms of a ~1.2 s discovery); switching it to
-  `[System.IO.Directory]::EnumerateFiles`/`EnumerateDirectories` (sorted, to keep output deterministic) cut that to ~165 ms, in tests _and_
-  in production. In test setup, copy fixture trees with `Copy-Directory` (the `[System.IO]` recursive-copy helper in `Catzc.Base.Files`) and
-  write files with `[System.IO.File]::WriteAllText` / `[System.IO.Directory]::CreateDirectory`. The bulk-delete gotcha below is the same
-  lesson for deletion.
+  `New-Item`/`Set-Content` similar. It bites **production code** the tests exercise as much as the tests themselves: a discovery that walks
+  a template tree with dozens of `Get-ChildItem` calls spends most of its time in the cmdlet, while
+  `[System.IO.Directory]::EnumerateFiles`/`EnumerateDirectories` (sorted, to keep output deterministic) does the same walk in a fraction of
+  it, in tests _and_ in production. In test setup, copy fixture trees with `Copy-Directory` (the `[System.IO]` recursive-copy helper in
+  `Catzc.Base.Files`) and write files with `[System.IO.File]::WriteAllText` / `[System.IO.Directory]::CreateDirectory`. The bulk-delete
+  gotcha below is the same effect for deletion.
 
 - **Don't redo expensive setup per test (ADR-AUTO-TEST:19).** `Get-BicepTemplates`/`Get-Config` key their session cache on the resolved
   root/path (ADR-AUTO-TEST:4). A `BeforeEach` that assigns each test a fresh `Join-Path $TestDrive ([Guid]::NewGuid())` root, or re-runs
-  `InModuleScope … { $script:configCache = $null }`, defeats that cache and pays a full cold re-derive **every test**. The
-  `Get-`/`Set-BicepTemplateConfiguration` logic tests each cost ~1.5 s/test this way; moving the fixture copy **and** the one-time cache
-  reset into `BeforeAll` (and pointing the few mutating tests at distinct config paths so they can share one tree) dropped them to a single
-  warm import. Reset a cache per test only when the test mutates the cached input.
+  `InModuleScope … { $script:configCache = $null }`, defeats that cache and pays a full cold re-derive **every test** — on the order of a
+  second per test for a template-configuration suite. The fixture copy **and** the one-time cache reset belong in `BeforeAll`, with the few
+  mutating tests pointed at distinct config paths so they can share one tree and one warm import. Reset a cache per test only when the test
+  mutates the cached input.
 
 - **One import per input, not per assertion (ADR-AUTO-TEST:20).** When the unit under test re-derives its result from the filesystem on each
-  run — the importer, discovery — every distinct tree shape needs its own cold import, but every _assertion_ does not. `Import-AllModules`
-  re-spawned a child `pwsh` for all 14 narrative steps; collapsed to the five tree shapes that are actually distinct (empty, a populated
-  tree, a re-derive-after-add/change/delete, a duplicate-name collision, a vendor shadow), each capturing a rich JSON observation that many
-  `It` blocks assert against, it dropped from ~10.7 s to ~5.3 s with no loss of coverage. Reduce the spawn _count_; splitting the narrative
+  run — the importer, discovery — every distinct tree shape needs its own cold import, but every _assertion_ does not. A narrative of many
+  steps over the importer collapses to the few tree shapes that are actually distinct (empty, a populated tree, a
+  re-derive-after-add/change/delete, a duplicate-name collision, a vendor shadow), each capturing a rich JSON observation that many `It`
+  blocks assert against — half the child `pwsh` spawns or fewer, with no loss of coverage. Reduce the spawn _count_; splitting the narrative
   buys no concurrency — Pester executes tests sequentially within a run, the harness parallelizes whole test files across worker processes
   (a single file's tests never split across workers), and these narratives are stateful besides.
 
 - **Measure; mocks are rarely the cause (ADR-AUTO-TEST:21).** The instinct to blame slowness on Pester mocking is almost always wrong:
-  interception is ~ms/call and a `-ParameterFilter` adds ~1 ms. Here the suspected "6× mock penalty" on discovery was a measurement artifact
-  — the no-mock comparison had silently fallen through to the real (smaller) template tree, so it was timing a different workload. The
-  actual cost was `Get-ChildItem`, proven by `[Diagnostics.Stopwatch]` timing of the unmocked path and `Should -Invoke -Times` invocation
-  counts.
+  interception is ~ms/call and a `-ParameterFilter` adds ~1 ms. An apparent "mock penalty" is usually a measurement artifact — a no-mock
+  comparison that silently falls through to a smaller real tree times a different workload. The real cost shows up under
+  `[Diagnostics.Stopwatch]` timing of the unmocked path and `Should -Invoke -Times` invocation counts, and it is usually a filesystem
+  cmdlet.
 
 Cold-import isolation is the one case that legitimately needs a separate **process** (not an in-process runspace): see the Gotchas in
 [pester-testing](powershell/pester-testing.md).
@@ -450,10 +472,29 @@ check and every report. Pester's NUnit output is per shard (`results-shard-<N>.x
 Files containing a `greedy`-tagged test (ADR-AUTO-TEST:26) follow the parallel shards as single-file shards through the pool, one per worker
 slot; files containing a `serial`-tagged test run last in a one-worker phase, alone.
 
-Two deliberate consequences: workers run tests **without strict mode** (parity — the harness has always invoked Pester from module session
-state, which global strict never reaches, and the suite is not written to run strict); and the protected-glob session map
-([protected-globs](protected-globs.md)) is per worker session, so a protected scan never skips under the harness — it runs concurrently with
-the other shards instead.
+Two deliberate consequences: workers run tests **without strict mode** (parity — Pester invoked from module session state never sees global
+strict mode, and the suite is not written to run strict); and the protected-glob session map ([protected-globs](protected-globs.md)) is per
+worker session, so a protected scan never skips under the harness — it runs concurrently with the other shards instead.
+
+### Two suites, one body of tests
+
+Every module runs in two modes — from its source folder, and merged into the installed build — and both must work. The proof is one body of
+tests run twice, not two bodies of tests: duplicated test files would drift from each other, and a drifted copy proves nothing about the
+original ([one-living-version](../principles/one-living-version.md)). Running the same files against the build works because a built module
+is the same module — same name, same public and private functions, same `$script:` scope — so every `Mock -ModuleName`, `InModuleScope`, and
+`Get-Module` target resolves the same way in both suites.
+
+`Test-CatzcBuild` builds the selected modules into a fresh temporary destination with the `full` vendor policy (so Pester and
+PSScriptAnalyzer ship with the build), then runs the parallel harness below unchanged in shape. The single seam is the entry script a shard
+worker dot-sources: `<repo>/importer.ps1` for the source suite, `<build>/Import-Catzc.ps1 -RepositoryRoot <repo>` for the build suite. Test
+files come from the source tree, limited to the built modules' `tests/`. The `Catzc.Internal.TestKit` build helpers (`New-BuiltCatzcRoot`,
+`Invoke-InBuiltCatzc`, `Remove-BuiltCatzcRoot`) give an individual test the same build in a child `pwsh` — process isolation is mandatory,
+because loaded assemblies and `$env:` are process-global.
+
+Some tests give the same answer in both modes by construction: an integrity test that reads only the repository's files never touches the
+loaded modules. Running it twice is waste ([reduce-waste](../principles/reduce-waste.md)), so it carries `source-only` and the build suite
+skips it — and lists it, so a reader sees exactly what the build suite does not run. Everything that exercises loaded code runs in both.
+Both suites run in CI on every push, so "works in both modes" is checked before anything merges.
 
 ### The Build Verification Test
 
@@ -494,6 +535,8 @@ test is written.
   template-build integrity check) are the sanctioned exceptions — an input-source choice, not a tier — and they bind to the template _set_,
   never to a named template (ADR-AUTO-TEST:17). The fixtures under `tests/assets/` are the patterns new logic tests copy (see
   [conventional-folders](../repository/conventional-folders.md)).
+- **Two suites** — `Test-Automation` and `Test-CatzcBuild` share the harness; `Get-TestTagViolations` accepts and validates `source-only`
+  (ADR-AUTO-TEST:31), and the build suite reports the excluded count and list.
 - **Code review** decides whether a new test verifies _pure logic_ (seam-isolated, hermetic) or _shipped templates_ (binds to assets, only
   external tools mocked), and checks it mocks the right boundaries — not too few, not too many (testing the mock).
 
@@ -503,11 +546,13 @@ test is written.
   shipped assets (the cross-layer reference check and the generic template-build integrity check), which is exactly where such a change
   _should_ be felt. _Renaming or removing_ a template, however, must not break a test either: the integrity check binds to the template set,
   not to a name (ADR-AUTO-TEST:17).
-- Logic tests are fast and hermetic: no `az`, no network, no dependence on what happens to be in the shipped config today. They run on every
+- Logic tests are fast and hermetic: no `az`, no network, no dependence on what happens to be in the shipped config. They run on every
   change.
-- The shipped configuration still has a guardian: the generic integrity tests fail loudly if a real template references an undefined
+- The shipped configuration has a guardian: the generic integrity tests fail loudly if a real template references an undefined
   environment/customer, stops building/rendering, emits a malformed Key Vault reference, or an asset stops validating — for _every_ shipped
   template, including ones added later, with no per-template test to write.
+- One body of tests proves both run modes: a module that breaks only when merged into the build turns the build suite red, with no second
+  set of tests to keep in step.
 - Distinct fixture identities make a test's independence visible — a reviewer sees `alpha`/`acme`/`tst` and knows nothing production is in
   play.
 - The cost: two artifacts to maintain (fixture config + shipped config). They are independent by design; the fixture tracks the test's

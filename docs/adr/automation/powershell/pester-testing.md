@@ -148,4 +148,5 @@ Describe 'sample (real az)' -Tag 'L2', 'logic' {
 
 - A hermetic logic test is two mocks away: redirect the template tree and the config discovery, and nothing production is in play.
 - Mocking whole boundary functions keeps tests decoupled from implementation — a refactor inside a seam never rewrites the suite.
-- The gotchas are institutional memory: each entry is a failure mode that cost real debugging time, written down so it is paid once.
+- The gotchas are a shared reference: each entry is an engine failure mode that is hard to diagnose from its symptom, written down so the
+  diagnosis is never repeated.

@@ -13,6 +13,9 @@
     attribute) when absent, corrected when it names the wrong module, and left untouched when already correct.
     Files are written back as UTF-8 without a BOM with LF line endings (repo convention). Logic is never
     changed — only the namespace line.
+
+    A source-tree tool: it rewrites the repository's type sources, so it throws in build mode
+    (Assert-SourceTree).
 .PARAMETER Path
     One or more files or directories to process. Defaults to every automation/<Module>/types/*.cs file.
 .PARAMETER DryRun
@@ -36,6 +39,9 @@ function Format-Types {
 
         [switch] $PassThru
     )
+
+    # The .cs sources exist only in the source tree (a build ships the compiled assembly, not the sources).
+    Assert-SourceTree
 
     $root = Get-RepositoryRoot
     $files = [System.Collections.Generic.List[string]]::new()

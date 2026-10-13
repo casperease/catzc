@@ -1,4 +1,4 @@
-Describe 'Get-FunctionDependency' -Tag 'L0', 'integrity' {
+Describe 'Get-FunctionDependency' -Tag 'L0', 'integrity', 'source-only' {
     BeforeAll {
         $script:dependencies = Get-FunctionDependency
     }
@@ -12,5 +12,12 @@ Describe 'Get-FunctionDependency' -Tag 'L0', 'integrity' {
             }
         }
         @($violations) | Should -BeNullOrEmpty
+    }
+}
+
+Describe 'Get-FunctionDependency — build mode' -Tag 'L0', 'logic' {
+    It 'stops with a named error when the session runs a built package' {
+        Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
+        { Get-FunctionDependency -AutomationRoot $TestDrive } | Should -Throw '*Get-FunctionDependency operates on the catzc source tree*'
     }
 }

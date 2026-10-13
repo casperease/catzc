@@ -19,7 +19,7 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
         # per-set hashes keyed by name; a test flips one entry to prove it re-keys (or not) the composite
         $script:setHashes = @{}
         foreach ($setName in @('catzc-base-alpha', 'catzc-base-beta', 'catzc-gamma', 'internal', 'vendor',
-                'compiled', 'scriptanalyzer', 'catzc-base-qualitygates', 'automation', 'catzc-unknown')) {
+                'compiled', 'scriptanalyzer', 'catzc-base-qualitygates', 'repository', 'catzc-unknown')) {
             $script:setHashes[$setName] = ($setName + ('0' * 64)).Substring(0, 64)
         }
 
@@ -107,7 +107,7 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
             param($Module, $HasIntegrityTests)
             Get-ModuleProtectionIdentity -Module $Module -HasIntegrityTests:$HasIntegrityTests -HashCache @{}
         }
-        $script:setHashes['automation'] = 'f' * 64
+        $script:setHashes['repository'] = 'f' * 64
         $after = InModuleScope Catzc.Base.QualityGates -Parameters $params {
             param($Module, $HasIntegrityTests)
             Get-ModuleProtectionIdentity -Module $Module -HasIntegrityTests:$HasIntegrityTests -HashCache @{}
@@ -119,7 +119,7 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
         $before = InModuleScope Catzc.Base.QualityGates {
             Get-ModuleProtectionIdentity -Module 'Catzc.Base.Alpha' -HashCache @{}
         }
-        $script:setHashes['automation'] = 'f' * 64
+        $script:setHashes['repository'] = 'f' * 64
         $after = InModuleScope Catzc.Base.QualityGates {
             Get-ModuleProtectionIdentity -Module 'Catzc.Base.Alpha' -HashCache @{}
         }

@@ -47,10 +47,10 @@ config, and operational data it draws on are themselves version-controlled, docu
 discipline that turns a generic AI model into a specialized expert for a given organization by feeding it that organization's own
 proprietary information instead of leaving it to answer from general training data alone.[^1]
 
-DORA's research places this capability alongside AI adoption in the Core Model: adopting AI tools is necessary but not sufficient, and
-giving those tools access to internal data is what converts adoption into measurable gains in individual effectiveness and code quality. The
-same access, unmanaged, is also where AI-era risk concentrates — rapid generation without small batch sizes, silent replication of
-deprecated patterns, and data exposure when access controls are not enforced.
+DORA's research places this capability alongside AI adoption in the AI Capabilities Model: adopting AI tools is necessary but not
+sufficient, and giving those tools access to internal data is what converts adoption into measurable gains in individual effectiveness and
+code quality. The same access, unmanaged, is also where AI-era risk concentrates — rapid generation without small batch sizes, silent
+replication of deprecated patterns, and data exposure when access controls are not enforced.
 
 ## Summary
 
@@ -109,19 +109,35 @@ fact.
 ## References
 
 [^1]:
-    DORA, _AI-accessible internal data_ capability, <https://dora.dev/capabilities/ai-accessible-internal-data/>. Part of the DORA Core
-    Model of capabilities that predict software delivery performance in the AI era.
+    DORA, _AI-accessible internal data_ capability, <https://dora.dev/capabilities/ai-accessible-internal-data/>. Part of the DORA AI
+    Capabilities Model of capabilities that amplify the benefits of AI adoption.
 
 ## Dora explains
 
-AI-accessible internal data is where DORA's AI-era findings meet its long-standing delivery metrics: an AI amplifies whatever data
-discipline a team already has, so the capability's payoff rides entirely on capabilities DORA already measures — version control,
-documentation quality, and access governance.
+AI-accessible internal data is one of the five capabilities DORA introduced with its AI Capabilities Model, outside the Core Model. Like the
+other AI capabilities, it is defined by how it changes AI adoption's effect: connecting AI tools to the organization's own code,
+documentation, and operational data amplifies AI's positive effect on individual effectiveness and code quality, so its payoff rides on the
+version control and documentation discipline a team already has.
 
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — bounds the delivery instability that rapid,
-  context-fed AI generation can otherwise introduce.
-- [Documentation quality](https://dora.dev/capabilities/documentation-quality/) — high-quality documentation is a primary driver of
-  successful AI adoption and a direct source of the context this capability retrieves.
-- [Version control](https://dora.dev/capabilities/version-control/) — an artifact is only retrievable by RAG or MCP if it is comprehensively
-  kept in a version-controlled system in the first place.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [AI-accessible internal data](../../references/dora/capabilities.md#ai-accessible-internal-data)
+- **Category:** [AI](../../references/dora/capabilities.md#ai) — not in the Core Model; a member of the
+  [AI Capabilities Model](../../references/dora/ai.md#ai-capabilities-model).
+- **Evidence:**
+  - [2025 State of AI-assisted Software Development](../../references/dora/publications.md#2025-state-of-ai-assisted-software-development) —
+    finds that AI is mainly an amplifier of an organization's existing strengths and dysfunctions, and introduces the AI Capabilities Model
+    this capability belongs to.
+  - [2025 DORA AI Capabilities Model](../../references/dora/publications.md#2025-dora-ai-capabilities-model) — gives implementation
+    strategies, starter tactics, and ways to monitor progress for the capability.
+- **Predicts:** amplifies AI adoption's positive effect on [individual effectiveness](../../references/dora/ai.md#individual-effectiveness)
+  and [code quality](../../references/dora/ai.md#code-quality); the model diagram also connects it to
+  [product performance](../../references/dora/ai.md#product-performance). Its named risks are delivery
+  [instability](../../references/dora/metrics.md#instability) when small batches are neglected, copied deprecated patterns, and data
+  exposure.
+- **Related capabilities:**
+  - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — bounds the delivery instability that rapid,
+    context-fed AI generation otherwise introduces.
+  - [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — a direct source of the context this capability
+    retrieves.
+  - [Version control](../../references/dora/capabilities.md#version-control) — an artifact is only retrievable by RAG or MCP if it is
+    comprehensively kept in version control in the first place.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

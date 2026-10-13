@@ -13,6 +13,8 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         $script:genTarget = Join-Path $script:fake.Root 'generated.txt'
 
         Mock Write-Message -ModuleName Catzc.Base.RootConfig { }
+        # The fake root is not the loaded code root, so the derived run mode reads 'build'; pin source mode.
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { "rendered output`n" }
         # The link mechanism is its own unit (Set-FileLink.Tests.ps1) — here it is a mocked boundary, so these
         # tests assert only that the link branch dispatches to it and skips content composition.
@@ -115,9 +117,17 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     It 'throws when -Target matches no opted-in entry' {
         { Build-RootConfig -Target 'opted-out.yml' } | Should -Throw '*No opted-in root-config entry*'
     }
+
+    It 'is a reported no-op in build mode — nothing is read, composed, or written' {
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'build' }
+        Mock Write-FileIfChanged -ModuleName Catzc.Base.RootConfig { $true }
+        Build-RootConfig | Should -BeNullOrEmpty
+        Should -Invoke Write-FileIfChanged -ModuleName Catzc.Base.RootConfig -Times 0
+        Should -Invoke Write-Message -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Message -like '*built Catzc package*' }
+    }
 }
 
-Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L1', 'integrity' {
+Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L1', 'integrity', 'source-only' {
     It 'resolves every opted-in entry without writing (sources exist, generators render)' {
         # -DryRun composes every opted-in target's content — a missing source file or unknown generator throws.
         $result = Build-RootConfig -DryRun -PassThru -Silent

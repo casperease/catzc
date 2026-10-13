@@ -8,7 +8,7 @@
       git_workspace:   main-direct | main-via-pr — how changes reach main (solo trunk vs everything-by-PR)
       have_customers:  false | all | [names]     — the enabled-customer set
       aspects:         { track: [ {name: [patterns]}, … ] } — per-track/container partition conventions
-                       (ADR-ASPECT); each list ordered, last entry the '**' catch-all remainder
+                       (ADR-DSGN-ASPECT); each list ordered, last entry the '**' catch-all remainder
 
     Integrity rules:
     - only the known keys are allowed (unknown key => throw), so a typo fails fast at load
@@ -87,7 +87,7 @@ function Assert-VariantsConfig {
     }
 
     if ($Config.Contains('aspects')) {
-        # A per-track/per-container map (ADR-ASPECT): track -> ordered list of single-key {name: [patterns]}
+        # A per-track/per-container map (ADR-DSGN-ASPECT): track -> ordered list of single-key {name: [patterns]}
         # entries, the LAST the '**' catch-all remainder. The catch-all's liveness is the container's call
         # (automation: 'tests'; a deployment: 'live'), so it is NOT validated here. Glob syntax is validated
         # downstream by the Globs aspect engine (no up-dependency). Structural checks only.

@@ -19,7 +19,8 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 - `automation/.internal/` — internal infrastructure: the loader + shared libraries (`Catzc.Internal.{Loader,Types,TestKit}.psm1`, stay
   loaded) and the bootstrap (`Catzc.Internal.Bootstrap.psm1`, loaded first, removed after import), plus build `assets/`
 - `automation/.vendor/` — third-party modules (checked in)
-- `docs/adr/` — Architecture Decision Records (see below); `docs/notes/` — freeform working notes
+- `docs/adr/` — Architecture Decision Records (see below); `docs/references/` — reference articles (incl. the DORA research reference in
+  `docs/references/dora/`); `docs/how-to/` — task guides; `docs/.assets/` — diagram assets
 
 ## ADRs
 
@@ -51,12 +52,13 @@ or reviewing code.
   Use placeholders and describe patterns, not instances.
 - **No mutating git operations**: Never run git add, commit, push, reset, checkout, rebase, merge, or other state-changing git commands
   unless the user explicitly asks. Read-only commands (status, log, diff, blame) are fine.
-- **One living version — never back-compat or legacy** (`ADR-PRIN-ONELIVE`, [one-living-version](../docs/adr/principles/one-living-version.md)):
-  the repo carries exactly one version of every behaviour. Never add backwards-compatibility shims, deprecated-alias fields, or migration
-  fallbacks (e.g. when changing `azure.yml`, the data model, `options.yml`, or the `Get-Azure*`/`Get-Bicep*` resolvers); change the contract
-  and every in-tree caller in the same change, and delete the old shape. No legacy/dead code parked in the tree, no versioned variants
-  (`*V2`, `*_old`, `legacy/`), no long-lived version branches — trunk-based, one source of truth. All history lives in
-  `git log`/`git blame`, never in retained files, commented-out blocks, or "we used to" notes (docs read present-tense too).
+- **One living version — never back-compat or legacy** (`ADR-PRIN-ONELIVE`,
+  [one-living-version](../docs/adr/principles/one-living-version.md)): the repo carries exactly one version of every behaviour. Never add
+  backwards-compatibility shims, deprecated-alias fields, or migration fallbacks (e.g. when changing `azure.yml`, the data model,
+  `options.yml`, or the `Get-Azure*`/`Get-Bicep*` resolvers); change the contract and every in-tree caller in the same change, and delete
+  the old shape. No legacy/dead code parked in the tree, no versioned variants (`*V2`, `*_old`, `legacy/`), no long-lived version branches —
+  trunk-based, one source of truth. All history lives in `git log`/`git blame`, never in retained files, commented-out blocks, or "we used
+  to" notes (docs read present-tense too).
 - **Plans go in `out/`**: when asked to "make a plan", write a markdown file to `{repo}/out/plan-<topic>.md` (the gitignored output dir) —
   do not use plan mode or show a selection menu. The user wants a file to review.
 - **Run PowerShell yourself — and actually run a gate before claiming it passed**: `pwsh` (7.4+) is available and permitted via the Bash

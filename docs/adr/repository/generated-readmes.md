@@ -54,15 +54,16 @@ them).
 ### Rule ADR-REPO-README:7
 
 Authored sources live under `docs/references/` — automation modules as the domains-first reference articles in
-`docs/references/automation/<kebab>.md`, and other folders (pipelines, infrastructure) under `docs/references/`. The source is the reviewed,
-gate-checked artifact; the README link is out of markdown-gate scope.
+`docs/references/automation/<kebab>.md`, and other folders (pipelines, infrastructure, `out/`, `.cspell/`, `contracts/`) under
+`docs/references/`. The one mapping outside it is `docs/adr/`, whose README links to the folder's own generated index, `docs/adr/index.md`.
+The source is the reviewed, gate-checked artifact; the README link is out of markdown-gate scope.
 
 - [Derived, not committed](#derived-not-committed)
 
 ## Context
 
 A `README.md` is what a reader sees first in a folder in an editor. Kept by hand, each drifts from the documentation it duplicates, and the
-same content is maintained in two places. The repository already treats other per-folder, convention-derived files as generated, gitignored
+same content is maintained in two places. The repository treats other per-folder, convention-derived files as generated, gitignored
 artifacts ([dynamic-module-manifests](../automation/powershell/dynamic-module-manifests.md), `ADR-AUTO-MANIFEST:3`), and the managed root
 configs materialise a source-backed, gitignored target as a filesystem link to its source of truth
 ([generated-root-configs](generated-root-configs.md), `ADR-REPO-ROOTCFG:7`). A README is the same shape: one authored source under `docs/`,
@@ -72,9 +73,9 @@ is no banner, rebasing, or composed content to maintain.
 ## Decision
 
 Each mapped conventional folder's `README.md` is materialised by `Build-Readme` (module `Catzc.Base.Docs`) as a filesystem link to its
-single authored source under `docs/references/`, declared in `configs/readme.yml` (glob `patterns` + explicit `mappings`) and validated by
-`DocsConfig`. There is one authored copy of the content (the source) and one link per folder (the README) — the same file, reachable from
-both paths.
+single source under `docs/` (`docs/references/`, or the ADR index for `docs/adr/`), declared in `configs/readme.yml` (glob `patterns` +
+explicit `mappings`) and validated by `DocsConfig`. There is one authored copy of the content (the source) and one link per folder (the
+README) — the same file, reachable from both paths.
 
 ### Derived, not committed
 

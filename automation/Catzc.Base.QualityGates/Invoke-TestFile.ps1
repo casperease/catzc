@@ -83,11 +83,13 @@ function Invoke-TestFile {
 
     # One worker, live output — the same runner the harness pools, behind the same machine-wide run lock
     # (a file run launched mid-suite would race the suite's shared build folders; Wait-TestRunMutex owns
-    # the why).
+    # the why). The worker inherits CATZC_TEST_RUN_LOCK_HELD, as Test-Automation's workers do, so a test that
+    # drives Invoke-TestFile for real inside this run never waits on its own parent's lock.
     $runMutex = Wait-TestRunMutex -Reason 'test file run'
     try {
+        $workerEnvironment = @{ CATZC_TEST_RUN_LOCK_HELD = '1' }
         $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-            [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $null, $TimeoutSeconds, $true)
+            [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $workerEnvironment, $TimeoutSeconds, $true)
     }
     finally {
         if ($runMutex) {

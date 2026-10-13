@@ -8,6 +8,10 @@
     broadcasts WM_SETTINGCHANGE). User/Machine scopes are a Windows concept; callers gate Windows-only use
     behind $IsWindows. This is the deliberately thin, un-mockable I/O boundary, so it has no unit test of its
     own.
+
+    Because every persistent PATH write passes through here, this is also where it is announced
+    (ADR-AUTO-ANNOUNCE:2): one line names the scope and the entries added and removed. Writing the value the
+    scope already holds is a no-op, so it neither writes nor announces.
 .PARAMETER Value
     The full PATH string to persist.
 .PARAMETER Scope
@@ -27,5 +31,26 @@ function Set-EnvironmentPath {
         [string] $Scope = 'User'
     )
 
+    $current = [System.Environment]::GetEnvironmentVariable('PATH', $Scope)
+    if ($current -eq $Value) {
+        return
+    }
+    $before = @($current -split ';' | Where-Object { $_ })
+    $after = @($Value -split ';' | Where-Object { $_ })
+    $added = @($after | Where-Object { $_ -notin $before })
+    $removed = @($before | Where-Object { $_ -notin $after })
+
     [System.Environment]::SetEnvironmentVariable('PATH', $Value, $Scope)
+    $change = @(
+        if ($added) {
+            "added '$($added -join "', '")'"
+        }
+        if ($removed) {
+            "removed '$($removed -join "', '")'"
+        }
+    )
+    if (-not $change) {
+        $change = @('reordered')
+    }
+    Write-Message "$Scope PATH: $($change -join '; ')"
 }

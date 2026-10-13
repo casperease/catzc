@@ -12,7 +12,8 @@
     Describe/Context/It — never a text scan, which would false-match a citation-shaped string in a fixture or
     an assertion. The analyzer map is read through Get-Config (a global config read; owned by the QualityGates
     module but reachable from anywhere — ADR-CONF-LOADING:6 — so no module dependency on it is taken). A pure
-    function of the files on disk, memoized for the session (re-run the importer to refresh).
+    function of the files on disk, memoized for the session (re-run the importer to refresh). It reads the
+    source tree's tests, so it runs in source mode only (Assert-SourceTree).
 
     Private helper for Show-Cats; not exported.
 .OUTPUTS
@@ -22,6 +23,9 @@ function Get-CatsRuleEnforcers {
     [OutputType([hashtable])]
     [CmdletBinding()]
     param()
+
+    # The test citations are read from the source tree's *.Tests.ps1 files, which a built package does not ship.
+    Assert-SourceTree
 
     if ($script:catsRuleEnforcersCache) {
         return $script:catsRuleEnforcersCache

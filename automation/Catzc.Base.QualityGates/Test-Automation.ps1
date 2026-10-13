@@ -155,11 +155,12 @@ function Test-Automation {
     }
 
     # Lazy-load Pester — deferred at import time for speed. The parent needs it only for the discovery pass;
-    # each worker imports its own copy for the actual run.
+    # each worker imports its own copy for the actual run. Pester is vendored inside the code tree, so it
+    # resolves from the code root (ADR-AUTO-ASSETDEP:1).
     if (-not (Get-Module Pester)) {
-        $pesterPath = Join-Path $env:RepositoryRoot 'automation/.vendor/Pester'
-        Write-Verbose "Lazy-loading Pester from: $pesterPath"
-        Import-Module $pesterPath -Scope Global -Force
+        $pesterPath = Join-Path (Get-CatzcModulesRoot) '.vendor/Pester'
+        $pester = Import-Module $pesterPath -Scope Global -Force -PassThru | Select-Object -First 1
+        Write-Message "Loaded vendor module Pester $($pester.Version) from '$pesterPath'"
     }
 
     # The run's tests folders, foundation-first — module dependency order, dot-prefixed infrastructure last

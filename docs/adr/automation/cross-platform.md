@@ -4,7 +4,7 @@
 
 ### Rule ADR-AUTO-XPLAT:3
 
-Never hardcode platform-specific paths (`C:\`, `/tmp/`, `$env:APPDATA`). Use `$env:RepositoryRoot`, `$PSScriptRoot`,
+Never hardcode platform-specific paths (`C:\`, `/tmp/`, `$env:APPDATA`). Use `$env:RepositoryRoot`, the code root (`Get-CatzcModuleRoot`),
 `[IO.Path]::GetTempPath()`, or `Join-Path` from a known anchor.
 
 - [What breaks in practice](#what-breaks-in-practice)
@@ -66,7 +66,7 @@ target-platform profiles at analysis time, in the L2 test suite, on every develo
 not in the pipeline queue.
 
 **Platform-aware installers** (see [controlling-systemwide-deps](controlling-systemwide-deps.md)) abstract package manager differences.
-`Install-Python` calls `winget` on Windows and `apt-get` on Linux. The caller never writes platform-specific install logic.
+`Install-NodeJs` calls `winget` on Windows and `apt-get` on Linux. The caller never writes platform-specific install logic.
 
 ## Decision
 

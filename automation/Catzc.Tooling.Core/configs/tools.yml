@@ -32,6 +32,12 @@ dotnet:
   # Override per platform with windows_install_dir / unix_install_dir if needed.
   script_install: true
   windows_install_dir: "Microsoft\\dotnet"
+  # Which dotnet home this session runs when several exist (the managed home, then every PATH dir holding
+  # dotnet — on Windows a machine-wide C:\Program Files\dotnet precedes the user PATH): an SDK at the locked
+  # version first, else a runtime at the locked version. A runtime-only or off-version host never wins.
+  session_host_probes:
+    - "sdk/{version}"
+    - "shared/Microsoft.NETCore.App/{version}"
   version_command: "dotnet --version"
   version_pattern: "^(?<ver>.+)$"
 

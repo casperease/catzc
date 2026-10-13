@@ -51,10 +51,10 @@ Healthy data ecosystems belongs to DORA's AI-capability set, alongside AI-access
 defines it as internal data that is "high-quality, easily accessible, and unified" and calls it "a foundational capability that
 significantly amplifies the positive influence of AI adoption on organizational performance."[^1]
 
-It sits in the DORA Core Model as a moderator rather than a standalone predictor of delivery performance: it does not push performance up or
-down on its own so much as decide how much of AI's effect — in either direction — actually reaches the organization. DORA frames AI itself
-as an amplifier, one that "magnifies the strengths of high-performing organizations and the dysfunctions of struggling ones," and healthy
-data is the condition that determines which of those two outcomes an organization gets.
+It sits in the DORA AI Capabilities Model as a moderator rather than a standalone predictor of delivery performance: it does not push
+performance up or down on its own so much as decide how much of AI's effect — in either direction — actually reaches the organization. DORA
+frames AI itself as an amplifier, one that "magnifies the strengths of high-performing organizations and the dysfunctions of struggling
+ones," and healthy data is the condition that determines which of those two outcomes an organization gets.
 
 ## Summary
 
@@ -99,17 +99,35 @@ convention-named `Assert-<Name>Config` run once on load — rather than ad hoc, 
 ## References
 
 [^1]:
-    DORA, _Healthy data ecosystems_ capability, <https://dora.dev/capabilities/healthy-data-ecosystems/>. Part of the DORA Core Model of
-    capabilities that predict software delivery performance.
+    DORA, _Healthy data ecosystems_ capability, <https://dora.dev/capabilities/healthy-data-ecosystems/>. Part of the DORA AI Capabilities
+    Model of capabilities that amplify the benefits of AI adoption.
 
 ## Dora explains
 
-Healthy data ecosystems does not predict delivery performance on its own; it moderates how far AI adoption's effect on performance reaches,
-raising or lowering the returns that other DORA capabilities produce once AI enters the toolchain.
+Healthy data ecosystems is one of the five capabilities DORA introduced with its AI Capabilities Model, outside the Core Model, and the page
+calls it a prerequisite for AI adoption. It does not predict performance on its own; it moderates how far AI adoption's effect on
+organizational performance reaches, and with fragmented data AI produces wrong answers faster.
 
-- [AI-accessible internal data](https://dora.dev/capabilities/ai-accessible-internal-data/) — the access layer this capability's data must
-  be discoverable through.
-- [Clear and communicated AI stance](https://dora.dev/capabilities/clear-and-communicated-ai-stance/) — the policy context that governs how
-  AI is allowed to use the data.
-- [Version control](https://dora.dev/capabilities/version-control/) — versions data definitions and schemas the same way it versions code.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Healthy data ecosystems](../../references/dora/capabilities.md#healthy-data-ecosystems)
+- **Category:** [AI](../../references/dora/capabilities.md#ai) — not in the Core Model; a member of the
+  [AI Capabilities Model](../../references/dora/ai.md#ai-capabilities-model).
+- **Evidence:**
+  - [2025 State of AI-assisted Software Development](../../references/dora/publications.md#2025-state-of-ai-assisted-software-development) —
+    finds that AI is mainly an amplifier of existing strengths and dysfunctions, and introduces the AI Capabilities Model.
+  - [2025 DORA AI Capabilities Model](../../references/dora/publications.md#2025-dora-ai-capabilities-model) — gives implementation
+    strategies, starter tactics, and ways to monitor progress for the capability.
+  - [2016 State of DevOps Report](../../references/dora/publications.md#2016-state-of-devops-report) and
+    [2017 State of DevOps Report](../../references/dora/publications.md#2017-state-of-devops-report) — listed on the capability page as
+    further reading.
+- **Predicts:** significantly amplifies AI adoption's positive effect on
+  [organizational performance](../../references/dora/ai.md#organizational-performance) (see also the Core Model's
+  [organizational performance](../../references/dora/core-model.md#organizational-performance) outcome); it is the only outcome the model
+  diagram connects it to.
+- **Related capabilities:**
+  - [AI-accessible internal data](../../references/dora/capabilities.md#ai-accessible-internal-data) — the access layer this capability's
+    data must be discoverable through.
+  - [Clear and communicated AI stance](../../references/dora/capabilities.md#clear-and-communicated-ai-stance) — the policy context that
+    governs how AI is allowed to use the data.
+  - [Version control](../../references/dora/capabilities.md#version-control) — versions data definitions and schemas the same way it
+    versions code.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

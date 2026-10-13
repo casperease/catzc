@@ -16,6 +16,14 @@ Each function file pairs one-to-one with a test file named `Verb-Noun.Tests.ps1`
 
 - [Why one function per file](#why-one-function-per-file)
 
+### Rule ADR-AUTO-ONEFUNC:3
+
+The rule governs **source** under `automation/<Module>/`. The installed build's merged `<Module>.ps1` — every function of one module in one
+file — is a generated artifact of `Build-Modules`, derived from the one-function source files and never edited by hand; the build asserts
+the rule on its input and fails when a source file breaks it.
+
+- [Source and the generated build](#source-and-the-generated-build)
+
 ## Context
 
 We need a convention for how functions map to files within a module. The two common approaches are:
@@ -51,6 +59,15 @@ which test file covers which function.
 Each `.ps1` file contains exactly one exported function. The file name matches the function name: `Get-Foo.ps1` must contain
 `function Get-Foo`.
 
+### Source and the generated build
+
+Every reason above is about the code a developer reads, edits, reviews, and blames, so the rule applies to source. The installed build
+([run-modes](../../design/run-modes.md), [platform-bundle](../platform-bundle.md)) serves a different reader: a machine that loads the
+toolset and pays a per-file antivirus scan on a cold import ([effective-in-enterprises](../effective-in-enterprises.md)). For that reader
+`Build-Modules` merges a module's function files into one `<Module>.ps1`, each function preceded by a `# source:` marker line that names the
+file it came from, so an error inside the merged file traces back to its source file. The export list of the built manifest is the file
+names of the module's root `.ps1` files — the rule is what makes the merged file's exports derivable without parsing it.
+
 ### How this is enforced
 
 - **`Test-Automation.Tests.ps1`** — validates every `.ps1` file: file name must be `Verb-Noun` format, must contain exactly one function,
@@ -58,6 +75,8 @@ Each `.ps1` file contains exactly one exported function. The file name matches t
 - **Test file naming** — the same test validates that every `.Tests.ps1` file also follows `Verb-Noun.Tests.ps1` format.
 - **Bootstrap module** — `New-DynamicManifest` derives `FunctionsToExport` directly from `$file.BaseName`, so files that do not follow the
   convention will not export correctly.
+- **`Build-Modules`** — re-asserts the rule on the source files' syntax trees before merging (exactly one function per file, named for the
+  file, no top-level statements) and fails the build with every violation collected.
 
 ## Consequences
 
@@ -67,3 +86,5 @@ Each `.ps1` file contains exactly one exported function. The file name matches t
 - Each function has its own git history and blame
 - Test files map 1:1 to function files
 - Modules with many small functions will have many small files — this is acceptable and preferred over fewer large files
+- The installed build holds one generated file per module, so the file count a machine opens at load is bounded by the module count, not the
+  function count

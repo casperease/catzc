@@ -73,3 +73,16 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         }
     }
 }
+
+Describe 'Get-ReadmeMappings source-tree guard' -Tag 'L0', 'logic' {
+    It 'refuses before expanding any glob when the session runs a built package' {
+        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { throw 'Get-ReadmeMappings operates on the catzc source tree' }
+        InModuleScope Catzc.Base.Docs {
+            $config = [pscustomobject]@{
+                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/widgets/{kebab}.md' })
+                mappings = @()
+            }
+            { Get-ReadmeMappings -Config $config -RepositoryRoot 'x' } | Should -Throw '*source tree*'
+        }
+    }
+}

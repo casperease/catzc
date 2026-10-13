@@ -173,7 +173,17 @@ function Invoke-Importer {
     }
 
     # Custom error view — shows ScriptStackTrace for unhandled errors
-    Update-FormatData -PrependPath (Join-Path $modulesRoot '.internal/assets/ErrorView.format.ps1xml')
+    $errorViewPath = Join-Path $modulesRoot '.internal/assets/ErrorView.format.ps1xml'
+    Update-FormatData -PrependPath $errorViewPath
+
+    # Every lasting change to the caller's session is announced (ADR-AUTO-ANNOUNCE:2): the preferences and the
+    # error view, then the two roots and the internal modules that stay loaded — RepositoryRoot set by the
+    # importer.ps1 shim and the modules by Import-InternalModule, which both delegate their announcement here.
+    # This is the first point Write-ImporterMessage (Catzc.Internal.Bootstrap) is loaded.
+    Write-ImporterMessage ("Session: ErrorActionPreference=$global:ErrorActionPreference, WarningPreference=$global:WarningPreference, " +
+        "InformationPreference=$global:InformationPreference, error view '$errorViewPath'")
+    Write-ImporterMessage ("Roots: RepositoryRoot='$repoRoot', CatzcModulesRoot='$modulesRoot'; " +
+        'internal modules Catzc.Internal.Loader, Catzc.Internal.Types, Catzc.Internal.Vendor')
 
     # Load vendored dependencies first
     $vendorRoot = Join-Path $modulesRoot $vendorFolder
@@ -191,6 +201,10 @@ function Invoke-Importer {
 
     Write-Verbose "Discovering modules in: $modulesRoot"
     Import-AllModules -ModulesRoot $modulesRoot -ExportPrivates:$ExportPrivates -DiagnoseLoadTime:$DiagnoseLoadTime -Bundle:$Bundle
+
+    # The two run modes never coexist (ADR-DSGN-RUNMODE:5): Import-AllModules evicted the other mode, and this
+    # proves it before any janitor touches the tree from a mixed session.
+    Assert-CatzcRunModeExclusive -ModulesRoot $modulesRoot
     if ($DiagnoseLoadTime) {
         Write-LoadTime 'All modules loaded'
     }
@@ -295,13 +309,13 @@ function Invoke-Importer {
         $hasUncModulePath = ($env:PSModulePath -split [IO.Path]::PathSeparator) -match '^\\\\' | Select-Object -First 1
 
         if ($hasUncModulePath) {
-            $fixScript = Join-Path $repoRoot "$automationFolder/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1"
-            Write-Host ''
+            $fixScript = Join-Path $modulesRoot 'Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1'
+            Write-ImporterMessage ''
             Write-ImporterMessage 'WARNING: PSModulePath contains a network share.' -ForegroundColor Yellow
             Write-ImporterMessage 'PowerShell will be slow — module lookups scan the network.' -ForegroundColor Yellow
             Write-ImporterMessage 'Run this once to fix:' -ForegroundColor Yellow
             Write-ImporterMessage "  & '$fixScript'" -ForegroundColor Cyan
-            Write-Host ''
+            Write-ImporterMessage ''
         }
     }
 
@@ -319,6 +333,44 @@ function Invoke-Importer {
             Write-Message "Loaded in $([math]::Round($sw.Elapsed.TotalSeconds, 1)) seconds"
         }
     }
+}
+
+<#
+.SYNOPSIS
+    Throws unless every loaded catzc module comes from the active code root.
+.DESCRIPTION
+    Run at the importer tail in both run modes (ADR-DSGN-RUNMODE:5). Every loaded module named 'Catzc' or
+    'Catzc.*' — the Catzc.Internal.* loader modules included, vendored third-party modules excluded by name —
+    must have its ModuleBase under the active CatzcModulesRoot (Get-ForeignCatzcModule, the same predicate the
+    eviction sweep uses). A violation names every offending module with its ModuleBase, the active root, and
+    the other root(s) the offenders came from. Internal to the importer overlay: it needs the transient
+    bootstrap, which is still loaded at this point.
+.PARAMETER ModulesRoot
+    The active code root.
+#>
+function Assert-CatzcRunModeExclusive {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string] $ModulesRoot
+    )
+
+    $offenders = @(Get-ForeignCatzcModule -ModulesRoot $ModulesRoot -IncludeInternal)
+    if ($offenders.Count -eq 0) {
+        return
+    }
+
+    $otherRoots = [System.Collections.Generic.List[string]]::new()
+    $lines = foreach ($module in $offenders) {
+        $otherRoot = [System.IO.Path]::GetDirectoryName($module.ModuleBase)
+        if (-not $otherRoots.Contains($otherRoot)) {
+            $otherRoots.Add($otherRoot)
+        }
+        "  $($module.Name) ($($module.ModuleBase))"
+    }
+    $header = "Run-mode exclusivity violated: the active CatzcModulesRoot is '$ModulesRoot', but $($offenders.Count) loaded catzc module(s) come from another root ('$($otherRoots -join "', '")'):"
+    $footer = 'Restart PowerShell, or re-run the entry script of the mode you want.'
+    throw ((@($header) + @($lines) + @($footer)) -join "`n")
 }
 
 Export-ModuleMember -Function Invoke-Importer

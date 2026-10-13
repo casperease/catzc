@@ -119,12 +119,12 @@ committed hash suffers, and correct across renames (a rename is split into both 
 
 Within a layer, no two globsets may select a common file on their **OWN contribution** — the set's own `include`/`exclude` program with
 `compose` ignored (`ADR-FLOW-CD-GLOBS:4`). Two that do contain parts of each other and are not independent — the boundary leaks. Validation
-is **per layer, never across**: a deployable-unit deliberately contains the base it composes, and every file sits in both a `track` and a
-`module`, so cross-layer overlap is expected and correct — the rule is defined on OWN membership within one layer, never on effective
-membership or across layers. The `track`, `deployable-unit`, and `module` layers are each pairwise-disjoint on OWN membership; the
-`loose-fileset` layer is **exempt** — its sets are cross-cutting surfaces (scan scopes, the reserved umbrellas
-`internal`/`vendor`/`compiled`/`scriptanalyzer`) that overlap the boundaries they cut across by design. A catch-all (`repository`,
-`module-leftovers`) is the complement of its layer's explicit sets, so it satisfies the rule by construction. The rule holds across the
+is **per layer, never across**: a deployable-unit deliberately contains the base it composes, and every module file also sits in a
+loose-fileset track (`automation`), so cross-layer overlap is expected and correct — the rule is defined on OWN membership within one layer,
+never on effective membership or across layers. The `deployable-unit` and `module` layers are each pairwise-disjoint on OWN membership; the
+`loose-fileset` layer is **exempt** — its sets are cross-cutting surfaces (a track's root concern, scan scopes, the reserved umbrellas
+`internal`/`vendor`/`compiled`/`scriptanalyzer`) that overlap the boundaries they cut across by design. The `module` layer's catch-all
+(`module-leftovers`) is the complement of that layer's explicit sets, so it satisfies the rule by construction. The rule holds across the
 declared registry and the derived module sets (`ADR-REPO-PROTGLOB:7`) alike; a violation names both sets and a shared file.
 
 - [Per-layer independence](#per-layer-independence)
@@ -138,10 +138,10 @@ those lists directly into every pipeline and workflow by hand scatters one fact 
 layer, in two vendor dialects, where drift is invisible until a deploy silently does not fire.
 
 The design keeps the composition declared once, at the deterministic source-of-truth layer (`globs.yml`), and derives everything else from
-it. Two derivations replace what a committed per-set marker used to carry: the trigger is the globset **projected** into each vendor's
-native path-filter dialect (`Get-GlobSetTrigger`), generated into the orchestration YAML and drift-checked against the source; and "did this
-change touch the unit?" is **reflected** from git at the real refs (`Get-ChangedGlobSet` / `Test-GlobSetAffected`). Nothing is committed per
-set, so there is no whole-set hash to go stale.
+it. Two derivations do the work a committed per-set marker would carry: the trigger is the globset **projected** into each vendor's native
+path-filter dialect (`Get-GlobSetTrigger`), generated into the orchestration YAML and drift-checked against the source; and "did this change
+touch the unit?" is **reflected** from git at the real refs (`Get-ChangedGlobSet` / `Test-GlobSetAffected`). Nothing is committed per set,
+so there is no whole-set hash to go stale.
 
 ## Decision
 
@@ -263,24 +263,21 @@ correct heart of the design — two real commits that exist server-side after th
 
 ### Per-layer independence
 
-A layer is a set of peers that partition one concern into boundaries: the `track` layer partitions the tree at the root, the `module` layer
-partitions module-space, the `deployable-unit` layer partitions what ships. Overlap between peers means one boundary consumes another's
-files. So within a layer the sets are pairwise-disjoint — but on their **OWN** contribution, never their effective membership
-(`ADR-FLOW-CD-GLOBS:10`). The distinction is what makes `compose` legal: a customer deployable-unit's _effective_ members include the whole
-base it composes, so on effective membership every customer overlaps the base and each other through it. That overlap is the point of
-composition — "depends on a base" — not a peer collision. On OWN membership (compose ignored) the customer units own only their own
-`configuration/<key>/**` slice and the base owns the shared surface minus the config folders, so the layer is disjoint. The same holds
-across layers by design: a file under `automation/Catzc.Base.Globs/` belongs to the `automation` track AND the `catzc-base-globs` module AND
-(if it ships) a deployable-unit — three boundaries in three layers, one file. Cross-layer overlap is never a violation; only same-layer
-overlap is.
+A layer is a set of peers that partition one concern into boundaries: the `module` layer partitions module-space, the `deployable-unit`
+layer partitions what ships. Overlap between peers means one boundary consumes another's files. So within a layer the sets are
+pairwise-disjoint — but on their **OWN** contribution, never their effective membership (`ADR-FLOW-CD-GLOBS:10`). The distinction is what
+makes `compose` legal: a customer deployable-unit's _effective_ members include the whole base it composes, so on effective membership every
+customer overlaps the base and each other through it. That overlap is the point of composition — "depends on a base" — not a peer collision.
+On OWN membership (compose ignored) the customer units own only their own `configuration/<key>/**` slice and the base owns the shared
+surface minus the config folders, so the layer is disjoint. The same holds across layers by design: a file under
+`automation/Catzc.Base.Globs/` belongs to the `automation` track (a loose-fileset) AND the `catzc-base-globs` module AND (if it ships) a
+deployable-unit — three layers, one file. Cross-layer overlap is never a violation; only same-layer overlap is.
 
-Catch-alls keep a layer total without breaking disjointness. The `repository` track owns every root file `automation`/`infrastructure` do
-not — the complement — so it can never overlap them; add a track and its files leave `repository` automatically, but only if the new track
-is also excluded there, which the gate checks. The `module-leftovers` set is the module-space complement: it should be empty in a clean
-tree, a tripwire for a file dropped at `automation/`'s root or a folder not yet a module. The `loose-fileset` layer is exempt because its
-sets are defined to cut across the boundaries. The gate evaluates OWN membership over the tracked-file universe for the declared registry
-and the derived module sets together, so a mis-scoped module include, a track that reaches into another's files, or an umbrella mistakenly
-declared a `module` fails as a named pair.
+A catch-all keeps a layer total without breaking disjointness. The `module-leftovers` set is the module-space complement: it should be empty
+in a clean tree, a tripwire for a file dropped at `automation/`'s root or a folder not yet a module. The `loose-fileset` layer is exempt
+because its sets are defined to cut across the boundaries. The gate evaluates OWN membership over the tracked-file universe for the declared
+registry and the derived module sets together, so a mis-scoped module include, a deployable-unit that reaches into another's files, or an
+umbrella mistakenly declared a `module` fails as a named pair.
 
 ### How this is enforced
 
@@ -299,7 +296,7 @@ declared a `module` fails as a named pair.
 - One edit point: recomposing a deployable unit touches `globs.yml`, and the projected triggers regenerate from it — never N pipelines by
   hand in two vendor dialects.
 - No false-red mainline: because nothing per-set is committed and gated, a busy mainline cannot go red from a stale, forgotten, or
-  concurrently-merged marker — the failure mode the committed-hash design carried.
+  concurrently-merged marker — the failure mode a committed-hash design carries.
 - No-start where it can be: modern ADO and GitHub filter on the projected patterns directly, so a pipeline whose unit is untouched does not
   start at all; the in-pipeline `Test-GlobSetAffected` gate is the exact backstop for the residue.
 - Reviewable deploys: "this change touches unit X" is the computed area-of-control report over the PR diff — derived, so it can never go

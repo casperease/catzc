@@ -93,8 +93,9 @@ steps:
 # Integrity: the ACTUAL repository pipeline YAML is Prettier-clean. Binds to the real repo — Format-Pipelines
 # with no -Glob scans its default **/*.yaml scope. L2 because it drives the Prettier CLI; self-skips when the
 # tool is absent (ADR-AUTO-TEST:8/9). This is the formatting half of the L2 pipeline gate (Assert-Pipelines is the
-# naming/placement half); a drifted .yaml fails CI here.
-Describe 'Repository pipeline formatting integrity' -Tag 'L2', 'integrity' {
+# naming/placement half); a drifted .yaml fails CI here. source-only: it reads the repository's pipeline files,
+# which give the same answer in both run modes.
+Describe 'Repository pipeline formatting integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'the real repository pipeline YAML is already Prettier-formatted (default **/*.yaml scope)' {
         if (-not (Get-Command prettier -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_prettier_missing'

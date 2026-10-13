@@ -55,7 +55,7 @@ way to drain a queue is usually to spend machine time.
 Manage the queues, not just the work. Concretely:
 
 - **Attack wait time first.** When lead time is too long, find where items wait — before review, before an agent, before an environment —
-  and shorten that queue before optimising any step's runtime. Delays are the largest waste
+  and shorten that queue before optimising any step's runtime. Delays are the most common waste
   ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md)) and the hardest to see because they look like idle time, not cost.
 - **Lower work-in-progress to lower lead time.** By Little's Law, with throughput fixed, cutting the number of items in flight cuts lead
   time directly ([ADR-PROC-PULLWORK](pull-work.md)). This needs no one to work faster.

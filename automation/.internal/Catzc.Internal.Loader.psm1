@@ -26,6 +26,7 @@ function Import-InternalModule {
         Import-InternalModule Types
         Ensures Catzc.Internal.Types is loaded, then the caller can use Get-CombinedTypeHash.
     #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The loader runs before any writer exists; Invoke-Importer announces the internal modules it loads (its Roots line), and a post-import call is the idempotent no-op')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]

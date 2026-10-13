@@ -33,10 +33,10 @@ often they change — neither count distinguishes a genuine choice from a mandat
 
 ## Context
 
-Empowering teams to choose tools sits among DORA's cultural and organizational capabilities, alongside capabilities like loosely coupled
-teams and platform engineering that also shape how much autonomy a team has over its own work. DORA frames the capability as teams making
-"informed choices about the tools and technologies they use to do their work," and its research ties that autonomy to both software delivery
-performance and job satisfaction.[^1]
+Empowering teams to choose tools sits in the climate-for-learning group of DORA's Core Model, and it relates to capabilities like loosely
+coupled teams and platform engineering that also shape how much autonomy a team has over its own work. DORA frames the capability as teams
+making "informed choices about the tools and technologies they use to do their work," and its research ties that autonomy to both software
+delivery performance and job satisfaction.[^1]
 
 The capability sits between two failure modes DORA calls out directly: an organization that mandates every tool, and one that lets tool
 choice run unconstrained. Neither extreme is the goal; the capability is the deliberate middle ground — a baseline that most teams use by
@@ -96,16 +96,26 @@ request, not a standing debate.
 
 ## Dora explains
 
-DORA ties this capability to both software delivery performance and job satisfaction: a team with the freedom to fit its tools to its work
+Empowering teams to choose tools is one of the four capabilities in the Core Model's climate-for-learning group. DORA ties it to better
+continuous delivery, higher software delivery performance, and higher job satisfaction: a team with the freedom to fit its tools to its work
 carries less avoidable friction, and that shows up in how the team performs and how the team feels about its work.
 
-- [Loosely coupled teams](https://dora.dev/capabilities/loosely-coupled-teams/) — a team that can choose its own tools also needs the
-  autonomy to change its own systems without waiting on another team.
-
-- [Platform engineering](https://dora.dev/capabilities/platform-engineering/) — an internal platform is where an organization's baseline
-  tooling and its exception process actually live.
-
-- [Job satisfaction](https://dora.dev/capabilities/job-satisfaction/) — DORA's research links this capability to job satisfaction directly,
-  alongside delivery performance.
-
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Teams empowered to choose tools](../../references/dora/capabilities.md#teams-empowered-to-choose-tools) (site title:
+  "Empowering teams to choose tools")
+- **Category:** [Climate for learning](../../references/dora/capabilities.md#climate-for-learning) — Core Model v2.1.0:
+  [climate for learning](../../references/dora/core-model.md#climate-for-learning).
+- **Evidence:**
+  - [2017 State of DevOps Report](../../references/dora/publications.md#2017-state-of-devops-report) — cited on the capability page for the
+    link between tool choice, continuous delivery, delivery performance, and job satisfaction.
+- **Predicts:** better [continuous delivery](../../references/dora/capabilities.md#continuous-delivery), higher
+  [software delivery performance](../../references/dora/core-model.md#software-delivery-performance), and higher
+  [job satisfaction](../../references/dora/capabilities.md#job-satisfaction), one of the Core Model's
+  [well-being](../../references/dora/core-model.md#well-being) outcomes.
+- **Related capabilities:**
+  - [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — a team that can choose its own tools also needs
+    the autonomy to change its own systems without waiting on another team.
+  - [Platform engineering](../../references/dora/capabilities.md#platform-engineering) — an internal platform is where an organization's
+    baseline tooling and its exception process actually live.
+  - [Job satisfaction](../../references/dora/capabilities.md#job-satisfaction) — DORA's research links this capability to job satisfaction
+    directly, alongside delivery performance.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

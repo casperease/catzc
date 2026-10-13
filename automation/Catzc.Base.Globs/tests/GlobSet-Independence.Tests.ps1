@@ -4,7 +4,7 @@
 # scope, the reserved umbrellas) and overlap by design. A module or deployable-unit that starts containing
 # part of a peer — a mis-scoped include, an umbrella mis-declared as a module — fails here, locally and in
 # CI. L2 because the tracked-file universe comes from the real git CLI.
-Describe 'GlobSet independence' -Tag 'L2', 'integrity' {
+Describe 'GlobSet independence' -Tag 'L2', 'integrity', 'source-only' {
     It 'every non-loose layer is pairwise-disjoint on OWN membership (ADR-FLOW-CD-GLOBS:10)' {
         $violations = @(Test-GlobSetIndependence)
         $report = ($violations | ForEach-Object {

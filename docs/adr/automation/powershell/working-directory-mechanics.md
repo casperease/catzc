@@ -4,9 +4,10 @@
 
 ### Rule ADR-AUTO-PSPWD:1
 
-PowerShell code applies [never-depend-on-pwd](../never-depend-on-pwd.md) (`ADR-AUTO-NOPWD`) with two anchors: `$PSScriptRoot` (the directory
-of the current script file) and `$env:RepositoryRoot` (the repository root set by `importer.ps1`), combined with `Join-Path` — never a path
-resolved against `$PWD`.
+PowerShell code applies [never-depend-on-pwd](../never-depend-on-pwd.md) (`ADR-AUTO-NOPWD`) with two anchors: the code root
+(`Get-CatzcModuleRoot` for a module's own content, `ADR-AUTO-NOPWD:5`) and `$env:RepositoryRoot` (the working root set by `importer.ps1`),
+combined with `Join-Path` — never a path resolved against `$PWD`. `$PSScriptRoot` is the anchor only for files that are not module function
+files: tests, standalone asset scripts, and the `.internal` loader.
 
 - [The anchors](#the-anchors)
 
@@ -33,11 +34,15 @@ change directory when an external tool insists on one.
 
 ### The anchors
 
-- **`$PSScriptRoot`** gives the directory of the current script file — the anchor for a module's own assets and configs
-  (`Join-Path $PSScriptRoot 'configs/tools.yml'`).
+- **`Get-CatzcModuleRoot`** gives the calling module's folder under the active code root — the anchor for a module's own assets and configs
+  (`Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'`), correct in source mode and in the installed build alike
+  ([never-depend-on-pwd](../never-depend-on-pwd.md#rule-adr-auto-nopwd5)).
 - **`$env:RepositoryRoot`** gives the repository root, set once by `importer.ps1` at bootstrap and treated as a constant
   ([environment-variables](../environment-variables.md)) — the anchor for repository-level paths, via the binding helpers of
   [path-representation](../path-representation.md) (`Resolve-RepoPath`, `Get-RepositoryFile`).
+
+- **`$PSScriptRoot`** gives the directory of the current script file — the anchor for a test's own fixtures (`tests/assets/`), for a
+  standalone asset script, and for the `.internal` loader, none of which is a module function file.
 
 Every path is built from one of these with `Join-Path` ([cross-platform-powershell](cross-platform-powershell.md)); a relative path in a
 cmdlet argument resolves against `$PWD` and is exactly the dependence the doctrine forbids.
@@ -62,7 +67,7 @@ restored on every path out, including a throw.
 
 ## Decision
 
-Paths resolve from `$PSScriptRoot` or `$env:RepositoryRoot` with `Join-Path`; a required working directory is set with
+Paths resolve from the code root (`Get-CatzcModuleRoot`) or `$env:RepositoryRoot` with `Join-Path`; a required working directory is set with
 `Push-Location`/`Pop-Location` in `try`/`finally`; a bare `Set-Location`/`cd` never appears.
 
 ### How this is enforced
@@ -70,11 +75,13 @@ Paths resolve from `$PSScriptRoot` or `$env:RepositoryRoot` with `Join-Path`; a 
 - **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`automation/.scriptanalyzer/NeverDependOnPwd.psm1`) — flags bare
   `Set-Location`/`cd` calls (`ADR-AUTO-PSPWD:2`) and `$PWD` references (`ADR-AUTO-NOPWD:1`). Runs as part of the L2 test suite via
   `Test-ScriptAnalyzer.Tests.ps1`.
+- **Custom PSScriptAnalyzer rule `Measure-NoScriptRootAnchor`** (`automation/.scriptanalyzer/NoScriptRootAnchor.psm1`) — flags
+  `$PSScriptRoot` in module function files (`ADR-AUTO-NOPWD:5`).
 
 ## Consequences
 
 - Functions compose freely — calling `Invoke-Poetry` from inside `Install-Poetry` works regardless of where the user's shell is sitting,
   because nothing reads or leaves state in `$PWD`.
 - Tools that need a working directory get it scoped and restored, so a throw mid-operation never strands the session in a foreign directory.
-- The anchor idioms are uniform: module-local paths hang off `$PSScriptRoot`, repository paths off `$env:RepositoryRoot` — one convention to
-  read, one for the analyzer to check.
+- The anchor idioms are uniform: module-local paths hang off `Get-CatzcModuleRoot`, repository paths off `$env:RepositoryRoot` — one
+  convention to read, one for the analyzer to check.

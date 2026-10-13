@@ -45,6 +45,7 @@ function Resolve-SessionToolHint {
         $sep = [System.IO.Path]::PathSeparator
         if (($env:PATH -split $sep) -notcontains $dir) {
             $env:PATH = "$env:PATH$sep$dir"
+            Write-Message "Session PATH: appended '$dir' so $($Config.command) resolves (session_path_hints)"
         }
         # -First 1: the command may now resolve in more than one PATH dir — an array's .Source would break the
         # [string] -Location binding downstream.

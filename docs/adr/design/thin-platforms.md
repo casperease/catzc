@@ -4,10 +4,10 @@
 
 ### Rule ADR-DSGN-THINPLAT:1
 
-catzc is a **thin platform**: a single, reusable API/CLI abstraction over a vendor substrate — today Azure (the ARM control plane via Bicep,
-and the account/control-plane surface via a curated az CLI). It standardizes _how_ the organization uses the vendor; it does not reimplement
-the vendor. This is exactly the **platform** of Team Topologies — an internal product other teams build on — deliberately held to the
-**Thinnest Viable Platform** (TVP): the smallest set of APIs, tooling, and docs that measurably accelerates the teams delivering on it.
+catzc is a **thin platform**: a single, reusable API/CLI abstraction over a vendor substrate — Azure (the ARM control plane via Bicep, and
+the account/control-plane surface via a curated az CLI). It standardizes _how_ the organization uses the vendor; it does not reimplement the
+vendor. This is exactly the **platform** of Team Topologies — an internal product other teams build on — deliberately held to the **Thinnest
+Viable Platform** (TVP): the smallest set of APIs, tooling, and docs that measurably accelerates the teams delivering on it.
 
 - [What "thin platform" means](#what-thin-platform-means)
 
@@ -41,9 +41,9 @@ Full EaC representation is what makes the thin abstraction reproducible and revi
 ### Rule ADR-DSGN-THINPLAT:5
 
 The platform is a **product with a swappable substrate**, owned over its full lifecycle by the platform team whose job is to develop and
-manage it (Team Topologies). It is reusable across consumers and CD pipelines, and the vendor layer sits _behind_ the CLI — Azure today,
-another substrate later — without re-shaping the consumer's API. The abstraction stays honest: the decisions a consumer must own (cost,
-region, scale, blast radius) are surfaced through configuration, not buried under a convenience default.
+manage it (Team Topologies). It is reusable across consumers and CD pipelines, and the vendor layer sits _behind_ the CLI — Azure or another
+substrate — without re-shaping the consumer's API. The abstraction stays honest: the decisions a consumer must own (cost, region, scale,
+blast radius) are surfaced through configuration, not buried under a convenience default.
 
 - [Owned as a product, over a swappable substrate](#owned-as-a-product-over-a-swappable-substrate)
 
@@ -124,7 +124,7 @@ covering Azure and Azure RM via Bicep plus a curated az CLI.
   guardrail (surface the decisions that scale-time cost punishes).
 - **`ADR-PRIN-EAC` / `ADR-PRIN-ONELIVE`** keep the abstraction fully materialized and singular — no drift, no legacy shims behind the thin
   layer.
-- **`ADR-AUTO-AZCLI` and the Bicep infrastructure track** are the concrete substrate bindings the CLI delegates to today.
+- **`ADR-AUTO-AZCLI` and the Bicep infrastructure track** are the concrete substrate bindings the CLI delegates to.
 - **`ADR-AUTO-PARITY`** keeps the one CLI surface identical on a developer box and in the pipeline, which is what makes it a real service
   boundary.
 

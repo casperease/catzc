@@ -1,40 +1,53 @@
 # ADR: Module aspects — a unit's files partition into live and tests
 
-## Rules: ADR-ASPECT
+## Rules: ADR-DSGN-ASPECT
 
-### Rule ADR-ASPECT:1
+### Rule ADR-DSGN-ASPECT:1
 
 Every module (and, at track granularity, every delivery package) **partitions** its tracked files into named **aspects** that are pairwise
 **disjoint** and jointly **exhaustive** — a true partition, no file in two aspects and no file in none. The aspect set is the `aspects`
 repo-wide variant (`Catzc.Base.Variants`, `ADR-REPO-VARIANT`): an ordered first-match ("fallthrough") classification, defaulting to `live`
 then `tests` — the prod-going artifacts (`live`, what ships) and the means to verify them (`tests`).
 
-### Rule ADR-ASPECT:2
+- [Context](#context)
+- [Decision](#decision)
+
+### Rule ADR-DSGN-ASPECT:2
 
 Aspects are **auto-derived** from folder conventions, never hand-declared. `live` is a **closed** convention (folder-scoped patterns —
 `*.ps1`, `private/**`, `types/**`, `configs/**` — that never reach `tests/`); the **last** aspect is the `**` catch-all remainder. Ordered
 first-match makes the partition disjoint and exhaustive _by construction_: `AspectPartition.Compile` gives aspect _k_ the leaf scan program
 `+ (its own patterns) − (every earlier aspect's patterns)`, all prefixed by the unit root (`ADR-FLOW-CD-GLOBS:4`).
 
-### Rule ADR-ASPECT:3
+- [Decision](#decision)
+
+### Rule ADR-DSGN-ASPECT:3
 
 The catch-all remainder is **non-live** (`tests` is declared last). `live` — the shipped surface — is never the fallthrough, so a stray or
 unclassified file lands on the verification side and can **never silently ship** (default-deny). `Assert-VariantsConfig` and the aspect type
 enforce this: the last aspect is the `**` catch-all, that aspect is not `live`, and `live` uses only closed patterns.
 
-### Rule ADR-ASPECT:4
+- [Decision](#decision)
+- [Consequences](#consequences)
+
+### Rule ADR-DSGN-ASPECT:4
 
 Each aspect is an immutable sha lock (`ADR-FLOW-CD-GLOBS:9`), marker `<unit>-<aspect>.yml`. A shipped unit is therefore **1 + 1 = 2
 immutable, versioned artifacts** — one `live`, one `tests` — stored and versioned independently: a `tests`-only change never re-keys `live`,
 and a runtime change never re-keys `tests`. A unit's rolled-up identity is the _set_ of its aspect locks, not a separate whole-unit marker
-(that marker is dropped — its sha would re-key on any change, defeating the isolation). Single-file units (internal `.psm1` modules) have no
-`tests/`, so they carry the degenerate one-artifact partition.
+(such a marker's sha would re-key on any change, defeating the isolation). Single-file units (internal `.psm1` modules) have no `tests/`, so
+they carry the degenerate one-artifact partition.
 
-### Rule ADR-ASPECT:5
+- [Context](#context)
+- [Consequences](#consequences)
+
+### Rule ADR-DSGN-ASPECT:5
 
 The partition invariant — disjoint + exhaustive over `git ls-files` — is an integrity gate: a file claimed by two aspects, or by none, fails
 it (`AspectPartition.Validate`). The `module-leftovers` catch-all (`ADR-REPO-PROTGLOB`) is the module-space complement — files under
 `automation/` that no module partition claims — and stays empty in a clean tree.
+
+- [Decision](#decision)
 
 ## Context
 
@@ -60,8 +73,8 @@ and compiles per unit root with `AspectPartition`; `Get-ModuleGlobSet` derives `
 - **Fail-safe shipping.** An unclassified file defaults to non-live — it cannot ride into production unnoticed.
 - **One convention, many granularities.** The same ordered rule set that partitions a module is what a track's `-live`/`-tests` delivery
   packages use when derived — one convention, module and track alike.
-- **Protection unchanged in meaning.** A module's protection identity folds both aspect hashes (`Get-ModuleProtectionIdentity`), reproducing
-  the pre-aspect whole-module identity — the split refines the markers, not what a module's tests depend on.
+- **Protection covers the whole module.** A module's protection identity folds both aspect hashes (`Get-ModuleProtectionIdentity`), so it
+  covers the module's whole content — the split refines the markers, not what a module's tests depend on.
 
 ## Related
 
@@ -69,3 +82,4 @@ and compiles per unit root with `AspectPartition`; `Get-ModuleGlobSet` derives `
   (`ADR-FLOW-CD-GLOBS:7`)
 - [repo-variants](../repository/repo-variants.md) — the `aspects` variant's home (`ADR-REPO-VARIANT`)
 - [test-automation](../automation/test-automation.md) — logic vs integrity tests, the `tests/` surface aspects isolate
+- [platform-bundle](../automation/platform-bundle.md) — the build's runtime payload, deliberately broader than `live`

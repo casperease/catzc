@@ -116,13 +116,32 @@ which is the "go and see" instinct behind observability applied to the whole del
 
 ## Dora explains
 
-Monitoring and observability are a core-model technical capability DORA ties directly to shorter time-to-restore and to safer, faster
-delivery — a team cannot deploy with confidence or recover quickly from a failure it cannot see.
+Monitoring and observability is a Core Model capability in the fast-feedback group. DORA finds that it contributes to continuous delivery,
+and the capability page frames time to restore as the key outcome measure of an outage — a team cannot deploy with confidence or recover
+quickly from a failure it cannot see.
 
-- [Proactive failure notification](https://dora.dev/capabilities/proactive-failure-notification/) — turns the signals monitoring and
-  observability collect into alerts a team acts on before customers report the problem.
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — depends on monitoring to confirm a change is safe and to
-  detect a regression quickly if it is not.
-- [Version control](https://dora.dev/capabilities/version-control/) — treating monitoring configuration as a reviewed, versioned artifact is
-  comprehensive version control applied to observability itself.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability)
+- **Category:** [Fast feedback](../../references/dora/capabilities.md#fast-feedback) — Core Model v2.1.0:
+  [fast feedback](../../references/dora/core-model.md#fast-feedback).
+- **Evidence:**
+  - [2018 Accelerate State of DevOps Report](../../references/dora/publications.md#2018-accelerate-state-of-devops-report) — names
+    monitoring and observability, with continuous testing, database change management, and early security integration, as crucial to
+    performance.
+- **Predicts:** better [continuous delivery](../../references/dora/capabilities.md#continuous-delivery), and through it higher software
+  delivery performance and availability. The page's time-to-restore measure is the former name of
+  [failed deployment recovery time](../../references/dora/metrics.md#failed-deployment-recovery-time). As a Core Model capability it sits in
+  the column that predicts [software delivery performance](../../references/dora/core-model.md#software-delivery-performance) and
+  [reliability](../../references/dora/core-model.md#reliability), which in turn predict
+  [organizational performance](../../references/dora/core-model.md#organizational-performance) and
+  [well-being](../../references/dora/core-model.md#well-being).
+- **Related capabilities:**
+  - [Proactive failure notification](../../references/dora/capabilities.md#proactive-failure-notification) — turns the signals monitoring
+    and observability collect into alerts a team acts on before customers report the problem.
+  - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — lists monitoring among the capabilities that drive
+    it; it depends on monitoring to confirm a change is safe and to detect a regression quickly if it is not.
+  - [Version control](../../references/dora/capabilities.md#version-control) — treating monitoring configuration as a reviewed, versioned
+    artifact is comprehensive version control applied to observability itself.
+  - [Reliability engineering](../../references/dora/capabilities.md#reliability-engineering) — its fast-feedback neighbour in the Core
+    Model: designing systems that withstand failure, which monitoring and observability make visible; the 2022 report finds reliability
+    practices strongly predict organizational performance.
+- [DORA research program](../../references/dora/index.md) — the overview these findings sit within.

@@ -78,10 +78,12 @@ function Import-VendorModules {
 
         # Remove system paths for this module from PSModulePath so auto-loading
         # cannot resurrect the system version after we import the vendored one
-        $env:PSModulePath = ($env:PSModulePath -split $sep |
+        $before = @($env:PSModulePath -split $sep)
+        $env:PSModulePath = ($before |
                 Where-Object {
                     -not [System.IO.Directory]::Exists((Join-Path $_ $dir.Name))
                 }) -join $sep
+        $dropped = @($before | Where-Object { $_ -notin ($env:PSModulePath -split $sep) })
 
         Write-Verbose "Importing vendor module: $($dir.Name)"
         $vendorStopwatch = if ($DiagnoseLoadTime) {
@@ -91,18 +93,29 @@ function Import-VendorModules {
             $null
         }
         try {
-            Import-Module $dir.FullName -Scope Global -Force -ErrorAction Stop
+            $vendored = Import-Module $dir.FullName -Scope Global -Force -ErrorAction Stop -PassThru | Select-Object -First 1
+            $line = "Loaded vendor module $($dir.Name) $($vendored.Version)"
         }
         catch {
             if ($_.Exception.InnerException -is [System.IO.FileLoadException] -or
                 $_.Exception -is [System.IO.FileLoadException]) {
                 # .NET assembly already loaded in-process (e.g., VS Code Extension Console)
-                Write-ImporterMessage "Skipping vendor module $($dir.Name): assembly already loaded in-process"
+                $line = "Skipped vendor module $($dir.Name): assembly already loaded in-process"
             }
             else {
                 throw
             }
         }
+
+        # The load, the system copy it replaced, and the PSModulePath entries it dropped are one state change of
+        # the session, announced on one line (ADR-AUTO-ANNOUNCE:2).
+        if ($existing) {
+            $line += "; replaced $($existing.Name) $($existing.Version) from '$($existing.ModuleBase)'"
+        }
+        if ($dropped.Count) {
+            $line += "; dropped from PSModulePath: '$($dropped -join "', '")'"
+        }
+        Write-ImporterMessage $line
         if ($DiagnoseLoadTime) {
             $vendorMs = [int]$vendorStopwatch.Elapsed.TotalMilliseconds
             Write-ImporterMessage ('    {0,6}ms  vendor {1}' -f $vendorMs, $dir.Name) -ForegroundColor DarkGray
@@ -116,6 +129,7 @@ function Import-VendorModules {
     if ($Lazy.Count -gt 0) {
         if ($env:PSModulePath -split $sep -notcontains $VendorRoot) {
             $env:PSModulePath = $VendorRoot + $sep + $env:PSModulePath
+            Write-ImporterMessage "PSModulePath now starts with '$VendorRoot', so $($Lazy -join ', ') load from it on first use"
         }
     }
 }

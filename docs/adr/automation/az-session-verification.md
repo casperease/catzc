@@ -4,7 +4,7 @@
 
 ### Rule ADR-AZ-SESSION:1
 
-Keep three az concerns in separate functions and do not collapse them: **availability** (`Assert-Tool 'AzCli'` in `Catzc.Tooling.Core` — is
+Keep three az concerns in separate functions and do not collapse them: **availability** (`Assert-Tool 'az_cli'` in `Catzc.Tooling.Core` — is
 `az` on PATH at the locked `tools.yml` version), **by-args verification** (`Assert-AzCliConnected` / `Test-AzCliConnected` in
 `Catzc.Azure.Cli` — is the session set to a subscription / tenant supplied as GUIDs, with no `azure.yml`), and **config-aware verification**
 (`Assert-AzCliIsConnected` / `Test-AzCliIsConnected` in `Catzc.Azure.Cli` — is the session set to the subscription _named_ in `azure.yml`).
@@ -61,7 +61,7 @@ PowerShell modules) and [dual-authentication](../pipelines/dual-authentication.m
 
 ### The three layers
 
-- **Availability** — `Assert-Tool 'AzCli'` (`Catzc.Tooling.Core`) confirms `az` is on PATH at the locked version. Tool presence only; it
+- **Availability** — `Assert-Tool 'az_cli'` (`Catzc.Tooling.Core`) confirms `az` is on PATH at the locked version. Tool presence only; it
   knows nothing about login or subscriptions.
 - **By-args verification** — `Assert-AzCliConnected` / `Test-AzCliConnected` (`Catzc.Azure.Cli`) take a subscription and/or tenant **GUID**
   and compare the live session against it. They are `azure.yml`-free, so any module (e.g. `Catzc.Azure.DevOps`) can use them without
@@ -100,9 +100,9 @@ correctness check is config-driven, the config keys that express it (tenant, sub
 
 ## How this is enforced
 
-- **`Assert-Tool 'AzCli'`** (`Catzc.Tooling.Core`) owns availability — the az _binary_ and its `tools.yml` version lock; **`Connect-AzCli`**
-  (`Catzc.Azure.Cli`) owns connecting, alongside the rest of the az _session_ surface (the `Invoke-AzCli` runner, subscription selection,
-  extension checks, and the verification functions below). No verification function logs in.
+- **`Assert-Tool 'az_cli'`** (`Catzc.Tooling.Core`) owns availability — the az _binary_ and its `tools.yml` version lock;
+  **`Connect-AzCli`** (`Catzc.Azure.Cli`) owns connecting, alongside the rest of the az _session_ surface (the `Invoke-AzCli` runner,
+  subscription selection, extension checks, and the verification functions below). No verification function logs in.
 - **`Get-AzCliConnectionState`** (`Catzc.Azure.Cli`) is the shared comparison; `Assert/Test-AzCliConnected` (by GUIDs) and
   `Assert/Test-AzCliIsConnected` (by `azure.yml` subscription name, via `Get-AzureSubscription`) all route through it.
 - **`Get-AzCliSessionSubscription`** (`Catzc.Azure.Cli`) owns the reverse lookup (session GUID → declared identity), built on

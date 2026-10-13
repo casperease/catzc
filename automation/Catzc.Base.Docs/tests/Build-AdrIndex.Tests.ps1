@@ -18,6 +18,18 @@ Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'ADR-R
                 'the index is a projection of adrs.yml — every external code is one row, in the format Get-CatsAdrIndex parses')
     }
 
+    It 'every domain heading is followed by its adrs.yml description' {
+        $index = [System.IO.File]::ReadAllText((Join-Path $script:adrRoot 'index.md'))
+        $flattened = $index -replace '\s+', ' '
+        $missing = foreach ($domain in (Get-Config -Config adrs).Domains) {
+            $expected = "### $($domain.Name)/ $($domain.Description -replace '\s+', ' ')"
+            if (-not $flattened.Contains($expected)) {
+                $domain.Name
+            }
+        }
+        @($missing) | Should -BeNullOrEmpty -Because 'each domain section opens with the description declared in adrs.yml'
+    }
+
     It 'every index row links to a real ADR file under its domain folder' {
         $missing = foreach ($entry in $script:indexEntries) {
             $full = Join-Path $script:adrRoot $entry.Path

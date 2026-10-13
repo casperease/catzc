@@ -4,9 +4,9 @@
 
 ### Rule ADR-GH-RELEASE:1
 
-A release is **manual only**. `.github/workflows/release.yml` triggers on `workflow_dispatch` and nothing else — its trigger is deliberately
-not wired to push, tag, or a globset projection (unlike CI, [protected-globs](../automation/protected-globs.md)). Publishing an artifact to
-the outside world is a deliberate act, so a human starts it.
+A release is **manual only**. `.github/workflows/release-automation.yml` triggers on `workflow_dispatch` and nothing else — its trigger is
+deliberately not wired to push, tag, or a globset projection (unlike CI, [durable-sha-globs](../flow/durable-sha-globs.md)). Publishing an
+artifact to the outside world is a deliberate act, so a human starts it.
 
 - [A release is a deliberate, manual act](#a-release-is-a-deliberate-manual-act)
 
@@ -36,16 +36,18 @@ place. The GitHub token can never publish to PSGallery; that is the one place a 
 
 ### Rule ADR-GH-RELEASE:5
 
-The **published version is `exporter.yml`'s `version`** (a real semver), distinct from the `6.6.666` direct-install sentinel
-([platform-bundle](../automation/platform-bundle.md)). Package identity — the stable module GUID and the author/description/tags of the
-manifest — is that same one export config, so what the package claims about itself is reviewed data, not workflow literals.
+The **published version is the calculated pipeline version** — `MAJOR.MINOR` from `exporter.yml`'s `version`, `PATCH` the first-parent
+commit count of the built commit — distinct from the `6.6.666` local-build placeholder
+([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle7)). Package identity — the stable module GUID and the
+author/description/tags of the manifest — is that same one export config, so what the package claims about itself is reviewed data, not
+workflow literals.
 
 - [One version, one identity, from config](#one-version-one-identity-from-config)
 
 ## Context
 
 The platform builds itself into an installable NuGet package (`Export-Catzc -To nuget` — the `.nupkg` plus a PSGallery-compatible
-`Catzc.psd1`). What remained was how that package reaches consumers from a GitHub-hosted repository. The PowerShell Gallery is the obvious
+`Catzc.psd1`). The question is how that package reaches consumers from a GitHub-hosted repository. The PowerShell Gallery is the obvious
 public registry, but publishing to it means holding a Gallery API key as a secret and treating every workflow run as a potential live
 publish — more ceremony and more risk than a repository wants for a package that, at this stage, mostly needs to exist as a downloadable,
 versioned artifact. GitHub already issues a scoped `GITHUB_TOKEN` to every Actions run, and both a GitHub Release and the GitHub Packages
@@ -85,10 +87,11 @@ stay cleanly separate.
 
 ### One version, one identity, from config
 
-The package publishes under `exporter.yml`'s `version` (a real semver), not the `6.6.666` sentinel that names direct on-disk installs. The
-module's stable GUID and its Gallery metadata (author, company, description, tags, optional project/license URIs) come from that same single
-export config, validated on load — so the identity the package asserts is reviewed data in one file, never scattered literals in the
-workflow.
+The package publishes under the version the pipeline calculates for the built commit — `exporter.yml`'s `MAJOR.MINOR` plus the commit's
+first-parent count as `PATCH` — never the `6.6.666` placeholder that names a local build. The same commit always yields the same version, so
+a re-run of the release for one commit republishes one identity. The module's stable GUID and its Gallery metadata (author, company,
+description, tags, optional project/license URIs) come from that same single export config, validated on load — so the identity the package
+asserts is reviewed data in one file, never scattered literals in the workflow.
 
 ## Consequences
 
@@ -103,8 +106,8 @@ workflow.
 
 ## Related
 
-- [platform-bundle](../automation/platform-bundle.md) — the artifact this releases and the sentinel-vs-published version split.
-- [protected-globs](../automation/protected-globs.md) — the globset-projected CI trigger this workflow deliberately does not use.
+- [platform-bundle](../automation/platform-bundle.md) — the artifact this releases and the local-placeholder-vs-calculated version split.
+- [durable-sha-globs](../flow/durable-sha-globs.md) — the globset-projected CI trigger this workflow deliberately does not use.
 - [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) — the build-once/deploy-many flow this completes at the
   publish end.
 - [vendor-toolset-dependencies](../automation/powershell/vendor-toolset-dependencies.md) — PSResourceGet, which packs and publishes the

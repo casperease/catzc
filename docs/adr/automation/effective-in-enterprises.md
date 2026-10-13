@@ -37,14 +37,14 @@ Enterprise environments impose constraints that developer-oriented tooling rarel
 - **Proxy and firewall.** Gallery access (`Install-Module`, `Find-Module`) may be blocked or require proxy configuration. Operations that
   need the network at runtime are unreliable.
 
-- **Real-time antivirus.** Endpoint protection (e.g. Defender) scans each file on first open. The importer opens ~200 `.ps1` function files,
+- **Real-time antivirus.** Endpoint protection (e.g. Defender) scans each file on first open. The importer opens ~400 `.ps1` function files,
   so the dominant cost of a _cold_ import — the first one after a fresh checkout, a file change, or a reboot — is this per-file scan. Once
   the scan cache is warm, steady-state imports are sub-second; the scan does not recur until files change again. See "antivirus file
   scanning" below.
 
 ### The other problem: antivirus file scanning
 
-One-function-per-file (see [use-ps1-not-psm1](powershell/use-ps1-not-psm1.md)) means the importer opens ~200 `.ps1` files. Real-time
+One-function-per-file (see [use-ps1-not-psm1](powershell/use-ps1-not-psm1.md)) means the importer opens ~400 `.ps1` files. Real-time
 antivirus scans each on **first** open and caches it clean, so the _first_ import in a fresh checkout/session is slow and every later one is
 fast.
 
@@ -59,9 +59,13 @@ The `-DiagnoseLoadTime` breakdown splits each module into `manifest` (enumeratio
 `Import-Module`), and `import` (parse). A large `raw-read` on the cold run is the antivirus-on-open signature — re-run it to re-confirm.
 Enumeration is native `.NET` and ~1–7ms, so it is never the cause; the file opens are.
 
-**Mitigation is environmental, not code.** No code avoids opening the files, and merging them into one file to cut the open count is the
-rejected generated-module approach in [use-ps1-not-psm1](powershell/use-ps1-not-psm1.md). The fix is an antivirus exclusion for the
-repository working copy and `automation/.vendor/`. (The C# in the `types/` folders ship a committed, hash-keyed prebuilt DLL in
+**Source and build answer it differently.** Source stays one function per file ([use-ps1-not-psm1](powershell/use-ps1-not-psm1.md),
+[one-function-per-file](powershell/one-function-per-file.md)): that is the form a developer reads, reviews, and diffs, so a devbox in source
+mode pays the cold scan, and its mitigation is environmental — an antivirus exclusion for the repository working copy and
+`automation/.vendor/`. The **installed build** is merged per module ([platform-bundle](platform-bundle.md),
+[run-modes](../design/run-modes.md)): `Build-Modules` writes each module's functions into one generated `<Module>.ps1`, so a machine that
+runs the installed `Catzc` opens one function file per module instead of one per function. That is the code-level answer to the cold-import
+antivirus cost, and it needs no exclusion. (The C# in the `types/` folders ship a committed, hash-keyed prebuilt DLL in
 `automation/.compiled/`, so a fresh checkout and CI load it without invoking Roslyn — only a developer who edits a type source pays the
 `~0.5s` compile, once — but that is secondary to the per-file scan.)
 
@@ -82,6 +86,8 @@ the language layer, [module-path-hygiene](powershell/module-path-hygiene.md) (`A
 ## Consequences
 
 - The automation works behind firewalls and proxies with no gallery access, and provisions fully without local admin.
-- Machine-specific slowness has environmental fixes, not code workarounds: the module-path mechanics live in
-  [module-path-hygiene](powershell/module-path-hygiene.md), and the cold-import antivirus cost is mitigated by an exclusion, not a code
-  change.
+- Machine-specific slowness has environmental fixes where the source form requires them: the module-path mechanics live in
+  [module-path-hygiene](powershell/module-path-hygiene.md), and a source-mode devbox mitigates the cold-import antivirus cost with an
+  exclusion.
+- An installed build loads one merged `<Module>.ps1` per module, so its cold import opens a few dozen function files rather than hundreds,
+  while the source a developer edits keeps one function per file.

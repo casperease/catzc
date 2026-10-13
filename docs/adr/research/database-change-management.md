@@ -73,12 +73,12 @@ way to make it safe.
 
 ## How to apply
 
-This platform's general artifact-and-versioning discipline already covers the shape database change management asks for: every artifact
-needed to build, test, deploy, or operate a system — explicitly including "database schemas and migration scripts" — lives in version
-control ([ADR-PRIN-EAC](../principles/everything-as-code.md)), so a migration script is diffed, reviewed, and rolled back exactly like any
-other change. Where a schema change cannot land atomically — the zero-downtime case DORA describes as adding new structures alongside old
-ones — the platform's branch-by-abstraction pattern is the sanctioned, temporary-coexistence route to it: a seam that lets old and new
-structures coexist for a bounded migration window, with a built-in deletion plan, rather than an indefinite compatibility shim
+This platform's general artifact-and-versioning discipline covers the shape database change management asks for: every artifact needed to
+build, test, deploy, or operate a system — explicitly including "database schemas and migration scripts" — lives in version control
+([ADR-PRIN-EAC](../principles/everything-as-code.md)), so a migration script is diffed, reviewed, and rolled back exactly like any other
+change. Where a schema change cannot land atomically — the zero-downtime case DORA describes as adding new structures alongside old ones —
+the platform's branch-by-abstraction pattern is the sanctioned, temporary-coexistence route to it: a seam that lets old and new structures
+coexist for a bounded migration window, with a built-in deletion plan, rather than an indefinite compatibility shim
 ([ADR-PRIN-ONELIVE](../principles/one-living-version.md)). A database migration follows the same rule as every other contract change: it and
 its callers move together, with no lingering dual-read fallback left behind once the cutover completes.
 
@@ -102,14 +102,25 @@ its callers move together, with no lingering dual-read fallback left behind once
 
 ## Dora explains
 
-Database change management extends DORA's version-control and continuous-delivery findings to the part of a system that is hardest to
-version and hardest to roll back: the schema and its data. Treating it as an automated, measured, pipeline-integrated practice removes one
-of the most common bottlenecks between a versioned change and a safe production deployment.
+Database change management sits in the Core Model's fast-flow group and extends DORA's version-control and continuous-delivery findings to
+the part of a system that is hardest to version and hardest to roll back: the schema and its data. DORA finds that integrating database work
+into the delivery process contributes to continuous delivery, and through it to software delivery performance and availability.
 
-- [Version control](https://dora.dev/capabilities/version-control/) — the versioning discipline database change management extends to
-  schemas and migration scripts.
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — the pipeline database changes must integrate into rather than
-  bypass.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — the push-button automation target this capability's
-  measurement points toward.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Database change management](../../references/dora/capabilities.md#database-change-management)
+- **Category:** [Fast flow](../../references/dora/capabilities.md#fast-flow) — Core Model v2.1.0:
+  [fast flow](../../references/dora/core-model.md#fast-flow).
+- **Evidence:** the capability page cites no year; the catalogue attributes the finding to one report page:
+  - [2018 Accelerate State of DevOps Report](../../references/dora/publications.md#2018-accelerate-state-of-devops-report) — names database
+    change management among the practices (with continuous testing, monitoring and observability, and early security integration) that are
+    crucial.
+- **Predicts:** [continuous delivery](../../references/dora/capabilities.md#continuous-delivery), and through it
+  [software delivery performance](../../references/dora/core-model.md#software-delivery-performance) and availability (see
+  [reliability](../../references/dora/metrics.md#reliability)).
+- **Related capabilities:**
+  - [Version control](../../references/dora/capabilities.md#version-control) — the versioning discipline database change management extends
+    to schemas and migration scripts.
+  - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — the pipeline database changes must integrate into
+    rather than bypass.
+  - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — the push-button automation target this
+    capability's measurement points toward.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

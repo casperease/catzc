@@ -6,8 +6,8 @@
     derived sets of its declared dependency closure from dependencies.yml (transitive; a group reference
     permits any member, so it expands to all members), (3) the four reserved infra scopes (internal, vendor,
     compiled, scriptanalyzer), and (4) the runner's own set (catzc-base-qualitygates — an edit to the harness
-    re-keys every module). Two fail-safe cases widen the fold with the repository-wide declared 'automation'
-    set: a module that is UNCONSTRAINED in dependencies.yml (its true dependency set is unknown), and a module
+    re-keys every module). Two fail-safe cases widen the fold with the declared whole-repository 'repository'
+    set (every tracked file under every named root): a module that is UNCONSTRAINED in dependencies.yml (its true dependency set is unknown), and a module
     whose tests include the 'integrity' category (by definition they read the real repository beyond the
     module). The dot-prefixed infra test units ('.internal', '.scriptanalyzer') key on their reserved scope
     and are always widened. Per-set hashes are memoized in the caller-owned -HashCache, so one run hashes
@@ -38,11 +38,11 @@ function Get-ModuleProtectionIdentity {
     $setHash = {
         param([string] $setName)
         if (-not $HashCache.ContainsKey($setName)) {
-            $HashCache[$setName] = if ($setName -eq 'automation') {
-                Get-GlobSetHash -Name automation
+            $HashCache[$setName] = if ($setName -eq 'repository') {
+                Get-GlobSetHash -Name repository
             }
             else {
-                # A module name resolves to its live/tests aspect sets (ADR-ASPECT); a reserved/single set to
+                # A module name resolves to its live/tests aspect sets (ADR-DSGN-ASPECT); a reserved/single set to
                 # one. Fold the aspect hashes (name|hash, ordinal by name) so the constituent hash covers the
                 # module's whole content — identical protection semantics to the pre-aspect whole-module set.
                 $sets = @(Get-ModuleGlobSet -Name $setName) | Sort-Object Name
@@ -127,7 +127,7 @@ function Get-ModuleProtectionIdentity {
     }
 
     if ($widen) {
-        [void]$constituents.Add('automation')
+        [void]$constituents.Add('repository')
     }
 
     # ---- fold: name|hash lines, ordinal by name — the ADR-FLOW-CD-GLOBS:5 recipe over set hashes ----

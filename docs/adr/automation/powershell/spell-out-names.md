@@ -77,9 +77,9 @@ unreferenced entry.
 A custom PSScriptAnalyzer rule, `Measure-SpellOutIdentifiers`, is the automatic identifier-level enforcer. It tokenizes every variable name,
 parameter name, and function noun (camelCase / PascalCase / snake_case) and flags any fragment that is neither a real English word nor an
 approved registry term. It applies no minimum word length, so it catches the short and compound coined abbreviations cspell's
-`minWordLength` lets through (`$rcg`, `$tfPath`) — the class code review used to own alone. Its oracle is a native type (`SpellingOracle`)
-over cspell's own English words (`Build-EnglishDictionary` flattens them to `assets/english.txt.gz`) combined with the registry term lists,
-so the analyzer and the spell gate agree on what a word is. It cannot separate an abbreviation that is also a real dictionary word (`$spec`,
+`minWordLength` lets through (`$rcg`, `$tfPath`) — a class left to code review alone. Its oracle is a native type (`SpellingOracle`) over
+cspell's own English words (`Build-EnglishDictionary` flattens them to `assets/english.txt.gz`) combined with the registry term lists, so
+the analyzer and the spell gate agree on what a word is. It cannot separate an abbreviation that is also a real dictionary word (`$spec`,
 `$info`) from a genuine short word; those remain a code-review concern.
 
 - [The dictionary is the backstop](#the-dictionary-is-the-backstop)

@@ -57,9 +57,9 @@ and identity model make those guarantees real. Developer and CI machines are cli
 
 Two questions arise at that client/server boundary, and this ADR answers both. Reading _from_ the remote: the tip of main is not always safe
 to build on, because it can be a dirty HEAD (the worked example in [commit-lifecycle](commit-lifecycle.md) makes this concrete — a tip that
-was verified and then failed L3). Writing _to_ the remote: how does a change legitimately become part of the audited main at all? The answer
-to the first is "integrate from the last verified commit"; the answer to the second is "through a PR, which is the authenticated ingress" —
-and the two together are what keep the mainline both trustworthy to build on and honest about its history.
+entered main-UAT and failed there). Writing _to_ the remote: how does a change legitimately become part of the audited main at all? The
+answer to the first is "integrate from the last verified commit"; the answer to the second is "through a PR, which is the authenticated
+ingress" — and the two together are what keep the mainline both trustworthy to build on and honest about its history.
 
 ## Decision
 
@@ -133,5 +133,5 @@ direct commit; the moment there is more than one author, the PR ingress is what 
 - [one-living-version](../principles/one-living-version.md) (`ADR-PRIN-ONELIVE`) — trunk-based development and immutable history.
 - [self-service](self-service.md) (`ADR-DSGN-SELFSERV`) — the audit / change-approval guarantees the server remote and PR ingress make real.
 - [repo-variants](../repository/repo-variants.md) (`ADR-REPO-VARIANT:6`) — the `git_workspace` PR-vs-Direct integration mode.
-- [cd-discipline-and-promotion-flow](cd-discipline-and-promotion-flow.md) (`ADR-FLOW-CD`) — the verification the "verified commit" has
-  cleared.
+- [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) (`ADR-FLOW-CD`) — the verification the "verified commit"
+  has cleared.

@@ -1,5 +1,7 @@
 Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
     BeforeEach {
+        # Source mode unless a test flips it, so the cases run the same in the source and build suites.
+        Mock Get-CatzcRunMode { 'source' } -ModuleName Catzc.Base.ModuleSystem
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.ModuleSystem
         Mock Get-GitCurrentBranch { 'feature/sync' } -ModuleName Catzc.Base.ModuleSystem
         Mock Test-GitPathChanged { $true } -ModuleName Catzc.Base.ModuleSystem
@@ -7,6 +9,14 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Mock Write-Message { } -ModuleName Catzc.Base.ModuleSystem
         # main-direct workspace (the shipped default) unless a test flips it.
         Mock Test-GitWorkspace { $false } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $MainViaPr }
+    }
+
+    It 'skips in build mode before probing or committing anything' {
+        Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.ModuleSystem
+        Sync-GeneratedFile | Should -BeNullOrEmpty
+        Should -Invoke Test-GitPathChanged -ModuleName Catzc.Base.ModuleSystem -Times 0
+        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter { $Message -like '*built Catzc package*' }
     }
 
     It 'skips in a pipeline before committing anything' {

@@ -3,6 +3,7 @@
 # This shim carries only the importer's outer parameter form and delegates the whole load sequence to
 # Invoke-Importer in automation/.internal/Catzc.Internal.Importer.psm1 (the single living copy). It is
 # dot-sourced (. ./importer.ps1), so its $global:/$env: effects land in the caller's session.
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Invoke-Importer announces RepositoryRoot on its Roots line, the first point a writer is loaded')]
 param(
     [switch] $ExportPrivates,
     [switch] $AllowWarnings,

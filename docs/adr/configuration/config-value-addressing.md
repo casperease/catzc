@@ -5,7 +5,7 @@
 ### Rule ADR-CONF-ADDRESSING:1
 
 A _global config address_ has the form `global.<config>.<key>[.<key>…]` and names exactly one node inside a named config — a leaf value or a
-subtree. It is resolved by `Get-ConfigValue` (public, `Catzc.Base.Config`), which is built on `Get-Config`, so there is still one config
+subtree. It is resolved by `Get-ConfigValue` (public, `Catzc.Base.Config`), which is built on `Get-Config`, so there is exactly one config
 reader and one config cache (ADR-CONF-LOADING:1) — addressing is a walk over an already-loaded config, never a second reader.
 
 - [Decision](#decision)
@@ -15,7 +15,7 @@ reader and one config cache (ADR-CONF-LOADING:1) — addressing is a walk over a
 
 The first segment after `global.` is the config's global name (ADR-CONF-LOADING:2 — the name is global and the owning module is discovered,
 not part of the address); each following segment is a key walked into the parsed config. Traversal works uniformly over a raw ordered
-dictionary and a typed (C#/`Assert-…`-validated) object: each segment resolves as a dictionary key first, then as a property.
+dictionary and a typed (C#/`Assert-…`-validated) object: each segment resolves as a key on a dictionary node, otherwise as a property.
 
 - [The address grammar](#the-address-grammar)
 - [Traversal is uniform over dict and typed object](#traversal-is-uniform-over-dict-and-typed-object)
@@ -83,7 +83,7 @@ The grammar is fixed by a `ValidatePattern` on `Get-ConfigValue` so a malformed 
 ```powershell
 Get-ConfigValue -Address 'global.myproperty.name'     # scalar leaf → the value at myproperty → name
 Get-ConfigValue -Address 'global.database'            # subtree     → the whole database config node
-Get-ConfigValue -Address 'global.azure.customers.contoso.shortname'   # deep leaf
+Get-ConfigValue -Address 'global.azure.environments.prod.region_code'   # deep leaf
 ```
 
 ### One reader underneath
@@ -97,9 +97,9 @@ stays a thin strip-split-walk and the walk is unit-testable in isolation.
 
 A config is either a raw ordered dictionary (no validator) or a typed object (a C# type or an `Assert-…`-validated shape) — see
 [module-config-loading](module-config-loading.md). `Resolve-ConfigKeyPath` handles both with one rule per segment: resolve the segment as a
-**dictionary key** when the current node is an `IDictionary` that contains it, otherwise as a **property** on the node. This keeps an
-address agnostic to how its config happens to be modelled; the same `global.<config>.<key>` works whether the owner validates into a typed
-object or leaves the config raw.
+**dictionary key** when the current node is an `IDictionary`, otherwise as a **property** on the node. This keeps an address agnostic to how
+its config happens to be modelled; the same `global.<config>.<key>` works whether the owner validates into a typed object or leaves the
+config raw.
 
 ### Addresses are for committed config only
 
@@ -132,8 +132,8 @@ reader sees. An address is a _reference_ to a config value, with the same discip
 
 - A config value has a written-down, committable name. "This env var's value is `global.database.host`" is expressible as data, resolved at
   the point of use, with the config file as the single source of truth — no copied literals to drift.
-- There is still exactly one reader and one cache. `Get-ConfigValue` adds a grammar and a walk on top of `Get-Config`; it never re-reads a
-  file or caches anything (ADR-CONF-LOADING:1).
+- There is exactly one reader and one cache. `Get-ConfigValue` adds a grammar and a walk on top of `Get-Config`; it never re-reads a file or
+  caches anything (ADR-CONF-LOADING:1).
 - Addressing draws a hard line at secrets: everything addressable is in git and non-secret, so a consumer can log an address-sourced value
   freely, and secrets stay entirely off the addressing channel (ADR-AUTO-ENVVAR:7).
 - Mistakes fail loudly at the call site — a wrong name or a wrong key throws with the offending address — instead of leaking a `$null`

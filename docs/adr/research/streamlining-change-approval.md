@@ -46,9 +46,9 @@ capabilities that together determine how safely and how fast a change reaches pr
 lifecycle of an IT service change: who decides a change is safe to ship, and when. The traditional shape of that process is a Change
 Approval Board (CAB) or an external reviewer authorizing changes before deployment, sitting apart from the team that made the change.
 
-DORA's 2019 State of DevOps Report examined this traditional shape directly and found it wanting: heavyweight external approval does not buy
-the stability it is meant to protect, and it costs delivery speed getting there.[^1] The capability is DORA's answer — shift approval into
-the development process itself, as peer review, backed by automation that finds problems before a human ever needs to look.
+DORA's 2019 Accelerate State of DevOps Report examined this traditional shape directly and found it wanting: heavyweight external approval
+does not buy the stability it is meant to protect, and it costs delivery speed getting there.[^1] The capability is DORA's answer — shift
+approval into the development process itself, as peer review, backed by automation that finds problems before a human ever needs to look.
 
 ## Summary
 
@@ -59,11 +59,11 @@ well, is fast and reliable enough to also carry emergency changes — there is n
 
 ## Why it matters
 
-DORA's 2019 State of DevOps Report found that heavyweight external approval processes measurably hurt software delivery performance.
-Organizations that lean on a traditional CAB see slower delivery cycles, which pushes them toward larger, less frequent releases; those
-larger releases carry higher change fail rates, because more changes land in production at once with more surface area for something to go
-wrong. The research finds no evidence that the extra formal process improves outcomes — the CAB does not buy the stability it is meant to
-provide.
+DORA's 2019 Accelerate State of DevOps Report found that heavyweight external approval processes measurably hurt software delivery
+performance. Organizations that lean on a traditional CAB see slower delivery cycles, which pushes them toward larger, less frequent
+releases; those larger releases carry higher change fail rates, because more changes land in production at once with more surface area for
+something to go wrong. The research finds no evidence that the extra formal process improves outcomes — the CAB does not buy the stability
+it is meant to provide.
 
 The organizations that do improve their change approval process share one trait: their teams have a clear understanding of the change
 approval process itself. Confidence in how a change gets approved, and how long it takes, correlates with better delivery performance — the
@@ -83,8 +83,8 @@ On this platform, the pull request is exactly this shift made concrete: it is th
 precondition ([ADR-DSGN-REMOTE](../design/server-remote-integration.md)), not a separate external gate a change waits behind. Self-service
 delivery ([ADR-DSGN-SELFSERV](../design/self-service.md)) rests on that same PR as its change-approval control — reviewable, reproducible,
 and audited by construction, with no ticket to a central gatekeeper. Where a human certification gate does exist, it sits at the release
-boundary — RC and RBC ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) — scoped to the business decision of certifying a
-release candidate, not to re-reviewing code the PR already gated.
+boundary — RC and RBC ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) — scoped to the business decision of certifying a release
+candidate, not to re-reviewing code the PR already gated.
 
 ## Common pitfalls
 
@@ -105,15 +105,29 @@ release candidate, not to re-reviewing code the PR already gated.
 
 ## Dora explains
 
-Streamlining change approval is DORA's answer to how a team keeps changes safe without slowing delivery: peer review built into the
-development platform, backed by automation, in place of a heavyweight external board.
+Streamlining change approval is DORA's answer to how a team keeps changes safe without slowing delivery: peer review during development,
+backed by automated detection of bad changes, in place of approval by an external body. It is a fast-flow capability in the Core Model, and
+the research finds that heavyweight external approval hurts software delivery performance with no evidence that it lowers change fail rates.
 
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — the automated checks that catch problems before a human
-  approval step ever needs to.
-- [Version control](https://dora.dev/capabilities/version-control/) — the platform where peer review and approval are captured as part of
-  the change itself.
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — small, frequent changes are what make lightweight,
-  risk-scaled approval practical.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — automates the path from an approved change to production,
-  keeping the approved path the only path.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval)
+- **Category:** [Fast flow](../../references/dora/capabilities.md#fast-flow) — Core Model v2.1.0:
+  [fast flow](../../references/dora/core-model.md#fast-flow).
+- **Evidence:**
+  - [2019 Accelerate State of DevOps Report](../../references/dora/publications.md#2019-accelerate-state-of-devops-report) — heavyweight
+    external change approval hurts; peer review during development, backed by automation, works better.
+  - [2017 State of DevOps Report](../../references/dora/publications.md#2017-state-of-devops-report) — high performers automate much more of
+    their change approvals.
+- **Predicts:** a clearly understood approval process raises
+  [software delivery performance](../../references/dora/core-model.md#software-delivery-performance); heavyweight external approval lowers
+  it without improving [change fail rate](../../references/dora/metrics.md#change-fail-rate). Through delivery performance the capability
+  bears on [organizational performance](../../references/dora/core-model.md#organizational-performance).
+- **Related capabilities:**
+  - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — the automated checks that catch problems before
+    a human approval step ever needs to.
+  - [Version control](../../references/dora/capabilities.md#version-control) — the platform where peer review and approval are captured as
+    part of the change itself.
+  - [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — small, frequent changes are what make
+    lightweight, risk-scaled approval practical.
+  - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — automates the path from an approved change to
+    production, keeping the approved path the only path.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

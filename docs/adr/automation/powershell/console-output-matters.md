@@ -129,10 +129,10 @@ prefix would indent the first line differently from the rest. Never call `Write-
 streams terminate execution. There is no middle ground between "everything is fine" and "stop." See [error-handling](error-handling.md) for
 the full rationale and rules.
 
-**`Write-Verbose` deserves the same care as `Write-Information`.** Verbose output is the user's window into what is happening underneath
-when something is not behaving as expected. The best time to write a `Write-Verbose` line is during development and debugging — if you
-needed that information exposed to understand the code's behavior, you will need it again next time. Leave it in. Good verbose output turns
-a 30-minute debugging session into a 30-second `-Verbose` call.
+**`Write-Verbose` deserves the same care as `Write-Message`.** Verbose output is the user's window into what is happening underneath when
+something is not behaving as expected. The best time to write a `Write-Verbose` line is during development and debugging — if you needed
+that information exposed to understand the code's behavior, you will need it again next time. Leave it in. Good verbose output turns a
+30-minute debugging session into a 30-second `-Verbose` call.
 
 ```powershell
 # GOOD — verbose captures the decisions the function made
@@ -213,13 +213,14 @@ remaining time, managing activity IDs). For long-running operations, print a dot
 ```powershell
 while (-not $done) {
     Start-Sleep -Seconds 1
-    Write-Host '.' -NoNewline
+    Write-Message '.' -NoHeader -NoNewline
 }
-Write-Host ''   # newline after dots
+Write-Message '' -NoHeader   # newline after dots
 ```
 
 This tells the user the operation is alive without any of the overhead. The dots appear in CI logs, in terminals, and in redirected output.
-No special handling needed.
+They go through the writer chokepoint like every other line ([announce-state-changes](announce-state-changes.md#rule-adr-auto-announce1)),
+so a test run silences them with no special handling.
 
 **Timestamps are opt-in.** `Write-Message` includes a caller name prefix by default (`[Invoke-Executable] poetry install`). Timestamps can
 be enabled via `$env:CATZC_MESSAGE_TIMESTAMPS` for local debugging. CI platforms (ADO, GitHub Actions) already timestamp every log line
@@ -251,7 +252,8 @@ blocks so silence never reads as a hang.
 ### How this is enforced
 
 - **The Writer module** — provides all output functions: `Write-Message`, `Write-Object`, `Write-Header`, `Write-Exception`, and others.
-  These are the building blocks for uniform console output. Use them instead of raw `Write-Host` or `Write-Information`.
+  These are the building blocks for uniform console output, and the only way the toolset writes to the console
+  ([announce-state-changes](announce-state-changes.md), which also requires every state change of the session to be announced through them).
 - **`Write-Message`** — the principal communication tool. Every message includes the calling function name automatically
   (`[Invoke-Executable] poetry install`), so the user always knows which function produced the output. Timestamps can be enabled via
   `$env:CATZC_MESSAGE_TIMESTAMPS` for local debugging — CI platforms (ADO, GitHub Actions) already timestamp every log line natively.

@@ -57,9 +57,9 @@ The `pipelines/` tree holds two structurally different things: **pipelines** (th
 one folder, the include-kind of a fragment is invisible until you open it, and pipelines are not distinguishable from fragments or grouped
 by type.
 
-A pipeline's type (cron / ci / cd / cde / deploy / input — see [pipeline-types](pipeline-types.md)) is not a folder; it is encoded as the
-**first part of the filename** (`ci-automation.yaml`), so a flat listing of `pipelines/` already groups and reveals pipelines by type.
-Fragments, by contrast, are grouped by folder. The filename and the folder are the contract.
+A pipeline's type (cron / ci / cd / cde / deploy / input — see [pipeline-types](../flow/pipeline-types.md)) is not a folder; it is encoded
+as the **first part of the filename** (`ci-automation.yaml`), so a flat listing of `pipelines/` already groups and reveals pipelines by
+type. Fragments, by contrast, are grouped by folder. The filename and the folder are the contract.
 
 This is the same argument as [conventional-folders](../repository/conventional-folders.md): a fixed, semantic layout where the folder name
 and the filename are the contract. Tooling and readers program against the names; there is nothing to configure and nothing to guess.
@@ -163,17 +163,18 @@ pipelines/
 - **The filename prefix is the authoring contract, not the classifier.** A pipeline's type is its filename prefix for readers and for the
   directory index; the tooling above derives Pipeline-vs-Template from YAML keys and ADO data. A pipeline whose prefix disagrees with its
   structure or its ADO registration is visible as a convention break at review.
-- **`Assert-Pipelines` / `Test-Pipelines`** — an automated, offline gate (wired into the Test-Automation L2 suite) that checks the
+- **`Assert-Pipelines` / `Test-Pipelines`** — an automated, offline gate (an L1 integrity test in Test-Automation) that checks the
   `pipelines/` tree against this ADR: the type prefix (:1), flat placement and the closed set of per-kind template folders with matching
   fragment kinds (:2/:3), the `.yaml` extension (:6), and absolute `/pipelines/...` template references (:4). `Test-Pipelines` returns one
-  record per violation (with its rule code); `Assert-Pipelines` throws the collected list, so a mis-named or misplaced pipeline fails CI,
-  not just review.
+  record per violation (with its rule code), and the L1 test requires zero of them over the real tree, so a mis-named or misplaced pipeline
+  fails CI, not just review; `Assert-Pipelines` throws the collected list.
 
 ## Status
 
 The layout exists; some folders are reserved but unpopulated, by the reactive-creation rule above. `pipelines/steps/` holds the one
 extracted step template (`invoke-automation.yaml`) and `pipelines/extends/` holds `cd-customer.yaml`; `pipelines/jobs/`,
-`pipelines/stages/`, and `pipelines/variables/` are empty (`.gitkeep` only) — no job, stage, or variable template has earned extraction.
+`pipelines/stages/`, and `pipelines/variables/` hold no templates (only a `.gitkeep` and a `README.md`) — no job, stage, or variable
+template has earned extraction.
 
 ## Consequences
 

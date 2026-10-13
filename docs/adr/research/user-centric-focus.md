@@ -41,10 +41,10 @@ user, and treating them as such is the feature-factory failure mode this capabil
 
 ## Context
 
-User-centric focus sits in the DORA Core Model as a capability that predicts organizational performance rather than delivery throughput
-directly: it is about whether the work a team does actually lands as value for the person using the software, not merely whether it ships.
-DORA frames the underlying claim plainly: all software exists for human users, and its worth is determined by its usefulness to the
-individual at the conclusion of the value chain.[^1]
+User-centric focus sits in the DORA AI Capabilities Model as a capability that predicts organizational performance rather than delivery
+throughput directly: it is about whether the work a team does actually lands as value for the person using the software, not merely whether
+it ships. DORA frames the underlying claim plainly: all software exists for human users, and its worth is determined by its usefulness to
+the individual at the conclusion of the value chain.[^1]
 
 In the AI era DORA sharpens this into a warning. AI does not introduce user-centricity on its own — it amplifies whatever focus a team
 already has. A team that understands its users and prioritizes their experience gets more of that, faster, with AI's help. A team that does
@@ -91,18 +91,39 @@ build.
 ## References
 
 [^1]:
-    DORA, _User-centric focus_ capability, <https://dora.dev/capabilities/user-centric-focus/>. Part of the DORA Core Model of capabilities
-    that predict software delivery performance.
+    DORA, _User-centric focus_ capability, <https://dora.dev/capabilities/user-centric-focus/>. Part of the DORA AI Capabilities Model of
+    capabilities that amplify the benefits of AI adoption.
 
 ## Dora explains
 
 User-centric focus is the capability that keeps DORA's delivery metrics pointed at something that matters: deploying frequently and
-recovering quickly are only valuable if what gets deployed is what the user needed in the first place.
+recovering quickly are only valuable if what gets deployed is what the user needed in the first place. DORA categorizes it with the AI
+capabilities and the AI Capabilities Model, outside the Core Model, where it keeps AI-accelerated velocity pointed at valuable outcomes; it
+also predicts higher organizational performance and job satisfaction in its own right.
 
-- [Customer feedback](https://dora.dev/capabilities/customer-feedback/) — the feedback channel this capability turns into reprioritized
-  work.
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — the batch size that lets user feedback actually
-  change what ships next.
-- [Monitoring and observability](https://dora.dev/capabilities/monitoring-and-observability/) — the dashboards that make user-experience
-  metrics visible alongside technical ones.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [User-centric focus](../../references/dora/capabilities.md#user-centric-focus)
+- **Category:** [AI](../../references/dora/capabilities.md#ai) — not in the Core Model; a member of the
+  [AI Capabilities Model](../../references/dora/ai.md#ai-capabilities-model).
+- **Evidence:**
+  - [2023 Accelerate State of DevOps Report](../../references/dora/publications.md#2023-accelerate-state-of-devops-report) — teams that
+    focus on users have 40% higher organizational performance (repeated in 2024).
+  - [2024 Accelerate State of DevOps Report](../../references/dora/publications.md#2024-accelerate-state-of-devops-report) — user-centricity
+    drives product quality, and user-centred developers are more productive, more satisfied, and less likely to burn out.
+  - [2025 State of AI-assisted Software Development](../../references/dora/publications.md#2025-state-of-ai-assisted-software-development) —
+    finds that AI is mainly an amplifier of existing strengths and dysfunctions, and introduces the AI Capabilities Model.
+  - [2025 DORA AI Capabilities Model](../../references/dora/publications.md#2025-dora-ai-capabilities-model) — gives implementation
+    strategies, starter tactics, and ways to monitor progress for the capability.
+- **Predicts:** higher [organizational performance](../../references/dora/core-model.md#organizational-performance) and
+  [job satisfaction](../../references/dora/capabilities.md#job-satisfaction), part of
+  [well-being](../../references/dora/core-model.md#well-being). With AI, a strong user focus amplifies
+  [individual effectiveness](../../references/dora/ai.md#individual-effectiveness) and
+  [team performance](../../references/dora/ai.md#team-performance); without one, AI adoption can harm team performance (the "feature
+  factory" trap).
+- **Related capabilities:**
+  - [Customer feedback](../../references/dora/capabilities.md#customer-feedback) — the feedback channel this capability turns into
+    reprioritized work.
+  - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — the batch size that lets user feedback
+    actually change what ships next.
+  - [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — the dashboards that make
+    user-experience metrics visible alongside technical ones.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

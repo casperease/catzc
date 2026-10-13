@@ -11,7 +11,8 @@
     pattern that targets the same folder.
 
     Only a trailing `/*` glob is supported: `<prefix>/*` matches the immediate, non-dot-prefixed subdirectories
-    of `<prefix>`. See docs/adr/repository/generated-readmes.md.
+    of `<prefix>`. The globs expand over the catzc source tree, so it runs in source mode only
+    (Assert-SourceTree). See docs/adr/repository/generated-readmes.md.
 .PARAMETER Config
     The parsed readme config (Get-Config -Config readme): a `{ patterns; mappings }` object.
 .PARAMETER RepositoryRoot
@@ -28,6 +29,9 @@ function Get-ReadmeMappings {
 
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
+
+    # The globs expand over the source tree's folders (automation/* and the like).
+    Assert-SourceTree
 
     # Explicit mappings first — they win over any pattern that also matches their folder.
     $byFolder = [ordered]@{}

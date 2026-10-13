@@ -1,9 +1,11 @@
 <#
 .SYNOPSIS
-    Returns the names of all automation modules (the non-dot directories under automation/).
+    Returns the names of all automation modules (the non-dot directories under the loaded code root).
 .DESCRIPTION
-    Enumerates the automation root and returns each module folder name — the same set Import-AllModules
-    discovers and imports. A non-dot directory is a module; dot-prefixed folders (.internal, .vendor,
+    Enumerates the code root (Get-CatzcModulesRoot) and returns each module folder name — the same set
+    Import-AllModules discovers and imports. The code root is <RepositoryRoot>/automation in source mode and the
+    built package in build mode (ADR-DSGN-RUNMODE); both hold one folder per module under the same name, so the
+    list describes the loaded modules in either mode. A non-dot directory is a module; dot-prefixed folders (.internal, .vendor,
     .scriptanalyzer, .compiled) are infrastructure and are excluded (see conventional-folders).
 
     This is the platform's single source of the automation-module name list: the module- and
@@ -13,7 +15,7 @@
 
     Names are returned sorted ordinally (culture-independent — see cross-platform).
 .PARAMETER AutomationRoot
-    Path to the automation directory. Defaults to the automation folder under the repository root; pass a
+    Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot); pass a
     fixture tree to isolate a logic test from the real module set.
 .EXAMPLE
     Get-AutomationModules
@@ -23,7 +25,7 @@
 function Get-AutomationModules {
     [OutputType([string[]])]
     param(
-        [string] $AutomationRoot = (Join-Path (Get-RepositoryRoot) 'automation')
+        [string] $AutomationRoot = (Get-CatzcModulesRoot)
     )
 
     Assert-PathExist $AutomationRoot -PathType Container

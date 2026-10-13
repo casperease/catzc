@@ -4,7 +4,8 @@
     are generated, README-backed" contract.
 .DESCRIPTION
     The folder is the registration: every .gitkeep in the repository (found by a filesystem walk that skips
-    `.git` and the vendored modules) is a managed copy of assets/gitkeep — a generic text saying the file
+    `.git` and the vendored modules) is a managed copy of this module's assets/gitkeep (located through
+    Get-CatzcModuleRoot, so it resolves inside the loaded module in both run modes) — a generic text saying the file
     keeps its folder tracked and that the folder's story lives in its README.md. That pointer is honest
     because an integrity test requires every .gitkeep folder to be a readme-mapped target (a docs/references
     article Build-Readme copies in), so adding a .gitkeep anywhere demands its reference article — the gap
@@ -43,7 +44,7 @@ function Build-GitKeep {
         [switch] $PassThru
     )
 
-    $sourcePath = Join-Path $PSScriptRoot 'assets/gitkeep'
+    $sourcePath = Get-CatzcModuleRoot 'assets/gitkeep'
     Assert-PathExist $sourcePath
     $content = [System.IO.File]::ReadAllText($sourcePath)
 

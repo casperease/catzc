@@ -1,4 +1,5 @@
-Describe 'Get-TestAutomationTestPaths' -Tag 'L1', 'integrity' {
+# source-only: it scans the repository's tests/ folders, which give the same answer in both run modes.
+Describe 'Get-TestAutomationTestPaths' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         $script:paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
     }

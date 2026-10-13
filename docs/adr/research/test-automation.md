@@ -113,13 +113,39 @@ per-function test-file convention — are the Pester-specific layer under that d
 
 ## Dora explains
 
-DORA's research ties test automation to improved software stability, reduced team burnout, and lower deployment pain — the fast, trustworthy
-feedback loop it produces is what lets the rest of the delivery pipeline move quickly without moving recklessly.
+Test automation is a Core Model capability in the fast-feedback group. DORA's research ties it to better software stability, less burnout,
+and less deployment pain, and finds that test suites owned by developers drive performance — the fast, trustworthy feedback loop it produces
+is what lets the rest of the delivery pipeline move quickly without moving recklessly.
 
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — runs the automated suite on every commit; the gate is
-  only meaningful because the suite it runs is fast and trustworthy.
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — depends on the automated suite to certify that a build is
-  release-candidate quality without manual re-verification.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — testable, well-factored code and a healthy automated suite
-  reinforce each other.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Test automation](../../references/dora/capabilities.md#test-automation)
+- **Category:** [Fast feedback](../../references/dora/capabilities.md#fast-feedback) — Core Model v2.1.0:
+  [fast feedback](../../references/dora/core-model.md#fast-feedback).
+- **Evidence:**
+  - [2014 State of DevOps Report](../../references/dora/publications.md#2014-state-of-devops-report) — CI and automated testing are key
+    practices behind high IT performance.
+  - [2016 State of DevOps Report](../../references/dora/publications.md#2016-state-of-devops-report) — cited on the capability page.
+  - [2017 State of DevOps Report](../../references/dora/publications.md#2017-state-of-devops-report) — high performers automate much more of
+    their testing, and test automation is one of the practices essential to continuous delivery.
+  - [2018 Accelerate State of DevOps Report](../../references/dora/publications.md#2018-accelerate-state-of-devops-report) — continuous
+    testing is among the practices crucial to performance.
+  - [2019 Accelerate State of DevOps Report](../../references/dora/publications.md#2019-accelerate-state-of-devops-report) — cited on the
+    capability page.
+  - [2021 Accelerate State of DevOps Report](../../references/dora/publications.md#2021-accelerate-state-of-devops-report) — names the
+    capability on its report page.
+  - [2024 Accelerate State of DevOps Report](../../references/dora/publications.md#2024-accelerate-state-of-devops-report) — as AI adoption
+    lowers throughput and stability, small batches and robust testing still matter.
+  - [2025 Impact of Generative AI](../../references/dora/publications.md#2025-impact-of-generative-ai-in-software-development) — fast,
+    high-quality feedback loops, test automation among them, are the counterweight to AI-generated volume.
+- **Predicts:** better software stability (the [instability](../../references/dora/metrics.md#instability) family), less burnout (a
+  [well-being](../../references/dora/core-model.md#well-being) outcome), and less deployment pain, and it is one of the capabilities that
+  drive [continuous delivery](../../references/dora/capabilities.md#continuous-delivery). As a Core Model capability it sits in the column
+  that predicts [software delivery performance](../../references/dora/core-model.md#software-delivery-performance), which in turn predicts
+  [organizational performance](../../references/dora/core-model.md#organizational-performance).
+- **Related capabilities:**
+  - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — runs the automated suite on every commit; the
+    gate is only meaningful because the suite it runs is fast and trustworthy.
+  - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — depends on the automated suite to certify that a
+    build is release-candidate quality without manual re-verification.
+  - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — testable, well-factored code and a healthy
+    automated suite reinforce each other.
+- [DORA research program](../../references/dora/index.md) — the overview these findings sit within.

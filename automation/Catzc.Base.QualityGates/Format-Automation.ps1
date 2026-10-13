@@ -16,7 +16,10 @@
 .PARAMETER Path
     One or more files or directories to format. Defaults to the canonical gated set (Get-AutomationSourceFiles):
     module root *.ps1, private/, tests/, the .internal and .scriptanalyzer infrastructure folders (bootstrap,
-    TestKit, custom analyzer rules, and their tests), the root importer.ps1, and authored .psd1 config.
+    TestKit, custom analyzer rules, and their tests), the root importer.ps1, and authored .psd1 config. The
+    default set is the catzc source tree, so it needs source mode; an explicit -Path works in either run mode.
+    The vendored PSScriptAnalyzer and its settings file are always read from the loaded code root
+    (Get-CatzcModulesRoot).
 .PARAMETER DryRun
     Report which files would change without writing them. The returned list of changed files is the
     same in either mode (observable by return value); -DryRun simply skips the write. See
@@ -45,10 +48,12 @@ function Format-Automation {
     if (-not (Get-Module PSScriptAnalyzer)) {
         # First use this session pays the vendored-module import (several seconds) — announce it (ADR-AUTO-CONSOLE:10).
         Write-Message 'Loading PSScriptAnalyzer (first use this session)...'
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
     }
 
-    $settingsPath = Join-Path $env:RepositoryRoot 'automation/.internal/assets/PSScriptAnalyzerSettings.psd1'
+    # The vendored analyzer and its one settings file ship inside the code tree, so both resolve from the code
+    # root (ADR-AUTO-ASSETDEP:1) — the same answer in source and build mode.
+    $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
     $files = [System.Collections.Generic.List[string]]::new()
 
     if ($Path) {

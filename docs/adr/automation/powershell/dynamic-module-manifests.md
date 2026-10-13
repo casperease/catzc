@@ -22,7 +22,8 @@ module contains and exports.
 Generated manifests are gitignored, never committed. `New-DynamicManifest` recomputes each module's `<Module>.psd1` from the filesystem on
 **every** import, writing only when the content differs (and deleting it when a module has no `.ps1` files left), so the manifest is a pure
 derived artifact — `automation/**/*.psd1` is gitignored. The only committed `.psd1` files are the vendored third-party manifests under
-`automation/.vendor/` (negated in `.gitignore`), which the platform does not generate.
+`automation/.vendor/` and the authored analyzer settings `automation/.internal/assets/PSScriptAnalyzerSettings.psd1` (both negated in
+`.gitignore`), which the platform does not generate.
 
 - [Manifests are a regenerated, gitignored artifact](#manifests-are-a-regenerated-gitignored-artifact)
 
@@ -76,11 +77,12 @@ as an input and never hand-edited; the filesystem of `.ps1` files is the single 
 
 Because the manifest is regenerated from scratch on every import, committing it would be committing a build output. It would drift from the
 `.ps1` files on any branch that adds, renames, or moves a function, and produce noisy, conflict-prone diffs that say nothing the directory
-listing does not. So the generated manifests are gitignored, with one negation for the vendored case:
+listing does not. So the generated manifests are gitignored, with negations for the vendored case and the authored analyzer settings:
 
 ```gitignore
 automation/**/*.psd1
 !automation/.vendor/**/*.psd1
+!automation/.internal/assets/PSScriptAnalyzerSettings.psd1
 ```
 
 The exception is real source from the dependency's perspective: a vendored third-party module under `automation/.vendor/` ships its own

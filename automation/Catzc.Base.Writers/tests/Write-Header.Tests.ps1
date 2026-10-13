@@ -85,7 +85,7 @@ Describe 'Write-Header' -Tag 'L0', 'logic' {
             $raw | Should -Match '\e\[91m╭'
         }
 
-        It "a bareword '<base>-rainbow' anchors on that base colour" {
+        It "a bareword 'base-rainbow' anchors on that base colour" {
             Write-Header 'PASSED' -Width 20 -ForegroundColor green-rainbow -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
             $raw = ($iv | ForEach-Object { $_.MessageData }) -join "`n"
             $raw | Should -Match '\e\[92m╭'

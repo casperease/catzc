@@ -27,17 +27,17 @@ The root set is closed. Adding a top-level directory is a deliberate architectur
 
 ### Rule ADR-REPO-FOLDERS:4
 
-Dot-prefix means infrastructure/tooling, everywhere — `.github/`, `.vscode/`, `.claude/`, `.git/`, and
-`automation/.internal|.scriptanalyzer|.vendor/`. Under `automation/` it is enforced mechanically by `Import-AllModules` (dot-prefixed
-directories are excluded from module discovery); elsewhere it is the same convention applied repo-wide.
+Dot-prefix means infrastructure/tooling, everywhere — `.github/`, `.vscode/`, `.claude/`, `.cspell/`, `.git/`, and
+`automation/.internal|.scriptanalyzer|.vendor|.compiled/`. Under `automation/` it is enforced mechanically by `Import-AllModules`
+(dot-prefixed directories are excluded from module discovery); elsewhere it is the same convention applied repo-wide.
 
 - [Level 1: Repository root](#level-1-repository-root)
 - [Level 2: `automation/` — modules vs. infrastructure](#level-2-automation--modules-vs-infrastructure)
 
 ### Rule ADR-REPO-FOLDERS:5
 
-Semantic documentation folders are markdown-only. `docs/` and `docs/notes/**` organize their subfolders freely (the names and casing are the
-author's), but they hold only `.md` files.
+Documentation folders are markdown-only. `docs/` organizes its subfolders freely (the names and casing are the author's), but it holds only
+`.md` files — except the dot-prefixed `docs/.assets/`, which holds the binary diagram assets the markdown embeds.
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -115,10 +115,10 @@ infrastructure, and a module's internals separate public from private from tests
 Conventional folders come in two kinds, and the difference is _who relies on the name_:
 
 - **Contract folders** — a tool hardcodes the literal name and programs against it, so a wrong name makes the content structurally invisible
-  or non-functional. `automation/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `pipelines/steps/`, and
-  `infrastructure/templates/<name>/configuration/[<customer>/]` are contract folders.
-- **Semantic folders** — a _reader_ infers the meaning; no tool hardcodes the name, and the internal layout is freeform. `docs/`,
-  `docs/notes/**`, `infrastructure/modules/`, and the ad-hoc workspaces under `out/` are semantic folders.
+  or non-functional. `automation/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `pipelines/steps/`, `docs/adr/`,
+  `docs/references/`, and `infrastructure/templates/<name>/configuration/[<customer>/]` are contract folders.
+- **Semantic folders** — a _reader_ infers the meaning; no tool hardcodes the name, and the internal layout is freeform. The topic
+  subfolders of `docs/`, `docs/how-to/`, `infrastructure/modules/`, and the ad-hoc workspaces under `out/` are semantic folders.
 
 Both are conventional — the name infers the meaning either way. The distinction tells you the cost of getting a name wrong: renaming a
 contract folder breaks tooling; renaming a semantic folder is harmless. Know which kind you are touching.
@@ -160,7 +160,8 @@ inject dependencies so you can test against fakes. In a mono-repo's internal too
   you to find where `$testFolderName` is defined and confirm it is `'tests'`.
 
 The codebase does this consistently: `New-DynamicManifest` hardcodes `'private'`, `Test-Automation` hardcodes `'tests'`, `Import-AllModules`
-filters on `'^\.'`, `Install-VendorModule` hardcodes `'automation/.vendor'`, and `importer.ps1` hardcodes `'.internal'` and `'.vendor'`.
+filters on `'^\.'`, `Install-VendorModule` hardcodes `'automation/.vendor'`, and the importer (`importer.ps1` and its `Invoke-Importer`
+overlay) hardcodes `'.internal'` and `'.vendor'`.
 
 ### Three levels of structure
 
@@ -185,7 +186,7 @@ a reader infers it (_semantic_).
 | Directory         | Kind     | Meaning                                                                                                                     | Programmed against by                                     |
 | ----------------- | -------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
 | `automation/`     | contract | Module system root — all PowerShell modules and infrastructure (Levels 2–3)                                                 | `importer.ps1`, `Test-Automation`, `Install-VendorModule` |
-| `docs/`           | semantic | Documentation — `adr/` decision records and `notes/` working notes                                                          | Human consumption; ADR section + file-naming convention   |
+| `docs/`           | mixed    | Documentation — `adr/` decision records, `references/` reference articles, `how-to/` guides, `.assets/` diagrams            | `Build-AdrIndex`, `Build-Readme`; human consumption       |
 | `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                                          | Bicep build/deploy tooling, `Get-BicepTemplates`          |
 | `pipelines/`      | contract | Azure DevOps YAML pipelines, per-kind templates, and the runner                                                             | Azure DevOps runner, `Invoke-AdoScript.ps1`               |
 | `contracts/`      | contract | External-facing API contracts (versioned) — `<name>/v<N>/`; see [api-contracts](api-contracts.md)                           | Contract tests; contract producers/consumers              |
@@ -193,15 +194,20 @@ a reader infers it (_semantic_).
 | `.github/`        | contract | GitHub Actions — `workflows/`, actions, templates                                                                           | GitHub Actions runner                                     |
 | `.vscode/`        | contract | Managed, generated editor config — every file reproduced on import; see [generated-root-configs](generated-root-configs.md) | VS Code; `Build-RootConfig`                               |
 | `.claude/`        | contract | Claude Code project config — `CLAUDE.md`, `CLAUDE.local.md`, `settings.json`                                                | Claude Code                                               |
+| `.cspell/`        | contract | Generated cspell dictionaries — one `<category>.txt` per `terminology.yml` category; only `.gitkeep` is committed           | `cspell.yml`; `Build-TerminologyDictionary`               |
 | `.git/`           | —        | Git's own store. The boundary of _our_ conventions: git owns it, we do not document it.                                     | Git                                                       |
 
 `automation/` is the only root the module system interacts with; its internals are Levels 2–3 below. The rest separate concerns at the repo
 level, and each has its own conventional sub-layout:
 
-**`docs/`** holds `adr/` — Architecture Decision Records grouped into the six sections `principles/`, `design/`, `automation/`,
-`pipelines/`, `azure/`, and `repository/` (this ADR) — and `notes/`, freeform working notes. Both are **markdown-only**: the subfolders
-under `docs/notes/` (`Architecture/`, `hubspoke/`, `systemet/`, …) are author-organized topic buckets whose names and casing are the
-author's, but the files are `.md`.
+**`docs/`** holds four folders. `adr/` is the Architecture Decision Records, one subfolder per domain declared in
+`automation/Catzc.Base.Docs/configs/adrs.yml`: `principles/`, `process/`, `design/`, `flow/`, `automation/`, `configuration/`, `pipelines/`,
+`github/`, `azure/`, `repository/` (this ADR), and `research/`. Its `index.md` is generated from that registry and describes each domain, so
+the registry — not this paragraph — is the authoritative domain list. `references/` holds the authored reference articles, including the
+sources the generated READMEs link to ([generated-readmes](generated-readmes.md)) and the DORA research reference under `references/dora/`.
+`how-to/` holds task-oriented guides. These three are **markdown-only**; their subfolders are author-organized topic buckets. The
+dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown content under `docs/`,
+set apart by the dot-prefix convention (ADR-REPO-FOLDERS:4).
 
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's
@@ -210,8 +216,8 @@ the configuration root is the shared platform's, and a subfolder is always a cus
 identity is a separate `short_name`. See [the data model](../azure/azure-data-model.md) and
 [the naming standard](../azure/azure-naming-standard.md).
 
-**`pipelines/`** is flat: pipelines are named `<type>-<name>.yaml` (`cron`/`ci`/`cd`/`deploy`/`input`) directly in the folder, the runner
-`Invoke-AdoScript.ps1` sits at the root, and reusable fragments live in per-kind folders whose names are the include-kind contract —
+**`pipelines/`** is flat: pipelines are named `<type>-<name>.yaml` (`cron`/`ci`/`cd`/`cde`/`deploy`/`input`) directly in the folder, the
+runner `Invoke-AdoScript.ps1` sits at the root, and reusable fragments live in per-kind folders whose names are the include-kind contract —
 `steps/`, `jobs/`, `stages/`, `variables/`, `extends/`. See [pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md).
 
 **`contracts/`** holds the repository's **external-facing API contracts** — binding interface definitions used for **contract testing**,
@@ -230,8 +236,8 @@ the directory tracked when otherwise empty and marks it as a conventional contra
 (`Get-OutputRoot`); the subfolders inside are ad-hoc workspaces with no fixed names. Nothing under `out/` is source. See
 [dedicated-output-directory](dedicated-output-directory.md).
 
-**Dot-prefixed roots** (`.github/`, `.vscode/`, `.claude/`, `.git/`) are infrastructure/tooling — the same convention the dot-prefix carries
-inside `automation/` (Level 2): a leading dot means "infrastructure, not content."
+**Dot-prefixed roots** (`.github/`, `.vscode/`, `.claude/`, `.cspell/`, `.git/`) are infrastructure/tooling — the same convention the
+dot-prefix carries inside `automation/` (Level 2): a leading dot means "infrastructure, not content."
 
 The repository _root_ is itself conventional beyond its folders: `importer.ps1` (the entry point), `.editorconfig`, `.gitattributes`,
 `.gitignore`, `.mcp.json`, `dotnet-tools.json`, `cspell.yml` (the repo-wide spell-check dictionary), and `LICENSE` each have a fixed,
@@ -243,7 +249,7 @@ architectural decision — an amendment to this ADR — not a casual act.
 
 | Convention             | Meaning                                         | Examples                                                            |
 | ---------------------- | ----------------------------------------------- | ------------------------------------------------------------------- |
-| Dot-prefixed directory | Infrastructure — invisible to module discovery  | `.internal/`, `.vendor/`, `.scriptanalyzer/`                        |
+| Dot-prefixed directory | Infrastructure — invisible to module discovery  | `.internal/`, `.vendor/`, `.scriptanalyzer/`, `.compiled/`          |
 | Non-dot directory      | Module — auto-discovered by `Import-AllModules` | `Catzc.Base.Asserts/`, `Catzc.Base.Writers/`, `Catzc.Tooling.Core/` |
 
 `Import-AllModules` filters with `$_.Name -notmatch '^\.'`. This is the entire module discovery mechanism: if the folder name starts with a
@@ -262,8 +268,8 @@ Every module directory follows the same internal layout:
 | `*.ps1` (root)    | Public exported functions — file name = function name                                                             | `New-DynamicManifest` (derives `FunctionsToExport`)            |
 | `private/`        | Private helper functions — loaded, not exported                                                                   | `New-DynamicManifest` (scans for `NestedModules`)              |
 | `tests/`          | Pester test files (`*.Tests.ps1`) plus their fixtures in `tests/assets/`                                          | `Test-Automation` (discovers test paths)                       |
-| `assets/`         | Consumable assets the module ships — templates, scripts, schemas (not test fixtures, not the module's own config) | Module functions via `$PSScriptRoot`                           |
-| `configs/`        | The module's own internal config (flat kebab-case `.yml`) the module loads to configure itself                    | Module functions via `$PSScriptRoot`                           |
+| `assets/`         | Consumable assets the module ships — templates, scripts, schemas (not test fixtures, not the module's own config) | Module functions via `Get-CatzcModuleRoot`                     |
+| `configs/`        | The module's own internal config (flat kebab-case `.yml`) the module loads to configure itself                    | `Get-Config` (via `Get-CatzcModuleRoot`)                       |
 | `types/`          | Native C# sources (`*.cs`) autoloaded as .NET types                                                               | `Import-CSharpTypes` (one combined assembly, loaded at import) |
 
 **`private/`** contains `.ps1` files that follow the same one-function-per-file convention as root files. They are loaded into the module's
@@ -300,19 +306,21 @@ so the folder cannot collect a mislocated or misnamed test.
 scripts, templates, JSON schemas, reference data, embedded resources. Test-only fixtures do **not** belong here — they live in
 `tests/assets/`, packaged with the tests that use them. The bootstrap module does not scan this folder. `New-DynamicManifest` does not look
 here. `Test-Automation` does not look here. The one-function-per-file validator does not look here. Module functions reference assets via
-`$PSScriptRoot` (e.g., `Join-Path $PSScriptRoot 'assets/template.bicep'`, or `Join-Path $PSScriptRoot '../assets/template.bicep'` from
-`private/`). Module authors may create subdirectories inside `assets/` to organize content — the internal structure is freeform. The
-module's own configuration does **not** belong here; it lives in `configs/`.
+`Get-CatzcModuleRoot` (e.g., `Get-CatzcModuleRoot -ChildPath 'assets/template.bicep'`, the same call from a root or a `private/` function),
+which resolves under the active code root in source mode and in the installed build alike
+([never-depend-on-pwd](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd5),
+[internal-asset-dependencies](../automation/internal-asset-dependencies.md)). Module authors may create subdirectories inside `assets/` to
+organize content — the internal structure is freeform. The module's own configuration does **not** belong here; it lives in `configs/`.
 
 **`configs/`** holds the module's own internal configuration — the checked-in YAML a module loads to configure its own behaviour. Each entry
 is a flat, kebab-case `.yml` file (`<kebab-name>.yml`, never `.yaml`); the folder is flat, with no subdirectories. Module functions read
-these files via `$PSScriptRoot` (e.g., `Join-Path $PSScriptRoot 'configs/tools.yml'` resolving to
-`automation/Catzc.Tooling.Core/configs/tools.yml`, or `Join-Path $PSScriptRoot '../configs/tools.yml'` from `private/`). A module's own
-config goes in `configs/`, and `assets/` is reserved for templates, scripts, schemas, fixtures, and other consumable assets. Live examples:
-`Catzc.Tooling.Core/configs/tools.yml`, `Catzc.Base.ModuleSystem/configs/dependencies.yml`,
-`Catzc.Azure.DevOps/configs/{ado,pipeline-env}.yml`, `Catzc.Azure.Templates/configs/{azure,network}.yml`. This is enforced by
+these files through `Get-Config`, which locates them under the module's folder in the active code root (in source mode,
+`Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'` in `Catzc.Tooling.Core` resolves to `automation/Catzc.Tooling.Core/configs/tools.yml`).
+A module's own config goes in `configs/`, and `assets/` is reserved for templates, scripts, schemas, fixtures, and other consumable assets.
+Live examples: `Catzc.Tooling.Core/configs/tools.yml`, `Catzc.Base.ModuleSystem/configs/dependencies.yml`,
+`Catzc.Azure.DevOps/configs/{ado,pipeline-env}.yml`, `Catzc.Azure/configs/{azure,network}.yml`. This is enforced by
 `Test-FolderConventions.Tests.ps1`, which allows `configs/` as a module subdirectory, requires every entry to be a flat kebab-case `.yml`
-file, and fails any module that still keeps an `assets/config/` directory. Files in `configs/` are read through the shared
+file, and fails any module that keeps an `assets/config/` directory. Files in `configs/` are read through the shared
 `Get-Config -Config <name>` reader rather than bespoke per-reader loaders — see
 [module-config-loading](../configuration/module-config-loading.md).
 
@@ -350,8 +358,8 @@ folder must exist.
 - **`Test-Automation.Tests.ps1`** — validates that every `.ps1` file in a module follows the one-function-per-file convention. It scans only
   the module root and `private/` — files in `assets/` or other folders are not subject to this validation.
 
-- **`importer.ps1`** — hardcodes `automation/`, `.internal/`, and `.vendor/`. These are the bootstrapping paths. They do not come from
-  configuration.
+- **`importer.ps1`** and its **`Invoke-Importer`** overlay — hardcode `automation/`, `.internal/`, and `.vendor/`. These are the
+  bootstrapping paths. They do not come from configuration.
 
 - **`Test-FolderConventions.Tests.ps1`** — enforces the module-internal layout: every module subdirectory must be one of `private/`,
   `tests/`, `assets/`, `configs/`, or `types/`; every entry in `configs/` must be a flat, kebab-case `.yml` file (no subdirectories, never

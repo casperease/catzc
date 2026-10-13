@@ -15,7 +15,8 @@
 
     Mirrors the Test-Spelling / Test-Terminology / Test-LogicTestIdentity gate shape (ADR-AUTO-VERBS:7): throws on
     findings, returns a result object under -PassThru. It reads the shipped config, so a Pester test wrapping
-    it is `integrity`.
+    it is `integrity`. A source-tree gate: the fixture identities live in the repository's tests/, so it throws
+    in build mode (Assert-SourceTree).
 .PARAMETER Path
     Config files to check. Defaults to every module `configs/*.yml` (except the terminology registry) and every
     `infrastructure/**` yml.
@@ -31,6 +32,9 @@ function Test-ConfigIdentityHygiene {
 
         [switch] $PassThru
     )
+
+    # The forbidden set comes from the test fixtures, which exist only in the catzc source tree.
+    Assert-SourceTree
 
     $fixture = [System.Collections.Generic.HashSet[string]]::new(
         [string[]] (Get-FixtureIdentityTokens), [System.StringComparer]::OrdinalIgnoreCase)

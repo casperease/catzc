@@ -22,6 +22,9 @@
                          contract used by Pester against a fresh tmp directory.
       - -Force           skip the pre-scan and overwrite.
 
+    The copy is of the source tree (per-function files, tests/, root packages), so it stops with a named error
+    in build mode (Assert-SourceTree, ADR-DSGN-RUNMODE).
+
     See docs/adr/configuration/module-config-loading.md (files.yml), native-csharp-types.md (ADR-AUTO-TYPES:9), and
     path-representation.md.
 .PARAMETER Destination
@@ -73,6 +76,8 @@ function Copy-Automation {
 
         [switch] $DryRun
     )
+
+    Assert-SourceTree
 
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 

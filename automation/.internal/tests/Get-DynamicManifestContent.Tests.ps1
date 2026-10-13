@@ -33,6 +33,119 @@ Describe 'Get-DynamicManifestContent' -Tag 'L0', 'logic' {
     }
 }
 
+Describe 'New-DynamicManifest' -Tag 'L0', 'logic' {
+    BeforeAll {
+        Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
+
+        # A fixture module folder on disk: two public files and one private file.
+        function New-WidgetModule {
+            param([string] $Name)
+            $path = Join-Path $TestDrive $Name
+            [System.IO.Directory]::CreateDirectory((Join-Path $path 'private')) | Out-Null
+            foreach ($file in 'Get-WidgetB.ps1', 'Get-WidgetA.ps1', 'private/Get-WidgetPart.ps1') {
+                [System.IO.File]::WriteAllText((Join-Path $path $file), '')
+            }
+            $path
+        }
+    }
+
+    AfterAll {
+        Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue
+    }
+
+    It 'derives the lists from the folder by default (private first, each group ordinal-sorted)' {
+        $path = New-WidgetModule 'DerivedWidget'
+        $manifest = InModuleScope Catzc.Internal.Bootstrap -Parameters @{ P = $path } { param($P) New-DynamicManifest -ModulePath $P }
+        $expected = InModuleScope Catzc.Internal.Bootstrap {
+            Get-DynamicManifestContent -NestedModule @('private/Get-WidgetPart.ps1', 'Get-WidgetA.ps1', 'Get-WidgetB.ps1') -FunctionToExport @('Get-WidgetA', 'Get-WidgetB')
+        }
+        $manifest | Should -Be (Join-Path $path 'DerivedWidget.psd1')
+        [System.IO.File]::ReadAllText($manifest) | Should -BeExactly $expected
+    }
+
+    It 'emits the explicit lists verbatim and does not enumerate the folder' {
+        $path = New-WidgetModule 'MergedWidget'
+        $manifest = InModuleScope Catzc.Internal.Bootstrap -Parameters @{ P = $path } {
+            param($P) New-DynamicManifest -ModulePath $P -NestedModule 'MergedWidget.ps1' -FunctionToExport 'Get-WidgetA', 'Get-WidgetB'
+        }
+        $expected = InModuleScope Catzc.Internal.Bootstrap {
+            Get-DynamicManifestContent -NestedModule @('MergedWidget.ps1') -FunctionToExport @('Get-WidgetA', 'Get-WidgetB')
+        }
+        $text = [System.IO.File]::ReadAllText($manifest)
+        $text | Should -BeExactly $expected
+        $text | Should -Not -Match 'private/'
+    }
+
+    It 'writes the explicit manifest canonically: UTF-8 without BOM, LF, one trailing newline' {
+        $path = New-WidgetModule 'CanonicalWidget'
+        $manifest = InModuleScope Catzc.Internal.Bootstrap -Parameters @{ P = $path } {
+            param($P) New-DynamicManifest -ModulePath $P -NestedModule 'CanonicalWidget.ps1' -FunctionToExport 'Get-WidgetA'
+        }
+        $bytes = [System.IO.File]::ReadAllBytes($manifest)
+        $bytes[0] | Should -Not -Be 0xEF
+        $bytes | Should -Not -Contain ([byte]13)
+        $text = [System.IO.File]::ReadAllText($manifest)
+        $text.EndsWith("`n") | Should -BeTrue
+        $text.EndsWith("`n`n") | Should -BeFalse
+    }
+
+    It 'honours -ExportPrivates with explicit lists (exports every function)' {
+        $path = New-WidgetModule 'ExportAllWidget'
+        $manifest = InModuleScope Catzc.Internal.Bootstrap -Parameters @{ P = $path } {
+            param($P) New-DynamicManifest -ModulePath $P -NestedModule 'ExportAllWidget.ps1' -FunctionToExport 'Get-WidgetA' -ExportPrivates
+        }
+        [System.IO.File]::ReadAllText($manifest) | Should -Match "FunctionsToExport = @\('\*'\)"
+    }
+
+    It 'writes only on drift (an unchanged manifest is not rewritten)' {
+        $path = New-WidgetModule 'DriftWidget'
+        $manifest = InModuleScope Catzc.Internal.Bootstrap -Parameters @{ P = $path } {
+            param($P) New-DynamicManifest -ModulePath $P -NestedModule 'DriftWidget.ps1' -FunctionToExport 'Get-WidgetA'
+        }
+        $stamp = [datetime]'2000-01-01'
+        [System.IO.File]::SetLastWriteTimeUtc($manifest, $stamp)
+        InModuleScope Catzc.Internal.Bootstrap -Parameters @{ P = $path } {
+            param($P) New-DynamicManifest -ModulePath $P -NestedModule 'DriftWidget.ps1' -FunctionToExport 'Get-WidgetA'
+        } | Out-Null
+        [System.IO.File]::GetLastWriteTimeUtc($manifest) | Should -Be $stamp
+    }
+
+    It 'requires both explicit lists together' {
+        $path = New-WidgetModule 'HalfWidget'
+        { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ P = $path } { param($P) New-DynamicManifest -ModulePath $P -NestedModule 'HalfWidget.ps1' } } |
+            Should -Throw
+    }
+}
+
+Describe 'New-DynamicManifest explicit lists load a merged module' -Tag 'L1', 'logic' {
+    # A merged module — every function in one <Module>.ps1 — loads through its explicit manifest with only the
+    # listed publics exported and the private still callable from them (shared module scope).
+    BeforeAll {
+        Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
+        $script:moduleName = 'GadgetMerged' + [guid]::NewGuid().ToString('N').Substring(0, 8)
+        $script:path = Join-Path $TestDrive $moduleName
+        [System.IO.Directory]::CreateDirectory($path) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $path "$moduleName.ps1"), ((@("function Get-GadgetPart { 'part' }", 'function Get-Gadget { Get-GadgetPart }') -join "`n") + "`n"))
+        $manifest = InModuleScope Catzc.Internal.Bootstrap -Parameters @{ P = $path; N = $moduleName } {
+            param($P, $N) New-DynamicManifest -ModulePath $P -NestedModule "$N.ps1" -FunctionToExport 'Get-Gadget'
+        }
+        $script:module = Import-Module $manifest -PassThru -Force
+    }
+
+    AfterAll {
+        Remove-Module $moduleName -Force -ErrorAction SilentlyContinue
+        Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue
+    }
+
+    It 'exports only the listed functions' {
+        @($module.ExportedFunctions.Keys) | Should -Be @('Get-Gadget')
+    }
+
+    It 'keeps the unlisted function private yet callable from an exported one' {
+        & $module { Get-Gadget } | Should -Be 'part'
+    }
+}
+
 Describe 'Get-DynamicManifestContent is formatter-stable' -Tag 'L2', 'integrity' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force

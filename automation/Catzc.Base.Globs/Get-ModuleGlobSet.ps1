@@ -1,10 +1,10 @@
 <#
 .SYNOPSIS
     Returns the DERIVED globsets — the live/tests aspect sets per module folder, one set per internal .psm1
-    module, the reserved infra umbrellas, and the 'module-leftovers' catch-all (ADR-REPO-PROTGLOB, ADR-ASPECT).
+    module, the reserved infra umbrellas, and the 'module-leftovers' catch-all (ADR-REPO-PROTGLOB, ADR-DSGN-ASPECT).
 .DESCRIPTION
     Derived sets are never written in globs.yml: the folder (or file) is the registration. Every non-dot
-    module folder under automation/ partitions into live/tests aspect sets (ADR-ASPECT), named by the
+    module folder under automation/ partitions into live/tests aspect sets (ADR-DSGN-ASPECT), named by the
     readme-kebab convention plus the aspect (Catzc.Base.Globs -> 'catzc-base-globs-live' and
     'catzc-base-globs-tests') — 'live' the module's shippable surface (functions, private helpers, types,
     configs), 'tests' its verification harness; the two are disjoint and cover the folder. The whole-module
@@ -15,6 +15,9 @@
     'internal', 'vendor', 'compiled', 'scriptanalyzer'. Derived sets scope protection and blast radius
     (ADR-REPO-PROTGLOB:7). A declared globset may not shadow a derived name; the collision throws here, naming
     both sides.
+
+    The derived sets are repository-relative globs over the source tree's module folders (git-tracked
+    paths), so it stops with a named error in build mode (Assert-SourceTree, ADR-DSGN-RUNMODE).
 .PARAMETER Name
     A module folder name ('Catzc.Base.Globs'), an internal module name ('Catzc.Internal.Bootstrap'), the
     kebab form of either ('catzc-base-globs', 'catzc-internal-bootstrap'), or a reserved infra name
@@ -41,6 +44,8 @@ function Get-ModuleGlobSet {
         [string[]] $Name
     )
 
+    Assert-SourceTree
+
     $automationRoot = [System.IO.Path]::Combine((Get-RepositoryRoot), 'automation')
     $config = Get-Config -Config globs
     $declaredNames = $config.Names
@@ -64,7 +69,7 @@ function Get-ModuleGlobSet {
         $derived[$reservedName] = $set
     }
 
-    # The aspect convention (ADR-ASPECT): each module folder partitions into disjoint, exhaustive aspect sets
+    # The aspect convention (ADR-DSGN-ASPECT): each module folder partitions into disjoint, exhaustive aspect sets
     # (live/tests by default) from the 'aspects' variant. The whole-module set is the union of its aspects
     # (a shipped module = 1 live + 1 tests, isolated: a test-only change never re-keys live). Compiled per
     # unit root by AspectPartition.

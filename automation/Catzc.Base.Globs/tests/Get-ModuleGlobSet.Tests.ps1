@@ -24,9 +24,11 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
 
     BeforeEach {
         Mock Get-Config { $script:config } -ModuleName Catzc.Base.Globs
+        # The fake root is not the loaded code root, so the run mode reads 'build'; the guard is the seam.
+        Mock Assert-SourceTree -ModuleName Catzc.Base.Globs { }
     }
 
-    It 'derives live/tests aspect sets per module folder, partitioning the module tree (ADR-ASPECT)' {
+    It 'derives live/tests aspect sets per module folder, partitioning the module tree (ADR-DSGN-ASPECT)' {
         $aspects = @(Get-ModuleGlobSet -Name Catzc.Base.Alpha)
         ($aspects.Name | Sort-Object) | Should -Be @('catzc-base-alpha-live', 'catzc-base-alpha-tests')
         $live = $aspects | Where-Object Name -eq 'catzc-base-alpha-live'
@@ -102,5 +104,12 @@ Describe 'GlobsConfig reserved names' -Tag 'L0', 'logic' {
                     globsets = @{ vendor = @{ description = 'd'; layer = 'loose-fileset'; include = @('docs/**') } }
                 })
         } | Should -Throw '*reserved*'
+    }
+}
+
+Describe 'Get-ModuleGlobSet — build mode' -Tag 'L0', 'logic' {
+    It 'stops with a named error when the session runs a built package' {
+        Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
+        { Get-ModuleGlobSet } | Should -Throw '*Get-ModuleGlobSet operates on the catzc source tree*'
     }
 }

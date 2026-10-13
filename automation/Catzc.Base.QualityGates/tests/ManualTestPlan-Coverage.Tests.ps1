@@ -1,8 +1,9 @@
 # Keeps docs/how-to/automation/manual-test-plan.md in sync with the suite. This is itself an integrity check
 # (it reads the real repo), so per ADR-AUTO-TEST:16 it derives its fact by PARSING the test files with the AST — never by
 # booting Pester discovery (a nested Invoke-Pester inside a run is unsafe). It is self-referential: its own
-# Describe is integrity-tagged, so the plan must list it too (row 34).
-Describe 'Manual test plan covers every integrity check' -Tag 'L1', 'integrity' {
+# Describe is integrity-tagged, so the plan must list it too (row 34). source-only: it reads the repository's test
+# files and the plan document, which give the same answer in both run modes.
+Describe 'Manual test plan covers every integrity check' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         $repoRoot = $env:RepositoryRoot
         $automationRoot = Join-Path $repoRoot 'automation'

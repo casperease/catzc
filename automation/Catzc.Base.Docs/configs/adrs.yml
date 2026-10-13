@@ -3,7 +3,8 @@
 # Single source of truth for how the decision space is organised and cited. It declares:
 #   domains:  one per docs/adr/<area>/ folder — the unit the dependency graph connects. Each carries a
 #             `code` (2-4 letter DEFAULT domain code that composes the citation ADR-<code>-<NAME>), a `role`
-#             (its function in the system), and `depends_on` (the acyclic domain DAG, rendered via
+#             (its function in the system), a `description` (the reader-facing paragraph rendered under the
+#             domain's heading in index.md), and `depends_on` (the acyclic domain DAG, rendered via
 #             Get-AdrDomainEdges | ConvertTo-AdrDomainDiagram, mirroring the module dependency graph).
 #   rulesets: within a domain, keyed by INTERNAL kebab name (= the ADR file slug). Each declares its full
 #             EXTERNAL citation code (`ADR-<DC>-<NAME>`, fully spelled) and, when the code body is a
@@ -18,6 +19,10 @@ domains:
   principles:
     code: PRIN # domain default — composes ADR-PRIN-<NAME>
     role: axioms # the non-negotiable design axioms every other domain specialises
+    description: >-
+      The design axioms every other domain specialises: everything as code, reduce variability, reduce waste, poka-yoke, and one living
+      version. They rest only on the DORA research, no later domain overrides them, and every other domain cites them (`ADR-PRIN-*`) as the
+      reason for its own decisions.
     depends_on: [research]
     rulesets:
       everything-as-code: { external: ADR-PRIN-EAC, terminology: eac }
@@ -29,6 +34,11 @@ domains:
   process:
     code: PROC
     role: optimisable # our own continuously-improved way of working (ADR-PROC-KAIZEN); Design/Exploration + ASM
+    description: >-
+      How the team works: the Agile Manifesto's values and principles, lean flow as the Toyota Production System maps to software, and one
+      shared vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`ADR-PROC-KAIZEN`); the design,
+      flow, and implementation domains put its practices into effect — stopping the line, building quality in, pulling work, and draining
+      queues.
     depends_on: [research, principles]
     rulesets:
       agile: { external: ADR-PROC-AGILE }
@@ -46,6 +56,11 @@ domains:
   design:
     code: DSGN
     role: architecture # how the platform is shaped
+    description: >-
+      How the platform is shaped: tracks as the repository's root concerns, a thin CLI platform over a vendor substrate, safe self-service,
+      the commit lifecycle and its stable sync point, the audited server remote with pull-request ingress, the visual grammar of the
+      value-chain diagrams, and the toolset's two run modes (source and build). It builds on research, principles, and process; the flow and
+      implementation domains realise it.
     depends_on: [research, principles, process]
     rulesets:
       tracks: { external: ADR-DSGN-TRACK }
@@ -54,10 +69,17 @@ domains:
       visual-design: { external: ADR-DSGN-VISUAL }
       commit-lifecycle: { external: ADR-DSGN-LIFE }
       server-remote-integration: { external: ADR-DSGN-REMOTE }
+      run-modes: { external: ADR-DSGN-RUNMODE, terminology: runmode }
+      module-aspects: { external: ADR-DSGN-ASPECT }
 
   flow:
     code: FLOW-CD # compound domain code — the root ADR cites ADR-FLOW-CD, the rest ADR-FLOW-CD-<NAME>
     role: architecture # the platform-agnostic flow model that ADO (PIPE) and GitHub (GH) implement
+    description: >-
+      The vendor-neutral delivery-flow model: continuous integration as a discipline with a 5–10 minute integration budget, the closed set of
+      pipeline types (CRON, CI, CD, CDe, DEPLOY, INPUT) keyed together by one immutable tagged artifact, how pipelines invoke automation and
+      detect their context, and how globsets project into native trigger filters. The pipelines (Azure DevOps) and github domains implement
+      it.
     depends_on: [research, principles, process, design]
     rulesets:
       cd-discipline-and-promotion-flow: { external: ADR-FLOW-CD }
@@ -69,6 +91,12 @@ domains:
   automation:
     code: AUTO
     role: implementation # the CLI/module system that enacts the decisions
+    description: >-
+      The catzc CLI and module system and the rules for building it: devbox/pipeline parity, one function per file, open/closed growth,
+      fail-fast assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, test automation, and the
+      merged, installable build.
+      Language layers live in `powershell/` and `BCL/` (native C# types), with `go/` and `python/` reserved. It turns the research,
+      principles, process, and design domains into enforced code; the pipelines, github, and azure domains build on it.
     depends_on: [research, principles, process, design]
     rulesets:
       devbox-pipeline-parity: { external: ADR-AUTO-PARITY }
@@ -97,6 +125,7 @@ domains:
       protected-globs: { external: ADR-REPO-PROTGLOB, code: REPO, terminology: protglob }
       managed-guids: { external: ADR-AUTO-GUIDS, terminology: guids }
       platform-bundle: { external: ADR-AUTO-BUNDLE }
+      internal-asset-dependencies: { external: ADR-AUTO-ASSETDEP, terminology: assetdep }
       vendor-toolset-dependencies: { external: ADR-AUTO-VENDOR }
       prefer-az-cli: { external: ADR-AUTO-AZCLI, terminology: azcli }
       one-function-per-file: { external: ADR-AUTO-ONEFUNC, terminology: onefunc }
@@ -104,6 +133,7 @@ domains:
       error-handling: { external: ADR-AUTO-ERROR }
       avoid-using-semicolons: { external: ADR-AUTO-NOSEMI, terminology: nosemi }
       console-output-matters: { external: ADR-AUTO-CONSOLE }
+      announce-state-changes: { external: ADR-AUTO-ANNOUNCE }
       prefer-foreach-over-foreach-object: { external: ADR-AUTO-FOREACH }
       respect-pwsh-verb-rules: { external: ADR-AUTO-VERBS }
       spell-out-names: { external: ADR-AUTO-SPELL }
@@ -124,6 +154,10 @@ domains:
   configuration:
     code: CONF
     role: implementation # how configuration is loaded, addressed, and validated across modules
+    description: >-
+      How a module's `configs/<name>.yml` files are read, validated, and addressed: one public reader, `Get-Config`, that discovers a config
+      by its global name, caches it per file, and validates it in its owning module's scope, plus `global.<config>.<key>` addresses that
+      point into committed config by reference. It gives every implementation domain its single way to read configuration.
     depends_on: [research, principles]
     rulesets:
       module-config-loading: { external: ADR-CONF-LOADING }
@@ -132,6 +166,10 @@ domains:
   pipelines:
     code: PIPE
     role: implementation # minimal ADO extensions over the general flow model (ADR-FLOW-*)
+    description: >-
+      The Azure DevOps extensions to the flow model: how ADO REST calls select and prove their credentials, how PowerShell sets pipeline
+      output variables, how pipelines and template folders are named and placed under `pipelines/`, and when an ADO YAML template is
+      warranted. It binds the vendor-neutral `flow/` rules to Azure DevOps without redefining them; `github/` is its GitHub counterpart.
     depends_on: [research, principles, process, design, automation, flow]
     rulesets:
       dual-authentication: { external: ADR-PIPE-AUTH }
@@ -142,6 +180,10 @@ domains:
   github:
     code: GH
     role: implementation # minimal GitHub extensions over the general flow model (.github/workflows placement, etc.)
+    description: >-
+      The GitHub extensions to the flow model: the manually dispatched release workflow that builds the catzc package and publishes it to
+      GitHub Releases, GitHub Packages, and optionally the PowerShell Gallery. It applies the `flow/` rules to GitHub Actions under
+      `.github/workflows/` and publishes the bundle the automation domain defines; `pipelines/` is its Azure DevOps counterpart.
     depends_on: [research, principles, process, design, automation, flow]
     rulesets:
       github-release: { external: ADR-GH-RELEASE }
@@ -149,6 +191,11 @@ domains:
   azure:
     code: AZ
     role: implementation # the Azure vendor substrate model
+    description: >-
+      The Azure substrate model catzc deploys onto: the identity data model (`azure.yml` tenants, environments, and subscriptions), the
+      per-template configuration tree under `infrastructure/templates/`, the customer catalogue (`customer.yml`), the network IP plan
+      (`network.yml`), and the deterministic resource-naming standard. It applies the principles and design domains to one vendor, enforced
+      by the `Catzc.Azure*` modules.
     depends_on: [research, principles, design, automation]
     rulesets:
       azure-data-model: { external: ADR-AZ-DATAMOD, terminology: datamod }
@@ -159,6 +206,11 @@ domains:
   repository:
     code: REPO
     role: implementation # how the repository tree itself is organised and generated
+    description: >-
+      How the repository tree is laid out, formatted, and generated: conventional folder names at every level, the single `out/` output
+      directory, one formatting standard for every file type, versioned external contracts under `contracts/`, READMEs and root configs
+      generated from one source, fictional documentation examples, the separation of design, test, and live vocabulary, the controlled
+      vocabulary of defined terms, and repo-wide variants.
     depends_on: [research, principles, design]
     rulesets:
       conventional-folders: { external: ADR-REPO-FOLDERS }
@@ -170,10 +222,16 @@ domains:
       documentation-examples: { external: ADR-REPO-EXAMPLE }
       repo-variants: { external: ADR-REPO-VARIANT }
       domain-language-separation: { external: ADR-REPO-LANG }
+      controlled-vocabulary: { external: ADR-REPO-VOCAB }
 
   research:
     code: DORA # 4-letter domain code; composes ADR-DORA-<NAME> — a concise, precise capability name (no doraXXX body)
     role: reference # trusted external validation points (DORA) — depended-on-by, never a dependency
+    description: >-
+      The repository's core theoretical construct: the DORA research program, held as one ADR-style record per DORA capability, each with
+      its own `ADR-DORA-<NAME>` rule domain, beside the cross-referenceable research reference in `docs/references/dora/`. It is trusted
+      external validation — every other domain depends on it and it depends on none; the others cite it through their `dora-explains.md` files and
+      `ADR-DORA-*` citations.
     depends_on: []
     # terminology tokens (the shared `dora` code token + any non-word name bodies) are reconciled in Stage 2.
     rulesets:

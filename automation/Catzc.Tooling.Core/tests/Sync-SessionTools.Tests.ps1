@@ -7,6 +7,7 @@ Describe 'Sync-SessionTools' -Tag 'L0', 'logic' {
         Mock Get-Config { [ordered]@{ alpha = @{}; beta = @{} } } -ParameterFilter { $Config -eq 'tools' } -ModuleName Catzc.Tooling.Core
         Mock Get-ToolConfig { [pscustomobject]@{ command = $Tool; session_path_hints = @() } } -ModuleName Catzc.Tooling.Core
         Mock Resolve-SessionToolHint { $null } -ModuleName Catzc.Tooling.Core
+        Mock Resolve-SessionToolHost { $null } -ModuleName Catzc.Tooling.Core
         # Scope the Get-Command mock to our synthetic tool names so Pester's own Get-Command calls fall through.
         Mock Get-Command { [pscustomobject]@{ Source = "C:\managed\$Name.exe" } } -ParameterFilter { $Name -in 'alpha', 'beta' } -ModuleName Catzc.Tooling.Core
     }
@@ -71,6 +72,24 @@ Describe 'Sync-SessionTools' -Tag 'L0', 'logic' {
         Should -Invoke Resolve-SessionToolHint -ModuleName Catzc.Tooling.Core -Times 2
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Core -Times 1 -ParameterFilter {
             $Message -like 'Session tools not managed by the installer layer:*'
+        }
+    }
+
+    It 'runs the host the probes select, and judges ownership on that host' {
+        # The first PATH match is a foreign host; the probe-selected host is the managed one and reads as owned.
+        Mock Test-ToolLocationManaged { $Location -like 'C:\managed\sdk\*' } -ModuleName Catzc.Tooling.Core
+        Mock Get-Command { [pscustomobject]@{ Source = "C:\machine\$Name.exe" } } -ParameterFilter { $Name -in 'alpha', 'beta' } -ModuleName Catzc.Tooling.Core
+        Mock Resolve-SessionToolHost { [pscustomobject]@{ Source = "C:\managed\sdk\$($Config.command).exe" } } -ModuleName Catzc.Tooling.Core
+        Sync-SessionTools
+        Should -Invoke Resolve-SessionToolHost -ModuleName Catzc.Tooling.Core -Times 2
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Core -Times 0
+    }
+
+    It 'keeps the first PATH match when no host satisfies the probes' {
+        Mock Test-ToolLocationManaged { $false } -ModuleName Catzc.Tooling.Core
+        Sync-SessionTools
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Core -Times 1 -ParameterFilter {
+            $Message -like '*alpha (C:\managed\alpha.exe)*'
         }
     }
 

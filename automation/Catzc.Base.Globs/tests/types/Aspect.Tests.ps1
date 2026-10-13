@@ -1,4 +1,4 @@
-# Aspects (ADR-ASPECT): the ordered first-match partition of a unit's tracked files. Compile encodes each
+# Aspects (ADR-DSGN-ASPECT): the ordered first-match partition of a unit's tracked files. Compile encodes each
 # aspect as a leaf scan program (own patterns as include, earlier aspects' patterns as exclude); the last
 # aspect ('**') becomes the non-live catch-all remainder. Validate re-checks disjoint + exhaustive.
 Describe 'Aspect / AspectPartition' -Tag 'L0', 'logic' {

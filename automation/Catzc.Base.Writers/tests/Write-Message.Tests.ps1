@@ -92,6 +92,14 @@ Describe 'Write-Message' -Tag 'L0', 'logic' {
         { Write-Message 'x' -Warning -ForegroundColor Green } | Should -Throw
     }
 
+    It '-NoNewline writes an inline information record (the liveness dot), never a pipeline value' {
+        $piped = Write-Message '.' -NoHeader -NoNewline -InformationVariable iv -InformationAction SilentlyContinue
+        $piped | Should -BeNullOrEmpty
+        $iv | Should -HaveCount 1
+        $iv[0].MessageData.Message | Should -Be '.'
+        $iv[0].MessageData.NoNewLine | Should -BeTrue
+    }
+
     Context '-ForegroundColor accepts rainbow input, side-grading to its base colour' {
         It 'a plain ConsoleColor name still renders that colour' {
             Write-Message 'plain' -ForegroundColor Green -NoHeader -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
@@ -111,7 +119,7 @@ Describe 'Write-Message' -Tag 'L0', 'logic' {
             (($iv | ForEach-Object { [string]$_.MessageData }) -join '') | Should -Match ([regex]::Escape("`e[91m"))   # red
         }
 
-        It "a '<base>-rainbow' bareword side-grades to that base" {
+        It "a 'base-rainbow' bareword side-grades to that base" {
             Write-Message 'based' -ForegroundColor green-rainbow -NoHeader -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
             (($iv | ForEach-Object { [string]$_.MessageData }) -join '') | Should -Match ([regex]::Escape("`e[92m"))   # green
         }

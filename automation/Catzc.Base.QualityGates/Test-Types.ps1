@@ -10,6 +10,8 @@
 
     The matching declared namespace is also what lets the editor's C# toolchain compile and analyze these
     files (no false CA1050), so passing this gate keeps the in-editor feedback aligned with the rules.
+
+    A source-tree gate: it reads the repository's type sources, so it throws in build mode (Assert-SourceTree).
 .PARAMETER Path
     One or more files or directories to check. Defaults to every automation/<Module>/types/*.cs file.
 .PARAMETER PassThru
@@ -28,6 +30,9 @@ function Test-Types {
 
         [switch] $PassThru
     )
+
+    # The .cs sources exist only in the source tree (a build ships the compiled assembly, not the sources).
+    Assert-SourceTree
 
     $root = Get-RepositoryRoot
     $files = [System.Collections.Generic.List[string]]::new()

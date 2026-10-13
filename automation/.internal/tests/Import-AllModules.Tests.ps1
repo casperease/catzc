@@ -21,9 +21,10 @@ BeforeAll {
     "ForEach-Object { [pscustomobject]@{ Name = `$_.Name; Exported = @(`$_.ExportedFunctions.Keys | Sort-Object) } })"
 
     function Invoke-Sandbox {
-        # ONE cold import in a child pwsh; $Capture is evaluated AFTER the import and returned as parsed JSON.
+        # ONE cold import in a child pwsh; $Capture is evaluated AFTER the import and returned as parsed JSON. The
+        # import's announcements are information records (ADR-AUTO-ANNOUNCE:2), so 6>$null keeps them out of the JSON.
         param([Parameter(Mandatory)][string]$Capture)
-        $script = ". '$sandbox/importer.ps1'`n$Capture | ConvertTo-Json -Depth 6 -Compress"
+        $script = ". '$sandbox/importer.ps1' 6>`$null`n$Capture | ConvertTo-Json -Depth 6 -Compress"
         $raw = pwsh -NoProfile -Command $script 2>&1
         if ($LASTEXITCODE -ne 0) {
             throw "Importer failed: $raw"
@@ -189,5 +190,97 @@ Describe 'Bootstrap' -Tag 'L0', 'logic' {
         It 'fails the import, naming the shadowed command' {
             { Invoke-Sandbox -Capture $moduleListExpr } | Should -Throw -ExpectedMessage '*ConvertFrom-Yaml*shadow*'
         }
+    }
+}
+
+# Greedy: one child pwsh dot-sources three importers in sequence (process-global module state), so it consumes the
+# machine beyond its own process and carries an L2-scale budget (ADR-AUTO-TEST:26).
+Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {
+    BeforeAll {
+        # Two complete sandbox roots (importer + .internal + .vendor) — stand-ins for a source tree and a build.
+        # Each holds a module only it ships and a same-named module that reports which root it came from.
+        function New-EvictionRoot {
+            param([string] $Label, [string] $OnlyModule, [string] $OnlyFunction, [string] $OnlyBody)
+            $root = Join-Path ([System.IO.Path]::GetTempPath()) "eviction-$Label-$([guid]::NewGuid().ToString('N'))"
+            $automation = Join-Path $root 'automation'
+            [System.IO.Directory]::CreateDirectory($automation) | Out-Null
+            Copy-Item -Path (Join-Path $env:RepositoryRoot 'importer.ps1') -Destination $root
+            Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.internal') (Join-Path $automation '.internal')
+            Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.vendor') (Join-Path $automation '.vendor')
+            foreach ($entry in @(@($OnlyModule, $OnlyFunction, $OnlyBody), @('Catzc.Shared', 'Get-SharedOrigin', "'$Label'"))) {
+                $folder = Join-Path $automation $entry[0]
+                [System.IO.Directory]::CreateDirectory($folder) | Out-Null
+                [System.IO.File]::WriteAllText((Join-Path $folder "$($entry[1]).ps1"), "function $($entry[1]) { $($entry[2]) }")
+            }
+            $root
+        }
+
+        # A $script: counter: a fresh module scope answers 1 on its first call.
+        $hitBody = 'if (-not (Test-Path variable:script:hits)) { $script:hits = 0 }; $script:hits++; $script:hits'
+        $script:rootA = New-EvictionRoot -Label 'A' -OnlyModule 'Catzc.Widget' -OnlyFunction 'Get-WidgetHit' -OnlyBody $hitBody
+        $script:rootB = New-EvictionRoot -Label 'B' -OnlyModule 'Catzc.Gadget' -OnlyFunction 'Get-Gadget' -OnlyBody "'gadget'"
+
+        # Snapshot (evaluated in the child) of which catzc modules are loaded and where from.
+        $snapshot = '[pscustomobject]@{ ' +
+        'Widget = [bool](Get-Module Catzc.Widget); Gadget = [bool](Get-Module Catzc.Gadget); Shared = (Get-SharedOrigin); ' +
+        'Internal = @(Get-Module Catzc.Internal.* | ForEach-Object { $_.ModuleBase }); ' +
+        'TestKit = (Get-Module Catzc.Internal.TestKit | ForEach-Object { $_.ModuleBase }); ' +
+        'ModulesRoot = $env:CatzcModulesRoot }'
+
+        # A -> (two calls into Widget, TestKit from A) -> B -> A, all in ONE child process.
+        $childScript = @(
+            ". '$rootA/importer.ps1'"
+            '$null = Get-WidgetHit; $hitsBeforeSwitch = Get-WidgetHit'
+            'Import-InternalModule TestKit'
+            "`$afterB = & { . '$rootB/importer.ps1'; $snapshot }"
+            "`$afterA = & { . '$rootA/importer.ps1'; $snapshot }"
+            '$hitsAfterReturn = Get-WidgetHit'
+            '[pscustomobject]@{ HitsBeforeSwitch = $hitsBeforeSwitch; AfterB = $afterB; AfterA = $afterA; HitsAfterReturn = $hitsAfterReturn } | ConvertTo-Json -Depth 6 -Compress'
+        ) -join "`n"
+        $raw = pwsh -NoProfile -Command $childScript 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            throw "Child import sequence failed: $raw"
+        }
+        $script:observed = (@($raw)[-1]).ToString() | ConvertFrom-Json
+        $script:fullA = [System.IO.Path]::GetFullPath((Join-Path $rootA 'automation'))
+        $script:fullB = [System.IO.Path]::GetFullPath((Join-Path $rootB 'automation'))
+    }
+
+    AfterAll {
+        foreach ($root in $rootA, $rootB) {
+            if ($root -and (Test-Path $root)) {
+                Remove-Item $root -Recurse -Force -ErrorAction SilentlyContinue
+            }
+        }
+    }
+
+    It 'loads root B''s modules and evicts the module only root A ships' {
+        $observed.AfterB.Gadget | Should -BeTrue
+        $observed.AfterB.Widget | Should -BeFalse
+    }
+
+    It 'replaces a same-named module with root B''s copy' {
+        $observed.AfterB.Shared | Should -Be 'B'
+    }
+
+    It 'loads every Catzc.Internal.* module from root B, re-importing the on-demand TestKit there' {
+        $observed.AfterB.TestKit | Should -Not -BeNullOrEmpty
+        foreach ($base in @($observed.AfterB.Internal)) {
+            [System.IO.Path]::GetFullPath($base) | Should -BeLike "$fullB*"
+        }
+    }
+
+    It 'switching back evicts root B''s module and restores root A''s' {
+        $observed.AfterA.Gadget | Should -BeFalse
+        $observed.AfterA.Widget | Should -BeTrue
+        $observed.AfterA.Shared | Should -Be 'A'
+        foreach ($base in @($observed.AfterA.Internal)) {
+            [System.IO.Path]::GetFullPath($base) | Should -BeLike "$fullA*"
+        }
+    }
+
+    It 'gives the returning module a fresh script scope (no cache from before the switch)' {
+        $observed.HitsBeforeSwitch | Should -Be 2
+        $observed.HitsAfterReturn | Should -Be 1
     }
 }

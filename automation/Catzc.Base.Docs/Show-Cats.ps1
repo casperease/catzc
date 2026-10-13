@@ -11,8 +11,9 @@
       Show-Cats verbs           the approved verbs in use across the tree
 
     Output is presentation only (the information stream, docs/adr/automation/powershell/console-output-matters.md);
-    the function returns nothing. Live bicep templates are out of scope here — use Get-BicepTemplates. The reads
-    are memoized for the session by the private getters (docs/adr/automation/caching.md).
+    the function returns nothing. Live bicep templates are out of scope here — use Get-BicepTemplates. The ADR
+    reads are memoized for the session by the private getters (docs/adr/automation/caching.md); the module and
+    verb areas read the loaded modules' exports, so they answer the same in source mode and build mode.
 .PARAMETER Area
     What to ask about: adr, module, or verbs. Omitted (the default) prints the overview.
 .PARAMETER Query

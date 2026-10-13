@@ -17,7 +17,8 @@
     from and the word count. The drift gate (Build-EnglishDictionary.Tests.ps1) compares that stamp's cspell
     version against the tools.yml pin — cheaply, with no node round-trip — and fails when they diverge, so a
     cspell bump that leaves this artifact stale is caught in CI. Re-run this (and commit the gz + stamp) when
-    bumping cspell; `-DryRun` reports whether either would change.
+    bumping cspell; `-DryRun` reports whether either would change. It writes the source module in the
+    repository, so it needs source mode and throws in build mode (Assert-SourceTree).
 
     SpellingOracle (Catzc.Base.QualityGates/types) loads this list plus every .cspell/*.txt term list into one
     set. English recognizes the spelled-out words (rule, collection, group); the term lists carry the domain
@@ -41,6 +42,9 @@ function Build-EnglishDictionary {
 
         [switch] $PassThru
     )
+
+    # An authoring step: it writes the committed artifact into the SOURCE module, never into an installed build.
+    Assert-SourceTree
 
     Assert-Command npx
     Assert-Command npm
@@ -109,7 +113,8 @@ function Build-EnglishDictionary {
     [System.Array]::Sort($words, [System.StringComparer]::Ordinal)
     $content = ($words -join "`n") + "`n"
 
-    $assetsDir = Join-Path $PSScriptRoot 'assets'
+    # The source module's assets/ in the repository — the committed copy the build later ships.
+    $assetsDir = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/assets'
     $outPath = Join-Path $assetsDir 'english.txt.gz'
     $stampPath = Join-Path $assetsDir 'english.stamp'
 

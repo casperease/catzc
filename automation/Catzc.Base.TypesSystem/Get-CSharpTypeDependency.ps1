@@ -19,6 +19,9 @@
 
     These edges are folded into Get-ModuleDependencyViolations beside the function-call edges, so the same
     acyclic allow-list (configs/dependencies.yml, asserted in the L2 suite) governs C# type layering.
+
+    Reads the per-module types/*.cs sources, which exist only in the source tree, so it stops with a named
+    error in build mode (Assert-SourceTree, ADR-DSGN-RUNMODE).
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to $env:RepositoryRoot/automation.
 .EXAMPLE
@@ -31,6 +34,7 @@ function Get-CSharpTypeDependency {
         [string] $AutomationRoot = (Join-Path $env:RepositoryRoot 'automation')
     )
 
+    Assert-SourceTree
     Assert-PathExist $AutomationRoot -PathType Container
 
     $modules = @(Get-AutomationModules -AutomationRoot $AutomationRoot)

@@ -129,13 +129,13 @@ PowerShell files follow the repo-wide baseline plus the PowerShell-specific rule
   with inline comments). Custom analyzer rules, including `Measure-VariableCasing` (the casing rule above), live in
   `automation/.scriptanalyzer/`.
 - **Shared gated set** — `Get-AutomationSourceFiles` names the canonical set the gates cover: every module `*.ps1` (module root, `private/`,
-  `tests/`), the `.internal` and `.scriptanalyzer` infrastructure folders (the `Loader`, `Bootstrap`, `TestKit`, and `Types` internal
-  modules, the custom analyzer rules `*.psm1`, and their `tests/`), the root `importer.ps1`, and authored `.psd1` config
-  (`PSScriptAnalyzerSettings.psd1`). `Format-Automation`, `Test-ScriptAnalyzer`, and the L2 `Test-ScriptAnalyzer.Tests.ps1` all draw from it
-  — the L2 test shards the resulting list across processes for speed — so no gate can drift from the others. The dot-prefixed `.vendor`
-  (third-party) and `.compiled` (build output) folders, `assets/`, and generated module manifests are excluded as vendored or generated
-  rather than authored source. A custom rule's `*.Tests.ps1` embeds the very anti-patterns the rule forbids as fixtures, so it carries a
-  file-scoped `SuppressMessageAttribute` for its own rule. Formatting violations fail the build.
+  `tests/`), the `.internal` and `.scriptanalyzer` infrastructure folders (every `.internal/*.psm1` internal module, the custom analyzer
+  rules `*.psm1`, and their `tests/`), the root `importer.ps1`, and authored `.psd1` config (`PSScriptAnalyzerSettings.psd1`).
+  `Format-Automation`, `Test-ScriptAnalyzer`, and the L2 `Test-ScriptAnalyzer.Tests.ps1` all draw from it — the L2 test shards the resulting
+  list across processes for speed — so no gate can drift from the others. The dot-prefixed `.vendor` (third-party) and `.compiled` (build
+  output) folders, `assets/`, and generated module manifests are excluded as vendored or generated rather than authored source. A custom
+  rule's `*.Tests.ps1` embeds the very anti-patterns the rule forbids as fixtures, so it carries a file-scoped `SuppressMessageAttribute`
+  for its own rule. Formatting violations fail the build.
 
 ## Consequences
 

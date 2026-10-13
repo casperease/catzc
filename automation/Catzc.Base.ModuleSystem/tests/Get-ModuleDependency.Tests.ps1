@@ -1,4 +1,4 @@
-Describe 'Get-ModuleDependency' -Tag 'integrity' {
+Describe 'Get-ModuleDependency' -Tag 'integrity', 'source-only' {
     BeforeAll {
         $script:edges = Get-ModuleDependency
     }

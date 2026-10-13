@@ -173,8 +173,14 @@ Describe 'Get-AdoYamlFiles' -Tag 'L0' {
         It 'uses forward slashes in RelativePath' {
             # One Should over the violating set — a Should per discovered file pays Pester's
             # per-assertion cost times the whole repo's YAML count.
-            $violations = @($results | Where-Object { $_.RelativePath -match '\\' })
-            $violations.RelativePath | Should -BeNullOrEmpty
+            # A foreach projection, not member enumeration: .RelativePath on the (passing) empty set throws under
+            # strict mode.
+            $violations = @(foreach ($result in $results) {
+                    if ($result.RelativePath -match '\\') {
+                        $result.RelativePath
+                    }
+                })
+            $violations | Should -BeNullOrEmpty
         }
 
         It 'classifies pipeline files as Pipeline' {

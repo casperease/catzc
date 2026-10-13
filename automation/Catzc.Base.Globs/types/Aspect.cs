@@ -1,4 +1,4 @@
-// Aspects (ADR-ASPECT): a unit's tracked files partition into named facets — pairwise DISJOINT and jointly
+// Aspects (ADR-DSGN-ASPECT): a unit's tracked files partition into named facets — pairwise DISJOINT and jointly
 // EXHAUSTIVE. The aspect set is the ordered first-match ('fallthrough') classification carried by the
 // 'aspects' variant (Catzc.Base.Variants): each aspect claims by its patterns, the LAST aspect is the '**'
 // catch-all remainder and by rule is non-live, so anything 'live' does not explicitly claim falls to the
@@ -85,7 +85,7 @@ public static class AspectPartition
         return root.Length == 0 ? pattern : root + "/" + pattern;
     }
 
-    // Partition check (ADR-ASPECT:5) over a file universe: every file selected by exactly one aspect. Returns
+    // Partition check (ADR-DSGN-ASPECT:5) over a file universe: every file selected by exactly one aspect. Returns
     // human-readable violations (empty => a valid partition): a file claimed by two aspects breaks disjoint,
     // a file claimed by none breaks exhaustive.
     public static IReadOnlyList<string> Validate(IReadOnlyList<GlobSet> aspectSets, IEnumerable<string> universe)

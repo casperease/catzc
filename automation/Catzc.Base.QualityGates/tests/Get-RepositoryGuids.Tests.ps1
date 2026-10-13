@@ -58,11 +58,22 @@ Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Repository guid integrity' -Tag 'L2', 'integrity' {
+# source-only: it scans the repository's tracked files, which give the same answer in both run modes.
+Describe 'Repository guid integrity' -Tag 'L2', 'integrity', 'source-only' {
+    It 'the repository globset covers the scan universe and the registry' -Tag 'ADR-REPO-PROTGLOB#6' {
+        # The protection identity must cover everything the scan reads — every named root, not one — and its
+        # own config; a file the scan reads outside it could change the result without re-keying protection.
+        $registryFile = 'automation/Catzc.Base.QualityGates/configs/guids.yml'
+        $scanFiles = & (Get-Module Catzc.Base.QualityGates) { Get-GuidScanFiles }
+        $members = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GlobSetFile -Name 'repository'), [System.StringComparer]::Ordinal)
+        $uncovered = @(@(@($scanFiles) + $registryFile) | Where-Object { -not $members.Contains($_) })
+        $uncovered | Should -BeNullOrEmpty -Because 'every file the guid scan reads must re-key its protection identity (globs.yml repository)'
+    }
+
     It 'every guid in tracked text is registered, and every registry entry is live' {
-        # The scan reads nearly the whole tree plus its own config, so it protects against the
-        # repository-wide set, like the spelling scan (ADR-REPO-PROTGLOB:6).
-        if (Test-GlobSetProtection -Test 'guids' -Name 'automation') {
+        # The scan reads every tracked text file under every named root plus its own config, so it protects
+        # against the whole-repository set, which covers both (ADR-REPO-PROTGLOB:6).
+        if (Test-GlobSetProtection -Test 'guids' -Name 'repository') {
             Set-ItResult -Skipped -Because 'protected_globset_unchanged_since_green_run'
             return
         }
@@ -98,6 +109,6 @@ Describe 'Repository guid integrity' -Tag 'L2', 'integrity' {
         $deadEntries = @(@($entries.Keys) | Where-Object { -not $foundValues.Contains("$($entries[$_].guid)") })
         $deadEntries | Should -BeNullOrEmpty -Because 'a guids.yml entry no tracked file references is dead vocabulary and must be removed'
 
-        Protect-GlobSet -Test 'guids' -Name 'automation'
+        Protect-GlobSet -Test 'guids' -Name 'repository'
     }
 }

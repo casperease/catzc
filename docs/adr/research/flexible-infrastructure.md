@@ -112,13 +112,36 @@ to do so, so efficiency gains are pursued rather than left on the table.
 
 ## Dora explains
 
-DORA's research ties flexible infrastructure to a measurable lift in delivery performance and stability, and treats it as the layer that
-platform engineering, deployment automation, and version control all depend on to make self-service real rather than aspirational.
+Flexible infrastructure sits in the Core Model's fast-flow group. DORA defines it by the five NIST cloud characteristics and ties it to
+continuous delivery, software delivery performance, availability, cost visibility, and organizational performance — but only when a team
+adopts that flexibility: moving to the cloud without it ("lift and shift") makes performance worse.
 
-- [Platform engineering](https://dora.dev/capabilities/platform-engineering/) — the Internal Developer Platform that flexible infrastructure
-  powers; self-service infrastructure is what lets it offer genuine autonomy.
-- [Deployment automation](https://dora.dev/capabilities/deployment-automation/) — the automated mechanism infrastructure as code provisions
-  and deploys through.
-- [Version control](https://dora.dev/capabilities/version-control/) — the source of truth infrastructure configuration is checked into under
-  infrastructure as code.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure)
+- **Category:** [Fast flow](../../references/dora/capabilities.md#fast-flow) — Core Model v2.1.0:
+  [fast flow](../../references/dora/core-model.md#fast-flow).
+- **Evidence:**
+  - [2018 Accelerate State of DevOps Report](../../references/dora/publications.md#2018-accelerate-state-of-devops-report) — teams that use
+    the essential cloud characteristics are 23× more likely to be elite performers.
+  - [2019 Accelerate State of DevOps Report](../../references/dora/publications.md#2019-accelerate-state-of-devops-report) — 29% of cloud
+    adopters meet all five characteristics, and those that do are 2.6× more likely to estimate their costs accurately.
+  - [2021 Accelerate State of DevOps Report](../../references/dora/publications.md#2021-accelerate-state-of-devops-report) — teams using all
+    five cloud characteristics improve delivery, operational, and organizational performance.
+  - [2022 Accelerate State of DevOps Report](../../references/dora/publications.md#2022-accelerate-state-of-devops-report) — its report page
+    names the capability.
+  - [2023 Accelerate State of DevOps Report](../../references/dora/publications.md#2023-accelerate-state-of-devops-report) — flexible
+    infrastructure yields 30% higher organizational performance, while plain lift-and-shift can do harm.
+  - [2024 Accelerate State of DevOps Report](../../references/dora/publications.md#2024-accelerate-state-of-devops-report) — flexible
+    infrastructure raises organizational performance, and a cloud migration that does not use its flexibility can be worse than staying in a
+    data centre.
+- **Predicts:** [continuous delivery](../../references/dora/capabilities.md#continuous-delivery),
+  [software delivery performance](../../references/dora/core-model.md#software-delivery-performance), availability (see
+  [reliability](../../references/dora/metrics.md#reliability)), cost visibility, and
+  [organizational performance](../../references/dora/core-model.md#organizational-performance).
+- **Related capabilities:**
+  - [Platform engineering](../../references/dora/capabilities.md#platform-engineering) — the Internal Developer Platform that flexible
+    infrastructure powers; self-service infrastructure is what lets it offer genuine autonomy.
+  - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — the automated mechanism infrastructure as code
+    provisions and deploys through.
+  - [Version control](../../references/dora/capabilities.md#version-control) — the source of truth infrastructure configuration is checked
+    into under infrastructure as code.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

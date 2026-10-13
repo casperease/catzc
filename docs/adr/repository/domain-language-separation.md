@@ -66,13 +66,13 @@ parsed config's keys and values (comment-blind) rather than its raw text.
 
 ## Context
 
-The repository's example vocabulary is already governed in three separate places — the discovery theme for documentation
+The repository's example vocabulary is governed in three separate places — the discovery theme for documentation
 ([documentation-examples](documentation-examples.md), `ADR-REPO-EXAMPLE`), the fixture identities for tests
 ([test-automation](../automation/test-automation.md#rule-adr-auto-test3), `ADR-AUTO-TEST:3`), and the real identities of the data model
 ([data-model](../azure/azure-data-model.md), [naming-standard](../azure/azure-naming-standard.md),
-[customer-model](../azure/azure-customer-model.md)). What was missing is the rule that ties them together: these are three faces of one
-discipline — a token belongs to exactly one domain, and it does not appear in the others. Without that rule, a logic test drifts into naming
-a real customer (testing the config by accident), an ADR illustrates with a test fixture, and the three vocabularies blur.
+[customer-model](../azure/azure-customer-model.md)). This ADR is the rule that ties them together: these are three faces of one discipline —
+a token belongs to exactly one domain, and it does not appear in the others. Without that rule, a logic test drifts into naming a real
+customer (testing the config by accident), an ADR illustrates with a test fixture, and the three vocabularies blur.
 
 This ADR names the discipline and records how it is enforced — and, as importantly, how it is **not**, because the obvious mechanism does
 not work.

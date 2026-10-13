@@ -6,7 +6,10 @@
 #   2. absent from git tracking (removed with `git rm --cached` if it was ever committed).
 # Hand-authored READMEs are exactly the folders NOT in readme.yml; they are individually un-ignored in
 # .gitignore and are out of scope here. See docs/adr/repository/generated-readmes.md.
-Describe 'Generated README links are gitignored and untracked' -Tag 'L2', 'integrity' {
+#
+# Reads only the repository's files and git index (through the source-tree-only Get-ReadmeMappings) — the same
+# answer in both run modes, so the build suite skips it.
+Describe 'Generated README links are gitignored and untracked' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
         $script:skip = $null

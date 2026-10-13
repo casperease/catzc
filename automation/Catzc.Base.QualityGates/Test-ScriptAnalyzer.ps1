@@ -4,7 +4,8 @@
 .DESCRIPTION
     Runs PSScriptAnalyzer over the same automation file set the analyzer test covers (module root *.ps1,
     private/, tests/, and the .internal/.scriptanalyzer infrastructure folders), applying the single rule set at
-    automation/.internal/assets/PSScriptAnalyzerSettings.psd1 — so the result matches what the editor and CI see.
+    .internal/assets/PSScriptAnalyzerSettings.psd1 under the loaded code root (Get-CatzcModulesRoot) — so the
+    result matches what the editor and CI see.
 
     This is the interactive, report-style sibling of the L2 'PSScriptAnalyzer' Pester test
     (automation/.internal/tests/Test-ScriptAnalyzer.Tests.ps1): both shard the analysis across background
@@ -17,11 +18,12 @@
     (scriptanalyzer.md), updates latest.txt, and prints the report path rather than dumping every diagnostic
     to the console. Throws when violations are found (so it can gate CI); -PassThru returns a result object.
 
-    PSScriptAnalyzer is vendored under automation/.vendor — no install step is needed.
+    PSScriptAnalyzer is vendored under the code root's .vendor/ — no install step is needed.
 .PARAMETER Path
     One or more files or directories to analyze. Defaults to the canonical gated set (Get-AutomationSourceFiles):
     module root *.ps1, private/, tests/, the .internal and .scriptanalyzer infrastructure folders (bootstrap,
-    TestKit, custom analyzer rules, and their tests), the root importer.ps1, and authored .psd1 config.
+    TestKit, custom analyzer rules, and their tests), the root importer.ps1, and authored .psd1 config. The
+    default set is the catzc source tree, so it needs source mode; an explicit -Path works in either run mode.
 .PARAMETER OutputFolder
     Base directory for the run report. Each run writes a timestamped subfolder
     (<OutputFolder>/yyyyMMdd-HHmmss/). Defaults to <out>/test-scriptanalyzer.
@@ -48,7 +50,8 @@ function Test-ScriptAnalyzer {
     )
 
     $root = Get-RepositoryRoot
-    $settingsPath = Join-Path $root 'automation/.internal/assets/PSScriptAnalyzerSettings.psd1'
+    # The one settings file ships inside the code tree, so it resolves from the code root (ADR-AUTO-ASSETDEP:1).
+    $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
     Assert-PathExist $settingsPath
 
     # Resolve the file set — same coverage as Format-Automation and the L2 analyzer test (module root

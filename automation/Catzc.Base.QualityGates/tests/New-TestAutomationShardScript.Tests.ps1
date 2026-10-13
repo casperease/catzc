@@ -1,5 +1,5 @@
-Describe 'New-TestAutomationShardScript' -Tag 'logic' {
-    Context 'script generation' -Tag 'L0' {
+Describe 'New-TestAutomationShardScript' {
+    Context 'script generation' -Tag 'L0', 'logic' {
         BeforeAll {
             $script:runDirectory = Join-Path $TestDrive 'run'
             [void][System.IO.Directory]::CreateDirectory($script:runDirectory)
@@ -26,7 +26,8 @@ Describe 'New-TestAutomationShardScript' -Tag 'logic' {
 
         It 'imports the repository, runs the shard files, and writes the run artifacts' {
             $script:content | Should -Match ([regex]::Escape("importer.ps1' -SkipJanitors"))
-            $script:content | Should -Match ([regex]::Escape('.vendor/Pester'))
+            # Pester is resolved inside the worker, after its import, from the worker's own code root.
+            $script:content | Should -Match ([regex]::Escape("Join-Path (Get-CatzcModulesRoot) '.vendor/Pester'"))
             $script:content | Should -Match ([regex]::Escape("@('C:\repo\a.Tests.ps1', 'C:\repo\b.Tests.ps1')"))
             $script:content | Should -Match ([regex]::Escape("'Normal'"))
             $script:content | Should -Match ([regex]::Escape($script:shard.ResultsPath))
@@ -69,7 +70,9 @@ Describe 'New-TestAutomationShardScript' -Tag 'logic' {
 
     # greedy: spawns a full importer-loading pwsh worker — stacked on the parallel pool that
     # oversubscribes the box (see the test-automation ADR's greedy tag).
-    Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2', 'greedy' {
+    # integrity + ADR-AUTO-ASSETDEP#3: the real worker imports the shipped, vendored Pester from its code root,
+    # nothing mocked — the real-asset test, not source-only, so it runs in the source and the build suite.
+    Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP#3' {
         It 'runs a generated shard end to end: results.xml, rows sidecar, and a green exit code' {
             # The walking skeleton for the whole worker chain: generator → PesterRunner → importer →
             # Pester → row sidecar. One real worker; the per-case behaviour lives in the L0 tests above
@@ -77,11 +80,16 @@ Describe 'New-TestAutomationShardScript' -Tag 'logic' {
             $runDirectory = Join-Path $TestDrive 'live-run'
             [void][System.IO.Directory]::CreateDirectory($runDirectory)
 
-            # A fixture suite exercising all row kinds: a pass, a self-skip, and a tag-excluded test.
+            # A fixture suite exercising all row kinds: a pass, a self-skip, and a tag-excluded test — plus a
+            # pass proving the worker's Pester is the vendored copy under the worker's own code root.
             $fixture = Join-Path $TestDrive 'ShardFixture.Tests.ps1'
             $fixtureContent = @'
 Describe 'ShardFixture' -Tag 'L0', 'logic' {
     It 'passes' { 1 | Should -Be 1 }
+    It 'passes with Pester from the code root' {
+        $vendorRoot = [System.IO.Path]::GetFullPath((Join-Path (Get-CatzcModulesRoot) '.vendor/Pester'))
+        [System.IO.Path]::GetFullPath((Get-Module Pester).ModuleBase) | Should -BeLike "$vendorRoot*"
+    }
     It 'skips itself' { Set-ItResult -Skipped -Because 'tool_obj_missing'; return }
 }
 Describe 'ShardFixtureWide' -Tag 'L2', 'logic' {
@@ -106,8 +114,10 @@ Describe 'ShardFixtureWide' -Tag 'L2', 'logic' {
             $shard.RowsPath | Should -Exist
 
             $rows = @(Get-Content -LiteralPath $shard.RowsPath -Raw | ConvertFrom-Json)
-            $rows | Should -HaveCount 3
-            ($rows | Where-Object Result -EQ 'Passed').ExpandedPath | Should -Match 'passes'
+            $rows | Should -HaveCount 4
+            $passed = @($rows | Where-Object Result -EQ 'Passed')
+            $passed | Should -HaveCount 2 -Because "failed rows: $(($rows | Where-Object Result -EQ 'Failed').ErrorMessage)"
+            $passed.ExpandedPath | Should -Match 'passes'
             ($rows | Where-Object Result -EQ 'Skipped').SkipReason | Should -Be 'tool_obj_missing'
             ($rows | Where-Object Result -EQ 'NotRun').Level | Should -Be 'L2'
         }

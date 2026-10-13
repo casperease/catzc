@@ -26,3 +26,5 @@ configs:
     type: Catzc.Base.Globs.GlobsConfig
   adrs:
     type: Catzc.Base.Docs.AdrsConfig
+  glossary:
+    type: Catzc.Base.Docs.GlossaryConfig

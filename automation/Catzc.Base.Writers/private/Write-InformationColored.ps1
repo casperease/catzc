@@ -21,10 +21,18 @@
     it at Normal+ verbosity, so $InformationPreference = 'SilentlyContinue' does NOT stop the output —
     only not writing it does. Test-Automation sets $global:__PesterRunning, and this guard returns before
     writing. Tests that need to assert writer output lift the flag for their own scope.
+
+    It is also the one way to write to the console at all (ADR-AUTO-ANNOUNCE:1): nothing in the toolset calls
+    Write-Host, [Console]::Write or $Host.UI. -NoNewline covers the one thing those were used for — an inline
+    liveness dot (ADR-AUTO-CONSOLE:8). It wraps the text in a HostInformationMessage with NoNewLine set, the same
+    record Write-Host emits internally, so the host renders it without a line break while it stays an ordinary
+    information-stream record: it obeys $InformationPreference and 6> redirection, and never enters the pipeline.
 .PARAMETER MessageData
     The message to write.
 .PARAMETER ForegroundColor
     Text color. Defaults to the host's current foreground color.
+.PARAMETER NoNewline
+    Render the text without a trailing line break, so the next write continues the same line.
 .EXAMPLE
     Write-InformationColored 'Build succeeded' -ForegroundColor Green
 .EXAMPLE
@@ -37,7 +45,9 @@ function Write-InformationColored {
         [Parameter(Mandatory, Position = 0)]
         [object] $MessageData,
 
-        [System.ConsoleColor] $ForegroundColor
+        [System.ConsoleColor] $ForegroundColor,
+
+        [switch] $NoNewline
     )
 
     # Suppress during Pester runs (flag set by Test-Automation). The single chokepoint for all writers,
@@ -61,5 +71,9 @@ function Write-InformationColored {
         }
     }
 
+    if ($NoNewline) {
+        Write-Information ([System.Management.Automation.HostInformationMessage]@{ Message = $text; NoNewLine = $true })
+        return
+    }
     Write-Information $text
 }

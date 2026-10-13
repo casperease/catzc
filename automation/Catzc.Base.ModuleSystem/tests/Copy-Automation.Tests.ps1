@@ -18,6 +18,8 @@ Describe 'Copy-Automation' -Tag 'L0', 'logic' {
         }
 
         Mock Write-Message -ModuleName Catzc.Base.ModuleSystem { }
+        # The fake root is not the loaded code root, so the run mode reads 'build'; the guard is the seam.
+        Mock Assert-SourceTree -ModuleName Catzc.Base.ModuleSystem { }
         Mock Get-BaseModule -ModuleName Catzc.Base.ModuleSystem {
             @(
                 [Catzc.Base.ModuleSystem.DiskModule]::new('Catzc.Base.Alpha', 'automation/Catzc.Base.Alpha', $false, @())
@@ -105,5 +107,14 @@ Describe 'Copy-Automation' -Tag 'L0', 'logic' {
         Copy-Automation -Destination $dest -ModuleProfile demo -EmptyDestination | Out-Null
         Test-Path (Join-Path $dest 'automation/Catzc.Base.Alpha/Get-Alpha.ps1') | Should -BeTrue
         Test-Path (Join-Path $dest 'automation/Catzc.Base.Repository') | Should -BeFalse
+    }
+}
+
+Describe 'Copy-Automation — build mode' -Tag 'L0', 'logic' {
+    It 'stops with a named error when the session runs a built package, before copying anything' {
+        Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
+        Mock Copy-Directory -ModuleName Catzc.Base.ModuleSystem { }
+        { Copy-Automation -Destination (Join-Path $TestDrive 'widget') -DryRun } | Should -Throw '*Copy-Automation operates on the catzc source tree*'
+        Should -Not -Invoke Copy-Directory -ModuleName Catzc.Base.ModuleSystem
     }
 }

@@ -7,11 +7,11 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
             [ordered]@{
                 domains = [ordered]@{
                     alpha = [ordered]@{
-                        code = 'AL'; role = 'axioms'; depends_on = @()
+                        code = 'AL'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
                         rulesets = [ordered]@{ 'thing-one' = [ordered]@{ external = 'ADR-AL-ONE' } }
                     }
                     beta  = [ordered]@{
-                        code = 'BE'; role = 'implementation'; depends_on = @('alpha')
+                        code = 'BE'; role = 'implementation'; description = 'The gadget implementation.'; depends_on = @('alpha')
                         rulesets = [ordered]@{
                             'thing-two'   = [ordered]@{ external = 'ADR-BE-TWO' }
                             'thing-three' = [ordered]@{ external = 'ADR-AL-THREE'; code = 'AL' } # leaf override to alpha's code
@@ -34,6 +34,19 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
         $override.Code | Should -Be 'AL'
         $override.DomainCode | Should -Be 'BE'
         $override.External | Should -Be 'ADR-AL-THREE'
+    }
+
+    It 'carries each domain description, trimmed' {
+        $raw = New-ValidRaw
+        $raw.domains.alpha.description = "  The widget axioms.`n"
+        $config = [Catzc.Base.Docs.AdrsConfig]::new($raw)
+        ($config.Domains | Where-Object Name -EQ 'alpha').Description | Should -Be 'The widget axioms.'
+    }
+
+    It 'throws on a domain with no description' {
+        $raw = New-ValidRaw
+        $raw.domains.beta.Remove('description')
+        { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*domain 'beta': missing 'description'*"
     }
 
     It 'throws on a domain code that is not 2-4 uppercase letters' {

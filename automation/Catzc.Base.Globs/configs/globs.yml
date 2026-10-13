@@ -4,15 +4,13 @@
 # blast radius (Get-ChangedGlobSet); nothing is committed per set. Validated strictly on load by
 # Catzc.Base.Globs.GlobsConfig.
 #
-# Every set declares its layer (ADR-FLOW-CD-GLOBS:7) — each layer a BOUNDARY in the repository: 'track' (a
-# root-level partition: automation, infrastructure, and the 'repository' catch-all for everything else at
-# root), 'deployable-unit' (a configurable unit that ships), or 'loose-fileset' (a cross-cutting check
-# surface — a scan scope, an umbrella — that deliberately overlaps the boundaries it cuts across). The
-# 'module' layer is derived from the folders (and the internal .psm1 files), never declared, and carries its
-# own 'module-leftovers' catch-all — derived sets scope protection and blast radius (ADR-REPO-PROTGLOB:7). Within
-# every layer but 'loose-fileset' no two sets may select a common file on their OWN contribution — a track
-# never consumes another track's files, a module never another module's (ADR-FLOW-CD-GLOBS:10); loose-filesets
-# overlap freely. 'compose' unions another declared set's effective members into this one (acyclic,
+# Every set declares its layer (ADR-FLOW-CD-GLOBS:7): 'deployable-unit' (a configurable unit that ships) or
+# 'loose-fileset' (a cross-cutting check surface — a track's root concern, a scan scope, the whole repository
+# — that deliberately overlaps the boundaries it cuts across). The 'module' layer is derived from the folders
+# (and the internal .psm1 files), never declared, and carries its own 'module-leftovers' catch-all — derived
+# sets scope protection and blast radius (ADR-REPO-PROTGLOB:7). Within every layer but 'loose-fileset' no
+# two sets may select a common file on their OWN contribution — a unit never consumes another unit's files,
+# a module never another module's (ADR-FLOW-CD-GLOBS:10); loose-filesets overlap freely. 'compose' unions another declared set's effective members into this one (acyclic,
 # ADR-FLOW-CD-GLOBS:8). 'pipeline' names the pipeline bound to this set's marker — any layer may bind one.
 #
 # Dialect: '/'-separated, repo-relative; '**' is the only cross-segment operator (zero or more whole
@@ -122,3 +120,17 @@ globsets:
     exclude:
       - docs/notes/**
       - automation/.vendor/**
+
+  # The whole repository: every tracked file under every named root (automation/, infrastructure/, docs/,
+  # pipelines/, .github/, contracts/, the root files, and any root added later). The protection identity for
+  # anything whose read set spans the repository (ADR-REPO-PROTGLOB:6/8): the managed-GUID and spelling scans
+  # (each reads a subset of it plus its own config, which it also contains), and the widened composite of a
+  # module that is unconstrained, carries integrity tests, or is an infra test unit. A covering superset is
+  # safe — it can only cause a redundant run, never a wrong skip — and integrity tests hold each scan's
+  # subset relation. A repeated local run is skipped only while no tracked file anywhere has changed since
+  # its last green run in the session.
+  repository:
+    description: The whole repository - every tracked file under every named root.
+    layer: loose-fileset
+    include:
+      - '**'

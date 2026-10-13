@@ -114,7 +114,7 @@ Describe 'Test-ModuleDependency' {
         }
     }
 
-    Context 'integrity (shipped config + real code)' -Tag 'L1', 'integrity' {
+    Context 'integrity (shipped config + real code)' -Tag 'L1', 'integrity', 'source-only' {
         It 'the real code conforms to the declared graph' {
             Test-ModuleDependency | Should -BeTrue
         }

@@ -130,20 +130,40 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
 # Integrity: the ACTUAL repository content is spell-clean. Unlike the logic test above (real cspell over a
 # fixture file), this binds to the real repo — Test-Spelling with no -Glob scans its default content scope
 # (ADR-AUTO-TEST:14). L2 because it drives the cspell CLI; self-skips when cspell is absent (ADR-AUTO-TEST:8/9).
-# Protected-glob gated (ADR-REPO-PROTGLOB): a repeat local run over an unchanged 'automation' globset (the
-# repository-wide set — cspell reads nearly everything, including its own configs) is skipped; in a
-# pipeline the protection is ignored and the scan always runs full.
-Describe 'Repository spelling integrity' -Tag 'L2', 'integrity' {
+# Protected-glob gated (ADR-REPO-PROTGLOB): a repeat local run over an unchanged 'repository' globset
+# (every tracked file under every named root — a covering superset of cspell's content scope and its
+# own configs) is skipped; in a pipeline the protection is ignored and the scan always runs full. source-only: it
+# reads the repository's files, which give the same answer in both run modes.
+Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {
+    It 'the repository globset covers every tracked file the spelling scan reads' -Tag 'ADR-REPO-PROTGLOB#6' {
+        # The spelling scan's default content types; cspell.yml ignorePaths drops vendored code. Any such
+        # tracked file outside repository could change the scan's outcome without re-keying protection.
+        $spelledExtensions = @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.bicep')
+        $result = Invoke-Executable 'git -c core.quotepath=off ls-files' -PassThru -Silent
+        $tracked = $result.Output -split "`r?`n" | Where-Object { $_ -ne '' }
+        $spelled = foreach ($file in $tracked) {
+            if ($file.StartsWith('automation/.vendor/')) {
+                continue
+            }
+            if ([System.IO.Path]::GetExtension($file).ToLowerInvariant() -in $spelledExtensions) {
+                $file
+            }
+        }
+        $members = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GlobSetFile -Name 'repository'), [System.StringComparer]::Ordinal)
+        $uncovered = @($spelled | Where-Object { -not $members.Contains($_) })
+        $uncovered | Should -BeNullOrEmpty -Because 'every file the spelling scan reads must re-key its protection identity (globs.yml repository)'
+    }
+
     It 'the real repository content is spell-clean (real cspell, default content scope)' {
         if (-not (Get-Command cspell -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'tool_cspell_missing'
             return
         }
-        if (Test-GlobSetProtection -Test 'spelling' -Name 'automation') {
+        if (Test-GlobSetProtection -Test 'spelling' -Name 'repository') {
             Set-ItResult -Skipped -Because 'protected_globset_unchanged_since_green_run'
             return
         }
         { Test-Spelling -OutputFolder (Join-Path $TestDrive 'reports') } | Should -Not -Throw
-        Protect-GlobSet -Test 'spelling' -Name 'automation'
+        Protect-GlobSet -Test 'spelling' -Name 'repository'
     }
 }

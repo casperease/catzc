@@ -1,5 +1,6 @@
-# Integrity — it reads the real shipped config (and derives from the real fixture configs).
-Describe 'Test-ConfigIdentityHygiene' -Tag 'L1', 'integrity' {
+# Integrity — it reads the real shipped config (and derives from the real fixture configs). source-only: those are
+# repository files, which give the same answer in both run modes.
+Describe 'Test-ConfigIdentityHygiene' -Tag 'L1', 'integrity', 'source-only' {
     It 'the shipped config is free of test-fixture identities' {
         $result = Test-ConfigIdentityHygiene -PassThru
         $leaks = @($result.Findings | ForEach-Object { "$(ConvertTo-RepoRelativePath $_.File): $($_.Token) @ $($_.Location)" })

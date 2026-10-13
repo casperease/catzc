@@ -2,7 +2,8 @@
 .SYNOPSIS
     Installs the .NET SDK via official Microsoft install scripts (user-space).
 .DESCRIPTION
-    Uses vendored dotnet-install scripts instead of package managers.
+    Uses the vendored dotnet-install scripts shipped in this module's assets/scripts/ (resolved
+    through Get-CatzcModuleRoot, so the same in source and build mode) instead of package managers.
     Install directory resolved by Get-ScriptInstallDir (LOCALAPPDATA on
     Windows, HOME on Unix — overridable in tools.yml).
     No admin required. Persists DOTNET_ROOT and PATH for future sessions.
@@ -93,15 +94,15 @@ function Install-Dotnet {
     }
 
     if ($needsInstall) {
-        # Resolve vendored install script
+        # Resolve the vendored install script shipped in this module's assets/ (ADR-AUTO-ASSETDEP:1)
         if ($IsWindows) {
-            $scriptPath = Join-Path -Path $PSScriptRoot -ChildPath 'assets' -AdditionalChildPath 'scripts', 'dotnet-install.ps1'
+            $scriptPath = Get-CatzcModuleRoot 'assets/scripts/dotnet-install.ps1'
             Assert-PathExist $scriptPath
             Write-Message "Installing .NET SDK $Version to '$installDir'"
             & $scriptPath -Channel $Version -InstallDir $installDir -Quality ga
         }
         else {
-            $scriptPath = Join-Path -Path $PSScriptRoot -ChildPath 'assets' -AdditionalChildPath 'scripts', 'dotnet-install.sh'
+            $scriptPath = Get-CatzcModuleRoot 'assets/scripts/dotnet-install.sh'
             Assert-PathExist $scriptPath
             Write-Message "Installing .NET SDK $Version to '$installDir'"
             Invoke-Executable "bash '$scriptPath' --channel $Version --install-dir $installDir --quality ga"
@@ -110,12 +111,19 @@ function Install-Dotnet {
 
     # Converge the environment on every run that owns the install — session + persistent, both idempotent.
     # This is the PATH non-repo processes resolve dotnet through.
-    $env:DOTNET_ROOT = $installDir
+    # Each change is announced where it happens, and only when it changes something (ADR-AUTO-ANNOUNCE:2).
+    if ($env:DOTNET_ROOT -ne $installDir) {
+        $env:DOTNET_ROOT = $installDir
+        Write-Message "Session: DOTNET_ROOT='$installDir'"
+    }
     Add-PermanentPath $installDir -Prepend -Label 'Install-Dotnet'
 
     # Persist DOTNET_ROOT separately (not PATH — handled above)
     if ($IsWindows) {
-        [Environment]::SetEnvironmentVariable('DOTNET_ROOT', $installDir, 'User')
+        if ([Environment]::GetEnvironmentVariable('DOTNET_ROOT', 'User') -ne $installDir) {
+            [Environment]::SetEnvironmentVariable('DOTNET_ROOT', $installDir, 'User')
+            Write-Message "User environment: DOTNET_ROOT='$installDir'"
+        }
     }
     else {
         $startMarker = '>>> catzc DOTNET_ROOT >>>'
@@ -131,6 +139,7 @@ function Install-Dotnet {
 # <<< catzc DOTNET_ROOT <<<
 "@
             Add-Content -Path $profilePath -Value $block
+            Write-Message "Profile '$profilePath': added the DOTNET_ROOT block"
         }
     }
 

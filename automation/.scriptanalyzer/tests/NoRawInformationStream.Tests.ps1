@@ -34,13 +34,16 @@ function Write-Thing {
         Test-RawInfo $code | Should -Not -BeNullOrEmpty
     }
 
-    It 'exempts the chokepoint Write-InformationColored (the one sanctioned caller)' {
-        $code = @'
-function Write-InformationColored {
-    param($MessageData)
-    Write-Information $MessageData
+    It 'exempts the chokepoint <Name> (a sanctioned caller)' -ForEach @(
+        @{ Name = 'Write-InformationColored' }
+        @{ Name = 'Write-ImporterMessage' }
+    ) {
+        $code = @"
+function $Name {
+    param(`$MessageData)
+    Write-Information `$MessageData
 }
-'@
+"@
         Test-RawInfo $code | Should -BeNullOrEmpty
     }
 

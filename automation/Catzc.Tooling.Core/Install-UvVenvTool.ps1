@@ -62,6 +62,7 @@ function Install-UvVenvTool {
     # it, while `python` stays the managed interpreter.
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $scriptsDir) {
         $env:PATH = "$env:PATH$([System.IO.Path]::PathSeparator)$scriptsDir"
+        Write-Message "Session PATH: appended '$scriptsDir'"
     }
 
     Assert-Command $config.command -ErrorText "$Tool was installed into '$venvDir' but '$($config.command)' is not on PATH — its session_path_hints must include '$scriptsDir'."

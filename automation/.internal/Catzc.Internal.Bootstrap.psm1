@@ -3,15 +3,18 @@
     Writes a bootstrap/importer console message, prefixed to match Write-Message's [Caller] style.
 .DESCRIPTION
     The importer and its .internal bootstrap run before the module system (and Write-Message) are available,
-    so they use Write-Host. This wrapper prepends '[Importer.ps1] ' so importer output reads consistently
-    with the rest of the toolset's '[Caller] ...' messages. .internal code only ever runs from the importer.
+    so this is their writer chokepoint: the bootstrap's counterpart of Write-InformationColored, and like it the
+    one place besides it that may call Write-Information (ADR-AUTO-ANNOUNCE:1). It prepends '[Importer.ps1] ' so
+    importer output reads consistently with the rest of the toolset's '[Caller] ...' messages, carries the
+    colour as embedded ANSI, and is silent during a Pester run ($global:__PesterRunning), exactly as the Writers
+    chokepoint is. .internal code only ever runs from the importer. An empty message writes a blank line.
 .PARAMETER Message
     The message text.
 .PARAMETER ForegroundColor
     Optional text color (e.g. DarkGray for diagnostics, Yellow for warnings).
 #>
 function Write-ImporterMessage {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Importer/bootstrap output; runs before the module system (Write-Message) is available')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = '$global:__PesterRunning (set by Test-Automation) silences the chokepoint during a test run, as in Write-InformationColored; global is required to cross module session-state boundaries')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -21,13 +24,20 @@ function Write-ImporterMessage {
         [System.ConsoleColor] $ForegroundColor
     )
 
-    $line = "[Importer.ps1] $Message"
-    if ($PSBoundParameters.ContainsKey('ForegroundColor')) {
-        Write-Host $line -ForegroundColor $ForegroundColor
+    if ($global:__PesterRunning) {
+        return
+    }
+    $line = if ($Message) {
+        "[Importer.ps1] $Message"
     }
     else {
-        Write-Host $line
+        ''
     }
+    if ($PSBoundParameters.ContainsKey('ForegroundColor')) {
+        # $PSStyle, not the Writers' Ansi type: this runs before the combined types assembly is loaded.
+        $line = "$($PSStyle.Foreground.FromConsoleColor($ForegroundColor))$line$($PSStyle.Reset)"
+    }
+    Write-Information $line -InformationAction Continue
 }
 
 <#
@@ -69,8 +79,29 @@ function Clear-CompiledType {
     Write-ImporterMessage "Cleared compiled type cache — building from source (removed $removed, skipped $skipped)"
 }
 
+<#
+.SYNOPSIS
+    Writes a module's generated <Module>.psd1 and returns its path.
+.DESCRIPTION
+    By default the manifest is derived from the module folder: private/*.ps1 then root *.ps1 become NestedModules
+    (each group ordinal-sorted, forward-slashed) and the root *.ps1 basenames become FunctionsToExport. A caller
+    whose module is not one-function-per-file on disk — a built module whose functions are merged into one
+    <Module>.ps1 — passes both lists explicitly with -NestedModule and -FunctionToExport instead; the folder is
+    then not enumerated. Either way the text comes from the one canonical emitter (Get-DynamicManifestContent)
+    and is written only on drift.
+.PARAMETER ModulePath
+    The module folder; the manifest is <ModulePath>/<leaf>.psd1.
+.PARAMETER ExportPrivates
+    Export every function ('*'), so tests can reach privates.
+.PARAMETER ReadOnly
+    Never write: assert the manifest is already present and return its path.
+.PARAMETER NestedModule
+    Explicit NestedModules, relative to ModulePath with forward slashes, in load order. Requires -FunctionToExport.
+.PARAMETER FunctionToExport
+    Explicit FunctionsToExport names. Requires -NestedModule.
+#>
 function New-DynamicManifest {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = 'Derived')]
     param(
         [Parameter(Mandatory)]
         [string]$ModulePath,
@@ -79,7 +110,14 @@ function New-DynamicManifest {
 
         # Read-only load (a bundle): never generate or write the manifest — it must already be present
         # (Build-Catzc pre-generates every module's manifest), so a read-only install store is never written to.
-        [switch]$ReadOnly
+        [switch]$ReadOnly,
+
+        [Parameter(Mandatory, ParameterSetName = 'Explicit')]
+        [string[]]$NestedModule,
+
+        [Parameter(Mandatory, ParameterSetName = 'Explicit')]
+        [AllowEmptyCollection()]
+        [string[]]$FunctionToExport
     )
 
     $moduleName = Split-Path $ModulePath -Leaf
@@ -90,6 +128,11 @@ function New-DynamicManifest {
             throw "Read-only load: module '$moduleName' is missing its generated manifest ($manifestPath). Rebuild the bundle — Build-Catzc pre-generates every module manifest."
         }
         return $manifestPath
+    }
+
+    if ($PSCmdlet.ParameterSetName -eq 'Explicit') {
+        $content = Get-DynamicManifestContent -NestedModule $NestedModule -FunctionToExport $FunctionToExport -ExportAll:$ExportPrivates
+        return (Write-DynamicManifest -Path $manifestPath -Content $content)
     }
 
     $pathPrefixLength = $ModulePath.Length + 1
@@ -135,18 +178,36 @@ function New-DynamicManifest {
 
     # Canonical, formatter-stable text — no hand-padded alignment (ADR-REPO-FORMAT#1); the L2 suite gates the invariant.
     $content = Get-DynamicManifestContent -NestedModule $nestedModules -FunctionToExport $exportNames -ExportAll:$ExportPrivates
+    Write-DynamicManifest -Path $manifestPath -Content $content
+}
 
-    # Write only on drift (the janitors' write-on-drift pattern): the manifest is a pure derivation of the
-    # module's files, so an unchanged tree yields identical bytes and the write is skipped. Beyond saving ~40
-    # writes per import, this is what lets Test-Automation's parallel workers dot-source the importer
-    # concurrently — the parent's own import regenerated every manifest just before spawning, so the workers
-    # all compare-equal and none writes, and there is no cross-process race on the .psd1 files.
-    if ([System.IO.File]::Exists($manifestPath) -and [System.IO.File]::ReadAllText($manifestPath) -ceq $content) {
-        return $manifestPath
+function Write-DynamicManifest {
+    <#
+    .SYNOPSIS
+        Writes rendered manifest text to its .psd1 only when it differs, and returns the path.
+    .DESCRIPTION
+        The janitors' write-on-drift pattern: the manifest is a pure derivation, so an unchanged module yields
+        identical bytes and the write is skipped. Beyond saving ~40 writes per import, this is what lets
+        Test-Automation's parallel workers dot-source the importer concurrently — the parent's own import
+        regenerated every manifest just before spawning, so the workers all compare-equal and none writes, and
+        there is no cross-process race on the .psd1 files. UTF-8 without BOM.
+    #>
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Path,
+
+        [Parameter(Mandatory)]
+        [string] $Content
+    )
+
+    if ([System.IO.File]::Exists($Path) -and [System.IO.File]::ReadAllText($Path) -ceq $Content) {
+        return $Path
     }
     $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
-    [System.IO.File]::WriteAllText($manifestPath, $content, $utf8NoBom)
-    return $manifestPath
+    [System.IO.File]::WriteAllText($Path, $Content, $utf8NoBom)
+    return $Path
 }
 
 function Get-DynamicManifestContent {
@@ -245,9 +306,15 @@ function Get-DynamicManifestContent {
     States:
 
       1. A type already in the AppDomain (types survive module reimport) -> compare the combined source hash to
-         what was recorded; a change throws (restart required), otherwise it is a no-op.
-      2. Not loaded -> load the cached DLL if its hash matches, else compile all sources to the hash-named DLL
-         (Roslyn, once per combined hash) and load it. Then verify EVERY expected type resolved, else throw.
+         what was recorded for this root; a change throws in a pipeline and warns on a devbox (restart
+         required), otherwise it is a no-op.
+      2. Loaded on behalf of a DIFFERENT root (the other run mode) -> compare the per-file digests of every type
+         this root needs to the root that recorded them. All equal reuses the loaded types and records this
+         root; a changed digest or a needed type missing from the AppDomain takes the contract of state 1,
+         naming both roots.
+      3. Not loaded -> load the cached DLL if its hash matches, else compile all sources to the hash-named DLL
+         (Build-CombinedTypeAssembly — Roslyn, once per combined hash) and load it. Then verify EVERY expected
+         type resolved, else throw.
 
     Runs once from Bootstrap (not a Catzc module) as a pre-pass before any module's functions import.
 .PARAMETER ModulesRoot
@@ -326,49 +393,83 @@ function Import-CSharpTypes {
 
     # A loaded assembly cannot be reloaded. If any source changed since THIS ModulesRoot was last loaded, the
     # live copy is stale — fail fast. The session record is keyed by ModulesRoot, so loading a different tree
-    # (e.g. a test-fixture root) records its own hash/snapshot and never poisons the real tree's guard — a
-    # cross-root compare used to throw a bogus "types changed" on the next real import after the test suite ran.
-    # The message names which files drifted (added/removed/changed) and both hashes, so the cause is diagnosable
-    # from the error text alone (a pure CRLF/LF flip can no longer reach here either — see above).
+    # (e.g. a test-fixture root) records its own hash/snapshot and never poisons the real tree's guard; a root
+    # with no record of its own is compared per file against the root that loaded the types (cross-root, below).
+    # The message names which files drifted (added/removed/changed) and both hashes or roots, so the cause is
+    # diagnosable from the error text alone (a pure CRLF/LF flip never reaches here — the digests strip CR).
     if (-not $global:__CatzcTypes) {
         $global:__CatzcTypes = @{}
     }
     $rootKey = [System.IO.Path]::GetFullPath($ModulesRoot)
-    if ($loaded) {
-        $prior = $global:__CatzcTypes[$rootKey]
-        if ($prior -and $prior.Hash -ne $combinedHash) {
-            $drift = [System.Collections.Generic.List[string]]::new()
-            foreach ($key in $snapshot.Keys) {
-                if (-not $prior.Snapshot.Contains($key)) {
-                    $drift.Add("added $key")
-                }
-                elseif ($prior.Snapshot[$key] -ne $snapshot[$key]) {
-                    $drift.Add("changed $key")
+    $prior = $global:__CatzcTypes[$rootKey]
+    $drift = [System.Collections.Generic.List[string]]::new()
+    $changeSummary = $null
+    if ($loaded -and $prior -and $prior.Hash -ne $combinedHash) {
+        foreach ($key in $snapshot.Keys) {
+            if (-not $prior.Snapshot.Contains($key)) {
+                $drift.Add("added $key")
+            }
+            elseif ($prior.Snapshot[$key] -ne $snapshot[$key]) {
+                $drift.Add("changed $key")
+            }
+        }
+        foreach ($key in $prior.Snapshot.Keys) {
+            if (-not $snapshot.Contains($key)) {
+                $drift.Add("removed $key")
+            }
+        }
+        $changeSummary = "C# types changed since they were loaded ($($prior.Hash) -> $combinedHash)."
+    }
+    elseif ($loaded -and -not $prior) {
+        # Cross-root: the types are in the AppDomain, but loaded on behalf of a DIFFERENT root (the other run mode,
+        # whose DLL compiles from the same types/*.cs). Compare per-file digests for every type this root needs
+        # against the root that recorded it. All equal -> the loaded types ARE this root's types: reuse them and
+        # record. A changed digest, or a needed type the AppDomain lacks (a subset loaded first), cannot be fixed
+        # in-process — a second assembly of the same type names would split type identity — so it takes the same
+        # stale-types contract as a same-root change below. A type no recorded root claims is reused as is.
+        $otherRoots = [System.Collections.Generic.List[string]]::new()
+        foreach ($key in $snapshot.Keys) {
+            foreach ($entry in $global:__CatzcTypes.GetEnumerator()) {
+                if ($entry.Key -ne $rootKey -and $entry.Value.Snapshot.Contains($key)) {
+                    if ($entry.Value.Snapshot[$key] -ne $snapshot[$key]) {
+                        $drift.Add("changed $key")
+                    }
+                    if (-not $otherRoots.Contains($entry.Key)) {
+                        $otherRoots.Add($entry.Key)
+                    }
+                    break
                 }
             }
-            foreach ($key in $prior.Snapshot.Keys) {
-                if (-not $snapshot.Contains($key)) {
-                    $drift.Add("removed $key")
-                }
+        }
+        foreach ($tf in $arr) {
+            if (-not ([System.Management.Automation.PSTypeName]$tf.Type).Type) {
+                $drift.Add("not loaded $($tf.Key)")
             }
-            $detail = if ($drift.Count) {
-                ' Drifted: ' + ($drift -join '; ') + '.'
+        }
+        if ($drift.Count) {
+            $loadedFrom = if ($otherRoots.Count) {
+                "'" + ($otherRoots -join "', '") + "'"
             }
             else {
-                ''
+                'another root'
             }
-            # A loaded assembly cannot be swapped in the AppDomain. In a pipeline a stale-types load is a HARD
-            # failure (CI must never run on old types); on a devbox, degrade gracefully — keep the already-loaded
-            # types this session, warn (orange), and return WITHOUT recording the new hash, so the warning repeats
-            # on every re-import until you restart. The pipeline check is INLINED because Test-IsRunningInPipeline
-            # lives in Catzc.Base.Repository, which loads AFTER this pre-pass runs and so is not callable here.
-            $changeSummary = "C# types changed since they were loaded ($($prior.Hash) -> $combinedHash).$detail"
-            if (([bool]$env:TF_BUILD) -or ([bool]$env:GITHUB_ACTIONS)) {
-                throw "$changeSummary Restart PowerShell to pick up the change."
-            }
-            Write-ImporterMessage "Using old cached C# types — $changeSummary Restart PowerShell to pick up the change." -ForegroundColor DarkYellow
-            return
+            $changeSummary = "C# types already loaded from $loadedFrom differ from the sources under '$rootKey'."
         }
+    }
+    if ($changeSummary) {
+        if ($drift.Count) {
+            $changeSummary += ' Drifted: ' + ($drift -join '; ') + '.'
+        }
+        # A loaded assembly cannot be swapped in the AppDomain. In a pipeline a stale-types load is a HARD
+        # failure (CI must never run on old types); on a devbox, degrade gracefully — keep the already-loaded
+        # types this session, warn (orange), and return WITHOUT recording the new hash, so the warning repeats
+        # on every re-import until you restart. The pipeline check is INLINED because Test-IsRunningInPipeline
+        # lives in Catzc.Base.Repository, which loads AFTER this pre-pass runs and so is not callable here.
+        if (([bool]$env:TF_BUILD) -or ([bool]$env:GITHUB_ACTIONS)) {
+            throw "$changeSummary Restart PowerShell to pick up the change."
+        }
+        Write-ImporterMessage "Using old cached C# types — $changeSummary Restart PowerShell to pick up the change." -ForegroundColor DarkYellow
+        return
     }
 
     $sw = if ($DiagnoseLoadTime) {
@@ -388,22 +489,13 @@ function Import-CSharpTypes {
         if ($PrebuiltOnly) {
             throw "Bundle is missing its prebuilt combined-types assembly ($dll). The bundle is incomplete or corrupt — rebuild it (Build-Catzc ships the DLL); a bundle never compiles types."
         }
-        if (-not [System.IO.Directory]::Exists($compiledDir)) {
-            New-Item -ItemType Directory -Path $compiledDir -Force | Out-Null
-        }
-        # Compile all sources to a temp file, then move into place so a concurrent import never sees a
-        # half-written DLL (same hash => same source => harmless lost race; just discard our temp). Each .cs is
-        # a SEPARATE compilation unit (Add-Type -Path), so each file's file-scoped namespace is legal and all
-        # the types still land in one assembly — file-scoped namespaces cannot be concatenated into one unit.
-        $tmp = "$dll.$PID.tmp"
-        Add-Type -Path @($arr.Path) -OutputAssembly $tmp -OutputType Library
-        try {
-            [System.IO.File]::Move($tmp, $dll)
-        }
-        catch {
-            if (Test-Path $tmp) {
-                [System.IO.File]::Delete($tmp)
-            }
+        # The ONE compile path (Build-CombinedTypeAssembly in Catzc.Internal.Types, shared with a build): it
+        # compiles the validated sources to a temp file and moves it into place, so a concurrent import never
+        # sees a half-written DLL. It re-derives the hash from disk, so a source edited mid-import is a throw,
+        # never a DLL whose name keys different sources than the ones validated above.
+        $built = Build-CombinedTypeAssembly -AutomationRoot $ModulesRoot -OutputDirectory $compiledDir
+        if ($built.Hash -ne $combinedHash) {
+            throw "C# type sources changed during the import ($combinedHash -> $($built.Hash)). Re-run the importer."
         }
         $didCompile = $true
 
@@ -429,8 +521,11 @@ function Import-CSharpTypes {
     }
 
     # Load the assembly if not already in the AppDomain (a reimport keeps the live copy). Verify EVERY type.
+    # Loading a binary into the session is a state change, so it is announced (ADR-AUTO-ANNOUNCE:2) — always,
+    # naming the DLL; a reimport that keeps the live copy loads nothing and says nothing.
     if (-not $loaded) {
         Add-Type -Path $dll
+        Write-ImporterMessage "Loaded types $(([System.IO.Path]::GetRelativePath($env:RepositoryRoot, $dll)) -replace '\\', '/')"
         foreach ($tf in $arr) {
             if (-not ([System.Management.Automation.PSTypeName]$tf.Type).Type) {
                 throw "Compiled C# types but '$($tf.Type)' was not produced. $($tf.File) must declare a public class named '$([System.IO.Path]::GetFileNameWithoutExtension($tf.Path))' (the module namespace '$($tf.Module)' is added automatically)."
@@ -595,7 +690,65 @@ function Assert-UniqueModuleFunctionName {
 
 <#
 .SYNOPSIS
+    Returns every loaded catzc module that does not come from the given code root.
+.DESCRIPTION
+    A catzc module is one named 'Catzc' (the package module) or 'Catzc.*'. It belongs to a root when its
+    ModuleBase is that root or lies under it; the package module also belongs when its ModuleBase is the
+    root's parent (a package whose code root is its automation/ subfolder). Paths compare as normalized full
+    paths, case-insensitively, as Get-CatzcRunMode does. Vendored third-party modules never carry a catzc name,
+    so the name filter alone keeps them out — Import-VendorModules owns their reload. The single predicate
+    behind both the run-mode eviction (Import-AllModules) and the exclusivity assert (Invoke-Importer's tail).
+.PARAMETER ModulesRoot
+    The active code root (CatzcModulesRoot).
+.PARAMETER IncludeInternal
+    Include the Catzc.Internal.* loader modules (they belong to a root through its .internal folder).
+#>
+function Get-ForeignCatzcModule {
+    [CmdletBinding()]
+    [OutputType([psmoduleinfo])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $ModulesRoot,
+
+        [switch] $IncludeInternal
+    )
+
+    $separators = [char[]] @('\', '/')
+    $root = [System.IO.Path]::GetFullPath($ModulesRoot).TrimEnd($separators)
+    $rootPrefix = $root + [System.IO.Path]::DirectorySeparatorChar
+    $packageRoot = [System.IO.Path]::GetDirectoryName($root)
+    $ignoreCase = [System.StringComparison]::OrdinalIgnoreCase
+
+    foreach ($module in Get-Module) {
+        if ($module.Name -ne 'Catzc' -and $module.Name -notlike 'Catzc.*') {
+            continue
+        }
+        if (-not $IncludeInternal -and $module.Name -like 'Catzc.Internal.*') {
+            continue
+        }
+        if ([string]::IsNullOrEmpty($module.ModuleBase)) {
+            continue
+        }
+        $base = [System.IO.Path]::GetFullPath($module.ModuleBase).TrimEnd($separators)
+        if ($base.Equals($root, $ignoreCase) -or $base.StartsWith($rootPrefix, $ignoreCase)) {
+            continue
+        }
+        if ($module.Name -eq 'Catzc' -and $packageRoot -and $base.Equals($packageRoot, $ignoreCase)) {
+            continue
+        }
+        $module
+    }
+}
+
+<#
+.SYNOPSIS
     Imports all module directories under a given root path.
+.DESCRIPTION
+    Before anything loads it evicts the other run mode (ADR-DSGN-RUNMODE:5): every catzc module loaded from a
+    different root is removed, and a Catzc.Internal.* module from a different root is re-imported from this
+    root's .internal (Import-InternalModule -Force semantics, anchored at this root). The running importer
+    modules (Importer, Bootstrap) are never touched mid-load; the shims import them from the active root by
+    construction, and Invoke-Importer's exclusivity assert reports any that are not.
 .PARAMETER ModulesRoot
     Path to the directory containing module folders.
 #>
@@ -637,16 +790,46 @@ function Import-AllModules {
     # vendored third-party modules (.vendor), and the .internal shared modules — the last are loaded by the
     # importer before this runs and must SURVIVE into the session (Import-CSharpTypes and post-import cover
     # functions call them); they live under the automation root, so without this they match the stale sweep.
-    Get-Module |
-        Where-Object {
-            $_.Path -like "$ModulesRoot*" -and $_.Name -ne 'Bootstrap' -and
-            $_.Path -notlike '*/.vendor/*' -and $_.Path -notlike '*\.vendor\*' -and
-            $_.Path -notlike '*/.internal/*' -and $_.Path -notlike '*\.internal\*'
-        } |
-        ForEach-Object {
-            Write-Verbose "Removing stale module: $($_.Name)"
-            Remove-Module $_.Name -Force -ErrorAction SilentlyContinue
+    $stale = @(Get-Module |
+            Where-Object {
+                $_.Path -like "$ModulesRoot*" -and $_.Name -ne 'Bootstrap' -and
+                $_.Path -notlike '*/.vendor/*' -and $_.Path -notlike '*\.vendor\*' -and
+                $_.Path -notlike '*/.internal/*' -and $_.Path -notlike '*\.internal\*'
+            })
+    foreach ($module in $stale) {
+        Write-Verbose "Removing stale module: $($module.Name)"
+        Remove-Module $module.Name -Force -ErrorAction SilentlyContinue
+    }
+
+    # Evict the other run mode: a catzc module loaded from a different root (a build when loading the source
+    # tree, or the reverse) is removed, taking its script scope — and every $script: cache — with it. Removal is
+    # by module INSTANCE (-ModuleInfo), never by name: Import-Module -Force of a same-named module from another
+    # path loads a second instance beside the first, so the shim's own imports of this root's Loader, Importer,
+    # Bootstrap, Types and Vendor leave the other root's instances in the module table, and removing just those
+    # keeps this root's commands intact. A Catzc.Internal.* module this root has not loaded yet (an on-demand
+    # one, e.g. TestKit) is re-imported from THIS root's .internal by path (Import-InternalModule -Force
+    # semantics, anchored here — the loader itself may be the foreign one). The running importer modules are
+    # never removed unless this root's instance is the one running. Removal tolerates a module already gone
+    # with its parent; Invoke-Importer's exclusivity assert (after the load) proves nothing foreign survived.
+    $rootInternal = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($ModulesRoot, '.internal')).TrimEnd('\', '/')
+    $evicted = [System.Collections.Generic.List[string]]::new()
+    foreach ($foreign in @(Get-ForeignCatzcModule -ModulesRoot $ModulesRoot -IncludeInternal)) {
+        $isInternal = $foreign.Name -like 'Catzc.Internal.*'
+        $hasLocal = $isInternal -and [bool](Get-Module $foreign.Name | Where-Object {
+                $_.ModuleBase -and [System.IO.Path]::GetFullPath($_.ModuleBase).TrimEnd('\', '/') -ieq $rootInternal
+            })
+        if (-not $hasLocal -and $foreign.Name -in 'Catzc.Internal.Importer', 'Catzc.Internal.Bootstrap') {
+            continue
         }
+        Write-Verbose "Evicting $($foreign.Name) loaded from another root: $($foreign.ModuleBase)"
+        Remove-Module -ModuleInfo $foreign -Force -ErrorAction SilentlyContinue
+        $evicted.Add($foreign.Name)
+        $internalPath = [System.IO.Path]::Combine($rootInternal, "$($foreign.Name).psm1")
+        if ($isInternal -and -not $hasLocal -and [System.IO.File]::Exists($internalPath)) {
+            Write-Verbose "Reloading $($foreign.Name) from $rootInternal"
+            Import-Module $internalPath -Scope Global -Force
+        }
+    }
     if ($DiagnoseLoadTime) {
         Write-ImporterMessage ('    {0,6}ms  (remove stale modules)' -f [int]$sw.Elapsed.TotalMilliseconds) -ForegroundColor DarkGray
     }
@@ -656,6 +839,7 @@ function Import-AllModules {
     # type in one module can reference a type in another. Module import order below is therefore irrelevant.
     Import-CSharpTypes -ModulesRoot $ModulesRoot -DiagnoseLoadTime:$DiagnoseLoadTime -PrebuiltOnly:$Bundle
 
+    $imported = [System.Collections.Generic.List[string]]::new()
     foreach ($dir in $moduleDirs) {
         if ($DiagnoseLoadTime) {
             $sw.Restart()
@@ -700,6 +884,7 @@ function Import-AllModules {
                 $sw.Restart()
             }
             Import-Module $manifestPath -Scope Global -Force
+            $imported.Add($dir.Name)
             if ($DiagnoseLoadTime) {
                 $importMs = [int]$sw.Elapsed.TotalMilliseconds
                 $total = $manifestMs + $readMs + $importMs
@@ -717,6 +902,23 @@ function Import-AllModules {
             }
         }
     }
+
+    # Loading and unloading modules changes the session, so it is announced (ADR-AUTO-ANNOUNCE:2): one line names
+    # the load, plus any module that left the session for good — evicted from another root, or gone from the tree.
+    # A re-import's remove-then-reload of the same modules is not a departure and is not listed.
+    $summary = "Loaded $($imported.Count) modules from '$ModulesRoot'"
+    if ($evicted.Count) {
+        $summary += "; evicted from another root: $($evicted -join ', ')"
+    }
+    $gone = @(foreach ($module in $stale) {
+            if ($module.Name -notin $imported) {
+                $module.Name
+            }
+        })
+    if ($gone.Count) {
+        $summary += "; removed, no longer in the tree: $($gone -join ', ')"
+    }
+    Write-ImporterMessage $summary
 }
 
-Export-ModuleMember -Function 'Import-AllModules', 'Write-ImporterMessage', 'Clear-CompiledType'
+Export-ModuleMember -Function 'Import-AllModules', 'Write-ImporterMessage', 'Clear-CompiledType', 'Get-ForeignCatzcModule'

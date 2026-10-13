@@ -33,7 +33,7 @@ is irrelevant because the assembly is a leaf in the reference graph: nothing ref
 
 Cross-module type references are allowed but **governed by the module dependency graph**: a deriving/referencing module must declare the
 target in `configs/dependencies.yml`. The compiler does not enforce the layering in one combined assembly, so `Get-CSharpTypeDependency`
-extracts the C# edges and `Assert-ModuleDependency` fails the L2 suite on an undeclared one. There is **one** shared
+extracts the C# edges and `Assert-ModuleDependency` fails the L1 integrity suite on an undeclared one. There is **one** shared
 `Catzc.Base.Objects.DictionaryRecord`, not a per-module copy.
 
 - [The `DictionaryRecord` base](#the-dictionaryrecord-base-dictionary-compatible-data-records)
@@ -69,8 +69,8 @@ because this pre-pass runs before `Catzc.Base.Repository` (Test-IsRunningInPipel
 ### Rule ADR-AUTO-TYPES:8
 
 Use snake_case property names **only** on a type that mirrors a YAML config (so the YAML key and the C# property are the same identifier);
-every other type — results, CLI state, REST shapes such as `CliResult` / `CliRunner` — keeps default .NET PascalCase. snake_case here is a
-YAML-interop concern, not a house style.
+every other type — results, CLI state, REST shapes such as `CliResult` / `CliRunner` — keeps default .NET PascalCase. snake_case is a
+YAML-interop rule scoped to config-mirroring types, not a repository-wide naming convention.
 
 - [snake_case is for config-mirroring records only](#snake_case-is-for-config-mirroring-records-only)
 
@@ -130,7 +130,7 @@ layering discipline is policed by the dependency checker rather than structurall
 
 ### Why one assembly, not one per module
 
-The blocker for cross-module references under the per-module design was `Add-Type`: it assigns a **random** assembly name (verified —
+The blocker for cross-module references under a per-module design is `Add-Type`: it assigns a **random** assembly name (verified —
 `Add-Type -OutputAssembly` produces e.g. `khuvslfy.cez`, and a rebuild of identical source produces a _different_ random name). A dependent
 assembly bakes that random name at compile time and dangles when the base is rebuilt under a new name. There is no `Add-Type` knob for a
 stable assembly name, and no NuGet to reach the Roslyn API cleanly.
@@ -145,7 +145,7 @@ One combined assembly dissolves the problem entirely rather than working around 
 
 The cost is that the compiler does not structurally forbid a layer inversion (a base-module type referencing a leaf-module type) — in one
 compilation unit that just compiles. That enforcement moves to the linter (see Rule ADR-AUTO-TYPES:4): `Get-CSharpTypeDependency` reports
-the cross-module C# edges and the existing acyclic allow-list in `configs/dependencies.yml` governs them, failing L2 on an undeclared edge.
+the cross-module C# edges and the acyclic allow-list in `configs/dependencies.yml` governs them, failing L1 on an undeclared edge.
 
 ## Decision
 
@@ -176,9 +176,9 @@ build cannot change what `Add-Type` sees.
 ### Why the namespace is declared, and an IDE project alongside
 
 The namespace is **declared in the source** rather than wrapped in by the loader so the same files are valid, analyzable C# to the editor —
-[everything-as-code](../../principles/everything-as-code.md). A file that declared no namespace only became well-formed after the loader's
-textual wrap, so no `.csproj` could compile the raw sources: VS Code's C# Dev Kit treated them as "miscellaneous files", ignored
-`.editorconfig` analyzer severities, and raised a false `CA1050 "Declare types in namespaces"` on every file, plus a "No solution file" nag.
+[everything-as-code](../../principles/everything-as-code.md). A file that declares no namespace becomes well-formed only after a loader's
+textual wrap, so no `.csproj` can compile the raw sources: VS Code's C# Dev Kit treats them as "miscellaneous files", ignores
+`.editorconfig` analyzer severities, and raises a false `CA1050 "Declare types in namespaces"` on every file, plus a "No solution file" nag.
 Turning the analyzer off, or disabling Dev Kit, would hide the rule instead of expressing it as code — the opposite of EAC.
 
 Declaring `namespace <module>;` makes each file compile cleanly on its own, so a real IDE project can analyze exactly what the runtime
@@ -261,17 +261,18 @@ A data record backed by an `[ordered]@{}` / `[pscustomobject]` shape may inherit
   `Contains('customer')` false. The view reflects only properties the _derived_ record declares, never the base's own members.
 - **Protected extraction helpers** (`Req` / `OptStr` / `StrArr`) that derived constructors call to read their source `IDictionary`.
 
-A deriving module must declare `Catzc.Base.Objects` in `dependencies.yml` (every Azure/DevBox module does). A record names its properties to
-match the dict keys it mirrors (snake_case where the keys are snake_case). `BicepTemplate` is an example that derives from it.
+A deriving module must declare `Catzc.Base.Objects` (directly or through the `Base` group) in `dependencies.yml` (every Azure and Tooling
+module declares `Base`). A record names its properties to match the dict keys it mirrors (snake_case where the keys are snake_case).
+`BicepTemplate` is an example that derives from it.
 
 ### snake_case is for config-mirroring records only
 
-The "same name inside and outside" snake_case rule is a **YAML-interop** concern, not a universal house style: it applies only to a type
-whose properties mirror the keys of a `configs/<name>.yml` file, so the YAML key and the C# property are literally the same identifier (the
-YAML side is enforced by `Assert-YmlNaming`). A type with no backing YAML file — a result, CLI-state, or REST shape such as `CliResult` or
-`CliRunner` — has nothing to mirror, so it keeps default .NET **PascalCase**. For a non-config domain object that already emits snake keys
-from an external tool (for example an `az` CLI `logged_in` field), match the existing keys to avoid breaking consumers — but do not force a
-universal flip.
+The "same name inside and outside" snake_case rule is a **YAML-interop** concern, not a repository-wide naming convention: it applies only
+to a type whose properties mirror the keys of a `configs/<name>.yml` file, so the YAML key and the C# property are literally the same
+identifier (the YAML side is enforced by `Assert-YmlNaming`). A type with no backing YAML file — a result, CLI-state, or REST shape such as
+`CliResult` or `CliRunner` — has nothing to mirror, so it keeps default .NET **PascalCase**. For a non-config domain object that already
+emits snake keys from an external tool (for example an `az` CLI `logged_in` field), match the existing keys to avoid breaking consumers —
+but do not force a universal flip.
 
 ### The domain model is C#, not a loose dictionary
 
@@ -288,6 +289,8 @@ every call site re-interprets. A loose dictionary here would push the shape into
 construction-time check — the opposite of a fixed model. Config that _feeds_ the model (the `files.yml` package bindings) stays loose YAML
 crossing the boundary; the model built from it is typed.
 
+### How this is enforced
+
 - **`Format-Types` + `Test-Types`** (in `Catzc.Base.QualityGates`) — `Format-Types` writes/repairs each source's file-scoped
   `namespace <module>;` from its `types/` folder (the formatter, not an ad-hoc sweep); `Test-Types` is the gate, failing on a missing,
   mismatched, or block-scoped namespace. The folder is the single source of truth, so the namespace can never drift from it.
@@ -303,9 +306,9 @@ crossing the boundary; the model built from it is typed.
 
 - **`Get-CSharpTypeDependency` + `Assert-ModuleDependency`** — the cross-module C# edges are extracted (a scan that strips comments, string
   literals, and each file's own `namespace <module>;` line, then maps each dotted token to its longest known-module-name prefix) and checked
-  against `configs/dependencies.yml` alongside the function-call edges. An undeclared type edge fails L2. `dependencies.yml` supports a
+  against `configs/dependencies.yml` alongside the function-call edges. An undeclared type edge fails L1. `dependencies.yml` supports a
   top-level `groups:` map — a named set of modules with its own internal member→member DAG; an allowed-deps entry may name a GROUP
-  (permitting an edge to any member) or a specific MODULE. The ex-`Catzc.Base.Utils` cluster is held together as the `Base` group.
+  (permitting an edge to any member) or a specific MODULE. The `Catzc.Base.*` cluster is held together as the `Base` group.
 
 - **`Import-CSharpTypes.Tests.ps1`** covers the combined compile + cache, intra-module and **cross-module** inheritance, the missing /
   mismatched / block-scoped namespace and dotted-filename throws, the filename-type verification, the changed-after-load fail-fast,
@@ -341,7 +344,7 @@ The module-dependency graph that governs cross-module C# type edges (ADR-AUTO-TY
   Go-to-Symbol target.
 
 - The dependency graph is a single source of truth for _both_ function-call and C# type layering. The cost of one combined assembly — the
-  compiler does not block a layer inversion — is paid back by the linter, which fails L2 on an undeclared edge.
+  compiler does not block a layer inversion — is paid back by the linter, which fails L1 on an undeclared edge.
 
 - Editing any type re-keys and rebuilds the one assembly (a single sub-second `Add-Type` compile, one committed DLL) and requires a session
   restart to pick up — the documented devbox contract.

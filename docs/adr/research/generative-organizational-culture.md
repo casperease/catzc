@@ -77,17 +77,17 @@ ideas are welcomed. Averaging the six gives a team a single Westrum culture scor
 ## How to apply
 
 DORA's implementation guidance is behavioral: change how people behave first, and belief follows, rather than trying to change minds before
-changing practice. This platform's failure response already works that way. Holding the line
-([ADR-PROC-ANDON](../process/holding-the-line.md)) treats a stopped line as the system working, not as a fault to find someone responsible
-for — punishing whoever pulled the cord teaches people to route around it, the same messenger-punishing pattern a generative culture avoids.
-Inspect-and-adapt ([ADR-PROC-KAIZEN](../process/inspect-and-adapt.md)) responds to a failure with a root-cause countermeasure drawn from
-evidence, not with blame, which is Westrum's "failure leads to inquiry" applied to the platform's own gates. Building quality in
+changing practice. This platform's failure response works that way. Holding the line ([ADR-PROC-ANDON](../process/holding-the-line.md))
+treats a stopped line as the system working, not as a fault to find someone responsible for — punishing whoever pulled the cord teaches
+people to route around it, the same messenger-punishing pattern a generative culture avoids. Inspect-and-adapt
+([ADR-PROC-KAIZEN](../process/inspect-and-adapt.md)) responds to a failure with a root-cause countermeasure drawn from evidence, not with
+blame, which is Westrum's "failure leads to inquiry" applied to the platform's own gates. Building quality in
 ([ADR-PROC-BUILTIN](../process/build-quality-in.md)) removes the separate inspection phase and makes quality everyone's job rather than one
 team's, which is the shared-risk trait a generative culture requires.
 
-Beyond what these ADRs already encode, apply the capability directly: run blameless postmortems that ask what happened rather than who did
-it, give developers ownership of their code once it runs in production, break down silos through shared planning and informal
-cross-functional conversation, and protect real time for people to try an idea rather than only tolerating the idea in theory.
+Beyond what these ADRs encode, apply the capability directly: run blameless postmortems that ask what happened rather than who did it, give
+developers ownership of their code once it runs in production, break down silos through shared planning and informal cross-functional
+conversation, and protect real time for people to try an idea rather than only tolerating the idea in theory.
 
 ## Common pitfalls
 
@@ -110,16 +110,38 @@ cross-functional conversation, and protect real time for people to try an idea r
 
 ## Dora explains
 
-Generative organizational culture is one of DORA's cultural capabilities: predictors of delivery and organizational performance that sit
-alongside, and reinforce, the technical and process capabilities. A team can run excellent technical practices and still underperform if its
+Generative organizational culture carries DORA evidence from 2014 through 2023 and is a member of the Core Model's climate-for-learning
+group, where the diagram labels it "Generative culture". It predicts software delivery performance, organizational performance, and lower
+burnout, alongside and reinforcing the technical capabilities: a team can run excellent technical practices and still underperform if its
 culture punishes the reporting of bad news or blocks the sharing of risk.
 
-- [Learning culture](https://dora.dev/capabilities/learning-culture/) — a generative response to failure, inquiry rather than blame, is what
-  makes a learning culture possible.
-- [Team experimentation](https://dora.dev/capabilities/team-experimentation/) — implementing novelty rather than merely tolerating it is
-  what lets a team run and learn from experiments.
-- [Job satisfaction](https://dora.dev/capabilities/job-satisfaction/) — high cooperation and shared risk are part of what makes work
-  sustainable and satisfying.
-- [Transformational leadership](https://dora.dev/capabilities/transformational-leadership/) — leadership support is what makes a generative
-  culture's behaviors safe to practice.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Generative organizational culture](../../references/dora/capabilities.md#generative-organizational-culture)
+- **Category:** [Climate for learning](../../references/dora/capabilities.md#climate-for-learning) — Core Model v2.1.0:
+  [climate for learning](../../references/dora/core-model.md#climate-for-learning). The Quick Check names it one of three capabilities worth
+  assessing first.
+- **Evidence:**
+  - [2014 State of DevOps Report](../../references/dora/publications.md#2014-state-of-devops-report) — organizational culture strongly
+    predicts IT and organizational performance.
+  - [2018 Accelerate State of DevOps Report](../../references/dora/publications.md#2018-accelerate-state-of-devops-report) — generative
+    culture, and autonomy grounded in trust in leaders, drive performance.
+  - [2019 Accelerate State of DevOps Report](../../references/dora/publications.md#2019-accelerate-state-of-devops-report) — psychological
+    safety predicts software delivery performance, organizational performance, and productivity.
+  - [2021 Accelerate State of DevOps Report](../../references/dora/publications.md#2021-accelerate-state-of-devops-report) — inclusive,
+    generative team cultures had less burnout during the COVID-19 pandemic.
+  - [2022 Accelerate State of DevOps Report](../../references/dora/publications.md#2022-accelerate-state-of-devops-report) — high-trust,
+    low-blame cultures go with higher organizational performance, and culture is the biggest predictor of security practices.
+  - [2023 Accelerate State of DevOps Report](../../references/dora/publications.md#2023-accelerate-state-of-devops-report) — generative
+    cultures go with 30% higher organizational performance.
+- **Predicts:** [software delivery performance](../../references/dora/core-model.md#software-delivery-performance),
+  [organizational performance](../../references/dora/core-model.md#organizational-performance), and lower burnout, part of
+  [well-being](../../references/dora/core-model.md#well-being).
+- **Related capabilities:**
+  - [Learning culture](../../references/dora/capabilities.md#learning-culture) — a generative response to failure, inquiry rather than
+    blame, is what makes a learning culture possible.
+  - [Team experimentation](../../references/dora/capabilities.md#team-experimentation) — implementing novelty rather than merely tolerating
+    it is what lets a team run and learn from experiments.
+  - [Job satisfaction](../../references/dora/capabilities.md#job-satisfaction) — high cooperation and shared risk are part of what makes
+    work sustainable and satisfying.
+  - [Transformational leadership](../../references/dora/capabilities.md#transformational-leadership) — leadership support is what makes a
+    generative culture's behaviors safe to practice.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

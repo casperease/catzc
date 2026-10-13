@@ -45,9 +45,9 @@ describes.[^1] The capability is not "documentation exists" but documentation qu
 to read, findable enough to reach, and reliable enough to trust.
 
 Documentation quality sits alongside DORA's other technical capabilities without being one of them in isolation — DORA's research finds it
-interacts with, and amplifies, the practices this repository's other capability ADRs already cover (version control, trunk-based
-development, continuous integration, continuous delivery). A team that adopts those practices without quality documentation realizes a
-fraction of the available performance gain; a team that pairs them with quality documentation realizes far more.
+interacts with, and amplifies, the practices this repository's other capability ADRs cover (version control, trunk-based development,
+continuous integration, continuous delivery). A team that adopts those practices without quality documentation realizes a fraction of the
+available performance gain; a team that pairs them with quality documentation realizes far more.
 
 ## Summary
 
@@ -95,13 +95,31 @@ guidelines, training, style guides, and named documentation ownership rather tha
 
 ## Dora explains
 
-Documentation quality is a force multiplier in DORA's model: it does not appear as an independent driver of delivery performance so much as
-the factor that determines how much of the benefit from other capabilities a team actually realizes.
+Documentation quality is a force multiplier in DORA's model and a member of the Core Model's climate-for-learning group. DORA links it to
+organizational performance, but its larger effect is the factor it applies to every other technical capability: it determines how much of
+the organizational-performance lift from those capabilities a team actually realizes, and it drives their implementation in the first place.
 
-- [Trunk-based development](https://dora.dev/capabilities/trunk-based-development/) — shows the largest documented multiplier from
-  above-average documentation quality.
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — its performance lift is likewise amplified sharply by
-  documentation quality.
-- [Code maintainability](https://dora.dev/capabilities/code-maintainability/) — shares the same clarity and findability concerns, applied to
-  code rather than prose.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Documentation quality](../../references/dora/capabilities.md#documentation-quality)
+- **Category:** [Climate for learning](../../references/dora/capabilities.md#climate-for-learning) — Core Model v2.1.0:
+  [climate for learning](../../references/dora/core-model.md#climate-for-learning).
+- **Evidence:**
+  - [2021 Accelerate State of DevOps Report](../../references/dora/publications.md#2021-accelerate-state-of-devops-report) — documentation
+    quality is measured for the first time and found foundational for implementing technical practices.
+  - [2022 Accelerate State of DevOps Report](../../references/dora/publications.md#2022-accelerate-state-of-devops-report) — the source of
+    the lift figures: below versus above average documentation quality, trunk-based development 36% versus 1525%, continuous integration 34%
+    versus 750%, continuous delivery 63% versus 656%, supply-chain security 37% versus 451%, SRE 79% versus 343%, loosely coupled teams 46%
+    versus 313%, version control 27% versus 278%.
+  - [2023 Accelerate State of DevOps Report](../../references/dora/publications.md#2023-accelerate-state-of-devops-report) — high-quality
+    documentation sharply increases the effect of technical capabilities on organizational performance.
+  - [2024 Accelerate State of DevOps Report](../../references/dora/publications.md#2024-accelerate-state-of-devops-report) — a 25% increase
+    in AI adoption is associated with a 7.5% rise in documentation quality.
+- **Predicts:** [organizational performance](../../references/dora/core-model.md#organizational-performance), directly and by amplifying the
+  organizational-performance lift of every technical capability; it also drives the implementation of technical practices.
+- **Related capabilities:**
+  - [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — shows the largest documented multiplier from
+    above-average documentation quality.
+  - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — its performance lift is likewise amplified
+    sharply by documentation quality.
+  - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — shares the same clarity and findability concerns,
+    applied to code rather than prose.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

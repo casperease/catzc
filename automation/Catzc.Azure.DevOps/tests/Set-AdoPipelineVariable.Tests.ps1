@@ -1,4 +1,17 @@
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to capture the ##vso line, which goes through the writer chokepoint; that flag is the writers'' test-suppression interface, set by Test-Automation')]
+param()
+
 Describe 'Set-AdoPipelineVariable' -Tag 'L0', 'logic' {
+    # The ##vso line goes through the writer chokepoint, which a test run silences; lift the guard so the tests can
+    # capture it (every call below captures with 6>&1, so nothing reaches a real pipeline log).
+    BeforeAll {
+        $script:savedGuard = $global:__PesterRunning
+        $global:__PesterRunning = $false
+    }
+    AfterAll {
+        $global:__PesterRunning = $script:savedGuard
+    }
+
     Context 'name validation' {
         It 'throws on dots in name' {
             { Set-AdoPipelineVariable -Name 'dev.capi' -Value 'x' } | Should -Throw '*silently replaces*'

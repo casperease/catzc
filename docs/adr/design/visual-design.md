@@ -3,7 +3,7 @@
 The value-chain / promotion diagrams under `docs/.assets/commits-quality` are a domain language: a reader must be able to decode a commit's
 delivery state and a branch's role from position and colour alone, without a per-diagram key. This ADR fixes that grammar so every diagram
 draws the same shapes for the same meaning. The delivery states themselves are owned by
-[cd-discipline-and-promotion-flow](cd-discipline-and-promotion-flow.md) (`ADR-FLOW-CD`); this ADR owns only how they are _drawn_.
+[cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) (`ADR-FLOW-CD`); this ADR owns only how they are _drawn_.
 
 ## Rules: ADR-DSGN-VISUAL
 
@@ -228,14 +228,14 @@ discard lane is reading one commit's history, not three different commits.
 Every stage in the pipeline is a typed transform on colours, and stating the type is what keeps the diagram honest about what each stage can
 and cannot do. The full contract:
 
-| Stage                              | Accepts (input)                                                    | Produces                                                 | Rejects to                         |
-| ---------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------- | ---------------------------------- |
-| Pre-commit / PR gate (human-opted) | brown (topic)                                                      | ghost-yellow (off main; PR pipeline or local devbox BVT) | red                                |
-| BVT                                | brown, grey                                                        | yellow (immutable versioned artifact)                    | red                                |
-| L3                                 | yellow (validates/continues); brown/grey only by manual invocation | blue                                                     | red (may invalidate its inputs)    |
-| main-UAT (gate: RC)                | blue                                                               | light-blue (rolled onto always-on non-prod)              | — (held at the gate, not rejected) |
-| release-uat (gate: RBC)            | light-blue                                                         | light-green (release-verified)                           | — (held at the gate, not rejected) |
-| DEPLOY-Prod (through pre-prod)     | light-green                                                        | green (in production)                                    | —                                  |
+| Stage                              | Accepts (input)                                                    | Produces                                                 | Rejects to                      |
+| ---------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------- | ------------------------------- |
+| Pre-commit / PR gate (human-opted) | brown (topic)                                                      | ghost-yellow (off main; PR pipeline or local devbox BVT) | red                             |
+| BVT                                | brown, grey                                                        | yellow (immutable versioned artifact)                    | red                             |
+| L3                                 | yellow (validates/continues); brown/grey only by manual invocation | blue                                                     | red (may invalidate its inputs) |
+| main-UAT (gate: RC)                | blue                                                               | light-blue (rolled onto always-on non-prod)              | red, or held at the gate        |
+| release-uat (gate: RBC)            | light-blue                                                         | light-green (release-verified)                           | red, or held at the gate        |
+| DEPLOY-Prod (through pre-prod)     | light-green                                                        | green (in production)                                    | —                               |
 
 Grey and brown can be _run_ through BVT or L3 by hand, but only yellow is what L3 _validates and continues_; the manual-run cases are the
 exception the contract names rather than hides. Because each stage emits exactly one promotion colour, the palette is the flow's type

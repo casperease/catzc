@@ -19,6 +19,7 @@ zones:
       - .mcp.json
       - tmp
       - '*.bkp'
+      - '*.dtmp'
       - bash.exe.stackdump
 
   - id: output

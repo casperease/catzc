@@ -88,12 +88,34 @@ The allowed inter-module dependency graph is declared in `Catzc.Base.ModuleSyste
 with its own internal member→member DAG — a group is a concept, not a disk module; its name is a logical handle, not a folder. A consumer
 module's allowed-deps in `modules:` may name a GROUP (permitting an edge to any member of that group) and/or a specific MODULE (tight
 coupling). Integrity is group-aware: actual edges must fall within the resolved allow-set, each group's internal DAG must be acyclic, and
-actual intra-group edges must be a subset of the declared internal map. The ex-`Catzc.Base.Utils` cluster is held together as the `Base`
-group — its eleven successor modules are the group's members, each with its own intra-group layering declared in `dependencies.yml`.
+actual intra-group edges must be a subset of the declared internal map. The `Catzc.Base.*` cluster is held together as the `Base` group —
+its modules are the group's members, each with its own intra-group layering declared in `dependencies.yml`.
 
 ## Decision
 
 The platform must remain open for extension and closed for modification. Concretely:
+
+- **Growth is additive.** A new function is a new `Verb-Noun.ps1` file, a new module is a new folder under `automation/`, a new vendor
+  dependency is a new folder under `.vendor/`, and a new root concern is a new track. None of these edits `importer.ps1`, the bootstrap
+  module, or any other module's files (ADR-AUTO-EXTEND:1).
+- **The infrastructure knows conventions, not content.** The importer and the bootstrap module discover modules, exports, and visibility
+  from names and locations alone; they never name a specific module, function, or business rule (ADR-AUTO-EXTEND:3).
+- **Non-conforming code is fixed, not accommodated.** Code that does not follow file name = function name, folder = module, and root =
+  public is not discovered; the remedy is to rename or move it, never to teach the loader an exception (ADR-AUTO-EXTEND:4).
+- **Special needs stay inside the module.** A module that needs custom initialization or extra wiring implements it with its own private
+  helpers; the loader gains no module-specific branch (ADR-AUTO-EXTEND:5).
+
+### How this is enforced
+
+- **`Import-AllModules`** (`automation/.internal/Catzc.Internal.Bootstrap.psm1`) discovers every non-dot folder under `automation/` as a
+  module and generates its manifest with `New-DynamicManifest`, so a new module or function needs no registration anywhere. Before any
+  module loads it fails fast on a duplicate export or a shadowed shipped command, the one seam where convention alone cannot guarantee a
+  single meaning per name ([dynamic-module-manifests](powershell/dynamic-module-manifests.md)).
+- **`Test-Automation.Tests.ps1`** and **`Test-FolderConventions.Tests.ps1`** fail the suite on a file, function, or folder that breaks the
+  naming and placement conventions, so non-conforming code is caught rather than silently skipped
+  ([one-function-per-file](powershell/one-function-per-file.md), [conventional-folders](../repository/conventional-folders.md)).
+- **Code review** rejects a module-specific branch, a hand-maintained registry, or a module-name check in the importer or bootstrap module
+  against this ADR.
 
 ## Disambiguation
 

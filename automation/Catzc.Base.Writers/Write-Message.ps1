@@ -27,6 +27,12 @@
     real warning would halt (NoWriteErrorOrWarning rule, error-handling ADR); use throw for something that must
     stop and -Warning for something worth noticing that must not. Implies yellow, so it is mutually exclusive
     with -ForegroundColor, and does not apply on the verbose stream. Aliased -Warn.
+.PARAMETER NoNewline
+    Render the text without a trailing line break, so the next write continues the same line — the inline
+    liveness dot of ADR-AUTO-CONSOLE:8 (Write-Message '.' -NoHeader -NoNewline). Stays on the information
+    stream. Does not apply on the verbose stream.
+.EXAMPLE
+    Write-Message '.' -NoHeader -NoNewline
 .EXAMPLE
     Write-Message 'Deployment complete'
 .EXAMPLE
@@ -42,6 +48,8 @@ function Write-Message {
         [string] $Message,
 
         [switch] $NoHeader,
+
+        [switch] $NoNewline,
 
         [Parameter(ParameterSetName = 'Color')]
         [object] $ForegroundColor,
@@ -89,16 +97,16 @@ function Write-Message {
     # -Warning is sugar for yellow (ADR-AUTO-CONSOLE:7) on the information stream, NOT the terminating Write-Warning stream.
     # Parameter sets make it exclusive with -ForegroundColor, so at most one of these branches carries a colour.
     if ($Warning) {
-        Write-InformationColored $line -ForegroundColor Yellow
+        Write-InformationColored $line -ForegroundColor Yellow -NoNewline:$NoNewline
     }
     elseif ($PSBoundParameters.ContainsKey('ForegroundColor')) {
         # A status line is one solid line, not a rule, so a rainbow input side-grades to its base colour: the
         # shared resolver flattens a ConsoleColor, its name, a 'rainbow'/'<base>-rainbow' bareword, or a
         # RainbowColor profile to one ConsoleColor. Passing a rainbow to Write-Message therefore just works.
         $plan = Resolve-WriterColor -ForegroundColor $ForegroundColor -Bound
-        Write-InformationColored $line -ForegroundColor $plan.Base
+        Write-InformationColored $line -ForegroundColor $plan.Base -NoNewline:$NoNewline
     }
     else {
-        Write-InformationColored $line
+        Write-InformationColored $line -NoNewline:$NoNewline
     }
 }

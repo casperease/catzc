@@ -18,6 +18,8 @@
     Mirrors Test-Spelling's reporting: each run writes a timestamped folder under out/test-terminology/
     (terminology.md), updates latest.txt, and prints the report path. Throws when issues are found (so it can
     gate CI); -PassThru returns a result object instead.
+
+    A source-tree gate: it scans the catzc repository, so it throws in build mode (Assert-SourceTree).
 .PARAMETER OutputFolder
     Base directory for the run report. Each run writes a timestamped subfolder
     (<OutputFolder>/yyyyMMdd-HHmmss/). Defaults to <out>/test-terminology.
@@ -38,8 +40,13 @@ function Test-Terminology {
         [switch] $PassThru
     )
 
+    # The orphan gate searches the catzc source tree for each term, so it is meaningless over an installed build.
+    Assert-SourceTree
+
     $root = Get-RepositoryRoot
-    $registryPath = Join-Path $PSScriptRoot 'configs/terminology.yml'
+    # The registry's own file inside the scanned corpus — a corpus exclusion, not an asset read (the registry
+    # itself is loaded through Get-Config), so it names the file in the repository tree being scanned.
+    $registryPath = Join-Path $root 'automation/Catzc.Base.QualityGates/configs/terminology.yml'
     $issues = [System.Collections.Generic.List[string]]::new()
 
     # ---- Gate 3 (justification / no-coinage): loading validates every entry via TerminologyConfig ----

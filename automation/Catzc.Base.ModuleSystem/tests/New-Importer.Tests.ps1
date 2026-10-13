@@ -1,4 +1,4 @@
-Describe 'New-Importer' -Tag 'L0', 'logic' {
+Describe 'New-Importer' -Tag 'L0', 'logic', 'source-only' {
     BeforeAll {
         $script:realOverlay = Join-Path (Get-RepositoryRoot) 'automation/.internal/Catzc.Internal.Importer.psm1'
         Mock Write-Message -ModuleName Catzc.Base.ModuleSystem { }
@@ -43,7 +43,14 @@ Describe 'New-Importer' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'New-Importer — importer.ps1 drift guard' -Tag 'L2', 'integrity' {
+Describe 'New-Importer — build mode' -Tag 'L0', 'logic' {
+    It 'stops with a named error when the session runs a built package' {
+        Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
+        { New-Importer -RepositoryRoot $TestDrive -DryRun } | Should -Throw '*New-Importer operates on the catzc source tree*'
+    }
+}
+
+Describe 'New-Importer — importer.ps1 drift guard' -Tag 'L2', 'integrity', 'source-only' {
     # The committed importer.ps1 is generated from the Invoke-Importer overlay. These guard the two ways it can
     # drift: its parameter set must equal the overlay's (signature = parameter set, no tagging), and its whole
     # content must equal New-Importer's output. To fix a failure, run New-Importer -Force and commit importer.ps1.

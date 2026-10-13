@@ -4,9 +4,9 @@
     types/*.cs the way the committed automation/.compiled/Catzc.Types.<hash>.dll is keyed.
 .DESCRIPTION
     Both the loader (Import-CSharpTypes, in the bootstrap) and the janitor (Clear-ModuleTypeCache, a Catzc module)
-    must agree byte-for-byte on this hash, or the janitor plans the live build for deletion. That algorithm used
-    to be copied into both (and mirrored again in tests) with a standing "keep all of them identical" note; it
-    now lives here once, called from both layers via Import-InternalModule (see one-living-version).
+    must agree byte-for-byte on this hash, or the janitor plans the live build for deletion. The algorithm lives
+    here once, called from both layers via Import-InternalModule (see one-living-version). The one compile path
+    for the combined assembly (Build-CombinedTypeAssembly) lives here too, shared by the loader and a build.
 
     The hash is EOL-insensitive (every CR byte stripped before the per-file digest), so a CRLF vs LF working tree
     keys the same DLL on every machine, and it folds in each file's <module>|<bare type> so a move between modules
@@ -22,6 +22,9 @@ function Get-CombinedTypeHash {
         ordered source list the loader compiles.
     .PARAMETER AutomationRoot
         The automation directory. Its non-dot subfolders are the modules whose types/*.cs are hashed.
+    .PARAMETER Module
+        Restricts the hash to these module folders (a build of a module subset). Omitted, every non-dot module
+        folder is hashed. A named module without a types/ folder simply contributes nothing.
     .OUTPUTS
         [pscustomobject] with:
           CombinedHash  the 8-char lowercase hex hash (the Catzc.Types.<hash>.dll key), or $null when no module
@@ -34,8 +37,17 @@ function Get-CombinedTypeHash {
     [OutputType([pscustomobject])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [string] $AutomationRoot
+        [string] $AutomationRoot,
+
+        [string[]] $Module
     )
+
+    # Assigned directly, never through an if-expression: an empty HashSet emitted from a statement enumerates to
+    # $null, which would silently widen an empty selection to every module.
+    $selected = $null
+    if ($PSBoundParameters.ContainsKey('Module')) {
+        $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module), [System.StringComparer]::OrdinalIgnoreCase)
+    }
 
     # Enumerate every non-dot module's types/*.cs. Key = "<module>/<bare type>"; Path = the source file. No
     # namespace / dotted-name validation here (the loader's job). [System.IO] over Get-ChildItem for the
@@ -43,7 +55,7 @@ function Get-CombinedTypeHash {
     $files = [System.Collections.Generic.List[object]]::new()
     foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($AutomationRoot)) {
         $moduleName = [System.IO.Path]::GetFileName($moduleDir)
-        if ($moduleName.StartsWith('.')) {
+        if ($moduleName.StartsWith('.') -or ($null -ne $selected -and -not $selected.Contains($moduleName))) {
             continue
         }
         $typesDir = [System.IO.Path]::Combine($moduleDir, 'types')
@@ -74,12 +86,16 @@ function Get-CombinedTypeHash {
     # working tree (git core.autocrlf, an editor's format-on-save) yields the same digest and never re-keys the
     # committed DLL on a pure line-ending flip. The combined hash folds in each file's <module>|<bare type>|digest.
     # One SHA instance is reused for the per-file digests and the final combined hash. First 8 hex, lowercase.
+    # The CR strip round-trips through Latin1 — a byte-exact 1:1 byte<->char mapping — so it runs as one native
+    # String.Replace instead of a per-byte pipeline (~1.2s per cold import). This runs before the combined
+    # assembly loads, so Catzc.Base.Globs.DurableHash (the native equivalent) is not callable here.
+    $latin1 = [System.Text.Encoding]::Latin1
     $snapshot = [ordered]@{}
     $sha = [System.Security.Cryptography.SHA256]::Create()
     try {
         $stringBuilder = [System.Text.StringBuilder]::new()
         foreach ($file in $sortedFiles) {
-            $normalizedBytes = [byte[]]([System.IO.File]::ReadAllBytes($file.Path) | Where-Object { $_ -ne 13 })
+            $normalizedBytes = $latin1.GetBytes($latin1.GetString([System.IO.File]::ReadAllBytes($file.Path)).Replace("`r", ''))
             $fileHash = [System.BitConverter]::ToString($sha.ComputeHash($normalizedBytes)) -replace '-', ''
             $snapshot[$file.Key] = $fileHash
             [void]$stringBuilder.Append($file.Key).Append('|').Append($fileHash).Append("`n")
@@ -98,4 +114,82 @@ function Get-CombinedTypeHash {
     }
 }
 
-Export-ModuleMember -Function Get-CombinedTypeHash
+function Build-CombinedTypeAssembly {
+    <#
+    .SYNOPSIS
+        Compiles the selected modules' C# type sources into one hash-named assembly on disk, without loading it.
+    .DESCRIPTION
+        The one compile path for the combined types assembly: the loader (Import-CSharpTypes) calls it to restore
+        automation/.compiled/Catzc.Types.<hash>.dll, and a build calls it to produce the assembly of the modules it
+        ships. The hash comes from Get-CombinedTypeHash over the same module selection, so the file name always
+        keys the exact sources compiled.
+
+        Add-Type -OutputAssembly writes the DLL and does NOT load it, so this works in a session that already holds
+        the types. Each .cs is a separate compilation unit (Add-Type -Path), so each file's file-scoped namespace
+        is legal while every type still lands in one assembly. The compile goes to a per-process temp file that is
+        then moved into place, so a concurrent writer never sees a half-written DLL; a lost race (same hash, same
+        sources) just discards the temp. An existing DLL of the same hash is kept as is (Compiled = $false).
+
+        Source validation (bare filenames, the module's file-scoped namespace) is the loader's concern, not this
+        function's — a caller that compiles unvalidated sources gets the compiler's own errors.
+    .PARAMETER AutomationRoot
+        The automation directory whose non-dot module folders hold the types/*.cs sources.
+    .PARAMETER Module
+        Restricts the compile (and its hash) to these module folders. Omitted, every module's types compile.
+    .PARAMETER OutputDirectory
+        The directory the Catzc.Types.<hash>.dll is written to; created when missing.
+    .OUTPUTS
+        [pscustomobject] with Hash (the 8-char combined hash), Path (the DLL), Files (the ordered source list from
+        Get-CombinedTypeHash), Snapshot (the per-file digests), and Compiled (whether this call ran the compiler).
+        $null when the selection ships no C# type source.
+    .EXAMPLE
+        Build-CombinedTypeAssembly -AutomationRoot $root -Module 'Catzc.Base.Objects' -OutputDirectory "$build/.compiled"
+    #>
+    [CmdletBinding()]
+    [OutputType([pscustomobject])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $AutomationRoot,
+
+        [string[]] $Module,
+
+        [Parameter(Mandatory)]
+        [string] $OutputDirectory
+    )
+
+    $hashArguments = @{ AutomationRoot = $AutomationRoot }
+    if ($PSBoundParameters.ContainsKey('Module')) {
+        $hashArguments.Module = $Module
+    }
+    $hashResult = Get-CombinedTypeHash @hashArguments
+    if ($hashResult.Files.Count -eq 0) {
+        return $null
+    }
+
+    $dll = [System.IO.Path]::Combine($OutputDirectory, ('Catzc.Types.{0}.dll' -f $hashResult.CombinedHash))
+    $compiled = $false
+    if (-not [System.IO.File]::Exists($dll)) {
+        [System.IO.Directory]::CreateDirectory($OutputDirectory) | Out-Null
+        $tmp = "$dll.$PID.tmp"
+        Add-Type -Path @($hashResult.Files.Path) -OutputAssembly $tmp -OutputType Library
+        try {
+            [System.IO.File]::Move($tmp, $dll)
+        }
+        catch {
+            if ([System.IO.File]::Exists($tmp)) {
+                [System.IO.File]::Delete($tmp)
+            }
+        }
+        $compiled = $true
+    }
+
+    [pscustomobject]@{
+        Hash     = $hashResult.CombinedHash
+        Path     = $dll
+        Files    = $hashResult.Files
+        Snapshot = $hashResult.Snapshot
+        Compiled = $compiled
+    }
+}
+
+Export-ModuleMember -Function Get-CombinedTypeHash, Build-CombinedTypeAssembly

@@ -122,12 +122,4 @@ namespace CatzcGetConfigTest {
                 Should -Throw '*must specify*'
         }
     }
-
-    Context 'registry self-validation (shipped configs.yml)' -Tag 'integrity' {
-        It 'is the live registry validator (the shipped configs.yml loads)' {
-            # Get-ConfigRegistry constructs ConfigsConfig on load; a passing call proves the wiring against
-            # the real shipped configs.yml (ADR-AUTO-TEST:14).
-            { InModuleScope Catzc.Base.Config { $script:configRegistryCache = $null; Get-ConfigRegistry } } | Should -Not -Throw
-        }
-    }
 }

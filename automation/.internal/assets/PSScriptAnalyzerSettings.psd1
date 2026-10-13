@@ -17,7 +17,10 @@
         'automation/.scriptanalyzer/NoRawVsoCommand.psm1'
         'automation/.scriptanalyzer/NoRawPipelineDetection.psm1'
         'automation/.scriptanalyzer/NoRawInformationStream.psm1'
+        'automation/.scriptanalyzer/NoRawConsoleWrite.psm1'
+        'automation/.scriptanalyzer/AnnounceStateChange.psm1'
         'automation/.scriptanalyzer/SpellOutIdentifiers.psm1'
+        'automation/.scriptanalyzer/NoScriptRootAnchor.psm1'
     )
 
     ExcludeRules        = @(
@@ -42,6 +45,10 @@
         # Sibling rules that use the same helper path (PSReservedParams, PSUseApprovedVerbs) do NOT trip the
         # NRE and stay enabled.
         'PSReservedCmdletChar'
+        # Superseded by the custom Measure-NoRawConsoleWrite (ADR-AUTO-ANNOUNCE:1), which flags Write-Host AND
+        # every other way past the information stream ([Console]::Write, $Host.UI, Out-Host, Write-Progress, ...).
+        # One rule owns the console bypass, so a Write-Host is reported once, not twice.
+        'PSAvoidUsingWriteHost'
     )
 
     Rules               = @{

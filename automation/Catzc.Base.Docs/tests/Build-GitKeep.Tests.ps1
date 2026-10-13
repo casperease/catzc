@@ -12,8 +12,12 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
             'out/deep/.gitkeep'                = "transient`n"
             'automation/.vendor/Fake/.gitkeep' = "vendored`n"
         }
-        $script:expected = [System.IO.File]::ReadAllText(
-            (Join-Path (Split-Path $PSScriptRoot -Parent) 'assets/gitkeep'))
+        # A fixture source through the asset seam, so the logic never reads the shipped assets/gitkeep
+        # (that is the integrity block's job below).
+        $script:expected = "This widget folder is kept by a fixture .gitkeep.`n"
+        $script:sourcePath = Join-Path $TestDrive 'gitkeep-fixture'
+        [System.IO.File]::WriteAllText($script:sourcePath, $script:expected)
+        Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.Docs -ParameterFilter { $ChildPath -eq 'assets/gitkeep' } -MockWith { $script:sourcePath }
 
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
     }
@@ -53,7 +57,31 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L1', 'integrity' {
+# Reads the SHIPPED assets/gitkeep through Build-GitKeep's real lookup (nothing mocked on the read) and writes
+# only into a fixture repository, so it runs in both the source suite and the build suite (ADR-AUTO-ASSETDEP:3).
+Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+    BeforeAll {
+        Import-InternalModule TestKit
+        $script:fake = New-FakeRepositoryRoot -Files @{ 'widgets/.gitkeep' = "stale`n" }
+        Mock Write-Message -ModuleName Catzc.Base.Docs { }
+    }
+
+    AfterAll {
+        Remove-FakeRepositoryRoot $script:fake
+    }
+
+    It 'writes the content of the asset shipped in the loaded module' {
+        Build-GitKeep -Silent | Out-Null
+        $shipped = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'assets/gitkeep' -Module Catzc.Base.Docs))
+        $written = [System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'widgets/.gitkeep'))
+        $shipped.Trim() | Should -Not -BeNullOrEmpty
+        ($written -replace "`r", '') | Should -Be (($shipped -replace "`r", '').TrimEnd("`n") + "`n")
+    }
+}
+
+# Reads only the repository's own .gitkeep files and readme.yml mappings — the same answer in both run modes,
+# so the build suite skips it.
+Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         # The real repository's .gitkeep set, discovered by the walk without writing (-DryRun).
         $script:report = @(Build-GitKeep -DryRun -PassThru)
@@ -61,7 +89,13 @@ Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L1', 'integrity' {
 
     It 'finds the .gitkeep set and every file carries the generic source content (no drift)' {
         $script:report.Count | Should -BeGreaterThan 0
-        @($script:report | Where-Object Changed).Path | Should -BeNullOrEmpty -Because (
+        # A foreach projection, not member enumeration: .Path on the (passing) empty set throws under strict mode.
+        $drifted = @(foreach ($entry in $script:report) {
+                if ($entry.Changed) {
+                    $entry.Path
+                }
+            })
+        $drifted | Should -BeNullOrEmpty -Because (
             'every .gitkeep is a managed copy of assets/gitkeep — re-run the importer and commit the result')
     }
 

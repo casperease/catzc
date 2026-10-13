@@ -5,7 +5,7 @@
 ### Rule ADR-AUTO-DEFAULT:1
 
 The zero-argument call must work. If a function can do useful work without input, all parameters have defaults — `Install-Poetry` installs
-the locked version, `Test-Automation` runs L0 + L1 with normal output.
+the locked version, `Test-Automation` runs L0–L2 with detailed output.
 
 - [What sensible defaults look like](#what-sensible-defaults-look-like)
 
@@ -77,12 +77,12 @@ mandatory. The test is: **does a reasonable default exist?** If yes, use it. If 
 In order of preference:
 
 1. **Configuration files.** Tool versions come from `automation/Catzc.Tooling.Core/configs/tools.yml`. Environment settings come from
-   `Catzc.Azure.Templates/configs/azure.yml`. The function reads config internally — the caller does not need to know where the value lives.
+   `Catzc.Azure/configs/azure.yml`. The function reads config internally — the caller does not need to know where the value lives.
 
-2. **Convention.** Output verbosity defaults to `Normal`. Test level defaults to `1`. These are values that are right 90% of the time.
+2. **Convention.** Output verbosity defaults to `Detailed`. Test level defaults to `2`. These are values that are right 90% of the time.
 
-3. **The environment.** `$env:RepositoryRoot` provides the repo root. `$PSScriptRoot` provides the script's own directory. The function uses
-   these anchors instead of requiring a path parameter.
+3. **The environment.** `$env:RepositoryRoot` provides the repo root. `Get-CatzcModuleRoot` provides the module's own folder. The function
+   uses these anchors instead of requiring a path parameter.
 
 4. **Off, for opt-in behavior.** `-PassThru`, `-DryRun`, `-Silent`, `-NoAssert` — these default to off because the common case does not need
    them; the caller opts in explicitly when needed (expressed as a `[switch]` — see [parameter-design](powershell/parameter-design.md)).

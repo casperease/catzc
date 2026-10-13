@@ -72,13 +72,13 @@ often as changes arrive, so testing and shipping stop competing with each other.
 ## How to apply
 
 This platform's pipeline runner pattern gives every deployment step one entry point regardless of which environment it targets
-([ADR-FLOW-CD-RUNNER](../flow/pipeline-runner-pattern.md)) — the same `RunCommand` a pipeline runs is the command a developer
-reproduces locally, which is what keeps the deployment process identical across environments rather than diverging as it approaches
-production. The CI-discipline and promotion-flow design carries one build-once, tagged artifact through non-production and into production
-without any stage rebuilding it ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)), so the artifact a later environment receives
-is byte-identical to the one an earlier environment already exercised. State-changing deployment functions are required to be idempotent and
-safe to re-run ([ADR-AUTO-IDEM](../automation/idempotent-state-functions.md)), which is what keeps a retried or partially-failed deploy safe
-rather than compounding into duplicate or inconsistent state.
+([ADR-FLOW-CD-RUNNER](../flow/pipeline-runner-pattern.md)) — the same `RunCommand` a pipeline runs is the command a developer reproduces
+locally, which is what keeps the deployment process identical across environments rather than diverging as it approaches production. The
+CI-discipline and promotion-flow design carries one build-once, tagged artifact through non-production and into production without any stage
+rebuilding it ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)), so the artifact a later environment receives is byte-identical
+to the one an earlier environment already exercised. State-changing deployment functions are required to be idempotent and safe to re-run
+([ADR-AUTO-IDEM](../automation/idempotent-state-functions.md)), which is what keeps a retried or partially-failed deploy safe rather than
+compounding into duplicate or inconsistent state.
 
 ## Common pitfalls
 
@@ -102,16 +102,26 @@ rather than compounding into duplicate or inconsistent state.
 
 ## Dora explains
 
-Deployment automation is one of the capabilities DORA's research ties directly to deployment frequency and change lead time: a push-button,
-identically-repeated deploy is what lets a team ship as often as it has changes ready, and it lowers change failure rate by removing manual,
-error-prone steps from the path to production.
+Deployment automation sits in the Core Model's fast-flow group as one of the technical capabilities that drive continuous delivery, and
+through it software delivery performance. DORA also calls it essential for lowering deployment risk and for getting fast feedback: a
+push-button, identically repeated deploy lets a team ship as often as it has changes ready without manual, error-prone steps in the way.
 
-- [Continuous delivery](https://dora.dev/capabilities/continuous-delivery/) — the practice that deployment automation makes achievable, by
-  keeping the software always in a deployable state.
-- [Continuous integration](https://dora.dev/capabilities/continuous-integration/) — supplies the versioned, tested package that deployment
-  automation deploys.
-- [Version control](https://dora.dev/capabilities/version-control/) — holds the deployment scripts, configuration, and environment
-  information the capability depends on.
-- [Streamlining change approval](https://dora.dev/capabilities/streamlining-change-approval/) — pairs with automated, on-demand deploys to
-  remove ticket-based delay from the release path.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Deployment automation](../../references/dora/capabilities.md#deployment-automation)
+- **Category:** [Fast flow](../../references/dora/capabilities.md#fast-flow) — Core Model v2.1.0:
+  [fast flow](../../references/dora/core-model.md#fast-flow).
+- **Evidence:** the capability page cites no year; the catalogue attributes the finding to one report page:
+  - [2017 State of DevOps Report](../../references/dora/publications.md#2017-state-of-devops-report) — high performers automate much more of
+    their configuration management, testing, deployments, and change approvals.
+- **Predicts:** [continuous delivery](../../references/dora/capabilities.md#continuous-delivery), one of whose driving capabilities it is,
+  and through it [software delivery performance](../../references/dora/core-model.md#software-delivery-performance); lower deployment risk
+  and faster feedback.
+- **Related capabilities:**
+  - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — the practice that deployment automation makes
+    achievable, by keeping the software always in a deployable state.
+  - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — supplies the versioned, tested package that
+    deployment automation deploys.
+  - [Version control](../../references/dora/capabilities.md#version-control) — holds the deployment scripts, configuration, and environment
+    information the capability depends on.
+  - [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — pairs with automated, on-demand
+    deploys to remove ticket-based delay from the release path.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

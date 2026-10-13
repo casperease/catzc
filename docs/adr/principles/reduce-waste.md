@@ -70,7 +70,7 @@ no approval process. A better handoff template still loses more context than no 
 
 ## How to apply
 
-When evaluating a process or design, ask: _could I deliver the same outcome without this step?_ If the answer is no, the step is waste.
+When evaluating a process or design, ask: _could I deliver the same outcome without this step?_ If the answer is yes, the step is waste.
 Either eliminate it or understand what structural constraint makes it necessary — then address the constraint.
 
 Prefer automation over manual steps. Prefer convention over configuration. Prefer self-service over approvals. Prefer small batches over

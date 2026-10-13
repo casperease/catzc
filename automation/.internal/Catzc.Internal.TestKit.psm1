@@ -70,6 +70,7 @@ function New-FakeRepositoryRoot {
         (@{ Public=..; Private=..; Files=.. }; $null/empty = a bare folder). -Files maps repo-root-relative
         paths to content (importer.ps1, .editorconfig, …).
     #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: the swap lives inside one test''s lifecycle and Remove-FakeRepositoryRoot restores it (the split form of ADR-AUTO-ANNOUNCE:3); its output belongs to Pester')]
     [CmdletBinding()]
     [OutputType([hashtable])]
     param(
@@ -114,6 +115,7 @@ function Remove-FakeRepositoryRoot {
     .SYNOPSIS
         Restore $env:RepositoryRoot to what it was before New-FakeRepositoryRoot and delete the temp tree.
     #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: restores the swap New-FakeRepositoryRoot made inside the same test (the split form of ADR-AUTO-ANNOUNCE:3); its output belongs to Pester')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]

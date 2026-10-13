@@ -97,21 +97,33 @@ dashboard, a rendered diagram, or a shared board — and revisit it on a cadence
 ## References
 
 [^1]:
-    DORA, _Visibility of work in the value stream_ capability, <https://dora.dev/capabilities/work-visibility-in-value-stream/>. Part of the
-    DORA Core Model of capabilities that predict software delivery performance and organizational performance.
+    DORA, _Visibility of work in the value stream_ capability, <https://dora.dev/capabilities/work-visibility-in-value-stream/>. A
+    fast-feedback capability outside the DORA Core Model that, with the other lean product management capabilities, predicts software
+    delivery performance and organizational performance.
 
 ## Dora explains
 
-DORA groups this capability with working in small batches, team experimentation, and visibility into customer feedback as its lean product
-management cluster, and finds the cluster predicts both software delivery performance and organizational performance — profitability, market
-share, and productivity.
+Visibility of work in the value stream is a fast-feedback capability outside the Core Model. DORA groups it with working in small batches,
+team experimentation, and customer feedback as its lean product management capabilities, and finds that together they predict both software
+delivery performance and organizational performance.
 
-- [Working in small batches](https://dora.dev/capabilities/working-in-small-batches/) — smaller batches are easier to see moving through a
-  visible value stream, and a visible stream makes batch size itself easy to observe.
-- [Visibility into customer feedback](https://dora.dev/capabilities/customer-feedback/) — the value stream this capability makes visible
-  runs all the way to the customer, and customer feedback is what closes that loop.
-- [Visual management](https://dora.dev/capabilities/visual-management/) — the visual displays and dashboards this capability calls for are
-  visual management applied to the value stream specifically.
-- [Work in process limits](https://dora.dev/capabilities/wip-limits/) — a visible stream is what shows a team where a work-in-progress limit
-  is needed and whether it is holding.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Work visibility in value stream](../../references/dora/capabilities.md#work-visibility-in-value-stream) (site title:
+  "Visibility of work in the value stream")
+- **Category:** [Fast feedback](../../references/dora/capabilities.md#fast-feedback) — not in the Core Model.
+- **Evidence:**
+  - [2016 State of DevOps Report](../../references/dora/publications.md#2016-state-of-devops-report) — an experimental approach to product
+    development, including visibility of workflow, small batches, and customer feedback, improves IT and organizational performance. The
+    capability page itself cites no report year.
+- **Predicts:** as part of lean product management, higher
+  [software delivery performance](../../references/dora/core-model.md#software-delivery-performance) and higher
+  [organizational performance](../../references/dora/core-model.md#organizational-performance).
+- **Related capabilities:**
+  - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — smaller batches are easier to see moving
+    through a visible value stream, and a visible stream makes batch size itself easy to observe.
+  - [Customer feedback](../../references/dora/capabilities.md#customer-feedback) — the value stream this capability makes visible runs all
+    the way to the customer, and customer feedback is what closes that loop.
+  - [Visual management](../../references/dora/capabilities.md#visual-management) — the visual displays and dashboards this capability calls
+    for are visual management applied to the value stream specifically.
+  - [WIP limits](../../references/dora/capabilities.md#wip-limits) — a visible stream is what shows a team where a work-in-process limit is
+    needed and whether it is holding.
+- [DORA research program](../../references/dora/index.md) — the overview these findings sit within.

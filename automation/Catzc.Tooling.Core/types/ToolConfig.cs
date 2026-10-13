@@ -90,6 +90,14 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // it is otherwise unresolvable. Environment variables are expanded. Empty when the tool has no hints.
     public string[] session_path_hints { get; }
 
+    // Ordered probes the session janitor (Sync-SessionTools) uses to pick WHICH install home of the command this
+    // session runs, when several exist (the managed home, then every PATH directory holding the command). Each
+    // probe is a path relative to a home whose last segment carries `{version}` (replaced by the locked version):
+    // a home satisfies it when that folder holds a directory named the version or starting with "<version>."
+    // (dotnet: `sdk/{version}` matches sdk/10.0.201). The first probe ANY home satisfies wins — so for dotnet an
+    // SDK at the locked version beats a runtime-only host. Empty when the tool has a single obvious install.
+    public string[] session_host_probes { get; }
+
     // Constructed from the parsed tools.yml dictionary; the constructor validates the required keys.
     public ToolConfig(IDictionary d)
     {
@@ -117,5 +125,14 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
         unix_install_dir    = OptStr(d, "unix_install_dir");
         depends_on          = OptStr(d, "depends_on");
         session_path_hints  = StrArr(d, "session_path_hints");
+        session_host_probes = StrArr(d, "session_host_probes");
+        foreach (string probe in session_host_probes)
+        {
+            if (probe == null || !probe.EndsWith("{version}", StringComparison.Ordinal))
+            {
+                throw new ArgumentException(string.Format(
+                    "tool '{0}': session_host_probes entry '{1}' must end with the {{version}} segment", command, probe));
+            }
+        }
     }
 }

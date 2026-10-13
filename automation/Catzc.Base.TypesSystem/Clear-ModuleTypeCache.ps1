@@ -35,8 +35,13 @@
     The combined hash comes from the ONE shared implementation (Get-CombinedTypeHash in the .internal shared
     module) that the loader (Import-CSharpTypes) also calls, so the janitor cannot drift from the loader and plan
     the live build for deletion. A test against the real repo still guards that the live build is never planned.
+    A devbox janitor only: in build mode (ADR-DSGN-RUNMODE) the default code root is an installed Catzc
+    package, whose .compiled holds the one assembly the build produced and is never a cache to tidy, so the
+    call is a no-op that reports why. An explicit -AutomationRoot other than the loaded code root is still
+    cleaned in either mode.
 .PARAMETER AutomationRoot
-    Path to the automation directory (the parent of .compiled/). Defaults to $env:RepositoryRoot/automation.
+    Path to the automation directory (the parent of .compiled/). Defaults to the loaded code root
+    (Get-CatzcModulesRoot).
 .PARAMETER DryRun
     Return the list of cache files that would be deleted, without deleting anything.
 .PARAMETER ThrowOnNonReleasedFromClrTypesDll
@@ -57,7 +62,7 @@
 #>
 function Clear-ModuleTypeCache {
     param(
-        [string] $AutomationRoot = (Join-Path $env:RepositoryRoot 'automation'),
+        [string] $AutomationRoot = (Get-CatzcModulesRoot),
 
         [switch] $DryRun,
 
@@ -65,6 +70,18 @@ function Clear-ModuleTypeCache {
 
         [switch] $Silent
     )
+
+    # Build mode: the loaded code root is an installed package, not a devbox cache — never delete inside it.
+    if ((Get-CatzcRunMode) -eq 'build') {
+        $targetRoot = [System.IO.Path]::GetFullPath($AutomationRoot).TrimEnd('\', '/')
+        $packageRoot = [System.IO.Path]::GetFullPath((Get-CatzcModulesRoot)).TrimEnd('\', '/')
+        if ($targetRoot -ieq $packageRoot) {
+            if (-not $Silent) {
+                Write-Message "type cache: skipped — this session runs a built Catzc package ($packageRoot); its .compiled is the build's output, not a cache."
+            }
+            return
+        }
+    }
 
     $compiledDir = Join-Path $AutomationRoot '.compiled'
 

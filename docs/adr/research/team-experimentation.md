@@ -38,9 +38,9 @@ specification handed down by someone else. DORA defines it as the ability "to wo
 permission from outside of the team," to "write and change specifications during development," and to "make changes to stories and
 specifications without having to get permission from outside of the team."[^1]
 
-It sits in the DORA Core Model as one of the capabilities that predict both software delivery performance and organizational performance: a
-team that can experiment ships features that add value to the organization, and ships those features more frequently, because the team
-closest to the user is the one deciding what to build and how to build it.
+It is not part of the DORA Core Model; DORA counts it among the lean product management capabilities that together predict both software
+delivery performance and organizational performance: a team that can experiment ships features that add value to the organization, and ships
+those features more frequently, because the team closest to the user is the one deciding what to build and how to build it.
 
 ## Summary
 
@@ -84,20 +84,32 @@ development.
 ## References
 
 [^1]:
-    DORA, _Team experimentation_ capability, <https://dora.dev/capabilities/team-experimentation/>. Part of the DORA Core Model of
-    capabilities that predict software delivery performance and organizational performance.
+    DORA, _Team experimentation_ capability, <https://dora.dev/capabilities/team-experimentation/>. One of the lean product management
+    capabilities that predict software delivery performance and organizational performance; not part of the DORA Core Model.
 
 ## Dora explains
 
-Team experimentation is one of DORA's cultural capabilities: it measures whether decision rights over what to build and how sit with the
-team doing the work, which DORA ties to both delivery performance and organizational performance.
+Team experimentation sits in DORA's climate-for-learning category, outside the Core Model. It measures whether decision rights over what to
+build and how sit with the team doing the work, and DORA treats it as part of lean product management: together with work visibility, small
+batches, and customer feedback, it predicts both software delivery performance and organizational performance.
 
-- [Generative organizational culture](https://dora.dev/capabilities/generative-organizational-culture/) — the culture research within which
-  a team's freedom to experiment is measured.
-- [Learning culture](https://dora.dev/capabilities/learning-culture/) — a team must be able to learn from an experiment before it can be
-  trusted to run the next one.
-- [Transformational leadership](https://dora.dev/capabilities/transformational-leadership/) — leaders supply the vision and intellectual
-  stimulation that make room for a team to experiment.
-- [Customer feedback](https://dora.dev/capabilities/customer-feedback/) — testing solutions with real users is exactly how a team gathers
-  the feedback experimentation is aimed at.
-- [DORA research program](https://dora.dev/research/) — the overview these findings sit within.
+- **Catalogue entry:** [Team experimentation](../../references/dora/capabilities.md#team-experimentation)
+- **Category:** [Climate for learning](../../references/dora/capabilities.md#climate-for-learning) — not in the Core Model.
+- **Evidence:** the capability page cites no year; the lean product management findings it summarizes appear in the report pages of:
+  - [2016 State of DevOps Report](../../references/dora/publications.md#2016-state-of-devops-report) — an experimental approach to product
+    development (small batches, visibility of workflow, customer feedback) improves IT and organizational performance.
+  - [2017 State of DevOps Report](../../references/dora/publications.md#2017-state-of-devops-report) — lean product management (small
+    batches, customer feedback) drives organizational performance.
+- **Predicts:** as one of the lean product management capabilities,
+  [software delivery performance](../../references/dora/core-model.md#software-delivery-performance) and
+  [organizational performance](../../references/dora/core-model.md#organizational-performance).
+- **Related capabilities:**
+  - [Generative organizational culture](../../references/dora/capabilities.md#generative-organizational-culture) — the culture research
+    within which a team's freedom to experiment is measured.
+  - [Learning culture](../../references/dora/capabilities.md#learning-culture) — a team must be able to learn from an experiment before it
+    can be trusted to run the next one.
+  - [Transformational leadership](../../references/dora/capabilities.md#transformational-leadership) — leaders supply the vision and
+    intellectual stimulation that make room for a team to experiment.
+  - [Customer feedback](../../references/dora/capabilities.md#customer-feedback) — testing solutions with real users is exactly how a team
+    gathers the feedback experimentation is aimed at.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

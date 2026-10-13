@@ -6,8 +6,9 @@
 
 A repo-wide **variant** is a setting fixed for the importer session, declared in `configs/variants.yml` in the `Catzc.Base.Variants` module
 and read through `Get-Config -Config variants` (so it inherits the session cache — re-run the importer to change it). The file is a
-**growing dictionary**: today `ado_naming`, `git_workspace`, and `have_customers`, more as needed. A variant is the one home for a "this
-whole repo works this way" switch — not a per-module config, not an environment variable.
+**growing dictionary**: `ado_naming`, `git_workspace`, `have_customers`, and `aspects` (read by `Get-Aspect`; see
+[module-aspects](../design/module-aspects.md)), more as needed. A variant is the one home for a "this whole repo works this way" switch —
+not a per-module config, not an environment variable.
 
 - [What a variant is](#what-a-variant-is)
 
@@ -65,9 +66,9 @@ Some settings are properties of the **whole repository**, fixed for a run: which
 this repo does customer deployments at all. Scattering these as per-call parameters, per-module constants, or ambient environment variables
 means no single answer, no single guard, and drift. They need one home, one read path, and one way to assert them.
 
-The runtime already fixes the file set for a session at the importer boundary (see [caching](../automation/caching.md)), so a config-backed
-value read once and cached for the session is exactly the right shape: stable for the whole run, changed only by editing the file and
-re-importing. What is missing is a place to put such values and a disciplined way to read them.
+The runtime fixes the file set for a session at the importer boundary (see [caching](../automation/caching.md)), so a config-backed value
+read once and cached for the session is exactly the right shape: stable for the whole run, changed only by editing the file and
+re-importing. What it takes is a place to put such values and a disciplined way to read them.
 
 ### What a variant is
 
