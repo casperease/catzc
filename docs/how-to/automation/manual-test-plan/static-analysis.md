@@ -37,7 +37,7 @@ manifest never churns when it is later re-formatted.
 
 **Checks:**
 
-- `Invoke-Formatter` over a `Get-DynamicManifestContent` result (using the shipped `PSScriptAnalyzerSettings.psd1`) leaves it byte-for-byte
-  unchanged.
+- `Test-BuildArtifact -Facet Manifest` reports 0 issues: over a fresh build, `Format-Automation -DryRun` (the shipped
+  `PSScriptAnalyzerSettings.psd1`) would leave every built manifest (`Catzc.psd1` and each `<Module>.psd1`) byte-for-byte unchanged.
 
 **Prerequisite:** PSScriptAnalyzer (vendored).

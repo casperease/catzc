@@ -32,6 +32,7 @@ public sealed class AdrsConfig
 
     public IReadOnlyList<AdrDomain> Domains { get; }
     public IReadOnlyList<AdrRuleSet> RuleSets { get; }
+    public IReadOnlyList<AdrDomainEdge> Edges { get; }
 
     private static readonly string[] AllowedKeys = { "domains" };
 
@@ -179,8 +180,19 @@ public sealed class AdrsConfig
             throw new ArgumentException("adrs.yml is invalid:\n  - " + string.Join("\n  - ", errors));
         }
 
+        // The domain DAG as edges, one per depends_on link in declaration order — built only from validated domains.
+        List<AdrDomainEdge> edges = new List<AdrDomainEdge>();
+        foreach (AdrDomain domain in domains)
+        {
+            foreach (string target in domain.DependsOn)
+            {
+                edges.Add(new AdrDomainEdge(domain.Name, target));
+            }
+        }
+
         Domains = domains;
         RuleSets = allRuleSets;
+        Edges = edges;
     }
 
     private static void DetectCycle(string node, Dictionary<string, List<string>> graph, Dictionary<string, int> state, List<string> errors)
