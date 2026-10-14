@@ -6,61 +6,70 @@
 
 ### Rule ADR-AUTO-ENVVAR:1
 
-Set `$env:` only for external tool contracts. If the consumer is our own code, use parameters or module-scoped variables.
+Set an environment variable only to meet an external tool's contract. When the consumer is our own code, the value travels as a parameter
+or in module state. The PowerShell mechanics are
+[ADR-PWSH-ENV#5](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env5).
 
 - [Legitimate uses](#legitimate-uses)
 
 ### Rule ADR-AUTO-ENVVAR:2
 
-Read `$env:` only for external system inputs — CI detection, OS paths, user-set toggles are inputs from outside our boundary.
+Read an environment variable only as an input from outside our boundary — CI detection, OS paths, and user-set toggles. The PowerShell
+mechanics are [ADR-PWSH-ENV#6](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env6).
 
 - [Legitimate uses](#legitimate-uses)
 
 ### Rule ADR-AUTO-ENVVAR:3
 
-Never require an `$env:` variable to be set for a function to work. Use `[Parameter(Mandatory)]` instead; the function signature is the
-contract, not a hidden environment variable.
+Never require an environment variable to be set for a function to work. A required input is a mandatory, typed parameter; the function
+signature is the contract, not a hidden environment variable. The PowerShell mechanics are
+[ADR-PWSH-ENV#7](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env7).
 
 - [Prohibited uses](#prohibited-uses)
 - [Internal state instead](#internal-state-instead)
 
 ### Rule ADR-AUTO-ENVVAR:4
 
-Never mutate `$env:` mid-execution to communicate between functions. That is invisible coupling through global state; pass values through
-parameters and return values.
+Never write an environment variable mid-execution to communicate between functions. That is invisible coupling through global state; pass
+values through parameters and return values. The PowerShell mechanics are
+[ADR-PWSH-ENV#8](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env8).
 
 - [Global mutable state](#global-mutable-state)
 - [Prohibited uses](#prohibited-uses)
 
 ### Rule ADR-AUTO-ENVVAR:5
 
-Bootstrap anchors (`$env:RepositoryRoot`) are set once in `importer.ps1` and never modified. They are treated as constants; modifying a
-bootstrap anchor means the design is wrong.
+The bootstrap anchors — the working root and the code root — are set once by the importer entry and never modified. They are treated as
+constants; modifying a bootstrap anchor means the design is wrong. The PowerShell mechanics are
+[ADR-PWSH-ENV#9](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env9).
 
 - [Legitimate uses](#legitimate-uses)
 
 ### Rule ADR-AUTO-ENVVAR:6
 
-Never store secrets in `$env:` as internal state our own code reads back — durable state, config, or a value our own code later reads. A
-secret may cross to a child or external process through the environment only via the single disciplined seam `Write-EnvironmentSet`
-(ADR-AUTO-ENVVAR#7), never written ad-hoc. `$env:` is visible to child processes, process-inspection tools, and crash dumps (CWE-526).
+Never store a secret in an environment variable as internal state our own code reads back — durable state, config, or a value our own code
+later reads. A secret may cross to a child or external process through the environment only via the single disciplined seam
+`Write-EnvironmentSet` (ADR-AUTO-ENVVAR#7), never written ad hoc. The environment is visible to child processes, process-inspection tools,
+and crash dumps (CWE-526). The PowerShell mechanics are
+[ADR-PWSH-ENV#10](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env10).
 
 - [They are a security surface](#they-are-a-security-surface)
 - [The secret hand-off](#the-secret-hand-off)
 
 ### Rule ADR-AUTO-ENVVAR:7
 
-Handing a secret to a child or external process through the environment is a legitimate external-boundary use (ADR-AUTO-ENVVAR#1), permitted
-only through `Write-EnvironmentSet` (`Catzc.Tooling.Environment`). That seam takes secrets as `[SecureString]`; never logs or returns the
-plaintext (masks `***`); decrypts only at the `$env:` assignment; and defaults to scoped set/restore, persisting only on explicit
-`-Persist`. Ad-hoc `$env:TOKEN = $plaintext` stays prohibited.
+Handing a secret to a child or external process through the environment is a legitimate external-boundary use (ADR-AUTO-ENVVAR#1),
+permitted only through `Write-EnvironmentSet` (`Catzc.Tooling.Environment`). That seam takes the secret as a protected value, never as
+plain text; never logs or returns the plaintext (it masks it as `***`); decrypts only at the moment it sets the variable; and defaults to a
+scoped set and restore, persisting only on explicit request. An ad-hoc assignment of a plaintext secret stays prohibited. The PowerShell
+mechanics are [ADR-PWSH-ENV#11](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env11).
 
 - [The secret hand-off](#the-secret-hand-off)
 
 ## Context
 
-PowerShell makes `$env:` variables dangerously convenient. They look like regular variables, they are accessible everywhere, and they
-survive function calls. This makes them tempting for passing state between functions, caching results, or storing configuration.
+Environment variables are dangerously convenient. In most engines they look like regular variables, they are accessible everywhere, and
+they survive function calls. This makes them tempting for passing state between functions, caching results, or storing configuration.
 
 That temptation is the problem. Environment variables are the worst form of global mutable state because they have **no scoping, no type
 safety, no automatic cleanup, and no visibility boundaries.**
@@ -68,34 +77,34 @@ safety, no automatic cleanup, and no visibility boundaries.**
 A language gives code scoped mechanisms for its own state — parameters, return values, locals, module state — all destroyed or scoped
 automatically. An environment variable set inside any function, at any call depth, persists for the entire process lifetime unless someone
 explicitly removes it; no scope exit cleans it up. The PowerShell mechanics of obeying this rule — which scoped mechanism replaces which
-`$env:` temptation, runspace sharing, test isolation — are the language layer,
-[environment-variable-mechanics](powershell/environment-variable-mechanics.md) (`ADR-AUTO-PSENV`).
+environment-variable temptation, runspace sharing, test isolation — are the language layer,
+[environment-variable-mechanics](../pwsh/environment-variable-mechanics.md) (`ADR-PWSH-ENV`).
 
 ### Global mutable state
 
 `Why environment variables are global mutable state`
 
-- **Global.** `$env:FOO` is readable and writable from any function, any module, any scope. There is no access control. Any code — yours,
-  vendored, third-party — can read or mutate any environment variable. This couples all code together: you must reason about the entire
-  process, not just the function you are reading.
+- **Global.** An environment variable is readable and writable from any function, any module, any scope. There is no access control. Any
+  code — yours, vendored, third-party — can read or mutate any environment variable. This couples all code together: you must reason about
+  the entire process, not just the function you are reading.
 
-- **Mutable.** Any code path can change the value at any time. Two consecutive reads of `$env:FOO` can return different values if something
-  in between modified it.
+- **Mutable.** Any code path can change the value at any time. Two consecutive reads of the same variable can return different values if
+  something in between modified it.
 
-- **Unscoped.** Unlike a language's scoped variables (a function local, module-level state), `$env:` has no boundaries at all. It bypasses
-  the language's scope isolation entirely.
+- **Unscoped.** Unlike a language's scoped variables (a function local, module-level state), an environment variable has no boundaries at
+  all. It bypasses the language's scope isolation entirely.
 
 ### They are always strings
 
-`$env:` values are always strings. There is no type safety. `$env:COUNT = 42` stores the string `"42"`. `$env:ENABLED = $true` stores the
-string `"True"`. Every consumer must parse and validate. There is no schema, no constraint, no `[ValidateSet()]`. Compare this to a function
-parameter with `[int]`, `[switch]`, or `[ValidateRange()]` — the type system catches errors at the call site.
+An environment variable's value is always a string. There is no type safety: a number or a boolean is stored as its text, and every
+consumer must parse and validate it. There is no schema, no constraint, and no validation at the call site. Compare this to a typed
+function parameter with a validated range or set — the type system catches errors at the call site.
 
 ### They leak to child processes
 
-Every process spawned via `Start-Process`, `Start-Job`, `&`, or external tool invocation inherits **all** environment variables from the
-parent. A child process (a linter, a build tool, a third-party CLI) sees every `$env:` variable the parent set, even if it has no need for
-them. This violates least privilege and creates an invisible coupling between parent and child.
+Every child process inherits **all** environment variables from the parent. A child process (a linter, a build tool, a third-party CLI) sees
+every variable the parent set, even if it has no need for them. This violates least privilege and creates an invisible coupling between
+parent and child.
 
 ### Parallel runs and tests
 
@@ -103,26 +112,27 @@ them. This violates least privilege and creates an invisible coupling between pa
 
 Environment variables are process-wide, so concurrent workers share one mutable namespace — parallel reads and writes race — and a value set
 in one test leaks into the next, producing order-dependent failures that are extremely difficult to diagnose. The PowerShell specifics
-(runspace sharing, `$using:`, Pester's lack of `$env:` isolation) live in
-[environment-variable-mechanics](powershell/environment-variable-mechanics.md).
+(runspace sharing, `$using:`, Pester's lack of environment isolation) live in
+[environment-variable-mechanics](../pwsh/environment-variable-mechanics.md).
 
 ### They are a security surface
 
 Environment variables are visible to all child processes, can be dumped via `/proc/<pid>/environ` on Linux or process inspection tools on
 Windows, and are frequently logged by CI systems and error-reporting frameworks. MITRE classifies "Cleartext Storage of Sensitive
-Information in an Environment Variable" as CWE-526. Never store secrets, tokens, or credentials in `$env:` as internal state — for our own
-code, use secret managers, `SecureString`, or secure parameter passing.
+Information in an Environment Variable" as CWE-526. Never store secrets, tokens, or credentials in an environment variable as internal state
+— for our own code, use secret managers, protected secret types, or secure parameter passing.
 
 There is one narrow exception, and it is a hand-off, not a store: when an external tool's contract is to read a secret from the environment
 (ADR-AUTO-ENVVAR#1), the secret must reach it through the environment. That crossing is confined to a single disciplined seam
-([the one sanctioned secret hand-off](#the-secret-hand-off)); an ad-hoc `$env:TOKEN = $plaintext` remains prohibited.
+([the one sanctioned secret hand-off](#the-secret-hand-off)); an ad-hoc assignment of a plaintext secret remains prohibited.
 
 ### Inconsistent case sensitivity
 
 `Case sensitivity is inconsistent`
 
-`$env:Path` and `$env:PATH` refer to the same variable on Windows but different variables on Linux. Using environment variables for internal
-state means dealing with this cross-platform inconsistency in every consumer. Module-scoped variables have no such problem.
+Environment-variable names are case-insensitive on Windows and case-sensitive on Linux, so `Path` and `PATH` are one variable on one
+platform and two on the other. Using environment variables for internal state means dealing with this cross-platform inconsistency in every
+consumer. Module-scoped variables have no such problem.
 
 ### Internal state instead
 
@@ -131,7 +141,7 @@ state means dealing with this cross-platform inconsistency in every consumer. Mo
 Internal state belongs in the mechanisms whose scope and cleanup the language manages automatically: pass values between functions as
 parameters and return values, and keep shared state in module scope. None of these leak to child processes, pollute tests, or persist beyond
 their natural lifetime. The PowerShell mechanism table and idioms are the language layer,
-[environment-variable-mechanics](powershell/environment-variable-mechanics.md) (`ADR-AUTO-PSENV`).
+[environment-variable-mechanics](../pwsh/environment-variable-mechanics.md) (`ADR-PWSH-ENV`).
 
 ## Decision
 
@@ -139,146 +149,61 @@ Environment variables are used exclusively at external boundaries — never as i
 
 ### Legitimate uses
 
-These are the only acceptable patterns for `$env:` in our code:
+These are the only acceptable uses of environment variables in our code:
 
-**1. Setting variables for external tools to consume.** External tools define their configuration contract through environment variables. We
-set these so the tool behaves correctly:
-
-```powershell
-$env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'     # dotnet CLI reads this
-$env:GIT_TERMINAL_PROMPT = '0'             # git reads this
-$env:AZURE_CONFIG_DIR = $configPath         # Azure CLI reads this
-$env:PSModulePath = $vendorPaths            # PowerShell reads this
-```
-
-The key distinction: the _consumer_ of the variable is an external process, not our code.
+**1. Setting variables for external tools to consume.** External tools define their configuration contract through environment variables
+— the dotnet CLI's telemetry opt-out, git's terminal prompt, the Azure CLI's config folder, PowerShell's module path. We set these so the
+tool behaves correctly. The key distinction: the _consumer_ of the variable is an external process, not our code.
 
 **2. Reading variables that external systems set.** CI platforms, container runtimes, and operating systems communicate via environment
-variables. Reading these is fine — they are inputs from outside our boundary:
+variables — the Azure DevOps and GitHub Actions markers, the Windows system root. Reading these is fine — they are inputs from outside our
+boundary.
 
-```powershell
-$env:TF_BUILD          # set by Azure DevOps — are we in a pipeline?
-$env:GITHUB_ACTIONS    # set by GitHub Actions — are we in a workflow?
-$env:SystemRoot        # set by Windows — where is the OS?
-```
+A small family of `CATZC_*` flags belongs to this category as well. They are deliberate external/diagnostic toggles — signals set by the
+outer environment (a developer's shell, a test harness) that our code _reads_ to alter a presentation or test-isolation behaviour, never to
+pass internal state between our own functions. The value is an input from outside our boundary (a human or a harness flips it), and the
+function merely observes it. This is the boundary rule, not an exception to it.
 
-A small family of `$env:CATZC_*` flags belongs to this category as well. They are deliberate external/diagnostic toggles — signals set by
-the outer environment (a developer's shell, a test harness) that our code _reads_ to alter a presentation or test-isolation behaviour, never
-to pass internal state between our own functions:
+**3. Setting a well-known anchor once at bootstrap.** The working root is set by the importer entry at startup and never modified again. It
+is effectively a constant — a process-wide anchor that removes the need to depend on the working directory. This is acceptable because it is
+set once, never mutated, and serves the same role as a tool's contract variable (every function needs a stable root, and the environment is
+the only mechanism that crosses module boundaries without passing parameters through every call).
 
-```powershell
-$env:CATZC_MESSAGE_TIMESTAMPS   # opt-in: prefix Write-Message output with timestamps
-$env:CATZC_BLOCK_REAL_PROCESS   # set by the L1 test harness: a real process launch means a mock was missed
-```
-
-The distinguishing feature is the same as `TF_BUILD`: the value is an input from outside our boundary (a human or a harness flips it), and
-the function merely observes it. This is the boundary rule, not an exception to it — these are external toggles, not internal-state
-plumbing.
-
-**3. Setting a well-known anchor once at bootstrap.** `$env:RepositoryRoot` is set by `importer.ps1` at startup and never modified again. It
-is effectively a constant — a process-wide anchor that removes the need to depend on `$PWD`. This is acceptable because it is set once,
-never mutated, and serves the same role as a tool's contract variable (every function needs a stable root, and `$env:` is the only mechanism
-that crosses module boundaries without passing parameters through every call).
+The PowerShell examples of each use are [environment-variable-mechanics](../pwsh/environment-variable-mechanics.md).
 
 ### The secret hand-off
 
 `The one sanctioned secret hand-off`
 
-Setting a variable for an external tool (legitimate use 1) covers non-secret contract values directly — `$env:GIT_TERMINAL_PROMPT = '0'`.
-Some external contracts are for a **secret**: a CLI or container that reads its token, key, or connection string from the environment. That
-is still an external-boundary use — the consumer is an outside process, not our code — but a secret crossing the boundary demands more
-discipline than a bare assignment, because the plaintext must not leak into a log, a return value, or a persisted variable that outlives the
-call.
+Setting a variable for an external tool (legitimate use 1) covers non-secret contract values directly. Some external contracts are for a
+**secret**: a CLI or container that reads its token, key, or connection string from the environment. That is still an external-boundary use
+— the consumer is an outside process, not our code — but a secret crossing the boundary demands more discipline than a bare assignment,
+because the plaintext must not leak into a log, a return value, or a persisted variable that outlives the call.
 
-`ADR-AUTO-ENVVAR:6` forbids using `$env:` as a secret **store** — durable or internal state, config, or any secret our own code reads back
-out of the environment. It does not forbid a disciplined secret **hand-off** to an external consumer that reads the secret from the
-environment; that narrow, external-boundary crossing is `ADR-AUTO-ENVVAR:7`, and it is permitted through exactly one seam:
+ADR-AUTO-ENVVAR#6 forbids using the environment as a secret **store** — durable or internal state, config, or any secret our own code reads
+back out of the environment. It does not forbid a disciplined secret **hand-off** to an external consumer that reads the secret from the
+environment; that narrow, external-boundary crossing is ADR-AUTO-ENVVAR#7, and it is permitted through exactly one seam:
+**`Write-EnvironmentSet`** (`Catzc.Tooling.Environment`). It takes the secret as a protected value, never logs or returns the plaintext,
+decrypts only at the assignment that is the boundary, and by default removes the secret from the environment when the hand-off ends. Its
+PowerShell mechanics are [environment-variable-mechanics](../pwsh/environment-variable-mechanics.md#the-secret-hand-off).
 
-**`Write-EnvironmentSet`** (`Catzc.Tooling.Environment`) is the sole sanctioned way to place a secret in the environment for a child or
-external process. It:
+The plaintext does land in the environment for the instant the external tool reads it — that is unavoidable, because the tool's contract is
+to read it there, and it is the boundary hand-off the whole rule is about. What ADR-AUTO-ENVVAR#7 guarantees is that this is the _only_ place
+the plaintext exists, that it is not logged or returned, and that it does not outlive the hand-off.
 
-- takes secrets as `[SecureString]`, so a plaintext token is never a parameter value sitting in a caller's variables or a transcript;
-- never logs or returns the plaintext — it masks the value as `***`, the same discipline as `Set-AdoPipelineVariable -IsSecret`;
-- decrypts to plaintext only at the `$env:` assignment itself (the boundary), via
-  `[System.Net.NetworkCredential]::new('', $secure).Password`;
-- defaults to a **scoped** set/restore — it snapshots, sets, invokes a `-ScriptBlock`, and restores in a `finally`, so the secret leaves the
-  environment when the block exits — and persists past the call only on an explicit `-Persist`.
-
-The plaintext does land in `$env:` for the instant the external tool reads it — that is unavoidable, because the tool's contract is to read
-it there, and it is the boundary hand-off the whole rule is about. What `ADR-AUTO-ENVVAR:7` guarantees is that this is the _only_ place the
-plaintext exists, that it is not logged or returned, and that it does not outlive the hand-off. `SecureString` is DPAPI-encrypted only on
-Windows; on Linux/macOS .NET stores it obfuscated rather than encrypted (see [cross-platform](cross-platform.md)). The value of the type
-here is the **contract** — do not log, do not internalize, decrypt only at the boundary — not at-rest cryptography.
-
-This _strengthens_ `ADR-AUTO-ENVVAR:6` rather than weakening it: scattered ad-hoc `$env:TOKEN = $plaintext` writes are replaced by one seam
-that carries the don't-log / don't-persist / decrypt-at-boundary discipline, so a reviewer has one function to audit instead of every string
-assignment.
+This _strengthens_ ADR-AUTO-ENVVAR#6 rather than weakening it: scattered ad-hoc plaintext assignments are replaced by one seam that carries
+the don't-log / don't-persist / decrypt-at-boundary discipline, so a reviewer has one function to audit instead of every string assignment.
 
 ### Prohibited uses
 
-**Never use `$env:` as internal state between our own functions:**
+- **Never use an environment variable as internal state between our own functions.** One function writing a variable that another reads
+  leaks the value to every child process and couples the two invisibly; the value is a return value and a parameter instead.
+- **Never use an environment variable as a cache or flag.** A "loaded" flag in the environment outlives the session's own cache and leaks to
+  child processes; a cache lives in module state ([caching](caching.md)).
+- **Never make functionality depend on an environment variable being set.** A function that throws when a variable is unset hides its
+  input; a mandatory, validated parameter gives type validation, tab completion, mandatory enforcement, and documentation for free.
 
-```powershell
-# BAD — passing state through the environment
-function Install-Tool {
-    # ...install logic...
-    $env:LAST_INSTALLED_TOOL = $toolName      # leaks to every child process
-}
-function Show-Summary {
-    Write-Message "Installed: $env:LAST_INSTALLED_TOOL"  # invisible coupling
-}
-
-# GOOD — pass it as a return value or parameter
-function Install-Tool {
-    # ...install logic...
-    return $toolName
-}
-$installed = Install-Tool -Name 'python'
-Show-Summary -ToolName $installed
-```
-
-**Never use `$env:` as a cache or flag:**
-
-```powershell
-# BAD — caching in the environment
-function Get-Config {
-    if ($env:CONFIG_LOADED) { return $script:CachedConfig }
-    $script:CachedConfig = Import-PowerShellDataFile $path
-    $env:CONFIG_LOADED = '1'
-    return $script:CachedConfig
-}
-
-# GOOD — module-scoped variable, no env var needed
-function Get-Config {
-    if ($script:CachedConfig) { return $script:CachedConfig }
-    $script:CachedConfig = Import-PowerShellDataFile $path
-    return $script:CachedConfig
-}
-```
-
-**Never make functionality depend on `$env:` being set:**
-
-```powershell
-# BAD — "if this env is not defined, we don't work"
-function Deploy-App {
-    if (-not $env:DEPLOY_TARGET) {
-        throw 'Set $env:DEPLOY_TARGET before calling Deploy-App'
-    }
-}
-
-# GOOD — make it a parameter with validation
-function Deploy-App {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory)]
-        [ValidateSet('preprod', 'production')]
-        [string] $Target
-    )
-}
-```
-
-The parameter approach gives you type validation, tab completion, mandatory enforcement, and documentation — all for free. The `$env:`
-approach gives you a stringly-typed global that the caller has to know about by reading the implementation.
+The PowerShell form of each, as BAD and GOOD code, is [environment-variable-mechanics](../pwsh/environment-variable-mechanics.md).
 
 ## Twelve-factor configuration
 
@@ -331,14 +256,14 @@ Environment variables remain the right answer when your config is genuinely a fl
 
 - Function signatures document their inputs. Callers do not need to set hidden environment variables before calling a function.
 - Tests are isolated. No environment variable leaks between test cases, no snapshot/restore ceremony.
-- Parallel execution is safe. Module-scoped variables are per-runspace; `$env:` is not.
+- Parallel execution is safe. Module state is per worker; the environment is not.
 - Child processes only see variables that were set intentionally for them, not internal state that leaked.
 - Debugging is straightforward. State flows through parameters and return values — you can trace it by reading the code. Global mutable
   state requires tracing every possible mutation site in the entire process.
-- The codebase has two persistent path anchors — `$env:RepositoryRoot` (the working root) and `$env:CatzcModulesRoot` (the code root, see
-  [platform-bundle](platform-bundle.md)), each set once at bootstrap and never modified. The only other `$env:` our code defines for itself
-  are the handful of `$env:CATZC_*` external/diagnostic toggles, which are read (not written) as boundary inputs. Internal state flows
-  through function contracts, not the environment.
-- Secrets reach an external tool through one auditable seam. A secret bound into `$env:` for a child process goes through
-  `Write-EnvironmentSet` (ADR-AUTO-ENVVAR#7) — `SecureString` in, masked in logs, decrypted only at the assignment, scoped by default — so
-  there is a single function to review rather than scattered ad-hoc secret-into-env writes.
+- The codebase has two persistent path anchors — the working root and the code root (see [platform-bundle](platform-bundle.md)), each set
+  once at bootstrap and never modified. The only other environment variables our code defines for itself are the handful of `CATZC_*`
+  external/diagnostic toggles, which are read (not written) as boundary inputs. Internal state flows through function contracts, not the
+  environment.
+- Secrets reach an external tool through one auditable seam. A secret bound into the environment for a child process goes through
+  `Write-EnvironmentSet` (ADR-AUTO-ENVVAR#7) — protected in, masked in logs, decrypted only at the assignment, scoped by default — so there
+  is a single function to review rather than scattered ad-hoc secret-into-environment writes.

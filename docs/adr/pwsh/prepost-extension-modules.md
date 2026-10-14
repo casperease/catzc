@@ -1,10 +1,10 @@
-# docs/adr/automation/powershell/prepost-extension-modules.md
+# docs/adr/pwsh/prepost-extension-modules.md
 
 `ADR: PrePost extension modules`
 
-## Rules: ADR-AUTO-PREPOST
+## Rules: ADR-PWSH-PREPOST
 
-### Rule ADR-AUTO-PREPOST:1
+### Rule ADR-PWSH-PREPOST:1
 
 `PrePost.psm1` is the only `.psm1` allowed under `infrastructure/`. Under `automation/`, `.psm1` is reserved for genuine module/standalone
 files (the `automation/.internal/*.psm1` shared modules, the analyzer rule modules, the PrePost starter); all other PowerShell uses `.ps1`.
@@ -12,34 +12,34 @@ files (the `automation/.internal/*.psm1` shared modules, the analyzer rule modul
 - [No conflict with use-ps1-not-psm1](#no-conflict-with-use-ps1-not-psm1)
 - [One `.psm1`](#one-psm1)
 
-### Rule ADR-AUTO-PREPOST:2
+### Rule ADR-PWSH-PREPOST:2
 
 `Catzc.Azure.Templates/assets/PrePost.psm1` is a starter reference, not loaded by any code. It is one of the few `.psm1` files under
 `automation/`, but it is data authors copy, not an imported module.
 
 - [The copy-in starter](#the-copy-in-starter)
 
-### Rule ADR-AUTO-PREPOST:3
+### Rule ADR-PWSH-PREPOST:3
 
 The file name is exactly `PrePost.psm1` at the template-folder root. Discovery in `Get-BicepTemplates` looks for that exact filename.
 
 - [Per-template hooks](#per-template-hooks)
 
-### Rule ADR-AUTO-PREPOST:4
+### Rule ADR-PWSH-PREPOST:4
 
 A template's `PrePost.psm1` may export any subset of the three hooks. Hooks it does not export are no-ops (skipped) — there is no
 fall-through to a default.
 
 - [Per-template hooks](#per-template-hooks)
 
-### Rule ADR-AUTO-PREPOST:5
+### Rule ADR-PWSH-PREPOST:5
 
 `Build-Bicep` / `Deploy-Bicep` import the template's module with `Import-Module -Scope Local -Force -PassThru` and invoke each hook only if
 it appears in the module's `ExportedCommands`.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-PREPOST:6
+### Rule ADR-PWSH-PREPOST:6
 
 `Build-Bicep` copies the per-template `PrePost.psm1` into the build output so `Deploy-Bicep` can re-import it from the artifacts folder on a
 pipeline agent, where `Get-BicepDeploymentContext` re-keys its path into `ctx.artifacts.prepost_module`.
