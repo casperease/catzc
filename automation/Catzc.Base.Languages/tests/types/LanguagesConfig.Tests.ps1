@@ -71,6 +71,18 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*invalid vscode_language 'Widget Lang'*"
         }
 
+        It 'reads an engine''s settings files, and throws on one that is not a repository-relative path' -Tag 'ADR-AUTO-CACHE#10' {
+            $config = & $script:make ([ordered]@{
+                    engines   = [ordered]@{ prettier = [ordered]@{ settings = @('widget/widget-settings.yml', '.editorconfig') } }
+                    languages = [ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' } }
+                })
+            $config.engines['prettier'].settings | Should -Be @('widget/widget-settings.yml', '.editorconfig')
+            $err = { & $script:make ([ordered]@{ engines = [ordered]@{ prettier = [ordered]@{ settings = @('../widget.yml', 'C:\gadget.yml') } } }) } |
+                Should -Throw -PassThru
+            $err.Exception.Message | Should -BeLike "*invalid settings file '../widget.yml'*"
+            $err.Exception.Message | Should -BeLike "*invalid settings file 'C:\gadget.yml'*"
+        }
+
         It 'accepts every engine it declares' {
             foreach ($engine in [Catzc.Base.Languages.LanguagesConfig]::FormatterEngines) {
                 (& $script:one ([ordered]@{ extensions = @('.wdg'); formatter = $engine })).languages[0].formatter | Should -Be $engine

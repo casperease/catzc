@@ -1,0 +1,99 @@
+// One live-identity declaration of an identity-tokens source: which values of one of the declaring module's own
+// configs are live production identities that a hermetic logic test must never name
+// ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). Get-LiveIdentityTokens walks
+// `path` in the named config and yields each token with this rule's kind, suggestion and match mode.
+//
+//   config     required; the config the tokens come from (owned by the declaring module)
+//   path       required; dot-separated key path into that config; a '*' segment walks every entry of a map
+//   take       'value' (default): the scalar at the path; 'keys': the keys of the map at the path
+//   kind       required; the token kind a finding reports (customer-key, org, environment, ...)
+//   suggest    required; the fixture the test should use instead
+//   match      'exact' (default): flagged wherever it appears as a literal; 'position': flagged only when bound to
+//              an identity parameter (-Environment/-Env/-Shortcode), for ambiguous words such as 'test'
+//   skip_when  optional; a key that, when true on a map entry the path walks, leaves that entry out
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
+namespace Catzc.Base.QualityGates;
+
+public sealed class IdentityTokenRule
+{
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
+    public string config { get; }
+    public IReadOnlyList<string> path { get; }
+    public string take { get; }
+    public string kind { get; }
+    public string suggest { get; }
+    public string match { get; }
+    public string skip_when { get; }
+
+    private static readonly string[] AllowedKeys = { "config", "path", "take", "kind", "suggest", "match", "skip_when" };
+    private static readonly Regex Segment = new Regex("^([A-Za-z0-9_-]+|\\*)$");
+
+    public IdentityTokenRule(int position, IDictionary raw)
+    {
+        string label = string.Format("tokens[{0}]", position);
+        if (raw == null) { throw new ArgumentException(label + ": must be a mapping"); }
+
+        List<string> errors = new List<string>();
+        foreach (object key in raw.Keys)
+        {
+            string name = key == null ? string.Empty : key.ToString();
+            if (Array.IndexOf(AllowedKeys, name) < 0)
+            {
+                errors.Add(string.Format("{0}: unknown key '{1}' (allowed: {2})", label, name, string.Join(", ", AllowedKeys)));
+            }
+        }
+
+        config = Required(raw, "config", label, errors);
+        kind = Required(raw, "kind", label, errors);
+        suggest = Required(raw, "suggest", label, errors);
+        string pathText = Required(raw, "path", label, errors);
+
+        List<string> segments = new List<string>();
+        if (pathText != null)
+        {
+            foreach (string segment in pathText.Split('.'))
+            {
+                if (!Segment.IsMatch(segment))
+                {
+                    errors.Add(string.Format("{0}: path '{1}' has segment '{2}'; a segment is a key or '*'", label, pathText, segment));
+                }
+                segments.Add(segment);
+            }
+        }
+        path = segments;
+
+        take = Optional(raw, "take") ?? "value";
+        if (take != "value" && take != "keys")
+        {
+            errors.Add(string.Format("{0}: take '{1}' is not 'value' or 'keys'", label, take));
+        }
+        match = Optional(raw, "match") ?? "exact";
+        if (match != "exact" && match != "position")
+        {
+            errors.Add(string.Format("{0}: match '{1}' is not 'exact' or 'position'", label, match));
+        }
+        skip_when = Optional(raw, "skip_when");
+
+        if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }
+    }
+
+    private static string Optional(IDictionary raw, string key)
+    {
+        if (!raw.Contains(key) || raw[key] == null) { return null; }
+        string value = raw[key].ToString();
+        return string.IsNullOrWhiteSpace(value) ? null : value;
+    }
+
+    private static string Required(IDictionary raw, string key, string label, List<string> errors)
+    {
+        string value = Optional(raw, key);
+        if (value == null) { errors.Add(string.Format("{0}: '{1}' is required", label, key)); }
+        return value;
+    }
+}

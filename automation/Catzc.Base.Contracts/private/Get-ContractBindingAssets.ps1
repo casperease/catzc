@@ -10,7 +10,8 @@
       are the pin record: a released provided contract is kept while a consumer pins it, and retiring it means
       deleting its folder ([ADR-REPO-CONTRACT#3](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract3)).
     The depended-on assets of an older released folder are not listed: a depended-on contract follows its outside
-    platform, so only the current version's expectation binds (ADR-REPO-CONTRACT#3).
+    platform, so only the current version's expectation binds
+    ([ADR-REPO-CONTRACT#3](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract3)).
 
     When -Version names a release, the draft 0.0.0 is not listed. A contracts/ tree that does not list throws, as
     Get-Contract does.

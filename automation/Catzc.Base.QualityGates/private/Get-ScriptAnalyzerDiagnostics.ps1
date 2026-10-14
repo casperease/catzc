@@ -21,10 +21,16 @@
     [ADR-AUTO-CONSOLE#8](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console8)). The
     external Invoke-ScriptAnalyzer progress bar is suppressed
     inside the worker for the same reason.
+    A result cache under out/cache/ skips every file the analyzer last found clean whose bytes and analyzer inputs
+    (Get-ScriptAnalyzerInputs: the settings, the custom rules, the vendored analyzer, the spelling oracle's word lists)
+    are unchanged since ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)); only clean files
+    are recorded, so a cached run reports exactly the diagnostics a full run would. A pipeline starts without the cache.
 .PARAMETER Path
     The files to analyze.
 .PARAMETER SettingsPath
     Path to the PSScriptAnalyzerSettings.psd1 to apply.
+.PARAMETER NoCache
+    Analyze every file, ignoring the result cache (which is still refreshed).
 .OUTPUTS
     The PSScriptAnalyzer diagnostic records (empty when there are no violations).
 #>
@@ -38,12 +44,14 @@ function Get-ScriptAnalyzerDiagnostics {
         [string[]] $Path,
 
         [Parameter(Mandatory)]
-        [string] $SettingsPath
+        [string] $SettingsPath,
+
+        [switch] $NoCache
     )
 
     # Drop any null/empty entries; an empty list means nothing to analyze (no shards spawned).
-    $files = @($Path | Where-Object { $_ })
-    if ($files.Count -eq 0) {
+    $requested = @($Path | Where-Object { $_ })
+    if ($requested.Count -eq 0) {
         return @()
     }
 
@@ -51,6 +59,25 @@ function Get-ScriptAnalyzerDiagnostics {
     # ([ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)).
     # The shards still run from the repository root: the settings' CustomRulePath entries are relative to it.
     $root = Get-RepositoryRoot
+
+    # The result cache ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)): a file the analyzer
+    # last found clean, whose bytes and analyzer inputs (Get-ScriptAnalyzerInputs) are unchanged since, is not analyzed
+    # again — it has no diagnostics by construction. Only files with no diagnostics are ever recorded.
+    $fullRoot = [System.IO.Path]::GetFullPath($root)
+    $stamp = Get-ContentStamp -Label 'script-analyzer' -File (Get-ScriptAnalyzerInputs -RepositoryRoot $fullRoot -SettingsPath $SettingsPath) -RepositoryRoot $fullRoot
+    $cachePath = Join-Path (Get-OutputRoot) 'cache/script-analyzer.json'
+    $cache = if ($NoCache) {
+        @{}
+    }
+    else {
+        Get-ResultCache -Path $cachePath
+    }
+    $split = Split-CachedFile -File $requested -Cache $cache -Stamp $stamp -RepositoryRoot $fullRoot
+    $files = @($split.Pending)
+    Write-Message "$($split.CachedCount) of $($requested.Count) file(s) unchanged since the analyzer last found them clean."
+    if ($files.Count -eq 0) {
+        return @()
+    }
     $analyzerPath = Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer'
 
     # Shard count tracks CPU but is capped so we don't spawn more process setup than the work can amortize,
@@ -135,6 +162,12 @@ function Get-ScriptAnalyzerDiagnostics {
             }
             $allDiagnostics += Receive-Job -Job $job -ErrorAction Stop
         }
+
+        # Record every analyzed file without a diagnostic as clean; a file with one is checked again next time.
+        $flagged = @($allDiagnostics | Where-Object { $_.ScriptPath } | ForEach-Object { $_.ScriptPath })
+        Update-ResultCache -Cache $cache -Key $split.Key -Checked $files -Flagged $flagged
+        Save-ResultCache -Path $cachePath -Cache $cache
+
         $allDiagnostics
     }
     finally {

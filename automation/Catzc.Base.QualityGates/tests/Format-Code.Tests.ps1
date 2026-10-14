@@ -22,6 +22,7 @@ Describe 'Format-Code' -Tag 'L0', 'logic' {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:root }
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive "out-$([guid]::NewGuid().ToString('N'))" }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } { $script:languages }
         # One array object, as the real Get-FormatScope returns it.
         Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates {
@@ -82,6 +83,90 @@ Describe 'Format-Code' -Tag 'L0', 'logic' {
     }
 }
 
+# One engine run per engine, and the content-keyed result cache, over real fixture files in $TestDrive with the engine
+# mocked ([ADR-AUTO-CACHE](/docs/adr/automation/caching.md)).
+Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'cache-repo'))
+        $script:settingsFile = Join-Path $script:root 'widget.settings'
+        $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
+                engines   = [ordered]@{ prettier = [ordered]@{ settings = @('widget.settings') } }
+                languages = [ordered]@{
+                    widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' }
+                    gadget = [ordered]@{ extensions = @('.gdg'); formatter = 'prettier' }
+                }
+            })
+        $script:widgetFile = Join-Path $script:root 'widgets/a.wdg'
+        $script:gadgetFile = Join-Path $script:root 'gadgets/a.gdg'
+        $script:outRoot = Join-Path $TestDrive 'cache-out'
+    }
+
+    BeforeEach {
+        foreach ($file in $script:widgetFile, $script:gadgetFile) {
+            $null = New-Item -ItemType File -Path $file -Force
+            [System.IO.File]::WriteAllText($file, 'formatted')
+        }
+        [System.IO.File]::WriteAllText($script:settingsFile, 'width: 140')
+        Remove-Item -LiteralPath $script:outRoot -Recurse -Force -ErrorAction Ignore
+        $script:handed = [System.Collections.Generic.List[string]]::new()
+        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:root }
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $script:outRoot }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } { $script:languages }
+        Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @($script:widgetFile, $script:gadgetFile) }
+        # The fake engine finds every file it is handed formatted.
+        Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates {
+            foreach ($file in $File) {
+                $script:handed.Add($file)
+            }
+            , [string[]] @()
+        }
+    }
+
+    It 'runs one engine once over the files of every language it formats, and still returns one result per language' {
+        $results = @(Format-Code -DryRun -PassThru)
+        Should -Invoke Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
+        $script:handed | Should -Be @($script:widgetFile, $script:gadgetFile)
+        @($results | ForEach-Object Language) | Should -Be @('widget', 'gadget')
+    }
+
+    It 'skips a file the engine last found formatted, and checks it again once its bytes change' -Tag 'ADR-AUTO-CACHE#10' {
+        $null = Format-Code -DryRun
+        $script:handed.Clear()
+        $results = @(Format-Code -DryRun -PassThru)
+        $script:handed.Count | Should -Be 0
+        $results[0].CheckedFiles | Should -Be @($script:widgetFile)
+        [System.IO.File]::WriteAllText($script:widgetFile, 'edited')
+        $null = Format-Code -DryRun
+        $script:handed | Should -Be @($script:widgetFile)
+    }
+
+    It 'checks every file again when a settings file of its engine changes, and under -NoCache' {
+        $null = Format-Code -DryRun
+        $script:handed.Clear()
+        [System.IO.File]::WriteAllText($script:settingsFile, 'width: 120')
+        $null = Format-Code -DryRun
+        $script:handed | Should -Be @($script:widgetFile, $script:gadgetFile)
+        $script:handed.Clear()
+        $null = Format-Code -DryRun -NoCache
+        $script:handed | Should -Be @($script:widgetFile, $script:gadgetFile)
+    }
+
+    It 'does not record a file the engine would still change' -Tag 'ADR-AUTO-CACHE#10' {
+        Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates {
+            foreach ($file in $File) {
+                $script:handed.Add($file)
+            }
+            , [string[]] @($script:gadgetFile)
+        }
+        $null = Format-Code -DryRun
+        $script:handed.Clear()
+        $null = Format-Code -DryRun
+        $script:handed | Should -Be @($script:gadgetFile)
+    }
+}
+
 # Integrity: every engine the registry may name has its adapter, and the shipped languages.yml names only those engines
 # ([ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)).
 Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
@@ -99,6 +184,15 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
             Should -Throw "*no adapter for the formatter engine 'widget-fmt'*"
     }
 
+    It 'every settings file an engine declares exists, so the cache stamp reads real inputs' -Tag 'ADR-AUTO-CACHE#10' {
+        $root = Get-RepositoryRoot
+        foreach ($engine in (Get-Config -Config languages).engines.Values) {
+            foreach ($settingsFile in $engine.settings) {
+                Join-Path $root $settingsFile | Should -Exist -Because "engines.$($engine.name).settings in languages.yml"
+            }
+        }
+    }
+
     It 'the shipped languages.yml gives every language a formatter or the reason it has none' -Tag 'ADR-PRIN-CONFIG#4' {
         foreach ($language in (Get-Config -Config languages).languages) {
             ([bool] $language.formatter) -xor ([bool] $language.no_formatter) | Should -BeTrue -Because $language.name
@@ -113,6 +207,7 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
 Describe 'Format-Code (real vendored analyzer and settings)' -Tag 'L2', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'out' }
     }
 
     It 'formats an off-style PowerShell file with the vendored analyzer, reporting it first under -DryRun' {
@@ -137,6 +232,7 @@ Describe 'Format-Code (real vendored analyzer and settings)' -Tag 'L2', 'integri
 Describe 'Format-Code (real prettier)' -Tag 'L2', 'logic' {
     BeforeAll {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'out' }
     }
 
     It 'formats Markdown and pipeline YAML with prettier, so a second run changes nothing' {

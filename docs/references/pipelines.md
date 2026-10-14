@@ -52,12 +52,16 @@ ADRs:
 - `ci-infrastructure.yaml` — CI engine for all three templates (`Assert-BicepTemplate` + `Build-Bicep`), no deploy. Registered on the
   infrastructure unit's native projection (`infrastructure/**`).
 - `cd-shared.yaml` — CD for the shared platform (standalone): `-Shared` build of the configuration-root slots → deploy foundation
-  (`nsub`/`psub`) → deploy discovery (`dev`/`test`/`preprod`/`prod`). No expedition (customer-only). Every deploy's target is the service
-  connection's session, pinned with `-SubscriptionIdAssertIs`.
+  (`nsub`/`psub`) → deploy discovery, the landing-zone hubs (`nsub`/`psub`) → deploy expedition (`dev`/`test`). Every deploy's target is the
+  service connection's session, pinned with `-SubscriptionIdAssertIs`.
 - `cd-apex.yaml`, `cd-nova.yaml`, `cd-flux.yaml` — thin per-customer CDs that `extends:` `extends/cd-customer.yaml`, passing the customer
-  key + the env/slot/service-connection/assert map. apex has both tiers; nova/flux are dev-only.
+  key + the env/slot/service-connection/assert map, exactly the configs that exist: apex deploys foundation and discovery at `nsub`/`psub`
+  and expedition at `dev`, `dev-blu`, `prod`; nova deploys `nsub` and expedition `dev`; flux deploys `nsub` and no expedition.
 - `extends/cd-customer.yaml` — the one shared customer-CD structure: CI build, then foundation → discovery → expedition deploys
-  (`${{ each }}` over three flat lists), foundation first (it owns the per-subscription Key Vault).
+  (`${{ each }}` over three flat lists), foundation first (it owns the per-subscription Key Vault). foundation and discovery deploy per
+  subscription (`nsub`/`psub`); an expedition entry is an environment with an optional slot, and an empty expedition list skips its build
+  and stage. Adding a spoke runs hub → spoke → hub again across `cd-shared` and the customer CD, by hand
+  ([landing-zones](../adr/azure/landing-zones.md)).
 
 There are no CRON or INPUT pipelines in the repo yet, and no per-type sample pipelines — the real `ci-*` / `cd-*` pipelines above are the
 canonical shapes to copy.

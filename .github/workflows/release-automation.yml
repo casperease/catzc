@@ -47,7 +47,8 @@ jobs:
           Write-Host "Built Catzc $($pkg.Version) — $($pkg.FunctionCount) functions — $($pkg.NuPkg)"
 
       # The release freezes the bundle's contracts: the draft must hold, its copy becomes the released version folder
-      # with a .frozen record, and that folder must hold too (ADR-REPO-CONTRACT#5).
+      # with a .frozen record, and that folder must hold too
+      # ([ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)).
       - name: Freeze the contracts for this version
         shell: pwsh
         run: |

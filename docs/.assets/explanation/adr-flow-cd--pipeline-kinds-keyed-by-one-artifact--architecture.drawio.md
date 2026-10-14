@@ -4,7 +4,7 @@
 
 ```text
 A 1572 x 600 diagram, read left to right through three bands.
-Glyphs: 1 runner (slate), 1 result, 4 environments, 2 ADR-only gates; 4 flow and 5 ADR-only edges; 8 markers.
+Glyphs: 1 runner (slate), 1 result, 4 environments, 2 ADR-only gates; 3 flow and 5 ADR-only edges; 8 markers.
 Sidebar: axis minimap (main cell PIPE x DEPLOY), tree minimap, lens badge ARCH, map key.
 ```
 
@@ -27,7 +27,7 @@ markers, and a legend panel along the bottom. The eye lands first on the slate r
 5. Marker 5, DEPLOY-NON-PROD band: the environment release-uat, white and dashed, inside a dashed frame.
 6. Marker 6, in the next gap: the gate RBC, thin dashed rim, inside a dashed frame.
 7. Marker 7, DEPLOY-PROD band: the environment pre-prod, then the environment production to its right.
-8. Marker 8, below the bands: beside the lane that runs from tagged artifact to pre-prod and production.
+8. Marker 8, below the bands: beside the lane that runs from tagged artifact to production.
 
 ## Glyphs
 
@@ -45,11 +45,11 @@ a dashed rim.
 
 | Edge kind | Count | From → to                                                                                                                            |
 | --------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| flow      | 4     | CI component → tagged artifact, tagged artifact → main-uat, tagged artifact → production (down, along the lane, up), lane → pre-prod |
-| ADR-only  | 5     | main-uat → RC, RC → release-uat, release-uat → RBC, RBC → pre-prod, pre-prod → production                                            |
+| flow      | 3     | CI component → tagged artifact, tagged artifact → main-uat, tagged artifact → production (down, along the lane, up) |
+| ADR-only  | 5     | main-uat → RC, RC → release-uat, release-uat → RBC, RBC → pre-prod, pre-prod → production                           |
 
 The top row is one straight horizontal line of edges. The lane leaves the bottom of tagged artifact, runs right below the three bands, and
-rises into the bottoms of pre-prod and production; it is drawn as four straight segments. Nothing crosses.
+rises into the bottom of production; it is drawn as three straight segments. Nothing crosses.
 
 ## Legend
 

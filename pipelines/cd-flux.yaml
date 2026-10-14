@@ -1,7 +1,8 @@
 # CD pipeline for customer flux — thin root that extends the shared customer CD template.
 #
-# flux is dev-only (nonprod tier only): one foundation per-sub env (nsub), one discovery env (dev), one
-# expedition slot (dev-001). Add the prod tier (psub / preprod / prod) when flux grows. All structure
+# flux is dev-only (nonprod tier only), and the lists name exactly flux's configs: foundation and
+# discovery (the flux spoke) at nsub. flux has no expedition config, so its Expeditions list is empty
+# and Deploy_Expedition runs no job. Add the prod tier (psub / preprod / prod) when flux grows. All structure
 # lives in /pipelines/extends/cd-customer.yaml; triggers live here (honored only at the pipeline root).
 # The target subscription is what the service connection logs into; the subscriptionIdAssertIs GUID
 # (from azure.yml) pins it.
@@ -58,6 +59,5 @@ extends:
     Foundations:
       - { env: nsub, serviceConnection: sc-flux-nonprod, subscriptionIdAssertIs: f1000000-de00-50b0-0000-000000000000 }
     Discoveries:
-      - { env: dev, serviceConnection: sc-flux-nonprod, subscriptionIdAssertIs: f1000000-de00-50b0-0000-000000000000 }
-    Expeditions:
-      - { env: dev, slot: "001", serviceConnection: sc-flux-nonprod, subscriptionIdAssertIs: f1000000-de00-50b0-0000-000000000000 }
+      - { env: nsub, serviceConnection: sc-flux-nonprod, subscriptionIdAssertIs: f1000000-de00-50b0-0000-000000000000 }
+    Expeditions: []

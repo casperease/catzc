@@ -297,6 +297,11 @@ function Build-CombinedTypeAssembly {
         sources) just discards the temp. A failed compile also removes its temp file before the compiler's error
         propagates. An existing DLL of the same hash is kept as is (Compiled = $false).
 
+        The compile reads a frozen copy of the sources, never the live files: they are copied once into a per-process
+        folder in the same <module>/types/<file>.cs layout, and the copy is both hashed and compiled. A source another
+        session saves while the compiler runs can therefore neither break this compile nor land in a DLL whose name
+        keys the bytes from before the save: the DLL's name always hashes exactly the bytes compiled.
+
         Source validation (bare filenames, the module's file-scoped namespace) is the loader's concern, not this
         function's — a caller that compiles the sources before they are validated gets the compiler's own errors.
     .PARAMETER AutomationRoot
@@ -334,34 +339,79 @@ function Build-CombinedTypeAssembly {
     }
 
     $dll = [System.IO.Path]::Combine($OutputDirectory, ('Catzc.Types.{0}.dll' -f $hashResult.CombinedHash))
-    $compiled = $false
-    if (-not [System.IO.File]::Exists($dll)) {
-        [System.IO.Directory]::CreateDirectory($OutputDirectory) | Out-Null
-        $tmp = "$dll.$PID.tmp"
-        try {
-            Add-Type -Path @($hashResult.Files.Path) -OutputAssembly $tmp -OutputType Library -ErrorAction Stop
+    if ([System.IO.File]::Exists($dll)) {
+        return [pscustomobject]@{
+            Hash     = $hashResult.CombinedHash
+            Path     = $dll
+            Files    = $hashResult.Files
+            Snapshot = $hashResult.Snapshot
+            Compiled = $false
+        }
+    }
+
+    # Freeze the sources, then hash and compile the copy, so the DLL's name keys exactly the bytes compiled.
+    $frozenRoot = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "catzc-types-$PID-$([guid]::NewGuid().ToString('N'))")
+    try {
+        foreach ($file in $hashResult.Files) {
+            $frozenTypes = [System.IO.Path]::Combine($frozenRoot, $file.Module, 'types')
+            [System.IO.Directory]::CreateDirectory($frozenTypes) | Out-Null
             try {
-                [System.IO.File]::Move($tmp, $dll)
+                [System.IO.File]::Copy($file.Path, [System.IO.Path]::Combine($frozenTypes, "$($file.Base).cs"))
             }
-            catch {
-                if (-not [System.IO.File]::Exists($dll)) {
-                    throw
+            catch [System.IO.FileNotFoundException], [System.IO.DirectoryNotFoundException] {
+                throw "C# type source '$($file.Path)' was removed while the types were being built. Re-run the build."
+            }
+        }
+        $frozenArguments = @{ AutomationRoot = $frozenRoot }
+        if ($PSBoundParameters.ContainsKey('Module')) {
+            $frozenArguments.Module = $Module
+        }
+        $frozen = Get-CombinedTypeHash @frozenArguments
+        $dll = [System.IO.Path]::Combine($OutputDirectory, ('Catzc.Types.{0}.dll' -f $frozen.CombinedHash))
+        $compiled = $false
+        if (-not [System.IO.File]::Exists($dll)) {
+            [System.IO.Directory]::CreateDirectory($OutputDirectory) | Out-Null
+            $tmp = "$dll.$PID.tmp"
+            try {
+                try {
+                    Add-Type -Path @($frozen.Files.Path) -OutputAssembly $tmp -OutputType Library -ErrorAction Stop
+                }
+                catch {
+                    # The compiler names the frozen copies; name the sources the reader edits instead.
+                    $message = $_.Exception.Message
+                    foreach ($file in $hashResult.Files) {
+                        $message = $message.Replace([System.IO.Path]::Combine($frozenRoot, $file.Module, 'types', "$($file.Base).cs"), $file.Path)
+                    }
+                    throw $message
+                }
+                try {
+                    [System.IO.File]::Move($tmp, $dll)
+                }
+                catch {
+                    if (-not [System.IO.File]::Exists($dll)) {
+                        throw
+                    }
                 }
             }
-        }
-        finally {
-            if ([System.IO.File]::Exists($tmp)) {
-                [System.IO.File]::Delete($tmp)
+            finally {
+                if ([System.IO.File]::Exists($tmp)) {
+                    [System.IO.File]::Delete($tmp)
+                }
             }
+            $compiled = $true
         }
-        $compiled = $true
+    }
+    finally {
+        if ([System.IO.Directory]::Exists($frozenRoot)) {
+            [System.IO.Directory]::Delete($frozenRoot, $true)
+        }
     }
 
     [pscustomobject]@{
-        Hash     = $hashResult.CombinedHash
+        Hash     = $frozen.CombinedHash
         Path     = $dll
         Files    = $hashResult.Files
-        Snapshot = $hashResult.Snapshot
+        Snapshot = $frozen.Snapshot
         Compiled = $compiled
     }
 }

@@ -15,6 +15,10 @@ Describe 'GitHubAnchor' -Tag 'L0', 'logic' {
         [Catzc.Base.Docs.GitHubAnchor]::Slug('See [the gadget](gadget.md) **now**') | Should -BeExactly 'see-the-gadget-now'
     }
 
+    It 'drops a code span made only of punctuation and keeps both spaces around it as two hyphens' -Tag 'ADR-REPO-LINK#2' {
+        [Catzc.Base.Docs.GitHubAnchor]::Slug('The `$?` widget') | Should -BeExactly 'the--widget'
+    }
+
     It 'keeps underscores, hyphens, digits, and non-ASCII letters' -Tag 'ADR-REPO-LINK#2' {
         [Catzc.Base.Docs.GitHubAnchor]::Slug('snake_case widget-2 Café') | Should -BeExactly 'snake_case-widget-2-café'
     }

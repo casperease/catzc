@@ -9,7 +9,7 @@ A merge to main runs the CD pipeline all the way to prod, with no approval.
 2  Build-Bicep                 the CI stage builds and publishes three artifacts
 3  PR run ends here            deploy stages run only on main
 4  nsub, dev, test             non-prod targets, one Azure DevOps environment each
-5  psub, preprod, prod         the prod tier, same run, no approval in the YAML
+5  psub, prod                  the prod tier, same run, no approval in the YAML
 6  Deploy-Bicep                throws when the subscription assert is missing
 7  Get-BicepDeploymentContext  throws when the session targets the wrong subscription
 
@@ -32,10 +32,12 @@ The diagram is described element by element in
 2. **Build-Bicep.** The CI stage runs `Build-Bicep` once per template and publishes three artifacts: `foundation`, `discovery` and
    `expedition`.
 3. **A pull-request run ends here.** Every deploy stage's condition requires `refs/heads/main`, so only a merge goes on to deploy.
-4. **Non-prod targets.** Each target shows as an Azure DevOps environment named `<customer>-<env>`, or `<customer>-<env>-<slot>` for a slot
-   of the expedition template, with one deployment job each.
-5. **Prod-tier targets.** `psub`, `preprod` and `prod` deploy in the same run and the same stages as non-prod, with no approval step in the
-   YAML. Environment checks set in the Azure DevOps UI live outside the repository.
+4. **Non-prod targets.** Foundation and discovery deploy per subscription, to `nsub`; the expedition template deploys to `dev` and, in
+   `cd-apex`, to its slot `dev-blu`. Each target shows as an Azure DevOps environment named `<customer>-<env>`, or
+   `<customer>-<env>-<slot>` for an expedition entry with a slot, with one deployment job each.
+5. **Prod-tier targets.** `psub` and `prod` deploy in the same run and the same stages as non-prod, with no approval step in the YAML:
+   `psub` for foundation and discovery in `cd-apex` and `cd-shared`, and `prod` for the expedition in `cd-apex`. Environment checks set in
+   the Azure DevOps UI live outside the repository.
 6. **Deploy-Bicep.** It throws when a pipeline omits the assert: "Deploy-Bicep requires -SubscriptionIdAssertIs in a pipeline — the pipeline
    must pin the subscription GUID its service connection is expected to target, …".
 7. **Get-BicepDeploymentContext.** It throws on a subscription mismatch instead of retargeting: "-SubscriptionIdAssertIs failed: the az
@@ -49,8 +51,8 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-- The ADR keeps CD in non-prod and puts a manual gate and DEPLOY before prod, but `cd-apex.yaml` and `cd-shared.yaml` deploy `preprod` and
-  `prod` from the CD run.
+- The ADR keeps CD in non-prod and puts a manual gate and DEPLOY before prod, but `cd-apex.yaml` and `cd-shared.yaml` deploy `psub`, and
+  `cd-apex.yaml` also deploys the expedition to `prod`, from the CD run.
 - An operator has no entry point in the repository for certifying RC or RBC or for running DEPLOY.
 
 ## See also

@@ -12,14 +12,14 @@ The pipelines wire topic, landed and BVT; past BVT, stages follow the template, 
 5  ci-infrastructure   Assert-BicepTemplate, Build-Bicep, then the infrastructure suite
 6  L3 run              no pipeline step; Test-Automation accepts level 3, nothing passes it
 7  Deploy_Foundation   the first deploy stage; depends on CI, runs on main only
-8  Deploy_Discovery    one stage that deploys dev, test, preprod and prod side by side
+8  Deploy_Discovery    one stage that deploys nsub and psub side by side
 
 Supports ADR-DSGN-LIFE#8 (implementation lens).
 ```
 
 The commit lifecycle names eight rungs, from topic to production. The pipelines in cats wire the first three: a pull request to `main`, the
 merge, and the CI engine that verifies the commit and publishes its artifact. After that, one CD run goes straight from its CI stage into
-`Deploy_*` stages that are ordered by template, not by rung, and each stage deploys to every environment at once.
+`Deploy_*` stages that are ordered by template, not by rung, and each stage deploys to all its targets at once.
 
 ![The pipelines wire only topic, landed and BVT; past BVT there is no ladder](../../.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.png)
 
@@ -42,11 +42,12 @@ The diagram is described element by element in
 6. **L3 run.** No pipeline step exists. `Test-Automation` accepts level 3 (`-Level` is the alias of `-MaxLevel`, which defaults to 3), but
    no pipeline passes it.
 7. **Deploy_Foundation.** The first deploy stage depends on `CI`, and each later stage depends on the one before: `Deploy_Foundation`,
-   `Deploy_Discovery`, then `Deploy_Expedition` (customer CD only, one job per env-slot, with `-Slot`). Each runs only when the previous
-   stage succeeded and the source branch is `refs/heads/main`, and every deploy calls `Deploy-Bicep` with `-SubscriptionIdAssertIs`.
-8. **Deploy_Discovery.** Stages follow the template, not the rung: one stage deploys dev, test, preprod and prod side by side as parallel
-   jobs. For customer apex that is 2 foundation jobs, 4 discovery jobs and 5 expedition jobs; `cd-shared` has 2 and 4 and no expedition, and
-   nova and flux have 1 of each.
+   `Deploy_Discovery`, then `Deploy_Expedition` (one job per expedition entry; an entry with a slot passes `-Slot`). Each runs only when
+   the previous stage succeeded and the source branch is `refs/heads/main`, and every deploy calls `Deploy-Bicep` with
+   `-SubscriptionIdAssertIs`.
+8. **Deploy_Discovery.** Stages follow the template, not the rung: discovery deploys per subscription, `nsub` and `psub` side by side as
+   parallel jobs. Counted as foundation, discovery and expedition jobs, apex has 2, 2 and 3 (expedition `dev`, `dev-blu` and `prod`),
+   `cd-shared` has 2, 2 and 2, nova has 1, 1 and 1, and flux has 1, 1 and none.
 
 ## Why it holds
 
@@ -55,11 +56,11 @@ stage: a failed CI stage skips every deploy, and a failed deploy stage skips the
 
 ## Where the code and the ADR differ
 
-- Past BVT there is no promotion ladder: one stage deploys dev, test, preprod and prod together, where the ADR climbs `main-uat` →
-  `release-uat` → `pre-prod` → `production` one rung at a time.
+- Past BVT there is no promotion ladder: each stage deploys its non-prod and prod-tier targets together (`nsub` and `psub`, or the
+  expedition's `dev` and `prod`), where the ADR climbs `main-uat` → `release-uat` → `pre-prod` → `production` one rung at a time.
 - No pipeline runs the L3 tier.
 - No environment is named `main-uat` or `release-uat`, and no RC or RBC approval exists.
-- `preprod` is a plain environment, not a slot that stays inactive until it is activated.
+- No CD pipeline has a pre-prod target that stays inactive until it is activated.
 - The BVT in code lacks `Test-BuildArtifact`.
 
 ## See also

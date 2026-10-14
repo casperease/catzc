@@ -6,10 +6,12 @@ Describe 'ConvertTo-AdrDomainDiagram' -Tag 'L0', 'logic' {
                 domains = [ordered]@{
                     widget = [ordered]@{
                         code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
+                        stack = 'PRIN'; concern = @('build')
                         rulesets = [ordered]@{ 'widget-one' = [ordered]@{ external = 'ADR-WI-ONE' } }
                     }
                     gadget = [ordered]@{
                         code = 'GA'; role = 'gizmo-role'; description = 'The gadget implementation.'; depends_on = @('widget')
+                        stack = 'AUTO'; concern = @('automation')
                         rulesets = [ordered]@{ 'gadget-one' = [ordered]@{ external = 'ADR-GA-ONE' } }
                     }
                 }

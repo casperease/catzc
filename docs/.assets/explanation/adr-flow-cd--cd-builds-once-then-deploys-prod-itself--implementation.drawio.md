@@ -25,7 +25,7 @@ legend panel along the bottom. The eye lands first on the tall slate capsule Bui
 3. Marker 3, DEPLOY STAGES: the runner Deploy_Foundation, the top of three stacked runners.
 4. Marker 4, beside the edge from Deploy_Foundation down to Deploy_Discovery.
 5. Marker 5, TARGETS: the environment nsub · dev · test.
-6. Marker 6, TARGETS: the environment psub · preprod · prod.
+6. Marker 6, TARGETS: the environment psub · prod.
 
 ## Glyphs
 
@@ -33,7 +33,7 @@ legend panel along the bottom. The eye lands first on the tall slate capsule Bui
 | --------------------- | ----- | ------------------------------------------------------------------------------------------------------------- |
 | runner                | 4     | Build-Bicep (CI STAGE, tall), Deploy_Foundation, Deploy_Discovery, Deploy_Expedition (DEPLOY STAGES, stacked) |
 | result                | 3     | foundation, discovery, expedition (CI STAGE, stacked)                                                         |
-| environment           | 2     | nsub · dev · test (TARGETS, upper), psub · preprod · prod (TARGETS, lower)                                    |
+| environment           | 2     | nsub · dev · test (TARGETS, upper), psub · prod (TARGETS, lower)                                              |
 
 The runners are slate with white names; the results are light green; the environments are neutral grey.
 

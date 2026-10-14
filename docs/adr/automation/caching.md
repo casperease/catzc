@@ -70,6 +70,16 @@ keys the parsed listing on the SHA-256 of the index file, so the answer always e
 
 - [Content-keyed git state](#content-keyed-git-state)
 
+### Rule ADR-AUTO-CACHE:10
+
+A quality check that runs an expensive tool over many files may keep, across sessions, which files the tool last found clean — keyed on each
+file's SHA-256 together with a stamp of every input that decides the tool's verdict (its declared settings files and the tool pins), so a
+change to any of them is a new key and never a stale hit. The result cache is a per-machine file under `out/`, never committed; losing it
+costs one full check, and a pipeline starts without it. A file the tool would still change is never recorded as clean. Exemplar:
+`Format-Code`, with each engine's settings files declared in `languages.yml`.
+
+- [Result caches for quality checks](#result-caches-for-quality-checks)
+
 ## Context
 
 The platform repeatedly performs two kinds of work that are **expensive to redo and deterministic given the files on disk**:
@@ -162,11 +172,24 @@ cheap next to parsing them, so `Get-GitTrackedPath` hashes the file on every cal
 unchanged. This is a cache key, not an invalidation check: equal bytes give an equal answer by construction, so the cache can never be
 stale, and nothing ever has to clear it.
 
+### Result caches for quality checks
+
+`A clean verdict is keyed on everything that produced it`
+
+A whole-repository quality check re-runs its tool over every file, though between two runs almost every file is unchanged. Unlike a session
+cache, its result is worth keeping across sessions, so it cannot rely on the importer for invalidation. It does not need to: a formatter's
+verdict on a file is a pure function of the file's bytes, the tool version, and the tool's settings, so a key over all three is right by
+construction, like the content-keyed git state above. The settings are declared, not guessed — an engine's `settings:` in `languages.yml` —
+so adding an input is a configuration change. Only the clean verdict is cached: a file the tool would change is checked again every run
+until it is fixed, so the cache can make a check faster but never greener. The cache lives in `out/`, so the tree never carries it, and a
+pipeline's fresh checkout checks every file.
+
 ## Decision
 
 Cache, for the lifetime of the session, the results of (a) **static config-file reads** and (b) **filesystem-scan-derived information**.
 Store the cache in module state per the language layer ([script-scope-caching](powershell/script-scope-caching.md)). Invalidate only by
-re-running the importer. Never cache runtime state or objects callers mutate.
+re-running the importer. Never cache runtime state or objects callers mutate. Across sessions, cache only a quality check's clean verdicts,
+keyed on the file's content and every declared input of the check (ADR-AUTO-CACHE#10).
 
 ### The storage idiom
 

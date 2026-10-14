@@ -33,6 +33,15 @@ An idea that is taken is rebuilt here to catzc's rules, never ported alongside t
 
 - [Rebuilt, not ported](#rebuilt-not-ported)
 
+### Rule ADR-REPO-INSPIRE:5
+
+An **inspiration** is a sibling repository declared in `configs/inspiration.yml` of `Catzc.Tooling.Inspiration`, with its id, its root on
+the workspace anchor ([ADR-AUTO-PATH#11](../automation/path-representation.md#rule-adr-auto-path11)), what it is, and the folders worth
+reading. `Get-Inspiration` lists the inspirations and reports whether each is available on this machine; one that is absent is reported,
+never thrown on.
+
+- [Declared, not described](#declared-not-described)
+
 ## Context
 
 ### Ideas from a sibling
@@ -68,6 +77,11 @@ Saying where an idea came from keeps the reasoning reviewable: a reviewer sees t
 A ported copy beside the catzc shape is a second version of the same behaviour. Rebuilding the idea to catzc's rules keeps one living
 version, so the idea lands as if catzc had always had it.
 
+### Declared, not described
+
+A path written into prose drifts and differs per machine. Declaring each inspiration in config gives one checked place to find it, and
+reporting availability as a value keeps the work going on a machine where the sibling is absent.
+
 ## Decision
 
 Sibling repositories are read for ideas and never treated as a reference implementation. Catzc's ADRs decide every aspect, an idea's origin
@@ -80,6 +94,7 @@ is stated, and an idea that is taken is rebuilt to catzc's rules.
   ([agent-definitions](agent-definitions.md)), and `Test-AgentDefinitions` resolves its citations.
 - Copying is caught where any second version is caught: by review against [ADR-PRIN-ONELIVE](../principles/one-living-version.md). No gate
   can tell an idea from a copy.
+- **`InspirationConfig`** validates `inspiration.yml` on load, and **`Get-Inspiration`** reports each inspiration's availability.
 
 ## Consequences
 

@@ -5,12 +5,17 @@
 #             `code` (2-4 letter DEFAULT domain code that composes the citation ADR-<code>-<NAME>), a `role`
 #             (its function in the system), a `description` (the reader-facing paragraph rendered under the
 #             domain's heading in index.md), and `depends_on` (the acyclic domain DAG, rendered via
-#             Get-AdrDomainEdges | ConvertTo-AdrDomainDiagram, mirroring the module dependency graph).
+#             Get-AdrDomainEdges | ConvertTo-AdrDomainDiagram, mirroring the module dependency graph). Each also
+#             declares its row of the value-chain stack (`stack`: PRIN, DSGN, AUTO, PIPE, or CLOUD) and its default
+#             value-chain concerns (`concern`: a list of automation, build, quality-control, release, deploy, access),
+#             [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14) and
+#             [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15).
 #   rulesets: within a domain, keyed by INTERNAL kebab name (= the ADR file slug). Each declares its full
 #             EXTERNAL citation code (`ADR-<DC>-<NAME>`, fully spelled) and, when the code body is a
 #             registered spelling token, its `terminology` link into the `adr:` category of terminology.yml.
 #             `code` may be set on a LEAF to OVERRIDE the domain default; the validator asserts the external's
-#             DC-segment equals the effective code (`^[A-Z]{2,4}$`).
+#             DC-segment equals the effective code (`^[A-Z]{2,4}$`). `concern` may be set on a LEAF to OVERRIDE
+#             the domain default, only when the ADR's place in the value chain differs from its domain's.
 #
 # Loaded via Get-Config -Config adrs; validated by its config type, AdrsConfig. index.md is a generated projection of
 # this file (Build-AdrIndex) — see [ADR-REPO-README](/docs/adr/repository/generated-readmes.md) pattern.
@@ -26,6 +31,8 @@ domains:
       the product and rests on the DORA research, the authoritative source, and the principles state its mechanics, so every other domain
       cites it (`ADR-THES-*`) through them.
     depends_on: [research]
+    stack: PRIN
+    concern: [automation, build, quality-control, release, deploy, access] # the thesis spans the whole value chain
     rulesets:
       one-source-of-truth: { external: ADR-THES-ONETRUTH, terminology: onetruth }
 
@@ -38,13 +45,15 @@ domains:
       authoritative source; no domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`) as the reason for
       its own decisions.
     depends_on: [research, thesis]
+    stack: PRIN
+    concern: [automation, build, quality-control, release, deploy, access] # axioms every concern specialises
     rulesets:
       everything-as-code: { external: ADR-PRIN-EAC, terminology: eac }
-      configure-not-program: { external: ADR-PRIN-CONFIG }
+      configure-not-program: { external: ADR-PRIN-CONFIG, concern: [automation] }
       reduce-variability: { external: ADR-PRIN-REDUCEVAR, terminology: reducevar }
       reduce-waste: { external: ADR-PRIN-NOWASTE, terminology: nowaste }
-      poka-yoke: { external: ADR-PRIN-POKAYOKE, terminology: pokayoke }
-      one-living-version: { external: ADR-PRIN-ONELIVE, terminology: onelive }
+      poka-yoke: { external: ADR-PRIN-POKAYOKE, terminology: pokayoke, concern: [quality-control] }
+      one-living-version: { external: ADR-PRIN-ONELIVE, terminology: onelive, concern: [release] }
 
   process:
     code: PROC
@@ -56,14 +65,16 @@ domains:
       design, flow, and implementation domains put its practices into effect — stopping the line, building quality in, pulling work, and
       draining queues.
     depends_on: [research, principles]
+    stack: PRIN
+    concern: [automation, build, quality-control, release, deploy, access] # how the team works, along the whole chain
     rulesets:
       agile: { external: ADR-PROC-AGILE }
       agile-values: { external: ADR-PROC-VALUES }
       agile-principles: { external: ADR-PRIN-PROCESS, code: PRIN } # leaf override: PRIN code, though the folder defaults to PROC
       process-terms: { external: ADR-PROC-LEANTERMS, terminology: leanterms }
       lean: { external: ADR-PROC-LEAN }
-      holding-the-line: { external: ADR-PROC-ANDON, terminology: andon }
-      build-quality-in: { external: ADR-PROC-BUILTIN }
+      holding-the-line: { external: ADR-PROC-ANDON, terminology: andon, concern: [quality-control] }
+      build-quality-in: { external: ADR-PROC-BUILTIN, concern: [quality-control] }
       observe-work: { external: ADR-PROC-OBSERVEWIP, terminology: observewip }
       pull-work: { external: ADR-PROC-PULLWORK, terminology: pullwork }
       queues-cost-money: { external: ADR-PROC-QUEUECOST, terminology: queuecost }
@@ -78,15 +89,17 @@ domains:
       value-chain diagrams, and the toolset's two run modes (source and build). It builds on research, principles, and process; the flow and
       implementation domains realise it.
     depends_on: [research, principles, process]
+    stack: DSGN
+    concern: [automation] # the shape of the platform itself
     rulesets:
       tracks: { external: ADR-DSGN-TRACK }
-      thin-platforms: { external: ADR-DSGN-THINPLAT, terminology: thinplat }
-      self-service: { external: ADR-DSGN-SELFSERV, terminology: selfserv }
-      visual-design: { external: ADR-DSGN-VISUAL }
-      commit-lifecycle: { external: ADR-DSGN-LIFE }
-      server-remote-integration: { external: ADR-DSGN-REMOTE }
-      run-modes: { external: ADR-DSGN-RUNMODE, terminology: runmode }
-      module-aspects: { external: ADR-DSGN-ASPECT }
+      thin-platforms: { external: ADR-DSGN-THINPLAT, terminology: thinplat, concern: [automation, deploy] }
+      self-service: { external: ADR-DSGN-SELFSERV, terminology: selfserv, concern: [deploy, access] }
+      visual-design: { external: ADR-DSGN-VISUAL, concern: [quality-control, release, deploy] }
+      commit-lifecycle: { external: ADR-DSGN-LIFE, concern: [quality-control, release, deploy] }
+      server-remote-integration: { external: ADR-DSGN-REMOTE, concern: [build, quality-control] }
+      run-modes: { external: ADR-DSGN-RUNMODE, terminology: runmode, concern: [automation, build] }
+      module-aspects: { external: ADR-DSGN-ASPECT, concern: [automation, build] }
 
   flow:
     # compound domain code — the root ADR cites [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md), the
@@ -99,12 +112,14 @@ domains:
       and detect their context, and how globsets project into native trigger filters. The pipelines (Azure DevOps) and github domains
       implement it.
     depends_on: [research, principles, process, design]
+    stack: DSGN
+    concern: [build, quality-control, release, deploy] # the delivery flow from integration to production
     rulesets:
       cd-discipline-and-promotion-flow: { external: ADR-FLOW-CD }
-      pipeline-runner-pattern: { external: ADR-FLOW-CD-RUNNER }
-      pipeline-detection: { external: ADR-FLOW-CD-DETECT }
+      pipeline-runner-pattern: { external: ADR-FLOW-CD-RUNNER, concern: [automation] }
+      pipeline-detection: { external: ADR-FLOW-CD-DETECT, concern: [automation] }
       pipeline-types: { external: ADR-FLOW-CD-TYPE }
-      durable-sha-globs: { external: ADR-FLOW-CD-GLOBS }
+      durable-sha-globs: { external: ADR-FLOW-CD-GLOBS, concern: [automation] }
 
   automation:
     code: AUTO
@@ -116,6 +131,8 @@ domains:
       artifacts). It turns the research, principles, process, and design domains into enforced code; the pipelines, github, and azure
       domains build on it.
     depends_on: [research, principles, process, design]
+    stack: AUTO
+    concern: [automation] # the module system: loading, configuration, globsets
     rulesets:
       devbox-pipeline-parity: { external: ADR-AUTO-PARITY }
       uv-python-handler: { external: ADR-AUTO-UVPY, terminology: uvpy }
@@ -125,7 +142,7 @@ domains:
       zero-ceremony-poka-yoke: { external: ADR-AUTO-ZERO }
       never-depend-on-pwd: { external: ADR-AUTO-NOPWD, terminology: nopwd }
       avoid-deep-nesting: { external: ADR-AUTO-NONEST, terminology: nonest }
-      test-automation: { external: ADR-AUTO-TEST }
+      test-automation: { external: ADR-AUTO-TEST, concern: [quality-control] }
       cross-platform: { external: ADR-AUTO-XPLAT, terminology: xplat }
       single-responsibility-functions: { external: ADR-AUTO-ONEJOB, terminology: onejob }
       caching: { external: ADR-AUTO-CACHE }
@@ -139,14 +156,14 @@ domains:
       tool-removal-lifecycle: { external: ADR-AUTO-REMOVE }
       controlling-module-dependencies: { external: ADR-AUTO-DEPM, terminology: depm }
       environment-variables: { external: ADR-AUTO-ENVVAR, terminology: envvar }
-      az-session-verification: { external: ADR-AZ-SESSION, code: AZ, terminology: sesverify }
+      az-session-verification: { external: ADR-AZ-SESSION, code: AZ, terminology: sesverify, concern: [access] }
       path-representation: { external: ADR-AUTO-PATH }
       protected-globs: { external: ADR-REPO-PROTGLOB, code: REPO, terminology: protglob }
       managed-guids: { external: ADR-AUTO-GUIDS, terminology: guids }
-      platform-bundle: { external: ADR-AUTO-BUNDLE }
-      internal-asset-dependencies: { external: ADR-AUTO-ASSETDEP, terminology: assetdep }
+      platform-bundle: { external: ADR-AUTO-BUNDLE, concern: [build, release] }
+      internal-asset-dependencies: { external: ADR-AUTO-ASSETDEP, terminology: assetdep, concern: [automation, build] }
       vendor-toolset-dependencies: { external: ADR-AUTO-VENDOR }
-      prefer-az-cli: { external: ADR-AUTO-AZCLI, terminology: azcli }
+      prefer-az-cli: { external: ADR-AUTO-AZCLI, terminology: azcli, concern: [deploy, access] }
       one-function-per-file: { external: ADR-AUTO-ONEFUNC, terminology: onefunc }
       prepost-extension-modules: { external: ADR-AUTO-PREPOST, terminology: prepost }
       error-handling: { external: ADR-AUTO-ERROR }
@@ -158,7 +175,7 @@ domains:
       spell-out-names: { external: ADR-AUTO-SPELL }
       use-ps1-not-psm1: { external: ADR-AUTO-USEPS, terminology: useps }
       automatic-variable-pitfalls: { external: ADR-AUTO-AUTOVAR, terminology: autovar }
-      powershell-formatting: { external: ADR-AUTO-PSFORMAT, terminology: psformat }
+      powershell-formatting: { external: ADR-AUTO-PSFORMAT, terminology: psformat, concern: [quality-control] }
       environment-variable-mechanics: { external: ADR-AUTO-PSENV, terminology: psenv }
       module-path-hygiene: { external: ADR-AUTO-MODPATH, terminology: modpath }
       parameter-design: { external: ADR-AUTO-PSPARAM, terminology: psparam }
@@ -166,12 +183,12 @@ domains:
       cross-platform-powershell: { external: ADR-AUTO-PSXPLAT, terminology: psxplat }
       dynamic-module-manifests: { external: ADR-AUTO-MANIFEST }
       script-scope-caching: { external: ADR-AUTO-PSCACHE, terminology: pscache }
-      pester-testing: { external: ADR-AUTO-PESTER }
+      pester-testing: { external: ADR-AUTO-PESTER, concern: [quality-control] }
       prefer-dryrun-over-shouldprocess: { external: ADR-AUTO-DRYRUN, terminology: dryrun }
-      native-csharp-types: { external: ADR-AUTO-TYPES }
-      test-artifacts: { external: ADR-AUTO-GO }
-      python-test-artifacts: { external: ADR-AUTO-PY }
-      bash-test-artifacts: { external: ADR-AUTO-BASH }
+      native-csharp-types: { external: ADR-AUTO-TYPES, concern: [automation, build] }
+      test-artifacts: { external: ADR-AUTO-GO, concern: [quality-control] }
+      python-test-artifacts: { external: ADR-AUTO-PY, concern: [quality-control] }
+      bash-test-artifacts: { external: ADR-AUTO-BASH, concern: [quality-control] }
       execution-engines: { external: ADR-AUTO-ENGINE }
 
   configuration:
@@ -182,6 +199,8 @@ domains:
       by its global name, caches it per file, and validates it in its owning module's scope, plus `global.<config>.<key>` addresses that
       point into committed config by reference. It gives every implementation domain its single way to read configuration.
     depends_on: [research, principles]
+    stack: AUTO
+    concern: [automation] # reading configuration
     rulesets:
       module-config-loading: { external: ADR-CONF-LOADING }
       config-value-addressing: { external: ADR-CONF-ADDRESSING }
@@ -194,8 +213,10 @@ domains:
       output variables, how pipelines and template folders are named and placed under `pipelines/`, and when an ADO YAML template is
       warranted. It binds the vendor-neutral `flow/` rules to Azure DevOps without redefining them; `github/` is its GitHub counterpart.
     depends_on: [research, principles, process, design, automation, flow]
+    stack: PIPE
+    concern: [build, quality-control, release, deploy] # the Azure DevOps pipelines that carry the delivery flow
     rulesets:
-      dual-authentication: { external: ADR-PIPE-AUTH }
+      dual-authentication: { external: ADR-PIPE-AUTH, concern: [access] }
       pipeline-variables: { external: ADR-PIPE-VAR }
       pipeline-naming-and-placement: { external: ADR-PIPE-NAME }
       custom-template-discipline: { external: ADR-PIPE-TEMPLATE }
@@ -208,6 +229,8 @@ domains:
       GitHub Releases, GitHub Packages, and optionally the PowerShell Gallery. It applies the `flow/` rules to GitHub Actions under
       `.github/workflows/` and publishes the bundle the automation domain defines; `pipelines/` is its Azure DevOps counterpart.
     depends_on: [research, principles, process, design, automation, flow]
+    stack: PIPE
+    concern: [build, release] # the workflow that builds and publishes the package
     rulesets:
       github-release: { external: ADR-GH-RELEASE }
 
@@ -220,8 +243,10 @@ domains:
       (`network.yml`), and the deterministic resource-naming standard. It applies the principles and design domains to one vendor, enforced
       by the `Catzc.Azure*` modules.
     depends_on: [research, principles, design, automation]
+    stack: CLOUD
+    concern: [deploy] # the substrate catzc deploys onto
     rulesets:
-      azure-data-model: { external: ADR-AZ-DATAMOD, terminology: datamod }
+      azure-data-model: { external: ADR-AZ-DATAMOD, terminology: datamod, concern: [deploy, access] }
       azure-network-model: { external: ADR-AZ-NETWORK }
       azure-naming-standard: { external: ADR-AZ-NAMING }
       azure-customer-model: { external: ADR-AZ-CUSTOMER }
@@ -237,18 +262,20 @@ domains:
       vocabulary, the controlled vocabulary of defined terms, repo-wide variants, the sub-agent definitions and the rules behind each, and
       sibling repositories read for ideas, never as a reference implementation.
     depends_on: [research, principles, design]
+    stack: AUTO
+    concern: [automation] # the repository tree the tooling lays out and generates
     rulesets:
       conventional-folders: { external: ADR-REPO-FOLDERS }
       dedicated-output-directory: { external: ADR-REPO-OUTDIR, terminology: outdir }
       output-formats: { external: ADR-REPO-OUTFMT, terminology: outfmt }
-      uniform-formatting: { external: ADR-REPO-FORMAT }
-      api-contracts: { external: ADR-REPO-CONTRACT }
+      uniform-formatting: { external: ADR-REPO-FORMAT, concern: [quality-control] }
+      api-contracts: { external: ADR-REPO-CONTRACT, concern: [release] }
       generated-readmes: { external: ADR-REPO-README }
       generated-root-configs: { external: ADR-REPO-ROOTCFG, terminology: rootcfg }
       documentation-examples: { external: ADR-REPO-EXAMPLE }
       repo-variants: { external: ADR-REPO-VARIANT }
       domain-language-separation: { external: ADR-REPO-LANG }
-      controlled-vocabulary: { external: ADR-REPO-VOCAB }
+      controlled-vocabulary: { external: ADR-REPO-VOCAB, concern: [quality-control] }
       markdown-links: { external: ADR-REPO-LINK }
       agent-definitions: { external: ADR-REPO-AGENTS }
       inspiration: { external: ADR-REPO-INSPIRE }
@@ -262,36 +289,38 @@ domains:
       external validation — every other domain depends on it and it depends on none; the others cite it through their `dora-explains.md`
       files and `ADR-DORA-*` citations.
     depends_on: []
+    stack: PRIN
+    concern: [automation, build, quality-control, release, deploy, access] # capabilities measured across the whole chain
     # terminology tokens (the shared `dora` code token + any non-word name bodies) are reconciled in Stage 2.
     rulesets:
-      ai-accessible-internal-data: { external: ADR-DORA-AIDATA }
+      ai-accessible-internal-data: { external: ADR-DORA-AIDATA, concern: [access] }
       clear-and-communicated-ai-stance: { external: ADR-DORA-AISTANCE }
       healthy-data-ecosystems: { external: ADR-DORA-DATAECO }
-      platform-engineering: { external: ADR-DORA-PLATFORM }
+      platform-engineering: { external: ADR-DORA-PLATFORM, concern: [automation] }
       user-centric-focus: { external: ADR-DORA-USERFOCUS }
-      version-control: { external: ADR-DORA-VCS }
+      version-control: { external: ADR-DORA-VCS, concern: [automation] }
       working-in-small-batches: { external: ADR-DORA-SMALLBATCH }
-      code-maintainability: { external: ADR-DORA-MAINTAIN }
-      continuous-delivery: { external: ADR-DORA-CD }
-      continuous-integration: { external: ADR-DORA-CI }
-      database-change-management: { external: ADR-DORA-DBCHANGE }
-      deployment-automation: { external: ADR-DORA-DEPLOY }
+      code-maintainability: { external: ADR-DORA-MAINTAIN, concern: [automation, build] }
+      continuous-delivery: { external: ADR-DORA-CD, concern: [build, quality-control, release, deploy] }
+      continuous-integration: { external: ADR-DORA-CI, concern: [build, quality-control] }
+      database-change-management: { external: ADR-DORA-DBCHANGE, concern: [deploy] }
+      deployment-automation: { external: ADR-DORA-DEPLOY, concern: [deploy] }
       documentation-quality: { external: ADR-DORA-DOCS }
-      flexible-infrastructure: { external: ADR-DORA-FLEXINFRA }
+      flexible-infrastructure: { external: ADR-DORA-FLEXINFRA, concern: [deploy] }
       loosely-coupled-teams: { external: ADR-DORA-LOOSETEAMS }
-      monitoring-and-observability: { external: ADR-DORA-OBSERV }
+      monitoring-and-observability: { external: ADR-DORA-OBSERV, concern: [access] }
       pervasive-security: { external: ADR-DORA-SECURITY }
-      streamlining-change-approval: { external: ADR-DORA-APPROVAL }
-      test-automation: { external: ADR-DORA-TESTAUTO }
-      test-data-management: { external: ADR-DORA-TESTDATA }
-      trunk-based-development: { external: ADR-DORA-TRUNK }
-      customer-feedback: { external: ADR-DORA-FEEDBACK }
-      monitoring-systems: { external: ADR-DORA-MONITOR }
-      proactive-failure-notification: { external: ADR-DORA-FAILALERT }
+      streamlining-change-approval: { external: ADR-DORA-APPROVAL, concern: [release] }
+      test-automation: { external: ADR-DORA-TESTAUTO, concern: [quality-control] }
+      test-data-management: { external: ADR-DORA-TESTDATA, concern: [quality-control] }
+      trunk-based-development: { external: ADR-DORA-TRUNK, concern: [build] }
+      customer-feedback: { external: ADR-DORA-FEEDBACK, concern: [access] }
+      monitoring-systems: { external: ADR-DORA-MONITOR, concern: [access] }
+      proactive-failure-notification: { external: ADR-DORA-FAILALERT, concern: [access] }
       work-visibility-in-value-stream: { external: ADR-DORA-WORKVIS }
       visual-management: { external: ADR-DORA-VISUAL }
       wip-limits: { external: ADR-DORA-WIP }
-      teams-empowered-to-choose-tools: { external: ADR-DORA-TOOLCHOICE }
+      teams-empowered-to-choose-tools: { external: ADR-DORA-TOOLCHOICE, concern: [automation] }
       generative-organizational-culture: { external: ADR-DORA-CULTURE }
       job-satisfaction: { external: ADR-DORA-JOBSAT }
       learning-culture: { external: ADR-DORA-LEARNING }

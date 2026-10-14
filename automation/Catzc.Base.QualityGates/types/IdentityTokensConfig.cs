@@ -1,0 +1,57 @@
+// One identity-tokens source (a module's configs/identity-tokens.yml): the live production identities that module's
+// own configs carry, declared as rules (IdentityTokenRule) so the logic-test identity gate never names another
+// module's config itself. Any module that owns live identities ships one; Get-LiveIdentityTokens lists the owners
+// (Get-Config -Config identity-tokens -ListOwners) and reads each with -Module, so a bundle without those modules
+// simply has no tokens from them. Registered in Catzc.Base.Config/configs/configs.yml
+// (type: Catzc.Base.QualityGates.IdentityTokensConfig).
+//
+// Load-time rules, collected into one throw: only the top-level key 'tokens', a non-empty list, every entry a
+// well-formed IdentityTokenRule. That a rule's config is owned by the declaring module is checked where both are
+// known, in Get-LiveIdentityTokens.
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace Catzc.Base.QualityGates;
+
+public sealed class IdentityTokensConfig
+{
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
+    // The source's rules, in source order.
+    public IReadOnlyList<IdentityTokenRule> tokens { get; }
+
+    public IdentityTokensConfig(IDictionary raw)
+    {
+        List<string> errors = new List<string>();
+        if (raw == null) { throw new ArgumentException("identity-tokens config validation failed:\nthe source must be a mapping"); }
+
+        foreach (object key in raw.Keys)
+        {
+            string name = key == null ? string.Empty : key.ToString();
+            if (name != "tokens") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: tokens)", name)); }
+        }
+
+        List<IdentityTokenRule> rules = new List<IdentityTokenRule>();
+        IList list = raw.Contains("tokens") ? raw["tokens"] as IList : null;
+        if (list == null || list.Count == 0)
+        {
+            errors.Add("the source requires a non-empty 'tokens' list");
+        }
+        else
+        {
+            for (int position = 0; position < list.Count; position++)
+            {
+                try { rules.Add(new IdentityTokenRule(position, list[position] as IDictionary)); }
+                catch (ArgumentException ex) { errors.Add(ex.Message); }
+            }
+        }
+        tokens = rules;
+
+        if (errors.Count > 0)
+        {
+            throw new ArgumentException("identity-tokens config validation failed:\n" + string.Join("\n", errors));
+        }
+    }
+}

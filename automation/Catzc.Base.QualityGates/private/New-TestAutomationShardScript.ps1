@@ -45,10 +45,10 @@
     renders as a bare switch). Ignored without -EntryScript. The build run passes
     @{ RepositoryRoot = <repo> } so out/ and repo-relative paths keep resolving in the repository.
 .PARAMETER LanguageExecutable
-    The managed tool per test language the run's source session located (Get-LanguageTestExecutable:
-    @{ go = <path>; python = <uv path> }), rendered into the worker as a hashtable literal and handed through the
-    configuration to the language bridge; an empty entry means there is none. The worker never locates a tool: a
-    build's engine has no tools.yml entry.
+    The managed tool per test language and the executable per engine other than pwsh the run's source session
+    located (Get-LanguageTestExecutable: @{ go = <path>; python = <uv path>; <engine> = <path> }), rendered into the
+    worker as a hashtable literal and handed through the configuration to the language bridge; an empty entry means
+    there is none. The worker never locates a tool: a build's engine has no tools.yml entry.
 .OUTPUTS
     [pscustomobject] with ShardIndex, Label, ScriptPath, ResultsPath, RowsPath, FilesPath.
 #>

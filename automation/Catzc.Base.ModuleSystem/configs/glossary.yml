@@ -76,6 +76,8 @@ concepts:
       root file:
         A root file is a tracked file no track holds, at the repository root or under out/; a track is a root folder and every file under
         it.
+      value-chain concern:
+        A value-chain concern is where along delivery a decision acts; a track is a root concern, the root folder where files live.
   root file:
     key: root_file
     domain: design
@@ -126,6 +128,9 @@ concepts:
     contrasts:
       cell:
         A cell is one row crossed with one column; the world map is the whole grid of them, computed from the registries and the git index.
+      value-chain map:
+        The value-chain map says where along delivery a decision acts; the world map crosses tracks with file languages and says where its
+        files sit.
   cell:
     key: cell
     domain: design
@@ -137,6 +142,45 @@ concepts:
       stack violation:
         A stack violation is a cell holding a live file outside its track's file languages; a cell is any intersection, allowed or not.
       lit cell: A lit cell is a cell a highlight selects; a cell is any intersection, lit or not.
+  value-chain stack:
+    key: value_chain_stack
+    domain: design
+    defined_by: ADR-DSGN-TRACK#14
+    short:
+      The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each ADR domain declares
+      one.
+    realized_by: { kind: prose-only }
+    contrasts:
+      value-chain concern:
+        A value-chain concern is a column, where along delivery an ADR acts; the value-chain stack is the rows, how general the decision is.
+      stack violation:
+        A stack violation is a world-map cell outside its track's tech-stack, a set of file languages; the value-chain stack orders
+        decisions, not files.
+  value-chain concern:
+    key: value_chain_concern
+    domain: design
+    defined_by: ADR-DSGN-TRACK#15
+    short:
+      Where along delivery an ADR acts — automation, build, quality-control, release, deploy, or access — a default per ADR domain, an
+      override per ADR.
+    realized_by: { kind: prose-only }
+    contrasts:
+      track:
+        A track is a root concern, the root folder where files live; a value-chain concern is where along delivery a decision acts.
+      value-chain stack:
+        The value-chain stack is the rows, how general a decision is; a value-chain concern is a column, where along delivery it acts.
+  value-chain map:
+    key: value_chain_map
+    domain: design
+    defined_by: ADR-DSGN-TRACK#16
+    short:
+      The ADRs drawn as the value-chain stack crossed with the value-chain concerns, computed from adrs.yml — where a decision sits in the
+      value chain.
+    realized_by: { kind: prose-only }
+    contrasts:
+      world map:
+        The world map crosses tracks with file languages and says where a decision's files sit; the value-chain map says where along
+        delivery the decision acts.
   stack violation:
     key: stack_violation
     domain: design
@@ -149,6 +193,8 @@ concepts:
       lit cell:
         A lit cell is selected by a highlight and says nothing about the stack; a stack violation is a finding, marked whatever the
         highlight.
+      value-chain stack:
+        The value-chain stack orders decisions, not files; a stack violation is a world-map cell outside its track's tech-stack.
   lit cell:
     key: lit_cell
     domain: design

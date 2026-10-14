@@ -70,3 +70,21 @@ the ADRs themselves; this file carries only their DORA rationale.
 - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — customer model drives repeatable deployment
   patterns.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Landing zones
+
+`Landing zones — a CAF landing zone per subscription, hub and spoke, and the Well-Architected workload that lands in it`
+
+[ADR-AZ-LZ](landing-zones.md)
+
+> DORA's research ties flexible, self-service infrastructure and pervasive security to delivery performance. This ADR gives every
+> subscription the same landing zone from one template, with its guardrails as policy, so a workload lands in a secure network by
+> configuration rather than by request.
+
+- [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — a subscription's network, policies, and budget
+  are one config file.
+- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — built-in policies, private endpoints, and Entra
+  authentication by default.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — foundation, landing zone, and workload deploy in a
+  fixed order through the CD pipelines.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

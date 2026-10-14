@@ -90,6 +90,46 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         @([System.IO.Directory]::EnumerateFiles($brokenOutput)).Count | Should -Be 0
     }
 
+    It 'names the source in the repository, not its frozen copy, in a compiler error' {
+        $namedRoot = Join-Path $TestDrive 'named'
+        $namedTypes = Join-Path $namedRoot "$widget/types"
+        [System.IO.Directory]::CreateDirectory($namedTypes) | Out-Null
+        $namedSource = Join-Path $namedTypes 'Sprocket.cs'
+        [System.IO.File]::WriteAllText($namedSource, "namespace $widget;`npublic class Sprocket { int X => Missing(); }")
+        $message = try {
+            Build-CombinedTypeAssembly -AutomationRoot $namedRoot -OutputDirectory (Join-Path $TestDrive 'named-output')
+            ''
+        }
+        catch {
+            $_.Exception.Message
+        }
+        $message.Contains($namedSource) | Should -BeTrue -Because "the error should name $namedSource, not a temp copy: $message"
+        $message | Should -Not -BeLike '*catzc-types-*'
+    }
+
+    It 'compiles the sources as they were hashed when a source is saved while the compiler runs' {
+        # Another session saving a .cs mid-compile: the live file turns into code that does not compile the moment the
+        # compiler starts. A compile of the frozen copy neither sees it nor names its DLL for bytes it did not compile.
+        $raceRoot = Join-Path $TestDrive 'race'
+        $raceTypes = Join-Path $raceRoot "$widget/types"
+        [System.IO.Directory]::CreateDirectory($raceTypes) | Out-Null
+        $raceSource = Join-Path $raceTypes 'Sprocket.cs'
+        [System.IO.File]::WriteAllText($raceSource, "namespace $widget;`npublic class Sprocket { public int Teeth => 12; }")
+        $hashedBefore = (Get-CombinedTypeHash $raceRoot).CombinedHash
+        Mock Add-Type -ModuleName Catzc.Internal.Types {
+            [System.IO.File]::WriteAllText($raceSource, "namespace $widget;`npublic class Sprocket { int X => Missing(); }")
+            Microsoft.PowerShell.Utility\Add-Type @PesterBoundParameters
+        }
+
+        $raced = Build-CombinedTypeAssembly -AutomationRoot $raceRoot -OutputDirectory (Join-Path $TestDrive 'race-output')
+
+        Should -Invoke Add-Type -ModuleName Catzc.Internal.Types -Times 1 -Exactly -Because 'the save must land while the compiler runs'
+        $raced.Hash | Should -Be $hashedBefore
+        [System.IO.Path]::GetFileName($raced.Path) | Should -Be "Catzc.Types.$hashedBefore.dll"
+        [System.IO.File]::Exists($raced.Path) | Should -BeTrue
+        @([System.IO.Directory]::EnumerateDirectories([System.IO.Path]::GetTempPath(), "catzc-types-$PID-*")).Count | Should -Be 0 -Because 'the frozen copy is removed'
+    }
+
     It 'returns nothing and writes nothing when the selection ships no C# source' {
         $emptyOutput = Join-Path $TestDrive 'empty'
         Build-CombinedTypeAssembly -AutomationRoot $root -Module 'Gizmo' -OutputDirectory $emptyOutput | Should -BeNullOrEmpty

@@ -11,13 +11,24 @@ Describe 'Invoke-BicepFormat' -Tag 'L0', 'logic' {
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'bicep' } {
             [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'C:\tools\bicep.exe'; Version = '0.48.1'; Required = '0.48' }
         }
-        # The fake formatter collapses runs of spaces, writing the result to --outfile.
+        # The fake formatter collapses runs of spaces in every file the --pattern names, in place, as `bicep format
+        # --pattern` does.
         Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates {
-            if ($Command -match 'format "([^"]+)" --outfile "([^"]+)"') {
-                [System.IO.File]::WriteAllText($Matches[2], ([System.IO.File]::ReadAllText($Matches[1]) -replace ' {2,}', ' '))
+            if ($Command -match 'format --pattern "([^"]+)"') {
+                foreach ($copy in [System.IO.Directory]::GetFiles([System.IO.Path]::GetDirectoryName($Matches[1]), '*.bicep')) {
+                    [System.IO.File]::WriteAllText($copy, ([System.IO.File]::ReadAllText($copy) -replace ' {2,}', ' '))
+                }
             }
             [pscustomobject]@{ ExitCode = $script:formatExit; Output = ''; Full = 'bicep output' }
         }
+    }
+
+    It 'formats every file in one Bicep CLI process' {
+        $null = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widget, $script:gadget) } {
+            param($Files)
+            Invoke-BicepFormat -File $Files -DryRun
+        }
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Command -like '*format --pattern *' }
     }
 
     It 'rewrites exactly the files whose formatted copy differs' {
@@ -56,6 +67,6 @@ Describe 'Invoke-BicepFormat' -Tag 'L0', 'logic' {
         }
         $script:formatExit = 1
         { InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widget) } { param($Files) Invoke-BicepFormat -File $Files } } |
-            Should -Throw '*bicep could not format*(exit 1)*bicep output*'
+            Should -Throw '*bicep could not format the Bicep files (exit 1)*bicep output*'
     }
 }

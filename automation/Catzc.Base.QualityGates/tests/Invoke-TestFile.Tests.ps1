@@ -92,6 +92,16 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
         @($run.Rows | Where-Object ExpandedName -EQ 'reads Count on a scalar behind an It-level opt-out').Result | Should -Be 'Passed'
     }
 
+    # A file that throws while Pester discovers it holds no test, so it yields no row; the run must still fail.
+    It 'fails the run when a test file throws during discovery, though it yields no row' {
+        $broken = Join-Path $TestDrive 'Broken.Tests.ps1'
+        [System.IO.File]::WriteAllText($broken, "Describe 'Broken' -Tag 'L0', 'logic' {`n    throw 'widget discovery broke'`n    It 'never runs' { }`n}`n")
+        $run = Invoke-TestFile $broken -Output Minimal -PassThru
+        $run.Result | Should -Be 'Failed'
+        $run.ExitCode | Should -Be 1
+        @($run.Rows) | Should -HaveCount 0
+    }
+
     # The walking skeleton of the snapshot path
     # ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)): a real snapshot, primed, a
     # real worker

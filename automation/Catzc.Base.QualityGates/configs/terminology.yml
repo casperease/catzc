@@ -893,6 +893,8 @@ terms:
       meaning: "the ms-dotnettools VS Code publisher (C# and C# Dev Kit extensions)"
     - term: psscriptanalyzer
       meaning: "the psscriptanalyzer formatter engine name in languages.yml (PSScriptAnalyzer's Invoke-Formatter)"
+    - term: bicepconfig
+      meaning: "bicepconfig.json, the Bicep CLI's per-folder configuration file"
     - term: csdevkit
       meaning: "the C# Dev Kit VS Code extension (ms-dotnettools.csdevkit)"
     - term: dpkg

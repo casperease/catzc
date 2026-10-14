@@ -1,4 +1,5 @@
-# The importer's restart of a stale person console (ADR-AUTO-TYPES#15): who may be restarted
+# The importer's restart of a stale person console
+# ([ADR-AUTO-TYPES#15](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types15)): who may be restarted
 # (Test-ImporterRestartAllowed), and what the restart runs (Restart-ImporterSession) with the child shell mocked
 # (Invoke-ChildShell), so no process starts. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

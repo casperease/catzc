@@ -7,14 +7,17 @@ Describe 'Get-AdrDomainEdges' -Tag 'L0', 'logic' {
                 domains = [ordered]@{
                     widget = [ordered]@{
                         code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
+                        stack = 'PRIN'; concern = @('build')
                         rulesets = [ordered]@{ 'widget-one' = [ordered]@{ external = 'ADR-WI-ONE' } }
                     }
                     gadget = [ordered]@{
                         code = 'GA'; role = 'implementation'; description = 'The gadget implementation.'; depends_on = @('widget')
+                        stack = 'AUTO'; concern = @('automation')
                         rulesets = [ordered]@{ 'gadget-one' = [ordered]@{ external = 'ADR-GA-ONE' } }
                     }
                     gizmo  = [ordered]@{
                         code = 'GI'; role = 'reference'; description = 'The gizmo reference.'; depends_on = @('widget', 'gadget')
+                        stack = 'CLOUD'; concern = @('deploy')
                         rulesets = [ordered]@{ 'gizmo-one' = [ordered]@{ external = 'ADR-GI-ONE' } }
                     }
                 }
@@ -37,6 +40,7 @@ Describe 'Get-AdrDomainEdges' -Tag 'L0', 'logic' {
                 domains = [ordered]@{
                     widget = [ordered]@{
                         code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
+                        stack = 'PRIN'; concern = @('build')
                         rulesets = [ordered]@{ 'widget-one' = [ordered]@{ external = 'ADR-WI-ONE' } }
                     }
                 }

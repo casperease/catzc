@@ -7,16 +7,17 @@ check.
 
 ## Index
 
-| #   | Tier | Test file                                                              | FullNameFilter                                        | Guards                                                                                                                                           |
-| --- | ---- | ---------------------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1   | L0   | automation/Catzc.Tooling.Core/tests/types/ToolsConfig.Tests.ps1        | integrity (shipped tools.yml)                         | The shipped `tools.yml` constructs a `ToolsConfig` (snake_case keys).                                                                            |
-| 2   | L0   | automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1     | shipped tools.yml (generic invariant)                 | The `tools.yml` dependency graph is acyclic and install order is valid.                                                                          |
-| 3   | L0   | automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1           | asset dependencies                                    | Required tooling asset files are present.                                                                                                        |
-| 4   | L0   | automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1           | structural validation                                 | Every `tools.yml` entry has required fields and a valid install method.                                                                          |
-| 5   | L0   | automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1           | Install/Uninstall function coverage                   | Every tool has matching `Install-*` and `Uninstall-*` functions.                                                                                 |
-| 6   | L1   | automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1      | Install-Dotnet — shipped install scripts              | The vendored .NET install scripts (dotnet-install.ps1/.sh) ship inside the loaded Toolchain module and accept the options Install-Dotnet passes. |
-| 7   | L0   | automation/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1 | Resolve-ToolExecutable on the shipped bash entry      | The shipped tools.yml bash entry resolves through the executable probe and never accepts the WSL launcher (System32 or WindowsApps bash.exe).    |
-| 8   | L1   | automation/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1      | Get-EngineCaseTable — every shipped engine case table | Every `tests/assets/engine-cases/*.yml` table fills both engine columns (pwsh, bash) for every case, or names why not (`n/a: <reason>`).         |
+| #   | Tier | Test file                                                                    | FullNameFilter                                        | Guards                                                                                                                                           |
+| --- | ---- | ---------------------------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | L0   | automation/Catzc.Tooling.Core/tests/types/ToolsConfig.Tests.ps1              | integrity (shipped tools.yml)                         | The shipped `tools.yml` constructs a `ToolsConfig` (snake_case keys).                                                                            |
+| 2   | L0   | automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1           | shipped tools.yml (generic invariant)                 | The `tools.yml` dependency graph is acyclic and install order is valid.                                                                          |
+| 3   | L0   | automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1                 | asset dependencies                                    | Required tooling asset files are present.                                                                                                        |
+| 4   | L0   | automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1                 | structural validation                                 | Every `tools.yml` entry has required fields and a valid install method.                                                                          |
+| 5   | L0   | automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1                 | Install/Uninstall function coverage                   | Every tool has matching `Install-*` and `Uninstall-*` functions.                                                                                 |
+| 6   | L1   | automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1            | Install-Dotnet — shipped install scripts              | The vendored .NET install scripts (dotnet-install.ps1/.sh) ship inside the loaded Toolchain module and accept the options Install-Dotnet passes. |
+| 7   | L0   | automation/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1       | Resolve-ToolExecutable on the shipped bash entry      | The shipped tools.yml bash entry resolves through the executable probe and never accepts the WSL launcher (System32 or WindowsApps bash.exe).    |
+| 8   | L1   | automation/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1            | Get-EngineCaseTable — every shipped engine case table | Every `tests/assets/engine-cases/*.yml` table fills both engine columns (pwsh, bash) for every case, or names why not (`n/a: <reason>`).         |
+| 9   | L1   | automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Shipped.Tests.ps1 | Get-Inspiration over the shipped inspiration.yml      | The shipped `inspiration.yml` loads as `InspirationConfig`, and eac's availability matches whether its workspace root exists.                    |
 
 ## Checks
 
@@ -70,3 +71,12 @@ check.
 **Checks:**
 
 - `dotnet-install.ps1` and `dotnet-install.sh` exist under `Catzc.Tooling.Toolchain/assets/scripts/`.
+
+### 9. Get-Inspiration over the shipped inspiration.yml
+
+**Guards:** the shipped `inspiration.yml` conforms to its config type and resolves on this machine.
+
+**Checks:**
+
+- `Get-Config -Config inspiration` returns an `InspirationConfig`.
+- `Get-Inspiration -Id eac` resolves to `eac` beside the repository, and `Available` matches whether that folder exists.

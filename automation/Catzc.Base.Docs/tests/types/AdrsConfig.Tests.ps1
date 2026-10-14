@@ -9,12 +9,14 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
                 domains = [ordered]@{
                     alpha = [ordered]@{
                         code = 'AL'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
+                        stack = 'PRIN'; concern = @('build')
                         rulesets = [ordered]@{ 'thing-one' = [ordered]@{ external = 'ADR-AL-ONE' } }
                     }
                     beta  = [ordered]@{
                         code = 'BE'; role = 'implementation'; description = 'The gadget implementation.'; depends_on = @('alpha')
+                        stack = 'AUTO'; concern = @('automation')
                         rulesets = [ordered]@{
-                            'thing-two'   = [ordered]@{ external = 'ADR-BE-TWO' }
+                            'thing-two'   = [ordered]@{ external = 'ADR-BE-TWO'; concern = @('access', 'release') } # concern override
                             'thing-three' = [ordered]@{ external = 'ADR-AL-THREE'; code = 'AL' } # leaf override to alpha's code
                         }
                     }
@@ -92,5 +94,94 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
         $raw = New-ValidRaw
         $raw['widget'] = 1
         { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: domains)*"
+    }
+
+    Context 'value-chain stack and concerns' -Tag 'ADR-DSGN-TRACK#14', 'ADR-DSGN-TRACK#15' {
+        It 'declares the stack rows and the concerns once, in value-chain order' {
+            [Catzc.Base.Docs.AdrsConfig]::Stacks | Should -Be @('PRIN', 'DSGN', 'AUTO', 'PIPE', 'CLOUD')
+            [Catzc.Base.Docs.AdrsConfig]::Concerns | Should -Be @('automation', 'build', 'quality-control', 'release', 'deploy', 'access')
+        }
+
+        It 'carries each domain''s stack row and default concerns' {
+            $config = [Catzc.Base.Docs.AdrsConfig]::new((New-ValidRaw))
+            $beta = $config.Domains | Where-Object Name -EQ 'beta'
+            $beta.Stack | Should -Be 'AUTO'
+            $beta.Concerns | Should -Be @('automation')
+        }
+
+        It 'gives a ruleset without an override its domain''s stack row and default concerns' {
+            $config = [Catzc.Base.Docs.AdrsConfig]::new((New-ValidRaw))
+            $three = $config.RuleSets | Where-Object Slug -EQ 'thing-three'
+            $three.Stack | Should -Be 'AUTO'
+            $three.Concerns | Should -Be @('automation')
+            $three.DomainConcerns | Should -Be @('automation')
+        }
+
+        It 'resolves a ruleset override, in value-chain order, beside the domain default' {
+            $config = [Catzc.Base.Docs.AdrsConfig]::new((New-ValidRaw))
+            $two = $config.RuleSets | Where-Object Slug -EQ 'thing-two'
+            $two.Concerns | Should -Be @('release', 'access')
+            $two.DomainConcerns | Should -Be @('automation')
+        }
+
+        It 'throws on a domain with no stack' {
+            $raw = New-ValidRaw
+            $raw.domains.alpha.Remove('stack')
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*domain 'alpha': missing 'stack'*"
+        }
+
+        It 'throws on a stack that is not a row of the value-chain stack' {
+            $raw = New-ValidRaw
+            $raw.domains.alpha.stack = 'WIDGET'
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*stack 'WIDGET' is not a row of the value-chain stack*"
+        }
+
+        It 'throws on a domain with no default concern' {
+            $raw = New-ValidRaw
+            $raw.domains.beta.Remove('concern')
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*domain 'beta': missing 'concern'*"
+        }
+
+        It 'throws on an unknown concern in a domain default' {
+            $raw = New-ValidRaw
+            $raw.domains.alpha.concern = @('gadgetry')
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*domain 'alpha': concern 'gadgetry' is not a value-chain concern*"
+        }
+
+        It 'throws on an unknown concern in a ruleset override' {
+            $raw = New-ValidRaw
+            $raw.domains.beta.rulesets['thing-two'].concern = @('build', 'gadgetry')
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*ruleset 'beta/thing-two': concern 'gadgetry' is not a value-chain concern*"
+        }
+
+        It 'throws on a concern given as a scalar, not a list' {
+            $raw = New-ValidRaw
+            $raw.domains.alpha.concern = 'build'
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*domain 'alpha': 'concern' must be a list*"
+        }
+
+        It 'throws on an empty concern override' {
+            $raw = New-ValidRaw
+            $raw.domains.beta.rulesets['thing-two'].concern = @()
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*ruleset 'beta/thing-two': 'concern' must list one or more*"
+        }
+
+        It 'throws on a concern listed twice' {
+            $raw = New-ValidRaw
+            $raw.domains.alpha.concern = @('build', 'build')
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*concern 'build' is listed twice*"
+        }
+
+        It 'throws on an unknown domain key, so a misspelled key never falls back to the default' {
+            $raw = New-ValidRaw
+            $raw.domains.alpha['concerns'] = @('build')
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*domain 'alpha': unknown key 'concerns'*"
+        }
+
+        It 'throws on an unknown ruleset key' {
+            $raw = New-ValidRaw
+            $raw.domains.beta.rulesets['thing-two']['concerns'] = @('build')
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*ruleset 'beta/thing-two': unknown key 'concerns'*"
+        }
     }
 }

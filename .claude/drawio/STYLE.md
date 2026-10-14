@@ -2,7 +2,7 @@
 
 `Maker kit: style for new docs/.assets diagrams`
 
-<!-- cspell:ignore mxGraphModel mxCell guillemets minimap minimaps treemap worldmap -->
+<!-- cspell:ignore mxGraphModel mxCell guillemets minimap minimaps treemap worldmap mapkey lede weudiscvm nfig -->
 
 The living style kit for the `drawio-diagram-waves` agent and every maker it launches. The lead updates it whenever a review teaches
 something.
@@ -76,20 +76,20 @@ shared by code unit, store and runner on purpose: their shapes (box, cylinder, p
 
 Ghosts use the state fill plus `strokeWidth=1.2;dashed=1;opacity=60;`.
 
-On a slide that shows commit states, the dark structural kinds never collide with a commit colour. The result (green, near release-uat
-and prod) is still avoided there; draw commits as dots.
+On a slide that shows commit states, the dark structural kinds never collide with a commit colour. The result (green, near release-uat and
+prod) is still avoided there; draw commits as dots.
 
 **Recolouring a wave-6 slide (wave 7):** map by kind and shape, never by hex alone, because the old store, gate, environment and external
 tool all shared `#f5f5f5` / `#666666`, and the old code-unit fill `#dae8fc` is also the main-uat commit colour.
 
-| Old fill / stroke                         | Kind                   | New fill / stroke (+ `fontColor=#FFFFFF`) |
-| ----------------------------------------- | ---------------------- | ----------------------------------------- |
-| `#dae8fc` / `#6c8ebf` (not a commit dot)  | code unit              | `#647687` / `#314354`                     |
-| `#e1d5e7` / `#9673a6`                     | named set              | `#76608a` / `#432d57`                     |
-| `#f8fff8` / `#82b366`                     | file (`shape=note`)    | `#6d8764` / `#3a5431`                     |
-| `#f5f5f5` / `#666666`, `shape=cylinder3`  | store                  | `#647687` / `#314354`                     |
-| `#fff2cc` / `#d6b656`, `arcSize=50`       | runner                 | `#647687` / `#314354`                     |
-| count chip stroke `#9673a6`               | count chip             | stroke `#432d57`, fill stays white        |
+| Old fill / stroke                        | Kind                | New fill / stroke (+ `fontColor=#FFFFFF`) |
+| ---------------------------------------- | ------------------- | ----------------------------------------- |
+| `#dae8fc` / `#6c8ebf` (not a commit dot) | code unit           | `#647687` / `#314354`                     |
+| `#e1d5e7` / `#9673a6`                    | named set           | `#76608a` / `#432d57`                     |
+| `#f8fff8` / `#82b366`                    | file (`shape=note`) | `#6d8764` / `#3a5431`                     |
+| `#f5f5f5` / `#666666`, `shape=cylinder3` | store               | `#647687` / `#314354`                     |
+| `#fff2cc` / `#d6b656`, `arcSize=50`      | runner              | `#647687` / `#314354`                     |
+| count chip stroke `#9673a6`              | count chip          | stroke `#432d57`, fill stays white        |
 
 Recolour the legend swatch of each kind with it. A `<font color=…>` inside a recoloured cell's value must turn white or be removed. Gate,
 environment, external tool, actor, result, failure, ADR-only, chrome and every commit colour stay as they are.
@@ -176,41 +176,37 @@ showing where the drawing sits in the world.
 
 ### The world map (two views, both always shown)
 
-1. **Stack × domain grid** (`.stack.png`). Rows are the system stack, top to bottom: `PRIN` principles (docs/adr/principles) · `DSGN` design
-   · `AUTO` automation modules · `PIPE` pipelines and CI · `CLOUD` Azure. Columns are the domains, by function: `LOAD` (importer, run modes,
-   module loading) · `CONFIG` · `GLOBS` (globsets, tracks, scopes) · `BUILD` (bundle, aspects, folders, dependencies) · `DEPLOY` (promotion,
-   lifecycle, naming, templates) · `ACCESS` (auth, server remote, git). The drawing's main cell is filled and framed; every other cell its
-   files touch gets a small neutral dot; its row and column are marked on the axes only.
-2. **Repository tree map** (`.tree.png`). A treemap of the real repository, with area set by tracked-file count and grouped by top-level
-   folder (`automation/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<domain>`, `.github/`, root scripts). The files the drawing
-   shows (from its `.verify.md` `file:line` refs and its ADR files) are lit.
+The minimaps draw the **world map** of the world-map processor (module `Catzc.Base.Maps`, ADR-DSGN-TRACK#9), and light the cells and files
+that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRACK#12). Flow B places nothing itself.
+
+1. **Grid** (`.stack.png`). Rows are the tracks and columns the file languages, in the map's order, with the root-file row and the
+   unlisted-file column last. A cell that holds files is an idle tile, an empty cell stays open, and every **lit cell** is filled. Only the
+   lit rows and columns are named, each with a tick on its axis. The two buckets print as their defined terms, `labels.root_files` and
+   `labels.unlisted_files` of `maps.yml` (ADR-DSGN-TRACK#7, #8, #13), never as the map's bucket keys; so does the root-files tile of the
+   tree.
+2. **Repository tree map** (`.tree.png`). A treemap of the files of the world map, with area set by file count and grouped by top-level
+   folder (`automation/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<folder>`, `.github/`, root scripts). The files the highlight
+   lights are lit; a lit ADR file is framed.
 
 ### Colours (minimaps only; drawings keep the palettes above)
 
-| Domain column | Hue       |
-| ------------- | --------- |
-| `LOAD`        | `#5C6BC0` |
-| `CONFIG`      | `#FFA726` |
-| `GLOBS`       | `#26A69A` |
-| `BUILD`       | `#AB47BC` |
-| `DEPLOY`      | `#42A5F5` |
-| `ACCESS`      | `#EC407A` |
-
-- The background is `#E6ECF2`. Idle cells and tiles are `#ECEFF1`, with `#CFD8DC` borders. Labels are `#546E7A`.
-- **Exactly one cell is ever framed:** the **main cell**, the domain hue at 40 % fill with a 3 px stroke at 100 %. Its row and column are
-  marked only by a bold axis label and a hue tick, never by tinting the cells: a tinted cross or a hued ring on another cell reads, while
-  paging through slides, as the previous slide's selection left behind.
-- The 40 % fills (also the map key's "this slide's cell" swatch): `LOAD` `#BEC4E6`, `CONFIG` `#FFDCA8`, `GLOBS` `#A8DBD7`, `BUILD`
-  `#DDB5E5`, `DEPLOY` `#B3DBFB`, `ACCESS` `#F7B3CA`. Use the main cell's domain, not the pilot's purple.
-- **Touched cells** carry a small `#546E7A` dot (7 px radius at 2×), with no fill and no frame.
-- The **you-are-here dot** is `#263238` with a 2 px white ring. Lit tree tiles are the hue of the main cell's domain at 100 %. An ADR file
-  tile is outlined `#263238`.
+- The background and the lit colour come from the `palette` of `maps.yml` (`Get-Config -Config maps`), the same colours as the world-map
+  PDFs: `background` `#E6ECF2`, drawn first, and `highlight` `#F4B942`.
+- Idle cells and tiles are `#ECEFF1`, with `#CFD8DC` borders. Labels are `#263238`.
+- A **lit cell** is filled with the lit colour and outlined `#263238` (2 px at 2×). Lit tree tiles are the lit colour; a lit ADR file tile
+  is outlined `#263238`.
 - The **lens badge** is white text on `#263238`: `META`, `ARCH`, `IMPL`, `OPS` or `GOV`.
 - Red never appears in a minimap; it stays reserved for failure inside drawings.
-- The lens badge sits on the **stack** minimap only. On the tree map it would hide tiles.
-- A lit file is often a tiny square inside a big group, so its **group tile gets a 2 px edge** in the hue of its ADR domain as well.
-- The tree layout follows `git ls-files`, so re-rendering after the repo changes shifts tiles. Re-render all minimaps together, never one by
-  one. The rerun scripts are `out/diagrams/fan-out/_flowB/{worldmap,placements,render}.py`.
+- The lens badge sits on the **grid** minimap only, in its empty top-left corner. On the tree map it would hide tiles.
+- A lit file is often a tiny square inside a big group, so its **group tile gets a 3 px edge** in the lit colour as well.
+- A row is shorter than its 18 px name, so the names of two lit rows side by side are moved apart; the tick marks the exact row.
+- The tree layout follows the files of the world map, so re-rendering after the repo changes shifts tiles. Re-render all minimaps together,
+  never one by one. The rerun scripts are `out/diagrams/fan-out/_flowB/highlights.ps1` (the data, from the processor) and then
+  `out/diagrams/fan-out/_flowB/render.py` (the PNGs).
+- Every minimap PNG has a **sister `.md`** with the same stem, next to it (`_minimaps/<id>.<view>.md` and `minimap-<stem>.<view>.md`).
+  `render.py` writes it in the same run, from the same data (`_flowB/describe.py`): the slide and the view, the lit cells or groups with
+  their file counts in the printed terms, a link to every ADR the highlight is built from and to every lit file, and the keywords linked
+  to the glossary. A view adds its own section in `describe.py`'s `VIEWS`; the sister files are never edited by hand.
 
 ### Limits
 
@@ -223,10 +219,11 @@ showing where the drawing sits in the world.
   - `supports` (the ADR chips) at x 1316, y 410, 240 × ≤ 46: with the map key fixed at y 460 this holds the bold "Supports" line plus at
     most 2 lines, so pack several ADR codes per line (`ADR-A · ADR-B`) and leave the rest to the `.md`. With more than 4 codes, put the
     first code inline after "Supports" and set the cell at 10.5 px;
-  - `mapkey` (the minimap legend: this slide's cell, also touched, a file it shows) at x 1316, y 460, 240 × 122.
-- **Minimap PNGs** are rendered at 2× (480 × 300 and 480 × 360) and placed at 1×. Text is ≥ 9 px at 1×. Row labels are ≤ 5 chars and column
-  labels ≤ 6 chars. Every lit tree group is labelled with its full name, even when the label runs past its tile (the white halo keeps it
-  legible); a label is cut only at the image edge, never to a stub like "Module…".
+  - `mapkey` (the minimap legend: a lit cell, a lit file, a lit ADR file) at x 1316, y 460, 240 × 122.
+- **Minimap PNGs** are rendered at 2× (480 × 300 and 480 × 360) and placed at 1×. Text is ≥ 9 px at 1×. The grid names a lit row by its
+  track and a lit column by its file language, in full; the column names are turned upright. Lit tree groups are labelled with their full
+  names, most lit files first; a label may run past its tile (the white halo keeps it legible) and is cut only at the image edge, never to a
+  stub like "Module…"; a label that would cover one already printed is left out.
 - **Title:** ≤ 100 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, in the form
   `Supports <ADR-CODE>:<rules> · <lens> lens`.
 - **Boxes:**
@@ -245,7 +242,7 @@ showing where the drawing sits in the world.
 
 - Flow A **conforms and renames**: it keeps the content, cuts it to the limits, adds the sidebar placeholders, and picks the explanation
   slug.
-- Flow B **places and renders** both minimaps.
+- Flow B **reads the highlight and renders** both minimaps: `highlights.ps1` asks the world-map processor, `render.py` draws.
 - Both flows key their work by the manifest id `<diagram>.<lens>` in `out/diagrams/fan-out/_manifest.json`.
 - The lead joins them at fan-in: renames the minimaps to the slug, embeds both PNGs as data URIs in the image cells, and rebuilds.
 
@@ -305,8 +302,8 @@ otherwise.>
 
 Describe only what is drawn, never what it means, using this kit's vocabulary: **canvas, drawing area, sidebar, band, span bar, glyph** (by
 its legend phrase: code unit, named set, file, store, runner, gate, environment, external tool, actor, result, failure, ADR-only, commit),
-**edge** (flow, thick, ADR-only, failure path), **marker, fraction chip, rule chip, legend, map key, axis minimap, tree minimap, main cell,
-touched cell, lit tile, lens badge**. Write it after reading the built PNG, and make every count match the XML.
+**edge** (flow, thick, ADR-only, failure path), **marker, fraction chip, rule chip, legend, map key, grid minimap, tree minimap, lit cell,
+lit tile, lens badge**. Write it after reading the built PNG, and make every count match the XML.
 
 ```markdown
 # <title>: visual description
@@ -335,8 +332,7 @@ touched cell, lit tile, lens badge**. Write it after reading the built PNG, and 
 
 ## Sidebar
 
-<The axis minimap's main cell and touched cells by name (row × column), the tree minimap's lit tiles by group label, the lens badge, the map
-key.>
+<The grid minimap's lit cells by name (track × file language), the tree minimap's lit tiles by group label, the lens badge, the map key.>
 ```
 
 ### The verification file (`<stem>.verify.md`)
@@ -359,8 +355,9 @@ number, name, path and order against the repository as it is today; the reposito
   repeats what another symbol says is cut, and the number goes to the `.md`;
 - **numbered markers**: a 22 px `#37474F` disc with a 2 px white rim and a white bold digit, on a box's top-left corner or beside an edge.
   Each number is one Walkthrough step in `<stem>.md`. A marker always touches what it numbers (a glyph's corner, or the middle of an edge);
-  a marker floating on empty canvas is a defect. An edge marker sits beside its edge with its rim touching the line (disc
-  x = edge x + 2), never centred on it: the preview draws edges over every glyph, so a centred disc is struck through. To say "nothing here" (e.g. a rung with no throw), draw nothing and say it in the article;
+  a marker floating on empty canvas is a defect. An edge marker sits beside its edge with its rim touching the line (disc x = edge x + 2),
+  never centred on it: the preview draws edges over every glyph, so a centred disc is struck through. To say "nothing here" (e.g. a rung
+  with no throw), draw nothing and say it in the article;
 - **span bars** over the bands when the flow has named stages (CI, CD, DEPLOY), as the commit-story's top axis does;
 - **every edge that exists in the code is drawn**: a failure glyph has its failure-path edge from the glyph that raises it, a result has the
   edge from what produces it. An unconnected glyph is a defect unless the article says why it stands alone;
@@ -397,11 +394,11 @@ the slide is two slides. The minimaps get their own **map key** in the sidebar.
 A finished slide lands in the repository as three files; the verify file stays in `out/diagrams/wave-N/` (plan:
 `out/plan-diagram-wave-7.md`).
 
-| File                                           | From                     | Shape                                                                                         |
-| ---------------------------------------------- | ------------------------ | --------------------------------------------------------------------------------------------- |
-| `docs/explanation/<adr-domain>/<explanation>.md` | the article              | path H1 (ADR-REPO-FORMAT#6), the title in backticks, a `text` overview block, then the article |
-| `docs/.assets/explanation/<stem>.drawio.png`   | the built slide          | copied, never overwriting an existing asset                                                   |
-| `docs/.assets/explanation/<stem>.drawio.md`    | the visual description   | path H1, the title in backticks, a `text` at-a-glance block, then the description             |
+| File                                             | From                   | Shape                                                                                          |
+| ------------------------------------------------ | ---------------------- | ---------------------------------------------------------------------------------------------- |
+| `docs/explanation/<adr-domain>/<explanation>.md` | the article            | path H1 (ADR-REPO-FORMAT#6), the title in backticks, a `text` overview block, then the article |
+| `docs/.assets/explanation/<stem>.drawio.png`     | the built slide        | copied, never overwriting an existing asset                                                    |
+| `docs/.assets/explanation/<stem>.drawio.md`      | the visual description | path H1, the title in backticks, a `text` at-a-glance block, then the description              |
 
 - `<explanation>` is the middle part of the stem; `<adr-domain>` is the adrs.yml domain of the stem's ADR code.
 - **The `text` overview** of an article: the finding in one line; a blank line; one line per marker, `<n>  <name>  <what it is>`, names
@@ -409,15 +406,13 @@ A finished slide lands in the repository as three files; the verify file stays i
 - **Words by audience:** the article uses the ADR's and glossary's terms (group, module, gate as the ADR names it); the asset description
   uses the glyph library's phrases (named set, code unit). Neither uses the other's vocabulary.
 - **Links:** the article links its image and its asset description under `../../.assets/explanation/`, the ADR, its sibling lenses, its
-  domain index and `../index.md#how-to-read-the-diagrams`. The asset description links the PNG and the article. ADRs never link to
-  either.
-- **Checks:** run `out/diagrams/wave-7/_check_docs.ps1 <paths…>` on your files (formats, then title, markdownlint, spelling, links).
-  Report unknown words; never edit `terminology.yml` from a maker. A quoted message holding `<name>`-style placeholders goes in a code
-  span (bare angle brackets fail markdownlint MD033). Example names copied from an ADR that are not words (`weudiscvm`) get a local
-  `cspell:ignore` line, as the ADR does; never split a word across markup (`Co(nfig)` flags `nfig`).
+  domain index and `../index.md#how-to-read-the-diagrams`. The asset description links the PNG and the article. ADRs never link to either.
+- **Checks:** run `out/diagrams/wave-7/_check_docs.ps1 <paths…>` on your files (formats, then title, markdownlint, spelling, links). Report
+  unknown words; never edit `terminology.yml` from a maker. A quoted message holding `<name>`-style placeholders goes in a code span (bare
+  angle brackets fail markdownlint MD033). Example names copied from an ADR that are not words (`weudiscvm`) get a local `cspell:ignore`
+  line, as the ADR does; never split a word across markup (`Co(nfig)` flags `nfig`).
 
-Quality bar for this format: the wave-7 pilot,
-`docs/explanation/automation/three-layers-edges-point-down.md` with
+Quality bar for this format: the wave-7 pilot, `docs/explanation/automation/three-layers-edges-point-down.md` with
 `docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.{png,md}`.
 
 ## Readability rules

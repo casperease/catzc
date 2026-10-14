@@ -178,6 +178,8 @@ A world-map cell holding a live file whose file language its track does not decl
   - [cell](#cell): A cell is any intersection of the world map; a stack violation is a cell that breaks its track's tech-stack.
   - [lit cell](#lit-cell): A lit cell is selected by a highlight and says nothing about the stack; a stack violation is a finding, marked
     whatever the highlight.
+  - [value-chain stack](#value-chain-stack): The value-chain stack orders decisions, not files; a stack violation is a world-map cell
+    outside its track's tech-stack.
 
 ### track
 
@@ -193,6 +195,8 @@ A named repository root concern — one root folder, named by it, classified cor
     the file lives in, and its tech-stack is a set of file languages.
   - [root file](#root-file): A root file is a tracked file no track holds, at the repository root or under out/; a track is a root folder
     and every file under it.
+  - [value-chain concern](#value-chain-concern): A value-chain concern is where along delivery a decision acts; a track is a root concern,
+    the root folder where files live.
   - [verification track](#verification-track): A verification track is one class of track — test-only, shipping nothing; a track is any root
     concern.
 
@@ -208,6 +212,45 @@ A tracked file no file language names — no extension, or one no entry lists �
     file whose extension none of them lists.
   - [root file](#root-file): A root file is a tracked file outside every track; an unlisted file is a tracked file outside every file
     language, whatever its track.
+
+### value-chain concern
+
+Where along delivery an ADR acts — automation, build, quality-control, release, deploy, or access — a default per ADR domain, an override
+per ADR.
+
+- **Defined by:** [ADR-DSGN-TRACK#15](design/tracks.md#rule-adr-dsgn-track15)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [track](#track): A track is a root concern, the root folder where files live; a value-chain concern is where along delivery a decision
+    acts.
+  - [value-chain stack](#value-chain-stack): The value-chain stack is the rows, how general a decision is; a value-chain concern is a
+    column, where along delivery it acts.
+
+### value-chain map
+
+The ADRs drawn as the value-chain stack crossed with the value-chain concerns, computed from adrs.yml — where a decision sits in the value
+chain.
+
+- **Defined by:** [ADR-DSGN-TRACK#16](design/tracks.md#rule-adr-dsgn-track16)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [world map](#world-map): The world map crosses tracks with file languages and says where a decision's files sit; the value-chain map
+    says where along delivery the decision acts.
+
+### value-chain stack
+
+The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each ADR domain declares one.
+
+- **Defined by:** [ADR-DSGN-TRACK#14](design/tracks.md#rule-adr-dsgn-track14)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [stack violation](#stack-violation): A stack violation is a world-map cell outside its track's tech-stack, a set of file languages; the
+    value-chain stack orders decisions, not files.
+  - [value-chain concern](#value-chain-concern): A value-chain concern is a column, where along delivery an ADR acts; the value-chain stack
+    is the rows, how general the decision is.
 
 ### verification track
 
@@ -231,6 +274,8 @@ tracked file in exactly one cell.
 - **Contrasts:**
   - [cell](#cell): A cell is one row crossed with one column; the world map is the whole grid of them, computed from the registries and the
     git index.
+  - [value-chain map](#value-chain-map): The value-chain map says where along delivery a decision acts; the world map crosses tracks with
+    file languages and says where its files sit.
 
 ## flow
 
@@ -640,6 +685,18 @@ module facet (disk, session).
   `runtime facet`, and the bare `facet`, with its verb forms
 - **Contrasts:**
   - [layer](#layer): A layer is one level of a stack, sitting on or containing the next; a facet is a parallel view of the same thing.
+
+### inspiration
+
+A sibling repository declared in inspiration.yml and read for ideas, never as a reference implementation.
+
+- **Defined by:** [ADR-REPO-INSPIRE#5](repository/inspiration.md#rule-adr-repo-inspire5)
+- **Realized by:** type `Catzc.Tooling.Inspiration.InspirationEntry`
+- **Source:** `automation/Catzc.Tooling.Inspiration/configs/glossary.yml`
+
+| Avoid                | Say instead |
+| -------------------- | ----------- |
+| `inspiration source` | inspiration |
 
 ### language zone
 

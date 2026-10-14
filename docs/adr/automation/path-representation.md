@@ -6,9 +6,10 @@
 
 ### Rule ADR-AUTO-PATH:1
 
-A path value is in one of two forms, never a third. **Communication form** is repository-root-relative (or output-root-relative),
-`/`-separated, and fully normalized — no `.` or `..` segments, no leading `./`, no backslashes, no duplicate separators. **Binding form** is
-a normalized absolute path that exists only transiently at the point of use. A hybrid such as `{root}/./sub` is neither and is always a bug.
+A path value is in one of two forms, never a third. **Communication form** is repository-root-relative (or anchored on the output root,
+ADR-AUTO-PATH#9, or the workspace, ADR-AUTO-PATH#11), `/`-separated, and fully normalized — no `.` or `..` segments, no leading `./`, no
+backslashes, no duplicate separators. **Binding form** is a normalized absolute path that exists only transiently at the point of use. A
+hybrid such as `{root}/./sub` is neither and is always a bug.
 
 - [The two forms](#the-two-forms)
 
@@ -93,6 +94,15 @@ a method on the type, not scattered call-site code. (The `out/` sentinel of `Res
 simply not the cross-stage anchor.)
 
 - [The output anchor](#the-output-anchor)
+
+### Rule ADR-AUTO-PATH:11
+
+`{workspace}` is a reserved anchor for a folder beside the repository: the parent folder of the repository root, where sibling checkouts
+live. A path to such a folder takes the form `{workspace}/<remainder>` in source-controlled config, never an absolute path and never a `..`
+segment. The anchor is only ever the first segment, and it resolves to binding form only at the point of use, reading the repository root in
+either shell's view (`C:\projects\catzc` under pwsh, `/c/projects/catzc` under Git Bash) as the same place.
+
+- [The workspace anchor](#the-workspace-anchor)
 
 ## Context
 
@@ -192,6 +202,16 @@ materializes both — and it exposes the consumer's verification (`ResolveAt`, t
 "check at the other end" lives on the type rather than in every consumer. `RepoRelativePath` stays repo-root-pure (source paths,
 relative-only); the cross-stage artifact is the separate, dual-form case.
 
+### The workspace anchor
+
+Some config names a folder beside the repository rather than inside it, such as a sibling checkout read for ideas
+([inspiration](../repository/inspiration.md)). Neither plain form fits: a repository-relative path would need a `..` segment, which
+communication form forbids, and an absolute path is machine-specific, which source-controlled config forbids (ADR-AUTO-PATH#6). The
+`{workspace}` anchor names the one place siblings share, the folder that holds the repository, so `{workspace}/eac` means the `eac` checkout
+beside this one wherever the repository is checked out. It is spelled as a brace token, unlike `out/`, because `workspace` is an ordinary
+folder name and stays one. A sibling that is not checked out resolves to a path that does not exist, and the caller reports that rather than
+failing.
+
 ### Relative source, absolute artifact
 
 `Source-is-relative, the bound artifact may be absolute`
@@ -228,6 +248,9 @@ hand-builds a communicated path from `$env:RepositoryRoot` or normalizes separat
 - **`RepoRelativePath` and `ArtifactRef`** (`Catzc.Base.Objects`) make the form a construction-time property: a record that holds one of
   these cannot carry a mis-formed or wrong-anchor path, and the cross-stage artifact's two forms and its consumer-side check are produced
   and owned by the type. This is the primary, poka-yoke enforcement — correctness by construction, not by a linter pass.
+
+- **`InspirationRoot`** (`Catzc.Tooling.Inspiration`) rejects a stored root that is absolute, has a drive letter, a backslash, or a `..`
+  segment, or carries `{workspace}` anywhere but first, and resolves the anchor; `Resolve-InspirationRoot` binds it.
 
 - **Code review** against this ADR covers what a linter cannot. A custom PSScriptAnalyzer rule is _not_ used here: the only
   statically-decidable signatures — a raw `$env:RepositoryRoot` read, a `Join-Path $env:RepositoryRoot …`, an ad-hoc `\`→`/` replace — are

@@ -16,7 +16,15 @@
 //     external's domain segment — the external is 'ADR-<effective>' or begins 'ADR-<effective>-' (so a
 //     compound-code domain cites its root ADR as [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md) and the rest as
 // [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)-<NAME>); every
-//     external is unique.
+//     external is unique;
+//   - each domain declares its row of the value-chain stack (stack: one of Stacks,
+//     [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14)) and its default value-chain concerns
+//     (concern: a list of one or more of Concerns); a ruleset may override the default with its own concern list, so
+//     every ADR resolves to at least one value-chain concern
+//     ([ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)). The allowed rows and concerns are
+//     declared once, here, in value-chain order
+//     ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6));
+//   - a domain or ruleset key outside the declared keys is rejected, so a misspelled key never falls back to a default.
 
 using System;
 using System.Collections;
@@ -32,11 +40,19 @@ public sealed class AdrsConfig
     private static readonly Regex CodeRe = new Regex("^[A-Z]{2,4}(-[A-Z]{2,4})?$", RegexOptions.Compiled);
     private static readonly Regex ExternalRe = new Regex("^ADR-[A-Z]{2,4}(-[A-Z]+)+$", RegexOptions.Compiled);
 
+    // The rows of the value-chain stack, top to bottom (ADR-DSGN-TRACK#14).
+    public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });
+
+    // The value-chain concerns, in value-chain order, left to right (ADR-DSGN-TRACK#15).
+    public static readonly IReadOnlyList<string> Concerns = Array.AsReadOnly(new[] { "automation", "build", "quality-control", "release", "deploy", "access" });
+
     public IReadOnlyList<AdrDomain> Domains { get; }
     public IReadOnlyList<AdrRuleSet> RuleSets { get; }
     public IReadOnlyList<AdrDomainEdge> Edges { get; }
 
     private static readonly string[] AllowedKeys = { "domains" };
+    private static readonly string[] AllowedDomainKeys = { "code", "role", "description", "depends_on", "stack", "concern", "rulesets" };
+    private static readonly string[] AllowedRuleSetKeys = { "external", "code", "terminology", "concern" };
 
     public AdrsConfig(IDictionary raw)
     {
@@ -77,6 +93,8 @@ public sealed class AdrsConfig
             IDictionary d = domainsMap[dk] as IDictionary;
             if (d == null) { errors.Add(string.Format("domain '{0}': must be a mapping", name)); continue; }
 
+            CheckKeys(d, AllowedDomainKeys, string.Format("domain '{0}'", name), errors);
+
             string code = d.Contains("code") && d["code"] != null ? d["code"].ToString() : null;
             if (code == null || !CodeRe.IsMatch(code))
             {
@@ -91,6 +109,26 @@ public sealed class AdrsConfig
             if (string.IsNullOrWhiteSpace(description))
             {
                 errors.Add(string.Format("domain '{0}': missing 'description'", name));
+            }
+
+            string stack = d.Contains("stack") && d["stack"] != null ? d["stack"].ToString() : null;
+            if (stack == null)
+            {
+                errors.Add(string.Format("domain '{0}': missing 'stack' (allowed: {1})", name, string.Join(", ", Stacks)));
+            }
+            else if (!Contains(Stacks, stack))
+            {
+                errors.Add(string.Format("domain '{0}': stack '{1}' is not a row of the value-chain stack (allowed: {2})", name, stack, string.Join(", ", Stacks)));
+            }
+
+            IReadOnlyList<string> domainConcerns = null;
+            if (!d.Contains("concern") || d["concern"] == null)
+            {
+                errors.Add(string.Format("domain '{0}': missing 'concern' (one or more of: {1})", name, string.Join(", ", Concerns)));
+            }
+            else
+            {
+                domainConcerns = ParseConcerns(d["concern"], string.Format("domain '{0}'", name), errors);
             }
 
             List<string> deps = new List<string>();
@@ -124,6 +162,8 @@ public sealed class AdrsConfig
                     string slug = sk == null ? null : sk.ToString();
                     IDictionary r = rulesetMap[sk] as IDictionary;
                     if (r == null) { errors.Add(string.Format("ruleset '{0}/{1}': must be a mapping", name, slug)); continue; }
+
+                    CheckKeys(r, AllowedRuleSetKeys, string.Format("ruleset '{0}/{1}'", name, slug), errors);
 
                     string external = r.Contains("external") && r["external"] != null ? r["external"].ToString() : null;
                     if (external == null || !ExternalRe.IsMatch(external))
@@ -161,13 +201,22 @@ public sealed class AdrsConfig
                         errors.Add(string.Format("ruleset '{0}/{1}': external '{2}' domain segment does not match effective code '{3}'", name, slug, external, effective));
                     }
 
-                    AdrRuleSet one = new AdrRuleSet(name, role, slug, external, effective, code, terminology);
+                    // The value-chain concerns: the ruleset's own list when it declares one, else the domain default.
+                    IReadOnlyList<string> concerns = domainConcerns;
+                    if (r.Contains("concern"))
+                    {
+                        concerns = r["concern"] == null
+                            ? Fail(string.Format("ruleset '{0}/{1}': 'concern' must list one or more of: {2}", name, slug, string.Join(", ", Concerns)), errors)
+                            : ParseConcerns(r["concern"], string.Format("ruleset '{0}/{1}'", name, slug), errors);
+                    }
+
+                    AdrRuleSet one = new AdrRuleSet(name, role, slug, external, effective, code, terminology, stack, concerns, domainConcerns);
                     ruleSets.Add(one);
                     allRuleSets.Add(one);
                 }
             }
 
-            domains.Add(new AdrDomain(name, code, role, description, deps, ruleSets));
+            domains.Add(new AdrDomain(name, code, role, description, deps, stack, domainConcerns, ruleSets));
         }
 
         // Acyclic domain graph (depth-first cycle detection: 1 = on the current stack, 2 = fully explored).
@@ -195,6 +244,72 @@ public sealed class AdrsConfig
         Domains = domains;
         RuleSets = allRuleSets;
         Edges = edges;
+    }
+
+    private static void CheckKeys(IDictionary map, string[] allowed, string where, List<string> errors)
+    {
+        foreach (object key in map.Keys)
+        {
+            string k = key == null ? string.Empty : key.ToString();
+            if (Array.IndexOf(allowed, k) < 0)
+            {
+                errors.Add(string.Format("{0}: unknown key '{1}' (allowed: {2})", where, k, string.Join(", ", allowed)));
+            }
+        }
+    }
+
+    private static bool Contains(IReadOnlyList<string> list, string value)
+    {
+        foreach (string item in list)
+        {
+            if (string.Equals(item, value, StringComparison.Ordinal)) { return true; }
+        }
+        return false;
+    }
+
+    private static IReadOnlyList<string> Fail(string message, List<string> errors)
+    {
+        errors.Add(message);
+        return null;
+    }
+
+    // A concern list: a YAML sequence of one or more distinct value-chain concerns, returned in value-chain order.
+    private static IReadOnlyList<string> ParseConcerns(object raw, string where, List<string> errors)
+    {
+        IEnumerable list = (raw is string) ? null : raw as IEnumerable;
+        if (list == null)
+        {
+            return Fail(string.Format("{0}: 'concern' must be a list, e.g. [{1}]", where, Concerns[0]), errors);
+        }
+
+        HashSet<string> declared = new HashSet<string>(StringComparer.Ordinal);
+        bool valid = true;
+        foreach (object item in list)
+        {
+            string value = item == null ? null : item.ToString();
+            if (value == null || !Contains(Concerns, value))
+            {
+                errors.Add(string.Format("{0}: concern '{1}' is not a value-chain concern (allowed: {2})", where, value, string.Join(", ", Concerns)));
+                valid = false;
+            }
+            else if (!declared.Add(value))
+            {
+                errors.Add(string.Format("{0}: concern '{1}' is listed twice", where, value));
+                valid = false;
+            }
+        }
+        if (declared.Count == 0 && valid)
+        {
+            return Fail(string.Format("{0}: 'concern' must list one or more of: {1}", where, string.Join(", ", Concerns)), errors);
+        }
+        if (!valid) { return null; }
+
+        List<string> ordered = new List<string>();
+        foreach (string concern in Concerns)
+        {
+            if (declared.Contains(concern)) { ordered.Add(concern); }
+        }
+        return ordered.AsReadOnly();
     }
 
     private static void DetectCycle(string node, Dictionary<string, List<string>> graph, Dictionary<string, int> state, List<string> errors)

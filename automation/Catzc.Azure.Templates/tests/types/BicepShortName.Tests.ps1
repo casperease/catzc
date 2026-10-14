@@ -1,4 +1,4 @@
-# cspell:ignore deriv abcdef gadge gadgetry
+# cspell:ignore deriv abcdef gadge gadgetry getry gadg
 Describe 'BicepShortName' -Tag 'L0', 'logic' {
     # The C# type that owns short_name derivation + validation
     # ([ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2)).

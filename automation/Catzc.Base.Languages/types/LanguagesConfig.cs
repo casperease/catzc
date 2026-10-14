@@ -18,9 +18,10 @@
 //
 // Constructing an instance validates the file, collecting every violation into one ArgumentException:
 //   - only 'engines' and 'languages' at the top; only 'extensions', 'formatter', 'no_formatter', 'vscode_language' and
-//     'adr_folder' in a language entry; only 'vscode_extension' in an engine entry — an unknown key (a typo) fails at
-//     load;
-//   - an engine entry's key is one of FormatterEngines, and its 'vscode_extension' a publisher.name extension id;
+//     'adr_folder' in a language entry; only 'vscode_extension' and 'settings' in an engine entry — an unknown key (a
+//     typo) fails at load;
+//   - an engine entry's key is one of FormatterEngines, its 'vscode_extension' a publisher.name extension id, and its
+//     'settings' a list of '/'-separated repository-relative files (no '.' or '..' segment);
 //   - 'vscode_language' (default: the language's own name) is a VS Code language id;
 //   - a language name is kebab-case;
 //   - 'extensions' is a non-empty list; each extension starts with its leading dot, is lowercase letters and digits
@@ -41,7 +42,8 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     private const string Failed = "languages config validation failed:\n";
     private static readonly string[] AllowedKeys = { "engines", "languages" };
     private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder" };
-    private static readonly string[] AllowedEngineKeys = { "vscode_extension" };
+    private static readonly string[] AllowedEngineKeys = { "vscode_extension", "settings" };
+    private static readonly Regex SettingsPath = new Regex("^[A-Za-z0-9_.-]+(/[A-Za-z0-9_.-]+)*$");
     private static readonly Regex LanguageName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex Extension = new Regex("^\\.[a-z0-9]+$");
     private static readonly Regex AdrFolder = new Regex("^[A-Za-z0-9_-][A-Za-z0-9._-]*(/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$");
@@ -131,7 +133,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         IDictionary map = value as IDictionary;
         if (map == null)
         {
-            errors.Add("invalid engines (must be a map of engine -> { vscode_extension })");
+            errors.Add("invalid engines (must be a map of engine -> { vscode_extension, settings })");
             return;
         }
         foreach (object nameKey in map.Keys)
@@ -145,7 +147,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             IDictionary entry = map[nameKey] as IDictionary;
             if (entry == null)
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}'] must be a mapping {{ vscode_extension }}", name));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}'] must be a mapping {{ vscode_extension, settings }}", name));
                 continue;
             }
             foreach (object k in entry.Keys)
@@ -155,13 +157,39 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
                     errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}']: unknown key '{1}' (allowed: {2})", name, Text(k), string.Join(", ", AllowedEngineKeys)));
                 }
             }
+            int before = errors.Count;
             string extension = entry.Contains("vscode_extension") && entry["vscode_extension"] != null ? Text(entry["vscode_extension"]) : null;
             if (extension != null && !VscodeExtension.IsMatch(extension))
             {
                 errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}']: invalid vscode_extension '{1}' (a publisher.name extension id)", name, extension));
-                continue;
             }
-            engineMap[name] = new FormatterEngine(name, extension);
+            List<string> settings = new List<string>();
+            if (entry.Contains("settings") && entry["settings"] != null)
+            {
+                IList list = entry["settings"] as IList;
+                if (list == null)
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}']: invalid settings (a list of repository-relative files)", name));
+                }
+                else
+                {
+                    foreach (object item in list)
+                    {
+                        string path = Text(item);
+                        bool dotSegment = Array.Exists(path.Split('/'), s => s == "." || s == "..");
+                        if (!SettingsPath.IsMatch(path) || dotSegment)
+                        {
+                            errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}']: invalid settings file '{1}' (a '/'-separated repository-relative path)", name, path));
+                        }
+                        else
+                        {
+                            settings.Add(path);
+                        }
+                    }
+                }
+            }
+            if (errors.Count > before) { continue; }
+            engineMap[name] = new FormatterEngine(name, extension, settings.ToArray());
         }
     }
 

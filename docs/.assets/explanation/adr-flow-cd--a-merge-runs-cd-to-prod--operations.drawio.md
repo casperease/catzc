@@ -25,7 +25,7 @@ capsule `Deploy_*` stages in the middle.
 2. Marker 2, CI STAGE: the runner Build-Bicep.
 3. Marker 3, beside the edge from Build-Bicep into `Deploy_*` stages.
 4. Marker 4, TARGETS: the environment nsub · dev · test.
-5. Marker 5, TARGETS: the environment psub · preprod · prod.
+5. Marker 5, TARGETS: the environment psub · prod.
 6. Marker 6, FAILURES: the failure Deploy-Bicep.
 7. Marker 7, FAILURES: the failure Get-BicepDeploymentContext.
 
@@ -35,7 +35,7 @@ capsule `Deploy_*` stages in the middle.
 | --------------------- | ----- | --------------------------------------------------------------------------- |
 | actor                 | 1     | developer (TRIGGER)                                                         |
 | runner                | 2     | Build-Bicep (CI STAGE), `Deploy_*` stages (DEPLOY STAGES, tall capsule)     |
-| environment           | 2     | nsub · dev · test (TARGETS, upper), psub · preprod · prod (TARGETS, lower)  |
+| environment           | 2     | nsub · dev · test (TARGETS, upper), psub · prod (TARGETS, lower)            |
 | failure               | 2     | Deploy-Bicep (FAILURES, left), Get-BicepDeploymentContext (FAILURES, right) |
 
 The runners are slate with white names; the actor is a white circle; the environments are neutral grey; the failures are light red.

@@ -12,7 +12,7 @@ CI, CD and DEPLOY are separate pipeline kinds, keyed together by one artifact.
 5  release-uat           where DEPLOY-Non-Prod drives the artifact for a release branch
 6  RBC                   Release Branch Certification: the human gate at release-uat
 7  pre-prod, production  DEPLOY-Prod stages the artifact inactive, then activates it live
-8  the CD run's path     the CD pipelines deploy pre-prod and prod themselves today
+8  the CD run's path     the apex and shared CD pipelines deploy the prod tier themselves today
 
 Supports ADR-FLOW-CD#3, #4, #5, #9 and #11 (architecture lens).
 ```
@@ -35,7 +35,8 @@ The diagram is described element by element in
    byte-identical to what non-prod certified. The CD pipelines publish their artifacts and every deploy job downloads them, but no step tags
    them.
 3. **main-uat.** CD's direction through non-prod ends on an always-on environment that tracks the latest main, whatever the organization
-   calls it. In the repository it is the `dev` and `test` environments that every merge to main redeploys. The on-demand environment with
+   calls it. In the repository it is the `dev` environment, and for the shared platform also `test`, that every merge to main redeploys.
+   The on-demand environment with
    its L3 system tests, which the ADR places before it, has no pipeline yet.
 4. **RC.** Release Certification is a manual gate at main-uat. It clears when main-AT, the acceptance testing against main-uat, is verified.
    A gate decides whether the artifact may proceed; it is not a pipeline.
@@ -44,8 +45,9 @@ The diagram is described element by element in
 6. **RBC.** Release Branch Certification is the second manual gate, at release-uat, and it clears when release-AT is verified.
 7. **Pre-prod and production.** DEPLOY-Prod drives the RBC-cleared artifact first into pre-prod, staged but not serving, and then activates
    the same bytes live in production.
-8. **The CD run's own path to prod.** The apex and shared CD pipelines deploy the artifact to `preprod` and `prod` themselves, in the same
-   run as non-prod, with no gate and no DEPLOY in between.
+8. **The CD run's own path to prod.** The apex and shared CD pipelines deploy the artifact to the prod tier themselves, in the same run as
+   non-prod, with no gate and no DEPLOY in between: `psub` for both, and the expedition `prod` for apex. No CD pipeline deploys a pre-prod
+   target, so the path ends on production.
 
 ## Why it holds
 
@@ -62,8 +64,8 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-- The ADR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, `preprod` and `prod` in the same run, with
-  no gate and no DEPLOY pipeline.
+- The ADR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same
+  run, with no gate and no DEPLOY pipeline.
 - The ADR gives a solo CI pipeline a tagged artifact as its output, while the pipeline-types ADR says a solo CI produces only a pass/fail
   signal; the solo CI pipelines in the repository publish no artifact.
 - The artifact carries no tag, and no pipeline runs the on-demand L3 environment, release-uat, RC, RBC or DEPLOY.

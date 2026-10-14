@@ -29,7 +29,26 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
         Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.Execution.CliResult]::new($script:checkOutput, '', $script:checkExit)
         }
+        # A fixture Bash root, so the vendored runner's folder is the fixture's, never the shipped config's.
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'bash' } {
+            [Catzc.Base.Languages.BashConfig]::new([ordered]@{ root = 'gadget-bash'; bats_version = '1.14.0'; bats_sha256 = ('a' * 64) })
+        }
         $script:reportFolder = Join-Path $TestDrive 'shell-scripts'
+    }
+
+    It 'checks only the line endings of the vendored bats-core runner, its extensionless scripts included' {
+        Set-FixtureFile 'gadget-bash/.vendor/bats-core/libexec/bats-core/bats' "#!/usr/bin/env bash`r`necho runner`r`n"
+        Set-FixtureFile 'gadget-bash/.vendor/bats-core/lib/bats-core/common.bash' "#!/usr/bin/env bash`necho sourced`n"
+        $runner = 'gadget-bash/.vendor/bats-core/libexec/bats-core/bats', 'gadget-bash/.vendor/bats-core/lib/bats-core/common.bash'
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @('widget/run.sh') + $runner }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Executable } { 'widget/run.sh' }
+
+        $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
+
+        $result.Issues | Should -Be @('gadget-bash/.vendor/bats-core/libexec/bats-core/bats: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)')
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Command -eq '"C:\widget\shellcheck.exe" --format=gcc --external-sources "importer.sh" "widget/run.sh"'
+        }
     }
 
     It 'checks the tracked scripts and importer.sh, analysing all but the vendored ones' {

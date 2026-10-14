@@ -46,6 +46,8 @@ function Test-ScriptAnalyzer {
 
         [string] $OutputFolder,
 
+        [switch] $NoCache,
+
         [switch] $PassThru
     )
 
@@ -80,7 +82,7 @@ function Test-ScriptAnalyzer {
     # Analyze, sharded across background processes with live progress (Get-ScriptAnalyzerDiagnostics) — a
     # serial pass is ~90s of silence and reads as a hang. The upfront message confirms work has started.
     Write-Message "Analyzing $($files.Count) PowerShell file(s) with PSScriptAnalyzer..."
-    $diagnostics = @(Get-ScriptAnalyzerDiagnostics -Path $files -SettingsPath $settingsPath)
+    $diagnostics = @(Get-ScriptAnalyzerDiagnostics -Path $files -SettingsPath $settingsPath -NoCache:$NoCache)
 
     # Paths are made repo-relative so the issues read cleanly and are stable across machines.
     $issues = @(foreach ($d in ($diagnostics | Sort-Object ScriptPath, Line, Column)) {

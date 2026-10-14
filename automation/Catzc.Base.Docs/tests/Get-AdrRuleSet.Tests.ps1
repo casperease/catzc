@@ -7,10 +7,12 @@ Describe 'Get-AdrRuleSet' -Tag 'L0', 'logic' {
                 domains = [ordered]@{
                     widget = [ordered]@{
                         code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
+                        stack = 'PRIN'; concern = @('build')
                         rulesets = [ordered]@{ 'widget-one' = [ordered]@{ external = 'ADR-WI-ONE' } }
                     }
                     gadget = [ordered]@{
                         code = 'GA'; role = 'implementation'; description = 'The gadget implementation.'; depends_on = @('widget')
+                        stack = 'AUTO'; concern = @('automation')
                         rulesets = [ordered]@{
                             'gadget-one' = [ordered]@{ external = 'ADR-GA-ONE' }
                             'gadget-two' = [ordered]@{ external = 'ADR-GA-TWO' }

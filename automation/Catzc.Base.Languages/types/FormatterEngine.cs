@@ -1,8 +1,12 @@
 // One formatter engine's settings in the file-language registry (configs/languages.yml `engines:`): the VS Code
 // extension that runs the same engine in the editor, so Format Document and Format-Code agree
-// ([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)). The fields mirror the YAML
-// keys, so the properties are snake_case
+// ([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)), and the repository files whose
+// content decides what the engine writes, so Format-Code's result cache is invalidated when one of them changes. The
+// fields mirror the YAML keys, so the properties are snake_case
 // ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)); `name` is the entry's key.
+
+using System;
+using System.Collections.Generic;
 
 namespace Catzc.Base.Languages;
 
@@ -17,9 +21,13 @@ public sealed class FormatterEngine
     // editor has none.
     public string vscode_extension { get; }
 
-    public FormatterEngine(string name, string vscodeExtension)
+    // The repository-relative files whose content decides the engine's output (e.g. .prettierrc.yml). Empty when none.
+    public IReadOnlyList<string> settings { get; }
+
+    public FormatterEngine(string name, string vscodeExtension, string[] settings)
     {
         this.name = name;
         vscode_extension = vscodeExtension;
+        this.settings = settings == null ? Array.Empty<string>() : (string[])settings.Clone();
     }
 }

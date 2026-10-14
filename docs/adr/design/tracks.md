@@ -122,6 +122,38 @@ The `Test-WorldMap` quality gate checks it.
 
 - [The world map](#the-world-map)
 
+### Rule ADR-DSGN-TRACK:14
+
+The **value-chain stack** is the ordered set of rows a decision sits on, from the axioms down to the vendor: `PRIN` (what catzc is for, its
+principles, its process, and the research they rest on), `DSGN` (how the platform and its delivery flow are shaped), `AUTO` (the tooling
+that enacts them), `PIPE` (the pipelines that run the tooling), and `CLOUD` (the substrate it deploys onto). Every ADR domain declares
+exactly one row (`stack:` in `adrs.yml`), and every ADR it holds sits on that row. The value-chain stack orders decisions; it is not a
+track's tech-stack (ADR-DSGN-TRACK#3), which is a set of file languages.
+
+- [The value-chain map](#the-value-chain-map)
+
+### Rule ADR-DSGN-TRACK:15
+
+A **value-chain concern** is one of the six columns that say where along delivery an ADR acts, in value-chain order: `automation` (loading
+the modules, reading their configuration, and selecting files through globsets), `build` (turning the tracked files into an artifact),
+`quality-control` (verifying a change — tests, checks, and quality gates), `release` (making a build a versioned, promotable release
+candidate), `deploy` (putting a release onto its target), and `access` (reaching and operating what runs — identities, credentials, and
+monitoring). Every ADR domain declares a default (`concern:` in `adrs.yml`), and an ADR declares its own only when it differs, so every ADR
+resolves to one or more value-chain concerns, never to none and never to an unknown one. A value-chain concern is not a track's root concern
+(ADR-DSGN-TRACK#1): a track is where files live, and a value-chain concern is where a decision acts.
+
+- [The value-chain map](#the-value-chain-map)
+
+### Rule ADR-DSGN-TRACK:16
+
+The **value-chain map** is the ADRs drawn as the value-chain stack crossed with the value-chain concerns: one row per row of the stack
+(ADR-DSGN-TRACK#14) and one column per value-chain concern (ADR-DSGN-TRACK#15), and an ADR lights the places where the row of the ADR
+domain that holds it meets each of its value-chain concerns. It is computed from `adrs.yml`, never drawn by hand, and every label it prints
+names a defined term in its head, as the world map's labels do (ADR-DSGN-TRACK#13); its row names are the rows of the value-chain stack, and
+its column names are the value-chain concerns.
+
+- [The value-chain map](#the-value-chain-map)
+
 ## Context
 
 A mono repository holds several concerns that differ in everything but their home: language, delivery target, cadence, and blast radius.
@@ -210,6 +242,22 @@ picture answers "where does this decision apply" and "where does my change sit".
 undefined concept would teach its reader a word the repository never fixed, so every printed concept carries a rule here and a glossary
 entry, and the quality gate fails a label that names none.
 
+### The value-chain map
+
+The world map says where a decision's files sit; it cannot say where along delivery the decision acts. A rule about formatting and a rule
+about release tags can govern the same PowerShell files in the same track, and the world map lights the same cells for both. The
+value-chain map answers the other question. Its rows are the value-chain stack, ordered from the axioms every decision specialises down to
+the vendor every deployment lands on, so the row says how general a decision is. Its columns are the value-chain concerns, ordered the way
+a change travels — the tooling it runs on, its build, its verification, its release, its deployment, and the access to what runs — so the
+columns read left to right like the value-chain diagrams ([visual-design](visual-design.md)). The two maps sit side by side because each
+answers what the other cannot.
+
+The place is declared, never guessed. Every ADR domain names its row and a default set of value-chain concerns in `adrs.yml`, and an ADR
+that acts elsewhere declares its own, so the declaration is made once per ADR domain and repeated only where an ADR differs, the same
+resolution every setting follows ([sensible-defaults](../automation/sensible-defaults.md#rule-adr-auto-default6)). Both words are
+qualified on purpose: "concern" already names a track, the repository's root concern, and "stack" already names a track's tech-stack, so
+the value-chain forms keep each word to one meaning.
+
 ## Decision
 
 Name the concept: repository root concerns are **tracks** — folder-named (ADR-DSGN-TRACK#1), classified core/port/adapter/verification
@@ -218,6 +266,8 @@ shipped through deployable-units that bind pipelines 1-1 (ADR-DSGN-TRACK#5). A t
 extension (ADR-DSGN-TRACK#6). The world map crosses the tracks with the file languages (ADR-DSGN-TRACK#9), with a row for the root files and
 a column for the unlisted files (ADR-DSGN-TRACK#7, ADR-DSGN-TRACK#8); its cells (ADR-DSGN-TRACK#10) mark the stack violations
 (ADR-DSGN-TRACK#11) and light for a highlight (ADR-DSGN-TRACK#12), and every label it prints names a defined term (ADR-DSGN-TRACK#13).
+Beside it, the value-chain map (ADR-DSGN-TRACK#16) crosses the value-chain stack (ADR-DSGN-TRACK#14) with the value-chain concerns
+(ADR-DSGN-TRACK#15), both declared per ADR domain in `adrs.yml`, with a per-ADR override of the concerns.
 
 ### How this is enforced
 
@@ -230,12 +280,17 @@ a column for the unlisted files (ADR-DSGN-TRACK#7, ADR-DSGN-TRACK#8); its cells 
   core ← adapter/port dependency.
 - **The `Test-WorldMap` quality gate** reads the world map and fails on a stack violation (ADR-DSGN-TRACK#11), a root folder with tracked
   files that no track names (ADR-DSGN-TRACK#1), and a printed label that names no defined term (ADR-DSGN-TRACK#13).
+- **`Catzc.Base.Docs.AdrsConfig`**, the type of `adrs.yml`, declares the rows of the value-chain stack and the value-chain concerns once, in
+  order, and fails the load on an ADR domain without a row or a default, on a row or a value-chain concern outside them, and on an unknown
+  key, so every ADR resolves to its row and one or more value-chain concerns (ADR-DSGN-TRACK#14, ADR-DSGN-TRACK#15).
 - **Code review** applies the taxonomy: a new root must name its classification and tech-stack; a cross-cutting need becomes a scope
   globset, not a root.
 
 ## Consequences
 
 - "Which track does this change touch?" has one answer, computed (git-reflected against the globsets), not argued.
+- "Where along delivery does this decision act?" has a declared answer too: the value-chain map reads it from `adrs.yml`, and a new ADR
+  inherits its ADR domain's default until it declares otherwise.
 - Pipelines, tests, and reviewers all read the same coordination surface, so a change's blast radius is the same fact everywhere.
 - Opening a concern is cheap and bounded: one root folder, one classification, one globset entry — and the rest of the repository is
   untouched by construction.

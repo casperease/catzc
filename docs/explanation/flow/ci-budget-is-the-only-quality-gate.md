@@ -36,7 +36,7 @@ The diagram is described element by element in
    without `-EnforceTimings`, so the gate binds the Azure DevOps pipeline only.
 3. **CD.** CD runs the CI component, then takes the artifact through non-prod and stays there. Code review is meant to check both this and
    build-once. The code keeps build-once, since every deploy job downloads the artifact the CI stage published, but the apex and shared CD
-   pipelines also deploy `preprod` and `prod`.
+   pipelines also deploy the prod tier: `psub`, and for apex the expedition `prod`.
 4. **RC.** Release Certification is the manual gate at main-uat, cleared when main-AT is verified. No pipeline or check carries it.
 5. **DEPLOY-Non-Prod.** DEPLOY is the actuator that rolls the artifact on once a gate clears; DEPLOY-Non-Prod drives it into the non-prod
    acceptance environments. There is no DEPLOY pipeline in the repository.
@@ -59,7 +59,8 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-- The ADR keeps CD in non-prod, but the apex and shared CD pipelines deploy `preprod` and `prod` in the same run, with no gate.
+- The ADR keeps CD in non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same run, with
+  no gate.
 - The ADR's budget is the 5–10 minute integration cycle; the quality gate enforces per-test level limits instead, and only in the Azure
   DevOps pipeline.
 - No pipeline tags the artifact, and no RC, RBC, release-uat, DEPLOY pipeline or pre-prod-first activation exists.

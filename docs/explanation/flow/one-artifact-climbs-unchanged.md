@@ -35,7 +35,8 @@ The diagram is described element by element in
 4. **Manual gate.** A person certifies the artifact and decides whether it may proceed; a gate clears or holds, never half. No pipeline
    carries this gate yet.
 5. **Production.** Past the gate, the flow leaves automation and enters DEPLOY, the pipeline that acts once the gate clears.
-6. **The shortcut.** The CD pipelines deploy the artifact to production themselves, in the same run as non-prod, without passing a gate.
+6. **The shortcut.** The apex and shared CD pipelines deploy the artifact to the prod tier themselves, in the same run as non-prod, without
+   passing a gate.
 
 ## Why it holds
 
@@ -47,8 +48,8 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-- The ADR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, `preprod` and `prod` in the same run, with
-  no gate.
+- The ADR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same
+  run, with no gate.
 - No pipeline tags the artifact or runs the on-demand environment with system tests.
 
 ## See also

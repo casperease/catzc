@@ -7,7 +7,9 @@
     ([ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2): the POSIX engines require LF;
     [ADR-AUTO-BASH#6](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash6): every shell script takes these checks).
     The scope is every tracked *.sh, *.bats and *.zsh file plus the root importer.sh (a committed root-config copy that is
-    regenerated on import). Four checks:
+    regenerated on import). The vendored bats-core runner (<Bash root>/.vendor/bats-core/, BashConfig.BatsFolder) is mostly
+    Bash scripts without an extension; every tracked file in it takes the LF check only, since it is third-party code the
+    repository runs but does not own (upstream ships its sourced lib/*.bash with a shebang and mode 100644). Four checks:
 
       LF          every file in scope: a carriage return anywhere is one issue (.gitattributes pins the shell scripts to
                   eol=lf, so a re-checkout fixes a stale working copy; a CRLF file in the index needs re-adding);
@@ -86,6 +88,16 @@ function Test-ShellScripts {
         }
     }
 
+    # The vendored bats-core runner: the LF check only (third-party code, run but not owned).
+    $batsFolder = "$((Get-Config -Config bash).ResolveRoot($repositoryRoot))/$([Catzc.Base.Languages.BashConfig]::BatsFolder)/"
+    $vendoredRunner = @($tracked | Where-Object { $_.StartsWith($batsFolder, [System.StringComparison]::Ordinal) } | Sort-Object)
+    foreach ($file in $vendoredRunner) {
+        $full = Join-Path $repositoryRoot $file
+        if ((Test-Path -LiteralPath $full -PathType Leaf) -and ([System.IO.File]::ReadAllBytes($full) -contains 13)) {
+            $issues.Add("${file}: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)")
+        }
+    }
+
     $zshScripts = @($scripts | Where-Object { $_.EndsWith('.zsh', [System.StringComparison]::Ordinal) })
     $analysed = @($scripts | Where-Object {
             $path = $_
@@ -147,5 +159,5 @@ function Test-ShellScripts {
     }
 
     Write-QualityGateReport -Subject shell-scripts -Title Test-ShellScripts -Issues $issues.ToArray() `
-        -Facts ([ordered]@{ Scripts = $scripts.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
+        -Facts ([ordered]@{ Scripts = $scripts.Count; VendoredRunnerFiles = $vendoredRunner.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }
