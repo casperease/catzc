@@ -17,7 +17,7 @@ Test-Change                           # run them; throws once listing every issu
 `Test-Change` is the check to run before handing work over. It reads the working tree's changes against `HEAD` (or the paths you pass), runs
 the test files that cover them (a changed test file, the test file of a changed function, the test file of a changed C# type) through
 `Invoke-TestFile`, and runs the quality gates each changed file's language names in `languages.yml` (`checks`). It reports only the issues
-in the files you changed; the whole suite and the repository-wide gates stay `Test-Automation`'s job.
+in the files you changed; the whole suite and the repository-wide quality gates stay `Test-Automation`'s job.
 
 ## Run the tests
 

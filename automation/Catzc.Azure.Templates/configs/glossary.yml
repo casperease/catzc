@@ -36,7 +36,7 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       hub: A hub is a shared subscription's landing zone, listing its spokes; a spoke is a customer subscription's, peered to its hub.
-  Cloud Adoption Framework:
+  cloud adoption framework:
     key: cloud_adoption_framework
     domain: azure
     defined_by: ADR-AZ-LZ#1
@@ -45,14 +45,14 @@ concepts:
       recommendation in docs/adr/azure/caf/, one rule per recommendation.
     realized_by: { kind: prose-only }
     contrasts:
-      Well-Architected Framework: The Cloud Adoption Framework shapes the landing zone; the Well-Architected Framework shapes the workload in it.
+      well-architected framework: The Cloud Adoption Framework shapes the landing zone; the Well-Architected Framework shapes the workload in it.
   management group:
     key: management_group
     domain: azure
     defined_by: ADR-AZ-LZ#1
     short: An Azure container above subscriptions for policy and access; this repository deploys no management group and nothing at that level.
     realized_by: { kind: prose-only }
-  Well-Architected Framework:
+  well-architected framework:
     key: well_architected_framework
     domain: azure
     defined_by: ADR-AZ-LZ#5
@@ -61,7 +61,7 @@ concepts:
       numbers it.
     realized_by: { kind: prose-only }
     contrasts:
-      Cloud Adoption Framework: The Well-Architected Framework shapes the workload; the Cloud Adoption Framework shapes the landing zone it lands in.
+      cloud adoption framework: The Well-Architected Framework shapes the workload; the Cloud Adoption Framework shapes the landing zone it lands in.
   pillar:
     key: pillar
     domain: azure
@@ -76,7 +76,7 @@ concepts:
     defined_by: ADR-AZ-LZ#6
     short: The one SQL login beside a server's Entra ID admin group, its password a Key Vault reference to foundation's vault.
     realized_by: { kind: prose-only }
-  CAF tags:
+  caf tags:
     key: caf_tags
     domain: azure
     defined_by: ADR-AZ-CAFNAME#11

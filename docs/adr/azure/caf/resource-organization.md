@@ -129,8 +129,8 @@ not in four dedicated platform subscriptions.
 
 ### Rule ADR-AZ-CAFRESORG:19
 
-Partly adopted: **subscription vending** is a pull request — an `azure.yml` entry, its range in `network.yml` (the IP address plan), and
-one config per template that gives it its workspace, vault, landing zone, tags, and budget; creating the subscription itself is not adopted,
+Partly adopted: **subscription vending** is a pull request — an `azure.yml` entry, its range in `network.yml` (the IP address plan), and one
+config per template that gives it its workspace, vault, landing zone, tags, and budget; creating the subscription itself is not adopted,
 because the repository deploys only into subscriptions it is given.
 
 - [19 — A subscription vending process](#19--a-subscription-vending-process)

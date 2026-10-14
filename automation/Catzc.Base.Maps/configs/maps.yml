@@ -14,7 +14,7 @@
 #     line: '#9AA8B8'               #   the grid lines
 #     text: '#1F2933'               #   titles, headers and counts
 #     violation: '#C62828'          #   the mark of a cell that breaks its track's tech-stack
-#     highlight: '#F4B942'          #   the outline of a lit cell
+#     highlight: '#37474F'          #   the outline of a lit cell; the slide minimaps fill a lit cell with it
 #   limits:                         # each a positive number
 #     page_width: 842               #   PDF points (A4 landscape)
 #     page_height: 595

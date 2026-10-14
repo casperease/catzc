@@ -81,7 +81,8 @@ registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/
 - **One function per file** (`Verb-Noun.ps1`): `Get-Foo.ps1` must contain exactly `function Get-Foo`
 - **Folder = module**: A module is a folder under `automation/` containing `.ps1` files
 - **Public/private by location**: `.ps1` files at the module root are PUBLIC (exported). `.ps1` files in `private/` are PRIVATE (loaded but
-  not exported). Private functions are available to public functions via shared module scope (`.ps1` in `NestedModules`).
+  not exported). Private functions are available to public functions via shared module scope (each `.ps1` dot-sourced into the module by the
+  shared loader `automation/.internal/assets/Import-ModuleFiles.ps1`).
 - `importer.ps1` handles loading all modules
 
 ### Editing

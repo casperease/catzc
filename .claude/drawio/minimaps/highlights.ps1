@@ -6,6 +6,7 @@
     Writes into -Data, for render.py and join.py next to this script (.claude/drawio/STYLE.md):
       world-map.json        Get-WorldMap -AsJson
       value-chain-map.json  Get-ValueChainMap -AsJson
+      file-languages.json   each file language's extensions (Get-FileLanguage)
       palette.json          the maps.yml palette the minimaps share with the world-map PDFs
       labels.json           the printed terms: the two bucket keys' labels and the value_chain_* labels of maps.yml
       references.json       every ADR code's file (Get-AdrCitationMap) and every glossary term with its defining rule
@@ -37,6 +38,12 @@ $slideList = (Get-Content -Raw -Encoding utf8 ([System.IO.Path]::GetFullPath($Sl
 $started = [System.Diagnostics.Stopwatch]::StartNew()
 
 [System.IO.File]::WriteAllText((Join-Path $dataFolder 'world-map.json'), (Get-WorldMap -AsJson) + "`n", $utf8)
+# Each file language's extensions: the grid's short column label is its first extension (.claude/drawio/STYLE.md).
+$extensions = [ordered]@{}
+foreach ($language in @(Get-FileLanguage)) {
+    $extensions[$language.name] = @($language.extensions)
+}
+[System.IO.File]::WriteAllText((Join-Path $dataFolder 'file-languages.json'), ($extensions | ConvertTo-Json) + "`n", $utf8)
 $chainJson = Get-ValueChainMap -AsJson
 [System.IO.File]::WriteAllText((Join-Path $dataFolder 'value-chain-map.json'), $chainJson + "`n", $utf8)
 $maps = Get-Config -Config maps

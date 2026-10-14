@@ -403,9 +403,10 @@ to weigh and design recommendations; the landing zone a subscription receives he
 The network topology and connectivity design area is the largest of them, so the repository records it in three ADRs. This one covers how
 traffic reaches and leaves the networks and how it is protected on the way: connectivity to Azure from other sites, inbound and outbound
 internet traffic, application delivery, remote access to virtual machines through Bastion, network encryption, and traffic inspection. The
-topology, the IP addressing, segmentation, and Virtual Network Manager are in [network-topology](network-topology.md); connectivity to platform services and
-DNS are in [network-private-access](network-private-access.md). The network itself is a hub and spoke per subscription, one hub per tier of shared subscriptions and
-one spoke per customer subscription ([ADR-AZ-LZ#2](../landing-zones.md#rule-adr-az-lz2)), with its ranges in `network.yml`.
+topology, the IP addressing, segmentation, and Virtual Network Manager are in [network-topology](network-topology.md); connectivity to
+platform services and DNS are in [network-private-access](network-private-access.md). The network itself is a hub and spoke per
+subscription, one hub per tier of shared subscriptions and one spoke per customer subscription
+([ADR-AZ-LZ#2](../landing-zones.md#rule-adr-az-lz2)), with its ranges in `network.yml`.
 
 These rules are vendor recommendation, not principled theory. They do not argue from first principles the way the axioms and DORA's research
 do; they record what the repository does about each of Microsoft's recommendations. Each rule cites Microsoft's page — area, page, link,
@@ -673,8 +674,8 @@ Summary (ours): Deliver HTTP and HTTPS applications through Application Gateway 
 #### What 14 means here
 
 No workload serves web traffic to the internet, so there is no web application firewall either; ADR-AZ-WAFSE#6 and
-[ADR-AZ-CAFSEC#41](landing-zone-security.md#rule-adr-az-cafsec41) reach the same conclusion. The first web workload would add a gateway module with its
-firewall policy on by default, placed as [13](#13--deliver-applications-from-their-own-landing-zone) says.
+[ADR-AZ-CAFSEC#41](landing-zone-security.md#rule-adr-az-cafsec41) reach the same conclusion. The first web workload would add a gateway
+module with its firewall policy on by default, placed as [13](#13--deliver-applications-from-their-own-landing-zone) says.
 
 ##### 14 status
 
@@ -871,8 +872,8 @@ Summary (ours): Use Azure Firewall to control outbound internet traffic, inbound
 The hub reserves `AzureFirewallSubnet` (a /26 in each hub of `network.yml`) and deploys nothing into it, so a firewall can be added without
 renumbering ([ADR-AZ-NETWORK#5](../azure-network-model.md#rule-adr-az-network5)). Until it is, egress is unfiltered and traffic between the
 hub and its spokes passes the peerings with only the network security groups between them. The decision to filter egress through the hub is
-ADR-AZ-WAFSE#6's, and the zero-trust view of the same gap is [ADR-AZ-CAFSEC#42](landing-zone-security.md#rule-adr-az-cafsec42); this rule records where
-the pieces go.
+ADR-AZ-WAFSE#6's, and the zero-trust view of the same gap is [ADR-AZ-CAFSEC#42](landing-zone-security.md#rule-adr-az-cafsec42); this rule
+records where the pieces go.
 
 The follow-up touches three places. The hub deploys a firewall into `AzureFirewallSubnet` from a new shared module. Each spoke's route table
 gains a default route to the firewall's private address, and its peering to the hub accepts forwarded traffic (`allowForwardedTraffic` in

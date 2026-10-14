@@ -106,7 +106,8 @@ the retrieval date — and summarises it in our words. Nothing is quoted, becaus
 Terms of Use, which carry no reuse licence for a shared repository. The checklist lives at
 [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/checklist).
 
-The [WAF reference](../../../references/waf/index.md) lists the five pillar records in this repository and the Microsoft checklist each one cites.
+The [WAF reference](../../../references/waf/index.md) lists the five pillar records in this repository and the Microsoft checklist each one
+cites.
 
 The examples are the three templates under `infrastructure/templates/`: `foundation` (the Log Analytics workspace and Key Vault of each
 subscription), `discovery` (the landing zone, ADR-AZ-LZ#1), and `expedition` (the workload that lands in it, ADR-AZ-LZ#4). Every takeaway

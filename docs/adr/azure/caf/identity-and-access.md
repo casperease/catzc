@@ -3,8 +3,8 @@
 `ADR: CAF identity and access — what the repository does about each recommendation of the landing-zone identity and access design area`
 
 Pairs with [`waf-security`](../waf/security.md) (the workload view of identity, [ADR-AZ-WAFSE#5](../waf/security.md#rule-adr-az-wafse5),
-whose analysis is cited here, not repeated), [`caf-security`](landing-zone-security.md) (the platform's Key Vault and privileged-access rules), and
-[`landing-zones`](../landing-zones.md) (the SQL authentication of [ADR-AZ-LZ#6](../landing-zones.md#rule-adr-az-lz6)).
+whose analysis is cited here, not repeated), [`caf-security`](landing-zone-security.md) (the platform's Key Vault and privileged-access
+rules), and [`landing-zones`](../landing-zones.md) (the SQL authentication of [ADR-AZ-LZ#6](../landing-zones.md#rule-adr-az-lz6)).
 
 ## Rules: ADR-AZ-CAFIAM
 
@@ -926,7 +926,8 @@ Summary (ours): Use Microsoft Sentinel over Azure Monitor, Entra ID, and Microso
 #### What 26 means here
 
 The choice of a security information and event management tool belongs to the tenant's security operations
-([ADR-AZ-CAFSEC#43](landing-zone-security.md#rule-adr-az-cafsec43)); `foundation`'s workspace in each subscription is where Sentinel would attach.
+([ADR-AZ-CAFSEC#43](landing-zone-security.md#rule-adr-az-cafsec43)); `foundation`'s workspace in each subscription is where Sentinel would
+attach.
 
 ##### 26 status
 
@@ -1185,10 +1186,10 @@ Summary (ours): Use Azure RBAC for access to data as well, for example in Key Va
 #### What 37 means here
 
 The authorization model is in place. `key-vault.bicep` fixes `enableRbacAuthorization: true` with no access policies
-([ADR-AZ-CAFSEC#16](landing-zone-security.md#rule-adr-az-cafsec16)), so a control-plane role such as Contributor does not read a secret; a data role
-does. `storage-account.bicep` turns shared-key access off, so every data request carries an Entra ID token and is authorized by an Azure
-RBAC data role. SQL has no Azure RBAC data plane: access inside the database goes to Entra ID principals, and the server's administrator is
-a group ([ADR-AZ-LZ#6](../landing-zones.md#rule-adr-az-lz6)).
+([ADR-AZ-CAFSEC#16](landing-zone-security.md#rule-adr-az-cafsec16)), so a control-plane role such as Contributor does not read a secret; a
+data role does. `storage-account.bicep` turns shared-key access off, so every data request carries an Entra ID token and is authorized by an
+Azure RBAC data role. SQL has no Azure RBAC data plane: access inside the database goes to Entra ID principals, and the server's
+administrator is a group ([ADR-AZ-LZ#6](../landing-zones.md#rule-adr-az-lz6)).
 
 What is missing is the roles: no template grants a Key Vault, storage, or SQL data role
 ([ADR-AZ-WAFSE#5](../waf/security.md#rule-adr-az-wafse5)).
@@ -1224,8 +1225,9 @@ Summary (ours): Give a shared central Log Analytics workspace the resource-conte
 #### What 38 means here
 
 There is no central workspace. `foundation` deploys one per subscription, so a customer's logs never share a workspace with another
-customer's ([ADR-AZ-CAFSEC#7](landing-zone-security.md#rule-adr-az-cafsec7)). Within a subscription the workspace is shared: in the shared non-production
-subscription, the landing zone and the `dev` and `test` slots of `expedition` all send their diagnostics to the same workspace.
+customer's ([ADR-AZ-CAFSEC#7](landing-zone-security.md#rule-adr-az-cafsec7)). Within a subscription the workspace is shared: in the shared
+non-production subscription, the landing zone and the `dev` and `test` slots of `expedition` all send their diagnostics to the same
+workspace.
 
 `log-analytics.bicep` sets the name, the SKU, the retention, and the tags, and leaves the access-control mode to the platform's default. A
 secure default that pins resource-context access (`enableLogAccessUsingOnlyResourcePermissions`) would make the mode a decision of the
@@ -1498,8 +1500,8 @@ workspace with non-production.
 
 Within a tier, the environments share. In the shared non-production subscription, the `dev` and `test` slots of `expedition` deploy through
 the one service connection `sc-shared-nonprod`, read the same break-glass secret from the same vault
-([ADR-AZ-CAFSEC#26](landing-zone-security.md#rule-adr-az-cafsec26)), and name the same SQL administrator group (rule 45). Managed identities are the
-exception: each is system-assigned to one resource of one configuration slot, so none is shared (rule 61).
+([ADR-AZ-CAFSEC#26](landing-zone-security.md#rule-adr-az-cafsec26)), and name the same SQL administrator group (rule 45). Managed identities
+are the exception: each is system-assigned to one resource of one configuration slot, so none is shared (rule 61).
 
 The DevOps security considerations advise one deploying identity per application and environment. Here that would be one service connection
 per environment, each with rights on its environment's resource group, rather than per subscription.
@@ -1536,8 +1538,8 @@ Summary (ours): Decide whether platform administrators need rights on workload l
 #### What 48 means here
 
 Eligibility and activation are settings of Privileged Identity Management in the tenant
-([ADR-AZ-CAFSEC#37](landing-zone-security.md#rule-adr-az-cafsec37)). The repository's platform access is its deploying identity, one service connection
-per subscription (rule 54), not a person.
+([ADR-AZ-CAFSEC#37](landing-zone-security.md#rule-adr-az-cafsec37)). The repository's platform access is its deploying identity, one service
+connection per subscription (rule 54), not a person.
 
 ##### 48 status
 
@@ -1725,8 +1727,9 @@ Summary (ours): Put highly privileged roles such as Owner and User Access Admini
 
 #### What 55 means here
 
-Group eligibility is a setting of Privileged Identity Management in the tenant ([ADR-AZ-CAFSEC#37](landing-zone-security.md#rule-adr-az-cafsec37)). The
-planned standard role set (rule 36) would name such groups once they exist.
+Group eligibility is a setting of Privileged Identity Management in the tenant
+([ADR-AZ-CAFSEC#37](landing-zone-security.md#rule-adr-az-cafsec37)). The planned standard role set (rule 36) would name such groups once
+they exist.
 
 ##### 55 status
 
@@ -1815,8 +1818,8 @@ Summary (ours): Where possible, sign in to Linux and Windows virtual machines wi
 
 #### What 59 means here
 
-No template deploys a virtual machine ([ADR-AZ-CAFSEC#38](landing-zone-security.md#rule-adr-az-cafsec38)). `vm.bicep` exists as a module and takes a
-local administrator name and password; the first template that uses it should give the machine Entra ID sign-in instead.
+No template deploys a virtual machine ([ADR-AZ-CAFSEC#38](landing-zone-security.md#rule-adr-az-cafsec38)). `vm.bicep` exists as a module and
+takes a local administrator name and password; the first template that uses it should give the machine Entra ID sign-in instead.
 
 ##### 59 status
 
@@ -1833,9 +1836,9 @@ Summary (ours): Use managed identities for access between Azure resources, so th
 #### What 60 means here
 
 `storage-account.bicep` and `sql-server.bicep` give their resource a system-assigned managed identity and output its `principalId`
-([ADR-AZ-CAFSEC#29](landing-zone-security.md#rule-adr-az-cafsec29)). Nothing uses them: no role is granted to either, and no resource calls another. The
-one credential between resources, the break-glass password, is read by Azure Resource Manager on behalf of the deploying identity, not by a
-resource.
+([ADR-AZ-CAFSEC#29](landing-zone-security.md#rule-adr-az-cafsec29)). Nothing uses them: no role is granted to either, and no resource calls
+another. The one credential between resources, the break-glass password, is read by Azure Resource Manager on behalf of the deploying
+identity, not by a resource.
 
 The identities become useful with the first access between resources, for example the SQL server writing its audit log or a workload reading
 from the storage account; each is then a role assignment to the identity, in the template that deploys the resource.
@@ -1925,9 +1928,9 @@ Summary (ours): Keep application secrets, keys, and certificates in Key Vault, a
 
 The repository's one secret, the break-glass password, lives in Key Vault, and a secure parameter takes a Key Vault reference, never a
 literal ([ADR-AZ-WAFSE#9](../waf/security.md#rule-adr-az-wafse9)). `key-vault.bicep` authorizes both planes through Azure RBAC, with no
-access policies ([ADR-AZ-CAFSEC#16](landing-zone-security.md#rule-adr-az-cafsec16)). No application reads the vault: Azure Resource Manager resolves the
-reference at deploy time (`enabledForTemplateDeployment: true`). A workload that reads a secret at run time would do so with its managed
-identity and a data role such as Key Vault Secrets User, granted on the vault.
+access policies ([ADR-AZ-CAFSEC#16](landing-zone-security.md#rule-adr-az-cafsec16)). No application reads the vault: Azure Resource Manager
+resolves the reference at deploy time (`enabledForTemplateDeployment: true`). A workload that reads a secret at run time would do so with
+its managed identity and a data role such as Key Vault Secrets User, granted on the vault.
 
 ##### 63 in `foundation`
 
@@ -1960,8 +1963,8 @@ Summary (ours): Use a separate key vault for each application environment in eac
 Vaults are per subscription: `foundation` deploys one in each, so every customer and every tier has its own
 ([ADR-AZ-CAFSEC#15](landing-zone-security.md#rule-adr-az-cafsec15)), in the one region of its environment
 ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)). They are not per application environment: the environments of a tier
-share their tier's vault ([ADR-AZ-CAFSEC#26](landing-zone-security.md#rule-adr-az-cafsec26)), and the workload's secret sits in the platform's vault, not
-in one of its own ([ADR-AZ-CAFSEC#25](landing-zone-security.md#rule-adr-az-cafsec25)).
+share their tier's vault ([ADR-AZ-CAFSEC#26](landing-zone-security.md#rule-adr-az-cafsec26)), and the workload's secret sits in the
+platform's vault, not in one of its own ([ADR-AZ-CAFSEC#25](landing-zone-security.md#rule-adr-az-cafsec25)).
 
 A vault inside the workload is not adopted, because the workload's secret must exist before the workload deploys: the SQL server reads the
 break-glass password at creation, so the vault that holds it belongs to the template deployed before it. Separation per environment comes
@@ -2033,8 +2036,8 @@ Summary (ours): Cloud-native applications should use the Microsoft identity plat
 #### What 67 means here
 
 The workload of `expedition` is a storage account and a database with no user-facing application
-([ADR-AZ-CAFSEC#34](landing-zone-security.md#rule-adr-az-cafsec34)). An application registration and its sign-in are the application's concern, outside
-the templates.
+([ADR-AZ-CAFSEC#34](landing-zone-security.md#rule-adr-az-cafsec34)). An application registration and its sign-in are the application's
+concern, outside the templates.
 
 ##### 67 status
 

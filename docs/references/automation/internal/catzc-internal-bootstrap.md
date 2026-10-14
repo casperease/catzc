@@ -17,7 +17,9 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   the combined C# type assembly once, then for each module generates its manifest and imports it. Import order is irrelevant because the
   types are already loaded, so a function in any module can reference a type in any other.
 - **Manifest generation** — `New-DynamicManifest` scans a module folder for `.ps1` files (root files are public, `private/` files are
-  private, `.Tests.ps1` excluded), and writes a canonical `<Module>.psd1` listing them in `NestedModules` so they share one session state.
+  private, `.Tests.ps1` excluded), and writes a canonical `<Module>.psd1` that lists them in `PrivateData.CatzcFiles` and names the shared
+  loader `assets/Import-ModuleFiles.ps1` as its one `NestedModules` entry: the loader parses each file in memory and dot-sources it into
+  the module, so they share one session state and keep their source file and line.
   It scans for `.ps1` only — a `.psm1` inside a module folder is silently ignored — which is one of the mechanical enforcements of
   [use-ps1-not-psm1](../../../adr/pwsh/use-ps1-not-psm1.md). `Get-DynamicManifestContent` renders the manifest text: the `=` column is
   computed from the longest key rather than hand-padded, endings are LF, and the output is formatter-stable — running the formatter over it

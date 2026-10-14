@@ -83,8 +83,8 @@ instance counter; subnets keep the names of the network plan instead of an `snet
 
 ### Rule ADR-AZ-CAFNAME:11
 
-Partly adopted: the **CAF tags** are a fixed set of six keys, `cost-center` is the one mandatory key, and the others are set by convention in every config; a
-tag schema declared once and checked against every config is planned.
+Partly adopted: the **CAF tags** are a fixed set of six keys, `cost-center` is the one mandatory key, and the others are set by convention
+in every config; a tag schema declared once and checked against every config is planned.
 
 - [11 — Define the tagging requirements](#11--define-the-tagging-requirements)
 

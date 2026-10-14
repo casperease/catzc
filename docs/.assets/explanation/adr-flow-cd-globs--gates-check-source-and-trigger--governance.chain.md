@@ -11,12 +11,30 @@ below names the code that selects it.
 ## What the minimap shows
 
 Value-chain map: value-chain stack × value-chain concerns. The grid crosses the 5 rows of the value-chain stack (PRIN, DSGN, AUTO, PIPE,
-CLOUD) with the 6 value-chain concerns (automation, build, quality-control, release, deploy, access), shades each cell by the ADRs it holds,
-and lights 3 cells.
+CLOUD) with the 6 value-chain concerns (automation, build, quality-control, release, deploy, access) and lights 3 cells, filled in ink.
+Every other cell is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there (7 of
+the 30 cells hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain
+map.
 
 - DSGN × automation: 1 lit of 7 ADRs
 - AUTO × automation: 1 lit of 63 ADRs
 - AUTO × quality-control: 1 lit of 10 ADRs
+
+## Key
+
+Rows are the value-chain stack and columns the value-chain concerns, each printed as a capital code:
+
+- `PRIN`: the PRIN row of the value-chain stack
+- `DSGN`: the DSGN row of the value-chain stack
+- `AUTO`: the AUTO row of the value-chain stack
+- `PIPE`: the PIPE row of the value-chain stack
+- `CLOUD`: the CLOUD row of the value-chain stack
+- `AUTOMA`: automation
+- `BUILD`: build
+- `QC`: quality-control
+- `RELEAS`: release
+- `DEPLOY`: deploy
+- `ACCESS`: access
 
 ## Why each cell is lit
 

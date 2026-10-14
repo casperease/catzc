@@ -10,8 +10,8 @@ configuration tree and the config-addressed parameters it reads).
 ### Rule ADR-AZ-LZ:1
 
 A **landing zone** is the network, the guardrails, and the cost control a workload lands in, deployed once per subscription at subscription
-scope by the `discovery` template, the **Cloud Adoption Framework** (CAF) application landing zone. Its boundary is the subscription: it owns
-no **management group** and deploys nothing at management-group or tenant level, and it holds no workload of its own.
+scope by the `discovery` template, the **Cloud Adoption Framework** (CAF) application landing zone. Its boundary is the subscription: it
+owns no **management group** and deploys nothing at management-group or tenant level, and it holds no workload of its own.
 
 - [The subscription landing zone](#the-subscription-landing-zone)
 - [How this is enforced](#how-this-is-enforced)
@@ -58,8 +58,8 @@ class, from the config.
 
 ### Rule ADR-AZ-LZ:6
 
-A SQL server authenticates its administrators through an Entra ID group first. Beside it sits one **break-glass login**, a SQL login whose password is a
-Key Vault reference to `foundation`'s vault in the same subscription, so the repository holds no secret.
+A SQL server authenticates its administrators through an Entra ID group first. Beside it sits one **break-glass login**, a SQL login whose
+password is a Key Vault reference to `foundation`'s vault in the same subscription, so the repository holds no secret.
 
 - [SQL authentication](#sql-authentication)
 

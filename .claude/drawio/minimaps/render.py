@@ -4,7 +4,7 @@
 Per slide, into the target folder (.claude/drawio/STYLE.md, "Fan-out"):
   <stem>.grid.png   the world map's grid: tracks x file languages, the lit cells filled
   <stem>.tree.png   the world map's tree: the files of the map as a treemap, the lit files filled
-  <stem>.chain.png  the value-chain map: value-chain stack x value-chain concerns, shaded by ADR count, the lit cells filled
+  <stem>.chain.png  the value-chain map: value-chain stack x value-chain concerns, the lit cells filled
 and the sister <stem>.<view>.md of each (describe.py). The data comes from highlights.ps1 (the --data folder); this script
 places nothing itself: every lit cell, lit file and reason is the highlight's.
 
@@ -30,10 +30,9 @@ FONT_SB = "C:/Windows/Fonts/seguisb.ttf"
 LENS_BADGE = {"meta": "META", "architecture": "ARCH", "implementation": "IMPL", "operations": "OPS", "governance": "GOV"}
 VIEWS = ("grid", "tree", "chain")
 
-# Set by configure() from the data folder: the maps.yml palette and printed labels.
+# Set by configure() from the data folder: the maps.yml palette and the bucket labels.
 PALETTE = {}
 BUCKETS = {}
-CHAIN_LABELS = {}
 
 
 def configure(data):
@@ -41,7 +40,6 @@ def configure(data):
     PALETTE.update(json.loads((data / "palette.json").read_text(encoding="utf-8")))
     labels = json.loads((data / "labels.json").read_text(encoding="utf-8"))
     BUCKETS.update(labels["buckets"])
-    CHAIN_LABELS.update(labels["value_chain"])
     return labels
 
 
@@ -51,7 +49,7 @@ def page():
 
 
 def lit():
-    """A lit cell and a lit file: the colour the world-map PDFs outline a lit cell with (palette.highlight)."""
+    """A lit cell and a lit file on all three minimaps: the ink the world-map PDFs outline a lit cell with (palette.highlight)."""
     return PALETTE["highlight"]
 
 
@@ -108,13 +106,31 @@ def spread(centres, pitch, low, high):
     return ys
 
 
-def upright(im, text, f, fill, x, bottom):
-    """Text turned upright (reading bottom to top), centred on x, ending at y = bottom."""
-    probe = ImageDraw.Draw(im)
-    tile = Image.new("RGBA", (int(text_w(probe, text, f)) + 4, 26), (0, 0, 0, 0))
-    ImageDraw.Draw(tile).text((2, 13), text, font=f, fill=fill, anchor="lm")
-    tile = tile.rotate(90, expand=True)
-    im.paste(tile, (int(x - tile.width / 2), int(bottom - tile.height)), tile)
+def touched():
+    """A cell or file lit only by passing mentions: the lit colour, lighter (40 % over the idle grey)."""
+    return mix(lit(), 0.4, IDLE)
+
+
+def draw_cell(d, box, state):
+    """One grid cell in the shared encoding: lit (ink), touched (light ink) or idle (a grey outlined box)."""
+    if state == "lit":
+        d.rectangle(box, fill=lit(), outline=lit(), width=1)
+    elif state == "touched":
+        d.rectangle(box, fill=touched(), outline=touched(), width=1)
+    else:
+        d.rectangle(box, fill=IDLE, outline=BORDER, width=1)
+
+
+def draw_codes(d, items, f, top, low, high):
+    """Short horizontal column labels: each centred over its column where the others allow, alternating between two lines
+    so neighbours never touch; a tick under each lit column marks its exact place."""
+    for line in (0, 1):
+        row = [(x, text, fill) for i, (x, text, fill) in enumerate(items) if i % 2 == line]
+        if not row:
+            continue
+        pitch = max(text_w(d, text, f) for _, text, _ in row) + 8
+        for (_, text, fill), x in zip(row, spread([x for x, _, _ in row], pitch, low, high)):
+            d.text((x, top + line * 22), text, font=f, fill=fill, anchor="mt")
 
 
 def draw_badge(d, text, box, size):
@@ -125,30 +141,18 @@ def draw_badge(d, text, box, size):
     d.text(((x0 + x1) / 2 - tw / 2, (y0 + y1) / 2), text, font=f, fill=WHITE, anchor="lm")
 
 
-def wrap_words(d, text, f, width):
-    lines, line = [], ""
-    for word in text.split():
-        cand = f"{line} {word}".strip()
-        if line and text_w(d, cand, f) > width:
-            lines.append(line)
-            line = word
-        else:
-            line = cand
-    return lines + ([line] if line else [])
-
-
 # ---------------------------------------------------------------- grid minimap (tracks x file languages)
 
 GRID_W, GRID_H = 480, 300
-GRID_LEFT, GRID_TOP, GRID_PAD = 124, 128, 3  # the top holds the longest file-language name, upright, at 18 px
+GRID_LEFT, GRID_TOP, GRID_PAD = 124, 58, 3  # the top holds two lines of short column codes at 18 px
 
 
-def render_grid(world, highlight, badge, path):
-    """The world map's grid: one row per track, one column per file language, in the map's order. A cell that holds
-    files is an idle tile, an empty cell is left open, a lit cell is filled and outlined, and a cell lit only by
-    passing mentions is filled pale with a lit-colour outline. Only the lit rows and columns are named."""
+def render_grid(world, highlight, extensions, badge, path):
+    """The world map's grid: one row per track, one column per file language, in the map's order, every cell a grey box.
+    A lit cell is filled in ink, a cell lit only by passing mentions in lighter ink. Only the lit rows and columns are
+    named: a row by its track, a column by a short code (the file language's first extension, 'other' for the unlisted
+    files), horizontal, with a tick on its axis."""
     rows, cols = world["tracks"], world["file_languages"]
-    counts = {(c["track"], c["file_language"]): c["file_count"] for c in world["cells"]}
     cells = {(c["track"], c["file_language"]): c for c in highlight["cells"]}
     im = Image.new("RGB", (GRID_W, GRID_H), page())
     d = ImageDraw.Draw(im)
@@ -158,14 +162,9 @@ def render_grid(world, highlight, badge, path):
     for r, track in enumerate(rows):
         for c, language in enumerate(cols):
             x0, y0 = GRID_LEFT + c * cw, GRID_TOP + r * ch
-            box = (x0 + gap, y0 + gap, x0 + cw - gap, y0 + ch - gap)
             cell = cells.get((track, language))
-            if cell and cell["touched"]:
-                d.rectangle(box, fill=mix(lit(), 0.35, IDLE), outline=lit(), width=2)
-            elif cell:
-                d.rectangle(box, fill=lit(), outline=INK, width=2)
-            elif counts.get((track, language), 0):
-                d.rectangle(box, fill=IDLE, outline=BORDER, width=1)
+            state = "idle" if not cell else "touched" if cell["touched"] else "lit"
+            draw_cell(d, (x0 + gap, y0 + gap, x0 + cw - gap, y0 + ch - gap), state)
     f = font(18, "sb")
     lit_rows = {t for t, _ in cells}
     lit_cols = {lang for _, lang in cells}
@@ -175,12 +174,15 @@ def render_grid(world, highlight, badge, path):
         d.text((GRID_LEFT - 8 - text_w(d, name, f), y), name, font=f, fill=INK, anchor="lm")
         yc = GRID_TOP + (r + 0.5) * ch
         d.rectangle((GRID_LEFT - 5, yc - ch / 2 + gap, GRID_LEFT - 2, yc + ch / 2 - gap), fill=lit())
-    # Upright column names of neighbouring lit columns are moved apart the same way; the tick marks the exact column.
-    named = [(c, language) for c, language in enumerate(cols) if language in lit_cols]
-    for (c, language), x in zip(named, spread([GRID_LEFT + (c + 0.5) * cw for c, _ in named], 26, GRID_LEFT, GRID_W)):
-        upright(im, fit(d, printed(language), f, GRID_TOP - 14), f, INK, x, GRID_TOP - 8)
-        xc = GRID_LEFT + (c + 0.5) * cw
-        d.rectangle((xc - cw / 2 + gap, GRID_TOP - 5, xc + cw / 2 - gap, GRID_TOP - 2), fill=lit())
+    codes = []
+    for c, language in enumerate(cols):
+        if language not in lit_cols:
+            continue
+        x = GRID_LEFT + (c + 0.5) * cw
+        code = "other" if language not in extensions else extensions[language][0]
+        codes.append((x, code, INK))
+        d.rectangle((x - cw / 2 + gap, GRID_TOP - 5, x + cw / 2 - gap, GRID_TOP - 2), fill=lit())
+    draw_codes(d, codes, f, 4, GRID_LEFT + 4, GRID_W - 2)
     draw_badge(d, badge, (3, 4, 92, 38), 17)
     im.save(path, optimize=True)
 
@@ -188,17 +190,15 @@ def render_grid(world, highlight, badge, path):
 # ---------------------------------------------------------------- value-chain minimap (stack x concern)
 
 CHAIN_W, CHAIN_H = 480, 300
-CHAIN_LEFT, CHAIN_TOP, CHAIN_PAD = 112, 142, 3  # the top holds the longest value-chain concern, upright, at 18 px
+CHAIN_LEFT, CHAIN_TOP, CHAIN_PAD = 76, 58, 3  # the top holds two lines of capital column codes at 18 px
 
 
 def render_chain(chain, highlight, path):
-    """The value-chain map: one row per value-chain stack, one column per value-chain concern, both closed sets in
-    their declared order and all named. A cell's ADR count shades it from palette.cell towards palette.shade (at most
-    half strength, so a lit cell always stands out), an empty cell is left open, and a lit cell is filled and
-    outlined as on the grid. The corner holds the two axis labels (maps.yml value_chain_column_axis, _row_axis)."""
+    """The value-chain map: one row per value-chain stack, one column per value-chain concern, both closed sets in their
+    declared order, every cell a grey box and the lit cells filled in ink. Every row and column is named by a capital
+    code (describe.concern_code), horizontal; the lit ones in ink with a tick, the others in the label grey. The map
+    shows where the slide sits, not how many ADRs a cell holds."""
     rows, cols = chain["stacks"], chain["concerns"]
-    counts = {(c["stack"], c["concern"]): c["adr_count"] for c in chain["cells"]}
-    top = max(counts.values()) or 1
     cells = {(c["stack"], c["concern"]) for c in highlight["cells"]}
     im = Image.new("RGB", (CHAIN_W, CHAIN_H), page())
     d = ImageDraw.Draw(im)
@@ -208,12 +208,7 @@ def render_chain(chain, highlight, path):
     for r, stack in enumerate(rows):
         for c, concern in enumerate(cols):
             x0, y0 = CHAIN_LEFT + c * cw, CHAIN_TOP + r * ch
-            box = (x0 + gap, y0 + gap, x0 + cw - gap, y0 + ch - gap)
-            n = counts.get((stack, concern), 0)
-            if (stack, concern) in cells:
-                d.rectangle(box, fill=lit(), outline=INK, width=2)
-            elif n:
-                d.rectangle(box, fill=mix(PALETTE["shade"], 0.5 * n / top, PALETTE["cell"]), outline=BORDER, width=1)
+            draw_cell(d, (x0 + gap, y0 + gap, x0 + cw - gap, y0 + ch - gap), "lit" if (stack, concern) in cells else "idle")
     f = font(18, "sb")
     lit_rows = {s for s, _ in cells}
     lit_cols = {c for _, c in cells}
@@ -223,15 +218,14 @@ def render_chain(chain, highlight, path):
         d.text((CHAIN_LEFT - 8 - text_w(d, stack, f), y), stack, font=f, fill=INK if on else LABEL, anchor="lm")
         if on:
             d.rectangle((CHAIN_LEFT - 5, y - ch / 2 + gap, CHAIN_LEFT - 2, y + ch / 2 - gap), fill=lit())
+    codes = []
     for c, concern in enumerate(cols):
         x = CHAIN_LEFT + (c + 0.5) * cw
         on = concern in lit_cols
-        upright(im, concern, f, INK if on else LABEL, x, CHAIN_TOP - 8)
+        codes.append((x, describe.concern_code(concern), INK if on else LABEL))
         if on:
             d.rectangle((x - cw / 2 + gap, CHAIN_TOP - 5, x + cw / 2 - gap, CHAIN_TOP - 2), fill=lit())
-    for i, line in enumerate(wrap_words(d, CHAIN_LABELS["column_axis"], f, CHAIN_LEFT - 8)):
-        d.text((4, 8 + i * 22), line, font=f, fill=LABEL, anchor="lt")
-    upright(im, CHAIN_LABELS["row_axis"], f, LABEL, 14, CHAIN_H - 4)
+    draw_codes(d, codes, f, 4, CHAIN_LEFT + 4, CHAIN_W - 2)
     im.save(path, optimize=True)
 
 
@@ -400,8 +394,8 @@ def lit_groups(layout, files):
 
 
 def render_tree(layout, files, mentions, adr_files, path):
-    """The repository tree with the highlight's files lit (pale when lit only by passing mentions); a lit ADR file is
-    framed. The tree sits inside a margin of the page background, so the background shows on every minimap."""
+    """The repository tree with the highlight's files lit in ink (lighter when lit only by passing mentions); a lit ADR
+    file has a white rim. The tree sits inside a margin of the page background, so the background shows on every minimap."""
     s = 1.95
     canvas = Image.new("RGB", (480, 360), page())
     im = Image.new("RGB", (round(240 * s), round(180 * s)), BG)
@@ -414,9 +408,9 @@ def render_tree(layout, files, mentions, adr_files, path):
     for f in sorted(files):
         x0, y0, x1, y1 = sc(layout["files"][f][1], s)
         x0, y0, x1, y1 = x0 + 0.5, y0 + 0.5, max(x1 - 0.5, x0 + 3), max(y1 - 0.5, y0 + 3)
-        d.rectangle((x0, y0, x1, y1), fill=mix(lit(), 0.45, IDLE) if f in mentions else lit())
+        d.rectangle((x0, y0, x1, y1), fill=touched() if f in mentions else lit())
         if f in adr_files:
-            d.rectangle((x0 - 1, y0 - 1, x1 + 1, y1 + 1), outline=INK, width=2)
+            d.rectangle((x0, y0, x1, y1), outline=WHITE, width=1)
     # Labels: the lit groups in full, most lit files first; a label that would cover one already printed is left out.
     f = font(19, "b")
     taken = []
@@ -494,14 +488,15 @@ def main():
     layout = build_tree({f["path"]: f["track"] for f in world["files"]})
     if args.overview:
         render_overview(layout, REPO / args.overview)
-    ctx = describe.Context(world, chain, labels, json.loads((data / "references.json").read_text(encoding="utf-8")))
+    extensions = json.loads((data / "file-languages.json").read_text(encoding="utf-8"))
+    ctx = describe.Context(world, chain, labels, json.loads((data / "references.json").read_text(encoding="utf-8")), extensions)
     facts = {}
     for slide in slides:
         world_lit, chain_lit = highlights[slide["id"]]["world"], highlights[slide["id"]]["chain"]
         stem = slide["stem"]
         files = lit_files(world_lit)
         groups = lit_groups(layout, files)
-        render_grid(world, world_lit, LENS_BADGE[slide["lens"]], target / f"{stem}.grid.png")
+        render_grid(world, world_lit, extensions, LENS_BADGE[slide["lens"]], target / f"{stem}.grid.png")
         render_tree(layout, files, mentions_only(world_lit), adr_files, target / f"{stem}.tree.png")
         render_chain(chain, chain_lit, target / f"{stem}.chain.png")
         describe.write(ctx, target / f"{stem}.grid.md", slide, "grid", world_lit, {})

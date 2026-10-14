@@ -17,7 +17,10 @@ import json
 import re
 import subprocess
 import sys
+import textwrap
 from pathlib import Path
+
+import describe
 
 REPO = Path(__file__).resolve().parents[3]
 TOOLS = REPO / ".claude/drawio"
@@ -48,15 +51,25 @@ def cell(cell_id, value, style, y, height, x=X, width=WIDTH):
     )
 
 
-def map_key(palette, top):
-    """The map key at y = top: one swatch per mark the three minimaps draw."""
+def map_key(palette, concerns, top):
+    """The map key at y = top: one swatch per mark the three minimaps share, and the key to their short labels."""
     lit = palette["highlight"]
     rows = [
-        ("lit", f"fillColor={lit};strokeColor={INK};strokeWidth=2;", "lit cell"),
-        ("touched", f"fillColor={mix(lit, 0.35, IDLE)};strokeColor={lit};strokeWidth=2;", "lit cell, passing mentions only"),
-        ("file", f"fillColor={lit};strokeColor={INK};strokeWidth=2;", "lit file (framed: an ADR file)"),
-        ("shade", f"fillColor={mix(palette['shade'], 0.35, palette['cell'])};strokeColor={BORDER};", "value-chain cell, shaded by ADRs"),
+        ("lit", f"fillColor={lit};strokeColor={lit};", "lit: what the slide's ADRs select"),
+        ("touched", f"fillColor={mix(lit, 0.4, IDLE)};strokeColor={mix(lit, 0.4, IDLE)};", "lit by passing mentions only"),
+        ("adr", f"fillColor={lit};strokeColor=#FFFFFF;strokeWidth=2;", "lit ADR file (white rim)"),
+        ("idle", f"fillColor={IDLE};strokeColor={BORDER};", "idle: not selected, or empty"),
     ]
+    abbreviated = [f"{describe.concern_code(c)} {c}" for c in concerns if describe.concern_code(c) != c.upper()]
+    key = (
+        "Grid columns: a file language's first extension. Value-chain rows: the value-chain stack; columns: "
+        + ", ".join(abbreviated)
+        + "."
+    )
+    # The preview renderer does not wrap text, so the key is broken into lines here (11 px text, about 42 characters).
+    lines = textwrap.wrap(key, 42)
+    codes = "&lt;br&gt;".join(lines)
+    height = 28 + len(rows) * 23 + 14 * len(lines) + 10
     cells = [
         cell(
             "mapkey",
@@ -64,18 +77,20 @@ def map_key(palette, top):
             "rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#37474F;fillColor=#FFFFFF;"
             f"strokeColor={BORDER};spacingLeft=8;spacingTop=2;",
             top,
-            122,
+            height,
         )
     ]
     for i, (key, style, text) in enumerate(rows):
         y = top + 28 + i * 23
-        size = 12 if key == "file" else 18
+        size = 12 if key == "adr" else 16
         cells.append(cell(f"mapkey-{key}", "", "rounded=0;html=1;" + style, y + (18 - size) / 2, size, x=X + 12 + (26 - size) / 2, width=size))
         cells.append(cell(f"mapkey-{key}-text", text, TEXT, y - 1, 20, x=X + 48, width=WIDTH - 56))
+    cells.append(cell("mapkey-codes", codes, TEXT.replace("verticalAlign=middle", "verticalAlign=top;whiteSpace=wrap"), top + 28 + len(rows) * 23,
+                      14 * len(lines) + 4, x=X + 8, width=WIDTH - 16))
     return "\n    ".join(cells)
 
 
-def lay_out_sidebar(model, palette):
+def lay_out_sidebar(model, palette, concerns):
     """The sidebar of a slide model: the minimap image cells (minimap-stack renamed minimap-grid, minimap-chain added
     as a copy of it when missing), every sidebar cell at its SIDEBAR slot, and a fresh map key below them."""
     model = model.replace('id="minimap-stack"', 'id="minimap-grid"')
@@ -101,19 +116,20 @@ def lay_out_sidebar(model, palette):
     model = model.replace(supports.group(0), re.sub(r'height="[^"]*"', f'height="{height}"', supports.group(0), count=1))
     supports = re.search(r'<mxCell id="supports".*?</mxCell>', model, re.S)
     top = max(MAPKEY_Y, SIDEBAR["supports"][0] + height + 8)
-    return model[: supports.end()] + "\n    " + map_key(palette, top) + model[supports.end() :]
+    return model[: supports.end()] + "\n    " + map_key(palette, concerns, top) + model[supports.end() :]
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
     parser.add_argument("--slides", required=True, help="the slide list (JSON: slides[] with id, stem, lens, adrs, xml)")
-    parser.add_argument("--data", default="out/minimaps", help="the folder highlights.ps1 wrote (for the palette)")
+    parser.add_argument("--data", default="out/minimaps", help="the folder highlights.ps1 wrote (palette, value-chain map)")
     parser.add_argument("--target", default="docs/.assets/explanation", help="the folder of the minimaps and the built slides")
     parser.add_argument("--start", type=int, default=0)
     parser.add_argument("--end", type=int)
     args = parser.parse_args()
     target = REPO / args.target
     palette = json.loads((REPO / args.data / "palette.json").read_text(encoding="utf-8"))
+    concerns = json.loads((REPO / args.data / "value-chain-map.json").read_text(encoding="utf-8"))["concerns"]
     slides = json.loads((REPO / args.slides).read_text(encoding="utf-8"))["slides"][args.start : args.end]
     missing = []
     for slide in slides:
@@ -124,7 +140,7 @@ def main():
         if gaps:
             missing.append((stem, gaps))
             continue
-        xml.write_text(lay_out_sidebar(xml.read_text(encoding="utf-8"), palette), encoding="utf-8")
+        xml.write_text(lay_out_sidebar(xml.read_text(encoding="utf-8"), palette, concerns), encoding="utf-8")
         pairs = [f"minimap-{view}={png}" for view, png in pngs.items()]
         subprocess.run([sys.executable, str(TOOLS / "embed_images.py"), str(xml), *pairs], check=True, stdout=subprocess.DEVNULL)
         subprocess.run(

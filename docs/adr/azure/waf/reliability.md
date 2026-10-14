@@ -96,7 +96,8 @@ date — and summarises it in our own words. Nothing is quoted, because the curr
 takeaway is the three templates `foundation`, `discovery` (the landing zone), and `expedition` (the workload), deployed in that order
 ([landing-zones](../landing-zones.md)).
 
-The [WAF reference](../../../references/waf/index.md) lists the five pillar records in this repository and the Microsoft checklist each one cites.
+The [WAF reference](../../../references/waf/index.md) lists the five pillar records in this repository and the Microsoft checklist each one
+cites.
 
 ### RE:01 — Focus your workload design on simplicity and efficiency
 
@@ -200,9 +201,9 @@ that sends diagnostics: a workspace outage loses telemetry, not function.
 ##### RE:03 in `discovery`
 
 A spoke depends strongly on its hub for name resolution: the private DNS zones live only in the hub
-([ADR-AZ-LZ#2](../landing-zones.md#rule-adr-az-lz2)), so a deleted or broken DNS zone breaks every private endpoint of that tier. The peering is
-a strong dependency of anything in a spoke that calls the hub's `shared-services` subnet. The region is a strong dependency of all of it
-([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)).
+([ADR-AZ-LZ#2](../landing-zones.md#rule-adr-az-lz2)), so a deleted or broken DNS zone breaks every private endpoint of that tier. The
+peering is a strong dependency of anything in a spoke that calls the hub's `shared-services` subnet. The region is a strong dependency of
+all of it ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)).
 
 ##### RE:03 in `expedition`
 
@@ -264,9 +265,9 @@ stamps for whole-workload copies, and a resilient network with room to grow and 
 
 #### What RE:05 means here
 
-The shared modules make zone-redundant deployment the default: `storage-account.bicep` defaults `skuName` to `Standard_ZRS`, and `sql-database.bicep`
-turns `zoneRedundant` on for every tier that supports it and defaults `backupStorageRedundancy` to `Geo`. A template weakens that only by a
-config value, and only outside production, where the cost saving outweighs a zone outage
+The shared modules make zone-redundant deployment the default: `storage-account.bicep` defaults `skuName` to `Standard_ZRS`, and
+`sql-database.bicep` turns `zoneRedundant` on for every tier that supports it and defaults `backupStorageRedundancy` to `Geo`. A template
+weakens that only by a config value, and only outside production, where the cost saving outweighs a zone outage
 ([ADR-AZ-LZ#5](../landing-zones.md#rule-adr-az-lz5)).
 
 Every environment maps to one region ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3),

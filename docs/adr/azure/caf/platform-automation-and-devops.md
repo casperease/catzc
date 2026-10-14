@@ -288,6 +288,8 @@ rule cites Microsoft's page — area, page, section, link, retrieval date — an
 published under the [Microsoft Learn Terms of Use](https://learn.microsoft.com/en-us/legal/termsofuse), which grant no licence to copy it
 into a shared repository. Nothing is quoted.
 
+The [CAF reference](../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.
+
 Several pages of the area carry guidance without a recommendations section, so they are not rules here; they inform the takeaways.
 [Subscription vending](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/subscription-vending)
 (and its product lines) automates the request, approval, and creation of a subscription with its budget, network, and identities, which

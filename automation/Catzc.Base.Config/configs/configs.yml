@@ -3,12 +3,15 @@
 #
 #   <config-name>:
 #     type: <C# FQN>         # construct [FQN]::new($dict) — maps + validates
+#     overridable: false     # optional; a consumer overlay may not change this config (default: true). Only the
+#                            # engine-intrinsic configs are sealed (docs/adr/automation/consumer-overlay.md).
 #
 # The registry validates ITSELF: the 'configs' config (this file) is validated by the C# type below.
 # Get-ConfigRegistry constructs it on load.
 configs:
   configs:
     type: Catzc.Base.Config.ConfigsConfig
+    overridable: false
   terminology:
     type: Catzc.Base.QualityGates.TerminologyConfig
   links:
@@ -33,6 +36,7 @@ configs:
     type: Catzc.Base.Docs.AgentsConfig
   glossary:
     type: Catzc.Base.Docs.GlossaryConfig
+    overridable: false
   reports:
     type: Catzc.Base.Reports.ReportsConfig
   output-formats:
@@ -41,10 +45,12 @@ configs:
     type: Catzc.Base.Execution.ToolsConfig
   dependencies:
     type: Catzc.Base.ModuleSystem.DependenciesConfig
+    overridable: false
   files:
     type: Catzc.Base.ModuleSystem.FilesConfig
   profiles:
     type: Catzc.Base.ModuleSystem.ProfilesConfig
+    overridable: false
   analyzer-adr-map:
     type: Catzc.Base.QualityGates.AnalyzerAdrMapConfig
   vendor:
@@ -57,6 +63,7 @@ configs:
     type: Catzc.Base.QualityGates.GuidsConfig
   exporter:
     type: Catzc.Base.Exporter.ExporterConfig
+    overridable: false
   vscode-extensions:
     type: Catzc.Base.VSCode.VscodeExtensionsConfig
   ado:

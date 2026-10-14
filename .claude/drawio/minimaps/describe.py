@@ -9,8 +9,8 @@ passing mentions is marked touched. Nothing is lit without a reason and no reaso
 checks both per minimap and fails the run on a mismatch. Links are reference-style, relative to the .md's folder, and
 checked for existence on write; keywords link to the glossary.
 
-VIEWS maps each view to its title and its two sections (what it shows, why it is lit) and its keywords; the title, the
-selection, the terms the cited ADRs define and the link definitions are shared.
+VIEWS maps each view to its title, its sections (what it shows, why it is lit), its keywords, its reason check and the
+key to its short labels; the title, the selection, the terms the cited ADRs define and the link definitions are shared.
 """
 
 import os
@@ -31,9 +31,10 @@ KIND_WORDS = {"help": "header", "comment": "body comment", "text": "text"}
 class Context:
     """What every sister file reads: both maps, the printed labels, the ADR files and the glossary."""
 
-    def __init__(self, world, chain, labels, references):
+    def __init__(self, world, chain, labels, references, extensions):
         self.world = world
         self.chain = chain
+        self.extensions = extensions
         self.buckets = labels["buckets"]
         self.chain_labels = labels["value_chain"]
         self.adr_files = references["adr_files"]
@@ -65,6 +66,17 @@ class Context:
 
     def cell_name(self, track, language):
         return f"{self.printed(track)} × {self.printed(language)}"
+
+    def column_code(self, language):
+        """The grid's short column label: the file language's first extension; 'other' for the unlisted files."""
+        return "other" if language == self.no_language else self.extensions[language][0]
+
+
+def concern_code(concern):
+    """The value-chain map's short column label, in capitals like its row codes: the initials of a hyphenated concern
+    (quality-control -> QC), else its first six letters (automation -> AUTOMA)."""
+    parts = concern.split("-")
+    return "".join(p[0] for p in parts).upper() if len(parts) > 1 else concern[:6].upper()
 
 
 class Links:
@@ -193,9 +205,13 @@ def check_world(stem, highlight):
 def grid_shows(ctx, links, highlight, extras):
     cells = highlight["cells"]
     rows, cols = len(ctx.world["tracks"]), len(ctx.world["file_languages"])
+    empty = sum(1 for n in ctx.cell_count.values() if n == 0)
     lines = para(
-        f"The grid crosses the {rows} tracks with the {cols} file languages of the world map and lights {plural(len(cells), 'cell')}. "
-        "A cell lit only by passing mentions (citations in body comments, not in a file's header or text) is touched: drawn pale."
+        f"The grid crosses the {rows} tracks (rows) with the {cols} file languages (columns) of the world map and lights "
+        f"{plural(len(cells), 'cell')}, filled in ink. A cell lit only by passing mentions (citations in body comments, not in a "
+        "file's header or text) is touched: a lighter ink. Every other cell is idle, a grey box: it holds files the slide's ADR "
+        f"codes do not select, or no file at all ({empty} of the {rows * cols} cells hold none). The minimap shows where the slide "
+        "sits, not how many files a cell holds; the world-map PDFs show the counts."
     )
     lines.append("")
     for c in cells:
@@ -203,6 +219,28 @@ def grid_shows(ctx, links, highlight, extras):
         touched = ", touched" if c["touched"] else ""
         lines.append(f"- {ctx.cell_name(c['track'], c['file_language'])}: {c['file_count']} lit of {plural(total, 'file')}{touched}")
     return lines
+
+
+def grid_key(ctx, links, highlight):
+    """The grid names a lit row by its track and a lit column by a short code: the file language's first extension."""
+    lines = para("A lit row prints its track's name; a lit column prints a short code, the first extension of its file language:")
+    lines.append("")
+    for language in sorted({c["file_language"] for c in highlight["cells"]}, key=ctx.world["file_languages"].index):
+        lines.append(f"- `{ctx.column_code(language)}`: {ctx.printed(language)}")
+    return lines
+
+
+def chain_key(ctx, links, highlight):
+    """The value-chain map prints every row and column as a capital code."""
+    lines = para("Rows are the value-chain stack and columns the value-chain concerns, each printed as a capital code:")
+    lines.append("")
+    lines += [f"- `{code}`: the {code} row of the value-chain stack" for code in ctx.chain["stacks"]]
+    lines += [f"- `{concern_code(c)}`: {c}" for c in ctx.chain["concerns"]]
+    return lines
+
+
+def no_key(ctx, links, highlight):
+    return []
 
 
 def grid_why(ctx, links, highlight, extras):
@@ -223,8 +261,9 @@ def tree_shows(ctx, links, highlight, extras):
     lit = sum(len(g["files"]) for g in groups)
     lines = para(
         f"The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under "
-        f"`docs/adr/` by ADR domain), and lights {plural(lit, 'file')} in {plural(len(groups), 'group')}. A lit ADR file is framed; "
-        "a file lit only by passing mentions is drawn pale."
+        f"`docs/adr/` by ADR domain), and lights {plural(lit, 'file')} in {plural(len(groups), 'group')}, filled in ink. A lit ADR "
+        "file has a white rim; a file lit only by passing mentions is a lighter ink. Every other tile is idle, a grey box: a file the "
+        "slide's ADR codes do not select."
     )
     lines.append("")
     for g in groups:
@@ -281,10 +320,13 @@ def check_chain(stem, highlight):
 def chain_shows(ctx, links, highlight, extras):
     cells = highlight["cells"]
     rows, cols = ctx.chain["stacks"], ctx.chain["concerns"]
+    empty = sum(1 for n in ctx.chain_count.values() if n == 0)
     lines = para(
         f"{ctx.chain_labels['title']}. The grid crosses the {len(rows)} rows of the value-chain stack ({', '.join(rows)}) with the "
-        f"{len(cols)} value-chain concerns ({', '.join(cols)}), shades each cell by the ADRs it holds, and lights "
-        f"{plural(len(cells), 'cell')}."
+        f"{len(cols)} value-chain concerns ({', '.join(cols)}) and lights {plural(len(cells), 'cell')}, filled in ink. Every other "
+        "cell is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there "
+        f"({empty} of the {len(rows) * len(cols)} cells hold none). The minimap shows where the slide sits, not how many ADRs a cell "
+        "holds; that count belongs to the full value-chain map."
     )
     lines.append("")
     for c in cells:
@@ -322,16 +364,16 @@ def chain_keywords(ctx, links, highlight):
 
 # The views: title, what the minimap shows, why each cell or group is lit, the keywords, and the reason check.
 VIEWS = {
-    "grid": ("Grid", grid_shows, grid_why, world_keywords, check_world),
-    "tree": ("Tree", tree_shows, tree_why, world_keywords, check_world),
-    "chain": ("Value-chain", chain_shows, chain_why, chain_keywords, check_chain),
+    "grid": ("Grid", grid_shows, grid_why, world_keywords, check_world, grid_key),
+    "tree": ("Tree", tree_shows, tree_why, world_keywords, check_world, no_key),
+    "chain": ("Value-chain", chain_shows, chain_why, chain_keywords, check_chain, chain_key),
 }
 
 
 def write(ctx, md_path, slide, view, highlight, extras):
     """Write one sister .md; a lit cell without a reason, or a reason without a lit cell, fails the run."""
     md_path = Path(md_path)
-    title, shows, why, keywords, check = VIEWS[view]
+    title, shows, why, keywords, check, key = VIEWS[view]
     stem = slide["stem"]
     check(stem, highlight)
     links = Links(ctx, md_path.parent)
@@ -345,6 +387,9 @@ def write(ctx, md_path, slide, view, highlight, extras):
     )
     out += ["", "## What the minimap shows", ""]
     out += shows(ctx, links, highlight, extras)
+    labels = key(ctx, links, highlight)
+    if labels:
+        out += ["", "## Key", ""] + labels
     out += [""] + why(ctx, links, highlight, extras)
     out += ["", "## Keywords", ""]
     out += keywords(ctx, links, highlight)
@@ -390,6 +435,7 @@ def facts(ctx, slide, world_lit, chain_lit, groups):
         "grid": [
             {
                 "cell": ctx.cell_name(c["track"], c["file_language"]),
+                "column_code": ctx.column_code(c["file_language"]),
                 "lit_files": c["file_count"],
                 "touched": c["touched"],
                 "placed": {"track": c["track"], "file_language": c["file_language"],
@@ -405,6 +451,7 @@ def facts(ctx, slide, world_lit, chain_lit, groups):
         "chain": [
             {
                 "cell": f"{c['stack']} × {c['concern']}",
+                "column_code": concern_code(c["concern"]),
                 "adrs": [
                     {k: r[k] for k in ("adr", "requested", "domain", "stack", "concerns", "domain_concerns", "override")}
                     for r in c["reasons"]

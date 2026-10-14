@@ -98,10 +98,10 @@ the ADRs themselves; this file carries only their DORA rationale.
 > DORA's research treats reliability as an outcome a team engineers for and measures, not one it hopes for. This ADR records, item by item,
 > which reliability settings the templates carry by default and which are planned, so the gap is visible in the repository.
 
-- [Reliability engineering](../../references/dora/capabilities.md#reliability-engineering) — zone redundancy and backups are module
-  defaults and config values, each item with a status.
-- [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — diagnostics flow to one workspace
-  per subscription.
+- [Reliability engineering](../../references/dora/capabilities.md#reliability-engineering) — zone redundancy and backups are module defaults
+  and config values, each item with a status.
+- [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — diagnostics flow to one workspace per
+  subscription.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Well-Architected security
@@ -113,8 +113,8 @@ the ADRs themselves; this file carries only their DORA rationale.
 > DORA's research ties pervasive security, built into the delivery flow rather than reviewed at its end, to delivery performance. This ADR
 > records which security items the shared modules enforce by default and which are planned.
 
-- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — private endpoints, TLS 1.2, managed identities, and
-  Entra authentication are secure defaults.
+- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — private endpoints, TLS 1.2, managed identities, and Entra
+  authentication are secure defaults.
 - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — the same defaults reach every environment through
   the same templates.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
@@ -203,8 +203,8 @@ the ADRs themselves; this file carries only their DORA rationale.
 > on every resource answer Microsoft's naming and tagging recommendations.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — names are derived, never hand-typed.
-- [Work visibility in value stream](../../references/dora/capabilities.md#work-visibility-in-value-stream) — tags attribute every
-  resource to its workload, owner, and cost center.
+- [Work visibility in value stream](../../references/dora/capabilities.md#work-visibility-in-value-stream) — tags attribute every resource
+  to its workload, owner, and cost center.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## CAF security
@@ -216,8 +216,8 @@ the ADRs themselves; this file carries only their DORA rationale.
 > DORA's research ties pervasive security to delivery performance. This ADR records which landing-zone security recommendations the
 > templates realise and which are planned.
 
-- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — secure defaults in the shared modules and policies in
-  the landing zone.
+- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — secure defaults in the shared modules and policies in the
+  landing zone.
 - [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — the activity log streams to the
   subscription's workspace.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
@@ -329,8 +329,8 @@ the ADRs themselves; this file carries only their DORA rationale.
 > DORA's research is the repository's own basis for how it delivers, and this design area overlaps it most. This ADR maps each
 > recommendation to the pipelines, gates, and infrastructure as code that already realise it, and names what is planned.
 
-- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — every change reaches the environments through the
-  same pipelines.
+- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — every change reaches the environments through the same
+  pipelines.
 - [Version control](../../references/dora/capabilities.md#version-control) — templates, configs, and pipelines live in one repository.
 - [Test automation](../../references/dora/capabilities.md#test-automation) — templates compile and configs resolve in CI on every change.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

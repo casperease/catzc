@@ -579,6 +579,43 @@ A Describe or Context in a test file — a named group of tests whose tags and s
 
 ## azure
 
+### break-glass login
+
+The one SQL login beside a server's Entra ID admin group, its password a Key Vault reference to foundation's vault.
+
+- **Defined by:** [ADR-AZ-LZ#6](azure/landing-zones.md#rule-adr-az-lz6)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
+
+### caf tags
+
+The six tag keys every resource carries — workload, environment, owner, cost-center, criticality, data-classification; cost-center is
+required by policy.
+
+- **Defined by:** [ADR-AZ-CAFNAME#11](azure/caf/naming-and-tagging.md#rule-adr-az-cafname11)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
+
+### cloud adoption framework
+
+Microsoft's guidance for preparing an Azure estate; its landing-zone design principles and design areas are recorded as vendor
+recommendation in docs/adr/azure/caf/, one rule per recommendation.
+
+- **Defined by:** [ADR-AZ-LZ#1](azure/landing-zones.md#rule-adr-az-lz1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
+- **Contrasts:**
+  - [well-architected framework](#well-architected-framework): The Cloud Adoption Framework shapes the landing zone; the Well-Architected
+    Framework shapes the workload in it.
+
+### environment class
+
+Production or non-production — the split that policy enforcement, database SKUs, backups, and budgets are set by.
+
+- **Defined by:** [ADR-AZ-DATAMOD#11](azure/azure-data-model.md#rule-adr-az-datamod11)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
+
 ### hub
 
 The landing zone of a shared subscription — the network every spoke of its tier peers to, holding the private DNS zones.
@@ -596,6 +633,23 @@ The network, guardrails, and cost control a workload lands in — the CAF applic
 subscription scope by the discovery template.
 
 - **Defined by:** [ADR-AZ-LZ#1](azure/landing-zones.md#rule-adr-az-lz1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
+
+### management group
+
+An Azure container above subscriptions for policy and access; this repository deploys no management group and nothing at that level.
+
+- **Defined by:** [ADR-AZ-LZ#1](azure/landing-zones.md#rule-adr-az-lz1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
+
+### pillar
+
+One of the Well-Architected Framework's five qualities — reliability, security, cost optimization, operational excellence, performance
+efficiency — each one ADR in docs/adr/azure/waf/.
+
+- **Defined by:** [ADR-AZ-LZ#5](azure/landing-zones.md#rule-adr-az-lz5)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
 
@@ -618,6 +672,27 @@ The landing zone of a customer subscription — peered to the hub of its tier, h
 - **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
 - **Contrasts:**
   - [hub](#hub): A hub is a shared subscription's landing zone, listing its spokes; a spoke is a customer subscription's, peered to its hub.
+
+### subscription vending
+
+Onboarding a subscription by pull request — its azure.yml entry, its range in network.yml, and one config per template; the subscription
+itself is created outside the repository.
+
+- **Defined by:** [ADR-AZ-CAFRESORG#19](azure/caf/resource-organization.md#rule-adr-az-cafresorg19)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
+
+### well-architected framework
+
+Microsoft's checklist of a workload's quality in five pillars; each checklist item is a rule in docs/adr/azure/waf/, numbered as Microsoft
+numbers it.
+
+- **Defined by:** [ADR-AZ-LZ#5](azure/landing-zones.md#rule-adr-az-lz5)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
+- **Contrasts:**
+  - [cloud adoption framework](#cloud-adoption-framework): The Well-Architected Framework shapes the workload; the Cloud Adoption Framework
+    shapes the landing zone it lands in.
 
 ## repository
 

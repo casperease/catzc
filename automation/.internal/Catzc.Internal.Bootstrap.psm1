@@ -125,8 +125,11 @@ function Clear-CompiledType {
 .SYNOPSIS
     Writes a module's generated <Module>.psd1 and returns its path.
 .DESCRIPTION
-    By default the manifest is derived from the module folder: private/*.ps1 then root *.ps1 become NestedModules
-    (each group ordinal-sorted, forward-slashed) and the root *.ps1 basenames become FunctionsToExport. A caller
+    By default the manifest is derived from the module folder: private/*.ps1 then root *.ps1 (each group
+    ordinal-sorted, forward-slashed) become the file list in PrivateData.CatzcFiles, its one NestedModule is the shared
+    loader .internal/assets/Import-ModuleFiles.ps1 (which parses each listed file in memory and dot-sources it into the
+    module's session state — far cheaper than one nested script file per function), and the root *.ps1 basenames
+    become FunctionsToExport. A caller
     whose module is not one-function-per-file on disk — a built module whose functions are merged into one
     <Module>.ps1 — passes both lists explicitly with -NestedModule and -FunctionToExport instead; the folder is
     then not enumerated. Either way the text comes from the one canonical emitter (Get-DynamicManifestContent)
@@ -200,9 +203,10 @@ function New-DynamicManifest {
         return $null
     }
 
-    # NestedModules runs each .ps1 in the module's shared session state. Private functions group first, then
-    # public; each group is ordinal-sorted and its paths use forward slashes, so the emitted manifest is
-    # byte-identical on every platform and every build of the same commit.
+    # The shared loader (the manifest's one NestedModule) dot-sources each listed .ps1 into the module's session
+    # state, in list order. Private functions group first, then public; each group is ordinal-sorted and its paths
+    # use forward slashes, so the emitted manifest is byte-identical on every platform and every build of the same
+    # commit.
     $privateRelative = [string[]] @(foreach ($f in $privateFiles) {
             $f.Substring($pathPrefixLength).Replace('\', '/')
         })
@@ -211,7 +215,7 @@ function New-DynamicManifest {
         })
     [System.Array]::Sort($privateRelative, [System.StringComparer]::Ordinal)
     [System.Array]::Sort($publicRelative, [System.StringComparer]::Ordinal)
-    $nestedModules = [string[]] @($privateRelative + $publicRelative)
+    $moduleFiles = [string[]] @($privateRelative + $publicRelative)
 
     $exportNames = [string[]] @(foreach ($f in $publicFiles) {
             [System.IO.Path]::GetFileNameWithoutExtension($f)
@@ -221,9 +225,13 @@ function New-DynamicManifest {
     # Canonical, formatter-stable text — no hand-padded alignment
     # ([ADR-REPO-FORMAT#1](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format1)); the L2 tests guard the
     # invariant.
-    $content = Get-DynamicManifestContent -NestedModule $nestedModules -FunctionToExport $exportNames -ExportAll:$ExportPrivates
+    $content = Get-DynamicManifestContent -NestedModule $script:moduleFilesLoader -ModuleFile $moduleFiles -FunctionToExport $exportNames -ExportAll:$ExportPrivates
     Write-DynamicManifest -Path $manifestPath -Content $content
 }
+
+# The shared loader every derived manifest names as its one NestedModule, relative to the module folder: a module
+# folder sits directly under the modules root, beside .internal.
+$script:moduleFilesLoader = '../.internal/assets/Import-ModuleFiles.ps1'
 
 function Write-DynamicManifest {
     <#
@@ -265,12 +273,15 @@ function Get-DynamicManifestContent {
         endings with a trailing newline,
         and it is formatter-stable — running Invoke-Formatter over it is a no-op (guarded by the L2 tests). Callers
         pass ordinal-sorted, forward-slashed inputs, so the bytes are identical on every platform and every build
-        of a commit.
+        of a commit. -ModuleFile, when given, renders as PrivateData = @{ CatzcFiles = @(...) }: the files the shared
+        loader (Import-ModuleFiles.ps1) dot-sources, in that order.
     #>
     [CmdletBinding()]
     [OutputType([string])]
     param(
         [string[]] $NestedModule = @(),
+
+        [string[]] $ModuleFile = @(),
 
         [string[]] $FunctionToExport = @(),
 
@@ -312,6 +323,12 @@ function Get-DynamicManifestContent {
         CmdletsToExport   = '@()'
         VariablesToExport = '@()'
         AliasesToExport   = "@('*')"
+    }
+    if ($ModuleFile.Count) {
+        $quotedFiles = foreach ($file in $ModuleFile) {
+            "'$file'"
+        }
+        $fields['PrivateData'] = '@{ CatzcFiles = @(' + ($quotedFiles -join ', ') + ') }'
     }
     $width = 0
     foreach ($key in $fields.Keys) {

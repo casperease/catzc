@@ -179,33 +179,37 @@ its files are) and the value-chain map (where its ADRs sit in the value chain). 
 ### The world map (two views, both always shown)
 
 The minimaps draw the **world map** of the world-map processor (module `Catzc.Base.Maps`, ADR-DSGN-TRACK#9), and light the cells and files
-that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRACK#12), each with its reason.
+that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRACK#12), each with its reason. A minimap answers "where does
+this slide sit", not "how dense is the map": no cell is shaded by its count. The counts belong to the full maps (the world-map PDFs; a full
+value-chain view is still to come).
 
 1. **Grid** (`<stem>.grid.png`). Rows are the tracks and columns the file languages, in the map's order, with the root-file row and the
-   unlisted-file column last. A cell that holds files is an idle tile, an empty cell stays open, and every **lit cell** is filled. A cell
-   lit only by passing mentions (citations in body comments, not in a file's header or text) is **touched**: filled pale. Only the lit rows
-   and columns are named, each with a tick on its axis. The two buckets print as their defined terms, `labels.root_files` and
-   `labels.unlisted_files` of `maps.yml` (ADR-DSGN-TRACK#7, #8, #13), never as the map's bucket keys; so does the root-files tile of the
-   tree.
+   unlisted-file column last. Every cell is an idle grey box, empty ones included, and every **lit cell** is filled in the lit colour. A
+   cell lit only by passing mentions (citations in body comments, not in a file's header or text) is **touched**: the lighter lit colour.
+   Only the lit rows and columns are named, each with a tick on its axis: a row by its track (the root-file row by `labels.root_files`,
+   ADR-DSGN-TRACK#7, #13), a column by a short horizontal code, the file language's first extension (`.ps1`, `.md`; `other` for the unlisted
+   files, ADR-DSGN-TRACK#8). The codes of neighbouring lit columns alternate between two lines so they never touch.
 2. **Repository tree map** (`<stem>.tree.png`). A treemap of the files of the world map, with area set by file count and grouped by
-   top-level folder (`automation/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<folder>`, `.github/`, root scripts). The files the
-   highlight lights are lit (pale when lit only by passing mentions); a lit ADR file is framed.
+   top-level folder (`automation/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<folder>`, `.github/`, root scripts). Every tile is
+   idle grey; the files the highlight lights are lit (the lighter lit colour when lit only by passing mentions); a lit ADR file has a white
+   rim.
 
 ### The value-chain map (always shown)
 
 **Value-chain grid** (`<stem>.chain.png`). The **value-chain map** of `Get-ValueChainMap` (ADR-DSGN-TRACK#16), lit by
 `Get-ValueChainHighlight -Adr <the slide's ADR codes>`: rows are the **value-chain stack** (`PRIN`, `DSGN`, `AUTO`, `PIPE`, `CLOUD`,
-ADR-DSGN-TRACK#14) and columns the **value-chain concerns** (`automation`, `build`, `quality-control`, `release`, `deploy`, `access`,
-ADR-DSGN-TRACK#15), both closed sets in their declared order and always all named; the lit rows and columns are named in ink with a tick,
-the others in the label grey. Each cell holding ADRs is shaded by its ADR count, from `palette.cell` towards `palette.shade` at most half
-strength (so a lit cell always stands out); an empty cell stays open; a lit cell is filled and outlined as on the grid. The top-left corner
-prints `value_chain_column_axis`, and `value_chain_row_axis` runs upright along the left edge (`maps.yml` labels).
+ADR-DSGN-TRACK#14) and columns the **value-chain concerns** (ADR-DSGN-TRACK#15), both closed sets in their declared order and always all
+named by capital codes, horizontal: a row by its code, a column by the initials of a hyphenated concern or its first six letters (`AUTOMA`,
+`BUILD`, `QC`, `RELEAS`, `DEPLOY`, `ACCESS`). The lit rows and columns are named in ink with a tick, the others in the label grey. Every
+cell is an idle grey box, empty ones included; a lit cell is filled in the lit colour. The axis titles are not printed on the minimap: the
+map key and the sister `.md` name the axes and expand the codes.
 
 ### The sister `.md` of each minimap
 
 Every minimap PNG has a **sister `.md`** with the same stem, next to it (`<stem>.grid.md`, `<stem>.tree.md`, `<stem>.chain.md`). `render.py`
-writes it in the same run, from the same data (`describe.py`), and never by hand. It opens with its path as the H1 (ADR-REPO-FORMAT#6) and
-gives **every lit cell or lit group its reason**:
+writes it in the same run, from the same data (`describe.py`), and never by hand. It opens with its path as the H1 (ADR-REPO-FORMAT#6),
+states once that every unlit cell is idle and why a cell holds nothing (no file of that track and file language; no ADR's value-chain
+concern lands there), expands the minimap's short codes under **Key**, and gives **every lit cell or lit group its reason**:
 
 - **World map:** the root folder names the track (ADR-DSGN-TRACK#1), or the file is a root file (#7); the extension names the file language
   (#6), or the file is an unlisted file (#8); then each lit file with the ADR code that selects it, its basis (an ADR file of that code's
@@ -223,17 +227,16 @@ view adds its sections in `describe.py`'s `VIEWS`.
 ### Colours (minimaps only; drawings keep the palettes above)
 
 - The background and the lit colour come from the `palette` of `maps.yml` (`Get-Config -Config maps`), the same colours as the world-map
-  PDFs: `background` `#E6ECF2`, drawn first, and `highlight` `#F4B942`.
-- Idle cells and tiles are `#ECEFF1`, with `#CFD8DC` borders. Labels are `#263238`.
-- A **lit cell** is filled with the lit colour and outlined `#263238` (2 px at 2×); a **touched** cell is the lit colour at 35 % over the
-  idle grey, outlined in the lit colour. Lit tree tiles are the lit colour (45 % for a passing mention); a lit ADR file tile is outlined
-  `#263238`.
+  PDFs: `background` `#E6ECF2`, drawn first, and `highlight`, the kit's ink `#37474F`, which the PDFs use for a lit cell's outline.
+- **One lit encoding on all three minimaps:** a lit cell or file is filled in the lit colour; lit by passing mentions only, in the lit
+  colour at 40 % over the idle grey. One map-key entry covers both on the grid, the tree and the value-chain map.
+- Idle cells and tiles are `#ECEFF1`, with `#CFD8DC` borders. Labels are `#263238` (lit) and `#546E7A` (not lit).
+- A lit ADR file tile on the tree has a 1 px white rim.
 - The **lens badge** is white text on `#263238`: `META`, `ARCH`, `IMPL`, `OPS` or `GOV`.
-- Red never appears in a minimap; it stays reserved for failure inside drawings.
+- No hue appears in a minimap: red stays reserved for failure inside drawings, and yellow for the BVT commit state.
 - The lens badge sits on the **grid** minimap only, in its empty top-left corner. On the tree map it would hide tiles.
 - A lit file is often a tiny square inside a big group, so its **group tile gets a 3 px edge** in the lit colour as well.
-- A row is shorter than its 18 px name, so the names of two lit rows (or upright column names) side by side are moved apart; the tick marks
-  the exact row or column.
+- A row is shorter than its 18 px name, so the names of two lit rows side by side are moved apart; the tick marks the exact row.
 - The tree layout follows the files of the world map, so re-rendering after the repo changes shifts tiles. Re-render all minimaps together,
   never one by one (below).
 
@@ -249,12 +252,14 @@ view adds its sections in `describe.py`'s `VIEWS`.
   - `supports` (the ADR chips) at x 1316, y 576, 240 × ≤ 46: with the map key fixed at y 626 this holds the bold "Supports" line plus at
     most 2 lines, so pack several ADR codes per line (`ADR-A · ADR-B`) and leave the rest to the `.md`. With more than 4 codes, put the
     first code inline after "Supports" and set the cell at 10.5 px;
-  - `mapkey` at x 1316, y 626 (or 8 px below taller ADR chips, which `join.py` sizes at 14 px a line), 240 × 122: the minimap legend, one
-    swatch each for a lit cell, a touched cell, a lit file (framed: an ADR file) and a value-chain cell shaded by its ADRs.
-- **Minimap PNGs** are rendered at 2× (480 × 300, 480 × 360 and 480 × 300) and placed at 1×. Text is ≥ 9 px at 1×. The grid names a lit row
-  by its track and a lit column by its file language, in full; the column names are turned upright. Lit tree groups are labelled with their
-  full names, most lit files first; a label may run past its tile (the white halo keeps it legible) and is cut only at the image edge, never
-  to a stub like "Module…"; a label that would cover one already printed is left out.
+  - `mapkey` at x 1316, y 626 (or 8 px below taller ADR chips, which `join.py` sizes at 14 px a line), 240 × 170: the minimap legend, one
+    swatch each shared by all three minimaps (lit; lit by passing mentions only; a lit ADR file, white rim; idle), then the key to the short
+    labels (grid columns: a file language's first extension; value-chain rows: the value-chain stack; the abbreviated value-chain columns).
+- **Minimap PNGs** are rendered at 2× (480 × 300, 480 × 360 and 480 × 300) and placed at 1×. Text is ≥ 9 px at 1×. Every label is
+  horizontal: the grid names a lit row by its track and a lit column by its short code; the value-chain map names every row and column by
+  its capital code. Lit tree groups are labelled with their full names, most lit files first; a label may run past its tile (the white halo
+  keeps it legible) and is cut only at the image edge, never to a stub like "Module…"; a label that would cover one already printed is left
+  out.
 - **Title:** ≤ 100 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, in the form
   `Supports <ADR-CODE>:<rules> · <lens> lens`.
 - **Boxes:**

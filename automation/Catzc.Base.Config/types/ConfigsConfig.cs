@@ -2,9 +2,11 @@
 // name to the C# config type Get-Config constructs it as; this type's only job is to enforce that shape at
 // construction time, so a malformed registry can never produce an instance.
 //
-// The data model it guards: under the top-level `configs` map, each entry is a map holding exactly one key,
-// `type` (a non-blank C# type FQN); `configs` is the only top-level key. An absent or empty `configs` map is
-// valid. `configs` exposes the registry as config name -> type FQN, in file order.
+// The data model it guards: under the top-level `configs` map, each entry is a map holding `type` (a non-blank
+// C# type FQN) and, optionally, `overridable` (a boolean; absent means true); `configs` is the only top-level
+// key. An absent or empty `configs` map is valid. `configs` exposes the registry as config name -> type FQN, in
+// file order; `sealedConfigs` names the entries a consumer overlay may not change (overridable: false — the
+// engine-intrinsic configs, [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)).
 
 using System;
 using System.Collections;
@@ -22,6 +24,9 @@ public sealed class ConfigsConfig
 
     public IReadOnlyDictionary<string, string> configs { get; } = Empty;
 
+    // The configs a consumer overlay may not change (registered with overridable: false), in file order.
+    public IReadOnlyList<string> sealedConfigs { get; } = Array.Empty<string>();
+
     public ConfigsConfig(IDictionary registry)
     {
         if (registry == null) { return; }
@@ -38,6 +43,7 @@ public sealed class ConfigsConfig
 
         var entries = registry.Contains("configs") ? registry["configs"] as IDictionary : null;
         var types = new Dictionary<string, string>(StringComparer.Ordinal);
+        var sealedNames = new List<string>();
         if (entries == null)
         {
             if (registry.Contains("configs") && registry["configs"] != null)
@@ -60,12 +66,23 @@ public sealed class ConfigsConfig
             foreach (var entryKey in entry.Keys)
             {
                 var keyName = entryKey == null ? string.Empty : entryKey.ToString();
-                if (keyName != "type")
+                if (keyName != "type" && keyName != "overridable")
                 {
-                    errors.Add(string.Format("config '{0}': unknown key '{1}' (allowed: type)", name, keyName));
+                    errors.Add(string.Format("config '{0}': unknown key '{1}' (allowed: type, overridable)", name, keyName));
                 }
             }
             types[name] = entry["type"].ToString().Trim();
+            if (entry.Contains("overridable"))
+            {
+                if (!(entry["overridable"] is bool))
+                {
+                    errors.Add(string.Format("config '{0}': overridable must be true or false", name));
+                }
+                else if (!(bool)entry["overridable"])
+                {
+                    sealedNames.Add(name);
+                }
+            }
         }
 
         if (errors.Count > 0)
@@ -74,6 +91,7 @@ public sealed class ConfigsConfig
         }
 
         configs = new ReadOnlyDictionary<string, string>(types);
+        sealedConfigs = sealedNames;
     }
 
     private static bool IsBlank(object value)

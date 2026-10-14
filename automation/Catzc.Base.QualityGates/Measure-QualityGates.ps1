@@ -8,14 +8,14 @@
     Test-Change runs), so the zero-argument call answers "which of my per-change checks is slow".
 
     With -AnalyzerRules it times the analyzer instead: each PSScriptAnalyzer rule the settings enable, run alone (-IncludeRule)
-    over every -Every'th file of the analyzed source set (Get-AutomationSourceFiles). The repository's custom checks run
+    over every -Every'th file of the analyzed files (Get-AutomationSourceFiles). The repository's custom checks run
     through one entry rule (Measure-CatzcRules) and are timed as that one row.
 .PARAMETER Name
     The quality gates to time. Default: every gate a language's `checks` names in languages.yml.
 .PARAMETER AnalyzerRules
     Time each analyzer rule instead of the gates.
 .PARAMETER Every
-    With -AnalyzerRules: analyze every Nth source file (1 = all of them). Default 8, a sample that keeps the run short.
+    With -AnalyzerRules: analyze every Nth file (1 = all of them). Default 8, a sample that keeps the run short.
 .OUTPUTS
     [pscustomobject] { Name; Seconds; IssueCount; Error }, slowest first.
 .EXAMPLE

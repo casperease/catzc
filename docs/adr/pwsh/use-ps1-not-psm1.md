@@ -6,7 +6,7 @@
 
 ### Rule ADR-PWSH-USEPS:1
 
-Use `.ps1` for all module function files — listed in the manifest's `NestedModules`, they share the module's session state, so public and
+Use `.ps1` for all module function files — dot-sourced into the module's session state by the module's loader, they share it, so public and
 private functions see each other without imports.
 
 - [Decision](#decision)
@@ -80,7 +80,9 @@ None of these are per-function files within a module, so the rule above is intac
 ### Source and the generated build
 
 The toolset runs in two modes ([run-modes](../design/run-modes.md)). In source mode the generated manifest lists every `.ps1` function file
-of a module in `NestedModules`. In build mode `Build-Modules` concatenates the same files — `private/` first, then the root, each in ordinal
+of a module in its `PrivateData`, and its one `NestedModules` entry, the shared loader `automation/.internal/assets/Import-ModuleFiles.ps1`,
+parses each file in memory and dot-sources it into the module's session state
+([dynamic-module-manifests](dynamic-module-manifests.md#regenerated-manifests)). In build mode `Build-Modules` concatenates the same files — `private/` first, then the root, each in ordinal
 order and each preceded by a `# source:` marker line naming its source path — into one `<Module>.functions.ps1`, and the built manifest
 lists that one file ([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest5)). The merged file is a `.ps1` too, so
 the module's public and private functions share one session state in both modes, and it is one module per folder, so each module keeps its
@@ -97,8 +99,8 @@ rewritten on every build, and the rules of this ADR apply to the files it is gen
 ## Consequences
 
 - Function files use `.ps1` extension: `Get-Foo.ps1`, not `Get-Foo.psm1`
-- `New-DynamicManifest` lists `.ps1` files in `NestedModules` — they share the module's session state natively
-- No `_loader.psm1` workaround needed — manifest-only solution
+- `New-DynamicManifest` lists a module's `.ps1` files for the shared loader, which dot-sources each into the module's session state
+- One shared loader for every source module, itself a `.ps1` run as the manifest's nested script — no per-module `.psm1`
 - Private functions are automatically available to public functions
 - Aligns with the established PowerShell community convention
 - The installed build carries one generated `.ps1` per module with the same shared-scope semantics, so the source and the build load the

@@ -27,6 +27,18 @@ Describe 'Get-DynamicManifestContent' -Tag 'L0', 'logic' {
         $text | Should -Match 'VariablesToExport = @\(\)'
     }
 
+    It 'renders -ModuleFile as the PrivateData file list, in the order given' {
+        $text = InModuleScope Catzc.Internal.Bootstrap { Get-DynamicManifestContent -NestedModule @('loader.ps1') -ModuleFile @('private/B.ps1', 'A.ps1') -FunctionToExport @('A') }
+        $text | Should -Match "PrivateData       = @\{ CatzcFiles = @\('private/B\.ps1', 'A\.ps1'\) \}"
+        $data = [scriptblock]::Create($text).InvokeReturnAsIs()
+        @($data.PrivateData.CatzcFiles) | Should -Be @('private/B.ps1', 'A.ps1')
+    }
+
+    It 'leaves PrivateData out when there is no file list' {
+        $text = InModuleScope Catzc.Internal.Bootstrap { Get-DynamicManifestContent -NestedModule @('A.ps1') -FunctionToExport @('A') }
+        $text | Should -Not -Match 'PrivateData'
+    }
+
     It 'exports every function as a wildcard under -ExportAll' {
         $text = InModuleScope Catzc.Internal.Bootstrap { Get-DynamicManifestContent -NestedModule @('A.ps1') -ExportAll }
         $text | Should -Match "FunctionsToExport = @\('\*'\)"
@@ -53,11 +65,12 @@ Describe 'New-DynamicManifest' -Tag 'L0', 'logic' {
         Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue
     }
 
-    It 'derives the lists from the folder by default (private first, each group ordinal-sorted)' {
+    It 'derives the file list from the folder by default (private first, each group ordinal-sorted), loaded by the shared loader' {
         $path = New-WidgetModule 'DerivedWidget'
         $manifest = InModuleScope Catzc.Internal.Bootstrap -Parameters @{ P = $path } { param($P) New-DynamicManifest -ModulePath $P }
         $expected = InModuleScope Catzc.Internal.Bootstrap {
-            Get-DynamicManifestContent -NestedModule @('private/Get-WidgetPart.ps1', 'Get-WidgetA.ps1', 'Get-WidgetB.ps1') -FunctionToExport @('Get-WidgetA', 'Get-WidgetB')
+            Get-DynamicManifestContent -NestedModule @('../.internal/assets/Import-ModuleFiles.ps1') `
+                -ModuleFile @('private/Get-WidgetPart.ps1', 'Get-WidgetA.ps1', 'Get-WidgetB.ps1') -FunctionToExport @('Get-WidgetA', 'Get-WidgetB')
         }
         $manifest | Should -Be (Join-Path $path 'DerivedWidget.psd1')
         [System.IO.File]::ReadAllText($manifest) | Should -BeExactly $expected
@@ -146,8 +159,78 @@ Describe 'New-DynamicManifest explicit lists load a merged module' -Tag 'L1', 'l
     }
 }
 
+Describe 'New-DynamicManifest derived manifests load through the shared loader' -Tag 'L1', 'logic' {
+    # A source module: a modules root holding the real shared loader under .internal/assets and one module folder of
+    # function files. Its derived manifest loads every file into one module: publics exported, the private callable
+    # from them but not exported, and each function still reporting its own source file and line.
+    BeforeAll {
+        Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
+        $script:modulesRoot = Join-Path $TestDrive 'automation'
+        [System.IO.Directory]::CreateDirectory((Join-Path $modulesRoot '.internal/assets')) | Out-Null
+        [System.IO.File]::Copy((Join-Path $env:RepositoryRoot 'automation/.internal/assets/Import-ModuleFiles.ps1'), (Join-Path $modulesRoot '.internal/assets/Import-ModuleFiles.ps1'))
+
+        function New-SprocketModule {
+            param([string] $Name, [hashtable] $File)
+            $path = Join-Path $modulesRoot $Name
+            foreach ($relative in $File.Keys) {
+                $target = Join-Path $path $relative
+                [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($target)) | Out-Null
+                [System.IO.File]::WriteAllText($target, $File[$relative])
+            }
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ P = $path } { param($P) New-DynamicManifest -ModulePath $P }
+        }
+
+        $script:moduleName = 'SprocketDerived' + [guid]::NewGuid().ToString('N').Substring(0, 8)
+        $manifest = New-SprocketModule $moduleName @{
+            'private/Get-SprocketPart.ps1' = "function Get-SprocketPart { 'part' }"
+            'Get-Sprocket.ps1'             = 'function Get-Sprocket { Get-SprocketPart }'
+            'Get-SprocketFailure.ps1'      = "function Get-SprocketFailure {`n    `$null = 1`n    throw 'sprocket broke'`n}"
+        }
+        $script:module = Import-Module $manifest -PassThru -Force
+    }
+
+    AfterAll {
+        Remove-Module $moduleName -Force -ErrorAction SilentlyContinue
+        Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue
+    }
+
+    It 'exports the public functions only' {
+        @($module.ExportedFunctions.Keys | Sort-Object) | Should -Be @('Get-Sprocket', 'Get-SprocketFailure')
+    }
+
+    It 'makes a private function callable from a public one, in the module only' {
+        & $module { Get-Sprocket } | Should -Be 'part'
+        Get-Command Get-SprocketPart -ErrorAction Ignore | Should -BeNullOrEmpty
+    }
+
+    It 'keeps each function''s source file and line' {
+        [System.IO.Path]::GetFileName($module.ExportedFunctions['Get-Sprocket'].ScriptBlock.File) | Should -Be 'Get-Sprocket.ps1'
+        $failure = { & $module { Get-SprocketFailure } } | Should -Throw -PassThru
+        ("$($failure.ScriptStackTrace)" -split '\r?\n')[0] | Should -BeLike "at Get-SprocketFailure, *$moduleName*Get-SprocketFailure.ps1: line 3"
+    }
+
+    It 'leaves none of the loader''s variables in the module' {
+        & $module { @(Get-Variable -Name 'catzc*' -Scope Script -ErrorAction Ignore).Count } | Should -Be 0
+    }
+
+    It 'fails the import on a syntax error, naming the file and line' {
+        $brokenName = 'SprocketBroken' + [guid]::NewGuid().ToString('N').Substring(0, 8)
+        $brokenManifest = New-SprocketModule $brokenName @{ 'Get-SprocketBroken.ps1' = "function Get-SprocketBroken {`n    if (`n}" }
+        { Import-Module $brokenManifest -Force } | Should -Throw -ExpectedMessage '*Get-SprocketBroken.ps1:*'
+        Remove-Module $brokenName -Force -ErrorAction SilentlyContinue
+    }
+}
+
 # source-only: Test-BuildArtifact builds from the source tree, then checks the manifests the build wrote.
 Describe 'Get-DynamicManifestContent is formatter-stable' -Tag 'L2', 'integrity', 'source-only' {
+    BeforeAll {
+        Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
+    }
+
+    AfterAll {
+        Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue
+    }
+
     It 'Invoke-Formatter leaves every built manifest byte-for-byte unchanged (Test-BuildArtifact)' {
         # The published manifest is a versioned immutable artifact, so its canonical form must equal what the
         # repo formatter would produce — otherwise a later touch would re-format and churn the gold bytes. Every
@@ -155,5 +238,13 @@ Describe 'Get-DynamicManifestContent is formatter-stable' -Tag 'L2', 'integrity'
         $result = Test-BuildArtifact -Facet Manifest -PassThru -OutputFolder (Join-Path $TestDrive 'build-artifact')
         $result.Modules | Should -BeGreaterThan 0
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
+    }
+
+    It 'Invoke-Formatter leaves a derived manifest (the shared loader and its file list) byte-for-byte unchanged' {
+        $text = InModuleScope Catzc.Internal.Bootstrap {
+            Get-DynamicManifestContent -NestedModule @('../.internal/assets/Import-ModuleFiles.ps1') `
+                -ModuleFile @('private/Get-WidgetPart.ps1', 'Get-WidgetA.ps1') -FunctionToExport @('Get-WidgetA')
+        }
+        Invoke-Formatter -ScriptDefinition $text | Should -BeExactly $text
     }
 }

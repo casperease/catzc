@@ -1,4 +1,4 @@
-# Measure-QualityGates over fixture gates: the real Get-Command lookup and the -OutputFolder probe decide each call; the
+# Measure-QualityGates over fixture quality gates: the real Get-Command lookup and the -OutputFolder probe decide each call; the
 # timing itself is only read for its order. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The fixture gates declare the parameters a real quality gate takes; what they return does not depend on them')]

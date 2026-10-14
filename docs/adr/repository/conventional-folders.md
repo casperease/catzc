@@ -336,14 +336,14 @@ Every module directory follows the same internal layout:
 | Directory/Pattern | Meaning                                                                                                           | Programmed against by                                          |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | `*.ps1` (root)    | Public exported functions — file name = function name                                                             | `New-DynamicManifest` (derives `FunctionsToExport`)            |
-| `private/`        | Private helper functions — loaded, not exported                                                                   | `New-DynamicManifest` (scans for `NestedModules`)              |
+| `private/`        | Private helper functions — loaded, not exported                                                                   | `New-DynamicManifest` (lists the files the loader dot-sources) |
 | `tests/`          | Pester test files (`*.Tests.ps1`) plus their fixtures in `tests/assets/`                                          | `Test-Automation` (discovers test paths)                       |
 | `assets/`         | Consumable assets the module ships — templates, scripts, schemas (not test fixtures, not the module's own config) | Module functions via `Get-CatzcModuleRoot`                     |
 | `configs/`        | The module's own internal config (flat kebab-case `.yml`) the module loads to configure itself                    | `Get-Config` (via `Get-CatzcModuleRoot`)                       |
 | `types/`          | Native C# sources (`*.cs`) autoloaded as .NET types                                                               | `Import-CSharpTypes` (one combined assembly, loaded at import) |
 
 **`private/`** contains `.ps1` files that follow the same one-function-per-file convention as root files. They are loaded into the module's
-session state via `NestedModules` but excluded from `FunctionsToExport`. The folder name `private/` means "non-exported" everywhere, in
+session state by the module's loader but excluded from `FunctionsToExport`. The folder name `private/` means "non-exported" everywhere, in
 every module, without exception.
 
 **`types/`** contains C# source files (`*.cs`) compiled and loaded as .NET types at import time by the bootstrap module's

@@ -9,13 +9,24 @@ The grid minimap of the slide `adr-dsgn-aspect--every-file-in-exactly-one-aspect
 
 ## What the minimap shows
 
-The grid crosses the 12 tracks with the 18 file languages of the world map and lights 4 cells. A cell lit only by passing mentions
-(citations in body comments, not in a file's header or text) is touched: drawn pale.
+The grid crosses the 12 tracks (rows) with the 18 file languages (columns) of the world map and lights 4 cells, filled in ink. A cell lit
+only by passing mentions (citations in body comments, not in a file's header or text) is touched: a lighter ink. Every other cell is idle, a
+grey box: it holds files the slide's ADR codes do not select, or no file at all (174 of the 216 cells hold none). The minimap shows where
+the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - automation × csharp: 3 lit of 219 files
-- automation × powershell: 5 lit of 1398 files
+- automation × powershell: 5 lit of 1400 files
 - automation × yaml: 2 lit of 95 files
-- docs × markdown: 20 lit of 469 files
+- docs × markdown: 35 lit of 741 files
+
+## Key
+
+A lit row prints its track's name; a lit column prints a short code, the first extension of its file language:
+
+- `.cs`: csharp
+- `.md`: markdown
+- `.ps1`: powershell
+- `.yml`: yaml
 
 ## Why each cell is lit
 
@@ -51,63 +62,125 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.Variants/configs/variants.yml][14]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 30 (body comment)
   (a passing mention only).
 
-### docs × markdown (20 lit files)
+### docs × markdown (35 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.md][15]: selected by [ADR-DSGN-ASPECT][1]:
+- [docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.chain.md][15]: selected by [ADR-DSGN-ASPECT][1]:
+  the file cites it at line 8 (text), line 25 (text), line 25 (text), line 33 (text) and line 33 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.md][16]: selected by [ADR-DSGN-ASPECT][1]:
   the file cites it at line 71 (text).
-- [docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md][16]: selected by [ADR-DSGN-ASPECT][1]: the
+- [docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.grid.md][17]: selected by [ADR-DSGN-ASPECT][1]:
+  the file cites it at line 8 (text), line 27 (text), line 29 (text), line 30 (text), line 37 (text), line 39 (text), line 40 (text), line
+  41 (text), line 43 (text), line 50 (text), line 51 (text), line 59 (text), line 61 (text), line 64 (text), line 66 (text), line 68 (text),
+  line 69 (text), line 71 (text), line 73 (text), line 75 (text), line 76 (text), line 78 (text), line 80 (text), line 82 (text), line 83
+  (text), line 85 (text), line 86 (text), line 88 (text), line 90 (text), line 92 (text) and line 94 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.tree.md][18]: selected by [ADR-DSGN-ASPECT][1]:
+  the file cites it at line 8 (text), line 30 (text), line 32 (text), line 34 (text), line 36 (text), line 38 (text), line 39 (text), line
+  41 (text), line 44 (text), line 46 (text), line 49 (text), line 56 (text), line 58 (text), line 60 (text), line 62 (text), line 64 (text),
+  line 66 (text), line 68 (text), line 70 (text), line 72 (text), line 79 (text), line 82 (text), line 83 (text), line 85 (text), line 92
+  (text), line 94 (text), line 96 (text), line 98 (text), line 105 (text), line 113 (text) and line 119 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.chain.md][19]: selected by [ADR-DSGN-ASPECT][1]: the
+  file cites it at line 8 (text), line 25 (text), line 25 (text), line 33 (text) and line 33 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md][20]: selected by [ADR-DSGN-ASPECT][1]: the
   file cites it at line 65 (text).
-- [docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md][17]: selected by
+- [docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.grid.md][21]: selected by [ADR-DSGN-ASPECT][1]: the file
+  cites it at line 8 (text), line 27 (text), line 29 (text), line 30 (text), line 37 (text), line 39 (text), line 40 (text), line 41 (text),
+  line 43 (text), line 50 (text), line 51 (text), line 59 (text), line 61 (text), line 64 (text), line 66 (text), line 68 (text), line 69
+  (text), line 71 (text), line 73 (text), line 75 (text), line 76 (text), line 78 (text), line 80 (text), line 82 (text), line 83 (text),
+  line 85 (text), line 86 (text), line 88 (text), line 90 (text), line 92 (text) and line 94 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.tree.md][22]: selected by [ADR-DSGN-ASPECT][1]: the file
+  cites it at line 8 (text), line 30 (text), line 32 (text), line 34 (text), line 36 (text), line 38 (text), line 39 (text), line 41 (text),
+  line 44 (text), line 46 (text), line 49 (text), line 56 (text), line 58 (text), line 60 (text), line 62 (text), line 64 (text), line 66
+  (text), line 68 (text), line 70 (text), line 72 (text), line 79 (text), line 82 (text), line 83 (text), line 85 (text), line 92 (text),
+  line 94 (text), line 96 (text), line 98 (text), line 105 (text), line 113 (text) and line 119 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.chain.md][23]: selected by
+  [ADR-DSGN-ASPECT][1]: the file cites it at line 8 (text), line 26 (text), line 26 (text), line 34 (text) and line 34 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md][24]: selected by
   [ADR-DSGN-ASPECT][1]: the file cites it at line 71 (text).
-- [docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.md][18]: selected by
+- [docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.grid.md][25]: selected by
+  [ADR-DSGN-ASPECT][1]: the file cites it at line 8 (text), line 27 (text), line 29 (text), line 30 (text), line 37 (text), line 39 (text),
+  line 40 (text), line 41 (text), line 43 (text), line 50 (text), line 51 (text), line 59 (text), line 61 (text), line 64 (text), line 66
+  (text), line 68 (text), line 69 (text), line 71 (text), line 73 (text), line 75 (text), line 76 (text), line 78 (text), line 80 (text),
+  line 82 (text), line 83 (text), line 85 (text), line 86 (text), line 88 (text), line 90 (text), line 92 (text) and line 94 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.tree.md][26]: selected by
+  [ADR-DSGN-ASPECT][1]: the file cites it at line 8 (text), line 30 (text), line 32 (text), line 34 (text), line 36 (text), line 38 (text),
+  line 39 (text), line 41 (text), line 44 (text), line 46 (text), line 49 (text), line 56 (text), line 58 (text), line 60 (text), line 62
+  (text), line 64 (text), line 66 (text), line 68 (text), line 70 (text), line 72 (text), line 79 (text), line 82 (text), line 83 (text),
+  line 85 (text), line 92 (text), line 94 (text), line 96 (text), line 98 (text), line 105 (text), line 113 (text) and line 119 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.chain.md][27]: selected by
+  [ADR-DSGN-ASPECT][1]: the file cites it at line 8 (text), line 25 (text), line 25 (text), line 33 (text) and line 33 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.md][28]: selected by
   [ADR-DSGN-ASPECT][1]: the file cites it at line 73 (text).
-- [docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.md][19]: selected by
+- [docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.grid.md][29]: selected by
+  [ADR-DSGN-ASPECT][1]: the file cites it at line 8 (text), line 27 (text), line 29 (text), line 30 (text), line 37 (text), line 39 (text),
+  line 40 (text), line 41 (text), line 43 (text), line 50 (text), line 51 (text), line 59 (text), line 61 (text), line 64 (text), line 66
+  (text), line 68 (text), line 69 (text), line 71 (text), line 73 (text), line 75 (text), line 76 (text), line 78 (text), line 80 (text),
+  line 82 (text), line 83 (text), line 85 (text), line 86 (text), line 88 (text), line 90 (text), line 92 (text) and line 94 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.tree.md][30]: selected by
+  [ADR-DSGN-ASPECT][1]: the file cites it at line 8 (text), line 30 (text), line 32 (text), line 34 (text), line 36 (text), line 38 (text),
+  line 39 (text), line 41 (text), line 44 (text), line 46 (text), line 49 (text), line 56 (text), line 58 (text), line 60 (text), line 62
+  (text), line 64 (text), line 66 (text), line 68 (text), line 70 (text), line 72 (text), line 79 (text), line 82 (text), line 83 (text),
+  line 85 (text), line 92 (text), line 94 (text), line 96 (text), line 98 (text), line 105 (text), line 113 (text) and line 119 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.chain.md][31]: selected by
+  [ADR-DSGN-ASPECT][1]: the file cites it at line 8 (text), line 27 (text), line 27 (text), line 38 (text) and line 38 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.md][32]: selected by
   [ADR-DSGN-ASPECT][1]: the file cites it at line 66 (text) and line 75 (text).
-- [docs/adr/design/commit-lifecycle.md][20]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of
+- [docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.grid.md][33]: selected by
+  [ADR-DSGN-ASPECT][1]: the file cites it at line 8 (text), line 46 (text), line 61 (text), line 62 (text), line 89 (text), line 120 (text),
+  line 134 (text), line 148 (text), line 153 (text), line 162 (text), line 172 (text), line 182 (text), line 184 (text), line 187 (text),
+  line 189 (text), line 191 (text), line 218 (text), line 220 (text), line 222 (text), line 224 (text), line 225 (text), line 227 (text),
+  line 229 (text), line 231 (text), line 232 (text), line 247 (text), line 334 (text), line 336 (text), line 339 (text), line 341 (text) and
+  line 344 (text).
+- [docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.tree.md][34]: selected by
+  [ADR-DSGN-ASPECT][1]: the file cites it at line 8 (text), line 52 (text), line 91 (text), line 104 (text), line 113 (text), line 135
+  (text), line 137 (text), line 139 (text), line 141 (text), line 143 (text), line 172 (text), line 175 (text), line 178 (text), line 181
+  (text), line 185 (text), line 333 (text), line 335 (text), line 337 (text), line 339 (text), line 341 (text), line 343 (text), line 345
+  (text), line 347 (text), line 349 (text), line 365 (text), line 423 (text), line 438 (text), line 440 (text), line 442 (text), line 444
+  (text) and line 463 (text).
+- [docs/adr/design/commit-lifecycle.md][35]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of
   that code.
-- [docs/adr/design/dora-explains.md][21]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
+- [docs/adr/design/dora-explains.md][36]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
   code.
 - [docs/adr/design/module-aspects.md][1]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
   code.
-- [docs/adr/design/run-modes.md][22]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/self-service.md][23]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
+- [docs/adr/design/run-modes.md][37]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
+- [docs/adr/design/self-service.md][38]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
   code.
-- [docs/adr/design/server-remote-integration.md][24]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR
+- [docs/adr/design/server-remote-integration.md][39]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR
   domain of that code.
-- [docs/adr/design/thin-platforms.md][25]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
+- [docs/adr/design/thin-platforms.md][40]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
   code.
-- [docs/adr/design/tracks.md][26]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/visual-design.md][27]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
+- [docs/adr/design/tracks.md][41]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
+- [docs/adr/design/visual-design.md][42]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
   code.
-- [docs/adr/index.md][28]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 95 (text).
-- [docs/explanation/design/drop-a-file-the-import-exports-it.md][29]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 16 (text),
+- [docs/adr/index.md][43]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 95 (text).
+- [docs/explanation/design/drop-a-file-the-import-exports-it.md][44]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 16 (text),
   line 46 (text) and line 48 (text).
-- [docs/explanation/design/every-file-in-exactly-one-aspect.md][30]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 14 (text),
+- [docs/explanation/design/every-file-in-exactly-one-aspect.md][45]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 14 (text),
   line 42 (text), line 44 (text), line 45 (text), line 46 (text), line 51 (text), line 53 (text) and line 55 (text).
-- [docs/explanation/design/manifest-and-aspects-from-one-folder.md][31]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 18
+- [docs/explanation/design/manifest-and-aspects-from-one-folder.md][46]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 18
   (text), line 53 (text), line 55 (text) and line 61 (text).
-- [docs/explanation/design/one-folder-two-independent-readers.md][32]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 17
+- [docs/explanation/design/one-folder-two-independent-readers.md][47]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 17
   (text), line 51 (text), line 53 (text), line 55 (text), line 59 (text) and line 61 (text).
-- [docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md][33]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line
+- [docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md][48]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line
   17 (text), line 21 (text), line 22 (text), line 45 (text), line 46 (text), line 48 (text), line 59 (text), line 60 (text), line 61 (text),
   line 65 (text) and line 67 (text).
 
 ## Keywords
 
-- [world map][34]
-- [track][35]
-- [file language][36]
-- [cell][37]
-- [lit cell][38]
+- [world map][49]
+- [track][50]
+- [file language][51]
+- [cell][52]
+- [lit cell][53]
 - [automation][14]: a track
 - [docs][14]: a track
-- [csharp][39]: a file language
-- [markdown][39]: a file language
-- [powershell][39]: a file language
-- [yaml][39]: a file language
+- [csharp][54]: a file language
+- [markdown][54]: a file language
+- [powershell][54]: a file language
+- [yaml][54]: a file language
 
 [1]: ../../adr/design/module-aspects.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -123,28 +196,43 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 [12]: ../../../automation/Catzc.Base.Variants/Get-Aspect.ps1
 [13]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
 [14]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[15]: adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.md
-[16]: adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md
-[17]: adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md
-[18]: adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.md
-[19]: adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.md
-[20]: ../../adr/design/commit-lifecycle.md
-[21]: ../../adr/design/dora-explains.md
-[22]: ../../adr/design/run-modes.md
-[23]: ../../adr/design/self-service.md
-[24]: ../../adr/design/server-remote-integration.md
-[25]: ../../adr/design/thin-platforms.md
-[26]: ../../adr/design/tracks.md
-[27]: ../../adr/design/visual-design.md
-[28]: ../../adr/index.md
-[29]: ../../explanation/design/drop-a-file-the-import-exports-it.md
-[30]: ../../explanation/design/every-file-in-exactly-one-aspect.md
-[31]: ../../explanation/design/manifest-and-aspects-from-one-folder.md
-[32]: ../../explanation/design/one-folder-two-independent-readers.md
-[33]: ../../explanation/design/partition-integrity-runs-only-in-unit-tests.md
-[34]: ../../adr/glossary.md#world-map
-[35]: ../../adr/glossary.md#track
-[36]: ../../adr/glossary.md#file-language
-[37]: ../../adr/glossary.md#cell
-[38]: ../../adr/glossary.md#lit-cell
-[39]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[15]: adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.chain.md
+[16]: adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.md
+[17]: adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.grid.md
+[18]: adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.tree.md
+[19]: adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.chain.md
+[20]: adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md
+[21]: adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.grid.md
+[22]: adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.tree.md
+[23]: adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.chain.md
+[24]: adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md
+[25]: adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.grid.md
+[26]: adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.tree.md
+[27]: adr-dsgn-aspect--one-folder-two-independent-readers--architecture.chain.md
+[28]: adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.md
+[29]: adr-dsgn-aspect--one-folder-two-independent-readers--architecture.grid.md
+[30]: adr-dsgn-aspect--one-folder-two-independent-readers--architecture.tree.md
+[31]: adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.chain.md
+[32]: adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.md
+[33]: adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.grid.md
+[34]: adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.tree.md
+[35]: ../../adr/design/commit-lifecycle.md
+[36]: ../../adr/design/dora-explains.md
+[37]: ../../adr/design/run-modes.md
+[38]: ../../adr/design/self-service.md
+[39]: ../../adr/design/server-remote-integration.md
+[40]: ../../adr/design/thin-platforms.md
+[41]: ../../adr/design/tracks.md
+[42]: ../../adr/design/visual-design.md
+[43]: ../../adr/index.md
+[44]: ../../explanation/design/drop-a-file-the-import-exports-it.md
+[45]: ../../explanation/design/every-file-in-exactly-one-aspect.md
+[46]: ../../explanation/design/manifest-and-aspects-from-one-folder.md
+[47]: ../../explanation/design/one-folder-two-independent-readers.md
+[48]: ../../explanation/design/partition-integrity-runs-only-in-unit-tests.md
+[49]: ../../adr/glossary.md#world-map
+[50]: ../../adr/glossary.md#track
+[51]: ../../adr/glossary.md#file-language
+[52]: ../../adr/glossary.md#cell
+[53]: ../../adr/glossary.md#lit-cell
+[54]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

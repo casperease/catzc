@@ -12,6 +12,12 @@
     An unregistered config — a fixture, or one a PowerShell validator checks through Invoke-ConfigValidator
     (Catzc.Base.ConfigExtensions) — is returned raw, as the ordered dictionary. See ADR module-config-loading.
 
+    In build mode, a consumer overlay may hold a fragment of the config at
+    <RepositoryRoot>/.catzc/automation/<Module>/configs/<name>.yml. The fragment is merged onto the bundled config
+    before the type validates it (Merge-ConfigFragment: maps merge, scalars and lists replace, null resets a key to
+    its declared default), so a setting resolves caller → overlay fragment → bundled config → type default. A
+    sealed config (configs.yml overridable: false) refuses a fragment.
+
     -ListOwners loads nothing: it lists every module that ships the config, as @{ Name; Module; Path } sorted
     by module name (ordinal), and nothing when none does. A config several modules opt into by shipping it
     (glossary) is read by listing its owners and then reading each with -Module.
@@ -48,20 +54,47 @@ function Get-Config {
 
     $entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name; Module; Path }
 
+    # A consumer overlay's fragment of this config (<overlay root>/<Module>/configs/<name>.yml), in build mode only
+    # ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)). The cache key carries the fragment's stamp,
+    # so an edited fragment is never served from a stale merge.
+    $fragmentPath = $null
+    $cacheKey = $entry.Path
+    $overlayRoot = Get-ConfigOverlayRoot
+    if ($overlayRoot) {
+        $candidate = [System.IO.Path]::Combine($overlayRoot, $entry.Module, 'configs', "$($entry.Name).yml")
+        if ([System.IO.File]::Exists($candidate)) {
+            $fragmentPath = $candidate
+            $stamp = [System.IO.FileInfo]::new($candidate)
+            $cacheKey = "$($entry.Path)|$candidate|$($stamp.LastWriteTimeUtc.Ticks)|$($stamp.Length)"
+        }
+    }
+
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configCache')) {
         # strict-clean probe of the lazy cache entry
         # ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
         $script:configCache = @{}
     }
-    if ($script:configCache.ContainsKey($entry.Path)) {
-        return $script:configCache[$entry.Path]
+    if ($script:configCache.ContainsKey($cacheKey)) {
+        return $script:configCache[$cacheKey]
     }
 
     Assert-PathExist $entry.Path
     $raw = Get-Content $entry.Path -Raw | ConvertFrom-Yaml -Ordered
 
-    $ret = $raw
     $registered = (Get-ConfigRegistry)[$entry.Name]
+    if ($fragmentPath) {
+        if ($registered -and $registered.Contains('overridable') -and $registered['overridable'] -eq $false) {
+            throw "Config '$($entry.Name)' is sealed (configs.yml overridable: false), so the overlay may not change it: remove $fragmentPath."
+        }
+        $fragment = Get-Content $fragmentPath -Raw | ConvertFrom-Yaml -Ordered
+        Assert-True ($raw -is [System.Collections.IDictionary] -and ($null -eq $fragment -or $fragment -is [System.Collections.IDictionary])) -ErrorText "Overlay fragment $fragmentPath cannot merge onto config '$($entry.Name)': a fragment and its config must both be maps."
+        if ($null -ne $fragment) {
+            $raw = Merge-ConfigFragment -Base $raw -Fragment $fragment
+        }
+        Write-Verbose "Merged overlay fragment '$fragmentPath' onto config '$($entry.Name)'"
+    }
+
+    $ret = $raw
     if ($registered) {
         # The registered C# type maps and validates the parsed dictionary at construction.
         $type = [type] $registered['type']
@@ -69,6 +102,6 @@ function Get-Config {
     }
 
     Write-Verbose "Loaded config '$($entry.Name)' from: $($entry.Path)"
-    $script:configCache[$entry.Path] = $ret
-    $script:configCache[$entry.Path]
+    $script:configCache[$cacheKey] = $ret
+    $script:configCache[$cacheKey]
 }

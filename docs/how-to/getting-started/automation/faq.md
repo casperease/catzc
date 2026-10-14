@@ -9,12 +9,13 @@
 No. Loading is fast because PowerShell only _parses_ the function definitions at import time — it does not _execute_ them. The cost of
 parsing a `.ps1` file with a single function is negligible (sub-millisecond).
 
-The bootstrap module generates a `.psd1` manifest per module and lists every `.ps1` file in `NestedModules`. PowerShell's module loader
-handles this natively — no dot-sourcing loop, no custom loader. Vendor modules that are expensive to load (Pester, PSScriptAnalyzer) are
+The bootstrap module generates a `.psd1` manifest per module that lists the module's `.ps1` files for one shared loader, which parses each
+file in memory and dot-sources it into the module. Loading each file as a script file of its own costs about 3 ms per file on top of the
+parse, so parsing them in memory is what keeps the import short. Vendor modules that are expensive to load (Pester, PSScriptAnalyzer) are
 deferred via the `Lazy` parameter and only imported on first use.
 
-In practice the entire import completes in under a second. You would need hundreds of modules before parsing overhead became measurable, and
-at that point the bottleneck would be disk I/O, not the function count.
+In practice the entire import takes about two seconds for every module, the C# types and the vendored modules together; `importer.ps1
+-DiagnoseLoadTime` shows where each part goes. The time grows with the number of files, not with the functions a script calls.
 
 ## What about dependency hell?
 
@@ -73,9 +74,9 @@ adds roughly 50–100 ms total. You will not notice this.
 **Execution cost is zero.** Functions that are never called consume no CPU and no meaningful memory. A parsed function definition is just an
 AST node sitting idle — it is not evaluated, allocated, or warmed up until you invoke it.
 
-**Selective dot-sourcing costs more than you save.** Every `. ./path.ps1` call has overhead: path resolution, file I/O, scope setup. A
-script that dot-sources 10 files pays that cost 10 times, and gains nothing over a single `Import-Module` that loads them all at once
-through `NestedModules`. The module loader is optimized for batch loading — individual dot-sourcing is not.
+**Selective dot-sourcing costs more than you save.** Every `. ./path.ps1` call loads a script file, and that costs about 3 ms on top of the
+parse: path resolution, file checks, scope setup. A script that dot-sources 10 files pays that 10 times, while the importer's shared loader
+parses each module file in memory and skips that per-file cost altogether.
 
 **The real cost is maintenance.** The selective approach means every script must track its own dependency list. Add a function call and you
 must remember to add the dot-source. Remove one and you leave dead imports. Rename a file and every consumer breaks. These are not

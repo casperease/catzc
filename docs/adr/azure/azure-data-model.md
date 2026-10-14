@@ -93,8 +93,9 @@ resolve, fails the build, naming the config file and the parameter.
 ### Rule ADR-AZ-DATAMOD:11
 
 `azure.yml` carries the repository's policy enforcement mode, `policy_enforcement: { production, nonproduction }` — one entry per
-**environment class** — each `Default` or `DoNotEnforce`. The setting is optional; its sensible default, `{ production: Default, nonproduction: DoNotEnforce }`, is declared once on
-`AzureConfig`, which fills every key the file omits and rejects an unknown key or mode. Templates read it by config address.
+**environment class** — each `Default` or `DoNotEnforce`. The setting is optional; its sensible default,
+`{ production: Default, nonproduction: DoNotEnforce }`, is declared once on `AzureConfig`, which fills every key the file omits and rejects
+an unknown key or mode. Templates read it by config address.
 
 - [Policy enforcement](#policy-enforcement)
 

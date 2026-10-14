@@ -106,7 +106,8 @@ repository does about each item. Each rule cites Microsoft's page — the item's
 it in our words. The current WAF text is published under the Microsoft Learn Terms of Use, which grant no right to copy it into a shared
 repository, so nothing here is quoted.
 
-The [WAF reference](../../../references/waf/index.md) lists the five pillar records in this repository and the Microsoft checklist each one cites.
+The [WAF reference](../../../references/waf/index.md) lists the five pillar records in this repository and the Microsoft checklist each one
+cites.
 
 The examples are the three templates the [landing-zones](../landing-zones.md) record describes: `foundation` (the Log Analytics workspace
 and the Key Vault of each subscription), `discovery` (the landing zone: network, policies, budget), and `expedition` (the workload: a
