@@ -30,7 +30,7 @@ function Invoke-WithTimeout {
         [Parameter(Mandatory, Position = 0)]
         [scriptblock] $ScriptBlock,
 
-        [string] $Budget,
+        [guid] $Budget = [guid]::Empty,
 
         [ValidateRange(1, [int]::MaxValue)]
         [int] $Seconds = (Get-TimeoutSeconds -Budget $Budget),

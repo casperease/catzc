@@ -14,7 +14,7 @@
       LF          every file in scope: a carriage return anywhere is one issue (.gitattributes pins the shell scripts to
                   eol=lf, so a re-checkout fixes a stale working copy; a CRLF file in the index needs re-adding);
       executable  every tracked file in scope that starts with a shebang must be stored executable (git mode 100755,
-                  Get-GitTrackedPath -Executable), since it is meant to run directly; a sourced file has no shebang;
+                  Get-GitTrackedPath -ExecutableOnly), since it is meant to run directly; a sourced file has no shebang;
       ShellCheck  every *.sh, *.bats and importer.sh except -ShellCheckExclude (vendored third-party scripts): each finding
                   is one issue, '<file>:<line>:<column>: <severity>: <message> [SC<code>]', from the pinned ShellCheck
                   (tools.yml `shellcheck`, Install-Shellcheck), run by its path;
@@ -68,7 +68,7 @@ function Test-ShellScripts {
     }
     $scripts.Sort([System.StringComparer]::Ordinal)
 
-    $executable = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GitTrackedPath '.' -Executable), [System.StringComparer]::Ordinal)
+    $executable = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GitTrackedPath '.' -ExecutableOnly), [System.StringComparer]::Ordinal)
     $tracked = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GitTrackedPath '.'), [System.StringComparer]::Ordinal)
     $issues = [System.Collections.Generic.List[string]]::new()
     foreach ($script in $scripts) {

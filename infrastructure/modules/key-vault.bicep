@@ -21,6 +21,9 @@ param skuName string = 'standard'
 @description('Resource tags (a landing zone that requires a tag denies an untagged vault).')
 param tags object = {}
 
+@description('Let Azure Resource Manager read secrets during a deployment: a parameter file\'s Key Vault reference (expedition\'s break-glass SQL password) resolves only when this is on.')
+param enabledForTemplateDeployment bool = true
+
 resource vault 'Microsoft.KeyVault/vaults@2023-07-01' = {
   name: name
   location: location
@@ -32,6 +35,7 @@ resource vault 'Microsoft.KeyVault/vaults@2023-07-01' = {
       name: skuName
     }
     enableRbacAuthorization: true
+    enabledForTemplateDeployment: enabledForTemplateDeployment
     accessPolicies: []
   }
 }

@@ -127,9 +127,9 @@ domains:
     description: >-
       The catzc CLI and module system and the rules for building it: devbox/pipeline parity, one function per file, open/closed growth,
       fail-fast assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, test automation, and the
-      merged, installable build, stated for any execution engine. Language layers live in `BCL/` (native C# types) and `go/`, `python/`,
-      and `bash/` (black-box test artifacts). It turns the research, principles, process, and design domains into enforced code; the pwsh
-      domain realises it in PowerShell, and the pipelines, github, and azure domains build on it.
+      merged, installable build, stated for any execution engine. Language layers live in `BCL/` (native C# types) and `go/`, `python/`, and
+      `bash/` (black-box test artifacts). It turns the research, principles, process, and design domains into enforced code; the pwsh domain
+      realises it in PowerShell, and the pipelines, github, and azure domains build on it.
     depends_on: [research, principles, process, design]
     stack: AUTO
     concern: [automation] # the module system: loading, configuration, globsets

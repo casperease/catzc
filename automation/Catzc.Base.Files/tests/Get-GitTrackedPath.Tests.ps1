@@ -86,9 +86,9 @@ Describe 'Get-GitTrackedPath (real git)' -Tag 'L2', 'integrity', 'source-only' {
         @(Get-GitTrackedPath 'docs', 'importer.ps1') | Should -Be $gitDocs
     }
 
-    It 'with -Executable, equals the 100755 entries git ls-files -s lists' {
+    It 'with -ExecutableOnly, equals the 100755 entries git ls-files -s lists' {
         $git = @((Invoke-Executable 'git -c core.quotepath=off ls-files -s' -PassThru -Silent).Output -split "`r?`n" |
                 Where-Object { $_ -like '100755 *' } | ForEach-Object { ($_ -split "`t", 2)[1] } | Select-Object -Unique)
-        @(Get-GitTrackedPath '.' -Executable) | Should -Be $git
+        @(Get-GitTrackedPath '.' -ExecutableOnly) | Should -Be $git
     }
 }

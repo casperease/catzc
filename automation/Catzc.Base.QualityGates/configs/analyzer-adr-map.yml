@@ -30,6 +30,8 @@ analyzers:
   Measure-NoEnvRepositoryRoot: [ADR-AUTO-NOPWD#6]
   Measure-ParameterFillIn: [ADR-PWSH-PARAM#4]
   Measure-PrimaryArgumentPosition: [ADR-PWSH-PARAM#2]
+  Measure-NoOptionalBooleanParameter: [ADR-PWSH-PARAM#3]
+  Measure-NoSwitchDefaultOn: [ADR-PWSH-PARAM#3]
   Measure-NoUnsafeFirstIndex: [ADR-PWSH-ERROR#8]
   Measure-NoBareCacheEntryRead: [ADR-PWSH-CACHE#4]
 

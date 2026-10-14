@@ -62,3 +62,47 @@ Describe 'Measure-PrimaryArgumentPosition' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#2
         @(Get-RuleRecord -Rule 'Measure-PrimaryArgumentPosition' -Code $code -RelativePath 'automation/Catzc.Widget/private/Get-Widget.ps1').Count | Should -Be 0
     }
 }
+
+Describe 'Measure-NoOptionalBooleanParameter' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#3' {
+    It 'flags an optional [bool] parameter: <Description>' -ForEach @(
+        @{ Description = 'bare'; Param = '[bool] $Loud' }
+        @{ Description = 'with a default'; Param = '[bool] $Loud = $false' }
+        @{ Description = 'full type name, Mandatory = $false'; Param = '[Parameter(Mandatory = $false)] [System.Boolean] $Loud' }
+    ) {
+        $code = "function Get-Widget {`n    param($Param)`n}"
+        $records = @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'automation/Catzc.Widget/private/Get-Widget.ps1')
+        $records.Count | Should -Be 1
+        $records | ForEach-Object { $_.Message } | Should -BeLike '*-Loud*[switch]*'
+    }
+
+    It 'accepts: <Description>' -ForEach @(
+        @{ Description = 'a [switch]'; Param = '[switch] $Loud' }
+        @{ Description = 'a mandatory [bool], a value both ways'; Param = '[Parameter(Mandatory)] [bool] $CustomerDeployment' }
+    ) {
+        $code = "function Get-Widget {`n    param($Param)`n}"
+        @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
+    }
+
+    It 'leaves a test file alone' {
+        $code = "function Get-Widget {`n    param([bool] `$Loud)`n}"
+        @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 0
+    }
+}
+
+Describe 'Measure-NoSwitchDefaultOn' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#3' {
+    It 'flags a [switch] declared $true' {
+        $code = "function Get-Widget {`n    param([switch] `$Spin = `$true)`n}"
+        $records = @(Get-RuleRecord -Rule 'Measure-NoSwitchDefaultOn' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1')
+        $records.Count | Should -Be 1
+        $records | ForEach-Object { $_.Message } | Should -BeLike '*-Spin defaults on*'
+    }
+
+    It 'accepts: <Description>' -ForEach @(
+        @{ Description = 'a switch with no default'; Param = '[switch] $Spin' }
+        @{ Description = 'a switch declared $false'; Param = '[switch] $Spin = $false' }
+        @{ Description = 'a [bool] declared $true (not a switch)'; Param = '[Parameter(Mandatory)] [bool] $Spin' }
+    ) {
+        $code = "function Get-Widget {`n    param($Param)`n}"
+        @(Get-RuleRecord -Rule 'Measure-NoSwitchDefaultOn' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
+    }
+}

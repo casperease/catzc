@@ -4,7 +4,9 @@
 // ADR references (ForAdr) light, through the placements WorldMapBuilder derived in its fixed order per artifact kind:
 // every ADR file of a requested ADR's domain, and every file whose citations a request covers (CitationScanner.Covers).
 // Then the reviewed overrides of configs/maps.yml apply: an exception a request covers keeps its cell dark, and a pin a
-// request covers lights its cell, so a pin wins over an exception. Files (ForPaths) light the cells they sit in.
+// request covers lights its cell, so a pin wins over an exception. Files (ForPaths) light the cells they sit in. Every
+// lit file, and every pin, carries its reason (HighlightReason): the basis, the covering request, and the citation
+// sites with their lines and kinds, so a lit file cited only in passing comments reads as a mention.
 //
 // The cells keep the map's order (rows, then columns), so the result is deterministic; ToJson is its data form
 // ([ADR-THES-ONETRUTH#3](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)).
@@ -77,16 +79,26 @@ public sealed class WorldMapHighlight
         {
             if (placement.Domain != null && domains.Contains(placement.Domain))
             {
-                lit.Add(placement.Track, placement.FileLanguage, placement.Path, placement.Basis);
+                foreach (string request in requested)
+                {
+                    if (!string.Equals(CitationScanner.DomainOf(request, map.AdrIndex), placement.Domain, StringComparison.Ordinal)) { continue; }
+                    lit.Add(placement.Track, placement.FileLanguage, placement.Path, placement.Basis,
+                        new HighlightReason(placement.Path, placement.Basis, request, placement.Domain, null, null));
+                }
                 continue;
             }
-            foreach (string citation in placement.Citations)
+            foreach (string request in requested)
             {
-                if (AnyCovers(requested, citation))
+                List<CitationSite> sites = new List<CitationSite>();
+                bool covered = false;
+                foreach (string citation in placement.Citations) { covered |= CitationScanner.Covers(request, citation); }
+                if (!covered) { continue; }
+                foreach (CitationSite site in placement.Sites)
                 {
-                    lit.Add(placement.Track, placement.FileLanguage, placement.Path, placement.Basis);
-                    break;
+                    if (CitationScanner.Covers(request, site.Citation)) { sites.Add(site); }
                 }
+                lit.Add(placement.Track, placement.FileLanguage, placement.Path, placement.Basis,
+                    new HighlightReason(placement.Path, placement.Basis, request, null, sites.ToArray(), null));
             }
         }
         foreach (MapsPin exception in exceptionList)
@@ -95,7 +107,12 @@ public sealed class WorldMapHighlight
         }
         foreach (MapsPin pin in pinList)
         {
-            if (AnyCovers(requested, CitationScanner.Canonical(pin.adr))) { lit.Add(pin.track, pin.file_language, null, HighlightedCell.SourcePin); }
+            string canonical = CitationScanner.Canonical(pin.adr);
+            if (AnyCovers(requested, canonical))
+            {
+                lit.Add(pin.track, pin.file_language, null, HighlightedCell.SourcePin,
+                    new HighlightReason(null, HighlightedCell.SourcePin, canonical, null, null, pin.reason));
+            }
         }
         return new WorldMapHighlight(KindAdr, requested.ToArray(), lit.InOrderOf(map));
     }
@@ -116,7 +133,8 @@ public sealed class WorldMapHighlight
                 continue;
             }
             if (!requested.Contains(placement.Path)) { requested.Add(placement.Path); }
-            lit.Add(placement.Track, placement.FileLanguage, placement.Path, HighlightedCell.SourcePath);
+            lit.Add(placement.Track, placement.FileLanguage, placement.Path, HighlightedCell.SourcePath,
+                new HighlightReason(placement.Path, HighlightedCell.SourcePath, null, null, null, null));
         }
         if (errors.Count > 0) { throw new ArgumentException("world-map highlight: " + string.Join("; ", errors)); }
         return new WorldMapHighlight(KindPath, requested.ToArray(), lit.InOrderOf(map));
@@ -147,6 +165,10 @@ public sealed class WorldMapHighlight
                     writer.WriteStartArray("files");
                     foreach (string file in cell.Files) { writer.WriteStringValue(file); }
                     writer.WriteEndArray();
+                    writer.WriteBoolean("touched", cell.Touched);
+                    writer.WriteStartArray("reasons");
+                    foreach (HighlightReason reason in cell.Reasons) { WriteReason(writer, reason); }
+                    writer.WriteEndArray();
                     writer.WriteEndObject();
                 }
                 writer.WriteEndArray();
@@ -154,6 +176,34 @@ public sealed class WorldMapHighlight
             }
             return Encoding.UTF8.GetString(stream.ToArray()).Replace("\r\n", "\n");
         }
+    }
+
+    private static void WriteReason(Utf8JsonWriter writer, HighlightReason reason)
+    {
+        writer.WriteStartObject();
+        WriteNullable(writer, "path", reason.Path);
+        writer.WriteString("basis", reason.Basis);
+        WriteNullable(writer, "requested", reason.Requested);
+        WriteNullable(writer, "domain", reason.Domain);
+        WriteNullable(writer, "note", reason.Note);
+        writer.WriteBoolean("mention", reason.Mention);
+        writer.WriteStartArray("sites");
+        foreach (CitationSite site in reason.Sites)
+        {
+            writer.WriteStartObject();
+            writer.WriteString("path", site.Path);
+            writer.WriteNumber("line", site.Line);
+            writer.WriteString("kind", site.Kind);
+            writer.WriteString("citation", site.Citation);
+            writer.WriteEndObject();
+        }
+        writer.WriteEndArray();
+        writer.WriteEndObject();
+    }
+
+    private static void WriteNullable(Utf8JsonWriter writer, string name, string value)
+    {
+        if (value == null) { writer.WriteNull(name); } else { writer.WriteString(name, value); }
     }
 
     private static bool AnyCovers(List<string> requested, string cited)
@@ -212,22 +262,25 @@ public sealed class WorldMapHighlight
         return items;
     }
 
-    // The lit cells while a highlight is computed: per cell, its lit files and sources.
+    // The lit cells while a highlight is computed: per cell, its lit files, sources and reasons.
     private sealed class Lit
     {
         private readonly Dictionary<string, SortedSet<string>> files = new Dictionary<string, SortedSet<string>>(StringComparer.Ordinal);
         private readonly Dictionary<string, SortedSet<string>> sources = new Dictionary<string, SortedSet<string>>(StringComparer.Ordinal);
+        private readonly Dictionary<string, List<HighlightReason>> reasons = new Dictionary<string, List<HighlightReason>>(StringComparer.Ordinal);
 
-        public void Add(string track, string fileLanguage, string path, string source)
+        public void Add(string track, string fileLanguage, string path, string source, HighlightReason reason)
         {
             string key = Key(track, fileLanguage);
             if (!files.ContainsKey(key))
             {
                 files[key] = new SortedSet<string>(StringComparer.Ordinal);
                 sources[key] = new SortedSet<string>(StringComparer.Ordinal);
+                reasons[key] = new List<HighlightReason>();
             }
             if (path != null) { files[key].Add(path); }
             sources[key].Add(source);
+            reasons[key].Add(reason);
         }
 
         public void Remove(string track, string fileLanguage)
@@ -235,6 +288,7 @@ public sealed class WorldMapHighlight
             string key = Key(track, fileLanguage);
             files.Remove(key);
             sources.Remove(key);
+            reasons.Remove(key);
         }
 
         public HighlightedCell[] InOrderOf(WorldMap map)
@@ -244,9 +298,30 @@ public sealed class WorldMapHighlight
             {
                 string key = Key(cell.Track, cell.FileLanguage);
                 if (!files.ContainsKey(key)) { continue; }
-                cells.Add(new HighlightedCell(cell.Track, cell.FileLanguage, ToArray(files[key]), ToArray(sources[key])));
+                cells.Add(new HighlightedCell(cell.Track, cell.FileLanguage, ToArray(files[key]), ToArray(sources[key]), InFileOrder(reasons[key])));
             }
             return cells.ToArray();
+        }
+
+        // The reasons by file (ordinal; a pin's, with no file, last), keeping the request order within a file.
+        private static HighlightReason[] InFileOrder(List<HighlightReason> list)
+        {
+            List<KeyValuePair<int, HighlightReason>> indexed = new List<KeyValuePair<int, HighlightReason>>();
+            for (int i = 0; i < list.Count; i++) { indexed.Add(new KeyValuePair<int, HighlightReason>(i, list[i])); }
+            indexed.Sort((a, b) =>
+            {
+                if (a.Value.Path == null || b.Value.Path == null)
+                {
+                    int byPin = (a.Value.Path == null).CompareTo(b.Value.Path == null);
+                    if (byPin != 0) { return byPin; }
+                    return a.Key.CompareTo(b.Key);
+                }
+                int byPath = string.CompareOrdinal(a.Value.Path, b.Value.Path);
+                return byPath != 0 ? byPath : a.Key.CompareTo(b.Key);
+            });
+            HighlightReason[] result = new HighlightReason[indexed.Count];
+            for (int i = 0; i < indexed.Count; i++) { result[i] = indexed[i].Value; }
+            return result;
         }
 
         public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

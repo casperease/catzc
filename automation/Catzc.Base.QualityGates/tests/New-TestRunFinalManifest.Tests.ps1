@@ -26,7 +26,8 @@ Describe 'New-TestRunFinalManifest' -Tag 'L0', 'logic' {
     }
 }
 
-# The run.json a reader sees for a run that collided with another (ADR-AUTO-TEST#32): the terminal manifest built
+# The run.json a reader sees for a run that collided with another
+# ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)): the terminal manifest built
 # from a snapshot worker run, written by Write-TestRunManifest, and read back as JSON — the shape a script that
 # watches concurrent runs reads, with no unit between them mocked.
 Describe 'New-TestRunFinalManifest — a snapshot run, written and read back' -Tag 'L1', 'logic' {

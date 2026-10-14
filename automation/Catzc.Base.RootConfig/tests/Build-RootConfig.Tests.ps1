@@ -224,7 +224,8 @@ Describe 'Build-RootConfig — the real New-GoWorkspace generator, <_>/ root' -T
 
         # The wiring the L0 tests mock away on both sides: a fixture registry names New-GoWorkspace, the real dispatch
         # calls it, and Build-RootConfig writes what it renders. Only the registry, the run mode, and the go pin are
-        # mocked, so the result is independent of the shipped config (ADR-AUTO-TEST#14).
+        # mocked, so the result is independent of the shipped config
+        # ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)).
         $script:goRoot = $_
         $script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{ "$($script:goRoot)/tests/widget/widget_test.go" = "package widget`n" }
         $script:registry = [Catzc.Base.RootConfig.RootConfigFiles]::new(@{

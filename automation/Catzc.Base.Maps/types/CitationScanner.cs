@@ -85,6 +85,52 @@ public static class CitationScanner
         return result;
     }
 
+    // Every citation in a file's text whose code the index lists, one site per occurrence, in line order: its line and
+    // the kind of text it sits in (CitationSite). Markdown is prose throughout (KindText). In a PowerShell, C# or YAML
+    // file, the header is help (KindHelp): the comment lines the file opens with, a PowerShell <# ... #> help block, and
+    // a C# /// doc comment; a comment after the header is a passing mention (KindComment); the rest is KindText.
+    public static CitationSite[] Sites(string path, string text, IReadOnlyDictionary<string, string> index)
+    {
+        List<CitationSite> sites = new List<CitationSite>();
+        if (string.IsNullOrEmpty(text) || index == null || index.Count == 0) { return sites.ToArray(); }
+        string extension = Catzc.Base.Languages.LanguagesConfig.ExtensionOf(path ?? "") ?? "";
+        bool prose = string.Equals(extension, ".md", StringComparison.Ordinal);
+        string marker = string.Equals(extension, ".cs", StringComparison.Ordinal) ? "//" : "#";
+        bool header = true;
+        bool helpBlock = false;
+        string[] lines = text.Replace("\r\n", "\n").Split('\n');
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string line = lines[i];
+            string trimmed = line.TrimStart();
+            bool opensBlock = !prose && marker == "#" && trimmed.StartsWith("<#", StringComparison.Ordinal);
+            bool inBlock = helpBlock || opensBlock;
+            if (opensBlock) { helpBlock = true; }
+            if (helpBlock && line.Contains("#>")) { helpBlock = false; }
+            bool commentLine = trimmed.StartsWith(marker, StringComparison.Ordinal);
+            if (header && !inBlock && trimmed.Length > 0 && !commentLine) { header = false; }
+            foreach (Match match in Citation.Matches(line))
+            {
+                string code = match.Groups["code"].Value;
+                if (!index.ContainsKey(code)) { continue; }
+                string citation = match.Groups["rule"].Success ? code + "#" + match.Groups["rule"].Value : code;
+                string kind;
+                if (prose) { kind = CitationSite.KindText; }
+                else if (inBlock || (header && commentLine) || (marker == "//" && trimmed.StartsWith("///", StringComparison.Ordinal)))
+                {
+                    kind = CitationSite.KindHelp;
+                }
+                else
+                {
+                    int comment = line.IndexOf(marker, StringComparison.Ordinal);
+                    kind = comment >= 0 && comment < match.Index ? CitationSite.KindComment : CitationSite.KindText;
+                }
+                sites.Add(new CitationSite(path, i + 1, kind, citation));
+            }
+        }
+        return sites.ToArray();
+    }
+
     // A reference in any of the three forms as its canonical citation (ADR-<CODE> or ADR-<CODE>#n); null when the text
     // is not one.
     public static string Canonical(string reference)

@@ -127,7 +127,7 @@ terms:
     - term: msys
       meaning: "MSYS2 — the Windows POSIX runtime Git Bash is built on; zsh installs as its package into Git Bash's tree"
     - term: zstd
-      meaning: "Zstandard (.zst) — the compression of an MSYS2 package, which Windows' tar reads (Install-Zsh)"
+      meaning: "the .zst compression of an MSYS2 package, which Windows' tar reads (Install-Zsh)"
     - term: cacheprovider
       meaning: "pytest's cacheprovider plugin; -p no:cacheprovider keeps .pytest_cache out of the tree"
     - term: pycache

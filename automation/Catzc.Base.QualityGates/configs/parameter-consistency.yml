@@ -1,0 +1,17 @@
+# The parameter names Test-ParameterConsistency lets carry more than one type across the public functions. A name is
+# exempt only when it means a different thing in different functions, each with its own type; a name that means the
+# same thing everywhere takes one type instead ([ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md)).
+#
+#   exempt  parameter name (no dash) -> why the same name means different things; omitted = none exempt
+#
+# The default is declared once on Catzc.Base.QualityGates.ParameterConsistencyConfig
+# ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). Test-ParameterConsistency
+# reports an entry whose name no longer conflicts, so the list only shrinks to what is real.
+exempt:
+  As: the output format of a diagram converter, typed per diagram (an enum where the format set is closed, text where it is open)
+  Config: a config's name to load (Get-Config) versus a loaded config's content to validate (Invoke-ConfigValidator)
+  Edge: the edges of a diagram, typed per diagram domain (ADR domains versus module dependencies)
+  GlobSet: a loaded globset to read versus the name of a globset an Azure DevOps build validation registers
+  Kind: the link kinds a link check scans versus the module kinds a module listing filters by
+  Probe: tool-probe records to report versus a probe scriptblock a test target runs
+  Value: the value a single-value command sets or checks versus the variable set an environment writer applies

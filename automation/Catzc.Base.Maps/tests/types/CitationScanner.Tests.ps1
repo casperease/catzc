@@ -76,6 +76,31 @@ Describe 'CitationScanner' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'places each citation on its line, as header help, a passing comment or text' {
+        $sites = { param([string] $Path, [string[]] $Lines)
+            @([Catzc.Base.Maps.CitationScanner]::Sites($Path, ($Lines -join "`n"), $script:index) | ForEach-Object { "$($_.Line) $($_.Kind) $($_.Citation)" })
+        }
+        & $sites 'widgets/Get-Widget.ps1' @(
+            '# ADR-WIDGET-GADGET#1'
+            'function Get-Widget {'
+            '    <#'
+            '    .SYNOPSIS'
+            '        ADR-GIZMO-COG#2'
+            '    #>'
+            '    $count = 1 # ADR-WIDGET-GADGET'
+            '    # ADR-GIZMO-COG'
+            '    ''ADR-WIDGET-GADGET#3'''
+            '}'
+        ) | Should -Be @('1 help ADR-WIDGET-GADGET#1', '5 help ADR-GIZMO-COG#2', '7 comment ADR-WIDGET-GADGET', '8 comment ADR-GIZMO-COG',
+            '9 text ADR-WIDGET-GADGET#3')
+        & $sites 'widgets/types/Widget.cs' @('// ADR-GIZMO-COG', 'class Widget {', '    /// ADR-WIDGET-GADGET', '    int cogs; // ADR-GIZMO-COG#4', '}') |
+            Should -Be @('1 help ADR-GIZMO-COG', '3 help ADR-WIDGET-GADGET', '4 comment ADR-GIZMO-COG#4')
+        & $sites 'widgets/configs/widget.yml' @('# ADR-GIZMO-COG', 'gadget: ADR-WIDGET-GADGET', 'cogs: 2 # ADR-GIZMO-COG#2') |
+            Should -Be @('1 help ADR-GIZMO-COG', '2 text ADR-WIDGET-GADGET', '3 comment ADR-GIZMO-COG#2')
+        & $sites 'docs/widget.md' @('# ADR-GIZMO-COG', 'Read ADR-WIDGET-GADGET.') | Should -Be @('1 text ADR-GIZMO-COG', '2 text ADR-WIDGET-GADGET')
+        & $sites 'docs/widget.md' @('ADR-WIDGET-UNKNOWN') | Should -BeNullOrEmpty
+    }
+
     It 'rejects an index key that is not an ADR code' {
         { [Catzc.Base.Maps.CitationScanner]::Index(@{ 'WIDGET-GADGET' = 'widgetry' }) } | Should -Throw "*'WIDGET-GADGET' is not an ADR code*"
         { [Catzc.Base.Maps.CitationScanner]::Index(@{ 'ADR-WIDGET-GADGET#2' = 'widgetry' }) } | Should -Throw '*is not an ADR code*'

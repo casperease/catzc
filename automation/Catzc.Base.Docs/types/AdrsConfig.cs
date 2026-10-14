@@ -40,10 +40,11 @@ public sealed class AdrsConfig
     private static readonly Regex CodeRe = new Regex("^[A-Z]{2,4}(-[A-Z]{2,4})?$", RegexOptions.Compiled);
     private static readonly Regex ExternalRe = new Regex("^ADR-[A-Z]{2,4}(-[A-Z]+)+$", RegexOptions.Compiled);
 
-    // The rows of the value-chain stack, top to bottom (ADR-DSGN-TRACK#14).
+    // The rows of the value-chain stack, top to bottom ([ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14)).
     public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });
 
-    // The value-chain concerns, in value-chain order, left to right (ADR-DSGN-TRACK#15).
+    // The value-chain concerns, in value-chain order, left to right
+    // ([ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)).
     public static readonly IReadOnlyList<string> Concerns = Array.AsReadOnly(new[] { "automation", "build", "quality-control", "release", "deploy", "access" });
 
     public IReadOnlyList<AdrDomain> Domains { get; }

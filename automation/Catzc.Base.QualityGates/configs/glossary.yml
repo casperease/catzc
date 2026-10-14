@@ -84,7 +84,9 @@ concepts:
     key: test_file
     domain: automation
     defined_by: ADR-AUTO-TEST#43
-    short: One file of tests that discovery maps to one catzc module — the unit a test run schedules, never split; in pwsh a Verb-Noun.Tests.ps1 under tests/.
+    short:
+      One file of tests that discovery maps to one catzc module — the unit a test run schedules, never split; in pwsh a Verb-Noun.Tests.ps1
+      under tests/.
     realized_by: { kind: file-pattern, pattern: "automation/*/tests/**/*.Tests.ps1" }
     contrasts:
       test block: A test block is a Describe or Context inside a test file; a test file is the file that holds them.
@@ -105,7 +107,9 @@ concepts:
     key: test
     domain: automation
     defined_by: ADR-AUTO-TEST#42
-    short: The smallest unit of verification that passes or fails on its own — counted by every report row, rule citation, skip, and timing; in pwsh one Pester It.
+    short:
+      The smallest unit of verification that passes or fails on its own — counted by every report row, rule citation, skip, and timing; in
+      pwsh one Pester It.
     realized_by: { kind: function, pattern: "It" }
     relations:
       part_of: [test block]

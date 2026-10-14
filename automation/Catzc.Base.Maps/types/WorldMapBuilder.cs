@@ -78,12 +78,13 @@ public static class WorldMapBuilder
         }
 
         Dictionary<string, string[]> ownCitations = new Dictionary<string, string[]>(StringComparer.Ordinal);
+        Dictionary<string, CitationSite[]> ownSites = new Dictionary<string, CitationSite[]>(StringComparer.Ordinal);
         foreach (string path in pathList)
         {
             string text;
-            ownCitations[path] = CitationScanner.Cites(path) && textByPath.TryGetValue(path, out text)
-                ? CitationScanner.Scan(text, index)
-                : Array.Empty<string>();
+            bool cites = CitationScanner.Cites(path) && textByPath.TryGetValue(path, out text);
+            ownCitations[path] = cites ? CitationScanner.Scan(textByPath[path], index) : Array.Empty<string>();
+            ownSites[path] = cites ? CitationScanner.Sites(path, textByPath[path], index) : Array.Empty<CitationSite>();
         }
 
         List<MapPlacement> placements = new List<MapPlacement>();
@@ -105,30 +106,36 @@ public static class WorldMapBuilder
                 ownCitations[path].Length == 0 ? PipelineSet(path, globSetList) : null;
             string basis;
             string[] citations;
+            CitationSite[] sites;
             if (domain != null)
             {
                 basis = MapPlacement.BasisAdrFile;
                 citations = Array.Empty<string>();
+                sites = Array.Empty<CitationSite>();
             }
             else if (track == null && ownerByRootFile.ContainsKey(path))
             {
                 basis = MapPlacement.BasisFilesYml;
                 string prefix = ownerByRootFile[path].TrimEnd('/') + "/";
-                citations = Union(pathList, ownCitations, p => p.StartsWith(prefix, StringComparison.Ordinal));
+                Func<string, bool> owned = p => p.StartsWith(prefix, StringComparison.Ordinal);
+                citations = Union(pathList, ownCitations, owned);
+                sites = SitesOf(pathList, ownSites, owned);
             }
             else if (pipelineSet != null)
             {
                 basis = MapPlacement.BasisGlobSet;
                 citations = Union(pathList, ownCitations, pipelineSet.Matches);
+                sites = SitesOf(pathList, ownSites, pipelineSet.Matches);
             }
             else
             {
                 citations = ownCitations[path];
+                sites = ownSites[path];
                 basis = citations.Length > 0 ? MapPlacement.BasisCitations : MapPlacement.BasisNone;
             }
 
             placements.Add(new MapPlacement(path, track == null ? WorldMap.NoTrack : track.name, fileLanguage, live, violation, basis, domain,
-                citations));
+                citations, sites));
         }
 
         return new WorldMap(trackNames.ToArray(), languageNames.ToArray(), placements.ToArray(), index);
@@ -198,6 +205,20 @@ public static class WorldMapBuilder
         string[] result = new string[union.Count];
         union.CopyTo(result);
         return result;
+    }
+
+    // The citation sites of the member files, in path order then line order.
+    private static CitationSite[] SitesOf(List<string> paths, Dictionary<string, CitationSite[]> ownSites, Func<string, bool> member)
+    {
+        List<string> members = new List<string>();
+        foreach (string path in paths)
+        {
+            if (member(path)) { members.Add(path); }
+        }
+        members.Sort(StringComparer.Ordinal);
+        List<CitationSite> sites = new List<CitationSite>();
+        foreach (string path in members) { sites.AddRange(ownSites[path]); }
+        return sites.ToArray();
     }
 
     private static Dictionary<string, List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>>> CompileAspects(IDictionary aspects)

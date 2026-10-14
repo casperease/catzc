@@ -5,6 +5,20 @@
 `Test-Automation` is the single entry point for all tests. It discovers every `tests/*.Tests.ps1` file across all modules, runs them through
 Pester, and writes a timestamped report under `out/`. Linting, spell-check, and formatting are separate one-call functions.
 
+## Check what you changed
+
+```powershell
+. ./importer.ps1
+Test-Change -DryRun                   # what would run: the changed files, their test files, and their checks
+Test-Change                           # run them; throws once listing every issue in the files you changed
+(Test-Change -PassThru).Issues        # the same, returned instead of thrown
+```
+
+`Test-Change` is the check to run before handing work over. It reads the working tree's changes against `HEAD` (or the paths you pass), runs
+the test files that cover them (a changed test file, the test file of a changed function, the test file of a changed C# type) through
+`Invoke-TestFile`, and runs the quality gates each changed file's language names in `languages.yml` (`checks`). It reports only the issues
+in the files you changed; the whole suite and the repository-wide gates stay `Test-Automation`'s job.
+
 ## Run the tests
 
 ```powershell
@@ -58,6 +72,11 @@ Every run writes to `out/test-automation/<yyyyMMdd-HHmmss>/`, and `out/test-auto
 - `summary.md` — counts, failures with `file:line`, slowest tests, over-budget timings (merged across shards)
 - `tests.csv` — one row per test, for sorting by duration (merged across shards)
 - `shard-<N>.ps1` — the generated worker runner scripts, kept for diagnosis
+- `run.json` — the run's state: `running`, then `passed`, `failed`, or `crashed`, and where it ran (in place or a snapshot)
+
+A failed run ends with every failure's message on the console: each failed test, and each test file that failed before its tests ran.
+`Invoke-TestFile` writes the same folder shape under `out/test-file/`. To read a run's artifacts from a script, take `RunDirectory` from
+`-PassThru`; never pick the newest folder by name or time, which can be another session's run when several work in the repository at once.
 
 ## Linters, spelling, and formatting
 

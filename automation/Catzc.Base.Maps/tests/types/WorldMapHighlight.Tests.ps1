@@ -13,7 +13,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
         $texts = [ordered]@{
             'widgets/Alpha/Get-Widget.ps1' = '# ADR-WIDGET-GADGET#2'
             'widgets/Alpha/Set-Widget.ps1' = '# ADR-WIDGET-GADGET'
-            'widgets/Beta/Get-Gizmo.ps1'   = '# ADR-GIZMO-COG'
+            'widgets/Beta/Get-Gizmo.ps1'   = "function Get-Gizmo {}`n# ADR-GIZMO-COG"
             'docs/guide.md'                = 'Read ADR-WIDGET-SPROCKET.'
             'pipelines/ci-widgets.yaml'    = 'trigger: none'
             'importer.ps1'                 = ''
@@ -100,6 +100,47 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
         }
     }
 
+    Context 'reasons' {
+        It 'gives every lit file its reason: the basis, the covering request and the citation sites' -Tag 'ADR-DSGN-TRACK#12' {
+            $highlight = & $script:forAdr 'ADR-WIDGET-GADGET'
+            $docs = $highlight.Cells[0].Reasons
+            @($docs).Count | Should -Be 1
+            "$($docs[0].Path) $($docs[0].Basis) $($docs[0].Requested) $($docs[0].Domain)" |
+                Should -Be 'docs/adr/widgetry/widget-gadget.md adr-file ADR-WIDGET-GADGET widgetry'
+            $widgets = $highlight.Cells[1].Reasons
+            @($widgets | ForEach-Object { "$($_.Path) $($_.Basis) $($_.Requested)" }) |
+                Should -Be @('widgets/Alpha/Get-Widget.ps1 citations ADR-WIDGET-GADGET', 'widgets/Alpha/Set-Widget.ps1 citations ADR-WIDGET-GADGET')
+            @($widgets[0].Sites | ForEach-Object { "$($_.Path):$($_.Line) $($_.Kind) $($_.Citation)" }) |
+                Should -Be @('widgets/Alpha/Get-Widget.ps1:1 help ADR-WIDGET-GADGET#2')
+            $widgets[0].Mention | Should -BeFalse
+            $highlight.Cells[1].Touched | Should -BeFalse
+        }
+
+        It 'names the owner''s files a root file is lit through' -Tag 'ADR-DSGN-TRACK#7' {
+            $root = (& $script:forAdr 'ADR-WIDGET-GADGET').Cells[3].Reasons
+            $root[0].Path | Should -Be 'importer.ps1'
+            $root[0].Basis | Should -Be 'files.yml'
+            @($root[0].Sites | ForEach-Object { "$($_.Path):$($_.Line)" }) | Should -Be @('widgets/Alpha/Get-Widget.ps1:1', 'widgets/Alpha/Set-Widget.ps1:1')
+        }
+
+        It 'marks a cell lit only by passing comments as touched' {
+            $widgets = (& $script:forAdr 'ADR-GIZMO-COG').Cells | Where-Object Track -EQ 'widgets'
+            $widgets.Reasons[0].Mention | Should -BeTrue
+            $widgets.Touched | Should -BeTrue
+        }
+
+        It 'gives a pin its own reason, the reviewed note' {
+            $highlight = & $script:forAdr 'ADR-WIDGET-GADGET#3' -Pins @(& $script:pin 'ADR-WIDGET-GADGET#3' 'pipelines' 'gadget-pipe')
+            $pin = ($highlight.Cells | Where-Object Track -EQ 'pipelines').Reasons
+            "$($pin.Path)|$($pin.Basis)|$($pin.Requested)|$($pin.Note)" | Should -Be '|pin|ADR-WIDGET-GADGET#3|reviewed'
+        }
+
+        It 'gives a requested file the path basis' {
+            $reason = ([Catzc.Base.Maps.WorldMapHighlight]::ForPaths($script:map, @('docs/guide.md'))).Cells[0].Reasons[0]
+            "$($reason.Path) $($reason.Basis)" | Should -Be 'docs/guide.md path'
+        }
+    }
+
     Context 'files' {
         It 'lights the cells the files sit in' {
             $highlight = [Catzc.Base.Maps.WorldMapHighlight]::ForPaths($script:map, @('README.md', 'widgets\Beta\Get-Gizmo.ps1', 'docs/guide.md'))
@@ -119,8 +160,12 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             $data = (& $script:forAdr 'ADR-GIZMO-COG').ToJson() | ConvertFrom-Json
             @($data.PSObject.Properties.Name) | Should -Be @('kind', 'requested', 'cells')
             $data.kind | Should -Be 'adr'
-            @($data.cells[0].PSObject.Properties.Name) | Should -Be @('track', 'file_language', 'file_count', 'sources', 'files')
+            @($data.cells[0].PSObject.Properties.Name) | Should -Be @('track', 'file_language', 'file_count', 'sources', 'files', 'touched', 'reasons')
             $data.cells[0].files | Should -Be @('docs/adr/gizmos/gizmo-cog.md')
+            @($data.cells[0].reasons[0].PSObject.Properties.Name) | Should -Be @('path', 'basis', 'requested', 'domain', 'note', 'mention', 'sites')
+            $site = ($data.cells | Where-Object track -EQ 'widgets').reasons[0].sites[0]
+            @($site.PSObject.Properties.Name) | Should -Be @('path', 'line', 'kind', 'citation')
+            "$($site.path):$($site.line) $($site.kind)" | Should -Be 'widgets/Beta/Get-Gizmo.ps1:2 comment'
         }
 
         It 'renders console-ready' {

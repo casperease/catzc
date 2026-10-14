@@ -49,14 +49,16 @@ Describe 'Test-ExpectedPackageManager — MSYS2-package tools' -Tag 'L0', 'logic
         @{ Description = 'a sibling sharing the prefix'; Relative = 'gadget-two/usr/bin/widget.exe'; Expected = $false }
     ) {
         if (-not $IsWindows) {
-            Set-ItResult -Skipped -Because 'an MSYS2 package installs on Windows only'
+            Set-ItResult -Skipped -Because 'windows_only_msys2_package'
+            return
         }
         Test-ExpectedPackageManager $script:config -Path (Join-Path $TestDrive $Relative) | Should -Be $Expected
     }
 
     It 'on Windows, is not managed when the command is absent and no -Path is given' {
         if (-not $IsWindows) {
-            Set-ItResult -Skipped -Because 'an MSYS2 package installs on Windows only'
+            Set-ItResult -Skipped -Because 'windows_only_msys2_package'
+            return
         }
         Mock Test-Command { $false } -ModuleName Catzc.Tooling.Core
         Test-ExpectedPackageManager $script:config | Should -BeFalse
@@ -64,7 +66,8 @@ Describe 'Test-ExpectedPackageManager — MSYS2-package tools' -Tag 'L0', 'logic
 
     It 'off Windows, counts the system''s tool as managed when present' {
         if ($IsWindows) {
-            Set-ItResult -Skipped -Because 'off Windows an MSYS2-package tool is the system''s'
+            Set-ItResult -Skipped -Because 'unix_only_system_package'
+            return
         }
         Mock Test-Command { $true } -ModuleName Catzc.Tooling.Core
         Test-ExpectedPackageManager $script:config -Path '/elsewhere/widget' | Should -BeTrue

@@ -16,8 +16,10 @@ Describe 'Assert-CompletesWithin' -Tag 'L0', 'logic' {
     It "defaults the limit to the budget's resolved limit" {
         Mock Get-TimeoutSeconds -ModuleName Catzc.Base.Timeouts { 42 }
         Mock Invoke-WithTimeout -ModuleName Catzc.Base.Timeouts { }
-        Assert-CompletesWithin { 'widget' } -Budget 'widget-budget'
-        Should -Invoke Get-TimeoutSeconds -ModuleName Catzc.Base.Timeouts -Times 1 -Exactly -ParameterFilter { $Budget -eq 'widget-budget' }
+        # A fixture GUID built at runtime (not a literal), so it needs no managed-GUID registry entry.
+        $widgetBudget = [guid] ('a1d6e700-0000-0000-0000-' + '000000000000')
+        Assert-CompletesWithin { 'widget' } -Budget $widgetBudget
+        Should -Invoke Get-TimeoutSeconds -ModuleName Catzc.Base.Timeouts -Times 1 -Exactly -ParameterFilter { $Budget -eq $widgetBudget }
         Should -Invoke Invoke-WithTimeout -ModuleName Catzc.Base.Timeouts -Times 1 -Exactly -ParameterFilter { $Seconds -eq 42 }
     }
 }

@@ -146,8 +146,8 @@ the ADRs themselves; this file carries only their DORA rationale.
 [ADR-PWSH-ASSERT](assert-idioms.md)
 
 > DORA's research links early failure detection and clear error messages to deployment reliability. In PowerShell that means one assertion
-> library at fixed places — after the param block and after each external call — and a declared time limit on long work, so failures
-> surface at their source with a consistent message and a hang ends at a known limit.
+> library at fixed places — after the param block and after each external call — and a declared time limit on long work, so failures surface
+> at their source with a consistent message and a hang ends at a known limit.
 
 - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — assertions and time limits stop bad state and hangs
   before they reach a deployment.
@@ -303,8 +303,8 @@ the ADRs themselves; this file carries only their DORA rationale.
   contracts at the call site.
 - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — predictable state isolation enables safe parallelism
   and reduces deployment friction.
-- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — a secret reaches a child process only through one
-  masked, scoped seam.
+- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — a secret reaches a child process only through one masked,
+  scoped seam.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Parameter design
@@ -401,7 +401,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 > against only the references the host guarantees keeps a fresh checkout buildable with nothing but pwsh, and a stale type is answered with
 > a new process rather than a confusing failure.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — no external packages, short source-anchored
-  aliases, one compile path.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — no external packages, short source-anchored aliases,
+  one compile path.
 - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — CI never runs on stale types; it throws.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

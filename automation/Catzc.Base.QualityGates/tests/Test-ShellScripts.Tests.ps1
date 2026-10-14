@@ -22,7 +22,7 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'widget/run.sh'; 'automation/Catzc.Widget/assets/scripts/dotnet-install.sh'; 'docs/widget.md' }
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Executable } { 'widget/run.sh'; 'automation/Catzc.Widget/assets/scripts/dotnet-install.sh' }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $ExecutableOnly } { 'widget/run.sh'; 'automation/Catzc.Widget/assets/scripts/dotnet-install.sh' }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'shellcheck' } {
             [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'C:\widget\shellcheck.exe'; Version = '0.11.0'; Required = '0.11' }
         }
@@ -41,7 +41,7 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
         Set-FixtureFile 'gadget-bash/.vendor/bats-core/lib/bats-core/common.bash' "#!/usr/bin/env bash`necho sourced`n"
         $runner = 'gadget-bash/.vendor/bats-core/libexec/bats-core/bats', 'gadget-bash/.vendor/bats-core/lib/bats-core/common.bash'
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @('widget/run.sh') + $runner }
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Executable } { 'widget/run.sh' }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $ExecutableOnly } { 'widget/run.sh' }
 
         $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
 
@@ -65,7 +65,7 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
     }
 
     It 'reports a tracked script with a shebang that is not executable in git, but not a sourced one' {
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Executable } { 'automation/Catzc.Widget/assets/scripts/dotnet-install.sh' }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $ExecutableOnly } { 'automation/Catzc.Widget/assets/scripts/dotnet-install.sh' }
         $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
         $result.Issues | Should -Contain 'widget/run.sh: has a shebang but is not executable in git (mode 100644) — run: git update-index --chmod=+x widget/run.sh'
         @($result.Issues | Where-Object { $_ -like 'importer.sh:*executable*' }) | Should -HaveCount 0
@@ -106,7 +106,7 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
             $script:zshOutput = ''
             $script:zshExit = 0
             Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'widget/run.sh'; 'gadget/run.zsh'; 'gadget/crlf.zsh' }
-            Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Executable } { 'widget/run.sh' }
+            Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $ExecutableOnly } { 'widget/run.sh' }
             Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'zsh' } {
                 [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'C:\widget\zsh.exe'; Version = '5.9'; Required = '5' }
             }

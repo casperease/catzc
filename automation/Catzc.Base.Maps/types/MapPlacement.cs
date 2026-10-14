@@ -52,10 +52,14 @@ public sealed class MapPlacement
     // The ADR citations that light the file, canonical (ADR-<CODE> or ADR-<CODE>#n), distinct, in ordinal order.
     public IReadOnlyList<string> Citations { get; }
 
+    // Where those citations sit (CitationSite): in the file itself for BasisCitations, in the owner's or the globset's
+    // files for BasisFilesYml and BasisGlobSet; empty for an ADR file and a file nothing lights.
+    public IReadOnlyList<CitationSite> Sites { get; }
+
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     public MapPlacement(string path, string track, string fileLanguage, bool live, bool stackViolation, string basis, string domain,
-        string[] citations)
+        string[] citations, CitationSite[] sites = null)
     {
         Path = path;
         Track = track;
@@ -65,5 +69,6 @@ public sealed class MapPlacement
         Basis = basis;
         Domain = domain;
         Citations = citations == null ? Array.Empty<string>() : (string[])citations.Clone();
+        Sites = sites == null ? Array.Empty<CitationSite>() : (CitationSite[])sites.Clone();
     }
 }

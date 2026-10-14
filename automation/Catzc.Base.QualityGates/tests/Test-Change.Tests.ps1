@@ -41,7 +41,7 @@ Describe 'Test-Change' -Tag 'L1', 'logic' {
                 Result       = 'Failed'
                 Rows         = @(
                     [pscustomobject]@{ Result = 'Passed'; File = (Join-Path $TestDrive 'widget/tests/Get-Widget.Tests.ps1'); ExpandedPath = 'Get-Widget.spins'; ErrorMessage = $null }
-                    [pscustomobject]@{ Result = 'Failed'; File = (Join-Path $TestDrive 'widget/tests/Get-Widget.Tests.ps1'); ExpandedPath = 'Get-Widget.fits'; ErrorMessage = "Expected 2, but got 1.`nmore detail" }
+                    [pscustomobject]@{ Result = 'Failed'; File = (Join-Path $TestDrive 'widget/tests/Get-Widget.Tests.ps1'); ExpandedPath = 'Get-Widget.fits'; ErrorMessage = ('Expected 2, but got 1.', 'more detail') -join "`n" }
                 )
                 RunDirectory = 'C:\widget-run'
             }

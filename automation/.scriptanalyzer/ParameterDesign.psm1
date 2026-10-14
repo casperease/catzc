@@ -18,6 +18,15 @@ Set-StrictMode -Version Latest   # this module's scope: the rules run strict ins
     ([ADR-PWSH-PARAM#2](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param2)):
     a public function with exactly one mandatory parameter, and no parameter at Position 0, leaves its primary argument
     named-only. Private helpers are exempt: they are called by name from inside their module.
+
+    Measure-NoOptionalBooleanParameter
+    ([ADR-PWSH-PARAM#3](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param3)):
+    an optional [bool] parameter is opt-in behaviour, which is a [switch]. A mandatory [bool] is a value both ways, not an
+    opt-in, and is left alone.
+
+    Measure-NoSwitchDefaultOn
+    ([ADR-PWSH-PARAM#3](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param3)):
+    a [switch] declared `= $true` is on unless the caller passes -Name:$false — opt-in behaviour is off by default.
 #>
 
 function Test-ModuleFunctionFile {
@@ -106,6 +115,83 @@ function Measure-PrimaryArgumentPosition {
                 RuleName = 'Measure-PrimaryArgumentPosition'
                 Severity = 'Warning'
             })
+    }
+    return $results.ToArray()
+}
+
+function Get-ParameterTypeName {
+    param([System.Management.Automation.Language.ParameterAst] $Parameter)
+    $constraint = $Parameter.Attributes | Where-Object { $_ -is [System.Management.Automation.Language.TypeConstraintAst] } |
+        Select-Object -First 1
+    if ($constraint) {
+        $constraint.TypeName.FullName
+    }
+    else {
+        ''
+    }
+}
+
+function Measure-NoOptionalBooleanParameter {
+    [CmdletBinding()]
+    [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
+    param(
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
+    )
+
+    if (-not (Test-ModuleFunctionFile $ScriptBlockAst)) {
+        return @()
+    }
+    $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
+    foreach ($function in Get-ParameterFunction $ScriptBlockAst) {
+        foreach ($parameter in $function.Body.ParamBlock.Parameters) {
+            if ((Get-ParameterTypeName $parameter) -notin 'bool', 'Boolean', 'System.Boolean') {
+                continue
+            }
+            $attributeText = ($parameter.Attributes | ForEach-Object { $_.Extent.Text }) -join ' '
+            if ($attributeText -match '\bMandatory\b(?!\s*=\s*\$false)') {
+                continue
+            }
+            $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
+                    Message  = "$($function.Name)'s optional [bool] -$($parameter.Name.VariablePath.UserPath) is opt-in behaviour: declare it a [switch] (ADR-PWSH-PARAM#3)."
+                    Extent   = $parameter.Extent
+                    RuleName = 'Measure-NoOptionalBooleanParameter'
+                    Severity = 'Warning'
+                })
+        }
+    }
+    return $results.ToArray()
+}
+
+function Measure-NoSwitchDefaultOn {
+    [CmdletBinding()]
+    [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
+    param(
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
+    )
+
+    if (-not (Test-ModuleFunctionFile $ScriptBlockAst)) {
+        return @()
+    }
+    $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
+    foreach ($function in Get-ParameterFunction $ScriptBlockAst) {
+        foreach ($parameter in $function.Body.ParamBlock.Parameters) {
+            if ((Get-ParameterTypeName $parameter) -notin 'switch', 'System.Management.Automation.SwitchParameter') {
+                continue
+            }
+            if ($null -eq $parameter.DefaultValue -or $parameter.DefaultValue.Extent.Text -notmatch '^\$true$') {
+                continue
+            }
+            $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
+                    Message  = "$($function.Name)'s [switch] -$($parameter.Name.VariablePath.UserPath) defaults on: opt-in behaviour is off by default, so name the switch for the non-default behaviour (ADR-PWSH-PARAM#3)."
+                    Extent   = $parameter.Extent
+                    RuleName = 'Measure-NoSwitchDefaultOn'
+                    Severity = 'Warning'
+                })
+        }
     }
     return $results.ToArray()
 }

@@ -33,26 +33,26 @@ Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
     }
 
     It 'lights the cells of the working tree''s changes on the zero-argument call, skipping a file the map does not hold' {
-        Mock Get-WorldMapChangedPath -ModuleName Catzc.Base.Maps { @('README.md', 'widgets/Beta/Get-Gadget.ps1', 'widgets/Gamma/New-Widget.ps1') }
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.Maps { @('README.md', 'widgets/Beta/Get-Gadget.ps1', 'widgets/Gamma/New-Widget.ps1') }
         $highlight = Get-WorldMapHighlight
         $highlight.Kind | Should -Be 'path'
         $highlight.Requested | Should -Be @('README.md', 'widgets/Beta/Get-Gadget.ps1')
         @($highlight.Cells | ForEach-Object { "$($_.Track) x $($_.FileLanguage)" }) | Should -Be @('widgets x widget-script', '(no track) x (other)')
-        Should -Invoke Get-WorldMapChangedPath -ModuleName Catzc.Base.Maps -Times 1 -Exactly
+        Should -Invoke Get-GitChangedPath -ModuleName Catzc.Base.Maps -Times 1 -Exactly
     }
 
     It 'lights nothing on the zero-argument call when nothing changed' {
-        Mock Get-WorldMapChangedPath -ModuleName Catzc.Base.Maps { @() }
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.Maps { @() }
         $highlight = Get-WorldMapHighlight
         $highlight.Requested | Should -BeNullOrEmpty
         $highlight.Cells | Should -BeNullOrEmpty
     }
 
     It 'does not read the working tree when -Adr or -Path is given' {
-        Mock Get-WorldMapChangedPath -ModuleName Catzc.Base.Maps { @('README.md') }
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.Maps { @('README.md') }
         $null = Get-WorldMapHighlight -Adr 'ADR-WIDGET-GADGET'
         $null = Get-WorldMapHighlight -Path 'README.md'
-        Should -Invoke Get-WorldMapChangedPath -ModuleName Catzc.Base.Maps -Times 0 -Exactly
+        Should -Invoke Get-GitChangedPath -ModuleName Catzc.Base.Maps -Times 0 -Exactly
     }
 
     It 'emits JSON with -AsJson' {

@@ -46,13 +46,13 @@ none; the two ADR-only glyphs: `D1` each.
 
 A full-width panel at the bottom of the drawing area, in three columns and a full-width third row:
 
-| Swatch                  | Phrase                                                                                                                               |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| grey rhombus, thick rim | gate                                                                                                                                 |
-| dashed white box        | ADR-only                                                                                                                             |
-| white chip `#3`         | rule chip: an ADR rule on the stage                                                                                                  |
-| grey band               | band: one load stage                                                                                                                 |
-| dark disc `1`           | marker: a Walkthrough step                                                                                                           |
+| Swatch                  | Phrase                                                                                                                                                  |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| grey rhombus, thick rim | gate                                                                                                                                                    |
+| dashed white box        | ADR-only                                                                                                                                                |
+| white chip `#3`         | rule chip: an ADR rule on the stage                                                                                                                     |
+| grey band               | band: one load stage                                                                                                                                    |
+| dark disc `1`           | marker: a Walkthrough step                                                                                                                              |
 | text row                | chip letters: B ADR-AUTO-BUNDLE · D ADR-DSGN-RUNMODE · E ADR-PWSH-ERROR · O ADR-PRIN-ONELIVE · P ADR-PWSH-TYPES · R ADR-REPO-ROOTCFG · T ADR-AUTO-TYPES |
 
 ## Sidebar

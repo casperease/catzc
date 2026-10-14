@@ -12,7 +12,7 @@
     ([ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)).
 
     With neither, it answers "where does my change sit on the map": the files the working tree changes against HEAD
-    and the index (modified, added, deleted or untracked; Get-WorldMapChangedPath) light the cells they sit in, as
+    and the index (modified, added, deleted or untracked; Get-GitChangedPath) light the cells they sit in, as
     with -Path. The map holds the files git tracks, so a changed file it does not hold (an untracked file, or one
     whose removal is staged) lights nothing and is named in the verbose stream. With no change, no cell is lit.
 .PARAMETER Adr
@@ -20,7 +20,8 @@
 .PARAMETER Path
     The repository-relative paths of tracked files. A path the map does not hold throws.
 .PARAMETER AsJson
-    Return the highlight as JSON (the request and the lit cells with their files) instead of the object
+    Return the highlight as JSON (the request, and the lit cells with their files and each file's reason: the basis,
+    the covering request and the citation sites with their lines and kinds) instead of the object
     ([ADR-THES-ONETRUTH#3](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)).
 .OUTPUTS
     [Catzc.Base.Maps.WorldMapHighlight], or [string] with -AsJson.
@@ -58,7 +59,7 @@ function Get-WorldMapHighlight {
         }
         default {
             $onMap = [System.Collections.Generic.List[string]]::new()
-            foreach ($changed in @(Get-WorldMapChangedPath)) {
+            foreach ($changed in @(Get-GitChangedPath)) {
                 if ($null -eq $map.Placement($changed)) {
                     Write-Verbose "Get-WorldMapHighlight: '$changed' is not a tracked file of the map; it lights nothing"
                     continue

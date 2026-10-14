@@ -70,7 +70,7 @@ function Wait-Mutex {
         [double] $DotIntervalSeconds = 5,
 
         [ValidateRange(0, 86400)]
-        [double] $TimeoutSeconds = 0
+        [int] $TimeoutSeconds = 0
     )
 
     $emitVerbose = $VerbosePreference -eq 'Continue'

@@ -24,7 +24,7 @@
     Return the bash background limit instead of the foreground one. Bash only.
 .PARAMETER Budget
     The work's immutable budget GUID. When timeout-exemptions.yml exempts it here, the limit is raised to the
-    exemption ceiling (never lowered). Empty means no budget.
+    exemption ceiling (never lowered). Omitted (the empty GUID) means no budget.
 .PARAMETER EnvironmentAssertIs
     Pins the expected run environment (Pipeline or Devbox); a different one throws. The guard verifies, it never
     selects.
@@ -54,8 +54,7 @@ function Get-TimeoutSeconds {
         [Parameter(ParameterSetName = 'Shell')]
         [switch] $Background,
         [Parameter(ParameterSetName = 'Shell')]
-        [AllowEmptyString()]
-        [string] $Budget,
+        [guid] $Budget = [guid]::Empty,
         [ValidateSet('Pipeline', 'Devbox')]
         [string] $EnvironmentAssertIs
     )
@@ -89,7 +88,7 @@ function Get-TimeoutSeconds {
         return $seconds
     }
     $seconds = $config.SecondsFor($environment, $Shell, $Background.IsPresent)
-    if ($Budget -and (Get-TimeoutExemption $Budget -Shell $Shell)) {
+    if ($Budget -ne [guid]::Empty -and (Get-TimeoutExemption $Budget -Shell $Shell)) {
         # An exemption raises the limit to its ceiling while the work is tuned; it never lowers it.
         $seconds = [math]::Max($seconds, (Get-Config -Config timeout-exemptions).CeilingFor($environment, $Shell))
     }

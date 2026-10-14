@@ -46,6 +46,19 @@ Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
             Should -Throw "*value-chain highlight: 'ADR-WIDGET-GIZMO' is not an ADR code of the adrs registry; 'widget' is not an ADR code of the adrs registry*"
     }
 
+    It 'gives every lit cell a reason per ADR: its ADR domain''s row, the concern, and default or override' -Tag 'ADR-DSGN-TRACK#14', 'ADR-DSGN-TRACK#15' {
+        $own = [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'gizmo', 'ADR-WIDGET-GIZMO', 'WIDGET', 'WIDGET', $null, 'TOP',
+            [string[]] @('beta'), [string[]] @('alpha', 'gamma'))
+        $map = [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'BOTTOM'), @('alpha', 'beta', 'gamma'), @($own))
+        $reason = [Catzc.Base.Maps.ValueChainHighlight]::ForAdr($map, 'ADR-WIDGET-GIZMO#2').Reasons
+        @($reason).Count | Should -Be 1
+        "$($reason.Requested) $($reason.Adr) $($reason.Domain) $($reason.Stack) $($reason.Concern)" | Should -Be 'ADR-WIDGET-GIZMO#2 ADR-WIDGET-GIZMO widgetry TOP beta'
+        $reason.Override | Should -BeTrue
+        $default = [Catzc.Base.Maps.ValueChainHighlight]::ForAdr($script:map, 'ADR-WIDGET-GADGET')
+        @($default.Reasons | ForEach-Object { "$($_.Stack) x $($_.Concern) $($_.Override)" }) | Should -Be @('TOP x alpha False', 'TOP x gamma False')
+        @($default.ReasonsOf('TOP', 'gamma')).Count | Should -Be 1
+    }
+
     It 'emits the request and the lit cells as JSON' -Tag 'ADR-THES-ONETRUTH#3' {
         $data = [Catzc.Base.Maps.ValueChainHighlight]::ForAdr($script:map, 'ADR-WIDGET-SPROCKET').ToJson() | ConvertFrom-Json
         $data.requested | Should -Be @('ADR-WIDGET-SPROCKET')
@@ -53,5 +66,8 @@ Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
         $data.cells[0].stack | Should -Be 'BOTTOM'
         $data.cells[0].concern | Should -Be 'beta'
         $data.cells[0].adrs | Should -Be @('ADR-WIDGET-SPROCKET')
+        @($data.cells[0].reasons[0].PSObject.Properties.Name) |
+            Should -Be @('requested', 'adr', 'domain', 'stack', 'concern', 'concerns', 'domain_concerns', 'override')
+        $data.cells[0].reasons[0].override | Should -BeFalse
     }
 }

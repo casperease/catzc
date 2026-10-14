@@ -12,10 +12,10 @@ namespace Catzc.Base.Maps;
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Stack), nameof(Concern), nameof(AdrCount))]
 public sealed class ValueChainCell
 {
-    // The row: a row of the value-chain stack (ADR-DSGN-TRACK#14).
+    // The row: a row of the value-chain stack ([ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14)).
     public string Stack { get; }
 
-    // The column: a value-chain concern (ADR-DSGN-TRACK#15).
+    // The column: a value-chain concern ([ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)).
     public string Concern { get; }
 
     // The ADR codes (ADR-<CODE>) in the cell: on the map in adrs.yml order, on a highlight in request order. Empty for an

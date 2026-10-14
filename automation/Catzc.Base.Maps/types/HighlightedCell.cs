@@ -1,7 +1,7 @@
 // One lit cell of a world-map highlight: the cell (a track and a file language), the files in it that the request
-// lit, and the steps that lit it (a MapPlacement basis, "path" for a requested file, "pin" for a reviewed pin of
-// configs/maps.yml). A result type, so the properties are PascalCase
-// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+// lit, the steps that lit it (a MapPlacement basis, "path" for a requested file, "pin" for a reviewed pin of
+// configs/maps.yml), and why each lights it (Reasons; Touched when all are passing mentions). A result type, so the
+// properties are PascalCase ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
 
 using System;
 using System.Collections.Generic;
@@ -29,16 +29,34 @@ public sealed class HighlightedCell
     // The steps that lit the cell, distinct, in ordinal order.
     public IReadOnlyList<string> Sources { get; }
 
+    // Why each lit file (and a pin) lights the cell, in file order then request order (HighlightReason).
+    public IReadOnlyList<HighlightReason> Reasons { get; }
+
     // The number of lit files.
     public int FileCount => Files.Count;
 
+    // True when every reason is a passing mention: the cell is touched, not the subject.
+    public bool Touched
+    {
+        get
+        {
+            if (Reasons.Count == 0) { return false; }
+            foreach (HighlightReason reason in Reasons)
+            {
+                if (!reason.Mention) { return false; }
+            }
+            return true;
+        }
+    }
+
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public HighlightedCell(string track, string fileLanguage, string[] files, string[] sources)
+    public HighlightedCell(string track, string fileLanguage, string[] files, string[] sources, HighlightReason[] reasons = null)
     {
         Track = track;
         FileLanguage = fileLanguage;
         Files = files == null ? Array.Empty<string>() : (string[])files.Clone();
         Sources = sources == null ? Array.Empty<string>() : (string[])sources.Clone();
+        Reasons = reasons == null ? Array.Empty<HighlightReason>() : (HighlightReason[])reasons.Clone();
     }
 }

@@ -77,7 +77,8 @@ Describe 'Get-TimeoutSeconds' -Tag 'L0', 'logic' {
         It 'keeps the normal limit for a budget that is not exempt, or no budget' {
             Mock Get-TimeoutExemption -ModuleName Catzc.Base.Timeouts { }
             Get-TimeoutSeconds -Budget $gadgetBudget | Should -Be 8
-            Get-TimeoutSeconds -Budget '' | Should -Be 8
+            Get-TimeoutSeconds -Budget ([guid]::Empty) | Should -Be 8
+            Get-TimeoutSeconds | Should -Be 8
             Should -Invoke Get-TimeoutExemption -ModuleName Catzc.Base.Timeouts -Times 1 -Exactly
         }
 

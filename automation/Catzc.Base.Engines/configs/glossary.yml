@@ -8,7 +8,8 @@ concepts:
     domain: automation
     defined_by: ADR-AUTO-ENGINE#1
     short:
-      One of the three shells the repository's own code runs under: pwsh, bash and zsh, declared once with everything that differs between them.
+      One of the three shells the repository's own code runs under:
+        pwsh, bash and zsh, declared once with everything that differs between them.
     realized_by: { kind: prose-only }
     contrasts:
       auto: auto is a value that leaves the engine open; an execution engine is the pwsh, bash or zsh it resolves to.

@@ -130,7 +130,7 @@ Describe 'Wait-Mutex (contended)' -Tag 'L1', 'logic' {
         try {
             $heldSignal.Wait(10000) | Should -BeTrue
             {
-                Wait-Mutex $mutex -TimeoutSeconds 0.15 -AnnounceAfterSeconds 0.02 -DotIntervalSeconds 0.02
+                Wait-Mutex $mutex -TimeoutSeconds 1 -AnnounceAfterSeconds 0.02 -DotIntervalSeconds 0.02
             } | Should -Throw '*Timed out waiting for the mutex*'
         }
         finally {

@@ -1,0 +1,64 @@
+// Why a value-chain highlight lights a cell for one ADR: the requested citation, the ADR code, its ADR domain and that
+// domain's row of the value-chain stack ([ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14)), the
+// value-chain concern of the lit cell, and the ADR's value-chain concerns with the ADR domain's default
+// ([ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)): Override is true when the ADR declares its
+// own concerns instead of the default. A result type, so the properties are PascalCase
+// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+
+using System;
+using System.Collections.Generic;
+
+namespace Catzc.Base.Maps;
+
+[Catzc.Base.Objects.ConsoleDisplay(nameof(Adr), nameof(Stack), nameof(Concern), nameof(Override))]
+public sealed class ValueChainReason
+{
+    // The requested citation that lights the cell (ADR-<CODE> or ADR-<CODE>#n).
+    public string Requested { get; }
+
+    // The ADR code (ADR-<CODE>).
+    public string Adr { get; }
+
+    // The ADR domain the ADR belongs to.
+    public string Domain { get; }
+
+    // The row: the ADR domain's row of the value-chain stack.
+    public string Stack { get; }
+
+    // The column: the value-chain concern of the lit cell.
+    public string Concern { get; }
+
+    // Every value-chain concern of the ADR (its override, or its ADR domain's default).
+    public IReadOnlyList<string> Concerns { get; }
+
+    // The ADR domain's default value-chain concerns.
+    public IReadOnlyList<string> DomainConcerns { get; }
+
+    // True when the ADR declares its own value-chain concerns, not its ADR domain's default.
+    public bool Override
+    {
+        get
+        {
+            if (Concerns.Count != DomainConcerns.Count) { return true; }
+            for (int i = 0; i < Concerns.Count; i++)
+            {
+                if (!string.Equals(Concerns[i], DomainConcerns[i], StringComparison.Ordinal)) { return true; }
+            }
+            return false;
+        }
+    }
+
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
+    public ValueChainReason(string requested, string adr, string domain, string stack, string concern, IReadOnlyList<string> concerns,
+        IReadOnlyList<string> domainConcerns)
+    {
+        Requested = requested;
+        Adr = adr;
+        Domain = domain;
+        Stack = stack;
+        Concern = concern;
+        Concerns = concerns == null ? Array.Empty<string>() : new List<string>(concerns).ToArray();
+        DomainConcerns = domainConcerns == null ? Array.Empty<string>() : new List<string>(domainConcerns).ToArray();
+    }
+}

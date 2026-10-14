@@ -55,16 +55,16 @@ marker order, each on its glyph's top-right corner.
 
 A full-width panel at the bottom of the drawing area, in four columns, left to right:
 
-| Swatch                  | Phrase                          |
-| ----------------------- | ------------------------------- |
-| grey rhombus, thick rim | gate                            |
-| white rhombus           | ADR-only                        |
-| slate rounded box       | code unit                       |
-| grey square box         | external tool                   |
-| grey arrow              | flow: guards                    |
-| dashed grey arrow       | ADR-only (no code): guards      |
+| Swatch                  | Phrase                           |
+| ----------------------- | -------------------------------- |
+| grey rhombus, thick rim | gate                             |
+| white rhombus           | ADR-only                         |
+| slate rounded box       | code unit                        |
+| grey square box         | external tool                    |
+| grey arrow              | flow: guards                     |
+| dashed grey arrow       | ADR-only (no code): guards       |
 | white chip `T3`         | rule chip: T THINPLAT · A AZ-CLI |
-| dark disc `1`           | marker: a Walkthrough step      |
+| dark disc `1`           | marker: a Walkthrough step       |
 
 ## Sidebar
 
