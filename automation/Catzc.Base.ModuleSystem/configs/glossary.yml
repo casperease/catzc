@@ -22,8 +22,17 @@ concepts:
             occupant: An occupant is the commit an environment holds; a release candidate is the artifact built from it, the same bytes wherever it is deployed.
             test run: A test run executes tests; a release candidate is the artifact a release-candidate test run verifies.
             test suite: A test suite is the declared selection of tests that verifies a change; a release candidate is the artifact under test.
+            published artifact: A published artifact is any file handed across a stage boundary; a release candidate is the tagged build that gets promoted.
         avoid:
             - { phrase: release-candidate suite, say: release-candidate test run }
+    published artifact:
+        key: published_artifact
+        domain: automation
+        defined_by: ADR-AUTO-PATH#10
+        short: A file one stage produces and a later stage downloads and consumes — carried by ArtifactRef, anchored on its artifact root.
+        realized_by: { kind: type, pattern: 'Catzc.Base.Objects.ArtifactRef' }
+        contrasts:
+            release candidate: A release candidate is the tagged build that gets promoted; a published artifact is any file handed across a stage boundary.
     occupant:
         key: occupant
         domain: design

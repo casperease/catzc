@@ -1,0 +1,185 @@
+<title>Catzc Diagram Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+<style>
+/* Layout: a map-room index. A sticky tab strip per artifact family; groups are labelled by the ADR or diagram they
+   belong to; every drawing sits on a white plate (the rasters are light) and opens full size in an in-page viewer. */
+:root {
+  --paper: #F3F6F7; --surface: #FFFFFF; --ink: #1E2A30; --muted: #5A6A72; --line: #D3DCE0;
+  --accent: #2C6C8C; --accent-ink: #FFFFFF; --plate: #FFFFFF; --shade: rgba(16, 24, 28, .86);
+  --display: "IBM Plex Sans Condensed", "Arial Narrow", "Segoe UI", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #111719; --surface: #182024; --ink: #E4EBEE; --muted: #93A3AA; --line: #2B373C;
+  --accent: #7DB3CE; --accent-ink: #0E1416; --plate: #FFFFFF; --shade: rgba(4, 8, 10, .9); color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #111719; --surface: #182024; --ink: #E4EBEE; --muted: #93A3AA; --line: #2B373C;
+  --accent: #7DB3CE; --accent-ink: #0E1416; --plate: #FFFFFF; --shade: rgba(4, 8, 10, .9); color-scheme: dark }
+
+* { box-sizing: border-box }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.5 var(--body) }
+.wrap { padding-inline: 16px; padding-block: 0 48px; max-width: 1400px; margin-inline: auto }
+header { padding-block: 28px 12px; display: grid; gap: 6px }
+h1 { font: 600 clamp(26px, 4vw, 36px)/1.1 var(--display); margin: 0; letter-spacing: .01em; text-wrap: balance }
+.lede { color: var(--muted); margin: 0; max-width: 70ch }
+nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line);
+  display: flex; gap: 4px; overflow-x: auto; padding-block: 8px }
+nav a { flex: none; padding: 7px 12px; border-radius: 6px; color: var(--muted); text-decoration: none; font: 500 14px var(--body);
+  white-space: nowrap }
+nav a:hover { color: var(--ink) }
+nav a[aria-current="page"] { background: var(--accent); color: var(--accent-ink) }
+nav a:focus-visible, .card:focus-visible, button:focus-visible, .doclist button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+nav .n { font: 400 12px var(--mono); opacity: .8; margin-left: 4px }
+section { padding-block: 20px 0 }
+h2 { font: 600 13px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 22px 0 10px }
+h2 .n { color: var(--ink); margin-left: 6px }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px }
+.grid.wide { grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr)) }
+.card { display: grid; grid-template-rows: auto 1fr; gap: 8px; min-width: 0; padding: 10px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 8px; cursor: zoom-in; text-align: left; color: inherit; font: inherit }
+.card:hover { border-color: var(--accent) }
+.plate { background: var(--plate); border-radius: 4px; display: grid; place-items: center; aspect-ratio: 16 / 9; overflow: hidden }
+.grid.wide .plate { aspect-ratio: 4 / 5 }
+.plate img { max-width: 100%; max-height: 100%; object-fit: contain; display: block }
+.cap { display: grid; gap: 4px; min-width: 0 }
+.cap .t { font-size: 13.5px; line-height: 1.35; overflow-wrap: anywhere }
+.row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap }
+.chip { font: 500 11px var(--mono); letter-spacing: .04em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px;
+  border: 1px solid var(--line); color: var(--muted) }
+.minis { display: flex; gap: 6px }
+.minis img { height: 44px; width: auto; background: var(--plate); border-radius: 3px; border: 1px solid var(--line) }
+.stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); gap: 10px; margin-block: 8px 4px }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; text-decoration: none; color: inherit }
+.stat b { display: block; font: 600 28px/1 var(--display); font-variant-numeric: tabular-nums }
+.stat span { color: var(--muted); font-size: 13px }
+.stat:hover { border-color: var(--accent) }
+.prose { max-width: 75ch; color: var(--ink) }
+.prose a, .linklist a { color: var(--accent) }
+.linklist { display: grid; gap: 6px; padding: 0; list-style: none }
+.docs { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 18px; align-items: start }
+@media (max-width: 760px) { .docs { grid-template-columns: minmax(0, 1fr) } }
+.doclist { display: grid; gap: 2px; max-height: 70vh; overflow: auto; position: sticky; top: 64px }
+.doclist button { text-align: left; background: none; border: 0; color: var(--muted); padding: 6px 8px; border-radius: 6px;
+  font: 13px/1.35 var(--body); cursor: pointer }
+.doclist button[aria-current="true"] { background: var(--surface); color: var(--ink); box-shadow: inset 2px 0 0 var(--accent) }
+.doclist .k { font: 500 10.5px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 10px 8px 2px }
+.doc { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 18px 22px; min-width: 0; overflow-x: auto }
+.doc table { border-collapse: collapse; font-size: 13px; display: block; overflow-x: auto }
+.doc th, .doc td { border: 1px solid var(--line); padding: 4px 8px; vertical-align: top }
+.doc code { font: 12.5px var(--mono) } .doc pre { overflow-x: auto; background: var(--paper); padding: 10px; border-radius: 6px }
+.doc h1, .doc h2, .doc h3 { font-family: var(--display); text-transform: none; letter-spacing: 0; color: var(--ink) }
+.viewer { position: fixed; inset: 0; z-index: 20; background: var(--shade); display: grid; grid-template-rows: auto 1fr auto;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) 16px calc(env(safe-area-inset-bottom, 0px) + 10px) }
+.viewer .bar { display: flex; gap: 10px; align-items: center; color: #E8EEF0; min-width: 0 }
+.viewer .bar .t { flex: 1; min-width: 0; font: 500 14px var(--body); overflow-wrap: anywhere }
+.viewer .bar .p { font: 12px var(--mono); color: #A9B8BE }
+.viewer .stage { display: grid; place-items: center; overflow: auto; padding-block: 10px }
+.viewer .stage img { max-width: 100%; max-height: 100%; background: #FFFFFF; border-radius: 4px }
+.viewer .foot { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap }
+.viewer .foot .minis img { height: 90px }
+.viewer button, .viewer a.open { background: #24323A; color: #E8EEF0; border: 1px solid #3A4A52; border-radius: 6px; padding: 6px 12px;
+  font: 500 13px var(--body); cursor: pointer; text-decoration: none }
+@media (prefers-reduced-motion: no-preference) { .card { transition: border-color .15s } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Catzc Diagram Atlas</h1>
+    <p class="lede">Every drawing, lens and minimap from the diagram waves, plus the plans and claim tables behind them. Click any picture to
+      see it full size; use ← → to step through its group.</p>
+  </header>
+  <nav id="tabs" aria-label="Artifact families"></nav>
+  <main id="main"></main>
+</div>
+<div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Full-size drawing">
+  <div class="bar"><div class="t"><div id="vt"></div><div class="p" id="vp"></div></div>
+    <button id="vprev" aria-label="Previous">←</button><button id="vnext" aria-label="Next">→</button>
+    <button id="vclose" aria-label="Close">Close</button></div>
+  <div class="stage"><img id="vimg" alt=""></div>
+  <div class="foot"><div class="minis" id="vminis"></div><a class="open" id="vopen" target="_blank" rel="noopener">Open original</a></div>
+</div>
+
+<script>
+const C = /*__CATALOGUE__*/null;
+const TABS = [
+  ["start", "Start"], ["fan", "Fan-out", C.fan.length], ["lenses", "Lenses", C.lenses.length], ["sheets", "Contact sheets", C.sheets.length],
+  ["waves", "Waves", C.waves.length], ["worlds", "World maps", C.worlds.length], ["docs", "Plans & claim tables", C.docs.length],
+];
+const el = (tag, attrs = {}, ...kids) => { const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === "class") n.className = v; else if (k === "text") n.textContent = v; else n.setAttribute(k, v); }
+  kids.flat().forEach(k => k != null && n.append(k)); return n; };
+const groupBy = (xs, f) => xs.reduce((m, x) => ((m[f(x)] ??= []).push(x), m), {});
+
+let viewList = [], viewIdx = 0;
+function openViewer(list, i) { viewList = list; viewIdx = i; showViewer(); document.getElementById("viewer").hidden = false; document.getElementById("vclose").focus(); }
+function showViewer() {
+  const it = viewList[viewIdx];
+  document.getElementById("vimg").src = it.src; document.getElementById("vimg").alt = it.title;
+  document.getElementById("vt").textContent = it.title; document.getElementById("vp").textContent = `${it.src}  ·  ${viewIdx + 1} / ${viewList.length}`;
+  document.getElementById("vopen").href = it.src;
+  const m = document.getElementById("vminis"); m.replaceChildren(...(it.minimaps || []).map(s => el("img", { src: s, alt: "minimap" })));
+}
+function step(d) { viewIdx = (viewIdx + d + viewList.length) % viewList.length; showViewer(); }
+function closeViewer() { document.getElementById("viewer").hidden = true; }
+document.getElementById("vprev").onclick = () => step(-1);
+document.getElementById("vnext").onclick = () => step(1);
+document.getElementById("vclose").onclick = closeViewer;
+document.addEventListener("keydown", e => { if (document.getElementById("viewer").hidden) return;
+  if (e.key === "Escape") closeViewer(); if (e.key === "ArrowLeft") step(-1); if (e.key === "ArrowRight") step(1); });
+
+function card(item, list, i) {
+  const c = el("button", { class: "card", type: "button", "aria-label": `Open ${item.title}` },
+    el("div", { class: "plate" }, el("img", { src: item.src, alt: item.title, loading: "lazy" })),
+    el("div", { class: "cap" },
+      el("div", { class: "row" }, item.lens ? el("span", { class: "chip", text: item.lens }) : null),
+      el("div", { class: "t", text: item.title }),
+      item.minimaps?.length ? el("div", { class: "minis" }, item.minimaps.map(s => el("img", { src: s, alt: "minimap", loading: "lazy" }))) : null));
+  c.onclick = () => openViewer(list, i); return c;
+}
+function gallery(items, wide) {
+  const frag = []; const groups = groupBy(items, x => x.group);
+  for (const [g, xs] of Object.entries(groups)) {
+    frag.push(el("h2", {}, g, el("span", { class: "n", text: String(xs.length) })));
+    frag.push(el("div", { class: "grid" + (wide ? " wide" : "") }, xs.map((x, i) => card(x, xs, i))));
+  }
+  return frag;
+}
+function start() {
+  const stat = (id, label, n) => el("a", { class: "stat", href: "#" + id }, el("b", { text: String(n) }), el("span", { text: label }));
+  return [
+    el("div", { class: "stats" }, stat("fan", "fan-out drawings, each with two minimaps", C.fan.length),
+      stat("lenses", "lens drawings across 18 diagrams", C.lenses.length), stat("sheets", "contact sheets: five lenses per page", C.sheets.length),
+      stat("waves", "wave drawings (waves 1-3)", C.waves.length), stat("docs", "plans and claim tables", C.docs.length)),
+    el("h2", {}, "Selection round"),
+    el("ul", { class: "linklist" }, C.pdfs.map(p => el("li", {}, el("a", { href: p.src, target: "_blank", rel: "noopener", text: p.title + " (PDF, opens in a new tab)" })))),
+    el("div", { class: "prose" }, el("p", { text: "Answer it in chat, one line per item: S01: what you see. The plans are under Plans & claim tables." })),
+  ];
+}
+async function docs() {
+  const list = el("div", { class: "doclist", role: "list" }); const view = el("article", { class: "doc prose" }, el("p", { text: "Pick a document." }));
+  let current;
+  for (const [kind, xs] of Object.entries(groupBy(C.docs, d => d.kind))) {
+    list.append(el("div", { class: "k", text: kind + "s" }));
+    xs.forEach(d => { const b = el("button", { type: "button", text: d.title });
+      b.onclick = async () => { current?.setAttribute("aria-current", "false"); b.setAttribute("aria-current", "true"); current = b;
+        view.replaceChildren(el("p", { text: "Loading " + d.src + "…" }));
+        try { const md = await (await fetch(d.src)).text(); view.innerHTML = window.marked ? marked.parse(md) : "<pre></pre>";
+              if (!window.marked) view.querySelector("pre").textContent = md; }
+        catch { view.replaceChildren(el("p", { text: "Could not load " + d.src + "." })); } };
+      list.append(b); });
+  }
+  queueMicrotask(() => list.querySelector("button")?.click());
+  return [el("div", { class: "docs" }, list, view)];
+}
+async function render() {
+  const id = TABS.some(t => t[0] === location.hash.slice(1)) ? location.hash.slice(1) : "start";
+  document.getElementById("tabs").replaceChildren(...TABS.map(([k, label, n]) =>
+    el("a", { href: "#" + k, ...(k === id ? { "aria-current": "page" } : {}) }, label, n != null ? el("span", { class: "n", text: String(n) }) : null)));
+  const body = id === "start" ? start() : id === "docs" ? await docs() : id === "sheets" || id === "worlds" ? gallery(C[id], true) : gallery(C[id], false);
+  document.getElementById("main").replaceChildren(el("section", {}, body));
+}
+addEventListener("hashchange", render); render();
+</script>

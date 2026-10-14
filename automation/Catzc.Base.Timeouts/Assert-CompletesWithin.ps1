@@ -7,7 +7,7 @@
 .PARAMETER ScriptBlock
     The work to time.
 .PARAMETER Seconds
-    The limit in seconds. Defaults to `default_seconds` in timeouts.yml (Get-TimeoutSeconds).
+    The limit in seconds. Defaults to the run environment's pwsh limit in timeouts.yml (Get-TimeoutSeconds).
 .PARAMETER Activity
     What the work is, for the timeout message. Defaults to the script block's text.
 .EXAMPLE

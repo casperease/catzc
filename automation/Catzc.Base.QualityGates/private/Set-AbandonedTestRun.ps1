@@ -53,9 +53,15 @@ function Set-AbandonedTestRun {
             continue
         }
 
+        # ConvertFrom-Json turns an ISO timestamp into a local DateTime, which would be written back with the local
+        # offset; every run record stamps UTC, so a date goes back as the UTC round-trip string it was read from.
         $abandoned = [ordered]@{}
         foreach ($key in $manifest.Keys) {
-            $abandoned[$key] = $manifest[$key]
+            $value = $manifest[$key]
+            if ($value -is [datetime] -or $value -is [System.DateTimeOffset]) {
+                $value = ([System.DateTimeOffset] $value).ToUniversalTime().ToString('o')
+            }
+            $abandoned[$key] = $value
         }
         $abandoned['status'] = 'abandoned'
         $abandoned['abandonedAt'] = [DateTimeOffset]::UtcNow.ToString('o')

@@ -11,6 +11,38 @@ winget:
   session_path_hints:
     - "%LOCALAPPDATA%\\Microsoft\\WindowsApps"
 
+bash:
+  # Bash 5. Platform-provided — asserted, never installed by the toolchain, so it has no Install-/Uninstall- pair:
+  # Linux ships it as /bin/bash; on Windows it is Git Bash from Git for Windows, which Install-Git
+  # (Catzc.Tooling.Provisioning) provides user-space. macOS ships bash 3.2 as /bin/bash, so a Mac devbox needs
+  # brew's bash 5 (`brew install bash`), which the candidates below find first.
+  version: "5"
+  command: bash
+  system_provided: true
+  version_command: "bash --version"
+  version_pattern: "version (?<ver>[\\d.]+)"
+  # Located by these candidate paths (no process start), then PATH — never by the bare name alone: on Windows
+  # `bash` on PATH is usually the WSL launcher, which probe_excludes rules out. A devbox prefers a user-scope Git
+  # for Windows (winget's --scope user home, then Install-Git's PortableGit home) over the machine-wide one; a
+  # pipeline reads the hosted-agent locations.
+  windows_probes:
+    - "%LOCALAPPDATA%\\Programs\\Git\\bin\\bash.exe"
+    - "%LOCALAPPDATA%\\Git\\bin\\bash.exe"
+    - "%ProgramFiles%\\Git\\bin\\bash.exe"
+  windows_pipeline_probes:
+    - "%ProgramFiles%\\Git\\bin\\bash.exe"
+  unix_probes:
+    - "/opt/homebrew/bin/bash"
+    - "/usr/local/bin/bash"
+    - "/bin/bash"
+    - "/usr/bin/bash"
+  unix_pipeline_probes:
+    - "/usr/bin/bash"
+    - "/bin/bash"
+  probe_excludes:
+    - "%SystemRoot%\\System32\\bash.exe"
+    - "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\bash.exe"
+
 python:
   # 3.13, not the latest (3.14): stay one release behind the bleeding edge so dependents that lag the newest
   # Python still work. The az_cli venv runs on this interpreter and azure-cli supports only up to 3.13 — the
@@ -155,6 +187,24 @@ java:
   apt_package: "openjdk-{0}-jdk"
   version_command: "java --version"
   version_pattern: "(?<ver>[\\d.]+)"
+
+go:
+  # Go 1.27, the current stable minor; Install-Go takes its newest patch. Go in this repository is test artifacts
+  # only (go/tests/<module>/), and it never ships.
+  version: "1.27"
+  command: go
+  # Installed by Install-Go from the official go.dev archive, verified against the SHA-256 the go.dev release feed
+  # publishes, into a user-space home: no package manager, no admin, the same on every platform. The home is the
+  # script-install default — Windows %LOCALAPPDATA%\go, Unix ~/.go — kept apart from GOPATH (~/go).
+  script_install: true
+  version_command: "go version"
+  version_pattern: "go version go(?<ver>[\\d.]+)"
+  # Located by the managed home's binary first, then PATH. A pipeline declares no candidates: its Go comes from
+  # the hosted agent's tool cache, which the native Go task puts on PATH.
+  windows_probes:
+    - "%LOCALAPPDATA%\\go\\bin\\go.exe"
+  unix_probes:
+    - "%HOME%/.go/bin/go"
 
 uv:
   version: "0.11"

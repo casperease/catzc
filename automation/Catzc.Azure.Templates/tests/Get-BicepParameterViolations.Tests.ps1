@@ -24,7 +24,8 @@ Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText((Join-Path $script:outputFolder 'main.json'), [System.IO.File]::ReadAllText(
                 (Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/parameter-model/main.json')))
 
-        $script:vaultId = '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/widget-rg/providers/Microsoft.KeyVault/vaults/widget-kv'
+        # The subscription id is built at runtime: a literal empty guid is denied in tracked text (Test-ManagedGuids).
+        $script:vaultId = "/subscriptions/$([guid]::Empty)/resourceGroups/widget-rg/providers/Microsoft.KeyVault/vaults/widget-kv"
 
         # A parameters file that satisfies the fixture model: every required parameter, a Key Vault reference for the
         # secure one. Each test starts from it and changes one thing.

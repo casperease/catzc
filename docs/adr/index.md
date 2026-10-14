@@ -219,7 +219,8 @@ per-template configuration tree under `infrastructure/templates/`, the customer 
 How the repository tree is laid out, formatted, and generated: conventional folder names at every level, the single `out/` output directory,
 one formatting standard for every file type, versioned external contracts under `contracts/`, READMEs and root configs generated from one
 source, fictional documentation examples, the separation of design, test, and live vocabulary, the controlled vocabulary of defined terms,
-and repo-wide variants.
+repo-wide variants, the sub-agent definitions and the rules behind each, and sibling repositories read for ideas, never as a reference
+implementation.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `design`.
 
@@ -236,6 +237,8 @@ and repo-wide variants.
 | `ADR-REPO-LANG`     | [domain-language-separation](repository/domain-language-separation.md) |
 | `ADR-REPO-VOCAB`    | [controlled-vocabulary](repository/controlled-vocabulary.md)           |
 | `ADR-REPO-LINK`     | [markdown-links](repository/markdown-links.md)                         |
+| `ADR-REPO-AGENTS`   | [agent-definitions](repository/agent-definitions.md)                   |
+| `ADR-REPO-INSPIRE`  | [inspiration](repository/inspiration.md)                               |
 
 ### research/
 

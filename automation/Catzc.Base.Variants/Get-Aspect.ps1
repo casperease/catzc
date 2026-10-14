@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Returns a track/container's ordered aspect classification — the facets its units partition into.
+    Returns a track/container's ordered aspect classification — the named parts its units partition into.
 .DESCRIPTION
     The `aspects` repo-wide variant (configs/variants.yml,
     [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)) is a per-track/per-container map of

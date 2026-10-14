@@ -324,9 +324,9 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
   the parameters a template's compiled `main.json` declares — type, default, `@allowed` values, value and length bounds — and
   `Get-BicepParameterViolations` checks every rendered `parameters.[<customer>.]<config>.json` against it, so a value the PrePost hook
   merges in is checked like one the config carries. `Assert-BicepTemplate -Build` reports the violations, and an L2 integrity test
-  (`Get-BicepParameterModel.Shipped.Tests.ps1`) builds every shipped template and asserts there are none; it runs in the `infrastructure`
-  globset's test suite (`Test-Automation -Suite infrastructure`). `Assert-BicepTemplate` without `-Build` keeps a fast check that needs no
-  compiler: a config sets only parameters `main.bicep` declares.
+  (`Get-BicepParameterModel.Shipped.Tests.ps1`) builds every shipped template and asserts there are none;
+  `Test-Automation -Suite infrastructure` runs it, as part of the `infrastructure` globset's verify scope. `Assert-BicepTemplate` without
+  `-Build` keeps a fast check that needs no compiler: a config sets only parameters `main.bicep` declares.
 
 ## Consequences
 

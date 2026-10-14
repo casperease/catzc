@@ -29,7 +29,7 @@
 
     The default (Stream) mode runs inside a time safeguard: a process that outlives its limit is killed with its
     whole tree and the call throws a TimeoutException. The limit is the executable's entry in timeouts.yml, or
-    its default_seconds (Get-TimeoutSeconds); -TimeoutSeconds sets it for one call. -Direct is the interactive
+    the run environment's pwsh limit (Get-TimeoutSeconds); -TimeoutSeconds sets it for one call. -Direct is the interactive
     mode — a person at the prompt is its safeguard — so it has no limit.
 .PARAMETER Command
     The command string to execute.

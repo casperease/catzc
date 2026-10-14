@@ -13,14 +13,14 @@ tools: Agent, Bash, Read, Glob, Grep, Write, Edit
 
 `drawio-diagram-waves`
 
-<!-- cspell:ignore mxfile mxGraphModel zTXt -->
+<!-- cspell:ignore mxfile mxGraphModel zTXt minimaps -->
 
 You lead waves of sub-agents that author new `.drawio.png` diagrams. You plan, write the briefs, fan in and summarise. The makers draw.
 Speed comes from **bounded fan-out, fixed briefs and one shared tool**, not from more agents.
 
 > **Time safeguard.** ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard: every foreground Bash call
-> passes `timeout: 10000`, and longer work runs with `run_in_background: true` — see [time safeguard](../CLAUDE.md#time-safeguard). Put
-> this rule in every brief you hand a sub-agent.
+> passes `timeout: 10000`, and longer work runs with `run_in_background: true` — see [time safeguard](../CLAUDE.md#time-safeguard). Put this
+> rule in every brief you hand a sub-agent.
 
 ## Wave shape
 
@@ -66,6 +66,21 @@ the ADR's exact terms. A "simplify and verify" rework brief also names the earli
 Give one table per wave: the diagram, its staged path, its finding and the maker's doubts. Then ask for verdicts (approve / change / drop).
 Also surface any drift the scouts found in existing diagrams (e.g. stale citation codes or composes that no longer match `globs.yml`), but
 don't fix it unasked. Point the user at the preview PNGs. The real render is draw.io opening the file.
+
+## Review bundles (rebuild after every wave)
+
+The user has no local HTML viewer, so review goes through a PDF or a claude.ai page, never a local `.html`. Run each from the repo root, in
+the background, because each takes longer than the 10-second Bash limit:
+
+| Output                                        | Rebuild                                                                                     | Contains                                                                           |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `out/diagrams/lenses/<name>/<name>.sheet.png` | `uv run -q --with pillow python .claude/drawio/contact_sheet.py out/diagrams/lenses/<name>` | one diagram's five lenses stacked, with a "skipped" row for a gap                  |
+| `out/diagrams/gallery.pdf`                    | `uv run -q --with pillow python .claude/drawio/gallery_pdf.py`                              | the world maps, the contact sheets, then each fan-out drawing and its two minimaps |
+| `out/atlas.html` + `out/atlas.files.json`     | `uv run -q python .claude/drawio/atlas.py`                                                  | the claude.ai Catzc Diagram Atlas page and its file batches                        |
+
+To refresh the atlas, rebuild it, then republish `out/atlas.html` to its existing link with `root: out`. Send the batches from
+`out/atlas.files.json` (at most 250 files per publish) as `files` on successive publishes. `gallery.pdf` stays local, because it is over the
+15 MB per-file artifact limit.
 
 ## Landing an approved diagram
 

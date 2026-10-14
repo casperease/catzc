@@ -56,6 +56,20 @@ Which catzc ADR decides each aspect you might take an idea for:
 - **Copying anything across:** [ADR-PRIN-ONELIVE](../docs/adr/principles/one-living-version.md). Catzc carries one living version of each
   behaviour, so an idea is rebuilt here to catzc's rules, never ported alongside.
 
+## Sub-agents
+
+Sub-agent definitions live in `.claude/agents/<name>.md`. Every agent exists because an ADR rule supports it, and is mapped to the gates and
+checks it runs or guards; the registry is `automation/Catzc.Base.Docs/configs/agents.yml`, and `Test-AgentDefinitions` keeps the files, the
+registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/adr/repository/agent-definitions.md)).
+
+- **`catzc-worker`** — the **standard** sub-agent for delegated work: one scoped task from a coordinator's brief, editing only the files it
+  owns, verifying each file, and asking the coordinator for shared-file entries. Use it whenever work is delegated and no specialised agent
+  fits.
+- **`drawio-diagram-waves`** — authors new draw.io diagrams in bounded parallel waves for the user to approve.
+- **`write-drawio-files`** — changes labels, text, or styles inside existing `.drawio.png` diagrams.
+- **`print-artifacts`** — republishes the diagram review artifact from the files on disk.
+- **`build-inspiration-module`** — creates or extends the inspiration module (`Get-Inspiration`).
+
 ## Rules
 
 ### Automation
@@ -83,6 +97,11 @@ Which catzc ADR decides each aspect you might take an idea for:
   with `Invoke-WithTimeout` / `Assert-CompletesWithin`; `Invoke-Executable` already kills a process past its executable's limit. The limit
   is tight on purpose while blockers are tuned together: a call that legitimately needs longer goes to the background or gets a
   `timeouts.yml` entry — never a workaround around the safeguard.
+- **Probe with the fastest runner that can answer.** Reading, listing, searching, and checking state (a file's content, whether a file
+  exists, a count, `git status`/`log`/`diff`) use plain bash (`cat`, `ls`, `grep`, `git`) or the Read/Grep/Glob tools — milliseconds, well
+  inside the limit. Use `pwsh -NoProfile -Command '…'` _without_ the importer when only PowerShell itself is needed (parse a file, evaluate
+  an expression). Start `pwsh` with `. ./importer.ps1` only when a catzc command must run (a test, a gate, a generator) — the import alone
+  takes seconds, so those calls go to the background.
 
 ### Other
 

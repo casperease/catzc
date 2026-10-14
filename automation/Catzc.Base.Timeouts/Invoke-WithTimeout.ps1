@@ -10,7 +10,7 @@
 .PARAMETER ScriptBlock
     The work to run.
 .PARAMETER Seconds
-    The limit in seconds. Defaults to `default_seconds` in timeouts.yml (Get-TimeoutSeconds).
+    The limit in seconds. Defaults to the run environment's pwsh limit in timeouts.yml (Get-TimeoutSeconds).
 .PARAMETER Activity
     What the work is, for the timeout message. Defaults to the script block's text.
 .EXAMPLE
@@ -52,7 +52,7 @@ function Invoke-WithTimeout {
     if ($watchdog.Fired) {
         throw [System.TimeoutException]::new(
             "Stopped after $([math]::Round($stopwatch.Elapsed.TotalSeconds, 1))s: '$Activity' did not finish within its " +
-            "$Seconds-second limit. Make it faster, or raise the limit: pass -Seconds, or tune default_seconds in " +
+            "$Seconds-second limit. Make it faster, or raise the limit: pass -Seconds, or tune limits.<environment>.pwsh in " +
             'automation/Catzc.Base.Timeouts/configs/timeouts.yml.'
         )
     }

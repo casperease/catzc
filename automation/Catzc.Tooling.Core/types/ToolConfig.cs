@@ -27,7 +27,8 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
         "brew_formula", "apt_package", "pip_package", "npm_package", "uv_tool", "uv_allow_prerelease", "uv_venv",
         "max_python", "uv_python", "script_install", "system_provided", "windows_only", "admin_only",
         "linux_admin_only", "windows_install_dir", "unix_install_dir", "depends_on", "session_path_hints",
-        "session_host_probes",
+        "session_host_probes", "windows_probes", "windows_pipeline_probes", "unix_probes", "unix_pipeline_probes",
+        "probe_excludes",
     };
 
     // The locked version the tool must satisfy. Required.
@@ -126,6 +127,37 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // SDK at the locked version beats a runtime-only host. Empty when the tool has a single obvious install.
     public string[] session_host_probes { get; }
 
+    // The candidate executable paths, in order, that locate the tool without starting a process (Test-Tool
+    // -PassThru): each is a full path to the executable, with %VAR% environment variables expanded. The first
+    // candidate that exists wins; when none does, PATH is searched. A devbox session (actor Person or Agent)
+    // reads the plain list, a pipeline session (actor Pipeline) reads the pipeline list, and Windows and Unix
+    // each have their own pair. A tool with no candidates on the running platform is located on PATH alone.
+    public string[] windows_probes          { get; }
+    public string[] windows_pipeline_probes { get; }
+    public string[] unix_probes             { get; }
+    public string[] unix_pipeline_probes    { get; }
+
+    // Executable paths (%VAR% expanded) that never count as the tool, as a candidate or on PATH: for bash, the WSL
+    // launcher %SystemRoot%\System32\bash.exe, which is not Git Bash. Empty when nothing is excluded.
+    public string[] probe_excludes          { get; }
+
+    // True when the entry declares candidate paths or exclusions, so the tool is located by the probe (Test-Tool,
+    // Assert-Tool) rather than by the bare command name on PATH.
+    public bool HasProbes()
+    {
+        return windows_probes.Length > 0 || windows_pipeline_probes.Length > 0 || unix_probes.Length > 0
+            || unix_pipeline_probes.Length > 0 || probe_excludes.Length > 0;
+    }
+
+    // The candidate list for one platform and session actor: the pipeline list for actor "Pipeline", else the
+    // devbox list.
+    public string[] ProbesFor(bool windows, string actor)
+    {
+        bool pipeline = string.Equals(actor, "Pipeline", StringComparison.OrdinalIgnoreCase);
+        if (windows) { return pipeline ? windows_pipeline_probes : windows_probes; }
+        return pipeline ? unix_pipeline_probes : unix_probes;
+    }
+
     // True when the entry declares how the toolchain gets it: a package-manager id, script_install, a uv shape,
     // or system_provided (asserted, never installed). ToolsConfig requires it of every shipped entry.
     public bool HasInstallMechanism()
@@ -175,6 +207,11 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
         depends_on          = OptStr(d, "depends_on");
         session_path_hints  = StrArr(d, "session_path_hints");
         session_host_probes = StrArr(d, "session_host_probes");
+        windows_probes          = StrArr(d, "windows_probes");
+        windows_pipeline_probes = StrArr(d, "windows_pipeline_probes");
+        unix_probes             = StrArr(d, "unix_probes");
+        unix_pipeline_probes    = StrArr(d, "unix_pipeline_probes");
+        probe_excludes          = StrArr(d, "probe_excludes");
 
         if (version_pattern != null && !version_pattern.Contains("(?<ver>"))
         {

@@ -161,7 +161,7 @@ showing where the drawing sits in the world.
 - The **lens badge** is white text on `#263238`: `META`, `ARCH`, `IMPL`, `OPS` or `GOV`.
 - Red never appears in a minimap; it stays reserved for failure inside drawings.
 - The lens badge sits on the **stack** minimap only. On the tree map it would hide tiles.
-- A lit file is often a tiny square inside a big group, so its **group tile gets a 2 px edge** in the main domain hue as well.
+- A lit file is often a tiny square inside a big group, so its **group tile gets a 2 px edge** in the hue of its ADR domain as well.
 - The tree layout follows `git ls-files`, so re-rendering after the repo changes shifts tiles. Re-render all minimaps together, never one by
   one. The rerun scripts are `out/diagrams/fan-out/_flowB/{worldmap,placements,render}.py`.
 

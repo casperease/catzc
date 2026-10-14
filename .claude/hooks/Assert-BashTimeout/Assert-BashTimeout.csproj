@@ -1,6 +1,11 @@
 <!--
   The Claude Code Bash time-safeguard hook (Program.cs). Build-BashTimeoutHook publishes it, framework-dependent,
-  to .claude/hooks/bin/ whenever this folder's sources change; obj/bin here and the published output are gitignored.
+  to .claude/hooks/bin/ whenever its sources change — this folder's files and every linked <Compile> source below;
+  obj/bin here and the published output are gitignored.
+
+  The decision and the limits are the Catzc.Base.Timeouts module's own types, compiled in from their source files,
+  so the hook can never drift from Get-TimeoutSeconds. YAML is read with the YamlDotNet the vendored powershell-yaml
+  module ships, so the build needs no package download.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
@@ -16,4 +21,14 @@
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../../automation/Catzc.Base.Objects/types/DictionaryRecord.cs" Link="linked/DictionaryRecord.cs" />
+    <Compile Include="../../../automation/Catzc.Base.Timeouts/types/TimeoutsConfig.cs" Link="linked/TimeoutsConfig.cs" />
+    <Compile Include="../../../automation/Catzc.Base.Timeouts/types/BashSafeguard.cs" Link="linked/BashSafeguard.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="YamlDotNet">
+      <HintPath>../../../automation/.vendor/powershell-yaml/0.4.12/lib/netstandard2.1/YamlDotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

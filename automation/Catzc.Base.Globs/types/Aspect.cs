@@ -1,4 +1,4 @@
-// Aspects ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)): a unit's tracked files partition into named facets — pairwise DISJOINT
+// Aspects ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)): a unit's tracked files partition into named aspects — pairwise DISJOINT
 // and jointly
 // EXHAUSTIVE. The aspect set is the ordered first-match ('fallthrough') classification carried by the
 // 'aspects' variant (Catzc.Base.Variants): each aspect claims by its patterns, the LAST aspect is the '**'

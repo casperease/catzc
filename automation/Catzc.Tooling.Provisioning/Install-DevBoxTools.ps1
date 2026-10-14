@@ -31,6 +31,10 @@ function Install-DevBoxTools {
         Write-Message "Skipping $($tool.Tool) — $($tool.Installed) already installed, not managed by tools system"
     }
 
+    # Git first: a base tool (not version-locked, not in tools.yml) that the locked set builds on — on Windows its
+    # Git Bash is the platform-provided `bash` asserted below.
+    Install-Git -Force:$Force
+
     # Version-locked tools (from tools.yml, dependency-ordered via DependsOn)
     $skipped = [System.Collections.Generic.HashSet[string]]::new()
     foreach ($toolName in Get-ToolInstallOrder) {
@@ -41,10 +45,15 @@ function Install-DevBoxTools {
             continue
         }
 
-        # OS-provided tools (winget) are never installed — assert present (the session janitor keeps them on
-        # PATH via their session_path_hints) and move on, so the tools that depend on them fail fast if absent.
+        # Platform-provided tools (winget; bash — the OS's, or Git Bash on Windows) are never installed — assert
+        # present (Test-Tool: winget by name, kept on PATH by its session_path_hints; bash at its candidate paths)
+        # and move on, so the tools that depend on them fail fast if absent.
         if ($config.system_provided) {
-            Assert-Command $config.command -ErrorText "$toolName is required but is provided by the operating system, not the toolchain — install it and re-run (on Windows, install 'App Installer' from the Microsoft Store to get winget)."
+            Assert-True (Test-Tool $toolName -SkipVersionCheck) -ErrorText (
+                "$toolName is required but is provided by the platform, not the toolchain — install it and re-run " +
+                "(winget: install 'App Installer' from the Microsoft Store; bash on Windows: Install-Git). " +
+                "Test-Tool $toolName -PassThru | Write-ToolProbeReport shows where it was looked for."
+            )
             continue
         }
 
@@ -84,6 +93,5 @@ function Install-DevBoxTools {
     }
 
     # Additional tools (not version-locked, not in tools.yml)
-    Install-Git -Force:$Force
     Install-Postman -Force:$Force
 }

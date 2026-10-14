@@ -3,12 +3,12 @@
 `Catzc.Tooling.Toolchain`
 
 The build-toolchain module of the Tooling group. It owns the compiled-language and infrastructure build tools — the .NET SDK, the Java
-runtime, and Terraform — plus uv (Astral's Python handler) and the Azure CLI binary, each installed and version-locked through the generic
-engine in [Catzc.Tooling.Core](catzc-tooling-core.md). It ships the vendored `dotnet-install.{ps1,sh}` scripts under `assets/scripts/` that
-.NET installs from. What it deliberately does **not** own is the az _session_: installing the `az` binary lives here, but using it — logging
-in, running commands, selecting a subscription, verifying — belongs to [Catzc.Azure.Cli](catzc-azure-cli.md). uv and the Azure CLI install
-user-space per [uv-python-handler](../../adr/automation/uv-python-handler.md); the build tools use their native managers per
-[use-proper-package-managers](../../adr/automation/use-proper-package-managers.md).
+runtime, the Go toolchain, and Terraform — plus uv (Astral's Python handler) and the Azure CLI binary, each installed and version-locked
+through the generic engine in [Catzc.Tooling.Core](catzc-tooling-core.md). It ships the vendored `dotnet-install.{ps1,sh}` scripts under
+`assets/scripts/` that .NET installs from. What it deliberately does **not** own is the az _session_: installing the `az` binary lives here,
+but using it — logging in, running commands, selecting a subscription, verifying — belongs to [Catzc.Azure.Cli](catzc-azure-cli.md). uv and
+the Azure CLI install user-space per [uv-python-handler](../../adr/automation/uv-python-handler.md); the build tools use their native
+managers per [use-proper-package-managers](../../adr/automation/use-proper-package-managers.md).
 
 ## Responsibilities
 
@@ -20,11 +20,13 @@ user-space per [uv-python-handler](../../adr/automation/uv-python-handler.md); t
 
 ### responsibility:1 — Build toolchain lifecycle
 
-The full life of the .NET SDK, the Java runtime, and Terraform: install the locked version idempotently, invoke through the asserted
-execution wrapper, uninstall the managed install, and — for .NET and Java — hard-remove an unmanaged one. .NET installs from the vendored
-official `dotnet-install` script this module ships under `assets/scripts/`; Java and Terraform come from the platform's native package
-manager — winget (user scope) on Windows, Homebrew on macOS, apt on Linux (see
-[use-proper-package-managers](../../adr/automation/use-proper-package-managers.md)).
+The full life of the .NET SDK, the Java runtime, the Go toolchain, and Terraform: install the locked version idempotently, invoke through
+the asserted execution wrapper, uninstall the managed install, and — for .NET and Java — hard-remove an unmanaged one. .NET installs from
+the vendored official `dotnet-install` script this module ships under `assets/scripts/`. Go installs from the official go.dev archive: the
+newest stable patch of the locked version, verified against the SHA-256 the go.dev release feed publishes, extracted into a user-space home
+(Windows `%LOCALAPPDATA%\go`, Unix `~/.go`), the same on every platform and with no administrator; `Invoke-Go` runs the executable the tool
+check located, so the asserted Go is the one that runs. Java and Terraform come from the platform's native package manager — winget (user
+scope) on Windows, Homebrew on macOS, apt on Linux (see [use-proper-package-managers](../../adr/automation/use-proper-package-managers.md)).
 
 ### responsibility:2 — uv, the Python handler
 
@@ -69,6 +71,9 @@ The module's public functions, sorted into the responsibilities above.
 |                                              | `Invoke-Java`         |
 |                                              | `Uninstall-Java`      |
 |                                              | `Remove-Java`         |
+|                                              | `Install-Go`          |
+|                                              | `Invoke-Go`           |
+|                                              | `Uninstall-Go`        |
 |                                              | `Install-Terraform`   |
 |                                              | `Invoke-Terraform`    |
 |                                              | `Uninstall-Terraform` |

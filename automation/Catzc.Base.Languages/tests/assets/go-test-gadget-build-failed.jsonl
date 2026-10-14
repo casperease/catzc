@@ -1,0 +1,6 @@
+{"ImportPath":"catzc/go/tests/catzc-gadget [catzc/go/tests/catzc-gadget.test]","Action":"build-output","Output":"# catzc/go/tests/catzc-gadget [catzc/go/tests/catzc-gadget.test]\n"}
+{"ImportPath":"catzc/go/tests/catzc-gadget [catzc/go/tests/catzc-gadget.test]","Action":"build-output","Output":".\\gadget_test.go:5:33: undefined: undefinedThing\n"}
+{"ImportPath":"catzc/go/tests/catzc-gadget [catzc/go/tests/catzc-gadget.test]","Action":"build-fail"}
+{"Time":"2026-10-14T04:35:33.5002728+02:00","Action":"start","Package":"catzc/go/tests/catzc-gadget"}
+{"Time":"2026-10-14T04:35:33.5002728+02:00","Action":"output","Package":"catzc/go/tests/catzc-gadget","Output":"FAIL\tcatzc/go/tests/catzc-gadget [build failed]\n"}
+{"Time":"2026-10-14T04:35:33.5008003+02:00","Action":"fail","Package":"catzc/go/tests/catzc-gadget","Elapsed":0.001,"FailedBuild":"catzc/go/tests/catzc-gadget [catzc/go/tests/catzc-gadget.test]"}

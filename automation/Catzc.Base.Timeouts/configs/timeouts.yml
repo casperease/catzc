@@ -6,13 +6,18 @@
 #   - Invoke-Executable (streamed mode) kills a child process that outlives its limit;
 #   - Invoke-WithTimeout / Assert-CompletesWithin stop a script block that outlives its limit;
 #   - the Claude Code PreToolUse hook (.claude/hooks/Assert-BashTimeout/, a C# program Build-BashTimeoutHook
-#     publishes on import) caps every foreground Bash call an agent makes at default_seconds.
+#     publishes on import) bounds every Bash call an agent makes, foreground and background.
 #
-# The default is deliberately tight while the blockers are tuned: a call that legitimately needs longer gets an
-# entry under `executables`, not a raised default.
-
-# The limit for any call without a more specific entry below.
-default_seconds: 10
+# Limits are keyed by environment (devbox | pipeline) and shell (bash | pwsh):
+#
+#   limits:
+#     <devbox|pipeline>:
+#       bash: { foreground: <s>, background: <s> }   # the hook's limits for a Claude/agent Bash call
+#       pwsh: <s>                                    # Invoke-WithTimeout and Invoke-Executable without an entry
+#
+# Every key is optional: the sensible defaults are declared once, on TimeoutsConfig, so this file states only what
+# has been tuned. The devbox defaults are deliberately tight while the blockers are tuned: a call that
+# legitimately needs longer gets an entry under `executables` or a budget, not a raised default.
 
 # Per-executable limits, keyed by the executable's name without directory or extension (`dotnet`, not
 # `C:\...\dotnet.exe`). These are the tools whose ordinary runs outlast the default.
@@ -33,3 +38,9 @@ executables:
   sudo: 1800 # system package installs
   tar: 300 # archive extraction
   gh: 120 # API calls over the network
+  cspell: 120 # whole-repo spell check: 6.4 s alone, killed at 10 s under the parallel test load (probe 2026-10-14)
+  prettier: 120 # whole-repo format check: 4.4 s alone, near the default under load
+  markdownlint-cli2: 120 # whole-repo lint: 2.1 s alone, kept clear of the default under load
+  bash: 1800 # Linux/macOS install scripts (dotnet-install.sh downloads the SDK)
+  dpkg: 600 # Linux package removal
+  go: 900 # module downloads, go vet and go test runs: the first compile of the Go runtime alone takes over 9 s

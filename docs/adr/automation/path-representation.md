@@ -82,14 +82,15 @@ machine-specific absolute.
 
 ### Rule ADR-AUTO-PATH:10
 
-A published artifact that crosses a stage boundary — a build stage produces it, a later deploy stage (often a different agent) downloads and
-consumes it — is an immutable object that serializes **both** forms and is **created by the controlled type** (`ArtifactRef`). Its relative
-form is **artifact-relative** (e.g. `main.json`), anchored on the **artifact root**, not `out/`: the publish step renames the artifact and
-strips the output-root prefix, so the artifact root — the producer's `output_folder`, the consumer's downloaded folder — is the only anchor
-that survives the boundary. It also carries an absolute (resolved in the producing context, for audit). The type's factory takes the raw
-path plus the artifact root, converts once, and materializes both; the consumer at the other end re-resolves the relative against **its
-own** artifact root and verifies existence (`ResolveAt` / `ExistsAt`) before binding — that check is a method on the type, not scattered
-call-site code. (The `out/` sentinel of `Resolve-RepoPath` remains the within-stage output anchor; it is simply not the cross-stage anchor.)
+A **published artifact** is a file that crosses a stage boundary — a build stage produces it, a later deploy stage (often a different agent)
+downloads and consumes it. It is an immutable object that serializes **both** forms and is **created by the controlled type**
+(`ArtifactRef`). Its relative form is **artifact-relative** (e.g. `main.json`), anchored on the **artifact root**, not `out/`: the publish
+step renames the artifact and strips the output-root prefix, so the artifact root — the producer's `output_folder`, the consumer's
+downloaded folder — is the only anchor that survives the boundary. It also carries an absolute (resolved in the producing context, for
+audit). The type's factory takes the raw path plus the artifact root, converts once, and materializes both; the consumer at the other end
+re-resolves the relative against **its own** artifact root and verifies existence (`ResolveAt` / `ExistsAt`) before binding — that check is
+a method on the type, not scattered call-site code. (The `out/` sentinel of `Resolve-RepoPath` remains the within-stage output anchor; it is
+simply not the cross-stage anchor.)
 
 - [The output anchor](#the-output-anchor)
 

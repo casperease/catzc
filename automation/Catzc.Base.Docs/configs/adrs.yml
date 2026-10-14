@@ -214,7 +214,8 @@ domains:
       How the repository tree is laid out, formatted, and generated: conventional folder names at every level, the single `out/` output
       directory, one formatting standard for every file type, versioned external contracts under `contracts/`, READMEs and root configs
       generated from one source, fictional documentation examples, the separation of design, test, and live vocabulary, the controlled
-      vocabulary of defined terms, and repo-wide variants.
+      vocabulary of defined terms, repo-wide variants, the sub-agent definitions and the rules behind each, and sibling repositories read
+      for ideas, never as a reference implementation.
     depends_on: [research, principles, design]
     rulesets:
       conventional-folders: { external: ADR-REPO-FOLDERS }
@@ -228,6 +229,8 @@ domains:
       domain-language-separation: { external: ADR-REPO-LANG }
       controlled-vocabulary: { external: ADR-REPO-VOCAB }
       markdown-links: { external: ADR-REPO-LINK }
+      agent-definitions: { external: ADR-REPO-AGENTS }
+      inspiration: { external: ADR-REPO-INSPIRE }
 
   research:
     code: DORA # 4-letter domain code; composes ADR-DORA-<NAME> — a concise, precise capability name (no doraXXX body)

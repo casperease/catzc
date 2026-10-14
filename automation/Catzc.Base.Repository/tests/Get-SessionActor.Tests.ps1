@@ -16,4 +16,16 @@ Describe 'Get-SessionActor' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#13' {
         Mock Test-IsRunningAsAgent { $true } -ModuleName Catzc.Base.Repository
         Get-SessionActor | Should -Be 'Pipeline'
     }
+
+    It 'returns the actor when -ActorAssertIs matches it' {
+        Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.Repository
+        Mock Test-IsRunningAsAgent { $true } -ModuleName Catzc.Base.Repository
+        Get-SessionActor -ActorAssertIs Agent | Should -Be 'Agent'
+    }
+
+    It 'throws naming both actors when -ActorAssertIs differs' {
+        Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.Repository
+        Mock Test-IsRunningAsAgent { $false } -ModuleName Catzc.Base.Repository
+        { Get-SessionActor -ActorAssertIs Pipeline } | Should -Throw "*'Person'*'Pipeline'*"
+    }
 }

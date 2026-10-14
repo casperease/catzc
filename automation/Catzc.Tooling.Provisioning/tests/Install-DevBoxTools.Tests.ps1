@@ -45,14 +45,31 @@ Describe 'Install-DevBoxTools' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Message -like '*Skipping beta*' }
     }
 
-    It 'asserts a system-provided tool (winget) instead of installing it' {
-        Mock Get-ToolInstallOrder { @('winget') } -ModuleName Catzc.Tooling.Provisioning
-        Mock Get-ToolConfig { New-TestToolConfig @{ command = 'winget'; system_provided = $true } } -ModuleName Catzc.Tooling.Provisioning
-        Mock Get-ToolCommandSuffix { 'Winget' } -ModuleName Catzc.Tooling.Provisioning
-        Mock Assert-Command { } -ModuleName Catzc.Tooling.Provisioning
+    It 'asserts a platform-provided tool (winget, bash) through Test-Tool instead of installing it' {
+        Mock Get-ToolInstallOrder { @('widget') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig { New-TestToolConfig @{ system_provided = $true } } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolCommandSuffix { 'Widget' } -ModuleName Catzc.Tooling.Provisioning
+        Mock Test-Tool { $true } -ModuleName Catzc.Tooling.Provisioning
         Install-DevBoxTools
-        Should -Invoke Assert-Command -ModuleName Catzc.Tooling.Provisioning -Times 1
-        # No Install-Winget lookup/throw happened — the system-provided branch returned first.
+        Should -Invoke Test-Tool -ModuleName Catzc.Tooling.Provisioning -Times 1 -Exactly -ParameterFilter { $Tool -eq 'widget' -and $SkipVersionCheck }
+        # No Install-Widget lookup/throw happened — the platform-provided branch returned first.
+    }
+
+    It 'fails fast, naming the probe report, when a platform-provided tool is absent' {
+        Mock Get-ToolInstallOrder { @('widget') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig { New-TestToolConfig @{ system_provided = $true } } -ModuleName Catzc.Tooling.Provisioning
+        Mock Test-Tool { $false } -ModuleName Catzc.Tooling.Provisioning
+        { Install-DevBoxTools } | Should -Throw '*widget is required but is provided by the platform*Write-ToolProbeReport*'
+    }
+
+    It 'installs git before the locked tools, so a platform-provided bash (Git Bash on Windows) is present' {
+        $script:order = [System.Collections.Generic.List[string]]::new()
+        Mock Install-Git { $script:order.Add('git') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolInstallOrder { @('widget') } -ModuleName Catzc.Tooling.Provisioning
+        Mock Get-ToolConfig { New-TestToolConfig @{ system_provided = $true } } -ModuleName Catzc.Tooling.Provisioning
+        Mock Test-Tool { $script:order.Add('widget'); $true } -ModuleName Catzc.Tooling.Provisioning
+        Install-DevBoxTools
+        $script:order | Should -Be @('git', 'widget')
     }
 
     It 'throws when a locked tool has no matching Install- function' {

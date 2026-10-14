@@ -18,6 +18,8 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 | 7   | L0   | automation/Catzc.Base.Exporter/tests/types/ExporterConfig.Tests.ps1          | exporter.yml                             | The shipped exporter.yml loads through `ExporterConfig`.                                                                                               |
 | 8   | L1   | automation/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1              | Get-ConfigRegistry — shipped configs.yml | The shipped `configs.yml` registry, located through `Get-CatzcModuleRoot`, validates and loads in both run modes.                                      |
 | 9   | L1   | automation/Catzc.Base.QualityGates/tests/types/LinksConfig.Tests.ps1         | LinksConfig (shipped links.yml)          | The shipped links.yml loads through Get-Config as a valid LinksConfig (wrap mode and line-limit settings for Format-Links).                            |
+| 10  | L0   | automation/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1          | integrity (shipped timeouts.yml)         | The shipped timeouts.yml loads through `TimeoutsConfig`.                                                                                               |
+| 11  | L0   | automation/Catzc.Base.Languages/tests/types/GoConfig.Tests.ps1               | integrity (shipped go.yml)               | The shipped go.yml loads through `GoConfig`.                                                                                                           |
 
 ## Checks
 

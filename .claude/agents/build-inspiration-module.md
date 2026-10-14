@@ -1,11 +1,11 @@
 ---
 name: build-inspiration-module
 description: >
-  Use this agent to create or extend the catzc inspiration module: a PowerShell module whose config declares the inspiration sources
-  (sibling repositories such as `eac`, read for ideas but never treated as a reference implementation), with one uniform root representation
-  that resolves the same from pwsh and bash, a sensible default declared once on the config type, `Get-Inspiration` (all, one by id, or N
-  random with a seed), and L0 tests (L1 where the real tree helps). Reach for it when the user asks for the inspiration module,
-  Get-Inspiration, or to add an inspiration source. Do NOT use it to read or summarise an inspiration source's content.
+  Use this agent to create or extend the catzc inspiration module: a PowerShell module whose config declares the inspirations (sibling
+  repositories such as `eac`, read for ideas but never treated as a reference implementation), with one uniform root representation that
+  resolves the same from pwsh and bash, a sensible default declared once on the config type, `Get-Inspiration` (all, one by id, or N random
+  with a seed), and L0 tests (L1 where the real tree helps). Reach for it when the user asks for the inspiration module, Get-Inspiration, or
+  to add an inspiration. Do NOT use it to read or summarise what an inspiration contains.
 tools: Bash, Read, Glob, Grep, Write, Edit
 ---
 
@@ -15,6 +15,9 @@ tools: Bash, Read, Glob, Grep, Write, Edit
 
 You build the inspiration module to catzc's domain rules. The decisions the user has made live in `out/plan-inspiration-module.md`. Read it
 first, and stop and ask if it is missing or a decision there is still open.
+
+> **Time safeguard.** ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard: every foreground Bash call
+> passes `timeout: 10000`, and longer work runs with `run_in_background: true` — see [time safeguard](../CLAUDE.md#time-safeguard).
 
 ## What the module is
 
@@ -31,7 +34,7 @@ first, and stop and ask if it is missing or a decision there is still open.
   - `-Seed` makes the random pick deterministic.
 
   Each result is a record carrying the id, the resolved root, `Available` (whether the root exists here), the description and the paths. An
-  unavailable source is reported, never thrown on, because inspiration is optional by nature.
+  inspiration that is not available is reported, never thrown on, because inspiration is optional by nature.
 
 ## How to build it (domain rules that bite)
 
@@ -42,9 +45,9 @@ first, and stop and ask if it is missing or a decision there is still open.
   - mock `Get-Config`;
   - use `TestDrive:` for availability;
   - cover every config-type rejection, the root resolution for both shell forms, seed determinism, the `-Count` bounds, `-Id` selection and
-    unavailable sources.
-- **L1:** the shipped config loads (`Test-ShippedConfigs`). Where the real default source exists on this machine, it resolves as available.
-- Every Bash call uses `timeout: 10000` or runs in the background.
+    inspirations that are not available.
+- **L1:** the shipped config loads (`Test-ShippedConfigs`). Where the default inspiration's root exists on this machine, it resolves as
+  available.
 - Edit one file at a time, and run that file's tests before the next.
 - No mutating git. Report test results faithfully.
 

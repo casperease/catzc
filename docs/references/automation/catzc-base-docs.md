@@ -20,6 +20,7 @@ from the modules' glossary sources — and answers "ask cats", the offline brows
 | responsibility:4 | adr        | [ADR registry](#responsibility4--adr-registry)                     |
 | responsibility:5 | vocabulary | [Controlled vocabulary](#responsibility5--controlled-vocabulary)   |
 | responsibility:6 | ask        | [Ask cats](#responsibility6--ask-cats)                             |
+| responsibility:7 | agents     | [Sub-agent registry](#responsibility7--sub-agent-registry)         |
 
 ### responsibility:1 — README materialisation
 
@@ -76,6 +77,14 @@ glossary page from it, and checks it — every term anchored on its one defining
 "Ask cats": an offline, deterministic browser over what the repository already knows — the ADR codes and rules, the modules and their public
 functions, and the approved verbs in use. It prints only; it returns nothing.
 
+### responsibility:7 — Sub-agent registry
+
+Which sub-agents exist and why (see [agent-definitions](../../adr/repository/agent-definitions.md)). The registry is `agents.yml`: one entry
+per `.claude/agents/<name>.md` definition, with the rule citations that support the agent and the gate and check functions it runs or
+guards, plus the one standard agent for delegated work. It is validated when it loads. A quality gate, `Test-AgentDefinitions`, keeps the
+agent files, the registry, and the `## Sub-agents` list in `.claude/CLAUDE.md` in step, resolving every citation to a real rule and every
+check to an existing command.
+
 ## What the module does
 
 The module's core is the generated README: every conventional folder's README is a copy of one authored source, readable where it is opened.
@@ -114,3 +123,5 @@ The module's public surface, sorted into the responsibilities above.
 |                                           | `Build-Glossary`             |
 |                                           | `Test-Glossary`              |
 | responsibility:6 — Ask cats               | `Show-Cats`                  |
+| responsibility:7 — Sub-agent registry     | `Test-AgentDefinitions`      |
+| config                                    | `agents.yml`                 |

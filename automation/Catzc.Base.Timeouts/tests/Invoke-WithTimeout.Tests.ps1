@@ -4,7 +4,8 @@ Describe 'Invoke-WithTimeout' -Tag 'L0', 'logic' {
         Invoke-WithTimeout { "$widget ready"; 2 } -Seconds 5 | Should -Be @('widget ready', 2)
     }
 
-    It 'stops a block past its limit and throws a TimeoutException naming the limit' {
+    # L1: waits out a real 1-second limit, over the L0 time budget.
+    It 'stops a block past its limit and throws a TimeoutException naming the limit' -Tag 'L1' {
         $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
         $err = { Invoke-WithTimeout { Start-Sleep -Seconds 10 } -Seconds 1 -Activity 'gadget sync' } | Should -Throw -PassThru
         $stopwatch.Elapsed.TotalSeconds | Should -BeLessThan 5
@@ -12,7 +13,8 @@ Describe 'Invoke-WithTimeout' -Tag 'L0', 'logic' {
         $err.Exception.Message | Should -BeLike "*'gadget sync' did not finish within its 1-second limit*timeouts.yml*"
     }
 
-    It 'stops a native command the block is waiting on' {
+    # L2: drives a real child pwsh that outlives the limit.
+    It 'stops a native command the block is waiting on' -Tag 'L2' {
         $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
         { Invoke-WithTimeout { & pwsh -NoProfile -Command 'Start-Sleep -Seconds 10' } -Seconds 1 } | Should -Throw -ExceptionType ([System.TimeoutException])
         $stopwatch.Elapsed.TotalSeconds | Should -BeLessThan 8
@@ -32,7 +34,8 @@ Describe 'Invoke-WithTimeout' -Tag 'L0', 'logic' {
         "$($errors[0])" | Should -BeLike '*no-such-gadget*'
     }
 
-    It 'defaults the limit to Get-TimeoutSeconds' {
+    # L1: waits out a real 1-second limit, over the L0 time budget.
+    It 'defaults the limit to Get-TimeoutSeconds' -Tag 'L1' {
         Mock Get-TimeoutSeconds -ModuleName Catzc.Base.Timeouts { 1 }
         { Invoke-WithTimeout { Start-Sleep -Seconds 10 } } | Should -Throw '*1-second limit*'
     }

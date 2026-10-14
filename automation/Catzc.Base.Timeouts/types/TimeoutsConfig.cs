@@ -1,13 +1,23 @@
 // The time safeguards (configs/timeouts.yml) — how long a call may run before it is stopped. Registered in
 // Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Timeouts.TimeoutsConfig), so Get-Config -Config timeouts
 // returns this typed record; Get-TimeoutSeconds resolves a limit from it. Mirrors the YAML keys verbatim
-// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)). The Claude Code Bash
+// hook (.claude/hooks/Assert-BashTimeout/) compiles this same file, so the hook and the pwsh side share one parser
+// and one set of defaults.
+//
+// Limits are keyed on two axes: the environment (devbox | pipeline, from Get-RunEnvironment) and the shell (bash |
+// pwsh). bash carries a foreground and a background limit (the hook bounds both); pwsh carries one limit for the
+// work pwsh code bounds itself (Invoke-WithTimeout, Invoke-Executable). The sensible defaults are declared here,
+// once (ADR-AUTO-DEFAULT#6), so an empty file and a fresh checkout behave the same; the file states only what is
+// tuned.
 //
 // Constructing an instance validates the file, collecting every violation into one ArgumentException:
-//   - only the known keys ('default_seconds', 'executables') — an unknown key (a typo) fails fast at load;
-//   - 'default_seconds' is required and a positive whole number;
-//   - 'executables', when present, maps a bare executable name (no directory, no extension) to a positive whole
-//     number. There is no "no limit" value: every call runs inside a safeguard.
+//   - only known keys at every level ('limits', 'executables'; devbox | pipeline; bash | pwsh; foreground |
+//     background) — an unknown key (a typo) fails fast at load;
+//   - every limit is a positive whole number (a YAML plain integer — a quoted '10' is rejected); there is no
+//     "no limit" value, so every call runs inside a safeguard;
+//   - a bash background limit is at least its foreground limit;
+//   - 'executables' maps a bare executable name (no directory, no extension) to a positive whole number.
 
 using System;
 using System.Collections;
@@ -18,10 +28,28 @@ namespace Catzc.Base.Timeouts;
 
 public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "default_seconds", "executables" };
+    private static readonly string[] AllowedKeys = { "limits", "executables" };
+    private static readonly string[] Environments = { "devbox", "pipeline" };
+    private static readonly string[] Shells = { "bash", "pwsh" };
+    private static readonly string[] BashKeys = { "foreground", "background" };
 
-    // The limit, in seconds, for any call without a more specific entry.
-    public int default_seconds { get; }
+    // The sensible defaults: tight on a devbox, where the blockers are tuned together; looser in a pipeline, where
+    // nobody watches and a long build is ordinary — but still bounded.
+    private static readonly Dictionary<string, int> Defaults = new Dictionary<string, int>(StringComparer.Ordinal)
+    {
+        { "devbox.bash.foreground", 10 },
+        { "devbox.bash.background", 1800 },
+        { "devbox.pwsh", 10 },
+        { "pipeline.bash.foreground", 600 },
+        { "pipeline.bash.background", 3600 },
+        { "pipeline.pwsh", 600 },
+    };
+
+    private readonly Dictionary<string, int> resolved = new Dictionary<string, int>(Defaults, StringComparer.Ordinal);
+
+    // The resolved limits, defaults filled in: limits[devbox|pipeline][bash] is { foreground, background },
+    // limits[devbox|pipeline][pwsh] is the pwsh limit. A read-only view for display; resolve through SecondsFor.
+    public IDictionary limits { get; }
 
     // Per-executable limits in seconds, keyed by the bare executable name (case-insensitive). Empty when the file
     // declares none.
@@ -30,30 +58,34 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     public TimeoutsConfig(IDictionary d)
     {
         List<string> errors = new List<string>();
-        if (d != null)
+        CheckKeys(d, AllowedKeys, "", errors);
+
+        if (d != null && d.Contains("limits") && d["limits"] != null)
         {
-            foreach (object k in d.Keys)
+            IDictionary byEnvironment = d["limits"] as IDictionary;
+            if (byEnvironment == null)
             {
-                string key = k == null ? null : k.ToString();
-                if (Array.IndexOf(AllowedKeys, key) < 0)
+                errors.Add("invalid limits (must be a map of devbox | pipeline)");
+            }
+            else
+            {
+                CheckKeys(byEnvironment, Environments, "limits.", errors);
+                foreach (string environment in Environments)
                 {
-                    errors.Add(string.Format("unknown key '{0}' (allowed: {1})", key, string.Join(", ", AllowedKeys)));
+                    ReadEnvironment(byEnvironment, environment, errors);
                 }
             }
         }
 
-        if (d == null || !d.Contains("default_seconds"))
+        foreach (string environment in Environments)
         {
-            errors.Add("missing required key 'default_seconds' (the limit, in seconds, for any call)");
-        }
-        else
-        {
-            int? seconds = PositiveSeconds(d["default_seconds"]);
-            if (seconds == null)
+            int foreground = resolved[environment + ".bash.foreground"];
+            int background = resolved[environment + ".bash.background"];
+            if (background < foreground)
             {
-                errors.Add(string.Format("invalid default_seconds '{0}' (must be a positive whole number)", d["default_seconds"]));
+                errors.Add(string.Format(
+                    "invalid limits.{0}.bash: background ({1}) is below foreground ({2})", environment, background, foreground));
             }
-            else { default_seconds = seconds.Value; }
         }
 
         Dictionary<string, int> perExecutable = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
@@ -74,14 +106,12 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
                         errors.Add(string.Format("invalid executables key '{0}' (a bare executable name: no directory, no extension)", name));
                         continue;
                     }
-
                     int? seconds = PositiveSeconds(entry.Value);
                     if (seconds == null)
                     {
                         errors.Add(string.Format("invalid executables.{0} '{1}' (must be a positive whole number)", name, entry.Value));
                         continue;
                     }
-
                     perExecutable[name] = seconds.Value;
                 }
             }
@@ -92,15 +122,124 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         {
             throw new ArgumentException("timeouts configuration validation failed:\n" + string.Join("\n", errors));
         }
+
+        Hashtable view = new Hashtable(StringComparer.OrdinalIgnoreCase);
+        foreach (string environment in Environments)
+        {
+            Hashtable bash = new Hashtable(StringComparer.OrdinalIgnoreCase)
+            {
+                { "foreground", resolved[environment + ".bash.foreground"] },
+                { "background", resolved[environment + ".bash.background"] },
+            };
+            view[environment] = new Hashtable(StringComparer.OrdinalIgnoreCase)
+            {
+                { "bash", bash },
+                { "pwsh", resolved[environment + ".pwsh"] },
+            };
+        }
+        limits = view;
     }
 
-    // The limit for an executable: its own entry when it has one, otherwise default_seconds. The name may carry a
-    // directory and an extension (`C:\tools\dotnet.exe`); only the bare name is looked up.
-    public int SecondsFor(string executable)
+    // The limit for a shell call in an environment. environment is devbox | pipeline and shell is bash | pwsh
+    // (case-insensitive); background applies to bash only.
+    public int SecondsFor(string environment, string shell, bool background)
+    {
+        string env = Axis(environment, Environments, "environment");
+        string sh = Axis(shell, Shells, "shell");
+        if (sh == "pwsh")
+        {
+            if (background)
+            {
+                throw new ArgumentException("pwsh has no background limit; background applies to bash calls only");
+            }
+            return resolved[env + ".pwsh"];
+        }
+        return resolved[env + ".bash." + (background ? "background" : "foreground")];
+    }
+
+    // The limit for an executable that pwsh code runs: its own entry when it has one, otherwise the environment's
+    // pwsh limit. The name may carry a directory and an extension (`C:\tools\dotnet.exe`); only the bare name is
+    // looked up.
+    public int SecondsForExecutable(string environment, string executable)
     {
         string name = string.IsNullOrWhiteSpace(executable) ? "" : Path.GetFileNameWithoutExtension(executable.Trim());
         int seconds;
-        return name.Length > 0 && executables.TryGetValue(name, out seconds) ? seconds : default_seconds;
+        return name.Length > 0 && executables.TryGetValue(name, out seconds) ? seconds : SecondsFor(environment, "pwsh", false);
+    }
+
+    private void ReadEnvironment(IDictionary byEnvironment, string environment, List<string> errors)
+    {
+        if (!byEnvironment.Contains(environment) || byEnvironment[environment] == null)
+        {
+            return;
+        }
+        string path = "limits." + environment;
+        IDictionary byShell = byEnvironment[environment] as IDictionary;
+        if (byShell == null)
+        {
+            errors.Add(string.Format("invalid {0} (must be a map of bash | pwsh)", path));
+            return;
+        }
+        CheckKeys(byShell, Shells, path + ".", errors);
+
+        if (byShell.Contains("pwsh") && byShell["pwsh"] != null)
+        {
+            ReadSeconds(byShell["pwsh"], environment + ".pwsh", path + ".pwsh", errors);
+        }
+        if (byShell.Contains("bash") && byShell["bash"] != null)
+        {
+            IDictionary bash = byShell["bash"] as IDictionary;
+            if (bash == null)
+            {
+                errors.Add(string.Format("invalid {0}.bash (must be a map of foreground | background)", path));
+                return;
+            }
+            CheckKeys(bash, BashKeys, path + ".bash.", errors);
+            foreach (string key in BashKeys)
+            {
+                if (bash.Contains(key) && bash[key] != null)
+                {
+                    ReadSeconds(bash[key], environment + ".bash." + key, path + ".bash." + key, errors);
+                }
+            }
+        }
+    }
+
+    private void ReadSeconds(object value, string slot, string path, List<string> errors)
+    {
+        int? seconds = PositiveSeconds(value);
+        if (seconds == null)
+        {
+            errors.Add(string.Format("invalid {0} '{1}' (must be a positive whole number)", path, value));
+            return;
+        }
+        resolved[slot] = seconds.Value;
+    }
+
+    private static void CheckKeys(IDictionary d, string[] allowed, string prefix, List<string> errors)
+    {
+        if (d == null)
+        {
+            return;
+        }
+        foreach (object k in d.Keys)
+        {
+            string key = k == null ? null : k.ToString();
+            if (Array.IndexOf(allowed, key) < 0)
+            {
+                errors.Add(string.Format("unknown key '{0}{1}' (allowed: {2})", prefix, key, string.Join(", ", allowed)));
+            }
+        }
+    }
+
+    private static string Axis(string value, string[] allowed, string axis)
+    {
+        string normalized = value == null ? "" : value.Trim().ToLowerInvariant();
+        if (Array.IndexOf(allowed, normalized) < 0)
+        {
+            throw new ArgumentException(string.Format("unknown {0} '{1}' (allowed: {2})", axis, value, string.Join(", ", allowed)));
+        }
+        return normalized;
     }
 
     private static int? PositiveSeconds(object value)

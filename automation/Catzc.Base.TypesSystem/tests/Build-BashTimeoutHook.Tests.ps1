@@ -40,10 +40,43 @@ Describe 'Build-BashTimeoutHook' -Tag 'L0', 'logic' {
         Join-Path $script:outputDirectory 'source.sha256' | Should -Not -Exist
     }
 
+    It 'records the linked module sources in the hash, so a change to them republishes' {
+        $null = Build-BashTimeoutHook -OutputDirectory $script:outputDirectory
+        $stamp = Get-Content -LiteralPath (Join-Path $script:outputDirectory 'source.sha256') -Raw
+        $stamp | Should -BeLike '*Catzc.Base.Timeouts/types/TimeoutsConfig.cs:*'
+        $stamp | Should -BeLike '*Catzc.Base.Timeouts/types/BashSafeguard.cs:*'
+    }
+
     It 'republishes with -Force' {
         $null = Build-BashTimeoutHook -OutputDirectory $script:outputDirectory
         $null = Build-BashTimeoutHook -OutputDirectory $script:outputDirectory -Force
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -Times 2 -Exactly
+    }
+}
+
+Describe 'Build-BashTimeoutHook — parity with Get-TimeoutSeconds' -Tag 'L1', 'integrity' {
+    BeforeAll {
+        # The hook as published for this repository, reading the shipped timeouts.yml through its own YAML loader.
+        $script:program = Build-BashTimeoutHook
+        $script:foregroundMs = (Get-TimeoutSeconds -Shell Bash) * 1000
+        $script:backgroundSeconds = Get-TimeoutSeconds -Shell Bash -Background
+
+        function Invoke-Hook {
+            param([hashtable] $ToolInput)
+            $output = (@{ tool_input = $ToolInput } | ConvertTo-Json -Compress) | & $script:program
+            $output -join ''
+        }
+    }
+
+    It 'allows exactly the foreground limit Get-TimeoutSeconds resolves, and denies one millisecond more' {
+        Invoke-Hook @{ command = 'ls'; timeout = $foregroundMs } | Should -BeNullOrEmpty
+        Invoke-Hook @{ command = 'ls'; timeout = $foregroundMs + 1 } | Should -BeLike "*timeout <= $foregroundMs ms*"
+    }
+
+    It 'allows exactly the background limit Get-TimeoutSeconds resolves, and denies one second more' {
+        Invoke-Hook @{ command = "timeout $backgroundSeconds ls"; run_in_background = $true } | Should -BeNullOrEmpty
+        Invoke-Hook @{ command = "timeout $($backgroundSeconds + 1) ls"; run_in_background = $true } |
+            Should -BeLike "*background limit is $backgroundSeconds s*"
     }
 }
 
@@ -54,7 +87,9 @@ Describe 'Build-BashTimeoutHook — the published hook' -Tag 'L2', 'logic' {
         $configDirectory = Join-Path $script:root 'automation/Catzc.Base.Timeouts/configs'
         $null = New-Item -ItemType Directory -Force -Path $configDirectory
         Set-Content -LiteralPath (Join-Path $configDirectory 'timeouts.yml') -Value @'
-default_seconds: 7 # widget limit
+limits:
+  devbox:
+    bash: { foreground: 7, background: 70 } # widget limits
 executables:
   widget: 90
 '@
@@ -62,21 +97,36 @@ executables:
 
         function Invoke-Hook {
             param([string] $Payload)
-            $output = $Payload | & $script:program
+            # The published program reads the run environment itself; pin it to the devbox for these fixtures.
+            $saved = $env:TF_BUILD, $env:GITHUB_ACTIONS
+            $env:TF_BUILD = $null
+            $env:GITHUB_ACTIONS = $null
+            try {
+                $output = $Payload | & $script:program
+            }
+            finally {
+                $env:TF_BUILD, $env:GITHUB_ACTIONS = $saved
+            }
             [pscustomobject]@{ ExitCode = $LASTEXITCODE; Output = ($output -join '') }
         }
     }
 
-    It 'lets a call through whose timeout is within default_seconds' {
+    It 'lets a call through whose timeout is within the devbox foreground limit' {
         $result = Invoke-Hook '{"tool_input":{"command":"ls","timeout":7000}}'
         $result.ExitCode | Should -Be 0
         $result.Output | Should -BeNullOrEmpty
     }
 
-    It 'lets a background call through without a timeout' {
-        $result = Invoke-Hook '{"tool_input":{"command":"ls","run_in_background":true}}'
+    It 'lets a background call through behind a timeout prefix within the background limit' {
+        $result = Invoke-Hook '{"tool_input":{"command":"timeout 70 ls","run_in_background":true}}'
         $result.ExitCode | Should -Be 0
         $result.Output | Should -BeNullOrEmpty
+    }
+
+    It 'denies a background call without a timeout prefix and logs it' {
+        $result = Invoke-Hook '{"tool_input":{"command":"ls","run_in_background":true}}'
+        ($result.Output | ConvertFrom-Json).hookSpecificOutput.permissionDecisionReason | Should -BeLike '*no `timeout <duration>` prefix*'
+        Get-Content -LiteralPath (Join-Path $script:root 'out/time-safeguard.log') -Raw | Should -BeLike "*background`tno timeout prefix`t70 s`tls*"
     }
 
     It 'denies a foreground call without a timeout, naming the limit' -ForEach @(

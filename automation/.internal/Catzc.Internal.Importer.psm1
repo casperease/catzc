@@ -449,7 +449,7 @@ function Invoke-AgentHookJanitor {
     .DESCRIPTION
         Build-BashTimeoutHook is a no-op while the published hook matches its source
         ([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)). The hook is
-        agent tooling, so a pipeline skips it; a checkout without the hook source (a bundle) or without dotnet yet is
+        agent tooling, so a pipeline skips it; a checkout without the hook's code (a bundle) or without dotnet yet is
         told, never stopped — Install-Dotnet itself needs this import to succeed. A failed publish is one red line.
         A no-op when Build-BashTimeoutHook is absent (the bootstrap sandbox).
     #>

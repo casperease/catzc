@@ -240,7 +240,8 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
     }
 
     Context 'time safeguard' {
-        It 'kills a process that outlives -TimeoutSeconds and throws a TimeoutException naming the limit' {
+        # L2: drives a real child pwsh that outlives the limit.
+        It 'kills a process that outlives -TimeoutSeconds and throws a TimeoutException naming the limit' -Tag 'L2' {
             $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
             $err = { Invoke-Executable 'pwsh -NoProfile -Command Start-Sleep -Seconds 10' -TimeoutSeconds 1 -Silent } | Should -Throw -PassThru
             $stopwatch.Elapsed.TotalSeconds | Should -BeLessThan 8

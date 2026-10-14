@@ -1,0 +1,20 @@
+# The Go test workspace — the one declared source that New-GoWorkspace renders the root go.work and every
+# go/tests/<folder>/go.mod from. Go code in this repository is test artifacts only: one Go module per catzc module,
+# under go/tests/<module-in-kebab>/, and nothing Go-specific is committed but the *_test.go files.
+#
+# Every key is optional: an omitted key takes the sensible default declared once on
+# Catzc.Base.Languages.GoConfig ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
+# Loaded via Get-Config -Config go; the shape is validated by the GoConfig type.
+
+# The go directive of go.work and every go.mod — a quoted Go language version, 1.N or 1.N.P. Keep it at or below
+# the pinned go tool's version, so a run never fetches a newer toolchain. Default: '1.24'.
+go_version: '1.24'
+
+# The module-path prefix: the folder go/tests/<folder>/ is the Go module <module_root>/<folder>. Default:
+# catzc/go/tests.
+module_root: catzc/go/tests
+
+# The test dependencies every go.mod requires: module path -> version (vX.Y.Z). The go.mod files are rendered and
+# never tidied, so a dependency's own requirements are declared here too. Default: none — the standard library's
+# testing package is enough for black-box tests that start the engine and assert on its output.
+dependencies: {}

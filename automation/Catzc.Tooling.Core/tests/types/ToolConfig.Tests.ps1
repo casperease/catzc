@@ -53,6 +53,36 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
         { [Catzc.Tooling.Core.ToolConfig]::new($entry) } | Should -Throw '*must end with the {version} segment*'
     }
 
+    It 'declares no candidate paths when the entry has none' {
+        $config = [Catzc.Tooling.Core.ToolConfig]::new($script:required.Clone())
+        $config.HasProbes() | Should -BeFalse
+        $config.ProbesFor($true, 'Person') | Should -HaveCount 0
+    }
+
+    It 'picks the candidate list for <platform> and actor <actor>' -ForEach @(
+        @{ platform = 'Windows'; windows = $true; actor = 'Person'; expected = 'win-devbox' }
+        @{ platform = 'Windows'; windows = $true; actor = 'Agent'; expected = 'win-devbox' }
+        @{ platform = 'Windows'; windows = $true; actor = 'Pipeline'; expected = 'win-pipeline' }
+        @{ platform = 'Unix'; windows = $false; actor = 'Person'; expected = 'unix-devbox' }
+        @{ platform = 'Unix'; windows = $false; actor = 'Agent'; expected = 'unix-devbox' }
+        @{ platform = 'Unix'; windows = $false; actor = 'Pipeline'; expected = 'unix-pipeline' }
+    ) {
+        $entry = $script:required.Clone()
+        $entry.windows_probes = @('win-devbox')
+        $entry.windows_pipeline_probes = @('win-pipeline')
+        $entry.unix_probes = @('unix-devbox')
+        $entry.unix_pipeline_probes = @('unix-pipeline')
+        $config = [Catzc.Tooling.Core.ToolConfig]::new($entry)
+        $config.HasProbes() | Should -BeTrue
+        $config.ProbesFor($windows, $actor) | Should -Be @($expected)
+    }
+
+    It 'counts an exclusion alone as a probed entry' {
+        $entry = $script:required.Clone()
+        $entry.probe_excludes = @('/gadget/widget')
+        [Catzc.Tooling.Core.ToolConfig]::new($entry).HasProbes() | Should -BeTrue
+    }
+
     It 'reports every missing required key in one throw' -Tag 'ADR-AUTO-DEPS#1' {
         $err = { [Catzc.Tooling.Core.ToolConfig]::new(@{ winget_id = 'Widget.Widget' }) } | Should -Throw -PassThru
         foreach ($key in 'version', 'command', 'version_command', 'version_pattern') {

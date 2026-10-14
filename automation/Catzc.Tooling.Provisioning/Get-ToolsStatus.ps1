@@ -30,10 +30,12 @@ function Get-ToolsStatus {
 
     # Parallel version probes — each spawns a subprocess, so run them concurrently.
     # Only probe tools that are on PATH (missing tools skip the version check).
+    # A tool with declared candidate paths is located by the probe instead (Test-Tool -PassThru, below): its bare
+    # name on PATH may not be the tool at all (bash on Windows: the WSL launcher).
     $versionJobs = @{}
     foreach ($toolName in $allTools.Keys) {
         $config = $allTools[$toolName]
-        if (Test-Command $config.command) {
+        if (-not $config.HasProbes() -and (Test-Command $config.command)) {
             # Split the configured version-probe command line into executable + args with PowerShell's
             # tokenizer (it honours quoted arguments, e.g. pyspark's -c "import pyspark; ..."), so the
             # probe runs via the call operator instead of Invoke-Expression.
@@ -111,14 +113,39 @@ function Get-ToolsStatus {
             'unknown'
         }
 
-        # Tool not on PATH — nothing more to check
-        if (-not (Test-Command $config.command)) {
-            [Catzc.Tooling.Provisioning.ToolStatus]::new($toolName, "$($config.version).x", $null, 'Missing', $null, $null, $null, "Run Install-$command")
+        $probe = if ($config.HasProbes()) {
+            Test-Tool $toolName -PassThru
+        }
+        else {
+            $null
+        }
+
+        # Tool not found — nothing more to check
+        $found = if ($probe) {
+            $probe.Found
+        }
+        else {
+            Test-Command $config.command
+        }
+        if (-not $found) {
+            $missingAction = if ($config.system_provided) {
+                'Provided by the platform, not the toolchain — install it (bash on Windows: Install-Git)'
+            }
+            else {
+                "Run Install-$command"
+            }
+            [Catzc.Tooling.Provisioning.ToolStatus]::new($toolName, "$($config.version).x", $null, 'Missing', $null, $null, $null, $missingAction)
             continue
         }
 
-        $location = (Get-Command $config.command).Source
-        $installed = $versionResults[$toolName]
+        if ($probe) {
+            $location = $probe.Path
+            $installed = $probe.Version
+        }
+        else {
+            $location = (Get-Command $config.command).Source
+            $installed = $versionResults[$toolName]
+        }
 
         $versionOk = $installed -and $installed.StartsWith($config.version)
         $managedByExpected = Test-ExpectedPackageManager -Config $config -WingetListCache $wingetCache

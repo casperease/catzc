@@ -33,6 +33,14 @@ Deciding whether a tool is present at the locked version — in a throwing (asse
 `devbox_version` relaxation outside CI — and whether it was installed by the manager the platform expects rather than by some stray system
 install. This is the gate every tool invocation passes before it runs.
 
+A tool whose `tools.yml` entry declares candidate paths (`windows_probes`, `unix_probes`, and their `*_pipeline_probes` lists) is located
+without starting a process: the candidates for the running platform and session actor first (a pipeline reads the pipeline list, a person or
+an agent the devbox list), then PATH, skipping every path in `probe_excludes` (for bash, the WSL launcher). Only a located executable runs
+its version command, once per executable file per session (a lazy cache entry), so a check costs file lookups after the first. The probe
+itself is generic and lives in [Catzc.Base.Execution](catzc-base-execution.md), which also reads the entry, so a Base module finds a managed
+tool the same way; this module keeps the presence and version decision on top of it. `Test-Tool -PassThru` returns the check as a record
+(where, how, which version against the pin, and the timings), and `Write-ToolProbeReport` renders such records as a table.
+
 ### responsibility:3 — Install and uninstall engine
 
 The generic mechanism that installs the locked version idempotently and uninstalls a managed install. It drives the platform's native
@@ -82,6 +90,7 @@ The module's public functions and configuration, sorted into the responsibilitie
 | responsibility:2 — Presence and version control   | `Assert-Tool`                 |
 |                                                   | `Test-Tool`                   |
 |                                                   | `Test-ExpectedPackageManager` |
+|                                                   | `Write-ToolProbeReport`       |
 | responsibility:3 — Install and uninstall engine   | `Install-Tool`                |
 |                                                   | `Uninstall-Tool`              |
 |                                                   | `Install-UvTool`              |

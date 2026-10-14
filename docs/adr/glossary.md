@@ -64,6 +64,8 @@ The immutable, tagged artifact a CI component builds from one commit — version
     one commit's tagged, immutable build of it.
   - [occupant](#occupant): An occupant is the commit an environment holds; a release candidate is the artifact built from it, the same bytes
     wherever it is deployed.
+  - [published artifact](#published-artifact): A published artifact is any file handed across a stage boundary; a release candidate is the
+    tagged build that gets promoted.
   - [test run](#test-run): A test run executes tests; a release candidate is the artifact a release-candidate test run verifies.
   - [test suite](#test-suite): A test suite is the declared selection of tests that verifies a change; a release candidate is the artifact
     under test.
@@ -128,6 +130,17 @@ One of a test run's three scheduling stages, in order — parallel shards, greed
   `phase`
 - **Contrasts:**
   - [tier](#tier): A tier is what a test may touch; a phase is when its file runs within a run (parallel, greedy, serial).
+
+### published artifact
+
+A file one stage produces and a later stage downloads and consumes — carried by ArtifactRef, anchored on its artifact root.
+
+- **Defined by:** [ADR-AUTO-PATH#10](automation/path-representation.md#rule-adr-auto-path10)
+- **Realized by:** type `Catzc.Base.Objects.ArtifactRef`
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [release candidate](#release-candidate): A release candidate is the tagged build that gets promoted; a published artifact is any file
+    handed across a stage boundary.
 
 ### quality gate
 

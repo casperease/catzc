@@ -1,11 +1,12 @@
 <#
 .SYNOPSIS
-    Quality gate: every checked-in binary under automation/.vendor and automation/.compiled is stored byte-exact.
+    Quality gate: every checked-in binary in the repository is stored byte-exact.
 .DESCRIPTION
-    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over the two
-    locations that hold checked-in binaries: the vendored modules (automation/.vendor/**) and the committed combined C#
-    types assembly (automation/.compiled/**, see the caching ADR). A tracked file there is a binary the way git
-    decides — a NUL byte in its first 8000 bytes — so the gate follows the content, not an extension list. For each
+    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over every
+    tracked file — the vendored modules (automation/.vendor/**) and the committed combined C# types assembly
+    (automation/.compiled/**, see the caching ADR) as much as the diagrams and documents under docs/. A tracked file is
+    a binary the way git decides — a NUL byte in its first 8000 bytes — so the gate follows the content, not an
+    extension list, and a binary of a type .gitattributes does not name yet fails here instead of slipping by. For each
     binary it collects an issue when:
 
       - git stores it as text: `git ls-files --eol` reports its index EOL as lf, crlf, or mixed (git applied EOL
@@ -33,11 +34,12 @@ function Test-CheckedInBinaries {
     )
 
     $repositoryRoot = Get-RepositoryRoot
-    $listing = Invoke-Executable "git -C `"$repositoryRoot`" -c core.quotepath=off ls-files --eol -- automation/.vendor automation/.compiled" -PassThru -Silent
+    $listing = Invoke-Executable "git -C `"$repositoryRoot`" -c core.quotepath=off ls-files --eol" -PassThru -Silent
 
     $binaries = [System.Collections.Generic.List[object]]::new()
     foreach ($line in ($listing.Output -split "`r?`n")) {
-        if ($line -notmatch '^i/(?<index>\S+)\s+w/\S*\s+attr/\S*\s+(?<path>.+)$') {
+        # The path follows the one TAB; the attr/ column may itself hold spaces (`attr/text eol=lf`).
+        if ($line -notmatch '^i/(?<index>\S+)\s+w/\S*\s+attr/[^\t]*\t(?<path>.+)$') {
             continue
         }
         $indexEol = $Matches['index']

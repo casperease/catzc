@@ -79,6 +79,12 @@ terms:
   product:
     - term: testkit
       meaning: "catzc-internal-testkit"
+    - term: goroot
+      meaning: "GOROOT — the Go toolchain's installation root"
+    - term: gopath
+      meaning: "GOPATH — the Go workspace root (module cache and installed binaries)"
+    - term: gocache
+      meaning: "GOCACHE — the Go build cache directory"
     - term: adrs
       meaning: "ADRs — plural of ADR; the adrs.yml registry of ADR domain structure and citation codes"
     - term: ast
@@ -800,6 +806,8 @@ terms:
       meaning: ".NET apphost — a native launcher executable for a .NET application"
     - term: vbcs
       meaning: "the VBCSCompiler.exe Roslyn compiler server"
+    - term: iliazeus
+      meaning: "publisher of the vscode-ansi VS Code extension (iliazeus.vscode-ansi)"
     - term: dpkg
       meaning: "Debian dpkg"
     - term: enduml

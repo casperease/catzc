@@ -34,6 +34,16 @@ Describe 'Set-AbandonedTestRun' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -match 'widget-dead abandoned .*\(PID \d+\) is gone' }
     }
 
+    It 'writes a UTC start time back exactly as it was stamped, not in the local offset' {
+        $startedAt = '2026-01-02T03:04:05.1234567+00:00'
+        New-WidgetRun 'widget-utc' ([ordered]@{ status = 'running'; startedAt = $startedAt; ownerPid = [int]::MaxValue; ownerStart = 0 }) | Out-Null
+
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } { param($Root) Set-AbandonedTestRun -OutputFolder $Root } | Out-Null
+
+        # The raw text, not a parsed value: ConvertFrom-Json would hide the offset the file actually carries.
+        [System.IO.File]::ReadAllText((Join-Path $script:root 'widget-utc/run.json')) | Should -Match ([regex]::Escape("`"startedAt`": `"$startedAt`""))
+    }
+
     It 'abandons a running run that names no owner' {
         New-WidgetRun 'widget-ownerless' ([ordered]@{ status = 'running' }) | Out-Null
 

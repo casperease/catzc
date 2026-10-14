@@ -1,7 +1,8 @@
 # Binary files must never be line-ending normalized — EOL conversion rewrites the bytes, which corrupts
 # the file and breaks the byte-exact, hash-keyed compiled-type cache (see docs/adr/automation/caching.md).
 # The `binary` macro expands to `-text -diff`: no text conversion, no textual diff.
-# Verified by automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1.
+# Verified by the Test-CheckedInBinaries quality gate (Catzc.Base.ModuleSystem): every tracked file git sees as binary
+# must be stored as binary and matched by an explicit `binary` rule here.
 #
 # Line endings are pinned only where bytes matter (binaries, the C# cache key, the generated root files). There
 # is deliberately NO `* text=auto` rule, so existing text files keep their current storage and are not
@@ -12,7 +13,9 @@
 # Committed combined C# types assembly — whole directory, any extension, since it is byte-exact build output.
 automation/.compiled/** binary
 
-# Binary file types (vendored module assemblies, debug symbols, signatures, native libraries).
+# Binary file types (vendored module assemblies, debug symbols, signatures, native libraries, images, documents,
+# archives). *.png also covers the draw.io diagrams (*.drawio.png), whose editable XML rides inside the PNG. *.exe,
+# *.so and *.dylib match nothing tracked today: they guard the native binaries a vendored module may ship.
 *.dll    binary
 *.pdb    binary
 *.p7s    binary
@@ -20,7 +23,7 @@ automation/.compiled/** binary
 *.so     binary
 *.dylib  binary
 *.png    binary
-*.drawio.png binary
+*.pdf    binary
 *.gz     binary
 
 # C# type sources are the byte-exact key of the compiled-type cache — their combined hash names the committed

@@ -1,0 +1,48 @@
+# The sub-agent registry: one entry per sub-agent definition .claude/agents/<name>.md
+# ([ADR-REPO-AGENTS](/docs/adr/repository/agent-definitions.md)). Per entry:
+#   name          the agent's name, equal to its file name without .md and to its front-matter `name`;
+#   supported_by  the rule citations (ADR-<CODE>#<n>) that justify the agent's existence;
+#   checks        the gate and check functions the agent runs or guards; `[]` when it has none.
+# `standard` names the standard sub-agent for delegated work
+# ([ADR-REPO-AGENTS#4](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents4)).
+#
+# Loaded via Get-Config -Config agents (shape-validated by the AgentsConfig type). The quality gate
+# Test-AgentDefinitions checks it against the agent files, the ADR rule ids, the loaded commands, and the
+# `## Sub-agents` list in .claude/CLAUDE.md.
+standard: catzc-worker
+agents:
+  # The standard agent: one task from a coordinator's brief, each file verified with the gates before the next.
+  - name: catzc-worker
+    supported_by: [ADR-REPO-AGENTS#4, ADR-PRIN-REDUCEVAR#3, ADR-PROC-BUILTIN#3]
+    checks:
+      - Invoke-TestFile
+      - Test-ScriptAnalyzer
+      - Test-Spelling
+      - Format-Types
+      - Format-Markdown
+      - Test-Links
+      - Test-Glossary
+      - Build-Readme
+      - Build-Glossary
+      - Build-AdrIndex
+      - Test-GeneratedFiles
+
+  # Authors new diagrams in the visual grammar and lands the approved ones under docs/.assets/, embedded in their ADRs.
+  - name: drawio-diagram-waves
+    supported_by: [ADR-DSGN-VISUAL#1, ADR-DSGN-VISUAL#4, ADR-REPO-FOLDERS#5]
+    checks: [Test-CheckedInBinaries, Test-Links]
+
+  # Changes labels and styles inside existing docs/.assets/ diagrams so they match the decisions they draw.
+  - name: write-drawio-files
+    supported_by: [ADR-DSGN-VISUAL#4, ADR-REPO-FOLDERS#5]
+    checks: [Test-CheckedInBinaries]
+
+  # Shows the diagram review state on one shared page; it publishes from out/ and runs no catzc check.
+  - name: print-artifacts
+    supported_by: [ADR-DORA-VISUAL#1, ADR-DORA-VISUAL#3]
+    checks: []
+
+  # Builds the inspiration module to the inspiration policy.
+  - name: build-inspiration-module
+    supported_by: [ADR-REPO-INSPIRE#1, ADR-REPO-INSPIRE#3]
+    checks: [Invoke-TestFile, Test-ShippedConfigs, Test-ModuleDependency]

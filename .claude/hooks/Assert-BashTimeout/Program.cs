@@ -1,36 +1,46 @@
-// Claude Code PreToolUse hook: denies a foreground Bash call that does not run inside the time safeguard
+// Claude Code PreToolUse hook: denies a Bash call that does not run inside the time safeguard
 // ([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)).
 //
-// Every Bash call an agent (the main session or any subagent) makes must either run in the background or pass a
-// `timeout` no larger than the safeguard's default — `default_seconds` in
-// automation/Catzc.Base.Timeouts/configs/timeouts.yml, the same value Get-TimeoutSeconds resolves. A call that
-// omits `timeout`, or asks for more, is denied with a reason that says how to re-issue it. Nothing else is decided
-// here, so the permission rules in settings.json still apply to every call this hook lets through.
+// The decision is Catzc.Base.Timeouts.BashSafeguard and the limits are Catzc.Base.Timeouts.TimeoutsConfig — the
+// module's own source files, compiled into this program (see the .csproj), so the hook, Get-TimeoutSeconds and the
+// L0 tests share one parser, one set of defaults and one verdict. This file only does the I/O: read the payload
+// from stdin, load timeouts.yml, detect the run environment, print a denial, and append each denial to
+// out/time-safeguard.log — the list of blockers to tune.
 //
-// Reads the hook payload (JSON) from stdin. A compiled program because it runs before every Bash call: it starts
-// in about a third of the time a pwsh script does. Build-BashTimeoutHook publishes it to .claude/hooks/bin/, from
-// where the repository root is three folders up.
+// A compiled program because it runs before every Bash call: it starts in about a third of the time a pwsh script
+// does. Build-BashTimeoutHook publishes it to .claude/hooks/bin/, from where the repository root is three folders up.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-using System.Text.Json;
 using System.Text.RegularExpressions;
+using Catzc.Base.Timeouts;
+using YamlDotNet.RepresentationModel;
 
 namespace Catzc.Hooks;
 
 public static class AssertBashTimeout
 {
-    private const string ConfigRelativePath = "automation/Catzc.Base.Timeouts/configs/timeouts.yml";
+    private static readonly Regex PlainInteger = new Regex(@"^[-+]?\d+$", RegexOptions.CultureInvariant);
+    private static readonly Regex PlainFloat = new Regex(@"^[-+]?(\d+\.\d*|\.\d+)([eE][-+]?\d+)?$", RegexOptions.CultureInvariant);
 
     public static int Main()
     {
         try
         {
             string repositoryRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
-            string denial = Decide(Console.In.ReadToEnd(), Path.Combine(repositoryRoot, ConfigRelativePath));
-            if (denial != null)
+            TimeoutsConfig config = new TimeoutsConfig(LoadYaml(Path.Combine(repositoryRoot, BashSafeguard.ConfigRelativePath)));
+            string environment = BashSafeguard.EnvironmentOf(
+                Environment.GetEnvironmentVariable("TF_BUILD"), Environment.GetEnvironmentVariable("GITHUB_ACTIONS"));
+
+            string logLine;
+            string reason = BashSafeguard.Decide(Console.In.ReadToEnd(), config, environment, out logLine);
+            if (reason != null)
             {
-                Console.Out.Write(denial);
+                Console.Out.Write(BashSafeguard.DenyOutput(reason));
+                AppendLog(Path.Combine(repositoryRoot, "out", "time-safeguard.log"), logLine);
             }
             return 0;
         }
@@ -42,51 +52,77 @@ public static class AssertBashTimeout
         }
     }
 
-    // The hook's verdict for one payload: null to let the call through, or the PreToolUse deny JSON.
-    public static string Decide(string payload, string configPath)
+    private static void AppendLog(string path, string line)
     {
-        using JsonDocument document = JsonDocument.Parse(payload);
-        JsonElement toolInput = default;
-        bool hasInput = document.RootElement.ValueKind == JsonValueKind.Object &&
-            document.RootElement.TryGetProperty("tool_input", out toolInput) && toolInput.ValueKind == JsonValueKind.Object;
+        try
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            File.AppendAllText(path, line + Environment.NewLine);
+        }
+        catch (IOException)
+        {
+            // The log is a tuning aid; a locked or missing out/ never turns a denial into a hook error.
+        }
+    }
 
-        JsonElement background;
-        if (hasInput && toolInput.TryGetProperty("run_in_background", out background) && background.ValueKind == JsonValueKind.True)
+    // timeouts.yml as the nested IDictionary TimeoutsConfig takes, typed the way the module's YAML loader types it:
+    // a plain integer is a number, a plain float a double, a quoted scalar stays a string.
+    private static IDictionary LoadYaml(string path)
+    {
+        YamlStream stream = new YamlStream();
+        using (StreamReader reader = new StreamReader(path))
+        {
+            stream.Load(reader);
+        }
+        if (stream.Documents.Count == 0)
         {
             return null;
         }
+        object root = Convert(stream.Documents[0].RootNode);
+        return root as IDictionary;
+    }
 
-        Match match = Regex.Match(File.ReadAllText(configPath), @"(?m)^default_seconds:\s*(\d+)\s*(#.*)?$");
-        if (!match.Success)
+    private static object Convert(YamlNode node)
+    {
+        YamlMappingNode mapping = node as YamlMappingNode;
+        if (mapping != null)
         {
-            throw new InvalidDataException("no 'default_seconds: <n>' line in " + configPath);
-        }
-        long limitMs = long.Parse(match.Groups[1].Value) * 1000;
-
-        string asked = "no timeout";
-        JsonElement timeout;
-        if (hasInput && toolInput.TryGetProperty("timeout", out timeout) && timeout.ValueKind == JsonValueKind.Number)
-        {
-            double timeoutMs = timeout.GetDouble();
-            if (timeoutMs <= limitMs)
+            Hashtable table = new Hashtable(StringComparer.Ordinal);
+            foreach (KeyValuePair<YamlNode, YamlNode> entry in mapping.Children)
             {
-                return null;
+                table[((YamlScalarNode)entry.Key).Value] = Convert(entry.Value);
             }
-            asked = "timeout " + timeoutMs + " ms";
+            return table;
         }
-
-        string reason =
-            "Bash time safeguard: this foreground call has " + asked + "; every foreground Bash call must pass timeout <= " +
-            limitMs + " ms (default_seconds in " + ConfigRelativePath + "). Re-issue it with timeout: " + limitMs +
-            ", or run longer work with run_in_background: true and wait for its completion notification.";
-        return JsonSerializer.Serialize(new
+        YamlSequenceNode sequence = node as YamlSequenceNode;
+        if (sequence != null)
         {
-            hookSpecificOutput = new
+            ArrayList list = new ArrayList();
+            foreach (YamlNode item in sequence.Children)
             {
-                hookEventName = "PreToolUse",
-                permissionDecision = "deny",
-                permissionDecisionReason = reason
+                list.Add(Convert(item));
             }
-        });
+            return list;
+        }
+        YamlScalarNode scalar = (YamlScalarNode)node;
+        string value = scalar.Value;
+        if (scalar.Style != YamlDotNet.Core.ScalarStyle.Plain || value == null)
+        {
+            return value;
+        }
+        if (value.Length == 0 || value == "~" || value == "null")
+        {
+            return null;
+        }
+        long integer;
+        if (PlainInteger.IsMatch(value) && long.TryParse(value, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out integer))
+        {
+            return integer;
+        }
+        if (PlainFloat.IsMatch(value))
+        {
+            return double.Parse(value, CultureInfo.InvariantCulture);
+        }
+        return value;
     }
 }

@@ -6,16 +6,18 @@ The external-process boundary module. It **owns the complete lifecycle of runnin
 command before it executes (see [log-before-invoke](../../adr/automation/log-before-invoke.md)), capturing separated standard output and
 error through the native `CliRunner` C# type (see [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)), managing the
 exit-code boundary so a stale code can never leak across a call, and returning a structured `CliResult` when the caller needs to inspect
-output programmatically. Every CLI wrapper in the platform funnels through this module; no feature module ever spawns a process directly. It
-is a member of the `Base` group alongside [Catzc.Base.Writers](catzc-base-writers.md), [Catzc.Base.Repository](catzc-base-repository.md),
-and [Catzc.Base.Asserts](catzc-base-asserts.md).
+output programmatically. It also locates an executable and confirms its version before anything runs it, so a caller runs a managed tool by
+its path and never by a bare name. Every CLI wrapper in the platform funnels through this module; no feature module ever spawns a process
+directly. It is a member of the `Base` group alongside [Catzc.Base.Writers](catzc-base-writers.md),
+[Catzc.Base.Repository](catzc-base-repository.md), and [Catzc.Base.Asserts](catzc-base-asserts.md).
 
 ## Responsibilities
 
 | Responsibility   | Area      | Name                                                                       |
 | ---------------- | --------- | -------------------------------------------------------------------------- |
 | responsibility:1 | execution | [External process execution](#responsibility1--external-process-execution) |
-| responsibility:2 | exit-code | [Exit-code lifecycle](#responsibility2--exit-code-lifecycle)               |
+| responsibility:2 | location  | [Executable location](#responsibility2--executable-location)               |
+| responsibility:3 | exit-code | [Exit-code lifecycle](#responsibility3--exit-code-lifecycle)               |
 
 ### responsibility:1 — External process execution
 
@@ -26,7 +28,18 @@ command string instead of executing it — giving callers a testable, side-effec
 run long, a companion function wraps it with a liveness indicator. The `-PassThru` switch returns a `CliResult` object that separates stdout
 from stderr for callers that need to inspect output programmatically.
 
-### responsibility:2 — Exit-code lifecycle
+### responsibility:2 — Executable location
+
+Where an executable is and which version it is, answered cheaply and timed. The locate step starts no process: the first existing candidate
+path wins, then PATH, and an excluded path never counts (for bash on Windows, the WSL launcher). Only a located executable runs its version
+command, once per executable file per session (a lazy cache entry keyed by its path and last write time, see
+[script-scope-caching](../../adr/automation/powershell/script-scope-caching.md)), so a reinstall is seen on the next check. The answer is
+one record: found, path, method, version against the required one, the two timings, and the session actor. For a tool declared in
+`tools.yml`, the module reads the entry itself — the candidates for the running platform and session actor, the exclusions, the version
+command and pin, and the devbox version lever outside a pipeline — so a Base module locates a managed tool without depending on the tooling
+modules.
+
+### responsibility:3 — Exit-code lifecycle
 
 How the exit-code boundary is managed. `$LASTEXITCODE` in PowerShell is global and mutable: a prior external command can leave a non-zero
 code that the next call inherits. This responsibility provides the two primitives the execution responsibility relies on internally, and
@@ -47,21 +60,30 @@ streams; `Invoke-Executable` is the PowerShell wrapper that adds logging, exit-c
 rather than a mixed output stream. Feature module wrappers such as `Invoke-AzCli` use `-PassThru` when they need to parse tool output; plain
 script calls omit it and let the streams flow through.
 
-The exit-code responsibility (responsibility 2) is a supporting mechanism. `$LASTEXITCODE` is shared state: any external command can leave a
+Executable location sits in front of execution. The generic check takes plain inputs and returns the `Catzc.Base.Execution.ExecutableProbe`
+record; its version run goes through `Invoke-Executable` like any other process start. The tools.yml reading on top of it is global config
+access, never gated by module dependencies (see [module-config-loading](../../adr/configuration/module-config-loading.md)), which is what
+lets the tooling modules' presence checks ([Catzc.Tooling.Core](catzc-tooling-core.md)) and the Base modules share one record and one
+reading of an entry.
+
+The exit-code responsibility (responsibility 3) is a supporting mechanism. `$LASTEXITCODE` is shared state: any external command can leave a
 non-zero code behind. `Get-LastExitCode` and `Reset-LastExitCode` give the invocation responsibility — and any caller that orchestrates a
 sequence of external commands — explicit control over that boundary. `Invoke-Executable` always resets before it runs and checks after;
 callers that compose multiple calls can use the same primitives to do the same.
 
-The module depends on [Catzc.Base.Writers](catzc-base-writers.md) for the pre-invocation log line and
-[Catzc.Base.Asserts](catzc-base-asserts.md) for argument validation. It exposes no configuration files.
+The module depends on [Catzc.Base.Writers](catzc-base-writers.md) for the pre-invocation log line,
+[Catzc.Base.Repository](catzc-base-repository.md) for the session actor, and [Catzc.Base.Asserts](catzc-base-asserts.md) for argument
+validation. It exposes no configuration files.
 
 ## Division
 
 The module's public functions, sorted into the responsibilities above.
 
-| Responsibility                                | Function              |
-| --------------------------------------------- | --------------------- |
-| responsibility:1 — External process execution | `Invoke-Executable`   |
-|                                               | `Invoke-WithProgress` |
-| responsibility:2 — Exit-code lifecycle        | `Get-LastExitCode`    |
-|                                               | `Reset-LastExitCode`  |
+| Responsibility                                | Function                 |
+| --------------------------------------------- | ------------------------ |
+| responsibility:1 — External process execution | `Invoke-Executable`      |
+|                                               | `Invoke-WithProgress`    |
+| responsibility:2 — Executable location        | `Find-Executable`        |
+|                                               | `Resolve-ToolExecutable` |
+| responsibility:3 — Exit-code lifecycle        | `Get-LastExitCode`       |
+|                                               | `Reset-LastExitCode`     |

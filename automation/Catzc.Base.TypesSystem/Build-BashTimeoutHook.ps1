@@ -2,8 +2,8 @@
 .SYNOPSIS
     Publishes the Claude Code Bash time-safeguard hook (a small C# program) when its source has changed.
 .DESCRIPTION
-    The hook (.claude/hooks/Assert-BashTimeout/) runs before every Bash call an agent makes and denies a foreground
-    call without a timeout inside the safeguard
+    The hook (.claude/hooks/Assert-BashTimeout/) runs before every Bash call an agent makes and denies a call that
+    does not run inside the safeguard
     ([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)). It is a
     compiled program rather than a script because it runs that often: it starts in about a third of the time pwsh
     does. This publishes it, framework-dependent, to .claude/hooks/bin/ (gitignored), and records a hash of the
@@ -11,12 +11,12 @@
     it on every import.
 
     dotnet runs through Invoke-Executable rather than Invoke-Dotnet: that wrapper lives in the Tooling layer, which
-    this Base module must not depend on, so dotnet must be on PATH. The hook source lives in the source tree, so it
+    this Base module must not depend on, so dotnet must be on PATH. The hook's C# code lives in the source tree, so it
     stops with a named error in build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
 .PARAMETER OutputDirectory
     Where to publish the hook. Defaults to .claude/hooks/bin/ — the path .claude/settings.json runs it from.
 .PARAMETER Force
-    Publish even when the recorded source hash matches.
+    Publish even when the source hash recorded at the last publish matches.
 .OUTPUTS
     [string] The published program's path.
 .EXAMPLE
@@ -37,15 +37,26 @@ function Build-BashTimeoutHook {
     $project = Join-Path (Get-RepositoryRoot) '.claude/hooks/Assert-BashTimeout'
     Assert-PathExist $project -PathType Container
 
+    $csproj = Join-Path $project 'Assert-BashTimeout.csproj'
+    Assert-PathExist $csproj
+    $projectXml = [xml](Get-Content -LiteralPath $csproj -Raw)
+
+    # The sources are this folder's *.cs/*.csproj plus every linked <Compile Include> (the module types the hook
+    # compiles in), so a change to any of them republishes the hook.
     $sources = @(Get-ChildItem -LiteralPath $project -File | Where-Object Extension -In '.cs', '.csproj' | Sort-Object Name)
-    Assert-True ($sources.Count -gt 0) -ErrorText "No hook sources (*.cs, *.csproj) in $project"
-    $sourceHash = ($sources | ForEach-Object { "$($_.Name):$((Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash)" }) -join "`n"
+    Assert-True ($sources.Count -gt 0) -ErrorText "No hook files (*.cs, *.csproj) in $project"
+    $linked = @($projectXml.Project.ItemGroup.Compile.Include | Where-Object { $_ } | Sort-Object)
+    $hashLines = @($sources | ForEach-Object { "$($_.Name):$((Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash)" })
+    foreach ($include in $linked) {
+        $linkedPath = Join-Path $project $include
+        Assert-PathExist $linkedPath -PathType Leaf
+        $hashLines += "$($include):$((Get-FileHash -LiteralPath $linkedPath -Algorithm SHA256).Hash)"
+    }
+    $sourceHash = $hashLines -join "`n"
 
     # The program's name is the project's AssemblyName — the one place it is set. The publish adds the platform's
     # executable extension (if any), so the program is found as an application by that name, never by a guessed suffix.
-    $csproj = Join-Path $project 'Assert-BashTimeout.csproj'
-    Assert-PathExist $csproj
-    $assemblyName = ([xml](Get-Content -LiteralPath $csproj -Raw)).Project.PropertyGroup.AssemblyName | Where-Object { $_ } | Select-Object -First 1
+    $assemblyName = $projectXml.Project.PropertyGroup.AssemblyName | Where-Object { $_ } | Select-Object -First 1
     Assert-NotNullOrWhitespace $assemblyName -ErrorText "No <AssemblyName> in $csproj — it names the published hook program."
     $programBase = Join-Path $OutputDirectory $assemblyName
     $findProgram = {

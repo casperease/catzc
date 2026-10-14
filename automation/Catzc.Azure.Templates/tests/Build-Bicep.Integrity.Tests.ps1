@@ -9,7 +9,7 @@
 # DISCOVERS the set and asserts invariants that hold for EVERY shipped template, binding to no template name
 # and no production-derived value ([ADR-AUTO-TEST#17](/docs/adr/automation/test-automation.md#rule-adr-auto-test17)).
 #
-# One read-only scan in BeforeAll; the It blocks assert facets of it
+# One read-only scan in BeforeAll; each It block asserts one facet of it
 # ([ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16)/18/20). Both engines run here:
 # Get-BicepTemplates (discovery — folders/files named right, options schema, identity references) and
 # Assert-BicepTemplate (the consolidated validator, every problem in one message). Neither builds.

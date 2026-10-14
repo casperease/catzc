@@ -9,14 +9,20 @@ Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllBytes((Join-Path $vendor 'widget.dll'), [byte[]](77, 90, 0, 1))
         [System.IO.File]::WriteAllBytes((Join-Path $vendor 'gadget.dll'), [byte[]](77, 90, 0, 2))
         [System.IO.File]::WriteAllText((Join-Path $vendor 'widget.psd1'), '@{ }')
+        # A binary outside automation/: the gate scans every tracked file, not just the vendored and compiled trees.
+        $docs = Join-Path $root 'docs'
+        [void][System.IO.Directory]::CreateDirectory($docs)
+        [System.IO.File]::WriteAllBytes((Join-Path $docs 'widget.pdf'), [byte[]](37, 80, 68, 70, 0, 3))
         $script:out = Join-Path $TestDrive 'out'
     }
 
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.ModuleSystem { Join-Path $TestDrive 'repo' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
-        $script:eol = @{ 'widget.dll' = '-text'; 'gadget.dll' = '-text' }
-        $script:attr = @{ 'widget.dll' = 'set'; 'gadget.dll' = 'set' }
+        $script:eol = @{ 'widget.dll' = '-text'; 'gadget.dll' = '-text'; 'widget.pdf' = '-text' }
+        $script:attr = @{ 'widget.dll' = 'set'; 'gadget.dll' = 'set'; 'widget.pdf' = 'set' }
+        # The attr/ column as git prints it; it may hold spaces (`text eol=lf`).
+        $script:attrColumn = @{ 'widget.pdf' = '-text' }
         Mock Invoke-Executable -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Command -match ' ls-files ' } {
             # git separates the EOL columns from the path with a tab.
             $tab = [char]9
@@ -25,6 +31,7 @@ Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {
                 "i/$($eol['gadget.dll'])  w/-text attr/-text      ${tab}automation/.vendor/Widget/gadget.dll"
                 "i/lf    w/lf    attr/                 ${tab}automation/.vendor/Widget/widget.psd1"
                 "i/-text w/      attr/                 ${tab}automation/.vendor/Widget/gone.dll"
+                "i/$($eol['widget.pdf'])  w/-text attr/$($attrColumn['widget.pdf'])      ${tab}docs/widget.pdf"
             )
             [pscustomobject]@{ Output = $lines -join "`n" }
         }
@@ -32,6 +39,7 @@ Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {
             $lines = @(
                 "automation/.vendor/Widget/widget.dll: binary: $($attr['widget.dll'])"
                 "automation/.vendor/Widget/gadget.dll: binary: $($attr['gadget.dll'])"
+                "docs/widget.pdf: binary: $($attr['widget.pdf'])"
             )
             [pscustomobject]@{ Output = $lines -join "`n" }
         }
@@ -40,10 +48,26 @@ Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {
     It 'passes when every binary is stored as -text under an explicit binary rule, and counts only the binaries' {
         $result = Test-CheckedInBinaries -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.Binaries | Should -Be 2
+        $result.Binaries | Should -Be 3
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
-            $Command -match ' check-attr binary -- "automation/.vendor/Widget/widget.dll" "automation/.vendor/Widget/gadget.dll"$'
+            $Command -match ' check-attr binary -- "automation/.vendor/Widget/widget.dll" "automation/.vendor/Widget/gadget.dll" "docs/widget.pdf"$'
         }
+    }
+
+    It 'lists every tracked file, not only the vendored and compiled trees' {
+        $null = Test-CheckedInBinaries -OutputFolder $out -PassThru
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
+            $Command -match ' ls-files --eol$'
+        }
+    }
+
+    It 'still finds a binary whose attribute column holds spaces, and names it stored as text' {
+        $eol['widget.pdf'] = 'lf'
+        $attrColumn['widget.pdf'] = 'text eol=lf'
+        $attr['widget.pdf'] = 'unspecified'
+        $result = Test-CheckedInBinaries -OutputFolder $out -PassThru
+        $result.Issues | Should -Contain 'docs/widget.pdf: stored as text, not binary (git index eol = lf)'
+        $result.Issues | Should -Contain 'docs/widget.pdf: no explicit binary .gitattributes rule'
     }
 
     It 'throws once naming a binary stored as text and one with no binary rule' {
