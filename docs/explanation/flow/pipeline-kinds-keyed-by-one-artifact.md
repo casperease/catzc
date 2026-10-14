@@ -35,9 +35,8 @@ The diagram is described element by element in
    byte-identical to what non-prod certified. The CD pipelines publish their artifacts and every deploy job downloads them, but no step tags
    them.
 3. **main-uat.** CD's direction through non-prod ends on an always-on environment that tracks the latest main, whatever the organization
-   calls it. In the repository it is the `dev` environment, and for the shared platform also `test`, that every merge to main redeploys.
-   The on-demand environment with
-   its L3 system tests, which the ADR places before it, has no pipeline yet.
+   calls it. In the repository it is the `dev` environment, and for the shared platform also `test`, that every merge to main redeploys. The
+   on-demand environment with its L3 system tests, which the ADR places before it, has no pipeline yet.
 4. **RC.** Release Certification is a manual gate at main-uat. It clears when main-AT, the acceptance testing against main-uat, is verified.
    A gate decides whether the artifact may proceed; it is not a pipeline.
 5. **release-uat.** DEPLOY-Non-Prod drives the artifact into the non-prod acceptance environments, here the release-uat environment of a

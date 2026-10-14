@@ -58,9 +58,9 @@ The diagram is described element by element in
 
 The ADRs describe `main-UAT`, release-uat and pre-prod as always-on environments with occupants and RC and RBC gates. The CD pipelines
 define none of them: a main commit that passes its CI stage is deployed to every target of a stage at once, non-prod and prod tier side by
-side (`nsub` and `psub`, or the expedition's `dev` and `prod`), with no gate between the environments. ADR-DSGN-LIFE#8 holds in code only between pipeline stages, through `succeeded()` conditions, not between environment
-rungs. No pipeline defines the on-demand L3 environment. The ADRs also spell the environment `main-UAT` in the commit lifecycle and
-`main-uat` in the promotion flow.
+side (`nsub` and `psub`, or the expedition's `dev` and `prod`), with no gate between the environments. ADR-DSGN-LIFE#8 holds in code only
+between pipeline stages, through `succeeded()` conditions, not between environment rungs. No pipeline defines the on-demand L3 environment.
+The ADRs also spell the environment `main-UAT` in the commit lifecycle and `main-uat` in the promotion flow.
 
 ## See also
 

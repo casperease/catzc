@@ -39,9 +39,9 @@ The diagram is described element by element in
    run.
 6. **Stage `CI`.** The CD run executes the same `CI` stage, and the main-only condition now holds.
 7. **`Deploy_*` stages.** `Deploy_Foundation`, `Deploy_Discovery` and `Deploy_Expedition` follow one another through `dependsOn`. Six
-   `Deploy_*` stages carry the main-only condition: three in the customer template `extends/cd-customer.yaml` and three in
-   `cd-shared.yaml`. In the customer template, `Deploy_Expedition` deploys an entry with a slot to the environment
-   `<Customer>-<env>-<slot>`, and an entry without one to the env's base slot, `<Customer>-<env>`.
+   `Deploy_*` stages carry the main-only condition: three in the customer template `extends/cd-customer.yaml` and three in `cd-shared.yaml`.
+   In the customer template, `Deploy_Expedition` deploys an entry with a slot to the environment `<Customer>-<env>-<slot>`, and an entry
+   without one to the env's base slot, `<Customer>-<env>`.
 
 No stage in `pipelines/` is named BVT; the pipeline guide names the CI type's post-commit run on main the BVT.
 

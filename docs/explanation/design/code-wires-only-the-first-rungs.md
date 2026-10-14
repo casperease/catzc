@@ -42,8 +42,8 @@ The diagram is described element by element in
 6. **L3 run.** No pipeline step exists. `Test-Automation` accepts level 3 (`-Level` is the alias of `-MaxLevel`, which defaults to 3), but
    no pipeline passes it.
 7. **Deploy_Foundation.** The first deploy stage depends on `CI`, and each later stage depends on the one before: `Deploy_Foundation`,
-   `Deploy_Discovery`, then `Deploy_Expedition` (one job per expedition entry; an entry with a slot passes `-Slot`). Each runs only when
-   the previous stage succeeded and the source branch is `refs/heads/main`, and every deploy calls `Deploy-Bicep` with
+   `Deploy_Discovery`, then `Deploy_Expedition` (one job per expedition entry; an entry with a slot passes `-Slot`). Each runs only when the
+   previous stage succeeded and the source branch is `refs/heads/main`, and every deploy calls `Deploy-Bicep` with
    `-SubscriptionIdAssertIs`.
 8. **Deploy_Discovery.** Stages follow the template, not the rung: discovery deploys per subscription, `nsub` and `psub` side by side as
    parallel jobs. Counted as foundation, discovery and expedition jobs, apex has 2, 2 and 3 (expedition `dev`, `dev-blu` and `prod`),

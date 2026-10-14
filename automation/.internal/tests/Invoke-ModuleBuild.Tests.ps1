@@ -23,8 +23,9 @@ BeforeAll {
             Public = 'Get-Gadget'
             Files  = @{
                 'types/Lever.cs'       = "namespace Catzc.Base.Gadget;`npublic class Lever { }`n"
-                # Reaches into widget twice: a call and a config read — what the closure check follows.
-                'Get-GadgetWidget.ps1' = "function Get-GadgetWidget {`n    Get-Widget`n    Get-Config -Config widget`n}`n"
+                # Reaches into widget twice: a call and a config read — what the closure check follows. The
+                # owner-scoped read (-ListOwners) reads only the owners present, so it is not a third gap.
+                'Get-GadgetWidget.ps1' = "function Get-GadgetWidget {`n    Get-Widget`n    Get-Config -Config widget`n    Get-Config -Config widget -ListOwners`n}`n"
             }
         }
         'Catzc.Base.Gizmo'  = @{

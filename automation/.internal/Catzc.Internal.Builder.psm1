@@ -195,7 +195,8 @@ function Get-BuildClosureViolation {
           commands  every call a selected module makes to a catzc function (Get-FunctionDependency) targets a
                     selected module
           configs   every Get-Config whose config name is a literal (-Config <name>, or the first positional
-                    argument) reads a config that a selected module owns (<Module>/configs/<name>.yml)
+                    argument) reads a config that a selected module owns (<Module>/configs/<name>.yml); a
+                    read scoped by owner (-ListOwners, -Module) reads only the owners present, so it is exempt
 
         A config name that no module owns is left to Get-Config itself, which fails the same way in source mode.
     #>
@@ -242,6 +243,14 @@ function Get-BuildClosureViolation {
             $syntaxTree = [System.Management.Automation.Language.Parser]::ParseFile($file, [ref] $tokens, [ref] $parseErrors)
             foreach ($read in $syntaxTree.FindAll($isConfigRead, $true)) {
                 $elements = $read.CommandElements
+                # -ListOwners / -Module read a config that many modules may ship, owner by owner: only the owners
+                # present are read, so an owner missing from the build is not a gap.
+                $isOwnerScoped = @($elements | Where-Object {
+                        $_ -is [System.Management.Automation.Language.CommandParameterAst] -and $_.ParameterName -in 'ListOwners', 'Module'
+                    }).Count -gt 0
+                if ($isOwnerScoped) {
+                    continue
+                }
                 $argument = $null
                 for ($position = 1; $position -lt $elements.Count; $position++) {
                     $element = $elements[$position]

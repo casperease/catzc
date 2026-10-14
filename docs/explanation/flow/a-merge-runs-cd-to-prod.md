@@ -33,8 +33,8 @@ The diagram is described element by element in
    `expedition`.
 3. **A pull-request run ends here.** Every deploy stage's condition requires `refs/heads/main`, so only a merge goes on to deploy.
 4. **Non-prod targets.** Foundation and discovery deploy per subscription, to `nsub`; the expedition template deploys to `dev` and, in
-   `cd-apex`, to its slot `dev-blu`. Each target shows as an Azure DevOps environment named `<customer>-<env>`, or
-   `<customer>-<env>-<slot>` for an expedition entry with a slot, with one deployment job each.
+   `cd-apex`, to its slot `dev-blu`. Each target shows as an Azure DevOps environment named `<customer>-<env>`, or `<customer>-<env>-<slot>`
+   for an expedition entry with a slot, with one deployment job each.
 5. **Prod-tier targets.** `psub` and `prod` deploy in the same run and the same stages as non-prod, with no approval step in the YAML:
    `psub` for foundation and discovery in `cd-apex` and `cd-shared`, and `prod` for the expedition in `cd-apex`. Environment checks set in
    the Azure DevOps UI live outside the repository.

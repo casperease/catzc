@@ -36,7 +36,7 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
         $script:reportFolder = Join-Path $TestDrive 'shell-scripts'
     }
 
-    It 'checks only the line endings of the vendored bats-core runner, its extensionless scripts included' {
+    It 'checks only the line endings of the vendored bats-core runner, its scripts without an extension included' {
         Set-FixtureFile 'gadget-bash/.vendor/bats-core/libexec/bats-core/bats' "#!/usr/bin/env bash`r`necho runner`r`n"
         Set-FixtureFile 'gadget-bash/.vendor/bats-core/lib/bats-core/common.bash' "#!/usr/bin/env bash`necho sourced`n"
         $runner = 'gadget-bash/.vendor/bats-core/libexec/bats-core/bats', 'gadget-bash/.vendor/bats-core/lib/bats-core/common.bash'

@@ -59,8 +59,8 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-- The ADR keeps CD in non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same run, with
-  no gate.
+- The ADR keeps CD in non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same run, with no
+  gate.
 - The ADR's budget is the 5–10 minute integration cycle; the quality gate enforces per-test level limits instead, and only in the Azure
   DevOps pipeline.
 - No pipeline tags the artifact, and no RC, RBC, release-uat, DEPLOY pipeline or pre-prod-first activation exists.

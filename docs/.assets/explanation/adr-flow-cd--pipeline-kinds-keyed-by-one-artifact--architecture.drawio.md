@@ -43,8 +43,8 @@ a dashed rim.
 
 ## Edges
 
-| Edge kind | Count | From → to                                                                                                                            |
-| --------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Edge kind | Count | From → to                                                                                                           |
+| --------- | ----- | ------------------------------------------------------------------------------------------------------------------- |
 | flow      | 3     | CI component → tagged artifact, tagged artifact → main-uat, tagged artifact → production (down, along the lane, up) |
 | ADR-only  | 5     | main-uat → RC, RC → release-uat, release-uat → RBC, RBC → pre-prod, pre-prod → production                           |
 

@@ -1,3 +1,4 @@
+# cspell:ignore npublic  -- the escape-sequence artifact in the "namespace X;`npublic class" fixture strings
 Describe 'Get-CombinedTypeHash module selection' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fixture automation root: two modules with one type each, plus a module with no types/ folder.
