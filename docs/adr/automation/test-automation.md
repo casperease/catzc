@@ -485,7 +485,7 @@ of the next section, and the `source-only` build-run opt-out (ADR-AUTO-TEST#31).
 `The optional provenance axis and rule-enforcement coverage`
 
 A test may also declare **which ADR rule(s) it enforces**, so the tests are traceable both ways: from a test to the rule behind it, and from
-a rule to the tests that pin it. The citation is a tag in the `docs/adr/index.md` `#` form — `ADR-AUTO-ERROR#3` — chosen so the one reserved
+a rule to the tests that pin it. The citation is a tag in the `docs/adr/index.md` `#` form — `ADR-AUTO-CACHE#5` — chosen so the one reserved
 `ADR-` marker greps uniformly across a rule's prose, the code that cites it, and its tests. This dimension differs from tier and category in
 two ways. It is **optional**: a test carries a citation only when it meaningfully enforces a specific rule, and absence is never a violation
 — a mandatory citation would pressure forced cites for tests that enforce loose behaviour, the junk-drawer failure the
