@@ -46,8 +46,9 @@ function Build-AdrIndex {
 # ADR index and rule-citation registry
 
 Architecture Decision Records live under `docs/adr/`, grouped by domain — the sections below mirror the domains
-declared in `automation/Catzc.Base.Docs/configs/adrs.yml`, from which this file is generated. **Read all ADRs at
-the start of every session** — they define the design principles this codebase must follow.
+declared in `automation/Catzc.Base.Docs/configs/adrs.yml`, from which this file is generated. The ADRs define the
+design principles this codebase must follow. **Read this index at the start of every session**, then read in full the
+ADRs that govern the files a task touches, and cite their rules by code.
 
 ## Citing a rule
 

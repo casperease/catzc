@@ -6,8 +6,9 @@
 // Every Bash call runs inside a limit from TimeoutsConfig for the run environment (devbox | pipeline):
 //   - a foreground call passes `timeout` (ms) no larger than limits.<env>.bash.foreground;
 //   - a background call — whose `timeout` the Bash tool ignores — starts with a GNU `timeout <duration>`
-//     no longer than limits.<env>.bash.background, around a single command. A compound command (&&, ||, ;, |, &,
-//     newline) would leave the commands after the first unbounded, so it is denied: put longer work in a script.
+//     no longer than limits.<env>.bash.background, around a single command (BoundedCommand, in the bash grammar).
+//     A compound command would leave the commands after the first unbounded, so it is denied: put longer work in a
+//     script.
 // A call that breaks this is denied. The hook never rewrites a command: a hook "allow" skips the permission prompt
 // and a rewritten command can slip past deny rules, so denial is the only verdict that leaves every other
 // safeguard in place. What the context changes is the reason: the main session raises the blocker with the user,
@@ -16,15 +17,12 @@
 using System;
 using System.Globalization;
 using System.Text.Json;
-using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Timeouts;
 
 public static class BashSafeguard
 {
     public const string ConfigRelativePath = "automation/Catzc.Base.Timeouts/configs/timeouts.yml";
-
-    private static readonly Regex Duration = new Regex(@"^(\d+(?:\.\d+)?)(s|m|h|d)?$", RegexOptions.CultureInvariant);
 
     // The run environment, by the same test as Test-IsRunningInPipeline: either variable set to any non-empty
     // value means a pipeline.
@@ -62,26 +60,19 @@ public static class BashSafeguard
         if (background)
         {
             limitSeconds = config.SecondsFor(environment, "bash", true);
-            double? seconds;
-            string rest;
-            if (!TryParseTimeoutPrefix(command, out seconds, out rest))
+            switch (BoundedCommand.Check(command, "bash", limitSeconds, out requested))
             {
-                requested = "no timeout prefix";
-                problem = "this background call has no `timeout <duration>` prefix (the Bash tool ignores `timeout` for background calls)";
-            }
-            else if (seconds.Value <= 0 || seconds.Value > limitSeconds)
-            {
-                requested = "timeout " + seconds.Value.ToString(CultureInfo.InvariantCulture) + " s";
-                problem = "this background call has " + requested + "; the background limit is " + limitSeconds + " s";
-            }
-            else if (!IsSingleCommand(rest))
-            {
-                requested = "compound command";
-                problem = "this background call wraps a compound command, so only its first command would be bounded";
-            }
-            else
-            {
-                return null;
+                case BoundedCommand.Allow:
+                    return null;
+                case BoundedCommand.NoLimit:
+                    problem = "this background call has no `timeout <duration>` prefix (the Bash tool ignores `timeout` for background calls)";
+                    break;
+                case BoundedCommand.OverLimit:
+                    problem = "this background call has " + requested + "; the background limit is " + limitSeconds + " s";
+                    break;
+                default:
+                    problem = "this background call wraps a compound command, so only its first command would be bounded";
+                    break;
             }
             fix = "Re-issue it as `timeout " + limitSeconds + " <one command>` (exit 124 means it was stopped), and put " +
                 "multi-step work in a script under out/.";
@@ -136,100 +127,6 @@ public static class BashSafeguard
                 permissionDecisionReason = reason
             }
         });
-    }
-
-    // Parses a leading GNU `timeout [options] <duration> <rest>`: options -k/--kill-after, -s/--signal,
-    // --preserve-status, --foreground, -v/--verbose; a duration in seconds with an optional s|m|h|d suffix.
-    public static bool TryParseTimeoutPrefix(string command, out double? seconds, out string rest)
-    {
-        seconds = null;
-        rest = null;
-        if (string.IsNullOrWhiteSpace(command)) { return false; }
-
-        string text = command.TrimStart();
-        int position = 0;
-        string word = NextWord(text, ref position);
-        if (word != "timeout") { return false; }
-
-        while (true)
-        {
-            int before = position;
-            word = NextWord(text, ref position);
-            if (word == null) { return false; }
-            if (word == "-k" || word == "--kill-after" || word == "-s" || word == "--signal")
-            {
-                if (NextWord(text, ref position) == null) { return false; }
-                continue;
-            }
-            if (word.StartsWith("--kill-after=", StringComparison.Ordinal) || word.StartsWith("--signal=", StringComparison.Ordinal) ||
-                word == "--preserve-status" || word == "--foreground" || word == "-v" || word == "--verbose")
-            {
-                continue;
-            }
-
-            Match match = Duration.Match(word);
-            if (!match.Success) { return false; }
-            double value = double.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
-            switch (match.Groups[2].Value)
-            {
-                case "m": value *= 60; break;
-                case "h": value *= 3600; break;
-                case "d": value *= 86400; break;
-            }
-            seconds = value;
-            rest = text.Substring(position).Trim();
-            return rest.Length > 0;
-        }
-    }
-
-    // True when the text is one command: no command separator (&&, ||, ;, |, &, newline) outside quotes, `$(...)`
-    // and backticks. The `&` of a redirection (2>&1, &>) is not a separator.
-    public static bool IsSingleCommand(string text)
-    {
-        if (string.IsNullOrWhiteSpace(text)) { return false; }
-
-        bool inSingle = false;
-        bool inDouble = false;
-        bool inBacktick = false;
-        int substitution = 0;
-        for (int i = 0; i < text.Length; i++)
-        {
-            char c = text[i];
-            if (inSingle)
-            {
-                if (c == '\'') { inSingle = false; }
-                continue;
-            }
-            if (c == '\\') { i++; continue; }
-            if (c == '`') { inBacktick = !inBacktick; continue; }
-            if (inBacktick) { continue; }
-            if (c == '$' && i + 1 < text.Length && text[i + 1] == '(') { substitution++; i++; continue; }
-            if (substitution > 0)
-            {
-                if (c == '(') { substitution++; }
-                else if (c == ')') { substitution--; }
-                continue;
-            }
-            if (c == '"') { inDouble = !inDouble; continue; }
-            if (inDouble) { continue; }
-            if (c == '\'') { inSingle = true; continue; }
-            if (c == ';' || c == '|' || c == '\n' || c == '\r') { return false; }
-            if (c == '&')
-            {
-                bool redirection = (i > 0 && text[i - 1] == '>') || (i + 1 < text.Length && text[i + 1] == '>');
-                if (!redirection) { return false; }
-            }
-        }
-        return !inSingle && !inDouble && !inBacktick && substitution == 0;
-    }
-
-    private static string NextWord(string text, ref int position)
-    {
-        while (position < text.Length && char.IsWhiteSpace(text[position])) { position++; }
-        if (position >= text.Length) { return null; }
-        int start = position;
-        while (position < text.Length && !char.IsWhiteSpace(text[position])) { position++; }
-        return text.Substring(start, position - start);
     }
 
     private static string StringOf(JsonElement element, string name)

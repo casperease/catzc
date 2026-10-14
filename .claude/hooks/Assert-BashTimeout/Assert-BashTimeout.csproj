@@ -27,6 +27,7 @@
     <Compile Include="../../../automation/Catzc.Base.Objects/types/DictionaryRecord.cs" Link="linked/DictionaryRecord.cs" />
     <Compile Include="../../../automation/Catzc.Base.Timeouts/types/TimeoutsConfig.cs" Link="linked/TimeoutsConfig.cs" />
     <Compile Include="../../../automation/Catzc.Base.Timeouts/types/BashSafeguard.cs" Link="linked/BashSafeguard.cs" />
+    <Compile Include="../../../automation/Catzc.Base.Timeouts/types/BoundedCommand.cs" Link="linked/BoundedCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="YamlDotNet">

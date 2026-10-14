@@ -19,6 +19,12 @@
 //                   patterns, the LAST entry the bare '**' catch-all remainder and no earlier entry using it. The
 //                   catch-all's liveness is the container's call, and glob syntax is the Globs aspect engine's
 //                   check — structural checks only.
+//   tracks          a non-empty map of track -> { root, class, languages } ([ADR-DSGN-TRACK](/docs/adr/design/tracks.md)),
+//                   in declared order: a kebab-case or dot-prefixed track name; 'root' required, one folder segment
+//                   (no '/', '\', '.' or '..'), never 'out' (gitignored output, ADR-DSGN-TRACK#1), and unique across
+//                   tracks; 'class' required, one of VariantTrack.Classes (ADR-DSGN-TRACK#2); 'languages' optional
+//                   (default: none), a list of unique kebab-case file-language names. This file is validated alone:
+//                   that each name is a registered file language is an integrity test in Catzc.Base.Languages.
 
 using System;
 using System.Collections;
@@ -29,9 +35,12 @@ namespace Catzc.Base.Variants;
 
 public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "aspects" };
+    private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "aspects", "tracks" };
+    private static readonly string[] AllowedTrackKeys = { "root", "class", "languages" };
     private static readonly Regex CustomerName = new Regex("^[a-z][a-z0-9]+$");
     private static readonly Regex AspectName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
+    private static readonly Regex TrackName = new Regex("^\\.?[a-z][a-z0-9]*(-[a-z0-9]+)*$");
+    private static readonly Regex RootFolder = new Regex("^[A-Za-z0-9._-]+$");
 
     // Azure resource-name component order: 'standard' or 'classic'. Null when unset.
     public string ado_naming { get; }
@@ -45,6 +54,9 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 
     // Per-track ordered aspect classifications. Null when unset.
     public IReadOnlyDictionary<string, IReadOnlyList<VariantAspect>> aspects { get; }
+
+    // The repository's tracks, in declared order. Null when unset.
+    public IReadOnlyList<VariantTrack> tracks { get; }
 
     public VariantsConfig(IDictionary d)
     {
@@ -78,6 +90,8 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
         if (Has(d, "have_customers")) { have_customers = ReadCustomers(d["have_customers"], errors); }
 
         if (Has(d, "aspects")) { aspects = ReadAspects(d["aspects"], errors); }
+
+        if (Has(d, "tracks")) { tracks = ReadTracks(d["tracks"], errors); }
 
         if (errors.Count > 0)
         {
@@ -198,6 +212,89 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
                 aspects.Add(new VariantAspect(name, patterns.ToArray()));
             }
             result[track] = aspects;
+        }
+        return result;
+    }
+
+    private static IReadOnlyList<VariantTrack> ReadTracks(object value, List<string> errors)
+    {
+        IDictionary map = value as IDictionary;
+        if (map == null)
+        {
+            errors.Add("invalid tracks (must be a map of track -> { root, class, languages })");
+            return null;
+        }
+        if (map.Count == 0)
+        {
+            errors.Add("tracks must declare at least one track");
+            return null;
+        }
+
+        List<VariantTrack> result = new List<VariantTrack>();
+        Dictionary<string, string> rootOwner = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (object nameKey in map.Keys)
+        {
+            string name = Text(nameKey);
+            if (!TrackName.IsMatch(name))
+            {
+                errors.Add(string.Format("tracks: invalid track name '{0}' (kebab-case, optionally dot-prefixed)", name));
+            }
+            IDictionary entry = map[nameKey] as IDictionary;
+            if (entry == null)
+            {
+                errors.Add(string.Format("tracks['{0}'] must be a mapping {{ root, class, languages }}", name));
+                continue;
+            }
+            foreach (object k in entry.Keys)
+            {
+                string key = Text(k);
+                if (Array.IndexOf(AllowedTrackKeys, key) < 0)
+                {
+                    errors.Add(string.Format("tracks['{0}']: unknown key '{1}' (allowed: {2})", name, key, string.Join(", ", AllowedTrackKeys)));
+                }
+            }
+
+            string root = Has(entry, "root") ? Text(entry["root"]) : "";
+            if (string.IsNullOrWhiteSpace(root))
+            {
+                errors.Add(string.Format("tracks['{0}'] needs a non-empty root folder", name));
+            }
+            else if (!RootFolder.IsMatch(root) || root == "." || root == "..")
+            {
+                errors.Add(string.Format("tracks['{0}']: invalid root '{1}' (one root folder segment, e.g. automation or .github)", name, root));
+            }
+            else if (string.Equals(root, "out", StringComparison.OrdinalIgnoreCase))
+            {
+                errors.Add(string.Format("tracks['{0}']: root 'out' is gitignored output, never a track (ADR-DSGN-TRACK#1)", name));
+            }
+            else if (rootOwner.ContainsKey(root))
+            {
+                errors.Add(string.Format("tracks['{0}']: root '{1}' is already the root of track '{2}' (a root carries one track)", name, root, rootOwner[root]));
+            }
+            else { rootOwner[root] = name; }
+
+            string trackClass = Has(entry, "class") ? Text(entry["class"]) : "";
+            if (Array.IndexOf(VariantTrack.Classes, trackClass) < 0)
+            {
+                errors.Add(string.Format("tracks['{0}']: invalid class '{1}' (valid: {2})", name, trackClass, string.Join(", ", VariantTrack.Classes)));
+            }
+
+            List<string> languages = new List<string>();
+            foreach (object item in Items(Has(entry, "languages") ? entry["languages"] : null))
+            {
+                string language = Text(item);
+                if (!AspectName.IsMatch(language))
+                {
+                    errors.Add(string.Format("tracks['{0}']: invalid language name '{1}' (kebab-case)", name, language));
+                }
+                else if (languages.Contains(language))
+                {
+                    errors.Add(string.Format("tracks['{0}']: duplicate language '{1}'", name, language));
+                }
+                else { languages.Add(language); }
+            }
+
+            result.Add(new VariantTrack(name, root, trackClass, languages.ToArray()));
         }
         return result;
     }

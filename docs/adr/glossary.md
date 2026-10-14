@@ -349,13 +349,13 @@ owning module's tests.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [contract asset](#contract-asset): A contract asset is one file under contracts/<release>/<module>/; a contract is the binding interface
-    its assets state together.
+  - [contract asset](#contract-asset): A contract asset is one file in an owning module's folder of a contracts/ release folder; a contract
+    is the binding interface its assets state together.
 
 ### contract asset
 
-One file under contracts/<release>/<module>/ whose path names the real file it constrains and whose name picks its kind — a fragment, a
-schema, or a sample payload.
+One file in an owning module's folder of a contracts/ release folder, whose path names the real file it constrains and whose name picks its
+kind — a fragment, a schema, or a sample payload.
 
 - **Defined by:** [ADR-REPO-CONTRACT#6](repository/api-contracts.md#rule-adr-repo-contract6)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
