@@ -109,7 +109,8 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The MSYS2 package installed on Windows into the Git for Windows tree, so the tool runs on Git Bash's own MSYS2
     // runtime: its download URL, and the SHA-256 the download is verified against before anything is extracted. On
-    // other platforms an msys2 tool is the system's, asserted and never installed. Null when MSYS2 is not an install
+    // other platforms an msys2 tool takes the manager its entry declares there (apt_package on Linux); with none it is
+    // the system's, asserted and never installed. Null when MSYS2 is not an install
     // path; the two are declared together.
     public string msys2_url { get; }
     public string msys2_sha256 { get; }

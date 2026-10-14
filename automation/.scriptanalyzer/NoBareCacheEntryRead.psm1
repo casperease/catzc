@@ -94,7 +94,7 @@ function Measure-NoBareCacheEntryRead {
                 continue
             }
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "'$($function.Name)' reads `$script:$name before assigning it — on a first call the cache entry is unset and strict mode throws. Probe it with `$ExecutionContext.SessionState.PSVariable.GetValue('script:$name') (ADR-PWSH-CACHE:4)."
+                    Message  = "'$($function.Name)' reads `$script:$name before assigning it — on a first call the cache entry is unset and strict mode throws. Probe it with `$ExecutionContext.SessionState.PSVariable.GetValue('script:$name') (ADR-PWSH-CACHE#4)."
                     Extent   = $variable.Extent
                     RuleName = 'Measure-NoBareCacheEntryRead'
                     Severity = 'Warning'

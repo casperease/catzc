@@ -7,8 +7,8 @@
 # part of a peer — a mis-scoped include, an umbrella mis-declared as a module — fails here, locally and in
 # CI. L2 because the tracked-file universe comes from the real git CLI.
 Describe 'GlobSet independence' -Tag 'L2', 'integrity', 'source-only' {
-    It 'every non-loose layer is pairwise-disjoint on OWN membership (ADR-FLOW-CD-GLOBS:10)' {
+    It 'every non-loose layer is pairwise-disjoint on OWN membership (ADR-FLOW-CD-GLOBS#10)' {
         $result = Test-GlobSetIndependence -PassThru -OutputFolder (Join-Path $TestDrive 'globset-independence')
-        $result.IssueCount | Should -Be 0 -Because "same-layer globsets must not overlap on OWN contribution (ADR-FLOW-CD-GLOBS:10) — [$($result.Issues -join '; ')]"
+        $result.IssueCount | Should -Be 0 -Because "same-layer globsets must not overlap on OWN contribution (ADR-FLOW-CD-GLOBS#10) — [$($result.Issues -join '; ')]"
     }
 }

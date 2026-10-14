@@ -111,7 +111,7 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 - [docs/adr/automation/go/index.md][22], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR
   domain, the ADR domain of that code; selected by [ADR-AUTO-TYPES][2]: an ADR file of the `automation` ADR domain, the ADR domain of that
   code.
-- [docs/adr/automation/go/test-artifacts.md][23], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the
+- [docs/adr/automation/go/go-test-artifacts.md][23], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the
   `automation` ADR domain, the ADR domain of that code; selected by [ADR-AUTO-TYPES][2]: an ADR file of the `automation` ADR domain, the ADR
   domain of that code.
 - [docs/adr/automation/idempotent-state-functions.md][24], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the
@@ -138,7 +138,7 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 - [docs/adr/automation/platform-bundle.md][1], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the
   `automation` ADR domain, the ADR domain of that code; selected by [ADR-AUTO-TYPES][2]: an ADR file of the `automation` ADR domain, the ADR
   domain of that code.
-- [docs/adr/automation/protected-globs.md][31], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the
+- [docs/adr/repository/protected-globs.md][31], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the
   `automation` ADR domain, the ADR domain of that code; selected by [ADR-AUTO-TYPES][2]: an ADR file of the `automation` ADR domain, the ADR
   domain of that code.
 - [docs/adr/automation/python/index.md][32], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation`
@@ -984,7 +984,7 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 [20]: ../../adr/automation/execution-engines.md
 [21]: ../../adr/automation/fail-fast-with-asserts.md
 [22]: ../../adr/automation/go/index.md
-[23]: ../../adr/automation/go/test-artifacts.md
+[23]: ../../adr/automation/go/go-test-artifacts.md
 [24]: ../../adr/automation/idempotent-state-functions.md
 [25]: ../../adr/automation/internal-asset-dependencies.md
 [26]: ../../adr/automation/log-before-invoke.md
@@ -992,7 +992,7 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 [28]: ../../adr/automation/never-depend-on-pwd.md
 [29]: ../../adr/automation/open-closed-architecture.md
 [30]: ../../adr/automation/path-representation.md
-[31]: ../../adr/automation/protected-globs.md
+[31]: ../../adr/repository/protected-globs.md
 [32]: ../../adr/automation/python/index.md
 [33]: ../../adr/automation/python/python-test-artifacts.md
 [34]: ../../adr/automation/retry-as-last-resort.md

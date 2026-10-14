@@ -15,7 +15,7 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35', 'ADR
                         stack = 'AUTO'; concern = @('automation')
                         rulesets = [ordered]@{
                             'gadget-one' = [ordered]@{ external = 'ADR-GA-ONE' }
-                            'gadget-two' = [ordered]@{ external = 'ADR-GA-TWO' }   # no ADR file: the registry gate's finding
+                            'gadget-two' = [ordered]@{ external = 'ADR-GA-TWO' }   # no ADR file: a Test-AdrRegistry finding
                         }
                     }
                 }

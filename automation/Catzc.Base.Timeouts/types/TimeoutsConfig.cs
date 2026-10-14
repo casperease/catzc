@@ -7,7 +7,7 @@
 //
 // Limits are keyed on two axes: the environment (devbox | pipeline, from Get-RunEnvironment) and the shell, one of the
 // execution engines (pwsh | bash | zsh). bash carries a foreground and a background limit (the hook bounds both, and
-// it governs the Bash tool only); pwsh and zsh each carry one limit, with the same defaults, for the work bounded
+// it governs the Bash tool only); every other engine carries one limit, with the same defaults, for the work bounded
 // outside the hook (Invoke-WithTimeout, Invoke-Executable, a zsh run). The sensible defaults are declared here, once
 // ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), so an empty file and a
 // fresh checkout behave the same; the file states only what is tuned.

@@ -29,7 +29,7 @@ Describe 'TerminologyConfig' -Tag 'L0', 'logic' {
         $c.terms[0].expands_to | Should -Be 'context'
     }
 
-    It 'throws when meaning is missing (ADR-AUTO-SPELL:6)' {
+    It 'throws when meaning is missing (ADR-AUTO-SPELL#6)' {
         { & $script:make @{ product = @(@{ term = 'x' }) } } | Should -Throw '*meaning is required*'
     }
 

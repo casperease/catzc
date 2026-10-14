@@ -22,7 +22,7 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-Config -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'contracts' } {
-            [pscustomobject]@{ addressing = 'full-path' }
+            [Catzc.Base.Contracts.ContractsConfig]::new(@{ target_roots = @{ 'Catzc.Gadget' = '.gadget' } })
         }
         Mock Get-Config -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'exporter' } {
             [pscustomobject]@{ direct_install_version = '6.6.666' }
@@ -174,6 +174,27 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         $result.IssueCount | Should -Be 1
         $result.Issues[0] | Should -BeLike "contracts/ does not list — contracts/widget: 'draft' is not a version folder*"
         $result.Assets | Should -Be 0
+    }
+
+    It 'reports each outermost dot-prefixed folder under contracts/ as one issue' -Tag 'ADR-REPO-CONTRACT#10' {
+        Add-File 'contracts/widget/0.0.0/Catzc.Widget/.widget/flows/build.yml' 'widget: gadget'
+        Add-File 'contracts/widget/0.0.0/Catzc.Widget/.widget/.flows/gadget.md'
+        Add-File '.widget/flows/build.yml' 'widget: gadget'
+        Add-File '.widget/.flows/gadget.md' '# Gadget'
+        $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
+        $result.IssueCount | Should -Be 1
+        $result.Issues[0] | Should -BeLike 'contracts/widget/0.0.0/Catzc.Widget/.widget/ is a dot-prefixed folder under contracts/*target_roots (ADR-REPO-CONTRACT#10).'
+    }
+
+    It 'accepts a dot-prefixed file name and a dot-prefixed target root' -Tag 'ADR-REPO-CONTRACT#2', 'ADR-REPO-CONTRACT#10' {
+        Add-File 'contracts/.gitkeep'
+        Add-File 'contracts/widget/0.0.0/Catzc.Widget/.widget'
+        Add-File '.widget' 'widget'
+        Add-File 'contracts/widget/0.0.0/Catzc.Gadget/flows/build.yml' 'widget: gadget'
+        Add-File '.gadget/flows/build.yml' (@('widget: gadget', 'gadget: widget') -join "`n")
+        $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
+        $result.Assets | Should -Be 2
     }
 
     It 'rejects a version that is not three numbers' {

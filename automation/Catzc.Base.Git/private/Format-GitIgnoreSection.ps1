@@ -3,8 +3,10 @@
     Renders one gitignore section — its titled, explained comment block followed by its pattern lines.
 .DESCRIPTION
     The per-section pretty-printer behind New-GitIgnore: a rule line carrying the section's title, the wrapped
-    `why` explanation as comment lines, then each pattern verbatim — with any `note` rendered as a trailing
-    comment aligned across the section's noted lines. Pure formatting; the pattern text is never rewritten.
+    `why` explanation as comment lines, then each pattern verbatim — with any `note` rendered as its own comment
+    line directly above its pattern. git has no trailing comments: a '#' after a pattern becomes part of the
+    pattern, so a noted pattern written on one line would match nothing. Pure formatting; the pattern text is never
+    rewritten.
 .PARAMETER Title
     The section's heading.
 .PARAMETER Why
@@ -47,25 +49,12 @@ function Format-GitIgnoreSection {
         $lines.Add($current)
     }
 
-    # Patterns, with notes aligned two spaces past the section's longest noted pattern.
-    $notedLengths = @(foreach ($entry in $Pattern) {
-            if ($entry.note) {
-                $entry.pattern.Length
-            }
-        })
-    $noteColumn = if ($notedLengths.Count -gt 0) {
-        ($notedLengths | Measure-Object -Maximum).Maximum + 2
-    }
-    else {
-        0
-    }
+    # Patterns, each note on its own comment line above its pattern.
     foreach ($entry in $Pattern) {
         if ($entry.note) {
-            $lines.Add($entry.pattern.PadRight($noteColumn) + "# $($entry.note)")
+            $lines.Add("# $($entry.note)")
         }
-        else {
-            $lines.Add($entry.pattern)
-        }
+        $lines.Add($entry.pattern)
     }
 
     [string[]] $lines

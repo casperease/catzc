@@ -1,5 +1,5 @@
-// A per-engine fixture table: one row per case, one column per execution engine (pwsh, bash), so the parity of a
-// behaviour across the repository's two engines reads side by side. Get-EngineCaseTable loads one from YAML; any
+// A per-engine fixture table: one row per case, one column per execution engine (ExecutionEngines), so the
+// parity of a behaviour across every engine reads side by side. Get-EngineCaseTable loads one from YAML; any
 // subject (the time safeguard, an engine start, an importer) can keep its cases in this one shape.
 //
 //   subject: <what the cases exercise>

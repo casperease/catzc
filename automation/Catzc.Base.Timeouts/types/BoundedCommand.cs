@@ -3,7 +3,7 @@
 // (tests/assets/engine-cases/bounded-command.yml, loaded by Get-EngineCaseTable).
 //
 // A command is bounded when its limit wraps all of it:
-//   - bash and zsh: a leading GNU `timeout [options] <duration>` around ONE command — a compound command (&&, ||, ;, |, a
+//   - the POSIX engines: a leading GNU `timeout [options] <duration>` around ONE command — a compound command (&&, ||, ;, |, a
 //     background &, a newline) would leave everything after its first command unbounded. A backtick runs a command
 //     substitution, so its content belongs to the one command.
 //   - pwsh: ONE call to Invoke-WithTimeout, Assert-CompletesWithin or Test-CompletesWithin whose script block holds
@@ -50,7 +50,7 @@ public static class BoundedCommand
             requested = (posix ? "timeout " : "-Seconds ") + seconds.Value.ToString(CultureInfo.InvariantCulture) + " s";
             return OverLimit;
         }
-        // bash and zsh: the one command after the prefix; pwsh: the call itself at the top level (the block's own
+        // a POSIX engine: the one command after the prefix; pwsh: the call itself at the top level (the block's own
         // statements are inside the limit, so they never count).
         if (!IsSingleCommand(posix ? body : command, engine))
         {
@@ -74,7 +74,7 @@ public static class BoundedCommand
     }
 
     // True when the text is one command in the engine's grammar: no statement separator outside quotes and nested
-    // expressions. bash and zsh separators: &&, ||, ;, |, a background &, newline (the & of 2>&1 or &> is a
+    // expressions. The POSIX engines' separators: &&, ||, ;, |, a background &, newline (the & of 2>&1 or &> is a
     // redirection). pwsh separators: &&, ||, ;, |, newline (a single & is the call operator).
     public static bool IsSingleCommand(string text, string engine)
     {
@@ -83,7 +83,7 @@ public static class BoundedCommand
         return posix ? IsSingleBash(text) : IsSinglePwsh(text);
     }
 
-    // True when the engine bounds a call with a GNU `timeout` prefix (bash, zsh), false when with a pwsh wrapper call.
+    // True when the engine bounds a call with a GNU `timeout` prefix (the POSIX engines), false when with a pwsh wrapper call.
     // The engine and its time safeguard come from the model, declared once
     // ([ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2)); Get throws, naming the
     // engines, for any other name.

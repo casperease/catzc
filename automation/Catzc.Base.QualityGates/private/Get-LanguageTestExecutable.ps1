@@ -6,7 +6,7 @@
     and hands the paths down to every worker through the shard script and the language bridge container, beside the
     engine entry. The worker never locates a tool itself: a build run's engine carries only the modules under test,
     not the tools.yml entries, and the tools belong to the harness, not to what ships
-    ([ADR-AUTO-GO#7](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go7),
+    ([ADR-AUTO-GO#7](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go7),
     [ADR-AUTO-PY#7](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py7)):
 
       go      the managed go at the pin;

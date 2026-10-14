@@ -12,9 +12,10 @@ The layout is the contract: `contracts/<unit>/<version>/<module>/<path>`. The fi
 — today only `catzc`, the bundle, the one unit a consumer pins. The second is that unit's version, where `0.0.0` is the unit's mutable
 draft, frozen only when that unit is released, and every other version folder is frozen. There is no repository-wide version: another unit
 that carries contracts gets its own folder here, with its own versions. Inside a version folder there is one folder per owning catzc module,
-and under that each contract asset at the repository-relative path of the real file it constrains. Provided and depended-on contracts both
-version with their unit. A frozen version is kept as long as a consumer pins its provided contracts; a depended-on contract follows its
-outside platform.
+and under that each contract asset at the path of the real file it constrains, relative to the module's target root: the repository root
+unless `contracts.yml` declares another folder, such as `.github` for `Catzc.Tooling.Github`. No folder under `contracts/` is dot-prefixed.
+Provided and depended-on contracts both version with their unit. A frozen version is kept as long as a consumer pins its provided contracts;
+a depended-on contract follows its outside platform.
 
 What makes the promise real is **contract testing**: the provider side of this repository carries tests that verify it still honours every
 declared version, so a change that would break a published contract fails CI here instead of a consumer in production.

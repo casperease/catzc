@@ -97,7 +97,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][4]); th
   domain of that code.
 - [docs/adr/automation/go/index.md][34]: selected by [ADR-AUTO-PARITY][1]: an ADR file of the `automation` ADR domain, the ADR domain of
   that code.
-- [docs/adr/automation/go/test-artifacts.md][35]: selected by [ADR-AUTO-PARITY][1]: an ADR file of the `automation` ADR domain, the ADR
+- [docs/adr/automation/go/go-test-artifacts.md][35]: selected by [ADR-AUTO-PARITY][1]: an ADR file of the `automation` ADR domain, the ADR
   domain of that code.
 - [docs/adr/automation/idempotent-state-functions.md][36]: selected by [ADR-AUTO-PARITY][1]: an ADR file of the `automation` ADR domain, the
   ADR domain of that code.
@@ -115,7 +115,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][4]); th
   domain of that code.
 - [docs/adr/automation/platform-bundle.md][43]: selected by [ADR-AUTO-PARITY][1]: an ADR file of the `automation` ADR domain, the ADR domain
   of that code.
-- [docs/adr/automation/protected-globs.md][44]: selected by [ADR-AUTO-PARITY][1]: an ADR file of the `automation` ADR domain, the ADR domain
+- [docs/adr/repository/protected-globs.md][44]: selected by [ADR-AUTO-PARITY][1]: an ADR file of the `automation` ADR domain, the ADR domain
   of that code.
 - [docs/adr/automation/python/index.md][45]: selected by [ADR-AUTO-PARITY][1]: an ADR file of the `automation` ADR domain, the ADR domain of
   that code.
@@ -277,7 +277,7 @@ so each is an unlisted file ([ADR-DSGN-TRACK#8][97]). Lit ([ADR-DSGN-TRACK#12][6
 [32]: ../../adr/automation/execution-engines.md
 [33]: ../../adr/automation/fail-fast-with-asserts.md
 [34]: ../../adr/automation/go/index.md
-[35]: ../../adr/automation/go/test-artifacts.md
+[35]: ../../adr/automation/go/go-test-artifacts.md
 [36]: ../../adr/automation/idempotent-state-functions.md
 [37]: ../../adr/automation/internal-asset-dependencies.md
 [38]: ../../adr/automation/log-before-invoke.md
@@ -286,7 +286,7 @@ so each is an unlisted file ([ADR-DSGN-TRACK#8][97]). Lit ([ADR-DSGN-TRACK#12][6
 [41]: ../../adr/automation/open-closed-architecture.md
 [42]: ../../adr/automation/path-representation.md
 [43]: ../../adr/automation/platform-bundle.md
-[44]: ../../adr/automation/protected-globs.md
+[44]: ../../adr/repository/protected-globs.md
 [45]: ../../adr/automation/python/index.md
 [46]: ../../adr/automation/python/python-test-artifacts.md
 [47]: ../../adr/automation/retry-as-last-resort.md

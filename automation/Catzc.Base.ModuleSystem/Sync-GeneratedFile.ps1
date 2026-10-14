@@ -97,7 +97,7 @@ function Sync-GeneratedFile {
         return
     }
     if ($branch -in 'main', 'master' -and (Test-GitWorkspace -MainViaPr)) {
-        Write-Message "Skipped: the git_workspace variant is 'main-via-pr' and this is $branch — commit generated files from a working branch (variants.yml, ADR-REPO-VARIANT:6)."
+        Write-Message "Skipped: the git_workspace variant is 'main-via-pr' and this is $branch — commit generated files from a working branch (variants.yml, ADR-REPO-VARIANT#6)."
         return
     }
 

@@ -41,7 +41,7 @@ function Measure-NoRawConsoleWrite {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoRawConsoleWrite'
-    $advice = 'Write through the information stream instead: Write-Message (with -NoHeader / -ForegroundColor / -NoNewline as needed) — ADR-PWSH-ANNOUNCE:1.'
+    $advice = 'Write through the information stream instead: Write-Message (with -NoHeader / -ForegroundColor / -NoNewline as needed) — ADR-PWSH-ANNOUNCE#1.'
 
     $rawCommands = @('Write-Host', 'Out-Host', 'Write-Progress', 'Clear-Host', 'clear', 'cls')
     $consoleTypes = @('Console', 'System.Console')

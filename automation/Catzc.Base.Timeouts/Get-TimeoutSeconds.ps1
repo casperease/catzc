@@ -5,7 +5,8 @@
     Resolves the limit from timeouts.yml for the run environment this session is in (Get-RunEnvironment: devbox or
     pipeline). With -Executable it is the executable's own entry under `executables` when it has one, otherwise the
     environment's pwsh limit. With -Shell it is that shell's limit: bash has a foreground and a -Background limit
-    (the ones the Claude Code hook enforces), pwsh and zsh have one each. With -Command it is a function's own limit, most specific
+    (the ones the Claude Code hook enforces, since the hook governs the Bash tool), and every other engine has one.
+    With -Command it is a function's own limit, most specific
     first: an exemption for its [TimeLimit] decoration's budget GUID, then its entry under `commands`, then the
     decoration for this environment, then the environment's pwsh limit
     ([ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)). Every consumer of the safeguard (Invoke-Executable,
@@ -18,7 +19,7 @@
     The function whose own limit to return — its [Catzc.Base.Timeouts.TimeLimit] decoration, unless config overrides it.
     The function must be loaded.
 .PARAMETER Shell
-    The shell whose limit to return, one of the execution engines: pwsh (the default), bash or zsh. Any other name
+    The shell whose limit to return, one of the execution engines (pwsh, bash or zsh); pwsh is the default. Any other name
     throws, naming the shells.
 .PARAMETER Background
     Return the bash background limit instead of the foreground one. Bash only.

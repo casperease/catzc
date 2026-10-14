@@ -21,8 +21,8 @@ that read its files, `docs` for its readers, and the dot-roots `.github`, `.cspe
 **adapter** (adapts the core to a delivery target — `infrastructure`, with its Bicep modules and named templates, and `pipelines`, the
 delivery machines the deployable-units bind to), or **verification**. A **verification track** is a test-only track: it verifies the core
 from outside, ships nothing, and is out of every bundle by construction, because it lies outside `automation/`, where the builder reads its
-modules. `go`, the Go black-box tests ([test-artifacts](../automation/go/test-artifacts.md)), is the first; a repository without a `go/`
-root keeps the same tests in the dot-prefixed `.go`, which is of the same class. `python`, the Python black-box tests
+modules. `go`, the Go black-box tests ([go-test-artifacts](../automation/go/go-test-artifacts.md)), is the first; a repository without a
+`go/` root keeps the same tests in the dot-prefixed `.go`, which is of the same class. `python`, the Python black-box tests
 ([python-test-artifacts](../automation/python/python-test-artifacts.md)), is the second, by the same convention: `.python` when the
 repository has no `python/` root. `bash`, the Bash black-box tests ([bash-test-artifacts](../automation/bash/bash-test-artifacts.md)), is
 the third: `.bash` when the repository has no `bash/` root. Cross-cutting slices (e.g. the cats configs — every yml/config file across

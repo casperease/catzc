@@ -34,6 +34,8 @@ configs:
     type: Catzc.Base.Docs.AdrsConfig
   adr-checks:
     type: Catzc.Base.Docs.AdrChecksConfig
+  source-conventions:
+    type: Catzc.Base.QualityGates.SourceConventionsConfig
   agents:
     type: Catzc.Base.Docs.AgentsConfig
   glossary:

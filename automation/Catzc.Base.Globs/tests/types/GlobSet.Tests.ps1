@@ -12,7 +12,7 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'membership (ADR-FLOW-CD-GLOBS:4)' {
+    Context 'membership (ADR-FLOW-CD-GLOBS#4)' {
         It 'belongs when any include matches and no exclude does' {
             $set = & $script:make 'unit' @('src/**', 'importer.ps1') @('**/*.md')
             $set.Matches('src/a.cs') | Should -BeTrue

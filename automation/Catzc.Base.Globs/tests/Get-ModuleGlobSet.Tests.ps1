@@ -1,4 +1,4 @@
-# The derived globsets ([ADR-REPO-PROTGLOB#7](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob7)): folder
+# The derived globsets ([ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)): folder
 # = module = set (readme-kebab name), one single-file set per
 # internal .psm1 module, reserved infra scopes, one shared name space with the declared registry. Derived
 # sets never enter GlobsConfig but scope protection and blast radius through the same Matches() machinery.
@@ -119,7 +119,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
 }
 
 # The reserved-name guard lives in the registry type itself
-# ([ADR-REPO-PROTGLOB#7](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob7)).
+# ([ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)).
 Describe 'GlobsConfig reserved names' -Tag 'L0', 'logic' {
     It 'rejects a declared set named after a reserved infra scope' {
         {

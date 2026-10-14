@@ -71,6 +71,10 @@ sections:
       - "!.github/README.md"
       - "!automation/.vendor/**/README.md"
       - "!automation/Catzc.Azure.Templates/tests/assets/README.md"
+      - {
+          pattern: "!contracts/*/**/README.md",
+          note: "a contract asset named README.md pins its target; contracts/README.md stays generated",
+        }
 
   - id: compiled-types
     title: Compiled C# types — transient temp only

@@ -91,7 +91,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
   domain of that code.
 - [docs/adr/automation/go/index.md][25]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain of that
   code.
-- [docs/adr/automation/go/test-artifacts.md][26]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain
+- [docs/adr/automation/go/go-test-artifacts.md][26]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain
   of that code.
 - [docs/adr/automation/idempotent-state-functions.md][27]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the
   ADR domain of that code.
@@ -109,7 +109,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
   domain of that code.
 - [docs/adr/automation/platform-bundle.md][34]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain
   of that code.
-- [docs/adr/automation/protected-globs.md][35]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain
+- [docs/adr/repository/protected-globs.md][35]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain
   of that code.
 - [docs/adr/automation/python/index.md][36]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain of
   that code.
@@ -186,7 +186,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 [23]: ../../adr/automation/execution-engines.md
 [24]: ../../adr/automation/fail-fast-with-asserts.md
 [25]: ../../adr/automation/go/index.md
-[26]: ../../adr/automation/go/test-artifacts.md
+[26]: ../../adr/automation/go/go-test-artifacts.md
 [27]: ../../adr/automation/idempotent-state-functions.md
 [28]: ../../adr/automation/internal-asset-dependencies.md
 [29]: ../../adr/automation/log-before-invoke.md
@@ -195,7 +195,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 [32]: ../../adr/automation/open-closed-architecture.md
 [33]: ../../adr/automation/path-representation.md
 [34]: ../../adr/automation/platform-bundle.md
-[35]: ../../adr/automation/protected-globs.md
+[35]: ../../adr/repository/protected-globs.md
 [36]: ../../adr/automation/python/index.md
 [37]: ../../adr/automation/python/python-test-artifacts.md
 [38]: ../../adr/automation/retry-as-last-resort.md

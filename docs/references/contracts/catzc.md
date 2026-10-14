@@ -25,9 +25,9 @@ The draft: the one mutable version folder ([ADR-REPO-CONTRACT#5](../../adr/repos
 | `Catzc.Azure.DevOps`   | `pipelines/ci-automation-expected-failures.yaml` | `pipelines/ci-automation-expected-failures.yaml` | depended-on | fragment |
 | `Catzc.Azure.DevOps`   | `pipelines/ci-automation.yaml`                   | `pipelines/ci-automation.yaml`                   | depended-on | fragment |
 | `Catzc.Azure.DevOps`   | `pipelines/ci-infrastructure.yaml`               | `pipelines/ci-infrastructure.yaml`               | depended-on | fragment |
-| `Catzc.Tooling.Github` | `.github/README.md`                              | `.github/README.md`                              | depended-on | presence |
-| `Catzc.Tooling.Github` | `.github/workflows/ci-automation.yml`            | `.github/workflows/ci-automation.yml`            | depended-on | fragment |
-| `Catzc.Tooling.Github` | `.github/workflows/release-automation.yml`       | `.github/workflows/release-automation.yml`       | depended-on | fragment |
+| `Catzc.Tooling.Github` | `README.md`                                      | `.github/README.md`                              | depended-on | presence |
+| `Catzc.Tooling.Github` | `workflows/ci-automation.yml`                    | `.github/workflows/ci-automation.yml`            | depended-on | fragment |
+| `Catzc.Tooling.Github` | `workflows/release-automation.yml`               | `.github/workflows/release-automation.yml`       | depended-on | fragment |
 
 Notes:
 
@@ -59,11 +59,11 @@ Notes:
   ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): what Azure Pipelines reads at the pipeline root —
   the `trigger` and `pr` blocks, and the `jobs` root. A null value pins only that the key exists. Source:
   <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
-- `Catzc.Tooling.Github/.github/workflows/ci-automation.yml`: Depended-on fragment of .github/workflows/ci-automation.yml
+- `Catzc.Tooling.Github/workflows/ci-automation.yml`: Depended-on fragment of .github/workflows/ci-automation.yml
   ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): the keys GitHub Actions requires to run the
   workflow — the `on` events, and `jobs`, each job with the `runs-on` runner and its `steps`. A null value pins only that the key exists.
   Source: <https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions>
-- `Catzc.Tooling.Github/.github/workflows/release-automation.yml`: Depended-on fragment of .github/workflows/release-automation.yml
+- `Catzc.Tooling.Github/workflows/release-automation.yml`: Depended-on fragment of .github/workflows/release-automation.yml
   ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): the keys GitHub Actions requires to run the
   workflow — the `on` events, and `jobs`, each job with the `runs-on` runner and its `steps`. A null value pins only that the key exists.
   Source: <https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions>

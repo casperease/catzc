@@ -37,7 +37,7 @@ Describe 'Get-ConfigValue' -Tag 'L0' {
             $node['name'] | Should -Be 'app'
         }
 
-        It 'returns the live reference from the config (a resolved node is a read, ADR-CONF-ADDRESSING:5)' {
+        It 'returns the live reference from the config (a resolved node is a read, ADR-CONF-ADDRESSING#5)' {
             $node = Get-ConfigValue -Address 'global.myconfig.database'
             [object]::ReferenceEquals($node, $script:fixture['database']) | Should -BeTrue
         }
@@ -66,7 +66,7 @@ namespace CatzcGetConfigValueTest {
         }
     }
 
-    Context 'fail-fast (ADR-CONF-ADDRESSING:4)' -Tag 'logic' {
+    Context 'fail-fast (ADR-CONF-ADDRESSING#4)' -Tag 'logic' {
         BeforeEach {
             Mock Get-Config -ModuleName Catzc.Base.Config -MockWith {
                 [ordered]@{ database = [ordered]@{ host = 'db1' } }

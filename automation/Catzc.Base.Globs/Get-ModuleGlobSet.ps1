@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the DERIVED globsets — the live/tests aspect sets per module folder, one set per internal .psm1
     module, the reserved infra umbrellas, and the 'module-leftovers' catch-all
-    ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md),
+    ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md),
     [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)).
 .DESCRIPTION
     Derived sets are never written in globs.yml: the folder (or file) is the registration. Every non-dot
@@ -11,7 +11,7 @@
     readme-kebab convention plus the aspect (Catzc.Base.Globs -> 'catzc-base-globs-live' and
     'catzc-base-globs-tests') — 'live' the module's shippable surface (functions, private helpers, types,
     configs), 'tests' its verification harness, plus its Go, Python and Bash test folders <root>/tests/<kebab>/ of
-    each language root when they exist ([ADR-AUTO-GO#2](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go2),
+    each language root when they exist ([ADR-AUTO-GO#2](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2),
     [ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2),
     [ADR-AUTO-BASH#2](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2)); the two are disjoint and
     cover the folder. The whole-module
@@ -20,7 +20,7 @@
     kebab convention (Catzc.Internal.Bootstrap -> 'catzc-internal-bootstrap').
     The reserved names cover the dot-prefixed infrastructure every module's test results also depend on:
     'internal', 'vendor', 'compiled', 'scriptanalyzer'. Derived sets bound the scope of protection and blast radius
-    ([ADR-REPO-PROTGLOB#7](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob7)). A declared globset may not
+    ([ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)). A declared globset may not
     shadow a derived name; the collision throws here, naming
     both sides.
 
@@ -92,7 +92,7 @@ function Get-ModuleGlobSet {
     # bare module name/kebab -> its aspect sets, so a caller can ask for "the module" and get both aspects.
     $moduleAspects = @{}
     # A module's Go, Python and Bash test folders (<root>/tests/<kebab>/ of each language root,
-    # [ADR-AUTO-GO#2](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go2),
+    # [ADR-AUTO-GO#2](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2),
     # [ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2),
     # [ADR-AUTO-BASH#2](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2)) are part of its tests
     # aspect: a change to them re-keys the module they verify,

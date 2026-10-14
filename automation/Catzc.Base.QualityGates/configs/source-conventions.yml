@@ -12,9 +12,10 @@
 #   count_phrases  {count} is a number word or digits; a match whose number is not the model's count is a finding
 #   name_phrases   {name} is any engine name; one phrase's matches on one line that name two or more engines, but not
 #                  all of them, are a finding
+# The term "POSIX engines" ([ADR-AUTO-ENGINE#6](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine6)) is
+# derived from the model and carries neither a count nor an engine name, so no phrase matches it.
 # Defaults: no phrases.
 engine_set:
-  mode: report
   exempt:
     automation/Catzc.Base.Engines/types/**: the model itself, the one place the engines are declared
     automation/Catzc.Base.Engines/tests/**: the model's own tests pin the names it declares

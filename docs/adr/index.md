@@ -145,7 +145,6 @@ and the pipelines, github, and azure domains build on it.
 | `ADR-AUTO-DEPM`     | [controlling-module-dependencies](automation/controlling-module-dependencies.md) |
 | `ADR-AUTO-ENVVAR`   | [environment-variables](automation/environment-variables.md)                     |
 | `ADR-AUTO-PATH`     | [path-representation](automation/path-representation.md)                         |
-| `ADR-REPO-PROTGLOB` | [protected-globs](automation/protected-globs.md)                                 |
 | `ADR-AUTO-GUIDS`    | [managed-guids](automation/managed-guids.md)                                     |
 | `ADR-AUTO-BUNDLE`   | [platform-bundle](automation/platform-bundle.md)                                 |
 | `ADR-AUTO-OVERLAY`  | [consumer-overlay](automation/consumer-overlay.md)                               |
@@ -154,7 +153,7 @@ and the pipelines, github, and azure domains build on it.
 | `ADR-AUTO-SPELL`    | [spell-out-names](automation/spell-out-names.md)                                 |
 | `ADR-AUTO-DRYRUN`   | [dry-run](automation/dry-run.md)                                                 |
 | `ADR-AUTO-TYPES`    | [native-csharp-types](automation/BCL/native-csharp-types.md)                     |
-| `ADR-AUTO-GO`       | [test-artifacts](automation/go/test-artifacts.md)                                |
+| `ADR-AUTO-GO`       | [go-test-artifacts](automation/go/go-test-artifacts.md)                          |
 | `ADR-AUTO-PY`       | [python-test-artifacts](automation/python/python-test-artifacts.md)              |
 | `ADR-AUTO-BASH`     | [bash-test-artifacts](automation/bash/bash-test-artifacts.md)                    |
 | `ADR-AUTO-ENGINE`   | [execution-engines](automation/execution-engines.md)                             |
@@ -278,7 +277,7 @@ How the repository tree is laid out, formatted, and generated: conventional fold
 one formatting standard for every file type, contracts at the repository boundary, in both directions, under `contracts/`, READMEs and root
 configs generated from one source, fictional documentation examples, the separation of design, test, and live vocabulary, the controlled
 vocabulary of defined terms, repo-wide variants, the sub-agent definitions and the rules behind each, and sibling repositories read for
-ideas, never as a reference implementation.
+ideas, never as a reference implementation, and the session-memory protection that skips a repeated scan over an unchanged globset.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `design`.
 
@@ -298,6 +297,7 @@ ideas, never as a reference implementation.
 | `ADR-REPO-LINK`     | [markdown-links](repository/markdown-links.md)                         |
 | `ADR-REPO-AGENTS`   | [agent-definitions](repository/agent-definitions.md)                   |
 | `ADR-REPO-INSPIRE`  | [inspiration](repository/inspiration.md)                               |
+| `ADR-REPO-PROTGLOB` | [protected-globs](repository/protected-globs.md)                       |
 
 ### research/
 

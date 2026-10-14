@@ -7,7 +7,7 @@
 
       ps-home  pwsh, beside the PowerShell that is running ($PSHOME), so a started engine is the same PowerShell as
                the caller, never another pwsh that comes first on PATH;
-      tool     bash and zsh, through their tools.yml entries and the existence check (Resolve-ToolExecutable): Git
+      tool     the POSIX engines, through their tools.yml entries and the existence check (Resolve-ToolExecutable): Git
                Bash and the zsh installed into its tree on Windows, the system shell elsewhere, never the WSL launcher.
 
     Throws, naming the engine and the remedy, when the executable is missing or a tool-located one misses its pin.

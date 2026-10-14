@@ -34,7 +34,7 @@ public sealed class GlobSet
     // 'loose-fileset' (a cross-cutting check surface — a track's root concern like automation/infrastructure,
     // a scan scope, the reserved umbrellas — that carries a demonstrated use, e.g. a pipeline, and deliberately
     // overlaps the boundaries it cuts across). 'module' is the DERIVED layer
-    // ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)) — the per-folder
+    // ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)) — the per-folder
     // module partition plus the 'module-leftovers' catch-all — a valid GlobSet layer (Get-ModuleGlobSet
     // constructs them), but GlobsConfig rejects it in the declared registry. Within every layer but
     // 'loose-fileset' the sets are pairwise-disjoint on OWN membership
@@ -86,7 +86,7 @@ public sealed class GlobSet
         if (string.IsNullOrWhiteSpace(layer) || Array.IndexOf(ValidLayers, layer) < 0)
         {
             throw new ArgumentException(string.Format(
-                "globset '{0}': layer '{1}' is not a layer (allowed: {2}, ADR-FLOW-CD-GLOBS:7)",
+                "globset '{0}': layer '{1}' is not a layer (allowed: {2}, ADR-FLOW-CD-GLOBS#7)",
                 name, layer, string.Join(", ", ValidLayers)));
         }
         bool hasInclude = include != null && include.Length > 0;

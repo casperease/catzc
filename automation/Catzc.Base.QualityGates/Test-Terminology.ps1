@@ -60,7 +60,7 @@ function Test-Terminology {
         $config = Get-Config -Config terminology
     }
     catch {
-        $issues.Add("registry does not validate (ADR-AUTO-SPELL:6): $($_.Exception.Message)")
+        $issues.Add("registry does not validate (ADR-AUTO-SPELL#6): $($_.Exception.Message)")
     }
 
     if ($config) {
@@ -69,7 +69,7 @@ function Test-Terminology {
         $generated = Build-TerminologyDictionary -DryRun -PassThru
         foreach ($stale in @($generated | Where-Object Changed)) {
             $issues.Add(
-                "dictionary drift (ADR-AUTO-SPELL:5): .cspell/$($stale.Category).txt is out of date — " +
+                "dictionary drift (ADR-AUTO-SPELL#5): .cspell/$($stale.Category).txt is out of date — " +
                 'regenerate it with Build-TerminologyDictionary (or re-run the importer).'
             )
         }
@@ -85,7 +85,7 @@ function Test-Terminology {
         foreach ($term in $config.terms) {
             if (-not $corpus.Contains($term.term.ToLowerInvariant())) {
                 $issues.Add(
-                    "orphan (ADR-AUTO-SPELL:8): '$($term.term)' is not referenced anywhere in the tree — remove it " +
+                    "orphan (ADR-AUTO-SPELL#8): '$($term.term)' is not referenced anywhere in the tree — remove it " +
                     'from terminology.yml.'
                 )
             }

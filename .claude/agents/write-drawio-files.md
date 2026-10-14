@@ -20,9 +20,9 @@ You edit the **embedded XML** inside draw.io diagrams that are stored as `.drawi
 and cell styles as instructed. You never rasterize the image — the user re-renders the PNG by opening it in draw.io, which re-reads the
 embedded diagram. Your job is to make the embedded XML correct and to prove it, not to make the pixels correct.
 
-> **Time safeguard.** ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard: every foreground Bash call
-> passes `timeout: 3000`; longer work runs with `run_in_background: true` behind a `timeout <seconds>` prefix around one command (the tool
-> ignores `timeout` in the background) — see [time safeguard](../CLAUDE.md#time-safeguard).
+> **Time safeguard.** ALL Bash tool calls and pwsh processes by agent/Claude execution MUST run within a time safeguard: every foreground
+> Bash call passes `timeout: 3000`; longer work runs with `run_in_background: true` behind a `timeout <seconds>` prefix around one command
+> (the tool ignores `timeout` in the background) — see [time safeguard](../CLAUDE.md#time-safeguard).
 
 ## What you do / never do
 

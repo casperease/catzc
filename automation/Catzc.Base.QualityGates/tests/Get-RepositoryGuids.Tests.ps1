@@ -61,7 +61,7 @@ Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
 # source-only: it scans the repository's tracked files, which give the same answer in both run modes. The check is the
 # quality gate Test-ManagedGuids ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): the
 # scan against the registry, and the 'repository' globset covering everything the scan reads — so the protection
-# skip below is sound ([ADR-REPO-PROTGLOB#6](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob6)).
+# skip below is sound ([ADR-REPO-PROTGLOB#6](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob6)).
 Describe 'Repository guid integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'every guid in tracked text is registered, every registry entry is live, and the repository globset covers the scan' -Tag 'ADR-REPO-PROTGLOB#6' {
         if (Test-GlobSetProtection -Test 'guids' -Name 'repository') {

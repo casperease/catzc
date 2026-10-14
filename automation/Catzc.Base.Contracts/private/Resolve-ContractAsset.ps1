@@ -5,9 +5,10 @@
     Zero ceremony ([ADR-AUTO-ZERO](/docs/adr/automation/zero-ceremony-poka-yoke.md)): the asset declares nothing.
     - Kind, from the file name (Get-ContractAssetKind,
       [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)).
-    - Target: a presence or fragment constrains the real file at its own path; a `<path>.schema.json` constrains the
-      real file at `<path>`, unless a sample payload of the same `<name>` sits beside it (`<name>.sample.<ext>`), in
-      which case it applies to that sample; a sample payload constrains no file.
+    - Target: a presence or fragment constrains the real file at its own path under the module's target root; a
+      `<path>.schema.json` constrains the real file at `<path>` under that root, unless a sample payload of the same
+      `<name>` sits beside it (`<name>.sample.<ext>`), in which case it applies to that sample; a sample payload
+      constrains no file ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)).
     - Direction, by convention ([ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7)): an
       asset that constrains a real repository file is DependedOn; a sample payload, and the schema that applies to it,
       are Provided. An entry for `<module>/<path>` in -Override replaces the convention.
@@ -21,12 +22,17 @@
     The asset's path under its module folder, '/'-separated.
 .PARAMETER File
     The asset's absolute path, read to tell an empty fragment and to find a sample beside a schema.
+.PARAMETER TargetRoot
+    The module's target root, repository-relative; the empty path is the repository root. Default: ContractsConfig's
+    DefaultTargetRoot, the repository root.
 .PARAMETER Override
     The version's contract.yml direction overrides, keyed by `<module>/<path>`. Default: none.
 .OUTPUTS
     [Catzc.Base.Contracts.ContractAsset]
 .EXAMPLE
     Resolve-ContractAsset -Unit widget -Version 0.0.0 -Module Catzc.Widget -Path gadget.yml -File $file
+.EXAMPLE
+    Resolve-ContractAsset -Unit widget -Version 0.0.0 -Module Catzc.Widget -Path gadget.yml -File $file -TargetRoot .widget
 #>
 function Resolve-ContractAsset {
     [CmdletBinding()]
@@ -47,6 +53,9 @@ function Resolve-ContractAsset {
         [Parameter(Mandatory)]
         [string] $File,
 
+        [AllowEmptyString()]
+        [string] $TargetRoot = [Catzc.Base.Contracts.ContractsConfig]::DefaultTargetRoot,
+
         [System.Collections.IDictionary] $Override = @{}
     )
 
@@ -54,7 +63,13 @@ function Resolve-ContractAsset {
     $isEmpty = [string]::IsNullOrWhiteSpace([System.IO.File]::ReadAllText($File))
     $kind = Get-ContractAssetKind -Name $name -IsEmpty:$isEmpty
 
-    $target = $Path
+    $prefix = if ($TargetRoot) {
+        "$TargetRoot/"
+    }
+    else {
+        ''
+    }
+    $target = "$prefix$Path"
     $direction = [Catzc.Base.Contracts.ContractDirection]::DependedOn
     if ($kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Sample) {
         $target = $null
@@ -68,7 +83,7 @@ function Resolve-ContractAsset {
                 ForEach-Object { [System.IO.Path]::GetFileName($_) } |
                 Where-Object { $_ -cmatch $samplePattern } |
                 Sort-Object)
-        $target = $Path.Substring(0, $Path.Length - '.schema.json'.Length)
+        $target = $prefix + $Path.Substring(0, $Path.Length - '.schema.json'.Length)
         if ($samples.Count -gt 1) {
             throw "contract asset 'contracts/$Unit/$Version/$Module/$Path': the schema sits beside $($samples.Count) sample payloads named '$stem' ($($samples -join ', ')); keep one sample per schema name (ADR-REPO-CONTRACT#6)."
         }

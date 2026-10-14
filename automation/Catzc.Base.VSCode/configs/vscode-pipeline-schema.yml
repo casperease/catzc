@@ -50,8 +50,8 @@ definitions:
     items: { $ref: "#/definitions/step" }
   step:
     # One loose object shape for every step kind — no oneOf/anyOf across task variants, because that branch
-    # fan-out is exactly the false-positive source. It covers task/script/pwsh/bash/powershell/checkout/
-    # download/template steps and conditional insertions (${{ if … }}: [ … ]) alike; additionalProperties
+    # fan-out is exactly the false-positive source. It covers task/script/checkout/download/template steps, the
+    # Azure Pipelines shortcut steps (pwsh, powershell, bash) and conditional insertions (${{ if … }}: [ … ]) alike; additionalProperties
     # defaults to true, so any key not listed here is accepted rather than flagged.
     type: object
     properties:

@@ -1,5 +1,5 @@
 # Get-EngineContract with the engines' executables mocked: the start arguments come from the execution engine model and
-# load the run's entry — directly in pwsh, through importer.sh and CATZC_IMPORTER in bash and zsh. Neutral fixture paths
+# load the run's entry — directly in pwsh, through importer.sh and CATZC_IMPORTER in the POSIX engines. Neutral fixture paths
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
     BeforeAll {

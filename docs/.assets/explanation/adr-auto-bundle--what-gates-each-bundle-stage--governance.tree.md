@@ -488,7 +488,7 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 - [docs/adr/automation/go/index.md][194], in the cell docs × markdown: selected by [ADR-AUTO-ASSETDEP][1]: an ADR file of the `automation`
   ADR domain, the ADR domain of that code; selected by [ADR-AUTO-BUNDLE][2]: an ADR file of the `automation` ADR domain, the ADR domain of
   that code; selected by [ADR-AUTO-TEST][3]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/go/test-artifacts.md][195], in the cell docs × markdown: selected by [ADR-AUTO-ASSETDEP][1]: an ADR file of the
+- [docs/adr/automation/go/go-test-artifacts.md][195], in the cell docs × markdown: selected by [ADR-AUTO-ASSETDEP][1]: an ADR file of the
   `automation` ADR domain, the ADR domain of that code; selected by [ADR-AUTO-BUNDLE][2]: an ADR file of the `automation` ADR domain, the
   ADR domain of that code; selected by [ADR-AUTO-TEST][3]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
 - [docs/adr/automation/idempotent-state-functions.md][196], in the cell docs × markdown: selected by [ADR-AUTO-ASSETDEP][1]: an ADR file of
@@ -515,7 +515,7 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 - [docs/adr/automation/platform-bundle.md][2], in the cell docs × markdown: selected by [ADR-AUTO-ASSETDEP][1]: an ADR file of the
   `automation` ADR domain, the ADR domain of that code; selected by [ADR-AUTO-BUNDLE][2]: an ADR file of the `automation` ADR domain, the
   ADR domain of that code; selected by [ADR-AUTO-TEST][3]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/protected-globs.md][202], in the cell docs × markdown: selected by [ADR-AUTO-ASSETDEP][1]: an ADR file of the
+- [docs/adr/repository/protected-globs.md][202], in the cell docs × markdown: selected by [ADR-AUTO-ASSETDEP][1]: an ADR file of the
   `automation` ADR domain, the ADR domain of that code; selected by [ADR-AUTO-BUNDLE][2]: an ADR file of the `automation` ADR domain, the
   ADR domain of that code; selected by [ADR-AUTO-TEST][3]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
 - [docs/adr/automation/python/index.md][203], in the cell docs × markdown: selected by [ADR-AUTO-ASSETDEP][1]: an ADR file of the
@@ -1571,14 +1571,14 @@ Terms the cited ADRs define:
 [192]: ../../adr/automation/execution-engines.md
 [193]: ../../adr/automation/fail-fast-with-asserts.md
 [194]: ../../adr/automation/go/index.md
-[195]: ../../adr/automation/go/test-artifacts.md
+[195]: ../../adr/automation/go/go-test-artifacts.md
 [196]: ../../adr/automation/idempotent-state-functions.md
 [197]: ../../adr/automation/log-before-invoke.md
 [198]: ../../adr/automation/managed-guids.md
 [199]: ../../adr/automation/never-depend-on-pwd.md
 [200]: ../../adr/automation/open-closed-architecture.md
 [201]: ../../adr/automation/path-representation.md
-[202]: ../../adr/automation/protected-globs.md
+[202]: ../../adr/repository/protected-globs.md
 [203]: ../../adr/automation/python/index.md
 [204]: ../../adr/automation/python/python-test-artifacts.md
 [205]: ../../adr/automation/retry-as-last-resort.md

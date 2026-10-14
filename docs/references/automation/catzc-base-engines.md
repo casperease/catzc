@@ -16,12 +16,12 @@ from how each is started and how it quotes a literal to its strict mode and impo
 ### responsibility:1 — The engine model
 
 The repository's own code runs under exactly three execution engines, and this module declares them once. Each engine names its executable
-and how it is located (beside the running PowerShell for pwsh; through its `tools.yml` entry for bash and zsh), the script files it runs and
-its shebang, its non-interactive start and command flag, its quoting of a literal, the statement that loads an entry script silently, its
-strict mode, its time safeguard, the line endings and executable bit its scripts need, and its importer entry. From these it composes the
-arguments that start the engine, load an entry, and run one command. The set of engines is closed: the three instances are the only ones,
-and every list of engines elsewhere reads the model's names rather than restating them. Per-engine fixture tables check the start and the
-locator under all three engines side by side.
+and how it is located (beside the running PowerShell for pwsh; through its `tools.yml` entry for the POSIX engines), the script files it
+runs and its shebang, its non-interactive start and command flag, its quoting of a literal, the statement that loads an entry script
+silently, its strict mode, its time safeguard, the line endings and executable bit its scripts need, and its importer entry. From these it
+composes the arguments that start the engine, load an entry, and run one command. The set of engines is closed: the three instances are the
+only ones, and every list of engines elsewhere reads the model's names rather than restating them. Per-engine fixture tables check the start
+and the locator under all three engines side by side.
 
 ## What the module does
 

@@ -8,7 +8,7 @@
 .PARAMETER Budget
     The budget's immutable GUID.
 .PARAMETER Shell
-    The shell the work runs in, one of the execution engines: pwsh (the default), bash or zsh.
+    The shell the work runs in, one of the execution engines (pwsh, bash or zsh); pwsh is the default.
 .EXAMPLE
     if (Test-IsRunningInPipeline) { Assert-IsNotTimeoutExempt $budget }
 #>

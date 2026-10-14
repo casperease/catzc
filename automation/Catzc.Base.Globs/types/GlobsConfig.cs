@@ -23,7 +23,7 @@ public sealed class GlobsConfig
     public const string ConfigPath = "automation/Catzc.Base.Globs/configs/globs.yml";
 
     // Names reserved for the DERIVED globsets
-    // ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)): the infra scopes every module's tests depend
+    // ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): the infra scopes every module's tests depend
     // on. Module folders derive their own sets by convention (Get-ModuleGlobSet); a declared set may not
     // shadow a reserved name — the declared registry and the derived sets share one name space.
     public static readonly string[] ReservedNames = { "internal", "vendor", "compiled", "scriptanalyzer" };
@@ -85,7 +85,7 @@ public sealed class GlobsConfig
             }
             if (ReadStr(entry, "layer") == "module")
             {
-                errors.Add(string.Format("globset '{0}': the 'module' layer is derived-only (ADR-FLOW-CD-GLOBS:7, ADR-REPO-PROTGLOB) — the folder is the registration; declared layers: {1}", name, string.Join(", ", GlobSet.DeclaredLayers)));
+                errors.Add(string.Format("globset '{0}': the 'module' layer is derived-only (ADR-FLOW-CD-GLOBS#7, ADR-REPO-PROTGLOB) — the folder is the registration; declared layers: {1}", name, string.Join(", ", GlobSet.DeclaredLayers)));
                 continue;
             }
 
@@ -151,11 +151,11 @@ public sealed class GlobsConfig
                 GlobSet target;
                 if (reference == set.Name)
                 {
-                    errors.Add(string.Format("globset '{0}' composes itself (ADR-FLOW-CD-GLOBS:8)", set.Name));
+                    errors.Add(string.Format("globset '{0}' composes itself (ADR-FLOW-CD-GLOBS#8)", set.Name));
                 }
                 else if (!map.TryGetValue(reference, out target))
                 {
-                    errors.Add(string.Format("globset '{0}' composes unknown set '{1}' — compose references declared sets only (ADR-FLOW-CD-GLOBS:8)", set.Name, reference));
+                    errors.Add(string.Format("globset '{0}' composes unknown set '{1}' — compose references declared sets only (ADR-FLOW-CD-GLOBS#8)", set.Name, reference));
                 }
                 else
                 {
@@ -169,7 +169,7 @@ public sealed class GlobsConfig
             string cycle = FindComposeCycle(set, map, new List<string>());
             if (cycle != null)
             {
-                errors.Add(string.Format("compose cycle: {0} (ADR-FLOW-CD-GLOBS:8)", cycle));
+                errors.Add(string.Format("compose cycle: {0} (ADR-FLOW-CD-GLOBS#8)", cycle));
                 break;
             }
         }

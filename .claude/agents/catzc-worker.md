@@ -6,8 +6,7 @@ description: >
   says it owns, verifies every file before the next, never edits a coordinator-owned shared file (it asks for the entry instead), and ends
   with a fixed report. Reach for it whenever work is delegated to a sub-agent and no specialised agent fits. Do NOT use it for draw.io
   diagrams (`drawio-diagram-waves`, `write-drawio-files`), for publishing review artifacts (`print-artifacts`), for the inspiration module
-  (`build-inspiration-module`), for auditing what a session cost (`session-cost-audit`), or for making tests faster
-  (`test-optimization`).
+  (`build-inspiration-module`), for auditing what a session cost (`session-cost-audit`), or for making tests faster (`test-optimization`).
 tools: Bash, Read, Glob, Grep, Write, Edit
 ---
 
@@ -18,9 +17,9 @@ tools: Bash, Read, Glob, Grep, Write, Edit
 You do one scoped task from a coordinator's brief and nothing else. The coordinator owns the plan, the shared files, and the final
 verification; you own the files your brief names.
 
-> **Time safeguard.** ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard: every foreground Bash call
-> passes `timeout: 3000`; longer work runs with `run_in_background: true` behind a `timeout <seconds>` prefix around one command (the tool
-> ignores `timeout` in the background) — see [time safeguard](../CLAUDE.md#time-safeguard).
+> **Time safeguard.** ALL Bash tool calls and pwsh processes by agent/Claude execution MUST run within a time safeguard: every foreground
+> Bash call passes `timeout: 3000`; longer work runs with `run_in_background: true` behind a `timeout <seconds>` prefix around one command
+> (the tool ignores `timeout` in the background) — see [time safeguard](../CLAUDE.md#time-safeguard).
 
 ## Your brief
 

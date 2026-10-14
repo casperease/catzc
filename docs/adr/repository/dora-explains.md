@@ -212,3 +212,57 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a comment that links the rule it implements lets
   anyone changing the code find the reason for it in one step.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Agent definitions
+
+`Agent definitions — every sub-agent rests on a rule and maps to its checks`
+
+[ADR-REPO-AGENTS](agent-definitions.md)
+
+> DORA's AI research finds that AI assistance pays off when the organization's stance on its use is clear and communicated, and when the
+> tools work from the organization's own knowledge. Defining each sub-agent in one checked file, registered with the rules that justify it
+> and the checks it runs, states how AI agents work here in the repository itself, and keeps every agent's instructions tied to the rules
+> they apply.
+
+- [Clear and communicated AI stance](../../references/dora/capabilities.md#clear-and-communicated-ai-stance) — each agent's job, its limits,
+  and the standard agent for delegated work are written down where every session starts.
+- [AI-accessible internal data](../../references/dora/capabilities.md#ai-accessible-internal-data) — an agent works from the rules its
+  registry entry cites, so its answers follow the repository's decisions rather than general habit.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a renumbered rule or a renamed check fails a check
+  instead of leaving an agent that points at nothing.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Inspiration
+
+`Inspiration — read for ideas, never a reference implementation`
+
+[ADR-REPO-INSPIRE](inspiration.md)
+
+> DORA's research ties delivery performance to a learning culture and to teams that try ideas and judge them on evidence. Reading a sibling
+> repository for ideas shortens the search for a good shape, and weighing each idea against catzc's own ADRs, then rebuilding it to their
+> rules, keeps that learning from turning into a second, unchecked set of rules.
+
+- [Learning culture](../../references/dora/capabilities.md#learning-culture) — a solution a sibling found is read and learned from, not
+  rediscovered.
+- [Team experimentation](../../references/dora/capabilities.md#team-experimentation) — an idea is a candidate the ADRs judge, and the work
+  says where it came from, so the reasoning stays reviewable.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — an idea is rebuilt to catzc's rules, never ported
+  beside them, so the code keeps one living version of each behaviour.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Protected globs
+
+`Protected globs — session-memory skip of repeated scans over an unchanged globset`
+
+[ADR-REPO-PROTGLOB](protected-globs.md)
+
+> Session-memory skipping of repeated scans over unchanged inputs cuts inner-loop feedback time without compromising CI proof. Fail-open
+> architecture ensures every pipeline run proves the full set, maintaining fast-feedback and reliability together.
+
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — CI never skips, always scans full, so protection
+  never hides a violation from the merge gate.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — heavy read-only scans are skipped on an unchanged globset
+  identity, providing rapid feedback on unchanged inputs.
+- [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — skipped scans cut iteration time in local
+  inner loop.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

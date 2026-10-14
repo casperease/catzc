@@ -10,9 +10,9 @@
 
     It reads the file's syntax tree, never runs Pester. A string literal is checked when the nearest Describe,
     Context, or It around it that carries a tier tag carries L0 — or, outside every tier-tagged block, when L0 is the
-    only tier the file carries. The values of a -Tag argument are citations, not data, and are never checked;
-    comments (code links included) are not part of the syntax tree, so they never are either. A test title is a
-    string literal like any other.
+    only tier the file carries. The values of a -Tag argument are citations, not data, and are never checked; the
+    title of a Describe, Context, or It (its -Name, given by name or by position) is a name, not data, so it is never
+    checked either; comments (code links included) are not part of the syntax tree, so they never are.
 .PARAMETER Path
     The test file's repository-relative, '/'-separated path, which leads each finding.
 .PARAMETER Ast
@@ -49,20 +49,52 @@ function Get-NeutralCodeFinding {
         $node -is [System.Management.Automation.Language.ExpandableStringExpressionAst]
     }
 
-    # Each tier-tagged block's extent and tier, and the extent of every -Tag argument.
+    # The block parameters that take a value; every other parameter of Describe, Context, and It is a switch.
+    $valued = 'Name', 'Tag', 'Tags', 'Fixture', 'Test', 'ForEach', 'TestCases'
+
+    # Each tier-tagged block's extent and tier, and the extent of every -Tag argument and every block title.
     $blocks = [System.Collections.Generic.List[object]]::new()
-    $tagRanges = [System.Collections.Generic.List[object]]::new()
+    $skipRanges = [System.Collections.Generic.List[object]]::new()
     foreach ($command in $Ast.FindAll($isBlockCommand, $true)) {
         $elements = $command.CommandElements
         $tier = $null
-        for ($index = 0; $index -lt $elements.Count - 1; $index++) {
+        $titled = $false
+        for ($index = 1; $index -lt $elements.Count; $index++) {
             $element = $elements[$index]
-            $isTag = $element -is [System.Management.Automation.Language.CommandParameterAst] -and $element.ParameterName -in 'Tag', 'Tags'
-            if (-not $isTag) {
+            $parameter = if ($element -is [System.Management.Automation.Language.CommandParameterAst]) {
+                $element.ParameterName
+            }
+            else {
+                $null
+            }
+            # A value belongs to the parameter before it (-Tag 'x', or -Tag:'x'), or is positional: the first is the title.
+            $value = $element
+            if ($parameter) {
+                if ($parameter -notin $valued) {
+                    continue
+                }
+                if ($element.Argument) {
+                    $value = $element.Argument
+                }
+                elseif ($index -lt $elements.Count - 1) {
+                    $index++
+                    $value = $elements[$index]
+                }
+                else {
+                    continue
+                }
+            }
+            # A script block is the block's body, never its title, even where the title is missing.
+            $isBody = $value -is [System.Management.Automation.Language.ScriptBlockExpressionAst]
+            $isTitle = -not $isBody -and ($parameter -eq 'Name' -or (-not $parameter -and -not $titled))
+            if ($isTitle) {
+                $titled = $true
+                $skipRanges.Add([pscustomobject]@{ Start = $value.Extent.StartOffset; End = $value.Extent.EndOffset })
+            }
+            if ($parameter -notin 'Tag', 'Tags') {
                 continue
             }
-            $value = $elements[$index + 1]
-            $tagRanges.Add([pscustomobject]@{ Start = $value.Extent.StartOffset; End = $value.Extent.EndOffset })
+            $skipRanges.Add([pscustomobject]@{ Start = $value.Extent.StartOffset; End = $value.Extent.EndOffset })
             foreach ($tag in $value.FindAll($isString, $true)) {
                 foreach ($name in $tiers) {
                     if ($tag.Value -eq $name) {
@@ -101,7 +133,7 @@ function Get-NeutralCodeFinding {
             }
         }
         $offset = $literal.Extent.StartOffset
-        if ($outer -or @($tagRanges | Where-Object { $offset -ge $_.Start -and $offset -lt $_.End }).Count) {
+        if ($outer -or @($skipRanges | Where-Object { $offset -ge $_.Start -and $offset -lt $_.End }).Count) {
             continue
         }
         $enclosing = $blocks | Where-Object { $offset -ge $_.Start -and $offset -lt $_.End } |

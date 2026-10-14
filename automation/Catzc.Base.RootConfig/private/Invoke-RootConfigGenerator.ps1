@@ -59,7 +59,7 @@ function Invoke-RootConfigGenerator {
                 })
             # The managed Go toolchain, when found at the pin: the Go extension and gopls otherwise run whichever go
             # comes first on PATH, and on Windows a machine-wide Go precedes the user-scope managed one
-            # ([ADR-AUTO-GO#6](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go6)).
+            # ([ADR-AUTO-GO#6](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go6)).
             $machineSetting = @{}
             $go = Resolve-ToolExecutable -Tool go
             if ($go.Found -and $go.VersionOk) {

@@ -121,6 +121,7 @@ languages:
   bash:
     extensions: [.sh, .bats]
     no_formatter: no engine is configured for Bash yet
+    adr_folder: automation/bash
     checks: [Test-ShellScripts]
   xml:
     extensions: [.ps1xml, .xml, .xsd, .dtd, .csproj]

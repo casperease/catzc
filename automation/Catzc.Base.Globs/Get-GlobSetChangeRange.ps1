@@ -17,7 +17,7 @@
     - Local / solo dev (not in a pipeline): 'HEAD' — the working tree against the last commit.
 
     Returns $null when a pipeline PR context names no resolvable target — the fail-open signal
-    ([ADR-REPO-PROTGLOB#5](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob5)): a caller treats an unknown
+    ([ADR-REPO-PROTGLOB#5](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob5)): a caller treats an unknown
     range as "affected" and proceeds, never wrongly skipping.
     The range assumes the base commit is present in the clone; a pipeline must checkout with fetchDepth: 0,
     because a shallow (depth 1) clone cannot reach HEAD^1 or the merge-base. The post-commit range needs only

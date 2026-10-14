@@ -340,7 +340,7 @@ shared by every run on the machine, so the test passes or fails depending on wha
 
 ### Rule ADR-AUTO-TEST:40
 
-A Go test module ([test-artifacts](go/test-artifacts.md#rule-adr-auto-go2)), a Python test folder
+A Go test module ([go-test-artifacts](go/go-test-artifacts.md#rule-adr-auto-go2)), a Python test folder
 ([python-test-artifacts](python/python-test-artifacts.md#rule-adr-auto-py2)) and a Bash test folder
 ([bash-test-artifacts](bash/bash-test-artifacts.md#rule-adr-auto-bash2)) are the second kind of test file, beside a module's own test files,
 under the same tiers, categories, and run model. Discovery maps each to its catzc module, so module selection, test suites, ordering,
@@ -637,8 +637,8 @@ test run last in a one-worker phase, alone.
 
 Two deliberate consequences: workers run tests **under strict mode** (parity — the code under test is strict in its module scope, so the
 tests that drive it are strict too, and a strict-hostile test opts out only in its own body); and the protected-glob session map
-([protected-globs](protected-globs.md)) is per worker session, so a protected scan never skips under the harness — it runs concurrently with
-the other shards instead.
+([protected-globs](../repository/protected-globs.md)) is per worker session, so a protected scan never skips under the harness — it runs
+concurrently with the other shards instead.
 
 ### Working folder and snapshots
 
@@ -724,12 +724,12 @@ Both runs execute in CI on every push, so "works in both modes" is checked befor
 `A second kind of test file, the same run`
 
 A module's own test file loads the modules and calls them; a Go test module starts the engine as a process and reads what it prints
-([test-artifacts](go/test-artifacts.md)). The two answer different questions, but they are tests of the same modules, so they run in the
-same test run rather than in a second harness with its own selection, report, and verdict. Discovery maps `<root>/tests/<module>/` to its
-catzc module by the kebab-case name, and from there every selection a test run makes — `-Modules`, `-Suite`, the tiers, the categories, the
-protected-glob skip — applies to the Go tests exactly as to that module's own tests. A shared bridge runs each mapped Go test module once
-and turns every top-level Go test into one test of the run, so the tag check, the timing check, `tests.csv`, and `run.json` read Go tests as
-rows like any other.
+([go-test-artifacts](go/go-test-artifacts.md)). The two answer different questions, but they are tests of the same modules, so they run in
+the same test run rather than in a second harness with its own selection, report, and verdict. Discovery maps `<root>/tests/<module>/` to
+its catzc module by the kebab-case name, and from there every selection a test run makes — `-Modules`, `-Suite`, the tiers, the categories,
+the protected-glob skip — applies to the Go tests exactly as to that module's own tests. A shared bridge runs each mapped Go test module
+once and turns every top-level Go test into one test of the run, so the tag check, the timing check, `tests.csv`, and `run.json` read Go
+tests as rows like any other.
 
 The tags follow from what a Go test is. It drives a real toolchain and a real engine, so its tier is `L2` (ADR-AUTO-TEST#9), always. Its
 category comes from its name: `TestIntegrity*` reads the shipped artifacts and is `integrity`, every other Go test is `logic`

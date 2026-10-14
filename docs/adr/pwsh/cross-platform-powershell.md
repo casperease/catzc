@@ -57,10 +57,13 @@ PowerShell code formats and parses a machine-bound string ([ADR-AUTO-XPLAT#6](..
 
 ### Rule ADR-PWSH-XPLAT:8
 
-PowerShell code compares paths ([ADR-AUTO-XPLAT#7](../automation/cross-platform.md#rule-adr-auto-xplat7)) with `-ieq`, or compares
-`[IO.Path]::GetFullPath()` results, rather than `-eq`.
+PowerShell code compares paths ([ADR-AUTO-XPLAT#7](../automation/cross-platform.md#rule-adr-auto-xplat7)) as full paths, each passed through
+`[System.IO.Path]::GetFullPath()`, and compares them ordinally and case-insensitively with `[StringComparer]::OrdinalIgnoreCase` (or
+`[string]::Equals` with `[StringComparison]::OrdinalIgnoreCase`), never culture-sensitively. The hazards are a case-sensitive operator
+(`-ceq`, `-clike`), a `.Equals` or `.StartsWith` call without a `StringComparison` argument, and two paths compared before they are
+normalised.
 
-- [What breaks in practice](#what-breaks-in-practice)
+- [Comparing paths](#comparing-paths)
 
 ### Rule ADR-PWSH-XPLAT:9
 
@@ -104,6 +107,17 @@ catches them before push.
 read the same value differently. Passing `[System.Globalization.CultureInfo]::InvariantCulture` makes the format explicit at the call site.
 Why the culture axis matters at all is the doctrine: [cross-platform](../automation/cross-platform.md#rule-adr-auto-xplat6).
 
+### Comparing paths
+
+Two strings that name the same file can differ in three ways: in case (`C:\Repo` and `c:\repo`), in form (`out\..\docs` and `docs`, a
+relative and an absolute path), and in characters a culture-aware comparison treats as equal or ignorable. `GetFullPath()` removes the
+second difference, and an ordinal comparison decides the other two by the characters alone, the same on every machine and in every culture.
+PowerShell's own operators do not give that comparison. `-eq` and `-ieq` are case-insensitive on strings, but they compare in the invariant
+culture, not ordinally: `'ab' -ieq "a$([char]0xAD)b"` is `$true`, because a culture-aware comparison ignores the soft hyphen. `-ceq` and
+`-clike` are case-sensitive, so two spellings of one Windows path compare unequal. A `.Equals` or `.StartsWith` call without a
+`StringComparison` falls back to a default the call site does not show: case-sensitive ordinal for `.Equals`, the current culture for
+`.StartsWith`. Naming `[StringComparer]::OrdinalIgnoreCase` states the rule where it applies.
+
 ### Analyzer coverage
 
 `How the analyzer catches platform breaks`
@@ -123,8 +137,8 @@ profile effectively covers macOS. If Microsoft ever ships a macOS catalog, we ad
 
 PowerShell code constructs every path with `Join-Path` from a known anchor, uses no platform-only cmdlet or binary without a branch for the
 other platform, expresses unavoidable platform logic as `$IsWindows` / `$IsLinux` branches, passes the invariant culture to every
-machine-bound format and parse, and compares paths with an explicit case rule — all validated by the analyzer's compatibility profiles
-before push.
+machine-bound format and parse, and compares full paths ordinally and case-insensitively — all validated by the analyzer's compatibility
+profiles before push.
 
 ### How this is enforced
 

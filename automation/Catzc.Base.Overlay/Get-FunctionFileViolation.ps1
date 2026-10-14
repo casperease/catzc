@@ -70,6 +70,6 @@ function Get-FunctionFileViolation {
         $node -is [System.Management.Automation.Language.VariableExpressionAst] -and $node.VariablePath.UserPath -ieq 'PSScriptRoot'
     }
     foreach ($read in $syntaxTree.FindAll($isScriptRootRead, $true)) {
-        "${RelativePath}:$($read.Extent.StartLineNumber): reads `$PSScriptRoot, which names the merged file's folder in a build; locate content with Get-CatzcModuleRoot (ADR-AUTO-ASSETDEP:1)"
+        "${RelativePath}:$($read.Extent.StartLineNumber): reads `$PSScriptRoot, which names the merged file's folder in a build; locate content with Get-CatzcModuleRoot (ADR-AUTO-ASSETDEP#1)"
     }
 }

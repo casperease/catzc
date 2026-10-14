@@ -10,7 +10,7 @@
 # and no production-derived value ([ADR-AUTO-TEST#17](/docs/adr/automation/test-automation.md#rule-adr-auto-test17)).
 #
 # One read-only scan in BeforeAll; each It block asserts one facet of it
-# ([ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16)/18/20). Both engines run here:
+# ([ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16)/18/20). Both validators run here:
 # Get-BicepTemplates (discovery — folders/files named right, options schema, identity references) and
 # Assert-BicepTemplate (the consolidated validator, every problem in one message). Neither builds.
 # NB: Get-BicepTemplates returns a comma-wrapped array — assign it (an @()-wrap nests it one level) and
@@ -65,7 +65,7 @@ Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
     }
 
     It "every shipped template's options.yml declares a short_name" {
-        $noShortName | Should -BeNullOrEmpty -Because "options.yml must declare short_name (the Azure id segment — ADR azure/naming-standard, ADR-AZ-NAMING:2):`n$($noShortName -join "`n")"
+        $noShortName | Should -BeNullOrEmpty -Because "options.yml must declare short_name (the Azure id segment — ADR azure/naming-standard, ADR-AZ-NAMING#2):`n$($noShortName -join "`n")"
     }
 
     It 'short_names are globally unique across shipped templates' {

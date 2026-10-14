@@ -11,7 +11,7 @@
     squash-merge and
     concurrent-merge staleness a committed marker hash suffers.
 
-    Fail-open ([ADR-REPO-PROTGLOB#5](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob5)): when the
+    Fail-open ([ADR-REPO-PROTGLOB#5](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob5)): when the
     reference commit cannot be resolved or the diff cannot be computed —
     a shallow clone that cannot reach the base, an unresolved PR target ref, a first commit with no parent —
     this returns $true, proceed. A redundant run is safe; a wrong skip is an un-deployed change. It returns

@@ -27,7 +27,7 @@ Describe 'Publish-ContractRelease' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#5' {
 
     BeforeEach {
         Mock Get-Config -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'contracts' } {
-            [pscustomobject]@{ addressing = 'full-path' }
+            [Catzc.Base.Contracts.ContractsConfig]::new(@{})
         }
         Mock Get-Config -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'exporter' } {
             [pscustomobject]@{ direct_install_version = '6.6.666' }

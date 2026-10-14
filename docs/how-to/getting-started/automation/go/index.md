@@ -3,4 +3,4 @@
 `Go how-to guides`
 
 Go in catzc is test artifacts only: black-box tests under the Go root's `tests/<module>/` folders, run through `Test-Automation`. The
-decision record is [ADR-AUTO-GO](../../../../adr/automation/go/test-artifacts.md).
+decision record is [ADR-AUTO-GO](../../../../adr/automation/go/go-test-artifacts.md).

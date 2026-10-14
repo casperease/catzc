@@ -49,6 +49,16 @@ function Exit-TestRunLocation {
     }
 
     if ($Location.Snapshot) {
+        # Hand the snapshot's result caches home before it goes: the checks this run made in the snapshot are as
+        # valid for the working folder as for the snapshot, since each entry is keyed on a file's content and the
+        # check's inputs ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)). Save-ResultCache
+        # merges them with what the working folder's cache holds.
+        $snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'
+        if ([System.IO.Directory]::Exists($snapshotCache)) {
+            foreach ($file in [System.IO.Directory]::GetFiles($snapshotCache, '*.json')) {
+                Save-ResultCache -Path (Join-Path (Get-OutputRoot) "cache/$([System.IO.Path]::GetFileName($file))") -Cache (Get-ResultCache -Path $file)
+            }
+        }
         if ($Location.KeepSandbox) {
             Write-Message "Kept the snapshot for inspection (-KeepSandbox): $($Location.Snapshot.Path)"
         }

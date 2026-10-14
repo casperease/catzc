@@ -44,8 +44,9 @@ value, or `$script:` state (ADR-PWSH-ENV#2).
 ### Rule ADR-PWSH-ENV:6
 
 A `$env:` read is an input from outside the boundary ([ADR-AUTO-ENVVAR#2](../automation/environment-variables.md#rule-adr-auto-envvar2)): a
-CI marker (`$env:TF_BUILD`, `$env:GITHUB_ACTIONS`), an OS location (`$env:SystemRoot`), or one of the `$env:CATZC_*` toggles a developer's
-shell or a test harness sets, which module code reads and never writes.
+tool's contract variable (`$env:JAVA_HOME`, `$env:DOTNET_ROOT`), an OS location (`$env:SystemRoot`), or one of the `$env:CATZC_*` toggles a
+developer's shell or a test harness sets, which module code reads and never writes. Whether the code runs in a pipeline is never such a
+read: it goes through the detection function, `Test-IsRunningInPipeline`.
 
 - [Reading an external input](#reading-an-external-input)
 
@@ -137,14 +138,18 @@ The consumer of each variable is an external process, not our code.
 
 ### Reading an external input
 
-CI platforms, container runtimes, and operating systems communicate through environment variables, and reading them is reading an input from
-outside the boundary:
+External tools, container runtimes, and operating systems communicate through environment variables, and reading them is reading an input
+from outside the boundary:
 
 ```powershell
-$env:TF_BUILD          # set by Azure DevOps — are we in a pipeline?
-$env:GITHUB_ACTIONS    # set by GitHub Actions — are we in a workflow?
+$env:JAVA_HOME         # set by a JDK install — where is java?
+$env:DOTNET_ROOT       # set by a .NET install — where is dotnet?
 $env:SystemRoot        # set by Windows — where is the OS?
 ```
+
+The variables a CI platform sets to say "this is a pipeline run" are not read this way. They are read in one place,
+`Test-IsRunningInPipeline`, and every other caller asks that function
+([ADR-FLOW-CD-DETECT#1](../flow/pipeline-detection.md#rule-adr-flow-cd-detect1)).
 
 The `$env:CATZC_*` flags are the same kind of input: deliberate external or diagnostic toggles that the outer environment sets and our code
 reads to alter a presentation or test-isolation behaviour.

@@ -771,7 +771,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][4]); th
   domain of that code.
 - [docs/adr/automation/go/index.md][388]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR domain of that
   code.
-- [docs/adr/automation/go/test-artifacts.md][389]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR
+- [docs/adr/automation/go/go-test-artifacts.md][389]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR
   domain of that code.
 - [docs/adr/automation/idempotent-state-functions.md][390]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the
   ADR domain of that code.
@@ -789,7 +789,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][4]); th
   domain of that code.
 - [docs/adr/automation/platform-bundle.md][397]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR domain
   of that code.
-- [docs/adr/automation/protected-globs.md][398]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR domain
+- [docs/adr/repository/protected-globs.md][398]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR domain
   of that code.
 - [docs/adr/automation/python/index.md][399]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR domain of
   that code.
@@ -1319,7 +1319,7 @@ Terms the cited ADRs define:
 [386]: ../../adr/automation/execution-engines.md
 [387]: ../../adr/automation/fail-fast-with-asserts.md
 [388]: ../../adr/automation/go/index.md
-[389]: ../../adr/automation/go/test-artifacts.md
+[389]: ../../adr/automation/go/go-test-artifacts.md
 [390]: ../../adr/automation/idempotent-state-functions.md
 [391]: ../../adr/automation/internal-asset-dependencies.md
 [392]: ../../adr/automation/log-before-invoke.md
@@ -1328,7 +1328,7 @@ Terms the cited ADRs define:
 [395]: ../../adr/automation/open-closed-architecture.md
 [396]: ../../adr/automation/path-representation.md
 [397]: ../../adr/automation/platform-bundle.md
-[398]: ../../adr/automation/protected-globs.md
+[398]: ../../adr/repository/protected-globs.md
 [399]: ../../adr/automation/python/index.md
 [400]: ../../adr/automation/python/python-test-artifacts.md
 [401]: ../../adr/automation/retry-as-last-resort.md

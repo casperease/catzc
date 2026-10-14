@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    The protection decision ([ADR-REPO-PROTGLOB#9](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob9)):
+    The protection decision ([ADR-REPO-PROTGLOB#9](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob9)):
     drops the test files of every unit whose composite identity is
     unchanged since its last green run this session.
 .DESCRIPTION

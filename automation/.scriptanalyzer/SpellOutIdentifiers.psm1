@@ -137,7 +137,7 @@ function Measure-SpellOutIdentifiers {
         if ($coined.Count -gt 0) {
             [void] $reported.Add($name)
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "Variable '`$$name' has non-word fragment(s): $($coined -join ', '). Spell it out in full (ADR-AUTO-SPELL:1), or add it to terminology.yml if it is genuine vocabulary (ADR-AUTO-SPELL:7)."
+                    Message  = "Variable '`$$name' has non-word fragment(s): $($coined -join ', '). Spell it out in full (ADR-AUTO-SPELL#1), or add it to terminology.yml if it is genuine vocabulary (ADR-AUTO-SPELL#7)."
                     Extent   = $variable.Extent
                     RuleName = $ruleName
                     Severity = 'Warning'
@@ -167,7 +167,7 @@ function Measure-SpellOutIdentifiers {
         if ($coined.Count -gt 0) {
             [void] $reported.Add($key)
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "Function noun in '$functionName' has non-word fragment(s): $($coined -join ', '). Spell it out in full (ADR-AUTO-SPELL:1), or add it to terminology.yml if it is genuine vocabulary (ADR-AUTO-SPELL:7)."
+                    Message  = "Function noun in '$functionName' has non-word fragment(s): $($coined -join ', '). Spell it out in full (ADR-AUTO-SPELL#1), or add it to terminology.yml if it is genuine vocabulary (ADR-AUTO-SPELL#7)."
                     Extent   = $function.Extent
                     RuleName = $ruleName
                     Severity = 'Warning'

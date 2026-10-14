@@ -2,7 +2,7 @@
 .SYNOPSIS
     Composes a module's protection identity — the durable SHA of everything its test results depend on.
 .DESCRIPTION
-    The composite ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)): a hash-of-hashes fold over (1) the
+    The composite ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): a hash-of-hashes fold over (1) the
     module's own derived globset, (2) the
     derived sets of its declared dependency closure from dependencies.yml (transitive; a group reference
     permits any member, so it expands to all members), (3) the four reserved infra scopes (internal, vendor,

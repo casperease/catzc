@@ -63,8 +63,8 @@ accelerators ([hosting-csharp-types](hosting-csharp-types.md#rule-adr-pwsh-types
 
 The Pester workers of a test run, the isolated runs of `Test-InIsolation`, and the snapshot priming of a test run each start a child pwsh,
 never an engine from the per-engine loop of [execution-engines](../automation/execution-engines.md#rule-adr-auto-engine4). Pester is a
-PowerShell framework, so these starts are pwsh by nature and have no bash or zsh column; behaviour that differs between the engines is
-proven by the black-box tests and the engine-case tables ([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine5)).
+PowerShell framework, so these starts are pwsh by nature and have no column for any other engine; behaviour that differs between the engines
+is proven by the black-box tests and the engine-case tables ([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine5)).
 
 - [Starts that are pwsh by nature](#starts-that-are-pwsh-by-nature)
 
@@ -77,11 +77,12 @@ The other ADRs of the `pwsh/` folder build on it, each realising one `automation
 
 ### One engine of three
 
-pwsh is the engine the modules are written for; bash and zsh reach catzc through `importer.sh` and its `cats` dispatcher, which runs each
-command in pwsh. So the engine every command finally runs under is pwsh, and its version decides what the code may use. 7.4 is the floor
-because the vendor functions use the bundled `Microsoft.PowerShell.PSResourceGet`, first shipped in 7.4, and because one floor on every
-platform keeps one code path ([cross-platform](../automation/cross-platform.md)). The floor is a check at the start of `Invoke-Importer`,
-before any module or type loads, so an older PowerShell fails with one clear message instead of with a parse error deep in a module.
+pwsh is the engine the modules are written for; the POSIX engines reach catzc through `importer.sh` and its `cats` dispatcher, which runs
+each command in pwsh. So the engine every command finally runs under is pwsh, and its version decides what the code may use. 7.4 is the
+floor because the vendor functions use the bundled `Microsoft.PowerShell.PSResourceGet`, first shipped in 7.4, and because one floor on
+every platform keeps one code path ([cross-platform](../automation/cross-platform.md)). The floor is a check at the start of
+`Invoke-Importer`, before any module or type loads, so an older PowerShell fails with one clear message instead of with a parse error deep
+in a module.
 
 A started pwsh comes from `$PSHOME` for the reason the engine model gives: the PowerShell that runs the caller is the one the caller tested
 against, and the first `pwsh` on `PATH` may be an older or a second install.

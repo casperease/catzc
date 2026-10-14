@@ -1,10 +1,11 @@
 <#
 .SYNOPSIS
-    Quality gate: the repository honours every binding contract asset, and every released version folder is unchanged.
+    Quality gate: the repository honours every binding contract asset, every released version folder is unchanged,
+    and contracts/ holds no dot-prefixed folder.
 .DESCRIPTION
     Contracts are binding, proven by tests
     ([ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4)). A quality gate
-    ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) that checks two things.
+    ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) that checks three things.
 
     The binding assets. Each is checked by its kind with Get-ContractCheckResults
     ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)):
@@ -20,6 +21,12 @@
     ([ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)): its files must match the
     .frozen record Publish-ContractRelease wrote when it froze the draft. A missing record, and each file changed,
     added or removed since, is one issue.
+
+    The layout. contracts/ holds no dot-prefixed folder at any depth
+    ([ADR-REPO-CONTRACT#10](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract10)): an asset whose target sits
+    under a dot-prefixed root reaches it through its module's target root
+    ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)). Each outermost dot-prefixed
+    folder is one issue (Get-ContractDotFolderFindings); a dot-prefixed file name, such as the .frozen record, is not.
 
     The current version folder is the draft, 0.0.0, on a devbox and in every build before a release. A release build
     freezes the draft with Publish-ContractRelease and then passes the resolved version with -Version; a named release
@@ -108,6 +115,10 @@ function Test-Contracts {
                 }
             }
         }
+    }
+
+    foreach ($finding in @(Get-ContractDotFolderFindings -RepositoryRoot $RepositoryRoot)) {
+        $issues.Add($finding)
     }
 
     $facts = [ordered]@{

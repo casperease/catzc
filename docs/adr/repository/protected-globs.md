@@ -1,4 +1,4 @@
-# docs/adr/automation/protected-globs.md
+# docs/adr/repository/protected-globs.md
 
 `ADR: Protected globs — session-memory skip of repeated scans over an unchanged globset`
 
@@ -180,6 +180,6 @@ red.
 ## Related
 
 - [durable-sha-globs](../flow/durable-sha-globs.md) — the globsets and durable SHA the protection skip keys on.
-- [test-automation](test-automation.md) — the tier/category system the protected integrity scans run under.
-- [caching](caching.md) — the general caching rules; this map is deliberately narrower (session memory, never persisted).
+- [test-automation](../automation/test-automation.md) — the tier/category system the protected integrity scans run under.
+- [caching](../automation/caching.md) — the general caching rules; this map is deliberately narrower (session memory, never persisted).
 - [reduce-waste](../principles/reduce-waste.md), [poka-yoke](../principles/poka-yoke.md) — the principles the protection skip instantiates.

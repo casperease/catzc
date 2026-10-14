@@ -56,7 +56,7 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
             & $script:entry 'gadget run' 'ADR-TST-WIDGET#4' 'folder'
         )
         $found.Count | Should -Be 2
-        $found[0] | Should -Be "automation/Catzc.Widget/configs/glossary.yml: concept 'widget suite' is realized as tag 'widget', but no test or analyzer cites its defining rule ADR-TST-WIDGET#3 — tag a test with it or declare the concept prose-only (ADR-REPO-VOCAB:6)"
+        $found[0] | Should -Be "automation/Catzc.Widget/configs/glossary.yml: concept 'widget suite' is realized as tag 'widget', but no test or analyzer cites its defining rule ADR-TST-WIDGET#3 — tag a test with it or declare the concept prose-only (ADR-REPO-VOCAB#6)"
         $found[1] | Should -BeLike "*: concept 'gadget run' is realized as folder 'widget', but no test or analyzer cites its defining rule ADR-TST-WIDGET#4*"
     }
 

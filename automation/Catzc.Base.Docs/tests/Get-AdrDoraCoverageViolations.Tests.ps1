@@ -1,4 +1,4 @@
-# Get-AdrDoraCoverageViolations — every rule set outside the exempt domains has exactly one section linking its ADR in its domain's
+# Get-AdrDoraCoverageViolations — every rule set outside the domains its config exempts has exactly one section linking its ADR in its domain's
 # DORA file. A fixture tree in $TestDrive and a fixture registry; neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-AdrDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
@@ -18,7 +18,7 @@ Describe 'Get-AdrDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' 
                         stack = 'AUTO'; concern = @('automation')
                         rulesets = [ordered]@{
                             'gadget-one' = [ordered]@{ external = 'ADR-GA-ONE' }
-                            'gadget-two' = [ordered]@{ external = 'ADR-GA-TWO' }   # no ADR file: the registry gate's finding
+                            'gadget-two' = [ordered]@{ external = 'ADR-GA-TWO' }   # no ADR file: a Test-AdrRegistry finding
                         }
                     }
                     gizmo  = [ordered]@{

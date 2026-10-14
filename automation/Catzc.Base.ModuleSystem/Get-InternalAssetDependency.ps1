@@ -206,7 +206,7 @@ function Get-InternalAssetDependency {
     if ($violations.Count -gt 0) {
         $listing = ($violations | ForEach-Object { "  $($_.File):$($_.Line) $($_.Function) — $($_.Reason)" }) -join "`n"
         throw ("Get-InternalAssetDependency: $($violations.Count) Get-CatzcModuleRoot call site(s) cannot be inventoried — " +
-            "-ChildPath and -Module must be string literals (ADR-AUTO-ASSETDEP:2):`n$listing")
+            "-ChildPath and -Module must be string literals (ADR-AUTO-ASSETDEP#2):`n$listing")
     }
 
     $records.ToArray()

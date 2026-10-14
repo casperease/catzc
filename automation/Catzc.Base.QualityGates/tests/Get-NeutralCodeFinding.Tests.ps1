@@ -37,6 +37,41 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
         $found | Should -HaveCount 0
     }
 
+    It 'passes a real code in the title of a Describe, a Context, and an It, given by position' -Tag 'ADR-AUTO-TEST#3' {
+        $found = @(& $find (@(
+                    'Describe ''Get-Widget per ADR-WIDGET-GADGET'' -Tag ''L0'', ''logic'' {'
+                    '    Context "under ADR-WIDGET-GADGET#1" {'
+                    '        It ''cites ADR-WIDGET-GADGET#2'' -Tag ''widget'' { Get-Widget | Should -Be 1 }'
+                    '        It -Skip ''skips ADR-WIDGET-GADGET#3'' { Get-Widget | Should -Be 1 }'
+                    '    }'
+                    '}'
+                ) -join "`n"))
+        $found | Should -HaveCount 0
+    }
+
+    It 'passes a real code in a title given by -Name, and still flags the body''s fixture data' -Tag 'ADR-AUTO-TEST#3' {
+        $found = @(& $find (@(
+                    'Describe -Tag ''L0'', ''logic'' -Name ''Get-Widget'' {'
+                    '    It -Name ''cites ADR-WIDGET-GADGET#2'' {'
+                    '        Get-Widget -Citation ''ADR-WIDGET-GADGET#2'' | Should -Be 1'
+                    '    }'
+                    '    It -Name:''cites ADR-WIDGET-GADGET#4'' { 1 | Should -Be 1 }'
+                    '}'
+                ) -join "`n"))
+        $found | Should -HaveCount 1
+        $found[0] | Should -BeLike 'src/tests/Get-Widget.Tests.ps1:3:*'
+    }
+
+    It 'flags a real code in the -ForEach data of an It, which is fixture data, not its title' -Tag 'ADR-AUTO-TEST#3' {
+        $found = @(& $find (@(
+                    'Describe ''Get-Widget'' -Tag ''L0'', ''logic'' {'
+                    '    It ''reads <code>'' -ForEach @(@{ code = ''ADR-WIDGET-GADGET'' }) { Get-Widget $code | Should -Be 1 }'
+                    '}'
+                ) -join "`n"))
+        $found | Should -HaveCount 1
+        $found[0] | Should -BeLike 'src/tests/Get-Widget.Tests.ps1:2:*'
+    }
+
     It 'passes a real code in a block whose nearest tier is not L0' -Tag 'ADR-AUTO-TEST#3' {
         $found = @(& $find (@(
                     'Describe ''Get-Widget'' -Tag ''L0'', ''logic'' {'

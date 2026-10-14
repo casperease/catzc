@@ -7,7 +7,8 @@
     ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)) into one markdown page per
     unit. The page has a section per version folder, the draft 0.0.0 first and then the released folders, newest
     first; each section is one table with a row per asset (its owning module, its path under the module, the
-    repository file it constrains — its target; a sample payload has none — its direction, marked when the version's
+    repository-relative file it constrains — its target, under the module's target root; a sample payload has none —
+    its direction, marked when the version's
     contract.yml sets it, and its kind), then a list of the notes, one item per asset that carries one.
 
     The note is the asset's header comment (Get-ContractAssetNote), so what an asset is for is written once, in the

@@ -6,10 +6,10 @@
 
 ### Rule ADR-AUTO-ENGINE:1
 
-An **execution engine** is a shell the repository's own code runs under, and there are exactly three: pwsh (PowerShell 7), bash and zsh.
-They are declared once, in the `ExecutionEngines` model (`Catzc.Base.Engines`); every list of engines in the codebase — config keys per
-shell, the columns of a per-engine fixture table, an engine argument's allowed values — is that model's `Names`, never a restated literal
-list. The set is closed: a fourth engine is a decision for this ADR, not a value added to a list.
+An **execution engine** is a shell the repository's own code runs under, and there are exactly three: pwsh, bash and zsh, where pwsh is
+PowerShell 7. They are declared once, in the `ExecutionEngines` model (`Catzc.Base.Engines`); every list of engines in the codebase — config
+keys per shell, the columns of a per-engine fixture table, an engine argument's allowed values — is that model's `Names`, never a restated
+literal list. The set is closed: a fourth engine is a decision for this ADR, not a value added to a list.
 
 - [Three engines](#three-engines)
 
@@ -25,8 +25,8 @@ prefix. A caller reads the property; it never restates a flag, a quote rule, or 
 ### Rule ADR-AUTO-ENGINE:3
 
 An engine's executable is located the way its model says, by `Resolve-EngineExecutable`: pwsh beside the running PowerShell (`$PSHOME`), so
-a started engine is the caller's own PowerShell and never another one first on `PATH`; bash and zsh each through its `tools.yml` entry and
-the existence check (ADR-AUTO-DEPS#3), never the WSL launcher.
+a started engine is the caller's own PowerShell and never another one first on `PATH`; each POSIX engine (ADR-AUTO-ENGINE#6) through its
+`tools.yml` entry and the existence check (ADR-AUTO-DEPS#3), never the WSL launcher.
 
 - [Locating an engine](#locating-an-engine)
 
@@ -50,12 +50,13 @@ A behaviour that differs between the engines is tested side by side, in a per-en
 
 ### Rule ADR-AUTO-ENGINE:6
 
-Each engine reaches catzc through its importer entry at the repository root. bash and zsh share one, `importer.sh`, a generated, committed
-root file that each of the two shells loads into its session; there is no `importer.zsh`. It defines one dispatcher, `cats`: with no
-arguments it lists the catzc commands; otherwise it runs its first argument as a catzc command in pwsh with the PowerShell entry loaded —
-`CATZC_IMPORTER`, else the repository's `importer.ps1` — passing an argument that starts with `-` as a parameter name and every other
-argument as one PowerShell literal. The model's `CommandPrefix` (`cats` and a space for bash and zsh, none for pwsh) is how a command text
-reaches catzc in that engine, so one test's command text is the same under all three.
+Each engine reaches catzc through its importer entry at the repository root. The **POSIX engines** are the engines whose importer entry is
+`importer.sh`, read from the model's `ImporterEntry` and never listed; they share that one generated, committed root file, which each of
+them loads into its session, and there is no copy per shell. It defines one dispatcher, `cats`: with no arguments it lists the catzc
+commands; otherwise it runs its first argument as a catzc command in pwsh with the PowerShell entry loaded — `CATZC_IMPORTER`, else the
+repository's `importer.ps1` — passing an argument that starts with `-` as a parameter name and every other argument as one PowerShell
+literal. The model's `CommandPrefix` (`cats` and a space for the POSIX engines, none for pwsh) is how a command text reaches catzc in that
+engine, so one test's command text is the same under every engine.
 
 - [The cats dispatcher](#the-cats-dispatcher)
 
@@ -118,10 +119,10 @@ framework, so those starts are pwsh by nature and stay so.
 ### Locating an engine
 
 The engine a test starts should be the engine the caller runs, so pwsh comes from `$PSHOME`, the folder of the running PowerShell, rather
-than from `PATH`, where an older or a second PowerShell may come first. bash and zsh have no such anchor: each is a tool, declared in
+than from `PATH`, where an older or a second PowerShell may come first. The POSIX engines have no such anchor: each is a tool, declared in
 `tools.yml` with sensible defaults per platform and found by the existence check, which excludes the WSL launcher that would run a different
-system's shell. On Windows bash is Git Bash, and zsh is the MSYS2 package installed into Git Bash's tree in user space (`Install-Zsh`), so
-both POSIX shells share one runtime and one code path (ADR-AUTO-XPLAT#8); elsewhere each is the system's own.
+system's shell. On Windows the bash engine is Git Bash's, and zsh is the MSYS2 package installed into Git Bash's tree in user space
+(`Install-Zsh`), so the POSIX engines share one runtime and one code path (ADR-AUTO-XPLAT#8); elsewhere each is the system's own.
 
 ### The black-box contract
 
@@ -130,8 +131,8 @@ A Go or Python test starts the engine as a process. A test that builds that star
 engine only. So the runner hands it the start: the executable, and the arguments from the model with the entry quoted in the engine's own
 rule and `{command}` where the test's command goes. The test fills in its command and runs the process. The same test therefore runs under
 any engine the runner names, with no change to the test, which is what running each black-box test under all three engines needs. The runner
-names the engine through `CATZC_ENGINE` and the file that loads catzc into it through `CATZC_ENGINE_ENTRY`; for bash and zsh it also sets
-`CATZC_IMPORTER`, the PowerShell entry `cats` loads, which is the build's entry in a build run.
+names the engine through `CATZC_ENGINE` and the file that loads catzc into it through `CATZC_ENGINE_ENTRY`; for the POSIX engines it also
+sets `CATZC_IMPORTER`, the PowerShell entry `cats` loads, which is the build's entry in a build run.
 
 ### Fixture tables per engine
 
@@ -151,13 +152,13 @@ Two of bash's checks do not reach zsh, so zsh is verified another way:
 
 ### The cats dispatcher
 
-catzc's commands are PowerShell functions, so a bash or zsh session cannot call them directly. Rather than one shell wrapper per command,
-which would be a second copy of every command's surface, `importer.sh` defines one dispatcher, `cats`, the name the system goes by in prose:
-`cats Get-RepositoryRoot` runs that command in pwsh, with catzc imported and its import output discarded. It quotes every value argument as
-a PowerShell literal, so a value with a space or a quote stays one value, and passes `-Name` arguments through as parameter names. It finds
-the repository from its own path, in the form pwsh reads (`cygpath -m` under Git Bash), and runs under bash and zsh alike, so the two POSIX
-shells share one importer rather than each keeping a copy. Each call starts a fresh pwsh and pays the import, which suits a command or a
-test, not a loop: for many commands in a row, start pwsh.
+catzc's commands are PowerShell functions, so a session in a POSIX engine cannot call them directly. Rather than one shell wrapper per
+command, which would be a second copy of every command's surface, `importer.sh` defines one dispatcher, `cats`, the name the system goes by
+in prose: `cats Get-RepositoryRoot` runs that command in pwsh, with catzc imported and its import output discarded. It quotes every value
+argument as a PowerShell literal, so a value with a space or a quote stays one value, and passes `-Name` arguments through as parameter
+names. It finds the repository from its own path, in the form pwsh reads (`cygpath -m` under Git Bash), and runs under every POSIX engine
+alike, so they share one importer rather than each keeping a copy. Each call starts a fresh pwsh and pays the import, which suits a command
+or a test, not a loop: for many commands in a row, start pwsh.
 
 `importer.sh` is a root-config file, generated from its source in `Catzc.Base.RootConfig` and committed so a fresh clone has it; it is LF,
 as every `*.sh` is, and checked by `Test-ShellScripts` (ADR-AUTO-BASH#6). Bash tests call catzc exactly this way
@@ -174,8 +175,8 @@ engine is for work that needs that one. `auto` is a value, not an engine: the mo
 
 The repository runs its own code under three execution engines, declared once (ADR-AUTO-ENGINE#1), with everything that differs between them
 declared once on the model (ADR-AUTO-ENGINE#2), located the way the model says (ADR-AUTO-ENGINE#3), started by black-box tests from the
-contract their runner sets (ADR-AUTO-ENGINE#4), tested side by side in per-engine fixture tables (ADR-AUTO-ENGINE#5), and reached from bash
-and zsh through `importer.sh` and its `cats` dispatcher (ADR-AUTO-ENGINE#6).
+contract their runner sets (ADR-AUTO-ENGINE#4), tested side by side in per-engine fixture tables (ADR-AUTO-ENGINE#5), and reached from the
+POSIX engines through `importer.sh` and its `cats` dispatcher (ADR-AUTO-ENGINE#6).
 
 ### How this is enforced
 
@@ -192,7 +193,7 @@ and zsh through `importer.sh` and its `cats` dispatcher (ADR-AUTO-ENGINE#6).
 
 - A new place that needs an engine difference reads it from the model; a fix to a quote rule or a start flag is one edit.
 - The black-box tests are engine-neutral: they run under all three engines, unchanged, so a Go or Python test costs three runs.
-- A bash or zsh user gets every catzc command through one dispatcher, at the cost of a pwsh start and an import per call.
+- A user of a POSIX engine gets every catzc command through one dispatcher, at the cost of a pwsh start and an import per call.
 - zsh needs its own install on Windows and its own syntax check in place of ShellCheck; in return its column mostly repeats bash's.
 - The model is a dependency of the modules below `Catzc.Base.Execution` that key settings per shell, so it sits in its own foundation
   module, `Catzc.Base.Engines`, with no dependencies of its own.

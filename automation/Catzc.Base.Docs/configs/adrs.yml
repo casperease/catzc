@@ -157,7 +157,6 @@ domains:
       controlling-module-dependencies: { external: ADR-AUTO-DEPM, terminology: depm }
       environment-variables: { external: ADR-AUTO-ENVVAR, terminology: envvar }
       path-representation: { external: ADR-AUTO-PATH }
-      protected-globs: { external: ADR-REPO-PROTGLOB, code: REPO, terminology: protglob }
       managed-guids: { external: ADR-AUTO-GUIDS, terminology: guids }
       platform-bundle: { external: ADR-AUTO-BUNDLE, concern: [build, release] }
       consumer-overlay: { external: ADR-AUTO-OVERLAY, concern: [build, release] }
@@ -166,7 +165,7 @@ domains:
       spell-out-names: { external: ADR-AUTO-SPELL, concern: [quality-control] }
       dry-run: { external: ADR-AUTO-DRYRUN, terminology: dryrun }
       native-csharp-types: { external: ADR-AUTO-TYPES, concern: [automation, build] }
-      test-artifacts: { external: ADR-AUTO-GO, concern: [quality-control] }
+      go-test-artifacts: { external: ADR-AUTO-GO, concern: [quality-control] }
       python-test-artifacts: { external: ADR-AUTO-PY, concern: [quality-control] }
       bash-test-artifacts: { external: ADR-AUTO-BASH, concern: [quality-control] }
       execution-engines: { external: ADR-AUTO-ENGINE }
@@ -259,8 +258,8 @@ domains:
       per-template configuration tree under `infrastructure/templates/`, the customer catalogue (`customer.yml`), the network IP plan
       (`network.yml`), the deterministic resource-naming standard, and the landing zones. It applies the principles and design domains to
       one vendor, enforced by the `Catzc.Azure*` modules. Beside its own decisions it holds the vendor's recommendations as records: the
-      Well-Architected Framework pillars in `waf/` and the Cloud Adoption Framework landing-zone design areas in `caf/`, one rule per
-      vendor item, each citing Microsoft's page and saying what the repository does about it.
+      Well-Architected Framework pillars in `waf/` and the Cloud Adoption Framework landing-zone design areas in `caf/`, one rule per vendor
+      item, each citing Microsoft's page and saying what the repository does about it.
     depends_on: [research, principles, design, automation]
     stack: CLOUD
     concern: [deploy] # the substrate catzc deploys onto
@@ -300,7 +299,8 @@ domains:
       directory, one formatting standard for every file type, contracts at the repository boundary, in both directions, under `contracts/`,
       READMEs and root configs generated from one source, fictional documentation examples, the separation of design, test, and live
       vocabulary, the controlled vocabulary of defined terms, repo-wide variants, the sub-agent definitions and the rules behind each, and
-      sibling repositories read for ideas, never as a reference implementation.
+      sibling repositories read for ideas, never as a reference implementation, and the session-memory protection that skips a repeated scan
+      over an unchanged globset.
     depends_on: [research, principles, design]
     stack: AUTO
     concern: [automation] # the repository tree the tooling lays out and generates
@@ -319,6 +319,7 @@ domains:
       markdown-links: { external: ADR-REPO-LINK, concern: [quality-control] }
       agent-definitions: { external: ADR-REPO-AGENTS }
       inspiration: { external: ADR-REPO-INSPIRE }
+      protected-globs: { external: ADR-REPO-PROTGLOB, terminology: protglob }
 
   research:
     code: DORA # 4-letter domain code; composes ADR-DORA-<NAME> — a concise, precise capability name (no doraXXX body)

@@ -9,7 +9,7 @@
 //   citation_graph    — AdrCheck, read by Test-AdrRegistry
 //   dora_coverage     — AdrDoraCheck, read by Test-AdrRegistry
 // Each check's mode is one setting, never a branch per check in code
-// ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)); its default, DefaultMode, is Gate,
+// ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)); its default is CheckMode's, Gate,
 // because every repository check is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
 // Constructing an instance validates the file, collecting every violation into one ArgumentException.
 
@@ -22,8 +22,6 @@ namespace Catzc.Base.Docs;
 public sealed class AdrChecksConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
-
-    public const AdrCheckMode DefaultMode = AdrCheckMode.Gate;
 
     private static readonly string[] AllowedKeys = { "engine_neutrality", "citation_graph", "dora_coverage" };
 
@@ -46,17 +44,12 @@ public sealed class AdrChecksConfig
         }
     }
 
-    // A check's mode: report or gate, else DefaultMode when the key is omitted.
-    internal static AdrCheckMode ParseMode(IDictionary raw, string where, List<string> errors)
+    // A check's mode, parsed by the one CheckModes parser; its error is prefixed with the check's key, like every error here.
+    internal static CheckMode ParseMode(IDictionary raw, string where, List<string> errors)
     {
-        if (raw == null || !raw.Contains("mode") || raw["mode"] == null) { return DefaultMode; }
-        string value = raw["mode"].ToString();
-        foreach (AdrCheckMode candidate in Enum.GetValues(typeof(AdrCheckMode)))
-        {
-            if (string.Equals(candidate.ToString(), value, StringComparison.OrdinalIgnoreCase)) { return candidate; }
-        }
-        errors.Add(string.Format("{0}: mode '{1}' is not one of: {2}", where, value, string.Join(", ", Enum.GetNames(typeof(AdrCheckMode))).ToLowerInvariant()));
-        return DefaultMode;
+        CheckMode mode = CheckModes.Parse(raw, out string error);
+        if (error != null) { errors.Add(where + ": " + error); }
+        return mode;
     }
 
     internal static void CheckKeys(IDictionary map, string[] allowed, string where, List<string> errors)

@@ -43,10 +43,10 @@ through a `using` namespace (ADR-PWSH-TYPES#1), never through a copy of its own.
 ### Rule ADR-PWSH-TYPES:5
 
 A loaded assembly cannot be unloaded from the pwsh process (ADR-AUTO-TYPES#7), so the only remedy for stale types is a new pwsh process. The
-loader's devbox warning names that remedy ("Using old cached C# types … restart PowerShell"), its pipeline check reads `$env:TF_BUILD` and
-`$env:GITHUB_ACTIONS` inline because it runs before `Catzc.Base.Repository` loads, and for a person at their own console the importer starts
-the new process itself: `Restart-ImporterSession` starts a `pwsh` in the same window that dot-sources `importer.ps1` with the same switches,
-and `exit` returns to the old session (ADR-AUTO-TYPES#15).
+loader's devbox warning names that remedy ("Using old cached C# types … restart PowerShell"), its pipeline check calls
+`Test-IsRunningInPipeline` like every other caller, and for a person at their own console the importer starts the new process itself:
+`Restart-ImporterSession` starts a `pwsh` in the same window that dot-sources `importer.ps1` with the same switches, and `exit` returns to
+the old session (ADR-AUTO-TYPES#15).
 
 - [Stale types in a pwsh process](#stale-types-in-a-pwsh-process)
 
@@ -138,7 +138,9 @@ call site; the `Catzc.`-namespaced, source-authored literal is what keeps it dis
 .NET cannot unload an assembly from a running process, and pwsh has no second load context for the types: a second assembly with the same
 type names would split their identity, so a `[Catzc.…]` literal would resolve to one copy while an object holds the other. The process that
 loaded the old types keeps them until it ends. The loader says so in the words a person acts on — restart PowerShell — and decides
-warn-or-throw before `Catzc.Base.Repository` exists, so it reads the two CI variables itself rather than calling `Test-IsRunningInPipeline`.
+warn-or-throw in the types pre-pass, before any module loads. It asks `Test-IsRunningInPipeline` there like every other caller, so the
+detection function is one the importer has loaded before the pre-pass runs, and the pipeline-detection variables are read in one place
+([ADR-FLOW-CD-DETECT#1](../flow/pipeline-detection.md#rule-adr-flow-cd-detect1)).
 
 A person who edits a type and imports again gets the new process without asking: `Restart-ImporterSession` starts a `pwsh` beside the
 running one, which dot-sources the importer with the same switches and stays open in the same window. The old session stays underneath,

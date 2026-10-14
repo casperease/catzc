@@ -400,7 +400,7 @@ System.Collections.Specialized.OrderedDictionary
 The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it in kebab case, holding its black-box Go
 tests.
 
-- **Defined by:** [ADR-AUTO-GO#2](automation/go/test-artifacts.md#rule-adr-auto-go2)
+- **Defined by:** [ADR-AUTO-GO#2](automation/go/go-test-artifacts.md#rule-adr-auto-go2)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Languages/configs/glossary.yml`
 

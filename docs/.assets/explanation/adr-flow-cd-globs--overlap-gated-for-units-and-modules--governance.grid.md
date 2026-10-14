@@ -862,7 +862,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][5]); th
   domain of that code; selected by [ADR-REPO-PROTGLOB][4]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
 - [docs/adr/automation/go/index.md][422]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR domain of that
   code; selected by [ADR-REPO-PROTGLOB][4]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/go/test-artifacts.md][423]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR
+- [docs/adr/automation/go/go-test-artifacts.md][423]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR
   domain of that code; selected by [ADR-REPO-PROTGLOB][4]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
 - [docs/adr/automation/idempotent-state-functions.md][424]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the
   ADR domain of that code; selected by [ADR-REPO-PROTGLOB][4]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
@@ -880,7 +880,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][5]); th
   domain of that code; selected by [ADR-REPO-PROTGLOB][4]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
 - [docs/adr/automation/platform-bundle.md][431]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR domain
   of that code; selected by [ADR-REPO-PROTGLOB][4]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/protected-globs.md][4]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR domain of
+- [docs/adr/repository/protected-globs.md][4]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR domain of
   that code; selected by [ADR-REPO-PROTGLOB][4]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
 - [docs/adr/automation/python/index.md][432]: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR domain, the ADR domain of
   that code; selected by [ADR-REPO-PROTGLOB][4]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
@@ -1070,7 +1070,7 @@ Terms the cited ADRs define:
 [1]: ../../adr/automation/test-automation.md
 [2]: ../../adr/flow/durable-sha-globs.md
 [3]: ../../adr/principles/one-living-version.md
-[4]: ../../adr/automation/protected-globs.md
+[4]: ../../adr/repository/protected-globs.md
 [5]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
 [6]: ../../adr/design/tracks.md#rule-adr-dsgn-track6
 [7]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
@@ -1489,7 +1489,7 @@ Terms the cited ADRs define:
 [420]: ../../adr/automation/execution-engines.md
 [421]: ../../adr/automation/fail-fast-with-asserts.md
 [422]: ../../adr/automation/go/index.md
-[423]: ../../adr/automation/go/test-artifacts.md
+[423]: ../../adr/automation/go/go-test-artifacts.md
 [424]: ../../adr/automation/idempotent-state-functions.md
 [425]: ../../adr/automation/internal-asset-dependencies.md
 [426]: ../../adr/automation/log-before-invoke.md

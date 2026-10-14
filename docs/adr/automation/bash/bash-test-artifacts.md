@@ -61,7 +61,7 @@ of the `Test-ShellScripts` quality gate: LF line endings and the executable bit 
 
 ## Context
 
-The engine is verified from outside by tests in other languages ([go test artifacts](../go/test-artifacts.md),
+The engine is verified from outside by tests in other languages ([go test artifacts](../go/go-test-artifacts.md),
 [python test artifacts](../python/python-test-artifacts.md)), which start it as a process under each execution engine
 ([execution-engines](../execution-engines.md)). Those tests prove the engine runs; they do not prove what a Bash user sees. A Bash user
 loads `importer.sh` and types `cats <command>`, and that path — the dispatcher's quoting, its root detection, its exit codes — needs tests

@@ -5,7 +5,7 @@
 Describe 'SourceCheck' -Tag 'L0', 'logic' {
     It 'takes gate mode and no exemptions when nothing is given' -Tag 'ADR-AUTO-DEFAULT#6' {
         $check = [Catzc.Base.QualityGates.SourceCheck]::new('widget_check', $null)
-        $check.mode | Should -Be ([Catzc.Base.QualityGates.CheckMode]::Gate)
+        $check.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)
         $check.IsReport | Should -BeFalse
         $check.exempt.Count | Should -Be 0
         $check.IsExempt('src/widget.ps1') | Should -BeFalse

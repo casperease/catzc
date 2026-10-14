@@ -82,7 +82,7 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
         Mock Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates { }
     }
 
-    Context 'the location decides the top tier (ADR-AUTO-TEST:33)' {
+    Context 'the location decides the top tier (ADR-AUTO-TEST#33)' {
         It 'runs every tier, L3 included, in place by default' {
             Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null
 

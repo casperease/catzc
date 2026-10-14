@@ -3,10 +3,10 @@
 `Catzc.Base.Timeouts`
 
 Owns the time safeguards: how long a call may run before it is stopped, and the means to stop it. One config (`timeouts.yml`) holds every
-limit, keyed by where the run happens (devbox or pipeline) and which shell runs it (bash or pwsh), plus per-executable entries for tools
-whose ordinary runs outlast the default. Every consumer resolves its limit from there, so tuning a blocker is one edit. Nothing waits
-forever: there is no "no limit" value, and a call that outlives its limit is stopped and fails with a message that names the limit and where
-to change it.
+limit, keyed by where the run happens (devbox or pipeline) and which shell runs it (one of the execution engines), plus per-executable
+entries for tools whose ordinary runs outlast the default. Every consumer resolves its limit from there, so tuning a blocker is one edit.
+Nothing waits forever: there is no "no limit" value, and a call that outlives its limit is stopped and fails with a message that names the
+limit and where to change it.
 
 ## Responsibilities
 

@@ -8,7 +8,7 @@ Describe 'GlossaryEntry' -Tag 'L0', 'logic' {
                     'widget suite' = [ordered]@{
                         key         = 'widget_suite'
                         domain      = 'automation'
-                        defined_by  = 'ADR-AUTO-TEST#30'
+                        defined_by  = 'ADR-COG-GADGET#30'
                         short       = 'A named folder of widget files.'
                         realized_by = [ordered]@{ kind = 'prose-only' }
                     }

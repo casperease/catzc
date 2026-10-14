@@ -75,7 +75,7 @@ function New-FakeRepositoryRoot {
         leaves the code root on the loaded modules — for a test that writes into a fixture working root while
         reading the real assets of the loaded code (in either run mode).
     #>
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: the swap lives inside one test''s lifecycle and Remove-FakeRepositoryRoot restores it (the split form of ADR-AUTO-CONSOLE:12); its output belongs to Pester')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: the swap lives inside one test''s lifecycle and Remove-FakeRepositoryRoot restores it (the split form of ADR-AUTO-CONSOLE#12); its output belongs to Pester')]
     [CmdletBinding()]
     [OutputType([hashtable])]
     param(
@@ -130,7 +130,7 @@ function Remove-FakeRepositoryRoot {
         Restore $env:RepositoryRoot and $env:CatzcModulesRoot to what they were before New-FakeRepositoryRoot and
         delete the temp tree.
     #>
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: restores the swap New-FakeRepositoryRoot made inside the same test (the split form of ADR-AUTO-CONSOLE:12); its output belongs to Pester')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: restores the swap New-FakeRepositoryRoot made inside the same test (the split form of ADR-AUTO-CONSOLE#12); its output belongs to Pester')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]

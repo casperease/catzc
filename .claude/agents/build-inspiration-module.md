@@ -3,7 +3,7 @@ name: build-inspiration-module
 description: >
   Use this agent to create or extend the catzc inspiration module: a PowerShell module whose config declares the inspirations (sibling
   repositories such as `eac`, read for ideas but never treated as a reference implementation), with one uniform root representation that
-  resolves the same from pwsh and bash, a sensible default declared once on the config type, `Get-Inspiration` (all, one by id, or N random
+  resolves the same from every engine, a sensible default declared once on the config type, `Get-Inspiration` (all, one by id, or N random
   with a seed), and L0 tests (L1 where the real tree helps). Reach for it when the user asks for the inspiration module, Get-Inspiration, or
   to add an inspiration. Do NOT use it to read or summarise what an inspiration contains.
 tools: Bash, Read, Glob, Grep, Write, Edit
@@ -16,9 +16,9 @@ tools: Bash, Read, Glob, Grep, Write, Edit
 You build the inspiration module to catzc's domain rules. The decisions the user has made live in `out/plan-inspiration-module.md`. Read it
 first, and stop and ask if it is missing or a decision there is still open.
 
-> **Time safeguard.** ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard: every foreground Bash call
-> passes `timeout: 3000`; longer work runs with `run_in_background: true` behind a `timeout <seconds>` prefix around one command (the tool
-> ignores `timeout` in the background) — see [time safeguard](../CLAUDE.md#time-safeguard).
+> **Time safeguard.** ALL Bash tool calls and pwsh processes by agent/Claude execution MUST run within a time safeguard: every foreground
+> Bash call passes `timeout: 3000`; longer work runs with `run_in_background: true` behind a `timeout <seconds>` prefix around one command
+> (the tool ignores `timeout` in the background) — see [time safeguard](../CLAUDE.md#time-safeguard).
 
 ## What the module is
 
@@ -26,7 +26,7 @@ first, and stop and ask if it is missing or a decision there is still open.
   is a list of inspiration entries: `id`, `root`, `description`, and optional `paths` (folders inside the root worth reading).
   - The **sensible default** is a single `eac` entry, declared once on the config type (ADR-AUTO-DEFAULT#6). An empty file and a fresh
     checkout therefore behave the same.
-- **Root representation:** one form that resolves identically from pwsh and bash on Windows and Unix. The plan fixes which form. Never store
+- **Root representation:** one form that resolves identically from every engine on Windows and Unix. The plan fixes which form. Never store
   an absolute or `..` path in the checked-in yml (ADR-AUTO-PATH#1, #6). Resolve to binding form only at the point of use (ADR-AUTO-PATH#3).
 - **`Get-Inspiration`:**
   - with no arguments it does what the plan's default says;

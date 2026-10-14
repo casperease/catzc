@@ -97,7 +97,7 @@ Terms the cited ADRs define:
 [1]: ../../adr/automation/test-automation.md
 [2]: ../../adr/flow/durable-sha-globs.md
 [3]: ../../adr/principles/one-living-version.md
-[4]: ../../adr/automation/protected-globs.md
+[4]: ../../adr/repository/protected-globs.md
 [5]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
 [6]: ../../adr/design/tracks.md#rule-adr-dsgn-track14
 [7]: ../../adr/design/tracks.md#rule-adr-dsgn-track15

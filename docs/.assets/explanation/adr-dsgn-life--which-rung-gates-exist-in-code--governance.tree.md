@@ -361,7 +361,7 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
   `automation` ADR domain, the ADR domain of that code.
 - [docs/adr/automation/go/index.md][147], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR
   domain, the ADR domain of that code.
-- [docs/adr/automation/go/test-artifacts.md][148], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
+- [docs/adr/automation/go/go-test-artifacts.md][148], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
   `automation` ADR domain, the ADR domain of that code.
 - [docs/adr/automation/idempotent-state-functions.md][149], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
   `automation` ADR domain, the ADR domain of that code.
@@ -379,7 +379,7 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
   `automation` ADR domain, the ADR domain of that code.
 - [docs/adr/automation/platform-bundle.md][156], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
   `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/protected-globs.md][157], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
+- [docs/adr/repository/protected-globs.md][157], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
   `automation` ADR domain, the ADR domain of that code.
 - [docs/adr/automation/python/index.md][158], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation`
   ADR domain, the ADR domain of that code.
@@ -1395,7 +1395,7 @@ Terms the cited ADRs define:
 [145]: ../../adr/automation/execution-engines.md
 [146]: ../../adr/automation/fail-fast-with-asserts.md
 [147]: ../../adr/automation/go/index.md
-[148]: ../../adr/automation/go/test-artifacts.md
+[148]: ../../adr/automation/go/go-test-artifacts.md
 [149]: ../../adr/automation/idempotent-state-functions.md
 [150]: ../../adr/automation/internal-asset-dependencies.md
 [151]: ../../adr/automation/log-before-invoke.md
@@ -1404,7 +1404,7 @@ Terms the cited ADRs define:
 [154]: ../../adr/automation/open-closed-architecture.md
 [155]: ../../adr/automation/path-representation.md
 [156]: ../../adr/automation/platform-bundle.md
-[157]: ../../adr/automation/protected-globs.md
+[157]: ../../adr/repository/protected-globs.md
 [158]: ../../adr/automation/python/index.md
 [159]: ../../adr/automation/python/python-test-artifacts.md
 [160]: ../../adr/automation/retry-as-last-resort.md

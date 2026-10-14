@@ -30,11 +30,14 @@ Describe 'New-GitIgnore' -Tag 'L0', 'logic' {
         $text | Should -Match ([regex]::Escape("/.editorconfig`n/cspell.yml"))
     }
 
-    It 'renders patterns verbatim with the note as an aligned trailing comment' {
+    It 'renders patterns verbatim, each note on its own comment line above its pattern (git has no trailing comments)' {
         $text = New-GitIgnore -Inject @{ 'rootconfig-committed-false' = @() }
         $lines = $text -split "`n"
         $lines | Should -Contain 'out/*'
-        @($lines | Where-Object { $_ -match '^!out/\.gitkeep\s+# keep the folder$' }) | Should -HaveCount 1
+        $at = [array]::IndexOf($lines, '!out/.gitkeep')
+        $at | Should -BeGreaterThan 0
+        $lines[$at - 1] | Should -BeExactly '# keep the folder'
+        @($lines | Where-Object { $_ -notmatch '^#' -and $_ -match '#' }) | Should -BeNullOrEmpty
     }
 
     It 'wraps the why into comment lines under the section rule' {

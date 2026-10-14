@@ -314,7 +314,7 @@ umbrella mistakenly declared a `module` fails as a named pair.
 
 - [pipeline-types](pipeline-types.md) — the per-kind trigger contracts that register on the native projection.
 - [tracks](../design/tracks.md) — the root concerns whose subscription surface the globsets are.
-- [protected-globs](../automation/protected-globs.md) — the session-memory protection map the live durable SHA keys.
+- [protected-globs](../repository/protected-globs.md) — the session-memory protection map the live durable SHA keys.
 - [pipeline-detection](pipeline-detection.md) — the execution-context detection the reference-commit resolver builds on.
 - [native-csharp-types](../automation/BCL/native-csharp-types.md) — the host-guaranteed type set the dialect implementation draws on.
 - [everything-as-code](../principles/everything-as-code.md), [poka-yoke](../principles/poka-yoke.md),

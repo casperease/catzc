@@ -21,11 +21,16 @@ Contracts are laid out as `contracts/<unit>/<version>/<module>/<path>`. `<unit>`
 only `catzc`, the bundle, the one unit a consumer pins; `<version>` is that unit's version, which `Resolve-CatzcBuildVersion` resolves
 ([ADR-AUTO-BUNDLE#7](../automation/platform-bundle.md#rule-adr-auto-bundle7)); `<module>` is the owning catzc module, the one that talks to
 the outside party and holds the tests that prove the contract, with its dependencies governed by `dependencies.yml`; and `<path>` is the
-repository-relative path of the real file the asset constrains ([conventional-folders](conventional-folders.md#rule-adr-repo-folders11)).
-Provided and depended-on contracts both version with their unit. There is no repository-wide version: another unit that carries contracts
-gets its own `contracts/<unit>/`, with its own versions.
+path of the real file the asset constrains, relative to the module's **target root**. A module's target root is the repository-relative
+folder that `contracts.yml` declares for it, a configured setting whose default, the repository root, is declared once on the contracts
+config type ([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)); so with `Catzc.Tooling.Github`'s target root
+`.github`, the asset `contracts/catzc/0.0.0/Catzc.Tooling.Github/workflows/release-automation.yml` constrains
+`.github/workflows/release-automation.yml` ([conventional-folders](conventional-folders.md#rule-adr-repo-folders11)). Provided and
+depended-on contracts both version with their unit. There is no repository-wide version: another unit that carries contracts gets its own
+`contracts/<unit>/`, with its own versions.
 
 - [One folder per unit version, one per owning module](#one-folder-per-unit-version-one-per-owning-module)
+- [A target root per module](#a-target-root-per-module)
 
 ### Rule ADR-REPO-CONTRACT:3
 
@@ -61,9 +66,9 @@ freezes the draft with `Publish-ContractRelease`, which writes the folder's `.fr
 ### Rule ADR-REPO-CONTRACT:6
 
 A **contract asset** is one file under `contracts/<unit>/<version>/<module>/`, and its name alone picks its kind. With no suffix it is a
-fragment: the real file at the same path must exist and contain it — a key subset for YAML and JSON, the non-blank lines in order for any
-other text — and an empty fragment requires presence only. `<path>.schema.json` is a schema the real file at `<path>` validates against.
-`<name>.sample.<ext>` is a sample payload the owning module's tests produce or parse.
+fragment: the real file at the same path under its module's target root must exist and contain it — a key subset for YAML and JSON, the
+non-blank lines in order for any other text — and an empty fragment requires presence only. `<path>.schema.json` is a schema the real file
+at `<path>` validates against. `<name>.sample.<ext>` is a sample payload the owning module's tests produce or parse.
 
 - [The name picks the kind](#the-name-picks-the-kind)
 
@@ -78,8 +83,8 @@ provided. A per-version `contract.yml`, at `contracts/<unit>/<version>/contract.
 
 How one asset addresses many files is a configured setting with a sensible default, declared once on the contracts config type
 ([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)). A mode that is not built throws `NotImplemented` when
-configured; a mode is switched on only once it is proven from both pwsh and bash. The scan for matching files runs only when the configured
-mode says what to match — nothing is enumerated speculatively.
+configured; a mode is switched on only once it is proven from every engine. The scan for matching files runs only when the configured mode
+says what to match — nothing is enumerated speculatively.
 
 - [Addressing many files](#addressing-many-files)
 
@@ -91,6 +96,18 @@ per version folder listing every asset's module, target, direction, and kind, an
 whose check compares every byte or key — a presence asset, a text fragment, a JSON fragment or sample payload — carries no note. The writer
 removes only pages it wrote, so a hand-written page in that folder is never touched.
 
+- [How this is enforced](#how-this-is-enforced)
+
+### Rule ADR-REPO-CONTRACT:10
+
+`contracts/` holds no dot-prefixed folder at any depth. A dot prefix marks infrastructure at the repository root
+([ADR-REPO-FOLDERS#4](conventional-folders.md#rule-adr-repo-folders4)), and every folder under `contracts/` is a unit, a version, a module,
+or a folder of an asset's path: content, never infrastructure. An asset whose target sits under a dot-prefixed root, such as `.github/`,
+reaches it through its module's target root (ADR-REPO-CONTRACT#2) and never repeats the dot folder. The rule covers folders, not file names:
+the root's `.gitkeep`, a released folder's `.frozen` record, and an asset that pins a dotfile by its own name keep their names, because a
+target root relocates a folder but never renames a file. `Test-Contracts` reports each dot-prefixed folder.
+
+- [No dot-prefixed folder](#no-dot-prefixed-folder)
 - [How this is enforced](#how-this-is-enforced)
 
 ## Context
@@ -137,21 +154,47 @@ deployable-unit that carries contracts gets its own `contracts/<unit>/` beside `
 
 Inside a version folder, each owning module has its own folder: the module that talks to the outside party — `Catzc.Tooling.Github` for
 GitHub, `Catzc.Azure.DevOps` for Azure DevOps — is the one that holds the tests, and the module dependency graph governs it like any other
-code. Under the module, the path repeats the real file's repository-relative path, so the asset and the file it constrains are found from
-each other without a mapping.
+code. Under the module, the path repeats the real file's path under the module's target root, so the asset and the file it constrains are
+found from each other through one declared folder per module.
 
 ```text
 contracts/
   catzc/                                              # the unit: the bundle
     0.0.0/                                            # the mutable draft: the bundle's next release
-      Catzc.Tooling.Github/
-        .github/workflows/ci-automation.yml           # fragment: the keys GitHub reads
-        .github/workflows/ci-automation.yml.schema.json   # schema: the real file validates against it
-        README.md                                     # fragment: the heading GitHub renders
-      Catzc.Azure.DevOps/
+      Catzc.Tooling.Github/                           # target root .github
+        workflows/ci-automation.yml                   # fragment of .github/workflows/ci-automation.yml: the keys GitHub reads
+        workflows/ci-automation.yml.schema.json       # schema: .github/workflows/ci-automation.yml validates against it
+        README.md                                     # presence of .github/README.md, the page GitHub renders
+      Catzc.Azure.DevOps/                             # target root: the repository root, the default
+        pipelines/ci-automation.yaml                  # fragment of pipelines/ci-automation.yaml: the keys Azure Pipelines reads
         rest/build-queue.sample.json                  # sample payload: the module produces or parses it
     1.0.0/                                            # frozen when the bundle 1.0.0 is released
 ```
+
+### A target root per module
+
+`One declared folder per module, the repository root by default`
+
+Most owning modules constrain files across the repository, so their assets' paths are repository-relative, and the default target root, the
+repository root, needs no declaration. A module whose files all sit under one folder, such as `Catzc.Tooling.Github` under `.github/`,
+declares that folder once in `contracts.yml`, and its assets' paths start below it. The target root is a configured setting resolved like
+any other ([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)), so its default lives on the config type and no
+function restates it. One folder per module keeps the mapping as small as a mapping can be: the module folder and the path still find the
+real file with no per-asset declaration.
+
+### No dot-prefixed folder
+
+`Infrastructure stays at the root`
+
+A leading dot means "infrastructure, not content" ([ADR-REPO-FOLDERS#4](conventional-folders.md#rule-adr-repo-folders4)), and the
+dot-prefixed roots are infrastructure of the repository itself. Repeating `.github/` inside `contracts/` would put a dot-prefixed folder
+below the root, where it marks nothing: the folder holds contract assets, which are content. Tools also treat a dot-prefixed folder as
+hidden, so a listing skips the very assets a reviewer must see. The target root carries the dot instead, once, in `contracts.yml`, where it
+names the real folder.
+
+File names are different. A dotfile's name is the file's identity (`.gitignore` has no other spelling), so an asset that pins it repeats the
+name, and the `.gitkeep` and `.frozen` records are files the mechanism itself defines. A target root can stand in for a folder, never for a
+file name, so the rule stops at folders.
 
 ### Where back-compat is owed
 
@@ -188,10 +231,11 @@ version and trust it does not move underneath them.
 
 `Sensible defaults from the asset's own path`
 
-An asset declares nothing: its kind, its target, and its owning module all come from where it sits and what it is called
-([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md)). The four kinds are the four things a boundary can require:
+An asset declares nothing: its kind, its target, and its owning module all come from where it sits and what it is called, with its module's
+target root as the one declared folder ([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md)). The four kinds are the four
+things a boundary can require:
 
-- **Presence** — an empty fragment: the real file at the same path must exist.
+- **Presence** — an empty fragment: the real file at the same path under the target root must exist.
 - **Fragment** — no suffix: the real file must exist and contain the fragment. YAML and JSON compare by key subset, so the real file may
   carry more keys than the fragment names; any other text compares by its non-blank lines, which must appear in the real file in the same
   order.
@@ -219,8 +263,9 @@ version folder, so it freezes with it.
 By default an asset addresses exactly one real file: the one at its own path (ADR-REPO-CONTRACT#6). Constraining many files with one asset —
 by a manifest glob, by a per-folder file — is a configured mode, resolved like any setting
 ([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)). A mode that is not built throws `NotImplemented` rather
-than half-working, and it is switched on by configuration only after it is proven from both pwsh and bash, the two shells the mechanism runs
-under. The match set is computed only once the configured mode says what to match, so no tree walk runs on speculation.
+than half-working, and it is switched on by configuration only after it is proven from every engine
+([ADR-AUTO-ENGINE](../automation/execution-engines.md)), since the mechanism runs under each of them. The match set is computed only once
+the configured mode says what to match, so no tree walk runs on speculation.
 
 ### Rejected alternatives
 
@@ -245,23 +290,34 @@ under. The match set is computed only once the configured mode says what to matc
    boundary through internal code, which then can never reach [one living version](../principles/one-living-version.md). The compatibility
    belongs at the boundary, as a frozen version folder, not inside.
 
+7. **Repeating the real file's repository-relative path, dot-prefixed folders included** — rejected: it puts a dot-prefixed folder below the
+   root, where the dot marks content as infrastructure and hides the assets from a listing. A target root per module carries the dot once,
+   in configuration.
+
+8. **A target declared per asset** — rejected: it turns every asset into a registration and lets one module's assets scatter across
+   unrelated folders. One target root per module keeps the path the mapping.
+
 ## Decision
 
 `contracts/` holds every binding interface at the repository boundary: provided contracts, the only public API, and depended-on contracts,
 what outside platforms require of our files and calls. It is laid out as `contracts/<unit>/<version>/<module>/<path>`, where the unit is the
 deployable-unit that carries the contracts (today only `catzc`, the bundle), the version is that unit's, the module owns and tests the
-contract, and the path is the real file's. There is no repository-wide version. Each unit's draft `0.0.0` is its only mutable folder, frozen
-only when that unit is released; a released version folder is kept while a consumer pins its provided contracts. An asset's name picks its
-kind and its direction, a per-version `contract.yml` overrides the direction, and many-file addressing is a configured mode. Every contract
-is verified by its owning module's tests, so a break is caught in CI, not in production. Everything outside `contracts/` is internal and
-follows one living version.
+contract, and the path is the real file's, relative to the module's target root: the repository root unless `contracts.yml` declares another
+folder for the module. No folder under `contracts/` is dot-prefixed; a dot-prefixed root is reached through a target root. There is no
+repository-wide version. Each unit's draft `0.0.0` is its only mutable folder, frozen only when that unit is released; a released version
+folder is kept while a consumer pins its provided contracts. An asset's name picks its kind and its direction, a per-version `contract.yml`
+overrides the direction, and many-file addressing is a configured mode. Every contract is verified by its owning module's tests, so a break
+is caught in CI, not in production. Everything outside `contracts/` is internal and follows one living version.
 
 ### How this is enforced
 
 - **`Catzc.Base.Contracts`** owns the mechanism: it enumerates `contracts/<unit>/<version>/**`, derives each asset's kind, direction, owning
-  module, and target from the name and `contract.yml`, and runs the kind's check against the real tree as a quality gate (`Test-Contracts`).
-  One data-driven L1 test file generates a test per binding asset from the same enumeration, so `Test-Automation` covers every contract with
-  no hand-written test.
+  module, and target from the name, `contract.yml`, and the module's target root in `contracts.yml`, and runs the kind's check against the
+  real tree as a quality gate (`Test-Contracts`). One data-driven L1 test file generates a test per binding asset from the same enumeration,
+  so `Test-Automation` covers every contract with no hand-written test.
+
+- **The dot-folder check** in `Test-Contracts` reports each dot-prefixed folder under `contracts/` as one issue, and passes dot-prefixed
+  file names (ADR-REPO-CONTRACT#10).
 
 - **The frozen-folder test** compares each released version folder with the `.frozen` record `Publish-ContractRelease` wrote at release, and
   fails on any file changed, added, or removed (ADR-REPO-CONTRACT#5).
@@ -285,7 +341,9 @@ follows one living version.
 - An incompatible change to a provided contract never breaks a consumer silently — it reaches the outside only as a new version of its unit,
   and the pinned version keeps passing its tests until it is deliberately retired.
 - Each unit that carries contracts versions on its own, so releasing one unit never freezes or re-versions another's contracts.
-- Assets need no registration: the path is the target, the suffix is the kind, and the convention is the direction.
+- Assets need no registration: the path under the module's target root is the target, the suffix is the kind, and the convention is the
+  direction. A module whose files sit under one folder declares that folder once, not per asset.
+- Every folder under `contracts/` is visible content: a dot-prefixed root of the repository appears there only as a module's target root.
 - The internal code stays shim-free: backwards compatibility is a boundary concern, expressed as frozen version folders, not as dual-read
   paths threaded through implementations.
 - The cost is real and bounded: each pinned version's provided contracts are maintained and tested for as long as a consumer pins them. That

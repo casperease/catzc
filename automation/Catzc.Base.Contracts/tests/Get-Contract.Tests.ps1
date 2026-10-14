@@ -1,7 +1,7 @@
 # Get-Contract lists contracts/<unit>/<version>/<module>/<path> and derives every fact from the asset's name and place
-# ([ADR-REPO-CONTRACT](/docs/adr/repository/api-contracts.md)): the kind from the suffix (#6), the direction from the
-# convention and the version's contract.yml (#7), and the addressing mode from the config (#8). Fixtures are a widget
-# repository in TestDrive.
+# ([ADR-REPO-CONTRACT](/docs/adr/repository/api-contracts.md)): the target under the module's target root (#2), the kind
+# from the suffix (#6), the direction from the convention and the version's contract.yml (#7), and the addressing mode
+# from the config (#8). Fixtures are a widget repository in TestDrive.
 Describe 'Get-Contract' -Tag 'L0', 'logic' {
     BeforeAll {
         function Add-Asset {
@@ -29,16 +29,16 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
         }
 
         It 'parses the unit, version, module and path from the folders, in communication form' -Tag 'ADR-REPO-CONTRACT#2', 'ADR-AUTO-PATH#2' {
-            Add-Asset 'contracts/widget/0.0.0/Catzc.Gadget/.widget/flows/build.yml'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Gadget/flows/build.yml'
 
-            $asset = Get-Contract -RepositoryRoot $script:root -Addressing full-path
+            $asset = Get-Contract -RepositoryRoot $script:root -Addressing full-path -TargetRoot @{}
             $asset | Should -BeOfType ([Catzc.Base.Contracts.ContractAsset])
             $asset.Unit | Should -Be 'widget'
             $asset.Version | Should -Be '0.0.0'
             $asset.Module | Should -Be 'Catzc.Gadget'
-            $asset.Path | Should -Be '.widget/flows/build.yml'
-            $asset.AssetPath | Should -Be 'contracts/widget/0.0.0/Catzc.Gadget/.widget/flows/build.yml'
-            $asset.Target | Should -Be '.widget/flows/build.yml'
+            $asset.Path | Should -Be 'flows/build.yml'
+            $asset.AssetPath | Should -Be 'contracts/widget/0.0.0/Catzc.Gadget/flows/build.yml'
+            $asset.Target | Should -Be 'flows/build.yml'
         }
 
         It 'lists every unit and module in ordinal order' -Tag 'ADR-REPO-CONTRACT#2' {
@@ -236,12 +236,53 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
         }
     }
 
+    Context 'the target root' {
+        It 'places each target under its module''s target root, and the others under the repository root' -Tag 'ADR-REPO-CONTRACT#2' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Gadget/flows/build.yml'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Gadget/flows/build.yml.schema.json' '{}'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Gadget/rest/gadget.sample.json' '{}'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Gadget/rest/gadget.schema.json' '{}'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/flows/build.yml'
+
+            $assets = Get-Contract -RepositoryRoot $script:root -Addressing full-path -TargetRoot @{ 'Catzc.Gadget' = '.gadget/ci' }
+            $byPath = @{}
+            $assets | ForEach-Object { $byPath[$_.AssetPath] = $_ }
+            $byPath['contracts/widget/0.0.0/Catzc.Gadget/flows/build.yml'].Target | Should -Be '.gadget/ci/flows/build.yml'
+            $byPath['contracts/widget/0.0.0/Catzc.Gadget/flows/build.yml.schema.json'].Target | Should -Be '.gadget/ci/flows/build.yml'
+            $byPath['contracts/widget/0.0.0/Catzc.Gadget/rest/gadget.schema.json'].Target |
+                Should -Be 'contracts/widget/0.0.0/Catzc.Gadget/rest/gadget.sample.json'
+            $byPath['contracts/widget/0.0.0/Catzc.Gadget/rest/gadget.sample.json'].Target | Should -BeNullOrEmpty
+            $byPath['contracts/widget/0.0.0/Catzc.Widget/flows/build.yml'].Target | Should -Be 'flows/build.yml'
+        }
+
+        It 'keeps an asset whose target, under its root, matches -Path' -Tag 'ADR-REPO-CONTRACT#2' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Gadget/flows/build.yml'
+
+            (Get-Contract -RepositoryRoot $script:root -Addressing full-path -TargetRoot @{ 'Catzc.Gadget' = '.gadget' } -Path '.gadget/flows/*').Path |
+                Should -Be 'flows/build.yml'
+        }
+
+        It 'takes the target roots from the contracts config' -Tag 'ADR-AUTO-DEFAULT#6', 'ADR-REPO-CONTRACT#2' {
+            Mock Get-Config { [Catzc.Base.Contracts.ContractsConfig]::new(@{ target_roots = @{ 'Catzc.Widget' = '.widget' } }) } -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'contracts' }
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/widget.yml'
+
+            (Get-Contract -RepositoryRoot $script:root).Target | Should -Be '.widget/widget.yml'
+        }
+
+        It 'rejects a target root that is not a repository-relative folder' -Tag 'ADR-REPO-CONTRACT#2' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/widget.yml'
+
+            { Get-Contract -RepositoryRoot $script:root -Addressing full-path -TargetRoot @{ 'Catzc.Widget' = '../gadget' } } |
+                Should -Throw "*target root '../gadget' of 'Catzc.Widget'*"
+        }
+    }
+
     Context 'the addressing mode' {
         It 'takes the addressing from the contracts config, whose default is full-path' -Tag 'ADR-AUTO-DEFAULT#6', 'ADR-REPO-CONTRACT#8' {
             Mock Get-Config { [Catzc.Base.Contracts.ContractsConfig]::new(@{}) } -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'contracts' }
             Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/widget.yml'
 
-            (Get-Contract -RepositoryRoot $script:root).Path | Should -Be 'widget.yml'
+            (Get-Contract -RepositoryRoot $script:root -TargetRoot @{}).Path | Should -Be 'widget.yml'
             Should -Invoke Get-Config -ModuleName Catzc.Base.Contracts -Times 1 -Exactly -ParameterFilter { $Config -eq 'contracts' }
         }
 

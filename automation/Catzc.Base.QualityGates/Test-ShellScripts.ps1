@@ -3,7 +3,7 @@
     Quality gate: checks every shell script the repository holds — LF line endings, the executable bit, and ShellCheck or
     zsh's syntax check on the repository's own.
 .DESCRIPTION
-    bash and zsh read a carriage return as part of the command, so a shell script with CRLF line endings does not run
+    The POSIX engines read a carriage return as part of the command, so a shell script with CRLF line endings does not run
     ([ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2): the POSIX engines require LF;
     [ADR-AUTO-BASH#6](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash6): every shell script takes these checks).
     The scope is every tracked *.sh, *.bats and *.zsh file plus the root importer.sh (a committed root-config copy that is

@@ -513,7 +513,7 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 - [docs/adr/automation/go/index.md][202], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR
   domain, the ADR domain of that code; selected by [ADR-REPO-PROTGLOB][4]: an ADR file of the `automation` ADR domain, the ADR domain of
   that code.
-- [docs/adr/automation/go/test-artifacts.md][203], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
+- [docs/adr/automation/go/go-test-artifacts.md][203], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
   `automation` ADR domain, the ADR domain of that code; selected by [ADR-REPO-PROTGLOB][4]: an ADR file of the `automation` ADR domain, the
   ADR domain of that code.
 - [docs/adr/automation/idempotent-state-functions.md][204], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
@@ -540,7 +540,7 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 - [docs/adr/automation/platform-bundle.md][211], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
   `automation` ADR domain, the ADR domain of that code; selected by [ADR-REPO-PROTGLOB][4]: an ADR file of the `automation` ADR domain, the
   ADR domain of that code.
-- [docs/adr/automation/protected-globs.md][4], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation`
+- [docs/adr/repository/protected-globs.md][4], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation`
   ADR domain, the ADR domain of that code; selected by [ADR-REPO-PROTGLOB][4]: an ADR file of the `automation` ADR domain, the ADR domain of
   that code.
 - [docs/adr/automation/python/index.md][212], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation`
@@ -1377,7 +1377,7 @@ Terms the cited ADRs define:
 [1]: ../../adr/automation/test-automation.md
 [2]: ../../adr/flow/durable-sha-globs.md
 [3]: ../../adr/principles/one-living-version.md
-[4]: ../../adr/automation/protected-globs.md
+[4]: ../../adr/repository/protected-globs.md
 [5]: ../../../automation/Catzc.Base.QualityGates/Get-TestTargetSkipReason.ps1
 [6]: ../../../automation/Catzc.Base.QualityGates/Invoke-TestFile.ps1
 [7]: ../../../automation/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
@@ -1576,7 +1576,7 @@ Terms the cited ADRs define:
 [200]: ../../adr/automation/execution-engines.md
 [201]: ../../adr/automation/fail-fast-with-asserts.md
 [202]: ../../adr/automation/go/index.md
-[203]: ../../adr/automation/go/test-artifacts.md
+[203]: ../../adr/automation/go/go-test-artifacts.md
 [204]: ../../adr/automation/idempotent-state-functions.md
 [205]: ../../adr/automation/internal-asset-dependencies.md
 [206]: ../../adr/automation/log-before-invoke.md

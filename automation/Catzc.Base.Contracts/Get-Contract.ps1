@@ -6,7 +6,8 @@
     ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)) and returns one ContractAsset per
     file under a module folder. Nothing is registered: the unit, version, and owning module come from the folders; the
     kind from the file name ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)); the target
-    from the path under the module; and the direction from the convention, which a version's contract.yml overrides
+    from the path under the module, placed under the module's target root (the repository root unless contracts.yml's
+    target_roots names one); and the direction from the convention, which a version's contract.yml overrides
     for a single asset ([ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7)). Every path is in
     communication form ([ADR-AUTO-PATH#2](/docs/adr/automation/path-representation.md#rule-adr-auto-path2)).
 
@@ -28,6 +29,9 @@
     Keeps the assets whose path under the module, or whose target, matches; wildcards allowed. Default: every asset.
 .PARAMETER Addressing
     How an asset addresses many files. Default: contracts.yml's addressing.
+.PARAMETER TargetRoot
+    Each owning module's target root, module name to repository-relative folder; a module it does not name takes the
+    repository root. Default: contracts.yml's target_roots.
 .PARAMETER RepositoryRoot
     The repository root that holds contracts/. Default: the loaded repository root.
 .OUTPUTS
@@ -58,6 +62,9 @@ function Get-Contract {
 
         [string] $Addressing = (Get-Config -Config contracts).addressing,
 
+        [AllowEmptyCollection()]
+        [System.Collections.IDictionary] $TargetRoot = (Get-Config -Config contracts).target_roots,
+
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
 
@@ -81,7 +88,7 @@ function Get-Contract {
         if (@($Unit | Where-Object { $unitName -like $_ }).Count -eq 0) {
             continue
         }
-        foreach ($asset in Get-ContractUnitAsset -Unit $unitName -Folder $unitFolder -Version $Version) {
+        foreach ($asset in Get-ContractUnitAsset -Unit $unitName -Folder $unitFolder -Version $Version -TargetRoot $TargetRoot) {
             $isModule = @($Module | Where-Object { $asset.Module -like $_ }).Count -gt 0
             $isPath = @($Path | Where-Object { $asset.Path -like $_ -or ($null -ne $asset.Target -and $asset.Target -like $_) }).Count -gt 0
             if ($isModule -and $isPath) {

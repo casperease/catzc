@@ -3,7 +3,7 @@
     True when a scan may be skipped: this test already ran green against this globset's current identity.
 .DESCRIPTION
     The query half of the protected-glob skip
-    ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)): a heavy read-only scan is a pure function of
+    ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): a heavy read-only scan is a pure function of
     its globset's durable SHA, so a repeat run against an unchanged set proves nothing. The protection map
     is session memory only — keyed <test>|<globset>, holding the durable SHA of the last green run — and in
     a pipeline it is never consulted: this returns $false unconditionally, so CI always scans full.

@@ -4,7 +4,7 @@
     test folder.
 .DESCRIPTION
     Maps an absolute run-file path to its owning unit for per-module protection
-    ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)): a module
+    ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): a module
     folder name ('Catzc.Base.Globs') or a dot-prefixed infra test unit ('.internal', '.scriptanalyzer'). A Go or
     Python test folder (<root>/tests/<module in kebab case>, Get-LanguageTestFolders) belongs to the catzc module it
     is named for, so its tests protect and invalidate that module.

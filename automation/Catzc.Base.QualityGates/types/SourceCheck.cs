@@ -2,7 +2,8 @@
 // source-conventions.yml's engine_set and neutral_codes), and the single declaration of their sensible defaults
 // ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)):
 //   mode   — gate (every finding fails the run; the default) or report (findings are printed and counted, and never
-//            fail it). A check is in report mode only while its work list is drained (CheckMode).
+//            fail it). A check is in report mode only while its work list is drained (Catzc.Base.Docs.CheckMode,
+//            whose zero value, Gate, is the one declared default, parsed by the one Catzc.Base.Docs.CheckModes parser).
 //   exempt — repository-relative glob (the durable-sha-globs dialect) -> why the files it matches are left out of the
 //            check. Omitted: no file is exempt. Every reason is non-empty: an exception is a declared entry with
 //            its reason, never a list in code
@@ -16,6 +17,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Catzc.Base.Docs;
 using Catzc.Base.Globs;
 
 namespace Catzc.Base.QualityGates;
@@ -23,8 +25,6 @@ namespace Catzc.Base.QualityGates;
 public class SourceCheck
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
-
-    public const CheckMode DefaultMode = CheckMode.Gate;
 
     static readonly string[] OwnKeys = { "mode", "exempt" };
 
@@ -44,7 +44,7 @@ public class SourceCheck
     // extraKeys: the keys a derived check reads itself; any other key is rejected.
     protected SourceCheck(string name, IDictionary raw, IEnumerable<string> extraKeys)
     {
-        mode = DefaultMode;
+        mode = default(CheckMode);
         var exemptions = new Dictionary<string, string>(StringComparer.Ordinal);
         var errors = new List<string>();
         string[] allowed = OwnKeys.Concat(extraKeys ?? Array.Empty<string>()).ToArray();
@@ -60,18 +60,10 @@ public class SourceCheck
                 }
             }
 
-            if (raw.Contains("mode") && raw["mode"] != null)
+            mode = CheckModes.Parse(raw, out string modeError);
+            if (modeError != null)
             {
-                string value = Convert.ToString(raw["mode"], CultureInfo.InvariantCulture);
-                if (!Enum.TryParse(value, true, out CheckMode parsed) || int.TryParse(value, out _))
-                {
-                    errors.Add(string.Format(CultureInfo.InvariantCulture, "mode '{0}' is not one of: {1}", value,
-                        string.Join(", ", Enum.GetNames(typeof(CheckMode))).ToLowerInvariant()));
-                }
-                else
-                {
-                    mode = parsed;
-                }
+                errors.Add(modeError);
             }
 
             if (raw.Contains("exempt") && raw["exempt"] != null)

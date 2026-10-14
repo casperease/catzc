@@ -8,7 +8,7 @@
 
       - a scanned file, or the registry itself, outside the 'repository' globset — the protection identity of the
         scan must cover everything it reads
-        ([ADR-REPO-PROTGLOB#6](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob6));
+        ([ADR-REPO-PROTGLOB#6](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob6));
       - a denied guid (guids.yml `denied:`) in tracked text — never a legitimate identity; construct it at runtime
         (e.g. [guid]::Empty) instead;
       - an unregistered guid in tracked text — mint a readable placeholder with ConvertTo-Guid, or remove it;

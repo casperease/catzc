@@ -40,7 +40,7 @@ Describe 'Measure-SpellOutIdentifiers' -Tag 'L0', 'logic' {
         Test-SpellOut $Code | Should -BeNullOrEmpty
     }
 
-    It 'does not flag an external drive variable (ADR-AUTO-SPELL:4): <Code>' -ForEach @(
+    It 'does not flag an external drive variable (ADR-AUTO-SPELL#4): <Code>' -ForEach @(
         @{ Code = '$env:SomeRcgValue = "x"' }        # $env: is an external contract, not our identifier
     ) {
         Test-SpellOut $Code | Should -BeNullOrEmpty

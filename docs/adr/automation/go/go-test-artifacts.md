@@ -1,4 +1,4 @@
-# docs/adr/automation/go/test-artifacts.md
+# docs/adr/automation/go/go-test-artifacts.md
 
 `ADR: Go test artifacts — black-box tests of the engine, never shipped`
 

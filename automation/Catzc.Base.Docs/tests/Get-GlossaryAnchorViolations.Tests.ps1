@@ -68,7 +68,7 @@ Describe 'Get-GlossaryAnchorViolations' -Tag 'L0', 'logic' {
     It 'reports a defined_by that names no rule' -Tag 'ADR-REPO-VOCAB#1' {
         $found = & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#9')
         $found.Count | Should -Be 1
-        $found[0] | Should -Be "automation/Catzc.Widget/configs/glossary.yml: concept 'widget suite': defined_by 'ADR-TST-WIDGET#9' names no rule in an indexed ADR (ADR-REPO-VOCAB:1)"
+        $found[0] | Should -Be "automation/Catzc.Widget/configs/glossary.yml: concept 'widget suite': defined_by 'ADR-TST-WIDGET#9' names no rule in an indexed ADR (ADR-REPO-VOCAB#1)"
     }
 
     It 'reports a defining rule whose summary does not bold the term' -Tag 'ADR-REPO-VOCAB#1' {

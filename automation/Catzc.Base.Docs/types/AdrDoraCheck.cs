@@ -2,7 +2,7 @@
 // domain has exactly one section linking its ADR in the domain's DORA file (the authoring conventions of the ADR index). Mirrors
 // the YAML mapping (snake_case, [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)); built
 // and validated by AdrChecksConfig.
-//   mode   — report | gate; default AdrChecksConfig.DefaultMode
+//   mode   — report | gate; default CheckMode's default, gate
 //   file   — the DORA file's name inside each domain folder; default DefaultFile
 //   exempt — a map of domain name to the reason it keeps no DORA file
 //            ([ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4)); default none
@@ -20,13 +20,13 @@ public sealed class AdrDoraCheck
 
     private static readonly string[] AllowedKeys = { "mode", "file", "exempt" };
 
-    public AdrCheckMode mode { get; }
+    public CheckMode mode { get; }
     public string file { get; }
     public IReadOnlyDictionary<string, string> exempt { get; }
 
     internal AdrDoraCheck(IDictionary raw, string where, List<string> errors)
     {
-        mode = AdrChecksConfig.DefaultMode;
+        mode = default(CheckMode);
         file = DefaultFile;
         Dictionary<string, string> exemptMap = new Dictionary<string, string>(System.StringComparer.Ordinal);
         exempt = exemptMap;

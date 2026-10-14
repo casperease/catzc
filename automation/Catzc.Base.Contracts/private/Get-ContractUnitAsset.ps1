@@ -13,10 +13,14 @@
     The unit folder's absolute path.
 .PARAMETER Version
     The version folder names to list; wildcards allowed.
+.PARAMETER TargetRoot
+    The target roots, module name to repository-relative folder
+    ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)). A module it does not name
+    takes the repository root.
 .OUTPUTS
     [Catzc.Base.Contracts.ContractAsset[]]
 .EXAMPLE
-    Get-ContractUnitAsset -Unit widget -Folder $unitFolder -Version 0.0.0
+    Get-ContractUnitAsset -Unit widget -Folder $unitFolder -Version 0.0.0 -TargetRoot @{}
 #>
 function Get-ContractUnitAsset {
     [CmdletBinding()]
@@ -30,7 +34,11 @@ function Get-ContractUnitAsset {
 
         [Parameter(Mandatory)]
         [SupportsWildcards()]
-        [string[]] $Version
+        [string[]] $Version,
+
+        [Parameter(Mandatory)]
+        [AllowEmptyCollection()]
+        [System.Collections.IDictionary] $TargetRoot
     )
 
     $stray = @([System.IO.Directory]::GetFiles($Folder) | ForEach-Object { [System.IO.Path]::GetFileName($_) })
@@ -48,7 +56,7 @@ function Get-ContractUnitAsset {
     foreach ($versionFolder in $versionFolders) {
         $versionName = [System.IO.Path]::GetFileName($versionFolder)
         if (@($Version | Where-Object { $versionName -like $_ }).Count -gt 0) {
-            Get-ContractVersionAsset -Unit $Unit -Version $versionName -Folder $versionFolder
+            Get-ContractVersionAsset -Unit $Unit -Version $versionName -Folder $versionFolder -TargetRoot $TargetRoot
         }
     }
 }

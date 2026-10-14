@@ -65,7 +65,7 @@ The diagram is described element by element in
 
 - [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains, with
   [test automation](../../adr/automation/test-automation.md), [one living version](../../adr/principles/one-living-version.md) and
-  [protected globs](../../adr/automation/protected-globs.md).
+  [protected globs](../../adr/repository/protected-globs.md).
 - The other lenses on the same layers: [meta](peers-in-a-layer-never-overlap.md), [architecture](two-declared-layers-one-derived.md),
   [implementation](independence-check-groups-by-layer.md) and [operations](declare-or-add-folder-gate-names-overlaps.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

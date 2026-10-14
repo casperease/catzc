@@ -52,8 +52,8 @@ Which catzc ADR decides each aspect you might take an idea for:
   [ADR-FLOW-CD-RUNNER](../docs/adr/flow/pipeline-runner-pattern.md).
 - **Tooling:** [ADR-AUTO-PKGMGR](../docs/adr/automation/use-proper-package-managers.md) and
   [ADR-AUTO-UVPY](../docs/adr/automation/uv-python-handler.md).
-- **Go itself:** [ADR-AUTO-GO](../docs/adr/automation/go/test-artifacts.md): Go in catzc is test artifacts only. A Go idea from eac beyond
-  that scope opens a question for the user. It is never a precedent.
+- **Go itself:** [ADR-AUTO-GO](../docs/adr/automation/go/go-test-artifacts.md): Go in catzc is test artifacts only. A Go idea from eac
+  beyond that scope opens a question for the user. It is never a precedent.
 - **Copying anything across:** [ADR-PRIN-ONELIVE](../docs/adr/principles/one-living-version.md). Catzc carries one living version of each
   behaviour, so an idea is rebuilt here to catzc's rules, never ported alongside.
 
@@ -94,7 +94,7 @@ registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/
 
 ### Time safeguard
 
-- **ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard** (`ADR-AUTO-FAILFAST#7`,
+- **ALL Bash tool calls and pwsh processes by agent/Claude execution MUST run within a time safeguard** (`ADR-AUTO-FAILFAST#7`,
   [fail-fast-with-asserts](../docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)). Every Bash tool call — the main
   session and every subagent — passes `timeout: 3000` (at most `limits.devbox.bash.foreground` in
   `automation/Catzc.Base.Timeouts/configs/timeouts.yml`, currently 3 s on a devbox). Longer work runs with `run_in_background: true` **and**

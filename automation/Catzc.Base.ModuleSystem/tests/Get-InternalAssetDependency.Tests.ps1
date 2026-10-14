@@ -86,7 +86,7 @@ Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Get-InternalAssetDependency — non-literal call sites (ADR-AUTO-ASSETDEP:2)' -Tag 'L0', 'logic' {
+Describe 'Get-InternalAssetDependency — non-literal call sites (ADR-AUTO-ASSETDEP#2)' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
         $script:fake = New-FakeRepositoryRoot -Modules @{

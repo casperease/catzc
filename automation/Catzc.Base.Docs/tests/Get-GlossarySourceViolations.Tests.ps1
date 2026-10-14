@@ -14,7 +14,7 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
             $body = [ordered]@{
                 key         = $key
                 domain      = 'automation'
-                defined_by  = 'ADR-AUTO-TEST#30'
+                defined_by  = 'ADR-COG-GADGET#30'
                 short       = "The $key."
                 realized_by = [ordered]@{ kind = 'prose-only' }
             }
@@ -95,8 +95,8 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
             })
         $found = & $script:violations @($widget)
         $found | Should -HaveCount 2
-        $found | Should -Contain "automation/Catzc.Widget/configs/glossary.yml: concept 'widget suite': contrast target 'gadget run' is not a defined term (ADR-REPO-VOCAB:3)"
-        $found | Should -Contain "automation/Catzc.Widget/configs/glossary.yml: concept 'widget suite': part_of target 'widget module' is not a defined term (ADR-REPO-VOCAB:3)"
+        $found | Should -Contain "automation/Catzc.Widget/configs/glossary.yml: concept 'widget suite': contrast target 'gadget run' is not a defined term (ADR-REPO-VOCAB#3)"
+        $found | Should -Contain "automation/Catzc.Widget/configs/glossary.yml: concept 'widget suite': part_of target 'widget module' is not a defined term (ADR-REPO-VOCAB#3)"
     }
 
     It 'reports a contrast that is not reciprocal, against the side that has it' -Tag 'ADR-REPO-VOCAB#4' {

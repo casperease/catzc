@@ -8,7 +8,7 @@
 
       go      <goRoot>/tests/<folder>/ holding at least one .go file (the folders New-GoWorkspace renders a go.mod
               for); the Go root is go.yml's, through GoConfig.ResolveRoot: the declared root, else go/ when the
-              repository has one, else .go/ ([ADR-AUTO-GO#2](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go2));
+              repository has one, else .go/ ([ADR-AUTO-GO#2](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2));
       python  <pythonRoot>/tests/<folder>/ holding at least one test_*.py file; the Python root is python.yml's,
               through PythonConfig.ResolveRoot, by the same convention: python/ when present, else .python/
               ([ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2));

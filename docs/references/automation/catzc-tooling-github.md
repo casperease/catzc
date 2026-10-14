@@ -62,12 +62,14 @@ it against a ref whose upstream still tracks un-purged history, which would fals
 ### responsibility:5 — GitHub-facing contracts
 
 Owning the depended-on contracts GitHub holds the repository to: the files GitHub reads, pinned under
-`contracts/catzc/<version>/Catzc.Tooling.Github/` at the path of the real file each one constrains
-([ADR-REPO-CONTRACT#1](../../adr/repository/api-contracts.md#rule-adr-repo-contract1)). Each asset pins only what GitHub reads, never an
-internal value ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): a workflow's `on` and each job's
-`runs-on` and `steps` under `.github/workflows/`, and the presence of `.github/README.md`, the page GitHub renders first. The contract
-mechanism in `Catzc.Base.Contracts` generates one test per asset, so a change GitHub would reject fails CI here first. A platform change is
-a new draft in `contracts/catzc/0.0.0/`, never an old shape kept beside the new one
+`contracts/catzc/<version>/Catzc.Tooling.Github/` at the path of the real file each one constrains under the module's target root, `.github`
+([ADR-REPO-CONTRACT#2](../../adr/repository/api-contracts.md#rule-adr-repo-contract2)), so `workflows/release-automation.yml` pins
+`.github/workflows/release-automation.yml` ([ADR-REPO-CONTRACT#1](../../adr/repository/api-contracts.md#rule-adr-repo-contract1)). Each
+asset pins only what GitHub reads, never an internal value
+([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): a workflow's `on` and each job's `runs-on` and
+`steps` under `.github/workflows/`, and the presence of `.github/README.md`, the page GitHub renders first. The contract mechanism in
+`Catzc.Base.Contracts` generates one test per asset, so a change GitHub would reject fails CI here first. A platform change is a new draft
+in `contracts/catzc/0.0.0/`, never an old shape kept beside the new one
 ([ADR-REPO-CONTRACT#3](../../adr/repository/api-contracts.md#rule-adr-repo-contract3)).
 
 ## What the module does

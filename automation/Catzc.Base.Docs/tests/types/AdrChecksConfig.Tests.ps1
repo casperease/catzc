@@ -5,18 +5,18 @@ Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
         It 'gives every check the gate mode and empty lists when the file states nothing' {
             foreach ($raw in @($null, [ordered]@{})) {
                 $config = [Catzc.Base.Docs.AdrChecksConfig]::new($raw)
-                $config.engine_neutrality.mode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Gate)
+                $config.engine_neutrality.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)
                 $config.engine_neutrality.domains | Should -HaveCount 0
                 $config.engine_neutrality.tokens | Should -HaveCount 0
-                $config.citation_graph.mode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Gate)
-                $config.dora_coverage.mode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Gate)
+                $config.citation_graph.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)
+                $config.dora_coverage.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)
                 $config.dora_coverage.file | Should -Be 'dora-explains.md'
                 $config.dora_coverage.exempt.Count | Should -Be 0
             }
         }
 
-        It 'declares the default mode once, as gate' {
-            [Catzc.Base.Docs.AdrChecksConfig]::DefaultMode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Gate)
+        It 'declares the default mode once, as gate, the zero value of CheckMode' {
+            [System.Activator]::CreateInstance([Catzc.Base.Docs.CheckMode]) | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)
         }
     }
 
@@ -34,9 +34,9 @@ Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
         }
 
         It 'reads each check''s mode, case-insensitively' {
-            $config.engine_neutrality.mode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Report)
-            $config.citation_graph.mode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Report)
-            $config.dora_coverage.mode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Gate)
+            $config.engine_neutrality.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Report)
+            $config.citation_graph.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Report)
+            $config.dora_coverage.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)
         }
 
         It 'reads the domains, the tokens in file order, the file, and the exempt domains with their reasons' {
@@ -73,7 +73,7 @@ Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
             $message | Should -BeLike '*adr-checks.yml is invalid*'
             $message | Should -BeLike "*adr-checks: unknown key 'widget'*"
             $message | Should -BeLike "*engine_neutrality: unknown key 'colour'*"
-            $message | Should -BeLike "*engine_neutrality: mode 'loud' is not one of: report, gate*"
+            $message | Should -BeLike "*engine_neutrality: mode 'loud' is not one of: gate, report*"
             $message | Should -BeLike "*engine_neutrality: domain 'widget' is listed twice*"
             $message | Should -BeLike "*token name 'Bad Name' must be kebab-case*"
             $message | Should -BeLike "*token 'broken' pattern does not compile*"

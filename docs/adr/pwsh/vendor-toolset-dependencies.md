@@ -109,7 +109,7 @@ See [ADR: prefer-az-cli](../azure/prefer-az-cli.md) for how we handle Azure oper
 ### Pruned folders
 
 A gallery package ships content for hosts and features this toolset never uses, and every tracked byte costs on each clone and on every read
-of the whole repository: the protection identities hash every tracked file ([protected-globs](../automation/protected-globs.md)). Two kinds
+of the whole repository: the protection identities hash every tracked file ([protected-globs](../repository/protected-globs.md)). Two kinds
 of folder are pruned:
 
 - **Legacy .NET Framework builds** (`net4x` and older). The toolset targets PowerShell 7.4+ on .NET, so it never loads them.

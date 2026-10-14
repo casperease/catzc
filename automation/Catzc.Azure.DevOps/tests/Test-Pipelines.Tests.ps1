@@ -46,8 +46,8 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         $thrown = { Test-Pipelines -Path 'X:/pipelines' -OutputFolder (Join-Path $TestDrive 'pipelines') } |
             Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-Pipelines failed: 2 issue(s)*'
-        $thrown.Exception.Message | Should -Match 'ADR-PIPE-NAME:1'
-        $thrown.Exception.Message | Should -Match 'ADR-PIPE-NAME:6'
+        $thrown.Exception.Message | Should -Match 'ADR-PIPE-NAME#1'
+        $thrown.Exception.Message | Should -Match 'ADR-PIPE-NAME#6'
     }
 
     It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
@@ -56,14 +56,14 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         $result.Subject | Should -Be 'pipelines'
         $result.IssueCount | Should -Be 1
         $result.Files | Should -Be 2
-        $result.Issues[0] | Should -BeLike '`[ADR-PIPE-NAME:1`] pipelines/widget-thing.yaml: *'
+        $result.Issues[0] | Should -BeLike '`[ADR-PIPE-NAME#1`] pipelines/widget-thing.yaml: *'
     }
 
-    It 'flags a root pipeline whose name lacks a valid type prefix (ADR-PIPE-NAME:1)' {
+    It 'flags a root pipeline whose name lacks a valid type prefix (ADR-PIPE-NAME#1)' {
         $script:records = @((Rec 'widget-thing.yaml' 'Pipeline'))
         $v = @(Get-Issues)
         $v | Should -HaveCount 1
-        $v[0] | Should -Match 'ADR-PIPE-NAME:1'
+        $v[0] | Should -Match 'ADR-PIPE-NAME#1'
     }
 
     It 'accepts every sanctioned type prefix' {
@@ -71,29 +71,29 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         Get-Issues | Should -HaveCount 0
     }
 
-    It 'flags a .yml executable under pipelines/ (ADR-PIPE-NAME:6)' {
+    It 'flags a .yml executable under pipelines/ (ADR-PIPE-NAME#6)' {
         $script:records = @((Rec 'ci-thing.yml' 'Pipeline'))
-        Get-Issues | Should -Match 'ADR-PIPE-NAME:6'
+        Get-Issues | Should -Match 'ADR-PIPE-NAME#6'
     }
 
-    It 'flags a template in an unsanctioned folder (ADR-PIPE-NAME:3)' {
+    It 'flags a template in an unsanctioned folder (ADR-PIPE-NAME#3)' {
         $script:records = @((Rec 'widgets/x.yaml' -Classification 'Template' -TemplateType 'Steps'))
-        Get-Issues | Should -Match 'ADR-PIPE-NAME:3'
+        Get-Issues | Should -Match 'ADR-PIPE-NAME#3'
     }
 
-    It 'flags a template nested deeper than one level (ADR-PIPE-NAME:2)' {
+    It 'flags a template nested deeper than one level (ADR-PIPE-NAME#2)' {
         $script:records = @((Rec 'steps/sub/x.yaml' -Classification 'Template' -TemplateType 'Steps'))
-        Get-Issues | Should -Match 'ADR-PIPE-NAME:2'
+        Get-Issues | Should -Match 'ADR-PIPE-NAME#2'
     }
 
-    It 'flags a structural pipeline hiding inside a template folder (ADR-PIPE-NAME:2)' {
+    It 'flags a structural pipeline hiding inside a template folder (ADR-PIPE-NAME#2)' {
         $script:records = @((Rec 'steps/sneaky.yaml' 'Pipeline'))
-        Get-Issues | Should -Match 'ADR-PIPE-NAME:2'
+        Get-Issues | Should -Match 'ADR-PIPE-NAME#2'
     }
 
-    It 'flags a fragment whose kind does not match its folder (ADR-PIPE-NAME:3)' {
+    It 'flags a fragment whose kind does not match its folder (ADR-PIPE-NAME#3)' {
         $script:records = @((Rec 'steps/x.yaml' -Classification 'Template' -TemplateType 'Jobs'))
-        Get-Issues | Should -Match 'ADR-PIPE-NAME:3'
+        Get-Issues | Should -Match 'ADR-PIPE-NAME#3'
     }
 
     It 'does not subtype-check the extends/ folder (whole-pipeline templates)' {
@@ -101,10 +101,10 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         Get-Issues | Should -HaveCount 0
     }
 
-    It 'flags a relative template reference (ADR-PIPE-NAME:4)' {
+    It 'flags a relative template reference (ADR-PIPE-NAME#4)' {
         $script:records = @((Rec 'ci-x.yaml' 'Pipeline'))
         $script:refs = @('steps/local.yaml')
-        Get-Issues | Should -Match 'ADR-PIPE-NAME:4'
+        Get-Issues | Should -Match 'ADR-PIPE-NAME#4'
     }
 
     It 'accepts an absolute template reference' {

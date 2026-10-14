@@ -18,7 +18,8 @@ bash.exe.stackdump
 # All generated artifacts land in out/ (see docs/adr/repository/dedicated-output-directory.md). The folder itself is
 # kept so a fresh checkout has the anchor; its contents never enter git.
 out/*
-!out/.gitkeep  # keep the folder, ignore its contents
+# keep the folder, ignore its contents
+!out/.gitkeep
 
 # ── Rendered PDFs ───────────────────────────────────────────────────────────────────────────────────────────────────
 # A PDF is rendered from a source, so it is output (docs/adr/repository/dedicated-output-directory.md, rule 11):
@@ -30,8 +31,10 @@ out/*
 # committed. Vendored third-party modules ship their own authored manifests, and the authored analyzer config under
 # .internal/assets is a config file that merely shares the extension, so both opt back in past the glob.
 automation/**/*.psd1
-!automation/.vendor/**/*.psd1                               # vendored modules ship their own manifests
-!automation/.internal/assets/PSScriptAnalyzerSettings.psd1  # authored analyzer source
+# vendored modules ship their own manifests
+!automation/.vendor/**/*.psd1
+# authored analyzer source
+!automation/.internal/assets/PSScriptAnalyzerSettings.psd1
 
 # ── Managed root-config copies ──────────────────────────────────────────────────────────────────────────────────────
 # Repository-root config files fully managed by Catzc.Base.RootConfig — each reproduced on import from its one in-repo
@@ -67,6 +70,8 @@ automation/**/*.psd1
 !.github/README.md
 !automation/.vendor/**/README.md
 !automation/Catzc.Azure.Templates/tests/assets/README.md
+# a contract asset named README.md pins its target; contracts/README.md stays generated
+!contracts/*/**/README.md
 
 # ── Compiled C# types — transient temp only ─────────────────────────────────────────────────────────────────────────
 # The combined compiled assembly (automation/.compiled/Catzc.Types.<hash>.dll) is COMMITTED — a vendored, hash-keyed

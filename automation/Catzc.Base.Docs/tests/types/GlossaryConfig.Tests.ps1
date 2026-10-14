@@ -13,7 +13,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
             [ordered]@{
                 key         = 'widget_suite'
                 domain      = 'automation'
-                defined_by  = 'ADR-AUTO-TEST#30'
+                defined_by  = 'ADR-COG-GADGET#30'
                 short       = 'A named folder of widget files.'
                 realized_by = [ordered]@{ kind = 'folder'; pattern = 'automation/*/tests/suites/<name>/' }
             }

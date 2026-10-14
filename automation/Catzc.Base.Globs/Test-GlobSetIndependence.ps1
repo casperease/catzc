@@ -13,7 +13,7 @@
     ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)).
 
     Evaluates the declared registry (Get-GlobSet) AND the derived module sets (Get-ModuleGlobSet,
-    [ADR-REPO-PROTGLOB#7](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob7)) against the tracked-file
+    [ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)) against the tracked-file
     universe, collects one issue per violating pair ('<layer>: <A> <-> <B> share N file(s), e.g. ...'), and ends
     with Write-QualityGateReport ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
     the report lands in out/test-globset-independence/, and the gate throws once listing every pair (or returns
@@ -76,7 +76,7 @@ function Test-GlobSetIndependence {
                     }
                 }
                 $sample = @($shared | Select-Object -First 5) -join ', '
-                $issues.Add("$($layer.Name): $a <-> $b share $($shared.Count) file(s), e.g. $sample (ADR-FLOW-CD-GLOBS:10)")
+                $issues.Add("$($layer.Name): $a <-> $b share $($shared.Count) file(s), e.g. $sample (ADR-FLOW-CD-GLOBS#10)")
             }
         }
     }

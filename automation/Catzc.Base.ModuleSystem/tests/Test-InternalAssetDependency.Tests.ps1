@@ -19,7 +19,7 @@ Describe 'Test-InternalAssetDependency' -Tag 'L0', 'logic' {
             [pscustomobject]@{ File = 'automation/Widget/Get-Widget.ps1'; Line = 7; Function = 'Get-Widget'; Reason = '-ChildPath is not a string literal' }
         }
         Mock Get-UncoveredInternalAssetDependency -ModuleName Catzc.Base.ModuleSystem {
-            [pscustomobject]@{ Module = 'Gadget'; Function = 'Get-Gadget'; ChildPath = @('assets/a.txt', 'assets/b.txt'); Reason = 'no test cites ADR-AUTO-ASSETDEP#3' }
+            [pscustomobject]@{ Module = 'Gadget'; Function = 'Get-Gadget'; ChildPath = @('assets/a.txt', 'assets/b.txt'); Reason = 'no test cites ADR-WIDGET-GADGET#3' }
         }
         $thrown = { Test-InternalAssetDependency -OutputFolder $out } | Should -Throw -PassThru
         $message = $thrown.Exception.Message

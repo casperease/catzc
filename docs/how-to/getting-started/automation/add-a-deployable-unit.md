@@ -80,5 +80,5 @@ doubt, and needs the pipeline checked out with `fetchDepth: 0` so the base commi
 
 Repeated local quality-gate runs skip the heavy repository scans (spelling, markdownlint) while their globset's durable SHA is unchanged
 since the last green run in the session — you will see `Scan '<test>' skipped: globset '<name>' … unchanged`. That is the protected-glob
-skip ([protected-globs](../../../adr/automation/protected-globs.md)): session memory only, never active in CI, cleared by reloading the
+skip ([protected-globs](../../../adr/repository/protected-globs.md)): session memory only, never active in CI, cleared by reloading the
 importer or with `Clear-GlobSetProtection` when you want a full local rescan.

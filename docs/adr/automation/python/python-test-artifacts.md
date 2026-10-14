@@ -82,7 +82,7 @@ glossary checks read PowerShell and markdown, so Python comments are outside the
 
 ## Context
 
-The engine is verified as a process, from outside, by tests in a second language ([go test artifacts](../go/test-artifacts.md)). Python is
+The engine is verified as a process, from outside, by tests in a second language ([go test artifacts](../go/go-test-artifacts.md)). Python is
 the second such language: it is what most of the people who read this repository write first, pytest needs no ceremony, and uv — already the
 repository's one Python handler ([uv-python-handler](../uv-python-handler.md)) — provisions both the interpreter and the test dependencies
 user-space on every platform.

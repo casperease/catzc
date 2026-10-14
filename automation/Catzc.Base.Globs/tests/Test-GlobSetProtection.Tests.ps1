@@ -1,4 +1,4 @@
-# The protected-glob skip ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)): session-memory skip of a
+# The protected-glob skip ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): session-memory skip of a
 # repeated green scan over an unchanged
 # globset; hash-before-scan via the pending-promote handshake; completely ignored in pipelines.
 Describe 'Test-GlobSetProtection / Protect-GlobSet' -Tag 'L0', 'logic' {
@@ -95,7 +95,7 @@ Describe 'Test-GlobSetProtection / Protect-GlobSet' -Tag 'L0', 'logic' {
 
         It 'promotes the queried (pre-run) identity, not a later -Hash' {
             Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('c' * 64) | Out-Null
-            # pending wins ([ADR-REPO-PROTGLOB#4](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob4))
+            # pending wins ([ADR-REPO-PROTGLOB#4](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob4))
             Protect-GlobSet -Test 'suite' -Name 'Some.Module' -Hash ('d' * 64)
             Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('c' * 64) | Should -BeTrue
         }

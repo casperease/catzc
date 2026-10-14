@@ -103,7 +103,7 @@ automation never calls it to generate identity at runtime, because a runtime-min
 quality gate, run by the managed-guid integrity test, reports every found guid that is not registered and every registry entry not found —
 with the registry file itself excluded from the scan so an entry cannot vouch for its own liveness. The scan reads every tracked text file
 under every named root of the repository plus its own config, so it protects against the whole-repository `repository` globset, which covers
-both ([protected-globs](protected-globs.md#rule-adr-repo-protglob6)): repeat local runs skip until a tracked file anywhere in the repository
+both ([protected-globs](../repository/protected-globs.md#rule-adr-repo-protglob6)): repeat local runs skip until a tracked file anywhere in the repository
 changes, and CI always scans. The same gate reports a scanned file, or the registry, outside `repository`.
 
 ### Division of ownership

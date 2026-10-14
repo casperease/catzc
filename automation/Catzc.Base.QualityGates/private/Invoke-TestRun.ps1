@@ -189,7 +189,7 @@ function Invoke-TestRun {
         $serialFiles = @($phases.Serial)
 
         # Per-module protection
-        # ([ADR-REPO-PROTGLOB#9](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob9)): units whose
+        # ([ADR-REPO-PROTGLOB#9](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob9)): units whose
         # composite identity is unchanged since their last
         # green run this session are dropped from the work-list here in the orchestrator (workers never see
         # the map; in a pipeline the selection is a pass-through). The key carries the entry point and the run

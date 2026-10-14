@@ -5,7 +5,7 @@
 The globset primitive: the single source of truth (`globs.yml`) mapping every deployable unit onto its files under version control, the
 native path-filter projection that pipelines and workflows trigger on, the git-reflected "which areas of control did this change touch"
 report, and the session-memory protection that skips a repeated local scan over an unchanged set. The governing decisions are
-[durable-sha-globs](../../adr/flow/durable-sha-globs.md) and [protected-globs](../../adr/automation/protected-globs.md); the module owns the
+[durable-sha-globs](../../adr/flow/durable-sha-globs.md) and [protected-globs](../../adr/repository/protected-globs.md); the module owns the
 glob dialect, the durable-SHA identity, the vendor projection, and the git-reflection query — pipelines carry generated registrations only,
 never hand-authored source-path filters, and nothing is committed per set.
 

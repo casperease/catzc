@@ -75,6 +75,24 @@ Describe 'Exit-TestRunLocation' -Tag 'L1', 'logic' {
         Should -Invoke Remove-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Path -eq 'C:\tmp\catzc-run-widget' }
     }
 
+    It 'hands the snapshot''s result caches home, merged with the working folder''s, before removing it' {
+        $snapshot = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
+        $workingOut = Join-Path $TestDrive ('out-' + [guid]::NewGuid().ToString('N'))
+        [System.IO.Directory]::CreateDirectory((Join-Path $snapshot 'out/cache')) | Out-Null
+        [System.IO.Directory]::CreateDirectory((Join-Path $workingOut 'cache')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $snapshot 'out/cache/format-code.json'), (ConvertTo-Json -InputObject @{ 'widget/a.ps1' = 'SNAP:s' }))
+        [System.IO.File]::WriteAllText((Join-Path $workingOut 'cache/format-code.json'), (ConvertTo-Json -InputObject @{ 'gadget/b.ps1' = 'HOME:s' }))
+        Mock Get-OutputRoot { $workingOut } -ModuleName Catzc.Base.QualityGates
+        $location = [pscustomobject]@{ Mode = 'snapshot'; Mutex = $null; LockPath = $null; Snapshot = [pscustomobject]@{ Path = $snapshot }; KeepSandbox = $false; SystemTestLock = $null }
+
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $location } { param($L) Exit-TestRunLocation -Location $L }
+
+        $saved = [System.IO.File]::ReadAllText((Join-Path $workingOut 'cache/format-code.json')) | ConvertFrom-Json -AsHashtable
+        $saved['widget/a.ps1'] | Should -Be 'SNAP:s'
+        $saved['gadget/b.ps1'] | Should -Be 'HOME:s'
+        Should -Invoke Remove-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
+    }
+
     It 'keeps a snapshot the location was claimed with -KeepSandbox for, and names it' {
         $location = [pscustomobject]@{ Mode = 'snapshot'; Mutex = $null; LockPath = $null; Snapshot = [pscustomobject]@{ Path = 'C:\tmp\catzc-run-widget' }; KeepSandbox = $true; SystemTestLock = $null }
         InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $location } { param($L) Exit-TestRunLocation -Location $L }

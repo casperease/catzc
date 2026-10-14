@@ -7,7 +7,7 @@ Describe 'LinksConfig' -Tag 'L0', 'logic' {
         $config.wrap | Should -Be ([Catzc.Base.QualityGates.LinkWrap]::Break)
         $config.default_line_limit | Should -Be 140
         $config.line_limit.Count | Should -Be 0
-        $config.string_citations.mode | Should -Be ([Catzc.Base.QualityGates.CheckMode]::Gate)
+        $config.string_citations.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)
         $config.string_citations.exempt.Count | Should -Be 0
     }
 

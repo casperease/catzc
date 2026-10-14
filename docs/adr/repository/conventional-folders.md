@@ -24,8 +24,9 @@ depends on. Know which kind a folder is before renaming it or adding to it.
 ### Rule ADR-REPO-FOLDERS:3
 
 The root set is closed. Adding a top-level directory is a deliberate architectural decision — an amendment to this ADR — not a casual act.
-`go/` and `python/`, the Go and Python roots of the repository's black-box tests ([test-artifacts](../automation/go/test-artifacts.md),
-[python-test-artifacts](../automation/python/python-test-artifacts.md)), are such amendments.
+`go/` and `python/`, the Go and Python roots of the repository's black-box tests
+([go-test-artifacts](../automation/go/go-test-artifacts.md), [python-test-artifacts](../automation/python/python-test-artifacts.md)), are
+such amendments.
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -95,12 +96,14 @@ just cannot expect tooling to interact with it.
 
 Contracts live under the root `contracts/` folder, laid out as `contracts/<unit>/<version>/<module>/<path>`: `<unit>` is the deployable-unit
 that carries the contracts (today only `catzc`, the bundle), `<version>` is that unit's version (`MAJOR.MINOR.PATCH`), `<module>` is the
-owning catzc module, and `<path>` is the repository-relative path of the real file a contract asset constrains. There is no repository-wide
-version folder. Each unit's `0.0.0` is its one mutable draft, frozen only when that unit is released; every other version folder is frozen,
-a self-contained snapshot of that unit's contracts at that version — kept for a consumer that pins it, deliberately and equally live (see
-[one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive7)), not legacy. The root carries a checked-in `.gitkeep`, so
-it stays tracked before any contract exists. What the contracts _are_ — the binding interfaces at the repository boundary, in both
-directions, and their testing discipline — is the [api-contracts](api-contracts.md) ADR (code `ADR-REPO-CONTRACT`).
+owning catzc module, and `<path>` is the path of the real file a contract asset constrains, relative to the owning module's target root —
+the repository root unless `contracts.yml` declares another folder ([ADR-REPO-CONTRACT#2](api-contracts.md#rule-adr-repo-contract2)) — and
+no folder under `contracts/` is dot-prefixed ([ADR-REPO-CONTRACT#10](api-contracts.md#rule-adr-repo-contract10)). There is no
+repository-wide version folder. Each unit's `0.0.0` is its one mutable draft, frozen only when that unit is released; every other version
+folder is frozen, a self-contained snapshot of that unit's contracts at that version — kept for a consumer that pins it, deliberately and
+equally live (see [one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive7)), not legacy. The root carries a
+checked-in `.gitkeep`, so it stays tracked before any contract exists. What the contracts _are_ — the binding interfaces at the repository
+boundary, in both directions, and their testing discipline — is the [api-contracts](api-contracts.md) ADR (code `ADR-REPO-CONTRACT`).
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -230,7 +233,7 @@ a reader infers it (_semantic_).
 | `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                                                                                     | Bicep build/deploy tooling, `Get-BicepTemplates`                    |
 | `pipelines/`      | contract | Azure DevOps YAML pipelines, per-kind templates, and the runner                                                                                                        | Azure DevOps runner, `Invoke-AdoScript.ps1`                         |
 | `contracts/`      | contract | Binding contracts at the repository boundary, both directions — `<unit>/<version>/<module>/<path>`; see [api-contracts](api-contracts.md)                              | The owning modules' contract tests; outside consumers and platforms |
-| `go/`             | contract | The Go root: black-box Go tests, `tests/<module>/`; see [test-artifacts](../automation/go/test-artifacts.md)                                                           | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
+| `go/`             | contract | The Go root: black-box Go tests, `tests/<module>/`; see [go-test-artifacts](../automation/go/go-test-artifacts.md)                                                     | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
 | `python/`         | contract | The Python root: black-box Python tests, `tests/<module>/`, and the generated test project; see [python-test-artifacts](../automation/python/python-test-artifacts.md) | `PythonConfig`, `New-PythonProject`, `Invoke-PythonTest`            |
 | `out/`            | contract | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)                                                                        | Output functions, CI artifacts, cleanup scripts                     |
 | `.github/`        | contract | GitHub Actions — `workflows/`, actions, templates                                                                                                                      | GitHub Actions runner                                               |
@@ -279,10 +282,10 @@ contracts, not legacy: this is the one place the repo deliberately carries backw
 carries a checked-in `.gitkeep`, so it stays tracked before any contract exists.
 
 **`go/`** is the Go root: the repository's Go code, which is black-box tests of the engine and never ships
-([test-artifacts](../automation/go/test-artifacts.md)). It holds `tests/<module>/`, one Go test module per catzc module, named for that
-module in kebab case; `go.work` sits at the repository root, beside it. Every file Go needs besides the `*_test.go` files is generated and
-gitignored. A repository with no `go/` folder keeps the same layout under the dot-prefixed `.go/`, and `go.yml`'s `root` places the Go root
-elsewhere when declared; the two names are the sensible defaults of that one setting
+([go-test-artifacts](../automation/go/go-test-artifacts.md)). It holds `tests/<module>/`, one Go test module per catzc module, named for
+that module in kebab case; `go.work` sits at the repository root, beside it. Every file Go needs besides the `*_test.go` files is generated
+and gitignored. A repository with no `go/` folder keeps the same layout under the dot-prefixed `.go/`, and `go.yml`'s `root` places the Go
+root elsewhere when declared; the two names are the sensible defaults of that one setting
 ([sensible-defaults](../automation/sensible-defaults.md)), and the code that reads them is `GoConfig.ResolveRoot`.
 
 **`python/`** is the Python root: the repository's Python tests, which are black-box tests of the engine and never ship

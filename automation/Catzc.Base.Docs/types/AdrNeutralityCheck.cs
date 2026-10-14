@@ -2,7 +2,7 @@
 // summaries of the listed adrs.yml domains carry no engine-specific syntax
 // ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)). Mirrors the YAML mapping (snake_case,
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)); built and validated by AdrChecksConfig.
-//   mode    — report | gate; default AdrChecksConfig.DefaultMode
+//   mode    — report | gate; default CheckMode's default, gate
 //   domains — the adrs.yml domains whose rule summaries are checked; default none
 //   tokens  — a map of token name (kebab-case) to a case-sensitive .NET regular expression; default none
 // Whether each domain is declared in adrs.yml is the check's own finding, not a load-time rule: this type reads no other config.
@@ -21,13 +21,13 @@ public sealed class AdrNeutralityCheck
     private static readonly string[] AllowedKeys = { "mode", "domains", "tokens" };
     private static readonly Regex NameRe = new Regex("^[a-z0-9]+(-[a-z0-9]+)*$", RegexOptions.Compiled);
 
-    public AdrCheckMode mode { get; }
+    public CheckMode mode { get; }
     public IReadOnlyList<string> domains { get; }
     public IReadOnlyList<AdrNeutralityToken> tokens { get; }
 
     internal AdrNeutralityCheck(IDictionary raw, string where, List<string> errors)
     {
-        mode = AdrChecksConfig.DefaultMode;
+        mode = default(CheckMode);
         List<string> domainList = new List<string>();
         List<AdrNeutralityToken> tokenList = new List<AdrNeutralityToken>();
         domains = domainList;

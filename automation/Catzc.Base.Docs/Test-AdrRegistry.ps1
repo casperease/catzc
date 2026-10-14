@@ -113,7 +113,7 @@ function Test-AdrRegistry {
     foreach ($check in $configured) {
         $facts["$($check.Fact)Mode"] = $check.Mode.ToString().ToLowerInvariant()
         $facts["$($check.Fact)Findings"] = $check.Findings.Count
-        if ($check.Mode -eq [Catzc.Base.Docs.AdrCheckMode]::Gate) {
+        if ($check.Mode -eq [Catzc.Base.Docs.CheckMode]::Gate) {
             $issues.AddRange($check.Findings)
             continue
         }

@@ -25,7 +25,8 @@ themselves: each asset sits in the folder of the module that talks to the outsid
 The quality gate that proves the repository honours its contracts. It checks every asset, in both directions, of each unit's current version
 folder — the draft `0.0.0` on a devbox, the released version in a release build — and the provided assets of every older released folder
 still in the tree, which is the pin record. It also compares every released folder with its `.frozen` record, so a file changed, added, or
-removed since the release is an issue. Every finding is one issue, reported through the shared quality-gate report.
+removed since the release is an issue, and it reports every dot-prefixed folder under `contracts/`. Every finding is one issue, reported
+through the shared quality-gate report.
 
 ### responsibility:2 — Per-asset checking
 
@@ -38,9 +39,10 @@ verdict.
 ### responsibility:3 — Asset listing
 
 Enumerating `contracts/<unit>/<version>/<module>/<path>` and deriving every fact about an asset from its name alone: the unit, version, and
-owning module from the folders, the kind from the file name, the target from the path under the module, and the direction from the
-convention, which a version's `contract.yml` overrides for one asset. Nothing is registered. How one asset addresses many files is a
-configured setting with a sensible default; only the full-path mode is built, and selecting a declared mode that is not built throws.
+owning module from the folders, the kind from the file name, the target from the path under the module placed under the module's target
+root, and the direction from the convention, which a version's `contract.yml` overrides for one asset. Nothing is registered per asset: a
+module's target root is one configured setting, the repository root by default. How one asset addresses many files is a configured setting
+with a sensible default; only the full-path mode is built, and selecting a declared mode that is not built throws.
 
 ### responsibility:4 — Release freezing
 

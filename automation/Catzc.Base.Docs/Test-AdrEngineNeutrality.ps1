@@ -72,7 +72,7 @@ function Test-AdrEngineNeutrality {
     }
 
     # Report mode still writes and prints the report; only the throw is withheld.
-    $reportOnly = $settings.mode -eq [Catzc.Base.Docs.AdrCheckMode]::Report
+    $reportOnly = $settings.mode -eq [Catzc.Base.Docs.CheckMode]::Report
     $result = Write-QualityGateReport -Subject 'adr-engine-neutrality' -Title 'Test-AdrEngineNeutrality' -Issues $issues `
         -Facts ([ordered]@{
             Mode     = $settings.mode.ToString().ToLowerInvariant()

@@ -396,23 +396,6 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   bugs and hand-built Join-Path variants.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Protected globs
-
-`Protected globs — session-memory skip of repeated scans over an unchanged globset`
-
-[ADR-REPO-PROTGLOB](protected-globs.md)
-
-> Session-memory skipping of repeated scans over unchanged inputs cuts inner-loop feedback time without compromising CI proof. Fail-open
-> architecture ensures every pipeline run proves the full set, maintaining fast-feedback and reliability together.
-
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — CI never skips, always scans full, so protection
-  never hides a violation from the merge gate.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — heavy read-only scans are skipped on an unchanged globset
-  identity, providing rapid feedback on unchanged inputs.
-- [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — skipped scans cut iteration time in local
-  inner loop.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
 ## Managed GUIDs
 
 `Managed GUIDs — every GUID literal is a registered, described identity`
@@ -450,6 +433,26 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   version an exact, traceable fact.
 - [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — the anchor split makes the platform
   relocatable, running the same from the repo or an install.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Consumer overlay
+
+`Consumer overlay — a consumer changes a built bundle only through .catzc/`
+
+[ADR-AUTO-OVERLAY](consumer-overlay.md)
+
+> DORA's research links platform engineering and loosely coupled teams to delivery performance: a team does its own work on a shared
+> platform without forking it or waiting on its owners. The overlay lets a consuming team change what a built bundle does from one committed
+> folder in its own repository, checked as a whole before it applies, while the bundle itself stays the immutable artifact its commit built.
+
+- [Platform engineering](../../references/dora/capabilities.md#platform-engineering) — a consumer adapts the platform through declared
+  override points, never by editing or forking it.
+- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — a consuming team changes configs, functions, and
+  assets, and adds its own modules, without a change to the bundle.
+- [Version control](../../references/dora/capabilities.md#version-control) — every change a consumer makes lives in its own repository as a
+  reviewed diff.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — the installed bundle is never edited, so a
+  reinstall keeps its content hash and loses nothing.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Internal asset dependencies
@@ -541,7 +544,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 `Go test artifacts — black-box tests of the engine, never shipped`
 
-[ADR-AUTO-GO](go/test-artifacts.md)
+[ADR-AUTO-GO](go/go-test-artifacts.md)
 
 > DORA research ties delivery performance to automated tests that run on every change and that developers trust. Black-box Go tests start
 > the engine as a process, the way a user or a pipeline starts it, and run in the same test run as every other test, in both run modes, so
@@ -553,4 +556,58 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   the artifact that ships is the one that was verified.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a generated workspace and one pinned Go version leave
   nothing Go-specific to keep in step by hand.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Python test artifacts
+
+`Python test artifacts — black-box tests of the engine, never shipped`
+
+[ADR-AUTO-PY](python/python-test-artifacts.md)
+
+> DORA research ties delivery performance to automated tests that run on every change and that developers trust. Black-box Python tests
+> start the engine as a process under the contract the Go tests follow, and run through the same bridge in the same test run, so a second
+> language checks the engine's behaviour as a whole before a change merges, with nothing Python-specific to keep in step by hand.
+
+- [Test automation](../../references/dora/capabilities.md#test-automation) — each Python test becomes one Pester test, under the same tiers,
+  categories, and report as every other test.
+- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — the same tests run against the repository and the
+  build, so the artifact that ships is the one that was verified.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a generated uv workspace and one pinned Python
+  version leave only the test files to commit.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Bash test artifacts
+
+`Bash test artifacts — black-box tests of the engine through cats, run by a vendored bats`
+
+[ADR-AUTO-BASH](bash/bash-test-artifacts.md)
+
+> DORA research ties delivery performance to automated tests that developers trust and that run the software the way its users do. Bash
+> tests load `importer.sh` and call catzc through the `cats` dispatcher, exactly as a Bash user does, under a pinned, vendored bats; every
+> shell script the repository tracks takes the shell-script checks, so a Bash user's path into catzc is verified on every change.
+
+- [Test automation](../../references/dora/capabilities.md#test-automation) — each `@test` becomes one Pester test in the same test run as
+  the Go, Python, and Pester tests.
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — a vendored, pinned runner means every run tests
+  with the same bats and downloads nothing.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — ShellCheck, `zsh -n`, line endings, and the
+  executable bit are checked on every tracked shell script.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Execution engines
+
+`Execution engines — pwsh, bash and zsh, declared once`
+
+[ADR-AUTO-ENGINE](execution-engines.md)
+
+> DORA's research links flexible infrastructure and teams empowered to choose their tools to delivery performance. Declaring the three
+> execution engines once, with everything that differs between them as properties of one model, lets a user work from pwsh, bash, or zsh
+> while every black-box test runs once per engine, unchanged, so each shell's path into catzc is proven the same way.
+
+- [Teams empowered to choose tools](../../references/dora/capabilities.md#teams-empowered-to-choose-tools) — a user reaches every catzc
+  command from the shell they work in.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — one black-box test runs under all three engines, and a
+  per-engine fixture table states each difference side by side.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a flag, quote rule, or file name lives once in the
+  engine model, never restated at a call site.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

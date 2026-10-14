@@ -100,7 +100,7 @@ function Test-Pipelines {
         # [ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6) — executable YAML
         # under pipelines/ is `.yaml`, never `.yml`.
         if ($extension -eq '.yml') {
-            $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME:6' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
+            $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#6' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
             continue
         }
 
@@ -110,7 +110,7 @@ function Test-Pipelines {
             # starts with a valid type token.
             $prefix = ($name -split '-', 2)[0]
             if ($prefix -notin $typePrefixes) {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME:1' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#1' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
             }
         }
         else {
@@ -118,21 +118,21 @@ function Test-Pipelines {
             # [ADR-PIPE-NAME#3](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name3) — the folder
             # is in the closed set, and no deeper nesting.
             if ($topFolder -notin $templateFolders) {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME:3' -Message "Template folder '$topFolder' is not one of: $($templateFolders -join ' | ')."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#3' -Message "Template folder '$topFolder' is not one of: $($templateFolders -join ' | ')."))
             }
             elseif ($segments.Count -gt 1) {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME:2' -Message "Templates live directly in '$topFolder/', not nested deeper ('$dir/')."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#2' -Message "Templates live directly in '$topFolder/', not nested deeper ('$dir/')."))
             }
             else {
                 # [ADR-PIPE-NAME#2](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name2) — a
                 # structural pipeline has no business inside a template folder.
                 if ($record.Classification -eq 'Pipeline') {
-                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME:2' -Message "A pipeline (trigger/pr/… shape) must live flat in pipelines/, not inside '$topFolder/'."))
+                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#2' -Message "A pipeline (trigger/pr/… shape) must live flat in pipelines/, not inside '$topFolder/'."))
                 }
                 # [ADR-PIPE-NAME#3](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name3) — a
                 # fragment's structural kind matches its folder (extends/ exempt).
                 elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and "$($record.TemplateType)" -ne $folderKind[$topFolder]) {
-                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME:3' -Message "A '$($record.TemplateType)' template does not belong in '$topFolder/' (expected $($folderKind[$topFolder]))."))
+                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#3' -Message "A '$($record.TemplateType)' template does not belong in '$topFolder/' (expected $($folderKind[$topFolder]))."))
                 }
             }
         }
@@ -141,7 +141,7 @@ function Test-Pipelines {
         # references are absolute (/pipelines/<kind>/<name>.yaml).
         foreach ($ref in (Get-PipelineTemplateReference -Path $record.Path)) {
             if ($ref -notmatch '^/pipelines/') {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME:4' -Message "Template reference '$ref' must be an absolute path starting with /pipelines/."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#4' -Message "Template reference '$ref' must be an absolute path starting with /pipelines/."))
             }
         }
     }

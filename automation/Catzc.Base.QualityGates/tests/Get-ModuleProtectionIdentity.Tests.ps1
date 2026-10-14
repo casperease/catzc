@@ -1,5 +1,5 @@
 # The composite protection identity
-# ([ADR-REPO-PROTGLOB#8](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob8)): own set + declared
+# ([ADR-REPO-PROTGLOB#8](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob8)): own set + declared
 # dependency closure + infra scopes
 # + the runner; widened to the repository-wide set for integrity tests, unconstrained modules, and the infra
 # test units. Memoized per run.

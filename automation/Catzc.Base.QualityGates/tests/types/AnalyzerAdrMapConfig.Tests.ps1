@@ -32,8 +32,8 @@ Describe 'Catzc.Base.QualityGates.AnalyzerAdrMapConfig' -Tag 'L0', 'logic', 'ADR
     }
 
     It 'throws on a malformed citation (registry colon form)' {
-        Get-ViolationMessage ([ordered]@{ analyzers = [ordered]@{ 'Measure-X' = @('ADR-PWSH-ERROR:3') } }) |
-            Should -BeLike "*malformed citation 'ADR-PWSH-ERROR:3'*"
+        Get-ViolationMessage ([ordered]@{ analyzers = [ordered]@{ 'Measure-X' = @('ADR-WIDGET-GADGET:3') } }) |
+            Should -BeLike "*malformed citation 'ADR-WIDGET-GADGET:3'*"
     }
 
     It 'reports every violation in one throw, including an unknown top-level key' {
