@@ -92,17 +92,26 @@ function Get-OverlayContractViolation {
     $originalOutput = [string[]] @($Original.OutputType | ForEach-Object { $_.Name } | Sort-Object -Unique)
     $outputAttributes = @($definition.Body.ParamBlock | Where-Object { $_ } | ForEach-Object { $_.Attributes } |
             Where-Object { $_.TypeName.GetReflectionType() -eq [System.Management.Automation.OutputTypeAttribute] })
-    $overrideOutput = [string[]] @(foreach ($attribute in $outputAttributes) {
+    $declaredOutput = @(foreach ($attribute in $outputAttributes) {
             foreach ($argument in $attribute.PositionalArguments) {
-                $value = $argument.SafeGetValue()
-                if ($value -is [type]) {
-                    $value.FullName
+                if ($argument -is [System.Management.Automation.Language.TypeExpressionAst]) {
+                    $type = $argument.TypeName.GetReflectionType()
+                    if ($type) {
+                        $type.FullName
+                    }
+                    else {
+                        $argument.TypeName.FullName
+                    }
+                }
+                elseif ($argument -is [System.Management.Automation.Language.StringConstantExpressionAst]) {
+                    $argument.Value
                 }
                 else {
-                    "$value"
+                    $argument.Extent.Text
                 }
             }
-        } | Sort-Object -Unique)
+        })
+    $overrideOutput = [string[]] @($declaredOutput | Sort-Object -Unique)
     if (($originalOutput -join ',') -ne ($overrideOutput -join ',')) {
         "${RelativePath}: declares [OutputType($($overrideOutput -join ', '))], but $($Original.Name) declares [OutputType($($originalOutput -join ', '))]"
     }

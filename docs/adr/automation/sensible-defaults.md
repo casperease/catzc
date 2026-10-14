@@ -29,7 +29,8 @@ mandatory; if it can derive a right value, derive it.
 ### Rule ADR-AUTO-DEFAULT:6
 
 A configurable setting resolves in one fixed order: the caller's explicit value; else the value in the owning module's configuration
-(`Get-Config`); else the setting's sensible default. The sensible default is declared exactly once — on the setting's config type — so an
+(`Get-Config`), which in build mode includes a consumer overlay's fragment merged onto it
+([consumer-overlay](consumer-overlay.md#rule-adr-auto-overlay4)); else the setting's sensible default. The sensible default is declared exactly once — on the setting's config type — so an
 omitted key and a fresh checkout behave identically and no function restates the value.
 
 - [Where defaults come from](#where-defaults-come-from)

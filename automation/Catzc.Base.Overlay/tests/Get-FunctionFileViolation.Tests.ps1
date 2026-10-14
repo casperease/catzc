@@ -1,0 +1,25 @@
+Describe 'Get-FunctionFileViolation' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:check = {
+            param([string] $Name, [string] $Content)
+            $path = Join-Path $TestDrive "$Name.ps1"
+            Set-Content -Path $path -Value $Content
+            @(Get-FunctionFileViolation -Path $path -RelativePath "widget/$Name.ps1")
+        }
+    }
+
+    It 'passes one function named for the file' {
+        & $check 'Get-Widget' "function Get-Widget {`n    param()`n}" | Should -BeNullOrEmpty
+    }
+
+    It 'reports <Case>' -ForEach @(
+        @{ Case = 'two functions'; Content = "function Get-Widget { }`nfunction Get-Gadget { }"; Expected = '*widget/Get-Widget.ps1: must hold exactly one top-level statement*' }
+        @{ Case = 'a function named apart from the file'; Content = 'function Get-Gadget { }'; Expected = "*defines function 'Get-Gadget', but the file is named for 'Get-Widget'*" }
+        @{ Case = 'a top-level statement'; Content = "`$script:cache = 1`nfunction Get-Widget { }"; Expected = '*must hold exactly one top-level statement*' }
+        @{ Case = 'a #requires'; Content = "#requires -Version 7.4`nfunction Get-Widget { }"; Expected = '*carries a #requires statement*' }
+        @{ Case = 'a $PSScriptRoot read'; Content = "function Get-Widget {`n    `$PSScriptRoot`n}"; Expected = '*widget/Get-Widget.ps1:2: reads $PSScriptRoot*' }
+        @{ Case = 'a file that does not parse'; Content = 'function Get-Widget {'; Expected = '*does not parse*' }
+    ) {
+        (& $check 'Get-Widget' $Content) -join "`n" | Should -BeLike $Expected
+    }
+}

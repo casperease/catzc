@@ -1,0 +1,121 @@
+// The settings every source check shares, read from its key in a QualityGates config (links.yml's string_citations,
+// source-conventions.yml's engine_set and neutral_codes), and the single declaration of their sensible defaults
+// ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)):
+//   mode   — gate (every finding fails the run; the default) or report (findings are printed and counted, and never
+//            fail it). A check is in report mode only while its work list is drained (CheckMode).
+//   exempt — repository-relative glob (the durable-sha-globs dialect) -> why the files it matches are left out of the
+//            check. Omitted: no file is exempt. Every reason is non-empty: an exception is a declared entry with
+//            its reason, never a list in code
+//            ([ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4)).
+// A check with settings of its own derives from this type and names its extra keys, so one key set is validated
+// in one place. Property names mirror the YAML keys (snake_case,
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using Catzc.Base.Globs;
+
+namespace Catzc.Base.QualityGates;
+
+public class SourceCheck
+{
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
+    public const CheckMode DefaultMode = CheckMode.Gate;
+
+    static readonly string[] OwnKeys = { "mode", "exempt" };
+
+    readonly List<GlobPattern> exemptGlobs = new List<GlobPattern>();
+
+    public CheckMode mode { get; }
+    public IReadOnlyDictionary<string, string> exempt { get; }
+
+    // True when the check prints its findings and never fails the run on them.
+    public bool IsReport => mode == CheckMode.Report;
+
+    // name: the check's config key, for messages ('engine_set'). raw: its map, or null for every default.
+    public SourceCheck(string name, IDictionary raw) : this(name, raw, Array.Empty<string>())
+    {
+    }
+
+    // extraKeys: the keys a derived check reads itself; any other key is rejected.
+    protected SourceCheck(string name, IDictionary raw, IEnumerable<string> extraKeys)
+    {
+        mode = DefaultMode;
+        var exemptions = new Dictionary<string, string>(StringComparer.Ordinal);
+        var errors = new List<string>();
+        string[] allowed = OwnKeys.Concat(extraKeys ?? Array.Empty<string>()).ToArray();
+
+        if (raw != null)
+        {
+            foreach (object key in raw.Keys)
+            {
+                string keyName = Convert.ToString(key, CultureInfo.InvariantCulture);
+                if (!allowed.Contains(keyName, StringComparer.Ordinal))
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "unknown key '{0}' (allowed: {1})", keyName, string.Join(", ", allowed)));
+                }
+            }
+
+            if (raw.Contains("mode") && raw["mode"] != null)
+            {
+                string value = Convert.ToString(raw["mode"], CultureInfo.InvariantCulture);
+                if (!Enum.TryParse(value, true, out CheckMode parsed) || int.TryParse(value, out _))
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "mode '{0}' is not one of: {1}", value,
+                        string.Join(", ", Enum.GetNames(typeof(CheckMode))).ToLowerInvariant()));
+                }
+                else
+                {
+                    mode = parsed;
+                }
+            }
+
+            if (raw.Contains("exempt") && raw["exempt"] != null)
+            {
+                if (!(raw["exempt"] is IDictionary map))
+                {
+                    errors.Add("exempt must be a map of glob to reason");
+                }
+                else
+                {
+                    foreach (DictionaryEntry entry in map)
+                    {
+                        string glob = Convert.ToString(entry.Key, CultureInfo.InvariantCulture);
+                        string reason = Convert.ToString(entry.Value, CultureInfo.InvariantCulture)?.Trim() ?? string.Empty;
+                        try
+                        {
+                            exemptGlobs.Add(new GlobPattern(glob));
+                        }
+                        catch (ArgumentException exception)
+                        {
+                            errors.Add("exempt: " + exception.Message);
+                            continue;
+                        }
+                        if (reason.Length == 0)
+                        {
+                            errors.Add(string.Format(CultureInfo.InvariantCulture, "exempt '{0}' needs the reason its files are left out", glob));
+                        }
+                        exemptions[glob] = reason;
+                    }
+                }
+            }
+        }
+
+        if (errors.Count > 0)
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0}: invalid settings:\n  - {1}", name, string.Join("\n  - ", errors)));
+        }
+        exempt = exemptions;
+    }
+
+    // True when an exempt glob matches the repository-relative, '/'-separated path.
+    public bool IsExempt(string repoRelativePath)
+    {
+        string path = repoRelativePath?.Replace('\\', '/');
+        return exemptGlobs.Any(glob => glob.Matches(path));
+    }
+}

@@ -18,8 +18,8 @@ map.
 
 - DSGN × automation: 1 lit of 7 ADRs
 - DSGN × build: 1 lit of 5 ADRs
-- AUTO × build: 1 lit of 4 ADRs
-- AUTO × release: 1 lit of 2 ADRs
+- AUTO × build: 1 lit of 5 ADRs
+- AUTO × release: 1 lit of 3 ADRs
 
 ## Key
 

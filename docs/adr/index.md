@@ -148,6 +148,7 @@ and the pipelines, github, and azure domains build on it.
 | `ADR-REPO-PROTGLOB` | [protected-globs](automation/protected-globs.md)                                 |
 | `ADR-AUTO-GUIDS`    | [managed-guids](automation/managed-guids.md)                                     |
 | `ADR-AUTO-BUNDLE`   | [platform-bundle](automation/platform-bundle.md)                                 |
+| `ADR-AUTO-OVERLAY`  | [consumer-overlay](automation/consumer-overlay.md)                               |
 | `ADR-AUTO-ASSETDEP` | [internal-asset-dependencies](automation/internal-asset-dependencies.md)         |
 | `ADR-AUTO-CONSOLE`  | [console-output-matters](automation/console-output-matters.md)                   |
 | `ADR-AUTO-SPELL`    | [spell-out-names](automation/spell-out-names.md)                                 |

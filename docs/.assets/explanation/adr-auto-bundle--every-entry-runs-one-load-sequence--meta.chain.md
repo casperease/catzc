@@ -15,8 +15,8 @@ Every other cell is idle, a grey box: it holds ADRs the slide does not cite, or 
 the 30 cells hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain
 map.
 
-- AUTO × build: 1 lit of 4 ADRs
-- AUTO × release: 1 lit of 2 ADRs
+- AUTO × build: 1 lit of 5 ADRs
+- AUTO × release: 1 lit of 3 ADRs
 
 ## Key
 

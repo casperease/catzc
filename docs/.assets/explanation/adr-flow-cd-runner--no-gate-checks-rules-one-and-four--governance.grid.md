@@ -16,9 +16,9 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 1 lit of 9 files
-- automation × powershell: 3 lit of 1400 files
+- automation × powershell: 3 lit of 1412 files
 - automation × yaml: 4 lit of 95 files
-- docs × markdown: 38 lit of 741 files
+- docs × markdown: 18 lit of 742 files
 - pipelines × pipeline-yaml: 2 lit of 9 files
 
 ## Key
@@ -61,142 +61,73 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][10]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 119 (text); selected by
-  [ADR-PIPE-NAME][2]: the file cites it at line 237 (text).
+  [ADR-PIPE-NAME][2]: the file cites it at line 238 (text).
 - [automation/Catzc.Base.Languages/configs/languages.yml][11]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 35 (header).
 - [automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml][12]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 9
   (header).
 - [automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml][13]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 8 (header).
 
-### docs × markdown (38 lit files)
+### docs × markdown (18 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.chain.md][14]: selected by [ADR-FLOW-CD-RUNNER][1]: the
-  file cites it at line 8 (text), line 24 (text) and line 24 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.md][15]: selected by [ADR-FLOW-CD-RUNNER][1]: the
-  file cites it at line 65 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.grid.md][16]: selected by [ADR-FLOW-CD-RUNNER][1]: the
-  file cites it at line 8 (text), line 27 (text), line 34 (text), line 41 (text), line 44 (text), line 46 (text), line 48 (text), line 50
-  (text), line 51 (text), line 53 (text), line 55 (text), line 57 (text), line 59 (text), line 61 (text), line 63 (text), line 64 (text),
-  line 66 (text), line 68 (text), line 70 (text), line 72 (text) and line 80 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.tree.md][17]: selected by [ADR-FLOW-CD-RUNNER][1]: the
-  file cites it at line 8 (text), line 29 (text), line 31 (text), line 33 (text), line 35 (text), line 37 (text), line 38 (text), line 40
-  (text), line 42 (text), line 44 (text), line 46 (text), line 53 (text), line 55 (text), line 57 (text), line 59 (text), line 61 (text),
-  line 63 (text), line 70 (text), line 76 (text), line 83 (text) and line 89 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.chain.md][18]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 8 (text), line 29 (text) and line 29 (text); selected by [ADR-PIPE-NAME][2]: the file
-  cites it at line 8 (text), line 37 (text), line 37 (text), line 45 (text), line 45 (text), line 53 (text), line 53 (text), line 61 (text)
-  and line 61 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.md][19]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 62 (text) and line 71 (text); selected by [ADR-PIPE-NAME][2]: the file cites it at line
-  62 (text) and line 71 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.grid.md][20]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 8 (text), line 29 (text), line 52 (text), line 64 (text), line 67 (text), line 70
-  (text), line 72 (text), line 74 (text), line 75 (text), line 77 (text), line 79 (text), line 81 (text), line 83 (text), line 85 (text),
-  line 87 (text), line 99 (text), line 101 (text), line 104 (text), line 106 (text), line 108 (text) and line 118 (text); selected by
-  [ADR-PIPE-NAME][2]: the file cites it at line 8 (text), line 36 (text), line 40 (text), line 42 (text), line 53 (text), line 54 (text),
-  line 55 (text), line 57 (text), line 67 (text), line 87 (text), line 89 (text), line 91 (text), line 93 (text), line 95 (text), line 97
-  (text), line 102 (text), line 110 (text) and line 117 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.tree.md][21]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 8 (text), line 34 (text), line 36 (text), line 39 (text), line 41 (text), line 43
-  (text), line 44 (text), line 46 (text), line 49 (text), line 51 (text), line 53 (text), line 62 (text), line 64 (text), line 66 (text),
-  line 68 (text), line 70 (text), line 72 (text), line 121 (text), line 128 (text), line 134 (text) and line 148 (text); selected by
-  [ADR-PIPE-NAME][2]: the file cites it at line 8 (text), line 36 (text), line 47 (text), line 55 (text), line 79 (text), line 81 (text),
-  line 83 (text), line 85 (text), line 87 (text), line 94 (text), line 100 (text), line 101 (text), line 110 (text), line 112 (text), line
-  119 (text), line 135 (text), line 141 (text) and line 149 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.chain.md][22]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 8 (text), line 24 (text) and line 24 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.md][23]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 68 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.grid.md][24]: selected by [ADR-FLOW-CD-RUNNER][1]:
-  the file cites it at line 8 (text), line 27 (text), line 34 (text), line 41 (text), line 44 (text), line 46 (text), line 48 (text), line
-  50 (text), line 51 (text), line 53 (text), line 55 (text), line 57 (text), line 59 (text), line 61 (text), line 63 (text), line 64 (text),
-  line 66 (text), line 68 (text), line 70 (text), line 72 (text) and line 80 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.tree.md][25]: selected by [ADR-FLOW-CD-RUNNER][1]:
-  the file cites it at line 8 (text), line 29 (text), line 31 (text), line 33 (text), line 35 (text), line 37 (text), line 38 (text), line
-  40 (text), line 42 (text), line 44 (text), line 46 (text), line 53 (text), line 55 (text), line 57 (text), line 59 (text), line 61 (text),
-  line 63 (text), line 70 (text), line 76 (text), line 83 (text) and line 89 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.chain.md][26]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 8 (text), line 25 (text) and line 25 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.md][27]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 71 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.grid.md][28]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 8 (text), line 27 (text), line 34 (text), line 41 (text), line 44 (text), line 46
-  (text), line 48 (text), line 50 (text), line 51 (text), line 53 (text), line 55 (text), line 57 (text), line 59 (text), line 61 (text),
-  line 63 (text), line 64 (text), line 66 (text), line 68 (text), line 70 (text), line 72 (text) and line 80 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.tree.md][29]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 8 (text), line 29 (text), line 31 (text), line 33 (text), line 35 (text), line 37
-  (text), line 38 (text), line 40 (text), line 42 (text), line 44 (text), line 46 (text), line 53 (text), line 55 (text), line 57 (text),
-  line 59 (text), line 61 (text), line 63 (text), line 70 (text), line 76 (text), line 83 (text) and line 89 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.chain.md][30]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 8 (text), line 25 (text) and line 25 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.md][31]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 70 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.grid.md][32]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 8 (text), line 28 (text), line 35 (text), line 42 (text), line 45 (text), line 47
-  (text), line 49 (text), line 51 (text), line 52 (text), line 54 (text), line 56 (text), line 58 (text), line 60 (text), line 62 (text),
-  line 64 (text), line 65 (text), line 67 (text), line 69 (text), line 71 (text), line 73 (text) and line 81 (text).
-- [docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.tree.md][33]: selected by
-  [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 8 (text), line 30 (text), line 32 (text), line 34 (text), line 36 (text), line 38
-  (text), line 39 (text), line 41 (text), line 43 (text), line 45 (text), line 47 (text), line 54 (text), line 56 (text), line 58 (text),
-  line 60 (text), line 62 (text), line 64 (text), line 71 (text), line 77 (text), line 84 (text) and line 90 (text).
-- [docs/adr/flow/cd-discipline-and-promotion-flow.md][34]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the
+- [docs/adr/flow/cd-discipline-and-promotion-flow.md][14]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the
   ADR domain of that code.
-- [docs/adr/flow/dora-explains.md][35]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
+- [docs/adr/flow/dora-explains.md][15]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
   code.
-- [docs/adr/flow/durable-sha-globs.md][36]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of
+- [docs/adr/flow/durable-sha-globs.md][16]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of
   that code.
-- [docs/adr/flow/pipeline-detection.md][37]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of
+- [docs/adr/flow/pipeline-detection.md][17]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of
   that code.
 - [docs/adr/flow/pipeline-runner-pattern.md][1]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain
   of that code.
-- [docs/adr/flow/pipeline-types.md][38]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
+- [docs/adr/flow/pipeline-types.md][18]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
   code.
-- [docs/adr/index.md][39]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 108 (text); selected by [ADR-PIPE-NAME][2]: the
-  file cites it at line 221 (text).
-- [docs/adr/pipelines/custom-template-discipline.md][40]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR
+- [docs/adr/index.md][19]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 108 (text); selected by [ADR-PIPE-NAME][2]: the
+  file cites it at line 222 (text).
+- [docs/adr/pipelines/custom-template-discipline.md][20]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR
   domain of that code.
-- [docs/adr/pipelines/dora-explains.md][41]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR domain of
+- [docs/adr/pipelines/dora-explains.md][21]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR domain of
   that code.
-- [docs/adr/pipelines/dual-authentication.md][42]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR domain
+- [docs/adr/pipelines/dual-authentication.md][22]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR domain
   of that code.
 - [docs/adr/pipelines/pipeline-naming-and-placement.md][2]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the
   ADR domain of that code.
-- [docs/adr/pipelines/pipeline-variables.md][43]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR domain
+- [docs/adr/pipelines/pipeline-variables.md][23]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR domain
   of that code.
-- [docs/explanation/flow/a-step-only-names-a-command.md][44]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 14 (text), line
+- [docs/explanation/flow/a-step-only-names-a-command.md][24]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 14 (text), line
   41 (text) and line 42 (text).
-- [docs/explanation/flow/no-gate-checks-rules-one-and-four.md][45]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 16
+- [docs/explanation/flow/no-gate-checks-rules-one-and-four.md][25]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 16
   (text), line 51 (text), line 52 (text), line 53 (text) and line 54 (text); selected by [ADR-PIPE-NAME][2]: the file cites it at line 12
   (text), line 39 (text), line 40 (text) and line 55 (text).
-- [docs/explanation/flow/the-runner-is-the-only-seam.md][46]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 15 (text), line
+- [docs/explanation/flow/the-runner-is-the-only-seam.md][26]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 15 (text), line
   47 (text), line 48 (text) and line 49 (text).
-- [docs/explanation/flow/the-step-is-named-after-its-command.md][47]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 16
+- [docs/explanation/flow/the-step-is-named-after-its-command.md][27]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 16
   (text), line 49 (text) and line 50 (text).
-- [docs/explanation/flow/three-tasks-one-guard-one-runner.md][48]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 17 (text),
+- [docs/explanation/flow/three-tasks-one-guard-one-runner.md][28]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 17 (text),
   line 57 (text), line 58 (text) and line 59 (text).
-- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][49]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 16 (text).
+- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][29]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 16 (text).
 
 ### pipelines × pipeline-yaml (2 lit files)
 
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][3]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pipelines/extends/cd-customer.yaml][50]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 3 (header).
-- [pipelines/steps/invoke-automation.yaml][51]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 18 (header).
+- [pipelines/extends/cd-customer.yaml][30]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 3 (header).
+- [pipelines/steps/invoke-automation.yaml][31]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 18 (header).
 
 ## Keywords
 
-- [world map][52]
-- [track][53]
-- [file language][54]
-- [cell][55]
-- [lit cell][56]
-- [.claude][57]: a track
-- [automation][57]: a track
-- [docs][57]: a track
-- [pipelines][57]: a track
+- [world map][32]
+- [track][33]
+- [file language][34]
+- [cell][35]
+- [lit cell][36]
+- [.claude][37]: a track
+- [automation][37]: a track
+- [docs][37]: a track
+- [pipelines][37]: a track
 - [markdown][11]: a file language
 - [pipeline-yaml][11]: a file language
 - [powershell][11]: a file language
@@ -215,47 +146,27 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 [11]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
 [12]: ../../../automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
 [13]: ../../../automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
-[14]: adr-flow-cd-runner--a-step-only-names-a-command--meta.chain.md
-[15]: adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.md
-[16]: adr-flow-cd-runner--a-step-only-names-a-command--meta.grid.md
-[17]: adr-flow-cd-runner--a-step-only-names-a-command--meta.tree.md
-[18]: adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.chain.md
-[19]: adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.md
-[20]: adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.grid.md
-[21]: adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.tree.md
-[22]: adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.chain.md
-[23]: adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.md
-[24]: adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.grid.md
-[25]: adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.tree.md
-[26]: adr-flow-cd-runner--the-step-is-named-after-its-command--operations.chain.md
-[27]: adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.md
-[28]: adr-flow-cd-runner--the-step-is-named-after-its-command--operations.grid.md
-[29]: adr-flow-cd-runner--the-step-is-named-after-its-command--operations.tree.md
-[30]: adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.chain.md
-[31]: adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.md
-[32]: adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.grid.md
-[33]: adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.tree.md
-[34]: ../../adr/flow/cd-discipline-and-promotion-flow.md
-[35]: ../../adr/flow/dora-explains.md
-[36]: ../../adr/flow/durable-sha-globs.md
-[37]: ../../adr/flow/pipeline-detection.md
-[38]: ../../adr/flow/pipeline-types.md
-[39]: ../../adr/index.md
-[40]: ../../adr/pipelines/custom-template-discipline.md
-[41]: ../../adr/pipelines/dora-explains.md
-[42]: ../../adr/pipelines/dual-authentication.md
-[43]: ../../adr/pipelines/pipeline-variables.md
-[44]: ../../explanation/flow/a-step-only-names-a-command.md
-[45]: ../../explanation/flow/no-gate-checks-rules-one-and-four.md
-[46]: ../../explanation/flow/the-runner-is-the-only-seam.md
-[47]: ../../explanation/flow/the-step-is-named-after-its-command.md
-[48]: ../../explanation/flow/three-tasks-one-guard-one-runner.md
-[49]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
-[50]: ../../../pipelines/extends/cd-customer.yaml
-[51]: ../../../pipelines/steps/invoke-automation.yaml
-[52]: ../../adr/glossary.md#world-map
-[53]: ../../adr/glossary.md#track
-[54]: ../../adr/glossary.md#file-language
-[55]: ../../adr/glossary.md#cell
-[56]: ../../adr/glossary.md#lit-cell
-[57]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[14]: ../../adr/flow/cd-discipline-and-promotion-flow.md
+[15]: ../../adr/flow/dora-explains.md
+[16]: ../../adr/flow/durable-sha-globs.md
+[17]: ../../adr/flow/pipeline-detection.md
+[18]: ../../adr/flow/pipeline-types.md
+[19]: ../../adr/index.md
+[20]: ../../adr/pipelines/custom-template-discipline.md
+[21]: ../../adr/pipelines/dora-explains.md
+[22]: ../../adr/pipelines/dual-authentication.md
+[23]: ../../adr/pipelines/pipeline-variables.md
+[24]: ../../explanation/flow/a-step-only-names-a-command.md
+[25]: ../../explanation/flow/no-gate-checks-rules-one-and-four.md
+[26]: ../../explanation/flow/the-runner-is-the-only-seam.md
+[27]: ../../explanation/flow/the-step-is-named-after-its-command.md
+[28]: ../../explanation/flow/three-tasks-one-guard-one-runner.md
+[29]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
+[30]: ../../../pipelines/extends/cd-customer.yaml
+[31]: ../../../pipelines/steps/invoke-automation.yaml
+[32]: ../../adr/glossary.md#world-map
+[33]: ../../adr/glossary.md#track
+[34]: ../../adr/glossary.md#file-language
+[35]: ../../adr/glossary.md#cell
+[36]: ../../adr/glossary.md#lit-cell
+[37]: ../../../automation/Catzc.Base.Variants/configs/variants.yml

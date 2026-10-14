@@ -160,6 +160,7 @@ domains:
       protected-globs: { external: ADR-REPO-PROTGLOB, code: REPO, terminology: protglob }
       managed-guids: { external: ADR-AUTO-GUIDS, terminology: guids }
       platform-bundle: { external: ADR-AUTO-BUNDLE, concern: [build, release] }
+      consumer-overlay: { external: ADR-AUTO-OVERLAY, concern: [build, release] }
       internal-asset-dependencies: { external: ADR-AUTO-ASSETDEP, terminology: assetdep, concern: [automation, build] }
       console-output-matters: { external: ADR-AUTO-CONSOLE }
       spell-out-names: { external: ADR-AUTO-SPELL, concern: [quality-control] }
