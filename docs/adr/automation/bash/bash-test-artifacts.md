@@ -25,7 +25,7 @@ test.
 
 ### Rule ADR-AUTO-BASH:3
 
-A Bash test is a black-box test that calls catzc the way a Bash user does: its `setup` sources `CATZC_ENGINE_ENTRY` — the repository's
+A Bash test is a black-box test that calls catzc the way a Bash user does: its `setup` loads `CATZC_ENGINE_ENTRY` — the repository's
 `importer.sh` — and the test runs catzc commands through the `cats` dispatcher, asserting on output and exit codes, never on the engine's
 internals. `CATZC_IMPORTER` names the PowerShell entry `cats` loads (the repository's `importer.ps1` in a source run, the build's
 `Import-Catzc.ps1` in a build run), and `CATZC_REPOSITORY_ROOT` the repository root. `Invoke-BashTest` sets them for its bats run only and
@@ -63,7 +63,7 @@ The spelling check reads them too.
 The engine is verified from outside by tests in other languages ([go test artifacts](../go/test-artifacts.md),
 [python test artifacts](../python/python-test-artifacts.md)), which start it as a process under each execution engine
 ([execution-engines](../execution-engines.md)). Those tests prove the engine runs; they do not prove what a Bash user sees. A Bash user
-sources `importer.sh` and types `cats <command>`, and that path — the dispatcher's quoting, its root detection, its exit codes — needs tests
+loads `importer.sh` and types `cats <command>`, and that path — the dispatcher's quoting, its root detection, its exit codes — needs tests
 written the way the user writes commands: in Bash.
 
 ### Test artifacts only
@@ -85,9 +85,9 @@ so the integrity marker is a prefix of the name, `integrity:`, decided in one pl
 
 ### The black-box contract
 
-A Go or Python test starts the engine with arguments the runner hands it. A Bash test does what a Bash user does instead: it sources the
+A Go or Python test starts the engine with arguments the runner hands it. A Bash test does what a Bash user does instead: it loads the
 engine's entry, `importer.sh`, and calls `cats`. The contract still comes from the runner, never from the test: `CATZC_ENGINE_ENTRY` is the
-file to source, and `CATZC_IMPORTER` tells `cats` which PowerShell entry to load, so the same test proves both run modes
+file to load, and `CATZC_IMPORTER` tells `cats` which PowerShell entry to load, so the same test proves both run modes
 ([run-modes](../../design/run-modes.md)). A Bash test is Bash, so it runs under the bash engine only; the Go and Python tests are the ones
 that run once per engine.
 

@@ -15,7 +15,8 @@
 
     The build is verified first (Assert-CatzcBundle), before the destination is touched. The version is the
     build's own (build.json). Idempotent: when the target already holds the same content hash the copy is
-    skipped (and a -Root install only refreshes its importer.ps1); -Force copies anyway.
+    skipped (and a -Root install only refreshes its importer.ps1); -Force copies anyway. On Linux and macOS a copy
+    makes every shipped shell script with a shebang executable again, since the copy drops the bit bash needs.
 .PARAMETER Root
     The destination working root for a two-part install. Not the mono repo.
 .PARAMETER Scope
@@ -80,6 +81,21 @@ function Install-Catzc {
                 [System.IO.Directory]::Delete($moduleTarget, $true)
             }
             Copy-Directory -Path $Source -Destination $moduleTarget
+            # A copy drops the executable bit, which an engine whose scripts need it (bash) requires on Unix
+            # ([ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2)): every shipped script
+            # of such an engine that starts with its shebang is made executable again.
+            if (-not $IsWindows) {
+                $execute = [System.IO.UnixFileMode]::UserExecute -bor [System.IO.UnixFileMode]::GroupExecute -bor [System.IO.UnixFileMode]::OtherExecute
+                foreach ($engine in @([Catzc.Base.Engines.ExecutionEngines]::All | Where-Object RequiresExecutableBit)) {
+                    foreach ($extension in $engine.ScriptExtensions) {
+                        foreach ($script in [System.IO.Directory]::EnumerateFiles($moduleTarget, "*$extension", [System.IO.SearchOption]::AllDirectories)) {
+                            if ([System.IO.File]::ReadLines($script) | Select-Object -First 1 | Where-Object { $_.StartsWith('#!') }) {
+                                [System.IO.File]::SetUnixFileMode($script, [System.IO.File]::GetUnixFileMode($script) -bor $execute)
+                            }
+                        }
+                    }
+                }
+            }
         }
         if ($importer) {
             $lines = @(

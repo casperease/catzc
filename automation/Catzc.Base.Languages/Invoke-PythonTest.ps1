@@ -43,7 +43,8 @@
     Resolve-ToolExecutable.
 .PARAMETER Engine
     The execution engine the tests start: pwsh (default) or bash, which reaches catzc through importer.sh's cats
-    dispatcher (ADR-AUTO-ENGINE). The tests are the same; only the contract they read changes.
+    dispatcher ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)). The tests are the same; only the contract
+    they read changes.
 .PARAMETER EngineExecutable
     The engine's executable, already located by the caller. Default: located here by Resolve-EngineExecutable.
 .OUTPUTS
@@ -110,7 +111,7 @@ function Invoke-PythonTest {
     # How the tests start the engine (Get-EngineContract) is an external contract with the test processes
     # ([ADR-AUTO-ENVVAR#1](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar1)): set for these
     # commands only, then restored. UV_PYTHON_DOWNLOADS=never keeps uv on the managed interpreter at the pin
-    # (ADR-AUTO-PY#6).
+    # ([ADR-AUTO-PY#6](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py6)).
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['UV_PYTHON_DOWNLOADS'] = 'never'
     $environment['PYTHONDONTWRITEBYTECODE'] = '1'

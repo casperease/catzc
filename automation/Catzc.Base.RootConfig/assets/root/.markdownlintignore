@@ -3,5 +3,6 @@
 # skips (out/, docs/notes) — is coded into Test-Markdownlint's globs, not here. This file is only for the
 # editor extension; the Test-Markdownlint function is self-contained.
 automation/.vendor/
+**/.vendor/
 node_modules/
 .git/

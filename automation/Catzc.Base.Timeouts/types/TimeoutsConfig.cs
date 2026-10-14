@@ -50,7 +50,8 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     };
     private const int TestRunDefaultSeconds = 180;
     private static readonly string[] Environments = { "devbox", "pipeline" };
-    // The shells a limit is keyed by: the execution engines, declared once (ADR-AUTO-ENGINE#1).
+    // The shells a limit is keyed by: the execution engines, declared once
+    // ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)).
     private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
     private static readonly string[] BashKeys = { "foreground", "background" };
 

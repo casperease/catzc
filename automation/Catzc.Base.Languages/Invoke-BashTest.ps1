@@ -9,10 +9,10 @@
 
       bash .vendor/bats-core/bin/bats --recursive --report-formatter junit --output <temp> tests/<folder>
 
-    The Bash tests are black-box tests: they source the engine's entry and call catzc through the cats dispatcher,
+    The Bash tests are black-box tests: they load the engine's entry and call catzc through the cats dispatcher,
     as a Bash user does. How reaches them through the environment (Get-EngineContract for the bash engine), set for
     this command only and restored afterwards: CATZC_ENGINE_ENTRY, the repository's importer.sh, which a test's setup
-    sources; CATZC_IMPORTER, the PowerShell entry cats loads — the repository's importer.ps1 for a source run, or
+    loads; CATZC_IMPORTER, the PowerShell entry cats loads — the repository's importer.ps1 for a source run, or
     -EntryScript (the build's Import-Catzc.ps1) for a build run; and CATZC_REPOSITORY_ROOT. A Bash test runs only
     under the bash engine: it is Bash.
 

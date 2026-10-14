@@ -30,7 +30,8 @@ function Get-LanguageTestExecutable {
 
     $languages = @(Get-LanguageTestFolders | ForEach-Object Language | Select-Object -Unique)
     $executables = @{ go = ''; python = ''; bash = '' }
-    # The bash engine, which every language's tests also run under (ADR-AUTO-ENGINE): located once here, since a build
+    # The bash engine, which every language's tests also run under
+    # ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)): located once here, since a build
     # run's worker cannot locate it (its tools.yml entry is not in the build).
     if ($languages.Count -gt 0) {
         try {

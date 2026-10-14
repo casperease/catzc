@@ -107,6 +107,16 @@ terms:
       meaning: "pytest.mark.parametrize — pytest's decorator that runs a test per parameter set"
     - term: norc
       meaning: "bash --norc — start bash without reading ~/.bashrc"
+    - term: shellcheck
+      meaning: "ShellCheck — the shell-script analyzer Test-ShellScripts runs (ADR-AUTO-BASH#6)"
+    - term: koalaman
+      meaning: "koalaman.shellcheck — the winget package id of ShellCheck (its author's handle)"
+    - term: wekyb
+      meaning: "part of 8wekyb3d8bbwe, the winget source's publisher hash in a portable package's install folder"
+    - term: bbwe
+      meaning: "part of 8wekyb3d8bbwe, the winget source's publisher hash in a portable package's install folder"
+    - term: necho
+      meaning: "a newline escape followed by echo in a PowerShell string that writes a fixture shell script (`necho)"
     - term: pipefail
       meaning: "set -o pipefail — bash fails a pipeline when any command in it fails"
     - term: cacheprovider

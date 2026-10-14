@@ -21,6 +21,17 @@ param([string] $RepositoryRoot, [switch] $AllowWarnings)
         Mock Write-Message { } -ModuleName Catzc.Base.Exporter
     }
 
+    It 'makes a shipped shell script with a shebang executable again on Unix, and leaves one without alone' -Skip:$IsWindows {
+        $scripts = Join-Path $source 'Catzc.Base.Widget/assets/scripts'
+        [System.IO.Directory]::CreateDirectory($scripts) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $scripts 'widget.sh'), "#!/usr/bin/env bash`necho widget`n")
+        [System.IO.File]::WriteAllText((Join-Path $scripts 'gadget.sh'), "echo gadget`n")
+        $null = Install-Catzc -Root $root -Source $source -Silent
+        $installed = Join-Path $root '.vendor/Catzc/1.2.3/Catzc.Base.Widget/assets/scripts'
+        [System.IO.File]::GetUnixFileMode((Join-Path $installed 'widget.sh')).HasFlag([System.IO.UnixFileMode]::UserExecute) | Should -BeTrue
+        [System.IO.File]::GetUnixFileMode((Join-Path $installed 'gadget.sh')).HasFlag([System.IO.UnixFileMode]::UserExecute) | Should -BeFalse
+    }
+
     It 'verifies the build before touching the destination' {
         Mock Assert-CatzcBundle { throw 'Catzc build is invalid' } -ModuleName Catzc.Base.Exporter
         { Install-Catzc -Root $root -Source $source -Silent } | Should -Throw -ExpectedMessage '*invalid*'

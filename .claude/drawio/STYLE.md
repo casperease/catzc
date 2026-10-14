@@ -37,7 +37,7 @@ Keep it at most 1300 wide and grow downward. Flat look: no shadows, no gradients
 | pipeline / runner              | `#fff2cc` | `#d6b656` |                            |
 | glob / code / config box       | `#f8fff8` | `#82b366` | `fontFamily=Courier New`   |
 | neutral dependency / external  | `#f5f5f5` | `#666666` |                            |
-| gate / check ("checked by")    | `#f5f5f5` | `#666666` | neutral, never red         |
+| gate / check ("checked by")    | `#f5f5f5` | `#666666` | neutral, never red; `strokeWidth=3` tells it from a neutral box; never borrow runner yellow |
 | good / live / prod             | `#9BE7C4` | `#0E9F6E` | font `#0B5C43`             |
 | failure / throw / discard only | `#EF9A9A` | `#C62828` |                            |
 | band / container               | `#F6F8FA` | `#E1E4E8` | `arcSize=3`                |
@@ -167,6 +167,8 @@ showing where the drawing sits in the world.
 - **Exactly one cell is ever framed:** the **main cell**, the domain hue at 40 % fill with a 3 px stroke at 100 %. Its row and column are
   marked only by a bold axis label and a hue tick, never by tinting the cells: a tinted cross or a hued ring on another cell reads, while
   paging through slides, as the previous slide's selection left behind.
+- The 40 % fills (also the map key's "this slide's cell" swatch): `LOAD` `#BEC4E6`, `CONFIG` `#FFDCA8`, `GLOBS` `#A8DBD7`, `BUILD`
+  `#DDB5E5`, `DEPLOY` `#B3DBFB`, `ACCESS` `#F7B3CA`. Use the main cell's domain, not the pilot's purple.
 - **Touched cells** carry a small `#546E7A` dot (7 px radius at 2×), with no fill and no frame.
 - The **you-are-here dot** is `#263238` with a 2 px white ring. Lit tree tiles are the hue of the main cell's domain at 100 %. An ADR file
   tile is outlined `#263238`.
@@ -185,7 +187,8 @@ showing where the drawing sits in the world.
   - `minimap-stack` image at x 1316, y 16, 240 × 150;
   - `minimap-tree` image at x 1316, y 182, 240 × 180;
   - `lens-badge` at x 1316, y 378, 240 × 24;
-  - `supports` (the ADR chips) at x 1316, y 410, 240 × ≤ 96;
+  - `supports` (the ADR chips) at x 1316, y 410, 240 × ≤ 46: with the map key fixed at y 460 this holds the bold "Supports" line plus
+    at most 2 lines, so pack several ADR codes per line (`ADR-A · ADR-B`) and leave the rest to the `.md`;
   - `mapkey` (the minimap legend: this slide's cell, also touched, a file it shows) at x 1316, y 460, 240 × 122.
 - **Minimap PNGs** are rendered at 2× (480 × 300 and 480 × 360) and placed at 1×. Text is ≥ 9 px at 1×. Row labels are ≤ 5 chars and column
   labels ≤ 6 chars. Every lit tree group is labelled with its full name, even when the label runs past its tile (the white halo keeps
@@ -233,6 +236,20 @@ side:
   to the `.md`;
 - **numbered markers**: a 22 px `#37474F` disc with a 2 px white rim and a white bold digit, on a box's top-left corner or beside an edge.
   Each number is a `## Notes` item in `<stem>.md`.
+
+- **rule chips** on governance slides: a short white chip (`#3`, or `L4` / `T35` when several ADRs share a slide) beside the box that a
+  rule governs, never inside the box name. The legend gives the chips one row that names the letter → ADR mapping.
+
+**Lessons from wave 5 (apply them):**
+
+- Keep markers inside the drawing area: start full-width boxes at x ≥ 40, and inset a marked box ≥ 100 px from its band's left edge so the
+  disc does not cover the band label. A marker at x < 20 widens the canvas and shifts the sidebar.
+- A fraction on a short horizontal edge is struck through by the preview line: put it as a bold chip just above the edge.
+- An ADR claim the code contradicts is NOT red (red is failure only). Draw it as the normal box with its numbered marker; the note
+  states the drift. (Dashes and thick rims already mean "no gate" and "gate".)
+- `dashed` means one thing on every slide: "ADR-only: no code runs or checks it" (no gate). Don't reuse dashes for anything else.
+  The preview draws a dashed hexagon or rhombus solid, so mark those ADR-only with a dashed frame around the shape.
+- A generator that rewrites the XML strips the embedded minimaps: after any regeneration, rebuild every slide it wrote.
 
 **What moves to `<stem>.md`:** the lede, every body line, stereotype text, edge labels that are words, footers and side notes. Nothing is
 dropped: every word the wave-4 drawing carried appears in the presentation or is replaced by a symbol the legend explains.

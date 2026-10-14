@@ -48,7 +48,8 @@ public sealed class ExecutionEngine
     // The statement that turns the engine's strict mode on.
     public string StrictMode { get; }
 
-    // How a call is bounded in time in this engine (ADR-AUTO-FAILFAST#7).
+    // How a call is bounded in time in this engine
+    // ([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)).
     public string TimeSafeguard { get; }
 
     // True when the engine's scripts must have LF line endings to run.

@@ -60,7 +60,9 @@ Describe "$Language tests of $($script:languageSuite.Module)" -Tag 'L2', 'greedy
         EngineTools = $EngineExecutable
     }) {
     BeforeAll {
-        # Every test runs once per execution engine (ADR-AUTO-ENGINE#4): the same test, a different contract.
+        # Every test runs once per execution engine
+        # ([ADR-AUTO-ENGINE#4](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine4)): the same test, a
+        # different contract.
         $script:languageOutcomes = @{}
         foreach ($engineName in $Engines) {
             $script:languageOutcomes[$engineName] = & (Get-Module Catzc.Base.QualityGates) {

@@ -83,7 +83,8 @@ public static class BoundedCommand
 
     private static string Engine(string engine)
     {
-        // The execution engines, declared once (ADR-AUTO-ENGINE#1); Get throws, naming them, for any other name.
+        // The execution engines, declared once ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)); Get
+        // throws, naming them, for any other name.
         string normalized = engine == null ? "" : engine.Trim().ToLowerInvariant();
         return Catzc.Base.Engines.ExecutionEngines.Get(normalized).Name;
     }

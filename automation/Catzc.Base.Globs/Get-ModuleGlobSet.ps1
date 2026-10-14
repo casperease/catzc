@@ -91,8 +91,11 @@ function Get-ModuleGlobSet {
     }
     # bare module name/kebab -> its aspect sets, so a caller can ask for "the module" and get both aspects.
     $moduleAspects = @{}
-    # A module's Go, Python and Bash test folders (<root>/tests/<kebab>/ of each language root, ADR-AUTO-GO#2,
-    # ADR-AUTO-PY#2, ADR-AUTO-BASH#2) are part of its tests aspect: a change to them re-keys the module they verify,
+    # A module's Go, Python and Bash test folders (<root>/tests/<kebab>/ of each language root,
+    # [ADR-AUTO-GO#2](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go2),
+    # [ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2),
+    # [ADR-AUTO-BASH#2](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2)) are part of its tests
+    # aspect: a change to them re-keys the module they verify,
     # never its live aspect.
     $goRoot = (Get-Config -Config go).ResolveRoot((Get-RepositoryRoot))
     $pythonRoot = (Get-Config -Config python).ResolveRoot((Get-RepositoryRoot))

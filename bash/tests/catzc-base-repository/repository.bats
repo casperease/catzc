@@ -1,6 +1,6 @@
 # Black-box tests of Catzc.Base.Repository, in Bash.
 #
-# Each test calls catzc the way a Bash user does: setup sources the engine's entry, the repository's importer.sh
+# Each test calls catzc the way a Bash user does: setup loads the engine's entry, the repository's importer.sh
 # (CATZC_ENGINE_ENTRY), and the test runs a command through its cats dispatcher, which loads the run's PowerShell entry
 # (CATZC_IMPORTER: the repository's importer.ps1 in a source run, the build's Import-Catzc.ps1 in a build run).
 # Invoke-BashTest sets the contract and CATZC_REPOSITORY_ROOT for the bats run.

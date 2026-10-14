@@ -12,7 +12,7 @@
       CATZC_ENGINE             the engine's name (pwsh, bash);
       CATZC_ENGINE_EXECUTABLE  the engine's executable;
       CATZC_ENGINE_ENTRY       the script that loads catzc into the engine: the PowerShell entry for pwsh, the
-                               repository's importer.sh (forward-slashed) for bash — what a Bash test sources;
+                               repository's importer.sh (forward-slashed) for bash — what a Bash test loads;
       CATZC_ENGINE_START       the arguments after it, as a JSON array (ExecutionEngine.StartArguments): they start the
                                engine non-interactively, load its importer with the output discarded, and end in the
                                command text, where the test puts its catzc command in place of {command};
@@ -48,7 +48,7 @@ function Get-EngineContract {
 
     $root = Get-RepositoryRoot
     $model = [Catzc.Base.Engines.ExecutionEngines]::Get($Engine)
-    $powershellEntry = if ($EntryScript) {
+    $powerShellEntry = if ($EntryScript) {
         Assert-PathExist $EntryScript -PathType Leaf
         (Resolve-Path -LiteralPath $EntryScript).ProviderPath
     }
@@ -66,7 +66,7 @@ function Get-EngineContract {
     # The entry the engine itself loads: pwsh the PowerShell entry; any other engine its own importer in the repository,
     # forward-slashed so a POSIX shell on Windows reads the path.
     $entry = if ($model.Name -eq [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) {
-        $powershellEntry
+        $powerShellEntry
     }
     else {
         $importer = Join-Path $root $model.ImporterEntry
@@ -81,7 +81,7 @@ function Get-EngineContract {
         CATZC_ENGINE_START      = ConvertTo-Json -InputObject @($model.StartArguments($entry, '{command}')) -Compress
     }
     if ($model.Name -ne [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) {
-        $contract['CATZC_IMPORTER'] = $powershellEntry
+        $contract['CATZC_IMPORTER'] = $powerShellEntry
     }
     $contract['CATZC_REPOSITORY_ROOT'] = $root
     $contract

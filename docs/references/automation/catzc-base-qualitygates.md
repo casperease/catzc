@@ -53,7 +53,7 @@ its flagged tokens into a triage queue), the Markdown linter, the Markdown forma
 Markdown title and heading formatter and quality gate, the one formatting command (`Format-Code`, which runs the formatter engine
 `languages.yml` names for each file language — Prettier, the managed toolchain's `gofmt`, the pinned `ruff`, PSScriptAnalyzer — with one
 private adapter per engine; [configure-not-program](../../adr/principles/configure-not-program.md)), the C# type-namespace formatter, the
-Python lint quality gate (`Test-PythonLint`, `ruff check`) over every `.py` file the repository holds, the shell-script gate
+Python lint quality gate (`Test-PythonLint`, `ruff check`) over every `.py` file the repository holds, the shell-script quality gate
 (`Test-ShellScripts`: LF, the executable bit, and ShellCheck) over every shell script it tracks
 ([bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md)), and the link aligner and quality gate, which keep code links
 repository-rooted and markdown links relative and resolving ([markdown-links](../../adr/repository/markdown-links.md)). The responsibility

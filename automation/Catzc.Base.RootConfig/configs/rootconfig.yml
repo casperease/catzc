@@ -36,7 +36,8 @@ files:
     committed: true
     optIn: true
   # importer.sh — the bash (and zsh) entry: sourced, it defines the `cats` dispatcher that runs catzc commands through
-  # pwsh (ADR-AUTO-ENGINE). Committed for the same reason as importer.ps1: a fresh clone needs it before any import.
+  # pwsh ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)). Committed for the same reason as importer.ps1: a fresh clone needs
+  # it before any import.
   - target: importer.sh
     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
     comment: hash

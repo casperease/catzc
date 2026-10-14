@@ -14,7 +14,7 @@
 //   - every engine column present in every case, as a map or as "n/a: <reason>" with a non-empty reason — so a case
 //     can never silently skip an engine.
 // The columns are the repository's execution engines, read from their one declaration (ExecutionEngines.Names,
-// ADR-AUTO-ENGINE#1), so a table cannot invent one.
+// [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)), so a table cannot invent one.
 
 using System;
 using System.Collections;
@@ -24,7 +24,8 @@ namespace Catzc.Tooling.Core;
 
 public sealed class EngineCaseTable
 {
-    // The columns: the execution engines, declared once (ADR-AUTO-ENGINE#1), in their order.
+    // The columns: the execution engines, declared once
+    // ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)), in their order.
     private static readonly IReadOnlyList<string> Engines = Catzc.Base.Engines.ExecutionEngines.Names;
 
     private const string NotApplicablePrefix = "n/a:";

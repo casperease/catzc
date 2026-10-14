@@ -88,7 +88,7 @@ Running one catzc module's Bash tests and reporting each one ([ADR-AUTO-BASH](..
 are `.bats` files in `<root>/tests/<module-in-kebab>/` under the Bash root, which defaults, by the convention every test language's root
 follows, to `bash` when the repository has a `bash/` folder, else to `.bash`. They run on the bats-core runner vendored under the Bash root
 at `.vendor/bats-core/`, whose release and archive digest `bash.yml` pins, under the bash engine only, from the Bash root, with a JUnit
-report and inside the time safeguard. A Bash test calls catzc the way a Bash user does: it sources `importer.sh` (`CATZC_ENGINE_ENTRY`) and
+report and inside the time safeguard. A Bash test calls catzc the way a Bash user does: it loads `importer.sh` (`CATZC_ENGINE_ENTRY`) and
 runs commands through `cats`, which loads the entry `CATZC_IMPORTER` names — the repository's `importer.ps1` for the source run, the build's
 `Import-Catzc.ps1` for the build run.
 

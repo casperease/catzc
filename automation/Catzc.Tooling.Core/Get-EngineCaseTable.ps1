@@ -28,7 +28,9 @@ function Get-EngineCaseTable {
         [switch] $Applicable
     )
 
-    # The engines are declared once (ADR-AUTO-ENGINE#1): Get throws, naming them, for any other name.
+    # The engines are declared once
+    # ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)): Get throws, naming them,
+    # for any other name.
     if ($Engine) {
         $null = [Catzc.Base.Engines.ExecutionEngines]::Get($Engine)
     }

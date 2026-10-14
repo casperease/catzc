@@ -8,6 +8,8 @@ noConfigSearch: true
 ignorePaths:
   - .git/**
   - automation/.vendor/**
+  # Every other vendored tree, such as the bats-core runner under the Bash root.
+  - "**/.vendor/**"
   # Vendored, downloaded third-party install scripts (.NET Foundation dotnet-install.*) — never authored here,
   # and they carry Authenticode signature blocks whose base64 is not spellable vocabulary. Same rationale as
   # .vendor/** above.

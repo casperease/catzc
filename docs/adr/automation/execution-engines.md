@@ -52,8 +52,8 @@ every column filled or naming why the case does not apply (`n/a: <reason>`). The
 Each engine reaches catzc through its importer entry at the repository root. bash's is `importer.sh`, a generated, committed root file that
 must be sourced and defines one dispatcher, `cats`: with no arguments it lists the catzc commands; otherwise it runs its first argument as a
 catzc command in pwsh with the PowerShell entry loaded — `CATZC_IMPORTER`, else the repository's `importer.ps1` — passing an argument that
-starts with `-` as a parameter name and every other argument as one PowerShell literal. The model's `CommandPrefix` (`cats ` for bash, none
-for pwsh) is how a command text reaches catzc in that engine, so one test's command text is the same under both.
+starts with `-` as a parameter name and every other argument as one PowerShell literal. The model's `CommandPrefix` (`cats` and a space for
+bash, none for pwsh) is how a command text reaches catzc in that engine, so one test's command text is the same under both.
 
 - [The cats dispatcher](#the-cats-dispatcher)
 
@@ -89,7 +89,7 @@ declares:
 | time safeguard             | `Invoke-WithTimeout`             | `timeout`                          |
 | line endings, exec bit     | any, none                        | LF, required                       |
 | importer entry             | `importer.ps1`                   | `importer.sh`                      |
-| command prefix             | —                                | `cats `                            |
+| command prefix             | —                                | `cats` and a space                 |
 
 `StartArguments(entry, command)` composes the start from these: the non-interactive arguments, the command flag, then one command text that
 loads the entry and runs the command, behind the engine's command prefix.
