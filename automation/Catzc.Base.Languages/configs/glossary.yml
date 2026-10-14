@@ -16,5 +16,5 @@ concepts:
         key: go_test_module
         domain: automation
         defined_by: ADR-AUTO-GO#2
-        short: The folder <root>/tests/<module>/ under the Go root — one Go module per catzc module, named for it in kebab case, holding its black-box Go tests.
+        short: The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it in kebab case, holding its black-box Go tests.
         realized_by: { kind: prose-only }
