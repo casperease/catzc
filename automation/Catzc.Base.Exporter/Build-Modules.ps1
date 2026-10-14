@@ -5,30 +5,36 @@
     The public entry to the build ([ADR-AUTO-BUNDLE#1](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle1)).
     It settles the build's inputs from configs/exporter.yml
     (Get-Config -Config exporter), hands them to the engine (Invoke-ModuleBuild in Catzc.Internal.Builder), and
-    verifies what the engine wrote with Assert-CatzcBundle:
+    verifies what the engine wrote with Assert-CatzcBundle. A build is a build of one named bundle — exporter.yml
+    bundles.<name>, a release identity with its own profile, version line and vendor policy:
 
-      modules       -Module and/or -ModuleProfile (combinable; the engine closure-expands the union over
-                    dependencies.yml); neither -> exporter.yml default_profile
-      version       Resolve-CatzcBuildVersion -Version (auto: 6.6.666 on a devbox, calculated in a pipeline)
-      vendor policy -VendorPolicy, else exporter.yml vendor_policy
-      destination   -Destination, else <Get-OutputRoot>/automation/build; the build lands in
-                    <Destination>/Catzc/<version>/
+      bundle        -Bundle, else exporter.yml default_bundle
+      modules       the bundle's profile; -Module and/or -ModuleProfile override it for an experiment or a test
+                    (combinable; the engine closure-expands the union over dependencies.yml)
+      version       Resolve-CatzcBuildVersion -Version -Bundle (auto: 6.6.666 on a devbox, the bundle's
+                    MAJOR.MINOR plus the commit count in a pipeline)
+      vendor policy -VendorPolicy, else the bundle's vendor_policy
+      destination   -Destination, else <Get-OutputRoot>/automation/built/<bundle>; the build lands in
+                    <Destination>/Catzc/<version>/, so two bundles never share a folder
       package       exporter.yml module_guid + package.* -> the engine's PackageMetadata for Catzc.psd1
 
     -DryRun returns the engine's plan and writes nothing (so there is nothing to verify). Returns the engine's
-    result (BuildRoot, Version, Modules, TypesHash, ContentHash, FileCount, DryRun).
+    result (BuildRoot, Version, Modules, TypesHash, ContentHash, FileCount, Dirty, DryRun).
 .PARAMETER Module
-    Module names to build (closure-expanded by the engine).
+    Module names to build (closure-expanded by the engine), in place of the bundle's profile.
+.PARAMETER Bundle
+    The bundle to build (an exporter.yml bundles key). Defaults to default_bundle.
 .PARAMETER ModuleProfile
-    A profiles.yml key whose modules to build (combinable with -Module). Defaults to the exporter config's
-    default_profile when -Module is not given.
+    A profiles.yml key whose modules to build (combinable with -Module). Defaults to the bundle's profile when
+    -Module is not given.
 .PARAMETER VendorPolicy
     runtime ships only powershell-yaml; full also ships Pester and PSScriptAnalyzer (needed by a build run, which runs the
-    tests against the build). Defaults to exporter.yml's vendor_policy.
+    tests against the build). Defaults to the bundle's vendor_policy.
 .PARAMETER Version
     'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH — see Resolve-CatzcBuildVersion.
 .PARAMETER Destination
-    The parent folder the Catzc/<version>/ build is written under. Defaults to <Get-OutputRoot>/automation/build.
+    The parent folder the Catzc/<version>/ build is written under. Defaults to
+    <Get-OutputRoot>/automation/built/<bundle>.
 .PARAMETER DryRun
     Return the build plan without writing anything.
 .PARAMETER Silent
@@ -36,7 +42,7 @@
 .EXAMPLE
     Build-Modules
 .EXAMPLE
-    Build-Modules -ModuleProfile full -VendorPolicy full
+    Build-Modules -Bundle azure
 .EXAMPLE
     Build-Modules Catzc.Base.Config -DryRun
 #>
@@ -50,19 +56,21 @@ function Build-Modules {
         [Parameter(Position = 0)]
         [string[]] $Module,
 
-        # The exporter's default profile, unless -Module names the selection.
+        [string] $Bundle = "$((Get-Config -Config exporter).default_bundle)",
+
+        # The bundle's profile, unless -Module names the selection.
         [string] $ModuleProfile = $(
             if (-not $Module) {
-                "$((Get-Config -Config exporter).default_profile)"
+                "$((Get-Config -Config exporter).bundles[$Bundle].profile)"
             }
         ),
 
         [ValidateSet('runtime', 'full')]
-        [string] $VendorPolicy = "$((Get-Config -Config exporter).vendor_policy)",
+        [string] $VendorPolicy = "$((Get-Config -Config exporter).bundles[$Bundle].vendor_policy)",
 
         [string] $Version = 'auto',
 
-        [string] $Destination = (Join-Path (Get-OutputRoot) 'automation/build'),
+        [string] $Destination = (Join-Path (Get-OutputRoot) "automation/built/$Bundle"),
 
         [switch] $DryRun,
 
@@ -70,7 +78,8 @@ function Build-Modules {
     )
 
     $config = Get-Config -Config exporter
-    $resolvedVersion = Resolve-CatzcBuildVersion -Version $Version -Silent:$Silent
+    Assert-True ($config.bundles.ContainsKey($Bundle)) -ErrorText "Unknown bundle '$Bundle': exporter.yml declares $(@($config.bundles.Keys) -join ', ')."
+    $resolvedVersion = Resolve-CatzcBuildVersion -Version $Version -Bundle $Bundle -Silent:$Silent
 
     $package = $config.package
     $engineArguments = @{
