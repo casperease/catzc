@@ -248,6 +248,7 @@ side:
 - An ADR claim the code contradicts is NOT red (red is failure only). Draw it as the normal box with its numbered marker; the note
   states the drift. (Dashes and thick rims already mean "no gate" and "gate".)
 - `dashed` means one thing on every slide: "ADR-only: no code runs or checks it" (no gate). Don't reuse dashes for anything else.
+  The preview ignores `verticalAlign=bottom` on hexagons: put a commit dot above the centre, never on the centred label.
   The preview draws a dashed hexagon or rhombus solid, so mark those ADR-only with a dashed frame around the shape.
 - A generator that rewrites the XML strips the embedded minimaps: after any regeneration, rebuild every slide it wrote.
 
