@@ -386,12 +386,23 @@ Test-Automation -Suite.
   - [test run](#test-run): A test run executes a selection, a test suite or an ad-hoc one; a test suite is the declared selection at rest.
   - [tier](#tier): A tier is one level a single test carries; a test suite selects whole modules up to a top tier.
 
+### testing in production
+
+The L4 tier — tests of the released system itself, after final approval, that observe it and create nothing of their own.
+
+- **Defined by:** [ADR-AUTO-TEST#41](automation/test-automation.md#rule-adr-auto-test41)
+- **Realized by:** tag `L4`
+- **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
+- **Contrasts:**
+  - [vertical test](#vertical-test): A vertical test crosses the local-tool or outside-state ring around the code; testing in production
+    checks the released system.
+
 ### tier
 
-A test's level, L0 to L3 — one mandatory tag that sets what the test may touch and when it runs.
+A test's level, L0 to L4 — one mandatory tag that sets what the test may touch and when it runs.
 
 - **Defined by:** [ADR-AUTO-TEST#13](automation/test-automation.md#rule-adr-auto-test13)
-- **Realized by:** tag `L0|L1|L2|L3`
+- **Realized by:** tag `L0|L1|L2|L3|L4`
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
   - [category](#category): A category says what a test reads (logic or integrity); a tier says what it may touch and when it runs.
@@ -414,6 +425,8 @@ An L2 or L3 test that cuts from an outer ring of the test onion (local tools; ou
 - **Realized by:** tag `L2|L3`
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
+  - [testing in production](#testing-in-production): Testing in production checks the released system after final approval; a vertical test
+    crosses a ring around the code.
   - [tier](#tier): A tier names a test's outermost ring and every test has one; a vertical test is an L2 or L3 test, one that crosses a
     ring.
 

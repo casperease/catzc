@@ -11,13 +11,15 @@
 //   enum                  an array; the value equals one of its elements (ContractValue.Equal)
 //   items                 one schema every array element validates against (the array form is not supported)
 //   const                 the value equals it
-// Every other keyword — $schema and the annotations included — is a finding "unsupported keyword", never ignored, and so
-// is a keyword of the subset in a form it does not support. The schema is read whole first, every nested schema under
-// properties and items included, whatever the value holds; a value is validated only against a schema with no such
-// finding, since a schema the subset cannot read whole cannot say what it admits.
+// The annotation keywords $schema, $id, $comment, title, description and examples are explicit no-ops: each is read
+// and ignored by name, in any form, and never constrains a value. Every other keyword is a finding "unsupported
+// keyword", never ignored, and so is a keyword of the subset in a form it does not support. The schema is read whole
+// first, every nested schema under properties and items included, whatever the value holds; a value is validated only
+// against a schema with no such finding, since a schema the subset cannot read whole cannot say what it admits.
 //
-// Validate returns the findings, one precise message per violation, and an empty list when the value validates. A
-// schema location is a JSON Pointer from # (#/properties/name); a value location is JSONPath ($.name).
+// Inspect returns the schema's own findings alone (for a schema whose instance another check validates); Validate
+// returns those, or else the value's findings, one precise message per violation, and an empty list when the value
+// validates. A schema location is a JSON Pointer from # (#/properties/name); a value location is JSONPath ($.name).
 
 using System;
 using System.Collections;
@@ -29,9 +31,20 @@ namespace Catzc.Base.Contracts;
 
 public static class ContractSchema
 {
-    public static readonly string[] Keywords = { "type", "required", "properties", "additionalProperties", "enum", "items", "const" };
+    // Declared before Keywords: static fields initialise in text order.
+    public static readonly string[] Annotations = { "$schema", "$id", "$comment", "title", "description", "examples" };
+
+    public static readonly string[] Keywords =
+        new[] { "type", "required", "properties", "additionalProperties", "enum", "items", "const" }.Concat(Annotations).ToArray();
 
     public static readonly string[] Types = { "null", "boolean", "object", "array", "number", "string", "integer" };
+
+    public static IReadOnlyList<string> Inspect(object schema)
+    {
+        var findings = new List<string>();
+        Read(schema, "#", findings);
+        return findings;
+    }
 
     public static IReadOnlyList<string> Validate(object schema, object value)
     {
@@ -114,6 +127,10 @@ public static class ContractSchema
                 case "const":
                     break;
                 default:
+                    if (Array.IndexOf(Annotations, keyword) >= 0)
+                    {
+                        break;
+                    }
                     findings.Add(string.Format(CultureInfo.InvariantCulture, "schema {0}: unsupported keyword {1}", at, keyword));
                     break;
             }

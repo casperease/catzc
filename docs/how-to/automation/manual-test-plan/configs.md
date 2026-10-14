@@ -25,6 +25,8 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 | 14  | L0   | automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1        | integrity (shipped languages.yml)                      | The shipped languages.yml loads through `LanguagesConfig`.                                                                                             |
 | 15  | L0   | automation/Catzc.Base.Languages/tests/types/PythonConfig.Tests.ps1           | integrity (shipped python.yml)                         | The shipped python.yml loads through `PythonConfig`, pinning pytest and ruff.                                                                          |
 | 16  | L0   | automation/Catzc.Base.Languages/tests/types/BashConfig.Tests.ps1             | integrity (shipped bash.yml)                           | The shipped bash.yml loads through `BashConfig`, pinning the vendored bats-core release and its archive digest.                                        |
+| 17  | L1   | automation/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1        | ContractsConfig (shipped contracts.yml)                | The shipped contracts.yml loads through `ContractsConfig` on an addressing mode that is built (ADR-REPO-CONTRACT#8).                                   |
+| 18  | L1   | automation/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1                  | integrity (shipped maps.yml)                           | The shipped maps.yml loads through `MapsConfig`.                                                                                                       |
 
 ## Checks
 

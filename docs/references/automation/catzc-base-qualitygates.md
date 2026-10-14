@@ -25,13 +25,15 @@ enforces are the subject of the same ADR.
 ### responsibility:1 — Test runner
 
 How the repository runs and validates all its tests. This responsibility discovers tests across every module, runs them at the requested
-tier level (L0–L3) and optional category filter (`logic`/`integrity`), and writes a timestamped report — as a source run, as a build run
-against a fresh build of the selected modules, one test file at a time, or for a module profile copied into an isolated sandbox. Before any
-test executes, a discovery-only pass inspects the full test tree and throws if any test is missing or ambiguous on either of the two
-mandatory tag axes — exactly one tier (`L0|L1|L2|L3`) and exactly one category (`logic|integrity`). A module's Go, Python and Bash tests, in
-the Go test module and the Python and Bash test folders named for it, count as that module's tests: one shared Pester bridge, the language
-bridge, runs them and turns every test into one Pester test. The tag model, the two-axis tagging contract, the two run modes, and the tier
-definitions are the subject of [test-automation](../../adr/automation/test-automation.md); the Go, Python and Bash tests are the subject of
+tier level (L0–L3 by default, the opt-in L4 when asked) and optional category filter (`logic`/`integrity`), and writes a timestamped report
+— as a source run, as a build run against a fresh build of the selected modules, one test file at a time, or for a module profile copied
+into an isolated sandbox. Before any test executes, a discovery-only pass inspects the full test tree and throws if any test is missing or
+ambiguous on either of the two mandatory tag axes — exactly one tier (`L0|L1|L2|L3|L4`) and exactly one category (`logic|integrity`). An L4
+test, which tests the released system after final approval, asks `Get-TestTargetSkipReason` first and self-skips when the console cannot
+reach its target or the target's `test-policy.yml` mode does not allow what it does. A module's Go, Python and Bash tests, in the Go test
+module and the Python and Bash test folders named for it, count as that module's tests: one shared Pester bridge, the language bridge, runs
+them and turns every test into one Pester test. The tag model, the two-axis tagging contract, the two run modes, and the tier definitions
+are the subject of [test-automation](../../adr/automation/test-automation.md); the Go, Python and Bash tests are the subject of
 [test-artifacts](../../adr/automation/go/test-artifacts.md), [python-test-artifacts](../../adr/automation/python/python-test-artifacts.md)
 and [bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md).
 
@@ -115,6 +117,8 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Invoke-TestFile`             |
 |                                                 | `Test-CatzcBuild`             |
 |                                                 | `Test-InIsolation`            |
+|                                                 | `Get-TestTargetSkipReason`    |
+| config                                          | `test-policy.yml`             |
 | responsibility:2 — Repository quality gates     | `Test-GeneratedFiles`         |
 |                                                 | `Test-Formatting`             |
 |                                                 | `Test-BuildArtifact`          |

@@ -23,6 +23,28 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
         }
         Should -Invoke Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
     }
+
+    It 'leaves out the opt-in L4 tests by default, and runs them with -MaxLevel 4 (<maxLevel>)' -ForEach @(
+        @{ maxLevel = 3; expected = @('L4') }
+        @{ maxLevel = 4; expected = @() }
+    ) {
+        $testFile = Join-Path $TestDrive 'gadget.Tests.ps1'
+        [System.IO.File]::WriteAllText($testFile, '')
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
+        Mock Enter-TestRunLocation -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Mode = 'in-place'; SystemTests = $true } }
+        Mock Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-TestRunLocationEntry -ModuleName Catzc.Base.QualityGates { @{} }
+        Mock Get-LanguageTestExecutable -ModuleName Catzc.Base.QualityGates { @{} }
+        Mock Convert-TestRunLocationPath -ModuleName Catzc.Base.QualityGates { $Path }
+        Mock New-TestAutomationShardScript -ModuleName Catzc.Base.QualityGates { throw 'stop before spawning' }
+
+        { Invoke-TestFile $testFile -MaxLevel $maxLevel } | Should -Throw '*stop before spawning*'
+
+        $expectedTags = $expected
+        Should -Invoke New-TestAutomationShardScript -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            "$($ExcludeTag -join ',')" -eq "$($expectedTags -join ',')"
+        }
+    }
 }
 
 # L2: drives a real child pwsh worker through the same generator + runner chain as the harness.

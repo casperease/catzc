@@ -33,7 +33,7 @@
 .PARAMETER MaxLevel
     Maximum test tier (alias: -Level). Defaults to 3, as in Test-Automation: L0-L3 when the run owns the
     working folder, L0-L2 in a snapshot, which skips L3 and says so
-    ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
+    ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)). 4 adds the opt-in L4 tier.
 .PARAMETER Category
     Logic, Integrity, or Both (the default) — as in Test-Automation.
 .PARAMETER Workers
@@ -59,10 +59,10 @@ function Test-CatzcBuild {
 
         [string] $ModuleProfile,
 
-        [ValidateSet(0, 1, 2, 3)]
+        [ValidateSet(0, 1, 2, 3, 4)]
         [int] $MinLevel = 0,
 
-        [ValidateSet(0, 1, 2, 3)]
+        [ValidateSet(0, 1, 2, 3, 4)]
         [Alias('Level')]
         [int] $MaxLevel = 3,
 

@@ -5,12 +5,12 @@
 .DESCRIPTION
     Excludes every tier tag outside [MinLevel, MaxLevel] and, when -Category is Logic or Integrity, the OTHER
     category's tag. ExcludeTag values are lowercase to match the test files' actual tags ('logic'/'integrity');
-    tier tags are 'L0'..'L3'. A mixed file's per-Context category tags filter correctly because ExcludeTag
-    matches an item's own tag.
+    tier tags are [Catzc.Base.Timeouts.TestTiers]::Names ('L0'..'L4'). A mixed file's per-Context category tags
+    filter correctly because ExcludeTag matches an item's own tag.
 .PARAMETER MinLevel
-    Lowest tier to keep (0-3). Tiers below it are excluded.
+    Lowest tier to keep (0-4). Tiers below it are excluded.
 .PARAMETER MaxLevel
-    Highest tier to keep (0-3). Tiers above it are excluded.
+    Highest tier to keep (0-4). Tiers above it are excluded.
 .PARAMETER Category
     Logic (exclude integrity), Integrity (exclude logic), or Both (exclude neither).
 .EXAMPLE
@@ -19,34 +19,24 @@
 function Get-TestExcludeTag {
     [OutputType([string[]])]
     param(
-        [ValidateSet(0, 1, 2, 3)]
+        [ValidateSet(0, 1, 2, 3, 4)]
         [int] $MinLevel = 0,
 
-        [ValidateSet(0, 1, 2, 3)]
+        [ValidateSet(0, 1, 2, 3, 4)]
         [int] $MaxLevel = 2,
 
         [ValidateSet('Logic', 'Integrity', 'Both')]
         [string] $Category = 'Both'
     )
 
+    # Tiers above the range, highest first, then tiers below it, lowest first.
+    $tiers = [Catzc.Base.Timeouts.TestTiers]::Names
     $excludeTags = [System.Collections.Generic.List[string]]::new()
-    if ($MaxLevel -lt 3) {
-        $excludeTags.Add('L3')
+    for ($level = $tiers.Count - 1; $level -gt $MaxLevel; $level--) {
+        $excludeTags.Add($tiers[$level])
     }
-    if ($MaxLevel -lt 2) {
-        $excludeTags.Add('L2')
-    }
-    if ($MaxLevel -lt 1) {
-        $excludeTags.Add('L1')
-    }
-    if ($MinLevel -gt 0) {
-        $excludeTags.Add('L0')
-    }
-    if ($MinLevel -gt 1) {
-        $excludeTags.Add('L1')
-    }
-    if ($MinLevel -gt 2) {
-        $excludeTags.Add('L2')
+    for ($level = 0; $level -lt $MinLevel; $level++) {
+        $excludeTags.Add($tiers[$level])
     }
     # Lowercase to match the test files' actual category tags.
     if ($Category -eq 'Logic') {

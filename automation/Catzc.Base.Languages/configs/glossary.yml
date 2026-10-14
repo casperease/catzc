@@ -4,31 +4,38 @@
 # whole repository, every text surface
 # ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). Checked by Test-Glossary.
 concepts:
-    verification track:
-        key: verification_track
-        domain: design
-        defined_by: ADR-DSGN-TRACK#2
-        short: A test-only track — it verifies the core from outside, ships nothing, and is out of every bundle by construction; go is the first.
-        realized_by: { kind: prose-only }
-        relations:
-            kind_of: [track]
-        contrasts:
-            track: A track is any root concern; a verification track is the test-only class that ships nothing.
-    go test module:
-        key: go_test_module
-        domain: automation
-        defined_by: ADR-AUTO-GO#2
-        short: The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it in kebab case, holding its black-box Go tests.
-        realized_by: { kind: prose-only }
-    python test folder:
-        key: python_test_folder
-        domain: automation
-        defined_by: ADR-AUTO-PY#2
-        short: The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in kebab case, holding its black-box Python tests; each is a member of the one generated uv workspace.
-        realized_by: { kind: prose-only }
-    bash test folder:
-        key: bash_test_folder
-        domain: automation
-        defined_by: ADR-AUTO-BASH#2
-        short: The folder `<root>/tests/<module>/` under the Bash root — one per catzc module, named for it in kebab case, holding its black-box `.bats` tests, which call catzc through `importer.sh` and `cats`.
-        realized_by: { kind: prose-only }
+  verification track:
+    key: verification_track
+    domain: design
+    defined_by: ADR-DSGN-TRACK#2
+    short:
+      A test-only track — it verifies the core from outside, ships nothing, and is out of every bundle by construction; go is the first.
+    realized_by: { kind: prose-only }
+    relations:
+      kind_of: [track]
+    contrasts:
+      track: A track is any root concern; a verification track is the test-only class that ships nothing.
+  go test module:
+    key: go_test_module
+    domain: automation
+    defined_by: ADR-AUTO-GO#2
+    short:
+      The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it in kebab case, holding its
+      black-box Go tests.
+    realized_by: { kind: prose-only }
+  python test folder:
+    key: python_test_folder
+    domain: automation
+    defined_by: ADR-AUTO-PY#2
+    short:
+      The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in kebab case, holding its black-box
+      Python tests; each is a member of the one generated uv workspace.
+    realized_by: { kind: prose-only }
+  bash test folder:
+    key: bash_test_folder
+    domain: automation
+    defined_by: ADR-AUTO-BASH#2
+    short:
+      The folder `<root>/tests/<module>/` under the Bash root — one per catzc module, named for it in kebab case, holding its black-box
+      `.bats` tests, which call catzc through `importer.sh` and `cats`.
+    realized_by: { kind: prose-only }

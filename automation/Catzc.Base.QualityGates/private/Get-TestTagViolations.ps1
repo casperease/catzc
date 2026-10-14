@@ -3,7 +3,7 @@
     Lists every Pester test that is missing — or ambiguous on — a required tag axis.
 .DESCRIPTION
     Inspects a discovery-only Pester result (Get-TestDiscovery), so EVERY test is checked regardless of run
-    level or tag filters, and resolves each test's tier (L0-L3) and category (logic|integrity) via
+    level or tag filters, and resolves each test's tier (L0-L4) and category (logic|integrity) via
     Get-TestBlockTag (nearest contributing block wins). A test is a violation when an axis resolves to zero
     tags (missing) or to more than one on its nearest contributing block (ambiguous).
 
@@ -36,7 +36,7 @@ function Get-TestTagViolations {
     $violations = foreach ($test in $Discovery.Tests) {
         $reasons = @()
 
-        $tierTags = Get-TestBlockTag -Test $test -Valid 'L0', 'L1', 'L2', 'L3'
+        $tierTags = Get-TestBlockTag -Test $test -Valid ([Catzc.Base.Timeouts.TestTiers]::Names)
         if ($tierTags.Count -ne 1) {
             $detail = if ($tierTags.Count) {
                 ': ' + ($tierTags -join ',')
@@ -44,7 +44,7 @@ function Get-TestTagViolations {
             else {
                 ''
             }
-            $reasons += "tier resolves to $($tierTags.Count) (need exactly one of L0-L3)$detail"
+            $reasons += "tier resolves to $($tierTags.Count) (need exactly one of $([Catzc.Base.Timeouts.TestTiers]::Names -join '|'))$detail"
         }
 
         $categoryTags = Get-TestBlockTag -Test $test -Valid 'logic', 'integrity'

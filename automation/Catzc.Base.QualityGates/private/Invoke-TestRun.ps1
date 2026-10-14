@@ -47,11 +47,11 @@ function Invoke-TestRun {
 
         [string] $Title = 'Test Automation',
 
-        [ValidateSet(0, 1, 2, 3)]
+        [ValidateSet(0, 1, 2, 3, 4)]
         [int] $MinLevel = 0,
 
         # The highest tier asked for; the run's location caps it (Resolve-TestRunMaxLevel): a snapshot never runs L3.
-        [ValidateSet(0, 1, 2, 3)]
+        [ValidateSet(0, 1, 2, 3, 4)]
         [int] $MaxLevel = 3,
 
         [AllowEmptyCollection()]

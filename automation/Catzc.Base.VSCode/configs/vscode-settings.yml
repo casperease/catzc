@@ -63,7 +63,7 @@ settings:
   # { } on a single line. Matches the psd1's PSPlaceOpenBrace/PSPlaceCloseBrace IgnoreOneLineBlock = $false.
   powershell.codeFormatting.ignoreOneLineBlock: false
   # Honour .editorconfig / 4-space indent; don't let VS Code guess indentation from file contents.
-  '[powershell]':
+  "[powershell]":
     editor.detectIndentation: false
     editor.tabSize: 4
     editor.insertSpaces: true
@@ -83,18 +83,18 @@ settings:
   # installed tool trees (the Python test environment, node packages) hold thousands of files nobody edits, so
   # the editor does not watch them. out/ stays watched: the explorer shows each new run's report as it lands.
   files.watcherExclude:
-    '**/automation/**/*.psd1': true
-    '**/automation/.internal/assets/PSScriptAnalyzerSettings.psd1': false
-    '**/python/.venv/**': true
-    '**/node_modules/**': true
+    "**/automation/**/*.psd1": true
+    "**/automation/.internal/assets/PSScriptAnalyzerSettings.psd1": false
+    "**/python/.venv/**": true
+    "**/node_modules/**": true
 
-  '[markdown]':
+  "[markdown]":
     editor.defaultFormatter: esbenp.prettier-vscode
     editor.quickSuggestions:
-      comments: 'on'
-      strings: 'on'
-      other: 'on'
-    editor.wordWrap: 'off'
+      comments: "on"
+      strings: "on"
+      other: "on"
+    editor.wordWrap: "off"
 
   # Treat LICENSE files as plain text so markdownlint ignores them
   # .yml -> generic YAML, .yaml -> Azure Pipelines YAML
@@ -103,11 +103,11 @@ settings:
   # Captured console output under out/ -> "ansi" (iliazeus.vscode-ansi), so the writers' colors render and the
   # escape codes are hidden.
   files.associations:
-    '**/LICENSE': plaintext
-    '**/*.yml': yaml
-    '**/*.yaml': azure-pipelines
-    '**/.markdownlintignore': ignore
-    '**/out/**/*.log': ansi
+    "**/LICENSE": plaintext
+    "**/*.yml": yaml
+    "**/*.yaml": azure-pipelines
+    "**/.markdownlintignore": ignore
+    "**/out/**/*.log": ansi
 
   # Route *.drawio.png to VS Code's built-in image preview editor (viewType imagePreview.previewEditor, from
   # the bundled media-preview extension) instead of the Draw.io extension's binary custom editor. This is
@@ -118,7 +118,7 @@ settings:
   # double-clicking a .drawio.png shows the image; to EDIT the diagram, right-click -> Reopen Editor With ->
   # "Draw.io (Binary)". Pixels-first was the deliberate call: these diagrams are compared far more than edited.
   workbench.editorAssociations:
-    '*.drawio.png': imagePreview.previewEditor
+    "*.drawio.png": imagePreview.previewEditor
 
   # Prettier is the .yaml (ADO pipeline) formatter, the same engine Format-Code runs for it — so the editor
   # and the catzc gate produce byte-identical output
@@ -127,8 +127,8 @@ settings:
   # documentSelectors opts those files in; the language default-formatter then routes Format Document to it.
   # Format-on-save is deliberately OFF — formatting is on demand (Shift+Alt+F) and enforced by the gate.
   prettier.documentSelectors:
-    - '**/*.yaml'
-  '[azure-pipelines]':
+    - "**/*.yaml"
+  "[azure-pipelines]":
     editor.defaultFormatter: esbenp.prettier-vscode
 
   # Azure Pipelines extension: validate .yaml against OUR generated schema, not the extension's bundled one.
@@ -149,8 +149,8 @@ settings:
   regexrobin.rules:
     - regex: '\[[^\]\r\n]+\]\(/(docs/adr/[^)#\s]+\.md)(#[^)\s]*)?\)'
       editor:
-        - link: 'file:///${workspaceFolder}/$1'
-          hoverMessage: 'Open $1$2'
+        - link: "file:///${workspaceFolder}/$1"
+          hoverMessage: "Open $1$2"
 
   # Go (the golang.go extension and gopls): the tools run with GOTOOLCHAIN=local, so the editor never downloads
   # the toolchain go.work asks for; it runs the managed go, which the generator injects as go.goroot on a
@@ -173,15 +173,15 @@ settings:
   # One formatter per language, the same engine the catzc formatter for that language runs, so Format Document
   # and the gate agree ([ADR-REPO-FORMAT](/docs/adr/repository/uniform-formatting.md)). Format-on-save stays off:
   # formatting is on demand and enforced by the gate.
-  '[go]':
+  "[go]":
     editor.defaultFormatter: golang.go
-  '[python]':
+  "[python]":
     editor.defaultFormatter: charliermarsh.ruff
-  '[csharp]':
+  "[csharp]":
     editor.defaultFormatter: ms-dotnettools.csharp
-  '[bicep]':
+  "[bicep]":
     editor.defaultFormatter: ms-azuretools.vscode-bicep
-  '[xml]':
+  "[xml]":
     editor.defaultFormatter: redhat.vscode-xml
 
   # C# Dev Kit loads the IDE-only catzc.sln at the root, never a project it finds on its own.

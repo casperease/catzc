@@ -3,9 +3,10 @@
 # whole repository, every text surface
 # ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). Checked by Test-Glossary.
 concepts:
-    execution engine:
-        key: execution_engine
-        domain: automation
-        defined_by: ADR-AUTO-ENGINE#1
-        short: One of the two shells the repository's own code runs under, pwsh and bash, declared once with everything that differs between them.
-        realized_by: { kind: prose-only }
+  execution engine:
+    key: execution_engine
+    domain: automation
+    defined_by: ADR-AUTO-ENGINE#1
+    short:
+      One of the two shells the repository's own code runs under, pwsh and bash, declared once with everything that differs between them.
+    realized_by: { kind: prose-only }

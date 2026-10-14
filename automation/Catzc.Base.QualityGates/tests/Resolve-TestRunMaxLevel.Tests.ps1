@@ -36,6 +36,16 @@ Describe 'Resolve-TestRunMaxLevel' -Tag 'L0', 'logic' {
         Invoke-Resolve $script:inPlace 1 | Should -Be 1
     }
 
+    It 'runs the opt-in L4 in place when it is asked for' {
+        Invoke-Resolve $script:inPlace 4 | Should -Be 4
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 0
+    }
+
+    It 'caps an L4 request in a snapshot at L2, and says it skips L3 and L4' {
+        Invoke-Resolve $script:snapshot 4 | Should -Be 2
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -like 'Skipping L3 and L4:*' }
+    }
+
     It 'caps a snapshot run at L2 and says it skips L3, naming the holder' {
         Invoke-Resolve $script:snapshot $null | Should -Be 2
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {

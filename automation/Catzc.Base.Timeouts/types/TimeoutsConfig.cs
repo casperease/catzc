@@ -21,9 +21,10 @@
 //   - 'executables' maps a bare executable name (no directory, no extension) to a positive whole number;
 //   - 'commands' maps a function name (Verb-Noun) to a positive whole number — the config layer above a function's own
 //     [TimeLimit] decoration (Get-TimeoutSeconds -Command);
-//   - 'tests' holds the test-run time limits (Get-TestTimeLimits): 'level_ms' maps a test tier (L0 | L1 | L2 | L3) to
-//     the most milliseconds one test of that tier may take, and 'run_seconds' is the budget for a whole Test-Automation
-//     run up to L3. Both are positive whole numbers, with defaults declared here.
+//   - 'tests' holds the test-run time limits (Get-TestTimeLimits): 'level_ms' maps a test tier (TestTiers.Names, L0 to
+//     L4) to the most milliseconds one test of that tier may take, and 'run_seconds' is the budget for a whole
+//     Test-Automation run up to L3 (an L4 run is a stage of its own). Both are positive whole numbers, with defaults
+//     declared here.
 
 using System;
 using System.Collections;
@@ -36,17 +37,19 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "limits", "executables", "commands", "tests" };
     private static readonly string[] TestKeys = { "level_ms", "run_seconds" };
-    private static readonly string[] TestLevels = { "L0", "L1", "L2", "L3" };
+    private static readonly string[] TestLevels = TestTiers.Names;
 
     // The sensible test-run defaults: an L0 logic test is milliseconds, an L1 integrity test a couple of seconds, an L2
-    // test that drives a real tool tens of seconds, an L3 vertical system test up to two minutes; a whole run up to L3
-    // fits in three minutes.
+    // test that drives a real tool tens of seconds, an L3 vertical system test up to two minutes, an L4 test of the
+    // released system through its public edge (DNS, TLS, a cold start) up to ten; a whole run up to L3 fits in three
+    // minutes.
     private static readonly Dictionary<string, int> TestLevelDefaults = new Dictionary<string, int>(StringComparer.Ordinal)
     {
         { "L0", 400 },
         { "L1", 2000 },
         { "L2", 30000 },
         { "L3", 120000 },
+        { "L4", 600000 },
     };
     private const int TestRunDefaultSeconds = 180;
     private static readonly string[] Environments = { "devbox", "pipeline" };
@@ -80,7 +83,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     // Per-command limits in seconds, keyed by the function name (case-insensitive). Empty when the file declares none.
     public IReadOnlyDictionary<string, int> commands { get; }
 
-    // The resolved test-run limits, defaults filled in: tests[level_ms][L0..L3] in milliseconds, tests[run_seconds].
+    // The resolved test-run limits, defaults filled in: tests[level_ms][L0..L4] in milliseconds, tests[run_seconds].
     public IDictionary tests { get; }
 
     private readonly Dictionary<string, int> testLevelMs = new Dictionary<string, int>(TestLevelDefaults, StringComparer.Ordinal);
@@ -212,7 +215,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         };
     }
 
-    // The most milliseconds one test may take, per tier (L0..L3) — a fresh copy, so a caller cannot change the config.
+    // The most milliseconds one test may take, per tier (L0..L4) — a fresh copy, so a caller cannot change the config.
     public Hashtable TestLevelLimitsMs()
     {
         Hashtable copy = new Hashtable(StringComparer.OrdinalIgnoreCase);
@@ -241,7 +244,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
             IDictionary levels = map["level_ms"] as IDictionary;
             if (levels == null)
             {
-                errors.Add("invalid tests.level_ms (must be a map of L0 | L1 | L2 | L3 to milliseconds)");
+                errors.Add("invalid tests.level_ms (must be a map of " + string.Join(" | ", TestLevels) + " to milliseconds)");
             }
             else
             {

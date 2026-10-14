@@ -97,13 +97,15 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             { New-TimeoutsConfig $data } | Should -Throw $expected
         }
 
-        It 'resolves the test-run defaults: tier limits L0 < L1 < L2 < L3, and a three-minute run budget' {
+        It 'resolves the test-run defaults: tier limits L0 < L1 < L2 < L3 < L4, and a three-minute run budget' {
             $config = New-TimeoutsConfig ([ordered]@{})
             $levels = $config.TestLevelLimitsMs()
             $levels['L0'] | Should -Be 400
             $levels['L1'] | Should -Be 2000
             $levels['L2'] | Should -Be 30000
             $levels['L3'] | Should -Be 120000
+            $levels['L4'] | Should -Be 600000
+            @($levels.Keys | Sort-Object) | Should -Be ([Catzc.Base.Timeouts.TestTiers]::Names)
             $config.TestRunSeconds() | Should -Be 180
             $config.tests.run_seconds | Should -Be 180
         }

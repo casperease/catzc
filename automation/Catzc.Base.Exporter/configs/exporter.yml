@@ -13,7 +13,7 @@
 #   version                — numeric MAJOR.MINOR of a pipeline build; its PATCH is the first-parent commit count
 #                            of the built commit, so the same commit always gets the same version.
 direct_install_version: 6.6.666
-version: '0.1'
+version: "0.1"
 
 # The default build shape:
 #   default_profile — the module set to build when neither -Module nor -ModuleProfile is given (a profiles.yml

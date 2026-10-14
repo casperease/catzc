@@ -33,8 +33,8 @@ domains:
     role: axioms # the non-negotiable design axioms every other domain specialises
     description: >-
       The design axioms every other domain specialises: everything as code, configure don't program, reduce variability, reduce waste,
-      poka-yoke, and one living version. They rest on the thesis and the DORA research, no domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`) as the
-      reason for its own decisions.
+      poka-yoke, and one living version. They rest on the thesis and the DORA research, no domain later in the order overrides them, and
+      every other domain cites them (`ADR-PRIN-*`) as the reason for its own decisions.
     depends_on: [research, thesis]
     rulesets:
       everything-as-code: { external: ADR-PRIN-EAC, terminology: eac }
@@ -50,9 +50,9 @@ domains:
     role: optimisable
     description: >-
       How the team works: the Agile Manifesto's values and principles, lean flow as the Toyota Production System maps to software, and one
-      shared vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`ADR-PROC-KAIZEN`); the design,
-      flow, and implementation domains put its practices into effect — stopping the line, building quality in, pulling work, and draining
-      queues.
+      shared vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`ADR-PROC-KAIZEN`); the
+      design, flow, and implementation domains put its practices into effect — stopping the line, building quality in, pulling work, and
+      draining queues.
     depends_on: [research, principles]
     rulesets:
       agile: { external: ADR-PROC-AGILE }
@@ -92,10 +92,10 @@ domains:
     code: FLOW-CD
     role: architecture # the platform-agnostic flow model that ADO (PIPE) and GitHub (GH) implement
     description: >-
-      The vendor-neutral delivery-flow model: continuous integration as a discipline with a 5–10 minute integration budget, the closed set of
-      pipeline types (CRON, CI, CD, CDe, DEPLOY, INPUT) keyed together by one immutable tagged artifact, how pipelines invoke automation and
-      detect their context, and how globsets project into native trigger filters. The pipelines (Azure DevOps) and github domains implement
-      it.
+      The vendor-neutral delivery-flow model: continuous integration as a discipline with a 5–10 minute integration budget, the closed set
+      of pipeline types (CRON, CI, CD, CDe, DEPLOY, INPUT) keyed together by one immutable tagged artifact, how pipelines invoke automation
+      and detect their context, and how globsets project into native trigger filters. The pipelines (Azure DevOps) and github domains
+      implement it.
     depends_on: [research, principles, process, design]
     rulesets:
       cd-discipline-and-promotion-flow: { external: ADR-FLOW-CD }
@@ -110,9 +110,9 @@ domains:
     description: >-
       The catzc CLI and module system and the rules for building it: devbox/pipeline parity, one function per file, open/closed growth,
       fail-fast assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, test automation, and the
-      merged, installable build.
-      Language layers live in `powershell/`, `BCL/` (native C# types), and `go/` and `python/` (black-box test artifacts). It turns the research,
-      principles, process, and design domains into enforced code; the pipelines, github, and azure domains build on it.
+      merged, installable build. Language layers live in `powershell/`, `BCL/` (native C# types), and `go/` and `python/` (black-box test
+      artifacts). It turns the research, principles, process, and design domains into enforced code; the pipelines, github, and azure
+      domains build on it.
     depends_on: [research, principles, process, design]
     rulesets:
       devbox-pipeline-parity: { external: ADR-AUTO-PARITY }
@@ -229,10 +229,10 @@ domains:
     role: implementation # how the repository tree itself is organised and generated
     description: >-
       How the repository tree is laid out, formatted, and generated: conventional folder names at every level, the single `out/` output
-      directory, one formatting standard for every file type, contracts at the repository boundary, in both directions, under `contracts/`, READMEs and root configs
-      generated from one source, fictional documentation examples, the separation of design, test, and live vocabulary, the controlled
-      vocabulary of defined terms, repo-wide variants, the sub-agent definitions and the rules behind each, and sibling repositories read
-      for ideas, never as a reference implementation.
+      directory, one formatting standard for every file type, contracts at the repository boundary, in both directions, under `contracts/`,
+      READMEs and root configs generated from one source, fictional documentation examples, the separation of design, test, and live
+      vocabulary, the controlled vocabulary of defined terms, repo-wide variants, the sub-agent definitions and the rules behind each, and
+      sibling repositories read for ideas, never as a reference implementation.
     depends_on: [research, principles, design]
     rulesets:
       conventional-folders: { external: ADR-REPO-FOLDERS }
@@ -256,8 +256,8 @@ domains:
     description: >-
       The repository's core theoretical construct: the DORA research program, held as one ADR-style record per DORA capability, each with
       its own `ADR-DORA-<NAME>` rule codes, beside the cross-referenceable research reference in `docs/references/dora/`. It is trusted
-      external validation — every other domain depends on it and it depends on none; the others cite it through their `dora-explains.md` files and
-      `ADR-DORA-*` citations.
+      external validation — every other domain depends on it and it depends on none; the others cite it through their `dora-explains.md`
+      files and `ADR-DORA-*` citations.
     depends_on: []
     # terminology tokens (the shared `dora` code token + any non-word name bodies) are reconciled in Stage 2.
     rulesets:

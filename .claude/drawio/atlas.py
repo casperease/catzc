@@ -53,6 +53,6 @@ batches = [files[i:i + 250] for i in range(0, len(files), 250)]
 (OUT / "atlas.files.json").write_text(json.dumps(batches), encoding="utf-8")
 
 template = (Path(__file__).parent / "atlas.template.html").read_text(encoding="utf-8")
-page = template.replace("/*__CATALOGUE__*/null", json.dumps(catalogue, ensure_ascii=False))
+page = template.replace("/*__CATALOGUE__*/ null", json.dumps(catalogue, ensure_ascii=False))
 (OUT / "atlas.html").write_text(page, encoding="utf-8")
 print(f"ok out/atlas.html files={len(files)} batches={[len(b) for b in batches]}")

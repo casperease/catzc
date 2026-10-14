@@ -32,24 +32,24 @@ Keep it at most 1300 wide and grow downward. Flat look: no shadows, no gradients
 
 A reader decodes a slide by **shape first** (what kind of thing), **colour second** (the same kind, confirmed), and the name last. So every
 kind of thing has exactly one glyph, the same on every slide of every diagram, and its legend entry always uses the same phrase. A glyph
-never borrows another kind's colour, and a colour never means two things across slides (grey is not "config" on one slide and "drift" on
-the next). The verbatim style strings are in [`glyphs.xml`](glyphs.xml); its preview is `out/diagrams/wave-6/_glyphs.drawio.png`. Copy
-from there, never retype.
+never borrows another kind's colour, and a colour never means two things across slides (grey is not "config" on one slide and "drift" on the
+next). The verbatim style strings are in [`glyphs.xml`](glyphs.xml); its preview is `out/diagrams/wave-6/_glyphs.drawio.png`. Copy from
+there, never retype.
 
-| Kind (legend phrase) | Shape                           | Fill / stroke         | Use it for                                                                  |
-| -------------------- | ------------------------------- | --------------------- | --------------------------------------------------------------------------- |
-| code unit            | rounded box                     | `#dae8fc` / `#6c8ebf` | a module, function, type or script that runs                                |
-| named set            | rounded box                     | `#e1d5e7` / `#9673a6` | a group, globset, track, aspect or other named collection of code units     |
-| file                 | page with a folded corner       | `#f8fff8` / `#82b366` | a config, YAML, manifest or other file read as data (`shape=note`)          |
-| store                | cylinder                        | `#f5f5f5` / `#666666` | the repository, a registry, a cache, a feed (`shape=cylinder3`)             |
-| runner               | pill                            | `#fff2cc` / `#d6b656` | a pipeline, stage, task or job that executes (`arcSize=50`)                 |
-| gate                 | rhombus, 3 px rim               | `#f5f5f5` / `#666666` | a check that passes or stops the flow; never red, never yellow              |
+| Kind (legend phrase) | Shape                           | Fill / stroke         | Use it for                                                                       |
+| -------------------- | ------------------------------- | --------------------- | -------------------------------------------------------------------------------- |
+| code unit            | rounded box                     | `#dae8fc` / `#6c8ebf` | a module, function, type or script that runs                                     |
+| named set            | rounded box                     | `#e1d5e7` / `#9673a6` | a group, globset, track, aspect or other named collection of code units          |
+| file                 | page with a folded corner       | `#f8fff8` / `#82b366` | a config, YAML, manifest or other file read as data (`shape=note`)               |
+| store                | cylinder                        | `#f5f5f5` / `#666666` | the repository, a registry, a cache, a feed (`shape=cylinder3`)                  |
+| runner               | pill                            | `#fff2cc` / `#d6b656` | a pipeline, stage, task or job that executes (`arcSize=50`)                      |
+| gate                 | rhombus, 3 px rim               | `#f5f5f5` / `#666666` | a check that passes or stops the flow; never red, never yellow                   |
 | environment          | hexagon                         | `#f5f5f5` / `#666666` | a deployment target; neutral, coloured only by its occupant (ADR-DSGN-VISUAL#13) |
-| external tool        | square box                      | `#f5f5f5` / `#666666` | a vendor tool the code delegates to (az CLI, Bicep, git)                    |
-| actor                | circle                          | `#FFFFFF` / `#666666` | a person (developer, reviewer)                                              |
-| result               | rounded box                     | `#9BE7C4` / `#0E9F6E` | what a step produces; font `#0B5C43`                                        |
-| failure              | rounded box                     | `#EF9A9A` / `#C62828` | a throw, rejection or discard; the only red                                 |
-| ADR-only             | the kind's shape, dashed, white | `#FFFFFF` / `#666666` | something an ADR states that no code runs or checks                         |
+| external tool        | square box                      | `#f5f5f5` / `#666666` | a vendor tool the code delegates to (az CLI, Bicep, git)                         |
+| actor                | circle                          | `#FFFFFF` / `#666666` | a person (developer, reviewer)                                                   |
+| result               | rounded box                     | `#9BE7C4` / `#0E9F6E` | what a step produces; font `#0B5C43`                                             |
+| failure              | rounded box                     | `#EF9A9A` / `#C62828` | a throw, rejection or discard; the only red                                      |
+| ADR-only             | the kind's shape, dashed, white | `#FFFFFF` / `#666666` | something an ADR states that no code runs or checks                              |
 
 - **Chrome** is not a kind: band `#F6F8FA` / `#E1E4E8` (`arcSize=3`), legend and outer panel `#FAFAFA` / `#CFD8DC` (`arcSize=6`), ink
   `#37474F`, quiet ink `#666666`.
@@ -71,6 +71,10 @@ from there, never retype.
 
 Ghosts use the state fill plus `strokeWidth=1.2;dashed=1;opacity=60;`.
 
+On a slide that shows commit states, the code unit (`#dae8fc`, the main-uat fill) and the result (green, near release-uat and prod) are
+avoided, and the runner's pale yellow sits beside the BVT yellow: draw commits as dots, keep runners away from BVT dots. This collision is
+an open question for the user (the commit palette is locked by ADR-DSGN-VISUAL#4).
+
 ## Style strings (copy verbatim)
 
 Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line strings:
@@ -84,7 +88,7 @@ Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line
   `<mxGeometry relative="1" as="geometry"/>`.
 - Thick edge (to a named set): add `strokeWidth=2.5;`. ADR-only edge: add `dashed=1;`. Failure path: `strokeColor=#C62828;`, solid.
 - Span bar (eac's phase brace and the commit-story's top axis): `shape=crossbar;html=1;fillColor=none;strokeColor=#546E7A;strokeWidth=1.5;`
-  14 px tall, with a caps label cell centred above it. Use it over bands to group phases (CI, CD); never as an edge.
+  14 px tall, with a caps label cell centred above it. Use it over bands to group stages (CI, CD); never as an edge.
 
 ## Every diagram: verify, then simplify (applies to ALL makers)
 
@@ -197,13 +201,13 @@ showing where the drawing sits in the world.
   - `minimap-stack` image at x 1316, y 16, 240 × 150;
   - `minimap-tree` image at x 1316, y 182, 240 × 180;
   - `lens-badge` at x 1316, y 378, 240 × 24;
-  - `supports` (the ADR chips) at x 1316, y 410, 240 × ≤ 46: with the map key fixed at y 460 this holds the bold "Supports" line plus
-    at most 2 lines, so pack several ADR codes per line (`ADR-A · ADR-B`) and leave the rest to the `.md`. With more than 4 codes, put the first
-    code inline after "Supports" and set the cell at 10.5 px;
+  - `supports` (the ADR chips) at x 1316, y 410, 240 × ≤ 46: with the map key fixed at y 460 this holds the bold "Supports" line plus at
+    most 2 lines, so pack several ADR codes per line (`ADR-A · ADR-B`) and leave the rest to the `.md`. With more than 4 codes, put the
+    first code inline after "Supports" and set the cell at 10.5 px;
   - `mapkey` (the minimap legend: this slide's cell, also touched, a file it shows) at x 1316, y 460, 240 × 122.
 - **Minimap PNGs** are rendered at 2× (480 × 300 and 480 × 360) and placed at 1×. Text is ≥ 9 px at 1×. Row labels are ≤ 5 chars and column
-  labels ≤ 6 chars. Every lit tree group is labelled with its full name, even when the label runs past its tile (the white halo keeps
-  it legible); a label is cut only at the image edge, never to a stub like "Module…".
+  labels ≤ 6 chars. Every lit tree group is labelled with its full name, even when the label runs past its tile (the white halo keeps it
+  legible); a label is cut only at the image edge, never to a stub like "Module…".
 - **Title:** ≤ 100 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, in the form
   `Supports <ADR-CODE>:<rules> · <lens> lens`.
 - **Boxes:**
@@ -230,12 +234,12 @@ showing where the drawing sits in the world.
 
 A fan-out drawing is a **slide**: glyphs on the picture, words in prose. Every slide ships as four files with one stem, side by side:
 
-| File                | Reader          | Holds                                                                                                    |
-| ------------------- | --------------- | -------------------------------------------------------------------------------------------------------- |
-| `<stem>.drawio.png` | everyone        | the slide: glyphs, names, markers, chips, the legend, and the sidebar (both minimaps and the map key)    |
-| `<stem>.md`         | a newcomer      | the **article**: what the slide shows and why it holds, as well-written prose                            |
-| `<stem>.visual.md`  | anyone who can't see it, or checks it | the **visual description**: what is drawn, in this kit's terms, with no meaning           |
-| `<stem>.verify.md`  | the lead and reviewers | the claim → `file:line` → status table, the corrections, and the drift                            |
+| File                | Reader                                | Holds                                                                                                 |
+| ------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `<stem>.drawio.png` | everyone                              | the slide: glyphs, names, markers, chips, the legend, and the sidebar (both minimaps and the map key) |
+| `<stem>.md`         | a newcomer                            | the **article**: what the slide shows and why it holds, as well-written prose                         |
+| `<stem>.visual.md`  | anyone who can't see it, or checks it | the **visual description**: what is drawn, in this kit's terms, with no meaning                       |
+| `<stem>.verify.md`  | the lead and reviewers                | the claim → `file:line` → status table, the corrections, and the drift                                |
 
 The article and the visual description are read by people, so they carry no audit trail: no line numbers in the prose, no claim tables, no
 "corrected from wave N", no notes about how the slide was made. All of that lives in `<stem>.verify.md`.
@@ -243,8 +247,8 @@ The article and the visual description are read by people, so they carry no audi
 ### The article (`<stem>.md`)
 
 Write it as a short explanation article, in the voice of the ADRs: plain English, present tense, active voice, full sentences, one idea per
-paragraph. Use the ADR's own terms (and the glossary's), real names in backticks, and "cats" for the system in prose. It reads well with
-the image removed.
+paragraph. Use the ADR's own terms (and the glossary's), real names in backticks, and "cats" for the system in prose. It reads well with the
+image removed.
 
 ```markdown
 # <the finding, as a sentence-style title>
@@ -260,8 +264,8 @@ the image removed.
 
 ## Why it holds
 
-<A short paragraph, or 2–4 bullets, each restating one ADR rule in plain words with its citation code: "Every dependency is declared
-before it is used (ADR-AUTO-DEPM#1).">
+<A short paragraph, or 2–4 bullets, each restating one ADR rule in plain words with its citation code: "Every dependency is declared before
+it is used (ADR-AUTO-DEPM#1).">
 
 ## Where the code and the ADR differ
 
@@ -280,10 +284,10 @@ otherwise.>
 
 ### The visual description (`<stem>.visual.md`)
 
-Describe only what is drawn, never what it means, using this kit's vocabulary: **canvas, drawing area, sidebar, band, span bar, glyph**
-(by its legend phrase: code unit, named set, file, store, runner, gate, environment, external tool, actor, result, failure, ADR-only,
-commit), **edge** (flow, thick, ADR-only, failure path), **marker, fraction chip, rule chip, legend, map key, axis minimap, tree minimap,
-main cell, touched cell, lit tile, lens badge**. Write it after reading the built PNG, and make every count match the XML.
+Describe only what is drawn, never what it means, using this kit's vocabulary: **canvas, drawing area, sidebar, band, span bar, glyph** (by
+its legend phrase: code unit, named set, file, store, runner, gate, environment, external tool, actor, result, failure, ADR-only, commit),
+**edge** (flow, thick, ADR-only, failure path), **marker, fraction chip, rule chip, legend, map key, axis minimap, tree minimap, main cell,
+touched cell, lit tile, lens badge**. Write it after reading the built PNG, and make every count match the XML.
 
 ```markdown
 # <title>: visual description
@@ -297,8 +301,8 @@ main cell, touched cell, lit tile, lens badge**. Write it after reading the buil
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                         |
-| --------------------- | ----- | ----------------------------- |
+| Glyph (legend phrase) | Count | Where                              |
+| --------------------- | ----- | ---------------------------------- |
 | named set             | 3     | top band, middle band, bottom band |
 
 ## Edges
@@ -312,14 +316,14 @@ main cell, touched cell, lit tile, lens badge**. Write it after reading the buil
 
 ## Sidebar
 
-<The axis minimap's main cell and touched cells by name (row × column), the tree minimap's lit tiles by group label, the lens badge, the
-map key.>
+<The axis minimap's main cell and touched cells by name (row × column), the tree minimap's lit tiles by group label, the lens badge, the map
+key.>
 ```
 
 ### The verification file (`<stem>.verify.md`)
 
-A table of every claim on the slide and in the article: claim → source (`file:line`) → **confirmed / contradicted / ADR-only**, followed
-by `## Corrections` (what changed against the previous wave, one line each) and `## Drift` (ADR vs code, one line each). Re-verify every
+A table of every claim on the slide and in the article: claim → source (`file:line`) → **confirmed / contradicted / ADR-only**, followed by
+`## Corrections` (what changed against the previous wave, one line each) and `## Drift` (ADR vs code, one line each). Re-verify every
 number, name, path and order against the repository as it is today; the repository moves between waves.
 
 ### The slide
@@ -328,19 +332,21 @@ number, name, path and order against the repository as it is today; the reposito
 
 - the title (the finding, ≤ 60 chars) and a subtitle of the form `<ADR-CODE>:<rules> · <lens>`;
 - band labels as one or two caps words (`TOP LAYER`);
-- glyph names only: one bold name, ≤ 28 chars, no second line and no stereotype text (the glyph carries the kind);
-- numbers as symbols, each shown once: edge fractions (`4/5`, bold, on a white patch) first; a count chip (white pill, box-stroke rim)
-  only for a number no fraction already shows. Leaner wins: a symbol that repeats what another symbol says is cut, and the number goes
-  to the `.md`;
+- glyph names only: one bold name, ≤ 28 chars, no second line and no stereotype text (the glyph carries the kind). A longer name is elided
+  in the middle with `…`, keeping the verb and the last noun (`Assert-Unique…FunctionName`); the article gives it in full;
+- an ADR-only gate is the gate rhombus with a thin dashed rim (not 3 px) inside a dashed frame, legend `gate, ADR-only (no code)`;
+- numbers as symbols, each shown once: edge fractions (`4/5`, bold, on a white patch) first; a count chip (white pill, box-stroke rim;
+  `m-count` in `glyphs.xml`, legend `count chip: <what it counts>`) only for a number no fraction already shows. Leaner wins: a symbol that
+  repeats what another symbol says is cut, and the number goes to the `.md`;
 - **numbered markers**: a 22 px `#37474F` disc with a 2 px white rim and a white bold digit, on a box's top-left corner or beside an edge.
-  Each number is one Walkthrough step in `<stem>.md`. A marker always touches what it numbers (a glyph's corner, or the middle of an
-  edge); a marker floating on empty canvas is a defect. To say "nothing here" (e.g. a rung with no throw), draw nothing and say it in
-  the article;
-- **span bars** over the bands when the flow has named phases (CI, CD, DEPLOY), as the commit-story's top axis does;
-- **every edge that exists in the code is drawn**: a failure glyph has its failure-path edge from the glyph that raises it, a result has
-  the edge from what produces it. An unconnected glyph is a defect unless the article says why it stands alone;
-- **rule chips** on governance slides: a short white chip (`#3`, or `L4` / `T35` when several ADRs share a slide) beside the box that a
-  rule governs, never inside the box name. The legend gives the chips one row that names the letter → ADR mapping.
+  Each number is one Walkthrough step in `<stem>.md`. A marker always touches what it numbers (a glyph's corner, or the middle of an edge);
+  a marker floating on empty canvas is a defect. To say "nothing here" (e.g. a rung with no throw), draw nothing and say it in the article;
+- **span bars** over the bands when the flow has named stages (CI, CD, DEPLOY), as the commit-story's top axis does;
+- **every edge that exists in the code is drawn**: a failure glyph has its failure-path edge from the glyph that raises it, a result has the
+  edge from what produces it. An unconnected glyph is a defect unless the article says why it stands alone;
+- **rule chips** on governance slides: a short white chip (`#3`, or `L4` / `T35` when several ADRs share a slide) beside the box that a rule
+  governs, never inside the box name. The legend gives the chips one row that names the letter → ADR mapping. A rule no gate checks gets a
+  dashed chip, legend `dashed rule chip: ADR-only (no gate)`.
 
 **Lessons from wave 5 (apply them):**
 
@@ -351,9 +357,9 @@ number, name, path and order against the repository as it is today; the reposito
 - A fraction on a short horizontal edge is struck through by the preview line: put it as a bold chip just above the edge.
 - An ADR claim the code contradicts is NOT red (red is failure only). Draw it as its normal glyph with its numbered marker; the article
   states the drift. (Dashes and thick rims already mean "no gate" and "gate".)
-- `dashed` means one thing on every slide: "ADR-only: no code runs or checks it" (no gate). Don't reuse dashes for anything else.
-  The preview ignores `verticalAlign=bottom` on hexagons: put a commit dot above the centre, never on the centred label.
-  The preview draws a dashed hexagon or rhombus solid, so mark those ADR-only with a dashed frame around the shape.
+- `dashed` means one thing on every slide: "ADR-only: no code runs or checks it" (no gate). Don't reuse dashes for anything else. The
+  preview ignores `verticalAlign=bottom` on hexagons: put a commit dot above the centre, never on the centred label. The preview draws a
+  dashed hexagon or rhombus solid, so mark those ADR-only with a dashed frame around the shape.
 - A generator that rewrites the XML strips the embedded minimaps: after any regeneration, rebuild every slide it wrote.
 
 **What moves to the article:** the lede, every body line, stereotype text, edge labels that are words, footers and side notes. Nothing is
@@ -361,7 +367,10 @@ dropped: every word a drawing carried appears in the article or is replaced by a
 
 **Every slide has a proper legend**, a full-width outer panel at the bottom of the drawing area. It has one swatch per glyph, edge kind,
 chip and marker on the slide, each with its glyph-library phrase (≤ 8 entries, in columns, kinds before lines before marks). A slide that
-needs a phrase the library lacks adds it to `glyphs.xml` and this kit first. The minimaps get their own **map key** in the sidebar.
+needs a phrase the library lacks adds it to `glyphs.xml` and this kit first. A flow edge's legend phrase is
+`flow: <its one meaning on this slide>` (e.g. `flow: runs before`, `flow: feeds`); the part after the colon is the only slide-specific
+wording in a legend. One arrow never carries two meanings (not "calls; up from a gate: checks"): a second meaning goes to the article, or
+the slide is two slides. The minimaps get their own **map key** in the sidebar.
 
 Quality bar for this format: the wave-6 pilot,
 `out/diagrams/wave-6/modules/adr-auto-depm--three-layers-edges-point-down--architecture.{drawio.png,md,visual.md,verify.md}`.
@@ -395,7 +404,9 @@ The Pillow preview draws dashed outlines, opacity fades and `<font color>` HTML.
 centre-to-centre lines, and draw.io routes them orthogonally on open. Lay boxes out so even straight lines don't cross labels: put connected
 boxes in line (same row or same column) wherever possible. When an edge must leave a box off-centre, attach it to an invisible 1 px **port
 cell** (`text;html=1;strokeColor=none;fillColor=none;`, id `port-<box>-<side>`) placed on that box's edge. The edge then stays straight in
-both the preview and draw.io.
+both the preview and draw.io. A bent edge (e.g. a return into a gate earlier in the flow) is straight segments between port cells, with
+`endArrow=none` on all but the last segment. Several targets one edge enters together share a **frame** (chrome, not a kind: no fill,
+`#CFD8DC` 1 px rim, `arcSize=6`); the edge ends on the frame, and the legend needs no row for it.
 
 ## Reporting drift found while verifying
 

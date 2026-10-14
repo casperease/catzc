@@ -1,5 +1,5 @@
 // One reviewed highlight entry of configs/maps.yml (an item of `highlight.pins` or `highlight.exceptions`): an ADR code
-// (optionally one rule, ADR-X-Y#n), the cell it names (a track and a file language), and why it was reviewed. A pin
+// (optionally one rule of it, the code followed by #n), the cell it names (a track and a file language), and why it was reviewed. A pin
 // lights the cell for the ADR; an exception keeps the cell dark although the ADR's citations would light it (a passing
 // mention). The properties mirror the YAML keys, so they are snake_case
 // ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)). MapsConfig validates
@@ -11,7 +11,7 @@ namespace Catzc.Base.Maps;
 [Catzc.Base.Objects.ConsoleDisplay(nameof(adr), nameof(track), nameof(file_language))]
 public sealed class MapsPin
 {
-    // The ADR code, or one rule of it (e.g. ADR-WIDGET-GADGET or ADR-WIDGET-GADGET#3).
+    // The ADR code, or one rule of it (an index code, or that code with #3 for its third rule).
     public string adr { get; }
 
     // The cell's track: a key of the `tracks` map in variants.yml (e.g. automation, .github).

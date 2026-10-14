@@ -125,8 +125,14 @@
     <mxCell id="span-label" value="CI" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#455A64;labelBackgroundColor=#F6F8FA;" vertex="1" parent="1">
       <mxGeometry x="875" y="352" width="30" height="16" as="geometry" />
     </mxCell>
-    <mxCell id="span-text" value="span bar: a phase over bands" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#666666;" vertex="1" parent="1">
+    <mxCell id="span-text" value="span bar: stages over bands" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#666666;" vertex="1" parent="1">
       <mxGeometry x="960" y="369" width="200" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="m-count" value="87" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#9673a6;fontColor=#37474F;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="40" y="404" width="30" height="18" as="geometry" />
+    </mxCell>
+    <mxCell id="m-count-text" value="count chip: members (rim = the counted glyph's stroke)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#666666;" vertex="1" parent="1">
+      <mxGeometry x="80" y="403" width="340" height="20" as="geometry" />
     </mxCell>
     <mxCell id="footer" value="Colour follows the kind on every slide of every diagram. Commit-lifecycle slides use the locked commit palette (ADR-DSGN-VISUAL#4) instead." style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=11;fontColor=#666666;" vertex="1" parent="1">
       <mxGeometry x="20" y="440" width="1260" height="20" as="geometry" />

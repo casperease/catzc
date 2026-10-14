@@ -17,7 +17,9 @@
 denied:
   guid_zero:
     guid: 00000000-0000-0000-0000-000000000000
-    description: the all-zeros GUID — the unset/default value, never a real identity (also SentenceGuid's output for an input with no mappable characters)
+    description:
+      the all-zeros GUID — the unset/default value, never a real identity (also SentenceGuid's output for an input with no mappable
+      characters)
 
 guids:
   # -- external-facing: values fixed by the outside world --------------------------------------------------

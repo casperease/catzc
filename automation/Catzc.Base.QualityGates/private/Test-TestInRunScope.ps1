@@ -26,7 +26,7 @@ function Test-TestInRunScope {
 
     # Get-TestBlockTag returns its matches as ONE array object (`, $ret`), so its result is used as-is, never
     # wrapped in @() — that would nest it and every count would read 1.
-    $level = Get-TestBlockTag -Test $Test -Valid 'L0', 'L1', 'L2', 'L3'
+    $level = Get-TestBlockTag -Test $Test -Valid ([Catzc.Base.Timeouts.TestTiers]::Names)
     $category = Get-TestBlockTag -Test $Test -Valid 'logic', 'integrity'
     @(@($level) + @($category) | Where-Object { $_ -in $ExcludeTag }).Count -eq 0
 }

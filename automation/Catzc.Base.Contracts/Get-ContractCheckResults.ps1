@@ -11,8 +11,11 @@
       least one target element, in any order; a null pins its key only. Any other text: every non-blank fragment line
       appears in the target in order, not necessarily adjacent, trailing whitespace trimmed.
     - Schema: the target exists and validates against the schema, YAML parsed first, by a bounded JSON Schema subset
-      (type, required, properties, additionalProperties as a boolean, enum, items as one schema, const); any other
-      keyword is a finding, never ignored.
+      (type, required, properties, additionalProperties as a boolean, enum, items as one schema, const). The
+      annotation keywords $schema, $id, $comment, title, description and examples are ignored by name and never
+      constrain a value; any other keyword is a finding, never ignored. A schema whose target is the sample payload
+      beside it is only checked to be well-formed in that subset: the sample's own check validates the sample, so a
+      defect gives one finding, on one result.
     - Sample: the payload parses as JSON or YAML by its extension, and validates against the `<name>.schema.json` beside
       it when one exists.
 

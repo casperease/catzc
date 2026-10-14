@@ -35,7 +35,7 @@ languages:
     adr_folder: pipelines
   yaml:
     extensions: [.yml]
-    no_formatter: no engine is configured for configuration YAML yet
+    formatter: prettier
   markdown:
     extensions: [.md]
     formatter: prettier
@@ -48,7 +48,7 @@ languages:
     adr_folder: automation/python
   json:
     extensions: [.json]
-    no_formatter: no engine is configured for JSON yet
+    formatter: prettier
   jsonl:
     extensions: [.jsonl]
     no_formatter: one record per line by definition, so there is no layout to format
@@ -64,7 +64,7 @@ languages:
     no_formatter: no engine is configured for XML yet
   html:
     extensions: [.html]
-    no_formatter: no engine is configured for HTML yet
+    formatter: prettier
   asset:
     extensions: [.png, .pdf]
     no_formatter: binary files

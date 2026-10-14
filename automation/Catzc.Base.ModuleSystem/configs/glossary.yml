@@ -3,66 +3,85 @@
 # Every option is defaulted: all five checks, the whole repository, every text surface
 # ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). Checked by Test-Glossary.
 concepts:
-    deployable-unit:
-        key: deployable_unit
-        domain: design
-        defined_by: ADR-DSGN-TRACK#5
-        short: What ships — a whole track or a reduced composition — bound one-to-one to its pipeline.
-        realized_by: { kind: config-key, pattern: 'automation/Catzc.Base.Globs/configs/globs.yml' }
-        contrasts:
-            release candidate: A release candidate is one commit's tagged, immutable build of a deployable-unit; a deployable-unit is the composition that ships, whichever commit is built.
-            track: A track is a root concern, one root folder; a deployable-unit is what ships, composed from a whole track or a reduced part of one.
-    release candidate:
-        key: release_candidate
-        domain: flow
-        defined_by: ADR-FLOW-CD#14
-        short: The immutable, tagged artifact a CI component builds from one commit — versioned, never rebuilt, promotable toward production.
-        realized_by: { kind: prose-only }
-        contrasts:
-            deployable-unit: A deployable-unit is the composition that ships, whichever commit is built; a release candidate is one commit's tagged, immutable build of it.
-            occupant: An occupant is the commit an environment holds; a release candidate is the artifact built from it, the same bytes wherever it is deployed.
-            test run: A test run executes tests; a release candidate is the artifact a release-candidate test run verifies.
-            test suite: A test suite is the declared selection of tests that verifies a change; a release candidate is the artifact under test.
-            published artifact: A published artifact is any file handed across a stage boundary; a release candidate is the tagged build that gets promoted.
-        avoid:
-            - { phrase: release-candidate suite, say: release-candidate test run }
-    published artifact:
-        key: published_artifact
-        domain: automation
-        defined_by: ADR-AUTO-PATH#10
-        short: A file one stage produces and a later stage downloads and consumes — carried by ArtifactRef, anchored on its artifact root.
-        realized_by: { kind: type, pattern: 'Catzc.Base.Objects.ArtifactRef' }
-        contrasts:
-            release candidate: A release candidate is the tagged build that gets promoted; a published artifact is any file handed across a stage boundary.
-            contract asset: A contract asset is a checked-in file that states what the repository boundary requires, frozen with its unit's release; a published artifact is a file one stage produces and a later stage consumes within a run.
-    occupant:
-        key: occupant
-        domain: design
-        defined_by: ADR-DSGN-LIFE#5
-        short: The one commit an always-on environment holds, deployed there as its release candidate — named by its environment.
-        realized_by: { kind: prose-only }
-        contrasts:
-            release candidate: A release candidate is the artifact, the same bytes wherever it is deployed; an occupant is the commit one environment holds.
-        avoid:
-            - { phrase: current occupant, say: occupant (the <environment> occupant) }
-            - { phrase: current occupants, say: occupants }
-            - { phrase: resident commit, say: occupant }
-    track:
-        key: track
-        domain: design
-        defined_by: ADR-DSGN-TRACK#1
-        short: A named repository root concern — one root folder, named by it, classified core, external port, adapter, or verification.
-        realized_by: { kind: prose-only }
-        contrasts:
-            verification track: A verification track is one class of track — test-only, shipping nothing; a track is any root concern.
-            deployable-unit: A deployable-unit is what ships, composed from a whole track or a reduced part of one; a track is the root concern itself, one root folder.
-            file language: A file language is the kind of text a file holds, named by its extension; a track is the root folder the file lives in, and its tech-stack is a set of file languages.
-    file language:
-        key: file_language
-        domain: design
-        defined_by: ADR-DSGN-TRACK#6
-        short: The language a tracked file is written in, named by its extension — PowerShell, C#, YAML, Bicep, Markdown, Python; a track's tech-stack is a set of them.
-        realized_by: { kind: prose-only }
-        contrasts:
-            track: A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it lives.
-            language zone: A language zone is one of the design, test, and live registers of identities; a file language is the kind of text one file holds.
+  deployable-unit:
+    key: deployable_unit
+    domain: design
+    defined_by: ADR-DSGN-TRACK#5
+    short: What ships — a whole track or a reduced composition — bound one-to-one to its pipeline.
+    realized_by: { kind: config-key, pattern: "automation/Catzc.Base.Globs/configs/globs.yml" }
+    contrasts:
+      release candidate:
+        A release candidate is one commit's tagged, immutable build of a deployable-unit; a deployable-unit is the composition that ships,
+        whichever commit is built.
+      track:
+        A track is a root concern, one root folder; a deployable-unit is what ships, composed from a whole track or a reduced part of one.
+  release candidate:
+    key: release_candidate
+    domain: flow
+    defined_by: ADR-FLOW-CD#14
+    short: The immutable, tagged artifact a CI component builds from one commit — versioned, never rebuilt, promotable toward production.
+    realized_by: { kind: prose-only }
+    contrasts:
+      deployable-unit:
+        A deployable-unit is the composition that ships, whichever commit is built; a release candidate is one commit's tagged, immutable
+        build of it.
+      occupant:
+        An occupant is the commit an environment holds; a release candidate is the artifact built from it, the same bytes wherever it is
+        deployed.
+      test run: A test run executes tests; a release candidate is the artifact a release-candidate test run verifies.
+      test suite: A test suite is the declared selection of tests that verifies a change; a release candidate is the artifact under test.
+      published artifact:
+        A published artifact is any file handed across a stage boundary; a release candidate is the tagged build that gets promoted.
+    avoid:
+      - { phrase: release-candidate suite, say: release-candidate test run }
+  published artifact:
+    key: published_artifact
+    domain: automation
+    defined_by: ADR-AUTO-PATH#10
+    short: A file one stage produces and a later stage downloads and consumes — carried by ArtifactRef, anchored on its artifact root.
+    realized_by: { kind: type, pattern: "Catzc.Base.Objects.ArtifactRef" }
+    contrasts:
+      release candidate:
+        A release candidate is the tagged build that gets promoted; a published artifact is any file handed across a stage boundary.
+      contract asset:
+        A contract asset is a checked-in file that states what the repository boundary requires, frozen with its unit's release; a published
+        artifact is a file one stage produces and a later stage consumes within a run.
+  occupant:
+    key: occupant
+    domain: design
+    defined_by: ADR-DSGN-LIFE#5
+    short: The one commit an always-on environment holds, deployed there as its release candidate — named by its environment.
+    realized_by: { kind: prose-only }
+    contrasts:
+      release candidate:
+        A release candidate is the artifact, the same bytes wherever it is deployed; an occupant is the commit one environment holds.
+    avoid:
+      - { phrase: current occupant, say: occupant (the <environment> occupant) }
+      - { phrase: current occupants, say: occupants }
+      - { phrase: resident commit, say: occupant }
+  track:
+    key: track
+    domain: design
+    defined_by: ADR-DSGN-TRACK#1
+    short: A named repository root concern — one root folder, named by it, classified core, external port, adapter, or verification.
+    realized_by: { kind: prose-only }
+    contrasts:
+      verification track: A verification track is one class of track — test-only, shipping nothing; a track is any root concern.
+      deployable-unit:
+        A deployable-unit is what ships, composed from a whole track or a reduced part of one; a track is the root concern itself, one root
+        folder.
+      file language:
+        A file language is the kind of text a file holds, named by its extension; a track is the root folder the file lives in, and its
+        tech-stack is a set of file languages.
+  file language:
+    key: file_language
+    domain: design
+    defined_by: ADR-DSGN-TRACK#6
+    short:
+      The language a tracked file is written in, named by its extension — PowerShell, C#, YAML, Bicep, Markdown, Python; a track's
+      tech-stack is a set of them.
+    realized_by: { kind: prose-only }
+    contrasts:
+      track: A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it lives.
+      language zone:
+        A language zone is one of the design, test, and live registers of identities; a file language is the kind of text one file holds.

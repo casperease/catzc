@@ -1,22 +1,27 @@
 <#
 .SYNOPSIS
-    Validates one JSON or YAML file against a JSON Schema file, and returns the findings.
+    Validates one JSON or YAML file against a JSON Schema file, or checks the schema alone, and returns the findings.
 .DESCRIPTION
-    The schema check of ADR-REPO-CONTRACT#6 ([api-contracts](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)),
-    shared by a schema asset (on a real file or on the sample payload beside it) and a sample payload with a schema
-    beside it. Both files are parsed (Read-ContractData; YAML is parsed before it is validated) and the value validates
-    against the bounded JSON Schema subset of ContractSchema, which reports every keyword outside the subset as
+    The schema check of [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
+    shared by a schema asset and a sample payload with a schema beside it. Both files are parsed (Read-ContractData;
+    YAML is parsed before it is validated) and the value validates against the bounded JSON Schema subset of
+    ContractSchema, which ignores the annotation keywords and reports every other keyword outside the subset as
     unsupported. A file that does not parse, or is neither JSON nor YAML, is the finding.
+    With no -InstancePath, only the schema is parsed and checked to be well-formed in the subset (ContractSchema.Inspect):
+    a schema aimed at a sample payload is checked that way, since the sample's own check validates the sample, and a
+    defect gives one finding, not two.
 .PARAMETER RepositoryRoot
-    The repository root both paths are relative to.
+    The repository root the paths are relative to.
 .PARAMETER SchemaPath
     The schema file, repository-relative.
 .PARAMETER InstancePath
-    The file that validates against it, repository-relative.
+    The file that validates against it, repository-relative. Default: none, and the schema is checked alone.
 .OUTPUTS
-    [string[]] The findings; none when the file validates.
+    [string[]] The findings; none when the file validates, or with no instance, when the schema is well-formed.
 .EXAMPLE
     Get-ContractSchemaFindings -RepositoryRoot $root -SchemaPath $asset.AssetPath -InstancePath $asset.Target
+.EXAMPLE
+    Get-ContractSchemaFindings -RepositoryRoot $root -SchemaPath $asset.AssetPath
 #>
 function Get-ContractSchemaFindings {
     [CmdletBinding()]
@@ -28,12 +33,14 @@ function Get-ContractSchemaFindings {
         [Parameter(Mandatory)]
         [string] $SchemaPath,
 
-        [Parameter(Mandatory)]
         [string] $InstancePath
     )
 
     try {
         $schema = Read-ContractData -RepositoryRoot $RepositoryRoot -Path $SchemaPath
+        if (-not $InstancePath) {
+            return [Catzc.Base.Contracts.ContractSchema]::Inspect($schema)
+        }
         $value = Read-ContractData -RepositoryRoot $RepositoryRoot -Path $InstancePath
     }
     catch {

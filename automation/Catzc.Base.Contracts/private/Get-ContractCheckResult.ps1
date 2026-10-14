@@ -5,7 +5,10 @@
     Runs the check of the asset's kind ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)):
     - Presence: the target exists with the exact case of its path (Get-ContractPresenceFindings);
     - Fragment: the target exists and contains the fragment (Get-ContractFragmentFindings);
-    - Schema: the target exists and validates against the schema (Get-ContractSchemaFindings);
+    - Schema on a real file: the target exists and validates against the schema (Get-ContractSchemaFindings);
+    - Schema on a sample payload (its target is a sample under the asset's own module folder): the schema is well-formed
+      and uses the supported keywords only; the sample is not validated here, since its own check does that, so a
+      defect gives one finding on one result;
     - Sample: the payload parses, and validates against the schema beside it (Get-ContractSampleFindings).
     A failed check is findings on the result, never an exception.
 .PARAMETER RepositoryRoot
@@ -36,12 +39,21 @@ function Get-ContractCheckResult {
                 Get-ContractFragmentFindings -RepositoryRoot $RepositoryRoot -Asset $Asset
             }
             ([Catzc.Base.Contracts.ContractAssetKind]::Schema) {
-                $missing = @(Get-ContractPresenceFindings -RepositoryRoot $RepositoryRoot -Path $Asset.Target)
-                if ($missing.Count -gt 0) {
-                    $missing
+                $moduleFolder = "contracts/$($Asset.Unit)/$($Asset.Version)/$($Asset.Module)/"
+                $leaf = $Asset.Target.Substring($Asset.Target.LastIndexOf('/') + 1)
+                $onSample = $Asset.Target.StartsWith($moduleFolder, [System.StringComparison]::Ordinal) -and
+                (Get-ContractAssetKind -Name $leaf) -eq [Catzc.Base.Contracts.ContractAssetKind]::Sample
+                if ($onSample) {
+                    Get-ContractSchemaFindings -RepositoryRoot $RepositoryRoot -SchemaPath $Asset.AssetPath
                 }
                 else {
-                    Get-ContractSchemaFindings -RepositoryRoot $RepositoryRoot -SchemaPath $Asset.AssetPath -InstancePath $Asset.Target
+                    $missing = @(Get-ContractPresenceFindings -RepositoryRoot $RepositoryRoot -Path $Asset.Target)
+                    if ($missing.Count -gt 0) {
+                        $missing
+                    }
+                    else {
+                        Get-ContractSchemaFindings -RepositoryRoot $RepositoryRoot -SchemaPath $Asset.AssetPath -InstancePath $Asset.Target
+                    }
                 }
             }
             ([Catzc.Base.Contracts.ContractAssetKind]::Sample) {

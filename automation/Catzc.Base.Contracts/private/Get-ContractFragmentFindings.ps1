@@ -2,7 +2,7 @@
 .SYNOPSIS
     Checks that a fragment asset's target exists and contains the fragment, and returns the findings.
 .DESCRIPTION
-    The fragment check of ADR-REPO-CONTRACT#6 ([api-contracts](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)).
+    The fragment check of [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6).
     The target must first be present, with the exact case of its path (Get-ContractPresenceFindings); a missing target
     is the only finding, since there is nothing to compare. Then, by the target's format (Get-ContractDataFormat):
     - Json or Yaml: both files are parsed and compared as a key subset (ContractFragment.MatchData: every key path of

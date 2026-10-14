@@ -23,7 +23,9 @@ The single source of every time limit. `limits.<devbox|pipeline>` gives bash a f
 `executables` gives a tool its own limit, keyed by its bare name. Every key is optional: the sensible defaults are declared once, on the
 config type — tight on a devbox, looser but still bounded in a pipeline — so the file states only what has been tuned. The config type
 validates the file at load (known keys only, positive whole seconds only, a background limit never below its foreground limit, bare
-executable names only) and answers the lookup for the run environment the session is in.
+executable names only) and answers the lookup for the run environment the session is in. The `tests` section gives each test tier the most
+one test of it may take, and a whole run up to L3 its budget. The tier list itself, L0 to L4 with L4 opt-in, is declared once here
+(`TestTiers`): the test runner's tag check and run filters read it too, and this module sits below them in the dependency graph.
 
 ### responsibility:2 — Stop at the limit
 

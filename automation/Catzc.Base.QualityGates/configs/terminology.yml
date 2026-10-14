@@ -93,6 +93,8 @@ terms:
       meaning: "pytest — the Python test runner the Python test bridge runs (ADR-AUTO-PY)"
     - term: junit
       meaning: "JUnit XML — the test-report format pytest writes with --junitxml"
+    - term: nunit
+      meaning: "NUnit XML — the test-result format Pester writes, validated as the nunit-xml output format"
     - term: junitxml
       meaning: "--junitxml — pytest's option that writes a JUnit XML report"
     - term: ruff
@@ -129,8 +131,6 @@ terms:
       meaning: "charliermarsh.ruff — the publisher and id of the Ruff VS Code extension"
     - term: worldmap
       meaning: "a world-map image the draw.io atlas helper (.claude/drawio/atlas.py) draws on"
-    - term: arialbd
-      meaning: "arialbd.ttf — the Arial Bold font file the draw.io PDF gallery helper loads"
     - term: adrs
       meaning: "ADRs — plural of ADR; the adrs.yml registry of ADR domain structure and citation codes"
     - term: ast

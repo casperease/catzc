@@ -16,10 +16,14 @@
     system-test lock — a request that reaches L3 is capped at L2, and the cap is announced: the run says it
     skips L3 and who holds the working folder or the lock, so a missing tier is never silent
     ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console10)).
+    L4, the opt-in tier that tests the released system after final approval
+    ([ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)), runs only when asked for, and
+    where L3 runs: a run capped at L2 skips L4 too, and says so.
 .PARAMETER Location
     The location Enter-TestRunLocation returned.
 .PARAMETER Requested
-    The highest tier the caller asks for. Default 3: every tier the location allows.
+    The highest tier the caller asks for. Default 3 (TestTiers.DefaultTop): every tier the location allows, L4
+    excluded; 4 includes L4.
 .PARAMETER MinLevel
     The lowest tier the caller asks for. A run that asks only for tiers its location skips (L3 in a snapshot, or
     without the system-test lock) has nothing to run, so it throws, naming why.
@@ -35,10 +39,10 @@ function Resolve-TestRunMaxLevel {
         [Parameter(Mandatory)]
         [pscustomobject] $Location,
 
-        [ValidateSet(0, 1, 2, 3)]
-        [int] $Requested = 3,
+        [ValidateSet(0, 1, 2, 3, 4)]
+        [int] $Requested = [Catzc.Base.Timeouts.TestTiers]::DefaultTop,
 
-        [ValidateSet(0, 1, 2, 3)]
+        [ValidateSet(0, 1, 2, 3, 4)]
         [int] $MinLevel = 0
     )
 
@@ -46,9 +50,16 @@ function Resolve-TestRunMaxLevel {
         return $Requested
     }
 
+    # The tiers the cap drops: L3, and L4 when it was asked for.
+    $skipped = if ($Requested -gt 3) {
+        'L3 and L4'
+    }
+    else {
+        'L3'
+    }
     if ($Location.Mode -eq 'snapshot') {
         if ($MinLevel -gt 2) {
-            throw "This run asks for L$MinLevel and up, but runs in a snapshot, which skips L3 — run it when the working folder is free."
+            throw "This run asks for L$MinLevel and up, but runs in a snapshot, which skips $skipped — run it when the working folder is free."
         }
         $holder = if ($Location.Holder) {
             " ($($Location.Holder.Description) holds it)"
@@ -56,7 +67,7 @@ function Resolve-TestRunMaxLevel {
         else {
             ''
         }
-        Write-Message "Skipping L3: vertical system tests change state outside the repository, so they run only in the working folder itself$holder." -ForegroundColor Yellow
+        Write-Message "Skipping ${skipped}: vertical system tests change state outside the repository, so they run only in the working folder itself$holder." -ForegroundColor Yellow
         return 2
     }
 
@@ -70,6 +81,6 @@ function Resolve-TestRunMaxLevel {
     if ($MinLevel -gt 2) {
         throw "This run asks for L$MinLevel and up, but $holder holds the system-test lock — L3 changes state that belongs to the user, so one run on this account runs it at a time. Run it when that run has finished."
     }
-    Write-Message "Skipping L3: $holder holds the system-test lock — vertical system tests change state that belongs to the user, not to this checkout, so one run on this account runs them at a time." -ForegroundColor Yellow
+    Write-Message "Skipping ${skipped}: $holder holds the system-test lock — vertical system tests change state that belongs to the user, not to this checkout, so one run on this account runs them at a time." -ForegroundColor Yellow
     2
 }

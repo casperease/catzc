@@ -13,6 +13,8 @@ configs:
     type: Catzc.Base.QualityGates.TerminologyConfig
   links:
     type: Catzc.Base.QualityGates.LinksConfig
+  test-policy:
+    type: Catzc.Base.QualityGates.TestPolicyConfig
   readme:
     type: Catzc.Base.Docs.DocsConfig
   rootconfig:

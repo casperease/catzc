@@ -36,11 +36,11 @@ have_customers: all
 # construction of the ordering.
 aspects:
   automation:
-    - live: ['*.ps1', 'private/**', 'types/**', 'configs/**']
-    - tests: ['**']
+    - live: ["*.ps1", "private/**", "types/**", "configs/**"]
+    - tests: ["**"]
   infrastructure:
-    - tests: ['**/tests/**']
-    - live: ['**']
+    - tests: ["**/tests/**"]
+    - live: ["**"]
 
 # Tracks ([ADR-DSGN-TRACK](/docs/adr/design/tracks.md)) — the repository's root concerns, the one declaration of what a
 # track is. Each entry names its root folder (one segment; every root folder git tracks a file under is a track, except

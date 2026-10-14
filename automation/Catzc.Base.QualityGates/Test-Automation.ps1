@@ -17,6 +17,9 @@
     Maximum test level to run (alias: -Level). Defaults to 3: every tier the run's location allows. A run that
     owns the working folder runs L0-L3; a run in a snapshot (another run holds the working folder, or
     -Isolated) skips L3 and says so ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
+    4 adds the opt-in L4 tier, the tests of the released system after final approval
+    ([ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)); run from a console it is a
+    run of that gate outside its pipeline, never a gate verdict.
     Tests self-skip when their tool or access is absent,
     so the default stays green on a machine that is missing one.
     Tiers are defined by what a test integrates with (not by speed):
@@ -121,10 +124,10 @@ function Test-Automation {
     [CmdletBinding()]
     [Catzc.Base.Timeouts.TimeLimit(360, Pipeline = 3600)]
     param(
-        [ValidateSet(0, 1, 2, 3)]
+        [ValidateSet(0, 1, 2, 3, 4)]
         [int] $MinLevel = 0,
 
-        [ValidateSet(0, 1, 2, 3)]
+        [ValidateSet(0, 1, 2, 3, 4)]
         [Alias('Level')]
         [int] $MaxLevel = 3,
 

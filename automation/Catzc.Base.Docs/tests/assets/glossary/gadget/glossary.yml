@@ -1,10 +1,10 @@
 # Fixture glossary source (Get-GlossarySources / Get-Glossary L0 tests) — neutral terms (ADR-AUTO-TEST:3).
 concepts:
-    gadget run:
-        key: gadget_run
-        domain: automation
-        defined_by: ADR-AUTO-TEST#32
-        short: One execution of the gadgets.
-        realized_by: { kind: function, pattern: Invoke-Gadget }
-        contrasts:
-            widget suite: A widget suite is files at rest; a gadget run executes.
+  gadget run:
+    key: gadget_run
+    domain: automation
+    defined_by: ADR-AUTO-TEST#32
+    short: One execution of the gadgets.
+    realized_by: { kind: function, pattern: Invoke-Gadget }
+    contrasts:
+      widget suite: A widget suite is files at rest; a gadget run executes.

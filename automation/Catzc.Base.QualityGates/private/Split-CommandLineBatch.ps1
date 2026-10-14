@@ -3,8 +3,10 @@
     Splits a list of command-line arguments into batches whose joined length stays under a limit.
 .DESCRIPTION
     A formatter engine that takes files as arguments runs once per batch, so formatting every tracked file never
-    exceeds the platform's command-line length (about 32 000 characters on Windows). Each item is counted with
-    the quotes and the separating space it is written with. An item longer than the limit is a batch of its own.
+    exceeds the command-line length. The binding limit is cmd.exe's 8 191 characters: npm installs tools such as
+    prettier as .cmd shims, which cmd.exe expands with the node path prepended, so the default leaves room for that.
+    Each item is counted with the quotes and the separating space it is written with. An item longer than the limit
+    is a batch of its own.
 .PARAMETER Item
     The arguments, in order.
 .PARAMETER MaxLength
@@ -20,7 +22,7 @@ function Split-CommandLineBatch {
         [AllowEmptyCollection()]
         [string[]] $Item,
 
-        [int] $MaxLength = 8000
+        [int] $MaxLength = 4000
     )
 
     $batch = [System.Collections.Generic.List[string]]::new()

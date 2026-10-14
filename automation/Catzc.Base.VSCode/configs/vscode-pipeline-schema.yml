@@ -43,11 +43,11 @@ properties:
   extends: { type: object }
   stages: { type: array, items: { type: object } }
   jobs: { type: array, items: { type: object } }
-  steps: { $ref: '#/definitions/steps' }
+  steps: { $ref: "#/definitions/steps" }
 definitions:
   steps:
     type: array
-    items: { $ref: '#/definitions/step' }
+    items: { $ref: "#/definitions/step" }
   step:
     # One loose object shape for every step kind — no oneOf/anyOf across task variants, because that branch
     # fan-out is exactly the false-positive source. It covers task/script/pwsh/bash/powershell/checkout/

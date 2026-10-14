@@ -21,20 +21,13 @@
     "widgetSku": {
       "type": "string",
       "defaultValue": "Basic",
-      "allowedValues": [
-        "Basic",
-        "Standard"
-      ]
+      "allowedValues": ["Basic", "Standard"]
     },
     "widgetZones": {
       "type": "array",
       "defaultValue": [],
       "maxLength": 2,
-      "allowedValues": [
-        "1",
-        "2",
-        "3"
-      ]
+      "allowedValues": ["1", "2", "3"]
     },
     "widgetSecret": {
       "type": "securestring"

@@ -25,9 +25,10 @@
     when the working folder is free it runs in place; when another run holds it, it runs in a verified
     snapshot of the working folder instead — the test files map to the same repository-relative paths inside
     the snapshot, a test file outside the repository runs as given, and the artifacts still land in the
-    working folder's out/test-file/. Every tier runs in place; a snapshot run skips the L3 vertical system tests,
-    which change state outside the repository, and says so (Resolve-TestRunMaxLevel,
-    [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
+    working folder's out/test-file/. Every tier up to L3 runs in place; a snapshot run skips the L3 vertical system
+    tests, which change state outside the repository, and says so (Resolve-TestRunMaxLevel,
+    [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)). The opt-in L4 tests run only
+    with -MaxLevel 4 ([ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)).
 .PARAMETER Path
     The test file(s) to run — absolute, or repository-root-relative (never resolved against $PWD; see
     [ADR-AUTO-NOPWD](/docs/adr/automation/never-depend-on-pwd.md)).
@@ -36,6 +37,9 @@
     FullNameFilter column, verbatim.
 .PARAMETER Output
     Pester output verbosity inside the worker. Defaults to 'Detailed' — a hand-run wants one line per test.
+.PARAMETER MaxLevel
+    The highest tier to run (alias: -Level): 3 by default, every tier but the opt-in L4; 4 runs the file's L4 tests
+    too.
 .PARAMETER TimeoutSeconds
     Hard ceiling for the worker; on expiry it is killed and this throws. Defaults to this function's [TimeLimit]
     (360 s on a devbox, 600 s in a pipeline), unless timeouts.yml overrides it
@@ -69,6 +73,10 @@ function Invoke-TestFile {
 
         [ValidateSet('Minimal', 'Normal', 'Detailed', 'Diagnostic')]
         [string] $Output = 'Detailed',
+
+        [ValidateSet(3, 4)]
+        [Alias('Level')]
+        [int] $MaxLevel = [Catzc.Base.Timeouts.TestTiers]::DefaultTop,
 
         [ValidateRange(60, 86400)]
         [int] $TimeoutSeconds = (Get-TimeoutSeconds -Command 'Invoke-TestFile'),
@@ -108,12 +116,9 @@ function Invoke-TestFile {
     try {
         # The worker loads from the root the run executes in (Get-TestRunLocationEntry); the test files map to it alike.
         $entry = Get-TestRunLocationEntry -Location $location
-        # Every tier the location allows: in place that includes the L3 system tests; a snapshot skips them and
-        # says so (Resolve-TestRunMaxLevel owns the why).
-        $excludeTag = @()
-        if ((Resolve-TestRunMaxLevel -Location $location) -lt 3) {
-            $excludeTag = @('L3')
-        }
+        # Every tier asked for that the location allows: in place that includes the L3 system tests; a snapshot skips
+        # them and says so (Resolve-TestRunMaxLevel owns the why). L4 only when asked for.
+        $excludeTag = @(Get-TestExcludeTag -MinLevel 0 -MaxLevel (Resolve-TestRunMaxLevel -Location $location -Requested $MaxLevel))
         $shard = New-TestAutomationShardScript -ShardIndex 0 -TestPath @(Convert-TestRunLocationPath -Location $location -Path $resolved) `
             -RunDirectory $runDirectory -Verbosity $Output -FullNameFilter $FullNameFilter -ExcludeTag $excludeTag `
             -LanguageExecutable (Get-LanguageTestExecutable) @entry

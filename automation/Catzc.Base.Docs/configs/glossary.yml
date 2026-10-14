@@ -3,151 +3,330 @@
 # all five checks, the whole repository, every text surface
 # ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). Checked by Test-Glossary.
 concepts:
-    domain rules:
-        key: domain_rules
-        domain: repository
-        defined_by: ADR-REPO-VOCAB#7
-        short: The repository's conventions and decision records — its ADRs and the rules they state.
-        realized_by: { kind: prose-only }
-        avoid:
-            - { phrase: house rules, say: domain rules / ADR rules }
-    domain:
-        key: domain
-        domain: repository
-        defined_by: ADR-REPO-FOLDERS#5
-        short: A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its role and the domains it depends on.
-        realized_by: { kind: prose-only }
-        forms: [ADR, thesis, principles, process, design, flow, automation, configuration, pipelines, github, azure, repository, research, axioms, architecture, implementation, optimisable, owning]
-        contrasts:
-            language zone: A language zone is one of the design, test, and live registers of identities; an ADR domain groups ADRs.
-    language zone:
-        key: language_zone
-        domain: repository
-        defined_by: ADR-REPO-LANG#1
-        short: One of the three registers — design, test, live — each with its own terminology and identities; a token belongs to exactly one.
-        realized_by: { kind: prose-only }
-        forms: [language, design, test, live]
-        contrasts:
-            domain: An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.
-            file language: A file language is the kind of text one file holds, named by its extension; a language zone is a register of identities.
-    source:
-        key: source
-        domain: repository
-        defined_by: ADR-REPO-VOCAB#8
-        short: Where something comes from, always qualified — a source mode, run, or tree; a glossary source; a type, authored, vendor, or dot source.
-        realized_by: { kind: prose-only }
-        forms: [glossary, type, authored, dot, function, vendor, catzc, combined, committed, shipped, tracked, fixture, comparison, primary, raw, install, rule, docs, derived, current, real, configured, public, single, token, relative, repo, authoritative, cross, vendored, input]
-        verbs: true
-        contrasts:
-            source of truth: The source of truth is the one store that decides what is true about the delivered system, the repository; a source, always qualified, names where one thing comes from.
-    layer:
-        key: layer
-        domain: repository
-        defined_by: ADR-REPO-VOCAB#8
-        short: One stratum of a structure, always qualified — an implementation layer (language, PowerShell, installer, tooling) or a globset layer (module, fileset).
-        realized_by: { kind: prose-only }
-        forms: [implementation, automation, language, PowerShell, installer, config, configuration, Azure, tooling, YAML, module, template, templating, vendor, abstraction, analyzer, compatibility, mapping, serialization, base, design, spelling, Pester, pip, path, support, doctrine, globset, fileset, cross, ADR, shaping]
-        verbs: true
-        contrasts:
-            facet: A facet is one of several parallel views of, or checks on, the same thing; a layer is one level of a stack.
-    facet:
-        key: facet
-        domain: repository
-        defined_by: ADR-REPO-VOCAB#8
-        short: One of several parallel views of, or checks on, the same thing, none above another — a build facet (types, load, parity, manifest) or a module facet (disk, session).
-        realized_by: { kind: prose-only }
-        forms: [build, types, load, parity, manifest, module, disk, session, runtime]
-        verbs: true
-        contrasts:
-            layer: A layer is one level of a stack, sitting on or containing the next; a facet is a parallel view of the same thing.
-    scope:
-        key: scope
-        domain: repository
-        defined_by: ADR-REPO-VOCAB#8
-        short: What something reaches, always qualified — a PowerShell scope (module, script, global), an install scope (user, machine), or a selection scope (verify, scan, content).
-        realized_by: { kind: prose-only }
-        forms: [PowerShell, selection, module, user, machine, content, script, verify, shared, file, target, scan, test, persistent, category, global, process, Pester, default, install, markdown, repo, lint, child, environment, subscription, report, tag, declared, whole, top, strict, isolated, discovery, glossary, deployment, infra, radius, production]
-        verbs: true
-    contract:
-        key: contract
-        domain: repository
-        defined_by: ADR-REPO-CONTRACT#1
-        short: A binding interface at the repository boundary, held under contracts/ in either direction — provided or depended-on — and proven by its owning module's tests.
-        realized_by: { kind: prose-only }
-        contrasts:
-            contract asset: A contract asset is one file in an owning module's folder of a unit's contracts/ version folder; a contract is the binding interface its assets state together.
-    provided contract:
-        key: provided_contract
-        domain: repository
-        defined_by: ADR-REPO-CONTRACT#1
-        short: A contract an outside consumer may rely on — the repository's only public API, kept while a consumer pins that version of its unit.
-        realized_by: { kind: prose-only }
-        contrasts:
-            depended-on contract: A depended-on contract is what an outside platform expects of our files and calls, and it follows that platform; a provided contract is a promise to a consumer, kept while the consumer pins that version of its unit.
-            pin: A pin is the consumer's explicit choice of a version that crosses the repository boundary; a provided contract is the promise catzc keeps under that pin.
-    depended-on contract:
-        key: depended_on_contract
-        domain: repository
-        defined_by: ADR-REPO-CONTRACT#1
-        short: A contract an outside platform expects of our files and calls, such as GitHub reading a workflow file; it follows the platform, so a platform change is a new draft.
-        realized_by: { kind: prose-only }
-        contrasts:
-            provided contract: A provided contract is a promise to an outside consumer, kept while the consumer pins that version of its unit; a depended-on contract records what a platform requires and follows the platform.
-    contract asset:
-        key: contract_asset
-        domain: repository
-        defined_by: ADR-REPO-CONTRACT#6
-        short: One file in an owning module's folder of a unit's contracts/ version folder, whose path names the real file it constrains and whose name picks its kind — a fragment, a schema, or a sample payload.
-        realized_by: { kind: prose-only }
-        contrasts:
-            contract: A contract is the binding interface at the repository boundary; a contract asset is one checked-in file that states part of it.
-            published artifact: A published artifact is a file one stage produces and a later stage consumes within a run; a contract asset is a checked-in file that states what the repository boundary requires, frozen with its unit's release.
-    source of truth:
-        key: source_of_truth
-        domain: thesis
-        defined_by: ADR-THES-ONETRUTH#1
-        short: The one store whose content decides what is true about the delivered system — for catzc, the repository, changed through one change process.
-        realized_by: { kind: prose-only }
-        contrasts:
-            source: A source, always qualified, names where one thing comes from; the source of truth is the one store that decides what is true about the delivered system.
-            adjacent store: An adjacent store is a second store driven one way from the trunk's pipelines, a projection of the truth; the source of truth is the record it is driven from.
-    adjacent store:
-        key: adjacent_store
-        domain: thesis
-        defined_by: ADR-THES-ONETRUTH#2
-        short: The one legitimate second store — a repository or service, such as a GitOps repository, with its own history, driven one way from the trunk's pipelines and never edited beside it.
-        realized_by: { kind: prose-only }
-        contrasts:
-            source of truth: The source of truth is the record everything is driven from; an adjacent store is a one-way projection of it, never a second record.
-    query surface:
-        key: query_surface
-        domain: thesis
-        defined_by: ADR-THES-ONETRUTH#3
-        short: The tooling's Get-* cmdlets, each of which also emits its answer as data (JSON), through which every question about the system's state is answered.
-        realized_by: { kind: prose-only }
-    product mono-repository:
-        key: product_mono_repository
-        domain: thesis
-        defined_by: ADR-THES-ONETRUTH#4
-        short: One repository that several teams contribute to for one product, bounded into tracks and deployable-units by path filters; catzc is one.
-        realized_by: { kind: prose-only }
-        contrasts:
-            trunk: The trunk is the one mainline of a product mono-repository, where everything is at HEAD; the product mono-repository is the repository as a whole, with its tracks and deployable-units.
-    trunk:
-        key: trunk
-        domain: thesis
-        defined_by: ADR-THES-ONETRUTH#4
-        short: The one mainline of a product mono-repository, where everything is at HEAD — no internal versions, and a shared change lands in one commit with all its consumers.
-        realized_by: { kind: prose-only }
-        contrasts:
-            product mono-repository: A product mono-repository is the repository as a whole, with its tracks and deployable-units; the trunk is its one mainline.
-            pin: A pin is an explicit version at the repository boundary; inside the trunk nothing is pinned, and everything is at HEAD.
-    pin:
-        key: pin
-        domain: thesis
-        defined_by: ADR-THES-ONETRUTH#4
-        short: An explicit version, controlled by the consumer, of a dependency that crosses the repository boundary inward, stitched into an immutable artifact at build time.
-        realized_by: { kind: prose-only }
-        contrasts:
-            trunk: Inside the trunk everything is at HEAD, with no version; a pin is the one form of synchronisation, at the repository boundary.
-            provided contract: A provided contract is the promise catzc keeps to a consumer; a pin is the consumer's explicit choice of the version that promise holds for.
+  domain rules:
+    key: domain_rules
+    domain: repository
+    defined_by: ADR-REPO-VOCAB#7
+    short: The repository's conventions and decision records — its ADRs and the rules they state.
+    realized_by: { kind: prose-only }
+    avoid:
+      - { phrase: house rules, say: domain rules / ADR rules }
+  domain:
+    key: domain
+    domain: repository
+    defined_by: ADR-REPO-FOLDERS#5
+    short: A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its role and the domains it depends on.
+    realized_by: { kind: prose-only }
+    forms:
+      [
+        ADR,
+        thesis,
+        principles,
+        process,
+        design,
+        flow,
+        automation,
+        configuration,
+        pipelines,
+        github,
+        azure,
+        repository,
+        research,
+        axioms,
+        architecture,
+        implementation,
+        optimisable,
+        owning,
+      ]
+    contrasts:
+      language zone: A language zone is one of the design, test, and live registers of identities; an ADR domain groups ADRs.
+  language zone:
+    key: language_zone
+    domain: repository
+    defined_by: ADR-REPO-LANG#1
+    short: One of the three registers — design, test, live — each with its own terminology and identities; a token belongs to exactly one.
+    realized_by: { kind: prose-only }
+    forms: [language, design, test, live]
+    contrasts:
+      domain: An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.
+      file language:
+        A file language is the kind of text one file holds, named by its extension; a language zone is a register of identities.
+  source:
+    key: source
+    domain: repository
+    defined_by: ADR-REPO-VOCAB#8
+    short:
+      Where something comes from, always qualified — a source mode, run, or tree; a glossary source; a type, authored, vendor, or dot
+      source.
+    realized_by: { kind: prose-only }
+    forms:
+      [
+        glossary,
+        type,
+        authored,
+        dot,
+        function,
+        vendor,
+        catzc,
+        combined,
+        committed,
+        shipped,
+        tracked,
+        fixture,
+        comparison,
+        primary,
+        raw,
+        install,
+        rule,
+        docs,
+        derived,
+        current,
+        real,
+        configured,
+        public,
+        single,
+        token,
+        relative,
+        repo,
+        authoritative,
+        cross,
+        vendored,
+        input,
+      ]
+    verbs: true
+    contrasts:
+      source of truth:
+        The source of truth is the one store that decides what is true about the delivered system, the repository; a source, always
+        qualified, names where one thing comes from.
+  layer:
+    key: layer
+    domain: repository
+    defined_by: ADR-REPO-VOCAB#8
+    short:
+      One stratum of a structure, always qualified — an implementation layer (language, PowerShell, installer, tooling) or a globset layer
+      (module, fileset).
+    realized_by: { kind: prose-only }
+    forms:
+      [
+        implementation,
+        automation,
+        language,
+        PowerShell,
+        installer,
+        config,
+        configuration,
+        Azure,
+        tooling,
+        YAML,
+        module,
+        template,
+        templating,
+        vendor,
+        abstraction,
+        analyzer,
+        compatibility,
+        mapping,
+        serialization,
+        base,
+        design,
+        spelling,
+        Pester,
+        pip,
+        path,
+        support,
+        doctrine,
+        globset,
+        fileset,
+        cross,
+        ADR,
+        shaping,
+      ]
+    verbs: true
+    contrasts:
+      facet: A facet is one of several parallel views of, or checks on, the same thing; a layer is one level of a stack.
+  facet:
+    key: facet
+    domain: repository
+    defined_by: ADR-REPO-VOCAB#8
+    short:
+      One of several parallel views of, or checks on, the same thing, none above another — a build facet (types, load, parity, manifest) or
+      a module facet (disk, session).
+    realized_by: { kind: prose-only }
+    forms: [build, types, load, parity, manifest, module, disk, session, runtime]
+    verbs: true
+    contrasts:
+      layer: A layer is one level of a stack, sitting on or containing the next; a facet is a parallel view of the same thing.
+  scope:
+    key: scope
+    domain: repository
+    defined_by: ADR-REPO-VOCAB#8
+    short:
+      What something reaches, always qualified — a PowerShell scope (module, script, global), an install scope (user, machine), or a
+      selection scope (verify, scan, content).
+    realized_by: { kind: prose-only }
+    forms:
+      [
+        PowerShell,
+        selection,
+        module,
+        user,
+        machine,
+        content,
+        script,
+        verify,
+        shared,
+        file,
+        target,
+        scan,
+        test,
+        persistent,
+        category,
+        global,
+        process,
+        Pester,
+        default,
+        install,
+        markdown,
+        repo,
+        lint,
+        child,
+        environment,
+        subscription,
+        report,
+        tag,
+        declared,
+        whole,
+        top,
+        strict,
+        isolated,
+        discovery,
+        glossary,
+        deployment,
+        infra,
+        radius,
+        production,
+      ]
+    verbs: true
+  contract:
+    key: contract
+    domain: repository
+    defined_by: ADR-REPO-CONTRACT#1
+    short:
+      A binding interface at the repository boundary, held under contracts/ in either direction — provided or depended-on — and proven by
+      its owning module's tests.
+    realized_by: { kind: prose-only }
+    contrasts:
+      contract asset:
+        A contract asset is one file in an owning module's folder of a unit's contracts/ version folder; a contract is the binding interface
+        its assets state together.
+  provided contract:
+    key: provided_contract
+    domain: repository
+    defined_by: ADR-REPO-CONTRACT#1
+    short:
+      A contract an outside consumer may rely on — the repository's only public API, kept while a consumer pins that version of its unit.
+    realized_by: { kind: prose-only }
+    contrasts:
+      depended-on contract:
+        A depended-on contract is what an outside platform expects of our files and calls, and it follows that platform; a provided contract
+        is a promise to a consumer, kept while the consumer pins that version of its unit.
+      pin:
+        A pin is the consumer's explicit choice of a version that crosses the repository boundary; a provided contract is the promise catzc
+        keeps under that pin.
+  depended-on contract:
+    key: depended_on_contract
+    domain: repository
+    defined_by: ADR-REPO-CONTRACT#1
+    short:
+      A contract an outside platform expects of our files and calls, such as GitHub reading a workflow file; it follows the platform, so a
+      platform change is a new draft.
+    realized_by: { kind: prose-only }
+    contrasts:
+      provided contract:
+        A provided contract is a promise to an outside consumer, kept while the consumer pins that version of its unit; a depended-on
+        contract records what a platform requires and follows the platform.
+  contract asset:
+    key: contract_asset
+    domain: repository
+    defined_by: ADR-REPO-CONTRACT#6
+    short:
+      One file in an owning module's folder of a unit's contracts/ version folder, whose path names the real file it constrains and whose
+      name picks its kind — a fragment, a schema, or a sample payload.
+    realized_by: { kind: prose-only }
+    contrasts:
+      contract:
+        A contract is the binding interface at the repository boundary; a contract asset is one checked-in file that states part of it.
+      published artifact:
+        A published artifact is a file one stage produces and a later stage consumes within a run; a contract asset is a checked-in file
+        that states what the repository boundary requires, frozen with its unit's release.
+  source of truth:
+    key: source_of_truth
+    domain: thesis
+    defined_by: ADR-THES-ONETRUTH#1
+    short:
+      The one store whose content decides what is true about the delivered system — for catzc, the repository, changed through one change
+      process.
+    realized_by: { kind: prose-only }
+    contrasts:
+      source:
+        A source, always qualified, names where one thing comes from; the source of truth is the one store that decides what is true about
+        the delivered system.
+      adjacent store:
+        An adjacent store is a second store driven one way from the trunk's pipelines, a projection of the truth; the source of truth is the
+        record it is driven from.
+  adjacent store:
+    key: adjacent_store
+    domain: thesis
+    defined_by: ADR-THES-ONETRUTH#2
+    short:
+      The one legitimate second store — a repository or service, such as a GitOps repository, with its own history, driven one way from the
+      trunk's pipelines and never edited beside it.
+    realized_by: { kind: prose-only }
+    contrasts:
+      source of truth:
+        The source of truth is the record everything is driven from; an adjacent store is a one-way projection of it, never a second record.
+  query surface:
+    key: query_surface
+    domain: thesis
+    defined_by: ADR-THES-ONETRUTH#3
+    short:
+      The tooling's Get-* cmdlets, each of which also emits its answer as data (JSON), through which every question about the system's state
+      is answered.
+    realized_by: { kind: prose-only }
+  product mono-repository:
+    key: product_mono_repository
+    domain: thesis
+    defined_by: ADR-THES-ONETRUTH#4
+    short:
+      One repository that several teams contribute to for one product, bounded into tracks and deployable-units by path filters; catzc is
+      one.
+    realized_by: { kind: prose-only }
+    contrasts:
+      trunk:
+        The trunk is the one mainline of a product mono-repository, where everything is at HEAD; the product mono-repository is the
+        repository as a whole, with its tracks and deployable-units.
+  trunk:
+    key: trunk
+    domain: thesis
+    defined_by: ADR-THES-ONETRUTH#4
+    short:
+      The one mainline of a product mono-repository, where everything is at HEAD — no internal versions, and a shared change lands in one
+      commit with all its consumers.
+    realized_by: { kind: prose-only }
+    contrasts:
+      product mono-repository:
+        A product mono-repository is the repository as a whole, with its tracks and deployable-units; the trunk is its one mainline.
+      pin: A pin is an explicit version at the repository boundary; inside the trunk nothing is pinned, and everything is at HEAD.
+  pin:
+    key: pin
+    domain: thesis
+    defined_by: ADR-THES-ONETRUTH#4
+    short:
+      An explicit version, controlled by the consumer, of a dependency that crosses the repository boundary inward, stitched into an
+      immutable artifact at build time.
+    realized_by: { kind: prose-only }
+    contrasts:
+      trunk: Inside the trunk everything is at HEAD, with no version; a pin is the one form of synchronisation, at the repository boundary.
+      provided contract:
+        A provided contract is the promise catzc keeps to a consumer; a pin is the consumer's explicit choice of the version that promise
+        holds for.

@@ -36,7 +36,7 @@ location, external CLIs, git, pipeline detection).
 
 ### Rule ADR-AUTO-TEST:7
 
-The category (`logic`/`integrity`) is orthogonal to the L0–L3 tier — an L2 test may be either — and there is no required pairing of one
+The category (`logic`/`integrity`) is orthogonal to the L0–L4 tier — an L2 test may be either — and there is no required pairing of one
 integrity test per logic test. Pure-logic tests use fixtures via the seams; tests that deliberately read the shipped assets to verify real
 templates are legitimate and stay on the shipped files — but they bind to the template _set_, never to a named template (ADR-AUTO-TEST#17).
 
@@ -71,9 +71,9 @@ throws instead of launching, so a Mock that fails to intercept fails loudly.
 ### Rule ADR-AUTO-TEST:13
 
 Every test carries two mandatory, orthogonal tags, resolved through its block chain (nearest contributing block wins): exactly one **tier**
-`L0|L1|L2|L3` and exactly one category `logic|integrity`. There is no default for either — a test resolving to zero, or to two of the same
-axis, is a violation. Put both on the `Describe` for a uniform file; override on an inner block (or tag per `Context`) where the file mixes
-tiers or categories — never two tags of the same axis on one block.
+`L0|L1|L2|L3|L4` and exactly one category `logic|integrity`. There is no default for either — a test resolving to zero, or to two of the
+same axis, is a violation. Put both on the `Describe` for a uniform file; override on an inner block (or tag per `Context`) where the file
+mixes tiers or categories — never two tags of the same axis on one block.
 
 - [Two mandatory tag axes](#mandatory-tag-axes)
 
@@ -344,9 +344,10 @@ test suite: an ad-hoc selection is named by what it selects.
 
 Tests sit in an onion of rings around the code. The **core** is the code alone — L0/L1, every boundary mocked; the L2 ring adds the local
 tools the code drives (`git`, `az bicep build`, `python`, `dotnet`, Pester); the L3 ring adds the state outside the repository (the cloud,
-the user's environment, installed tools). A **vertical test** cuts from an outer ring through to the core: an L2 vertical test crosses the
-local-tool ring, an L3 vertical system test crosses both rings. A test's tier is its outermost ring, and a run's top tier is the outermost
-ring it includes — the BVT includes the core and the L2 ring, the in-place devbox run all three.
+the user's environment, installed tools); the L4 ring is the released system itself (ADR-AUTO-TEST#41). A **vertical test** cuts from an
+outer ring through to the core: an L2 vertical test crosses the local-tool ring, an L3 vertical system test crosses both inner rings. A
+test's tier is its outermost ring, and a run's top tier is the outermost ring it includes — the BVT includes the core and the L2 ring, the
+in-place devbox run the core and the L2 and L3 rings, and only a run that asks for L4 includes the released system.
 
 - [Test tiers: the test onion](#test-tiers-the-test-onion)
 
@@ -369,6 +370,19 @@ every test they hold is one test with both mandatory tags — `L2`, and a catego
 ADR-AUTO-BASH#5).
 
 - [Go test modules](#go-test-modules)
+
+### Rule ADR-AUTO-TEST:41
+
+**Testing in production** is the L4 tier: tests of the released system itself, after final approval — the release-candidate artifact that
+cleared the RBC gate, where it runs: pre-prod, then production once activated ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)
+owns those stages). It is the only tier that reaches a serving environment, and it creates nothing of its own there: an L4 test observes the
+system, or, where `test-policy.yml` lets that environment take them, drives synthetic transactions the system is built to accept and clean
+up (`read-only` is the default). L4 is opt-in: a run includes it only when asked (`-Level 4`). It may run anywhere — the only limit is the
+security context of the console running it — so each L4 test self-skips through `Get-TestTargetSkipReason` when the console cannot reach its
+target or the target does not allow the mode the test needs (ADR-AUTO-TEST#8). A gate exists only in a pipeline: an L4 run from a console is
+a run of that gate outside its pipeline, and its result is information, never a gate verdict.
+
+- [Test tiers: the test onion](#test-tiers-the-test-onion)
 
 ## Context
 
@@ -455,7 +469,7 @@ without touching production data.
 Every test is tagged on **two orthogonal axes**, and `Test-Automation` fails the run if either is missing (see
 [How this is enforced](#how-this-is-enforced)):
 
-- **Tier** (`L0`/`L1`/`L2`/`L3`) — _what it integrates with_ (below). Mandatory; there is no default.
+- **Tier** (`L0`/`L1`/`L2`/`L3`/`L4`) — _what it integrates with_ (below). Mandatory; there is no default.
 - **Category** (`logic`/`integrity`) — _what it depends on_ (the two kinds above): `logic` runs on mocks/fixtures and is hermetic;
   `integrity` reads the real repository contents.
 
@@ -463,9 +477,9 @@ The two are independent — an `L2` test can be `logic` (drives a tool on a fixt
 resolve **nearest contributing block wins**: put both on the `Describe` for a uniform file, or override on an inner `Context` (and tag
 per-`Context` when a file mixes categories). The one rule: never two tags of the same axis on one block.
 
-Each axis is also a run filter on `Test-Automation`: `-Level` bounds the tier (L0–L3), and `-Category logic|integrity` runs a subset by
-category (omit it to run both). Both work by excluding the unwanted tags, so a mixed file's per-`Context` category tags filter correctly —
-the `Describe` carries only the tier.
+Each axis is also a run filter on `Test-Automation`: `-Level` bounds the tier (L0–L4, 3 by default), and `-Category logic|integrity` runs a
+subset by category (omit it to run both). Both work by excluding the unwanted tags, so a mixed file's per-`Context` category tags filter
+correctly — the `Describe` carries only the tier.
 
 Beyond the two mandatory axes there are **optional** tags: the phase tags `serial` and `greedy` (ADR-AUTO-TEST#26), the provenance citations
 of the next section, and the `source-only` build-run opt-out (ADR-AUTO-TEST#31).
@@ -508,15 +522,18 @@ every ring up to its top tier:
 
 ```mermaid
 flowchart TB
-    subgraph ring3["L3 ring — state outside the repository: the cloud · the user's environment · installed tools"]
-        subgraph ring2["L2 ring — local tools: git · az bicep build · python · dotnet · Pester"]
-            core(["core — the code alone<br/>L0 / L1, every boundary mocked"])
+    subgraph ring4["L4 ring — the released system: pre-prod · production, after final approval"]
+        subgraph ring3["L3 ring — state outside the repository: the cloud · the user's environment · installed tools"]
+            subgraph ring2["L2 ring — local tools: git · az bicep build · python · dotnet · Pester"]
+                core(["core — the code alone<br/>L0 / L1, every boundary mocked"])
+            end
         end
     end
     t2["L2 vertical test"] -- "crosses the local-tool ring" --> core
-    t3["L3 vertical system test"] -- "crosses both rings" --> core
+    t3["L3 vertical system test"] -- "crosses both inner rings" --> core
     bvt["BVT · CI -Level 2"] -. "includes core + L2 ring" .-> ring2
-    devbox["in-place devbox run"] -. "includes all three" .-> ring3
+    devbox["in-place devbox run"] -. "includes core + L2 + L3 rings" .-> ring3
+    released["-Level 4 · DEPLOY-Prod after RBC"] -. "adds the released system" .-> ring4
 ```
 
 - **L0 / L1 — the core.** Pure logic + orchestration wiring, with every external boundary mocked. Deterministic and hermetic. Run on every
@@ -530,6 +547,12 @@ flowchart TB
   that owns the folder includes it by default. This is the integration sliver that [fail-fast](fail-fast-with-asserts.md) argues you cannot
   rely on alone — kept thin, one test per distinct outside boundary, each a worked example of its kind (the persistent-environment seam's
   real round trip, `Set-PermanentEnvironmentVariable.Tests.ps1`, is one). A test that only drives a local tool inside the repository is L2.
+- **L4 — the released system, after final approval.** Checks the RBC-cleared artifact where it runs: pre-prod, then production
+  (ADR-AUTO-TEST#41). L3 creates and removes its own scratch resources; L4 creates nothing of its own and only observes, or drives the
+  synthetic transactions `test-policy.yml` allows for that environment. It runs only when a run asks for it (`-Level 4`), in the DEPLOY-Prod
+  pipeline after the RBC gate, or from any console whose identity can reach the target. Each test self-skips through
+  `Get-TestTargetSkipReason` when it cannot reach its target or the target does not allow its mode. A console run of L4 is information,
+  never a gate verdict: gates exist only in pipelines.
 
 ### Fast logic tests
 
@@ -770,8 +793,12 @@ test is written.
 
 - **Two mandatory tags per test** — before the run, `Test-Automation` calls `Get-TestTagViolations`, a discovery-only Pester pass
   (`Run.SkipRun`) that inspects every test regardless of `-Level`; the run throws if any test resolves to zero — or more than one — tier
-  (`L0-L3`) or category (`logic|integrity`) tag. `Get-TestLevelTag`/`Get-TestCategoryTag` (in `Catzc.Base.QualityGates`) do the
-  nearest-contributing-block resolution.
+  (`L0-L4`) or category (`logic|integrity`) tag. `Get-TestLevelTag`/`Get-TestCategoryTag` (in `Catzc.Base.QualityGates`) do the
+  nearest-contributing-block resolution. The tier list itself is declared once, `[Catzc.Base.Timeouts.TestTiers]`, and every tag check, run
+  filter, and per-tier time limit reads it.
+- **L4 is opt-in and self-skipping** — `Get-TestExcludeTag` leaves L4 out of every run that does not ask for `-Level 4`, and an L4 test asks
+  `Get-TestTargetSkipReason` (reachability through its probe, the mode through `test-policy.yml`) before it touches its target
+  (ADR-AUTO-TEST#41).
 - **The seams exist** as mockable functions (`Get-BicepTemplatesRoot` for the template tree; `Resolve-ConfigEntry` and `Get-Config` for
   config — see [module-config-loading](../configuration/module-config-loading.md)), so isolation is a mock away and production has a single
   pristine default. The mock idioms are [pester-testing](powershell/pester-testing.md) (`ADR-AUTO-PESTER:2`–`ADR-AUTO-PESTER:4`).

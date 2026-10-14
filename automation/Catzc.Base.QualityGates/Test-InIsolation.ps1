@@ -27,9 +27,9 @@
 .PARAMETER Category
     Logic (default), Integrity, or Both. Integrity assumes the full real repo — use only with the full profile.
 .PARAMETER MaxLevel
-    Highest tier to run (0-3). Default 1 (L0+L1 — the hermetic unit tiers). Alias -Level.
+    Highest tier to run (0-4). Default 1 (L0+L1 — the hermetic unit tiers). Alias -Level.
 .PARAMETER MinLevel
-    Lowest tier to run (0-3). Default 0.
+    Lowest tier to run (0-4). Default 0.
 .PARAMETER Destination
     Sandbox directory. Default: a fresh tmp dir (removed after, unless -KeepSandbox). A given -Destination is
     never auto-removed.
@@ -63,11 +63,11 @@ function Test-InIsolation {
         [ValidateSet('Logic', 'Integrity', 'Both')]
         [string] $Category = 'Logic',
 
-        [ValidateSet(0, 1, 2, 3)]
+        [ValidateSet(0, 1, 2, 3, 4)]
         [Alias('Level')]
         [int] $MaxLevel = 1,
 
-        [ValidateSet(0, 1, 2, 3)]
+        [ValidateSet(0, 1, 2, 3, 4)]
         [int] $MinLevel = 0,
 
         [string] $Destination,

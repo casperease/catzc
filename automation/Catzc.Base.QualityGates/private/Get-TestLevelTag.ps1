@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Resolves a Pester test's integration tier (L0/L1/L2/L3) from its block hierarchy.
+    Resolves a Pester test's integration tier (L0 to L4, [Catzc.Base.Timeouts.TestTiers]) from its block hierarchy.
 .DESCRIPTION
     Returns the single tier tag for a test — nearest contributing block wins (innermost override). Returns
     $null when no block in the chain carries a tier tag, or when the nearest contributing block carries more
@@ -19,7 +19,7 @@ function Get-TestLevelTag {
         $Test
     )
 
-    $tierTags = Get-TestBlockTag -Test $Test -Valid 'L0', 'L1', 'L2', 'L3'
+    $tierTags = Get-TestBlockTag -Test $Test -Valid ([Catzc.Base.Timeouts.TestTiers]::Names)
     if ($tierTags.Count -eq 1) {
         $tierTags[0]
     }

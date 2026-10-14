@@ -59,7 +59,7 @@ function Get-TestOptOutExclusion {
         if (-not (Test-TestInRunScope -Test $test -ExcludeTag $ExcludeTag)) {
             continue
         }
-        $level = Get-TestBlockTag -Test $test -Valid 'L0', 'L1', 'L2', 'L3'
+        $level = Get-TestBlockTag -Test $test -Valid ([Catzc.Base.Timeouts.TestTiers]::Names)
         $category = Get-TestBlockTag -Test $test -Valid 'logic', 'integrity'
 
         if ((Get-TestBlockTag -Test $test -Valid $Tag).Count -eq 0) {

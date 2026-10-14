@@ -1,7 +1,8 @@
 # ContractSchema validates a parsed value against a bounded JSON Schema subset
 # ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)): type, required, properties,
-# additionalProperties (a boolean), enum, items (one schema) and const. Every other keyword, and every unsupported form of
-# a supported one, is a finding. Each keyword has a passing and a failing value; schemas and values are JSON literals.
+# additionalProperties (a boolean), enum, items (one schema) and const; the annotations $schema, $id, $comment, title,
+# description and examples are ignored. Every other keyword, and every unsupported form of a supported one, is a finding.
+# Each keyword has a passing and a failing value; schemas and values are JSON literals.
 Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
     BeforeAll {
         function Get-SchemaFinding {
@@ -46,9 +47,43 @@ Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
             @(Get-SchemaFinding '{"type":"string","pattern":"^w"}' '7') | Should -Be @('schema #: unsupported keyword pattern')
         }
 
-        It 'reports $schema and the annotations as unsupported too' {
-            @(Get-SchemaFinding '{"$schema":"x","title":"widget"}' '{}') |
-                Should -Be @('schema #: unsupported keyword $schema', 'schema #: unsupported keyword title')
+        It 'ignores the annotation <Keyword>, which constrains no value' -ForEach @(
+            @{ Keyword = '$schema'; Schema = '{"$schema":"https://json-schema.org/draft/2020-12/schema","type":"string"}' }
+            @{ Keyword = '$id'; Schema = '{"$id":"widget.schema.json","type":"string"}' }
+            @{ Keyword = '$comment'; Schema = '{"$comment":"a widget","type":"string"}' }
+            @{ Keyword = 'title'; Schema = '{"title":"Widget","type":"string"}' }
+            @{ Keyword = 'description'; Schema = '{"description":"a widget name","type":"string"}' }
+            @{ Keyword = 'examples'; Schema = '{"examples":[7, {"gadget":1}],"type":"string"}' }
+        ) {
+            @(Get-SchemaFinding $Schema '"widget"') | Should -BeNullOrEmpty
+            @(Get-SchemaFinding $Schema '7') | Should -Be @('$: expected type string, found integer (7)')
+        }
+
+        It 'ignores an annotation in a nested schema' {
+            @(Get-SchemaFinding '{"properties":{"widget":{"title":"Widget","description":"a gadget part"}}}' '{"widget":1}') |
+                Should -BeNullOrEmpty
+        }
+
+        It 'still reports an unsupported keyword beside the annotations' {
+            $schema = '{"$schema":"x","$id":"w","$comment":"c","title":"t","description":"d","examples":[],"format":"uri"}'
+            @(Get-SchemaFinding $schema '"widget"') | Should -Be @('schema #: unsupported keyword format')
+        }
+
+        It 'lists the annotations among the keywords it reads' {
+            [Catzc.Base.Contracts.ContractSchema]::Annotations | Should -Be @('$schema', '$id', '$comment', 'title', 'description', 'examples')
+            [Catzc.Base.Contracts.ContractSchema]::Keywords | Should -Be @('type', 'required', 'properties', 'additionalProperties', 'enum', 'items', 'const',
+                '$schema', '$id', '$comment', 'title', 'description', 'examples')
+        }
+
+        It 'inspects a schema alone, with no value: <Name>' -ForEach @(
+            @{ Name = 'a valid schema'; Schema = '{"title":"Widget","type":"object","required":["widget"]}'; Findings = @() }
+            @{ Name = 'an unsupported keyword'; Schema = '{"type":"object","minProperties":1}'; Findings = @('schema #: unsupported keyword minProperties') }
+            @{ Name = 'a malformed keyword'; Schema = '{"required":"widget"}'; Findings = @('schema #/required: required is an array of property names') }
+        ) {
+            $parsed = $Schema | ConvertFrom-Json -AsHashtable -NoEnumerate
+            $found = @([Catzc.Base.Contracts.ContractSchema]::Inspect($parsed))
+            $found.Count | Should -Be $Findings.Count
+            ($found -join "`n") | Should -Be ($Findings -join "`n")
         }
 
         It 'reports an unsupported keyword in a nested schema the value never reaches' {

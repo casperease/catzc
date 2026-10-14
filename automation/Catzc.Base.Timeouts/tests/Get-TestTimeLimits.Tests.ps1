@@ -16,6 +16,7 @@ Describe 'Get-TestTimeLimits' -Tag 'L0', 'logic' {
         $limits.LevelMs['L1'] | Should -Be 2000
         $limits.LevelMs['L2'] | Should -Be 30000
         $limits.LevelMs['L3'] | Should -Be 120000
+        $limits.LevelMs['L4'] | Should -Be 600000
         $limits.RunSeconds | Should -Be 180
     }
 

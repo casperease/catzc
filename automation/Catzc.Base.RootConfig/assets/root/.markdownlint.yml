@@ -60,14 +60,14 @@ MD013:
 
 # ── Style rules pinned to Prettier's output ───────────────────────────────────────────────────
 
-MD003: { style: atx }            # heading-style — `# Heading` (ATX, no closing #). Prettier emits ATX.
-MD004: { style: dash }           # ul-style — unordered lists use `-`. Prettier emits `-`.
-MD035: { style: "---" }          # hr-style — thematic breaks are `---`. Prettier emits `---`.
-MD046: { style: fenced }         # code-block-style — fenced, not indented. Prettier emits fenced.
-MD048: { style: backtick }       # code-fence-style — ```backtick``` fences. Prettier emits backticks.
-MD049: { style: underscore }     # emphasis-style — italics as `_x_`. Prettier emits `_emphasis_`.
-MD050: { style: asterisk }       # strong-style — bold as `**x**`. Prettier emits `**strong**`.
-MD060: { style: aligned }        # table-column-style — table pipes vertically aligned. Prettier pads & aligns columns.
+MD003: { style: atx } # heading-style — `# Heading` (ATX, no closing #). Prettier emits ATX.
+MD004: { style: dash } # ul-style — unordered lists use `-`. Prettier emits `-`.
+MD035: { style: "---" } # hr-style — thematic breaks are `---`. Prettier emits `---`.
+MD046: { style: fenced } # code-block-style — fenced, not indented. Prettier emits fenced.
+MD048: { style: backtick } # code-fence-style — ```backtick``` fences. Prettier emits backticks.
+MD049: { style: underscore } # emphasis-style — italics as `_x_`. Prettier emits `_emphasis_`.
+MD050: { style: asterisk } # strong-style — bold as `**x**`. Prettier emits `**strong**`.
+MD060: { style: aligned } # table-column-style — table pipes vertically aligned. Prettier pads & aligns columns.
 
 # ── Lenient choices (deliberate, to avoid false positives in this doc set) ─────────────────────
 
@@ -84,47 +84,47 @@ MD043: false
 
 # ── Everything else: active with defaults (folded out for visibility and easy tuning) ──────────
 
-MD001: true  # heading-increment — heading levels go up one at a time (no h2 -> h4 jump)
-MD005: true  # list-indent — consistent indent for items at the same list level
-MD009: true  # no-trailing-spaces — (still allows 2 trailing spaces as a hard line break: br_spaces = 2)
-MD010: true  # no-hard-tabs — spaces, not tabs
-MD011: true  # no-reversed-links — catches a (text)[url] link written backwards
-MD012: true  # no-multiple-blanks — at most one consecutive blank line (Prettier collapses these)
-MD014: true  # commands-show-output — no leading `$` on shell commands that show no output
-MD018: true  # no-missing-space-atx — require a space after `#` in an ATX heading
-MD019: true  # no-multiple-space-atx — single space after `#`
-MD020: true  # no-missing-space-closed-atx — space inside a closed ATX heading (`# h #`)
-MD021: true  # no-multiple-space-closed-atx — single space inside a closed ATX heading
-MD022: true  # blanks-around-headings — headings padded by blank lines (our section-spacing convention)
-MD023: true  # heading-start-left — headings start at column 0
-MD025: true  # single-title — exactly one top-level (h1) heading per document
-MD026: true  # no-trailing-punctuation — headings do not end with . , ; : !
-MD027: true  # no-multiple-space-blockquote — single space after `>`
-MD028: true  # no-blanks-blockquote — no blank line inside a blockquote
-MD029: true  # ol-prefix — consistent ordered-list numbering (default: one_or_ordered)
-MD030: true  # list-marker-space — single space after a list marker
-MD031: true  # blanks-around-fences — fenced code blocks padded by blank lines
-MD032: true  # blanks-around-lists — lists padded by blank lines
-MD033: true  # no-inline-html — no raw HTML. Our <placeholder> notation lives in `code spans`, so it is exempt.
-MD034: true  # no-bare-urls — wrap a bare URL in <> or a proper link
-MD036: true  # no-emphasis-as-heading — do not use a lone bold/italic line in place of a heading
-MD037: true  # no-space-in-emphasis — no spaces just inside `**` / `_` markers
-MD038: true  # no-space-in-code — no spaces just inside `` `code` `` markers
-MD039: true  # no-space-in-links — no spaces just inside `[link text]`
-MD040: true  # fenced-code-language — code fences declare a language (```powershell, ```text, ```mermaid, …)
-MD041: true  # first-line-heading — the first line of a file is a top-level heading
-MD042: true  # no-empty-links — a link must have a destination
-MD045: true  # no-alt-text — images have alt text
-MD047: true  # single-trailing-newline — file ends with exactly one newline (matches insert_final_newline)
+MD001: true # heading-increment — heading levels go up one at a time (no h2 -> h4 jump)
+MD005: true # list-indent — consistent indent for items at the same list level
+MD009: true # no-trailing-spaces — (still allows 2 trailing spaces as a hard line break: br_spaces = 2)
+MD010: true # no-hard-tabs — spaces, not tabs
+MD011: true # no-reversed-links — catches a (text)[url] link written backwards
+MD012: true # no-multiple-blanks — at most one consecutive blank line (Prettier collapses these)
+MD014: true # commands-show-output — no leading `$` on shell commands that show no output
+MD018: true # no-missing-space-atx — require a space after `#` in an ATX heading
+MD019: true # no-multiple-space-atx — single space after `#`
+MD020: true # no-missing-space-closed-atx — space inside a closed ATX heading (`# h #`)
+MD021: true # no-multiple-space-closed-atx — single space inside a closed ATX heading
+MD022: true # blanks-around-headings — headings padded by blank lines (our section-spacing convention)
+MD023: true # heading-start-left — headings start at column 0
+MD025: true # single-title — exactly one top-level (h1) heading per document
+MD026: true # no-trailing-punctuation — headings do not end with . , ; : !
+MD027: true # no-multiple-space-blockquote — single space after `>`
+MD028: true # no-blanks-blockquote — no blank line inside a blockquote
+MD029: true # ol-prefix — consistent ordered-list numbering (default: one_or_ordered)
+MD030: true # list-marker-space — single space after a list marker
+MD031: true # blanks-around-fences — fenced code blocks padded by blank lines
+MD032: true # blanks-around-lists — lists padded by blank lines
+MD033: true # no-inline-html — no raw HTML. Our <placeholder> notation lives in `code spans`, so it is exempt.
+MD034: true # no-bare-urls — wrap a bare URL in <> or a proper link
+MD036: true # no-emphasis-as-heading — do not use a lone bold/italic line in place of a heading
+MD037: true # no-space-in-emphasis — no spaces just inside `**` / `_` markers
+MD038: true # no-space-in-code — no spaces just inside `` `code` `` markers
+MD039: true # no-space-in-links — no spaces just inside `[link text]`
+MD040: true # fenced-code-language — code fences declare a language (```powershell, ```text, ```mermaid, …)
+MD041: true # first-line-heading — the first line of a file is a top-level heading
+MD042: true # no-empty-links — a link must have a destination
+MD045: true # no-alt-text — images have alt text
+MD047: true # single-trailing-newline — file ends with exactly one newline (matches insert_final_newline)
 # MD051 link-fragments — OFF: markdownlint's slugger cannot reproduce GitHub's anchors for the `Verb:N`
 # rule-citation headings (a colon with no following space, e.g. `### Rule ADR-AUTO-TEST:1` -> GitHub `#rule-adr-auto-test1`),
 # so it false-positives on valid same-file links. It only validates SAME-FILE `#fragment` links anyway
 # (cross-file `file.md#frag` is never checked). Every fragment, same-file and cross-file, is checked against
 # GitHub's own slugs by Test-Links ([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)) instead.
 MD051: false
-MD052: true  # reference-links-images — reference-style links/images resolve to a definition
-MD053: true  # link-image-reference-definitions — no unused reference definitions
-MD054: true  # link-image-style — all link/image styles allowed (no style restricted)
-MD055: true  # table-pipe-style — consistent leading/trailing pipes across a table
-MD056: true  # table-column-count — every row has the same number of cells
-MD058: true  # blanks-around-tables — tables padded by blank lines
+MD052: true # reference-links-images — reference-style links/images resolve to a definition
+MD053: true # link-image-reference-definitions — no unused reference definitions
+MD054: true # link-image-style — all link/image styles allowed (no style restricted)
+MD055: true # table-pipe-style — consistent leading/trailing pipes across a table
+MD056: true # table-column-count — every row has the same number of cells
+MD058: true # blanks-around-tables — tables padded by blank lines

@@ -159,6 +159,14 @@ widget: cog
             (Get-CheckResult 'gadget.yml.schema.json').Findings | Should -Be @("`$.widget: 'gear' is not one of the enum values 'cog', 'sprocket'")
         }
 
+        It 'still validates a real target against a schema with annotations' {
+            Add-Asset 'gadget.yml.schema.json' '{"$schema":"https://json-schema.org/draft/2020-12/schema","description":"a gadget","type":"object","required":["widget"]}'
+            Add-File 'gadget.yml' "size: 2`n"
+            $result = Get-CheckResult 'gadget.yml.schema.json'
+            $result.Asset.Target | Should -Be 'gadget.yml'
+            $result.Findings | Should -Be @("`$: the required property 'widget' is missing")
+        }
+
         It 'fails on a keyword outside the subset' {
             Add-Asset 'gadget.yml.schema.json' '{"type":"object","minProperties":1}'
             Add-File 'gadget.yml' "widget: cog`n"
@@ -200,11 +208,33 @@ widget: cog
             (Get-CheckResult 'rest/gadget.sample.json').Passed | Should -BeTrue
         }
 
-        It 'fails a sample that does not validate against the schema beside it' {
-            Add-Asset 'rest/gadget.schema.json' '{"type":"object","required":["widget"]}'
+        It 'fails a sample that does not validate against the schema beside it, with one finding on the sample only' {
+            Add-Asset 'rest/gadget.schema.json' '{"$schema":"https://json-schema.org/draft/2020-12/schema","title":"Gadget","type":"object","required":["widget"]}'
             Add-Asset 'rest/gadget.sample.json' '{"gadget":1}'
-            (Get-CheckResult 'rest/gadget.sample.json').Findings | Should -Be @("`$: the required property 'widget' is missing")
-            (Get-CheckResult 'rest/gadget.schema.json').Findings | Should -Be @("`$: the required property 'widget' is missing")
+            $results = @(Get-Contract -RepositoryRoot $script:root -Addressing full-path | Get-ContractCheckResults -RepositoryRoot $script:root)
+            $results.Count | Should -Be 2
+            $findings = @($results | ForEach-Object { $_.Findings })
+            $findings | Should -Be @("`$: the required property 'widget' is missing")
+            $sample = $results | Where-Object { $_.Asset.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Sample }
+            $sample.Passed | Should -BeFalse
+            $sample.Findings | Should -Be @("`$: the required property 'widget' is missing")
+            $schema = $results | Where-Object { $_.Asset.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Schema }
+            $schema.Asset.Target | Should -Be 'contracts/widget/0.0.0/Catzc.Widget/rest/gadget.sample.json'
+            $schema.Passed | Should -BeTrue
+        }
+
+        It 'fails a malformed schema beside a sample on the schema''s result' {
+            Add-Asset 'rest/gadget.schema.json' '{"type":"object","minProperties":1}'
+            Add-Asset 'rest/gadget.sample.json' '{"gadget":1}'
+            $schema = Get-CheckResult 'rest/gadget.schema.json'
+            $schema.Passed | Should -BeFalse
+            $schema.Findings | Should -Be @('schema #: unsupported keyword minProperties')
+        }
+
+        It 'fails a schema beside a sample on the schema''s result when it does not parse' {
+            Add-Asset 'rest/gadget.schema.json' '{"type":'
+            Add-Asset 'rest/gadget.sample.json' '{"gadget":1}'
+            (Get-CheckResult 'rest/gadget.schema.json').Findings | Should -BeLike "'contracts/widget/0.0.0/Catzc.Widget/rest/gadget.schema.json' does not parse as Json:*"
         }
     }
 
