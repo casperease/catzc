@@ -18,6 +18,22 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
+    It 'resolves a relative -Path against the repository root, never the working directory' -Tag 'ADR-AUTO-NOPWD#1' {
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
+        $elsewhere = Join-Path $TestDrive 'elsewhere'
+        [void][System.IO.Directory]::CreateDirectory($elsewhere)
+        Push-Location -LiteralPath $elsewhere
+        try {
+            Test-ScriptAnalyzer -Path 'subject.ps1' -OutputFolder $script:reportBase -PassThru | Out-Null
+        }
+        finally {
+            Pop-Location
+        }
+        Should -Invoke Get-ScriptAnalyzerDiagnostics -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            @($Path).Count -eq 1 -and $Path[0] -eq [System.IO.Path]::GetFullPath($script:targetFile)
+        }
+    }
+
     It 'passes and writes a report when the analyzer finds no violations' -Tag 'ADR-AUTO-TEST#35' {
         { Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase } | Should -Not -Throw
         $result = Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase -PassThru

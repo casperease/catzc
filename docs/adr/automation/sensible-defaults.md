@@ -88,7 +88,7 @@ mandatory. The test is: **does a reasonable default exist?** If yes, use it. If 
 
 In order of preference:
 
-1. **Configuration files.** Tool versions come from `automation/Catzc.Tooling.Core/configs/tools.yml`. Environment settings come from
+1. **Configuration files.** Tool versions come from `automation/Catzc.Base.Execution/configs/tools.yml`. Environment settings come from
    `Catzc.Azure/configs/azure.yml`. The function reads config internally — the caller does not need to know where the value lives.
 
 2. **Convention.** Output verbosity defaults to `Detailed`. Test level defaults to `2`. These are values that are right 90% of the time.

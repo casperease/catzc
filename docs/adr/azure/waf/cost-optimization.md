@@ -390,7 +390,8 @@ copy of the workload; it should be removed when its work is done, and nothing re
 
 ##### CO:07 status
 
-Partly realised — the inventory, owners, and redeploy-based recovery exist; an orphan check against the configuration tree is planned (follow-up).
+Partly realised — the inventory, owners, and redeploy-based recovery exist; an orphan check against the configuration tree is planned
+(follow-up).
 
 ### CO:08 — Optimize environment costs
 
@@ -647,8 +648,8 @@ check, lifecycle tiering, and a storage SKU per class. The items about rates, fl
   rendered parameters file against the template's `@allowed` values and bounds
   ([ADR-AZ-DATAMOD#9](../azure-data-model.md#rule-adr-az-datamod9)), so an out-of-range SKU tier or retention fails the build.
 - `Deploy-Bicep -DryRun` runs Azure's `--what-if` preview of a deploy.
-- Planned (follow-up), not existing: a check over the compiled templates (`main.json`) that fails a missing tag or a production-grade setting
-  in a non-production config, an allowed-SKU policy in `discovery`, a pre-deploy cost estimate, and an orphan check against the
+- Planned (follow-up), not existing: a check over the compiled templates (`main.json`) that fails a missing tag or a production-grade
+  setting in a non-production config, an allowed-SKU policy in `discovery`, a pre-deploy cost estimate, and an orphan check against the
   configuration tree.
 
 ## Consequences

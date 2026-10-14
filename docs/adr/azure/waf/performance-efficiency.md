@@ -383,26 +383,26 @@ such as query time and I/O, partition with a chosen key, rewrite slow queries an
 replicas, archive and purge, place data near its users, and keep transactional and analytical stores apart.
 ```
 
-#### What this means here
+#### What PE:08 means here
 
 Data tuning needs data, and the example database is empty. What the templates provide is the signal a tuning effort reads: the database's
 diagnostic setting sends the `allLogs` category group, which carries its query-store and wait statistics, to the workspace (ADR-AZ-WAFPE#4).
 Index design, query rewriting, and partitioning belong to the workload that owns the schema.
 
-##### In `foundation`
+##### PE:08 in `foundation`
 
 Not applicable: the workspace's own data use is the platform's; its retention is 30 days.
 
-##### In `discovery`
+##### PE:08 in `discovery`
 
 Not applicable: no data store.
 
-##### In `expedition`
+##### PE:08 in `expedition`
 
 One empty database and one storage account with the `Hot` access tier and a 7-day soft delete. No schema, index, cache, read replica, or
 lifecycle rule.
 
-##### Status
+##### PE:08 status
 
 Not adopted, because the example database has no schema, data, or queries to tune.
 
@@ -417,7 +417,7 @@ high, medium, or low by business impact, isolate critical flows with dedicated r
 use priority queues.
 ```
 
-#### What this means here
+#### What PE:09 means here
 
 The CAF tags on every resource include `criticality` (ADR-AZ-LZ#5), and the configs rate each deployment with it: `high` for the shared
 subscriptions and for production, `medium` for `foundation` and `discovery` in a customer's non-production subscription, and `low` for the
@@ -425,20 +425,20 @@ non-production workload. That is a rating per deployment, not per flow, and noth
 comes from the customer model: each customer has its own subscriptions, spokes, and workload resources, so one customer's load never shares
 a database with another's.
 
-##### In `foundation`
+##### PE:09 in `foundation`
 
 Rated `high` in the shared and production subscriptions and `medium` in a customer's non-production one; one workspace and one vault per
 subscription, so each customer's signals and secrets are its own.
 
-##### In `discovery`
+##### PE:09 in `discovery`
 
 Rated `high` for the hubs and the production spoke and `medium` for the non-production spokes; each customer's spoke is its own network.
 
-##### In `expedition`
+##### PE:09 in `expedition`
 
 Rated `high` in `apex/prod.yml`, `low` elsewhere. No flows, no rate limit, no queue.
 
-##### Status
+##### PE:09 status
 
 Not adopted, because the example workload has no flows to rate; customers are isolated by subscription.
 
@@ -453,7 +453,7 @@ traffic shift and without dropping instance counts; test in-place upgrades first
 incremental or platform backups and lightweight logging.
 ```
 
-#### What this means here
+#### What PE:10 means here
 
 The operational tasks the templates carry are all the platform's. A deployment is `Deploy-Bicep`, an `az deployment group create` (or
 `sub create` for `discovery`) in Azure's default incremental mode, so a redeploy changes only what differs and removes nothing. Backups are
@@ -461,20 +461,20 @@ the database's automated backups and the storage account's soft delete, which ru
 Vault reference resolved at deploy time (ADR-AZ-LZ#6), so rotating it touches no running resource. A special slot can run a second copy of
 the workload beside the base slot, but no traffic shifts between them. No maintenance window or off-peak schedule is set.
 
-##### In `foundation`
+##### PE:10 in `foundation`
 
 The vault holds the password every `expedition` config references; the workspace has no task of its own beyond retention.
 
-##### In `discovery`
+##### PE:10 in `discovery`
 
 Each deploy reapplies the network, the policies, and the budget; adding a spoke takes three deploys in a fixed order (ADR-AZ-LZ#7).
 
-##### In `expedition`
+##### PE:10 in `expedition`
 
 Point-in-time restore keeps 7 days with locally redundant backups outside production, 35 days with geo-redundant backups in production. The
 blob soft delete keeps 7 days. The database has no maintenance window.
 
-##### Status
+##### PE:10 status
 
 Partly realised: every operational task runs on the platform, but none is measured or scheduled off-peak.
 
@@ -489,26 +489,26 @@ baselines, follow a documented triage plan, find the root cause from correlated 
 alert.
 ```
 
-#### What this means here
+#### What PE:11 means here
 
 The data an investigation would read is collected (ADR-AZ-WAFPE#4), and the activity log's `ServiceHealth` and `ResourceHealth` records
 reach the workspace, so a platform incident is visible beside the workload's own signals. The architecture is documented in the reference
 articles under `docs/references/infrastructure/`. No alert, triage plan, or on-call rota exists, and access to the workspace is whatever
 role the subscription grants.
 
-##### In `foundation`
+##### PE:11 in `foundation`
 
 The workspace is where an investigation starts; no saved query or workbook ships with it.
 
-##### In `discovery`
+##### PE:11 in `discovery`
 
 The activity log and the network's logs give the network side of an incident.
 
-##### In `expedition`
+##### PE:11 in `expedition`
 
 The database and blob logs give the data side; nothing alerts on them.
 
-##### Status
+##### PE:11 status
 
 Not adopted, because without targets and baselines there is nothing to alert on.
 
@@ -523,26 +523,26 @@ tend to degrade, such as databases and networking, and on critical flows; automa
 the database and tiering its data.
 ```
 
-#### What this means here
+#### What PE:12 means here
 
 Continuous optimisation measures against targets and baselines, which the templates do not set (ADR-AZ-WAFPE#1). What the repository does
 continuously is change the templates through the same build and verification as any code: `ci-infrastructure.yaml` compiles and verifies
 every template on every change under `infrastructure/`, and `azure.yml` pins the minimum Bicep version (`bicep_min_version`), so a newer
 platform feature arrives as a reviewed template change.
 
-##### In `foundation`
+##### PE:12 in `foundation`
 
 Not applicable on its own: its two services have no performance setting to revisit.
 
-##### In `discovery`
+##### PE:12 in `discovery`
 
 Not applicable on its own: the network has no performance setting to revisit.
 
-##### In `expedition`
+##### PE:12 in `expedition`
 
 The SKU, capacity, and serverless settings per environment class are the knobs a review would turn, each a one-line config change.
 
-##### Status
+##### PE:12 status
 
 Not adopted, because no target or baseline exists to optimise against.
 

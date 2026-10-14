@@ -52,7 +52,7 @@ strict failure that a code or fixture fix would remove.
 
 ### Rule ADR-PWSH-PESTER:7
 
-A mock or fixture returns the production shape: the typed record the real function returns (`[Catzc.Tooling.Core.ToolConfig]::new(…)`,
+A mock or fixture returns the production shape: the typed record the real function returns (`[Catzc.Base.Execution.ToolConfig]::new(…)`,
 `[Catzc.Azure.Templates.BicepArtifacts]::new(…)`), or an object carrying every member the code under test reads — never a partial
 `[pscustomobject]` that omits an optional member.
 

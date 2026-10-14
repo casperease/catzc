@@ -116,9 +116,9 @@ def listing(parts):
 # ---------------------------------------------------------------- the world map's reasons
 
 
-def site_words(sites):
-    """Citation sites as `path` line n (kind), one per site."""
-    return listing([f"`{s['path']}` line {s['line']} ({KIND_WORDS[s['kind']]})" for s in sites])
+def site_words(sites, own=None):
+    """Citation sites as `path` line n (kind), one per site; a site in the lit file itself (own) as line n (kind)."""
+    return listing([(f"line {s['line']}" if s["path"] == own else f"`{s['path']}` line {s['line']}") + f" ({KIND_WORDS[s['kind']]})" for s in sites])
 
 
 def file_reason(links, reason):
@@ -128,7 +128,7 @@ def file_reason(links, reason):
     if basis == "adr-file":
         text = f"selected by {request}: an ADR file of the `{reason['domain']}` ADR domain, the ADR domain of that code"
     elif basis == "citations":
-        text = f"selected by {request}: the file cites it at {site_words(reason['sites'])}"
+        text = f"selected by {request}: the file cites it at {site_words(reason['sites'], reason['path'])}"
     elif basis == "files.yml":
         text = (
             f"selected by {request}: a root file carries the citations of its owner module's files (files.yml), "
@@ -158,12 +158,14 @@ def placement(ctx, links, cell):
     else:
         roots = sorted({f.split("/")[0] for f in files})
         row = f"the root folder {listing([f'`{r}/`' for r in roots])} names the track {cell['track']} ({links.adr('ADR-DSGN-TRACK#1')})"
-    extensions = sorted({os.path.splitext(f)[1].lower() or "(none)" for f in files})
-    shown = listing([f"`{e}`" if e != "(none)" else "no extension" for e in extensions])
+    extensions = sorted({os.path.splitext(f)[1].lower() for f in files})
+    named = [f"`{e}`" for e in extensions if e]
+    shown = (f"the extension {listing(named)}" if named else "") + (" or " if named and "" in extensions else "")
+    shown += "no extension" if "" in extensions else ""
     if cell["file_language"] == ctx.no_language:
-        column = f"the extension {shown} names no file language, so it is an unlisted file ({links.adr('ADR-DSGN-TRACK#8')})"
+        column = f"{shown} names no file language, so each is an unlisted file ({links.adr('ADR-DSGN-TRACK#8')})"
     else:
-        column = f"the extension {shown} names the file language {cell['file_language']} ({links.adr('ADR-DSGN-TRACK#6')})"
+        column = f"{shown} names the file language {cell['file_language']} ({links.adr('ADR-DSGN-TRACK#6')})"
     return f"Placed: {row}; {column}."
 
 
@@ -225,7 +227,8 @@ def tree_shows(ctx, links, highlight, extras):
     )
     lines.append("")
     for g in groups:
-        lines.append(f"- {g['label']} ({g['folder']}): {plural(len(g['files']), 'lit file')}")
+        name = g["label"] if g["label"] == g["folder"] else f"{g['label']} ({g['folder']})"
+        lines.append(f"- {name}: {plural(len(g['files']), 'lit file')}")
     return lines
 
 

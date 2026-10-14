@@ -149,8 +149,7 @@ for p in sorted(slides_dir.rglob("*.drawio.png"), key=lambda q: q.name):
     stem = p.name[: -len(".drawio.png")]
     folder = p.parent
     items.append((p, "Slide", page))
-    items += [(m, "Minimap", page) for m in (folder / f"minimap-{stem}.stack.png", folder / f"minimap-{stem}.tree.png")
-              if m.exists()]
+    items += [(m, "Minimap", page) for m in (folder / f"{stem}.{view}.png" for view in ("grid", "tree", "chain")) if m.exists()]
     items += [(m, label, markdown_page) for m, label in ((folder / f"{stem}.md", "Presentation"),
                                                          (folder / f"{stem}.visual.md", "Visual description"))
               if m.exists()]

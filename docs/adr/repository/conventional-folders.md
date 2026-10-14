@@ -385,9 +385,9 @@ organize content — the internal structure is freeform. The module's own config
 **`configs/`** holds the module's own internal configuration — the checked-in YAML a module loads to configure its own behaviour. Each entry
 is a flat, kebab-case `.yml` file (`<kebab-name>.yml`, never `.yaml`); the folder is flat, with no subdirectories. Module functions read
 these files through `Get-Config`, which locates them under the module's folder in the active code root (in source mode,
-`Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'` in `Catzc.Tooling.Core` resolves to `automation/Catzc.Tooling.Core/configs/tools.yml`).
+`Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'` in `Catzc.Base.Execution` resolves to `automation/Catzc.Base.Execution/configs/tools.yml`).
 A module's own config goes in `configs/`, and `assets/` is reserved for templates, scripts, schemas, fixtures, and other consumable assets.
-Live examples: `Catzc.Tooling.Core/configs/tools.yml`, `Catzc.Base.ModuleSystem/configs/dependencies.yml`,
+Live examples: `Catzc.Base.Execution/configs/tools.yml`, `Catzc.Base.ModuleSystem/configs/dependencies.yml`,
 `Catzc.Azure.DevOps/configs/{ado,pipeline-env}.yml`, `Catzc.Azure/configs/{azure,network}.yml`. This is enforced by
 `Test-FolderConventions.Tests.ps1`, which allows `configs/` as a module subdirectory, requires every entry to be a flat kebab-case `.yml`
 file, and fails any module that keeps an `assets/config/` directory. Files in `configs/` are read through the shared

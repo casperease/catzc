@@ -23,6 +23,9 @@
     -DryRun only plans: it returns the changed paths, the test files, and the checks, and runs nothing.
 .PARAMETER Path
     The changed repo-relative, '/'-separated paths. Default: the working tree's changes (Get-GitChangedPath).
+.PARAMETER WholeModule
+    Run every test file of each module a change touches (automation/<Module>/tests/), not only the test files that
+    cover the changed files.
 .PARAMETER DryRun
     Plan only: return { Path; Tests; Checks } and run nothing.
 .PARAMETER OutputFolder
@@ -47,6 +50,8 @@ function Test-Change {
         [AllowEmptyCollection()]
         [string[]] $Path = @(Get-GitChangedPath),
 
+        [switch] $WholeModule,
+
         [switch] $DryRun,
 
         [string] $OutputFolder,
@@ -56,7 +61,7 @@ function Test-Change {
 
     $repositoryRoot = Get-RepositoryRoot
     $changed = @($Path | ForEach-Object { $_ -replace '\\', '/' } | Sort-Object -Unique)
-    $tests = @(Get-ChangeTestFile -Path $changed -RepositoryRoot $repositoryRoot)
+    $tests = @(Get-ChangeTestFile -Path $changed -RepositoryRoot $repositoryRoot -Module:$WholeModule)
     $checks = @(Get-ChangeCheckPlan -Path $changed -RepositoryRoot $repositoryRoot)
     if ($DryRun) {
         return [pscustomobject]@{ Path = $changed; Tests = $tests; Checks = $checks }

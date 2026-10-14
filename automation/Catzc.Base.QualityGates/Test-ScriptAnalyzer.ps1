@@ -20,7 +20,8 @@
 
     PSScriptAnalyzer is vendored under the code root's .vendor/ — no install step is needed.
 .PARAMETER Path
-    One or more files or directories to analyze. Defaults to the canonical checked set (Get-AutomationSourceFiles):
+    One or more files or directories to analyze — absolute, or repository-root-relative (never resolved against
+    $PWD). Defaults to the canonical checked set (Get-AutomationSourceFiles):
     module root *.ps1, private/, tests/, the .internal and .scriptanalyzer infrastructure folders (bootstrap,
     TestKit, custom analyzer rules, and their tests), the root importer.ps1, and authored .psd1 config. The
     default set is the catzc source tree, so it needs the source mode; an explicit -Path works in either run
@@ -35,7 +36,7 @@
     $result = Test-ScriptAnalyzer -PassThru
     $result.IssueCount
 .EXAMPLE
-    Test-ScriptAnalyzer -Path ./automation/Catzc.Base.QualityGates
+    Test-ScriptAnalyzer -Path automation/Catzc.Base.QualityGates
     Analyze just one module.
 #>
 function Test-ScriptAnalyzer {
@@ -62,12 +63,21 @@ function Test-ScriptAnalyzer {
     $files = [System.Collections.Generic.List[string]]::new()
     if ($Path) {
         foreach ($item in $Path) {
-            if (Test-Path -Path $item -PathType Container) {
-                Get-ChildItem -Path $item -Recurse -Include '*.ps1', '*.psm1' -File |
+            # A relative path is repository-relative, never $PWD-relative
+            # ([ADR-AUTO-NOPWD#1](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1)).
+            $full = if ([System.IO.Path]::IsPathRooted($item)) {
+                $item
+            }
+            else {
+                Join-Path $root $item
+            }
+            if (Test-Path -LiteralPath $full -PathType Container) {
+                Get-ChildItem -LiteralPath $full -Recurse -Include '*.ps1', '*.psm1' -File |
                     ForEach-Object { $files.Add($_.FullName) }
             }
             else {
-                $files.Add((Resolve-Path -Path $item).Path)
+                Assert-PathExist $full -PathType Leaf
+                $files.Add([System.IO.Path]::GetFullPath($full))
             }
         }
     }

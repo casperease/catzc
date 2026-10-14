@@ -488,8 +488,8 @@ rotation should be a vault operation followed by a deploy, with no config change
 
 ##### SE:09 status
 
-**Partly realised.** No secret is in the repository and the services use managed identities, but rotation is manual and planned (follow-up) to
-be automated.
+**Partly realised.** No secret is in the repository and the services use managed identities, but rotation is manual and planned (follow-up)
+to be automated.
 
 ### SE:10 — Implement a holistic monitoring strategy
 

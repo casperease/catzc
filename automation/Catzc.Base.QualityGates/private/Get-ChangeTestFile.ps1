@@ -7,11 +7,14 @@
     automation/<Module>/[private/]<Name>.ps1 is covered by automation/<Module>/tests/<Name>.Tests.ps1; a changed C# type
     automation/<Module>/types/<Type>.cs by automation/<Module>/tests/types/<Type>.Tests.ps1. Only test files that exist
     are returned, as repo-relative, '/'-separated paths, sorted ordinally, each once; a change no convention covers
-    contributes nothing.
+    contributes nothing. With -Module, a change anywhere under automation/<Module>/ (dot folders excepted) brings in
+    every test file under that module's tests/ instead.
 .PARAMETER Path
     The changed repo-relative, '/'-separated paths.
 .PARAMETER RepositoryRoot
     The repository root the paths are relative to.
+.PARAMETER Module
+    Widen to every test file of each module a change touches.
 .OUTPUTS
     [string]
 .EXAMPLE
@@ -26,10 +29,30 @@ function Get-ChangeTestFile {
         [string[]] $Path,
 
         [Parameter(Mandatory)]
-        [string] $RepositoryRoot
+        [string] $RepositoryRoot,
+
+        [switch] $Module
     )
 
     $tests = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
+    if ($Module) {
+        $modules = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
+        foreach ($changed in $Path) {
+            if ($changed -match '^(?<module>automation/[^/.][^/]*)/') {
+                [void]$modules.Add($Matches['module'])
+            }
+        }
+        foreach ($moduleFolder in $modules) {
+            $testsFolder = [System.IO.Path]::Combine($RepositoryRoot, $moduleFolder, 'tests')
+            if (-not [System.IO.Directory]::Exists($testsFolder)) {
+                continue
+            }
+            foreach ($file in [System.IO.Directory]::EnumerateFiles($testsFolder, '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories)) {
+                [void]$tests.Add(([System.IO.Path]::GetRelativePath($RepositoryRoot, $file) -replace '\\', '/'))
+            }
+        }
+        return $tests
+    }
     foreach ($changed in $Path) {
         $candidate = if ($changed -match '\.Tests\.ps1$') {
             $changed

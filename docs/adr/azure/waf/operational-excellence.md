@@ -598,7 +598,7 @@ the promotion flow, the quality gates, the templates' secure defaults — so a W
 checklist and that machinery. Where an item is the operating organisation's — roles, decision authority, standing access — the rule says so
 and the repository carries what a repository can: the `owner` tag, the written procedure, the alert route.
 
-A `partly realised` or `planned` status is work for follow-up: a check, a template change, a pipeline change, or a how-to, each citing the
+A `partly realised` or `planned` status is follow-up work: a check, a template change, a pipeline change, or a how-to, each citing the
 rule it realises.
 
 ### How this is enforced
@@ -627,8 +627,8 @@ Checks that are planned (follow-up), none of which exists:
 
 ## Consequences
 
-- Every item of the checklist has a status a reader can check against the files it names, and the follow-up is the list of items that are not
-  realised.
+- Every item of the checklist has a status a reader can check against the files it names, and the follow-up is the list of items that are
+  not realised.
 - The repository adds no WAF-specific mechanism: a gap is closed in the template, pipeline, or check that owns the concern.
 - Items that belong to the operating organisation stay outside the repository, at the cost that the repository cannot show them to be met.
 - Microsoft's checklist changes; each item carries its retrieval date, and a refresh compares the cited pages against these summaries.

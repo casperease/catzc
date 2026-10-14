@@ -46,8 +46,7 @@ Planned: a delete lock on the hub's virtual network and private DNS zones, the l
 ### Rule ADR-AZ-CAFMGMT:6
 
 Realised: each subscription is deployed by its own service connection, and the landing zone's deny-effect policies limit what any identity
-may deploy there, enforcing in production and auditing outside it
-([ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)).
+may deploy there, enforcing in production and auditing outside it ([ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)).
 
 - [6 — Pair role-based access with deny policies](#6--pair-role-based-access-with-deny-policies)
 - [How this is enforced](#how-this-is-enforced)
@@ -81,8 +80,8 @@ with geo-redundant backups ([ADR-AZ-WAFRE#5](../waf/reliability.md#rule-adr-az-w
 
 ### Rule ADR-AZ-CAFMGMT:11
 
-Partly realised: the database's own point-in-time backups and the storage account's soft delete are the backup, set per environment class
-in config; a backup vault is not adopted, because nothing deployed needs one.
+Partly realised: the database's own point-in-time backups and the storage account's soft delete are the backup, set per environment class in
+config; a backup vault is not adopted, because nothing deployed needs one.
 
 - [11 — Use Azure-native backup](#11--use-azure-native-backup)
 
@@ -151,8 +150,8 @@ Planned: an action group per subscription in `foundation` and alert rules in the
 
 ### Rule ADR-AZ-CAFMGMT:21
 
-Not adopted, because a workload's resources sit together: one resource group per configuration slot, named by the `workload` tag, inside
-one subscription.
+Not adopted, because a workload's resources sit together: one resource group per configuration slot, named by the `workload` tag, inside one
+subscription.
 
 - [21 — Group workload resources with Service Groups](#21--group-workload-resources-with-service-groups)
 
@@ -167,8 +166,8 @@ leaves preview.
 ## Context
 
 Microsoft's Cloud Adoption Framework (CAF) is its guidance for adopting Azure across an organisation: strategy, planning, readiness,
-governance, and operations. Its landing-zone guidance splits the platform an organisation builds into design areas, each with
-considerations to weigh and design recommendations; the landing zone that a subscription receives here is CAF's application landing zone
+governance, and operations. Its landing-zone guidance splits the platform an organisation builds into design areas, each with considerations
+to weigh and design recommendations; the landing zone that a subscription receives here is CAF's application landing zone
 ([ADR-AZ-LZ#1](../landing-zones.md#rule-adr-az-lz1)).
 
 The management design area sets the operations baseline: the common tools and processes that let every workload on the platform be managed
@@ -186,15 +185,15 @@ rule cites Microsoft's page — area, page, section, link, retrieval date — an
 published under the [Microsoft Learn Terms of Use](https://learn.microsoft.com/en-us/legal/termsofuse), which grant no licence to copy it
 into a shared repository. Nothing is quoted. Much of this area is decided by the Well-Architected records
 ([ADR-AZ-WAFOE#7](../waf/operational-excellence.md#rule-adr-az-wafoe7),
-[ADR-AZ-WAFOE#8](../waf/operational-excellence.md#rule-adr-az-wafoe8),
-[ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10)); the rules here cite those and do not repeat their analysis.
+[ADR-AZ-WAFOE#8](../waf/operational-excellence.md#rule-adr-az-wafoe8), [ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10)); the
+rules here cite those and do not repeat their analysis.
 
-The baseline monitoring page of the area carries no recommendations, so it is no rule here. It informs the planned alerting all the same.
-It suggests deploying Microsoft's baseline alerts through a deploy-if-not-exists policy, at least one action group per subscription, and
+The baseline monitoring page of the area carries no recommendations, so it is no rule here. It informs the planned alerting all the same. It
+suggests deploying Microsoft's baseline alerts through a deploy-if-not-exists policy, at least one action group per subscription, and
 Service Health alerts wired straight to an action group. This repository deploys monitoring in the template, never through a
 deploy-if-not-exists policy ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)), so the planned alerts are template resources; one action
-group per subscription in `foundation`, addressed to the subscription's `Owner` role like the budget, keeps every address out of the
-configs (see [20](#20--raise-operational-alerts-with-azure-monitor)).
+group per subscription in `foundation`, addressed to the subscription's `Owner` role like the budget, keeps every address out of the configs
+(see [20](#20--raise-operational-alerts-with-azure-monitor)).
 
 The example basis is the repository's three templates: `foundation` (a Log Analytics workspace and a Key Vault per subscription),
 `discovery` (the landing zone), and `expedition` (a workload that lands in it, [ADR-AZ-LZ#4](../landing-zones.md#rule-adr-az-lz4)). Every
@@ -245,10 +244,10 @@ Summary (ours): When logs must be kept for more than seven years, export them to
 
 #### What 2 means here
 
-`log-analytics.bicep` takes `retentionInDays` between 30 and 730; `foundation` does not pass it, so every workspace keeps the default of
-30 days. No example customer carries an obligation to keep logs for years, so no export or archive exists. A longer retention per environment
-class is the config value [ADR-AZ-WAFOE#7](../waf/operational-excellence.md#rule-adr-az-wafoe7) plans; a customer whose rules demand more than the
-workspace can hold would add a data export to an immutable storage account, deployed by `foundation` beside the workspace.
+`log-analytics.bicep` takes `retentionInDays` between 30 and 730; `foundation` does not pass it, so every workspace keeps the default of 30
+days. No example customer carries an obligation to keep logs for years, so no export or archive exists. A longer retention per environment
+class is the config value [ADR-AZ-WAFOE#7](../waf/operational-excellence.md#rule-adr-az-wafoe7) plans; a customer whose rules demand more
+than the workspace can hold would add a data export to an immutable storage account, deployed by `foundation` beside the workspace.
 
 ##### 2 in `foundation`
 
@@ -308,9 +307,9 @@ Summary (ours): Use Traffic Analytics to see the IP traffic that flows through t
 #### What 4 means here
 
 Traffic Analytics reads flow logs, and no network logs its flows: the network security groups and the virtual network send their resource
-logs and metrics to the workspace, not their flows. [ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6) plans virtual network flow
-logs into `foundation`'s workspace. Turning on Traffic Analytics is part of that work: the flow log names the workspace, and it needs a
-storage account for the raw flow records, which `foundation` would hold beside the workspace.
+logs and metrics to the workspace, not their flows. [ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6) plans virtual network flow logs
+into `foundation`'s workspace. Turning on Traffic Analytics is part of that work: the flow log names the workspace, and it needs a storage
+account for the raw flow records, which `foundation` would hold beside the workspace.
 
 ##### 4 in `foundation`
 
@@ -373,10 +372,9 @@ Summary (ours): Let role assignments decide who may deploy, and deny policies de
 
 Who may deploy is the role-based access of each subscription: every subscription is deployed by its own service connection, which holds
 rights there and nowhere else ([ADR-AZ-WAFSE#4](../waf/security.md#rule-adr-az-wafse4)). What may be deployed is the landing zone's three
-policies, each a deny effect: a resource outside the region, without the required tag, or with a public IP address on a network interface
-is refused ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)). The policies deny where `policy_enforcement` enforces, which its sensible
-default does in production, and only report outside it
-([ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)).
+policies, each a deny effect: a resource outside the region, without the required tag, or with a public IP address on a network interface is
+refused ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)). The policies deny where `policy_enforcement` enforces, which its sensible
+default does in production, and only report outside it ([ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)).
 
 ##### 6 in `foundation`
 
@@ -437,8 +435,7 @@ Summary (ours): Do not ship raw Azure log entries back to on-premises monitoring
 #### What 8 means here
 
 The repository has no on-premises connectivity and no on-premises monitoring system, so every log it collects stays in a workspace in Azure.
-The recommendation would apply if a customer's security operations ran on premises; the forwarding would then be an alert, not a log
-export.
+The recommendation would apply if a customer's security operations ran on premises; the forwarding would then be an alert, not a log export.
 
 ##### 8 status
 
@@ -457,8 +454,8 @@ Summary (ours): Use Azure Site Recovery to replicate virtual machines to another
 
 No template deploys a virtual machine: `vm.bicep` exists among the shared modules, but none of the three templates uses it. Every
 environment maps to one region ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)), so there is no second region to
-replicate to either. A template that deploys virtual machines in production, together with a second region, would bring this
-recommendation in.
+replicate to either. A template that deploys virtual machines in production, together with a second region, would bring this recommendation
+in.
 
 ##### 9 status
 
@@ -493,7 +490,7 @@ Not applicable: it deploys network and governance resources, not data services.
 ##### 10 in `expedition`
 
 Zone-redundant storage in every slot; in `apex/prod.yml` a provisioned `GP_Gen5` database with `Geo` backup storage, zone-redundant by the
-template default, while `dev.yml` turns zone redundancy off and keeps `Local` backups.
+template default, while `dev.yml` sets `databaseZoneRedundant` to false and keeps `Local` backups.
 
 ##### 10 status
 
@@ -512,10 +509,10 @@ Summary (ours): Back up with Azure Backup and the backup features built into pla
 #### What 11 means here
 
 Backup is the platform's own and nothing else: `sql-database.bicep` sets the database's short-term retention policy and its backup storage
-redundancy, and `storage-account.bicep` turns on soft delete for blobs and containers (7 days by default). No third-party tool and no
-backup vault is involved; a vault would protect virtual machines or other resources that keep no backup of their own, and none is deployed.
-No policy enforces the backup configuration; the `@minValue`/`@maxValue` and `@allowed` bounds in `expedition` keep a config within what
-the service accepts.
+redundancy, and `storage-account.bicep` turns on soft delete for blobs and containers (7 days by default). No third-party tool and no backup
+vault is involved; a vault would protect virtual machines or other resources that keep no backup of their own, and none is deployed. No
+policy enforces the backup configuration; the `@minValue`/`@maxValue` and `@allowed` bounds in `expedition` keep a config within what the
+service accepts.
 
 ##### 11 in `foundation`
 
@@ -547,8 +544,7 @@ Summary (ours): Connect to on-premises over ExpressRoute from several regions an
 
 The repository has no on-premises connectivity: the hub reserves `GatewaySubnet` and deploys nothing into it
 ([ADR-AZ-NETWORK#5](../azure-network-model.md#rule-adr-az-network5)). The recommendation would apply once a gateway is added, and then
-together with a second region, which the repository does not have
-([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)).
+together with a second region, which the repository does not have ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)).
 
 ##### 12 status
 
@@ -565,8 +561,8 @@ Summary (ours): Give production and recovery networks address ranges that do not
 
 #### What 13 means here
 
-`network.yml` is the one home of every range, and no two networks in it overlap: every environment's and every subscription's address
-space is disjoint from every other, which `NetworkConfig` checks when the file loads
+`network.yml` is the one home of every range, and no two networks in it overlap: every environment's and every subscription's address space
+is disjoint from every other, which `NetworkConfig` checks when the file loads
 ([ADR-AZ-NETWORK#6](../azure-network-model.md#rule-adr-az-network6)). There is no recovery network, because every environment maps to one
 region ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)); one added to the plan would get a disjoint range by the same
 check, so any network can peer to any other.
@@ -768,9 +764,9 @@ Summary (ours): Generate operational alerts with Azure Monitor alerts across met
 No alert rule or action group exists; the only alerts are the landing zone's budget thresholds, sent to the subscription's `Owner` role by
 `budget.bicep`. Alert routing is the gap [ADR-AZ-WAFOE#8](../waf/operational-excellence.md#rule-adr-az-wafoe8) records, and the alerts
 themselves are planned by [ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10). The shape follows the rest of the design: one action
-group per subscription in `foundation`, addressed to the subscription's `Owner` role as the budget is, so no address lives in a config;
-each later template points the alert rules for its own resources at it. Microsoft's baseline alerts deployed by policy are not the route,
-for the reason of [ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3).
+group per subscription in `foundation`, addressed to the subscription's `Owner` role as the budget is, so no address lives in a config; each
+later template points the alert rules for its own resources at it. Microsoft's baseline alerts deployed by policy are not the route, for the
+reason of [ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3).
 
 ##### 20 in `foundation`
 
@@ -800,9 +796,9 @@ Summary (ours): Group a workload's resources across subscriptions and resource g
 
 #### What 21 means here
 
-A workload here does not spread across subscriptions: `expedition` deploys one resource group per configuration slot inside the
-subscription its landing zone serves, and every resource carries the `workload` tag. The resource group and the tag give the grouping a
-Service Group would add. The recommendation would apply to a workload that spans subscriptions, which no template deploys.
+A workload here does not spread across subscriptions: `expedition` deploys one resource group per configuration slot inside the subscription
+its landing zone serves, and every resource carries the `workload` tag. The resource group and the tag give the grouping a Service Group
+would add. The recommendation would apply to a workload that spans subscriptions, which no template deploys.
 
 ##### 21 status
 
@@ -819,8 +815,8 @@ Summary (ours): Model the health of a service group's resources and their depend
 #### What 22 means here
 
 There is no health model. [ADR-AZ-WAFOE#7](../waf/operational-excellence.md#rule-adr-az-wafoe7) and
-[ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10) plan one, so that an alert points at real impact on the workload rather than
-at one resource. Azure Monitor health models are one way to build it; the feature is in preview and builds on Service Groups, which are not
+[ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10) plan one, so that an alert points at real impact on the workload rather than at
+one resource. Azure Monitor health models are one way to build it; the feature is in preview and builds on Service Groups, which are not
 adopted (see [21](#21--group-workload-resources-with-service-groups)), so the choice of tool is made when that work begins.
 
 ##### 22 in `foundation`

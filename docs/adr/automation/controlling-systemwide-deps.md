@@ -6,7 +6,7 @@
 
 ### Rule ADR-AUTO-DEPS:1
 
-Lock every tool version in `automation/Catzc.Tooling.Core/configs/tools.yml`. Pinned tools install an explicit, reviewable version; a small
+Lock every tool version in `automation/Catzc.Base.Execution/configs/tools.yml`. Pinned tools install an explicit, reviewable version; a small
 allowlist of base tools (git, vscode) deliberately tracks `latest` and verifies integrity against the publisher's published hash.
 
 - [1. Lock versions in configuration](#1-lock-versions-in-configuration)
@@ -109,7 +109,7 @@ code, config, and prose.
 
 #### 1. Lock versions in configuration
 
-Every tool has a locked version in `automation/Catzc.Tooling.Core/configs/tools.yml`:
+Every tool has a locked version in `automation/Catzc.Base.Execution/configs/tools.yml`:
 
 ```yaml
 node_js:

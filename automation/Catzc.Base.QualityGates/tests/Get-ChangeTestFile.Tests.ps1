@@ -31,4 +31,12 @@ Describe 'Get-ChangeTestFile' -Tag 'L0', 'logic' {
     It 'returns nothing for a function with no test file, a dot folder, or a file no convention covers' {
         @(& $script:map @('automation/Catzc.Widget/Get-Gizmo.ps1', 'automation/.internal/Get-Widget.ps1', 'docs/widget.md')) | Should -HaveCount 0
     }
+
+    It 'with -Module, brings in every test file of each touched module, and none for a dot folder or a file outside automation/' {
+        $tests = InModuleScope Catzc.Base.QualityGates -Parameters @{ R = $script:root } {
+            param($R)
+            Get-ChangeTestFile -Path 'automation/Catzc.Widget/configs/widget.yml', 'automation/.internal/Get-Widget.ps1', 'docs/widget.md' -RepositoryRoot $R -Module
+        }
+        $tests | Should -Be @('automation/Catzc.Widget/tests/Get-Widget.Tests.ps1', 'automation/Catzc.Widget/tests/Set-Gadget.Tests.ps1', 'automation/Catzc.Widget/tests/types/Sprocket.Tests.ps1')
+    }
 }

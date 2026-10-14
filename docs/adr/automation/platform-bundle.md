@@ -6,9 +6,10 @@
 
 ### Rule ADR-AUTO-BUNDLE:1
 
-A **bundle** is the toolset's build: one installable, versioned `Catzc` package under `out/automation/build/Catzc/<version>/`, built by
-`Build-Modules` from a selected set of modules (explicit names and/or a profile, closure-expanded over `dependencies.yml`), that loads in a
-fresh session of its engine **outside the mono repo** — with no git work tree, no compile at load, and no working-tree writes. It is build
+A **bundle** is the toolset's build: one installable, versioned `Catzc` package of one **named bundle** — an `exporter.yml` `bundles` entry
+with its own profile, version line, and vendor policy — under `out/automation/built/<bundle>/Catzc/<version>/`, built by `Build-Modules`
+from the bundle's profile (or, for an experiment or a test, explicit names and/or a profile), closure-expanded over `dependencies.yml`, that
+loads in a fresh session of its engine **outside the mono repo** — with no git work tree, no compile at load, and no working-tree writes. It is build
 mode's code root ([run-modes](../design/run-modes.md)). `Catzc.Base.Exporter` owns its lifecycle: `Build-Modules` builds it (through the
 `Invoke-ModuleBuild` engine in `Catzc.Internal.Builder`), `Install-Catzc`/`Export-Catzc` place it, `Assert-CatzcBundle` verifies it. This is
 the platform-level form of the build-once artifact ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md)) and of
@@ -39,16 +40,22 @@ description cannot guarantee.
 
 ### Rule ADR-AUTO-BUNDLE:5
 
-A build is **immutable and content-addressed**: the same commit yields a byte-identical build — merged files, manifests, and the types DLL —
-and an identical durable-SHA content hash ([durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)) over all of it. Every
-build ships the **full** type set whatever its module selection, so its `typesHash` (the combined hash of every `types/*.cs` source, which
-names the DLL) equals the source tree's, and the build copies the source tree's `Catzc.Types.<typesHash>.dll` instead of compiling — it
-compiles only when that DLL is missing. Each bundle carries a `build.json` provenance record (version, content hash, `typesHash`, the
-type-source list, source commit, modules). `Assert-CatzcBundle` is the integrity guard: it re-verifies the recorded hash, that no `tests/`
-leaked in, that exactly one types DLL is present and its name matches `typesHash`, that every module has its manifest and its one merged
-function file, that every manifest export resolves to a function in its merged file, and that every inventoried internal asset is present
-([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep4)) — collecting every violation. `Build-Modules` runs
-it as a self-check on its own output.
+A build is **immutable and content-addressed**: the same commit yields a byte-identical build on any machine — merged files, manifests, and
+the types DLL — and an identical durable-SHA content hash ([durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)) over
+all of it. A build ships **the files git tracks**, never untracked or ignored ones, and writes each as git stores it: a file git holds with
+LF-only line endings is written LF-only, whatever line endings the checkout wrote; every other file is a byte copy. Every build ships the
+**full** type set whatever its module selection, so its `typesHash` (the combined hash of every `types/*.cs` source, which names the DLL)
+equals the source tree's; the type sources follow that set, as the DLL does, and the build copies the source tree's
+`Catzc.Types.<typesHash>.dll` instead of compiling — it compiles only when that DLL is missing. Before it writes anything the build proves
+its selection closed against the code itself, not only against `dependencies.yml`: every call a selected module makes to a catzc function,
+and every config it reads by a literal name, lands in a selected module (an owner-scoped read, which reads only the owners present, is
+exempt), and every inventoried internal asset is present
+([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep4)). Each bundle carries a `build.json` provenance
+record (bundle, version, content hash, `typesHash`, the type-source list, source commit, whether the tree differed from that commit,
+modules); a pipeline refuses to build a tree that differs from its commit. `Assert-CatzcBundle` is the integrity guard: it re-verifies the
+recorded hash, that no `tests/` leaked in, that exactly one types DLL is present and its name matches `typesHash`, that every module has its
+manifest and its one merged function file, and that every manifest export resolves to a function in its merged file — collecting every
+violation. `Build-Modules` runs it as a self-check on its own output.
 
 - [The verified artifact](#the-verified-artifact)
 
@@ -67,12 +74,13 @@ hash refreshes only the root importer entry — and the source build is verified
 
 `Build-Modules -Version` defaults to `auto`, resolved by `Resolve-CatzcBuildVersion`. A devbox (source-mode) build is the fixed **`6.6.666`
 placeholder** (`exporter.yml`'s `direct_install_version`), announced by a yellow `Write-Message` notice that real versions come only from
-the pipeline. A pipeline export gets a **calculated, reproducible version**: `MAJOR.MINOR` from `exporter.yml`'s `version`, and `PATCH` the
-first-parent commit count of the built commit — so the same commit always gets the same version and versions rise along `main`. An explicit
-`-Version` is honoured when it is `MAJOR.MINOR.PATCH`, and a pipeline build that names `6.6.666` is rejected. Every version is numeric so
-the `Catzc/<version>/` folder is a valid package version. Export options — profile, vendor policy, versions — are configuration read through
-`Get-Config` ([sensible-defaults](sensible-defaults.md)), so a build's shape is a reviewed edit to one file and a test can substitute a
-fixture config through the same seam.
+the pipeline. A pipeline export gets a **calculated, reproducible version**: `MAJOR.MINOR` from the bundle's own `version` in
+`exporter.yml`, and `PATCH` the first-parent commit count of the built commit — so the same commit always gets the same version and versions
+rise along `main`. Each bundle has its own version line, and no bundle's version moves another's. An explicit `-Version` is honoured when it
+is `MAJOR.MINOR.PATCH`, and a pipeline build that names `6.6.666` is rejected. Every version is numeric so the `Catzc/<version>/` folder is a
+valid package version. Export options — the bundles, each with its profile, vendor policy, and version line, and the default bundle — are
+configuration read through `Get-Config` ([sensible-defaults](sensible-defaults.md)), so a build's shape is a reviewed edit to one file and a
+test can substitute a fixture config through the same seam.
 
 - [Versions](#versions)
 

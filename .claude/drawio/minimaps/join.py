@@ -1,0 +1,135 @@
+"""Join the three minimaps into each slide: lay out the sidebar, embed the PNGs, and rebuild the slide.
+
+For every slide of the list: rewrite its source XML's sidebar (the minimap-grid, minimap-tree and minimap-chain image
+cells, the lens badge, the ADR chips and a map key below them; .claude/drawio/STYLE.md, "Limits"), embed
+<target>/<stem>.{grid,tree,chain}.png as data URIs, write the XML back, and build <target>/<stem>.drawio.png. Fails
+loudly on any missing piece.
+
+usage (repo root, background):
+  timeout 360 uv run -q --with pillow python .claude/drawio/minimaps/join.py --slides <slides.json>
+      [--data out/minimaps] [--target docs/.assets/explanation] [--start N --end M]
+The optional slice of the slide list keeps each run inside the 360 s background limit.
+"""
+
+import argparse
+import json
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parents[3]
+TOOLS = REPO / ".claude/drawio"
+VIEWS = ("grid", "tree", "chain")
+X, WIDTH = 1316, 240
+# The sidebar, top to bottom: cell id -> (y, height). The map key follows at MAPKEY_Y.
+SIDEBAR = {
+    "minimap-grid": (16, 150),
+    "minimap-tree": (182, 180),
+    "minimap-chain": (378, 150),
+    "lens-badge": (544, 24),
+    "supports": (576, 38),
+}
+MAPKEY_Y = 626
+INK, BORDER, IDLE = "#263238", "#CFD8DC", "#ECEFF1"
+TEXT = "text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#37474F;"
+
+
+def mix(hue, alpha, base):
+    a, b = [tuple(int(h.lstrip("#")[i : i + 2], 16) for i in (0, 2, 4)) for h in (hue, base)]
+    return "#" + "".join(f"{round(b[i] + (a[i] - b[i]) * alpha):02X}" for i in range(3))
+
+
+def cell(cell_id, value, style, y, height, x=X, width=WIDTH):
+    return (
+        f'<mxCell id="{cell_id}" value="{value}" style="{style}" vertex="1" parent="1">'
+        f'<mxGeometry x="{x}" y="{y}" width="{width}" height="{height}" as="geometry" /></mxCell>'
+    )
+
+
+def map_key(palette):
+    """The map key: one swatch per mark the three minimaps draw."""
+    lit = palette["highlight"]
+    rows = [
+        ("lit", f"fillColor={lit};strokeColor={INK};strokeWidth=2;", "lit cell"),
+        ("touched", f"fillColor={mix(lit, 0.35, IDLE)};strokeColor={lit};strokeWidth=2;", "lit cell, passing mentions only"),
+        ("file", f"fillColor={lit};strokeColor={INK};strokeWidth=2;", "lit file (framed: an ADR file)"),
+        ("shade", f"fillColor={mix(palette['shade'], 0.35, palette['cell'])};strokeColor={BORDER};", "value-chain cell, shaded by ADRs"),
+    ]
+    cells = [
+        cell(
+            "mapkey",
+            "&lt;b&gt;Map key&lt;/b&gt;",
+            "rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#37474F;fillColor=#FFFFFF;"
+            f"strokeColor={BORDER};spacingLeft=8;spacingTop=2;",
+            MAPKEY_Y,
+            122,
+        )
+    ]
+    for i, (key, style, text) in enumerate(rows):
+        y = MAPKEY_Y + 28 + i * 23
+        size = 12 if key == "file" else 18
+        cells.append(cell(f"mapkey-{key}", "", "rounded=0;html=1;" + style, y + (18 - size) / 2, size, x=X + 12 + (26 - size) / 2, width=size))
+        cells.append(cell(f"mapkey-{key}-text", text, TEXT, y - 1, 20, x=X + 48, width=WIDTH - 56))
+    return "\n    ".join(cells)
+
+
+def lay_out_sidebar(model, palette):
+    """The sidebar of a slide model: the minimap image cells (minimap-stack renamed minimap-grid, minimap-chain added
+    as a copy of it when missing), every sidebar cell at its SIDEBAR slot, and a fresh map key below them."""
+    model = model.replace('id="minimap-stack"', 'id="minimap-grid"')
+    if 'id="minimap-chain"' not in model:
+        grid = re.search(r'<mxCell id="minimap-grid".*?</mxCell>', model, re.S)
+        tree = re.search(r'<mxCell id="minimap-tree".*?</mxCell>', model, re.S)
+        if not grid or not tree:
+            raise SystemExit("the slide has no minimap-grid or minimap-tree cell")
+        chain = re.sub(r'image=[^;"]*;?', "", grid.group(0).replace('id="minimap-grid"', 'id="minimap-chain"'))
+        model = model[: tree.end()] + "\n    " + chain + model[tree.end() :]
+    for cell_id, (y, height) in SIDEBAR.items():
+        pattern = re.compile(r'(<mxCell id="' + re.escape(cell_id) + r'".*?<mxGeometry\b)([^>]*)(/?>)', re.S)
+        match = pattern.search(model)
+        if not match:
+            raise SystemExit(f"the slide has no {cell_id} cell")
+        attrs = re.sub(r'\s(x|y|width|height)="[^"]*"', "", match.group(2))
+        model = model[: match.start(2)] + f' x="{X}" y="{y}" width="{WIDTH}" height="{height}"' + attrs + model[match.end(2) :]
+    model = re.sub(r'\s*<mxCell id="mapkey[^"]*"(?:[^>]*/>|.*?</mxCell>)', "", model, flags=re.S)
+    supports = re.search(r'<mxCell id="supports".*?</mxCell>', model, re.S)
+    return model[: supports.end()] + "\n    " + map_key(palette) + model[supports.end() :]
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
+    parser.add_argument("--slides", required=True, help="the slide list (JSON: slides[] with id, stem, lens, adrs, xml)")
+    parser.add_argument("--data", default="out/minimaps", help="the folder highlights.ps1 wrote (for the palette)")
+    parser.add_argument("--target", default="docs/.assets/explanation", help="the folder of the minimaps and the built slides")
+    parser.add_argument("--start", type=int, default=0)
+    parser.add_argument("--end", type=int)
+    args = parser.parse_args()
+    target = REPO / args.target
+    palette = json.loads((REPO / args.data / "palette.json").read_text(encoding="utf-8"))
+    slides = json.loads((REPO / args.slides).read_text(encoding="utf-8"))["slides"][args.start : args.end]
+    missing = []
+    for slide in slides:
+        stem = slide["stem"]
+        xml = REPO / slide["xml"]
+        pngs = {view: target / f"{stem}.{view}.png" for view in VIEWS}
+        gaps = [str(p) for p in [xml, *pngs.values()] if not p.exists()]
+        if gaps:
+            missing.append((stem, gaps))
+            continue
+        xml.write_text(lay_out_sidebar(xml.read_text(encoding="utf-8"), palette), encoding="utf-8")
+        pairs = [f"minimap-{view}={png}" for view, png in pngs.items()]
+        subprocess.run([sys.executable, str(TOOLS / "embed_images.py"), str(xml), *pairs], check=True, stdout=subprocess.DEVNULL)
+        subprocess.run(
+            [sys.executable, str(TOOLS / "drawio_png.py"), str(xml), str(target / f"{stem}.drawio.png"), "--name", slide["lens"]],
+            check=True,
+            stdout=subprocess.DEVNULL,
+        )
+    print(f"join.py: joined {len(slides) - len(missing)}/{len(slides)} -> {target}")
+    for stem, gaps in missing:
+        print("MISSING", stem, gaps)
+    sys.exit(1 if missing else 0)
+
+
+if __name__ == "__main__":
+    main()

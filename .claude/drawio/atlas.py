@@ -28,7 +28,7 @@ for p in sorted((D / "fan-out").glob("*.drawio.png")):
     adr, _, rest = stem.partition("--")
     lens = stem.rsplit("--", 1)[-1]
     meta = by_stem.get(stem, {})
-    minis = [rel(m) for m in (D / f"fan-out/minimap-{stem}.stack.png", D / f"fan-out/minimap-{stem}.tree.png") if m.exists()]
+    minis = [rel(m) for m in (D / f"fan-out/{stem}.{view}.png" for view in ("grid", "tree", "chain")) if m.exists()]
     fan.append({"src": rel(p), "group": adr.upper(), "lens": lens, "title": meta.get("title", stem), "minimaps": minis})
 
 lenses = []

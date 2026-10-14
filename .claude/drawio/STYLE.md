@@ -171,70 +171,86 @@ doesn't need. It never adds claims the source or its sources don't support.
 
 ## Fan-out: ADR-support drawings with three minimaps
 
-Every lens drawing is republished to `out/diagrams/fan-out/` as an **explanation that supports its ADR(s)**. A sidebar carries three
-minimaps showing where the drawing sits: two views of the world map (where its files are) and the value-chain map (where its ADRs sit in the
-value chain).
+Every lens drawing is republished as an **explanation that supports its ADR(s)**: the committed slides in `docs/.assets/explanation/`, and
+the review waves under `out/diagrams/`. A sidebar carries three minimaps showing where the drawing sits: two views of the world map (where
+its files are) and the value-chain map (where its ADRs sit in the value chain). The tooling that draws and joins them is
+`.claude/drawio/minimaps/`; it places nothing itself.
 
 ### The world map (two views, both always shown)
 
 The minimaps draw the **world map** of the world-map processor (module `Catzc.Base.Maps`, ADR-DSGN-TRACK#9), and light the cells and files
-that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRACK#12). Flow B places nothing itself.
+that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRACK#12), each with its reason.
 
-1. **Grid** (`.stack.png`). Rows are the tracks and columns the file languages, in the map's order, with the root-file row and the
-   unlisted-file column last. A cell that holds files is an idle tile, an empty cell stays open, and every **lit cell** is filled. Only the
-   lit rows and columns are named, each with a tick on its axis. The two buckets print as their defined terms, `labels.root_files` and
+1. **Grid** (`<stem>.grid.png`). Rows are the tracks and columns the file languages, in the map's order, with the root-file row and the
+   unlisted-file column last. A cell that holds files is an idle tile, an empty cell stays open, and every **lit cell** is filled. A cell
+   lit only by passing mentions (citations in body comments, not in a file's header or text) is **touched**: filled pale. Only the lit rows
+   and columns are named, each with a tick on its axis. The two buckets print as their defined terms, `labels.root_files` and
    `labels.unlisted_files` of `maps.yml` (ADR-DSGN-TRACK#7, #8, #13), never as the map's bucket keys; so does the root-files tile of the
    tree.
-2. **Repository tree map** (`.tree.png`). A treemap of the files of the world map, with area set by file count and grouped by top-level
-   folder (`automation/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<folder>`, `.github/`, root scripts). The files the highlight
-   lights are lit; a lit ADR file is framed.
+2. **Repository tree map** (`<stem>.tree.png`). A treemap of the files of the world map, with area set by file count and grouped by
+   top-level folder (`automation/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<folder>`, `.github/`, root scripts). The files the
+   highlight lights are lit (pale when lit only by passing mentions); a lit ADR file is framed.
 
 ### The value-chain map (always shown)
 
-**Value-chain grid** (`.chain.png`). The **value-chain map** of `Get-ValueChainMap` (ADR-DSGN-TRACK#16), lit by
+**Value-chain grid** (`<stem>.chain.png`). The **value-chain map** of `Get-ValueChainMap` (ADR-DSGN-TRACK#16), lit by
 `Get-ValueChainHighlight -Adr <the slide's ADR codes>`: rows are the **value-chain stack** (`PRIN`, `DSGN`, `AUTO`, `PIPE`, `CLOUD`,
 ADR-DSGN-TRACK#14) and columns the **value-chain concerns** (`automation`, `build`, `quality-control`, `release`, `deploy`, `access`,
 ADR-DSGN-TRACK#15), both closed sets in their declared order and always all named; the lit rows and columns are named in ink with a tick,
 the others in the label grey. Each cell holding ADRs is shaded by its ADR count, from `palette.cell` towards `palette.shade` at most half
 strength (so a lit cell always stands out); an empty cell stays open; a lit cell is filled and outlined as on the grid. The top-left corner
-prints `value_chain_column_axis`, and `value_chain_row_axis` runs upright along the left edge (`maps.yml` labels). The file is named `chain`
-for the value chain: short, and distinct from `stack`, which is the world-map grid's file name.
+prints `value_chain_column_axis`, and `value_chain_row_axis` runs upright along the left edge (`maps.yml` labels).
+
+### The sister `.md` of each minimap
+
+Every minimap PNG has a **sister `.md`** with the same stem, next to it (`<stem>.grid.md`, `<stem>.tree.md`, `<stem>.chain.md`).
+`render.py` writes it in the same run, from the same data (`describe.py`), and never by hand. It opens with its path as the H1
+(ADR-REPO-FORMAT#6) and gives **every lit cell or lit group its reason**:
+
+- **World map:** the root folder names the track (ADR-DSGN-TRACK#1), or the file is a root file (#7); the extension names the file language
+  (#6), or the file is an unlisted file (#8); then each lit file with the ADR code that selects it, its basis (an ADR file of that code's
+  ADR domain, its own citations, its owner module's files through `files.yml`, its globset) and the citing lines with their kind (header,
+  body comment, text). A reviewed pin of `maps.yml` is its own reason. A file cited only in body comments is a passing mention, and a cell
+  of passing mentions only is marked touched.
+- **Tree:** each lit group's folder, then each lit file with its cell and its reason as above.
+- **Value chain:** each lit ADR with the code that selects it, its ADR domain's row (#14), its value-chain concerns and whether they are the
+  ADR domain's default or the ADR's own override (#15), lit per #12.
+
+Nothing is lit without a reason and no reason stands without a lit cell: `describe.py` checks both per minimap and fails the run on a
+mismatch. Links are relative to the `.md`'s folder and point at tracked files, checked when written; the keywords link to the glossary. A
+view adds its sections in `describe.py`'s `VIEWS`.
 
 ### Colours (minimaps only; drawings keep the palettes above)
 
 - The background and the lit colour come from the `palette` of `maps.yml` (`Get-Config -Config maps`), the same colours as the world-map
   PDFs: `background` `#E6ECF2`, drawn first, and `highlight` `#F4B942`.
 - Idle cells and tiles are `#ECEFF1`, with `#CFD8DC` borders. Labels are `#263238`.
-- A **lit cell** is filled with the lit colour and outlined `#263238` (2 px at 2×). Lit tree tiles are the lit colour; a lit ADR file tile
-  is outlined `#263238`.
+- A **lit cell** is filled with the lit colour and outlined `#263238` (2 px at 2×); a **touched** cell is the lit colour at 35 % over the
+  idle grey, outlined in the lit colour. Lit tree tiles are the lit colour (45 % for a passing mention); a lit ADR file tile is outlined
+  `#263238`.
 - The **lens badge** is white text on `#263238`: `META`, `ARCH`, `IMPL`, `OPS` or `GOV`.
 - Red never appears in a minimap; it stays reserved for failure inside drawings.
 - The lens badge sits on the **grid** minimap only, in its empty top-left corner. On the tree map it would hide tiles.
 - A lit file is often a tiny square inside a big group, so its **group tile gets a 3 px edge** in the lit colour as well.
-- A row is shorter than its 18 px name, so the names of two lit rows side by side are moved apart; the tick marks the exact row.
+- A row is shorter than its 18 px name, so the names of two lit rows (or upright column names) side by side are moved apart; the tick marks
+  the exact row or column.
 - The tree layout follows the files of the world map, so re-rendering after the repo changes shifts tiles. Re-render all minimaps together,
-  never one by one. The rerun scripts are `out/diagrams/fan-out/_flowB/highlights.ps1` (the data, from the processor) and then
-  `out/diagrams/fan-out/_flowB/render.py` (the PNGs).
-- Every minimap PNG has a **sister `.md`** with the same stem, next to it (`_minimaps/<id>.<view>.md` and `minimap-<stem>.<view>.md`).
-  `render.py` writes it in the same run, from the same data (`_flowB/describe.py`): the slide and the view, the lit cells or groups with
-  their file counts in the printed terms, a link to every ADR the highlight is built from and to every lit file, and the keywords linked to
-  the glossary. A view adds its own section in `describe.py`'s `VIEWS`; the sister files are never edited by hand.
+  never one by one (below).
 
 ### Limits
 
 - **Display:** the drawing is at most 1572 × 1000 px. That's the 1300 px content area plus a 272 px right sidebar, which fits a 1920 × 1080
-  screen at 100 %. The minimum height is 360 px.
-- **Sidebar** (x 1300–1572; exact geometry, ids fixed):
-  - `minimap-stack` image at x 1316, y 16, 240 × 150;
+  screen at 100 %. The minimum height is 360 px; with the sidebar below, a slide is at least 768 px tall.
+- **Sidebar** (x 1300–1572; exact geometry, ids fixed; `join.py` lays it out):
+  - `minimap-grid` image at x 1316, y 16, 240 × 150;
   - `minimap-tree` image at x 1316, y 182, 240 × 180;
   - `minimap-chain` image at x 1316, y 378, 240 × 150;
   - `lens-badge` at x 1316, y 544, 240 × 24;
   - `supports` (the ADR chips) at x 1316, y 576, 240 × ≤ 46: with the map key fixed at y 626 this holds the bold "Supports" line plus at
     most 2 lines, so pack several ADR codes per line (`ADR-A · ADR-B`) and leave the rest to the `.md`. With more than 4 codes, put the
     first code inline after "Supports" and set the cell at 10.5 px;
-  - `mapkey` (the minimap legend: a lit cell, a lit file, a lit ADR file, a cell's ADR shading) at x 1316, y 626, 240 × 122.
-  - `_join.py` places the sidebar at fan-in (`lay_out_sidebar`): it adds the `minimap-chain` cell to a slide that lacks it and sets every
-    sidebar cell above to its slot, so a slide is at least 640 px tall.
+  - `mapkey` at x 1316, y 626, 240 × 122: the minimap legend, one swatch each for a lit cell, a touched cell, a lit file (framed: an ADR
+    file) and a value-chain cell shaded by its ADRs.
 - **Minimap PNGs** are rendered at 2× (480 × 300, 480 × 360 and 480 × 300) and placed at 1×. Text is ≥ 9 px at 1×. The grid names a lit row
   by its track and a lit column by its file language, in full; the column names are turned upright. Lit tree groups are labelled with their
   full names, most lit files first; a label may run past its tile (the white halo keeps it legible) and is cut only at the image edge, never
@@ -251,16 +267,24 @@ for the value chain: short, and distinct from `stack`, which is the world-map gr
 - **Names:**
   - The drawing is `<adr>--<explanation>--<lens>.drawio.png`. `<adr>` is the main ADR code in lower case (`adr-flow-cd`). `<explanation>` is
     3–7 kebab words, ≤ 48 chars. `<lens>` is one of the five. The whole name is ≤ 90 chars.
-  - The minimaps are `minimap-<same stem>.stack.png`, `minimap-<same stem>.tree.png` and `minimap-<same stem>.chain.png`.
+  - The minimaps are `<same stem>.grid.png`, `<same stem>.tree.png` and `<same stem>.chain.png`, each with its sister `.md`, next to the
+    drawing.
 
-### Who does what
+### Who does what, and how to rerun
 
 - Flow A **conforms and renames**: it keeps the content, cuts it to the limits, adds the sidebar placeholders, and picks the explanation
   slug.
-- Flow B **reads the highlights and renders** the three minimaps: `highlights.ps1` asks the map processors, `render.py` draws.
-- Both flows key their work by the manifest id `<diagram>.<lens>` in `out/diagrams/fan-out/_manifest.json`.
-- The lead joins them at fan-in: lays out the sidebar, renames the minimaps to the slug, embeds the three PNGs as data URIs in the image
-  cells, and rebuilds.
+- A **slide list** keys the minimap run: a JSON file `{ "slides": [ { "id", "stem", "lens", "adrs": [...], "xml" } ] }` naming each slide's
+  ADR codes and its source XML.
+- The minimap tooling in `.claude/drawio/minimaps/` runs in three steps from the repository root, each in the background:
+  1. `pwsh -NoProfile -File .claude/drawio/minimaps/highlights.ps1 -Slides <slides.json>` asks the map processors and writes the data
+     (default `out/minimaps/`);
+  2. `uv run -q --with pillow python .claude/drawio/minimaps/render.py --slides <slides.json>` draws the three minimaps and their sister
+     `.md` files into the target folder (`--target`, default `docs/.assets/explanation`; `--facts` also writes each slide's sidebar
+     facts, `--overview` the full-size tree world map of an `out/` wave);
+  3. `uv run -q --with pillow python .claude/drawio/minimaps/join.py --slides <slides.json>` lays out each slide's sidebar in its source
+     XML, embeds the three PNGs and builds `<target>/<stem>.drawio.png` (`--start` and `--end` slice the list to fit the time limit).
+- An `out/` wave runs the same three steps with `--target out/diagrams/<wave>`.
 
 ## Slides and their companions
 
@@ -318,8 +342,8 @@ otherwise.>
 
 Describe only what is drawn, never what it means, using this kit's vocabulary: **canvas, drawing area, sidebar, band, span bar, glyph** (by
 its legend phrase: code unit, named set, file, store, runner, gate, environment, external tool, actor, result, failure, ADR-only, commit),
-**edge** (flow, thick, ADR-only, failure path), **marker, fraction chip, rule chip, legend, map key, grid minimap, tree minimap, lit cell,
-lit tile, lens badge**. Write it after reading the built PNG, and make every count match the XML.
+**edge** (flow, thick, ADR-only, failure path), **marker, fraction chip, rule chip, legend, map key, grid minimap, tree minimap,
+value-chain minimap, lit cell, touched cell, lit tile, lens badge**. Write it after reading the built PNG, and make every count match the XML.
 
 ```markdown
 # <title>: visual description
@@ -348,7 +372,9 @@ lit tile, lens badge**. Write it after reading the built PNG, and make every cou
 
 ## Sidebar
 
-<The grid minimap's lit cells by name (track × file language), the tree minimap's lit tiles by group label, the lens badge, the map key.>
+<The grid minimap's lit and touched cells by name (track × file language), the tree minimap's lit tiles by group label, the value-chain
+minimap's lit cells (value-chain stack × value-chain concern), the lens badge, the map key; the facts come from the slide's sister `.md`
+files.>
 ```
 
 ### The verification file (`<stem>.verify.md`)

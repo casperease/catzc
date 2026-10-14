@@ -3,7 +3,7 @@
 
 usage: uv run -q python .claude/drawio/gallery.py
 
-Sections: world maps, lens contact sheets, fan-out drawings (each with its two minimaps when they exist), and the earlier
+Sections: world maps, lens contact sheets, fan-out drawings (each with its three minimaps when they exist), and the earlier
 waves. Re-run it any time; it only reads what is on disk and links by relative path.
 """
 import html
@@ -30,7 +30,7 @@ parts.append(section("Lens contact sheets", [card(p, p.parent.name) for p in sor
 drawings = []
 for p in sorted(fan.glob("*.drawio.png")):
     stem = p.name[: -len(".drawio.png")]
-    minis = [fan / f"minimap-{stem}.{view}.png" for view in ("stack", "tree")]
+    minis = [fan / f"{stem}.{view}.png" for view in ("grid", "tree", "chain")]
     links = " ".join(f'<a href="{m.relative_to(ROOT).as_posix()}">{m.name.split(".")[-2]}</a>' for m in minis if m.exists())
     drawings.append(card(p, stem, f"<br>minimaps: {links}" if links else ""))
 parts.append(section("Fan-out: ADR-support drawings", drawings))

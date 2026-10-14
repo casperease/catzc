@@ -198,7 +198,7 @@ that sends diagnostics: a workspace outage loses telemetry, not function.
 ##### RE:03 in `discovery`
 
 A spoke depends strongly on its hub for name resolution: the private DNS zones live only in the hub
-([ADR-AZ-LZ#2](../landing-zones.md#rule-adr-az-lz2)), so a deleted or broken zone breaks every private endpoint of that tier. The peering is
+([ADR-AZ-LZ#2](../landing-zones.md#rule-adr-az-lz2)), so a deleted or broken DNS zone breaks every private endpoint of that tier. The peering is
 a strong dependency of anything in a spoke that calls the hub's `shared-services` subnet. The region is a strong dependency of all of it
 ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)).
 
@@ -262,7 +262,7 @@ stamps for whole-workload copies, and a resilient network with room to grow and 
 
 #### What RE:05 means here
 
-The shared modules make zone redundancy the default: `storage-account.bicep` defaults `skuName` to `Standard_ZRS`, and `sql-database.bicep`
+The shared modules make zone-redundant deployment the default: `storage-account.bicep` defaults `skuName` to `Standard_ZRS`, and `sql-database.bicep`
 turns `zoneRedundant` on for every tier that supports it and defaults `backupStorageRedundancy` to `Geo`. A template weakens that only by a
 config value, and only outside production, where the cost saving outweighs a zone outage
 ([ADR-AZ-LZ#5](../landing-zones.md#rule-adr-az-lz5)).
@@ -518,7 +518,7 @@ environment maps to one region ([ADR-AZ-NETWORK#3](../azure-network-model.md#rul
   carry it.
 - A non-production deployment saves the cost of zone redundancy and geo backups, and accepts losing its data in a regional outage.
 - A regional outage takes an environment down until it is redeployed in another region, with its region-coded names re-spelled; this is the
-  largest reliability gap, and it is a deliberate scope limit.
+  largest reliability gap, and it is a deliberate limit on what the repository covers.
 - Telemetry is collected but nobody is told: without alerts, a failure is found by a person looking, not by the system.
 - Each "planned" status above is a follow-up item, and each "not adopted" status is revisited once a real workload with users runs on the
   templates.

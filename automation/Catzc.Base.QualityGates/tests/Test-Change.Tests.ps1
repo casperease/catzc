@@ -86,6 +86,11 @@ Describe 'Test-Change' -Tag 'L1', 'logic' {
         $result.Issues[0] | Should -BeLike 'tests: the run of 1 test file(s) failed with no failed test*C:\widget-run*'
     }
 
+    It 'asks for every test file of the touched modules under -WholeModule' {
+        Test-Change -Path 'widget/a.wdg' -WholeModule -DryRun | Out-Null
+        Should -Invoke Get-ChangeTestFile -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Module }
+    }
+
     It 'plans without running anything under -DryRun' {
         $plan = Test-Change -Path 'widget\a.wdg' -DryRun
         $plan.Path | Should -Be @('widget/a.wdg')
