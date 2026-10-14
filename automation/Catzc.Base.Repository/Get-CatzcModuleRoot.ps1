@@ -18,6 +18,11 @@
 
     Asserts the module folder exists; the child path is not asserted, so a caller may name a file it is about to
     create, or test for an optional one.
+
+    In build mode a consumer overlay may replace a module's asset: when <overlay root>/<Module>/<ChildPath> is a
+    file under assets/, that path is returned instead of the bundled one
+    ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)). Only assets/ is looked up there — configs merge
+    through Get-Config, and the registry and other module files are never replaced wholesale.
 .PARAMETER ChildPath
     A path below the module folder, '/'-separated (e.g. 'assets/gitkeep', 'configs/configs.yml'). Omit for the
     module folder itself.
@@ -51,6 +56,15 @@ function Get-CatzcModuleRoot {
 
     if (-not $ChildPath) {
         return $moduleRoot
+    }
+    if ($ChildPath.Replace('\', '/').StartsWith('assets/', [System.StringComparison]::Ordinal)) {
+        $overlayRoot = Get-CatzcOverlayRoot
+        if ($overlayRoot) {
+            $override = [System.IO.Path]::Combine($overlayRoot, $moduleName, $ChildPath)
+            if ([System.IO.File]::Exists($override)) {
+                return $override
+            }
+        }
     }
     Join-Path $moduleRoot $ChildPath
 }

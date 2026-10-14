@@ -1,0 +1,64 @@
+# docs/references/automation/catzc-base-overlay.md
+
+`Catzc.Base.Overlay`
+
+The consumer overlay module. It **applies a consumer's changes to a built bundle** — the overlay, the `.catzc/` folder in the consumer's own
+working root, where every file sits at the path of what it changes in the bundle — and checks them as a whole first, so nothing applies
+unless all of it is valid. It owns the function overrides and the one check of a function file's shape; it deliberately does **not** own
+config fragments or asset overrides, which `Get-Config` and `Get-CatzcModuleRoot` read on demand. The rules are in
+[consumer-overlay](../../adr/automation/consumer-overlay.md); the bundle it changes is
+[platform-bundle](../../adr/automation/platform-bundle.md).
+
+## Responsibilities
+
+| Responsibility   | Area    | Name                                                                     |
+| ---------------- | ------- | ------------------------------------------------------------------------ |
+| responsibility:1 | apply   | [Function overrides](#responsibility1--function-overrides)               |
+| responsibility:2 | verify  | [Overlay checks](#responsibility2--overlay-checks)                       |
+| responsibility:3 | inspect | [Overlay inventory](#responsibility3--overlay-inventory)                 |
+| responsibility:4 | shape   | [Function file shape](#responsibility4--function-file-shape)             |
+
+### responsibility:1 — Function overrides
+
+Replacing a bundled module's function with the consumer's file of the same name, at the end of a bundle load. The file is loaded inside the
+module's own scope, so the module's callers, its script state and a test's module mock reach it; a public override is also published to
+the session, where the import had put the original, so every other module reaches it too.
+
+### responsibility:2 — Overlay checks
+
+Checking the overlay against its rules and failing once with every violation: every entry is an override point; a function override is one
+function named for its file, replaces a function the module has with the same visibility, and keeps the original's contract; a config
+fragment merges onto a config the module ships and never a sealed one; an asset override replaces an asset the module ships; a local module
+never takes the reserved `Catzc.` prefix.
+
+### responsibility:3 — Overlay inventory
+
+Listing everything in the overlay, each entry classified by where it sits — a function override, a config fragment, an asset override, a
+local test, a local module, or something that is no override point — so a reader can see what a session changed.
+
+### responsibility:4 — Function file shape
+
+The one check that a `.ps1` file is a single function named for the file that can be loaded away from its folder. The build uses it before
+it merges a module's function files, and the overlay before it loads an override.
+
+## What the module does
+
+A consumer of a built bundle runs catzc in its own working root and never edits the bundle. Its changes live in the overlay, and the path of
+a file there is its meaning, so there is no list of overrides to keep in step with the files. The module turns that layout into a checked,
+applied change: it inventories the overlay, checks it as a whole, and only then applies the function overrides. Config fragments and asset
+overrides take effect where they are read, so this module only checks them.
+
+The overlay applies in build mode only; in source mode the catzc tree is changed directly. The overlay root itself is derived in
+[Catzc.Base.Repository](catzc-base-repository.md), below this module, because [Catzc.Base.Config](catzc-base-config.md) merges config
+fragments and must find the overlay without depending on it.
+
+## Division
+
+The module's public functions, sorted into the responsibilities above.
+
+| Responsibility                          | Function                    |
+| --------------------------------------- | --------------------------- |
+| responsibility:1 — Function overrides   | `Import-CatzcOverlay`       |
+| responsibility:2 — Overlay checks       | `Assert-CatzcOverlay`       |
+| responsibility:3 — Overlay inventory    | `Get-CatzcOverlay`          |
+| responsibility:4 — Function file shape  | `Get-FunctionFileViolation` |
