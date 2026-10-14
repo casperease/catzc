@@ -1,38 +1,38 @@
-# docs/adr/automation/powershell/powershell-formatting.md
+# docs/adr/pwsh/powershell-formatting.md
 
 `ADR: PowerShell formatting — the language layer over uniform-formatting`
 
-## Rules: ADR-AUTO-PSFORMAT
+## Rules: ADR-PWSH-FORMAT
 
-### Rule ADR-AUTO-PSFORMAT:1
+### Rule ADR-PWSH-FORMAT:1
 
-PowerShell formatting builds on the repo-wide [uniform-formatting](../../repository/uniform-formatting.md) baseline and adds the
+PowerShell formatting builds on the repo-wide [uniform-formatting](../repository/uniform-formatting.md) baseline and adds the
 PowerShell-specific rules below, enforced by PSScriptAnalyzer (`PSScriptAnalyzerSettings.psd1`) plus custom analyzer rules, run in the L2
 tests.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-PSFORMAT:2
+### Rule ADR-PWSH-FORMAT:2
 
 Brace style is K&R — the opening brace on the same line — enforced by `PSPlaceOpenBrace`.
 
 - [Brace style](#brace-style)
 
-### Rule ADR-AUTO-PSFORMAT:3
+### Rule ADR-PWSH-FORMAT:3
 
 Indentation is 4 spaces (the PowerShell community default), set by `.editorconfig`'s `[*.{ps1,psm1,psd1}]` section on top of the repo
 baseline.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-PSFORMAT:4
+### Rule ADR-PWSH-FORMAT:4
 
 Variable casing: PascalCase for parameters and scoped variables, camelCase for locals — enforced by the custom `Measure-VariableCasing` rule
 (scriptblock params and automatic variables excluded).
 
 - [Variable casing](#variable-casing)
 
-### Rule ADR-AUTO-PSFORMAT:5
+### Rule ADR-PWSH-FORMAT:5
 
 Every authored PowerShell file the repository ships or runs is covered by the formatting and analysis quality gates — including the root
 `importer.ps1` and authored `.psd1` config — resolved through one shared selector so no file escapes by living outside the module tree.
@@ -40,7 +40,7 @@ Generated module manifests are excluded: they are build output, made canonical b
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-PSFORMAT:6
+### Rule ADR-PWSH-FORMAT:6
 
 A multi-line predicate passed to `.FindAll(...)` (or any method call) is bound to a local variable first, never written inline inside the
 call's parentheses. A paren-nested multi-line scriptblock is the one construct where PSScriptAnalyzer versions compute
@@ -50,12 +50,22 @@ version indents it identically.
 
 - [Scriptblock arguments](#scriptblock-arguments)
 
+### Rule ADR-PWSH-FORMAT:7
+
+The analyzer→ADR mapping — the source for the `pssa-rule` enforcer kind — lives in `Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`,
+each enabled analyzer rule (a custom `Measure-*` rule or an enabled built-in) mapped to the citation(s) it enforces. Its shape is validated
+at load (its config type, `AnalyzerAdrMapConfig`); the `Test-AnalyzerAdrMap` quality gate checks that every mapped id resolves to a real
+rule and that **every custom analyzer rule is mapped**, and an **integrity test** runs it, so a new custom rule cannot ship unmapped and a
+renumber breaks the build. Id existence is checked by that gate, not at load, keeping config load hermetic (the ADR-AZ-CUSTOMER#3 pattern).
+
+- [The analyzer map](#the-analyzer-map)
+
 ## Context
 
-[uniform-formatting](../../repository/uniform-formatting.md) fixes the cross-language baseline every file meets (UTF-8 without BOM, LF,
-spaces, trimmed trailing whitespace, final newline) and the repo-wide "tools format, never debate" policy. PowerShell adds a layer on top
-that is thicker — brace placement, variable casing, line length, and the full PSScriptAnalyzer rule set — because PowerShell is the bulk of
-the codebase and has the richest analyzer support. This ADR records the PowerShell-specific choices; the baseline and the never-hand-format
+[uniform-formatting](../repository/uniform-formatting.md) fixes the cross-language baseline every file meets (UTF-8 without BOM, LF, spaces,
+trimmed trailing whitespace, final newline) and the repo-wide "tools format, never debate" policy. PowerShell adds a layer on top that is
+thicker — brace placement, variable casing, line length, and the full PSScriptAnalyzer rule set — because PowerShell is the bulk of the
+codebase and has the richest analyzer support. This ADR records the PowerShell-specific choices; the baseline and the never-hand-format
 policy live in uniform-formatting and are not repeated here.
 
 ### Brace style
@@ -116,12 +126,23 @@ $nodes = $ScriptBlockAst.FindAll($isCommand, $true)
 ### Line length and encoding
 
 Max line length is 120 for `.ps1`/`.psm1`/`.psd1`, set in `.editorconfig`. Encoding is UTF-8 without BOM (the repo baseline — see
-[uniform-formatting](../../repository/uniform-formatting.md)). Which analyzer rules are on or off — and why (for example, line length is
+[uniform-formatting](../repository/uniform-formatting.md)). Which analyzer rules are on or off — and why (for example, line length is
 enforced by `.editorconfig`, not `Test-ScriptAnalyzer`) — is documented inline in `PSScriptAnalyzerSettings.psd1`.
+
+### The analyzer map
+
+`Which ADR rule each analyzer rule enforces`
+
+A PSScriptAnalyzer rule that fails the build enforces an ADR rule on every run, so the rule-coverage report of
+[test-automation](../automation/test-automation.md#provenance-and-rule-coverage) counts it as an enforcer beside the tagged tests. The map
+from analyzer rule to citation sits with the analyzer gate that runs those rules, not with the test runner: a custom rule is added here, in
+`automation/.scriptanalyzer/`, and its entry in `analyzer-adr-map.yml` is part of the same change. `Test-AnalyzerAdrMap` keeps the two in
+step — an unmapped custom rule, or a mapped id that no ADR declares, fails it.
 
 ## Decision
 
 PowerShell files follow the repo-wide baseline plus the PowerShell-specific rules above, all mechanically enforced. No per-file overrides.
+Every custom analyzer rule names the ADR rule it enforces in the analyzer map.
 
 ### How this is enforced
 
@@ -141,11 +162,13 @@ PowerShell files follow the repo-wide baseline plus the PowerShell-specific rule
   `.compiled` (build output) folders, `assets/`, and generated module manifests are excluded as vendored or generated rather than authored
   source. A custom rule's `*.Tests.ps1` embeds the very anti-patterns the rule forbids as fixtures, so it carries a file-scoped
   `SuppressMessageAttribute` for its own rule. Formatting violations fail the build.
+- **`Test-AnalyzerAdrMap`** — the quality gate over `analyzer-adr-map.yml` (ADR-PWSH-FORMAT#7), run by its integrity test.
 
 ## Consequences
 
 - PowerShell pull-request diffs contain only logic changes; `git blame` points at the logic author, not the last reformatter.
 - New contributors produce correctly formatted PowerShell because their editor reads `.editorconfig` and PSScriptAnalyzer plus the L2 tests
   catch the rest before merge.
-- The cross-language baseline is single-sourced in [uniform-formatting](../../repository/uniform-formatting.md); this ADR holds only the
+- The cross-language baseline is single-sourced in [uniform-formatting](../repository/uniform-formatting.md); this ADR holds only the
   PowerShell layer, so the two never duplicate or drift.
+- A new custom analyzer rule cannot ship without naming the ADR rule it enforces, so the coverage report credits it from its first run.

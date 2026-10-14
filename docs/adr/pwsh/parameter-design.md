@@ -1,31 +1,31 @@
-# docs/adr/automation/powershell/parameter-design.md
+# docs/adr/pwsh/parameter-design.md
 
 `ADR: Parameter design — the PowerShell layer over sensible-defaults`
 
-## Rules: ADR-AUTO-PSPARAM
+## Rules: ADR-PWSH-PARAM
 
-### Rule ADR-AUTO-PSPARAM:1
+### Rule ADR-PWSH-PARAM:1
 
-A function's parameter surface applies [sensible-defaults](../sensible-defaults.md) (`ADR-AUTO-DEFAULT`) with the PowerShell mechanics
-below: the common call stays short because the parameter kinds carry the intent.
+A function's parameter surface applies [sensible-defaults](../automation/sensible-defaults.md) (`ADR-AUTO-DEFAULT`) with the PowerShell
+mechanics below: the common call stays short because the parameter kinds carry the intent.
 
 - [Positional primary argument](#positional-primary-argument)
 
-### Rule ADR-AUTO-PSPARAM:2
+### Rule ADR-PWSH-PARAM:2
 
 Use positional parameters for the primary argument — the most important parameter is `Position = 0` so the caller can skip the name
 (`Invoke-Poetry 'install'`).
 
 - [Positional primary argument](#positional-primary-argument)
 
-### Rule ADR-AUTO-PSPARAM:3
+### Rule ADR-PWSH-PARAM:3
 
 Use `[switch]`, not `[bool]`, for opt-in behavior that is off by default. Switches are self-documenting at the call site: `-PassThru` over
 `-PassThru $true`.
 
 - [Switches, not booleans](#switches-not-booleans)
 
-### Rule ADR-AUTO-PSPARAM:4
+### Rule ADR-PWSH-PARAM:4
 
 A configurable parameter declares its default as the resolved setting — `[LinkWrap] $Wrap = (Get-Config -Config links).wrap` — so the
 zero-argument call follows the resolution order of `ADR-AUTO-DEFAULT#6`, an explicit argument wins, and `Get-Help` shows where the default
@@ -39,15 +39,14 @@ argument would override a declared default.
 
 ## Context
 
-[sensible-defaults](../sensible-defaults.md) fixes the doctrine: the zero-argument call works, defaults come from configuration, and a
-parameter is mandatory only when no default makes sense. This ADR is the PowerShell layer under it — how the parameter surface itself is
-shaped so the common invocation reads naturally.
+[sensible-defaults](../automation/sensible-defaults.md) fixes the doctrine: the zero-argument call works, defaults come from configuration,
+and a parameter is mandatory only when no default makes sense. This ADR is the PowerShell layer under it — how the parameter surface itself
+is shaped so the common invocation reads naturally.
 
 The neighbouring parameter rules live where their hazards live: defaulting a `[string]` with `??` never works, and reassigning a
 `Validate*`-attributed parameter re-fires its validator ([automatic-variable-pitfalls](automatic-variable-pitfalls.md),
-`ADR-AUTO-AUTOVAR:6`/ `ADR-AUTO-AUTOVAR:7`); the side-effect kill switch is an explicit `-DryRun` switch
-([prefer-dryrun-over-shouldprocess](prefer-dryrun-over-shouldprocess.md)); and inputs are asserted at entry
-([fail-fast-with-asserts](../fail-fast-with-asserts.md)).
+`ADR-PWSH-AUTOVAR#6`/ `ADR-PWSH-AUTOVAR#7`); the side-effect kill switch is an explicit `-DryRun` switch
+([dry-run](../automation/dry-run.md)); and inputs are asserted at entry ([fail-fast-with-asserts](../automation/fail-fast-with-asserts.md)).
 
 ### Positional primary argument
 
@@ -76,9 +75,9 @@ default?), and invites `$null` coercion surprises.
 
 ### Configurable parameters
 
-[sensible-defaults](../sensible-defaults.md#one-resolution-order) fixes the resolution order of a configurable setting: the explicit value,
-else the module's configuration, else the sensible default declared once on the config type. In PowerShell that order is one parameter
-declaration:
+[sensible-defaults](../automation/sensible-defaults.md#one-resolution-order) fixes the resolution order of a configurable setting: the
+explicit value, else the module's configuration, else the sensible default declared once on the config type. In PowerShell that order is one
+parameter declaration:
 
 ```powershell
 # GOOD — the default expression IS the configured value; the config type supplies the sensible default
@@ -94,7 +93,7 @@ all. A default expression may read an earlier parameter (`[string] $Version = (G
 keyed by its primary argument declares its default the same way. A wrapper that forwards the parameter declares the same default, because an
 explicit empty value passed down the chain would win over the callee's default. A value that is derived rather than configured stays in the
 body: one chosen from several sources in turn, or one that applies only when another argument is absent (`-ModuleProfile` when no `-Module`
-is given). The expression runs in the module's scope, so a test isolates it by mocking `Get-Config` (`ADR-AUTO-PESTER#3`) — the same seam
+is given). The expression runs in the module's scope, so a test isolates it by mocking `Get-Config` (`ADR-PWSH-PESTER#3`) — the same seam
 the function uses.
 
 ## Decision
@@ -104,11 +103,13 @@ declares the configured value as its default. Secondary inputs are named paramet
 
 ### How this is enforced
 
-- **The doctrine layer** — what defaults exist and where they come from is [sensible-defaults](../sensible-defaults.md)
+- **The doctrine layer** — what defaults exist and where they come from is [sensible-defaults](../automation/sensible-defaults.md)
   (`ADR-AUTO-DEFAULT`); this ADR only fixes the parameter mechanics.
+- **Custom PSScriptAnalyzer rules** (`automation/.scriptanalyzer/ParameterDesign.psm1`) — `Measure-PrimaryArgumentPosition` flags a function
+  whose one mandatory parameter lacks `Position = 0` (ADR-PWSH-PARAM#2), and `Measure-ParameterFillIn` flags a body that fills an empty
+  parameter in (ADR-PWSH-PARAM#4).
 - **The exemplars** — the `Invoke-*` family (`Invoke-Executable`, `Invoke-Poetry`, `Invoke-Python`) is the pattern new functions copy.
-- **Code review** — a `[bool]` where a `[switch]` belongs, or a mandatory named parameter for the obvious primary argument, is rejected
-  against this ADR.
+- **Code review** — a `[bool]` where a `[switch]` belongs is rejected against this ADR.
 
 ## Consequences
 

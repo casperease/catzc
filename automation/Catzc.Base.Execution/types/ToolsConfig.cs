@@ -8,7 +8,7 @@
 //   - a non-empty map; every tool identity is snake_case (Get-ToolCommandSuffix maps it to the PascalCase
 //     command suffix, az_cli -> Install-AzCli);
 //   - every entry is a well-formed ToolConfig (violations prefixed with the tool's name) with at least one install
-//     mechanism (a package-manager id, script_install, a uv shape, or system_provided);
+//     mechanism (a package-manager id, script_install, a uv shape, an MSYS2 package, or system_provided);
 //   - every depends_on names a declared tool
 //     ([ADR-AUTO-DEPS#4](/docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps4));
 //   - the `python` tool's version never exceeds a tool's max_python — a poka-yoke against bumping Python to a
@@ -69,7 +69,7 @@ public sealed class ToolsConfig : ReadOnlyDictionary<string, ToolConfig>
         {
             if (!Dictionary[name].HasInstallMechanism())
             {
-                errors.Add(string.Format("tool '{0}': needs an install mechanism (winget_id, brew_formula, apt_package, pip_package, npm_package, uv_tool, uv_venv, uv_python, script_install, or system_provided)", name));
+                errors.Add(string.Format("tool '{0}': needs an install mechanism (winget_id, brew_formula, apt_package, pip_package, npm_package, uv_tool, uv_venv, uv_python, script_install, msys2_url, or system_provided)", name));
             }
             string dependency = Dictionary[name].depends_on;
             if (dependency != null && !Dictionary.ContainsKey(dependency))

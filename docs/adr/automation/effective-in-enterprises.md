@@ -16,8 +16,8 @@ explicitly documented.
 Enterprise environments impose constraints that developer-oriented tooling rarely accounts for:
 
 - **Home folders on network storage.** Central IT redirects `$HOME` or the Documents folder to DFS, mapped network drives, or OneDrive for
-  Business (Known Folder Move). This means any operation that touches the user profile — module discovery, profile loading, tab completion
-  — traverses the network. On a bad day this adds seconds per operation. On a DFS failover day it hangs indefinitely.
+  Business (Known Folder Move). This means any operation that touches the user profile — module discovery, profile loading, tab completion —
+  traverses the network. On a bad day this adds seconds per operation. On a DFS failover day it hangs indefinitely.
 
 - **No local admin.** Developers cannot install software, modify system paths, or change Group Policy settings. The automation must work
   within the permissions they have.
@@ -35,16 +35,15 @@ Enterprise environments impose constraints that developer-oriented tooling rarel
 
 - **Real-time antivirus.** Endpoint protection (e.g. Defender) scans each file on first open. The importer opens ~400 function files, so the
   dominant cost of a _cold_ import — the first one after a fresh checkout, a file change, or a reboot — is this per-file scan. Once the scan
-  cache is warm, steady-state imports are sub-second; the scan does not recur until files change again. See "antivirus file scanning"
-  below.
+  cache is warm, steady-state imports are sub-second; the scan does not recur until files change again. See "antivirus file scanning" below.
 
 ### Antivirus file scanning
 
 `The other problem: antivirus file scanning`
 
 One function per file ([one-function-per-file](../pwsh/one-function-per-file.md)) means the importer opens ~400 function files. Real-time
-antivirus scans each on **first** open and caches it clean, so the _first_ import in a fresh checkout/session is slow and every later one
-is fast.
+antivirus scans each on **first** open and caches it clean, so the _first_ import in a fresh checkout/session is slow and every later one is
+fast.
 
 On an enterprise machine, the importer's `-DiagnoseLoadTime` switch shows a sharp cold/warm split (two back-to-back runs):
 
@@ -57,9 +56,9 @@ The `-DiagnoseLoadTime` breakdown splits each module into `manifest` (enumeratio
 before the module is imported), and `import` (parse). A large `raw-read` on the cold run is the antivirus-on-open signature — re-run it to
 re-confirm. Enumeration is native `.NET` and ~1–7ms, so it is never the cause; the file opens are.
 
-**Source and build answer it differently.** Source stays one function per file: that is the form a developer reads, reviews, and diffs, so
-a devbox in source mode pays the cold scan, and its mitigation is environmental — an antivirus exclusion for the repository working copy
-and `automation/.vendor/`. The **installed build** is merged per module ([platform-bundle](platform-bundle.md),
+**Source and build answer it differently.** Source stays one function per file: that is the form a developer reads, reviews, and diffs, so a
+devbox in source mode pays the cold scan, and its mitigation is environmental — an antivirus exclusion for the repository working copy and
+`automation/.vendor/`. The **installed build** is merged per module ([platform-bundle](platform-bundle.md),
 [run-modes](../design/run-modes.md)): `Build-Modules` writes each module's functions into one generated function file, so a machine that
 runs the installed `Catzc` opens one function file per module instead of one per function. That is the code-level answer to the cold-import
 antivirus cost, and it needs no exclusion. (The C# in the `types/` folders ship a committed, hash-keyed prebuilt DLL in
@@ -70,7 +69,7 @@ antivirus cost, and it needs no exclusion. (The C# in the `types/` folders ship 
 
 We vendor every dependency and assume nothing about the machine: no network access at runtime, no elevation, no dependence on the user
 profile. How the engine realises this — the module-path mechanics that make the vendored copies win, the one-time fix for a network user
-path, and no gallery at runtime — is the pwsh layer: [module-path-hygiene](../pwsh/module-path-hygiene.md) and
+path, and no gallery at runtime — is the PowerShell layer: [module-path-hygiene](../pwsh/module-path-hygiene.md) and
 [vendor-toolset-dependencies](../pwsh/vendor-toolset-dependencies.md).
 
 ### How this is enforced

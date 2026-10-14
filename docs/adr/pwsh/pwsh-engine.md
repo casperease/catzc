@@ -18,10 +18,10 @@ anything loads. A pwsh that catzc starts as an engine is located beside the runn
 
 Every catzc scope runs under `Set-StrictMode -Version Latest`, the engine's strict mode
 ([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine2)). Strict mode belongs to a PowerShell scope, and a
-session-level setting does not reach module code, so it is set where the code runs: the importer in the caller's scope,
-`Import-AllModules` in each module's script scope, the top of each `.internal` module and analyzer rule, a template's `PrePost.psm1` scope
-after its import, the first line of a pipeline step that runs without the importer, and the test worker before Pester starts. Code is
-written strict-clean ([error-handling](error-handling.md#rule-adr-pwsh-error8)).
+session-level setting does not reach module code, so it is set where the code runs: the importer in the caller's scope, `Import-AllModules`
+in each module's script scope, the top of each `.internal` module and analyzer rule, a template's `PrePost.psm1` scope after its import, the
+first line of a pipeline step that runs without the importer, and the test worker before Pester starts. Code is written strict-clean
+([error-handling](error-handling.md#rule-adr-pwsh-error8)).
 
 - [Strict mode](#strict-mode)
 
@@ -64,17 +64,16 @@ accelerators ([hosting-csharp-types](hosting-csharp-types.md#rule-adr-pwsh-types
 The Pester workers of a test run, the isolated runs of `Test-InIsolation`, and the snapshot priming of a test run each start a child pwsh,
 never an engine from the per-engine loop of [execution-engines](../automation/execution-engines.md#rule-adr-auto-engine4). Pester is a
 PowerShell framework, so these starts are pwsh by nature and have no bash or zsh column; behaviour that differs between the engines is
-proven by the black-box tests and the engine-case tables
-([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine5)).
+proven by the black-box tests and the engine-case tables ([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine5)).
 
 - [Starts that are pwsh by nature](#starts-that-are-pwsh-by-nature)
 
 ## Context
 
-[execution-engines](../automation/execution-engines.md) (`ADR-AUTO-ENGINE`) declares the engines, what differs between them, and how each
-is located and started. The `automation/` rules say what a function, a test, a cache, or a bundle is, in words that would hold for any
-engine. This ADR is the pwsh engine itself: the floor it requires, the session the importer establishes, and the entries that load catzc
-into it. The other ADRs of the `pwsh/` folder build on it, each realising one `automation/` rule in PowerShell.
+[execution-engines](../automation/execution-engines.md) (`ADR-AUTO-ENGINE`) declares the engines, what differs between them, and how each is
+located and started. The `automation/` rules say what a function, a test, a cache, or a bundle is, in words that would hold for any engine.
+This ADR is the pwsh engine itself: the floor it requires, the session the importer establishes, and the entries that load catzc into it.
+The other ADRs of the `pwsh/` folder build on it, each realising one `automation/` rule in PowerShell.
 
 ### One engine of three
 
@@ -99,9 +98,9 @@ probe non-strict behaviour opts out locally, in the one test body that needs it 
 
 catzc functions are written for terminating failure: an error stops the call, and a warning is a failure that has not been diagnosed yet.
 PowerShell's defaults let a non-terminating error or a warning pass, so the code would have to guard every call. The importer instead sets
-the preferences once for the whole session, which makes every catzc function and every vendored command fail the same way. Setting them inside a function would make the function's behaviour depend on its caller, so no
-function does. `-AllowWarnings` exists for a session that must load past a third-party warning; it is the importer's switch, not a
-function's.
+the preferences once for the whole session, which makes every catzc function and every vendored command fail the same way. Setting them
+inside a function would make the function's behaviour depend on its caller, so no function does. `-AllowWarnings` exists for a session that
+must load past a third-party warning; it is the importer's switch, not a function's.
 
 ### The dot-sourced importer
 
@@ -112,8 +111,8 @@ stale-types import continues in a new pwsh.
 
 The shim is generated and thin so that the load sequence has one living copy, `Invoke-Importer`
 ([one-living-version](../principles/one-living-version.md)). `importer.ps1` is a root file that a fresh clone needs, so it is committed and
-reproduced by `Build-RootConfig`; its parameter block is asserted to match `Invoke-Importer`'s. Removing `Catzc.Internal.Importer` after
-the load keeps import-time orchestration out of the session, while the `.internal` modules that the loaded functions delegate to stay.
+reproduced by `Build-RootConfig`; its parameter block is asserted to match `Invoke-Importer`'s. Removing `Catzc.Internal.Importer` after the
+load keeps import-time orchestration out of the session, while the `.internal` modules that the loaded functions delegate to stay.
 
 ### The build's entry
 
@@ -153,8 +152,8 @@ both run the one `Invoke-Importer`. The starts that run Pester or the importer a
 
 - Every catzc session, from the source tree or a build, has the same strict mode and the same terminating preferences, so a function behaves
   the same wherever it is loaded.
-- A caller that runs `importer.ps1` without dot-sourcing it does not get the session it expects, so the dot-sourced form is the only one
-  the documentation shows.
+- A caller that runs `importer.ps1` without dot-sourcing it does not get the session it expects, so the dot-sourced form is the only one the
+  documentation shows.
 - An older PowerShell fails at the first line of the load with the floor it needs, never partway through.
 - Pester and the importer stay pwsh-only; the cost of proving engine-neutral behaviour falls on the black-box tests, which run once per
   engine.

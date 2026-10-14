@@ -32,8 +32,8 @@ guarantee restoration.
 ### Rule ADR-PWSH-PWD:4
 
 Module code locates its own content — its `configs/`, its `assets/`, another module's, and the dot-prefixed infrastructure (`.internal/`,
-`.vendor/`, `.compiled/`) — only through `Get-CatzcModuleRoot` (or `Get-CatzcModulesRoot` for the infrastructure). `$PSScriptRoot` is
-banned in module function files (a module's root and `private/` `.ps1` files); tests, `assets/`, and `.internal` keep it. The analyzer rule
+`.vendor/`, `.compiled/`) — only through `Get-CatzcModuleRoot` (or `Get-CatzcModulesRoot` for the infrastructure). `$PSScriptRoot` is banned
+in module function files (a module's root and `private/` `.ps1` files); tests, `assets/`, and `.internal` keep it. The analyzer rule
 `Measure-NoScriptRootAnchor` enforces the ban.
 
 - [The code root](#the-code-root)
@@ -41,8 +41,8 @@ banned in module function files (a module's root and `private/` `.ps1` files); t
 
 ### Rule ADR-PWSH-PWD:5
 
-A test file builds its absolute paths from `$env:RepositoryRoot`, or from `$PSScriptRoot` for its own fixtures (`tests/assets/`), never
-from `$PWD` or a relative path ([ADR-AUTO-NOPWD#4](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd4)).
+A test file builds its absolute paths from `$env:RepositoryRoot`, or from `$PSScriptRoot` for its own fixtures (`tests/assets/`), never from
+`$PWD` or a relative path ([ADR-AUTO-NOPWD#4](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd4)).
 
 - [The anchors](#the-anchors)
 

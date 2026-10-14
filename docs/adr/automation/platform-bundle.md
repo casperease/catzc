@@ -10,9 +10,9 @@ A **bundle** is the toolset's build: one installable, versioned `Catzc` package 
 `Build-Modules` from a selected set of modules (explicit names and/or a profile, closure-expanded over `dependencies.yml`), that loads in a
 fresh session of its engine **outside the mono repo** — with no git work tree, no compile at load, and no working-tree writes. It is build
 mode's code root ([run-modes](../design/run-modes.md)). `Catzc.Base.Exporter` owns its lifecycle: `Build-Modules` builds it (through the
-`Invoke-ModuleBuild` engine in `Catzc.Internal.Builder`), `Install-Catzc`/`Export-Catzc` place it, `Assert-CatzcBundle` verifies it. This
-is the platform-level form of the build-once artifact ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md)) and
-of a reproducible, content-addressed, self-service artifact ([self-service](../design/self-service.md)).
+`Invoke-ModuleBuild` engine in `Catzc.Internal.Builder`), `Install-Catzc`/`Export-Catzc` place it, `Assert-CatzcBundle` verifies it. This is
+the platform-level form of the build-once artifact ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md)) and of
+a reproducible, content-addressed, self-service artifact ([self-service](../design/self-service.md)).
 
 - [What a bundle is](#what-a-bundle-is)
 
@@ -54,12 +54,12 @@ it as a self-check on its own output.
 
 ### Rule ADR-AUTO-BUNDLE:6
 
-An install is **two artifacts in two places**. `Export-Catzc -Root <dir>` copies the build to `<dir>/.vendor/Catzc/<version>/` and writes
-a root importer entry at the **destination root** that loads the installed build's entry with `<dir>` as the working root, so the working
-root is the destination (where `out/` resolves and is writable) and the code root is the installed build. The other placements — the
-user's own module location, and a local package — carry the same build with its vendored dependencies inside it, never as dependencies
-fetched at install. Every install is idempotent ([idempotent-state-functions](idempotent-state-functions.md)) — a re-install with a
-matching content hash refreshes only the root importer entry — and the source build is verified before the destination is touched.
+An install is **two artifacts in two places**. `Export-Catzc -Root <dir>` copies the build to `<dir>/.vendor/Catzc/<version>/` and writes a
+root importer entry at the **destination root** that loads the installed build's entry with `<dir>` as the working root, so the working root
+is the destination (where `out/` resolves and is writable) and the code root is the installed build. The other placements — the user's own
+module location, and a local package — carry the same build with its vendored dependencies inside it, never as dependencies fetched at
+install. Every install is idempotent ([idempotent-state-functions](idempotent-state-functions.md)) — a re-install with a matching content
+hash refreshes only the root importer entry — and the source build is verified before the destination is touched.
 
 - [The two-part install](#the-two-part-install)
 
@@ -70,29 +70,29 @@ placeholder** (`exporter.yml`'s `direct_install_version`), announced by a yellow
 the pipeline. A pipeline export gets a **calculated, reproducible version**: `MAJOR.MINOR` from `exporter.yml`'s `version`, and `PATCH` the
 first-parent commit count of the built commit — so the same commit always gets the same version and versions rise along `main`. An explicit
 `-Version` is honoured when it is `MAJOR.MINOR.PATCH`, and a pipeline build that names `6.6.666` is rejected. Every version is numeric so
-the `Catzc/<version>/` folder is a valid package version. Export options — profile, vendor policy, versions — are configuration read
-through `Get-Config` ([sensible-defaults](sensible-defaults.md)), so a build's shape is a reviewed edit to one file and a test can
-substitute a fixture config through the same seam.
+the `Catzc/<version>/` folder is a valid package version. Export options — profile, vendor policy, versions — are configuration read through
+`Get-Config` ([sensible-defaults](sensible-defaults.md)), so a build's shape is a reviewed edit to one file and a test can substitute a
+fixture config through the same seam.
 
 - [Versions](#versions)
 
 ### Rule ADR-AUTO-BUNDLE:8
 
 A bundle is a **session, not a passive library**. Loading it establishes the catzc session — the same session settings the mono importer
-sets, under which every error and every warning terminates, because catzc functions assume terminating semantics — and it writes only
-under the working root's `out/`, never the code it was built from. Publishing a package beyond the local disk is the release workflow's act
+sets, under which every error and every warning terminates, because catzc functions assume terminating semantics — and it writes only under
+the working root's `out/`, never the code it was built from. Publishing a package beyond the local disk is the release workflow's act
 ([github-release](../github/github-release.md)), not something loading or building a bundle does.
 
 - [A session, not a library](#a-session-not-a-library)
 
 ## Context
 
-The catzc platform is developed in source mode: loading the importer at the repository root reads the automation tree in place, one
-function per file, and everything anchors on a repository that is both the working root and the location of the code. That form is right
-for the people who edit the code and wrong for the machines that only run it. A machine that runs the toolset wants it **installed** —
-carried to another folder (another repository's `.vendor`, a work directory, the user's module location) and run there as a reusable tool
-rather than a repository you are inside — and it wants the install to load fast, including on a cold import behind real-time antivirus that
-scans every file on first open ([effective-in-enterprises](effective-in-enterprises.md)).
+The catzc platform is developed in source mode: loading the importer at the repository root reads the automation tree in place, one function
+per file, and everything anchors on a repository that is both the working root and the location of the code. That form is right for the
+people who edit the code and wrong for the machines that only run it. A machine that runs the toolset wants it **installed** — carried to
+another folder (another repository's `.vendor`, a work directory, the user's module location) and run there as a reusable tool rather than a
+repository you are inside — and it wants the install to load fast, including on a cold import behind real-time antivirus that scans every
+file on first open ([effective-in-enterprises](effective-in-enterprises.md)).
 
 The repository holds most of the pieces: a typed module model with a dependency closure, the durable-SHA identity primitives, the
 combined-types compile, a manifest emitter, and the one importer. The concept that ties them together is the **bundle** — the build — plus
@@ -111,12 +111,12 @@ installs to another root and loads there with no git and no compile, owned by `C
 
 A bundle is the platform, made portable. `Build-Modules` takes the selected modules — named explicitly, by profile, or both, then
 closure-expanded so every dependency comes along — and writes one installable package root, `out/automation/build/Catzc/<version>/` by
-default. Inside it every selected module is **its own module of the same name**: same public functions, same private functions, same
-configs and assets, its own module state ([run-modes](../design/run-modes.md)). Only its on-disk form differs: one manifest and one merged
-function file instead of a folder of function files. It is small (the `tests/` surface is dropped), fast (a few dozen files to open, no
-compile, no discovery drift), and sharable (one versioned folder). It is distinct from the repository it is built from: an install is not a
-repository, has no `.git`, and ships no `infrastructure/`, `pipelines/`, or `.cspell/` — the functions that operate on the source tree
-assert that they run there (`Assert-SourceTree`) and say so in a build, and a trimmed profile can exclude them.
+default. Inside it every selected module is **its own module of the same name**: same public functions, same private functions, same configs
+and assets, its own module state ([run-modes](../design/run-modes.md)). Only its on-disk form differs: one manifest and one merged function
+file instead of a folder of function files. It is small (the `tests/` surface is dropped), fast (a few dozen files to open, no compile, no
+discovery drift), and sharable (one versioned folder). It is distinct from the repository it is built from: an install is not a repository,
+has no `.git`, and ships no `infrastructure/`, `pipelines/`, or `.cspell/` — the functions that operate on the source tree assert that they
+run there (`Assert-SourceTree`) and say so in a build, and a trimmed profile can exclude them.
 
 ### The two roots
 
@@ -124,9 +124,8 @@ The platform separates the **working root** from the **code root**. `RepositoryR
 repo-relative paths, and git. `CatzcModulesRoot` is where the loaded catzc code lives — the anchor every config, type, and vendor scan
 follows, through `Get-CatzcModulesRoot`, and the root `Get-CatzcModuleRoot` resolves a module's own content under. In the mono repo the
 importer derives `CatzcModulesRoot` as `<RepositoryRoot>/automation`, so the two coincide. In an install they diverge: the working root is
-the destination folder, and the code root is the installed build, which may sit anywhere. This split is the whole reason the platform can
-be relocated — a scan that anchored on `RepositoryRoot` would look in the wrong place the moment the code and the work were not the same
-tree.
+the destination folder, and the code root is the installed build, which may sit anywhere. This split is the whole reason the platform can be
+relocated — a scan that anchored on `RepositoryRoot` would look in the wrong place the moment the code and the work were not the same tree.
 
 ### Booting through the importer
 
@@ -145,10 +144,10 @@ pre-set code root honoured.
 
 What ships is what a module needs to **run**. For each selected module, `Build-Modules` merges the function files into one file, in the
 order the source tree loads them, each source file verbatim behind a marker line that names it, so an error line in the merged file maps
-back to its source file; the module's manifest is generated by the same emitter the source mode uses, and exports only the public
-functions. The side folders travel verbatim, including `assets/` (install scripts, hook starters, packaged data) and the `types/` sources
-the load-time types guard re-verifies. Before merging, the build asserts its preconditions on every source file — exactly one function
-named for the file, no top-level statements — and fails with the full list.
+back to its source file; the module's manifest is generated by the same emitter the source mode uses, and exports only the public functions.
+The side folders travel verbatim, including `assets/` (install scripts, hook starters, packaged data) and the `types/` sources the load-time
+types guard re-verifies. Before merging, the build asserts its preconditions on every source file — exactly one function named for the file,
+no top-level statements — and fails with the full list.
 
 The infrastructure is built or copied, never fetched. The combined-types DLL always covers the **full** type set, whatever the module
 selection: the selected modules' `types/*.cs` travel in their folders and the rest under `.compiled/types/<Module>/`, so the load-time types
@@ -175,12 +174,11 @@ install verifies its source with it.
 ### The two-part install
 
 An install answers two questions that are usually one: **where do I run**, and **where does the code live**. So `Export-Catzc -Root <dir>`
-writes two artifacts. The build and its `build.json` go to a modules location under the destination root
-(`<dir>/.vendor/Catzc/<version>/`). A root importer entry goes to the destination root itself and loads the installed build's entry with
-`<dir>` as the working root: the destination becomes `RepositoryRoot` (so `out/` is the user's writable working directory, never a
-read-only module store), and the installed build becomes `CatzcModulesRoot`. Loading that entry loads the whole platform. Re-installing the
-same content is a no-op on the build and only rewrites the root importer entry, and the source is verified before the destination is
-changed.
+writes two artifacts. The build and its `build.json` go to a modules location under the destination root (`<dir>/.vendor/Catzc/<version>/`).
+A root importer entry goes to the destination root itself and loads the installed build's entry with `<dir>` as the working root: the
+destination becomes `RepositoryRoot` (so `out/` is the user's writable working directory, never a read-only module store), and the installed
+build becomes `CatzcModulesRoot`. Loading that entry loads the whole platform. Re-installing the same content is a no-op on the build and
+only rewrites the root importer entry, and the source is verified before the destination is changed.
 
 Two other placements use the same build: `Install-Catzc` copies it into the user's own module location, and `Export-Catzc -To nuget` packs
 it as a local package. The vendored dependencies ride inside the build's own `.vendor/`, so nothing is republished or fetched at install.

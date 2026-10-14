@@ -196,9 +196,9 @@ keyed on the file's content and every declared input of the check (ADR-AUTO-CACH
 `The storage idiom is the language layer`
 
 Where a cache lives, the keyed-hashtable code shape, and how tests interact with a cached function are the PowerShell layer,
-[script-scope-caching](../pwsh/script-scope-caching.md) (`ADR-PWSH-CACHE`): module `$script:` state — never `$env:` or `$global:` —
-with `Get-Config` and `Get-BicepTemplates` as the exemplars. The compiled-type prebuild's own cache-key and staleness-guard rules live with
-the type system, [native-csharp-types](BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`).
+[script-scope-caching](../pwsh/script-scope-caching.md) (`ADR-PWSH-CACHE`): module `$script:` state — never `$env:` or `$global:` — with
+`Get-Config` and `Get-BicepTemplates` as the exemplars. The compiled-type prebuild's own cache-key and staleness-guard rules live with the
+type system, [native-csharp-types](BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`).
 
 ### How this is enforced
 
