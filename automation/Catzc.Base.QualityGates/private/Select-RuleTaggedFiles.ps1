@@ -35,12 +35,14 @@ function Select-RuleTaggedFiles {
     $ruleWanted = [System.Collections.Generic.HashSet[string]]::new([string[]] $Rule, [System.StringComparer]::Ordinal)
     $ruleFiles = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($test in @($Discovery.Tests)) {
-        if (-not $test.ScriptBlock -or -not $test.ScriptBlock.File) {
+        # The test's run file: its test file, or the Go test folder of a Go bridge test.
+        $file = Get-TestRunFile -Test $test
+        if (-not $file) {
             continue
         }
         foreach ($citation in (Get-TestRuleTags -Test $test)) {
             if ($ruleWanted.Contains($citation)) {
-                [void]$ruleFiles.Add($test.ScriptBlock.File)
+                [void]$ruleFiles.Add($file)
                 break
             }
         }

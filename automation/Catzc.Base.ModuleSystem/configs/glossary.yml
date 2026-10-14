@@ -63,3 +63,4 @@ concepts:
         realized_by: { kind: prose-only }
         contrasts:
             track: A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it lives.
+            language zone: A language zone is one of the design, test, and live registers of identities; a file language is the kind of text one file holds.

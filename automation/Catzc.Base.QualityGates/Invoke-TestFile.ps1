@@ -37,7 +37,9 @@
 .PARAMETER Output
     Pester output verbosity inside the worker. Defaults to 'Detailed' — a hand-run wants one line per test.
 .PARAMETER TimeoutSeconds
-    Hard ceiling for the worker; on expiry it is killed and this throws. Defaults to 600.
+    Hard ceiling for the worker; on expiry it is killed and this throws. Defaults to this function's [TimeLimit]
+    (360 s on a devbox, 600 s in a pipeline), unless timeouts.yml overrides it
+    ([ADR-AUTO-FAILFAST#8](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast8)).
 .PARAMETER Isolated
     Run in a snapshot of the working folder even when it is free — immune to edits made while it runs.
 .PARAMETER KeepSandbox
@@ -57,6 +59,7 @@
 function Invoke-TestFile {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
+    [Catzc.Base.Timeouts.TimeLimit(360, Pipeline = 600)]
     param(
         [Parameter(Mandatory, Position = 0)]
         [string[]] $Path,
@@ -68,7 +71,7 @@ function Invoke-TestFile {
         [string] $Output = 'Detailed',
 
         [ValidateRange(60, 86400)]
-        [int] $TimeoutSeconds = 600,
+        [int] $TimeoutSeconds = (Get-TimeoutSeconds -Command 'Invoke-TestFile'),
 
         [switch] $Isolated,
 

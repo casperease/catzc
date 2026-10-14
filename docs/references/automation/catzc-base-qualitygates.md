@@ -28,8 +28,11 @@ How the repository runs and validates all its tests. This responsibility discove
 tier level (L0–L3) and optional category filter (`logic`/`integrity`), and writes a timestamped report — as a source run, as a build run
 against a fresh build of the selected modules, one test file at a time, or for a module profile copied into an isolated sandbox. Before any
 test executes, a discovery-only pass inspects the full test tree and throws if any test is missing or ambiguous on either of the two
-mandatory tag axes — exactly one tier (`L0|L1|L2|L3`) and exactly one category (`logic|integrity`). The tag model, the two-axis tagging
-contract, the two run modes, and the tier definitions are the subject of [test-automation](../../adr/automation/test-automation.md).
+mandatory tag axes — exactly one tier (`L0|L1|L2|L3`) and exactly one category (`logic|integrity`). A module's Go tests, in the Go test
+module named for it under the Go root, count as that module's tests: one shared Pester bridge runs them and turns every Go test into one
+Pester test. The tag model, the two-axis tagging contract, the two run modes, and the tier definitions are the subject of
+[test-automation](../../adr/automation/test-automation.md); the Go tests are the subject of
+[test-artifacts](../../adr/automation/go/test-artifacts.md).
 
 ### responsibility:2 — Repository quality gates
 
@@ -80,6 +83,13 @@ discovery-only pass — driven by private helpers that perform nearest-contribut
 — inspects every test before a single one executes, so a missing or ambiguous tag fails the run immediately rather than silently skipping a
 tier. The L0–L3 tier filter and the `logic`/`integrity` category filter are orthogonal run parameters, and the enforcement pass always
 covers the full tree regardless of which subset is requested.
+
+The runner reaches past PowerShell for the Go tests. Discovery maps each Go test module to the catzc module it is named for (in kebab case),
+so module selection, test suites, ordering, and protection treat it like that module's `tests/` folder, and a Go test module that names no
+catzc module stops the run. The bridge reads the Go tests from their source, so discovery needs no `go`, and runs them once per module
+through [Catzc.Base.Languages](catzc-base-languages.md): every Go test becomes one `L2` Pester test with the category its name gives, and
+passes, fails with the Go output, or skips as Go did. Without the managed `go` at its pinned version, every Go test skips with
+`tool_go_missing`. In a build run the bridge hands the build's entry script on, so the Go tests start the built engine.
 
 Responsibility 3 is a set of thin wrappers, one per external tool, deliberately kept separate so each can be run in isolation;
 `Test-Formatting` (responsibility 2) runs every formatter in its report-only mode as one gate. A `Format-*` function is both a check and a

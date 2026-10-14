@@ -107,6 +107,9 @@ Describe 'New-TestAutomationShardScript' {
             $content | Should -Match ([regex]::Escape(". 'C:\build''s\Catzc\6.6.666\Import-Catzc.ps1' -AllowWarnings -RepositoryRoot 'C:\repo'"))
             $content | Should -Not -Match 'importer\.ps1'
             $content | Should -Not -Match '-Quiet'
+            # The entry script also reaches the Pester configuration, for the Go bridge.
+            $content | Should -Match ([regex]::Escape("-EntryScript `$entryScript"))
+            $content | Should -Match ([regex]::Escape("'' 'C:\build''s\Catzc\6.6.666\Import-Catzc.ps1'"))
             # Everything after the load is the same for both runs.
             $content | Should -Match ([regex]::Escape("Join-Path (Get-CatzcModulesRoot) '.vendor/Pester'"))
             $content | Should -Match 'ConvertTo-TestAutomationRowSet'

@@ -98,8 +98,8 @@ detect their context, and how globsets project into native trigger filters. The 
 
 The catzc CLI and module system and the rules for building it: devbox/pipeline parity, one function per file, open/closed growth, fail-fast
 assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, test automation, and the merged, installable
-build. Language layers live in `powershell/` and `BCL/` (native C# types), with `go/` and `python/` reserved. It turns the research,
-principles, process, and design domains into enforced code; the pipelines, github, and azure domains build on it.
+build. Language layers live in `powershell/`, `BCL/` (native C# types), and `go/` (black-box test artifacts), with `python/` reserved. It
+turns the research, principles, process, and design domains into enforced code; the pipelines, github, and azure domains build on it.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`.
 
@@ -157,6 +157,7 @@ principles, process, and design domains into enforced code; the pipelines, githu
 | `ADR-AUTO-PESTER`   | [pester-testing](automation/powershell/pester-testing.md)                                         |
 | `ADR-AUTO-DRYRUN`   | [prefer-dryrun-over-shouldprocess](automation/powershell/prefer-dryrun-over-shouldprocess.md)     |
 | `ADR-AUTO-TYPES`    | [native-csharp-types](automation/BCL/native-csharp-types.md)                                      |
+| `ADR-AUTO-GO`       | [test-artifacts](automation/go/test-artifacts.md)                                                 |
 
 ### configuration/
 

@@ -37,6 +37,8 @@ automation/**/*.psd1
 /.vscode/extensions.json
 /.vscode/launch.json
 /.vscode/azure-pipelines-schema.json
+/go.work
+/*/tests/*/go.mod
 /.vscode/markdown-preview-dark.css
 /.editorconfig
 /.markdownlint.yml
@@ -80,3 +82,10 @@ automation/.internal/assets/bin/
 .claude/hooks/bin/
 .claude/hooks/Assert-BashTimeout/obj/
 .claude/hooks/Assert-BashTimeout/bin/
+
+# ── Go test workspace sums ──────────────────────────────────────────────────────────────────────────────────────────
+# The Go test workspace is generated (ADR-AUTO-GO): go.work and each go.mod are managed root-config copies, ignored
+# through their rootconfig entries. The checksum files go writes beside them when the Go test bridge downloads modules
+# are per-machine output, never committed.
+/go.work.sum
+/*/tests/*/go.sum

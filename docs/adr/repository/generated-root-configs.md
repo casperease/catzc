@@ -73,6 +73,15 @@ changing files on disk" contract.
 
 - [Copy-as-link](#copy-as-link)
 
+### Rule ADR-REPO-ROOTCFG:8
+
+A `generator` entry may name a wildcard target (`*/tests/*/go.mod`) and render one file per record: its generator returns one
+`{ Target; Content }` record per file, each target a repository-relative path the entry's pattern matches. `Build-RootConfig` writes and
+reports each file on its own, and the drift check compares each on its own. A wildcard entry may render no file; a literal target renders
+exactly one. A wildcard is for a generator only, since a `source` entry has one file to copy or link.
+
+- [One entry, many files](#one-entry-many-files)
+
 ## Context
 
 The repository root carries configuration files for git, editors, and quality-gate tools. Kept by hand, each is a source of truth of its
@@ -129,6 +138,18 @@ The reverse transition is guarded twice. `Write-FileIfChanged`'s delete-then-wri
 into a source (ADR-REPO-ROOTCFG#4), and `Build-RootConfig`'s copy branch treats a target that is currently a link as stale regardless of
 content equality — a `comment: none` entry composes bytes identical to its source, which a content compare alone would read through the link
 and call current, leaving the mechanism disagreeing with the registry. The inverse integrity assertion (ADR-REPO-ROOTCFG#6) is the backstop.
+
+### One entry, many files
+
+`One entry, many files`
+
+Some generated files come in a set whose size the repository decides: the Go workspace has one `go.mod` per Go test module
+([test-artifacts](../automation/go/test-artifacts.md#rule-adr-auto-go4)), and a new test folder adds one. A registry entry per file would be
+a second list of those folders, kept by hand. A wildcard target states the set once — `*/tests/*/go.mod` — and the generator, which already
+discovers the folders, renders one record per file (`Get-RootConfigRenderedFile` normalises the two shapes). Every file then takes the same
+path as a single-file target: one `Write-FileIfChanged` write, one result row under its own path, one drift issue when stale, and
+`Build-RootConfig <path>` selects either the whole entry by its pattern or one file the pattern matches. A record outside the entry's
+pattern, or a literal target rendering anything but one file, throws with the entry and the generator named.
 
 ### Always current
 

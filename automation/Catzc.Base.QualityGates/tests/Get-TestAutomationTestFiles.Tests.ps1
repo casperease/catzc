@@ -9,6 +9,23 @@ Describe 'Get-TestAutomationTestFiles' -Tag 'L0', 'logic' {
             [System.IO.File]::WriteAllText($path, '# fixture')
         }
         [System.IO.Directory]::CreateDirectory((Join-Path $TestDrive 'empty/tests')) | Out-Null
+        $script:widgetGo = Join-Path $TestDrive 'go/tests/catzc-widget'
+        [System.IO.Directory]::CreateDirectory($script:widgetGo) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetGo 'widget_test.go'), 'package widget')
+    }
+
+    BeforeEach {
+        Mock Get-GoTestFolders -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Module = 'Catzc.Widget'; Folder = $script:widgetGo; Name = 'catzc-widget' }
+        }
+    }
+
+    It 'lists a Go test folder as one run file, in its place' {
+        $files = InModuleScope Catzc.Base.QualityGates -Parameters @{ P = @($script:widgetGo, $script:gadget) } {
+            param($P)
+            Get-TestAutomationTestFiles -TestPath $P
+        }
+        $files | Should -Be @($script:widgetGo, (Join-Path $script:gadget 'Get-Gadget.Tests.ps1'))
     }
 
     It 'keeps the folders'' order, sorts each folder ordinally, recurses, and skips non-test files' {

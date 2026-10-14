@@ -358,6 +358,15 @@ shared by every run on the machine, so the test passes or fails depending on wha
 
 - [System tests](#system-tests)
 
+### Rule ADR-AUTO-TEST:40
+
+A Go test module ([test-artifacts](go/test-artifacts.md#rule-adr-auto-go2)) is the second kind of test file, beside the Pester test file,
+under the same tiers, categories, and run model. Discovery maps it to its catzc module, so module selection, test suites, ordering,
+protection, both runs, and the report treat its tests as that module's; a shared Pester bridge runs it, and every Go test it holds is one
+test with both mandatory tags — `L2`, and a category from its name (ADR-AUTO-GO#7).
+
+- [Go test modules](#go-test-modules)
+
 ## Context
 
 [Fail fast with inline assertions](fail-fast-with-asserts.md) makes the case that automation code is mostly _impure_ — it orchestrates
@@ -696,6 +705,24 @@ Some tests give the same answer in both modes by construction: an integrity test
 loaded modules. Running it twice is waste ([reduce-waste](../principles/reduce-waste.md)), so it carries `source-only` and the build run
 skips it — and lists it, so a reader sees exactly what the build run does not execute. Everything that exercises loaded code runs in both.
 Both runs execute in CI on every push, so "works in both modes" is checked before anything merges.
+
+### Go test modules
+
+`A second kind of test file, the same run`
+
+A Pester test file loads the modules and calls them; a Go test module starts the engine as a process and reads what it prints
+([test-artifacts](go/test-artifacts.md)). The two answer different questions, but they are tests of the same modules, so they run in the
+same test run rather than in a second harness with its own selection, report, and verdict. Discovery maps `<root>/tests/<module>/` to its
+catzc module by the kebab-case name, and from there every selection a test run makes — `-Modules`, `-Suite`, the tiers, the categories, the
+protected-glob skip — applies to the Go tests exactly as to that module's Pester tests. A shared Pester bridge runs each mapped Go test
+module once and turns every top-level Go test into one Pester test, so the tag check, the timing check, `tests.csv`, and `run.json` read Go
+tests as rows like any other.
+
+The tags follow from what a Go test is. It drives a real toolchain and a real engine, so its tier is `L2` (ADR-AUTO-TEST#9), always. Its
+category comes from its name: `TestIntegrity*` reads the shipped artifacts and is `integrity`, every other Go test is `logic`
+(ADR-AUTO-TEST#14). When the managed `go` is missing, the bridge skips with `tool_go_missing`, the same constrained skip key as any other
+tool skip (ADR-AUTO-TEST#8). In a build run the bridge hands the Go tests the build's entry script, the same single seam the shard workers
+use (ADR-AUTO-TEST#30).
 
 ### Build Verification Test
 

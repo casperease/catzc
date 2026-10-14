@@ -96,3 +96,13 @@ sections:
       - .claude/hooks/bin/
       - .claude/hooks/Assert-BashTimeout/obj/
       - .claude/hooks/Assert-BashTimeout/bin/
+
+  - id: go-workspace
+    title: Go test workspace sums
+    why: >
+      The Go test workspace is generated (ADR-AUTO-GO): go.work and each go.mod are managed root-config copies, ignored
+      through their rootconfig entries. The checksum files go writes beside them when the Go test bridge downloads
+      modules are per-machine output, never committed.
+    patterns:
+      - /go.work.sum
+      - /*/tests/*/go.sum

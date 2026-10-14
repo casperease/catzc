@@ -41,10 +41,11 @@ function Select-InScopeTestFiles {
     $testsByFile = [System.Collections.Generic.Dictionary[string, System.Collections.Generic.List[object]]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
     foreach ($test in @($Discovery.Tests)) {
-        if (-not $test.ScriptBlock -or -not $test.ScriptBlock.File -or -not $fileLookup.Contains($test.ScriptBlock.File)) {
+        # The test's run file: its test file, or the Go test folder of a Go bridge test.
+        $file = Get-TestRunFile -Test $test
+        if (-not $file -or -not $fileLookup.Contains($file)) {
             continue
         }
-        $file = $test.ScriptBlock.File
         if (-not $testsByFile.ContainsKey($file)) {
             $testsByFile[$file] = [System.Collections.Generic.List[object]]::new()
         }

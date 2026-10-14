@@ -29,6 +29,7 @@ concepts:
         forms: [language, design, test, live]
         contrasts:
             domain: An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.
+            file language: A file language is the kind of text one file holds, named by its extension; a language zone is a register of identities.
     source:
         key: source
         domain: repository

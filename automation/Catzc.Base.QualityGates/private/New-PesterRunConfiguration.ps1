@@ -13,7 +13,10 @@
     is
     scope-dynamic, so only the scope that invokes Pester can set it for the tests.
 .PARAMETER Path
-    The test file(s) or folder(s) to run.
+    The test file(s) or folder(s) to run. A Go test folder runs through the Go bridge (ConvertTo-PesterRunTarget).
+.PARAMETER EntryScript
+    The engine entry of a build run (the build's Import-Catzc.ps1), handed to the Go bridge so the Go tests start
+    the build; empty for the source run.
 .PARAMETER ExcludeTag
     Tags excluded from the run (from Get-TestExcludeTag). Empty means no tag filter.
 .PARAMETER IncludeTag
@@ -45,11 +48,19 @@ function New-PesterRunConfiguration {
 
         [string] $ResultsPath,
 
-        [string] $FullNameFilter
+        [string] $FullNameFilter,
+
+        [string] $EntryScript
     )
 
+    $target = ConvertTo-PesterRunTarget -Path $Path -EntryScript $EntryScript
     $config = New-PesterConfiguration
-    $config.Run.Path = $Path
+    if ($target.Path.Count -gt 0) {
+        $config.Run.Path = $target.Path
+    }
+    if ($target.Container.Count -gt 0) {
+        $config.Run.Container = $target.Container
+    }
     $config.Run.PassThru = $true
     $config.Output.Verbosity = $Verbosity
     if ($ExcludeTag.Count -gt 0) {

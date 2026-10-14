@@ -62,6 +62,16 @@ carries an immutable budget GUID and is exempted in `timeout-exemptions.yml`, wh
 - [A hang is the slowest failure](#a-hang-is-the-slowest-failure)
 - [Bounding an agent's shell calls](#bounding-an-agents-shell-calls)
 
+### Rule ADR-AUTO-FAILFAST:8
+
+A function that bounds its own long-running work declares its limit beside its code, as a
+`[Catzc.Base.Timeouts.TimeLimit(<devbox seconds>, Pipeline = <seconds>)]` attribute on its param block, and takes it through
+`Get-TimeoutSeconds -Command <name>` — never a number literal as a parameter default. The limit resolves most specific first: an exemption
+for the decoration's budget GUID (`timeout-exemptions.yml`), then the command's entry under `commands` in `timeouts.yml`, then the
+decoration for the run environment, then the environment's pwsh default.
+
+- [A hang is the slowest failure](#a-hang-is-the-slowest-failure)
+
 ## Context
 
 PowerShell automation code is fundamentally about side effects — creating resources, calling APIs, installing tools, writing files. This
@@ -157,6 +167,13 @@ An exemption is for work that is known to be slow while it is fixed. It names th
 managed-GUID registry ([ADR-AUTO-GUIDS](managed-guids.md)), one at a time or as an inclusive range of a minted family — and carries the
 reason. It raises the budget's limit to a ceiling and never removes it, and a gate that must not run exempt says so with
 `Assert-IsNotTimeoutExempt`.
+
+A function whose own work is long by nature — a full test run, a build — knows its limit better than any config, so it declares it where it
+is written, as a `TimeLimit` attribute on its param block (ADR-AUTO-FAILFAST#8). A number literal as a parameter default would say the same
+thing where nothing reads it: config cannot tune it, the environment cannot change it, and a reader cannot find it. The decoration keeps the
+value beside the code and still lets the more specific settings win in order — an exemption while the work is tuned, a `commands` entry when
+a machine needs a different value, the decoration otherwise, and the environment's default for a function that declares nothing. Each
+setting is current and states something different; none is a fallback for an old shape.
 
 ### Bounding an agent's shell calls
 

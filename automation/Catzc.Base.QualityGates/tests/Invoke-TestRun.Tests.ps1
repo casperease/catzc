@@ -31,8 +31,12 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
             )
         }
 
+        # The entry points pass their own limit; a test that does not care gives every phase the devbox one.
         function Invoke-Run {
             param([hashtable] $Arguments)
+            if (-not $Arguments.ContainsKey('TimeoutSeconds')) {
+                $Arguments['TimeoutSeconds'] = 360
+            }
             InModuleScope Catzc.Base.QualityGates -Parameters @{ A = $Arguments } {
                 param($A)
                 Invoke-TestRun @A

@@ -1,6 +1,7 @@
 # docs/adr/automation/go/index.md
 
-`Go automation ADRs — reserved`
+`Go automation ADRs`
 
-No Go automation is supported yet. This folder is reserved for the ADRs that will govern Go automation code once it exists. Cross-cutting,
-language-agnostic platform rules live one level up, directly under `automation/`.
+The ADRs here govern the repository's Go code, which is test artifacts only — black-box tests of the engine that never ship; see
+[test-artifacts](test-artifacts.md). Cross-cutting, language-agnostic platform rules live one level up, directly under `automation/`; the
+full code↔ADR registry is the ADR index at the root of `docs/adr/`.

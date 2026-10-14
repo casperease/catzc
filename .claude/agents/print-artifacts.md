@@ -18,7 +18,7 @@ tools: Bash, Read, Glob, Grep, Write, Artifact, ArtifactData
 You publish what is on disk, exactly as it is now. You never draw, edit or move a diagram, and you never write the user's answers.
 
 > **Time safeguard.** ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard: every foreground Bash call
-> passes `timeout: 10000`; longer work runs with `run_in_background: true` behind a `timeout <seconds>` prefix around one command (the tool
+> passes `timeout: 3000`; longer work runs with `run_in_background: true` behind a `timeout <seconds>` prefix around one command (the tool
 > ignores `timeout` in the background) — see [time safeguard](../CLAUDE.md#time-safeguard).
 
 ## The artifact

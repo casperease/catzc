@@ -86,4 +86,23 @@ Describe 'Split-TestAutomationFiles' -Tag 'L0', 'logic' {
         $split.Greedy | Should -HaveCount 0
         $split.Serial | Should -HaveCount 0
     }
+
+    It 'schedules a Go bridge test by its Go test folder, not by the bridge file' {
+        # The bridge's tests come from one shared file; the container data names the Go test folder they run.
+        $goTest = New-FakeTest -File 'C:\x\Go.Bridge.ps1' -BlockTags @('L2', 'greedy')
+        $goTest.Block | Add-Member -NotePropertyName BlockContainer -NotePropertyValue ([pscustomobject]@{
+                Data = @{ GoTestFolder = 'C:\x\go\tests\catzc-widget'; EntryScript = '' }
+            })
+        $discovered = [pscustomobject]@{
+            Tests = @($goTest, (New-FakeTest -File 'C:\x\Alpha.Tests.ps1' -BlockTags @('L0', 'logic')))
+        }
+
+        $split = InModuleScope Catzc.Base.QualityGates -Parameters @{ D = $discovered } {
+            param($D)
+            Split-TestAutomationFiles -Discovery $D -TestFiles @('C:\x\go\tests\catzc-widget', 'C:\x\Alpha.Tests.ps1')
+        }
+
+        $split.Greedy | Should -Be @('C:\x\go\tests\catzc-widget')
+        $split.Parallel | Should -Be @('C:\x\Alpha.Tests.ps1')
+    }
 }

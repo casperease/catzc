@@ -49,10 +49,11 @@ function Get-TestOptOutExclusion {
     # Get-TestBlockTag returns its matches as ONE array object (`, $ret`), so its result is used as-is, never
     # wrapped in @() — that would nest it and every count would read 1.
     foreach ($test in @($Discovery.Tests)) {
-        if (-not $test.ScriptBlock -or -not $test.ScriptBlock.File -or -not $fileLookup.Contains($test.ScriptBlock.File)) {
+        # The test's run file: its test file, or the Go test folder of a Go bridge test.
+        $file = Get-TestRunFile -Test $test
+        if (-not $file -or -not $fileLookup.Contains($file)) {
             continue
         }
-        $file = $test.ScriptBlock.File
 
         # Out of the run's scope by tier or category: neither excluded by the opt-out tag nor runnable.
         if (-not (Test-TestInRunScope -Test $test -ExcludeTag $ExcludeTag)) {

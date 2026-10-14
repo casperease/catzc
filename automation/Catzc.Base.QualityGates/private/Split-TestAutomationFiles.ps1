@@ -45,14 +45,16 @@ function Split-TestAutomationFiles {
     $serialLookup = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     $greedyLookup = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($test in $Discovery.Tests) {
-        if (-not $test.ScriptBlock.File) {
+        # The test's run file: its test file, or the Go test folder of a Go bridge test.
+        $file = Get-TestRunFile -Test $test
+        if (-not $file) {
             continue
         }
         if ((Get-TestBlockTag -Test $test -Valid 'serial').Count -gt 0) {
-            [void]$serialLookup.Add($test.ScriptBlock.File)
+            [void]$serialLookup.Add($file)
         }
         if ((Get-TestBlockTag -Test $test -Valid 'greedy').Count -gt 0) {
-            [void]$greedyLookup.Add($test.ScriptBlock.File)
+            [void]$greedyLookup.Add($file)
         }
     }
 

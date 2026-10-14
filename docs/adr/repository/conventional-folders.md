@@ -24,14 +24,16 @@ depends on. Know which kind a folder is before renaming it or adding to it.
 ### Rule ADR-REPO-FOLDERS:3
 
 The root set is closed. Adding a top-level directory is a deliberate architectural decision — an amendment to this ADR — not a casual act.
+`go/`, the Go root of the repository's black-box tests ([test-artifacts](../automation/go/test-artifacts.md)), is such an amendment.
 
 - [Level 1: Repository root](#level-1-repository-root)
 
 ### Rule ADR-REPO-FOLDERS:4
 
-Dot-prefix means infrastructure/tooling, everywhere — `.github/`, `.vscode/`, `.claude/`, `.cspell/`, `.git/`, and
-`automation/.internal|.scriptanalyzer|.vendor|.compiled/`. Under `automation/` it is enforced mechanically by `Import-AllModules`
-(dot-prefixed directories are excluded from module discovery); elsewhere it is the same convention applied repo-wide.
+Dot-prefix means infrastructure/tooling, everywhere — `.github/`, `.vscode/`, `.claude/`, `.cspell/`, `.git/`, `.go/` (the default Go root
+when the repository has no `go/` folder), and `automation/.internal|.scriptanalyzer|.vendor|.compiled/`. Under `automation/` it is enforced
+mechanically by `Import-AllModules` (dot-prefixed directories are excluded from module discovery); elsewhere it is the same convention
+applied repo-wide.
 
 - [Level 1: Repository root](#level-1-repository-root)
 - [Level 2: `automation/`](#level-2-automation)
@@ -120,7 +122,7 @@ infrastructure, and a module's internals separate public from private from tests
 Conventional folders come in two kinds, and the difference is _who relies on the name_:
 
 - **Contract folders** — a tool hardcodes the literal name and programs against it, so a wrong name makes the content structurally invisible
-  or non-functional. `automation/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `pipelines/steps/`, `docs/adr/`,
+  or non-functional. `automation/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `go/`, `pipelines/steps/`, `docs/adr/`,
   `docs/references/`, and `infrastructure/templates/<name>/configuration/[<customer>/]` are contract folders.
 - **Semantic folders** — a _reader_ infers the meaning; no tool hardcodes the name, and the internal layout is freeform. The topic
   subfolders of `docs/`, `docs/how-to/`, `infrastructure/modules/`, and the ad-hoc workspaces under `out/` are semantic folders.
@@ -199,11 +201,13 @@ a reader infers it (_semantic_).
 | `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                                          | Bicep build/deploy tooling, `Get-BicepTemplates`          |
 | `pipelines/`      | contract | Azure DevOps YAML pipelines, per-kind templates, and the runner                                                             | Azure DevOps runner, `Invoke-AdoScript.ps1`               |
 | `contracts/`      | contract | External-facing API contracts (versioned) — `<name>/v<N>/`; see [api-contracts](api-contracts.md)                           | Contract tests; contract producers/consumers              |
+| `go/`             | contract | The Go root: black-box Go tests, `tests/<module>/`; see [test-artifacts](../automation/go/test-artifacts.md)                | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`            |
 | `out/`            | contract | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)                             | Output functions, CI artifacts, cleanup scripts           |
 | `.github/`        | contract | GitHub Actions — `workflows/`, actions, templates                                                                           | GitHub Actions runner                                     |
 | `.vscode/`        | contract | Managed, generated editor config — every file reproduced on import; see [generated-root-configs](generated-root-configs.md) | VS Code; `Build-RootConfig`                               |
 | `.claude/`        | contract | Claude Code project config — `CLAUDE.md`, `CLAUDE.local.md`, `settings.json`                                                | Claude Code                                               |
 | `.cspell/`        | contract | Generated cspell dictionaries — one `<category>.txt` per `terminology.yml` category; only `.gitkeep` is committed           | `cspell.yml`; `Build-TerminologyDictionary`               |
+| `.go/`            | contract | The Go root when the repository has no `go/` folder — the same layout as `go/`, dot-prefixed as tooling                     | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`            |
 | `.git/`           | —        | Git's own store. The boundary of _our_ conventions: git owns it, we do not document it.                                     | Git                                                       |
 
 `automation/` is the only root the module system interacts with; its internals are Levels 2–3 below. The rest separate concerns at the repo
@@ -241,12 +245,19 @@ equally live (see [one-living-version](../principles/one-living-version.md#rule-
 contract version folder carries a checked-in `.gitkeep` marker — a committed, dot-prefixed git marker (the `.gitkeep` analogue) that keeps
 the directory tracked when otherwise empty and marks it as a conventional contract folder.
 
+**`go/`** is the Go root: the repository's Go code, which is black-box tests of the engine and never ships
+([test-artifacts](../automation/go/test-artifacts.md)). It holds `tests/<module>/`, one Go test module per catzc module, named for that
+module in kebab case; `go.work` sits at the repository root, beside it. Every file Go needs besides the `*_test.go` files is generated and
+gitignored. A repository with no `go/` folder keeps the same layout under the dot-prefixed `.go/`, and `go.yml`'s `root` places the Go root
+elsewhere when declared; the two names are the sensible defaults of that one setting
+([sensible-defaults](../automation/sensible-defaults.md)), and the code that reads them is `GoConfig.ResolveRoot`.
+
 **`out/`** is the single home for all generated and transient files, gitignored except `.gitkeep`. The _root_ is the contract
 (`Get-OutputRoot`); the subfolders inside are ad-hoc workspaces with no fixed names. Nothing under `out/` is source. See
 [dedicated-output-directory](dedicated-output-directory.md).
 
-**Dot-prefixed roots** (`.github/`, `.vscode/`, `.claude/`, `.cspell/`, `.git/`) are infrastructure/tooling — the same convention the
-dot-prefix carries inside `automation/` (Level 2): a leading dot means "infrastructure, not content."
+**Dot-prefixed roots** (`.github/`, `.vscode/`, `.claude/`, `.cspell/`, `.go/`, `.git/`) are infrastructure/tooling — the same convention
+the dot-prefix carries inside `automation/` (Level 2): a leading dot means "infrastructure, not content."
 
 The repository _root_ is itself conventional beyond its folders: `importer.ps1` (the entry point), `.editorconfig`, `.gitattributes`,
 `.gitignore`, `.mcp.json`, `dotnet-tools.json`, `cspell.yml` (the repo-wide spell-check dictionary), and `LICENSE` each have a fixed,

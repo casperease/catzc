@@ -882,3 +882,21 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 - [Version control](../../references/dora/capabilities.md#version-control) — committed prebuilt assembly; everything-as-code principle
   enables reproducible builds.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Go test artifacts
+
+`Go test artifacts — black-box tests of the engine, never shipped`
+
+[ADR-AUTO-GO](go/test-artifacts.md)
+
+> DORA research ties delivery performance to automated tests that run on every change and that developers trust. Black-box Go tests start
+> the engine as a process, the way a user or a pipeline starts it, and run in the same test run as every other test, in both run modes, so
+> the engine's behaviour as a whole is checked before a change merges.
+
+- [Test automation](../../references/dora/capabilities.md#test-automation) — the engine is tested from outside, through the same harness,
+  tiers, and report as its Pester tests.
+- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — the same tests run against the source and the build, so
+  the artifact that ships is the one that was verified.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a generated workspace and one pinned Go version leave
+  nothing Go-specific to keep in step by hand.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

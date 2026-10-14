@@ -63,8 +63,10 @@ function Invoke-TestRun {
         [ValidateRange(0, 64)]
         [int] $Workers = 0,
 
+        # The entry point's own limit (its [TimeLimit] through Get-TimeoutSeconds -Command); no default here.
+        [Parameter(Mandatory)]
         [ValidateRange(60, 86400)]
-        [int] $TimeoutSeconds = 3600,
+        [int] $TimeoutSeconds,
 
         [ValidateSet('Minimal', 'Normal', 'Detailed', 'Diagnostic')]
         [string] $Output = 'Detailed',

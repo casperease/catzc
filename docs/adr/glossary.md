@@ -31,6 +31,8 @@ set of them.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
+  - [language zone](#language-zone): A language zone is one of the design, test, and live registers of identities; a file language is the
+    kind of text one file holds.
   - [track](#track): A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it
     lives.
 
@@ -63,6 +65,15 @@ A named repository root concern — one root folder, named by it, classified cor
     the root concern itself, one root folder.
   - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a track is the root folder
     the file lives in, and its tech-stack is a set of file languages.
+
+### verification track
+
+A test-only track — it verifies the core from outside, ships nothing, and is out of every bundle by construction; go is the first.
+
+- **Defined by:** [ADR-DSGN-TRACK#2](design/tracks.md#rule-adr-dsgn-track2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Languages/configs/glossary.yml`
+- **Kind of:** [track](#track)
 
 ## flow
 
@@ -145,6 +156,15 @@ A test's kind, logic or integrity — one mandatory tag saying whether it runs o
 | Avoid             | Say instead         |
 | ----------------- | ------------------- |
 | `integrity suite` | the integrity tests |
+
+### go test module
+
+The folder <root>/tests/<module>/ under the Go root — one Go module per catzc module, named for it in kebab case, holding its black-box Go
+tests.
+
+- **Defined by:** [ADR-AUTO-GO#2](automation/go/test-artifacts.md#rule-adr-auto-go2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Languages/configs/glossary.yml`
 
 ### phase
 
@@ -365,6 +385,8 @@ One of the three registers — design, test, live — each with its own terminol
 - **Forms:** `language zone`, `design zone`, `test zone`, `live zone`, and the bare `zone`
 - **Contrasts:**
   - [domain](#domain): An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.
+  - [file language](#file-language): A file language is the kind of text one file holds, named by its extension; a language zone is a
+    register of identities.
 
 ### layer
 

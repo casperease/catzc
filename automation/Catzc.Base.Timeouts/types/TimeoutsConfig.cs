@@ -12,12 +12,14 @@
 // tuned.
 //
 // Constructing an instance validates the file, collecting every violation into one ArgumentException:
-//   - only known keys at every level ('limits', 'executables'; devbox | pipeline; bash | pwsh; foreground |
+//   - only known keys at every level ('limits', 'executables', 'commands'; devbox | pipeline; bash | pwsh; foreground |
 //     background) — an unknown key (a typo) fails fast at load;
 //   - every limit is a positive whole number (a YAML plain integer — a quoted '10' is rejected); there is no
 //     "no limit" value, so every call runs inside a safeguard;
 //   - a bash background limit is at least its foreground limit;
-//   - 'executables' maps a bare executable name (no directory, no extension) to a positive whole number.
+//   - 'executables' maps a bare executable name (no directory, no extension) to a positive whole number;
+//   - 'commands' maps a function name (Verb-Noun) to a positive whole number — the config layer above a function's own
+//     [TimeLimit] decoration (Get-TimeoutSeconds -Command).
 
 using System;
 using System.Collections;
@@ -28,7 +30,7 @@ namespace Catzc.Base.Timeouts;
 
 public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "limits", "executables" };
+    private static readonly string[] AllowedKeys = { "limits", "executables", "commands" };
     private static readonly string[] Environments = { "devbox", "pipeline" };
     private static readonly string[] Shells = { "bash", "pwsh" };
     private static readonly string[] BashKeys = { "foreground", "background" };
@@ -37,9 +39,9 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     // nobody watches and a long build is ordinary — but still bounded.
     private static readonly Dictionary<string, int> Defaults = new Dictionary<string, int>(StringComparer.Ordinal)
     {
-        { "devbox.bash.foreground", 10 },
+        { "devbox.bash.foreground", 3 },
         { "devbox.bash.background", 360 },
-        { "devbox.pwsh", 10 },
+        { "devbox.pwsh", 3 },
         { "pipeline.bash.foreground", 600 },
         { "pipeline.bash.background", 3600 },
         { "pipeline.pwsh", 600 },
@@ -54,6 +56,9 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     // Per-executable limits in seconds, keyed by the bare executable name (case-insensitive). Empty when the file
     // declares none.
     public IReadOnlyDictionary<string, int> executables { get; }
+
+    // Per-command limits in seconds, keyed by the function name (case-insensitive). Empty when the file declares none.
+    public IReadOnlyDictionary<string, int> commands { get; }
 
     public TimeoutsConfig(IDictionary d)
     {
@@ -118,6 +123,36 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         }
         executables = perExecutable;
 
+        Dictionary<string, int> perCommand = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+        if (d != null && d.Contains("commands") && d["commands"] != null)
+        {
+            IDictionary map = d["commands"] as IDictionary;
+            if (map == null)
+            {
+                errors.Add("invalid commands (must be a map of function name to seconds)");
+            }
+            else
+            {
+                foreach (DictionaryEntry entry in map)
+                {
+                    string name = entry.Key == null ? "" : entry.Key.ToString();
+                    if (name.IndexOf('-') <= 0 || name.IndexOfAny(new[] { '/', '\\', '.', ' ' }) >= 0)
+                    {
+                        errors.Add(string.Format("invalid commands key '{0}' (a function name: Verb-Noun)", name));
+                        continue;
+                    }
+                    int? seconds = PositiveSeconds(entry.Value);
+                    if (seconds == null)
+                    {
+                        errors.Add(string.Format("invalid commands.{0} '{1}' (must be a positive whole number)", name, entry.Value));
+                        continue;
+                    }
+                    perCommand[name] = seconds.Value;
+                }
+            }
+        }
+        commands = perCommand;
+
         if (errors.Count > 0)
         {
             throw new ArgumentException("timeouts configuration validation failed:\n" + string.Join("\n", errors));
@@ -165,6 +200,13 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         string name = string.IsNullOrWhiteSpace(executable) ? "" : Path.GetFileNameWithoutExtension(executable.Trim());
         int seconds;
         return name.Length > 0 && executables.TryGetValue(name, out seconds) ? seconds : SecondsFor(environment, "pwsh", false);
+    }
+
+    // The configured limit for a command, or null when timeouts.yml has no entry for it.
+    public int? SecondsForCommand(string command)
+    {
+        int seconds;
+        return !string.IsNullOrWhiteSpace(command) && commands.TryGetValue(command.Trim(), out seconds) ? seconds : (int?)null;
     }
 
     private void ReadEnvironment(IDictionary byEnvironment, string environment, List<string> errors)

@@ -36,7 +36,8 @@
     worker dot-sources to load the modules. Empty (the
     default) is the source run's `<repo>/importer.ps1 -SkipJanitors`; the build run passes the build's
     `Import-Catzc.ps1`. Everything after the load — Pester from the code root, the shared configuration
-    builder, the row sidecar — is identical for both runs.
+    builder, the row sidecar — is identical for both runs, except that the configuration hands the entry script
+    to the Go bridge, so the Go tests start the same engine the worker loaded.
 .PARAMETER EntryParameter
     Named arguments for -EntryScript, rendered into the dot-source line as `-Name 'value'` (a $true value
     renders as a bare switch). Ignored without -EntryScript. The build run passes
@@ -106,6 +107,8 @@ function New-TestAutomationShardScript {
     $includeTagLiteral = ($IncludeTag | ForEach-Object { "'$_'" }) -join ', '
     # Single-quote literal: double any embedded quote (a FullNameFilter is prose — titles carry apostrophes).
     $filterLiteral = "$FullNameFilter" -replace "'", "''"
+    # The build run's entry also reaches the Go bridge, so the Go tests start the build (New-PesterRunConfiguration).
+    $entryLiteral = "$EntryScript" -replace "'", "''"
 
     # The Pester configuration itself comes from the ONE shared builder (New-PesterRunConfiguration) so this
     # worker path and the manual single-check path (Invoke-TestFile) can never drift apart — the worker has
@@ -121,9 +124,9 @@ Set-StrictMode -Version Latest
 Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/Pester') -Force
 `$global:__PesterRunning = `$true
 `$config = & (Get-Module Catzc.Base.QualityGates) {
-    param(`$path, `$excludeTag, `$includeTag, `$verbosity, `$resultsPath, `$fullNameFilter)
-    New-PesterRunConfiguration -Path `$path -ExcludeTag `$excludeTag -IncludeTag `$includeTag -Verbosity `$verbosity -ResultsPath `$resultsPath -FullNameFilter `$fullNameFilter
-} @($pathLiteral) @($tagLiteral) @($includeTagLiteral) '$Verbosity' '$resultsPath' '$filterLiteral'
+    param(`$path, `$excludeTag, `$includeTag, `$verbosity, `$resultsPath, `$fullNameFilter, `$entryScript)
+    New-PesterRunConfiguration -Path `$path -ExcludeTag `$excludeTag -IncludeTag `$includeTag -Verbosity `$verbosity -ResultsPath `$resultsPath -FullNameFilter `$fullNameFilter -EntryScript `$entryScript
+} @($pathLiteral) @($tagLiteral) @($includeTagLiteral) '$Verbosity' '$resultsPath' '$filterLiteral' '$entryLiteral'
 `$result = Invoke-Pester -Configuration `$config
 `$rows = & (Get-Module Catzc.Base.QualityGates) { param(`$runResult) ConvertTo-TestAutomationRowSet -Result `$runResult } `$result
 Set-Content -Path '$rowsPath' -Value (ConvertTo-Json -InputObject @(`$rows) -Depth 4) -Encoding utf8

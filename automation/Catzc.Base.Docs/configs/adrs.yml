@@ -98,7 +98,7 @@ domains:
       The catzc CLI and module system and the rules for building it: devbox/pipeline parity, one function per file, open/closed growth,
       fail-fast assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, test automation, and the
       merged, installable build.
-      Language layers live in `powershell/` and `BCL/` (native C# types), with `go/` and `python/` reserved. It turns the research,
+      Language layers live in `powershell/`, `BCL/` (native C# types), and `go/` (black-box test artifacts), with `python/` reserved. It turns the research,
       principles, process, and design domains into enforced code; the pipelines, github, and azure domains build on it.
     depends_on: [research, principles, process, design]
     rulesets:
@@ -154,6 +154,7 @@ domains:
       pester-testing: { external: ADR-AUTO-PESTER }
       prefer-dryrun-over-shouldprocess: { external: ADR-AUTO-DRYRUN, terminology: dryrun }
       native-csharp-types: { external: ADR-AUTO-TYPES }
+      test-artifacts: { external: ADR-AUTO-GO }
 
   configuration:
     code: CONF

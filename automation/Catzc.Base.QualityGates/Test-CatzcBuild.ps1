@@ -52,6 +52,7 @@
 #>
 function Test-CatzcBuild {
     [CmdletBinding()]
+    [Catzc.Base.Timeouts.TimeLimit(360, Pipeline = 3600)]
     param(
         [ArgumentCompleter({ Get-AutomationModules })]
         [string[]] $Module = @(),
@@ -118,7 +119,7 @@ function Test-CatzcBuild {
 
         $summary = Invoke-TestRun -EntryPoint 'Test-CatzcBuild' -Title 'Catzc Build Run' `
             -MinLevel $MinLevel -MaxLevel $MaxLevel -Modules $testedModules -Category $Category -Workers $Workers `
-            -Output $Output -PassThru:$PassThru -OptOutTag 'source-only' `
+            -Output $Output -PassThru:$PassThru -OptOutTag 'source-only' -TimeoutSeconds (Get-TimeoutSeconds -Command 'Test-CatzcBuild') `
             -EntryScript $entryScript -EntryParameter @{ RepositoryRoot = (Get-RepositoryRoot) }
 
         if ($PassThru) {

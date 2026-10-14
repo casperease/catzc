@@ -16,6 +16,7 @@ a check.
 | 5   | L2   | automation/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1 | Get-ScriptAnalyzerDiagnostics (real vendored analyzer)  | The analysis engine imports the vendored PSScriptAnalyzer from the active code root and reports real diagnostics.                                       |
 | 6   | L2   | automation/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1           | Test-ScriptAnalyzer (real analyzer)                     | The analyzer quality gate runs the vendored PSScriptAnalyzer with the shipped settings from the active code root.                                       |
 | 7   | L2   | automation/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1               | Repository formatting integrity                         | The repository's Markdown, in-scope PowerShell, and C# type namespaces are formatted (Test-Formatting reports none).                                    |
+| 8   | L1   | automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1     | TimeoutSeconds defaults come from the time safeguard    | No shipped function defaults a `-TimeoutSeconds` parameter to a number literal; long-running functions declare `[TimeLimit]` (ADR-AUTO-FAILFAST#8).     |
 
 ## Checks
 

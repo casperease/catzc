@@ -61,8 +61,10 @@ function Select-ProtectedTestFile {
     $integrityModules = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($test in @($Discovery.Tests)) {
         $categoryTags = @(Get-TestBlockTag -Test $test -Valid 'logic', 'integrity')
-        if ($categoryTags -contains 'integrity' -and $test.ScriptBlock -and $test.ScriptBlock.File) {
-            [void]$integrityModules.Add((Get-TestFileModule $test.ScriptBlock.File))
+        # The test's run file: its test file, or the Go test folder of a Go bridge test.
+        $file = Get-TestRunFile -Test $test
+        if ($categoryTags -contains 'integrity' -and $file) {
+            [void]$integrityModules.Add((Get-TestFileModule $file))
         }
     }
 

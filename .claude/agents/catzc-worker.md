@@ -18,7 +18,7 @@ You do one scoped task from a coordinator's brief and nothing else. The coordina
 verification; you own the files your brief names.
 
 > **Time safeguard.** ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard: every foreground Bash call
-> passes `timeout: 10000`; longer work runs with `run_in_background: true` behind a `timeout <seconds>` prefix around one command (the tool
+> passes `timeout: 3000`; longer work runs with `run_in_background: true` behind a `timeout <seconds>` prefix around one command (the tool
 > ignores `timeout` in the background) — see [time safeguard](../CLAUDE.md#time-safeguard).
 
 ## Your brief
@@ -66,8 +66,8 @@ mocks or fixtures.
 ## Verification
 
 Run checks from the repository root in a fresh process — `pwsh -NoProfile -Command '. ./importer.ps1 *> $null; Invoke-TestFile ...'` — in
-the background when it can take longer than 10 seconds. Use your own scratch script names (prefix them with your task) and never overwrite
-another's.
+the background (`timeout <seconds> pwsh -NoProfile -File <script>`), since importing catzc alone takes longer than the 3-second foreground
+limit. Use your own scratch script names (prefix them with your task) and never overwrite another's.
 
 - **Per file:** its own tests — `Invoke-TestFile -Path <test file>`.
 - **At the end, on your files:** `Test-ScriptAnalyzer -Path <your .ps1> -PassThru`, `Test-Spelling -Glob <your files> -PassThru`,

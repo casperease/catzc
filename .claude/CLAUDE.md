@@ -91,12 +91,12 @@ registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/
 
 - **ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard** (`ADR-AUTO-FAILFAST#7`,
   [fail-fast-with-asserts](../docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)). Every Bash tool call — the main
-  session and every subagent — passes `timeout: 10000` (at most `limits.devbox.bash.foreground` in
-  `automation/Catzc.Base.Timeouts/configs/timeouts.yml`, currently 10 s on a devbox). Longer work runs with `run_in_background: true`
-  **and** starts with a GNU `timeout <seconds>` prefix around **one** command (at most `limits.devbox.bash.background`, currently 360 s):
-  the Bash tool ignores its `timeout` parameter for background calls, so the prefix is the only bound. No `cd … &&`, pipes or `;` in a
-  background call — use absolute paths, or put multi-step work in a script under `out/`; exit 124 means the safeguard stopped it. The
-  PreToolUse hook `.claude/hooks/Assert-BashTimeout/` (a C# program the importer publishes) denies any call that breaks this, and logs it to
+  session and every subagent — passes `timeout: 3000` (at most `limits.devbox.bash.foreground` in
+  `automation/Catzc.Base.Timeouts/configs/timeouts.yml`, currently 3 s on a devbox). Longer work runs with `run_in_background: true` **and**
+  starts with a GNU `timeout <seconds>` prefix around **one** command (at most `limits.devbox.bash.background`, currently 360 s): the Bash
+  tool ignores its `timeout` parameter for background calls, so the prefix is the only bound. No `cd … &&`, pipes or `;` in a background
+  call — use absolute paths, or put multi-step work in a script under `out/`; exit 124 means the safeguard stopped it. The PreToolUse hook
+  `.claude/hooks/Assert-BashTimeout/` (a C# program the importer publishes) denies any call that breaks this, and logs it to
   `out/time-safeguard.log`. In code, bound work with `Invoke-WithTimeout` / `Assert-CompletesWithin` / `Test-CompletesWithin`;
   `Invoke-Executable` already kills a process past its executable's limit. The limits are tight on purpose while blockers are tuned
   together: a call that legitimately needs longer goes to the background, gets a `timeouts.yml` entry, or carries a `-Budget` GUID exempted

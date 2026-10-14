@@ -16,6 +16,42 @@ Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo' }
         Mock Get-ModuleTestOrder -ModuleName Catzc.Base.QualityGates { @('Catzc.Widget', 'Catzc.Gizmo', 'Catzc.Gadget') }
+        Mock Get-GoTestFolders -ModuleName Catzc.Base.QualityGates {}
+    }
+
+    Context 'with Go test folders' {
+        BeforeAll {
+            $script:widgetGo = Join-Path $TestDrive 'repo/go/tests/catzc-widget'
+            $script:gizmoGo = Join-Path $TestDrive 'repo/go/tests/catzc-gizmo'
+        }
+
+        BeforeEach {
+            Mock Get-GoTestFolders -ModuleName Catzc.Base.QualityGates {
+                [pscustomobject]@{ Module = 'Catzc.Gizmo'; Folder = $script:gizmoGo; Name = 'catzc-gizmo' }
+                [pscustomobject]@{ Module = 'Catzc.Widget'; Folder = $script:widgetGo; Name = 'catzc-widget' }
+            }
+        }
+
+        It 'puts a module''s Go test folder after its tests folder, and includes a module with Go tests only' {
+            $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
+            $paths | Should -Be @((Get-FixtureTests 'Catzc.Widget'), $script:widgetGo, $script:gizmoGo, (Get-FixtureTests 'Catzc.Gadget'), (Get-FixtureTests '.internal'))
+        }
+
+        It 'narrows the Go test folders to the named modules' {
+            $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths -Modules 'Catzc.Gizmo', 'Catzc.Gadget' })
+            $paths | Should -Be @($script:gizmoGo, (Get-FixtureTests 'Catzc.Gadget'))
+        }
+
+        It 'keeps the Go test folders with their modules in the ordinal fallback order' {
+            Mock Get-ModuleTestOrder -ModuleName Catzc.Base.QualityGates { throw 'Cycle in the widget graph' }
+            $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
+            $paths | Should -Be @((Get-FixtureTests 'Catzc.Gadget'), $script:gizmoGo, (Get-FixtureTests 'Catzc.Widget'), $script:widgetGo, (Get-FixtureTests '.internal'))
+        }
+
+        It 'throws when a Go test folder matches no catzc module' {
+            Mock Get-GoTestFolders -ModuleName Catzc.Base.QualityGates { throw 'Go test folder(s) matching no catzc module: go/tests/catzc-sprocket/.' }
+            { InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths } } | Should -Throw '*go/tests/catzc-sprocket/*'
+        }
     }
 
     It 'returns the existing tests folders in dependency order, dot-prefixed infrastructure last' {

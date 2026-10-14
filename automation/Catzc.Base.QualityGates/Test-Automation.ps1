@@ -48,7 +48,9 @@
     phase always runs one worker, after the parallel shards complete.
 .PARAMETER TimeoutSeconds
     Hard ceiling on each execution phase (the parallel pool, then the serial phase). On expiry every worker
-    is killed and the run throws. Defaults to 3600.
+    is killed and the run throws. Defaults to this function's [TimeLimit] (360 s on a devbox, where a full run takes
+    about 250 s; 3600 s in a pipeline), unless timeouts.yml overrides it
+    ([ADR-AUTO-FAILFAST#8](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast8)).
 .PARAMETER Output
     Pester output verbosity level inside each worker. Defaults to 'Detailed' (one line per test with its
     own duration); use 'Normal' for one line per file, or 'Minimal' for just the final tally.
@@ -117,6 +119,7 @@
 #>
 function Test-Automation {
     [CmdletBinding()]
+    [Catzc.Base.Timeouts.TimeLimit(360, Pipeline = 3600)]
     param(
         [ValidateSet(0, 1, 2, 3)]
         [int] $MinLevel = 0,
@@ -136,7 +139,7 @@ function Test-Automation {
         [int] $Workers = 0,
 
         [ValidateRange(60, 86400)]
-        [int] $TimeoutSeconds = 3600,
+        [int] $TimeoutSeconds = (Get-TimeoutSeconds -Command 'Test-Automation'),
 
         [ValidateSet('Minimal', 'Normal', 'Detailed', 'Diagnostic')]
         [string] $Output = 'Detailed',

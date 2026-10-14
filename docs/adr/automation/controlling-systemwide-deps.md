@@ -14,15 +14,16 @@ allowlist of base tools (git, vscode) deliberately tracks `latest` and verifies 
 ### Rule ADR-AUTO-DEPS:2
 
 Provide one `Install-*` / `Invoke-*` / `Uninstall-*` triad per tool. The installer handles platform differences, the invoker asserts version
-and presence, the uninstaller cleans up. An OS-provided prerequisite is the exception (Rule ADR-AUTO-DEPS#8): it is asserted, never
-installed, so it has no triad.
+and presence, the uninstaller cleans up. A platform-provided prerequisite is the exception (Rule ADR-AUTO-DEPS#8): it is asserted, never
+installed by its own entry, so it has no triad.
 
 - [2. Platform-aware installers](#2-platform-aware-installers)
 
 ### Rule ADR-AUTO-DEPS:3
 
 Assert before every invocation. `Assert-Tool` runs `Assert-Command` and `Assert-ToolVersion` (presence and version only) before every
-external tool call; it does not resolve `depends_on`.
+external tool call — or, for a tool whose entry declares candidate paths, the fast, timed existence check (`Resolve-ToolExecutable`), which
+probes those paths and PATH before starting any process; it does not resolve `depends_on`.
 
 - [3. Assert at runtime](#3-assert-at-runtime)
 
@@ -60,13 +61,14 @@ split: `ADR-AUTO-DEPS` (SYS = system) and `ADR-AUTO-DEPM` (MOD = module). This A
 
 ### Rule ADR-AUTO-DEPS:8
 
-An OS-provided prerequisite is asserted, never installed. A tool the operating system supplies — winget (the Windows App Installer) —
-carries `system_provided: true`: the toolchain asserts it is present and keeps it on PATH through `session_path_hints`, but has no
-`Install-*` / `Uninstall-*` triad. `windows_only: true` marks a tool that exists only on Windows, skipped by the provisioning and status
-loops on other platforms. Tools that install through it declare `depends_on: winget`, so `Get-ToolInstallOrder` orders it first and a
-missing prerequisite fails fast.
+A platform-provided prerequisite is asserted, never installed by its own entry. "Provided by the platform" means the operating system —
+winget (the Windows App Installer), `/bin/bash` on Linux — or a base tool the devbox installs unpinned: git, and Git Bash with it, which is
+`bash` on Windows. Such a tool carries `system_provided: true`: the toolchain asserts it is present (keeping it on PATH through
+`session_path_hints` where it declares them), but its entry has no `Install-*` / `Uninstall-*` triad. `windows_only: true` marks a tool that
+exists only on Windows, skipped by the provisioning and status loops on other platforms. Tools that install through one declare `depends_on`
+on it (`depends_on: winget`), so `Get-ToolInstallOrder` orders it first and a missing prerequisite fails fast.
 
-- [3d. OS-provided prerequisites](#3d-os-provided-prerequisites)
+- [3d. Platform-provided prerequisites](#3d-platform-provided-prerequisites)
 
 ## Context
 
@@ -134,7 +136,7 @@ tool:
   install-dir fields like `windows_install_dir`.
 - **uv-managed Python family** — Python itself and the CLIs written in Python (the Azure CLI, Poetry, PySpark) install user-space through
   uv, keyed by `uv_python` / `uv_tool` / `pip_package`; see [uv-python-handler](uv-python-handler.md) (`ADR-AUTO-UVPY`).
-- **OS-provided prerequisites** (e.g. `winget`) set `system_provided: true` — asserted and kept on PATH, never installed (Rule
+- **platform-provided prerequisites** (`winget`, `bash`) set `system_provided: true` — asserted, never installed by their own entry (Rule
   ADR-AUTO-DEPS#8).
 
 All entries share `version`, `command`, `version_command`, and `version_pattern` — the fields used for version-locking and runtime
@@ -169,6 +171,17 @@ missing or at the wrong version, the error says so directly ("python is not inst
 
 Version checks are cached per session — the first `Invoke-Python` call validates, subsequent calls skip the check.
 
+A tool whose entry declares candidate paths is located by the existence check instead of by its bare name on PATH: `Resolve-ToolExecutable`
+reads the entry and hands its inputs to `Find-Executable` (both in `Catzc.Base.Execution`, so a module below the Tooling layer locates a
+tool the same way). The check is fast first: it probes the candidate paths, then PATH, with file checks only and no process start. Only a
+located executable is run, once, to confirm its version, and that result is cached for the session per executable, so a reinstall or an
+upgrade is seen on the next call. Both steps are timed, and the record — tool, found, path, method, version, required, `ProbeMs`,
+`VersionMs`, and the session actor — is what `Test-Tool -PassThru` returns and `Write-ToolProbeReport` prints. The candidates are declared
+once per tool in `tools.yml`, as separate lists for a devbox and a pipeline on each platform: a devbox prefers a user-scope install (for
+`bash` on Windows, a user-scope Git for Windows before the machine-wide one), a pipeline reads the hosted agent's locations, and
+`probe_excludes` names paths that never count — the WSL launcher, which answers to `bash` on Windows but is not Bash. A caller that must run
+the managed executable runs it by the path the check returns, never by its bare name.
+
 #### 3c. Devbox version lever
 
 `3c. Devbox version lever (local-only relaxation)`
@@ -200,18 +213,23 @@ share `Install-UvTool` / `Uninstall-UvTool`; a library installed into the interp
 `Install-PipTool` / `Uninstall-PipTool` — both run through `Invoke-Uv`, which asserts `uv` is present, and both parallel `Install-Tool` /
 `Uninstall-Tool` for platform package managers.
 
-#### 3d. OS-provided prerequisites
+#### 3d. Platform-provided prerequisites
 
-Some tools the toolchain never installs — the operating system supplies them, and the toolchain only asserts and locates them. winget (the
-Windows App Installer) is the example: it is the platform package manager the winget-based installs run against, so it cannot itself be a
-winget install. Such a tool is declared with `system_provided: true` (and `windows_only: true`, since winget exists only on Windows). It is
-a prerequisite, not a target:
+Some tools the toolchain never installs through their own entry — the platform provides them, and the toolchain only asserts and locates
+them. The platform is the operating system, or a base tool the devbox installs unpinned. winget (the Windows App Installer) is the first
+kind: it is the platform package manager the winget-based installs run against, so it cannot itself be a winget install. `bash` is both
+kinds: Linux ships it as `/bin/bash`, and on Windows it is Git Bash, which arrives with git — a base tool `Install-Git` installs at its
+latest release (Rule ADR-AUTO-DEPS#1), user-space on Windows. A second installer for Git Bash would be a second owner of git. Such a tool is
+declared with `system_provided: true` (and `windows_only: true` for winget, which exists only on Windows). It is a prerequisite, not a
+target:
 
-- `Install-DevBoxTools` **asserts** it is present — with a clear message to install it (App Installer from the Microsoft Store) when it is
-  missing — rather than installing it, and it has no `Install-*` / `Uninstall-*` triad.
+- `Install-DevBoxTools` **asserts** it is present — with a clear message naming its remedy when it is missing (App Installer from the
+  Microsoft Store for winget, `Install-Git` for Git Bash) — rather than installing it, and its entry has no `Install-*` / `Uninstall-*`
+  triad.
 - `Get-ToolsStatus` reports its manager as `system`, and the session janitor never flags it as foreign.
-- It is kept resolvable by `session_path_hints`: the janitor re-adds its directory to PATH on every load, so a dropped
-  `%LOCALAPPDATA%\Microsoft\WindowsApps` self-heals without a manual fix.
+- It stays resolvable: winget by `session_path_hints`, which the janitor re-adds to PATH on every load, so a dropped
+  `%LOCALAPPDATA%\Microsoft\WindowsApps` self-heals without a manual fix; `bash` by its candidate paths, through the existence check (#3),
+  so a PATH that leads to the WSL launcher never answers for it.
 
 The winget-based tools (`node_js`, `java`, `terraform`, and uv's fresh bootstrap) declare `depends_on: winget`, so it is ordered and
 asserted before anything that needs it.

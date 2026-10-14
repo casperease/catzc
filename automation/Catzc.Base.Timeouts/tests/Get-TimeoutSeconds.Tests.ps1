@@ -77,4 +77,67 @@ Describe 'Get-TimeoutSeconds' -Tag 'L0', 'logic' {
             Get-TimeoutSeconds -Shell Bash -Background -Budget $widgetBudget | Should -Be 70
         }
     }
+
+    # A function's own limit, most specific first: exemption, commands entry, decoration, environment default.
+    Context '-Command' -Tag 'ADR-AUTO-FAILFAST#8' {
+        BeforeAll {
+            $script:gizmoBudget = 'c0ffee00-0000-0000-0000-' + '000000000000'
+            $budget = $script:gizmoBudget
+            function global:Sync-Widget {
+                [CmdletBinding()]
+                [Catzc.Base.Timeouts.TimeLimit(120, Pipeline = 900)]
+                param()
+            }
+            function global:Sync-Gadget {
+                [CmdletBinding()]
+                param()
+            }
+            # The decoration's arguments are constants, so the budgeted function's body is built from text.
+            $gizmo = [scriptblock]::Create("[CmdletBinding()] [Catzc.Base.Timeouts.TimeLimit(120, Budget = '$budget')] param()")
+            Set-Item -Path Function:\global:Sync-Gizmo -Value $gizmo
+        }
+
+        AfterAll {
+            Remove-Item Function:\Sync-Widget, Function:\Sync-Gadget, Function:\Sync-Gizmo -ErrorAction Ignore
+        }
+
+        BeforeEach {
+            Mock Get-TimeoutExemption -ModuleName Catzc.Base.Timeouts { }
+        }
+
+        It 'returns the decoration for this environment' {
+            Get-TimeoutSeconds -Command Sync-Widget | Should -Be 120
+            Mock Get-RunEnvironment -ModuleName Catzc.Base.Timeouts { 'Pipeline' }
+            Get-TimeoutSeconds -Command Sync-Widget | Should -Be 900
+        }
+
+        It 'lets a commands entry in timeouts.yml override the decoration' {
+            Mock Get-Config -ModuleName Catzc.Base.Timeouts -ParameterFilter { $Config -eq 'timeouts' } {
+                [Catzc.Base.Timeouts.TimeoutsConfig]::new([ordered]@{ commands = @{ 'Sync-Widget' = 45 } })
+            }
+            Get-TimeoutSeconds -Command Sync-Widget | Should -Be 45
+        }
+
+        It "falls back to the environment's pwsh limit for an undecorated function" {
+            Get-TimeoutSeconds -Command Sync-Gadget | Should -Be 8
+        }
+
+        It "raises the limit to the exemption ceiling while the decoration's budget is exempt, never lowering it" {
+            Mock Get-TimeoutExemption -ModuleName Catzc.Base.Timeouts { @{ reason = 'tuning' } }
+            Mock Get-Config -ModuleName Catzc.Base.Timeouts -ParameterFilter { $Config -eq 'timeout-exemptions' } {
+                [Catzc.Base.Timeouts.TimeoutExemptionsConfig]::new([ordered]@{ ceiling = @{ devbox = @{ pwsh = 300; bash = 50 } } })
+            }
+            Get-TimeoutSeconds -Command Sync-Gizmo | Should -Be 300
+            Should -Invoke Get-TimeoutExemption -ModuleName Catzc.Base.Timeouts -Times 1 -Exactly -ParameterFilter { "$Budget" -eq $script:gizmoBudget }
+        }
+
+        It 'does not ask about an exemption for a function without a budget' {
+            Get-TimeoutSeconds -Command Sync-Widget | Out-Null
+            Should -Invoke Get-TimeoutExemption -ModuleName Catzc.Base.Timeouts -Times 0
+        }
+
+        It 'throws for a function that is not loaded' {
+            { Get-TimeoutSeconds -Command Sync-Nothing } | Should -Throw "*no loaded function named 'Sync-Nothing'*"
+        }
+    }
 }

@@ -94,7 +94,7 @@ function Get-TestTagViolations {
         if ($reasons) {
             [pscustomobject]@{
                 Test   = $test.ExpandedName
-                File   = $test.ScriptBlock.File
+                File   = Get-TestRunFile -Test $test
                 Reason = $reasons -join '; '
             }
         }

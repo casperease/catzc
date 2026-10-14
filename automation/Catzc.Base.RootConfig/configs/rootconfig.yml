@@ -52,6 +52,14 @@ files:
   - target: .vscode/azure-pipelines-schema.json
     generator: New-VSCodePipelineSchema
     optIn: true
+  # The Go test workspace (Catzc.Base.Languages, New-GoWorkspace): go.work at the repository root, and one go.mod
+  # per Go test module under the Go root (go.yml `root`: go/ when present, else .go/). Gitignored generated copies.
+  - target: go.work
+    generator: New-GoWorkspace
+    optIn: true
+  - target: '*/tests/*/go.mod'
+    generator: New-GoWorkspace
+    optIn: true
   - target: .vscode/markdown-preview-dark.css
     source: automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css
     copyAsLink: true

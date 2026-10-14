@@ -14,7 +14,8 @@
     [pscustomobject] rows: ExpandedPath, ExpandedName, Result, DurationMs, Level, Category, Rules, File, Line,
     ErrorMessage, ErrorStack, SkipReason. Rules is the ';'-joined ADR provenance citations (Get-TestRuleTags),
     '' when the test carries none — resolved in-worker like Level/Category because the .Block chain does not
-    survive the process boundary.
+    survive the process boundary. File is the test's run file (Get-TestRunFile): its test file, or for a Go bridge
+    test its Go test folder, with Line 0.
 #>
 function ConvertTo-TestAutomationRowSet {
     [CmdletBinding()]
@@ -39,10 +40,10 @@ function ConvertTo-TestAutomationRowSet {
             $skipReason = Get-TestSkipReason -Test $test
         }
 
-        $file = ''
+        # The test's run file: its test file, or the Go test folder of a Go bridge test, which has no line of its own.
+        $file = Get-TestRunFile -Test $test
         $line = 0
-        if ($test.ScriptBlock) {
-            $file = "$($test.ScriptBlock.File)"
+        if ($test.ScriptBlock -and $file -eq "$($test.ScriptBlock.File)") {
             $line = [int]$test.ScriptBlock.StartPosition.StartLine
         }
 

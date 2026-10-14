@@ -85,8 +85,10 @@ function Invoke-TestAutomationWorkers {
         [ValidateRange(0, 64)]
         [int] $Workers = 0,
 
+        # The entry point's own limit, passed down by Invoke-TestRun; no default here.
+        [Parameter(Mandatory)]
         [ValidateRange(60, 86400)]
-        [int] $TimeoutSeconds = 3600,
+        [int] $TimeoutSeconds,
 
         [hashtable] $WorkerEnvironment,
 

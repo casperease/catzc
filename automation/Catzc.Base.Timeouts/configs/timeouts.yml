@@ -14,6 +14,12 @@
 #     <devbox|pipeline>:
 #       bash: { foreground: <s>, background: <s> }   # the hook's limits for a Claude/agent Bash call
 #       pwsh: <s>                                    # Invoke-WithTimeout and Invoke-Executable without an entry
+#   commands:
+#     <Verb-Noun>: <s>                               # overrides a function's own [TimeLimit] decoration
+#
+# A function whose work is long by nature declares its limit beside its code, as a [Catzc.Base.Timeouts.TimeLimit]
+# attribute; Get-TimeoutSeconds -Command resolves an exemption, then `commands`, then the decoration, then the
+# environment's pwsh limit ([ADR-AUTO-FAILFAST#8](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast8)).
 #
 # Every key is optional: the sensible defaults are declared once, on TimeoutsConfig, so this file states only what
 # has been tuned. The devbox defaults are deliberately tight while the blockers are tuned: a call that

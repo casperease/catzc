@@ -100,6 +100,16 @@ picture must be **simple**. A diagram that is only true to the ADR prose is not 
 The maker's reply gives: the path, the title, the claim counts (confirmed / contradicted / ADR-only), each contradiction in one line, and
 what was cut.
 
+Lessons from wave 4:
+
+- **Run the ADR's own example when it's cheap.** Reading `Get-ConfigValue` passed, but running the ADR's example address threw (a typed
+  `Dictionary` has no `Contains`). Run probes in the background behind `timeout <s>`, from a script in your own output folder.
+- **Every title is ≤ 100 characters on one line**, not only fan-out drawings. Shorten the brief's draft title when you have to, and say so.
+- **Check the result colour.** A fail-open "proceed" result isn't a pipeline/runner, so don't borrow `#fff2cc` for it. Use the neutral grey
+  unless the palette has a role for it.
+- **The time-safeguard limit can change mid-wave.** If the hook denies a call, its message names the current limit. Report the denial,
+  and never retry with a larger limit.
+
 ## Lens variants (one diagram, five simplifications)
 
 A lens split redraws one diagram as five variants. Each variant is simplified toward one lens. All five **keep the source's flow axis**: the

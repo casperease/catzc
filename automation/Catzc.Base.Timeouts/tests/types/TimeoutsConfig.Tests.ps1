@@ -16,9 +16,9 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
 
         It 'resolves the sensible defaults for every environment and shell from an empty config' {
             $config = New-TimeoutsConfig ([ordered]@{})
-            $config.SecondsFor('Devbox', 'Bash', $false) | Should -Be 10
+            $config.SecondsFor('Devbox', 'Bash', $false) | Should -Be 3
             $config.SecondsFor('Devbox', 'Bash', $true) | Should -Be 360
-            $config.SecondsFor('Devbox', 'Pwsh', $false) | Should -Be 10
+            $config.SecondsFor('Devbox', 'Pwsh', $false) | Should -Be 3
             $config.SecondsFor('Pipeline', 'Bash', $false) | Should -Be 600
             $config.SecondsFor('Pipeline', 'Bash', $true) | Should -Be 3600
             $config.SecondsFor('Pipeline', 'Pwsh', $false) | Should -Be 600
@@ -26,14 +26,14 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
         }
 
         It 'resolves the defaults from a null config' {
-            (New-TimeoutsConfig $null).SecondsFor('devbox', 'bash', $false) | Should -Be 10
+            (New-TimeoutsConfig $null).SecondsFor('devbox', 'bash', $false) | Should -Be 3
         }
 
         It 'overrides one cell and keeps the defaults of the others' {
             $config = New-TimeoutsConfig ([ordered]@{ limits = @{ devbox = @{ bash = @{ foreground = 15 } } } })
             $config.SecondsFor('Devbox', 'Bash', $false) | Should -Be 15
             $config.SecondsFor('Devbox', 'Bash', $true) | Should -Be 360
-            $config.SecondsFor('Devbox', 'Pwsh', $false) | Should -Be 10
+            $config.SecondsFor('Devbox', 'Pwsh', $false) | Should -Be 3
             $config.SecondsFor('Pipeline', 'Bash', $false) | Should -Be 600
         }
 
@@ -108,6 +108,19 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*unknown key 'nope'*"
             $err.Exception.Message | Should -BeLike "*invalid limits.devbox.pwsh '0'*"
             $err.Exception.Message | Should -BeLike "*invalid executables.widget '0'*"
+        }
+
+        It 'reads per-command limits, case-insensitively, and answers null for a command without one' -Tag 'ADR-AUTO-FAILFAST#8' {
+            $config = New-TimeoutsConfig ([ordered]@{ commands = @{ 'Sync-Widget' = 45 } })
+            $config.SecondsForCommand('sync-widget') | Should -Be 45
+            $config.SecondsForCommand('Sync-Gadget') | Should -BeNullOrEmpty
+            (New-TimeoutsConfig ([ordered]@{})).commands.Count | Should -Be 0
+        }
+
+        It 'rejects a commands key that is not a function name, and a limit that is not a positive whole number' {
+            $err = { New-TimeoutsConfig ([ordered]@{ commands = @{ widget = 45; 'Sync-Gadget' = 0 } }) } | Should -Throw -PassThru
+            $err.Exception.Message | Should -BeLike "*invalid commands key 'widget' (a function name: Verb-Noun)*"
+            $err.Exception.Message | Should -BeLike "*invalid commands.Sync-Gadget '0'*"
         }
     }
 }
