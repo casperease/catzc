@@ -22,6 +22,7 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 | 11  | L0   | automation/Catzc.Base.Languages/tests/types/GoConfig.Tests.ps1               | integrity (shipped go.yml)                             | The shipped go.yml loads through `GoConfig`.                                                                                                           |
 | 12  | L0   | automation/Catzc.Base.Timeouts/tests/types/TimeoutExemptionsConfig.Tests.ps1 | integrity (shipped timeout-exemptions.yml)             | The shipped timeout-exemptions.yml loads through `TimeoutExemptionsConfig`, and every GUID it names is a registered budget.                            |
 | 13  | L1   | automation/Catzc.Base.TypesSystem/tests/Build-BashTimeoutHook.Tests.ps1      | Build-BashTimeoutHook — parity with Get-TimeoutSeconds | The published Bash hook, reading the shipped timeouts.yml, allows exactly the foreground and background limits `Get-TimeoutSeconds` resolves.          |
+| 14 | L0 | automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1 | integrity (shipped languages.yml) | The shipped languages.yml loads through `LanguagesConfig`. |
 
 ## Checks
 

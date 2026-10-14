@@ -43,4 +43,8 @@ languages:
     extensions: [.go]
     adr_folder: automation/go
   xml:
-    extensions: [.ps1xml, .xml, .xsd, .dtd]
+    extensions: [.ps1xml, .xml, .xsd, .dtd, .csproj]
+  html:
+    extensions: [.html]
+  asset:
+    extensions: [.png, .pdf]

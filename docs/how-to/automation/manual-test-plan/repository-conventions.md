@@ -16,6 +16,7 @@ Folder, file, and naming conventions, the repository path helpers, the git index
 | 5   | L1   | automation/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1      | Repository guid integrity                                         | Every GUID literal in tracked text is registered in guids.yml, and every registry entry is live (referenced by a tracked file). |
 | 6   | L2   | automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1   | Checked-in binaries are stored as binary, not text                | Checked-in binaries have binary EOL handling + explicit `.gitattributes`.                                                       |
 | 7   | L2   | automation/Catzc.Base.Files/tests/Get-GitTrackedPath.Tests.ps1              | Get-GitTrackedPath (real git)                                     | The in-process git index reader answers exactly what `git ls-files` prints for this repository, whole and pathspec-limited.     |
+| 8 | L1 | automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1 | Get-FileLanguage — the real repository | Every root folder git tracks a file under is a declared track, each track's file languages are registered, and every live file of a track is in one of its declared file languages (ADR-DSGN-TRACK#3, #6). |
 
 ## Checks
 
