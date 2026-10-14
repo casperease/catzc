@@ -42,7 +42,8 @@ platform change is a new draft in its unit's `0.0.0`, never an old version kept 
 Contracts are **binding**, proven by tests: the owning module verifies that the repository honours every asset of its unit's current version
 folder, and the provided assets of every released version folder still in the tree — released folders are the pin record, so retiring a
 version means deleting its folder. The depended-on assets of an older release are not re-checked: they follow their platform
-(ADR-REPO-CONTRACT#3). A change that breaks a contract fails CI here, not a consumer or a platform in production. This is what makes "kept for back-compat" a guarantee rather than a hope.
+(ADR-REPO-CONTRACT#3). A change that breaks a contract fails CI here, not a consumer or a platform in production. This is what makes "kept
+for back-compat" a guarantee rather than a hope.
 
 - [Binding, by contract testing](#binding-by-contract-testing)
 - [How this is enforced](#how-this-is-enforced)
@@ -149,9 +150,9 @@ contracts/
 Backwards compatibility buys a grace period for consumers who cannot change in lockstep with the producer. Internally there are none, so
 internally it is rejected. At the provided boundary there genuinely are, so a released provided contract stays live while a consumer pins
 that version of its unit. There is no separate pin list: a released folder in the tree is pinned, and deleting it is the reviewed
-retirement. The cost (a maintained old version folder) buys something real: it is the difference between an external consumer
-that keeps working and one that breaks. Retirement is deliberate and evidence-based — a version folder goes away when no consumer pins it —
-not on a guessed-at calendar.
+retirement. The cost (a maintained old version folder) buys something real: it is the difference between an external consumer that keeps
+working and one that breaks. Retirement is deliberate and evidence-based — a version folder goes away when no consumer pins it — not on a
+guessed-at calendar.
 
 A depended-on contract owes no grace period, because its outside party pins no version of the unit; it reads the files as they are. When the
 platform changes what it expects, the only useful contract is the new expectation, so the change is made in the unit's draft and released
@@ -248,12 +249,12 @@ follows one living version.
 ### How this is enforced
 
 - **`Catzc.Base.Contracts`** owns the mechanism: it enumerates `contracts/<unit>/<version>/**`, derives each asset's kind, direction, owning
-  module, and target from the name and `contract.yml`, and runs the kind's check against the real tree as a quality gate
-  (`Test-Contracts`). One data-driven L1 test file generates a test per binding asset from the same enumeration, so `Test-Automation`
-  covers every contract with no hand-written test.
+  module, and target from the name and `contract.yml`, and runs the kind's check against the real tree as a quality gate (`Test-Contracts`).
+  One data-driven L1 test file generates a test per binding asset from the same enumeration, so `Test-Automation` covers every contract with
+  no hand-written test.
 
-- **The frozen-folder test** compares each released version folder with the `.frozen` record `Publish-ContractRelease` wrote at release,
-  and fails on any file changed, added, or removed (ADR-REPO-CONTRACT#5).
+- **The frozen-folder test** compares each released version folder with the `.frozen` record `Publish-ContractRelease` wrote at release, and
+  fails on any file changed, added, or removed (ADR-REPO-CONTRACT#5).
 
 - **`.gitattributes`** marks every file in a version folder `catzc-contract`
   ([ADR-REPO-ROOTCFG#1](generated-root-configs.md#rule-adr-repo-rootcfg1)), so the link and Markdown-title tools leave an asset as written:
