@@ -16,6 +16,7 @@ itself is a managed, committed root file written by [Catzc.Base.RootConfig](catz
 | responsibility:1 | render   | [Gitignore rendering](#responsibility1--gitignore-rendering)   |
 | responsibility:2 | registry | [The section registry](#responsibility2--the-section-registry) |
 | responsibility:3 | snapshot | [Repository snapshots](#responsibility3--repository-snapshots) |
+| responsibility:4 | read     | [Reading git](#responsibility4--reading-git)                   |
 
 ### responsibility:1 — Gitignore rendering
 
@@ -43,11 +44,21 @@ for line, and throws (removing the half-built copy) on any difference. Ignored c
 snapshot's `.git` folder lets `Remove-RepositorySnapshot` refuse anything that is not a snapshot. The test harness runs a concurrent run in
 one (see [test-automation](../../adr/automation/test-automation.md#rule-adr-auto-test32)).
 
+### responsibility:4 — Reading git
+
+Answering questions about a repository without starting git where its format is small, and with a single git process where it is not
+([tracked-files-from-the-index](../../adr/automation/tracked-files-from-the-index.md)). The index reader lists tracked files from
+`.git/index`. The refs reader finds a checkout's git directory (a linked worktree included), resolves `HEAD`, branches and tags from the ref
+files, and names the current branch. The history scan hunts a token through every commit message, path and distinct file content a ref
+reaches, reading each object once from one `git cat-file` stream. These are types the rest of the platform reads through: the tracked-file
+seam and the branch and commit getters in [Catzc.Base.Files](catzc-base-files.md), the snapshot above, and the token scan in
+[Catzc.Tooling.Github](catzc-tooling-github.md). Writing git stays with the git CLI.
+
 ## What the module does
 
-The module is small and single-purpose: it makes the repository's ignore rules a reviewed, explained artifact instead of an accreted one.
-Every rule in the generated `.gitignore` sits under a heading and a rationale, so "why is this ignored?" is answered in the file itself, and
-adding a rule means adding it to a section (or a new section) in `gitignore.yml` — the render carries the explanation along.
+The module makes the repository's ignore rules a reviewed, explained artifact instead of an accreted one, and it holds the platform's git
+readers. Every rule in the generated `.gitignore` sits under a heading and a rationale, so "why is this ignored?" is answered in the file
+itself, and adding a rule means adding it to a section (or a new section) in `gitignore.yml` — the render carries the explanation along.
 
 The split with [Catzc.Base.RootConfig](catzc-base-rootconfig.md) is the deliberate design: this module knows **what** is ignored and **how
 to say it**; RootConfig knows **which root files are managed** and **owns every write**. The `.gitignore` file is `committed: true` in the

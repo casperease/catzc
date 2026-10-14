@@ -8,6 +8,8 @@ namespace Catzc.Azure.Templates;
 
 public sealed class BicepSlot
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The slot's deployment name. Always present.
     public string name         { get; }
 

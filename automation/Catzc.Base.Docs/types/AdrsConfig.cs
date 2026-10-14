@@ -27,6 +27,8 @@ namespace Catzc.Base.Docs;
 
 public sealed class AdrsConfig
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     private static readonly Regex CodeRe = new Regex("^[A-Z]{2,4}(-[A-Z]{2,4})?$", RegexOptions.Compiled);
     private static readonly Regex ExternalRe = new Regex("^ADR-[A-Z]{2,4}(-[A-Z]+)+$", RegexOptions.Compiled);
 

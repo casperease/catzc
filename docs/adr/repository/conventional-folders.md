@@ -59,13 +59,13 @@ etc. The name is the contract; a different name means tooling will not find the 
 ### Rule ADR-REPO-FOLDERS:7
 
 Tooling hardcodes the conventional names as literal strings, not parameters or configuration: `Join-Path $ModulePath 'private'`, not
-`Join-Path $ModulePath $privateFolderName`. One exception: the root of a language track whose own ecosystem has competing layout idioms may
-be a setting. Its conventional names are then the setting's sensible defaults, declared once on its config type, and one resolver returns
-the root, which every caller uses. The Go root is that case: `go.yml`'s `root`, with the defaults `go/` and `.go/`, resolved by
-`GoConfig.ResolveRoot`.
+`Join-Path $ModulePath $privateFolderName`. One exception: the root of every test language is a setting, by one convention. Its conventional
+names are the setting's sensible defaults — `<language>/` when the repository has that folder, else the dot-prefixed `.<language>/` —
+declared once on the language's config type, and one resolver returns the root, which every caller uses. The Go root (`go.yml`'s `root`,
+`GoConfig.ResolveRoot`) and the Python root (`python.yml`'s `root`, `PythonConfig.ResolveRoot`) follow it.
 
 - [Hardcoded paths](#hardcoded-paths)
-- [A language root as a setting](#a-language-root-as-a-setting)
+- [A test-language root as a setting](#a-test-language-root-as-a-setting)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-REPO-FOLDERS:8
@@ -181,22 +181,25 @@ The codebase does this consistently: `New-DynamicManifest` hardcodes `'private'`
 filters on `'^\.'`, `Install-VendorModule` hardcodes `'automation/.vendor'`, and the importer (`importer.ps1` and its `Invoke-Importer`
 overlay) hardcodes `'.internal'` and `'.vendor'`.
 
-### A language root as a setting
+### A test-language root as a setting
 
-The arguments above hold for names catzc invents. A language track's root is different when the language's own ecosystem disagrees on where
-it lives. Go repositories put Go code under a `go/` root when Go is one language among several, and keep it out of the way under a dot
-folder when Go is a guest. Both are idiomatic, and an editor must handle either. Hardcoding one would force the other repositories to move
-their code.
+The arguments above hold for names catzc invents. A test language's root is different: it is where another ecosystem's code lives, and
+repositories disagree on where that is. Go repositories put Go code under a `go/` root when Go is one language among several, and keep it
+out of the way under a dot folder when Go is a guest; Python and the languages after it face the same choice. Both places are reasonable,
+and an editor must handle either. Hardcoding one would force the other repositories to move their code, and deciding it language by language
+would give every test language its own rule. So there is one convention for all of them.
 
-So the root of such a track is a setting, held to three conditions that keep what hardcoding gives:
+The root of every test language is a setting, held to three conditions that keep what hardcoding gives:
 
-- **The conventional names are the defaults.** They are declared once, on the config type
+- **The conventional names are the defaults, the same for every language.** `<language>/` when the repository has that folder (a root
+  track), else `.<language>/` (a dot-prefixed tooling folder). They are declared once, on the language's config type
   ([sensible-defaults](../automation/sensible-defaults.md)), so a repository that declares nothing gets a conventional name.
 - **One resolver.** Every caller asks the same function for the root, so the setting is greppable through that one name, just as a hardcoded
   literal is.
 - **Only the track root.** The folders inside the root (`tests/<module>/`) stay hardcoded.
 
-The Go root is the one such setting today: `go.yml`'s `root`, with the defaults `go/` and `.go/`, resolved by `GoConfig.ResolveRoot`.
+Two test languages follow it today: Go (`go.yml`'s `root`, the defaults `go/` and `.go/`, `GoConfig.ResolveRoot`) and Python (`python.yml`'s
+`root`, the defaults `python/` and `.python/`, `PythonConfig.ResolveRoot`).
 
 ### Three levels of structure
 
@@ -280,8 +283,10 @@ elsewhere when declared; the two names are the sensible defaults of that one set
 
 **`python/`** is the Python root: the repository's Python tests, which are black-box tests of the engine and never ship
 ([python-test-artifacts](../automation/python/python-test-artifacts.md)). It holds `tests/<module>/`, one Python test folder per catzc
-module, named for that module in kebab case, and the one generated test project, `pyproject.toml`, with the environment and lock uv makes
-from it, all gitignored. Its name is hardcoded once (`PythonConfig.Root`): Python has no competing layout idiom, so it is not a setting.
+module, named for that module in kebab case, and the generated uv workspace — the root `pyproject.toml`, one member `pyproject.toml` per
+test folder, and the one environment and lock uv makes from them — all gitignored. A repository with no `python/` folder keeps the same
+layout under the dot-prefixed `.python/`, and `python.yml`'s `root` places the Python root elsewhere when declared, by the convention every
+test-language root follows ([rule 7](#rule-adr-repo-folders7)); the code that reads it is `PythonConfig.ResolveRoot`.
 
 **`out/`** is the single home for all generated and transient files, gitignored except `.gitkeep`. The _root_ is the contract
 (`Get-OutputRoot`); the subfolders inside are ad-hoc workspaces with no fixed names. Nothing under `out/` is source. See

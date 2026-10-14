@@ -7,6 +7,8 @@ namespace Catzc.Azure.Cli;
 
 public sealed class SubscriptionAccessState
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // True when there is any active az login at all. On the failure path this separates "not logged in"
     // from "logged in but no access to this subscription".
     public bool   logged_in    { get; }

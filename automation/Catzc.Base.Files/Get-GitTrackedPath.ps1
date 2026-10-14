@@ -9,7 +9,7 @@
     result. A tracked file deleted from the working tree is still listed — it is still in the index.
 
     No git process runs: plain `git ls-files` is exactly the index's entry list, so the index file
-    (Get-GitIndexPath) is read in-process ([Catzc.Base.Files.GitIndex]). The parsed index is cached per index
+    (Get-GitIndexPath) is read in-process ([Catzc.Base.Git.GitIndex]). The parsed index is cached per index
     path, keyed on the SHA-256 of its bytes — the key is recomputed from the file on every call, so a
     `git add`/commit/checkout mid-session re-keys it and the answer always matches the index on disk.
 .PARAMETER Path
@@ -48,8 +48,8 @@ function Get-GitTrackedPath {
     # ([ADR-AUTO-CACHE#9](/docs/adr/automation/caching.md#rule-adr-auto-cache9)).
     $content = [System.IO.File]::ReadAllBytes($indexPath)
     $index = $script:gitIndexCache[$indexPath]
-    if ($null -eq $index -or $index.ContentHash -ne [Catzc.Base.Files.GitIndex]::HashContent($content)) {
-        $index = [Catzc.Base.Files.GitIndex]::Parse($content)
+    if ($null -eq $index -or $index.ContentHash -ne [Catzc.Base.Git.GitIndex]::HashContent($content)) {
+        $index = [Catzc.Base.Git.GitIndex]::Parse($content)
         $script:gitIndexCache[$indexPath] = $index
     }
     $index.Under($Path)

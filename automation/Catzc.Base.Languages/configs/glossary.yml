@@ -24,5 +24,5 @@ concepts:
         key: python_test_folder
         domain: automation
         defined_by: ADR-AUTO-PY#2
-        short: The folder `python/tests/<module>/` — one per catzc module, named for it in kebab case, holding its black-box Python tests; every folder shares the one generated test project.
+        short: The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in kebab case, holding its black-box Python tests; each is a member of the one generated uv workspace.
         realized_by: { kind: prose-only }

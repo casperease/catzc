@@ -16,6 +16,8 @@ using System.Threading;
 
 public class PesterRunner
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // One entry per runner script, in submission order — populated by Run.
     public WorkerResult[] Results { get; private set; }
 

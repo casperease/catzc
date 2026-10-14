@@ -11,6 +11,8 @@ namespace Catzc.Base.Docs;
 
 public sealed class GlossaryEntry
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // A repo-relative, '/'-separated path: no leading '/', no drive, no '\', no '..' segment.
     private static readonly Regex DriveRe = new Regex("^[A-Za-z]:", RegexOptions.Compiled);
 

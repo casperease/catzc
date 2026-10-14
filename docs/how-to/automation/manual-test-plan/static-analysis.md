@@ -17,6 +17,7 @@ a check.
 | 6   | L2   | automation/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1           | Test-ScriptAnalyzer (real analyzer)                     | The analyzer quality gate runs the vendored PSScriptAnalyzer with the shipped settings from the active code root.                                       |
 | 7   | L2   | automation/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1               | Repository formatting integrity                         | The repository's Markdown, in-scope PowerShell, and C# type namespaces are formatted (Test-Formatting reports none).                                    |
 | 8   | L1   | automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1     | TimeoutSeconds defaults come from the time safeguard    | No shipped function defaults a `-TimeoutSeconds` parameter to a number literal; long-running functions declare `[TimeLimit]` (ADR-AUTO-FAILFAST#8).     |
+| 9   | L2   | automation/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1               | Repository Python lint integrity                        | Every Python file the repository holds — the Python tests and the agent helpers — passes the pinned `ruff check` (ADR-AUTO-PY#8).                       |
 
 ## Checks
 

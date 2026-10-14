@@ -83,12 +83,9 @@ public static class BoundedCommand
 
     private static string Engine(string engine)
     {
+        // The execution engines, declared once (ADR-AUTO-ENGINE#1); Get throws, naming them, for any other name.
         string normalized = engine == null ? "" : engine.Trim().ToLowerInvariant();
-        if (normalized != "bash" && normalized != "pwsh")
-        {
-            throw new ArgumentException(string.Format("unknown engine '{0}' (allowed: pwsh, bash)", engine));
-        }
-        return normalized;
+        return Catzc.Base.Engines.ExecutionEngines.Get(normalized).Name;
     }
 
     private static bool TryParseBash(string command, out double? seconds, out string rest)

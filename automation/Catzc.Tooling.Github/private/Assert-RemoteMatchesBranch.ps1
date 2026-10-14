@@ -36,7 +36,8 @@ function Assert-RemoteMatchesBranch {
         [int] $TimeoutSeconds
     )
 
-    $local = (Invoke-Executable "git rev-parse --verify $Branch^{commit}" -WorkingDirectory $RepositoryPath -PassThru -Silent).Output.Trim()
+    # The branch's commit, read from the local ref files in-process.
+    $local = [Catzc.Base.Git.GitRefs]::ResolveCommit([Catzc.Base.Git.GitRefs]::GitDirectory($RepositoryPath), "refs/heads/$Branch")
 
     $listing = Invoke-Executable "git ls-remote $Url" -WorkingDirectory $RepositoryPath -PassThru -NoAssert -Silent -TimeoutSeconds $TimeoutSeconds
     if ($listing.ExitCode -ne 0) {

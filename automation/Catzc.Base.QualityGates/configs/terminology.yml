@@ -850,6 +850,10 @@ terms:
       meaning: "the VBCSCompiler.exe Roslyn compiler server"
     - term: iliazeus
       meaning: "publisher of the vscode-ansi VS Code extension (iliazeus.vscode-ansi)"
+    - term: dotnettools
+      meaning: "the ms-dotnettools VS Code publisher (C# and C# Dev Kit extensions)"
+    - term: csdevkit
+      meaning: "the C# Dev Kit VS Code extension (ms-dotnettools.csdevkit)"
     - term: dpkg
       meaning: "Debian dpkg"
     - term: enduml
@@ -993,6 +997,10 @@ terms:
       meaning: "the 'gitdir:' pointer a linked worktree's .git file holds"
     - term: dirc
       meaning: "the 'DIRC' signature that opens a git index file"
+    - term: commondir
+      meaning: "the 'commondir' file a linked worktree's git directory holds, naming the shared git directory"
+    - term: reftable
+      meaning: "git's reftable ref storage format (extensions.refStorage=reftable)"
     - term: varint
       meaning: "git's variable-length integer encoding (varint.c)"
     - term: wsl

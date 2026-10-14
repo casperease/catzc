@@ -9,7 +9,8 @@
       go      <goRoot>/tests/<folder>/ holding at least one .go file (the folders New-GoWorkspace renders a go.mod
               for); the Go root is go.yml's, through GoConfig.ResolveRoot: the declared root, else go/ when the
               repository has one, else .go/ ([ADR-AUTO-GO#2](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go2));
-      python  python/tests/<folder>/ holding at least one test_*.py file
+      python  <pythonRoot>/tests/<folder>/ holding at least one test_*.py file; the Python root is python.yml's,
+              through PythonConfig.ResolveRoot, by the same convention: python/ when present, else .python/
               ([ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2)).
 
     A folder whose name starts with '.' is never a test folder. Each folder is named for its catzc module in kebab
@@ -36,7 +37,7 @@ function Get-LanguageTestFolders {
     # Each language's root and the file pattern that makes a folder under its tests/ a test folder.
     $languages = @(
         [pscustomobject]@{ Language = 'go'; Root = (Get-Config -Config go).ResolveRoot($repositoryRoot); Pattern = '*.go' }
-        [pscustomobject]@{ Language = 'python'; Root = [Catzc.Base.Languages.PythonConfig]::Root; Pattern = 'test_*.py' }
+        [pscustomobject]@{ Language = 'python'; Root = (Get-Config -Config python).ResolveRoot($repositoryRoot); Pattern = 'test_*.py' }
     )
 
     # The catzc modules of the source tree, by kebab name: the folders under <repository>/automation/, read from the

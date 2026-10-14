@@ -17,6 +17,8 @@ namespace Catzc.Base.ModuleSystem;
 
 public sealed class ModuleGroup
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The group's name (its key under `groups:`).
     public string name { get; }
 

@@ -9,6 +9,8 @@ namespace Catzc.Base.Docs;
 
 public sealed class AdrDomain
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     public string Name { get; }
     public string Code { get; }
     public string Role { get; }

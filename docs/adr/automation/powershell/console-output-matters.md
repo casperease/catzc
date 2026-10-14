@@ -271,6 +271,8 @@ blocks so silence never reads as a hang.
   rather than one per writer. The same flag silences a child process's raw `Console` output streamed by `Invoke-ExecutableStreamed`, which
   never enters a PowerShell stream at all. Tests that assert writer output lift the flag for their own `Describe`.
 - **`Invoke-Executable`** — logs the exact command via `Write-Message` before execution. All `Invoke-*` wrappers inherit this.
+- **Console-ready C# types** — every catzc C# object interpolated into a message or shown in a table renders as one readable line, not
+  its type name ([native-csharp-types](../BCL/native-csharp-types.md#rule-adr-auto-types14)).
 - **Code review** — output quality is a review concern, same as logic correctness. A function that spams the console or swallows errors is a
   bug.
 

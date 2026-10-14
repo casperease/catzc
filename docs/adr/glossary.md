@@ -279,8 +279,8 @@ A file one stage produces and a later stage downloads and consumes — carried b
 
 ### python test folder
 
-The folder `python/tests/<module>/` — one per catzc module, named for it in kebab case, holding its black-box Python tests; every folder
-shares the one generated test project.
+The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in kebab case, holding its black-box Python
+tests; each is a member of the one generated uv workspace.
 
 - **Defined by:** [ADR-AUTO-PY#2](automation/python/python-test-artifacts.md#rule-adr-auto-py2)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -478,7 +478,7 @@ A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its 
 - **Defined by:** [ADR-REPO-FOLDERS#5](repository/conventional-folders.md#rule-adr-repo-folders5)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
-- **Forms:** `ADR domain`, `principles domain`, `process domain`, `design domain`, `flow domain`, `automation domain`,
+- **Forms:** `ADR domain`, `thesis domain`, `principles domain`, `process domain`, `design domain`, `flow domain`, `automation domain`,
   `configuration domain`, `pipelines domain`, `github domain`, `azure domain`, `repository domain`, `research domain`, `axioms domain`,
   `architecture domain`, `implementation domain`, `optimisable domain`, `owning domain`, and the bare `domain`
 - **Contrasts:**

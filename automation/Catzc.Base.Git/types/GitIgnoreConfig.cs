@@ -13,6 +13,8 @@ namespace Catzc.Base.Git;
 
 public sealed class GitIgnoreConfig
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The sections, in registry (and render) order.
     public IReadOnlyList<GitIgnoreSection> sections { get; }
 

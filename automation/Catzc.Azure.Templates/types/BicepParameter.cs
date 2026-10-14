@@ -21,6 +21,8 @@ namespace Catzc.Azure.Templates;
 
 public sealed class BicepParameter
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The parameter types ARM declares, spelled the way Bicep and the ARM documentation spell them. ARM reads the
     // type case-insensitively (main.json writes "securestring"); the model stores this canonical spelling.
     public static readonly IReadOnlyList<string> Types = Array.AsReadOnly(new[]

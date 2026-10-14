@@ -6,6 +6,8 @@ namespace Catzc.Azure.DevOps;
 
 public sealed class YamlClassificationResult
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The coarse classification — Pipeline, Template, or Unknown.
     public YamlClassification         Classification { get; }
 

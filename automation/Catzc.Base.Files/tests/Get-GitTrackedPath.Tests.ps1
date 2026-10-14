@@ -1,7 +1,7 @@
 Describe 'Get-GitTrackedPath' -Tag 'L0', 'logic' {
     BeforeAll {
         # A minimal version-2 index of stage-0 regular files — the reader's own shapes are pinned in
-        # tests/types/GitIndex.Tests.ps1; here only the seam, the pathspec, and the content-keyed cache matter.
+        # Catzc.Base.Git/tests/types/GitIndex.Tests.ps1; here only the seam, the pathspec, and the content-keyed cache matter.
         function Set-GitIndexFile {
             param([string[]] $Path)
             $bytes = [System.Collections.Generic.List[byte]]::new()

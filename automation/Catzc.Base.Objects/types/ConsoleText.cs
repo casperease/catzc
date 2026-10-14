@@ -1,0 +1,201 @@
+// The shared console rendering of every catzc C# type, so an object held in pwsh reads as one clean line
+// wherever PowerShell turns it into text: "$x", [string]$x, -join, Write-Message "… $x", and a table cell.
+// PowerShell's interpolation and [string] casts call the type's own .NET ToString() and ignore an ETS
+// ToString, so each type overrides ToString() with one line that delegates here:
+//
+//     public override string ToString() => this.ToConsoleString();
+//
+// DictionaryRecord does this once for every record derived from it. The output follows the C# record
+// convention, `TypeName { A = 1, B = x }`, on one line:
+//
+//   - the properties are those named by [ConsoleDisplay(...)], else every public readable property;
+//   - a null property is omitted (the DictionaryRecord "present" rule), so the line carries only what is set;
+//   - a value renders through ToConsoleValue: strings as-is ('' when empty, newlines escaped, cut at
+//     MaxTextLength), numbers and
+//     other IFormattable invariantly, dates as ISO 8601, enums by name, collections as [a, b] capped at
+//     MaxItems, dictionaries as { k = v }, and a nested object by its own ToString();
+//   - nesting stops at MaxDepth, where an object renders as its bare type name, so a cycle cannot recurse.
+//
+// A rendering never throws for a value: a getter that throws renders as !<ExceptionName>. BCL only.
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Reflection;
+
+namespace Catzc.Base.Objects;
+
+public static class ConsoleText
+{
+    // The most items a collection renders before the rest are counted as `… (+N)`.
+    public const int MaxItems = 5;
+
+    // The longest string rendered whole; a longer one (a captured stdout, a file body) is cut and counted.
+    public const int MaxTextLength = 120;
+
+    // The deepest nesting rendered as properties; a deeper object renders as its bare type name.
+    public const int MaxDepth = 2;
+
+    [ThreadStatic]
+    private static int depth;
+
+    // Renders the object as `TypeName { A = 1, B = x }` over its [ConsoleDisplay] properties, or all of them.
+    public static string ToConsoleString(this object self)
+    {
+        if (self == null) { return "null"; }
+        Type type = self.GetType();
+        ConsoleDisplayAttribute display = type.GetCustomAttribute<ConsoleDisplayAttribute>(true);
+        return display == null ? Render(self, DataProperties(type)) : ToConsoleString(self, display.Properties);
+    }
+
+    // Renders the object over the named properties only, in the order given. An unknown name throws.
+    public static string ToConsoleString(this object self, params string[] properties)
+    {
+        if (self == null) { return "null"; }
+        Type type = self.GetType();
+        List<PropertyInfo> selected = new List<PropertyInfo>();
+        foreach (string name in properties ?? new string[0])
+        {
+            PropertyInfo property = type.GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
+            if (!IsDataProperty(property))
+            {
+                throw new ArgumentException(
+                    "ToConsoleString: '" + TypeName(type) + "' has no public readable property '" + name + "'");
+            }
+            selected.Add(property);
+        }
+        return Render(self, selected);
+    }
+
+    // Renders one value on one line, by the rules in the header.
+    public static string ToConsoleValue(this object value)
+    {
+        if (value == null) { return "null"; }
+        string text = value as string;
+        if (text != null) { return RenderText(text); }
+        if (value is Enum) { return value.ToString(); }
+        if (value is DateTime) { return ((DateTime)value).ToString("o", CultureInfo.InvariantCulture); }
+        if (value is DateTimeOffset) { return ((DateTimeOffset)value).ToString("o", CultureInfo.InvariantCulture); }
+        if (value is Type) { return TypeName((Type)value); }
+        IFormattable formattable = value as IFormattable;
+        if (formattable != null) { return formattable.ToString(null, CultureInfo.InvariantCulture); }
+        IDictionary dictionary = value as IDictionary;
+        if (dictionary != null) { return RenderDictionary(dictionary); }
+        IEnumerable sequence = value as IEnumerable;
+        if (sequence != null) { return RenderSequence(sequence); }
+        // A nested ToConsoleString re-enters Render, which enforces MaxDepth; a hand-written ToString is a leaf.
+        return OverridesToString(value.GetType()) ? value.ToString() : TypeName(value.GetType());
+    }
+
+    private static string Render(object self, IEnumerable<PropertyInfo> properties)
+    {
+        Type type = self.GetType();
+        if (depth >= MaxDepth) { return TypeName(type); }
+        depth++;
+        try
+        {
+            List<string> parts = new List<string>();
+            foreach (PropertyInfo property in properties)
+            {
+                object value;
+                try { value = property.GetValue(self); }
+                catch (TargetInvocationException e) { parts.Add(property.Name + " = !" + (e.InnerException ?? e).GetType().Name); continue; }
+                if (value == null) { continue; }
+                parts.Add(property.Name + " = " + ToConsoleValue(value));
+            }
+            return parts.Count == 0 ? TypeName(type) : TypeName(type) + " { " + string.Join(", ", parts) + " }";
+        }
+        finally
+        {
+            depth--;
+        }
+    }
+
+    // A string on one line: '' when empty, newlines escaped, and cut at MaxTextLength with the cut counted.
+    private static string RenderText(string text)
+    {
+        if (text.Length == 0) { return "''"; }
+        string line = text.Replace("\r\n", "\\n").Replace("\n", "\\n").Replace("\r", "\\n");
+        if (line.Length <= MaxTextLength) { return line; }
+        return line.Substring(0, MaxTextLength) + "… (+" + (line.Length - MaxTextLength).ToString(CultureInfo.InvariantCulture) + " chars)";
+    }
+
+    private static string RenderSequence(IEnumerable sequence)
+    {
+        List<string> items = new List<string>();
+        int seen = 0;
+        bool more = false;
+        foreach (object item in sequence)
+        {
+            if (seen == MaxItems) { more = true; break; }
+            items.Add(ToConsoleValue(item));
+            seen++;
+        }
+        return "[" + string.Join(", ", items) + Rest(sequence as ICollection, more) + "]";
+    }
+
+    private static string RenderDictionary(IDictionary dictionary)
+    {
+        if (dictionary.Count == 0) { return "{ }"; }
+        List<string> items = new List<string>();
+        foreach (DictionaryEntry entry in dictionary)
+        {
+            if (items.Count == MaxItems) { break; }
+            items.Add(ToConsoleValue(entry.Key) + " = " + ToConsoleValue(entry.Value));
+        }
+        return "{ " + string.Join(", ", items) + Rest(dictionary, dictionary.Count > MaxItems) + " }";
+    }
+
+    // The `, … (+N)` tail of a capped collection; just `, …` when the collection cannot count itself.
+    private static string Rest(ICollection collection, bool more)
+    {
+        if (!more) { return string.Empty; }
+        return collection == null ? ", …" : ", … (+" + (collection.Count - MaxItems).ToString(CultureInfo.InvariantCulture) + ")";
+    }
+
+    private static IEnumerable<PropertyInfo> DataProperties(Type type)
+    {
+        foreach (PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+        {
+            if (IsDataProperty(property)) { yield return property; }
+        }
+    }
+
+    // A public readable non-indexer property the type declares — not DictionaryRecord's own view members
+    // (Keys), and not one marked [Hidden] from PowerShell.
+    private static bool IsDataProperty(PropertyInfo property)
+    {
+        return property != null
+            && property.CanRead
+            && property.GetGetMethod() != null
+            && property.GetIndexParameters().Length == 0
+            && property.DeclaringType != typeof(DictionaryRecord)
+            && !IsHidden(property);
+    }
+
+    // PowerShell's [Hidden], matched by name so this file stays BCL-only: the Bash time-safeguard hook compiles
+    // it (through DictionaryRecord) into a program that does not reference System.Management.Automation.
+    private static bool IsHidden(PropertyInfo property)
+    {
+        foreach (object attribute in property.GetCustomAttributes(true))
+        {
+            if (attribute.GetType().FullName == "System.Management.Automation.HiddenAttribute") { return true; }
+        }
+        return false;
+    }
+
+    private static bool OverridesToString(Type type)
+    {
+        MethodInfo method = type.GetMethod("ToString", Type.EmptyTypes);
+        return method != null && method.DeclaringType != typeof(object) && method.DeclaringType != typeof(ValueType);
+    }
+
+    // The bare type name, without namespace or generic arity (List`1 -> List).
+    private static string TypeName(Type type)
+    {
+        string name = type.Name;
+        int tick = name.IndexOf('`');
+        return tick < 0 ? name : name.Substring(0, tick);
+    }
+}

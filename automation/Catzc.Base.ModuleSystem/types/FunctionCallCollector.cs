@@ -16,6 +16,8 @@ namespace Catzc.Base.ModuleSystem;
 
 public sealed class FunctionCallCollector : AstVisitor2
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     public FunctionDefinitionAst Function { get; }
     public List<string> NestedFunctionNames { get; } = new List<string>();
     public List<FunctionCall> Calls { get; } = new List<FunctionCall>();

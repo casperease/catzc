@@ -30,10 +30,12 @@ reports none.
 
 ### responsibility:2 — Source-control facts
 
-Reading the working tree's current git branch and commit, and committing a scoped path set. All of them call `Invoke-Executable` (from
-Catzc.Base.Execution) to run `git` with logged, exit-code-managed invocations — the same discipline every external command in the platform
-follows. Branch and commit are intentionally separate getters: they serve different purposes for callers (log context, cache keys, CI
-identifiers) and neither implies the other.
+Reading the working tree's current git branch and commit, and committing a scoped path set. The branch and commit are read in-process from
+git's ref files through the `GitRefs` reader in [Catzc.Base.Git](catzc-base-git.md), so no process starts
+([tracked-files-from-the-index](../../adr/automation/tracked-files-from-the-index.md), ADR-AUTO-TRACKED#9). Committing writes, so it calls
+`Invoke-Executable` (from Catzc.Base.Execution) to run `git` with logged, exit-code-managed invocations, the same discipline every external
+command in the platform follows. Branch and commit are intentionally separate getters: they serve different purposes for callers (log
+context, cache keys, CI identifiers) and neither implies the other.
 
 ## What the module does
 
@@ -46,9 +48,9 @@ The Assert/Test pairs in responsibility 1 follow the platform convention: the `A
 form returns a Boolean. Both call the same underlying detection, so they can never disagree — a guarantee the pattern provides across the
 whole `Base` group.
 
-The git functions illustrate why this module depends on Catzc.Base.Execution rather than invoking `git` directly. `Invoke-Executable`
-handles the command log, the exit-code boundary, and the dry-run short-circuit; `Get-GitCurrentBranch` and `Get-GitCurrentCommit` inherit
-all of that for free, and no git call in the module bypasses the managed entry point.
+The git functions show the platform's split between reading and writing git. Reads of small git formats (refs, the index) go through the
+in-process readers in Catzc.Base.Git. Writes go through `Invoke-Executable`, which handles the command log, the exit-code boundary, the time
+limit and the dry-run short-circuit, so no git process in the module bypasses the managed entry point.
 
 ## Division
 

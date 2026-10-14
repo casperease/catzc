@@ -1,22 +1,22 @@
 <#
 .SYNOPSIS
-    Formats the repository's Python test files with ruff.
+    Formats the repository's Python files with ruff.
 .DESCRIPTION
-    Runs `ruff format` over every Python test folder (Get-LanguageTestFolders, language python: python/tests/<module>/,
-    [ADR-AUTO-PY#8](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py8)) in the generated Python
-    test project: `ruff format --check` lists the files whose formatting differs, then `ruff format` rewrites exactly
-    those, unless -DryRun. ruff is pinned in python.yml and runs from the project's environment through the managed uv
-    (`uv run`), so every machine formats with the same version and the project's ruff settings (the 140-column line).
+    Runs `ruff format` over every .py file the repository holds (Get-PythonCheckScope: the Python test folders, and the
+    tracked .py files outside the Python root, such as the agent helpers under .claude/;
+    [ADR-AUTO-PY#8](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py8)): `ruff format --check` lists
+    the files whose formatting differs, then `ruff format` rewrites exactly those, unless -DryRun. ruff is pinned in
+    python.yml and runs from the Python test workspace's environment with the workspace's settings (the 140-column
+    line, the pinned Python) for every file, wherever it lives (Invoke-PythonWorkspaceTool).
 
-    uv is the managed uv (Resolve-ToolExecutable, the tools.yml `uv` entry), run with UV_PYTHON_DOWNLOADS=never: it
-    throws with "Run Install-Uv" when no uv at the pin is found, and uv fails with its message when the interpreter
-    at the pin is missing. A repository without Python test folders has nothing to format and needs no uv. A file ruff
-    cannot parse throws with ruff's message.
+    Throws with "Run Install-Uv" when no uv at the pin is found, and with uv's message when the interpreter at the pin
+    is missing. A repository without Python has nothing to format and needs no uv. A file ruff cannot parse throws with
+    ruff's message.
 
     A source-tree tool: it rewrites the repository's Python files, so it throws in build mode (Assert-SourceTree).
 .PARAMETER Path
-    Folders or .py files to format. Defaults to every Python test folder. Any other file throws: the project file
-    python/pyproject.toml is generated (New-PythonProject), not formatted.
+    Folders or .py files to format. Defaults to every .py file the repository holds. Any other file throws: the
+    pyproject.toml files are generated (New-PythonProject), not formatted.
 .PARAMETER DryRun
     Report which files would change without writing them (the returned list is the same either way).
 .PARAMETER PassThru
@@ -45,52 +45,32 @@ function Format-Python {
             foreach ($item in $Path) {
                 $full = (Resolve-Path -LiteralPath $item).ProviderPath
                 if ((Test-Path -LiteralPath $full -PathType Leaf) -and [System.IO.Path]::GetExtension($full) -ne '.py') {
-                    throw "Format-Python formats .py files and folders of them; '$item' is not a .py file (python/pyproject.toml is generated — run Build-RootConfig)."
+                    throw "Format-Python formats .py files and folders of them; '$item' is not a .py file (the pyproject.toml files are generated — run Build-RootConfig)."
                 }
                 $full
             }
         }
         else {
-            foreach ($testFolder in @(Get-LanguageTestFolders)) {
-                if ($testFolder.Language -eq 'python') {
-                    $testFolder.Folder
-                }
-            }
+            Get-PythonCheckScope
         })
 
     $changed = [System.Collections.Generic.List[string]]::new()
     if ($targets.Count -gt 0) {
-        $uv = Resolve-ToolExecutable -Tool uv
-        if (-not ($uv.Found -and $uv.VersionOk)) {
-            throw "Format-Python needs the managed uv at the tools.yml pin '$($uv.Required)' (found: $($uv.Version ?? 'none')). Run Install-Uv."
+        $pythonRoot = Join-Path (Get-RepositoryRoot) (Get-Config -Config python).ResolveRoot((Get-RepositoryRoot))
+        # --check exits 1 when a file would change and names each on a 'Would reformat: <path>' line.
+        $check = Invoke-PythonWorkspaceTool -Tool 'ruff format --check' -File $targets
+        if ($check.ExitCode -notin 0, 1) {
+            throw "ruff could not format the Python files (exit $($check.ExitCode)):`n$($check.Full)"
         }
-        $pythonRoot = Join-Path (Get-RepositoryRoot) ([Catzc.Base.Languages.PythonConfig]::Root)
-        $quoted = ($targets | ForEach-Object { "`"$_`"" }) -join ' '
-
-        $saved = [System.Environment]::GetEnvironmentVariable('UV_PYTHON_DOWNLOADS')
-        [System.Environment]::SetEnvironmentVariable('UV_PYTHON_DOWNLOADS', 'never')
-        try {
-            # --check exits 1 when a file would change and names each on a 'Would reformat: <path>' line.
-            $check = Invoke-Executable "`"$($uv.Path)`" run --quiet ruff format --check $quoted" -WorkingDirectory $pythonRoot -PassThru -NoAssert -Silent
-            if ($check.ExitCode -notin 0, 1) {
-                throw "ruff could not format the Python files (exit $($check.ExitCode)):`n$($check.Full)"
-            }
-            foreach ($line in ($check.Full -split '\r?\n')) {
-                if ($line -match '^Would reformat:\s*(.+)$') {
-                    $changed.Add([System.IO.Path]::GetFullPath($Matches[1].Trim(), $pythonRoot))
-                }
-            }
-            if ($changed.Count -gt 0 -and -not $DryRun) {
-                $files = ($changed | ForEach-Object { "`"$_`"" }) -join ' '
-                Invoke-Executable "`"$($uv.Path)`" run --quiet ruff format $files" -WorkingDirectory $pythonRoot -Silent
+        foreach ($line in ($check.Full -split '\r?\n')) {
+            if ($line -match '^Would reformat:\s*(.+)$') {
+                $changed.Add([System.IO.Path]::GetFullPath($Matches[1].Trim(), $pythonRoot))
             }
         }
-        finally {
-            if ($null -eq $saved) {
-                Remove-Item -LiteralPath Env:UV_PYTHON_DOWNLOADS -ErrorAction Ignore
-            }
-            else {
-                [System.Environment]::SetEnvironmentVariable('UV_PYTHON_DOWNLOADS', $saved)
+        if ($changed.Count -gt 0 -and -not $DryRun) {
+            $write = Invoke-PythonWorkspaceTool -Tool 'ruff format' -File $changed.ToArray()
+            if ($write.ExitCode -ne 0) {
+                throw "ruff could not format the Python files (exit $($write.ExitCode)):`n$($write.Full)"
             }
         }
     }

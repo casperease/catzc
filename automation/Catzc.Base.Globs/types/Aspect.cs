@@ -21,6 +21,8 @@ namespace Catzc.Base.Globs;
 
 public sealed class Aspect
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     private static readonly Regex KebabCase = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
     public string Name { get; }

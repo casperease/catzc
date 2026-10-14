@@ -85,3 +85,7 @@ configs:
     type: Catzc.Base.Languages.PythonConfig
   languages:
     type: Catzc.Base.Languages.LanguagesConfig
+  maps:
+    type: Catzc.Base.Maps.MapsConfig
+  contracts:
+    type: Catzc.Base.Contracts.ContractsConfig

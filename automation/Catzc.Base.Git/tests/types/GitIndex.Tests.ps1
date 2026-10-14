@@ -1,7 +1,7 @@
 # cspell:ignore blåbær  -- the non-ASCII fixture path
 # The index reader against hand-built index bytes in git's on-disk layout (DIRC v2-v4) — every shape a real
 # repository writes, without launching git. The equivalence with real `git ls-files` is the L2 test in
-# Get-GitTrackedPath.Tests.ps1.
+# Catzc.Base.Files/tests/Get-GitTrackedPath.Tests.ps1.
 Describe 'GitIndex' -Tag 'L0', 'logic' {
     BeforeAll {
         # Builds index bytes. An entry is a path string or @{ Path; Stage; Mode; Extended }; -Extension is
@@ -100,45 +100,45 @@ Describe 'GitIndex' -Tag 'L0', 'logic' {
     Context 'reading entries' {
         It 'reads a version-2 index: every path, NUL-padded entries of any length, in index order' {
             $paths = @('a.txt', 'widget/gadget.yml', 'widget/sub/deep/name-that-crosses-a-padding-boundary.md')
-            [Catzc.Base.Files.GitIndex]::Parse((New-GitIndexBytes $paths)).Paths | Should -Be $paths
+            [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes $paths)).Paths | Should -Be $paths
         }
 
         It 'reads version-3 extended entries (skip-worktree) and still lists them, as git ls-files does' {
             $bytes = New-GitIndexBytes -Version 3 @('a.txt', @{ Path = 'widget/hidden.txt'; Extended = $true }, 'z.txt')
-            [Catzc.Base.Files.GitIndex]::Parse($bytes).Paths | Should -Be @('a.txt', 'widget/hidden.txt', 'z.txt')
+            [Catzc.Base.Git.GitIndex]::Parse($bytes).Paths | Should -Be @('a.txt', 'widget/hidden.txt', 'z.txt')
         }
 
         It 'reads a version-4 prefix-compressed index' {
             $paths = @('widget/a.txt', 'widget/ab.txt', 'widget/b/c.txt', 'x.txt')
-            [Catzc.Base.Files.GitIndex]::Parse((New-GitIndexBytes -Version 4 $paths)).Paths | Should -Be $paths
+            [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes -Version 4 $paths)).Paths | Should -Be $paths
         }
 
         It 'decodes a multi-byte version-4 strip count (a long previous path)' {
             $long = 'widget/' + ('d' * 200) + '/a.txt'
             $paths = @($long, 'x.txt')
-            [Catzc.Base.Files.GitIndex]::Parse((New-GitIndexBytes -Version 4 $paths)).Paths | Should -Be $paths
+            [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes -Version 4 $paths)).Paths | Should -Be $paths
         }
 
         It 'decodes non-ASCII paths as UTF-8, literally' {
-            [Catzc.Base.Files.GitIndex]::Parse((New-GitIndexBytes @('widget/blåbær.txt'))).Paths | Should -Be @('widget/blåbær.txt')
+            [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @('widget/blåbær.txt'))).Paths | Should -Be @('widget/blåbær.txt')
         }
 
         It 'lists an unmerged path once, though the index holds one entry per conflict stage' {
             $bytes = New-GitIndexBytes @('a.txt', @{ Path = 'b.txt'; Stage = 1 }, @{ Path = 'b.txt'; Stage = 2 }, @{ Path = 'b.txt'; Stage = 3 }, 'c.txt')
-            [Catzc.Base.Files.GitIndex]::Parse($bytes).Paths | Should -Be @('a.txt', 'b.txt', 'c.txt')
+            [Catzc.Base.Git.GitIndex]::Parse($bytes).Paths | Should -Be @('a.txt', 'b.txt', 'c.txt')
         }
 
         It 'reads an empty index' {
-            @([Catzc.Base.Files.GitIndex]::Parse((New-GitIndexBytes @())).Paths).Count | Should -Be 0
+            @([Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @())).Paths).Count | Should -Be 0
         }
 
         It 'skips optional extensions after the entries' {
             $bytes = New-GitIndexBytes @('a.txt') -Extension (New-ExtensionBytes 'TREE' 13)
-            [Catzc.Base.Files.GitIndex]::Parse($bytes).Paths | Should -Be @('a.txt')
+            [Catzc.Base.Git.GitIndex]::Parse($bytes).Paths | Should -Be @('a.txt')
         }
 
         It 'accepts the all-zero trailer git writes under index.skipHash' {
-            [Catzc.Base.Files.GitIndex]::Parse((New-GitIndexBytes @('a.txt') -ZeroChecksum)).Paths | Should -Be @('a.txt')
+            [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @('a.txt') -ZeroChecksum)).Paths | Should -Be @('a.txt')
         }
     }
 
@@ -146,47 +146,47 @@ Describe 'GitIndex' -Tag 'L0', 'logic' {
         It 'keys the parsed index on its bytes: equal bytes, equal hash; different bytes, different hash' {
             $one = New-GitIndexBytes @('a.txt')
             $two = New-GitIndexBytes @('a.txt', 'b.txt')
-            [Catzc.Base.Files.GitIndex]::Parse($one).ContentHash | Should -Be ([Catzc.Base.Files.GitIndex]::HashContent($one))
-            [Catzc.Base.Files.GitIndex]::HashContent($one) | Should -Not -Be ([Catzc.Base.Files.GitIndex]::HashContent($two))
+            [Catzc.Base.Git.GitIndex]::Parse($one).ContentHash | Should -Be ([Catzc.Base.Git.GitIndex]::HashContent($one))
+            [Catzc.Base.Git.GitIndex]::HashContent($one) | Should -Not -Be ([Catzc.Base.Git.GitIndex]::HashContent($two))
         }
     }
 
     Context 'rejecting what it cannot read correctly' {
         It 'throws on a file that is not a git index' {
-            { [Catzc.Base.Files.GitIndex]::Parse([System.Text.Encoding]::ASCII.GetBytes('not an index at all, padded out')) } |
+            { [Catzc.Base.Git.GitIndex]::Parse([System.Text.Encoding]::ASCII.GetBytes('not an index at all, padded out')) } |
                 Should -Throw "*'DIRC' signature*"
         }
 
         It 'throws on an unsupported index version' {
-            { [Catzc.Base.Files.GitIndex]::Parse((New-GitIndexBytes @('a.txt') -Version 5)) } | Should -Throw '*version 5*'
+            { [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @('a.txt') -Version 5)) } | Should -Throw '*version 5*'
         }
 
         It 'throws when the checksum does not match (corruption, or a SHA-256 repository)' {
             $bytes = New-GitIndexBytes @('a.txt')
             $bytes[$bytes.Length - 1] = $bytes[$bytes.Length - 1] -bxor 0xFF
-            { [Catzc.Base.Files.GitIndex]::Parse($bytes) } | Should -Throw '*checksum does not match*'
+            { [Catzc.Base.Git.GitIndex]::Parse($bytes) } | Should -Throw '*checksum does not match*'
         }
 
         It 'throws on a split index (the link extension) rather than list only its own entries' {
-            { [Catzc.Base.Files.GitIndex]::Parse((New-GitIndexBytes @('a.txt') -Extension (New-ExtensionBytes 'link' 20))) } |
+            { [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @('a.txt') -Extension (New-ExtensionBytes 'link' 20))) } |
                 Should -Throw '*split*'
         }
 
         It 'throws on a sparse index (a directory entry) rather than list the directory as a file' {
-            { [Catzc.Base.Files.GitIndex]::Parse((New-GitIndexBytes @(@{ Path = 'widget/'; Mode = 0x4000; Extended = $true }) -Version 3)) } |
+            { [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @(@{ Path = 'widget/'; Mode = 0x4000; Extended = $true }) -Version 3)) } |
                 Should -Throw '*sparse*'
         }
 
         It 'throws on a truncated index' {
             $bytes = New-GitIndexBytes @('a.txt', 'b.txt')
             $truncated = [byte[]] ($bytes[0..39] + [System.Security.Cryptography.SHA1]::HashData([byte[]] $bytes[0..39]))
-            { [Catzc.Base.Files.GitIndex]::Parse($truncated) } | Should -Throw '*truncated or malformed*'
+            { [Catzc.Base.Git.GitIndex]::Parse($truncated) } | Should -Throw '*truncated or malformed*'
         }
     }
 
     Context 'Under (the ls-files pathspec)' {
         BeforeAll {
-            $script:index = [Catzc.Base.Files.GitIndex]::Parse((New-GitIndexBytes @('a.txt', 'widget/gadget.yml', 'widget/sub/x.md', 'widgets/y.md')))
+            $script:index = [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @('a.txt', 'widget/gadget.yml', 'widget/sub/x.md', 'widgets/y.md')))
         }
 
         It "returns every path for '.' (and its spellings)" {

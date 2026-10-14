@@ -110,11 +110,11 @@ sections:
   - id: python-environment
     title: Python test environment
     why: >
-      The Python test project is generated (ADR-AUTO-PY): python/pyproject.toml is a managed root-config copy, ignored
-      through its rootconfig entry. The environment and lock uv makes from it in the Python test bridge, and the
-      linter's cache, are per-machine output, never committed.
+      The Python test workspace is generated (ADR-AUTO-PY): its pyproject.toml files are managed root-config copies,
+      ignored through their rootconfig entries. The one environment and lock uv makes beside the workspace root in the
+      Python root (python/ or .python/), and the linter's and bytecode caches, are per-machine output, never committed.
     patterns:
-      - /python/.venv/
-      - /python/uv.lock
-      - /python/.ruff_cache/
-      - /python/**/__pycache__/
+      - /*/.venv/
+      - /*/uv.lock
+      - .ruff_cache/
+      - __pycache__/

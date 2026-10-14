@@ -7,9 +7,10 @@
 ### Rule ADR-REPO-OUTFMT:1
 
 An **output format** is one declared kind of file a producer writes under the output root, listed once in the catalogue
-`Catzc.Base.Reports/configs/output-formats.yml` with its id, its file patterns, its home folder under the output root, its producer, its
-audience, its validator, and its limits. Every file under a catalogued folder belongs to exactly one output format; a file that matches none
-is an orphan and an error.
+`Catzc.Base.Reports/configs/output-formats.yml` with its id, its file patterns relative to the output root, its producer, its audience, its
+validator, and its limits. No path can match the patterns of two formats: the catalogue is rejected on load when two patterns can overlap,
+so a file's format never depends on declaration order or on which pattern is more specific. Every file under a catalogued folder belongs to
+exactly one output format; a file that matches none is an orphan and an error.
 
 - [The catalogue](#the-catalogue)
 
@@ -74,7 +75,11 @@ producer, a reader, and a shape it must have. Declaring them once makes the shap
 
 `output-formats.yml` in `Catzc.Base.Reports` lists every output format. `Catzc.Base.Reports` owns it because it owns `reports.yml`, what a
 quality gate writes; the catalogue widens that to what any producer writes. A typed config validates the catalogue on load: it rejects a
-duplicate id, two formats whose patterns overlap, an unknown validator kind, and a format without a producer or an audience.
+duplicate id, an unknown validator kind, a format without a producer or an audience, and two formats whose patterns can match the same path.
+
+The overlap check is structural, not a tie-breaker. A rule such as "the most specific pattern wins" would let a new, broader pattern quietly
+take files from an existing format; rejecting the overlap makes every file's format readable from the catalogue alone. When two producers
+write the same kind of file into the same folders, they share one format and its producer field names both.
 
 A limit is a field of its format, because a value repeated in prose drifts from the value the check uses. Adding a format is a catalogue
 entry, not code, as long as an existing validator kind fits it.

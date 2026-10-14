@@ -8,6 +8,8 @@ namespace Catzc.Azure.Cli;
 
 public sealed class ConnectionState
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // True when there is any active az login at all.
     public bool   logged_in             { get; }
 

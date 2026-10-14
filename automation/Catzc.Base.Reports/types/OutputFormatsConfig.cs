@@ -8,7 +8,8 @@
 // Load-time rules:
 //   - only the top-level key 'formats' (required, a non-empty map of id -> OutputFormat);
 //   - each entry well-formed (OutputFormat);
-//   - no pattern appears in two formats, so a file's format is never decided by declaration order.
+//   - no path can match patterns of two formats (OutputPattern.Overlaps), so every file has at most one format
+//     and it never depends on declaration order or on which pattern is more specific.
 // Which format a file on disk belongs to, and whether it is whole, is Test-OutputFormats' job, not load's.
 
 using System;
@@ -44,7 +45,7 @@ public sealed class OutputFormatsConfig : Catzc.Base.Objects.DictionaryRecord
         }
         else
         {
-            Dictionary<string, string> owner = new Dictionary<string, string>(StringComparer.Ordinal);
+            List<KeyValuePair<string, OutputPattern>> seen = new List<KeyValuePair<string, OutputPattern>>();
             foreach (object k in source.Keys)
             {
                 string formatId = k == null ? "" : k.ToString();
@@ -53,14 +54,19 @@ public sealed class OutputFormatsConfig : Catzc.Base.Objects.DictionaryRecord
                 catch (ArgumentException ex) { errors.Add(ex.Message); continue; }
                 map[formatId] = format;
 
-                foreach (string pattern in format.patterns)
+                foreach (string text in format.patterns)
                 {
-                    string first;
-                    if (owner.TryGetValue(pattern, out first))
+                    OutputPattern pattern = OutputPattern.Parse(text);
+                    foreach (KeyValuePair<string, OutputPattern> earlier in seen)
                     {
-                        errors.Add(string.Format("pattern '{0}' is declared by both '{1}' and '{2}' (a pattern belongs to one format)", pattern, first, formatId));
+                        if (earlier.Key != formatId && pattern.Overlaps(earlier.Value))
+                        {
+                            errors.Add(string.Format(
+                                "pattern '{0}' of '{1}' and pattern '{2}' of '{3}' can match the same path (a file belongs to one format)",
+                                earlier.Value.Text, earlier.Key, text, formatId));
+                        }
                     }
-                    else { owner[pattern] = formatId; }
+                    seen.Add(new KeyValuePair<string, OutputPattern>(formatId, pattern));
                 }
             }
         }

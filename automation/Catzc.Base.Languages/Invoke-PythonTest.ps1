@@ -2,16 +2,18 @@
 .SYNOPSIS
     Runs a catzc module's Python tests and returns one result per Python test.
 .DESCRIPTION
-    In the module's Python test folder, python/tests/<module-in-kebab>/ (Catzc.Base.Repository ->
-    catzc-base-repository), runs three uv commands from the Python root, python/, through Invoke-Executable, each
-    inside its time safeguard (the `uv` entry of timeouts.yml). It runs the managed uv by its path: the caller's
-    -UvExecutable, or the one located from its tools.yml entry by Resolve-ToolExecutable, never a bare uv off PATH;
-    it throws with "Run Install-Uv" when no uv at the pin is found.
+    In the module's Python test folder, <root>/tests/<module-in-kebab>/ (Catzc.Base.Repository -> catzc-base-repository;
+    the Python root is python.yml's `root`, by default python/ when the repository has one, else .python/), runs three uv
+    commands from the Python root, the uv workspace root, through Invoke-Executable, each inside its time safeguard (the
+    `uv` entry of timeouts.yml). It runs the managed uv by its path: the caller's -UvExecutable, or the one located from
+    its tools.yml entry by Resolve-ToolExecutable, never a bare uv off PATH; it throws with "Run Install-Uv" when no uv
+    at the pin is found.
 
-      uv sync                                     makes the project environment (python/.venv) and lock from the
-                                                  generated python/pyproject.toml;
-      uv run ruff check tests/<folder>            lints the test files (the go vet of Python);
-      uv run pytest tests/<folder> --junitxml ... runs every test, uncached, with the folder as pytest's rootdir.
+      uv sync --all-packages                            makes the workspace's one environment (<root>/.venv) and lock
+                                                        from the generated workspace (New-PythonProject);
+      uv run --no-sync ruff check tests/<folder>        lints the test files (the go vet of Python);
+      uv run --no-sync pytest tests/<folder> ...        runs every test, uncached, with the folder as pytest's rootdir
+                                                        and a JUnit XML report.
 
     uv runs with UV_PYTHON_DOWNLOADS=never, so it uses the uv-managed interpreter at the tools.yml python pin and
     never fetches one silently (the Python form of GOTOOLCHAIN=local; a missing interpreter fails uv sync with the
@@ -60,14 +62,19 @@ function Invoke-PythonTest {
 
     $root = Get-RepositoryRoot
     $folderName = $Module.ToLowerInvariant().Replace('.', '-')
-    $pythonRoot = Join-Path $root ([Catzc.Base.Languages.PythonConfig]::Root)
-    $relative = "$([Catzc.Base.Languages.PythonConfig]::Root)/tests/$folderName"
+    # The Python root from python.yml (PythonConfig.ResolveRoot: the declared root, else python/ when present, else
+    # .python/): the uv workspace root.
+    $pythonRelative = (Get-Config -Config python).ResolveRoot($root)
+    $pythonRoot = Join-Path $root $pythonRelative
+    $relative = "$pythonRelative/tests/$folderName"
     $folder = Join-Path $root $relative
     if (-not (Test-Path -LiteralPath $folder -PathType Container)) {
         throw "Module '$Module' has no Python tests: $relative/ does not exist."
     }
-    if (-not (Test-Path -LiteralPath (Join-Path $pythonRoot 'pyproject.toml') -PathType Leaf)) {
-        throw "$([Catzc.Base.Languages.PythonConfig]::Root)/pyproject.toml is missing — it is generated; regenerate with: Build-RootConfig"
+    foreach ($project in "$pythonRelative/pyproject.toml", "$relative/pyproject.toml") {
+        if (-not (Test-Path -LiteralPath (Join-Path $root $project) -PathType Leaf)) {
+            throw "$project is missing — it is generated; regenerate with: Build-RootConfig"
+        }
     }
 
     # The managed uv, by its path: the caller's, already located and checked, or located here from its tools.yml entry
@@ -103,17 +110,17 @@ function Invoke-PythonTest {
         [System.Environment]::SetEnvironmentVariable($name, $environment[$name])
     }
     try {
-        $sync = Invoke-Executable "$uvCommand sync --quiet" -WorkingDirectory $pythonRoot -PassThru -NoAssert
+        $sync = Invoke-Executable "$uvCommand sync --all-packages --quiet" -WorkingDirectory $pythonRoot -PassThru -NoAssert
         if ($sync.ExitCode -ne 0) {
-            throw "uv sync failed in $([Catzc.Base.Languages.PythonConfig]::Root)/ (exit $($sync.ExitCode)); is the python pin installed? Run Install-Python.`n$($sync.Full)"
+            throw "uv sync failed in $pythonRelative/ (exit $($sync.ExitCode)); is the python pin installed? Run Install-Python.`n$($sync.Full)"
         }
 
-        $lint = Invoke-Executable "$uvCommand run --quiet ruff check `"tests/$folderName`"" -WorkingDirectory $pythonRoot -PassThru -NoAssert
+        $lint = Invoke-Executable "$uvCommand run --no-sync --quiet ruff check `"tests/$folderName`"" -WorkingDirectory $pythonRoot -PassThru -NoAssert
         if ($lint.ExitCode -ne 0) {
             throw "ruff check failed in $relative/ (exit $($lint.ExitCode)):`n$($lint.Full)"
         }
 
-        $run = Invoke-Executable ("$uvCommand run --quiet pytest `"tests/$folderName`" --rootdir `"tests/$folderName`" " +
+        $run = Invoke-Executable ("$uvCommand run --no-sync --quiet pytest `"tests/$folderName`" --rootdir `"tests/$folderName`" " +
             "--import-mode=importlib -p no:cacheprovider --junitxml `"$report`"") -WorkingDirectory $pythonRoot -PassThru -NoAssert
         $reportText = if (Test-Path -LiteralPath $report -PathType Leaf) {
             [System.IO.File]::ReadAllText($report)

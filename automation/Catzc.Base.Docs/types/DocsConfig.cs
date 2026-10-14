@@ -14,6 +14,8 @@ namespace Catzc.Base.Docs;
 
 public sealed class DocsConfig
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // Glob-derived source conventions, in registry order.
     public IReadOnlyList<DocPattern> patterns { get; }
 

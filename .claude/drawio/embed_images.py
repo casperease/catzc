@@ -10,10 +10,11 @@ then travels inside the diagram, and draw.io shows it with no side file. The mod
 import base64
 import re
 import sys
+from pathlib import Path
 
 
 def embed(model, cell_id, png_path):
-    data = base64.b64encode(open(png_path, "rb").read()).decode()
+    data = base64.b64encode(Path(png_path).read_bytes()).decode()
     pattern = re.compile(r'(<mxCell\b[^>]*\bid="' + re.escape(cell_id) + r'"[^>]*\bstyle=")([^"]*)(")')
     match = pattern.search(model)
     if not match:
@@ -28,11 +29,11 @@ def embed(model, cell_id, png_path):
 
 def main():
     path, pairs = sys.argv[1], sys.argv[2:]
-    model = open(path, encoding="utf-8").read()
+    model = Path(path).read_text(encoding="utf-8")
     for pair in pairs:
         cell_id, png = pair.split("=", 1)
         model = embed(model, cell_id, png)
-    open(path, "w", encoding="utf-8").write(model)
+    Path(path).write_text(model, encoding="utf-8")
     print(f"ok {path} embedded={len(pairs)}")
 
 

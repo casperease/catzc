@@ -66,9 +66,12 @@ function New-RepositorySnapshot {
         throw "Cannot create a repository snapshot at '$Destination': the folder already exists."
     }
 
+    # The source's git directory, read in-process: a plain checkout's .git, or a linked worktree's gitdir.
+    $sourceGitDirectory = [Catzc.Base.Git.GitRefs]::GitDirectory($SourceRoot)
+
     $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
     for ($attempt = 1; ; $attempt++) {
-        $commit = (Invoke-Executable "git -C `"$SourceRoot`" rev-parse HEAD" -PassThru -Silent).Output.Trim()
+        $commit = [Catzc.Base.Git.GitRefs]::ResolveCommit($sourceGitDirectory, 'HEAD')
         $mismatch = $null
 
         # A half-built snapshot is never left behind: every failure below removes it, then lets the error propagate.
@@ -86,8 +89,7 @@ function New-RepositorySnapshot {
             [System.IO.File]::WriteAllText((Join-Path $Destination '.git/catzc-snapshot.json'),
                 (ConvertTo-Json -InputObject $marker), [System.Text.UTF8Encoding]::new($false))
 
-            # --git-path resolves the index of a linked worktree as well as of a plain checkout.
-            $sourceIndex = (Invoke-Executable "git -C `"$SourceRoot`" rev-parse --path-format=absolute --git-path index" -PassThru -Silent).Output.Trim()
+            $sourceIndex = [Catzc.Base.Git.GitRefs]::IndexPath($sourceGitDirectory)
             [System.IO.File]::Copy($sourceIndex, (Join-Path $Destination '.git/index'), $true)
 
             $listing = Invoke-Executable "git -C `"$SourceRoot`" -c core.quotepath=off ls-files --cached --others --exclude-standard" -PassThru -Silent

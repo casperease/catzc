@@ -10,16 +10,18 @@ Python code in the repository is test artifacts and nothing else: `test_*.py` fi
 function, or tool of the engine is written in Python, and no Python test file ships — the Python root lies outside `automation/`, so
 `Build-Modules` never sees it and no bundle holds a Python test, by construction. Python-based tools the repository uses (the Azure CLI,
 Poetry) are tools, installed through uv (ADR-AUTO-UVPY#2); they are not code of the repository. The agent helpers under `.claude/` (the
-draw.io scripts) are configuration of the agent tool, outside every track, and outside this rule; they still take the spelling check.
+draw.io scripts) are configuration of the agent tool, outside every track, and outside this rule; they take every Python check
+(ADR-AUTO-PY#8).
 
 - [Test artifacts only](#test-artifacts-only)
 
 ### Rule ADR-AUTO-PY:2
 
-The Python tests live under the Python root, `python/`, a conventional root folder hardcoded once (`PythonConfig.Root`, ADR-REPO-FOLDERS#7).
-A **Python test folder** is the folder `python/tests/<module>/`, one per catzc module and named for it in kebab case
-(`Catzc.Base.Repository` → `catzc-base-repository`), holding that module's `test_*.py` files. A Python test is a top-level `test*` function;
-a parametrised test is one test.
+The Python tests live under one Python root, a repository-relative folder declared by `python.yml`'s `root` with the sensible default every
+test language's root takes (ADR-REPO-FOLDERS#7): `python` when the repository has a `python/` folder (the `python` verification track), else
+the dot-prefixed `.python`. A **Python test folder** is the folder `<root>/tests/<module>/`, one per catzc module and named for it in kebab
+case (`Catzc.Base.Repository` → `catzc-base-repository`), holding that module's `test_*.py` files. A Python test is a top-level `test*`
+function; a parametrised test is one test.
 
 - [The layout](#the-layout)
 
@@ -34,13 +36,15 @@ its uv commands only and restores them afterwards.
 
 ### Rule ADR-AUTO-PY:4
 
-The Python test project is generated and gitignored: nothing Python-specific is committed but the `test_*.py` files. `New-PythonProject`
-renders the one virtual uv project, `python/pyproject.toml`, from `python.yml` — pure text, offline, and byte-stable — and
-`Build-RootConfig` writes it on import, drift-checked by `Test-GeneratedFiles`. Every test folder shares that one project, so there is one
-environment (`python/.venv`) and one lock (`python/uv.lock`), both made by `uv sync` in a test run and gitignored. A test dependency is
-declared in `python.yml` with its exact version, never added by `uv add`.
+The Python tests form one generated, gitignored uv workspace — uv's monorepo layout, and the Python form of `go.work` with a `go.mod` per
+module: nothing Python-specific is committed but the `test_*.py` files. `New-PythonProject` renders the workspace root
+`<root>/pyproject.toml`, a virtual root naming every member explicitly, and one member `<root>/tests/<module>/pyproject.toml` per Python
+test folder, from `python.yml` — pure text, offline, and byte-stable — and `Build-RootConfig` writes them on import through wildcard
+root-config entries, drift-checked by `Test-GeneratedFiles`. The workspace has one environment (`<root>/.venv`) and one lock
+(`<root>/uv.lock`), both made by `uv sync --all-packages` and gitignored. A test dependency is declared in `python.yml` with its exact
+version, never added by `uv add`.
 
-- [A generated project](#a-generated-project)
+- [A generated workspace](#a-generated-workspace)
 
 ### Rule ADR-AUTO-PY:5
 
@@ -69,9 +73,10 @@ its path to the bridge; without uv or the interpreter at the pin, the bridge ski
 
 ### Rule ADR-AUTO-PY:8
 
-Python code takes the repository's checks where a check reads Python: `ruff format` through `Test-Formatting` (`Format-Python`),
-`ruff check` before every Python test run, and the spelling check over `*.py`. The glossary checks read PowerShell and markdown, so Python
-comments are outside their reach.
+Every `.py` file the repository holds — the Python tests and the agent helpers under `.claude/` alike — takes the repository's checks where
+a check reads Python, with the pinned ruff and the workspace's settings: `ruff format` through `Test-Formatting` (`Format-Python`),
+`ruff check` through the `Test-PythonLint` quality gate and before every Python test run, and the spelling check over `*.py`. The glossary
+checks read PowerShell and markdown, so Python comments are outside their reach.
 
 - [The checks](#the-checks)
 
@@ -83,8 +88,8 @@ repository's one Python handler ([uv-python-handler](../uv-python-handler.md)) �
 user-space on every platform.
 
 The risks are the ones Go carried, and one more. Python projects tend to grow: a package, a virtual environment per folder, a lock file to
-keep in step, a test framework plugin per need. The rules below hold Python to test artifacts, keep one generated project for every test
-folder, and run the tests through the same bridge as Go, so a third language adds an entry, not a mechanism.
+keep in step, a test framework plugin per need. The rules below hold Python to test artifacts, keep one generated workspace with one
+environment for every test folder, and run the tests through the same bridge as Go, so a third language adds an entry, not a mechanism.
 
 ### Test artifacts only
 
@@ -95,12 +100,16 @@ separate matter: they are tools, each installed in isolation through uv, and not
 
 ### The layout
 
-`python/` is the Python root and the `python` track, of the verification class ([tracks](../../design/tracks.md#rule-adr-dsgn-track2)).
-Unlike Go's, it is not a setting: Python has no competing idiom for where test code lives, so the conventional name is hardcoded once, on
-`PythonConfig` ([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders7)). Under it, `tests/<module>/` holds
-one Python test folder per catzc module, named for that module in kebab case — the convention that maps a folder to its module with no
-mapping file, shared with the Go test modules. A hyphen is no problem for Python here: the tests are collected by path, never imported as a
-package.
+The Python root is the one folder every Python test lives under. When the repository has a `python/` folder, that folder is the root, and it
+is the `python` track, of the verification class ([tracks](../../design/tracks.md#rule-adr-dsgn-track2)). Otherwise the root is `.python/`,
+dot-prefixed as the tooling folders are. This is the one convention every test language's root follows, Go's included
+([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders7)): the default is declared once, on the
+`PythonConfig` type ([sensible-defaults](../sensible-defaults.md)), `PythonConfig.ResolveRoot` is the one resolver every caller asks, and
+`python.yml` declares a `root` only to place the Python root elsewhere.
+
+Under the root, `tests/<module>/` holds one Python test folder per catzc module, named for that module in kebab case — the convention that
+maps a folder to its module with no mapping file, shared with the Go test modules. A hyphen is no problem for Python here: the tests are
+collected by path, never imported as a package.
 
 ### The black-box contract
 
@@ -110,17 +119,20 @@ and asserts on the output and exit code. It never builds a command line itself, 
 therefore proves both run modes ([run-modes](../../design/run-modes.md)): the entry the start loads is the repository's `importer.ps1` in a
 source run and the build's `Import-Catzc.ps1` in a build run.
 
-### A generated project
+### A generated workspace
 
-The Python test project is configuration the repository states elsewhere: the Python version (the `tools.yml` pin) and the test dependencies
-(`python.yml`). `New-PythonProject` renders it, with the ruff settings that match the repository's own (a 140-column line, the pinned Python
-as target), and the root-config registry names it as the generator of `python/pyproject.toml`
-([generated-root-configs](../../repository/generated-root-configs.md)).
+The Python test workspace is configuration the repository states elsewhere: which folders are Python test folders (the folders on disk),
+which Python version they use (the `tools.yml` pin), and which test dependencies they need (`python.yml`). `New-PythonProject` renders it,
+and the root-config registry names it as the generator of the workspace files
+([generated-root-configs](../../repository/generated-root-configs.md#rule-adr-repo-rootcfg8)).
 
-One project serves every test folder. A project per folder, as Go has a module per folder, would give each folder its own environment and
-lock with nothing different in them, since every folder runs the same pytest against the same engine. The project is virtual — it builds and
-installs no package — and its environment and lock are per-machine output of `uv sync`, gitignored. The lock is not committed, so
-`python.yml` pins exact versions: two machines resolve the same direct dependencies.
+The layout is uv's own for a monorepo: a workspace. Its root, `<root>/pyproject.toml`, is virtual — it has no project of its own — and names
+every member explicitly, as `go.work`'s `use` entries do; it also carries the ruff settings, which apply to every member (a 140-column line,
+the pinned Python as target). Each Python test folder is a member with its own `pyproject.toml`, named for the folder, as each Go test
+module has its `go.mod`. The members are virtual too — they build and install no package. A workspace gives each module's tests their own
+identity while keeping one environment and one lock for all of them: separate environments per folder would be slow, use disk for nothing,
+and could resolve different versions. The environment and lock are per-machine output of `uv sync --all-packages`, gitignored. The lock is
+not committed, so `python.yml` pins exact versions: two machines resolve the same direct dependencies.
 
 ### One Python version
 
@@ -150,30 +162,35 @@ tools config.
 
 ### The checks
 
-Every check that reads Python applies to Python: `ruff format` is the formatting standard for `.py` files
-([uniform-formatting](../../repository/uniform-formatting.md)), applied by `Format-Python` and checked by `Test-Formatting`; `ruff check`
-lints the test folder before every run; and the spelling check reads `*.py`. ruff is pinned in `python.yml` and runs from the project
-environment, so every machine formats and lints with the same version. The glossary checks read PowerShell, through its parser, and markdown
-([controlled-vocabulary](../../repository/controlled-vocabulary.md)), so a Python comment is outside their reach.
+Every check that reads Python applies to every `.py` file the repository holds, wherever it lives: `ruff format` is the formatting standard
+for `.py` files ([uniform-formatting](../../repository/uniform-formatting.md)), applied by `Format-Python` and checked by `Test-Formatting`;
+`ruff check` lints them through the `Test-PythonLint` quality gate, and lints a test folder again before every run of its tests; and the
+spelling check reads `*.py`. ruff is pinned in `python.yml` and runs from the workspace environment with the workspace's settings passed
+explicitly, so every machine formats and lints every file — the agent helpers outside the workspace too — with the same version and rules.
+The glossary checks read PowerShell, through its parser, and markdown ([controlled-vocabulary](../../repository/controlled-vocabulary.md)),
+so a Python comment is outside their reach.
 
 ## Decision
 
-Python is a black-box test language and nothing else (ADR-AUTO-PY#1). Its tests live in one Python test folder per catzc module under
-`python/` (ADR-AUTO-PY#2), start the engine from the entry the run names (ADR-AUTO-PY#3), run in one generated, gitignored project
+Python is a black-box test language and nothing else (ADR-AUTO-PY#1). Its tests live in one Python test folder per catzc module under the
+Python root (ADR-AUTO-PY#2), start the engine from the entry the run names (ADR-AUTO-PY#3), run in one generated, gitignored uv workspace
 (ADR-AUTO-PY#4) at the one pinned Python version (ADR-AUTO-PY#5) with the managed tools (ADR-AUTO-PY#6), and run through `Test-Automation`
 as `L2` tests through the language bridge (ADR-AUTO-PY#7), under the checks that read Python (ADR-AUTO-PY#8).
 
 ### How this is enforced
 
-- **`PythonConfig`** (`Catzc.Base.Languages`) validates `python.yml` at load, requires the pytest and ruff pins, and names the Python root.
-- **`New-PythonProject`** renders `python/pyproject.toml`, and throws when the `tools.yml` pin is not a Python minor version.
-  **`Build-RootConfig`** writes it, and **`Test-GeneratedFiles`** reports a stale one.
+- **`PythonConfig`** (`Catzc.Base.Languages`) validates `python.yml` at load, requires the pytest and ruff pins, and declares the Python
+  root's defaults once (`ResolveRoot`).
+- **`New-PythonProject`** renders the workspace root and one member per Python test folder, and throws when a folder is not named in kebab
+  case or the `tools.yml` pin is not a Python minor version. **`Build-RootConfig`** writes them, and **`Test-GeneratedFiles`** reports a
+  stale one.
 - **`Invoke-PythonTest`** runs the managed uv with `UV_PYTHON_DOWNLOADS=never`, sets the engine contract for its uv commands only, and
   returns one `PythonTestResult` per test function with its category.
 - **The gitignore registry** (`gitignore.yml`) ignores the environment, the lock, and the caches.
 - **The language bridge** in `Catzc.Base.QualityGates` (`Get-LanguageTestFolders`, `Get-PythonTestCases`, `Language.Bridge.ps1`) maps each
   Python test folder to its catzc module and tags each test.
-- **`Format-Python`** in `Test-Formatting` and the spelling check's `*.py` scope apply the checks.
+- **`Format-Python`** in `Test-Formatting`, the **`Test-PythonLint`** quality gate, and the spelling check's `*.py` scope apply the checks
+  to every `.py` file the repository holds.
 
 ## Consequences
 

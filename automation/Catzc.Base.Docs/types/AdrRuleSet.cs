@@ -8,6 +8,8 @@ namespace Catzc.Base.Docs;
 
 public sealed class AdrRuleSet
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     public string Domain { get; }
     public string Role { get; }
     public string Slug { get; }

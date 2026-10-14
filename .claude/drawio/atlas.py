@@ -8,7 +8,6 @@ out/-relative paths to publish beside it, split into batches of at most 250 for 
 Everything is read from disk, so it can be rerun after any wave.
 """
 import json
-import re
 from pathlib import Path
 
 OUT = Path("out")

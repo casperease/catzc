@@ -13,6 +13,8 @@ namespace Catzc.Base.RootConfig;
 
 public sealed class RootConfigFiles
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // Managed root-file entries, in registry order.
     public IReadOnlyList<RootConfigFile> files { get; }
 

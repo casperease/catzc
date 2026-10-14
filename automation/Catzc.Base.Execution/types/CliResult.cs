@@ -9,6 +9,8 @@ namespace Catzc.Base.Execution;
 
 public sealed class CliResult
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // Captured stdout, with trailing CR/LF trimmed.
     public string   Output   { get; }
 
@@ -23,6 +25,15 @@ public sealed class CliResult
 
     // Output split into lines — the line-oriented view for callers that parse output row by row.
     public string[] Raw      { get; }
+
+    // The exact stdout bytes of a binary run (Invoke-Executable -AsBytes); null for a text run, whose stdout is
+    // Output. A binary run's Output is empty: its stdout is not text.
+    public byte[]   Bytes    { get; }
+
+    public CliResult(byte[] stdout, string stderr, int exitCode) : this(string.Empty, stderr, exitCode)
+    {
+        Bytes = stdout ?? Array.Empty<byte>();
+    }
 
     public CliResult(string stdout, string stderr, int exitCode)
     {

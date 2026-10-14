@@ -29,7 +29,26 @@ max_line_length = 140
 [*.{yml,yaml}]
 indent_size = 2
 
-[*.json]
+[*.{json,jsonl}]
+indent_size = 2
+
+# Go: gofmt indents with tabs and nothing else — the editor must agree, or every save fights the formatter.
+# go.mod and go.work are gofmt-shaped too (the go command writes them with tabs).
+[{*.go,go.mod,go.work}]
+indent_style = tab
+
+# Python: 4 spaces (PEP 8), and the line length ruff checks — [tool.ruff] line-length in the generated
+# python/pyproject.toml.
+[*.py]
+indent_size = 4
+max_line_length = 140
+
+# Bicep: 2 spaces, the Bicep formatter's default.
+[*.bicep]
+indent_size = 2
+
+# XML family (PowerShell format/type data, schemas, MSBuild projects): 2 spaces, as the tracked files are.
+[*.{xml,ps1xml,xsd,dtd,csproj}]
 indent_size = 2
 
 # C# type sources opt out — once here in the root config, not a #pragma in every file — of two IDE rules

@@ -27,6 +27,9 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Get-Config { $script:config } -ModuleName Catzc.Base.Globs
         Mock Get-Config { [Catzc.Base.Languages.GoConfig]::new(@{ root = 'go' }) } -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'go' }
+        Mock Get-Config {
+            [Catzc.Base.Languages.PythonConfig]::new(@{ root = 'python'; dependencies = @{ pytest = '9.1.1'; ruff = '0.17.0' } })
+        } -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'python' }
         # The fake root is not the loaded code root, so the run mode reads 'build'; the guard is the seam.
         Mock Assert-SourceTree -ModuleName Catzc.Base.Globs { }
     }

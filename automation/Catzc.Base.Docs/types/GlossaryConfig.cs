@@ -23,6 +23,8 @@ namespace Catzc.Base.Docs;
 
 public sealed class GlossaryConfig
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The source's parameters, every key defaulted.
     public GlossaryOptions options { get; }
 

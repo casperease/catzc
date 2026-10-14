@@ -6,7 +6,8 @@
 #   formats:
 #     <kebab-case id>:
 #       patterns: [ <glob> ]      # relative to the output root; '*' / '?' inside one segment, '**' any depth,
-#                                 # '{stamp}' one stamped run folder. The most specific match wins.
+#                                 # '{stamp}' one stamped run folder. No path may match patterns of two
+#                                 # formats: the catalogue is rejected on load when two can overlap.
 #       target: file              # file (default) | folder — a folder pattern is checked as one unit
 #       producer: <function or script>
 #       audience: <who opens it, with what>
@@ -19,9 +20,9 @@
 
 formats:
   # ---- quality gates and test runs (out/test-<subject>/) ----
-  quality-gate-report:
+  test-report:
     patterns: ['test-*/{stamp}/*.md']
-    producer: Write-QualityGateReport
+    producer: Write-QualityGateReport (a gate's report), and the test-run entry points Test-Automation and Test-CatzcBuild (summary.md, rule-coverage.md)
     audience: a person or an agent, in any Markdown viewer
     validator: { kind: md }
   latest-pointer:
@@ -34,11 +35,6 @@ formats:
     producer: Test-Automation, Test-CatzcBuild
     audience: a script or an agent reading the run's facts
     validator: { kind: json, required_keys: [status, startedAt, minLevel, maxLevel, location, failedCount] }
-  test-run-summary:
-    patterns: ['test-automation/{stamp}/summary.md', 'test-catzc-build/{stamp}/summary.md']
-    producer: Test-Automation, Test-CatzcBuild
-    audience: a person, in any Markdown viewer
-    validator: { kind: md }
   test-run-results:
     patterns: ['test-*/{stamp}/results-shard-*.xml']
     producer: Test-Automation, Test-CatzcBuild, Invoke-TestFile (one NUnit file per shard)
@@ -59,16 +55,11 @@ formats:
     producer: Test-Automation, Test-CatzcBuild
     audience: a person, in a spreadsheet; a script
     validator: { kind: csv }
-  test-run-rule-coverage-table:
+  test-run-rule-coverage:
     patterns: ['test-automation/{stamp}/rule-coverage.csv', 'test-catzc-build/{stamp}/rule-coverage.csv']
     producer: Test-Automation, Test-CatzcBuild
     audience: a person, in a spreadsheet; a script
     validator: { kind: csv }
-  test-run-rule-coverage-report:
-    patterns: ['test-automation/{stamp}/rule-coverage.md', 'test-catzc-build/{stamp}/rule-coverage.md']
-    producer: Test-Automation, Test-CatzcBuild
-    audience: a person, in any Markdown viewer
-    validator: { kind: md }
 
   # ---- the toolset's build (out/automation/) ----
   catzc-bundle:

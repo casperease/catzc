@@ -8,6 +8,8 @@ namespace Catzc.Base.QualityGates;
 
 public sealed class LinkEngineResult
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     public IReadOnlyList<LinkFinding> Findings { get; }
     public IReadOnlyDictionary<string, string> Changed { get; }
     public int FileCount { get; }

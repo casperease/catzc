@@ -50,9 +50,10 @@ specific, actionable error for whichever check fails first.
 
 The read-only primitive behind every purge: proving a token is absent across all three surfaces it can survive in — file content (blobs),
 file paths, and commit messages — over a ref's whole reachable history, not just the working tree. It returns a structured result naming any
-residual hits so a caller can act on path-name residue a content scrub could not reach. Run it on the local ref that is pushed; the purge
-then proves the remote holds that same commit. Never run it against a ref whose upstream still tracks un-purged history, which would
-false-alarm.
+residual hits so a caller can act on path-name residue a content scrub could not reach. The scan is one pass by the history scan in
+[Catzc.Base.Git](catzc-base-git.md): every object is read once from a single git stream, and each distinct file content is searched once,
+however many revisions hold it. Run it on the local ref that is pushed; the purge then proves the remote holds that same commit. Never run
+it against a ref whose upstream still tracks un-purged history, which would false-alarm.
 
 ## What the module does
 

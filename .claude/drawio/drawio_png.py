@@ -9,11 +9,13 @@ in this environment. The script re-decodes the chunk and asserts the model round
 """
 import base64
 import html
+import itertools
 import re
 import sys
 import uuid
 import xml.etree.ElementTree as ET
 import zlib
+from pathlib import Path
 from urllib.parse import quote, unquote
 
 from PIL import Image, ImageDraw, ImageFont
@@ -43,12 +45,13 @@ def faded(hex_color, style):
     if not hex_color or op >= 1:
         return hex_color
     r, g, b = (int(hex_color[i:i + 2], 16) for i in (1, 3, 5))
-    return "#%02x%02x%02x" % tuple(round(c * op + 255 * (1 - op)) for c in (r, g, b))
+    red, green, blue = (round(c * op + 255 * (1 - op)) for c in (r, g, b))
+    return f"#{red:02x}{green:02x}{blue:02x}"
 
 
 def dashed_line(d, pts, fill, width, dash=6, gap=4):
     import math
-    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+    for (x0, y0), (x1, y1) in itertools.pairwise(pts):
         length = math.hypot(x1 - x0, y1 - y0)
         if length == 0:
             continue
@@ -66,7 +69,7 @@ def html_color(value):
 
 
 def plain(value):
-    text = re.sub(r"<br\s*/?>|</div>|</p>|</li>", "\n", value or "", flags=re.I)
+    text = re.sub(r"<br\s*/?>|</div>|</p>|</li>", "\n", value or "", flags=re.IGNORECASE)
     text = re.sub(r"<[^>]+>", "", text)
     return html.unescape(text).strip()
 
@@ -94,7 +97,7 @@ def encode(model_xml, name):
 
 def decode(chunk):
     mxfile = unquote(chunk)
-    inner = re.search(r"<diagram[^>]*>(.*)</diagram>", mxfile, re.S).group(1)
+    inner = re.search(r"<diagram[^>]*>(.*)</diagram>", mxfile, re.DOTALL).group(1)
     return unquote(zlib.decompress(base64.b64decode(inner), -15).decode())
 
 
@@ -219,7 +222,7 @@ def main():
         name = args[i + 1]
         del args[i:i + 2]
     src, dst = args
-    model = open(src, encoding="utf-8").read().strip()
+    model = Path(src).read_text(encoding="utf-8").strip()
     root = ET.fromstring(model)
     if root.tag != "mxGraphModel":
         raise SystemExit(f"root must be mxGraphModel, got {root.tag}")

@@ -187,6 +187,30 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
         }
     }
 
+    Context 'Stream mode — AsBytes' {
+        It 'captures stdout as the exact bytes written, never decoded' -Tag 'L2' {
+            # L2: a real child pwsh writes bytes that are not valid UTF-8 (255, 200) next to a CR and LF.
+            $writer = 'pwsh -NoProfile -Command "[Console]::OpenStandardOutput().Write([byte[]](0, 255, 200, 13, 10, 65), 0, 6)"'
+            $result = Invoke-Executable $writer -AsBytes -Silent
+            $result | Should -BeOfType [Catzc.Base.Execution.CliResult]
+            $result.Bytes | Should -Be @(0, 255, 200, 13, 10, 65)
+            $result.Output | Should -BeNullOrEmpty
+        }
+
+        It 'leaves .Bytes null on a text run' {
+            (Invoke-Executable $simpleCmd -PassThru -Silent).Bytes | Should -BeNullOrEmpty
+        }
+
+        It 'still asserts the exit code, and keeps it with -NoAssert' {
+            { Invoke-Executable $failCmd -AsBytes -Silent } | Should -Throw
+            (Invoke-Executable $fail42Cmd -AsBytes -NoAssert -Silent).ExitCode | Should -Be 42
+        }
+
+        It '-AsBytes and -Direct are mutually exclusive' {
+            { Invoke-Executable 'echo hello' -AsBytes -Direct } | Should -Throw '*Parameter set cannot be resolved*'
+        }
+    }
+
     Context 'Stream mode — no pipeline leak' {
         It 'output does not leak into caller function return' {
             function Test-StreamLeak {
@@ -247,6 +271,17 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
             $stopwatch.Elapsed.TotalSeconds | Should -BeLessThan 8
             $err.Exception | Should -BeOfType [System.TimeoutException]
             $err.Exception.Message | Should -BeLike '*after 1s*timeouts.yml*'
+        }
+
+        It 'fails fast, naming the cause, when a process the command started keeps its output open after it exits' -Tag 'L2' {
+            # L2: the child exits at once, but the grandchild it starts inherits the output pipe and holds it for 20 s
+            # (as a dotnet build server does). The run must not wait out the grandchild.
+            $leaver = 'pwsh -NoProfile -NonInteractive -Command "Start-Process -NoNewWindow -FilePath pwsh -ArgumentList ''-NoProfile'',''-Command'',''Start-Sleep -Seconds 20''; exit 0"'
+            $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+            $err = { Invoke-Executable $leaver -TimeoutSeconds 60 -Silent -PassThru } | Should -Throw -PassThru
+            $stopwatch.Elapsed.TotalSeconds | Should -BeLessThan 15
+            $err.Exception | Should -BeOfType [System.IO.IOException]
+            $err.Exception.Message | Should -BeLike '*still holds its output open*--disable-build-servers*'
         }
 
         It "defaults the limit to the executable's entry from Get-TimeoutSeconds" {

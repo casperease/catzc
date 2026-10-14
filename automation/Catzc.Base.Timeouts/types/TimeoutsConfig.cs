@@ -50,7 +50,8 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     };
     private const int TestRunDefaultSeconds = 180;
     private static readonly string[] Environments = { "devbox", "pipeline" };
-    private static readonly string[] Shells = { "bash", "pwsh" };
+    // The shells a limit is keyed by: the execution engines, declared once (ADR-AUTO-ENGINE#1).
+    private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
     private static readonly string[] BashKeys = { "foreground", "background" };
 
     // The sensible defaults: tight on a devbox, where the blockers are tuned together; looser in a pipeline, where

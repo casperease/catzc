@@ -36,19 +36,20 @@ research, and the principles state its mechanics, so every other domain cites it
 
 ### principles/
 
-The design axioms every other domain specialises: everything as code, reduce variability, reduce waste, poka-yoke, and one living version.
-They rest on the thesis and the DORA research, no domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`)
-as the reason for its own decisions.
+The design axioms every other domain specialises: everything as code, configure don't program, reduce variability, reduce waste, poka-yoke,
+and one living version. They rest on the thesis and the DORA research, no domain later in the order overrides them, and every other domain
+cites them (`ADR-PRIN-*`) as the reason for its own decisions.
 
 **Role:** `axioms` — **depends on:** `research`, `thesis`.
 
-| Code                 | ADR                                                    |
-| -------------------- | ------------------------------------------------------ |
-| `ADR-PRIN-EAC`       | [everything-as-code](principles/everything-as-code.md) |
-| `ADR-PRIN-REDUCEVAR` | [reduce-variability](principles/reduce-variability.md) |
-| `ADR-PRIN-NOWASTE`   | [reduce-waste](principles/reduce-waste.md)             |
-| `ADR-PRIN-POKAYOKE`  | [poka-yoke](principles/poka-yoke.md)                   |
-| `ADR-PRIN-ONELIVE`   | [one-living-version](principles/one-living-version.md) |
+| Code                 | ADR                                                          |
+| -------------------- | ------------------------------------------------------------ |
+| `ADR-PRIN-EAC`       | [everything-as-code](principles/everything-as-code.md)       |
+| `ADR-PRIN-CONFIG`    | [configure-not-program](principles/configure-not-program.md) |
+| `ADR-PRIN-REDUCEVAR` | [reduce-variability](principles/reduce-variability.md)       |
+| `ADR-PRIN-NOWASTE`   | [reduce-waste](principles/reduce-waste.md)                   |
+| `ADR-PRIN-POKAYOKE`  | [poka-yoke](principles/poka-yoke.md)                         |
+| `ADR-PRIN-ONELIVE`   | [one-living-version](principles/one-living-version.md)       |
 
 ### process/
 

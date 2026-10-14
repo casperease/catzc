@@ -11,6 +11,8 @@ namespace Catzc.Base.Languages;
 
 public sealed class FileLanguage
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The file language's kebab-case name: its key in the `languages` map (e.g. powershell, pipeline-yaml).
     public string name { get; }
 

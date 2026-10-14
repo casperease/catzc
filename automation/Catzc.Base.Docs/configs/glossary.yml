@@ -17,7 +17,7 @@ concepts:
         defined_by: ADR-REPO-FOLDERS#5
         short: A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its role and the domains it depends on.
         realized_by: { kind: prose-only }
-        forms: [ADR, principles, process, design, flow, automation, configuration, pipelines, github, azure, repository, research, axioms, architecture, implementation, optimisable, owning]
+        forms: [ADR, thesis, principles, process, design, flow, automation, configuration, pipelines, github, azure, repository, research, axioms, architecture, implementation, optimisable, owning]
         contrasts:
             language zone: A language zone is one of the design, test, and live registers of identities; an ADR domain groups ADRs.
     language zone:

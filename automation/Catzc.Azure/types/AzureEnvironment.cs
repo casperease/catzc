@@ -9,6 +9,8 @@ namespace Catzc.Azure;
 
 public sealed class AzureEnvironment
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // Logical environment name — the azure.yml `environments` map key. Always present.
     public string           name         { get; }
 

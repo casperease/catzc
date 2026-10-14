@@ -15,6 +15,8 @@ namespace Catzc.Base.Docs;
 
 public sealed class AdrCitationMap
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     readonly Dictionary<string, string> pathByCode = new Dictionary<string, string>(StringComparer.Ordinal);
     readonly Dictionary<string, HashSet<int>> rulesByCode = new Dictionary<string, HashSet<int>>(StringComparer.Ordinal);
     readonly Dictionary<string, string> codeByPath = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);

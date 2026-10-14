@@ -7,6 +7,8 @@ namespace Catzc.Tooling.Provisioning;
 
 public sealed class ToolStatus
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The tool's name (its tools.yml key). Always present.
     public string         Tool      { get; }
 

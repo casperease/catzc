@@ -13,7 +13,8 @@
 //   - a non-empty subject; unique, non-empty case names;
 //   - every engine column present in every case, as a map or as "n/a: <reason>" with a non-empty reason — so a case
 //     can never silently skip an engine.
-// The engines are the repository's two execution engines; the columns are fixed here so a table cannot invent one.
+// The columns are the repository's execution engines, read from their one declaration (ExecutionEngines.Names,
+// ADR-AUTO-ENGINE#1), so a table cannot invent one.
 
 using System;
 using System.Collections;
@@ -23,8 +24,8 @@ namespace Catzc.Tooling.Core;
 
 public sealed class EngineCaseTable
 {
-    // The repository's execution engines, in column order.
-    public static readonly string[] Engines = { "pwsh", "bash" };
+    // The columns: the execution engines, declared once (ADR-AUTO-ENGINE#1), in their order.
+    private static readonly IReadOnlyList<string> Engines = Catzc.Base.Engines.ExecutionEngines.Names;
 
     private const string NotApplicablePrefix = "n/a:";
     private static readonly string[] TopKeys = { "subject", "cases" };
@@ -155,4 +156,6 @@ public sealed class EngineCaseTable
             }
         }
     }
+
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 }

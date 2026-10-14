@@ -8,6 +8,8 @@ namespace Catzc.Azure.Templates;
 
 public sealed class BicepDeploymentContext
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // What and where to deploy. Always present.
     public BicepDeploymentPlan        deployment  { get; }
 

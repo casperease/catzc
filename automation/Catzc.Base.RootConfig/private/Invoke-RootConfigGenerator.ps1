@@ -65,13 +65,14 @@ function Invoke-RootConfigGenerator {
             if ($go.Found -and $go.VersionOk) {
                 $machineSetting['go.goroot'] = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($go.Path))
             }
-            # The Python test project's environment (ADR-AUTO-PY#4), by this platform's layout: the Python extension
-            # resolves the tests' imports and runs them in it.
+            # The Python test workspace's one environment (ADR-AUTO-PY#4), under the resolved Python root and in this
+            # platform's layout: the Python extension resolves the tests' imports and runs them in it.
+            $pythonRoot = (Get-Config -Config python).ResolveRoot((Get-RepositoryRoot))
             $machineSetting['python.defaultInterpreterPath'] = if ($IsWindows) {
-                '${workspaceFolder}/python/.venv/Scripts/python.exe'
+                "`${workspaceFolder}/$pythonRoot/.venv/Scripts/python.exe"
             }
             else {
-                '${workspaceFolder}/python/.venv/bin/python'
+                "`${workspaceFolder}/$pythonRoot/.venv/bin/python"
             }
             New-VSCodeSettings -ManagedTarget $managedTargets -MachineSetting $machineSetting
         }
@@ -96,9 +97,9 @@ function Invoke-RootConfigGenerator {
             New-GoWorkspace -Target $Target
         }
         'New-PythonProject' {
-            # The Python test project (Catzc.Base.Languages): python/pyproject.toml, the one uv project every Python
-            # test folder runs in.
-            New-PythonProject
+            # The Python test workspace (Catzc.Base.Languages): the uv workspace root and one member per Python test
+            # folder, as one record per file; the entry's target selects which.
+            New-PythonProject -Target $Target
         }
         default {
             throw "Unknown root-config generator '$Name'. Register its invocation in Invoke-RootConfigGenerator (Catzc.Base.RootConfig)."

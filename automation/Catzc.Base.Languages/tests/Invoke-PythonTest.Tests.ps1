@@ -8,7 +8,8 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
         $script:pythonRoot = Join-Path $script:root 'python'
         $script:folder = Join-Path $script:pythonRoot 'tests/catzc-widget'
         $null = New-Item -ItemType Directory -Path $script:folder -Force
-        Set-Content -LiteralPath (Join-Path $script:pythonRoot 'pyproject.toml') -Value '[project]'
+        Set-Content -LiteralPath (Join-Path $script:pythonRoot 'pyproject.toml') -Value '[tool.uv.workspace]'
+        Set-Content -LiteralPath (Join-Path $script:folder 'pyproject.toml') -Value '[project]'
         $null = New-Item -ItemType Directory -Path (Join-Path $script:pythonRoot 'tests/catzc-gadget') -Force
         $script:buildEntry = Join-Path $TestDrive 'build/Import-Catzc.ps1'
         $null = New-Item -ItemType File -Path $script:buildEntry -Force
@@ -57,12 +58,30 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
     }
 
     Context 'the uv commands' {
-        It 'runs uv sync, ruff check on the folder, then pytest on the folder from the Python root' {
+        It 'syncs the whole workspace, then runs ruff check and pytest on the folder from the workspace root' {
             $null = Invoke-PythonTest Catzc.Widget
-            $script:seen.Command[0] | Should -Be "$script:uv sync --quiet"
-            $script:seen.Command[1] | Should -Be "$script:uv run --quiet ruff check `"tests/catzc-widget`""
-            $script:seen.Command[2] | Should -BeLike "$script:uv run --quiet pytest `"tests/catzc-widget`" --rootdir `"tests/catzc-widget`" --import-mode=importlib -p no:cacheprovider --junitxml *"
+            $script:seen.Command[0] | Should -Be "$script:uv sync --all-packages --quiet"
+            $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/catzc-widget`""
+            $script:seen.Command[2] | Should -BeLike "$script:uv run --no-sync --quiet pytest `"tests/catzc-widget`" --rootdir `"tests/catzc-widget`" --import-mode=importlib -p no:cacheprovider --junitxml *"
             $script:seen.Directory | Sort-Object -Unique | Should -Be $script:pythonRoot
+        }
+
+        It 'throws with the remediation when a generated workspace file is missing' {
+            $gadget = Join-Path $script:pythonRoot 'tests/catzc-gadget'
+            { Invoke-PythonTest Catzc.Gadget } | Should -Throw '*python/tests/catzc-gadget/pyproject.toml is missing*Build-RootConfig*'
+            $script:seen.Count | Should -Be 0
+            Test-Path -LiteralPath $gadget | Should -BeTrue
+        }
+
+        It 'runs from the dot-prefixed .python/ root when the repository has no python/ folder' {
+            $dotRoot = Join-Path $TestDrive 'dot-repo'
+            $dotFolder = Join-Path $dotRoot '.python/tests/catzc-widget'
+            $null = New-Item -ItemType Directory -Path $dotFolder -Force
+            Set-Content -LiteralPath (Join-Path $dotRoot '.python/pyproject.toml') -Value '[tool.uv.workspace]'
+            Set-Content -LiteralPath (Join-Path $dotFolder 'pyproject.toml') -Value '[project]'
+            Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'dot-repo' }
+            $null = Invoke-PythonTest Catzc.Widget
+            $script:seen.Directory | Sort-Object -Unique | Should -Be (Join-Path $dotRoot '.python')
         }
 
         It 'runs the caller''s -UvExecutable without locating uv itself' {
@@ -70,7 +89,7 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
             $null = New-Item -ItemType File -Path $callerUv -Force
             $null = Invoke-PythonTest Catzc.Widget -UvExecutable $callerUv
             Should -Invoke Resolve-ToolExecutable -ModuleName Catzc.Base.Languages -Times 0 -Exactly
-            $script:seen.Command[0] | Should -Be "`"$callerUv`" sync --quiet"
+            $script:seen.Command[0] | Should -Be "`"$callerUv`" sync --all-packages --quiet"
         }
 
         It 'throws with "Run Install-Uv" when no managed uv is found, before running anything' {

@@ -1,23 +1,58 @@
-# New-PythonProject with its two sources mocked: python.yml (Get-Config) and the python pin in tools.yml
-# (Get-ConfigValue). Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# New-PythonProject over a fixture repository in $TestDrive, with its two declared configs mocked: python.yml (Get-Config)
+# and the python pin in tools.yml (Get-ConfigValue). Neutral fixture names
+# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'New-PythonProject' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:root = Join-Path $TestDrive 'repo'
+        foreach ($file in 'python/tests/catzc-widget/test_widget.py', 'python/tests/catzc-gadget/nested/test_gadget.py', 'python/tests/.cache/test_cache.py') {
+            $path = Join-Path $script:root $file
+            $null = New-Item -ItemType Directory -Path (Split-Path $path) -Force
+            Set-Content -LiteralPath $path -Value 'def test_widget(): pass'
+        }
+        # A folder left with only a generated file is not a member.
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'python/tests/catzc-leftover') -Force
+        Set-Content -LiteralPath (Join-Path $script:root 'python/tests/catzc-leftover/pyproject.toml') -Value '[project]'
+
+        $script:header = @(
+            '# GENERATED FILE — do not edit. Single source of truth:'
+            '#   automation/Catzc.Base.Languages/configs/python.yml (rendered by New-PythonProject over the python/tests/*/ folders)'
+            '#   requires-python: the python pin in automation/Catzc.Tooling.Core/configs/tools.yml'
+            '# Regenerated on import by Build-RootConfig; edit the yml or the folders, not this file.'
+        )
+    }
+
     BeforeEach {
         $script:pin = '3.13'
-        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'python' } {
-            [Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = [ordered]@{ ruff = '0.17.0'; pytest = '9.1.1'; 'widget-kit' = '1.2' } })
-        }
+        $script:python = @{ dependencies = [ordered]@{ ruff = '0.17.0'; pytest = '9.1.1'; 'widget-kit' = '1.2' } }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $script:root }
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'python' } { [Catzc.Base.Languages.PythonConfig]::new($script:python) }
         Mock Get-ConfigValue -ModuleName Catzc.Base.Languages -ParameterFilter { $Address -eq 'global.tools.python.version' } { $script:pin }
     }
 
-    It 'renders the generated header, the virtual project, the pinned dependencies in name order, and the ruff settings' {
-        New-PythonProject | Should -BeExactly ((@(
-                    '# GENERATED FILE — do not edit. Single source of truth:'
-                    '#   automation/Catzc.Base.Languages/configs/python.yml (rendered by New-PythonProject)'
-                    '#   requires-python: the python pin in automation/Catzc.Tooling.Core/configs/tools.yml'
-                    '# Regenerated on import by Build-RootConfig; edit the yml, not this file.'
+    It 'renders the workspace root and one member per test folder, root first, members in folder order' {
+        @(New-PythonProject).Target | Should -Be @('python/pyproject.toml', 'python/tests/catzc-gadget/pyproject.toml', 'python/tests/catzc-widget/pyproject.toml')
+    }
+
+    It 'renders a virtual workspace root naming every member, with the ruff settings' {
+        (New-PythonProject -Target 'python/pyproject.toml').Content | Should -BeExactly ((@($script:header) + @(
+                    ''
+                    '[tool.uv.workspace]'
+                    'members = ['
+                    '    "tests/catzc-gadget",'
+                    '    "tests/catzc-widget",'
+                    ']'
+                    ''
+                    '[tool.ruff]'
+                    'line-length = 140'
+                    'target-version = "py313"'
+                ) -join "`n") + "`n")
+    }
+
+    It 'renders each member named for its folder, at the python pin, with the pinned dependencies in name order' {
+        (New-PythonProject -Target 'python/tests/catzc-widget/pyproject.toml').Content | Should -BeExactly ((@($script:header) + @(
                     ''
                     '[project]'
-                    'name = "catzc-python-tests"'
+                    'name = "catzc-widget"'
                     'version = "0.0.0"'
                     'requires-python = "==3.13.*"'
                     'dependencies = ['
@@ -28,15 +63,34 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
                     ''
                     '[tool.uv]'
                     'package = false'
-                    ''
-                    '[tool.ruff]'
-                    'line-length = 140'
-                    'target-version = "py313"'
                 ) -join "`n") + "`n")
+    }
+
+    It 'renders under the declared root' {
+        $declared = Join-Path $TestDrive 'declared-repo'
+        $null = New-Item -ItemType Directory -Path (Join-Path $declared 'test/py/tests/catzc-widget') -Force
+        Set-Content -LiteralPath (Join-Path $declared 'test/py/tests/catzc-widget/test_widget.py') -Value 'def test_widget(): pass'
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'declared-repo' }
+        $script:python['root'] = 'test/py'
+        @(New-PythonProject).Target | Should -Be @('test/py/pyproject.toml', 'test/py/tests/catzc-widget/pyproject.toml')
+    }
+
+    It 'renders nothing when the repository has no Python test folder' {
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'empty' }
+        $null = New-Item -ItemType Directory -Path (Join-Path $TestDrive 'empty') -Force
+        @(New-PythonProject) | Should -HaveCount 0
     }
 
     It 'throws when the python pin is not a 3.N minor version' {
         $script:pin = '3.13.1'
         { New-PythonProject } | Should -Throw "*'3.13.1' is not a Python minor version*"
+    }
+
+    It 'throws when a test folder is not named in kebab case' {
+        $bad = Join-Path $TestDrive 'bad-repo'
+        $null = New-Item -ItemType Directory -Path (Join-Path $bad 'python/tests/Catzc.Widget') -Force
+        Set-Content -LiteralPath (Join-Path $bad 'python/tests/Catzc.Widget/test_widget.py') -Value 'def test_widget(): pass'
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'bad-repo' }
+        { New-PythonProject } | Should -Throw '*python/tests/Catzc.Widget/*kebab case*'
     }
 }

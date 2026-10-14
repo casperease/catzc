@@ -1,0 +1,255 @@
+# Get-Contract lists contracts/<unit>/<version>/<module>/<path> and derives every fact from the asset's name and place
+# ([ADR-REPO-CONTRACT](/docs/adr/repository/api-contracts.md)): the kind from the suffix (#6), the direction from the
+# convention and the version's contract.yml (#7), and the addressing mode from the config (#8). Fixtures are a widget
+# repository in TestDrive.
+Describe 'Get-Contract' -Tag 'L0', 'logic' {
+    BeforeAll {
+        function Add-Asset {
+            param([string] $Relative, [string] $Content = 'widget: gadget')
+            $file = Join-Path $script:root $Relative
+            $null = New-Item -ItemType Directory -Force -Path ([System.IO.Path]::GetDirectoryName($file))
+            [System.IO.File]::WriteAllText($file, $Content)
+        }
+    }
+
+    BeforeEach {
+        $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
+        $null = New-Item -ItemType Directory -Force -Path $script:root
+    }
+
+    Context 'the tree' {
+        It 'gives an empty result for an empty contracts folder' -Tag 'ADR-REPO-CONTRACT#2' {
+            Add-Asset 'contracts/README.md' '# contracts'
+            Add-Asset 'contracts/.gitkeep' ''
+            @(Get-Contract -RepositoryRoot $script:root -Addressing full-path).Count | Should -Be 0
+        }
+
+        It 'gives an empty result when there is no contracts folder' -Tag 'ADR-REPO-CONTRACT#2' {
+            @(Get-Contract -RepositoryRoot $script:root -Addressing full-path).Count | Should -Be 0
+        }
+
+        It 'parses the unit, version, module and path from the folders, in communication form' -Tag 'ADR-REPO-CONTRACT#2', 'ADR-AUTO-PATH#2' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Gadget/.widget/flows/build.yml'
+
+            $asset = Get-Contract -RepositoryRoot $script:root -Addressing full-path
+            $asset | Should -BeOfType ([Catzc.Base.Contracts.ContractAsset])
+            $asset.Unit | Should -Be 'widget'
+            $asset.Version | Should -Be '0.0.0'
+            $asset.Module | Should -Be 'Catzc.Gadget'
+            $asset.Path | Should -Be '.widget/flows/build.yml'
+            $asset.AssetPath | Should -Be 'contracts/widget/0.0.0/Catzc.Gadget/.widget/flows/build.yml'
+            $asset.Target | Should -Be '.widget/flows/build.yml'
+        }
+
+        It 'lists every unit and module in ordinal order' -Tag 'ADR-REPO-CONTRACT#2' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/b.md'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/a.md'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Gadget/z.md'
+            Add-Asset 'contracts/gadget/0.0.0/Catzc.Widget/c.md'
+
+            (Get-Contract -RepositoryRoot $script:root -Addressing full-path).AssetPath | Should -Be @(
+                'contracts/gadget/0.0.0/Catzc.Widget/c.md'
+                'contracts/widget/0.0.0/Catzc.Gadget/z.md'
+                'contracts/widget/0.0.0/Catzc.Widget/a.md'
+                'contracts/widget/0.0.0/Catzc.Widget/b.md'
+            )
+        }
+
+        It 'throws on a version folder that is not a three-part version' -Tag 'ADR-REPO-CONTRACT#2' {
+            Add-Asset 'contracts/widget/v1/Catzc.Widget/a.md'
+            { Get-Contract -RepositoryRoot $script:root -Addressing full-path } | Should -Throw "*'v1' is not a version folder*"
+        }
+
+        It 'throws on a file outside a module folder' -Tag 'ADR-REPO-CONTRACT#2' {
+            Add-Asset 'contracts/widget/0.0.0/gadget.md'
+            { Get-Contract -RepositoryRoot $script:root -Addressing full-path } | Should -Throw "*'gadget.md' sits outside a module folder*"
+        }
+
+        It 'throws on a file directly in a unit folder' -Tag 'ADR-REPO-CONTRACT#2' {
+            Add-Asset 'contracts/widget/gadget.md'
+            { Get-Contract -RepositoryRoot $script:root -Addressing full-path } | Should -Throw "*'gadget.md' sits outside a version folder*"
+        }
+    }
+
+    Context 'the selection' {
+        BeforeEach {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/widget.md'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Gadget/gadget.yml'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Gadget/gadget.yml.schema.json' '{}'
+            Add-Asset 'contracts/widget/1.0.0/Catzc.Widget/widget.md'
+            Add-Asset 'contracts/gadget/0.0.0/Catzc.Widget/widget.md'
+            Add-Asset 'contracts/gadget/2.1.0/Catzc.Widget/widget.md'
+        }
+
+        It 'lists each unit''s 0.0.0 draft by default' -Tag 'ADR-AUTO-DEFAULT#1', 'ADR-REPO-CONTRACT#5' {
+            $assets = Get-Contract -RepositoryRoot $script:root -Addressing full-path
+            @($assets.Version | Sort-Object -Unique) | Should -Be @('0.0.0')
+            @($assets.Unit | Sort-Object -Unique) | Should -Be @('gadget', 'widget')
+            $assets.Count | Should -Be 4
+        }
+
+        It 'lists the given versions, wildcards allowed' -Tag 'ADR-REPO-CONTRACT#2' {
+            (Get-Contract -RepositoryRoot $script:root -Addressing full-path -Version '1.0.0').AssetPath |
+                Should -Be @('contracts/widget/1.0.0/Catzc.Widget/widget.md')
+            @(Get-Contract -RepositoryRoot $script:root -Addressing full-path -Version *).Count | Should -Be 6
+        }
+
+        It 'lists the given unit' -Tag 'ADR-REPO-CONTRACT#2' {
+            (Get-Contract gadget -RepositoryRoot $script:root -Addressing full-path).AssetPath |
+                Should -Be @('contracts/gadget/0.0.0/Catzc.Widget/widget.md')
+        }
+
+        It 'lists the given module' -Tag 'ADR-REPO-CONTRACT#2' {
+            (Get-Contract -RepositoryRoot $script:root -Addressing full-path -Module Catzc.Gadget).Path |
+                Should -Be @('gadget.yml', 'gadget.yml.schema.json')
+        }
+
+        It 'keeps the assets whose path or target matches -Path' -Tag 'ADR-REPO-CONTRACT#6' {
+            (Get-Contract -RepositoryRoot $script:root -Addressing full-path -Path 'gadget.yml').Path |
+                Should -Be @('gadget.yml', 'gadget.yml.schema.json')
+            (Get-Contract -RepositoryRoot $script:root -Addressing full-path -Path '*.schema.json').Path |
+                Should -Be @('gadget.yml.schema.json')
+        }
+
+        It 'gives nothing for a unit that does not exist' -Tag 'ADR-REPO-CONTRACT#2' {
+            @(Get-Contract sprocket -RepositoryRoot $script:root -Addressing full-path).Count | Should -Be 0
+        }
+    }
+
+    Context 'the kind, from the name alone' {
+        It 'reads <Name> as <Kind>' -Tag 'ADR-REPO-CONTRACT#6' -ForEach @(
+            @{ Name = 'widget.yml'; Content = 'widget: gadget'; Kind = 'Fragment'; Target = 'widget.yml' }
+            @{ Name = 'widget.md'; Content = ''; Kind = 'Presence'; Target = 'widget.md' }
+            @{ Name = 'widget.md'; Content = "  `n`n"; Kind = 'Presence'; Target = 'widget.md' }
+            @{ Name = 'widget.yml.schema.json'; Content = '{}'; Kind = 'Schema'; Target = 'widget.yml' }
+            @{ Name = 'gadget.sample.json'; Content = '{}'; Kind = 'Sample'; Target = $null }
+            @{ Name = 'gadget.sample.yml'; Content = ''; Kind = 'Sample'; Target = $null }
+        ) {
+            Add-Asset "contracts/widget/0.0.0/Catzc.Widget/$Name" $Content
+
+            $asset = Get-Contract -RepositoryRoot $script:root -Addressing full-path
+            $asset.Kind | Should -Be ([Catzc.Base.Contracts.ContractAssetKind] $Kind)
+            $asset.Target | Should -Be $Target
+        }
+
+        It 'applies a schema to the sample payload of its name beside it, not to a real file' -Tag 'ADR-REPO-CONTRACT#6' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/rest/gadget.sample.json' '{}'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/rest/gadget.schema.json' '{}'
+
+            $schema = Get-Contract -RepositoryRoot $script:root -Addressing full-path -Path '*.schema.json'
+            $schema.Kind | Should -Be ([Catzc.Base.Contracts.ContractAssetKind]::Schema)
+            $schema.Target | Should -Be 'contracts/widget/0.0.0/Catzc.Widget/rest/gadget.sample.json'
+        }
+
+        It 'applies a schema to the real file when the sample of its name sits in another folder' -Tag 'ADR-REPO-CONTRACT#6' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/other/gadget.sample.json' '{}'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/rest/gadget.schema.json' '{}'
+
+            (Get-Contract -RepositoryRoot $script:root -Addressing full-path -Path '*.schema.json').Target | Should -Be 'rest/gadget'
+        }
+
+        It 'throws when a schema sits beside two sample payloads of its name' -Tag 'ADR-REPO-CONTRACT#6' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/gadget.sample.json' '{}'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/gadget.sample.yml' ''
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/gadget.schema.json' '{}'
+
+            { Get-Contract -RepositoryRoot $script:root -Addressing full-path } | Should -Throw '*beside 2 sample payloads*'
+        }
+    }
+
+    Context 'the direction' {
+        It 'reads <Name> as <Direction> by convention' -Tag 'ADR-REPO-CONTRACT#7' -ForEach @(
+            @{ Name = 'widget.yml'; Content = 'widget: gadget'; Direction = 'DependedOn' }
+            @{ Name = 'widget.md'; Content = ''; Direction = 'DependedOn' }
+            @{ Name = 'widget.yml.schema.json'; Content = '{}'; Direction = 'DependedOn' }
+            @{ Name = 'gadget.sample.json'; Content = '{}'; Direction = 'Provided' }
+        ) {
+            Add-Asset "contracts/widget/0.0.0/Catzc.Widget/$Name" $Content
+
+            $asset = Get-Contract -RepositoryRoot $script:root -Addressing full-path
+            $asset.Direction | Should -Be ([Catzc.Base.Contracts.ContractDirection] $Direction)
+            $asset.IsDirectionOverridden | Should -BeFalse
+        }
+
+        It 'reads a schema that applies to a sample payload as provided' -Tag 'ADR-REPO-CONTRACT#7' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/gadget.sample.json' '{}'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/gadget.schema.json' '{}'
+
+            (Get-Contract -RepositoryRoot $script:root -Addressing full-path -Path 'gadget.schema.json').Direction |
+                Should -Be ([Catzc.Base.Contracts.ContractDirection]::Provided)
+        }
+
+        It 'lets the version''s contract.yml override one asset' -Tag 'ADR-REPO-CONTRACT#7' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/gadget.sample.json' '{}'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/widget.yml'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/gadget.yml'
+            Add-Asset 'contracts/widget/0.0.0/contract.yml' "direction:`n  Catzc.Widget/gadget.sample.json: depended-on`n  Catzc.Widget/widget.yml: provided`n"
+
+            $assets = Get-Contract -RepositoryRoot $script:root -Addressing full-path
+            $assets.Count | Should -Be 3
+            $byPath = @{}
+            $assets | ForEach-Object { $byPath[$_.Path] = $_ }
+            $byPath['gadget.sample.json'].Direction | Should -Be ([Catzc.Base.Contracts.ContractDirection]::DependedOn)
+            $byPath['gadget.sample.json'].IsDirectionOverridden | Should -BeTrue
+            $byPath['widget.yml'].Direction | Should -Be ([Catzc.Base.Contracts.ContractDirection]::Provided)
+            $byPath['widget.yml'].IsDirectionOverridden | Should -BeTrue
+            $byPath['gadget.yml'].Direction | Should -Be ([Catzc.Base.Contracts.ContractDirection]::DependedOn)
+            $byPath['gadget.yml'].IsDirectionOverridden | Should -BeFalse
+        }
+
+        It 'applies a contract.yml only to its own version folder' -Tag 'ADR-REPO-CONTRACT#7' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/widget.yml'
+            Add-Asset 'contracts/widget/1.0.0/Catzc.Widget/widget.yml'
+            Add-Asset 'contracts/widget/1.0.0/contract.yml' "direction:`n  Catzc.Widget/widget.yml: provided`n"
+
+            (Get-Contract -RepositoryRoot $script:root -Addressing full-path).Direction |
+                Should -Be ([Catzc.Base.Contracts.ContractDirection]::DependedOn)
+            (Get-Contract -RepositoryRoot $script:root -Addressing full-path -Version 1.0.0).Direction |
+                Should -Be ([Catzc.Base.Contracts.ContractDirection]::Provided)
+        }
+
+        It 'throws on a contract.yml entry that names no asset' -Tag 'ADR-REPO-CONTRACT#7' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/widget.yml'
+            Add-Asset 'contracts/widget/0.0.0/contract.yml' "direction:`n  Catzc.Widget/gadget.yml: provided`n"
+
+            { Get-Contract -RepositoryRoot $script:root -Addressing full-path } | Should -Throw "*'Catzc.Widget/gadget.yml' is overridden, but no such asset exists*"
+        }
+
+        It 'throws on a contract.yml direction that is not provided or depended-on' -Tag 'ADR-REPO-CONTRACT#7' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/widget.yml'
+            Add-Asset 'contracts/widget/0.0.0/contract.yml' "direction:`n  Catzc.Widget/widget.yml: sideways`n"
+
+            { Get-Contract -RepositoryRoot $script:root -Addressing full-path } | Should -Throw '*valid: provided, depended-on*'
+        }
+    }
+
+    Context 'the addressing mode' {
+        It 'takes the addressing from the contracts config, whose default is full-path' -Tag 'ADR-AUTO-DEFAULT#6', 'ADR-REPO-CONTRACT#8' {
+            Mock Get-Config { [Catzc.Base.Contracts.ContractsConfig]::new(@{}) } -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'contracts' }
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/widget.yml'
+
+            (Get-Contract -RepositoryRoot $script:root).Path | Should -Be 'widget.yml'
+            Should -Invoke Get-Config -ModuleName Catzc.Base.Contracts -Times 1 -Exactly -ParameterFilter { $Config -eq 'contracts' }
+        }
+
+        It 'throws NotImplementedException for the declared mode <Mode>, before listing anything' -Tag 'ADR-REPO-CONTRACT#8' -ForEach @(
+            @{ Mode = 'manifest-glob' }
+            @{ Mode = 'per-folder' }
+        ) {
+            Add-Asset 'contracts/widget/v1/Catzc.Widget/widget.yml'
+
+            { Get-Contract -RepositoryRoot $script:root -Addressing $Mode } |
+                Should -Throw -ExceptionType ([System.NotImplementedException]) -ExpectedMessage "*'$Mode' is declared but not built*"
+        }
+
+        It 'throws NotImplementedException when the config selects a mode that is not built' -Tag 'ADR-REPO-CONTRACT#8' {
+            Mock Get-Config { [Catzc.Base.Contracts.ContractsConfig]::new(@{ addressing = 'manifest-glob' }) } -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'contracts' }
+
+            { Get-Contract -RepositoryRoot $script:root } | Should -Throw -ExceptionType ([System.NotImplementedException])
+        }
+
+        It 'rejects a mode that is not declared, naming the declared ones' -Tag 'ADR-REPO-CONTRACT#8' {
+            { Get-Contract -RepositoryRoot $script:root -Addressing gadget } | Should -Throw '*full-path, manifest-glob, per-folder*'
+        }
+    }
+}

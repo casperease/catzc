@@ -77,7 +77,10 @@ function Build-BashTimeoutHook {
         throw 'dotnet is not on PATH. Install the .NET SDK (Install-Dotnet), then re-run Build-BashTimeoutHook.'
     }
 
-    Invoke-Executable "dotnet publish `"$csproj`" --configuration Release --output `"$OutputDirectory`" --verbosity quiet" -Silent
+    # --disable-build-servers: no MSBuild node or compiler server outlives the publish. A server started here would
+    # inherit this call's output pipe and hold it open for its whole idle lifetime (minutes), so the caller — the
+    # importer, or a test run priming a snapshot — would wait on that pipe long after dotnet itself exited.
+    Invoke-Executable "dotnet publish `"$csproj`" --configuration Release --output `"$OutputDirectory`" --verbosity quiet --disable-build-servers" -Silent
     $program = & $findProgram
     Assert-NotNullOrWhitespace $program -ErrorText "dotnet publish succeeded but produced no runnable '$assemblyName' program in $OutputDirectory."
     Set-Content -LiteralPath $stamp -Value $sourceHash -NoNewline

@@ -140,6 +140,18 @@ it.
 
 - [The cache-state contract](#the-cache-state-contract)
 
+### Rule ADR-AUTO-TYPES:14
+
+Every concrete type a pwsh caller can hold renders console-ready: it overrides `ToString()`, normally as the one line
+`public override string ToString() => this.ToConsoleString();`, so `"$x"`, `[string]$x`, and a table cell read
+`TypeName { A = 1, B = x }` instead of the fully-qualified name. The rendering lives once, in `Catzc.Base.Objects.ConsoleText`, and
+`DictionaryRecord` carries the override for every record derived from it. A type names its identity properties with
+`[Catzc.Base.Objects.ConsoleDisplay(...)]`, which narrows both its text and its default display at the prompt. `Test-ShippedTypes` fails a
+type that keeps the inherited `ToString()`.
+
+- [Console-ready rendering](#console-ready-rendering)
+- [How this is enforced](#how-this-is-enforced)
+
 ## Context
 
 Some logic is better expressed as a native .NET type than as PowerShell: a process runner with background reader threads
@@ -351,6 +363,29 @@ every call site re-interprets. A loose dictionary here would push the shape into
 construction-time check — the opposite of a fixed model. Config that _feeds_ the model (the `files.yml` package bindings) crosses the
 boundary through its own config type, `FilesConfig`, which validates it at load; the model `Get-BaseModule` builds from it is typed too.
 
+### Console-ready rendering
+
+`A catzc object held in pwsh reads as one line`
+
+The types are consumed from pwsh, so how an object reads there is part of its design
+([console-output-matters](../powershell/console-output-matters.md#rule-adr-auto-console1)). A class that keeps `object.ToString()` renders
+as its fully-qualified name: `Write-Message "Switched to $context"` prints `Switched to Catzc.Azure.Cli.SubscriptionContext`, and a
+collection property shows `{Catzc.Base.Globs.GlobPattern, …}` in a table. The fix has to be in C#: PowerShell's interpolation and
+`[string]` cast call the type's own .NET `ToString()` and ignore a `ToString` registered through the extended type system, which only
+`-join`, an explicit `.ToString()`, and the formatter honour.
+
+So the rendering is one shared extension method, `ConsoleText.ToConsoleString()`, and each type opts in with a one-line override. The format
+is the C# `record` convention a .NET reader already knows, `TypeName { A = 1, B = x }`, on one line: the bare type name, a null property
+omitted (the `DictionaryRecord` "present" rule), strings as-is with newlines escaped, numbers invariant, dates ISO 8601, collections capped
+at a few items with the rest counted, and a nested object by its own `ToString()`, with nesting capped so a cycle cannot recurse. A type
+whose identity is one domain value (a path, a glob pattern, a dependency edge) writes its own `ToString()` instead, since that value reads
+better than a property list.
+
+`[ConsoleDisplay("Id", "Name")]` names a type's identity properties once and drives both console surfaces: `ToConsoleString()` renders only
+those, and `Import-CSharpTypes` registers them as the type's `DefaultDisplayPropertySet`, so typing `$x` at the prompt shows those columns
+instead of every property. The formatter does honour extended-type-system data, so this half is registration, like the type-accelerator
+aliases.
+
 ### How this is enforced
 
 - **`Format-Types` + `Test-Formatting`** (in `Catzc.Base.QualityGates`) — `Format-Types` writes/repairs each source's file-scoped
@@ -360,8 +395,13 @@ boundary through its own config type, `FilesConfig`, which validates it at load;
 
 - **`Import-CSharpTypes`** rejects a dotted filename and a source whose declared namespace is missing, mismatched, or block-scoped (the same
   invariant `Test-Formatting` enforces, checked at load), compiles all modules' sources **as authored** into one assembly (`Add-Type -Path`,
-  one compilation unit per file), verifies every `types/*.cs` produced `<module>.<filename>` (else "was not produced"), and registers each
-  `[Catzc.Base.Objects.PSTypeAlias]` name as a type-accelerator (Rule ADR-AUTO-TYPES#10).
+  one compilation unit per file), verifies every `types/*.cs` produced `<module>.<filename>` (else "was not produced"), registers each
+  `[Catzc.Base.Objects.PSTypeAlias]` name as a type-accelerator (Rule ADR-AUTO-TYPES#10), and registers each
+  `[Catzc.Base.Objects.ConsoleDisplay]` property list as the type's default display (Rule ADR-AUTO-TYPES#14).
+
+- **`Test-ShippedTypes`** (in `Catzc.Base.TypesSystem`) fails a concrete shipped class that keeps the inherited `ToString()`, naming the
+  file and the line to add (Rule ADR-AUTO-TYPES#14); enums, interfaces, abstract and static classes, attributes, and exceptions are exempt.
+  `ConsoleText.Tests.ps1` pins the rendering rules.
 
 - **`Invoke-BuildForVSCode`** (in `Catzc.Base.TypesSystem`) drives the editor-facing `dotnet build` of `Catzc.Types.csproj` through
   `Invoke-Executable`, so a dev or CI builds and verifies the IDE project on demand; the project's stamp task fails the build on a stale

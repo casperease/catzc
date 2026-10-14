@@ -7,6 +7,8 @@ namespace Catzc.Azure.Firewall;
 
 public sealed class CsvExportRef
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // Which rule collection kind this CSV holds (application or network).
     public RuleType Type      { get; }
 

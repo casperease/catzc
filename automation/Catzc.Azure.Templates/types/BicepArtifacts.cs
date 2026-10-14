@@ -7,6 +7,8 @@ namespace Catzc.Azure.Templates;
 
 public sealed class BicepArtifacts
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // True when the template was compiled locally for this deploy (rather than reusing a prior build).
     public bool   did_local_build { get; }
 

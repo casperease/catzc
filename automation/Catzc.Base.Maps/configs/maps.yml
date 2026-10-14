@@ -1,0 +1,29 @@
+# maps.yml — the world-map settings: the palette, the limits, the printed labels, the reviewed highlight pins and
+# exceptions, and the folder under the output root the PDFs are written to
+# ([ADR-REPO-OUTDIR#2](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2)). Every key has a
+# sensible default, declared once on Catzc.Base.Maps.MapsConfig and the section types it holds
+# ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)); set a key only to change
+# it. Loaded via Get-Config -Config maps.
+#
+#   palette:                        # fill colours, each '#' and six hex digits
+#     row: '#DCE6F0'                #   a track's row header
+#     column: '#E8E8E8'             #   a file language's column header
+#     cell: '#FFFFFF'               #   a cell
+#     highlight: '#F4B942'          #   a lit cell
+#   limits:                         # each a positive number
+#     page_width: 842               #   PDF points (A4 landscape)
+#     page_height: 595
+#     min_font_size: 6              #   the smallest a label may shrink to
+#     max_row_label: 24             #   characters a track name prints (whole number)
+#     max_column_label: 16          #   characters a file-language name prints (whole number)
+#   labels:                         # WinAnsi text only: the base-14 PDF fonts show nothing else
+#     grid_title: 'World map: tracks × file languages'
+#     tree_title: 'World map: repository tree'
+#     row_axis: Track               #   at most max_row_label characters
+#     column_axis: File language    #   at most max_column_label characters
+#   highlight:                      # reviewed overrides of the derived highlight
+#     pins: []                      #   cells an ADR always lights
+#     exceptions: []                #   cells an ADR never lights (a passing mention)
+#       # each: { adr: <ADR code, optionally #n>, track: <track>, file_language: <file language>, reason: <why> }
+#   output_folder: world-map        # one folder name under the output root
+{}

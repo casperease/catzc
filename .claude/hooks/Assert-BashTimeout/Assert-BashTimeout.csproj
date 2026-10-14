@@ -25,6 +25,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../../../automation/Catzc.Base.Objects/types/DictionaryRecord.cs" Link="linked/DictionaryRecord.cs" />
+    <Compile Include="../../../automation/Catzc.Base.Objects/types/ConsoleText.cs" Link="linked/ConsoleText.cs" />
+    <Compile Include="../../../automation/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs" Link="linked/ConsoleDisplayAttribute.cs" />
+    <Compile Include="../../../automation/Catzc.Base.Engines/types/ExecutionEngine.cs" Link="linked/ExecutionEngine.cs" />
+    <Compile Include="../../../automation/Catzc.Base.Engines/types/ExecutionEngines.cs" Link="linked/ExecutionEngines.cs" />
     <Compile Include="../../../automation/Catzc.Base.Timeouts/types/TimeoutsConfig.cs" Link="linked/TimeoutsConfig.cs" />
     <Compile Include="../../../automation/Catzc.Base.Timeouts/types/BashSafeguard.cs" Link="linked/BashSafeguard.cs" />
     <Compile Include="../../../automation/Catzc.Base.Timeouts/types/BoundedCommand.cs" Link="linked/BoundedCommand.cs" />

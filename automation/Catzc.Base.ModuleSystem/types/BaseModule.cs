@@ -10,6 +10,9 @@ namespace Catzc.Base.ModuleSystem;
 
 public abstract class BaseModule
 {
+    // Once here for every kind (DiskModule, SessionModule, …): the rendering names the derived kind.
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The module name. For a disk module the folder name (e.g. 'Catzc.Base.Config', '.vendor'); for a session
     // module the loaded module name.
     public string Name { get; }

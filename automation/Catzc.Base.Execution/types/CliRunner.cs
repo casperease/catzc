@@ -14,8 +14,11 @@ using System.Threading;
 
 namespace Catzc.Base.Execution;
 
+[Catzc.Base.Objects.ConsoleDisplay(nameof(ExitCode))]
 public class CliRunner
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The full captured stdout of the run (also streamed live unless silent).
     public string Stdout { get; private set; }
 
@@ -24,6 +27,10 @@ public class CliRunner
 
     // The process exit code.
     public int ExitCode { get; private set; }
+
+    // The captured stdout as the exact bytes the process wrote — set by RunBytes only (null for a text run), for
+    // a binary stream such as `git cat-file --batch`, whose object sizes count bytes, not characters.
+    public byte[] StdoutBytes { get; private set; }
 
     /// <summary>
     /// Runs a command string. Parses it into executable + arguments and runs
@@ -51,6 +58,50 @@ public class CliRunner
     }
 
     /// <summary>
+    /// Runs a command string silently and captures its stdout as raw bytes (StdoutBytes) — no decoding, no
+    /// console echo — for a binary stream. Stderr is captured as text. Same single-command rule and time
+    /// safeguard as Run; stdin is empty and closed.
+    /// </summary>
+    public static CliRunner RunBytes(string commandLine, string workingDirectory, int timeoutSeconds)
+    {
+        if (timeoutSeconds <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(timeoutSeconds), "every run needs a positive time limit");
+        }
+
+        var parsed = ParseCommand(commandLine);
+        if (parsed.HasShellOperator)
+        {
+            throw new InvalidOperationException(
+                $"Invoke-Executable runs a single command — shell operators ({parsed.ShellOperator}) are not supported.");
+        }
+
+        var psi = NewStartInfo(parsed.Executable, parsed.Arguments, workingDirectory, redirectInput: true);
+        var runner = new CliRunner();
+        var stdout = new MemoryStream();
+        var stderrSb = new StringBuilder();
+
+        using (var process = new Process { StartInfo = psi })
+        {
+            process.Start();
+            process.StandardInput.Close();
+
+            var stdoutThread = Reader(() => process.StandardOutput.BaseStream.CopyTo(stdout));
+            var stderrThread = Reader(() => stderrSb.Append(process.StandardError.ReadToEnd()));
+            stdoutThread.Start();
+            stderrThread.Start();
+
+            Supervise(commandLine, process, timeoutSeconds, stdoutThread, stderrThread);
+            runner.ExitCode = process.ExitCode;
+        }
+
+        runner.StdoutBytes = stdout.ToArray();
+        runner.Stdout = string.Empty;
+        runner.Stderr = stderrSb.ToString();
+        return runner;
+    }
+
+    /// <summary>
     /// The executable a command string runs (its first token, quotes removed), or an
     /// empty string for a blank command — the name its time limit is looked up by.
     /// </summary>
@@ -66,23 +117,29 @@ public class CliRunner
         var stdoutSb = new StringBuilder();
         var stderrSb = new StringBuilder();
 
+        // A child inheriting a stdin pipe that another thread is blocked reading hangs at startup (Git for
+        // Windows probes its std handles). Whenever no person can answer a prompt anyway (a silent run, or
+        // a caller whose stdin is not a terminal), the child gets an empty, closed stdin and reads EOF. A
+        // visible run from a terminal keeps it, so interactive prompts still work.
+        var psi = NewStartInfo(executable, arguments, workingDirectory, redirectInput: silent || Console.IsInputRedirected);
+
+        return Execute(commandLine, psi, stdoutSb, stderrSb, silent, timeoutSeconds, runner);
+    }
+
+    private static ProcessStartInfo NewStartInfo(string executable, List<string> arguments, string workingDirectory,
+        bool redirectInput)
+    {
         // Resolve the executable on PATH. Process.Start with UseShellExecute=false
         // doesn't resolve .cmd/.bat/.ps1 extensions — only exact filenames.
         // Tools like az, poetry, npm, pyspark are .cmd scripts on Windows.
-        var resolved = ResolveExecutable(executable);
-
         var psi = new ProcessStartInfo
         {
-            FileName = resolved,
+            FileName = ResolveExecutable(executable),
             CreateNoWindow = true,
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
-            // A child inheriting a stdin pipe that another thread is blocked reading hangs at startup (Git for
-            // Windows probes its std handles). Whenever no person can answer a prompt anyway (a silent run, or
-            // a caller whose stdin is not a terminal), the child gets an empty, closed stdin and reads EOF. A
-            // visible run from a terminal keeps it, so interactive prompts still work.
-            RedirectStandardInput = silent || Console.IsInputRedirected
+            RedirectStandardInput = redirectInput
         };
 
         if (!string.IsNullOrEmpty(workingDirectory))
@@ -96,7 +153,60 @@ public class CliRunner
             psi.ArgumentList.Add(arg);
         }
 
-        return Execute(commandLine, psi, stdoutSb, stderrSb, silent, timeoutSeconds, runner);
+        return psi;
+    }
+
+    // An output reader: a background thread, so one still blocked on a pipe a leftover process holds can never keep
+    // the host alive, and one that swallows the error a disposed stream raises, since an exception escaping a thread
+    // would end the host.
+    private static Thread Reader(Action read)
+    {
+        return new Thread(() =>
+        {
+            try
+            {
+                read();
+            }
+            catch (Exception ex) when (ex is IOException or ObjectDisposedException or InvalidOperationException)
+            {
+                // The run is over: Supervise already reported why the output did not end.
+            }
+        })
+        { IsBackground = true };
+    }
+
+    // How long the output readers may take to reach end-of-stream once the process has exited. The rest of a
+    // finished process's output drains in milliseconds; a reader still blocked after this is waiting on a pipe
+    // that a process the command started (a detached server, a grandchild) still holds open.
+    private static readonly TimeSpan DrainLimit = TimeSpan.FromSeconds(5);
+
+    // Waits for the process within its time limit, then — bounded too — for its output readers. Past the limit it
+    // kills the whole tree and throws a TimeoutException. A reader the pipe never releases fails the run with an
+    // IOException naming the cause, instead of hanging the caller for that holder's lifetime.
+    private static void Supervise(string commandLine, Process process, int timeoutSeconds, Thread stdoutThread,
+        Thread stderrThread)
+    {
+        if (!process.WaitForExit(TimeSpan.FromSeconds(timeoutSeconds)))
+        {
+            process.Kill(entireProcessTree: true);
+            process.WaitForExit();
+            stdoutThread.Join(DrainLimit);
+            stderrThread.Join(DrainLimit);
+            throw new TimeoutException(
+                $"Killed '{commandLine}' after {timeoutSeconds}s: it did not finish within its time limit. " +
+                "Make it faster, or raise the limit: pass -TimeoutSeconds, or tune the executable's entry in " +
+                "automation/Catzc.Base.Timeouts/configs/timeouts.yml.");
+        }
+
+        process.WaitForExit();
+        var drained = stdoutThread.Join(DrainLimit) & stderrThread.Join(DrainLimit);
+        if (!drained)
+        {
+            throw new IOException(
+                $"'{commandLine}' exited (code {process.ExitCode}), but a process it started still holds its output open, " +
+                $"so the output never ended (waited {DrainLimit.TotalSeconds:0}s after exit). Stop that process from " +
+                "inheriting the output: for a dotnet build, pass --disable-build-servers.");
+        }
     }
 
     private static CliRunner Execute(string commandLine, ProcessStartInfo psi, StringBuilder stdoutSb,
@@ -116,7 +226,7 @@ public class CliRunner
                     process.StandardInput.Close();
                 }
 
-                var stdoutThread = new Thread(() =>
+                var stdoutThread = Reader(() =>
                 {
                     int ch;
                     while ((ch = process.StandardOutput.Read()) != -1)
@@ -127,7 +237,7 @@ public class CliRunner
                     }
                 });
 
-                var stderrThread = new Thread(() =>
+                var stderrThread = Reader(() =>
                 {
                     int ch;
                     while ((ch = process.StandardError.Read()) != -1)
@@ -141,23 +251,7 @@ public class CliRunner
                 stdoutThread.Start();
                 stderrThread.Start();
 
-                if (!process.WaitForExit(TimeSpan.FromSeconds(timeoutSeconds)))
-                {
-                    // Kill the whole tree: a .cmd shim or a tool's own workers would otherwise keep the output
-                    // pipes open and the reader threads alive.
-                    process.Kill(entireProcessTree: true);
-                    process.WaitForExit();
-                    stdoutThread.Join();
-                    stderrThread.Join();
-                    throw new TimeoutException(
-                        $"Killed '{commandLine}' after {timeoutSeconds}s: it did not finish within its time limit. " +
-                        "Make it faster, or raise the limit: pass -TimeoutSeconds, or tune the executable's entry in " +
-                        "automation/Catzc.Base.Timeouts/configs/timeouts.yml.");
-                }
-
-                process.WaitForExit();
-                stdoutThread.Join();
-                stderrThread.Join();
+                Supervise(commandLine, process, timeoutSeconds, stdoutThread, stderrThread);
 
                 runner.ExitCode = process.ExitCode;
             }

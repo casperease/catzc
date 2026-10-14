@@ -37,7 +37,8 @@ public sealed class TimeoutExemptionsConfig : Catzc.Base.Objects.DictionaryRecor
     private static readonly string[] RangeKeys = { "from", "to" };
     private static readonly string[] ScopeKeys = { "environment", "shell" };
     private static readonly string[] Environments = { "devbox", "pipeline" };
-    private static readonly string[] Shells = { "bash", "pwsh" };
+    // The shells a ceiling is keyed by: the execution engines, declared once (ADR-AUTO-ENGINE#1).
+    private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
     private static readonly Regex CanonicalGuid = new Regex(
         "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", RegexOptions.CultureInvariant);
     // The all-zeros GUID is a denied registry value, so it is built at runtime, never written as a literal.

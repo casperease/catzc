@@ -7,6 +7,8 @@ namespace Catzc.Azure.Templates;
 
 public sealed class BicepDeploymentPlan
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The template being deployed (its name). Always present.
     public string template       { get; }
 

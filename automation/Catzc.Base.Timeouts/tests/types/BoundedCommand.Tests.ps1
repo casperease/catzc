@@ -31,6 +31,6 @@ Describe 'BoundedCommand' -Tag 'L0', 'logic' {
 
     It 'throws on an engine that is not pwsh or bash' {
         $requested = $null
-        { [Catzc.Base.Timeouts.BoundedCommand]::Check('get-widget', 'zsh', 70, [ref] $requested) } | Should -Throw "*unknown engine 'zsh'*"
+        { [Catzc.Base.Timeouts.BoundedCommand]::Check('get-widget', 'zsh', 70, [ref] $requested) } | Should -Throw "*'zsh' is not an execution engine (one of: pwsh, bash)*"
     }
 }

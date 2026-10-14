@@ -8,6 +8,11 @@
     old blob, a renamed path, or a commit message. This scans the whole history
     reachable from a ref for all three and returns a structured result.
 
+    The scan is one pass (Catzc.Base.Git.GitHistoryScan): git streams its objects
+    once (`git cat-file --batch-all-objects --batch`), and every commit message,
+    every path and every distinct file content the ref reaches is read exactly
+    once — never once per revision that contains it.
+
     Scan the local ref (default HEAD) that is pushed; the purge functions then
     prove from the remote's advertised refs that it holds that same commit,
     so the scan covers what actually landed. Never scan
@@ -17,7 +22,9 @@
     Read-only: it never mutates the repository.
 .PARAMETER Token
     The token to hunt for (e.g. a secret, or a project name being erased).
-    Matched case-insensitively as a literal substring across every surface.
+    Matched as a literal substring, ignoring ASCII case, across every surface.
+    A binary file (a NUL byte in its first 8000 bytes) is skipped, as
+    `git grep -I` skips it.
 .PARAMETER Ref
     The ref whose reachable history is scanned. Defaults to HEAD. Pass a branch
     name, a SHA, or --all to sweep every ref (only meaningful in a clone with no
@@ -27,13 +34,14 @@
 .PARAMETER ExcludePath
     Repo-relative path prefixes to ignore on every surface — vendored,
     third-party trees that legitimately contain the token. Defaults to the
-    vendor directory.
+    vendor directory. A file content is ignored only when every path it
+    appears under is excluded.
 .OUTPUTS
     A Catzc.Tooling.Github result object with:
       .Clean    — $true when no surface contains the token
       .Token    — the token scanned for
       .Ref      — the ref scanned
-      .Blobs    — content hits (`<rev>:<path>:<line>`)
+      .Blobs    — content hits (`<blob>:<path>:<line>`, one per matching line of each distinct file content)
       .Paths    — path hits (distinct repo-relative paths)
       .Messages — commit-message lines containing the token
 .EXAMPLE
@@ -57,58 +65,27 @@ function Test-GitHistoryClean {
 
     Assert-PathExist $RepositoryPath -PathType Container
 
-    # git grep pathspecs that drop the excluded trees from the blob scan.
-    $excludeSpec = @($ExcludePath | ForEach-Object { ":!$_" }) -join ' '
-
-    # Every revision reachable from the ref — the whole history we must prove clean.
-    $revList = Invoke-Executable "git rev-list $Ref" -WorkingDirectory $RepositoryPath -PassThru -NoAssert -Silent
-    if ($revList.ExitCode -ne 0) {
-        throw "Cannot enumerate revisions for ref '$Ref' in '$RepositoryPath': $($revList.Errors)"
-    }
-    $revs = @($revList.Output -split '\r?\n' | Where-Object { $_ })
-
-    # --- Blobs: the token in file content at any revision. git grep takes the revs
-    # as arguments; batch them so a long history never overflows the command line.
-    # git grep exit codes: 0 = match, 1 = no match, >1 = real error.
-    $blobHits = [System.Collections.Generic.List[string]]::new()
-    for ($start = 0; $start -lt $revs.Count; $start += 200) {
-        $batch = $revs[$start..([Math]::Min($start + 199, $revs.Count - 1))]
-        $grep = Invoke-Executable "git grep -I -i -F -e `"$Token`" $($batch -join ' ') -- $excludeSpec" `
-            -WorkingDirectory $RepositoryPath -PassThru -NoAssert -Silent
-        if ($grep.ExitCode -gt 1) {
-            throw "git grep failed in '$RepositoryPath': $($grep.Errors)"
-        }
-        if ($grep.ExitCode -eq 0) {
-            $grep.Output -split '\r?\n' | Where-Object { $_ } | ForEach-Object { $blobHits.Add($_) }
-        }
+    # The objects the scan starts from: the ref's commit, or every ref's object for --all.
+    $roots = Invoke-Executable "git rev-parse $Ref" -WorkingDirectory $RepositoryPath -PassThru -NoAssert -Silent
+    if ($roots.ExitCode -ne 0) {
+        throw "Cannot resolve ref '$Ref' in '$RepositoryPath': $($roots.Errors)"
     }
 
-    # --- Paths: the token in any path ever touched in this history.
-    $pathLog = Invoke-Executable "git log $Ref --pretty=format: --name-only" `
-        -WorkingDirectory $RepositoryPath -PassThru -NoAssert -Silent
-    if ($pathLog.ExitCode -ne 0) {
-        throw "git log (paths) failed in '$RepositoryPath': $($pathLog.Errors)"
+    # Every object once, in pack order; the scan walks only what the roots reach.
+    $objects = Invoke-Executable 'git cat-file --batch-all-objects --batch --unordered' -WorkingDirectory $RepositoryPath -AsBytes -NoAssert -Silent
+    if ($objects.ExitCode -ne 0) {
+        throw "Cannot read the objects of '$RepositoryPath': $($objects.Errors)"
     }
-    $pathHits = @($pathLog.Output -split '\r?\n' |
-            Where-Object { $_ -and ($_ -match [regex]::Escape($Token)) } |
-            Where-Object { $path = $_; -not ($ExcludePath | Where-Object { $path -like "$_*" }) } |
-            Select-Object -Unique)
 
-    # --- Messages: the token in any commit message.
-    $messageLog = Invoke-Executable "git log $Ref --format=%B" `
-        -WorkingDirectory $RepositoryPath -PassThru -NoAssert -Silent
-    if ($messageLog.ExitCode -ne 0) {
-        throw "git log (messages) failed in '$RepositoryPath': $($messageLog.Errors)"
-    }
-    $messageHits = @($messageLog.Output -split '\r?\n' |
-            Where-Object { $_ -and ($_ -match [regex]::Escape($Token)) })
-
+    # git ends its lines with LF on every platform; one root per line.
+    $rootIds = [string[]] @($roots.Output -split '\r?\n' | Where-Object { $_ })
+    $scan = [Catzc.Base.Git.GitHistoryScan]::Scan($objects.Bytes, $rootIds, $Token, $ExcludePath)
     [pscustomobject]@{
-        Clean    = -not ($blobHits.Count -or $pathHits.Count -or $messageHits.Count)
+        Clean    = $scan.Clean
         Token    = $Token
         Ref      = $Ref
-        Blobs    = @($blobHits)
-        Paths    = $pathHits
-        Messages = $messageHits
+        Blobs    = @($scan.Blobs)
+        Paths    = @($scan.Paths)
+        Messages = @($scan.Messages)
     }
 }

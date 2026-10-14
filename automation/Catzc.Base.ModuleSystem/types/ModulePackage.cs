@@ -9,6 +9,8 @@ namespace Catzc.Base.ModuleSystem;
 
 public sealed class ModulePackage
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     public string Name { get; }
     public IReadOnlyList<string> Paths { get; }
 

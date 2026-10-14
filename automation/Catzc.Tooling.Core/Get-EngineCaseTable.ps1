@@ -23,10 +23,15 @@ function Get-EngineCaseTable {
     param(
         [Parameter(Mandatory, Position = 0)]
         [string] $Path,
-        [ValidateSet('pwsh', 'bash')]
+        [ArgumentCompleter({ [Catzc.Base.Engines.ExecutionEngines]::Names })]
         [string] $Engine,
         [switch] $Applicable
     )
+
+    # The engines are declared once (ADR-AUTO-ENGINE#1): Get throws, naming them, for any other name.
+    if ($Engine) {
+        $null = [Catzc.Base.Engines.ExecutionEngines]::Get($Engine)
+    }
 
     $file = if ([System.IO.Path]::IsPathRooted($Path)) {
         $Path

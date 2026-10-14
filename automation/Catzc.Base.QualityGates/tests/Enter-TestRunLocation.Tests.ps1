@@ -124,7 +124,7 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         $script:location.Holder.Known | Should -BeTrue
         Should -Invoke New-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $SourceRoot -eq $script:root }
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
-            $Command -like 'pwsh -NoProfile -File *catzc-run-*importer.ps1"'
+            $Command -like 'pwsh -NoProfile -NonInteractive -File *catzc-run-*importer.ps1"'
         }
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
             $Message -like "The repository is busy: Test-Automation (pid $PID, started *, run 20261013-174616) holds the test-run lock."
@@ -133,7 +133,8 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
 
     It 'removes the snapshot and fails when priming it fails' {
         Mock Invoke-Executable { throw 'import failed' } -ModuleName Catzc.Base.QualityGates
-        { InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Test-Automation' -Isolated } } | Should -Throw '*import failed*'
+        { InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Test-Automation' -Isolated } } |
+            Should -Throw '*went to a snapshot, but priming the snapshot failed: import failed*'
         Should -Invoke Remove-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Path -like '*catzc-run-*' }
     }
 

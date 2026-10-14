@@ -1,16 +1,18 @@
-// The Python test-project settings (configs/python.yml). New-PythonProject renders the one generated uv project,
-// python/pyproject.toml, from it, and Invoke-PythonTest runs the tests in python/tests/<folder>/ inside that project's
-// environment. Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Languages.PythonConfig), so
-// Get-Config -Config python returns this typed record. Property names mirror the YAML keys (snake_case,
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)). The Python version is not
-// a setting here: it is the python tool's pin in tools.yml, the one Python version.
-//
-// The Python root is not a setting either: python/ is a conventional root folder, hardcoded
-// ([ADR-REPO-FOLDERS#7](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders7)) as Root, because Python
-// has no competing layout idiom for where test code lives.
+// The Python test-workspace settings (configs/python.yml), and the single declaration of their sensible defaults.
+// New-PythonProject renders the generated uv workspace from it — the workspace root <root>/pyproject.toml and one member
+// <root>/tests/<folder>/pyproject.toml per Python test folder — and Invoke-PythonTest runs the tests in
+// <root>/tests/<folder>/ inside the workspace's one environment. Registered in Catzc.Base.Config/configs/configs.yml
+// (type: Catzc.Base.Languages.PythonConfig), so Get-Config -Config python returns this typed record. Property names
+// mirror the YAML keys (snake_case, [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+// The Python version is not a setting here: it is the python tool's pin in tools.yml, the one Python version.
 //
 // Constructing an instance validates the file, collecting every violation into one ArgumentException:
-//   - only the known key 'dependencies' — an unknown key (a typo) fails at load;
+//   - only the known keys ('root', 'dependencies') — an unknown key (a typo) fails at load;
+//   - 'root' is the Python root folder, repository-relative: slash-separated segments of letters, digits, '.', '_' and
+//     '-', no leading or trailing slash, no '.' or '..' segment. Omitted, it resolves per repository (ResolveRoot):
+//     'python' when the repository has a python/ folder (a Python root track), else '.python', the dot-prefixed tooling
+//     folder — the one convention every test language's root follows
+//     ([ADR-REPO-FOLDERS#7](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders7));
 //   - 'dependencies' maps a normalised distribution name (lowercase letters, digits, '-', '_', '.') to an exact
 //     version (digits and dots), kept in ordinal name order so a rendering never depends on the file's key order;
 //   - the tools the bridge runs are required: 'pytest' (the test runner) and 'ruff' (the formatter and linter).
@@ -19,26 +21,34 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Languages;
 
 public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    // The Python root folder, repository-relative: the test folders live in python/tests/<module>/, and the generated
-    // project, its environment and its lock live in python/.
-    public const string Root = "python";
+    // The Python root when the repository has this folder: a Python root track.
+    public const string DefaultRoot = "python";
+
+    // The Python root otherwise: the dot-prefixed tooling folder.
+    public const string FallbackRoot = ".python";
 
     // A test named test_integrity* reads the shipped artifacts and is `integrity`.
     public const string IntegrityPrefix = "test_integrity";
 
     private const string Failed = "python config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "dependencies" };
+    private static readonly string[] AllowedKeys = { "root", "dependencies" };
     private static readonly string[] RequiredDependencies = { "pytest", "ruff" };
+    private static readonly Regex Root = new Regex(@"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
     private static readonly Regex DistributionName = new Regex(@"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$");
     private static readonly Regex ExactVersion = new Regex(@"^[0-9]+(\.[0-9]+)*$");
 
-    // The test project's dependencies, distribution name -> exact version, in ordinal name order.
+    // The declared Python root folder, repository-relative ('/'-separated). Null when the file declares none;
+    // ResolveRoot then applies the default.
+    public string root { get; }
+
+    // The test dependencies every workspace member requires, distribution name -> exact version, in ordinal name order.
     public IReadOnlyDictionary<string, string> dependencies { get; }
 
     public PythonConfig(IDictionary raw)
@@ -54,6 +64,18 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
                 if (Array.IndexOf(AllowedKeys, key) < 0)
                 {
                     errors.Add(string.Format(CultureInfo.InvariantCulture, "unknown key '{0}' (allowed: {1})", key, string.Join(", ", AllowedKeys)));
+                }
+            }
+
+            if (raw.Contains("root") && raw["root"] != null)
+            {
+                string value = Convert.ToString(raw["root"], CultureInfo.InvariantCulture);
+                bool dotSegment = Array.Exists(value.Split('/'), s => s == "." || s == "..");
+                if (raw["root"] is string && Root.IsMatch(value) && !dotSegment) { root = value; }
+                else
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture,
+                        "invalid root '{0}' (a repository-relative folder: '/'-separated segments, no leading or trailing slash, no '.' or '..' segment, e.g. 'python')", value));
                 }
             }
 
@@ -100,5 +122,17 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
 
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
         dependencies = requires;
+    }
+
+    // The Python root folder for a repository, repository-relative: the declared root, else 'python' when the repository
+    // has a python/ folder, else '.python'.
+    public string ResolveRoot(string repositoryRoot)
+    {
+        if (root != null) { return root; }
+        if (string.IsNullOrWhiteSpace(repositoryRoot))
+        {
+            throw new ArgumentException("PythonConfig.ResolveRoot requires the repository root");
+        }
+        return Directory.Exists(Path.Combine(repositoryRoot, DefaultRoot)) ? DefaultRoot : FallbackRoot;
     }
 }

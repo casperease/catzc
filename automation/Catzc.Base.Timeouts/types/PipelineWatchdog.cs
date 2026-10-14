@@ -13,6 +13,8 @@ namespace Catzc.Base.Timeouts;
 
 public sealed class PipelineWatchdog : IDisposable
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     private readonly Timer timer;
     private int fired;
 

@@ -21,6 +21,8 @@ namespace Catzc.Base.QualityGates;
 
 public sealed class CodeLinkRewriter
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // One reference in a comment. Alternation order matters: an existing link swallows the citation in its text.
     static readonly Regex Reference = new Regex(
         @"(?<link>\[(?<text>[^\]\r\n]*)\]\((?<dest>[^)\s]+)\))" +

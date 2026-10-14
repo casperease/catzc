@@ -65,6 +65,30 @@ are real process launches, so a test that runs one is L2.
 
 - [What the index cannot answer](#what-the-index-cannot-answer)
 
+### Rule ADR-AUTO-TRACKED:9
+
+Git's refs are read in-process too, through `[Catzc.Base.Git.GitRefs]`: a checkout's git directory (following a `gitdir:` pointer and a
+linked worktree's `commondir`), the index path, the commit `HEAD`, a branch or a tag names, and the branch `HEAD` is on. No code launches
+`git rev-parse` for those. A revision expression (`HEAD~3`, `--all`) stays with git. A ref store the reader cannot read correctly, a
+reftable or a loose annotated tag, is refused by name (ADR-AUTO-TRACKED#5).
+
+- [Small formats in-process, objects through one pass](#small-formats-in-process-objects-through-one-pass)
+
+### Rule ADR-AUTO-TRACKED:10
+
+A scan over a history reads every object once, from one `git cat-file --batch-all-objects --batch` stream, through
+`[Catzc.Base.Git.GitHistoryScan]`. It never reads an object once per revision that contains it, as `git grep <revisions>` or a per-commit
+loop does. The stream is git's own decompression: catzc carries no reader of git's compressed object store.
+
+- [Small formats in-process, objects through one pass](#small-formats-in-process-objects-through-one-pass)
+
+### Rule ADR-AUTO-TRACKED:11
+
+Git is written through the git CLI (`clone`, `push`, `commit`, `remote set-url`) via `Invoke-Executable`, inside its time limit
+(ADR-AUTO-FAILFAST#7). Reading in-process never extends to writing a repository.
+
+- [Small formats in-process, objects through one pass](#small-formats-in-process-objects-through-one-pass)
+
 ## Context
 
 Many parts of the platform set the scope of their work by the files git tracks: the globsets select from them
@@ -115,6 +139,21 @@ The index records what is tracked and nothing about files outside it. Whether an
 `.git/info/exclude`, and global excludes; what a path's attributes are depends on `.gitattributes` files at every level. Re-implementing
 those rules would be a second, drifting copy of git, so those questions stay with git itself — and a test that asks them is an L2 test.
 
+### Small formats in-process, objects through one pass
+
+The index is not the only small, documented git format. Refs are text files: `HEAD`, a loose ref per branch, and `packed-refs`. Reading them
+costs a file read where `git rev-parse` costs a process start, about 40 ms each, and a test that reads them stays a logic test.
+
+The object store is different. Objects are zlib-compressed and packed as delta chains behind an index, and a reader for that would be a
+large second copy of git. It would also be slower to get right than git, which already decompresses every object in a stream. What makes a
+history scan slow is reading the same object again for every revision that holds it, not the decompression. Measured on this repository (684
+commits, 9,122 distinct file contents), `git grep` over every revision took about 8.1 s, while one `cat-file` pass over every object took
+0.64 s. The scan built on that pass, searching each distinct content once, takes about 1.7 s end to end. So the scan takes git's one stream
+and does the indexing, walking and searching itself.
+
+Writing is never in-process. A clone, a push or a commit changes state that git owns, and a second writer would be a second copy of git's
+consistency rules.
+
 ## Decision
 
 `Get-GitTrackedPath` is the one place that answers which files git tracks. It reads the git index in-process, returns exactly what plain
@@ -123,11 +162,15 @@ index shapes it cannot read correctly. Questions about untracked, ignored, or at
 
 ### How this is enforced
 
-- **`Get-GitTrackedPath`** (`Catzc.Base.Files`) — the seam; `Get-GitIndexPath` (private) locates the index of the checkout, following a
-  `gitdir:` pointer.
-- **`GitIndex`** (`Catzc.Base.Files/types/GitIndex.cs`) — the reader: index versions 2–4, the checksum check, the refusals, and the
+- **`Get-GitTrackedPath`** (`Catzc.Base.Files`) — the seam; `Get-GitIndexPath` (private) locates the index of the checkout through
+  `GitRefs`.
+- **`GitIndex`** (`Catzc.Base.Git/types/GitIndex.cs`) — the reader: index versions 2–4, the checksum check, the refusals, and the
   literal-path selection.
 - **`GitIndex.Tests.ps1`** — L0 tests on built index bytes for every read and refused shape.
+- **`GitRefs`** (`Catzc.Base.Git/types/GitRefs.cs`) — refs, the git directory and the index path, with L0 tests on a hand-built git
+  directory and L2 parity tests against `git rev-parse`.
+- **`GitHistoryScan`** (`Catzc.Base.Git/types/GitHistoryScan.cs`) — the one-pass history scan behind `Test-GitHistoryClean`, with L0 tests
+  on a hand-built object stream and L2 tests on a real history.
 - **`Get-GitTrackedPath.Tests.ps1`** — L0 tests for the seam and its content-keyed cache, and the one L2 test against real `git ls-files`.
 - **The L0/L1 tripwire** (ADR-AUTO-TEST#10) — a stray `git ls-files` launched from a logic test fails the run.
 - **Code review** — a new `git ls-files` call for tracked membership is rejected in favour of the seam.
@@ -142,3 +185,4 @@ index shapes it cannot read correctly. Questions about untracked, ignored, or at
 - A repository with a split or sparse index, or in the SHA-256 object format, gets a clear error from every tracked-file quality gate until
   the feature is turned off; supporting one of them is a change to the reader and its tests.
 - Untracked, ignored, and attribute questions keep their git process and their L2 tests.
+- Resolving a ref costs a file read, and a full token scan of the history costs one git process instead of one per batch of revisions.

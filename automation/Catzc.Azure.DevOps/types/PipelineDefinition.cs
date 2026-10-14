@@ -7,6 +7,8 @@ namespace Catzc.Azure.DevOps;
 
 public sealed class PipelineDefinition
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The ADO build-definition id.
     public int    Id             { get; }
 

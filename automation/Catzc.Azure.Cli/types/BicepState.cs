@@ -7,6 +7,8 @@ namespace Catzc.Azure.Cli;
 
 public sealed class BicepState
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // True when a Bicep CLI is present (a version was obtained).
     public bool    installed     { get; }
 

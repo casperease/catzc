@@ -20,6 +20,8 @@ namespace Catzc.Base.QualityGates;
 
 public sealed class TerminologyConfig
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The defined category names, in registry order — one generated dictionary per category.
     public IReadOnlyList<string> categories { get; }
 

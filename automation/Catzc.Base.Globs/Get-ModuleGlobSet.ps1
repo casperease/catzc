@@ -11,7 +11,7 @@
     readme-kebab convention plus the aspect (Catzc.Base.Globs -> 'catzc-base-globs-live' and
     'catzc-base-globs-tests') — 'live' the module's shippable surface (functions, private helpers, types,
     configs), 'tests' its verification harness, plus its Go and Python test folders <goRoot>/tests/<kebab>/ and
-    python/tests/<kebab>/ when they exist ([ADR-AUTO-GO#2](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go2),
+    <pythonRoot>/tests/<kebab>/ when they exist ([ADR-AUTO-GO#2](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go2),
     [ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2)); the two are disjoint and
     cover the folder. The whole-module
     set is their union (a test-only change never re-keys live). Every internal
@@ -90,10 +90,11 @@ function Get-ModuleGlobSet {
     }
     # bare module name/kebab -> its aspect sets, so a caller can ask for "the module" and get both aspects.
     $moduleAspects = @{}
-    # A module's Go and Python test folders (<goRoot>/tests/<kebab>/ and python/tests/<kebab>/, ADR-AUTO-GO#2 and
+    # A module's Go and Python test folders (<goRoot>/tests/<kebab>/ and <pythonRoot>/tests/<kebab>/, ADR-AUTO-GO#2 and
     # ADR-AUTO-PY#2) are part of its tests aspect: a change to them re-keys the module they verify, never its live
     # aspect.
     $goRoot = (Get-Config -Config go).ResolveRoot((Get-RepositoryRoot))
+    $pythonRoot = (Get-Config -Config python).ResolveRoot((Get-RepositoryRoot))
 
     # The per-folder module globs, collected so 'module-leftovers' below can exclude every one of them.
     $moduleFolderGlobs = [System.Collections.Generic.List[string]]::new()
@@ -116,7 +117,7 @@ function Get-ModuleGlobSet {
             $include = [string[]]$compiled.Include
             if ($compiled.Name -eq 'tests') {
                 $include += "$goRoot/tests/$kebab/**"
-                $include += "$([Catzc.Base.Languages.PythonConfig]::Root)/tests/$kebab/**"
+                $include += "$pythonRoot/tests/$kebab/**"
             }
             $set = [Catzc.Base.Globs.GlobSet]::new(
                 $aspectKebab, "Derived module aspect - automation/$moduleName [$($compiled.Name)]", 'module',

@@ -21,6 +21,21 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   and frequent commits.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## Configure, don't program
+
+[ADR-PRIN-CONFIG](configure-not-program.md)
+
+> DORA links code maintainability and small, safe changes to delivery performance. Configuring instances through one mechanism keeps the
+> code small and uniform, and turns supporting a new case into a reviewable change of a few configuration lines.
+
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one mechanism per kind replaces many drifting
+  per-instance copies.
+- [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — a new instance is a small config change, not
+  new code to test.
+- [Platform engineering](../../references/dora/capabilities.md#platform-engineering) — the platform's behaviour is declared in its
+  registries, so its users configure it instead of extending it.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Reduce variability
 
 [ADR-PRIN-REDUCEVAR](reduce-variability.md)

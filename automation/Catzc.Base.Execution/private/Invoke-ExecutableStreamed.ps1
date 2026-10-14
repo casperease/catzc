@@ -28,6 +28,9 @@
     Suppress all console output. Output is still captured for -PassThru.
 .PARAMETER TimeoutSeconds
     The run's time limit. Past it CliRunner kills the process tree and throws a TimeoutException.
+.PARAMETER AsBytes
+    Capture stdout as its exact bytes (CliResult.Bytes) instead of text, with no console echo — for a binary
+    stream. Returns the CliResult as -PassThru does.
 .PARAMETER DryRun
     Return the command string without executing.
 #>
@@ -47,6 +50,7 @@ function Invoke-ExecutableStreamed {
         [Parameter(Mandatory)]
         [ValidateRange(1, [int]::MaxValue)]
         [int] $TimeoutSeconds,
+        [switch] $AsBytes,
         [switch] $DryRun
     )
 
@@ -66,7 +70,12 @@ function Invoke-ExecutableStreamed {
 
     # CliRunner is autoloaded at import time from types/ (Bootstrap's Import-CSharpTypes).
     try {
-        $runResult = [Catzc.Base.Execution.CliRunner]::Run($Command, $suppressOutput, $WorkingDirectory, $TimeoutSeconds)
+        $runResult = if ($AsBytes) {
+            [Catzc.Base.Execution.CliRunner]::RunBytes($Command, $WorkingDirectory, $TimeoutSeconds)
+        }
+        else {
+            [Catzc.Base.Execution.CliRunner]::Run($Command, $suppressOutput, $WorkingDirectory, $TimeoutSeconds)
+        }
     }
     catch [System.Management.Automation.MethodInvocationException] {
         # A .NET method call wraps what it throws; surface the runner's own error (e.g. the TimeoutException).
@@ -82,7 +91,10 @@ function Invoke-ExecutableStreamed {
 
     Reset-LastExitCode
 
-    if ($PassThru) {
+    if ($AsBytes) {
+        [Catzc.Base.Execution.CliResult]::new([byte[]] $runResult.StdoutBytes, $runResult.Stderr, $runResult.ExitCode)
+    }
+    elseif ($PassThru) {
         # The CliResult constructor owns the derivation (trim, merge, split) — see types/CliResult.cs.
         [Catzc.Base.Execution.CliResult]::new($runResult.Stdout, $runResult.Stderr, $runResult.ExitCode)
     }

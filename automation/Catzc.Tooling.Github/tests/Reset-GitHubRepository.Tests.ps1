@@ -1,8 +1,16 @@
 Describe 'Reset-GitHubRepository' -Tag 'L1', 'logic' {
     BeforeAll {
+        # A local checkout written by hand: main at a made-up commit, read in-process by the remote check.
+        $script:local = '{0:x40}' -f 1
+        $script:foreign = '{0:x40}' -f 2
+        $script:repo = Join-Path $TestDrive 'widget'
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:repo '.git/refs/heads')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $script:repo '.git/HEAD'), "ref: refs/heads/main`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:repo '.git/refs/heads/main'), "$script:local`n")
+
         function script:RunReset {
             param([hashtable] $Extra = @{})
-            Reset-GitHubRepository -Repo 'me/project' -BackupBundle 'TestDrive:/backup.bundle' -RepositoryPath 'TestDrive:/' @Extra
+            Reset-GitHubRepository -Repo 'me/project' -BackupBundle 'TestDrive:/backup.bundle' -RepositoryPath $script:repo @Extra
         }
         # `git ls-remote` output: one tab-separated '<commit> <ref>' line per advertised ref.
         function script:New-RefListing {
@@ -19,8 +27,7 @@ Describe 'Reset-GitHubRepository' -Tag 'L1', 'logic' {
         # Catch-all: every git/gh command succeeds. Individual tests override as needed.
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = ''; Errors = '' } }
         # The pushed remote advertises only the local branch's commit.
-        Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = 'aaa111'; Errors = '' } } -ParameterFilter { $Command -like 'git rev-parse*' }
-        Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = (New-RefListing 'aaa111 HEAD', 'aaa111 refs/heads/main'); Errors = '' } } -ParameterFilter { $Command -like 'git ls-remote*' }
+        Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = (New-RefListing "$script:local HEAD", "$script:local refs/heads/main"); Errors = '' } } -ParameterFilter { $Command -like 'git ls-remote*' }
     }
 
     It 'is a dry run without -ConfirmRepo (nothing destructive runs)' {
@@ -65,8 +72,8 @@ Describe 'Reset-GitHubRepository' -Tag 'L1', 'logic' {
     }
 
     It 'aborts with a do-not-publish warning when the remote holds a commit the local scan did not cover' {
-        Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = (New-RefListing 'aaa111 refs/heads/main', 'bbb222 refs/heads/gadget'); Errors = '' } } -ParameterFilter { $Command -like 'git ls-remote*' }
-        { RunReset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } } | Should -Throw '*refs/heads/gadget (bbb222)*DO NOT make it public*'
+        Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = (New-RefListing "$script:local refs/heads/main", "$script:foreign refs/heads/gadget"); Errors = '' } } -ParameterFilter { $Command -like 'git ls-remote*' }
+        { RunReset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } } | Should -Throw "*refs/heads/gadget ($script:foreign)*DO NOT make it public*"
     }
 
     It 'aborts with a do-not-publish warning when post-verify finds the token' {

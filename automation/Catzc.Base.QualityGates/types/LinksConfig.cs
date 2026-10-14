@@ -20,6 +20,8 @@ namespace Catzc.Base.QualityGates;
 
 public sealed class LinksConfig
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     public const LinkWrap DefaultWrap = LinkWrap.Break;
     public const int DefaultLineLimit = 140;
 

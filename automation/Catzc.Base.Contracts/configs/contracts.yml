@@ -1,0 +1,14 @@
+# Contracts settings for Get-Contract ([ADR-REPO-CONTRACT](/docs/adr/repository/api-contracts.md)).
+#
+# Every key is optional: an omitted key takes the sensible default declared once on
+# Catzc.Base.Contracts.ContractsConfig
+# ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), and a Get-Contract parameter
+# overrides the resolved value per call
+# ([ADR-AUTO-PSPARAM#4](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam4)).
+
+# How one contract asset addresses many files
+# ([ADR-REPO-CONTRACT#8](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract8)):
+#   full-path      an asset addresses the one real file at its own path (built; the default)
+#   manifest-glob  a glob in a manifest names the files (declared, not built: selecting it throws NotImplemented)
+#   per-folder     one asset applies to each file of its folder (declared, not built: selecting it throws NotImplemented)
+addressing: full-path

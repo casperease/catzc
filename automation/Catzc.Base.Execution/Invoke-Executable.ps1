@@ -39,6 +39,9 @@
 .PARAMETER PassThru
     Return a Catzc.Base.Execution.CliResult object with Output, Errors, Full, ExitCode, and Raw.
     Not compatible with -Direct.
+.PARAMETER AsBytes
+    Capture stdout as its exact bytes, for a binary stream such as `git cat-file --batch`: returns the CliResult
+    with stdout in .Bytes (and an empty .Output), never echoed to the console. Not compatible with -Direct.
 .PARAMETER NoAssert
     Skip the exit code assertion. The ExitCode is still available on the
     result object when combined with -PassThru.
@@ -83,6 +86,9 @@ function Invoke-Executable {
 
         [Parameter(ParameterSetName = 'Stream')]
         [switch] $PassThru,
+
+        [Parameter(ParameterSetName = 'Stream')]
+        [switch] $AsBytes,
 
         [Parameter(ParameterSetName = 'Stream')]
         [ValidateRange(1, [int]::MaxValue)]
@@ -130,6 +136,6 @@ function Invoke-Executable {
         if (-not $PSBoundParameters.ContainsKey('TimeoutSeconds')) {
             $TimeoutSeconds = Get-TimeoutSeconds -Executable ([Catzc.Base.Execution.CliRunner]::ExecutableName($Command))
         }
-        Invoke-ExecutableStreamed @params -TimeoutSeconds $TimeoutSeconds
+        Invoke-ExecutableStreamed @params -TimeoutSeconds $TimeoutSeconds -AsBytes:$AsBytes
     }
 }

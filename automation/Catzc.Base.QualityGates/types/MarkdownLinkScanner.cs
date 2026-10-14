@@ -19,6 +19,8 @@ namespace Catzc.Base.QualityGates;
 
 public sealed class MarkdownLinkScanner
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     static readonly Regex InlineLink = new Regex(
         @"(?<!\\)!?\[(?<text>(?:[^\[\]\r\n]|\[[^\]\r\n]*\])*)\]\((?<dest><[^>\r\n]*>|[^)\s]+)(?:\s+(?:""[^""\r\n]*""|'[^'\r\n]*'))?\)",
         RegexOptions.Compiled);

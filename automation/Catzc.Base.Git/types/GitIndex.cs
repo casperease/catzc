@@ -11,10 +11,12 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Catzc.Base.Files;
+namespace Catzc.Base.Git;
 
 public sealed class GitIndex
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The SHA-1 object id length every entry carries.
     private const int HashLength = 20;
 

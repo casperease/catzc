@@ -29,6 +29,9 @@ Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'go' } {
             [Catzc.Base.Languages.GoConfig]::new([ordered]@{})
         }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'python' } {
+            [Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = [ordered]@{ pytest = '9.1.1'; ruff = '0.17.0' } })
+        }
     }
 
     It 'maps every test folder to the catzc module named for it in kebab case, by language then folder' {

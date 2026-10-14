@@ -52,10 +52,10 @@ How the repository checks and enforces the style of its written and source conte
 its flagged tokens into a triage queue), the Markdown linter, the Markdown formatter (which aligns tables and wraps prose in place), the
 Markdown title and heading formatter and quality gate, the ADO pipeline YAML formatter (`Format-Pipelines`, the same Prettier engine as
 `Format-Markdown` — they share one private `Invoke-Prettier`), the PowerShell auto-formatter, the C# type-namespace formatter, the Go
-formatter (`Format-Go`, the managed toolchain's `gofmt`), the Python formatter (`Format-Python`, the pinned `ruff`), and the link aligner
-and quality gate, which keep code links repository-rooted and markdown links relative and resolving
-([markdown-links](../../adr/repository/markdown-links.md)). The responsibility owns the invocation of each tool, not the tool itself or its
-per-tool configuration.
+formatter (`Format-Go`, the managed toolchain's `gofmt`), the Python formatter (`Format-Python`, the pinned `ruff`) and the Python lint gate
+(`Test-PythonLint`, `ruff check`) over every `.py` file the repository holds, and the link aligner and quality gate, which keep code links
+repository-rooted and markdown links relative and resolving ([markdown-links](../../adr/repository/markdown-links.md)). The responsibility
+owns the invocation of each tool, not the tool itself or its per-tool configuration.
 
 ### responsibility:4 — Terminology and dictionaries
 
@@ -135,6 +135,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Format-Types`                |
 |                                                 | `Format-Go`                   |
 |                                                 | `Format-Python`               |
+|                                                 | `Test-PythonLint`             |
 |                                                 | `Format-Links`                |
 |                                                 | `Test-Links`                  |
 | config                                          | `links.yml`                   |

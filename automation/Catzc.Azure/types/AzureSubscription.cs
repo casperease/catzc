@@ -9,6 +9,8 @@ namespace Catzc.Azure;
 
 public sealed class AzureSubscription
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // Logical subscription name — the azure.yml `subscriptions` map key. Always present.
     public string name     { get; }
 

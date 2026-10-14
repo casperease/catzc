@@ -133,14 +133,17 @@ function Enter-TestRunLocation {
     # cspell dictionaries), once, before any worker starts — workers import with -SkipJanitors and would
     # otherwise find them missing, or race each other generating manifests. The snapshot is never committed to:
     # Sync-GeneratedFile recognises it by its provenance marker (Test-RepositorySnapshot).
+    # Non-interactive, from the engine model (ADR-AUTO-ENGINE#2): no person can answer a prompt here, so one fails at
+    # once instead of waiting out the time limit.
     Write-Message 'Priming the snapshot: one import materialises its generated files...'
+    $start = ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.NonInteractiveArguments) -join ' '
     try {
-        Invoke-Executable "pwsh -NoProfile -File `"$(Join-Path $location.Snapshot.Path 'importer.ps1')`"" `
+        Invoke-Executable "pwsh $start -File `"$(Join-Path $location.Snapshot.Path 'importer.ps1')`"" `
             -WorkingDirectory $location.Snapshot.Path -PassThru -Silent | Out-Null
     }
     catch {
         Remove-RepositorySnapshot $location.Snapshot.Path
-        throw
+        throw "The working folder was held, so this run went to a snapshot, but priming the snapshot failed: $($_.Exception.Message)"
     }
     $location.Mode = 'snapshot'
     $location.Root = $location.Snapshot.Path

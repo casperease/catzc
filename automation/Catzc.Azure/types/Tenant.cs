@@ -8,6 +8,8 @@ namespace Catzc.Azure;
 
 public sealed class Tenant
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // Logical tenant name — the key under the azure.yml `tenants` map. Always present.
     public string name { get; }
 

@@ -24,6 +24,9 @@ namespace Catzc.Tooling.Core;
 
 public sealed class ToolsConfig : ReadOnlyDictionary<string, ToolConfig>
 {
+    // A dictionary renders as its entries, { tool = … }, not as its dictionary members.
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleValue(this);
+
     private static readonly Regex SnakeCase = new Regex("^[a-z][a-z0-9_]*$");
 
     // The tool identities in file order.

@@ -23,8 +23,9 @@ delivery machines the deployable-units bind to), or **verification**. A **verifi
 from outside, ships nothing, and is out of every bundle by construction, because it lies outside `automation/`, where the builder reads its
 modules. `go`, the Go black-box tests ([test-artifacts](../automation/go/test-artifacts.md)), is the first; a repository without a `go/`
 root keeps the same tests in the dot-prefixed `.go`, which is of the same class. `python`, the Python black-box tests
-([python-test-artifacts](../automation/python/python-test-artifacts.md)), is the second. Cross-cutting slices (e.g. the cats configs — every
-yml/config file across automation) are **scopes over tracks**, not tracks: they select through the roots rather than owning one.
+([python-test-artifacts](../automation/python/python-test-artifacts.md)), is the second, by the same convention: `.python` when the
+repository has no `python/` root. Cross-cutting slices (e.g. the cats configs — every yml/config file across automation) are **scopes over
+tracks**, not tracks: they select through the roots rather than owning one.
 
 - [The taxonomy](#the-taxonomy)
 

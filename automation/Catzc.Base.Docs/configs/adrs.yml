@@ -32,12 +32,13 @@ domains:
     code: PRIN # domain default — composes ADR-PRIN-<NAME>
     role: axioms # the non-negotiable design axioms every other domain specialises
     description: >-
-      The design axioms every other domain specialises: everything as code, reduce variability, reduce waste, poka-yoke, and one living
-      version. They rest on the thesis and the DORA research, no domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`) as the
+      The design axioms every other domain specialises: everything as code, configure don't program, reduce variability, reduce waste,
+      poka-yoke, and one living version. They rest on the thesis and the DORA research, no domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`) as the
       reason for its own decisions.
     depends_on: [research, thesis]
     rulesets:
       everything-as-code: { external: ADR-PRIN-EAC, terminology: eac }
+      configure-not-program: { external: ADR-PRIN-CONFIG }
       reduce-variability: { external: ADR-PRIN-REDUCEVAR, terminology: reducevar }
       reduce-waste: { external: ADR-PRIN-NOWASTE, terminology: nowaste }
       poka-yoke: { external: ADR-PRIN-POKAYOKE, terminology: pokayoke }

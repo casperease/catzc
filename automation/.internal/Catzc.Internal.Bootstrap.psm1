@@ -606,6 +606,26 @@ function Import-CSharpTypes {
                 }
             }
         }
+
+        # Publish [ConsoleDisplay(...)] identity properties as each type's DefaultDisplayPropertySet, so typing
+        # `$x` at the prompt shows those columns instead of every property. The same attribute narrows the type's
+        # ToString (ConsoleText). Formatting honours ETS type data, where interpolation does not, so this half is
+        # registered here and the text half is the C# override. -Force makes a re-registration idempotent.
+        $displayAttrType = ([System.Management.Automation.PSTypeName]'Catzc.Base.Objects.ConsoleDisplayAttribute').Type
+        if ($displayAttrType) {
+            $displayed = 0
+            foreach ($tf in $arr) {
+                $type = ([System.Management.Automation.PSTypeName]$tf.Type).Type
+                $display = [System.Attribute]::GetCustomAttribute($type, $displayAttrType, $true)
+                if ($display) {
+                    Update-TypeData -TypeName $type.FullName -DefaultDisplayPropertySet $display.Properties -Force
+                    $displayed++
+                }
+            }
+            if ($displayed -gt 0) {
+                Write-ImporterMessage "Registered default display properties for $displayed type(s)" -StateChange
+            }
+        }
     }
 
     $global:__CatzcTypes[$rootKey] = [pscustomobject]@{ Hash = $combinedHash; Snapshot = $snapshot }

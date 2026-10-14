@@ -98,12 +98,73 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
         $message | Should -Match "limit 'height' must be a positive whole number"
     }
 
-    It 'rejects a pattern declared by two formats' -Tag 'ADR-REPO-OUTFMT#1' {
+    It 'rejects two formats whose patterns can match the same path' -Tag 'ADR-REPO-OUTFMT#1' {
         $message = Get-LoadError @{ formats = [ordered]@{
-                'widget-png' = (New-Format)
-                'gadget-png' = (New-Format)
+                'widget-png'   = (New-Format)
+                'gadget-png'   = (New-Format)
+                'widget-any'   = (New-Format @{ patterns = @('widgets/**') })
+                'widget-run'   = (New-Format @{ patterns = @('runs/{stamp}/report.md') })
+                'widget-fixed' = (New-Format @{ patterns = @('runs/20261014-170757/*.md') })
             }
         }
-        $message | Should -Match "pattern 'widgets/\*\.png' is declared by both 'widget-png' and 'gadget-png'"
+        $message | Should -Match "pattern 'widgets/\*\.png' of 'widget-png' and pattern 'widgets/\*\.png' of 'gadget-png' can match the same path"
+        $message | Should -Match "of 'widget-png' and pattern 'widgets/\*\*' of 'widget-any' can match the same path"
+        $message | Should -Match "pattern 'runs/\{stamp\}/report\.md' of 'widget-run' and pattern 'runs/20261014-170757/\*\.md' of 'widget-fixed'"
+    }
+
+    It 'accepts patterns no path can match together' -Tag 'ADR-REPO-OUTFMT#1' {
+        $config = [Catzc.Base.Reports.OutputFormatsConfig]::new(@{ formats = [ordered]@{
+                    'widget-drawing' = (New-Format @{ patterns = @('widgets/**/*.drawio.png') })
+                    'widget-sheet'   = (New-Format @{ patterns = @('widgets/**/*.sheet.png') })
+                    'widget-run'     = (New-Format @{ patterns = @('runs/{stamp}/report.md') })
+                    'widget-latest'  = (New-Format @{ patterns = @('runs/latest.txt') })
+                    'widget-pointer' = (New-Format @{ patterns = @('runs/latest/report.md') })
+                }
+            })
+        $config.formats.Count | Should -Be 5
+    }
+
+    It 'rejects a malformed pattern' -Tag 'ADR-REPO-OUTFMT#1' {
+        $message = Get-LoadError @{ formats = @{
+                'widget-png' = (New-Format @{ patterns = @('widgets/a**/*.png', 'widgets/{run}/*.png', 'widgets//x.png') })
+            }
+        }
+        $message | Should -Match "'\*\*' must be a whole segment"
+        $message | Should -Match "braces appear only in a whole '\{stamp\}' segment"
+        $message | Should -Match 'has an empty segment'
+    }
+}
+
+Describe 'Catzc.Base.Reports.OutputPattern' -Tag 'L0', 'logic' {
+    It 'matches <Path> against <Pattern>: <Expected>' -Tag 'ADR-REPO-OUTFMT#1' -ForEach @(
+        @{ Pattern = 'widgets/*.png'; Path = 'widgets/a.png'; Expected = $true }
+        @{ Pattern = 'widgets/*.png'; Path = 'widgets/deep/a.png'; Expected = $false }
+        @{ Pattern = 'widgets/**/*.png'; Path = 'widgets/a.png'; Expected = $true }
+        @{ Pattern = 'widgets/**/*.png'; Path = 'widgets/x/y/a.png'; Expected = $true }
+        @{ Pattern = 'widgets/?.png'; Path = 'widgets/ab.png'; Expected = $false }
+        @{ Pattern = 'runs/{stamp}/r.md'; Path = 'runs/20261014-181454/r.md'; Expected = $true }
+        @{ Pattern = 'runs/{stamp}/r.md'; Path = 'runs/20261014-181454-2350ee/r.md'; Expected = $true }
+        @{ Pattern = 'runs/{stamp}/r.md'; Path = 'runs/latest/r.md'; Expected = $false }
+        @{ Pattern = 'runs/{stamp}/r.md'; Path = 'runs\20261014-181454\r.md'; Expected = $true }
+    ) {
+        [Catzc.Base.Reports.OutputPattern]::Parse($Pattern).Matches($Path) | Should -Be $Expected
+    }
+
+    It 'overlap of <A> and <B>: <Expected>' -Tag 'ADR-REPO-OUTFMT#1' -ForEach @(
+        @{ A = 'widgets/*.png'; B = 'widgets/a.png'; Expected = $true }
+        @{ A = 'widgets/*.drawio.png'; B = 'widgets/*.sheet.png'; Expected = $false }
+        @{ A = 'widgets/**/*.png'; B = 'widgets/x/y/*.sheet.png'; Expected = $true }
+        @{ A = '**'; B = 'gadgets/a.json'; Expected = $true }
+        @{ A = 'widgets/a*'; B = 'widgets/*b'; Expected = $true }
+        @{ A = 'widgets/a?'; B = 'widgets/?b'; Expected = $true }
+        @{ A = 'widgets/ab'; B = 'widgets/a?c'; Expected = $false }
+        @{ A = 'runs/{stamp}/r.md'; B = 'runs/latest/r.md'; Expected = $false }
+        @{ A = 'runs/{stamp}/r.md'; B = 'runs/*/r.md'; Expected = $true }
+        @{ A = 'runs/{stamp}/*.md'; B = 'runs/{stamp}/r.json'; Expected = $false }
+    ) {
+        $first = [Catzc.Base.Reports.OutputPattern]::Parse($A)
+        $second = [Catzc.Base.Reports.OutputPattern]::Parse($B)
+        $first.Overlaps($second) | Should -Be $Expected
+        $second.Overlaps($first) | Should -Be $Expected
     }
 }

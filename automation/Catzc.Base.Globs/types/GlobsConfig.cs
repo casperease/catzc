@@ -17,6 +17,8 @@ namespace Catzc.Base.Globs;
 
 public sealed class GlobsConfig
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The config's own repo-relative path (named in lookup errors).
     public const string ConfigPath = "automation/Catzc.Base.Globs/configs/globs.yml";
 

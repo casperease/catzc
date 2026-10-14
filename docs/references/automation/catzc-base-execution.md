@@ -27,7 +27,9 @@ type, resets and re-checks the exit code so a stale code can never leak across a
 command string instead of executing it — giving callers a testable, side-effect-free path through the same code. When a call is expected to
 run long, a companion function wraps it with a liveness indicator, and a wait on a mutex announces itself the same way once it becomes
 noticeable. The `-PassThru` switch returns a `CliResult` object that separates stdout from stderr for callers that need to inspect output
-programmatically.
+programmatically, and `-AsBytes` returns stdout as its exact bytes for a binary stream such as `git cat-file --batch`. Every run is bounded
+twice: a process that outlives its time limit is killed with its whole tree, and a process that exits while something it started still holds
+its output open fails at once with an error that names the cause, instead of hanging for that holder's lifetime.
 
 ### responsibility:2 — Executable location
 

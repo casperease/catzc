@@ -15,6 +15,8 @@ namespace Catzc.Base.Config;
 
 public sealed class ConfigsConfig
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     private static readonly IReadOnlyDictionary<string, string> Empty =
         new ReadOnlyDictionary<string, string>(new Dictionary<string, string>());
 

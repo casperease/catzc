@@ -43,6 +43,13 @@ recommendations:
   # Ruff — format and lint the Python tests on save with the pinned ruff, matching Format-Python and the bridge's
   # ruff check.
   - charliermarsh.ruff
+  # C# Dev Kit — the language service for the native C# type sources: it loads catzc.sln, whose project compiles
+  # and analyzes the types the importer builds with Add-Type (the .editorconfig rules apply in the editor).
+  - ms-dotnettools.csdevkit
+  # Bicep — language service, validation and formatting for the infrastructure templates.
+  - ms-azuretools.vscode-bicep
+  # XML — validation and formatting for the PowerShell format/type data (.ps1xml), schemas and MSBuild projects.
+  - redhat.vscode-xml
   # Prettier — the markdown formatter behind Format-Markdown; format-on-save matches the gate.
   - esbenp.prettier-vscode
   # PDF viewing for reference material in docs.

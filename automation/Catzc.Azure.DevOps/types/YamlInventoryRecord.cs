@@ -8,6 +8,8 @@ namespace Catzc.Azure.DevOps;
 
 public sealed class YamlInventoryRecord
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The scan root the file was found under (absolute). Always present.
     public string                     Root              { get; }
 

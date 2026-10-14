@@ -15,6 +15,8 @@ namespace Catzc.Azure.Templates;
 
 public sealed class BicepParameterModel
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The template the model belongs to. Always present.
     public string Template { get; }
 

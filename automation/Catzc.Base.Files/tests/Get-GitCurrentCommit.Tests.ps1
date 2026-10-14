@@ -1,16 +1,24 @@
 Describe 'Get-GitCurrentCommit' -Tag 'L0', 'logic' {
     BeforeEach {
-        Mock Invoke-Executable {
-            [pscustomobject]@{ Output = "abc1234def5678  `n"; ExitCode = 0 }
-        } -ModuleName Catzc.Base.Files -ParameterFilter { $Command -eq 'git rev-parse HEAD' }
+        # A checkout written by hand: HEAD on main, main at a made-up commit. No git process starts.
+        $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        $gitDir = Join-Path $script:root '.git'
+        [System.IO.Directory]::CreateDirectory((Join-Path $gitDir 'refs/heads')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $gitDir 'HEAD'), "ref: refs/heads/main`n")
+        $script:commit = '{0:x40}' -f 42
+        [System.IO.File]::WriteAllText((Join-Path $gitDir 'refs/heads/main'), "$script:commit`n")
+        Mock Get-RepositoryRoot { $script:root } -ModuleName Catzc.Base.Files
+        Mock Invoke-Executable { throw 'no git process should start' } -ModuleName Catzc.Base.Files
     }
 
-    It 'returns the trimmed commit hash from git rev-parse HEAD' {
-        Get-GitCurrentCommit | Should -Be 'abc1234def5678'
+    It 'returns the commit HEAD names, read from the ref files without starting git' {
+        Get-GitCurrentCommit | Should -Be $script:commit
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Files -Times 0
     }
 
-    It 'invokes git rev-parse HEAD via Invoke-Executable' {
-        Get-GitCurrentCommit | Out-Null
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Files -ParameterFilter { $Command -eq 'git rev-parse HEAD' }
+    It 'returns the commit of a detached HEAD' {
+        $detached = '{0:x40}' -f 7
+        [System.IO.File]::WriteAllText((Join-Path $script:root '.git/HEAD'), "$detached`n")
+        Get-GitCurrentCommit | Should -Be $detached
     }
 }

@@ -19,6 +19,8 @@ namespace Catzc.Azure.Templates;
 
 public sealed class BicepShortName
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The maximum short_name length. Keeping this at 5 keeps the worst-case tight (storage) name at 23/24
     // with a byte to spare ([ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md), "Length budget").
     public const int MaxLength = 5;

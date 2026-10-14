@@ -7,6 +7,8 @@ namespace Catzc.Azure.Cli;
 
 public sealed class SubscriptionContext
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The active subscription GUID. Always present.
     public string Id        { get; }
 

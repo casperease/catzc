@@ -60,9 +60,13 @@ files:
   - target: '*/tests/*/go.mod'
     generator: New-GoWorkspace
     optIn: true
-  # The Python test project (Catzc.Base.Languages, New-PythonProject): one virtual uv project for every Python test
-  # folder under python/tests/. Gitignored generated copy; uv makes python/.venv and python/uv.lock from it.
-  - target: python/pyproject.toml
+  # The Python test workspace (Catzc.Base.Languages, New-PythonProject): the uv workspace root pyproject.toml in the Python
+  # root (python.yml `root`: python/ when present, else .python/), and one member pyproject.toml per Python test folder.
+  # Gitignored generated copies; uv makes the one .venv and uv.lock beside the workspace root.
+  - target: '*/pyproject.toml'
+    generator: New-PythonProject
+    optIn: true
+  - target: '*/tests/*/pyproject.toml'
     generator: New-PythonProject
     optIn: true
   - target: .vscode/markdown-preview-dark.css

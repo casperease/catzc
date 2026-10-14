@@ -11,6 +11,8 @@ namespace Catzc.Base.Execution;
 
 public sealed class ExecutableProbe
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     private static readonly string[] Methods = { "probe", "path", "none" };
 
     // The name the executable was looked for by (a tools.yml key, for a tool). Always present.

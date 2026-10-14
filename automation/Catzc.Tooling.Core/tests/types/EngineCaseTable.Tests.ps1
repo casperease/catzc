@@ -23,8 +23,9 @@ Describe 'EngineCaseTable' -Tag 'L0', 'logic' {
         $table.Rows[3].fields | Should -BeNullOrEmpty
     }
 
-    It 'declares the two execution engines as its columns' {
-        [Catzc.Tooling.Core.EngineCaseTable]::Engines | Should -Be @('pwsh', 'bash')
+    It 'takes its columns from the execution engine model, in its order' {
+        $table = [Catzc.Tooling.Core.EngineCaseTable]::new(@{ subject = 'w'; cases = @(@{ case = 'c'; pwsh = @{ a = 1 }; bash = @{ a = 1 } }) })
+        @($table.Rows | ForEach-Object { $_.engine }) | Should -Be @([Catzc.Base.Engines.ExecutionEngines]::Names)
     }
 
     It 'throws on <problem>' -ForEach @(
