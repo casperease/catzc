@@ -7,26 +7,28 @@
     ([ADR-AUTO-GO#3](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go3),
     [ADR-AUTO-PY#3](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py3)). How to start it comes from
     the execution engine model, never from the test ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)), so
-    the same test runs under either engine:
+    the same test runs under every engine:
 
-      CATZC_ENGINE             the engine's name (pwsh, bash);
+      CATZC_ENGINE             the engine's name (pwsh, bash, zsh);
       CATZC_ENGINE_EXECUTABLE  the engine's executable;
       CATZC_ENGINE_ENTRY       the script that loads catzc into the engine: the PowerShell entry for pwsh, the
-                               repository's importer.sh (forward-slashed) for bash — what a Bash test loads;
+                               repository's importer.sh (forward-slashed) for bash and zsh — what a Bash test loads;
       CATZC_ENGINE_START       the arguments after it, as a JSON array (ExecutionEngine.StartArguments): they start the
                                engine non-interactively, load its importer with the output discarded, and end in the
                                command text, where the test puts its catzc command in place of {command};
-      CATZC_IMPORTER           bash only: the PowerShell entry the cats dispatcher loads (importer.sh reads it);
+      CATZC_IMPORTER           bash and zsh only: the PowerShell entry the cats dispatcher loads (importer.sh reads
+                               it);
       CATZC_REPOSITORY_ROOT    the repository root.
 
     The PowerShell entry is the repository's importer.ps1 for a source run, or -EntryScript (the build's
-    Import-Catzc.ps1) for a build run. pwsh loads it directly. bash loads the repository's importer.sh, whose cats
-    dispatcher loads it through CATZC_IMPORTER, so a bash session drives the build too.
+    Import-Catzc.ps1) for a build run. pwsh loads it directly. bash and zsh load the repository's importer.sh, whose
+    cats dispatcher loads it through CATZC_IMPORTER, so a POSIX shell session drives the build too.
 .PARAMETER Engine
-    The execution engine: pwsh (default) or bash.
+    The execution engine: pwsh (default), bash or zsh.
 .PARAMETER EngineExecutable
     The engine's executable, already located by the caller (a test run's source session hands it down, since a build
-    run's engine does not carry the tools.yml entry bash is located through). Default: Resolve-EngineExecutable.
+    run's engine does not carry the tools.yml entry bash and zsh are located through). Default:
+    Resolve-EngineExecutable.
 .PARAMETER EntryScript
     The PowerShell entry for a build run. Default: the repository's importer.ps1 (the source run).
 .OUTPUTS

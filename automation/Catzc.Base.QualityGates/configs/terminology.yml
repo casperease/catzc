@@ -739,6 +739,14 @@ terms:
   azure:
     - term: cidr
       meaning: "CIDR notation for an IP range (e.g. 10.0.0.0/16)"
+    - term: budg
+      meaning: "Azure budget resource-type token (budg) in the naming registry"
+    - term: privatelink
+      meaning: "Azure Private Link DNS name prefix (privatelink.<service>.<suffix>)"
+    - term: hyperscale
+      meaning: "Azure SQL Database Hyperscale service tier"
+    - term: peerings
+      meaning: "Azure virtual network peerings (Microsoft.Network/virtualNetworks/virtualNetworkPeerings)"
     - term: rg
       meaning: "resource group (the Azure resource-type abbreviation, e.g. $rg)"
     - term: ipg
