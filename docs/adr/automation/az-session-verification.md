@@ -39,10 +39,10 @@ token alone. Every auth path proves itself against that config, so the keys that
 
 ### Rule ADR-AZ-SESSION:5
 
-The **reverse lookup** is the fourth layer: `Get-AzCliSessionSubscription` (in `Catzc.Azure.Cli`) reads the session's active subscription
-(`Get-CurrentAzSubscription`) and resolves its GUID to the declared `azure.yml` identity — name, customer, tenant — throwing when the
-session targets a subscription azure.yml does not declare. It makes the session usable as a **selector** (the deploy target follows the
-service connection) while config stays the authority on what exists; it is read-only like every verification (ADR-AZ-SESSION#2), and the
+The **reverse lookup** adds a layer, the fourth: `Get-AzCliSessionSubscription` (in `Catzc.Azure.Cli`) reads the session's active
+subscription (`Get-CurrentAzSubscription`) and resolves its GUID to the declared `azure.yml` identity — name, customer, tenant — throwing
+when the session targets a subscription azure.yml does not declare. It makes the session usable as a **selector** (the deploy target follows
+the service connection) while config stays the authority on what exists; it is read-only like every verification (ADR-AZ-SESSION#2), and the
 `-SubscriptionIdAssertIs` guard on the deploy surface is its explicit pin (see
 [data-model](../azure/azure-data-model.md#rule-adr-az-datamod7)).
 
@@ -69,7 +69,8 @@ PowerShell modules) and [dual-authentication](../pipelines/dual-authentication.m
   and compare the live session against it. They are `azure.yml`-free, so any module (e.g. `Catzc.Azure.DevOps`) can use them without
   depending on the templating configuration.
 - **Config-aware verification** — `Assert-AzCliIsConnected` / `Test-AzCliIsConnected` (`Catzc.Azure.Cli`) take a subscription **name** (a
-  key in `azure.yml`), resolve it to its subscription + tenant GUIDs via `Get-AzureSubscription`, and then delegate to the by-args layer.
+  key in `azure.yml`), resolve it to its subscription + tenant GUIDs via `Get-AzureSubscription`, and then delegate to the layer that
+  verifies by args.
 
 ### Verify is not connect
 
@@ -85,11 +86,11 @@ identity then call it — so there is exactly one place that decides what "conne
 
 ### The reverse lookup
 
-The forward layers answer "is the session pointed where config says it should be?". The reverse lookup answers the complementary question —
-"WHERE is the session pointed, in config terms?" — and is what lets the session act as the deploy-target selector: in a pipeline the service
-connection logs the session into one subscription, and `Get-AzCliSessionSubscription` maps that back to the declared `azure.yml` identity
-(name, customer, tenant) so the rest of the platform reasons in config vocabulary. A session pointed at an undeclared subscription throws —
-config defines what exists (ADR-AZ-SESSION#4), so an unknown target is an error, never a fallback. The lookup is read-only
+The layers that look forward answer "is the session pointed where config says it should be?". The reverse lookup answers the complementary
+question — "WHERE is the session pointed, in config terms?" — and is what lets the session act as the deploy-target selector: in a pipeline
+the service connection logs the session into one subscription, and `Get-AzCliSessionSubscription` maps that back to the declared `azure.yml`
+identity (name, customer, tenant) so the rest of the platform reasons in config vocabulary. A session pointed at an undeclared subscription
+throws — config defines what exists (ADR-AZ-SESSION#4), so an unknown target is an error, never a fallback. The lookup is read-only
 (ADR-AZ-SESSION#2); the explicit pin against mis-wiring is the deploy surface's `-SubscriptionIdAssertIs` guard, mandatory in pipelines
 ([data-model](../azure/azure-data-model.md#rule-adr-az-datamod7)).
 
@@ -110,8 +111,8 @@ correctness check is config-driven, the config keys that express it (tenant, sub
 - **`Get-AzCliSessionSubscription`** (`Catzc.Azure.Cli`) owns the reverse lookup (session GUID → declared identity), built on
   `Get-CurrentAzSubscription`; the deploy path (`Get-BicepDeploymentContext`, `Deploy-Bicep`, `Set-BicepTrackingTagSet`) consumes it and is
   the mock seam tests isolate.
-- **Code review** keeps the layers apart: a session check that reads `azure.yml` belongs in the config-aware layer, a generic one in the
-  by-args layer, and neither belongs in `Catzc.Tooling.Core`.
+- **Code review** keeps the layers apart: a session check that reads `azure.yml` belongs in the layer that is config-aware, a generic one in
+  the layer that verifies by args, and neither belongs in `Catzc.Tooling.Core`.
 
 ## Consequences
 

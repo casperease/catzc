@@ -29,3 +29,27 @@ concepts:
         forms: [language, design, test, live]
         contrasts:
             domain: An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.
+    source:
+        key: source
+        domain: repository
+        defined_by: ADR-REPO-VOCAB#8
+        short: Where something comes from, always qualified — a source mode, run, or tree; a glossary source; a type, authored, vendor, or dot source.
+        realized_by: { kind: prose-only }
+        forms: [glossary, type, authored, dot, function, vendor, catzc, combined, committed, shipped, tracked, fixture, comparison, primary, raw, install, rule, docs, derived, current, real, configured, public, single, token, relative, repo, authoritative, cross, vendored, input]
+        verbs: true
+    layer:
+        key: layer
+        domain: repository
+        defined_by: ADR-REPO-VOCAB#8
+        short: One stratum of a structure, always qualified — an implementation layer (language, PowerShell, installer, tooling) or a globset layer (module, fileset).
+        realized_by: { kind: prose-only }
+        forms: [automation, language, PowerShell, installer, config, configuration, Azure, tooling, YAML, module, template, templating, vendor, abstraction, analyzer, compatibility, mapping, serialization, base, design, spelling, Pester, pip, path, support, doctrine, globset, fileset, cross, ADR, shaping]
+        verbs: true
+    scope:
+        key: scope
+        domain: repository
+        defined_by: ADR-REPO-VOCAB#8
+        short: What something reaches, always qualified — a PowerShell scope (module, script, global), an install scope (user, machine), or a selection scope (verify, scan, content).
+        realized_by: { kind: prose-only }
+        forms: [module, user, machine, content, script, verify, shared, file, target, scan, test, persistent, category, global, process, Pester, default, install, markdown, repo, lint, child, environment, subscription, report, tag, declared, whole, top, strict, isolated, discovery, glossary, deployment, infra, radius]
+        verbs: true

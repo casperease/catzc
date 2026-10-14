@@ -12,7 +12,8 @@
         concept's forms nor a function word (an article, determiner, quantifier, possessive, preposition, conjunction,
         or number — "the gate", "each gate", "two gates", "and gates" are always allowed), nor a keyword after a dot
         (`.PARAMETER Slot`); the comparison ignores case;
-      - a verb use: the head word's -ed and -ing forms ("gated", "gating"), which a noun family never takes.
+      - a verb use: the head word's -ed and -ing forms ("gated", "gating"), which a noun family never takes — unless the
+        concept sets `verbs: true` because they are ordinary English for it ("scoped", "sourced").
     The bare head word is always allowed. A mention — the phrase in backticks or quotes — is exempt, as in G4, so the
     vocabulary can talk about itself.
 
@@ -50,7 +51,9 @@ function Get-GlossaryFormViolations {
             'neither', 'its', 'their', 'our', 'your', 'my', 'his', 'her', 'which', 'whose', 'what', 'same', 'other', 'another',
             'own', 'one', 'two', 'three', 'four', 'five', 'first', 'second', 'last', 'next', 'single', 'per', 'more', 'most',
             'many', 'few', 'several', 's', 'and', 'or', 'nor', 'but', 'of', 'for', 'to', 'in', 'on', 'at', 'by', 'with', 'from',
-            'into', 'onto', 'across', 'between', 'within', 'without', 'per', 'via', 'than', 'then', 'as', 'is', 'are', 'was', 'be', 'only', 'also', 'not', 'just', 'even'
+            'into', 'onto', 'across', 'between', 'within', 'without', 'per', 'via', 'than', 'then', 'as', 'is', 'are', 'was', 'be', 'only', 'also', 'not', 'just', 'even', 'against', 'about', 'over',
+            'under', 'after', 'before', 'behind', 'through', 'around', 'along', 'among', 'beyond', 'during', 'except', 'inside',
+            'outside', 'toward', 'towards', 'upon', 'past', 'off', 'out', 'up', 'down', 'since', 'until', 'versus', 'vs'
         ), [System.StringComparer]::OrdinalIgnoreCase)
 
     # Per source: its options and every concept that declares forms. Sources outside the forms check drop out.
@@ -82,6 +85,7 @@ function Get-GlossaryFormViolations {
                 # line break, or a hyphen. A word after a dot is a keyword, not a qualifier (`.PARAMETER Slot` in help).
                 Qualified = [regex]::new('(?<![A-Za-z0-9.])(?<q>[A-Za-z0-9]+)(?:[ \t]+|[ \t]*\n[ \t]*|-)(?<w>' + [regex]::Escape($head) + 's?)(?![\w-])', 'IgnoreCase')
                 # A verb form counts after a hyphen too (`double-gated`).
+                Verbs     = [bool] $item.Concept.verbs
                 Verb      = [regex]::new('(?<![A-Za-z0-9])(?<w>' + [regex]::Escape($stem) + '(?:ed|ing))(?![\w-])', 'IgnoreCase')
             })
     }
@@ -125,8 +129,10 @@ function Get-GlossaryFormViolations {
                                 $match
                             }
                         }
-                        foreach ($match in $concept.Verb.Matches($segment.Text)) {
-                            $match
+                        if (-not $concept.Verbs) {
+                            foreach ($match in $concept.Verb.Matches($segment.Text)) {
+                                $match
+                            }
                         }
                     )
                     foreach ($match in $uses) {

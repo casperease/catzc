@@ -2,7 +2,7 @@
 
 `Maker kit: style for new docs/.assets diagrams`
 
-<!-- cspell:ignore mxGraphModel mxCell guillemets -->
+<!-- cspell:ignore mxGraphModel mxCell guillemets minimap minimaps treemap -->
 
 The living style kit for the `drawio-diagram-waves` agent and every maker it launches. The lead updates it whenever a review teaches
 something.
@@ -13,7 +13,11 @@ raster, and asserts the round-trip. The XML root is
 
 ## Canvas
 
-`<mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="940" background="#ffffff" math="0" shadow="0">`.
+```xml
+<mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1"
+              pageScale="1" pageWidth="1300" pageHeight="940" background="#ffffff" math="0" shadow="0">
+```
+
 Keep it at most 1300 wide and grow downward. Flat look: no shadows, no gradients.
 
 ## Ids and words
@@ -121,6 +125,74 @@ doesn't need. It never adds claims the source or its sources don't support.
 - Lens variants live in `out/diagrams/lenses/<name>/`. At fan-in, the lead tiles them for review with
   `uv run -q --with pillow python .claude/drawio/contact_sheet.py out/diagrams/lenses/<name>`, which writes `<name>.sheet.png`: five rows in
   lens order, with a "skipped" row for any missing lens.
+
+## Fan-out: ADR-support drawings with two minimaps
+
+Every lens drawing is republished to `out/diagrams/fan-out/` as an **explanation that supports its ADR(s)**. A sidebar carries two
+minimaps showing where the drawing sits in the world.
+
+### The world map (two views, both always shown)
+
+1. **Stack × domain grid** (`.stack.png`). Rows are the system stack, top to bottom: `PRIN` principles (docs/adr/principles) · `DSGN`
+   design · `AUTO` automation modules · `PIPE` pipelines and CI · `CLOUD` Azure. Columns are the domains, by function: `LOAD` (importer, run
+   modes, module loading) · `CONFIG` · `GLOBS` (globsets, tracks, scopes) · `BUILD` (bundle, aspects, folders, dependencies) · `DEPLOY`
+   (promotion, lifecycle, naming, templates) · `ACCESS` (auth, server remote, git). The drawing's main cell is filled; every other
+   cell its ADRs touch gets a ring; its row and column are tinted.
+2. **Repository tree map** (`.tree.png`). A treemap of the real repository, with area set by tracked-file count and grouped by top-level
+   folder (`automation/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<domain>`, `.github/`, root scripts). The files the drawing
+   shows (from its `.verify.md` `file:line` refs and its ADR files) are lit.
+
+### Colours (minimaps only; drawings keep the palettes above)
+
+| Domain column | Hue       |
+| ------------- | --------- |
+| `LOAD`        | `#5C6BC0` |
+| `CONFIG`      | `#FFA726` |
+| `GLOBS`       | `#26A69A` |
+| `BUILD`       | `#AB47BC` |
+| `DEPLOY`      | `#42A5F5` |
+| `ACCESS`      | `#EC407A` |
+
+- The background is `#FFFFFF`. Idle cells and tiles are `#ECEFF1`, with `#CFD8DC` borders. Labels are `#546E7A`.
+- The tinted row and column use the domain hue at 15 % opacity. The **main cell** is the domain hue at 40 % fill with a 3 px stroke at
+  100 %. **Touched cells** are a 2 px ring in their own column's hue, unfilled.
+- The **you-are-here dot** is `#263238` with a 2 px white ring. Lit tree tiles are the hue of the main cell's domain at 100 %. An ADR file
+  tile is outlined `#263238`.
+- The **lens badge** is white text on `#263238`: `META`, `ARCH`, `IMPL`, `OPS` or `GOV`.
+- Red never appears in a minimap; it stays reserved for failure inside drawings.
+
+### Limits
+
+- **Display:** the drawing is at most 1572 × 1000 px. That's the 1300 px content area plus a 272 px right sidebar, which fits a
+  1920 × 1080 screen at 100 %. The minimum height is 360 px.
+- **Sidebar** (x 1300–1572; exact geometry, ids fixed):
+  - `minimap-stack` image at x 1316, y 16, 240 × 150;
+  - `minimap-tree` image at x 1316, y 182, 240 × 180;
+  - `lens-badge` at x 1316, y 378, 240 × 24;
+  - `supports` (the ADR chips) at x 1316, y 410, 240 × ≤ 96.
+- **Minimap PNGs** are rendered at 2× (480 × 300 and 480 × 360) and placed at 1×. Text is ≥ 9 px at 1×. Row labels are ≤ 5 chars and
+  column labels ≤ 6 chars. A tree group is labelled only when its tile is ≥ 40 px wide at 1×.
+- **Title:** ≤ 100 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, in the form
+  `Supports <ADR-CODE>:<rules> · <lens> lens`.
+- **Boxes:**
+  - name ≤ 28 chars;
+  - body ≤ 2 lines × 40 chars;
+  - edge label ≤ 24 chars;
+  - legend ≤ 7 entries;
+  - footer ≤ 3 lines × 150 chars.
+- **Font sizes:** 10.5 px minimum, 18 px maximum.
+- **Names:**
+  - The drawing is `<adr>--<explanation>--<lens>.drawio.png`. `<adr>` is the main ADR code in lower case
+    (`adr-flow-cd`). `<explanation>` is 3–7 kebab words, ≤ 48 chars. `<lens>` is one of the five. The whole name is ≤ 90 chars.
+  - The minimaps are `minimap-<same stem>.stack.png` and `minimap-<same stem>.tree.png`.
+
+### Who does what
+
+- Flow A **conforms and renames**: it keeps the content, cuts it to the limits, adds the sidebar placeholders, and picks the explanation
+  slug.
+- Flow B **places and renders** both minimaps.
+- Both flows key their work by the manifest id `<diagram>.<lens>` in `out/diagrams/fan-out/_manifest.json`.
+- The lead joins them at fan-in: renames the minimaps to the slug, embeds both PNGs as data URIs in the image cells, and rebuilds.
 
 ## Readability rules
 

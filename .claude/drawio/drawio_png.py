@@ -1,4 +1,4 @@
-# cspell:ignore arialbd compressobj maxx maxy miny mxfile pnginfo segoeui segoeuib textbbox
+# cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo segoeui segoeuib textbbox
 """Build a .drawio.png from an mxGraphModel XML file.
 
 usage: uv run --with pillow python drawio_png.py <model.xml> <out.drawio.png> [--name "Page-1"]
@@ -150,6 +150,11 @@ def render(root):
             else:
                 r = 8 if s.get("rounded") == "1" else 0
                 d.rounded_rectangle([x0, y0, x1, y1], radius=r, fill=fill, outline=stroke, width=sw)
+        uri = s.get("image", "")
+        if s.get("shape") == "image" and uri.startswith("data:image/png,"):
+            import io
+            pic = Image.open(io.BytesIO(base64.b64decode(uri.split(",", 1)[1]))).convert("RGB")
+            img.paste(pic.resize((max(1, int(x1 - x0)), max(1, int(y1 - y0))), Image.LANCZOS), (int(x0), int(y0)))
         text = plain(c.get("value"))
         if text:
             size = int(float(s.get("fontSize", 12)))

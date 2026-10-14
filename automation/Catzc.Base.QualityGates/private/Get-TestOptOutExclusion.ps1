@@ -55,12 +55,11 @@ function Get-TestOptOutExclusion {
         $file = $test.ScriptBlock.File
 
         # Out of the run's scope by tier or category: neither excluded by the opt-out tag nor runnable.
-        $level = Get-TestBlockTag -Test $test -Valid 'L0', 'L1', 'L2', 'L3'
-        $category = Get-TestBlockTag -Test $test -Valid 'logic', 'integrity'
-        $outOfScope = @(@($level) + @($category) | Where-Object { $_ -in $ExcludeTag }).Count -gt 0
-        if ($outOfScope) {
+        if (-not (Test-TestInRunScope -Test $test -ExcludeTag $ExcludeTag)) {
             continue
         }
+        $level = Get-TestBlockTag -Test $test -Valid 'L0', 'L1', 'L2', 'L3'
+        $category = Get-TestBlockTag -Test $test -Valid 'logic', 'integrity'
 
         if ((Get-TestBlockTag -Test $test -Valid $Tag).Count -eq 0) {
             [void]$runnableFiles.Add($file)

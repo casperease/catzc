@@ -396,7 +396,7 @@ function Import-CSharpTypes {
     }
 
     # Validate each source and derive its FQN (<module>.<filename>). These two poka-yokes are the loader's job,
-    # deliberately NOT in the shared enumerator (the janitor must never throw on a bad source): a dotted filename
+    # deliberately NOT in the shared enumerator (the janitor must never throw on a source that is wrong): a dotted filename
     # (the old fully-qualified style) is rejected, and a file whose declared file-scoped namespace does not match
     # its module folder (or is missing/block-scoped) is rejected — the same invariant Test-Formatting enforces,
     # checked here at load; Format-Types repairs all of them. The source list is already ordinally sorted.
@@ -532,7 +532,7 @@ function Import-CSharpTypes {
     $dll = [System.IO.Path]::Combine($compiledDir, ('Catzc.Types.{0}.dll' -f $combinedHash))
 
     # Ensure the committed, hash-keyed DLL exists on disk — recompile if missing (deleted, git-cleaned, or a
-    # never-built source). -OutputAssembly writes the file WITHOUT loading, so this restores the artifact even
+    # source never built). -OutputAssembly writes the file WITHOUT loading, so this restores the artifact even
     # when the types are already in the AppDomain (idempotent, self-healing re-import).
     $didCompile = $false
     if (-not [System.IO.File]::Exists($dll)) {
@@ -540,9 +540,9 @@ function Import-CSharpTypes {
             throw "Bundle is missing its prebuilt combined-types assembly ($dll). The bundle is incomplete or corrupt — rebuild it (Build-Modules ships the DLL); a bundle never compiles types."
         }
         # The ONE compile path (Build-CombinedTypeAssembly in Catzc.Internal.Types, shared with a build): it
-        # compiles the validated sources to a temp file and moves it into place, so a concurrent import never
-        # sees a half-written DLL. It re-derives the hash from disk, so a source edited mid-import is a throw,
-        # never a DLL whose name keys different sources than the ones validated above.
+        # compiles the sources, once validated, to a temp file and moves it into place, so a concurrent import
+        # never sees a half-written DLL. It re-derives the hash from disk, so a source edited mid-import is a
+        # throw, never a DLL whose name keys a set of sources other than the ones validated above.
         $built = Build-CombinedTypeAssembly -AutomationRoot $ModulesRoot -OutputDirectory $compiledDir
         if ($built.Hash -ne $combinedHash) {
             throw "C# type sources changed during the import ($combinedHash -> $($built.Hash)). Re-run the importer."

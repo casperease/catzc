@@ -108,6 +108,9 @@ function Build-Glossary {
                 # Each form in backticks: the page mentions them, so the forms check (G6) never reads them as uses.
                 $head = @($concept.term -split '[ -]')[-1]
                 $forms = (@($concept.forms | ForEach-Object { "``$_ $head``" }) -join ', ') + ", and the bare ``$head``"
+                if ($concept.verbs) {
+                    $forms += ', with its verb forms'
+                }
                 foreach ($line in (Format-MarkdownParagraph -Text "**Forms:** $forms" -FirstPrefix '- ' -ContinuationPrefix '  ')) {
                     $lines.Add($line)
                 }

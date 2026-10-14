@@ -103,6 +103,7 @@ concepts:
         defined_by: ADR-AUTO-TEST#26
         short: One of a test run's three scheduling stages, in order — parallel shards, greedy, serial — chosen per file by the serial/greedy tags.
         realized_by: { kind: tag, pattern: 'serial|greedy' }
+        forms: [parallel, serial, greedy, worker, execution, run, test]
         contrasts:
             tier: A tier is what a test may touch; a phase is when its file runs within a run (parallel, greedy, serial).
     build verification test:

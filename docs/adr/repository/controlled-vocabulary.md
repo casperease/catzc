@@ -59,7 +59,9 @@ Prose names them that way; an informal stand-in such as "house rules" is an avoi
 ### Rule ADR-REPO-VOCAB:8
 
 A term that names a family declares its **forms** — the words that may qualify its head word. Within a source's scope, any other qualified
-use, and the head word used as a verb, is a defect; the bare head word is always allowed, and a mention is exempt (ADR-REPO-VOCAB#5).
+use, and the head word used as a verb, is a defect; the bare head word is always allowed, and a mention is exempt (ADR-REPO-VOCAB#5). The
+general words **source**, **layer**, and **scope** are such families too: each takes only its declared forms, and its verb forms ("sourced",
+"layered", "scoped") stay ordinary English (`verbs: true`).
 
 - [Qualified forms](#qualified-forms)
 

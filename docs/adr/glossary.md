@@ -124,6 +124,8 @@ One of a test run's three scheduling stages, in order — parallel shards, greed
 - **Defined by:** [ADR-AUTO-TEST#26](automation/test-automation.md#rule-adr-auto-test26)
 - **Realized by:** tag `serial|greedy`
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
+- **Forms:** `parallel phase`, `serial phase`, `greedy phase`, `worker phase`, `execution phase`, `run phase`, `test phase`, and the bare
+  `phase`
 - **Contrasts:**
   - [tier](#tier): A tier is what a test may touch; a phase is when its file runs within a run (parallel, greedy, serial).
 
@@ -311,6 +313,20 @@ One of the three registers — design, test, live — each with its own terminol
 - **Contrasts:**
   - [domain](#domain): An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.
 
+### layer
+
+One stratum of a structure, always qualified — an implementation layer (language, PowerShell, installer, tooling) or a globset layer
+(module, fileset).
+
+- **Defined by:** [ADR-REPO-VOCAB#8](repository/controlled-vocabulary.md#rule-adr-repo-vocab8)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Forms:** `automation layer`, `language layer`, `PowerShell layer`, `installer layer`, `config layer`, `configuration layer`,
+  `Azure layer`, `tooling layer`, `YAML layer`, `module layer`, `template layer`, `templating layer`, `vendor layer`, `abstraction layer`,
+  `analyzer layer`, `compatibility layer`, `mapping layer`, `serialization layer`, `base layer`, `design layer`, `spelling layer`,
+  `Pester layer`, `pip layer`, `path layer`, `support layer`, `doctrine layer`, `globset layer`, `fileset layer`, `cross layer`,
+  `ADR layer`, `shaping layer`, and the bare `layer`, with its verb forms
+
 ### markdown link
 
 A link inside a rendered .md file, written relative to that file so it resolves the same on GitHub and in VS Code.
@@ -321,3 +337,30 @@ A link inside a rendered .md file, written relative to that file so it resolves 
 - **Contrasts:**
   - [code link](#code-link): A code link lives in a comment of a non-markdown file and is repository-rooted; a markdown link lives in a .md
     file and is relative to it.
+
+### scope
+
+What something reaches, always qualified — a PowerShell scope (module, script, global), an install scope (user, machine), or a selection
+scope (verify, scan, content).
+
+- **Defined by:** [ADR-REPO-VOCAB#8](repository/controlled-vocabulary.md#rule-adr-repo-vocab8)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Forms:** `module scope`, `user scope`, `machine scope`, `content scope`, `script scope`, `verify scope`, `shared scope`, `file scope`,
+  `target scope`, `scan scope`, `test scope`, `persistent scope`, `category scope`, `global scope`, `process scope`, `Pester scope`,
+  `default scope`, `install scope`, `markdown scope`, `repo scope`, `lint scope`, `child scope`, `environment scope`, `subscription scope`,
+  `report scope`, `tag scope`, `declared scope`, `whole scope`, `top scope`, `strict scope`, `isolated scope`, `discovery scope`,
+  `glossary scope`, `deployment scope`, `infra scope`, `radius scope`, and the bare `scope`, with its verb forms
+
+### source
+
+Where something comes from, always qualified — a source mode, run, or tree; a glossary source; a type, authored, vendor, or dot source.
+
+- **Defined by:** [ADR-REPO-VOCAB#8](repository/controlled-vocabulary.md#rule-adr-repo-vocab8)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Forms:** `glossary source`, `type source`, `authored source`, `dot source`, `function source`, `vendor source`, `catzc source`,
+  `combined source`, `committed source`, `shipped source`, `tracked source`, `fixture source`, `comparison source`, `primary source`,
+  `raw source`, `install source`, `rule source`, `docs source`, `derived source`, `current source`, `real source`, `configured source`,
+  `public source`, `single source`, `token source`, `relative source`, `repo source`, `authoritative source`, `cross source`,
+  `vendored source`, `input source`, and the bare `source`, with its verb forms

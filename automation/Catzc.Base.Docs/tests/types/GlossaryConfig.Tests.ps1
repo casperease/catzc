@@ -135,6 +135,13 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         { & $script:single $body } | Should -Throw '*forms must be a list of single qualifier words*'
     }
 
+    It 'reads verbs as a flag, false unless set' -Tag 'ADR-REPO-VOCAB#8' {
+        (& $script:single (& $script:concept)).concepts[0].verbs | Should -BeFalse
+        $body = & $script:concept
+        $body.verbs = $true
+        (& $script:single $body).concepts[0].verbs | Should -BeTrue
+    }
+
     It 'rejects an unknown concept key' {
         $body = & $script:concept
         $body.synonyms = @('widget bundle')

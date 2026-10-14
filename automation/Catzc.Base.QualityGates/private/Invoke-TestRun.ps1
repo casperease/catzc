@@ -171,34 +171,13 @@ function Invoke-TestRun {
                 context    = $context
             }) | Out-Null
 
-        # The run's test files in foundation-first folder order (Get-TestAutomationTestFiles owns the scan).
-        $testFiles = [System.Collections.Generic.List[string]]::new([string[]] (Get-TestAutomationTestFiles -TestPath $testPaths))
-
-        # -Rule: narrow the work-list to the files carrying a test that cites one of the given ADR rules (the
-        # provenance filter). The worker also filters within a file via IncludeTag, so a file that mixes matched
-        # and other tests runs only the matched ones; this keeps whole non-matching files off the work-list.
-        if ($Rule.Count -gt 0) {
-            $testFiles = [System.Collections.Generic.List[string]]::new(
-                [string[]] (Select-RuleTaggedFiles -TestFile @($testFiles) -Discovery $discovery -Rule $Rule))
-            if ($testFiles.Count -eq 0) {
-                throw "No test cites $($Rule -join ', ') — nothing to run for -Rule."
-            }
-        }
-
-        # The run's opt-out tag (the build run's 'source-only',
-        # [ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)): exclude its tests from the
-        # run, drop files left with nothing to run, and count and list every excluded test — never silently.
-        if ($OptOutTag.Count -gt 0) {
-            $optOutExclusion = Get-TestOptOutExclusion -Discovery $discovery -Tag $OptOutTag `
-                -ExcludeTag $excludeTags -TestFiles @($testFiles)
-            $optOutExcludedTests = @($optOutExclusion.Tests)
-            $excludeTags = @($excludeTags) + @($OptOutTag)
-            $testFiles = [System.Collections.Generic.List[string]]::new([string[]] @($optOutExclusion.RemainingFiles))
-            Write-TestOptOutExclusion -Tests $optOutExcludedTests -Tag $OptOutTag -RunDirectory $runDir
-            if ($testFiles.Count -eq 0) {
-                throw "Every test in scope carries $($OptOutTag -join ', ') — nothing to run in $EntryPoint."
-            }
-        }
+        # The work-list: every test file, narrowed by -Rule, by tier and category scope, and by the opt-out tag
+        # (Select-TestRunFiles). Files dropped for scope come back as NotRun rows, reported once after protection.
+        $selection = Select-TestRunFiles -TestPath $testPaths -Discovery $discovery -Rule $Rule -ExcludeTag $excludeTags `
+            -OptOutTag $OptOutTag -RunDirectory $runDir -EntryPoint $EntryPoint
+        $testFiles = @($selection.Files)
+        $excludeTags = @($selection.ExcludeTag)
+        $optOutExcludedTests = @($selection.OptOutExcludedTests)
 
         # Three execution phases — parallel shards, greedy single-file shards, strict serial (see
         # Split-TestAutomationFiles / [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26)).
@@ -238,7 +217,13 @@ function Invoke-TestRun {
         # Shard, run the pool (then the greedy and serial phases), and aggregate the row sidecars — the engine.
         # When protection drained the whole work-list, there is nothing to execute: the run is vacuously green.
         $workerRun = if (($parallelFiles.Count + $greedyFiles.Count + $serialFiles.Count) -eq 0) {
-            Write-Message 'Every module in scope is protected — nothing to run.' -ForegroundColor Yellow
+            $nothingToRun = if ($testFiles.Count -eq 0) {
+                "No test in scope at L$MinLevel-L$MaxLevel — nothing to run."
+            }
+            else {
+                'Every module in scope is protected — nothing to run.'
+            }
+            Write-Message $nothingToRun -ForegroundColor Yellow
             [pscustomobject]@{ Rows = @(); FailedShardLabels = @(); DurationSeconds = 0.0; Shards = @(); WorkerSummaries = @(); Location = $null }
         }
         else {
@@ -256,6 +241,10 @@ function Invoke-TestRun {
         # rows, conservative on anything unattributable (Protect-TestedModule owns the rules).
         Protect-TestedModule -Candidates @($protectionPlan.Candidates) -Rows $rows `
             -FailedShardLabels $failedShardLabels -ProtectionKey $protectionKey
+
+        # The scope filter's dropped files report their tests as NotRun, once, after protection (which promotes only
+        # from what the workers ran): every report below reads the same rows whether a file was loaded or not.
+        $rows = @($rows) + @($selection.OutOfScopeRows)
 
         $failedCount = @($rows | Where-Object { $_.Result -eq 'Failed' }).Count
         # A shard can report failure with zero failed test rows — a container/discovery error fails its run

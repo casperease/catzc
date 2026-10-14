@@ -10,13 +10,17 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:gadgetFile, '# fixture')
 
         $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }
+        # The fields ConvertTo-TestAutomationRowSet reads too, as a discovery pass leaves them: never run.
         $newTest = {
             param([string] $File, [string] $Name, [string[]] $BlockTags)
             [pscustomobject]@{
                 Tag          = @()
                 Block        = [pscustomobject]@{ IsRoot = $false; Tag = @($BlockTags); Parent = $root }
                 ExpandedPath = $Name
-                ScriptBlock  = [pscustomobject]@{ File = $File }
+                ExpandedName = $Name
+                Result       = 'NotRun'
+                Duration     = [timespan]::Zero
+                ScriptBlock  = [pscustomobject]@{ File = $File; StartPosition = [pscustomobject]@{ StartLine = 1 } }
             }
         }
         $script:discovery = [pscustomobject]@{
@@ -125,6 +129,49 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
         It 'releases the location after a normal run' {
             Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null
             Should -Invoke Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates -Times 1
+        }
+    }
+
+    # The fixture's widget file holds only L0 tests and gadget one L1 test, so a run from L1 up has nothing in widget.
+    Context 'the tier and category scope keeps out-of-scope files from the workers' {
+        It 'sends only the files holding an in-scope test to the workers' {
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; MinLevel = 1 } | Out-Null
+
+            Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                (@($ParallelFiles) -join ',') -eq $script:gadgetFile
+            }
+        }
+
+        It 'reports the dropped file''s tests as NotRun rows, exactly once' {
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; MinLevel = 1 } | Out-Null
+
+            Should -Invoke Write-TestAutomationArtifacts -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $notRun = @($Rows | Where-Object { $_.Result -eq 'NotRun' })
+                $notRun.Count -eq 2 -and
+                (@($notRun.ExpandedPath) -join ',') -eq 'Widget.reads files,Widget.runs code' -and
+                @($notRun | Where-Object { $_.Level -eq 'L0' }).Count -eq 2 -and
+                @($Rows | Where-Object { $_.Result -eq 'Passed' }).Count -eq 1
+            }
+        }
+
+        It 'promotes protection from the workers'' rows only' {
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; MinLevel = 1 } | Out-Null
+
+            Should -Invoke Protect-TestedModule -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                @($Rows | Where-Object { $_.Result -eq 'NotRun' }).Count -eq 0
+            }
+        }
+
+        It 'says no test is in scope and runs no worker when no file holds one' {
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; MinLevel = 3; MaxLevel = 3 } | Out-Null
+
+            Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 0
+            Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $Message -eq 'No test in scope at L3-L3 — nothing to run.'
+            }
+            Should -Invoke Write-TestAutomationArtifacts -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                @($Rows | Where-Object { $_.Result -eq 'NotRun' }).Count -eq 3
+            }
         }
     }
 

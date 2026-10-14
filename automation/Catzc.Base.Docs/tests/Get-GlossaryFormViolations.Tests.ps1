@@ -7,7 +7,7 @@
 Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = {
-            param([System.Collections.IDictionary] $options = @{})
+            param([System.Collections.IDictionary] $options = @{}, [bool] $verbs = $false)
             $concept = [Catzc.Base.Docs.GlossaryConcept]::new('widget', [ordered]@{
                     key         = 'widget'
                     domain      = 'repository'
@@ -15,18 +15,19 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
                     short       = 'A widget.'
                     realized_by = [ordered]@{ kind = 'prose-only' }
                     forms       = @('gadget', 'CI')
+                    verbs       = $verbs
                 })
             [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'automation/Catzc.Widget/configs/glossary.yml',
                 [Catzc.Base.Docs.GlossaryOptions]::new($options))
         }
         $script:scan = {
-            param([System.Collections.IDictionary] $files, [System.Collections.IDictionary] $options = @{})
+            param([System.Collections.IDictionary] $files, [System.Collections.IDictionary] $options = @{}, [bool] $verbs = $false)
             foreach ($relative in $files.Keys) {
                 $full = Join-Path $TestDrive $relative
                 [System.IO.Directory]::CreateDirectory((Split-Path $full -Parent)) | Out-Null
                 [System.IO.File]::WriteAllText($full, ($files[$relative] -join "`n"))
             }
-            $parameters = @{ Entries = @(& $script:entry $options); Files = [string[]] @($files.Keys); Root = [string] $TestDrive }
+            $parameters = @{ Entries = @(& $script:entry $options $verbs); Files = [string[]] @($files.Keys); Root = [string] $TestDrive }
             $found = @(InModuleScope Catzc.Base.Docs -Parameters $parameters {
                     Get-GlossaryFormViolations -Entry $Entries -TrackedFile $Files -Root $Root
                 })
@@ -52,6 +53,10 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         $found | Should -Contain "docs/alpha.md:1 says `"sprocket-widget`" — $script:tail"
         $found | Should -Contain "docs/alpha.md:2 says `"widgeted`" — $script:tail"
         $found | Should -Contain "docs/alpha.md:2 says `"widgeting`" — $script:tail"
+    }
+
+    It 'allows the verb forms of a concept that sets verbs' -Tag 'ADR-REPO-VOCAB#8' {
+        & $script:scan @{ 'docs/alpha.md' = @('It is widgeted, then widgeting again.') } @{} $true | Should -BeNullOrEmpty
     }
 
     It 'exempts a mention in backticks or quotes, and never matches inside a longer word' -Tag 'ADR-REPO-VOCAB#8' {

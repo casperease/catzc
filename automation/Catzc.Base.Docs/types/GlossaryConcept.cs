@@ -27,7 +27,7 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
 
     private static readonly string[] AllowedKeys =
     {
-        "key", "domain", "defined_by", "short", "realized_by", "relations", "contrasts", "avoid", "forms"
+        "key", "domain", "defined_by", "short", "realized_by", "relations", "contrasts", "avoid", "forms", "verbs"
     };
 
     // A term: lower-case words joined by single spaces or hyphens ('test suite', 'deployable-unit').
@@ -78,6 +78,10 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // entry declares no forms; then the qualified-forms check (G6) does not look at the term.
     public IReadOnlyList<string> forms { get; }
 
+    // Whether the head word's -ed and -ing forms are ordinary English for this term ('scoped', 'sourced'), so the
+    // qualified-forms check (G6) allows them. False by default: a noun family such as 'gate' takes no verb forms.
+    public bool verbs { get; }
+
     public GlossaryConcept(string term, IDictionary d)
     {
         this.term = term;
@@ -122,6 +126,7 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
         contrasts = ParseContrasts(d, errors);
         avoid     = ParseAvoid(d, errors);
         forms     = ParseForms(d, errors);
+        verbs     = Flag(d, "verbs");
 
         if (errors.Count > 0) { throw Fail(term, errors); }
     }
