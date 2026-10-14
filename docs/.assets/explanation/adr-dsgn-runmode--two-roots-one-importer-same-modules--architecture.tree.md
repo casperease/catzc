@@ -10,10 +10,9 @@ The tree minimap of the slide `adr-dsgn-runmode--two-roots-one-importer-same-mod
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
-domain), and lights 53 files in 14 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 43 files in 13 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
-- docs (docs/ outside docs/adr/): 10 lit files
 - adr/dsgn (docs/adr/design): 9 lit files
 - ModuleSystem (automation/Catzc.Base.ModuleSystem): 8 lit files
 - QualityGates (automation/Catzc.Base.QualityGates): 5 lit files
@@ -30,119 +29,93 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 ## Why each group is lit
 
-### docs (10 lit files)
-
-The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
-
-- [docs/explanation/automation/every-code-root-is-a-copy.md][2], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file
-  cites it at line 17 (text), line 62 (text) and line 63 (text).
-- [docs/explanation/automation/every-entry-runs-one-load-sequence.md][3], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]:
-  the file cites it at line 47 (text).
-- [docs/explanation/automation/one-commit-one-immutable-package.md][4], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the
-  file cites it at line 15 (text), line 50 (text) and line 54 (text).
-- [docs/explanation/automation/rule-and-gate-per-load-stage.md][5], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file
-  cites it at line 41 (text), line 51 (text), line 66 (text), line 69 (text) and line 73 (text).
-- [docs/explanation/automation/what-gates-each-bundle-stage.md][6], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file
-  cites it at line 16 (text), line 42 (text), line 57 (text), line 63 (text) and line 64 (text).
-- [docs/explanation/design/one-entry-script-per-mode.md][7], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file cites
-  it at line 17 (text), line 60 (text), line 61 (text), line 62 (text) and line 63 (text).
-- [docs/explanation/design/shims-set-roots-mode-read-back.md][8], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file
-  cites it at line 19 (text), line 58 (text), line 59 (text), line 61 (text) and line 62 (text).
-- [docs/explanation/design/two-roots-one-importer-same-modules.md][9], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the
-  file cites it at line 17 (text), line 56 (text), line 57 (text), line 58 (text) and line 60 (text).
-- [docs/explanation/design/where-code-loads-from-decides-the-mode.md][10], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]:
-  the file cites it at line 14 (text), line 40 (text), line 41 (text), line 42 (text) and line 43 (text).
-- [docs/explanation/design/which-run-mode-rules-have-a-gate.md][11], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the
-  file cites it at line 17 (text), line 53 (text), line 55 (text), line 57 (text), line 58 (text), line 59 (text), line 60 (text) and line
-  61 (text).
-
 ### adr/dsgn (9 lit files)
 
 The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
 
-- [docs/adr/design/commit-lifecycle.md][12], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR
+- [docs/adr/design/commit-lifecycle.md][2], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR
   domain, the ADR domain of that code.
-- [docs/adr/design/dora-explains.md][13], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR
+- [docs/adr/design/dora-explains.md][3], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR
   domain, the ADR domain of that code.
-- [docs/adr/design/module-aspects.md][14], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR
+- [docs/adr/design/module-aspects.md][4], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR
   domain, the ADR domain of that code.
 - [docs/adr/design/run-modes.md][1], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR domain,
   the ADR domain of that code.
-- [docs/adr/design/self-service.md][15], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR
+- [docs/adr/design/self-service.md][5], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR
   domain, the ADR domain of that code.
-- [docs/adr/design/server-remote-integration.md][16], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the
+- [docs/adr/design/server-remote-integration.md][6], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the
   `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/thin-platforms.md][17], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR
+- [docs/adr/design/thin-platforms.md][7], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR
   domain, the ADR domain of that code.
-- [docs/adr/design/tracks.md][18], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR domain,
+- [docs/adr/design/tracks.md][8], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR domain,
   the ADR domain of that code.
-- [docs/adr/design/visual-design.md][19], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR
+- [docs/adr/design/visual-design.md][9], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR
   domain, the ADR domain of that code.
 
 ### ModuleSystem (8 lit files)
 
 The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1][20], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
+- [automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1][10], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
   file cites it at line 26 (header).
-- [automation/Catzc.Base.ModuleSystem/Get-AutomationFunctions.ps1][21], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/Get-AutomationFunctions.ps1][11], in the cell automation × powershell: selected by
   [ADR-DSGN-RUNMODE][1]: the file cites it at line 12 (header).
-- [automation/Catzc.Base.ModuleSystem/Get-BaseModule.ps1][22], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
+- [automation/Catzc.Base.ModuleSystem/Get-BaseModule.ps1][12], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
   file cites it at line 22 (header).
-- [automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1][23], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1][13], in the cell automation × powershell: selected by
   [ADR-DSGN-RUNMODE][1]: the file cites it at line 10 (header).
-- [automation/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1][24], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1][14], in the cell automation × powershell: selected by
   [ADR-DSGN-RUNMODE][1]: the file cites it at line 28 (header).
-- [automation/Catzc.Base.ModuleSystem/New-Importer.ps1][25], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
+- [automation/Catzc.Base.ModuleSystem/New-Importer.ps1][15], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
   file cites it at line 16 (header).
-- [automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1][26], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
+- [automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1][16], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
   the file cites it at line 17 (header).
-- [automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1][27], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1][17], in the cell automation × powershell: selected by
   [ADR-DSGN-RUNMODE][1]: the file cites it at line 21 (header).
 
 ### QualityGates (5 lit files)
 
 The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.QualityGates/Test-BuildArtifact.ps1][28], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
+- [automation/Catzc.Base.QualityGates/Test-BuildArtifact.ps1][18], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
   the file cites it at line 25 (header).
-- [automation/Catzc.Base.QualityGates/Test-CatzcBuild.ps1][29], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
+- [automation/Catzc.Base.QualityGates/Test-CatzcBuild.ps1][19], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
   file cites it at line 7 (header).
-- [automation/Catzc.Base.QualityGates/configs/terminology.yml][30], in the cell automation × yaml: selected by [ADR-DSGN-RUNMODE][1]: the
+- [automation/Catzc.Base.QualityGates/configs/terminology.yml][20], in the cell automation × yaml: selected by [ADR-DSGN-RUNMODE][1]: the
   file cites it at line 596 (text).
-- [automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1][31], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1][21], in the cell automation × powershell: selected by
   [ADR-DSGN-RUNMODE][1]: the file cites it at line 1 (header) and line 7 (text).
-- [automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1][32], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1][22], in the cell automation × powershell: selected by
   [ADR-DSGN-RUNMODE][1]: the file cites it at line 1 (header) and line 6 (text).
 
 ### TypesSystem (5 lit files)
 
 The group holds the files of automation/Catzc.Base.TypesSystem; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1][33], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
+- [automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1][23], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
   the file cites it at line 15 (header).
-- [automation/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1][34], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
+- [automation/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1][24], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
   the file cites it at line 30 (header).
-- [automation/Catzc.Base.TypesSystem/Get-AutomationModules.ps1][35], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
+- [automation/Catzc.Base.TypesSystem/Get-AutomationModules.ps1][25], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
   the file cites it at line 8 (header).
-- [automation/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1][36], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1][26], in the cell automation × powershell: selected by
   [ADR-DSGN-RUNMODE][1]: the file cites it at line 24 (header).
-- [automation/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1][37], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
+- [automation/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1][27], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
   the file cites it at line 22 (header).
 
 ### Root files (3 lit files)
 
 The group holds the files of Root files; each sits in its world-map cell and is lit by:
 
-- [.gitattributes][38], in the cell Root files × Unlisted files: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its
+- [.gitattributes][28], in the cell Root files × Unlisted files: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its
   owner module's files (files.yml), which cite it at `automation/Catzc.Base.Repository/Assert-SourceTree.ps1` line 8 (header),
   `automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1` line 10 (header) and `automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1`
   line 6 (header).
-- [.gitignore][39], in the cell Root files × Unlisted files: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its
+- [.gitignore][29], in the cell Root files × Unlisted files: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its
   owner module's files (files.yml), which cite it at `automation/Catzc.Base.Repository/Assert-SourceTree.ps1` line 8 (header),
   `automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1` line 10 (header) and `automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1`
   line 6 (header).
-- [importer.ps1][40], in the cell Root files × powershell: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner
+- [importer.ps1][30], in the cell Root files × powershell: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner
   module's files (files.yml), which cite it at `automation/.internal/assets/Import-Catzc.ps1` line 5 (header) and
   `automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1` line 1 (text).
 
@@ -150,141 +123,131 @@ The group holds the files of Root files; each sits in its world-map cell and is 
 
 The group holds the files of automation/Catzc.Base.Repository; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Repository/Assert-SourceTree.ps1][41], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
+- [automation/Catzc.Base.Repository/Assert-SourceTree.ps1][31], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
   file cites it at line 8 (header).
-- [automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1][42], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
+- [automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1][32], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
   the file cites it at line 10 (header).
-- [automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1][43], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
+- [automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1][33], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
   file cites it at line 6 (header).
 
 ### .internal (2 lit files)
 
 The group holds the files of automation/.internal; each sits in its world-map cell and is lit by:
 
-- [automation/.internal/assets/Import-Catzc.ps1][44], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the file cites
+- [automation/.internal/assets/Import-Catzc.ps1][34], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the file cites
   it at line 5 (header).
-- [automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1][45], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
+- [automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1][35], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]:
   the file cites it at line 1 (text).
 
 ### Docs (2 lit files)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][46], in the cell automation × yaml: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
+- [automation/Catzc.Base.Docs/configs/adrs.yml][36], in the cell automation × yaml: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
   line 101 (text).
-- [automation/Catzc.Base.Docs/private/Get-CatsModules.ps1][47], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
+- [automation/Catzc.Base.Docs/private/Get-CatsModules.ps1][37], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
   file cites it at line 11 (header).
 
 ### Vendor (2 lit files)
 
 The group holds the files of automation/Catzc.Base.Vendor; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Vendor/Install-VendorModule.ps1][48], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
+- [automation/Catzc.Base.Vendor/Install-VendorModule.ps1][38], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
   file cites it at line 11 (header).
-- [automation/Catzc.Base.Vendor/Remove-VendorModules.ps1][49], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
+- [automation/Catzc.Base.Vendor/Remove-VendorModules.ps1][39], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
   file cites it at line 18 (header).
 
 ### ConfigExtensions (1 lit file)
 
 The group holds the files of automation/Catzc.Base.ConfigExtensions; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1][50], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1][40], in the cell automation × powershell: selected by
   [ADR-DSGN-RUNMODE][1]: the file cites it at line 12 (header).
 
 ### Globs (1 lit file)
 
 The group holds the files of automation/Catzc.Base.Globs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1][51], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the file
+- [automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1][41], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the file
   cites it at line 29 (header).
 
 ### RootConfig (1 lit file)
 
 The group holds the files of automation/Catzc.Base.RootConfig; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.RootConfig/Build-RootConfig.ps1][52], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
+- [automation/Catzc.Base.RootConfig/Build-RootConfig.ps1][42], in the cell automation × powershell: selected by [ADR-DSGN-RUNMODE][1]: the
   file cites it at line 24 (header).
 
 ### adr/* (1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][53], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 94 (text).
+- [docs/adr/index.md][43], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 94 (text).
 
 ## Keywords
 
-- [world map][54]
-- [track][55]
-- [file language][56]
-- [cell][57]
-- [lit cell][58]
-- [root file][59]
-- [unlisted file][60]
-- [automation][61]: a track
-- [docs][61]: a track
-- [markdown][62]: a file language
-- [powershell][62]: a file language
-- [yaml][62]: a file language
+- [world map][44]
+- [track][45]
+- [file language][46]
+- [cell][47]
+- [lit cell][48]
+- [root file][49]
+- [unlisted file][50]
+- [automation][51]: a track
+- [docs][51]: a track
+- [markdown][52]: a file language
+- [powershell][52]: a file language
+- [yaml][52]: a file language
 
 [1]: ../../adr/design/run-modes.md
-[2]: ../../explanation/automation/every-code-root-is-a-copy.md
-[3]: ../../explanation/automation/every-entry-runs-one-load-sequence.md
-[4]: ../../explanation/automation/one-commit-one-immutable-package.md
-[5]: ../../explanation/automation/rule-and-gate-per-load-stage.md
-[6]: ../../explanation/automation/what-gates-each-bundle-stage.md
-[7]: ../../explanation/design/one-entry-script-per-mode.md
-[8]: ../../explanation/design/shims-set-roots-mode-read-back.md
-[9]: ../../explanation/design/two-roots-one-importer-same-modules.md
-[10]: ../../explanation/design/where-code-loads-from-decides-the-mode.md
-[11]: ../../explanation/design/which-run-mode-rules-have-a-gate.md
-[12]: ../../adr/design/commit-lifecycle.md
-[13]: ../../adr/design/dora-explains.md
-[14]: ../../adr/design/module-aspects.md
-[15]: ../../adr/design/self-service.md
-[16]: ../../adr/design/server-remote-integration.md
-[17]: ../../adr/design/thin-platforms.md
-[18]: ../../adr/design/tracks.md
-[19]: ../../adr/design/visual-design.md
-[20]: ../../../automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1
-[21]: ../../../automation/Catzc.Base.ModuleSystem/Get-AutomationFunctions.ps1
-[22]: ../../../automation/Catzc.Base.ModuleSystem/Get-BaseModule.ps1
-[23]: ../../../automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
-[24]: ../../../automation/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1
-[25]: ../../../automation/Catzc.Base.ModuleSystem/New-Importer.ps1
-[26]: ../../../automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
-[27]: ../../../automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
-[28]: ../../../automation/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
-[29]: ../../../automation/Catzc.Base.QualityGates/Test-CatzcBuild.ps1
-[30]: ../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
-[31]: ../../../automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1
-[32]: ../../../automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
-[33]: ../../../automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1
-[34]: ../../../automation/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
-[35]: ../../../automation/Catzc.Base.TypesSystem/Get-AutomationModules.ps1
-[36]: ../../../automation/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
-[37]: ../../../automation/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
-[38]: ../../../.gitattributes
-[39]: ../../../.gitignore
-[40]: ../../../importer.ps1
-[41]: ../../../automation/Catzc.Base.Repository/Assert-SourceTree.ps1
-[42]: ../../../automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1
-[43]: ../../../automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1
-[44]: ../../../automation/.internal/assets/Import-Catzc.ps1
-[45]: ../../../automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
-[46]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[47]: ../../../automation/Catzc.Base.Docs/private/Get-CatsModules.ps1
-[48]: ../../../automation/Catzc.Base.Vendor/Install-VendorModule.ps1
-[49]: ../../../automation/Catzc.Base.Vendor/Remove-VendorModules.ps1
-[50]: ../../../automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-[51]: ../../../automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
-[52]: ../../../automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
-[53]: ../../adr/index.md
-[54]: ../../adr/glossary.md#world-map
-[55]: ../../adr/glossary.md#track
-[56]: ../../adr/glossary.md#file-language
-[57]: ../../adr/glossary.md#cell
-[58]: ../../adr/glossary.md#lit-cell
-[59]: ../../adr/glossary.md#root-file
-[60]: ../../adr/glossary.md#unlisted-file
-[61]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[62]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[2]: ../../adr/design/commit-lifecycle.md
+[3]: ../../adr/design/dora-explains.md
+[4]: ../../adr/design/module-aspects.md
+[5]: ../../adr/design/self-service.md
+[6]: ../../adr/design/server-remote-integration.md
+[7]: ../../adr/design/thin-platforms.md
+[8]: ../../adr/design/tracks.md
+[9]: ../../adr/design/visual-design.md
+[10]: ../../../automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1
+[11]: ../../../automation/Catzc.Base.ModuleSystem/Get-AutomationFunctions.ps1
+[12]: ../../../automation/Catzc.Base.ModuleSystem/Get-BaseModule.ps1
+[13]: ../../../automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
+[14]: ../../../automation/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1
+[15]: ../../../automation/Catzc.Base.ModuleSystem/New-Importer.ps1
+[16]: ../../../automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
+[17]: ../../../automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
+[18]: ../../../automation/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
+[19]: ../../../automation/Catzc.Base.QualityGates/Test-CatzcBuild.ps1
+[20]: ../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
+[21]: ../../../automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1
+[22]: ../../../automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
+[23]: ../../../automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1
+[24]: ../../../automation/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
+[25]: ../../../automation/Catzc.Base.TypesSystem/Get-AutomationModules.ps1
+[26]: ../../../automation/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
+[27]: ../../../automation/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
+[28]: ../../../.gitattributes
+[29]: ../../../.gitignore
+[30]: ../../../importer.ps1
+[31]: ../../../automation/Catzc.Base.Repository/Assert-SourceTree.ps1
+[32]: ../../../automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1
+[33]: ../../../automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1
+[34]: ../../../automation/.internal/assets/Import-Catzc.ps1
+[35]: ../../../automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
+[36]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[37]: ../../../automation/Catzc.Base.Docs/private/Get-CatsModules.ps1
+[38]: ../../../automation/Catzc.Base.Vendor/Install-VendorModule.ps1
+[39]: ../../../automation/Catzc.Base.Vendor/Remove-VendorModules.ps1
+[40]: ../../../automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
+[41]: ../../../automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+[42]: ../../../automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
+[43]: ../../adr/index.md
+[44]: ../../adr/glossary.md#world-map
+[45]: ../../adr/glossary.md#track
+[46]: ../../adr/glossary.md#file-language
+[47]: ../../adr/glossary.md#cell
+[48]: ../../adr/glossary.md#lit-cell
+[49]: ../../adr/glossary.md#root-file
+[50]: ../../adr/glossary.md#unlisted-file
+[51]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[52]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

@@ -77,7 +77,7 @@ function Write-Gadget { Write-Message 'gadget' }
             @{ Desc = 'a change announced from an enclosing block'; Code = "function Set-Widget { if (`$a) { `$env:WIDGET = 'x' }; Write-Message 'set' }" }
             @{ Desc = 'a change announced in its own conditional block'; Code = "function Set-Widget { if (`$a) { `$env:WIDGET = 'x'; Write-Message 'set' } }" }
             @{ Desc = 'a bootstrap chokepoint announcement'; Code = "function Import-Widget { Add-Type -Path 'C:\widget.dll'; Write-ImporterMessage 'Loaded widget.dll' }" }
-            @{ Desc = 'an importer state-change announcement (-StateChange)';Code = "function Import-Widget { Add-Type -Path 'C:\widget.dll'; Write-ImporterMessage 'Loaded widget.dll' -StateChange }" }
+            @{ Desc = 'an importer state-change announcement (-StateChange)'; Code = "function Import-Widget { Add-Type -Path 'C:\widget.dll'; Write-ImporterMessage 'Loaded widget.dll' -StateChange }" }
             @{ Desc = 'Add-Type -OutputAssembly (writes a DLL, loads nothing)'; Code = "function Build-Widget { Add-Type -Path 'a.cs' -OutputAssembly 'widget.dll' }" }
             @{ Desc = 'a reading env access'; Code = 'function Get-Widget { $env:WIDGET }' }
             @{ Desc = 'a local variable'; Code = "function Set-Widget { `$widget = 'x' }" }

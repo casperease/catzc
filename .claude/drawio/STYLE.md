@@ -181,9 +181,9 @@ its files are) and the value-chain map (where its ADRs sit in the value chain). 
 The minimaps draw the **world map** of the world-map processor (module `Catzc.Base.Maps`, ADR-DSGN-TRACK#9), and light the cells and files
 that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRACK#12), each with its reason. A minimap answers "where does
 this slide sit", not "how dense is the map": no cell is shaded by its count. The counts belong to the full maps (the world-map PDFs; a full
-value-chain view is still to come). The files under `docs/.assets/` (the slide descriptions and the minimaps' sister files among them) cite
-nothing for the highlight (`maps.yml` `highlight.citation_exclude`), so a minimap never lights its own description; they still sit in their
-cell.
+value-chain view is still to come). A minimap lights the repository's citations of the slide's ADRs, never the slide's own words: the files
+under `docs/.assets/` (the slide descriptions and the minimaps' sister files), `docs/explanation/` (the articles the slides illustrate) and
+`.claude/drawio/` (this tooling) cite nothing for the highlight (`maps.yml` `highlight.citation_exclude`); they still sit in their cell.
 
 1. **Grid** (`<stem>.grid.png`). Rows are the tracks and columns the file languages, in the map's order, with the root-file row and the
    unlisted-file column last. Every cell is an idle grey box, empty ones included, and every **lit cell** is filled in the lit colour. A

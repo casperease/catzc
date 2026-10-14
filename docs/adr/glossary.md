@@ -394,6 +394,8 @@ System.Collections.Specialized.OrderedDictionary
 - **Source:** `automation/Catzc.Base.Engines/configs/glossary.yml`
 - **Contrasts:**
   - [auto](#auto): auto is a value that leaves the engine open; an execution engine is the pwsh, bash or zsh it resolves to.
+  - [posix engine](#posix-engine): A POSIX engine is an execution engine whose importer entry is importer.sh; an execution engine is any one
+    of them, pwsh included.
 
 ### go test module
 
@@ -415,6 +417,17 @@ One of a test run's three scheduling stages, in order — parallel shards, greed
   `phase`
 - **Contrasts:**
   - [tier](#tier): A tier is what a test may touch; a phase is when its file runs within a run (parallel, greedy, serial).
+
+### posix engine
+
+System.Collections.Specialized.OrderedDictionary
+
+- **Defined by:** [ADR-AUTO-ENGINE#6](automation/execution-engines.md#rule-adr-auto-engine6)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Engines/configs/glossary.yml`
+- **Contrasts:**
+  - [execution engine](#execution-engine): An execution engine is any one of the shells the code runs under; the POSIX engines are those of
+    them that load importer.sh.
 
 ### published artifact
 

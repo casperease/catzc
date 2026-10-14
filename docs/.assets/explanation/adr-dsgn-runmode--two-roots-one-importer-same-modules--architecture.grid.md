@@ -11,12 +11,12 @@ The grid minimap of the slide `adr-dsgn-runmode--two-roots-one-importer-same-mod
 
 The grid crosses the 12 tracks (rows) with the 18 file languages (columns) of the world map and lights 5 cells, filled in ink. A cell lit
 only by passing mentions (citations in body comments, not in a file's header or text) is touched: a lighter ink. Every other cell is idle, a
-grey box: it holds files the slide's ADR codes do not select, or no file at all (174 of the 216 cells hold none). The minimap shows where
+grey box: it holds files the slide's ADR codes do not select, or no file at all (173 of the 216 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- automation × powershell: 28 lit of 1412 files
-- automation × yaml: 2 lit of 95 files
-- docs × markdown: 20 lit of 742 files
+- automation × powershell: 28 lit of 1443 files
+- automation × yaml: 2 lit of 97 files
+- docs × markdown: 10 lit of 744 files
 - Root files × powershell: 1 lit of 1 file
 - Root files × Unlisted files: 2 lit of 4 files
 
@@ -85,7 +85,7 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.Docs/configs/adrs.yml][33]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 101 (text).
 - [automation/Catzc.Base.QualityGates/configs/terminology.yml][34]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 596 (text).
 
-### docs × markdown (20 lit files)
+### docs × markdown (10 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
@@ -107,63 +107,43 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/design/visual-design.md][42]: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
   code.
 - [docs/adr/index.md][43]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 94 (text).
-- [docs/explanation/automation/every-code-root-is-a-copy.md][44]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 17 (text),
-  line 62 (text) and line 63 (text).
-- [docs/explanation/automation/every-entry-runs-one-load-sequence.md][45]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 47
-  (text).
-- [docs/explanation/automation/one-commit-one-immutable-package.md][46]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 15
-  (text), line 50 (text) and line 54 (text).
-- [docs/explanation/automation/rule-and-gate-per-load-stage.md][47]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 41 (text),
-  line 51 (text), line 66 (text), line 69 (text) and line 73 (text).
-- [docs/explanation/automation/what-gates-each-bundle-stage.md][48]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 16 (text),
-  line 42 (text), line 57 (text), line 63 (text) and line 64 (text).
-- [docs/explanation/design/one-entry-script-per-mode.md][49]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 17 (text), line
-  60 (text), line 61 (text), line 62 (text) and line 63 (text).
-- [docs/explanation/design/shims-set-roots-mode-read-back.md][50]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 19 (text),
-  line 58 (text), line 59 (text), line 61 (text) and line 62 (text).
-- [docs/explanation/design/two-roots-one-importer-same-modules.md][51]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 17
-  (text), line 56 (text), line 57 (text), line 58 (text) and line 60 (text).
-- [docs/explanation/design/where-code-loads-from-decides-the-mode.md][52]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 14
-  (text), line 40 (text), line 41 (text), line 42 (text) and line 43 (text).
-- [docs/explanation/design/which-run-mode-rules-have-a-gate.md][53]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 17 (text),
-  line 53 (text), line 55 (text), line 57 (text), line 58 (text), line 59 (text), line 60 (text) and line 61 (text).
 
 ### Root files × powershell (1 lit file)
 
-Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][54]); the extension `.ps1` names the file
+Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][44]); the extension `.ps1` names the file
 language powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [importer.ps1][55]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which
+- [importer.ps1][45]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which
   cite it at `automation/.internal/assets/Import-Catzc.ps1` line 5 (header) and
   `automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1` line 1 (text).
 
 ### Root files × Unlisted files (2 lit files)
 
-Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][54]); no extension names no file language,
-so each is an unlisted file ([ADR-DSGN-TRACK#8][56]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][44]); no extension names no file language,
+so each is an unlisted file ([ADR-DSGN-TRACK#8][46]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [.gitattributes][57]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which
+- [.gitattributes][47]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which
   cite it at `automation/Catzc.Base.Repository/Assert-SourceTree.ps1` line 8 (header),
   `automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1` line 10 (header) and `automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1`
   line 6 (header).
-- [.gitignore][58]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which cite
+- [.gitignore][48]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which cite
   it at `automation/Catzc.Base.Repository/Assert-SourceTree.ps1` line 8 (header), `automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1`
   line 10 (header) and `automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1` line 6 (header).
 
 ## Keywords
 
-- [world map][59]
-- [track][60]
-- [file language][61]
-- [cell][62]
-- [lit cell][63]
-- [root file][64]
-- [unlisted file][65]
-- [automation][66]: a track
-- [docs][66]: a track
-- [markdown][67]: a file language
-- [powershell][67]: a file language
-- [yaml][67]: a file language
+- [world map][49]
+- [track][50]
+- [file language][51]
+- [cell][52]
+- [lit cell][53]
+- [root file][54]
+- [unlisted file][55]
+- [automation][56]: a track
+- [docs][56]: a track
+- [markdown][57]: a file language
+- [powershell][57]: a file language
+- [yaml][57]: a file language
 
 [1]: ../../adr/design/run-modes.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -208,27 +188,17 @@ so each is an unlisted file ([ADR-DSGN-TRACK#8][56]). Lit ([ADR-DSGN-TRACK#12][4
 [41]: ../../adr/design/tracks.md
 [42]: ../../adr/design/visual-design.md
 [43]: ../../adr/index.md
-[44]: ../../explanation/automation/every-code-root-is-a-copy.md
-[45]: ../../explanation/automation/every-entry-runs-one-load-sequence.md
-[46]: ../../explanation/automation/one-commit-one-immutable-package.md
-[47]: ../../explanation/automation/rule-and-gate-per-load-stage.md
-[48]: ../../explanation/automation/what-gates-each-bundle-stage.md
-[49]: ../../explanation/design/one-entry-script-per-mode.md
-[50]: ../../explanation/design/shims-set-roots-mode-read-back.md
-[51]: ../../explanation/design/two-roots-one-importer-same-modules.md
-[52]: ../../explanation/design/where-code-loads-from-decides-the-mode.md
-[53]: ../../explanation/design/which-run-mode-rules-have-a-gate.md
-[54]: ../../adr/design/tracks.md#rule-adr-dsgn-track7
-[55]: ../../../importer.ps1
-[56]: ../../adr/design/tracks.md#rule-adr-dsgn-track8
-[57]: ../../../.gitattributes
-[58]: ../../../.gitignore
-[59]: ../../adr/glossary.md#world-map
-[60]: ../../adr/glossary.md#track
-[61]: ../../adr/glossary.md#file-language
-[62]: ../../adr/glossary.md#cell
-[63]: ../../adr/glossary.md#lit-cell
-[64]: ../../adr/glossary.md#root-file
-[65]: ../../adr/glossary.md#unlisted-file
-[66]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[67]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[44]: ../../adr/design/tracks.md#rule-adr-dsgn-track7
+[45]: ../../../importer.ps1
+[46]: ../../adr/design/tracks.md#rule-adr-dsgn-track8
+[47]: ../../../.gitattributes
+[48]: ../../../.gitignore
+[49]: ../../adr/glossary.md#world-map
+[50]: ../../adr/glossary.md#track
+[51]: ../../adr/glossary.md#file-language
+[52]: ../../adr/glossary.md#cell
+[53]: ../../adr/glossary.md#lit-cell
+[54]: ../../adr/glossary.md#root-file
+[55]: ../../adr/glossary.md#unlisted-file
+[56]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[57]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

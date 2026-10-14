@@ -12,13 +12,13 @@ that selects it.
 
 The grid crosses the 12 tracks (rows) with the 18 file languages (columns) of the world map and lights 5 cells, filled in ink. A cell lit
 only by passing mentions (citations in body comments, not in a file's header or text) is touched: a lighter ink. Every other cell is idle, a
-grey box: it holds files the slide's ADR codes do not select, or no file at all (174 of the 216 cells hold none). The minimap shows where
+grey box: it holds files the slide's ADR codes do not select, or no file at all (173 of the 216 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 1 lit of 9 files
-- automation × powershell: 3 lit of 1412 files
-- automation × yaml: 4 lit of 95 files
-- docs × markdown: 18 lit of 742 files
+- automation × powershell: 3 lit of 1443 files
+- automation × yaml: 4 lit of 97 files
+- docs × markdown: 13 lit of 744 files
 - pipelines × pipeline-yaml: 2 lit of 9 files
 
 ## Key
@@ -61,13 +61,13 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][10]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 119 (text); selected by
-  [ADR-PIPE-NAME][2]: the file cites it at line 238 (text).
+  [ADR-PIPE-NAME][2]: the file cites it at line 237 (text).
 - [automation/Catzc.Base.Languages/configs/languages.yml][11]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 35 (header).
 - [automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml][12]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 9
   (header).
 - [automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml][13]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 8 (header).
 
-### docs × markdown (18 lit files)
+### docs × markdown (13 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
@@ -85,7 +85,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 - [docs/adr/flow/pipeline-types.md][18]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
   code.
 - [docs/adr/index.md][19]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 108 (text); selected by [ADR-PIPE-NAME][2]: the
-  file cites it at line 222 (text).
+  file cites it at line 221 (text).
 - [docs/adr/pipelines/custom-template-discipline.md][20]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR
   domain of that code.
 - [docs/adr/pipelines/dora-explains.md][21]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR domain of
@@ -96,38 +96,27 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
   ADR domain of that code.
 - [docs/adr/pipelines/pipeline-variables.md][23]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR domain
   of that code.
-- [docs/explanation/flow/a-step-only-names-a-command.md][24]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 14 (text), line
-  41 (text) and line 42 (text).
-- [docs/explanation/flow/no-gate-checks-rules-one-and-four.md][25]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 16
-  (text), line 51 (text), line 52 (text), line 53 (text) and line 54 (text); selected by [ADR-PIPE-NAME][2]: the file cites it at line 12
-  (text), line 39 (text), line 40 (text) and line 55 (text).
-- [docs/explanation/flow/the-runner-is-the-only-seam.md][26]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 15 (text), line
-  47 (text), line 48 (text) and line 49 (text).
-- [docs/explanation/flow/the-step-is-named-after-its-command.md][27]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 16
-  (text), line 49 (text) and line 50 (text).
-- [docs/explanation/flow/three-tasks-one-guard-one-runner.md][28]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 17 (text),
-  line 57 (text), line 58 (text) and line 59 (text).
-- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][29]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 16 (text).
+- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][24]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 16 (text).
 
 ### pipelines × pipeline-yaml (2 lit files)
 
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][3]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pipelines/extends/cd-customer.yaml][30]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 3 (header).
-- [pipelines/steps/invoke-automation.yaml][31]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 18 (header).
+- [pipelines/extends/cd-customer.yaml][25]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 3 (header).
+- [pipelines/steps/invoke-automation.yaml][26]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 18 (header).
 
 ## Keywords
 
-- [world map][32]
-- [track][33]
-- [file language][34]
-- [cell][35]
-- [lit cell][36]
-- [.claude][37]: a track
-- [automation][37]: a track
-- [docs][37]: a track
-- [pipelines][37]: a track
+- [world map][27]
+- [track][28]
+- [file language][29]
+- [cell][30]
+- [lit cell][31]
+- [.claude][32]: a track
+- [automation][32]: a track
+- [docs][32]: a track
+- [pipelines][32]: a track
 - [markdown][11]: a file language
 - [pipeline-yaml][11]: a file language
 - [powershell][11]: a file language
@@ -156,17 +145,12 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 [21]: ../../adr/pipelines/dora-explains.md
 [22]: ../../adr/pipelines/dual-authentication.md
 [23]: ../../adr/pipelines/pipeline-variables.md
-[24]: ../../explanation/flow/a-step-only-names-a-command.md
-[25]: ../../explanation/flow/no-gate-checks-rules-one-and-four.md
-[26]: ../../explanation/flow/the-runner-is-the-only-seam.md
-[27]: ../../explanation/flow/the-step-is-named-after-its-command.md
-[28]: ../../explanation/flow/three-tasks-one-guard-one-runner.md
-[29]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
-[30]: ../../../pipelines/extends/cd-customer.yaml
-[31]: ../../../pipelines/steps/invoke-automation.yaml
-[32]: ../../adr/glossary.md#world-map
-[33]: ../../adr/glossary.md#track
-[34]: ../../adr/glossary.md#file-language
-[35]: ../../adr/glossary.md#cell
-[36]: ../../adr/glossary.md#lit-cell
-[37]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[24]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
+[25]: ../../../pipelines/extends/cd-customer.yaml
+[26]: ../../../pipelines/steps/invoke-automation.yaml
+[27]: ../../adr/glossary.md#world-map
+[28]: ../../adr/glossary.md#track
+[29]: ../../adr/glossary.md#file-language
+[30]: ../../adr/glossary.md#cell
+[31]: ../../adr/glossary.md#lit-cell
+[32]: ../../../automation/Catzc.Base.Variants/configs/variants.yml

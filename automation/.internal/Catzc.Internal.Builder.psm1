@@ -1016,7 +1016,7 @@ function Invoke-ModuleBuild {
         }
     }
     if ($missing.Count -gt 0) {
-        throw ("Invoke-ModuleBuild: $($missing.Count) internal asset dependenc(ies) would be missing from the build (ADR-AUTO-ASSETDEP#4). " +
+        throw ("Invoke-ModuleBuild: $($missing.Count) internal asset dependency path(s) would be missing from the build (ADR-AUTO-ASSETDEP#4). " +
             "Ship the asset in the module's configs/ or assets/, or add the owning module to the build:`n  " + ($missing -join "`n  "))
     }
 

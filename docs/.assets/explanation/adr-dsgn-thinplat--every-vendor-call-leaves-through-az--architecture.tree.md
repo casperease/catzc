@@ -11,13 +11,12 @@ selects it.
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
-domain), and lights 51 files in 7 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 46 files in 6 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - adr/azure (docs/adr/azure): 25 lit files
 - adr/dsgn (docs/adr/design): 9 lit files
 - Az.Cli (automation/Catzc.Azure.Cli): 8 lit files
-- docs (docs/ outside docs/adr/): 5 lit files
 - QualityGates (automation/Catzc.Base.QualityGates): 2 lit files
 - Docs (automation/Catzc.Base.Docs): 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
@@ -123,60 +122,41 @@ The group holds the files of automation/Catzc.Azure.Cli; each sits in its world-
 - [automation/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1][42], in the cell automation × powershell: selected by [ADR-AZ-CLI][1]:
   the file cites it at line 13 (header).
 
-### docs (5 lit files)
-
-The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
-
-- [docs/explanation/design/bind-to-one-cli-delegate-the-rest.md][43], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][2]: the
-  file cites it at line 13 (text), line 37 (text), line 38 (text), line 40 (text) and line 42 (text).
-- [docs/explanation/design/deploy-bicep-delegates-to-az.md][44], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file cites it
-  at line 63 (text); selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 19 (text), line 58 (text), line 59 (text) and line 65
-  (text).
-- [docs/explanation/design/every-vendor-call-leaves-through-az.md][45], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file
-  cites it at line 17 (text), line 52 (text), line 53 (text), line 53 (text) and line 57 (text); selected by [ADR-DSGN-THINPLAT][2]: the
-  file cites it at line 17 (text), line 48 (text), line 49 (text) and line 51 (text).
-- [docs/explanation/design/same-deploy-bicep-on-both-sides.md][46], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][2]: the
-  file cites it at line 16 (text), line 52 (text) and line 53 (text).
-- [docs/explanation/design/what-keeps-the-platform-thin.md][47], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file cites it
-  at line 17 (text), line 34 (text), line 60 (text), line 60 (text), line 61 (text), line 65 (text), line 67 (text) and line 71 (text);
-  selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 17 (text), line 55 (text), line 56 (text), line 57 (text), line 58 (text)
-  and line 59 (text).
-
 ### QualityGates (2 lit files)
 
 The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][48], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the
+- [automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][43], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the
   file cites it at line 19 (text).
-- [automation/Catzc.Base.QualityGates/configs/terminology.yml][49], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the file
+- [automation/Catzc.Base.QualityGates/configs/terminology.yml][44], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the file
   cites it at line 586 (text); selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 670 (text).
 
 ### Docs (1 lit file)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][50], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the file cites it at line
-  271 (text); selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 96 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][45], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the file cites it at line
+  270 (text); selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 96 (text).
 
 ### adr/* (1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][51], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file cites it at line 253 (text); selected by
+- [docs/adr/index.md][46], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file cites it at line 252 (text); selected by
   [ADR-DSGN-THINPLAT][2]: the file cites it at line 89 (text).
 
 ## Keywords
 
-- [world map][52]
-- [track][53]
-- [file language][54]
-- [cell][55]
-- [lit cell][56]
-- [automation][57]: a track
-- [docs][57]: a track
-- [markdown][58]: a file language
-- [powershell][58]: a file language
-- [yaml][58]: a file language
+- [world map][47]
+- [track][48]
+- [file language][49]
+- [cell][50]
+- [lit cell][51]
+- [automation][52]: a track
+- [docs][52]: a track
+- [markdown][53]: a file language
+- [powershell][53]: a file language
+- [yaml][53]: a file language
 
 [1]: ../../adr/azure/prefer-az-cli.md
 [2]: ../../adr/design/thin-platforms.md
@@ -220,19 +200,14 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 [40]: ../../../automation/Catzc.Azure.Cli/Test-AzCliBicep.ps1
 [41]: ../../../automation/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
 [42]: ../../../automation/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1
-[43]: ../../explanation/design/bind-to-one-cli-delegate-the-rest.md
-[44]: ../../explanation/design/deploy-bicep-delegates-to-az.md
-[45]: ../../explanation/design/every-vendor-call-leaves-through-az.md
-[46]: ../../explanation/design/same-deploy-bicep-on-both-sides.md
-[47]: ../../explanation/design/what-keeps-the-platform-thin.md
-[48]: ../../../automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
-[49]: ../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
-[50]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[51]: ../../adr/index.md
-[52]: ../../adr/glossary.md#world-map
-[53]: ../../adr/glossary.md#track
-[54]: ../../adr/glossary.md#file-language
-[55]: ../../adr/glossary.md#cell
-[56]: ../../adr/glossary.md#lit-cell
-[57]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[58]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[43]: ../../../automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+[44]: ../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
+[45]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[46]: ../../adr/index.md
+[47]: ../../adr/glossary.md#world-map
+[48]: ../../adr/glossary.md#track
+[49]: ../../adr/glossary.md#file-language
+[50]: ../../adr/glossary.md#cell
+[51]: ../../adr/glossary.md#lit-cell
+[52]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[53]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

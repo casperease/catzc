@@ -11,14 +11,14 @@ supports [ADR-FLOW-CD-GLOBS][1]; the highlight of those ADR codes selects what i
 
 The grid crosses the 12 tracks (rows) with the 18 file languages (columns) of the world map and lights 6 cells, filled in ink. A cell lit
 only by passing mentions (citations in body comments, not in a file's header or text) is touched: a lighter ink. Every other cell is idle, a
-grey box: it holds files the slide's ADR codes do not select, or no file at all (174 of the 216 cells hold none). The minimap shows where
+grey box: it holds files the slide's ADR codes do not select, or no file at all (173 of the 216 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .github × yaml: 1 lit of 2 files, touched
-- automation × csharp: 5 lit of 219 files
-- automation × powershell: 41 lit of 1412 files
-- automation × yaml: 3 lit of 95 files
-- docs × markdown: 23 lit of 742 files
+- automation × csharp: 5 lit of 229 files
+- automation × powershell: 41 lit of 1443 files
+- automation × yaml: 3 lit of 97 files
+- docs × markdown: 9 lit of 744 files
 - pipelines × pipeline-yaml: 6 lit of 9 files
 
 ## Key
@@ -149,7 +149,7 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.Globs/configs/globs.yml][54]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 2 (header), line 7
   (header), line 15 (header), line 17 (header), line 26 (body comment), line 61 (body comment) and line 81 (body comment).
 
-### docs × markdown (23 lit files)
+### docs × markdown (9 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
@@ -167,67 +167,38 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/flow/pipeline-types.md][59]: selected by [ADR-FLOW-CD-GLOBS][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
   code.
 - [docs/adr/index.md][60]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 111 (text).
-- [docs/explanation/design/every-file-in-exactly-one-aspect.md][61]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 51
+- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][61]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 18
   (text).
-- [docs/explanation/design/one-folder-two-independent-readers.md][62]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 59
-  (text).
-- [docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md][63]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
-  line 49 (text) and line 67 (text).
-- [docs/explanation/design/unit-to-pipeline-rule-is-review-only.md][64]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 59
-  (text) and line 59 (text).
-- [docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md][65]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 16
-  (text), line 47 (text), line 49 (text) and line 53 (text).
-- [docs/explanation/flow/edit-globs-yml-then-read-the-output.md][66]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 17
-  (text), line 47 (text), line 49 (text) and line 50 (text).
-- [docs/explanation/flow/gates-check-source-and-trigger.md][67]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 17 (text),
-  line 52 (text), line 53 (text), line 54 (text), line 55 (text), line 56 (text), line 57 (text), line 57 (text), line 58 (text), line 59
-  (text), line 59 (text), line 61 (text) and line 72 (text).
-- [docs/explanation/flow/globs-module-owns-config-and-types.md][68]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 15
-  (text), line 48 (text), line 49 (text), line 51 (text) and line 52 (text).
-- [docs/explanation/flow/independence-check-groups-by-layer.md][69]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 17
-  (text), line 52 (text), line 54 (text), line 58 (text) and line 58 (text).
-- [docs/explanation/flow/one-scan-program-feeds-three-roles.md][70]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 18
-  (text), line 53 (text), line 54 (text), line 55 (text), line 56 (text), line 61 (text) and line 62 (text).
-- [docs/explanation/flow/overlap-gated-for-units-and-modules.md][71]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 16
-  (text), line 49 (text) and line 51 (text).
-- [docs/explanation/flow/peers-in-a-layer-never-overlap.md][72]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 13 (text),
-  line 38 (text) and line 40 (text).
-- [docs/explanation/flow/three-views-derived-live-from-one-program.md][73]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14
-  (text), line 37 (text), line 38 (text), line 39 (text) and line 40 (text).
-- [docs/explanation/flow/two-declared-layers-one-derived.md][74]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 15 (text),
-  line 47 (text), line 49 (text), line 51 (text) and line 53 (text).
-- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][75]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 18
-  (text).
-- [docs/references/automation/catzc-base-globs.md][76]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 29 (text).
+- [docs/references/automation/catzc-base-globs.md][62]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 29 (text).
 
 ### pipelines × pipeline-yaml (6 lit files)
 
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][2]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [pipelines/cd-apex.yaml][77]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 15 (header).
-- [pipelines/cd-flux.yaml][78]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14 (header).
-- [pipelines/cd-nova.yaml][79]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14 (header).
-- [pipelines/cd-shared.yaml][80]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 29 (header).
-- [pipelines/ci-automation.yaml][81]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 4 (header).
-- [pipelines/ci-infrastructure.yaml][82]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 17 (header).
+- [pipelines/cd-apex.yaml][63]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 15 (header).
+- [pipelines/cd-flux.yaml][64]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14 (header).
+- [pipelines/cd-nova.yaml][65]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14 (header).
+- [pipelines/cd-shared.yaml][66]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 29 (header).
+- [pipelines/ci-automation.yaml][67]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 4 (header).
+- [pipelines/ci-infrastructure.yaml][68]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 17 (header).
 
 ## Keywords
 
-- [world map][83]
-- [track][84]
-- [file language][85]
-- [cell][86]
-- [lit cell][87]
-- [.github][88]: a track
-- [automation][88]: a track
-- [docs][88]: a track
-- [pipelines][88]: a track
-- [csharp][89]: a file language
-- [markdown][89]: a file language
-- [pipeline-yaml][89]: a file language
-- [powershell][89]: a file language
-- [yaml][89]: a file language
+- [world map][69]
+- [track][70]
+- [file language][71]
+- [cell][72]
+- [lit cell][73]
+- [.github][74]: a track
+- [automation][74]: a track
+- [docs][74]: a track
+- [pipelines][74]: a track
+- [csharp][75]: a file language
+- [markdown][75]: a file language
+- [pipeline-yaml][75]: a file language
+- [powershell][75]: a file language
+- [yaml][75]: a file language
 
 [1]: ../../adr/flow/durable-sha-globs.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -289,32 +260,18 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [58]: ../../adr/flow/pipeline-runner-pattern.md
 [59]: ../../adr/flow/pipeline-types.md
 [60]: ../../adr/index.md
-[61]: ../../explanation/design/every-file-in-exactly-one-aspect.md
-[62]: ../../explanation/design/one-folder-two-independent-readers.md
-[63]: ../../explanation/design/partition-integrity-runs-only-in-unit-tests.md
-[64]: ../../explanation/design/unit-to-pipeline-rule-is-review-only.md
-[65]: ../../explanation/flow/declare-or-add-folder-gate-names-overlaps.md
-[66]: ../../explanation/flow/edit-globs-yml-then-read-the-output.md
-[67]: ../../explanation/flow/gates-check-source-and-trigger.md
-[68]: ../../explanation/flow/globs-module-owns-config-and-types.md
-[69]: ../../explanation/flow/independence-check-groups-by-layer.md
-[70]: ../../explanation/flow/one-scan-program-feeds-three-roles.md
-[71]: ../../explanation/flow/overlap-gated-for-units-and-modules.md
-[72]: ../../explanation/flow/peers-in-a-layer-never-overlap.md
-[73]: ../../explanation/flow/three-views-derived-live-from-one-program.md
-[74]: ../../explanation/flow/two-declared-layers-one-derived.md
-[75]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
-[76]: ../../references/automation/catzc-base-globs.md
-[77]: ../../../pipelines/cd-apex.yaml
-[78]: ../../../pipelines/cd-flux.yaml
-[79]: ../../../pipelines/cd-nova.yaml
-[80]: ../../../pipelines/cd-shared.yaml
-[81]: ../../../pipelines/ci-automation.yaml
-[82]: ../../../pipelines/ci-infrastructure.yaml
-[83]: ../../adr/glossary.md#world-map
-[84]: ../../adr/glossary.md#track
-[85]: ../../adr/glossary.md#file-language
-[86]: ../../adr/glossary.md#cell
-[87]: ../../adr/glossary.md#lit-cell
-[88]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[89]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[61]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
+[62]: ../../references/automation/catzc-base-globs.md
+[63]: ../../../pipelines/cd-apex.yaml
+[64]: ../../../pipelines/cd-flux.yaml
+[65]: ../../../pipelines/cd-nova.yaml
+[66]: ../../../pipelines/cd-shared.yaml
+[67]: ../../../pipelines/ci-automation.yaml
+[68]: ../../../pipelines/ci-infrastructure.yaml
+[69]: ../../adr/glossary.md#world-map
+[70]: ../../adr/glossary.md#track
+[71]: ../../adr/glossary.md#file-language
+[72]: ../../adr/glossary.md#cell
+[73]: ../../adr/glossary.md#lit-cell
+[74]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[75]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

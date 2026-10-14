@@ -11,13 +11,13 @@ The grid minimap of the slide `adr-az-naming--lookup-form-check-render-in-order-
 
 The grid crosses the 12 tracks (rows) with the 18 file languages (columns) of the world map and lights 4 cells, filled in ink. A cell lit
 only by passing mentions (citations in body comments, not in a file's header or text) is touched: a lighter ink. Every other cell is idle, a
-grey box: it holds files the slide's ADR codes do not select, or no file at all (174 of the 216 cells hold none). The minimap shows where
+grey box: it holds files the slide's ADR codes do not select, or no file at all (173 of the 216 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- automation × csharp: 3 lit of 219 files
-- automation × powershell: 7 lit of 1412 files
-- automation × yaml: 4 lit of 95 files
-- docs × markdown: 32 lit of 742 files
+- automation × csharp: 3 lit of 229 files
+- automation × powershell: 7 lit of 1443 files
+- automation × yaml: 4 lit of 97 files
+- docs × markdown: 27 lit of 744 files
 
 ## Key
 
@@ -68,10 +68,10 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Azure/configs/azure.yml][15]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 11 (header), line 38 (body
   comment) and line 85 (body comment).
 - [automation/Catzc.Azure/configs/customer.yml][16]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 9 (header).
-- [automation/Catzc.Base.Docs/configs/adrs.yml][17]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 270 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][17]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 269 (text).
 - [automation/Catzc.Base.Variants/configs/variants.yml][18]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 7 (header).
 
-### docs × markdown (32 lit files)
+### docs × markdown (27 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
@@ -122,32 +122,22 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/azure/waf/reliability.md][41]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
   code.
 - [docs/adr/azure/waf/security.md][42]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of that code.
-- [docs/adr/index.md][43]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 15 (text) and line 252 (text).
-- [docs/explanation/azure/how-each-naming-rule-is-held.md][44]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 15 (text), line 51
-  (text), line 53 (text), line 54 (text), line 55 (text), line 56 (text), line 57 (text), line 58 (text) and line 59 (text).
-- [docs/explanation/azure/lookup-form-check-render-in-order.md][45]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 19 (text),
-  line 60 (text), line 61 (text), line 62 (text) and line 63 (text).
-- [docs/explanation/azure/names-are-derived-never-typed.md][46]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 16 (text), line
-  49 (text), line 50 (text), line 51 (text), line 52 (text) and line 53 (text).
-- [docs/explanation/azure/names-are-pure-and-never-truncated.md][47]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 16 (text),
-  line 42 (text), line 42 (text), line 44 (text) and line 45 (text).
-- [docs/explanation/azure/one-namer-assembles-every-name.md][48]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 17 (text), line
-  53 (text), line 55 (text), line 57 (text) and line 59 (text).
-- [docs/how-to/getting-started/automation/add-a-doc-chapter.md][49]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 69 (text).
+- [docs/adr/index.md][43]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 15 (text) and line 251 (text).
+- [docs/how-to/getting-started/automation/add-a-doc-chapter.md][44]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 69 (text).
 
 ## Keywords
 
-- [world map][50]
-- [track][51]
-- [file language][52]
-- [cell][53]
-- [lit cell][54]
+- [world map][45]
+- [track][46]
+- [file language][47]
+- [cell][48]
+- [lit cell][49]
 - [automation][18]: a track
 - [docs][18]: a track
-- [csharp][55]: a file language
-- [markdown][55]: a file language
-- [powershell][55]: a file language
-- [yaml][55]: a file language
+- [csharp][50]: a file language
+- [markdown][50]: a file language
+- [powershell][50]: a file language
+- [yaml][50]: a file language
 
 [1]: ../../adr/azure/azure-naming-standard.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -192,15 +182,10 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 [41]: ../../adr/azure/waf/reliability.md
 [42]: ../../adr/azure/waf/security.md
 [43]: ../../adr/index.md
-[44]: ../../explanation/azure/how-each-naming-rule-is-held.md
-[45]: ../../explanation/azure/lookup-form-check-render-in-order.md
-[46]: ../../explanation/azure/names-are-derived-never-typed.md
-[47]: ../../explanation/azure/names-are-pure-and-never-truncated.md
-[48]: ../../explanation/azure/one-namer-assembles-every-name.md
-[49]: ../../how-to/getting-started/automation/add-a-doc-chapter.md
-[50]: ../../adr/glossary.md#world-map
-[51]: ../../adr/glossary.md#track
-[52]: ../../adr/glossary.md#file-language
-[53]: ../../adr/glossary.md#cell
-[54]: ../../adr/glossary.md#lit-cell
-[55]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[44]: ../../how-to/getting-started/automation/add-a-doc-chapter.md
+[45]: ../../adr/glossary.md#world-map
+[46]: ../../adr/glossary.md#track
+[47]: ../../adr/glossary.md#file-language
+[48]: ../../adr/glossary.md#cell
+[49]: ../../adr/glossary.md#lit-cell
+[50]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

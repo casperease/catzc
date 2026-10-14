@@ -40,11 +40,36 @@ function Get-ContentStamp {
     $parts.Add("label:$Label")
     foreach ($path in $File) {
         $relative = [System.IO.Path]::GetRelativePath($RepositoryRoot, $path) -replace '\\', '/'
-        $hash = if ([System.IO.File]::Exists($path)) {
-            [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.IO.File]::ReadAllBytes($path)))
+        $hash = if (-not [System.IO.File]::Exists($path)) {
+            'missing'
         }
         else {
-            'missing'
+            $bytes = [System.IO.File]::ReadAllBytes($path)
+            if ([System.IO.Path]::GetExtension($path) -in '.ps1', '.psm1', '.psd1') {
+                $tokens = $null
+                $parseErrors = $null
+                [void] [System.Management.Automation.Language.Parser]::ParseFile($path, [ref] $tokens, [ref] $parseErrors)
+                if (-not $parseErrors) {
+                    # Comments go; a run of line ends (what a removed comment line leaves) counts as one, since a line
+                    # end separates statements but a blank line does not.
+                    $previousWasLineEnd = $true
+                    $code = foreach ($token in $tokens) {
+                        if ($token.Kind -eq [System.Management.Automation.Language.TokenKind]::Comment) {
+                            continue
+                        }
+                        $isLineEnd = $token.Kind -eq [System.Management.Automation.Language.TokenKind]::NewLine
+                        if ($isLineEnd -and -not $previousWasLineEnd) {
+                            '<eol>'
+                        }
+                        elseif (-not $isLineEnd) {
+                            $token.Text
+                        }
+                        $previousWasLineEnd = $isLineEnd
+                    }
+                    $bytes = [System.Text.Encoding]::UTF8.GetBytes('tokens:' + ($code -join "`n"))
+                }
+            }
+            [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData($bytes))
         }
         $parts.Add("${relative}:$hash")
     }

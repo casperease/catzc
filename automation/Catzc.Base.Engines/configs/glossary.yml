@@ -13,6 +13,19 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       auto: auto is a value that leaves the engine open; an execution engine is the pwsh, bash or zsh it resolves to.
+      posix engine:
+        A POSIX engine is an execution engine whose importer entry is importer.sh; an execution engine is any one of them, pwsh included.
+  posix engine:
+    key: posix_engines
+    domain: automation
+    defined_by: ADR-AUTO-ENGINE#6
+    short:
+      The execution engines whose importer entry is importer.sh, read from the model's ImporterEntry and never listed:
+        they share that importer and its cats dispatcher.
+    realized_by: { kind: prose-only }
+    contrasts:
+      execution engine:
+        An execution engine is any one of the shells the code runs under; the POSIX engines are those of them that load importer.sh.
   auto:
     key: auto
     domain: automation

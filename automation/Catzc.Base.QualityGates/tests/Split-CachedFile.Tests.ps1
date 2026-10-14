@@ -90,4 +90,38 @@ Describe 'Get-ContentStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE#10' {
         Remove-Item -LiteralPath $settings
         & $stamp 'widget' @($settings) | Should -Not -Be $edited
     }
+
+    It 'ignores a comment change in a PowerShell input, and still sees every code change' {
+        $root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'stamp-rules'))
+        $rule = Join-Path $root 'WidgetRule.psm1'
+        $null = New-Item -ItemType File -Path $rule -Force
+        $stamp = {
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ F = @($rule); R = $root } {
+                param($F, $R)
+                Get-ContentStamp -Label 'widget' -File $F -RepositoryRoot $R
+            }
+        }
+        [System.IO.File]::WriteAllText($rule, "# cites ADR-AUTO-WIDGET#1`nfunction Measure-Widget { 'flagged' }`n")
+        $first = & $stamp
+        [System.IO.File]::WriteAllText($rule, "# cites ADR-PWSH-WIDGET#1, reworded`n<# help #>`nfunction Measure-Widget { 'flagged' } # trailing`n")
+        & $stamp | Should -Be $first -Because 'only comments changed'
+        [System.IO.File]::WriteAllText($rule, "# cites ADR-PWSH-WIDGET#1`nfunction Measure-Widget { 'clean' }`n")
+        & $stamp | Should -Not -Be $first -Because 'the rule''s code changed'
+    }
+
+    It 'fingerprints a PowerShell input that does not parse by its bytes' {
+        $root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'stamp-broken'))
+        $rule = Join-Path $root 'GadgetRule.psm1'
+        $null = New-Item -ItemType File -Path $rule -Force
+        $stamp = {
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ F = @($rule); R = $root } {
+                param($F, $R)
+                Get-ContentStamp -Label 'gadget' -File $F -RepositoryRoot $R
+            }
+        }
+        [System.IO.File]::WriteAllText($rule, "function Measure-Gadget {`n# one comment`n")
+        $first = & $stamp
+        [System.IO.File]::WriteAllText($rule, "function Measure-Gadget {`n# another comment`n")
+        & $stamp | Should -Not -Be $first
+    }
 }

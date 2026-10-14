@@ -50,7 +50,7 @@ A behaviour that differs between the engines is tested side by side, in a per-en
 
 ### Rule ADR-AUTO-ENGINE:6
 
-Each engine reaches catzc through its importer entry at the repository root. The **POSIX engines** are the engines whose importer entry is
+Each engine reaches catzc through its importer entry at the repository root. The **POSIX engine**s are the engines whose importer entry is
 `importer.sh`, read from the model's `ImporterEntry` and never listed; they share that one generated, committed root file, which each of
 them loads into its session, and there is no copy per shell. It defines one dispatcher, `cats`: with no arguments it lists the catzc
 commands; otherwise it runs its first argument as a catzc command in pwsh with the PowerShell entry loaded — `CATZC_IMPORTER`, else the

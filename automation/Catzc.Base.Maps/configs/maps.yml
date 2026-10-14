@@ -48,5 +48,7 @@
 #       # each: { adr: <ADR code, optionally #n>, track: <track>, file_language: <file language>, reason: <why> }
 #     citation_exclude:             #   globs of files whose citations light nothing; each still sits in its cell
 #       - docs/.assets/**           #   the generated slide descriptions, so a minimap never lights its own description
+#       - docs/explanation/**       #   the explanation articles the slides illustrate
+#       - .claude/drawio/**         #   the drawing tooling
 #   output_folder: world-map        # one folder name under the output root
 {}

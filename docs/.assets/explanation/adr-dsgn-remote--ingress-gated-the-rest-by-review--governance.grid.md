@@ -12,14 +12,14 @@ below names the code that selects it.
 
 The grid crosses the 12 tracks (rows) with the 18 file languages (columns) of the world map and lights 5 cells, filled in ink. A cell lit
 only by passing mentions (citations in body comments, not in a file's header or text) is touched: a lighter ink. Every other cell is idle, a
-grey box: it holds files the slide's ADR codes do not select, or no file at all (174 of the 216 cells hold none). The minimap shows where
+grey box: it holds files the slide's ADR codes do not select, or no file at all (173 of the 216 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 1 lit of 9 files
-- automation × csharp: 1 lit of 219 files
-- automation × powershell: 1 lit of 1412 files
-- automation × yaml: 3 lit of 95 files
-- docs × markdown: 44 lit of 742 files
+- automation × csharp: 1 lit of 229 files
+- automation × powershell: 1 lit of 1443 files
+- automation × yaml: 3 lit of 97 files
+- docs × markdown: 27 lit of 744 files
 
 ## Key
 
@@ -64,7 +64,7 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][11]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 52 (text).
 - [automation/Catzc.Base.Variants/configs/variants.yml][12]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line 1 (header).
 
-### docs × markdown (44 lit files)
+### docs × markdown (27 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][4]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][5]). Lit ([ADR-DSGN-TRACK#12][6]) by:
@@ -89,7 +89,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][4]); th
   code; selected by [ADR-DSGN-REMOTE][2]: an ADR file of the `design` ADR domain, the ADR domain of that code.
 - [docs/adr/glossary.md][20]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 149 (text).
 - [docs/adr/index.md][21]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 92 (text); selected by [ADR-DSGN-REMOTE][2]: the file
-  cites it at line 93 (text); selected by [ADR-REPO-VARIANT][3]: the file cites it at line 295 (text).
+  cites it at line 93 (text); selected by [ADR-REPO-VARIANT][3]: the file cites it at line 294 (text).
 - [docs/adr/repository/agent-definitions.md][22]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR
   domain of that code.
 - [docs/adr/repository/api-contracts.md][23]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR domain
@@ -116,69 +116,31 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][4]); th
   of that code.
 - [docs/adr/repository/output-formats.md][34]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR domain
   of that code.
+- [docs/adr/repository/protected-globs.md][35]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR
+  domain of that code.
 - [docs/adr/repository/repo-variants.md][3]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR domain
   of that code.
-- [docs/adr/repository/uniform-formatting.md][35]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR
+- [docs/adr/repository/uniform-formatting.md][36]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR
   domain of that code.
-- [docs/explanation/design/clients-bridge-to-one-server.md][36]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 15 (text), line
-  49 (text) and line 50 (text); selected by [ADR-DSGN-REMOTE][2]: the file cites it at line 15 (text), line 45 (text), line 46 (text) and
-  line 48 (text).
-- [docs/explanation/design/code-wires-only-the-first-rungs.md][37]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 17 (text) and
-  line 54 (text).
-- [docs/explanation/design/deploy-and-integrate-share-only-the-topic.md][38]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 15
-  (text), line 46 (text), line 48 (text) and line 55 (text).
-- [docs/explanation/design/deploying-is-not-integrating.md][39]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 14 (text), line
-  43 (text), line 44 (text) and line 51 (text).
-- [docs/explanation/design/engineer-merges-pipelines-do-the-rest.md][40]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 17
-  (text), line 52 (text) and line 53 (text).
-- [docs/explanation/design/every-deploy-stage-is-main-only.md][41]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 11 (text),
-  line 16 (text), line 19 (text), line 36 (text), line 50 (text), line 55 (text) and line 57 (text).
-- [docs/explanation/design/four-domains-promote-one-artifact.md][42]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 16 (text),
-  line 48 (text), line 50 (text), line 52 (text) and line 53 (text).
-- [docs/explanation/design/guard-and-policies-by-command.md][43]: selected by [ADR-DSGN-REMOTE][2]: the file cites it at line 16 (text),
-  line 48 (text) and line 51 (text); selected by [ADR-REPO-VARIANT][3]: the file cites it at line 16 (text) and line 50 (text).
-- [docs/explanation/design/ingress-gated-the-rest-by-review.md][44]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 16 (text),
-  line 22 (text) and line 51 (text); selected by [ADR-DSGN-REMOTE][2]: the file cites it at line 16 (text), line 19 (text), line 22 (text),
-  line 49 (text), line 50 (text), line 50 (text) and line 52 (text); selected by [ADR-REPO-VARIANT][3]: the file cites it at line 16 (text),
-  line 22 (text) and line 54 (text).
-- [docs/explanation/design/integrators-depend-on-an-occupant.md][45]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 15 (text),
-  line 46 (text), line 47 (text), line 48 (text) and line 49 (text).
-- [docs/explanation/design/local-guard-and-server-policies.md][46]: selected by [ADR-DSGN-REMOTE][2]: the file cites it at line 19 (text),
-  line 55 (text) and line 58 (text); selected by [ADR-REPO-VARIANT][3]: the file cites it at line 19 (text) and line 57 (text).
-- [docs/explanation/design/merging-to-main-is-what-deploys.md][47]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 15 (text),
-  line 20 (text), line 44 (text) and line 49 (text).
-- [docs/explanation/design/one-door-in-one-stable-point-out.md][48]: selected by [ADR-DSGN-REMOTE][2]: the file cites it at line 14 (text),
-  line 43 (text), line 44 (text), line 45 (text) and line 47 (text).
-- [docs/explanation/design/one-way-climb-three-endings.md][49]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 13 (text), line 41
-  (text), line 42 (text), line 43 (text), line 44 (text) and line 45 (text).
-- [docs/explanation/design/out-of-band-deploy-is-adr-only.md][50]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 6 (text), line
-  15 (text), line 18 (text), line 23 (text), line 45 (text), line 46 (text) and line 54 (text).
-- [docs/explanation/design/sync-from-the-last-certified-commit.md][51]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 12 (text),
-  line 34 (text), line 35 (text) and line 36 (text).
-- [docs/explanation/design/sync-point-rules-are-adr-only.md][52]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 17 (text), line
-  31 (text), line 31 (text), line 33 (text), line 37 (text), line 43 (text), line 44 (text), line 45 (text), line 49 (text), line 50 (text),
-  line 52 (text), line 52 (text), line 53 (text) and line 61 (text).
-- [docs/explanation/design/which-rung-gates-exist-in-code.md][53]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 17 (text), line
-  52 (text), line 53 (text), line 54 (text), line 55 (text), line 56 (text), line 57 (text), line 58 (text) and line 59 (text).
 
 ## Keywords
 
-- [world map][54]
-- [track][55]
-- [file language][56]
-- [cell][57]
-- [lit cell][58]
+- [world map][37]
+- [track][38]
+- [file language][39]
+- [cell][40]
+- [lit cell][41]
 - [.claude][12]: a track
 - [automation][12]: a track
 - [docs][12]: a track
-- [csharp][59]: a file language
-- [markdown][59]: a file language
-- [powershell][59]: a file language
-- [yaml][59]: a file language
+- [csharp][42]: a file language
+- [markdown][42]: a file language
+- [powershell][42]: a file language
+- [yaml][42]: a file language
 
 Terms the cited ADRs define:
 
-- [occupant][60], defined by [ADR-DSGN-LIFE#5][61]
+- [occupant][43], defined by [ADR-DSGN-LIFE#5][44]
 
 [1]: ../../adr/design/commit-lifecycle.md
 [2]: ../../adr/design/server-remote-integration.md
@@ -214,30 +176,13 @@ Terms the cited ADRs define:
 [32]: ../../adr/repository/inspiration.md
 [33]: ../../adr/repository/markdown-links.md
 [34]: ../../adr/repository/output-formats.md
-[35]: ../../adr/repository/uniform-formatting.md
-[36]: ../../explanation/design/clients-bridge-to-one-server.md
-[37]: ../../explanation/design/code-wires-only-the-first-rungs.md
-[38]: ../../explanation/design/deploy-and-integrate-share-only-the-topic.md
-[39]: ../../explanation/design/deploying-is-not-integrating.md
-[40]: ../../explanation/design/engineer-merges-pipelines-do-the-rest.md
-[41]: ../../explanation/design/every-deploy-stage-is-main-only.md
-[42]: ../../explanation/design/four-domains-promote-one-artifact.md
-[43]: ../../explanation/design/guard-and-policies-by-command.md
-[44]: ../../explanation/design/ingress-gated-the-rest-by-review.md
-[45]: ../../explanation/design/integrators-depend-on-an-occupant.md
-[46]: ../../explanation/design/local-guard-and-server-policies.md
-[47]: ../../explanation/design/merging-to-main-is-what-deploys.md
-[48]: ../../explanation/design/one-door-in-one-stable-point-out.md
-[49]: ../../explanation/design/one-way-climb-three-endings.md
-[50]: ../../explanation/design/out-of-band-deploy-is-adr-only.md
-[51]: ../../explanation/design/sync-from-the-last-certified-commit.md
-[52]: ../../explanation/design/sync-point-rules-are-adr-only.md
-[53]: ../../explanation/design/which-rung-gates-exist-in-code.md
-[54]: ../../adr/glossary.md#world-map
-[55]: ../../adr/glossary.md#track
-[56]: ../../adr/glossary.md#file-language
-[57]: ../../adr/glossary.md#cell
-[58]: ../../adr/glossary.md#lit-cell
-[59]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
-[60]: ../../adr/glossary.md#occupant
-[61]: ../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[35]: ../../adr/repository/protected-globs.md
+[36]: ../../adr/repository/uniform-formatting.md
+[37]: ../../adr/glossary.md#world-map
+[38]: ../../adr/glossary.md#track
+[39]: ../../adr/glossary.md#file-language
+[40]: ../../adr/glossary.md#cell
+[41]: ../../adr/glossary.md#lit-cell
+[42]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[43]: ../../adr/glossary.md#occupant
+[44]: ../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5

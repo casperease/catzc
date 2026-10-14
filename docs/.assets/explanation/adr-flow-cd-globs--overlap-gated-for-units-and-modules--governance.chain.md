@@ -59,7 +59,7 @@ Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [ADR-REPO-PROTGLOB][4]: selected by [ADR-REPO-PROTGLOB][4]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
+- [ADR-REPO-PROTGLOB][4]: selected by [ADR-REPO-PROTGLOB][4]; its ADR domain `repository` sits on the AUTO row of the value-chain stack
   ([ADR-DSGN-TRACK#14][6]); its value-chain concerns (automation) are its ADR domain's default, so it lights the automation column
   ([ADR-DSGN-TRACK#15][7]).
 
