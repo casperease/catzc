@@ -1,0 +1,13 @@
+# Engine case table (Get-EngineCaseTable, Catzc.Tooling.Core) for how each execution engine's executable is found:
+# per platform, the executable's `file` name (ExecutionEngine.ExecutableFileName), how it is `located`
+# (ExecutionEngine.Locate: ps-home, beside the running PowerShell; or tool, through its tools.yml entry), and the
+# `tool` key it is located through, empty for ps-home.
+subject: engine locator
+cases:
+  - case: on Windows
+    pwsh: { windows: true, file: pwsh.exe, located: ps-home, tool: "" }
+    bash: { windows: true, file: bash.exe, located: tool, tool: bash }
+
+  - case: on Linux and macOS
+    pwsh: { windows: false, file: pwsh, located: ps-home, tool: "" }
+    bash: { windows: false, file: bash, located: tool, tool: bash }

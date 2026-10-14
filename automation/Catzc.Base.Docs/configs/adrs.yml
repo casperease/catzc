@@ -16,14 +16,26 @@
 # this file (Build-AdrIndex) — see [ADR-REPO-README](/docs/adr/repository/generated-readmes.md) pattern.
 
 domains:
+  thesis:
+    code: THES # domain default — composes ADR-THES-<NAME>
+    role: framing # what catzc is for and how it solves it — the decision every other domain serves
+    description: >-
+      What catzc is for and how it solves it: delivery is slow because its truth is spread across disjoint stores, so catzc collapses them
+      into one source of truth, the repository, with one change process. The repository is the configuration record and answers queries
+      through the tooling; inside the trunk everything is at HEAD, and versions exist only at the repository boundary, as pins. It rests
+      only on the DORA research, and the principles state its mechanics, so every other domain cites it (`ADR-THES-*`) through them.
+    depends_on: [research]
+    rulesets:
+      one-source-of-truth: { external: ADR-THES-ONETRUTH, terminology: onetruth }
+
   principles:
     code: PRIN # domain default — composes ADR-PRIN-<NAME>
     role: axioms # the non-negotiable design axioms every other domain specialises
     description: >-
       The design axioms every other domain specialises: everything as code, reduce variability, reduce waste, poka-yoke, and one living
-      version. They rest only on the DORA research, no domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`) as the
+      version. They rest on the thesis and the DORA research, no domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`) as the
       reason for its own decisions.
-    depends_on: [research]
+    depends_on: [research, thesis]
     rulesets:
       everything-as-code: { external: ADR-PRIN-EAC, terminology: eac }
       reduce-variability: { external: ADR-PRIN-REDUCEVAR, terminology: reducevar }
@@ -98,7 +110,7 @@ domains:
       The catzc CLI and module system and the rules for building it: devbox/pipeline parity, one function per file, open/closed growth,
       fail-fast assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, test automation, and the
       merged, installable build.
-      Language layers live in `powershell/`, `BCL/` (native C# types), and `go/` (black-box test artifacts), with `python/` reserved. It turns the research,
+      Language layers live in `powershell/`, `BCL/` (native C# types), and `go/` and `python/` (black-box test artifacts). It turns the research,
       principles, process, and design domains into enforced code; the pipelines, github, and azure domains build on it.
     depends_on: [research, principles, process, design]
     rulesets:
@@ -155,6 +167,7 @@ domains:
       prefer-dryrun-over-shouldprocess: { external: ADR-AUTO-DRYRUN, terminology: dryrun }
       native-csharp-types: { external: ADR-AUTO-TYPES }
       test-artifacts: { external: ADR-AUTO-GO }
+      python-test-artifacts: { external: ADR-AUTO-PY }
 
   configuration:
     code: CONF

@@ -48,6 +48,13 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
         $json.'search.exclude'.'importer.ps1' | Should -BeTrue
     }
 
+    It 'adds the machine-resolved settings after the authored ones, and the authored key wins' {
+        $text = New-VSCodeSettings -MachineSetting @{ 'widget.root' = 'C:\widget'; 'editor.tabSize' = 8 }
+        $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
+        $json.'widget.root' | Should -Be 'C:\widget'
+        $json.'editor.tabSize' | Should -Be 4 -Because 'an authored setting wins over a machine-resolved one'
+    }
+
     It 'leaves the cached config untouched when it completes search.exclude' {
         $fixture = [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
                 settings = [ordered]@{ 'search.exclude' = [ordered]@{ 'automation/.vendor' = $true } }

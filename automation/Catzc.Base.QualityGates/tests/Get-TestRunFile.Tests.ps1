@@ -18,9 +18,9 @@ Describe 'Get-TestRunFile' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'names the Go test folder of a Go bridge test' {
-        Get-RunFile (New-FakeTest -Data @{ GoTestFolder = 'C:\x\go\tests\catzc-widget'; EntryScript = '' }) |
-            Should -Be 'C:\x\go\tests\catzc-widget'
+    It 'names the test folder of a language bridge test' {
+        Get-RunFile (New-FakeTest -Data @{ Language = 'python'; TestFolder = 'C:\x\python\tests\catzc-widget'; EntryScript = ''; Executable = '' }) |
+            Should -Be 'C:\x\python\tests\catzc-widget'
     }
 
     It 'names the test file of a test whose container carries <Case>' -ForEach @(

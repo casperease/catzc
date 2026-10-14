@@ -7,6 +7,80 @@ a source, never this page. A term's meaning is fixed by the one ADR rule that de
 ([controlled-vocabulary](repository/controlled-vocabulary.md)); this page collects them, with how each differs from its neighbours and the
 phrasings to avoid. `Test-Glossary` checks the sources.
 
+## thesis
+
+### adjacent store
+
+The one legitimate second store — a repository or service, such as a GitOps repository, with its own history, driven one way from the
+trunk's pipelines and never edited beside it.
+
+- **Defined by:** [ADR-THES-ONETRUTH#2](thesis/one-source-of-truth.md#rule-adr-thes-onetruth2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [source of truth](#source-of-truth): The source of truth is the record everything is driven from; an adjacent store is a one-way
+    projection of it, never a second record.
+
+### pin
+
+An explicit version, controlled by the consumer, of a dependency that crosses the repository boundary inward, stitched into an immutable
+artifact at build time.
+
+- **Defined by:** [ADR-THES-ONETRUTH#4](thesis/one-source-of-truth.md#rule-adr-thes-onetruth4)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [provided contract](#provided-contract): A provided contract is the promise catzc keeps to a consumer; a pin is the consumer's explicit
+    choice of the version that promise holds for.
+  - [trunk](#trunk): Inside the trunk everything is at HEAD, with no version; a pin is the one form of synchronisation, at the repository
+    boundary.
+
+### product mono-repository
+
+One repository that several teams contribute to for one product, bounded into tracks and deployable-units by path filters; catzc is one.
+
+- **Defined by:** [ADR-THES-ONETRUTH#4](thesis/one-source-of-truth.md#rule-adr-thes-onetruth4)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [trunk](#trunk): The trunk is the one mainline of a product mono-repository, where everything is at HEAD; the product mono-repository is
+    the repository as a whole, with its tracks and deployable-units.
+
+### query surface
+
+The tooling's Get-* cmdlets, each of which also emits its answer as data (JSON), through which every question about the system's state is
+answered.
+
+- **Defined by:** [ADR-THES-ONETRUTH#3](thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+
+### source of truth
+
+The one store whose content decides what is true about the delivered system — for catzc, the repository, changed through one change process.
+
+- **Defined by:** [ADR-THES-ONETRUTH#1](thesis/one-source-of-truth.md#rule-adr-thes-onetruth1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [adjacent store](#adjacent-store): An adjacent store is a second store driven one way from the trunk's pipelines, a projection of the
+    truth; the source of truth is the record it is driven from.
+  - [source](#source): A source, always qualified, names where one thing comes from; the source of truth is the one store that decides what
+    is true about the delivered system.
+
+### trunk
+
+The one mainline of a product mono-repository, where everything is at HEAD — no internal versions, and a shared change lands in one commit
+with all its consumers.
+
+- **Defined by:** [ADR-THES-ONETRUTH#4](thesis/one-source-of-truth.md#rule-adr-thes-onetruth4)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [pin](#pin): A pin is an explicit version at the repository boundary; inside the trunk nothing is pinned, and everything is at HEAD.
+  - [product mono-repository](#product-mono-repository): A product mono-repository is the repository as a whole, with its tracks and
+    deployable-units; the trunk is its one mainline.
+
 ## design
 
 ### deployable-unit
@@ -190,10 +264,19 @@ A file one stage produces and a later stage downloads and consumes — carried b
 - **Realized by:** type `Catzc.Base.Objects.ArtifactRef`
 - **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [contract asset](#contract-asset): A contract asset is a checked-in file that states what the repository boundary requires, frozen per
-    release; a published artifact is a file one stage produces and a later stage consumes within a run.
+  - [contract asset](#contract-asset): A contract asset is a checked-in file that states what the repository boundary requires, frozen with
+    its unit's release; a published artifact is a file one stage produces and a later stage consumes within a run.
   - [release candidate](#release-candidate): A release candidate is the tagged build that gets promoted; a published artifact is any file
     handed across a stage boundary.
+
+### python test folder
+
+The folder `python/tests/<module>/` — one per catzc module, named for it in kebab case, holding its black-box Python tests; every folder
+shares the one generated test project.
+
+- **Defined by:** [ADR-AUTO-PY#2](automation/python/python-test-artifacts.md#rule-adr-auto-py2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Languages/configs/glossary.yml`
 
 ### quality gate
 
@@ -351,13 +434,13 @@ owning module's tests.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [contract asset](#contract-asset): A contract asset is one file in an owning module's folder of a contracts/ release folder; a contract
-    is the binding interface its assets state together.
+  - [contract asset](#contract-asset): A contract asset is one file in an owning module's folder of a unit's contracts/ version folder; a
+    contract is the binding interface its assets state together.
 
 ### contract asset
 
-One file in an owning module's folder of a contracts/ release folder, whose path names the real file it constrains and whose name picks its
-kind — a fragment, a schema, or a sample payload.
+One file in an owning module's folder of a unit's contracts/ version folder, whose path names the real file it constrains and whose name
+picks its kind — a fragment, a schema, or a sample payload.
 
 - **Defined by:** [ADR-REPO-CONTRACT#6](repository/api-contracts.md#rule-adr-repo-contract6)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -366,7 +449,7 @@ kind — a fragment, a schema, or a sample payload.
   - [contract](#contract): A contract is the binding interface at the repository boundary; a contract asset is one checked-in file that
     states part of it.
   - [published artifact](#published-artifact): A published artifact is a file one stage produces and a later stage consumes within a run; a
-    contract asset is a checked-in file that states what the repository boundary requires, frozen per release.
+    contract asset is a checked-in file that states what the repository boundary requires, frozen with its unit's release.
 
 ### depended-on contract
 
@@ -377,8 +460,8 @@ platform change is a new draft.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [provided contract](#provided-contract): A provided contract is a promise to an outside consumer, kept while the consumer pins its
-    release; a depended-on contract records what a platform requires and follows the platform.
+  - [provided contract](#provided-contract): A provided contract is a promise to an outside consumer, kept while the consumer pins that
+    version of its unit; a depended-on contract records what a platform requires and follows the platform.
 
 ### domain
 
@@ -461,14 +544,16 @@ A link inside a rendered .md file, written relative to that file so it resolves 
 
 ### provided contract
 
-A contract an outside consumer may rely on — the repository's only public API, kept while a consumer pins its release.
+A contract an outside consumer may rely on — the repository's only public API, kept while a consumer pins that version of its unit.
 
 - **Defined by:** [ADR-REPO-CONTRACT#1](repository/api-contracts.md#rule-adr-repo-contract1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
   - [depended-on contract](#depended-on-contract): A depended-on contract is what an outside platform expects of our files and calls, and it
-    follows that platform; a provided contract is a promise to a consumer, kept while the consumer pins its release.
+    follows that platform; a provided contract is a promise to a consumer, kept while the consumer pins that version of its unit.
+  - [pin](#pin): A pin is the consumer's explicit choice of a version that crosses the repository boundary; a provided contract is the
+    promise catzc keeps under that pin.
 
 ### scope
 
@@ -497,3 +582,6 @@ Where something comes from, always qualified — a source mode, run, or tree; a 
   `raw source`, `install source`, `rule source`, `docs source`, `derived source`, `current source`, `real source`, `configured source`,
   `public source`, `single source`, `token source`, `relative source`, `repo source`, `authoritative source`, `cross source`,
   `vendored source`, `input source`, and the bare `source`, with its verb forms
+- **Contrasts:**
+  - [source of truth](#source-of-truth): The source of truth is the one store that decides what is true about the delivered system, the
+    repository; a source, always qualified, names where one thing comes from.

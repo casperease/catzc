@@ -1,0 +1,75 @@
+# Get-PythonTestCases over fixture test files in $TestDrive: the top-level test functions of every test_*.py file,
+# with the package pytest reports for them. Neutral fixture names
+# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'Get-PythonTestCases' -Tag 'L0', 'logic' {
+    BeforeAll {
+        function New-FixtureFile {
+            param([string] $Relative, [string] $Text)
+            $path = Join-Path $script:folder $Relative
+            [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path))
+            [System.IO.File]::WriteAllText($path, $Text)
+        }
+        $script:folder = Join-Path $TestDrive 'python/tests/catzc-widget'
+        New-FixtureFile 'test_widget.py' @'
+import pytest
+
+
+def helper():
+    pass
+
+
+def test_widget_spins():
+    pass
+
+
+@pytest.mark.parametrize("size", [1, 2])
+def test_widget_sizes(size):
+    pass
+
+
+async def test_widget_waits():
+    pass
+
+
+def test_integrity_widget_ships():
+    pass
+
+
+class TestNested:
+    def test_not_top_level(self):
+        pass
+'@
+        New-FixtureFile 'gadget/test_gadget.py' "def test_widget_spins():`n    pass`n"
+        New-FixtureFile '.venv/test_ignored.py' "def test_ignored():`n    pass`n"
+        New-FixtureFile '__pycache__/test_cached.py' "def test_cached():`n    pass`n"
+        New-FixtureFile 'helpers.py' "def test_not_a_test_file():`n    pass`n"
+    }
+
+    It 'lists the top-level test functions of every test file, with the package pytest reports' {
+        $cases = @(InModuleScope Catzc.Base.QualityGates -Parameters @{ Folder = $script:folder } { param($Folder) Get-PythonTestCases -Folder $Folder })
+        @($cases.Key) | Should -Be @(
+            'gadget.test_gadget test_widget_spins'
+            'test_widget test_widget_spins'
+            'test_widget test_widget_sizes'
+            'test_widget test_widget_waits'
+            'test_widget test_integrity_widget_ships'
+        )
+    }
+
+    It 'takes the category from the name: test_integrity* is integrity' {
+        $cases = @(InModuleScope Catzc.Base.QualityGates -Parameters @{ Folder = $script:folder } { param($Folder) Get-PythonTestCases -Folder $Folder })
+        ($cases | Where-Object Name -EQ 'test_integrity_widget_ships').Category | Should -Be 'integrity'
+        ($cases | Where-Object Name -EQ 'test_widget_sizes').Category | Should -Be 'logic'
+    }
+
+    It 'titles a test by its name, and by package and name when two files declare it' {
+        $cases = @(InModuleScope Catzc.Base.QualityGates -Parameters @{ Folder = $script:folder } { param($Folder) Get-PythonTestCases -Folder $Folder })
+        @($cases.Title) | Should -Be @(
+            'gadget.test_gadget.test_widget_spins'
+            'test_widget.test_widget_spins'
+            'test_widget_sizes'
+            'test_widget_waits'
+            'test_integrity_widget_ships'
+        )
+    }
+}

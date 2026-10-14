@@ -1,0 +1,45 @@
+# Engine case table (Get-EngineCaseTable, Catzc.Tooling.Core) for ExecutionEngine.StartArguments: the arguments that
+# start each execution engine non-interactively, load an entry script with its output discarded, and run one command.
+# Each column holds the `entry` and `command` given, and the `arguments` expected after the executable. Neutral fixture
+# names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+subject: engine start
+cases:
+  - case: a plain entry and command
+    pwsh:
+      entry: C:/widget/importer.ps1
+      command: Get-Widget
+      arguments: [-NoProfile, -NonInteractive, -Command, ". 'C:/widget/importer.ps1' *> $null; Get-Widget"]
+    bash:
+      entry: /home/widget/importer.sh
+      command: get-widget
+      arguments: [--noprofile, --norc, -c, "source '/home/widget/importer.sh' >/dev/null 2>&1; get-widget"]
+
+  - case: an entry path with a single quote in it
+    pwsh:
+      entry: "C:/widget's/importer.ps1"
+      command: Get-Widget
+      arguments: [-NoProfile, -NonInteractive, -Command, ". 'C:/widget''s/importer.ps1' *> $null; Get-Widget"]
+    bash:
+      entry: "/home/widget's/importer.sh"
+      command: get-widget
+      arguments: [--noprofile, --norc, -c, "source '/home/widget'\\''s/importer.sh' >/dev/null 2>&1; get-widget"]
+
+  - case: an entry path with spaces
+    pwsh:
+      entry: C:/widget tools/importer.ps1
+      command: Get-Widget
+      arguments: [-NoProfile, -NonInteractive, -Command, ". 'C:/widget tools/importer.ps1' *> $null; Get-Widget"]
+    bash:
+      entry: /home/widget tools/importer.sh
+      command: get-widget
+      arguments: [--noprofile, --norc, -c, "source '/home/widget tools/importer.sh' >/dev/null 2>&1; get-widget"]
+
+  - case: the command placeholder a black-box test fills in
+    pwsh:
+      entry: C:/widget/importer.ps1
+      command: "{command}"
+      arguments: [-NoProfile, -NonInteractive, -Command, ". 'C:/widget/importer.ps1' *> $null; {command}"]
+    bash:
+      entry: /home/widget/importer.sh
+      command: "{command}"
+      arguments: [--noprofile, --norc, -c, "source '/home/widget/importer.sh' >/dev/null 2>&1; {command}"]

@@ -1,28 +1,29 @@
 Describe 'New-PesterRunConfiguration' -Tag 'L0', 'logic' {
     BeforeEach {
-        Mock Get-GoTestFolders -ModuleName Catzc.Base.QualityGates {}
+        Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {}
     }
 
-    It 'runs a Go test folder through the Go bridge container, with the entry script and the go, and the rest by path' {
+    It 'runs a language test folder through the bridge container, with the entry script and the tool, and the rest by path' {
         $repo = Join-Path $TestDrive 'repo'
-        $bridge = Join-Path $repo 'automation/Catzc.Base.QualityGates/tests/Go.Bridge.ps1'
+        $bridge = Join-Path $repo 'automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1'
         [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($bridge))
         [System.IO.File]::WriteAllText($bridge, '# fixture bridge')
         $script:widgetGo = [System.IO.Path]::GetFullPath((Join-Path $repo 'go/tests/catzc-widget'))
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo' }
-        Mock Get-GoTestFolders -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ Module = 'Catzc.Widget'; Folder = $script:widgetGo; Name = 'catzc-widget' }
+        Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Language = 'go'; Module = 'Catzc.Widget'; Folder = $script:widgetGo; Name = 'catzc-widget' }
         }
 
         $config = InModuleScope Catzc.Base.QualityGates -Parameters @{ Go = $script:widgetGo } {
             param($Go)
-            New-PesterRunConfiguration -Path 'a.Tests.ps1', $Go -EntryScript 'C:\build\Import-Catzc.ps1' -GoExecutable 'C:\widget\go\bin\go.exe'
+            New-PesterRunConfiguration -Path 'a.Tests.ps1', $Go -EntryScript 'C:\build\Import-Catzc.ps1' -LanguageExecutable @{ go = 'C:\widget\go\bin\go.exe' }
         }
         @($config.Run.Path.Value) | Should -Be @('a.Tests.ps1')
         @($config.Run.Container.Value) | Should -HaveCount 1
-        $config.Run.Container.Value[0].Data['GoTestFolder'] | Should -Be $script:widgetGo
+        $config.Run.Container.Value[0].Data['Language'] | Should -Be 'go'
+        $config.Run.Container.Value[0].Data['TestFolder'] | Should -Be $script:widgetGo
         $config.Run.Container.Value[0].Data['EntryScript'] | Should -Be 'C:\build\Import-Catzc.ps1'
-        $config.Run.Container.Value[0].Data['GoExecutable'] | Should -Be 'C:\widget\go\bin\go.exe'
+        $config.Run.Container.Value[0].Data['Executable'] | Should -Be 'C:\widget\go\bin\go.exe'
     }
 
     It 'configures paths, pass-thru, and verbosity' {

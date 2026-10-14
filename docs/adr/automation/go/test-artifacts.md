@@ -159,8 +159,9 @@ Go stays where it is, and the managed copy, found first, is the one the run uses
 
 A Go test is a test of the repository like any other, so it runs where every other test runs: in a `Test-Automation` test run, in both run
 modes, under the same selection, ordering, protection, tiers, categories, and report
-([test-automation](../test-automation.md#rule-adr-auto-test40)). A shared Pester bridge runs `Invoke-GoTest` once per mapped module —
-`go mod download`, `go vet`, then `go test -json` — and turns each top-level Go test into a Pester test, with its subtests folded into it.
+([test-automation](../test-automation.md#rule-adr-auto-test40)). The one language bridge every test language shares (Go and Python,
+[python-test-artifacts](../python/python-test-artifacts.md)) runs `Invoke-GoTest` once per mapped module — `go mod download`, `go vet`, then
+`go test -json` — and turns each top-level Go test into a Pester test, with its subtests folded into it.
 
 A Go test starts a real engine through a real toolchain, so the bridge tags every one `L2`, with no per-test choice to make. Its category
 comes from its name, decided in one place (the `GoTestResult` type): a `TestIntegrity*` test reads the shipped artifacts and is `integrity`;
@@ -168,16 +169,17 @@ every other test is `logic`. Both axes stay mandatory and checked, exactly as fo
 
 `go` is a tool of the harness, not part of the engine under test. A build run's workers load the build, which holds only the selected
 modules and so not the `tools` config that `Resolve-ToolExecutable` reads. The run's source session therefore locates `go` once
-(`Get-GoTestExecutable`) and hands the path down beside the engine entry: through the shard script, the Pester configuration, and the bridge
-container's data. An empty path means no managed `go` at the pin, and every Go test skips with `tool_go_missing`. The bundle under test
-stays exactly what ships.
+(`Get-LanguageTestExecutable`) and hands the path down beside the engine entry: through the shard script, the Pester configuration, and the
+bridge container's data. An empty path means no managed `go` at the pin, and every Go test skips with `tool_go_missing`. The bundle under
+test stays exactly what ships.
 
 ### The checks
 
 Every check that reads Go applies to Go: `gofmt` is the formatting standard for `.go` files
-([uniform-formatting](../../repository/uniform-formatting.md)), `go vet` type-checks and vets the test packages before every run, and the
-spelling check reads `*.go`. The glossary checks read PowerShell, through its parser, and markdown
-([controlled-vocabulary](../../repository/controlled-vocabulary.md)), so a Go comment is outside their reach.
+([uniform-formatting](../../repository/uniform-formatting.md)), applied by `Format-Go` and checked by `Test-Formatting` with the managed
+toolchain's own `gofmt`, `go vet` type-checks and vets the test packages before every run, and the spelling check reads `*.go`. The glossary
+checks read PowerShell, through its parser, and markdown ([controlled-vocabulary](../../repository/controlled-vocabulary.md)), so a Go
+comment is outside their reach.
 
 ## Decision
 
@@ -195,7 +197,8 @@ as `L2` tests (ADR-AUTO-GO#7), under the checks that read Go (ADR-AUTO-GO#8).
 - **`Invoke-GoTest`** locates the managed `go` through **`Resolve-ToolExecutable`** and **`Find-Executable`** (`Catzc.Base.Execution`), sets
   the engine contract for its go commands only, and returns one `GoTestResult` per Go test with its category.
 - **The gitignore registry** (`gitignore.yml`) ignores the generated workspace and its checksum files.
-- **The Go bridge** in `Catzc.Base.QualityGates` maps each Go test module to its catzc module and tags each Go test.
+- **The language bridge** in `Catzc.Base.QualityGates` (`Get-LanguageTestFolders`, `Language.Bridge.ps1`) maps each Go test module to its
+  catzc module and tags each Go test.
 
 ## Consequences
 

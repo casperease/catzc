@@ -60,6 +60,11 @@ files:
   - target: '*/tests/*/go.mod'
     generator: New-GoWorkspace
     optIn: true
+  # The Python test project (Catzc.Base.Languages, New-PythonProject): one virtual uv project for every Python test
+  # folder under python/tests/. Gitignored generated copy; uv makes python/.venv and python/uv.lock from it.
+  - target: python/pyproject.toml
+    generator: New-PythonProject
+    optIn: true
   - target: .vscode/markdown-preview-dark.css
     source: automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css
     copyAsLink: true

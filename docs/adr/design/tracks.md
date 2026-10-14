@@ -7,9 +7,9 @@
 ### Rule ADR-DSGN-TRACK:1
 
 A **track** is a named repository root concern, mapped onto exactly one root folder and named by that folder: `automation`,
-`infrastructure`, `pipelines`, `docs`, `contracts`, `go`, `.github`, `.cspell`, and `.claude`. Every root folder git tracks a file under
-names a track (`ADR-REPO-FOLDERS`), except `out/`, which holds gitignored output (`ADR-REPO-OUTDIR`); a track never spans two roots, and a
-root never carries two tracks. Tracks are what this mono repository is composed of.
+`infrastructure`, `pipelines`, `docs`, `contracts`, `go`, `python`, `.github`, `.cspell`, and `.claude`. Every root folder git tracks a file
+under names a track (`ADR-REPO-FOLDERS`), except `out/`, which holds gitignored output (`ADR-REPO-OUTDIR`); a track never spans two roots,
+and a root never carries two tracks. Tracks are what this mono repository is composed of.
 
 - [What a track is](#what-a-track-is)
 
@@ -22,7 +22,8 @@ that read its files, `docs` for its readers, and the dot-roots `.github`, `.cspe
 delivery machines the deployable-units bind to), or **verification**. A **verification track** is a test-only track: it verifies the core
 from outside, ships nothing, and is out of every bundle by construction, because it lies outside `automation/`, where the builder reads its
 modules. `go`, the Go black-box tests ([test-artifacts](../automation/go/test-artifacts.md)), is the first; a repository without a `go/`
-root keeps the same tests in the dot-prefixed `.go`, which is of the same class. Cross-cutting slices (e.g. the cats configs — every
+root keeps the same tests in the dot-prefixed `.go`, which is of the same class. `python`, the Python black-box tests
+([python-test-artifacts](../automation/python/python-test-artifacts.md)), is the second. Cross-cutting slices (e.g. the cats configs — every
 yml/config file across automation) are **scopes over tracks**, not tracks: they select through the roots rather than owning one.
 
 - [The taxonomy](#the-taxonomy)

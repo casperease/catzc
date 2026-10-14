@@ -115,21 +115,32 @@ Describe 'New-TestAutomationShardScript' {
             $content | Should -Match 'ConvertTo-TestAutomationRowSet'
         }
 
-        It 'hands the go this session located to the Pester configuration, quotes doubled, empty when none' {
+        It 'hands the tools this session located to the Pester configuration as a hashtable literal, quotes doubled' {
             $built = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
                 param($Dir)
                 New-TestAutomationShardScript -ShardIndex 7 -TestPath @('C:\repo\a.Tests.ps1') -RunDirectory $Dir `
-                    -GoExecutable "C:\widget's go\bin\go.exe"
+                    -LanguageExecutable @{ python = 'C:\widget\uv\uv.exe'; go = "C:\widget's go\bin\go.exe" }
             }
             $content = Get-Content -LiteralPath $built.ScriptPath -Raw
-            $content | Should -Match ([regex]::Escape("-GoExecutable `$goExecutable"))
-            $content | Should -Match ([regex]::Escape("'' '' 'C:\widget''s go\bin\go.exe'"))
+            $content | Should -Match ([regex]::Escape("-LanguageExecutable `$languageExecutable"))
+            $content | Should -Match ([regex]::Escape("'' '' @{ 'go' = 'C:\widget''s go\bin\go.exe'; 'python' = 'C:\widget\uv\uv.exe' }"))
 
             $none = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
                 param($Dir)
                 New-TestAutomationShardScript -ShardIndex 8 -TestPath @('C:\repo\a.Tests.ps1') -RunDirectory $Dir
             }
-            Get-Content -LiteralPath $none.ScriptPath -Raw | Should -Match "'' '' ''\r?\n"
+            Get-Content -LiteralPath $none.ScriptPath -Raw | Should -Match ([regex]::Escape("'' '' @{  }"))
+        }
+
+        It 'renders a worker script that parses, with the tools hashtable' {
+            $built = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
+                param($Dir)
+                New-TestAutomationShardScript -ShardIndex 9 -TestPath @('C:\repo\a.Tests.ps1') -RunDirectory $Dir `
+                    -LanguageExecutable @{ go = "C:\widget's go\bin\go.exe" }
+            }
+            $errors = $null
+            $null = [System.Management.Automation.Language.Parser]::ParseFile($built.ScriptPath, [ref] $null, [ref] $errors)
+            $errors | Should -BeNullOrEmpty
         }
     }
 

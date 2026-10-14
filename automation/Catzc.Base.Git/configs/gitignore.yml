@@ -106,3 +106,15 @@ sections:
     patterns:
       - /go.work.sum
       - /*/tests/*/go.sum
+
+  - id: python-environment
+    title: Python test environment
+    why: >
+      The Python test project is generated (ADR-AUTO-PY): python/pyproject.toml is a managed root-config copy, ignored
+      through its rootconfig entry. The environment and lock uv makes from it in the Python test bridge, and the
+      linter's cache, are per-machine output, never committed.
+    patterns:
+      - /python/.venv/
+      - /python/uv.lock
+      - /python/.ruff_cache/
+      - /python/**/__pycache__/

@@ -87,11 +87,11 @@ Describe 'Split-TestAutomationFiles' -Tag 'L0', 'logic' {
         $split.Serial | Should -HaveCount 0
     }
 
-    It 'schedules a Go bridge test by its Go test folder, not by the bridge file' {
-        # The bridge's tests come from one shared file; the container data names the Go test folder they run.
-        $goTest = New-FakeTest -File 'C:\x\Go.Bridge.ps1' -BlockTags @('L2', 'greedy')
+    It 'schedules a language bridge test by its test folder, not by the bridge file' {
+        # The bridge's tests come from one shared file; the container data names the test folder they run.
+        $goTest = New-FakeTest -File 'C:\x\Language.Bridge.ps1' -BlockTags @('L2', 'greedy')
         $goTest.Block | Add-Member -NotePropertyName BlockContainer -NotePropertyValue ([pscustomobject]@{
-                Data = @{ GoTestFolder = 'C:\x\go\tests\catzc-widget'; EntryScript = '' }
+                Data = @{ Language = 'go'; TestFolder = 'C:\x\go\tests\catzc-widget'; EntryScript = ''; Executable = '' }
             })
         $discovered = [pscustomobject]@{
             Tests = @($goTest, (New-FakeTest -File 'C:\x\Alpha.Tests.ps1' -BlockTags @('L0', 'logic')))

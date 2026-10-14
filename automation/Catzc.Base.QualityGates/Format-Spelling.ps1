@@ -53,6 +53,8 @@ function Format-Spelling {
             '**/*.json'
             '**/*.cs'
             '**/*.bicep'
+            '**/*.go'
+            '**/*.py'
         ),
 
         # Mirror Test-Spelling's content-scope exclusions, so the tokens queued are exactly the tokens the

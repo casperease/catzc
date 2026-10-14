@@ -148,6 +148,12 @@ settings:
         - link: 'file:///${workspaceFolder}/$1'
           hoverMessage: 'Open $1$2'
 
+  # Go (the golang.go extension and gopls): the tools run with GOTOOLCHAIN=local, so the editor never downloads
+  # the toolchain go.work asks for; it runs the managed go, which the generator injects as go.goroot on a
+  # machine where Install-Go has run ([ADR-AUTO-GO#6](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go6)).
+  go.toolsEnvVars:
+    GOTOOLCHAIN: local
+
   # Spell checking — the single repo dictionary lives in /cspell.yml (auto-discovered by Code Spell
   # Checker; the extension is recommended in .vscode/extensions.json).
   cSpell.enabled: true

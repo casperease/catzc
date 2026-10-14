@@ -37,6 +37,12 @@ recommendations:
   # The Go extension — gopls for the Go tests: it reads the repository-root go.work (New-GoWorkspace), whose `use`
   # entries name every Go test module, so the go/ root and the .go/ default load the same with no setting.
   - golang.go
+  # The Python extension — for the Python tests under python/tests/: the settings generator points it at the generated
+  # test project's environment (python/.venv), so imports and the test explorer resolve with no setting.
+  - ms-python.python
+  # Ruff — format and lint the Python tests on save with the pinned ruff, matching Format-Python and the bridge's
+  # ruff check.
+  - charliermarsh.ruff
   # Prettier — the markdown formatter behind Format-Markdown; format-on-save matches the gate.
   - esbenp.prettier-vscode
   # PDF viewing for reference material in docs.

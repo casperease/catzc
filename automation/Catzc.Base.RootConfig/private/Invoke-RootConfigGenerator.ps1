@@ -57,7 +57,23 @@ function Invoke-RootConfigGenerator {
             $managedTargets = @(foreach ($entry in @(Get-RootConfigTargets -Config $config)) {
                     $entry.target
                 })
-            New-VSCodeSettings -ManagedTarget $managedTargets
+            # The managed Go toolchain, when found at the pin: the Go extension and gopls otherwise run whichever go
+            # comes first on PATH, and on Windows a machine-wide Go precedes the user-scope managed one
+            # (ADR-AUTO-GO#6).
+            $machineSetting = @{}
+            $go = Resolve-ToolExecutable -Tool go
+            if ($go.Found -and $go.VersionOk) {
+                $machineSetting['go.goroot'] = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($go.Path))
+            }
+            # The Python test project's environment (ADR-AUTO-PY#4), by this platform's layout: the Python extension
+            # resolves the tests' imports and runs them in it.
+            $machineSetting['python.defaultInterpreterPath'] = if ($IsWindows) {
+                '${workspaceFolder}/python/.venv/Scripts/python.exe'
+            }
+            else {
+                '${workspaceFolder}/python/.venv/bin/python'
+            }
+            New-VSCodeSettings -ManagedTarget $managedTargets -MachineSetting $machineSetting
         }
         'New-VSCodeExtensions' {
             # The VS Code extension recommendations, rendered from the vscode-extensions registry
@@ -78,6 +94,11 @@ function Invoke-RootConfigGenerator {
             # The Go test workspace (Catzc.Base.Languages): the root go.work and one go.mod per go/tests/<folder>/,
             # as one record per file; the entry's target selects which.
             New-GoWorkspace -Target $Target
+        }
+        'New-PythonProject' {
+            # The Python test project (Catzc.Base.Languages): python/pyproject.toml, the one uv project every Python
+            # test folder runs in.
+            New-PythonProject
         }
         default {
             throw "Unknown root-config generator '$Name'. Register its invocation in Invoke-RootConfigGenerator (Catzc.Base.RootConfig)."

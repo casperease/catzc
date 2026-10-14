@@ -33,26 +33,26 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'accepts the Go bridge''s generated tests: L2 and greedy on the block, the category on each test' {
+    It 'accepts the language bridge''s generated tests: L2 and greedy on the block, the category on each test' {
         InModuleScope Catzc.Base.QualityGates {
             $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }
             $block = [pscustomobject]@{
                 IsRoot         = $false
                 Tag            = @('L2', 'greedy')
                 Parent         = $root
-                BlockContainer = [pscustomobject]@{ Data = @{ GoTestFolder = 'C:\x\go\tests\catzc-widget'; EntryScript = '' } }
+                BlockContainer = [pscustomobject]@{ Data = @{ Language = 'go'; TestFolder = 'C:\x\go\tests\catzc-widget'; EntryScript = ''; Executable = '' } }
             }
             $discovered = [pscustomobject]@{
                 Tests = @(
-                    [pscustomobject]@{ Tag = @('logic'); Block = $block; ExpandedName = 'TestWidgetSpins'; ScriptBlock = [pscustomobject]@{ File = 'C:\x\Go.Bridge.ps1' } }
-                    [pscustomobject]@{ Tag = @('integrity'); Block = $block; ExpandedName = 'TestIntegrityWidgetShips'; ScriptBlock = [pscustomobject]@{ File = 'C:\x\Go.Bridge.ps1' } }
-                    [pscustomobject]@{ Tag = @(); Block = $block; ExpandedName = 'TestUntagged'; ScriptBlock = [pscustomobject]@{ File = 'C:\x\Go.Bridge.ps1' } }
+                    [pscustomobject]@{ Tag = @('logic'); Block = $block; ExpandedName = 'TestWidgetSpins'; ScriptBlock = [pscustomobject]@{ File = 'C:\x\Language.Bridge.ps1' } }
+                    [pscustomobject]@{ Tag = @('integrity'); Block = $block; ExpandedName = 'TestIntegrityWidgetShips'; ScriptBlock = [pscustomobject]@{ File = 'C:\x\Language.Bridge.ps1' } }
+                    [pscustomobject]@{ Tag = @(); Block = $block; ExpandedName = 'TestUntagged'; ScriptBlock = [pscustomobject]@{ File = 'C:\x\Language.Bridge.ps1' } }
                 )
             }
 
             $violations = Get-TestTagViolations -Discovery $discovered
 
-            # Only the test with no category is a violation, reported against its Go test folder.
+            # Only the test with no category is a violation, reported against its test folder.
             $violations | Should -HaveCount 1
             $violations[0].Test | Should -Be 'TestUntagged'
             $violations[0].File | Should -Be 'C:\x\go\tests\catzc-widget'

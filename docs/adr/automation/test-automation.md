@@ -360,10 +360,11 @@ shared by every run on the machine, so the test passes or fails depending on wha
 
 ### Rule ADR-AUTO-TEST:40
 
-A Go test module ([test-artifacts](go/test-artifacts.md#rule-adr-auto-go2)) is the second kind of test file, beside the Pester test file,
-under the same tiers, categories, and run model. Discovery maps it to its catzc module, so module selection, test suites, ordering,
-protection, both runs, and the report treat its tests as that module's; a shared Pester bridge runs it, and every Go test it holds is one
-test with both mandatory tags — `L2`, and a category from its name (ADR-AUTO-GO#7).
+A Go test module ([test-artifacts](go/test-artifacts.md#rule-adr-auto-go2)) and a Python test folder
+([python-test-artifacts](python/python-test-artifacts.md#rule-adr-auto-py2)) are the second kind of test file, beside the Pester test file,
+under the same tiers, categories, and run model. Discovery maps each to its catzc module, so module selection, test suites, ordering,
+protection, both runs, and the report treat its tests as that module's; one shared Pester bridge, the language bridge, runs both, and every
+test they hold is one test with both mandatory tags — `L2`, and a category from its name (ADR-AUTO-GO#7, ADR-AUTO-PY#7).
 
 - [Go test modules](#go-test-modules)
 
@@ -723,6 +724,11 @@ category comes from its name: `TestIntegrity*` reads the shipped artifacts and i
 (ADR-AUTO-TEST#14). When the managed `go` is missing, the bridge skips with `tool_go_missing`, the same constrained skip key as any other
 tool skip (ADR-AUTO-TEST#8). In a build run the bridge hands the Go tests the build's entry script, the same single seam the shard workers
 use (ADR-AUTO-TEST#30).
+
+A Python test folder runs the same way through the same bridge ([python-test-artifacts](python/python-test-artifacts.md)): discovery maps
+`python/tests/<module>/` to its catzc module, each top-level `test*` function is one Pester test, `test_integrity*` is `integrity` and the
+rest `logic`, and without uv or the pinned interpreter the bridge skips with `tool_uv_missing`. The bridge is one mechanism with one entry
+per language, so a further test language adds an entry, not a second bridge.
 
 ### Build Verification Test
 

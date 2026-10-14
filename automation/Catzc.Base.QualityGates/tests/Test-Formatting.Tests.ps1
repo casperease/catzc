@@ -8,6 +8,8 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         Mock Format-Pipelines -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); Warnings = @(); DryRun = $false; Check = $true; ExitCode = 0 } }
         Mock Format-Automation -ModuleName Catzc.Base.QualityGates { }
         Mock Format-Types -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); BlockScopedFiles = @(); DryRun = $true } }
+        Mock Format-Go -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); DryRun = $true } }
+        Mock Format-Python -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); DryRun = $true } }
         $script:reportFolder = Join-Path $TestDrive 'formatting'
     }
 
@@ -17,6 +19,8 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         Should -Invoke Format-Pipelines -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Check -and $PassThru }
         Should -Invoke Format-Automation -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun }
         Should -Invoke Format-Types -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and $PassThru }
+        Should -Invoke Format-Go -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and $PassThru }
+        Should -Invoke Format-Python -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and $PassThru }
     }
 
     It 'throws once listing every unformatted file with the formatter that fixes it' -Tag 'ADR-AUTO-TEST#35' {
@@ -37,14 +41,24 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         Mock Format-Types -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ ChangedCount = 1; ChangedFiles = @('automation\Widget\types\Gadget.cs'); BlockScopedFiles = @($gizmo); DryRun = $true }
         }.GetNewClosure()
+        $gadgetGo = Join-Path (Get-RepositoryRoot) 'go/tests/catzc-widget/gadget_test.go'
+        Mock Format-Go -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ ChangedCount = 1; ChangedFiles = @($gadgetGo); DryRun = $true }
+        }.GetNewClosure()
+        $gadgetPython = Join-Path (Get-RepositoryRoot) 'python/tests/catzc-widget/test_gadget.py'
+        Mock Format-Python -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ ChangedCount = 1; ChangedFiles = @($gadgetPython); DryRun = $true }
+        }.GetNewClosure()
 
         $result = Test-Formatting -PassThru -OutputFolder $script:reportFolder
         $result.Subject | Should -Be 'formatting'
-        $result.Formatters | Should -Be 4
+        $result.Formatters | Should -Be 6
         $result.Issues | Should -Be @(
             'automation/Widget/Get-Widget.ps1: not formatted — run Format-Automation'
             'automation/Widget/types/Gadget.cs: not formatted — run Format-Types'
             "automation/Widget/types/Gizmo.cs: block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'"
+            'go/tests/catzc-widget/gadget_test.go: not formatted — run Format-Go'
+            'python/tests/catzc-widget/test_gadget.py: not formatted — run Format-Python'
         )
     }
 
@@ -56,12 +70,16 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         Should -Invoke Format-Markdown -ModuleName Catzc.Base.QualityGates -Times 0
         Should -Invoke Format-Automation -ModuleName Catzc.Base.QualityGates -Times 0
         Should -Invoke Format-Types -ModuleName Catzc.Base.QualityGates -Times 0
+        Should -Invoke Format-Go -ModuleName Catzc.Base.QualityGates -Times 0
+        Should -Invoke Format-Python -ModuleName Catzc.Base.QualityGates -Times 0
     }
 }
 
 # Integrity: the real repository is formatted — Markdown (Prettier), the checked PowerShell set, and the C# type
 # namespaces (each source declares its module's file-scoped namespace, the invariant the type loader also enforces). The pipeline YAML has its own block (Format-Pipelines.Tests.ps1). L2 because it drives the Prettier CLI
-# and the vendored analyzer's formatter; self-skips when prettier is absent
+# and the vendored analyzer's formatter; self-skips when prettier is absent. The Go test modules get their own case
+# (gofmt from the managed go, skipping with tool_go_missing without it), and so do the Python test folders (ruff
+# through the managed uv, skipping with tool_uv_missing without it)
 # ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)/9). source-only: it reads the
 # repository's own files, which give the same answer in both run modes.
 Describe 'Repository formatting integrity' -Tag 'L2', 'integrity', 'source-only' {
@@ -71,6 +89,27 @@ Describe 'Repository formatting integrity' -Tag 'L2', 'integrity', 'source-only'
             return
         }
         $result = Test-Formatting -Formatter Format-Markdown, Format-Automation, Format-Types -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
+    }
+
+    It 'the Go test modules are gofmt-formatted (Format-Go)' {
+        $go = Resolve-ToolExecutable -Tool go
+        if (-not ($go.Found -and $go.VersionOk)) {
+            Set-ItResult -Skipped -Because 'tool_go_missing'
+            return
+        }
+        $result = Test-Formatting -Formatter Format-Go -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
+    }
+
+    It 'the Python test folders are ruff-formatted (Format-Python)' {
+        $uv = Resolve-ToolExecutable -Tool uv
+        $python = Resolve-ToolExecutable -Tool python
+        if (-not ($uv.Found -and $uv.VersionOk -and $python.Found -and $python.VersionOk)) {
+            Set-ItResult -Skipped -Because 'tool_uv_missing'
+            return
+        }
+        $result = Test-Formatting -Formatter Format-Python -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

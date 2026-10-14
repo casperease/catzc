@@ -89,6 +89,34 @@ terms:
       meaning: "GOTOOLCHAIN — which Go toolchain go runs; local forbids switching to a downloaded one"
     - term: gopls
       meaning: "gopls — the Go language server editors use"
+    - term: pytest
+      meaning: "pytest — the Python test runner the Python test bridge runs (ADR-AUTO-PY)"
+    - term: junit
+      meaning: "JUnit XML — the test-report format pytest writes with --junitxml"
+    - term: junitxml
+      meaning: "--junitxml — pytest's option that writes a JUnit XML report"
+    - term: ruff
+      meaning: "ruff — the Python formatter and linter the Python tests are checked with"
+    - term: pyproject
+      meaning: "pyproject.toml — a Python project's declaration file"
+    - term: rootdir
+      meaning: "pytest's rootdir — the folder its test ids and report names are relative to"
+    - term: parametrised
+      meaning: "a pytest test run once per parameter set (pytest.mark.parametrize)"
+    - term: parametrize
+      meaning: "pytest.mark.parametrize — pytest's decorator that runs a test per parameter set"
+    - term: cacheprovider
+      meaning: "pytest's cacheprovider plugin; -p no:cacheprovider keeps .pytest_cache out of the tree"
+    - term: pycache
+      meaning: "__pycache__ — the folder Python writes compiled bytecode into"
+    - term: pythondontwritebytecode
+      meaning: "PYTHONDONTWRITEBYTECODE — the variable that stops Python writing __pycache__ bytecode"
+    - term: charliermarsh
+      meaning: "charliermarsh.ruff — the publisher and id of the Ruff VS Code extension"
+    - term: worldmap
+      meaning: "a world-map image the draw.io atlas helper (.claude/drawio/atlas.py) draws on"
+    - term: arialbd
+      meaning: "arialbd.ttf — the Arial Bold font file the draw.io PDF gallery helper loads"
     - term: adrs
       meaning: "ADRs — plural of ADR; the adrs.yml registry of ADR domain structure and citation codes"
     - term: ast
@@ -581,6 +609,10 @@ terms:
       meaning: "domain code PRIN — the principles ADR domain in adrs.yml (composes ADR-PRIN-<NAME>)"
     - term: dsgn
       meaning: "domain code DSGN — the design ADR domain in adrs.yml (composes ADR-DSGN-<NAME>)"
+    - term: thes
+      meaning: "domain code THES — the thesis ADR domain in adrs.yml (composes ADR-THES-<NAME>)"
+    - term: onetruth
+      meaning: "body of the ADR-THES-ONETRUTH code (one-source-of-truth)"
     - term: sesverify
       meaning: "body of the ADR-AZ-SESVERIFY code (az-session-verification)"
     - term: aidata

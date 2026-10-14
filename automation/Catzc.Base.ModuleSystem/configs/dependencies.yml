@@ -18,6 +18,7 @@ groups:
     # each member lists the members it may depend on (its internal DAG layer).
     Base:
         Catzc.Base.Asserts: []
+        Catzc.Base.Engines: []
         Catzc.Base.Repository: [Catzc.Base.Asserts]
         Catzc.Base.Environment: [Catzc.Base.Writers, Catzc.Base.Asserts]
         Catzc.Base.Objects: [Catzc.Base.Asserts]
@@ -29,8 +30,8 @@ groups:
         Catzc.Base.Docs: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Files, Catzc.Base.Execution, Catzc.Base.Globs, Catzc.Base.Reports, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts]
         Catzc.Base.Vendor: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Writers, Catzc.Base.Repository]
         Catzc.Base.Timeouts: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Asserts]
-        Catzc.Base.Execution: [Catzc.Base.Timeouts, Catzc.Base.Config, Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Asserts]
-        Catzc.Base.Languages: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Execution, Catzc.Base.Asserts]
+        Catzc.Base.Execution: [Catzc.Base.Engines, Catzc.Base.Timeouts, Catzc.Base.Config, Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Asserts]
+        Catzc.Base.Languages: [Catzc.Base.Engines, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Execution, Catzc.Base.Asserts]
         Catzc.Base.Files: [Catzc.Base.Execution, Catzc.Base.Repository, Catzc.Base.Asserts]
         Catzc.Base.Globs: [Catzc.Base.Languages, Catzc.Base.Variants, Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Files, Catzc.Base.Execution, Catzc.Base.Reports, Catzc.Base.Writers, Catzc.Base.Asserts]
         Catzc.Base.TypesSystem: [Catzc.Base.Repository, Catzc.Base.Files, Catzc.Base.Execution, Catzc.Base.Reports, Catzc.Base.Writers, Catzc.Base.Asserts]

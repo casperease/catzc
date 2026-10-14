@@ -1,0 +1,86 @@
+<#
+.SYNOPSIS
+    Lists the repository's test folders in every test language beside PowerShell, each mapped to the catzc module
+    it tests.
+.DESCRIPTION
+    The test languages are test artifacts only, each in a root verification track of its own
+    ([ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2)):
+
+      go      <goRoot>/tests/<folder>/ holding at least one .go file (the folders New-GoWorkspace renders a go.mod
+              for); the Go root is go.yml's, through GoConfig.ResolveRoot: the declared root, else go/ when the
+              repository has one, else .go/ ([ADR-AUTO-GO#2](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go2));
+      python  python/tests/<folder>/ holding at least one test_*.py file
+              ([ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2)).
+
+    A folder whose name starts with '.' is never a test folder. Each folder is named for its catzc module in kebab
+    case — the module name lowercased, with dots replaced by hyphens (Catzc.Base.Repository ->
+    catzc-base-repository) — and maps back to the module folder under <repository>/automation/ of that kebab name.
+    The harness runs a mapped folder's tests as part of that module's tests (Get-TestAutomationTestPaths, the
+    language bridge).
+
+    Throws, naming every such folder, when a test folder matches no catzc module: an unmapped folder would
+    otherwise never run.
+.OUTPUTS
+    [pscustomobject] One record per test folder ({ Language; Module; Folder; Name }), by language (go, then python)
+    and ordinal by folder name within it: Language is go or python, Module the catzc module name, Folder the
+    absolute folder path, Name the folder name. Nothing when the repository has no such folder.
+.EXAMPLE
+    Get-LanguageTestFolders | Where-Object Module -EQ 'Catzc.Base.Repository'
+#>
+function Get-LanguageTestFolders {
+    [CmdletBinding()]
+    [OutputType([pscustomobject])]
+    param()
+
+    $repositoryRoot = Get-RepositoryRoot
+    # Each language's root and the file pattern that makes a folder under its tests/ a test folder.
+    $languages = @(
+        [pscustomobject]@{ Language = 'go'; Root = (Get-Config -Config go).ResolveRoot($repositoryRoot); Pattern = '*.go' }
+        [pscustomobject]@{ Language = 'python'; Root = [Catzc.Base.Languages.PythonConfig]::Root; Pattern = 'test_*.py' }
+    )
+
+    # The catzc modules of the source tree, by kebab name: the folders under <repository>/automation/, read from the
+    # repository (never the code root), so a build run maps a test folder the same way a source run does.
+    $modulesByKebab = @{}
+    $automationRoot = [System.IO.Path]::Combine($repositoryRoot, 'automation')
+    if ([System.IO.Directory]::Exists($automationRoot)) {
+        foreach ($module in (Get-AutomationModules -AutomationRoot $automationRoot)) {
+            $modulesByKebab[$module.ToLowerInvariant().Replace('.', '-')] = $module
+        }
+    }
+
+    $unmatched = [System.Collections.Generic.List[string]]::new()
+    $records = [System.Collections.Generic.List[pscustomobject]]::new()
+    foreach ($language in $languages) {
+        $testsRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($repositoryRoot, $language.Root, 'tests'))
+        if (-not [System.IO.Directory]::Exists($testsRoot)) {
+            continue
+        }
+        $folders = @([System.IO.Directory]::GetDirectories($testsRoot))
+        [System.Array]::Sort($folders, [System.StringComparer]::Ordinal)
+        foreach ($folder in $folders) {
+            $name = [System.IO.Path]::GetFileName($folder)
+            if ($name.StartsWith('.')) {
+                continue
+            }
+            if (-not @([System.IO.Directory]::GetFiles($folder, $language.Pattern, [System.IO.SearchOption]::AllDirectories)).Count) {
+                continue
+            }
+            if (-not $modulesByKebab.ContainsKey($name)) {
+                $unmatched.Add("$($language.Root)/tests/$name/")
+                continue
+            }
+            $records.Add([pscustomobject]@{
+                    Language = $language.Language
+                    Module   = $modulesByKebab[$name]
+                    Folder   = $folder
+                    Name     = $name
+                })
+        }
+    }
+
+    if ($unmatched.Count -gt 0) {
+        throw "Test folder(s) matching no catzc module: $($unmatched -join ', '). A test folder is named for its catzc module in kebab case (lowercase, dots as hyphens, e.g. catzc-base-repository for Catzc.Base.Repository)."
+    }
+    $records
+}

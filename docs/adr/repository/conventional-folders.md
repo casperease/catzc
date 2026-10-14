@@ -24,7 +24,8 @@ depends on. Know which kind a folder is before renaming it or adding to it.
 ### Rule ADR-REPO-FOLDERS:3
 
 The root set is closed. Adding a top-level directory is a deliberate architectural decision — an amendment to this ADR — not a casual act.
-`go/`, the Go root of the repository's black-box tests ([test-artifacts](../automation/go/test-artifacts.md)), is such an amendment.
+`go/` and `python/`, the Go and Python roots of the repository's black-box tests ([test-artifacts](../automation/go/test-artifacts.md),
+[python-test-artifacts](../automation/python/python-test-artifacts.md)), are such amendments.
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -90,10 +91,11 @@ just cannot expect tooling to interact with it.
 
 ### Rule ADR-REPO-FOLDERS:11
 
-Contracts live under the root `contracts/` folder, laid out as `contracts/<release>/<module>/<path>`: `<release>` is a catzc release version
-(`MAJOR.MINOR.PATCH`), `<module>` is the owning catzc module, and `<path>` is the repository-relative path of the real file a contract asset
-constrains. `0.0.0` is the one mutable draft; every other release folder is frozen, a self-contained snapshot of the contracts at that
-release — kept for a consumer that pins it, deliberately and equally live (see
+Contracts live under the root `contracts/` folder, laid out as `contracts/<unit>/<version>/<module>/<path>`: `<unit>` is the deployable-unit
+that carries the contracts (today only `catzc`, the bundle), `<version>` is that unit's version (`MAJOR.MINOR.PATCH`), `<module>` is the
+owning catzc module, and `<path>` is the repository-relative path of the real file a contract asset constrains. There is no repository-wide
+version folder. Each unit's `0.0.0` is its one mutable draft, frozen only when that unit is released; every other version folder is frozen,
+a self-contained snapshot of that unit's contracts at that version — kept for a consumer that pins it, deliberately and equally live (see
 [one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive7)), not legacy. The root carries a checked-in `.gitkeep`, so
 it stays tracked before any contract exists. What the contracts _are_ — the binding interfaces at the repository boundary, in both
 directions, and their testing discipline — is the [api-contracts](api-contracts.md) ADR (code `ADR-REPO-CONTRACT`).
@@ -127,8 +129,8 @@ The same idea repeats at every depth.
 Conventional folders come in two kinds, and the difference is _who relies on the name_:
 
 - **Contract folders** — a tool hardcodes the literal name and programs against it, so a wrong name makes the content structurally invisible
-  or non-functional. `automation/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `go/`, `pipelines/steps/`, `docs/adr/`,
-  `docs/references/`, and `infrastructure/templates/<name>/configuration/[<customer>/]` are contract folders.
+  or non-functional. `automation/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `go/`, `python/`, `pipelines/steps/`,
+  `docs/adr/`, `docs/references/`, and `infrastructure/templates/<name>/configuration/[<customer>/]` are contract folders.
 - **Semantic folders** — a _reader_ infers the meaning; no tool hardcodes the name, and the internal layout is freeform. The topic
   subfolders of `docs/`, `docs/how-to/`, `infrastructure/modules/`, and the ad-hoc workspaces under `out/` are semantic folders.
 
@@ -216,21 +218,22 @@ are contracts, not suggestions.
 The root is a closed set of folders, each with a fixed meaning. The **Kind** column marks whether tooling hardcodes the name (_contract_) or
 a reader infers it (_semantic_).
 
-| Directory         | Kind     | Meaning                                                                                                                            | Programmed against by                                               |
-| ----------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `automation/`     | contract | Module system root — all PowerShell modules and infrastructure (Levels 2–3)                                                        | `importer.ps1`, `Test-Automation`, `Install-VendorModule`           |
-| `docs/`           | mixed    | Documentation — `adr/` decision records, `references/` reference articles, `how-to/` guides, `.assets/` diagrams                   | `Build-AdrIndex`, `Build-Readme`; human consumption                 |
-| `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                                                 | Bicep build/deploy tooling, `Get-BicepTemplates`                    |
-| `pipelines/`      | contract | Azure DevOps YAML pipelines, per-kind templates, and the runner                                                                    | Azure DevOps runner, `Invoke-AdoScript.ps1`                         |
-| `contracts/`      | contract | Binding contracts at the repository boundary, both directions — `<release>/<module>/<path>`; see [api-contracts](api-contracts.md) | The owning modules' contract tests; outside consumers and platforms |
-| `go/`             | contract | The Go root: black-box Go tests, `tests/<module>/`; see [test-artifacts](../automation/go/test-artifacts.md)                       | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
-| `out/`            | contract | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)                                    | Output functions, CI artifacts, cleanup scripts                     |
-| `.github/`        | contract | GitHub Actions — `workflows/`, actions, templates                                                                                  | GitHub Actions runner                                               |
-| `.vscode/`        | contract | Managed, generated editor config — every file reproduced on import; see [generated-root-configs](generated-root-configs.md)        | VS Code; `Build-RootConfig`                                         |
-| `.claude/`        | contract | Claude Code project config — `CLAUDE.md`, `CLAUDE.local.md`, `settings.json`                                                       | Claude Code                                                         |
-| `.cspell/`        | contract | Generated cspell dictionaries — one `<category>.txt` per `terminology.yml` category; only `.gitkeep` is committed                  | `cspell.yml`; `Build-TerminologyDictionary`                         |
-| `.go/`            | contract | The Go root when the repository has no `go/` folder — the same layout as `go/`, dot-prefixed as tooling                            | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
-| `.git/`           | —        | Git's own store. The boundary of _our_ conventions: git owns it, we do not document it.                                            | Git                                                                 |
+| Directory         | Kind     | Meaning                                                                                                                                                                | Programmed against by                                               |
+| ----------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `automation/`     | contract | Module system root — all PowerShell modules and infrastructure (Levels 2–3)                                                                                            | `importer.ps1`, `Test-Automation`, `Install-VendorModule`           |
+| `docs/`           | mixed    | Documentation — `adr/` decision records, `references/` reference articles, `how-to/` guides, `.assets/` diagrams                                                       | `Build-AdrIndex`, `Build-Readme`; human consumption                 |
+| `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                                                                                     | Bicep build/deploy tooling, `Get-BicepTemplates`                    |
+| `pipelines/`      | contract | Azure DevOps YAML pipelines, per-kind templates, and the runner                                                                                                        | Azure DevOps runner, `Invoke-AdoScript.ps1`                         |
+| `contracts/`      | contract | Binding contracts at the repository boundary, both directions — `<unit>/<version>/<module>/<path>`; see [api-contracts](api-contracts.md)                              | The owning modules' contract tests; outside consumers and platforms |
+| `go/`             | contract | The Go root: black-box Go tests, `tests/<module>/`; see [test-artifacts](../automation/go/test-artifacts.md)                                                           | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
+| `python/`         | contract | The Python root: black-box Python tests, `tests/<module>/`, and the generated test project; see [python-test-artifacts](../automation/python/python-test-artifacts.md) | `PythonConfig`, `New-PythonProject`, `Invoke-PythonTest`            |
+| `out/`            | contract | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)                                                                        | Output functions, CI artifacts, cleanup scripts                     |
+| `.github/`        | contract | GitHub Actions — `workflows/`, actions, templates                                                                                                                      | GitHub Actions runner                                               |
+| `.vscode/`        | contract | Managed, generated editor config — every file reproduced on import; see [generated-root-configs](generated-root-configs.md)                                            | VS Code; `Build-RootConfig`                                         |
+| `.claude/`        | contract | Claude Code project config — `CLAUDE.md`, `CLAUDE.local.md`, `settings.json`                                                                                           | Claude Code                                                         |
+| `.cspell/`        | contract | Generated cspell dictionaries — one `<category>.txt` per `terminology.yml` category; only `.gitkeep` is committed                                                      | `cspell.yml`; `Build-TerminologyDictionary`                         |
+| `.go/`            | contract | The Go root when the repository has no `go/` folder — the same layout as `go/`, dot-prefixed as tooling                                                                | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
+| `.git/`           | —        | Git's own store. The boundary of _our_ conventions: git owns it, we do not document it.                                                                                | Git                                                                 |
 
 `automation/` is the only root the module system interacts with; its internals are Levels 2–3 below. The rest separate concerns at the repo
 level, and each has its own conventional sub-layout:
@@ -257,13 +260,16 @@ runner `Invoke-AdoScript.ps1` sits at the root, and reusable fragments live in p
 
 **`contracts/`** holds the repository's contracts — the binding interfaces at its boundary, proven by tests, in both directions: provided
 (what an outside consumer may rely on) and depended-on (what an outside platform, such as GitHub or Azure DevOps, expects of our files and
-calls). It has three levels. The first is the release: `contracts/<release>/`, named by the catzc release version, where `0.0.0` is the one
-mutable draft and every other release folder is frozen. The second is the owning catzc module: `contracts/<release>/<module>/`, the module
-that talks to the outside party and holds the tests. The third repeats the real file's repository-relative path, so a contract asset and the
-file it constrains are found from each other without a mapping. A frozen release folder kept for a consumer that pins it is a separate, live
-set of contracts, not legacy: this is the one place the repo deliberately carries backwards compatibility, because here — unlike the
-internal code — external consumers genuinely exist (see [one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive7)).
-The root carries a checked-in `.gitkeep`, so it stays tracked before any contract exists.
+calls). It has four levels. The first is the unit: `contracts/<unit>/`, the deployable-unit that carries the contracts — today only `catzc`,
+the bundle, the one unit a consumer pins; another unit that carries contracts gets its own folder beside it. The second is that unit's
+version: `contracts/<unit>/<version>/`, where the unit's `0.0.0` is its one mutable draft, frozen only when that unit is released, and every
+other version folder is frozen; there is no repository-wide version. The third is the owning catzc module:
+`contracts/<unit>/<version>/<module>/`, the module that talks to the outside party and holds the tests. The fourth repeats the real file's
+repository-relative path, so a contract asset and the file it constrains are found from each other without a mapping. Provided and
+depended-on contracts both version with their unit. A frozen version folder kept for a consumer that pins it is a separate, live set of
+contracts, not legacy: this is the one place the repo deliberately carries backwards compatibility, because here — unlike the internal code
+— external consumers genuinely exist (see [one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive7)). The root
+carries a checked-in `.gitkeep`, so it stays tracked before any contract exists.
 
 **`go/`** is the Go root: the repository's Go code, which is black-box tests of the engine and never ships
 ([test-artifacts](../automation/go/test-artifacts.md)). It holds `tests/<module>/`, one Go test module per catzc module, named for that
@@ -271,6 +277,11 @@ module in kebab case; `go.work` sits at the repository root, beside it. Every fi
 gitignored. A repository with no `go/` folder keeps the same layout under the dot-prefixed `.go/`, and `go.yml`'s `root` places the Go root
 elsewhere when declared; the two names are the sensible defaults of that one setting
 ([sensible-defaults](../automation/sensible-defaults.md)), and the code that reads them is `GoConfig.ResolveRoot`.
+
+**`python/`** is the Python root: the repository's Python tests, which are black-box tests of the engine and never ship
+([python-test-artifacts](../automation/python/python-test-artifacts.md)). It holds `tests/<module>/`, one Python test folder per catzc
+module, named for that module in kebab case, and the one generated test project, `pyproject.toml`, with the environment and lock uv makes
+from it, all gitignored. Its name is hardcoded once (`PythonConfig.Root`): Python has no competing layout idiom, so it is not a setting.
 
 **`out/`** is the single home for all generated and transient files, gitignored except `.gitkeep`. The _root_ is the contract
 (`Get-OutputRoot`); the subfolders inside are ad-hoc workspaces with no fixed names. Nothing under `out/` is source. See
@@ -411,9 +422,9 @@ folder must exist.
   `tests/assets/`.
 
 - **Repo-wide conventions** — the closed root set (`ADR-REPO-FOLDERS:3`), the dot-prefixed roots (`ADR-REPO-FOLDERS:4`), the markdown-only
-  rule for `docs/` (`ADR-REPO-FOLDERS:5`), and the `contracts/<release>/<module>/` layout with its root `.gitkeep` (`ADR-REPO-FOLDERS:11`) —
-  are enforced by **code review** against this ADR; the deep `automation/` conventions above are additionally enforced mechanically by the
-  tooling listed here.
+  rule for `docs/` (`ADR-REPO-FOLDERS:5`), and the `contracts/<unit>/<version>/<module>/` layout with its root `.gitkeep`
+  (`ADR-REPO-FOLDERS:11`) — are enforced by **code review** against this ADR; the deep `automation/` conventions above are additionally
+  enforced mechanically by the tooling listed here.
 
 - **Code review.** Structural conventions that tooling cannot enforce (e.g., "this YAML file belongs in `configs/`, not the module root")
   are caught in review. The uniform structure makes deviations visually obvious.

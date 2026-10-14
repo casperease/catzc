@@ -45,6 +45,8 @@ function Test-Spelling {
             '**/*.json'
             '**/*.cs'
             '**/*.bicep'
+            '**/*.go'
+            '**/*.py'
         ),
 
         # Content the spelling quality gate does NOT check (authored/generated text, not third-party noise — that

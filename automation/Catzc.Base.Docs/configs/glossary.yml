@@ -38,6 +38,8 @@ concepts:
         realized_by: { kind: prose-only }
         forms: [glossary, type, authored, dot, function, vendor, catzc, combined, committed, shipped, tracked, fixture, comparison, primary, raw, install, rule, docs, derived, current, real, configured, public, single, token, relative, repo, authoritative, cross, vendored, input]
         verbs: true
+        contrasts:
+            source of truth: The source of truth is the one store that decides what is true about the delivered system, the repository; a source, always qualified, names where one thing comes from.
     layer:
         key: layer
         domain: repository
@@ -73,15 +75,16 @@ concepts:
         short: A binding interface at the repository boundary, held under contracts/ in either direction — provided or depended-on — and proven by its owning module's tests.
         realized_by: { kind: prose-only }
         contrasts:
-            contract asset: A contract asset is one file in an owning module's folder of a contracts/ release folder; a contract is the binding interface its assets state together.
+            contract asset: A contract asset is one file in an owning module's folder of a unit's contracts/ version folder; a contract is the binding interface its assets state together.
     provided contract:
         key: provided_contract
         domain: repository
         defined_by: ADR-REPO-CONTRACT#1
-        short: A contract an outside consumer may rely on — the repository's only public API, kept while a consumer pins its release.
+        short: A contract an outside consumer may rely on — the repository's only public API, kept while a consumer pins that version of its unit.
         realized_by: { kind: prose-only }
         contrasts:
-            depended-on contract: A depended-on contract is what an outside platform expects of our files and calls, and it follows that platform; a provided contract is a promise to a consumer, kept while the consumer pins its release.
+            depended-on contract: A depended-on contract is what an outside platform expects of our files and calls, and it follows that platform; a provided contract is a promise to a consumer, kept while the consumer pins that version of its unit.
+            pin: A pin is the consumer's explicit choice of a version that crosses the repository boundary; a provided contract is the promise catzc keeps under that pin.
     depended-on contract:
         key: depended_on_contract
         domain: repository
@@ -89,13 +92,62 @@ concepts:
         short: A contract an outside platform expects of our files and calls, such as GitHub reading a workflow file; it follows the platform, so a platform change is a new draft.
         realized_by: { kind: prose-only }
         contrasts:
-            provided contract: A provided contract is a promise to an outside consumer, kept while the consumer pins its release; a depended-on contract records what a platform requires and follows the platform.
+            provided contract: A provided contract is a promise to an outside consumer, kept while the consumer pins that version of its unit; a depended-on contract records what a platform requires and follows the platform.
     contract asset:
         key: contract_asset
         domain: repository
         defined_by: ADR-REPO-CONTRACT#6
-        short: One file in an owning module's folder of a contracts/ release folder, whose path names the real file it constrains and whose name picks its kind — a fragment, a schema, or a sample payload.
+        short: One file in an owning module's folder of a unit's contracts/ version folder, whose path names the real file it constrains and whose name picks its kind — a fragment, a schema, or a sample payload.
         realized_by: { kind: prose-only }
         contrasts:
             contract: A contract is the binding interface at the repository boundary; a contract asset is one checked-in file that states part of it.
-            published artifact: A published artifact is a file one stage produces and a later stage consumes within a run; a contract asset is a checked-in file that states what the repository boundary requires, frozen per release.
+            published artifact: A published artifact is a file one stage produces and a later stage consumes within a run; a contract asset is a checked-in file that states what the repository boundary requires, frozen with its unit's release.
+    source of truth:
+        key: source_of_truth
+        domain: thesis
+        defined_by: ADR-THES-ONETRUTH#1
+        short: The one store whose content decides what is true about the delivered system — for catzc, the repository, changed through one change process.
+        realized_by: { kind: prose-only }
+        contrasts:
+            source: A source, always qualified, names where one thing comes from; the source of truth is the one store that decides what is true about the delivered system.
+            adjacent store: An adjacent store is a second store driven one way from the trunk's pipelines, a projection of the truth; the source of truth is the record it is driven from.
+    adjacent store:
+        key: adjacent_store
+        domain: thesis
+        defined_by: ADR-THES-ONETRUTH#2
+        short: The one legitimate second store — a repository or service, such as a GitOps repository, with its own history, driven one way from the trunk's pipelines and never edited beside it.
+        realized_by: { kind: prose-only }
+        contrasts:
+            source of truth: The source of truth is the record everything is driven from; an adjacent store is a one-way projection of it, never a second record.
+    query surface:
+        key: query_surface
+        domain: thesis
+        defined_by: ADR-THES-ONETRUTH#3
+        short: The tooling's Get-* cmdlets, each of which also emits its answer as data (JSON), through which every question about the system's state is answered.
+        realized_by: { kind: prose-only }
+    product mono-repository:
+        key: product_mono_repository
+        domain: thesis
+        defined_by: ADR-THES-ONETRUTH#4
+        short: One repository that several teams contribute to for one product, bounded into tracks and deployable-units by path filters; catzc is one.
+        realized_by: { kind: prose-only }
+        contrasts:
+            trunk: The trunk is the one mainline of a product mono-repository, where everything is at HEAD; the product mono-repository is the repository as a whole, with its tracks and deployable-units.
+    trunk:
+        key: trunk
+        domain: thesis
+        defined_by: ADR-THES-ONETRUTH#4
+        short: The one mainline of a product mono-repository, where everything is at HEAD — no internal versions, and a shared change lands in one commit with all its consumers.
+        realized_by: { kind: prose-only }
+        contrasts:
+            product mono-repository: A product mono-repository is the repository as a whole, with its tracks and deployable-units; the trunk is its one mainline.
+            pin: A pin is an explicit version at the repository boundary; inside the trunk nothing is pinned, and everything is at HEAD.
+    pin:
+        key: pin
+        domain: thesis
+        defined_by: ADR-THES-ONETRUTH#4
+        short: An explicit version, controlled by the consumer, of a dependency that crosses the repository boundary inward, stitched into an immutable artifact at build time.
+        realized_by: { kind: prose-only }
+        contrasts:
+            trunk: Inside the trunk everything is at HEAD, with no version; a pin is the one form of synchronisation, at the repository boundary.
+            provided contract: A provided contract is the promise catzc keeps to a consumer; a pin is the consumer's explicit choice of the version that promise holds for.

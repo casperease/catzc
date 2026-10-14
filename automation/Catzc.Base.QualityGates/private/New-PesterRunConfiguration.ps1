@@ -15,11 +15,11 @@
 .PARAMETER Path
     The test file(s) or folder(s) to run. A Go test folder runs through the Go bridge (ConvertTo-PesterRunTarget).
 .PARAMETER EntryScript
-    The engine entry of a build run (the build's Import-Catzc.ps1), handed to the Go bridge so the Go tests start
-    the build; empty for the source run.
-.PARAMETER GoExecutable
-    The managed go the run's source session located (Get-GoTestExecutable), handed to the Go bridge; empty when
-    there is none.
+    The engine entry of a build run (the build's Import-Catzc.ps1), handed to the language bridge so the Go and
+    Python tests start the build; empty for the source run.
+.PARAMETER LanguageExecutable
+    The managed tool per test language the run's source session located (Get-LanguageTestExecutable:
+    @{ go = <path>; python = <uv path> }), handed to the language bridge; an empty entry means there is none.
 .PARAMETER ExcludeTag
     Tags excluded from the run (from Get-TestExcludeTag). Empty means no tag filter.
 .PARAMETER IncludeTag
@@ -55,10 +55,10 @@ function New-PesterRunConfiguration {
 
         [string] $EntryScript,
 
-        [string] $GoExecutable
+        [hashtable] $LanguageExecutable = @{}
     )
 
-    $target = ConvertTo-PesterRunTarget -Path $Path -EntryScript $EntryScript -GoExecutable $GoExecutable
+    $target = ConvertTo-PesterRunTarget -Path $Path -EntryScript $EntryScript -LanguageExecutable $LanguageExecutable
     $config = New-PesterConfiguration
     if ($target.Path.Count -gt 0) {
         $config.Run.Path = $target.Path

@@ -112,14 +112,14 @@ function Invoke-TestAutomationWorkers {
     $SerialFiles = @(Convert-TestRunLocationPath -Location $Location -Path $SerialFiles)
 
     # The shard-script arguments every phase shares — including the entry-script seam (which entry script loads
-    # the modules in each worker) and the go this source session located for the Go bridge (a build's engine has
-    # no tools.yml entry to locate it from).
+    # the modules in each worker) and the tools this source session located for the language bridge (a build's
+    # engine has no tools.yml entry to locate them from).
     $shardArguments = @{
-        RunDirectory = $RunDirectory
-        ExcludeTag   = $ExcludeTag
-        IncludeTag   = $IncludeTag
-        Verbosity    = $Verbosity
-        GoExecutable = Get-GoTestExecutable
+        RunDirectory       = $RunDirectory
+        ExcludeTag         = $ExcludeTag
+        IncludeTag         = $IncludeTag
+        Verbosity          = $Verbosity
+        LanguageExecutable = Get-LanguageTestExecutable
     } + (Get-TestRunLocationEntry -Location $Location -EntryScript $EntryScript -EntryParameter $EntryParameter)
 
     # Pool size: explicit -Workers, else ProcessorCount / 4 — measured on all tests, wall clock is flat

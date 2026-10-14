@@ -39,6 +39,7 @@ automation/**/*.psd1
 /.vscode/azure-pipelines-schema.json
 /go.work
 /*/tests/*/go.mod
+/python/pyproject.toml
 /.vscode/markdown-preview-dark.css
 /.editorconfig
 /.markdownlint.yml
@@ -89,3 +90,12 @@ automation/.internal/assets/bin/
 # are per-machine output, never committed.
 /go.work.sum
 /*/tests/*/go.sum
+
+# ── Python test environment ─────────────────────────────────────────────────────────────────────────────────────────
+# The Python test project is generated (ADR-AUTO-PY): python/pyproject.toml is a managed root-config copy, ignored
+# through its rootconfig entry. The environment and lock uv makes from it in the Python test bridge, and the linter's
+# cache, are per-machine output, never committed.
+/python/.venv/
+/python/uv.lock
+/python/.ruff_cache/
+/python/**/__pycache__/

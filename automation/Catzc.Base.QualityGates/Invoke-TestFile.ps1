@@ -116,7 +116,7 @@ function Invoke-TestFile {
         }
         $shard = New-TestAutomationShardScript -ShardIndex 0 -TestPath @(Convert-TestRunLocationPath -Location $location -Path $resolved) `
             -RunDirectory $runDirectory -Verbosity $Output -FullNameFilter $FullNameFilter -ExcludeTag $excludeTag `
-            -GoExecutable (Get-GoTestExecutable) @entry
+            -LanguageExecutable (Get-LanguageTestExecutable) @entry
 
         $workerEnvironment = @{ CATZC_TEST_RUN_LOCATION_HELD = '1' }
         $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(

@@ -1,44 +1,52 @@
-# ConvertTo-PesterRunTarget over a fixture repository in $TestDrive (Get-RepositoryRoot and Get-GoTestFolders
-# mocked): Go test folders become Go bridge containers, everything else stays a Pester path. Neutral fixture names
-# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# ConvertTo-PesterRunTarget over a fixture repository in $TestDrive (Get-RepositoryRoot and Get-LanguageTestFolders
+# mocked): language test folders become language bridge containers, everything else stays a Pester path. Neutral
+# fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'
-        $script:bridge = Join-Path $script:repo 'automation/Catzc.Base.QualityGates/tests/Go.Bridge.ps1'
+        $script:bridge = Join-Path $script:repo 'automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1'
         [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($script:bridge))
         [System.IO.File]::WriteAllText($script:bridge, '# fixture bridge')
         $script:widgetGo = [System.IO.Path]::GetFullPath((Join-Path $script:repo 'go/tests/catzc-widget'))
+        $script:widgetPython = [System.IO.Path]::GetFullPath((Join-Path $script:repo 'python/tests/catzc-widget'))
         [void][System.IO.Directory]::CreateDirectory($script:widgetGo)
+        [void][System.IO.Directory]::CreateDirectory($script:widgetPython)
         function ConvertTo-Target {
-            param([string[]] $Path, [string] $EntryScript, [string] $GoExecutable)
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ Path = $Path; EntryScript = $EntryScript; GoExecutable = $GoExecutable } {
-                param($Path, $EntryScript, $GoExecutable)
-                ConvertTo-PesterRunTarget -Path $Path -EntryScript $EntryScript -GoExecutable $GoExecutable
+            param([string[]] $Path, [string] $EntryScript, [hashtable] $LanguageExecutable = @{})
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ Path = $Path; EntryScript = $EntryScript; LanguageExecutable = $LanguageExecutable } {
+                param($Path, $EntryScript, $LanguageExecutable)
+                ConvertTo-PesterRunTarget -Path $Path -EntryScript $EntryScript -LanguageExecutable $LanguageExecutable
             }
         }
     }
 
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
-        Mock Get-GoTestFolders -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ Module = 'Catzc.Widget'; Folder = $script:widgetGo; Name = 'catzc-widget' }
+        Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Language = 'go'; Module = 'Catzc.Widget'; Folder = $script:widgetGo; Name = 'catzc-widget' }
+            [pscustomobject]@{ Language = 'python'; Module = 'Catzc.Widget'; Folder = $script:widgetPython; Name = 'catzc-widget' }
         }
     }
 
-    It 'keeps test files and folders as paths, in order, and turns a Go test folder into a bridge container' {
-        $target = ConvertTo-Target -Path 'C:\x\Widget.Tests.ps1', "$script:widgetGo/", 'C:\x\gadget\tests' -EntryScript 'C:\build\Import-Catzc.ps1' -GoExecutable 'C:\widget\go\bin\go.exe'
+    It 'keeps test files and folders as paths, in order, and turns each language test folder into a bridge container' {
+        $target = ConvertTo-Target -Path 'C:\x\Widget.Tests.ps1', "$script:widgetGo/", 'C:\x\gadget\tests', $script:widgetPython `
+            -EntryScript 'C:\build\Import-Catzc.ps1' -LanguageExecutable @{ go = 'C:\widget\go\bin\go.exe'; python = 'C:\widget\uv\uv.exe' }
         $target.Path | Should -Be @('C:\x\Widget.Tests.ps1', 'C:\x\gadget\tests')
-        $target.Container | Should -HaveCount 1
+        $target.Container | Should -HaveCount 2
         $target.Container[0].Item.FullName | Should -Be ([System.IO.Path]::GetFullPath($script:bridge))
-        $target.Container[0].Data['GoTestFolder'] | Should -Be $script:widgetGo
+        $target.Container[0].Data['Language'] | Should -Be 'go'
+        $target.Container[0].Data['TestFolder'] | Should -Be $script:widgetGo
         $target.Container[0].Data['EntryScript'] | Should -Be 'C:\build\Import-Catzc.ps1'
-        $target.Container[0].Data['GoExecutable'] | Should -Be 'C:\widget\go\bin\go.exe'
+        $target.Container[0].Data['Executable'] | Should -Be 'C:\widget\go\bin\go.exe'
+        $target.Container[1].Data['Language'] | Should -Be 'python'
+        $target.Container[1].Data['TestFolder'] | Should -Be $script:widgetPython
+        $target.Container[1].Data['Executable'] | Should -Be 'C:\widget\uv\uv.exe'
     }
 
-    It 'hands the bridge an empty entry script in the source run, and an empty go when there is none' {
+    It 'hands the bridge an empty entry script in the source run, and an empty tool when there is none' {
         $target = ConvertTo-Target -Path $script:widgetGo
         $target.Path | Should -HaveCount 0
         $target.Container[0].Data['EntryScript'] | Should -Be ''
-        $target.Container[0].Data['GoExecutable'] | Should -Be ''
+        $target.Container[0].Data['Executable'] | Should -Be ''
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="2" skipped="1" tests="6" time="1.250">
+    <testcase classname="test_widget" name="test_widget_spins" time="0.100" />
+    <testcase classname="test_widget" name="test_widget_sizes[1]" time="0.200" />
+    <testcase classname="test_widget" name="test_widget_sizes[2]" time="0.300">
+      <failure message="AssertionError: size 2 jammed">def test_widget_sizes(size):
+&gt;       assert size == 1
+E       AssertionError: size 2 jammed</failure>
+      <system-out>widget measured 2</system-out>
+    </testcase>
+    <testcase classname="test_widget" name="test_widget_naps" time="0.000">
+      <skipped type="pytest.skip" message="asleep">test_widget.py:20: asleep</skipped>
+    </testcase>
+    <testcase classname="nested.test_gadget" name="test_integrity_gadget_ships" time="0.400" />
+    <testcase classname="test_widget" name="test_widget_breaks" time="0.250">
+      <error message="failed on setup with fixture missing">fixture 'gizmo' not found</error>
+    </testcase>
+  </testsuite>
+</testsuites>

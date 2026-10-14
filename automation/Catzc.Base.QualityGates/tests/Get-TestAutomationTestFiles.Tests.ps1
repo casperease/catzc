@@ -12,20 +12,24 @@ Describe 'Get-TestAutomationTestFiles' -Tag 'L0', 'logic' {
         $script:widgetGo = Join-Path $TestDrive 'go/tests/catzc-widget'
         [System.IO.Directory]::CreateDirectory($script:widgetGo) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:widgetGo 'widget_test.go'), 'package widget')
+        $script:widgetPython = Join-Path $TestDrive 'python/tests/catzc-widget'
+        [System.IO.Directory]::CreateDirectory($script:widgetPython) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetPython 'test_widget.py'), 'def test_widget(): pass')
     }
 
     BeforeEach {
-        Mock Get-GoTestFolders -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ Module = 'Catzc.Widget'; Folder = $script:widgetGo; Name = 'catzc-widget' }
+        Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Language = 'go'; Module = 'Catzc.Widget'; Folder = $script:widgetGo; Name = 'catzc-widget' }
+            [pscustomobject]@{ Language = 'python'; Module = 'Catzc.Widget'; Folder = $script:widgetPython; Name = 'catzc-widget' }
         }
     }
 
-    It 'lists a Go test folder as one run file, in its place' {
-        $files = InModuleScope Catzc.Base.QualityGates -Parameters @{ P = @($script:widgetGo, $script:gadget) } {
+    It 'lists each language test folder as one run file, in its place' {
+        $files = InModuleScope Catzc.Base.QualityGates -Parameters @{ P = @($script:widgetGo, $script:widgetPython, $script:gadget) } {
             param($P)
             Get-TestAutomationTestFiles -TestPath $P
         }
-        $files | Should -Be @($script:widgetGo, (Join-Path $script:gadget 'Get-Gadget.Tests.ps1'))
+        $files | Should -Be @($script:widgetGo, $script:widgetPython, (Join-Path $script:gadget 'Get-Gadget.Tests.ps1'))
     }
 
     It 'keeps the folders'' order, sorts each folder ordinally, recurses, and skips non-test files' {

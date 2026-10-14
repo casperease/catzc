@@ -21,6 +21,12 @@
 .PARAMETER ManagedTarget
     The managed root-config target paths to complete `search.exclude` with (repo-root-relative). Supplied by
     the generator dispatch; empty renders the authored settings alone.
+.PARAMETER MachineSetting
+    Settings resolved on this machine at render time, added after the authored ones (an authored key wins).
+    Supplied by the generator dispatch: `go.goroot`, the managed Go toolchain, so the Go extension and gopls run the
+    pinned go rather than whichever go comes first on PATH; and `python.defaultInterpreterPath`, the Python test
+    project's environment in this platform's layout. settings.json is a gitignored, per-machine copy, so a machine
+    path is in place there.
 .OUTPUTS
     [string] The rendered settings.json content (LF-joined; the writer canonicalises).
 .EXAMPLE
@@ -31,7 +37,9 @@ function New-VSCodeSettings {
     [OutputType([string])]
     param(
         [AllowEmptyCollection()]
-        [string[]] $ManagedTarget = @()
+        [string[]] $ManagedTarget = @(),
+
+        [hashtable] $MachineSetting = @{}
     )
 
     $config = Get-Config -Config vscode-settings
@@ -40,6 +48,13 @@ function New-VSCodeSettings {
     $settings = [ordered]@{}
     foreach ($key in $config.settings.Keys) {
         $settings[$key] = $config.settings[$key]
+    }
+    # Machine-resolved settings complete the authored ones, which win on a shared key; sorted, so the render is
+    # stable.
+    foreach ($key in ($MachineSetting.Keys | Sort-Object)) {
+        if (-not $settings.Contains($key)) {
+            $settings[$key] = $MachineSetting[$key]
+        }
     }
 
     # Complete search.exclude with the managed targets — authored keys win, injected keys append in order.

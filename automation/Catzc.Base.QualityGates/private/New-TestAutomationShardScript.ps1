@@ -42,9 +42,11 @@
     Named arguments for -EntryScript, rendered into the dot-source line as `-Name 'value'` (a $true value
     renders as a bare switch). Ignored without -EntryScript. The build run passes
     @{ RepositoryRoot = <repo> } so out/ and repo-relative paths keep resolving in the repository.
-.PARAMETER GoExecutable
-    The managed go the run's source session located (Get-GoTestExecutable), handed through the configuration to
-    the Go bridge; empty when there is none. The worker never locates go: a build's engine has no tools.yml entry.
+.PARAMETER LanguageExecutable
+    The managed tool per test language the run's source session located (Get-LanguageTestExecutable:
+    @{ go = <path>; python = <uv path> }), rendered into the worker as a hashtable literal and handed through the
+    configuration to the language bridge; an empty entry means there is none. The worker never locates a tool: a
+    build's engine has no tools.yml entry.
 .OUTPUTS
     [pscustomobject] with ShardIndex, Label, ScriptPath, ResultsPath, RowsPath.
 #>
@@ -77,7 +79,7 @@ function New-TestAutomationShardScript {
 
         [hashtable] $EntryParameter = @{},
 
-        [string] $GoExecutable
+        [hashtable] $LanguageExecutable = @{}
     )
 
     Assert-PathExist $RunDirectory -PathType Container
@@ -112,10 +114,15 @@ function New-TestAutomationShardScript {
     $includeTagLiteral = ($IncludeTag | ForEach-Object { "'$_'" }) -join ', '
     # Single-quote literal: double any embedded quote (a FullNameFilter is prose — titles carry apostrophes).
     $filterLiteral = "$FullNameFilter" -replace "'", "''"
-    # The build run's entry also reaches the Go bridge, so the Go tests start the build (New-PesterRunConfiguration).
+    # The build run's entry also reaches the language bridge, so the Go and Python tests start the build
+    # (New-PesterRunConfiguration).
     $entryLiteral = "$EntryScript" -replace "'", "''"
-    # The go this source session located reaches the Go bridge the same way: a build's engine cannot locate it.
-    $goLiteral = "$GoExecutable" -replace "'", "''"
+    # The tools this source session located reach the language bridge the same way, as a hashtable literal in
+    # language order: a build's engine cannot locate them.
+    $languageEntries = foreach ($language in ($LanguageExecutable.Keys | Sort-Object)) {
+        "'$language' = '$("$($LanguageExecutable[$language])" -replace "'", "''")'"
+    }
+    $languageLiteral = '@{ ' + ($languageEntries -join '; ') + ' }'
 
     # The Pester configuration itself comes from the ONE shared builder (New-PesterRunConfiguration) so this
     # worker path and the manual single-check path (Invoke-TestFile) can never drift apart — the worker has
@@ -131,9 +138,9 @@ Set-StrictMode -Version Latest
 Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/Pester') -Force
 `$global:__PesterRunning = `$true
 `$config = & (Get-Module Catzc.Base.QualityGates) {
-    param(`$path, `$excludeTag, `$includeTag, `$verbosity, `$resultsPath, `$fullNameFilter, `$entryScript, `$goExecutable)
-    New-PesterRunConfiguration -Path `$path -ExcludeTag `$excludeTag -IncludeTag `$includeTag -Verbosity `$verbosity -ResultsPath `$resultsPath -FullNameFilter `$fullNameFilter -EntryScript `$entryScript -GoExecutable `$goExecutable
-} @($pathLiteral) @($tagLiteral) @($includeTagLiteral) '$Verbosity' '$resultsPath' '$filterLiteral' '$entryLiteral' '$goLiteral'
+    param(`$path, `$excludeTag, `$includeTag, `$verbosity, `$resultsPath, `$fullNameFilter, `$entryScript, `$languageExecutable)
+    New-PesterRunConfiguration -Path `$path -ExcludeTag `$excludeTag -IncludeTag `$includeTag -Verbosity `$verbosity -ResultsPath `$resultsPath -FullNameFilter `$fullNameFilter -EntryScript `$entryScript -LanguageExecutable `$languageExecutable
+} @($pathLiteral) @($tagLiteral) @($includeTagLiteral) '$Verbosity' '$resultsPath' '$filterLiteral' '$entryLiteral' $languageLiteral
 `$result = Invoke-Pester -Configuration `$config
 `$rows = & (Get-Module Catzc.Base.QualityGates) { param(`$runResult) ConvertTo-TestAutomationRowSet -Result `$runResult } `$result
 Set-Content -Path '$rowsPath' -Value (ConvertTo-Json -InputObject @(`$rows) -Depth 4) -Encoding utf8

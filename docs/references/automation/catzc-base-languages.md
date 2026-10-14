@@ -2,18 +2,21 @@
 
 `Catzc.Base.Languages`
 
-Owns the test languages beside PowerShell: today Go, whose code in this repository is test artifacts only. It declares the Go test workspace
-once (`go.yml`), renders the generated `go.work` and `go.mod` files from it, and runs a catzc module's Go tests, returning one result per Go
-test. It does not install the `go` tool (that is [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md)'s), write the rendered files (that is
+Owns the test languages beside PowerShell: Go and Python, whose code in this repository is test artifacts only. For each it declares the
+generated project once (`go.yml`, `python.yml`), renders the generated files from it (`go.work` and `go.mod`; `python/pyproject.toml`), and
+runs a catzc module's tests, returning one result per test. It does not install the tools (that is
+[Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md)'s and the uv tooling's), write the rendered files (that is
 [Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s, per [ADR-REPO-ROOTCFG](../../adr/repository/generated-root-configs.md)), or turn the
-results into Pester tests (that is the test harness's, in [Catzc.Base.QualityGates](catzc-base-qualitygates.md)).
+results into Pester tests (that is the test harness's language bridge, in [Catzc.Base.QualityGates](catzc-base-qualitygates.md)).
 
 ## Responsibilities
 
-| Responsibility   | Area   | Name                                                     |
-| ---------------- | ------ | -------------------------------------------------------- |
-| responsibility:1 | run    | [Go test runs](#responsibility1--go-test-runs)           |
-| responsibility:2 | render | [Go test workspace](#responsibility2--go-test-workspace) |
+| Responsibility   | Area   | Name                                                         |
+| ---------------- | ------ | ------------------------------------------------------------ |
+| responsibility:1 | run    | [Go test runs](#responsibility1--go-test-runs)               |
+| responsibility:2 | render | [Go test workspace](#responsibility2--go-test-workspace)     |
+| responsibility:3 | run    | [Python test runs](#responsibility3--python-test-runs)       |
+| responsibility:4 | render | [Python test project](#responsibility4--python-test-project) |
 
 ### responsibility:1 — Go test runs
 
@@ -48,6 +51,31 @@ Rendering is pure text — offline, with no go call — and byte-stable, so the 
 Nothing Go-specific is committed but the `*_test.go` files: `go.work`, the `go.mod` files, and the `go.sum` files a run records are all
 generated and gitignored.
 
+### responsibility:3 — Python test runs
+
+Running one catzc module's Python tests and reporting each one ([ADR-AUTO-PY](../../adr/automation/python/python-test-artifacts.md)). The
+tests live in `python/tests/<module-in-kebab>/`, and every test folder runs in the one generated test project under `python/`. A run uses
+the managed `uv`, located by its path from the tool's `tools.yml` entry, and the uv-managed interpreter at the `python` pin; uv never
+downloads an interpreter during a run, so a missing one stops the run with the remedy `Install-Python`, and a missing `uv` names
+`Install-Uv`. A run syncs the project's environment, lints the test folder with `ruff check`, and runs `pytest` with the folder as its
+rootdir and a JUnit report, each command inside its time safeguard and under the same engine contract as the Go tests (`CATZC_ENGINE_ENTRY`,
+`CATZC_REPOSITORY_ROOT`).
+
+The report becomes one result per top-level test function, with the same shape as a Go result — package, name, outcome, duration, output,
+and category — so the harness treats both alike. Parametrised cases fold into their function. A `test_integrity*` test is `integrity`, every
+other test is `logic`. A failing test is a result; a run throws, with the tool output, when the sync or the lint fails, or when pytest fails
+without a failing test (a collection error, or no tests).
+
+### responsibility:4 — Python test project
+
+The one declared definition of the Python test project and its rendering. `python.yml` pins the test dependencies exactly — `pytest` and
+`ruff` are required — and the type that validates it also names the Python root, `python`, hardcoded once because Python has no competing
+layout idiom ([ADR-REPO-FOLDERS](../../adr/repository/conventional-folders.md)). The renderer composes `python/pyproject.toml`: a virtual
+project (it builds no package) whose `requires-python` is the `python` pin in `tools.yml`, the one Python version, with the dependencies in
+name order and the ruff settings that match the repository (a 140-column line, the pinned Python as target). Rendering is pure text, offline
+and byte-stable. Every test folder shares the project, so there is one environment and one lock; both, and the project file, are generated
+and gitignored.
+
 ## What the module does
 
 The workspace makes the Go test folders buildable and the run uses them: the renderer gives every folder its `go.mod` and joins them in one
@@ -59,15 +87,20 @@ access), [Catzc.Base.Objects](catzc-base-objects.md) for the config type's recor
 for the repository root, and [Catzc.Base.Execution](catzc-base-execution.md) for locating the managed `go` and running the go commands,
 whose time limit is the `go` entry of [Catzc.Base.Timeouts](catzc-base-timeouts.md)' `timeouts.yml`. The root-config registry names the
 renderer as the generator of the `go.work` and `go.mod` targets — one record per file, written by
-[Catzc.Base.RootConfig](catzc-base-rootconfig.md) — and the harness's Go bridge calls the run once per mapped module, tagging every result
-`L2` with its category.
+[Catzc.Base.RootConfig](catzc-base-rootconfig.md) — and the harness's language bridge calls the run once per mapped module, tagging every
+result `L2` with its category. Python follows the same shape with one difference: one project for every test folder rather than one per
+folder, because every Python test folder shares the same dependencies; the renderer is the generator of `python/pyproject.toml`, and the
+same bridge calls the Python run.
 
 ## Division
 
 The module's public functions and configuration file, sorted into the responsibilities above.
 
-| Responsibility                       | Function          |
-| ------------------------------------ | ----------------- |
-| responsibility:1 — Go test runs      | `Invoke-GoTest`   |
-| responsibility:2 — Go test workspace | `New-GoWorkspace` |
-| config                               | `go.yml`          |
+| Responsibility                         | Function            |
+| -------------------------------------- | ------------------- |
+| responsibility:1 — Go test runs        | `Invoke-GoTest`     |
+| responsibility:2 — Go test workspace   | `New-GoWorkspace`   |
+| config                                 | `go.yml`            |
+| responsibility:3 — Python test runs    | `Invoke-PythonTest` |
+| responsibility:4 — Python test project | `New-PythonProject` |
+| config                                 | `python.yml`        |

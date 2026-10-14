@@ -28,11 +28,12 @@ How the repository runs and validates all its tests. This responsibility discove
 tier level (L0–L3) and optional category filter (`logic`/`integrity`), and writes a timestamped report — as a source run, as a build run
 against a fresh build of the selected modules, one test file at a time, or for a module profile copied into an isolated sandbox. Before any
 test executes, a discovery-only pass inspects the full test tree and throws if any test is missing or ambiguous on either of the two
-mandatory tag axes — exactly one tier (`L0|L1|L2|L3`) and exactly one category (`logic|integrity`). A module's Go tests, in the Go test
-module named for it under the Go root, count as that module's tests: one shared Pester bridge runs them and turns every Go test into one
-Pester test. The tag model, the two-axis tagging contract, the two run modes, and the tier definitions are the subject of
-[test-automation](../../adr/automation/test-automation.md); the Go tests are the subject of
-[test-artifacts](../../adr/automation/go/test-artifacts.md).
+mandatory tag axes — exactly one tier (`L0|L1|L2|L3`) and exactly one category (`logic|integrity`). A module's Go and Python tests, in the
+Go test module and the Python test folder named for it, count as that module's tests: one shared Pester bridge, the language bridge, runs
+them and turns every test into one Pester test. The tag model, the two-axis tagging contract, the two run modes, and the tier definitions
+are the subject of [test-automation](../../adr/automation/test-automation.md); the Go and Python tests are the subject of
+[test-artifacts](../../adr/automation/go/test-artifacts.md) and
+[python-test-artifacts](../../adr/automation/python/python-test-artifacts.md).
 
 ### responsibility:2 — Repository quality gates
 
@@ -50,8 +51,9 @@ identity is also a live one. An integrity test runs each gate at its tier, so ev
 How the repository checks and enforces the style of its written and source content. This responsibility runs the spell-checker (and collects
 its flagged tokens into a triage queue), the Markdown linter, the Markdown formatter (which aligns tables and wraps prose in place), the
 Markdown title and heading formatter and quality gate, the ADO pipeline YAML formatter (`Format-Pipelines`, the same Prettier engine as
-`Format-Markdown` — they share one private `Invoke-Prettier`), the PowerShell auto-formatter, the C# type-namespace formatter, and the link
-aligner and quality gate, which keep code links repository-rooted and markdown links relative and resolving
+`Format-Markdown` — they share one private `Invoke-Prettier`), the PowerShell auto-formatter, the C# type-namespace formatter, the Go
+formatter (`Format-Go`, the managed toolchain's `gofmt`), the Python formatter (`Format-Python`, the pinned `ruff`), and the link aligner
+and quality gate, which keep code links repository-rooted and markdown links relative and resolving
 ([markdown-links](../../adr/repository/markdown-links.md)). The responsibility owns the invocation of each tool, not the tool itself or its
 per-tool configuration.
 
@@ -84,12 +86,14 @@ discovery-only pass — driven by private helpers that perform nearest-contribut
 tier. The L0–L3 tier filter and the `logic`/`integrity` category filter are orthogonal run parameters, and the enforcement pass always
 covers the full tree regardless of which subset is requested.
 
-The runner reaches past PowerShell for the Go tests. Discovery maps each Go test module to the catzc module it is named for (in kebab case),
-so module selection, test suites, ordering, and protection treat it like that module's `tests/` folder, and a Go test module that names no
-catzc module stops the run. The bridge reads the Go tests from their source, so discovery needs no `go`, and runs them once per module
-through [Catzc.Base.Languages](catzc-base-languages.md): every Go test becomes one `L2` Pester test with the category its name gives, and
-passes, fails with the Go output, or skips as Go did. Without the managed `go` at its pinned version, every Go test skips with
-`tool_go_missing`. In a build run the bridge hands the build's entry script on, so the Go tests start the built engine.
+The runner reaches past PowerShell for the Go and Python tests, through one language bridge. Discovery maps each Go test module and Python
+test folder to the catzc module it is named for (in kebab case), so module selection, test suites, ordering, and protection treat it like
+that module's `tests/` folder, and a test folder that names no catzc module stops the run. The bridge reads the tests from their source, so
+discovery needs no tool, and runs them once per module through [Catzc.Base.Languages](catzc-base-languages.md): every test becomes one `L2`
+Pester test with the category its name gives, and passes, fails with the tool output, or skips as the test did. The run's source session
+locates the tools once — the managed `go`, and `uv` with the pinned interpreter — and hands them to the bridge; without one, that language's
+tests skip with `tool_go_missing` or `tool_uv_missing`. In a build run the bridge hands the build's entry script on, so the tests start the
+built engine.
 
 Responsibility 3 is a set of thin wrappers, one per external tool, deliberately kept separate so each can be run in isolation;
 `Test-Formatting` (responsibility 2) runs every formatter in its report-only mode as one gate. A `Format-*` function is both a check and a
@@ -129,6 +133,8 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Format-Pipelines`            |
 |                                                 | `Format-Automation`           |
 |                                                 | `Format-Types`                |
+|                                                 | `Format-Go`                   |
+|                                                 | `Format-Python`               |
 |                                                 | `Format-Links`                |
 |                                                 | `Test-Links`                  |
 | config                                          | `links.yml`                   |

@@ -1,0 +1,15 @@
+# The Python test project — the one declared source that New-PythonProject renders python/pyproject.toml from. Python
+# code in this repository is test artifacts only: black-box tests under python/tests/<module-in-kebab>/, and nothing
+# Python-specific is committed but the test_*.py files. The project is generated and virtual (it builds no package);
+# its environment (python/.venv) and lock (python/uv.lock) are made by uv in the test bridge and gitignored.
+#
+# Loaded via Get-Config -Config python; the shape is validated by Catzc.Base.Languages.PythonConfig.
+#
+# The Python version is not declared here: it is the python tool's pin in tools.yml (global.tools.python.version), the
+# one Python version, rendered as the project's requires-python.
+
+# The test project's dependencies: distribution name -> exact version. pytest runs the tests and ruff formats and lints
+# them; both are required. The lock is not committed, so exact pins keep every machine on the same versions.
+dependencies:
+  pytest: "9.1.1"
+  ruff: "0.17.0"

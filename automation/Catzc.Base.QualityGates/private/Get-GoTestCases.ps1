@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the Go tests a Go test folder declares, read from its *_test.go files without running go.
 .DESCRIPTION
-    The Go bridge's discovery: Pester discovers the bridge's tests before anything runs, so the Go tests are read
+    The language bridge's discovery for Go: Pester discovers the bridge's tests before anything runs, so the Go tests are read
     from the source text, never from the go tool — discovery stays fast and offline, and works where go is missing
     (the tests then skip). Every *_test.go file below the folder counts, except under the folders go itself
     ignores (a name starting with '.' or '_', and testdata). A Go test is a top-level `func Test<Name>(t
@@ -12,13 +12,13 @@
     the subfolder for a nested package — so it pairs with the GoTestResult Invoke-GoTest returns, and the category
     by the GoTestResult rule: TestIntegrity* is integrity, everything else logic.
 .PARAMETER Folder
-    The absolute path of the Go test folder (a Get-GoTestFolders Folder).
+    The absolute path of the Go test folder (a Get-LanguageTestFolders Folder of language go).
 .OUTPUTS
     [pscustomobject] One case per Go test ({ Key; Package; Name; Category; Title }), files in ordinal order and
     each file's tests in declaration order. Key is '<Package> <Name>'; Title is the name, prefixed with the
     subfolder for a nested package.
 .EXAMPLE
-    Get-GoTestCases -Folder (Get-GoTestFolders)[0].Folder
+    Get-GoTestCases -Folder (Get-LanguageTestFolders | Where-Object Language -EQ go)[0].Folder
 #>
 function Get-GoTestCases {
     [CmdletBinding()]

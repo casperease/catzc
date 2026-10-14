@@ -34,7 +34,7 @@ concepts:
         realized_by: { kind: type, pattern: 'Catzc.Base.Objects.ArtifactRef' }
         contrasts:
             release candidate: A release candidate is the tagged build that gets promoted; a published artifact is any file handed across a stage boundary.
-            contract asset: A contract asset is a checked-in file that states what the repository boundary requires, frozen per release; a published artifact is a file one stage produces and a later stage consumes within a run.
+            contract asset: A contract asset is a checked-in file that states what the repository boundary requires, frozen with its unit's release; a published artifact is a file one stage produces and a later stage consumes within a run.
     occupant:
         key: occupant
         domain: design
