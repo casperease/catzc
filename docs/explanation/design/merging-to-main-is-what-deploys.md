@@ -35,8 +35,9 @@ The diagram is described element by element in
    to an environment.
 4. **Deploy topic.** Deploying a topic commit to an environment has no pipeline or workflow to run.
 5. **Complete PR.** Completing the pull request lands the commit on main, and the push trigger on main starts the CD run.
-6. **ADO CD run.** On main, the deploy stages run in order, foundation, discovery, then expedition, and expedition deploys to the slotted
-   environment `<Customer>-<env>-<slot>`.
+6. **ADO CD run.** On main, the deploy stages run in order, foundation, discovery, then expedition. Each job deploys to an Azure DevOps
+   environment named `<Customer>-<env>[-<slot>]`: an expedition entry with a slot adds `-<slot>`, and one without deploys the env's base
+   slot.
 
 ## Why it holds
 

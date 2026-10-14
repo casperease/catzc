@@ -27,7 +27,7 @@ row. Six markers number the reading order.
 3. Marker 3: the runner Release: Run workflow.
 4. Down the dashed leg and right to marker 4: the dashed white pill, deploy topic.
 5. Back to the top row, along the flow edge to marker 5, MAIN band: the grey commit, complete PR.
-6. Right to marker 6, AFTER LANDING band, under the CD span bar: the runner ADO CD run, then the environment `<Customer>-<env>-<slot>`.
+6. Right to marker 6, AFTER LANDING band, under the CD span bar: the runner ADO CD run, then the environment `<Customer>-<env>[-<slot>]`.
 
 ## Glyphs
 

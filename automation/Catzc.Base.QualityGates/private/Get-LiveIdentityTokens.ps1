@@ -5,9 +5,13 @@
 .DESCRIPTION
     The authoritative source of "what is a live identity" is the shipped config itself, not a hand-kept list:
     reading it here means the forbidden set is always current (add a customer to customer.yml and it is
-    automatically banned from logic tests). Every value is read through Get-Config (the one global reader,
+    automatically banned from logic tests). Which values are identities is declared by the module that owns
+    them, in its configs/identity-tokens.yml (IdentityTokensConfig): this function lists those owners and walks
+    each declared path, so it never names another module's config and a bundle without those modules simply
+    yields no tokens from them. A declaration may name only a config its own module owns. Every value is read
+    through Get-Config (the one global reader,
     [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md)), so a test isolates this function by mocking
-    Get-Config / Resolve-ConfigEntry to fixtures.
+    Get-Config to fixtures.
 
     This is STAGE 1 — the DISTINCTIVE identities only (customers, subscriptions, org, deployable units,
     template names, ADO project). Environment names (dev/test/preprod/prod) are deliberately excluded: they
