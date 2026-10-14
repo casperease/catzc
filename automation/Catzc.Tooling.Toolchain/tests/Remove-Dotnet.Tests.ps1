@@ -47,15 +47,30 @@ Describe 'Remove-Dotnet' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#3' {
             Set-ItResult -Skipped -Because 'windows_only_removal'; return
         }
         Mock Get-RegisteredInstallProduct {
-            [pscustomobject]@{ DisplayName = 'Microsoft .NET SDK 6.0.428 (x64)'; DisplayVersion = '6.4.2824.52403'; ProductCode = '{00000000-widget}' }
+            [pscustomobject]@{ DisplayName = 'Microsoft .NET Widget 6.0 (x64)'; DisplayVersion = '6.0'; ProductCode = '{widget}'; Kind = 'Msi'; UninstallCommand = 'msiexec /x {widget} /qn /norestart' }
+            [pscustomobject]@{ DisplayName = 'Microsoft .NET Gadget 6.0 (x64)'; DisplayVersion = '6.0'; ProductCode = '{gadget}'; Kind = 'Other'; UninstallCommand = '"C:\gadget\setup.exe" /uninstall /quiet' }
         } -ModuleName Catzc.Tooling.Toolchain
-        $machine = 'C:\Program Files\dotnet'
-        if (-not [System.IO.Directory]::Exists($machine)) {
-            Set-ItResult -Skipped -Because 'no_machine_dotnet_folder'; return
-        }
-        Remove-Dotnet -InstallDir $machine -Force
+        # Registered products are reported whether or not the folder is still there.
+        Remove-Dotnet -InstallDir 'C:\Program Files\dotnet' -Force
         Should -Invoke Remove-SystemInstallation -ModuleName Catzc.Tooling.Toolchain -Times 0
-        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $Message -like '*winget uninstall --product-code*{00000000-widget}*' }
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '  msiexec /x {widget} /qn /norestart*`[Msi`]' }
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '  "C:\gadget\setup.exe" /uninstall /quiet*`[Other`]' }
+    }
+
+    It 'names only the installer bundles while any is registered — they take the MSI products they hold with them' -Tag 'ADR-AUTO-REMOVE#7' {
+        if (-not $IsWindows) {
+            Set-ItResult -Skipped -Because 'windows_only_removal'; return
+        }
+        # A bundle and the MSI it installed share a display name; only the bundle is named.
+        Mock Get-RegisteredInstallProduct {
+            [pscustomobject]@{ DisplayName = 'Microsoft Windows Desktop Runtime - 6.0 (x64)'; DisplayVersion = '6.0'; ProductCode = '{widget-bundle}'; Kind = 'Bundle'; UninstallCommand = '"C:\cache\widget-runtime.exe" /uninstall /quiet' }
+            [pscustomobject]@{ DisplayName = 'Microsoft Windows Desktop Runtime - 6.0 (x64)'; DisplayVersion = '6.0'; ProductCode = '{widget-msi}'; Kind = 'Msi'; UninstallCommand = 'msiexec /x {widget-msi} /qn /norestart' }
+        } -ModuleName Catzc.Tooling.Toolchain
+        Remove-Dotnet -InstallDir 'C:\Program Files\dotnet'
+        Should -Invoke Remove-SystemInstallation -ModuleName Catzc.Tooling.Toolchain -Times 0
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '  "C:\cache\widget-runtime.exe" /uninstall /quiet*`[Bundle`]' }
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 0 -ParameterFilter { $Message -like '*msiexec*' }
+        Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '*installer bundles*' }
     }
 
     It 'does not look for registered products outside the machine-wide folders' {

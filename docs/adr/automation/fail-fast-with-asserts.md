@@ -49,6 +49,16 @@ reliable than a comment because it executes.
 
 - [Why every fifth line](#why-every-fifth-line)
 
+### Rule ADR-AUTO-FAILFAST:7
+
+Bound every wait. Every external call and every unbounded piece of work runs inside a time safeguard, so a hang fails fast with a message
+naming the limit instead of waiting forever. The limits live in one config (`timeouts.yml`, owned by `Catzc.Base.Timeouts`): a deliberately
+tight `default_seconds` plus per-executable entries, with no "no limit" value. `Invoke-Executable` kills a child process tree at its
+executable's limit; `Invoke-WithTimeout` / `Assert-CompletesWithin` stop a script block at its limit. The same default caps every shell call
+an agent makes — a foreground Bash call passes a timeout within it or runs in the background, and a hook denies one that does neither.
+
+- [A hang is the slowest failure](#a-hang-is-the-slowest-failure)
+
 ## Context
 
 PowerShell automation code is fundamentally about side effects — creating resources, calling APIs, installing tools, writing files. This
@@ -124,14 +134,27 @@ that goes 20 lines without an assertion is almost certainly making unchecked ass
 - **State transitions.** After modifying state (environment variables, files, registry), assert the state is what you set it to. External
   processes, group policies, or concurrent scripts can interfere.
 
+### A hang is the slowest failure
+
+An assertion fails fast only if the code reaches it. A process waiting on a prompt no one can answer, a network call that never returns, or
+a loop that never ends produces no error at all — it holds a terminal, a pipeline agent or an AI agent until a person notices, often minutes
+later, with nothing to say where it stopped. A time limit turns that silence into an ordinary failure: the work is stopped at a known point
+and the error names the limit and where to change it.
+
+The limits are tuned, not guessed per call site. They sit in one config with a deliberately tight default, so a call that legitimately needs
+longer shows up as a blocker to tune — a per-executable entry, or a move to the background — rather than a limit raised quietly in code.
+There is no "no limit" value, because an unbounded wait is exactly the failure the limit exists to remove.
+
 ## Decision
 
 Use inline assertions pervasively throughout all automation code. Every assumption about inputs, state, and external results must be
-asserted at the point where the assumption is made.
+asserted at the point where the assumption is made, and every wait is bounded by a configured time limit.
 
 ## Consequences
 
 - Errors surface immediately at the point of failure with a clear message naming the exact assumption that was violated.
+- A hang becomes a failure at a known limit instead of an indefinite wait; a limit too tight for real work surfaces as a blocker to tune in
+  `timeouts.yml`.
 - Stack traces are short — typically one or two frames — because the assertion fires before the bad value propagates.
 - Debugging is rarely needed. The error message from the assertion usually contains everything needed to diagnose the problem.
 - Code is self-documenting: reading the assertions tells you the function's preconditions, postconditions, and invariants.

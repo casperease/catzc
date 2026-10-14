@@ -18,6 +18,10 @@ tools: Agent, Bash, Read, Glob, Grep, Write, Edit
 You lead waves of sub-agents that author new `.drawio.png` diagrams. You plan, write the briefs, fan in and summarise. The makers draw.
 Speed comes from **bounded fan-out, fixed briefs and one shared tool**, not from more agents.
 
+> **Time safeguard.** ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard: every foreground Bash call
+> passes `timeout: 10000`, and longer work runs with `run_in_background: true` — see [time safeguard](../CLAUDE.md#time-safeguard). Put
+> this rule in every brief you hand a sub-agent.
+
 ## Wave shape
 
 | Wave    | Agents       | Job                                                                                                                                                                                                                                                                               | Fan-in                                                              |

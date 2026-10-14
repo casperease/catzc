@@ -10,8 +10,10 @@
 
     Windows: the target folder defaults to the `dotnet` on PATH, or, when that is the managed install, the machine-wide
     C:\Program Files\dotnet. A folder that Windows-registered products own (the .NET SDK / runtime installers, listed in
-    Apps & features) is not deleted by hand — that would orphan every entry — so each product is listed with the winget
-    command that removes it by its own mechanism, and nothing is touched. Only an unregistered folder is deleted, with
+    Apps & features) is not deleted by hand — that would orphan every entry — so the products are listed with the
+    command that removes each by its own installer, and nothing is touched. Installer bundles come first and alone: a
+    bundle holds the MSI products it installed, which go only with it, so the next run names whatever is left. Only an
+    unregistered folder is deleted, with
     its machine PATH entry and DOTNET_ROOT (needs Administrator,
     [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)).
 
@@ -70,14 +72,10 @@ function Remove-Dotnet {
         throw "'$resolvedDir' is the managed .NET install. Use Uninstall-Dotnet instead."
     }
 
-    if (-not [System.IO.Directory]::Exists($resolvedDir)) {
-        Write-Message "Directory not found: $resolvedDir — nothing to remove"
-        return
-    }
-
     # A folder registered products own is removed by their mechanism, never by deleting it
-    # ([ADR-AUTO-REMOVE#7](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove7)).
-    # The .NET installers place their products in the machine-wide folders; a stray copy elsewhere is nobody's.
+    # ([ADR-AUTO-REMOVE#7](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove7)) — checked before
+    # the folder itself, so registrations whose files are already gone are still reported. The .NET installers
+    # place their products in the machine-wide folders; a stray copy elsewhere is nobody's.
     $machineFolders = @('C:\Program Files\dotnet', 'C:\Program Files (x86)\dotnet')
     # Assigned in the branch: an `if` expression would turn an empty @() into $null.
     [object[]] $products = @()
@@ -85,11 +83,25 @@ function Remove-Dotnet {
         $products = @(Get-RegisteredInstallProduct '^Microsoft (ASP\.NET Core|\.NET|Windows Desktop Runtime)\b|^Microsoft\.NET\.')
     }
     if ($products.Count -gt 0) {
-        Write-Message "'$resolvedDir' is owned by $($products.Count) Windows-registered .NET product(s); deleting it by hand would orphan them. Remove them by their own installer:" -ForegroundColor Yellow
-        foreach ($product in $products) {
-            Write-Message "  winget uninstall --product-code `"$($product.ProductCode)`"   # $($product.DisplayName) $($product.DisplayVersion)"
+        # A bundle holds the MSI products it installed as their dependent: uninstalling one of those directly reports
+        # success and removes nothing. So while any bundle is registered, only the bundles are named — each takes
+        # its products with it — and the next run names whatever is left.
+        [object[]] $bundles = @($products | Where-Object Kind -EQ 'Bundle')
+        $toRemove = $bundles.Count -gt 0 ? $bundles : $products
+        Write-Message ("'$resolvedDir' is owned by $($products.Count) Windows-registered .NET product(s); deleting it by hand would " +
+            'orphan them. Remove them by their own installer, from an elevated shell:') -ForegroundColor Yellow
+        if ($bundles.Count -gt 0) {
+            Write-Message "  $($bundles.Count) of them are installer bundles, which remove the products they installed:"
         }
-        Write-Message 'Then re-run Remove-Dotnet to clean up anything they leave behind.'
+        foreach ($product in $toRemove) {
+            Write-Message "  $($product.UninstallCommand)   # $($product.DisplayName) $($product.DisplayVersion) [$($product.Kind)]"
+        }
+        Write-Message 'Then re-run Remove-Dotnet: it names any product still registered, then removes what is left.'
+        return
+    }
+
+    if (-not [System.IO.Directory]::Exists($resolvedDir)) {
+        Write-Message "Directory not found: $resolvedDir — nothing to remove"
         return
     }
 

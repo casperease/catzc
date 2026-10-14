@@ -1,0 +1,88 @@
+// A compiled Bicep template's parameter model: the template name plus every parameter main.json declares, keyed by
+// name. Parsed from the `parameters` section (and the `definitions` a user-defined type refers to) of the main.json
+// `az bicep build` writes; Get-BicepParameterModel returns it and Get-BicepParameterViolations checks every rendered
+// parameters.<config>.json against it.
+//
+// A result type, so PascalCase ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+// The keys compare case-insensitively, as ARM matches parameter names.
+
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Text.Json;
+
+namespace Catzc.Azure.Templates;
+
+public sealed class BicepParameterModel
+{
+    // The template the model belongs to. Always present.
+    public string Template { get; }
+
+    // Every declared parameter, keyed by its name (case-insensitive). Empty for a template without parameters.
+    public IReadOnlyDictionary<string, BicepParameter> Parameters { get; }
+
+    public BicepParameterModel(string template, IEnumerable<BicepParameter> parameters)
+    {
+        if (string.IsNullOrWhiteSpace(template)) { throw new ArgumentException("BicepParameterModel.Template is required"); }
+        var byName = new Dictionary<string, BicepParameter>(StringComparer.OrdinalIgnoreCase);
+        foreach (var parameter in parameters ?? Array.Empty<BicepParameter>())
+        {
+            if (parameter == null) { throw new ArgumentException($"BicepParameterModel '{template}' was given a null parameter"); }
+            if (byName.ContainsKey(parameter.Name))
+            {
+                throw new ArgumentException($"BicepParameterModel '{template}' declares parameter '{parameter.Name}' twice");
+            }
+            byName[parameter.Name] = parameter;
+        }
+        Template = template;
+        Parameters = new ReadOnlyDictionary<string, BicepParameter>(byName);
+    }
+
+    // Parses the text of a compiled main.json. Throws, naming the template, when the text is not a JSON object or a
+    // parameter declaration is malformed.
+    public static BicepParameterModel Parse(string template, string mainJson)
+    {
+        if (string.IsNullOrWhiteSpace(mainJson)) { throw new ArgumentException($"main.json of template '{template}' is empty"); }
+
+        JsonDocument document;
+        try
+        {
+            document = JsonDocument.Parse(mainJson);
+        }
+        catch (JsonException exception)
+        {
+            throw new ArgumentException($"main.json of template '{template}' is not valid JSON: {exception.Message}");
+        }
+
+        using (document)
+        {
+            var root = document.RootElement;
+            if (root.ValueKind != JsonValueKind.Object)
+            {
+                throw new ArgumentException($"main.json of template '{template}' is not a JSON object");
+            }
+
+            var parameters = new List<BicepParameter>();
+            if (root.TryGetProperty("parameters", out var section))
+            {
+                if (section.ValueKind != JsonValueKind.Object)
+                {
+                    throw new ArgumentException($"main.json of template '{template}' has a parameters section that is not a JSON object");
+                }
+                root.TryGetProperty("definitions", out var definitions);
+                foreach (var declaration in section.EnumerateObject())
+                {
+                    try
+                    {
+                        parameters.Add(BicepParameter.FromArmDeclaration(declaration.Name, declaration.Value, definitions));
+                    }
+                    catch (ArgumentException exception)
+                    {
+                        throw new ArgumentException($"Template '{template}': {exception.Message}");
+                    }
+                }
+            }
+            return new BicepParameterModel(template, parameters);
+        }
+    }
+}

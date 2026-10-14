@@ -1,0 +1,65 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "languageVersion": "2.0",
+  "contentVersion": "1.0.0.0",
+  "definitions": {
+    "labelType": {
+      "type": "string",
+      "maxLength": 8
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    },
+    "widgetName": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 12
+    },
+    "widgetSku": {
+      "type": "string",
+      "defaultValue": "Basic",
+      "allowedValues": [
+        "Basic",
+        "Standard"
+      ]
+    },
+    "widgetZones": {
+      "type": "array",
+      "defaultValue": [],
+      "maxLength": 2,
+      "allowedValues": [
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    "widgetSecret": {
+      "type": "securestring"
+    },
+    "widgetLabel": {
+      "$ref": "#/definitions/labelType",
+      "nullable": true
+    },
+    "gadgetCount": {
+      "type": "int",
+      "minValue": 1,
+      "maxValue": 5
+    },
+    "gadgetEnabled": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "gadgetTags": {
+      "type": "object",
+      "defaultValue": {}
+    },
+    "gadgetSettings": {
+      "type": "secureObject",
+      "defaultValue": {}
+    }
+  },
+  "resources": {}
+}

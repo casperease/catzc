@@ -23,10 +23,13 @@ Describe 'Invoke-WithTimeout' -Tag 'L0', 'logic' {
     }
 
     It 'passes on non-terminating errors and keeps the output' {
-        $output = Invoke-WithTimeout { Write-Error 'gadget warning'; 'after' } -Seconds 5 -ErrorVariable errors -ErrorAction SilentlyContinue
+        # The block runs in this scope, so it follows this scope's preference — as it would if called directly.
+        $ErrorActionPreference = 'Continue'
+        $missing = Join-Path $TestDrive 'no-such-gadget'
+        $output = Invoke-WithTimeout { Get-Item -LiteralPath $missing; 'after' } -Seconds 5 -ErrorVariable errors -ErrorAction SilentlyContinue
         $output | Should -Be 'after'
         $errors.Count | Should -Be 1
-        "$($errors[0])" | Should -Be 'gadget warning'
+        "$($errors[0])" | Should -BeLike '*no-such-gadget*'
     }
 
     It 'defaults the limit to Get-TimeoutSeconds' {

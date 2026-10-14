@@ -20,6 +20,7 @@ full type-system contract is [native-csharp-types](../../adr/automation/BCL/nati
 | responsibility:3 | list   | [Automation-module enumeration](#responsibility3--automation-module-enumeration)                 |
 | responsibility:4 | editor | [Editor type-project build](#responsibility4--editor-type-project-build)                         |
 | responsibility:5 | gate   | [Shipped-type coverage](#responsibility5--shipped-type-coverage)                                 |
+| responsibility:6 | hook   | [Agent hook build](#responsibility6--agent-hook-build)                                           |
 
 ### responsibility:1 — Compiled type-assembly cache
 
@@ -65,6 +66,14 @@ Proving every shipped type is present in the session: each `<module>/types/<Name
 so after import that full name must resolve. The quality gate lists every type that does not, in either run mode; how the files are written
 (their file-scoped namespace) is the concern of `Test-Formatting`.
 
+### responsibility:6 — Agent hook build
+
+Publishing the one C# program the platform runs outside PowerShell: the Claude Code hook that holds every agent Bash call to the time
+safeguard ([fail-fast-with-asserts](../../adr/automation/fail-fast-with-asserts.md), `ADR-AUTO-FAILFAST#7`). It runs before every such call,
+so it is compiled rather than scripted. The importer asks for it on every import; it publishes with `dotnet` only when the source's hash
+differs from the one recorded beside the published program, finds the program by the project's own assembly name, and asserts the publish
+produced it.
+
 ## What the module does
 
 The module is the part of the native-type system that runs _outside_ the importer. Type compilation and loading happen once, eagerly, in the
@@ -92,3 +101,4 @@ The module's public functions, sorted into the responsibilities above.
 | responsibility:3 — Automation-module enumeration         | `Get-AutomationModules`    |
 | responsibility:4 — Editor type-project build             | `Invoke-BuildForVSCode`    |
 | responsibility:5 — Shipped-type coverage                 | `Test-ShippedTypes`        |
+| responsibility:6 — Agent hook build                      | `Build-BashTimeoutHook`    |

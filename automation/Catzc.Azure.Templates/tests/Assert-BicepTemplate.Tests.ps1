@@ -114,4 +114,36 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
             $err | Should -Match 'bogusParam'
         }
     }
+
+    Context '-Build (the parameter model check)' {
+        # The build and the parameter check are each covered on their own (Build-Bicep.*.Tests.ps1,
+        # Get-BicepParameterViolations.Tests.ps1); here both are mocked at the boundary, so this proves only the
+        # wiring: -Build builds, then reports every parameter violation in the consolidated error.
+        BeforeAll {
+            Mock Get-BicepTemplatesRoot { $script:fixtureTemplates } -ModuleName Catzc.Azure.Templates
+            Mock Get-Command { [pscustomobject]@{ Name = 'az' } } -ModuleName Catzc.Azure.Templates -ParameterFilter { $Name -eq 'az' }
+            Mock Build-Bicep { } -ModuleName Catzc.Azure.Templates
+            Mock Get-BicepParameterViolations {
+                "sample/parameters.alpha.json: parameter 'widgetName' has length 2, below @minLength 3"
+            } -ModuleName Catzc.Azure.Templates
+        }
+
+        It 'builds the template and reports each parameter violation' {
+            { Assert-BicepTemplate sample -Build } |
+                Should -Throw "*[[]sample[]] sample/parameters.alpha.json: parameter 'widgetName' has length 2, below @minLength 3*"
+            Should -Invoke Build-Bicep -ModuleName Catzc.Azure.Templates -Times 1 -Exactly -ParameterFilter { $Template -eq 'sample' }
+        }
+
+        It 'reports a failed build and skips the parameter check' {
+            Mock Build-Bicep { throw 'widget compile error' } -ModuleName Catzc.Azure.Templates
+            { Assert-BicepTemplate sample -Build } | Should -Throw '*Build-Bicep failed: widget compile error*'
+            Should -Invoke Get-BicepParameterViolations -ModuleName Catzc.Azure.Templates -Times 0 -Exactly
+        }
+
+        It 'neither builds nor checks parameters without -Build' {
+            { Assert-BicepTemplate sample } | Should -Not -Throw
+            Should -Invoke Build-Bicep -ModuleName Catzc.Azure.Templates -Times 0 -Exactly
+            Should -Invoke Get-BicepParameterViolations -ModuleName Catzc.Azure.Templates -Times 0 -Exactly
+        }
+    }
 }

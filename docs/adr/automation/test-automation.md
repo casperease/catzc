@@ -350,6 +350,14 @@ ring it includes — the BVT includes the core and the L2 ring, the in-place dev
 
 - [Test tiers: the test onion](#test-tiers-the-test-onion)
 
+### Rule ADR-AUTO-TEST:39
+
+An L3 test names every scratch resource it creates outside the repository per run — a variable, a registry value, a file in the user's
+profile, a cloud resource — with a suffix no other run shares (`CATZC_L3_WIDGET_<guid>`), and removes it whatever happens. A fixed name is
+shared by every run on the machine, so the test passes or fails depending on what else ran.
+
+- [System tests](#system-tests)
+
 ## Context
 
 [Fail fast with inline assertions](fail-fast-with-asserts.md) makes the case that automation code is mostly _impure_ — it orchestrates
@@ -662,8 +670,10 @@ or a clone and an installed build, each own their own working folder and would r
 the user's **system-test lock** — a machine-wide named mutex keyed on the user account, with a per-user record of who holds it. The run that
 takes the working folder tries it without waiting: taken, the run executes L3; held, the run stays in place for every other tier, skips L3,
 and names the holder and its checkout. One run per user account runs system tests at a time, and no run ever waits. A system test still
-works on state it owns (a scratch variable, a uniquely named resource) and removes it whatever happens, never on a shared value such as the
-user's real `JAVA_HOME`: the lock serialises system tests against each other, not against the user's own shell.
+works on state it owns and removes it whatever happens, never on a shared value such as the user's real `JAVA_HOME`: the lock serialises the
+system tests the harness starts, not the user's own shell, a direct `Invoke-Pester`, or the leftover of a run that died before its cleanup.
+So it names each scratch resource per run (ADR-AUTO-TEST#39) — a fixed name would let one of those meet the test's own state, and the test
+would pass or fail depending on what else ran.
 
 ### Source and build runs
 

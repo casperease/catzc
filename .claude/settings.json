@@ -51,7 +51,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pwsh -NoProfile -NonInteractive -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/Assert-BashTimeout.ps1\"",
+            "command": "p=\"$CLAUDE_PROJECT_DIR/.claude/hooks/bin/Assert-BashTimeout\"; command -v \"$p\" >/dev/null || { echo \"Bash time safeguard is not built: import the repository (Build-BashTimeoutHook publishes it).\" >&2; exit 1; }; exec \"$p\"",
             "timeout": 10,
             "statusMessage": "Checking the Bash time safeguard"
           }

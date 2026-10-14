@@ -60,8 +60,8 @@ Prose names them that way; an informal stand-in such as "house rules" is an avoi
 
 A term that names a family declares its **forms** — the words that may qualify its head word. Within a source's scope, any other qualified
 use, and the head word used as a verb, is a defect; the bare head word is always allowed, and a mention is exempt (ADR-REPO-VOCAB#5). The
-general words **source**, **layer**, and **scope** are such families too: each takes only its declared forms, and its verb forms ("sourced",
-"layered", "scoped") stay ordinary English (`verbs: true`).
+general words **source**, **layer**, **facet**, and **scope** are such families too: each takes only its declared forms, and its verb forms
+("sourced", "layered", "faceted", "scoped") stay ordinary English (`verbs: true`).
 
 - [Qualified forms](#qualified-forms)
 
@@ -128,6 +128,11 @@ precisely. Declaring the family's forms closes the set. `gate` takes `quality`, 
 `commit`, `approval`, `production`, and `push`; anything else is reworded — a check inside a quality gate is a **check**, a precondition is
 a **guard**, and the verb becomes what the gate does ("blocks", "decides whether … proceeds"). Function words that only point at or count
 the noun ("the gate", "each gate", "two gates") are not qualifiers, so they are always allowed.
+
+Two of the general families are easy to confuse. A **layer** is a level in a stack: one sits on or contains the next (language under
+PowerShell under installer; a fileset inside a module). A **facet** is one of several parallel views of, or checks on, the same thing: none
+sits above another (a build's `Types`, `Load`, `Parity`, and `Manifest` facets; a module's disk and session facets). The parts a unit's files
+partition into are **aspects** ([ADR-DSGN-ASPECT](../design/module-aspects.md)); a facet is never one of them.
 
 ### Realized concepts are enforced
 

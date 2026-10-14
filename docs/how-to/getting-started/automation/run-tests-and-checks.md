@@ -12,7 +12,13 @@ Pester, and writes a timestamped report under `out/`. Linting, spell-check, and 
 Test-Automation                       # L0 + L1 + L2 — the default (L2 self-skips a tool that is absent)
 Test-Automation -Level 1              # unit-only — skip L2 for a faster pass
 Test-Automation -Output Detailed      # per-test output instead of the summary
+Test-Automation -Suite infrastructure # one test suite: the infrastructure globset's verify scope
 ```
+
+A test suite is a named selection declared in `globs.yml`: a globset's `verify:` scope, its modules up to a top tier
+([ADR-AUTO-TEST#37](../../../adr/automation/test-automation.md#rule-adr-auto-test37)). `Test-Automation -Suite infrastructure` runs the
+`Catzc.Azure.Templates` tests up to L2, including the L2 tests that build every shipped template with `az bicep build` and check its
+rendered parameters files against the compiled parameter model; without `az` those tests skip.
 
 Useful parameters (`Get-Help Test-Automation -Full` for the rest):
 
@@ -21,6 +27,7 @@ Useful parameters (`Get-Help Test-Automation -Full` for the rest):
 | `-Level` / `-MaxLevel` | Highest tier to run. `2` = L0+L1+L2 (default), `1` = L0+L1 only, `3` = all                         |
 | `-MinLevel`            | Lowest tier. `-MinLevel 2 -MaxLevel 2` runs **only** L2                                            |
 | `-Modules`             | Restrict to one or more modules: `-Modules Catzc.Azure, Catzc.Azure.Cli`                           |
+| `-Suite`               | Run one test suite, a globset's `verify:` scope from `globs.yml`: `-Suite infrastructure`          |
 | `-Category`            | `Logic` (hermetic, mocks/fixtures), `Integrity` (real configs/templates/repo), or `Both` (default) |
 | `-Output`              | Pester verbosity: `Normal` (default), `Detailed`, `Diagnostic`                                     |
 | `-OutputFolder`        | Base folder for the report (defaults under `out/test-automation/`)                                 |

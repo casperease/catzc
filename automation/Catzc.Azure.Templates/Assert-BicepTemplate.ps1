@@ -23,11 +23,15 @@
       - Parameter alignment: a config's ParametersFile.parameters may only set parameters that
         main.bicep declares (params main.bicep declares but the config omits are fine — PrePost or
         bicep defaults supply them).
-      - With -Build: `az bicep build` compiles main.bicep (needs az; opt-in, slower).
+      - With -Build: Build-Bicep renders the parameters files and compiles main.bicep (needs az; opt-in,
+        slower, and writes the template's build output folder), then Get-BicepParameterViolations checks
+        every rendered parameters file against the compiled parameter model — types, @allowed values,
+        bounds, required parameters, and Key Vault references for secure parameters.
 .PARAMETER Template
     Template name to validate. Omit to validate every template under infrastructure/templates/.
 .PARAMETER Build
-    Also compile main.bicep with `az bicep build` (requires az CLI). Off by default.
+    Also build the template (requires az CLI) and check its rendered parameters files against the
+    compiled parameter model. Off by default.
 .EXAMPLE
     Assert-BicepTemplate my-template
 .EXAMPLE
@@ -211,11 +215,20 @@ function Assert-BicepTemplate {
                 $errors.Add("[$name] -Build requested but 'az' is not installed")
             }
             else {
+                # The full build (render + compile) so the rendered parameters files can be checked against the
+                # compiled parameter model ([ADR-AZ-DATAMOD#9](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9)).
+                $built = $false
                 try {
-                    Invoke-AzCli "bicep build --file `"$main`" --stdout" -Silent | Out-Null
+                    Build-Bicep $name | Out-Null
+                    $built = $true
                 }
                 catch {
-                    $errors.Add("[$name] az bicep build failed: $($_.Exception.Message)")
+                    $errors.Add("[$name] Build-Bicep failed: $($_.Exception.Message)")
+                }
+                if ($built) {
+                    foreach ($violation in @(Get-BicepParameterViolations $name)) {
+                        $errors.Add("[$name] $violation")
+                    }
                 }
             }
         }

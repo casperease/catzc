@@ -12,6 +12,10 @@ Each article is also the **source** that its folder's generated `README.md` link
 from folder to source lives in `automation/Catzc.Base.Docs/configs/readme.yml`. Author links relative to _this_ directory — the docs tree is
 the reading surface where they resolve; the README is a pointer to the article, not a second rendering.
 
+> **Time safeguard.** ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard: every foreground Bash call
+> passes `timeout: 10000`, and longer work runs with `run_in_background: true` — see
+> [time safeguard](../../../.claude/CLAUDE.md#time-safeguard).
+
 ## Document structure
 
 `Document structure — a template article`

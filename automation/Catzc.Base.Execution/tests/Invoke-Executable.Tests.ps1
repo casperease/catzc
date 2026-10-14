@@ -233,6 +233,28 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
         It '-Direct without -PassThru works' {
             { Invoke-Executable 'echo hello' -Direct -Silent } | Should -Not -Throw
         }
+
+        It '-TimeoutSeconds and -Direct are mutually exclusive' {
+            { Invoke-Executable 'echo hello' -TimeoutSeconds 5 -Direct } | Should -Throw '*Parameter set cannot be resolved*'
+        }
+    }
+
+    Context 'time safeguard' {
+        It 'kills a process that outlives -TimeoutSeconds and throws a TimeoutException naming the limit' {
+            $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+            $err = { Invoke-Executable 'pwsh -NoProfile -Command Start-Sleep -Seconds 10' -TimeoutSeconds 1 -Silent } | Should -Throw -PassThru
+            $stopwatch.Elapsed.TotalSeconds | Should -BeLessThan 8
+            $err.Exception | Should -BeOfType [System.TimeoutException]
+            $err.Exception.Message | Should -BeLike '*after 1s*timeouts.yml*'
+        }
+
+        It "defaults the limit to the executable's entry from Get-TimeoutSeconds" {
+            Mock Get-TimeoutSeconds -ModuleName Catzc.Base.Execution { 30 }
+            Invoke-Executable $simpleCmd -PassThru -Silent | Should -Not -BeNullOrEmpty
+            Should -Invoke Get-TimeoutSeconds -ModuleName Catzc.Base.Execution -Times 1 -Exactly -ParameterFilter {
+                $Executable -eq ($simpleCmd -split ' ')[0]
+            }
+        }
     }
 
     Context 'CliRunner parser — direct exec' {

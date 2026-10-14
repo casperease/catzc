@@ -53,8 +53,10 @@ state-changing responsibility, and it verifies the session targets the configure
 ### responsibility:6 — Template integrity validation
 
 Checking that a template is internally consistent and conforms to the model — that its configuration sits under defined subscriptions
-serving the right environments, that its class and slots are valid, that its name renders within budget. This is the guard the integrity
-tests run across every shipped template.
+serving the right environments, that its class and slots are valid, that its name renders within budget, and that every parameters file it
+renders satisfies the parameter model of its compiled `main.json` (see
+[data-model](../../adr/azure/azure-data-model.md#rule-adr-az-datamod9)). This is the guard the integrity tests run across every shipped
+template.
 
 ## What the module does
 
@@ -108,3 +110,4 @@ and `network.yml` (owned by [Catzc.Azure](catzc-azure.md)).
 |                                                                   | `Set-BicepTrackingTagSet`         |
 |                                                                   | `Get-BicepTrackTagNameSet`        |
 | responsibility:6 — Template integrity validation                  | `Assert-BicepTemplate`            |
+|                                                                   | `Get-BicepParameterModel`         |

@@ -302,6 +302,19 @@ The repository's conventions and decision records — its ADRs and the rules the
 | ------------- | ------------------------ |
 | `house rules` | domain rules / ADR rules |
 
+### facet
+
+One of several parallel views of, or checks on, the same thing, none above another — a build facet (types, load, parity, manifest) or a
+module facet (disk, session).
+
+- **Defined by:** [ADR-REPO-VOCAB#8](repository/controlled-vocabulary.md#rule-adr-repo-vocab8)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Forms:** `build facet`, `types facet`, `load facet`, `parity facet`, `manifest facet`, `module facet`, `disk facet`, `session facet`,
+  `runtime facet`, and the bare `facet`, with its verb forms
+- **Contrasts:**
+  - [layer](#layer): A layer is one level of a stack, sitting on or containing the next; a facet is a parallel view of the same thing.
+
 ### language zone
 
 One of the three registers — design, test, live — each with its own terminology and identities; a token belongs to exactly one.
@@ -326,6 +339,8 @@ One stratum of a structure, always qualified — an implementation layer (langua
   `abstraction layer`, `analyzer layer`, `compatibility layer`, `mapping layer`, `serialization layer`, `base layer`, `design layer`,
   `spelling layer`, `Pester layer`, `pip layer`, `path layer`, `support layer`, `doctrine layer`, `globset layer`, `fileset layer`,
   `cross layer`, `ADR layer`, `shaping layer`, and the bare `layer`, with its verb forms
+- **Contrasts:**
+  - [facet](#facet): A facet is one of several parallel views of, or checks on, the same thing; a layer is one level of a stack.
 
 ### markdown link
 
@@ -350,8 +365,8 @@ scope (verify, scan, content).
   `verify scope`, `shared scope`, `file scope`, `target scope`, `scan scope`, `test scope`, `persistent scope`, `category scope`,
   `global scope`, `process scope`, `Pester scope`, `default scope`, `install scope`, `markdown scope`, `repo scope`, `lint scope`,
   `child scope`, `environment scope`, `subscription scope`, `report scope`, `tag scope`, `declared scope`, `whole scope`, `top scope`,
-  `strict scope`, `isolated scope`, `discovery scope`, `glossary scope`, `deployment scope`, `infra scope`, `radius scope`, and the bare
-  `scope`, with its verb forms
+  `strict scope`, `isolated scope`, `discovery scope`, `glossary scope`, `deployment scope`, `infra scope`, `radius scope`,
+  `production scope`, and the bare `scope`, with its verb forms
 
 ### source
 

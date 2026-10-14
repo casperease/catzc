@@ -24,6 +24,9 @@ would be collected as a test.
   `Get-BicepTemplates` keys on the root, so the fixture tree and the real tree never collide.
 - `modules/` — reusable modules the fixture templates reference, so `../../modules/...` resolves within this fixture tree (mirrors
   `infrastructure/modules/`).
+- `parameter-model/main.json` — a compiled-template stand-in whose `parameters` section declares every parameter type and constraint the
+  parameter model reads (widget/gadget names). The parameter-model logic tests write it into their own build output as a current build, so
+  they need no `az`.
 - `Get-AzureResourceName.Content.yml` — data-driven cases for `Get-AzureResourceName` (literal inputs; the namer reads no assets).
 
 A bicep/identity unit test should mock **both** seams (`Get-BicepTemplatesRoot` → `tests/assets/templates` and `Resolve-ConfigEntry` →

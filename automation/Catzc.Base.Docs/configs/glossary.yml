@@ -45,11 +45,23 @@ concepts:
         realized_by: { kind: prose-only }
         forms: [implementation, automation, language, PowerShell, installer, config, configuration, Azure, tooling, YAML, module, template, templating, vendor, abstraction, analyzer, compatibility, mapping, serialization, base, design, spelling, Pester, pip, path, support, doctrine, globset, fileset, cross, ADR, shaping]
         verbs: true
+        contrasts:
+            facet: A facet is one of several parallel views of, or checks on, the same thing; a layer is one level of a stack.
+    facet:
+        key: facet
+        domain: repository
+        defined_by: ADR-REPO-VOCAB#8
+        short: One of several parallel views of, or checks on, the same thing, none above another — a build facet (types, load, parity, manifest) or a module facet (disk, session).
+        realized_by: { kind: prose-only }
+        forms: [build, types, load, parity, manifest, module, disk, session, runtime]
+        verbs: true
+        contrasts:
+            layer: A layer is one level of a stack, sitting on or containing the next; a facet is a parallel view of the same thing.
     scope:
         key: scope
         domain: repository
         defined_by: ADR-REPO-VOCAB#8
         short: What something reaches, always qualified — a PowerShell scope (module, script, global), an install scope (user, machine), or a selection scope (verify, scan, content).
         realized_by: { kind: prose-only }
-        forms: [PowerShell, selection, module, user, machine, content, script, verify, shared, file, target, scan, test, persistent, category, global, process, Pester, default, install, markdown, repo, lint, child, environment, subscription, report, tag, declared, whole, top, strict, isolated, discovery, glossary, deployment, infra, radius]
+        forms: [PowerShell, selection, module, user, machine, content, script, verify, shared, file, target, scan, test, persistent, category, global, process, Pester, default, install, markdown, repo, lint, child, environment, subscription, report, tag, declared, whole, top, strict, isolated, discovery, glossary, deployment, infra, radius, production]
         verbs: true

@@ -285,6 +285,11 @@ function Invoke-Importer {
             Sync-SessionTools
         }
 
+        # Publish the agent hook when its source changed — after the PATH reconciliation, so `dotnet` is the owned SDK.
+        if (-not $SkipJanitors) {
+            Invoke-AgentHookJanitor
+        }
+
         # Commit the generated files the importer maintains (automation/.compiled/) — who is running decides
         # ([ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)): a person's session
         # commits, an agent's announces what changed and leaves the commit to the person, a test-run snapshot never
@@ -434,6 +439,36 @@ function Invoke-TypeCacheJanitor {
     }
     catch {
         Write-ImporterMessage $_.Exception.Message -ForegroundColor Red
+    }
+}
+
+function Invoke-AgentHookJanitor {
+    <#
+    .SYNOPSIS
+        Publishes the agent Bash time-safeguard hook when its C# source changed, without ever failing the load.
+    .DESCRIPTION
+        Build-BashTimeoutHook is a no-op while the published hook matches its source
+        ([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)). The hook is
+        agent tooling, so a pipeline skips it; a checkout without the hook source (a bundle) or without dotnet yet is
+        told, never stopped — Install-Dotnet itself needs this import to succeed. A failed publish is one red line.
+        A no-op when Build-BashTimeoutHook is absent (the bootstrap sandbox).
+    #>
+    [CmdletBinding()]
+    param()
+
+    if (-not (Get-Command Build-BashTimeoutHook -ErrorAction Ignore) -or (Get-SessionActor) -eq 'Pipeline' -or
+        -not (Test-Path -LiteralPath (Join-Path $env:RepositoryRoot '.claude/hooks/Assert-BashTimeout'))) {
+        return
+    }
+    if (-not (Get-Command dotnet -ErrorAction Ignore)) {
+        Write-ImporterMessage 'Agent hook: the Bash time safeguard is not built — dotnet is not on PATH (Install-Dotnet).' -ForegroundColor Yellow
+        return
+    }
+    try {
+        $null = Build-BashTimeoutHook
+    }
+    catch {
+        Write-ImporterMessage "Agent hook: the Bash time safeguard was not published — $($_.Exception.Message)" -ForegroundColor Red
     }
 }
 

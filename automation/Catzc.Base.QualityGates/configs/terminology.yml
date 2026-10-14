@@ -776,6 +776,8 @@ terms:
       meaning: "Azure PowerShell (Az / AzPS)"
     - term: bicep
       meaning: "Azure Bicep infrastructure-as-code language"
+    - term: securestring
+      meaning: "the ARM secureString parameter type, spelled lowercase in a compiled main.json"
     - term: choco
       meaning: "Chocolatey CLI (choco)"
     - term: chocolatey
@@ -836,6 +838,10 @@ terms:
       meaning: "Terraform"
     - term: winget
       meaning: "winget package manager"
+    - term: msiexec
+      meaning: "Windows Installer command line (msiexec /x <ProductCode> removes an MSI product)"
+    - term: norestart
+      meaning: "Windows Installer / installer-bundle switch (/norestart) that suppresses the reboot"
     - term: uv
       meaning: "Astral's uv — Python package/tool manager and Python installer (the standard Python handler)"
     - term: astral

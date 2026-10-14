@@ -72,6 +72,15 @@ coordinate resolves to exactly one subscription) is enforced at discovery by `Ge
 
 - [Validation](#validation)
 
+### Rule ADR-AZ-DATAMOD:9
+
+Every parameters file a template build renders satisfies the parameter contract of the template's compiled `main.json`: each value has the
+declared type, lies within its `@allowed` values and its value and length bounds, and names a declared parameter; every parameter without a
+default is supplied, by the config or by the template's PrePost hook; and a `secureString`/`secureObject` parameter carries a well-formed
+Key Vault reference, never a literal value.
+
+- [Validation](#validation)
+
 ## Context
 
 `Catzc.Azure.Templates` is configured by **two layers**:
@@ -311,6 +320,13 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
 - The **cross-layer** link is enforced at **discovery** (`Get-BicepTemplates`) and collected by `Assert-BicepTemplate`, sharing the
   per-config rule `Get-BicepSubscriptionConfigViolations`: a configuration subfolder is a **defined customer key**, and every config's
   (customer?, env) coordinate resolves to **exactly one subscription id** (`Get-BicepConfigSubscriptionCandidates`).
+- The **parameter contract** (ADR-AZ-DATAMOD#9) is checked against the compiler's view, not the source text. `Get-BicepParameterModel` reads
+  the parameters a template's compiled `main.json` declares — type, default, `@allowed` values, value and length bounds — and
+  `Get-BicepParameterViolations` checks every rendered `parameters.[<customer>.]<config>.json` against it, so a value the PrePost hook
+  merges in is checked like one the config carries. `Assert-BicepTemplate -Build` reports the violations, and an L2 integrity test
+  (`Get-BicepParameterModel.Shipped.Tests.ps1`) builds every shipped template and asserts there are none; it runs in the `infrastructure`
+  globset's test suite (`Test-Automation -Suite infrastructure`). `Assert-BicepTemplate` without `-Build` keeps a fast check that needs no
+  compiler: a config sets only parameters `main.bicep` declares.
 
 ## Consequences
 

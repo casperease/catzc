@@ -1,0 +1,19 @@
+<!--
+  The Claude Code Bash time-safeguard hook (Program.cs). Build-BashTimeoutHook publishes it, framework-dependent,
+  to .claude/hooks/bin/ whenever this folder's sources change; obj/bin here and the published output are gitignored.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>Assert-BashTimeout</AssemblyName>
+    <RootNamespace>Catzc.Hooks</RootNamespace>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <UseAppHost>true</UseAppHost>
+    <TieredPGO>true</TieredPGO>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+</Project>

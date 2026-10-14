@@ -72,3 +72,11 @@ automation/.compiled/*.tmp
 # builder, no csproj or sln involved.
 automation/.internal/assets/obj/
 automation/.internal/assets/bin/
+
+# ── Agent hook build output ─────────────────────────────────────────────────────────────────────────────────────────
+# The Claude Code Bash time-safeguard hook is a small C# program (.claude/hooks/Assert-BashTimeout/) that
+# Build-BashTimeoutHook publishes on import whenever its source changes. The published program and its MSBuild
+# intermediates are per-machine build output, rebuilt from the committed source.
+.claude/hooks/bin/
+.claude/hooks/Assert-BashTimeout/obj/
+.claude/hooks/Assert-BashTimeout/bin/

@@ -2,14 +2,16 @@
 
 `Authoring a module reference`
 
-```text
-This directory holds one **responsibilities-first** reference article per automation module, named `<module-in-kebab>.md` (`Catzc.Azure.Cli` →
-`catzc-azure-cli.md`). `index.md` is the reader's guide and the module list; this file is the author's guide. The canonical, correct example
-to copy is **`catzc-azure-cli.md`** — when in doubt, match it.
+This directory holds one **responsibilities-first** reference article per automation module, named `<module-in-kebab>.md`
+(`Catzc.Azure.Cli` → `catzc-azure-cli.md`). `index.md` is the reader's guide and the module list; this file is the author's guide. The
+canonical, correct example to copy is **`catzc-azure-cli.md`** — when in doubt, match it.
 
 A reference article describes a module by the **responsibilities** it owns, not by walking its functions. The responsibilities are
 the stable contract; the function list is an appendix indexed by them.
-```
+
+> **Time safeguard.** ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard: every foreground Bash call
+> passes `timeout: 10000`, and longer work runs with `run_in_background: true` — see
+> [time safeguard](../../../.claude/CLAUDE.md#time-safeguard).
 
 ## Document structure
 

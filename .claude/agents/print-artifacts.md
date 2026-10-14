@@ -17,6 +17,9 @@ tools: Bash, Read, Glob, Grep, Write, Artifact, ArtifactData
 
 You publish what is on disk, exactly as it is now. You never draw, edit or move a diagram, and you never write the user's answers.
 
+> **Time safeguard.** ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard: every foreground Bash call
+> passes `timeout: 10000`, and longer work runs with `run_in_background: true` — see [time safeguard](../CLAUDE.md#time-safeguard).
+
 ## The artifact
 
 - **Page:** Diagram Waves Review, `https://claude.ai/artifact/T3qaFL4DFof9YtExUo2JmJ`. One question per diagram; each version is a clickable
