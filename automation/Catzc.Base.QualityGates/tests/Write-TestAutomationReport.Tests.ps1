@@ -20,6 +20,10 @@ Describe 'Write-TestAutomationReport' -Tag 'L0', 'logic' {
             }
         }
 
+        Mock Get-TestTimeLimits -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ LevelMs = @{ L0 = 400; L1 = 2000; L2 = 30000; L3 = 120000 }; RunSeconds = 120 }
+        }
+
         $script:rows = @(
             New-Row -Path 'Mod.Fast passes' -Result 'Passed' -Ms 50 -Level 'L1' -File 'C:\x\Fast.Tests.ps1' -Line 5 `
                 -Rules 'ADR-AUTO-ERROR#3'
@@ -46,7 +50,18 @@ Describe 'Write-TestAutomationReport' -Tag 'L0', 'logic' {
         $md | Should -Match 'Expected 1 but got 2'              # message
         $md | Should -Match '## Slowest tests'
         $md | Should -Match 'Mod\.Slow is slow'
-        $md | Should -Match '\[L2 > 120000ms\]'                 # over-limit, report-only
+        $md | Should -Match '\[L2 > 30000ms\]'                  # over-limit against the configured tier limit, report-only
+        $md | Should -Match '- Run budget: 120s — exceeded by 10\.06s \(report-only' # the run against its configured budget
+    }
+
+    It 'records a run inside its budget' {
+        $dir = Join-Path $TestDrive 'run-within'
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $dir; R = $script:rows } {
+            param($Dir, $R)
+            Write-TestAutomationReport -Rows $R -OutputFolder $Dir -Level 2 -RunResult 'Failed' -DurationSeconds 119
+        }
+
+        (Get-Content (Join-Path $dir 'summary.md') -Raw) | Should -Match '- Run budget: 120s — within'
     }
 
     It 'writes tests.csv with one row per test, slowest first' {

@@ -11,7 +11,8 @@
     readme-kebab convention plus the aspect (Catzc.Base.Globs -> 'catzc-base-globs-live' and
     'catzc-base-globs-tests') — 'live' the module's shippable surface (functions, private helpers, types,
     configs), 'tests' its verification harness, plus its Go test module <goRoot>/tests/<kebab>/ when one
-    exists (ADR-AUTO-GO#2); the two are disjoint and cover the folder. The whole-module
+    exists ([ADR-AUTO-GO#2](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go2)); the two are disjoint and
+    cover the folder. The whole-module
     set is their union (a test-only change never re-keys live). Every internal
     shared module automation/.internal/<Name>.psm1 derives a single-file set (no tests aspect) by the same
     kebab convention (Catzc.Internal.Bootstrap -> 'catzc-internal-bootstrap').
@@ -88,7 +89,9 @@ function Get-ModuleGlobSet {
     }
     # bare module name/kebab -> its aspect sets, so a caller can ask for "the module" and get both aspects.
     $moduleAspects = @{}
-    # A module's Go test module (<goRoot>/tests/<kebab>/, ADR-AUTO-GO#2) is part of its tests aspect: a Go test change
+    # A module's Go test module (<goRoot>/tests/<kebab>/,
+    # [ADR-AUTO-GO#2](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go2)) is part of its tests aspect: a Go
+    # test change
     # re-keys the module it verifies, never its live aspect.
     $goRoot = (Get-Config -Config go).ResolveRoot((Get-RepositoryRoot))
 

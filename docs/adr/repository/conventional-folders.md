@@ -58,9 +58,13 @@ etc. The name is the contract; a different name means tooling will not find the 
 ### Rule ADR-REPO-FOLDERS:7
 
 Tooling hardcodes the conventional names as literal strings, not parameters or configuration: `Join-Path $ModulePath 'private'`, not
-`Join-Path $ModulePath $privateFolderName`.
+`Join-Path $ModulePath $privateFolderName`. One exception: the root of a language track whose own ecosystem has competing layout idioms may
+be a setting. Its conventional names are then the setting's sensible defaults, declared once on its config type, and one resolver returns
+the root, which every caller uses. The Go root is that case: `go.yml`'s `root`, with the defaults `go/` and `.go/`, resolved by
+`GoConfig.ResolveRoot`.
 
 - [Hardcoded paths](#hardcoded-paths)
+- [A language root as a setting](#a-language-root-as-a-setting)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-REPO-FOLDERS:8
@@ -173,6 +177,23 @@ inject dependencies so you can test against fakes. In a mono-repo's internal too
 The codebase does this consistently: `New-DynamicManifest` hardcodes `'private'`, `Test-Automation` hardcodes `'tests'`, `Import-AllModules`
 filters on `'^\.'`, `Install-VendorModule` hardcodes `'automation/.vendor'`, and the importer (`importer.ps1` and its `Invoke-Importer`
 overlay) hardcodes `'.internal'` and `'.vendor'`.
+
+### A language root as a setting
+
+The arguments above hold for names catzc invents. A language track's root is different when the language's own ecosystem disagrees on where
+it lives. Go repositories put Go code under a `go/` root when Go is one language among several, and keep it out of the way under a dot
+folder when Go is a guest. Both are idiomatic, and an editor must handle either. Hardcoding one would force the other repositories to move
+their code.
+
+So the root of such a track is a setting, held to three conditions that keep what hardcoding gives:
+
+- **The conventional names are the defaults.** They are declared once, on the config type
+  ([sensible-defaults](../automation/sensible-defaults.md)), so a repository that declares nothing gets a conventional name.
+- **One resolver.** Every caller asks the same function for the root, so the setting is greppable through that one name, just as a hardcoded
+  literal is.
+- **Only the track root.** The folders inside the root (`tests/<module>/`) stay hardcoded.
+
+The Go root is the one such setting today: `go.yml`'s `root`, with the defaults `go/` and `.go/`, resolved by `GoConfig.ResolveRoot`.
 
 ### Three levels of structure
 

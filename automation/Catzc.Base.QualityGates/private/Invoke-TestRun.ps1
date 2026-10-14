@@ -261,8 +261,10 @@ function Invoke-TestRun {
         $manifestStatus = $runResult.ToLowerInvariant()
 
         # Validate test durations against the per-level limits and render the over-limit section
-        # (Write-TestAutomationTimingReport): report-only by default, run-failing under -EnforceTimings.
-        $limits = @{ 'L0' = 400; 'L1' = 2000; 'L2' = 120000; 'L3' = 30000 }
+        # (Write-TestAutomationTimingReport): report-only by default, run-failing under -EnforceTimings. The limits
+        # and the whole-run budget come from the time safeguard's config (Get-TestTimeLimits), never a literal here.
+        $testTimeLimits = Get-TestTimeLimits
+        $limits = $testTimeLimits.LevelMs
         $timingFailure = Write-TestAutomationTimingReport -Rows $rows -Limits $limits -EnforceTimings:$EnforceTimings
         if ($timingFailure) {
             $manifestStatus = 'failed'
@@ -270,6 +272,12 @@ function Invoke-TestRun {
 
         # Persist summary.md/tests.csv + latest.txt and render the skip report — best-effort, never masking
         # the run outcome (Write-TestAutomationArtifacts owns the guards).
+        # The whole-run budget is detection only for now: a run over it is reported, never failed.
+        if ($workerRun.DurationSeconds -gt $testTimeLimits.RunSeconds) {
+            Write-Message ('Run took {0:N1}s, over its {1}s budget (tests.run_seconds in timeouts.yml) — report-only.' -f `
+                    $workerRun.DurationSeconds, $testTimeLimits.RunSeconds) -ForegroundColor Yellow
+        }
+
         Write-TestAutomationArtifacts -Rows $rows -RunDirectory $runDir -OutputFolder $OutputFolder `
             -MaxLevel $MaxLevel -Limits $limits -RunResult $runResult -DurationSeconds $workerRun.DurationSeconds `
             -EnforceTimings:$EnforceTimings -MinLevel $MinLevel -Category $Category `

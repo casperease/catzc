@@ -64,6 +64,7 @@ The module's public functions and configuration files, sorted into the responsib
 | Responsibility                           | Function                    |
 | ---------------------------------------- | --------------------------- |
 | responsibility:1 — Configured limits     | `Get-TimeoutSeconds`        |
+|                                          | `Get-TestTimeLimits`        |
 | config                                   | `timeouts.yml`              |
 | responsibility:2 — Stop at the limit     | `Invoke-WithTimeout`        |
 |                                          | `Assert-CompletesWithin`    |

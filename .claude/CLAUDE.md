@@ -51,8 +51,8 @@ Which catzc ADR decides each aspect you might take an idea for:
   [ADR-FLOW-CD-RUNNER](../docs/adr/flow/pipeline-runner-pattern.md).
 - **Tooling:** [ADR-AUTO-PKGMGR](../docs/adr/automation/use-proper-package-managers.md) and
   [ADR-AUTO-UVPY](../docs/adr/automation/uv-python-handler.md).
-- **Go itself:** the [Go automation ADRs](../docs/adr/automation/go/index.md) are reserved, and catzc has made no Go decisions yet. A Go
-  idea from eac therefore opens a question for the user. It is never a precedent.
+- **Go itself:** [ADR-AUTO-GO](../docs/adr/automation/go/test-artifacts.md): Go in catzc is test artifacts only. A Go idea from eac beyond
+  that scope opens a question for the user. It is never a precedent.
 - **Copying anything across:** [ADR-PRIN-ONELIVE](../docs/adr/principles/one-living-version.md). Catzc carries one living version of each
   behaviour, so an idea is rebuilt here to catzc's rules, never ported alongside.
 

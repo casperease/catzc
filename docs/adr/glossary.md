@@ -340,6 +340,44 @@ An ADR citation in a code comment, written as a repository-rooted markdown link 
   - [markdown link](#markdown-link): A markdown link lives in a .md file and is relative to it; a code link lives in a comment of a
     non-markdown file and is repository-rooted.
 
+### contract
+
+A binding interface at the repository boundary, held under contracts/ in either direction — provided or depended-on — and proven by its
+owning module's tests.
+
+- **Defined by:** [ADR-REPO-CONTRACT#1](repository/api-contracts.md#rule-adr-repo-contract1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [contract asset](#contract-asset): A contract asset is one file under contracts/<release>/<module>/; a contract is the binding interface
+    its assets state together.
+
+### contract asset
+
+One file under contracts/<release>/<module>/ whose path names the real file it constrains and whose name picks its kind — a fragment, a
+schema, or a sample payload.
+
+- **Defined by:** [ADR-REPO-CONTRACT#6](repository/api-contracts.md#rule-adr-repo-contract6)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [contract](#contract): A contract is the binding interface at the repository boundary; a contract asset is one checked-in file that
+    states part of it.
+  - [published artifact](#published-artifact): A published artifact is a file one stage produces and a later stage consumes within a run; a
+    contract asset is a checked-in file that states what the repository boundary requires, frozen per release.
+
+### depended-on contract
+
+A contract an outside platform expects of our files and calls, such as GitHub reading a workflow file; it follows the platform, so a
+platform change is a new draft.
+
+- **Defined by:** [ADR-REPO-CONTRACT#1](repository/api-contracts.md#rule-adr-repo-contract1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [provided contract](#provided-contract): A provided contract is a promise to an outside consumer, kept while the consumer pins its
+    release; a depended-on contract records what a platform requires and follows the platform.
+
 ### domain
 
 A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its role and the domains it depends on.
@@ -418,6 +456,17 @@ A link inside a rendered .md file, written relative to that file so it resolves 
 - **Contrasts:**
   - [code link](#code-link): A code link lives in a comment of a non-markdown file and is repository-rooted; a markdown link lives in a .md
     file and is relative to it.
+
+### provided contract
+
+A contract an outside consumer may rely on — the repository's only public API, kept while a consumer pins its release.
+
+- **Defined by:** [ADR-REPO-CONTRACT#1](repository/api-contracts.md#rule-adr-repo-contract1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [depended-on contract](#depended-on-contract): A depended-on contract is what an outside platform expects of our files and calls, and it
+    follows that platform; a provided contract is a promise to a consumer, kept while the consumer pins its release.
 
 ### scope
 

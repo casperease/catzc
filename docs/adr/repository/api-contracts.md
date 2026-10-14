@@ -1,140 +1,249 @@
 # docs/adr/repository/api-contracts.md
 
-`ADR: Versioned external API contracts and contract testing`
+`ADR: Contracts at the repository boundary — both directions, one folder per release, proven by tests`
 
 ## Rules: ADR-REPO-CONTRACT
 
 ### Rule ADR-REPO-CONTRACT:1
 
-`contracts/` is the repository's external-facing API surface: the binding interface definitions an outside consumer is allowed to depend on.
-Everything a consumer may rely on is expressed here as a contract; everything else in the repo is internal and governed by
-[one living version](../principles/one-living-version.md) (change in place, no back-compat).
+A **contract** is a binding interface at the repository boundary, held under `contracts/`, and `contracts/` holds every one of them, in both
+directions. A **provided contract** is what an outside consumer may rely on: the only public API of the repository. A **depended-on
+contract** is what an outside platform expects of our files and calls — GitHub reading a workflow file, Azure DevOps reading a pipeline's
+trigger. Everything else in the repository is internal and governed by [one living version](../principles/one-living-version.md) (changed in
+place, no back-compat).
 
+- [Both directions](#both-directions)
 - [The only public API](#the-only-public-api)
 
 ### Rule ADR-REPO-CONTRACT:2
 
-Contracts are versioned by folder — `contracts/<contract-name>/v<N>/`
-([conventional-folders](conventional-folders.md#rule-adr-repo-folders11)). A backwards-incompatible change to a contract is a **new `v<N>`
-folder** beside the existing ones; the prior versions stay in place, unchanged.
+Contracts are laid out as `contracts/<release>/<module>/<path>`. `<release>` is the catzc bundle version that `Resolve-CatzcBuildVersion`
+resolves ([ADR-AUTO-BUNDLE#7](../automation/platform-bundle.md#rule-adr-auto-bundle7)); `<module>` is the owning catzc module, the one that
+talks to the outside party and holds the tests that prove the contract, with its dependencies governed by `dependencies.yml`; and `<path>`
+is the repository-relative path of the real file the asset constrains
+([conventional-folders](conventional-folders.md#rule-adr-repo-folders11)).
 
-- [A new version is a new folder](#a-new-version-is-a-new-folder)
+- [One folder per release, one per owning module](#one-folder-per-release-one-per-owning-module)
 
 ### Rule ADR-REPO-CONTRACT:3
 
-Keeping old versions live is the one sanctioned backwards-compatibility in the repository. External consumers genuinely exist at this
-boundary and cannot be changed in lockstep, so a published version is kept as long as a consumer pins it (this is
-[ADR-PRIN-ONELIVE#7](../principles/one-living-version.md#rule-adr-prin-onelive7) made concrete), and retired only when no consumer's
-contract requires it — a deliberate, contract-driven deprecation, not a hedge.
+A released provided contract is kept while a consumer pins its release. This is the one sanctioned backwards-compatibility in the
+repository: external consumers genuinely exist at this boundary and cannot change in lockstep
+([ADR-PRIN-ONELIVE#7](../principles/one-living-version.md#rule-adr-prin-onelive7)), and a release folder is retired only when no consumer
+pins it — a deliberate, contract-driven deprecation, not a hedge. A depended-on contract follows its outside platform instead: a platform
+change is a new draft in `0.0.0`, never an old version kept beside the new one.
 
 - [Where back-compat is owed](#where-back-compat-is-owed)
 
 ### Rule ADR-REPO-CONTRACT:4
 
-Contracts are **binding**, proven by contract testing: the provider (this repo) has tests that verify it honours every declared contract
-version. A change that would break a published version fails CI here, not a consumer in production. This is what makes "kept for
-back-compat" a guarantee rather than a hope.
+Contracts are **binding**, proven by tests: the owning module verifies that the repository honours every asset of the current release
+folder, and every provided asset of a release a consumer pins. A change that breaks a contract fails CI here, not a consumer or a platform
+in production. This is what makes "kept for back-compat" a guarantee rather than a hope.
 
 - [Binding, by contract testing](#binding-by-contract-testing)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-REPO-CONTRACT:5
 
-A published contract version is immutable. Evolving the interface means a new `v<N+1>`, never an edit to a published `v<N>` that a consumer
-already depends on. `v0` is the only mutable, pre-publication draft (per
-[ADR-REPO-FOLDERS#11](conventional-folders.md#rule-adr-repo-folders11)); once a version is declared (`v1`+), its folder is frozen.
+A released folder is immutable. Evolving a contract means editing the draft, `contracts/0.0.0/`, which is the only mutable folder; a release
+freezes the draft as `contracts/<release>/`, and that folder is never edited again. The devbox build version `6.6.666` names no release, so
+it never freezes a folder.
 
-- [A published version is frozen](#a-published-version-is-frozen)
+- [A released folder is frozen](#a-released-folder-is-frozen)
+
+### Rule ADR-REPO-CONTRACT:6
+
+A **contract asset** is one file under `contracts/<release>/<module>/`, and its name alone picks its kind. With no suffix it is a fragment:
+the real file at the same path must exist and contain it — a key subset for YAML and JSON, the non-blank lines in order for any other text —
+and an empty fragment requires presence only. `<path>.schema.json` is a schema the real file at `<path>` validates against.
+`<name>.sample.<ext>` is a sample payload the owning module's tests produce or parse.
+
+- [The name picks the kind](#the-name-picks-the-kind)
+
+### Rule ADR-REPO-CONTRACT:7
+
+A contract asset's direction comes by convention: an asset that constrains a real repository file is depended-on, and a sample payload is
+provided. A per-release `contract.yml`, at `contracts/<release>/contract.yml`, overrides the direction of a single asset.
+
+- [Direction by convention](#direction-by-convention)
+
+### Rule ADR-REPO-CONTRACT:8
+
+How one asset addresses many files is a configured setting with a sensible default, declared once on the contracts config type
+([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)). A mode that is not built throws `NotImplemented` when
+configured; a mode is switched on only once it is proven from both pwsh and bash. The scan for matching files runs only when the configured
+mode says what to match — nothing is enumerated speculatively.
+
+- [Addressing many files](#addressing-many-files)
 
 ## Context
 
 The [one-living-version](../principles/one-living-version.md) principle holds for the **inside** of the repository: every internal caller is
-in the tree and moves with a change, so there is no external consumer to keep a back-compat shim alive for. But the repository is not only
-consumed from inside — it _publishes_ an API that outside consumers build against, and those consumers upgrade on their own schedule. That
-boundary is the one place the "no external consumers" reasoning does not apply, and it needs a structure of its own rather than a
-compatibility shim threaded through internal code.
+in the tree and moves with a change, so there is no external consumer to keep a back-compat shim alive for. But the repository has an
+outside, and it meets that outside in two directions. Outside consumers build against what it provides, on their own upgrade schedule. And
+outside platforms read what it holds — GitHub reads the workflow files and renders the READMEs, Azure DevOps reads the pipeline triggers —
+and break the delivery when a file stops matching what they expect.
 
-`contracts/` is that structure. It makes the public surface explicit (so it is obvious what is a promise to the outside versus an internal
-implementation detail), versioned (so an incompatible change is a new thing beside the old, not a mutation of it), and testable (so the
-promise is verified mechanically, not asserted in a README).
+`contracts/` is the structure for both. It makes the boundary explicit (so it is obvious what is a promise or an obligation to the outside
+versus an internal implementation detail), versioned by release (so a frozen release is never mutated under a consumer), and testable (so
+the boundary is verified mechanically, not asserted in a README).
+
+### Both directions
+
+`One tree, two directions`
+
+A provided contract is a promise the repository makes; a depended-on contract is an obligation it accepts. They differ in who moves first: a
+consumer upgrades when it chooses, so a provided contract must not move; a platform changes when it chooses, so a depended-on contract must
+follow it. They share everything else — a binding shape, an owning module, and a test that turns red when the shape breaks — so they share
+one tree, one layout, and one mechanism rather than two.
 
 ### The only public API
 
-`The contract surface is the only public API`
+`Provided contracts are the only public API`
 
-Everything outside `contracts/` is internal. A consumer that reaches past the contract surface — into a module function, an internal config
-schema, a data record — gets no compatibility promise and may break on any change, exactly as internal code does. The boundary is the
-contract folder, and only the contract folder. This keeps the public commitment small and deliberate: you promise what you put in
-`contracts/`, and nothing else.
+Everything outside `contracts/` is internal. A consumer that reaches past the provided contracts — into a module function, an internal
+config schema, a data record — gets no compatibility promise and may break on any change, exactly as internal code does. This keeps the
+public commitment small and deliberate: the repository promises what it puts in `contracts/`, and nothing else. A depended-on contract
+promises nothing to a consumer; it records what a platform requires, so the repository cannot break that platform unnoticed.
 
-### A new version is a new folder
+### One folder per release, one per owning module
 
-A backwards-incompatible change does not edit the existing contract — it adds `v<N+1>/` beside it. The two versions then coexist as
-separate, equally live folders, each its own self-contained definition. This is the versioned-coexistence that
-[ADR-PRIN-ONELIVE#7](../principles/one-living-version.md#rule-adr-prin-onelive7) sanctions: not legacy kept grudgingly, but two supported
-versions, each owned and tested. A backwards-_compatible_ change (additive, non-breaking) may land in the current version, since its
-contract test still passes.
+`contracts/<release>/<module>/<path>`
+
+The version segment is the catzc release itself, so one number tells a consumer which bundle and which contracts belong together, and the
+release folder is a self-contained snapshot of every contract at that release. Inside it, each owning module has its own folder: the module
+that talks to the outside party — `Catzc.Tooling.Github` for GitHub, `Catzc.Azure.DevOps` for Azure DevOps — is the one that holds the
+tests, and the module dependency graph governs it like any other code. Under the module, the path repeats the real file's
+repository-relative path, so the asset and the file it constrains are found from each other without a mapping.
+
+```text
+contracts/
+  0.0.0/                                            # the mutable draft: the next release
+    Catzc.Tooling.Github/
+      .github/workflows/ci-automation.yml           # fragment: the keys GitHub reads
+      .github/workflows/ci-automation.yml.schema.json   # schema: the real file validates against it
+      README.md                                     # fragment: the heading GitHub renders
+    Catzc.Azure.DevOps/
+      rest/build-queue.sample.json                  # sample payload: the module produces or parses it
+  1.0.0/                                            # frozen at release 1.0.0
+```
 
 ### Where back-compat is owed
 
 `Why this is the one place back-compat is owed`
 
-Backwards compatibility buys a grace period for consumers who cannot change in lockstep with the producer. Internally there are none — so
-internally it is rejected. At the published boundary there genuinely are, so a published version stays live while a consumer pins it. The
-cost (a maintained old version) buys something real here: it is the difference between an external consumer that keeps working and one that
-breaks. Retirement is deliberate and evidence-based — a version goes away when its contract test shows no consumer needs it — not on a
-guessed-at calendar.
+Backwards compatibility buys a grace period for consumers who cannot change in lockstep with the producer. Internally there are none, so
+internally it is rejected. At the provided boundary there genuinely are, so a released provided contract stays live while a consumer pins
+its release. The cost (a maintained old release) buys something real: it is the difference between an external consumer that keeps working
+and one that breaks. Retirement is deliberate and evidence-based — a release folder goes away when no consumer pins it — not on a guessed-at
+calendar.
+
+A depended-on contract owes no grace period, because its outside party does not pin our releases; it reads the files as they are. When the
+platform changes what it expects, the only useful contract is the new expectation, so the change is made in the draft and released with the
+next release. An old expectation the platform has dropped protects nothing.
 
 ### Binding, by contract testing
 
-A contract is only a promise if breaking it is caught. The provider side of this repo carries contract tests that assert it still satisfies
-every declared `contracts/<name>/v<N>`. The concrete form is chosen per contract — schema validation of a published shape, provider/consumer
-(e.g. Pact-style) verification of a request/response surface, golden examples a consumer can replay — but the discipline is the same: a
-change that violates a published version turns the test run red before it ships. Without the test, "we keep v1 working" is a hope; with it,
-it is enforced.
+A contract is only a promise if breaking it is caught. The owning module carries the tests that assert the repository satisfies its assets:
+every asset of the current release folder (`0.0.0` on a devbox, the resolved release in a release build), and the provided assets of every
+release a consumer pins. The check follows the asset's kind (ADR-REPO-CONTRACT#6), so a change that violates a contract turns the test run
+red before it ships. Without the test, "we keep this working" is a hope; with it, it is enforced.
 
-### A published version is frozen
+### A released folder is frozen
 
-Once `v1` is declared, its folder is not edited — a consumer is already building against exactly those bytes. A fix or an evolution that
-changes the contract is `v2`. The only mutable version is `v0`, the pre-publication draft (ADR-REPO-FOLDERS#11), which exists precisely so a
-contract can be shaped before it becomes a binding promise. This immutability is what lets a consumer pin `v1` and trust it will not move
-underneath them.
+Once a release is cut, its folder is not edited — a consumer builds against exactly those bytes. A fix or an evolution that changes a
+contract lands in `0.0.0/`, the draft, and reaches the outside with the next release. The draft exists precisely so a contract can be shaped
+before it becomes a binding promise. A devbox build carries the `6.6.666` placeholder
+([ADR-AUTO-BUNDLE#7](../automation/platform-bundle.md#rule-adr-auto-bundle7)), which is a local convenience and not a release, so no
+`contracts/6.6.666/` folder ever exists. This immutability is what lets a consumer pin a release and trust it does not move underneath them.
+
+### The name picks the kind
+
+`Sensible defaults from the asset's own path`
+
+An asset declares nothing: its kind, its target, and its owning module all come from where it sits and what it is called
+([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md)). The four kinds are the four things a boundary can require:
+
+- **Presence** — an empty fragment: the real file at the same path must exist.
+- **Fragment** — no suffix: the real file must exist and contain the fragment. YAML and JSON compare by key subset, so the real file may
+  carry more keys than the fragment names; any other text compares by its non-blank lines, which must appear in the real file in the same
+  order.
+- **Schema** — `<path>.schema.json`: the real file at `<path>` validates against the JSON Schema, applied to YAML after parsing. A schema
+  that shares its `<name>` with a sample payload beside it applies to that sample instead of a real file.
+- **Sample payload** — `<name>.sample.<ext>`: a payload the owning module's tests must produce or parse, validated against the schema beside
+  it when one exists.
+
+A fragment pins only what the outside party reads, so the rest of the file stays free to change under one living version.
+
+### Direction by convention
+
+`The convention decides, contract.yml overrides`
+
+An asset that constrains a real repository file — a fragment, presence, or a schema on that file's path — is depended-on, because an outside
+platform is what reads the file. A sample payload is provided, because it is a shape the repository hands to a consumer. The convention is
+right for most assets, so most release folders carry no `contract.yml`; the one at `contracts/<release>/contract.yml` overrides a single
+asset's direction where the convention is wrong, such as a sample payload an outside platform requires of a call. It is part of the release
+folder, so it freezes with it.
+
+### Addressing many files
+
+`Do the scan once the mode is known`
+
+By default an asset addresses exactly one real file: the one at its own path (ADR-REPO-CONTRACT#6). Constraining many files with one asset —
+by a manifest glob, by a per-folder file — is a configured mode, resolved like any setting
+([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)). A mode that is not built throws `NotImplemented` rather
+than half-working, and it is switched on by configuration only after it is proven from both pwsh and bash, the two shells the mechanism runs
+under. The match set is computed only once the configured mode says what to match, so no tree walk runs on speculation.
 
 ### Rejected alternatives
 
-1. **One unversioned contract, evolved in place** — rejected: every change becomes a potential break for some consumer, and there is no way
-   to support an old and a new shape at once. Versioned folders let the two coexist and be tested independently.
+1. **One unversioned contract set, evolved in place** — rejected: every change becomes a potential break for some consumer, and there is no
+   way to support an old and a new shape at once. Release folders let the two coexist and be tested independently.
 
-2. **Documenting the API in a README and trusting callers** — rejected: a prose promise is not verified, so it drifts from the code and
-   breaks consumers silently. A binding, tested contract catches the break in CI.
+2. **A version per contract (`contracts/<contract-name>/v<N>/`)** — rejected: a consumer upgrades the catzc bundle, not individual
+   contracts, so a separate number per contract forces a mapping from bundle to contract versions that the release folder makes unnecessary.
 
-3. **A back-compat shim in internal code** (dual-read the old and new shape inside the implementation) — rejected: it smears the public
+3. **Separate trees for provided and depended-on contracts** — rejected: both directions share the layout, the asset kinds, and the test
+   mechanism; two trees would duplicate all three and split one owning module's boundary in two.
+
+4. **Documenting the boundary in a README and trusting both sides** — rejected: a prose promise is not verified, so it drifts from the code
+   and breaks consumers and platforms silently. A binding, tested contract catches the break in CI.
+
+5. **A back-compat shim in internal code** (dual-read the old and new shape inside the implementation) — rejected: it smears the public
    boundary through internal code, which then can never reach [one living version](../principles/one-living-version.md). The compatibility
-   belongs at the boundary, as a separate versioned contract, not inside.
+   belongs at the boundary, as a frozen release folder, not inside.
 
 ## Decision
 
-The repository's public API is exactly the set of binding contracts under `contracts/<name>/v<N>/`. Incompatible changes add a new version
-folder; published versions are immutable and kept live while an external consumer pins them; and each declared version is verified by
-contract testing so a break is caught in CI, not in production. Everything outside `contracts/` is internal and follows one living version.
+`contracts/` holds every binding interface at the repository boundary: provided contracts, the only public API, and depended-on contracts,
+what outside platforms require of our files and calls. It is laid out as `contracts/<release>/<module>/<path>`, where the release is the
+catzc bundle version, the module owns and tests the contract, and the path is the real file's. The draft `0.0.0` is the only mutable folder;
+a released folder is frozen, and kept while a consumer pins its provided contracts. An asset's name picks its kind and its direction, a
+per-release `contract.yml` overrides the direction, and many-file addressing is a configured mode. Every contract is verified by its owning
+module's tests, so a break is caught in CI, not in production. Everything outside `contracts/` is internal and follows one living version.
 
 ### How this is enforced
 
-- **Contract tests** verify, provider-side, that the repo honours every declared `contracts/<name>/v<N>`. They run in CI alongside the rest
-  of the tests; a change that breaks a published version fails there. The concrete mechanism (schema validation, provider/consumer
-  verification, golden replay) is chosen per contract and lives with it.
+- **`Catzc.Base.Contracts`** owns the mechanism: it enumerates `contracts/<release>/**`, derives each asset's kind, direction, owning
+  module, and target from the name and `contract.yml`, and runs the kind's check against the real tree as a quality gate. Each owning
+  module's L1 test per asset is generated from the same enumeration, so `Test-Automation` covers every contract with no hand-written test.
 
-- **Code review** guards what the tests cannot phrase: that an incompatible change adds a new `v<N>` rather than editing a published one
-  (ADR-REPO-CONTRACT#5), that the public surface stays confined to `contracts/` (ADR-REPO-CONTRACT#1), and that a retirement is justified by
-  the absence of a pinning consumer (ADR-REPO-CONTRACT#3).
+- **The frozen-folder test** fails on any change to a release folder other than `0.0.0` (ADR-REPO-CONTRACT#5).
+
+- **Code review** guards what the tests cannot phrase: that the boundary stays confined to `contracts/` (ADR-REPO-CONTRACT#1), that a
+  retirement is justified by the absence of a pinning consumer (ADR-REPO-CONTRACT#3), and that a `contract.yml` override is the exception
+  the convention calls for (ADR-REPO-CONTRACT#7).
 
 ## Consequences
 
-- The public commitment is explicit and small: what is in `contracts/` is promised; everything else is free to change with one living
+- The boundary is explicit and small: what is in `contracts/` is promised or required; everything else is free to change with one living
   version.
-- An incompatible change never breaks a consumer silently — it is a new version folder, and the old one keeps passing its contract test
-  until it is deliberately retired.
-- The internal code stays shim-free: backwards compatibility is a boundary concern, expressed as versioned contracts, not as dual-read paths
-  threaded through implementations.
-- The cost is real and bounded: each live version is maintained and tested for as long as a consumer pins it. That cost buys the one thing
-  it should — external consumers that keep working across change.
+- A platform's expectations are tested like a consumer's promises, so a workflow edit that GitHub would reject fails CI here first.
+- An incompatible change to a provided contract never breaks a consumer silently — it reaches the outside only as a new release, and the
+  pinned release keeps passing its tests until it is deliberately retired.
+- Assets need no registration: the path is the target, the suffix is the kind, and the convention is the direction.
+- The internal code stays shim-free: backwards compatibility is a boundary concern, expressed as frozen release folders, not as dual-read
+  paths threaded through implementations.
+- The cost is real and bounded: each pinned release's provided contracts are maintained and tested for as long as a consumer pins them. That
+  cost buys the one thing it should — external consumers that keep working across change.

@@ -22,7 +22,11 @@
 .PARAMETER DurationSeconds
     The run's wall-clock duration in seconds, recorded in the header.
 .PARAMETER Limits
-    Per-level millisecond limits keyed by tag (L0/L1/L2/L3) — the over-limit threshold per test level.
+    Per-level millisecond limits keyed by tag (L0/L1/L2/L3) — the over-limit threshold per test level. Defaults to
+    the `tests.level_ms` limits in timeouts.yml (Get-TestTimeLimits).
+.PARAMETER RunBudgetSeconds
+    The budget for the whole run, in seconds; the header records the run against it (report-only). Defaults to
+    `tests.run_seconds` in timeouts.yml (Get-TestTimeLimits).
 .PARAMETER SlowestCount
     How many slowest passed tests to list. Defaults to 20.
 .PARAMETER TimingsEnforced
@@ -46,7 +50,9 @@ function Write-TestAutomationReport {
 
         [double] $DurationSeconds = 0,
 
-        [hashtable] $Limits = @{ 'L0' = 400; 'L1' = 2000; 'L2' = 120000; 'L3' = 30000 },
+        [hashtable] $Limits = (Get-TestTimeLimits).LevelMs,
+
+        [int] $RunBudgetSeconds = (Get-TestTimeLimits).RunSeconds,
 
         [int] $SlowestCount = 20,
 
@@ -106,6 +112,13 @@ function Write-TestAutomationReport {
     [void]$stringBuilder.AppendLine("- Host: $([System.Environment]::MachineName) ($os)")
     [void]$stringBuilder.AppendLine("- Pester: $pesterVersion")
     [void]$stringBuilder.AppendLine("- Duration: ${totalSeconds}s")
+    if ($DurationSeconds -gt $RunBudgetSeconds) {
+        $overSeconds = [math]::Round($DurationSeconds - $RunBudgetSeconds, 2)
+        [void]$stringBuilder.AppendLine("- Run budget: ${RunBudgetSeconds}s — exceeded by ${overSeconds}s (report-only; tests.run_seconds in timeouts.yml)")
+    }
+    else {
+        [void]$stringBuilder.AppendLine("- Run budget: ${RunBudgetSeconds}s — within")
+    }
     [void]$stringBuilder.AppendLine("- Result: $RunResult")
     if ($Location) {
         [void]$stringBuilder.AppendLine("- Location: $Location")

@@ -14,6 +14,10 @@
 #     <devbox|pipeline>:
 #       bash: { foreground: <s>, background: <s> }   # the hook's limits for a Claude/agent Bash call
 #       pwsh: <s>                                    # Invoke-WithTimeout and Invoke-Executable without an entry
+#
+#   tests:                                           # Test-Automation's timing report (Get-TestTimeLimits)
+#     level_ms: { L0: <ms>, L1: <ms>, L2: <ms>, L3: <ms> }   # the most one test of a tier may take
+#     run_seconds: <s>                                       # the budget for a whole run up to L3 (report-only for now)
 #   commands:
 #     <Verb-Noun>: <s>                               # overrides a function's own [TimeLimit] decoration
 #

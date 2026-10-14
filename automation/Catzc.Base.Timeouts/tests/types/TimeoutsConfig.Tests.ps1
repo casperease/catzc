@@ -97,6 +97,34 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             { New-TimeoutsConfig $data } | Should -Throw $expected
         }
 
+        It 'resolves the test-run defaults: tier limits L0 < L1 < L2 < L3, and a three-minute run budget' {
+            $config = New-TimeoutsConfig ([ordered]@{})
+            $levels = $config.TestLevelLimitsMs()
+            $levels['L0'] | Should -Be 400
+            $levels['L1'] | Should -Be 2000
+            $levels['L2'] | Should -Be 30000
+            $levels['L3'] | Should -Be 120000
+            $config.TestRunSeconds() | Should -Be 180
+            $config.tests.run_seconds | Should -Be 180
+        }
+
+        It 'overrides one test tier and the run budget, keeping the other defaults' {
+            $config = New-TimeoutsConfig ([ordered]@{ tests = @{ level_ms = @{ L3 = 150000 }; run_seconds = 240 } })
+            $config.TestLevelLimitsMs()['L3'] | Should -Be 150000
+            $config.TestLevelLimitsMs()['L2'] | Should -Be 30000
+            $config.TestRunSeconds() | Should -Be 240
+        }
+
+        It 'throws on a bad tests section: <case>' -ForEach @(
+            @{ case = 'not a map'; data = @{ tests = 5 }; expected = '*invalid tests (must be a map*' }
+            @{ case = 'an unknown key'; data = @{ tests = @{ budget = 1 } }; expected = "*unknown key 'tests.budget'*" }
+            @{ case = 'an unknown tier'; data = @{ tests = @{ level_ms = @{ L5 = 1 } } }; expected = "*unknown key 'tests.level_ms.L5'*" }
+            @{ case = 'a zero tier limit'; data = @{ tests = @{ level_ms = @{ L0 = 0 } } }; expected = "*invalid tests.level_ms.L0 '0'*" }
+            @{ case = 'a quoted run budget'; data = @{ tests = @{ run_seconds = '180' } }; expected = "*invalid tests.run_seconds '180'*" }
+        ) {
+            { New-TimeoutsConfig $data } | Should -Throw $expected
+        }
+
         It 'throws on an executable key with a directory or extension' {
             { New-TimeoutsConfig ([ordered]@{ executables = @{ 'widget.exe' = 9 } }) } |
                 Should -Throw "*invalid executables key 'widget.exe'*"
