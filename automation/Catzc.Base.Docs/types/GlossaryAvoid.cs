@@ -22,7 +22,7 @@ public sealed class GlossaryAvoid : Catzc.Base.Objects.DictionaryRecord
     {
         if (d == null) { throw new ArgumentException("an avoid entry must be a mapping with 'phrase' and 'say'"); }
         phrase = string.Join(" ", Req(d, "phrase").Trim().ToLowerInvariant().Split((char[])null, StringSplitOptions.RemoveEmptyEntries));
-        say    = Req(d, "say").Trim();
+        say = Req(d, "say").Trim();
 
         foreach (object k in d.Keys)
         {

@@ -10,29 +10,29 @@ public sealed class YamlFileRecord
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     // The scan root the file was found under (absolute). Always present.
-    public string                     Root              { get; }
+    public string Root { get; }
 
     // The file's absolute path. Always present.
-    public string                     Path              { get; }
+    public string Path { get; }
 
     // The file's path relative to Root.
-    public string                     RelativePath      { get; }
+    public string RelativePath { get; }
 
     // The directory of the file, relative to Root.
-    public string                     RelativeDirectory { get; }
+    public string RelativeDirectory { get; }
 
     // The coarse classification derived from the file's top-level keys.
-    public YamlClassification         Classification    { get; }
+    public YamlClassification Classification { get; }
 
     // The template sub-kind. Null for non-Template files.
-    public Nullable<YamlTemplateType> TemplateType      { get; }
+    public Nullable<YamlTemplateType> TemplateType { get; }
 
     // The file's top-level YAML keys — the evidence the classification was derived from. Never null (an
     // empty array when there were none).
-    public string[]                   TopLevelKeys      { get; }
+    public string[] TopLevelKeys { get; }
 
     // The YAML parse error, if the file failed to parse. Null when it parsed cleanly.
-    public string                     ParseError        { get; }
+    public string ParseError { get; }
 
     // Classification/templateType are taken as strings and parsed to enums, so a producer (or a test mock)
     // that supplies string literals binds without first converting to enum values.
@@ -40,15 +40,15 @@ public sealed class YamlFileRecord
     {
         if (string.IsNullOrWhiteSpace(root)) { throw new ArgumentException("YamlFileRecord.Root is required"); }
         if (string.IsNullOrWhiteSpace(path)) { throw new ArgumentException("YamlFileRecord.Path is required"); }
-        Root              = root;
-        Path              = path;
-        RelativePath      = relativePath;
+        Root = root;
+        Path = path;
+        RelativePath = relativePath;
         RelativeDirectory = relativeDirectory;
-        Classification    = (YamlClassification)Enum.Parse(typeof(YamlClassification), classification, true);
-        TemplateType      = string.IsNullOrWhiteSpace(templateType)
+        Classification = (YamlClassification)Enum.Parse(typeof(YamlClassification), classification, true);
+        TemplateType = string.IsNullOrWhiteSpace(templateType)
             ? (Nullable<YamlTemplateType>)null
             : (YamlTemplateType)Enum.Parse(typeof(YamlTemplateType), templateType, true);
-        TopLevelKeys      = topLevelKeys ?? new string[0];
-        ParseError        = string.IsNullOrWhiteSpace(parseError) ? null : parseError;
+        TopLevelKeys = topLevelKeys ?? new string[0];
+        ParseError = string.IsNullOrWhiteSpace(parseError) ? null : parseError;
     }
 }

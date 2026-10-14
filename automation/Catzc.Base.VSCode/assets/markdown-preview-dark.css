@@ -6,7 +6,11 @@
 */
 
 /* Dark theme for Markdown preview with warm nighttime gradient */
-html, body, .vscode-body, .vscode-light, .vscode-dark {
+html,
+body,
+.vscode-body,
+.vscode-light,
+.vscode-dark {
     background: linear-gradient(135deg, #0a0a08 0%, #1a1410 50%, #0f0d0a 100%) !important;
     background-attachment: fixed !important;
     color: #d4c5b0 !important;
@@ -19,7 +23,12 @@ body {
 }
 
 /* Headings */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: #e6d5b8 !important;
     border-bottom-color: #3a3020 !important;
 }
@@ -86,17 +95,20 @@ hr {
 }
 
 /* Lists */
-ul, ol {
+ul,
+ol {
     color: #d4c5b0 !important;
 }
 
 /* Strong/bold */
-strong, b {
+strong,
+b {
     color: #e6d5b8 !important;
 }
 
 /* Emphasis/italic */
-em, i {
+em,
+i {
     color: #c4b5a0 !important;
 }
 

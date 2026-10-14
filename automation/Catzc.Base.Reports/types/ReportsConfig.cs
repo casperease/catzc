@@ -41,9 +41,9 @@ public sealed class ReportsConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
-        folder       = Value(d, "folder", "test-{subject}");
-        report_file  = Value(d, "report_file", "{subject}.md");
-        latest_file  = Value(d, "latest_file", "latest.txt");
+        folder = Value(d, "folder", "test-{subject}");
+        report_file = Value(d, "report_file", "{subject}.md");
+        latest_file = Value(d, "latest_file", "latest.txt");
         stamp_format = Value(d, "stamp_format", "yyyyMMdd-HHmmss");
 
         if (!folder.Contains("{subject}")) { errors.Add("folder must contain '{subject}', so every gate writes its own folder"); }

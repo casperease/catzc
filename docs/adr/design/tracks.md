@@ -66,6 +66,21 @@ it owns, so a file in a language outside that set is a second tech-stack inside 
 
 - [File languages](#file-languages)
 
+### Rule ADR-DSGN-TRACK:7
+
+A **root file** is a tracked file that no track holds: a file at the repository root itself (`LICENSE`, `importer.ps1`, `.gitignore`), or a
+file under the one root folder that is not a track (`out/`). Root files belong to the repository as a whole, so the track-by-file-language
+map gives them their own row, never a track's.
+
+- [Root files and unlisted files](#root-files-and-unlisted-files)
+
+### Rule ADR-DSGN-TRACK:8
+
+An **unlisted file** is a tracked file that no file language names: it has no extension, or an extension no file language lists. An unlisted
+file sits in its own column of the track-by-file-language map, never in a file language's, so every tracked file has exactly one cell.
+
+- [Root files and unlisted files](#root-files-and-unlisted-files)
+
 ## Context
 
 A mono repository holds several concerns that differ in everything but their home: language, delivery target, cadence, and blast radius.
@@ -134,6 +149,15 @@ stack is that set as declared — `automation` holds PowerShell and C#, `infrast
 whose language falls outside its track's declared set is the second stack the rule forbids, visible without reading the file. A file
 language is not a tech-stack: the stack adds the toolchain, verification, and failure modes around its languages, while the language is only
 the kind of text a file holds.
+
+### Root files and unlisted files
+
+Crossing the tracks with the file languages places a file only when it has both. Two kinds of file have one but not the other, and naming
+them keeps the map whole instead of dropping them. A root file has no track: the license, the importer scripts, the git settings at the top
+of the tree, and the placeholder that keeps `out/` in git. An unlisted file has no file language: a `.gitkeep`, a `LICENSE`, or an extension
+no entry of the file-language registry lists yet. The root files get one row of their own and the unlisted files one column, and a file that
+is both sits where they cross, so the map's file count equals the tracked file count. An unlisted file in a track's live aspect is still a
+second tech-stack (ADR-DSGN-TRACK#3) when it has an extension: an extension nobody registered is a language nobody declared.
 
 ## Decision
 

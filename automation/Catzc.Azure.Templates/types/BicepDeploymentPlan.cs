@@ -10,16 +10,16 @@ public sealed class BicepDeploymentPlan
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     // The template being deployed (its name). Always present.
-    public string template       { get; }
+    public string template { get; }
 
     // The deployment name az records this run under. Always present.
-    public string name           { get; }
+    public string name { get; }
 
     // The deployment mode (e.g. Incremental / Complete). Always present.
-    public string mode           { get; }
+    public string mode { get; }
 
     // The deployment scope target (e.g. ResourceGroup / Subscription). Always present.
-    public string target         { get; }
+    public string target { get; }
 
     // The target resource group. Null for a Subscription-target deployment, which has no resource group.
     public string resource_group { get; }

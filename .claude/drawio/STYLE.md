@@ -15,10 +15,11 @@ raster, and asserts the round-trip. The XML root is
 
 ```xml
 <mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1"
-              pageScale="1" pageWidth="1300" pageHeight="940" background="#ffffff" math="0" shadow="0">
+              pageScale="1" pageWidth="1300" pageHeight="940" background="#E6ECF2" math="0" shadow="0">
 ```
 
-Keep it at most 1300 wide and grow downward. Flat look: no shadows, no gradients.
+Keep it at most 1300 wide and grow downward. Flat look: no shadows, no gradients. Every rendered output has the grey-bluish background
+`#E6ECF2` drawn first, behind everything else, so a dark-mode and a light-mode viewer show the same page.
 
 ## Ids and words
 
@@ -30,19 +31,23 @@ Keep it at most 1300 wide and grow downward. Flat look: no shadows, no gradients
 
 ## Glyphs: one kind, one shape, one colour, one legend phrase
 
-A reader decodes a slide by **shape first** (what kind of thing), **colour second** (the same kind, confirmed), and the name last. So every
-kind of thing has exactly one glyph, the same on every slide of every diagram, and its legend entry always uses the same phrase. A glyph
-never borrows another kind's colour, and a colour never means two things across slides (grey is not "config" on one slide and "drift" on the
-next). The verbatim style strings are in [`glyphs.xml`](glyphs.xml); its preview is `out/diagrams/wave-6/_glyphs.drawio.png`. Copy from
-there, never retype.
+A reader decodes a slide by **shape first** (what kind of thing), **colour second** (structure or state), and the name last. So every kind
+of thing has exactly one glyph, the same on every slide of every diagram, and its legend entry always uses the same phrase. A colour never
+means two things across slides (grey is not "config" on one slide and "drift" on the next). The verbatim style strings are in
+[`glyphs.xml`](glyphs.xml); its preview is `out/diagrams/wave-7/_glyphs.drawio.png`. Copy from there, never retype.
+
+**Structure is dark, state is light.** Structural kinds use draw.io's dark, muted swatches with white text (`fontColor=#FFFFFF`): slate
+`#647687` / `#314354`, mauve `#76608a` / `#432d57`, olive `#6d8764` / `#3a5431`. Results, failures and every commit colour are light. The
+two families never meet, so no structural glyph can be mistaken for a commit state from the locked palette (ADR-DSGN-VISUAL#4). Slate is
+shared by code unit, store and runner on purpose: their shapes (box, cylinder, pill) tell them apart.
 
 | Kind (legend phrase) | Shape                           | Fill / stroke         | Use it for                                                                       |
 | -------------------- | ------------------------------- | --------------------- | -------------------------------------------------------------------------------- |
-| code unit            | rounded box                     | `#dae8fc` / `#6c8ebf` | a module, function, type or script that runs                                     |
-| named set            | rounded box                     | `#e1d5e7` / `#9673a6` | a group, globset, track, aspect or other named collection of code units          |
-| file                 | page with a folded corner       | `#f8fff8` / `#82b366` | a config, YAML, manifest or other file read as data (`shape=note`)               |
-| store                | cylinder                        | `#f5f5f5` / `#666666` | the repository, a registry, a cache, a feed (`shape=cylinder3`)                  |
-| runner               | pill                            | `#fff2cc` / `#d6b656` | a pipeline, stage, task or job that executes (`arcSize=50`)                      |
+| code unit            | rounded box                     | `#647687` / `#314354` | a module, function, type or script that runs; white text                         |
+| named set            | rounded box                     | `#76608a` / `#432d57` | a group, globset, track, aspect or other named collection; white text            |
+| file                 | page with a folded corner       | `#6d8764` / `#3a5431` | a config, YAML, manifest or other file read as data (`shape=note`); white text   |
+| store                | cylinder                        | `#647687` / `#314354` | the repository, a registry, a cache, a feed (`shape=cylinder3`); white text      |
+| runner               | pill                            | `#647687` / `#314354` | a pipeline, stage, task or job that executes (`arcSize=50`); white text          |
 | gate                 | rhombus, 3 px rim               | `#f5f5f5` / `#666666` | a check that passes or stops the flow; never red, never yellow                   |
 | environment          | hexagon                         | `#f5f5f5` / `#666666` | a deployment target; neutral, coloured only by its occupant (ADR-DSGN-VISUAL#13) |
 | external tool        | square box                      | `#f5f5f5` / `#666666` | a vendor tool the code delegates to (az CLI, Bicep, git)                         |
@@ -71,9 +76,23 @@ there, never retype.
 
 Ghosts use the state fill plus `strokeWidth=1.2;dashed=1;opacity=60;`.
 
-On a slide that shows commit states, the code unit (`#dae8fc`, the main-uat fill) and the result (green, near release-uat and prod) are
-avoided, and the runner's pale yellow sits beside the BVT yellow: draw commits as dots, keep runners away from BVT dots. This collision is
-an open question for the user (the commit palette is locked by ADR-DSGN-VISUAL#4).
+On a slide that shows commit states, the dark structural kinds never collide with a commit colour. The result (green, near release-uat
+and prod) is still avoided there; draw commits as dots.
+
+**Recolouring a wave-6 slide (wave 7):** map by kind and shape, never by hex alone, because the old store, gate, environment and external
+tool all shared `#f5f5f5` / `#666666`, and the old code-unit fill `#dae8fc` is also the main-uat commit colour.
+
+| Old fill / stroke                         | Kind                   | New fill / stroke (+ `fontColor=#FFFFFF`) |
+| ----------------------------------------- | ---------------------- | ----------------------------------------- |
+| `#dae8fc` / `#6c8ebf` (not a commit dot)  | code unit              | `#647687` / `#314354`                     |
+| `#e1d5e7` / `#9673a6`                     | named set              | `#76608a` / `#432d57`                     |
+| `#f8fff8` / `#82b366`                     | file (`shape=note`)    | `#6d8764` / `#3a5431`                     |
+| `#f5f5f5` / `#666666`, `shape=cylinder3`  | store                  | `#647687` / `#314354`                     |
+| `#fff2cc` / `#d6b656`, `arcSize=50`       | runner                 | `#647687` / `#314354`                     |
+| count chip stroke `#9673a6`               | count chip             | stroke `#432d57`, fill stays white        |
+
+Recolour the legend swatch of each kind with it. A `<font color=…>` inside a recoloured cell's value must turn white or be removed. Gate,
+environment, external tool, actor, result, failure, ADR-only, chrome and every commit colour stay as they are.
 
 ## Style strings (copy verbatim)
 
@@ -177,7 +196,7 @@ showing where the drawing sits in the world.
 | `DEPLOY`      | `#42A5F5` |
 | `ACCESS`      | `#EC407A` |
 
-- The background is `#FFFFFF`. Idle cells and tiles are `#ECEFF1`, with `#CFD8DC` borders. Labels are `#546E7A`.
+- The background is `#E6ECF2`. Idle cells and tiles are `#ECEFF1`, with `#CFD8DC` borders. Labels are `#546E7A`.
 - **Exactly one cell is ever framed:** the **main cell**, the domain hue at 40 % fill with a 3 px stroke at 100 %. Its row and column are
   marked only by a bold axis label and a hue tick, never by tinting the cells: a tinted cross or a hued ring on another cell reads, while
   paging through slides, as the previous slide's selection left behind.
@@ -340,7 +359,8 @@ number, name, path and order against the repository as it is today; the reposito
   repeats what another symbol says is cut, and the number goes to the `.md`;
 - **numbered markers**: a 22 px `#37474F` disc with a 2 px white rim and a white bold digit, on a box's top-left corner or beside an edge.
   Each number is one Walkthrough step in `<stem>.md`. A marker always touches what it numbers (a glyph's corner, or the middle of an edge);
-  a marker floating on empty canvas is a defect. To say "nothing here" (e.g. a rung with no throw), draw nothing and say it in the article;
+  a marker floating on empty canvas is a defect. An edge marker sits beside its edge with its rim touching the line (disc
+  x = edge x + 2), never centred on it: the preview draws edges over every glyph, so a centred disc is struck through. To say "nothing here" (e.g. a rung with no throw), draw nothing and say it in the article;
 - **span bars** over the bands when the flow has named stages (CI, CD, DEPLOY), as the commit-story's top axis does;
 - **every edge that exists in the code is drawn**: a failure glyph has its failure-path edge from the glyph that raises it, a result has the
   edge from what produces it. An unconnected glyph is a defect unless the article says why it stands alone;
@@ -372,8 +392,33 @@ needs a phrase the library lacks adds it to `glyphs.xml` and this kit first. A f
 wording in a legend. One arrow never carries two meanings (not "calls; up from a gate: checks"): a second meaning goes to the article, or
 the slide is two slides. The minimaps get their own **map key** in the sidebar.
 
-Quality bar for this format: the wave-6 pilot,
-`out/diagrams/wave-6/modules/adr-auto-depm--three-layers-edges-point-down--architecture.{drawio.png,md,visual.md,verify.md}`.
+### Landing in `docs/explanation/` (wave 7 onward)
+
+A finished slide lands in the repository as three files; the verify file stays in `out/diagrams/wave-N/` (plan:
+`out/plan-diagram-wave-7.md`).
+
+| File                                           | From                     | Shape                                                                                         |
+| ---------------------------------------------- | ------------------------ | --------------------------------------------------------------------------------------------- |
+| `docs/explanation/<adr-domain>/<explanation>.md` | the article              | path H1 (ADR-REPO-FORMAT#6), the title in backticks, a `text` overview block, then the article |
+| `docs/.assets/explanation/<stem>.drawio.png`   | the built slide          | copied, never overwriting an existing asset                                                   |
+| `docs/.assets/explanation/<stem>.drawio.md`    | the visual description   | path H1, the title in backticks, a `text` at-a-glance block, then the description             |
+
+- `<explanation>` is the middle part of the stem; `<adr-domain>` is the adrs.yml domain of the stem's ADR code.
+- **The `text` overview** of an article: the finding in one line; a blank line; one line per marker, `<n>  <name>  <what it is>`, names
+  padded to one column; a blank line; `Supports <ADR-CODE>#a, #b and #c (<lens> lens).` Plain ASCII inside the block (`->`, not `→`).
+- **Words by audience:** the article uses the ADR's and glossary's terms (group, module, gate as the ADR names it); the asset description
+  uses the glyph library's phrases (named set, code unit). Neither uses the other's vocabulary.
+- **Links:** the article links its image and its asset description under `../../.assets/explanation/`, the ADR, its sibling lenses, its
+  domain index and `../index.md#how-to-read-the-diagrams`. The asset description links the PNG and the article. ADRs never link to
+  either.
+- **Checks:** run `out/diagrams/wave-7/_check_docs.ps1 <paths…>` on your files (formats, then title, markdownlint, spelling, links).
+  Report unknown words; never edit `terminology.yml` from a maker. A quoted message holding `<name>`-style placeholders goes in a code
+  span (bare angle brackets fail markdownlint MD033). Example names copied from an ADR that are not words (`weudiscvm`) get a local
+  `cspell:ignore` line, as the ADR does; never split a word across markup (`Co(nfig)` flags `nfig`).
+
+Quality bar for this format: the wave-7 pilot,
+`docs/explanation/automation/three-layers-edges-point-down.md` with
+`docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.{png,md}`.
 
 ## Readability rules
 

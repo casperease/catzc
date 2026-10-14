@@ -132,6 +132,7 @@ public sealed class CodeLinkRewriter
                     {
                         replacement = Canonical(code, rule, null);
                         type = LinkFindingType.Citation;
+                        consumed += RepeatedLink(comment, match.Index + match.Length, literal, replacement);
                     }
                 }
             }
@@ -194,6 +195,23 @@ public sealed class CodeLinkRewriter
         rule = adjacent.Groups["rule"].Success ? int.Parse(adjacent.Groups["rule"].Value, CultureInfo.InvariantCulture) : (int?)null;
         return closed && !opened ? adjacent.Length - 1 : adjacent.Length;
     }
+
+    // A bracketed link right after a bare citation that names the same ADR or rule — `ADR-X#3 ([x](/docs/adr/x.md#rule-adr-x3))`,
+    // the link perhaps on the next line — is the same reference spelled twice. It merges into the citation's one
+    // canonical link instead of becoming a second copy of it. Returns how many characters it covers (0 when there is
+    // none, or when the link points elsewhere).
+    int RepeatedLink(string comment, int at, bool[] literal, string canonical)
+    {
+        if (at >= comment.Length) { return 0; }
+        Match repeated = RepeatedLinkPattern.Match(comment, at);
+        if (!repeated.Success || literal[repeated.Groups["link"].Index]) { return 0; }
+        string rewritten = RewriteLink(repeated.Groups["text"].Value, repeated.Groups["dest"].Value, out _, out _, out string problem);
+        string same = rewritten ?? repeated.Groups["link"].Value;
+        return problem == null && string.Equals(same, canonical, StringComparison.Ordinal) ? repeated.Length : 0;
+    }
+
+    static readonly Regex RepeatedLinkPattern = new Regex(
+        @"\G\s*\((?<link>\[(?<text>[^\]\r\n]*)\]\((?<dest>[^)\s]+)\))\)", RegexOptions.Compiled);
 
     static bool IsQuoted(string comment, int index, int length)
     {

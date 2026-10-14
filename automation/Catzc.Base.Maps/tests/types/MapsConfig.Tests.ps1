@@ -16,9 +16,14 @@ Describe 'MapsConfig' -Tag 'L0' {
         It 'applies every default on an empty file' {
             foreach ($raw in @([ordered]@{}, $null)) {
                 $config = & $script:make $raw
+                $config.palette.background | Should -Be ([Catzc.Base.Maps.MapsPalette]::DefaultBackground)
                 $config.palette.row | Should -Be ([Catzc.Base.Maps.MapsPalette]::DefaultRow)
                 $config.palette.column | Should -Be ([Catzc.Base.Maps.MapsPalette]::DefaultColumn)
                 $config.palette.cell | Should -Be ([Catzc.Base.Maps.MapsPalette]::DefaultCell)
+                $config.palette.shade | Should -Be ([Catzc.Base.Maps.MapsPalette]::DefaultShade)
+                $config.palette.line | Should -Be ([Catzc.Base.Maps.MapsPalette]::DefaultLine)
+                $config.palette.text | Should -Be ([Catzc.Base.Maps.MapsPalette]::DefaultText)
+                $config.palette.violation | Should -Be ([Catzc.Base.Maps.MapsPalette]::DefaultViolation)
                 $config.palette.highlight | Should -Be ([Catzc.Base.Maps.MapsPalette]::DefaultHighlight)
                 $config.limits.page_width | Should -Be ([Catzc.Base.Maps.MapsLimits]::DefaultPageWidth)
                 $config.limits.page_height | Should -Be ([Catzc.Base.Maps.MapsLimits]::DefaultPageHeight)
@@ -29,6 +34,11 @@ Describe 'MapsConfig' -Tag 'L0' {
                 $config.labels.tree_title | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultTreeTitle)
                 $config.labels.row_axis | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultRowAxis)
                 $config.labels.column_axis | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultColumnAxis)
+                $config.labels.root_files | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultRootFiles)
+                $config.labels.unlisted_files | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultUnlistedFiles)
+                $config.labels.legend_files | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultLegendFiles)
+                $config.labels.legend_violation | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultLegendViolation)
+                $config.labels.legend_highlight | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultLegendHighlight)
                 $config.highlight.pins.Count | Should -Be 0
                 $config.highlight.exceptions.Count | Should -Be 0
                 $config.output_folder | Should -Be ([Catzc.Base.Maps.MapsConfig]::DefaultOutputFolder)
@@ -45,18 +55,31 @@ Describe 'MapsConfig' -Tag 'L0' {
 
         It 'reads every key it is given' {
             $config = & $script:make ([ordered]@{
-                    palette       = [ordered]@{ row = '#010203'; column = '#040506'; cell = '#070809'; highlight = '#abcdef' }
+                    palette       = [ordered]@{
+                        background = '#0A0B0C'; row = '#010203'; column = '#040506'; cell = '#070809'; shade = '#102030'; line = '#405060'
+                        text = '#708090'; violation = '#A0B0C0'; highlight = '#abcdef'
+                    }
                     limits        = [ordered]@{ page_width = 595.5; page_height = 842; min_font_size = 4.5; max_row_label = 12; max_column_label = 8 }
-                    labels        = [ordered]@{ grid_title = "Widgets $script:times gadgets"; tree_title = 'Widget tree'; row_axis = 'Widget'; column_axis = 'Gadget' }
+                    labels        = [ordered]@{
+                        grid_title = "Widgets $script:times gadgets"; tree_title = 'Widget tree'; row_axis = 'Widget'; column_axis = 'Gadget'
+                        root_files = 'Loose widgets'; unlisted_files = 'Gizmos'; legend_files = 'Widgets per cell'
+                        legend_violation = 'Gadget clash'; legend_highlight = 'Lit widget'
+                    }
                     highlight     = [ordered]@{ pins = @(& $script:pin); exceptions = @(& $script:pin) }
                     output_folder = 'widget-map'
                 })
             $config.palette.highlight | Should -Be '#ABCDEF'
+            $config.palette.background | Should -Be '#0A0B0C'
+            $config.palette.shade | Should -Be '#102030'
+            $config.palette.violation | Should -Be '#A0B0C0'
             $config.limits.page_width | Should -Be 595.5
             $config.limits.min_font_size | Should -Be 4.5
             $config.limits.max_column_label | Should -Be 8
             $config.labels.grid_title | Should -Be "Widgets $script:times gadgets"
             $config.labels.column_axis | Should -Be 'Gadget'
+            $config.labels.root_files | Should -Be 'Loose widgets'
+            $config.labels.unlisted_files | Should -Be 'Gizmos'
+            $config.labels.legend_highlight | Should -Be 'Lit widget'
             $config.highlight.pins[0] | Should -BeOfType [Catzc.Base.Maps.MapsPin]
             $config.highlight.pins[0].adr | Should -Be 'ADR-WIDGET-GADGET#3'
             $config.highlight.pins[0].track | Should -Be 'widgets'
@@ -121,14 +144,16 @@ Describe 'MapsConfig' -Tag 'L0' {
                 Should -Be "Widgets $script:times gadgets"
         }
 
-        It 'throws on an empty label and on an axis header longer than its limit' {
+        It 'throws on an empty label and on a row or column header longer than its limit' {
             $err = { & $script:make ([ordered]@{
                         limits = [ordered]@{ max_row_label = 4; max_column_label = 4 }
-                        labels = [ordered]@{ tree_title = '  '; row_axis = 'Widgets'; column_axis = 'Gadgets' }
+                        labels = [ordered]@{ tree_title = '  '; row_axis = 'Widgets'; column_axis = 'Gadgets'; root_files = 'Wid'; unlisted_files = 'Gizmos' }
                     }) } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike '*labels.tree_title is empty*'
             $err.Exception.Message | Should -BeLike "*labels.row_axis: 'Widgets' is 7 characters, longer than its limit of 4*"
             $err.Exception.Message | Should -BeLike "*labels.column_axis: 'Gadgets' is 7 characters, longer than its limit of 4*"
+            $err.Exception.Message | Should -BeLike "*labels.unlisted_files: 'Gizmos' is 6 characters, longer than its limit of 4*"
+            $err.Exception.Message | Should -Not -BeLike '*labels.root_files*'
         }
 
         It 'throws on a pins list that is not a list, and on an entry that is not a mapping' {

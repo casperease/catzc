@@ -42,8 +42,9 @@ applied repo-wide.
 ### Rule ADR-REPO-FOLDERS:5
 
 Documentation folders are markdown-only. `docs/` organizes its subfolders freely (the names and casing are the author's), but it holds only
-`.md` files — except the dot-prefixed `docs/.assets/`, which holds the binary diagram assets the markdown embeds. Each subfolder of
-`docs/adr/` is an ADR **domain**: a group of ADRs that `adrs.yml` declares with its role and the domains it depends on.
+`.md` files — except the dot-prefixed `docs/.assets/`, which holds the binary diagram assets the markdown embeds, each optionally beside its
+`<name>.drawio.md` description (what the diagram draws, in words). Each subfolder of `docs/adr/` is an ADR **domain**: a group of ADRs that
+`adrs.yml` declares with its role and the domains it depends on.
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -225,7 +226,7 @@ a reader infers it (_semantic_).
 | Directory         | Kind     | Meaning                                                                                                                                                                | Programmed against by                                               |
 | ----------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `automation/`     | contract | Module system root — all PowerShell modules and infrastructure (Levels 2–3)                                                                                            | `importer.ps1`, `Test-Automation`, `Install-VendorModule`           |
-| `docs/`           | mixed    | Documentation — `adr/` decision records, `references/` reference articles, `how-to/` guides, `.assets/` diagrams                                                       | `Build-AdrIndex`, `Build-Readme`; human consumption                 |
+| `docs/`           | mixed    | Documentation — `adr/` decision records, `references/` reference articles, `how-to/` guides, `explanation/` articles, `.assets/` diagrams                              | `Build-AdrIndex`, `Build-Readme`; human consumption                 |
 | `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                                                                                     | Bicep build/deploy tooling, `Get-BicepTemplates`                    |
 | `pipelines/`      | contract | Azure DevOps YAML pipelines, per-kind templates, and the runner                                                                                                        | Azure DevOps runner, `Invoke-AdoScript.ps1`                         |
 | `contracts/`      | contract | Binding contracts at the repository boundary, both directions — `<unit>/<version>/<module>/<path>`; see [api-contracts](api-contracts.md)                              | The owning modules' contract tests; outside consumers and platforms |
@@ -242,14 +243,16 @@ a reader infers it (_semantic_).
 `automation/` is the only root the module system interacts with; its internals are Levels 2–3 below. The rest separate concerns at the repo
 level, and each has its own conventional sub-layout:
 
-**`docs/`** holds four folders. `adr/` is the Architecture Decision Records, one subfolder per domain declared in
+**`docs/`** holds five folders. `adr/` is the Architecture Decision Records, one subfolder per domain declared in
 `automation/Catzc.Base.Docs/configs/adrs.yml`: `principles/`, `process/`, `design/`, `flow/`, `automation/`, `configuration/`, `pipelines/`,
 `github/`, `azure/`, `repository/` (this ADR), and `research/`. Its `index.md` is generated from that registry and describes each domain, so
 the registry — not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles, including the
 sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference under
-`references/dora/`. `how-to/` holds task-oriented guides. These three are **markdown-only**; their subfolders are author-organized topic
-buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown content
-under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS#4).
+`references/dora/`. `how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one diagram of how
+cats works and why, in a subfolder per ADR domain. These four are **markdown-only**; their subfolders are author-organized topic buckets.
+The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown content under
+`docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS#4) — each optionally beside its `<name>.drawio.md` description, so a
+diagram's words travel with the picture.
 
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's

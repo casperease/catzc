@@ -67,12 +67,13 @@ These run independently of `Test-Automation`:
 Format-Code                # format every tracked file with the engine languages.yml names for its language
 Test-Markdownlint          # lint Markdown        -> out/test-markdownlint/
 Test-Spelling              # cspell vs cspell.yml  -> out/test-spelling/
-Format-Spelling            # register flagged words into cspell.yml (-DryRun to preview)
+Export-SpellingTriage      # queue the flagged words for triage -> out/terminology-triage.yml (-DryRun to preview)
 ```
 
-`Format-Spelling` is the auto-fix counterpart to `Test-Spelling`: it scans the same content and adds every word cspell flags to the
-top-level `words:` list in `cspell.yml`, so the dictionary diff is the review surface. Use it to accept new content words; an invented
-identifier abbreviation is spelled out instead (see [spell-out-names](../../../adr/automation/powershell/spell-out-names.md)).
+`Export-SpellingTriage` scans the same content as `Test-Spelling` and writes every flagged word to a triage queue under `out/`. A queued
+word is still flagged: it is accepted only when someone adds it to the terminology registry (`terminology.yml`) with its meaning and
+category, and an invented identifier abbreviation is spelled out instead (see
+[spell-out-names](../../../adr/automation/powershell/spell-out-names.md)).
 
 PSScriptAnalyzer itself (style, approved verbs, the custom rules under `automation/.scriptanalyzer/`) runs as part of the **L2** tests via
 the analyzer test — so `Test-Automation -Level 2` is what catches a formatting or convention violation before CI does.

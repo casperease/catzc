@@ -15,6 +15,7 @@ from PIL import Image, ImageDraw, ImageFont
 LENSES = ["meta", "architecture", "implementation", "operations", "governance"]
 WIDTH = 1300
 CAPTION = 34
+BACKGROUND = "#E6ECF2"  # the grey-bluish base layer of every rendered output (.claude/drawio/STYLE.md)
 
 
 def font(size, bold=True):
@@ -39,7 +40,7 @@ def sheet(folder):
             img = None
         rows.append((lens, img))
     height = sum(CAPTION + (img.height if img else 40) for _, img in rows)
-    out = Image.new("RGB", (WIDTH, height), "#ffffff")
+    out = Image.new("RGB", (WIDTH, height), BACKGROUND)
     d = ImageDraw.Draw(out)
     y = 0
     for lens, img in rows:

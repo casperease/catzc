@@ -2,16 +2,19 @@
 
 `Add a doc chapter`
 
-The repository has three kinds of prose, each with a home and a format:
+The repository has five kinds of prose, each with a home and a format:
 
-| Kind                | Lives in                              | For                                                                            |
-| ------------------- | ------------------------------------- | ------------------------------------------------------------------------------ |
-| **ADR**             | `docs/adr/<area>/`                    | A durable design decision and its rationale (the _why_)                        |
-| **Getting-started** | `docs/how-to/getting-started/<area>/` | A task-focused guide for onboarding and the common jobs (the _how_, like this) |
-| **How-to**          | `docs/how-to/<area>/`                 | A standalone how-to article for one task (e.g. the manual test plan)           |
-| **Note**            | `docs/notes/**`                       | Freeform working notes, investigations, drafts                                 |
+| Kind                | Lives in                              | For                                                                              |
+| ------------------- | ------------------------------------- | -------------------------------------------------------------------------------- |
+| **ADR**             | `docs/adr/<area>/`                    | A durable design decision and its rationale (the _why_)                          |
+| **Getting-started** | `docs/how-to/getting-started/<area>/` | A task-focused guide for onboarding and the common jobs (the _how_, like this)   |
+| **How-to**          | `docs/how-to/<area>/`                 | A standalone how-to article for one task (e.g. the manual test plan)             |
+| **Explanation**     | `docs/explanation/<adr-domain>/`      | How one part works and why, narrating one diagram in `docs/.assets/explanation/` |
+| **Note**            | `docs/notes/**`                       | Freeform working notes, investigations, drafts                                   |
 
-All of `docs/` is **markdown only**. Decide which kind you're writing, then follow the matching recipe below.
+All of `docs/` is **markdown only**, except `docs/.assets/`, which holds the diagram images and their `<name>.drawio.md` descriptions
+([conventional-folders](../../../adr/repository/conventional-folders.md)). Decide which kind you're writing, then follow the matching recipe
+below.
 
 ## Formatting
 
@@ -44,6 +47,18 @@ All of `docs/` is **markdown only**. Decide which kind you're writing, then foll
 
 References point **one way**: an article cites the relevant ADR; an ADR never links back to an article (that would couple durable rationale
 to how-to churn).
+
+## Writing an explanation article
+
+An explanation article narrates one diagram: how one part of cats works and why it holds.
+
+1. Put the diagram in `docs/.assets/explanation/<name>.drawio.png`, and its description, what it draws in words, beside it as
+   `<name>.drawio.md`.
+2. Create `docs/explanation/<adr-domain>/<kebab-title>.md`, in the folder of the ADR domain whose decision it explains.
+3. After the title, open with a fenced `text` block that gives the overview: the finding in one line, then one line per numbered point of
+   the diagram. Then a short opening paragraph, the image, a Walkthrough that narrates every numbered point in order, the ADR rules that
+   make it hold, and links to the ADR, the asset description and the related articles.
+4. List it in its domain's `index.md`. Cite ADRs from the article; an ADR never links back to it.
 
 ## Writing an ADR
 

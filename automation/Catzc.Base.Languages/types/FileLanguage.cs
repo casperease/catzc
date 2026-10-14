@@ -27,15 +27,19 @@ public sealed class FileLanguage
     // formatter and no_formatter.
     public string no_formatter { get; }
 
+    // The VS Code language id of the language's files (e.g. azure-pipelines); its own name unless the entry states one.
+    public string vscode_language { get; }
+
     // The language's ADR folder under docs/adr/ (e.g. automation/powershell). Null when it has none.
     public string adr_folder { get; }
 
-    public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string adrFolder)
+    public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string adrFolder)
     {
         this.name = name;
         this.extensions = extensions == null ? Array.Empty<string>() : (string[])extensions.Clone();
         this.formatter = formatter;
         no_formatter = noFormatter;
+        vscode_language = vscodeLanguage ?? name;
         adr_folder = adrFolder;
     }
 }

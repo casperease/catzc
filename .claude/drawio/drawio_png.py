@@ -21,6 +21,8 @@ from urllib.parse import quote, unquote
 from PIL import Image, ImageDraw, ImageFont
 from PIL.PngImagePlugin import PngInfo
 
+BACKGROUND = "#E6ECF2"  # the grey-bluish base layer of every rendered output (.claude/drawio/STYLE.md)
+
 
 def style_map(style):
     out = {}
@@ -121,7 +123,10 @@ def render(root):
     miny = min(v[1] for v in geo.values()) - 20
     maxx = max(v[0] + v[2] for v in geo.values()) + 20
     maxy = max(v[1] + v[3] for v in geo.values()) + 20
-    bg = color(root.get("background"), "#FFFFFF")
+    # Every rendered output sits on the grey-bluish background, painted first behind everything, so a dark- or
+    # light-mode viewer shows the same page. A model's own background wins only when it is a real colour, not white.
+    model_bg = color(root.get("background"), BACKGROUND)
+    bg = BACKGROUND if model_bg.lower() in ("#ffffff", "#fff") else model_bg
     img = Image.new("RGB", (int(maxx - minx), int(maxy - miny)), bg)
     d = ImageDraw.Draw(img)
     off = lambda x, y: (x - minx, y - miny)

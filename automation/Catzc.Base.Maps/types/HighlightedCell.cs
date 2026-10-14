@@ -1,0 +1,44 @@
+// One lit cell of a world-map highlight: the cell (a track and a file language), the files in it that the request
+// lit, and the steps that lit it (a MapPlacement basis, "path" for a requested file, "pin" for a reviewed pin of
+// configs/maps.yml). A result type, so the properties are PascalCase
+// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+
+using System;
+using System.Collections.Generic;
+
+namespace Catzc.Base.Maps;
+
+[Catzc.Base.Objects.ConsoleDisplay(nameof(Track), nameof(FileLanguage), nameof(FileCount), nameof(Sources))]
+public sealed class HighlightedCell
+{
+    // The source of a cell lit by a requested file.
+    public const string SourcePath = "path";
+
+    // The source of a cell lit by a reviewed pin.
+    public const string SourcePin = "pin";
+
+    // The row: a track name, or WorldMap.NoTrack.
+    public string Track { get; }
+
+    // The column: a file-language name, or WorldMap.NoFileLanguage.
+    public string FileLanguage { get; }
+
+    // The lit files of the cell, in ordinal order. Empty for a cell a pin alone lights.
+    public IReadOnlyList<string> Files { get; }
+
+    // The steps that lit the cell, distinct, in ordinal order.
+    public IReadOnlyList<string> Sources { get; }
+
+    // The number of lit files.
+    public int FileCount => Files.Count;
+
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
+    public HighlightedCell(string track, string fileLanguage, string[] files, string[] sources)
+    {
+        Track = track;
+        FileLanguage = fileLanguage;
+        Files = files == null ? Array.Empty<string>() : (string[])files.Clone();
+        Sources = sources == null ? Array.Empty<string>() : (string[])sources.Clone();
+    }
+}

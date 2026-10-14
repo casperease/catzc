@@ -25,6 +25,18 @@ in a script and in CI, and the task index. Its how-to articles:
 - [Vendor a module](how-to/getting-started/automation/vendor-a-module.md)
 - [Add a doc chapter](how-to/getting-started/automation/add-a-doc-chapter.md)
 
+## Explanation
+
+How cats works and why, one diagram per article — start at the [**explanation index**](explanation/index.md), which also shows how to read
+the diagrams. By ADR domain:
+
+- [Automation](explanation/automation/index.md) — module dependencies, the importer, and the bundle
+- [Azure](explanation/azure/index.md) — how Azure resource names are assembled
+- [Configuration](explanation/configuration/index.md) — how configuration is read, cached and addressed
+- [Design](explanation/design/index.md) — the commit lifecycle, run modes, module aspects, tracks, the thin platform, the server remote
+- [Flow](explanation/flow/index.md) — promotion, the pipeline runner, and the globsets that trigger pipelines
+- [Pipelines](explanation/pipelines/index.md) — how Azure DevOps calls prove their credentials
+
 ## Module reference
 
 Per-module reference, written responsibilities-first — each [article](references/automation/index.md) declares the module's

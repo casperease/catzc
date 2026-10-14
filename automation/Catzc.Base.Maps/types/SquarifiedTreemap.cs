@@ -1,0 +1,135 @@
+// A deterministic squarified treemap (Bruls, Huizing and van Wijk, 2000): it tiles a bounding box with one rectangle per
+// item, each with an area proportional to the item's weight, and keeps the rectangles close to square. The world map's
+// tree view lays out the tracks by file count with it, and each track's cells inside the track's rectangle.
+//
+// The result depends only on the input: the items are taken heaviest first, ties broken by the ordinal order of their
+// keys, so the same weights give the same rectangles whatever order they arrive in. An item of weight zero gets no
+// rectangle; a negative, NaN or infinite weight, a duplicate or empty key, or an empty box throws. BCL only
+// ([ADR-AUTO-TYPES#5](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types5)).
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+
+namespace Catzc.Base.Maps;
+
+public static class SquarifiedTreemap
+{
+    // The rectangles of the items with a positive weight inside the box (x, y is its bottom-left corner), heaviest
+    // first, ties in ordinal key order.
+    public static TreemapRect[] Layout(string[] keys, double[] weights, double x, double y, double width, double height)
+    {
+        if (keys == null) { throw new ArgumentNullException(nameof(keys)); }
+        if (weights == null) { throw new ArgumentNullException(nameof(weights)); }
+        if (keys.Length != weights.Length)
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "treemap: {0} keys but {1} weights", keys.Length, weights.Length));
+        }
+        if (!Finite(x) || !Finite(y) || !Finite(width) || !Finite(height) || width <= 0 || height <= 0)
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "treemap: the box {0} x {1} is empty", width, height));
+        }
+
+        HashSet<string> seen = new HashSet<string>(StringComparer.Ordinal);
+        List<int> order = new List<int>();
+        double total = 0;
+        for (int i = 0; i < keys.Length; i++)
+        {
+            if (string.IsNullOrEmpty(keys[i])) { throw new ArgumentException("treemap: a key is empty"); }
+            if (!seen.Add(keys[i])) { throw new ArgumentException("treemap: the key '" + keys[i] + "' is listed twice"); }
+            if (!Finite(weights[i]) || weights[i] < 0)
+            {
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "treemap: the weight {0} of '{1}' is not a number of zero or more",
+                    weights[i], keys[i]));
+            }
+            if (weights[i] > 0)
+            {
+                order.Add(i);
+                total += weights[i];
+            }
+        }
+        order.Sort((a, b) =>
+        {
+            int byWeight = weights[b].CompareTo(weights[a]);
+            return byWeight != 0 ? byWeight : string.CompareOrdinal(keys[a], keys[b]);
+        });
+
+        List<TreemapRect> result = new List<TreemapRect>();
+        if (order.Count == 0) { return result.ToArray(); }
+
+        double scale = width * height / total;
+        double rx = x, ry = y, rw = width, rh = height;
+        List<int> row = new List<int>();
+        int next = 0;
+        while (next < order.Count)
+        {
+            double side = Math.Min(rw, rh);
+            List<int> candidate = new List<int>(row);
+            candidate.Add(order[next]);
+            if (row.Count == 0 || Worst(candidate, weights, scale, side) <= Worst(row, weights, scale, side))
+            {
+                row = candidate;
+                next++;
+                continue;
+            }
+            Place(row, keys, weights, scale, false, result, ref rx, ref ry, ref rw, ref rh);
+            row = new List<int>();
+        }
+        Place(row, keys, weights, scale, true, result, ref rx, ref ry, ref rw, ref rh);
+        return result.ToArray();
+    }
+
+    private static bool Finite(double value) => !double.IsNaN(value) && !double.IsInfinity(value);
+
+    // The worst aspect ratio of a row laid along a side of the given length.
+    private static double Worst(List<int> row, double[] weights, double scale, double side)
+    {
+        double sum = 0, min = double.MaxValue, max = 0;
+        foreach (int i in row)
+        {
+            double area = weights[i] * scale;
+            sum += area;
+            min = Math.Min(min, area);
+            max = Math.Max(max, area);
+        }
+        double side2 = side * side, sum2 = sum * sum;
+        return Math.Max(side2 * max / sum2, sum2 / (side2 * min));
+    }
+
+    // Lays a row along the shorter side of the remaining box: a column at the left of a wide box (top to bottom), a band
+    // at the top of a tall one (left to right). The last row takes the whole remaining box, so rounding never leaves a
+    // sliver or overflows the bounds.
+    private static void Place(List<int> row, string[] keys, double[] weights, double scale, bool last, List<TreemapRect> result,
+        ref double rx, ref double ry, ref double rw, ref double rh)
+    {
+        double sum = 0;
+        foreach (int i in row) { sum += weights[i] * scale; }
+        bool wide = rw >= rh;
+        double thickness = last ? (wide ? rw : rh) : (wide ? sum / rh : sum / rw);
+        double length = wide ? rh : rw;
+        double offset = 0;
+        for (int k = 0; k < row.Count; k++)
+        {
+            int i = row[k];
+            double extent = k == row.Count - 1 ? length - offset : weights[i] * scale / sum * length;
+            if (wide)
+            {
+                result.Add(new TreemapRect(keys[i], weights[i], rx, ry + rh - offset - extent, thickness, extent));
+            }
+            else
+            {
+                result.Add(new TreemapRect(keys[i], weights[i], rx + offset, ry + rh - thickness, extent, thickness));
+            }
+            offset += extent;
+        }
+        if (wide)
+        {
+            rx += thickness;
+            rw -= thickness;
+        }
+        else
+        {
+            rh -= thickness;
+        }
+    }
+}

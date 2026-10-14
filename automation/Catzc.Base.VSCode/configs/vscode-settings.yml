@@ -88,8 +88,11 @@ settings:
     "**/python/.venv/**": true
     "**/node_modules/**": true
 
+  # The formatter of [markdown] — and of every language languages.yml gives a formatter engine — is injected by the
+  # generator from that registry ([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)),
+  # so Format Document runs the engine Format-Code runs. Format-on-save stays off: formatting is on demand and enforced
+  # by Test-Formatting.
   "[markdown]":
-    editor.defaultFormatter: esbenp.prettier-vscode
     editor.quickSuggestions:
       comments: "on"
       strings: "on"
@@ -120,16 +123,12 @@ settings:
   workbench.editorAssociations:
     "*.drawio.png": imagePreview.previewEditor
 
-  # Prettier is the .yaml (ADO pipeline) formatter, the same engine Format-Code runs for it — so the editor
-  # and the catzc gate produce byte-identical output
-  # ([ADR-REPO-FORMAT](/docs/adr/repository/uniform-formatting.md)). `.yaml` is the azure-pipelines language
-  # (files.associations above), a custom language prettier-vscode does not format by default, so
-  # documentSelectors opts those files in; the language default-formatter then routes Format Document to it.
-  # Format-on-save is deliberately OFF — formatting is on demand (Shift+Alt+F) and enforced by the gate.
+  # Prettier formats .yaml (ADO pipeline) files, the engine languages.yml names for pipeline-yaml. `.yaml` is the
+  # azure-pipelines language (files.associations above), a custom language prettier-vscode does not format by
+  # default, so documentSelectors opts those files in; the injected [azure-pipelines] default formatter then routes
+  # Format Document to it.
   prettier.documentSelectors:
     - "**/*.yaml"
-  "[azure-pipelines]":
-    editor.defaultFormatter: esbenp.prettier-vscode
 
   # Azure Pipelines extension: validate .yaml against OUR generated schema, not the extension's bundled one.
   # The bundled schema models a step's `task` as a per-task anyOf; offline (never connected to an ADO org)
@@ -169,20 +168,6 @@ settings:
   python.testing.pytestEnabled: true
   python.testing.pytestArgs:
     - python/tests
-
-  # One formatter per language, the same engine the catzc formatter for that language runs, so Format Document
-  # and the gate agree ([ADR-REPO-FORMAT](/docs/adr/repository/uniform-formatting.md)). Format-on-save stays off:
-  # formatting is on demand and enforced by the gate.
-  "[go]":
-    editor.defaultFormatter: golang.go
-  "[python]":
-    editor.defaultFormatter: charliermarsh.ruff
-  "[csharp]":
-    editor.defaultFormatter: ms-dotnettools.csharp
-  "[bicep]":
-    editor.defaultFormatter: ms-azuretools.vscode-bicep
-  "[xml]":
-    editor.defaultFormatter: redhat.vscode-xml
 
   # C# Dev Kit loads the IDE-only catzc.sln at the root, never a project it finds on its own.
   dotnet.defaultSolution: catzc.sln

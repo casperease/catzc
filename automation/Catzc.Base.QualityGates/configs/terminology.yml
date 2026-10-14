@@ -93,6 +93,8 @@ terms:
       meaning: "pytest — the Python test runner the Python test bridge runs (ADR-AUTO-PY)"
     - term: junit
       meaning: "JUnit XML — the test-report format pytest writes with --junitxml"
+    - term: linq
+      meaning: "LINQ (System.Linq) — .NET's language-integrated query library"
     - term: nunit
       meaning: "NUnit XML — the test-result format Pester writes, validated as the nunit-xml output format"
     - term: junitxml
@@ -295,6 +297,10 @@ terms:
       meaning: "git's commit.gpgsign config key (disabled in Test-GitHistoryClean test repos)"
     - term: fxd
       meaning: "the git clean -fxd flag set (force + remove ignored + directories; Reset-GitCleanFxd)"
+    - term: minimap
+      meaning: "a small overview map in an explanation diagram's sidebar that places the diagram (the axis minimap, the tree minimap)"
+    - term: treemap
+      meaning: "a map that tiles an area by size; the tree minimap tiles the repository's tracked files by folder"
   abbreviation:
     - term: auth
       meaning: "authentication / authorization"

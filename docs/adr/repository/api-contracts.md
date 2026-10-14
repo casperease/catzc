@@ -249,6 +249,10 @@ follows one living version.
 
 - **The frozen-folder test** fails on any change to a version folder other than its unit's `0.0.0` (ADR-REPO-CONTRACT#5).
 
+- **`.gitattributes`** marks every file in a version folder `catzc-contract`
+  ([ADR-REPO-ROOTCFG#1](generated-root-configs.md#rule-adr-repo-rootcfg1)), so the link and Markdown-title tools leave an asset as written:
+  its bytes are what its check compares (ADR-REPO-CONTRACT#6), and a released folder stays byte-for-byte frozen (ADR-REPO-CONTRACT#5).
+
 - **Code review** guards what the tests cannot phrase: that the boundary stays confined to `contracts/` (ADR-REPO-CONTRACT#1), that a
   retirement is justified by the absence of a pinning consumer (ADR-REPO-CONTRACT#3), and that a `contract.yml` override is the exception
   the convention calls for (ADR-REPO-CONTRACT#7).

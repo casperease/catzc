@@ -102,10 +102,10 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
-        key        = Capture(() => Req(d, "key"), errors);
-        domain     = Capture(() => Req(d, "domain"), errors);
+        key = Capture(() => Req(d, "key"), errors);
+        domain = Capture(() => Req(d, "domain"), errors);
         defined_by = Capture(() => Req(d, "defined_by"), errors);
-        @short     = Capture(() => Req(d, "short").Trim(), errors);
+        @short = Capture(() => Req(d, "short").Trim(), errors);
 
         if (key != null && !KeyRe.IsMatch(key)) { errors.Add(string.Format("key '{0}' must be snake_case", key)); }
         if (domain != null && !DomainRe.IsMatch(domain)) { errors.Add(string.Format("domain '{0}' must be an adrs.yml domain key", domain)); }
@@ -124,9 +124,9 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
 
         relations = ParseRelations(d, errors);
         contrasts = ParseContrasts(d, errors);
-        avoid     = ParseAvoid(d, errors);
-        forms     = ParseForms(d, errors);
-        verbs     = Flag(d, "verbs");
+        avoid = ParseAvoid(d, errors);
+        forms = ParseForms(d, errors);
+        verbs = Flag(d, "verbs");
 
         if (errors.Count > 0) { throw Fail(term, errors); }
     }

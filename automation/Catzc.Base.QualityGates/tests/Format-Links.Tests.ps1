@@ -75,6 +75,28 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
                 Should -BeExactly "# Per ($widget2).`n"
         }
 
+        It 'merges a citation and the bracketed link to the same rule after it into one link, keeping a link elsewhere' -Tag 'ADR-REPO-LINK#3' {
+            $text = @(
+                '<#'
+                '.DESCRIPTION'
+                '    The widget rule of ADR-TST-WIDGET#2'
+                '    ([widget-rules](/docs/adr/widget/widget-rules.md#rule-adr-tst-widget2)): widgets nest.'
+                '    Gadgets follow ADR-TST-WIDGET#2 ([gadget-rules](/docs/adr/gadget/gadget-rules.md)).'
+                '#>'
+                ''
+            ) -join "`n"
+            $expected = @(
+                '<#'
+                '.DESCRIPTION'
+                "    The widget rule of $($widget2): widgets nest."
+                "    Gadgets follow $widget2"
+                '    ([ADR-TST-GADGET](/docs/adr/gadget/gadget-rules.md)).'
+                '#>'
+                ''
+            ) -join "`n"
+            & $alignFile $root 'src/widget.ps1' $text | Should -BeExactly $expected
+        }
+
         It 'turns a unique ADR file name into a link, and leaves an ambiguous one alone' -Tag 'ADR-REPO-LINK#3' {
             & $alignFile $root 'src/widget.ps1' "# See gadget-rules.md and dora-explains.md.`n" |
                 Should -BeExactly "# See [ADR-TST-GADGET](/docs/adr/gadget/gadget-rules.md) and dora-explains.md.`n"
@@ -146,6 +168,17 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
             & $writeFile $root 'src/widget.ps1' "`$path = 'docs/adr/nowhere/widget.md'`n"
             $result = Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -PassThru
             @($result.Unfixable.Type) | Should -Be @('StringPathMissing')
+        }
+
+        It 'leaves a contract asset as written, and never reports it' -Tag 'ADR-REPO-CONTRACT#6' {
+            $asset = 'contracts/widget/0.0.0/Gadget/docs/widget.md'
+            $text = "As ADR-TST-WIDGET:2 says, see [nowhere](sprocket.md).`n"
+            & $writeFile $root $asset $text
+            # The fixture repository has no .git: report the class as .gitattributes declares it.
+            Mock Get-GitAttributeValue { @{ 'contracts/widget/0.0.0/Gadget/docs/widget.md' = @{ 'catzc-contract' = 'set' } } } -ModuleName Catzc.Base.QualityGates
+            $result = Format-Links -RepositoryRoot $root -Path (Join-Path $root 'contracts') -PassThru
+            & $readFile $root $asset | Should -BeExactly $text
+            $result.Unfixable | Should -BeNullOrEmpty
         }
     }
 

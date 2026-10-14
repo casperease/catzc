@@ -33,6 +33,23 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
         $json.'search.exclude'.'automation/.vendor' | Should -BeTrue
     }
 
+    It 'sets each language''s editor formatter, merged into an authored [language] block whose own keys win' -Tag 'ADR-REPO-FORMAT#8' {
+        Mock Get-Config -ModuleName Catzc.Base.VSCode {
+            [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
+                    settings = [ordered]@{
+                        '[widget]' = [ordered]@{ 'editor.wordWrap' = 'off' }
+                        '[gadget]' = [ordered]@{ 'editor.defaultFormatter' = 'gadget.authored' }
+                    }
+                })
+        }
+        $text = New-VSCodeSettings -LanguageFormatter ([ordered]@{ widget = 'widget.engine'; gadget = 'gadget.engine'; sprocket = 'sprocket.engine' })
+        $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
+        $json.'[widget]'.'editor.defaultFormatter' | Should -Be 'widget.engine'
+        $json.'[widget]'.'editor.wordWrap' | Should -Be 'off'
+        $json.'[gadget]'.'editor.defaultFormatter' | Should -Be 'gadget.authored'
+        $json.'[sprocket]'.'editor.defaultFormatter' | Should -Be 'sprocket.engine'
+    }
+
     It 'lets an authored entry win over an injected key of the same name' {
         $text = New-VSCodeSettings -ManagedTarget 'keep/searchable.psd1'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json

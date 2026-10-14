@@ -70,6 +70,11 @@ automation/.compiled/** linguist-generated
 # catzc: test fixture trees are data on purpose — the link and Markdown-title tools leave them as written.
 **/tests/assets/** catzc-fixture
 
+# catzc: contract assets are data on purpose — a contract asset's bytes are what its contract check compares, so the
+# tools that rewrite or check content (links, Markdown titles) leave them as written. An empty presence asset stays
+# empty. See docs/adr/repository/api-contracts.md (ADR-REPO-CONTRACT#6).
+/contracts/*/*/** catzc-contract
+
 # catzc: the repository landing page keeps its own title, not the path title every other Markdown file carries
 # (docs/adr/repository/uniform-formatting.md, ADR-REPO-FORMAT#6).
 /.github/README.md -catzc-path-title

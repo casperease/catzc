@@ -1,0 +1,64 @@
+# The dotnet-format engine with the tool boundary mocked ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)):
+# the mock answers like `dotnet format whitespace --verify-no-changes --report`, writing the JSON report the engine
+# reads. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'Invoke-DotnetFormat' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:repo = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo'))
+        $script:widget = Join-Path $script:repo 'automation/Catzc.Widget/types/Widget.cs'
+        $script:gadget = Join-Path $script:repo 'automation/Catzc.Widget/types/Gadget.cs'
+    }
+
+    BeforeEach {
+        $script:reported = @($script:widget)
+        $script:checkExit = 2
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
+        Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -like '*--verify-no-changes*' } {
+            if ($Command -match '--report "([^"]+)"') {
+                $entries = @($script:reported | ForEach-Object { @{ FilePath = $_; FileChanges = @(@{ DiagnosticId = 'WHITESPACE' }) } })
+                Set-Content -LiteralPath (Join-Path $Matches[1] 'format-report.json') -Value (ConvertTo-Json -InputObject $entries -Depth 4)
+            }
+            [pscustomobject]@{ ExitCode = $script:checkExit; Output = ''; Full = 'dotnet format output' }
+        }
+        Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -notlike '*--verify-no-changes*' } {
+            [pscustomobject]@{ ExitCode = 0; Output = ''; Full = '' }
+        }
+    }
+
+    It 'checks every given file against .editorconfig from the repository root, then rewrites exactly the reported ones' {
+        $changed = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widget, $script:gadget) } {
+            param($Files)
+            Invoke-DotnetFormat -File $Files
+        }
+        $changed | Should -Be @($script:widget)
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Command -like "dotnet format whitespace `"$script:repo`" --folder --verify-no-changes --report * --include `"automation/Catzc.Widget/types/Widget.cs`" `"automation/Catzc.Widget/types/Gadget.cs`""
+        }
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Command -eq "dotnet format whitespace `"$script:repo`" --folder --include `"automation/Catzc.Widget/types/Widget.cs`""
+        }
+    }
+
+    It 'writes nothing under -DryRun, or when every file is formatted' {
+        $null = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widget) } { param($Files) Invoke-DotnetFormat -File $Files -DryRun }
+        $script:reported = @()
+        $script:checkExit = 0
+        $none = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widget) } {
+            param($Files)
+            @(Invoke-DotnetFormat -File $Files | ForEach-Object { $_ })
+        }
+        $none | Should -HaveCount 0
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 0 -ParameterFilter { $Command -notlike '*--verify-no-changes*' }
+    }
+
+    It 'runs nothing when there are no C# files' {
+        $none = InModuleScope Catzc.Base.QualityGates { @(Invoke-DotnetFormat -File @() | ForEach-Object { $_ }) }
+        $none | Should -HaveCount 0
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 0
+    }
+
+    It 'throws with the tool''s output on an unexpected exit code' {
+        $script:checkExit = 1
+        { InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widget) } { param($Files) Invoke-DotnetFormat -File $Files } } |
+            Should -Throw '*dotnet format could not format the C# files (exit 1)*dotnet format output*'
+    }
+}

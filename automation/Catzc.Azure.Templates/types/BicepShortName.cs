@@ -26,18 +26,18 @@ public sealed class BicepShortName
     public const int MaxLength = 5;
 
     // The template's on-disk folder name (the readable, kebab-case identifier). Always present.
-    public string folder     { get; }
+    public string folder { get; }
 
     // The resolved short_name (the Azure id segment). Always a valid 2-MaxLength lowercase-alnum value.
-    public string value      { get; }
+    public string value { get; }
 
     // True when `value` came from an options.yml override; false when derived from the folder name.
-    public bool   overridden { get; }
+    public bool overridden { get; }
 
     private BicepShortName(string folder, string value, bool overridden)
     {
-        this.folder     = folder;
-        this.value      = value;
+        this.folder = folder;
+        this.value = value;
         this.overridden = overridden;
     }
 

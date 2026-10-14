@@ -22,6 +22,7 @@ WIDTH = 1600
 BAR = 44
 MARGIN = 48
 INK, QUIET, RULE = "#37474F", "#546E7A", "#CFD8DC"
+BACKGROUND = "#E6ECF2"  # the grey-bluish base layer of every rendered output (.claude/drawio/STYLE.md)
 
 
 def font(size, bold=False, mono=False):
@@ -35,7 +36,7 @@ def font(size, bold=False, mono=False):
 
 
 def caption(img, path, section):
-    out = Image.new("RGB", (WIDTH, img.height + BAR + 16), "#ffffff")
+    out = Image.new("RGB", (WIDTH, img.height + BAR + 16), BACKGROUND)
     d = ImageDraw.Draw(out)
     d.rectangle([0, 0, WIDTH, BAR], fill="#37474F")
     d.text((14, 11), f"{section}  ·  {path.name}", font=font(20, bold=True), fill="#ffffff")
@@ -119,7 +120,7 @@ def markdown_page(path, section):
             para.append(s)
     flush()
     height = MARGIN * 2 + sum(gap + len(lines) * round(f.size * 1.4) for f, _, lines, gap in blocks)
-    img = Image.new("RGB", (WIDTH, height), "#ffffff")
+    img = Image.new("RGB", (WIDTH, height), BACKGROUND)
     d = ImageDraw.Draw(img)
     y = MARGIN
     for f, colour, lines, gap in blocks:

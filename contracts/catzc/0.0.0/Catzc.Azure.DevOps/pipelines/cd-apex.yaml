@@ -1,0 +1,9 @@
+# Depended-on fragment of pipelines/cd-apex.yaml
+# ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)): what Azure Pipelines reads at the
+# pipeline root — the `trigger` and `pr` blocks, honoured only there, and the `extends` root with its `template`. A null
+# value pins only that the key exists.
+# Source: https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline
+trigger:
+pr:
+extends:
+  template:

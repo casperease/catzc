@@ -16,14 +16,14 @@ namespace Catzc.Base.QualityGates;
 public sealed class TerminologyTerm : Catzc.Base.Objects.DictionaryRecord
 {
     // The approved token, lower-cased as the spell-checker matches it. Required.
-    public string term       { get; }
+    public string term { get; }
 
     // One line: what the term is and why it is legitimate vocabulary. Required.
-    public string meaning    { get; }
+    public string meaning { get; }
 
     // The group this term is listed under (a defined category). Supplied by TerminologyConfig from the
     // registry's terms: <category>: grouping, not read from the entry.
-    public string category   { get; }
+    public string category { get; }
 
     // The full word an abbreviation stands for. Required when category is 'abbreviation', else absent.
     public string expands_to { get; }
@@ -31,10 +31,10 @@ public sealed class TerminologyTerm : Catzc.Base.Objects.DictionaryRecord
     public TerminologyTerm(IDictionary d, string category)
     {
         if (d == null) { throw new ArgumentException("TerminologyTerm requires a dictionary"); }
-        term          = Req(d, "term");
-        meaning       = Req(d, "meaning");
+        term = Req(d, "term");
+        meaning = Req(d, "meaning");
         this.category = category;
-        expands_to    = OptStr(d, "expands_to");
+        expands_to = OptStr(d, "expands_to");
 
         if (category == "abbreviation" && expands_to == null)
         {

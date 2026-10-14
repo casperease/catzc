@@ -28,7 +28,7 @@ function Get-Aspect {
 
     $default = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
             aspects = [ordered]@{
-                automation     = @([ordered]@{ live = @('*.ps1', 'private/**', 'types/**', 'configs/**') }, [ordered]@{ tests = @('**') })
+                automation     = @([ordered]@{ live = @('*.ps1', 'private/**', 'types/**', 'configs/**', 'assets/**') }, [ordered]@{ tests = @('**') })
                 infrastructure = @([ordered]@{ tests = @('**/tests/**') }, [ordered]@{ live = @('**') })
             }
         }).aspects

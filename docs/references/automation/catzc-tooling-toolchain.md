@@ -27,8 +27,9 @@ newest stable patch of the locked version, verified against the SHA-256 the go.d
 (Windows `%LOCALAPPDATA%\go`, Unix `~/.go`), the same on every platform and with no administrator; `Invoke-Go` runs the executable the tool
 check located, so the asserted Go is the one that runs. Java and Terraform come from the platform's native package manager — winget (user
 scope) on Windows, Homebrew on macOS, apt on Linux (see [use-proper-package-managers](../../adr/automation/use-proper-package-managers.md)).
-ShellCheck, the shell-script analyzer, comes the same way, user scope on Windows. The bats-core test runner the Bash tests run on is not
-installed but vendored in the repository; this module rebuilds that copy from the release and archive digest `bash.yml` pins
+ShellCheck, the shell-script analyzer, comes the same way, user scope on Windows, and so does the Bicep CLI, the formatter engine for the
+Bicep templates, which has no Linux package. The bats-core test runner the Bash tests run on is not installed but vendored in the
+repository; this module rebuilds that copy from the release and archive digest `bash.yml` pins
 ([bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md)).
 
 ### responsibility:2 — uv, the Python handler
@@ -82,6 +83,8 @@ The module's public functions, sorted into the responsibilities above.
 |                                              | `Uninstall-Terraform`  |
 |                                              | `Install-Shellcheck`   |
 |                                              | `Uninstall-Shellcheck` |
+|                                              | `Install-Bicep`        |
+|                                              | `Uninstall-Bicep`      |
 |                                              | `Update-BatsVendor`    |
 | responsibility:2 — uv, the Python handler    | `Install-Uv`           |
 |                                              | `Uninstall-Uv`         |

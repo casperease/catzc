@@ -11,7 +11,8 @@
     communication form ([ADR-AUTO-PATH#2](/docs/adr/automation/path-representation.md#rule-adr-auto-path2)).
 
     It lists and derives only: it never reads the real files the assets constrain. Files directly under contracts/ (its
-    README) are not assets. A version folder whose name is not <major>.<minor>.<patch>, a file outside a module folder,
+    README) are not assets, and neither is a released version folder's .frozen record
+    ([ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)). A version folder whose name is not <major>.<minor>.<patch>, a file outside a module folder,
     and a contract.yml entry naming no asset each throw. A missing or empty contracts/ gives an empty result.
 
     The addressing mode decides how an asset addresses files

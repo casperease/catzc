@@ -109,6 +109,8 @@ set of them.
     kind of text one file holds.
   - [track](#track): A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it
     lives.
+  - [unlisted file](#unlisted-file): An unlisted file is a tracked file no file language names — no extension, or one no entry lists; a file
+    language is a registered kind of text, named by its extensions.
 
 ### occupant
 
@@ -127,6 +129,18 @@ The one commit an always-on environment holds, deployed there as its release can
 | `current occupants` | occupants                             |
 | `resident commit`   | occupant                              |
 
+### root file
+
+A tracked file no track holds — at the repository root itself, or under out/ — the world map's own row.
+
+- **Defined by:** [ADR-DSGN-TRACK#7](design/tracks.md#rule-adr-dsgn-track7)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [track](#track): A track is a root folder and every file under it; a root file is a tracked file outside every track.
+  - [unlisted file](#unlisted-file): An unlisted file is a tracked file outside every file language, whatever its track; a root file is one
+    outside every track, whatever its file language.
+
 ### track
 
 A named repository root concern — one root folder, named by it, classified core, external port, adapter, or verification.
@@ -139,8 +153,23 @@ A named repository root concern — one root folder, named by it, classified cor
     the root concern itself, one root folder.
   - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a track is the root folder
     the file lives in, and its tech-stack is a set of file languages.
+  - [root file](#root-file): A root file is a tracked file no track holds, at the repository root or under out/; a track is a root folder
+    and every file under it.
   - [verification track](#verification-track): A verification track is one class of track — test-only, shipping nothing; a track is any root
     concern.
+
+### unlisted file
+
+A tracked file no file language names — no extension, or one no entry lists — the world map's own column.
+
+- **Defined by:** [ADR-DSGN-TRACK#8](design/tracks.md#rule-adr-dsgn-track8)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [file language](#file-language): A file language is a registered kind of text, named by its extensions; an unlisted file is a tracked
+    file whose extension none of them lists.
+  - [root file](#root-file): A root file is a tracked file outside every track; an unlisted file is a tracked file outside every file
+    language, whatever its track.
 
 ### verification track
 

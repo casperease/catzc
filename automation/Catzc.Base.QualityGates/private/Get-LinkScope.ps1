@@ -4,10 +4,9 @@
 .DESCRIPTION
     With no -Path, every git-tracked file (Get-GitTrackedPath) — the repository as committed, not whatever lies
     untracked in the working folder. With -Path, the given files and the files under the given folders, from the
-    filesystem. Either way the classes .gitattributes declares are never aligned: linguist-vendored (the third-party
-    tree), catzc-fixture (test fixture trees, whose links are data on purpose), and linguist-generated (files the
-    automation writes — the ADR index and glossary, the managed root-config copies — whose sources are aligned
-    instead). No list of its own: a new class is declared in the .gitattributes source.
+    filesystem. Either way a file the content tools leave as written (Get-ContentExemptPath: vendored, generated,
+    fixture, or contract asset) is never aligned. No list of its own: a new class is declared in the .gitattributes
+    source.
 .PARAMETER RepositoryRoot
     The repository root the returned paths are relative to.
 .PARAMETER Path
@@ -54,12 +53,8 @@ function Get-LinkScope {
     }
 
     $inRepository = @($files | Where-Object { $_ -notmatch '^\.\./' })
-    $attributes = Get-GitAttributeValue -RepositoryRoot $root -Path $inRepository -Attribute linguist-vendored, linguist-generated, catzc-fixture
-    @($inRepository | Where-Object {
-            $classes = $attributes[$_]
-            -not $classes -or -not (
-                $classes['linguist-vendored'] -in 'set', 'true' -or
-                $classes['linguist-generated'] -in 'set', 'true' -or
-                $classes['catzc-fixture'] -in 'set', 'true')
-        })
+    # Get-ContentExemptPath returns its paths as one array: assign it, so the set holds the paths, not the array.
+    $exemptPaths = Get-ContentExemptPath -RepositoryRoot $root -Path $inRepository
+    $exempt = [System.Collections.Generic.HashSet[string]]::new([string[]] @($exemptPaths))
+    @($inRepository | Where-Object { -not $exempt.Contains($_) })
 }

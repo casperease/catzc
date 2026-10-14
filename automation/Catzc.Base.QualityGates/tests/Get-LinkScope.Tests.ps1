@@ -31,4 +31,18 @@ Describe 'Get-LinkScope' -Tag 'L0', 'logic' {
         }
         $scope | Should -Be @('docs/widget.md')
     }
+
+    It 'leaves out a file .gitattributes marks a contract asset' -Tag 'ADR-REPO-CONTRACT#6' {
+        $contractFolder = Join-Path $script:widgetRoot 'contracts/widget/0.0.0/Gadget'
+        [System.IO.Directory]::CreateDirectory($contractFolder) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $contractFolder 'gadget.md'), '')
+        Mock Get-GitAttributeValue {
+            @{ 'contracts/widget/0.0.0/Gadget/gadget.md' = @{ 'catzc-contract' = 'set' } }
+        } -ModuleName Catzc.Base.QualityGates
+        $scope = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Items = @((Join-Path $script:widgetRoot 'docs'), (Join-Path $script:widgetRoot 'contracts')) } {
+            param($Root, $Items)
+            Get-LinkScope -RepositoryRoot $Root -Path $Items
+        }
+        $scope | Should -Be @('docs/widget.md')
+    }
 }

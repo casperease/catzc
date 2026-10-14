@@ -7,12 +7,19 @@
 # ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)): an entry names the
 # formatter engine for its files, and Format-Code (Catzc.Base.QualityGates) runs it; Test-Formatting checks the same
 # entries. Supporting a language on an existing engine is one line here. A language with nothing to format says why.
+# The editor reads the same entries: the root-config generator sets each language's VS Code default formatter to its
+# engine's extension and recommends that extension, so Format Document and Format-Code run the same engine
+# ([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)).
 #
-# Per entry:
-#   extensions    the extensions that name the language, lowercase, each with its leading dot
-#   formatter     the formatter engine: prettier | gofmt | ruff | psscriptanalyzer
-#   no_formatter  instead of formatter: why the language has none (exactly one of the two)
-#   adr_folder    its ADR folder under docs/adr/; omitted = none
+# Per engine (engines:):
+#   vscode_extension  the VS Code extension that runs the engine in the editor; omitted = the editor has none
+#
+# Per language (languages:):
+#   extensions       the extensions that name the language, lowercase, each with its leading dot
+#   formatter        the formatter engine: prettier | gofmt | ruff | psscriptanalyzer | dotnet-format | bicep
+#   no_formatter     instead of formatter: why the language has none (exactly one of the two)
+#   vscode_language  the VS Code language id of its files; omitted = the language's own name
+#   adr_folder       its ADR folder under docs/adr/; omitted = none
 #
 # The defaults and the engine list are declared once on Catzc.Base.Languages.LanguagesConfig
 # ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). Loaded via
@@ -20,6 +27,20 @@
 #
 # YAML is two file languages: executable pipeline YAML is `.yaml`, configuration data is `.yml`
 # ([ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6)).
+engines:
+  # Prettier, for every language that names it; the extension reads the same .prettierrc.yml and .editorconfig.
+  prettier: { vscode_extension: esbenp.prettier-vscode }
+  # gofmt through the Go extension, which runs the managed go the settings generator injects as go.goroot.
+  gofmt: { vscode_extension: golang.go }
+  # ruff through the Ruff extension, with the pinned ruff from the Python test workspace's environment.
+  ruff: { vscode_extension: charliermarsh.ruff }
+  # PSScriptAnalyzer's formatter through the PowerShell extension, whose codeFormatting settings (vscode-settings.yml)
+  # mirror the analyzer settings file.
+  psscriptanalyzer: { vscode_extension: ms-vscode.powershell }
+  # dotnet format's whitespace pass, driven by .editorconfig — the same rules the C# extension's formatter applies.
+  dotnet-format: { vscode_extension: ms-dotnettools.csharp }
+  # The Bicep CLI at the tools.yml pin (Install-Bicep); the Bicep extension runs the same formatter.
+  bicep: { vscode_extension: ms-azuretools.vscode-bicep }
 languages:
   powershell:
     extensions: [.ps1, .psm1, .psd1]
@@ -27,11 +48,12 @@ languages:
     adr_folder: automation/powershell
   csharp:
     extensions: [.cs]
-    no_formatter: no layout engine is configured for C# yet; Format-Types keeps the file-scoped namespace
+    formatter: dotnet-format
     adr_folder: automation/BCL
   pipeline-yaml:
     extensions: [.yaml]
     formatter: prettier
+    vscode_language: azure-pipelines
     adr_folder: pipelines
   yaml:
     extensions: [.yml]
@@ -41,7 +63,7 @@ languages:
     formatter: prettier
   bicep:
     extensions: [.bicep]
-    no_formatter: no engine is configured for Bicep yet
+    formatter: bicep
   python:
     extensions: [.py]
     formatter: ruff
@@ -61,10 +83,19 @@ languages:
     no_formatter: no engine is configured for Bash yet
   xml:
     extensions: [.ps1xml, .xml, .xsd, .dtd, .csproj]
-    no_formatter: no engine is configured for XML yet
+    no_formatter: no engine is configured for XML; .editorconfig and the editor's XML extension cover its layout
   html:
     extensions: [.html]
     formatter: prettier
+  css:
+    extensions: [.css]
+    formatter: prettier
+  solution:
+    extensions: [.sln]
+    no_formatter: the Visual Studio solution format is written by Visual Studio and dotnet sln, not formatted by hand
+  stamp:
+    extensions: [.stamp]
+    no_formatter: a build stamp is written whole by the generator that records it
   asset:
-    extensions: [.png, .pdf]
+    extensions: [.png, .pdf, .gz]
     no_formatter: binary files

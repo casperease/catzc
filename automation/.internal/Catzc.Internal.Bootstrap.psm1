@@ -428,95 +428,37 @@ function Import-CSharpTypes {
                 Path   = $file.Path
             }
         })
-    $expected = @($arr.Type)
     $snapshot = $hashResult.Snapshot
     $combinedHash = $hashResult.CombinedHash
 
-    $loaded = $false
-    foreach ($t in $expected) {
-        if (([System.Management.Automation.PSTypeName]$t).Type) {
-            $loaded = $true; break
-        }
-    }
-
-    # A loaded assembly cannot be reloaded. If any source changed since THIS ModulesRoot was last loaded, the
-    # live copy is stale — fail fast. The session record is keyed by ModulesRoot, so loading a different tree
-    # (e.g. a test-fixture root) records its own hash/snapshot and never poisons the real tree's guard; a root
-    # with no record of its own is compared per file against the root that loaded the types (cross-root, below).
-    # The message names which files drifted (added/removed/changed) and both hashes or roots, so the cause is
-    # diagnosable from the error text alone (a pure CRLF/LF flip never reaches here — the digests strip CR).
+    # A loaded assembly cannot be reloaded. Whether the types in this process are current for THIS ModulesRoot is
+    # measured in one place, Get-LoadedTypeDrift (Catzc.Internal.Types), which the public
+    # Test-LoadedTypesCurrent / Assert-LoadedTypesCurrent pair and the importer's restart read too. The session
+    # record is keyed by ModulesRoot, so loading a different tree (e.g. a test-fixture root) records its own
+    # hash/snapshot and never poisons the real tree's guard; a root with no record of its own is compared per file
+    # against the root that loaded the types (cross-root). The message names which files drifted and both hashes or
+    # roots, so the cause is diagnosable from the error text alone (a pure CRLF/LF flip never drifts — the digests
+    # strip CR).
     if (-not (Get-Variable -Name '__CatzcTypes' -Scope Global -ValueOnly -ErrorAction Ignore)) {
         $global:__CatzcTypes = @{}
     }
-    $rootKey = [System.IO.Path]::GetFullPath($ModulesRoot)
-    $prior = $global:__CatzcTypes[$rootKey]
-    $drift = [System.Collections.Generic.List[string]]::new()
-    $changeSummary = $null
-    if ($loaded -and $prior -and $prior.Hash -ne $combinedHash) {
-        foreach ($key in $snapshot.Keys) {
-            if (-not $prior.Snapshot.Contains($key)) {
-                $drift.Add("added $key")
-            }
-            elseif ($prior.Snapshot[$key] -ne $snapshot[$key]) {
-                $drift.Add("changed $key")
-            }
-        }
-        foreach ($key in $prior.Snapshot.Keys) {
-            if (-not $snapshot.Contains($key)) {
-                $drift.Add("removed $key")
-            }
-        }
-        $changeSummary = "C# types changed since they were loaded ($($prior.Hash) -> $combinedHash)."
-    }
-    elseif ($loaded -and -not $prior) {
-        # Cross-root: the types are in the AppDomain, but loaded on behalf of a DIFFERENT root (the other run mode,
-        # whose DLL compiles from the same types/*.cs). Compare per-file digests for every type this root needs
-        # against the root that recorded it. All equal -> the loaded types ARE this root's types: reuse them and
-        # record. A changed digest, or a needed type the AppDomain lacks (a subset loaded first), cannot be fixed
-        # in-process — a second assembly of the same type names would split type identity — so it takes the same
-        # stale-types contract as a same-root change below. A type no recorded root claims is reused as is.
-        $otherRoots = [System.Collections.Generic.List[string]]::new()
-        foreach ($key in $snapshot.Keys) {
-            foreach ($entry in $global:__CatzcTypes.GetEnumerator()) {
-                if ($entry.Key -ne $rootKey -and $entry.Value.Snapshot.Contains($key)) {
-                    if ($entry.Value.Snapshot[$key] -ne $snapshot[$key]) {
-                        $drift.Add("changed $key")
-                    }
-                    if (-not $otherRoots.Contains($entry.Key)) {
-                        $otherRoots.Add($entry.Key)
-                    }
-                    break
-                }
-            }
-        }
-        foreach ($tf in $arr) {
-            if (-not ([System.Management.Automation.PSTypeName]$tf.Type).Type) {
-                $drift.Add("not loaded $($tf.Key)")
-            }
-        }
-        if ($drift.Count) {
-            $loadedFrom = if ($otherRoots.Count) {
-                "'" + ($otherRoots -join "', '") + "'"
-            }
-            else {
-                'another root'
-            }
-            $changeSummary = "C# types already loaded from $loadedFrom differ from the sources under '$rootKey'."
-        }
-    }
-    if ($changeSummary) {
-        if ($drift.Count) {
-            $changeSummary += ' Drifted: ' + ($drift -join '; ') + '.'
+    $typeState = Get-LoadedTypeDrift -ModulesRoot $ModulesRoot -HashResult $hashResult
+    $loaded = $typeState.Loaded
+    $rootKey = $typeState.RootKey
+    if (-not $typeState.Current) {
+        $changeSummary = $typeState.Summary
+        if ($typeState.Drift.Count) {
+            $changeSummary += ' Drifted: ' + ($typeState.Drift -join '; ') + '.'
         }
         # A loaded assembly cannot be swapped in the AppDomain. In a pipeline a stale-types load is a HARD
         # failure (CI must never run on old types). On a devbox, a type the AppDomain lacks (added, or not
         # loaded cross-root) is a hard failure too — the code that uses it is certain to fail later, far from
         # here. A changed or removed type degrades gracefully — keep the already-loaded types this session,
         # warn (orange), and return WITHOUT recording the new hash, so the warning repeats on every re-import
-        # until you restart. The pipeline check is INLINED because Test-IsRunningInPipeline lives in
-        # Catzc.Base.Repository, which loads AFTER this pre-pass runs and so is not callable here.
-        $missingTypes = @($drift | Where-Object { $_.StartsWith('added ') -or $_.StartsWith('not loaded ') })
-        if (([bool]$env:TF_BUILD) -or ([bool]$env:GITHUB_ACTIONS) -or $missingTypes.Count) {
+        # until you restart. A person's interactive console never reaches here: the importer restarts it in a
+        # fresh process first (Invoke-Importer). The pipeline check is INLINED because Test-IsRunningInPipeline
+        # lives in Catzc.Base.Repository, which loads AFTER this pre-pass runs and so is not callable here.
+        if (([bool]$env:TF_BUILD) -or ([bool]$env:GITHUB_ACTIONS) -or $typeState.MissingTypes.Count) {
             throw "$changeSummary Restart PowerShell to pick up the change."
         }
         Write-ImporterMessage "Using old cached C# types — $changeSummary Restart PowerShell to pick up the change." -ForegroundColor DarkYellow

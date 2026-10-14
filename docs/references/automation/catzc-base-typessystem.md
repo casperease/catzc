@@ -32,6 +32,11 @@ invariant is enforced everywhere: when a second `Catzc.Types.*.dll` coexists it 
 locked stale DLL committed instead of deleted must not reach trunk. Its combined-hash computation mirrors the loader's exactly, so it can
 never plan the live build for deletion.
 
+The other half of the cache is the copy in the running process, which cannot be swapped once loaded. A test/assert pair asks whether the
+types this process loaded are still those its sources declare, from the one measurement the loader and the importer use
+([ADR-AUTO-TYPES#15](../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types15)); the assert names every drifted type and the
+one remedy, a new PowerShell.
+
 ### responsibility:2 — Cross-module type dependency analysis
 
 Recovering, for the dependency graph, the C# type edges the compiler no longer enforces. Because every module's `types/*.cs` compile into
@@ -94,11 +99,13 @@ the type edges without the two modules forming a cycle.
 
 The module's public functions, sorted into the responsibilities above.
 
-| Responsibility                                           | Function                   |
-| -------------------------------------------------------- | -------------------------- |
-| responsibility:1 — Compiled type-assembly cache          | `Clear-ModuleTypeCache`    |
-| responsibility:2 — Cross-module type dependency analysis | `Get-CSharpTypeDependency` |
-| responsibility:3 — Automation-module enumeration         | `Get-AutomationModules`    |
-| responsibility:4 — Editor type-project build             | `Invoke-BuildForVSCode`    |
-| responsibility:5 — Shipped-type coverage                 | `Test-ShippedTypes`        |
-| responsibility:6 — Agent hook build                      | `Build-BashTimeoutHook`    |
+| Responsibility                                           | Function                    |
+| -------------------------------------------------------- | --------------------------- |
+| responsibility:1 — Compiled type-assembly cache          | `Clear-ModuleTypeCache`     |
+|                                                          | `Assert-LoadedTypesCurrent` |
+|                                                          | `Test-LoadedTypesCurrent`   |
+| responsibility:2 — Cross-module type dependency analysis | `Get-CSharpTypeDependency`  |
+| responsibility:3 — Automation-module enumeration         | `Get-AutomationModules`     |
+| responsibility:4 — Editor type-project build             | `Invoke-BuildForVSCode`     |
+| responsibility:5 — Shipped-type coverage                 | `Test-ShippedTypes`         |
+| responsibility:6 — Agent hook build                      | `Build-BashTimeoutHook`     |

@@ -65,6 +65,19 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
             { Get-Contract -RepositoryRoot $script:root -Addressing full-path } | Should -Throw "*'gadget.md' sits outside a module folder*"
         }
 
+        It 'skips the .frozen record of a released version folder' -Tag 'ADR-REPO-CONTRACT#5' {
+            Add-Asset 'contracts/widget/1.0.0/Catzc.Widget/widget.md'
+            Add-Asset 'contracts/widget/1.0.0/.frozen' '# record'
+            (Get-Contract -Version 1.0.0 -RepositoryRoot $script:root -Addressing full-path).AssetPath |
+                Should -Be 'contracts/widget/1.0.0/Catzc.Widget/widget.md'
+        }
+
+        It 'throws on a .frozen record in the draft, which is never frozen' -Tag 'ADR-REPO-CONTRACT#5' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/widget.md'
+            Add-Asset 'contracts/widget/0.0.0/.frozen' '# record'
+            { Get-Contract -RepositoryRoot $script:root -Addressing full-path } | Should -Throw "*'.frozen' sits outside a module folder*"
+        }
+
         It 'throws on a file directly in a unit folder' -Tag 'ADR-REPO-CONTRACT#2' {
             Add-Asset 'contracts/widget/gadget.md'
             { Get-Contract -RepositoryRoot $script:root -Addressing full-path } | Should -Throw "*'gadget.md' sits outside a version folder*"

@@ -10,22 +10,22 @@ namespace Catzc.Base.Files;
 public sealed class FileLockingProcess
 {
     // The holding process's id.
-    public int      ProcessId       { get; }
+    public int ProcessId { get; }
 
     // The executable name (e.g. pwsh.exe); null when the process is gone.
-    public string   Name            { get; }
+    public string Name { get; }
 
     // The Restart Manager's display name for the application (its window title or file description).
-    public string   AppName         { get; }
+    public string AppName { get; }
 
     // When the process started (local time) — together with ProcessId it identifies the process uniquely.
-    public DateTime Started         { get; }
+    public DateTime Started { get; }
 
     // The full command line; null when the process is gone or the caller may not read it.
-    public string   CommandLine     { get; }
+    public string CommandLine { get; }
 
     // The parent process's id; null when the process is gone.
-    public int?     ParentProcessId { get; }
+    public int? ParentProcessId { get; }
 
     public FileLockingProcess(int processId, string appName, DateTime started)
         : this(processId, null, appName, started, null, null)

@@ -3,10 +3,10 @@
     Lists the repository-relative Markdown files whose title is their path.
 .DESCRIPTION
     Every git-tracked *.md file — the repository as committed, so a gitignored generated README is never in scope while
-    its tracked source is — minus the classes .gitattributes declares: linguist-vendored and linguist-generated (not
-    authored here), catzc-fixture (test fixture trees, data on purpose), and -catzc-path-title (a file that keeps its
-    own title, the repository landing page). No list of its own: a new exception is declared in the .gitattributes
-    source like every other file class.
+    its tracked source is — minus the files the content tools leave as written (Get-ContentExemptPath: vendored,
+    generated, fixture, or contract asset) and those .gitattributes marks -catzc-path-title (a file that keeps its own
+    title, the repository landing page). No list of its own: a new exception is declared in the .gitattributes source
+    like every other file class.
 .PARAMETER RepositoryRoot
     The repository root the returned paths are relative to.
 .PARAMETER Path
@@ -43,13 +43,12 @@ function Get-MarkdownTitleScope {
     }
 
     # Every class comes from .gitattributes.
-    $attributes = Get-GitAttributeValue -RepositoryRoot $root -Path $markdown -Attribute linguist-vendored, linguist-generated, catzc-fixture, catzc-path-title
+    # Get-ContentExemptPath returns its paths as one array: assign it, so the set holds the paths, not the array.
+    $exemptPaths = Get-ContentExemptPath -RepositoryRoot $root -Path $markdown
+    $exempt = [System.Collections.Generic.HashSet[string]]::new([string[]] @($exemptPaths))
+    $attributes = Get-GitAttributeValue -RepositoryRoot $root -Path $markdown -Attribute catzc-path-title
     , [string[]] @($markdown | Where-Object {
             $classes = $attributes[$_]
-            -not $classes -or -not (
-                $classes['linguist-vendored'] -in 'set', 'true' -or
-                $classes['linguist-generated'] -in 'set', 'true' -or
-                $classes['catzc-fixture'] -in 'set', 'true' -or
-                $classes['catzc-path-title'] -eq 'unset')
+            -not $exempt.Contains($_) -and -not ($classes -and $classes['catzc-path-title'] -eq 'unset')
         })
 }

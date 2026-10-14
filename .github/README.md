@@ -10,7 +10,7 @@ everything is self-contained: vendored dependencies, no network calls, no global
 
 In code the system is **catzc** — the `Catzc.*` modules and namespaces; in prose we call it **cats** ("ask cats").
 
-[![CI](https://github.com/casperease/catzc/actions/workflows/ci.yml/badge.svg)](https://github.com/casperease/catzc/actions/workflows/ci.yml)
+[![CI](https://github.com/casperease/catzc/actions/workflows/ci-automation.yml/badge.svg)](https://github.com/casperease/catzc/actions/workflows/ci-automation.yml)
 
 ---
 

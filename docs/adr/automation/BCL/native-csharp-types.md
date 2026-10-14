@@ -151,6 +151,18 @@ narrows both its text and its default display at the prompt. `Test-ShippedTypes`
 - [Console-ready rendering](#console-ready-rendering)
 - [How this is enforced](#how-this-is-enforced)
 
+### Rule ADR-AUTO-TYPES:15
+
+Whether the C# types loaded in a process are current is measured in one place, `Get-LoadedTypeDrift` (`Catzc.Internal.Types`), and asked
+through one test/assert pair, `Test-LoadedTypesCurrent` and `Assert-LoadedTypesCurrent` (`Catzc.Base.TypesSystem`). When they are stale, a
+person importing at their own interactive console is never left on them: the importer starts the import over in a new pwsh in the same
+window, with the same switches, and `exit` returns to the old session, which says it still holds the old types. Who runs decides, as for the
+janitors (ADR-AUTO-TYPES#13), and no switch overrides it: an agent, a script, or a redirected console keeps the loader's warn-or-throw
+(ADR-AUTO-TYPES#7), and a pipeline throws.
+
+- [The cache-state contract](#the-cache-state-contract)
+- [Stale types in a running process](#stale-types-in-a-running-process)
+
 ## Context
 
 Some logic is better expressed as a native .NET type than as PowerShell: a process runner with background reader threads
@@ -275,13 +287,13 @@ call site; the `Catzc.`-namespaced, source-authored literal is what keeps it dis
 Because the DLL filename _is_ the combined source hash, there is no "present but stale" state — a source that changes has a different
 filename, so the current-hash DLL is simply absent until built. The loader resolves every state:
 
-| current-hash DLL                       | types loaded this session | Outcome                                                                                                                                                                                                                                                                   |
-| -------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| present                                | no                        | **Skip compile, load it.** CI / fresh-checkout hot path (no Roslyn).                                                                                                                                                                                                      |
-| present                                | yes                       | **No-op.** Types already in the AppDomain.                                                                                                                                                                                                                                |
-| absent (source added/changed/deleted)  | no                        | **Compile** all sources → the hash-named DLL, load, verify every type.                                                                                                                                                                                                    |
-| absent (DLL deleted, source unchanged) | yes                       | **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.                                                                                                                                                              |
-| absent because the source CHANGED      | yes                       | **Devbox: warn (orange) + keep the old types** this session (return, don't record the new hash) — unless a type was added, which throws "restart PowerShell". **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped. |
+| current-hash DLL                       | types loaded this session | Outcome                                                                                                                                                                                                                                                                                                                                                                   |
+| -------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| present                                | no                        | **Skip compile, load it.** CI / fresh-checkout hot path (no Roslyn).                                                                                                                                                                                                                                                                                                      |
+| present                                | yes                       | **No-op.** Types already in the AppDomain.                                                                                                                                                                                                                                                                                                                                |
+| absent (source added/changed/deleted)  | no                        | **Compile** all sources → the hash-named DLL, load, verify every type.                                                                                                                                                                                                                                                                                                    |
+| absent (DLL deleted, source unchanged) | yes                       | **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.                                                                                                                                                                                                                                                              |
+| absent because the source CHANGED      | yes                       | **A person's own console: start the import over in a new pwsh** (ADR-AUTO-TYPES#15). **Otherwise, devbox: warn (orange) + keep the old types** this session (return, don't record the new hash) — unless a type was added, which throws "restart PowerShell". **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped. |
 
 A superseded-hash DLL (the old build after a source edit) is pruned by the loader on rebuild and by the post-import janitor
 `Clear-ModuleTypeCache` (which deletes on a devbox only; CI makes no source-control changes). Editing any `types/*.cs` re-keys the whole
@@ -304,6 +316,23 @@ invariant is guarded at three points:
 - **Pipeline:** two `Catzc.Types.*.dll` are a hard `throw` in `Clear-ModuleTypeCache`. CI makes no source-control changes, so two builds
   there were committed; the fix is to run `Clear-ModuleTypeCache` on the devbox and commit the single remaining build.
 - **IDE project:** the `Catzc.Types.csproj` stamp task warns when the git index's `.compiled` does not hold exactly the current DLL.
+
+### Stale types in a running process
+
+.NET cannot unload an assembly from a running process, and a second assembly with the same type names would split their identity: a
+`[Catzc.…]` literal would resolve to one copy while an object holds the other. So once a type source changes, the process that loaded the
+old types keeps them until it ends, and the only remedy is a new process. Stopping other processes does not help: the stale copy is in the
+process that asks.
+
+That limit is measured once, so every caller agrees on it. `Get-LoadedTypeDrift` compares the session record of what was loaded with the
+sources on disk and names each drifted type; the loader reads it to warn or throw, and `Test-LoadedTypesCurrent` /
+`Assert-LoadedTypesCurrent` give the same answer to any code that needs current types, such as a test of a type just edited.
+
+A person who edits a type and imports again wants the new types, so the importer gives them a new process instead of an instruction. It
+starts a pwsh beside the running one, which dot-sources the importer with the same switches and stays open, so the person carries on in the
+same window. The old session stays underneath, because a process cannot replace itself on every platform; `exit` returns to it, and it says
+it still holds the old types. Each restart nests one more process, which `exit` unwinds. The restart is for a person only: an agent cannot
+drive a nested shell, a script would block on one, and a pipeline must never run on stale types.
 
 ### Why a shadow copy
 
@@ -397,6 +426,10 @@ aliases.
   one compilation unit per file), verifies every `types/*.cs` produced `<module>.<filename>` (else "was not produced"), registers each
   `[Catzc.Base.Objects.PSTypeAlias]` name as a type-accelerator (Rule ADR-AUTO-TYPES#10), and registers each
   `[Catzc.Base.Objects.ConsoleDisplay]` property list as the type's default display (Rule ADR-AUTO-TYPES#14).
+
+- **`Get-LoadedTypeDrift`** (in `Catzc.Internal.Types`) is the one measure of stale types; the loader, the importer's restart
+  (`Restart-ImporterSession`, decided by `Test-ImporterRestartAllowed`), and the `Test-LoadedTypesCurrent` / `Assert-LoadedTypesCurrent`
+  pair read it (Rule ADR-AUTO-TYPES#15).
 
 - **`Test-ShippedTypes`** (in `Catzc.Base.TypesSystem`) fails a concrete shipped class that keeps the inherited `ToString()`, naming the
   file and the line to add (Rule ADR-AUTO-TYPES#14); enums, interfaces, abstract and static classes, attributes, and exceptions are exempt.

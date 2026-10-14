@@ -42,6 +42,12 @@ function Invoke-FormatterEngine {
         'psscriptanalyzer' {
             return Invoke-PSScriptAnalyzerFormat -File $File -DryRun:$DryRun
         }
+        'dotnet-format' {
+            return Invoke-DotnetFormat -File $File -DryRun:$DryRun
+        }
+        'bicep' {
+            return Invoke-BicepFormat -File $File -DryRun:$DryRun
+        }
         default {
             throw "Invoke-FormatterEngine: no adapter for the formatter engine '$Engine' (declared: $([Catzc.Base.Languages.LanguagesConfig]::FormatterEngines -join ', '))."
         }

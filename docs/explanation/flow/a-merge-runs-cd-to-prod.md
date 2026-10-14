@@ -1,0 +1,61 @@
+# docs/explanation/flow/a-merge-runs-cd-to-prod.md
+
+`A merge to main runs the CD pipeline all the way to prod, with no approval`
+
+```text
+A merge to main runs the CD pipeline all the way to prod, with no approval.
+
+1  developer                   a pull request or a merge to main starts the run
+2  Build-Bicep                 the CI stage builds and publishes three artifacts
+3  PR run ends here            deploy stages run only on main
+4  nsub, dev, test             non-prod targets, one Azure DevOps environment each
+5  psub, preprod, prod         the prod tier, same run, no approval in the YAML
+6  Deploy-Bicep                throws when the subscription assert is missing
+7  Get-BicepDeploymentContext  throws when the session targets the wrong subscription
+
+Supports ADR-FLOW-CD#5, #6 and #9 (operations lens).
+```
+
+To an operator in Azure DevOps, a customer CD pipeline is one run. A pull request or a merge to main triggers it, the CI stage builds, and a
+merge goes on to deploy every target the pipeline lists, the prod tier included, with no approval step in the YAML. The run has a trigger, a
+CI stage, the deploy stages and the environments they reach, and two failures an operator can meet on the way.
+
+![A merge to main runs the CD pipeline all the way to prod, with no approval](../../.assets/explanation/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.png)
+
+The diagram is described element by element in
+[its asset description](../../.assets/explanation/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.md).
+
+## Walkthrough
+
+1. **Developer.** A pull request into main or a merge to main starts the run. The path filter is the customer's globset, projected into
+   Azure DevOps `trigger:` and `pr:` paths by `Get-GlobSetTrigger`.
+2. **Build-Bicep.** The CI stage runs `Build-Bicep` once per template and publishes three artifacts: `foundation`, `discovery` and
+   `expedition`.
+3. **A pull-request run ends here.** Every deploy stage's condition requires `refs/heads/main`, so only a merge goes on to deploy.
+4. **Non-prod targets.** Each target shows as an Azure DevOps environment named `<customer>-<env>`, or `<customer>-<env>-<slot>` for an
+   expedition slot, with one deployment job each.
+5. **Prod-tier targets.** `psub`, `preprod` and `prod` deploy in the same run and the same stages as non-prod, with no approval step in the
+   YAML. Environment checks set in the Azure DevOps UI live outside the repository.
+6. **Deploy-Bicep.** It throws when a pipeline omits the assert: "Deploy-Bicep requires -SubscriptionIdAssertIs in a pipeline — the pipeline
+   must pin the subscription GUID its service connection is expected to target, …".
+7. **Get-BicepDeploymentContext.** It throws on a subscription mismatch instead of retargeting: "-SubscriptionIdAssertIs failed: the az
+   session targets subscription '…', not … — in a pipeline this means the service connection is wired to the wrong subscription."
+
+## Why it holds
+
+- CD takes the artifact through non-prod only (ADR-FLOW-CD#5).
+- Progression toward prod leaves the automated flow and enters DEPLOY, behind a manual gate (ADR-FLOW-CD#6).
+- RC and RBC are the human gates that decide whether the artifact may proceed (ADR-FLOW-CD#9).
+
+## Where the code and the ADR differ
+
+- The ADR keeps CD in non-prod and puts a human gate and DEPLOY before prod, but `cd-apex.yaml` and `cd-shared.yaml` deploy `preprod` and
+  `prod` from the CD run.
+- An operator has no entry point in the repository for certifying RC or RBC or for running DEPLOY.
+
+## See also
+
+- [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains.
+- The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [architecture](pipeline-kinds-keyed-by-one-artifact.md),
+  [implementation](cd-builds-once-then-deploys-prod-itself.md) and [governance](ci-budget-is-the-only-machine-gate.md).
+- [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

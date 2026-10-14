@@ -47,8 +47,9 @@ Every git-tracked Markdown file opens — after any YAML front matter — with t
 `# docs/references/infrastructure/foundation.md`, and nothing else on that line. `Format-MarkdownTitle` writes it — a replaced title's
 wording is kept between single backticks as the body's first line, so no authored text is lost — and `Test-MarkdownTitle` checks it. The
 scope follows the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored`,
-`linguist-generated`, or `catzc-fixture` (the test fixture trees), and those it marks `-catzc-path-title` (the repository landing page,
-which keeps its own title). A new exception is declared in the `.gitattributes` source, never in a list of the gate's own.
+`linguist-generated`, `catzc-fixture` (the test fixture trees), or `catzc-contract` (the contract assets,
+[ADR-REPO-CONTRACT#6](api-contracts.md#rule-adr-repo-contract6)), and those it marks `-catzc-path-title` (the repository landing page, which
+keeps its own title). A new exception is declared in the `.gitattributes` source, never in a list of the gate's own.
 
 - [Markdown titles are paths](#markdown-titles-are-paths)
 
@@ -66,8 +67,9 @@ checks it.
 
 Each file language's formatter is configured, not coded: its entry in the file-language registry (`languages.yml`) names the formatter
 engine that formats its files, or states in `no_formatter:` why it has none. `Format-Code` runs the engines over every tracked file except
-vendored code, and `Test-Formatting` checks the same entries — there is no formatting command per language and no list of formatters in a
-check (ADR-PRIN-CONFIG#1).
+vendored code and contract assets (`catzc-contract`, whose bytes a contract check compares and a released version freezes,
+[ADR-REPO-CONTRACT#5](api-contracts.md#rule-adr-repo-contract5)), and `Test-Formatting` checks the same entries — there is no formatting
+command per language and no list of formatters in a check (ADR-PRIN-CONFIG#1).
 
 - [Formatting is configured per language](#formatting-is-configured-per-language)
 
@@ -110,11 +112,11 @@ is governed by `PSScriptAnalyzerSettings.psd1` (see [powershell-formatting](../a
 ### Formatting is configured per language
 
 Formatting follows [configure-not-program](../principles/configure-not-program.md): there is one formatting command, `Format-Code`, and one
-adapter per formatter engine (Prettier, gofmt, ruff, PSScriptAnalyzer). Which engine formats a language is one line in the registry —
-`formatter: prettier` — so supporting a language on an engine the repository already runs is a configuration change, reviewed as such, and
-the editor, the formatting command, and the `Test-Formatting` check all read the same line. A language with nothing to format says why in
-`no_formatter:`, so a gap is a visible entry rather than a missing command. Adding a language means adding its registry entry and its
-`.editorconfig` section — not a new command, and not a new formatting philosophy.
+adapter per formatter engine (Prettier, gofmt, ruff, PSScriptAnalyzer, dotnet format, the Bicep CLI). Which engine formats a language is one
+line in the registry — `formatter: prettier` — so supporting a language on an engine the repository already runs is a configuration change,
+reviewed as such, and the editor, the formatting command, and the `Test-Formatting` check all read the same line. A language with nothing to
+format says why in `no_formatter:`, so a gap is a visible entry rather than a missing command. Adding a language means adding its registry
+entry and its `.editorconfig` section — not a new command, and not a new formatting philosophy.
 
 ### `.gitattributes` and binary files
 
@@ -143,9 +145,9 @@ the formatter replaces an authored title, that title's wording is kept below the
 rather than read as prose. The title's own backticks are dropped, since inside that one code span they would split it.
 
 The scope reuses the classes the repository already declares instead of keeping its own: git decides what is committed (a gitignored
-generated file is out, its tracked source is in), and `.gitattributes` decides what is vendored, generated, or a fixture (`catzc-fixture`:
-data on purpose, which the link tools skip too). The landing page is the one file whose title is its first impression on GitHub, not a
-location, so it opts out with `-catzc-path-title`.
+generated file is out, its tracked source is in), and `.gitattributes` decides what is vendored, generated, or a fixture (`catzc-fixture`
+and `catzc-contract`: data on purpose, which the link tools skip too — a contract asset's bytes are what its contract check compares). The
+landing page is the one file whose title is its first impression on GitHub, not a location, so it opts out with `-catzc-path-title`.
 
 ### Headings are plain words
 

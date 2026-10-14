@@ -17,9 +17,10 @@ then `tests` — the prod-going artifacts (`live`, what ships) and the means to 
 ### Rule ADR-DSGN-ASPECT:2
 
 Aspects are **auto-derived** from folder conventions, never hand-declared. `live` is a **closed** convention (folder-scoped patterns —
-`*.ps1`, `private/**`, `types/**`, `configs/**` — that never reach `tests/`); the **last** aspect is the `**` catch-all remainder. Ordered
-first-match makes the partition disjoint and exhaustive _by construction_: `AspectPartition.Compile` gives aspect _k_ the leaf scan program
-`+ (its own patterns) − (every earlier aspect's patterns)`, all prefixed by the unit root (`ADR-FLOW-CD-GLOBS:4`).
+`*.ps1`, `private/**`, `types/**`, `configs/**`, `assets/**` — that never reach `tests/`, and are what the builder ships); the **last**
+aspect is the `**` catch-all remainder. Ordered first-match makes the partition disjoint and exhaustive _by construction_:
+`AspectPartition.Compile` gives aspect _k_ the leaf scan program `+ (its own patterns) − (every earlier aspect's patterns)`, all prefixed by
+the unit root (`ADR-FLOW-CD-GLOBS:4`).
 
 - [Decision](#decision)
 

@@ -17,8 +17,11 @@
 // file language, and an omitted 'adr_folder' is none.
 //
 // Constructing an instance validates the file, collecting every violation into one ArgumentException:
-//   - only the key 'languages' at the top, and only 'extensions', 'formatter', 'no_formatter' and 'adr_folder' in an
-//     entry — an unknown key (a typo) fails at load;
+//   - only 'engines' and 'languages' at the top; only 'extensions', 'formatter', 'no_formatter', 'vscode_language' and
+//     'adr_folder' in a language entry; only 'vscode_extension' in an engine entry — an unknown key (a typo) fails at
+//     load;
+//   - an engine entry's key is one of FormatterEngines, and its 'vscode_extension' a publisher.name extension id;
+//   - 'vscode_language' (default: the language's own name) is a VS Code language id;
 //   - a language name is kebab-case;
 //   - 'extensions' is a non-empty list; each extension starts with its leading dot, is lowercase letters and digits
 //     after it (e.g. .ps1), and belongs to exactly one file language (an extension claimed twice is rejected);
@@ -36,11 +39,14 @@ namespace Catzc.Base.Languages;
 public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "languages" };
-    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "adr_folder" };
+    private static readonly string[] AllowedKeys = { "engines", "languages" };
+    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder" };
+    private static readonly string[] AllowedEngineKeys = { "vscode_extension" };
     private static readonly Regex LanguageName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex Extension = new Regex("^\\.[a-z0-9]+$");
     private static readonly Regex AdrFolder = new Regex("^[A-Za-z0-9_-][A-Za-z0-9._-]*(/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$");
+    private static readonly Regex VscodeLanguage = new Regex("^[a-z][a-z0-9-]*$");
+    private static readonly Regex VscodeExtension = new Regex("^[A-Za-z0-9][A-Za-z0-9-]*\\.[A-Za-z0-9][A-Za-z0-9-]*$");
 
     private readonly Dictionary<string, FileLanguage> byExtension = new Dictionary<string, FileLanguage>(StringComparer.Ordinal);
     private readonly Dictionary<string, string> claimedBy = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -48,16 +54,21 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // The formatter engines a language may name: one Format-Code adapter each. A new engine is new mechanism — its
     // adapter and its name here land together
     // ([ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)).
-    private static readonly string[] Engines = { "prettier", "gofmt", "ruff", "psscriptanalyzer" };
+    private static readonly string[] Engines = { "prettier", "gofmt", "ruff", "psscriptanalyzer", "dotnet-format", "bicep" };
     public static IReadOnlyList<string> FormatterEngines => Engines;
 
     // The file languages in declared order. Empty when the file declares none.
     public IReadOnlyList<FileLanguage> languages { get; }
 
+    // The engines' own settings, by engine name: the VS Code extension that runs the same engine in the editor. An
+    // engine the file does not list has no editor formatter.
+    public IReadOnlyDictionary<string, FormatterEngine> engines { get; }
+
     public LanguagesConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
         List<FileLanguage> result = new List<FileLanguage>();
+        Dictionary<string, FormatterEngine> engineMap = new Dictionary<string, FormatterEngine>(StringComparer.Ordinal);
 
         if (raw != null)
         {
@@ -68,6 +79,11 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
                 {
                     errors.Add(string.Format(CultureInfo.InvariantCulture, "unknown key '{0}' (allowed: {1})", key, string.Join(", ", AllowedKeys)));
                 }
+            }
+
+            if (raw.Contains("engines") && raw["engines"] != null)
+            {
+                ReadEngines(raw["engines"], engineMap, errors);
             }
 
             if (raw.Contains("languages") && raw["languages"] != null)
@@ -90,6 +106,63 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
         languages = result;
+        engines = engineMap;
+    }
+
+    // The editor formatter of every language whose engine names a VS Code extension, keyed by the language's VS Code
+    // language id: what the editor's Format Document runs, the same engine Format-Code runs
+    // ([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)).
+    public IReadOnlyDictionary<string, string> EditorFormatters()
+    {
+        Dictionary<string, string> result = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (FileLanguage language in languages)
+        {
+            FormatterEngine engine;
+            if (language.formatter != null && engines.TryGetValue(language.formatter, out engine) && engine.vscode_extension != null)
+            {
+                result[language.vscode_language] = engine.vscode_extension;
+            }
+        }
+        return result;
+    }
+
+    private static void ReadEngines(object value, Dictionary<string, FormatterEngine> engineMap, List<string> errors)
+    {
+        IDictionary map = value as IDictionary;
+        if (map == null)
+        {
+            errors.Add("invalid engines (must be a map of engine -> { vscode_extension })");
+            return;
+        }
+        foreach (object nameKey in map.Keys)
+        {
+            string name = Text(nameKey);
+            if (Array.IndexOf(Engines, name) < 0)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "engines: unknown formatter engine '{0}' (one of: {1})", name, string.Join(", ", Engines)));
+                continue;
+            }
+            IDictionary entry = map[nameKey] as IDictionary;
+            if (entry == null)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}'] must be a mapping {{ vscode_extension }}", name));
+                continue;
+            }
+            foreach (object k in entry.Keys)
+            {
+                if (Array.IndexOf(AllowedEngineKeys, Text(k)) < 0)
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}']: unknown key '{1}' (allowed: {2})", name, Text(k), string.Join(", ", AllowedEngineKeys)));
+                }
+            }
+            string extension = entry.Contains("vscode_extension") && entry["vscode_extension"] != null ? Text(entry["vscode_extension"]) : null;
+            if (extension != null && !VscodeExtension.IsMatch(extension))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "engines['{0}']: invalid vscode_extension '{1}' (a publisher.name extension id)", name, extension));
+                continue;
+            }
+            engineMap[name] = new FormatterEngine(name, extension);
+        }
     }
 
     // The file language an extension names (with or without its leading dot, any case), or null when none does.
@@ -178,8 +251,20 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
+        // The VS Code language id defaults to the language's own name; an entry states it only where the editor's id
+        // differs (pipeline YAML is VS Code's azure-pipelines language).
+        string vscodeLanguage = name;
+        if (entry.Contains("vscode_language") && entry["vscode_language"] != null)
+        {
+            vscodeLanguage = Text(entry["vscode_language"]);
+            if (!VscodeLanguage.IsMatch(vscodeLanguage))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: invalid vscode_language '{1}' (a VS Code language id, e.g. azure-pipelines)", name, vscodeLanguage));
+            }
+        }
+
         if (errors.Count > before) { return null; }
-        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, adrFolder);
+        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder);
         foreach (string extension in extensions) { byExtension[extension] = language; }
         return language;
     }

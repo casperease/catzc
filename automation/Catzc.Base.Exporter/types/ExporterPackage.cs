@@ -37,12 +37,12 @@ public sealed class ExporterPackage : Catzc.Base.Objects.DictionaryRecord
         if (d == null) { throw new ArgumentException("package must be a map"); }
         List<string> errors = new List<string>();
 
-        author      = Field(d, "author", errors);
-        company     = Field(d, "company", errors);
+        author = Field(d, "author", errors);
+        company = Field(d, "company", errors);
         description = Field(d, "description", errors);
         project_uri = Field(d, "project_uri", errors);
         license_uri = Field(d, "license_uri", errors);
-        tags        = StrArr(d, "tags");
+        tags = StrArr(d, "tags");
         if (tags.Length == 0) { errors.Add("package.tags is required and must be a non-empty list"); }
 
         if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }

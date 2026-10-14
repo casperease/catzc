@@ -36,7 +36,7 @@ have_customers: all
 # construction of the ordering.
 aspects:
   automation:
-    - live: ["*.ps1", "private/**", "types/**", "configs/**"]
+    - live: ["*.ps1", "private/**", "types/**", "configs/**", "assets/**"]
     - tests: ["**"]
   infrastructure:
     - tests: ["**/tests/**"]
@@ -50,7 +50,7 @@ aspects:
 # [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6); default: none). Read
 # through Get-Track; validated by the VariantsConfig type.
 tracks:
-  automation: { root: automation, class: core, languages: [powershell, csharp, yaml, json, jsonl, bash] }
+  automation: { root: automation, class: core, languages: [powershell, csharp, yaml, json, jsonl, bash, xml, css, solution, stamp, asset] }
   infrastructure: { root: infrastructure, class: adapter, languages: [bicep, yaml] }
   pipelines: { root: pipelines, class: adapter, languages: [pipeline-yaml, powershell] }
   docs: { root: docs, class: external-port, languages: [markdown, asset] }

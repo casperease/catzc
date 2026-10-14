@@ -4,11 +4,11 @@
 .DESCRIPTION
     Formatting is configured, not programmed ([ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md)): the
     file-language registry (Catzc.Base.Languages configs/languages.yml) names each language's formatter engine —
-    prettier, gofmt, ruff, psscriptanalyzer — and this one command runs it. Supporting a language on an existing
+    prettier, gofmt, ruff, psscriptanalyzer, dotnet-format, bicep — and this one command runs it. Supporting a language on an existing
     engine is one line in that file; a new engine is one adapter (Invoke-FormatterEngine).
 
-    The files are every file git tracks, fixtures included, or the given -Path; vendored third-party code is never
-    formatted (Get-FormatScope). Each file belongs to the language its extension names (Get-FileLanguage); a
+    The files are every file git tracks, fixtures included, or the given -Path; vendored third-party code and contract
+    assets (`catzc-contract`, byte-frozen) are never formatted (Get-FormatScope). Each file belongs to the language its extension names (Get-FileLanguage); a
     language without a formatter (`no_formatter:`) is left as it is. Each engine reads the repository's layout
     settings — .editorconfig, .prettierrc.yml, the analyzer settings, the pinned ruff configuration
     ([ADR-REPO-FORMAT#4](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format4)).

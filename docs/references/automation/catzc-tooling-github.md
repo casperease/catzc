@@ -2,13 +2,16 @@
 
 `Catzc.Tooling.Github`
 
-Erases a token — a leaked secret, or a name being scrubbed — from a GitHub repository's entire history and its remote object store, then
-proves it is gone. The module exists because an ordinary force-push erases nothing: the old commits become unreachable but stay stored on
-the server until GitHub garbage-collects them, so a fetch of a known old SHA keeps resolving. Deleting and recreating the repository is the
-only way to destroy those remote objects. It owns that whole workflow — rewrite the local history token-free, assert the irreversible step
-is safe, purge and republish on GitHub, and verify the result across every surface a token can hide in (file content, file paths, and commit
-messages). It is not a general git or `gh` wrapper; its one job is provable, complete secret erasure, and it drives every external command
-through the process boundary in [Catzc.Base.Execution](catzc-base-execution.md).
+The repository's GitHub integration: everything that faces GitHub, as a platform that reads our files and as a remote that stores our
+history. Two jobs make it up. It holds the GitHub-facing contracts — what GitHub requires of the files it reads, kept under
+`contracts/catzc/<version>/Catzc.Tooling.Github/` ([ADR-REPO-CONTRACT#2](../../adr/repository/api-contracts.md#rule-adr-repo-contract2)).
+And it erases a token — a leaked secret, or a name being scrubbed — from a GitHub repository's entire history and its remote object store,
+then proves it is gone. Erasure needs a module of its own because an ordinary force-push erases nothing: the old commits become unreachable
+but stay stored on the server until GitHub garbage-collects them, so a fetch of a known old SHA keeps resolving. Deleting and recreating the
+repository is the only way to destroy those remote objects. It owns that whole workflow — rewrite the local history token-free, assert the
+irreversible step is safe, purge and republish on GitHub, and verify the result across every surface a token can hide in (file content, file
+paths, and commit messages). It is not a general git or `gh` wrapper, and it drives every external command through the process boundary in
+[Catzc.Base.Execution](catzc-base-execution.md).
 
 ## Responsibilities
 
@@ -18,6 +21,7 @@ through the process boundary in [Catzc.Base.Execution](catzc-base-execution.md).
 | responsibility:2 | rewrite   | [Local history rewrite](#responsibility2--local-history-rewrite)           |
 | responsibility:3 | preflight | [Purge preflight](#responsibility3--purge-preflight)                       |
 | responsibility:4 | verify    | [Token-absence verification](#responsibility4--token-absence-verification) |
+| responsibility:5 | contracts | [GitHub-facing contracts](#responsibility5--github-facing-contracts)       |
 
 ### responsibility:1 — Remote purge and publish
 
@@ -55,30 +59,47 @@ residual hits so a caller can act on path-name residue a content scrub could not
 however many revisions hold it. Run it on the local ref that is pushed; the purge then proves the remote holds that same commit. Never run
 it against a ref whose upstream still tracks un-purged history, which would false-alarm.
 
+### responsibility:5 — GitHub-facing contracts
+
+Owning the depended-on contracts GitHub holds the repository to: the files GitHub reads, pinned under
+`contracts/catzc/<version>/Catzc.Tooling.Github/` at the path of the real file each one constrains
+([ADR-REPO-CONTRACT#1](../../adr/repository/api-contracts.md#rule-adr-repo-contract1)). Each asset pins only what GitHub reads, never an
+internal value ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): a workflow's `on` and each job's
+`runs-on` and `steps` under `.github/workflows/`, and the presence of `.github/README.md`, the page GitHub renders first. The contract
+mechanism in `Catzc.Base.Contracts` generates one test per asset, so a change GitHub would reject fails CI here first. A platform change is
+a new draft in `contracts/catzc/0.0.0/`, never an old shape kept beside the new one
+([ADR-REPO-CONTRACT#3](../../adr/repository/api-contracts.md#rule-adr-repo-contract3)).
+
 ## What the module does
 
-The four responsibilities form a single pipeline with the verification primitive threaded through both ends of it. A rewrite produces a
-token-free local history; the preflight guards the irreversible move; the purge makes that history the remote's only history and destroys
-the old objects with the repository that held them; and verification scans the local ref, then proves from the server's own refs that the
-remote holds exactly that commit, so no step is trusted without proof of what the server stored. The rewrite offers two routes because
-completeness and convenience trade off: rebuilding from a clean tree leaves nothing to scrub and no residual objects but discards the
-original commit shape, while an in-place filter-repo scrub preserves it at the cost of unreachable leftovers and a blind spot on file paths.
+The module faces GitHub in both of GitHub's roles. As a platform, GitHub reads the repository's workflow files and its landing page; the
+contracts pin what it reads, so the rest of each file stays free to change. As a remote, GitHub stores the history; the four erasure
+responsibilities act on it.
+
+The four erasure responsibilities form a single pipeline with the verification primitive threaded through both ends of it. A rewrite
+produces a token-free local history; the preflight guards the irreversible move; the purge makes that history the remote's only history and
+destroys the old objects with the repository that held them; and verification scans the local ref, then proves from the server's own refs
+that the remote holds exactly that commit, so no step is trusted without proof of what the server stored. The rewrite offers two routes
+because completeness and convenience trade off: rebuilding from a clean tree leaves nothing to scrub and no residual objects but discards
+the original commit shape, while an in-place filter-repo scrub preserves it at the cost of unreachable leftovers and a blind spot on file
+paths.
 
 Safe-by-default is the through-line across the mutating surfaces. Every destructive entry point runs a dry run and returns a plan unless
 explicitly armed with a confirmation value matching its target, and the remote purge keeps the local clone and the verified backup bundle
 intact throughout, so any failure after deletion is recoverable from the exact commands it prints. The module holds no state and no config
-of its own: it is a thin, ordered set of operations over `git`, `gh`, and git-filter-repo, each invoked through
+of its own beyond its contract assets: it is a thin, ordered set of operations over `git`, `gh`, and git-filter-repo, each invoked through
 [Catzc.Base.Execution](catzc-base-execution.md), returning structured results rather than writing to the console.
 
 ## Division
 
-The module's public functions, sorted into the responsibilities above.
+The module's public functions and contract assets, sorted into the responsibilities above.
 
-| Responsibility                                | Function                  |
-| --------------------------------------------- | ------------------------- |
-| responsibility:1 — Remote purge and publish   | `Reset-GitHubRepository`  |
-|                                               | `Publish-CleanHistory`    |
-| responsibility:2 — Local history rewrite      | `New-SyntheticHistory`    |
-|                                               | `Remove-TokenFromHistory` |
-| responsibility:3 — Purge preflight            | `Assert-GitHubPurgeReady` |
-| responsibility:4 — Token-absence verification | `Test-GitHistoryClean`    |
+| Responsibility                                | Function                                          |
+| --------------------------------------------- | ------------------------------------------------- |
+| responsibility:1 — Remote purge and publish   | `Reset-GitHubRepository`                          |
+|                                               | `Publish-CleanHistory`                            |
+| responsibility:2 — Local history rewrite      | `New-SyntheticHistory`                            |
+|                                               | `Remove-TokenFromHistory`                         |
+| responsibility:3 — Purge preflight            | `Assert-GitHubPurgeReady`                         |
+| responsibility:4 — Token-absence verification | `Test-GitHistoryClean`                            |
+| responsibility:5 — GitHub-facing contracts    | `contracts/catzc/<version>/Catzc.Tooling.Github/` |

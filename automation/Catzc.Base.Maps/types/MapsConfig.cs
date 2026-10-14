@@ -14,8 +14,9 @@
 //   - a section is a mapping, and highlight.pins / highlight.exceptions are lists of { adr, track, file_language, reason };
 //   - a colour is '#' and six hex digits (e.g. #DCE6F0);
 //   - a size is a positive number, and a label length a positive whole number;
-//   - a label is one non-empty line of WinAnsi text, the only text the base-14 PDF fonts show (WinAnsi), and an axis
-//     header fits its limit (row_axis within max_row_label, column_axis within max_column_label);
+//   - a label is one non-empty line of WinAnsi text, the only text the base-14 PDF fonts show (WinAnsi), and a row or
+//     column header fits its limit (row_axis and root_files within max_row_label, column_axis and unlisted_files within
+//     max_column_label);
 //   - output_folder is one path segment;
 //   - a pin names an ADR code (optionally #n), a track name, a kebab-case file language and a reason.
 
@@ -33,9 +34,13 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
 
     private const string Failed = "maps config validation failed:\n";
     private static readonly string[] AllowedKeys = { "palette", "limits", "labels", "highlight", "output_folder" };
-    private static readonly string[] PaletteKeys = { "row", "column", "cell", "highlight" };
+    private static readonly string[] PaletteKeys = { "background", "row", "column", "cell", "shade", "line", "text", "violation", "highlight" };
     private static readonly string[] LimitsKeys = { "page_width", "page_height", "min_font_size", "max_row_label", "max_column_label" };
-    private static readonly string[] LabelsKeys = { "grid_title", "tree_title", "row_axis", "column_axis" };
+    private static readonly string[] LabelsKeys =
+    {
+        "grid_title", "tree_title", "row_axis", "column_axis", "root_files", "unlisted_files", "legend_files", "legend_violation",
+        "legend_highlight"
+    };
     private static readonly string[] HighlightKeys = { "pins", "exceptions" };
     private static readonly string[] PinKeys = { "adr", "track", "file_language", "reason" };
     private static readonly Regex Colour = new Regex("^#[0-9A-Fa-f]{6}$");
@@ -65,9 +70,14 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
 
         IDictionary paletteMap = Section(raw, "palette", PaletteKeys, errors);
         palette = new MapsPalette(
+            ReadColour(paletteMap, "background", MapsPalette.DefaultBackground, errors),
             ReadColour(paletteMap, "row", MapsPalette.DefaultRow, errors),
             ReadColour(paletteMap, "column", MapsPalette.DefaultColumn, errors),
             ReadColour(paletteMap, "cell", MapsPalette.DefaultCell, errors),
+            ReadColour(paletteMap, "shade", MapsPalette.DefaultShade, errors),
+            ReadColour(paletteMap, "line", MapsPalette.DefaultLine, errors),
+            ReadColour(paletteMap, "text", MapsPalette.DefaultText, errors),
+            ReadColour(paletteMap, "violation", MapsPalette.DefaultViolation, errors),
             ReadColour(paletteMap, "highlight", MapsPalette.DefaultHighlight, errors));
 
         IDictionary limitsMap = Section(raw, "limits", LimitsKeys, errors);
@@ -83,7 +93,12 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
             ReadLabel(labelsMap, "grid_title", MapsLabels.DefaultGridTitle, 0, errors),
             ReadLabel(labelsMap, "tree_title", MapsLabels.DefaultTreeTitle, 0, errors),
             ReadLabel(labelsMap, "row_axis", MapsLabels.DefaultRowAxis, limits.max_row_label, errors),
-            ReadLabel(labelsMap, "column_axis", MapsLabels.DefaultColumnAxis, limits.max_column_label, errors));
+            ReadLabel(labelsMap, "column_axis", MapsLabels.DefaultColumnAxis, limits.max_column_label, errors),
+            ReadLabel(labelsMap, "root_files", MapsLabels.DefaultRootFiles, limits.max_row_label, errors),
+            ReadLabel(labelsMap, "unlisted_files", MapsLabels.DefaultUnlistedFiles, limits.max_column_label, errors),
+            ReadLabel(labelsMap, "legend_files", MapsLabels.DefaultLegendFiles, 0, errors),
+            ReadLabel(labelsMap, "legend_violation", MapsLabels.DefaultLegendViolation, 0, errors),
+            ReadLabel(labelsMap, "legend_highlight", MapsLabels.DefaultLegendHighlight, 0, errors));
 
         IDictionary highlightMap = Section(raw, "highlight", HighlightKeys, errors);
         highlight = new MapsHighlight(ReadPins(highlightMap, "pins", errors), ReadPins(highlightMap, "exceptions", errors));

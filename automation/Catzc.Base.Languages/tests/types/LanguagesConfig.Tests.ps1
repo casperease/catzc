@@ -39,6 +39,38 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config.languages[1].adr_folder | Should -BeNullOrEmpty
         }
 
+        It 'routes each formatted language''s VS Code language id to its engine''s editor extension' -Tag 'ADR-REPO-FORMAT#8' {
+            $config = & $script:make ([ordered]@{
+                    engines   = [ordered]@{ prettier = [ordered]@{ vscode_extension = 'widget.prettier' }; gofmt = [ordered]@{} }
+                    languages = [ordered]@{
+                        widget   = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' }
+                        gadget   = [ordered]@{ extensions = @('.gdg'); formatter = 'prettier'; vscode_language = 'gadget-pipelines' }
+                        sprocket = [ordered]@{ extensions = @('.spr'); formatter = 'gofmt' }
+                        gizmo    = [ordered]@{ extensions = @('.gzm'); formatter = 'ruff' }
+                        cog      = [ordered]@{ extensions = @('.cog'); no_formatter = 'binary' }
+                    }
+                })
+            $config.languages[0].vscode_language | Should -Be 'widget'
+            $config.languages[1].vscode_language | Should -Be 'gadget-pipelines'
+            $config.engines['prettier'].vscode_extension | Should -Be 'widget.prettier'
+            $config.engines['gofmt'].vscode_extension | Should -BeNullOrEmpty
+            $formatters = $config.EditorFormatters()
+            @($formatters.Keys | Sort-Object) | Should -Be @('gadget-pipelines', 'widget')
+            $formatters['widget'] | Should -Be 'widget.prettier'
+            $formatters['gadget-pipelines'] | Should -Be 'widget.prettier'
+        }
+
+        It 'throws on an unknown engine, a bad extension id, an unknown engine key, and a bad vscode_language' {
+            $err = { & $script:make ([ordered]@{
+                        engines   = [ordered]@{ gizmo = [ordered]@{}; prettier = [ordered]@{ vscode_extension = 'no-dot' }; ruff = [ordered]@{ colour = 'blue' } }
+                        languages = [ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never'; vscode_language = 'Widget Lang' } }
+                    }) } | Should -Throw -PassThru
+            $err.Exception.Message | Should -BeLike "*engines: unknown formatter engine 'gizmo'*"
+            $err.Exception.Message | Should -BeLike "*invalid vscode_extension 'no-dot'*"
+            $err.Exception.Message | Should -BeLike "*engines?'ruff'?: unknown key 'colour'*"
+            $err.Exception.Message | Should -BeLike "*invalid vscode_language 'Widget Lang'*"
+        }
+
         It 'accepts every engine it declares' {
             foreach ($engine in [Catzc.Base.Languages.LanguagesConfig]::FormatterEngines) {
                 (& $script:one ([ordered]@{ extensions = @('.wdg'); formatter = $engine })).languages[0].formatter | Should -Be $engine

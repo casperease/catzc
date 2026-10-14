@@ -61,9 +61,9 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
-        checks   = ClosedList(d, "checks", Checks, errors);
+        checks = ClosedList(d, "checks", Checks, errors);
         surfaces = ClosedList(d, "surfaces", Surfaces, errors);
-        scope    = (d != null && d.Contains("scope")) ? GlobList(d, "scope", errors) : DefaultScope;
+        scope = (d != null && d.Contains("scope")) ? GlobList(d, "scope", errors) : DefaultScope;
 
         List<string> excludes = new List<string>(DefaultExclude);
         if (d != null && d.Contains("exclude"))

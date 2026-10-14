@@ -76,12 +76,21 @@ function Invoke-RootConfigGenerator {
             else {
                 "`${workspaceFolder}/$pythonRoot/.venv/bin/python"
             }
-            New-VSCodeSettings -ManagedTarget $managedTargets -MachineSetting $machineSetting
+            # Each language's editor formatter, from the file-language registry: Format Document runs the engine
+            # Format-Code runs ([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)).
+            $languageFormatter = [ordered]@{}
+            $editorFormatters = (Get-Config -Config languages).EditorFormatters()
+            foreach ($id in $editorFormatters.Keys) {
+                $languageFormatter[$id] = $editorFormatters[$id]
+            }
+            New-VSCodeSettings -ManagedTarget $managedTargets -MachineSetting $machineSetting -LanguageFormatter $languageFormatter
         }
         'New-VSCodeExtensions' {
             # The VS Code extension recommendations, rendered from the vscode-extensions registry
-            # (Catzc.Base.VSCode).
-            New-VSCodeExtensions
+            # (Catzc.Base.VSCode), completed with every formatter engine's editor extension from the file-language
+            # registry.
+            $engineExtension = @((Get-Config -Config languages).engines.Values | Where-Object vscode_extension | ForEach-Object vscode_extension)
+            New-VSCodeExtensions -EngineExtension $engineExtension
         }
         'New-VSCodeLaunch' {
             # The VS Code launch profiles, rendered from the vscode-launch registry (Catzc.Base.VSCode).

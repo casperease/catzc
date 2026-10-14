@@ -8,20 +8,22 @@ Describe 'Get-MarkdownTitleScope' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6' {
         # git is the one boundary: ls-files lists what is tracked, check-attr says what .gitattributes marks.
         Mock Get-GitTrackedPath {
             'docs/widget.md', 'docs/widget.yml', '.claude/CLAUDE.md', 'automation/.vendor/Gadget/README.md',
-            'automation/Widget/tests/assets/fixture.md', 'docs/generated-widget.md', '.github/README.md'
+            'automation/Widget/tests/assets/fixture.md', 'docs/generated-widget.md', '.github/README.md',
+            'contracts/widget/0.0.0/Gadget/.github/README.md'
         } -ModuleName Catzc.Base.QualityGates
         # The declared classes, as .gitattributes would report them (unspecified attributes are left out).
         Mock Get-GitAttributeValue {
             @{
-                'automation/.vendor/Gadget/README.md'       = @{ 'linguist-vendored' = 'set' }
-                'automation/Widget/tests/assets/fixture.md' = @{ 'catzc-fixture' = 'set' }
-                'docs/generated-widget.md'                  = @{ 'linguist-generated' = 'set' }
-                '.github/README.md'                         = @{ 'catzc-path-title' = 'unset' }
+                'automation/.vendor/Gadget/README.md'             = @{ 'linguist-vendored' = 'set' }
+                'automation/Widget/tests/assets/fixture.md'       = @{ 'catzc-fixture' = 'set' }
+                'docs/generated-widget.md'                        = @{ 'linguist-generated' = 'set' }
+                '.github/README.md'                               = @{ 'catzc-path-title' = 'unset' }
+                'contracts/widget/0.0.0/Gadget/.github/README.md' = @{ 'catzc-contract' = 'set' }
             }
         } -ModuleName Catzc.Base.QualityGates
     }
 
-    It 'keeps tracked Markdown and drops the vendored, generated, fixture, own-title, and non-Markdown files' {
+    It 'keeps tracked Markdown and drops the vendored, generated, fixture, contract, own-title, and non-Markdown files' {
         $scope = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot } {
             param($Root)
             Get-MarkdownTitleScope -RepositoryRoot $Root
@@ -29,13 +31,16 @@ Describe 'Get-MarkdownTitleScope' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6' {
         $scope | Should -Be @('docs/widget.md', '.claude/CLAUDE.md')
     }
 
-    It 'asks .gitattributes about every class, for the tracked Markdown only' {
+    It 'asks .gitattributes about the exempt classes and the own-title class, for the tracked Markdown only' {
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot } {
             param($Root)
             Get-MarkdownTitleScope -RepositoryRoot $Root
         } | Out-Null
         Should -Invoke Get-GitAttributeValue -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
-            'catzc-fixture' -in $Attribute -and 'catzc-path-title' -in $Attribute -and 'docs/widget.yml' -notin $Path
+            'catzc-fixture' -in $Attribute -and 'catzc-contract' -in $Attribute -and 'docs/widget.yml' -notin $Path
+        }
+        Should -Invoke Get-GitAttributeValue -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            'catzc-path-title' -in $Attribute -and 'docs/widget.yml' -notin $Path
         }
     }
 

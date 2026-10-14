@@ -89,3 +89,35 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', '
         [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) | Should -Be "# docs/gadget.md`n`n## Gadget`n`n### Gadget`n"
     }
 }
+
+Describe 'Format-MarkdownTitle and Test-MarkdownTitle — contract assets' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6', 'ADR-REPO-CONTRACT#6' {
+    BeforeEach {
+        $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        $script:contractAsset = 'contracts/widget/0.0.0/Gadget/.github/README.md'
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'contracts/widget/0.0.0/Gadget/.github')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# widget`n")
+        # An empty presence asset: a stamped title would turn it into a fragment the real file fails.
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:contractAsset), '')
+        # The scope itself runs; git is the one boundary (tracked files and the declared classes).
+        Mock Get-GitTrackedPath { 'docs/widget.md', 'contracts/widget/0.0.0/Gadget/.github/README.md' } -ModuleName Catzc.Base.QualityGates
+        Mock Get-GitAttributeValue {
+            @{ 'contracts/widget/0.0.0/Gadget/.github/README.md' = @{ 'catzc-contract' = 'set' } }
+        } -ModuleName Catzc.Base.QualityGates
+        Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
+        Mock Write-Message { } -ModuleName Catzc.Base.Reports
+        $script:reportBase = Join-Path $script:widgetRoot 'reports'
+        Mock Get-AdrCitationPath { @{} } -ModuleName Catzc.Base.QualityGates
+    }
+
+    It 'titles the authored file and leaves the contract asset untouched' {
+        Format-MarkdownTitle -RepositoryRoot $script:widgetRoot | Should -Be @('docs/widget.md')
+        [System.IO.File]::ReadAllBytes((Join-Path $script:widgetRoot $script:contractAsset)).Length | Should -Be 0
+    }
+
+    It 'never flags the contract asset' {
+        $result = Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase -PassThru
+        $result.FileCount | Should -Be 1
+        $result.Issues | Should -Not -BeLike "*$($script:contractAsset)*"
+    }
+}

@@ -1,0 +1,50 @@
+# docs/explanation/index.md
+
+`Explanation`
+
+```text
+Explanation articles: how cats works and why, one diagram each.
+
+automation      module dependencies, the importer, and the bundle
+azure           how Azure resource names are assembled
+configuration   how configuration is read, cached and addressed
+design          the commit lifecycle, run modes, module aspects, tracks, the thin platform, the server remote
+flow            promotion, the pipeline runner, and the globsets that trigger pipelines
+pipelines       how Azure DevOps calls prove their credentials
+```
+
+The documentation has four kinds of article. An [ADR](../adr/index.md) records a decision and the rules it sets. A
+[how-to](../how-to/getting-started/automation/index.md) walks through one task. A [reference](../references/automation/index.md) describes a
+module's responsibilities. An **explanation** article shows how one part of cats works and why it holds: each one narrates a single diagram,
+step by step, and points back to the ADR rules the diagram supports.
+
+Each diagram is drawn five times, through five lenses, so the same idea can be read at the depth a reader needs:
+
+| Lens               | Shows                                                                  |
+| ------------------ | ---------------------------------------------------------------------- |
+| **meta**           | the idea and the one rule that holds, with no function or file names   |
+| **architecture**   | the parts, their boundaries, and who depends on whom                   |
+| **implementation** | the real functions, files and configs, in the order the code runs them |
+| **operations**     | what a person or a pipeline runs, and what they see when it fails      |
+| **governance**     | which ADR rule constrains each step, and which gate checks it          |
+
+## How to read the diagrams
+
+Every diagram uses the same glyphs. The shape says what kind of thing an element is, and the colour says whether it is structure (dark, with
+white text) or state and outcome (light). Every diagram also carries its own legend panel, and the sidebar places it on two maps, each a
+minimap: the stack × domain grid, and a treemap of the repository's files.
+
+![The glyph library: one kind, one shape, one colour, one legend phrase](../.assets/explanation/glyphs.drawio.png)
+
+The glyph library is described element by element in [its asset description](../.assets/explanation/glyphs.drawio.md).
+
+## Domains
+
+The articles are grouped by the ADR domain of the decision they explain:
+
+- [Automation](automation/index.md) — module dependencies, the importer, and the bundle.
+- [Azure](azure/index.md) — how Azure resource names are assembled.
+- [Configuration](configuration/index.md) — how configuration is read, cached and addressed.
+- [Design](design/index.md) — the commit lifecycle, run modes, module aspects, tracks, the thin platform, and the server remote.
+- [Flow](flow/index.md) — promotion, the pipeline runner, and the globsets that trigger pipelines.
+- [Pipelines](pipelines/index.md) — how Azure DevOps calls prove their credentials.

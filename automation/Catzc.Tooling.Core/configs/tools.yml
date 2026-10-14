@@ -226,6 +226,28 @@ shellcheck:
   windows_probes:
     - "%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\koalaman.shellcheck_Microsoft.Winget.Source_8wekyb3d8bbwe\\shellcheck.exe"
 
+bicep:
+  # The Bicep CLI 0.48 — the bicep formatter engine Format-Code runs over the infrastructure templates (`bicep format`,
+  # languages.yml). Windows: winget Microsoft.Bicep as a user-scope portable (no admin). macOS: brew, from
+  # Microsoft's tap. Linux has no distribution package: Install-Bicep installs the release binary for the machine's
+  # architecture into ~/.local/bin, verified against the SHA-256 GitHub publishes for it (no root). `bicep format`
+  # writes LF on every platform, so its output does not depend on the machine.
+  version: "0.48"
+  command: bicep
+  depends_on: winget
+  winget_id: "Microsoft.Bicep"
+  winget_scope: user
+  brew_formula: "azure/bicep/bicep"
+  version_command: "bicep --version"
+  version_pattern: "Bicep CLI version (?<ver>[\\d.]+)"
+  # The user-scope winget portable lands in its package folder, which winget adds to the user PATH; probed first, so a
+  # fresh install is found before the shell is restarted.
+  windows_probes:
+    - "%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Microsoft.Bicep_Microsoft.Winget.Source_8wekyb3d8bbwe\\bicep.exe"
+  # Linux: the verified release binary Install-Bicep places in the user bin, probed before PATH is re-read.
+  unix_probes:
+    - "%HOME%/.local/bin/bicep"
+
 uv:
   version: "0.11"
   command: uv

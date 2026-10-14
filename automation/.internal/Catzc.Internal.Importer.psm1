@@ -110,9 +110,8 @@ function Invoke-Importer {
 
     # -Verbose shows the importer's own state-change record
     # ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)). The
-    # dot-sourced shim binds it in
-    # the caller's scope, so for the import the session-wide preference is quieted, restored in the finally below:
-    # otherwise every Import-Module the load runs would list each function it dot-sources and exports.
+    # dot-sourced shim binds it in the caller's scope, so for the import the session-wide preference is quieted,
+    # restored in the finally below: otherwise every Import-Module would list each function it dot-sources and exports.
     $showStateChanges = $VerbosePreference -ne 'SilentlyContinue'
     $callerVerbosePreference = $global:VerbosePreference
     $global:VerbosePreference = 'SilentlyContinue'
@@ -170,6 +169,11 @@ function Invoke-Importer {
         Set-ImporterVerbosity -Enabled $showStateChanges
         if ($DiagnoseLoadTime) {
             Write-LoadTime 'Bootstrap and internal shared modules loaded'
+        }
+
+        if (-not $Bundle -and (Invoke-StaleTypesRestart -ModulesRoot $modulesRoot -RepositoryRoot $repoRoot -IsConsoleSession:$isConsoleSession -ImporterParameter $PSBoundParameters)) {
+            Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue -Verbose:$false
+            return
         }
 
         # Custom error view — shows ScriptStackTrace for unhandled errors
@@ -318,10 +322,8 @@ function Invoke-Importer {
             }
         }
 
-        # Clean up the bootstrap module — it has served its purpose. Kept loaded until here so the importer output
-        # above can route through Write-ImporterMessage (which Catzc.Internal.Bootstrap provides). The other .internal
-        # modules (loader, Types, Vendor) stay loaded; only the bootstrap is removed, so its import-time functions do
-        # not linger in the session.
+        # Remove the bootstrap, kept until here for Write-ImporterMessage, so its import-time functions do not linger;
+        # the other .internal modules (loader, Types, Vendor) stay loaded.
         Write-Verbose 'Removing Catzc.Internal.Bootstrap module'
         Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue -Verbose:$false
 
@@ -378,6 +380,176 @@ function Assert-CatzcRunModeExclusive {
     $header = "Run-mode exclusivity violated: the active CatzcModulesRoot is '$ModulesRoot', but $($offenders.Count) loaded catzc module(s) come from another root ('$($otherRoots -join "', '")'):"
     $footer = 'Restart PowerShell, or re-run the entry script of the mode you want.'
     throw ((@($header) + @($lines) + @($footer)) -join "`n")
+}
+
+function Invoke-StaleTypesRestart {
+    <#
+    .SYNOPSIS
+        Starts the import over in a new pwsh when this process holds stale C# types and a person is at the console;
+        returns whether it did.
+    .DESCRIPTION
+        Types this process loaded earlier, whose sources changed since, cannot be reloaded in it
+        ([ADR-AUTO-TYPES#7](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types7)). In a person's own
+        interactive console the import continues in a new pwsh in the same window instead
+        ([ADR-AUTO-TYPES#15](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types15)), and the caller
+        stops its own import; every other session goes on to the loader, which warns or throws. Only a process that
+        loaded types already pays for the comparison: a fresh one has no session record.
+    .PARAMETER ModulesRoot
+        The code root being imported.
+    .PARAMETER RepositoryRoot
+        The repository root, whose importer.ps1 the new session dot-sources.
+    .PARAMETER IsConsoleSession
+        The importer was dot-sourced at the prompt, not from a script.
+    .PARAMETER ImporterParameter
+        The importer's bound parameters; its switches pass on to the new session.
+    .OUTPUTS
+        [bool] $true when the import continued in a new session (and has ended there).
+    #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Probes $global:__CatzcTypes, the per-root session record of loaded types (ADR-AUTO-TYPES#12), only to skip the comparison in a fresh process')]
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $ModulesRoot,
+
+        [Parameter(Mandatory)]
+        [string] $RepositoryRoot,
+
+        [switch] $IsConsoleSession,
+
+        [Parameter(Mandatory)]
+        [System.Collections.IDictionary] $ImporterParameter
+    )
+
+    if (-not (Get-Variable -Name '__CatzcTypes' -Scope Global -ValueOnly -ErrorAction Ignore)) {
+        return $false
+    }
+    $typeState = Get-LoadedTypeDrift -ModulesRoot $ModulesRoot
+    $interactive = [Environment]::UserInteractive -and -not [Console]::IsInputRedirected -and -not [Console]::IsOutputRedirected
+    if ($typeState.Current -or -not (Test-ImporterRestartAllowed -IsConsoleSession:$IsConsoleSession -Interactive:$interactive)) {
+        return $false
+    }
+    $forwarded = @(foreach ($name in 'ExportPrivates', 'AllowWarnings', 'DiagnoseLoadTime', 'ClearCompiledTypes', 'SkipJanitors', 'CleanClone') {
+            if ($ImporterParameter.Contains($name) -and $ImporterParameter[$name]) {
+                "-$name"
+            }
+        })
+    Restart-ImporterSession -ImporterPath (Join-Path $RepositoryRoot 'importer.ps1') -TypeState $typeState -ImporterSwitch $forwarded
+    $true
+}
+
+function Test-ImporterRestartAllowed {
+    <#
+    .SYNOPSIS
+        Says whether the importer may start a stale session over in a new pwsh.
+    .DESCRIPTION
+        Who runs the importer decides, read from one place (Get-SessionActor,
+        [ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)), and no switch
+        overrides it ([ADR-AUTO-TYPES#15](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types15)):
+        only a person, importing at their own console (the importer dot-sourced at the prompt, not from a script),
+        with the console's input and output not redirected. A pipeline must fail on stale types, an agent cannot
+        drive a nested shell, and a script would block on one. Get-SessionActor comes from the earlier import whose
+        types went stale; without it, nobody is known to be at the console, so no restart.
+    .PARAMETER IsConsoleSession
+        The importer was dot-sourced at the prompt, not from a script.
+    .PARAMETER Interactive
+        The process is interactive and neither its input nor its output is redirected.
+    .OUTPUTS
+        [bool]
+    #>
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [switch] $IsConsoleSession,
+
+        [switch] $Interactive
+    )
+
+    if (-not $IsConsoleSession -or -not $Interactive -or -not (Get-Command Get-SessionActor -ErrorAction Ignore)) {
+        return $false
+    }
+    (Get-SessionActor) -eq 'Person'
+}
+
+function Restart-ImporterSession {
+    <#
+    .SYNOPSIS
+        Starts the import over in a new pwsh in the same console, because this process holds stale C# types.
+    .DESCRIPTION
+        A loaded assembly cannot be swapped in a running process
+        ([ADR-AUTO-TYPES#7](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types7)), and a process
+        cannot replace itself on every platform, so the new types need a child process: a pwsh beside the running
+        one ($PSHOME) that dot-sources the importer with the same switches and stays open (-NoExit). The person lands
+        in a fresh, imported session in the same window; `exit` there returns to this one, which still holds the
+        old types and says so ([ADR-AUTO-TYPES#15](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types15)).
+        The child inherits the working folder.
+    .PARAMETER ImporterPath
+        The importer.ps1 the new session dot-sources.
+    .PARAMETER TypeState
+        The Get-LoadedTypeDrift result that made the restart necessary; its summary and drifted types are shown.
+    .PARAMETER ImporterSwitch
+        The importer switches to pass on, each as '-<Name>'.
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string] $ImporterPath,
+
+        [Parameter(Mandatory)]
+        [pscustomobject] $TypeState,
+
+        [AllowEmptyCollection()]
+        [string[]] $ImporterSwitch = @()
+    )
+
+    $drifted = @($TypeState.Drift)
+    $summary = $TypeState.Summary
+    if ($drifted.Count) {
+        $summary += ' Drifted: ' + (($drifted | Select-Object -First 5) -join '; ')
+        if ($drifted.Count -gt 5) {
+            $summary += "; and $($drifted.Count - 5) more"
+        }
+        $summary += '.'
+    }
+    Write-ImporterMessage $summary -ForegroundColor DarkYellow
+    Write-ImporterMessage 'This process cannot reload C# types, so the import continues in a new PowerShell in this window. Type exit there to come back here.' -ForegroundColor DarkYellow
+
+    $executableName = if ($IsWindows) {
+        'pwsh.exe'
+    }
+    else {
+        'pwsh'
+    }
+    $executable = Join-Path $PSHOME $executableName
+    $command = (@(". '$($ImporterPath.Replace("'", "''"))'") + $ImporterSwitch) -join ' '
+    Invoke-ChildShell -Executable $executable -Argument @('-NoExit', '-NoLogo', '-Command', $command)
+
+    Write-ImporterMessage 'Back in the earlier session. It still holds the old C# types: run the importer again to start a new one, or close this window.' -ForegroundColor DarkYellow
+}
+
+function Invoke-ChildShell {
+    <#
+    .SYNOPSIS
+        Runs a shell as a child process in this console and waits until it exits.
+    .DESCRIPTION
+        The one place the importer starts an interactive child process (Restart-ImporterSession): it shares the
+        console, so the person works in it, and the call returns when they leave it. No time safeguard bounds it: it
+        is a person's interactive session, which lasts as long as they use it.
+    .PARAMETER Executable
+        The shell to start.
+    .PARAMETER Argument
+        Its arguments.
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Executable,
+
+        [Parameter(Mandatory)]
+        [string[]] $Argument
+    )
+
+    & $Executable @Argument
 }
 
 function Set-RedirectedOutputEncoding {

@@ -14,13 +14,13 @@ public sealed class Tenant
     public string name { get; }
 
     // The Entra directory (tenant) GUID. Always present.
-    public string id   { get; }
+    public string id { get; }
 
     public Tenant(string name, string id)
     {
         if (string.IsNullOrWhiteSpace(name)) { throw new ArgumentException("Tenant.name is required"); }
-        if (string.IsNullOrWhiteSpace(id))   { throw new ArgumentException("Tenant.id is required"); }
+        if (string.IsNullOrWhiteSpace(id)) { throw new ArgumentException("Tenant.id is required"); }
         this.name = name;
-        this.id   = id;
+        this.id = id;
     }
 }

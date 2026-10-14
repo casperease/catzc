@@ -73,6 +73,20 @@ concepts:
       file language:
         A file language is the kind of text a file holds, named by its extension; a track is the root folder the file lives in, and its
         tech-stack is a set of file languages.
+      root file:
+        A root file is a tracked file no track holds, at the repository root or under out/; a track is a root folder and every file under
+        it.
+  root file:
+    key: root_file
+    domain: design
+    defined_by: ADR-DSGN-TRACK#7
+    short: A tracked file no track holds — at the repository root itself, or under out/ — the world map's own row.
+    realized_by: { kind: prose-only }
+    contrasts:
+      track: A track is a root folder and every file under it; a root file is a tracked file outside every track.
+      unlisted file:
+        An unlisted file is a tracked file outside every file language, whatever its track; a root file is one outside every track, whatever
+        its file language.
   file language:
     key: file_language
     domain: design
@@ -85,3 +99,19 @@ concepts:
       track: A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it lives.
       language zone:
         A language zone is one of the design, test, and live registers of identities; a file language is the kind of text one file holds.
+      unlisted file:
+        An unlisted file is a tracked file no file language names — no extension, or one no entry lists; a file language is a registered
+        kind of text, named by its extensions.
+  unlisted file:
+    key: unlisted_file
+    domain: design
+    defined_by: ADR-DSGN-TRACK#8
+    short: A tracked file no file language names — no extension, or one no entry lists — the world map's own column.
+    realized_by: { kind: prose-only }
+    contrasts:
+      file language:
+        A file language is a registered kind of text, named by its extensions; an unlisted file is a tracked file whose extension none of
+        them lists.
+      root file:
+        A root file is a tracked file outside every track; an unlisted file is a tracked file outside every file language, whatever its
+        track.

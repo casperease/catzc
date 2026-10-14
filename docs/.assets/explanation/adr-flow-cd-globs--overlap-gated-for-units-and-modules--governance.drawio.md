@@ -1,0 +1,69 @@
+# docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.md
+
+`Overlap gated for units and modules: the diagram described`
+
+```text
+A 1572 x 700 diagram, read top to bottom through three bands.
+Glyphs: 3 named sets (mauve), 2 ADR-only (dashed white), 2 gates (grey); 3 flow edges.
+Marks: 9 rule chips, 7 markers.
+Sidebar: axis minimap (main cell PIPE x GLOBS), tree minimap, lens badge GOV, map key.
+```
+
+This describes what the [diagram](adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](../../explanation/flow/overlap-gated-for-units-and-modules.md).
+
+## At a glance
+
+A 1572 × 700 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through three
+full-width bands, labelled DEPLOYABLE-UNIT, LOOSE-FILESET and MODULE. It holds three named sets, two ADR-only glyphs and two gates, joined
+by three flow edges, with nine rule chips, seven markers and a legend panel. The eye lands first on the Independence gate at the right of
+the top band and its long vertical edge down to the bottom band.
+
+## Reading path
+
+1. Marker 1, top band, left: the ADR-only glyph No phantom unit, chip G7.
+2. Marker 2, top band: the named set deployable-unit sets, chip G10.
+3. Marker 3, on the top vertex of the gate Independence gate, chip T35, with edges left to deployable-unit sets and down to module sets.
+4. Marker 4, middle band, left: the ADR-only glyph Demonstrated use, chip G7.
+5. Marker 5, middle band: the named set loose-fileset sets, chip G10, with no edge.
+6. Marker 6, bottom band: the wide named set module sets, chips G7 and G10.
+7. Marker 7, on the top vertex of the gate Config-load validation, chips G7 and R7, with a short edge left to module sets.
+
+## Glyphs
+
+| Glyph (legend phrase) | Count | Where                                                                                |
+| --------------------- | ----- | ------------------------------------------------------------------------------------ |
+| named set             | 3     | deployable-unit sets (top), loose-fileset sets (middle), module sets (bottom, wide)  |
+| ADR-only              | 2     | No phantom unit (top, left), Demonstrated use (middle, left)                         |
+| gate                  | 2     | Independence gate (top band, right), Config-load validation (bottom band, far right) |
+
+Named sets are mauve with white names; the ADR-only glyphs are white with a dashed rim; the gates are grey rhombuses with a 3 px rim.
+
+## Edges
+
+| Edge kind | Count | From → to                                                                                                       |
+| --------- | ----- | --------------------------------------------------------------------------------------------------------------- |
+| flow      | 3     | Independence gate → deployable-unit sets, Independence gate → module sets, Config-load validation → module sets |
+
+Every edge is straight and none crosses another. The two ADR-only glyphs and loose-fileset sets have no edge.
+
+## Legend
+
+A full-width panel at the bottom of the drawing area, in three columns, left to right:
+
+| Swatch            | Phrase                                                                     |
+| ----------------- | -------------------------------------------------------------------------- |
+| mauve rounded box | named set                                                                  |
+| dashed white box  | ADR-only: no code checks it                                                |
+| grey rhombus      | gate                                                                       |
+| thin arrow        | flow: checks                                                               |
+| dark disc `1`     | marker: a Walkthrough step                                                 |
+| white chip `G7`   | rule chip: G = ADR-FLOW-CD-GLOBS, T = ADR-AUTO-TEST, R = ADR-REPO-PROTGLOB |
+
+## Sidebar
+
+- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. Three touched cells
+  carry a small grey dot: AUTO × GLOBS, AUTO × BUILD and PRIN × BUILD.
+- **Tree minimap:** four lit tiles, labelled Globs, adr/auto, adr/prin and adr/flow.
+- **Lens badge:** GOV, with "Supports ADR-FLOW-CD-GLOBS · ADR-AUTO-TEST · ADR-PRIN-ONELIVE · ADR-REPO-PROTGLOB" beneath it, on two lines.
+- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

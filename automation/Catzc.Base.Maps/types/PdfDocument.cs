@@ -1,0 +1,114 @@
+// A minimal PDF 1.4 writer for the world-map PDFs: pages of vector rectangles, lines and base-14 Helvetica text,
+// written by hand with the BCL only ([ADR-AUTO-TYPES#5](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types5)),
+// since PDF is a text format. The bytes are deterministic: no CreationDate or ModDate, a /ID taken from a SHA-256 of
+// the body, numbers through PdfNumber, objects in a fixed order, and '\n' line ends, so the same pages always give the
+// same file. The layout is: the catalog (1), the page tree (2), Helvetica (3) and Helvetica-Bold (4), then each page
+// and its content stream, uncompressed; then the xref table with each object's exact byte offset, the trailer,
+// startxref and %%EOF.
+// cspell:ignore startxref endstream nendobj
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace Catzc.Base.Maps;
+
+[Catzc.Base.Objects.ConsoleDisplay(nameof(PageCount))]
+public sealed class PdfDocument
+{
+    private const int FirstPageObject = 5;
+
+    private readonly List<PdfPage> pages = new List<PdfPage>();
+
+    // The pages added so far.
+    public int PageCount => pages.Count;
+
+    // The pages, in the order they print.
+    public IReadOnlyList<PdfPage> Pages => pages;
+
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
+    public PdfDocument() { }
+
+    // A new blank page of the given size in points, added after the others.
+    public PdfPage AddPage(double width, double height)
+    {
+        var page = new PdfPage(width, height);
+        pages.Add(page);
+        return page;
+    }
+
+    // The whole file. A document with no page has no valid PDF form and throws.
+    public byte[] ToBytes()
+    {
+        if (pages.Count == 0) { throw new InvalidOperationException("A PDF needs at least one page; call AddPage first."); }
+
+        int objectCount = FirstPageObject - 1 + 2 * pages.Count;
+        var offsets = new long[objectCount + 1];
+        using (var stream = new MemoryStream())
+        {
+            Write(stream, "%PDF-1.4\n");
+            // A comment of four bytes above 0x7F marks the file as binary for transfer tools (PDF 1.7, 7.5.2).
+            stream.Write(new byte[] { 0x25, 0xE2, 0xE3, 0xCF, 0xD3, 0x0A }, 0, 6);
+
+            var kids = new StringBuilder();
+            for (int i = 0; i < pages.Count; i++)
+            {
+                if (i > 0) { kids.Append(' '); }
+                kids.Append(PageObject(i)).Append(" 0 R");
+            }
+
+            WriteObject(stream, offsets, 1, "<< /Type /Catalog /Pages 2 0 R >>");
+            WriteObject(stream, offsets, 2, "<< /Type /Pages /Kids [" + kids + "] /Count " + Integer(pages.Count) + " >>");
+            WriteObject(stream, offsets, 3, FontObject("Helvetica"));
+            WriteObject(stream, offsets, 4, FontObject("Helvetica-Bold"));
+            for (int i = 0; i < pages.Count; i++)
+            {
+                PdfPage page = pages[i];
+                WriteObject(stream, offsets, PageObject(i),
+                    "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 " + PdfNumber.Format(page.Width) + " " + PdfNumber.Format(page.Height) +
+                    "] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents " + Integer(PageObject(i) + 1) + " 0 R >>");
+                byte[] content = Encoding.ASCII.GetBytes(page.Content);
+                WriteObject(stream, offsets, PageObject(i) + 1,
+                    "<< /Length " + Integer(content.Length) + " >>\nstream\n" + page.Content + "endstream");
+            }
+
+            long xref = stream.Position;
+            var table = new StringBuilder();
+            table.Append("xref\n0 ").Append(Integer(objectCount + 1)).Append('\n');
+            table.Append("0000000000 65535 f \n");
+            for (int n = 1; n <= objectCount; n++)
+            {
+                table.Append(offsets[n].ToString("D10", CultureInfo.InvariantCulture)).Append(" 00000 n \n");
+            }
+            Write(stream, table.ToString());
+
+            string id = Convert.ToHexString(SHA256.HashData(stream.ToArray()), 0, 16);
+            Write(stream, "trailer\n<< /Size " + Integer(objectCount + 1) + " /Root 1 0 R /ID [<" + id + "> <" + id + ">] >>\n");
+            Write(stream, "startxref\n" + xref.ToString(CultureInfo.InvariantCulture) + "\n%%EOF\n");
+            return stream.ToArray();
+        }
+    }
+
+    private static int PageObject(int index) => FirstPageObject + 2 * index;
+
+    private static string FontObject(string baseFont) =>
+        "<< /Type /Font /Subtype /Type1 /BaseFont /" + baseFont + " /Encoding /WinAnsiEncoding >>";
+
+    private static string Integer(int value) => value.ToString(CultureInfo.InvariantCulture);
+
+    private static void WriteObject(MemoryStream stream, long[] offsets, int number, string body)
+    {
+        offsets[number] = stream.Position;
+        Write(stream, Integer(number) + " 0 obj\n" + body + "\nendobj\n");
+    }
+
+    private static void Write(MemoryStream stream, string text)
+    {
+        byte[] bytes = Encoding.ASCII.GetBytes(text);
+        stream.Write(bytes, 0, bytes.Length);
+    }
+}

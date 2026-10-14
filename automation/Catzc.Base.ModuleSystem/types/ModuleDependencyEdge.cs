@@ -23,10 +23,10 @@ public sealed class ModuleDependencyEdge
     public ModuleDependencyEdge(string from, string to, string kind, int callCount, string[] functions)
     {
         if (string.IsNullOrWhiteSpace(from)) { throw new ArgumentException("ModuleDependencyEdge.From is required"); }
-        if (string.IsNullOrWhiteSpace(to))   { throw new ArgumentException("ModuleDependencyEdge.To is required"); }
-        From      = from;
-        To        = to;
-        Kind      = string.IsNullOrWhiteSpace(kind) ? "actual" : kind;
+        if (string.IsNullOrWhiteSpace(to)) { throw new ArgumentException("ModuleDependencyEdge.To is required"); }
+        From = from;
+        To = to;
+        Kind = string.IsNullOrWhiteSpace(kind) ? "actual" : kind;
         CallCount = callCount;
         Functions = functions ?? new string[0];
     }

@@ -31,27 +31,20 @@ recommendations:
   # ANSI Colors — renders the escape codes the writers emit (console-output-matters) in a captured log, hiding the
   # codes themselves; the vscode-settings registry associates **/out/**/*.log with its `ansi` language.
   - iliazeus.vscode-ansi
-  # The PowerShell extension — language service, debugging, and the codeFormatting settings wired in
-  # vscode-settings.yml.
-  - ms-vscode.powershell
-  # The Go extension — gopls for the Go tests: it reads the repository-root go.work (New-GoWorkspace), whose `use`
-  # entries name every Go test module, so the go/ root and the .go/ default load the same with no setting.
-  - golang.go
+  # The extensions that run the formatter engines — PowerShell, Go, Ruff, Prettier — are not listed here: the generator
+  # adds each engine's extension from languages.yml (`engines:`), the one place it is named
+  # ([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)). They also carry the
+  # language services: the PowerShell extension's debugging, and gopls, which reads the repository-root go.work.
   # The Python extension — for the Python tests under python/tests/: the settings generator points it at the generated
   # test project's environment (python/.venv), so imports and the test explorer resolve with no setting.
   - ms-python.python
-  # Ruff — format and lint the Python tests on save with the pinned ruff, matching Format-Code's ruff engine and the bridge's
-  # ruff check.
-  - charliermarsh.ruff
   # C# Dev Kit — the language service for the native C# type sources: it loads catzc.sln, whose project compiles
   # and analyzes the types the importer builds with Add-Type (the .editorconfig rules apply in the editor).
   - ms-dotnettools.csdevkit
-  # Bicep — language service, validation and formatting for the infrastructure templates.
+  # Bicep — language service and validation for the infrastructure templates.
   - ms-azuretools.vscode-bicep
-  # XML — validation and formatting for the PowerShell format/type data (.ps1xml), schemas and MSBuild projects.
+  # XML — validation for the PowerShell format/type data (.ps1xml), schemas and MSBuild projects.
   - redhat.vscode-xml
-  # Prettier — the prettier engine Format-Code runs for Markdown and pipeline YAML; Format Document matches the gate.
-  - esbenp.prettier-vscode
   # PDF viewing for reference material in docs.
   - tomoki1207.pdf
   # Regex Robin — makes code links in comments Ctrl+clickable. Core VS Code links only http/https/file URLs

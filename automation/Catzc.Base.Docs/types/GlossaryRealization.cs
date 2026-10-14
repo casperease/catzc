@@ -30,7 +30,7 @@ public sealed class GlossaryRealization : Catzc.Base.Objects.DictionaryRecord
     public GlossaryRealization(IDictionary d)
     {
         if (d == null) { throw new ArgumentException("realized_by must be a mapping with 'kind' (and 'pattern')"); }
-        kind    = Req(d, "kind");
+        kind = Req(d, "kind");
         pattern = OptStr(d, "pattern");
 
         foreach (object k in d.Keys)
