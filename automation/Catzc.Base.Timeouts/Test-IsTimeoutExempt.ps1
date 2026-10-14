@@ -6,7 +6,7 @@
 .PARAMETER Budget
     The budget's immutable GUID.
 .PARAMETER Shell
-    The shell the work runs in: Pwsh (the default) or Bash.
+    The shell the work runs in, one of the execution engines: pwsh (the default), bash or zsh.
 .EXAMPLE
     if (Test-IsTimeoutExempt $budget) { Write-Message 'running exempt while tuned' }
 #>
@@ -16,8 +16,8 @@ function Test-IsTimeoutExempt {
     param(
         [Parameter(Mandatory, Position = 0)]
         [guid] $Budget,
-        [ValidateSet('Pwsh', 'Bash')]
-        [string] $Shell = 'Pwsh'
+        [ArgumentCompleter({ [Catzc.Base.Engines.ExecutionEngines]::Names })]
+        [string] $Shell = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name
     )
 
     $null -ne (Get-TimeoutExemption $Budget -Shell $Shell)

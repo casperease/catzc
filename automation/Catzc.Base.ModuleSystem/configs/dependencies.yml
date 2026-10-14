@@ -150,7 +150,15 @@ groups:
         Catzc.Base.Reports,
       ]
     Catzc.Base.Contracts:
-      [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Reports, Catzc.Base.Files, Catzc.Base.Writers]
+      [
+        Catzc.Base.Config,
+        Catzc.Base.Repository,
+        Catzc.Base.Objects,
+        Catzc.Base.Reports,
+        Catzc.Base.Files,
+        Catzc.Base.Writers,
+        Catzc.Base.Docs,
+      ]
 
   # The Azure-extension cluster — all the Azure modules except the root `Catzc.Azure`. Its internal
   # member->member DAG captures their layering; cross-group edges (to Base, to the `Catzc.Azure` root, and

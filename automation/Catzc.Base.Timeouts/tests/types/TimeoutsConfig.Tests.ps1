@@ -25,6 +25,16 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             $config.executables.Count | Should -Be 0
         }
 
+        It 'gives zsh one limit per environment, the pwsh-side defaults, tunable on its own' {
+            $config = New-TimeoutsConfig ([ordered]@{ limits = @{ pipeline = @{ zsh = 900 } } })
+            $config.SecondsFor('Devbox', 'Zsh', $false) | Should -Be 3
+            $config.SecondsFor('Pipeline', 'zsh', $false) | Should -Be 900
+            $config.SecondsFor('Pipeline', 'Pwsh', $false) | Should -Be 600
+            $config.limits.pipeline.zsh | Should -Be 900
+            { $config.SecondsFor('Devbox', 'zsh', $true) } | Should -Throw '*zsh has no background limit*'
+            { New-TimeoutsConfig ([ordered]@{ limits = @{ devbox = @{ zsh = 0 } } }) } | Should -Throw "*invalid limits.devbox.zsh '0'*"
+        }
+
         It 'resolves the defaults from a null config' {
             (New-TimeoutsConfig $null).SecondsFor('devbox', 'bash', $false) | Should -Be 3
         }
@@ -49,7 +59,7 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
 
         It 'throws on an unknown environment or shell when resolving' {
             { (New-TimeoutsConfig ([ordered]@{})).SecondsFor('laptop', 'Bash', $false) } | Should -Throw "*unknown environment 'laptop'*"
-            { (New-TimeoutsConfig ([ordered]@{})).SecondsFor('Devbox', 'zsh', $false) } | Should -Throw "*unknown shell 'zsh'*"
+            { (New-TimeoutsConfig ([ordered]@{})).SecondsFor('Devbox', 'widget', $false) } | Should -Throw "*unknown shell 'widget'*"
         }
 
         It 'resolves an executable entry, ignoring directory, extension and case' {
@@ -70,7 +80,7 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
         It 'throws on an unknown key at <path>' -ForEach @(
             @{ path = 'the top level'; data = @{ nope = 1 }; expected = "*unknown key 'nope'*" }
             @{ path = 'limits'; data = @{ limits = @{ laptop = @{} } }; expected = "*unknown key 'limits.laptop'*" }
-            @{ path = 'an environment'; data = @{ limits = @{ devbox = @{ zsh = 1 } } }; expected = "*unknown key 'limits.devbox.zsh'*" }
+            @{ path = 'an environment'; data = @{ limits = @{ devbox = @{ widget = 1 } } }; expected = "*unknown key 'limits.devbox.widget'*" }
             @{ path = 'bash'; data = @{ limits = @{ devbox = @{ bash = @{ idle = 1 } } } }; expected = "*unknown key 'limits.devbox.bash.idle'*" }
         ) {
             { New-TimeoutsConfig $data } | Should -Throw $expected

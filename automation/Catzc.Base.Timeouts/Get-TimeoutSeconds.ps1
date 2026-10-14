@@ -5,7 +5,7 @@
     Resolves the limit from timeouts.yml for the run environment this session is in (Get-RunEnvironment: devbox or
     pipeline). With -Executable it is the executable's own entry under `executables` when it has one, otherwise the
     environment's pwsh limit. With -Shell it is that shell's limit: bash has a foreground and a -Background limit
-    (the ones the Claude Code hook enforces), pwsh has one. With -Command it is a function's own limit, most specific
+    (the ones the Claude Code hook enforces), pwsh and zsh have one each. With -Command it is a function's own limit, most specific
     first: an exemption for its [TimeLimit] decoration's budget GUID, then its entry under `commands`, then the
     decoration for this environment, then the environment's pwsh limit
     ([ADR-AUTO-FAILFAST#8](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast8)). Every consumer of the safeguard (Invoke-Executable,
@@ -18,7 +18,8 @@
     The function whose own limit to return — its [Catzc.Base.Timeouts.TimeLimit] decoration, unless config overrides it.
     The function must be loaded.
 .PARAMETER Shell
-    The shell whose limit to return: Pwsh (the default) or Bash.
+    The shell whose limit to return, one of the execution engines: pwsh (the default), bash or zsh. Any other name
+    throws, naming the shells.
 .PARAMETER Background
     Return the bash background limit instead of the foreground one. Bash only.
 .PARAMETER Budget
@@ -48,8 +49,8 @@ function Get-TimeoutSeconds {
         [Parameter(Mandatory, ParameterSetName = 'Command')]
         [string] $Command,
         [Parameter(ParameterSetName = 'Shell')]
-        [ValidateSet('Pwsh', 'Bash')]
-        [string] $Shell = 'Pwsh',
+        [ArgumentCompleter({ [Catzc.Base.Engines.ExecutionEngines]::Names })]
+        [string] $Shell = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name,
         [Parameter(ParameterSetName = 'Shell')]
         [switch] $Background,
         [Parameter(ParameterSetName = 'Shell')]

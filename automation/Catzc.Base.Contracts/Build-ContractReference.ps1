@@ -6,20 +6,21 @@
     Projects Get-Contract over every version folder of every unit
     ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)) into one markdown page per
     unit. The page has a section per version folder, the draft 0.0.0 first and then the released folders, newest
-    first; each section is one table with a row per asset: its owning module, its path under the module, the
-    repository file it constrains (its target; a sample payload has none), its direction (marked when the version's
-    contract.yml sets it), its kind, and its note.
+    first; each section is one table with a row per asset (its owning module, its path under the module, the
+    repository file it constrains — its target; a sample payload has none — its direction, marked when the version's
+    contract.yml sets it, and its kind), then a list of the notes, one item per asset that carries one.
 
     The note is the asset's header comment (Get-ContractAssetNote), so what an asset is for is written once, in the
     asset, and contracts/ holds only assets. A note's code links become relative markdown links and each address an
-    autolink (ConvertTo-ContractNoteCell). An asset that carries no comment shows none.
+    autolink (ConvertTo-ContractNoteMarkdown). An asset that carries no comment has no list item.
 
     The pages are derived artifacts like the [glossary](/docs/adr/glossary.md): committed so GitHub has them and rebuilt
     by this writer, while their inputs (the assets) are what is reviewed and checked
-    ([ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)). docs/references/contracts/ is
-    wholly generated: a page whose unit has no assets is removed. Each page is written only when its content changes
-    (Write-FileIfChanged), and is emitted already formatted — every prose line fits the 140-column width and every table
-    is aligned — so Format-Code leaves it as written
+    ([ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)). A page whose unit has no
+    assets left is removed, but only when it carries this writer's own marker line: a page someone wrote by hand in
+    docs/references/contracts/ is never touched. Each page is written only when its content changes
+    (Write-FileIfChanged), and is emitted already formatted — prose and list items filled at the 140-column width
+    (Format-MarkdownParagraph) and every table aligned — so Format-Code leaves it as written
     ([ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)). A contracts/ tree that does
     not list throws, as Get-Contract does.
 .PARAMETER RepositoryRoot
@@ -54,7 +55,9 @@ function Build-ContractReference {
     $adr = '../../adr/repository/api-contracts.md'
     $kindText = @{ Presence = 'presence'; Fragment = 'fragment'; Schema = 'schema'; Sample = 'sample payload' }
     $directionText = @{ DependedOn = 'depended-on'; Provided = 'provided' }
-    $headers = @('Module', 'Asset', 'Target', 'Direction', 'Kind', 'Note')
+    $headers = @('Module', 'Asset', 'Target', 'Direction', 'Kind')
+    # Every page this writer emits carries this line; only a page carrying it is ever removed.
+    $marker = '`Build-ContractReference` writes this page from'
 
     $assets = @(Get-Contract -Version '*' -RepositoryRoot $RepositoryRoot)
     $units = [string[]] @($assets | ForEach-Object { $_.Unit } | Select-Object -Unique)
@@ -69,13 +72,13 @@ function Build-ContractReference {
         $lines.Add('')
         $lines.Add("``The $unit contracts``")
         $lines.Add('')
-        $lines.Add("The contract assets of the ``$unit`` unit, one table per version folder.")
+        $lines.Add("The contract assets of the ``$unit`` unit: one table per version folder, then the notes of its assets.")
         $lines.Add('')
-        $lines.Add("``Build-ContractReference`` writes this page from ``contracts/$unit/``: edit an asset or its header comment, never this page.")
+        $lines.Add("$marker ``contracts/$unit/``: edit an asset or its header comment, never this page.")
         $lines.Add('')
         $lines.Add('Each note is the asset''s own header comment: the leading `#` lines of a YAML asset, or the `$comment` of a schema.')
         $lines.Add('')
-        $lines.Add('A presence asset, a text fragment, and a JSON fragment or sample payload carry none: a comment would change what they pin.')
+        $lines.Add('A presence asset, a text fragment, and a JSON fragment or sample payload carry no note: a comment would change what they pin.')
         $lines.Add('')
         $lines.Add("Layout, kinds, and directions: [api-contracts]($adr).")
 
@@ -95,6 +98,7 @@ function Build-ContractReference {
             $lines.Add('')
 
             $rows = [System.Collections.Generic.List[string[]]]::new()
+            $notes = [System.Collections.Generic.List[string]]::new()
             foreach ($asset in @($unitAssets | Where-Object { $_.Version -ceq $version })) {
                 $direction = $directionText["$($asset.Direction)"]
                 if ($asset.IsDirectionOverridden) {
@@ -107,14 +111,14 @@ function Build-ContractReference {
                     'none'
                 }
                 $note = Get-ContractAssetNote -RepositoryRoot $RepositoryRoot -Asset $asset
-                $noteCell = if ($note) {
-                    ConvertTo-ContractNoteCell -Note $note -PageFolder $pageFolder
-                }
-                else {
-                    'none'
+                if ($note) {
+                    $text = "``$($asset.Module)/$($asset.Path)``: $(ConvertTo-ContractNoteMarkdown -Note $note -PageFolder $pageFolder)"
+                    foreach ($line in (Format-MarkdownParagraph -Text $text -FirstPrefix '- ' -ContinuationPrefix '  ')) {
+                        $notes.Add($line)
+                    }
                 }
                 $assetCell = "``$($asset.Path.Replace('|', '\|'))``"
-                $rows.Add([string[]] @("``$($asset.Module)``", $assetCell, $target, $direction, $kindText["$($asset.Kind)"], $noteCell))
+                $rows.Add([string[]] @("``$($asset.Module)``", $assetCell, $target, $direction, $kindText["$($asset.Kind)"]))
             }
 
             # Aligned as Prettier aligns a table, so the page is formatter-stable.
@@ -132,6 +136,13 @@ function Build-ContractReference {
                 }
                 $lines.Add("| $($padded -join ' | ') |")
             }
+
+            if ($notes.Count) {
+                $lines.Add('')
+                $lines.Add('Notes:')
+                $lines.Add('')
+                $lines.AddRange($notes)
+            }
         }
 
         $path = Join-Path $RepositoryRoot "$pageFolder/$unit.md"
@@ -142,14 +153,14 @@ function Build-ContractReference {
             })
     }
 
-    # The folder is wholly generated: a page whose unit has no assets left is removed.
+    # A page this writer emitted whose unit has no assets left is removed; a page without the marker is someone's own.
     $folder = Join-Path $RepositoryRoot $pageFolder
     if ([System.IO.Directory]::Exists($folder)) {
         $pages = [string[]] [System.IO.Directory]::GetFiles($folder, '*.md')
         [System.Array]::Sort($pages, [System.StringComparer]::Ordinal)
         foreach ($page in $pages) {
             $unit = [System.IO.Path]::GetFileNameWithoutExtension($page)
-            if ($unit -cin $units) {
+            if ($unit -cin $units -or -not [System.IO.File]::ReadAllText($page).Contains($marker)) {
                 continue
             }
             if (-not $DryRun) {

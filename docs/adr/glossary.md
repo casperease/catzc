@@ -618,7 +618,7 @@ One of the three registers — design, test, live — each with its own terminol
 - **Defined by:** [ADR-REPO-LANG#1](repository/domain-language-separation.md#rule-adr-repo-lang1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
-- **Forms:** `language zone`, `design zone`, `test zone`, `live zone`, `landing zone`, `dns zone`, and the bare `zone`
+- **Forms:** `language zone`, `design zone`, `test zone`, `live zone`, `landing zone`, `dns zone`, `availability zone`, and the bare `zone`
 - **Contrasts:**
   - [domain](#domain): An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.
   - [file language](#file-language): A file language is the kind of text one file holds, named by its extension; a language zone is a

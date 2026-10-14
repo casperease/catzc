@@ -8,12 +8,13 @@
 #   - the Claude Code PreToolUse hook (.claude/hooks/Assert-BashTimeout/, a C# program Build-BashTimeoutHook
 #     publishes on import) bounds every Bash call an agent makes, foreground and background.
 #
-# Limits are keyed by environment (devbox | pipeline) and shell (bash | pwsh):
+# Limits are keyed by environment (devbox | pipeline) and shell, one of the execution engines (pwsh | bash | zsh):
 #
 #   limits:
 #     <devbox|pipeline>:
 #       bash: { foreground: <s>, background: <s> }   # the hook's limits for a Claude/agent Bash call
 #       pwsh: <s>                                    # Invoke-WithTimeout and Invoke-Executable without an entry
+#       zsh: <s>                                     # a zsh run; the hook governs bash only, so zsh takes the pwsh-side defaults
 #
 #   tests:                                           # Test-Automation's timing report (Get-TestTimeLimits)
 #     level_ms: { L0: <ms>, L1: <ms>, L2: <ms>, L3: <ms>, L4: <ms> }   # the most one test of a tier may take

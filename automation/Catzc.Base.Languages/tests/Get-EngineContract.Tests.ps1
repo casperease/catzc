@@ -1,5 +1,5 @@
 # Get-EngineContract with the engines' executables mocked: the start arguments come from the execution engine model and
-# load the run's entry — directly in pwsh, through importer.sh and CATZC_IMPORTER in bash. Neutral fixture paths
+# load the run's entry — directly in pwsh, through importer.sh and CATZC_IMPORTER in bash and zsh. Neutral fixture paths
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
     BeforeAll {
@@ -9,6 +9,8 @@ Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
         $null = New-Item -ItemType File -Path $script:buildEntry -Force
         $script:bash = Join-Path $TestDrive 'widget bash/bash.exe'
         $null = New-Item -ItemType File -Path $script:bash -Force
+        $script:zsh = Join-Path $TestDrive 'widget zsh/zsh.exe'
+        $null = New-Item -ItemType File -Path $script:zsh -Force
     }
 
     BeforeEach {
@@ -46,6 +48,22 @@ Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
         $contract['CATZC_IMPORTER'] | Should -Be (Resolve-Path -LiteralPath $script:buildEntry).ProviderPath
         $contract['CATZC_ENGINE_ENTRY'] | Should -Be $importer
         Should -Invoke Resolve-EngineExecutable -ModuleName Catzc.Base.Languages -Times 0
+    }
+
+    It 'starts zsh like bash: the same importer.sh, its own start arguments, cats before the command' {
+        $contract = InModuleScope Catzc.Base.Languages -Parameters @{ Zsh = $script:zsh; Entry = $script:buildEntry } {
+            param($Zsh, $Entry)
+            Get-EngineContract -Engine zsh -EngineExecutable $Zsh -EntryScript $Entry
+        }
+        $contract['CATZC_ENGINE'] | Should -Be 'zsh'
+        $contract['CATZC_ENGINE_EXECUTABLE'] | Should -Be $script:zsh
+        $importer = (Join-Path $script:root 'importer.sh').Replace('\', '/')
+        $start = @($contract['CATZC_ENGINE_START'] | ConvertFrom-Json)
+        $start | Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Zsh.StartArguments($importer, '{command}'))
+        $start[0] | Should -Be '-f'
+        $start[-1] | Should -BeLike '*; cats {command}'
+        $contract['CATZC_IMPORTER'] | Should -Be (Resolve-Path -LiteralPath $script:buildEntry).ProviderPath
+        $contract['CATZC_ENGINE_ENTRY'] | Should -Be $importer
     }
 
     It 'throws when the build''s entry does not exist' {

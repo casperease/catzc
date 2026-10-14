@@ -1,35 +1,35 @@
 # A note is written as a comment, where a citation is a repository-rooted code link
-# ([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)); in a table cell of a generated page it
+# ([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)); in a list item of a generated page it
 # is markdown, so a rooted link turns relative to the page
 # ([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)). Fixtures are neutral
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
-Describe 'ConvertTo-ContractNoteCell' -Tag 'L0', 'logic' {
+Describe 'ConvertTo-ContractNoteMarkdown' -Tag 'L0', 'logic' {
     BeforeAll {
-        function ConvertTo-Cell {
+        function ConvertTo-Markdown {
             param([string] $Note, [string] $PageFolder = 'docs/references/widgets')
             InModuleScope Catzc.Base.Contracts -Parameters @{ Note = $Note; PageFolder = $PageFolder } {
                 param($Note, $PageFolder)
-                ConvertTo-ContractNoteCell -Note $Note -PageFolder $PageFolder
+                ConvertTo-ContractNoteMarkdown -Note $Note -PageFolder $PageFolder
             }
         }
     }
 
     It 'makes a repository-rooted link relative to the page, keeping its fragment' -Tag 'ADR-REPO-LINK#2' {
-        ConvertTo-Cell 'Pinned by [ADR-TST-WIDGET#2](/docs/adr/repository/widget-thing.md#rule-adr-tst-widget2).' |
+        ConvertTo-Markdown 'Pinned by [ADR-TST-WIDGET#2](/docs/adr/repository/widget-thing.md#rule-adr-tst-widget2).' |
             Should -BeExactly 'Pinned by [ADR-TST-WIDGET#2](../../adr/repository/widget-thing.md#rule-adr-tst-widget2).'
-        ConvertTo-Cell 'See [gadget](/docs/references/widgets/gadget.md).' | Should -BeExactly 'See [gadget](gadget.md).'
+        ConvertTo-Markdown 'See [gadget](/docs/references/widgets/gadget.md).' | Should -BeExactly 'See [gadget](gadget.md).'
     }
 
     It 'leaves a relative link, an autolink, and a code span as written' -Tag 'ADR-REPO-LINK#2' {
         $note = 'See [gadget](gadget.md), <https://example.com/widget>, and `[widget](/docs/widget.md)`.'
-        ConvertTo-Cell $note | Should -BeExactly $note
+        ConvertTo-Markdown $note | Should -BeExactly $note
     }
 
     It 'turns a bare address into an autolink, leaving trailing punctuation outside' -Tag 'ADR-REPO-LINK#7' {
-        ConvertTo-Cell 'Spec: https://example.com/widget/gadget.' | Should -BeExactly 'Spec: <https://example.com/widget/gadget>.'
+        ConvertTo-Markdown 'Spec: https://example.com/widget/gadget.' | Should -BeExactly 'Spec: <https://example.com/widget/gadget>.'
     }
 
-    It 'escapes every pipe and a < that opens no autolink' {
-        ConvertTo-Cell 'The `widget|gadget` key, per <id>.' | Should -BeExactly 'The `widget\|gadget` key, per \<id>.'
+    It 'escapes a < that opens no autolink, and leaves a pipe as written' {
+        ConvertTo-Markdown 'The `widget|gadget` key, per <id>.' | Should -BeExactly 'The `widget|gadget` key, per \<id>.'
     }
 }

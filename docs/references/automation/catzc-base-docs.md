@@ -21,7 +21,7 @@ from the modules' glossary sources — and answers "ask cats", the offline brows
 | responsibility:5 | vocabulary | [Controlled vocabulary](#responsibility5--controlled-vocabulary)   |
 | responsibility:6 | ask        | [Ask cats](#responsibility6--ask-cats)                             |
 | responsibility:7 | agents     | [Sub-agent registry](#responsibility7--sub-agent-registry)         |
-| responsibility:8 | markdown | [Generated markdown](#responsibility8--generated-markdown) |
+| responsibility:8 | markdown   | [Generated markdown](#responsibility8--generated-markdown)         |
 
 ### responsibility:1 — README materialisation
 

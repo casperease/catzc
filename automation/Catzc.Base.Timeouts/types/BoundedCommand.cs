@@ -1,9 +1,9 @@
-// Whether a command line runs inside a time limit, in either execution engine's grammar — the check behind the Bash
+// Whether a command line runs inside a time limit, in each execution engine's grammar — the check behind the Bash
 // hook's background rule (BashSafeguard) and the per-engine fixture table
 // (tests/assets/engine-cases/bounded-command.yml, loaded by Get-EngineCaseTable).
 //
 // A command is bounded when its limit wraps all of it:
-//   - bash: a leading GNU `timeout [options] <duration>` around ONE command — a compound command (&&, ||, ;, |, a
+//   - bash and zsh: a leading GNU `timeout [options] <duration>` around ONE command — a compound command (&&, ||, ;, |, a
 //     background &, a newline) would leave everything after its first command unbounded. A backtick runs a command
 //     substitution, so its content belongs to the one command.
 //   - pwsh: ONE call to Invoke-WithTimeout, Assert-CompletesWithin or Test-CompletesWithin whose script block holds
@@ -33,26 +33,26 @@ public static class BoundedCommand
     private static readonly Regex PwshSecondsName = new Regex(
         @"(?:^|\s)-Seconds\b", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
-    // The verdict for a command in an engine (pwsh | bash) against a limit in seconds. requested describes what the
-    // command asked for, for a log line.
+    // The verdict for a command in an engine (pwsh | bash | zsh) against a limit in seconds. requested describes what
+    // the command asked for, for a log line.
     public static string Check(string command, string engine, int limitSeconds, out string requested)
     {
         double? seconds;
         string body;
-        string kind = Engine(engine);
-        if (!TryParseBound(command, kind, out seconds, out body))
+        bool posix = IsPosix(engine);
+        if (!TryParseBound(command, engine, out seconds, out body))
         {
-            requested = kind == "bash" ? "no timeout prefix" : "no Invoke-WithTimeout";
+            requested = posix ? "no timeout prefix" : "no Invoke-WithTimeout";
             return NoLimit;
         }
         if (seconds.HasValue && (seconds.Value <= 0 || seconds.Value > limitSeconds))
         {
-            requested = (kind == "bash" ? "timeout " : "-Seconds ") + seconds.Value.ToString(CultureInfo.InvariantCulture) + " s";
+            requested = (posix ? "timeout " : "-Seconds ") + seconds.Value.ToString(CultureInfo.InvariantCulture) + " s";
             return OverLimit;
         }
-        // bash: the one command after the prefix; pwsh: the call itself at the top level (the block's own statements
-        // are inside the limit, so they never count).
-        if (!IsSingleCommand(kind == "bash" ? body : command, kind))
+        // bash and zsh: the one command after the prefix; pwsh: the call itself at the top level (the block's own
+        // statements are inside the limit, so they never count).
+        if (!IsSingleCommand(posix ? body : command, engine))
         {
             requested = "compound command";
             return Compound;
@@ -68,25 +68,29 @@ public static class BoundedCommand
     {
         seconds = null;
         body = null;
+        bool posix = IsPosix(engine);
         if (string.IsNullOrWhiteSpace(command)) { return false; }
-        return Engine(engine) == "bash" ? TryParseBash(command, out seconds, out body) : TryParsePwsh(command, out seconds, out body);
+        return posix ? TryParseBash(command, out seconds, out body) : TryParsePwsh(command, out seconds, out body);
     }
 
     // True when the text is one command in the engine's grammar: no statement separator outside quotes and nested
-    // expressions. bash separators: &&, ||, ;, |, a background &, newline (the & of 2>&1 or &> is a redirection).
-    // pwsh separators: &&, ||, ;, |, newline (a single & is the call operator).
+    // expressions. bash and zsh separators: &&, ||, ;, |, a background &, newline (the & of 2>&1 or &> is a
+    // redirection). pwsh separators: &&, ||, ;, |, newline (a single & is the call operator).
     public static bool IsSingleCommand(string text, string engine)
     {
+        bool posix = IsPosix(engine);
         if (string.IsNullOrWhiteSpace(text)) { return false; }
-        return Engine(engine) == "bash" ? IsSingleBash(text) : IsSinglePwsh(text);
+        return posix ? IsSingleBash(text) : IsSinglePwsh(text);
     }
 
-    private static string Engine(string engine)
+    // True when the engine bounds a call with a GNU `timeout` prefix (bash, zsh), false when with a pwsh wrapper call.
+    // The engine and its time safeguard come from the model, declared once
+    // ([ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2)); Get throws, naming the
+    // engines, for any other name.
+    private static bool IsPosix(string engine)
     {
-        // The execution engines, declared once ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)); Get
-        // throws, naming them, for any other name.
         string normalized = engine == null ? "" : engine.Trim().ToLowerInvariant();
-        return Catzc.Base.Engines.ExecutionEngines.Get(normalized).Name;
+        return Catzc.Base.Engines.ExecutionEngines.Get(normalized).TimeSafeguard == Catzc.Base.Engines.ExecutionEngines.Bash.TimeSafeguard;
     }
 
     private static bool TryParseBash(string command, out double? seconds, out string rest)

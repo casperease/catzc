@@ -69,15 +69,23 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
 }
 
 # The real glossary sources against the real ADRs, tests, and tracked files. G1 and G4 reach git (the tracked-file
-# listing), so this is L2; the answer is the same in both run modes, so the build run skips it.
+# listing), so this is L2; the answer is the same in both run modes, so the build run skips it. One real gate run is
+# observed facet by facet ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19),
+# [ADR-AUTO-TEST#20](/docs/adr/automation/test-automation.md#rule-adr-auto-test20)): Test-Glossary runs every check over
+# the real sources and prefixes each check's issues with its code (pinned at L0 above), so each check's It reads its
+# own issues from that run rather than running the check a second time.
 Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:sources = @(InModuleScope Catzc.Base.Docs { Get-GlossarySources })
-        $script:entries = Get-Glossary
+        $script:gate = Test-Glossary -PassThru -OutputFolder (Join-Path $TestDrive 'glossary')
+        $script:issuesOf = {
+            param([string] $Check)
+            @($script:gate.Issues | Where-Object { $_.StartsWith("$Check ", [System.StringComparison]::Ordinal) })
+        }
     }
 
     It 'Test-Glossary passes over the real sources' -Tag 'ADR-AUTO-TEST#35' {
-        (Test-Glossary -PassThru -OutputFolder (Join-Path $TestDrive 'glossary')).IssueCount | Should -Be 0
+        $script:gate.IssueCount | Should -Be 0
     }
 
     It 'discovers at least one glossary source' -Tag 'ADR-REPO-VOCAB#2' {
@@ -85,27 +93,22 @@ Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity', 'sour
     }
 
     It 'G1 — the sources agree with each other and are tracked' -Tag 'ADR-REPO-VOCAB#3' {
-        InModuleScope Catzc.Base.Docs -Parameters @{ Sources = $script:sources } { Get-GlossarySourceViolations -Source $Sources } |
-            Should -BeNullOrEmpty
+        & $script:issuesOf 'G1' | Should -BeNullOrEmpty
     }
 
     It 'G2 — every term is anchored on its defining rule' -Tag 'ADR-REPO-VOCAB#1' {
-        InModuleScope Catzc.Base.Docs -Parameters @{ Entries = $script:entries } { Get-GlossaryAnchorViolations -Entry $Entries } |
-            Should -BeNullOrEmpty
+        & $script:issuesOf 'G2' | Should -BeNullOrEmpty
     }
 
     It 'G3 — no second rule defines a term' -Tag 'ADR-REPO-VOCAB#1' {
-        InModuleScope Catzc.Base.Docs -Parameters @{ Entries = $script:entries } { Get-GlossaryDefinitionViolations -Entry $Entries } |
-            Should -BeNullOrEmpty
+        & $script:issuesOf 'G3' | Should -BeNullOrEmpty
     }
 
     It 'G4 — prose avoids every avoided phrasing in scope' -Tag 'ADR-REPO-VOCAB#5' {
-        InModuleScope Catzc.Base.Docs -Parameters @{ Entries = $script:entries } { Get-GlossaryPhrasingViolations -Entry $Entries } |
-            Should -BeNullOrEmpty
+        & $script:issuesOf 'G4' | Should -BeNullOrEmpty
     }
 
     It 'G5 — every realized concept is enforced' -Tag 'ADR-REPO-VOCAB#6' {
-        InModuleScope Catzc.Base.Docs -Parameters @{ Entries = $script:entries } { Get-GlossaryEnforcementViolations -Entry $Entries } |
-            Should -BeNullOrEmpty
+        & $script:issuesOf 'G5' | Should -BeNullOrEmpty
     }
 }

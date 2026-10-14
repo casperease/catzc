@@ -26,7 +26,7 @@ function Format-MarkdownParagraph {
     [CmdletBinding()]
     [OutputType([string[]])]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         [string] $Text,
 
         [string] $FirstPrefix = '',

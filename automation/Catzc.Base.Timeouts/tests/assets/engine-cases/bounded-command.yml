@@ -1,96 +1,125 @@
 # Engine case table (Get-EngineCaseTable, Catzc.Tooling.Core) for BoundedCommand: is a command line wrapped in a time
 # limit, in each execution engine's grammar? Each column holds `command` and the `expect`ed verdict — allow, no-limit,
-# over-limit or compound — against a 70-second limit, or names why the case does not apply ("n/a: <reason>").
+# over-limit or compound — against a 70-second limit, or names why the case does not apply ("n/a: <reason>"). bash and
+# zsh share the GNU timeout prefix and the POSIX separators, so their columns differ only where zsh's own syntax does.
 subject: bounded command
 cases:
   - case: one command behind a time limit
     pwsh: { command: "Invoke-WithTimeout -Seconds 60 { Get-Widget }", expect: allow }
     bash: { command: "timeout 60 get-widget", expect: allow }
+    zsh: { command: "timeout 60 get-widget", expect: allow }
 
   - case: the limit at exactly the ceiling
     pwsh: { command: "Invoke-WithTimeout -Seconds 70 { Get-Widget }", expect: allow }
     bash: { command: "timeout 70 get-widget", expect: allow }
+    zsh: { command: "timeout 70 get-widget", expect: allow }
 
   - case: a duration with a unit
     pwsh: "n/a: -Seconds takes whole seconds; there is no unit suffix"
     bash: { command: "timeout 1m get-widget", expect: allow }
+    zsh: { command: "timeout 1m get-widget", expect: allow }
 
   - case: the configured default limit
     pwsh: { command: "Invoke-WithTimeout { Get-Widget }", expect: allow }
     bash: "n/a: GNU timeout has no default duration; the prefix always names one"
+    zsh: "n/a: GNU timeout has no default duration; the prefix always names one"
 
   - case: wrapper options before the limit
     pwsh: { command: "Invoke-WithTimeout -Activity 'widget sync' -Seconds:60 { Sync-Widget }", expect: allow }
     bash: { command: "timeout -k 5 --preserve-status 60s sync-widget", expect: allow }
+    zsh: { command: "timeout -k 5 --preserve-status 60s sync-widget", expect: allow }
 
   - case: the asserting and testing forms
     pwsh: { command: "Assert-CompletesWithin { Sync-Widget } -Seconds 60", expect: allow }
     bash: "n/a: bash has one wrapper, GNU timeout"
+    zsh: "n/a: zsh has one wrapper, GNU timeout"
 
   - case: several statements inside the limit
     pwsh: { command: "Invoke-WithTimeout -Seconds 60 { Get-Widget; Get-Gadget | Sort-Object }", expect: allow }
     bash: { command: "timeout 60 get-widget && get-gadget", expect: compound }
+    zsh: { command: "timeout 60 get-widget && get-gadget", expect: compound }
 
   - case: a pipeline after the limit
     pwsh: { command: "Invoke-WithTimeout -Seconds 60 { Get-Widget } | Sort-Object", expect: compound }
     bash: { command: "timeout 60 get-widget | sort", expect: compound }
+    zsh: { command: "timeout 60 get-widget | sort", expect: compound }
 
   - case: a second statement after the limit
     pwsh: { command: "Invoke-WithTimeout -Seconds 60 { Get-Widget }; Get-Gadget", expect: compound }
     bash: { command: "timeout 60 get-widget; get-gadget", expect: compound }
+    zsh: { command: "timeout 60 get-widget; get-gadget", expect: compound }
 
   - case: a chain operator after the limit
     pwsh: { command: "Invoke-WithTimeout -Seconds 60 { Get-Widget } && Get-Gadget", expect: compound }
     bash: { command: "timeout 60 get-widget || get-gadget", expect: compound }
+    zsh: { command: "timeout 60 get-widget || get-gadget", expect: compound }
 
   - case: a newline after the limit
     pwsh: { command: "Invoke-WithTimeout -Seconds 60 { Get-Widget }\nGet-Gadget", expect: compound }
     bash: { command: "timeout 60 get-widget\nget-gadget", expect: compound }
+    zsh: { command: "timeout 60 get-widget\nget-gadget", expect: compound }
 
-  - case: an ampersand — call operator in pwsh, background in bash
+  - case: an ampersand — call operator in pwsh, background in bash and zsh
     pwsh: { command: "Invoke-WithTimeout -Seconds 60 { & 'C:/widget/gadget.exe' }", expect: allow }
     bash: { command: "timeout 60 gadget &", expect: compound }
+    zsh: { command: "timeout 60 gadget &", expect: compound }
+
+  - case: a background-and-disown &!
+    pwsh: "n/a: pwsh has no disown operator"
+    bash: "n/a: &! is zsh syntax"
+    zsh: { command: "timeout 60 gadget &!", expect: compound }
 
   - case: an ampersand in a redirection
     pwsh: { command: "Invoke-WithTimeout -Seconds 60 { Get-Widget 2>&1 }", expect: allow }
     bash: { command: "timeout 60 get-widget 2>&1", expect: allow }
+    zsh: { command: "timeout 60 get-widget 2>&1", expect: allow }
 
   - case: separators inside quotes
     pwsh: { command: "Invoke-WithTimeout -Seconds 60 { Get-Widget } -Activity 'a;b|c'", expect: allow }
     bash: { command: "timeout 60 grep -n 'a;b|c' widget.txt", expect: allow }
+    zsh: { command: "timeout 60 grep -n 'a;b|c' widget.txt", expect: allow }
 
-  - case: an escaped single quote — '' in pwsh, '\'' in bash
+  - case: an escaped single quote — '' in pwsh, '\'' in bash and zsh
     pwsh: { command: "Invoke-WithTimeout -Seconds 60 { Get-Widget } -Activity 'it''s; done'", expect: allow }
     bash: { command: "timeout 60 echo 'it'\\''s; done'", expect: allow }
+    zsh: { command: "timeout 60 echo 'it'\\''s; done'", expect: allow }
 
-  - case: a backtick — escape in pwsh, command substitution in bash
+  - case: a backtick — escape in pwsh, command substitution in bash and zsh
     pwsh: { command: 'Invoke-WithTimeout -Seconds 60 { Get-Widget } -Activity "a`"; b"', expect: allow }
     bash: { command: "timeout 60 echo `get-gadget; get-widget`", expect: allow }
+    zsh: { command: "timeout 60 echo `get-gadget; get-widget`", expect: allow }
 
   - case: a subexpression or command substitution
     pwsh: { command: 'Invoke-WithTimeout -Seconds 60 { Get-Widget } -Activity "$(Get-Date; Get-Gadget)"', expect: allow }
     bash: { command: 'timeout 60 echo "$(date; hostname)"', expect: allow }
+    zsh: { command: 'timeout 60 echo "$(date; hostname)"', expect: allow }
 
   - case: no time limit at all
     pwsh: { command: "Get-Widget", expect: no-limit }
     bash: { command: "get-widget", expect: no-limit }
+    zsh: { command: "get-widget", expect: no-limit }
 
   - case: a look-alike wrapper name
     pwsh: { command: "Invoke-WithTimeoutX { Get-Widget }", expect: no-limit }
     bash: { command: "timeouts 60 get-widget", expect: no-limit }
+    zsh: { command: "timeouts 60 get-widget", expect: no-limit }
 
   - case: a wrapper with nothing to run
     pwsh: { command: "Invoke-WithTimeout -Seconds 60 { }", expect: no-limit }
     bash: { command: "timeout 60", expect: no-limit }
+    zsh: { command: "timeout 60", expect: no-limit }
 
   - case: a limit that is not a number
     pwsh: { command: "Invoke-WithTimeout -Seconds ten { Get-Widget }", expect: no-limit }
     bash: { command: "timeout ten get-widget", expect: no-limit }
+    zsh: { command: "timeout ten get-widget", expect: no-limit }
 
   - case: a limit over the ceiling
     pwsh: { command: "Invoke-WithTimeout -Seconds 71 { Get-Widget }", expect: over-limit }
     bash: { command: "timeout 2m get-widget", expect: over-limit }
+    zsh: { command: "timeout 2m get-widget", expect: over-limit }
 
   - case: a zero limit
     pwsh: { command: "Invoke-WithTimeout -Seconds 0 { Get-Widget }", expect: over-limit }
     bash: { command: "timeout 0 get-widget", expect: over-limit }
+    zsh: { command: "timeout 0 get-widget", expect: over-limit }

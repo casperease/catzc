@@ -10,11 +10,11 @@
 # An exemption never removes the limit: an exempt budget runs up to its scope's ceiling instead.
 #
 #   ceiling:                                   # optional; the sensible defaults are declared on the type
-#     <devbox|pipeline>: { bash: <s>, pwsh: <s> }
+#     <devbox|pipeline>: { pwsh: <s>, bash: <s>, zsh: <s> }
 #   exempt:
 #     - single: <guid>                         # exactly one of single | range
 #       range: { from: <guid>, to: <guid> }    # every GUID from..to inclusive, ordered as written
-#       scope: { environment: <devbox|pipeline>, shell: <bash|pwsh> }   # optional; an omitted axis covers both
+#       scope: { environment: <devbox|pipeline>, shell: <pwsh|bash|zsh> }   # optional; an omitted axis covers every value
 #       reason: <why it is exempt while it is tuned>
 #
 # Every GUID here must be a registered, live budget (the exemption integrity test), and no two entries may cover

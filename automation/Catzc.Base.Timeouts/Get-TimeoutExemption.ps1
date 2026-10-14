@@ -8,7 +8,8 @@
 .PARAMETER Budget
     The budget's immutable GUID — registered in the managed-GUID registry and passed by the call site.
 .PARAMETER Shell
-    The shell the work runs in: Pwsh (the default) or Bash.
+    The shell the work runs in, one of the execution engines: pwsh (the default), bash or zsh. Any other name
+    throws, naming the shells.
 .PARAMETER EnvironmentAssertIs
     Pins the expected run environment (Pipeline or Devbox); a different one throws. The guard verifies, it never
     selects.
@@ -23,8 +24,8 @@ function Get-TimeoutExemption {
     param(
         [Parameter(Mandatory, Position = 0)]
         [guid] $Budget,
-        [ValidateSet('Pwsh', 'Bash')]
-        [string] $Shell = 'Pwsh',
+        [ArgumentCompleter({ [Catzc.Base.Engines.ExecutionEngines]::Names })]
+        [string] $Shell = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name,
         [ValidateSet('Pipeline', 'Devbox')]
         [string] $EnvironmentAssertIs
     )

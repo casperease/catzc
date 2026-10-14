@@ -5,14 +5,14 @@
 // ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
 //
 // An exemption never removes the limit ("ceil all"): an exempt budget runs up to its scope's ceiling instead —
-// ceiling.<devbox|pipeline>.<bash|pwsh>, whose sensible defaults are declared here, once
+// ceiling.<devbox|pipeline>.<pwsh|bash|zsh>, whose sensible defaults are declared here, once
 // ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
 // Each `exempt` entry names its budgets as exactly one of
 //   single: <guid>                         one budget, or
 //   range: { from: <guid>, to: <guid> }    every GUID from..to inclusive — a block of minted GUIDs that share a
 //                                          leading group, ordered as written (canonical form, ordinal), the same
 //                                          ordering as Test-IsGuidInRange;
-// an optional scope { environment: devbox | pipeline, shell: bash | pwsh } (an omitted axis covers both values),
+// an optional scope { environment: devbox | pipeline, shell: pwsh | bash | zsh } (an omitted axis covers every value),
 // and a non-empty reason.
 //
 // Constructing an instance validates the file, collecting every violation into one ArgumentException:
@@ -45,19 +45,22 @@ public sealed class TimeoutExemptionsConfig : Catzc.Base.Objects.DictionaryRecor
     // The all-zeros GUID is a denied registry value, so it is built at runtime, never written as a literal.
     private static readonly string ZeroGuid = Guid.Empty.ToString("D");
 
-    // The sensible defaults: an exempt budget may run up to ten minutes on a devbox and an hour in a pipeline.
+    // The sensible defaults: an exempt budget may run up to ten minutes on a devbox and an hour in a pipeline, in every
+    // shell.
     private static readonly Dictionary<string, int> Defaults = new Dictionary<string, int>(StringComparer.Ordinal)
     {
         { "devbox.bash", 600 },
         { "devbox.pwsh", 600 },
+        { "devbox.zsh", 600 },
         { "pipeline.bash", 3600 },
         { "pipeline.pwsh", 3600 },
+        { "pipeline.zsh", 3600 },
     };
 
     private readonly Dictionary<string, int> resolved = new Dictionary<string, int>(Defaults, StringComparer.Ordinal);
     private readonly List<Hashtable> entries = new List<Hashtable>();
 
-    // The resolved ceilings, defaults filled in: ceiling[devbox|pipeline][bash|pwsh]. Resolve through CeilingFor.
+    // The resolved ceilings, defaults filled in: ceiling[devbox|pipeline][pwsh|bash|zsh]. Resolve through CeilingFor.
     public IDictionary ceiling { get; }
 
     // The exemptions in file order, each normalized: from and to (equal for a single), environments and shells
@@ -150,7 +153,7 @@ public sealed class TimeoutExemptionsConfig : Catzc.Base.Objects.DictionaryRecor
             IDictionary byShell = byEnvironment[environment] as IDictionary;
             if (byShell == null)
             {
-                errors.Add(string.Format("invalid ceiling.{0} (must be a map of bash | pwsh)", environment));
+                errors.Add(string.Format("invalid ceiling.{0} (must be a map of {1})", environment, string.Join(" | ", Shells)));
                 continue;
             }
             CheckKeys(byShell, Shells, "ceiling." + environment + ".", errors);

@@ -3,7 +3,7 @@ Describe 'Get-TimeoutSeconds' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Base.Timeouts {
             [Catzc.Base.Timeouts.TimeoutsConfig]::new([ordered]@{
                     limits      = @{
-                        devbox   = @{ bash = @{ foreground = 7; background = 70 }; pwsh = 8 }
+                        devbox   = @{ bash = @{ foreground = 7; background = 70 }; pwsh = 8; zsh = 9 }
                         pipeline = @{ bash = @{ foreground = 60; background = 600 }; pwsh = 80 }
                     }
                     executables = @{ widget = 90 }
@@ -43,8 +43,17 @@ Describe 'Get-TimeoutSeconds' -Tag 'L0', 'logic' {
         Should -Invoke Get-RunEnvironment -ModuleName Catzc.Base.Timeouts -Times 1 -Exactly -ParameterFilter { -not $EnvironmentAssertIs }
     }
 
+    It 'returns the zsh limit, one per environment' {
+        Get-TimeoutSeconds -Shell zsh | Should -Be 9
+        { Get-TimeoutSeconds -Shell zsh -Background } | Should -Throw '*zsh has no background limit*'
+    }
+
     It 'throws on a pwsh background limit' {
         { Get-TimeoutSeconds -Shell Pwsh -Background } | Should -Throw '*pwsh has no background limit*'
+    }
+
+    It 'throws, naming the shells, on a shell that is not an execution engine' {
+        { Get-TimeoutSeconds -Shell widget } | Should -Throw "*unknown shell 'widget' (allowed: pwsh, bash, zsh)*"
     }
 
     Context '-Budget' {

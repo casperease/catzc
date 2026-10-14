@@ -1,7 +1,7 @@
 Describe 'BoundedCommand' -Tag 'L0', 'logic' {
     BeforeDiscovery {
-        # Every case, both engines, from the per-engine fixture table: a case that does not apply to an engine says why
-        # there ("n/a: <reason>"), so pwsh/bash parity reads side by side in one file.
+        # Every case, every engine, from the per-engine fixture table: a case that does not apply to an engine says why
+        # there ("n/a: <reason>"), so pwsh/bash/zsh parity reads side by side in one file.
         $script:cases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/bounded-command.yml') -Applicable)
     }
 
@@ -29,8 +29,16 @@ Describe 'BoundedCommand' -Tag 'L0', 'logic' {
         $seconds | Should -BeNullOrEmpty
     }
 
-    It 'throws on an engine that is not pwsh or bash' {
+    It 'parses the zsh prefix as the bash one: the same GNU timeout' {
+        $seconds = $null
+        $body = $null
+        [Catzc.Base.Timeouts.BoundedCommand]::TryParseBound('timeout -k 5 2m get-widget --all', 'zsh', [ref] $seconds, [ref] $body) | Should -BeTrue
+        $seconds | Should -Be 120
+        $body | Should -Be 'get-widget --all'
+    }
+
+    It 'throws on a name that is not an execution engine' {
         $requested = $null
-        { [Catzc.Base.Timeouts.BoundedCommand]::Check('get-widget', 'zsh', 70, [ref] $requested) } | Should -Throw "*'zsh' is not an execution engine (one of: pwsh, bash)*"
+        { [Catzc.Base.Timeouts.BoundedCommand]::Check('get-widget', 'widget', 70, [ref] $requested) } | Should -Throw "*'widget' is not an execution engine (one of: pwsh, bash, zsh)*"
     }
 }

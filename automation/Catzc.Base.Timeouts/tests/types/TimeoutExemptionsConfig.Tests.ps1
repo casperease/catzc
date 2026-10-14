@@ -46,10 +46,17 @@ Describe 'TimeoutExemptionsConfig' -Tag 'L0' {
             $config.ceiling.pipeline.pwsh | Should -Be 3600
         }
 
+        It 'gives zsh its own ceiling, defaulting like the others' {
+            $config = New-ExemptionsConfig ([ordered]@{ ceiling = @{ pipeline = @{ zsh = 1200 } } })
+            $config.CeilingFor('Devbox', 'Zsh') | Should -Be 600
+            $config.CeilingFor('Pipeline', 'zsh') | Should -Be 1200
+            $config.ceiling.pipeline.pwsh | Should -Be 3600
+        }
+
         It 'finds a single exemption in every cell when it has no scope' {
             $config = New-ExemptionsConfig ([ordered]@{ exempt = @(@{ single = $widget; reason = 'widget sync is being tuned' }) })
             foreach ($environment in 'Devbox', 'Pipeline') {
-                foreach ($shell in 'Bash', 'Pwsh') {
+                foreach ($shell in [Catzc.Base.Engines.ExecutionEngines]::Names) {
                     $config.Find($widget, $environment, $shell).reason | Should -Be 'widget sync is being tuned'
                 }
             }
@@ -92,7 +99,7 @@ Describe 'TimeoutExemptionsConfig' -Tag 'L0' {
             @{ case = 'exempt that is not a list'; entry = $null; data = @{ exempt = 'widget' }; expected = '*invalid exempt (must be a list*' }
             @{ case = 'a non-positive ceiling'; entry = $null; data = @{ ceiling = @{ devbox = @{ pwsh = 0 } } }; expected = "*invalid ceiling.devbox.pwsh '0'*" }
             @{ case = 'a quoted ceiling'; entry = $null; data = @{ ceiling = @{ devbox = @{ bash = '600' } } }; expected = "*invalid ceiling.devbox.bash '600'*" }
-            @{ case = 'an unknown ceiling shell'; entry = $null; data = @{ ceiling = @{ devbox = @{ zsh = 1 } } }; expected = "*unknown key 'ceiling.devbox.zsh'*" }
+            @{ case = 'an unknown ceiling shell'; entry = $null; data = @{ ceiling = @{ devbox = @{ widget = 1 } } }; expected = "*unknown key 'ceiling.devbox.widget'*" }
         ) {
             { New-ExemptionsConfig $data } | Should -Throw $expected
         }

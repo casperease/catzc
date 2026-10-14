@@ -86,9 +86,10 @@ mode says what to match — nothing is enumerated speculatively.
 ### Rule ADR-REPO-CONTRACT:9
 
 An asset says what it pins in its own header comment — the leading `#` lines of a YAML asset, the `$comment` of a schema — and `contracts/`
-holds only assets. `Build-ContractReference` generates one committed page per unit, `docs/references/contracts/<unit>.md`, listing every
-asset of every version folder with its module, target, direction, kind, and note. An asset whose check compares every byte or key — a
-presence asset, a text fragment, a JSON fragment or sample payload — carries no note.
+holds only assets. `Build-ContractReference` generates one committed page per unit, `docs/references/contracts/<unit>.md`, with one table
+per version folder listing every asset's module, target, direction, and kind, and the assets' notes in a list under the table. An asset
+whose check compares every byte or key — a presence asset, a text fragment, a JSON fragment or sample payload — carries no note. The writer
+removes only pages it wrote, so a hand-written page in that folder is never touched.
 
 - [How this is enforced](#how-this-is-enforced)
 

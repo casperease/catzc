@@ -5,16 +5,16 @@
 // hook (.claude/hooks/Assert-BashTimeout/) compiles this same file, so the hook and the pwsh side share one parser
 // and one set of defaults.
 //
-// Limits are keyed on two axes: the environment (devbox | pipeline, from Get-RunEnvironment) and the shell (bash |
-// pwsh). bash carries a foreground and a background limit (the hook bounds both); pwsh carries one limit for the
-// work pwsh code bounds itself (Invoke-WithTimeout, Invoke-Executable). The sensible defaults are declared here,
-// once ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), so an empty file and a fresh checkout
-// behave the same; the file states only what is
-// tuned.
+// Limits are keyed on two axes: the environment (devbox | pipeline, from Get-RunEnvironment) and the shell, one of the
+// execution engines (pwsh | bash | zsh). bash carries a foreground and a background limit (the hook bounds both, and
+// it governs the Bash tool only); pwsh and zsh each carry one limit, with the same defaults, for the work bounded
+// outside the hook (Invoke-WithTimeout, Invoke-Executable, a zsh run). The sensible defaults are declared here, once
+// ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), so an empty file and a
+// fresh checkout behave the same; the file states only what is tuned.
 //
 // Constructing an instance validates the file, collecting every violation into one ArgumentException:
-//   - only known keys at every level ('limits', 'executables', 'commands'; devbox | pipeline; bash | pwsh; foreground |
-//     background) — an unknown key (a typo) fails fast at load;
+//   - only known keys at every level ('limits', 'executables', 'commands'; devbox | pipeline; pwsh | bash | zsh;
+//     foreground | background) — an unknown key (a typo) fails fast at load;
 //   - every limit is a positive whole number (a YAML plain integer — a quoted '10' is rejected); there is no
 //     "no limit" value, so every call runs inside a safeguard;
 //   - a bash background limit is at least its foreground limit;
@@ -57,23 +57,29 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     // ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)).
     private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
     private static readonly string[] BashKeys = { "foreground", "background" };
+    // The shell whose limits the Bash hook enforces, a foreground and a background limit; every other shell has one.
+    private const string HookShell = "bash";
 
     // The sensible defaults: tight on a devbox, where the blockers are tuned together; looser in a pipeline, where
-    // nobody watches and a long build is ordinary — but still bounded.
+    // nobody watches and a long build is ordinary — but still bounded. zsh takes the pwsh-side limits: the hook does
+    // not govern it.
     private static readonly Dictionary<string, int> Defaults = new Dictionary<string, int>(StringComparer.Ordinal)
     {
         { "devbox.bash.foreground", 3 },
         { "devbox.bash.background", 360 },
         { "devbox.pwsh", 3 },
+        { "devbox.zsh", 3 },
         { "pipeline.bash.foreground", 600 },
         { "pipeline.bash.background", 3600 },
         { "pipeline.pwsh", 600 },
+        { "pipeline.zsh", 600 },
     };
 
     private readonly Dictionary<string, int> resolved = new Dictionary<string, int>(Defaults, StringComparer.Ordinal);
 
     // The resolved limits, defaults filled in: limits[devbox|pipeline][bash] is { foreground, background },
-    // limits[devbox|pipeline][pwsh] is the pwsh limit. A read-only view for display; resolve through SecondsFor.
+    // limits[devbox|pipeline][pwsh|zsh] is that shell's one limit. A read-only view for display; resolve through
+    // SecondsFor.
     public IDictionary limits { get; }
 
     // Per-executable limits in seconds, keyed by the bare executable name (case-insensitive). Empty when the file
@@ -195,16 +201,18 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         Hashtable view = new Hashtable(StringComparer.OrdinalIgnoreCase);
         foreach (string environment in Environments)
         {
-            Hashtable bash = new Hashtable(StringComparer.OrdinalIgnoreCase)
+            Hashtable byShell = new Hashtable(StringComparer.OrdinalIgnoreCase);
+            foreach (string shell in Shells)
             {
-                { "foreground", resolved[environment + ".bash.foreground"] },
-                { "background", resolved[environment + ".bash.background"] },
-            };
-            view[environment] = new Hashtable(StringComparer.OrdinalIgnoreCase)
-            {
-                { "bash", bash },
-                { "pwsh", resolved[environment + ".pwsh"] },
-            };
+                byShell[shell] = shell == HookShell
+                    ? new Hashtable(StringComparer.OrdinalIgnoreCase)
+                    {
+                        { "foreground", resolved[environment + "." + shell + ".foreground"] },
+                        { "background", resolved[environment + "." + shell + ".background"] },
+                    }
+                    : (object)resolved[environment + "." + shell];
+            }
+            view[environment] = byShell;
         }
         limits = view;
 
@@ -274,21 +282,21 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
-    // The limit for a shell call in an environment. environment is devbox | pipeline and shell is bash | pwsh
+    // The limit for a shell call in an environment. environment is devbox | pipeline and shell is pwsh | bash | zsh
     // (case-insensitive); background applies to bash only.
     public int SecondsFor(string environment, string shell, bool background)
     {
         string env = Axis(environment, Environments, "environment");
         string sh = Axis(shell, Shells, "shell");
-        if (sh == "pwsh")
+        if (sh != HookShell)
         {
             if (background)
             {
-                throw new ArgumentException("pwsh has no background limit; background applies to bash calls only");
+                throw new ArgumentException(sh + " has no background limit; background applies to bash calls only");
             }
-            return resolved[env + ".pwsh"];
+            return resolved[env + "." + sh];
         }
-        return resolved[env + ".bash." + (background ? "background" : "foreground")];
+        return resolved[env + "." + sh + "." + (background ? "background" : "foreground")];
     }
 
     // The limit for an executable that pwsh code runs: its own entry when it has one, otherwise the environment's
@@ -318,14 +326,17 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         IDictionary byShell = byEnvironment[environment] as IDictionary;
         if (byShell == null)
         {
-            errors.Add(string.Format("invalid {0} (must be a map of bash | pwsh)", path));
+            errors.Add(string.Format("invalid {0} (must be a map of {1})", path, string.Join(" | ", Shells)));
             return;
         }
         CheckKeys(byShell, Shells, path + ".", errors);
 
-        if (byShell.Contains("pwsh") && byShell["pwsh"] != null)
+        foreach (string shell in Shells)
         {
-            ReadSeconds(byShell["pwsh"], environment + ".pwsh", path + ".pwsh", errors);
+            if (shell != HookShell && byShell.Contains(shell) && byShell[shell] != null)
+            {
+                ReadSeconds(byShell[shell], environment + "." + shell, path + "." + shell, errors);
+            }
         }
         if (byShell.Contains("bash") && byShell["bash"] != null)
         {

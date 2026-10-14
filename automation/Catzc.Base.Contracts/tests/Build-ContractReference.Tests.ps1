@@ -42,16 +42,36 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $sections | Should -Be @('0.0.0', '1.10.0', '1.2.0')
     }
 
-    It 'lists each asset with its module, path, target, direction, kind, and note' -Tag 'ADR-REPO-CONTRACT#6', 'ADR-REPO-CONTRACT#7' {
+    It 'lists each asset with its module, path, target, direction, and kind' -Tag 'ADR-REPO-CONTRACT#6', 'ADR-REPO-CONTRACT#7' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         $rows = @((Read-Page) -split "`n" | Where-Object { $_.StartsWith('| `Catzc.') } | ForEach-Object {
                 , @($_.Trim().Trim('|') -split ' \| ' | ForEach-Object { $_.Trim() })
             })
 
-        $rows[0] | Should -Be @('`Catzc.Gadget`', '`gadget.sample.json`', 'none', 'provided', 'sample payload', 'none')
-        $rows[1] | Should -Be @('`Catzc.Widget`', '`.widget/README.md`', '`.widget/README.md`', 'provided (contract.yml)', 'presence', 'none')
-        $rows[2] | Should -Be @('`Catzc.Widget`', '`.widget/flows/build.yml`', '`.widget/flows/build.yml`', 'depended-on', 'fragment',
-            'The keys the gadget host reads, per [ADR-TST-WIDGET#1](../../adr/repository/widget-thing.md#rule-adr-tst-widget1).')
+        $rows[0] | Should -Be @('`Catzc.Gadget`', '`gadget.sample.json`', 'none', 'provided', 'sample payload')
+        $rows[1] | Should -Be @('`Catzc.Widget`', '`.widget/README.md`', '`.widget/README.md`', 'provided (contract.yml)', 'presence')
+        $rows[2] | Should -Be @('`Catzc.Widget`', '`.widget/flows/build.yml`', '`.widget/flows/build.yml`', 'depended-on', 'fragment')
+    }
+
+    It 'lists the notes under the table, one item per asset that carries one' -Tag 'ADR-REPO-CONTRACT#9' {
+        Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
+        $lines = (Read-Page) -split "`n"
+        $first = [array]::IndexOf($lines, '- `Catzc.Widget/.widget/flows/build.yml`: The keys the gadget host reads, per')
+
+        @($lines | Where-Object { $_.StartsWith('- ') }).Count | Should -Be 1
+        $first | Should -BeGreaterThan 0
+        $lines[$first + 1] | Should -BeExactly '  [ADR-TST-WIDGET#1](../../adr/repository/widget-thing.md#rule-adr-tst-widget1).'
+        (Read-Page) | Should -Match "(?m)^\| ``Catzc\.Widget``.*\|\n\nNotes:\n\n- "
+    }
+
+    It 'fills a long note across lines at the prose width' -Tag 'ADR-REPO-FORMAT#5' {
+        $long = (@('widget gadget') * 20) -join ' '
+        Add-File 'contracts/widget/0.0.0/Catzc.Widget/.widget/flows/build.yml' ((@("# $long.", 'widget:') -join "`n") + "`n")
+        Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
+        $lines = (Read-Page) -split "`n"
+
+        @($lines | Where-Object { $_ -match '^  (widget|gadget) ' }).Count | Should -BeGreaterThan 0
+        @($lines | Where-Object { $_.Length -gt 140 -and -not $_.StartsWith('|') }) | Should -BeNullOrEmpty
     }
 
     It 'emits formatter-stable markdown: prose within 140 columns, tables aligned' -Tag 'ADR-REPO-FORMAT#5' {
@@ -82,8 +102,8 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         Read-Page | Should -BeExactly 'stale'
     }
 
-    It 'removes a page whose unit has no assets, and only reports it under -DryRun' {
-        Add-File 'docs/references/contracts/gadget.md' 'a page of a retired unit'
+    It 'removes a page it wrote whose unit has no assets, and only reports it under -DryRun' {
+        Add-File 'docs/references/contracts/gadget.md' "a page of a retired unit`n``Build-ContractReference`` writes this page from ``contracts/gadget/``.`n"
 
         $result = @(Build-ContractReference -RepositoryRoot $script:root -DryRun -PassThru -Silent | Where-Object Removed)
         $result.Path | Should -Be 'docs/references/contracts/gadget.md'
@@ -91,6 +111,13 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
 
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         Test-Path (Join-Path $script:root 'docs/references/contracts/gadget.md') | Should -BeFalse
+    }
+
+    It 'never touches a page it did not write' {
+        Add-File 'docs/references/contracts/how-pins-work.md' 'a hand-written article'
+
+        @(Build-ContractReference -RepositoryRoot $script:root -PassThru -Silent | Where-Object Removed) | Should -BeNullOrEmpty
+        [System.IO.File]::ReadAllText((Join-Path $script:root 'docs/references/contracts/how-pins-work.md')) | Should -BeExactly 'a hand-written article'
     }
 
     It 'writes nothing when there are no contracts' {
