@@ -5,8 +5,8 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
         $script:stubbedEngine = $false
         if (-not (Get-Command Invoke-ModuleBuild -ErrorAction Ignore)) {
             $null = New-Item -Path Function:\global:Invoke-ModuleBuild -Value {
-                param([string[]] $Module, [string] $ModuleProfile, [string] $Version, [string] $VendorPolicy, [string] $Destination, [hashtable] $PackageMetadata, [switch] $DryRun)
-                throw "stub, mocked in tests: $Module $ModuleProfile $Version $VendorPolicy $Destination $($PackageMetadata.Count) $DryRun"
+                param([string[]] $Module, [string] $ModuleProfile, [string] $Version, [string] $VendorPolicy, [string] $Destination, [string] $Bundle, [hashtable] $PackageMetadata, [switch] $DryRun)
+                throw "stub, mocked in tests: $Module $ModuleProfile $Version $VendorPolicy $Destination $Bundle $($PackageMetadata.Count) $DryRun"
             }
             $script:stubbedEngine = $true
         }
@@ -22,9 +22,11 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
         Mock Get-Config {
             [Catzc.Base.Exporter.ExporterConfig]::new([ordered]@{
                     direct_install_version = '6.6.666'
-                    version                = '0.1'
-                    default_profile        = 'widget-set'
-                    vendor_policy          = 'runtime'
+                    bundles                = [ordered]@{
+                        widgets = [ordered]@{ profile = 'widget-set'; version = '0.1' }
+                        gadgets = [ordered]@{ profile = 'gadget-set'; version = '2.3'; vendor_policy = 'full' }
+                    }
+                    default_bundle         = 'widgets'
                     module_guid            = '211b36c7-f7eb-4f3c-93f5-9132b535fa56'
                     package                = [ordered]@{
                         author = 'Test Author'; company = 'Test Co'; description = 'A test package.'
@@ -45,14 +47,29 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
         Mock Write-Message { } -ModuleName Catzc.Base.Exporter
     }
 
-    It 'builds exporter.yml defaults: default_profile, vendor_policy, the output root, the resolved version' {
+    It 'builds the default bundle: its profile, its vendor policy, its own output folder, the resolved version' {
         $result = Build-Modules
         Should -Invoke Import-InternalModule -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Name -eq 'Builder' }
+        Should -Invoke Resolve-CatzcBuildVersion -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Bundle -eq 'widgets' }
         Should -Invoke Invoke-ModuleBuild -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
-            $ModuleProfile -eq 'widget-set' -and -not $Module -and $VendorPolicy -eq 'runtime' -and
-            $Destination -eq (Join-Path (Join-Path $TestDrive 'out') 'automation/build') -and $Version -eq '6.6.666' -and -not $DryRun
+            $ModuleProfile -eq 'widget-set' -and -not $Module -and $VendorPolicy -eq 'runtime' -and $Bundle -eq 'widgets' -and
+            $Destination -eq (Join-Path (Join-Path $TestDrive 'out') 'automation/built/widgets') -and $Version -eq '6.6.666' -and -not $DryRun
         }
-        $result.BuildRoot | Should -Be "$(Join-Path (Join-Path $TestDrive 'out') 'automation/build')/Catzc/6.6.666"
+        $result.BuildRoot | Should -Be "$(Join-Path (Join-Path $TestDrive 'out') 'automation/built/widgets')/Catzc/6.6.666"
+    }
+
+    It 'builds a named bundle from its own profile, vendor policy, version line and folder' {
+        Build-Modules -Bundle gadgets | Out-Null
+        Should -Invoke Resolve-CatzcBuildVersion -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Bundle -eq 'gadgets' }
+        Should -Invoke Invoke-ModuleBuild -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
+            $ModuleProfile -eq 'gadget-set' -and $VendorPolicy -eq 'full' -and $Bundle -eq 'gadgets' -and
+            $Destination -eq (Join-Path (Join-Path $TestDrive 'out') 'automation/built/gadgets')
+        }
+    }
+
+    It 'rejects a bundle exporter.yml does not declare' {
+        { Build-Modules -Bundle sprockets } | Should -Throw -ExpectedMessage "*Unknown bundle 'sprockets'*widgets, gadgets*"
+        Should -Invoke Invoke-ModuleBuild -ModuleName Catzc.Base.Exporter -Times 0
     }
 
     It 'hands the package identity from exporter.yml to the engine' {
@@ -90,7 +107,7 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
     It 'verifies the build it wrote' {
         Build-Modules | Out-Null
         Should -Invoke Assert-CatzcBundle -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
-            $Path -eq "$(Join-Path (Join-Path $TestDrive 'out') 'automation/build')/Catzc/6.6.666"
+            $Path -eq "$(Join-Path (Join-Path $TestDrive 'out') 'automation/built/widgets')/Catzc/6.6.666"
         }
     }
 
@@ -104,12 +121,12 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
         Should -Invoke Invoke-ModuleBuild -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $DryRun }
         Should -Invoke Assert-CatzcBundle -ModuleName Catzc.Base.Exporter -Times 0
         $result.DryRun | Should -BeTrue
-        Should -Invoke Write-Message -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Message -like 'Would build Catzc 6.6.666 (2 modules*' }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Message -like 'Would build Catzc widgets 6.6.666 (2 modules*' }
     }
 
     It 'reports one summary line, and -Silent passes through to the version notice and suppresses it' {
         Build-Modules | Out-Null
-        Should -Invoke Write-Message -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Message -like 'Built Catzc 6.6.666 (2 modules, 12 files, types abc12345)*' }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Message -like 'Built Catzc widgets 6.6.666 (2 modules, 12 files, types abc12345)*' }
         Build-Modules -Silent | Out-Null
         Should -Invoke Resolve-CatzcBuildVersion -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Silent }
         Should -Invoke Write-Message -ModuleName Catzc.Base.Exporter -Times 1

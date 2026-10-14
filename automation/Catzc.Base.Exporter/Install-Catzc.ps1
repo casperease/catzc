@@ -21,8 +21,12 @@
     The destination working root for a two-part install. Not the mono repo.
 .PARAMETER Scope
     CurrentUser — install into the user's PowerShell module path instead of beside a working root.
+.PARAMETER Bundle
+    Whose devbox build to install when -Source is not given (an exporter.yml bundles key). Defaults to
+    default_bundle.
 .PARAMETER Source
-    The build to install (default: the devbox build, <Get-OutputRoot>/automation/build/Catzc/<direct_install_version>).
+    The build to install (default: the bundle's devbox build,
+    <Get-OutputRoot>/automation/built/<bundle>/Catzc/<direct_install_version>).
 .PARAMETER Force
     Copy the build even when the target already holds the same content hash.
 .PARAMETER DryRun
@@ -47,7 +51,9 @@ function Install-Catzc {
         [ValidateSet('CurrentUser')]
         [string] $Scope,
 
-        [string] $Source = (Join-Path (Get-OutputRoot) "automation/build/Catzc/$((Get-Config -Config exporter).direct_install_version)"),
+        [string] $Bundle = "$((Get-Config -Config exporter).default_bundle)",
+
+        [string] $Source = (Join-Path (Get-OutputRoot) "automation/built/$Bundle/Catzc/$((Get-Config -Config exporter).direct_install_version)"),
         [switch] $Force,
         [switch] $DryRun,
         [switch] $Silent

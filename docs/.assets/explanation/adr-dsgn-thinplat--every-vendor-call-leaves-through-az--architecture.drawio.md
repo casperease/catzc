@@ -65,5 +65,5 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 - **Axis minimap:** the main cell is DSGN × DEPLOY, framed and filled in the DEPLOY blue with the you-are-here dot. Four touched cells carry
   a small grey dot: AUTO × BUILD, AUTO × ACCESS, CLOUD × CONFIG and CLOUD × DEPLOY.
 - **Tree minimap:** lit tiles labelled Tool.Core, Azure, Az.Templates, adr/auto, adr/dsgn, .claude and infrastructure.
-- **Lens badge:** ARCH, with "Supports ADR-DSGN-THINPLAT · ADR-AUTO-AZCLI" beneath it.
+- **Lens badge:** ARCH, with "Supports ADR-DSGN-THINPLAT · ADR-AZ-CLI" beneath it.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

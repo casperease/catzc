@@ -91,6 +91,7 @@ BeforeAll {
     $script:buildArguments = @{
         Version         = '1.2.3'
         VendorPolicy    = 'runtime'
+        Bundle          = 'widgets'
         PackageMetadata = $metadata
     }
 
@@ -275,6 +276,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
 
         It 'records provenance in build.json, with a content hash over everything but build.json' {
             $record = Get-Content -Raw (Join-Path $root 'build.json') | ConvertFrom-Json
+            $record.bundle | Should -Be 'widgets'
             $record.version | Should -Be '1.2.3'
             $record.typesHash | Should -Be $fullHash
             @($record.typeSources) | Should -Be @('Catzc.Base.Gadget/types/Lever.cs', '.compiled/types/Catzc.Base.Gizmo/Sprocket.cs')
@@ -388,7 +390,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
         }
 
         It 'rejects a version that is not MAJOR.MINOR.PATCH' {
-            { Invoke-ModuleBuild -ModuleProfile widgets -Version auto -VendorPolicy runtime -PackageMetadata $metadata -Destination $TestDrive -DryRun } |
+            { Invoke-ModuleBuild -ModuleProfile widgets -Version auto -VendorPolicy runtime -Bundle widgets -PackageMetadata $metadata -Destination $TestDrive -DryRun } |
                 Should -Throw '*not MAJOR.MINOR.PATCH*'
         }
 
@@ -399,7 +401,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
         It 'rejects package metadata without a GUID' {
             $noGuid = $metadata.Clone()
             $noGuid.Guid = 'widget'
-            { Invoke-ModuleBuild -ModuleProfile widgets -Version 1.2.3 -VendorPolicy runtime -PackageMetadata $noGuid -Destination $TestDrive -DryRun } |
+            { Invoke-ModuleBuild -ModuleProfile widgets -Version 1.2.3 -VendorPolicy runtime -Bundle widgets -PackageMetadata $noGuid -Destination $TestDrive -DryRun } |
                 Should -Throw '*is not a GUID*'
         }
     }

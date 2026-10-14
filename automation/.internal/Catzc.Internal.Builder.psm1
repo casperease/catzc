@@ -912,7 +912,8 @@ function Invoke-ModuleBuild {
         <Destination>/Catzc/<Version>/ to:
 
           Catzc.psd1, Catzc.psm1, Import-Catzc.ps1   the package manifest, its RootModule, the initializer
-          build.json                                 provenance: version, hashes, type sources, commit, modules
+          build.json                                 provenance: bundle, version, hashes, type sources, commit, dirty,
+                                                     modules
           .internal/                                 the runtime loader (Loader, Importer, Types, Vendor, Bootstrap)
           .compiled/Catzc.Types.<hash>.dll           the full type set (the committed DLL, copied)
           .compiled/types/<Module>/<File>.cs         type sources of the modules not selected
@@ -953,6 +954,8 @@ function Invoke-ModuleBuild {
         rules and settings, which the build run needs.
     .PARAMETER Destination
         The parent folder; the build goes to <Destination>/Catzc/<Version>/.
+    .PARAMETER Bundle
+        The named bundle this build is (an exporter.yml bundles key), recorded in build.json.
     .PARAMETER PackageMetadata
         Catzc.psd1 metadata: Guid, Author, CompanyName, Description, Tags, ProjectUri, LicenseUri.
     .PARAMETER DryRun
@@ -962,7 +965,7 @@ function Invoke-ModuleBuild {
         [pscustomobject] BuildRoot, Version, Modules, TypesHash, ContentHash ($null under -DryRun), FileCount,
         Dirty, DryRun.
     .EXAMPLE
-        Invoke-ModuleBuild -ModuleProfile full -Version 6.6.666 -VendorPolicy runtime -Destination (Join-Path (Get-OutputRoot) 'automation/build') -PackageMetadata $metadata
+        Invoke-ModuleBuild -ModuleProfile full -Version 6.6.666 -VendorPolicy runtime -Destination (Join-Path (Get-OutputRoot) 'automation/built/full') -Bundle full -PackageMetadata $metadata
     #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -980,6 +983,9 @@ function Invoke-ModuleBuild {
 
         [Parameter(Mandatory)]
         [string] $Destination,
+
+        [Parameter(Mandatory)]
+        [string] $Bundle,
 
         [Parameter(Mandatory)]
         [hashtable] $PackageMetadata,
@@ -1089,6 +1095,7 @@ function Invoke-ModuleBuild {
     $contentHash = Get-CatzcContentHash -Path $buildRoot -Exclude 'build.json'
     $record = [ordered]@{
         name         = 'Catzc'
+        bundle       = $Bundle
         version      = $Version
         contentHash  = $contentHash
         typesHash    = $plan.TypesHash

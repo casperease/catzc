@@ -65,7 +65,7 @@ formats:
 
   # ---- the toolset's build (out/automation/) ----
   catzc-bundle:
-    patterns: ["automation/build/Catzc/*"]
+    patterns: ["automation/built/*/Catzc/*"]
     target: folder
     producer: Build-Modules
     audience: Install-Catzc, and a person installing the toolset

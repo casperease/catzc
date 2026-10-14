@@ -94,10 +94,11 @@ param([string] $RepositoryRoot, [switch] $AllowWarnings)
         Should -Invoke Write-Message -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Message -like 'Would install Catzc 1.2.3*' }
     }
 
-    It 'defaults the source to the devbox build under the output root' {
+    It 'defaults the source to the default bundle''s devbox build under the output root' {
         Mock Get-OutputRoot { Join-Path $TestDrive 'missing-out' } -ModuleName Catzc.Base.Exporter
-        Mock Get-Config { [ordered]@{ direct_install_version = '6.6.666' } } -ModuleName Catzc.Base.Exporter -ParameterFilter { $Config -eq 'exporter' }
+        Mock Get-Config { [ordered]@{ direct_install_version = '6.6.666'; default_bundle = 'widgets' } } -ModuleName Catzc.Base.Exporter -ParameterFilter { $Config -eq 'exporter' }
         Mock Assert-CatzcBundle { throw "no build at $Path" } -ModuleName Catzc.Base.Exporter
-        { Install-Catzc -Root $root -Silent } | Should -Throw -ExpectedMessage "*$(Join-Path (Join-Path $TestDrive 'missing-out') 'automation/build/Catzc/6.6.666')*"
+        { Install-Catzc -Root $root -Silent } | Should -Throw -ExpectedMessage "*$(Join-Path (Join-Path $TestDrive 'missing-out') 'automation/built/widgets/Catzc/6.6.666')*"
+        { Install-Catzc -Root $root -Bundle gadgets -Silent } | Should -Throw -ExpectedMessage "*$(Join-Path (Join-Path $TestDrive 'missing-out') 'automation/built/gadgets/Catzc/6.6.666')*"
     }
 }

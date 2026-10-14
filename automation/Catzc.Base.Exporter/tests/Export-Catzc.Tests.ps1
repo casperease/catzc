@@ -1,6 +1,6 @@
 Describe 'Export-Catzc' -Tag 'L0', 'logic' {
     BeforeEach {
-        $script:buildRoot = Join-Path $TestDrive 'out/automation/build/Catzc/6.6.666'
+        $script:buildRoot = Join-Path $TestDrive 'out/automation/built/widgets/Catzc/6.6.666'
         Mock Build-Modules { [pscustomobject]@{ BuildRoot = $buildRoot; Version = '6.6.666' } } -ModuleName Catzc.Base.Exporter
         Mock Install-Catzc { [pscustomobject]@{ ModulePath = 'INSTALLED' } } -ModuleName Catzc.Base.Exporter
         Mock New-CatzcNuGetPackage {
@@ -25,9 +25,9 @@ Describe 'Export-Catzc' -Tag 'L0', 'logic' {
     }
 
     It 'passes the build parameters through to Build-Modules' {
-        Export-Catzc -Root 'C:\work\target' -Module Catzc.Base.Widget -ModuleProfile gadget-set -VendorPolicy full -Version 1.2.3 -Silent | Out-Null
+        Export-Catzc -Root 'C:\work\target' -Bundle gadgets -Module Catzc.Base.Widget -ModuleProfile gadget-set -VendorPolicy full -Version 1.2.3 -Silent | Out-Null
         Should -Invoke Build-Modules -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
-            ($Module -join ',') -eq 'Catzc.Base.Widget' -and $ModuleProfile -eq 'gadget-set' -and $VendorPolicy -eq 'full' -and $Version -eq '1.2.3'
+            $Bundle -eq 'gadgets' -and ($Module -join ',') -eq 'Catzc.Base.Widget' -and $ModuleProfile -eq 'gadget-set' -and $VendorPolicy -eq 'full' -and $Version -eq '1.2.3'
         }
     }
 

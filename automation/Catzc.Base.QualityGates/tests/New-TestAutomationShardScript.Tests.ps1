@@ -207,6 +207,9 @@ Describe 'ShardFixtureWide' -Tag 'L2', 'logic' {
             $files | Should -HaveCount 1
             [System.IO.Path]::GetFullPath($files[0].File) | Should -Be ([System.IO.Path]::GetFullPath($fixture))
             $files[0].DurationMs | Should -BeGreaterThan 0
+            # And each file's own outcome: a file that loaded carries no error of its own.
+            $files[0].Result | Should -Be 'Passed'
+            $files[0].ErrorMessage | Should -BeNullOrEmpty
         }
     }
 }

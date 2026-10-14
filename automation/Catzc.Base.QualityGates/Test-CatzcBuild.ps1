@@ -25,7 +25,7 @@
     mode only (Assert-SourceTree).
 .PARAMETER Module
     Modules to build and test (combinable with -ModuleProfile; closure-expanded by Build-Modules). Neither ->
-    the exporter's default profile.
+    the default bundle's profile (exporter.yml default_bundle).
 .PARAMETER ModuleProfile
     A module profile (profiles.yml) to build and test.
 .PARAMETER MinLevel

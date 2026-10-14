@@ -31,8 +31,8 @@
     the gate throws once listing every issue (or returns the result with -PassThru). It builds from the source
     tree, so it needs the source mode (Assert-SourceTree).
 .PARAMETER Module
-    Modules to build (combinable with -ModuleProfile; closure-expanded by Build-Modules). Neither -> the exporter's
-    default profile.
+    Modules to build (combinable with -ModuleProfile; closure-expanded by Build-Modules). Neither -> the default
+    bundle's profile (exporter.yml default_bundle).
 .PARAMETER ModuleProfile
     A module profile (profiles.yml) to build.
 .PARAMETER Facet

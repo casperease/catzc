@@ -51,7 +51,7 @@ function Assert-CatzcBundle {
     }
     else {
         $build = [System.IO.File]::ReadAllText($buildFile) | ConvertFrom-Json -AsHashtable
-        foreach ($field in @('version', 'contentHash', 'typesHash', 'typeSources', 'modules')) {
+        foreach ($field in @('bundle', 'version', 'contentHash', 'typesHash', 'typeSources', 'modules')) {
             if (-not $build.ContainsKey($field) -or @($build[$field]).Count -eq 0 -or "$($build[$field])" -eq '') {
                 $violations.Add("build.json records no $field")
             }

@@ -63,7 +63,7 @@ A full-width panel at the bottom of the drawing area, in three rows, left to rig
 | thin arrow              | flow: reads, then runs                                                                                             |
 | dashed arrow            | ADR-only (no code)                                                                                                 |
 | dark disc `1`           | marker: a Walkthrough step                                                                                         |
-| white chip `#3`         | rule chip: O ADR-AUTO-ONEFUNC · F ADR-REPO-FOLDERS · M ADR-AUTO-MANIFEST · A ADR-DSGN-ASPECT · G ADR-FLOW-CD-GLOBS |
+| white chip `#3`         | rule chip: O ADR-PWSH-ONEFUNC · F ADR-REPO-FOLDERS · M ADR-PWSH-MANIFEST · A ADR-DSGN-ASPECT · G ADR-FLOW-CD-GLOBS |
 
 ## Sidebar
 
@@ -72,6 +72,6 @@ A full-width panel at the bottom of the drawing area, in three rows, left to rig
   tick.
 - **Tree minimap:** lit tiles labelled QualityGates, ModuleSystem, Globs, Variants, internal, adr/auto, adr/repo and adr/flow, the ADR files
   framed in dark ink.
-- **Lens badge:** GOV. Beneath it, three tight lines: "Supports ADR-DSGN-ASPECT", "ADR-AUTO-MANIFEST · ADR-AUTO-ONEFUNC" and
+- **Lens badge:** GOV. Beneath it, three tight lines: "Supports ADR-DSGN-ASPECT", "ADR-PWSH-MANIFEST · ADR-PWSH-ONEFUNC" and
   "ADR-REPO-FOLDERS · ADR-FLOW-CD-GLOBS".
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

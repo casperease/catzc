@@ -19,7 +19,9 @@
     Pester's NUnit results to results-shard-<N>.xml, reduces its live result to rows (ConvertTo-
     TestAutomationRowSet — tier/category resolution needs the live .Block chain, so it must happen inside the
     worker) into rows-shard-<N>.json, writes each test file's whole Pester duration (set-up included) into
-    files-shard-<N>.json — the measurement the next run schedules by (Select-TestShardAssignment) — and
+    files-shard-<N>.json — the measurement the next run schedules by (Select-TestShardAssignment) — with the
+    file's own Result and ErrorMessage (the error of a file that failed while Pester discovered or set it up,
+    which no test row can carry; empty when the file loaded), and
     exits 0 (green) or 1 (the run did not pass — failed tests, or a
     container/discovery error that fails the run with zero failed tests). Any other exit code — or a missing
     rows sidecar — means the worker itself crashed, which the parent surfaces loudly.
@@ -147,7 +149,7 @@ Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/Pester') -Force
 `$result = Invoke-Pester -Configuration `$config
 `$rows = & (Get-Module Catzc.Base.QualityGates) { param(`$runResult) ConvertTo-TestAutomationRowSet -Result `$runResult } `$result
 Set-Content -Path '$rowsPath' -Value (ConvertTo-Json -InputObject @(`$rows) -Depth 4) -Encoding utf8
-`$files = @(`$result.Containers | Where-Object { `$_.Type -eq 'File' } | ForEach-Object { [pscustomobject]@{ File = `$_.Item.FullName; DurationMs = [int] `$_.Duration.TotalMilliseconds } })
+`$files = @(`$result.Containers | Where-Object { `$_.Type -eq 'File' } | ForEach-Object { [pscustomobject]@{ File = `$_.Item.FullName; DurationMs = [int] `$_.Duration.TotalMilliseconds; Result = "`$(`$_.Result)"; ErrorMessage = (@(`$_.ErrorRecord) | ForEach-Object { "`$(`$_.Exception.Message)" }) -join "``n" } })
 Set-Content -Path '$filesPath' -Value (ConvertTo-Json -InputObject @(`$files) -Depth 2) -Encoding utf8
 exit ([int](`$result.Result -ne 'Passed'))
 "@

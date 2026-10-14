@@ -15,6 +15,8 @@
     The destination working root of a disk export (where the root importer.ps1 goes).
 .PARAMETER To
     disk (default) or nuget.
+.PARAMETER Bundle
+    The bundle to build (an exporter.yml bundles key; see Build-Modules). Defaults to default_bundle.
 .PARAMETER Module
     Module names to build (see Build-Modules).
 .PARAMETER ModuleProfile
@@ -42,6 +44,7 @@ function Export-Catzc {
         [ValidateSet('disk', 'nuget')]
         [string] $To = 'disk',
 
+        [string] $Bundle,
         [string[]] $Module,
         [string] $ModuleProfile,
         [ValidateSet('runtime', 'full')]
@@ -56,6 +59,9 @@ function Export-Catzc {
     }
 
     $buildArguments = @{ Version = $Version; Silent = $Silent }
+    if ($Bundle) {
+        $buildArguments.Bundle = $Bundle
+    }
     if ($Module) {
         $buildArguments.Module = $Module
     }

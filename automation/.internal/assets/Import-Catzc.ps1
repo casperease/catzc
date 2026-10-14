@@ -17,7 +17,7 @@
 .PARAMETER AllowWarnings
     Set $global:WarningPreference to Continue instead of Stop (warnings do not fail the load).
 .EXAMPLE
-    . ./out/automation/build/Catzc/6.6.666/Import-Catzc.ps1 -RepositoryRoot C:/projects/work
+    . ./out/automation/built/full/Catzc/6.6.666/Import-Catzc.ps1 -RepositoryRoot C:/projects/work
 #>
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Invoke-Importer announces RepositoryRoot and CatzcModulesRoot on its Roots line, the first point a writer is loaded')]
 param(

@@ -21,7 +21,7 @@ the last result. The eye lands first on the two grey rhombuses (the gates) in th
 
 ## Reading path
 
-1. Marker 1, BUILD band: the code unit Build-Modules, with the rule chip `#1 #4 #7`.
+1. Marker 1, BUILD band: the code unit Build-Modules, with the rule chip `#1 #7 M5`.
 2. Along the line to marker 2: the gate Assert-CatzcBundle, with the rule chip `#5` beside its upper-right side.
 3. Marker 3, BUNDLE band: the result Temporary build, chip `#5`.
 4. Marker 4, CODE ROOTS band: the result Installed · saved, chip `#6`.
@@ -71,5 +71,5 @@ A full-width panel at the bottom of the drawing area, in three columns of up to 
 - **Axis minimap:** the main cell is AUTO × BUILD, framed and filled in the BUILD purple with the you-are-here dot. Two touched cells, DSGN
   × LOAD and AUTO × LOAD, carry a small grey dot. The AUTO and BUILD axis labels carry a purple tick.
 - **Tree minimap:** five lit tiles, labelled QualityGates, .internal, Exporter, adr/auto and adr/dsgn; the ADR files are framed in dark ink.
-- **Lens badge:** GOV, with "Supports ADR-AUTO-BUNDLE · ADR-AUTO-TEST" and "ADR-DSGN-RUNMODE" beneath it.
+- **Lens badge:** GOV, with "Supports ADR-AUTO-BUNDLE · ADR-PWSH-MANIFEST" and "ADR-AUTO-TEST · ADR-DSGN-RUNMODE" beneath it.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

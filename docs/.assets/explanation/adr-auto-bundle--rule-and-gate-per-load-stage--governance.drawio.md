@@ -39,7 +39,7 @@ Gates are light grey rhombuses with a thick rim; ADR-only glyphs are white round
 
 None. Each gate sits inside the band of the stage it checks, and the ADR-only glyphs stand alone in their frame.
 
-**Rule chips:** 12 in all. SHIM: `R1`, `O1`; SESSION: `E1`, `B2`, `B8`; LOAD: `B3`, `T10`; RUN MODE: `D5`; JANITORS: `R4`, `T13`; UNLOAD:
+**Rule chips:** 12 in all. SHIM: `R1`, `O1`; SESSION: `E1`, `B2`, `B8`; LOAD: `B3`, `P2`; RUN MODE: `D5`; JANITORS: `R4`, `T13`; UNLOAD:
 none; the two ADR-only glyphs: `D1` each.
 
 ## Legend
@@ -53,13 +53,13 @@ A full-width panel at the bottom of the drawing area, in three columns and a ful
 | white chip `#3`         | rule chip: an ADR rule on the stage                                                                                                  |
 | grey band               | band: one load stage                                                                                                                 |
 | dark disc `1`           | marker: a Walkthrough step                                                                                                           |
-| text row                | chip letters: B ADR-AUTO-BUNDLE · D ADR-DSGN-RUNMODE · E ADR-AUTO-ERROR · O ADR-PRIN-ONELIVE · R ADR-REPO-ROOTCFG · T ADR-AUTO-TYPES |
+| text row                | chip letters: B ADR-AUTO-BUNDLE · D ADR-DSGN-RUNMODE · E ADR-PWSH-ERROR · O ADR-PRIN-ONELIVE · P ADR-PWSH-TYPES · R ADR-REPO-ROOTCFG · T ADR-AUTO-TYPES |
 
 ## Sidebar
 
 - **Axis minimap:** the main cell is AUTO × LOAD, framed and filled in the LOAD indigo with the you-are-here dot. Four touched cells carry a
   small grey dot: PRIN × BUILD, DSGN × LOAD, DSGN × CONFIG and AUTO × BUILD.
 - **Tree minimap:** lit tiles labelled ModuleSystem, .internal, adr/auto, adr/repo, adr/prin, adr/dsgn and .claude.
-- **Lens badge:** GOV. Beneath it, three lines at 10.5 px read "Supports ADR-AUTO-BUNDLE", "ADR-AUTO-TYPES · ADR-DSGN-RUNMODE" and
-  "ADR-PRIN-ONELIVE · ADR-REPO-ROOTCFG".
+- **Lens badge:** GOV. Beneath it, three lines at 10.5 px read "Supports ADR-AUTO-BUNDLE", "ADR-AUTO-TYPES · ADR-PWSH-TYPES" and
+  "ADR-DSGN-RUNMODE · ADR-PRIN-ONELIVE · ADR-REPO-ROOTCFG".
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

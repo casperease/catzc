@@ -153,7 +153,7 @@ function New-BuiltCatzcRoot {
     .DESCRIPTION
         Runs Build-Modules (Catzc.Base.Exporter) with the 'full' vendor policy — so Pester and PSScriptAnalyzer ship
         with the build — into <temp>/catzc-built-<guid>/. -Module and -ModuleProfile combine as in Build-Modules;
-        neither builds the exporter's default profile. The build is never loaded into this session: a test reaches
+        neither builds the default bundle's profile. The build is never loaded into this session: a test reaches
         it only through Invoke-InBuiltCatzc's child pwsh, because loaded assemblies and $env: are process-global
         ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)). WorkingRoot is the
         -RepositoryRoot the child passes to Import-Catzc.ps1 — the current

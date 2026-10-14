@@ -63,7 +63,7 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 | grey square box         | external tool                   |
 | grey arrow              | flow: guards                    |
 | dashed grey arrow       | ADR-only (no code): guards      |
-| white chip `T3`         | rule chip: T THINPLAT · A AZCLI |
+| white chip `T3`         | rule chip: T THINPLAT · A AZ-CLI |
 | dark disc `1`           | marker: a Walkthrough step      |
 
 ## Sidebar
@@ -71,5 +71,5 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 - **Axis minimap:** the main cell is DSGN × DEPLOY, framed and filled in the DEPLOY blue with the you-are-here dot. Six touched cells carry
   a small grey dot: AUTO × LOAD, AUTO × BUILD, AUTO × ACCESS, PIPE × BUILD, CLOUD × DEPLOY and CLOUD × ACCESS.
 - **Tree minimap:** lit tiles labelled Tool.Core, Az.Cli, adr/auto, Repository, Az.Templates, .scriptanalyzer, adr/dsgn and pipelines.
-- **Lens badge:** GOV, with "Supports ADR-DSGN-THINPLAT · ADR-AUTO-AZCLI" beneath it.
+- **Lens badge:** GOV, with "Supports ADR-DSGN-THINPLAT · ADR-AZ-CLI" beneath it.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
