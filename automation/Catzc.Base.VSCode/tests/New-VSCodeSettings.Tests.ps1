@@ -1,3 +1,4 @@
+# cspell:ignore gopls  -- the Go language server and its VS Code settings key
 Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolate through the config seam
