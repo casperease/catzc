@@ -21,6 +21,7 @@ from the modules' glossary sources — and answers "ask cats", the offline brows
 | responsibility:5 | vocabulary | [Controlled vocabulary](#responsibility5--controlled-vocabulary)   |
 | responsibility:6 | ask        | [Ask cats](#responsibility6--ask-cats)                             |
 | responsibility:7 | agents     | [Sub-agent registry](#responsibility7--sub-agent-registry)         |
+| responsibility:8 | markdown | [Generated markdown](#responsibility8--generated-markdown) |
 
 ### responsibility:1 — README materialisation
 
@@ -85,6 +86,13 @@ guards, plus the one standard agent for delegated work. It is validated when it 
 agent files, the registry, and the `## Sub-agents` list in `.claude/CLAUDE.md` in step, resolving every citation to a real rule and every
 check to an existing command.
 
+### responsibility:8 — Generated markdown
+
+The one way generated markdown wraps its prose: a paragraph or list item filled at the 140-column width the way the formatter fills it, so a
+page a generator writes is the page the formatter leaves alone (see
+[uniform-formatting](../../adr/repository/uniform-formatting.md#rule-adr-repo-format5)). Every generator that writes markdown wraps through
+it, in this module or another.
+
 ## What the module does
 
 The module's core is the generated README: every conventional folder's README is a copy of one authored source, readable where it is opened.
@@ -125,3 +133,4 @@ The module's public surface, sorted into the responsibilities above.
 | responsibility:6 — Ask cats               | `Show-Cats`                  |
 | responsibility:7 — Sub-agent registry     | `Test-AgentDefinitions`      |
 | config                                    | `agents.yml`                 |
+| responsibility:8 — Generated markdown     | `Format-MarkdownParagraph`   |

@@ -1,5 +1,5 @@
 # The execution engine model against its per-engine fixture tables (Get-EngineCaseTable): every case is checked under
-# both engines, side by side, so a behaviour that differs between pwsh and bash differs on purpose
+# every engine, side by side, so a behaviour that differs between pwsh, bash and zsh differs on purpose
 # ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)).
 BeforeDiscovery {
     $script:startCases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/engine-start.yml') -Applicable)
@@ -32,23 +32,26 @@ Describe 'ExecutionEngine' -Tag 'L0', 'logic' {
 }
 
 Describe 'ExecutionEngines' -Tag 'L0', 'logic' {
-    It 'declares exactly pwsh and bash, pwsh first' {
-        @([Catzc.Base.Engines.ExecutionEngines]::Names) | Should -Be @('pwsh', 'bash')
-        @([Catzc.Base.Engines.ExecutionEngines]::All.Name) | Should -Be @('pwsh', 'bash')
+    It 'declares exactly pwsh, bash and zsh, pwsh first' {
+        @([Catzc.Base.Engines.ExecutionEngines]::Names) | Should -Be @('pwsh', 'bash', 'zsh')
+        @([Catzc.Base.Engines.ExecutionEngines]::All.Name) | Should -Be @('pwsh', 'bash', 'zsh')
     }
 
     It 'gets an engine by name, and throws naming the engines for any other' {
         [Catzc.Base.Engines.ExecutionEngines]::Get('bash') | Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Bash)
-        { [Catzc.Base.Engines.ExecutionEngines]::Get('zsh') } | Should -Throw "*'zsh' is not an execution engine (one of: pwsh, bash)*"
+        [Catzc.Base.Engines.ExecutionEngines]::Get('zsh') | Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Zsh)
+        { [Catzc.Base.Engines.ExecutionEngines]::Get('widget') } | Should -Throw "*'widget' is not an execution engine (one of: pwsh, bash, zsh)*"
     }
 
     It 'declares what differs between the engines: <Name>' -ForEach @(
-        @{ Name = 'pwsh'; Extension = '.ps1'; StrictMode = 'Set-StrictMode -Version Latest'; Safeguard = 'Invoke-WithTimeout'; Lf = $false; Bit = $false; Importer = 'importer.ps1'; Prefix = '' }
-        @{ Name = 'bash'; Extension = '.sh'; StrictMode = 'set -euo pipefail'; Safeguard = 'timeout'; Lf = $true; Bit = $true; Importer = 'importer.sh'; Prefix = 'cats ' }
+        @{ Name = 'pwsh'; Extension = '.ps1'; Shebang = $null; StrictMode = 'Set-StrictMode -Version Latest'; Safeguard = 'Invoke-WithTimeout'; Lf = $false; Bit = $false; Importer = 'importer.ps1'; Prefix = '' }
+        @{ Name = 'bash'; Extension = '.sh'; Shebang = '#!/usr/bin/env bash'; StrictMode = 'set -euo pipefail'; Safeguard = 'timeout'; Lf = $true; Bit = $true; Importer = 'importer.sh'; Prefix = 'cats ' }
+        @{ Name = 'zsh'; Extension = '.zsh'; Shebang = '#!/usr/bin/env zsh'; StrictMode = 'setopt ERR_EXIT NO_UNSET PIPE_FAIL'; Safeguard = 'timeout'; Lf = $true; Bit = $true; Importer = 'importer.sh'; Prefix = 'cats ' }
     ) {
         [Catzc.Base.Engines.ExecutionEngines]::Get($Name).CommandPrefix | Should -BeExactly $Prefix
         $engine = [Catzc.Base.Engines.ExecutionEngines]::Get($Name)
         $engine.ScriptExtensions[0] | Should -Be $Extension
+        $engine.Shebang | Should -Be $Shebang
         $engine.StrictMode | Should -Be $StrictMode
         $engine.TimeSafeguard | Should -Be $Safeguard
         $engine.RequiresLf | Should -Be $Lf
