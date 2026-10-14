@@ -150,8 +150,27 @@ def render(root):
                 d.ellipse([x0, y0, x1, y1], fill=fill, outline=stroke, width=sw)
             elif "rhombus" in s:
                 d.polygon([((x0 + x1) / 2, y0), (x1, (y0 + y1) / 2), ((x0 + x1) / 2, y1), (x0, (y0 + y1) / 2)], fill=fill, outline=stroke, width=sw)
+            elif s.get("shape") == "cylinder3":  # a store: body, then the top ellipse drawn over it
+                lid = min(h * .3, float(s.get("size", 10)) * 2)
+                d.rectangle([x0, y0 + lid / 2, x1, y1 - lid / 2], fill=fill)
+                d.ellipse([x0, y1 - lid, x1, y1], fill=fill, outline=stroke, width=sw)
+                d.rectangle([x0 + sw, y0 + lid / 2, x1 - sw, y1 - lid / 2], fill=fill)
+                d.line([(x0, y0 + lid / 2), (x0, y1 - lid / 2)], fill=stroke, width=sw)
+                d.line([(x1, y0 + lid / 2), (x1, y1 - lid / 2)], fill=stroke, width=sw)
+                d.ellipse([x0, y0, x1, y0 + lid], fill=fill, outline=stroke, width=sw)
+            elif s.get("shape") == "crossbar":  # a span bar: a horizontal line with an end tick on each side
+                ym = (y0 + y1) / 2
+                ink = stroke or "#546E7A"
+                d.line([(x0, ym), (x1, ym)], fill=ink, width=max(1, sw))
+                d.line([(x0, y0), (x0, y1)], fill=ink, width=max(1, sw))
+                d.line([(x1, y0), (x1, y1)], fill=ink, width=max(1, sw))
+            elif s.get("shape") == "note":  # a file: a page with a folded top-right corner
+                k = min(float(s.get("size", 14)), w / 3, h / 3)
+                d.polygon([(x0, y0), (x1 - k, y0), (x1, y0 + k), (x1, y1), (x0, y1)], fill=fill, outline=stroke, width=sw)
+                d.line([(x1 - k, y0), (x1 - k, y0 + k), (x1, y0 + k)], fill=stroke, width=sw)
             else:
-                r = 8 if s.get("rounded") == "1" else 0
+                pill = s.get("rounded") == "1" and float(s.get("arcSize", 0)) >= 50
+                r = min(w, h) / 2 if pill else (8 if s.get("rounded") == "1" else 0)
                 d.rounded_rectangle([x0, y0, x1, y1], radius=r, fill=fill, outline=stroke, width=sw)
         uri = s.get("image", "")
         if s.get("shape") == "image" and uri.startswith("data:image/png,"):

@@ -109,12 +109,12 @@ function Invoke-Poetry {
         [string] $Arguments
     )
 
-    Assert-NotNullOrWhitespace $Arguments           # validate input
-    Assert-Command poetry                           # tool exists
-    Assert-ToolVersion -Tool 'Poetry'               # correct version
+    Assert-NotNullOrWhitespace $Arguments           # validate input, redundant because of Mandatory, but shown here for demo. Contract check with caller
+    Assert-Command poetry                           # tool exists. Contract check with system
+    Assert-ToolVersion -Tool 'Poetry'               # correct version. Contract check with system
 
     $result = Invoke-Executable "poetry $Arguments" -PassThru
-    Assert-NotNullOrWhitespace $result              # got output
+    Assert-NotNullOrWhitespace $result              # got output. Contract check with integration: We got "something" rather than nothing.
 
     $result
 }
