@@ -46,3 +46,8 @@ agents:
   - name: build-inspiration-module
     supported_by: [ADR-REPO-INSPIRE#1, ADR-REPO-INSPIRE#3]
     checks: [Invoke-TestFile, Test-ShippedConfigs, Test-ModuleDependency]
+
+  # Measures what a session cost and why, and proposes the changes; it writes only to out/ and runs no catzc check.
+  - name: session-cost-audit
+    supported_by: [ADR-PRIN-NOWASTE#1, ADR-PROC-KAIZEN#2, ADR-AUTO-FAILFAST#7]
+    checks: []

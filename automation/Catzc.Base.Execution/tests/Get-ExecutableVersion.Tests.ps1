@@ -15,6 +15,15 @@ Describe 'Get-ExecutableVersion' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'runs in the executable''s own folder, so no project file in the repository changes the answer' {
+        InModuleScope Catzc.Base.Execution {
+            Get-ExecutableVersion -Path '/opt/widget/bin/widget' -Arguments '--version' -Pattern 'version (?<ver>[\d.]+)' | Out-Null
+        }
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Execution -Times 1 -Exactly -ParameterFilter {
+            $WorkingDirectory -eq [System.IO.Path]::GetDirectoryName('/opt/widget/bin/widget')
+        }
+    }
+
     It 'runs the path alone when there are no arguments' {
         InModuleScope Catzc.Base.Execution {
             Get-ExecutableVersion -Path '/opt/widget/bin/widget' -Pattern 'version (?<ver>[\d.]+)' | Out-Null

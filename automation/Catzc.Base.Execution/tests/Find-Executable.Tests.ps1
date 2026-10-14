@@ -39,7 +39,8 @@ Describe 'Find-Executable' -Tag 'L1', 'logic' {
         $env:CATZC_WIDGET_ROOT = $script:savedWidgetRoot
     }
     BeforeEach {
-        # Every test here exercises the version cache entry, so each starts cold (ADR-AUTO-PSCACHE#3).
+        # Every test here exercises the version cache entry, so each starts cold
+        # ([ADR-AUTO-PSCACHE#3](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache3)).
         InModuleScope Catzc.Base.Execution { $script:executableVersionCache = $null }
         Mock Get-SessionActor { 'Person' } -ModuleName Catzc.Base.Execution
         Mock Get-ExecutableVersion { '5.2.37' } -ModuleName Catzc.Base.Execution

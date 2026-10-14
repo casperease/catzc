@@ -44,7 +44,8 @@ function New-GoWorkspace {
 
     $config = Get-Config -Config go
     # The one Go version: the go tool's tools.yml pin, read by address (reading config is global access,
-    # ADR-CONF-ADDRESSING). A major.minor pin (1.27) is a valid go directive, as is a full 1.N.P.
+    # [ADR-CONF-ADDRESSING](/docs/adr/configuration/config-value-addressing.md)). A major.minor pin (1.27) is a valid go
+    # directive, as is a full 1.N.P.
     $goVersion = "$(Get-ConfigValue -Address 'global.tools.go.version')"
     if ($goVersion -cnotmatch '^1\.(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*))?$') {
         throw "tools.yml go.version '$goVersion' is not a Go language version for the go directive (1.N or 1.N.P, e.g. '1.27')."

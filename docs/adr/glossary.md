@@ -55,7 +55,7 @@ The one commit an always-on environment holds, deployed there as its release can
 
 ### track
 
-A named repository root concern — one root folder, named by it, classified core, external port, or adapter.
+A named repository root concern — one root folder, named by it, classified core, external port, adapter, or verification.
 
 - **Defined by:** [ADR-DSGN-TRACK#1](design/tracks.md#rule-adr-dsgn-track1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -65,6 +65,8 @@ A named repository root concern — one root folder, named by it, classified cor
     the root concern itself, one root folder.
   - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a track is the root folder
     the file lives in, and its tech-stack is a set of file languages.
+  - [verification track](#verification-track): A verification track is one class of track — test-only, shipping nothing; a track is any root
+    concern.
 
 ### verification track
 
@@ -74,6 +76,8 @@ A test-only track — it verifies the core from outside, ships nothing, and is o
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Languages/configs/glossary.yml`
 - **Kind of:** [track](#track)
+- **Contrasts:**
+  - [track](#track): A track is any root concern; a verification track is the test-only class that ships nothing.
 
 ## flow
 

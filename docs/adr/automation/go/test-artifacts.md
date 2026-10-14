@@ -51,9 +51,9 @@ the managed one.
 ### Rule ADR-AUTO-GO:6
 
 A Go test run uses the managed toolchain, located through the existence check (`Resolve-ToolExecutable`, ADR-AUTO-DEPS#3) and run by its
-path, never a bare `go` off `PATH`. A missing `go`, or one whose version misses the pin, stops `Invoke-GoTest` with the remedy `Install-Go`,
-which installs the pinned release user-space from the go.dev archive; a machine-wide Go is left in place, and the managed copy is found
-first.
+path, never a bare `go` off `PATH`, with `GOTOOLCHAIN=local` so it never switches to a toolchain it downloads itself. A missing `go`, or one
+whose version misses the pin, stops `Invoke-GoTest` with the remedy `Install-Go`, which installs the pinned release user-space from the
+go.dev archive; a machine-wide Go is left in place, and the managed copy is found first.
 
 - [The managed toolchain](#the-managed-toolchain)
 
@@ -121,7 +121,7 @@ The entry is the only difference between the two runs ([run-modes](../../design/
 
 ### A generated workspace
 
-Go's workspace files are configuration that the repository already states: which folders are Go test modules (the folders on disk), what
+Go's workspace files are configuration that the repository states elsewhere: which folders are Go test modules (the folders on disk), what
 their module paths are, which Go version they use (the `tools.yml` pin), and which test dependencies they require (`go.yml`). Committing
 `go.work` and the `go.mod` files would state those facts a second time, where they drift. So `New-GoWorkspace` renders them — the go
 directive, one sorted `use` entry per Go test module, and each module's path and sorted requires — as pure text with no go call, offline and
@@ -146,9 +146,12 @@ truth, and one that could ask for a toolchain the managed install does not have.
 `go` on `PATH` can be any Go — a machine-wide install, an older release, a different home. A Go test run therefore asks the existence check
 ([controlling-systemwide-deps](../controlling-systemwide-deps.md#3-assert-at-runtime)) for the managed `go` (`Resolve-ToolExecutable`): the
 managed home's binary first, then `PATH`, with no process start, then one version check per session. The run uses the path the check
-returns. A missing or mismatched `go` is a precondition failure, reported with the one remedy, `Install-Go`. `Install-Go` installs the
-pinned release from the official go.dev archive, verified against the SHA-256 the release feed publishes, into a user-space home on every
-platform; a machine-wide Go stays where it is, and the managed copy, found first, is the one the run uses.
+returns. Left alone, `go` reads the workspace's `go` directive and, when its own release is older, silently downloads that toolchain and
+runs it, so an off-pin `go` would pass the version check and the run would fetch from the network unannounced. The version check therefore
+runs each executable in its own folder, outside any workspace, and `Invoke-GoTest` sets `GOTOOLCHAIN=local` for its `go` commands. A missing
+or mismatched `go` is a precondition failure, reported with the one remedy, `Install-Go`. `Install-Go` installs the pinned release from the
+official go.dev archive, verified against the SHA-256 the release feed publishes, into a user-space home on every platform; a machine-wide
+Go stays where it is, and the managed copy, found first, is the one the run uses.
 
 ### The bridge
 

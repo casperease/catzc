@@ -58,8 +58,8 @@ The ADRs are where catzc decides. An idea is a candidate, and the ADR of the asp
 - **Testing:** [ADR-AUTO-TEST](../automation/test-automation.md).
 - **Pipelines:** [ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md) and [ADR-FLOW-CD-RUNNER](../flow/pipeline-runner-pattern.md).
 - **Tooling:** [ADR-AUTO-PKGMGR](../automation/use-proper-package-managers.md) and [ADR-AUTO-UVPY](../automation/uv-python-handler.md).
-- **Go:** the [Go automation ADRs](../automation/go/index.md) are reserved, and catzc has made no Go decisions, so a Go idea is a question
-  for the user.
+- **Go:** [ADR-AUTO-GO](../automation/go/test-artifacts.md) — Go in catzc is test artifacts only, so a Go idea beyond that scope is a
+  question for the user.
 
 Saying where an idea came from keeps the reasoning reviewable: a reviewer sees that the shape was weighed, not assumed.
 

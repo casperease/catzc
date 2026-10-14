@@ -12,6 +12,8 @@ concepts:
         realized_by: { kind: prose-only }
         relations:
             kind_of: [track]
+        contrasts:
+            track: A track is any root concern; a verification track is the test-only class that ships nothing.
     go test module:
         key: go_test_module
         domain: automation

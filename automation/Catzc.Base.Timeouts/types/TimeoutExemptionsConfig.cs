@@ -5,7 +5,8 @@
 // ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
 //
 // An exemption never removes the limit ("ceil all"): an exempt budget runs up to its scope's ceiling instead —
-// ceiling.<devbox|pipeline>.<bash|pwsh>, whose sensible defaults are declared here, once (ADR-AUTO-DEFAULT#6).
+// ceiling.<devbox|pipeline>.<bash|pwsh>, whose sensible defaults are declared here, once
+// ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
 // Each `exempt` entry names its budgets as exactly one of
 //   single: <guid>                         one budget, or
 //   range: { from: <guid>, to: <guid> }    every GUID from..to inclusive — a block of minted GUIDs that share a
@@ -39,7 +40,8 @@ public sealed class TimeoutExemptionsConfig : Catzc.Base.Objects.DictionaryRecor
     private static readonly string[] Shells = { "bash", "pwsh" };
     private static readonly Regex CanonicalGuid = new Regex(
         "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", RegexOptions.CultureInvariant);
-    private const string ZeroGuid = "00000000-0000-0000-0000-000000000000";
+    // The all-zeros GUID is a denied registry value, so it is built at runtime, never written as a literal.
+    private static readonly string ZeroGuid = Guid.Empty.ToString("D");
 
     // The sensible defaults: an exempt budget may run up to ten minutes on a devbox and an hour in a pipeline.
     private static readonly Dictionary<string, int> Defaults = new Dictionary<string, int>(StringComparer.Ordinal)

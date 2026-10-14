@@ -50,9 +50,10 @@ concepts:
         key: track
         domain: design
         defined_by: ADR-DSGN-TRACK#1
-        short: A named repository root concern — one root folder, named by it, classified core, external port, or adapter.
+        short: A named repository root concern — one root folder, named by it, classified core, external port, adapter, or verification.
         realized_by: { kind: prose-only }
         contrasts:
+            verification track: A verification track is one class of track — test-only, shipping nothing; a track is any root concern.
             deployable-unit: A deployable-unit is what ships, composed from a whole track or a reduced part of one; a track is the root concern itself, one root folder.
             file language: A file language is the kind of text a file holds, named by its extension; a track is the root folder the file lives in, and its tech-stack is a set of file languages.
     file language:

@@ -1,3 +1,4 @@
+# cspell:ignore Testlowercase  -- a Go function name that is not a test (lowercase after Test), on purpose
 # Get-GoTestCases over a fixture Go test folder in $TestDrive (the go config mocked to its defaults): the Go tests are
 # read from the *_test.go source, never by running go. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

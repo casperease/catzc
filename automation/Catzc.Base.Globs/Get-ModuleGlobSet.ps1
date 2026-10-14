@@ -10,7 +10,8 @@
     ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)), named by the
     readme-kebab convention plus the aspect (Catzc.Base.Globs -> 'catzc-base-globs-live' and
     'catzc-base-globs-tests') — 'live' the module's shippable surface (functions, private helpers, types,
-    configs), 'tests' its verification harness; the two are disjoint and cover the folder. The whole-module
+    configs), 'tests' its verification harness, plus its Go test module <goRoot>/tests/<kebab>/ when one
+    exists (ADR-AUTO-GO#2); the two are disjoint and cover the folder. The whole-module
     set is their union (a test-only change never re-keys live). Every internal
     shared module automation/.internal/<Name>.psm1 derives a single-file set (no tests aspect) by the same
     kebab convention (Catzc.Internal.Bootstrap -> 'catzc-internal-bootstrap').
@@ -87,6 +88,9 @@ function Get-ModuleGlobSet {
     }
     # bare module name/kebab -> its aspect sets, so a caller can ask for "the module" and get both aspects.
     $moduleAspects = @{}
+    # A module's Go test module (<goRoot>/tests/<kebab>/, ADR-AUTO-GO#2) is part of its tests aspect: a Go test change
+    # re-keys the module it verifies, never its live aspect.
+    $goRoot = (Get-Config -Config go).ResolveRoot((Get-RepositoryRoot))
 
     # The per-folder module globs, collected so 'module-leftovers' below can exclude every one of them.
     $moduleFolderGlobs = [System.Collections.Generic.List[string]]::new()
@@ -106,9 +110,13 @@ function Get-ModuleGlobSet {
             if ($aspectKebab -in $declaredNames) {
                 throw "Declared globset '$aspectKebab' in globs.yml shadows the derived aspect of module '$moduleName' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
             }
+            $include = [string[]]$compiled.Include
+            if ($compiled.Name -eq 'tests') {
+                $include += "$goRoot/tests/$kebab/**"
+            }
             $set = [Catzc.Base.Globs.GlobSet]::new(
                 $aspectKebab, "Derived module aspect - automation/$moduleName [$($compiled.Name)]", 'module',
-                $compiled.Include, $compiled.Exclude, @(), @(), -1, $null)
+                $include, $compiled.Exclude, @(), @(), -1, $null)
             $derived[$aspectKebab] = $set
             $derived["$moduleName-$($compiled.Name)"] = $set
             $aspectSets.Add($set)

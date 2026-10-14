@@ -14,7 +14,8 @@ BeforeAll {
 
 Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the seams (ADR-AUTO-TEST#6): a fixture config, a fixture tools.yml pin, and a fixture
+        # Isolate through the seams ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)): a
+        # fixture config, a fixture tools.yml pin, and a fixture
         # repository root in $TestDrive.
         $script:root = Join-Path $TestDrive 'repo'
         foreach ($file in 'go/tests/catzc-widget/widget_test.go', 'go/tests/catzc-gadget/inner/gadget_test.go', 'go/tests/.hidden/hidden_test.go') {

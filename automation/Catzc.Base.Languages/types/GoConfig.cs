@@ -12,7 +12,7 @@
 //   - 'root' is the Go root folder, repository-relative: slash-separated segments of letters, digits, '.', '_' and
 //     '-', no leading or trailing slash, no '.' or '..' segment. Omitted, it resolves per repository (ResolveRoot):
 //     'go' when the repository has a go/ folder (a Go root track), else '.go', the dot-prefixed tooling folder
-//     ([ADR-REPO-FOLDERS#4](/docs/adr/repository/conventional-folders.md));
+//     ([ADR-REPO-FOLDERS#4](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders4));
 //   - 'module_root' is the module-path prefix: lowercase slash-separated segments, no leading or trailing slash
 //     (default catzc/go/tests);
 //   - 'dependencies' maps a module path (with a dot in its first segment) to a semantic version vX.Y.Z; empty by

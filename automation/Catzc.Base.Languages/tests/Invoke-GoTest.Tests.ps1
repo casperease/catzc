@@ -1,6 +1,7 @@
 Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the seams (ADR-AUTO-TEST#6): a fixture repository root in $TestDrive, a mocked tool probe
+        # Isolate through the seams ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)): a
+        # fixture repository root in $TestDrive, a mocked tool probe
         # (Resolve-ToolExecutable) that finds a managed go at a fixture path with a space in it, and a mocked go
         # (Invoke-Executable) that answers with canned `go test -json` streams from tests/assets.
         $script:root = Join-Path $TestDrive 'repo'
@@ -33,6 +34,7 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
                     Directory = $WorkingDirectory
                     Entry     = $env:CATZC_ENGINE_ENTRY
                     Root      = $env:CATZC_REPOSITORY_ROOT
+                    Toolchain = $env:GOTOOLCHAIN
                 })
             switch -Wildcard ($Command) {
                 '* vet *' {
@@ -114,6 +116,15 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
                 $call.Entry | Should -Be (Resolve-Path -LiteralPath $script:buildEntry).ProviderPath
                 $call.Root | Should -Be $script:root
             }
+        }
+
+        It 'runs every go command with GOTOOLCHAIN=local, so go never switches to a downloaded toolchain' {
+            $null = Invoke-GoTest Catzc.Widget
+            $script:seen.Count | Should -BeGreaterThan 0
+            foreach ($call in $script:seen) {
+                $call.Toolchain | Should -Be 'local'
+            }
+            Test-Path Env:GOTOOLCHAIN | Should -BeFalse
         }
 
         It 'restores the environment afterwards' {

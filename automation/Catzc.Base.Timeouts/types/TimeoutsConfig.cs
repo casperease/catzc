@@ -8,7 +8,8 @@
 // Limits are keyed on two axes: the environment (devbox | pipeline, from Get-RunEnvironment) and the shell (bash |
 // pwsh). bash carries a foreground and a background limit (the hook bounds both); pwsh carries one limit for the
 // work pwsh code bounds itself (Invoke-WithTimeout, Invoke-Executable). The sensible defaults are declared here,
-// once (ADR-AUTO-DEFAULT#6), so an empty file and a fresh checkout behave the same; the file states only what is
+// once ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), so an empty file and a fresh checkout
+// behave the same; the file states only what is
 // tuned.
 //
 // Constructing an instance validates the file, collecting every violation into one ArgumentException:

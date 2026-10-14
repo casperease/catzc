@@ -190,7 +190,7 @@ java:
 
 go:
   # Go 1.27, the current stable minor; Install-Go takes its newest patch. Go in this repository is test artifacts
-  # only (go/tests/<module>/), and it never ships.
+  # only (<root>/tests/<module>/, the root go/ or .go/ per go.yml), and it never ships.
   version: "1.27"
   command: go
   # Installed by Install-Go from the official go.dev archive, verified against the SHA-256 the go.dev release feed

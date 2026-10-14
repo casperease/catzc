@@ -69,6 +69,7 @@ registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/
 - **`write-drawio-files`** — changes labels, text, or styles inside existing `.drawio.png` diagrams.
 - **`print-artifacts`** — republishes the diagram review artifact from the files on disk.
 - **`build-inspiration-module`** — creates or extends the inspiration module (`Get-Inspiration`).
+- **`session-cost-audit`** — measures what a session cost and why, against `out/plan-session-cost.md`, and proposes the changes.
 
 ## Rules
 

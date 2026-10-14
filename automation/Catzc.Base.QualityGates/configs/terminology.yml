@@ -85,6 +85,8 @@ terms:
       meaning: "GOPATH — the Go workspace root (module cache and installed binaries)"
     - term: gocache
       meaning: "GOCACHE — the Go build cache directory"
+    - term: gotoolchain
+      meaning: "GOTOOLCHAIN — which Go toolchain go runs; local forbids switching to a downloaded one"
     - term: gopls
       meaning: "gopls — the Go language server editors use"
     - term: adrs

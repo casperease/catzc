@@ -134,7 +134,8 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         Import-InternalModule TestKit
 
         # A wildcard entry whose generator renders one { Target; Content } record per file; every file is written
-        # on its own and reported in its own row. Neutral fixture names (ADR-AUTO-TEST#3).
+        # on its own and reported in its own row. Neutral fixture names
+        # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
         $script:fake = New-FakeRepositoryRoot -Files @{
             'widgets/alpha/.keep' = ''
             'widgets/beta/.keep'  = ''

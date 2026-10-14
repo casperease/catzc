@@ -24,7 +24,7 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "standard", "agents" };
 
-    // The standard sub-agent for delegated work (ADR-REPO-AGENTS#4).
+    // The standard sub-agent for delegated work ([ADR-REPO-AGENTS#4](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents4)).
     public string standard { get; }
 
     // The registered agents, in file order.
