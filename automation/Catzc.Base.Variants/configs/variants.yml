@@ -54,7 +54,7 @@ tracks:
   infrastructure: { root: infrastructure, class: adapter, languages: [bicep, yaml] }
   pipelines: { root: pipelines, class: adapter, languages: [pipeline-yaml, powershell] }
   docs: { root: docs, class: external-port, languages: [markdown, asset] }
-  contracts: { root: contracts, class: external-port }
+  contracts: { root: contracts, class: external-port, languages: [markdown, pipeline-yaml, yaml] }
   go: { root: go, class: verification, languages: [go] }
   python: { root: python, class: verification, languages: [python] }
   bash: { root: bash, class: verification, languages: [bash] }

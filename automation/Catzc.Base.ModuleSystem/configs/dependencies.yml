@@ -135,7 +135,19 @@ groups:
         Catzc.Base.Writers,
         Catzc.Base.Asserts,
       ]
-    Catzc.Base.Maps: [Catzc.Base.Docs, Catzc.Base.Files, Catzc.Base.Globs, Catzc.Base.Languages, Catzc.Base.Variants, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository]
+    Catzc.Base.Maps:
+      [
+        Catzc.Base.Docs,
+        Catzc.Base.Execution,
+        Catzc.Base.Files,
+        Catzc.Base.Globs,
+        Catzc.Base.Languages,
+        Catzc.Base.Variants,
+        Catzc.Base.Config,
+        Catzc.Base.Objects,
+        Catzc.Base.Repository,
+        Catzc.Base.Reports,
+      ]
     Catzc.Base.Contracts: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Reports]
 
   # The Azure-extension cluster — all the Azure modules except the root `Catzc.Azure`. Its internal

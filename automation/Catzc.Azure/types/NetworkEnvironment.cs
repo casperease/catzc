@@ -3,14 +3,12 @@
 // (snake_case keys, [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
 // NetworkConfig builds one per entry and collects its violations with the file's.
 //
-// Shape: the name is a lower-snake_case identifier; vnet_address_space and default_subnet are required IPv4 CIDRs
-// (a.b.c.d/n, 0 <= n <= 32); no other key.
+// Shape: the name is a lower-snake_case identifier; vnet_address_space and default_subnet are required, aligned IPv4
+// CIDRs (NetworkCidr); the default subnet lies inside the vnet address space; no other key.
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Sockets;
 using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
@@ -51,6 +49,11 @@ public sealed class NetworkEnvironment : Catzc.Base.Objects.DictionaryRecord
             AzureConfig.UnknownKeys(d, AllowedKeys, string.Format("network environment '{0}'", name), own);
             vnet_address_space = Cidr(name, d, "vnet_address_space", own);
             default_subnet = Cidr(name, d, "default_subnet", own);
+            if (vnet_address_space != null && default_subnet != null && !NetworkCidr.Contains(vnet_address_space, default_subnet))
+            {
+                own.Add(string.Format("network environment '{0}' default_subnet '{1}' is not inside its vnet_address_space '{2}'",
+                    name, default_subnet, vnet_address_space));
+            }
         }
 
         if (errors == null && own.Count > before) { throw new ArgumentException(string.Join("\n", own)); }
@@ -64,19 +67,8 @@ public sealed class NetworkEnvironment : Catzc.Base.Objects.DictionaryRecord
             return null;
         }
         string value = AzureConfig.Text(d[key]);
-        if (IsIPv4Cidr(value)) { return value; }
-        errors.Add(string.Format("network environment '{0}' has invalid {1} '{2}' (must be IPv4 CIDR, e.g. 10.10.0.0/16)", name, key, value));
+        if (NetworkCidr.IsValid(value)) { return value; }
+        errors.Add(string.Format("network environment '{0}' has invalid {1} '{2}' (must be an aligned IPv4 CIDR, e.g. 10.10.0.0/16)", name, key, value));
         return null;
-    }
-
-    // A valid IPv4 address followed by a 0-32 prefix length.
-    private static bool IsIPv4Cidr(string value)
-    {
-        string[] parts = value.Split('/');
-        if (parts.Length != 2) { return false; }
-        IPAddress ip;
-        if (!IPAddress.TryParse(parts[0], out ip) || ip.AddressFamily != AddressFamily.InterNetwork) { return false; }
-        int prefix;
-        return int.TryParse(parts[1], out prefix) && prefix >= 0 && prefix <= 32;
     }
 }

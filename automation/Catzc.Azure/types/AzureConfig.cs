@@ -7,7 +7,13 @@
 // mutated after construction).
 //
 // Constructing an instance validates the file, collecting every violation into one ArgumentException:
-//   - the top-level keys org, bicep_min_version, tenants, subscriptions, environments are required, and no other;
+//   - the top-level keys org, bicep_min_version, tenants, subscriptions, environments are required, policy_enforcement
+//     is optional, and no other key is allowed;
+//   - policy_enforcement maps exactly the keys production and nonproduction to a policy enforcement mode, Default or
+//     DoNotEnforce; a key it omits takes its sensible default, declared once here (DefaultPolicyEnforcement,
+//     [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), so an omitted map
+//     and a partial map both resolve to a full one
+//     ([ADR-AZ-DATAMOD#11](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11));
 //   - org is 2-3 lowercase alphanumeric chars with a leading letter (the <org> name component,
 //     [ADR-AZ-NAMING#6](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming6));
 //   - bicep_min_version is MAJOR.MINOR.PATCH (asserted by Assert-AzCliBicep before every az bicep build);
@@ -28,6 +34,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
@@ -37,7 +44,20 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
     // A tenant or subscription name: a lower-snake_case identifier.
     internal const string IdentifierPattern = "^[a-z][a-z0-9_]*$";
 
-    private static readonly string[] AllowedKeys = { "org", "bicep_min_version", "tenants", "subscriptions", "environments" };
+    private static readonly string[] RequiredKeys = { "org", "bicep_min_version", "tenants", "subscriptions", "environments" };
+
+    private static readonly string[] AllowedKeys = { "org", "bicep_min_version", "tenants", "subscriptions", "environments", "policy_enforcement" };
+
+    // The keys of policy_enforcement: the production environments and every other environment.
+    private static readonly string[] PolicyEnforcementKeys = { "production", "nonproduction" };
+
+    // The policy enforcement modes, spelled as the Azure policy assignment's enforcementMode takes them.
+    private static readonly string[] PolicyEnforcementModes = { "Default", "DoNotEnforce" };
+
+    // The sensible default of policy_enforcement, declared once: production enforces its policies, every other
+    // environment audits them without enforcing.
+    public static IReadOnlyDictionary<string, string> DefaultPolicyEnforcement { get; } = new ReadOnlyDictionary<string, string>(
+        new Dictionary<string, string>(StringComparer.Ordinal) { { "production", "Default" }, { "nonproduction", "DoNotEnforce" } });
 
     // The vertical/organization shortcode — the <org> component of every resource name.
     public string org { get; }
@@ -54,10 +74,14 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
     // The environments, keyed by readable name.
     public IReadOnlyDictionary<string, AzureEnvironmentRecord> environments { get; }
 
+    // The policy enforcement mode per environment class (production, nonproduction), always complete: the keys the
+    // file omits take DefaultPolicyEnforcement.
+    public IReadOnlyDictionary<string, string> policy_enforcement { get; }
+
     public AzureConfig(IDictionary d)
     {
         List<string> errors = new List<string>();
-        foreach (string key in AllowedKeys)
+        foreach (string key in RequiredKeys)
         {
             if (d == null || !d.Contains(key)) { errors.Add(string.Format("Missing required top-level key: '{0}'", key)); }
         }
@@ -94,6 +118,8 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
         }
         subscriptions = subscriptionMap;
 
+        policy_enforcement = PolicyEnforcement(d, errors);
+
         CheckShortcodes(errors);
         CheckReferences(errors);
         CheckCustomerDisjointness(errors);
@@ -104,6 +130,36 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
     private static void Fail(List<string> errors)
     {
         throw new ArgumentException("azure configuration validation failed:\n" + string.Join("\n", errors));
+    }
+
+    // The optional policy_enforcement map, completed from DefaultPolicyEnforcement: an omitted map is the default, and a
+    // partial map keeps its own keys and takes the default for the rest. An unknown key or mode is a violation.
+    private static IReadOnlyDictionary<string, string> PolicyEnforcement(IDictionary d, List<string> errors)
+    {
+        Dictionary<string, string> modes = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (KeyValuePair<string, string> entry in DefaultPolicyEnforcement) { modes[entry.Key] = entry.Value; }
+        if (!d.Contains("policy_enforcement")) { return new ReadOnlyDictionary<string, string>(modes); }
+
+        IDictionary map = d["policy_enforcement"] as IDictionary;
+        if (map == null)
+        {
+            errors.Add(string.Format("policy_enforcement must be a map of {0} to a mode ({1})",
+                string.Join(", ", PolicyEnforcementKeys), string.Join(", ", PolicyEnforcementModes)));
+            return new ReadOnlyDictionary<string, string>(modes);
+        }
+
+        UnknownKeys(map, PolicyEnforcementKeys, "policy_enforcement", errors);
+        foreach (string key in PolicyEnforcementKeys)
+        {
+            if (!map.Contains(key)) { continue; }
+            string mode = Text(map[key]);
+            if (Array.IndexOf(PolicyEnforcementModes, mode) < 0)
+            {
+                errors.Add(string.Format("policy_enforcement.{0}: unknown mode '{1}' (allowed: {2})", key, mode, string.Join(", ", PolicyEnforcementModes)));
+            }
+            else { modes[key] = mode; }
+        }
+        return new ReadOnlyDictionary<string, string>(modes);
     }
 
     private void CheckShortcodes(List<string> errors)

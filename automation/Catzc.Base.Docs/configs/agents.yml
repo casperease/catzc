@@ -51,3 +51,8 @@ agents:
   - name: session-cost-audit
     supported_by: [ADR-PRIN-NOWASTE#1, ADR-PROC-KAIZEN#2, ADR-AUTO-FAILFAST#7]
     checks: []
+
+  # Makes the test suite faster under the timeouts.yml roofs without losing any test or assertion, one measured file at a time.
+  - name: test-optimization
+    supported_by: [ADR-AUTO-TEST#21, ADR-AUTO-TEST#19, ADR-AUTO-TEST#22, ADR-PRIN-NOWASTE#1]
+    checks: [Invoke-TestFile, Test-ScriptAnalyzer]

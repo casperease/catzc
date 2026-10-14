@@ -71,6 +71,8 @@ registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/
 - **`print-artifacts`** — republishes the diagram review artifact from the files on disk.
 - **`build-inspiration-module`** — creates or extends the inspiration module (`Get-Inspiration`).
 - **`session-cost-audit`** — measures what a session cost and why, against `out/plan-session-cost.md`, and proposes the changes.
+- **`test-optimization`** — makes all tests faster under the `timeouts.yml` roofs, one measured file at a time, without removing or
+  weakening any test.
 
 ## Rules
 

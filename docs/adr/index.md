@@ -25,8 +25,9 @@ a normative summary plus internal links to the prose that justifies it).
 
 What catzc is for and how it solves it: delivery is slow because its truth is spread across disjoint stores, so catzc collapses them into
 one source of truth, the repository, with one change process. The repository is the configuration record and answers queries through the
-tooling; inside the trunk everything is at HEAD, and versions exist only at the repository boundary, as pins. It rests only on the DORA
-research, and the principles state its mechanics, so every other domain cites it (`ADR-THES-*`) through them.
+tooling; inside the trunk everything is at HEAD, and versions exist only at the repository boundary, as pins. It describes the product and
+rests on the DORA research, the authoritative source, and the principles state its mechanics, so every other domain cites it (`ADR-THES-*`)
+through them.
 
 **Role:** `framing` — **depends on:** `research`.
 
@@ -37,8 +38,8 @@ research, and the principles state its mechanics, so every other domain cites it
 ### principles/
 
 The design axioms every other domain specialises: everything as code, configure don't program, reduce variability, reduce waste, poka-yoke,
-and one living version. They rest on the thesis and the DORA research, no domain later in the order overrides them, and every other domain
-cites them (`ADR-PRIN-*`) as the reason for its own decisions.
+and one living version. They specialise the thesis, catzc's product description, and rest on the DORA research, the authoritative source; no
+domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`) as the reason for its own decisions.
 
 **Role:** `axioms` — **depends on:** `research`, `thesis`.
 

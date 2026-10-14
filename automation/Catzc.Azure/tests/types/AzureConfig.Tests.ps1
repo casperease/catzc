@@ -272,6 +272,48 @@ Describe 'AzureConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*tenant name 'OtherTenant' is not a valid identifier*"
         }
 
+        It 'defaults policy_enforcement when the file omits it' -Tag 'ADR-AZ-DATAMOD#11' {
+            $config = & $script:make (Copy-Object $baseConfig)
+            $config.policy_enforcement['production'] | Should -Be 'Default'
+            $config.policy_enforcement['nonproduction'] | Should -Be 'DoNotEnforce'
+        }
+
+        It 'keeps the policy_enforcement keys a file sets and defaults the rest' -Tag 'ADR-AZ-DATAMOD#11' {
+            $ok = Copy-Object $baseConfig
+            $ok.policy_enforcement = [ordered]@{ nonproduction = 'Default' }
+            $config = & $script:make $ok
+            $config.policy_enforcement['production'] | Should -Be 'Default'
+            $config.policy_enforcement['nonproduction'] | Should -Be 'Default'
+        }
+
+        It 'takes a full policy_enforcement map as given' -Tag 'ADR-AZ-DATAMOD#11' {
+            $ok = Copy-Object $baseConfig
+            $ok.policy_enforcement = [ordered]@{ production = 'DoNotEnforce'; nonproduction = 'DoNotEnforce' }
+            $config = & $script:make $ok
+            $config.policy_enforcement['production'] | Should -Be 'DoNotEnforce'
+            $config.policy_enforcement['nonproduction'] | Should -Be 'DoNotEnforce'
+        }
+
+        It 'resolves policy_enforcement by config address on the typed record' -Tag 'ADR-AZ-DATAMOD#11' {
+            $config = & $script:make (Copy-Object $baseConfig)
+            $mode = & (Get-Module Catzc.Base.Config) { Resolve-ConfigKeyPath -Node $args[0] -Segment 'policy_enforcement', 'production' -Address 'global.azure.policy_enforcement.production' } $config
+            $mode | Should -Be 'Default'
+        }
+
+        It 'rejects an unknown policy_enforcement key and mode in one throw' -Tag 'ADR-AZ-DATAMOD#11' {
+            $bad = Copy-Object $baseConfig
+            $bad.policy_enforcement = [ordered]@{ production = 'Enforce'; staging = 'Default' }
+            $err = { & $script:make $bad } | Should -Throw -PassThru
+            $err.Exception.Message | Should -BeLike "*policy_enforcement: unknown key 'staging'*"
+            $err.Exception.Message | Should -BeLike "*policy_enforcement.production: unknown mode 'Enforce'*"
+        }
+
+        It 'rejects a policy_enforcement that is not a map' -Tag 'ADR-AZ-DATAMOD#11' {
+            $bad = Copy-Object $baseConfig
+            $bad.policy_enforcement = 'Default'
+            { & $script:make $bad } | Should -Throw '*policy_enforcement must be a map*'
+        }
+
         It 'reports every violation in one throw' {
             $bad = Copy-Object $baseConfig
             $bad.org = 'TOOLONG'
