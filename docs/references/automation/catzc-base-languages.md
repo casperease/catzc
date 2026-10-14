@@ -2,10 +2,11 @@
 
 `Catzc.Base.Languages`
 
-Owns the test languages beside PowerShell: Go and Python, whose code in this repository is test artifacts only. For each it declares the
-generated workspace once (`go.yml`, `python.yml`), renders the generated files from it (`go.work` and a `go.mod` per module; a uv workspace
-root and a member `pyproject.toml` per module), and runs a catzc module's tests, returning one result per test. It does not install the
-tools (that is [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md)'s and the uv tooling's), write the rendered files (that is
+Owns the test languages beside PowerShell: Go, Python and Bash, whose code in this repository is test artifacts only. For Go and Python it
+declares the generated workspace once (`go.yml`, `python.yml`) and renders the generated files from it (`go.work` and a `go.mod` per module;
+a uv workspace root and a member `pyproject.toml` per module); for Bash it declares the vendored test runner's pin (`bash.yml`); and for
+each it runs a catzc module's tests, returning one result per test. It does not install the tools (that is
+[Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md)'s and the uv tooling's), write the rendered files (that is
 [Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s, per [ADR-REPO-ROOTCFG](../../adr/repository/generated-root-configs.md)), or turn the
 results into Pester tests (that is the test harness's language bridge, in [Catzc.Base.QualityGates](catzc-base-qualitygates.md)).
 
@@ -17,6 +18,7 @@ results into Pester tests (that is the test harness's language bridge, in [Catzc
 | responsibility:2 | render | [Go test workspace](#responsibility2--go-test-workspace)         |
 | responsibility:3 | run    | [Python test runs](#responsibility3--python-test-runs)           |
 | responsibility:4 | render | [Python test workspace](#responsibility4--python-test-workspace) |
+| responsibility:5 | run    | [Bash test runs](#responsibility5--bash-test-runs)               |
 
 ### responsibility:1 — Go test runs
 
@@ -80,6 +82,21 @@ whose `requires-python` is the `python` pin in `tools.yml`, the one Python versi
 without Python test folders gets no workspace. Rendering is pure text, offline and byte-stable. The workspace has one environment and one
 lock; both, and the workspace files, are generated and gitignored.
 
+### responsibility:5 — Bash test runs
+
+Running one catzc module's Bash tests and reporting each one ([ADR-AUTO-BASH](../../adr/automation/bash/bash-test-artifacts.md)). The tests
+are `.bats` files in `<root>/tests/<module-in-kebab>/` under the Bash root, which defaults, by the convention every test language's root
+follows, to `bash` when the repository has a `bash/` folder, else to `.bash`. They run on the bats-core runner vendored under the Bash root
+at `.vendor/bats-core/`, whose release and archive digest `bash.yml` pins, under the bash engine only, from the Bash root, with a JUnit
+report and inside the time safeguard. A Bash test calls catzc the way a Bash user does: it sources `importer.sh` (`CATZC_ENGINE_ENTRY`) and
+runs commands through `cats`, which loads the entry `CATZC_IMPORTER` names — the repository's `importer.ps1` for the source run, the build's
+`Import-Catzc.ps1` for the build run.
+
+The report becomes one result per `@test`, with the shape of a Go result — package (the `.bats` file's path in the folder), name, outcome,
+duration, output, and category. A name starting with `integrity:` is `integrity`, every other test is `logic`. A failing test is a result; a
+run throws, with the bats output, when the vendored runner is missing (naming `Update-BatsVendor`), or when bats fails without a failing
+test.
+
 ## What the module does
 
 The workspace makes the Go test folders buildable and the run uses them: the renderer gives every folder its `go.mod` and joins them in one
@@ -94,7 +111,9 @@ renderer as the generator of the `go.work` and `go.mod` targets — one record p
 [Catzc.Base.RootConfig](catzc-base-rootconfig.md) — and the harness's language bridge calls the run once per mapped module, tagging every
 result `L2` with its category. Python follows the same shape — a uv workspace root in place of `go.work`, a member `pyproject.toml` in place
 of each `go.mod` — with one environment and one lock for the whole workspace; the renderer is the generator of the workspace targets, and
-the same bridge calls the Python run.
+the same bridge calls the Python run. Bash needs no workspace: its runner is vendored, and the same bridge calls the Bash run under the bash
+engine. The black-box contract every run sets comes from one helper over the execution engine model, so the Go and Python tests run under
+either engine unchanged.
 
 ## Division
 
@@ -108,3 +127,5 @@ The module's public functions and configuration file, sorted into the responsibi
 | responsibility:3 — Python test runs      | `Invoke-PythonTest` |
 | responsibility:4 — Python test workspace | `New-PythonProject` |
 | config                                   | `python.yml`        |
+| responsibility:5 — Bash test runs        | `Invoke-BashTest`   |
+| config                                   | `bash.yml`          |

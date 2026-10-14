@@ -63,8 +63,8 @@ The spelling check reads them too.
 The engine is verified from outside by tests in other languages ([go test artifacts](../go/test-artifacts.md),
 [python test artifacts](../python/python-test-artifacts.md)), which start it as a process under each execution engine
 ([execution-engines](../execution-engines.md)). Those tests prove the engine runs; they do not prove what a Bash user sees. A Bash user
-sources `importer.sh` and types `cats <command>`, and that path — the dispatcher's quoting, its root detection, its exit codes — needs
-tests written the way the user writes commands: in Bash.
+sources `importer.sh` and types `cats <command>`, and that path — the dispatcher's quoting, its root detection, its exit codes — needs tests
+written the way the user writes commands: in Bash.
 
 ### Test artifacts only
 
@@ -80,8 +80,8 @@ verification class ([tracks](../../design/tracks.md#rule-adr-dsgn-track2)) — e
 `BashConfig` type, and `BashConfig.ResolveRoot` is the one resolver every caller asks. Under the root, `tests/<module>/` holds one Bash test
 folder per catzc module, named in kebab case, the convention shared with the Go and Python test folders.
 
-A Bash test is declared on one line, `@test "<name>" {`, so the bridge reads it from the source without running bats. Its name is free
-text, so the integrity marker is a prefix of the name, `integrity:`, decided in one place (the `BashTestResult` type).
+A Bash test is declared on one line, `@test "<name>" {`, so the bridge reads it from the source without running bats. Its name is free text,
+so the integrity marker is a prefix of the name, `integrity:`, decided in one place (the `BashTestResult` type).
 
 ### The black-box contract
 
@@ -94,9 +94,9 @@ that run once per engine.
 ### A vendored runner
 
 bats-core is a set of Bash scripts with no build step. Vendoring it, as the PowerShell modules under `automation/.vendor/` are vendored,
-means a test run needs no installer, no network, and no admin on any platform: Git Bash on Windows runs it as it is. The pin and the
-archive digest in `bash.yml` make the copy reproducible, and `Update-BatsVendor` is the one way it changes. Only the runner's own files are
-kept: its tests, docs, and packaging are not the repository's.
+means a test run needs no installer, no network, and no admin on any platform: Git Bash on Windows runs it as it is. The pin and the archive
+digest in `bash.yml` make the copy reproducible, and `Update-BatsVendor` is the one way it changes. Only the runner's own files are kept:
+its tests, docs, and packaging are not the repository's.
 
 Bash reads a carriage return as part of a command, and a Unix checkout runs a script only with its executable bit, so the vendored files are
 pinned to LF by `.gitattributes` and carry `100755` in git.
@@ -119,15 +119,15 @@ its bit, but not analysed: it is shipped as Microsoft writes it.
 
 ## Decision
 
-Bash is a black-box test language for the path a Bash user takes and nothing else (ADR-AUTO-BASH#1). Its tests live in one Bash test
-folder per catzc module under the Bash root (ADR-AUTO-BASH#2), call catzc through `importer.sh` and `cats` from the entry the run names
+Bash is a black-box test language for the path a Bash user takes and nothing else (ADR-AUTO-BASH#1). Its tests live in one Bash test folder
+per catzc module under the Bash root (ADR-AUTO-BASH#2), call catzc through `importer.sh` and `cats` from the entry the run names
 (ADR-AUTO-BASH#3), run on a vendored, pinned bats-core (ADR-AUTO-BASH#4) through `Test-Automation` as `L2` tests through the language bridge
 (ADR-AUTO-BASH#5), and every shell script takes the shell-script checks (ADR-AUTO-BASH#6).
 
 ### How this is enforced
 
-- **`BashConfig`** (`Catzc.Base.Languages`) validates `bash.yml` at load, requires the bats-core pin and digest, and declares the Bash root's
-  defaults once (`ResolveRoot`).
+- **`BashConfig`** (`Catzc.Base.Languages`) validates `bash.yml` at load, requires the bats-core pin and digest, and declares the Bash
+  root's defaults once (`ResolveRoot`).
 - **`Invoke-BashTest`** runs the vendored bats under the bash engine, sets the engine contract for its run only, and returns one
   `BashTestResult` per test with its category.
 - **`Update-BatsVendor`** (`Catzc.Tooling.Toolchain`) rebuilds the vendored copy from the pin, verifying the archive's digest.

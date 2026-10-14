@@ -26,3 +26,9 @@ concepts:
         defined_by: ADR-AUTO-PY#2
         short: The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in kebab case, holding its black-box Python tests; each is a member of the one generated uv workspace.
         realized_by: { kind: prose-only }
+    bash test folder:
+        key: bash_test_folder
+        domain: automation
+        defined_by: ADR-AUTO-BASH#2
+        short: The folder `<root>/tests/<module>/` under the Bash root — one per catzc module, named for it in kebab case, holding its black-box `.bats` tests, which call catzc through `importer.sh` and `cats`.
+        realized_by: { kind: prose-only }

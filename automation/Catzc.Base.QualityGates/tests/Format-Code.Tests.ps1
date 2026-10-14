@@ -106,16 +106,16 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
     }
 }
 
-# The real engines over throwaway files, nothing mocked but the console. Each self-skips when its tool is absent
-# ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)). The PowerShell case is also the
-# real-asset test of [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3):
-# the engine imports the vendored PSScriptAnalyzer and formats with the shipped settings file.
-Describe 'Format-Code (real engines)' -Tag 'L2', 'logic' {
+# The real-asset test of [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3):
+# the psscriptanalyzer engine imports the vendored PSScriptAnalyzer (<code root>/.vendor) and formats with the shipped
+# settings file (<code root>/.internal/assets), nothing mocked but the console — integrity, and not source-only, so it
+# runs in the source and the build run. An explicit -Path over a throwaway file keeps it off the source tree.
+Describe 'Format-Code (real vendored analyzer and settings)' -Tag 'L2', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
     }
 
-    It 'formats an off-style PowerShell file with the vendored analyzer, reporting it first under -DryRun' -Tag 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+    It 'formats an off-style PowerShell file with the vendored analyzer, reporting it first under -DryRun' {
         $subject = Join-Path $TestDrive 'Get-Widget.ps1'
         # Off-style on purpose: a same-line brace body and a missing final newline.
         $offStyle = 'function Get-Widget { $value = 1; $value }'
@@ -129,6 +129,14 @@ Describe 'Format-Code (real engines)' -Tag 'L2', 'logic' {
         $formatted | Should -Not -BeExactly $offStyle
         $formatted | Should -Match "`n$"
         $formatted | Should -Not -Match "`r"
+    }
+}
+
+# The prettier engine over throwaway files, nothing mocked but the console; self-skips when prettier is absent
+# ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)).
+Describe 'Format-Code (real prettier)' -Tag 'L2', 'logic' {
+    BeforeAll {
+        Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
     }
 
     It 'formats Markdown and pipeline YAML with prettier, so a second run changes nothing' {

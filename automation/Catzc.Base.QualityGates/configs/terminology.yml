@@ -852,6 +852,8 @@ terms:
       meaning: "publisher of the vscode-ansi VS Code extension (iliazeus.vscode-ansi)"
     - term: dotnettools
       meaning: "the ms-dotnettools VS Code publisher (C# and C# Dev Kit extensions)"
+    - term: psscriptanalyzer
+      meaning: "the psscriptanalyzer formatter engine name in languages.yml (PSScriptAnalyzer's Invoke-Formatter)"
     - term: csdevkit
       meaning: "the C# Dev Kit VS Code extension (ms-dotnettools.csdevkit)"
     - term: dpkg

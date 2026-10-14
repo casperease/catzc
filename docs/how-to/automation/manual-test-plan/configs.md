@@ -24,6 +24,7 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 | 13  | L1   | automation/Catzc.Base.TypesSystem/tests/Build-BashTimeoutHook.Tests.ps1      | Build-BashTimeoutHook — parity with Get-TimeoutSeconds | The published Bash hook, reading the shipped timeouts.yml, allows exactly the foreground and background limits `Get-TimeoutSeconds` resolves.          |
 | 14  | L0   | automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1        | integrity (shipped languages.yml)                      | The shipped languages.yml loads through `LanguagesConfig`.                                                                                             |
 | 15  | L0   | automation/Catzc.Base.Languages/tests/types/PythonConfig.Tests.ps1           | integrity (shipped python.yml)                         | The shipped python.yml loads through `PythonConfig`, pinning pytest and ruff.                                                                          |
+| 16  | L0   | automation/Catzc.Base.Languages/tests/types/BashConfig.Tests.ps1             | integrity (shipped bash.yml)                           | The shipped bash.yml loads through `BashConfig`, pinning the vendored bats-core release and its archive digest.                                        |
 
 ## Checks
 

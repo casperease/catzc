@@ -62,7 +62,8 @@ Tooling hardcodes the conventional names as literal strings, not parameters or c
 `Join-Path $ModulePath $privateFolderName`. One exception: the root of every test language is a setting, by one convention. Its conventional
 names are the setting's sensible defaults — `<language>/` when the repository has that folder, else the dot-prefixed `.<language>/` —
 declared once on the language's config type, and one resolver returns the root, which every caller uses. The Go root (`go.yml`'s `root`,
-`GoConfig.ResolveRoot`) and the Python root (`python.yml`'s `root`, `PythonConfig.ResolveRoot`) follow it.
+`GoConfig.ResolveRoot`), the Python root (`python.yml`'s `root`, `PythonConfig.ResolveRoot`) and the Bash root (`bash.yml`'s `root`,
+`BashConfig.ResolveRoot`) follow it.
 
 - [Hardcoded paths](#hardcoded-paths)
 - [A test-language root as a setting](#a-test-language-root-as-a-setting)
@@ -288,12 +289,18 @@ test folder, and the one environment and lock uv makes from them — all gitigno
 layout under the dot-prefixed `.python/`, and `python.yml`'s `root` places the Python root elsewhere when declared, by the convention every
 test-language root follows ([rule 7](#rule-adr-repo-folders7)); the code that reads it is `PythonConfig.ResolveRoot`.
 
+**`bash/`** is the Bash root: the repository's Bash tests, which are black-box tests of the engine through `importer.sh` and `cats`, and
+never ship ([bash-test-artifacts](../automation/bash/bash-test-artifacts.md)). It holds `tests/<module>/`, one Bash test folder per catzc
+module, named for that module in kebab case, and the vendored bats-core runner under `.vendor/bats-core/`, committed. A repository with no
+`bash/` folder keeps the same layout under the dot-prefixed `.bash/`, and `bash.yml`'s `root` places the Bash root elsewhere when declared,
+by the convention every test-language root follows ([rule 7](#rule-adr-repo-folders7)); the code that reads it is `BashConfig.ResolveRoot`.
+
 **`out/`** is the single home for all generated and transient files, gitignored except `.gitkeep`. The _root_ is the contract
 (`Get-OutputRoot`); the subfolders inside are ad-hoc workspaces with no fixed names. Nothing under `out/` is source. See
 [dedicated-output-directory](dedicated-output-directory.md).
 
-**Dot-prefixed roots** (`.github/`, `.vscode/`, `.claude/`, `.cspell/`, `.go/`, `.git/`) are infrastructure/tooling — the same convention
-the dot-prefix carries inside `automation/` (Level 2): a leading dot means "infrastructure, not content."
+**Dot-prefixed roots** (`.github/`, `.vscode/`, `.claude/`, `.cspell/`, `.go/`, `.python/`, `.bash/`, `.git/`) are infrastructure/tooling —
+the same convention the dot-prefix carries inside `automation/` (Level 2): a leading dot means "infrastructure, not content."
 
 The repository _root_ is itself conventional beyond its folders: `importer.ps1` (the entry point), `.editorconfig`, `.gitattributes`,
 `.gitignore`, `.mcp.json`, `dotnet-tools.json`, `cspell.yml` (the repo-wide spell-check dictionary), and `LICENSE` each have a fixed,

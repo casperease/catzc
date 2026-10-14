@@ -28,12 +28,12 @@ How the repository runs and validates all its tests. This responsibility discove
 tier level (L0–L3) and optional category filter (`logic`/`integrity`), and writes a timestamped report — as a source run, as a build run
 against a fresh build of the selected modules, one test file at a time, or for a module profile copied into an isolated sandbox. Before any
 test executes, a discovery-only pass inspects the full test tree and throws if any test is missing or ambiguous on either of the two
-mandatory tag axes — exactly one tier (`L0|L1|L2|L3`) and exactly one category (`logic|integrity`). A module's Go and Python tests, in the
-Go test module and the Python test folder named for it, count as that module's tests: one shared Pester bridge, the language bridge, runs
-them and turns every test into one Pester test. The tag model, the two-axis tagging contract, the two run modes, and the tier definitions
-are the subject of [test-automation](../../adr/automation/test-automation.md); the Go and Python tests are the subject of
-[test-artifacts](../../adr/automation/go/test-artifacts.md) and
-[python-test-artifacts](../../adr/automation/python/python-test-artifacts.md).
+mandatory tag axes — exactly one tier (`L0|L1|L2|L3`) and exactly one category (`logic|integrity`). A module's Go, Python and Bash tests, in
+the Go test module and the Python and Bash test folders named for it, count as that module's tests: one shared Pester bridge, the language
+bridge, runs them and turns every test into one Pester test. The tag model, the two-axis tagging contract, the two run modes, and the tier
+definitions are the subject of [test-automation](../../adr/automation/test-automation.md); the Go, Python and Bash tests are the subject of
+[test-artifacts](../../adr/automation/go/test-artifacts.md), [python-test-artifacts](../../adr/automation/python/python-test-artifacts.md)
+and [bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md).
 
 ### responsibility:2 — Repository quality gates
 
@@ -53,9 +53,11 @@ its flagged tokens into a triage queue), the Markdown linter, the Markdown forma
 Markdown title and heading formatter and quality gate, the one formatting command (`Format-Code`, which runs the formatter engine
 `languages.yml` names for each file language — Prettier, the managed toolchain's `gofmt`, the pinned `ruff`, PSScriptAnalyzer — with one
 private adapter per engine; [configure-not-program](../../adr/principles/configure-not-program.md)), the C# type-namespace formatter, the
-Python lint gate (`Test-PythonLint`, `ruff check`) over every `.py` file the repository holds, and the link aligner and quality gate, which
-keep code links repository-rooted and markdown links relative and resolving ([markdown-links](../../adr/repository/markdown-links.md)). The
-responsibility owns the invocation of each tool, not the tool itself or its per-tool configuration.
+Python lint quality gate (`Test-PythonLint`, `ruff check`) over every `.py` file the repository holds, the shell-script gate
+(`Test-ShellScripts`: LF, the executable bit, and ShellCheck) over every shell script it tracks
+([bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md)), and the link aligner and quality gate, which keep code links
+repository-rooted and markdown links relative and resolving ([markdown-links](../../adr/repository/markdown-links.md)). The responsibility
+owns the invocation of each tool, not the tool itself or its per-tool configuration.
 
 ### responsibility:4 — Terminology and dictionaries
 
@@ -91,9 +93,10 @@ test folder to the catzc module it is named for (in kebab case), so module selec
 that module's `tests/` folder, and a test folder that names no catzc module stops the run. The bridge reads the tests from their source, so
 discovery needs no tool, and runs them once per module through [Catzc.Base.Languages](catzc-base-languages.md): every test becomes one `L2`
 Pester test with the category its name gives, and passes, fails with the tool output, or skips as the test did. The run's source session
-locates the tools once — the managed `go`, and `uv` with the pinned interpreter — and hands them to the bridge; without one, that language's
-tests skip with `tool_go_missing` or `tool_uv_missing`. In a build run the bridge hands the build's entry script on, so the tests start the
-built engine.
+locates the tools once — the managed `go`, `uv` with the pinned interpreter, and the bash engine — and hands them to the bridge; without
+one, that language's tests skip with `tool_go_missing`, `tool_uv_missing` or `tool_bash_missing`. The Go and Python tests run once per
+execution engine, pwsh and bash; the Bash tests run under bash only. In a build run the bridge hands the build's entry script on, so the
+tests start the built engine.
 
 Responsibility 3 is a set of thin wrappers, one per external tool, deliberately kept separate so each can be run in isolation;
 `Test-Formatting` (responsibility 2) runs every formatter in its report-only mode as one gate. A `Format-*` function is both a check and a
@@ -132,6 +135,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Test-MarkdownTitle`          |
 |                                                 | `Format-Types`                |
 |                                                 | `Test-PythonLint`             |
+|                                                 | `Test-ShellScripts`           |
 |                                                 | `Format-Links`                |
 |                                                 | `Test-Links`                  |
 | config                                          | `links.yml`                   |

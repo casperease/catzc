@@ -360,11 +360,13 @@ shared by every run on the machine, so the test passes or fails depending on wha
 
 ### Rule ADR-AUTO-TEST:40
 
-A Go test module ([test-artifacts](go/test-artifacts.md#rule-adr-auto-go2)) and a Python test folder
-([python-test-artifacts](python/python-test-artifacts.md#rule-adr-auto-py2)) are the second kind of test file, beside the Pester test file,
+A Go test module ([test-artifacts](go/test-artifacts.md#rule-adr-auto-go2)), a Python test folder
+([python-test-artifacts](python/python-test-artifacts.md#rule-adr-auto-py2)) and a Bash test folder
+([bash-test-artifacts](bash/bash-test-artifacts.md#rule-adr-auto-bash2)) are the second kind of test file, beside the Pester test file,
 under the same tiers, categories, and run model. Discovery maps each to its catzc module, so module selection, test suites, ordering,
-protection, both runs, and the report treat its tests as that module's; one shared Pester bridge, the language bridge, runs both, and every
-test they hold is one test with both mandatory tags — `L2`, and a category from its name (ADR-AUTO-GO#7, ADR-AUTO-PY#7).
+protection, both runs, and the report treat its tests as that module's; one shared Pester bridge, the language bridge, runs them all, and
+every test they hold is one test with both mandatory tags — `L2`, and a category from its name (ADR-AUTO-GO#7, ADR-AUTO-PY#7,
+ADR-AUTO-BASH#5).
 
 - [Go test modules](#go-test-modules)
 
@@ -727,8 +729,11 @@ use (ADR-AUTO-TEST#30).
 
 A Python test folder runs the same way through the same bridge ([python-test-artifacts](python/python-test-artifacts.md)): discovery maps
 `python/tests/<module>/` to its catzc module, each top-level `test*` function is one Pester test, `test_integrity*` is `integrity` and the
-rest `logic`, and without uv or the pinned interpreter the bridge skips with `tool_uv_missing`. The bridge is one mechanism with one entry
-per language, so a further test language adds an entry, not a second bridge.
+rest `logic`, and without uv or the pinned interpreter the bridge skips with `tool_uv_missing`. A Bash test folder does too
+([bash-test-artifacts](bash/bash-test-artifacts.md)): each `@test` is one Pester test, a name starting `integrity:` is `integrity`, the
+tests run on the vendored bats under the bash engine only, and without bash the bridge skips with `tool_bash_missing`. The Go and Python
+tests run once per execution engine, each title ending in `[pwsh]` or `[bash]` ([execution-engines](execution-engines.md)). The bridge is
+one mechanism with one entry per language, so a further test language adds an entry, not a second bridge.
 
 ### Build Verification Test
 

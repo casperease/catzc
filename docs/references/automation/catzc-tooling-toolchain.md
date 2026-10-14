@@ -27,6 +27,9 @@ newest stable patch of the locked version, verified against the SHA-256 the go.d
 (Windows `%LOCALAPPDATA%\go`, Unix `~/.go`), the same on every platform and with no administrator; `Invoke-Go` runs the executable the tool
 check located, so the asserted Go is the one that runs. Java and Terraform come from the platform's native package manager — winget (user
 scope) on Windows, Homebrew on macOS, apt on Linux (see [use-proper-package-managers](../../adr/automation/use-proper-package-managers.md)).
+ShellCheck, the shell-script analyzer, comes the same way, user scope on Windows. The bats-core test runner the Bash tests run on is not
+installed but vendored in the repository; this module rebuilds that copy from the release and archive digest `bash.yml` pins
+([bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md)).
 
 ### responsibility:2 — uv, the Python handler
 
@@ -61,24 +64,27 @@ locally and in CI, with no separate provisioning path (see [cross-platform](../.
 
 The module's public functions, sorted into the responsibilities above.
 
-| Responsibility                               | Function              |
-| -------------------------------------------- | --------------------- |
-| responsibility:1 — Build toolchain lifecycle | `Install-Dotnet`      |
-|                                              | `Invoke-Dotnet`       |
-|                                              | `Uninstall-Dotnet`    |
-|                                              | `Remove-Dotnet`       |
-|                                              | `Install-Java`        |
-|                                              | `Invoke-Java`         |
-|                                              | `Uninstall-Java`      |
-|                                              | `Remove-Java`         |
-|                                              | `Install-Go`          |
-|                                              | `Invoke-Go`           |
-|                                              | `Uninstall-Go`        |
-|                                              | `Install-Terraform`   |
-|                                              | `Invoke-Terraform`    |
-|                                              | `Uninstall-Terraform` |
-| responsibility:2 — uv, the Python handler    | `Install-Uv`          |
-|                                              | `Uninstall-Uv`        |
-| responsibility:3 — Azure CLI binary          | `Install-AzCli`       |
-|                                              | `Uninstall-AzCli`     |
-|                                              | `Remove-AzCli`        |
+| Responsibility                               | Function               |
+| -------------------------------------------- | ---------------------- |
+| responsibility:1 — Build toolchain lifecycle | `Install-Dotnet`       |
+|                                              | `Invoke-Dotnet`        |
+|                                              | `Uninstall-Dotnet`     |
+|                                              | `Remove-Dotnet`        |
+|                                              | `Install-Java`         |
+|                                              | `Invoke-Java`          |
+|                                              | `Uninstall-Java`       |
+|                                              | `Remove-Java`          |
+|                                              | `Install-Go`           |
+|                                              | `Invoke-Go`            |
+|                                              | `Uninstall-Go`         |
+|                                              | `Install-Terraform`    |
+|                                              | `Invoke-Terraform`     |
+|                                              | `Uninstall-Terraform`  |
+|                                              | `Install-Shellcheck`   |
+|                                              | `Uninstall-Shellcheck` |
+|                                              | `Update-BatsVendor`    |
+| responsibility:2 — uv, the Python handler    | `Install-Uv`           |
+|                                              | `Uninstall-Uv`         |
+| responsibility:3 — Azure CLI binary          | `Install-AzCli`        |
+|                                              | `Uninstall-AzCli`      |
+|                                              | `Remove-AzCli`         |

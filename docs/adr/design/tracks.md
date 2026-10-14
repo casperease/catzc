@@ -7,9 +7,9 @@
 ### Rule ADR-DSGN-TRACK:1
 
 A **track** is a named repository root concern, mapped onto exactly one root folder and named by that folder: `automation`,
-`infrastructure`, `pipelines`, `docs`, `contracts`, `go`, `python`, `.github`, `.cspell`, and `.claude`. Every root folder git tracks a file
-under names a track (`ADR-REPO-FOLDERS`), except `out/`, which holds gitignored output (`ADR-REPO-OUTDIR`); a track never spans two roots,
-and a root never carries two tracks. Tracks are what this mono repository is composed of.
+`infrastructure`, `pipelines`, `docs`, `contracts`, `go`, `python`, `bash`, `.github`, `.cspell`, and `.claude`. Every root folder git
+tracks a file under names a track (`ADR-REPO-FOLDERS`), except `out/`, which holds gitignored output (`ADR-REPO-OUTDIR`); a track never
+spans two roots, and a root never carries two tracks. Tracks are what this mono repository is composed of.
 
 - [What a track is](#what-a-track-is)
 
@@ -24,8 +24,9 @@ from outside, ships nothing, and is out of every bundle by construction, because
 modules. `go`, the Go black-box tests ([test-artifacts](../automation/go/test-artifacts.md)), is the first; a repository without a `go/`
 root keeps the same tests in the dot-prefixed `.go`, which is of the same class. `python`, the Python black-box tests
 ([python-test-artifacts](../automation/python/python-test-artifacts.md)), is the second, by the same convention: `.python` when the
-repository has no `python/` root. Cross-cutting slices (e.g. the cats configs — every yml/config file across automation) are **scopes over
-tracks**, not tracks: they select through the roots rather than owning one.
+repository has no `python/` root. `bash`, the Bash black-box tests ([bash-test-artifacts](../automation/bash/bash-test-artifacts.md)), is
+the third: `.bash` when the repository has no `bash/` root. Cross-cutting slices (e.g. the cats configs — every yml/config file across
+automation) are **scopes over tracks**, not tracks: they select through the roots rather than owning one.
 
 - [The taxonomy](#the-taxonomy)
 

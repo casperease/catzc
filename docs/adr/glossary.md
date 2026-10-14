@@ -210,6 +210,15 @@ Every test in the repository — every test file of every module, at every tier 
 | `pester test suite` | all tests   |
 | `full suite`        | all tests   |
 
+### bash test folder
+
+The folder `<root>/tests/<module>/` under the Bash root — one per catzc module, named for it in kebab case, holding its black-box `.bats`
+tests, which call catzc through `importer.sh` and `cats`.
+
+- **Defined by:** [ADR-AUTO-BASH#2](automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Languages/configs/glossary.yml`
+
 ### build verification test
 
 The BVT — the verification that precedes every promotion and every creation of release artifacts, and that the commit gate runs.
