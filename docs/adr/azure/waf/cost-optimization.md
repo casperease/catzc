@@ -122,6 +122,8 @@ do; they record what the repository does about each of Microsoft's fourteen cost
 code, title, link, retrieval date — and summarises it in our own words, because the current WAF text is published under the Microsoft Learn
 Terms of Use, which grant no licence to copy it into a shared repository. Nothing is quoted.
 
+The [WAF reference](../../../references/waf/index.md) lists the five pillar records in this repository and the Microsoft checklist each one cites.
+
 The example basis is the repository's three templates: `foundation` (a Log Analytics workspace and a Key Vault per subscription),
 `discovery` (the landing zone, [ADR-AZ-LZ#1](../landing-zones.md#rule-adr-az-lz1)), and `expedition` (a workload that lands in it,
 [ADR-AZ-LZ#4](../landing-zones.md#rule-adr-az-lz4)). Every takeaway below points at what those three do, or say plainly what they do not.

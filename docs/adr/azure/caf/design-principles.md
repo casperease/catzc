@@ -65,6 +65,8 @@ published under the [Microsoft Learn Terms of Use](https://learn.microsoft.com/e
 example basis of every takeaway is the three templates `foundation`, `discovery` (the landing zone), and `expedition` (the workload),
 deployed in that order ([landing-zones](../landing-zones.md)).
 
+The [CAF reference](../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.
+
 ### 1 — Subscription democratization
 
 ```text

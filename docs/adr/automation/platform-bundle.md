@@ -194,6 +194,11 @@ against `build.json`, confirms no test file leaked in, confirms exactly one type
 type sources hash to it, confirms every module's manifest and merged file, and confirms every manifest export resolves to a function in its
 merged file — throwing with the full list of what is wrong. A build verifies itself with it, and an install verifies its source with it.
 
+A bundle is an engine carried to other environments, so its size is checked, not hoped for. A bundle may state footprint limits, `max_files`
+and `max_bytes`, in its `exporter.yml` entry; `Build-Modules` measures every build and fails one that holds more, naming the heaviest
+top-level folders so the message says where the weight is. A limit a bundle does not state is not checked, and raising one is a reviewed
+edit.
+
 ### The two-part install
 
 An install answers two questions that are usually one: **where do I run**, and **where does the code live**. So `Export-Catzc -Root <dir>`

@@ -46,6 +46,17 @@ Describe 'ExporterConfig' -Tag 'L0', 'logic' {
         $config.bundles['gadgets'].vendor_policy | Should -Be 'full'
     }
 
+    It 'maps footprint limits, absent meaning no limit' {
+        $raw = & $script:newValidConfig
+        $raw.bundles.gadgets['max_files'] = 120
+        $raw.bundles.gadgets['max_bytes'] = 4000000
+        $config = & $script:make $raw
+        $config.bundles['gadgets'].max_files | Should -Be 120
+        $config.bundles['gadgets'].max_bytes | Should -Be 4000000
+        $config.bundles['widgets'].max_files | Should -BeNullOrEmpty
+        $config.bundles['widgets'].max_bytes | Should -BeNullOrEmpty
+    }
+
     It 'rejects <Case>' -ForEach @(
         @{ Case = 'a non-GUID module_guid'; Key = 'module_guid'; Value = 'not-a-guid'; Expected = '*invalid module_guid*' }
         @{ Case = 'a non-numeric direct_install_version'; Key = 'direct_install_version'; Value = '6.6'; Expected = '*invalid direct_install_version*' }
@@ -63,6 +74,8 @@ Describe 'ExporterConfig' -Tag 'L0', 'logic' {
         @{ Case = 'an invalid vendor_policy'; Key = 'vendor_policy'; Value = 'everything'; Expected = '*bundles.widgets: invalid vendor_policy*' }
         @{ Case = 'a non-token profile'; Key = 'profile'; Value = 'Widget Set'; Expected = '*bundles.widgets: invalid profile*' }
         @{ Case = 'an unknown key'; Key = 'carries_widgets'; Value = $true; Expected = "*bundles.widgets: unknown key 'carries_widgets'*" }
+        @{ Case = 'a zero max_files'; Key = 'max_files'; Value = 0; Expected = "*bundles.widgets: invalid max_files '0'*" }
+        @{ Case = 'a non-numeric max_bytes'; Key = 'max_bytes'; Value = '5MB'; Expected = "*bundles.widgets: invalid max_bytes '5MB'*" }
     ) {
         $config = & $script:newValidConfig
         $config.bundles.widgets[$Key] = $Value

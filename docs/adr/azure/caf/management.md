@@ -188,6 +188,8 @@ into a shared repository. Nothing is quoted. Much of this area is decided by the
 [ADR-AZ-WAFOE#8](../waf/operational-excellence.md#rule-adr-az-wafoe8), [ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10)); the
 rules here cite those and do not repeat their analysis.
 
+The [CAF reference](../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.
+
 The baseline monitoring page of the area carries no recommendations, so it is no rule here. It informs the planned alerting all the same. It
 suggests deploying Microsoft's baseline alerts through a deploy-if-not-exists policy, at least one action group per subscription, and
 Service Health alerts wired straight to an action group. This repository deploys monitoring in the template, never through a

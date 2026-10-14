@@ -237,20 +237,39 @@ and publishes the bundle the automation domain defines; `pipelines/` is its Azur
 
 The Azure substrate model catzc deploys onto: the identity data model (`azure.yml` tenants, environments, and subscriptions), the
 per-template configuration tree under `infrastructure/templates/`, the customer catalogue (`customer.yml`), the network IP plan
-(`network.yml`), and the deterministic resource-naming standard. It applies the principles and design domains to one vendor, enforced by the
-`Catzc.Azure*` modules.
+(`network.yml`), the deterministic resource-naming standard, and the landing zones. It applies the principles and design domains to one
+vendor, enforced by the `Catzc.Azure*` modules. Beside its own decisions it holds the vendor's recommendations as records: the
+Well-Architected Framework pillars in `waf/` and the Cloud Adoption Framework landing-zone design areas in `caf/`, one rule per vendor item,
+each citing Microsoft's page and saying what the repository does about it.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `design`, `automation`.
 
-| Code              | ADR                                                         |
-| ----------------- | ----------------------------------------------------------- |
-| `ADR-AZ-DATAMOD`  | [azure-data-model](azure/azure-data-model.md)               |
-| `ADR-AZ-NETWORK`  | [azure-network-model](azure/azure-network-model.md)         |
-| `ADR-AZ-NAMING`   | [azure-naming-standard](azure/azure-naming-standard.md)     |
-| `ADR-AZ-CLI`      | [prefer-az-cli](azure/prefer-az-cli.md)                     |
-| `ADR-AZ-SESSION`  | [az-session-verification](azure/az-session-verification.md) |
-| `ADR-AZ-CUSTOMER` | [azure-customer-model](azure/azure-customer-model.md)       |
-| `ADR-AZ-LZ`       | [landing-zones](azure/landing-zones.md)                     |
+| Code               | ADR                                                                           |
+| ------------------ | ----------------------------------------------------------------------------- |
+| `ADR-AZ-DATAMOD`   | [azure-data-model](azure/azure-data-model.md)                                 |
+| `ADR-AZ-NETWORK`   | [azure-network-model](azure/azure-network-model.md)                           |
+| `ADR-AZ-NAMING`    | [azure-naming-standard](azure/azure-naming-standard.md)                       |
+| `ADR-AZ-CLI`       | [prefer-az-cli](azure/prefer-az-cli.md)                                       |
+| `ADR-AZ-SESSION`   | [az-session-verification](azure/az-session-verification.md)                   |
+| `ADR-AZ-CUSTOMER`  | [azure-customer-model](azure/azure-customer-model.md)                         |
+| `ADR-AZ-LZ`        | [landing-zones](azure/landing-zones.md)                                       |
+| `ADR-AZ-WAFRE`     | [reliability](azure/waf/reliability.md)                                       |
+| `ADR-AZ-WAFSE`     | [security](azure/waf/security.md)                                             |
+| `ADR-AZ-WAFCO`     | [cost-optimization](azure/waf/cost-optimization.md)                           |
+| `ADR-AZ-WAFOE`     | [operational-excellence](azure/waf/operational-excellence.md)                 |
+| `ADR-AZ-WAFPE`     | [performance-efficiency](azure/waf/performance-efficiency.md)                 |
+| `ADR-AZ-CAFPRIN`   | [design-principles](azure/caf/design-principles.md)                           |
+| `ADR-AZ-CAFBILL`   | [billing-and-tenant](azure/caf/billing-and-tenant.md)                         |
+| `ADR-AZ-CAFIAM`    | [identity-and-access](azure/caf/identity-and-access.md)                       |
+| `ADR-AZ-CAFRESORG` | [resource-organization](azure/caf/resource-organization.md)                   |
+| `ADR-AZ-CAFNETTOP` | [network-topology](azure/caf/network-topology.md)                             |
+| `ADR-AZ-CAFNETCON` | [network-connectivity](azure/caf/network-connectivity.md)                     |
+| `ADR-AZ-CAFNETPRV` | [network-private-access](azure/caf/network-private-access.md)                 |
+| `ADR-AZ-CAFSEC`    | [landing-zone-security](azure/caf/landing-zone-security.md)                   |
+| `ADR-AZ-CAFMGMT`   | [management](azure/caf/management.md)                                         |
+| `ADR-AZ-CAFGOV`    | [governance](azure/caf/governance.md)                                         |
+| `ADR-AZ-CAFNAME`   | [naming-and-tagging](azure/caf/naming-and-tagging.md)                         |
+| `ADR-AZ-CAFDEVOPS` | [platform-automation-and-devops](azure/caf/platform-automation-and-devops.md) |
 
 ### repository/
 

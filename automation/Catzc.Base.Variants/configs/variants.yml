@@ -60,4 +60,4 @@ tracks:
   bash: { root: bash, class: verification, languages: [bash] }
   .github: { root: .github, class: external-port, languages: [yaml, markdown] }
   .cspell: { root: .cspell, class: external-port }
-  .claude: { root: .claude, class: external-port, languages: [markdown, python, csharp, json, xml, html] }
+  .claude: { root: .claude, class: external-port, languages: [markdown, python, csharp, json, xml, html, powershell] }

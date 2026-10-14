@@ -414,6 +414,8 @@ multitenant landing zones (58–61). Each rule cites Microsoft's page — area, 
 own words, because the live CAF text is published under the Microsoft Learn Terms of Use, which grant no licence to copy it into a shared
 repository. Nothing is quoted.
 
+The [CAF reference](../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.
+
 Most of the area sits above this repository. It deploys into subscriptions it is given and owns nothing at management-group or tenant level
 ([ADR-AZ-LZ#1](../landing-zones.md#rule-adr-az-lz1)): it holds no billing role, chooses no offer, and administers no Entra user, role, or
 sign-in policy. Those recommendations take the compact form below: why the item does not apply here, and what would make it apply. What the

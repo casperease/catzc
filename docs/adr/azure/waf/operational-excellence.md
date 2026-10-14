@@ -104,6 +104,8 @@ summarises the recommendation in our own words. Nothing is quoted: the current W
 shared repository. The checklist itself is at
 [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/checklist).
 
+The [WAF reference](../../../references/waf/index.md) lists the five pillar records in this repository and the Microsoft checklist each one cites.
+
 The example basis is the three templates that tell the repository's infrastructure story: `foundation` (the Log Analytics workspace and the
 Key Vault of a subscription), `discovery` (the landing zone of a subscription), and `expedition` (a workload that lands in it), each
 deployed after the one before ([landing-zones](../landing-zones.md)). Most of this pillar maps to the repository's delivery machinery — the

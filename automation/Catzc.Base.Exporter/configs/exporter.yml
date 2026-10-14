@@ -18,17 +18,27 @@ direct_install_version: 6.6.666
 #                    count of the built commit, so the same commit always gets the same version
 #   vendor_policy  — runtime (the default) ships only the runtime-required vendored module (powershell-yaml); full
 #                    also ships Pester/PSScriptAnalyzer for a bundle that runs tests
+#   max_files,     — optional footprint limits: Build-Modules fails a build that holds more files or bytes. A bundle
+#   max_bytes        is an engine carried to other environments, so its size is checked, not hoped for. The limits
+#                    below leave about 20% headroom over the builds of 2026-10-15 (full 393 files / 5.6 MB, azure 380
+#                    / 5.5 MB, minimal 239 / 2.4 MB); raise one in a reviewed edit when a bundle legitimately grows.
 # A build lands in out/automation/built/<bundle>/Catzc/<version>/. default_bundle is built when none is named.
 bundles:
   full:
     profile: full
     version: "0.1"
+    max_files: 480
+    max_bytes: 6800000
   azure:
     profile: azure
     version: "0.1"
+    max_files: 460
+    max_bytes: 6700000
   minimal:
     profile: minimal
     version: "0.1"
+    max_files: 290
+    max_bytes: 2950000
 default_bundle: full
 
 # Package identity and metadata — Build-Modules hands these to the build engine, which writes them into the

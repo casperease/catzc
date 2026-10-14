@@ -5,7 +5,9 @@
     The public entry to the build ([ADR-AUTO-BUNDLE#1](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle1)).
     It settles the build's inputs from configs/exporter.yml
     (Get-Config -Config exporter), hands them to the engine (Invoke-ModuleBuild in Catzc.Internal.Builder), and
-    verifies what the engine wrote with Assert-CatzcBundle. A build is a build of one named bundle — exporter.yml
+    verifies what the engine wrote: against the bundle's footprint limits (max_files, max_bytes, when it states them;
+    a build that overrides the selection or vendor policy is an experiment, not the bundle, and is not measured),
+    then with Assert-CatzcBundle. A build is a build of one named bundle — exporter.yml
     bundles.<name>, a release identity with its own profile, version line and vendor policy:
 
       bundle        -Bundle, else exporter.yml default_bundle
@@ -121,6 +123,14 @@ function Build-Modules {
     $result = & $engine @engineArguments
 
     if (-not $DryRun) {
+        # The footprint limits describe the bundle as declared. A build whose selection or vendor policy is overridden
+        # (an experiment, or a test build that adds the test toolset) is not that bundle, so it is not measured
+        # against them.
+        $isDeclaredBundle = -not ($PSBoundParameters.ContainsKey('Module') -or $PSBoundParameters.ContainsKey('ModuleProfile') -or
+            $PSBoundParameters.ContainsKey('VendorPolicy'))
+        if ($isDeclaredBundle) {
+            Assert-BundleFootprint -Path $result.BuildRoot -Bundle $config.bundles[$Bundle] | Out-Null
+        }
         Assert-CatzcBundle -Path $result.BuildRoot
     }
 

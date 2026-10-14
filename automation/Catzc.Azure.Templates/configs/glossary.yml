@@ -36,3 +36,65 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       hub: A hub is a shared subscription's landing zone, listing its spokes; a spoke is a customer subscription's, peered to its hub.
+  Cloud Adoption Framework:
+    key: cloud_adoption_framework
+    domain: azure
+    defined_by: ADR-AZ-LZ#1
+    short:
+      Microsoft's guidance for preparing an Azure estate; its landing-zone design principles and design areas are recorded as vendor
+      recommendation in docs/adr/azure/caf/, one rule per recommendation.
+    realized_by: { kind: prose-only }
+    contrasts:
+      Well-Architected Framework: The Cloud Adoption Framework shapes the landing zone; the Well-Architected Framework shapes the workload in it.
+  management group:
+    key: management_group
+    domain: azure
+    defined_by: ADR-AZ-LZ#1
+    short: An Azure container above subscriptions for policy and access; this repository deploys no management group and nothing at that level.
+    realized_by: { kind: prose-only }
+  Well-Architected Framework:
+    key: well_architected_framework
+    domain: azure
+    defined_by: ADR-AZ-LZ#5
+    short:
+      Microsoft's checklist of a workload's quality in five pillars; each checklist item is a rule in docs/adr/azure/waf/, numbered as Microsoft
+      numbers it.
+    realized_by: { kind: prose-only }
+    contrasts:
+      Cloud Adoption Framework: The Well-Architected Framework shapes the workload; the Cloud Adoption Framework shapes the landing zone it lands in.
+  pillar:
+    key: pillar
+    domain: azure
+    defined_by: ADR-AZ-LZ#5
+    short:
+      One of the Well-Architected Framework's five qualities — reliability, security, cost optimization, operational excellence, performance
+      efficiency — each one ADR in docs/adr/azure/waf/.
+    realized_by: { kind: prose-only }
+  break-glass login:
+    key: break_glass_login
+    domain: azure
+    defined_by: ADR-AZ-LZ#6
+    short: The one SQL login beside a server's Entra ID admin group, its password a Key Vault reference to foundation's vault.
+    realized_by: { kind: prose-only }
+  CAF tags:
+    key: caf_tags
+    domain: azure
+    defined_by: ADR-AZ-CAFNAME#11
+    short:
+      The six tag keys every resource carries — workload, environment, owner, cost-center, criticality, data-classification; cost-center is
+      required by policy.
+    realized_by: { kind: prose-only }
+  subscription vending:
+    key: subscription_vending
+    domain: azure
+    defined_by: ADR-AZ-CAFRESORG#19
+    short:
+      Onboarding a subscription by pull request — its azure.yml entry, its range in network.yml, and one config per template; the
+      subscription itself is created outside the repository.
+    realized_by: { kind: prose-only }
+  environment class:
+    key: environment_class
+    domain: azure
+    defined_by: ADR-AZ-DATAMOD#11
+    short: Production or non-production — the split that policy enforcement, database SKUs, backups, and budgets are set by.
+    realized_by: { kind: prose-only }

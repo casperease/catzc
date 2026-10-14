@@ -129,7 +129,7 @@ not in four dedicated platform subscriptions.
 
 ### Rule ADR-AZ-CAFRESORG:19
 
-Partly adopted: a subscription is onboarded by pull request — an `azure.yml` entry, its range in `network.yml` (the IP address plan), and
+Partly adopted: **subscription vending** is a pull request — an `azure.yml` entry, its range in `network.yml` (the IP address plan), and
 one config per template that gives it its workspace, vault, landing zone, tags, and budget; creating the subscription itself is not adopted,
 because the repository deploys only into subscriptions it is given.
 
@@ -255,6 +255,8 @@ below cites Microsoft's page — its title, section, link, and retrieval date �
 the live CAF text is published under the [Microsoft Learn Terms of Use](https://learn.microsoft.com/en-us/legal/termsofuse), not under a
 reuse licence. The example basis of every takeaway is the three templates `foundation`, `discovery` (the landing zone), and `expedition`
 (the workload), deployed in that order ([landing-zones](../landing-zones.md)).
+
+The [CAF reference](../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.
 
 One decision shapes most of this record. The repository has no management groups: its landing zone is deployed at subscription scope and
 deploys nothing at management-group or tenant level, because a repository that deploys into subscriptions it is given cannot assume it owns

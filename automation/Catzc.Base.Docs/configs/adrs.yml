@@ -256,8 +256,10 @@ domains:
     description: >-
       The Azure substrate model catzc deploys onto: the identity data model (`azure.yml` tenants, environments, and subscriptions), the
       per-template configuration tree under `infrastructure/templates/`, the customer catalogue (`customer.yml`), the network IP plan
-      (`network.yml`), and the deterministic resource-naming standard. It applies the principles and design domains to one vendor, enforced
-      by the `Catzc.Azure*` modules.
+      (`network.yml`), the deterministic resource-naming standard, and the landing zones. It applies the principles and design domains to
+      one vendor, enforced by the `Catzc.Azure*` modules. Beside its own decisions it holds the vendor's recommendations as records: the
+      Well-Architected Framework pillars in `waf/` and the Cloud Adoption Framework landing-zone design areas in `caf/`, one rule per
+      vendor item, each citing Microsoft's page and saying what the repository does about it.
     depends_on: [research, principles, design, automation]
     stack: CLOUD
     concern: [deploy] # the substrate catzc deploys onto
@@ -269,6 +271,25 @@ domains:
       az-session-verification: { external: ADR-AZ-SESSION, terminology: sesverify, concern: [access] }
       azure-customer-model: { external: ADR-AZ-CUSTOMER }
       landing-zones: { external: ADR-AZ-LZ }
+      # Vendor recommendation, one rule per vendor item: the Well-Architected Framework pillars (azure/waf/) and the Cloud Adoption
+      # Framework landing-zone design areas (azure/caf/), each citing Microsoft's page and summarising it in our words.
+      reliability: { external: ADR-AZ-WAFRE, terminology: wafre }
+      security: { external: ADR-AZ-WAFSE, terminology: wafse }
+      cost-optimization: { external: ADR-AZ-WAFCO, terminology: wafco }
+      operational-excellence: { external: ADR-AZ-WAFOE, terminology: wafoe }
+      performance-efficiency: { external: ADR-AZ-WAFPE, terminology: wafpe }
+      design-principles: { external: ADR-AZ-CAFPRIN, terminology: cafprin }
+      billing-and-tenant: { external: ADR-AZ-CAFBILL, terminology: cafbill }
+      identity-and-access: { external: ADR-AZ-CAFIAM, terminology: cafiam }
+      resource-organization: { external: ADR-AZ-CAFRESORG, terminology: cafresorg }
+      network-topology: { external: ADR-AZ-CAFNETTOP, terminology: cafnettop }
+      network-connectivity: { external: ADR-AZ-CAFNETCON, terminology: cafnetcon }
+      network-private-access: { external: ADR-AZ-CAFNETPRV, terminology: cafnetprv }
+      landing-zone-security: { external: ADR-AZ-CAFSEC, terminology: cafsec }
+      management: { external: ADR-AZ-CAFMGMT, terminology: cafmgmt }
+      governance: { external: ADR-AZ-CAFGOV, terminology: cafgov }
+      naming-and-tagging: { external: ADR-AZ-CAFNAME, terminology: cafname }
+      platform-automation-and-devops: { external: ADR-AZ-CAFDEVOPS, terminology: cafdevops }
 
   repository:
     code: REPO

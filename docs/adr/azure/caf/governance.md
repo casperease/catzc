@@ -102,6 +102,8 @@ them (eight under deployment acceleration, two under cost management). Each rule
 retrieval date — and summarises it in our own words, because the live CAF text is published under the Microsoft Learn Terms of Use, which
 grant no licence to copy it into a shared repository. Nothing is quoted.
 
+The [CAF reference](../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.
+
 Three further pages of the governance area — on keeping a landing zone up to date, migrating its policies, and updating custom policies —
 carry procedures rather than recommendations, so they are not rules here. They inform how this repository keeps its policies current: it
 assigns built-in definitions only, pins each by its id, and changes one in a single reviewed change (see [6](#6--prefer-built-in-policies)).

@@ -3,7 +3,7 @@
 `ADR: CAF network private access — what the repository does about each recommendation on PaaS connectivity and DNS`
 
 Pairs with [`landing-zones`](../landing-zones.md) (the hub that holds the private DNS zones and the workload that registers in them),
-[`azure-network-model`](../azure-network-model.md) (the address plan), and [`caf-security`](security.md) (the vault's private access).
+[`azure-network-model`](../azure-network-model.md) (the address plan), and [`caf-security`](landing-zone-security.md) (the vault's private access).
 
 ## Rules: ADR-AZ-CAFNETPRV
 
@@ -110,6 +110,8 @@ repository does about each item. CAF items carry no codes, so each rule's number
 Microsoft's page — the page title, the section, the link, and the retrieval date — and summarises the item in our words. The live CAF text
 falls under the Microsoft Learn Terms of Use, which grant no right to copy it into a shared repository, so nothing here is quoted.
 
+The [CAF reference](../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.
+
 Two further CAF pages bear on this record without recommendations of their own: "Private Link and DNS integration at scale" and "Limit
 cross-tenant private endpoint connections". They are read as context in the takeaways of rules 2 and 13. The examples are the three
 templates the [landing-zones](../landing-zones.md) record describes: `foundation` (the Log Analytics workspace and the Key Vault of each
@@ -161,7 +163,7 @@ a template change that review sees. No policy denies it in Azure.
 ##### 2 in `foundation`
 
 The Key Vault and the Log Analytics workspace accept public network traffic. The vault's private endpoint (group id `vault`) and public
-access off are planned by [ADR-AZ-CAFSEC#21](security.md#rule-adr-az-cafsec21) and ADR-AZ-WAFSE#6; that makes `foundation` depend on a
+access off are planned by [ADR-AZ-CAFSEC#21](landing-zone-security.md#rule-adr-az-cafsec21) and ADR-AZ-WAFSE#6; that makes `foundation` depend on a
 subnet of `discovery` and on a zone in the hub.
 
 ##### 2 in `discovery`

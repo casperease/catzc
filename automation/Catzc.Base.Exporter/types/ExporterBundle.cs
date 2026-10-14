@@ -10,6 +10,10 @@
 //   version        required; numeric MAJOR.MINOR of a pipeline build of this bundle (PATCH is calculated)
 //   vendor_policy  'runtime' (the default) ships only the runtime-required vendored module; 'full' also ships the
 //                  test toolset
+//   max_files      optional; the most files a build of this bundle may hold (a positive integer). Absent: no limit
+//   max_bytes      optional; the most bytes a build of this bundle may hold (a positive integer). Absent: no limit
+// A footprint limit is opt-in, like any check that is off until a bundle states its number: a bundle that ships to
+// a constrained target states one, and Build-Modules fails a build that outgrows it.
 
 using System;
 using System.Collections;
@@ -20,7 +24,7 @@ namespace Catzc.Base.Exporter;
 
 public sealed class ExporterBundle : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "profile", "version", "vendor_policy" };
+    private static readonly string[] AllowedKeys = { "profile", "version", "vendor_policy", "max_files", "max_bytes" };
 
     // The bundle's name — its key under bundles:, and the folder its builds land in.
     public string name { get; }
@@ -33,6 +37,12 @@ public sealed class ExporterBundle : Catzc.Base.Objects.DictionaryRecord
 
     // 'runtime' or 'full'; 'runtime' when the bundle does not say.
     public string vendor_policy { get; }
+
+    // The most files a build may hold; null when the bundle states no limit.
+    public long? max_files { get; }
+
+    // The most bytes a build may hold; null when the bundle states no limit.
+    public long? max_bytes { get; }
 
     public ExporterBundle(string bundleName, IDictionary d)
     {
@@ -52,8 +62,24 @@ public sealed class ExporterBundle : Catzc.Base.Objects.DictionaryRecord
         profile = Matching(d, "profile", "^[a-z][a-z0-9]*(-[a-z0-9]+)*$", "a lowercase profile token", label, errors, true);
         version = Matching(d, "version", "^[0-9]+\\.[0-9]+$", "numeric MAJOR.MINOR, quoted; PATCH is calculated by the pipeline", label, errors, true);
         vendor_policy = Matching(d, "vendor_policy", "^(runtime|full)$", "valid: runtime, full", label, errors, false) ?? "runtime";
+        max_files = Limit(d, "max_files", label, errors);
+        max_bytes = Limit(d, "max_bytes", label, errors);
 
         if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }
+    }
+
+    // An optional positive whole-number limit; null when absent or invalid (an invalid one is an error).
+    private static long? Limit(IDictionary d, string key, string label, List<string> errors)
+    {
+        string value = OptStr(d, key);
+        if (value == null) { return null; }
+        long parsed;
+        if (!long.TryParse(value, System.Globalization.NumberStyles.None, System.Globalization.CultureInfo.InvariantCulture, out parsed) || parsed <= 0)
+        {
+            errors.Add(string.Format("{0}: invalid {1} '{2}' (a positive whole number)", label, key, value));
+            return null;
+        }
+        return parsed;
     }
 
     // The key's text when it matches the pattern; null when it is missing (an error only when required) or invalid.

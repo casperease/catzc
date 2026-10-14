@@ -83,7 +83,7 @@ instance counter; subnets keep the names of the network plan instead of an `snet
 
 ### Rule ADR-AZ-CAFNAME:11
 
-Partly adopted: the CAF tag set is fixed, `cost-center` is the one mandatory key, and the others are set by convention in every config; a
+Partly adopted: the **CAF tags** are a fixed set of six keys, `cost-center` is the one mandatory key, and the others are set by convention in every config; a
 tag schema declared once and checked against every config is planned.
 
 - [11 — Define the tagging requirements](#11--define-the-tagging-requirements)
@@ -182,6 +182,8 @@ naming and tagging items, numbered in page order: 1 to 10 from the naming page (
 tagging page. CAF items carry no codes of their own, so each rule cites Microsoft's page and section — title, link, retrieval date — and
 summarises the item in our own words, because the CAF text is published under the Microsoft Learn Terms of Use, which grant no licence to
 copy it into a shared repository. Nothing is quoted.
+
+The [CAF reference](../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.
 
 The example basis is the repository's three templates: `foundation` (a Log Analytics workspace and a Key Vault per subscription),
 `discovery` (the landing zone, [ADR-AZ-LZ#1](../landing-zones.md#rule-adr-az-lz1)), and `expedition` (a workload that lands in it,

@@ -359,15 +359,57 @@ def write(ctx, md_path, slide, view, highlight, extras):
     md_path.write_text("\n".join(out) + "\n", encoding="utf-8", newline="\n")
 
 
+def file_facts(reasons):
+    """The reasons of one lit file as plain data: the selecting code, the basis, the citing lines, mention or not."""
+    return [
+        {
+            "requested": r["requested"],
+            "basis": r["basis"],
+            "domain": r["domain"],
+            "note": r["note"],
+            "mention": r["mention"],
+            "sites": [f"{s['path']}:{s['line']} ({KIND_WORDS[s['kind']]})" for s in r["sites"]],
+        }
+        for r in reasons
+    ]
+
+
 def facts(ctx, slide, world_lit, chain_lit, groups):
-    """A slide's sidebar facts: the lit cells and groups of its three minimaps, and their file names."""
+    """A slide's sidebar facts: the lit cells and groups of its three minimaps with every reason, and the file names."""
     stem = slide["stem"]
+    check_world(stem, world_lit)
+    check_chain(stem, chain_lit)
+    cell_of = {}
+    for c in world_lit["cells"]:
+        for path, reasons in reasons_by_file(c).items():
+            if path:
+                cell_of[path] = (ctx.cell_name(c["track"], c["file_language"]), reasons)
     return {
         "files": {view: {"png": f"{stem}.{view}.png", "md": f"{stem}.{view}.md"} for view in VIEWS},
+        "adrs": world_lit["requested"],
         "grid": [
-            {"cell": ctx.cell_name(c["track"], c["file_language"]), "lit_files": c["file_count"], "touched": c["touched"]}
+            {
+                "cell": ctx.cell_name(c["track"], c["file_language"]),
+                "lit_files": c["file_count"],
+                "touched": c["touched"],
+                "placed": {"track": c["track"], "file_language": c["file_language"],
+                           "extensions": sorted({os.path.splitext(f)[1].lower() for f in c["files"]})},
+                "files": [{"path": p, "reasons": file_facts(rs)} for p, rs in reasons_by_file(c).items()],
+            }
             for c in world_lit["cells"]
         ],
-        "tree": [{"group": g["label"], "folder": g["folder"], "lit_files": len(g["files"])} for g in groups],
-        "chain": [{"cell": f"{c['stack']} × {c['concern']}", "adrs": c["adrs"]} for c in chain_lit["cells"]],
+        "tree": [
+            {"group": g["label"], "folder": g["folder"], "files": [{"path": p, "cell": cell_of[p][0]} for p in g["files"]]}
+            for g in groups
+        ],
+        "chain": [
+            {
+                "cell": f"{c['stack']} × {c['concern']}",
+                "adrs": [
+                    {k: r[k] for k in ("adr", "requested", "domain", "stack", "concerns", "domain_concerns", "override")}
+                    for r in c["reasons"]
+                ],
+            }
+            for c in chain_lit["cells"]
+        ],
     }

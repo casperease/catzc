@@ -44,7 +44,33 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
             }
         } -ModuleName Catzc.Base.Exporter
         Mock Assert-CatzcBundle { } -ModuleName Catzc.Base.Exporter
+        Mock Assert-BundleFootprint { [pscustomobject]@{ Files = 12; Bytes = 1000 } } -ModuleName Catzc.Base.Exporter
         Mock Write-Message { } -ModuleName Catzc.Base.Exporter
+    }
+
+    It 'checks the build against its bundle''s footprint limits, and skips that on a dry run' {
+        Build-Modules -Bundle gadgets | Out-Null
+        Should -Invoke Assert-BundleFootprint -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
+            $Bundle.name -eq 'gadgets' -and $Path -eq "$(Join-Path (Join-Path $TestDrive 'out') 'automation/built/gadgets')/Catzc/6.6.666"
+        }
+        Build-Modules -DryRun | Out-Null
+        Should -Invoke Assert-BundleFootprint -ModuleName Catzc.Base.Exporter -Times 1
+    }
+
+    It 'does not measure an overridden build against the bundle''s limits (<Case>)' -ForEach @(
+        @{ Case = 'explicit modules'; Overrides = @{ Module = 'Catzc.Base.Widget' } }
+        @{ Case = 'another profile'; Overrides = @{ ModuleProfile = 'gadget-set' } }
+        @{ Case = 'another vendor policy'; Overrides = @{ VendorPolicy = 'full' } }
+    ) {
+        Build-Modules @Overrides | Out-Null
+        Should -Invoke Assert-BundleFootprint -ModuleName Catzc.Base.Exporter -Times 0
+        Should -Invoke Assert-CatzcBundle -ModuleName Catzc.Base.Exporter -Times 1
+    }
+
+    It 'fails when the build outgrows its footprint limits' {
+        Mock Assert-BundleFootprint { throw "Bundle 'widgets' outgrew its footprint limits" } -ModuleName Catzc.Base.Exporter
+        { Build-Modules } | Should -Throw -ExpectedMessage '*outgrew its footprint limits*'
+        Should -Invoke Assert-CatzcBundle -ModuleName Catzc.Base.Exporter -Times 0
     }
 
     It 'builds the default bundle: its profile, its vendor policy, its own output folder, the resolved version' {

@@ -1,4 +1,4 @@
-# docs/adr/azure/caf/security.md
+# docs/adr/azure/caf/landing-zone-security.md
 
 `ADR: CAF security — what the repository does about each recommendation of the landing-zone security design area`
 
@@ -310,6 +310,8 @@ These rules are vendor recommendation, not principled theory: they record what o
 repository does about each item. CAF items carry no codes, so each rule's number is the item's order across the three pages. Each rule cites
 Microsoft's page — the page title, the section, the link, and the retrieval date — and summarises the item in our words. The live CAF text
 falls under the Microsoft Learn Terms of Use, which grant no right to copy it into a shared repository, so nothing here is quoted.
+
+The [CAF reference](../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.
 
 This record is the platform view. The workload view of the same concerns is [waf-security](../waf/security.md) (ADR-AZ-WAFSE); where a
 recommendation is decided there, the rule cites it and adds only what the landing zone changes. The examples are the three templates the

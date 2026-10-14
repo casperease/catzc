@@ -96,6 +96,8 @@ date — and summarises it in our own words. Nothing is quoted, because the curr
 takeaway is the three templates `foundation`, `discovery` (the landing zone), and `expedition` (the workload), deployed in that order
 ([landing-zones](../landing-zones.md)).
 
+The [WAF reference](../../../references/waf/index.md) lists the five pillar records in this repository and the Microsoft checklist each one cites.
+
 ### RE:01 — Focus your workload design on simplicity and efficiency
 
 ```text
