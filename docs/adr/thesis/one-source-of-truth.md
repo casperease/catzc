@@ -90,9 +90,10 @@ Collapse the distributed system of information into one source of truth, the rep
 ### One source of truth, one change process
 
 Everything delivery touches is code in the repository. Changing anything and delivering it are the same motion: a reviewed commit, with its
-diff and its history, integrated into the trunk and delivered by its pipelines. Everything in the repository is releasable at every commit
-([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md)). Audit and retrospection are answered once, by the
-history.
+diff and its history, integrated into the trunk and delivered by its pipelines. That is what keeps the trunk always releasable, which is
+continuous delivery as the DORA research defines it ([continuous-delivery](../research/continuous-delivery.md)) and as catzc's flow model
+implements it ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md)). The thesis describes the product; the
+research is the authority it rests on. Audit and retrospection are answered once, by the history.
 
 ### The repository is the configuration record
 

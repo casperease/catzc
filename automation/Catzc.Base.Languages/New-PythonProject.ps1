@@ -4,7 +4,7 @@
 .DESCRIPTION
     Python code in this repository is test artifacts only: black-box tests in python/tests/<module-in-kebab>/
     ([ADR-AUTO-PY](/docs/adr/automation/python/python-test-artifacts.md)). They share one virtual uv project (it builds no
-    package), python/pyproject.toml, rendered here from two declared sources:
+    package), python/pyproject.toml, rendered here from two declared configs:
 
       requires-python  the python tool's pin in tools.yml (global.tools.python.version, e.g. 3.13 -> ==3.13.*), the
                        one Python version;

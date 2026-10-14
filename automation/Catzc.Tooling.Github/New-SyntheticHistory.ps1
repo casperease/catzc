@@ -14,6 +14,11 @@
     the old objects locally. It is destructive to local history: take a
     `git bundle create --all` backup first (Assert-GitHubPurgeReady enforces one
     before any remote purge). Local only — nothing is pushed.
+
+    Pruning the old objects repacks the whole repository, which takes longer
+    than an ordinary call, so the function declares its own time limit
+    ([TimeLimit]; tune it under `commands` in timeouts.yml) and bounds the
+    garbage collection with it.
 .PARAMETER Layer
     Ordered commit specs, foundational first. Each is a hashtable:
       @{ Message = 'Add core'; Include = @('src/core'); Exclude = @(':(exclude)src/core/tests') }
@@ -41,6 +46,7 @@
 #>
 function New-SyntheticHistory {
     [CmdletBinding()]
+    [Catzc.Base.Timeouts.TimeLimit(600, Pipeline = 3600)]
     param(
         [Parameter(Mandatory, Position = 0)]
         [hashtable[]] $Layer,
@@ -154,7 +160,8 @@ function New-SyntheticHistory {
         Invoke-Executable "git update-ref -d $ref" -WorkingDirectory $RepositoryPath -NoAssert -Silent | Out-Null
     }
     Invoke-Executable 'git reflog expire --expire=now --all' -WorkingDirectory $RepositoryPath -NoAssert -Silent | Out-Null
-    Invoke-Executable 'git gc --prune=now' -WorkingDirectory $RepositoryPath -NoAssert -Silent | Out-Null
+    $limit = Get-TimeoutSeconds -Command 'New-SyntheticHistory'
+    Invoke-Executable 'git gc --prune=now' -WorkingDirectory $RepositoryPath -NoAssert -Silent -TimeoutSeconds $limit | Out-Null
     if ($originUrl) {
         Invoke-Executable "git remote set-url origin $originUrl" -WorkingDirectory $RepositoryPath -NoAssert -Silent | Out-Null
     }

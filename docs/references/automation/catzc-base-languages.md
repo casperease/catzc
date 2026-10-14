@@ -26,9 +26,11 @@ Running one catzc module's Go tests and reporting each one. The tests live in `<
 path from the tool's `tools.yml` entry, never a bare `go` off `PATH`; when none is found, or the one found does not match the pin, the run
 stops and names `Install-Go`. A run fetches the declared dependencies (which records `go.sum`), vets the test packages, and runs every test
 uncached as a `go test -json` event stream, each command inside its time safeguard. The tests are black-box: they start the engine and
-assert on its output, and the engine entry reaches them through the environment — `CATZC_ENGINE_ENTRY` names the repository's `importer.ps1`
-for the source run or the build's `Import-Catzc.ps1` for the build run, and `CATZC_REPOSITORY_ROOT` names the repository root. Both are set
-for the run only and restored afterwards.
+assert on its output, and how to start it reaches them through the environment, from the execution engine model
+([ADR-AUTO-ENGINE](../../adr/automation/execution-engines.md)) — `CATZC_ENGINE_EXECUTABLE` names the engine's executable and
+`CATZC_ENGINE_START` its start arguments, which load the repository's `importer.ps1` for the source run or the build's `Import-Catzc.ps1`
+for the build run and end in the test's command; `CATZC_REPOSITORY_ROOT` names the repository root. They are set for the run only and
+restored afterwards.
 
 The event stream becomes one result per top-level Go test: its package, name, outcome (`pass`, `fail`, or `skip`), duration, everything it
 printed, and its category. Subtests fold into their parent. The category comes from the name, in one place, the result type: a
@@ -58,8 +60,8 @@ tests live in `python/tests/<module-in-kebab>/`, and every test folder runs in t
 the managed `uv`, located by its path from the tool's `tools.yml` entry, and the uv-managed interpreter at the `python` pin; uv never
 downloads an interpreter during a run, so a missing one stops the run with the remedy `Install-Python`, and a missing `uv` names
 `Install-Uv`. A run syncs the project's environment, lints the test folder with `ruff check`, and runs `pytest` with the folder as its
-rootdir and a JUnit report, each command inside its time safeguard and under the same engine contract as the Go tests (`CATZC_ENGINE_ENTRY`,
-`CATZC_REPOSITORY_ROOT`).
+rootdir and a JUnit report, each command inside its time safeguard and under the same engine contract as the Go tests
+(`CATZC_ENGINE_EXECUTABLE`, `CATZC_ENGINE_START`, `CATZC_REPOSITORY_ROOT`).
 
 The report becomes one result per top-level test function, with the same shape as a Go result — package, name, outcome, duration, output,
 and category — so the harness treats both alike. Parametrised cases fold into their function. A `test_integrity*` test is `integrity`, every

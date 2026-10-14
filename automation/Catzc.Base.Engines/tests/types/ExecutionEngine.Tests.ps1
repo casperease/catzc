@@ -20,10 +20,9 @@ Describe 'ExecutionEngine' -Tag 'L0', 'logic' {
         "$($engine.ToolKey)" | Should -Be $Fields.tool
     }
 
-    It 'covers every engine in both tables, so no engine goes unchecked' {
-        foreach ($cases in $script:startCases, $script:locatorCases) {
-            @($cases.Engine | Select-Object -Unique) | Should -Be @([Catzc.Base.Engines.ExecutionEngines]::Names)
-        }
+    It 'covers every engine in <_>, so no engine goes unchecked' -ForEach @('engine-start.yml', 'engine-locator.yml') {
+        $cases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot "../assets/engine-cases/$_") -Applicable)
+        @($cases.Engine | Select-Object -Unique) | Should -Be @([Catzc.Base.Engines.ExecutionEngines]::Names)
     }
 
     It 'rejects an empty entry or command, naming it' {

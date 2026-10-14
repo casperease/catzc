@@ -173,6 +173,7 @@ research, principles, process, and design domains into enforced code; the pipeli
 | `ADR-AUTO-TYPES`    | [native-csharp-types](automation/BCL/native-csharp-types.md)                                      |
 | `ADR-AUTO-GO`       | [test-artifacts](automation/go/test-artifacts.md)                                                 |
 | `ADR-AUTO-PY`       | [python-test-artifacts](automation/python/python-test-artifacts.md)                               |
+| `ADR-AUTO-ENGINE`   | [execution-engines](automation/execution-engines.md)                                              |
 
 ### configuration/
 
@@ -244,6 +245,7 @@ ideas, never as a reference implementation.
 | ------------------- | ---------------------------------------------------------------------- |
 | `ADR-REPO-FOLDERS`  | [conventional-folders](repository/conventional-folders.md)             |
 | `ADR-REPO-OUTDIR`   | [dedicated-output-directory](repository/dedicated-output-directory.md) |
+| `ADR-REPO-OUTFMT`   | [output-formats](repository/output-formats.md)                         |
 | `ADR-REPO-FORMAT`   | [uniform-formatting](repository/uniform-formatting.md)                 |
 | `ADR-REPO-CONTRACT` | [api-contracts](repository/api-contracts.md)                           |
 | `ADR-REPO-README`   | [generated-readmes](repository/generated-readmes.md)                   |

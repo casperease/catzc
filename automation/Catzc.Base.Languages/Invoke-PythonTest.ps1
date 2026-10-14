@@ -10,19 +10,21 @@
 
       uv sync                                     makes the project environment (python/.venv) and lock from the
                                                   generated python/pyproject.toml;
-      uv run ruff check tests/<folder>            lints the test sources (the go vet of Python);
+      uv run ruff check tests/<folder>            lints the test files (the go vet of Python);
       uv run pytest tests/<folder> --junitxml ... runs every test, uncached, with the folder as pytest's rootdir.
 
     uv runs with UV_PYTHON_DOWNLOADS=never, so it uses the uv-managed interpreter at the tools.yml python pin and
     never fetches one silently (the Python form of GOTOOLCHAIN=local; a missing interpreter fails uv sync with the
     remedy Install-Python). Python writes no bytecode into the tree (PYTHONDONTWRITEBYTECODE=1).
 
-    The Python tests are black-box tests: they start the engine and assert on its output. The engine entry reaches
-    them through the environment, set for these commands only and restored afterwards:
+    The Python tests are black-box tests: they start the engine and assert on its output. How to start it reaches
+    them through the environment (Get-EngineContract), set for these commands only and restored afterwards:
 
-      CATZC_ENGINE_ENTRY     the script a test runs to load the engine: the repository's importer.ps1 for a source
-                             run, or -EntryScript (the build's Import-Catzc.ps1) for a build run;
-      CATZC_REPOSITORY_ROOT  the repository root.
+      CATZC_ENGINE_EXECUTABLE  the engine's executable;
+      CATZC_ENGINE_START       the arguments after it, as a JSON array that loads the entry — the repository's
+                               importer.ps1 for a source run, or -EntryScript (the build's Import-Catzc.ps1) for a
+                               build run — and ends in the command text, with {command} where the test's command goes;
+      CATZC_REPOSITORY_ROOT    the repository root.
 
     Returns one PythonTestResult per top-level test function (parametrised cases fold into it), with its category
     from its name: test_integrity* is integrity, everything else is logic. A failing test is a result, not an
@@ -86,26 +88,15 @@ function Invoke-PythonTest {
     }
     $uvCommand = "`"$uvPath`""
 
-    $entry = if ($EntryScript) {
-        Assert-PathExist $EntryScript -PathType Leaf
-        (Resolve-Path -LiteralPath $EntryScript).ProviderPath
-    }
-    else {
-        Join-Path $root 'importer.ps1'
-    }
-
     $report = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-pytest-$([guid]::NewGuid().ToString('N')).xml"
 
-    # The engine entry is an external contract with the test processes
+    # How the tests start the engine (Get-EngineContract) is an external contract with the test processes
     # ([ADR-AUTO-ENVVAR#1](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar1)): set for these
     # commands only, then restored. UV_PYTHON_DOWNLOADS=never keeps uv on the managed interpreter at the pin
     # (ADR-AUTO-PY#6).
-    $environment = [ordered]@{
-        CATZC_ENGINE_ENTRY      = $entry
-        CATZC_REPOSITORY_ROOT   = $root
-        UV_PYTHON_DOWNLOADS     = 'never'
-        PYTHONDONTWRITEBYTECODE = '1'
-    }
+    $environment = Get-EngineContract -EntryScript $EntryScript
+    $environment['UV_PYTHON_DOWNLOADS'] = 'never'
+    $environment['PYTHONDONTWRITEBYTECODE'] = '1'
     $saved = @{}
     foreach ($name in $environment.Keys) {
         $saved[$name] = [System.Environment]::GetEnvironmentVariable($name)

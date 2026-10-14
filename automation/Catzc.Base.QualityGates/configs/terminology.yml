@@ -105,6 +105,10 @@ terms:
       meaning: "a pytest test run once per parameter set (pytest.mark.parametrize)"
     - term: parametrize
       meaning: "pytest.mark.parametrize — pytest's decorator that runs a test per parameter set"
+    - term: norc
+      meaning: "bash --norc — start bash without reading ~/.bashrc"
+    - term: pipefail
+      meaning: "set -o pipefail — bash fails a pipeline when any command in it fails"
     - term: cacheprovider
       meaning: "pytest's cacheprovider plugin; -p no:cacheprovider keeps .pytest_cache out of the tree"
     - term: pycache
@@ -597,6 +601,8 @@ terms:
       meaning: "body of the ADR-AZ-DATAMOD code (data-model)"
     - term: outdir
       meaning: "body of the ADR-REPO-OUTDIR code (dedicated-output-directory)"
+    - term: outfmt
+      meaning: "body of the ADR-REPO-OUTFMT code (output-formats)"
     - term: poka
       meaning: "the 'poka' of poka-yoke (prose)"
     - term: pokayoke

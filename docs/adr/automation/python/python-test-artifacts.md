@@ -25,9 +25,10 @@ a parametrised test is one test.
 
 ### Rule ADR-AUTO-PY:3
 
-A Python test is a black-box test under the contract the Go tests follow (ADR-AUTO-GO#3): it starts the engine (`pwsh -NoProfile`) with the
-script named by `CATZC_ENGINE_ENTRY` and asserts on output and exit codes, never on the engine's internals; `CATZC_REPOSITORY_ROOT` names
-the repository root. `Invoke-PythonTest` sets both for its uv commands only and restores them afterwards.
+A Python test is a black-box test under the contract the Go tests follow (ADR-AUTO-GO#3, ADR-AUTO-ENGINE#4): it starts the engine from
+`CATZC_ENGINE_EXECUTABLE` with the `CATZC_ENGINE_START` arguments, which load the run's entry and end in the test's command, and asserts on
+output and exit codes, never on the engine's internals; `CATZC_REPOSITORY_ROOT` names the repository root. `Invoke-PythonTest` sets them for
+its uv commands only and restores them afterwards.
 
 - [The black-box contract](#the-black-box-contract)
 
@@ -103,10 +104,11 @@ package.
 
 ### The black-box contract
 
-A Python test knows what a Go test knows, from the same two environment variables, and does what a Go test does: it starts
-`pwsh -NoProfile`, dot-sources the entry, runs a command, and asserts on the output and exit code. The same test therefore proves both run
-modes ([run-modes](../../design/run-modes.md)): the entry names the repository's `importer.ps1` in a source run and the build's
-`Import-Catzc.ps1` in a build run.
+A Python test knows what a Go test knows, from the same environment variables, and does what a Go test does: it starts the engine from the
+executable and start arguments the contract names ([execution-engines](../execution-engines.md)), puts its command in place of `{command}`,
+and asserts on the output and exit code. It never builds a command line itself, so it holds no engine's quoting rule. The same test
+therefore proves both run modes ([run-modes](../../design/run-modes.md)): the entry the start loads is the repository's `importer.ps1` in a
+source run and the build's `Import-Catzc.ps1` in a build run.
 
 ### A generated project
 

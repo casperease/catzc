@@ -33,4 +33,13 @@ Describe 'Remove-TokenFromHistory' -Tag 'L1', 'logic' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 1; Output = ''; Errors = 'unknown command' } } -ParameterFilter { $Command -eq 'git filter-repo --version' }
         { Remove-TokenFromHistory -Token 'old-name' -RepositoryPath 'TestDrive:/' } | Should -Throw '*not installed*'
     }
+
+    It 'bounds the filter-repo run with its own time limit, and the version probe with the default' {
+        $limit = Get-TimeoutSeconds -Command 'Remove-TokenFromHistory'
+        Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = ''; Errors = '' } }
+        Mock -ModuleName Catzc.Tooling.Github Test-GitHistoryClean { [pscustomobject]@{ Clean = $true; Blobs = @(); Paths = @(); Messages = @() } }
+        Remove-TokenFromHistory -Token 'old-name' -RepositoryPath 'TestDrive:/' | Out-Null
+        Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 1 -ParameterFilter { $Command -like 'git filter-repo --replace-text*' -and $TimeoutSeconds -eq $limit }
+        Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 1 -ParameterFilter { $Command -eq 'git filter-repo --version' -and -not $PSBoundParameters.ContainsKey('TimeoutSeconds') }
+    }
 }

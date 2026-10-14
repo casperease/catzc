@@ -29,6 +29,8 @@ configs:
     type: Catzc.Base.Docs.GlossaryConfig
   reports:
     type: Catzc.Base.Reports.ReportsConfig
+  output-formats:
+    type: Catzc.Base.Reports.OutputFormatsConfig
   tools:
     type: Catzc.Tooling.Core.ToolsConfig
   dependencies:

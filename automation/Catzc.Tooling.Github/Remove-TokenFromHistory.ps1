@@ -14,6 +14,10 @@
 
     After scrubbing it re-scans with Test-GitHistoryClean and returns the result,
     so a caller can see any path-name residue the content scrub could not reach.
+
+    Rewriting a whole history takes longer than an ordinary call, so the
+    function declares its own time limit ([TimeLimit]; tune it under `commands`
+    in timeouts.yml) and bounds the filter-repo run with it.
 .PARAMETER Token
     The literal token to replace across the history.
 .PARAMETER ReplaceWith
@@ -32,6 +36,7 @@
 #>
 function Remove-TokenFromHistory {
     [CmdletBinding()]
+    [Catzc.Base.Timeouts.TimeLimit(600, Pipeline = 3600)]
     param(
         [Parameter(Mandatory, Position = 0)]
         [string] $Token,
@@ -76,7 +81,8 @@ function Remove-TokenFromHistory {
         if (-not $SkipMessages) {
             $runArgs += " --replace-message `"$expressionFile`""
         }
-        $run = Invoke-Executable "git filter-repo $runArgs --force" -WorkingDirectory $RepositoryPath -PassThru -NoAssert
+        $limit = Get-TimeoutSeconds -Command 'Remove-TokenFromHistory'
+        $run = Invoke-Executable "git filter-repo $runArgs --force" -WorkingDirectory $RepositoryPath -PassThru -NoAssert -TimeoutSeconds $limit
         if ($run.ExitCode -ne 0) {
             throw "git filter-repo failed: $($run.Errors)"
         }

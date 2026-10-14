@@ -24,10 +24,11 @@ command runs inside its module folder, so every editor loads either layout with 
 
 ### Rule ADR-AUTO-GO:3
 
-A Go test is a black-box test: it starts the engine (`pwsh -NoProfile`) with the script named by `CATZC_ENGINE_ENTRY`, runs commands, and
-asserts on their output and exit codes, never on the engine's internals. The entry is the repository's `importer.ps1` in a source run and
-the build's `Import-Catzc.ps1` in a build run; `CATZC_REPOSITORY_ROOT` names the repository root. `Invoke-GoTest` sets both for its go
-commands only and restores them afterwards, so the same Go test proves both run modes unchanged.
+A Go test is a black-box test: it starts the engine from the contract its runner sets (ADR-AUTO-ENGINE#4) — `CATZC_ENGINE_EXECUTABLE`, with
+the `CATZC_ENGINE_START` arguments, which load the run's entry and end in the test's command — runs commands, and asserts on their output
+and exit codes, never on the engine's internals. The entry is the repository's `importer.ps1` in a source run and the build's
+`Import-Catzc.ps1` in a build run; `CATZC_REPOSITORY_ROOT` names the repository root. `Invoke-GoTest` sets them for its go commands only and
+restores them afterwards, so the same Go test proves both run modes unchanged.
 
 - [The black-box contract](#the-black-box-contract)
 
@@ -111,11 +112,13 @@ nothing. Both layouts — `go/` and `.go/` — therefore load the same in every 
 
 ### The black-box contract
 
-A Go test knows two things about the engine, both from the environment: the script that loads it (`CATZC_ENGINE_ENTRY`) and the repository
-it works on (`CATZC_REPOSITORY_ROOT`). It starts `pwsh -NoProfile`, dot-sources the entry, runs a command, and asserts on the output and the
-exit code. The variables are an external contract between the run and the go processes it starts
-([environment-variables](../environment-variables.md#rule-adr-auto-envvar1)), so `Invoke-GoTest` sets them for its go commands only and
-restores the session's values afterwards.
+A Go test knows two things about the engine, both from the environment: how to start it (`CATZC_ENGINE_EXECUTABLE` and the
+`CATZC_ENGINE_START` arguments) and the repository it works on (`CATZC_REPOSITORY_ROOT`). The start comes from the execution engine model
+([execution-engines](../execution-engines.md)): it starts the engine non-interactively, loads the entry with its output discarded, and ends
+in the command text, where the test puts its command in place of `{command}`. The test never builds a command line of its own, so it holds
+no engine's quoting rule and runs unchanged under either engine. The variables are an external contract between the run and the go processes
+it starts ([environment-variables](../environment-variables.md#rule-adr-auto-envvar1)), so `Invoke-GoTest` sets them for its go commands
+only and restores the session's values afterwards.
 
 The entry is the only difference between the two runs ([run-modes](../../design/run-modes.md)). A source run names the repository's
 `importer.ps1`; a build run names the build's `Import-Catzc.ps1`. The Go tests are the same files in both, exactly as the Pester tests are

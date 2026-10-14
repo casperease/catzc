@@ -168,6 +168,7 @@ domains:
       native-csharp-types: { external: ADR-AUTO-TYPES }
       test-artifacts: { external: ADR-AUTO-GO }
       python-test-artifacts: { external: ADR-AUTO-PY }
+      execution-engines: { external: ADR-AUTO-ENGINE }
 
   configuration:
     code: CONF
@@ -234,6 +235,7 @@ domains:
     rulesets:
       conventional-folders: { external: ADR-REPO-FOLDERS }
       dedicated-output-directory: { external: ADR-REPO-OUTDIR, terminology: outdir }
+      output-formats: { external: ADR-REPO-OUTFMT, terminology: outfmt }
       uniform-formatting: { external: ADR-REPO-FORMAT }
       api-contracts: { external: ADR-REPO-CONTRACT }
       generated-readmes: { external: ADR-REPO-README }

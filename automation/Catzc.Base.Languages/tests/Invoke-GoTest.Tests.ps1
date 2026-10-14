@@ -28,13 +28,15 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
         $script:seen = [System.Collections.Generic.List[object]]::new()
         $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('go', $script:goPath, 'probe', '1.27.1', '1.27', $true, 1, 0, 'Agent')
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Languages { $script:probe }
+        Mock Resolve-EngineExecutable -ModuleName Catzc.Base.Languages { 'C:\widget\engine\pwsh.exe' }
         Mock Invoke-Executable -ModuleName Catzc.Base.Languages {
             $script:seen.Add([pscustomobject]@{
-                    Command   = $Command
-                    Directory = $WorkingDirectory
-                    Entry     = $env:CATZC_ENGINE_ENTRY
-                    Root      = $env:CATZC_REPOSITORY_ROOT
-                    Toolchain = $env:GOTOOLCHAIN
+                    Command    = $Command
+                    Directory  = $WorkingDirectory
+                    Executable = $env:CATZC_ENGINE_EXECUTABLE
+                    Start      = $env:CATZC_ENGINE_START
+                    Root       = $env:CATZC_REPOSITORY_ROOT
+                    Toolchain  = $env:GOTOOLCHAIN
                 })
             switch -Wildcard ($Command) {
                 '* vet *' {
@@ -116,19 +118,22 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'the engine entry' {
-        It 'passes the repository importer and root for a source run' {
+    Context 'the engine contract' {
+        It 'passes the engine, its start arguments loading the repository importer, and the root for a source run' {
             $null = Invoke-GoTest Catzc.Widget
+            $expected = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments((Join-Path $script:root 'importer.ps1'), '{command}')
             foreach ($call in $script:seen) {
-                $call.Entry | Should -Be (Join-Path $script:root 'importer.ps1')
+                $call.Executable | Should -Be 'C:\widget\engine\pwsh.exe'
+                @($call.Start | ConvertFrom-Json) | Should -Be $expected
                 $call.Root | Should -Be $script:root
             }
         }
 
-        It 'passes -EntryScript for a build run' {
+        It 'loads -EntryScript for a build run' {
             $null = Invoke-GoTest Catzc.Widget -EntryScript $script:buildEntry
+            $expected = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments((Resolve-Path -LiteralPath $script:buildEntry).ProviderPath, '{command}')
             foreach ($call in $script:seen) {
-                $call.Entry | Should -Be (Resolve-Path -LiteralPath $script:buildEntry).ProviderPath
+                @($call.Start | ConvertFrom-Json) | Should -Be $expected
                 $call.Root | Should -Be $script:root
             }
         }
@@ -143,21 +148,22 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
         }
 
         It 'restores the environment afterwards' {
-            $env:CATZC_ENGINE_ENTRY = 'before'
+            $env:CATZC_ENGINE_START = 'before'
             try {
                 $null = Invoke-GoTest Catzc.Widget
-                $env:CATZC_ENGINE_ENTRY | Should -Be 'before'
+                $env:CATZC_ENGINE_START | Should -Be 'before'
             }
             finally {
-                Remove-Item Env:CATZC_ENGINE_ENTRY -ErrorAction Ignore
+                Remove-Item Env:CATZC_ENGINE_START -ErrorAction Ignore
             }
             Test-Path Env:CATZC_REPOSITORY_ROOT | Should -BeFalse
+            Test-Path Env:CATZC_ENGINE_EXECUTABLE | Should -BeFalse
         }
 
         It 'restores the environment when a go command throws' {
             $script:vetExit = 1
             { Invoke-GoTest Catzc.Widget } | Should -Throw
-            Test-Path Env:CATZC_ENGINE_ENTRY | Should -BeFalse
+            Test-Path Env:CATZC_ENGINE_START | Should -BeFalse
         }
 
         It 'throws when -EntryScript does not exist' {

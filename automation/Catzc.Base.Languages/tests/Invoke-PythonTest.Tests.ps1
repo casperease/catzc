@@ -28,13 +28,15 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
         $script:seen = [System.Collections.Generic.List[object]]::new()
         $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('uv', $script:uvPath, 'path', '0.11.26', '0.11', $true, 1, 0, 'Agent')
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Languages { $script:probe }
+        Mock Resolve-EngineExecutable -ModuleName Catzc.Base.Languages { 'C:\widget\engine\pwsh.exe' }
         Mock Invoke-Executable -ModuleName Catzc.Base.Languages {
             $script:seen.Add([pscustomobject]@{
-                    Command   = $Command
-                    Directory = $WorkingDirectory
-                    Entry     = $env:CATZC_ENGINE_ENTRY
-                    Root      = $env:CATZC_REPOSITORY_ROOT
-                    Downloads = $env:UV_PYTHON_DOWNLOADS
+                    Command    = $Command
+                    Directory  = $WorkingDirectory
+                    Executable = $env:CATZC_ENGINE_EXECUTABLE
+                    Start      = $env:CATZC_ENGINE_START
+                    Root       = $env:CATZC_REPOSITORY_ROOT
+                    Downloads  = $env:UV_PYTHON_DOWNLOADS
                 })
             switch -Wildcard ($Command) {
                 '* sync *' {
@@ -81,15 +83,17 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
             { Invoke-PythonTest Catzc.Sprocket } | Should -Throw '*python/tests/catzc-sprocket/ does not exist*'
         }
 
-        It 'never lets uv download an interpreter, and passes the engine entry and root' {
+        It 'never lets uv download an interpreter, and passes the engine contract loading the entry, and the root' {
             $null = Invoke-PythonTest Catzc.Widget -EntryScript $script:buildEntry
+            $expected = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments((Resolve-Path -LiteralPath $script:buildEntry).ProviderPath, '{command}')
             foreach ($call in $script:seen) {
                 $call.Downloads | Should -Be 'never'
-                $call.Entry | Should -Be (Resolve-Path -LiteralPath $script:buildEntry).ProviderPath
+                $call.Executable | Should -Be 'C:\widget\engine\pwsh.exe'
+                @($call.Start | ConvertFrom-Json) | Should -Be $expected
                 $call.Root | Should -Be $script:root
             }
             Test-Path Env:UV_PYTHON_DOWNLOADS | Should -BeFalse
-            Test-Path Env:CATZC_ENGINE_ENTRY | Should -BeFalse
+            Test-Path Env:CATZC_ENGINE_START | Should -BeFalse
         }
 
         It 'throws with the remedy when uv sync fails' {

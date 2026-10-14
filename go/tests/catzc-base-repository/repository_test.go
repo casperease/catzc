@@ -1,11 +1,12 @@
-// Black-box tests of Catzc.Base.Repository: each test starts the engine as its own pwsh process, loaded through
-// the script named by CATZC_ENGINE_ENTRY (the repository's importer.ps1 in a source run, the build's
-// Import-Catzc.ps1 in a build run), and asserts on what the engine prints. Invoke-GoTest sets CATZC_ENGINE_ENTRY
-// and CATZC_REPOSITORY_ROOT for the go commands it runs.
+// Black-box tests of Catzc.Base.Repository: each test starts the engine as its own process the way the run's engine
+// contract says — CATZC_ENGINE_EXECUTABLE, with the CATZC_ENGINE_START arguments, which load the run's entry (the
+// repository's importer.ps1 in a source run, the build's Import-Catzc.ps1 in a build run) — and asserts on what the
+// engine prints. Invoke-GoTest sets the contract and CATZC_REPOSITORY_ROOT for the go commands it runs.
 package repository
 
 import (
 	"context"
+	"encoding/json"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -29,21 +30,23 @@ func requireEnv(t *testing.T, name string) string {
 	return value
 }
 
-// runEngine starts pwsh, loads the engine through the entry script with its output discarded, runs the command,
+// runEngine starts the engine the contract names, which loads the entry with its output discarded, runs the command,
 // and returns what the command printed, trimmed.
 func runEngine(t *testing.T, command string) string {
 	t.Helper()
-	entry := requireEnv(t, "CATZC_ENGINE_ENTRY")
-	pwsh, err := exec.LookPath("pwsh")
-	if err != nil {
-		t.Fatalf("pwsh is not on PATH: %v", err)
+	executable := requireEnv(t, "CATZC_ENGINE_EXECUTABLE")
+	var start []string
+	if err := json.Unmarshal([]byte(requireEnv(t, "CATZC_ENGINE_START")), &start); err != nil || len(start) == 0 {
+		t.Fatalf("CATZC_ENGINE_START is not a JSON array of arguments: %v", err)
 	}
+	arguments := append([]string(nil), start...)
+	last := len(arguments) - 1
+	arguments[last] = strings.Replace(arguments[last], "{command}", command, 1)
 	ctx, cancel := context.WithTimeout(context.Background(), engineTimeout)
 	defer cancel()
-	script := ". '" + strings.ReplaceAll(entry, "'", "''") + "' *> $null; " + command
-	output, err := exec.CommandContext(ctx, pwsh, "-NoProfile", "-Command", script).CombinedOutput()
+	output, err := exec.CommandContext(ctx, executable, arguments...).CombinedOutput()
 	if err != nil {
-		t.Fatalf("pwsh -Command %q failed: %v\n%s", command, err, output)
+		t.Fatalf("the engine failed to run %q: %v\n%s", command, err, output)
 	}
 	return strings.TrimSpace(string(output))
 }

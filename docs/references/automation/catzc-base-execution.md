@@ -38,7 +38,9 @@ command, once per executable file per session (a lazy cache entry keyed by its p
 one record: found, path, method, version against the required one, the two timings, and the session actor. For a tool declared in
 `tools.yml`, the module reads the entry itself — the candidates for the running platform and run environment, the exclusions, the version
 command and pin, and the devbox version lever outside a pipeline — so a Base module locates a managed tool without depending on the tooling
-modules.
+modules. An execution engine's executable is located the way the engine model says
+([ADR-AUTO-ENGINE](../../adr/automation/execution-engines.md)): pwsh beside the running PowerShell, never through PATH, and bash through its
+`tools.yml` entry.
 
 ### responsibility:3 — Exit-code lifecycle
 
@@ -80,12 +82,13 @@ The module depends on [Catzc.Base.Writers](catzc-base-writers.md) for the pre-in
 
 The module's public functions, sorted into the responsibilities above.
 
-| Responsibility                                | Function                 |
-| --------------------------------------------- | ------------------------ |
-| responsibility:1 — External process execution | `Invoke-Executable`      |
-|                                               | `Invoke-WithProgress`    |
-|                                               | `Wait-Mutex`             |
-| responsibility:2 — Executable location        | `Find-Executable`        |
-|                                               | `Resolve-ToolExecutable` |
-| responsibility:3 — Exit-code lifecycle        | `Get-LastExitCode`       |
-|                                               | `Reset-LastExitCode`     |
+| Responsibility                                | Function                   |
+| --------------------------------------------- | -------------------------- |
+| responsibility:1 — External process execution | `Invoke-Executable`        |
+|                                               | `Invoke-WithProgress`      |
+|                                               | `Wait-Mutex`               |
+| responsibility:2 — Executable location        | `Find-Executable`          |
+|                                               | `Resolve-ToolExecutable`   |
+|                                               | `Resolve-EngineExecutable` |
+| responsibility:3 — Exit-code lifecycle        | `Get-LastExitCode`         |
+|                                               | `Reset-LastExitCode`       |

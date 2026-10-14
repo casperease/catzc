@@ -1,0 +1,134 @@
+# output-formats.yml — every kind of file a producer writes under the output root, declared once
+# ([ADR-REPO-OUTFMT](/docs/adr/repository/output-formats.md)). Validated on load by
+# Catzc.Base.Reports.OutputFormatsConfig; Test-OutputFormats classifies the files under each format's folders and
+# runs its validator.
+#
+#   formats:
+#     <kebab-case id>:
+#       patterns: [ <glob> ]      # relative to the output root; '*' / '?' inside one segment, '**' any depth,
+#                                 # '{stamp}' one stamped run folder. The most specific match wins.
+#       target: file              # file (default) | folder — a folder pattern is checked as one unit
+#       producer: <function or script>
+#       audience: <who opens it, with what>
+#       validator: { kind: <kind>, <parameter>: <value> }
+#       limits: { <limit>: <positive whole number> }   # width, height, min_/max_width, min_/max_height,
+#                                                      # min_pages, max_bytes
+#
+# Validator kinds: png, drawio-png, drawio-model, pdf, json, csv, md, nunit-xml, zip, powershell, text,
+# latest-pointer, delegate (names an existing Assert-* that already proves the format).
+
+formats:
+  # ---- quality gates and test runs (out/test-<subject>/) ----
+  quality-gate-report:
+    patterns: ['test-*/{stamp}/*.md']
+    producer: Write-QualityGateReport
+    audience: a person or an agent, in any Markdown viewer
+    validator: { kind: md }
+  latest-pointer:
+    patterns: ['test-*/latest.txt']
+    producer: Write-QualityGateReport, and the test-run entry points (Test-Automation, Test-CatzcBuild)
+    audience: a person or a script finding the newest run
+    validator: { kind: latest-pointer }
+  test-run-manifest:
+    patterns: ['test-automation/{stamp}/run.json', 'test-catzc-build/{stamp}/run.json']
+    producer: Test-Automation, Test-CatzcBuild
+    audience: a script or an agent reading the run's facts
+    validator: { kind: json, required_keys: [status, startedAt, minLevel, maxLevel, location, failedCount] }
+  test-run-summary:
+    patterns: ['test-automation/{stamp}/summary.md', 'test-catzc-build/{stamp}/summary.md']
+    producer: Test-Automation, Test-CatzcBuild
+    audience: a person, in any Markdown viewer
+    validator: { kind: md }
+  test-run-results:
+    patterns: ['test-*/{stamp}/results-shard-*.xml']
+    producer: Test-Automation, Test-CatzcBuild, Invoke-TestFile (one NUnit file per shard)
+    audience: a pipeline's test-results publisher, or a script
+    validator: { kind: nunit-xml }
+  test-run-rows:
+    patterns: ['test-*/{stamp}/rows-shard-*.json']
+    producer: Test-Automation, Test-CatzcBuild, Invoke-TestFile (one row file per shard)
+    audience: the run itself, merging shard results
+    validator: { kind: json }
+  test-run-shard-script:
+    patterns: ['test-*/{stamp}/shard-*.ps1']
+    producer: Test-Automation, Test-CatzcBuild, Invoke-TestFile (the script each worker runs)
+    audience: a person re-running one shard
+    validator: { kind: powershell }
+  test-run-tests:
+    patterns: ['test-automation/{stamp}/tests.csv', 'test-catzc-build/{stamp}/tests.csv', 'test-catzc-build/{stamp}/excluded-tests.csv']
+    producer: Test-Automation, Test-CatzcBuild
+    audience: a person, in a spreadsheet; a script
+    validator: { kind: csv }
+  test-run-rule-coverage-table:
+    patterns: ['test-automation/{stamp}/rule-coverage.csv', 'test-catzc-build/{stamp}/rule-coverage.csv']
+    producer: Test-Automation, Test-CatzcBuild
+    audience: a person, in a spreadsheet; a script
+    validator: { kind: csv }
+  test-run-rule-coverage-report:
+    patterns: ['test-automation/{stamp}/rule-coverage.md', 'test-catzc-build/{stamp}/rule-coverage.md']
+    producer: Test-Automation, Test-CatzcBuild
+    audience: a person, in any Markdown viewer
+    validator: { kind: md }
+
+  # ---- the toolset's build (out/automation/) ----
+  catzc-bundle:
+    patterns: ['automation/build/Catzc/*']
+    target: folder
+    producer: Build-Modules
+    audience: Install-Catzc, and a person installing the toolset
+    validator: { kind: delegate, command: Assert-CatzcBundle }
+  catzc-package:
+    patterns: ['automation/packages/*.nupkg']
+    producer: Export-Catzc -To nuget
+    audience: a NuGet feed, and Install-Catzc
+    validator: { kind: zip, required_entries: ['*.nuspec'] }
+
+  # ---- diagrams (out/diagrams/) ----
+  drawio-png:
+    patterns: ['diagrams/**/*.drawio.png']
+    producer: .claude/drawio/drawio_png.py
+    audience: a person, in any image viewer or in draw.io
+    validator: { kind: drawio-png }
+  drawio-model:
+    patterns: ['diagrams/**/*.xml']
+    producer: .claude/drawio/drawio_png.py
+    audience: draw.io, and a maker editing the drawing
+    validator: { kind: drawio-model }
+  minimap-stack-png:
+    patterns: ['diagrams/fan-out/**/*.stack.png']
+    producer: diagram fan-out (Flow B)
+    audience: a person, in any image viewer
+    validator: { kind: png }
+    limits: { width: 480, height: 300 }
+  minimap-tree-png:
+    patterns: ['diagrams/fan-out/**/*.tree.png']
+    producer: diagram fan-out (Flow B)
+    audience: a person, in any image viewer
+    validator: { kind: png }
+    limits: { width: 480, height: 360 }
+  contact-sheet-png:
+    patterns: ['diagrams/**/*.sheet.png']
+    producer: .claude/drawio/contact_sheet.py
+    audience: a person, in any image viewer
+    validator: { kind: png }
+    limits: { width: 1300 }
+  review-pdf:
+    patterns: ['diagrams/*.pdf']
+    producer: .claude/drawio/gallery_pdf.py
+    audience: a person, in any PDF viewer
+    validator: { kind: pdf }
+    limits: { min_pages: 1 }
+  verify-table:
+    patterns: ['diagrams/**/*.verify.md']
+    producer: the diagram maker that drew the sibling drawing
+    audience: a person reviewing a drawing's claims
+    validator:
+      kind: md
+      table_columns: ['#', Claim, Source, Verdict]
+      status_column: Verdict
+      statuses: [confirmed, adr-only, contradicted, drift]
+  fan-out-index:
+    patterns: ['diagrams/fan-out/_manifest.json', 'diagrams/fan-out/_slugs.json', 'diagrams/fan-out/_placements.json']
+    producer: diagram fan-out (Flow A, Flow B)
+    audience: the fan-out producers, and the review page
+    validator: { kind: json }

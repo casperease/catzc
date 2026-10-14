@@ -235,6 +235,14 @@ A test's kind, logic or integrity — one mandatory tag saying whether it runs o
 | ----------------- | ------------------- |
 | `integrity suite` | the integrity tests |
 
+### execution engine
+
+One of the two shells the repository's own code runs under, pwsh and bash, declared once with everything that differs between them.
+
+- **Defined by:** [ADR-AUTO-ENGINE#1](automation/execution-engines.md#rule-adr-auto-engine1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Engines/configs/glossary.yml`
+
 ### go test module
 
 The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it in kebab case, holding its black-box Go

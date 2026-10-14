@@ -86,3 +86,18 @@ Describe 'New-SyntheticHistory dry run' -Tag 'L1', 'logic' {
         Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 0
     }
 }
+
+Describe 'New-SyntheticHistory time limit' -Tag 'L1', 'logic' {
+    It 'bounds the garbage collection with its own time limit' {
+        $limit = Get-TimeoutSeconds -Command 'New-SyntheticHistory'
+        Mock -ModuleName Catzc.Tooling.Github Assert-Command {}
+        Mock -ModuleName Catzc.Tooling.Github Assert-PathExist {}
+        Mock -ModuleName Catzc.Tooling.Github Write-Message {}
+        Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = ''; Errors = '' } }
+        # Exit 1 from `git diff --cached --quiet` means the layer staged a change, so it is committed.
+        Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 1; Output = ''; Errors = '' } } -ParameterFilter { $Command -eq 'git diff --cached --quiet' }
+        $layers = @(@{ Message = 'a'; Include = @('.'); Exclude = @() })
+        New-SyntheticHistory -Layer $layers -RepositoryPath 'TestDrive:/' -AuthorName 'X' -AuthorEmail 'x@y.z' | Out-Null
+        Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 1 -ParameterFilter { $Command -eq 'git gc --prune=now' -and $TimeoutSeconds -eq $limit }
+    }
+}

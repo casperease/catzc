@@ -13,12 +13,14 @@
       go vet ./...                   type-checks and vets the test packages;
       go test -json -count=1 ./...   runs every test, uncached, as a test2json event stream.
 
-    The Go tests are black-box tests: they start the engine and assert on its output. The engine entry reaches
-    them through the environment, set for these commands only and restored afterwards:
+    The Go tests are black-box tests: they start the engine and assert on its output. How to start it reaches them
+    through the environment (Get-EngineContract), set for these commands only and restored afterwards:
 
-      CATZC_ENGINE_ENTRY     the script a test runs to load the engine: the repository's importer.ps1 for a source
-                             run, or -EntryScript (the build's Import-Catzc.ps1) for a build run;
-      CATZC_REPOSITORY_ROOT  the repository root.
+      CATZC_ENGINE_EXECUTABLE  the engine's executable;
+      CATZC_ENGINE_START       the arguments after it, as a JSON array that loads the entry — the repository's
+                               importer.ps1 for a source run, or -EntryScript (the build's Import-Catzc.ps1) for a
+                               build run — and ends in the command text, with {command} where the test's command goes;
+      CATZC_REPOSITORY_ROOT    the repository root.
 
     Returns one GoTestResult per top-level Go test (subtests fold into it), with its category from its name:
     TestIntegrity* is integrity, everything else is logic. A failing Go test is a result, not an error. The call
@@ -85,24 +87,13 @@ function Invoke-GoTest {
     }
     $goCommand = "`"$goPath`""
 
-    $entry = if ($EntryScript) {
-        Assert-PathExist $EntryScript -PathType Leaf
-        (Resolve-Path -LiteralPath $EntryScript).ProviderPath
-    }
-    else {
-        Join-Path $root 'importer.ps1'
-    }
-
-    # The engine entry is an external contract with the go test processes
+    # How the tests start the engine (Get-EngineContract) is an external contract with the go test processes
     # ([ADR-AUTO-ENVVAR#1](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar1)): set for these
     # commands only, then restored. GOTOOLCHAIN=local keeps go on the managed binary just checked: without it, go
     # reads go.work's go directive and silently downloads that toolchain instead
     # ([ADR-AUTO-GO#6](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go6)).
-    $environment = [ordered]@{
-        CATZC_ENGINE_ENTRY    = $entry
-        CATZC_REPOSITORY_ROOT = $root
-        GOTOOLCHAIN           = 'local'
-    }
+    $environment = Get-EngineContract -EntryScript $EntryScript
+    $environment['GOTOOLCHAIN'] = 'local'
     $saved = @{}
     foreach ($name in $environment.Keys) {
         $saved[$name] = [System.Environment]::GetEnvironmentVariable($name)
