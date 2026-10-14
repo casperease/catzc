@@ -8,7 +8,7 @@
     the target. Anything else — a plain file (an old generated copy, even with identical content), a symbolic
     link to the wrong place, a hard link orphaned by a git rewrite of the source — is deleted and recreated.
 
-    Creation is platform-gated: a relative symbolic link everywhere it is permitted; on Windows without the
+    Creation depends on the platform: a relative symbolic link everywhere it is permitted; on Windows without the
     symlink privilege (the enterprise default — no admin, no Developer Mode) a hard link, which needs no
     privilege since the repository is one volume. When neither works the function throws — it never degrades
     to a content copy, which would silently reintroduce the drift the link exists to remove.

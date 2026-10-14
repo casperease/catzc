@@ -2,7 +2,7 @@
 .SYNOPSIS
     Runs the test files through the parallel worker pool (and the serial phase) and aggregates the rows.
 .DESCRIPTION
-    Test-Automation's execution engine. Runs in the slot its test run claimed (Enter-TestRunSlot — a run never
+    Test-Automation's execution engine. Runs in the location its test run claimed (Enter-TestRunLocation — a run never
     waits for another: it runs in place when the working folder is free, and in a verified snapshot of it
     when another run holds it; [ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)),
     round-robins the parallel files across worker shards
@@ -25,8 +25,8 @@
     empty).
 .PARAMETER SerialFiles
     The serial-tagged test files for the final one-worker phase (may be empty).
-.PARAMETER Slot
-    The slot the test run claimed (Enter-TestRunSlot) — where the run executes. The caller releases it.
+.PARAMETER Location
+    The location the test run claimed (Enter-TestRunLocation) — where the run executes. The caller releases it.
 .PARAMETER RunDirectory
     The run directory the shard scripts and their artifacts are written into.
 .PARAMETER ExcludeTag
@@ -44,14 +44,12 @@
     importer; the build run passes the build's Import-Catzc.ps1.
 .PARAMETER EntryParameter
     Named arguments for -EntryScript (the build run's @{ RepositoryRoot = <repo> }).
-.PARAMETER KeepSandbox
-    Whether the test run keeps the snapshot (when the run used one) after the run — reported in Location.Kept.
 .OUTPUTS
     [pscustomobject] with Rows (aggregated, in shard order), FailedShardLabels (shards that exited 1),
     ShardExitCodes (label -> exit code, for the run manifest), Shards (the shard descriptors, serial last),
     WorkerSummaries (one per worker: queue number, label, file/test tallies, wall-clock start and duration —
-    the end-of-run table's rows), DurationSeconds (wall clock across both phases), and Location (where the
-    run executed — Mode 'in-place'|'snapshot', Root, Snapshot provenance, Kept, Holder — for the run
+    the end-of-run table's rows), DurationSeconds (wall clock across both phases), and Location (the
+    -Location the workers executed in, the same object — Get-TestRunLocationSummary renders it for the run
     manifest and the report).
 #>
 function Invoke-TestAutomationWorkers {
@@ -70,7 +68,7 @@ function Invoke-TestAutomationWorkers {
         [string[]] $SerialFiles,
 
         [Parameter(Mandatory)]
-        [pscustomobject] $Slot,
+        [pscustomobject] $Location,
 
         [Parameter(Mandatory)]
         [string] $RunDirectory,
@@ -94,9 +92,7 @@ function Invoke-TestAutomationWorkers {
 
         [string] $EntryScript,
 
-        [hashtable] $EntryParameter = @{},
-
-        [switch] $KeepSandbox
+        [hashtable] $EntryParameter = @{}
     )
 
     $stopwatch = [System.Diagnostics.Stopwatch]::new()
@@ -109,9 +105,9 @@ function Invoke-TestAutomationWorkers {
     $serialPhaseOffsetMs = 0
 
     # The test files and the entry script, as seen from the root the run executes in (a no-op in place).
-    $ParallelFiles = @(Convert-TestRunSlotPath -Slot $slot -Path $ParallelFiles)
-    $GreedyFiles = @(Convert-TestRunSlotPath -Slot $slot -Path $GreedyFiles)
-    $SerialFiles = @(Convert-TestRunSlotPath -Slot $slot -Path $SerialFiles)
+    $ParallelFiles = @(Convert-TestRunLocationPath -Location $Location -Path $ParallelFiles)
+    $GreedyFiles = @(Convert-TestRunLocationPath -Location $Location -Path $GreedyFiles)
+    $SerialFiles = @(Convert-TestRunLocationPath -Location $Location -Path $SerialFiles)
 
     # The shard-script arguments every phase shares — including the entry-script seam (which entry script loads
     # the modules in each worker).
@@ -120,7 +116,7 @@ function Invoke-TestAutomationWorkers {
         ExcludeTag   = $ExcludeTag
         IncludeTag   = $IncludeTag
         Verbosity    = $Verbosity
-    } + (Get-TestRunSlotEntry -Slot $slot -EntryScript $EntryScript -EntryParameter $EntryParameter)
+    } + (Get-TestRunLocationEntry -Location $Location -EntryScript $EntryScript -EntryParameter $EntryParameter)
 
     # Pool size: explicit -Workers, else ProcessorCount / 4 — measured on all tests, wall clock is flat
     # from PC/4 up to PC/2 workers (the box saturates), while per-test wall clock inflates with every extra
@@ -168,15 +164,15 @@ function Invoke-TestAutomationWorkers {
         $shardFileCounts[$serialShard.Label] = $SerialFiles.Count
     }
 
-    # Workers inherit CATZC_TEST_RUN_SLOT_HELD, so a test driving Invoke-TestFile for real inside this run
-    # runs in place in this run's root instead of claiming a slot of its own.
+    # Workers inherit CATZC_TEST_RUN_LOCATION_HELD, so a test driving Invoke-TestFile for real inside this run
+    # runs in place in this run's root instead of claiming a location of its own.
     $WorkerEnvironment = if ($WorkerEnvironment) {
         $WorkerEnvironment.Clone()
     }
     else {
         @{}
     }
-    $WorkerEnvironment['CATZC_TEST_RUN_SLOT_HELD'] = '1'
+    $WorkerEnvironment['CATZC_TEST_RUN_LOCATION_HELD'] = '1'
 
     # Announce before the pool blocks: each worker pays its own importer + Pester load before the first
     # Pester line streams, so silence here would read as a hang
@@ -247,7 +243,7 @@ function Invoke-TestAutomationWorkers {
         $shardRows = @([System.IO.File]::ReadAllText($shard.RowsPath) | ConvertFrom-Json)
         foreach ($row in $shardRows) {
             # Reports and module protection read working-folder paths, wherever the run executed.
-            $row.File = Convert-TestRunSlotPath -Slot $slot -Path $row.File -ToSource
+            $row.File = Convert-TestRunLocationPath -Location $Location -Path $row.File -ToSource
             $rows.Add($row)
         }
 
@@ -288,12 +284,6 @@ function Invoke-TestAutomationWorkers {
             })
     }
 
-    $locationMode = if ($slot.Mode -eq 'Snapshot') {
-        'snapshot'
-    }
-    else {
-        'in-place'
-    }
     [pscustomobject]@{
         Rows              = @($rows)
         FailedShardLabels = @($failedShardLabels)
@@ -301,17 +291,6 @@ function Invoke-TestAutomationWorkers {
         Shards            = @($allShards)
         WorkerSummaries   = @($workerSummaries)
         DurationSeconds   = $stopwatch.Elapsed.TotalSeconds
-        Location          = [pscustomobject]@{
-            Mode     = $locationMode
-            Root     = $slot.Root
-            Snapshot = $slot.Snapshot
-            Kept     = [bool]($slot.Snapshot -and $KeepSandbox)
-            Holder   = $(if ($slot.Holder) {
-                    $slot.Holder.Description
-                }
-                else {
-                    $null
-                })
-        }
+        Location          = $Location
     }
 }

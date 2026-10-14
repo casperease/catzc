@@ -3,22 +3,22 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 
 <#
 .SYNOPSIS
-    Custom PSScriptAnalyzer rule: a function file reads a lazy $script: slot only after probing or assigning it.
+    Custom PSScriptAnalyzer rule: a function file reads a lazy $script: cache entry only after probing or assigning it.
 .DESCRIPTION
     A module function file holds one function and no top-level statements
     ([ADR-AUTO-ONEFUNC](/docs/adr/automation/powershell/one-function-per-file.md)), so nothing declares
-    a $script: slot at import: the first call reads a variable that was never set, and strict mode throws.
-    The function must either assign the slot before reading it, or probe it with
-    `$ExecutionContext.SessionState.PSVariable.GetValue('script:<slot>')`
+    a $script: cache entry at import: the first call reads a variable that was never set, and strict mode throws.
+    The function must either assign the cache entry before reading it, or probe it with
+    `$ExecutionContext.SessionState.PSVariable.GetValue('script:<entry>')`
     ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4)).
 
-    Scope: everything except a .psm1 and a Pester file. A .psm1 module can declare its slots at load, and a Pester
-    file shares state through $script: on purpose. Within a function, a read is accepted when the same function probes
-    that slot with GetValue('script:<slot>') anywhere, or assigns it (a plain `$script:<slot> = …`) earlier in the text,
-    or when the script declares that slot at top level, outside any function.
+    Scope: everything except a .psm1 and a Pester file. A .psm1 module can declare its cache entries at load, and a
+    Pester file shares state through $script: on purpose. Within a function, a read is accepted when the same function
+    probes that cache entry with GetValue('script:<entry>') anywhere, or assigns it (a plain `$script:<entry> = …`)
+    earlier in the text, or when the script declares that cache entry at top level, outside any function.
 #>
 
-function Measure-NoBareScriptSlotRead {
+function Measure-NoBareCacheEntryRead {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
     param(
@@ -29,8 +29,8 @@ function Measure-NoBareScriptSlotRead {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
 
-    # Skip a .psm1 (it can declare its slots at load) and a Pester file — by name, or by its Describe calls when an
-    # editor buffer has no file name. Any other in-memory definition is analysed.
+    # Skip a .psm1 (it can declare its cache entries at load) and a Pester file — by name, or by its Describe calls when
+    # an editor buffer has no file name. Any other in-memory definition is analysed.
     $path = "$($ScriptBlockAst.Extent.File)"
     if ($path.EndsWith('.psm1', [System.StringComparison]::OrdinalIgnoreCase) -or
         (Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst)) {
@@ -52,8 +52,8 @@ function Measure-NoBareScriptSlotRead {
         $node -is [System.Management.Automation.Language.VariableExpressionAst] -and $node.VariablePath.IsScript
     }
 
-    # Slots the script itself declares at load (a top-level `$script:<slot> = …`, outside any function). This covers a
-    # .psm1 the editor analyses as an in-memory buffer, where the file name — and so the skip above — is lost.
+    # Cache entries the script itself declares at load (a top-level `$script:<entry> = …`, outside any function). This
+    # covers a .psm1 the editor analyses as an in-memory buffer, where the file name — and so the skip above — is lost.
     $declared = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($assignment in $ScriptBlockAst.FindAll($isAssignment, $false)) {
         $left = $assignment.Left
@@ -70,11 +70,11 @@ function Measure-NoBareScriptSlotRead {
             [void]$probed.Add($match.Groups[1].Value)
         }
 
-        # The earliest plain assignment ($script:<slot> = …) of each slot in this function.
+        # The earliest plain assignment ($script:<entry> = …) of each cache entry in this function.
         $firstAssignment = @{}
         foreach ($assignment in $body.FindAll($isAssignment, $true)) {
             $left = $assignment.Left
-            # only a plain '=' sets the slot: '??=', '+=' and the like read it first
+            # only a plain '=' sets the cache entry: '??=', '+=' and the like read it first
             $isPlain = $assignment.Operator -eq [System.Management.Automation.Language.TokenKind]::Equals
             if ($isPlain -and $left -is [System.Management.Automation.Language.VariableExpressionAst] -and $left.VariablePath.IsScript) {
                 $name = $left.VariablePath.UserPath -replace '^(?i)script:', ''
@@ -94,9 +94,9 @@ function Measure-NoBareScriptSlotRead {
                 continue
             }
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "'$($function.Name)' reads `$script:$name before assigning it — on a first call the slot is unset and strict mode throws. Probe it with `$ExecutionContext.SessionState.PSVariable.GetValue('script:$name') (ADR-AUTO-PSCACHE:4)."
+                    Message  = "'$($function.Name)' reads `$script:$name before assigning it — on a first call the cache entry is unset and strict mode throws. Probe it with `$ExecutionContext.SessionState.PSVariable.GetValue('script:$name') (ADR-AUTO-PSCACHE:4)."
                     Extent   = $variable.Extent
-                    RuleName = 'Measure-NoBareScriptSlotRead'
+                    RuleName = 'Measure-NoBareCacheEntryRead'
                     Severity = 'Warning'
                 })
         }

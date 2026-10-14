@@ -1,4 +1,4 @@
-# The coverage gate's engine
+# The coverage quality gate's engine
 # ([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)) over a TestKit
 # fixture tree: which functions with an internal
 # asset dependency lack a test that cites

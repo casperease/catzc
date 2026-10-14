@@ -12,24 +12,24 @@ cross-module C# type edges computed by [Catzc.Base.TypesSystem](catzc-base-types
 entry point complete the module's concern. The native C# type system itself — the compiled-assembly cache and the cross-module
 type-reference scanner — lives in [Catzc.Base.TypesSystem](catzc-base-typessystem.md).
 
-## Domains
+## Responsibilities
 
-| Domain   | Area        | Name                                                                       |
-| -------- | ----------- | -------------------------------------------------------------------------- |
-| domain:1 | introspect  | [Function enumeration](#domain1--function-enumeration)                     |
-| domain:2 | graph       | [Dependency graph and integrity](#domain2--dependency-graph-and-integrity) |
-| domain:3 | conventions | [Module conventions](#domain3--module-conventions)                         |
-| domain:4 | copy        | [Toolset model and copy](#domain4--toolset-model-and-copy)                 |
-| domain:5 | importer    | [Importer and generated files](#domain5--importer-and-generated-files)     |
+| Responsibility   | Area        | Name                                                                               |
+| ---------------- | ----------- | ---------------------------------------------------------------------------------- |
+| responsibility:1 | introspect  | [Function enumeration](#responsibility1--function-enumeration)                     |
+| responsibility:2 | graph       | [Dependency graph and integrity](#responsibility2--dependency-graph-and-integrity) |
+| responsibility:3 | conventions | [Module conventions](#responsibility3--module-conventions)                         |
+| responsibility:4 | copy        | [Toolset model and copy](#responsibility4--toolset-model-and-copy)                 |
+| responsibility:5 | importer    | [Importer and generated files](#responsibility5--importer-and-generated-files)     |
 
-### domain:1 — Function enumeration
+### responsibility:1 — Function enumeration
 
 The primitive that answers "what functions exist": the full set of PowerShell functions the automation modules define, and — with
 `-NotUsedInternally` — which of them are never called by another. It builds on the on-disk module list that
-[Catzc.Base.TypesSystem](catzc-base-typessystem.md)'s `Get-AutomationModules` provides, and the dependency-edge computation in domain 2
-traverses this function set to find call sites.
+[Catzc.Base.TypesSystem](catzc-base-typessystem.md)'s `Get-AutomationModules` provides, and the dependency-edge computation in
+responsibility 2 traverses this function set to find call sites.
 
-### domain:2 — Dependency graph and integrity
+### responsibility:2 — Dependency graph and integrity
 
 Computing the actual dependency edges — module-to-module through PowerShell call-site analysis and function-to-function through call-graph
 traversal from a named root — rendering them, ordering the modules foundation-first, and checking them with quality gates
@@ -37,10 +37,10 @@ traversal from a named root — rendering them, ordering the modules foundation-
 edges that [Catzc.Base.TypesSystem](catzc-base-typessystem.md) computes, are checked against the declared graph in `dependencies.yml`; the
 whole call graph is checked for cycles; and every function call is checked to resolve to a defined command. The declared graph is
 group-aware: its `groups:` section names sets of on-disk modules each with an internal member-to-member DAG; its `modules:` section lists,
-per consumer, the allowed targets as group names (loose: any member) or specific module names (tight). The config this domain owns —
+per consumer, the allowed targets as group names (loose: any member) or specific module names (tight). The config this responsibility owns —
 `dependencies.yml` — is the platform's single declared layering contract.
 
-### domain:3 — Module conventions
+### responsibility:3 — Module conventions
 
 The quality gates over the shape of the module tree itself: every module folder follows the folder and file conventions, every checked-in
 binary under `automation/.vendor` and `automation/.compiled` is stored byte-exact, and every internal asset dependency — a module reading a
@@ -48,14 +48,14 @@ file from its own folder — is inventoried from the code and covered by a test 
 [conventional-folders](../../adr/repository/conventional-folders.md) and
 [internal-asset-dependencies](../../adr/automation/internal-asset-dependencies.md)).
 
-### domain:4 — Toolset model and copy
+### responsibility:4 — Toolset model and copy
 
 The typed model of the modules and the copy built on it: the on-disk and in-session modules as typed objects by kind, named module profiles
 resolved to their dependency closure, and a deterministic copy of a selected subset of the toolset into a destination rooted like the
 repository — for testing in a temporary folder or vendoring the toolset as a package. Its configs name the extra file packages each module
 owns (`files.yml`), the module profiles (`profiles.yml`), and the publish targets for module-manifest artifacts (`artifacts.yml`).
 
-### domain:5 — Importer and generated files
+### responsibility:5 — Importer and generated files
 
 Generating a repository's `importer.ps1` — the dot-sourced entry point that loads the toolset — and committing the files the importer
 maintains. `New-Importer` reads the parameter block of the `Invoke-Importer` overlay and renders `importer.ps1` around a fixed template, so
@@ -66,15 +66,15 @@ The vendored modules themselves are managed by [Catzc.Base.Vendor](catzc-base-ve
 
 ## What the module does
 
-The module is the platform's self-knowledge layer. Domain 1 enumerates the functions the modules define, domain 2 computes and checks what
-the code actually depends on, domain 3 checks the shape of the module tree, domain 4 models the modules and copies them, and domain 5
-generates and commits the files that load them.
+The module is the platform's self-knowledge layer. Responsibility 1 enumerates the functions the modules define, responsibility 2 computes
+and checks what the code actually depends on, responsibility 3 checks the shape of the module tree, responsibility 4 models the modules and
+copies them, and responsibility 5 generates and commits the files that load them.
 
-The dependency graph half of domain 2 deserves explicit explanation because `dependencies.yml` carries a `groups` schema. The file has two
-top-level sections. `groups:` is a map where each key is a group name and each value is a map of on-disk module names to the list of other
-members they are allowed to depend on — the group's internal member-to-member DAG. A group is a concept, not a disk module: it names a set
-of real modules and declares the layering among them. `modules:` lists, per consumer module, the targets it may depend on; each target is
-either a group name — loose, meaning any member of that group — or a specific module name — tight, meaning only that exact module. The
+The dependency graph half of responsibility 2 deserves explicit explanation because `dependencies.yml` carries a `groups` schema. The file
+has two top-level sections. `groups:` is a map where each key is a group name and each value is a map of on-disk module names to the list of
+other members they are allowed to depend on — the group's internal member-to-member DAG. A group is a concept, not a disk module: it names a
+set of real modules and declares the layering among them. `modules:` lists, per consumer module, the targets it may depend on; each target
+is either a group name — loose, meaning any member of that group — or a specific module name — tight, meaning only that exact module. The
 file's config type checks the declaration when it loads: every target is declared, and the module graph and each group's internal DAG are
 acyclic. `Test-ModuleDependency` then resolves each declared target to a member set, unions the sets for a given consumer, and verifies that
 every actual edge from that consumer falls within the resolved allow-set and that every declared module exists on disk.
@@ -92,30 +92,30 @@ runs against.
 
 ## Division
 
-The module's public functions and configuration files, sorted into the domains above.
+The module's public functions and configuration files, sorted into the responsibilities above.
 
-| Domain                                    | Function                            |
-| ----------------------------------------- | ----------------------------------- |
-| domain:1 — Function enumeration           | `Get-AutomationFunctions`           |
-| domain:2 — Dependency graph and integrity | `Get-ModuleDependency`              |
-|                                           | `Get-ModuleDependencyEdges`         |
-|                                           | `ConvertTo-ModuleDependencyDiagram` |
-|                                           | `Get-FunctionDependency`            |
-|                                           | `Get-FunctionDependencyTree`        |
-|                                           | `Get-ModuleTestOrder`               |
-|                                           | `Test-ModuleDependency`             |
-|                                           | `Test-ModuleCycles`                 |
-|                                           | `Test-FunctionDependency`           |
-| config                                    | `dependencies.yml`                  |
-| domain:3 — Module conventions             | `Test-FolderConventions`            |
-|                                           | `Test-CheckedInBinaries`            |
-|                                           | `Get-InternalAssetDependency`       |
-|                                           | `Test-InternalAssetDependency`      |
-| domain:4 — Toolset model and copy         | `Get-BaseModule`                    |
-|                                           | `Get-ModuleProfile`                 |
-|                                           | `Copy-Automation`                   |
-| config                                    | `files.yml`                         |
-|                                           | `profiles.yml`                      |
-|                                           | `artifacts.yml`                     |
-| domain:5 — Importer and generated files   | `New-Importer`                      |
-|                                           | `Sync-GeneratedFile`                |
+| Responsibility                                    | Function                            |
+| ------------------------------------------------- | ----------------------------------- |
+| responsibility:1 — Function enumeration           | `Get-AutomationFunctions`           |
+| responsibility:2 — Dependency graph and integrity | `Get-ModuleDependency`              |
+|                                                   | `Get-ModuleDependencyEdges`         |
+|                                                   | `ConvertTo-ModuleDependencyDiagram` |
+|                                                   | `Get-FunctionDependency`            |
+|                                                   | `Get-FunctionDependencyTree`        |
+|                                                   | `Get-ModuleTestOrder`               |
+|                                                   | `Test-ModuleDependency`             |
+|                                                   | `Test-ModuleCycles`                 |
+|                                                   | `Test-FunctionDependency`           |
+| config                                            | `dependencies.yml`                  |
+| responsibility:3 — Module conventions             | `Test-FolderConventions`            |
+|                                                   | `Test-CheckedInBinaries`            |
+|                                                   | `Get-InternalAssetDependency`       |
+|                                                   | `Test-InternalAssetDependency`      |
+| responsibility:4 — Toolset model and copy         | `Get-BaseModule`                    |
+|                                                   | `Get-ModuleProfile`                 |
+|                                                   | `Copy-Automation`                   |
+| config                                            | `files.yml`                         |
+|                                                   | `profiles.yml`                      |
+|                                                   | `artifacts.yml`                     |
+| responsibility:5 — Importer and generated files   | `New-Importer`                      |
+|                                                   | `Sync-GeneratedFile`                |

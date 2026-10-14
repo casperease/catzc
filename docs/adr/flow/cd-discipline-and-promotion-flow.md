@@ -1,6 +1,6 @@
 # docs/adr/flow/cd-discipline-and-promotion-flow.md
 
-`ADR: The CI discipline and the promotion flow — domains keyed by the tagged artifact`
+`ADR: The CI discipline and the promotion flow — pipeline kinds keyed by the tagged artifact`
 
 ## Rules: ADR-FLOW-CD
 
@@ -25,12 +25,12 @@ slower system-test **outer loop** (CI+, ADR-FLOW-CD#8) is deliberately exempt an
 
 ### Rule ADR-FLOW-CD:3
 
-CI, CD, CDe, and DEPLOY are **separate pipeline domains keyed together by the tagged artifact**, not merged into one construct. Each is its
+CI, CD, CDe, and DEPLOY are **separate pipeline kinds keyed together by the tagged artifact**, not merged into one construct. Each is its
 own ADO pipeline with its own trigger, governance, and history (see [pipeline-types](../flow/pipeline-types.md)); they compose into a
-promotion flow because they share one key — the immutable, **tagged** artifact a CI component produces and every downstream domain consumes
+promotion flow because they share one key — the immutable, **tagged** artifact a CI component produces and every downstream kind consumes
 unchanged. Build-once, deploy-many: nothing downstream rebuilds, so what reaches prod is byte-identical to what was certified in non-prod.
 
-- [Separate domains, one key](#separate-domains-one-key)
+- [Separate kinds, one key](#separate-kinds-one-key)
 
 ### Rule ADR-FLOW-CD:4
 
@@ -81,7 +81,7 @@ loop** is the CI gate, the fast build-validation bound by the 5–10 minute budg
 speed that the merge is integrable. The **outer CI+ loop** adds the post-commit **system tests** (the L3-vertical run of ADR-FLOW-CD#5) and
 is deliberately **not** bound by that budget: it can take an hour or two. A green inner CI is necessary but not sufficient — from the
 contributor's view the change is not truly integrated until the CI+ outer loop reports back — so CI+ is where the slow verification the
-inner CI gate cannot afford is allowed to live. CI+ is a part of the CI discipline, not a separate pipeline domain (ADR-FLOW-CD#3);
+inner CI gate cannot afford is allowed to live. CI+ is a part of the CI discipline, not a separate pipeline kind (ADR-FLOW-CD#3);
 mechanically its L3 leg runs in the CD pipeline's post-commit path.
 
 - [The outer CI+ loop](#the-outer-ci-loop)
@@ -105,9 +105,10 @@ proceed, DEPLOY performs the roll. Clearing a gate is a promotion; failing it ho
 A **UAT** (User Acceptance Testing environment) is a running deployment a user-mimic can interact with — `main-uat` (tracking main) and
 `release-uat` (the release branch). **AT** (Acceptance Testing) is the verification _activity_: the **automated and manual** acceptance
 tests a commit must pass in that environment to be release-verified. So a stage's `-AT` name marks the testing and a `-uat` name marks the
-environment: **`L3-vertical-AT`** is the automated AT run in an on-demand slot (the gate L3 decides automatically); **`main-AT`** is the AT
-against `main-uat` (the manual RC gate, ADR-FLOW-CD#9); **`release-AT`** is the AT against `release-uat` (the manual RBC gate). A commit
-state `release-at-verified (main-uat)` reads "passed AT, in the main-uat environment" — the `-AT` is the testing, the `(…-uat)` is where.
+environment: **`L3-vertical-AT`** is the automated AT run in an on-demand slot — in a pipeline it is the AT gate; on a devbox it is a fast
+run that reports the assumptions it makes, not a gate; **`main-AT`** is the AT against `main-uat` (the manual RC gate, ADR-FLOW-CD#9);
+**`release-AT`** is the AT against `release-uat` (the manual RBC gate). A commit state `release-at-verified (main-uat)` reads "passed AT, in
+the main-uat environment" — the `-AT` is the testing, the `(…-uat)` is where.
 
 - [AT and UAT](#at-and-uat)
 
@@ -156,9 +157,9 @@ run — CD's post-commit system test (ADR-FLOW-CD#2).
 
 [pipeline-types](../flow/pipeline-types.md) is the _taxonomy_ — it fixes what each of the six ADO artifact kinds **is**. This ADR is the
 _design layer_ above it: it records that "CI" names a **discipline** before it names a pipeline, and that the pipeline kinds are not a flat
-list but **domains that compose into a directional promotion flow**, keyed together by one shared object — the tagged artifact. The taxonomy
-answers "what is a CD pipeline"; this answers "what is Continuous Integration as a practice, and how do CI, CD, and DEPLOY chain a commit
-all the way to production without any of them rebuilding it."
+list: they **compose into a directional promotion flow**, keyed together by one shared object — the tagged artifact. The taxonomy answers
+"what is a CD pipeline"; this answers "what is Continuous Integration as a practice, and how do CI, CD, and DEPLOY chain a commit all the
+way to production without any of them rebuilding it."
 
 Two of those kinds share the letters "CD" and must not be confused. **CD is Continuous _Delivery_**: the flow is automated through non-prod
 and the artifact is left _ready_ for prod, with the production cutover handed to a separately-governed DEPLOY (ADR-FLOW-CD#5–ADR-FLOW-CD#6).
@@ -175,14 +176,14 @@ it squats in the fast CI slot.
 
 ## Decision
 
-CI is a discipline; the CI, CD, and DEPLOY pipeline domains are keyed together by the tagged artifact into a directional promotion flow from
+CI is a discipline; the CI, CD, and DEPLOY pipeline kinds are keyed together by the tagged artifact into a directional promotion flow from
 main to prod. The flow, end to end:
 
 ```text
 CI (discipline)   keep every integration into main/master ≤ 5–10 min  ──  team-wide
       │
       ▼  the CI pipeline concept produces
-CI (pipeline)  ──►  tagged artifact   (build-once — the key every domain shares)
+CI (pipeline)  ──►  tagged artifact   (build-once — the key every kind shares)
       │
       ▼  a CD is that same CI, then a direction (all non-prod, automated)
 CD (pipeline = CI component + direction)
@@ -221,15 +222,15 @@ of _continuous_ integration. So the budget is a hard design constraint on the CI
 pipeline's convenience. Work too slow for the budget is pushed right — into the CD deploy path or a DEPLOY step — never into the pre-commit
 gate.
 
-### Separate domains, one key
+### Separate kinds, one key
 
 CI, CD, and DEPLOY are deliberately **separate ADO constructs** — separate triggers, separate governance, separate run histories — because
 they answer to different owners and cadences (build-and-verify on every change; automated non-prod promotion; production cutover behind a
 manual gate). What keeps them from being three disconnected things is that they are **keyed together by one shared object**: the immutable,
 tagged artifact. A CI component stamps it once; CD consumes exactly that tag; DEPLOY promotes exactly that tag to prod. The tag (and its
-commit) is the join key across the domains, the same way a subscription name joins the two Azure config layers
-([data-model](../azure/azure-data-model.md)). Because the key is an immutable artifact and no domain rebuilds it — build-once, deploy-many —
-what runs in production is byte-identical to what was certified in non-prod. The domains stay small and independently reasoned; the artifact
+commit) is the join key across the kinds, the same way a subscription name joins the two Azure config layers
+([data-model](../azure/azure-data-model.md)). Because the key is an immutable artifact and no kind rebuilds it — build-once, deploy-many —
+what runs in production is byte-identical to what was certified in non-prod. The kinds stay small and independently reasoned; the artifact
 carries the continuity.
 
 ### A CD is a CI that keeps going
@@ -266,7 +267,7 @@ boundary. From the certified non-prod state, the **same tagged artifact** is pro
 manually-governed DEPLOY pipeline that drives the artifact into a **non-automated** environment behind a manual gate
 ([ADR-FLOW-CD-TYPE#8–ADR-FLOW-CD-TYPE#11](../flow/pipeline-types.md#deploy)). A DEPLOY pipeline is where a certification environment locked
 to a release commit, or a production cutover behind an approval gate, lives. The line is clean: **CD is the automated non-prod direction;
-DEPLOY is the human-governed step toward prod** — two domains, one artifact, keyed together at the boundary rather than fused into a single
+DEPLOY is the human-governed step toward prod** — two kinds, one artifact, keyed together at the boundary rather than fused into a single
 pipeline that would bury the manual gate inside an automated flow.
 
 ### CDe
@@ -308,9 +309,9 @@ exactly the shared-fate failure the budget rule exists to prevent.
 The discipline's honesty depends on naming this. A green inner CI proves the merge builds and passes the fast checks; it does not prove the
 system works. Integration, as the contributor experiences it, is not finished until the CI+ outer loop returns — that feedback, not the CI
 gate, is what closes the loop. So CI+ is not a weaker or optional CI: it is the part of the discipline the CI gate deliberately defers, run
-post-commit where its cost is affordable, and a change is "integrated" only once it is green. Because CI+ is discipline, not a domain, it
-adds no ADO pipeline kind (ADR-FLOW-CD#3) — its L3 leg is the CD pipeline's on-demand system test, named as the outer loop rather than
-forked into a second pipeline.
+post-commit where its cost is affordable, and a change is "integrated" only once it is green. Because CI+ is discipline, not a pipeline
+kind, it adds no ADO pipeline kind (ADR-FLOW-CD#3) — its L3 leg is the CD pipeline's on-demand system test, named as the outer loop rather
+than forked into a second pipeline.
 
 ### RC and RBC
 
@@ -405,23 +406,23 @@ the mechanic — stage inactive, validate, activate live — is the same.
 - "CI" stops being ambiguous: the discipline (fast, continuous integration into one mainline) and the pipeline (the BVT that enforces it)
   are named as cause and instrument, so a design conversation can say which one it means.
 - The pipeline kinds read as a **flow**, not a flat list: a solo CI produces the artifact, a CD carries it through non-prod, a DEPLOY
-  promotes it to prod — one artifact keying three independently-governed domains.
-- Build-once, deploy-many is structural: because the tagged artifact is the join key and no domain rebuilds, production runs exactly the
-  bytes non-prod certified.
+  promotes it to prod — one artifact keying three independently-governed pipeline kinds.
+- Build-once, deploy-many is structural: because the tagged artifact is the join key and no kind rebuilds, production runs exactly the bytes
+  non-prod certified.
 - The manual/automated line has a home: under **delivery**, everything automated lives in CD's non-prod direction and everything behind a
   manual gate lives in DEPLOY, with the boundary explicit rather than an approval buried in an automated pipeline. Under **deployment
   (CDe)**, the prod roll is internalized and automated, and the boundary moves _inside_ the pipeline as an optional approval gate — still
   explicit, but now a checkpoint in an automated flow rather than a separately-triggered construct.
 - "CD" stops meaning two things: Continuous **Delivery** (prod is a human-triggered DEPLOY) and Continuous **Deployment** (CDe — the prod
   roll is automated) are named apart, so a unit's promotion posture is stated, not inferred.
-- The cost is that promotion is several keyed constructs rather than one monolith. That is the intended trade: separate domains with their
-  own access, isolation, and history, held together by an immutable artifact — not a single pipeline that conflates the team's CI gate, an
-  automated non-prod rollout, and a governed production cutover.
+- The cost is that promotion is several keyed constructs rather than one monolith. That is the intended trade: separate pipeline kinds with
+  their own access, isolation, and history, held together by an immutable artifact — not a single pipeline that conflates the team's CI
+  gate, an automated non-prod rollout, and a governed production cutover.
 
 ## Related
 
 - [pipeline-types](../flow/pipeline-types.md) — the taxonomy this ADR layers on (CRON / CI / CD / CDe / DEPLOY / INPUT).
-- [pipeline-runner-pattern](../flow/pipeline-runner-pattern.md) — how every pipeline domain invokes automation.
+- [pipeline-runner-pattern](../flow/pipeline-runner-pattern.md) — how every pipeline kind invokes automation.
 - [test-automation](../automation/test-automation.md) — the L0–L3 tiers; L3 is the system-level E2E CD runs in its on-demand environment,
   and the outer CI+ loop (ADR-FLOW-CD#8).
 - [repo-variants](../repository/repo-variants.md) — the `git_workspace` variant (`ADR-REPO-VARIANT:6`) is the PR-vs-Direct integration mode

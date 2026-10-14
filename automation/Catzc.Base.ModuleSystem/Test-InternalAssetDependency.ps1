@@ -2,8 +2,8 @@
 .SYNOPSIS
     Quality gate: every internal asset dependency is inventoried and covered by a test that runs in both run modes.
 .DESCRIPTION
-    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) — the coverage gate
-    of [ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4) over the module
+    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) enforcing the
+    coverage rule [ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4) over the module
     code. It collects an issue for:
 
       - every Get-CatzcModuleRoot call site whose -ChildPath or -Module is not a string literal

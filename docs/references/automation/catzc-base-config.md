@@ -10,15 +10,15 @@ config types themselves (each lives in its owning module's `types/`), the config
 objects (those live in [Catzc.Base.Objects](catzc-base-objects.md)). The design is governed by
 [module-config-loading](../../adr/configuration/module-config-loading.md).
 
-## Domains
+## Responsibilities
 
-| Domain   | Area       | Name                                                               |
-| -------- | ---------- | ------------------------------------------------------------------ |
-| domain:1 | loading    | [Config loading and caching](#domain1--config-loading-and-caching) |
-| domain:2 | registry   | [Config type registry](#domain2--config-type-registry)             |
-| domain:3 | addressing | [Config value addressing](#domain3--config-value-addressing)       |
+| Responsibility   | Area       | Name                                                                       |
+| ---------------- | ---------- | -------------------------------------------------------------------------- |
+| responsibility:1 | loading    | [Config loading and caching](#responsibility1--config-loading-and-caching) |
+| responsibility:2 | registry   | [Config type registry](#responsibility2--config-type-registry)             |
+| responsibility:3 | addressing | [Config value addressing](#responsibility3--config-value-addressing)       |
 
-### domain:1 — Config loading and caching
+### responsibility:1 — Config loading and caching
 
 The unified path from a config name to a validated, cached object. `Get-Config` discovers the file by scanning
 `automation/*/configs/<name>.yml` (via the private `Resolve-ConfigEntry` seam), parses it as an ordered dictionary, constructs its
@@ -27,7 +27,7 @@ type comes back raw. Every subsequent call for the same name returns the cached 
 ambiguous names throw immediately; there is no silent fall-through. The full design — discovery, typed configs, poka-yoke table — is in
 [module-config-loading](../../adr/configuration/module-config-loading.md).
 
-### domain:2 — Config type registry
+### responsibility:2 — Config type registry
 
 A `configs.yml` file that binds each shipped config name to its C# config type (`<name>: { type: <C# FQN> }`). `Get-Config` constructs
 `[type]::new($dict)`, so the type both maps and validates the ordered dict into a typed object and reports every violation at once.
@@ -35,7 +35,7 @@ A `configs.yml` file that binds each shipped config name to its C# config type (
 quality gate `Test-ShippedConfigs` keeps the registry and the shipped configs in step. See
 [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md) for the type mechanism.
 
-### domain:3 — Config value addressing
+### responsibility:3 — Config value addressing
 
 A global config address `global.<config>.<key.path>` names one node — a leaf value or a subtree — inside a named config, resolved by
 `Get-ConfigValue` on top of `Get-Config`, so there is still one reader and one cache. The first segment after `global.` is the global config
@@ -47,30 +47,30 @@ always read-only. Because an address only ever reaches version-controlled config
 
 ## What the module does
 
-This module is a single-function reader with a typed back-end. Domain 1 is the invariant: `Get-Config` is the one place in the platform
-where a config file is opened, parsed, and cached. No other module keeps its own cache, re-reads a file, or re-implements
+This module is a single-function reader with a typed back-end. Responsibility 1 is the invariant: `Get-Config` is the one place in the
+platform where a config file is opened, parsed, and cached. No other module keeps its own cache, re-reads a file, or re-implements
 parse-and-validate. Because validation is the config type's constructor, it is caller-independent — the same validated object comes back no
 matter who asked.
 
-Domain 2 is the binding between a config file and its shape. Adding a config is a file, a C# type in the owning module, and one registry
-line — no change to the reader. The registry file is validated by `ConfigsConfig`, which is itself loaded through `Get-Config` — the
-mechanism eats its own cooking.
+Responsibility 2 is the binding between a config file and its shape. Adding a config is a file, a C# type in the owning module, and one
+registry line — no change to the reader. The registry file is validated by `ConfigsConfig`, which is itself loaded through `Get-Config` —
+the mechanism eats its own cooking.
 
-Domain 3 is a thin read on top of domain 1. `Get-ConfigValue` adds a grammar and a key-path walk over the object `Get-Config` already loaded
-and cached — it opens no file and keeps no cache of its own, so the one-reader invariant holds. An address is how a config value earns a
-written-down name: a `global.<config>.<key.path>` string is data a caller can commit and dereference at the point of use, and its hard line
-at secrets (everything reachable is in git, so nothing addressable is secret) is what lets a consumer treat an address-sourced value as
-non-secret.
+Responsibility 3 is a thin read on top of responsibility 1. `Get-ConfigValue` adds a grammar and a key-path walk over the object
+`Get-Config` already loaded and cached — it opens no file and keeps no cache of its own, so the one-reader invariant holds. An address is
+how a config value earns a written-down name: a `global.<config>.<key.path>` string is data a caller can commit and dereference at the point
+of use, and its hard line at secrets (everything reachable is in git, so nothing addressable is secret) is what lets a consumer treat an
+address-sourced value as non-secret.
 
 The module is a member of the `Base` group and depends on [Catzc.Base.Repository](catzc-base-repository.md) for file-path resolution and on
 [Catzc.Base.Asserts](catzc-base-asserts.md) for fail-fast assertions.
 
 ## Division
 
-The module's public function and configuration file, sorted into the domains above.
+The module's public function and configuration file, sorted into the responsibilities above.
 
-| Domain                                | Function          |
-| ------------------------------------- | ----------------- |
-| domain:1 — Config loading and caching | `Get-Config`      |
-| domain:2 — Config type registry       | `configs.yml`     |
-| domain:3 — Config value addressing    | `Get-ConfigValue` |
+| Responsibility                                | Function          |
+| --------------------------------------------- | ----------------- |
+| responsibility:1 — Config loading and caching | `Get-Config`      |
+| responsibility:2 — Config type registry       | `configs.yml`     |
+| responsibility:3 — Config value addressing    | `Get-ConfigValue` |

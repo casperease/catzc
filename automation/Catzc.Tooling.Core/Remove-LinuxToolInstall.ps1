@@ -16,7 +16,7 @@
     config naming an apt_package. Only the apt path asserts root; the uv-pip and stray-binary paths are
     user-space ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)).
 
-    This is invoked from the Linux branch of a Remove-<Tool>, which owns the -Force dry-run gate and the
+    This is invoked from the Linux branch of a Remove-<Tool>, which owns the -Force dry-run guard and the
     managed-install refusal (Test-ExpectedPackageManager) — so this core is only ever reached for an
     off-config install, and just evicts it.
 .PARAMETER Config

@@ -13,7 +13,7 @@ Describe 'Get-TestRunLocationSummary' -Tag 'L0', 'logic' {
     }
 
     It 'renders an in-place run as its mode alone' {
-        $summary = & $script:summarize ([pscustomobject]@{ Mode = 'in-place'; Root = 'C:\widget'; Snapshot = $null; Kept = $false; Holder = $null })
+        $summary = & $script:summarize ([pscustomobject]@{ Mode = 'in-place'; Root = 'C:\widget'; Snapshot = $null; KeepSandbox = $false; Holder = $null })
         $summary.Text | Should -Be 'in-place'
         $summary.Manifest['location'] | Should -Be 'in-place'
         $summary.Manifest.Contains('snapshot') | Should -BeFalse
@@ -22,7 +22,8 @@ Describe 'Get-TestRunLocationSummary' -Tag 'L0', 'logic' {
     It 'renders a snapshot run with its provenance, in the text and the manifest alike' {
         $snapshot = [pscustomobject]@{ Path = 'C:\tmp\catzc-run-gadget'; SourceRoot = 'C:\widget'; Commit = '0a69309f00d'; Modified = 7; Untracked = 2; Deleted = 0 }
         $summary = & $script:summarize ([pscustomobject]@{
-                Mode = 'snapshot'; Root = $snapshot.Path; Snapshot = $snapshot; Kept = $true; Holder = 'Test-Automation (pid 1)'
+                Mode = 'snapshot'; Root = $snapshot.Path; Snapshot = $snapshot; KeepSandbox = $true
+                Holder = [pscustomobject]@{ Description = 'Test-Automation (pid 1)' }
             })
         $summary.Text | Should -Be 'snapshot of C:\widget @ 0a69309 + 7 modified, 2 untracked, 0 deleted file(s) in C:\tmp\catzc-run-gadget (kept)'
         $summary.Manifest['location'] | Should -Be 'snapshot'

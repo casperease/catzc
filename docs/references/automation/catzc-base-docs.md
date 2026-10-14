@@ -10,21 +10,21 @@ primitive, which is `Write-FileIfChanged` ([Catzc.Base.Files](catzc-base-files.m
 The module also generates the other derived documentation pages from their authored sources — the ADR index from `adrs.yml` and the glossary
 from the modules' glossary sources — and answers "ask cats", the offline browser over the ADRs, modules, and verbs.
 
-## Domains
+## Responsibilities
 
-| Domain   | Area       | Name                                                       |
-| -------- | ---------- | ---------------------------------------------------------- |
-| domain:1 | copy       | [README materialisation](#domain1--readme-materialisation) |
-| domain:2 | map        | [README map](#domain2--readme-map)                         |
-| domain:3 | markers    | [Managed .gitkeep files](#domain3--managed-gitkeep-files)  |
-| domain:4 | adr        | [ADR registry](#domain4--adr-registry)                     |
-| domain:5 | vocabulary | [Controlled vocabulary](#domain5--controlled-vocabulary)   |
-| domain:6 | ask        | [Ask cats](#domain6--ask-cats)                             |
+| Responsibility   | Area       | Name                                                               |
+| ---------------- | ---------- | ------------------------------------------------------------------ |
+| responsibility:1 | copy       | [README materialisation](#responsibility1--readme-materialisation) |
+| responsibility:2 | map        | [README map](#responsibility2--readme-map)                         |
+| responsibility:3 | markers    | [Managed .gitkeep files](#responsibility3--managed-gitkeep-files)  |
+| responsibility:4 | adr        | [ADR registry](#responsibility4--adr-registry)                     |
+| responsibility:5 | vocabulary | [Controlled vocabulary](#responsibility5--controlled-vocabulary)   |
+| responsibility:6 | ask        | [Ask cats](#responsibility6--ask-cats)                             |
 
-### domain:1 — README materialisation
+### responsibility:1 — README materialisation
 
-Keeping each mapped folder's README a current copy of its authored source. This domain composes the README — the source's text with every
-relative link rebased from the source's folder to the README's (`MarkdownLinkRebaser`), under a line naming the source — and writes it
+Keeping each mapped folder's README a current copy of its authored source. This responsibility composes the README — the source's text with
+every relative link rebased from the source's folder to the README's (`MarkdownLinkRebaser`), under a line naming the source — and writes it
 through `Write-FileIfChanged` ([Catzc.Base.Files](catzc-base-files.md)): a current README is a no-op, and a stale one is rewritten by
 delete-then-write, so a README that is still a filesystem link is severed, never written through into its source. That idempotence is what
 lets the importer regenerate every README on each load at no steady-state cost (see
@@ -32,7 +32,7 @@ lets the importer regenerate every README on each load at no steady-state cost (
 ([ADR-AUTO-TEST#35](../../adr/automation/test-automation.md#rule-adr-auto-test35)), `Test-GeneratedReadmes`, checks the result: every
 generated README is gitignored, untracked, and current with its source.
 
-### domain:2 — README map
+### responsibility:2 — README map
 
 Which folder is generated from which source. The map is `readme.yml`: a glob `patterns` list whose every matched folder derives its source
 by convention (the folder's leaf name, kebab-cased — `automation/*` → `docs/references/automation/<kebab>.md`), plus explicit `mappings` for
@@ -49,28 +49,29 @@ non-dot-prefixed subdirectories of its prefix (so `.vendor`, `.internal`, and ot
 whose derived source does not exist yet is skipped rather than generated — so a module with no reference article is fine; it simply has no
 generated README until its source lands.
 
-### domain:3 — Managed .gitkeep files
+### responsibility:3 — Managed .gitkeep files
 
 Reproducing every `.gitkeep` from the one generic authored source (`assets/gitkeep`). The folder is the registration — a filesystem walk
 (skipping `.git`, the vendored modules, and the output root's contents) finds the set, so there is no list to maintain. The generic text
 points the reader at the folder's `README.md`, and an integrity test makes that pointer binding: every `.gitkeep` folder must be a
-readme-mapped target (domain:2), so dropping a `.gitkeep` anywhere demands its reference article. Unlike the gitignored READMEs, the
+readme-mapped target (responsibility:2), so dropping a `.gitkeep` anywhere demands its reference article. Unlike the gitignored READMEs, the
 `.gitkeep` copies stay committed — tracking the folder is their purpose — so a source change lands as a reviewable, repo-wide diff.
 
-### domain:4 — ADR registry
+### responsibility:4 — ADR registry
 
-The ADR domain structure as data: `adrs.yml` declares each domain, its role and dependencies, and each ADR's citation code. This domain
-generates the committed ADR index from it on every import, reads the declared rule-sets, the flat set of rule ids, and the citation map
-every rule reference resolves through, and renders the domain dependency graph as typed edges or a diagram. A quality gate keeps the
-registry and the ADR files in step: one rule file per declared rule-set, headed by its citation code, and no rule file left unregistered.
+The ADR domain structure as data: `adrs.yml` declares each domain, its role and dependencies, and each ADR's citation code. This
+responsibility generates the committed ADR index from it on every import, reads the declared rule-sets, the flat set of rule ids, and the
+citation map every rule reference resolves through, and renders the domain dependency graph as typed edges or a diagram. A quality gate
+keeps the registry and the ADR files in step: one rule file per declared rule-set, headed by its citation code, and no rule file left
+unregistered.
 
-### domain:5 — Controlled vocabulary
+### responsibility:5 — Controlled vocabulary
 
 The glossary: every defined term, merged from the modules' `configs/glossary.yml` sources (see
-[controlled-vocabulary](../../adr/repository/controlled-vocabulary.md)). This domain returns the merged vocabulary, generates the glossary
-page from it, and checks it — every term anchored on its one defining rule, and no avoided phrasing used within a source's scope.
+[controlled-vocabulary](../../adr/repository/controlled-vocabulary.md)). This responsibility returns the merged vocabulary, generates the
+glossary page from it, and checks it — every term anchored on its one defining rule, and no avoided phrasing used within a source's scope.
 
-### domain:6 — Ask cats
+### responsibility:6 — Ask cats
 
 "Ask cats": an offline, deterministic browser over what the repository already knows — the ADR codes and rules, the modules and their public
 functions, and the approved verbs in use. It prints only; it returns nothing.
@@ -93,23 +94,23 @@ reproduced from it, which `Test-GeneratedFiles` ([Catzc.Base.QualityGates](catzc
 
 ## Division
 
-The module's public surface, sorted into the domains above.
+The module's public surface, sorted into the responsibilities above.
 
-| Domain                            | Function                     |
-| --------------------------------- | ---------------------------- |
-| domain:1 — README materialisation | `Build-Readme`               |
-|                                   | `Test-GeneratedReadmes`      |
-| domain:2 — README map             | `readme.yml`                 |
-| domain:3 — Managed .gitkeep files | `Build-GitKeep`              |
-| domain:4 — ADR registry           | `Build-AdrIndex`             |
-|                                   | `Get-AdrRuleSet`             |
-|                                   | `Get-CatsAdrRuleIds`         |
-|                                   | `Get-AdrCitationMap`         |
-|                                   | `Get-AdrDomainEdges`         |
-|                                   | `ConvertTo-AdrDomainDiagram` |
-|                                   | `Test-AdrRegistry`           |
-| config                            | `adrs.yml`                   |
-| domain:5 — Controlled vocabulary  | `Get-Glossary`               |
-|                                   | `Build-Glossary`             |
-|                                   | `Test-Glossary`              |
-| domain:6 — Ask cats               | `Show-Cats`                  |
+| Responsibility                            | Function                     |
+| ----------------------------------------- | ---------------------------- |
+| responsibility:1 — README materialisation | `Build-Readme`               |
+|                                           | `Test-GeneratedReadmes`      |
+| responsibility:2 — README map             | `readme.yml`                 |
+| responsibility:3 — Managed .gitkeep files | `Build-GitKeep`              |
+| responsibility:4 — ADR registry           | `Build-AdrIndex`             |
+|                                           | `Get-AdrRuleSet`             |
+|                                           | `Get-CatsAdrRuleIds`         |
+|                                           | `Get-AdrCitationMap`         |
+|                                           | `Get-AdrDomainEdges`         |
+|                                           | `ConvertTo-AdrDomainDiagram` |
+|                                           | `Test-AdrRegistry`           |
+| config                                    | `adrs.yml`                   |
+| responsibility:5 — Controlled vocabulary  | `Get-Glossary`               |
+|                                           | `Build-Glossary`             |
+|                                           | `Test-Glossary`              |
+| responsibility:6 — Ask cats               | `Show-Cats`                  |

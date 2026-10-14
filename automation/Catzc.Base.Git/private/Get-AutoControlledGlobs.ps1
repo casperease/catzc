@@ -8,7 +8,7 @@
 
     - the managed root-config registry's gitignored targets (rootconfig.yml entries with optIn and
       committed false — .editorconfig, the .vscode/ files, cspell.yml, catzc.sln, …), read through
-      Get-Config (reading a config is global access, never dependency-gated —
+      Get-Config (reading a config is global access, never limited by the dependency graph —
       [ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6));
     - the conventional generated-artifact classes: the dynamic module manifests
       (automation/<Module>/<Module>.psd1), the generated READMEs (every gitignored README.md is a

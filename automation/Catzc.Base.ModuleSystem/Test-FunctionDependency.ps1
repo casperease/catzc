@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    The function dependency gate: every function-to-function call resolves to a defined command.
+    The function dependency quality gate: every function-to-function call resolves to a defined command.
 .DESCRIPTION
     Parses every .ps1 file (excluding tests) under the automation root using AST,
     then checks each function call against: (a) the definitions map of automation

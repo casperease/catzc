@@ -2,7 +2,7 @@ Describe 'Get-LogicTestIdentityFinding' -Tag 'L0', 'logic' {
     BeforeAll {
         # A SYNTHETIC live-identity map: 'contoso' stands in for a live customer. It is deliberately NOT a real
         # shipped identity, so this very test file (which must contain the token to exercise the finder) is not
-        # itself flagged by the real gate. The finder's logic is identical for any token set.
+        # itself flagged by Test-LogicTestIdentity. The finder's logic is identical for any token set.
         $script:live = @{
             contoso = [pscustomobject]@{ Token = 'contoso'; Kind = 'customer-key'; Source = 'customer.yml'; Suggest = 'a fixture customer (acme)'; MatchMode = 'exact' }
             staging = [pscustomobject]@{ Token = 'staging'; Kind = 'environment'; Source = 'azure.yml'; Suggest = 'a fixture environment (alpha)'; MatchMode = 'position' }

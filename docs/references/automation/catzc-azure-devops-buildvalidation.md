@@ -9,14 +9,14 @@ projection (see [pipeline-types](../../adr/flow/pipeline-types.md) and [durable-
 ([everything-as-code](../../adr/principles/everything-as-code.md)). What it deliberately does **not** own is the globsets themselves
 ([Catzc.Base.Globs](catzc-base-globs.md)) or the pipelines the policies queue — it binds the two together on the server, nothing more.
 
-## Domains
+## Responsibilities
 
-| Domain   | Area      | Name                                                     |
-| -------- | --------- | -------------------------------------------------------- |
-| domain:1 | reconcile | [Policy reconciliation](#domain1--policy-reconciliation) |
-| domain:2 | inventory | [Policy inventory](#domain2--policy-inventory)           |
+| Responsibility   | Area      | Name                                                             |
+| ---------------- | --------- | ---------------------------------------------------------------- |
+| responsibility:1 | reconcile | [Policy reconciliation](#responsibility1--policy-reconciliation) |
+| responsibility:2 | inventory | [Policy inventory](#responsibility2--policy-inventory)           |
 
-### domain:1 — Policy reconciliation
+### responsibility:1 — Policy reconciliation
 
 Converging the ADO project's build-validation policies to the local config. Registering binds a declared globset's native projection
 (`Get-GlobSetTrigger`) as the path filter of a policy that queues the resolved pipeline on the guarded branch — creating a missing policy,
@@ -27,7 +27,7 @@ blocking/display-name bits from `build-validation.yml`. The sync form runs the w
 removes a globset's policy — a reported no-op when none exists. Every mutation supports `-DryRun`, returning the planned
 Create/Update/Unchanged action without touching the server.
 
-### domain:2 — Policy inventory
+### responsibility:2 — Policy inventory
 
 Reading the repository's build-validation policies as they stand on the server. The query returns one object per policy — id, display name,
 guarded branch, path filters, the pipeline definition it queues, the blocking/enabled bits, and the raw configuration — optionally scoped to
@@ -50,12 +50,12 @@ dual-authentication precedence ([dual-authentication](../../adr/pipelines/dual-a
 
 ## Division
 
-The module's public surface, sorted into the domains above.
+The module's public surface, sorted into the responsibilities above.
 
-| Domain                           | Function                        |
-| -------------------------------- | ------------------------------- |
-| domain:1 — Policy reconciliation | `Sync-AdoBuildValidations`      |
-|                                  | `Register-AdoBuildValidation`   |
-|                                  | `Unregister-AdoBuildValidation` |
-| config                           | `build-validation.yml`          |
-| domain:2 — Policy inventory      | `Get-AdoBuildValidations`       |
+| Responsibility                           | Function                        |
+| ---------------------------------------- | ------------------------------- |
+| responsibility:1 — Policy reconciliation | `Sync-AdoBuildValidations`      |
+|                                          | `Register-AdoBuildValidation`   |
+|                                          | `Unregister-AdoBuildValidation` |
+| config                                   | `build-validation.yml`          |
+| responsibility:2 — Policy inventory      | `Get-AdoBuildValidations`       |

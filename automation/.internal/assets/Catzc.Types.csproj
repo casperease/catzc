@@ -6,7 +6,7 @@
   solution, managed by Build-RootConfig and kept at the repo root so Dev Kit auto-loads it) references it by
   relative path. Every
   path below is therefore project-relative: '../..' is the automation/ directory.
-  Each source declares its module's file-scoped namespace (Format-Types writes it, Test-Formatting gates it), so
+  Each source declares its module's file-scoped namespace (Format-Types writes it, Test-Formatting checks it), so
   the analyzer sees real namespaces and never raises a false CA1050 "Declare types in namespaces".
 
   At import time Import-CSharpTypes compiles the very same sources with
@@ -77,7 +77,7 @@
     Clear-ModuleTypeCache / the drift-guard tests and MUST stay in sync.
 
     The editor never fails over automation/.compiled: whether the code compiles is the editor's question, and
-    the committed assembly is the importer's, the tests' and the bundle gate's. It only WARNS when what git
+    the committed assembly is the importer's, the tests' and the bundle check's. It only WARNS when what git
     will commit — the index's automation/.compiled, not the disk — does not hold exactly one
     Catzc.Types.<hash>.dll named for the current sources. Untracked or unstaged leftovers (an old build another
     pwsh still has loaded) never matter. Dot-source ./importer.ps1 and stage automation/.compiled when it warns.

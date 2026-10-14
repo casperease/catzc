@@ -8,21 +8,21 @@ validator that receives the parsed dictionary and throws on a violation. This is
 own configuration on PowerShell extension points (see [module-config-loading](../../adr/configuration/module-config-loading.md), the
 PowerShell extension point). The module deliberately does **not** load configs, and core configs never use it.
 
-## Domains
+## Responsibilities
 
-| Domain   | Area       | Name                                                     |
-| -------- | ---------- | -------------------------------------------------------- |
-| domain:1 | validation | [PowerShell validators](#domain1--powershell-validators) |
-| domain:2 | gate       | [Validator coverage](#domain2--validator-coverage)       |
+| Responsibility   | Area       | Name                                                             |
+| ---------------- | ---------- | ---------------------------------------------------------------- |
+| responsibility:1 | validation | [PowerShell validators](#responsibility1--powershell-validators) |
+| responsibility:2 | gate       | [Validator coverage](#responsibility2--validator-coverage)       |
 
-### domain:1 — PowerShell validators
+### responsibility:1 — PowerShell validators
 
 Running a config's PowerShell validator in the module that owns it. The validator is found by convention, `Assert-<TitleCase(name)>Config`
 (so `widget-parts` is `Assert-WidgetPartsConfig`), or named explicitly, and runs inside the owning module's scope, so a private validator
 resolves and the result does not depend on the caller. A conventional validator that does not exist is a no-op; a named one that does not
 exist fails.
 
-### domain:2 — Validator coverage
+### responsibility:2 — Validator coverage
 
 Keeping the convention honest: a validator whose name maps to no shipped config of its module is never called, so the quality gate lists
 every such orphan over the loaded code root.
@@ -36,9 +36,9 @@ PowerShell form is used only where a C# type cannot be.
 
 ## Division
 
-Each function belongs to one domain.
+Each function belongs to one responsibility.
 
-| Domain                           | Function                 |
-| -------------------------------- | ------------------------ |
-| domain:1 — PowerShell validators | `Invoke-ConfigValidator` |
-| domain:2 — Validator coverage    | `Test-ConfigValidators`  |
+| Responsibility                           | Function                 |
+| ---------------------------------------- | ------------------------ |
+| responsibility:1 — PowerShell validators | `Invoke-ConfigValidator` |
+| responsibility:2 — Validator coverage    | `Test-ConfigValidators`  |

@@ -85,6 +85,8 @@ Two goals shape the standard:
 
 ## Decision
 
+![Every Azure name is assembled from fixed components — an over-limit name throws, never truncated](../../.assets/azure/azure-name-assembly.drawio.png)
+
 ### Two identifiers per template
 
 | Identifier       | Where                                                                   | Form                              | Purpose                                                             |

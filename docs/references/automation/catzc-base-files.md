@@ -8,14 +8,14 @@ detection, and the git working-tree facts (branch, commit, committing) that high
 member of the `Base` group (see [open-closed-architecture](../../adr/automation/open-closed-architecture.md)) and depends on
 Catzc.Base.Execution (for `git` invocations) and Catzc.Base.Asserts (for the Assert/Test convention the lock-check pairs follow).
 
-## Domains
+## Responsibilities
 
-| Domain   | Area       | Name                                                     |
-| -------- | ---------- | -------------------------------------------------------- |
-| domain:1 | filesystem | [Filesystem operations](#domain1--filesystem-operations) |
-| domain:2 | git        | [Source-control facts](#domain2--source-control-facts)   |
+| Responsibility   | Area       | Name                                                             |
+| ---------------- | ---------- | ---------------------------------------------------------------- |
+| responsibility:1 | filesystem | [Filesystem operations](#responsibility1--filesystem-operations) |
+| responsibility:2 | git        | [Source-control facts](#responsibility2--source-control-facts)   |
 
-### domain:1 — Filesystem operations
+### responsibility:1 — Filesystem operations
 
 Materialising and observing files on disk. The two write primitives are the write tail every generated-artifact builder shares
 (Build-RootConfig, Build-Readme, Build-GitKeep, …): `Write-FileIfChanged` canonicalises content, compares EOL-insensitively, and writes only
@@ -28,7 +28,7 @@ one step further and names _which_ processes hold the file (id, executable, star
 Restart Manager — no admin rights needed, and it sees a loaded DLL as well as an open handle; on Linux/macOS, where locks are advisory, it
 reports none.
 
-### domain:2 — Source-control facts
+### responsibility:2 — Source-control facts
 
 Reading the working tree's current git branch and commit, and committing a scoped path set. All of them call `Invoke-Executable` (from
 Catzc.Base.Execution) to run `git` with logged, exit-code-managed invocations — the same discipline every external command in the platform
@@ -37,14 +37,14 @@ identifiers) and neither implies the other.
 
 ## What the module does
 
-This module delivers two small, independent slices of infrastructure. Filesystem operations (domain 1) concern the state of files on disk:
-how a generated artifact is written or linked idempotently, can a file be opened, and how do you copy a tree cleanly? Source-control facts
-(domain 2) concern the state of the working tree: what branch is active, what commit is current? Neither domain reaches into the other, and
-neither has any configuration to own.
+This module delivers two small, independent slices of infrastructure. Filesystem operations (responsibility 1) concern the state of files on
+disk: how a generated artifact is written or linked idempotently, can a file be opened, and how do you copy a tree cleanly? Source-control
+facts (responsibility 2) concern the state of the working tree: what branch is active, what commit is current? Neither responsibility
+reaches into the other, and neither has any configuration to own.
 
-The Assert/Test pairs in domain 1 follow the platform convention: the `Assert-` form throws on a violated condition; the `Test-` form
-returns a Boolean. Both call the same underlying detection, so they can never disagree — a guarantee the pattern provides across the whole
-`Base` group.
+The Assert/Test pairs in responsibility 1 follow the platform convention: the `Assert-` form throws on a violated condition; the `Test-`
+form returns a Boolean. Both call the same underlying detection, so they can never disagree — a guarantee the pattern provides across the
+whole `Base` group.
 
 The git functions illustrate why this module depends on Catzc.Base.Execution rather than invoking `git` directly. `Invoke-Executable`
 handles the command log, the exit-code boundary, and the dry-run short-circuit; `Get-GitCurrentBranch` and `Get-GitCurrentCommit` inherit
@@ -52,18 +52,18 @@ all of that for free, and no git call in the module bypasses the managed entry p
 
 ## Division
 
-The module's public functions, sorted into the domains above.
+The module's public functions, sorted into the responsibilities above.
 
-| Domain                           | Function                 |
-| -------------------------------- | ------------------------ |
-| domain:1 — Filesystem operations | `Write-FileIfChanged`    |
-|                                  | `Set-FileLink`           |
-|                                  | `Copy-Directory`         |
-|                                  | `Assert-FileIsLocked`    |
-|                                  | `Test-FileIsLocked`      |
-|                                  | `Assert-FileIsNotLocked` |
-|                                  | `Test-FileIsNotLocked`   |
-|                                  | `Get-FileLockingProcess` |
-| domain:2 — Source-control facts  | `Get-GitCurrentBranch`   |
-|                                  | `Get-GitCurrentCommit`   |
-|                                  | `Invoke-GitCommit`       |
+| Responsibility                           | Function                 |
+| ---------------------------------------- | ------------------------ |
+| responsibility:1 — Filesystem operations | `Write-FileIfChanged`    |
+|                                          | `Set-FileLink`           |
+|                                          | `Copy-Directory`         |
+|                                          | `Assert-FileIsLocked`    |
+|                                          | `Test-FileIsLocked`      |
+|                                          | `Assert-FileIsNotLocked` |
+|                                          | `Test-FileIsNotLocked`   |
+|                                          | `Get-FileLockingProcess` |
+| responsibility:2 — Source-control facts  | `Get-GitCurrentBranch`   |
+|                                          | `Get-GitCurrentCommit`   |
+|                                          | `Invoke-GitCommit`       |

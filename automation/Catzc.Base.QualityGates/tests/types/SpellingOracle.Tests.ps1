@@ -73,7 +73,7 @@ Describe 'SpellingOracle.CoinedFragments (shipped dictionary)' -Tag 'L1', 'integ
     It 'IsKnown is true for a real word and false for a coinage' {
         [Catzc.Base.QualityGates.SpellingOracle]::IsKnown('collection') | Should -BeTrue
         # A 3-char nonsense token: not in the oracle (IsKnown false), and below cspell's minWordLength so the
-        # spelling gate does not flag the literal here.
+        # Test-Spelling does not flag the literal here.
         [Catzc.Base.QualityGates.SpellingOracle]::IsKnown('zzq') | Should -BeFalse
     }
 }

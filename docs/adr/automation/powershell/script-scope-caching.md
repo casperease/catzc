@@ -22,18 +22,18 @@ session state.
 ### Rule ADR-AUTO-PSCACHE:3
 
 Tests vary cached behavior by mocking the whole function (`Mock Get-BicepTemplates`), not its internals — a warm cache ignores mocked
-dependencies. A test exercising cache population resets the slot in module scope (`InModuleScope <Module> { $script:<slot> = $null }`), and
+dependencies. A test exercising cache population resets the cache entry in module scope (`InModuleScope <Module> { $script:<entry> = $null }`), and
 only such a test does.
 
 - [Testing cached functions](#testing-cached-functions)
 
 ### Rule ADR-AUTO-PSCACHE:4
 
-A function probes its cache slot with `$ExecutionContext.SessionState.PSVariable.GetValue('script:<slot>')`, never with a bare
-`$script:<slot>` read, and initialises the slot when the probe returns `$null`. The `script:` qualifier is required: an unqualified name
-falls through to `$global:` when the module's slot is unset.
+A function probes its cache entry with `$ExecutionContext.SessionState.PSVariable.GetValue('script:<entry>')`, never with a bare
+`$script:<entry>` read, and initialises the cache entry when the probe returns `$null`. The `script:` qualifier is required: an unqualified
+name falls through to `$global:` when the module's cache entry is unset.
 
-- [Probing an unset slot](#probing-an-unset-slot)
+- [Probing an unset cache entry](#probing-an-unset-cache-entry)
 
 ## Context
 
@@ -63,7 +63,7 @@ function Get-Config {
 
     $entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name; Module; Path } (discovery seam)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configCache')) {
-        $script:configCache = @{}                    # strict-clean probe of a possibly unset slot
+        $script:configCache = @{}                    # strict-clean probe of a possibly unset cache entry
     }
     if ($script:configCache.ContainsKey($entry.Path)) {
         return $script:configCache[$entry.Path]      # same object every call
@@ -97,13 +97,13 @@ function Get-BicepTemplates {
 
 (Resetting the whole `$script:bicepTemplatesCache` to `$null` discards every keyed entry, which is the intended hard reset.)
 
-### Probing an unset slot
+### Probing an unset cache entry
 
 All code runs under `Set-StrictMode -Version Latest` ([error-handling](error-handling.md)), where reading a variable that was never assigned
-throws. A cache slot is exactly such a variable on the first call: nothing declares it at import, because a function file holds one function
-and no top-level statements ([one-function-per-file](one-function-per-file.md)). The probe therefore asks the session state for the value
-instead of reading the variable: `PSVariable.GetValue('script:<slot>')` returns `$null` for an unset slot and for a slot a test reset to
-`$null`, and resolves the module's own `$script:` scope — a same-named function local, caller variable, or `$global:` never answers for it.
+throws. A cache entry is exactly such a variable on the first call: nothing declares it at import, because a function file holds one
+function and no top-level statements ([one-function-per-file](one-function-per-file.md)). The probe therefore asks the session state for
+the value instead of reading the variable: `PSVariable.GetValue('script:<entry>')` returns `$null` for an unset cache entry and for a cache
+entry a test reset to `$null`, and resolves the module's own `$script:` scope — a same-named function local, caller variable, or `$global:` never answers for it.
 Without the `script:` qualifier the lookup walks the scope chain and returns a `$global:` of the same name.
 
 The probe costs a few microseconds per call, a small share of even the hottest cached function (`Get-Config`). The alternatives are worse:
@@ -114,21 +114,22 @@ The probe costs a few microseconds per call, a small share of even the hottest c
 - **`try { $script:x } catch { }`** is the cheapest, but it is a catch-and-continue inside a function, which
   [error-handling](error-handling.md#rule-adr-auto-error6) forbids.
 
-Only the probe changes: once the slot is initialised in the same function, the function reads and writes `$script:<slot>` directly.
+Only the probe changes: once the cache entry is initialised in the same function, the function reads and writes `$script:<entry>`
+directly.
 
 ### Testing cached functions
 
 A warm cache short-circuits before any dependency runs, so mocking a cached function's _internals_ silently tests nothing — the mock never
 fires. A test therefore mocks the **whole boundary function** and lets the cache be an implementation detail. The one exception is a test
-whose subject _is_ the cache: it resets the module-scope slot first (`InModuleScope Catzc.Base.Config { $script:configCache = $null }`) and
+whose subject _is_ the cache: it resets the module-scope cache entry first (`InModuleScope Catzc.Base.Config { $script:configCache = $null }`) and
 pays the cold derive deliberately. Resetting per test everywhere else defeats the cache and multiplies test-run time (see
 [test-automation](../test-automation.md)).
 
 ## Decision
 
 Session caches are module `$script:` hashtables keyed by resolved input, populated on first use, discarded by re-import — never `$env:` or
-`$global:` — probed strict-clean through `PSVariable.GetValue('script:<slot>')`, and tests mock the cached function whole, resetting the
-slot only to exercise cache behavior itself.
+`$global:` — probed strict-clean through `PSVariable.GetValue('script:<entry>')`, and tests mock the cached function whole, resetting the
+cache entry only to exercise cache behavior itself.
 
 ### How this is enforced
 
@@ -140,8 +141,9 @@ slot only to exercise cache behavior itself.
 
 ## Consequences
 
-- Every cache shares one lifetime story: import populates nothing, first use populates the slot, re-import destroys it. There is no second
+- Every cache shares one lifetime story: import populates nothing, first use populates the cache entry, re-import destroys it. There is no second
   invalidation mechanism to reason about.
 - Caches are module-private by construction — no cross-module coupling through shared cache state, and parallel test workers cannot see each
-  other's slots (each process imports its own).
-- Tests stay honest: mocking the boundary function works whether the cache is cold or warm, and only deliberate cache tests touch the slot.
+  other's cache entries (each process imports its own).
+- Tests stay honest: mocking the boundary function works whether the cache is cold or warm, and only deliberate cache tests touch the cache
+  entry.

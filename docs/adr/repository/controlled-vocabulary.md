@@ -122,7 +122,7 @@ avoided phrase, and they do so inside backticks or quotes.
 
 An avoided phrasing catches only what someone thought to list. A word that names a family — `gate`, which is any flow decision point and,
 qualified, one kind of it — drifts the other way: every new check, guard, or verb use borrows it, until "gate" names five things and none
-precisely. Declaring the family's forms closes the set. `gate` takes `quality`, `CI`, `RC`, `RBC`, `release`, `manual`, `PR`, `merge`,
+precisely. Declaring the family's forms closes the set. `gate` takes `quality`, `CI`, `AT`, `RC`, `RBC`, `release`, `manual`, `PR`, `merge`,
 `commit`, `approval`, `production`, and `push`; anything else is reworded — a check inside a quality gate is a **check**, a precondition is
 a **guard**, and the verb becomes what the gate does ("blocks", "decides whether … proceeds"). Function words that only point at or count
 the noun ("the gate", "each gate", "two gates") are not qualifiers, so they are always allowed.

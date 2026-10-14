@@ -1,12 +1,12 @@
-Describe 'Get-TestRunSlotEntry' -Tag 'L0', 'logic' {
+Describe 'Get-TestRunLocationEntry' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:inPlace = [pscustomobject]@{ Mode = 'InPlace'; SourceRoot = 'C:\widget'; Root = 'C:\widget' }
-        $script:snapshot = [pscustomobject]@{ Mode = 'Snapshot'; SourceRoot = 'C:\widget'; Root = 'C:\tmp\catzc-run-gadget' }
+        $script:inPlace = [pscustomobject]@{ Mode = 'in-place'; SourceRoot = 'C:\widget'; Root = 'C:\widget' }
+        $script:snapshot = [pscustomobject]@{ Mode = 'snapshot'; SourceRoot = 'C:\widget'; Root = 'C:\tmp\catzc-run-gadget' }
         $script:resolve = {
-            param($Slot, [string] $EntryScript, [hashtable] $EntryParameter = @{})
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ S = $Slot; E = $EntryScript; P = $EntryParameter } {
-                param($S, $E, $P)
-                Get-TestRunSlotEntry -Slot $S -EntryScript $E -EntryParameter $P
+            param($Location, [string] $EntryScript, [hashtable] $EntryParameter = @{})
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $Location; E = $EntryScript; P = $EntryParameter } {
+                param($L, $E, $P)
+                Get-TestRunLocationEntry -Location $L -EntryScript $E -EntryParameter $P
             }
         }
     }

@@ -22,7 +22,7 @@ org `tst`) so they cannot collide with production.
 ### Rule ADR-AUTO-TEST:4
 
 Seam swaps are safe because `Get-Config` and `Get-BicepTemplates` key their session caches on the resolved path/root, so a fixture path and
-the real path get separate cache entries. A test that exercises cache behavior itself resets the slot per
+the real path get separate cache entries. A test that exercises cache behavior itself resets the cache entry per
 [script-scope-caching](powershell/script-scope-caching.md) (ADR-AUTO-PSCACHE#3).
 
 - [How this is enforced](#how-this-is-enforced)
@@ -170,10 +170,10 @@ redundant copy; collapse them.
 
 ### Rule ADR-AUTO-TEST:24
 
-The **Build Verification Test** (BVT) certifies a commit with one aggregate verdict: it runs every selected test up to the target level
-together with the built-artifact checks of `Test-BuildArtifact` — the build itself plus its `Types`, `Load`, `Parity`, and `Manifest` facets
-— and is the commit gate of both pre- and post-commit-to-master in trunk-based development. A commit reaches master only when its BVT is
-green, and the canonical module-manifest artifact a passing build produces is the BVT's gold output.
+The **Build Verification Test** (BVT) is the verification that precedes every promotion and every creation of release artifacts, and the
+verification the commit gate runs, with one aggregate verdict: it runs every selected test up to the target level together with the
+built-artifact checks of `Test-BuildArtifact` — the build itself plus its `Types`, `Load`, `Parity`, and `Manifest` facets. A commit reaches
+master only when its BVT is green, and the canonical module-manifest artifact a passing build produces is the BVT's gold output.
 
 - [Build Verification Test](#build-verification-test)
 
@@ -698,9 +698,9 @@ published manifest never churns). The L2 integrity tests run it one facet each, 
 static, hermetic property of the committed artifacts (ADR-AUTO-TEST#22), that verdict is reproducible: the same commit yields the same
 result on a devbox and in CI.
 
-In trunk-based development ([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive4)) the BVT is the commit gate on
-both sides of master — a change integrates only when its BVT is green, and master stays green because nothing merges that has not passed it.
-Its gold output is the canonical module-manifest artifact a passing build produces — the reproducible encapsulation of what the commit
+In trunk-based development ([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive4)) the commit gate runs the BVT
+on both sides of master — a change integrates only when its BVT is green, and master stays green because nothing merges that has not passed
+it. Its gold output is the canonical module-manifest artifact a passing build produces — the reproducible encapsulation of what the commit
 built, byte-identical for a given commit.
 
 ## Decision

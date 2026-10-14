@@ -2,7 +2,7 @@
 param()
 
 # L1: real named mutexes, held and abandoned from thread jobs — the snapshot itself is mocked.
-Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
+Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
     BeforeAll {
         # A lock held by another thread: a mutex is re-entrant on its owning thread, so a held lock is only
         # observable from a different thread. The thread job owns the named mutex until $release is set.
@@ -48,18 +48,18 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
         Mock Enter-SystemTestLock {
             [pscustomobject]@{ Acquired = $false; Mutex = $null; LockPath = $null; Holder = [pscustomobject]@{ Description = 'Test-Automation (pid 4343)' } }
         } -ModuleName Catzc.Base.QualityGates
-        $script:slot = $null
+        $script:location = $null
         $script:holder = $null
-        # These tests run inside a harness worker, which carries the parent run's slot marker; each test starts
-        # from a process that holds no slot, and the worker case sets the marker itself.
-        $script:savedSlotHeld = $env:CATZC_TEST_RUN_SLOT_HELD
-        $env:CATZC_TEST_RUN_SLOT_HELD = $null
+        # These tests run inside a harness worker, which carries the parent run's location marker; each test
+        # starts from a process that holds no location, and the worker case sets the marker itself.
+        $script:savedLocationHeld = $env:CATZC_TEST_RUN_LOCATION_HELD
+        $env:CATZC_TEST_RUN_LOCATION_HELD = $null
     }
 
     AfterEach {
-        $env:CATZC_TEST_RUN_SLOT_HELD = $script:savedSlotHeld
-        if ($script:slot) {
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ S = $script:slot } { param($S) Exit-TestRunSlot -Slot $S -KeepSandbox }
+        $env:CATZC_TEST_RUN_LOCATION_HELD = $script:savedLocationHeld
+        if ($script:location) {
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $script:location } { param($L) Exit-TestRunLocation -Location $L }
         }
         if ($script:holder) {
             $script:holder.Release.Set()
@@ -68,10 +68,11 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
     }
 
     It 'runs in place and owns the lock when the working folder is free, and writes the lock record' {
-        $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Test-Automation' -RunDirectory 'C:\out\20261013-174616' }
-        $script:slot.Mode | Should -Be 'InPlace'
-        $script:slot.Root | Should -Be $script:root
-        $script:slot.Mutex | Should -Not -BeNullOrEmpty
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Test-Automation' -RunDirectory 'C:\out\20261013-174616' }
+        $script:location.Mode | Should -Be 'in-place'
+        $script:location.Root | Should -Be $script:root
+        $script:location.Mutex | Should -Not -BeNullOrEmpty
+        $script:location.KeepSandbox | Should -BeFalse
         Should -Invoke New-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 0
 
         $record = [System.IO.File]::ReadAllText((Join-Path $script:outRoot '.test-run-lock.json')) | ConvertFrom-Json
@@ -87,21 +88,21 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
         $lock = [pscustomobject]@{ Acquired = $true; Mutex = $systemMutex; LockPath = $null; Holder = $null }
         Mock Enter-SystemTestLock { $lock } -ModuleName Catzc.Base.QualityGates
 
-        $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Test-Automation' }
-        $script:slot.Mode | Should -Be 'InPlace'
-        $script:slot.SystemTests | Should -BeTrue
-        $script:slot.SystemTestLock | Should -Be $lock
-        $script:slot.SystemTestHolder | Should -BeNullOrEmpty
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Test-Automation' }
+        $script:location.Mode | Should -Be 'in-place'
+        $script:location.SystemTests | Should -BeTrue
+        $script:location.SystemTestLock | Should -Be $lock
+        $script:location.SystemTestHolder | Should -BeNullOrEmpty
         Should -Invoke Enter-SystemTestLock -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $RepositoryRoot -eq $script:root }
     }
 
     It 'runs in place without L3 when another checkout holds the system-test lock, and names it' {
-        $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Test-Automation' }
-        $script:slot.Mode | Should -Be 'InPlace'
-        $script:slot.Mutex | Should -Not -BeNullOrEmpty
-        $script:slot.SystemTests | Should -BeFalse
-        $script:slot.SystemTestLock | Should -BeNullOrEmpty
-        $script:slot.SystemTestHolder.Description | Should -Be 'Test-Automation (pid 4343)'
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Test-Automation' }
+        $script:location.Mode | Should -Be 'in-place'
+        $script:location.Mutex | Should -Not -BeNullOrEmpty
+        $script:location.SystemTests | Should -BeFalse
+        $script:location.SystemTestLock | Should -BeNullOrEmpty
+        $script:location.SystemTestHolder.Description | Should -Be 'Test-Automation (pid 4343)'
     }
 
     It 'runs in a snapshot without waiting when another run holds the lock, and names the holder' {
@@ -115,12 +116,12 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
         }
         [System.IO.File]::WriteAllText((Join-Path $script:outRoot '.test-run-lock.json'), (ConvertTo-Json -InputObject $record))
 
-        $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Invoke-TestFile' }
-        $script:slot.Mode | Should -Be 'Snapshot'
-        $script:slot.Mutex | Should -BeNullOrEmpty
-        $script:slot.Root | Should -BeLike '*catzc-run-*'
-        $script:slot.SourceRoot | Should -Be $script:root
-        $script:slot.Holder.Known | Should -BeTrue
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' }
+        $script:location.Mode | Should -Be 'snapshot'
+        $script:location.Mutex | Should -BeNullOrEmpty
+        $script:location.Root | Should -BeLike '*catzc-run-*'
+        $script:location.SourceRoot | Should -Be $script:root
+        $script:location.Holder.Known | Should -BeTrue
         Should -Invoke New-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $SourceRoot -eq $script:root }
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             $Command -like 'pwsh -NoProfile -File *catzc-run-*importer.ps1"'
@@ -132,24 +133,24 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
 
     It 'removes the snapshot and fails when priming it fails' {
         Mock Invoke-Executable { throw 'import failed' } -ModuleName Catzc.Base.QualityGates
-        { InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Test-Automation' -Isolated } } | Should -Throw '*import failed*'
+        { InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Test-Automation' -Isolated } } | Should -Throw '*import failed*'
         Should -Invoke Remove-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Path -like '*catzc-run-*' }
     }
 
     It 'says plainly when the holder left no lock record' {
         $script:holder = & $script:holdLock (& $script:mutexName $script:root)
-        $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Invoke-TestFile' }
-        $script:slot.Holder.Known | Should -BeFalse
-        $script:slot.Holder.Description | Should -BeLike '*left no lock record*'
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' }
+        $script:location.Holder.Known | Should -BeFalse
+        $script:location.Holder.Description | Should -BeLike '*left no lock record*'
     }
 
     It 'calls a record stale when its pid no longer belongs to the process that wrote it' {
         $script:holder = & $script:holdLock (& $script:mutexName $script:root)
         $record = [ordered]@{ pid = $PID; processStartedAt = '2001-01-01T00:00:00Z'; entryPoint = 'Test-Automation' }
         [System.IO.File]::WriteAllText((Join-Path $script:outRoot '.test-run-lock.json'), (ConvertTo-Json -InputObject $record))
-        $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Invoke-TestFile' }
-        $script:slot.Holder.Known | Should -BeFalse
-        $script:slot.Holder.Description | Should -BeLike '*stale*'
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' }
+        $script:location.Holder.Known | Should -BeFalse
+        $script:location.Holder.Description | Should -BeLike '*stale*'
     }
 
     It 'takes over an abandoned lock and runs in place' {
@@ -160,48 +161,49 @@ Describe 'Enter-TestRunSlot' -Tag 'L1', 'logic' {
         $holder = Start-Process pwsh -ArgumentList '-NoProfile', '-NonInteractive', '-Command', $acquireAndExit -NoNewWindow -PassThru
         $holder.WaitForExit()
 
-        $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Test-Automation' }
-        $script:slot.Mode | Should -Be 'InPlace'
-        $script:slot.Mutex | Should -Not -BeNullOrEmpty
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Test-Automation' }
+        $script:location.Mode | Should -Be 'in-place'
+        $script:location.Mutex | Should -Not -BeNullOrEmpty
     }
 
-    It 'runs in a snapshot under -Isolated without taking the free lock' {
-        $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Test-Automation' -Isolated }
-        $script:slot.Mode | Should -Be 'Snapshot'
-        $script:slot.Mutex | Should -BeNullOrEmpty
-        $script:slot.Holder | Should -BeNullOrEmpty
-        $script:slot.SystemTests | Should -BeFalse
+    It 'runs in a snapshot under -Isolated without taking the free lock, and records -KeepSandbox' {
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Test-Automation' -Isolated -KeepSandbox }
+        $script:location.Mode | Should -Be 'snapshot'
+        $script:location.Mutex | Should -BeNullOrEmpty
+        $script:location.Holder | Should -BeNullOrEmpty
+        $script:location.SystemTests | Should -BeFalse
+        $script:location.KeepSandbox | Should -BeTrue
         Should -Invoke Enter-SystemTestLock -ModuleName Catzc.Base.QualityGates -Times 0
         [System.IO.File]::Exists((Join-Path $script:outRoot '.test-run-lock.json')) | Should -BeFalse
     }
 
-    It 'runs in place without a lock inside a worker of a run that holds a slot' {
-        $saved = $env:CATZC_TEST_RUN_SLOT_HELD
-        $env:CATZC_TEST_RUN_SLOT_HELD = '1'
+    It 'runs in place without a lock inside a worker of a run that holds its location' {
+        $saved = $env:CATZC_TEST_RUN_LOCATION_HELD
+        $env:CATZC_TEST_RUN_LOCATION_HELD = '1'
         try {
-            $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Invoke-TestFile' }
+            $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' }
         }
         finally {
-            $env:CATZC_TEST_RUN_SLOT_HELD = $saved
+            $env:CATZC_TEST_RUN_LOCATION_HELD = $saved
         }
-        $script:slot.Mode | Should -Be 'InPlace'
-        $script:slot.Mutex | Should -BeNullOrEmpty
-        $script:slot.LockPath | Should -BeNullOrEmpty
-        # The parent run's slot decided L3 for the whole run; the worker inherits it and takes no lock itself.
-        $script:slot.SystemTests | Should -BeTrue
+        $script:location.Mode | Should -Be 'in-place'
+        $script:location.Mutex | Should -BeNullOrEmpty
+        $script:location.LockPath | Should -BeNullOrEmpty
+        # The parent run's location decided L3 for the whole run; the worker inherits it and takes no lock itself.
+        $script:location.SystemTests | Should -BeTrue
         Should -Invoke Enter-SystemTestLock -ModuleName Catzc.Base.QualityGates -Times 0
     }
 
     It 'still runs in a snapshot when -Isolated is asked for inside such a worker' {
-        $saved = $env:CATZC_TEST_RUN_SLOT_HELD
-        $env:CATZC_TEST_RUN_SLOT_HELD = '1'
+        $saved = $env:CATZC_TEST_RUN_LOCATION_HELD
+        $env:CATZC_TEST_RUN_LOCATION_HELD = '1'
         try {
-            $script:slot = InModuleScope Catzc.Base.QualityGates { Enter-TestRunSlot -EntryPoint 'Invoke-TestFile' -Isolated }
+            $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
         }
         finally {
-            $env:CATZC_TEST_RUN_SLOT_HELD = $saved
+            $env:CATZC_TEST_RUN_LOCATION_HELD = $saved
         }
-        $script:slot.Mode | Should -Be 'Snapshot'
-        $script:slot.Mutex | Should -BeNullOrEmpty
+        $script:location.Mode | Should -Be 'snapshot'
+        $script:location.Mutex | Should -BeNullOrEmpty
     }
 }

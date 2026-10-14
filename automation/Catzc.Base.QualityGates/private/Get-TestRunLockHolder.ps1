@@ -3,7 +3,7 @@
     Reads the test-run lock record and describes who holds the working folder.
 .DESCRIPTION
     A mutex carries no owner data, so the run that holds the test-run lock writes a record beside it
-    (Enter-TestRunSlot). This reads that record and says plainly what it can and cannot tell, never guessing:
+    (Enter-TestRunLocation). This reads that record and says plainly what it can and cannot tell, never guessing:
 
     - a live holder: '<entry point> (pid <n>, started <time>, run <folder>)';
     - no record: the holder left no lock record;

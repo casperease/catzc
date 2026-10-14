@@ -31,28 +31,31 @@ Speed comes from **bounded fan-out, fixed briefs and one shared tool**, not from
 - While a wave runs, do the lead's own prep (the next briefs, the kit, the summary skeleton). Never poll and never predict results.
 - Keep the scout backlog (candidates you didn't pick) in `out/plan-diagram-waves.md` so the next wave starts instantly.
 
-## Shared kit (write it before the first maker wave)
+## Shared kit (checked in under `.claude/drawio/`)
 
-- `out/diagrams/tools/drawio_png.py <model.xml> <out.drawio.png> [--name <page>]` validates the `mxGraphModel` (root tag, unique ids). It
-  draws a **Pillow preview raster** (boxes, hexagons, rhombi, text, straight edges), embeds the model as a draw.io `mxfile` `tEXt` chunk
+- [`.claude/drawio/drawio_png.py`](../drawio/drawio_png.py) `<model.xml> <out.drawio.png> [--name <page>]`, run with
+  `uv run -q --with pillow python`, validates the `mxGraphModel` (root tag, unique ids). It draws a **Pillow preview raster** (boxes,
+  hexagons, rhombi, text, dashed outlines, opacity fades, straight edges), embeds the model as a draw.io `mxfile` `tEXt` chunk
   (`quote → raw-deflate → base64` inside `<diagram>`, then `quote` the whole `mxfile`), and asserts the round-trip. draw.io re-renders from
   the XML when the file is opened. The headless draw.io CLI cannot rasterise here (see `write-drawio-files`).
-- `out/diagrams/STYLE.md` is the style kit, built from the scouts' fan-in. It holds the canvas, semantic cell ids, the structural palette,
-  the **locked commit palette** for `commits-quality/` (ADR-DSGN-VISUAL:4), verbatim style strings and layout rules.
-- `out/` is gitignored and was wiped once by a parallel session. If the kit is missing, rebuild it from this file and a scout pass. Don't
-  move it into the tree without the user's say.
+- [`.claude/drawio/STYLE.md`](../drawio/STYLE.md) is the **checked-in, living** style kit. It holds the verify-then-simplify standard,
+  the readability rules, the canvas, semantic cell ids, the structural palette, the **locked commit palette** for `commits-quality/`
+  (ADR-DSGN-VISUAL:4), verbatim style strings and the preview-tool caveats.
+- **Update the kit while the wave runs.** Whenever a maker's report or a user verdict teaches something (a rejected look, a recurring
+  doubt, a tool limit), fold it into `STYLE.md` at once, so the next maker launched gets it. Edit only the checked-in file; there is
+  no copy in `out/`.
 
 ## Maker brief (every maker gets exactly this shape)
 
-1. Read `out/diagrams/STYLE.md`, then **only** the named source ADR(s) or code.
-2. Write `out/diagrams/wave-N/<subfolder>/<name>.xml`.
-3. Build it with the tool.
-4. Read the preview once, then fix overlaps and rebuild (at most 2 rebuilds).
-5. Reply in ≤ 5 lines: the path, the title, and any facts it could not fit or doubted.
+1. Read `.claude/drawio/STYLE.md` and the quality-bar diagram it names.
+2. **Verify** each claim against the ADR, the code and the configs, and write `<name>.verify.md` (claim → `file:line` → confirmed /
+   contradicted / ADR-only).
+3. Write `out/diagrams/wave-N/<subfolder>/<name>.xml`, simplified to the readability rules.
+4. Build it with the tool, read the preview, fix it and rebuild (at most 3 rebuilds).
+5. Reply in ≤ 8 lines: the path, the title, the claim counts, each contradiction in one line, and what was cut.
 
 Each brief names the **finding** (the title states what the reader should leave with, not just the topic) and gives a box/arrow sketch in
-the ADR's exact terms. It also says: "verify each against the source and drop anything it doesn't state". Never edit `docs/` and never run
-git.
+the ADR's exact terms. A "simplify and verify" rework brief also names the earlier version to read. Never edit `docs/` and never run git.
 
 ## Fan-in to the user
 

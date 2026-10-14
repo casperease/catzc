@@ -29,7 +29,7 @@ dependencies ([script-scope-caching](script-scope-caching.md)), and reaching int
 ### Rule ADR-AUTO-PESTER:4
 
 Test private functions through the module (`& (Get-Module …) { … }` or `InModuleScope`), injecting metadata by mocking the public seam —
-never by editing module-scope state except to reset a cache slot.
+never by editing module-scope state except to reset a cache entry.
 
 - [The idioms](#the-idioms)
 
@@ -187,7 +187,7 @@ test exactly as in production.
 - **The seams exist** as mockable functions (`Get-BicepTemplatesRoot` for the template tree; `Resolve-ConfigEntry` and `Get-Config` for
   config), so isolation is a mock away and production has a single pristine default. For config, mock the discovery seam to return a fixture
   `@{ Name; Module; Path }`, or mock `Get-Config` outright — the whole function, never its internals (`ADR-AUTO-PESTER:3`). When exercising
-  cache behavior directly, reset the slot per [script-scope-caching](script-scope-caching.md) (`ADR-AUTO-PSCACHE:3`).
+  cache behavior directly, reset the cache entry per [script-scope-caching](script-scope-caching.md) (`ADR-AUTO-PSCACHE:3`).
 - **`Test-Automation.Tests.ps1`** validates the `Verb-Noun.Tests.ps1` filename convention — a type test under `tests/types/` is instead
   named for the `types/*.cs` it covers — and the one-function-per-file rules for source (see
   [one-function-per-file](one-function-per-file.md)).

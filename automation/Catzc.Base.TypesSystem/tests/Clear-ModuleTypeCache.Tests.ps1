@@ -58,7 +58,7 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
     }
 
     It 'is a no-op in a pipeline with a single clean build (CI makes no source-control changes)' -Tag 'logic' {
-        Remove-Item $staleDll -Force   # one build only, so the two-dll gate below stays quiet
+        Remove-Item $staleDll -Force   # one build only, so the two-dll guard below stays quiet
         Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Base.TypesSystem
         { Clear-ModuleTypeCache -AutomationRoot $fakeRoot } | Should -Not -Throw
         $currentDll | Should -Exist

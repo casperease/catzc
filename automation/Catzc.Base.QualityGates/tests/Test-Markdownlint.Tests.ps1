@@ -104,7 +104,7 @@ Describe 'Test-Markdownlint (real markdownlint-cli2)' -Tag 'L2', 'logic' {
 # scope ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)). L2 because it drives the
 # markdownlint-cli2 CLI; self-skips when absent
 # ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)/9).
-# Protected-glob gated ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)): a repeat local run over an
+# Behind a protected glob ([ADR-REPO-PROTGLOB](/docs/adr/automation/protected-globs.md)): a repeat local run over an
 # unchanged 'markdown-scope' globset (the
 # scan's inputs — in-scope markdown plus the markdownlint config) is skipped; in a pipeline the protection
 # is ignored and the scan always runs full. source-only: it reads the repository's markdown, which gives the same

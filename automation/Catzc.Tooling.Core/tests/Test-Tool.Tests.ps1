@@ -1,5 +1,5 @@
 Describe 'Test-Tool' -Tag 'L0', 'logic' {
-    # Hermetic: every collaborator mocked in module scope, so the assertion binds to the version-gate LOGIC
+    # Hermetic: every collaborator mocked in module scope, so the assertion binds to the version-check LOGIC
     # (pin vs devbox lever vs pipeline), never to the shipped tools.yml or the installed toolchain.
     BeforeEach {
         # The fixture az_cli carries a devbox_version lever on its ToolConfig; python has none.

@@ -63,39 +63,39 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
         }
         Mock Write-TestAutomationVerdict -ModuleName Catzc.Base.QualityGates { }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
-        # The slot: in place by default; a test that needs a snapshot run overrides the mock.
-        $script:slotMode = 'InPlace'
-        Mock Enter-TestRunSlot -ModuleName Catzc.Base.QualityGates {
+        # The location: in place by default; a test that needs a snapshot run sets the mode.
+        $script:locationMode = 'in-place'
+        Mock Enter-TestRunLocation -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{
-                Mode = $script:slotMode; SourceRoot = 'C:\repo'; Root = 'C:\repo'; Mutex = $null; LockPath = $null; Holder = $null; Snapshot = $null
-                SystemTests = $script:slotMode -eq 'InPlace'; SystemTestLock = $null; SystemTestHolder = $null
+                Mode = $script:locationMode; SourceRoot = 'C:\repo'; Root = 'C:\repo'; Mutex = $null; LockPath = $null; Holder = $null; Snapshot = $null
+                KeepSandbox = $false; SystemTests = $script:locationMode -eq 'in-place'; SystemTestLock = $null; SystemTestHolder = $null
             }
         }
-        Mock Exit-TestRunSlot -ModuleName Catzc.Base.QualityGates { }
+        Mock Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates { }
     }
 
-    Context 'the slot decides the top tier (ADR-AUTO-TEST:33)' {
+    Context 'the location decides the top tier (ADR-AUTO-TEST:33)' {
         It 'runs every tier, L3 included, in place by default' {
             Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null
 
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
-                $ExcludeTag -notcontains 'L3' -and $Slot.Mode -eq 'InPlace'
+                $ExcludeTag -notcontains 'L3' -and $Location.Mode -eq 'in-place'
             }
             Should -Invoke Write-TestAutomationHeader -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $MaxLevel -eq 3 }
         }
 
         It 'skips L3 in a snapshot, says so, and records the level it ran' {
-            $script:slotMode = 'Snapshot'
+            $script:locationMode = 'snapshot'
             $summary = Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true }
 
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $ExcludeTag -contains 'L3' }
             Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like 'Skipping L3:*' }
             $manifest = Get-Content -LiteralPath (Join-Path $summary.RunDirectory 'run.json') -Raw | ConvertFrom-Json
             $manifest.maxLevel | Should -Be 2
-            $manifest.context.slot | Should -Be 'snapshot'
+            $manifest.context.location | Should -Be 'snapshot'
             $manifest.context.tiersRequested | Should -Be 'L0-L3'
             $manifest.context.tiersRunning | Should -Be 'L0-L2'
-            $manifest.context.tierCap | Should -Be 'L3 skipped: snapshot slot'
+            $manifest.context.tierCap | Should -Be 'L3 skipped: snapshot location'
             Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like '  tiers *asked L0-L3 · running L0-L2*' }
         }
 
@@ -115,16 +115,16 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
             }
         }
 
-        It 'refuses an L3-only run in a snapshot, and still releases the slot' {
-            $script:slotMode = 'Snapshot'
+        It 'refuses an L3-only run in a snapshot, and still releases the location' {
+            $script:locationMode = 'snapshot'
             { Invoke-Run @{ OutputFolder = $script:outputFolder; MinLevel = 3 } } | Should -Throw '*snapshot, which skips L3*'
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 0
-            Should -Invoke Exit-TestRunSlot -ModuleName Catzc.Base.QualityGates -Times 1
+            Should -Invoke Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates -Times 1
         }
 
-        It 'releases the slot after a normal run' {
+        It 'releases the location after a normal run' {
             Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null
-            Should -Invoke Exit-TestRunSlot -ModuleName Catzc.Base.QualityGates -Times 1
+            Should -Invoke Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates -Times 1
         }
     }
 

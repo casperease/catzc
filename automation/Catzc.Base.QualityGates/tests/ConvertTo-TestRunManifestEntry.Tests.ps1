@@ -17,7 +17,7 @@ Describe 'ConvertTo-TestRunManifestEntry' -Tag 'L0', 'logic' {
         $workerRun = [pscustomobject]@{
             ShardExitCodes  = [ordered]@{ 'shard-0' = 0; 'shard-1' = 1 }
             DurationSeconds = 12.3456
-            Location        = [pscustomobject]@{ Mode = 'in-place'; Root = 'C:\widget'; Snapshot = $null; Kept = $false; Holder = $null }
+            Location        = [pscustomobject]@{ Mode = 'in-place'; Root = 'C:\widget'; Snapshot = $null; KeepSandbox = $false; Holder = $null }
         }
         $entries = & $script:convert $workerRun
         $entries['shardExitCodes']['shard-1'] | Should -Be 1

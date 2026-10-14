@@ -1,26 +1,22 @@
 <#
 .SYNOPSIS
-    Releases a test-run slot claimed by Enter-TestRunSlot.
+    Releases a test run's location claimed by Enter-TestRunLocation.
 .DESCRIPTION
-    In place: for each lock the slot holds — the user's system-test lock (Enter-SystemTestLock), then the
+    In place: for each lock the location holds — the user's system-test lock (Enter-SystemTestLock), then the
     working folder's — deletes the lock record this run wrote (only while it is still ours), then releases and
     disposes the mutex — record first, so the next holder's record is never deleted. Snapshot: removes the
-    snapshot (Remove-RepositorySnapshot), unless -KeepSandbox asks to keep it for a post-mortem, in which case
-    its path is announced. A worker's lock-free in-place slot releases nothing.
-.PARAMETER Slot
-    The slot Enter-TestRunSlot returned.
-.PARAMETER KeepSandbox
-    Keep a snapshot after the run instead of deleting it.
+    snapshot (Remove-RepositorySnapshot), unless the location's KeepSandbox keeps it for a post-mortem, in
+    which case its path is announced. A worker's lock-free in-place location releases nothing.
+.PARAMETER Location
+    The location Enter-TestRunLocation returned.
 .OUTPUTS
     None.
 #>
-function Exit-TestRunSlot {
+function Exit-TestRunLocation {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
-        [pscustomobject] $Slot,
-
-        [switch] $KeepSandbox
+        [pscustomobject] $Location
     )
 
     # Record first (only while it is still ours), then the mutex, so the next holder's record is never deleted.
@@ -45,19 +41,19 @@ function Exit-TestRunSlot {
         }
     }
 
-    if ($Slot.SystemTestLock) {
-        & $release $Slot.SystemTestLock.Mutex $Slot.SystemTestLock.LockPath
+    if ($Location.SystemTestLock) {
+        & $release $Location.SystemTestLock.Mutex $Location.SystemTestLock.LockPath
     }
-    if ($Slot.Mutex) {
-        & $release $Slot.Mutex $Slot.LockPath
+    if ($Location.Mutex) {
+        & $release $Location.Mutex $Location.LockPath
     }
 
-    if ($Slot.Snapshot) {
-        if ($KeepSandbox) {
-            Write-Message "Kept the snapshot for inspection (-KeepSandbox): $($Slot.Snapshot.Path)"
+    if ($Location.Snapshot) {
+        if ($Location.KeepSandbox) {
+            Write-Message "Kept the snapshot for inspection (-KeepSandbox): $($Location.Snapshot.Path)"
         }
         else {
-            Remove-RepositorySnapshot $Slot.Snapshot.Path
+            Remove-RepositorySnapshot $Location.Snapshot.Path
         }
     }
 }

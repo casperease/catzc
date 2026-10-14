@@ -1,10 +1,10 @@
 <#
 .SYNOPSIS
     Quality gate: no shipped config may carry a TEST-fixture identity in its data — the reverse of
-    Test-LogicTestIdentity, closing the other half of the domain-language separation
+    Test-LogicTestIdentity, closing the other half of the language-zone separation
     ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)).
 .DESCRIPTION
-    A shipped `configs/*.yml` or `infrastructure/**` file is the config/live domain: it names real identities.
+    A shipped `configs/*.yml` or `infrastructure/**` file is the live zone: it names real identities.
     A fixture identity (acme/globex, tst, alpha, core_lower, widget, …) appearing in one is a leak — a test
     fixture committed as production data. The forbidden set is DERIVED from the fixture configs
     (Get-FixtureIdentityTokens), so it is always current.

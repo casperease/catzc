@@ -65,10 +65,10 @@ Describe 'New-BuiltCatzcRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
         Mock Build-Modules -ModuleName Catzc.Internal.TestKit {
             $seen.Add($Destination)
             [void][System.IO.Directory]::CreateDirectory((Join-Path $Destination 'Catzc'))
-            throw 'asset-dependency guard failed'
+            throw 'presence check failed'
         }
 
-        { New-BuiltCatzcRoot } | Should -Throw '*asset-dependency guard failed*'
+        { New-BuiltCatzcRoot } | Should -Throw '*presence check failed*'
         $seen | Should -HaveCount 1
         $seen[0] | Should -Not -Exist
     }

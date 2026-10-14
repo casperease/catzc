@@ -47,7 +47,7 @@ function Get-CatsRuleEnforcers {
         }
     }
 
-    # Analyzer enforcers — the analyzer-adr-map (a global Get-Config read; not dependency-gated).
+    # Analyzer enforcers — the analyzer-adr-map (a global Get-Config read; it needs no dependency edge).
     $map = Get-Config -Config analyzer-adr-map
     foreach ($analyzer in $map.analyzers.Keys) {
         foreach ($id in $map.analyzers[$analyzer]) {

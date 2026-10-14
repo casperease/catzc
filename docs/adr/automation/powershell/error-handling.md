@@ -160,9 +160,9 @@ All errors are terminating. All warnings are terminating. Functions use `throw` 
   top, and `Build-Bicep`/`Deploy-Bicep` set it in a template's `PrePost.psm1` scope after importing it. A pipeline or workflow step that
   runs PowerShell is strict too: dot-sourcing the importer sets it for the step's scope, and a step that runs without the importer declares
   `Set-StrictMode -Version Latest` as its first line. All code is therefore written strict-clean (`ADR-AUTO-ERROR:8`); a lazy `$script:`
-  slot is probed as [script-scope-caching](script-scope-caching.md#rule-adr-auto-pscache4) prescribes.
-- **Custom analyzer rules** — `Measure-NoUnsafeFirstIndex` flags `@(<result>)[0]` and `(<a | b>)[0]`, and `Measure-NoBareScriptSlotRead`
-  flags a function file reading a `$script:` slot it has neither assigned nor probed. The `.Count` and optional-key forms of
+  cache entry is probed as [script-scope-caching](script-scope-caching.md#rule-adr-auto-pscache4) prescribes.
+- **Custom analyzer rules** — `Measure-NoUnsafeFirstIndex` flags `@(<result>)[0]` and `(<a | b>)[0]`, and `Measure-NoBareCacheEntryRead`
+  flags a function file reading a `$script:` cache entry it has neither assigned nor probed. The `.Count` and optional-key forms of
   `ADR-AUTO-ERROR:8` need type knowledge an AST does not carry, so code review owns them.
 - **Interactive prompt hook** — `Write-Exception` fires automatically after every failed command, providing full diagnostics.
 

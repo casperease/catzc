@@ -21,7 +21,7 @@
     rows-shard-0.json) land in a timestamped folder under out/test-file/.
 
     It never waits for another test run's use of the working folder
-    ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32), Enter-TestRunSlot):
+    ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32), Enter-TestRunLocation):
     when the working folder is free it runs in place; when another run holds it, it runs in a verified
     snapshot of the working folder instead — the test files map to the same repository-relative paths inside
     the snapshot, a test file outside the repository runs as given, and the artifacts still land in the
@@ -46,7 +46,7 @@
     Return a result object ({ Result, ExitCode, Rows, RunDirectory, Location }) instead of nothing. Rows are
     the worker's per-test rows (the same shape Test-Automation aggregates; File paths are working-folder
     paths even for a snapshot run) — the live Pester object cannot cross the process boundary. Location is
-    'in-place' or 'snapshot'.
+    the run's location as run.json records it: 'in-place' or 'snapshot'.
 .OUTPUTS
     None by default; the result object with -PassThru. The worker's Pester output streams either way.
 .EXAMPLE
@@ -98,28 +98,28 @@ function Invoke-TestFile {
     New-Item -ItemType Directory -Path $runDirectory -Force | Out-Null
 
     # Claim where the run executes — in place, or in a snapshot when another run holds the working folder
-    # (Enter-TestRunSlot owns the why). The worker inherits CATZC_TEST_RUN_SLOT_HELD, as Test-Automation's
+    # (Enter-TestRunLocation owns the why). The worker inherits CATZC_TEST_RUN_LOCATION_HELD, as Test-Automation's
     # workers do, so a test that drives Invoke-TestFile for real inside this run runs in place in this run's
-    # root rather than claiming a slot of its own.
-    $slot = Enter-TestRunSlot -EntryPoint 'Invoke-TestFile' -RunDirectory $runDirectory -Isolated:$Isolated
+    # root rather than claiming a location of its own.
+    $location = Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -RunDirectory $runDirectory -Isolated:$Isolated -KeepSandbox:$KeepSandbox
     try {
-        # The worker loads from the root the run executes in (Get-TestRunSlotEntry); the test files map to it alike.
-        $entry = Get-TestRunSlotEntry -Slot $slot
-        # Every tier the slot allows: in place that includes the L3 system tests; a snapshot skips them and says
-        # so (Resolve-TestRunMaxLevel owns the why).
+        # The worker loads from the root the run executes in (Get-TestRunLocationEntry); the test files map to it alike.
+        $entry = Get-TestRunLocationEntry -Location $location
+        # Every tier the location allows: in place that includes the L3 system tests; a snapshot skips them and
+        # says so (Resolve-TestRunMaxLevel owns the why).
         $excludeTag = @()
-        if ((Resolve-TestRunMaxLevel -Slot $slot) -lt 3) {
+        if ((Resolve-TestRunMaxLevel -Location $location) -lt 3) {
             $excludeTag = @('L3')
         }
-        $shard = New-TestAutomationShardScript -ShardIndex 0 -TestPath @(Convert-TestRunSlotPath -Slot $slot -Path $resolved) `
+        $shard = New-TestAutomationShardScript -ShardIndex 0 -TestPath @(Convert-TestRunLocationPath -Location $location -Path $resolved) `
             -RunDirectory $runDirectory -Verbosity $Output -FullNameFilter $FullNameFilter -ExcludeTag $excludeTag @entry
 
-        $workerEnvironment = @{ CATZC_TEST_RUN_SLOT_HELD = '1' }
+        $workerEnvironment = @{ CATZC_TEST_RUN_LOCATION_HELD = '1' }
         $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
             [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $workerEnvironment, $TimeoutSeconds, $true)
     }
     finally {
-        Exit-TestRunSlot -Slot $slot -KeepSandbox:$KeepSandbox
+        Exit-TestRunLocation -Location $location
     }
     $exitCode = $runner.Results[0].ExitCode
 
@@ -138,13 +138,7 @@ function Invoke-TestFile {
     else {
         'Failed'
     }
-    $location = if ($slot.Mode -eq 'Snapshot') {
-        'snapshot'
-    }
-    else {
-        'in-place'
-    }
-    Write-Message "$result ($location) — artifacts in $runDirectory" -ForegroundColor $(if ($exitCode -eq 0) {
+    Write-Message "$result ($($location.Mode)) — artifacts in $runDirectory" -ForegroundColor $(if ($exitCode -eq 0) {
             'Green'
         }
         else {
@@ -154,14 +148,14 @@ function Invoke-TestFile {
     if ($PassThru) {
         $rows = @([System.IO.File]::ReadAllText($shard.RowsPath) | ConvertFrom-Json)
         foreach ($row in $rows) {
-            $row.File = Convert-TestRunSlotPath -Slot $slot -Path $row.File -ToSource
+            $row.File = Convert-TestRunLocationPath -Location $location -Path $row.File -ToSource
         }
         [pscustomobject]@{
             Result       = $result
             ExitCode     = $exitCode
             Rows         = $rows
             RunDirectory = $runDirectory
-            Location     = $location
+            Location     = $location.Mode
         }
     }
 }

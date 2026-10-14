@@ -8,12 +8,12 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 ## CI discipline and promotion
 
-`The CI discipline and the promotion flow — domains keyed by the tagged artifact`
+`The CI discipline and the promotion flow — pipeline kinds keyed by the tagged artifact`
 
 [ADR-FLOW-CD](cd-discipline-and-promotion-flow.md)
 
 > DORA's research links continuous integration, continuous delivery, and deployment automation to faster, safer releases. Separating CI, CD,
-> and DEPLOY as distinct domains keyed by immutable artifacts enables fast feedback loops, reliable promotion, and clear governance
+> and DEPLOY as distinct pipeline kinds keyed by immutable artifacts enables fast feedback loops, reliable promotion, and clear governance
 > boundaries.
 
 - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — the 5-10 minute integration budget keeps the

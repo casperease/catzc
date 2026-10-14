@@ -7,11 +7,11 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
         $testFile = Join-Path $TestDrive 'widget.Tests.ps1'
         [System.IO.File]::WriteAllText($testFile, '')
         Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
-        Mock Enter-TestRunSlot -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Mode = 'InPlace' } }
-        Mock Exit-TestRunSlot -ModuleName Catzc.Base.QualityGates { }
-        Mock Get-TestRunSlotEntry -ModuleName Catzc.Base.QualityGates { @{} }
+        Mock Enter-TestRunLocation -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Mode = 'in-place' } }
+        Mock Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-TestRunLocationEntry -ModuleName Catzc.Base.QualityGates { @{} }
         Mock Resolve-TestRunMaxLevel -ModuleName Catzc.Base.QualityGates { 3 }
-        Mock Convert-TestRunSlotPath -ModuleName Catzc.Base.QualityGates { $Path }
+        Mock Convert-TestRunLocationPath -ModuleName Catzc.Base.QualityGates { $Path }
         # The shard script is the last stop before a real worker spawns: stop there.
         Mock New-TestAutomationShardScript -ModuleName Catzc.Base.QualityGates { throw 'stop before spawning' }
 
@@ -20,7 +20,7 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
         Should -Invoke New-TestAutomationShardScript -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             $FullNameFilter -eq 'widget''s gadget'
         }
-        Should -Invoke Exit-TestRunSlot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
+        Should -Invoke Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
     }
 }
 
@@ -73,7 +73,7 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
     # ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)): a real snapshot, primed, a
     # real worker
     # loading it. -Isolated takes the path deterministically; when it is taken because another run holds the
-    # working folder is Enter-TestRunSlot's L0 concern.
+    # working folder is Enter-TestRunLocation's L1 concern.
     # The fixture also carries an L3 block, so the same worker spawn proves a snapshot skips the vertical system
     # tests (Resolve-TestRunMaxLevel, [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
     It 'runs in a snapshot: the worker loads the snapshot, the report and the rows come home, the snapshot is removed' {
@@ -96,7 +96,7 @@ Describe 'SystemProbe' -Tag 'L3', 'logic' {
 }
 "@)
         $repositoryTest = [System.IO.Path]::GetFullPath(
-            (Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/tests/Convert-TestRunSlotPath.Tests.ps1'))
+            (Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/tests/Convert-TestRunLocationPath.Tests.ps1'))
 
         $run = Invoke-TestFile $fixture, $repositoryTest -Isolated -Output Minimal -PassThru
 

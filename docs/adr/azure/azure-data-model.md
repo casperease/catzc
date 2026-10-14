@@ -16,7 +16,7 @@ customer's; the subscription is always RESOLVED from that coordinate, never spel
 
 ### Rule ADR-AZ-DATAMOD:2
 
-One config file ⟷ one (customer?, env, slot) ⟷ one subscription ⟷ one Azure resource group; every config lives at
+One config file ⟷ one (customer?, env, **slot**) ⟷ one subscription ⟷ one Azure resource group; every config lives at
 `configuration/[<customer>/]<env>[-<slot>].yml`, and listing that tree is the resource-group inventory.
 
 - [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)

@@ -1,13 +1,13 @@
 # Scope isolation ([ADR-DSGN-RUNMODE#3](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode3)): two catzc modules that
-# hold a $script: slot of the same name never see
-# each other's value — in either run mode. The probe slot name is the test's own and is removed afterwards; no
+# hold a $script: variable of the same name never see
+# each other's value — in either run mode. The probe variable name is the test's own and is removed afterwards; no
 # module code reads it. The modules are chosen generically (the first two loaded catzc modules by name), never by
 # a production identity.
 Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE#3' {
     BeforeAll {
         $script:probeName = 'catzcScopeIsolationProbe'
 
-        # Sets the probe in each module's script scope (widget, gadget, …), reads every module's slot and the
+        # Sets the probe in each module's script scope (widget, gadget, …), reads every module's variable and the
         # global one back, then removes the probes. Self-contained so it also runs in a child pwsh.
         $script:probeBlock = {
             param([string] $ProbeName)
@@ -38,7 +38,7 @@ Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE#3' {
     # In-process, in whichever mode this session runs: the source run proves source mode, the build run (where
     # this file runs against the built modules) proves build mode.
     Context 'in the loaded session' -Tag 'L1', 'logic' {
-        It 'gives each module its own value for the same slot name, invisible to the session' {
+        It 'gives each module its own value for the same variable name, invisible to the session' {
             $result = & $script:probeBlock $script:probeName
 
             $result.Observed | Should -HaveCount 2
@@ -79,7 +79,7 @@ Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE#3' {
             }
         }
 
-        It 'gives each built module its own value for the same slot name, invisible to the session' {
+        It 'gives each built module its own value for the same variable name, invisible to the session' {
             if (-not $script:buildAvailable) {
                 Set-ItResult -Skipped -Because 'tool_build_modules_missing'
                 return

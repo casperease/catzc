@@ -145,14 +145,14 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   the run and unchanged across parallel build steps.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Domain-language separation
+## Language-zone separation
 
-`Domain-language separation — three domains, three terminologies`
+`Language-zone separation — three zones, three terminologies`
 
 [ADR-REPO-LANG](domain-language-separation.md)
 
 > DORA's research on pervasive security and streamlining change approval emphasizes preventing configuration drift and production leaks; a
-> tag-aware AST quality gate that enforces domain boundaries catches silent violations where text-based checks cannot, so live identities
+> tag-aware AST quality gate that enforces zone boundaries catches silent violations where text-based checks cannot, so live identities
 > never leak into test code.
 
 - [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — mechanical enforcement prevents live identities from

@@ -88,7 +88,7 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
 
 # source-only: it scans the repository's files, which give the same answer in both run modes.
 Describe 'Terminology registry integrity' -Tag 'L2', 'integrity', 'source-only' {
-    It 'the real registry passes every terminology gate (no drift, no orphans, all justified)' {
+    It 'the real registry passes every terminology check (no drift, no orphans, all justified)' {
         (Test-Terminology -PassThru -OutputFolder (Join-Path $TestDrive 'terminology')).IssueCount | Should -Be 0
     }
 }

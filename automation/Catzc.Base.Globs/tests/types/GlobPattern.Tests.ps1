@@ -1,5 +1,5 @@
 # The dialect's truth table ([ADR-FLOW-CD-GLOBS#2](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs2)) and the
-# constructor gate
+# constructor guard
 # ([ADR-FLOW-CD-GLOBS#3](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs3)): per-segment PowerShell
 # wildcards, '**' as the only cross-segment operator (zero or more whole segments), case-sensitive; a
 # malformed pattern never produces an instance.
@@ -60,7 +60,7 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'the constructor gate (ADR-FLOW-CD-GLOBS:3)' {
+    Context 'the constructor guard (ADR-FLOW-CD-GLOBS:3)' {
         It 'rejects <why>: <pattern>' -ForEach @(
             @{ pattern = ''; why = 'an empty pattern' }
             @{ pattern = '   '; why = 'a whitespace pattern' }

@@ -42,7 +42,7 @@ function Test-Tool {
             return $true
         }
         # Devbox lever (mirrors Assert-ToolVersion): outside a CI pipeline, also accept an installed version
-        # matching the tool's devbox_version prefix, so a levered off-pin tool reads as usable for test gates
+        # matching the tool's devbox_version prefix, so a levered off-pin tool reads as usable for quality gates
         # too — not just runtime asserts.
         if ($config.devbox_version -and -not (Test-IsRunningInPipeline)) {
             return $installed.StartsWith($config.devbox_version)

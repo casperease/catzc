@@ -49,6 +49,16 @@ files up to L2, and a test opts out of the build run only with the `source-only`
 
 - [One body of tests](#one-body-of-tests)
 
+### Rule ADR-DSGN-RUNMODE:7
+
+Build mode has four kinds, told apart by where the code root lives: **temporary** (a devbox build under
+`<RepositoryRoot>/out/automation/build/`, overwritten in place), **cached** (a build kept outside the repository and reused across sessions
+for the same commit and version), **installed** (a package under a `PSModulePath` entry, put there by `Install-Catzc`), and **saved** (a
+package copied into another root's `.vendor/` by `Install-Catzc -Root`, which `Export-Catzc -Root` calls after building). The kind is
+derived from the code root like the mode itself, never stored, and every kind loads through the same importer.
+
+- [Four kinds of build root](#four-kinds-of-build-root)
+
 ## Context
 
 Source mode is how the toolset is developed: one function per file
@@ -74,7 +84,7 @@ in one session, and are proven in both by running the same tests.
 | Mode   | Code root (`CatzcModulesRoot`)            | Entered by                                                   | A module on disk                          |
 | ------ | ----------------------------------------- | ------------------------------------------------------------ | ----------------------------------------- |
 | source | `<RepositoryRoot>/automation`             | `importer.ps1`                                               | a folder of one-function `.ps1` files     |
-| build  | a build's or install's `Catzc/<version>/` | `Import-Catzc.ps1`, `Import-Module Catzc`, `build-catzc.ps1` | a generated `.psd1` and one merged `.ps1` |
+| build  | one of the four build roots below         | `Import-Catzc.ps1`, `Import-Module Catzc`, `build-catzc.ps1` | a generated `.psd1` and one merged `.ps1` |
 
 Both entry scripts at the repository root are dot-sourced and run in the caller's scope. `importer.ps1` loads source mode. `build-catzc.ps1`
 builds the selected modules in a child `pwsh` — building needs source mode loaded, and doing it in a child process keeps the caller's
@@ -87,6 +97,25 @@ the load sequence — preferences, vendored modules, types and accelerators, the
 Both modes end with the same load banner (`Write-CatzcLoadBanner`): the mode and version as the session's identity line, then where the code
 was loaded from, the working root, the commit it was built from, and the loaded module and assembly set. It is read from what actually
 loaded, so it is also how a reader confirms which mode a session is in.
+
+### Four kinds of build root
+
+`Temporary, cached, installed, saved`
+
+"Build mode" says only that the modules come from a package and not from the source tree. Where that package sits says how long it lives
+and who owns it, and the four kinds name those places (`<v>` is the package version):
+
+| Kind      | Code root                                          | Made by                     | Lifetime                             |
+| --------- | -------------------------------------------------- | --------------------------- | ------------------------------------ |
+| temporary | `<RepositoryRoot>/out/automation/build/Catzc/<v>/` | `Build-Modules` on a devbox | overwritten by the next devbox build |
+| cached    | a build cache outside the repository               | a build reused per commit   | kept across sessions                 |
+| installed | `<PSModulePath entry>/Catzc/<v>/`                  | `Install-Catzc -Scope`      | until uninstalled or replaced        |
+| saved     | `<root>/.vendor/Catzc/<v>/`                        | `Install-Catzc -Root`       | versioned with that root             |
+
+The kind is derived from the code root the same way the mode is ([Deriving the mode](#deriving-the-mode)), so it cannot disagree with what
+loaded. All four enter through the package's `Import-Catzc.ps1` (or `Import-Module Catzc` for an installed package), end in the same
+importer, and are the same modules; a NuGet package from `Export-Catzc -To nuget` is a distribution file, not a code root, until it is
+installed or saved.
 
 ### The same module in both modes
 
@@ -110,7 +139,7 @@ source mode (`Assert-SourceTree`) and fail fast in a build rather than reading t
 Merging every module into one flat scope would be the simplest build and the wrong one. Module scope is a contract: each module's `$script:`
 caches belong to it alone ([script-scope-caching](../automation/powershell/script-scope-caching.md)), and config validation, mocks, and
 module queries all name a module. So the package `Catzc` is a container, not a scope: inside it every source module is its own PowerShell
-module with its own session state, exactly as in source mode. Two modules that hold a `$script:` slot of the same name never see each
+module with its own session state, exactly as in source mode. Two modules that hold a `$script:` cache entry of the same name never see each
 other's value, in either mode, and a scope-isolation test proves it.
 
 ### Deriving the mode

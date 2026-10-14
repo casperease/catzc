@@ -1,5 +1,5 @@
 # cspell:ignore dedupe
-# The globs.yml registry gate: strict shape (unknown keys rejected), every entry a valid GlobSet with a
+# The globs.yml registry guard: strict shape (unknown keys rejected), every entry a valid GlobSet with a
 # declared layer ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)), and compose
 # resolving acyclically to declared sets
 # ([ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8)).

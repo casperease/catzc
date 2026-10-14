@@ -115,6 +115,8 @@ and a _new_ commit carries the fix forward. Modelling the ladder as one-directio
 is L3-verified") rather than a mutable label, and it is why the three ways off the ladder — discard, retirement, supersession — are all
 terminal.
 
+![A commit only climbs — it ends discarded, retired or superseded](../../.assets/commits-quality/commit-lifecycle-states.drawio.png)
+
 ## Discard
 
 `Discard is rejection, and it is named`
@@ -158,6 +160,8 @@ Stability for consumers comes from integrating against a commit that has already
 precisely the `main-UAT` occupant. The tip of main is younger and less proven; building on it inherits whatever has not yet been caught. The
 rule "sync from `main-UAT`" gives every upstream consumer one well-defined, continuously-updated, already-certified commit to depend on,
 decoupling their stability from the churn at HEAD.
+
+![Upstream consumers sync from the main-UAT occupant, never from HEAD](../../.assets/commits-quality/sync-point.drawio.png)
 
 ## The dirty HEAD
 

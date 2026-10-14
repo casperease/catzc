@@ -39,7 +39,8 @@ Dot-prefix means infrastructure/tooling, everywhere — `.github/`, `.vscode/`, 
 ### Rule ADR-REPO-FOLDERS:5
 
 Documentation folders are markdown-only. `docs/` organizes its subfolders freely (the names and casing are the author's), but it holds only
-`.md` files — except the dot-prefixed `docs/.assets/`, which holds the binary diagram assets the markdown embeds.
+`.md` files — except the dot-prefixed `docs/.assets/`, which holds the binary diagram assets the markdown embeds. Each subfolder of
+`docs/adr/` is an **ADR domain**: a group of ADRs that `adrs.yml` declares with its role and the domains it depends on.
 
 - [Level 1: Repository root](#level-1-repository-root)
 

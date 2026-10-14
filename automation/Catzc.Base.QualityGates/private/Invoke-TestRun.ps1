@@ -32,7 +32,7 @@
 .PARAMETER OutputFolder
     Report base; empty resolves to <out>/<entry point in lowercase>.
 .PARAMETER Isolated
-    Run in a snapshot of the working folder even when it is free (Enter-TestRunSlot).
+    Run in a snapshot of the working folder even when it is free (Enter-TestRunLocation).
 .PARAMETER KeepSandbox
     Keep the snapshot (when the run used one) after the run, for a post-mortem.
 .NOTES
@@ -50,7 +50,7 @@ function Invoke-TestRun {
         [ValidateSet(0, 1, 2, 3)]
         [int] $MinLevel = 0,
 
-        # The highest tier asked for; the slot caps it (Resolve-TestRunMaxLevel): a snapshot never runs L3.
+        # The highest tier asked for; the run's location caps it (Resolve-TestRunMaxLevel): a snapshot never runs L3.
         [ValidateSet(0, 1, 2, 3)]
         [int] $MaxLevel = 3,
 
@@ -128,8 +128,9 @@ function Invoke-TestRun {
     Set-AbandonedTestRun -OutputFolder $OutputFolder | Out-Null
     $runDir = New-TestAutomationRunDirectory -OutputFolder $OutputFolder
 
-    # Claim the slot before anything is filtered (Enter-TestRunSlot; it decides the top tier); the finally releases it.
-    $slot = Enter-TestRunSlot -EntryPoint $EntryPoint -RunDirectory $runDir -Isolated:$Isolated
+    # Claim the run's location before anything is filtered (Enter-TestRunLocation; it decides the top tier); the
+    # finally releases it.
+    $location = Enter-TestRunLocation -EntryPoint $EntryPoint -RunDirectory $runDir -Isolated:$Isolated -KeepSandbox:$KeepSandbox
     $runStartedAt = [DateTimeOffset]::UtcNow.ToString('o')
     $manifestStatus = 'crashed'
     $failedCount = 0
@@ -138,15 +139,15 @@ function Invoke-TestRun {
     $optOutExcludedTests = @()
     $context = $null
 
-    # try/finally: the slot is released and the terminal manifest stamped on every exit path — pass, fail, or crash.
+    # try/finally: the location is released and the terminal manifest stamped on every exit path — pass, fail, or crash.
     # The stamp is what makes run.json trustworthy, so it sits in the finally, not in a best-effort catch.
     try {
         $requestedMaxLevel = $MaxLevel
-        $MaxLevel = Resolve-TestRunMaxLevel -Slot $slot -Requested $MaxLevel -MinLevel $MinLevel
+        $MaxLevel = Resolve-TestRunMaxLevel -Location $location -Requested $MaxLevel -MinLevel $MinLevel
 
         # The run's context — what it is and where it runs — printed under the banner and recorded in run.json
         # (Get-TestRunContext).
-        $context = Get-TestRunContext -EntryPoint $EntryPoint -EntryScript $EntryScript -Slot $slot -MinLevel $MinLevel `
+        $context = Get-TestRunContext -EntryPoint $EntryPoint -EntryScript $EntryScript -Location $location -MinLevel $MinLevel `
             -RequestedMaxLevel $requestedMaxLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Suite $Suite -Rule $Rule
 
         # Build tag filter — exclude tiers outside [MinLevel, MaxLevel] and (when -Category is given) the other
@@ -242,11 +243,10 @@ function Invoke-TestRun {
         }
         else {
             Invoke-TestAutomationWorkers -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
-                -SerialFiles @($serialFiles) -Slot $slot `
+                -SerialFiles @($serialFiles) -Location $location `
                 -RunDirectory $runDir -ExcludeTag $excludeTags -IncludeTag $Rule -Verbosity $Output -Workers $Workers `
                 -TimeoutSeconds $TimeoutSeconds -WorkerEnvironment $workerEnvironment `
-                -EntryScript $EntryScript -EntryParameter $EntryParameter `
-                -KeepSandbox:$KeepSandbox
+                -EntryScript $EntryScript -EntryParameter $EntryParameter
         }
         $rows = @($workerRun.Rows)
         $failedShardLabels = @($workerRun.FailedShardLabels)
@@ -331,7 +331,7 @@ function Invoke-TestRun {
             Write-TestRunManifest -RunDirectory $runDir -Manifest $finalManifest | Out-Null
         }
         finally {
-            Exit-TestRunSlot -Slot $slot -KeepSandbox:$KeepSandbox
+            Exit-TestRunLocation -Location $location
         }
     }
 }

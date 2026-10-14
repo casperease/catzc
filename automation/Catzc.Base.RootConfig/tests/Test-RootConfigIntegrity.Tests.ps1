@@ -1,4 +1,4 @@
-# Integrity gate for managed root config files, through the quality gates Test-RootConfigFiles and
+# Integrity test for managed root config files, through the quality gates Test-RootConfigFiles and
 # Test-RootAnalyzerSettings ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
 #
 # rootconfig.yml is the registry of repository-root files fully managed by the source-of-truth automation.
@@ -8,7 +8,7 @@
 #                      from tracking (removed with `git rm --cached` if it was ever committed).
 #   committed true  -> the target is tracked (needed before the importer runs) and NOT ignored.
 # and a copyAsLink target is an effective link to its source, any other target a real file. Mirrors the
-# generated-README integrity gate (Test-GeneratedReadmes.Tests.ps1). See
+# generated-README integrity test (Test-GeneratedReadmes.Tests.ps1). See
 # [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
 Describe 'Managed root config files agree with .gitignore and git tracking' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {

@@ -16,7 +16,7 @@
     ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)). Steps 2
     and 3 are the shared Unix tail (Remove-UvPipOrStrayInstall), identical to Linux.
 
-    This is invoked from the Unix branch of a Remove-<Tool>, which owns the -Force dry-run gate and the
+    This is invoked from the Unix branch of a Remove-<Tool>, which owns the -Force dry-run guard and the
     managed-install refusal (Test-ExpectedPackageManager) — so this core is only ever reached for an off-config
     install, and just evicts it.
 .PARAMETER Config

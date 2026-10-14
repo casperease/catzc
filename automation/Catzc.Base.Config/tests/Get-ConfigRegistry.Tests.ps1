@@ -1,6 +1,6 @@
 # Get-ConfigRegistry is private, so it is exercised through the module (InModuleScope, per
 # [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)).
-# Each test resets the session cache slot before and after
+# Each test resets the session's cache entry before and after
 # ([ADR-AUTO-PSCACHE#3](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache3)), so a fixture
 # registry never
 # leaks into the rest of the run.

@@ -14,15 +14,15 @@ computes reuses the durable-SHA recipe of [durable-sha-globs](../../adr/flow/dur
 [Catzc.Base.Files](catzc-base-files.md), [Catzc.Base.Repository](catzc-base-repository.md), [Catzc.Base.Writers](catzc-base-writers.md), and
 [Catzc.Base.Asserts](catzc-base-asserts.md).
 
-## Domains
+## Responsibilities
 
-| Domain   | Area     | Name                                                                              |
-| -------- | -------- | --------------------------------------------------------------------------------- |
-| domain:1 | build    | [Build](#domain1--build)                                                          |
-| domain:2 | deliver  | [Install, export and package](#domain2--install-export-and-package)               |
-| domain:3 | identity | [Version, identity and verification](#domain3--version-identity-and-verification) |
+| Responsibility   | Area     | Name                                                                                      |
+| ---------------- | -------- | ----------------------------------------------------------------------------------------- |
+| responsibility:1 | build    | [Build](#responsibility1--build)                                                          |
+| responsibility:2 | deliver  | [Install, export and package](#responsibility2--install-export-and-package)               |
+| responsibility:3 | identity | [Version, identity and verification](#responsibility3--version-identity-and-verification) |
 
-### domain:1 — Build
+### responsibility:1 — Build
 
 Turning the selected modules into the build under `out/automation/build/Catzc/<version>/`. `Build-Modules` settles the inputs — the modules
 (explicit names and/or a profile, `exporter.yml`'s `default_profile` when neither is given), the vendor policy, the destination, the
@@ -31,7 +31,7 @@ merges each module's function files into one `<Module>.ps1` beside a generated m
 vendored modules, ships the types assembly, and writes `Catzc.psd1`, `Catzc.psm1`, `Import-Catzc.ps1`, and the `build.json` provenance
 record. It then verifies what was written with `Assert-CatzcBundle`. `-DryRun` returns the plan and writes nothing.
 
-### domain:2 — Install, export and package
+### responsibility:2 — Install, export and package
 
 Delivering a build to where it is used. `Install-Catzc -Root <dir>` is the two-part install: the build goes to
 `<dir>/.vendor/Catzc/<version>/` and a root `importer.ps1` at `<dir>` dot-sources the installed `Import-Catzc.ps1` with `<dir>` as the
@@ -42,7 +42,7 @@ installs (`-To disk`) or packs the build folder itself into `out/automation/pack
 `Install-PSResource Catzc` from a local repository and the artifact the release workflow publishes
 ([github-release](../../adr/github/github-release.md)).
 
-### domain:3 — Version, identity and verification
+### responsibility:3 — Version, identity and verification
 
 The build's version, identity, and integrity guard. `Resolve-CatzcBuildVersion` decides the version: on a devbox `-Version auto` is the
 fixed `6.6.666` placeholder, announced by a yellow notice; in a pipeline it is calculated — `MAJOR.MINOR` from `exporter.yml` and the
@@ -55,12 +55,12 @@ violation.
 
 ## What the module does
 
-The module turns the running repository into an artifact that other places can install and trust. Build assembles the artifact (domain 1),
-install/export places it (domain 2), and version/identity/verification make the result addressable and checkable (domain 3). The
-load-bearing design choice is the split between the two roots — the working `RepositoryRoot` (where the user runs, where `out/` goes) and
-`CatzcModulesRoot` (where the catzc code lives). In the mono repo they coincide; an install makes them differ, which is what lets the build
-be carried out of the repo and still resolve its own config, types, and vendored dependencies. Every module in the build stays its own
-PowerShell module of the same name, so a build behaves as the same modules in a different on-disk form.
+The module turns the running repository into an artifact that other places can install and trust. Build assembles the artifact
+(responsibility 1), install/export places it (responsibility 2), and version/identity/verification make the result addressable and checkable
+(responsibility 3). The load-bearing design choice is the split between the two roots — the working `RepositoryRoot` (where the user runs,
+where `out/` goes) and `CatzcModulesRoot` (where the catzc code lives). In the mono repo they coincide; an install makes them differ, which
+is what lets the build be carried out of the repo and still resolve its own config, types, and vendored dependencies. Every module in the
+build stays its own PowerShell module of the same name, so a build behaves as the same modules in a different on-disk form.
 
 Everything routes through the platform's own seams — the defaults and package identity through `Get-Config` (validated on load, swappable in
 tests), the build through the one engine, the hash through the native durable-SHA type, the load through the one importer — so the exporter
@@ -68,14 +68,14 @@ adds an artifact lifecycle on top of the platform rather than a parallel one.
 
 ## Division
 
-The module's public functions and configuration, sorted into the domains above.
+The module's public functions and configuration, sorted into the responsibilities above.
 
-| Domain                                        | Function                    |
-| --------------------------------------------- | --------------------------- |
-| domain:1 — Build                              | `Build-Modules`             |
-| config                                        | `exporter.yml`              |
-| domain:2 — Install, export and package        | `Export-Catzc`              |
-|                                               | `Install-Catzc`             |
-| domain:3 — Version, identity and verification | `Resolve-CatzcBuildVersion` |
-|                                               | `Get-CatzcContentHash`      |
-|                                               | `Assert-CatzcBundle`        |
+| Responsibility                                        | Function                    |
+| ----------------------------------------------------- | --------------------------- |
+| responsibility:1 — Build                              | `Build-Modules`             |
+| config                                                | `exporter.yml`              |
+| responsibility:2 — Install, export and package        | `Export-Catzc`              |
+|                                                       | `Install-Catzc`             |
+| responsibility:3 — Version, identity and verification | `Resolve-CatzcBuildVersion` |
+|                                                       | `Get-CatzcContentHash`      |
+|                                                       | `Assert-CatzcBundle`        |

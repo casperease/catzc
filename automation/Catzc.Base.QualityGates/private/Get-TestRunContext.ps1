@@ -7,7 +7,8 @@
 
     - entryPoint, run (source | build), and codeRoot — the modules the workers load (the build's own automation/
       folder for a build run, Get-CatzcModulesRoot otherwise);
-    - slot (in-place | snapshot) and slotReason — who held the working folder, or -Isolated;
+    - location (in-place | snapshot, the location's Mode) and locationReason — who held the working folder, or
+      -Isolated;
     - tiersRequested, tiersRunning, and tierCap — why the top tier is lower than asked (Resolve-TestRunMaxLevel);
     - actor — Pipeline, Agent, or Person (Get-SessionActor);
     - tools — whether git, az, and dotnet are on the PATH (found with Get-Command; no process is started);
@@ -16,8 +17,8 @@
     The entry point's command name.
 .PARAMETER EntryScript
     The script the workers dot-source; empty is the source importer.
-.PARAMETER Slot
-    The slot Enter-TestRunSlot returned.
+.PARAMETER Location
+    The location Enter-TestRunLocation returned.
 .PARAMETER MinLevel
     The run's lowest tier.
 .PARAMETER RequestedMaxLevel
@@ -35,7 +36,7 @@
 .OUTPUTS
     [System.Collections.Specialized.OrderedDictionary] the context, keyed as run.json records it.
 .EXAMPLE
-    Get-TestRunContext -EntryPoint Test-Automation -Slot $slot -RequestedMaxLevel 3 -MaxLevel 2
+    Get-TestRunContext -EntryPoint Test-Automation -Location $location -RequestedMaxLevel 3 -MaxLevel 2
 #>
 function Get-TestRunContext {
     [CmdletBinding()]
@@ -47,7 +48,7 @@ function Get-TestRunContext {
         [string] $EntryScript,
 
         [Parameter(Mandatory)]
-        [pscustomobject] $Slot,
+        [pscustomobject] $Location,
 
         [int] $MinLevel = 0,
 
@@ -73,11 +74,11 @@ function Get-TestRunContext {
         Get-CatzcModulesRoot
     }
 
-    $slotReason = if ($Slot.Mode -ne 'Snapshot') {
+    $locationReason = if ($Location.Mode -ne 'snapshot') {
         ''
     }
-    elseif ($Slot.Holder) {
-        "working folder held by $($Slot.Holder.Description)"
+    elseif ($Location.Holder) {
+        "working folder held by $($Location.Holder.Description)"
     }
     else {
         '-Isolated'
@@ -86,11 +87,11 @@ function Get-TestRunContext {
     $tierCap = if ($MaxLevel -ge $RequestedMaxLevel) {
         ''
     }
-    elseif ($Slot.Mode -eq 'Snapshot') {
-        'L3 skipped: snapshot slot'
+    elseif ($Location.Mode -eq 'snapshot') {
+        'L3 skipped: snapshot location'
     }
-    elseif ($Slot.SystemTestHolder) {
-        "L3 skipped: system-test lock held by $($Slot.SystemTestHolder.Description)"
+    elseif ($Location.SystemTestHolder) {
+        "L3 skipped: system-test lock held by $($Location.SystemTestHolder.Description)"
     }
     else {
         'L3 skipped: system-test lock held by another test run'
@@ -127,13 +128,8 @@ function Get-TestRunContext {
             'source'
         }
         codeRoot       = $codeRoot
-        slot           = if ($Slot.Mode -eq 'Snapshot') {
-            'snapshot'
-        }
-        else {
-            'in-place'
-        }
-        slotReason     = $slotReason
+        location       = $Location.Mode
+        locationReason = $locationReason
         tiersRequested = Format-TierRange -MinLevel $MinLevel -MaxLevel $RequestedMaxLevel
         tiersRunning   = Format-TierRange -MinLevel $MinLevel -MaxLevel $MaxLevel
         tierCap        = $tierCap

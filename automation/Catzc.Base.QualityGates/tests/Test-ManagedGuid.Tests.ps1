@@ -17,7 +17,7 @@ Describe 'Test-ManagedGuid' -Tag 'L0', 'logic' {
     }
 
     It 'returns $false for an unregistered guid' {
-        # A random guid is definitionally unregistered — and leaves no tracked literal for the guid gate.
+        # A random guid is definitionally unregistered — and leaves no tracked literal for Test-ManagedGuids.
         Test-ManagedGuid ([guid]::NewGuid()) | Should -BeFalse
     }
 

@@ -59,9 +59,9 @@ job.
 ### Rule ADR-FLOW-CD-TYPE:8
 
 DEPLOY is the deploy-and-verify tail of CD, extracted into its own human-governed pipeline. It consumes an immutable artifact built
-elsewhere (the CI engine's build-once output) pinned to an explicit commit, trust that it has passed the L3 system test - and drives it into
-an environment whose gate is manual and organizational — a standard operating procedure, an ITSM change-management approval, a human
-sign-off. It builds nothing and re-runs no CI engine.
+elsewhere (the CI engine's build-once output) pinned to an explicit commit, trust that it has passed the AT gate (the L3 system test in the
+pipeline) - and drives it into an environment whose gate is manual and organizational — a standard operating procedure, an ITSM
+change-management approval, a human sign-off. It builds nothing and re-runs no CI engine.
 
 - [DEPLOY](#deploy)
 

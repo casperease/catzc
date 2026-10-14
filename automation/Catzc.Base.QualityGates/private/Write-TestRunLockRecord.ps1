@@ -2,7 +2,7 @@
 .SYNOPSIS
     Writes the record that names who holds a test-run lock.
 .DESCRIPTION
-    A lock (the working folder's, Enter-TestRunSlot; the user's system-test lock, Enter-SystemTestLock) says only
+    A lock (the working folder's, Enter-TestRunLocation; the user's system-test lock, Enter-SystemTestLock) says only
     that it is held; the record beside it says by whom, so a run that finds the lock held can name the holder
     (Get-TestRunLockHolder) instead of guessing. The record carries the holder's pid and process start time (a
     reused pid is told apart), the entry point, when it started, its run folder and its working folder. The write
@@ -21,7 +21,7 @@
     Write-TestRunLockRecord -Path $lockPath -EntryPoint 'Test-Automation' -RunDirectory $runDir -RepositoryRoot $root
 #>
 function Write-TestRunLockRecord {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Writes only the lock record of a lock this run has just taken — internal bookkeeping of the test-run slot, never user-owned state.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Writes only the lock record of a lock this run has just taken — internal bookkeeping of the location of the test run, never user-owned state.')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]

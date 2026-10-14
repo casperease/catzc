@@ -26,7 +26,7 @@ function Get-Glossary {
     param()
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:glossaryCache')) {
-        # strict-clean probe of the lazy slot
+        # strict-clean probe of the lazy cache entry
         # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
         $script:glossaryCache = @{}
     }

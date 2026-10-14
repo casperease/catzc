@@ -76,7 +76,7 @@ Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
         }
     }
 
-    It 'asks for every tier the slot allows (L3 runs in place only), both categories' {
+    It 'asks for every tier the location allows (L3 runs in place only), both categories' {
         Test-CatzcBuild
 
         Should -Invoke Invoke-TestRun -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {

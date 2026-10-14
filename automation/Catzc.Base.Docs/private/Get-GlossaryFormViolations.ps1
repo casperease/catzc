@@ -77,7 +77,7 @@ function Get-GlossaryFormViolations {
                 # The qualifier is the last word before the head ('commit' in 'pre-commit gate'), joined by spaces, one
                 # line break, or a hyphen.
                 Qualified = [regex]::new('(?<![A-Za-z0-9])(?<q>[A-Za-z0-9]+)(?:[ \t]+|[ \t]*\n[ \t]*|-)(?<w>' + [regex]::Escape($head) + 's?)(?![\w-])', 'IgnoreCase')
-                # A verb form counts after a hyphen too ('double-gated').
+                # A verb form counts after a hyphen too (`double-gated`).
                 Verb      = [regex]::new('(?<![A-Za-z0-9])(?<w>' + [regex]::Escape($stem) + '(?:ed|ing))(?![\w-])', 'IgnoreCase')
             })
     }

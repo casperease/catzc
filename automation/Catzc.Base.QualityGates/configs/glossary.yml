@@ -50,7 +50,7 @@ concepts:
         defined_by: ADR-FLOW-CD#13
         short: A check whose verdict decides whether work may proceed — automated (a quality gate, the CI gate) or human (RC, RBC).
         realized_by: { kind: prose-only }
-        forms: [quality, CI, RC, RBC, release, manual, PR, merge, commit, approval, production, push]
+        forms: [quality, CI, AT, RC, RBC, release, manual, PR, merge, commit, approval, production, push]
         contrasts:
             quality gate: A quality gate is one automated check of the repository; a gate is any decision point, human or automated.
     quality gate:
@@ -63,7 +63,7 @@ concepts:
             kind_of: [gate]
         contrasts:
             gate: A gate is any decision point, human or automated; a quality gate is one automated check of the repository.
-            build verification test: The BVT certifies a commit by running the quality gates together; a quality gate is one check inside it.
+            build verification test: The BVT is the verification that runs every quality gate together; a quality gate is one check inside it.
         avoid:
             - { phrase: analyzer suite, say: the analyzer quality gate (Test-ScriptAnalyzer) }
     test file:
@@ -109,12 +109,10 @@ concepts:
         key: bvt
         domain: automation
         defined_by: ADR-AUTO-TEST#24
-        short: The BVT — the gate that certifies a commit by running the quality gates together, before and after the commit reaches master.
+        short: The BVT — the verification that precedes every promotion and every creation of release artifacts, and that the commit gate runs.
         realized_by: { kind: prose-only }
-        relations:
-            kind_of: [gate]
         contrasts:
-            quality gate: A quality gate is one check inside the BVT; the BVT certifies a commit by running the quality gates together.
+            quality gate: A quality gate is one check inside the BVT; the BVT is the verification that runs them together, before a promotion and in the commit gate.
     all tests:
         key: all_tests
         domain: automation

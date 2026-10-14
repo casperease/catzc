@@ -17,7 +17,7 @@ Describe 'Assert-ManagedGuid' -Tag 'L0', 'logic' {
     }
 
     It 'throws for an unregistered guid, naming it and the remediation' {
-        # A random guid is definitionally unregistered — and leaves no tracked literal for the guid gate.
+        # A random guid is definitionally unregistered — and leaves no tracked literal for Test-ManagedGuids.
         $unregistered = [guid]::NewGuid()
         { Assert-ManagedGuid $unregistered } |
             Should -Throw "*$unregistered*not registered*guids.yml*"

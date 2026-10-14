@@ -21,7 +21,7 @@ $checks = @(
     'NoEnvRepositoryRoot'
     'ParameterDesign'
     'NoUnsafeFirstIndex'
-    'NoBareScriptSlotRead'
+    'NoBareCacheEntryRead'
 )
 
 # The check modules' Measure-* functions, loaded on the first root block (see Measure-CatzcRules); declared at load so

@@ -46,8 +46,8 @@ A check whose verdict decides whether work may proceed — automated (a quality 
 - **Defined by:** [ADR-FLOW-CD#13](flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
-- **Forms:** `quality gate`, `CI gate`, `RC gate`, `RBC gate`, `release gate`, `manual gate`, `PR gate`, `merge gate`, `commit gate`,
-  `approval gate`, `production gate`, `push gate`, and the bare `gate`
+- **Forms:** `quality gate`, `CI gate`, `AT gate`, `RC gate`, `RBC gate`, `release gate`, `manual gate`, `PR gate`, `merge gate`,
+  `commit gate`, `approval gate`, `production gate`, `push gate`, and the bare `gate`
 - **Contrasts:**
   - [quality gate](#quality-gate): A quality gate is one automated check of the repository; a gate is any decision point, human or
     automated.
@@ -94,15 +94,14 @@ Every test in the repository — every test file of every module, at every tier 
 
 ### build verification test
 
-The BVT — the gate that certifies a commit by running the quality gates together, before and after the commit reaches master.
+The BVT — the verification that precedes every promotion and every creation of release artifacts, and that the commit gate runs.
 
 - **Defined by:** [ADR-AUTO-TEST#24](automation/test-automation.md#rule-adr-auto-test24)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
-- **Kind of:** [gate](#gate)
 - **Contrasts:**
-  - [quality gate](#quality-gate): A quality gate is one check inside the BVT; the BVT certifies a commit by running the quality gates
-    together.
+  - [quality gate](#quality-gate): A quality gate is one check inside the BVT; the BVT is the verification that runs them together, before a
+    promotion and in the commit gate.
 
 ### category
 
@@ -138,8 +137,8 @@ Write-QualityGateReport and throws once with every issue.
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Kind of:** [gate](#gate)
 - **Contrasts:**
-  - [build verification test](#build-verification-test): The BVT certifies a commit by running the quality gates together; a quality gate is
-    one check inside it.
+  - [build verification test](#build-verification-test): The BVT is the verification that runs every quality gate together; a quality gate
+    is one check inside it.
   - [gate](#gate): A gate is any decision point, human or automated; a quality gate is one automated check of the repository.
 
 | Avoid            | Say instead                                     |

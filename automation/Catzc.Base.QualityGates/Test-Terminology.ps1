@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Gates the terminology registry: no drift, no orphans, no unjustified entries. Writes a report under out/.
+    Checks the terminology registry: no drift, no orphans, no unjustified entries. Writes a report under out/.
 .DESCRIPTION
     The read-only verifier over configs/terminology.yml and its generated dictionary — the counterpart to
     Build-TerminologyDictionary. It enforces the three things code review cannot mechanically catch
@@ -24,7 +24,7 @@
     through Write-QualityGateReport, which writes out/test-terminology/, prints every issue, and throws once
     listing them all; -PassThru returns the result object instead.
 
-    A source-tree gate: it scans the catzc repository, so it throws in build mode (Assert-SourceTree).
+    It needs the source tree: it scans the catzc repository, so it throws in build mode (Assert-SourceTree).
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-terminology.
 .PARAMETER PassThru
@@ -44,7 +44,7 @@ function Test-Terminology {
         [switch] $PassThru
     )
 
-    # The orphan gate searches the catzc source tree for each term, so it is meaningless over an installed build.
+    # The orphan check searches the catzc source tree for each term, so it is meaningless over an installed build.
     Assert-SourceTree
 
     $root = Get-RepositoryRoot
@@ -53,7 +53,7 @@ function Test-Terminology {
     $registryPath = Join-Path $root 'automation/Catzc.Base.QualityGates/configs/terminology.yml'
     $issues = [System.Collections.Generic.List[string]]::new()
 
-    # ---- Gate 3 (justification / no-coinage): loading validates every entry via TerminologyConfig ----
+    # ---- Check 3 (justification / no-coinage): loading validates every entry via TerminologyConfig ----
     # A missing category/meaning, an abbreviation without an expansion, or an unknown category throws here.
     $config = $null
     try {
@@ -64,7 +64,7 @@ function Test-Terminology {
     }
 
     if ($config) {
-        # ---- Gate 1 (no drift): every generated dictionary must match the registry
+        # ---- Check 1 (no drift): every generated dictionary must match the registry
         # ([ADR-AUTO-SPELL#5](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell5)) ----
         $generated = Build-TerminologyDictionary -DryRun -PassThru
         foreach ($stale in @($generated | Where-Object Changed)) {
@@ -74,7 +74,7 @@ function Test-Terminology {
             )
         }
 
-        # ---- Gate 2 (no orphans): every term must be referenced somewhere else in the tree
+        # ---- Check 2 (no orphans): every term must be referenced somewhere else in the tree
         # ([ADR-AUTO-SPELL#8](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell8)) ----
         # One bulk scan of the spell-checked corpus (minus the registry and its generated lists, where every
         # term trivially appears), then look each term up against it — not one grep per term. The generated

@@ -14,7 +14,7 @@
     within a worker; a single file never splits across
     workers.
 .PARAMETER MaxLevel
-    Maximum test level to run (alias: -Level). Defaults to 3: every tier the run's slot allows. A run that
+    Maximum test level to run (alias: -Level). Defaults to 3: every tier the run's location allows. A run that
     owns the working folder runs L0-L3; a run in a snapshot (another run holds the working folder, or
     -Isolated) skips L3 and says so ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
     Tests self-skip when their tool or access is absent,

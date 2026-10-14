@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Lists the functions with an internal asset dependency that no qualifying test covers — the coverage gate's
+    Lists the functions with an internal asset dependency that no qualifying test covers — the coverage quality gate's
     engine ([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)).
 .DESCRIPTION
     Takes the inventory (Get-InternalAssetDependency) and, for every function in it, looks for a test that

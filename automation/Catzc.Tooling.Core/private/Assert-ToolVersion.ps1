@@ -22,7 +22,7 @@ function Assert-ToolVersion {
 
     # Cached for session lifetime. Reset by reimporting (.\importer.ps1).
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:toolVersionCache')) {
-        # strict-clean probe of the lazy slot
+        # strict-clean probe of the lazy cache entry
         # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
         $script:toolVersionCache = @{}
     }

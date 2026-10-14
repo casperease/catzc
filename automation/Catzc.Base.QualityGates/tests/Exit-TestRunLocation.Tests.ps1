@@ -1,5 +1,5 @@
 # L1: a real named mutex, checked from a thread job — the snapshot removal itself is mocked.
-Describe 'Exit-TestRunSlot' -Tag 'L1', 'logic' {
+Describe 'Exit-TestRunLocation' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Remove-RepositorySnapshot { } -ModuleName Catzc.Base.QualityGates
@@ -11,9 +11,9 @@ Describe 'Exit-TestRunSlot' -Tag 'L1', 'logic' {
         $mutex = [System.Threading.Mutex]::new($false, $script:mutexName)
         [void]$mutex.WaitOne(0)
         [System.IO.File]::WriteAllText($script:lockPath, (ConvertTo-Json -InputObject @{ pid = $PID }))
-        $slot = [pscustomobject]@{ Mode = 'InPlace'; Mutex = $mutex; LockPath = $script:lockPath; Snapshot = $null; SystemTestLock = $null }
+        $location = [pscustomobject]@{ Mode = 'in-place'; Mutex = $mutex; LockPath = $script:lockPath; Snapshot = $null; KeepSandbox = $false; SystemTestLock = $null }
 
-        InModuleScope Catzc.Base.QualityGates -Parameters @{ S = $slot } { param($S) Exit-TestRunSlot -Slot $S }
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $location } { param($L) Exit-TestRunLocation -Location $L }
 
         [System.IO.File]::Exists($script:lockPath) | Should -BeFalse
         # Another thread can take the lock at once: it was released, not left for abandonment.
@@ -34,9 +34,9 @@ Describe 'Exit-TestRunSlot' -Tag 'L1', 'logic' {
         $mutex = [System.Threading.Mutex]::new($false, $script:mutexName)
         [void]$mutex.WaitOne(0)
         [System.IO.File]::WriteAllText($script:lockPath, (ConvertTo-Json -InputObject @{ pid = $PID + 100000 }))
-        $slot = [pscustomobject]@{ Mode = 'InPlace'; Mutex = $mutex; LockPath = $script:lockPath; Snapshot = $null; SystemTestLock = $null }
+        $location = [pscustomobject]@{ Mode = 'in-place'; Mutex = $mutex; LockPath = $script:lockPath; Snapshot = $null; KeepSandbox = $false; SystemTestLock = $null }
 
-        InModuleScope Catzc.Base.QualityGates -Parameters @{ S = $slot } { param($S) Exit-TestRunSlot -Slot $S }
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $location } { param($L) Exit-TestRunLocation -Location $L }
 
         [System.IO.File]::Exists($script:lockPath) | Should -BeTrue
     }
@@ -49,12 +49,12 @@ Describe 'Exit-TestRunSlot' -Tag 'L1', 'logic' {
         [void]$systemMutex.WaitOne(0)
         $systemLockPath = Join-Path $TestDrive ([guid]::NewGuid().ToString('N') + '.json')
         [System.IO.File]::WriteAllText($systemLockPath, (ConvertTo-Json -InputObject @{ pid = $PID }))
-        $slot = [pscustomobject]@{
-            Mode = 'InPlace'; Mutex = $mutex; LockPath = $null; Snapshot = $null
+        $location = [pscustomobject]@{
+            Mode = 'in-place'; Mutex = $mutex; LockPath = $null; Snapshot = $null; KeepSandbox = $false
             SystemTestLock = [pscustomobject]@{ Acquired = $true; Mutex = $systemMutex; LockPath = $systemLockPath; Holder = $null }
         }
 
-        InModuleScope Catzc.Base.QualityGates -Parameters @{ S = $slot } { param($S) Exit-TestRunSlot -Slot $S }
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $location } { param($L) Exit-TestRunLocation -Location $L }
 
         [System.IO.File]::Exists($systemLockPath) | Should -BeFalse
         $acquiredElsewhere = Start-ThreadJob {
@@ -70,14 +70,14 @@ Describe 'Exit-TestRunSlot' -Tag 'L1', 'logic' {
     }
 
     It 'removes a snapshot' {
-        $slot = [pscustomobject]@{ Mode = 'Snapshot'; Mutex = $null; LockPath = $null; Snapshot = [pscustomobject]@{ Path = 'C:\tmp\catzc-run-widget' }; SystemTestLock = $null }
-        InModuleScope Catzc.Base.QualityGates -Parameters @{ S = $slot } { param($S) Exit-TestRunSlot -Slot $S }
+        $location = [pscustomobject]@{ Mode = 'snapshot'; Mutex = $null; LockPath = $null; Snapshot = [pscustomobject]@{ Path = 'C:\tmp\catzc-run-widget' }; KeepSandbox = $false; SystemTestLock = $null }
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $location } { param($L) Exit-TestRunLocation -Location $L }
         Should -Invoke Remove-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Path -eq 'C:\tmp\catzc-run-widget' }
     }
 
-    It 'keeps a snapshot under -KeepSandbox and names it' {
-        $slot = [pscustomobject]@{ Mode = 'Snapshot'; Mutex = $null; LockPath = $null; Snapshot = [pscustomobject]@{ Path = 'C:\tmp\catzc-run-widget' }; SystemTestLock = $null }
-        InModuleScope Catzc.Base.QualityGates -Parameters @{ S = $slot } { param($S) Exit-TestRunSlot -Slot $S -KeepSandbox }
+    It 'keeps a snapshot the location was claimed with -KeepSandbox for, and names it' {
+        $location = [pscustomobject]@{ Mode = 'snapshot'; Mutex = $null; LockPath = $null; Snapshot = [pscustomobject]@{ Path = 'C:\tmp\catzc-run-widget' }; KeepSandbox = $true; SystemTestLock = $null }
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $location } { param($L) Exit-TestRunLocation -Location $L }
         Should -Invoke Remove-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 0
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -like '*C:\tmp\catzc-run-widget*' }
     }

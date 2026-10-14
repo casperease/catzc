@@ -64,10 +64,10 @@
 
         # Flags function parameters that are declared but never used in the body.
         # CommandsToTraverse lists cmdlets whose scriptblock params should be checked too.
-        # Currently gated off via the ExcludeRules burn-down above; this config is kept so removing
+        # Currently switched off via the ExcludeRules burn-down above; this config is kept so removing
         # that one line is all it takes to activate the rule.
         PSReviewUnusedParameter                   = @{
-            Enable             = $true  # STAGED: gated by ExcludeRules (71 violations)
+            Enable             = $true  # STAGED: held off by ExcludeRules (71 violations)
             CommandsToTraverse = @()
         }
 

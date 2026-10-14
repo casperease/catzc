@@ -66,7 +66,7 @@ $longBody
         @{ Rule = 'Measure-NoRawVsoCommand' }
         @{ Rule = 'Measure-SpellOutIdentifiers' }
         @{ Rule = 'Measure-NoUnsafeFirstIndex' }
-        @{ Rule = 'Measure-NoBareScriptSlotRead' }
+        @{ Rule = 'Measure-NoBareCacheEntryRead' }
         @{ Rule = 'Measure-NeverDependOnPwd' }
         @{ Rule = 'Measure-NoWriteErrorOrWarning' }
         @{ Rule = 'Measure-NoAutomaticVariableMisuse' }

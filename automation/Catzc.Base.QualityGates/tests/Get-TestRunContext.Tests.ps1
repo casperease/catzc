@@ -1,9 +1,9 @@
-# Get-TestRunContext over fixture slots; the session actor and the tool lookup are mocked, so no real process or
+# Get-TestRunContext over fixture locations; the session actor and the tool lookup are mocked, so no real process or
 # PATH state decides the outcome ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-TestRunContext' -Tag 'L0', 'logic' {
     BeforeAll {
-        function script:New-FixtureSlot {
-            param([string] $Mode = 'InPlace', $Holder = $null, $SystemTestHolder = $null)
+        function script:New-FixtureLocation {
+            param([string] $Mode = 'in-place', $Holder = $null, $SystemTestHolder = $null)
             [pscustomobject]@{ Mode = $Mode; Holder = $Holder; SystemTestHolder = $SystemTestHolder }
         }
         function script:Get-Context {
@@ -23,12 +23,12 @@ Describe 'Get-TestRunContext' -Tag 'L0', 'logic' {
     }
 
     It 'describes an in-place source run of all tests, running every tier asked for' {
-        $context = Get-Context @{ EntryPoint = 'Test-Automation'; Slot = (New-FixtureSlot); RequestedMaxLevel = 3; MaxLevel = 3 }
+        $context = Get-Context @{ EntryPoint = 'Test-Automation'; Location = (New-FixtureLocation); RequestedMaxLevel = 3; MaxLevel = 3 }
         $context.entryPoint | Should -Be 'Test-Automation'
         $context.run | Should -Be 'source'
         $context.codeRoot | Should -Be 'C:\widget\automation'
-        $context.slot | Should -Be 'in-place'
-        $context.slotReason | Should -BeNullOrEmpty
+        $context.location | Should -Be 'in-place'
+        $context.locationReason | Should -BeNullOrEmpty
         $context.tiersRequested | Should -Be 'L0-L3'
         $context.tiersRunning | Should -Be 'L0-L3'
         $context.tierCap | Should -BeNullOrEmpty
@@ -39,23 +39,23 @@ Describe 'Get-TestRunContext' -Tag 'L0', 'logic' {
     }
 
     It 'names who held the working folder and why L3 was skipped in a snapshot' {
-        $slot = New-FixtureSlot -Mode Snapshot -Holder ([pscustomobject]@{ Description = 'Test-Automation, pid 4242' })
-        $context = Get-Context @{ EntryPoint = 'Test-Automation'; Slot = $slot; RequestedMaxLevel = 3; MaxLevel = 2 }
-        $context.slot | Should -Be 'snapshot'
-        $context.slotReason | Should -Be 'working folder held by Test-Automation, pid 4242'
-        $context.tierCap | Should -Be 'L3 skipped: snapshot slot'
+        $location = New-FixtureLocation -Mode snapshot -Holder ([pscustomobject]@{ Description = 'Test-Automation, pid 4242' })
+        $context = Get-Context @{ EntryPoint = 'Test-Automation'; Location = $location; RequestedMaxLevel = 3; MaxLevel = 2 }
+        $context.location | Should -Be 'snapshot'
+        $context.locationReason | Should -Be 'working folder held by Test-Automation, pid 4242'
+        $context.tierCap | Should -Be 'L3 skipped: snapshot location'
     }
 
     It 'says -Isolated for a snapshot nobody forced, and names the system-test lock holder in place' {
-        (Get-Context @{ EntryPoint = 'Test-Automation'; Slot = (New-FixtureSlot -Mode Snapshot) }).slotReason | Should -Be '-Isolated'
-        $slot = New-FixtureSlot -SystemTestHolder ([pscustomobject]@{ Description = 'Test-CatzcBuild, pid 7' })
-        (Get-Context @{ EntryPoint = 'Test-Automation'; Slot = $slot; RequestedMaxLevel = 3; MaxLevel = 2 }).tierCap |
+        (Get-Context @{ EntryPoint = 'Test-Automation'; Location = (New-FixtureLocation -Mode snapshot) }).locationReason | Should -Be '-Isolated'
+        $location = New-FixtureLocation -SystemTestHolder ([pscustomobject]@{ Description = 'Test-CatzcBuild, pid 7' })
+        (Get-Context @{ EntryPoint = 'Test-Automation'; Location = $location; RequestedMaxLevel = 3; MaxLevel = 2 }).tierCap |
             Should -Be 'L3 skipped: system-test lock held by Test-CatzcBuild, pid 7'
     }
 
     It 'describes a build run by its entry script and joins the selection' {
         $context = Get-Context @{
-            EntryPoint = 'Test-CatzcBuild'; EntryScript = 'C:\gadget\Import-Catzc.ps1'; Slot = (New-FixtureSlot)
+            EntryPoint = 'Test-CatzcBuild'; EntryScript = 'C:\gadget\Import-Catzc.ps1'; Location = (New-FixtureLocation)
             Suite = 'widget'; Modules = @('TstWidget'); Category = 'Logic'; Rule = @('ADR-WI-ONE#1')
         }
         $context.run | Should -Be 'build'
