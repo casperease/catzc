@@ -27,9 +27,9 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **globs.yml.** The registry at `automation/Catzc.Base.Globs/configs/globs.yml`. `GlobsConfig` reads it on load and rejects an
-   undeclared layer, an unknown key, or a `compose:` reference that does not resolve or forms a cycle. Only the bindings and the
-   composition are drawn here.
+1. **globs.yml.** The registry at `automation/Catzc.Base.Globs/configs/globs.yml`. `GlobsConfig` reads it on load and rejects an undeclared
+   layer, an unknown key, or a `compose:` reference that does not resolve or forms a cycle. Only the bindings and the composition are drawn
+   here.
 2. **`automation:`.** `layer: loose-fileset`, `pipeline: ci-automation`, `include: automation/**`. The GitHub workflow
    `.github/workflows/ci-automation.yml` triggers on the same projection, and `Test-GitHubWorkflowTriggerGlob` checks that it does.
 3. **`infrastructure:`.** `layer: loose-fileset`, `pipeline: ci-infrastructure`, a `verify:` scope of `Catzc.Azure.Templates` at level 2,
@@ -38,8 +38,8 @@ The diagram is described element by element in
    `pipeline: cd-<name>`, and its own configuration include.
 5. **foundation base unit.** The entry `template-azure-subscription-foundation:`: `layer: deployable-unit`, no `pipeline:`, the foundation
    template plus `infrastructure/modules/**`, minus the deployment configuration. The four configured units compose it.
-6. **`cd-<unit>.yaml`.** `pipelines/<name>.yaml` for each CD binding. Its `trigger:` and `pr:` path filters are the unit's projection
-   from `Get-GlobSetTrigger`; `Test-AdoPipelineTriggerGlob` resolves the file from the `pipeline:` name and fails when the filters drift.
+6. **`cd-<unit>.yaml`.** `pipelines/<name>.yaml` for each CD binding. Its `trigger:` and `pr:` path filters are the unit's projection from
+   `Get-GlobSetTrigger`; `Test-AdoPipelineTriggerGlob` resolves the file from the `pipeline:` name and fails when the filters drift.
 7. **`extends/cd-customer.yaml`.** Three of the four CD pipelines, `cd-nova`, `cd-apex` and `cd-flux`, name it under `extends:`;
    `cd-shared.yaml` stands alone with its own `stages:`.
 
@@ -47,19 +47,18 @@ The diagram is described element by element in
 
 - A consumer binds a track through its globset's projection, never by matching its paths by hand, so the trigger in each pipeline file is
   the set's projection (ADR-DSGN-TRACK#4).
-- A pipeline is the delivery machine of one deployable-unit, and a base unit that only exists to be composed binds none
-  (ADR-DSGN-TRACK#5).
+- A pipeline is the delivery machine of one deployable-unit, and a base unit that only exists to be composed binds none (ADR-DSGN-TRACK#5).
 
-Besides the drift gate, `Test-GlobSetTriggerCoverage` and `Register-AdoBuildValidation` also read the `pipeline:` field. The
-loose-filesets `templates`, `markdown-scope` and `repository` carry no `pipeline:`, and `ci-automation-expected-failures.yaml` triggers on
-`automation/**` without any globset binding it.
+Besides the drift gate, `Test-GlobSetTriggerCoverage` and `Register-AdoBuildValidation` also read the `pipeline:` field. The loose-filesets
+`templates`, `markdown-scope` and `repository` carry no `pipeline:`, and `ci-automation-expected-failures.yaml` triggers on `automation/**`
+without any globset binding it.
 
 ## Where the code and the ADR differ
 
 - `globs.yml` says any layer may bind a pipeline, and the two track sets do; the tracks ADR says a pipeline binds a track only through its
   deployable-unit. The globset ADR sides with the config.
-- `cd-shared.yaml` and `Test-GlobSetTriggerCoverage` name an in-pipeline `Test-GlobSetAffected` check as the exact backstop, but no
-  pipeline under `pipelines/` runs it.
+- `cd-shared.yaml` and `Test-GlobSetTriggerCoverage` name an in-pipeline `Test-GlobSetAffected` check as the exact backstop, but no pipeline
+  under `pipelines/` runs it.
 
 ## See also
 

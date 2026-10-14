@@ -8,8 +8,8 @@ Glyphs: 2 runners, 2 code units (slate), 1 actor; 3 flow edges, 1 ADR-only edge;
 Sidebar: axis minimap (main cell PIPE x LOAD), tree minimap, lens badge META, map key.
 ```
 
-This describes what the [diagram](adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](../../explanation/flow/a-step-only-names-a-command.md).
+This describes what the [diagram](adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png) draws, in the vocabulary of the diagram
+glyphs; what it means is in [the article](../../explanation/flow/a-step-only-names-a-command.md).
 
 ## At a glance
 
@@ -59,8 +59,8 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is PIPE × LOAD, framed and filled in the LOAD indigo with the you-are-here dot. One touched cell,
-  PIPE × BUILD, carries a small grey dot. The PIPE and LOAD axis labels carry an indigo tick.
+- **Axis minimap:** the main cell is PIPE × LOAD, framed and filled in the LOAD indigo with the you-are-here dot. One touched cell, PIPE ×
+  BUILD, carries a small grey dot. The PIPE and LOAD axis labels carry an indigo tick.
 - **Tree minimap:** lit tiles labelled adr/flow and pipelines.
 - **Lens badge:** META, with "Supports ADR-FLOW-CD-RUNNER" beneath it.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

@@ -92,6 +92,7 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
     It 'checks every asset of the draft, in both directions' -Tag 'ADR-REPO-CONTRACT#4' {
         Add-File 'contracts/widget/0.0.0/Catzc.Widget/docs/gadget.md'
         Add-File 'contracts/widget/0.0.0/Catzc.Widget/rest/gadget.sample.json' '{'
+        Add-File 'docs/widget.md' '# Widget'
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
         $result.Assets | Should -Be 2
         $result.PinnedAssets | Should -Be 0
@@ -125,6 +126,7 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         Add-File 'contracts/widget/0.0.0/Catzc.Widget/docs/gadget.md'
         $null = Publish-ContractRelease -Unit widget -Version 1.0.0 -RepositoryRoot $script:root
         Add-File 'contracts/widget/0.0.0/Catzc.Widget/docs/sprocket.md'
+        Add-File 'docs/widget.md' '# Widget'
 
         $result = Test-Contracts -Version 1.0.0 -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
         $result.Version | Should -Be '1.0.0'

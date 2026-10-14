@@ -15,10 +15,10 @@ The four CD pipelines bind deployable-units; the two CI pipelines bind the track
 Supports ADR-DSGN-TRACK#2, #3, #4 and #5 (architecture lens).
 ```
 
-Cats is one repository made of tracks, the root concerns such as `automation` and `infrastructure`. A track does not ship by itself:
-what ships is a deployable-unit, and each pipeline is the delivery machine of what it binds. The four CD pipelines bind deployable-units,
-as the tracks ADR asks, but the two CI pipelines bind the `automation` and `infrastructure` track sets themselves, with no whole-track
-unit in between.
+Cats is one repository made of tracks, the root concerns such as `automation` and `infrastructure`. A track does not ship by itself: what
+ships is a deployable-unit, and each pipeline is the delivery machine of what it binds. The four CD pipelines bind deployable-units, as the
+tracks ADR asks, but the two CI pipelines bind the `automation` and `infrastructure` track sets themselves, with no whole-track unit in
+between.
 
 ![CD binds through units, CI binds the track sets](../../.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png)
 
@@ -30,12 +30,12 @@ The diagram is described element by element in
 1. **automation.** The core track: it defines the internal ports every other track rests on. In `globs.yml` it is a globset of the
    `loose-fileset` layer that selects `automation/**`. Of the eleven tracks cats declares, only `automation` and `infrastructure` have a
    globset of their own.
-2. **infrastructure rests on automation.** `infrastructure` is an adapter track: it rests on `automation` for context and execution,
-   never the reverse, and `ci-infrastructure` runs automation commands such as `Assert-BicepTemplate` and `Build-Bicep`. No gate checks
-   this direction between tracks; the module-dependency gates check edges between modules only.
+2. **infrastructure rests on automation.** `infrastructure` is an adapter track: it rests on `automation` for context and execution, never
+   the reverse, and `ci-infrastructure` runs automation commands such as `Assert-BicepTemplate` and `Build-Bicep`. No gate checks this
+   direction between tracks; the module-dependency gates check edges between modules only.
 3. **automation binds ci-automation.** The `automation` track set carries `pipeline: ci-automation` itself. The same holds for
-   `infrastructure` and `ci-infrastructure`. A CI pipeline binds the track's own projection, so a track and its CI pipeline meet without
-   a deployable-unit between them.
+   `infrastructure` and `ci-infrastructure`. A CI pipeline binds the track's own projection, so a track and its CI pipeline meet without a
+   deployable-unit between them.
 4. **foundation base unit.** The deployable-unit `template-azure-subscription-foundation` is a reduced composition of the infrastructure
    track: the foundation template plus the shared Bicep modules, without any deployment configuration. It binds no pipeline of its own.
 5. **nova · apex · flux · shared.** Four configured deployable-units. Each composes the base unit and adds its own configuration: one
@@ -50,13 +50,13 @@ The diagram is described element by element in
   (ADR-DSGN-TRACK#4).
 - A deployable-unit is a whole track or a reduced composition, and units bind pipelines one to one (ADR-DSGN-TRACK#5).
 
-Scopes such as `markdown-scope` and `repository` select across tracks and own no root; they bind no pipeline, so they have no place in
-this picture. The `templates` loose-fileset binds none either.
+Scopes such as `markdown-scope` and `repository` select across tracks and own no root; they bind no pipeline, so they have no place in this
+picture. The `templates` loose-fileset binds none either.
 
 ## Where the code and the ADR differ
 
-- The tracks ADR says a pipeline binds a track only through the deployable-unit that is that track, and names `ci-automation` as that
-  case. The globset ADR says a CI pipeline binds a loose-fileset track's projection, and `globs.yml` follows it: both track sets are
+- The tracks ADR says a pipeline binds a track only through the deployable-unit that is that track, and names `ci-automation` as that case.
+  The globset ADR says a CI pipeline binds a loose-fileset track's projection, and `globs.yml` follows it: both track sets are
   `loose-fileset`, not `deployable-unit`, and carry `pipeline:` themselves.
 - The tracks ADR says the dependency-graph gates enforce the one-directional core and adapter dependency; those gates check module edges
   only, and nothing checks the direction between tracks.
@@ -64,7 +64,6 @@ this picture. The `templates` loose-fileset binds none either.
 ## See also
 
 - [Tracks — the repository's root concerns](../../adr/design/tracks.md) — the decision this article explains.
-- The other lenses on the same model: [meta](one-unit-one-pipeline.md),
-  [implementation](globs-yml-pipeline-field-is-the-binding.md), [operations](a-push-fires-only-touched-pipelines.md) and
-  [governance](unit-to-pipeline-rule-is-review-only.md).
+- The other lenses on the same model: [meta](one-unit-one-pipeline.md), [implementation](globs-yml-pipeline-field-is-the-binding.md),
+  [operations](a-push-fires-only-touched-pipelines.md) and [governance](unit-to-pipeline-rule-is-review-only.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

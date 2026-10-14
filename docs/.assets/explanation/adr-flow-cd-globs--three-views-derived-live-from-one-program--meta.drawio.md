@@ -8,9 +8,8 @@ Glyphs: 1 file (olive), 4 code units (slate); 4 flow edges; 5 markers.
 Sidebar: axis minimap (main cell PIPE x GLOBS), tree minimap, lens badge META, map key.
 ```
 
-This describes what the [diagram](adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png) draws, in the vocabulary
-of the diagram glyphs; what it means is in
-[the article](../../explanation/flow/three-views-derived-live-from-one-program.md).
+This describes what the [diagram](adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png) draws, in the vocabulary of
+the diagram glyphs; what it means is in [the article](../../explanation/flow/three-views-derived-live-from-one-program.md).
 
 ## At a glance
 
@@ -28,9 +27,9 @@ in the FLATTEN band.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                        |
-| --------------------- | ----- | ------------------------------------------------------------------------------------------------------------ |
-| file                  | 1     | Registry (SOURCE band, middle row)                                                                           |
+| Glyph (legend phrase) | Count | Where                                                                                                         |
+| --------------------- | ----- | ------------------------------------------------------------------------------------------------------------- |
+| file                  | 1     | Registry (SOURCE band, middle row)                                                                            |
 | code unit             | 4     | Ordered program (FLATTEN band, all rows); Trigger, Change report, Protection (DERIVED LIVE band, one per row) |
 
 The file is olive and the code units are slate, all with white names.
@@ -57,8 +56,8 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. One touched cell,
-  AUTO × GLOBS, carries a small grey dot.
+- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. One touched cell, AUTO ×
+  GLOBS, carries a small grey dot.
 - **Tree minimap:** lit tiles labelled Globs and adr/flow.
 - **Lens badge:** META, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

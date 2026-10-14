@@ -53,8 +53,8 @@ The diagram is described element by element in
 
 - The pull request is the authenticated ingress, and the server branch policy is what enforces it; `Sync-GeneratedFile`'s branch guard is
   the local half (ADR-DSGN-REMOTE#4).
-- `git_workspace` declares how changes reach main, and its single stop condition is a direct commit made while standing on main or master
-  in `main-via-pr` (ADR-REPO-VARIANT#6).
+- `git_workspace` declares how changes reach main, and its single stop condition is a direct commit made while standing on main or master in
+  `main-via-pr` (ADR-REPO-VARIANT#6).
 - Consumers integrate from the last remote-verified commit, never the remote HEAD (ADR-DSGN-REMOTE#2).
 
 ## Where the code and the ADR differ

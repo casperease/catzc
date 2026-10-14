@@ -15,8 +15,8 @@ what it means is in [the article](../../explanation/design/one-unit-one-pipeline
 
 A 1572 × 600 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through three
 side-by-side bands, labelled TRACKS, DEPLOYABLE-UNITS and PIPELINES. It holds three glyphs (two named sets and one runner) in one row,
-joined by two edges, with five markers and a legend panel below. The drawing area ends at about 390 px; the sidebar runs to the canvas
-foot. The eye lands first on the left named set.
+joined by two edges, with five markers and a legend panel below. The drawing area ends at about 390 px; the sidebar runs to the canvas foot.
+The eye lands first on the left named set.
 
 ## Reading path
 
@@ -58,8 +58,8 @@ A full-width panel below the bands, in three columns, left to right:
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is DSGN × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. One touched cell,
-  AUTO × GLOBS, carries a small grey dot.
+- **Axis minimap:** the main cell is DSGN × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. One touched cell, AUTO ×
+  GLOBS, carries a small grey dot.
 - **Tree minimap:** lit tiles labelled Globs and adr/dsgn; the adr/dsgn file is framed in dark ink as an ADR file.
 - **Lens badge:** META, with "Supports ADR-DSGN-TRACK" beneath it.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

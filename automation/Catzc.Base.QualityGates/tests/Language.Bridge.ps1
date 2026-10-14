@@ -56,7 +56,12 @@ BeforeDiscovery {
 Describe "$Language tests of $($script:languageSuite.Module)" -Tag 'L2', 'greedy' -ForEach @(@{
         Language = $Language; Module = $script:languageSuite.Module; Cases = $script:languageSuite.Cases; Entry = $EntryScript; Tool = $Executable
         # A Bash test is Bash, so it runs under the bash engine only; every other language's test runs under each.
-        Engines = if ($Language -eq 'bash') { @([Catzc.Base.Engines.ExecutionEngines]::Bash.Name) } else { @([Catzc.Base.Engines.ExecutionEngines]::Names) }
+        Engines     = if ($Language -eq 'bash') {
+            @([Catzc.Base.Engines.ExecutionEngines]::Bash.Name)
+        }
+        else {
+            @([Catzc.Base.Engines.ExecutionEngines]::Names)
+        }
         EngineTools = $EngineExecutable
     }) {
     BeforeAll {

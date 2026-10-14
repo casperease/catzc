@@ -8,13 +8,13 @@ Glyphs: 1 file (olive), 5 code units (slate), 1 runner (slate), 1 external tool 
 Sidebar: axis minimap (main cell PIPE x GLOBS), tree minimap, lens badge ARCH, map key.
 ```
 
-This describes what the [diagram](adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../explanation/flow/globs-module-owns-config-and-types.md).
+This describes what the [diagram](adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](../../explanation/flow/globs-module-owns-config-and-types.md).
 
 ## At a glance
 
-A 1572 × 560 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through two
-bands side by side, a wide GLOBS MODULE band and a narrower EDGE band. It holds eight glyphs, one file, five code units, one runner and one
+A 1572 × 560 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through two bands
+side by side, a wide GLOBS MODULE band and a narrower EDGE band. It holds eight glyphs, one file, five code units, one runner and one
 external tool, joined by seven straight horizontal edges, with six markers and a legend panel along the bottom. The eye lands first on the
 tall code unit near the left, which spans all three rows.
 
@@ -42,8 +42,8 @@ tool is a grey square box.
 
 ## Edges
 
-| Edge kind | Count | From → to                                                                                                                                                                              |
-| --------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Edge kind | Count | From → to                                                                                                                                                                                            |
+| --------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | flow      | 7     | globs.yml → GlobsConfig → GlobSet; GlobsConfig → GlobSet → each of the three role code units; Trigger projection → Pipelines · workflows; git → Change report; Protection identity → Test-Automation |
 
 Every edge is straight and horizontal, and none crosses another. Only the middle edge in the EDGE band runs right to left.
@@ -64,8 +64,8 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. Four touched cells carry
-  a small grey dot: AUTO × GLOBS, AUTO × BUILD, PIPE × BUILD and PIPE × DEPLOY.
+- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. Four touched cells carry a
+  small grey dot: AUTO × GLOBS, AUTO × BUILD, PIPE × BUILD and PIPE × DEPLOY.
 - **Tree minimap:** lit tiles labelled QualityGates, Globs, Az.DevOps.BuildValidation, adr/flow and pipelines.
 - **Lens badge:** ARCH, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

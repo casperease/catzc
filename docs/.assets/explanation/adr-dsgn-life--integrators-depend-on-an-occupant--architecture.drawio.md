@@ -8,8 +8,8 @@ Glyphs: 1 ADR-only box, 4 environments (ADR-only, framed), 5 commits; 4 ADR-only
 Sidebar: axis minimap (main cell DSGN x DEPLOY), tree minimap, lens badge ARCH, map key.
 ```
 
-This describes what the [diagram](adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png) draws, in the vocabulary of
-the diagram glyphs; what it means is in [the article](../../explanation/design/integrators-depend-on-an-occupant.md).
+This describes what the [diagram](adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png) draws, in the vocabulary of the
+diagram glyphs; what it means is in [the article](../../explanation/design/integrators-depend-on-an-occupant.md).
 
 ## At a glance
 
@@ -28,10 +28,10 @@ along the bottom. The eye lands first on the row of four hexagons in the middle 
 
 ## Glyphs
 
-| Glyph (legend phrase)          | Count | Where                                                                                    |
-| ------------------------------ | ----- | ---------------------------------------------------------------------------------------- |
-| ADR-only (box)                 | 1     | upstream integrator, EXTERNAL band, centred above main-UAT                               |
-| environment (ADR-only, framed) | 4     | production, pre-prod, release-uat, main-UAT, PROMOTION LADDER band, left to right        |
+| Glyph (legend phrase)          | Count | Where                                                                                                      |
+| ------------------------------ | ----- | ---------------------------------------------------------------------------------------------------------- |
+| ADR-only (box)                 | 1     | upstream integrator, EXTERNAL band, centred above main-UAT                                                 |
+| environment (ADR-only, framed) | 4     | production, pre-prod, release-uat, main-UAT, PROMOTION LADDER band, left to right                          |
 | commit (locked palette)        | 5     | green `4`, green (no digit), light-green `5`, light-blue `6` inside the hexagons; blue `10` in TIP OF MAIN |
 
 No glyph on this diagram is structural: the environments are neutral and every commit keeps its locked colour.

@@ -35,8 +35,8 @@ The diagram is described element by element in
    requires, and then performs the merge. In cats the policy is a set of blocking build validations on `main`, registered from code.
 4. **HEAD.** The merged commit becomes the tip of the server's main. Landing is not verifying: HEAD may be a dirty HEAD, unverified or
    verified and then failed downstream, so it is not a safe source to sync from.
-5. **Verified point.** The last commit the server proved verified is the stable integration point, the current `main-UAT` occupant. It
-   stays put while HEAD moves.
+5. **Verified point.** The last commit the server proved verified is the stable integration point, the current `main-UAT` occupant. It stays
+   put while HEAD moves.
 6. **Consumer clones.** A developer branches from the verified point, a downstream deployable unit builds against it, and an upstream
    integrator syncs to it. No code resolves the verified point yet, so this edge is dashed.
 
@@ -60,7 +60,6 @@ The diagram is described element by element in
 
 - [The audited server git remote](../../adr/design/server-remote-integration.md) — the decision this article explains.
 - [Commit lifecycle](../../adr/design/commit-lifecycle.md) — the stable point and the dirty HEAD.
-- The other lenses on the same decision: [meta](one-door-in-one-stable-point-out.md),
-  [implementation](local-guard-and-server-policies.md), [operations](guard-and-policies-by-command.md) and
-  [governance](ingress-gated-the-rest-by-review.md).
+- The other lenses on the same decision: [meta](one-door-in-one-stable-point-out.md), [implementation](local-guard-and-server-policies.md),
+  [operations](guard-and-policies-by-command.md) and [governance](ingress-gated-the-rest-by-review.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

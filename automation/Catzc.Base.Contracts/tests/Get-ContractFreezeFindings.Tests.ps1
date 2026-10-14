@@ -15,7 +15,11 @@ Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#5' 
                 param($Folder)
                 Get-ContractFileHashes -Folder $Folder
             }
-            $lines = @('# widget record') + @(foreach ($path in $hashes.Keys) { "$($hashes[$path])  $path" })
+            $lines = [System.Collections.Generic.List[string]]::new()
+            $lines.Add('# widget record')
+            foreach ($path in $hashes.Keys) {
+                $lines.Add("$($hashes[$path])  $path")
+            }
             [System.IO.File]::WriteAllText((Join-Path $script:folder '.frozen'), (($lines -join "`n") + "`n"))
         }
 

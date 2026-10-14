@@ -217,3 +217,65 @@ Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L1', 'integrity', 'sou
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }
+
+Describe 'Build-RootConfig — the real New-GoWorkspace generator, <_>/ root' -Tag 'L1', 'logic' -ForEach @('go', '.go') {
+    BeforeAll {
+        Import-InternalModule TestKit
+
+        # The wiring the L0 tests mock away on both sides: a fixture registry names New-GoWorkspace, the real dispatch
+        # calls it, and Build-RootConfig writes what it renders. Only the registry, the run mode, and the go pin are
+        # mocked, so the result is independent of the shipped config (ADR-AUTO-TEST#14).
+        $script:goRoot = $_
+        $script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{ "$($script:goRoot)/tests/widget/widget_test.go" = "package widget`n" }
+        $script:registry = [Catzc.Base.RootConfig.RootConfigFiles]::new(@{
+                files = @(
+                    @{ target = 'go.work'; generator = 'New-GoWorkspace'; optIn = $true }
+                    @{ target = '*/tests/*/go.mod'; generator = 'New-GoWorkspace'; optIn = $true }
+                )
+            })
+        Mock Get-Config -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Config -eq 'rootconfig' } { $script:registry }
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
+        Mock Get-ConfigValue -ModuleName Catzc.Base.Languages -ParameterFilter { $Address -eq 'global.tools.go.version' } { '1.27' }
+        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        $script:report = Join-Path $TestDrive 'generated-files'
+        $script:work = Join-Path $script:fake.Root 'go.work'
+        $script:modTarget = "$($script:goRoot)/tests/widget/go.mod"
+        $script:mod = Join-Path $script:fake.Root $script:modTarget
+    }
+
+    AfterAll {
+        Remove-FakeRepositoryRoot $script:fake
+    }
+
+    It 'reports both missing files as stale, each attributed to New-GoWorkspace' {
+        (Test-GeneratedFiles -Generator New-GoWorkspace -PassThru -OutputFolder $script:report).Issues | Should -Be @(
+            "go.work: stale — New-GoWorkspace would change it; regenerate with: Build-RootConfig 'go.work'"
+            "$($script:modTarget): stale — New-GoWorkspace would change it; regenerate with: Build-RootConfig '$($script:modTarget)'"
+        )
+    }
+
+    It 'writes go.work and the go.mod under the Go root, with the pin as the go directive' {
+        @(Build-RootConfig -PassThru -Silent).Target | Should -Be @('go.work', $script:modTarget)
+        [System.IO.File]::ReadAllText($script:work) | Should -Match ("`n`t\./" + [regex]::Escape($script:goRoot) + "/tests/widget`n")
+        [System.IO.File]::ReadAllText($script:work) | Should -Match "`ngo 1\.27`n"
+        [System.IO.File]::ReadAllText($script:mod) | Should -Match "`nmodule catzc/go/tests/widget`n`ngo 1\.27`n$"
+    }
+
+    It 'is byte-stable: a second run changes nothing, and Test-GeneratedFiles passes' {
+        $before = (Get-FileHash $script:work).Hash + (Get-FileHash $script:mod).Hash
+        @(Build-RootConfig -PassThru -Silent | Where-Object Changed) | Should -HaveCount 0
+        ((Get-FileHash $script:work).Hash + (Get-FileHash $script:mod).Hash) | Should -Be $before
+        $result = Test-GeneratedFiles -Generator New-GoWorkspace -PassThru -OutputFolder $script:report
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
+    }
+
+    It 'names the one stale go.mod, and Build-RootConfig with its path repairs only that file' {
+        [System.IO.File]::WriteAllText($script:mod, "module stale`n")
+        (Test-GeneratedFiles -Generator New-GoWorkspace -PassThru -OutputFolder $script:report).Issues |
+            Should -Be @("$($script:modTarget): stale — New-GoWorkspace would change it; regenerate with: Build-RootConfig '$($script:modTarget)'")
+        $rows = @(Build-RootConfig $script:modTarget -PassThru -Silent)
+        $rows.Target | Should -Be $script:modTarget
+        $rows.Changed | Should -BeTrue
+        (Test-GeneratedFiles -Generator New-GoWorkspace -PassThru -OutputFolder $script:report).IssueCount | Should -Be 0
+    }
+}

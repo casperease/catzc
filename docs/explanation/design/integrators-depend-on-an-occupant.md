@@ -29,8 +29,8 @@ The diagram is described element by element in
 
 1. **Upstream integrator.** An external or upstream consumer that builds on cats. It takes commit 6, the `main-UAT` occupant, and never the
    tip of main.
-2. **Production.** An always-on environment that holds exactly one commit plus a history. Its occupant is commit 4, which rolled over
-   commit 3 and shipped. It takes its commit from pre-prod.
+2. **Production.** An always-on environment that holds exactly one commit plus a history. Its occupant is commit 4, which rolled over commit
+   3 and shipped. It takes its commit from pre-prod.
 3. **Pre-prod.** The staged rung before production, not yet live. It holds one green commit; none of the worked examples sits there, so the
    commit carries no number. It takes its commit from release-uat once the RBC gate clears.
 4. **Release-uat.** Holds commit 5, the release candidate under test. It takes its commit from `main-UAT` once the RC gate clears; RC and
@@ -44,8 +44,7 @@ The diagram is described element by element in
 
 - Each always-on environment hosts exactly one commit, its occupant, plus a history; an environment box is neutral and the occupant carries
   the state colour (ADR-DSGN-LIFE#5, ADR-DSGN-VISUAL#13).
-- The stable integration point is the current `main-UAT` occupant, and upstream integrators sync from it, never from HEAD
-  (ADR-DSGN-LIFE#6).
+- The stable integration point is the current `main-UAT` occupant, and upstream integrators sync from it, never from HEAD (ADR-DSGN-LIFE#6).
 - The dirty HEAD is the latest commit on main and is not safe to sync or promote from (ADR-DSGN-LIFE#7).
 - A commit that fails a stage cannot go downstream, neither by promotion nor by consumption (ADR-DSGN-LIFE#8).
 - RC at `main-UAT` and RBC at release-uat are the manual gates, and the prod tail runs release-uat, pre-prod, production (ADR-FLOW-CD#9,
@@ -53,10 +52,10 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-The ADRs describe `main-UAT`, release-uat and pre-prod as always-on environments with one occupant each, joined by the RC and RBC gates.
-The CD pipelines define no `main-uat` or release-uat environment and record no occupant: once a main commit passes its CI stage, CD deploys
-it to dev, test, preprod and prod in one stage, with no gate between them. In code, every environment therefore takes the tip of main. The
-ADRs also spell the environment two ways: `main-UAT` in the commit lifecycle and `main-uat` in the promotion flow.
+The ADRs describe `main-UAT`, release-uat and pre-prod as always-on environments with one occupant each, joined by the RC and RBC gates. The
+CD pipelines define no `main-uat` or release-uat environment and record no occupant: once a main commit passes its CI stage, CD deploys it
+to dev, test, preprod and prod in one stage, with no gate between them. In code, every environment therefore takes the tip of main. The ADRs
+also spell the environment two ways: `main-UAT` in the commit lifecycle and `main-uat` in the promotion flow.
 
 ## See also
 

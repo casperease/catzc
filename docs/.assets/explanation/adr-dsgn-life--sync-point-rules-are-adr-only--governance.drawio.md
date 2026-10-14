@@ -24,8 +24,8 @@ solid shape, the gate at the right end of the ladder.
 1. Marker 1, EXTERNAL band: the ADR-only box upstream integrator, with chips `L6` and `L7` to its right.
 2. Down its dashed edge into the light-blue commit `6` inside main-UAT.
 3. Markers 2 to 6, PROMOTION LADDER band, left to right: production (green `4`, chip `L5`), pre-prod (green, no digit, chip `F11`),
-   release-uat (light-green `5`, chip `F9`), main-UAT (light-blue `6`, chips `F9` and `L6`), on-demand (L3) (empty, chip `F5`), each
-   joined to the next by a short dashed arrow pointing right.
+   release-uat (light-green `5`, chip `F9`), main-UAT (light-blue `6`, chips `F9` and `L6`), on-demand (L3) (empty, chip `F5`), each joined
+   to the next by a short dashed arrow pointing right.
 4. Marker 7, on the gate ci-automation at the right end of the ladder, chip `L2` at its lower right.
 5. Down the red dashed failure path from main-UAT to marker 8, TIP OF MAIN band: the blue commit `10`, named dirty HEAD, chips `L7` and
    `L8`.

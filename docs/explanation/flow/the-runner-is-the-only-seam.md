@@ -49,8 +49,8 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-The ADR says the step template holds no logic, but each of its three tasks runs a strict-mode guard that throws on a multiline
-`RunCommand` without a `DisplayName` before it calls the runner.
+The ADR says the step template holds no logic, but each of its three tasks runs a strict-mode guard that throws on a multiline `RunCommand`
+without a `DisplayName` before it calls the runner.
 
 ## See also
 

@@ -130,6 +130,10 @@ Describe 'SystemProbe' -Tag 'L3', 'logic' {
         $observation.Root | Should -BeLike '*catzc-run-*'
         $observation.ModuleBase | Should -BeLike "$($observation.Root)*" -Because 'the worker loads the snapshot''s modules, not the working folder''s'
         [System.IO.Directory]::Exists($observation.Root) | Should -BeFalse -Because 'the snapshot is removed after the run'
+        $manifest = [System.IO.File]::ReadAllText((Join-Path $run.RunDirectory 'run.json')) | ConvertFrom-Json
+        $manifest.location | Should -Be 'snapshot' -Because 'the run.json a reader finds at home names where the run executed'
+        $manifest.snapshot.path | Should -Be $observation.Root
+        $manifest.snapshot.kept | Should -BeFalse
         [System.IO.File]::Exists($systemProbe) | Should -BeFalse -Because 'a snapshot run skips the L3 system tests'
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like 'Skipping L3:*' }
         @($run.Rows | Where-Object File -EQ $repositoryTest).Count | Should -BeGreaterThan 0 -Because 'row paths map back to the working folder'

@@ -30,12 +30,12 @@ eye lands first on the red failure at the top right of the LOCAL CLONE band.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                   |
-| --------------------- | ----- | ------------------------------------------------------------------------------------------------------- |
+| Glyph (legend phrase) | Count | Where                                                                                                    |
+| --------------------- | ----- | -------------------------------------------------------------------------------------------------------- |
 | store                 | 3     | local clone (LOCAL CLONE, left), server main (SERVER REMOTE, centre right), consumer clones (OUT, right) |
-| gate                  | 2     | local guard (LOCAL CLONE), branch policy (SERVER REMOTE), one above the other                           |
-| ADR-only              | 1     | code review: a white dashed rhombus in a dashed frame (OUT, centre right)                               |
-| failure               | 1     | Skipped on main (LOCAL CLONE, centre right)                                                             |
+| gate                  | 2     | local guard (LOCAL CLONE), branch policy (SERVER REMOTE), one above the other                            |
+| ADR-only              | 1     | code review: a white dashed rhombus in a dashed frame (OUT, centre right)                                |
+| failure               | 1     | Skipped on main (LOCAL CLONE, centre right)                                                              |
 
 Stores are slate with white names.
 

@@ -29,19 +29,18 @@ The diagram is described element by element in
 2. **Composes into.** A deployable-unit is a whole track or a reduced composition of one. Consumers reach a track only through module
    dependencies or its globset projection, never by matching its paths.
 3. **Deployable-unit.** What ships.
-4. **Binds one pipeline.** One unit, one pipeline, widening to two only when a DEPLOY stage splits out of CD. No gate checks it; code
-   review holds it.
+4. **Binds one pipeline.** One unit, one pipeline, widening to two only when a DEPLOY stage splits out of CD. No gate checks it; code review
+   holds it.
 5. **Pipeline.** The unit's delivery machine.
 
 ## Why it holds
 
 - A track is one root concern with one root folder (ADR-DSGN-TRACK#1).
 - Tracks are subscribed to, never path-coupled (ADR-DSGN-TRACK#4).
-- Deployable-units determine pipelines one to one, and a pipeline binds a track only through the unit that is that track
-  (ADR-DSGN-TRACK#5).
+- Deployable-units determine pipelines one to one, and a pipeline binds a track only through the unit that is that track (ADR-DSGN-TRACK#5).
 
-A cross-cutting slice, such as every markdown file, is a scope over tracks rather than a track: it selects through the roots and owns
-none (ADR-DSGN-TRACK#2).
+A cross-cutting slice, such as every markdown file, is a scope over tracks rather than a track: it selects through the roots and owns none
+(ADR-DSGN-TRACK#2).
 
 ## Where the code and the ADR differ
 

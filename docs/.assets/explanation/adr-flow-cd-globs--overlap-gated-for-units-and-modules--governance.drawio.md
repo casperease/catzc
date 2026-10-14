@@ -9,8 +9,8 @@ Marks: 9 rule chips, 7 markers.
 Sidebar: axis minimap (main cell PIPE x GLOBS), tree minimap, lens badge GOV, map key.
 ```
 
-This describes what the [diagram](adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png) draws, in the vocabulary
-of the diagram glyphs; what it means is in [the article](../../explanation/flow/overlap-gated-for-units-and-modules.md).
+This describes what the [diagram](adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png) draws, in the vocabulary of
+the diagram glyphs; what it means is in [the article](../../explanation/flow/overlap-gated-for-units-and-modules.md).
 
 ## At a glance
 
@@ -62,8 +62,8 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. Three touched cells
-  carry a small grey dot: AUTO × GLOBS, AUTO × BUILD and PRIN × BUILD.
+- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. Three touched cells carry
+  a small grey dot: AUTO × GLOBS, AUTO × BUILD and PRIN × BUILD.
 - **Tree minimap:** four lit tiles, labelled Globs, adr/auto, adr/prin and adr/flow.
 - **Lens badge:** GOV, with "Supports ADR-FLOW-CD-GLOBS · ADR-AUTO-TEST · ADR-PRIN-ONELIVE · ADR-REPO-PROTGLOB" beneath it, on two lines.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

@@ -1,6 +1,7 @@
-// A deterministic squarified treemap (Bruls, Huizing and van Wijk, 2000): it tiles a bounding box with one rectangle per
-// item, each with an area proportional to the item's weight, and keeps the rectangles close to square. The world map's
-// tree view lays out the tracks by file count with it, and each track's cells inside the track's rectangle.
+// A deterministic squarified treemap: it tiles a bounding box with one rectangle per item, each with an area
+// proportional to the item's weight, and adds items to a row along the box's shorter side only while that keeps the
+// row's worst aspect ratio from growing, so the rectangles stay close to square. The world map's tree view lays out the
+// tracks by file count with it, and each track's cells inside the track's rectangle.
 //
 // The result depends only on the input: the items are taken heaviest first, ties broken by the ordinal order of their
 // keys, so the same weights give the same rectangles whatever order they arrive in. An item of weight zero gets no

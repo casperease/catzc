@@ -15,10 +15,10 @@ Catzc.Base.Globs computes every globset role from one typed registry.
 Supports ADR-FLOW-CD-GLOBS#1, #5, #6 and #9 (architecture lens).
 ```
 
-`Catzc.Base.Globs` is the one module that maps every area-of-control in cats, such as a deployable unit, a track or a scan scope, onto
-its tracked files through named globsets. It owns the `globs.yml` file, the types that validate and flatten it, and the three roles a
-globset plays. Everything outside the module only receives a projection, supplies a diff, or asks for an identity, so a change to an
-area-of-control is one config edit in one place.
+`Catzc.Base.Globs` is the one module that maps every area-of-control in cats, such as a deployable unit, a track or a scan scope, onto its
+tracked files through named globsets. It owns the `globs.yml` file, the types that validate and flatten it, and the three roles a globset
+plays. Everything outside the module only receives a projection, supplies a diff, or asks for an identity, so a change to an area-of-control
+is one config edit in one place.
 
 ![Catzc.Base.Globs owns config, types and roles](../../.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png)
 
@@ -30,17 +30,16 @@ The diagram is described element by element in
 1. **globs.yml.** The registry ships in the module's `configs/` folder and holds the declared globsets, 10 of them today: five
    `loose-fileset` sets and five `deployable-unit` sets. It loads through `Get-Config -Config globs`, which `configs.yml` registers to the
    `GlobsConfig` type.
-2. **GlobsConfig → GlobSet.** `GlobsConfig` validates the whole registry at load, including keys, patterns, compose references and
-   compose cycles, and throws once with every error. Each `GlobSet` then flattens its compose chain into one scan program.
+2. **GlobsConfig → GlobSet.** `GlobsConfig` validates the whole registry at load, including keys, patterns, compose references and compose
+   cycles, and throws once with every error. Each `GlobSet` then flattens its compose chain into one scan program.
 3. **Trigger projection.** `Get-GlobSetTrigger` renders a set's scan program into the vendor path-filter dialects that the Azure DevOps
-   pipelines and GitHub workflows declare. `Catzc.Azure.DevOps.BuildValidation` registers a build-validation policy on the same
-   projection.
+   pipelines and GitHub workflows declare. `Catzc.Azure.DevOps.BuildValidation` registers a build-validation policy on the same projection.
 4. **Change report.** `Get-ChangedGlobSet` reads the files a commit range changed from git, through `Get-ChangedFile`, and names every set
    they touch, at the real refs.
 5. **Protection identity.** `Get-GlobSetHash` computes the live durable SHA of a set. It is never committed; it keys the session-memory
    protection map.
-6. **Test-Automation.** The local test run in `Catzc.Base.QualityGates` reads identities: per module it folds the module's own derived
-   set, its dependency closure, the infra scopes and the runner into one composite identity. Like every other consumer, including
+6. **Test-Automation.** The local test run in `Catzc.Base.QualityGates` reads identities: per module it folds the module's own derived set,
+   its dependency closure, the infra scopes and the runner into one composite identity. Like every other consumer, including
    `Test-Automation -Suite` and `Register-AdoBuildValidation`, it names a globset and never parses `globs.yml` itself.
 
 ## Why it holds
@@ -48,8 +47,8 @@ The diagram is described element by element in
 - `globs.yml` is the one source of truth, and its three roles (trigger, change report, protection) are all derived, with nothing committed
   per set (ADR-FLOW-CD-GLOBS#1).
 - The identity is computed live and never committed, so it cannot go stale on a busy mainline (ADR-FLOW-CD-GLOBS#5).
-- Pipelines, workflows and build-validation policies trigger on the native path-filter projection of a globset, never on a committed
-  marker (ADR-FLOW-CD-GLOBS#6).
+- Pipelines, workflows and build-validation policies trigger on the native path-filter projection of a globset, never on a committed marker
+  (ADR-FLOW-CD-GLOBS#6).
 - Whether a change touches a set is computed from git at real refs (ADR-FLOW-CD-GLOBS#9).
 
 ## Where the code and the ADR differ

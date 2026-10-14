@@ -26,11 +26,11 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **Local clone.** A developer's working copy is a bridge to the server remote, not a second truth. It pushes toward the pull request,
-   and nothing on it counts as "on main" until the server holds it. No code in cats performs that push, so the edge is dashed.
-2. **Pull request.** The pull request is the one door into the server's `main` / `master`. It authenticates the author, runs the merge
-   gates and performs the merge itself. The solo `main-direct` mode is the deliberate single-author exception, where the door collapses
-   to a direct commit.
+1. **Local clone.** A developer's working copy is a bridge to the server remote, not a second truth. It pushes toward the pull request, and
+   nothing on it counts as "on main" until the server holds it. No code in cats performs that push, so the edge is dashed.
+2. **Pull request.** The pull request is the one door into the server's `main` / `master`. It authenticates the author, runs the merge gates
+   and performs the merge itself. The solo `main-direct` mode is the deliberate single-author exception, where the door collapses to a
+   direct commit.
 3. **HEAD.** The merge lands the commit at the tip of main. HEAD is provisional: it may still be unverified, or verified and then failed
    downstream, and it can be fixed forward, superseded or cut back.
 4. **Verified point.** The last commit the server proved verified is stable. The verified history only grows, so nothing that happens at
@@ -42,15 +42,14 @@ The diagram is described element by element in
 
 - The audited server remote is the single source of truth, and local and CI clones are bridges to it (ADR-DSGN-REMOTE#1).
 - A consumer integrates from the last remote-verified commit, never from the current remote HEAD (ADR-DSGN-REMOTE#2).
-- Because the verified point never moves, a consumer never has to reconcile a tip that is later rewritten or superseded
-  (ADR-DSGN-REMOTE#3).
+- Because the verified point never moves, a consumer never has to reconcile a tip that is later rewritten or superseded (ADR-DSGN-REMOTE#3).
 - The pull request is the authenticated ingress, and closing every other door is what makes the `git log` audit trail complete
   (ADR-DSGN-REMOTE#4).
 
 ## Where the code and the ADR differ
 
-- The ADR tells every consumer to integrate from the last verified commit, but no function or pipeline in cats resolves that commit, and
-  the pipelines trigger on `main`.
+- The ADR tells every consumer to integrate from the last verified commit, but no function or pipeline in cats resolves that commit, and the
+  pipelines trigger on `main`.
 - The ADR closes every door but the pull request, but no code in cats denies a direct push to the protected branch.
 
 ## See also

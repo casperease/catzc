@@ -30,23 +30,23 @@ the right end of the LOCAL HALF row.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                   |
-| --------------------- | ----- | ------------------------------------------------------------------------------------------------------- |
-| file                  | 2     | variants.yml (LOCAL HALF, left), build-validation.yml (SERVER HALF, left)                               |
+| Glyph (legend phrase) | Count | Where                                                                                                                                                                                               |
+| --------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| file                  | 2     | variants.yml (LOCAL HALF, left), build-validation.yml (SERVER HALF, left)                                                                                                                           |
 | code unit             | 6     | Get-GitWorkspace, Test-GitWorkspace, Sync-GeneratedFile (LOCAL HALF row); Sync-AdoBuildValidations, Register-AdoBuildValidation (SERVER HALF row); Get-AdoBuildValidations (SERVER HALF, lower row) |
-| gate                  | 1     | ADO branch policy (SERVER HALF, right)                                                                  |
-| failure               | 1     | Skipped on main (LOCAL HALF, right)                                                                     |
+| gate                  | 1     | ADO branch policy (SERVER HALF, right)                                                                                                                                                              |
+| failure               | 1     | Skipped on main (LOCAL HALF, right)                                                                                                                                                                 |
 
 Files are olive and code units slate, both with white names.
 
 ## Edges
 
-| Edge kind    | Count | From → to                                                                                                   |
-| ------------ | ----- | ----------------------------------------------------------------------------------------------------------- |
-| flow         | 3     | variants.yml → Get-GitWorkspace → Test-GitWorkspace → Sync-GeneratedFile                                    |
-| flow         | 3     | build-validation.yml → Sync-AdoBuildValidations → Register-AdoBuildValidation → ADO branch policy           |
-| flow         | 2     | ADO branch policy → Get-AdoBuildValidations, Get-AdoBuildValidations → Register-AdoBuildValidation          |
-| failure path | 1     | Sync-GeneratedFile → Skipped on main                                                                        |
+| Edge kind    | Count | From → to                                                                                          |
+| ------------ | ----- | -------------------------------------------------------------------------------------------------- |
+| flow         | 3     | variants.yml → Get-GitWorkspace → Test-GitWorkspace → Sync-GeneratedFile                           |
+| flow         | 3     | build-validation.yml → Sync-AdoBuildValidations → Register-AdoBuildValidation → ADO branch policy  |
+| flow         | 2     | ADO branch policy → Get-AdoBuildValidations, Get-AdoBuildValidations → Register-AdoBuildValidation |
+| failure path | 1     | Sync-GeneratedFile → Skipped on main                                                               |
 
 Every edge is straight; none crosses another. The last three flow edges of the SERVER HALF form a loop: right into the gate, down to
 Get-AdoBuildValidations, and up into Register-AdoBuildValidation.
@@ -67,8 +67,8 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is DSGN × ACCESS, framed and filled in the ACCESS pink with the you-are-here dot. Three touched cells carry
-  a small grey dot: AUTO × LOAD, AUTO × CONFIG and PIPE × BUILD.
+- **Axis minimap:** the main cell is DSGN × ACCESS, framed and filled in the ACCESS pink with the you-are-here dot. Three touched cells
+  carry a small grey dot: AUTO × LOAD, AUTO × CONFIG and PIPE × BUILD.
 - **Tree minimap:** lit tiles labelled ModuleSystem, Variants, .internal, Az.DevOps.BuildValidation and adr/dsgn.
 - **Lens badge:** IMPL, with "Supports ADR-DSGN-REMOTE" beneath it.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

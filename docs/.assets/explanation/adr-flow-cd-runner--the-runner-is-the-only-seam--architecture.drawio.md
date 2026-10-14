@@ -8,15 +8,15 @@ Glyphs: 2 files (olive), 1 runner, 2 code units (slate), 1 actor; 5 flow edges; 
 Sidebar: axis minimap (main cell PIPE x LOAD), tree minimap, lens badge ARCH, map key.
 ```
 
-This describes what the [diagram](adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png) draws, in the vocabulary of
-the diagram glyphs; what it means is in [the article](../../explanation/flow/the-runner-is-the-only-seam.md).
+This describes what the [diagram](adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png) draws, in the vocabulary of the
+diagram glyphs; what it means is in [the article](../../explanation/flow/the-runner-is-the-only-seam.md).
 
 ## At a glance
 
 A 1572 × 600 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through three
-bands in one row, labelled YAML, ADO TASK and POWERSHELL, with a fourth band, DEVELOPER, below POWERSHELL. It holds six glyphs (two
-files, one runner, two code units and one actor) joined by five edges, with six markers and a legend panel along the bottom. The eye lands
-first on the slate pill alone in the middle band.
+bands in one row, labelled YAML, ADO TASK and POWERSHELL, with a fourth band, DEVELOPER, below POWERSHELL. It holds six glyphs (two files,
+one runner, two code units and one actor) joined by five edges, with six markers and a legend panel along the bottom. The eye lands first on
+the slate pill alone in the middle band.
 
 ## Reading path
 

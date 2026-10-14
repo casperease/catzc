@@ -63,8 +63,8 @@ A full-width panel below the bands, in four columns, left to right:
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is DSGN × ACCESS, framed and filled in the ACCESS pink with the you-are-here dot. Three touched cells carry
-  a small grey dot: AUTO × LOAD, AUTO × CONFIG and PIPE × BUILD.
+- **Axis minimap:** the main cell is DSGN × ACCESS, framed and filled in the ACCESS pink with the you-are-here dot. Three touched cells
+  carry a small grey dot: AUTO × LOAD, AUTO × CONFIG and PIPE × BUILD.
 - **Tree minimap:** lit tiles labelled ModuleSystem, Variants, Az.DevOps.BuildValidation and adr/dsgn.
 - **Lens badge:** OPS, with "Supports ADR-DSGN-REMOTE" beneath it.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

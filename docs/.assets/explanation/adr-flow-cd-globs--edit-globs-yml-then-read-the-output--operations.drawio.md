@@ -8,8 +8,8 @@ Glyphs: 1 file (olive), 1 gate, 3 code units (slate), 3 results (green); 7 flow 
 Sidebar: axis minimap (main cell PIPE x GLOBS), tree minimap, lens badge OPS, map key.
 ```
 
-This describes what the [diagram](adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png) draws, in the vocabulary
-of the diagram glyphs; what it means is in [the article](../../explanation/flow/edit-globs-yml-then-read-the-output.md).
+This describes what the [diagram](adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png) draws, in the vocabulary of
+the diagram glyphs; what it means is in [the article](../../explanation/flow/edit-globs-yml-then-read-the-output.md).
 
 ## At a glance
 
@@ -22,8 +22,8 @@ rhombus in the CONFIG LOAD band.
 
 1. Marker 1, YOU EDIT band, middle row: the file globs.yml.
 2. Along its edge to marker 2, at the top vertex of the tall gate Config load.
-3. Along three edges leaving the gate's right side to markers 3, 4 and 5, YOU RUN band, top to bottom: the code units
-   Get-GlobSetTrigger, Get-ChangedGlobSet and Test-Automation.
+3. Along three edges leaving the gate's right side to markers 3, 4 and 5, YOU RUN band, top to bottom: the code units Get-GlobSetTrigger,
+   Get-ChangedGlobSet and Test-Automation.
 4. Along three edges to markers 6, 7 and 8, YOU SEE band: the results Projected paths, Touched globsets and Skip line.
 
 ## Glyphs
@@ -60,8 +60,8 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. Three touched cells
-  carry a small grey dot: AUTO × GLOBS, AUTO × BUILD and PIPE × DEPLOY.
+- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. Three touched cells carry
+  a small grey dot: AUTO × GLOBS, AUTO × BUILD and PIPE × DEPLOY.
 - **Tree minimap:** lit tiles labelled QualityGates, Globs, adr/flow and pipelines.
 - **Lens badge:** OPS, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

@@ -28,8 +28,8 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **Upstream integrator.** Takes its commit from the `main-UAT` occupant (ADR-DSGN-LIFE#6) and never from the dirty HEAD
-   (ADR-DSGN-LIFE#7). Nothing in code checks either.
+1. **Upstream integrator.** Takes its commit from the `main-UAT` occupant (ADR-DSGN-LIFE#6) and never from the dirty HEAD (ADR-DSGN-LIFE#7).
+   Nothing in code checks either.
 2. **Production.** Holds one occupant, commit 4, plus a history (ADR-DSGN-LIFE#5). No pipeline records which commit that is.
 3. **Pre-prod.** The staged rung between release-uat and production (ADR-FLOW-CD#11). It holds one green commit with no worked-example
    number.

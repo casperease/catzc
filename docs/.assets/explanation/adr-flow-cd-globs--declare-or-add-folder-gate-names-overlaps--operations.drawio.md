@@ -10,15 +10,14 @@ Sidebar: axis minimap (main cell PIPE x GLOBS), tree minimap, lens badge OPS, ma
 ```
 
 This describes what the [diagram](adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in
-[the article](../../explanation/flow/declare-or-add-folder-gate-names-overlaps.md).
+vocabulary of the diagram glyphs; what it means is in [the article](../../explanation/flow/declare-or-add-folder-gate-names-overlaps.md).
 
 ## At a glance
 
 A 1572 × 700 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through three
-full-width bands, labelled DEPLOYABLE-UNIT, LOOSE-FILESET and MODULE. It holds three files, one code unit, one gate and two failures,
-joined by two flow edges and two failure paths, with seven markers and a legend panel. The eye lands first on the large gate at the right
-of the top band.
+full-width bands, labelled DEPLOYABLE-UNIT, LOOSE-FILESET and MODULE. It holds three files, one code unit, one gate and two failures, joined
+by two flow edges and two failure paths, with seven markers and a legend panel. The eye lands first on the large gate at the right of the
+top band.
 
 ## Reading path
 
@@ -32,12 +31,12 @@ of the top band.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                   |
-| --------------------- | ----- | ------------------------------------------------------------------------------------------------------- |
+| Glyph (legend phrase) | Count | Where                                                                                                  |
+| --------------------- | ----- | ------------------------------------------------------------------------------------------------------ |
 | file                  | 3     | globs.yml: deployable-unit (top), globs.yml: loose-fileset (middle), globs.yml: layer: module (bottom) |
-| code unit             | 1     | Add a module folder (bottom band, right)                                                                |
-| gate                  | 1     | Test-GlobSetIndependence (top band, right)                                                              |
-| failure               | 2     | Rejected at config load (bottom band), Issue per pair (top band, far right)                             |
+| code unit             | 1     | Add a module folder (bottom band, right)                                                               |
+| gate                  | 1     | Test-GlobSetIndependence (top band, right)                                                             |
+| failure               | 2     | Rejected at config load (bottom band), Issue per pair (top band, far right)                            |
 
 Files are olive and the code unit slate, both with white names; the gate is a grey rhombus with a 3 px rim; the failures are light red.
 
@@ -66,8 +65,8 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. One touched cell,
-  AUTO × GLOBS, carries a small grey dot.
+- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. One touched cell, AUTO ×
+  GLOBS, carries a small grey dot.
 - **Tree minimap:** two lit tiles, labelled Globs and adr/flow.
 - **Lens badge:** OPS, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

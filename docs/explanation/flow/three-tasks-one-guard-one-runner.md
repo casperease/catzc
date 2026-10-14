@@ -54,8 +54,7 @@ trap, and no code runs it, so it is not drawn.
 
 ## Why it holds
 
-- YAML never holds inline PowerShell beyond calling the runner; the template's tasks are the one place that calls it
-  (ADR-FLOW-CD-RUNNER#1).
+- YAML never holds inline PowerShell beyond calling the runner; the template's tasks are the one place that calls it (ADR-FLOW-CD-RUNNER#1).
 - The runner imports the module system once at its start, and the command runs in the same scope (ADR-FLOW-CD-RUNNER#2).
 - The step template adds pipeline concerns, such as the service connection, the token and the display name (ADR-FLOW-CD-RUNNER#3).
 

@@ -25,3 +25,49 @@ Describe 'New-TestRunFinalManifest' -Tag 'L0', 'logic' {
         }
     }
 }
+
+# The run.json a reader sees for a run that collided with another (ADR-AUTO-TEST#32): the terminal manifest built
+# from a snapshot worker run, written by Write-TestRunManifest, and read back as JSON — the shape a script that
+# watches concurrent runs reads, with no unit between them mocked.
+Describe 'New-TestRunFinalManifest — a snapshot run, written and read back' -Tag 'L1', 'logic' {
+    BeforeAll {
+        $script:runDirectory = Join-Path $TestDrive 'run-widget'
+        [void][System.IO.Directory]::CreateDirectory($script:runDirectory)
+        $script:written = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
+            param($Dir)
+            $workerRun = [pscustomobject]@{
+                ShardExitCodes  = [ordered]@{ 'shard-0' = 0 }
+                DurationSeconds = 4.5
+                Location        = [pscustomobject]@{
+                    Mode        = 'snapshot'
+                    Root        = 'C:\tmp\catzc-run-gadget'
+                    KeepSandbox = $false
+                    Holder      = [pscustomobject]@{ Description = 'Test-Automation (pid 4242, run widget-run)' }
+                    Snapshot    = [pscustomobject]@{
+                        Path = 'C:\tmp\catzc-run-gadget'; SourceRoot = 'C:\widget'; Commit = '0a69309f00d'; Modified = 1; Untracked = 0; Deleted = 0
+                    }
+                }
+            }
+            $manifest = New-TestRunFinalManifest -Status passed -StartedAt 'stamp-001' -MaxLevel 2 -Context ([ordered]@{ suite = 'gadget' }) -WorkerRun $workerRun
+            Write-TestRunManifest -RunDirectory $Dir -Manifest $manifest
+        }
+        $script:run = Get-Content -LiteralPath $script:written -Raw | ConvertFrom-Json
+    }
+
+    It 'records the snapshot location with its path, its source, and the run that held the working folder' {
+        $script:run.location | Should -Be 'snapshot'
+        $script:run.snapshot.path | Should -Be 'C:\tmp\catzc-run-gadget'
+        $script:run.snapshot.sourceRoot | Should -Be 'C:\widget'
+        $script:run.snapshot.holder | Should -Be 'Test-Automation (pid 4242, run widget-run)'
+    }
+
+    It 'records that a snapshot not claimed with -KeepSandbox was not kept' {
+        $script:run.snapshot.kept | Should -BeFalse
+    }
+
+    It 'keeps the context and the shard exit codes beside the location' {
+        $script:run.context.suite | Should -Be 'gadget'
+        $script:run.shardExitCodes.'shard-0' | Should -Be 0
+        $script:run.durationSeconds | Should -Be 4.5
+    }
+}

@@ -14,23 +14,23 @@ diagram glyphs; what it means is in [the article](../../explanation/flow/peers-i
 ## At a glance
 
 A 1572 × 700 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through three
-full-width bands, labelled DEPLOYABLE-UNIT, LOOSE-FILESET and MODULE. It holds three named sets and one gate, joined by two flow edges,
-with four markers and a legend panel along the bottom. The eye lands first on the gate at the right of the top band.
+full-width bands, labelled DEPLOYABLE-UNIT, LOOSE-FILESET and MODULE. It holds three named sets and one gate, joined by two flow edges, with
+four markers and a legend panel along the bottom. The eye lands first on the gate at the right of the top band.
 
 ## Reading path
 
 1. Marker 1, top band: the named set What ships.
 2. Marker 2, middle band: the named set Cross-cutting surfaces, with no edge.
 3. Marker 3, bottom band: the wide named set Module space.
-4. Marker 4, on the top vertex of the gate Peers disjoint, top band, and its two edges: left to What ships, down through the middle band
-   to Module space.
+4. Marker 4, on the top vertex of the gate Peers disjoint, top band, and its two edges: left to What ships, down through the middle band to
+   Module space.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                               |
-| --------------------- | ----- | ----------------------------------------------------------------------------------- |
+| Glyph (legend phrase) | Count | Where                                                                                         |
+| --------------------- | ----- | --------------------------------------------------------------------------------------------- |
 | named set             | 3     | What ships (top band), Cross-cutting surfaces (middle band), Module space (bottom band, wide) |
-| gate                  | 1     | Peers disjoint (top band, right of What ships)                                      |
+| gate                  | 1     | Peers disjoint (top band, right of What ships)                                                |
 
 Named sets are mauve with white names; the gate is a grey rhombus with a 3 px rim.
 
@@ -56,8 +56,8 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. One touched cell,
-  AUTO × GLOBS, carries a small grey dot.
+- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. One touched cell, AUTO ×
+  GLOBS, carries a small grey dot.
 - **Tree minimap:** two lit tiles, labelled Globs and adr/flow.
 - **Lens badge:** META, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

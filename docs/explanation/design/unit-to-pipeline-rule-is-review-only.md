@@ -17,9 +17,9 @@ Tracks and deployable-units are checked in code; one unit to one pipeline is hel
 Supports ADR-DSGN-TRACK#1, #2, #3, #4, #5 and #6 (governance lens).
 ```
 
-The tracks ADR sets rules at three levels: what a track is, how a deployable-unit is composed, and how a pipeline binds a unit. Cats
-checks the first two in code, when the configuration loads and in integrity tests. The rule that binds one unit to one pipeline, and the
-rule that a cross-cutting slice is a scope rather than a new track, have no check in code: code review holds them.
+The tracks ADR sets rules at three levels: what a track is, how a deployable-unit is composed, and how a pipeline binds a unit. Cats checks
+the first two in code, when the configuration loads and in integrity tests. The rule that binds one unit to one pipeline, and the rule that
+a cross-cutting slice is a scope rather than a new track, have no check in code: code review holds them.
 
 ![Tracks and units are gated, 1-1 is review only](../../.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png)
 
@@ -31,11 +31,11 @@ The diagram is described element by element in
 1. **track.** A track is one root folder, named by it, with `out/` excepted; it carries one class (core, external port, adapter or
    verification), owns one tech-stack made of file languages, and is subscribed to only through module dependencies or its globset
    projection. Every root folder git tracks a file under names a track, and the root set is closed.
-2. **VariantsConfig.** Validates the `tracks` variant in `variants.yml` on load: each root is one folder segment, never `out`, and owned
-   by one track, and each class is one of the four.
+2. **VariantsConfig.** Validates the `tracks` variant in `variants.yml` on load: each root is one folder segment, never `out`, and owned by
+   one track, and each class is one of the four.
 3. **Get-FileLanguage.Tests.** Integrity tests over the real repository: every root folder with tracked files is a declared track, every
-   language a track declares is registered, and every live file of a track is written in one of the track's declared languages, so a
-   second tech-stack fails the build.
+   language a track declares is registered, and every live file of a track is written in one of the track's declared languages, so a second
+   tech-stack fails the build.
 4. **deployable-unit.** Every globset declares its layer, `deployable-unit` or `loose-fileset`, and `compose:` references declared sets
    without a cycle.
 5. **GlobsConfig.** Checks the units on load: the declared layer (`module` is rejected as derived-only), no unknown keys, and every
@@ -51,8 +51,8 @@ The diagram is described element by element in
 
 ## Why it holds
 
-- A track is one root folder, named by it, and every tracked root folder except `out/` is a track (ADR-DSGN-TRACK#1,
-  ADR-REPO-FOLDERS#1); the root set is closed (ADR-REPO-FOLDERS#3).
+- A track is one root folder, named by it, and every tracked root folder except `out/` is a track (ADR-DSGN-TRACK#1, ADR-REPO-FOLDERS#1);
+  the root set is closed (ADR-REPO-FOLDERS#3).
 - Each track carries one class, and a cross-cutting slice is a scope, not a track (ADR-DSGN-TRACK#2).
 - A track owns one tech-stack, and a tech-stack is a set of file languages (ADR-DSGN-TRACK#3, ADR-DSGN-TRACK#6).
 - Tracks are subscribed to, never path-coupled (ADR-DSGN-TRACK#4).
@@ -61,10 +61,10 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-- The tracks ADR's enforcement list names the folders ADR, the globset registry, the dependency gates and code review, but not the
-  `tracks` variant, its load-time validation, or the integrity tests that now check rules 1, 2, 3 and 6.
-- The tracks ADR says a pipeline binds a track only through its unit; the globset ADR lets a CI pipeline bind a loose-fileset track set,
-  and `globs.yml` does so for `automation` and `infrastructure`.
+- The tracks ADR's enforcement list names the folders ADR, the globset registry, the dependency gates and code review, but not the `tracks`
+  variant, its load-time validation, or the integrity tests that now check rules 1, 2, 3 and 6.
+- The tracks ADR says a pipeline binds a track only through its unit; the globset ADR lets a CI pipeline bind a loose-fileset track set, and
+  `globs.yml` does so for `automation` and `infrastructure`.
 - The folders ADR names `go/` and `python/` as amendments to the closed root set, but not `bash/`, which the tracks ADR and `variants.yml`
   declare as a track.
 

@@ -16,8 +16,8 @@ A person turns on the local guard with one variant; an admin syncs the server po
 Supports ADR-DSGN-REMOTE#2 and #4, and ADR-REPO-VARIANT#6 (operations lens).
 ```
 
-Two people put the ingress rule into effect in cats, and each has one thing to do. On a clone, a person flips the `git_workspace` variant and
-re-runs the importer, after which automation refuses to commit straight to main. Against Azure DevOps, an admin runs
+Two people put the ingress rule into effect in cats, and each has one thing to do. On a clone, a person flips the `git_workspace` variant
+and re-runs the importer, after which automation refuses to commit straight to main. Against Azure DevOps, an admin runs
 `Sync-AdoBuildValidations` to put the blocking build-validation policies on `main`, and lists them afterwards. No command exists for the
 other half of the decision, picking the last verified commit to integrate from.
 
@@ -37,8 +37,8 @@ The diagram is described element by element in
    'main-via-pr' and this is main — commit generated files from a working branch" and commits nothing.
 5. **`Sync-AdoBuildValidations`.** The admin command. Run it with `-DryRun` first to see each globset's planned action, Create, Update or
    Unchanged, without touching the server; run it plainly to apply the plan.
-6. **ADO branch policy.** Applying prints `Created build validation '<name>' … on main` or `Updated build validation '<name>' … on main`
-   per globset, or says the policy is already current. Each policy is blocking unless its entry says otherwise.
+6. **ADO branch policy.** Applying prints `Created build validation '<name>' … on main` or `Updated build validation '<name>' … on main` per
+   globset, or says the policy is already current. Each policy is blocking unless its entry says otherwise.
 7. **`Get-AdoBuildValidations`.** Lists what the server now holds: `Get-AdoBuildValidations -Branch main | Where-Object Blocking` shows the
    blocking policies on `main`.
 

@@ -14,9 +14,9 @@ A pipeline step only names a command, and a developer can run that same command 
 Supports ADR-FLOW-CD-RUNNER#1 and #4 (meta lens).
 ```
 
-A pipeline step in cats does not hold PowerShell. It names a command, and one runner turns that name into the same command a developer
-runs in a terminal. YAML declares, PowerShell executes, and the string in the step is exactly what a developer types after loading the
-modules. That one invariant is what makes every pipeline step reproducible by hand.
+A pipeline step in cats does not hold PowerShell. It names a command, and one runner turns that name into the same command a developer runs
+in a terminal. YAML declares, PowerShell executes, and the string in the step is exactly what a developer types after loading the modules.
+That one invariant is what makes every pipeline step reproducible by hand.
 
 ![A pipeline step only names a command you can run locally](../../.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png)
 
@@ -26,8 +26,8 @@ The diagram is described element by element in
 ## Walkthrough
 
 1. **Pipeline step.** The step names a command and nothing else. The YAML never holds PowerShell logic.
-2. **Pipeline task.** The task is the pipeline host. It adds the authentication, the access token and the step's label around the
-   command, and passes the command on.
+2. **Pipeline task.** The task is the pipeline host. It adds the authentication, the access token and the step's label around the command,
+   and passes the command on.
 3. **Runner.** The runner is the one bootstrap: it loads the modules once and hands the command over.
 4. **Same command.** The command runs with the same modules, in the same scope as the load.
 5. **Developer.** A developer loads the modules and types the same command, with no pipeline, no task and no runner in between. No gate

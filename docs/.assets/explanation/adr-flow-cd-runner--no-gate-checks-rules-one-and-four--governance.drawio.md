@@ -8,16 +8,16 @@ Glyphs: 1 file (olive), 1 code unit (slate), 2 ADR-only, 3 gates; 3 flow edges; 
 Sidebar: axis minimap (main cell PIPE x LOAD), tree minimap, lens badge GOV, map key.
 ```
 
-This describes what the [diagram](adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png) draws, in the vocabulary
-of the diagram glyphs; what it means is in [the article](../../explanation/flow/no-gate-checks-rules-one-and-four.md).
+This describes what the [diagram](adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png) draws, in the vocabulary of
+the diagram glyphs; what it means is in [the article](../../explanation/flow/no-gate-checks-rules-one-and-four.md).
 
 ## At a glance
 
-A 1572 × 600 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing has two full-width bands, RULES
-above and GATES below. The RULES band holds four glyphs left to right, with no edges between them: one file, one code unit and two
-ADR-only glyphs (a dashed page and a dashed rounded box). The GATES band holds three gates, each sending one edge straight up into the
-band above. Three edges, five rule chips (two of them dashed), seven markers and a legend panel along the bottom. The eye lands first on
-the three wide grey rhombi.
+A 1572 × 600 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing has two full-width bands, RULES above
+and GATES below. The RULES band holds four glyphs left to right, with no edges between them: one file, one code unit and two ADR-only glyphs
+(a dashed page and a dashed rounded box). The GATES band holds three gates, each sending one edge straight up into the band above. Three
+edges, five rule chips (two of them dashed), seven markers and a legend panel along the bottom. The eye lands first on the three wide grey
+rhombi.
 
 ## Reading path
 
@@ -41,8 +41,8 @@ The file is an olive page and the code unit a slate box, both with white names; 
 
 ## Edges
 
-| Edge kind | Count | From → to                                                                                       |
-| --------- | ----- | ----------------------------------------------------------------------------------------------- |
+| Edge kind | Count | From → to                                                                                                 |
+| --------- | ----- | --------------------------------------------------------------------------------------------------------- |
 | flow      | 3     | Test-Pipelines → pipeline YAML, expected-failures 1b → step template, expected-failures · Pester → runner |
 
 All three edges are vertical, from each rhombus's top vertex up to the bottom of the glyph above it. None crosses another. same RunCommand

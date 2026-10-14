@@ -8,8 +8,8 @@ Glyphs: 1 file (olive), 7 code units (slate), 1 gate, 1 failure; 8 flow edges, 1
 Sidebar: axis minimap (main cell PIPE x GLOBS), tree minimap, lens badge IMPL, map key.
 ```
 
-This describes what the [diagram](adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../explanation/flow/one-scan-program-feeds-three-roles.md).
+This describes what the [diagram](adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](../../explanation/flow/one-scan-program-feeds-three-roles.md).
 
 ## At a glance
 
@@ -25,17 +25,17 @@ PROGRAM band, then on the red failure at the bottom of the CONFIG band.
 3. Right from GlobsConfig to marker 3, PROGRAM band: the tall code unit GlobSet.ScanProgram().
 4. Right along three parallel edges to markers 4, 5 and 6, FUNCTIONS band, top to bottom: Get-GlobSetTrigger, Get-ChangedGlobSet and
    Get-GlobSetHash.
-5. Right along three edges to the CALLERS band: marker 7 at the top vertex of the gate Trigger gates, then markers 8 and 9 on the code
-   units Test-GlobSetAffected and Test-GlobSetProtection.
+5. Right along three edges to the CALLERS band: marker 7 at the top vertex of the gate Trigger gates, then markers 8 and 9 on the code units
+   Test-GlobSetAffected and Test-GlobSetProtection.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                                                                                                                       |
-| --------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| file                  | 1     | globs.yml (CONFIG band, top row)                                                                                                                                                                            |
+| Glyph (legend phrase) | Count | Where                                                                                                                                                                                                                                         |
+| --------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| file                  | 1     | globs.yml (CONFIG band, top row)                                                                                                                                                                                                              |
 | code unit             | 7     | GlobsConfig (CONFIG, middle row); GlobSet.ScanProgram() (PROGRAM, all rows); Get-GlobSetTrigger, Get-ChangedGlobSet, Get-GlobSetHash (FUNCTIONS, one per row); Test-GlobSetAffected, Test-GlobSetProtection (CALLERS, middle and bottom rows) |
-| gate                  | 1     | Trigger gates (CALLERS band, top row), 3 px rim                                                                                                                                                             |
-| failure               | 1     | validation failed (CONFIG band, bottom row)                                                                                                                                                                 |
+| gate                  | 1     | Trigger gates (CALLERS band, top row), 3 px rim                                                                                                                                                                                               |
+| failure               | 1     | validation failed (CONFIG band, bottom row)                                                                                                                                                                                                   |
 
 The file is olive and the code units are slate, all with white names; the gate is grey and the failure red.
 
@@ -64,8 +64,8 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. One touched cell,
-  AUTO × GLOBS, carries a small grey dot.
+- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. One touched cell, AUTO ×
+  GLOBS, carries a small grey dot.
 - **Tree minimap:** lit tiles labelled Globs and adr/flow.
 - **Lens badge:** IMPL, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
 - **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.

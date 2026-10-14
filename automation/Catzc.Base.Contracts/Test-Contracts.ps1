@@ -79,7 +79,10 @@ function Test-Contracts {
                 continue
             }
             $failedAssets++
-            $pinned = if ($result.Asset.Version -cne $Version) { ', pinned' } else { '' }
+            $pinned = ''
+            if ($result.Asset.Version -cne $Version) {
+                $pinned = ', pinned'
+            }
             foreach ($finding in $result.Findings) {
                 $issues.Add("$($result.Asset.AssetPath) ($($result.Asset.Kind), $($result.Asset.Direction)$pinned): $finding")
             }

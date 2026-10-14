@@ -14,9 +14,9 @@ A globset is one ordered program, and its three views are derived live, never co
 Supports ADR-FLOW-CD-GLOBS#1, #4, #5 and #9 (meta lens).
 ```
 
-A globset in cats names an area-of-control and maps it onto files under version control. Every question that asks whether a change
-concerns that area reads the same flattened program. The registry is the only thing a person writes; the trigger, the change report and
-the protection identity are read-outs of it, recomputed when asked, so nothing stored per set can go stale.
+A globset in cats names an area-of-control and maps it onto files under version control. Every question that asks whether a change concerns
+that area reads the same flattened program. The registry is the only thing a person writes; the trigger, the change report and the
+protection identity are read-outs of it, recomputed when asked, so nothing stored per set can go stale.
 
 ![One program, three views derived live, none committed](../../.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png)
 
@@ -41,8 +41,8 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-The ADR says nothing is committed per set, and the code commits nothing. The `globs.yml` header and the help text of the hash function
-still speak of a per-set "marker" and its SHA.
+The ADR says nothing is committed per set, and the code commits nothing. The `globs.yml` header and the help text of the hash function still
+speak of a per-set "marker" and its SHA.
 
 ## See also
 

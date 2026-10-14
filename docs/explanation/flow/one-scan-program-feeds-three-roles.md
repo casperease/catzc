@@ -30,11 +30,11 @@ The diagram is described element by element in
 ## Walkthrough
 
 1. **globs.yml.** The `globsets:` map is read by `Get-Config -Config globs`, which returns a validated `[GlobsConfig]`.
-2. **GlobsConfig.** The type validates the whole registry at load: unknown keys, malformed patterns, compose references and compose
-   cycles. It collects every error and throws once with `globs config validation failed`, so a bad registry never reaches the program.
+2. **GlobsConfig.** The type validates the whole registry at load: unknown keys, malformed patterns, compose references and compose cycles.
+   It collects every error and throws once with `globs config validation failed`, so a bad registry never reaches the program.
 3. **GlobSet.ScanProgram().** The composed sets' programs come first, deepest base first, then the set's own `+` includes and `-` excludes
-   last; identical rules are deduped keeping the last. The program is built lazily and cached, and `Matches()` evaluates it
-   last-match-wins with a default of not-selected.
+   last; identical rules are deduped keeping the last. The program is built lazily and cached, and `Matches()` evaluates it last-match-wins
+   with a default of not-selected.
 4. **Get-GlobSetTrigger.** Given `-Name`, it walks `ScanProgram()` once and returns `.GitHub` (the program in order, each `-` rendered as
    `!`) and `.AdoInclude` and `.AdoExclude` (each pattern collapsed to its last select).
 5. **Get-ChangedGlobSet.** Given `-Range`, it takes the changed paths from `Get-ChangedFile` (`git diff --name-only --no-renames`) and
@@ -43,10 +43,10 @@ The diagram is described element by element in
    `DurableHash.HashFile` (a CR-stripped SHA-256), and folds the `path|digest` lines with `DurableHash.HashFold`.
 7. **Trigger gates.** `Test-AdoPipelineTriggerGlob`, `Test-GitHubWorkflowTriggerGlob` and `Test-GlobSetTriggerCoverage` call
    `Get-GlobSetTrigger` and compare its output with the filters the pipelines and workflows declare.
-8. **Test-GlobSetAffected.** Given `-Name`, it resolves the range with `Get-GlobSetChangeRange`, then calls `Get-ChangedGlobSet`. It
-   returns `$true` when the range is indeterminate or the diff fails, so it fails open, and it throws on an undeclared name.
-9. **Test-GlobSetProtection.** It calls `Get-GlobSetHash` unless a hash is passed in, compares it with the recorded identity, and stores
-   it as pending; `Protect-GlobSet` promotes it after a green scan. Both are no-ops in a pipeline.
+8. **Test-GlobSetAffected.** Given `-Name`, it resolves the range with `Get-GlobSetChangeRange`, then calls `Get-ChangedGlobSet`. It returns
+   `$true` when the range is indeterminate or the diff fails, so it fails open, and it throws on an undeclared name.
+9. **Test-GlobSetProtection.** It calls `Get-GlobSetHash` unless a hash is passed in, compares it with the recorded identity, and stores it
+   as pending; `Protect-GlobSet` promotes it after a green scan. Both are no-ops in a pipeline.
 
 ## Why it holds
 

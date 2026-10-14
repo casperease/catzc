@@ -16,9 +16,9 @@ A push starts only the pipelines whose globset holds a changed file.
 Supports ADR-DSGN-TRACK#4 and #5 (operations lens).
 ```
 
-Each pipeline in cats triggers on its globset projected to Azure DevOps path filters, so a change starts only the pipelines whose sets
-hold a changed file. A pull request to main runs a pipeline as pre-commit validation, and the merge runs the same pipeline post-commit. An
-edit to the shared foundation fires every CD pipeline; an edit to one unit's configuration fires only that unit's.
+Each pipeline in cats triggers on its globset projected to Azure DevOps path filters, so a change starts only the pipelines whose sets hold
+a changed file. A pull request to main runs a pipeline as pre-commit validation, and the merge runs the same pipeline post-commit. An edit
+to the shared foundation fires every CD pipeline; an edit to one unit's configuration fires only that unit's.
 
 ![A push fires only the pipelines it touches](../../.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png)
 
@@ -40,9 +40,9 @@ The diagram is described element by element in
    `Build-Bicep <template> -Shared` for foundation and discovery. Each deploys on main only.
 6. **Test-AdoPipelineTriggerGlob.** The drift gate reads every pipeline-bound globset and its pipeline file, and compares the file's
    `trigger:` and `pr:` path filters with the set's projection. It runs as an L2 integrity test inside `ci-automation`.
-7. **trigger drifted.** A hand-edited trigger fails with `<set>: pipelines/<p>.yaml trigger drifted from the globset projection on
-   <filters>`. The fix is to regenerate the trigger from `globs.yml` (`Get-GlobSetTrigger`); the report lands in
-   `out/test-ado-pipeline-trigger-glob/`.
+7. **trigger drifted.** A hand-edited trigger fails with
+   `<set>: pipelines/<p>.yaml trigger drifted from the globset projection on <filters>`. The fix is to regenerate the trigger from
+   `globs.yml` (`Get-GlobSetTrigger`); the report lands in `out/test-ado-pipeline-trigger-glob/`.
 
 ## Why it holds
 

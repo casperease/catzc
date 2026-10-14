@@ -8,15 +8,15 @@ Glyphs: 1 runner (slate), 3 results, 2 failures, 1 actor; 3 flow edges, 2 failur
 Sidebar: axis minimap (main cell PIPE x LOAD), tree minimap, lens badge OPS, map key.
 ```
 
-This describes what the [diagram](adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../explanation/flow/the-step-is-named-after-its-command.md).
+This describes what the [diagram](adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](../../explanation/flow/the-step-is-named-after-its-command.md).
 
 ## At a glance
 
-A 1572 × 620 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing has two full-width bands,
-PIPELINE RUN above and DEVELOPER below. It holds seven glyphs (one runner, three results, two failures and one actor) joined by six edges,
-with seven markers and a legend panel along the bottom. The eye lands first on the row of green boxes across the PIPELINE RUN band, with
-two red boxes beneath it.
+A 1572 × 620 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing has two full-width bands, PIPELINE
+RUN above and DEVELOPER below. It holds seven glyphs (one runner, three results, two failures and one actor) joined by six edges, with seven
+markers and a legend panel along the bottom. The eye lands first on the row of green boxes across the PIPELINE RUN band, with two red boxes
+beneath it.
 
 ## Reading path
 

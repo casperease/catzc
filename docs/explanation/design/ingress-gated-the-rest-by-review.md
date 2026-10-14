@@ -63,8 +63,8 @@ The diagram is described element by element in
 ## See also
 
 - [The audited server git remote](../../adr/design/server-remote-integration.md) — the decision this article explains.
-- [Repo variants](../../adr/repository/repo-variants.md) and [Commit lifecycle](../../adr/design/commit-lifecycle.md) — the
-  `git_workspace` variant and the stable point.
+- [Repo variants](../../adr/repository/repo-variants.md) and [Commit lifecycle](../../adr/design/commit-lifecycle.md) — the `git_workspace`
+  variant and the stable point.
 - The other lenses on the same decision: [meta](one-door-in-one-stable-point-out.md), [architecture](clients-bridge-to-one-server.md),
   [implementation](local-guard-and-server-policies.md) and [operations](guard-and-policies-by-command.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

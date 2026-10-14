@@ -17,9 +17,9 @@ You edit globs.yml, and every other step prints what cats derived from it.
 Supports ADR-FLOW-CD-GLOBS#5, #6 and #9 (operations lens).
 ```
 
-`globs.yml` is the only file a person writes to change an area-of-control in cats. Every other step is a command that loads the registry
-and prints what it derived: a projection, a list of touched sets, or a skip line. Knowing what each command prints lets an operator check
-a globset edit before any pipeline runs.
+`globs.yml` is the only file a person writes to change an area-of-control in cats. Every other step is a command that loads the registry and
+prints what it derived: a projection, a list of touched sets, or a skip line. Knowing what each command prints lets an operator check a
+globset edit before any pipeline runs.
 
 ![Edit globs.yml, then read the output](../../.assets/explanation/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png)
 
@@ -29,15 +29,15 @@ The diagram is described element by element in
 ## Walkthrough
 
 1. **globs.yml.** Add or change a globset. Adding files to a unit, or a whole customer, is a config edit.
-2. **Config load.** Every command that reads the registry loads it through `Get-Config` first. A bad pattern or a compose cycle stops
-   right there, with every error listed at once.
+2. **Config load.** Every command that reads the registry loads it through `Get-Config` first. A bad pattern or a compose cycle stops right
+   there, with every error listed at once.
 3. **Get-GlobSetTrigger.** `Get-GlobSetTrigger -Name <set>` prints the projection of one set.
 4. **Get-ChangedGlobSet.** `Get-ChangedGlobSet -Range 'HEAD^1..HEAD'` lists the globsets the range touched.
-5. **Test-Automation.** Run locally, it skips every module whose composite identity is unchanged since its last green run this session.
-   In a pipeline it never skips.
+5. **Test-Automation.** Run locally, it skips every module whose composite identity is unchanged since its last green run this session. In a
+   pipeline it never skips.
 6. **Projected paths.** The output has `GitHub`, `AdoInclude` and `AdoExclude`. When a pipeline's declared filter drifts from it, the gate
-   issue reads `<set>: <file> trigger drifted from the globset projection on …`; a missing file is its own issue (`pipeline file not
-   found` or `workflow file not found`).
+   issue reads `<set>: <file> trigger drifted from the globset projection on …`; a missing file is its own issue (`pipeline file not found`
+   or `workflow file not found`).
 7. **Touched globsets.** The declared sets, in registry order. The same diff answers `Test-GlobSetAffected -Name <set>`, which prints
    `$true` or `$false`, and `$true` on any doubt. No pipeline YAML calls it yet; `cd-shared.yaml` mentions it only in a comment.
 8. **Skip line.** `N module(s) skipped (protected — unchanged since their last green run this session): …`.

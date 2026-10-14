@@ -8,15 +8,15 @@ Glyphs: 2 files (olive), 1 gate, 1 failure, 4 code units (slate); 7 flow edges, 
 Sidebar: axis minimap (main cell PIPE x LOAD), tree minimap, lens badge IMPL, map key.
 ```
 
-This describes what the [diagram](adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../explanation/flow/three-tasks-one-guard-one-runner.md).
+This describes what the [diagram](adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](../../explanation/flow/three-tasks-one-guard-one-runner.md).
 
 ## At a glance
 
-A 1572 × 600 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through two
-bands side by side, TEMPLATE and RUNNER. It holds eight glyphs (two files, one gate, one failure and four code units) joined by eight
-edges, with eight markers and a legend panel below the bands. The eye lands first on the grey rhombus between the two olive pages and the
-row of slate boxes, with the red box beneath it.
+A 1572 × 600 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through two bands
+side by side, TEMPLATE and RUNNER. It holds eight glyphs (two files, one gate, one failure and four code units) joined by eight edges, with
+eight markers and a legend panel below the bands. The eye lands first on the grey rhombus between the two olive pages and the row of slate
+boxes, with the red box beneath it.
 
 ## Reading path
 
@@ -28,11 +28,11 @@ row of slate boxes, with the red box beneath it.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                     |
-| --------------------- | ----- | --------------------------------------------------------- |
+| Glyph (legend phrase) | Count | Where                                                      |
+| --------------------- | ----- | ---------------------------------------------------------- |
 | file                  | 2     | ci-automation.yaml, invoke-automation.yaml (TEMPLATE band) |
-| gate                  | 1     | inline guard (TEMPLATE band, right)                       |
-| failure               | 1     | throw (TEMPLATE band, under the gate)                     |
+| gate                  | 1     | inline guard (TEMPLATE band, right)                        |
+| failure               | 1     | throw (TEMPLATE band, under the gate)                      |
 | code unit             | 4     | importer.ps1, trap, sanitize, Invoke-Command (RUNNER band) |
 
 Files are olive pages and code units slate boxes, both with white names; the gate is a grey rhombus with a 3 px rim.
@@ -44,8 +44,8 @@ Files are olive pages and code units slate boxes, both with white names; the gat
 | flow         | 7     | ci-automation.yaml → invoke-automation.yaml → inline guard → importer.ps1 → trap → sanitize → Invoke-Command |
 | failure path | 1     | inline guard → throw                                                                                         |
 
-The flow edges are horizontal along one row; the failure path drops straight down from the gate's bottom vertex. None crosses another.
-One fraction chip, 3/3, sits just above the edge into the gate.
+The flow edges are horizontal along one row; the failure path drops straight down from the gate's bottom vertex. None crosses another. One
+fraction chip, 3/3, sits just above the edge into the gate.
 
 ## Legend
 

@@ -17,9 +17,9 @@ Supports ADR-FLOW-CD-RUNNER#1, #2, #3 and #4 (governance lens).
 ```
 
 The pipeline runner pattern has four rules, one for each stage a pipeline step passes through: the YAML, the step template, the runner and
-the command. The stages run left to right, each calling the next, and the arrows on the diagram show only which gate checks which stage.
-Two rules hold today with no gate behind them, the step template contradicts the rule written for it, and the gates that do touch these
-stages check something nearby rather than the rule itself.
+the command. The stages run left to right, each calling the next, and the arrows on the diagram show only which gate checks which stage. Two
+rules hold today with no gate behind them, the step template contradicts the rule written for it, and the gates that do touch these stages
+check something nearby rather than the rule itself.
 
 ![No gate checks rules 1 or 4; the template breaks 3](../../.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png)
 
@@ -28,22 +28,22 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **Pipeline YAML.** Rule 1 says YAML steps never contain inline PowerShell. It holds today: the only inline scripts under `pipelines/`
-   are the template's own tasks and the expected-failures pipeline. No gate checks it, so only the ADR keeps it.
+1. **Pipeline YAML.** Rule 1 says YAML steps never contain inline PowerShell. It holds today: the only inline scripts under `pipelines/` are
+   the template's own tasks and the expected-failures pipeline. No gate checks it, so only the ADR keeps it.
 2. **Step template.** Rule 3 says the template is a thin wrapper with no logic. The code contradicts it: each of the template's three tasks
    runs `Set-StrictMode` and a guard that throws on a multiline `RunCommand` without a `DisplayName`.
 3. **Runner.** Rule 2 says the runner imports the module system once and runs the command in the same scope. `Invoke-AdoScript.ps1` does
    both.
-4. **Same RunCommand.** Rule 4 says whatever string appears in `RunCommand` can be pasted into a local terminal after the importer. No
-   code replays a `RunCommand` outside the runner, so only the ADR keeps it, and no gate stands below it.
+4. **Same RunCommand.** Rule 4 says whatever string appears in `RunCommand` can be pasted into a local terminal after the importer. No code
+   replays a `RunCommand` outside the runner, so only the ADR keeps it, and no gate stands below it.
 5. **Test-Pipelines.** The pipeline-layout check runs over `pipelines/` and checks ADR-PIPE-NAME rules 1, 2, 3, 4 and 6. The one that
    touches this stage is ADR-PIPE-NAME rule 4, that templates are referenced by absolute path. It checks no runner rule. Its L1 test
    requires zero violations over the real tree.
 6. **Expected-failures 1b.** Step 1b of `ci-automation-expected-failures.yaml` proves that a multiline command without a display name
-   throws, but it replays its own copy of the guard rather than running the template's. The pipeline itself is the sanctioned exception
-   to rule 1: it inlines PowerShell on purpose.
-7. **Expected-failures and Pester.** Steps 1a and 1c run `Invoke-AdoScript.ps1` to prove that the trap reports a failing command, and the
-   L0 Pester test for `ConvertFrom-AdoPipelineCommand` covers the sanitizer. No Pester test runs the runner itself.
+   throws, but it replays its own copy of the guard rather than running the template's. The pipeline itself is the sanctioned exception to
+   rule 1: it inlines PowerShell on purpose.
+7. **Expected-failures and Pester.** Steps 1a and 1c run `Invoke-AdoScript.ps1` to prove that the trap reports a failing command, and the L0
+   Pester test for `ConvertFrom-AdoPipelineCommand` covers the sanitizer. No Pester test runs the runner itself.
 
 ## Why it holds
 
