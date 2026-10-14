@@ -1,17 +1,18 @@
-# docs/adr/automation/powershell/script-scope-caching.md
+# docs/adr/pwsh/script-scope-caching.md
 
 `ADR: Script-scope caching — the PowerShell layer over caching`
 
-## Rules: ADR-AUTO-PSCACHE
+## Rules: ADR-PWSH-CACHE
 
-### Rule ADR-AUTO-PSCACHE:1
+### Rule ADR-PWSH-CACHE:1
 
-A session cache lives in module `$script:` state, which the [caching](../caching.md) (`ADR-AUTO-CACHE`) boundary maps onto exactly:
-`$script:` state is established at import and destroyed on re-import, so "re-run the importer" is the literal and only invalidation.
+A session cache lives in module `$script:` state, which the [caching](../automation/caching.md) (`ADR-AUTO-CACHE`) boundary maps onto
+exactly: `$script:` state is established at import and destroyed on re-import, so "re-run the importer" is the literal and only
+invalidation.
 
 - [The `$script:` scope](#the-script-scope)
 
-### Rule ADR-AUTO-PSCACHE:2
+### Rule ADR-PWSH-CACHE:2
 
 Use module-scoped `$script:` variables for the cache — never `$env:` or `$global:`. `$env:` leaks to child processes and is stringly-typed
 ([environment-variable-mechanics](environment-variable-mechanics.md)); `$global:` survives re-import and couples modules through shared
@@ -19,7 +20,7 @@ session state.
 
 - [The `$script:` scope](#the-script-scope)
 
-### Rule ADR-AUTO-PSCACHE:3
+### Rule ADR-PWSH-CACHE:3
 
 Tests vary cached behavior by mocking the whole function (`Mock Get-BicepTemplates`), not its internals — a warm cache ignores mocked
 dependencies. A test exercising cache population resets the cache entry in module scope
@@ -27,7 +28,7 @@ dependencies. A test exercising cache population resets the cache entry in modul
 
 - [Testing cached functions](#testing-cached-functions)
 
-### Rule ADR-AUTO-PSCACHE:4
+### Rule ADR-PWSH-CACHE:4
 
 A function probes its cache entry with `$ExecutionContext.SessionState.PSVariable.GetValue('script:<entry>')`, never with a bare
 `$script:<entry>` read, and initialises the cache entry when the probe returns `$null`. The `script:` qualifier is required: an unqualified
@@ -37,9 +38,9 @@ name falls through to `$global:` when the module's cache entry is unset.
 
 ## Context
 
-[caching](../caching.md) fixes the doctrine: static config reads and filesystem-derived information are cached for the session, keyed by
-input, lazily, with the importer as the one invalidation knob. This ADR is the PowerShell layer under it — the `$script:` idioms a cached
-function is written with.
+[caching](../automation/caching.md) fixes the doctrine: static config reads and filesystem-derived information are cached for the session,
+keyed by input, lazily, with the importer as the one invalidation knob. This ADR is the PowerShell layer under it — the `$script:` idioms a
+cached function is written with.
 
 ### The `$script:` scope
 
@@ -55,7 +56,7 @@ alternatives both violate the doctrine structurally: `$env:` is process-global, 
 ### The idioms
 
 Static read, keyed by resolved path (as in `Get-Config`, through which every config read routes — see
-[module-config-loading](../../configuration/module-config-loading.md)):
+[module-config-loading](../configuration/module-config-loading.md)):
 
 ```powershell
 function Get-Config {
@@ -112,7 +113,7 @@ The probe costs a few microseconds per call, a small share of even the hottest c
 - **`Get-Variable -Scope Script -ValueOnly`** and **`Test-Path variable:script:x`** are correct but cost two to three times the probe, on
   the path every cache hit takes.
 - **`try { $script:x } catch { }`** is the cheapest, but it is a catch-and-continue inside a function, which
-  [error-handling](error-handling.md#rule-adr-auto-error6) forbids.
+  [single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob5) forbids.
 
 Only the probe changes: once the cache entry is initialised in the same function, the function reads and writes `$script:<entry>` directly.
 
@@ -122,7 +123,7 @@ A warm cache short-circuits before any dependency runs, so mocking a cached func
 fires. A test therefore mocks the **whole boundary function** and lets the cache be an implementation detail. The one exception is a test
 whose subject _is_ the cache: it resets the module-scope cache entry first
 (`InModuleScope Catzc.Base.Config { $script:configCache = $null }`) and pays the cold derive deliberately. Resetting per test everywhere
-else defeats the cache and multiplies test-run time (see [test-automation](../test-automation.md)).
+else defeats the cache and multiplies test-run time (see [test-automation](../automation/test-automation.md)).
 
 ## Decision
 
@@ -134,8 +135,10 @@ cache entry only to exercise cache behavior itself.
 
 - **The exemplars** — `Get-Config` (`Catzc.Base.Config`) and `Get-BicepTemplates` (`Catzc.Azure.Templates`) are the patterns every new
   cached function copies.
-- **The doctrine layer** — what may be cached at all, and the lazy/eager split, is [caching](../caching.md) (`ADR-AUTO-CACHE`); this ADR
-  only fixes the storage idiom.
+- **Custom PSScriptAnalyzer rule `Measure-NoBareCacheEntryRead`** (`automation/.scriptanalyzer/NoBareCacheEntryRead.psm1`) — flags a
+  `$script:` read before the function assigns it (ADR-PWSH-CACHE#4).
+- **The doctrine layer** — what may be cached at all, and the lazy/eager split, is [caching](../automation/caching.md) (`ADR-AUTO-CACHE`);
+  this ADR only fixes the storage idiom.
 - **Code review** — a cache in `$env:`/`$global:`, or a test that mocks a cached function's internals, is rejected against this ADR.
 
 ## Consequences

@@ -6,9 +6,9 @@
 
 ### Rule ADR-AUTO-TEST:1
 
-Classify every test into one **category**, logic or integrity, and carry it as a mandatory `logic`/`integrity` Pester tag (see
-ADR-AUTO-TEST#13). A logic test must not read a shipped asset; an integrity test exists precisely to read them. A single test is one or the
-other — a file needing both splits them across separate `Context`/`Describe` blocks, each tagged.
+Classify every test into one **category**, logic or integrity, and carry it as a mandatory `logic`/`integrity` tag (see ADR-AUTO-TEST#13).
+A logic test must not read a shipped asset; an integrity test exists precisely to read them. A single test is one or the other — a test
+file needing both puts each kind in its own group of tests, each group tagged.
 
 - [Logic vs integrity tests](#logic-vs-integrity-tests)
 
@@ -23,7 +23,7 @@ org `tst`) so they cannot collide with production.
 
 Seam swaps are safe because `Get-Config` and `Get-BicepTemplates` key their session caches on the resolved path/root, so a fixture path and
 the real path get separate cache entries. A test that exercises cache behavior itself resets the cache entry per
-[script-scope-caching](powershell/script-scope-caching.md) (ADR-AUTO-PSCACHE#3).
+[script-scope-caching](../pwsh/script-scope-caching.md) (ADR-PWSH-CACHE#3).
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -45,8 +45,8 @@ templates are legitimate and stay on the shipped files — but they bind to the 
 ### Rule ADR-AUTO-TEST:8
 
 Tag the vertical tests by their outermost ring (ADR-AUTO-TEST#38) — local-tool tests `L2`, system tests `L3` (ADR-AUTO-TEST#33) — each in
-its own `Describe`, and make both self-skip via `Set-ItResult -Skipped` when the tool, the platform, or cloud access is missing. The
-`-Because` reason is a **constrained skip key** — lowercase alnum segments joined by `_`, never free prose — so the skip report groups by a
+its own group of tests, and make both skip themselves, with a recorded reason, when the tool, the platform, or cloud access is missing. The
+reason is a **constrained skip key** — lowercase alnum segments joined by `_`, never free prose — so the skip report groups by a
 stable, sortable vocabulary: platform skips are `<os>_<only|not>_<detail>` (os = `windows`|`unix`; `only` = runs only there, `not` = cannot
 run there), tool skips are `tool_<name>_missing`. The `Test-SourceConventions` quality gate enforces the key grammar.
 
@@ -63,17 +63,17 @@ is a prerequisite of every source-tree L2 run rather than a tool its tests skip 
 
 ### Rule ADR-AUTO-TEST:10
 
-A runtime tripwire enforces "L0/L1 launches no real process": `Test-Automation` sets `$env:CATZC_BLOCK_REAL_PROCESS` and `Invoke-Executable`
-throws instead of launching, so a Mock that fails to intercept fails loudly.
+A runtime tripwire enforces "L0/L1 launches no real process": `Test-Automation` sets the `CATZC_BLOCK_REAL_PROCESS` environment variable
+and `Invoke-Executable` throws instead of launching, so a mock that fails to intercept fails loudly.
 
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-AUTO-TEST:13
 
-Every test carries two mandatory, orthogonal tags, resolved through its block chain (nearest contributing block wins): exactly one **tier**
-`L0|L1|L2|L3|L4` and exactly one category `logic|integrity`. There is no default for either — a test resolving to zero, or to two of the
-same axis, is a violation. Put both on the `Describe` for a uniform file; override on an inner block (or tag per `Context`) where the file
-mixes tiers or categories — never two tags of the same axis on one block.
+Every test carries two mandatory, orthogonal tags, resolved through the groups that enclose it (the nearest contributing group wins): exactly
+one **tier** `L0|L1|L2|L3|L4` and exactly one category `logic|integrity`. There is no default for either — a test resolving to zero, or to
+two of the same axis, is a violation. Put both on the outermost group for a uniform test file; override on an inner group where the file
+mixes tiers or categories — never two tags of the same axis on one group.
 
 - [Two mandatory tag axes](#mandatory-tag-axes)
 
@@ -87,14 +87,15 @@ file/folder conventions). This is the category axis of ADR-AUTO-TEST#13.
 
 ### Rule ADR-AUTO-TEST:15
 
-`Test-Automation` enforces ADR-AUTO-TEST#13 on every invocation: a discovery-only pass (`Get-TestTagViolations`, via Pester `Run.SkipRun`)
-inspects every test regardless of `-Level`, and the run throws if any test is missing — or ambiguous on — a tier or category tag.
+`Test-Automation` enforces ADR-AUTO-TEST#13 on every invocation: a discovery-only pass (`Get-TestTagViolations`), which finds every test
+without running any, inspects every test regardless of `-Level`, and the run throws if any test is missing — or ambiguous on — a tier or
+category tag.
 
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-AUTO-TEST:16
 
-An integrity test derives its fact by reading the repository's files directly — enumerate and parse them (AST, or the `.ps1` basename) —
+An integrity test derives its fact by reading the repository's files directly — enumerate and parse them (a syntax tree, or a file name) —
 never by booting the importer or inspecting a loaded session. A static property of the files on disk is checked by reading the files.
 
 - [Integrity tests read files](#integrity-tests-read-files)
@@ -106,44 +107,34 @@ and assert invariants that hold for _every_ template. It must **never** bind to 
 production-derived magic value (a rendered secret name, resource name, or parameter-file name). Binding a test to a production identity
 makes that test veto the identity's rename or removal — a test must never block a production refactor. Positive, template-specific behaviour
 (e.g. a PrePost hook injecting a particular Key Vault reference) is verified as a **logic** test against a **fixture** template
-(ADR-AUTO-PESTER#2/ADR-AUTO-TEST#3), not against the shipped one; the generic integrity test asserts only the structural invariant — "any
+(ADR-PWSH-PESTER#2, ADR-AUTO-TEST#3), not against the shipped one; the generic integrity test asserts only the structural invariant — "any
 reference present is well-formed" — across all shipped templates.
 
 - [Generic integrity tests](#generic-integrity-tests)
 
-### Rule ADR-AUTO-TEST:18
-
-Prefer `[System.IO]` over filesystem cmdlets on hot paths — in test setup **and** in the production code under test. `Get-ChildItem` (~20
-ms/call), `Copy-Item -Recurse` (~15×), and `New-Item`/`Set-Content` carry heavy per-call provider + AV/AMSI overhead on Windows;
-`[System.IO.Directory]::EnumerateFiles`/`EnumerateDirectories`, the `Copy-Directory` helper, `[System.IO.File]::WriteAllText`, and
-`[System.IO.Directory]::CreateDirectory` are ~0.1 ms. This is the same effect as the bulk-delete gotcha, generalized.
-
-- [Fast logic tests](#fast-logic-tests)
-
 ### Rule ADR-AUTO-TEST:19
 
-Do expensive setup once, not per test. Discovery and config caches key on the resolved root/path (ADR-AUTO-TEST#4), so a `BeforeEach` that
-hands each test a fresh root or re-nulls `$configCache` forces a cold re-derive on every test. Copy the fixture tree and reset the cache
-**once** in `BeforeAll`; share one warm import across tests that do not conflict (read-only, or each writing a distinct path), and give a
-fresh root only to tests that mutate-and-collide.
+Do expensive setup once, not per test. Discovery and config caches key on the resolved root/path (ADR-AUTO-TEST#4), so a per-test setup
+that hands each test a fresh root or clears a config cache forces a cold re-derive on every test. Copy the fixture tree and reset the cache
+**once** for the group of tests that shares them; share one warm import across tests that do not conflict (read-only, or each writing a
+distinct path), and give a fresh root only to tests that mutate-and-collide.
 
 - [Fast logic tests](#fast-logic-tests)
 
 ### Rule ADR-AUTO-TEST:20
 
 When the unit is a pure function of the filesystem (the importer; discovery), spawn one import per distinct tree shape, not per assertion.
-Capture a rich observation from a single import and assert its facets across separate `It` blocks. Minimize the spawn count — Pester
-executes tests sequentially within a run, and the harness parallelizes at whole-file granularity (test files sharded across worker
-processes), so splitting a stateful narrative into more tests in one file parallelizes nothing; fewer, richer imports is the only lever.
+Capture a rich observation from a single import and assert it across separate tests. Minimize the spawn count — a test file's tests run one
+after another, and the harness parallelizes at whole-file granularity (test files sharded across worker processes), so splitting a stateful
+narrative into more tests in one file parallelizes nothing; fewer, richer imports is the only lever.
 
 - [Fast logic tests](#fast-logic-tests)
 
 ### Rule ADR-AUTO-TEST:21
 
-Measure before optimizing a slow test, and compare like workloads. Mock interception is cheap (~ms/call; a `-ParameterFilter` adds ~1 ms),
-so "slow because of mocks" is almost always wrong — time sub-steps with `[Diagnostics.Stopwatch]`, count calls with `Should -Invoke -Times`,
-and make sure A/B variants do the same work (a redirect that silently falls through to the real tree is measuring a smaller, different
-workload).
+Measure before optimizing a slow test, and compare like workloads. Mock interception is cheap (about a millisecond per call), so "slow
+because of mocks" is almost always wrong — time the sub-steps, count the calls through the mocks, and make sure A/B variants do the same
+work (a redirect that silently falls through to the real tree is measuring a smaller, different workload).
 
 - [Fast logic tests](#fast-logic-tests)
 
@@ -179,15 +170,15 @@ master only when its BVT is green, and the canonical module-manifest artifact a 
 
 ### Rule ADR-AUTO-TEST:25
 
-`Test-Automation` parallelizes at whole-file granularity across worker **processes**: the run's test files are sharded across pwsh workers
-(the `PesterRunner` type — pooled live output, one worker's stream live while later workers buffer and replay in order), each worker
-dot-sources the importer, runs its shard, writes `results-shard-<N>.xml`, and reduces its **live** Pester result to plain per-test rows
-(`ConvertTo-TestAutomationRowSet` — tier/category resolution walks the live `.Block` chain, which does not survive a process boundary) into
-a `rows-shard-<N>.json` sidecar. The parent aggregates rows — never a Pester object across a boundary — and every run report (tests.csv,
-summary.md, the timing check, the skip report) consumes rows. A worker exits 0/1; any other exit code, or a missing sidecar, is a worker
-crash the parent surfaces loudly. Workers run tests **under strict mode** (`Set-StrictMode -Version Latest`, set by the shard script before
-Pester), matching the module code under test, which runs strict in its own module scope; a test that genuinely needs non-strict semantics
-opts out locally ([pester-testing](powershell/pester-testing.md)). A worker never outlives the process that started it: it watches its
+`Test-Automation` parallelizes at whole-file granularity across worker **processes**: the run's test files are sharded across workers
+(pooled live output — one worker's stream live while later workers buffer and replay in order), each worker loads the modules through its
+run's entry script, runs its shard, writes its own results file, and reduces its **live** result to plain per-test rows
+(`ConvertTo-TestAutomationRowSet` — tier/category resolution walks the live chain of groups, which does not survive a process boundary)
+into a `rows-shard-<N>.json` sidecar. The parent aggregates rows — never a test framework's object across a boundary — and every run report
+(tests.csv, summary.md, the timing check, the skip report) consumes rows. A worker exits 0/1; any other exit code, or a missing sidecar, is
+a worker crash the parent surfaces loudly. Workers run tests **under strict mode**, set before any test runs, matching the module code under
+test, which runs strict in its own module scope; a test that genuinely needs non-strict semantics opts out locally, in its own body. A
+worker never outlives the process that started it: it watches its
 parent (`WorkerParentWatch`, by PID and start time) and kills itself when the parent is gone. A run whose owning process dies before its
 terminal `run.json` stamp is recorded `abandoned` by the next run in the same report folder (`Set-AbandonedTestRun`), never left `running`.
 
@@ -222,40 +213,29 @@ An **optional third, provenance dimension**: a test MAY carry `ADR-<CODE>#<n>` c
 `docs/adr/index.md` `#` citation form, so the `ADR-` marker greps to both a rule's prose and its enforcing tests. Absence is never a
 violation. A **present** citation is validated (`Get-TestTagViolations`): it must be well-formed and resolve to a real rule
 (`Get-CatsAdrRuleIds`), or the run fails — so a rule renumber breaks its stale tag loudly. Unlike the single-valued tier and category axes
-(nearest-contributing-block wins), provenance is **set-valued and additive**: `Get-TestRuleTags` **unions** the citations across a test's
-own It-tags and every ancestor block, so a broad `Describe` rule and a specific `It` rule both count.
+(nearest contributing group wins), provenance is **set-valued and additive**: `Get-TestRuleTags` **unions** the citations across a test's
+own tags and every group that encloses it, so a broad rule on the outermost group and a specific rule on one test both count.
 
 - [Provenance and rule coverage](#provenance-and-rule-coverage)
 
 ### Rule ADR-AUTO-TEST:28
 
 Rule-enforcement **coverage is reported and never blocks a run**, and counts **two enforcer kinds run in the same `Test-Automation`
-invocation**: a **`pester-test`** (a test tagged with the rule's citation — the `Rules` column of `tests.csv` is the backtrack table,
-filterable by a citation to find every enforcing test) and a **`pssa-rule`** (a PSScriptAnalyzer rule mapped to the rule, which the L2
-`Test-ScriptAnalyzer` quality gate runs on every build). `Write-TestAutomationRuleCoverage` writes `rule-coverage.md`/`.csv` — each rule's
+invocation**: a test tagged with the rule's citation (the `Rules` column of `tests.csv` is the backtrack table, filterable by a citation to
+find every enforcing test), and an analyzer rule mapped to the rule, which the analyzer quality gate runs at L2 on every build.
+`Write-TestAutomationRuleCoverage` writes `rule-coverage.md`/`.csv` — each rule's
 enforcers and the genuinely-uncovered list. It is report-only because a rule may be enforced structurally or by review, so "no mechanical
 enforcer" is information, not a defect.
-
-- [Provenance and rule coverage](#provenance-and-rule-coverage)
-
-### Rule ADR-AUTO-TEST:29
-
-The analyzer→ADR mapping — the source for the `pssa-rule` enforcer kind — lives in `Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`,
-each enabled analyzer rule (a custom `Measure-*` rule or an enabled built-in) mapped to the citation(s) it enforces. Its shape is validated
-at load (its config type, `AnalyzerAdrMapConfig`); the `Test-AnalyzerAdrMap` quality gate checks that every mapped id resolves to a real
-rule and that **every custom analyzer rule is mapped**, and an **integrity test** runs it, so a new custom rule cannot ship unmapped and a
-renumber breaks the build. Id existence is checked by that gate, not at load, keeping config load hermetic (the ADR-AZ-CUSTOMER#3 pattern).
 
 - [Provenance and rule coverage](#provenance-and-rule-coverage)
 
 ### Rule ADR-AUTO-TEST:30
 
 The same tests run in two kinds of test run (ADR-AUTO-TEST#34), one per run mode ([run-modes](../design/run-modes.md)): the source run
-(`Test-Automation`) loads the modules through `importer.ps1` from `automation/`, and the build run (`Test-CatzcBuild`) builds the selected
-modules and loads them through the build's `Import-Catzc.ps1`. Both run the same `automation/<Module>/tests/*.Tests.ps1` files at every tier
-their location allows by default (ADR-AUTO-TEST#33), with the same discovery, tag checks, sharding, and reports — the build run swaps only
-the entry script each shard worker dot-sources, and writes its reports to `out/test-catzc-build/`. No test is copied or rewritten for the
-build run.
+(`Test-Automation`) loads the modules from `automation/` through the source entry script, and the build run (`Test-CatzcBuild`) builds the
+selected modules and loads them through the build's entry script. Both run the same test files of every module at every tier their location
+allows by default (ADR-AUTO-TEST#33), with the same discovery, tag checks, sharding, and reports — the build run swaps only the entry script
+each shard worker loads, and writes its reports to `out/test-catzc-build/`. No test is copied or rewritten for the build run.
 
 - [Source and build runs](#source-and-build-runs)
 
@@ -363,10 +343,10 @@ shared by every run on the machine, so the test passes or fails depending on wha
 
 A Go test module ([test-artifacts](go/test-artifacts.md#rule-adr-auto-go2)), a Python test folder
 ([python-test-artifacts](python/python-test-artifacts.md#rule-adr-auto-py2)) and a Bash test folder
-([bash-test-artifacts](bash/bash-test-artifacts.md#rule-adr-auto-bash2)) are the second kind of test file, beside the Pester test file,
-under the same tiers, categories, and run model. Discovery maps each to its catzc module, so module selection, test suites, ordering,
-protection, both runs, and the report treat its tests as that module's; one shared Pester bridge, the language bridge, runs them all, and
-every test they hold is one test with both mandatory tags — `L2`, and a category from its name (ADR-AUTO-GO#7, ADR-AUTO-PY#7,
+([bash-test-artifacts](bash/bash-test-artifacts.md#rule-adr-auto-bash2)) are the second kind of test file, beside a module's own test
+files, under the same tiers, categories, and run model. Discovery maps each to its catzc module, so module selection, test suites, ordering,
+protection, both runs, and the report treat its tests as that module's; one shared bridge, the language bridge, runs them all inside the
+test run, and every test they hold is one test with both mandatory tags — `L2`, and a category from its name (ADR-AUTO-GO#7, ADR-AUTO-PY#7,
 ADR-AUTO-BASH#5).
 
 - [Go test modules](#go-test-modules)
@@ -384,11 +364,27 @@ a run of that gate outside its pipeline, and its result is information, never a 
 
 - [Test tiers: the test onion](#test-tiers-the-test-onion)
 
+### Rule ADR-AUTO-TEST:42
+
+A **test** is the smallest unit of verification that passes or fails on its own: the one every report row, rule citation, skip, and timing
+counts, and the one that carries the two mandatory tags (ADR-AUTO-TEST#13). Every test language maps its own smallest unit to one test, so
+a run counts tests the same way whatever language they are written in (ADR-AUTO-TEST#40).
+
+- [Tests and test files](#tests-and-test-files)
+
+### Rule ADR-AUTO-TEST:43
+
+A **test file** is one file of tests that discovery maps to one catzc module — a module's own test file under its `tests/` folder, or a
+test folder of another test language (ADR-AUTO-TEST#40). It is the unit a test run schedules: sharded whole, never split across workers
+(ADR-AUTO-TEST#25), and moved whole to the phase any of its tests asks for (ADR-AUTO-TEST#26). Its test language decides its name and form.
+
+- [Tests and test files](#tests-and-test-files)
+
 ## Context
 
 [Fail fast with inline assertions](fail-fast-with-asserts.md) makes the case that automation code is mostly _impure_ — it orchestrates
 external systems — so assertions and integration runs catch the failure modes that matter, and **mock-heavy tests are fragile and
-misleading**. That ADR is about where confidence comes from. This one is about the Pester tests that remain: there is real _pure_ logic in
+misleading**. That ADR is about where confidence comes from. This one is about the tests that remain: there is real _pure_ logic in
 this codebase — name assembly (`Get-AzureResourceName`), config resolution (`Get-AzureSubscription`, `Resolve-BicepConfigName`), discovery
 shaping (`Get-BicepTemplates`), the cross-layer joins — and that logic deserves fast, deterministic tests. The question this ADR answers is
 **what those tests may depend on**.
@@ -397,7 +393,7 @@ shaping (`Get-BicepTemplates`), the cross-layer joins — and that logic deserve
 
 `Two kinds of test with opposite dependencies`
 
-A Pester test in this repo is one of two things, and conflating them is the mistake to avoid:
+A test in this repo is one of two things, and conflating them is the mistake to avoid:
 
 - **Logic / unit test** — verifies what a _function_ does. It must be **isolated from the shipped configuration**: editing
   `configs/azure.yml` (renaming an environment, dropping a customer, changing a shortcode) must never change the outcome of a test for
@@ -417,7 +413,7 @@ only, and a logic test reads its own fixtures.
 
 An integrity test verifies a _static_ property of the repository — the file/folder conventions, the module/type/function graph, that every
 function name is unique, that a shipped asset validates. It must establish that property by reading the repository directly: enumerate the
-files and parse them (AST, or just the `.ps1` basename), build the list, then assert. It must **not** boot the importer, import a module, or
+files and parse them (a syntax tree, or just a file name), build the list, then assert. It must **not** boot the importer, import a module, or
 inspect a loaded session to derive a fact that is a pure function of the files on disk — that is slow, indirect, and couples the test to
 load mechanics instead of to the thing being checked. The shapes to copy are the `Test-SourceConventions` (global function-name uniqueness)
 and `Test-FolderConventions` quality gates: scan the tree, build the list, assert. A _logic_ test that exercises importer behaviour itself —
@@ -474,12 +470,12 @@ Every test is tagged on **two orthogonal axes**, and `Test-Automation` fails the
   `integrity` reads the real repository contents.
 
 The two are independent — an `L2` test can be `logic` (drives a tool on a fixture) or `integrity` (builds a real shipped template). Tags
-resolve **nearest contributing block wins**: put both on the `Describe` for a uniform file, or override on an inner `Context` (and tag
-per-`Context` when a file mixes categories). The one rule: never two tags of the same axis on one block.
+resolve **nearest contributing group wins**: put both on the outermost group for a uniform test file, or override on an inner group (and
+tag each inner group when a file mixes categories). The one rule: never two tags of the same axis on one group.
 
 Each axis is also a run filter on `Test-Automation`: `-Level` bounds the tier (L0–L4, 3 by default), and `-Category logic|integrity` runs a
-subset by category (omit it to run both). Both work by excluding the unwanted tags, so a mixed file's per-`Context` category tags filter
-correctly — the `Describe` carries only the tier.
+subset by category (omit it to run both). Both work by excluding the unwanted tags, so a mixed file's per-group category tags filter
+correctly — the outermost group carries only the tier.
 
 Beyond the two mandatory axes there are **optional** tags: the phase tags `serial` and `greedy` (ADR-AUTO-TEST#26), the provenance citations
 of the next section, and the `source-only` build-run opt-out (ADR-AUTO-TEST#31).
@@ -493,9 +489,9 @@ a rule to the tests that pin it. The citation is a tag in the `docs/adr/index.md
 `ADR-` marker greps uniformly across a rule's prose, the code that cites it, and its tests. This dimension differs from tier and category in
 two ways. It is **optional**: a test carries a citation only when it meaningfully enforces a specific rule, and absence is never a violation
 — a mandatory citation would pressure forced cites for tests that enforce loose behaviour, the junk-drawer failure the
-[spell-out registry](powershell/spell-out-names.md) warns against. And it is **set-valued**: a test can enforce several rules, and a
-`Describe`-level rule and an inner `It`-level rule both hold, so `Get-TestRuleTags` **unions** the citations across the whole block chain
-rather than taking the nearest like the single-valued axes.
+[spell-out registry](spell-out-names.md) warns against. And it is **set-valued**: a test can enforce several rules, and a rule on the
+outermost group and a rule on one inner test both hold, so `Get-TestRuleTags` **unions** the citations across every enclosing group rather
+than taking the nearest like the single-valued axes.
 
 What keeps the optional axis honest is that a **present** citation is validated. `Get-TestTagViolations` — the same discovery-pass check
 that enforces the mandatory axes — rejects any `ADR-` tag that is malformed or names a rule absent from `Get-CatsAdrRuleIds` (the flat set
@@ -504,11 +500,10 @@ it reads the ADR tree only when a test actually carries a citation — so a test
 
 Coverage is the payoff, and it is **reported, never blocking**. `Write-TestAutomationRuleCoverage` writes `rule-coverage.md`/`.csv` beside
 the run report, mapping every rule to its enforcers and listing the genuinely-uncovered. Crucially it counts **two** enforcer kinds, because
-two mechanisms run inside the one `Test-Automation` invocation: a **`pester-test`** (a tagged test — the `tests.csv` `Rules` column is the
-backtrack table) and a **`pssa-rule`** (a PSScriptAnalyzer rule that enforces the rule on every build). Counting the analyzer rules is what
-makes the uncovered list honest: a rule like `ADR-AUTO-NOPWD` reads as covered because its custom analyzer fails the build, not falsely bare
-for lack of a Pester test. The analyzer→ADR mapping lives in `configs/analyzer-adr-map.yml` (custom `Measure-*` rules and enabled
-built-ins), shape-validated at load and integrity-tested for id existence and custom-rule completeness (ADR-AUTO-TEST#29). The report never
+two mechanisms run inside the one `Test-Automation` invocation: a tagged test (the `tests.csv` `Rules` column is the backtrack table) and
+an analyzer rule that enforces the rule on every build. Counting the analyzer rules is what makes the uncovered list honest: a rule like
+`ADR-AUTO-NOPWD` reads as covered because its custom analyzer fails the build, not falsely bare for lack of a tagged test. How each kind is
+written and mapped for pwsh is [pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester19). The report never
 fails the run — many rules are enforced structurally or by review, so a missing mechanical enforcer is a prompt, not a defect — but the data
 is shaped so making it a quality gate is one flag away.
 

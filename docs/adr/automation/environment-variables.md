@@ -6,9 +6,8 @@
 
 ### Rule ADR-AUTO-ENVVAR:1
 
-Set an environment variable only to meet an external tool's contract. When the consumer is our own code, the value travels as a parameter
-or in module state. The PowerShell mechanics are
-[ADR-PWSH-ENV#5](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env5).
+Set an environment variable only to meet an external tool's contract. When the consumer is our own code, the value travels as a parameter or
+in module state. The PowerShell mechanics are [ADR-PWSH-ENV#5](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env5).
 
 - [Legitimate uses](#legitimate-uses)
 
@@ -50,26 +49,25 @@ constants; modifying a bootstrap anchor means the design is wrong. The PowerShel
 Never store a secret in an environment variable as internal state our own code reads back — durable state, config, or a value our own code
 later reads. A secret may cross to a child or external process through the environment only via the single disciplined seam
 `Write-EnvironmentSet` (ADR-AUTO-ENVVAR#7), never written ad hoc. The environment is visible to child processes, process-inspection tools,
-and crash dumps (CWE-526). The PowerShell mechanics are
-[ADR-PWSH-ENV#10](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env10).
+and crash dumps (CWE-526). The PowerShell mechanics are [ADR-PWSH-ENV#10](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env10).
 
 - [They are a security surface](#they-are-a-security-surface)
 - [The secret hand-off](#the-secret-hand-off)
 
 ### Rule ADR-AUTO-ENVVAR:7
 
-Handing a secret to a child or external process through the environment is a legitimate external-boundary use (ADR-AUTO-ENVVAR#1),
-permitted only through `Write-EnvironmentSet` (`Catzc.Tooling.Environment`). That seam takes the secret as a protected value, never as
-plain text; never logs or returns the plaintext (it masks it as `***`); decrypts only at the moment it sets the variable; and defaults to a
-scoped set and restore, persisting only on explicit request. An ad-hoc assignment of a plaintext secret stays prohibited. The PowerShell
-mechanics are [ADR-PWSH-ENV#11](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env11).
+Handing a secret to a child or external process through the environment is a legitimate external-boundary use (ADR-AUTO-ENVVAR#1), permitted
+only through `Write-EnvironmentSet` (`Catzc.Tooling.Environment`). That seam takes the secret as a protected value, never as plain text;
+never logs or returns the plaintext (it masks it as `***`); decrypts only at the moment it sets the variable; and defaults to a scoped set
+and restore, persisting only on explicit request. An ad-hoc assignment of a plaintext secret stays prohibited. The PowerShell mechanics are
+[ADR-PWSH-ENV#11](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env11).
 
 - [The secret hand-off](#the-secret-hand-off)
 
 ## Context
 
-Environment variables are dangerously convenient. In most engines they look like regular variables, they are accessible everywhere, and
-they survive function calls. This makes them tempting for passing state between functions, caching results, or storing configuration.
+Environment variables are dangerously convenient. In most engines they look like regular variables, they are accessible everywhere, and they
+survive function calls. This makes them tempting for passing state between functions, caching results, or storing configuration.
 
 That temptation is the problem. Environment variables are the worst form of global mutable state because they have **no scoping, no type
 safety, no automatic cleanup, and no visibility boundaries.**
@@ -96,9 +94,9 @@ environment-variable temptation, runspace sharing, test isolation — are the la
 
 ### They are always strings
 
-An environment variable's value is always a string. There is no type safety: a number or a boolean is stored as its text, and every
-consumer must parse and validate it. There is no schema, no constraint, and no validation at the call site. Compare this to a typed
-function parameter with a validated range or set — the type system catches errors at the call site.
+An environment variable's value is always a string. There is no type safety: a number or a boolean is stored as its text, and every consumer
+must parse and validate it. There is no schema, no constraint, and no validation at the call site. Compare this to a typed function
+parameter with a validated range or set — the type system catches errors at the call site.
 
 ### They leak to child processes
 
@@ -151,9 +149,9 @@ Environment variables are used exclusively at external boundaries — never as i
 
 These are the only acceptable uses of environment variables in our code:
 
-**1. Setting variables for external tools to consume.** External tools define their configuration contract through environment variables
-— the dotnet CLI's telemetry opt-out, git's terminal prompt, the Azure CLI's config folder, PowerShell's module path. We set these so the
-tool behaves correctly. The key distinction: the _consumer_ of the variable is an external process, not our code.
+**1. Setting variables for external tools to consume.** External tools define their configuration contract through environment variables —
+the dotnet CLI's telemetry opt-out, git's terminal prompt, the Azure CLI's config folder, PowerShell's module path. We set these so the tool
+behaves correctly. The key distinction: the _consumer_ of the variable is an external process, not our code.
 
 **2. Reading variables that external systems set.** CI platforms, container runtimes, and operating systems communicate via environment
 variables — the Azure DevOps and GitHub Actions markers, the Windows system root. Reading these is fine — they are inputs from outside our
@@ -188,8 +186,8 @@ decrypts only at the assignment that is the boundary, and by default removes the
 PowerShell mechanics are [environment-variable-mechanics](../pwsh/environment-variable-mechanics.md#the-secret-hand-off).
 
 The plaintext does land in the environment for the instant the external tool reads it — that is unavoidable, because the tool's contract is
-to read it there, and it is the boundary hand-off the whole rule is about. What ADR-AUTO-ENVVAR#7 guarantees is that this is the _only_ place
-the plaintext exists, that it is not logged or returned, and that it does not outlive the hand-off.
+to read it there, and it is the boundary hand-off the whole rule is about. What ADR-AUTO-ENVVAR#7 guarantees is that this is the _only_
+place the plaintext exists, that it is not logged or returned, and that it does not outlive the hand-off.
 
 This _strengthens_ ADR-AUTO-ENVVAR#6 rather than weakening it: scattered ad-hoc plaintext assignments are replaced by one seam that carries
 the don't-log / don't-persist / decrypt-at-boundary discipline, so a reviewer has one function to audit instead of every string assignment.
@@ -200,8 +198,8 @@ the don't-log / don't-persist / decrypt-at-boundary discipline, so a reviewer ha
   leaks the value to every child process and couples the two invisibly; the value is a return value and a parameter instead.
 - **Never use an environment variable as a cache or flag.** A "loaded" flag in the environment outlives the session's own cache and leaks to
   child processes; a cache lives in module state ([caching](caching.md)).
-- **Never make functionality depend on an environment variable being set.** A function that throws when a variable is unset hides its
-  input; a mandatory, validated parameter gives type validation, tab completion, mandatory enforcement, and documentation for free.
+- **Never make functionality depend on an environment variable being set.** A function that throws when a variable is unset hides its input;
+  a mandatory, validated parameter gives type validation, tab completion, mandatory enforcement, and documentation for free.
 
 The PowerShell form of each, as BAD and GOOD code, is [environment-variable-mechanics](../pwsh/environment-variable-mechanics.md).
 

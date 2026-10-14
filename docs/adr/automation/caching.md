@@ -122,7 +122,7 @@ inputs are stable, and the importer is the one knob.
 The importer is on the hot path of **every** session — every interactive shell tab a developer opens and every step a pipeline runs begins
 by dot-sourcing it. Its job is to make the module system available, fast, and nothing more: it sets error preferences and runs the bootstrap
 module to discover and import modules. It even **defers** expensive vendor modules (Pester, PSScriptAnalyzer) via lazy loading rather than
-pay for them at startup (see [vendor-toolset-dependencies](powershell/vendor-toolset-dependencies.md#rule-adr-auto-vendor5)), and it reports
+pay for them at startup (see [vendor-toolset-dependencies](../pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor5)), and it reports
 its own load time so regressions are visible.
 
 This makes importer time a budget to protect, and it sets the default for caching: **lazy.** Reading `azure.yml`, scanning
@@ -187,7 +187,7 @@ pipeline's fresh checkout checks every file.
 ## Decision
 
 Cache, for the lifetime of the session, the results of (a) **static config-file reads** and (b) **filesystem-scan-derived information**.
-Store the cache in module state per the language layer ([script-scope-caching](powershell/script-scope-caching.md)). Invalidate only by
+Store the cache in module state per the language layer ([script-scope-caching](../pwsh/script-scope-caching.md)). Invalidate only by
 re-running the importer. Never cache runtime state or objects callers mutate. Across sessions, cache only a quality check's clean verdicts,
 keyed on the file's content and every declared input of the check (ADR-AUTO-CACHE#10).
 
@@ -196,7 +196,7 @@ keyed on the file's content and every declared input of the check (ADR-AUTO-CACH
 `The storage idiom is the language layer`
 
 Where a cache lives, the keyed-hashtable code shape, and how tests interact with a cached function are the PowerShell layer,
-[script-scope-caching](powershell/script-scope-caching.md) (`ADR-AUTO-PSCACHE`): module `$script:` state — never `$env:` or `$global:` —
+[script-scope-caching](../pwsh/script-scope-caching.md) (`ADR-PWSH-CACHE`): module `$script:` state — never `$env:` or `$global:` —
 with `Get-Config` and `Get-BicepTemplates` as the exemplars. The compiled-type prebuild's own cache-key and staleness-guard rules live with
 the type system, [native-csharp-types](BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`).
 

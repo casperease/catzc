@@ -127,9 +127,9 @@ domains:
     description: >-
       The catzc CLI and module system and the rules for building it: devbox/pipeline parity, one function per file, open/closed growth,
       fail-fast assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, test automation, and the
-      merged, installable build. Language layers live in `powershell/`, `BCL/` (native C# types), and `go/` and `python/` (black-box test
-      artifacts). It turns the research, principles, process, and design domains into enforced code; the pipelines, github, and azure
-      domains build on it.
+      merged, installable build, stated for any execution engine. Language layers live in `BCL/` (native C# types) and `go/`, `python/`,
+      and `bash/` (black-box test artifacts). It turns the research, principles, process, and design domains into enforced code; the pwsh
+      domain realises it in PowerShell, and the pipelines, github, and azure domains build on it.
     depends_on: [research, principles, process, design]
     stack: AUTO
     concern: [automation] # the module system: loading, configuration, globsets
@@ -156,40 +156,56 @@ domains:
       tool-removal-lifecycle: { external: ADR-AUTO-REMOVE }
       controlling-module-dependencies: { external: ADR-AUTO-DEPM, terminology: depm }
       environment-variables: { external: ADR-AUTO-ENVVAR, terminology: envvar }
-      az-session-verification: { external: ADR-AZ-SESSION, code: AZ, terminology: sesverify, concern: [access] }
       path-representation: { external: ADR-AUTO-PATH }
       protected-globs: { external: ADR-REPO-PROTGLOB, code: REPO, terminology: protglob }
       managed-guids: { external: ADR-AUTO-GUIDS, terminology: guids }
       platform-bundle: { external: ADR-AUTO-BUNDLE, concern: [build, release] }
       internal-asset-dependencies: { external: ADR-AUTO-ASSETDEP, terminology: assetdep, concern: [automation, build] }
-      vendor-toolset-dependencies: { external: ADR-AUTO-VENDOR }
-      prefer-az-cli: { external: ADR-AUTO-AZCLI, terminology: azcli, concern: [deploy, access] }
-      one-function-per-file: { external: ADR-AUTO-ONEFUNC, terminology: onefunc }
-      prepost-extension-modules: { external: ADR-AUTO-PREPOST, terminology: prepost }
-      error-handling: { external: ADR-AUTO-ERROR }
-      avoid-using-semicolons: { external: ADR-AUTO-NOSEMI, terminology: nosemi }
       console-output-matters: { external: ADR-AUTO-CONSOLE }
-      announce-state-changes: { external: ADR-AUTO-ANNOUNCE }
-      prefer-foreach-over-foreach-object: { external: ADR-AUTO-FOREACH }
-      respect-pwsh-verb-rules: { external: ADR-AUTO-VERBS }
       spell-out-names: { external: ADR-AUTO-SPELL }
-      use-ps1-not-psm1: { external: ADR-AUTO-USEPS, terminology: useps }
-      automatic-variable-pitfalls: { external: ADR-AUTO-AUTOVAR, terminology: autovar }
-      powershell-formatting: { external: ADR-AUTO-PSFORMAT, terminology: psformat, concern: [quality-control] }
-      environment-variable-mechanics: { external: ADR-AUTO-PSENV, terminology: psenv }
-      module-path-hygiene: { external: ADR-AUTO-MODPATH, terminology: modpath }
-      parameter-design: { external: ADR-AUTO-PSPARAM, terminology: psparam }
-      working-directory-mechanics: { external: ADR-AUTO-PSPWD, terminology: pspwd }
-      cross-platform-powershell: { external: ADR-AUTO-PSXPLAT, terminology: psxplat }
-      dynamic-module-manifests: { external: ADR-AUTO-MANIFEST }
-      script-scope-caching: { external: ADR-AUTO-PSCACHE, terminology: pscache }
-      pester-testing: { external: ADR-AUTO-PESTER, concern: [quality-control] }
-      prefer-dryrun-over-shouldprocess: { external: ADR-AUTO-DRYRUN, terminology: dryrun }
+      dry-run: { external: ADR-AUTO-DRYRUN, terminology: dryrun }
       native-csharp-types: { external: ADR-AUTO-TYPES, concern: [automation, build] }
       test-artifacts: { external: ADR-AUTO-GO, concern: [quality-control] }
       python-test-artifacts: { external: ADR-AUTO-PY, concern: [quality-control] }
       bash-test-artifacts: { external: ADR-AUTO-BASH, concern: [quality-control] }
       execution-engines: { external: ADR-AUTO-ENGINE }
+
+  pwsh:
+    code: PWSH
+    role: implementation # one execution engine's realisation of the automation rules
+    description: >-
+      PowerShell 7 as one of catzc's execution engines: how the automation rules are realised in pwsh — module files and manifests,
+      parameter and error design, streams and console output, caching in script scope, working directory and environment mechanics,
+      cross-platform pwsh, the analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine and never redefines
+      them.
+    depends_on: [research, principles, process, design, automation]
+    stack: AUTO
+    concern: [automation] # the pwsh engine of the module system
+    rulesets:
+      pwsh-engine: { external: ADR-PWSH-ENGINE }
+      one-function-per-file: { external: ADR-PWSH-ONEFUNC, terminology: onefunc }
+      use-ps1-not-psm1: { external: ADR-PWSH-USEPS, terminology: useps }
+      dynamic-module-manifests: { external: ADR-PWSH-MANIFEST }
+      module-path-hygiene: { external: ADR-PWSH-MODPATH, terminology: modpath }
+      vendor-toolset-dependencies: { external: ADR-PWSH-VENDOR }
+      prepost-extension-modules: { external: ADR-PWSH-PREPOST, terminology: prepost }
+      error-handling: { external: ADR-PWSH-ERROR }
+      assert-idioms: { external: ADR-PWSH-ASSERT }
+      announce-state-changes: { external: ADR-PWSH-ANNOUNCE }
+      avoid-using-semicolons: { external: ADR-PWSH-NOSEMI, terminology: nosemi }
+      prefer-foreach-over-foreach-object: { external: ADR-PWSH-FOREACH }
+      automatic-variable-pitfalls: { external: ADR-PWSH-AUTOVAR, terminology: autovar }
+      respect-pwsh-verb-rules: { external: ADR-PWSH-VERBS }
+      prefer-dryrun-over-shouldprocess: { external: ADR-PWSH-DRYRUN }
+      identifier-names: { external: ADR-PWSH-NAMES }
+      powershell-formatting: { external: ADR-PWSH-FORMAT, terminology: psformat, concern: [quality-control] }
+      environment-variable-mechanics: { external: ADR-PWSH-ENV, terminology: psenv }
+      parameter-design: { external: ADR-PWSH-PARAM, terminology: psparam }
+      working-directory-mechanics: { external: ADR-PWSH-PWD, terminology: pspwd }
+      cross-platform-powershell: { external: ADR-PWSH-XPLAT, terminology: psxplat }
+      script-scope-caching: { external: ADR-PWSH-CACHE, terminology: pscache }
+      pester-testing: { external: ADR-PWSH-PESTER, concern: [quality-control] }
+      hosting-csharp-types: { external: ADR-PWSH-TYPES, concern: [automation, build] }
 
   configuration:
     code: CONF
@@ -249,6 +265,8 @@ domains:
       azure-data-model: { external: ADR-AZ-DATAMOD, terminology: datamod, concern: [deploy, access] }
       azure-network-model: { external: ADR-AZ-NETWORK }
       azure-naming-standard: { external: ADR-AZ-NAMING }
+      prefer-az-cli: { external: ADR-AZ-CLI, terminology: azcli, concern: [deploy, access] }
+      az-session-verification: { external: ADR-AZ-SESSION, terminology: sesverify, concern: [access] }
       azure-customer-model: { external: ADR-AZ-CUSTOMER }
       landing-zones: { external: ADR-AZ-LZ }
 

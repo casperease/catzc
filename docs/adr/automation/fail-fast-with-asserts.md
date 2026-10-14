@@ -6,16 +6,17 @@
 
 ### Rule ADR-AUTO-FAILFAST:1
 
-Assert inputs at function entry. Use `Assert-NotNullOrWhitespace`, `Assert-True`, `Assert-PathExist`, `Assert-TypeIs`, and other `Assert-*`
-functions to validate variables.
+Assert inputs at function entry. Before a function uses a value it receives, it validates that value through the toolset's assertion
+library (`Assert-NotNullOrWhitespace`, `Assert-True`, `Assert-PathExist`, `Assert-TypeIs`, and the other `Assert-*` functions), for
+everything its parameter declaration cannot express.
 
 - [The inline assertion pattern](#the-inline-assertion-pattern)
 - [In practice](#in-practice)
 
 ### Rule ADR-AUTO-FAILFAST:2
 
-Assert after every external call. After `Invoke-Executable`, `Get-Content`, API calls, or any operation that talks to the outside world,
-assert the result meets expectations before passing it downstream.
+Assert after every external call. After running an external tool, reading a file, calling an API, or any operation that talks to the outside
+world, assert the result meets expectations before passing it downstream.
 
 - [Why every fifth line](#why-every-fifth-line)
 - [In practice](#in-practice)
@@ -30,15 +31,15 @@ does not validate inputs and deliberately does not resolve `DependsOn` (an insta
 
 ### Rule ADR-AUTO-FAILFAST:4
 
-Use the `Assert-*` library, never inline `if/throw`. The library gives consistent, greppable error messages and makes assertion intent
-visible in review; bare `if (-not $x) { throw }` obscures it.
+Use the assertion library, never an inline check that raises its own error. The library gives consistent, greppable error messages and
+makes assertion intent visible in review; a bare conditional that fails on its own terms obscures it.
 
 - [The inline assertion pattern](#the-inline-assertion-pattern)
 
 ### Rule ADR-AUTO-FAILFAST:5
 
-Never catch assertion failures. Assertions indicate a bug or unmet precondition, not a recoverable error; let them propagate. Wrapping an
-assertion in `try`/`catch` means the assertion is wrong or the condition should be handled differently.
+Never catch assertion failures. Assertions indicate a bug or unmet precondition, not a recoverable error; let them propagate. An error
+handler around an assertion means the assertion is wrong or the condition should be handled differently.
 
 - [Decision](#decision)
 
@@ -62,20 +63,10 @@ carries an immutable budget GUID and is exempted in `timeout-exemptions.yml`, wh
 - [A hang is the slowest failure](#a-hang-is-the-slowest-failure)
 - [Bounding an agent's shell calls](#bounding-an-agents-shell-calls)
 
-### Rule ADR-AUTO-FAILFAST:8
-
-A function that bounds its own long-running work declares its limit beside its code, as a
-`[Catzc.Base.Timeouts.TimeLimit(<devbox seconds>, Pipeline = <seconds>)]` attribute on its param block, and takes it through
-`Get-TimeoutSeconds -Command <name>` — never a number literal as a parameter default. The limit resolves most specific first: an exemption
-for the decoration's budget GUID (`timeout-exemptions.yml`), then the command's entry under `commands` in `timeouts.yml`, then the
-decoration for the run environment, then the environment's pwsh default.
-
-- [A hang is the slowest failure](#a-hang-is-the-slowest-failure)
-
 ## Context
 
-PowerShell automation code is fundamentally about side effects — creating resources, calling APIs, installing tools, writing files. This
-makes it hard to test with traditional unit testing approaches:
+Automation code is fundamentally about side effects — creating resources, calling APIs, installing tools, writing files. This makes it hard
+to test with traditional unit testing approaches:
 
 - **Mocking is fragile and misleading.** You can mock `Invoke-Executable` to return a canned string, but that tells you nothing about
   whether the real CLI will behave the same way. Mock-heavy tests pass in CI and fail in production because the mock does not replicate the
@@ -96,50 +87,43 @@ systems. We need a strategy that matches this reality.
 Instead of relying solely on after-the-fact testing, we build quality _into_ the code itself with inline assertions. The principle: **assert
 every assumption at the point where it is made.** On average, roughly every fifth line of code should be an assertion.
 
-This is not a replacement for Pester tests — it is a complementary strategy. Pester tests verify behavior in controlled conditions. Inline
-assertions verify assumptions in _every_ execution, including production, including the edge cases no test anticipated.
+Each assumption is checked by a call into the assertion library, not by a hand-written conditional that raises its own error. The library
+call names its intent (`Assert-PathExist`, `Assert-NotNullOrWhitespace`), so a reviewer sees an assumption rather than control flow, and
+every failure carries the same structured, self-contained message, so an error is greppable and reads the same wherever it fires.
+
+This is not a replacement for tests — it is a complementary strategy. Tests verify behavior in controlled conditions. Inline assertions
+verify assumptions in _every_ execution, including production, including the edge cases no test anticipated.
 
 ### In practice
 
-```powershell
-function Invoke-Poetry {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory, Position = 0)]
-        [string] $Arguments
-    )
+A thin wrapper around an external tool shows the density. It takes one argument string, runs the tool, and returns its output, and it
+asserts four things on the way:
 
-    Assert-NotNullOrWhitespace $Arguments           # validate input, redundant because of Mandatory, but shown here for demo. Contract check with caller
-    Assert-Command poetry                           # tool exists. Contract check with system
-    Assert-ToolVersion -Tool 'Poetry'               # correct version. Contract check with system
-
-    $result = Invoke-Executable "poetry $Arguments" -PassThru
-    Assert-NotNullOrWhitespace $result              # got output. Contract check with integration: We got "something" rather than nothing.
-
-    $result
-}
-```
+1. the argument is not empty — a contract check with the caller, even where the parameter declaration already requires it;
+2. the tool is installed — a contract check with the system;
+3. the tool is at the expected version — a contract check with the system;
+4. the tool produced output — a contract check with the integration: it returned something rather than nothing.
 
 Five functional lines, four assertions. This is not excessive — it is the minimum needed to produce a clear error for every failure mode:
 
-- Caller passed empty arguments → immediate throw with parameter name
-- Poetry not installed → immediate throw naming the missing tool
-- Poetry is the wrong version → immediate throw with expected vs actual
-- Command produced no output → immediate throw at the source
+- Caller passed empty arguments → immediate failure with the parameter name
+- Poetry not installed → immediate failure naming the missing tool
+- Poetry is the wrong version → immediate failure with expected vs actual
+- Command produced no output → immediate failure at the source
 
-Without the assertions, all four failures eventually surface as something unhelpful: `Cannot index into a null array` three functions down
-the call stack, or a silent empty result that corrupts downstream state.
+Without the assertions, all four failures eventually surface as something unhelpful: a null-reference error three functions down the call
+stack, or a silent empty result that corrupts downstream state.
 
 ### Why every fifth line
 
 The ratio is a guideline, not a rigid rule. The point is that assertions should be _pervasive_, not sprinkled in as an afterthought. Code
 that goes 20 lines without an assertion is almost certainly making unchecked assumptions. Common assertion points:
 
-- **Function entry.** Validate parameters beyond what `[Parameter]` attributes can express. Check that paths exist, strings are non-empty,
+- **Function entry.** Validate parameters beyond what the parameter declaration can express. Check that paths exist, strings are non-empty,
   objects have expected properties.
 
-- **After external calls.** CLI tools, APIs, and file operations can fail in ways that do not throw — non-zero exit codes, empty responses,
-  partial writes. Assert the result is what you expected.
+- **After external calls.** CLI tools, APIs, and file operations can fail in ways that do not raise an error — non-zero exit codes, empty
+  responses, partial writes. Assert the result is what you expected.
 
 - **Before using a value.** If a variable could be null, empty, or the wrong type, assert before using it. Do not trust upstream code to
   have validated it — the upstream code might change.
@@ -168,12 +152,11 @@ managed-GUID registry ([ADR-AUTO-GUIDS](managed-guids.md)), one at a time or as 
 reason. It raises the budget's limit to a ceiling and never removes it, and a gate that must not run exempt says so with
 `Assert-IsNotTimeoutExempt`.
 
-A function whose own work is long by nature — a full test run, a build — knows its limit better than any config, so it declares it where it
-is written, as a `TimeLimit` attribute on its param block (ADR-AUTO-FAILFAST#8). A number literal as a parameter default would say the same
-thing where nothing reads it: config cannot tune it, the environment cannot change it, and a reader cannot find it. The decoration keeps the
-value beside the code and still lets the more specific settings win in order — an exemption while the work is tuned, a `commands` entry when
-a machine needs a different value, the decoration otherwise, and the environment's default for a function that declares nothing. Each
-setting is current and states something different; none is a fallback for an old shape.
+A function whose own work is long by nature — a full test run, a build — knows its limit better than any config, so it declares that limit
+beside its own code rather than as a number literal in a default, where config cannot tune it, the environment cannot change it, and a
+reader cannot find it. The more specific settings win in order — an exemption while the work is tuned, a `commands` entry in
+`timeouts.yml` when a machine needs a different value, the function's own declaration otherwise, and the environment's default for a
+function that declares nothing. Each setting is current and states something different; none is a fallback for an old shape.
 
 ### Bounding an agent's shell calls
 
@@ -193,7 +176,8 @@ The hook compiles the module's own config and verdict types (`TimeoutsConfig`, `
 ## Decision
 
 Use inline assertions pervasively throughout all automation code. Every assumption about inputs, state, and external results must be
-asserted at the point where the assumption is made, and every wait is bounded by a configured time limit.
+asserted at the point where the assumption is made, through the assertion library, and an assertion failure is never caught; every wait is
+bounded by a configured time limit.
 
 ## Consequences
 
@@ -206,4 +190,4 @@ asserted at the point where the assumption is made, and every wait is bounded by
 - Code is self-documenting: reading the assertions tells you the function's preconditions, postconditions, and invariants.
 - Performance cost is negligible — assertions are simple boolean checks. The cost of _not_ asserting (silent corruption, misleading errors,
   hours of debugging) is orders of magnitude higher.
-- Pester tests focus on behavior and integration, not on re-checking assumptions that the code already asserts on every execution.
+- Tests focus on behavior and integration, not on re-checking assumptions that the code asserts on every execution.
