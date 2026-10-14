@@ -83,8 +83,8 @@ the densest documentation a reader gets, and an abbreviated name spends that bud
 ### Why this matters
 
 **A name is read many times and written once.** `protos` saves five keystrokes the day it is typed and charges a small translation tax to
-every later reader. Translation is where bugs hide: `protos` and `ports` blur together at a glance, while `protocols` and `ports` do not. The
-full word is self-describing; the abbreviation is a puzzle whose answer lives only in the author's head.
+every later reader. Translation is where bugs hide: `protos` and `ports` blur together at a glance, while `protocols` and `ports` do not.
+The full word is self-describing; the abbreviation is a puzzle whose answer lives only in the author's head.
 
 **Local abbreviations fragment the vocabulary.** Left to invention, one file's `cfg` is another's `conf` is another's `settings`; one `rcg`
 means "rule collection group" and nothing to anyone else. Full words converge — everyone writes `configuration` the same way — so the
@@ -117,15 +117,15 @@ conventions for those names are [identifier-names](../pwsh/identifier-names.md).
 
 Two automatic backstops cover different reaches, and it is worth being precise about each. The shared spell-checker (`cspell.yml`, run by
 `Test-Spelling`) flags a coined token none of its dictionaries recognize, but its `minWordLength` (4) lets short tokens through: `ctx`,
-`rcg`, and `tmpl` all pass cspell. The identifier-level analyzer rule
-([ADR-PWSH-NAMES#1](../pwsh/identifier-names.md#rule-adr-pwsh-names1)) closes that gap — it tokenizes identifiers and checks every fragment
-with no length floor against the same corpus (cspell's English words plus the registry terms), so the short and compound coined
-abbreviations cspell misses (`rcg`, `tfPath`, `perSubEnvs`) are caught automatically. What neither can catch is an abbreviation that is
-_also_ a real dictionary word — `spec`, `info` — since membership alone cannot tell a truncation from a short word; those stay a code-review
-concern. When either gate flags a token, there are two honest resolutions: spell it out, or — when it is a genuine product term or a
-conventional abbreviation worth blessing — add a deliberate, reviewed entry to the terminology registry (ADR-AUTO-SPELL#5). Dropping a
-one-off local invention into the vocabulary just to clear the gate is the anti-pattern this rule forbids; adding a genuinely conventional
-abbreviation as a categorized registry entry is the opposite — a reviewed decision the whole team then shares.
+`rcg`, and `tmpl` all pass cspell. The identifier-level analyzer rule ([ADR-PWSH-NAMES#1](../pwsh/identifier-names.md#rule-adr-pwsh-names1))
+closes that gap — it tokenizes identifiers and checks every fragment with no length floor against the same corpus (cspell's English words
+plus the registry terms), so the short and compound coined abbreviations cspell misses (`rcg`, `tfPath`, `perSubEnvs`) are caught
+automatically. What neither can catch is an abbreviation that is _also_ a real dictionary word — `spec`, `info` — since membership alone
+cannot tell a truncation from a short word; those stay a code-review concern. When either gate flags a token, there are two honest
+resolutions: spell it out, or — when it is a genuine product term or a conventional abbreviation worth blessing — add a deliberate, reviewed
+entry to the terminology registry (ADR-AUTO-SPELL#5). Dropping a one-off local invention into the vocabulary just to clear the gate is the
+anti-pattern this rule forbids; adding a genuinely conventional abbreviation as a categorized registry entry is the opposite — a reviewed
+decision the whole team then shares.
 
 ### Identifiers, not data
 
@@ -169,9 +169,8 @@ enter except as a reviewed entry, and an unreferenced entry cannot remain.
 Spell out identifier names in full. Abbreviate only the universal acronyms and loop indices in ADR-AUTO-SPELL#2, and coin nothing local. A
 product term worth keeping is added to the terminology registry and used consistently; everything else is written as the real, whole word.
 
-This is the variable-and-parameter complement to the function-naming rules in
-[respect-pwsh-verb-rules](../pwsh/respect-pwsh-verb-rules.md): verbs gives functions a shared, spelled-out vocabulary, and this gives the
-same to the names inside them.
+This is the variable-and-parameter complement to the function-naming rules in [respect-pwsh-verb-rules](../pwsh/respect-pwsh-verb-rules.md):
+verbs gives functions a shared, spelled-out vocabulary, and this gives the same to the names inside them.
 
 ### How this is enforced
 

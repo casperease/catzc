@@ -114,69 +114,84 @@ detect their context, and how globsets project into native trigger filters. The 
 
 The catzc CLI and module system and the rules for building it: devbox/pipeline parity, one function per file, open/closed growth, fail-fast
 assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, test automation, and the merged, installable
-build. Language layers live in `powershell/`, `BCL/` (native C# types), and `go/` and `python/` (black-box test artifacts). It turns the
-research, principles, process, and design domains into enforced code; the pipelines, github, and azure domains build on it.
+build, stated for any execution engine. Language layers live in `BCL/` (native C# types) and `go/`, `python/`, and `bash/` (black-box test
+artifacts). It turns the research, principles, process, and design domains into enforced code; the pwsh domain realises it in PowerShell,
+and the pipelines, github, and azure domains build on it.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`.
 
-| Code                | ADR                                                                                               |
-| ------------------- | ------------------------------------------------------------------------------------------------- |
-| `ADR-AUTO-PARITY`   | [devbox-pipeline-parity](automation/devbox-pipeline-parity.md)                                    |
-| `ADR-AUTO-UVPY`     | [uv-python-handler](automation/uv-python-handler.md)                                              |
-| `ADR-AUTO-PRELOG`   | [log-before-invoke](automation/log-before-invoke.md)                                              |
-| `ADR-AUTO-RETRY`    | [retry-as-last-resort](automation/retry-as-last-resort.md)                                        |
-| `ADR-AUTO-EXTEND`   | [open-closed-architecture](automation/open-closed-architecture.md)                                |
-| `ADR-AUTO-ZERO`     | [zero-ceremony-poka-yoke](automation/zero-ceremony-poka-yoke.md)                                  |
-| `ADR-AUTO-NOPWD`    | [never-depend-on-pwd](automation/never-depend-on-pwd.md)                                          |
-| `ADR-AUTO-NONEST`   | [avoid-deep-nesting](automation/avoid-deep-nesting.md)                                            |
-| `ADR-AUTO-TEST`     | [test-automation](automation/test-automation.md)                                                  |
-| `ADR-AUTO-XPLAT`    | [cross-platform](automation/cross-platform.md)                                                    |
-| `ADR-AUTO-ONEJOB`   | [single-responsibility-functions](automation/single-responsibility-functions.md)                  |
-| `ADR-AUTO-CACHE`    | [caching](automation/caching.md)                                                                  |
-| `ADR-AUTO-TRACKED`  | [tracked-files-from-the-index](automation/tracked-files-from-the-index.md)                        |
-| `ADR-AUTO-DEFAULT`  | [sensible-defaults](automation/sensible-defaults.md)                                              |
-| `ADR-AUTO-FAILFAST` | [fail-fast-with-asserts](automation/fail-fast-with-asserts.md)                                    |
-| `ADR-AUTO-IDEM`     | [idempotent-state-functions](automation/idempotent-state-functions.md)                            |
-| `ADR-AUTO-PKGMGR`   | [use-proper-package-managers](automation/use-proper-package-managers.md)                          |
-| `ADR-AUTO-ENTERP`   | [effective-in-enterprises](automation/effective-in-enterprises.md)                                |
-| `ADR-AUTO-DEPS`     | [controlling-systemwide-deps](automation/controlling-systemwide-deps.md)                          |
-| `ADR-AUTO-REMOVE`   | [tool-removal-lifecycle](automation/tool-removal-lifecycle.md)                                    |
-| `ADR-AUTO-DEPM`     | [controlling-module-dependencies](automation/controlling-module-dependencies.md)                  |
-| `ADR-AUTO-ENVVAR`   | [environment-variables](automation/environment-variables.md)                                      |
-| `ADR-AZ-SESSION`    | [az-session-verification](automation/az-session-verification.md)                                  |
-| `ADR-AUTO-PATH`     | [path-representation](automation/path-representation.md)                                          |
-| `ADR-REPO-PROTGLOB` | [protected-globs](automation/protected-globs.md)                                                  |
-| `ADR-AUTO-GUIDS`    | [managed-guids](automation/managed-guids.md)                                                      |
-| `ADR-AUTO-BUNDLE`   | [platform-bundle](automation/platform-bundle.md)                                                  |
-| `ADR-AUTO-ASSETDEP` | [internal-asset-dependencies](automation/internal-asset-dependencies.md)                          |
-| `ADR-AUTO-VENDOR`   | [vendor-toolset-dependencies](automation/powershell/vendor-toolset-dependencies.md)               |
-| `ADR-AUTO-AZCLI`    | [prefer-az-cli](automation/powershell/prefer-az-cli.md)                                           |
-| `ADR-AUTO-ONEFUNC`  | [one-function-per-file](automation/powershell/one-function-per-file.md)                           |
-| `ADR-AUTO-PREPOST`  | [prepost-extension-modules](automation/powershell/prepost-extension-modules.md)                   |
-| `ADR-AUTO-ERROR`    | [error-handling](automation/powershell/error-handling.md)                                         |
-| `ADR-AUTO-NOSEMI`   | [avoid-using-semicolons](automation/powershell/avoid-using-semicolons.md)                         |
-| `ADR-AUTO-CONSOLE`  | [console-output-matters](automation/powershell/console-output-matters.md)                         |
-| `ADR-AUTO-ANNOUNCE` | [announce-state-changes](automation/powershell/announce-state-changes.md)                         |
-| `ADR-AUTO-FOREACH`  | [prefer-foreach-over-foreach-object](automation/powershell/prefer-foreach-over-foreach-object.md) |
-| `ADR-AUTO-VERBS`    | [respect-pwsh-verb-rules](automation/powershell/respect-pwsh-verb-rules.md)                       |
-| `ADR-AUTO-SPELL`    | [spell-out-names](automation/powershell/spell-out-names.md)                                       |
-| `ADR-AUTO-USEPS`    | [use-ps1-not-psm1](automation/powershell/use-ps1-not-psm1.md)                                     |
-| `ADR-AUTO-AUTOVAR`  | [automatic-variable-pitfalls](automation/powershell/automatic-variable-pitfalls.md)               |
-| `ADR-AUTO-PSFORMAT` | [powershell-formatting](automation/powershell/powershell-formatting.md)                           |
-| `ADR-AUTO-PSENV`    | [environment-variable-mechanics](automation/powershell/environment-variable-mechanics.md)         |
-| `ADR-AUTO-MODPATH`  | [module-path-hygiene](automation/powershell/module-path-hygiene.md)                               |
-| `ADR-AUTO-PSPARAM`  | [parameter-design](automation/powershell/parameter-design.md)                                     |
-| `ADR-AUTO-PSPWD`    | [working-directory-mechanics](automation/powershell/working-directory-mechanics.md)               |
-| `ADR-AUTO-PSXPLAT`  | [cross-platform-powershell](automation/powershell/cross-platform-powershell.md)                   |
-| `ADR-AUTO-MANIFEST` | [dynamic-module-manifests](automation/powershell/dynamic-module-manifests.md)                     |
-| `ADR-AUTO-PSCACHE`  | [script-scope-caching](automation/powershell/script-scope-caching.md)                             |
-| `ADR-AUTO-PESTER`   | [pester-testing](automation/powershell/pester-testing.md)                                         |
-| `ADR-AUTO-DRYRUN`   | [prefer-dryrun-over-shouldprocess](automation/powershell/prefer-dryrun-over-shouldprocess.md)     |
-| `ADR-AUTO-TYPES`    | [native-csharp-types](automation/BCL/native-csharp-types.md)                                      |
-| `ADR-AUTO-GO`       | [test-artifacts](automation/go/test-artifacts.md)                                                 |
-| `ADR-AUTO-PY`       | [python-test-artifacts](automation/python/python-test-artifacts.md)                               |
-| `ADR-AUTO-BASH`     | [bash-test-artifacts](automation/bash/bash-test-artifacts.md)                                     |
-| `ADR-AUTO-ENGINE`   | [execution-engines](automation/execution-engines.md)                                              |
+| Code                | ADR                                                                              |
+| ------------------- | -------------------------------------------------------------------------------- |
+| `ADR-AUTO-PARITY`   | [devbox-pipeline-parity](automation/devbox-pipeline-parity.md)                   |
+| `ADR-AUTO-UVPY`     | [uv-python-handler](automation/uv-python-handler.md)                             |
+| `ADR-AUTO-PRELOG`   | [log-before-invoke](automation/log-before-invoke.md)                             |
+| `ADR-AUTO-RETRY`    | [retry-as-last-resort](automation/retry-as-last-resort.md)                       |
+| `ADR-AUTO-EXTEND`   | [open-closed-architecture](automation/open-closed-architecture.md)               |
+| `ADR-AUTO-ZERO`     | [zero-ceremony-poka-yoke](automation/zero-ceremony-poka-yoke.md)                 |
+| `ADR-AUTO-NOPWD`    | [never-depend-on-pwd](automation/never-depend-on-pwd.md)                         |
+| `ADR-AUTO-NONEST`   | [avoid-deep-nesting](automation/avoid-deep-nesting.md)                           |
+| `ADR-AUTO-TEST`     | [test-automation](automation/test-automation.md)                                 |
+| `ADR-AUTO-XPLAT`    | [cross-platform](automation/cross-platform.md)                                   |
+| `ADR-AUTO-ONEJOB`   | [single-responsibility-functions](automation/single-responsibility-functions.md) |
+| `ADR-AUTO-CACHE`    | [caching](automation/caching.md)                                                 |
+| `ADR-AUTO-TRACKED`  | [tracked-files-from-the-index](automation/tracked-files-from-the-index.md)       |
+| `ADR-AUTO-DEFAULT`  | [sensible-defaults](automation/sensible-defaults.md)                             |
+| `ADR-AUTO-FAILFAST` | [fail-fast-with-asserts](automation/fail-fast-with-asserts.md)                   |
+| `ADR-AUTO-IDEM`     | [idempotent-state-functions](automation/idempotent-state-functions.md)           |
+| `ADR-AUTO-PKGMGR`   | [use-proper-package-managers](automation/use-proper-package-managers.md)         |
+| `ADR-AUTO-ENTERP`   | [effective-in-enterprises](automation/effective-in-enterprises.md)               |
+| `ADR-AUTO-DEPS`     | [controlling-systemwide-deps](automation/controlling-systemwide-deps.md)         |
+| `ADR-AUTO-REMOVE`   | [tool-removal-lifecycle](automation/tool-removal-lifecycle.md)                   |
+| `ADR-AUTO-DEPM`     | [controlling-module-dependencies](automation/controlling-module-dependencies.md) |
+| `ADR-AUTO-ENVVAR`   | [environment-variables](automation/environment-variables.md)                     |
+| `ADR-AUTO-PATH`     | [path-representation](automation/path-representation.md)                         |
+| `ADR-REPO-PROTGLOB` | [protected-globs](automation/protected-globs.md)                                 |
+| `ADR-AUTO-GUIDS`    | [managed-guids](automation/managed-guids.md)                                     |
+| `ADR-AUTO-BUNDLE`   | [platform-bundle](automation/platform-bundle.md)                                 |
+| `ADR-AUTO-ASSETDEP` | [internal-asset-dependencies](automation/internal-asset-dependencies.md)         |
+| `ADR-AUTO-CONSOLE`  | [console-output-matters](automation/console-output-matters.md)                   |
+| `ADR-AUTO-SPELL`    | [spell-out-names](automation/spell-out-names.md)                                 |
+| `ADR-AUTO-DRYRUN`   | [dry-run](automation/dry-run.md)                                                 |
+| `ADR-AUTO-TYPES`    | [native-csharp-types](automation/BCL/native-csharp-types.md)                     |
+| `ADR-AUTO-GO`       | [test-artifacts](automation/go/test-artifacts.md)                                |
+| `ADR-AUTO-PY`       | [python-test-artifacts](automation/python/python-test-artifacts.md)              |
+| `ADR-AUTO-BASH`     | [bash-test-artifacts](automation/bash/bash-test-artifacts.md)                    |
+| `ADR-AUTO-ENGINE`   | [execution-engines](automation/execution-engines.md)                             |
+
+### pwsh/
+
+PowerShell 7 as one of catzc's execution engines: how the automation rules are realised in pwsh — module files and manifests, parameter and
+error design, streams and console output, caching in script scope, working directory and environment mechanics, cross-platform pwsh, the
+analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine and never redefines them.
+
+**Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`.
+
+| Code                | ADR                                                                              |
+| ------------------- | -------------------------------------------------------------------------------- |
+| `ADR-PWSH-ENGINE`   | [pwsh-engine](pwsh/pwsh-engine.md)                                               |
+| `ADR-PWSH-ONEFUNC`  | [one-function-per-file](pwsh/one-function-per-file.md)                           |
+| `ADR-PWSH-USEPS`    | [use-ps1-not-psm1](pwsh/use-ps1-not-psm1.md)                                     |
+| `ADR-PWSH-MANIFEST` | [dynamic-module-manifests](pwsh/dynamic-module-manifests.md)                     |
+| `ADR-PWSH-MODPATH`  | [module-path-hygiene](pwsh/module-path-hygiene.md)                               |
+| `ADR-PWSH-VENDOR`   | [vendor-toolset-dependencies](pwsh/vendor-toolset-dependencies.md)               |
+| `ADR-PWSH-PREPOST`  | [prepost-extension-modules](pwsh/prepost-extension-modules.md)                   |
+| `ADR-PWSH-ERROR`    | [error-handling](pwsh/error-handling.md)                                         |
+| `ADR-PWSH-ASSERT`   | [assert-idioms](pwsh/assert-idioms.md)                                           |
+| `ADR-PWSH-ANNOUNCE` | [announce-state-changes](pwsh/announce-state-changes.md)                         |
+| `ADR-PWSH-NOSEMI`   | [avoid-using-semicolons](pwsh/avoid-using-semicolons.md)                         |
+| `ADR-PWSH-FOREACH`  | [prefer-foreach-over-foreach-object](pwsh/prefer-foreach-over-foreach-object.md) |
+| `ADR-PWSH-AUTOVAR`  | [automatic-variable-pitfalls](pwsh/automatic-variable-pitfalls.md)               |
+| `ADR-PWSH-VERBS`    | [respect-pwsh-verb-rules](pwsh/respect-pwsh-verb-rules.md)                       |
+| `ADR-PWSH-DRYRUN`   | [prefer-dryrun-over-shouldprocess](pwsh/prefer-dryrun-over-shouldprocess.md)     |
+| `ADR-PWSH-NAMES`    | [identifier-names](pwsh/identifier-names.md)                                     |
+| `ADR-PWSH-FORMAT`   | [powershell-formatting](pwsh/powershell-formatting.md)                           |
+| `ADR-PWSH-ENV`      | [environment-variable-mechanics](pwsh/environment-variable-mechanics.md)         |
+| `ADR-PWSH-PARAM`    | [parameter-design](pwsh/parameter-design.md)                                     |
+| `ADR-PWSH-PWD`      | [working-directory-mechanics](pwsh/working-directory-mechanics.md)               |
+| `ADR-PWSH-XPLAT`    | [cross-platform-powershell](pwsh/cross-platform-powershell.md)                   |
+| `ADR-PWSH-CACHE`    | [script-scope-caching](pwsh/script-scope-caching.md)                             |
+| `ADR-PWSH-PESTER`   | [pester-testing](pwsh/pester-testing.md)                                         |
+| `ADR-PWSH-TYPES`    | [hosting-csharp-types](pwsh/hosting-csharp-types.md)                             |
 
 ### configuration/
 
@@ -227,13 +242,15 @@ per-template configuration tree under `infrastructure/templates/`, the customer 
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `design`, `automation`.
 
-| Code              | ADR                                                     |
-| ----------------- | ------------------------------------------------------- |
-| `ADR-AZ-DATAMOD`  | [azure-data-model](azure/azure-data-model.md)           |
-| `ADR-AZ-NETWORK`  | [azure-network-model](azure/azure-network-model.md)     |
-| `ADR-AZ-NAMING`   | [azure-naming-standard](azure/azure-naming-standard.md) |
-| `ADR-AZ-CUSTOMER` | [azure-customer-model](azure/azure-customer-model.md)   |
-| `ADR-AZ-LZ`       | [landing-zones](azure/landing-zones.md)                 |
+| Code              | ADR                                                         |
+| ----------------- | ----------------------------------------------------------- |
+| `ADR-AZ-DATAMOD`  | [azure-data-model](azure/azure-data-model.md)               |
+| `ADR-AZ-NETWORK`  | [azure-network-model](azure/azure-network-model.md)         |
+| `ADR-AZ-NAMING`   | [azure-naming-standard](azure/azure-naming-standard.md)     |
+| `ADR-AZ-CLI`      | [prefer-az-cli](azure/prefer-az-cli.md)                     |
+| `ADR-AZ-SESSION`  | [az-session-verification](azure/az-session-verification.md) |
+| `ADR-AZ-CUSTOMER` | [azure-customer-model](azure/azure-customer-model.md)       |
+| `ADR-AZ-LZ`       | [landing-zones](azure/landing-zones.md)                     |
 
 ### repository/
 

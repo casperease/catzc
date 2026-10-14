@@ -67,9 +67,9 @@ one of the language's true strengths.
 
 **Verbs are a shared vocabulary.** When a user sees `Get-`, they know it reads without modifying. When they see `Set-`, they know it writes.
 When they see `Test-`, they know it either answers a value or state question with a boolean, or is a quality gate
-([ADR-AUTO-TEST#35](../automation/test-automation.md#rule-adr-auto-test35), ADR-PWSH-VERBS#7) that reports every issue and throws. When
-they see `Assert-`, they know it throws on failure. This contract is universal across every PowerShell module, every vendor, every team. A
-user who has never seen your code can predict what `Get-Config` does from the verb alone.
+([ADR-AUTO-TEST#35](../automation/test-automation.md#rule-adr-auto-test35), ADR-PWSH-VERBS#7) that reports every issue and throws. When they
+see `Assert-`, they know it throws on failure. This contract is universal across every PowerShell module, every vendor, every team. A user
+who has never seen your code can predict what `Get-Config` does from the verb alone.
 
 **Verbs encode behavior guarantees.** The approved verbs are not just naming conventions — they carry semantic promises:
 
@@ -214,10 +214,10 @@ Most `Test-` functions are predicates — `Test-Path`, `Test-Command`, `Test-IsR
 boolean and never throw. The repository's quality gates are different in kind. `Test-Automation`, `Test-Spelling`, `Test-ScriptAnalyzer`,
 `Test-Markdownlint`, and `Test-Formatting` each run a body of checks and exist to **fail the build** when those checks fail — throwing is
 their job, not a broken contract. They expose the boolean-shaped answer through `-PassThru`, which returns a result object (issue counts,
-report path) for a caller that wants to branch rather than break. The distinction is in the noun: `Test-Path` names a condition to
-evaluate; `Test-Spelling` names a corpus to verify and a gate to enforce. Naming these `Assert-` would be defensible, but `Test-<Area>`
-reads as the CI gate it is and keeps the gate family under one discoverable verb. This is the one place `Test-`-and-throw is correct; a
-genuine predicate that throws is a bug.
+report path) for a caller that wants to branch rather than break. The distinction is in the noun: `Test-Path` names a condition to evaluate;
+`Test-Spelling` names a corpus to verify and a gate to enforce. Naming these `Assert-` would be defensible, but `Test-<Area>` reads as the
+CI gate it is and keeps the gate family under one discoverable verb. This is the one place `Test-`-and-throw is correct; a genuine predicate
+that throws is a bug.
 
 ## Decision
 

@@ -70,21 +70,22 @@ honours, so typing `$x` at the prompt shows those properties.
 ## Context
 
 [native-csharp-types](../automation/BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`) decides what the C# types are: one type per file, a
-namespace per module, one combined assembly committed under a hash name, a fixed internal model, console-ready text. Every one of those types
-runs inside a pwsh process, which compiles the assembly, loads it, and hands its objects to PowerShell code. This ADR is how that host binds
-the types: which compiler, which references, which names pwsh callers type, and what a running pwsh can and cannot do with a changed type.
+namespace per module, one combined assembly committed under a hash name, a fixed internal model, console-ready text. Every one of those
+types runs inside a pwsh process, which compiles the assembly, loads it, and hands its objects to PowerShell code. This ADR is how that host
+binds the types: which compiler, which references, which names pwsh callers type, and what a running pwsh can and cannot do with a changed
+type.
 
 ### The compiler
 
 `Add-Type is the compiler`
 
-`Add-Type` is in every pwsh, needs no SDK, and compiles a source set into the running process in under a second, so the importer can
-compile on a fresh edit with nothing installed beyond pwsh. Its limit is the assembly name: `Add-Type` assigns a **random** one (verified —
-`Add-Type -OutputAssembly` produces e.g. `khuvslfy.cez`, and a rebuild of an unchanged source produces a _different_ random name), and has
-no knob for a stable one. One assembly per module would bake a dependency's random name into each dependent and dangle on the next rebuild,
-which is why the types compile into one combined assembly (ADR-AUTO-TYPES#3). That assembly is a leaf of the reference graph, and pwsh
-resolves `[Namespace.Type]` by fully-qualified name, so its random name is harmless: no `dotnet`/`csc` build step, no topological compile
-order, no transitive references.
+`Add-Type` is in every pwsh, needs no SDK, and compiles a source set into the running process in under a second, so the importer can compile
+on a fresh edit with nothing installed beyond pwsh. Its limit is the assembly name: `Add-Type` assigns a **random** one (verified —
+`Add-Type -OutputAssembly` produces e.g. `khuvslfy.cez`, and a rebuild of a source that is unchanged produces a _different_ random name),
+and has no knob for a stable one. One assembly per module would bake a dependency's random name into each dependent and dangle on the next
+rebuild, which is why the types compile into one combined assembly (ADR-AUTO-TYPES#3). That assembly is a leaf of the reference graph, and
+pwsh resolves `[Namespace.Type]` by fully-qualified name, so its random name is harmless: no `dotnet`/`csc` build step, no topological
+compile order, no transitive references.
 
 The editor's `dotnet build` of the IDE project is a second compile of the same sources, for analysis and navigation only; the runtime never
 builds the project.
@@ -178,8 +179,8 @@ named for everyone else. The console text is C#, because that is the one pwsh's 
   `[Catzc.Base.Objects.ConsoleDisplay]` property list as the type's default display (ADR-PWSH-TYPES#7). `Import-CSharpTypes.Tests.ps1`
   asserts a decorated type's accelerator resolves after load.
 - **`Restart-ImporterSession`**, decided by `Test-ImporterRestartAllowed`, starts the new pwsh for a person (ADR-PWSH-TYPES#5).
-- **`Catzc.Types.csproj`** carries the `System.Management.Automation` reference compile-time-only (ADR-PWSH-TYPES#4); a reference beyond
-  the default set fails the runtime compile, because `Add-Type` cannot see it (ADR-PWSH-TYPES#1).
+- **`Catzc.Types.csproj`** carries the `System.Management.Automation` reference compile-time-only (ADR-PWSH-TYPES#4); a reference beyond the
+  default set fails the runtime compile, because `Add-Type` cannot see it (ADR-PWSH-TYPES#1).
 - **`Test-ShippedTypes`** fails a concrete shipped class that keeps the inherited `ToString()` (ADR-PWSH-TYPES#7).
 
 ## Consequences

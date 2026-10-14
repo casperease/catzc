@@ -16,8 +16,8 @@ decoration for the run environment, then the environment's pwsh default (ADR-AUT
 
 ### Rule ADR-PWSH-ASSERT:2
 
-In pwsh, the entry assertions of ADR-AUTO-FAILFAST#1 are `Assert-*` calls at the top of the function body, directly after the `param`
-block and before any statement that uses a parameter, for what the `[Parameter]` and `Validate*` attributes do not express.
+In pwsh, the entry assertions of ADR-AUTO-FAILFAST#1 are `Assert-*` calls at the top of the function body, directly after the `param` block
+and before any statement that uses a parameter, for what the `[Parameter]` and `Validate*` attributes do not express.
 
 - [Guard placement](#guard-placement)
 
@@ -88,15 +88,15 @@ function Invoke-Poetry {
 ```
 
 The entry guards sit directly after the `param` block, so a reader sees the function's preconditions before its work. They cover what the
-parameter attributes cannot: `[Parameter(Mandatory)]` rejects a missing argument but not a whitespace one, and `[ValidateScript]` runs
-again on every reassignment ([automatic-variable-pitfalls](automatic-variable-pitfalls.md#rule-adr-pwsh-autovar7)), so a check that has to
-hold once, at entry, is an assertion. The output guard follows the external call on the next line, before `$result` leaves the function.
+parameter attributes cannot: `[Parameter(Mandatory)]` rejects a missing argument but not a whitespace one, and `[ValidateScript]` runs again
+on every reassignment ([automatic-variable-pitfalls](automatic-variable-pitfalls.md#rule-adr-pwsh-autovar7)), so a check that has to hold
+once, at entry, is an assertion. The output guard follows the external call on the next line, before `$result` leaves the function.
 
 ### Catching an assertion
 
 An assertion failure is a bug or an unmet precondition, so nothing in a function catches it: a `try`/`catch` around `Assert-PathExist`
-either hides a broken assumption or says the condition was never an assumption, and should have been a `Test-*` call and a branch. Tests
-are different by design: they prove the assertion fires, and `Should -Throw` catches the failure to compare its message
+either hides a broken assumption or says the condition was never an assumption, and should have been a `Test-*` call and a branch. Tests are
+different by design: they prove the assertion fires, and `Should -Throw` catches the failure to compare its message
 ([pester-testing](pester-testing.md)).
 
 ### The TimeLimit attribute
@@ -128,8 +128,7 @@ function that bounds its own long work declares its limit with the `TimeLimit` a
 
 - **`Catzc.Base.Asserts`** — the `Assert-*` library, the one way a precondition is checked.
 - **`Catzc.Base.Timeouts.TimeLimitAttribute`** — rejects a limit that is not a positive whole number of seconds, or a pipeline limit below
-  the devbox one, when the function is defined; **`Get-TimeoutSeconds -Command`** reads the decoration in the order of
-  ADR-PWSH-ASSERT#1.
+  the devbox one, when the function is defined; **`Get-TimeoutSeconds -Command`** reads the decoration in the order of ADR-PWSH-ASSERT#1.
 - **Code review** — guard placement, an inline `if`/`throw` that should be an assertion, a `try`/`catch` around an assertion, and a number
   literal as a timeout default are review concerns, against this ADR.
 

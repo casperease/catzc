@@ -98,11 +98,10 @@ deletion.
 ### Rule ADR-AUTO-TYPES:12
 
 The stale-types guard — the source changed since it was loaded, so restart — is keyed by `ModulesRoot`. `Import-CSharpTypes` takes the tree
-as a parameter,
-and one session may load more than one tree (the real `automation/` plus the test-fixture trees), so the per-session record of loaded hash
-and file snapshot is stored per resolved root. A load from one root therefore never makes a re-import of another root falsely report a
-change — without this, a test run (which loads fixture trees) would poison the next real import's guard. The thrown message names the
-drifted files and both hashes so the cause is diagnosable from the error text alone.
+as a parameter, and one session may load more than one tree (the real `automation/` plus the test-fixture trees), so the per-session record
+of loaded hash and file snapshot is stored per resolved root. A load from one root therefore never makes a re-import of another root falsely
+report a change — without this, a test run (which loads fixture trees) would poison the next real import's guard. The thrown message names
+the drifted files and both hashes so the cause is diagnosable from the error text alone.
 
 - [The cache-state contract](#the-cache-state-contract)
 
@@ -126,10 +125,10 @@ it.
 ### Rule ADR-AUTO-TYPES:14
 
 Every concrete type a caller can hold renders console-ready: it overrides `ToString()`, normally as the one line
-`public override string ToString() => this.ToConsoleString();`, so its string form and a table cell read `TypeName { A = 1, B = x }`
-instead of the fully-qualified name. The rendering lives once, in `Catzc.Base.Objects.ConsoleText`, and `DictionaryRecord` carries the
-override for every record derived from it. A type names its identity properties with `[Catzc.Base.Objects.ConsoleDisplay(...)]`, which
-narrows both its text and its default display at the prompt. `Test-ShippedTypes` fails a type that keeps the inherited `ToString()`.
+`public override string ToString() => this.ToConsoleString();`, so its string form and a table cell read `TypeName { A = 1, B = x }` instead
+of the fully-qualified name. The rendering lives once, in `Catzc.Base.Objects.ConsoleText`, and `DictionaryRecord` carries the override for
+every record derived from it. A type names its identity properties with `[Catzc.Base.Objects.ConsoleDisplay(...)]`, which narrows both its
+text and its default display at the prompt. `Test-ShippedTypes` fails a type that keeps the inherited `ToString()`.
 
 - [Console-ready rendering](#console-ready-rendering)
 - [How this is enforced](#how-this-is-enforced)
@@ -149,10 +148,10 @@ janitors (ADR-AUTO-TYPES#13), and no switch overrides it: an agent, a script, or
 ## Context
 
 Some logic is better expressed as a native .NET type than as script code: a process runner with background reader threads
-(`Catzc.Base.Execution.CliRunner`), or a constrained, validated data record that replaces a loose dictionary. The
-platform autoloads such types from each module's `types/` folder (see [conventional-folders](../../repository/conventional-folders.md) for
-where `types/` sits) and commits the compiled assembly so a fresh checkout and CI load it without invoking Roslyn (see
-[caching](../caching.md#rule-adr-auto-cache8) for why committed prebuilds are the one sanctioned cross-session cache).
+(`Catzc.Base.Execution.CliRunner`), or a constrained, validated data record that replaces a loose dictionary. The platform autoloads such
+types from each module's `types/` folder (see [conventional-folders](../../repository/conventional-folders.md) for where `types/` sits) and
+commits the compiled assembly so a fresh checkout and CI load it without invoking Roslyn (see [caching](../caching.md#rule-adr-auto-cache8)
+for why committed prebuilds are the one sanctioned cross-session cache).
 
 Compilation produces **one assembly for the whole repository**, so any module's types can reference any other's: a single shared base (a
 dictionary-compatible data-record base) and layered records (a record in one module building on a record in another) — the thing static data
@@ -164,8 +163,8 @@ layering discipline is policed by the dependency checker rather than structurall
 `Why one assembly, not one per module`
 
 The blocker for cross-module references under a per-module design is the runtime compiler: it assigns a **random** assembly name, different
-on every rebuild of an unchanged source, and has no setting for a stable one. A dependent assembly bakes that random name at compile time
-and dangles when the base is rebuilt under a new name.
+on every rebuild of a source that is unchanged, and has no setting for a stable one. A dependent assembly bakes that random name at compile
+time and dangles when the base is rebuilt under a new name.
 
 One combined assembly dissolves the problem entirely rather than working around it:
 
@@ -196,8 +195,8 @@ before the module loop.
 
 The types run inside the process of the one engine that hosts them, pwsh. Which compiler builds the assembly, which assemblies a type may
 reference, the short names pwsh callers type, how a running pwsh meets a changed type, and why the console text has to live in C# are that
-host's binding, decided in [hosting-csharp-types](../../pwsh/hosting-csharp-types.md). This ADR decides what the types are; that one
-decides how the host carries them.
+host's binding, decided in [hosting-csharp-types](../../pwsh/hosting-csharp-types.md). This ADR decides what the types are; that one decides
+how the host carries them.
 
 ### Declared namespaces and the IDE project
 
@@ -212,12 +211,12 @@ Turning the analyzer off, or disabling Dev Kit, would hide the rule instead of e
 Declaring `namespace <module>;` makes each file compile cleanly on its own, so a real IDE project can analyze exactly what the runtime
 compiles. The repo ships an **IDE-only** `Catzc.Types.csproj` (under `automation/.internal/assets/`, a `../../**/types/*.cs` glob over every
 type source) and a classic root `catzc.sln` (Dev Kit loads a `.sln`, not a `.slnx`; kept at the repo root so the editor auto-loads it, and
-it references the project by relative path) that mirror the runtime compile — `Nullable` and `ImplicitUsings` off, .NET 10 — so the
-editor's feedback equals the runtime's: real namespaces (no `CA1050`), with two deliberate opt-outs stated in `.editorconfig` — `IDE1006`
-(snake_case config-mirroring props, Rule ADR-AUTO-TYPES#8) and `IDE0130` (the namespace mirrors the module, not the project's physical
-folder path, Rule ADR-AUTO-TYPES#2). The runtime never builds the project, and `Invoke-BuildForVSCode` builds the IDE project on demand for
-the editor (see below). The [poka-yoke](../../principles/poka-yoke.md) is preserved because the namespace is
-folder-derived by `Format-Types` and checked by `Test-Formatting`, not a second source of truth, maintained by hand, that could drift.
+it references the project by relative path) that mirror the runtime compile — `Nullable` and `ImplicitUsings` off, .NET 10 — so the editor's
+feedback equals the runtime's: real namespaces (no `CA1050`), with two deliberate opt-outs stated in `.editorconfig` — `IDE1006` (snake_case
+config-mirroring props, Rule ADR-AUTO-TYPES#8) and `IDE0130` (the namespace mirrors the module, not the project's physical folder path, Rule
+ADR-AUTO-TYPES#2). The runtime never builds the project, and `Invoke-BuildForVSCode` builds the IDE project on demand for the editor (see
+below). The [poka-yoke](../../principles/poka-yoke.md) is preserved because the namespace is folder-derived by `Format-Types` and checked by
+`Test-Formatting`, not a second source of truth, maintained by hand, that could drift.
 
 To keep that IDE artifact honest, the project **stamps its version from the committed `Catzc.Types.<hash>.dll`** — the runtime assembly's
 own identity (Rule ADR-AUTO-TYPES#6) — so its build metadata (the `deps.json` project entry) reads `Catzc.Types/1.0.0-<hash>`, not the
@@ -282,8 +281,8 @@ sources on disk and names each drifted type; the loader reads it to warn or thro
 A person who edits a type and imports again wants the new types, so the importer gives them a new process instead of an instruction, in the
 same window and with the same switches ([hosting-csharp-types](../../pwsh/hosting-csharp-types.md#rule-adr-pwsh-types5)). The old session
 stays underneath, because a process cannot replace itself on every platform, and says it still holds the old types. Each restart nests one
-more process, which leaving the new session unwinds. The restart is for a person only: an agent cannot
-drive a nested shell, a script would block on one, and a pipeline must never run on stale types.
+more process, which leaving the new session unwinds. The restart is for a person only: an agent cannot drive a nested shell, a script would
+block on one, and a pipeline must never run on stale types.
 
 ### Why a shadow copy
 
@@ -301,8 +300,8 @@ so a locked leftover copy is harmless.
 The `DictionaryRecord` base (dictionary-compatible data records)
 ```
 
-A data record that replaces a dictionary shape may inherit the single, shared `Catzc.Base.Objects.DictionaryRecord`
-(the combined assembly makes the cross-module reference possible). It supplies two things a derived record would otherwise implement:
+A data record that replaces a dictionary shape may inherit the single, shared `Catzc.Base.Objects.DictionaryRecord` (the combined assembly
+makes the cross-module reference possible). It supplies two things a derived record would otherwise implement:
 
 - A **dictionary view** over the record's own public properties — `Contains(key)`, the `[key]` indexer, `Keys`, and `ToHashtable()` (for
   splatting and `ConvertTo-Json`/`-Yaml`). "Present" means the public property exists **and its value is non-null**, mirroring the
@@ -346,10 +345,10 @@ boundary through its own config type, `FilesConfig`, which validates it at load;
 
 `A catzc object reads as one line`
 
-How an object reads at the console is part of its design
-([console-output-matters](../console-output-matters.md#rule-adr-auto-console1)). A class that keeps `object.ToString()` renders as its
-fully-qualified name: a message about a subscription context prints `Catzc.Azure.Cli.SubscriptionContext`, and a collection property shows
-`{Catzc.Base.Globs.GlobPattern, …}` in a table. The host's string conversion reads the type's own `ToString()`, so the fix is in C#.
+How an object reads at the console is part of its design ([console-output-matters](../console-output-matters.md#rule-adr-auto-console1)). A
+class that keeps `object.ToString()` renders as its fully-qualified name: a message about a subscription context prints
+`Catzc.Azure.Cli.SubscriptionContext`, and a collection property shows `{Catzc.Base.Globs.GlobPattern, …}` in a table. The host's string
+conversion reads the type's own `ToString()`, so the fix is in C#.
 
 So the rendering is one shared extension method, `ConsoleText.ToConsoleString()`, and each type opts in with a one-line override. The format
 is the C# `record` convention a .NET reader already knows, `TypeName { A = 1, B = x }`, on one line: the bare type name, a null property
@@ -433,5 +432,5 @@ The module-dependency graph that governs cross-module C# type edges (ADR-AUTO-TY
 - The dependency graph is a single source of truth for _both_ function-call and C# type layering. The cost of one combined assembly — the
   compiler does not block a layer inversion — is paid back by the linter, which fails L1 on an undeclared edge.
 
-- Editing any type re-keys and rebuilds the one assembly (a single sub-second compile, one committed DLL) and requires a session
-  restart to pick up — the documented devbox contract.
+- Editing any type re-keys and rebuilds the one assembly (a single sub-second compile, one committed DLL) and requires a session restart to
+  pick up — the documented devbox contract.

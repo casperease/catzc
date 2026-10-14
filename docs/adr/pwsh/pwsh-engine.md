@@ -16,7 +16,7 @@ anything loads. A pwsh that catzc starts as an engine is located beside the runn
 
 ### Rule ADR-PWSH-ENGINE:2
 
-Every catzc scope runs under `Set-StrictMode -Version Latest`, the engine's strict mode
+Every PowerShell scope catzc owns runs under `Set-StrictMode -Version Latest`, the engine's strict mode
 ([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine2)). Strict mode belongs to a PowerShell scope, and a
 session-level setting does not reach module code, so it is set where the code runs: the importer in the caller's scope, `Import-AllModules`
 in each module's script scope, the top of each `.internal` module and analyzer rule, a template's `PrePost.psm1` scope after its import, the

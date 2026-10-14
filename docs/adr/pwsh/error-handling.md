@@ -148,8 +148,8 @@ All errors are terminating. All warnings are terminating. Functions use `throw` 
   inherits it, in the source tree and in an installed bundle alike), each `.internal` module and custom analyzer rule declares it at its
   top, and `Build-Bicep`/`Deploy-Bicep` set it in a template's `PrePost.psm1` scope after importing it. A pipeline or workflow step that
   runs PowerShell is strict too: dot-sourcing the importer sets it for the step's scope, and a step that runs without the importer declares
-  `Set-StrictMode -Version Latest` as its first line. All code is therefore written strict-clean (ADR-PWSH-ERROR#8); a lazy `$script:`
-  cache entry is probed as [script-scope-caching](script-scope-caching.md#rule-adr-pwsh-cache4) prescribes.
+  `Set-StrictMode -Version Latest` as its first line. All code is therefore written strict-clean (ADR-PWSH-ERROR#8); a lazy `$script:` cache
+  entry is probed as [script-scope-caching](script-scope-caching.md#rule-adr-pwsh-cache4) prescribes.
 - **Custom analyzer rules** — `Measure-NoWriteErrorOrWarning` flags `Write-Error` and `Write-Warning`; `Measure-NoUnsafeFirstIndex` flags
   `@(<result>)[0]` and `(<a | b>)[0]`; and `Measure-NoBareCacheEntryRead` flags a function file reading a `$script:` cache entry it has
   neither assigned nor probed. The `.Count` and optional-key forms of ADR-PWSH-ERROR#8 need type knowledge an AST does not carry, so code

@@ -6,9 +6,9 @@
 
 ### Rule ADR-AUTO-FAILFAST:1
 
-Assert inputs at function entry. Before a function uses a value it receives, it validates that value through the toolset's assertion
-library (`Assert-NotNullOrWhitespace`, `Assert-True`, `Assert-PathExist`, `Assert-TypeIs`, and the other `Assert-*` functions), for
-everything its parameter declaration cannot express.
+Assert inputs at function entry. Before a function uses a value it receives, it validates that value through the toolset's assertion library
+(`Assert-NotNullOrWhitespace`, `Assert-True`, `Assert-PathExist`, `Assert-TypeIs`, and the other `Assert-*` functions), for everything its
+parameter declaration cannot express.
 
 - [The inline assertion pattern](#the-inline-assertion-pattern)
 - [In practice](#in-practice)
@@ -31,8 +31,8 @@ does not validate inputs and deliberately does not resolve `DependsOn` (an insta
 
 ### Rule ADR-AUTO-FAILFAST:4
 
-Use the assertion library, never an inline check that raises its own error. The library gives consistent, greppable error messages and
-makes assertion intent visible in review; a bare conditional that fails on its own terms obscures it.
+Use the assertion library, never an inline check that raises its own error. The library gives consistent, greppable error messages and makes
+assertion intent visible in review; a bare conditional that fails on its own terms obscures it.
 
 - [The inline assertion pattern](#the-inline-assertion-pattern)
 
@@ -154,9 +154,9 @@ reason. It raises the budget's limit to a ceiling and never removes it, and a ga
 
 A function whose own work is long by nature — a full test run, a build — knows its limit better than any config, so it declares that limit
 beside its own code rather than as a number literal in a default, where config cannot tune it, the environment cannot change it, and a
-reader cannot find it. The more specific settings win in order — an exemption while the work is tuned, a `commands` entry in
-`timeouts.yml` when a machine needs a different value, the function's own declaration otherwise, and the environment's default for a
-function that declares nothing. Each setting is current and states something different; none is a fallback for an old shape.
+reader cannot find it. The more specific settings win in order — an exemption while the work is tuned, a `commands` entry in `timeouts.yml`
+when a machine needs a different value, the function's own declaration otherwise, and the environment's default for a function that declares
+nothing. Each setting is current and states something different; none is a fallback for an old shape.
 
 ### Bounding an agent's shell calls
 

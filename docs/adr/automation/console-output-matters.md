@@ -97,8 +97,8 @@ Most automation code gets this wrong in one of two ways:
 matters. In CI, log files become megabytes of noise where the actual error is buried. When everything is highlighted, nothing is.
 
 **Too silent.** Functions produce no output at all. When something takes 30 seconds, the user does not know if it is working or hung. When
-something fails, the error appears with no context about what was being attempted. The user re-runs with diagnostics turned on and hopes
-the information they need is behind that switch.
+something fails, the error appears with no context about what was being attempted. The user re-runs with diagnostics turned on and hopes the
+information they need is behind that switch.
 
 Both fail the same test: **can the user understand what happened by reading the output once, top to bottom, without re-running anything?**
 
@@ -128,14 +128,14 @@ Each line earns its place:
 
 The toolset writes for two readers. **Status output** is for the user running the automation: what happened, what was executed, what
 changed. It is always shown, and every line carries the name of the function that wrote it. **Diagnostic output** is for the user diagnosing
-the automation: why a decision was made, what was skipped, what path was resolved. It is shown on request. A function's return value is
-data for its caller, never a status line, and a failure stops execution with a self-contained error. There is no third path between "fine"
-and "stop": no warnings and no errors that let execution carry on. Each engine maps these onto its own output channels.
+the automation: why a decision was made, what was skipped, what path was resolved. It is shown on request. A function's return value is data
+for its caller, never a status line, and a failure stops execution with a self-contained error. There is no third path between "fine" and
+"stop": no warnings and no errors that let execution carry on. Each engine maps these onto its own output channels.
 
 **Diagnostic output deserves the same care as status output.** It is the user's window into what is happening underneath when something is
 not behaving as expected. The best time to write a diagnostic line is during development and debugging — if you needed that information
-exposed to understand the code's behavior, you will need it again next time. Leave it in. Good diagnostic output turns a 30-minute
-debugging session into a 30-second re-run with diagnostics on.
+exposed to understand the code's behavior, you will need it again next time. Leave it in. Good diagnostic output turns a 30-minute debugging
+session into a 30-second re-run with diagnostics on.
 
 ```text
 GOOD — diagnostic lines capture the decisions the function made
@@ -263,8 +263,8 @@ A state change is anything that makes a later command in the same session behave
 - **What the next session starts with**: the user and machine environment, and the shell profile.
 
 Loading a binary is a state change like any other, and the clearest case for announcing one: a loaded assembly cannot be unloaded, so the
-build the session holds decides which types every later call sees until the process ends. The toolset therefore names the assembly it
-loads, the vendor modules it loads, and the modules it loads, evicts, or drops.
+build the session holds decides which types every later call sees until the process ends. The toolset therefore names the assembly it loads,
+the vendor modules it loads, and the modules it loads, evicts, or drops.
 
 Writing a file in the repository is not a session state change; the repository's own rules govern those. The user and machine environment
 and the profile are the exception, because they are what the next session starts from: changing them is changing the console the user opens
@@ -318,10 +318,10 @@ is announced where it happens, naming what changed and to what; changes that are
   into test output and no test needs its own guard; a child process's relayed output honours the same flag.
 - **`Invoke-Executable`** — logs the exact command via `Write-Message` before execution. All `Invoke-*` wrappers inherit this.
 - **Analyzer rules** — `Measure-NoRawConsoleWrite` flags a write that goes around the writer, and `Measure-AnnounceStateChange` flags a
-  state change that no announcement covers and passes the exemptions of ADR-AUTO-CONSOLE#12. They check that a change is announced; what
-  the line says is a review concern.
-- **Console-ready C# types** — every catzc C# object interpolated into a message or shown in a table renders as one readable line, not
-  its type name ([native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types14)).
+  state change that no announcement covers and passes the exemptions of ADR-AUTO-CONSOLE#12. They check that a change is announced; what the
+  line says is a review concern.
+- **Console-ready C# types** — every catzc C# object interpolated into a message or shown in a table renders as one readable line, not its
+  type name ([native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types14)).
 - **Code review** — output quality is a review concern, same as logic correctness. A function that spams the console or swallows errors is a
   bug. An announcement names the target and its new value.
 

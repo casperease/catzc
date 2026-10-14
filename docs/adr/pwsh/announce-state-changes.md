@@ -50,11 +50,11 @@ detail, `Write-Output` only for return values — and never `Write-Warning`/`Wri
 
 ### Rule ADR-PWSH-ANNOUNCE:8
 
-In pwsh, the announcement ADR-AUTO-CONSOLE#11 requires is an information-stream record written through the chokepoint
-(ADR-PWSH-ANNOUNCE#1), never a `Write-Verbose` line. The session state it covers is what the commands in the
-[state-change table](#what-counts-as-a-state-change) change: `$env:` and `PSModulePath`, `Add-Type` and the assembly loaders,
-`Import-Module`/`Remove-Module`, `$global:` variables and preferences, `Push-Location`/`Pop-Location`, the PSReadLine options and key
-handlers, `Update-TypeData`/`Update-FormatData`, and the user and machine environment and the PowerShell profile.
+In pwsh, the announcement ADR-AUTO-CONSOLE#11 requires is an information-stream record written through the chokepoint (ADR-PWSH-ANNOUNCE#1),
+never a `Write-Verbose` line. The session state it covers is what the commands in the [state-change table](#what-counts-as-a-state-change)
+change: `$env:` and `PSModulePath`, `Add-Type` and the assembly loaders, `Import-Module`/`Remove-Module`, `$global:` variables and
+preferences, `Push-Location`/`Pop-Location`, the PSReadLine options and key handlers, `Update-TypeData`/`Update-FormatData`, and the user
+and machine environment and the PowerShell profile.
 
 - [What counts as a state change](#what-counts-as-a-state-change)
 - [Announce where it happens](#announce-where-it-happens)
@@ -71,8 +71,8 @@ change inside `Start-Job`, `Start-ThreadJob`, or `ForEach-Object -Parallel`; Pow
 
 [console-output-matters](../automation/console-output-matters.md) decides what the console shows: status for the user running the
 automation, diagnostic detail for the user diagnosing it, and an announcement of every lasting change to the session. This ADR is how pwsh
-does it. Dot-sourcing `importer.ps1` into a session loads modules and a compiled types assembly, sets preferences, moves `PATH` entries,
-and points environment variables at tool homes; an installer rewrites `PATH` and the user environment; a quality gate lazy-loads Pester.
+does it. Dot-sourcing `importer.ps1` into a session loads modules and a compiled types assembly, sets preferences, moves `PATH` entries, and
+points environment variables at tool homes; an installer rewrites `PATH` and the user environment; a quality gate lazy-loads Pester.
 PowerShell offers many ways to write each of those facts to the console, and most of them cannot be silenced, redirected, or captured. So
 every line goes through one stream and one chokepoint, and every state change is announced there.
 
@@ -103,9 +103,9 @@ while (-not $done) {
 Write-Message '' -NoHeader   # newline after dots
 ```
 
-A dot written from a background thread job uses the same writer: the job streams to the caller's host (`Start-ThreadJob -StreamingHost`)
-and imports the loaded Writers module, so its dots behave like a `Write-Message` on the calling thread. An Azure DevOps logging command is
-no exception either. The host renders an information record to stdout exactly as it renders `Write-Host`, which is where the agent reads
+A dot written from a background thread job uses the same writer: the job streams to the caller's host (`Start-ThreadJob -StreamingHost`) and
+imports the loaded Writers module, so its dots behave like a `Write-Message` on the calling thread. An Azure DevOps logging command is no
+exception either. The host renders an information record to stdout exactly as it renders `Write-Host`, which is where the agent reads
 `##vso` commands, and a test run silences it with everything else.
 
 ### The output hierarchy
@@ -196,8 +196,8 @@ The exemptions of ADR-AUTO-CONSOLE#12, as PowerShell spells them:
 When the toolset runs an external tool, the tool's output streams to the console as it arrives (ADR-AUTO-CONSOLE#4), and a parallel test
 runner relays each worker's output the same way. That output is the child's own bytes, never a PowerShell record, so the C# relays
 (`Invoke-ExecutableStreamed`'s runner, the Pester worker pool) write it to the console directly, saving and restoring the console encoding
-around the run. The command that started the child is announced before it runs
-([log-before-invoke](../automation/log-before-invoke.md)); the relay honours the same Pester-run flag as the chokepoint.
+around the run. The command that started the child is announced before it runs ([log-before-invoke](../automation/log-before-invoke.md));
+the relay honours the same Pester-run flag as the chokepoint.
 
 ### Delegated announcements
 
@@ -243,8 +243,7 @@ announcement is recorded with a justified suppression.
   exception ADR-PWSH-ANNOUNCE#1 names.
 - **`Measure-AnnounceStateChange`** (`automation/.scriptanalyzer/AnnounceStateChange.psm1`) flags a state change of the kinds in the table
   above that no information-stream writer (or `Write-ImporterMessage -StateChange`, ADR-PWSH-ANNOUNCE#6) in the same or an enclosing block
-  announces, and passes the exemptions of ADR-PWSH-ANNOUNCE#9. It checks that a change is announced; what the line says is a review
-  concern.
+  announces, and passes the exemptions of ADR-PWSH-ANNOUNCE#9. It checks that a change is announced; what the line says is a review concern.
 - **`Measure-NoRawInformationStream`** keeps `Write-Information` inside the two chokepoint functions, `Write-InformationColored` and
   `Write-ImporterMessage`.
 - **Writers emit on the information stream.** Every writer routes through `Write-InformationColored`, which emits via `Write-Information`

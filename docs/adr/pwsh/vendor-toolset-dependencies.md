@@ -92,8 +92,8 @@ every internal dependency is (ADR-AUTO-DEPM#8). The module loads from disk with 
 ### No gallery at runtime
 
 Gallery access may be blocked by a proxy or firewall, or need proxy configuration the machine does not have, and a gallery outage turns a
-slow call into a broken one. A runtime `Install-Module` or `Find-Module` would make every load depend on all of that. So the gallery is an
-authoring-time source only: `Install-VendorModule` reaches it once, when an author adds or upgrades a module, and the commit carries the
+slow call into a broken one. A runtime `Install-Module` or `Find-Module` would make every load depend on all of that. So the gallery is
+reached at authoring time only: `Install-VendorModule` reaches it once, when an author adds or upgrades a module, and the commit carries the
 result to every machine.
 
 ### The Az PowerShell exception

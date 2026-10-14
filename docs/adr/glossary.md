@@ -441,7 +441,7 @@ Write-QualityGateReport and throws once with every issue.
 
 One Pester It — the smallest unit that passes or fails, counted by every report row, rule citation, and timing.
 
-- **Defined by:** [ADR-AUTO-PESTER#8](automation/powershell/pester-testing.md#rule-adr-auto-pester8)
+- **Defined by:** `ADR-AUTO-PESTER#8`
 - **Realized by:** function `It`
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Part of:** [test block](#test-block)
@@ -452,7 +452,7 @@ One Pester It — the smallest unit that passes or fails, counted by every repor
 
 A Describe or Context in a test file — a named group of tests whose tags and setup apply to everything inside it.
 
-- **Defined by:** [ADR-AUTO-PESTER#8](automation/powershell/pester-testing.md#rule-adr-auto-pester8)
+- **Defined by:** `ADR-AUTO-PESTER#8`
 - **Realized by:** function `Describe|Context`
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Part of:** [test file](#test-file)
@@ -464,7 +464,7 @@ A Describe or Context in a test file — a named group of tests whose tags and s
 
 One *.Tests.ps1 file under a module's tests/ — one per function, named Verb-Noun.Tests.ps1 (or for a C# type under tests/types/).
 
-- **Defined by:** [ADR-AUTO-PESTER#5](automation/powershell/pester-testing.md#rule-adr-auto-pester5)
+- **Defined by:** `ADR-AUTO-PESTER#5`
 - **Realized by:** file-pattern `automation/*/tests/**/*.Tests.ps1`
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**

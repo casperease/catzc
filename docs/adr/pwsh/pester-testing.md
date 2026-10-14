@@ -6,8 +6,8 @@
 
 ### Rule ADR-PWSH-PESTER:1
 
-Pester is the test framework, and a test applies the [test-automation](../automation/test-automation.md) (`ADR-AUTO-TEST`) doctrine —
-logic isolated through seams, integrity bound to the real files — with the mock idioms and file conventions below.
+Pester is the test framework, and a test applies the [test-automation](../automation/test-automation.md) (`ADR-AUTO-TEST`) doctrine — logic
+isolated through seams, integrity bound to the real files — with the mock idioms and file conventions below.
 
 - [The idioms](#the-idioms)
 
@@ -78,8 +78,8 @@ ms/call), `Copy-Item -Recurse` (~15×), and `New-Item`/`Set-Content` carry heavy
 ### Rule ADR-PWSH-PESTER:10
 
 The tier and category tags of ADR-AUTO-TEST#1 and ADR-AUTO-TEST#13 are Pester `-Tag` values. Put both on the `Describe` for a uniform test
-file; where the file mixes tiers or categories, override on an inner `Context` (and tag per `Context` when the categories differ) — never two
-tags of the same axis on one block. `Get-TestBlockTag` resolves a tag along the test's block chain, and `Get-TestLevelTag` and
+file; where the file mixes tiers or categories, override on an inner `Context` (and tag per `Context` when the categories differ) — never
+two tags of the same axis on one block. `Get-TestBlockTag` resolves a tag along the test's block chain, and `Get-TestLevelTag` and
 `Get-TestCategoryTag` read the two axes through it.
 
 - [The test doctrine in Pester](#the-test-doctrine-in-pester)
@@ -110,9 +110,9 @@ An integrity test reads its fact from the files (ADR-AUTO-TEST#16) by parsing th
 
 ### Rule ADR-PWSH-PESTER:14
 
-Expensive setup runs once per block (ADR-AUTO-TEST#19): the fixture copy and the one cache reset (`InModuleScope … { $script:configCache =
-$null }`) belong in `BeforeAll`, and a `BeforeEach` never hands each test a fresh `Join-Path $TestDrive ([Guid]::NewGuid())` root unless
-those tests mutate the same input and would collide.
+Expensive setup runs once per block (ADR-AUTO-TEST#19): the fixture copy and the one cache reset
+(`InModuleScope … { $script:configCache = $null }`) belong in `BeforeAll`, and a `BeforeEach` never hands each test a fresh
+`Join-Path $TestDrive ([Guid]::NewGuid())` root unless those tests mutate the same input and would collide.
 
 - [Fast tests in Pester](#fast-tests-in-pester)
 
@@ -228,10 +228,10 @@ Describe 'sample (real az)' -Tag 'L2', 'logic' {
 
 `Each part of the doctrine, written in Pester`
 
-The doctrine speaks of tests, groups of tests, tags, and a discovery pass; Pester gives each a concrete form. A test is an `It`, a group is a
-`Describe` or `Context`, and a tag is a `-Tag` value on either. Tags resolve along the block chain, nearest contributing block first, which
-is why a uniform file tags its `Describe` once and a mixed file overrides on an inner `Context` (ADR-PWSH-PESTER#10). Provenance citations
-ride the same `-Tag` parameter, but they union along the chain instead of taking the nearest (ADR-PWSH-PESTER#12).
+The doctrine speaks of tests, groups of tests, tags, and a discovery pass; Pester gives each a concrete form. A test is an `It`, a group is
+a `Describe` or `Context`, and a tag is a `-Tag` value on either. Tags resolve along the block chain, nearest contributing block first,
+which is why a uniform file tags its `Describe` once and a mixed file overrides on an inner `Context` (ADR-PWSH-PESTER#10). Provenance
+citations ride the same `-Tag` parameter, but they union along the chain instead of taking the nearest (ADR-PWSH-PESTER#12).
 
 Pester can discover without running: with `Run.SkipRun` it builds the whole tree of blocks and tests, tags included, and executes no body.
 That is what makes the tag check cheap enough to run on every invocation, whatever `-Level` asks for.
@@ -297,19 +297,19 @@ The doctrine's speed rules (ADR-AUTO-TEST#19 to ADR-AUTO-TEST#21) meet four Powe
 The run model of [test-automation](../automation/test-automation.md) is engine-neutral; its executor is Pester, in pwsh. Each shard worker
 is a `pwsh` that dot-sources its run's entry script, sets strict mode, and invokes Pester on its shard (ADR-PWSH-PESTER#17). The worker
 reduces the result itself, while the live `.Block` chain still exists for tier, category, and skip-reason resolution, and hands the parent
-plain rows: a Pester object does not survive a process boundary, and the parent's reports need only rows. `PesterRunner` pools the
-workers' output so the console reads in submission order while the wall clock runs in parallel.
+plain rows: a Pester object does not survive a process boundary, and the parent's reports need only rows. `PesterRunner` pools the workers'
+output so the console reads in submission order while the wall clock runs in parallel.
 
 The source run and the build run differ only in the entry script a worker dot-sources (ADR-PWSH-PESTER#18). A test written for one runs
 unchanged in the other, because every name Pester resolves — a `Mock -ModuleName` target, an `InModuleScope` module, a `Get-Module` lookup —
 is the same module either way.
 
-Rule coverage counts the enforcers that run in that same Pester invocation (ADR-PWSH-PESTER#19): a tagged `It`, and a PSScriptAnalyzer
-rule through its mapping, since the analyzer quality gate runs as an integrity test in the run.
+Rule coverage counts the enforcers that run in that same Pester invocation (ADR-PWSH-PESTER#19): a tagged `It`, and a PSScriptAnalyzer rule
+through its mapping, since the analyzer quality gate runs as an integrity test in the run.
 
-The other test languages reach the run through one Pester container (ADR-PWSH-PESTER#20). Pester runs it once per mapped Go, Python, or
-Bash test folder; the container runs the folder's tests through their own tool and emits one `It` per test, so every report reads them as
-Pester tests.
+The other test languages reach the run through one Pester container (ADR-PWSH-PESTER#20). Pester runs it once per mapped Go, Python, or Bash
+test folder; the container runs the folder's tests through their own tool and emits one `It` per test, so every report reads them as Pester
+tests.
 
 ### Gotchas
 
