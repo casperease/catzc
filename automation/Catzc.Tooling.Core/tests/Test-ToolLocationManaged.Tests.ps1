@@ -72,6 +72,23 @@ Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'treats an MSYS2-package tool at <case> as <expected>' -ForEach @(
+        @{ case = 'its usr\bin inside the tree it installs into'; location = 'C:\Users\me\AppData\Local\Gadget\usr\bin\widget.exe'; expected = $true }
+        @{ case = 'a machine-scope tree'; location = 'C:\Program Files\Gadget\usr\bin\widget.exe'; expected = $false }
+        @{ case = 'a sibling folder sharing the prefix'; location = 'C:\Users\me\AppData\Local\GadgetTwo\usr\bin\widget.exe'; expected = $false }
+    ) {
+        InModuleScope Catzc.Tooling.Core -Parameters @{ location = $location; expected = $expected } {
+            param($location, $expected)
+            # Neutral fixture ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+            Mock Get-ScriptInstallDir { 'C:\Users\me\AppData\Local\Gadget' }
+            $config = [Catzc.Tooling.Core.ToolConfig]::new(@{
+                    version = '1'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'
+                    msys2_url = 'https://example.com/widget-1.0-1-x86_64.pkg.tar.zst'; msys2_sha256 = 'a' * 64; windows_install_dir = 'Gadget'
+                })
+            Test-ToolLocationManaged -Config $config -Location $location | Should -Be $expected
+        }
+    }
+
     It 'treats a uv-tool under the uv shim bin (~/.local/bin) as managed' {
         InModuleScope Catzc.Tooling.Core {
             $config = Get-ToolConfig -Tool 'poetry'

@@ -95,22 +95,30 @@ Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
         Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { -not $EntryScript }
     }
 
-    It 'runs the tests under the bash engine with the executable handed down' {
-        $null = InModuleScope Catzc.Base.QualityGates -Parameters @{ Case = $script:cases; Go = $script:goPath } {
-            param($Case, $Go)
-            Get-LanguageTestOutcomes -Language go -Module 'Catzc.Widget' -Case $Case -Executable $Go -Engine bash -EngineExecutable 'C:\widget\bash\bash.exe'
+    # Every engine other than the running pwsh, from the model
+    # ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)).
+    It 'runs the tests under the <Engine> engine with the executable handed down' -ForEach @(
+        @([Catzc.Base.Engines.ExecutionEngines]::Names | Where-Object { $_ -ne [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name } | ForEach-Object { @{ Engine = $_ } })
+    ) {
+        $script:engine = $Engine
+        $null = InModuleScope Catzc.Base.QualityGates -Parameters @{ Case = $script:cases; Go = $script:goPath; Engine = $Engine } {
+            param($Case, $Go, $Engine)
+            Get-LanguageTestOutcomes -Language go -Module 'Catzc.Widget' -Case $Case -Executable $Go -Engine $Engine -EngineExecutable "C:\widget\$Engine\$Engine.exe"
         }
         Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
-            $Engine -eq 'bash' -and $EngineExecutable -eq 'C:\widget\bash\bash.exe'
+            $Engine -eq $script:engine -and $EngineExecutable -eq "C:\widget\$($script:engine)\$($script:engine).exe"
         }
     }
 
-    It 'skips every test with tool_bash_missing when the bash engine was not handed down' {
-        $outcomes = InModuleScope Catzc.Base.QualityGates -Parameters @{ Case = $script:cases; Go = $script:goPath } {
-            param($Case, $Go)
-            Get-LanguageTestOutcomes -Language go -Module 'Catzc.Widget' -Case $Case -Executable $Go -Engine bash
+    It 'skips every test with tool_<Engine>_missing, running nothing, when the <Engine> engine was not handed down' -ForEach @(
+        @([Catzc.Base.Engines.ExecutionEngines]::Names | Where-Object { $_ -ne [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name } | ForEach-Object { @{ Engine = $_ } })
+    ) {
+        $outcomes = InModuleScope Catzc.Base.QualityGates -Parameters @{ Case = $script:cases; Go = $script:goPath; Engine = $Engine } {
+            param($Case, $Go, $Engine)
+            Get-LanguageTestOutcomes -Language go -Module 'Catzc.Widget' -Case $Case -Executable $Go -Engine $Engine -EngineExecutable ''
         }
-        @($outcomes.Values.Reason | Select-Object -Unique) | Should -Be @('tool_bash_missing')
+        @($outcomes.Values.Outcome | Select-Object -Unique) | Should -Be @('skip')
+        @($outcomes.Values.Reason | Select-Object -Unique) | Should -Be @("tool_$($Engine)_missing")
         Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
     }
 

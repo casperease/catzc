@@ -1,0 +1,50 @@
+# discovery, shared prod subscription (env psub): the prod hub. The kind and the ranges come from network.yml
+# by config address; the hub peers to the prod spokes and links its private DNS zones to them.
+ParametersFile:
+  parameters:
+    tags:
+      value:
+        workload: landing-zone
+        environment: prod
+        owner: platform
+        cost-center: platform
+        criticality: high
+        data-classification: internal
+    subscriptions:
+      address: global.azure.subscriptions
+    networkKind:
+      address: global.network.subscriptions.shared_prod.kind
+    vnetAddressSpace:
+      address: global.network.subscriptions.shared_prod.vnet_address_space
+    subnetPrefixes:
+      address: global.network.subscriptions.shared_prod.subnets
+    resourceGroupName:
+      value: psub-weu-zct-disco-rg
+    virtualNetworkName:
+      value: psub-weu-zct-disco-vnet
+    networkSecurityGroupNames:
+      value:
+        shared-services: psub-weu-zct-disco-ss-nsg
+    spokes:
+      value:
+        - subscription: apex_prod
+          resourceGroupName: psub-weu-zct-disco-apex-rg
+          virtualNetworkName: psub-weu-zct-disco-apex-vnet
+          peeringName: psub-weu-zct-disco-ap-peer
+    logAnalyticsResourceGroupName:
+      value: psub-weu-zct-fnd-rg
+    logAnalyticsName:
+      value: psub-weu-zct-fnd-log
+    policyEnforcementMode:
+      address: global.azure.policy_enforcement.production
+    policyAssignmentNames:
+      value:
+        allowedLocations: psub-weu-zct-disco-loc-pa
+        requireTag: psub-weu-zct-disco-tag-pa
+        noPublicIp: psub-weu-zct-disco-pip-pa
+    budgetName:
+      value: psub-weu-zct-disco-budg
+    budgetAmount:
+      value: 1000
+    budgetStartDate:
+      value: "2026-11-01"

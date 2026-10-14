@@ -36,4 +36,20 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
         "$($status.Status)" | Should -Be 'Missing'
         $status.Action | Should -BeLike 'Provided by the platform*'
     }
+
+    It 'reports an MSYS2-package tool under the msys2 manager on Windows and the system elsewhere, judged at its probe path' {
+        $msys2Tools = [Catzc.Tooling.Core.ToolsConfig]::new([ordered]@{
+                gadget = @{
+                    version = '5'; command = 'gadget'; version_command = 'gadget --version'; version_pattern = 'gadget (?<ver>[\d.]+)'
+                    msys2_url = 'https://example.com/gadget-5.0-1-x86_64.pkg.tar.zst'; msys2_sha256 = 'b' * 64; windows_install_dir = 'Widget'
+                    unix_probes = @('/opt/gadget'); windows_probes = @('C:\gadget.exe')
+                }
+            })
+        Mock Get-Config { $msys2Tools } -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Config -eq 'tools' }
+        Mock Test-Tool { [Catzc.Base.Execution.ExecutableProbe]::new('gadget', '/opt/gadget', 'probe', '5.9', '5', $true, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Provisioning
+        $status = Get-ToolsStatus
+        "$($status.Status)" | Should -Be 'OK'
+        $status.Manager | Should -Be ($IsWindows ? 'msys2' : 'system')
+        Should -Invoke Test-ExpectedPackageManager -ModuleName Catzc.Tooling.Provisioning -Times 1 -Exactly -ParameterFilter { $Path -eq '/opt/gadget' }
+    }
 }

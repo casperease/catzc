@@ -1,8 +1,9 @@
-# cspell:ignore deriv abcdef
+# cspell:ignore deriv abcdef gadge gadgetry
 Describe 'BicepShortName' -Tag 'L0', 'logic' {
     # The C# type that owns short_name derivation + validation
     # ([ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2)).
-    # Loaded by the Import-CSharpTypes pre-pass; referenced by FQN here.
+    # Loaded by the Import-CSharpTypes pre-pass; referenced by FQN here. Neutral fixture template names
+    # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 
     Context 'Derive (folder name -> short_name)' {
         It 'takes the first 5 [a-z0-9] characters' {
@@ -10,7 +11,7 @@ Describe 'BicepShortName' -Tag 'L0', 'logic' {
         }
 
         It 'drops hyphens (and any other punctuation)' {
-            [Catzc.Azure.Templates.BicepShortName]::Derive('discovery') | Should -Be 'disco'
+            [Catzc.Azure.Templates.BicepShortName]::Derive('gad-getry') | Should -Be 'gadge'
         }
 
         It 'lowercases the folder name' {
@@ -28,7 +29,7 @@ Describe 'BicepShortName' -Tag 'L0', 'logic' {
 
     Context 'IsValid (2-5 lowercase-alnum, leading letter)' {
         It 'accepts a well-formed short_name' {
-            [Catzc.Azure.Templates.BicepShortName]::IsValid('disco') | Should -BeTrue
+            [Catzc.Azure.Templates.BicepShortName]::IsValid('gadge') | Should -BeTrue
             [Catzc.Azure.Templates.BicepShortName]::IsValid('a1')    | Should -BeTrue
         }
 
@@ -44,25 +45,25 @@ Describe 'BicepShortName' -Tag 'L0', 'logic' {
 
     Context 'Resolve (folder + optional override)' {
         It 'derives from the folder when no override is given' {
-            $shortName = [Catzc.Azure.Templates.BicepShortName]::Resolve('discovery', $null)
-            $shortName.value      | Should -Be 'disco'
-            $shortName.folder     | Should -Be 'discovery'
+            $shortName = [Catzc.Azure.Templates.BicepShortName]::Resolve('gadgetry', $null)
+            $shortName.value      | Should -Be 'gadge'
+            $shortName.folder     | Should -Be 'gadgetry'
             $shortName.overridden | Should -BeFalse
         }
 
         It 'treats an empty override the same as no override (derives)' {
-            [Catzc.Azure.Templates.BicepShortName]::Resolve('discovery', '').value | Should -Be 'disco'
+            [Catzc.Azure.Templates.BicepShortName]::Resolve('gadgetry', '').value | Should -Be 'gadge'
         }
 
         It 'takes a valid override verbatim and marks it overridden' {
-            $shortName = [Catzc.Azure.Templates.BicepShortName]::Resolve('discovery', 'disc')
-            $shortName.value      | Should -Be 'disc'
+            $shortName = [Catzc.Azure.Templates.BicepShortName]::Resolve('gadgetry', 'gadg')
+            $shortName.value      | Should -Be 'gadg'
             $shortName.overridden | Should -BeTrue
         }
 
         It 'throws on a malformed override, naming the template' {
-            { [Catzc.Azure.Templates.BicepShortName]::Resolve('discovery', 'BAD-1') } |
-                Should -Throw "*Template 'discovery'*invalid short_name override*"
+            { [Catzc.Azure.Templates.BicepShortName]::Resolve('gadgetry', 'BAD-1') } |
+                Should -Throw "*Template 'gadgetry'*invalid short_name override*"
         }
 
         It 'throws when the folder cannot derive a valid short_name and no override is given' {

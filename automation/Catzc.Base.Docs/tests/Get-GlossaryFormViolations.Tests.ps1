@@ -72,4 +72,22 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         & $script:scan @{ 'docs/alpha.md' = @('The sprocket widget runs.') } @{ checks = @('anchored', 'single', 'avoid', 'enforced') } |
             Should -BeNullOrEmpty
     }
+
+    # Test-Glossary hands G4 and G6 one surface table, so a run reads each file's prose once.
+    It 'fills the surface table it is given, and reads a file already in the table from the table' {
+        $relative = 'docs/alpha.md'
+        $full = Join-Path $TestDrive $relative
+        [System.IO.Directory]::CreateDirectory((Split-Path $full -Parent)) | Out-Null
+        [System.IO.File]::WriteAllText($full, 'The gadget widget runs.')
+        $parameters = @{ Entries = @(& $script:entry); Files = [string[]] @($relative); Root = [string] $TestDrive; Table = @{} }
+        $check = {
+            Get-GlossaryFormViolations -Entry $Entries -TrackedFile $Files -Root $Root -SurfaceCache $Table
+        }
+
+        @(InModuleScope Catzc.Base.Docs -Parameters $parameters $check) | Should -BeNullOrEmpty
+        @($parameters.Table.Keys) | Should -Be @($relative)
+
+        $parameters.Table[$relative] = @([pscustomobject]@{ Surface = 'markdown'; Line = 1; Text = 'The sprocket widget runs.' })
+        @(InModuleScope Catzc.Base.Docs -Parameters $parameters $check) | Should -Be @("docs/alpha.md:1 says `"sprocket widget`" — $script:tail")
+    }
 }

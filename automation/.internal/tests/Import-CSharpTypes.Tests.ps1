@@ -384,10 +384,13 @@ Describe 'shipped C# types' -Tag 'L0', 'integrity' {
     It 'every shipped C# type declares its module file-scoped namespace (Test-Formatting quality gate)' {
         # The loader enforces this at import (it throws on a missing/mismatched namespace); this asserts the same
         # invariant through Test-Formatting's Format-Types check, the authored quality gate, so a drift is a named
-        # failure, not a load-time throw.
+        # failure, not a load-time throw. The namespace rule is what this test is about, so the gate's layout engine
+        # (dotnet format over every C# file, seconds of a real tool) stays out of it: the real engine's run over the
+        # repository is the L2 integrity test in Test-Formatting.Tests.ps1.
         if (-not (Get-Command Test-Formatting -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'harness_test_formatting'; return
         }
+        Mock Format-Code -ModuleName Catzc.Base.QualityGates { }
         $result = Test-Formatting -Language csharp -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

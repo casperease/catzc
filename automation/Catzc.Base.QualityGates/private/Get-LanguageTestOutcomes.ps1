@@ -7,7 +7,8 @@
 
       - tool missing: when -Executable is empty (the run's source session found no managed tool at the tools.yml pin,
         Get-LanguageTestExecutable), nothing runs and every case is skipped with the constrained skip key
-        tool_go_missing, tool_uv_missing or tool_bash_missing
+        tool_go_missing, tool_uv_missing or tool_bash_missing; when -EngineExecutable is empty for an engine other
+        than pwsh, that engine's run skips every case with tool_<engine>_missing
         ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8));
       - otherwise the language's runner runs the module's tests (against -EntryScript in a build run): Invoke-GoTest
         for go, Invoke-PythonTest for python, Invoke-BashTest for bash (under the bash engine only: a Bash test is
@@ -33,8 +34,8 @@
     down through the shard and the bridge container; empty when there is none. The worker never locates the tool
     itself: a build run's engine does not carry the tools.yml entry.
 .PARAMETER Engine
-    The execution engine the tests start ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)): pwsh (default)
-    or bash. Every test runs once per engine.
+    The execution engine the tests start ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)): one of the
+    model's engines, pwsh by default. Every test runs once per engine.
 .PARAMETER EngineExecutable
     The engine's executable the run's source session located; empty for an engine it did not find, whose run of the
     tests then skips with tool_<engine>_missing. pwsh, the engine running the harness, needs none.

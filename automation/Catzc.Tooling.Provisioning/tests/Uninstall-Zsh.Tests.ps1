@@ -1,0 +1,98 @@
+# Uninstall-Zsh on a fixture Git tree in $TestDrive with the layout mocked, so nothing outside $TestDrive changes
+# ([ADR-AUTO-TEST#9](/docs/adr/automation/test-automation.md#rule-adr-auto-test9)). Neutral fixture names
+# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'Uninstall-Zsh' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:gitHome = Join-Path $TestDrive 'git'
+        $script:manifest = Join-Path $script:gitHome 'usr/share/catzc/zsh.manifest.json'
+        function Set-FixtureFile {
+            param([string] $Relative, [string] $Text = 'widget')
+            $path = Join-Path $script:gitHome $Relative
+            [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path))
+            [System.IO.File]::WriteAllText($path, $Text)
+        }
+        function Test-FixturePath {
+            param([string] $Relative)
+            $path = Join-Path $script:gitHome $Relative
+            [System.IO.File]::Exists($path) -or [System.IO.Directory]::Exists($path)
+        }
+    }
+
+    BeforeEach {
+        if ([System.IO.Directory]::Exists($script:gitHome)) {
+            [System.IO.Directory]::Delete($script:gitHome, $true)
+        }
+        # Git's own files, and the files and folders a zsh install added, as its manifest records them.
+        Set-FixtureFile 'usr/bin/msys-2.0.dll'
+        Set-FixtureFile 'usr/bin/msys-gadget.dll'
+        Set-FixtureFile 'usr/bin/zsh.exe'
+        Set-FixtureFile 'usr/share/zsh/widget/gadget'
+        $recorded = [ordered]@{
+            Package     = 'zsh-widget-1-x86_64.pkg.tar.zst'
+            Files       = @('usr/bin/zsh.exe', 'usr/share/zsh/widget/gadget', 'usr/share/zsh/widget/gone')
+            Directories = @('usr/share/zsh', 'usr/share/zsh/widget', 'usr/share/catzc')
+        }
+        [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($script:manifest))
+        [System.IO.File]::WriteAllText($script:manifest, ($recorded | ConvertTo-Json -Depth 3))
+
+        Mock Get-ZshInstallLayout -ModuleName Catzc.Tooling.Provisioning {
+            [pscustomobject]@{
+                GitHome    = $script:gitHome
+                Runtime    = Join-Path $script:gitHome 'usr/bin/msys-2.0.dll'
+                Executable = Join-Path $script:gitHome 'usr/bin/zsh.exe'
+                Manifest   = $script:manifest
+            }
+        }
+    }
+
+    Context 'on Windows' {
+        It 'removes exactly the files and folders the manifest lists, then the manifest' {
+            if (-not $IsWindows) {
+                Set-ItResult -Skipped -Because 'windows_only_uninstall'; return
+            }
+            Uninstall-Zsh
+            Test-FixturePath 'usr/bin/zsh.exe' | Should -BeFalse
+            Test-FixturePath 'usr/share/zsh' | Should -BeFalse
+            Test-FixturePath 'usr/share/catzc' | Should -BeFalse
+            Test-FixturePath 'usr/bin/msys-2.0.dll' | Should -BeTrue
+            Test-FixturePath 'usr/bin/msys-gadget.dll' | Should -BeTrue
+        }
+
+        It 'keeps a listed folder that holds a file it did not install' {
+            if (-not $IsWindows) {
+                Set-ItResult -Skipped -Because 'windows_only_uninstall'; return
+            }
+            Set-FixtureFile 'usr/share/zsh/widget/kept'
+            Uninstall-Zsh
+            Test-FixturePath 'usr/share/zsh/widget/kept' | Should -BeTrue
+            Test-FixturePath 'usr/share/zsh/widget/gadget' | Should -BeFalse
+        }
+
+        It 'is a no-op without a manifest' {
+            if (-not $IsWindows) {
+                Set-ItResult -Skipped -Because 'windows_only_uninstall'; return
+            }
+            [System.IO.File]::Delete($script:manifest)
+            { Uninstall-Zsh } | Should -Not -Throw
+            Test-FixturePath 'usr/bin/zsh.exe' | Should -BeTrue
+        }
+
+        It 'is idempotent: a second run finds nothing to do' {
+            if (-not $IsWindows) {
+                Set-ItResult -Skipped -Because 'windows_only_uninstall'; return
+            }
+            Uninstall-Zsh
+            { Uninstall-Zsh } | Should -Not -Throw
+        }
+    }
+
+    Context 'on macOS and Linux' {
+        It 'has nothing to uninstall: zsh is the system''s' {
+            if ($IsWindows) {
+                Set-ItResult -Skipped -Because 'unix_only_uninstall'; return
+            }
+            { Uninstall-Zsh } | Should -Not -Throw
+            Should -Invoke Get-ZshInstallLayout -ModuleName Catzc.Tooling.Provisioning -Times 0
+        }
+    }
+}

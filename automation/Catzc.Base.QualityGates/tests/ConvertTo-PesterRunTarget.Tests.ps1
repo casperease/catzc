@@ -41,8 +41,19 @@ Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
         $target.Container[1].Data['Language'] | Should -Be 'python'
         $target.Container[1].Data['TestFolder'] | Should -Be $script:widgetPython
         $target.Container[1].Data['Executable'] | Should -Be 'C:\widget\uv\uv.exe'
+        $pwsh = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name
+        $otherEngines = @([Catzc.Base.Engines.ExecutionEngines]::Names | Where-Object { $_ -ne $pwsh })
         $target.Container[0].Data['EngineExecutable']['bash'] | Should -Be 'C:\widget\bash\bash.exe'
-        @($target.Container[0].Data['EngineExecutable'].Keys) | Should -Be @('bash')
+        @($target.Container[0].Data['EngineExecutable'].Keys | Sort-Object) | Should -Be @($otherEngines | Sort-Object)
+    }
+
+    It 'hands the bridge an empty executable for an engine the source session did not locate' {
+        $target = ConvertTo-Target -Path $script:widgetGo -LanguageExecutable @{ go = 'C:\widget\go\bin\go.exe'; bash = 'C:\widget\bash\bash.exe' }
+        $engineExecutable = $target.Container[0].Data['EngineExecutable']
+        foreach ($engine in @([Catzc.Base.Engines.ExecutionEngines]::Names | Where-Object { $_ -notin [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name, 'bash' })) {
+            $engineExecutable[$engine] | Should -BeExactly ''
+        }
+        $engineExecutable.ContainsKey([Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) | Should -BeFalse
     }
 
     It 'hands the bridge an empty entry script in the source run, and an empty tool when there is none' {

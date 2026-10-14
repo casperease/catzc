@@ -138,4 +138,25 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
             & $script:scan @{ 'docs/alpha.yml' = @('note: the widget bundle') } | Should -BeNullOrEmpty
         }
     }
+
+    # Test-Glossary hands G4 and G6 one surface table, so a run reads each file's prose once.
+    Context 'surface table' {
+        It 'fills the table it is given, and reads a file already in the table from the table' {
+            $relative = 'docs/alpha.md'
+            $full = Join-Path $TestDrive $relative
+            [System.IO.Directory]::CreateDirectory((Split-Path $full -Parent)) | Out-Null
+            [System.IO.File]::WriteAllText($full, 'the widget suite')
+            $parameters = @{ Entries = @(& $script:entry); Files = [string[]] @($relative); Root = [string] $TestDrive; Table = @{} }
+            $check = {
+                Get-GlossaryPhrasingViolations -Entry $Entries -TrackedFile $Files -Root $Root -SurfaceCache $Table
+            }
+
+            @(InModuleScope Catzc.Base.Docs -Parameters $parameters $check) | Should -BeNullOrEmpty
+            @($parameters.Table.Keys) | Should -Be @($relative)
+
+            $parameters.Table[$relative] = @([pscustomobject]@{ Surface = 'markdown'; Line = 1; Text = 'the widget bundle' })
+            @(InModuleScope Catzc.Base.Docs -Parameters $parameters $check) |
+                Should -Be @('docs/alpha.md:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
+        }
+    }
 }

@@ -1,0 +1,58 @@
+# expedition, apex prod (customer apex, apex_prod subscription): in the apex prod spoke, registered in the prod
+# hub's private DNS zones. Production class: a provisioned database with geo backups, zone-redundant by the
+# template default.
+ParametersFile:
+  parameters:
+    tags:
+      value:
+        workload: expedition
+        environment: prod
+        owner: apex
+        cost-center: apex
+        criticality: high
+        data-classification: confidential
+    storageAccountName:
+      value: prweuzctexpedapst
+    sqlServerName:
+      value: prod-weu-zct-exped-apex-sql
+    sqlDatabaseName:
+      value: prod-weu-zct-exped-apex-sqldb
+    blobPrivateEndpointName:
+      value: prod-weu-zct-exped-apex-blb-pep
+    sqlPrivateEndpointName:
+      value: prod-weu-zct-exped-apex-sql-pep
+    entraAdminLogin:
+      value: zct-exped-sql-admins
+    entraAdminObjectId:
+      value: 59100000-ad01-0000-6000-000000000000
+    administratorLogin:
+      value: exped-break-glass
+    administratorLoginPassword:
+      reference:
+        keyVault:
+          id: /subscriptions/a0e00000-000d-50b0-0000-000000000000/resourceGroups/psub-weu-zct-fnd-apex-rg/providers/Microsoft.KeyVault/vaults/ps-weu-zct-fnd-ap-kv
+        secretName: exped-sql-admin-password
+    databaseSkuName:
+      value: GP_Gen5
+    databaseTier:
+      value: GeneralPurpose
+    databaseSkuFamily:
+      value: Gen5
+    databaseSkuCapacity:
+      value: 2
+    databaseBackupStorageRedundancy:
+      value: Geo
+    databaseBackupRetentionDays:
+      value: 35
+    networkResourceGroupName:
+      value: psub-weu-zct-disco-apex-rg
+    virtualNetworkName:
+      value: psub-weu-zct-disco-apex-vnet
+    privateDnsZoneSubscriptionId:
+      address: global.azure.subscriptions.shared_prod.id
+    privateDnsZoneResourceGroupName:
+      value: psub-weu-zct-disco-rg
+    logAnalyticsResourceGroupName:
+      value: psub-weu-zct-fnd-apex-rg
+    logAnalyticsName:
+      value: psub-weu-zct-fnd-apex-log

@@ -15,8 +15,10 @@ Design rationale lives in the [Azure ADRs](../../adr/azure/).
 
 ## The articles
 
-| Article                     | In one line                                                 |
-| --------------------------- | ----------------------------------------------------------- |
-| [overview](overview.md)     | The templating system — layout, discovery, build and deploy |
-| [modules](modules.md)       | The shared bicep modules referenced by templates            |
-| [foundation](foundation.md) | Once-per-subscription baseline: Log Analytics and Key Vault |
+| Article                     | In one line                                                               |
+| --------------------------- | ------------------------------------------------------------------------- |
+| [overview](overview.md)     | The templating system — layout, discovery, build and deploy               |
+| [modules](modules.md)       | The shared bicep modules referenced by templates                          |
+| [foundation](foundation.md) | Once-per-subscription baseline: Log Analytics and Key Vault               |
+| [discovery](discovery.md)   | CAF landing zone per subscription: hub or spoke network, policies, budget |
+| [expedition](expedition.md) | Well-Architected workload: storage and SQL behind private endpoints       |

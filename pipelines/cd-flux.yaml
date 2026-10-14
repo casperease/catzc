@@ -11,7 +11,8 @@
 
 # Trigger = the 'flux' globset projected into ADO-native path filters (Get-GlobSetTrigger,
 # [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)):
-# shared foundation + modules, plus flux's own configuration subfolder, minus the other deployments' config.
+# the foundation, discovery, and expedition templates + modules, plus flux's own configuration subfolder of
+# foundation and discovery (flux has no expedition config), minus the other deployments' config.
 trigger:
   branches:
     include: [main]
@@ -19,10 +20,17 @@ trigger:
     include:
       - infrastructure/templates/foundation/**
       - infrastructure/modules/**
+      - infrastructure/templates/discovery/**
+      - infrastructure/templates/expedition/**
       - infrastructure/templates/foundation/configuration/flux/**
+      - infrastructure/templates/discovery/configuration/flux/**
     exclude:
       - infrastructure/templates/foundation/configuration/*.yml
       - infrastructure/templates/foundation/configuration/*/**
+      - infrastructure/templates/discovery/configuration/*.yml
+      - infrastructure/templates/discovery/configuration/*/**
+      - infrastructure/templates/expedition/configuration/*.yml
+      - infrastructure/templates/expedition/configuration/*/**
 
 pr:
   branches:
@@ -31,10 +39,17 @@ pr:
     include:
       - infrastructure/templates/foundation/**
       - infrastructure/modules/**
+      - infrastructure/templates/discovery/**
+      - infrastructure/templates/expedition/**
       - infrastructure/templates/foundation/configuration/flux/**
+      - infrastructure/templates/discovery/configuration/flux/**
     exclude:
       - infrastructure/templates/foundation/configuration/*.yml
       - infrastructure/templates/foundation/configuration/*/**
+      - infrastructure/templates/discovery/configuration/*.yml
+      - infrastructure/templates/discovery/configuration/*/**
+      - infrastructure/templates/expedition/configuration/*.yml
+      - infrastructure/templates/expedition/configuration/*/**
 
 extends:
   template: /pipelines/extends/cd-customer.yaml

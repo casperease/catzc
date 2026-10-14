@@ -1,0 +1,5 @@
+old_code	new_code	old_path	new_path	kind
+ADR-WIDGET-GADGET	ADR-GIZMO-GADGET	widget/sub/gadget-rules.md	gizmo/gadget-rules.md	move
+ADR-WIDGET-COG	ADR-WIDGET-COG	widget/sub/cog-rules.md	widget/cog-rules.md	path
+-	ADR-GIZMO-LEVER	-	gizmo/lever-rules.md	new
+-	-	widget/sub/index.md	gizmo/index.md	folder

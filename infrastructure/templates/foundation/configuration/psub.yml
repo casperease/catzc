@@ -1,6 +1,14 @@
 # foundation, shared prod subscription (env psub). One config file ⟷ one resource group.
 ParametersFile:
   parameters:
+    tags:
+      value:
+        workload: foundation
+        environment: prod
+        owner: platform
+        cost-center: platform
+        criticality: high
+        data-classification: internal
     logAnalyticsName:
       value: psub-weu-zct-fnd-log
     keyVaultName:

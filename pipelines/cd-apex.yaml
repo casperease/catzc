@@ -12,8 +12,9 @@
 
 # Trigger = the 'apex' globset projected into ADO-native path filters (Get-GlobSetTrigger,
 # [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)):
-# the shared foundation + modules, plus apex's own configuration subfolder, minus the other deployments'
-# config. A deeper-folder include (configuration/apex/**) over the broader exclude, so ADO keeps it.
+# the foundation, discovery, and expedition templates + modules, plus apex's own configuration subfolder of
+# each, minus the other deployments' config. A deeper-folder include (configuration/apex/**) over the broader
+# exclude, so ADO keeps it.
 trigger:
   branches:
     include: [main]
@@ -21,10 +22,18 @@ trigger:
     include:
       - infrastructure/templates/foundation/**
       - infrastructure/modules/**
+      - infrastructure/templates/discovery/**
+      - infrastructure/templates/expedition/**
       - infrastructure/templates/foundation/configuration/apex/**
+      - infrastructure/templates/discovery/configuration/apex/**
+      - infrastructure/templates/expedition/configuration/apex/**
     exclude:
       - infrastructure/templates/foundation/configuration/*.yml
       - infrastructure/templates/foundation/configuration/*/**
+      - infrastructure/templates/discovery/configuration/*.yml
+      - infrastructure/templates/discovery/configuration/*/**
+      - infrastructure/templates/expedition/configuration/*.yml
+      - infrastructure/templates/expedition/configuration/*/**
 
 pr:
   branches:
@@ -33,10 +42,18 @@ pr:
     include:
       - infrastructure/templates/foundation/**
       - infrastructure/modules/**
+      - infrastructure/templates/discovery/**
+      - infrastructure/templates/expedition/**
       - infrastructure/templates/foundation/configuration/apex/**
+      - infrastructure/templates/discovery/configuration/apex/**
+      - infrastructure/templates/expedition/configuration/apex/**
     exclude:
       - infrastructure/templates/foundation/configuration/*.yml
       - infrastructure/templates/foundation/configuration/*/**
+      - infrastructure/templates/discovery/configuration/*.yml
+      - infrastructure/templates/discovery/configuration/*/**
+      - infrastructure/templates/expedition/configuration/*.yml
+      - infrastructure/templates/expedition/configuration/*/**
 
 extends:
   template: /pipelines/extends/cd-customer.yaml

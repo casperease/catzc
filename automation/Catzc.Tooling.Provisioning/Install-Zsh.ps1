@@ -87,8 +87,8 @@ function Install-Zsh {
         # Relative names from the work folder, so the command line carries no drive-letter path.
         Invoke-Executable "`"$tar`" -xf `"$package`" -C package" -WorkingDirectory $work -Silent
 
-        # A pacman package keeps its metadata (.PKGINFO, .MTREE, .BUILDINFO, .INSTALL) at the archive root and its payload
-        # under etc/ and usr/: only the payload belongs in Git's tree.
+        # An MSYS2 package keeps its metadata files (.PKGINFO and its siblings) at the archive root and its payload under
+        # etc/ and usr/: only the payload belongs in Git's tree.
         foreach ($metadata in [System.IO.Directory]::GetFiles($staging)) {
             [System.IO.File]::Delete($metadata)
         }

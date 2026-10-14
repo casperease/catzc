@@ -82,6 +82,15 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
             { $layout.CellBottom(-1) } | Should -Throw
         }
 
+        It 'gives the column headers a band of the axis line over two name lines' {
+            $layout = [Catzc.Base.Maps.WorldMapGridLayout]::new($script:map, $script:config)
+            $size = [Catzc.Base.Maps.WorldMapGridLayout]::LabelSize
+            $padding = [Catzc.Base.Maps.WorldMapGridLayout]::Padding
+            $layout.ColumnHeaderHeight | Should -Be ($layout.ColumnAxisHeight + $layout.ColumnNameHeight)
+            $layout.ColumnAxisHeight | Should -Be ($size + 2 * $padding)
+            $layout.ColumnNameHeight | Should -BeGreaterOrEqual (([Catzc.Base.Maps.WorldMapGridLayout]::LineSpacing + 0.7) * $size + 2 * $padding)
+        }
+
         It 'makes the row header as wide as its longest printed label' {
             $layout = [Catzc.Base.Maps.WorldMapGridLayout]::new($script:map, $script:config)
             $widest = [Catzc.Base.Maps.HelveticaMetrics]::Width('Helvetica', 8, 'Root files')
@@ -139,6 +148,65 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
             $marker = [Catzc.Base.Maps.HelveticaMetrics]::Width('Helvetica', 6, [string][char]0x2026)
             [Catzc.Base.Maps.WorldMapPdf]::Fit('widget', 'Helvetica', 8, 6, $marker + 0.5, [ref] $size) | Should -Be ''
             [Catzc.Base.Maps.WorldMapPdf]::Fit('widget', 'Helvetica', 8, 6, $marker + 5, [ref] $size) | Should -Be "w$([char]0x2026)"
+        }
+
+        It 'keeps a header that fits on one line' {
+            $size = 0.0
+            $lines = [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget gadget', 'Helvetica', 8, 6, 100, [ref] $size)
+            $lines | Should -Be @('widget gadget')
+            $size | Should -Be 8
+        }
+
+        It 'wraps a header at a space (dropped) or after a hyphen (kept) before it shrinks' {
+            $size = 0.0
+            [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget gadget', 'Helvetica', 8, 6, 30, [ref] $size) | Should -Be @('widget', 'gadget')
+            $size | Should -Be 8
+            [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget-gadget', 'Helvetica', 8, 6, 30, [ref] $size) | Should -Be @('widget-', 'gadget')
+            $size | Should -Be 8
+        }
+
+        It 'wraps at the break that leaves the wider line narrowest' {
+            $size = 0.0
+            [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget gadget sprocket', 'Helvetica', 8, 6, 50, [ref] $size) | Should -Be @('widget gadget', 'sprocket')
+            $size | Should -Be 8
+        }
+
+        It 'shrinks the wrapped header when its lines are too wide, then cuts each line at the smallest size' {
+            $size = 0.0
+            [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget-gadget', 'Helvetica', 8, 5, 20, [ref] $size) | Should -Be @('widget-', 'gadget')
+            $size | Should -BeLessThan 8
+            $size | Should -BeGreaterOrEqual 5
+            [Catzc.Base.Maps.HelveticaMetrics]::Width('Helvetica', $size, 'widget-') | Should -BeLessOrEqual 20
+            $cut = [Catzc.Base.Maps.WorldMapPdf]::FitLines('widget-gadget', 'Helvetica', 8, 6, 15, [ref] $size)
+            $size | Should -Be 6
+            $cut.Count | Should -Be 2
+            foreach ($line in $cut) {
+                $line | Should -BeLike "*$([char]0x2026)"
+                [Catzc.Base.Maps.HelveticaMetrics]::Width('Helvetica', 6, $line) | Should -BeLessOrEqual 15
+            }
+        }
+
+        It 'fits a header with no break on one line, and leaves out one that does not fit' {
+            $size = 0.0
+            $fit = 0.0
+            $one = [Catzc.Base.Maps.WorldMapPdf]::FitLines('sprockets', 'Helvetica', 8, 6, 30, [ref] $size)
+            $one | Should -Be @([Catzc.Base.Maps.WorldMapPdf]::Fit('sprockets', 'Helvetica', 8, 6, 30, [ref] $fit))
+            $size | Should -Be $fit
+            $size | Should -BeLessThan 8
+            @([Catzc.Base.Maps.WorldMapPdf]::FitLines('widget gadget', 'Helvetica', 8, 6, 1, [ref] $size)).Count | Should -Be 0
+            $size | Should -Be 0
+        }
+
+        It 'prints a narrow column''s header on two lines, the first above the second' {
+            $config = [Catzc.Base.Maps.MapsConfig]::new([ordered]@{ limits = [ordered]@{ page_width = 240 } })
+            $content = [Catzc.Base.Maps.WorldMapPdf]::Render($script:map, $config, $null, $true, $false).Pages[0].Content
+            $content | Should -Not -BeLike '*(Unlisted files) Tj*'
+            $content | Should -BeLike '*(widget-) Tj*'
+            $first = [regex]::Match($content, '([\d.]+) Td \(Unlisted\) Tj')
+            $second = [regex]::Match($content, '([\d.]+) Td \(files\) Tj')
+            $first.Success | Should -BeTrue
+            $second.Success | Should -BeTrue
+            [double] $first.Groups[1].Value | Should -BeGreaterThan ([double] $second.Groups[1].Value)
         }
     }
 

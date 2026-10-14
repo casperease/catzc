@@ -44,7 +44,11 @@ Describe 'Invoke-StaleTypesRestart' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#15' {
     }
 
     It 'restarts stale types when allowed, passing on only the switches that are set, and says so' {
-        $parameters = @{ ExportPrivates = [switch] $true; AllowWarnings = [switch] $false; DiagnoseLoadTime = [switch] $true }
+        # The importer passes $PSBoundParameters: a generic dictionary, whose IDictionary.Contains is not callable.
+        $parameters = [System.Collections.Generic.Dictionary[string, object]]::new()
+        $parameters['ExportPrivates'] = [switch] $true
+        $parameters['AllowWarnings'] = [switch] $false
+        $parameters['DiagnoseLoadTime'] = [switch] $true
         InModuleScope Catzc.Internal.Importer -Parameters @{ Bound = $parameters } {
             param($Bound)
             Invoke-StaleTypesRestart -ModulesRoot 'C:\widget\automation' -RepositoryRoot 'C:\widget' -IsConsoleSession -ImporterParameter $Bound

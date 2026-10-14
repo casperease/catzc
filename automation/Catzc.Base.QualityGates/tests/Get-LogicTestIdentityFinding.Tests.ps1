@@ -26,6 +26,19 @@ Describe 'X' -Tag 'L0', 'logic' {
         $found[0].Kind | Should -Be 'customer-key'
     }
 
+    It 'does NOT flag a hashtable key that spells a live identity, but flags it as a value' {
+        $found = & $script:find @'
+Describe 'X' -Tag 'L0', 'logic' {
+    It 'a' {
+        $splat = @{ Contoso = $true; Name = 'contoso' }
+        Do-Thing @splat | Should -Be 1
+    }
+}
+'@
+        @($found).Count | Should -Be 1
+        $found[0].Line | Should -Be 3
+    }
+
     It 'does NOT flag a live identity inside an integrity-tagged block' {
         $found = & $script:find @'
 Describe 'X' -Tag 'L0' {

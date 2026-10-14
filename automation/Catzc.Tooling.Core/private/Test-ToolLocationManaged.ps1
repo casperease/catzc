@@ -8,7 +8,8 @@
     shells out to the package manager) stays the precise classifier. On Windows the user-scope roots it trusts
     are both winget layouts (%LOCALAPPDATA%\Microsoft\WinGet\Packages for portable packages and
     %LOCALAPPDATA%\Programs for installer packages such as OpenJDK) plus uv's standalone bin
-    (%USERPROFILE%\.local\bin). Machine-scope / Program Files installs, and npm/pip tools whose global bin sits
+    (%USERPROFILE%\.local\bin). An MSYS2-package tool (msys2_url) is owned on Windows inside the tree it installs into
+    (Get-ScriptInstallDir over its windows_install_dir), and wherever the system puts it elsewhere. Machine-scope / Program Files installs, and npm/pip tools whose global bin sits
     outside the platform root, read as unmanaged here — an acceptable false "foreign" for an advisory message,
     never a gate.
 .PARAMETER Config
@@ -38,6 +39,17 @@ function Test-ToolLocationManaged {
     if ($Config.script_install) {
         $dir = (Get-ScriptInstallDir -Config $Config).TrimEnd('\', '/')
         return $loc.StartsWith($dir, [System.StringComparison]::OrdinalIgnoreCase)
+    }
+
+    # MSYS2-package tools (zsh) live, on Windows, in the tree they install into (windows_install_dir, the Git for Windows
+    # tree Install-Git provides); elsewhere they are the system's, owned wherever the OS puts them.
+    if ($Config.msys2_url) {
+        if (-not $IsWindows) {
+            return $true
+        }
+        # The separator keeps a sibling such as %LOCALAPPDATA%\GitHub from reading as inside %LOCALAPPDATA%\Git.
+        $tree = (Get-ScriptInstallDir -Config $Config).TrimEnd('\', '/') + '\'
+        return $loc.StartsWith($tree, [System.StringComparison]::OrdinalIgnoreCase)
     }
 
     # uv-venv tools (az_cli) live under the toolchain's dedicated venv root.

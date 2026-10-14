@@ -43,6 +43,40 @@ bash:
     - "%SystemRoot%\\System32\\bash.exe"
     - "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\bash.exe"
 
+zsh:
+  # zsh 5 — the third execution engine ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)) and the checker of
+  # the repository's *.zsh scripts (Test-ShellScripts runs `zsh -n`,
+  # [ADR-AUTO-BASH#6](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash6)).
+  version: "5"
+  command: zsh
+  # Windows: Install-Zsh installs the MSYS2 zsh package pinned below, verified against its SHA-256 before anything is
+  # extracted, into the Git for Windows tree Install-Git provides (windows_install_dir: %LOCALAPPDATA%\Git), user-space;
+  # it runs on Git Bash's own MSYS2 runtime. Install-Git -Force replaces that tree, so Install-Zsh runs after it, and
+  # depends_on bash (Git Bash) orders it there. macOS ships zsh as /bin/zsh; on Linux it is the distribution's package —
+  # Install-Zsh asserts it there and installs nothing.
+  depends_on: bash
+  msys2_url: "https://repo.msys2.org/msys/x86_64/zsh-5.9.2-1-x86_64.pkg.tar.zst"
+  msys2_sha256: "9a134200a152d90a0f1820d6aa74c3369d8539c068b523852549d74b16739fa8"
+  windows_install_dir: "Git"
+  version_command: "zsh --version"
+  version_pattern: "^zsh (?<ver>[\\d.]+)"
+  # Located by these candidate paths (no process start), then PATH: Install-Zsh leaves PATH alone. A devbox prefers
+  # Install-Zsh's home in Install-Git's tree, then a user-scope winget Git for Windows; a pipeline reads the hosted-agent
+  # locations.
+  windows_probes:
+    - "%LOCALAPPDATA%\\Git\\usr\\bin\\zsh.exe"
+    - "%LOCALAPPDATA%\\Programs\\Git\\usr\\bin\\zsh.exe"
+  windows_pipeline_probes:
+    - "%ProgramFiles%\\Git\\usr\\bin\\zsh.exe"
+  unix_probes:
+    - "/opt/homebrew/bin/zsh"
+    - "/usr/local/bin/zsh"
+    - "/bin/zsh"
+    - "/usr/bin/zsh"
+  unix_pipeline_probes:
+    - "/usr/bin/zsh"
+    - "/bin/zsh"
+
 python:
   # 3.13, not the latest (3.14): stay one release behind the bleeding edge so dependents that lag the newest
   # Python still work. The az_cli venv runs on this interpreter and azure-cli supports only up to 3.13 — the

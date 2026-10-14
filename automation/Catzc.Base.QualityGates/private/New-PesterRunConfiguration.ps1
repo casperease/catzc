@@ -18,8 +18,9 @@
     The engine entry of a build run (the build's Import-Catzc.ps1), handed to the language bridge so the Go and
     Python tests start the build; empty for the source run.
 .PARAMETER LanguageExecutable
-    The managed tool per test language the run's source session located (Get-LanguageTestExecutable:
-    @{ go = <path>; python = <uv path> }), handed to the language bridge; an empty entry means there is none.
+    The managed tool per test language and the executable per engine other than pwsh the run's source session
+    located (Get-LanguageTestExecutable: @{ go = <path>; python = <uv path>; <engine> = <path> }), handed to the
+    language bridge; an empty entry means there is none.
 .PARAMETER ExcludeTag
     Tags excluded from the run (from Get-TestExcludeTag). Empty means no tag filter.
 .PARAMETER IncludeTag

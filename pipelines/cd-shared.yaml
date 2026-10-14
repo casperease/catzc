@@ -20,7 +20,8 @@
 
 # Trigger = the 'shared' globset projected into ADO-native path filters (Get-GlobSetTrigger,
 # [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)):
-# shared foundation + modules, plus the configuration-ROOT ymls, minus the customer subfolders. NOTE: on
+# the foundation, discovery, and expedition templates + modules, plus the configuration-ROOT ymls of each,
+# minus the customer subfolders. NOTE: on
 # ADO's order-independent filter, configuration/*.yml (include) and configuration/*/** (exclude) sit at the
 # SAME folder depth, so ADO may drop a root yml (it is not a deeper-folder re-add). The in-pipeline
 # Test-GlobSetAffected gate is the exact backstop; the definitive fix is to move the shared platform config
@@ -34,8 +35,14 @@ trigger:
       - infrastructure/templates/foundation/**
       - infrastructure/modules/**
       - infrastructure/templates/foundation/configuration/*.yml
+      - infrastructure/templates/discovery/**
+      - infrastructure/templates/discovery/configuration/*.yml
+      - infrastructure/templates/expedition/**
+      - infrastructure/templates/expedition/configuration/*.yml
     exclude:
       - infrastructure/templates/foundation/configuration/*/**
+      - infrastructure/templates/discovery/configuration/*/**
+      - infrastructure/templates/expedition/configuration/*/**
 
 pr:
   branches:
@@ -45,8 +52,14 @@ pr:
       - infrastructure/templates/foundation/**
       - infrastructure/modules/**
       - infrastructure/templates/foundation/configuration/*.yml
+      - infrastructure/templates/discovery/**
+      - infrastructure/templates/discovery/configuration/*.yml
+      - infrastructure/templates/expedition/**
+      - infrastructure/templates/expedition/configuration/*.yml
     exclude:
       - infrastructure/templates/foundation/configuration/*/**
+      - infrastructure/templates/discovery/configuration/*/**
+      - infrastructure/templates/expedition/configuration/*/**
 
 stages:
   # --- CI engine: build + verify, then publish the immutable artifacts ----------------------------

@@ -8,11 +8,15 @@ param location string = resourceGroup().location
 param logAnalyticsName string
 param keyVaultName string
 
+@description('The CAF tags on every resource: discovery\'s "require a tag" policy denies an untagged one.')
+param tags object
+
 module logAnalytics '../../modules/log-analytics.bicep' = {
   name: 'log-analytics'
   params: {
     name: logAnalyticsName
     location: location
+    tags: tags
   }
 }
 
@@ -21,6 +25,7 @@ module keyVault '../../modules/key-vault.bicep' = {
   params: {
     name: keyVaultName
     location: location
+    tags: tags
   }
 }
 

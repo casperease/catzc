@@ -225,6 +225,7 @@ domains:
       azure-network-model: { external: ADR-AZ-NETWORK }
       azure-naming-standard: { external: ADR-AZ-NAMING }
       azure-customer-model: { external: ADR-AZ-CUSTOMER }
+      landing-zones: { external: ADR-AZ-LZ }
 
   repository:
     code: REPO

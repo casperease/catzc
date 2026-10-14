@@ -436,7 +436,7 @@ function Invoke-StaleTypesRestart {
         return $false
     }
     $forwarded = @(foreach ($name in 'ExportPrivates', 'AllowWarnings', 'DiagnoseLoadTime', 'ClearCompiledTypes', 'SkipJanitors', 'CleanClone') {
-            if ($ImporterParameter.Contains($name) -and $ImporterParameter[$name]) {
+            if ($ImporterParameter.Keys -contains $name -and $ImporterParameter[$name]) {
                 "-$name"
             }
         })

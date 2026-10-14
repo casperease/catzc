@@ -21,7 +21,11 @@ BeforeAll {
         }
         'Catzc.Base.Gadget' = @{
             Public = 'Get-Gadget'
-            Files  = @{ 'types/Lever.cs' = "namespace Catzc.Base.Gadget;`npublic class Lever { }`n" }
+            Files  = @{
+                'types/Lever.cs'       = "namespace Catzc.Base.Gadget;`npublic class Lever { }`n"
+                # Reaches into widget twice: a call and a config read — what the closure check follows.
+                'Get-GadgetWidget.ps1' = "function Get-GadgetWidget {`n    Get-Widget`n    Get-Config -Config widget`n}`n"
+            }
         }
         'Catzc.Base.Gizmo'  = @{
             Public = 'Get-Gizmo'
@@ -47,6 +51,9 @@ BeforeAll {
         'automation/.internal/assets/PSScriptAnalyzerSettings.psd1'      = '@{ }'
         'automation/.internal/assets/Import-Catzc.ps1'                   = "# initializer`r`n"
         'automation/.vendor/powershell-yaml/0.4.12/powershell-yaml.psd1' = '@{ }'
+        # A file git stores with CRLF (kept as-is by -text, the way a signed vendored script must be).
+        'automation/.vendor/powershell-yaml/0.4.12/Signed.ps1'           = "# signed`r`n"
+        '.gitattributes'                                                 = "automation/.vendor/powershell-yaml/0.4.12/Signed.ps1 -text`n"
         'automation/.vendor/Pester/5.7.1/Pester.psd1'                    = '@{ }'
         'automation/.scriptanalyzer/WidgetRule.psm1'                     = '# rule'
         'automation/.scriptanalyzer/tests/WidgetRule.Tests.ps1'          = '# rule test (never ships)'
@@ -58,6 +65,18 @@ BeforeAll {
     $compiled = Join-Path $source '.compiled'
     [System.IO.Directory]::CreateDirectory($compiled) | Out-Null
     [System.IO.File]::WriteAllBytes((Join-Path $compiled "Catzc.Types.$fullHash.dll"), [byte[]] @(77, 90, 1, 2, 3))
+
+    # The build ships what git tracks, so the fixture is a committed repository. core.autocrlf=true is a Windows
+    # checkout: the CRLF fixture files (the help text, the initializer) are stored LF, as git stores them in the
+    # real repository, and the checkout keeps them CRLF on disk.
+    foreach ($gitCommand in @(
+            'git init -q'
+            'git config core.autocrlf true'
+            'git add -A'
+            'git -c user.name=widget -c user.email=widget@example.invalid commit -q -m fixture'
+        )) {
+        Invoke-Executable $gitCommand -WorkingDirectory $fake.Root -Silent
+    }
 
     $script:metadata = @{
         Guid        = '01d6e700-b011-d000-0000-000000000000'
@@ -150,6 +169,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
                 '.internal/Catzc.Internal.Vendor.psm1'
                 '.internal/assets/ErrorView.format.ps1xml'
                 '.vendor/powershell-yaml/0.4.12/powershell-yaml.psd1'
+                '.vendor/powershell-yaml/0.4.12/Signed.ps1'
                 'Catzc.Base.Gadget/Catzc.Base.Gadget.functions.ps1'
                 'Catzc.Base.Gadget/Catzc.Base.Gadget.psd1'
                 'Catzc.Base.Gadget/types/Lever.cs'
@@ -195,9 +215,31 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
             }
         }
 
-        It 'copies side folders and the initializer verbatim' {
+        It 'copies side folders and the initializer as git stores them: LF-stored text LF, the rest byte for byte' {
             [System.IO.File]::ReadAllText((Join-Path $root 'Catzc.Base.Widget/assets/widget.txt')) | Should -BeExactly 'widget asset'
-            [System.IO.File]::ReadAllText((Join-Path $root 'Import-Catzc.ps1')) | Should -BeExactly "# initializer`r`n"
+            # CRLF on disk, LF in git: the bundle carries git's LF, whatever the checkout wrote.
+            [System.IO.File]::ReadAllText((Join-Path $fake.Automation '.internal/assets/Import-Catzc.ps1')) | Should -BeExactly "# initializer`r`n"
+            [System.IO.File]::ReadAllText((Join-Path $root 'Import-Catzc.ps1')) | Should -BeExactly "# initializer`n"
+            # CRLF in git (-text): kept byte for byte.
+            [System.IO.File]::ReadAllText((Join-Path $root '.vendor/powershell-yaml/0.4.12/Signed.ps1')) | Should -BeExactly "# signed`r`n"
+        }
+
+        It 'records a clean source tree as not dirty' {
+            $result.Dirty | Should -BeFalse
+            (Get-Content -Raw (Join-Path $root 'build.json') | ConvertFrom-Json).dirty | Should -BeFalse
+        }
+
+        It 'yields the same content hash whatever line endings the checkout wrote' {
+            $initializer = Join-Path $fake.Automation '.internal/assets/Import-Catzc.ps1'
+            try {
+                [System.IO.File]::WriteAllText($initializer, "# initializer`n")
+                $lfCheckout = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Module 'Catzc.Base.Gadget' -Destination (Join-Path $TestDrive 'lf-checkout')
+                $lfCheckout.Dirty | Should -BeFalse -Because 'an LF checkout of an LF-stored file is the same commit'
+                $lfCheckout.ContentHash | Should -Be $result.ContentHash
+            }
+            finally {
+                [System.IO.File]::WriteAllText($initializer, "# initializer`r`n")
+            }
         }
 
         It 'generates each module manifest over the one merged file, exporting the public functions only' {
@@ -213,7 +255,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
             $manifest.ModuleVersion | Should -Be '1.2.3'
             $manifest.GUID | Should -Be $metadata.Guid
             $manifest.Description | Should -Be "Widget's package"
-            @($manifest.FunctionsToExport) | Should -Be @('Get-Gadget', 'Get-Widget', 'Set-Widget')
+            @($manifest.FunctionsToExport) | Should -Be @('Get-Gadget', 'Get-GadgetWidget', 'Get-Widget', 'Set-Widget')
             @($manifest.PrivateData.PSData.Tags) | Should -Be @('widget', 'gadget')
             $manifest.PrivateData.PSData.ProjectUri | Should -Be 'https://example.invalid/widget'
             $manifest.PrivateData.PSData.ContainsKey('LicenseUri') | Should -BeFalse
@@ -266,6 +308,32 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
         }
     }
 
+    Context 'a source tree that differs from its commit' {
+        BeforeAll {
+            $script:untracked = Join-Path $fake.Automation 'Catzc.Base.Widget/assets/untracked.txt'
+            [System.IO.File]::WriteAllText($untracked, 'not in git')
+        }
+
+        AfterAll {
+            [System.IO.File]::Delete($untracked)
+        }
+
+        It 'ships tracked files only and records the build as dirty' {
+            $dirtyBuild = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'dirty')
+            $dirtyBuild.Dirty | Should -BeTrue
+            (Get-Content -Raw (Join-Path $dirtyBuild.BuildRoot 'build.json') | ConvertFrom-Json).dirty | Should -BeTrue
+            Test-Path (Join-Path $dirtyBuild.BuildRoot 'Catzc.Base.Widget/assets/untracked.txt') | Should -BeFalse
+            Test-Path (Join-Path $dirtyBuild.BuildRoot 'Catzc.Base.Widget/assets/widget.txt') | Should -BeTrue
+        }
+
+        It 'refuses to build in a pipeline' {
+            Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Internal.Builder
+            $destination = Join-Path $TestDrive 'dirty-pipeline'
+            { Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination $destination } | Should -Throw '*differs from its commit*'
+            [System.IO.Directory]::Exists($destination) | Should -BeFalse
+        }
+    }
+
     Context 'the full vendor policy' {
         It 'also ships the test tooling, the TestKit, the analyzer settings, and the analyzer rules without their tests' {
             $built = Invoke-ModuleBuild @buildArguments -VendorPolicy full -Module 'Catzc.Base.Widget' -Destination (Join-Path $TestDrive 'full')
@@ -303,6 +371,18 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
             $message | Should -BeLike '*Catzc.Base.Widget/assets/missing.txt (read by Get-Widget, automation/Catzc.Base.Widget/Get-Widget.ps1:5)*'
             $message | Should -BeLike '*Catzc.Base.Gizmo/configs/gizmo.yml*'
             $message | Should -Not -BeLike '*Set-Widget*'
+            [System.IO.Directory]::Exists($destination) | Should -BeFalse
+        }
+
+        It 'fails the closure check listing every call and config read that lands outside the selection' {
+            # A closure that forgets gadget's dependency on widget, the way an unlisted module in dependencies.yml does.
+            Mock Get-ModuleProfile -ModuleName Catzc.Internal.Builder -RemoveParameterValidation Name { [string[]] @($Modules) }
+            $destination = Join-Path $TestDrive 'closure'
+            $failure = { Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Gadget' -Destination $destination } | Should -Throw -PassThru
+            $message = $failure.Exception.Message
+            $message | Should -BeLike '*2 call(s) or config read(s)*'
+            $message | Should -BeLike '*automation/Catzc.Base.Gadget/Get-GadgetWidget.ps1:2: Get-GadgetWidget calls Get-Widget, which Catzc.Base.Widget owns*'
+            $message | Should -BeLike "*automation/Catzc.Base.Gadget/Get-GadgetWidget.ps1:3: reads config 'widget', which Catzc.Base.Widget owns*"
             [System.IO.Directory]::Exists($destination) | Should -BeFalse
         }
 

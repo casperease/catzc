@@ -1,4 +1,3 @@
-// cspell:ignore squarified -- the treemap layout's name (SquarifiedTreemap)
 // Draws the world map onto PdfDocument pages: the grid page (rows are the tracks, columns the file languages, each cell
 // shaded by its file count) and the tree page (a squarified treemap of the tracks by file count, each holding its
 // non-empty cells). The catch-all row prints the root-file label and the catch-all column the unlisted-file label
@@ -10,7 +9,8 @@
 // Every page starts with the full-page background fill, so a viewer in dark or light mode shows the palette's
 // background rather than its own. Colours, titles, legend entries and the page size come from MapsConfig; a track or
 // file-language name is cut to its character limit, and any label then shrinks to the smallest font size and is cut
-// further, both with the marker '…', so nothing overflows its box. Everything is a function of the map, the config
+// further, both with the marker '…', so nothing overflows its box. A grid column header first wraps onto a second line
+// at a space or a hyphen, and only then shrinks and is cut. Everything is a function of the map, the config
 // and the highlight, so the bytes are the same on every run.
 
 using System;
@@ -103,6 +103,78 @@ public static class WorldMapPdf
         return "";
     }
 
+    // The text as it fits maxWidth points on at most two lines, in this order: on one line at the given size; else
+    // broken in two at a space (dropped) or after a hyphen (kept), at the break that leaves the wider line narrowest
+    // (the first such break on a tie), at the given size; else that break at a smaller size (in half points) no smaller
+    // than minSize; else at minSize with each line cut from the end with the marker, a second line that keeps nothing
+    // left out. A text with no break is fitted on one line as Fit does. Empty (and fittedSize 0) when nothing fits.
+    public static string[] FitLines(string text, PdfFont font, double size, double minSize, double maxWidth, out double fittedSize)
+    {
+        if (text == null) { throw new ArgumentNullException(nameof(text)); }
+        fittedSize = 0;
+        if (text.Length == 0 || maxWidth <= 0 || minSize > size) { return Array.Empty<string>(); }
+        if (HelveticaMetrics.Width(font, size, text) <= maxWidth)
+        {
+            fittedSize = size;
+            return new[] { text };
+        }
+        string[] split = BestBreak(text, font);
+        if (split == null)
+        {
+            string one = Fit(text, font, size, minSize, maxWidth, out fittedSize);
+            return one.Length == 0 ? Array.Empty<string>() : new[] { one };
+        }
+        double wider = Math.Max(HelveticaMetrics.Width(font, size, split[0]), HelveticaMetrics.Width(font, size, split[1]));
+        if (wider <= maxWidth)
+        {
+            fittedSize = size;
+            return split;
+        }
+        double shrunk = Math.Floor(size * maxWidth / wider * 2) / 2;
+        if (shrunk >= minSize && Math.Max(HelveticaMetrics.Width(font, shrunk, split[0]), HelveticaMetrics.Width(font, shrunk, split[1])) <= maxWidth)
+        {
+            fittedSize = shrunk;
+            return split;
+        }
+        double cutSize;
+        string top = Fit(split[0], font, minSize, minSize, maxWidth, out cutSize);
+        if (top.Length == 0) { return Array.Empty<string>(); }
+        string bottom = Fit(split[1], font, minSize, minSize, maxWidth, out cutSize);
+        fittedSize = minSize;
+        return bottom.Length == 0 ? new[] { top } : new[] { top, bottom };
+    }
+
+    // The two lines of the break in text that leaves the wider line narrowest, the first on a tie; null when the text
+    // has no space or hyphen with something on both sides.
+    private static string[] BestBreak(string text, PdfFont font)
+    {
+        string[] best = null;
+        double bestWidth = double.MaxValue;
+        for (int at = 0; at < text.Length; at++)
+        {
+            string first, second;
+            if (text[at] == ' ')
+            {
+                first = text.Substring(0, at).TrimEnd(' ');
+                second = text.Substring(at + 1).TrimStart(' ');
+            }
+            else if (text[at] == '-')
+            {
+                first = text.Substring(0, at + 1);
+                second = text.Substring(at + 1);
+            }
+            else { continue; }
+            if (first.Trim(' ', '-').Length == 0 || second.Trim(' ', '-').Length == 0) { continue; }
+            double width = Math.Max(HelveticaMetrics.Width(font, 1, first), HelveticaMetrics.Width(font, 1, second));
+            if (width < bestWidth)
+            {
+                best = new[] { first, second };
+                bestWidth = width;
+            }
+        }
+        return best;
+    }
+
     // The fill of a cell with the given count: the palette's cell colour when empty, else a point on the scale from
     // cell to shade, logarithmic in the count so a few files and a thousand both read.
     public static string ShadeOf(int count, int maxCount, MapsPalette palette)
@@ -143,16 +215,16 @@ public static class WorldMapPdf
         page.FillRect(layout.Left, layout.Bottom, layout.RowHeaderWidth, layout.Rows * layout.CellHeight);
         page.SetFillColor(palette.column);
         page.FillRect(layout.CellLeft(0), layout.Top - layout.ColumnHeaderHeight, layout.Columns * layout.CellWidth, layout.ColumnHeaderHeight);
-        double lineHeight = layout.ColumnHeaderHeight / 2;
+        double axisHeight = layout.ColumnAxisHeight;
         page.SetFillColor(palette.text);
-        Label(page, PdfFont.HelveticaBold, config.labels.column_axis, layout.CellLeft(0), layout.Top - lineHeight, layout.Columns * layout.CellWidth,
-            lineHeight, min, false);
-        Label(page, PdfFont.HelveticaBold, config.labels.row_axis, layout.Left, layout.Top - layout.ColumnHeaderHeight, layout.RowHeaderWidth, lineHeight,
+        Label(page, PdfFont.HelveticaBold, config.labels.column_axis, layout.CellLeft(0), layout.Top - axisHeight, layout.Columns * layout.CellWidth,
+            axisHeight, min, false);
+        Label(page, PdfFont.HelveticaBold, config.labels.row_axis, layout.Left, layout.Top - layout.ColumnHeaderHeight, layout.RowHeaderWidth, axisHeight,
             min, false);
         for (int c = 0; c < layout.Columns; c++)
         {
-            Label(page, PdfFont.Helvetica, ColumnLabel(map.FileLanguages[c], config), layout.CellLeft(c), layout.Top - layout.ColumnHeaderHeight,
-                layout.CellWidth, lineHeight, min, true);
+            ColumnHeader(page, ColumnLabel(map.FileLanguages[c], config), layout.CellLeft(c), layout.Top - layout.ColumnHeaderHeight, layout.CellWidth,
+                layout.ColumnNameHeight, min);
         }
         for (int r = 0; r < layout.Rows; r++)
         {
@@ -181,13 +253,13 @@ public static class WorldMapPdf
         for (int c = 0; c <= layout.Columns; c++)
         {
             double x = layout.Left + layout.RowHeaderWidth + c * layout.CellWidth;
-            page.Line(x, c == 0 || c == layout.Columns ? layout.Top : layout.Top - lineHeight, x, layout.Bottom);
+            page.Line(x, c == 0 || c == layout.Columns ? layout.Top : layout.Top - axisHeight, x, layout.Bottom);
         }
         page.SetLineWidth(1.5);
         double bucketY = layout.CellBottom(layout.Rows - 1) + layout.CellHeight;
         page.Line(layout.Left, bucketY, layout.Right, bucketY);
         double bucketX = layout.CellLeft(layout.Columns - 1);
-        page.Line(bucketX, layout.Top - lineHeight, bucketX, layout.Bottom);
+        page.Line(bucketX, layout.Top - axisHeight, bucketX, layout.Bottom);
 
         for (int r = 0; r < layout.Rows; r++)
         {
@@ -348,6 +420,23 @@ public static class WorldMapPdf
         double textWidth = HelveticaMetrics.Width(font, fitted, shown);
         double left = centre ? x + (width - textWidth) / 2 : x + pad;
         page.Text(font, fitted, left, y + (height - fitted * 0.7) / 2, shown);
+    }
+
+    // A column header fitted into its box on one or two lines (FitLines), each line centred, the block set on the box's
+    // vertical middle, in the current fill colour.
+    private static void ColumnHeader(PdfPage page, string text, double x, double y, double width, double height, double min)
+    {
+        double fitted;
+        string[] lines = FitLines(text, PdfFont.Helvetica, WorldMapGridLayout.LabelSize, min, width - 2 * WorldMapGridLayout.Padding, out fitted);
+        if (lines.Length == 0) { return; }
+        double pitch = fitted * WorldMapGridLayout.LineSpacing;
+        double baseline = y + (height - (lines.Length - 1) * pitch - fitted * 0.7) / 2 + (lines.Length - 1) * pitch;
+        foreach (string line in lines)
+        {
+            double lineWidth = HelveticaMetrics.Width(PdfFont.Helvetica, fitted, line);
+            page.Text(PdfFont.Helvetica, fitted, x + (width - lineWidth) / 2, baseline, line);
+            baseline -= pitch;
+        }
     }
 
     // A tree cell's label: its file-language name over its count when both lines fit, else the name alone.

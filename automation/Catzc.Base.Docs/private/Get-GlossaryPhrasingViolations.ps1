@@ -26,6 +26,10 @@
     The repo-relative, '/'-separated tracked files to consider. Defaults to every file git tracks.
 .PARAMETER Root
     The directory the tracked files are relative to. Defaults to the repository root.
+.PARAMETER SurfaceCache
+    The text surfaces already read, keyed by tracked file: a file read once is not read again. Test-Glossary hands the
+    same table to this check and to the forms check (G6, Get-GlossaryFormViolations), which read the same surfaces of
+    the same files under the same root, so one run reads each file's prose once. Defaults to an empty table.
 .OUTPUTS
     [string[]] One message per use — `<file>:<line> says "<phrase>" — say "<say>" (<defined_by>)` — in file then
     line order; empty when prose avoids every avoided phrasing.
@@ -42,7 +46,9 @@ function Get-GlossaryPhrasingViolations {
         [AllowEmptyCollection()]
         [string[]] $TrackedFile = @(Get-GitTrackedPath '.'),
 
-        [string] $Root = (Get-RepositoryRoot)
+        [string] $Root = (Get-RepositoryRoot),
+
+        [hashtable] $SurfaceCache = @{}
     )
 
     # Per source: its options and every avoided phrasing of its concepts. Sources outside the avoid check drop out.
@@ -68,8 +74,7 @@ function Get-GlossaryPhrasingViolations {
         }
     }
 
-    # A file's text surfaces are read once, however many sources scan it.
-    $surfaceCache = @{}
+    # A file's text surfaces are read once (into -SurfaceCache), however many sources scan it.
     $hits = [System.Collections.Generic.List[object]]::new()
     foreach ($sourcePath in $sources.Keys) {
         $source = $sources[$sourcePath]

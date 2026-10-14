@@ -1,0 +1,54 @@
+# discovery, apex nonprod subscription (env nsub, customer apex): a spoke. The kind and the ranges come from
+# network.yml by config address; the spoke peers to the nonprod hub.
+ParametersFile:
+  parameters:
+    tags:
+      value:
+        workload: landing-zone
+        environment: nonprod
+        owner: apex
+        cost-center: apex
+        criticality: medium
+        data-classification: confidential
+    subscriptions:
+      address: global.azure.subscriptions
+    networkKind:
+      address: global.network.subscriptions.apex_nonprod.kind
+    vnetAddressSpace:
+      address: global.network.subscriptions.apex_nonprod.vnet_address_space
+    subnetPrefixes:
+      address: global.network.subscriptions.apex_nonprod.subnets
+    resourceGroupName:
+      value: nsub-weu-zct-disco-apex-rg
+    virtualNetworkName:
+      value: nsub-weu-zct-disco-apex-vnet
+    networkSecurityGroupNames:
+      value:
+        private-endpoints: nsub-weu-zct-disco-apex-pe-nsg
+        dev: nsub-weu-zct-disco-apex-dev-nsg
+        test: nsub-weu-zct-disco-apex-tst-nsg
+    routeTableName:
+      value: nsub-weu-zct-disco-apex-rt
+    hub:
+      value:
+        subscription: shared_nonprod
+        resourceGroupName: nsub-weu-zct-disco-rg
+        virtualNetworkName: nsub-weu-zct-disco-vnet
+        peeringName: nsub-weu-zct-disco-apex-hub-peer
+    logAnalyticsResourceGroupName:
+      value: nsub-weu-zct-fnd-apex-rg
+    logAnalyticsName:
+      value: nsub-weu-zct-fnd-apex-log
+    policyEnforcementMode:
+      address: global.azure.policy_enforcement.nonproduction
+    policyAssignmentNames:
+      value:
+        allowedLocations: nsub-weu-zct-disco-apex-loc-pa
+        requireTag: nsub-weu-zct-disco-apex-tag-pa
+        noPublicIp: nsub-weu-zct-disco-apex-pip-pa
+    budgetName:
+      value: nsub-weu-zct-disco-apex-budg
+    budgetAmount:
+      value: 300
+    budgetStartDate:
+      value: "2026-11-01"

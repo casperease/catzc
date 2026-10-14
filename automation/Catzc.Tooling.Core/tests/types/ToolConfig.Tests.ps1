@@ -47,6 +47,45 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
         [Catzc.Tooling.Core.ToolConfig]::new($entry).HasInstallMechanism() | Should -BeFalse
     }
 
+    It 'counts an MSYS2 package as an install mechanism and maps its URL and SHA-256' {
+        $entry = $script:required.Clone()
+        $entry.Remove('winget_id')
+        $entry.msys2_url = 'https://example.com/widget-1.0-1-x86_64.pkg.tar.zst'
+        $entry.msys2_sha256 = 'a' * 64
+        $config = [Catzc.Tooling.Core.ToolConfig]::new($entry)
+        $config.HasInstallMechanism() | Should -BeTrue
+        $config.msys2_url | Should -Be 'https://example.com/widget-1.0-1-x86_64.pkg.tar.zst'
+        $config.msys2_sha256 | Should -Be ('a' * 64)
+    }
+
+    It 'defaults the MSYS2 package to null' {
+        $config = [Catzc.Tooling.Core.ToolConfig]::new($script:required.Clone())
+        $config.msys2_url | Should -BeNullOrEmpty
+        $config.msys2_sha256 | Should -BeNullOrEmpty
+    }
+
+    It 'rejects <key> declared without its partner' -Tag 'ADR-AUTO-PKGMGR#6' -ForEach @(
+        @{ key = 'msys2_url'; value = 'https://example.com/widget.pkg.tar.zst' }
+        @{ key = 'msys2_sha256'; value = 'a' * 64 }
+    ) {
+        $entry = $script:required.Clone()
+        $entry[$key] = $value
+        { [Catzc.Tooling.Core.ToolConfig]::new($entry) } | Should -Throw '*msys2_url and msys2_sha256 are declared together*'
+    }
+
+    It 'rejects an msys2_sha256 that is not 64 lowercase hex digits: <case>' -Tag 'ADR-AUTO-PKGMGR#6' -ForEach @(
+        @{ case = 'uppercase'; value = 'A' * 64 }
+        @{ case = 'too short'; value = 'a' * 63 }
+        @{ case = 'too long'; value = 'a' * 65 }
+        @{ case = 'not hex'; value = 'g' * 64 }
+        @{ case = 'trailing newline'; value = ('a' * 64) + "`n" }
+    ) {
+        $entry = $script:required.Clone()
+        $entry.msys2_url = 'https://example.com/widget.pkg.tar.zst'
+        $entry.msys2_sha256 = $value
+        { [Catzc.Tooling.Core.ToolConfig]::new($entry) } | Should -Throw '*must be 64 lowercase hex digits*'
+    }
+
     It 'rejects a session_host_probes entry that does not end with {version}' {
         $entry = $script:required.Clone()
         $entry.session_host_probes = @('sdk/{version}/bin')

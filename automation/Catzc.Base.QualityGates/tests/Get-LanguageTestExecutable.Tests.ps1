@@ -14,20 +14,32 @@ Describe 'Get-LanguageTestExecutable' -Tag 'L0', 'logic' {
         }
         Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates { $script:folders }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates { $script:probes[$Tool] }
-        Mock Resolve-EngineExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Engine -eq 'bash' } { 'C:\widget\bash\bash.exe' }
+        Mock Resolve-EngineExecutable -ModuleName Catzc.Base.QualityGates { "C:\widget\$Engine\$Engine.exe" }
+        $script:pwsh = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name
+        $script:otherEngines = @([Catzc.Base.Engines.ExecutionEngines]::Names | Where-Object { $_ -ne $script:pwsh })
     }
 
-    It 'returns go, uv and the bash engine when they are found' {
+    It 'returns go, uv and every engine other than pwsh when they are found' {
         $executables = InModuleScope Catzc.Base.QualityGates { Get-LanguageTestExecutable }
         $executables['go'] | Should -Be 'C:\widget\go\bin\go.exe'
         $executables['python'] | Should -Be 'C:\widget\uv\uv.exe'
-        $executables['bash'] | Should -Be 'C:\widget\bash\bash.exe'
+        foreach ($engine in $script:otherEngines) {
+            $executables[$engine] | Should -Be "C:\widget\$engine\$engine.exe"
+        }
+        $executables.ContainsKey($script:pwsh) | Should -BeFalse
+        Should -Invoke Resolve-EngineExecutable -ModuleName Catzc.Base.QualityGates -Times 0 -ParameterFilter { $Engine -eq $script:pwsh }
     }
 
-    It 'returns an empty bash entry when the bash engine is not found' {
-        Mock Resolve-EngineExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Engine -eq 'bash' } { throw 'no bash' }
+    It 'returns an empty <Engine> entry when the <Engine> engine is not found, and keeps the others' -ForEach @(
+        @([Catzc.Base.Engines.ExecutionEngines]::Names | Where-Object { $_ -ne [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name } | ForEach-Object { @{ Engine = $_ } })
+    ) {
+        $script:missing = $Engine
+        Mock Resolve-EngineExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Engine -eq $script:missing } { throw "no $Engine" }
         $executables = InModuleScope Catzc.Base.QualityGates { Get-LanguageTestExecutable }
-        $executables['bash'] | Should -BeExactly ''
+        $executables[$Engine] | Should -BeExactly ''
+        foreach ($other in @($script:otherEngines | Where-Object { $_ -ne $Engine })) {
+            $executables[$other] | Should -Be "C:\widget\$other\$other.exe"
+        }
         $executables['go'] | Should -Be 'C:\widget\go\bin\go.exe'
     }
 
@@ -54,7 +66,9 @@ Describe 'Get-LanguageTestExecutable' -Tag 'L0', 'logic' {
         $executables = InModuleScope Catzc.Base.QualityGates { Get-LanguageTestExecutable }
         $executables['go'] | Should -BeExactly ''
         $executables['python'] | Should -BeExactly ''
-        $executables['bash'] | Should -BeExactly ''
+        foreach ($engine in $script:otherEngines) {
+            $executables[$engine] | Should -BeExactly ''
+        }
         Should -Invoke Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -Times 0
         Should -Invoke Resolve-EngineExecutable -ModuleName Catzc.Base.QualityGates -Times 0
     }

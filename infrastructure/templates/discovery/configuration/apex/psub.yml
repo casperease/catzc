@@ -1,0 +1,54 @@
+# discovery, apex prod subscription (env psub, customer apex): a spoke. The kind and the ranges come from
+# network.yml by config address; the spoke peers to the prod hub.
+ParametersFile:
+  parameters:
+    tags:
+      value:
+        workload: landing-zone
+        environment: prod
+        owner: apex
+        cost-center: apex
+        criticality: high
+        data-classification: confidential
+    subscriptions:
+      address: global.azure.subscriptions
+    networkKind:
+      address: global.network.subscriptions.apex_prod.kind
+    vnetAddressSpace:
+      address: global.network.subscriptions.apex_prod.vnet_address_space
+    subnetPrefixes:
+      address: global.network.subscriptions.apex_prod.subnets
+    resourceGroupName:
+      value: psub-weu-zct-disco-apex-rg
+    virtualNetworkName:
+      value: psub-weu-zct-disco-apex-vnet
+    networkSecurityGroupNames:
+      value:
+        private-endpoints: psub-weu-zct-disco-apex-pe-nsg
+        preprod: psub-weu-zct-disco-apex-pp-nsg
+        prod: psub-weu-zct-disco-apex-prd-nsg
+    routeTableName:
+      value: psub-weu-zct-disco-apex-rt
+    hub:
+      value:
+        subscription: shared_prod
+        resourceGroupName: psub-weu-zct-disco-rg
+        virtualNetworkName: psub-weu-zct-disco-vnet
+        peeringName: psub-weu-zct-disco-apex-hub-peer
+    logAnalyticsResourceGroupName:
+      value: psub-weu-zct-fnd-apex-rg
+    logAnalyticsName:
+      value: psub-weu-zct-fnd-apex-log
+    policyEnforcementMode:
+      address: global.azure.policy_enforcement.production
+    policyAssignmentNames:
+      value:
+        allowedLocations: psub-weu-zct-disco-apex-loc-pa
+        requireTag: psub-weu-zct-disco-apex-tag-pa
+        noPublicIp: psub-weu-zct-disco-apex-pip-pa
+    budgetName:
+      value: psub-weu-zct-disco-apex-budg
+    budgetAmount:
+      value: 800
+    budgetStartDate:
+      value: "2026-11-01"

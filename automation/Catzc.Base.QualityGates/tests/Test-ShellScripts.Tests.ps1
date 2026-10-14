@@ -42,7 +42,7 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
 
     It 'reports CRLF line endings in any script, vendored ones included' {
         $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
-        $result.Issues | Should -Be @('automation/Catzc.Widget/assets/scripts/dotnet-install.sh: CRLF line endings — bash reads the carriage return as part of the command; the file must be LF (.gitattributes *.sh eol=lf)')
+        $result.Issues | Should -Be @('automation/Catzc.Widget/assets/scripts/dotnet-install.sh: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)')
     }
 
     It 'reports a tracked script with a shebang that is not executable in git, but not a sourced one' {
@@ -70,6 +70,72 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Found = $false; VersionOk = $false; Path = $null; Version = $null; Required = '0.11' }
         }
         { Test-ShellScripts -PassThru -OutputFolder $script:reportFolder } | Should -Throw '*Run Install-Shellcheck*'
+    }
+
+    It 'never asks for zsh when there is no *.zsh file' {
+        Test-ShellScripts -PassThru -OutputFolder $script:reportFolder | Out-Null
+        Should -Invoke Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -Times 0 -ParameterFilter { $Tool -eq 'zsh' }
+    }
+
+    Context 'a *.zsh file' {
+        BeforeAll {
+            Set-FixtureFile 'gadget/run.zsh' "#!/usr/bin/env zsh`necho gadget`n"
+            Set-FixtureFile 'gadget/crlf.zsh' "echo gadget`r`n"
+        }
+
+        BeforeEach {
+            $script:zshOutput = ''
+            $script:zshExit = 0
+            Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'widget/run.sh'; 'gadget/run.zsh'; 'gadget/crlf.zsh' }
+            Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Executable } { 'widget/run.sh' }
+            Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'zsh' } {
+                [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'C:\widget\zsh.exe'; Version = '5.9'; Required = '5' }
+            }
+            Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -like '"C:\widget\zsh.exe"*' } {
+                [Catzc.Base.Execution.CliResult]::new('', $script:zshOutput, $script:zshExit)
+            }
+        }
+
+        It 'takes the LF and executable-bit checks' {
+            $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
+            $result.Scripts | Should -Be 4
+            $result.Issues | Should -Contain 'gadget/crlf.zsh: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)'
+            $result.Issues | Should -Contain 'gadget/run.zsh: has a shebang but is not executable in git (mode 100644) — run: git update-index --chmod=+x gadget/run.zsh'
+        }
+
+        It 'takes zsh -n, one call per file, in place of ShellCheck' {
+            Test-ShellScripts -PassThru -OutputFolder $script:reportFolder | Out-Null
+            Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+                $Command -eq '"C:\widget\zsh.exe" -f -n "gadget/run.zsh"'
+            }
+            Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+                $Command -eq '"C:\widget\zsh.exe" -f -n "gadget/crlf.zsh"'
+            }
+            Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+                $Command -eq '"C:\widget\shellcheck.exe" --format=gcc --external-sources "importer.sh" "widget/run.sh"'
+            }
+        }
+
+        It 'reports each line zsh -n prints as one issue, naming the file' {
+            $script:zshOutput = @("gadget/run.zsh:2: parse error near ``}'", 'widget trailing detail') -join "`n"
+            $script:zshExit = 1
+            $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
+            $result.Issues | Should -Contain "gadget/run.zsh:2: parse error near ``}'"
+            $result.Issues | Should -Contain 'gadget/run.zsh: widget trailing detail'
+        }
+
+        It 'throws when zsh itself fails' {
+            $script:zshOutput = 'zsh: no such file'
+            $script:zshExit = 127
+            { Test-ShellScripts -PassThru -OutputFolder $script:reportFolder } | Should -Throw "*zsh could not check 'gadget/crlf.zsh' (exit 127)*"
+        }
+
+        It 'throws with "Run Install-Zsh" when zsh at the pin is missing' {
+            Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'zsh' } {
+                [pscustomobject]@{ Found = $false; VersionOk = $false; Path = $null; Version = $null; Required = '5' }
+            }
+            { Test-ShellScripts -PassThru -OutputFolder $script:reportFolder } | Should -Throw '*Run Install-Zsh*'
+        }
     }
 }
 

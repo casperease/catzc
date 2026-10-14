@@ -1,0 +1,3 @@
+old_rule	new_rule	kind	why
+ADR-WIDGET-SPROCKET:5	ADR-GIZMO-LEVER:1	move	a fixture rule that moves to a new ADR
+ADR-WIDGET-GADGET:4	ADR-WIDGET-SPROCKET:9	collapse	a fixture duplicate that collapses into a kept rule

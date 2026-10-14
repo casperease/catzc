@@ -34,7 +34,7 @@ Describe 'Install-Zsh' -Tag 'L0', 'logic' {
             [pscustomobject]@{ msys2_url = "https://widget.example/msys/$script:package"; msys2_sha256 = 'abc123' }
         }
         Mock Save-VerifiedDownload -ModuleName Catzc.Tooling.Provisioning { $OutFile }
-        # The extraction: a pacman package's metadata at the root, its payload under usr/.
+        # The extraction: the package's metadata at the root, its payload under usr/.
         Mock Invoke-Executable -ModuleName Catzc.Tooling.Provisioning {
             $staging = Join-Path $WorkingDirectory 'package'
             Set-FixtureFile (Join-Path $staging '.PKGINFO')
@@ -59,7 +59,7 @@ Describe 'Install-Zsh' -Tag 'L0', 'logic' {
             $recorded = [System.IO.File]::ReadAllText($script:manifest) | ConvertFrom-Json
             $recorded.Package | Should -Be $script:package
             $recorded.Files | Should -Be @('usr/bin/zsh.exe', 'usr/share/zsh/widget/gadget')
-            $recorded.Directories | Should -Be @('usr/share/zsh', 'usr/share/zsh/widget', 'usr/share/catzc')
+            $recorded.Directories | Should -Be @('usr/share', 'usr/share/zsh', 'usr/share/zsh/widget', 'usr/share/catzc')
         }
 
         It 'leaves a file the Git tree already has untouched and unrecorded' {

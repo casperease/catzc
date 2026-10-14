@@ -40,6 +40,15 @@ guids:
     guid: 211b36c7-f7eb-4f3c-93f5-9132b535fa56
     sentence: catzc module
     description: the Catzc PowerShell module's stable identity (Catzc.psd1 GUID) for NuGet/PSGallery — exporter.yml module_guid
+  policy_allowed_locations:
+    guid: e56962a6-4747-49cd-b67b-bf8b01975c4c
+    description: Azure built-in policy definition 'Allowed locations' (discovery main.bicep)
+  policy_require_tag_on_resources:
+    guid: 871b6d14-10aa-478d-b590-94f262ecfa99
+    description: Azure built-in policy definition 'Require a tag on resources' (discovery main.bicep)
+  policy_nic_no_public_ip:
+    guid: 83a86a26-fd1f-447c-b59d-e51f44264114
+    description: Azure built-in policy definition 'Network interfaces should not have public IPs' (discovery main.bicep)
 
   # -- shipped placeholder topology: the minted ids in the shipped azure.yml demo config -------------------
   tenant_placeholder:
@@ -70,6 +79,10 @@ guids:
     guid: f1000000-de00-50b0-0000-000000000000
     sentence: flux dev sub
     description: shipped azure.yml 'flux_nonprod' subscription id
+  entra_sql_admin_group:
+    guid: 59100000-ad01-0000-6000-000000000000
+    sentence: sql admin group
+    description: shipped placeholder object id of the Entra ID SQL administrator group in the expedition configs
 
   # -- test fixtures and documentation examples -------------------------------------------------------------
   fixture_widget_build:

@@ -18,9 +18,13 @@ param tenantId string = subscription().tenantId
 ])
 param skuName string = 'standard'
 
+@description('Resource tags (a landing zone that requires a tag denies an untagged vault).')
+param tags object = {}
+
 resource vault 'Microsoft.KeyVault/vaults@2023-07-01' = {
   name: name
   location: location
+  tags: tags
   properties: {
     tenantId: tenantId
     sku: {

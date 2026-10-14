@@ -44,6 +44,112 @@ $script:mergedFileSuffix = '.functions.ps1'
 # the source-mode manifest) does not.
 $script:shippedSideFolders = @('assets', 'configs', 'types')
 
+function Get-BuildSourceIndex {
+    <#
+    .SYNOPSIS
+        Returns the files git tracks under the source root, each marked with whether git stores it with LF-only
+        line endings.
+    .DESCRIPTION
+        A build ships tracked files only, so untracked and ignored files (bin/, obj/, local scratch) never reach a
+        bundle. The mark drives the one normalisation rule
+        ([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)): a file whose index
+        form is LF-only is written LF-only, which undoes whatever line-ending conversion the checkout applied;
+        every other file (CRLF-stored, mixed, binary, no line ending) is a byte copy. On a clean tree the build
+        therefore ships exactly the bytes git stores, on any OS and under any core.autocrlf.
+    .OUTPUTS
+        [System.Collections.Generic.Dictionary[string, bool]] source-root-relative, forward-slashed path -> LF-only.
+    #>
+    [CmdletBinding()]
+    [OutputType([System.Collections.Generic.Dictionary[string, bool]])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $SourceRoot
+    )
+
+    $listing = Invoke-Executable 'git -c core.quotepath=off ls-files --eol' -WorkingDirectory $SourceRoot -PassThru -Silent -NoAssert
+    if ($listing.ExitCode -ne 0) {
+        throw "Invoke-ModuleBuild: a bundle is built from the files git tracks, but git cannot list them under '$SourceRoot' ($($listing.Errors))."
+    }
+    $index = [System.Collections.Generic.Dictionary[string, bool]]::new([System.StringComparer]::Ordinal)
+    foreach ($line in ([string] $listing.Output).Split("`n")) {
+        $tab = $line.IndexOf("`t")
+        if ($tab -lt 0) {
+            continue
+        }
+        $index[$line.Substring($tab + 1).TrimEnd("`r")] = $line.StartsWith('i/lf ', [System.StringComparison]::Ordinal)
+    }
+    , $index
+}
+
+function Test-BuildSourceDirty {
+    <#
+    .SYNOPSIS
+        Returns whether the source root differs from its commit: a modified, staged, deleted or untracked file.
+    .DESCRIPTION
+        Content decides, not file metadata: git diff compares each file as git would store it with HEAD, so a
+        checkout whose line endings differ from another checkout's is still the same commit. (git status goes by
+        stat data first and calls such a file modified until the index is refreshed.) --no-optional-locks keeps
+        both calls read-only. A tree with no commit to compare against counts as dirty.
+    #>
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $SourceRoot
+    )
+
+    $changed = Invoke-Executable 'git --no-optional-locks diff --quiet HEAD -- .' -WorkingDirectory $SourceRoot -PassThru -Silent -NoAssert
+    if ($changed.ExitCode -ne 0) {
+        return $true
+    }
+    $untracked = Invoke-Executable 'git --no-optional-locks ls-files --others --exclude-standard -- .' -WorkingDirectory $SourceRoot -PassThru -Silent
+    -not [string]::IsNullOrWhiteSpace([string] $untracked.Output)
+}
+
+function Test-BuildSourceLfOnly {
+    <#
+    .SYNOPSIS
+        Returns whether a source file ships LF-normalised: it is tracked and git stores it with LF-only endings.
+    #>
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [Parameter(Mandatory)]
+        [System.Collections.Generic.Dictionary[string, bool]] $Index,
+
+        [Parameter(Mandatory)]
+        [string] $SourceRoot,
+
+        [Parameter(Mandatory)]
+        [string] $Path
+    )
+
+    $isLfOnly = $false
+    [void] $Index.TryGetValue([System.IO.Path]::GetRelativePath($SourceRoot, $Path).Replace('\', '/'), [ref] $isLfOnly)
+    $isLfOnly
+}
+
+function Test-BuildSourceTracked {
+    <#
+    .SYNOPSIS
+        Returns whether a source file is tracked by git, and so may ship in a build.
+    #>
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [Parameter(Mandatory)]
+        [System.Collections.Generic.Dictionary[string, bool]] $Index,
+
+        [Parameter(Mandatory)]
+        [string] $SourceRoot,
+
+        [Parameter(Mandatory)]
+        [string] $Path
+    )
+
+    $Index.ContainsKey([System.IO.Path]::GetRelativePath($SourceRoot, $Path).Replace('\', '/'))
+}
+
 function Resolve-BuildModuleSet {
     <#
     .SYNOPSIS
@@ -75,6 +181,95 @@ function Resolve-BuildModuleSet {
     $result = [string[]] @($selected)
     [System.Array]::Sort($result, [System.StringComparer]::Ordinal)
     $result
+}
+
+function Get-BuildClosureViolation {
+    <#
+    .SYNOPSIS
+        Returns every call and config read of the selected modules that lands outside the selection.
+    .DESCRIPTION
+        The declared closure (dependencies.yml) leaves a module it does not list unconstrained, so a partial
+        build can miss a module the code really needs; this proves the closure from the code itself
+        ([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)):
+
+          commands  every call a selected module makes to a catzc function (Get-FunctionDependency) targets a
+                    selected module
+          configs   every Get-Config whose config name is a literal (-Config <name>, or the first positional
+                    argument) reads a config that a selected module owns (<Module>/configs/<name>.yml)
+
+        A config name that no module owns is left to Get-Config itself, which fails the same way in source mode.
+    #>
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $SourceRoot,
+
+        [Parameter(Mandatory)]
+        [AllowEmptyCollection()]
+        [string[]] $Module,
+
+        [Parameter(Mandatory)]
+        [System.Collections.Generic.Dictionary[string, bool]] $Index
+    )
+
+    $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module), [System.StringComparer]::Ordinal)
+
+    foreach ($call in @(Get-FunctionDependency -AutomationRoot $SourceRoot)) {
+        if ($call.CrossModule -and $selected.Contains($call.CallerModule) -and -not $selected.Contains($call.TargetModule)) {
+            "automation/$($call.CallerModule)/$($call.CallerFile):$($call.CallerLine): $($call.CallerFunction) calls $($call.TargetFunction), which $($call.TargetModule) owns"
+        }
+    }
+
+    $isConfigRead = {
+        param($node)
+        $node -is [System.Management.Automation.Language.CommandAst] -and $node.GetCommandName() -ieq 'Get-Config'
+    }
+    foreach ($name in $Module) {
+        $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, $name)
+        if (-not [System.IO.Directory]::Exists($moduleDirectory)) {
+            continue
+        }
+        foreach ($file in [System.IO.Directory]::EnumerateFiles($moduleDirectory, '*.ps1', [System.IO.SearchOption]::AllDirectories)) {
+            $relativePath = [System.IO.Path]::GetRelativePath($SourceRoot, $file).Replace('\', '/')
+            if ($relativePath.EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase) -or
+                $relativePath.StartsWith("$name/tests/", [System.StringComparison]::Ordinal) -or
+                -not $Index.ContainsKey($relativePath)) {
+                continue
+            }
+            $tokens = $null
+            $parseErrors = $null
+            $syntaxTree = [System.Management.Automation.Language.Parser]::ParseFile($file, [ref] $tokens, [ref] $parseErrors)
+            foreach ($read in $syntaxTree.FindAll($isConfigRead, $true)) {
+                $elements = $read.CommandElements
+                $argument = $null
+                for ($position = 1; $position -lt $elements.Count; $position++) {
+                    $element = $elements[$position]
+                    if ($element -is [System.Management.Automation.Language.CommandParameterAst]) {
+                        if ($element.ParameterName -ieq 'Config' -and $position + 1 -lt $elements.Count) {
+                            $argument = $elements[$position + 1]
+                        }
+                        break
+                    }
+                    $argument = $element
+                    break
+                }
+                if ($argument -isnot [System.Management.Automation.Language.StringConstantExpressionAst]) {
+                    continue
+                }
+                $config = $argument.Value
+                $owners = @(foreach ($directory in [System.IO.Directory]::GetDirectories($SourceRoot)) {
+                        $owner = [System.IO.Path]::GetFileName($directory)
+                        if (-not $owner.StartsWith('.') -and [System.IO.File]::Exists([System.IO.Path]::Combine($directory, 'configs', "$config.yml"))) {
+                            $owner
+                        }
+                    })
+                if ($owners.Count -gt 0 -and -not @($owners | Where-Object { $selected.Contains($_) })) {
+                    "automation/${relativePath}:$($read.Extent.StartLineNumber): reads config '$config', which $($owners -join ', ') owns"
+                }
+            }
+        }
+    }
 }
 
 function Get-MergePreconditionViolation {
@@ -147,9 +342,10 @@ function Get-MergedModule {
         Merges one source module's function files into the text of its built <Module>.functions.ps1.
     .DESCRIPTION
         Order is private/*.ps1 ordinal, then the root *.ps1 ordinal — the order the source manifest's NestedModules
-        uses, so load semantics are identical. Each file is taken verbatim (CR stripped, trailing newlines
-        trimmed) behind one '# source: automation/<Module>/<path>' marker line. Returns the canonical text, the
-        public (exported) function names, and every precondition violation of every file.
+        uses, so load semantics are identical. Only files git tracks are merged. Each file is taken verbatim (CR
+        stripped, trailing newlines trimmed) behind one '# source: automation/<Module>/<path>' marker line.
+        Returns the canonical text, the public (exported) function names, and every precondition violation of
+        every file.
     #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -158,17 +354,25 @@ function Get-MergedModule {
         [string] $SourceRoot,
 
         [Parameter(Mandatory)]
-        [string] $Name
+        [string] $Name,
+
+        [Parameter(Mandatory)]
+        [System.Collections.Generic.Dictionary[string, bool]] $Index
     )
 
     $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, $Name)
     $privateDirectory = [System.IO.Path]::Combine($moduleDirectory, 'private')
 
     $privateFiles = [string[]] @(if ([System.IO.Directory]::Exists($privateDirectory)) {
-            [System.IO.Directory]::GetFiles($privateDirectory, '*.ps1')
+            foreach ($file in [System.IO.Directory]::GetFiles($privateDirectory, '*.ps1')) {
+                if (Test-BuildSourceTracked -Index $Index -SourceRoot $SourceRoot -Path $file) {
+                    $file
+                }
+            }
         })
     $publicFiles = [string[]] @(foreach ($file in [System.IO.Directory]::GetFiles($moduleDirectory, '*.ps1')) {
-            if (-not $file.EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase)) {
+            if (-not $file.EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase) -and
+                (Test-BuildSourceTracked -Index $Index -SourceRoot $SourceRoot -Path $file)) {
                 $file
             }
         })
@@ -213,11 +417,15 @@ function Get-MergedModule {
 function Get-BuildFileCopy {
     <#
     .SYNOPSIS
-        Lists the plan entries that copy a source folder's files verbatim to a build-relative folder.
+        Lists the plan entries that copy a source folder's tracked files to a build-relative folder.
     .PARAMETER SourceDirectory
         The folder whose files are copied (recursively).
     .PARAMETER TargetPath
         The build-relative, forward-slashed folder the files land in.
+    .PARAMETER SourceRoot
+        The source root the index paths are relative to.
+    .PARAMETER Index
+        The tracked files and their line-ending form (Get-BuildSourceIndex); an untracked file is skipped.
     .PARAMETER ExcludeDirectory
         Folder names (at any depth) whose contents are skipped — e.g. tests.
     #>
@@ -230,6 +438,12 @@ function Get-BuildFileCopy {
         [Parameter(Mandatory)]
         [string] $TargetPath,
 
+        [Parameter(Mandatory)]
+        [string] $SourceRoot,
+
+        [Parameter(Mandatory)]
+        [System.Collections.Generic.Dictionary[string, bool]] $Index,
+
         [string[]] $ExcludeDirectory = @()
     )
 
@@ -241,14 +455,15 @@ function Get-BuildFileCopy {
         $relativePath = [System.IO.Path]::GetRelativePath($sourceFull, $file).Replace('\', '/')
         $segments = $relativePath.Split('/')
         $excluded = $false
-        for ($index = 0; $index -lt $segments.Count - 1; $index++) {
-            if ($segments[$index] -in $ExcludeDirectory) {
+        for ($position = 0; $position -lt $segments.Count - 1; $position++) {
+            if ($segments[$position] -in $ExcludeDirectory) {
                 $excluded = $true
                 break
             }
         }
-        if (-not $excluded) {
-            [pscustomobject]@{ Path = "$TargetPath/$relativePath"; Kind = 'Copy'; Source = $file; Content = $null; Exports = $null }
+        if (-not $excluded -and (Test-BuildSourceTracked -Index $Index -SourceRoot $SourceRoot -Path $file)) {
+            $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $file
+            [pscustomobject]@{ Path = "$TargetPath/$relativePath"; Kind = 'Copy'; Source = $file; Content = $null; Exports = $null; Normalize = $normalize }
         }
     }
 }
@@ -281,7 +496,10 @@ function Get-ModuleBuildPlan {
         [string] $VendorPolicy,
 
         [Parameter(Mandatory)]
-        [hashtable] $PackageMetadata
+        [hashtable] $PackageMetadata,
+
+        [Parameter(Mandatory)]
+        [System.Collections.Generic.Dictionary[string, bool]] $Index
     )
 
     $entries = [System.Collections.Generic.List[object]]::new()
@@ -294,7 +512,7 @@ function Get-ModuleBuildPlan {
             $violations.Add("automation/${name}: the module folder does not exist")
             continue
         }
-        $merged = Get-MergedModule -SourceRoot $SourceRoot -Name $name
+        $merged = Get-MergedModule -SourceRoot $SourceRoot -Name $name -Index $Index
         foreach ($violation in $merged.Violations) {
             $violations.Add($violation)
         }
@@ -306,7 +524,7 @@ function Get-ModuleBuildPlan {
         $entries.Add([pscustomobject]@{ Path = "$name/$name$($script:mergedFileSuffix)"; Kind = 'Text'; Source = $null; Content = $merged.Content; Exports = $null })
         $entries.Add([pscustomobject]@{ Path = "$name/$name.psd1"; Kind = 'Manifest'; Source = $null; Content = $null; Exports = $exports })
         foreach ($folder in $script:shippedSideFolders) {
-            foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($moduleDirectory, $folder)) -TargetPath "$name/$folder")) {
+            foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($moduleDirectory, $folder)) -TargetPath "$name/$folder" -SourceRoot $SourceRoot -Index $Index)) {
                 $entries.Add($copy)
             }
         }
@@ -322,10 +540,15 @@ function Get-ModuleBuildPlan {
             $violations.Add("automation/.internal/${relativePath}: the runtime loader file does not exist")
             continue
         }
-        $entries.Add([pscustomobject]@{ Path = ".internal/$relativePath"; Kind = 'Copy'; Source = $source; Content = $null; Exports = $null })
+        if (-not (Test-BuildSourceTracked -Index $Index -SourceRoot $SourceRoot -Path $source)) {
+            $violations.Add("automation/.internal/${relativePath}: the runtime loader file is not tracked by git, and a bundle ships tracked files only")
+            continue
+        }
+        $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $source
+        $entries.Add([pscustomobject]@{ Path = ".internal/$relativePath"; Kind = 'Copy'; Source = $source; Content = $null; Exports = $null; Normalize = $normalize })
     }
     if ($VendorPolicy -eq 'full') {
-        foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($SourceRoot, '.scriptanalyzer')) -TargetPath '.scriptanalyzer' -ExcludeDirectory 'tests')) {
+        foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($SourceRoot, '.scriptanalyzer')) -TargetPath '.scriptanalyzer' -SourceRoot $SourceRoot -Index $Index -ExcludeDirectory 'tests')) {
             $entries.Add($copy)
         }
     }
@@ -341,7 +564,7 @@ function Get-ModuleBuildPlan {
             if ($VendorPolicy -eq 'runtime' -and $vendorName -in $script:testToolVendorModules) {
                 continue
             }
-            foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($vendorRoot, $vendorName)) -TargetPath ".vendor/$vendorName")) {
+            foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($vendorRoot, $vendorName)) -TargetPath ".vendor/$vendorName" -SourceRoot $SourceRoot -Index $Index)) {
                 $entries.Add($copy)
             }
         }
@@ -349,11 +572,15 @@ function Get-ModuleBuildPlan {
 
     # The package entry points: the authored initializer (verbatim), its RootModule wrapper, and the manifest.
     $initializer = [System.IO.Path]::Combine($SourceRoot, '.internal', 'assets', 'Import-Catzc.ps1')
-    if ([System.IO.File]::Exists($initializer)) {
-        $entries.Add([pscustomobject]@{ Path = 'Import-Catzc.ps1'; Kind = 'Copy'; Source = $initializer; Content = $null; Exports = $null })
+    if (-not [System.IO.File]::Exists($initializer)) {
+        $violations.Add('automation/.internal/assets/Import-Catzc.ps1: the build initializer does not exist')
+    }
+    elseif (-not (Test-BuildSourceTracked -Index $Index -SourceRoot $SourceRoot -Path $initializer)) {
+        $violations.Add('automation/.internal/assets/Import-Catzc.ps1: the build initializer is not tracked by git, and a bundle ships tracked files only')
     }
     else {
-        $violations.Add('automation/.internal/assets/Import-Catzc.ps1: the build initializer does not exist')
+        $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $initializer
+        $entries.Add([pscustomobject]@{ Path = 'Import-Catzc.ps1'; Kind = 'Copy'; Source = $initializer; Content = $null; Exports = $null; Normalize = $normalize })
     }
     $rootModule = @(
         '# Catzc root module — generated by Invoke-ModuleBuild; do not edit. Import-Module Catzc runs the same initializer'
@@ -388,13 +615,16 @@ function Get-ModuleBuildPlan {
             })
         foreach ($file in $hashResult.Files) {
             if (-not $selectedModules.Contains($file.Module)) {
-                $entries.Add([pscustomobject]@{ Path = ".compiled/types/$($file.Module)/$($file.Base).cs"; Kind = 'Copy'; Source = $file.Path; Content = $null; Exports = $null })
+                $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $file.Path
+                $entries.Add([pscustomobject]@{ Path = ".compiled/types/$($file.Module)/$($file.Base).cs"; Kind = 'Copy'; Source = $file.Path; Content = $null; Exports = $null; Normalize = $normalize })
             }
         }
+        # The DLL is proven by its name, the hash of the type sources, not by git: a devbox that changed a
+        # types/*.cs holds the matching DLL before it is committed. It is binary, so a byte copy.
         $dllPath = ".compiled/Catzc.Types.$typeHash.dll"
         $committed = [System.IO.Path]::Combine($SourceRoot, '.compiled', "Catzc.Types.$typeHash.dll")
         if ([System.IO.File]::Exists($committed)) {
-            $entries.Add([pscustomobject]@{ Path = $dllPath; Kind = 'Copy'; Source = $committed; Content = $null; Exports = $null })
+            $entries.Add([pscustomobject]@{ Path = $dllPath; Kind = 'Copy'; Source = $committed; Content = $null; Exports = $null; Normalize = $false })
         }
         else {
             $entries.Add([pscustomobject]@{ Path = $dllPath; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })
@@ -489,7 +719,11 @@ function Format-CatzcPackageManifest {
 function Copy-BuildFileIfChanged {
     <#
     .SYNOPSIS
-        Copies a file byte for byte, only when the target is missing or differs. Returns whether it wrote.
+        Copies a file, only when the target is missing or differs. Returns whether it wrote.
+    .DESCRIPTION
+        A byte copy, except under -Normalize, which turns every CRLF into LF first: the bytes git stores for a
+        file it holds LF-only (Get-BuildSourceIndex), whatever line endings the checkout wrote. The Latin-1
+        round trip maps each byte to one char and back, so nothing but the CR bytes changes.
     #>
     [CmdletBinding()]
     [OutputType([bool])]
@@ -498,20 +732,23 @@ function Copy-BuildFileIfChanged {
         [string] $Source,
 
         [Parameter(Mandatory)]
-        [string] $Destination
+        [string] $Destination,
+
+        [switch] $Normalize
     )
 
+    [byte[]] $bytes = [System.IO.File]::ReadAllBytes($Source)
+    if ($Normalize -and [System.Array]::IndexOf($bytes, [byte] 13) -ge 0) {
+        $bytes = [System.Text.Encoding]::Latin1.GetBytes([System.Text.Encoding]::Latin1.GetString($bytes).Replace("`r`n", "`n"))
+    }
     if ([System.IO.File]::Exists($Destination)) {
-        $sourceInfo = [System.IO.FileInfo]::new($Source)
-        $destinationInfo = [System.IO.FileInfo]::new($Destination)
-        if ($sourceInfo.Length -eq $destinationInfo.Length -and
-            [System.Linq.Enumerable]::SequenceEqual([byte[]] [System.IO.File]::ReadAllBytes($Source), [byte[]] [System.IO.File]::ReadAllBytes($Destination))) {
+        if ([System.Linq.Enumerable]::SequenceEqual($bytes, [byte[]] [System.IO.File]::ReadAllBytes($Destination))) {
             return $false
         }
         [System.IO.File]::Delete($Destination)
     }
     [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($Destination)) | Out-Null
-    [System.IO.File]::Copy($Source, $Destination)
+    [System.IO.File]::WriteAllBytes($Destination, $bytes)
     $true
 }
 
@@ -621,7 +858,7 @@ function Write-ModuleBuildOutput {
                     [void] (Write-FileIfChanged -Path $target -Content $entry.Content)
                 }
                 'Copy' {
-                    [void] (Copy-BuildFileIfChanged -Source $entry.Source -Destination $target)
+                    [void] (Copy-BuildFileIfChanged -Source $entry.Source -Destination $target -Normalize:$entry.Normalize)
                 }
                 'Manifest' {
                     $moduleFolder = [System.IO.Path]::GetDirectoryName($target)
@@ -668,9 +905,17 @@ function Invoke-ModuleBuild {
           <Module>/<Module>.functions.ps1            per module: merged function files
           <Module>/{configs,assets,types}/           shipped side folders, verbatim — never tests/
 
+        A build ships the files git tracks under the source root, never untracked or ignored ones, and writes
+        each one as git stores it: a file git holds LF-only is written LF-only whatever the checkout's line
+        endings, every other file is a byte copy (Get-BuildSourceIndex). The same commit therefore yields the
+        same bytes on any OS. A source tree that differs from its commit is recorded as dirty in build.json; a
+        pipeline refuses to build one.
+
         Every check runs before anything is written, and each collects every violation before it throws: the
         merge preconditions of every source file
-        ([ADR-AUTO-BUNDLE#4](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle4)), and the presence
+        ([ADR-AUTO-BUNDLE#4](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle4)), the closure check —
+        every catzc call and literal config read of the selected modules lands in a selected module
+        (Get-BuildClosureViolation) — and the presence
         check — every internal asset dependency of the selected modules (Get-InternalAssetDependency) is present in the planned output
         ([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)). Writes are
         converging: text through Write-FileIfChanged, copies only on a byte
@@ -699,7 +944,7 @@ function Invoke-ModuleBuild {
         ([ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md)).
     .OUTPUTS
         [pscustomobject] BuildRoot, Version, Modules, TypesHash, ContentHash ($null under -DryRun), FileCount,
-        DryRun.
+        Dirty, DryRun.
     .EXAMPLE
         Invoke-ModuleBuild -ModuleProfile full -Version 6.6.666 -VendorPolicy runtime -Destination (Join-Path (Get-OutputRoot) 'automation/build') -PackageMetadata $metadata
     #>
@@ -747,11 +992,24 @@ function Invoke-ModuleBuild {
     $buildRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($Destination, 'Catzc', $Version))
     $modules = [string[]] @(Resolve-BuildModuleSet -Module $Module -ModuleProfile $ModuleProfile)
 
+    $index = Get-BuildSourceIndex -SourceRoot $sourceRoot
+    $dirty = Test-BuildSourceDirty -SourceRoot $sourceRoot
+    if ($dirty -and (Test-IsRunningInPipeline)) {
+        throw 'Invoke-ModuleBuild: the source tree differs from its commit (git status lists changes under automation/). A pipeline builds only a clean commit, so the bundle is that commit''s bytes.'
+    }
+
     Import-InternalModule Types
-    $plan = Get-ModuleBuildPlan -SourceRoot $sourceRoot -Module $modules -Version $Version -VendorPolicy $VendorPolicy -PackageMetadata $PackageMetadata
+    $plan = Get-ModuleBuildPlan -SourceRoot $sourceRoot -Module $modules -Version $Version -VendorPolicy $VendorPolicy -PackageMetadata $PackageMetadata -Index $index
     if ($plan.Violations.Count -gt 0) {
         throw ("Invoke-ModuleBuild: $($plan.Violations.Count) problem(s) in the source tree prevent the build (merge preconditions, ADR-AUTO-BUNDLE:4):`n  " +
             ($plan.Violations -join "`n  "))
+    }
+
+    # The closure check: the code itself, not only dependencies.yml, must be satisfied by the selection.
+    $outside = @(Get-BuildClosureViolation -SourceRoot $sourceRoot -Module $modules -Index $index)
+    if ($outside.Count -gt 0) {
+        throw ("Invoke-ModuleBuild: $($outside.Count) call(s) or config read(s) of the selected modules land outside the build (ADR-AUTO-BUNDLE:5). " +
+            "Declare the dependency in dependencies.yml so the closure brings the owner in, or add the owning module to the build:`n  " + ($outside -join "`n  "))
     }
 
     # The presence check
@@ -802,6 +1060,7 @@ function Invoke-ModuleBuild {
             TypesHash   = $plan.TypesHash
             ContentHash = $null
             FileCount   = $fileCount
+            Dirty       = $dirty
             DryRun      = $true
         }
     }
@@ -819,6 +1078,7 @@ function Invoke-ModuleBuild {
         typesHash    = $plan.TypesHash
         typeSources  = [string[]] @($plan.TypeSources)
         sourceCommit = Get-BuildSourceCommit
+        dirty        = $dirty
         vendorPolicy = $VendorPolicy
         modules      = $modules
     }
@@ -831,6 +1091,7 @@ function Invoke-ModuleBuild {
         TypesHash   = $plan.TypesHash
         ContentHash = $contentHash
         FileCount   = $fileCount
+        Dirty       = $dirty
         DryRun      = $false
     }
 }

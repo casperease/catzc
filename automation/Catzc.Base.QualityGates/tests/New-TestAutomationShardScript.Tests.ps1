@@ -21,6 +21,7 @@ Describe 'New-TestAutomationShardScript' {
             $script:shard.ScriptPath | Should -Be (Join-Path $script:runDirectory 'shard-3.ps1')
             $script:shard.ResultsPath | Should -Be (Join-Path $script:runDirectory 'results-shard-3.xml')
             $script:shard.RowsPath | Should -Be (Join-Path $script:runDirectory 'rows-shard-3.json')
+            $script:shard.FilesPath | Should -Be (Join-Path $script:runDirectory 'files-shard-3.json')
             $script:shard.ScriptPath | Should -Exist
         }
 
@@ -33,6 +34,8 @@ Describe 'New-TestAutomationShardScript' {
             $script:content | Should -Match ([regex]::Escape($script:shard.ResultsPath))
             $script:content | Should -Match ([regex]::Escape($script:shard.RowsPath))
             $script:content | Should -Match 'ConvertTo-TestAutomationRowSet'
+            $script:content | Should -Match ([regex]::Escape($script:shard.FilesPath))
+            $script:content | Should -Match ([regex]::Escape('$result.Containers'))
         }
 
         It 'builds its configuration through the one shared builder, strict on' {
@@ -197,6 +200,13 @@ Describe 'ShardFixtureWide' -Tag 'L2', 'logic' {
             $passed.ExpandedPath | Should -Match 'passes'
             ($rows | Where-Object Result -EQ 'Skipped').SkipReason | Should -Be 'tool_obj_missing'
             ($rows | Where-Object Result -EQ 'NotRun').Level | Should -Be 'L2'
+
+            # The files sidecar: the fixture's whole duration, which the next run schedules by.
+            $shard.FilesPath | Should -Exist
+            $files = @(Get-Content -LiteralPath $shard.FilesPath -Raw | ConvertFrom-Json)
+            $files | Should -HaveCount 1
+            [System.IO.Path]::GetFullPath($files[0].File) | Should -Be ([System.IO.Path]::GetFullPath($fixture))
+            $files[0].DurationMs | Should -BeGreaterThan 0
         }
     }
 }

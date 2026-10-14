@@ -12,14 +12,16 @@
       go      the managed go at the pin;
       python  the managed uv at the pin, handed down only when the uv-managed python at the tools.yml pin is there
               too, since uv never downloads an interpreter in a test run;
-      bash    the bash engine (Resolve-EngineExecutable), which every language's tests also run under
-              ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)), and which runs the Bash tests.
+      <engine>  every execution engine other than the running pwsh, by its name (Resolve-EngineExecutable): each
+              language's tests also run under each of them
+              ([ADR-AUTO-ENGINE#4](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine4)), and the bash
+              engine runs the Bash tests.
 
-    A language's entry is empty when the repository has no test folder in it (nothing is probed), or when its tool
-    is missing or misses the pin; the bridge then skips that language's tests with tool_go_missing,
-    tool_uv_missing or tool_bash_missing.
+    An entry is empty when the repository has no test folder (nothing is probed), or when its tool or engine is
+    missing or misses the pin; the bridge then skips those tests with tool_go_missing, tool_uv_missing or
+    tool_<engine>_missing.
 .OUTPUTS
-    [hashtable] @{ go = <path or ''>; python = <path or ''>; bash = <path or ''> }.
+    [hashtable] @{ go = <path or ''>; python = <path or ''>; <engine> = <path or ''> per engine other than pwsh }.
 .EXAMPLE
     $executables = Get-LanguageTestExecutable
 #>
@@ -29,16 +31,24 @@ function Get-LanguageTestExecutable {
     param()
 
     $languages = @(Get-LanguageTestFolders | ForEach-Object Language | Select-Object -Unique)
-    $executables = @{ go = ''; python = ''; bash = '' }
-    # The bash engine, which every language's tests also run under
-    # ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)): located once here, since a build
-    # run's worker cannot locate it (its tools.yml entry is not in the build).
-    if ($languages.Count -gt 0) {
-        try {
-            $executables['bash'] = Resolve-EngineExecutable -Engine ([Catzc.Base.Engines.ExecutionEngines]::Bash.Name)
+    $executables = @{ go = ''; python = '' }
+    # The engines other than the running pwsh, which every language's tests also run under
+    # ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1): the model's engines, never
+    # a restated list): each located once here, since a build run's worker cannot locate it (its tools.yml entry is
+    # not in the build).
+    $pwsh = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name
+    foreach ($engine in [Catzc.Base.Engines.ExecutionEngines]::All) {
+        if ($engine.Name -eq $pwsh) {
+            continue
         }
-        catch {
-            Write-Verbose "The bash engine is not available, so the tests' bash runs skip: $($_.Exception.Message)"
+        $executables[$engine.Name] = ''
+        if ($languages.Count -gt 0) {
+            try {
+                $executables[$engine.Name] = "$(Resolve-EngineExecutable -Engine $engine.Name)"
+            }
+            catch {
+                Write-Verbose "The $($engine.Name) engine is not available, so the tests' $($engine.Name) runs skip: $($_.Exception.Message)"
+            }
         }
     }
     if ('go' -in $languages) {

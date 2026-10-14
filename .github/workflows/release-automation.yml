@@ -65,12 +65,13 @@ jobs:
           git commit -m "Freeze contracts/catzc/${PKG_VERSION} (ADR-REPO-CONTRACT#5)"
           git push origin "HEAD:${GITHUB_REF_NAME}"
 
-      # The artifact is always produced, even when nothing is published.
+      # The artifact is always produced, even when nothing is published. The path is the one Export-Catzc returned
+      # (NUPKG), so the workflow never restates where the package lands.
       - name: Upload the package artifact
         uses: actions/upload-artifact@v4
         with:
           name: catzc-nupkg
-          path: out/catzc-nuget/*.nupkg
+          path: ${{ env.NUPKG }}
           if-no-files-found: error
 
       - name: Publish to a GitHub Release (gh CLI + GITHUB_TOKEN)

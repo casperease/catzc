@@ -10,6 +10,8 @@
       - G4 — no avoided phrasing used within a source's scope (Get-GlossaryPhrasingViolations);
       - G5 — every realized concept enforced (Get-GlossaryEnforcementViolations);
       - G6 — no term qualified outside its declared forms (Get-GlossaryFormViolations).
+    G4 and G6 read the same text surfaces of the same tracked files, so they share one surface table and each file's
+    prose is read once per run.
     Each source's own shape is validated when it loads (Catzc.Base.Docs.GlossaryConfig), so a source that is
     malformed fails before any check runs. A quality gate
     ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends through
@@ -40,6 +42,7 @@ function Test-Glossary {
 
     $sources = @(Get-GlossarySources)
     $entries = Get-Glossary
+    $surfaces = @{}
     $issues = [System.Collections.Generic.List[string]]::new()
     foreach ($issue in @(Get-GlossarySourceViolations -Source $sources)) {
         $issues.Add("G1 $issue")
@@ -50,13 +53,13 @@ function Test-Glossary {
     foreach ($issue in @(Get-GlossaryDefinitionViolations -Entry $entries)) {
         $issues.Add("G3 $issue")
     }
-    foreach ($issue in @(Get-GlossaryPhrasingViolations -Entry $entries)) {
+    foreach ($issue in @(Get-GlossaryPhrasingViolations -Entry $entries -SurfaceCache $surfaces)) {
         $issues.Add("G4 $issue")
     }
     foreach ($issue in @(Get-GlossaryEnforcementViolations -Entry $entries)) {
         $issues.Add("G5 $issue")
     }
-    foreach ($issue in @(Get-GlossaryFormViolations -Entry $entries)) {
+    foreach ($issue in @(Get-GlossaryFormViolations -Entry $entries -SurfaceCache $surfaces)) {
         $issues.Add("G6 $issue")
     }
 

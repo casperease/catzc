@@ -7,7 +7,8 @@
     own: each runs through the one shared language bridge, automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1,
     as a Pester container whose data names the language (Language), the folder (TestFolder), the engine entry the
     tests start (EntryScript), the tool that runs them (Executable, that language's entry of -LanguageExecutable), and
-    the executables of the other execution engines the tests also run under (EngineExecutable: bash).
+    the executables of the other execution engines the tests also run under (EngineExecutable: one entry per engine
+    other than pwsh, by its name, empty for an engine the source session did not find).
     Get-TestRunFile reads the folder back from a test's container, so the folder stays the run file of its tests.
 
     The bridge is read from the repository, not the code root: tests never ship, and the build run runs the
@@ -18,7 +19,8 @@
     The engine entry of a build run (the build's Import-Catzc.ps1), handed to the bridge; empty for the source run.
 .PARAMETER LanguageExecutable
     The managed tool per language the run's source session located (Get-LanguageTestExecutable:
-    @{ go = <path>; python = <uv path> }), handed to the bridge; a missing or empty entry means there is none.
+    @{ go = <path>; python = <uv path>; <engine> = <path> per engine other than pwsh }), handed to the bridge; a
+    missing or empty entry means there is none.
 .OUTPUTS
     [pscustomobject] { Path (string[], the paths Pester runs as files and folders, in order); Container (object[],
     one bridge container per language test folder, in order) }.
@@ -49,7 +51,7 @@ function ConvertTo-PesterRunTarget {
         $full = [System.IO.Path]::GetFullPath($item).TrimEnd('\', '/')
         if ($languageByFolder.ContainsKey($full)) {
             $language = $languageByFolder[$full]
-            # The engines other than pwsh, whose executables the source session located too (bash: the 'bash' entry).
+            # The engines other than pwsh, whose executables the source session located too, each under its name.
             $engineExecutable = @{}
             foreach ($engine in [Catzc.Base.Engines.ExecutionEngines]::All) {
                 if ($engine.Name -ne [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) {

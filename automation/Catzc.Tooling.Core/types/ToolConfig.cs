@@ -8,7 +8,9 @@
 //   - version, command, version_command and version_pattern are required
 //     ([ADR-AUTO-DEPS#1](/docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps1));
 //   - version_pattern captures the version as the named group (?<ver>...);
-//   - every session_host_probes entry ends with the {version} segment.
+//   - every session_host_probes entry ends with the {version} segment;
+//   - msys2_url and msys2_sha256 are declared together or not at all, and msys2_sha256 is 64 lowercase hex
+//     digits ([ADR-AUTO-PKGMGR#6](/docs/adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr6)).
 //
 // Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
 // over its own properties and its constructor uses the base's OptStr/StrArr/Flag extraction helpers.
@@ -16,6 +18,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Catzc.Tooling.Core;
 
@@ -28,7 +31,7 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
         "max_python", "uv_python", "script_install", "system_provided", "windows_only", "admin_only",
         "linux_admin_only", "windows_install_dir", "unix_install_dir", "depends_on", "session_path_hints",
         "session_host_probes", "windows_probes", "windows_pipeline_probes", "unix_probes", "unix_pipeline_probes",
-        "probe_excludes",
+        "probe_excludes", "msys2_url", "msys2_sha256",
     };
 
     // The locked version the tool must satisfy. Required.
@@ -104,7 +107,15 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // Test-ToolRequiresElevation honours it only on Linux.
     public bool linux_admin_only { get; }
 
-    // The install directory on Windows. Null when not applicable.
+    // The MSYS2 package installed on Windows into the Git for Windows tree, so the tool runs on Git Bash's own MSYS2
+    // runtime: its download URL, and the SHA-256 the download is verified against before anything is extracted. On
+    // other platforms an msys2 tool is the system's, asserted and never installed. Null when MSYS2 is not an install
+    // path; the two are declared together.
+    public string msys2_url { get; }
+    public string msys2_sha256 { get; }
+
+    // The install directory on Windows, relative to LOCALAPPDATA (Get-ScriptInstallDir): a script-installed tool's
+    // home, or the tree an msys2 tool installs into. Null when not applicable.
     public string windows_install_dir { get; }
 
     // The install directory on Unix. Null when not applicable.
@@ -149,12 +160,13 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
             || unix_pipeline_probes.Length > 0 || probe_excludes.Length > 0;
     }
 
-    // True when the entry declares how the toolchain gets it: a package-manager id, script_install, a uv shape,
-    // or system_provided (asserted, never installed). ToolsConfig requires it of every shipped entry.
+    // True when the entry declares how the toolchain gets it: a package-manager id, script_install, a uv shape, an
+    // MSYS2 package, or system_provided (asserted, never installed). ToolsConfig requires it of every shipped entry.
     public bool HasInstallMechanism()
     {
         return winget_id != null || brew_formula != null || apt_package != null || pip_package != null
-            || npm_package != null || uv_tool != null || uv_venv != null || uv_python || script_install || system_provided;
+            || npm_package != null || uv_tool != null || uv_venv != null || uv_python || script_install || system_provided
+            || msys2_url != null;
     }
 
     // Constructed from one parsed tools.yml entry; throws one ArgumentException listing every violation.
@@ -203,6 +215,18 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
         unix_probes = StrArr(d, "unix_probes");
         unix_pipeline_probes = StrArr(d, "unix_pipeline_probes");
         probe_excludes = StrArr(d, "probe_excludes");
+        msys2_url = OptStr(d, "msys2_url");
+        msys2_sha256 = OptStr(d, "msys2_sha256");
+
+        if ((msys2_url == null) != (msys2_sha256 == null))
+        {
+            errors.Add("msys2_url and msys2_sha256 are declared together: the download is verified against its SHA-256");
+        }
+
+        if (msys2_sha256 != null && !Regex.IsMatch(msys2_sha256, @"\A[0-9a-f]{64}\z"))
+        {
+            errors.Add(string.Format("msys2_sha256 '{0}' must be 64 lowercase hex digits", msys2_sha256));
+        }
 
         if (version_pattern != null && !version_pattern.Contains("(?<ver>"))
         {

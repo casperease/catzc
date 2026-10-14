@@ -40,10 +40,11 @@ automation/.compiled/** binary
 /.gitignore     text eol=lf
 /importer.ps1   text eol=lf
 
-# Shell scripts run under bash, which reads a carriage return as part of the command: every *.sh is LF everywhere,
-# so a Windows checkout runs too (ADR-AUTO-ENGINE: the bash engine requires LF). This also covers importer.sh.
+# Shell scripts run under bash or zsh, which read a carriage return as part of the command: every shell script is LF
+# everywhere, so a Windows checkout runs too (ADR-AUTO-ENGINE: the POSIX engines require LF). This also covers importer.sh.
 *.sh            text eol=lf
 *.bats          text eol=lf
+*.zsh           text eol=lf
 # The vendored bats-core test runner: Bash scripts, most without an extension, so they are pinned by folder.
 **/.vendor/bats-core/** text eol=lf
 
@@ -74,8 +75,9 @@ automation/.compiled/** linguist-generated
 
 # catzc: contract assets are data on purpose — a contract asset's bytes are what its contract check compares, so the
 # tools that rewrite or check content (links, Markdown titles) leave them as written. An empty presence asset stays
-# empty. See docs/adr/repository/api-contracts.md (ADR-REPO-CONTRACT#6).
-/contracts/*/*/** catzc-contract
+# empty. They check out with LF on every platform, so a working copy's bytes match the .frozen record's hashes
+# without re-reading CRLF as LF. See docs/adr/repository/api-contracts.md (ADR-REPO-CONTRACT#5, ADR-REPO-CONTRACT#6).
+/contracts/*/*/** catzc-contract text eol=lf
 
 # catzc: the repository landing page keeps its own title, not the path title every other Markdown file carries
 # (docs/adr/repository/uniform-formatting.md, ADR-REPO-FORMAT#6).

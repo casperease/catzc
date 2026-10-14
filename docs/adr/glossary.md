@@ -325,7 +325,7 @@ A test's kind, logic or integrity — one mandatory tag saying whether it runs o
 
 ### execution engine
 
-One of the two shells the repository's own code runs under, pwsh and bash, declared once with everything that differs between them.
+System.Collections.Specialized.OrderedDictionary
 
 - **Defined by:** [ADR-AUTO-ENGINE#1](automation/execution-engines.md#rule-adr-auto-engine1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -511,6 +511,26 @@ An L2 or L3 test that cuts from an outer ring of the test onion (local tools; ou
 
 ## azure
 
+### hub
+
+The landing zone of a shared subscription — the network every spoke of its tier peers to, holding the private DNS zones.
+
+- **Defined by:** [ADR-AZ-LZ#2](azure/landing-zones.md#rule-adr-az-lz2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
+- **Contrasts:**
+  - [spoke](#spoke): A spoke is a customer subscription's landing zone, peered to its hub; a hub is a shared subscription's, listing its
+    spokes.
+
+### landing zone
+
+The network, guardrails, and cost control a workload lands in — the CAF application landing zone, deployed once per subscription at
+subscription scope by the discovery template.
+
+- **Defined by:** [ADR-AZ-LZ#1](azure/landing-zones.md#rule-adr-az-lz1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
+
 ### slot
 
 A Bicep configuration slot — one config file of a template (`<env>[-<slot>].yml`), deploying one subscription's resource group.
@@ -520,6 +540,16 @@ A Bicep configuration slot — one config file of a template (`<env>[-<slot>].ym
 - **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
 - **Forms:** `Bicep slot`, `base slot`, `configuration slot`, `root slot`, `template slot`, `indexed slot`, `special slot`, `optional slot`,
   `customer slot`, `platform slot`, `env slot`, `core slot`, `subfolder slot`, `target slot`, `region slot`, and the bare `slot`
+
+### spoke
+
+The landing zone of a customer subscription — peered to the hub of its tier, holding the subnet its workloads' private endpoints use.
+
+- **Defined by:** [ADR-AZ-LZ#2](azure/landing-zones.md#rule-adr-az-lz2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
+- **Contrasts:**
+  - [hub](#hub): A hub is a shared subscription's landing zone, listing its spokes; a spoke is a customer subscription's, peered to its hub.
 
 ## repository
 

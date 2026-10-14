@@ -80,6 +80,16 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         @([System.IO.Directory]::EnumerateFiles($subsetOutput, 'Catzc.Types.*.dll')).Count | Should -Be 1
     }
 
+    It 'throws the compiler error and leaves no temp file behind when the sources do not compile' {
+        $brokenRoot = Join-Path $TestDrive 'broken'
+        $brokenTypes = Join-Path $brokenRoot "$widget/types"
+        [System.IO.Directory]::CreateDirectory($brokenTypes) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $brokenTypes 'Sprocket.cs'), "namespace $widget;`npublic class Sprocket { int X => Missing(); }")
+        $brokenOutput = Join-Path $TestDrive 'broken-output'
+        { Build-CombinedTypeAssembly -AutomationRoot $brokenRoot -OutputDirectory $brokenOutput } | Should -Throw
+        @([System.IO.Directory]::EnumerateFiles($brokenOutput)).Count | Should -Be 0
+    }
+
     It 'returns nothing and writes nothing when the selection ships no C# source' {
         $emptyOutput = Join-Path $TestDrive 'empty'
         Build-CombinedTypeAssembly -AutomationRoot $root -Module 'Gizmo' -OutputDirectory $emptyOutput | Should -BeNullOrEmpty

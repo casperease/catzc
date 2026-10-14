@@ -1,0 +1,8 @@
+# Per-template options for 'expedition' — the Well-Architected workload: storage and a SQL database behind
+# private endpoints, landing in a discovery network. Deployed into its own resource group, one per
+# configuration slot.
+#
+# Classification ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)):
+#   environment_kind: standard  -> configs use the standard envs (dev/test/preprod/prod), slotted per config
+short_name: exped
+environment_kind: standard

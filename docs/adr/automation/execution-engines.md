@@ -35,8 +35,8 @@ the existence check (ADR-AUTO-DEPS#3), never the WSL launcher.
 A black-box test in another language starts the engine from the contract its runner sets, never from a hardcoded command: `CATZC_ENGINE`
 (the engine's name), `CATZC_ENGINE_EXECUTABLE`, `CATZC_ENGINE_ENTRY` (the script that loads catzc into the engine), and
 `CATZC_ENGINE_START`, the model's start arguments as a JSON array that loads the entry and ends in the command text, with `{command}` where
-the test's command goes (ADR-AUTO-GO#3, ADR-AUTO-PY#3, ADR-AUTO-BASH#3). Every Go and Python black-box test runs once per engine, three
-runs titled `<test> [pwsh]`, `<test> [bash]` and `<test> [zsh]`, unchanged between them.
+the test's command goes (ADR-AUTO-GO#3, ADR-AUTO-PY#3, ADR-AUTO-BASH#3). Every Go and Python black-box test runs once per engine, three runs
+titled `<test> [pwsh]`, `<test> [bash]` and `<test> [zsh]`, unchanged between them.
 
 - [The black-box contract](#the-black-box-contract)
 
@@ -51,11 +51,11 @@ A behaviour that differs between the engines is tested side by side, in a per-en
 ### Rule ADR-AUTO-ENGINE:6
 
 Each engine reaches catzc through its importer entry at the repository root. bash and zsh share one, `importer.sh`, a generated, committed
-root file that either shell sources; there is no `importer.zsh`. It defines one dispatcher, `cats`: with no arguments it lists the catzc
-commands; otherwise it runs its first argument as a catzc command in pwsh with the PowerShell entry loaded — `CATZC_IMPORTER`, else the
-repository's `importer.ps1` — passing an argument that starts with `-` as a parameter name and every other argument as one PowerShell
-literal. The model's `CommandPrefix` (`cats` and a space for bash and zsh, none for pwsh) is how a command text reaches catzc in that
-engine, so one test's command text is the same under all three.
+root file that each of the two shells loads into its session; there is no `importer.zsh`. It defines one dispatcher, `cats`: with no
+arguments it lists the catzc commands; otherwise it runs its first argument as a catzc command in pwsh with the PowerShell entry loaded —
+`CATZC_IMPORTER`, else the repository's `importer.ps1` — passing an argument that starts with `-` as a parameter name and every other
+argument as one PowerShell literal. The model's `CommandPrefix` (`cats` and a space for bash and zsh, none for pwsh) is how a command text
+reaches catzc in that engine, so one test's command text is the same under all three.
 
 - [The cats dispatcher](#the-cats-dispatcher)
 
@@ -74,29 +74,29 @@ There are three engines and the set is closed. Another engine means another set 
 repository runs; it is a decision for this ADR, not a value someone adds to a list. So the list lives in one place, `ExecutionEngines`, and
 every other list is read from it. `ExecutionEngine` has no public constructor: the model's three instances are the only engines there are.
 
-zsh earns its place beside bash because it is where a macOS user types, and because it costs little: it shares bash's POSIX quoting, its
-GNU `timeout` safeguard, its LF and executable-bit needs, and its importer entry, so most of its column repeats bash's and the model states
-the few differences once.
+zsh earns its place beside bash because it is where a macOS user types, and because it costs little: it shares bash's POSIX quoting, its GNU
+`timeout` safeguard, its LF and executable-bit needs, and its importer entry, so most of its column repeats bash's and the model states the
+few differences once.
 
 ### One model of what differs
 
 The model is data with a few small methods, in C# so every module and every config type can read it with no PowerShell call. What it
 declares:
 
-| Property                   | pwsh                             | bash                               | zsh                                   |
-| -------------------------- | -------------------------------- | ---------------------------------- | ------------------------------------- |
-| executable, located by     | `pwsh`, beside `$PSHOME`         | `bash`, its `tools.yml` entry      | `zsh`, its `tools.yml` entry          |
-| script extensions          | `.ps1`, `.psm1`                  | `.sh`                              | `.zsh`                                |
-| shebang                    | —                                | `#!/usr/bin/env bash`              | `#!/usr/bin/env zsh`                  |
-| non-interactive start      | `-NoProfile -NonInteractive`     | `--noprofile --norc`               | `-f` (no startup files)               |
-| command flag               | `-Command`                       | `-c`                               | `-c`                                  |
-| a quote in a literal       | `''`                             | `'\''`                             | `'\''`                                |
-| loading an entry, silently | `. '<entry>' *> $null`           | `source '<entry>' >/dev/null 2>&1` | `source '<entry>' >/dev/null 2>&1`    |
-| strict mode                | `Set-StrictMode -Version Latest` | `set -euo pipefail`                | `setopt ERR_EXIT NO_UNSET PIPE_FAIL`  |
-| time safeguard             | `Invoke-WithTimeout`             | `timeout`                          | `timeout`                             |
-| line endings, exec bit     | any, none                        | LF, required                       | LF, required                          |
-| importer entry             | `importer.ps1`                   | `importer.sh`                      | `importer.sh`                         |
-| command prefix             | —                                | `cats` and a space                 | `cats` and a space                    |
+| Property                   | pwsh                             | bash                               | zsh                                  |
+| -------------------------- | -------------------------------- | ---------------------------------- | ------------------------------------ |
+| executable, located by     | `pwsh`, beside `$PSHOME`         | `bash`, its `tools.yml` entry      | `zsh`, its `tools.yml` entry         |
+| script extensions          | `.ps1`, `.psm1`                  | `.sh`                              | `.zsh`                               |
+| shebang                    | —                                | `#!/usr/bin/env bash`              | `#!/usr/bin/env zsh`                 |
+| non-interactive start      | `-NoProfile -NonInteractive`     | `--noprofile --norc`               | `-f` (no startup files)              |
+| command flag               | `-Command`                       | `-c`                               | `-c`                                 |
+| a quote in a literal       | `''`                             | `'\''`                             | `'\''`                               |
+| loading an entry, silently | `. '<entry>' *> $null`           | `source '<entry>' >/dev/null 2>&1` | `source '<entry>' >/dev/null 2>&1`   |
+| strict mode                | `Set-StrictMode -Version Latest` | `set -euo pipefail`                | `setopt ERR_EXIT NO_UNSET PIPE_FAIL` |
+| time safeguard             | `Invoke-WithTimeout`             | `timeout`                          | `timeout`                            |
+| line endings, exec bit     | any, none                        | LF, required                       | LF, required                         |
+| importer entry             | `importer.ps1`                   | `importer.sh`                      | `importer.sh`                        |
+| command prefix             | —                                | `cats` and a space                 | `cats` and a space                   |
 
 `StartArguments(entry, command)` composes the start from these: the non-interactive arguments, the command flag, then one command text that
 loads the entry and runs the command, behind the engine's command prefix.
@@ -111,9 +111,9 @@ framework, so those starts are pwsh by nature and stay so.
 
 The engine a test starts should be the engine the caller runs, so pwsh comes from `$PSHOME`, the folder of the running PowerShell, rather
 than from `PATH`, where an older or a second PowerShell may come first. bash and zsh have no such anchor: each is a tool, declared in
-`tools.yml` with sensible defaults per platform and found by the existence check, which excludes the WSL launcher that would run a
-different system's shell. On Windows bash is Git Bash, and zsh is the MSYS2 package installed into Git Bash's tree in user space
-(`Install-Zsh`), so both POSIX shells share one runtime and one code path (ADR-AUTO-XPLAT#8); elsewhere each is the system's own.
+`tools.yml` with sensible defaults per platform and found by the existence check, which excludes the WSL launcher that would run a different
+system's shell. On Windows bash is Git Bash, and zsh is the MSYS2 package installed into Git Bash's tree in user space (`Install-Zsh`), so
+both POSIX shells share one runtime and one code path (ADR-AUTO-XPLAT#8); elsewhere each is the system's own.
 
 ### The black-box contract
 
@@ -121,9 +121,9 @@ A Go or Python test starts the engine as a process. A test that builds that star
 `pwsh -NoProfile -Command ". '<entry>' *> $null; <command>"`, with PowerShell's quoting rule copied into Go and Python — runs under one
 engine only. So the runner hands it the start: the executable, and the arguments from the model with the entry quoted in the engine's own
 rule and `{command}` where the test's command goes. The test fills in its command and runs the process. The same test therefore runs under
-any engine the runner names, with no change to the test, which is what running each black-box test under all three engines needs. The
-runner names the engine through `CATZC_ENGINE` and the file that loads catzc into it through `CATZC_ENGINE_ENTRY`; for bash and zsh it also
-sets `CATZC_IMPORTER`, the PowerShell entry `cats` loads, which is the build's entry in a build run.
+any engine the runner names, with no change to the test, which is what running each black-box test under all three engines needs. The runner
+names the engine through `CATZC_ENGINE` and the file that loads catzc into it through `CATZC_ENGINE_ENTRY`; for bash and zsh it also sets
+`CATZC_IMPORTER`, the PowerShell entry `cats` loads, which is the build's entry in a build run.
 
 ### Fixture tables per engine
 
@@ -157,8 +157,8 @@ as every `*.sh` is, and checked by `Test-ShellScripts` (ADR-AUTO-BASH#6). Bash t
 
 ## Decision
 
-The repository runs its own code under three execution engines, declared once (ADR-AUTO-ENGINE#1), with everything that differs between
-them declared once on the model (ADR-AUTO-ENGINE#2), located the way the model says (ADR-AUTO-ENGINE#3), started by black-box tests from the
+The repository runs its own code under three execution engines, declared once (ADR-AUTO-ENGINE#1), with everything that differs between them
+declared once on the model (ADR-AUTO-ENGINE#2), located the way the model says (ADR-AUTO-ENGINE#3), started by black-box tests from the
 contract their runner sets (ADR-AUTO-ENGINE#4), tested side by side in per-engine fixture tables (ADR-AUTO-ENGINE#5), and reached from bash
 and zsh through `importer.sh` and its `cats` dispatcher (ADR-AUTO-ENGINE#6).
 

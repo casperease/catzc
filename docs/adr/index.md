@@ -233,6 +233,7 @@ per-template configuration tree under `infrastructure/templates/`, the customer 
 | `ADR-AZ-NETWORK`  | [azure-network-model](azure/azure-network-model.md)     |
 | `ADR-AZ-NAMING`   | [azure-naming-standard](azure/azure-naming-standard.md) |
 | `ADR-AZ-CUSTOMER` | [azure-customer-model](azure/azure-customer-model.md)   |
+| `ADR-AZ-LZ`       | [landing-zones](azure/landing-zones.md)                 |
 
 ### repository/
 

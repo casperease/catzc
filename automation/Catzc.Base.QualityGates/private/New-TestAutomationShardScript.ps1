@@ -18,7 +18,9 @@
     worker and manual paths cannot drift), runs the shard's test files with the run's exclude tags, writes
     Pester's NUnit results to results-shard-<N>.xml, reduces its live result to rows (ConvertTo-
     TestAutomationRowSet — tier/category resolution needs the live .Block chain, so it must happen inside the
-    worker) into rows-shard-<N>.json, and exits 0 (green) or 1 (the run did not pass — failed tests, or a
+    worker) into rows-shard-<N>.json, writes each test file's whole Pester duration (set-up included) into
+    files-shard-<N>.json — the measurement the next run schedules by (Select-TestShardAssignment) — and
+    exits 0 (green) or 1 (the run did not pass — failed tests, or a
     container/discovery error that fails the run with zero failed tests). Any other exit code — or a missing
     rows sidecar — means the worker itself crashed, which the parent surfaces loudly.
 .PARAMETER ShardIndex
@@ -48,7 +50,7 @@
     configuration to the language bridge; an empty entry means there is none. The worker never locates a tool: a
     build's engine has no tools.yml entry.
 .OUTPUTS
-    [pscustomobject] with ShardIndex, Label, ScriptPath, ResultsPath, RowsPath.
+    [pscustomobject] with ShardIndex, Label, ScriptPath, ResultsPath, RowsPath, FilesPath.
 #>
 function New-TestAutomationShardScript {
     [CmdletBinding()]
@@ -108,6 +110,7 @@ function New-TestAutomationShardScript {
     $scriptPath = Join-Path $RunDirectory "shard-$ShardIndex.ps1"
     $resultsPath = Join-Path $RunDirectory "results-shard-$ShardIndex.xml"
     $rowsPath = Join-Path $RunDirectory "rows-shard-$ShardIndex.json"
+    $filesPath = Join-Path $RunDirectory "files-shard-$ShardIndex.json"
 
     $pathLiteral = ($TestPath | ForEach-Object { "'$_'" }) -join ', '
     $tagLiteral = ($ExcludeTag | ForEach-Object { "'$_'" }) -join ', '
@@ -144,6 +147,8 @@ Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/Pester') -Force
 `$result = Invoke-Pester -Configuration `$config
 `$rows = & (Get-Module Catzc.Base.QualityGates) { param(`$runResult) ConvertTo-TestAutomationRowSet -Result `$runResult } `$result
 Set-Content -Path '$rowsPath' -Value (ConvertTo-Json -InputObject @(`$rows) -Depth 4) -Encoding utf8
+`$files = @(`$result.Containers | Where-Object { `$_.Type -eq 'File' } | ForEach-Object { [pscustomobject]@{ File = `$_.Item.FullName; DurationMs = [int] `$_.Duration.TotalMilliseconds } })
+Set-Content -Path '$filesPath' -Value (ConvertTo-Json -InputObject @(`$files) -Depth 2) -Encoding utf8
 exit ([int](`$result.Result -ne 'Passed'))
 "@
     Set-Content -LiteralPath $scriptPath -Value $content -Encoding utf8
@@ -154,5 +159,6 @@ exit ([int](`$result.Result -ne 'Passed'))
         ScriptPath  = $scriptPath
         ResultsPath = $resultsPath
         RowsPath    = $rowsPath
+        FilesPath   = $filesPath
     }
 }

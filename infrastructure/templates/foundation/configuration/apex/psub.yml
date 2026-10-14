@@ -1,6 +1,14 @@
 # foundation, apex prod subscription (env psub, customer apex).
 ParametersFile:
   parameters:
+    tags:
+      value:
+        workload: foundation
+        environment: prod
+        owner: apex
+        cost-center: apex
+        criticality: high
+        data-classification: confidential
     logAnalyticsName:
       value: psub-weu-zct-fnd-apex-log
     keyVaultName:

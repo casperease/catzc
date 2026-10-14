@@ -52,9 +52,10 @@ hands its path to the bridge; without it, the bridge skips with `tool_bash_missi
 
 ### Rule ADR-AUTO-BASH:6
 
-Every shell script the repository tracks — the `.bats` tests, `importer.sh`, and every `*.sh` — takes the shell-script checks of the
-`Test-ShellScripts` quality gate: LF line endings, the executable bit for a script with a shebang, and ShellCheck at the `tools.yml` pin.
-The spelling check reads them too.
+Every shell script the repository tracks — the `.bats` tests, `importer.sh`, every `*.sh`, and every `*.zsh` — takes the shell-script checks
+of the `Test-ShellScripts` quality gate: LF line endings and the executable bit for a script with a shebang, then an analysis. A `*.sh`, a
+`.bats` test, and `importer.sh` take ShellCheck at its `tools.yml` pin; a `*.zsh` takes `zsh -n`, zsh's own syntax check, at zsh's
+`tools.yml` pin, in place of ShellCheck. The spelling check reads them too.
 
 - [The checks](#the-checks)
 
@@ -113,9 +114,16 @@ build without carrying the tools config.
 ### The checks
 
 Shell scripts fail in ways a reader does not see: a carriage return, a missing executable bit, an unquoted expansion. `Test-ShellScripts`
-checks every tracked shell script for all three — the line endings, the bit for a script with a shebang, and ShellCheck's analysis — with
-ShellCheck installed user-scope at its pin (`Install-Shellcheck`). Microsoft's vendored `dotnet-install.sh` is checked for line endings and
-its bit, but not analysed: it is shipped as Microsoft writes it.
+checks every tracked shell script for all three — the line endings, the bit for a script with a shebang, and an analysis — with ShellCheck
+installed user-scope at its pin (`Install-Shellcheck`). Microsoft's vendored `dotnet-install.sh` is checked for line endings and its bit,
+but not analysed: it is shipped as Microsoft writes it.
+
+ShellCheck reads sh, bash, dash, and ksh, but not zsh, so a `*.zsh` script takes zsh's own check instead: `zsh -f -n` parses the file
+without running it and without reading any startup file, and each error it reports is one issue. The check runs the zsh that its `tools.yml`
+entry locates ([execution-engines](../execution-engines.md#rule-adr-auto-engine3)): the system's on Linux and macOS, and on Windows the
+MSYS2 zsh package that `Install-Zsh` adds, user-space, to the Git Bash tree `Install-Git` provides. A parse check finds less than
+ShellCheck's analysis, but it is the one zsh offers; bats runs Bash only, so zsh's behaviour is verified by the per-engine black-box runs
+([execution-engines](../execution-engines.md#rule-adr-auto-engine4)), not here.
 
 ## Decision
 
@@ -133,7 +141,8 @@ per catzc module under the Bash root (ADR-AUTO-BASH#2), call catzc through `impo
 - **`Update-BatsVendor`** (`Catzc.Tooling.Toolchain`) rebuilds the vendored copy from the pin, verifying the archive's digest.
 - **The language bridge** in `Catzc.Base.QualityGates` (`Get-LanguageTestFolders`, `Get-BashTestCases`, `Language.Bridge.ps1`) maps each
   Bash test folder to its catzc module and tags each test.
-- **`Test-ShellScripts`** checks every tracked shell script, and **`.gitattributes`** pins `*.sh`, `*.bats` and the vendored runner to LF.
+- **`Test-ShellScripts`** checks every tracked shell script, with `zsh -n` for `*.zsh` and ShellCheck for the others, and
+  **`.gitattributes`** pins the shell scripts and the vendored runner to LF.
 
 ## Consequences
 

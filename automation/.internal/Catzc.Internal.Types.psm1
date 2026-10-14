@@ -294,7 +294,8 @@ function Build-CombinedTypeAssembly {
         the types. Each .cs is a separate compilation unit (Add-Type -Path), so each file's file-scoped namespace
         is legal while every type still lands in one assembly. The compile goes to a per-process temp file that is
         then moved into place, so a concurrent writer never sees a half-written DLL; a lost race (same hash, same
-        sources) just discards the temp. An existing DLL of the same hash is kept as is (Compiled = $false).
+        sources) just discards the temp. A failed compile also removes its temp file before the compiler's error
+        propagates. An existing DLL of the same hash is kept as is (Compiled = $false).
 
         Source validation (bare filenames, the module's file-scoped namespace) is the loader's concern, not this
         function's — a caller that compiles the sources before they are validated gets the compiler's own errors.
@@ -337,11 +338,18 @@ function Build-CombinedTypeAssembly {
     if (-not [System.IO.File]::Exists($dll)) {
         [System.IO.Directory]::CreateDirectory($OutputDirectory) | Out-Null
         $tmp = "$dll.$PID.tmp"
-        Add-Type -Path @($hashResult.Files.Path) -OutputAssembly $tmp -OutputType Library
         try {
-            [System.IO.File]::Move($tmp, $dll)
+            Add-Type -Path @($hashResult.Files.Path) -OutputAssembly $tmp -OutputType Library -ErrorAction Stop
+            try {
+                [System.IO.File]::Move($tmp, $dll)
+            }
+            catch {
+                if (-not [System.IO.File]::Exists($dll)) {
+                    throw
+                }
+            }
         }
-        catch {
+        finally {
             if ([System.IO.File]::Exists($tmp)) {
                 [System.IO.File]::Delete($tmp)
             }

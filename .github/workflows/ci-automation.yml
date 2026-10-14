@@ -43,3 +43,55 @@ jobs:
           # flake on shared CI runners that vary 2-5x in speed and run cold (pwsh startup / child-process import
           # / cold-JIT push near-limit tests over). The report stays as the signal; the gate does not fail CI.
           Test-Automation -Level 2
+
+  # The same commit builds the same bundle on every OS
+  # ([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)). A Windows runner checks
+  # out with core.autocrlf=true and the others with LF, so equal content hashes prove that the build ships the
+  # bytes git stores, not the bytes a checkout wrote.
+  bundle-hash:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the calculated version counts first-parent commits
+
+      - name: Build the full bundle and record its content hash
+        shell: pwsh
+        run: |
+          . ./importer.ps1
+          $built = Build-Modules -ModuleProfile full
+          New-Item -ItemType Directory -Force out/bundle-hash | Out-Null
+          Set-Content -Path "out/bundle-hash/${{ matrix.os }}.txt" -Value "$($built.Version) $($built.ContentHash)" -NoNewline
+          Write-Host "Catzc $($built.Version) on ${{ matrix.os }}: $($built.ContentHash)"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bundle-hash-${{ matrix.os }}
+          path: out/bundle-hash/${{ matrix.os }}.txt
+          if-no-files-found: error
+
+  bundle-hash-compare:
+    needs: bundle-hash
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: bundle-hash-*
+          merge-multiple: true
+          path: bundle-hash
+
+      - name: Every OS built the same bundle
+        shell: pwsh
+        run: |
+          Set-StrictMode -Version Latest
+          $records = @(Get-ChildItem bundle-hash -Filter *.txt | ForEach-Object { [pscustomobject]@{ Os = $_.BaseName; Hash = (Get-Content -Raw $_.FullName).Trim() } })
+          $records | Format-Table -AutoSize | Out-String | Write-Host
+          if ($records.Count -lt 3) {
+            throw "Expected a bundle hash from 3 OSes, got $($records.Count)."
+          }
+          if (@($records.Hash | Sort-Object -Unique).Count -ne 1) {
+            throw 'The same commit built different bundles on different OSes; compare the per-OS build trees.'
+          }

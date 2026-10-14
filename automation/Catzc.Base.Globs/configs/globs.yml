@@ -76,6 +76,39 @@ globsets:
       - infrastructure/templates/foundation/configuration/*.yml
       - infrastructure/templates/foundation/configuration/*/**
 
+  # The landing-zone base unit: the discovery template WITHOUT any deployment configuration. It composes
+  # the foundation base, which owns the shared Bicep modules (a unit never owns another unit's files,
+  # [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)), and which discovery deploys onto. It
+  # binds no pipeline; it ships only through the configured units that compose it.
+  template-azure-subscription-discovery:
+    description: Deployable unit - the discovery landing-zone template plus the foundation base it builds on. Not including any configs!
+    layer: deployable-unit
+    verify:
+      modules: [Catzc.Azure.Templates]
+      level: 2
+    compose: [template-azure-subscription-foundation]
+    include:
+      - infrastructure/templates/discovery/**
+    exclude:
+      - infrastructure/templates/discovery/configuration/*.yml
+      - infrastructure/templates/discovery/configuration/*/**
+
+  # The workload base unit: the expedition template WITHOUT any deployment configuration. It composes the
+  # discovery base, the landing zone it lands in (and through it the foundation base and the modules). It
+  # binds no pipeline; it ships only through the configured units that compose it.
+  template-azure-workload-expedition:
+    description: Deployable unit - the expedition workload template plus the discovery base it lands in. Not including any configs!
+    layer: deployable-unit
+    verify:
+      modules: [Catzc.Azure.Templates]
+      level: 2
+    compose: [template-azure-subscription-discovery]
+    include:
+      - infrastructure/templates/expedition/**
+    exclude:
+      - infrastructure/templates/expedition/configuration/*.yml
+      - infrastructure/templates/expedition/configuration/*/**
+
   # Per-customer deployable units
   # ([ADR-DSGN-TRACK#5](/docs/adr/design/tracks.md#rule-adr-dsgn-track5)): the shared surface plus that customer's own
   # configuration subfolder — the folder IS the customer key, so the unit is the exact folder name.
@@ -84,25 +117,30 @@ globsets:
     description: Deployable unit - customer nova's foundation (shared surface + the nova configuration folder).
     layer: deployable-unit
     pipeline: cd-nova
-    compose: [template-azure-subscription-foundation]
+    compose: [template-azure-subscription-foundation, template-azure-subscription-discovery, template-azure-workload-expedition]
     include:
       - infrastructure/templates/foundation/configuration/nova/**
+      - infrastructure/templates/discovery/configuration/nova/**
+      - infrastructure/templates/expedition/configuration/nova/**
 
   apex:
     description: Deployable unit - customer apex's foundation (shared surface + the apex configuration folder).
     layer: deployable-unit
     pipeline: cd-apex
-    compose: [template-azure-subscription-foundation]
+    compose: [template-azure-subscription-foundation, template-azure-subscription-discovery, template-azure-workload-expedition]
     include:
       - infrastructure/templates/foundation/configuration/apex/**
+      - infrastructure/templates/discovery/configuration/apex/**
+      - infrastructure/templates/expedition/configuration/apex/**
 
   flux:
     description: Deployable unit - customer flux's foundation (shared surface + the flux configuration folder).
     layer: deployable-unit
     pipeline: cd-flux
-    compose: [template-azure-subscription-foundation]
+    compose: [template-azure-subscription-foundation, template-azure-subscription-discovery, template-azure-workload-expedition]
     include:
       - infrastructure/templates/foundation/configuration/flux/**
+      - infrastructure/templates/discovery/configuration/flux/**
 
   # The shared-platform unit — the configuration-ROOT files (the non-customer deployment), deployed by
   # cd-shared. The same shape as a customer unit, keyed by the root instead of a subfolder.
@@ -110,9 +148,11 @@ globsets:
     description: Deployable unit - the shared platform's foundation (shared surface + the configuration-root files).
     layer: deployable-unit
     pipeline: cd-shared
-    compose: [template-azure-subscription-foundation]
+    compose: [template-azure-subscription-foundation, template-azure-subscription-discovery, template-azure-workload-expedition]
     include:
       - infrastructure/templates/foundation/configuration/*.yml
+      - infrastructure/templates/discovery/configuration/*.yml
+      - infrastructure/templates/expedition/configuration/*.yml
 
   # The markdown scan scope: exactly what Test-Markdownlint reads - every in-scope markdown file plus the
   # scan's own config (a scan's globset includes its configuration). The excludes mirror the scan's default

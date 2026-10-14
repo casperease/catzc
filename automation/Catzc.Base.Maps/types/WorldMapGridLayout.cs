@@ -3,6 +3,8 @@
 // ([ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7),
 // [ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8)). The page size comes from MapsLimits; the row
 // header is as wide as its longest printed label (within a third of the grid), and the columns share the rest evenly.
+// The column-header band holds the column axis on one line and the file-language names on two, so a name that wraps
+// leaves every column the same height.
 // Coordinates are PDF user space: the origin at the bottom-left, in points; row 0 is the top row. WorldMapPdf draws the
 // grid page from one of these, and the tests check its positions. A result type, so the properties are PascalCase
 // ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
@@ -33,6 +35,9 @@ public sealed class WorldMapGridLayout
     // The padding inside a header or cell around its text.
     public const double Padding = 3;
 
+    // The distance from one baseline to the next in a two-line column header, as a multiple of the font size.
+    public const double LineSpacing = 1.2;
+
     // The page size, in points.
     public double PageWidth { get; }
 
@@ -58,8 +63,14 @@ public sealed class WorldMapGridLayout
     // The width of the row-header column.
     public double RowHeaderWidth { get; }
 
-    // The height of the column-header band: one line for the column axis, one for the file-language names.
-    public double ColumnHeaderHeight { get; }
+    // The height of the column-header band: the column-axis line on top of the file-language name band.
+    public double ColumnHeaderHeight => ColumnAxisHeight + ColumnNameHeight;
+
+    // The height of the column-axis line: one line of text.
+    public double ColumnAxisHeight { get; }
+
+    // The height of the file-language name band: two lines of text, so a name that wraps keeps the grid aligned.
+    public double ColumnNameHeight { get; }
 
     // The size of one cell.
     public double CellWidth { get; }
@@ -87,7 +98,8 @@ public sealed class WorldMapGridLayout
         LegendBottom = Margin;
         Left = Margin;
         Top = TitleBaseline - TitleSize;
-        ColumnHeaderHeight = 2 * (LabelSize + 2 * Padding);
+        ColumnAxisHeight = LabelSize + 2 * Padding;
+        ColumnNameHeight = LabelSize * LineSpacing + LabelSize + 2 * Padding;
 
         double gridWidth = PageWidth - 2 * Margin;
         double widest = HelveticaMetrics.Width(PdfFont.HelveticaBold, LabelSize, config.labels.row_axis);

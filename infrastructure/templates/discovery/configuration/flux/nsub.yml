@@ -1,0 +1,54 @@
+# discovery, flux nonprod subscription (env nsub, customer flux): a spoke. The kind and the ranges come from
+# network.yml by config address; the spoke peers to the nonprod hub. flux is dev-only -> nonprod only.
+ParametersFile:
+  parameters:
+    tags:
+      value:
+        workload: landing-zone
+        environment: nonprod
+        owner: flux
+        cost-center: flux
+        criticality: medium
+        data-classification: confidential
+    subscriptions:
+      address: global.azure.subscriptions
+    networkKind:
+      address: global.network.subscriptions.flux_nonprod.kind
+    vnetAddressSpace:
+      address: global.network.subscriptions.flux_nonprod.vnet_address_space
+    subnetPrefixes:
+      address: global.network.subscriptions.flux_nonprod.subnets
+    resourceGroupName:
+      value: nsub-weu-zct-disco-flux-rg
+    virtualNetworkName:
+      value: nsub-weu-zct-disco-flux-vnet
+    networkSecurityGroupNames:
+      value:
+        private-endpoints: nsub-weu-zct-disco-flux-pe-nsg
+        dev: nsub-weu-zct-disco-flux-dev-nsg
+        test: nsub-weu-zct-disco-flux-tst-nsg
+    routeTableName:
+      value: nsub-weu-zct-disco-flux-rt
+    hub:
+      value:
+        subscription: shared_nonprod
+        resourceGroupName: nsub-weu-zct-disco-rg
+        virtualNetworkName: nsub-weu-zct-disco-vnet
+        peeringName: nsub-weu-zct-disco-flux-hub-peer
+    logAnalyticsResourceGroupName:
+      value: nsub-weu-zct-fnd-flux-rg
+    logAnalyticsName:
+      value: nsub-weu-zct-fnd-flux-log
+    policyEnforcementMode:
+      address: global.azure.policy_enforcement.nonproduction
+    policyAssignmentNames:
+      value:
+        allowedLocations: nsub-weu-zct-disco-flux-loc-pa
+        requireTag: nsub-weu-zct-disco-flux-tag-pa
+        noPublicIp: nsub-weu-zct-disco-flux-pip-pa
+    budgetName:
+      value: nsub-weu-zct-disco-flux-budg
+    budgetAmount:
+      value: 300
+    budgetStartDate:
+      value: "2026-11-01"

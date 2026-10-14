@@ -106,7 +106,26 @@ function Invoke-TestAutomationWorkers {
     $greedyPhaseOffsetMs = 0
     $serialPhaseOffsetMs = 0
 
+    # The per-file durations the last runs measured on this machine, keyed on the source paths: the shards are dealt
+    # from them longest first, so they finish together (Select-TestShardAssignment), and the greedy files go to the
+    # pool longest first. A per-machine file beside the run folders, written at the end of this run.
+    $repositoryRoot = Get-RepositoryRoot
+    $historyPath = Join-Path ([System.IO.Path]::GetDirectoryName([System.IO.Path]::TrimEndingDirectorySeparator($RunDirectory))) 'durations.json'
+    $history = Get-TestDurationHistory -Path $historyPath
+    $weightOf = {
+        param([string] $Path)
+        $relative = [System.IO.Path]::GetRelativePath($repositoryRoot, $Path) -replace '\\', '/'
+        if ($history.Contains($relative)) {
+            $history[$relative]
+        }
+        else {
+            0
+        }
+    }
+    $GreedyFiles = @($GreedyFiles | Sort-Object -Property @{ Expression = { & $weightOf $_ }; Descending = $true }, @{ Expression = { $_ } })
+
     # The test files and the entry script, as seen from the root the run executes in (a no-op in place).
+    $sourceParallelFiles = @($ParallelFiles)
     $ParallelFiles = @(Convert-TestRunLocationPath -Location $Location -Path $ParallelFiles)
     $GreedyFiles = @(Convert-TestRunLocationPath -Location $Location -Path $GreedyFiles)
     $SerialFiles = @(Convert-TestRunLocationPath -Location $Location -Path $SerialFiles)
@@ -134,14 +153,16 @@ function Invoke-TestAutomationWorkers {
     }
     $workerCount = [Math]::Max(1, [Math]::Min($workerCount, $ParallelFiles.Count))
 
-    # Round-robin the parallel files across the shards — spreads the heavy modules; the serial phase (when
-    # present) is one extra shard scheduled after the pool completes.
+    # Deal the parallel files across the shards by measured duration, longest first to the least-loaded shard, so
+    # the phase ends when its work does rather than when its unluckiest shard does; the serial phase (when present)
+    # is one extra shard scheduled after the pool completes.
+    $assignment = @(Select-TestShardAssignment -File $sourceParallelFiles -WorkerCount $workerCount -DurationMs $history -RepositoryRoot $repositoryRoot)
     $shardFiles = @{}
     for ($shardIndex = 0; $shardIndex -lt $workerCount; $shardIndex++) {
         $shardFiles[$shardIndex] = [System.Collections.Generic.List[string]]::new()
-    }
-    for ($fileIndex = 0; $fileIndex -lt $ParallelFiles.Count; $fileIndex++) {
-        $shardFiles[$fileIndex % $workerCount].Add($ParallelFiles[$fileIndex])
+        foreach ($sourceFile in $assignment[$shardIndex]) {
+            $shardFiles[$shardIndex].Add((Convert-TestRunLocationPath -Location $Location -Path $sourceFile))
+        }
     }
 
     $shards = [System.Collections.Generic.List[object]]::new()
@@ -286,6 +307,21 @@ function Invoke-TestAutomationWorkers {
                 StartSeconds    = ($phaseOffsetMs + $workerResult.StartOffsetMs) / 1000
                 DurationSeconds = $workerResult.DurationMs / 1000
             })
+    }
+
+    # Every shard finished: record each file's measured duration for the next run's scheduling, keyed on its source
+    # path. A shard without its files sidecar contributes nothing; the history keeps the file's last measurement.
+    $measured = @{}
+    foreach ($shard in $allShards) {
+        if ([System.IO.File]::Exists($shard.FilesPath)) {
+            foreach ($entry in @([System.IO.File]::ReadAllText($shard.FilesPath) | ConvertFrom-Json)) {
+                $source = Convert-TestRunLocationPath -Location $Location -Path $entry.File -ToSource
+                $measured[([System.IO.Path]::GetRelativePath($repositoryRoot, $source) -replace '\\', '/')] = $entry.DurationMs
+            }
+        }
+    }
+    if ($measured.Count -gt 0) {
+        Save-TestDurationHistory -Path $historyPath -DurationMs $measured
     }
 
     [pscustomobject]@{

@@ -3,16 +3,17 @@
     Tests whether a tool is managed by the expected package manager.
 .DESCRIPTION
     Checks the platform's expected package manager to determine if it
-    currently manages the given tool. Check order: UserInstallDir (script-
-    installed), platform-specific (winget/brew/apt), then pip (cross-
-    platform fallback). Returns $false if the manager is not available.
+    currently manages the given tool. Check order: system-provided (and an
+    MSYS2-package tool off Windows), UserInstallDir (script-installed, and an
+    MSYS2-package tool's tree on Windows), uv, platform-specific
+    (winget/brew/apt), then pip and npm (cross-platform fallbacks). Returns $false if the manager is not available.
 .PARAMETER Config
     Tool configuration hashtable from Get-ToolConfig / tools.yml.
 .PARAMETER WingetListCache
     Pre-fetched winget list output (Get-WingetListCache), so a batch of checks lists once.
 .PARAMETER Path
-    For a script-installed tool: judge this install folder instead of the one the command resolves to on PATH.
-    A removal names the folder it is about to delete, so the managed install's position on PATH never decides
+    For a script-installed tool, or an MSYS2-package tool on Windows: judge this install folder (or a file in it)
+    instead of the one the command resolves to on PATH. A removal names the folder it is about to delete, so the managed install's position on PATH never decides
     whether a different folder is managed
     ([ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)).
 #>
@@ -27,18 +28,20 @@ function Test-ExpectedPackageManager {
         # winget list call — pass the result of Get-WingetListCache.
         [string] $WingetListCache,
 
-        # The install folder to judge, for a script-installed tool. Default: the folder the command resolves to on
+        # The install folder to judge, for a script-installed or an MSYS2-package tool. Default: the folder the command resolves to on
         # PATH — which, in a catzc session, is always the managed install, so a removal of another folder names it.
         [string] $Path
     )
 
-    # 0. OS-provided tools (winget) — the OS is the manager, so "managed" means simply present.
-    if ($Config.system_provided) {
+    # 0. OS-provided tools (winget) — the OS is the manager, so "managed" means simply present. An MSYS2-package tool
+    #    (zsh) is the system's off Windows, so it counts the same way there.
+    if ($Config.system_provided -or ($Config.msys2_url -and -not $IsWindows)) {
         return [bool](Test-Command $Config.command)
     }
 
-    # 1. Script-installed tools (e.g., Dotnet via dotnet-install scripts).
-    if ($Config.script_install) {
+    # 1. Script-installed tools (e.g., Dotnet via dotnet-install scripts), and on Windows MSYS2-package tools, which
+    #    install into the tree Get-ScriptInstallDir names (windows_install_dir): managed when inside that folder.
+    if ($Config.script_install -or $Config.msys2_url) {
         $expectedDir = [System.IO.Path]::GetFullPath((Get-ScriptInstallDir -Config $Config)).TrimEnd('\', '/')
         if ($Path) {
             $target = [System.IO.Path]::GetFullPath($Path).TrimEnd('\', '/')

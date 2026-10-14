@@ -113,7 +113,9 @@ function Build-Bicep {
 
         $flat = $configurationDescriptor | ConvertTo-FlatSettingSet
         foreach ($key in $flat.Keys) {
-            if ($flat[$key] -eq 'UNDEFINED') {
+            # The marker is a string: compared string-first and case-sensitively, so a boolean `true` (which -eq coerces to
+            # equal any non-empty string) or a number never reads as undefined.
+            if ($flat[$key] -is [string] -and 'UNDEFINED' -ceq $flat[$key]) {
                 throw "Undefined config key '$key' for slot '$($slot.name)' in template '$Template'"
             }
         }

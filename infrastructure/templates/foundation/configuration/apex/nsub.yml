@@ -1,6 +1,14 @@
 # foundation, apex nonprod subscription (env nsub, customer apex).
 ParametersFile:
   parameters:
+    tags:
+      value:
+        workload: foundation
+        environment: nonprod
+        owner: apex
+        cost-center: apex
+        criticality: medium
+        data-classification: confidential
     logAnalyticsName:
       value: nsub-weu-zct-fnd-apex-log
     keyVaultName:

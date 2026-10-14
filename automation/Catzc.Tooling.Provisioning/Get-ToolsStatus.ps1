@@ -84,12 +84,21 @@ function Get-ToolsStatus {
         $command = Get-ToolCommandSuffix -Tool $toolName
 
         # Mirror Test-ExpectedPackageManager check order:
-        # SystemProvided → ScriptInstall → uv → platform-specific → pip → npm → unknown
+        # SystemProvided → ScriptInstall → MSYS2 package → uv → platform-specific → pip → npm → unknown. An MSYS2
+        # package installs on Windows only; elsewhere that tool is the system's.
         $expectedManager = if ($config.system_provided) {
             'system'
         }
         elseif ($config.script_install) {
             'script'
+        }
+        elseif ($config.msys2_url) {
+            if ($IsWindows) {
+                'msys2'
+            }
+            else {
+                'system'
+            }
         }
         elseif ($config.uv_tool -or $config.uv_python -or $config.uv_venv) {
             'uv'
@@ -128,7 +137,7 @@ function Get-ToolsStatus {
             Test-Command $config.command
         }
         if (-not $found) {
-            $missingAction = if ($config.system_provided) {
+            $missingAction = if ($expectedManager -eq 'system') {
                 'Provided by the platform, not the toolchain — install it (bash on Windows: Install-Git)'
             }
             else {
@@ -148,7 +157,8 @@ function Get-ToolsStatus {
         }
 
         $versionOk = $installed -and $installed.StartsWith($config.version)
-        $managedByExpected = Test-ExpectedPackageManager -Config $config -WingetListCache $wingetCache
+        # Judged at the location this status reports: a tool located by its candidate paths need not be on PATH.
+        $managedByExpected = Test-ExpectedPackageManager -Config $config -WingetListCache $wingetCache -Path $location
         $manager = if ($managedByExpected) {
             $expectedManager
         }

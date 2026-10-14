@@ -30,8 +30,7 @@
 # [ADR-AUTO-SPELL](/docs/adr/automation/powershell/spell-out-names.md).
 categories:
   product:
-    description:
-      "A real product, tool, protocol, or general technical term this codebase uses that fits no more specific category below."
+    description: "A real product, tool, protocol, or general technical term this codebase uses that fits no more specific category below."
   abbreviation:
     description: "A short form standing for a full word or phrase; carries expands_to with the full form."
   fixture:
@@ -54,8 +53,8 @@ categories:
       - "docs/**"
   adr-example:
     description:
-      "A DESIGN-zone example token — a discovery-theme name (discovery/expedition/survey, Contoso) or documentation placeholder used only
-      in ADRs and reference docs (ADR-REPO-EXAMPLE, ADR-REPO-LANG)."
+      "A DESIGN-zone example token — a discovery-theme name (discovery/expedition/survey, Contoso) or documentation placeholder used only in
+      ADRs and reference docs (ADR-REPO-EXAMPLE, ADR-REPO-LANG)."
     scope:
       - "docs/**"
   adr:
@@ -123,6 +122,12 @@ terms:
       meaning: "a newline escape followed by echo in a PowerShell string that writes a fixture shell script (`necho)"
     - term: pipefail
       meaning: "set -o pipefail — bash fails a pipeline when any command in it fails"
+    - term: setopt
+      meaning: "setopt — the zsh builtin that turns shell options on; zsh's strict mode is setopt ERR_EXIT NO_UNSET PIPE_FAIL"
+    - term: msys
+      meaning: "MSYS2 — the Windows POSIX runtime Git Bash is built on; zsh installs as its package into Git Bash's tree"
+    - term: zstd
+      meaning: "Zstandard (.zst) — the compression of an MSYS2 package, which Windows' tar reads (Install-Zsh)"
     - term: cacheprovider
       meaning: "pytest's cacheprovider plugin; -p no:cacheprovider keeps .pytest_cache out of the tree"
     - term: pycache
@@ -147,6 +152,8 @@ terms:
       meaning: "plural of shortcode"
     - term: stackdump
       meaning: bash.exe.stackdump
+    - term: squarified
+      meaning: "the squarified treemap layout: rows grown while their rectangles stay near square (SquarifiedTreemap)"
     - term: esbenp
       meaning: Prettier (esbenp.prettier-vscode)
     - term: allman
@@ -306,13 +313,16 @@ terms:
       meaning: "authentication / authorization"
       expands_to: "authentication"
     - term: dora
-      meaning: "DevOps Research and Assessment (DORA) — the research program and its DevOps capability model, cited as a cross-cutting source"
+      meaning:
+        "DevOps Research and Assessment (DORA) — the research program and its DevOps capability model, cited as a cross-cutting source"
       expands_to: "DevOps Research and Assessment"
     - term: devops
       meaning: "development and operations (DevOps)"
       expands_to: "development and operations"
     - term: mttr
-      meaning: "mean time to recovery (MTTR) — DORA's earlier name for the failed-deployment recovery time metric, cited in the DORA metrics reference"
+      meaning:
+        "mean time to recovery (MTTR) — DORA's earlier name for the failed-deployment recovery time metric, cited in the DORA metrics
+        reference"
       expands_to: "mean time to recovery"
     - term: slsa
       meaning: "Supply-chain Levels for Software Artifacts (SLSA) — the supply-chain integrity framework, cited for build provenance"
@@ -529,7 +539,9 @@ terms:
     - term: surve
       meaning: "derived short_name of the 'survey' example template (documentation-examples ADR)"
     - term: widgetlib
-      meaning: "placeholder pip/library package name 'widgetlib' (for command 'widget') in tool-install tests (Remove-*ToolInstall, Install-PipTool)"
+      meaning:
+        "placeholder pip/library package name 'widgetlib' (for command 'widget') in tool-install tests (Remove-*ToolInstall,
+        Install-PipTool)"
     - term: wksp
       meaning: "resource-name shortcode for 'workspace' (wksp) in test assets"
   azure-live:
@@ -541,7 +553,8 @@ terms:
       meaning: "live customer key 'nova' (Nova Systems) in customer.yml / azure.yml (nova_nonprod)"
   adr-example:
     - term: contoso
-      meaning: "Microsoft's canonical fictional company name (Contoso) — a design-zone example in ADRs and reference docs (ADR-REPO-EXAMPLE)"
+      meaning:
+        "Microsoft's canonical fictional company name (Contoso) — a design-zone example in ADRs and reference docs (ADR-REPO-EXAMPLE)"
   adr:
     - term: adr
       meaning: "the ADR- rule-citation prefix; every rule code has the form ADR-<NAME> (see docs/adr/index.md)"
@@ -624,7 +637,7 @@ terms:
     - term: pokayoke
       meaning: "body of the ADR-PRIN-POKAYOKE code (poka-yoke)"
     - term: THINPLAT
-      meaning: 'ADR-DSGN-THINPLAT is the ADR on thinnest re-usable platforms API(CLI) abstraction'
+      meaning: "ADR-DSGN-THINPLAT is the ADR on thinnest re-usable platforms API(CLI) abstraction"
     - term: selfserv
       meaning: "body of the ADR-DSGN-SELFSERV code (self-service)"
     - term: prin
@@ -826,6 +839,8 @@ terms:
       meaning: "JavaScript (the js token, e.g. NodeJs)"
     - term: puml
       meaning: "PlantUML (.puml diagram source)"
+    - term: zsh
+      meaning: "the Z shell (zsh) and its .zsh script extension — a shell engine Test-ShellScripts checks"
     - term: csproj
       meaning: "a .csproj MSBuild project file"
     - term: yml

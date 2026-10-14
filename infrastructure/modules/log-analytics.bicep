@@ -15,9 +15,13 @@ param skuName string = 'PerGB2018'
 @maxValue(730)
 param retentionInDays int = 30
 
+@description('Resource tags (a landing zone that requires a tag denies an untagged workspace).')
+param tags object = {}
+
 resource workspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
   name: name
   location: location
+  tags: tags
   properties: {
     sku: {
       name: skuName

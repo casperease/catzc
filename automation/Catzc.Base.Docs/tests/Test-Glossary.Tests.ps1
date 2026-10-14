@@ -66,14 +66,23 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
         $result.Issues | Should -Be @('G2 widget: not anchored', 'G3 widget: defined twice')
         [System.IO.File]::ReadAllText((Join-Path $result.ReportPath 'glossary.md')) | Should -Match '- G3 widget: defined twice'
     }
+
+    It 'hands G4 and G6 one surface table, so a run reads each file''s prose once' {
+        # G4 reads a file into the table it is given; G6 reports what it finds already in its table.
+        Mock Get-GlossaryPhrasingViolations -ModuleName Catzc.Base.Docs { $SurfaceCache['docs/widget.md'] = @() }
+        Mock Get-GlossaryFormViolations -ModuleName Catzc.Base.Docs { @($SurfaceCache.Keys | ForEach-Object { "table holds $_" }) }
+        $result = Test-Glossary -OutputFolder $script:out -PassThru
+        $result.Issues | Should -Be @('G6 table holds docs/widget.md')
+    }
 }
 
 # The real glossary sources against the real ADRs, tests, and tracked files. G1 and G4 reach git (the tracked-file
-# listing), so this is L2; the answer is the same in both run modes, so the build run skips it. One real gate run is
-# observed facet by facet ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19),
-# [ADR-AUTO-TEST#20](/docs/adr/automation/test-automation.md#rule-adr-auto-test20)): Test-Glossary runs every check over
-# the real sources and prefixes each check's issues with its code (pinned at L0 above), so each check's It reads its
-# own issues from that run rather than running the check a second time.
+# listing), so this is L2; the answer is the same in both run modes, so the build run skips it. Test-Glossary runs
+# once over the real sources and every It reads its part of that one result
+# ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19),
+# [ADR-AUTO-TEST#20](/docs/adr/automation/test-automation.md#rule-adr-auto-test20)): it prefixes each check's issues
+# with the check's code (pinned at L0 above), so each check's It reads its own issues from that run rather than
+# running the check a second time.
 Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:sources = @(InModuleScope Catzc.Base.Docs { Get-GlossarySources })

@@ -134,6 +134,12 @@ function Get-LogicTestIdentityFinding {
         if ($record.MatchMode -ne 'exact') {
             continue
         }
+        # A hashtable key names a parameter or a property (a splat's `Discovery = …`), never a value, so it is no identity.
+        $parent = $literal.Parent
+        if ($parent -is [System.Management.Automation.Language.HashtableAst] -and
+            @($parent.KeyValuePairs | Where-Object { [object]::ReferenceEquals($_.Item1, $literal) }).Count) {
+            continue
+        }
         if (& $isInIntegrity $literal.Extent.StartOffset) {
             continue
         }

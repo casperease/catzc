@@ -1,4 +1,3 @@
-// cspell:ignore squarified -- the layout's name: rows grown while they keep the rectangles near square
 // A deterministic squarified treemap: it tiles a bounding box with one rectangle per item, each with an area
 // proportional to the item's weight, and adds items to a row along the box's shorter side only while that keeps the
 // row's worst aspect ratio from growing, so the rectangles stay close to square. The world map's tree view lays out the

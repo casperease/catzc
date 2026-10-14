@@ -102,6 +102,13 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
         { Build-Bicep sample -Environments bogus } | Should -Throw '*No slots*'
     }
 
+    It 'throws on a config value that is the UNDEFINED marker, but not on a boolean true or another case' {
+        Mock ConvertTo-FlatSettingSet -ModuleName Catzc.Azure.Templates { [ordered]@{ 'widget.enabled' = $true; 'widget.note' = 'undefined' } }
+        { Build-Bicep sample -Environments alpha } | Should -Not -Throw
+        Mock ConvertTo-FlatSettingSet -ModuleName Catzc.Azure.Templates { [ordered]@{ 'widget.enabled' = $true; 'gadget.size' = 'UNDEFINED' } }
+        { Build-Bicep sample -Environments alpha } | Should -Throw "*Undefined config key 'gadget.size'*"
+    }
+
     It 'asserts the Bicep CLI is available before building' {
         # The Bicep CLI guard (Assert-AzCliBicep, in Catzc.Azure.Cli) throws -> Build-Bicep stops before any
         # az bicep build runs. Mock the guard boundary (its own az-version behaviour is covered in Cli tests).
