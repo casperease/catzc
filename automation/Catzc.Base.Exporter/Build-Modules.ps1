@@ -86,6 +86,7 @@ function Build-Modules {
         Version         = $resolvedVersion
         VendorPolicy    = $VendorPolicy
         Destination     = $Destination
+        Bundle          = $Bundle
         PackageMetadata = @{
             Guid        = "$($config.module_guid)"
             Author      = "$($package.author)"
@@ -122,7 +123,7 @@ function Build-Modules {
         else {
             'Built'
         }
-        Write-Message "$verb Catzc $($result.Version) ($(@($result.Modules).Count) modules, $($result.FileCount) files, types $($result.TypesHash)) -> $(ConvertTo-RepoRelativePath $result.BuildRoot)"
+        Write-Message "$verb Catzc $Bundle $($result.Version) ($(@($result.Modules).Count) modules, $($result.FileCount) files, types $($result.TypesHash)) -> $(ConvertTo-RepoRelativePath $result.BuildRoot)"
     }
 
     $result
