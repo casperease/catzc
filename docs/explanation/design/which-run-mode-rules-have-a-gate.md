@@ -1,9 +1,9 @@
-# docs/explanation/design/which-run-mode-rules-have-gates.md
+# docs/explanation/design/which-run-mode-rules-have-a-gate.md
 
-`Run-mode rules 1 to 6 have gates; the build kinds of rule 7 have none`
+`Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none`
 
 ```text
-Run-mode rules 1 to 6 have gates; the build kinds of rule 7 have none.
+Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none.
 
 1  Test-Automation               the source run: rules 2, 3 and 6
 2  Test-CatzcBuild               the build run: rules 3 and 6
@@ -22,10 +22,10 @@ two test runs, two asserts, and the tests behind the mode function. The seventh,
 alone, because no code tells the kinds apart. A reader who wants to know which run-mode promises are enforced finds the gate for each rule
 here.
 
-![Run-mode rules 1 to 6 have gates; the build kinds of rule 7 have none](../../.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-gates--governance.drawio.png)
+![Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none](../../.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png)
 
 The diagram is described element by element in
-[its asset description](../../.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-gates--governance.drawio.md).
+[its asset description](../../.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.md).
 
 ## Walkthrough
 

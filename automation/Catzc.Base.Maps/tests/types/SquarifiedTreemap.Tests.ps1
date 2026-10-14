@@ -1,9 +1,10 @@
+# cspell:ignore squarified -- the layout under test (SquarifiedTreemap)
 Describe 'SquarifiedTreemap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:keys = @('widget-a', 'widget-b', 'gadget-c', 'gadget-d', 'widget-e', 'gadget-f', 'widget-g', 'gadget-h', 'widget-i')
         $script:weights = [double[]] @(500, 300, 120, 60, 10, 7, 3, 1, 1)
         $script:layout = { param([string[]] $k, [double[]] $w) [Catzc.Base.Maps.SquarifiedTreemap]::Layout($k, $w, 20, 30, 400, 250) }
-        $script:describe = { param($rects) @($rects | ForEach-Object { '{0}:{1:R},{2:R},{3:R},{4:R}' -f $_.Key, $_.X, $_.Y, $_.Width, $_.Height }) -join ';' }
+        $script:describe = { param($rectangles) @($rectangles | ForEach-Object { '{0}:{1:R},{2:R},{3:R},{4:R}' -f $_.Key, $_.X, $_.Y, $_.Width, $_.Height }) -join ';' }
     }
 
     It 'keeps every rectangle inside the bounds' {
@@ -18,17 +19,17 @@ Describe 'SquarifiedTreemap' -Tag 'L0', 'logic' {
     }
 
     It 'never overlaps two rectangles, and tiles the whole box' {
-        $rects = @(& $script:layout $script:keys $script:weights)
-        for ($i = 0; $i -lt $rects.Count; $i++) {
-            for ($j = $i + 1; $j -lt $rects.Count; $j++) {
-                $a = $rects[$i]
-                $b = $rects[$j]
+        $rectangles = @(& $script:layout $script:keys $script:weights)
+        for ($i = 0; $i -lt $rectangles.Count; $i++) {
+            for ($j = $i + 1; $j -lt $rectangles.Count; $j++) {
+                $a = $rectangles[$i]
+                $b = $rectangles[$j]
                 $overlapX = [Math]::Min($a.X + $a.Width, $b.X + $b.Width) - [Math]::Max($a.X, $b.X)
                 $overlapY = [Math]::Min($a.Y + $a.Height, $b.Y + $b.Height) - [Math]::Max($a.Y, $b.Y)
                 ([Math]::Max(0, $overlapX) * [Math]::Max(0, $overlapY)) | Should -BeLessThan 1e-6 -Because "$($a.Key) and $($b.Key) must not overlap"
             }
         }
-        ($rects | Measure-Object -Property Area -Sum).Sum | Should -BeGreaterThan (400 * 250 - 1e-6)
+        ($rectangles | Measure-Object -Property Area -Sum).Sum | Should -BeGreaterThan (400 * 250 - 1e-6)
     }
 
     It 'gives each rectangle an area proportional to its weight, within 1 %' {
@@ -50,8 +51,8 @@ Describe 'SquarifiedTreemap' -Tag 'L0', 'logic' {
     }
 
     It 'orders the rectangles heaviest first, ties by ordinal key, and drops a zero weight' {
-        $rects = [Catzc.Base.Maps.SquarifiedTreemap]::Layout(@('gadget', 'Widget', 'widget', 'sprocket'), [double[]] @(2, 2, 5, 0), 0, 0, 100, 100)
-        @($rects.Key) | Should -Be @('widget', 'Widget', 'gadget')
+        $rectangles = [Catzc.Base.Maps.SquarifiedTreemap]::Layout(@('gadget', 'Widget', 'widget', 'sprocket'), [double[]] @(2, 2, 5, 0), 0, 0, 100, 100)
+        @($rectangles.Key) | Should -Be @('widget', 'Widget', 'gadget')
     }
 
     It 'returns no rectangle when every weight is zero' {

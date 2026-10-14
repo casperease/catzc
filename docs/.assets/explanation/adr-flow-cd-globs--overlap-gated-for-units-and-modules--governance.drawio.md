@@ -1,6 +1,6 @@
 # docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.md
 
-`Overlap gated for units and modules: the diagram described`
+`A gate checks overlap for units and modules: the diagram described`
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands.
@@ -16,14 +16,14 @@ the diagram glyphs; what it means is in [the article](../../explanation/flow/ove
 
 A 1572 × 700 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through three
 full-width bands, labelled DEPLOYABLE-UNIT, LOOSE-FILESET and MODULE. It holds three named sets, two ADR-only glyphs and two gates, joined
-by three flow edges, with nine rule chips, seven markers and a legend panel. The eye lands first on the Independence gate at the right of
-the top band and its long vertical edge down to the bottom band.
+by three flow edges, with nine rule chips, seven markers and a legend panel. The eye lands first on the gate `Independence gate` at the
+right of the top band and its long vertical edge down to the bottom band.
 
 ## Reading path
 
 1. Marker 1, top band, left: the ADR-only glyph No phantom unit, chip G7.
 2. Marker 2, top band: the named set deployable-unit sets, chip G10.
-3. Marker 3, on the top vertex of the gate Independence gate, chip T35, with edges left to deployable-unit sets and down to module sets.
+3. Marker 3, on the top vertex of the gate `Independence gate`, chip T35, with edges left to deployable-unit sets and down to module sets.
 4. Marker 4, middle band, left: the ADR-only glyph Demonstrated use, chip G7.
 5. Marker 5, middle band: the named set loose-fileset sets, chip G10, with no edge.
 6. Marker 6, bottom band: the wide named set module sets, chips G7 and G10.
@@ -31,19 +31,19 @@ the top band and its long vertical edge down to the bottom band.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                |
-| --------------------- | ----- | ------------------------------------------------------------------------------------ |
-| named set             | 3     | deployable-unit sets (top), loose-fileset sets (middle), module sets (bottom, wide)  |
-| ADR-only              | 2     | No phantom unit (top, left), Demonstrated use (middle, left)                         |
-| gate                  | 2     | Independence gate (top band, right), Config-load validation (bottom band, far right) |
+| Glyph (legend phrase) | Count | Where                                                                                  |
+| --------------------- | ----- | -------------------------------------------------------------------------------------- |
+| named set             | 3     | deployable-unit sets (top), loose-fileset sets (middle), module sets (bottom, wide)    |
+| ADR-only              | 2     | No phantom unit (top, left), Demonstrated use (middle, left)                           |
+| gate                  | 2     | `Independence gate` (top band, right), Config-load validation (bottom band, far right) |
 
 Named sets are mauve with white names; the ADR-only glyphs are white with a dashed rim; the gates are grey rhombuses with a 3 px rim.
 
 ## Edges
 
-| Edge kind | Count | From → to                                                                                                       |
-| --------- | ----- | --------------------------------------------------------------------------------------------------------------- |
-| flow      | 3     | Independence gate → deployable-unit sets, Independence gate → module sets, Config-load validation → module sets |
+| Edge kind | Count | From → to                                                                                                           |
+| --------- | ----- | ------------------------------------------------------------------------------------------------------------------- |
+| flow      | 3     | `Independence gate` → deployable-unit sets, `Independence gate` → module sets, Config-load validation → module sets |
 
 Every edge is straight and none crosses another. The two ADR-only glyphs and loose-fileset sets have no edge.
 

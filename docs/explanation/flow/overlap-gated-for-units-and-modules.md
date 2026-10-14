@@ -1,6 +1,6 @@
 # docs/explanation/flow/overlap-gated-for-units-and-modules.md
 
-`Overlap is gated for units and modules, and loose-filesets are exempt`
+`A gate checks overlap for units and modules, and loose-filesets are exempt`
 
 ```text
 A quality gate keeps units and modules disjoint; loose-filesets are exempt; two prohibitions are ADR-only.
@@ -21,7 +21,7 @@ for the `deployable-unit` and `module` layers, config-load validation keeps the 
 is exempt by design. Two prohibitions in the same ADR, the phantom unit and the loose-fileset without a demonstrated use, have no check
 behind them: they hold only as ADR rules.
 
-![Overlap gated for units and modules](../../.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png)
+![A gate on overlap for units and modules](../../.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png)
 
 The diagram is described element by element in
 [its asset description](../../.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.md).
@@ -32,14 +32,14 @@ The diagram is described element by element in
    (`ADR-PRIN-ONELIVE`) forbids it. No code checks it; all five units in `globs.yml` today are composed or bound.
 2. **deployable-unit sets.** No two units select a common file on their own contribution, with `compose` ignored, so a configured unit may
    contain the base it composes while the layer stays disjoint.
-3. **Independence gate.** `Test-GlobSetIndependence` is a quality gate. It checks every layer but `loose-fileset`, and the integrity test
+3. **`Independence gate`.** `Test-GlobSetIndependence` is a quality gate. It checks every layer but `loose-fileset`, and the integrity test
    `GlobSet-Independence.Tests.ps1` requires it to report zero issues. Today it reports zero issues over 102 sets.
 4. **Demonstrated use.** A loose-fileset must earn its place by a pipeline it triggers, a scan whose scope it sets, or a protection it
    drives. No code checks it.
 5. **loose-fileset sets.** The layer is exempt from the independence rule: its sets are cross-cutting surfaces that overlap the boundaries
    they cut across, and the gate skips them.
 6. **module sets.** The layer is derived-only and never declared, and its sets are pairwise-disjoint on their own contribution. Its
-   catch-all, `module-leftovers`, is disjoint by construction. The independence gate checks it.
+   catch-all, `module-leftovers`, is disjoint by construction. The gate `Test-GlobSetIndependence` checks it.
 7. **Config-load validation.** `GlobsConfig` rejects a declared `layer: module` and a declared reserved name (`internal`, `vendor`,
    `compiled`, `scriptanalyzer`) when `globs.yml` loads.
 
@@ -54,8 +54,8 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-- The ADR's "How this is enforced" section names the schema check and the trigger gates but not `Test-GlobSetIndependence`, which is the
-  gate that enforces the independence rule.
+- The ADR's "How this is enforced" section names the schema check and the gates on the triggers but not `Test-GlobSetIndependence`, which is
+  the gate that enforces the independence rule.
 - No code checks the phantom-unit or the demonstrated-use prohibition. The declared loose-fileset `templates` binds no pipeline, sets no
   `verify:` scope and has no caller outside tests, so its demonstrated use is not visible in code.
 - ADR-REPO-PROTGLOB says a shadowing declared name is rejected at load. Only the reserved names are; a declared name that shadows a module,

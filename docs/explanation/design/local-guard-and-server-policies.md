@@ -44,8 +44,8 @@ The diagram is described element by element in
    entry's planned action instead of touching the server.
 8. **`Register-AdoBuildValidation`.** Builds the desired policy, with `isBlocking` from the entry, and creates it with a POST or updates it
    with a PUT on `policy/configurations`. A policy that is already current is left alone.
-9. **ADO branch policy.** The server-side gate: a build validation on `main` that queues the globset's pipeline for a pull request and, when
-   blocking, stops the merge until it passes.
+9. **ADO branch policy.** The gate on the server side: a build validation on `main` that queues the globset's pipeline for a pull request
+   and, when blocking, stops the merge until it passes.
 10. **`Get-AdoBuildValidations`.** Reads the existing policies back from the server. `Register-AdoBuildValidation` calls it to find the
     policy it must update, which is what makes the registration idempotent.
 

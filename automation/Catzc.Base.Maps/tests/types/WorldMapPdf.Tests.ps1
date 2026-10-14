@@ -106,19 +106,19 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
         }
 
         It 'cuts a label to its character limit with the marker' {
-            [Catzc.Base.Maps.WorldMapPdf]::Truncate('widgetworks', 6) | Should -Be "widge$([char]0x2026)"
+            [Catzc.Base.Maps.WorldMapPdf]::Truncate('gadget-widget', 7) | Should -Be "gadget$([char]0x2026)"
             [Catzc.Base.Maps.WorldMapPdf]::Truncate('widget', 6) | Should -Be 'widget'
             [Catzc.Base.Maps.WorldMapPdf]::Truncate('widget', 1) | Should -Be ([string][char]0x2026)
             { [Catzc.Base.Maps.WorldMapPdf]::Truncate('widget', 0) } | Should -Throw
         }
 
         It 'prints a track name past max_row_label cut, the same on every run' {
-            $map = & $script:newMap @('widgetworkshop')
+            $map = & $script:newMap @('sprocket-widget')
             $config = [Catzc.Base.Maps.MapsConfig]::new([ordered]@{ limits = [ordered]@{ max_row_label = 10 } })
-            [Catzc.Base.Maps.WorldMapPdf]::RowLabel('widgetworkshop', $config) | Should -Be "widgetwor$([char]0x2026)"
+            [Catzc.Base.Maps.WorldMapPdf]::RowLabel('sprocket-widget', $config) | Should -Be "sprocket-$([char]0x2026)"
             [Catzc.Base.Maps.WorldMapPdf]::RowLabel('(no track)', $config) | Should -Be 'Root files'
             $content = [Catzc.Base.Maps.WorldMapPdf]::Render($map, $config, $null, $true, $false).Pages[0].Content
-            $content | Should -BeLike '*(widgetwor\205) Tj*'
+            $content | Should -BeLike '*(sprocket-\205) Tj*'
         }
 
         It 'shrinks a label that is too wide, and cuts it at the smallest size' {
@@ -136,6 +136,9 @@ Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
             [Catzc.Base.Maps.WorldMapPdf]::Fit('widget gadget sprocket', 'Helvetica', 8, 6, 30, [ref] $size) | Should -Be $cut
             [Catzc.Base.Maps.WorldMapPdf]::Fit('widget', 'Helvetica', 8, 6, 1, [ref] $size) | Should -Be ''
             $size | Should -Be 0
+            $marker = [Catzc.Base.Maps.HelveticaMetrics]::Width('Helvetica', 6, [string][char]0x2026)
+            [Catzc.Base.Maps.WorldMapPdf]::Fit('widget', 'Helvetica', 8, 6, $marker + 0.5, [ref] $size) | Should -Be ''
+            [Catzc.Base.Maps.WorldMapPdf]::Fit('widget', 'Helvetica', 8, 6, $marker + 5, [ref] $size) | Should -Be "w$([char]0x2026)"
         }
     }
 

@@ -73,5 +73,5 @@ The diagram is described element by element in
 - [Run modes: source mode and build mode](../../adr/design/run-modes.md) — the decision this article explains.
 - The other lenses on the same modes: [meta](where-code-loads-from-decides-the-mode.md),
   [architecture](two-roots-one-importer-same-modules.md), [operations](one-entry-script-per-mode.md) and
-  [governance](which-run-mode-rules-have-gates.md).
+  [governance](which-run-mode-rules-have-a-gate.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

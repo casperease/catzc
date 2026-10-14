@@ -30,9 +30,9 @@ The diagram is described element by element in
    every rung after that is stated by the ADR alone.
 2. **Superseded.** A valid commit that a newer commit overtook and rolled over. It was never rejected, only not chosen, and it is drawn as a
    ghost of its last colour. The ghost here is light green, after the ADR's worked example 3, which was superseded at release-uat.
-3. **Discarded.** Rejection at a named gate, before any value was delivered. BVT and L3 discard automatically, release-uat by hand at RBC,
-   and main-UAT can kill a commit or hold it at RC. The commit turns red, stays in history, and can never progress. The pipelines stop a
-   commit whose CI stage fails, so nothing downstream runs on it.
+3. **Discarded.** Rejection at a gate, before any value was delivered. BVT and L3 discard automatically, release-uat by hand at RBC, and
+   main-UAT can kill a commit or hold it at RC. The commit turns red, stays in history, and can never progress. The pipelines stop a commit
+   whose CI stage fails, so nothing downstream runs on it.
 4. **Retired.** A commit that reached production, served there, and was replaced by a newer production commit. Retirement is a success: the
    commit keeps its green and is never repainted red.
 

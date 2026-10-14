@@ -15,13 +15,13 @@ the diagram glyphs; what it means is in [the article](../../explanation/flow/edi
 
 A 1572 × 560 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through four
 bands side by side, labelled YOU EDIT, CONFIG LOAD, YOU RUN and YOU SEE. It holds eight glyphs, one file, one gate, three code units and
-three results, joined by seven straight edges, with eight markers and a legend panel along the bottom. The eye lands first on the tall gate
-rhombus in the CONFIG LOAD band.
+three results, joined by seven straight edges, with eight markers and a legend panel along the bottom. The eye lands first on the tall
+rhombus in the CONFIG LOAD band, the gate.
 
 ## Reading path
 
 1. Marker 1, YOU EDIT band, middle row: the file globs.yml.
-2. Along its edge to marker 2, at the top vertex of the tall gate Config load.
+2. Along its edge to marker 2, at the top vertex of the gate Config load, a tall rhombus.
 3. Along three edges leaving the gate's right side to markers 3, 4 and 5, YOU RUN band, top to bottom: the code units Get-GlobSetTrigger,
    Get-ChangedGlobSet and Test-Automation.
 4. Along three edges to markers 6, 7 and 8, YOU SEE band: the results Projected paths, Touched globsets and Skip line.

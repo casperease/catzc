@@ -16,7 +16,7 @@ Supports ADR-FLOW-CD#2, #3, #5, #6, #9 and #13 (meta lens).
 ```
 
 Build-once, deploy-many is the idea at the heart of the cats promotion flow. One artifact is built and verified once, tested in non-prod,
-and then let into production by a human gate. Because nothing downstream rebuilds it, production runs exactly the bytes that non-prod
+and then let into production by a manual gate. Because nothing downstream rebuilds it, production runs exactly the bytes that non-prod
 certified. The flow splits into an automated side and a governed side, and the CD pipelines in the repository today take a shortcut past the
 governed one.
 
@@ -32,7 +32,7 @@ The diagram is described element by element in
    a release candidate: versioned, never rebuilt, and promotable toward production.
 3. **Non-prod.** The same bytes are tested in non-prod: first an on-demand environment with system tests, then an always-on environment that
    tracks the latest main.
-4. **Human gate.** A person certifies the artifact and decides whether it may proceed; a gate clears or holds, never half. No pipeline
+4. **Manual gate.** A person certifies the artifact and decides whether it may proceed; a gate clears or holds, never half. No pipeline
    carries this gate yet.
 5. **Production.** Past the gate, the flow leaves automation and enters DEPLOY, the pipeline that acts once the gate clears.
 6. **The shortcut.** The CD pipelines deploy the artifact to production themselves, in the same run as non-prod, without passing a gate.
@@ -43,7 +43,7 @@ The diagram is described element by element in
 - Nothing downstream rebuilds the tagged artifact, so production is byte-identical to what non-prod certified (ADR-FLOW-CD#3).
 - CD takes the artifact through non-prod only (ADR-FLOW-CD#5), and progression toward prod enters DEPLOY behind a manual gate
   (ADR-FLOW-CD#6).
-- RC and RBC are the human gates (ADR-FLOW-CD#9). A gate decides; DEPLOY, the pipeline that acts, is not a gate (ADR-FLOW-CD#13).
+- RC and RBC are the manual gates (ADR-FLOW-CD#9). A gate decides; DEPLOY, the pipeline that acts, is not a gate (ADR-FLOW-CD#13).
 
 ## Where the code and the ADR differ
 
@@ -56,5 +56,5 @@ The diagram is described element by element in
 - [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains.
 - The other lenses on the same flow: [architecture](pipeline-kinds-keyed-by-one-artifact.md),
   [implementation](cd-builds-once-then-deploys-prod-itself.md), [operations](a-merge-runs-cd-to-prod.md) and
-  [governance](ci-budget-is-the-only-machine-gate.md).
+  [governance](ci-budget-is-the-only-quality-gate.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

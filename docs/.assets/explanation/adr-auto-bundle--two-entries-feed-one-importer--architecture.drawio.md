@@ -25,14 +25,14 @@ bottom. The eye lands first on the tall code unit Catzc.Internal.Importer, which
    gap between the bands.
 3. Marker 4, REMOVED AFTER LOAD band: the code unit Catzc.Internal.Importer.
 4. Marker 5, the same band: the code unit Catzc.Internal.Bootstrap, to the importer's right, in the third row.
-5. Markers 6 to 9, STAYS LOADED band, top to bottom: the named sets .internal shared layer, .vendor, Catzc.\* modules and Janitor owners.
+5. Markers 6 to 9, STAYS LOADED band, top to bottom: the named sets `.internal shared layer`, .vendor, Catzc.\* modules and Janitor owners.
 
 ## Glyphs
 
 | Glyph (legend phrase) | Count | Where                                                                                                                    |
 | --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------ |
 | code unit             | 4     | importer.ps1, Import-Catzc.ps1 (ENTRY band); Catzc.Internal.Importer, Catzc.Internal.Bootstrap (REMOVED AFTER LOAD band) |
-| named set             | 4     | .internal shared layer, .vendor, Catzc.\* modules, Janitor owners (STAYS LOADED band, stacked)                           |
+| named set             | 4     | `.internal shared layer`, .vendor, Catzc.\* modules, Janitor owners (STAYS LOADED band, stacked)                         |
 
 Code units are slate and named sets are mauve, both with white names.
 
@@ -40,7 +40,7 @@ Code units are slate and named sets are mauve, both with white names.
 
 | Edge kind              | Count | From → to                                                                                                                                         |
 | ---------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| thick, to a named set  | 4     | Catzc.Internal.Importer → .internal shared layer, → .vendor, → Janitor owners; Catzc.Internal.Bootstrap → Catzc.\* modules                        |
+| thick, to a named set  | 4     | Catzc.Internal.Importer → `.internal shared layer`, → .vendor, → Janitor owners; Catzc.Internal.Bootstrap → Catzc.\* modules                      |
 | flow, to one code unit | 3     | importer.ps1 → Catzc.Internal.Importer, Import-Catzc.ps1 → Catzc.Internal.Importer (marker 3), Catzc.Internal.Importer → Catzc.Internal.Bootstrap |
 
 Two edges run straight down from the ENTRY band; the other five run straight right. None crosses another, and none carries a chip.

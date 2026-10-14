@@ -17,7 +17,8 @@ Supports ADR-FLOW-CD-RUNNER#1, #2 and #3 (architecture lens).
 
 Azure DevOps runs YAML steps, and cats keeps its automation in PowerShell modules. The bridge between the two is a critical boundary, so
 cats gives it exactly one crossing: pipeline YAML calls one step template, the template selects one task, and the task calls one runner
-script, which loads the module system. A developer reaches the same module system from a terminal without any of the pipeline layers.
+script, which loads the module system. A developer reaches the same module system from a terminal without passing through the YAML, the
+template or the task.
 
 ![The runner is the only seam into PowerShell](../../.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png)
 

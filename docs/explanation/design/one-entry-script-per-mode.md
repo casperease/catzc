@@ -74,5 +74,5 @@ until it is installed or saved.
 - [Run modes: source mode and build mode](../../adr/design/run-modes.md) — the decision this article explains.
 - The other lenses on the same modes: [meta](where-code-loads-from-decides-the-mode.md),
   [architecture](two-roots-one-importer-same-modules.md), [implementation](shims-set-roots-mode-read-back.md) and
-  [governance](which-run-mode-rules-have-gates.md).
+  [governance](which-run-mode-rules-have-a-gate.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

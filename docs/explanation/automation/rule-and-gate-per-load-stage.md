@@ -52,7 +52,7 @@ own band, and a stage's gate sits in its band beside the rules it checks.
 8. **Write-CatzcLoadBanner.** The run-modes ADR describes a shared load banner that ends both modes, under the same rule. No function of
    that name is defined in `automation/`; the code prints only the console "Loaded in N seconds" line.
 
-Beyond these per-stage gates, `Test-Automation` and `Test-CatzcBuild` run the same tests in both modes, `Assert-CatzcBundle` checks every
+Beyond the gate at each stage, `Test-Automation` and `Test-CatzcBuild` run the same tests in both modes, `Assert-CatzcBundle` checks every
 build, and code review rejects a bundle loader that forks the importer.
 
 ## Why it holds

@@ -37,11 +37,11 @@ The diagram is described element by element in
 3. **main-uat.** CD's direction through non-prod ends on an always-on environment that tracks the latest main, whatever the organization
    calls it. In the repository it is the `dev` and `test` environments that every merge to main redeploys. The on-demand environment with
    its L3 system tests, which the ADR places before it, has no pipeline yet.
-4. **RC.** Release Certification is a human gate at main-uat. It clears when main-AT, the acceptance testing against main-uat, is verified.
+4. **RC.** Release Certification is a manual gate at main-uat. It clears when main-AT, the acceptance testing against main-uat, is verified.
    A gate decides whether the artifact may proceed; it is not a pipeline.
 5. **release-uat.** DEPLOY-Non-Prod drives the artifact into the non-prod acceptance environments, here the release-uat environment of a
    release branch. No DEPLOY pipeline exists in the repository yet.
-6. **RBC.** Release Branch Certification is the second human gate, at release-uat, and it clears when release-AT is verified.
+6. **RBC.** Release Branch Certification is the second manual gate, at release-uat, and it clears when release-AT is verified.
 7. **Pre-prod and production.** DEPLOY-Prod drives the RBC-cleared artifact first into pre-prod, staged but not serving, and then activates
    the same bytes live in production.
 8. **The CD run's own path to prod.** The apex and shared CD pipelines deploy the artifact to `preprod` and `prod` themselves, in the same
@@ -71,7 +71,7 @@ The diagram is described element by element in
 ## See also
 
 - [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains;
-  [pipeline types](../../adr/flow/pipeline-types.md) — the taxonomy it layers on.
+  [pipeline types](../../adr/flow/pipeline-types.md) — the taxonomy it builds on.
 - The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [implementation](cd-builds-once-then-deploys-prod-itself.md),
-  [operations](a-merge-runs-cd-to-prod.md) and [governance](ci-budget-is-the-only-machine-gate.md).
+  [operations](a-merge-runs-cd-to-prod.md) and [governance](ci-budget-is-the-only-quality-gate.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -65,7 +65,7 @@ The diagram is described element by element in
 ## Where the code and the ADR differ
 
 - No pipeline runs `Test-BuildArtifact`, so the BVT in code is narrower than the ADR's.
-- No pipeline runs L3, and no RC or RBC gate, inactive `pre-prod` slot or out-of-band topic deploy path exists.
+- No pipeline runs L3, and no RC or RBC gate, no inactive staging in `pre-prod`, and no out-of-band topic deploy path exists.
 - The failure stop holds only between template stages, and no code records a discard.
 
 ## See also

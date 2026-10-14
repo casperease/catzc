@@ -23,8 +23,8 @@ by four flow edges and one failure path, with eight markers and a legend panel. 
 
 1. Markers 1 to 4, down the left: deployable-unit sets (top band), declared loose-filesets and ReservedNames umbrellas (middle band),
    module-layer sets (bottom band).
-2. Marker 5, on the right vertex of the top gate Overlaps per pair, fed from deployable-unit sets.
-3. Marker 6, on the right vertex of the bottom gate Overlaps per pair, fed from module-layer sets.
+2. Marker 5, on the right vertex of the gate Overlaps per pair in the top band, fed from deployable-unit sets.
+3. Marker 6, on the right vertex of the gate Overlaps per pair in the bottom band, fed from module-layer sets.
 4. Marker 7, the code unit Write-QualityGateReport in the middle band, which both gates feed.
 5. Marker 8, the failure One throw lists every pair, at the end of the red failure path.
 
@@ -41,10 +41,10 @@ Named sets are mauve and the code unit slate, both with white names; the gates a
 
 ## Edges
 
-| Edge kind    | Count | From → to                                                                                                                                   |
-| ------------ | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| flow         | 4     | deployable-unit sets → top gate, module-layer sets → bottom gate, top gate → Write-QualityGateReport, bottom gate → Write-QualityGateReport |
-| failure path | 1     | Write-QualityGateReport → One throw lists every pair                                                                                        |
+| Edge kind    | Count | From → to                                                                                                                                         |
+| ------------ | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| flow         | 4     | deployable-unit sets → the gate in the top band, module-layer sets → the gate in the bottom band, each of the two gates → Write-QualityGateReport |
+| failure path | 1     | Write-QualityGateReport → One throw lists every pair                                                                                              |
 
 Every edge is straight; none crosses another. The two named sets in the middle band have no edge.
 

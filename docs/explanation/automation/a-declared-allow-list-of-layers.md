@@ -25,10 +25,10 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **AzureExt.** The top layer is a group: the Azure modules that sit below the Azure root. Its members may use the Azure root, the Tooling
-   group and the Base group, and nothing outside the group may depend on it.
-2. **Catzc.Azure.** The Azure root is a single module in the middle layer. It may use Base.
-3. **Tooling.** The managers of the non-vendored external tools form a group in the middle layer. It may use Base.
+1. **AzureExt.** The top of the graph is a group: the Azure modules that sit below the Azure root. Its members may use the Azure root, the
+   Tooling group and the Base group, and nothing outside the group may depend on it.
+2. **Catzc.Azure.** The Azure root is a single module in the middle of the graph. It may use Base.
+3. **Tooling.** The managers of the non-vendored external tools form a group in the middle of the graph. It may use Base.
 4. **Base.** The foundation is a group that depends on nothing outside itself; its members are layered only among themselves.
 5. **Undeclared edge.** An edge the declaration does not list, such as a Base library reaching up into Tooling, fails the build. The check
    is mechanical, not a matter of review vigilance.

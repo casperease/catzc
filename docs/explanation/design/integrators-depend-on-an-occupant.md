@@ -44,7 +44,7 @@ The diagram is described element by element in
 
 - Each always-on environment hosts exactly one commit, its occupant, plus a history; an environment box is neutral and the occupant carries
   the state colour (ADR-DSGN-LIFE#5, ADR-DSGN-VISUAL#13).
-- The stable integration point is the current `main-UAT` occupant, and upstream integrators sync from it, never from HEAD (ADR-DSGN-LIFE#6).
+- The stable integration point is the `main-UAT` occupant, and upstream integrators sync from it, never from HEAD (ADR-DSGN-LIFE#6).
 - The dirty HEAD is the latest commit on main and is not safe to sync or promote from (ADR-DSGN-LIFE#7).
 - A commit that fails a stage cannot go downstream, neither by promotion nor by consumption (ADR-DSGN-LIFE#8).
 - RC at `main-UAT` and RBC at release-uat are the manual gates, and the prod tail runs release-uat, pre-prod, production (ADR-FLOW-CD#9,

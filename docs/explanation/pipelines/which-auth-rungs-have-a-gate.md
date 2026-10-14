@@ -25,7 +25,7 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **The header function's own rules.** #1 governs the whole ladder: a fixed order, and no fallback when the chosen source fails. The two
+1. **The header function's own rules.** #1 governs the whole ladder: a fixed order, and no fallback when the source it picks fails. The two
    throw tests check that a failing pipeline rung and a failing az CLI rung raise. #4 (callers use the header function) and #7 (no token
    caching) are conventions the code follows today, but no test or analyzer rule checks them.
 2. **Pipeline token.** Governed by #3 (explicit pipeline detection) and #2 (collection equals org). Two L0 tests check it: "uses

@@ -13,10 +13,10 @@ diagram glyphs; what it means is in [the article](../../explanation/design/which
 
 ## At a glance
 
-A 1572 × 600 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. Two full-width bands stack: RUNG GATES on top and
-ALL RUNGS below. Three span bars run above them: CI, CD and DEPLOY. The top band holds one left-to-right row that alternates commits and
-gates and ends with a runner; the lower band holds one wide gate and one commit. The eye lands first on the two solid grey rhombi at the
-left of the row, then on the three rhombi inside dashed frames.
+A 1572 × 600 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. Two full-width bands stack: `RUNG GATES` on top
+and `ALL RUNGS` below. Three span bars run above them: CI, CD and DEPLOY. The top band holds one left-to-right row that alternates commits
+and gates and ends with a runner; the lower band holds one wide rhombus, the gate, and one commit. The eye lands first on the two solid grey
+rhombi at the left of the row, then on the three rhombi inside dashed frames.
 
 ## Reading path
 
@@ -26,7 +26,7 @@ left of the row, then on the three rhombi inside dashed frames.
 4. Markers 4, 5 and 6: the ADR-only gates `L3-vertical-AT`, `RC on main-AT` and `RBC on release-AT`, each followed by its commit (blue,
    light-blue, light-green).
 5. Marker 7: the ADR-only runner `two-slot activation`, then the green commit `production`.
-6. Down the red line from the BVT gate to marker 8, lower band: the gate `failure stops downstream`, then right to the red commit
+6. Down the red line from the gate `BVT` to marker 8, lower band: the gate `failure stops downstream`, then right to the red commit
    `discarded`.
 
 ## Glyphs
@@ -44,9 +44,9 @@ No glyph on this diagram is structural: the gates are neutral grey and every com
 
 | Edge kind    | Count | From → to                                                                                                                               |
 | ------------ | ----- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| flow         | 4     | topic → PR build validation → landed → BVT gate → yellow commit                                                                         |
+| flow         | 4     | topic → PR build validation → landed → gate `BVT` → yellow commit                                                                       |
 | ADR-only     | 8     | yellow commit → L3-vertical-AT → blue → RC on main-AT → light-blue → RBC on release-AT → light-green → two-slot activation → production |
-| failure path | 2     | BVT gate → failure stops downstream; failure stops downstream → discarded                                                               |
+| failure path | 2     | gate `BVT` → failure stops downstream; failure stops downstream → discarded                                                             |
 
 The top row's twelve edges are straight and horizontal; the first failure path drops straight down. Twelve rule chips sit above the glyphs
 they govern: `L1` (topic), `F8` (PR build validation), `L9` (landed), `T24` (BVT), `F5` (L3-vertical-AT), `F9` (RC on main-AT), `L6`

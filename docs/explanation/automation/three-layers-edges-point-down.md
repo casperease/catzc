@@ -27,16 +27,17 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **AzureExt.** The top layer is one group: the five Azure extension modules that sit below the `Catzc.Azure` root. Inside the group, Cli
-   is the root that the others build on. Four of the five may use `Catzc.Azure`, three may use the Tooling group, and all five may use Base.
-2. **Catzc.Azure.** The Azure root is a single module in the middle layer. It depends on Base alone.
-3. **Tooling.** The six modules that install and manage external tools form the middle layer's group. Core is their foundation, Provisioning
-   orchestrates the whole devbox on top of the others, and every member may use Base.
+1. **AzureExt.** The top of the graph is one group: the five Azure extension modules that sit below the `Catzc.Azure` root. Inside the
+   group, Cli is the root that the others build on. Four of the five may use `Catzc.Azure`, three may use the Tooling group, and all five
+   may use Base.
+2. **Catzc.Azure.** The Azure root is a single module in the middle of the graph. It depends on Base alone.
+3. **Tooling.** The six modules that install and manage external tools form the group in the middle of the graph. Core is their foundation,
+   Provisioning orchestrates the whole devbox on top of the others, and every member may use Base.
 4. **Github and KeyHandler.** Two Tooling modules belong to no group. Each is declared on its own, and both may use Base.
 5. **Base.** The foundation is a group of 26 small libraries. Two of them, Asserts and Engines, depend on nothing at all, and every declared
    module in cats ultimately rests on this layer.
-6. **Cli to Tooling.Core.** One edge from the top layer names a single module instead of a whole group: Cli may use Tooling's Core, but no
-   other Tooling member. The edge from AzureExt to `Catzc.Azure` is the other single-module edge in the diagram.
+6. **Cli to Tooling.Core.** One edge from the top of the graph names a single module instead of a whole group: Cli may use Tooling's Core,
+   but no other Tooling member. The edge from AzureExt to `Catzc.Azure` is the other single-module edge in the diagram.
 
 ## Why it holds
 

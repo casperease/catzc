@@ -14,10 +14,10 @@ diagram glyphs; what it means is in [the article](../../explanation/automation/o
 ## At a glance
 
 A 1572 × 600 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through four tall
-bands of equal height, labelled SOURCE, BUILD, BUNDLE and CODE ROOTS. Five glyphs (one named set, one code unit, one gate and two results)
-sit on one horizontal line through the middle of the bands, joined by four flow edges, and one more flow edge returns over the top of the
-bands from the last glyph to the gate. Six markers number them, and a legend panel runs along the bottom. The eye lands first on the grey
-gate rhombus in the BUILD band, the only diamond on the line.
+bands of equal height, labelled `SOURCE`, `BUILD`, `BUNDLE` and `CODE ROOTS`. Five glyphs (one named set, one code unit, one gate and two
+results) sit on one horizontal line through the middle of the bands, joined by four flow edges, and one more flow edge returns over the top
+of the bands from the last glyph to the gate. Six markers number them, and a legend panel runs along the bottom. The eye lands first on the
+grey rhombus (the gate) in the BUILD band, the only diamond on the line.
 
 ## Reading path
 

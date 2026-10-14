@@ -13,13 +13,12 @@ These articles explain decisions from the [pipelines ADR domain](../../adr/index
 
 ## Azure DevOps auth precedence
 
-The first configured credential wins, and it must prove its org
-([dual-authentication](../../adr/pipelines/dual-authentication.md)).
+The first configured credential wins, and it must prove its org ([dual-authentication](../../adr/pipelines/dual-authentication.md)).
 
-| Lens           | Article                                                                                                          |
-| -------------- | ---------------------------------------------------------------------------------------------------------------- |
-| meta           | [The first configured credential wins, and it must prove its org](configured-credential-proves-its-org.md)       |
-| architecture   | [One function owns the credential precedence, and ado.yml anchors every proof](one-header-function-owns-precedence.md) |
-| implementation | [The header function is four checks and three returns, and none falls through on failure](three-guarded-early-returns.md) |
+| Lens           | Article                                                                                                                        |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| meta           | [The first configured credential wins, and it must prove its org](configured-credential-proves-its-org.md)                     |
+| architecture   | [One function owns the credential precedence, and ado.yml anchors every proof](one-header-function-owns-precedence.md)         |
+| implementation | [The header function is four checks and three returns, and none falls through on failure](three-guarded-early-returns.md)      |
 | operations     | [What you set decides the credential, and each wrong setup stops with its own message](what-you-set-decides-the-credential.md) |
-| governance     | [The PAT proof and the empty-token assert have no gate](which-auth-rungs-have-a-gate.md)                         |
+| governance     | [The PAT proof and the empty-token assert have no gate](which-auth-rungs-have-a-gate.md)                                       |

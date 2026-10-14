@@ -34,7 +34,9 @@ Describe 'Export-WorldMapPdf' -Tag 'L0', 'logic' {
     It 'writes the grid and the tree, one file each, and returns their paths grid first' {
         $paths = @(Export-WorldMapPdf)
         $paths | Should -Be @((Join-Path $script:folder 'world-map.grid.pdf'), (Join-Path $script:folder 'world-map.tree.pdf'))
-        foreach ($path in $paths) { & $script:assertPdf $path }
+        foreach ($path in $paths) {
+            & $script:assertPdf $path
+        }
         Should -Invoke Get-WorldMapHighlight -ModuleName Catzc.Base.Maps -Times 0 -Exactly
         Should -Invoke Get-WorldMapOutputRoot -ModuleName Catzc.Base.Maps -ParameterFilter { $EnsureExists }
     }
@@ -54,8 +56,8 @@ Describe 'Export-WorldMapPdf' -Tag 'L0', 'logic' {
     }
 
     It 'writes the same bytes on two runs' {
-        $first = [System.IO.File]::ReadAllBytes(@(Export-WorldMapPdf -View Grid)[0])
-        $second = [System.IO.File]::ReadAllBytes(@(Export-WorldMapPdf -View Grid)[0])
+        $first = [System.IO.File]::ReadAllBytes((Export-WorldMapPdf -View Grid | Select-Object -First 1))
+        $second = [System.IO.File]::ReadAllBytes((Export-WorldMapPdf -View Grid | Select-Object -First 1))
         [Convert]::ToBase64String($second) | Should -Be ([Convert]::ToBase64String($first))
     }
 }
@@ -70,6 +72,8 @@ Describe 'Export-WorldMapPdf — the real repository' -Tag 'L1', 'integrity', 's
     It 'writes non-empty grid and tree PDFs that parse' {
         $paths = @(Export-WorldMapPdf)
         $paths.Count | Should -Be 2
-        foreach ($path in $paths) { & $script:assertPdf $path }
+        foreach ($path in $paths) {
+            & $script:assertPdf $path
+        }
     }
 }

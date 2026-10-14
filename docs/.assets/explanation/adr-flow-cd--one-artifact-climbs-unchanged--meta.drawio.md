@@ -23,7 +23,7 @@ The eye lands first on the slate runner and the green result at the left of the 
 1. Marker 1, AUTOMATED: the runner build & verify.
 2. Marker 2, AUTOMATED: the result tagged artifact.
 3. Marker 3, AUTOMATED: the environment non-prod.
-4. Marker 4, GOVERNED: the gate human gate, white with a thin dashed rim, inside a dashed frame.
+4. Marker 4, GOVERNED: the gate `human gate`, white with a thin dashed rim, inside a dashed frame.
 5. Marker 5, GOVERNED: the environment production.
 6. Marker 6, below the bands: beside the lane from tagged artifact to production.
 
@@ -34,7 +34,7 @@ The eye lands first on the slate runner and the green result at the left of the 
 | runner                   | 1     | build & verify (AUTOMATED, left)                          |
 | result                   | 1     | tagged artifact (AUTOMATED, centre)                       |
 | environment              | 2     | non-prod (AUTOMATED, right), production (GOVERNED, right) |
-| gate, ADR-only (no code) | 1     | human gate (GOVERNED, left; dashed frame)                 |
+| gate, ADR-only (no code) | 1     | `human gate` (GOVERNED, left; dashed frame)               |
 
 The runner is slate with a white name; the result is light green; the environments are neutral grey.
 
@@ -43,7 +43,7 @@ The runner is slate with a white name; the result is light green; the environmen
 | Edge kind | Count | From → to                                                                                                             |
 | --------- | ----- | --------------------------------------------------------------------------------------------------------------------- |
 | flow      | 3     | build & verify → tagged artifact, tagged artifact → non-prod, tagged artifact → production (down, along the lane, up) |
-| ADR-only  | 2     | non-prod → human gate, human gate → production                                                                        |
+| ADR-only  | 2     | non-prod → `human gate`, `human gate` → production                                                                    |
 
 The top row is one straight horizontal line of edges. The lane leaves the bottom of tagged artifact, runs right below both bands, and rises
 into the bottom of production; it is drawn as three straight segments. Nothing crosses.

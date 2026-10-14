@@ -14,9 +14,9 @@ diagram glyphs; what it means is in [the article](../../explanation/azure/one-na
 ## At a glance
 
 A 1572 × 750 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through four
-full-width bands, labelled SOURCES, RESOLVER, ASSEMBLER and CONSUMERS. It holds eight glyphs (three files, three code units, one named set
-and one failure) joined by six flow edges and two failure paths, with eight markers and a legend panel along the bottom. The eye lands first
-on the wide code unit in the resolver band, which three edges enter from above.
+full-width bands, labelled `SOURCES`, `RESOLVER`, `ASSEMBLER` and `CONSUMERS`. It holds eight glyphs (three files, three code units, one
+named set and one failure) joined by six flow edges and two failure paths, with eight markers and a legend panel along the bottom. The eye
+lands first on the wide code unit in the resolver band, which three edges enter from above.
 
 ## Reading path
 

@@ -36,8 +36,8 @@ The diagram is described element by element in
    it, so nothing is rebuilt.
 4. **dependsOn.** `Deploy_Foundation`, then `Deploy_Discovery`, then `Deploy_Expedition`: foundation owns the Key Vault the other two read,
    so the stages are chained with `dependsOn`.
-5. **Non-prod targets.** `nsub`, `dev` and `test`, through the `sc-<customer>-nonprod` service connection. `cd-apex` also deploys the
-   expedition slots `dev-001`, `dev-002` and `test-001`; `cd-nova` and `cd-flux` carry non-prod entries only.
+5. **Non-prod targets.** `nsub`, `dev` and `test`, through the `sc-<customer>-nonprod` service connection. `cd-apex` also deploys the slots
+   `dev-001`, `dev-002` and `test-001` of the expedition template; `cd-nova` and `cd-flux` carry non-prod entries only.
 6. **Prod-tier targets.** `psub`, `preprod` and `prod` belong to `cd-apex`, through `sc-apex-prod`, with the slots `preprod-001` and
    `prod-001`. The standalone `cd-shared.yaml` deploys `shared-psub`, `shared-preprod` and `shared-prod` the same way. The jobs come from
    `${{ each }}` and share each stage with no order between them, so prod-tier jobs run beside the non-prod ones, with no gate and no
@@ -61,5 +61,5 @@ The diagram is described element by element in
 
 - [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains.
 - The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [architecture](pipeline-kinds-keyed-by-one-artifact.md),
-  [operations](a-merge-runs-cd-to-prod.md) and [governance](ci-budget-is-the-only-machine-gate.md).
+  [operations](a-merge-runs-cd-to-prod.md) and [governance](ci-budget-is-the-only-quality-gate.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -38,8 +38,8 @@ The diagram is described element by element in
 5. **`cd-<unit>`.** A foundation or modules edit fires all four: `cd-nova`, `cd-apex`, `cd-flux` and `cd-shared`. The three customer
    pipelines run `Build-Bicep <template> -Customers <unit>` for three templates through `extends/cd-customer.yaml`; `cd-shared` runs
    `Build-Bicep <template> -Shared` for foundation and discovery. Each deploys on main only.
-6. **Test-AdoPipelineTriggerGlob.** The drift gate reads every pipeline-bound globset and its pipeline file, and compares the file's
-   `trigger:` and `pr:` path filters with the set's projection. It runs as an L2 integrity test inside `ci-automation`.
+6. **Test-AdoPipelineTriggerGlob.** The gate against trigger drift reads every pipeline-bound globset and its pipeline file, and compares
+   the file's `trigger:` and `pr:` path filters with the set's projection. It runs as an L2 integrity test inside `ci-automation`.
 7. **trigger drifted.** A hand-edited trigger fails with
    `<set>: pipelines/<p>.yaml trigger drifted from the globset projection on <filters>`. The fix is to regenerate the trigger from
    `globs.yml` (`Get-GlobSetTrigger`); the report lands in `out/test-ado-pipeline-trigger-glob/`.

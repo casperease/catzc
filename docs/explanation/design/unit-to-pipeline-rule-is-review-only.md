@@ -1,6 +1,6 @@
 # docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
 
-`Tracks and deployable-units are gated in code, but one unit to one pipeline is held by review alone`
+`Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone`
 
 ```text
 Tracks and deployable-units are checked in code; one unit to one pipeline is held by review alone.
@@ -21,7 +21,7 @@ The tracks ADR sets rules at three levels: what a track is, how a deployable-uni
 the first two in code, when the configuration loads and in integrity tests. The rule that binds one unit to one pipeline, and the rule that
 a cross-cutting slice is a scope rather than a new track, have no check in code: code review holds them.
 
-![Tracks and units are gated, 1-1 is review only](../../.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png)
+![Tracks and units are checked in code, 1-1 is review only](../../.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png)
 
 The diagram is described element by element in
 [its asset description](../../.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.md).
@@ -38,16 +38,16 @@ The diagram is described element by element in
    tech-stack fails the build.
 4. **deployable-unit.** Every globset declares its layer, `deployable-unit` or `loose-fileset`, and `compose:` references declared sets
    without a cycle.
-5. **GlobsConfig.** Checks the units on load: the declared layer (`module` is rejected as derived-only), no unknown keys, and every
+5. **GlobsConfig.** Checks the units on load: the layer each declares (`module` is rejected as derived-only), no unknown keys, and every
    `compose:` reference resolved, acyclically. `Test-GlobSetIndependence` adds that no two units select a common file on their own
    contribution.
 6. **pipeline.** One unit binds one pipeline, widening to two only when a DEPLOY stage splits out of CD, and a pipeline binds a track only
    through the unit that is that track.
 7. **scope globset.** A cross-cutting slice is a scope over tracks, never a new root. `GlobsConfig` accepts a scope as a `loose-fileset`,
    and that layer is exempt from the independence check.
-8. **code review.** The only check of the pipeline rule and the scope rule. `globs.yml` lets any layer carry `pipeline:`, and the trigger
-   gates check a bound pipeline's paths, not the shape of the binding. Today six globsets bind six distinct pipelines, so one to one holds
-   by fact.
+8. **code review.** The only check of the pipeline rule and the scope rule. `globs.yml` lets any layer carry `pipeline:`, and the gates on
+   the trigger check a bound pipeline's paths, not the shape of the binding. Today six globsets bind six distinct pipelines, so one to one
+   holds by fact.
 
 ## Why it holds
 
@@ -61,8 +61,8 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-- The tracks ADR's enforcement list names the folders ADR, the globset registry, the dependency gates and code review, but not the `tracks`
-  variant, its load-time validation, or the integrity tests that now check rules 1, 2, 3 and 6.
+- The tracks ADR's enforcement list names the folders ADR, the globset registry, the gates on dependencies and code review, but not the
+  `tracks` variant, its load-time validation, or the integrity tests that now check rules 1, 2, 3 and 6.
 - The tracks ADR says a pipeline binds a track only through its unit; the globset ADR lets a CI pipeline bind a loose-fileset track set, and
   `globs.yml` does so for `automation` and `infrastructure`.
 - The folders ADR names `go/` and `python/` as amendments to the closed root set, but not `bash/`, which the tracks ADR and `variants.yml`

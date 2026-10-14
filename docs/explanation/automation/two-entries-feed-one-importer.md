@@ -20,8 +20,8 @@ Supports ADR-AUTO-BUNDLE#2 and #3 (architecture lens).
 
 Cats has two run modes, and each has its own entry script: `importer.ps1` for source mode and `Import-Catzc.ps1` for build mode. Both hand
 the whole load to the same `Catzc.Internal.Importer`, so there is one living load sequence instead of two. The importer and its Bootstrap
-only orchestrate the import. They remove themselves when it is done, and what stays in the session is the shared `.internal` layer, the
-vendored modules and the catzc modules.
+only orchestrate the import. They remove themselves when it is done, and what stays in the session is the `.internal` layer that every
+module shares, the vendored modules and the catzc modules.
 
 ![Two entries feed one importer, removed after load](../../.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.png)
 
@@ -42,7 +42,7 @@ The diagram is described element by element in
    is loaded. The entry script removes it once the load returns.
 5. **Catzc.Internal.Bootstrap.** The Bootstrap does the discovery, the eviction of stale and foreign modules, the manifests and the C# types
    through its `Import-AllModules`. `Invoke-Importer` removes it at the end of the load.
-6. **.internal shared layer.** `Catzc.Internal.Loader`, `Catzc.Internal.Types` and `Catzc.Internal.Vendor` stay loaded, so cover functions
+6. **`.internal shared layer`.** `Catzc.Internal.Loader`, `Catzc.Internal.Types` and `Catzc.Internal.Vendor` stay loaded, so cover functions
    can reuse the same shared code after the import.
 7. **.vendor.** The vendored third-party modules are powershell-yaml, Pester and PSScriptAnalyzer. Pester and PSScriptAnalyzer load lazily.
 8. **Catzc.\* modules.** Each module folder is imported as its own module, on top of the one combined `Catzc.Types.<hash>.dll`, which loads

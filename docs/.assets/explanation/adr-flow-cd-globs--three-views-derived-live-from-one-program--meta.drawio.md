@@ -14,9 +14,9 @@ the diagram glyphs; what it means is in [the article](../../explanation/flow/thr
 ## At a glance
 
 A 1572 × 560 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through three
-bands side by side, labelled SOURCE, FLATTEN and DERIVED LIVE; the last is the widest. It holds five glyphs, one file and four code units,
-joined by four straight horizontal edges, with five markers and a legend panel along the bottom. The eye lands first on the tall code unit
-in the FLATTEN band.
+bands side by side, labelled `SOURCE`, `FLATTEN` and `DERIVED LIVE`; the last is the widest. It holds five glyphs, one file and four code
+units, joined by four straight horizontal edges, with five markers and a legend panel along the bottom. The eye lands first on the tall code
+unit in the FLATTEN band.
 
 ## Reading path
 

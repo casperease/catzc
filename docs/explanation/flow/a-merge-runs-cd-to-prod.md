@@ -32,8 +32,8 @@ The diagram is described element by element in
 2. **Build-Bicep.** The CI stage runs `Build-Bicep` once per template and publishes three artifacts: `foundation`, `discovery` and
    `expedition`.
 3. **A pull-request run ends here.** Every deploy stage's condition requires `refs/heads/main`, so only a merge goes on to deploy.
-4. **Non-prod targets.** Each target shows as an Azure DevOps environment named `<customer>-<env>`, or `<customer>-<env>-<slot>` for an
-   expedition slot, with one deployment job each.
+4. **Non-prod targets.** Each target shows as an Azure DevOps environment named `<customer>-<env>`, or `<customer>-<env>-<slot>` for a slot
+   of the expedition template, with one deployment job each.
 5. **Prod-tier targets.** `psub`, `preprod` and `prod` deploy in the same run and the same stages as non-prod, with no approval step in the
    YAML. Environment checks set in the Azure DevOps UI live outside the repository.
 6. **Deploy-Bicep.** It throws when a pipeline omits the assert: "Deploy-Bicep requires -SubscriptionIdAssertIs in a pipeline — the pipeline
@@ -45,11 +45,11 @@ The diagram is described element by element in
 
 - CD takes the artifact through non-prod only (ADR-FLOW-CD#5).
 - Progression toward prod leaves the automated flow and enters DEPLOY, behind a manual gate (ADR-FLOW-CD#6).
-- RC and RBC are the human gates that decide whether the artifact may proceed (ADR-FLOW-CD#9).
+- RC and RBC are the manual gates that decide whether the artifact may proceed (ADR-FLOW-CD#9).
 
 ## Where the code and the ADR differ
 
-- The ADR keeps CD in non-prod and puts a human gate and DEPLOY before prod, but `cd-apex.yaml` and `cd-shared.yaml` deploy `preprod` and
+- The ADR keeps CD in non-prod and puts a manual gate and DEPLOY before prod, but `cd-apex.yaml` and `cd-shared.yaml` deploy `preprod` and
   `prod` from the CD run.
 - An operator has no entry point in the repository for certifying RC or RBC or for running DEPLOY.
 
@@ -57,5 +57,5 @@ The diagram is described element by element in
 
 - [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains.
 - The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [architecture](pipeline-kinds-keyed-by-one-artifact.md),
-  [implementation](cd-builds-once-then-deploys-prod-itself.md) and [governance](ci-budget-is-the-only-machine-gate.md).
+  [implementation](cd-builds-once-then-deploys-prod-itself.md) and [governance](ci-budget-is-the-only-quality-gate.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

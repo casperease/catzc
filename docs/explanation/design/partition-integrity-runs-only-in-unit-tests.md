@@ -62,8 +62,8 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-- ADR-DSGN-ASPECT#5 says a broken partition fails `AspectPartition.Validate`, and the type's own comment calls it the integrity gate, but no
-  gate runs it on the real tree.
+- ADR-DSGN-ASPECT#5 says a broken partition fails `AspectPartition.Validate`, and the type's own comment calls it "the integrity gate", but
+  no gate runs it on the real tree.
 - ADR-DSGN-ASPECT#4 cites ADR-FLOW-CD-GLOBS#9 for an immutable sha lock with marker `<unit>-<aspect>.yml`; that rule computes change from
   git, never from a committed hash, and no marker exists.
 - ADR-AUTO-MANIFEST#3 names `New-DynamicManifest` as the step that deletes a manifest when no `.ps1` is left; the code deletes it in

@@ -17,7 +17,7 @@ A 1572 × 620 canvas: a 1300 px drawing area on the left and a 272 px sidebar on
 tall bands, a wide BUILD band, then BUNDLE and CODE ROOTS. It holds six glyphs (one code unit, two gates, two results and one ADR-only)
 joined by five flow edges and one ADR-only edge, with six rule chips, seven markers, and a three-row legend panel along the bottom. Four
 glyphs sit on one horizontal line through the middle of the bands; a second gate sits below the code unit and a dashed ADR-only glyph below
-the last result. The eye lands first on the two grey gate rhombuses in the BUILD band.
+the last result. The eye lands first on the two grey rhombuses (the gates) in the BUILD band.
 
 ## Reading path
 

@@ -14,9 +14,9 @@ diagram glyphs; what it means is in [the article](../../explanation/automation/e
 ## At a glance
 
 A 1572 × 600 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through four tall
-bands, labelled SOURCE, BUILD, BUNDLE and CODE ROOTS. It holds seven glyphs (one store, two code units, one gate and three results) joined
-by six flow edges, with eight markers and a legend panel along the bottom. A thin grey frame in the CODE ROOTS band holds two results
-stacked one above the other, and a single edge enters the frame. The eye lands first on the grey gate rhombus in the BUILD band.
+bands, labelled `SOURCE`, `BUILD`, `BUNDLE` and `CODE ROOTS`. It holds seven glyphs (one store, two code units, one gate and three results)
+joined by six flow edges, with eight markers and a legend panel along the bottom. A thin grey frame in the CODE ROOTS band holds two results
+stacked one above the other, and a single edge enters the frame. The eye lands first on the grey rhombus (the gate) in the BUILD band.
 
 ## Reading path
 

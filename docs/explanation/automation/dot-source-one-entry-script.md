@@ -28,9 +28,9 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **`. ./importer.ps1`.** This enters source mode. Useful switches are `-SkipJanitors` for a lean load, `-ClearCompiledTypes` to rebuild
-   the C# types from source, `-AllowWarnings`, `-DiagnoseLoadTime`, `-ExportPrivates` and `-CleanClone`. Dot-sourcing makes its `$global:`
-   and `$env:` effects land in the caller's session.
+1. **`. ./importer.ps1`.** This starts the load in source mode. Useful switches are `-SkipJanitors` for a lean load, `-ClearCompiledTypes`
+   to rebuild the C# types from source, `-AllowWarnings`, `-DiagnoseLoadTime`, `-ExportPrivates` and `-CleanClone`. Dot-sourcing makes its
+   `$global:` and `$env:` effects land in the caller's session.
 2. **`. <build>/Import-Catzc.ps1`.** This enters build mode, with `-RepositoryRoot` and `-AllowWarnings`; `Import-Module Catzc` runs the
    same file. Build mode forces the janitors off and never compiles.
 3. **Session set-up.** Warnings stop the load unless `-AllowWarnings` is given, and `-Verbose` shows the `Session:` and `Roots:` lines. An

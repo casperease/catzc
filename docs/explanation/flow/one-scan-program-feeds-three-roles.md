@@ -41,7 +41,7 @@ The diagram is described element by element in
    returns every set whose `Matches()` selects one of them; `-IncludeModules` adds the derived module sets.
 6. **Get-GlobSetHash.** Given `-Name`, it selects the members through `GlobSet.SelectMembers` over `git ls-files`, hashes each with
    `DurableHash.HashFile` (a CR-stripped SHA-256), and folds the `path|digest` lines with `DurableHash.HashFold`.
-7. **Trigger gates.** `Test-AdoPipelineTriggerGlob`, `Test-GitHubWorkflowTriggerGlob` and `Test-GlobSetTriggerCoverage` call
+7. **`Trigger gates`.** `Test-AdoPipelineTriggerGlob`, `Test-GitHubWorkflowTriggerGlob` and `Test-GlobSetTriggerCoverage` call
    `Get-GlobSetTrigger` and compare its output with the filters the pipelines and workflows declare.
 8. **Test-GlobSetAffected.** Given `-Name`, it resolves the range with `Get-GlobSetChangeRange`, then calls `Get-ChangedGlobSet`. It returns
    `$true` when the range is indeterminate or the diff fails, so it fails open, and it throws on an undeclared name.

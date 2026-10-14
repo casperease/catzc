@@ -23,7 +23,7 @@ three gates in the middle, between a tall result on the left and a tall failure 
 1. Marker 1, centre column, top: the gate Pipeline token.
 2. Down a flow edge to marker 2, the gate Personal access token, and down again to marker 3, the gate Interactive login.
 3. Left along the three flow edges to marker 4, the result Authorization header.
-4. Right along the two failure paths, from the top and bottom gates, to marker 5, the failure Own error, no fallback.
+4. Right along the two failure paths, from the gates at the top and the bottom, to marker 5, the failure Own error, no fallback.
 
 ## Glyphs
 
@@ -42,7 +42,7 @@ Gates are grey with a thick rim, the result is green and the failure is red.
 | flow         | 5     | Pipeline token → Personal access token → Interactive login; each gate → Authorization header |
 | failure path | 2     | Pipeline token → Own error, no fallback; Interactive login → Own error, no fallback          |
 
-Every edge is straight, horizontal or vertical, and none crosses another. The middle gate has no failure path.
+Every edge is straight, horizontal or vertical, and none crosses another. The gate in the middle has no failure path.
 
 ## Legend
 

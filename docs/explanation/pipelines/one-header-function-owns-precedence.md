@@ -38,13 +38,14 @@ The diagram is described element by element in
 4. **PAT.** The second source is an operator-set environment variable. It has no runtime proof; the ADR binds it to the org because API
    addresses are built from the `ado.yml` `organization`, which no code checks against the header.
 5. **az CLI.** The last source is used when neither of the first two is configured. It is proved against the `ado.yml` `tenant`.
-6. **Catzc.Azure.Cli.** The az CLI source rests on that module's `Assert-AzCliConnected`, which checks the session against the tenant.
+6. **Catzc.Azure.Cli.** The source for the az CLI rests on that module's `Assert-AzCliConnected`, which checks the session against the
+   tenant.
 7. **ado.yml.** The config is the proof anchor: `organization` for the pipeline token and the PAT, `tenant` for the az CLI.
    `Get-Config -Config ado` loads it as the typed `AdoConfig` record, which requires both keys.
 
 ## Why it holds
 
-- The precedence is fixed, top to bottom, and a failing source raises its own error (ADR-PIPE-AUTH#1).
+- The precedence is fixed, top to bottom, and a source that fails raises its own error (ADR-PIPE-AUTH#1).
 - Each source proves it targets the configured organization or tenant before it returns a header (ADR-PIPE-AUTH#2).
 - Token acquisition lives in one separate function, and API-calling functions never inline it (ADR-PIPE-AUTH#4).
 - The step template maps the system token, and functions read only the mapped `$env:SYSTEM_ACCESSTOKEN` (ADR-PIPE-AUTH#6).

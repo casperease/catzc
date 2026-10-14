@@ -1,6 +1,6 @@
 # docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.md
 
-`Four pipeline domains promote one artifact: the diagram described`
+`Four pipeline kinds promote one artifact: the diagram described`
 
 ```text
 A 1572 x 600 diagram, read left to right through five bands standing side by side.
@@ -61,7 +61,7 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 | thin arrow                          | flow: promotes, or builds         |
 | span bar                            | span bar: stages over bands       |
 | dark disc `1`                       | marker: a Walkthrough step        |
-| grey band                           | band: one pipeline domain         |
+| grey band                           | `band: one pipeline domain`       |
 
 ## Sidebar
 

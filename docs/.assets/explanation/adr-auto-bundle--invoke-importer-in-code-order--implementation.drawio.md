@@ -15,7 +15,7 @@ diagram glyphs; what it means is in [the article](../../explanation/automation/i
 
 A 1572 × 822 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom inside one
 full-width band labelled CALL ORDER. It holds nine glyphs, eight code units and one gate, joined by eight straight edges, with nine markers
-and a legend panel along the bottom. The eye lands first on the wide gate two-thirds of the way down the column.
+and a legend panel along the bottom. The eye lands first on the wide rhombus, the gate, two-thirds of the way down the column.
 
 ## Reading path
 

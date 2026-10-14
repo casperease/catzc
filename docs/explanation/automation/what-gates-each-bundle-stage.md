@@ -31,7 +31,7 @@ The diagram is described element by element in
 1. **Build-Modules.** Three rules shape the build. The selection is closure-expanded over the declared dependencies (ADR-AUTO-BUNDLE#1), the
    payload ships in merged form and never carries `tests/` (ADR-AUTO-BUNDLE#4), and the version is the devbox placeholder or a version
    calculated in the pipeline (ADR-AUTO-BUNDLE#7).
-2. **Assert-CatzcBundle.** The integrity gate checks the layout, that no test file leaked in, that exactly one types DLL is named for the
+2. **Assert-CatzcBundle.** The gate on integrity checks the layout, that no test file leaked in, that exactly one types DLL is named for the
    recorded types hash, every module's manifest, merged file and exports, and the recorded content hash. It collects every violation and
    throws once.
 3. **Temporary build.** The build is immutable and content-addressed: `build.json` records its content hash, which the gate re-verifies.

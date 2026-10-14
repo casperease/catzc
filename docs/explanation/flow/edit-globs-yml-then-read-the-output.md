@@ -45,8 +45,8 @@ The diagram is described element by element in
 ## Why it holds
 
 - The identity behind the skip is computed live and never committed, so a skip can never rest on a stale record (ADR-FLOW-CD-GLOBS#5).
-- Pipelines and workflows trigger on the projection, and the drift gates report every pipeline whose declared trigger no longer equals it
-  (ADR-FLOW-CD-GLOBS#6).
+- Pipelines and workflows trigger on the projection, and the gates on the trigger report every pipeline whose declared trigger no longer
+  equals it (ADR-FLOW-CD-GLOBS#6).
 - Whether a change touches a set is computed from git at real refs and fails open on doubt (ADR-FLOW-CD-GLOBS#9).
 
 ## Where the code and the ADR differ

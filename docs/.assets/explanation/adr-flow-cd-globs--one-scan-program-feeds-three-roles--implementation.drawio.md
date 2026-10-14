@@ -25,8 +25,8 @@ PROGRAM band, then on the red failure at the bottom of the CONFIG band.
 3. Right from GlobsConfig to marker 3, PROGRAM band: the tall code unit GlobSet.ScanProgram().
 4. Right along three parallel edges to markers 4, 5 and 6, FUNCTIONS band, top to bottom: Get-GlobSetTrigger, Get-ChangedGlobSet and
    Get-GlobSetHash.
-5. Right along three edges to the CALLERS band: marker 7 at the top vertex of the gate Trigger gates, then markers 8 and 9 on the code units
-   Test-GlobSetAffected and Test-GlobSetProtection.
+5. Right along three edges to the CALLERS band: marker 7 at the top vertex of the gate `Trigger gates`, then markers 8 and 9 on the code
+   units Test-GlobSetAffected and Test-GlobSetProtection.
 
 ## Glyphs
 
@@ -34,7 +34,7 @@ PROGRAM band, then on the red failure at the bottom of the CONFIG band.
 | --------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | file                  | 1     | globs.yml (CONFIG band, top row)                                                                                                                                                                                                              |
 | code unit             | 7     | GlobsConfig (CONFIG, middle row); GlobSet.ScanProgram() (PROGRAM, all rows); Get-GlobSetTrigger, Get-ChangedGlobSet, Get-GlobSetHash (FUNCTIONS, one per row); Test-GlobSetAffected, Test-GlobSetProtection (CALLERS, middle and bottom rows) |
-| gate                  | 1     | Trigger gates (CALLERS band, top row), 3 px rim                                                                                                                                                                                               |
+| gate                  | 1     | `Trigger gates` (CALLERS band, top row), 3 px rim                                                                                                                                                                                             |
 | failure               | 1     | validation failed (CONFIG band, bottom row)                                                                                                                                                                                                   |
 
 The file is olive and the code units are slate, all with white names; the gate is grey and the failure red.

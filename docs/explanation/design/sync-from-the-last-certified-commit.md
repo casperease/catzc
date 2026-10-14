@@ -32,7 +32,7 @@ The diagram is described element by element in
 ## Why it holds
 
 - The stable integration point is the `main-UAT` occupant, because that commit has cleared every gate a machine decides (ADR-DSGN-LIFE#6).
-- The dirty HEAD is the newest commit and still not a safe source to sync or promote from (ADR-DSGN-LIFE#7).
+- The dirty HEAD is the newest commit and still not safe to sync or promote from (ADR-DSGN-LIFE#7).
 - Downstream flow proceeds only from the last successful state; a failure is a hard stop, not a warning (ADR-DSGN-LIFE#8).
 
 ## Where the code and the ADR differ

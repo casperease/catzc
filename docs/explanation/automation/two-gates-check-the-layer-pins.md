@@ -32,7 +32,7 @@ The diagram is described element by element in
    in-group list, so they may reach any Tooling member, and the in-group rule holds for only two of the six members, Core and Environment.
    The internal map is still acyclic.
 3. **Base.** No Base member has its own pin list, so each library's in-group list is its whole allow-set. The in-group rule holds, and the
-   map is acyclic. `Catzc.Azure`, Github and KeyHandler, the single modules in the middle layer, pin Base alone.
+   map is acyclic. `Catzc.Azure`, Github and KeyHandler, the single modules in the middle of the graph, pin Base alone.
 4. **Load check.** The `DependenciesConfig` type checks the declaration when it loads, without reading the disk: every target resolves,
    every group is closed over its members, and the module graph and each group's map are acyclic. One throw lists every problem, and it runs
    before the quality gate checks anything.

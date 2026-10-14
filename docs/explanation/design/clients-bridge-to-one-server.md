@@ -9,7 +9,7 @@ Clients bridge to one server remote: in through a pull request, out from the ver
 2  identity model   the server authenticates the author first; only the server runs it
 3  branch policy    the merge gates on the protected main, then the merge
 4  HEAD             the tip of the server's main; landed, not yet verified
-5  verified point   the stable integration point, the current main-UAT occupant
+5  verified point   the stable integration point, the main-UAT occupant
 6  consumer clones  developers, downstream units and upstream integrators build here
 
 Supports ADR-DSGN-REMOTE#1, #2 and #4, and ADR-DSGN-LIFE#6 and #7 (architecture lens).
@@ -34,9 +34,9 @@ The diagram is described element by element in
 3. **Branch policy.** Next the pull request runs the mandatory merge gates that the branch policy on the protected `main` / `master`
    requires, and then performs the merge. In cats the policy is a set of blocking build validations on `main`, registered from code.
 4. **HEAD.** The merged commit becomes the tip of the server's main. Landing is not verifying: HEAD may be a dirty HEAD, unverified or
-   verified and then failed downstream, so it is not a safe source to sync from.
-5. **Verified point.** The last commit the server proved verified is the stable integration point, the current `main-UAT` occupant. It stays
-   put while HEAD moves.
+   verified and then failed downstream, so it is not safe to sync from.
+5. **Verified point.** The last commit the server proved verified is the stable integration point, the `main-UAT` occupant. It stays put
+   while HEAD moves.
 6. **Consumer clones.** A developer branches from the verified point, a downstream deployable unit builds against it, and an upstream
    integrator syncs to it. No code resolves the verified point yet, so this edge is dashed.
 

@@ -16,8 +16,8 @@ vocabulary of the diagram glyphs; what it means is in [the article](../../explan
 
 A 1572 × 700 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through three
 full-width bands, labelled DEPLOYABLE-UNIT, LOOSE-FILESET and MODULE. It holds three files, one code unit, one gate and two failures, joined
-by two flow edges and two failure paths, with seven markers and a legend panel. The eye lands first on the large gate at the right of the
-top band.
+by two flow edges and two failure paths, with seven markers and a legend panel. The eye lands first on the gate, a large grey rhombus at the
+right of the top band.
 
 ## Reading path
 

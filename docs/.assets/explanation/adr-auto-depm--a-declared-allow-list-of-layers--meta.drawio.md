@@ -14,9 +14,9 @@ glyphs; what it means is in [the article](../../explanation/automation/a-declare
 ## At a glance
 
 A 1572 × 700 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through three
-bands on the left, labelled TOP LAYER, MIDDLE LAYER and FOUNDATION, beside one tall band on the right labelled INVARIANT. It holds five
-glyphs, three named sets, one code unit and one failure, joined by five downward edges and one horizontal failure path, with five markers
-and a legend panel along the bottom. The eye lands first on the red failure at the bottom right.
+bands on the left, labelled `TOP LAYER`, `MIDDLE LAYER` and `FOUNDATION`, beside one tall band on the right labelled `INVARIANT`. It holds
+five glyphs, three named sets, one code unit and one failure, joined by five downward edges and one horizontal failure path, with five
+markers and a legend panel along the bottom. The eye lands first on the red failure at the bottom right.
 
 ## Reading path
 

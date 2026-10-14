@@ -1,9 +1,9 @@
 # docs/explanation/design/out-of-band-deploy-is-adr-only.md
 
-`No gate checks the out-of-band deploy rule, and the only deploy gate in code is main-only`
+`No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only`
 
 ```text
-ADR-DSGN-LIFE#9 is ADR-only, and the one deploy gate in code allows main alone.
+ADR-DSGN-LIFE#9 is ADR-only, and the one gate on deploys in code allows main alone.
 
 1  topic                a topic commit, brown and below the mainline; no gate checks either drawing rule
 2  out-of-band deploy   the deploy the rule allows; ADR-only, no code runs or checks it

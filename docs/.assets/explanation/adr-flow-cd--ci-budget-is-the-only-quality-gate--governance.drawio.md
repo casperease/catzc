@@ -1,6 +1,6 @@
-# docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-machine-gate--governance.drawio.md
+# docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.md
 
-`The CI budget is the only machine gate: the diagram described`
+`The CI budget is the only promotion rule a quality gate checks: the diagram described`
 
 ```text
 A 1572 x 600 diagram, read left to right along a FLOW band, with a CHECKS band below it.
@@ -8,8 +8,8 @@ Glyphs: 4 runners (2 slate, 2 ADR-only), 3 gates (1 solid, 2 ADR-only), 1 actor;
 Sidebar: axis minimap (main cell PIPE x DEPLOY), tree minimap, lens badge GOV, map key.
 ```
 
-This describes what the [diagram](adr-flow-cd--ci-budget-is-the-only-machine-gate--governance.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](../../explanation/flow/ci-budget-is-the-only-machine-gate.md).
+This describes what the [diagram](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png) draws, in the vocabulary of the
+diagram glyphs; what it means is in [the article](../../explanation/flow/ci-budget-is-the-only-quality-gate.md).
 
 ## At a glance
 
@@ -22,7 +22,7 @@ the left of the FLOW band.
 ## Reading path
 
 1. Marker 1, FLOW band: the runner CI inner loop, solid chip `#2`.
-2. Marker 2, CHECKS band: the gate machine gate, solid chip `#13`, with its edge up into CI inner loop.
+2. Marker 2, CHECKS band: the gate `machine gate`, solid chip `#13`, with its edge up into CI inner loop.
 3. Marker 3, FLOW band: the runner CD, dashed chip `#5`.
 4. Marker 4: the gate RC, thin dashed rim, in a dashed frame, dashed chip `#9`.
 5. Marker 5: the dashed white runner DEPLOY-Non-Prod, dashed chip `#11`.
@@ -32,17 +32,17 @@ the left of the FLOW band.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                                |
-| --------------------- | ----- | -------------------------------------------------------------------------------------------------------------------- |
-| runner                | 4     | CI inner loop and CD (solid, slate), DEPLOY-Non-Prod and DEPLOY-Prod (ADR-only: dashed, white), in FLOW              |
-| gate                  | 3     | machine gate (CHECKS, left, solid grey, 3 px rim); RC and RBC (FLOW, ADR-only: white, thin dashed rim, dashed frame) |
-| actor                 | 1     | reviewer (CHECKS, centre)                                                                                            |
+| Glyph (legend phrase) | Count | Where                                                                                                               |
+| --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------- |
+| runner                | 4     | CI inner loop and CD (solid, slate), DEPLOY-Non-Prod and DEPLOY-Prod (ADR-only: dashed, white), in FLOW             |
+| gate                  | 3     | `machine gate` (CHECKS, left, solid grey, 3 px rim); RC, RBC (FLOW, ADR-only: white, thin dashed rim, dashed frame) |
+| actor                 | 1     | reviewer (CHECKS, centre)                                                                                           |
 
 ## Edges
 
 | Edge kind | Count | From → to                                        |
 | --------- | ----- | ------------------------------------------------ |
-| flow      | 1     | machine gate → CI inner loop (upward)            |
+| flow      | 1     | `machine gate` → CI inner loop (upward)          |
 | ADR-only  | 1     | reviewer → the FLOW band's lower border (upward) |
 
 Both edges are straight and vertical. Seven rule chips sit on the upper right of their glyphs: `#2` and `#13` solid; `#5`, `#9`, `#11`, `#9`

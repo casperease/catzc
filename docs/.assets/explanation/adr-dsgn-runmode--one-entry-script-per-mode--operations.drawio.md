@@ -16,18 +16,18 @@ diagram glyphs; what it means is in [the article](../../explanation/design/one-e
 A 1572 × 720 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. Three tall bands sit side by side at the top,
 SOURCE (left), IMPORTER TAIL (centre) and BUILD (right); a full-width band, WHEN IT STOPS, runs below them. It holds eight glyphs, four code
 units, two gates and two failures, joined by four flow edges and two failure paths, with eight markers and a legend panel along the bottom.
-The eye lands first on the wide gate in the IMPORTER TAIL band, which code units point into from both sides, and follows its red edge down
-to a failure.
+The eye lands first on the wide rhombus, the gate, in the IMPORTER TAIL band, which code units point into from both sides, and follows its
+red edge down to a failure.
 
 ## Reading path
 
 1. Marker 1, SOURCE band: the code unit `. ./importer.ps1`, with an edge right into the gate.
 2. Markers 2, 3 and 4, BUILD band, top to bottom: the code units Import-Module Catzc, `. Import-Catzc.ps1` and `. <dir>/importer.ps1`. The
    top and bottom ones each point into the middle one, which points left into the gate.
-3. Marker 5, IMPORTER TAIL band: the gate Assert-CatzcRunModeExclusive, and down its red edge to marker 6, the failure Exclusivity violated,
-   in the WHEN IT STOPS band.
+3. Marker 5, IMPORTER TAIL band: the gate Assert-CatzcRunModeExclusive, and down its red edge to marker 6, the failure
+   `Exclusivity violated`, in the WHEN IT STOPS band.
 4. Marker 7, WHEN IT STOPS band, right: the gate Assert-SourceTree, with no edge in, and along a short red edge to marker 8, the failure
-   Source tree only.
+   `Source tree only`.
 
 ## Glyphs
 

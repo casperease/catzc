@@ -14,10 +14,10 @@ diagram glyphs; what it means is in [the article](../../explanation/automation/b
 ## At a glance
 
 A 1572 × 600 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through four tall
-bands, labelled SOURCE, BUILD, BUNDLE and TARGETS. It holds eight glyphs (five code units, one gate, one failure and one result) joined by
-four flow edges and one failure path, with eight markers and a legend panel along the bottom. Four glyphs sit on one horizontal line; the
-failure hangs below the gate, and a thin grey frame in the TARGETS band holds three code units stacked one above the other, entered by a
-single edge. The eye lands first on the red failure below the grey gate rhombus.
+bands, labelled `SOURCE`, `BUILD`, `BUNDLE` and `TARGETS`. It holds eight glyphs (five code units, one gate, one failure and one result)
+joined by four flow edges and one failure path, with eight markers and a legend panel along the bottom. Four glyphs sit on one horizontal
+line; the failure hangs below the gate, and a thin grey frame in the TARGETS band holds three code units stacked one above the other,
+entered by a single edge. The eye lands first on the red failure below the grey rhombus (the gate).
 
 ## Reading path
 

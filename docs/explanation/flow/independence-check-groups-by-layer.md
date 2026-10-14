@@ -17,9 +17,9 @@ The independence gate groups every globset by layer and tests each same-layer pa
 Supports ADR-FLOW-CD-GLOBS#7 and #10 (implementation lens).
 ```
 
-The independence gate takes every declared and derived globset, computes each one's own members, groups the sets by `Layer`, skips the
-`loose-fileset` group, and tests every pair inside the other groups for a shared file. Where a set's layer comes from therefore decides
-whether it is ever compared with anything. All paths below are under `automation/Catzc.Base.Globs/`.
+The gate `Test-GlobSetIndependence` takes every declared and derived globset, computes each one's own members, groups the sets by `Layer`,
+skips the `loose-fileset` group, and tests every pair inside the other groups for a shared file. Where a set's layer comes from therefore
+decides whether it is ever compared with anything. All paths below are under `automation/Catzc.Base.Globs/`.
 
 ![Test-GlobSetIndependence groups by layer](../../.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png)
 

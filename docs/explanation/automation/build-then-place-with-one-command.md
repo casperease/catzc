@@ -28,8 +28,8 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **. ./importer.ps1.** Building needs source mode, so the session starts by dot-sourcing the importer at the repository root. The build
-   engine asserts the source tree and fails fast anywhere else.
+1. **. ./importer.ps1.** Building needs the source mode, so the session starts by dot-sourcing the importer at the repository root. The
+   build engine asserts the source tree and fails fast anywhere else.
 2. **Build-Modules.** On a devbox it prints the yellow notice "local build — version 6.6.666; real versions are assigned only by the
    pipeline". In a pipeline the version is calculated instead, and a shallow clone throws "Cannot calculate the build version: the
    repository is a shallow clone, …".

@@ -16,10 +16,10 @@ data model and never typed by hand. Each article narrates one diagram; the [expl
 An Azure name is a pure function of its components, and it is never truncated
 ([azure-naming-standard](../../adr/azure/azure-naming-standard.md)).
 
-| Lens           | Article                                                                                                          |
-| -------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Lens           | Article                                                                                                                |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | meta           | [An Azure name is a pure function of its components, and it is never truncated](names-are-pure-and-never-truncated.md) |
-| architecture   | [One resolver gathers the components and one namer assembles every Azure name](one-namer-assembles-every-name.md) |
-| implementation | [The namer looks up, forms, checks and renders a name in that order](lookup-form-check-render-in-order.md)       |
-| operations     | [Nobody types an Azure name: cats derives it, and a bad name stops with an error](names-are-derived-never-typed.md) |
-| governance     | [Code holds all eight naming rules, seven of them behind a check that throws](how-each-naming-rule-is-held.md)    |
+| architecture   | [One resolver gathers the components and one namer assembles every Azure name](one-namer-assembles-every-name.md)      |
+| implementation | [The namer looks up, forms, checks and renders a name in that order](lookup-form-check-render-in-order.md)             |
+| operations     | [Nobody types an Azure name: cats derives it, and a bad name stops with an error](names-are-derived-never-typed.md)    |
+| governance     | [Code holds all eight naming rules, seven of them behind a check that throws](how-each-naming-rule-is-held.md)         |

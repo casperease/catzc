@@ -14,8 +14,8 @@ Supports ADR-FLOW-CD-GLOBS#7 and #10 (meta lens).
 ```
 
 Every globset in cats belongs to one layer, and a layer is a set of peers that partition one concern into boundaries. Within a layer, no two
-peers share a file on their own contribution, because overlap would mean one boundary consumes another's files. The cross-cutting
-`loose-fileset` layer is the only exemption, and across layers one file may sit in all three.
+peers share a file on their own contribution, because overlap would mean one boundary consumes another's files. The `loose-fileset` layer,
+which cuts across the others, is the only exemption, and across layers one file may sit in all three.
 
 ![Peers in a layer never overlap, except loose-filesets](../../.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png)
 
@@ -30,8 +30,8 @@ The diagram is described element by element in
 3. **Module space.** The `module` layer is derived from the folders and never declared: aspect sets per module folder, one set per internal
    shared module file, and a catch-all for module-space files no module owns. A module never consumes another module's files.
 4. **Peers disjoint.** The one rule: peers in a layer are disjoint on their own files, with composition ignored, and a gate checks it for
-   the two boundary layers. A file under `automation/Catzc.Base.Globs/` still belongs to the `automation` track, to a module set and, if it
-   ships, to a deployable-unit, because overlap across layers is expected.
+   the `deployable-unit` and `module` layers. A file under `automation/Catzc.Base.Globs/` still belongs to the `automation` track, to a
+   module set and, if it ships, to a deployable-unit, because overlap across layers is expected.
 
 ## Why it holds
 

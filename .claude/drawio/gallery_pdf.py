@@ -91,8 +91,16 @@ def markdown_page(path, section):
             blocks.append((f, INK, [f"{pad}{bullet} {lines[0]}"] + [f"{pad}    {ln}" for ln in lines[1:]], 6))
             item.clear()
 
+    fenced = False
     for raw in path.read_text(encoding="utf-8").splitlines():
         s = raw.strip()
+        if s.startswith("```"):  # a fenced block (e.g. an article's text overview) keeps its lines, monospace
+            flush()
+            fenced = not fenced
+            continue
+        if fenced:
+            blocks.append((font(19, mono=True), QUIET, [raw.rstrip() or " "], 0))
+            continue
         if not s or s.startswith("!["):
             flush()
             continue

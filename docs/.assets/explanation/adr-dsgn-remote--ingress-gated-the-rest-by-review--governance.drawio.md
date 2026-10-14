@@ -1,6 +1,6 @@
 # docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.md
 
-`Ingress gated, the rest by review: the diagram described`
+`Only ingress is checked by gates: the diagram described`
 
 ```text
 A 1572 x 680 diagram, read top to bottom through three bands: LOCAL CLONE, SERVER REMOTE, OUT.

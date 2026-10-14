@@ -1,3 +1,4 @@
+// cspell:ignore squarified -- SquarifiedTreemap, the layout that makes these
 // One rectangle of a SquarifiedTreemap layout: the item it stands for (its key and weight) and where it sits, in PDF
 // user space (x and y are the bottom-left corner, in points). A result type, so the properties are PascalCase
 // ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).

@@ -11,8 +11,8 @@ Only the BVT rung has a gate in code; every sync-point rule is ADR-only.
 4  release-uat          holds commit 5; moves on through RBC, a manual gate no code runs
 5  main-UAT             holds commit 6, the sync point; moves on through RC, a manual gate no code runs
 6  on-demand (L3)       where CD runs the L3 tests; no pipeline defines it
-7  ci-automation        the one real gate: BVT, which rejects a failing commit
-8  dirty HEAD           commit 10, failed in main-UAT; no sync source, feeds nothing
+7  ci-automation        the one gate code enforces: BVT, which rejects a failing commit
+8  dirty HEAD           commit 10, failed in main-UAT; nothing syncs from it
 
 Supports ADR-DSGN-LIFE#2, #5, #6, #7 and #8, ADR-FLOW-CD#5, #9 and #11 (governance lens).
 ```
@@ -38,11 +38,11 @@ The diagram is described element by element in
    (ADR-FLOW-CD#9). No code runs RC.
 6. **On-demand (L3).** The on-demand environment where CD runs the L3 system-level end-to-end tests before it rolls the artifact onto the
    always-on environment (ADR-FLOW-CD#5). No pipeline defines it.
-7. **ci-automation.** The one real gate on the ladder: BVT. It runs on every push to main and on pull requests to main that touch
-   `automation/**`, in Azure DevOps and in GitHub Actions, and it runs `Test-Automation -Level 2`. A failing run rejects the commit
+7. **ci-automation.** The one gate on the ladder that code enforces: BVT. It runs on every push to main and on pull requests to main that
+   touch `automation/**`, in Azure DevOps and in GitHub Actions, and it runs `Test-Automation -Level 2`. A failing run rejects the commit
    automatically, as BVT should (ADR-DSGN-LIFE#2).
-8. **Dirty HEAD.** Commit 10, the tip of main, which entered `main-UAT` and failed there. It is no sync source (ADR-DSGN-LIFE#7) and feeds
-   nothing downstream (ADR-DSGN-LIFE#8). It keeps the blue of the state it carried into `main-UAT`.
+8. **Dirty HEAD.** Commit 10, the tip of main, which entered `main-UAT` and failed there. Nothing syncs from it (ADR-DSGN-LIFE#7), and it
+   feeds nothing downstream (ADR-DSGN-LIFE#8). It keeps the blue of the state it carried into `main-UAT`.
 
 ## Why it holds
 

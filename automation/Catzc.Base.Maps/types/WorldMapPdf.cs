@@ -1,3 +1,4 @@
+// cspell:ignore squarified -- the treemap layout's name (SquarifiedTreemap)
 // Draws the world map onto PdfDocument pages: the grid page (rows are the tracks, columns the file languages, each cell
 // shaded by its file count) and the tree page (a squarified treemap of the tracks by file count, each holding its
 // non-empty cells). The catch-all row prints the root-file label and the catch-all column the unlisted-file label
@@ -70,8 +71,9 @@ public static class WorldMapPdf
     }
 
     // The text as it fits maxWidth points: at the given size when it fits, else at a smaller size (in half points) no
-    // smaller than minSize, else at minSize cut from the end with the marker. Empty (and fittedSize 0) when not even the
-    // marker fits, or when minSize is above size.
+    // smaller than minSize, else at minSize cut from the end with the marker, keeping at least one character. Empty (and
+    // fittedSize 0) when not even one character and the marker fit, or when minSize is above size: a bare marker says
+    // nothing, so the label is left out.
     public static string Fit(string text, PdfFont font, double size, double minSize, double maxWidth, out double fittedSize)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }
@@ -89,7 +91,7 @@ public static class WorldMapPdf
             fittedSize = shrunk;
             return text;
         }
-        for (int keep = text.Length - 1; keep >= 0; keep--)
+        for (int keep = text.Length - 1; keep >= 1; keep--)
         {
             string cut = text.Substring(0, keep) + TruncationMarker;
             if (HelveticaMetrics.Width(font, minSize, cut) <= maxWidth)
@@ -110,7 +112,7 @@ public static class WorldMapPdf
         return Mix(palette.cell, palette.shade, Share(count, maxCount));
     }
 
-    // The colour a share t (0 to 1) of the way from one '#RRGGBB' colour to another, as '#RRGGBB'.
+    // The colour a share t (0 to 1) of the way from one colour to another, each '#' and six hex digits.
     public static string Mix(string from, string to, double t)
     {
         double share = Math.Max(0, Math.Min(1, t));
@@ -245,7 +247,7 @@ public static class WorldMapPdf
             weights.Add(RowTotal(map, track));
         }
         TreemapRect[] tracks = SquarifiedTreemap.Layout(keys.ToArray(), weights.ToArray(), margin, bottom, width - 2 * margin, top - bottom);
-        Dictionary<string, TreemapRect> cellRects = new Dictionary<string, TreemapRect>(StringComparer.Ordinal);
+        Dictionary<string, TreemapRect> cellBoxes = new Dictionary<string, TreemapRect>(StringComparer.Ordinal);
 
         foreach (TreemapRect box in tracks)
         {
@@ -275,7 +277,7 @@ public static class WorldMapPdf
             TreemapRect[] cells = SquarifiedTreemap.Layout(languages.ToArray(), counts.ToArray(), box.X + inset, box.Y + inset, innerWidth, innerHeight);
             foreach (TreemapRect cell in cells)
             {
-                cellRects[box.Key + "\u0000" + cell.Key] = cell;
+                cellBoxes[box.Key + "\u0000" + cell.Key] = cell;
                 int count = (int)cell.Weight;
                 page.SetFillColor(ShadeOf(count, maxCount, palette));
                 page.FillRect(cell.X, cell.Y, cell.Width, cell.Height);
@@ -293,7 +295,7 @@ public static class WorldMapPdf
             foreach (string fileLanguage in map.FileLanguages)
             {
                 TreemapRect cell;
-                if (map.Cell(box.Key, fileLanguage).StackViolation && cellRects.TryGetValue(box.Key + "\u0000" + fileLanguage, out cell))
+                if (map.Cell(box.Key, fileLanguage).StackViolation && cellBoxes.TryGetValue(box.Key + "\u0000" + fileLanguage, out cell))
                 {
                     Violation(page, palette, cell.X, cell.Y, cell.Width, cell.Height);
                 }
@@ -302,7 +304,7 @@ public static class WorldMapPdf
         foreach (HighlightedCell lit in LitCells(map, highlight))
         {
             TreemapRect cell;
-            if (cellRects.TryGetValue(lit.Track + "\u0000" + lit.FileLanguage, out cell))
+            if (cellBoxes.TryGetValue(lit.Track + "\u0000" + lit.FileLanguage, out cell))
             {
                 Outline(page, palette, cell.X, cell.Y, cell.Width, cell.Height);
             }

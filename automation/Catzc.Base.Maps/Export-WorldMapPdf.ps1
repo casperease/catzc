@@ -51,12 +51,16 @@ function Export-WorldMapPdf {
 
     $config = Get-Config -Config maps
     $map = Get-WorldMap
-    $highlight = switch ($PSCmdlet.ParameterSetName) {
-        'Adr' { Get-WorldMapHighlight -Adr $Adr }
-        'Path' { Get-WorldMapHighlight -Path $Path }
-        default { $null }
+    $highlight = $null
+    $suffix = ''
+    if ($PSCmdlet.ParameterSetName -eq 'Adr') {
+        $highlight = Get-WorldMapHighlight -Adr $Adr
+        $suffix = '.highlight'
     }
-    $suffix = if ($null -eq $highlight) { '' } else { '.highlight' }
+    elseif ($PSCmdlet.ParameterSetName -eq 'Path') {
+        $highlight = Get-WorldMapHighlight -Path $Path
+        $suffix = '.highlight'
+    }
 
     $folder = Get-WorldMapOutputRoot -EnsureExists
     foreach ($name in @('Grid', 'Tree')) {

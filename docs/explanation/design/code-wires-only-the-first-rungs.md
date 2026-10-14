@@ -59,7 +59,7 @@ stage: a failed CI stage skips every deploy, and a failed deploy stage skips the
   `release-uat` → `pre-prod` → `production` one rung at a time.
 - No pipeline runs the L3 tier.
 - No environment is named `main-uat` or `release-uat`, and no RC or RBC approval exists.
-- `preprod` is a plain environment, not an inactive slot that is later activated.
+- `preprod` is a plain environment, not a slot that stays inactive until it is activated.
 - The BVT in code lacks `Test-BuildArtifact`.
 
 ## See also

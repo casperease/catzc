@@ -1,9 +1,9 @@
 # docs/explanation/design/ingress-gated-the-rest-by-review.md
 
-`Only ingress has gates; the source-of-truth and integration rules rest on code review`
+`Only ingress is checked by gates; the source-of-truth and integration rules rest on code review`
 
 ```text
-Only ingress has gates; the source-of-truth and integration rules rest on code review.
+Only ingress is checked by gates; the source-of-truth and integration rules rest on code review.
 
 1  local clone      automation commits the files it generates here
 2  local guard      Sync-GeneratedFile's branch guard, the local half of ingress (V6)
@@ -21,7 +21,7 @@ a local guard in cats and a branch policy on the server. The rule that the serve
 integrate from, are checked by code review alone. Following a commit from a local clone to a consumer, each step carries a rule chip for the
 rule that governs it: R is ADR-DSGN-REMOTE, V is ADR-REPO-VARIANT and L is ADR-DSGN-LIFE.
 
-![Ingress gated, the rest by review](../../.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png)
+![Gates on ingress, review for the rest](../../.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png)
 
 The diagram is described element by element in
 [its asset description](../../.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.md).
@@ -48,7 +48,7 @@ The diagram is described element by element in
 
 - The server remote is the single source of truth, and clones are bridges to it (ADR-DSGN-REMOTE#1).
 - Consumers integrate from the last remote-verified commit and so never reconcile a rewritten tip (ADR-DSGN-REMOTE#2, ADR-DSGN-REMOTE#3);
-  that commit is the current `main-UAT` occupant (ADR-DSGN-LIFE#6).
+  that commit is the `main-UAT` occupant (ADR-DSGN-LIFE#6).
 - The pull request is the authenticated ingress, enforced by the server branch policy (ADR-DSGN-REMOTE#4).
 - `git_workspace` selects the regime, and its single stop condition is a direct commit while standing on main or master in `main-via-pr`
   (ADR-REPO-VARIANT#6).

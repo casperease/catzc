@@ -14,9 +14,9 @@ diagram glyphs; what it means is in [the article](../../explanation/flow/gates-c
 ## At a glance
 
 A 1572 × 640 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through five
-bands side by side, labelled SOURCE, LOAD, FLATTEN, ROLES and CHECKED BY. It holds eight glyphs, one file, four code units and three gates,
-joined by seven edges, with eight markers, eight rule chips and a legend panel along the bottom. The eye lands first on the tall code unit
-in the FLATTEN band, then on the two empty rows of the CHECKED BY band.
+bands side by side, labelled `SOURCE`, `LOAD`, `FLATTEN`, `ROLES` and `CHECKED BY`. It holds eight glyphs, one file, four code units and
+three gates, joined by seven edges, with eight markers, eight rule chips and a legend panel along the bottom. The eye lands first on the
+tall code unit in the FLATTEN band, then on the two empty rows of the CHECKED BY band.
 
 ## Reading path
 
@@ -24,33 +24,33 @@ in the FLATTEN band, then on the two empty rows of the CHECKED BY band.
 2. Down its edge to marker 2, SOURCE band, bottom: the gate Test-GlobSetIndependence, marked at its left vertex.
 3. Right from Registry to marker 3, LOAD band: the gate Config load, marked at its top vertex.
 4. Right to marker 4, FLATTEN band: the tall code unit Scan program.
-5. Right along three parallel edges to the ROLES band: marker 5 on Native projection (top row), then its edge to marker 6, the gate Trigger
-   gates in the CHECKED BY band, marked at its top vertex.
+5. Right along three parallel edges to the ROLES band: marker 5 on Native projection (top row), then its edge to marker 6, the gate
+   `Trigger gates` in the CHECKED BY band, marked at its top vertex.
 6. Markers 7 and 8, ROLES band: the code units Git reflection (middle row) and Live identity (bottom row). No edge leaves either; the
    CHECKED BY band is empty in their rows.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                             |
-| --------------------- | ----- | ----------------------------------------------------------------------------------------------------------------- |
-| file                  | 1     | Registry (SOURCE band, middle row)                                                                                |
-| gate                  | 3     | Test-GlobSetIndependence (SOURCE band, bottom), Config load (LOAD band), Trigger gates (CHECKED BY band, top row) |
-| code unit             | 4     | Scan program (FLATTEN band, all rows); Native projection, Git reflection, Live identity (ROLES band, one per row) |
+| Glyph (legend phrase) | Count | Where                                                                                                               |
+| --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------- |
+| file                  | 1     | Registry (SOURCE band, middle row)                                                                                  |
+| gate                  | 3     | Test-GlobSetIndependence (SOURCE band, bottom), Config load (LOAD band), `Trigger gates` (CHECKED BY band, top row) |
+| code unit             | 4     | Scan program (FLATTEN band, all rows); Native projection, Git reflection, Live identity (ROLES band, one per row)   |
 
 The file is olive and the code units are slate, both with white names. Every gate is grey with a 3 px rim.
 
 ## Edges
 
-| Edge kind | Count | From → to                                                                                                                                                               |
-| --------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| flow      | 7     | Registry → Test-GlobSetIndependence (down); Registry → Config load → Scan program; Scan program → each of the three ROLES code units; Native projection → Trigger gates |
+| Edge kind | Count | From → to                                                                                                                                                                 |
+| --------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| flow      | 7     | Registry → Test-GlobSetIndependence (down); Registry → Config load → Scan program; Scan program → each of the three ROLES code units; Native projection → `Trigger gates` |
 
 Every edge is straight; none crosses another.
 
 ## Rule chips
 
 Eight white chips sit on the top edge of the glyph they govern: G1 · G7 · G10 (Registry), G10 · T35 (Test-GlobSetIndependence), G3 · G8
-(Config load), G2 · G4 · G8 (Scan program), G6 (Native projection), G9 (Git reflection), G5 (Live identity) and G6 · T35 (Trigger gates).
+(Config load), G2 · G4 · G8 (Scan program), G6 (Native projection), G9 (Git reflection), G5 (Live identity) and G6 · T35 (`Trigger gates`).
 
 ## Legend
 

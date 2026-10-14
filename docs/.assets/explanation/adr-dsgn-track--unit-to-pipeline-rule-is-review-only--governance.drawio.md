@@ -1,6 +1,6 @@
 # docs/.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.md
 
-`Tracks and units are gated, 1-1 is review only: the diagram described`
+`Tracks and deployable-units have a gate; one unit to one pipeline is held by review: the diagram described`
 
 ```text
 A 1572 x 600 diagram, three bands side by side, each read top to bottom.
@@ -23,7 +23,7 @@ panel along the bottom. The eye lands first on the large white rhombus in its da
 1. Marker 1, TRACKS band, top: the named set track, with the rule chip T1–4 · T6 · F1,3.
 2. Down two edges to markers 2 and 3: the gates VariantsConfig and Get-FileLanguage.Tests.
 3. Marker 4, DEPLOYABLE-UNITS band, top: the named set deployable-unit, with the rule chip G7 · G8; down to marker 5, the gate GlobsConfig.
-4. Markers 6 and 7, PIPELINES · SCOPES band, top: the runner pipeline (chip T5) and the named set scope globset (chip T2).
+4. Markers 6 and 7, PIPELINES · SCOPES band, top: the runner pipeline (chip T5) and the named set `scope globset` (chip T2).
 5. Down two dashed edges to marker 8: the ADR-only gate code review, inside a dashed frame.
 
 ## Glyphs

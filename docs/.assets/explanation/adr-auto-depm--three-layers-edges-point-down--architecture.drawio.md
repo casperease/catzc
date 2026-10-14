@@ -14,8 +14,8 @@ diagram glyphs; what it means is in [the article](../../explanation/automation/t
 ## At a glance
 
 A 1572 × 700 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through three
-full-width bands, labelled TOP LAYER, MIDDLE LAYER and FOUNDATION. It holds five glyphs, three named sets and two code units, joined by
-seven downward edges, with six markers and a legend panel along the bottom. The eye lands first on the wide named set in the foundation
+full-width bands, labelled `TOP LAYER`, `MIDDLE LAYER` and `FOUNDATION`. It holds five glyphs, three named sets and two code units, joined
+by seven downward edges, with six markers and a legend panel along the bottom. The eye lands first on the wide named set in the foundation
 band, which nearly spans the drawing area.
 
 ## Reading path

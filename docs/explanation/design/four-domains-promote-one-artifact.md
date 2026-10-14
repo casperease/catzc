@@ -1,9 +1,9 @@
 # docs/explanation/design/four-domains-promote-one-artifact.md
 
-`Four pipeline domains promote one artifact that CI built once`
+`Four pipeline kinds promote one artifact that CI built once`
 
 ```text
-Every pipeline domain after CI promotes the one artifact CI built, and each environment holds one occupant.
+Every pipeline kind after CI promotes the one artifact CI built, and each environment holds one occupant.
 
 1  topic -> main            the GIT domain: a topic commit, then the commit landed on main
 2  CI engine                builds and verifies the landed commit once; the BVT-verified commit
@@ -16,19 +16,19 @@ Every pipeline domain after CI promotes the one artifact CI built, and each envi
 Supports ADR-DSGN-LIFE#5, #6, #7 and #8 (architecture lens).
 ```
 
-The commit ladder in cats is cut into domains: GIT, then the pipeline domains CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod. Every domain after CI
+The commit ladder in cats is cut into domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod. Every domain after CI
 promotes the same tagged artifact, the one the CI engine built once, and each always-on environment holds exactly one commit as its
 occupant. Reading the occupants tells you what lives where right now, and which commit is safe to build on.
 
-![Four pipeline domains promote one artifact that CI built once](../../.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png)
+![Four pipeline kinds promote one artifact that CI built once](../../.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png)
 
 The diagram is described element by element in
 [its asset description](../../.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.md).
 
 ## Walkthrough
 
-1. **Topic to main.** The GIT domain holds the first two states. A commit on a topic branch is off-main and brown; once its pull request
-   merges, it has landed on main and is grey.
+1. **Topic to main.** GIT, the domain before any pipeline, holds the first two states. A commit on a topic branch is off-main and brown;
+   once its pull request merges, it has landed on main and is grey.
 2. **CI engine.** The CI engine builds and verifies the landed commit and produces the BVT-verified, yellow commit. A CD pipeline always
    contains this same CI component, so the build that a CD run deploys is the build its own CI stage made.
 3. **On-demand env.** CD deploys the artifact to an on-demand environment and runs the L3 system-level end-to-end tests there. The
@@ -39,14 +39,14 @@ The diagram is described element by element in
    release candidate under test.
 6. **Pre-prod to production.** DEPLOY-Prod stages the artifact inactive in `pre-prod`, then activates the same bytes live in `production`.
    Both occupants are green.
-7. **Tagged artifact.** The release candidate is built once from one commit and never rebuilt. Every later domain promotes those same bytes,
-   so what reaches production is what was certified in non-prod. In the code, each deploy stage downloads the artifact its CI stage
+7. **Tagged artifact.** The release candidate is built once from one commit and never rebuilt. Every domain after CI promotes those same
+   bytes, so what reaches production is what was certified in non-prod. In the code, each deploy stage downloads the artifact its CI stage
    published.
 
 ## Why it holds
 
 - Each always-on environment hosts exactly one commit, its occupant, plus a history of the commits it held before (ADR-DSGN-LIFE#5).
-- Upstream integrators sync from the current `main-uat` occupant, the latest commit certified onto the always-on non-prod environment
+- Upstream integrators sync from the `main-uat` occupant, the latest commit certified onto the always-on non-prod environment
   (ADR-DSGN-LIFE#6).
 - The tip of main is only the newest commit; when it has failed a downstream stage it is the dirty HEAD, and nobody syncs or promotes from
   it (ADR-DSGN-LIFE#7).
@@ -65,7 +65,7 @@ The diagram is described element by element in
 ## See also
 
 - [The commit lifecycle](../../adr/design/commit-lifecycle.md) — the decision this article explains.
-- [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the pipeline domains.
+- [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the pipeline kinds.
 - The other lenses on the same lifecycle: [meta](one-way-climb-three-endings.md), [implementation](code-wires-only-the-first-rungs.md),
   [operations](engineer-merges-pipelines-do-the-rest.md) and [governance](which-rung-gates-exist-in-code.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

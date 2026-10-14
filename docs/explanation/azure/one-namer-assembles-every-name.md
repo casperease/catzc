@@ -17,7 +17,7 @@ Every Azure name comes out of one resolver and one namer; nothing else builds na
 Supports ADR-AZ-NAMING#1, #4, #5 and #8 (architecture lens).
 ```
 
-Every Azure resource name in cats comes out of one place. A resolver gathers the name components from three config sources, and a single
+Every Azure resource name in cats comes out of one place. A resolver gathers the name components from three config files, and a single
 namer, reading three pure-data registries, assembles and checks the name. A bad component or an over-limit name throws; a name that passes
 is the resource-group name the deploy uses. Because nothing else builds names, a rule changed in the namer reaches every name at once.
 

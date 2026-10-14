@@ -27,9 +27,9 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **globs.yml.** The registry at `automation/Catzc.Base.Globs/configs/globs.yml`. `GlobsConfig` reads it on load and rejects an undeclared
-   layer, an unknown key, or a `compose:` reference that does not resolve or forms a cycle. Only the bindings and the composition are drawn
-   here.
+1. **globs.yml.** The registry at `automation/Catzc.Base.Globs/configs/globs.yml`. `GlobsConfig` reads it on load and rejects a layer that
+   is not declared, an unknown key, or a `compose:` reference that does not resolve or forms a cycle. Only the bindings and the composition
+   are drawn here.
 2. **`automation:`.** `layer: loose-fileset`, `pipeline: ci-automation`, `include: automation/**`. The GitHub workflow
    `.github/workflows/ci-automation.yml` triggers on the same projection, and `Test-GitHubWorkflowTriggerGlob` checks that it does.
 3. **`infrastructure:`.** `layer: loose-fileset`, `pipeline: ci-infrastructure`, a `verify:` scope of `Catzc.Azure.Templates` at level 2,
@@ -49,9 +49,9 @@ The diagram is described element by element in
   the set's projection (ADR-DSGN-TRACK#4).
 - A pipeline is the delivery machine of one deployable-unit, and a base unit that only exists to be composed binds none (ADR-DSGN-TRACK#5).
 
-Besides the drift gate, `Test-GlobSetTriggerCoverage` and `Register-AdoBuildValidation` also read the `pipeline:` field. The loose-filesets
-`templates`, `markdown-scope` and `repository` carry no `pipeline:`, and `ci-automation-expected-failures.yaml` triggers on `automation/**`
-without any globset binding it.
+Besides the gate against trigger drift, `Test-GlobSetTriggerCoverage` and `Register-AdoBuildValidation` also read the `pipeline:` field. The
+loose-filesets `templates`, `markdown-scope` and `repository` carry no `pipeline:`, and `ci-automation-expected-failures.yaml` triggers on
+`automation/**` without any globset binding it.
 
 ## Where the code and the ADR differ
 

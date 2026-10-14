@@ -15,7 +15,7 @@ Supports ADR-PIPE-AUTH#1, #2 and #5 (meta lens).
 ```
 
 Every call cats makes to the Azure DevOps REST API needs an `Authorization` header, and three kinds of credential can supply one. Cats picks
-the credential by what is configured, in a fixed order, and never by trial and error. The chosen source must show that it targets the
+the credential by what is configured, in a fixed order, and never by trial and error. The source it picks must show that it targets the
 configured organization or tenant before a header leaves, and when it fails it raises its own error instead of handing over to the next
 source.
 
@@ -33,13 +33,13 @@ The diagram is described element by element in
 3. **Interactive login.** Otherwise the developer's own login session is used. The session must be in the tenant behind the organization,
    and it must actually yield a token.
 4. **Authorization header.** Each source returns the same single result: a header aimed at the configured organization or tenant.
-5. **Own error, no fallback.** When the chosen source fails its proof, or when the last source yields nothing, the call stops with that
+5. **Own error, no fallback.** When the source it picks fails its proof, or when the last source yields nothing, the call stops with that
    source's own error. The last case names what to fix: set a personal access token, or log in with an Entra ID account.
 
 ## Why it holds
 
-- The credential is chosen by which one is configured, in a fixed order, and a failing source raises its own error rather than degrading to
-  the next (ADR-PIPE-AUTH#1).
+- The credential is chosen by which one is configured, in a fixed order, and a source that fails raises its own error rather than degrading
+  to the next (ADR-PIPE-AUTH#1).
 - Each source proves it targets the configured organization or tenant before it returns a header, so a credential that happens to be present
   never resolves to a different org by accident (ADR-PIPE-AUTH#2).
 - When the last source yields nothing, the error names the actionable causes (ADR-PIPE-AUTH#5).
@@ -51,7 +51,7 @@ opaque 401 errors, or worse, into a token aimed at the wrong organization.
 
 - The ADR says every source proves its org, but the personal access token has no runtime proof. Its binding "by construction" holds only by
   default, because each API function accepts an `-Organization` override that nothing checks against the header.
-- The ADR says the pipeline source asserts the collection address, but the code skips that check when the address is empty.
+- The ADR says the source for the pipeline asserts the collection address, but the code skips that check when the address is empty.
 
 ## See also
 

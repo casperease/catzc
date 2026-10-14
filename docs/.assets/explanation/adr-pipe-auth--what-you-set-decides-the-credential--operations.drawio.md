@@ -16,7 +16,7 @@ diagram glyphs; what it means is in [the article](../../explanation/pipelines/wh
 A 1572 × 620 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom inside one
 full-width band, WHAT YOU SET, with three column headings: RETURNS, YOU SET and YOU SEE. It holds eight glyphs (three gates, one result,
 four failures) joined by nine edges, with eight markers and a legend panel along the bottom. The eye lands first on the column of three
-gates in the middle; the bottom gate is taller than the other two.
+gates in the middle; the gate at the bottom is taller than the other two.
 
 ## Reading path
 
@@ -44,8 +44,8 @@ Gates are grey with a thick rim, the result is green and the failures are red.
 | flow         | 5     | ExposeAccessToken: true → $env:AZURE_DEVOPS_PAT → az login · Connect-AzCli; each gate → Authorization header |
 | failure path | 4     | ExposeAccessToken: true → does not match ado.yml; az login · Connect-AzCli → each of its three failures      |
 
-Every edge is straight, horizontal or vertical, and none crosses another. Two of the bottom gate's failure paths leave from points on its
-upper-right and lower-right sides.
+Every edge is straight, horizontal or vertical, and none crosses another. Two of the failure paths from the gate at the bottom leave from
+points on its upper-right and lower-right sides.
 
 ## Legend
 

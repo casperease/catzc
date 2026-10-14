@@ -32,7 +32,7 @@ The diagram is described element by element in
    globset of their own.
 2. **infrastructure rests on automation.** `infrastructure` is an adapter track: it rests on `automation` for context and execution, never
    the reverse, and `ci-infrastructure` runs automation commands such as `Assert-BicepTemplate` and `Build-Bicep`. No gate checks this
-   direction between tracks; the module-dependency gates check edges between modules only.
+   direction between tracks; the gates on module dependencies check edges between modules only.
 3. **automation binds ci-automation.** The `automation` track set carries `pipeline: ci-automation` itself. The same holds for
    `infrastructure` and `ci-infrastructure`. A CI pipeline binds the track's own projection, so a track and its CI pipeline meet without a
    deployable-unit between them.
@@ -58,8 +58,8 @@ picture. The `templates` loose-fileset binds none either.
 - The tracks ADR says a pipeline binds a track only through the deployable-unit that is that track, and names `ci-automation` as that case.
   The globset ADR says a CI pipeline binds a loose-fileset track's projection, and `globs.yml` follows it: both track sets are
   `loose-fileset`, not `deployable-unit`, and carry `pipeline:` themselves.
-- The tracks ADR says the dependency-graph gates enforce the one-directional core and adapter dependency; those gates check module edges
-  only, and nothing checks the direction between tracks.
+- The tracks ADR says the gates on the dependency graph enforce the one-directional core and adapter dependency; those gates check module
+  edges only, and nothing checks the direction between tracks.
 
 ## See also
 

@@ -1,9 +1,9 @@
 # docs/explanation/flow/gates-check-source-and-trigger.md
 
-`Gates check the globset source and the trigger, but not the git reflection or the identity`
+`Gates check the source of each globset and the trigger, but not the git reflection or the identity`
 
 ```text
-Gates check the globset source and the trigger, but not the git reflection or the identity.
+Gates check the source of each globset and the trigger, but not the git reflection or the identity.
 
 1  Registry                  globs.yml, the one source of truth; every set carries a layer
 2  Test-GlobSetIndependence  quality gate: same-layer sets never overlap on own contribution
@@ -22,7 +22,7 @@ trigger. Every globset flows from one registry through a validated load into a f
 the ADR rules constrain each stage. The git reflection and the live identity are held by ADR rules alone: no gate checks them, which is
 worth knowing before relying on either.
 
-![Gates check source and trigger only](../../.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png)
+![Gates check the source of each globset and the trigger only](../../.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png)
 
 The diagram is described element by element in
 [its asset description](../../.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.md).
@@ -39,7 +39,7 @@ The diagram is described element by element in
    last (#8) define what the program is.
 5. **Native projection.** Pipelines, workflows and build-validation policies trigger on the projection of the program into each vendor's
    path-filter dialect (#6).
-6. **Trigger gates.** Three quality gates check the projection: `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` report
+6. **`Trigger gates`.** Three quality gates check the projection: `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` report
    one issue per drifted or missing pipeline or workflow, and `Test-GlobSetTriggerCoverage` confirms every member of a pipeline-bound set is
    covered by an ADO include. Their integrity tests require zero issues, so a drifted filter fails `Test-Automation` locally and in CI.
 7. **Git reflection.** Whether a change touches a set is computed from git at real refs and fails open on any doubt (#9). No gate checks
@@ -67,7 +67,7 @@ The diagram is described element by element in
   comment.
 - The ADR says the filters are generated into the YAML and that an ADO projection that cannot reproduce exact membership is caught at
   generation time. No generator writes the YAML, `Get-GlobSetTrigger` defers that case to the superset integrity test, and `cd-shared.yaml`
-  documents exactly such a case, which the include-only coverage gate passes.
+  documents exactly such a case, which `Test-GlobSetTriggerCoverage`, checking ADO includes only, passes.
 - `Test-GlobSetAffected` and `Get-GlobSetChangeRange` cite fail-open as ADR-REPO-PROTGLOB#5; for the change check the ADR states it in
   ADR-FLOW-CD-GLOBS#9.
 

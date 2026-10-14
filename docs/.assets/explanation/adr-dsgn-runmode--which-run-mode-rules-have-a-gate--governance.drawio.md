@@ -1,6 +1,6 @@
-# docs/.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-gates--governance.drawio.md
+# docs/.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.md
 
-`Run-mode rules 1 to 6 have gates; the build kinds of rule 7 have none: the diagram described`
+`Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none: the diagram described`
 
 ```text
 A 1572 x 690 diagram, read top to bottom through three bands.
@@ -8,15 +8,15 @@ Glyphs: 4 gates, 3 code units (slate), 1 ADR-only; 5 flow edges, 1 ADR-only edge
 Sidebar: axis minimap (main cell DSGN x LOAD), tree minimap, lens badge GOV, map key.
 ```
 
-This describes what the [diagram](adr-dsgn-runmode--which-run-mode-rules-have-gates--governance.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](../../explanation/design/which-run-mode-rules-have-gates.md).
+This describes what the [diagram](adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png) draws, in the vocabulary of the
+diagram glyphs; what it means is in [the article](../../explanation/design/which-run-mode-rules-have-a-gate.md).
 
 ## At a glance
 
 A 1572 × 690 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through three
 full-width bands, TEST RUNS, LOAD and AFTER THE LOAD. It holds eight glyphs, four gates, three code units and one ADR-only box, joined by
 five flow edges and one ADR-only edge, with eight rule chips, eight markers and a legend panel along the bottom. The eye lands first on the
-wide gate in the middle of the LOAD band, which two code units point into from either side.
+wide rhombus, the gate, in the middle of the LOAD band, which two code units point into from either side.
 
 ## Reading path
 
