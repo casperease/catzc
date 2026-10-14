@@ -49,7 +49,7 @@ function Find-Executable {
         [Parameter(Mandatory)]
         [string] $Name,
 
-        [string] $Command,
+        [string] $Command = $Name,
 
         [string[]] $Candidate = @(),
 
@@ -66,10 +66,6 @@ function Find-Executable {
 
         [string[]] $AcceptVersion = @()
     )
-
-    if (-not $Command) {
-        $Command = $Name
-    }
 
     $comparer = [System.StringComparer]::OrdinalIgnoreCase
     $excluded = [System.Collections.Generic.HashSet[string]]::new($comparer)

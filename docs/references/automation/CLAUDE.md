@@ -10,8 +10,8 @@ A reference article describes a module by the **responsibilities** it owns, not 
 stable contract; the function list is an appendix indexed by them.
 
 > **Time safeguard.** ALL calls to bash and pwsh by agent/Claude execution MUST run within a time safeguard: every foreground Bash call
-> passes `timeout: 10000`, and longer work runs with `run_in_background: true` — see
-> [time safeguard](../../../.claude/CLAUDE.md#time-safeguard).
+> passes `timeout: 10000`; longer work runs with `run_in_background: true` behind a `timeout <seconds>` prefix around one command (the tool
+> ignores `timeout` in the background) — see [time safeguard](../../../.claude/CLAUDE.md#time-safeguard).
 
 ## Document structure
 

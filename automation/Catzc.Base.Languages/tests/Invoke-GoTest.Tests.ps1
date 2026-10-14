@@ -1,6 +1,7 @@
 Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the seams (ADR-AUTO-TEST#6): a fixture repository root in $TestDrive and a mocked go
+        # Isolate through the seams (ADR-AUTO-TEST#6): a fixture repository root in $TestDrive, a mocked tool probe
+        # (Resolve-ToolExecutable) that finds a managed go at a fixture path with a space in it, and a mocked go
         # (Invoke-Executable) that answers with canned `go test -json` streams from tests/assets.
         $script:root = Join-Path $TestDrive 'repo'
         $script:folder = Join-Path $script:root 'go/tests/catzc-widget'
@@ -13,6 +14,9 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
         $script:widgetStream = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'assets/go-test-widget.jsonl')
         $script:buildFailedStream = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'assets/go-test-gadget-build-failed.jsonl')
 
+        $script:goPath = Join-Path $TestDrive 'managed go/bin/go.exe'
+        $script:go = "`"$($script:goPath)`""
+
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $script:root }
     }
 
@@ -21,6 +25,8 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
         $script:testExit = 1
         $script:vetExit = 0
         $script:seen = [System.Collections.Generic.List[object]]::new()
+        $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('go', $script:goPath, 'probe', '1.27.1', '1.27', $true, 1, 0, 'Agent')
+        Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Languages { $script:probe }
         Mock Invoke-Executable -ModuleName Catzc.Base.Languages {
             $script:seen.Add([pscustomobject]@{
                     Command   = $Command
@@ -29,14 +35,14 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
                     Root      = $env:CATZC_REPOSITORY_ROOT
                 })
             switch -Wildcard ($Command) {
-                'go vet*' {
+                '* vet *' {
                     $vetErrors = ''
                     if ($script:vetExit) {
                         $vetErrors = 'vet: widget_test.go:5:3: undefined: gadget'
                     }
                     [Catzc.Base.Execution.CliResult]::new('', $vetErrors, $script:vetExit)
                 }
-                'go test*' {
+                '* test *' {
                     [Catzc.Base.Execution.CliResult]::new($script:testOutput, '', $script:testExit)
                 }
                 default {
@@ -49,8 +55,39 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
     Context 'the go commands' {
         It 'runs go mod download, go vet, then go test -json -count=1 in the module''s kebab folder' {
             $null = Invoke-GoTest Catzc.Widget
-            $script:seen.Command | Should -Be @('go mod download', 'go vet ./...', 'go test -json -count=1 ./...')
+            $script:seen.Command | Should -Be @("$go mod download", "$go vet ./...", "$go test -json -count=1 ./...")
             $script:seen.Directory | Sort-Object -Unique | Should -Be $script:folder
+        }
+
+        It 'runs the managed go by its quoted path from the tools.yml probe, never a bare go' {
+            $null = Invoke-GoTest Catzc.Widget
+            Should -Invoke Resolve-ToolExecutable -ModuleName Catzc.Base.Languages -ParameterFilter { $Tool -eq 'go' }
+            foreach ($command in $script:seen.Command) {
+                [Catzc.Base.Execution.CliRunner]::ExecutableName($command) | Should -Be $script:goPath
+            }
+        }
+
+        It 'throws with "Run Install-Go" when no managed go is found, before running anything' {
+            $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('go', $null, 'none', $null, '1.27', $false, 1, 0, 'Agent')
+            { Invoke-GoTest Catzc.Widget } | Should -Throw '*no managed go found*Run Install-Go*'
+            $script:seen.Count | Should -Be 0
+        }
+
+        It 'throws with "Run Install-Go" when the go found does not match the tools.yml pin' {
+            $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('go', $script:goPath, 'path', '1.22.5', '1.27', $false, 1, 3, 'Agent')
+            { Invoke-GoTest Catzc.Widget } | Should -Throw "*reports version '1.22.5', but tools.yml pins '1.27'. Run Install-Go*"
+            $script:seen.Count | Should -Be 0
+        }
+
+        It 'runs in the module''s folder under .go/tests/ when the repository has no go/ folder' {
+            $dotRoot = Join-Path $TestDrive 'dot-repo'
+            $dotFolder = Join-Path $dotRoot '.go/tests/catzc-widget'
+            $null = New-Item -ItemType Directory -Path $dotFolder -Force
+            Set-Content -LiteralPath (Join-Path $dotFolder 'go.mod') -Value 'module catzc/go/tests/catzc-widget'
+            Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'dot-repo' }
+            $null = Invoke-GoTest Catzc.Widget
+            $script:seen.Directory | Sort-Object -Unique | Should -Be $dotFolder
+            { Invoke-GoTest Catzc.Nothing } | Should -Throw '*has no Go tests: .go/tests/catzc-nothing/ does not exist*'
         }
 
         It 'throws when the module has no Go test folder' {
@@ -130,7 +167,7 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
         It 'throws with the go output when go vet fails' {
             $script:vetExit = 1
             { Invoke-GoTest Catzc.Widget } | Should -Throw '*go vet failed in go/tests/catzc-widget/*undefined: gadget*'
-            $script:seen.Command | Should -Not -Contain 'go test -json -count=1 ./...'
+            $script:seen.Command | Should -Not -Contain "$go test -json -count=1 ./..."
         }
 
         It 'throws with the compiler output when the test package does not build' {

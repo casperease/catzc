@@ -34,6 +34,9 @@ recommendations:
   # The PowerShell extension — language service, debugging, and the codeFormatting settings wired in
   # vscode-settings.yml.
   - ms-vscode.powershell
+  # The Go extension — gopls for the Go tests: it reads the repository-root go.work (New-GoWorkspace), whose `use`
+  # entries name every Go test module, so the go/ root and the .go/ default load the same with no setting.
+  - golang.go
   # Prettier — the markdown formatter behind Format-Markdown; format-on-save matches the gate.
   - esbenp.prettier-vscode
   # PDF viewing for reference material in docs.

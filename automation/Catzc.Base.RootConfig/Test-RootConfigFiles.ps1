@@ -5,8 +5,9 @@
 .DESCRIPTION
     A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over the
     opted-in entries of rootconfig.yml ([ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)), resolved
-    exactly as Build-RootConfig resolves them (Get-RootConfigTargets). Per entry, `committed` decides git membership,
-    and the registry, .gitignore, and git's tracked set must agree. It collects an issue for:
+    exactly as Build-RootConfig resolves them (Get-RootConfigTargets). A wildcard entry (e.g. go/tests/*/go.mod) is
+    checked per file its generator renders (Get-RootConfigRenderedFile). Per file, the entry's `committed` decides
+    git membership, and the registry, .gitignore, and git's tracked set must agree. It collects an issue for:
 
       - a committed:false target no .gitignore rule ignores, or that git tracks (a derived artifact; remove it with
         `git rm --cached <path>`);
@@ -39,7 +40,17 @@ function Test-RootConfigFiles {
     )
 
     $repositoryRoot = Get-RepositoryRoot
-    $entries = @(Get-RootConfigTargets -Config (Get-Config -Config rootconfig))
+    # One check per managed file: a wildcard entry expands to the files its generator renders (none yet is none).
+    $entries = @(foreach ($entry in @(Get-RootConfigTargets -Config (Get-Config -Config rootconfig))) {
+            if ([System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($entry.target)) {
+                foreach ($file in @(Get-RootConfigRenderedFile -Entry $entry)) {
+                    [pscustomobject]@{ target = $file.Target; source = $entry.source; committed = [bool] $entry.committed; copyAsLink = [bool] $entry.copyAsLink }
+                }
+            }
+            else {
+                $entry
+            }
+        })
     $issues = [System.Collections.Generic.List[string]]::new()
 
     $ignored = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)

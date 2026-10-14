@@ -38,7 +38,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly Dictionary<string, int> Defaults = new Dictionary<string, int>(StringComparer.Ordinal)
     {
         { "devbox.bash.foreground", 10 },
-        { "devbox.bash.background", 1800 },
+        { "devbox.bash.background", 360 },
         { "devbox.pwsh", 10 },
         { "pipeline.bash.foreground", 600 },
         { "pipeline.bash.background", 3600 },

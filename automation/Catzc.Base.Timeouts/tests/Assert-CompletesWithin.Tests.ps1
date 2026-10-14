@@ -12,4 +12,12 @@ Describe 'Assert-CompletesWithin' -Tag 'L0', 'logic' {
     It "throws the block's own error when it fails in time" {
         { Assert-CompletesWithin { throw 'widget broke' } -Seconds 5 } | Should -Throw 'widget broke'
     }
+
+    It "defaults the limit to the budget's resolved limit" {
+        Mock Get-TimeoutSeconds -ModuleName Catzc.Base.Timeouts { 42 }
+        Mock Invoke-WithTimeout -ModuleName Catzc.Base.Timeouts { }
+        Assert-CompletesWithin { 'widget' } -Budget 'widget-budget'
+        Should -Invoke Get-TimeoutSeconds -ModuleName Catzc.Base.Timeouts -Times 1 -Exactly -ParameterFilter { $Budget -eq 'widget-budget' }
+        Should -Invoke Invoke-WithTimeout -ModuleName Catzc.Base.Timeouts -Times 1 -Exactly -ParameterFilter { $Seconds -eq 42 }
+    }
 }

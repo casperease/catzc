@@ -9,14 +9,20 @@
     are passed on as errors of this call.
 .PARAMETER ScriptBlock
     The work to run.
+.PARAMETER Budget
+    The work's immutable budget GUID (registered in the managed-GUID registry). While timeout-exemptions.yml exempts
+    it, the default limit is the exemption ceiling instead.
 .PARAMETER Seconds
-    The limit in seconds. Defaults to the run environment's pwsh limit in timeouts.yml (Get-TimeoutSeconds).
+    The limit in seconds. Defaults to the run environment's pwsh limit in timeouts.yml, or the budget's exemption
+    ceiling (Get-TimeoutSeconds -Budget).
 .PARAMETER Activity
     What the work is, for the timeout message. Defaults to the script block's text.
 .EXAMPLE
     $tree = Invoke-WithTimeout { Get-ChildItem -Recurse $root } -Seconds 30
 .EXAMPLE
     Invoke-WithTimeout { Sync-Widget } -Activity 'widget sync'
+.EXAMPLE
+    Invoke-WithTimeout { Sync-Widget } -Budget $widgetSyncBudget
 #>
 function Invoke-WithTimeout {
     [CmdletBinding()]
@@ -24,8 +30,10 @@ function Invoke-WithTimeout {
         [Parameter(Mandatory, Position = 0)]
         [scriptblock] $ScriptBlock,
 
+        [string] $Budget,
+
         [ValidateRange(1, [int]::MaxValue)]
-        [int] $Seconds = (Get-TimeoutSeconds),
+        [int] $Seconds = (Get-TimeoutSeconds -Budget $Budget),
 
         [string] $Activity = $ScriptBlock.ToString().Trim()
     )
@@ -52,8 +60,9 @@ function Invoke-WithTimeout {
     if ($watchdog.Fired) {
         throw [System.TimeoutException]::new(
             "Stopped after $([math]::Round($stopwatch.Elapsed.TotalSeconds, 1))s: '$Activity' did not finish within its " +
-            "$Seconds-second limit. Make it faster, or raise the limit: pass -Seconds, or tune limits.<environment>.pwsh in " +
-            'automation/Catzc.Base.Timeouts/configs/timeouts.yml.'
+            "$Seconds-second limit. Make it faster, or raise the limit: pass -Seconds, tune limits.<environment>.pwsh in " +
+            'automation/Catzc.Base.Timeouts/configs/timeouts.yml, or pass a -Budget and exempt it in timeout-exemptions.yml ' +
+            'while it is tuned.'
         )
     }
 }

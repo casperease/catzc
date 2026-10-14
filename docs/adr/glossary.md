@@ -19,6 +19,20 @@ What ships — a whole track or a reduced composition — bound one-to-one to it
 - **Contrasts:**
   - [release candidate](#release-candidate): A release candidate is one commit's tagged, immutable build of a deployable-unit; a
     deployable-unit is the composition that ships, whichever commit is built.
+  - [track](#track): A track is a root concern, one root folder; a deployable-unit is what ships, composed from a whole track or a reduced
+    part of one.
+
+### file language
+
+The language a tracked file is written in, named by its extension — PowerShell, C#, YAML, Bicep, Markdown, Python; a track's tech-stack is a
+set of them.
+
+- **Defined by:** [ADR-DSGN-TRACK#6](design/tracks.md#rule-adr-dsgn-track6)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [track](#track): A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it
+    lives.
 
 ### occupant
 
@@ -36,6 +50,19 @@ The one commit an always-on environment holds, deployed there as its release can
 | `current occupant`  | occupant (the <environment> occupant) |
 | `current occupants` | occupants                             |
 | `resident commit`   | occupant                              |
+
+### track
+
+A named repository root concern — one root folder, named by it, classified core, external port, or adapter.
+
+- **Defined by:** [ADR-DSGN-TRACK#1](design/tracks.md#rule-adr-dsgn-track1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [deployable-unit](#deployable-unit): A deployable-unit is what ships, composed from a whole track or a reduced part of one; a track is
+    the root concern itself, one root folder.
+  - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a track is the root folder
+    the file lives in, and its tech-stack is a set of file languages.
 
 ## flow
 

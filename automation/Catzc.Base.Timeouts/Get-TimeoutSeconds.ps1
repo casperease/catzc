@@ -15,6 +15,9 @@
     The shell whose limit to return: Pwsh (the default) or Bash.
 .PARAMETER Background
     Return the bash background limit instead of the foreground one. Bash only.
+.PARAMETER Budget
+    The work's immutable budget GUID. When timeout-exemptions.yml exempts it here, the limit is raised to the
+    exemption ceiling (never lowered). Empty means no budget.
 .PARAMETER EnvironmentAssertIs
     Pins the expected run environment (Pipeline or Devbox); a different one throws. The guard verifies, it never
     selects.
@@ -24,6 +27,8 @@
     Get-TimeoutSeconds -Executable dotnet       # dotnet's own limit, or the environment's pwsh limit
 .EXAMPLE
     Get-TimeoutSeconds -Shell Bash -Background  # the hook's limit for a background Bash call here
+.EXAMPLE
+    Get-TimeoutSeconds -Budget $budget          # the pwsh limit, or the exemption ceiling while $budget is exempt
 #>
 function Get-TimeoutSeconds {
     [CmdletBinding(DefaultParameterSetName = 'Shell')]
@@ -37,6 +42,9 @@ function Get-TimeoutSeconds {
         [string] $Shell = 'Pwsh',
         [Parameter(ParameterSetName = 'Shell')]
         [switch] $Background,
+        [Parameter(ParameterSetName = 'Shell')]
+        [AllowEmptyString()]
+        [string] $Budget,
         [ValidateSet('Pipeline', 'Devbox')]
         [string] $EnvironmentAssertIs
     )
@@ -50,5 +58,10 @@ function Get-TimeoutSeconds {
     if ($PSCmdlet.ParameterSetName -eq 'Executable') {
         return $config.SecondsForExecutable($environment, $Executable)
     }
-    $config.SecondsFor($environment, $Shell, $Background.IsPresent)
+    $seconds = $config.SecondsFor($environment, $Shell, $Background.IsPresent)
+    if ($Budget -and (Get-TimeoutExemption $Budget -Shell $Shell)) {
+        # An exemption raises the limit to its ceiling while the work is tuned; it never lowers it.
+        $seconds = [math]::Max($seconds, (Get-Config -Config timeout-exemptions).CeilingFor($environment, $Shell))
+    }
+    $seconds
 }

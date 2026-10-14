@@ -11,6 +11,7 @@ concepts:
         realized_by: { kind: config-key, pattern: 'automation/Catzc.Base.Globs/configs/globs.yml' }
         contrasts:
             release candidate: A release candidate is one commit's tagged, immutable build of a deployable-unit; a deployable-unit is the composition that ships, whichever commit is built.
+            track: A track is a root concern, one root folder; a deployable-unit is what ships, composed from a whole track or a reduced part of one.
     release candidate:
         key: release_candidate
         domain: flow
@@ -45,3 +46,20 @@ concepts:
             - { phrase: current occupant, say: occupant (the <environment> occupant) }
             - { phrase: current occupants, say: occupants }
             - { phrase: resident commit, say: occupant }
+    track:
+        key: track
+        domain: design
+        defined_by: ADR-DSGN-TRACK#1
+        short: A named repository root concern — one root folder, named by it, classified core, external port, or adapter.
+        realized_by: { kind: prose-only }
+        contrasts:
+            deployable-unit: A deployable-unit is what ships, composed from a whole track or a reduced part of one; a track is the root concern itself, one root folder.
+            file language: A file language is the kind of text a file holds, named by its extension; a track is the root folder the file lives in, and its tech-stack is a set of file languages.
+    file language:
+        key: file_language
+        domain: design
+        defined_by: ADR-DSGN-TRACK#6
+        short: The language a tracked file is written in, named by its extension — PowerShell, C#, YAML, Bicep, Markdown, Python; a track's tech-stack is a set of them.
+        realized_by: { kind: prose-only }
+        contrasts:
+            track: A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it lives.

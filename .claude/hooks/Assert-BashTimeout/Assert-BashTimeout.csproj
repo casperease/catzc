@@ -6,6 +6,8 @@
   The decision and the limits are the Catzc.Base.Timeouts module's own types, compiled in from their source files,
   so the hook can never drift from Get-TimeoutSeconds. YAML is read with the YamlDotNet the vendored powershell-yaml
   module ships, so the build needs no package download.
+
+  cspell:ignore netstandard
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>

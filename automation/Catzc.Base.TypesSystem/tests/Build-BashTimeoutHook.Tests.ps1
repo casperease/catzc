@@ -61,10 +61,14 @@ Describe 'Build-BashTimeoutHook — parity with Get-TimeoutSeconds' -Tag 'L1', '
         $script:foregroundMs = (Get-TimeoutSeconds -Shell Bash) * 1000
         $script:backgroundSeconds = Get-TimeoutSeconds -Shell Bash -Background
 
+        # The denial reason, or nothing when the hook lets the call through.
         function Invoke-Hook {
             param([hashtable] $ToolInput)
             $output = (@{ tool_input = $ToolInput } | ConvertTo-Json -Compress) | & $script:program
-            $output -join ''
+            $json = $output -join ''
+            if ($json) {
+                ($json | ConvertFrom-Json).hookSpecificOutput.permissionDecisionReason
+            }
         }
     }
 
@@ -125,7 +129,7 @@ executables:
 
     It 'denies a background call without a timeout prefix and logs it' {
         $result = Invoke-Hook '{"tool_input":{"command":"ls","run_in_background":true}}'
-        ($result.Output | ConvertFrom-Json).hookSpecificOutput.permissionDecisionReason | Should -BeLike '*no `timeout <duration>` prefix*'
+        ($result.Output | ConvertFrom-Json).hookSpecificOutput.permissionDecisionReason | Should -BeLike '*has no*timeout <duration>*prefix*'
         Get-Content -LiteralPath (Join-Path $script:root 'out/time-safeguard.log') -Raw | Should -BeLike "*background`tno timeout prefix`t70 s`tls*"
     }
 

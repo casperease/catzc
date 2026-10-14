@@ -7,7 +7,7 @@
     Assert-Tool return and read the same record.
 
     Reads the entry through Get-Config -Config tools, as a dictionary (reading a config is global access, never
-    dependency-gated: [ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6)),
+    guarded by module dependencies:[ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6)),
     and hands Find-Executable plain inputs:
 
     - the candidates for this platform and run environment (Get-RunEnvironment): windows_probes or unix_probes

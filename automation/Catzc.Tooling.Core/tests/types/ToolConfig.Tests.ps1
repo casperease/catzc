@@ -56,17 +56,10 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
     It 'declares no candidate paths when the entry has none' {
         $config = [Catzc.Tooling.Core.ToolConfig]::new($script:required.Clone())
         $config.HasProbes() | Should -BeFalse
-        $config.ProbesFor($true, 'Person') | Should -HaveCount 0
+        $config.windows_probes | Should -HaveCount 0
     }
 
-    It 'picks the candidate list for <platform> and actor <actor>' -ForEach @(
-        @{ platform = 'Windows'; windows = $true; actor = 'Person'; expected = 'win-devbox' }
-        @{ platform = 'Windows'; windows = $true; actor = 'Agent'; expected = 'win-devbox' }
-        @{ platform = 'Windows'; windows = $true; actor = 'Pipeline'; expected = 'win-pipeline' }
-        @{ platform = 'Unix'; windows = $false; actor = 'Person'; expected = 'unix-devbox' }
-        @{ platform = 'Unix'; windows = $false; actor = 'Agent'; expected = 'unix-devbox' }
-        @{ platform = 'Unix'; windows = $false; actor = 'Pipeline'; expected = 'unix-pipeline' }
-    ) {
+    It 'reads each candidate list into its own property' {
         $entry = $script:required.Clone()
         $entry.windows_probes = @('win-devbox')
         $entry.windows_pipeline_probes = @('win-pipeline')
@@ -74,7 +67,10 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
         $entry.unix_pipeline_probes = @('unix-pipeline')
         $config = [Catzc.Tooling.Core.ToolConfig]::new($entry)
         $config.HasProbes() | Should -BeTrue
-        $config.ProbesFor($windows, $actor) | Should -Be @($expected)
+        $config.windows_probes | Should -Be @('win-devbox')
+        $config.windows_pipeline_probes | Should -Be @('win-pipeline')
+        $config.unix_probes | Should -Be @('unix-devbox')
+        $config.unix_pipeline_probes | Should -Be @('unix-pipeline')
     }
 
     It 'counts an exclusion alone as a probed entry' {

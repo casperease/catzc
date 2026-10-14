@@ -26,8 +26,8 @@ How an external process is run. One wrapper owns the whole invocation lifecycle:
 type, resets and re-checks the exit code so a stale code can never leak across a call boundary, and supports a dry-run mode that returns the
 command string instead of executing it — giving callers a testable, side-effect-free path through the same code. When a call is expected to
 run long, a companion function wraps it with a liveness indicator, and a wait on a mutex announces itself the same way once it becomes
-noticeable. The `-PassThru` switch returns a `CliResult` object that separates stdout
-from stderr for callers that need to inspect output programmatically.
+noticeable. The `-PassThru` switch returns a `CliResult` object that separates stdout from stderr for callers that need to inspect output
+programmatically.
 
 ### responsibility:2 — Executable location
 
@@ -63,7 +63,7 @@ script calls omit it and let the streams flow through.
 
 Executable location sits in front of execution. The generic check takes plain inputs and returns the `Catzc.Base.Execution.ExecutableProbe`
 record; its version run goes through `Invoke-Executable` like any other process start. The tools.yml reading on top of it is global config
-access, never gated by module dependencies (see [module-config-loading](../../adr/configuration/module-config-loading.md)), which is what
+access, never guarded by module dependencies (see [module-config-loading](../../adr/configuration/module-config-loading.md)), which is what
 lets the tooling modules' presence checks ([Catzc.Tooling.Core](catzc-tooling-core.md)) and the Base modules share one record and one
 reading of an entry.
 
@@ -73,8 +73,8 @@ sequence of external commands — explicit control over that boundary. `Invoke-E
 callers that compose multiple calls can use the same primitives to do the same.
 
 The module depends on [Catzc.Base.Writers](catzc-base-writers.md) for the pre-invocation log line,
-[Catzc.Base.Repository](catzc-base-repository.md) for the run environment and the session actor, and [Catzc.Base.Asserts](catzc-base-asserts.md) for argument
-validation. It exposes no configuration files.
+[Catzc.Base.Repository](catzc-base-repository.md) for the run environment and the session actor, and
+[Catzc.Base.Asserts](catzc-base-asserts.md) for argument validation. It exposes no configuration files.
 
 ## Division
 

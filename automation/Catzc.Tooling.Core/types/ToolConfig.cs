@@ -149,15 +149,6 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
             || unix_pipeline_probes.Length > 0 || probe_excludes.Length > 0;
     }
 
-    // The candidate list for one platform and session actor: the pipeline list for actor "Pipeline", else the
-    // devbox list.
-    public string[] ProbesFor(bool windows, string actor)
-    {
-        bool pipeline = string.Equals(actor, "Pipeline", StringComparison.OrdinalIgnoreCase);
-        if (windows) { return pipeline ? windows_pipeline_probes : windows_probes; }
-        return pipeline ? unix_pipeline_probes : unix_probes;
-    }
-
     // True when the entry declares how the toolchain gets it: a package-manager id, script_install, a uv shape,
     // or system_provided (asserted, never installed). ToolsConfig requires it of every shipped entry.
     public bool HasInstallMechanism()

@@ -1,16 +1,21 @@
-# The Go test workspace — the one declared source that New-GoWorkspace renders the root go.work and every
-# go/tests/<folder>/go.mod from. Go code in this repository is test artifacts only: one Go module per catzc module,
-# under go/tests/<module-in-kebab>/, and nothing Go-specific is committed but the *_test.go files.
+# The Go test workspace — the one declared source that New-GoWorkspace renders the repository-root go.work and every
+# <root>/tests/<folder>/go.mod from. Go code in this repository is test artifacts only: one Go module per catzc module,
+# under <root>/tests/<module-in-kebab>/, and nothing Go-specific is committed but the *_test.go files.
 #
 # Every key is optional: an omitted key takes the sensible default declared once on
 # Catzc.Base.Languages.GoConfig ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
 # Loaded via Get-Config -Config go; the shape is validated by the GoConfig type.
+#
+# The go directive of go.work and every go.mod is not declared here: it is the go tool's pin in tools.yml
+# (global.tools.go.version), the one Go version, so the workspace never asks for a newer toolchain than the one
+# installed.
 
-# The go directive of go.work and every go.mod — a quoted Go language version, 1.N or 1.N.P. Keep it at or below
-# the pinned go tool's version, so a run never fetches a newer toolchain. Default: '1.24'.
-go_version: '1.24'
+# root — the Go root folder, repository-relative: the test modules live in <root>/tests/<module>/, and go.work stays at
+# the repository root with one `use ./<root>/tests/<module>` entry per module. Not declared here, so it takes the
+# default: 'go' when the repository has a go/ folder (a Go root track), else '.go', the dot-prefixed tooling folder.
+# Declare it (e.g. `root: test/go`) only to place the Go root elsewhere.
 
-# The module-path prefix: the folder go/tests/<folder>/ is the Go module <module_root>/<folder>. Default:
+# The module-path prefix: the folder <root>/tests/<folder>/ is the Go module <module_root>/<folder>. Default:
 # catzc/go/tests.
 module_root: catzc/go/tests
 

@@ -70,6 +70,8 @@ The module's public functions, sorted into the responsibilities above.
 |                                                           | `Assert-TypeIs`              |
 |                                                           | `Assert-IsGuid`              |
 |                                                           | `Test-IsGuid`                |
+|                                                           | `Assert-IsGuidInRange`       |
+|                                                           | `Test-IsGuidInRange`         |
 |                                                           | `Assert-HaveProperty`        |
 |                                                           | `Test-HaveProperty`          |
 | responsibility:2 — Resource and environment preconditions | `Assert-PathExist`           |

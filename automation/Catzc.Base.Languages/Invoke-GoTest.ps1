@@ -2,9 +2,12 @@
 .SYNOPSIS
     Runs a catzc module's Go tests and returns one result per Go test.
 .DESCRIPTION
-    In the module's Go test folder, go/tests/<module-in-kebab>/ (Catzc.Base.Repository -> catzc-base-repository),
-    runs three go commands through Invoke-Executable, each inside its time safeguard (the `go` entry of
-    timeouts.yml):
+    In the module's Go test folder, <root>/tests/<module-in-kebab>/ (Catzc.Base.Repository -> catzc-base-repository;
+    the Go root is go.yml's `root`, by default go/ when the repository has one, else .go/), runs three go commands
+    from inside that folder, so ./... expands below the module root whatever the root's name, through
+    Invoke-Executable, each inside its time safeguard (the `go` entry of timeouts.yml). It runs the managed go by its path, located from its tools.yml entry by Resolve-ToolExecutable
+    (Catzc.Base.Execution), and never a bare go off PATH; it throws with "Run Install-Go" when no go is found or the
+    one found does not match the tools.yml pin:
 
       go mod download                fetches the declared dependencies and records go.sum;
       go vet ./...                   type-checks and vets the test packages;
@@ -48,7 +51,8 @@ function Invoke-GoTest {
 
     $root = Get-RepositoryRoot
     $folderName = $Module.ToLowerInvariant().Replace('.', '-')
-    $relative = "go/tests/$folderName"
+    # The Go root from go.yml (GoConfig.ResolveRoot: the declared root, else go/ when present, else .go/).
+    $relative = "$((Get-Config -Config go).ResolveRoot($root))/tests/$folderName"
     $folder = Join-Path $root $relative
     if (-not (Test-Path -LiteralPath $folder -PathType Container)) {
         throw "Module '$Module' has no Go tests: $relative/ does not exist."
@@ -56,6 +60,16 @@ function Invoke-GoTest {
     if (-not (Test-Path -LiteralPath (Join-Path $folder 'go.mod') -PathType Leaf)) {
         throw "$relative/go.mod is missing — it is generated; regenerate with: Build-RootConfig"
     }
+
+    # The managed go, by its path (Resolve-ToolExecutable reads the tools.yml entry); never a bare go off PATH.
+    $go = Resolve-ToolExecutable -Tool go
+    if (-not $go.Found) {
+        throw 'go is not installed (no managed go found). Run Install-Go.'
+    }
+    if (-not $go.VersionOk) {
+        throw "go at $($go.Path) reports version '$($go.Version)', but tools.yml pins '$($go.Required)'. Run Install-Go."
+    }
+    $goCommand = "`"$($go.Path)`""
 
     $entry = if ($EntryScript) {
         Assert-PathExist $EntryScript -PathType Leaf
@@ -77,17 +91,17 @@ function Invoke-GoTest {
         [System.Environment]::SetEnvironmentVariable($name, $environment[$name])
     }
     try {
-        $download = Invoke-Executable 'go mod download' -WorkingDirectory $folder -PassThru -NoAssert
+        $download = Invoke-Executable "$goCommand mod download" -WorkingDirectory $folder -PassThru -NoAssert
         if ($download.ExitCode -ne 0) {
             throw "go mod download failed in $relative/ (exit $($download.ExitCode)):`n$($download.Full)"
         }
 
-        $vet = Invoke-Executable 'go vet ./...' -WorkingDirectory $folder -PassThru -NoAssert
+        $vet = Invoke-Executable "$goCommand vet ./..." -WorkingDirectory $folder -PassThru -NoAssert
         if ($vet.ExitCode -ne 0) {
             throw "go vet failed in $relative/ (exit $($vet.ExitCode)):`n$($vet.Full)"
         }
 
-        $run = Invoke-Executable 'go test -json -count=1 ./...' -WorkingDirectory $folder -PassThru -NoAssert
+        $run = Invoke-Executable "$goCommand test -json -count=1 ./..." -WorkingDirectory $folder -PassThru -NoAssert
     }
     finally {
         foreach ($name in $environment.Keys) {

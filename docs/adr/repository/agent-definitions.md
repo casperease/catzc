@@ -59,7 +59,7 @@ pulls in work that belongs to a neighbour. The `Do NOT` clause is where each age
 An agent is code that runs with the session's permissions, so it answers to the domain rules like any function does. The registry records
 the reason for each agent as rule citations, the same `ADR-<CODE>#<n>` spelling a test tag uses
 ([ADR-REPO-LINK#5](markdown-links.md#rule-adr-repo-link5)). It also records the gates and checks the agent runs or guards. A renumbered rule
-or a renamed gate then fails a check instead of leaving an agent that points at nothing.
+or a renamed quality gate then fails a check instead of leaving an agent that points at nothing.
 
 ### Listed where sessions start
 

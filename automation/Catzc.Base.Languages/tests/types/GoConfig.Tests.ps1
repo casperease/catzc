@@ -10,25 +10,22 @@ Describe 'GoConfig' -Tag 'L0' {
         It 'takes the declared defaults for an empty or absent file' {
             foreach ($raw in [ordered]@{}, $null) {
                 $config = [Catzc.Base.Languages.GoConfig]::new($raw)
-                $config.go_version | Should -Be ([Catzc.Base.Languages.GoConfig]::DefaultGoVersion)
                 $config.module_root | Should -Be ([Catzc.Base.Languages.GoConfig]::DefaultModuleRoot)
                 $config.dependencies.Count | Should -Be 0
             }
         }
 
         It 'treats a key set to null like an omitted key' {
-            $config = [Catzc.Base.Languages.GoConfig]::new([ordered]@{ go_version = $null; module_root = $null; dependencies = $null })
-            $config.go_version | Should -Be '1.24'
+            $config = [Catzc.Base.Languages.GoConfig]::new([ordered]@{ root = $null; module_root = $null; dependencies = $null })
+            $config.root | Should -BeNullOrEmpty
             $config.module_root | Should -Be 'catzc/go/tests'
         }
 
         It 'maps every key' {
             $config = [Catzc.Base.Languages.GoConfig]::new([ordered]@{
-                    go_version   = '1.23.4'
                     module_root  = 'acme/go/tests'
                     dependencies = [ordered]@{ 'example.com/widget' = 'v1.2.3-rc.1' }
                 })
-            $config.go_version | Should -Be '1.23.4'
             $config.module_root | Should -Be 'acme/go/tests'
             $config.dependencies['example.com/widget'] | Should -Be 'v1.2.3-rc.1'
         }
@@ -40,12 +37,33 @@ Describe 'GoConfig' -Tag 'L0' {
             @($config.dependencies.Keys) | Should -Be @('example.com/Gadget', 'example.com/assert', 'example.com/widget')
         }
 
-        It 'throws on an unknown key' {
-            { [Catzc.Base.Languages.GoConfig]::new([ordered]@{ gadget = '1.24' }) } | Should -Throw "*unknown key 'gadget'*"
+        It 'resolves the Go root to go when the repository has a go/ folder, else to .go' {
+            $config = [Catzc.Base.Languages.GoConfig]::new([ordered]@{})
+            $config.root | Should -BeNullOrEmpty
+            $withGo = Join-Path $TestDrive 'with-go'
+            $null = New-Item -ItemType Directory -Path (Join-Path $withGo 'go') -Force
+            $without = Join-Path $TestDrive 'without-go'
+            $null = New-Item -ItemType Directory -Path $without -Force
+            $config.ResolveRoot($withGo) | Should -BeExactly ([Catzc.Base.Languages.GoConfig]::DefaultRoot)
+            $config.ResolveRoot($without) | Should -BeExactly ([Catzc.Base.Languages.GoConfig]::FallbackRoot)
+            [Catzc.Base.Languages.GoConfig]::DefaultRoot | Should -BeExactly 'go'
+            [Catzc.Base.Languages.GoConfig]::FallbackRoot | Should -BeExactly '.go'
         }
 
-        It 'throws on a go_version that is not a quoted 1.N or 1.N.P' -ForEach @('2.0', '1', '1.24rc1', 'v1.24', 1.24) {
-            { [Catzc.Base.Languages.GoConfig]::new([ordered]@{ go_version = $_ }) } | Should -Throw '*invalid go_version*'
+        It 'lets a declared root override the default, whatever folders exist' {
+            $withGo = Join-Path $TestDrive 'declared'
+            $null = New-Item -ItemType Directory -Path (Join-Path $withGo 'go') -Force
+            $config = [Catzc.Base.Languages.GoConfig]::new([ordered]@{ root = 'test/widget-go' })
+            $config.root | Should -BeExactly 'test/widget-go'
+            $config.ResolveRoot($withGo) | Should -BeExactly 'test/widget-go'
+        }
+
+        It 'throws on a malformed root' -ForEach @('/go', 'go/', 'a//b', '../go', 'a/./b', 'go\tests', 'go tests') {
+            { [Catzc.Base.Languages.GoConfig]::new([ordered]@{ root = $_ }) } | Should -Throw '*invalid root*'
+        }
+
+        It 'throws on an unknown key' {
+            { [Catzc.Base.Languages.GoConfig]::new([ordered]@{ gadget = '1.24' }) } | Should -Throw "*unknown key 'gadget'*"
         }
 
         It 'throws on a malformed module_root' -ForEach @('/acme/go', 'acme/go/', 'Acme/go', 'acme//go') {
@@ -67,10 +85,9 @@ Describe 'GoConfig' -Tag 'L0' {
         }
 
         It 'reports every violation in one throw' {
-            $err = { [Catzc.Base.Languages.GoConfig]::new([ordered]@{ nope = 1; go_version = '9'; module_root = '/x'; dependencies = @{ gadget = 'x' } }) } |
+            $err = { [Catzc.Base.Languages.GoConfig]::new([ordered]@{ nope = 1; module_root = '/x'; dependencies = @{ gadget = 'x' } }) } |
                 Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*unknown key 'nope'*"
-            $err.Exception.Message | Should -BeLike "*invalid go_version '9'*"
             $err.Exception.Message | Should -BeLike "*invalid module_root '/x'*"
             $err.Exception.Message | Should -BeLike "*invalid dependencies key 'gadget'*"
             $err.Exception.Message | Should -BeLike "*invalid dependencies.gadget 'x'*"

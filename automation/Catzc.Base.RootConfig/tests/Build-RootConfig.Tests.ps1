@@ -52,7 +52,7 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     It 'renders a generator entry through the dispatch, verbatim (no header injected)' {
         Build-RootConfig | Out-Null
         [System.IO.File]::ReadAllText($script:genTarget) | Should -BeExactly "rendered output`n"
-        Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'Fake-Generator' }
+        Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'Fake-Generator' -and $Target -eq 'generated.txt' }
     }
 
     It 'skips opted-out entries entirely (their missing source never throws)' {
@@ -126,6 +126,80 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         Build-RootConfig | Should -BeNullOrEmpty
         Should -Invoke Write-FileIfChanged -ModuleName Catzc.Base.RootConfig -Times 0
         Should -Invoke Write-Message -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Message -like '*built Catzc package*' }
+    }
+}
+
+Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
+    BeforeAll {
+        Import-InternalModule TestKit
+
+        # A wildcard entry whose generator renders one { Target; Content } record per file; every file is written
+        # on its own and reported in its own row. Neutral fixture names (ADR-AUTO-TEST#3).
+        $script:fake = New-FakeRepositoryRoot -Files @{
+            'widgets/alpha/.keep' = ''
+            'widgets/beta/.keep'  = ''
+        }
+        $script:alpha = Join-Path $script:fake.Root 'widgets/alpha/gadget.txt'
+        $script:beta = Join-Path $script:fake.Root 'widgets/beta/gadget.txt'
+
+        Mock Write-Message -ModuleName Catzc.Base.RootConfig { }
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
+        Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig {
+            [pscustomobject]@{ Target = 'widgets/alpha/gadget.txt'; Content = "alpha`n" }
+            [pscustomobject]@{ Target = 'widgets/beta/gadget.txt'; Content = "beta`n" }
+        }
+        Mock Get-Config -ModuleName Catzc.Base.RootConfig {
+            [pscustomobject]@{
+                files = @(
+                    [pscustomobject]@{ target = 'widgets/*/gadget.txt'; source = $null; generator = 'New-Widget'; comment = 'none'; optIn = $true; committed = $false; copyAsLink = $false }
+                )
+            }
+        }
+    }
+
+    AfterAll {
+        Remove-FakeRepositoryRoot $script:fake
+    }
+
+    BeforeEach {
+        Remove-Item $script:alpha, $script:beta -Force -ErrorAction Ignore
+    }
+
+    It 'passes the wildcard target to the generator and writes every record' {
+        Build-RootConfig | Out-Null
+        [System.IO.File]::ReadAllText($script:alpha) | Should -BeExactly "alpha`n"
+        [System.IO.File]::ReadAllText($script:beta) | Should -BeExactly "beta`n"
+        Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'New-Widget' -and $Target -eq 'widgets/*/gadget.txt' }
+    }
+
+    It 'reports one row per file, each under its own target and the entry''s generator' {
+        $result = Build-RootConfig -PassThru
+        @($result.Target) | Should -Be @('widgets/alpha/gadget.txt', 'widgets/beta/gadget.txt')
+        @($result.Path) | Should -Be @($script:alpha, $script:beta)
+        @($result | Where-Object { $_.Generator -eq 'New-Widget' -and $_.Changed }) | Should -HaveCount 2
+    }
+
+    It 'rewrites only the stale file' {
+        Build-RootConfig | Out-Null
+        [System.IO.File]::WriteAllText($script:beta, "stale`n")
+        $result = Build-RootConfig -PassThru
+        @($result | Where-Object Changed).Target | Should -Be 'widgets/beta/gadget.txt'
+        [System.IO.File]::ReadAllText($script:beta) | Should -BeExactly "beta`n"
+    }
+
+    It '-Target naming one file of the wildcard entry writes only that file' {
+        $result = Build-RootConfig -Target 'widgets/beta/gadget.txt' -PassThru
+        @($result) | Should -HaveCount 1
+        $result.Target | Should -Be 'widgets/beta/gadget.txt'
+        Test-Path $script:alpha | Should -BeFalse
+    }
+
+    It '-Target naming the pattern writes every file of the entry' {
+        @(Build-RootConfig -Target 'widgets/*/gadget.txt' -PassThru) | Should -HaveCount 2
+    }
+
+    It 'throws when -Target matches the pattern but names no rendered file' {
+        { Build-RootConfig -Target 'widgets/gamma/gadget.txt' } | Should -Throw "*renders no file 'widgets/gamma/gadget.txt'*"
     }
 }
 

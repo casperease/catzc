@@ -52,12 +52,15 @@ reliable than a comment because it executes.
 ### Rule ADR-AUTO-FAILFAST:7
 
 Bound every wait. Every external call and every unbounded piece of work runs inside a time safeguard, so a hang fails fast with a message
-naming the limit instead of waiting forever. The limits live in one config (`timeouts.yml`, owned by `Catzc.Base.Timeouts`): a deliberately
-tight `default_seconds` plus per-executable entries, with no "no limit" value. `Invoke-Executable` kills a child process tree at its
-executable's limit; `Invoke-WithTimeout` / `Assert-CompletesWithin` stop a script block at its limit. The same default caps every shell call
-an agent makes — a foreground Bash call passes a timeout within it or runs in the background, and a hook denies one that does neither.
+naming the limit instead of waiting forever. The limits live in one config (`timeouts.yml`, owned by `Catzc.Base.Timeouts`), keyed by run
+environment (devbox | pipeline) and shell (bash | pwsh), with sensible defaults declared on its config type — deliberately tight on a devbox
+— plus per-executable entries, and no "no limit" value. `Invoke-Executable` kills a child process tree at its executable's limit;
+`Invoke-WithTimeout` / `Assert-CompletesWithin` / `Test-CompletesWithin` stop a script block at its limit. The bash limits bound every shell
+call an agent makes, foreground and background, and a hook denies a call outside them. Work that legitimately runs longer while it is tuned
+carries an immutable budget GUID and is exempted in `timeout-exemptions.yml`, which raises its limit to a ceiling but never lifts it.
 
 - [A hang is the slowest failure](#a-hang-is-the-slowest-failure)
+- [Bounding an agent's shell calls](#bounding-an-agents-shell-calls)
 
 ## Context
 
@@ -145,6 +148,31 @@ The limits are tuned, not guessed per call site. They sit in one config with a d
 longer shows up as a blocker to tune — a per-executable entry, or a move to the background — rather than a limit raised quietly in code.
 There is no "no limit" value, because an unbounded wait is exactly the failure the limit exists to remove.
 
+Two axes decide a limit, and both are read from the session rather than passed in. The run environment (devbox or pipeline,
+`Get-RunEnvironment`) sets how tight it is: a devbox has a person to tune with, a pipeline has nobody watching and longer ordinary builds.
+The shell (bash or pwsh) sets what it bounds: pwsh code bounds its own script blocks and processes, and the agent hook bounds bash calls. A
+caller can pin the environment with an `-EnvironmentAssertIs` guard, which verifies and never selects.
+
+An exemption is for work that is known to be slow while it is fixed. It names the work by an immutable budget GUID — registered in the
+managed-GUID registry ([ADR-AUTO-GUIDS](managed-guids.md)), one at a time or as an inclusive range of a minted family — and carries the
+reason. It raises the budget's limit to a ceiling and never removes it, and a gate that must not run exempt says so with
+`Assert-IsNotTimeoutExempt`.
+
+### Bounding an agent's shell calls
+
+A coding agent's shell call is the same wait with a different caller, so the hook (`.claude/hooks/Assert-BashTimeout/`) applies the same
+bash limits to it. A foreground call passes a `timeout` within the foreground limit. A background call is different: the Bash tool does not
+apply its `timeout` parameter to it, so it must start with a GNU `timeout <duration>` within the background limit, around a single command —
+a compound command would leave everything after its first command unbounded. Exit 124 means the safeguard stopped it.
+
+The hook denies and never rewrites. A hook that rewrites a command must also approve it, and an approval skips the permission prompt, while
+a command wrapped in `bash -c` no longer matches the deny rules written for it. Denial leaves every other safeguard in force. Who asked
+changes only what the denial says: the main session raises the blocker with the user, a subagent reports it to its coordinator, and a
+pipeline fixes the call or its limit. Each denial is also appended to `out/time-safeguard.log`, the list of blockers to tune.
+
+The hook compiles the module's own config and verdict types (`TimeoutsConfig`, `BashSafeguard`), so its limits and decisions are the ones
+`Get-TimeoutSeconds` resolves and the L0 tests check; an integrity test runs the published hook against the shipped config to prove it.
+
 ## Decision
 
 Use inline assertions pervasively throughout all automation code. Every assumption about inputs, state, and external results must be
@@ -154,7 +182,8 @@ asserted at the point where the assumption is made, and every wait is bounded by
 
 - Errors surface immediately at the point of failure with a clear message naming the exact assumption that was violated.
 - A hang becomes a failure at a known limit instead of an indefinite wait; a limit too tight for real work surfaces as a blocker to tune in
-  `timeouts.yml`.
+  `timeouts.yml`, or an exemption with a reason in `timeout-exemptions.yml`.
+- An agent cannot start a shell call that has no limit, in the foreground or the background; a denied call says how to re-issue it.
 - Stack traces are short — typically one or two frames — because the assertion fires before the bad value propagates.
 - Debugging is rarely needed. The error message from the assertion usually contains everything needed to diagnose the problem.
 - Code is self-documenting: reading the assertions tells you the function's preconditions, postconditions, and invariants.

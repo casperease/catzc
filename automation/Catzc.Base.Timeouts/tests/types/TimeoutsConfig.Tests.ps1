@@ -17,7 +17,7 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
         It 'resolves the sensible defaults for every environment and shell from an empty config' {
             $config = New-TimeoutsConfig ([ordered]@{})
             $config.SecondsFor('Devbox', 'Bash', $false) | Should -Be 10
-            $config.SecondsFor('Devbox', 'Bash', $true) | Should -Be 1800
+            $config.SecondsFor('Devbox', 'Bash', $true) | Should -Be 360
             $config.SecondsFor('Devbox', 'Pwsh', $false) | Should -Be 10
             $config.SecondsFor('Pipeline', 'Bash', $false) | Should -Be 600
             $config.SecondsFor('Pipeline', 'Bash', $true) | Should -Be 3600
@@ -32,7 +32,7 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
         It 'overrides one cell and keeps the defaults of the others' {
             $config = New-TimeoutsConfig ([ordered]@{ limits = @{ devbox = @{ bash = @{ foreground = 15 } } } })
             $config.SecondsFor('Devbox', 'Bash', $false) | Should -Be 15
-            $config.SecondsFor('Devbox', 'Bash', $true) | Should -Be 1800
+            $config.SecondsFor('Devbox', 'Bash', $true) | Should -Be 360
             $config.SecondsFor('Devbox', 'Pwsh', $false) | Should -Be 10
             $config.SecondsFor('Pipeline', 'Bash', $false) | Should -Be 600
         }
@@ -40,7 +40,7 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
         It 'exposes the resolved limits, defaults filled in' {
             $config = New-TimeoutsConfig ([ordered]@{ limits = @{ pipeline = @{ pwsh = 900 } } })
             $config.limits.pipeline.pwsh | Should -Be 900
-            $config.limits.devbox.bash.background | Should -Be 1800
+            $config.limits.devbox.bash.background | Should -Be 360
         }
 
         It 'throws on a background limit for pwsh' {

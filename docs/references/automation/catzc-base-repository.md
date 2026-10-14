@@ -28,7 +28,9 @@ anchors, so no function anywhere in the platform depends on the current working 
 
 Whether the code is executing inside a CI pipeline. This responsibility answers that one question — and it is the only sanctioned place the
 question is answered (see [pipeline-detection](../../adr/flow/pipeline-detection.md)). Callers branch on its result to suppress interactive
-prompts, skip steps that require a human, or adjust output verbosity; they never probe CI environment variables directly.
+prompts, skip steps that require a human, or adjust output verbosity; they never probe CI environment variables directly. The same answer,
+named as a run environment (Pipeline or Devbox) that an `-EnvironmentAssertIs` guard can pin, keys environment-dependent settings such as
+the time-safeguard limits.
 
 ## What the module does
 
@@ -59,3 +61,4 @@ The module's public functions, sorted into the responsibilities above.
 |                                                       | `ConvertTo-RepoRelativePath` |
 |                                                       | `Get-OutputRoot`             |
 | responsibility:2 — Pipeline context detection         | `Test-IsRunningInPipeline`   |
+|                                                       | `Get-RunEnvironment`         |

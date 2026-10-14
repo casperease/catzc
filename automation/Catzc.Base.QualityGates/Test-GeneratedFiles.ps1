@@ -19,7 +19,8 @@
       Build-RootConfig             every opted-in managed root file (rootconfig.yml); a file rendered by a
                                    generator is attributed to that generator — New-Importer, New-GitIgnore,
                                    New-VSCodeSettings, New-VSCodeExtensions, New-VSCodeLaunch,
-                                   New-VSCodePipelineSchema
+                                   New-VSCodePipelineSchema, New-GoWorkspace (one issue per stale file of a
+                                   multi-file generator, e.g. each go/tests/<folder>/go.mod)
 
     Collects every stale file and ends with Write-QualityGateReport: the report lands in
     out/test-generated-files/, and the gate throws once listing every issue (or returns the result with -PassThru).
@@ -44,7 +45,7 @@ function Test-GeneratedFiles {
     param(
         [ValidateSet('Build-AdrIndex', 'Build-Glossary', 'Build-Readme', 'Build-GitKeep', 'Build-TerminologyDictionary',
             'Build-EnglishDictionary', 'Build-RootConfig', 'New-Importer', 'New-GitIgnore', 'New-VSCodeSettings',
-            'New-VSCodeExtensions', 'New-VSCodeLaunch', 'New-VSCodePipelineSchema')]
+            'New-VSCodeExtensions', 'New-VSCodeLaunch', 'New-VSCodePipelineSchema', 'New-GoWorkspace')]
         [string[]] $Generator,
 
         [string] $OutputFolder,
@@ -54,7 +55,7 @@ function Test-GeneratedFiles {
 
     Assert-SourceTree
 
-    $rootConfigGenerators = @('New-Importer', 'New-GitIgnore', 'New-VSCodeSettings', 'New-VSCodeExtensions', 'New-VSCodeLaunch', 'New-VSCodePipelineSchema')
+    $rootConfigGenerators = @('New-Importer', 'New-GitIgnore', 'New-VSCodeSettings', 'New-VSCodeExtensions', 'New-VSCodeLaunch', 'New-VSCodePipelineSchema', 'New-GoWorkspace')
     # @() around the whole if: a one-generator selection must stay an array (.Count under strict mode).
     $selected = @(if ($Generator) {
             $Generator

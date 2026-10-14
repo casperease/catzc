@@ -1,3 +1,4 @@
+# cspell:ignore tmain tforeground tbackground tsleep nsleep tsubagent tpipeline  -- "`t"/"`n" escape artifacts in the tab-separated log lines
 Describe 'BashSafeguard' -Tag 'L0', 'logic' {
     BeforeAll {
         # Tight fixture limits, so every verdict is visible: devbox 7 s / 70 s, pipeline 60 s / 600 s.
@@ -82,7 +83,7 @@ Describe 'BashSafeguard' -Tag 'L0', 'logic' {
 
         It 'ignores the tool timeout parameter, which the Bash tool does not apply in the background' {
             $verdict = Get-Verdict @{ command = 'sleep 30'; timeout = 5000; run_in_background = $true }
-            $verdict.Reason | Should -BeLike '*no `timeout <duration>` prefix*'
+            $verdict.Reason | Should -BeLike '*has no*timeout <duration>*prefix*'
             $verdict.LogLine | Should -BeLike "*`tbackground`tno timeout prefix`t70 s`tsleep 30"
         }
 
@@ -105,14 +106,14 @@ Describe 'BashSafeguard' -Tag 'L0', 'logic' {
             (Get-Verdict @{ command = $command; run_in_background = $true }).Reason | Should -BeLike '*compound command*'
         }
 
-        It 'denies a prefix that is not a coreutils timeout: <command>' -ForEach @(
+        It 'denies a prefix that is not a GNU timeout: <command>' -ForEach @(
             @{ command = 'sleep 30' }
             @{ command = 'timeout' }
             @{ command = 'timeout 70' }
             @{ command = 'timeout ten sleep 1' }
             @{ command = 'timeouts 70 sleep 1' }
         ) {
-            (Get-Verdict @{ command = $command; run_in_background = $true }).Reason | Should -BeLike '*no `timeout <duration>` prefix*'
+            (Get-Verdict @{ command = $command; run_in_background = $true }).Reason | Should -BeLike '*has no*timeout <duration>*prefix*'
         }
 
         It 'uses the pipeline background limit in a pipeline' {

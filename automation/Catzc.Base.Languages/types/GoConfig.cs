@@ -1,13 +1,18 @@
 // The Go test-workspace settings (configs/go.yml), and the single declaration of their sensible defaults: every
 // key is optional, and an omitted key behaves exactly like its default, so no function restates a value
 // ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). New-GoWorkspace renders
-// the root go.work and each go/tests/<folder>/go.mod from it. Registered in Catzc.Base.Config/configs/configs.yml
-// (type: Catzc.Base.Languages.GoConfig), so Get-Config -Config go returns this typed record. Property names mirror
-// the YAML keys (snake_case, [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+// the repository-root go.work and each <root>/tests/<folder>/go.mod from it, and Invoke-GoTest runs the tests in
+// <root>/tests/<folder>/. Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Languages.GoConfig),
+// so Get-Config -Config go returns this typed record. Property names mirror the YAML keys (snake_case,
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)). The go directive is not
+// a setting here: it is the go tool's pin in tools.yml, the one Go version.
 //
 // Constructing an instance validates the file, collecting every violation into one ArgumentException:
-//   - only the known keys ('go_version', 'module_root', 'dependencies') — an unknown key (a typo) fails at load;
-//   - 'go_version' is a Go language version for the go directive: 1.N or 1.N.P (default 1.24);
+//   - only the known keys ('root', 'module_root', 'dependencies') — an unknown key (a typo) fails at load;
+//   - 'root' is the Go root folder, repository-relative: slash-separated segments of letters, digits, '.', '_' and
+//     '-', no leading or trailing slash, no '.' or '..' segment. Omitted, it resolves per repository (ResolveRoot):
+//     'go' when the repository has a go/ folder (a Go root track), else '.go', the dot-prefixed tooling folder
+//     ([ADR-REPO-FOLDERS#4](/docs/adr/repository/conventional-folders.md));
 //   - 'module_root' is the module-path prefix: lowercase slash-separated segments, no leading or trailing slash
 //     (default catzc/go/tests);
 //   - 'dependencies' maps a module path (with a dot in its first segment) to a semantic version vX.Y.Z; empty by
@@ -17,26 +22,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Languages;
 
 public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    public const string DefaultGoVersion = "1.24";
+    // The Go root when the repository has this folder: a Go root track.
+    public const string DefaultRoot = "go";
+
+    // The Go root otherwise: the dot-prefixed tooling folder.
+    public const string FallbackRoot = ".go";
+
     public const string DefaultModuleRoot = "catzc/go/tests";
 
     private const string Failed = "go config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "go_version", "module_root", "dependencies" };
-    private static readonly Regex GoVersion = new Regex(@"^1\.(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*))?$");
+    private static readonly string[] AllowedKeys = { "root", "module_root", "dependencies" };
+    private static readonly Regex Root = new Regex(@"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
     private static readonly Regex ModuleRoot = new Regex(@"^[a-z0-9][a-z0-9._-]*(/[a-z0-9][a-z0-9._-]*)*$");
     private static readonly Regex DependencyPath = new Regex(@"^[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+(/[A-Za-z0-9._~-]+)*$");
     private static readonly Regex DependencyVersion = new Regex(@"^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\+incompatible)?$");
 
-    // The go directive written into go.work and every go.mod.
-    public string go_version { get; }
+    // The declared Go root folder, repository-relative ('/'-separated). Null when the file declares none; ResolveRoot
+    // then applies the default.
+    public string root { get; }
 
-    // The module-path prefix: a folder go/tests/<folder>/ is the Go module <module_root>/<folder>.
+    // The module-path prefix: a folder <root>/tests/<folder>/ is the Go module <module_root>/<folder>.
     public string module_root { get; }
 
     // The test dependencies every go.mod requires, module path -> version, in ordinal path order. Empty when the
@@ -46,7 +58,6 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
     public GoConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
-        go_version = DefaultGoVersion;
         module_root = DefaultModuleRoot;
         SortedDictionary<string, string> requires = new SortedDictionary<string, string>(StringComparer.Ordinal);
 
@@ -61,14 +72,15 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
                 }
             }
 
-            if (raw.Contains("go_version") && raw["go_version"] != null)
+            if (raw.Contains("root") && raw["root"] != null)
             {
-                string value = Convert.ToString(raw["go_version"], CultureInfo.InvariantCulture);
-                if (raw["go_version"] is string && GoVersion.IsMatch(value)) { go_version = value; }
+                string value = Convert.ToString(raw["root"], CultureInfo.InvariantCulture);
+                bool dotSegment = Array.Exists(value.Split('/'), s => s == "." || s == "..");
+                if (raw["root"] is string && Root.IsMatch(value) && !dotSegment) { root = value; }
                 else
                 {
                     errors.Add(string.Format(CultureInfo.InvariantCulture,
-                        "invalid go_version '{0}' (a quoted Go language version: 1.N or 1.N.P, e.g. '1.24')", value));
+                        "invalid root '{0}' (a repository-relative folder: '/'-separated segments, no leading or trailing slash, no '.' or '..' segment, e.g. 'go')", value));
                 }
             }
 
@@ -117,5 +129,17 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
 
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
         dependencies = requires;
+    }
+
+    // The Go root folder for a repository, repository-relative: the declared root, else 'go' when the repository has
+    // a go/ folder, else '.go'.
+    public string ResolveRoot(string repositoryRoot)
+    {
+        if (root != null) { return root; }
+        if (string.IsNullOrWhiteSpace(repositoryRoot))
+        {
+            throw new ArgumentException("GoConfig.ResolveRoot requires the repository root");
+        }
+        return Directory.Exists(Path.Combine(repositoryRoot, DefaultRoot)) ? DefaultRoot : FallbackRoot;
     }
 }

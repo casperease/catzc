@@ -46,4 +46,35 @@ Describe 'Get-TimeoutSeconds' -Tag 'L0', 'logic' {
     It 'throws on a pwsh background limit' {
         { Get-TimeoutSeconds -Shell Pwsh -Background } | Should -Throw '*pwsh has no background limit*'
     }
+
+    Context '-Budget' {
+        BeforeAll {
+            # Fixture GUIDs are built at runtime (not literals), so they need no managed-GUID registry entry.
+            $script:widgetBudget = 'a1d6e700-0000-0000-0000-' + '000000000000'
+            $script:gadgetBudget = 'ba000500-0000-0000-0000-' + '000000000000'
+        }
+
+        BeforeEach {
+            Mock Get-Config -ModuleName Catzc.Base.Timeouts -ParameterFilter { $Config -eq 'timeout-exemptions' } {
+                [Catzc.Base.Timeouts.TimeoutExemptionsConfig]::new([ordered]@{ ceiling = @{ devbox = @{ pwsh = 300; bash = 50 } } })
+            }
+        }
+
+        It 'raises an exempt budget to the exemption ceiling' {
+            Mock Get-TimeoutExemption -ModuleName Catzc.Base.Timeouts { @{ reason = 'tuning' } }
+            Get-TimeoutSeconds -Budget $widgetBudget | Should -Be 300
+        }
+
+        It 'keeps the normal limit for a budget that is not exempt, or no budget' {
+            Mock Get-TimeoutExemption -ModuleName Catzc.Base.Timeouts { }
+            Get-TimeoutSeconds -Budget $gadgetBudget | Should -Be 8
+            Get-TimeoutSeconds -Budget '' | Should -Be 8
+            Should -Invoke Get-TimeoutExemption -ModuleName Catzc.Base.Timeouts -Times 1 -Exactly
+        }
+
+        It 'never lowers a limit that is already above the ceiling' {
+            Mock Get-TimeoutExemption -ModuleName Catzc.Base.Timeouts { @{ reason = 'tuning' } }
+            Get-TimeoutSeconds -Shell Bash -Background -Budget $widgetBudget | Should -Be 70
+        }
+    }
 }

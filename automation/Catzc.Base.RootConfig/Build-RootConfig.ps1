@@ -12,6 +12,10 @@
     gitignored (committed false) or tracked (committed true) changes nothing here — content is produced the
     same way; `committed` only governs git membership, asserted by the integrity test.
 
+    A generator renders either one file (the entry's target) or, for a wildcard target such as
+    go/tests/*/go.mod, one { Target; Content } record per file (Get-RootConfigRenderedFile): each file is
+    written on its own and reported in its own result row, under its own path.
+
     Idempotent and fast by construction, so the importer runs it on every load (see importer.ps1): the write
     goes through Write-FileIfChanged (canonical UTF-8/LF output, EOL-insensitive compare, write-on-change), so
     a clean tree is a true no-op. See [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
@@ -21,8 +25,10 @@
     no-op that reports why and returns nothing — a skip, not a throw, because the importer's janitor tail calls
     it on every load and a janitor never breaks the load.
 .PARAMETER Target
-    Materialise only the entry whose target equals this repo-relative path (e.g. 'PSScriptAnalyzerSettings.psd1').
-    Throws when it matches no opted-in entry. Default: every opted-in entry.
+    Materialise only this repo-relative path: the entry whose target equals it (e.g.
+    'PSScriptAnalyzerSettings.psd1', or a wildcard entry's own pattern for all its files), or the one file of a
+    wildcard entry it matches (e.g. 'go/tests/widget/go.mod'). Throws when it selects no opted-in entry, or no file
+    of the wildcard entry it matches. Default: every opted-in entry.
 .PARAMETER DryRun
     Report what would change without writing any file. The composed content is the same either way; -DryRun
     only skips the write. See [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
@@ -32,7 +38,7 @@
     does not chatter during import).
 .PARAMETER PassThru
     Return one result object per managed file ({ Target, Source, Generator, Committed, Path, Changed, DryRun })
-    instead of the paths.
+    instead of the paths. A wildcard entry reports one object per rendered file, each with that file's Target.
 .OUTPUTS
     [string[]] The paths to the managed files (with -PassThru, one result object per file instead).
 .EXAMPLE
@@ -70,7 +76,12 @@ function Build-RootConfig {
 
     $entries = @(Get-RootConfigTargets -Config $config)
     if ($Target) {
-        $entries = @($entries | Where-Object { $_.target -eq $Target })
+        # An entry is selected by its own target, or — for a wildcard entry — by one path its pattern matches.
+        $entries = @($entries | Where-Object {
+                $_.target -eq $Target -or (
+                    [System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($_.target) -and
+                    $Target -clike $_.target)
+            })
         if ($entries.Count -eq 0) {
             throw "No opted-in root-config entry targets '$Target'. See configs/rootconfig.yml."
         }
@@ -80,97 +91,111 @@ function Build-RootConfig {
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 
     $ret = foreach ($entry in $entries) {
-        $targetPath = Resolve-RepoPath $entry.target
-
         if ($entry.copyAsLink) {
             # A link entry skips content composition entirely: the target IS the source, verified or
             # (re)created as a filesystem link by the one mechanism owner (Set-FileLink, Catzc.Base.Files).
             $sourcePath = Resolve-RepoPath $entry.source
-            $changed = Set-FileLink -Path $targetPath -Target $sourcePath -DryRun:$DryRun
-            $from = "$($entry.source) (link)"
+            $files = @([pscustomobject]@{ Target = $entry.target; Content = $null; From = "$($entry.source) (link)" })
+        }
+        elseif ($entry.source) {
+            # Content from an authored source file, with the generated-file header.
+            $sourcePath = Resolve-RepoPath $entry.source
+            Assert-PathExist $sourcePath
+
+            # Normalize the source to LF so composition is line-ending agnostic (the write itself canonicalises).
+            $content = [System.IO.File]::ReadAllText($sourcePath) -replace "`r`n", "`n" -replace "`r", "`n"
+            if ($entry.comment -eq 'hash') {
+                $header = @(
+                    '# GENERATED FILE — do not edit. Single source of truth:'
+                    "#   $($entry.source)"
+                    '# Regenerated on import by Build-RootConfig; edit the source, not this copy.'
+                    ''
+                ) -join "`n"
+                $content = $header + $content
+            }
+            $files = @([pscustomobject]@{ Target = $entry.target; Content = $content; From = $entry.source })
         }
         else {
-            # Content from the one source of truth: an authored source file (with the generated-file header)
-            # or a generator's rendered output (which owns its whole content, header included).
-            if ($entry.source) {
-                $sourcePath = Resolve-RepoPath $entry.source
-                Assert-PathExist $sourcePath
+            # A generator's rendered output (which owns its whole content, header included): one file, or one
+            # record per file of a wildcard target.
+            $files = @(foreach ($file in @(Get-RootConfigRenderedFile -Entry $entry)) {
+                    [pscustomobject]@{ Target = $file.Target; Content = $file.Content; From = "$($entry.generator) (generator)" }
+                })
+        }
 
-                # Normalize the source to LF so composition is line-ending agnostic (the write itself canonicalises).
-                $content = [System.IO.File]::ReadAllText($sourcePath) -replace "`r`n", "`n" -replace "`r", "`n"
-                if ($entry.comment -eq 'hash') {
-                    $header = @(
-                        '# GENERATED FILE — do not edit. Single source of truth:'
-                        "#   $($entry.source)"
-                        '# Regenerated on import by Build-RootConfig; edit the source, not this copy.'
-                        ''
-                    ) -join "`n"
-                    $content = $header + $content
-                }
-                $from = $entry.source
-            }
-            else {
-                $content = Invoke-RootConfigGenerator -Name $entry.generator
-                $from = "$($entry.generator) (generator)"
-            }
-
-            # A target that is currently a LINK is stale regardless of content equality: a comment:none entry
-            # flipped back from copyAsLink composes bytes identical to its source, which the compare would read
-            # through the link and call current — leaving the link in place while the registry says copy.
-            $item = Get-Item -LiteralPath $targetPath -Force -ErrorAction Ignore
-            $targetIsLink = [bool] ($item -and $item.LinkType)
-            if ($targetIsLink -and -not $DryRun) {
-                [System.IO.File]::Delete($targetPath)
-            }
-
-            # Canonicalise, EOL-insensitively compare, and write-on-change via the one shared primitive
-            # (Write-FileIfChanged, Catzc.Base.Files).
-            $changed = Write-FileIfChanged -Path $targetPath -Content $content -DryRun:$DryRun
-            if ($targetIsLink) {
-                $changed = $true
+        # -Target naming one file of a wildcard entry writes only that file.
+        if ($Target -and $Target -ne $entry.target) {
+            $files = @($files | Where-Object { $_.Target -eq $Target })
+            if ($files.Count -eq 0) {
+                throw "Root-config entry '$($entry.target)' renders no file '$Target'. See configs/rootconfig.yml."
             }
         }
 
-        if (-not $Silent) {
-            $verb = if ($entry.copyAsLink) {
-                if ($changed -and $DryRun) {
-                    'would link'
-                }
-                elseif ($changed) {
-                    'linked'
-                }
-                else {
-                    'link current'
-                }
-            }
-            elseif ($DryRun) {
-                if ($changed) {
-                    'would regenerate'
-                }
-                else {
-                    'already current'
-                }
+        foreach ($file in $files) {
+            $targetPath = Resolve-RepoPath $file.Target
+
+            if ($entry.copyAsLink) {
+                $changed = Set-FileLink -Path $targetPath -Target $sourcePath -DryRun:$DryRun
             }
             else {
-                if ($changed) {
-                    'regenerated'
+                # A target that is currently a LINK is stale regardless of content equality: a comment:none entry
+                # flipped back from copyAsLink composes bytes identical to its source, which the compare would read
+                # through the link and call current — leaving the link in place while the registry says copy.
+                $item = Get-Item -LiteralPath $targetPath -Force -ErrorAction Ignore
+                $targetIsLink = [bool] ($item -and $item.LinkType)
+                if ($targetIsLink -and -not $DryRun) {
+                    [System.IO.File]::Delete($targetPath)
                 }
-                else {
-                    'unchanged'
+
+                # Canonicalise, EOL-insensitively compare, and write-on-change via the one shared primitive
+                # (Write-FileIfChanged, Catzc.Base.Files).
+                $changed = Write-FileIfChanged -Path $targetPath -Content $file.Content -DryRun:$DryRun
+                if ($targetIsLink) {
+                    $changed = $true
                 }
             }
-            Write-Message "$($entry.target) $verb — from $from" -Verbose:$emitVerbose
-        }
 
-        [pscustomobject]@{
-            Target     = $entry.target
-            Source     = $entry.source
-            Generator  = $entry.generator
-            Committed  = [bool] $entry.committed
-            CopyAsLink = [bool] $entry.copyAsLink
-            Path       = $targetPath
-            Changed    = [bool] $changed
-            DryRun     = [bool] $DryRun
+            if (-not $Silent) {
+                $verb = if ($entry.copyAsLink) {
+                    if ($changed -and $DryRun) {
+                        'would link'
+                    }
+                    elseif ($changed) {
+                        'linked'
+                    }
+                    else {
+                        'link current'
+                    }
+                }
+                elseif ($DryRun) {
+                    if ($changed) {
+                        'would regenerate'
+                    }
+                    else {
+                        'already current'
+                    }
+                }
+                else {
+                    if ($changed) {
+                        'regenerated'
+                    }
+                    else {
+                        'unchanged'
+                    }
+                }
+                Write-Message "$($file.Target) $verb — from $($file.From)" -Verbose:$emitVerbose
+            }
+
+            [pscustomobject]@{
+                Target     = $file.Target
+                Source     = $entry.source
+                Generator  = $entry.generator
+                Committed  = [bool] $entry.committed
+                CopyAsLink = [bool] $entry.copyAsLink
+                Path       = $targetPath
+                Changed    = [bool] $changed
+                DryRun     = [bool] $DryRun
+            }
         }
     }
     $ret = @($ret)

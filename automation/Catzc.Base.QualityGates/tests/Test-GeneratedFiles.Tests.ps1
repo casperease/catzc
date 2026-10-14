@@ -46,7 +46,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $result.Subject | Should -Be 'generated-files'
         $result.IssueCount | Should -Be 1
         $result.Issues[0] | Should -Be 'widget/README.md: stale — Build-Readme would change it; regenerate with: Build-Readme'
-        $result.Generators | Should -Be 13
+        $result.Generators | Should -Be 14
     }
 
     It 'attributes a rendered root file to its generator and a copied one to Build-RootConfig' {
@@ -71,6 +71,22 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $result.Generators | Should -Be 1
         Should -Invoke Build-AdrIndex -ModuleName Catzc.Base.QualityGates -Times 0
         Should -Invoke Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates -Times 0
+    }
+
+    It 'selects New-GoWorkspace by name and reports each stale file of a multi-file generator on its own' {
+        Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Target = 'go.work'; Source = $null; Generator = 'New-GoWorkspace'; Changed = $false; DryRun = $true }
+            [pscustomobject]@{ Target = 'go/tests/widget/go.mod'; Source = $null; Generator = 'New-GoWorkspace'; Changed = $true; DryRun = $true }
+            [pscustomobject]@{ Target = 'go/tests/gadget/go.mod'; Source = $null; Generator = 'New-GoWorkspace'; Changed = $true; DryRun = $true }
+            [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VSCodeSettings'; Changed = $true; DryRun = $true }
+        }
+
+        $result = Test-GeneratedFiles -Generator New-GoWorkspace -PassThru -OutputFolder $script:reportFolder
+        $result.Issues | Should -Be @(
+            "go/tests/widget/go.mod: stale — New-GoWorkspace would change it; regenerate with: Build-RootConfig 'go/tests/widget/go.mod'"
+            "go/tests/gadget/go.mod: stale — New-GoWorkspace would change it; regenerate with: Build-RootConfig 'go/tests/gadget/go.mod'"
+        )
+        $result.Generators | Should -Be 1
     }
 
     It 'reports each English dictionary drift reason against the tools.yml cspell pin' {

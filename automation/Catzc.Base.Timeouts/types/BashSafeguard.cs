@@ -5,7 +5,7 @@
 //
 // Every Bash call runs inside a limit from TimeoutsConfig for the run environment (devbox | pipeline):
 //   - a foreground call passes `timeout` (ms) no larger than limits.<env>.bash.foreground;
-//   - a background call — whose `timeout` the Bash tool ignores — starts with a coreutils `timeout <duration>`
+//   - a background call — whose `timeout` the Bash tool ignores — starts with a GNU `timeout <duration>`
 //     no longer than limits.<env>.bash.background, around a single command. A compound command (&&, ||, ;, |, &,
 //     newline) would leave the commands after the first unbounded, so it is denied: put longer work in a script.
 // A call that breaks this is denied. The hook never rewrites a command: a hook "allow" skips the permission prompt
@@ -24,7 +24,7 @@ public static class BashSafeguard
 {
     public const string ConfigRelativePath = "automation/Catzc.Base.Timeouts/configs/timeouts.yml";
 
-    private static readonly Regex Duration = new Regex(@"^(\d+(?:\.\d+)?)([smhd]?)$", RegexOptions.CultureInvariant);
+    private static readonly Regex Duration = new Regex(@"^(\d+(?:\.\d+)?)(s|m|h|d)?$", RegexOptions.CultureInvariant);
 
     // The run environment, by the same test as Test-IsRunningInPipeline: either variable set to any non-empty
     // value means a pipeline.
@@ -138,7 +138,7 @@ public static class BashSafeguard
         });
     }
 
-    // Parses a leading coreutils `timeout [options] <duration> <rest>`: options -k/--kill-after, -s/--signal,
+    // Parses a leading GNU `timeout [options] <duration> <rest>`: options -k/--kill-after, -s/--signal,
     // --preserve-status, --foreground, -v/--verbose; a duration in seconds with an optional s|m|h|d suffix.
     public static bool TryParseTimeoutPrefix(string command, out double? seconds, out string rest)
     {

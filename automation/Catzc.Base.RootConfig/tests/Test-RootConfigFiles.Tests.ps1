@@ -53,6 +53,19 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
         $message | Should -Match 'cog.json: a link, but must be a real, independent file'
     }
 
+    It 'checks a wildcard entry per file its generator renders' {
+        Mock Get-RootConfigRenderedFile -ModuleName Catzc.Base.RootConfig {
+            [pscustomobject]@{ Target = 'widgets/alpha/gadget.txt'; Content = "alpha`n" }
+            [pscustomobject]@{ Target = 'widgets/beta/gadget.txt'; Content = "beta`n" }
+        }
+        $script:entries += [pscustomobject]@{ target = 'widgets/*/gadget.txt'; source = $null; generator = 'New-Widget'; committed = $false; copyAsLink = $false }
+        $script:ignored = @('widget.json', 'widgets/alpha/gadget.txt')
+        $result = Test-RootConfigFiles -OutputFolder $out -PassThru
+        $result.Files | Should -Be 4
+        $result.Issues | Should -Be @('widgets/beta/gadget.txt: committed:false but no .gitignore rule ignores it')
+        Should -Invoke Get-RootConfigRenderedFile -ModuleName Catzc.Base.RootConfig -Times 1 -Exactly
+    }
+
     It 'throws on a git failure rather than reporting every target unignored' {
         Mock Invoke-Executable -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Command -match ' check-ignore ' } {
             [pscustomobject]@{ Output = ''; Errors = 'fatal: not a git repository'; ExitCode = 128 }
