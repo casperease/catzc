@@ -86,13 +86,14 @@ in one session, and are proven in both by running the same tests.
 | source | `<RepositoryRoot>/automation`     | `importer.ps1`                                               | a folder of one-function `.ps1` files     |
 | build  | one of the four build roots below | `Import-Catzc.ps1`, `Import-Module Catzc`, `build-catzc.ps1` | a generated `.psd1` and one merged `.ps1` |
 
-Both entry scripts at the repository root are dot-sourced and run in the caller's scope. `importer.ps1` loads source mode. `build-catzc.ps1`
-builds the selected modules in a child `pwsh` — building needs source mode loaded, and doing it in a child process keeps the caller's
-session and its loaded assemblies out of it — and then dot-sources the build's `Import-Catzc.ps1` in the caller's session with
-`-RepositoryRoot` set to the repository, so `out/` and repo-relative paths keep resolving there while the code root moves to the build. An
-installed build is entered the same way, through its own `Import-Catzc.ps1` or through `Import-Module Catzc`, whose root module dot-sources
-that file. Every entry point ends in the one living importer ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle3)), so
-the load sequence — preferences, vendored modules, types and accelerators, then modules — is the same in both modes.
+Both entry scripts at the repository root are dot-sourced and run in the caller's scope. `importer.ps1` loads the source mode.
+`build-catzc.ps1` builds the selected modules in a child `pwsh` — building needs the source mode loaded, and doing it in a child process
+keeps the caller's session and its loaded assemblies out of it — and then dot-sources the build's `Import-Catzc.ps1` in the caller's session
+with `-RepositoryRoot` set to the repository, so `out/` and repo-relative paths keep resolving there while the code root moves to the build.
+An installed build is entered the same way, through its own `Import-Catzc.ps1` or through `Import-Module Catzc`, whose root module
+dot-sources that file. Every entry point ends in the one living importer
+([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle3)), so the load sequence — preferences, vendored modules, types and
+accelerators, then modules — is the same in both modes.
 
 Both modes end with the same load banner (`Write-CatzcLoadBanner`): the mode and version as the session's identity line, then where the code
 was loaded from, the working root, the commit it was built from, and the loaded module and assembly set. It is read from what actually
@@ -136,11 +137,11 @@ source mode (`Assert-SourceTree`) and fail fast in a build rather than reading t
 
 `One scope per module, never shared`
 
-Merging every module into one flat scope would be the simplest build and the wrong one. Module scope is a contract: each module's `$script:`
-caches belong to it alone ([script-scope-caching](../automation/powershell/script-scope-caching.md)), and config validation, mocks, and
-module queries all name a module. So the package `Catzc` is a container, not a scope: inside it every source module is its own PowerShell
-module with its own session state, exactly as in source mode. Two modules that hold a `$script:` cache entry of the same name never see each
-other's value, in either mode, and a scope-isolation test proves it.
+Merging every module into one scope, flattened, would be the simplest build and the wrong one. Module scope is a contract: each module's
+`$script:` caches belong to it alone ([script-scope-caching](../automation/powershell/script-scope-caching.md)), and config validation,
+mocks, and module queries all name a module. So the package `Catzc` is a container, not a scope: inside it every source module is its own
+PowerShell module with its own session state, exactly as in source mode. Two modules that hold a `$script:` cache entry of the same name
+never see each other's value, in either mode, and a scope-isolation test proves it.
 
 ### Deriving the mode
 

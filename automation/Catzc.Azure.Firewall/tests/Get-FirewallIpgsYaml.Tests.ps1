@@ -42,7 +42,7 @@ Describe 'Get-FirewallIpgsYaml' -Tag 'L2', 'logic' {
         }
 
         It 'asserts the ip-group extension once, up front' {
-            # The single call happened in this Context's BeforeAll, so count at Context scope.
+            # The single call happened in this Context's BeforeAll, so count at the scope of the Context.
             Should -Invoke Assert-AzCliExtension -ModuleName Catzc.Azure.Firewall -Scope Context -Times 1 -Exactly
         }
 

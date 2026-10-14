@@ -2,11 +2,11 @@
 .SYNOPSIS
     Reads the given .gitattributes attributes for many repository paths at once.
 .DESCRIPTION
-    The one place the quality-gate scopes ask git which file classes .gitattributes declares (vendored, generated,
-    fixture, own title), so every scope reads the same classes the same way. Runs `git check-attr` in batches that keep
-    each command line short; a path need not be tracked. Only attributes git reports as set, unset, or a value are
-    returned — `unspecified` is left out. A root that is not a git work tree has no .gitattributes, so nothing is
-    returned for it.
+    The one place the scopes of the quality gates ask git which file classes .gitattributes declares (vendored,
+    generated, fixture, own title), so every scope reads the same classes the same way. Runs `git check-attr` in
+    batches that keep each command line short; a path need not be tracked. Only attributes git reports as set,
+    unset, or a value are returned — `unspecified` is left out. A root that is not a git work tree has no
+    .gitattributes, so nothing is returned for it.
 .PARAMETER RepositoryRoot
     The repository root the paths are relative to.
 .PARAMETER Path

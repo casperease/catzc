@@ -27,9 +27,9 @@ runbooks) — it cannot be diffed or reproduced and it drifts silently.
 
 ## Context
 
-Organizations commonly version-control their application source code while treating configuration, infrastructure definitions, pipeline
-definitions, and operational artifacts as second-class citizens — managed through UIs, wikis, shared drives, or tribal knowledge. This
-creates a class of assets that cannot be reproduced, compared, audited, or rolled back.
+Organizations commonly version-control the source code of their applications while treating configuration, infrastructure definitions,
+pipeline definitions, and operational artifacts as second-class citizens — managed through UIs, wikis, shared drives, or tribal knowledge.
+This creates a class of assets that cannot be reproduced, compared, audited, or rolled back.
 
 ## Principle
 

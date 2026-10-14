@@ -15,7 +15,7 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         $script:genTarget = Join-Path $script:fake.Root 'generated.txt'
 
         Mock Write-Message -ModuleName Catzc.Base.RootConfig { }
-        # The fake root is not the loaded code root, so the derived run mode reads 'build'; pin source mode.
+        # The fake root is not the loaded code root, so the derived run mode reads 'build'; pin the source mode.
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { "rendered output`n" }
         # The link mechanism is its own unit (Set-FileLink.Tests.ps1) — here it is a mocked boundary, so these
@@ -131,7 +131,7 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
 
 Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L1', 'integrity', 'source-only' {
     It 'resolves every opted-in entry without writing (sources exist, generators render)' {
-        # -DryRun composes every opted-in target's content — a missing source file or unknown generator throws.
+        # -DryRun composes every opted-in target's content — a source file that is missing, or an unknown generator, throws.
         $result = Build-RootConfig -DryRun -PassThru -Silent
         @($result).Count | Should -BeGreaterThan 0
     }

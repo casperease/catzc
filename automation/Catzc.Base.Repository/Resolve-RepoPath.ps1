@@ -14,7 +14,7 @@
       - Any other relative path resolves against Get-RepositoryRoot.
 
     Use this in PowerShell consumers (Import-Module, Test-Path, Get-Content, …) before touching a path
-    that came from a repo-relative or out/-anchored source. Code that hands the path to an external tool
+    that came from a source relative to the repo or anchored at out/. Code that hands the path to an external tool
     via Invoke-Executable does NOT need this for repo-relative paths — that runs from the repo root — but
     DOES need it for out/-anchored paths, whose root is not the repo root.
 .PARAMETER Path

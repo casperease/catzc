@@ -57,7 +57,7 @@ Confirming the session matches a subscription and/or tenant supplied as raw GUID
 ### responsibility:6 — Config-aware session verification
 
 Confirming the session matches the subscription _named_ in the identity model — it resolves that name to its GUIDs (through
-[Catzc.Azure](catzc-azure.md)) and then delegates to the by-args layer. This is the verification a deployment uses, because it checks
+[Catzc.Azure](catzc-azure.md)) and then delegates to the by-args check. This is the verification a deployment uses, because it checks
 against what configuration says is correct.
 
 ### responsibility:7 — Subscription access checks

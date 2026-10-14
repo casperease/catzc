@@ -94,7 +94,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 [ADR-FLOW-CD-GLOBS](durable-sha-globs.md)
 
 > DORA's research links version-controlled configuration and deterministic deployment triggering to faster, more reliable deployments.
-> Keeping area-of-control boundaries as one declarative source of truth — projected into native trigger filters and reflected from git
+> Keeping area-of-control boundaries as one source of truth, declarative — projected into native trigger filters and reflected from git
 > history rather than frozen into committed per-set hashes — reduces deployment drift, keeps the mainline continuously integrable (no
 > false-red from a stale marker), and makes CI trigger points reviewable as a first-class concern.
 

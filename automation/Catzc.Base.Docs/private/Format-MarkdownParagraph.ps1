@@ -45,7 +45,7 @@ function Format-MarkdownParagraph {
     $prefix = $FirstPrefix
     $line = ''
     foreach ($word in $words) {
-        # A code span or link may span source lines; it prints on one line with single spaces.
+        # A code span or link may run across source lines; it prints on one line with single spaces.
         $word = $word -replace '\s+', ' '
         $candidate = if ($line) {
             "$line $word"

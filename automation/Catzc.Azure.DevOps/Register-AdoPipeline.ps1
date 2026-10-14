@@ -13,7 +13,7 @@
     Repository-relative path to the YAML file (e.g. 'pipelines/ci-automation.yaml').
 .PARAMETER GitHubRepository
     Full GitHub repository URL (e.g. 'https://github.com/owner/repo').
-    When set, the pipeline sources from GitHub instead of Azure Repos Git.
+    When set, the pipeline takes its source from GitHub instead of Azure Repos Git.
     Requires a GitHub service connection in the ADO project.
 .PARAMETER ConnectionId
     ID of the GitHub service connection in ADO. Required when using -GitHubRepository.

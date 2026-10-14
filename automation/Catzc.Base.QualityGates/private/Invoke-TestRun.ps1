@@ -191,7 +191,8 @@ function Invoke-TestRun {
         # composite identity is unchanged since their last
         # green run this session are dropped from the work-list here in the orchestrator (workers never see
         # the map; in a pipeline the selection is a pass-through). The key carries the entry point and the run
-        # parameters, so an L0-L1 green never skips an L2 run and a green source run never skips the build run.
+        # parameters, so an L0-L1 green never skips an L2 run and a green run in the source mode never skips the
+        # build run.
         $protectionKey = "$entryPointKey|L$MinLevel-L$MaxLevel|$Category|$($Rule -join ',')"
         $protectionPlan = Select-ProtectedTestFile -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
             -SerialFiles @($serialFiles) -Discovery $discovery -ProtectionKey $protectionKey

@@ -62,7 +62,8 @@ function Select-TestRunFiles {
         [string] $EntryPoint
     )
 
-    $testFiles = @(Get-TestAutomationTestFiles -TestPath $TestPath)
+    # Get-TestAutomationTestFiles returns its files as ONE array object (`, $array`): cast it, never wrap it in @().
+    [string[]] $testFiles = Get-TestAutomationTestFiles -TestPath $TestPath
 
     if ($Rule.Count -gt 0) {
         $testFiles = @(Select-RuleTaggedFiles -TestFile $testFiles -Discovery $Discovery -Rule $Rule)

@@ -38,12 +38,12 @@ Speed comes from **bounded fan-out, fixed briefs and one shared tool**, not from
   hexagons, rhombi, text, dashed outlines, opacity fades, straight edges), embeds the model as a draw.io `mxfile` `tEXt` chunk
   (`quote → raw-deflate → base64` inside `<diagram>`, then `quote` the whole `mxfile`), and asserts the round-trip. draw.io re-renders from
   the XML when the file is opened. The headless draw.io CLI cannot rasterise here (see `write-drawio-files`).
-- [`.claude/drawio/STYLE.md`](../drawio/STYLE.md) is the **checked-in, living** style kit. It holds the verify-then-simplify standard,
-  the readability rules, the canvas, semantic cell ids, the structural palette, the **locked commit palette** for `commits-quality/`
-  (ADR-DSGN-VISUAL:4), verbatim style strings and the preview-tool caveats.
-- **Update the kit while the wave runs.** Whenever a maker's report or a user verdict teaches something (a rejected look, a recurring
-  doubt, a tool limit), fold it into `STYLE.md` at once, so the next maker launched gets it. Edit only the checked-in file; there is
-  no copy in `out/`.
+- [`.claude/drawio/STYLE.md`](../drawio/STYLE.md) is the **checked-in, living** style kit. It holds the verify-then-simplify standard, the
+  readability rules, the canvas, semantic cell ids, the structural palette, the **locked commit palette** for `commits-quality/`
+  (ADR-DSGN-VISUAL#4), verbatim style strings and the preview-tool caveats.
+- **Update the kit while the wave runs.** Whenever a maker's report or a user verdict teaches something (a rejected look, a recurring doubt,
+  a tool limit), fold it into `STYLE.md` at once, so the next maker launched gets it. Edit only the checked-in file; there is no copy in
+  `out/`.
 
 ## Maker brief (every maker gets exactly this shape)
 

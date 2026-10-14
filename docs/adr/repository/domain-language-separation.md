@@ -64,7 +64,7 @@ string literal that IS the token, not a substring or path segment (`'automation/
 are out of scope. The reverse boundary — a **fixture** identity in a shipped config **value** — is enforced the mirror way, by walking the
 parsed config's keys and values (comment-blind) rather than its raw text.
 
-- [Exact, conservative, phased](#exact-conservative-phased)
+- [Exact, conservative, staged](#exact-conservative-staged)
 
 ## Context
 
@@ -129,7 +129,7 @@ illustrating a general point. So docs admit live identities as a documented subj
 The tempting mechanism is a zone-scoped spelling dictionary — accept `acme` only under tests, `apex` only under configs. It does not work,
 because a spell-checker tokenizes text and cannot tell an illustration from a datum. Example vocabulary legitimately pervades every file
 type: a config carries a comment illustrating `[acme, globex]`, a pipeline carries a `'Contoso Ltd'` demo record, a function carries a
-`.EXAMPLE` help block naming a sample template. A file-glob scope that forbade those tokens outside their zone would fire on all of that
+`.EXAMPLE` help block naming a sample template. A scope of file globs that forbade those tokens outside their zone would fire on all of that
 legitimate illustration, and silencing each with an inline ignore is exactly the ceremony this codebase rejects
 ([poka-yoke](../principles/poka-yoke.md)). So the separation is not a spelling rule. It is enforced semantically, by a gate that reads
 structure, not text.
@@ -142,9 +142,9 @@ The set of live identities a logic test may not name is not a maintained list �
 customer added to `customer.yml` is banned from logic tests the moment it exists, and one renamed updates the ban automatically. The
 terminology registry's per-category `scope` ([spell-out-names](../automation/powershell/spell-out-names.md)) declares which zone each
 vocabulary category belongs to — `fixture` is the test zone, `azure-live` the live zone, `adr-example` the design zone. That map is the
-machine-readable statement of intent; the gate consumes it, and a future phase can widen what it drives.
+machine-readable statement of intent; the gate consumes it, and a later step can widen what it drives.
 
-### Exact, conservative, phased
+### Exact, conservative, staged
 
 The gate matches a string literal that **is** a live identity, never a substring — a repository path `automation/Catzc.X` does not trip the
 deployable-unit name `automation`. Structural names that collide with folder literals are left out of the forbidden set entirely, because a
@@ -188,7 +188,7 @@ declares the zones; a file-glob spell-checker is not used, because it cannot sep
 ## Consequences
 
 - A logic test cannot silently name a real customer, subscription, org, template, or ADO project; the leak fails the build with the
-  offending token, its config source, and the fixture to use instead.
+  offending token, the config it comes from, and the fixture to use instead.
 
 - Mixed logic/integrity files need no restructuring: the gate excludes integrity blocks by AST extent, so the common
   `Describe { Context integrity … } { Context logic … }` shape is handled as-is.
@@ -200,7 +200,7 @@ declares the zones; a file-glob spell-checker is not used, because it cannot sep
   run on every build without a suppression culture.
 
 - The cost is that the mechanism is a gate, not a one-line config: the separation is a property proven by reading structure, and widening it
-  (environment names, config-data values, the design/test boundary) is deliberate phased work rather than a scope glob.
+  (environment names, config-data values, the design/test boundary) is deliberate work, in stages, rather than a scope glob.
 
 ## Related
 

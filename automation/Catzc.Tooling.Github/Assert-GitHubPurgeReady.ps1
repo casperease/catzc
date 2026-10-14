@@ -60,7 +60,7 @@ function Assert-GitHubPurgeReady {
     $me = ($identity.Output | ConvertFrom-Json).login
     Assert-NotNullOrWhitespace $me -ErrorText 'Could not determine the authenticated GitHub user.'
 
-    # `gh api -i` prepends the response headers; the granted scopes are listed there.
+    # `gh api -i` prepends the response headers; the scopes the token holds are listed there.
     $scopeProbe = Invoke-Executable 'gh api -i user' -PassThru -NoAssert -Silent
     if ($scopeProbe.Output -notmatch 'delete_repo') {
         throw 'The gh token lacks the delete_repo scope. Grant it with: gh auth refresh -h github.com -s delete_repo'

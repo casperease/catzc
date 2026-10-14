@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Writes the closing verdict banner for a completed Test-Automation run — the rainbow-framed bracket that
-    mirrors the opening scope header.
+    mirrors the scope header the run opens with.
 .DESCRIPTION
     Renders one end-of-run banner and nothing else: a Write-Header whose rule lines carry a per-character
     gradient (green-rainbow on a passing run, red-rainbow on a failing one,

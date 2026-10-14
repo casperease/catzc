@@ -17,7 +17,7 @@ session, not removed with the bootstrap.
 - **`CombinedHash`** — the 8-character lowercase hash that names the DLL (`Catzc.Types.<hash>.dll`), or `$null` when no module ships a C#
   type source;
 - **`Snapshot`** — an ordered map of `"<module>/<bare type>"` to that file's per-file digest;
-- **`Files`** — the ordinally-sorted source list the caller validates and compiles.
+- **`Files`** — the source list, sorted ordinally, that the caller validates and compiles.
 
 Two properties make the key stable and honest. The hash is **EOL-insensitive** — every `CR` byte is stripped before each file's digest — so
 a CRLF vs LF working tree (a `git core.autocrlf` setting, an editor's format-on-save) keys the same DLL on every machine and never re-keys
@@ -26,13 +26,13 @@ the assembly even when the content is byte-identical. Ordering is deterministic 
 culture-aware `Sort-Object`).
 
 What it deliberately does **not** do is validate namespaces or reject dotted filenames — those are the loader's poka-yokes, kept out of the
-shared enumerator on purpose, because the janitor must never throw on a bad source. The full contract of the combined assembly and its
-committed prebuild is the [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md) ADR and the
+shared enumerator on purpose, because the janitor must never throw on a source that is malformed. The full contract of the combined assembly
+and its committed prebuild is the [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md) ADR and the
 [BCL type-system reference](../BCL/types-system.md).
 
 ## Functions
 
-- `Get-CombinedTypeHash` — the one combined C# type-source hash (with the per-file snapshot and the ordered source list) that both the
+- `Get-CombinedTypeHash` — the one combined C# type-source hash (with the per-file snapshot and the source list, ordered) that both the
   loader and the cache janitor key the committed `Catzc.Types.<hash>.dll` off.
 
 ## Related

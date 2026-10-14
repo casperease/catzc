@@ -51,7 +51,7 @@ approved-verb rules draw between an affirming verb and a testing verb (see
 [respect-pwsh-verb-rules](../../adr/automation/powershell/respect-pwsh-verb-rules.md)).
 
 The module is deliberately leaf-like: it has no private helpers and reads no configuration. That keeps it loadable and trustworthy before
-anything else in the system has initialised, which is exactly what a fail-fast foundation needs. The higher layers — the utilities, the
+anything else in the system has initialised, which is exactly what a fail-fast foundation needs. The layers above it — the utilities, the
 tooling, the Azure modules — all phrase their guard clauses in this vocabulary, so a failure anywhere in the system reads in one consistent
 voice.
 

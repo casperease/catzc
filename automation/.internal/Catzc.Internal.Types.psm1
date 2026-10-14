@@ -16,14 +16,14 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
     keys the same DLL on every machine, and it folds in each file's <module>|<bare type> so a move between modules
     or a rename re-keys even on byte-identical content. Deterministic, culture-independent ordering. This does NOT
     validate namespaces or reject dotted filenames — that is the loader's concern; the janitor must never throw on
-    a bad source.
+    a source that is wrong.
 #>
 
 function Get-CombinedTypeHash {
     <#
     .SYNOPSIS
         Returns the combined 8-char hash of every module's C# type sources, with the per-file snapshot and the
-        ordered source list the loader compiles.
+        source list, in order, that the loader compiles.
     .PARAMETER AutomationRoot
         The automation directory. Its non-dot subfolders are the modules whose types/*.cs are hashed.
     .PARAMETER Module
@@ -35,8 +35,8 @@ function Get-CombinedTypeHash {
           CombinedHash  the 8-char lowercase hex hash (the Catzc.Types.<hash>.dll key), or $null when no module
                         ships a C# type source.
           Snapshot      an ordered map of "<module>/<bare type>" -> per-file EOL-insensitive digest.
-          Files         the ordinally-sorted source list ([pscustomobject] Module/Base/Key/Path) the caller
-                        validates and compiles.
+          Files         the source list, sorted ordinally ([pscustomobject] Module/Base/Key/Path), that the
+                        caller validates and compiles.
     #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -81,7 +81,8 @@ function Get-CombinedTypeHash {
 
     # A build ships the full type set but only the selected modules' folders; the other modules' sources sit
     # under .compiled/types/<module>/ so the importer never mistakes them for module folders. Keyed the same way,
-    # so the hash equals the full source hash. A source tree has no .compiled/types, so this adds nothing there.
+    # so the hash equals the one over the full type set. A source tree has no .compiled/types, so this adds
+    # nothing there.
     $compiledTypesDir = [System.IO.Path]::Combine($AutomationRoot, '.compiled', 'types')
     if ($null -eq $selected -and [System.IO.Directory]::Exists($compiledTypesDir)) {
         foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($compiledTypesDir)) {
@@ -147,7 +148,7 @@ function Build-CombinedTypeAssembly {
         The one compile path for the combined types assembly: the loader (Import-CSharpTypes) calls it to restore
         automation/.compiled/Catzc.Types.<hash>.dll, and a build calls it to produce the assembly of the modules it
         ships. The hash comes from Get-CombinedTypeHash over the same module selection, so the file name always
-        keys the exact sources compiled.
+        keys exactly the sources compiled.
 
         Add-Type -OutputAssembly writes the DLL and does NOT load it, so this works in a session that already holds
         the types. Each .cs is a separate compilation unit (Add-Type -Path), so each file's file-scoped namespace
@@ -156,7 +157,7 @@ function Build-CombinedTypeAssembly {
         sources) just discards the temp. An existing DLL of the same hash is kept as is (Compiled = $false).
 
         Source validation (bare filenames, the module's file-scoped namespace) is the loader's concern, not this
-        function's — a caller that compiles unvalidated sources gets the compiler's own errors.
+        function's — a caller that compiles the sources before they are validated gets the compiler's own errors.
     .PARAMETER AutomationRoot
         The automation directory whose non-dot module folders hold the types/*.cs sources.
     .PARAMETER Module
@@ -164,8 +165,8 @@ function Build-CombinedTypeAssembly {
     .PARAMETER OutputDirectory
         The directory the Catzc.Types.<hash>.dll is written to; created when missing.
     .OUTPUTS
-        [pscustomobject] with Hash (the 8-char combined hash), Path (the DLL), Files (the ordered source list from
-        Get-CombinedTypeHash), Snapshot (the per-file digests), and Compiled (whether this call ran the compiler).
+        [pscustomobject] with Hash (the 8-char combined hash), Path (the DLL), Files (the source list, in order,
+        from Get-CombinedTypeHash), Snapshot (the per-file digests), and Compiled (whether this call ran the compiler).
         $null when the selection ships no C# type source.
     .EXAMPLE
         Build-CombinedTypeAssembly -AutomationRoot $root -Module 'Catzc.Base.Objects' -OutputDirectory "$build/.compiled"

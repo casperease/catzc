@@ -9,9 +9,9 @@
     [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md)), so a test isolates this function by mocking
     Get-Config / Resolve-ConfigEntry to fixtures.
 
-    This is PHASE 1 — the DISTINCTIVE identities only (customers, subscriptions, org, deployable units,
+    This is STAGE 1 — the DISTINCTIVE identities only (customers, subscriptions, org, deployable units,
     template names, ADO project). Environment names (dev/test/preprod/prod) are deliberately excluded: they
-    are ambiguous ('test' is pervasive in test code) and belong to a later, position-aware phase. Each record
+    are ambiguous ('test' is pervasive in test code) and belong to a later, position-aware stage. Each record
     carries its Source and a Suggest string so a finding can name the fixture the test should have used.
 
     Backs Test-LogicTestIdentity ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)): a logic test
@@ -71,10 +71,10 @@ function Get-LiveIdentityTokens {
         }
     }
 
-    # NOTE: deployable-unit and pipeline names (globs.yml) are deliberately NOT included in Phase 1. The
+    # NOTE: deployable-unit and pipeline names (globs.yml) are deliberately NOT included in Stage 1. The
     # generic ones (`automation`, `infrastructure`, `templates`, `shared`) are structural folder names that
     # appear as legitimate string literals throughout the tests, so matching them is pure false-positive; the
-    # customer-named units (apex/nova/flux) are already covered by the customer keys above. A later phase may
+    # customer-named units (apex/nova/flux) are already covered by the customer keys above. A later stage may
     # add the DISTINCTIVE units with an explicit folder-collision exclusion.
 
     # ADO project (ado.yml).

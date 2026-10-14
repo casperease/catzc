@@ -61,7 +61,7 @@ Both are maintained by Microsoft and cover largely the same API surface. The que
 
 **Assembly hell.** Az modules load .NET assemblies into the PowerShell process. Once loaded, an assembly cannot be unloaded or replaced
 without restarting the session. If two modules depend on different versions of the same assembly, the second module fails silently or throws
-cryptic `FileLoadException` errors. This is the single most common source of "works on my machine" issues in Azure automation.
+cryptic `FileLoadException` errors. No other source of "works on my machine" issues in Azure automation is as common.
 
 **Slow to import.** `Import-Module Az` takes 10-30 seconds depending on which sub-modules are loaded. Even importing a single sub-module
 like `Az.Storage` takes several seconds due to assembly loading. This makes interactive use painful and adds minutes to CI pipelines.

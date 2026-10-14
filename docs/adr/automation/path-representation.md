@@ -95,9 +95,9 @@ call-site code. (The `out/` sentinel of `Resolve-RepoPath` remains the within-st
 
 ## Context
 
-A path moves through automation code in two very different roles, and conflating them is a recurring source of bugs. In one role a path is
-_data_ — a value a function returns, stores in a record, writes into a config a human reads, or prints in a log line. In the other it is an
-_address_ — the argument to `Get-Content`, `Import-Module`, or an `az` invocation that is about to touch the filesystem.
+A path moves through automation code in two very different roles, and conflating them is a source of bugs that keeps recurring. In one role
+a path is _data_ — a value a function returns, stores in a record, writes into a config a human reads, or prints in a log line. In the other
+it is an _address_ — the argument to `Get-Content`, `Import-Module`, or an `az` invocation that is about to touch the filesystem.
 
 As data, an absolute path is wrong in three ways: it is machine-specific (it embeds `C:\Users\someone\…` or `/home/vsts/work/1/s/…`, so it
 cannot be compared, committed, or moved between a workstation and a CI agent), it is noisy in logs, and it is fragile — built by `Join-Path`

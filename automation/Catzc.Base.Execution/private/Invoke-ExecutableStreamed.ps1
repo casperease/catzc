@@ -26,6 +26,8 @@
     The directory to run the command in.
 .PARAMETER Silent
     Suppress all console output. Output is still captured for -PassThru.
+.PARAMETER TimeoutSeconds
+    The run's time limit. Past it CliRunner kills the process tree and throws a TimeoutException.
 .PARAMETER DryRun
     Return the command string without executing.
 #>
@@ -42,6 +44,9 @@ function Invoke-ExecutableStreamed {
         [switch] $PassThru,
         [switch] $NoAssert,
         [switch] $Silent,
+        [Parameter(Mandatory)]
+        [ValidateRange(1, [int]::MaxValue)]
+        [int] $TimeoutSeconds,
         [switch] $DryRun
     )
 
@@ -60,7 +65,13 @@ function Invoke-ExecutableStreamed {
     $suppressOutput = [bool]$Silent -or [bool](Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore)
 
     # CliRunner is autoloaded at import time from types/ (Bootstrap's Import-CSharpTypes).
-    $runResult = [Catzc.Base.Execution.CliRunner]::Run($Command, $suppressOutput, $WorkingDirectory)
+    try {
+        $runResult = [Catzc.Base.Execution.CliRunner]::Run($Command, $suppressOutput, $WorkingDirectory, $TimeoutSeconds)
+    }
+    catch [System.Management.Automation.MethodInvocationException] {
+        # A .NET method call wraps what it throws; surface the runner's own error (e.g. the TimeoutException).
+        throw $_.Exception.InnerException
+    }
 
     # Set $LASTEXITCODE so Assert-LastExitCodeWasZero works
     $global:LASTEXITCODE = $runResult.ExitCode

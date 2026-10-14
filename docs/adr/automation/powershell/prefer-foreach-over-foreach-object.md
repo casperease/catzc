@@ -133,7 +133,7 @@ foreach ($batch in $batches) {
 - **No pipeline overhead.** `ForEach-Object` participates in the pipeline machinery — parameter binding, steppable pipeline creation, and
   per-item scriptblock invocation. `foreach` is a compiled loop with none of this overhead.
 - **No scriptblock invocation.** Each iteration of `ForEach-Object` invokes the scriptblock as a function call. `foreach` runs the body as
-  inline code in the current scope.
+  inline code in the scope of the code that contains it.
 - **No streaming cost.** `ForEach-Object` processes items one at a time from the pipeline. `foreach` operates on the full collection in
   memory, enabling better CPU cache utilization and eliminating per-item pipeline dispatching.
 

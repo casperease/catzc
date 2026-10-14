@@ -37,6 +37,7 @@ Modules are layered — a module may only call into the modules it declares in `
 | [Catzc.Base.ConfigExtensions](catzc-base-configextensions.md)               | The PowerShell config-validator extension point, for owners without a C# config type           |
 | [Catzc.Base.Reports](catzc-base-reports.md)                                 | The shared quality-gate report — one report, one printed summary, one verdict                  |
 | [Catzc.Base.Variants](catzc-base-variants.md)                               | Repo-wide variants fixed per importer session — naming order, enabled-customer set             |
+| [Catzc.Base.Timeouts](catzc-base-timeouts.md)                               | Time safeguards — the configured limits and the stop-at-the-limit assertions                   |
 | [Catzc.Base.Execution](catzc-base-execution.md)                             | The external-process boundary — `Invoke-Executable`, `CliResult`/`CliRunner`                   |
 | [Catzc.Base.Files](catzc-base-files.md)                                     | Filesystem and source-control facts — tree copy, file locks, git branch/commit                 |
 | [Catzc.Base.Globs](catzc-base-globs.md)                                     | Globsets, durable-SHA identities, trigger files, and protected scans                           |

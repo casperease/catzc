@@ -15,7 +15,7 @@
     shared module automation/.internal/<Name>.psm1 derives a single-file set (no tests aspect) by the same
     kebab convention (Catzc.Internal.Bootstrap -> 'catzc-internal-bootstrap').
     The reserved names cover the dot-prefixed infrastructure every module's test results also depend on:
-    'internal', 'vendor', 'compiled', 'scriptanalyzer'. Derived sets scope protection and blast radius
+    'internal', 'vendor', 'compiled', 'scriptanalyzer'. Derived sets bound the scope of protection and blast radius
     ([ADR-REPO-PROTGLOB#7](/docs/adr/automation/protected-globs.md#rule-adr-repo-protglob7)). A declared globset may not
     shadow a derived name; the collision throws here, naming
     both sides.

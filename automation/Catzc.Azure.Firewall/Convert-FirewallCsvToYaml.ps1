@@ -19,7 +19,7 @@
 .PARAMETER YamlPath
     Output YAML path (Path set).
 .PARAMETER SourceName
-    Source filename recorded in the header comment. Defaults to the CSV's own filename.
+    The filename of the source, recorded in the header comment. Defaults to the CSV's own filename.
 .PARAMETER GeneratedAt
     CSV generation time in UTC, recorded in the header comment. When omitted, that line is dropped.
 .PARAMETER InputObject
@@ -97,7 +97,7 @@ function Convert-FirewallCsvToYaml {
         }
 
         # In Object mode CsvPath comes from the piped object (the Path set is ValidateScript'd); assert it
-        # exists either way so a bad source path fails here, named, not as a raw Import-Csv error.
+        # exists either way so a source path that is wrong fails here, named, not as a raw Import-Csv error.
         Assert-PathExist $CsvPath -PathType Leaf
 
         $rules = Import-Csv -Path $CsvPath | ForEach-Object {

@@ -160,7 +160,7 @@ the two coexist briefly — optionally selected by config — while a small set 
 implementation, the toggle, and usually the seam itself, in the same flow.
 
 What keeps this inside the principle is that it is **temporal**. The seam is a construct to lift the old thing out and the new thing in,
-over a few integrations to master, not a permanent layer. It has a built-in end state — one living version — and the migration is not
+over a few integrations to master, not a layer that stays. It has a built-in end state — one living version — and the migration is not
 finished until the scaffold is gone. That is the opposite of legacy: legacy is coexistence with no removal plan and no deadline; branch by
 abstraction is coexistence whose entire purpose is to reach one version faster and more safely than a big-bang rewrite or a long-lived
 branch would. Use it to _get to_ one version; the failure mode is letting the seam calcify into a permanent two.

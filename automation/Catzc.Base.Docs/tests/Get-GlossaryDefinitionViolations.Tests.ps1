@@ -38,7 +38,7 @@ Describe 'Get-GlossaryDefinitionViolations' -Tag 'L0', 'logic' {
                     'Run** is what a widget suite selects.'
                 ) -join "`n"))
 
-        # One merged glossary entry: a prose-only concept from the widget source, with the source's optional checks.
+        # One merged glossary entry: a prose-only concept from the widget's source, with the source's optional checks.
         $script:entry = {
             param([string] $term, [string] $definedBy, [string[]] $checks)
             $concept = [Catzc.Base.Docs.GlossaryConcept]::new($term, [ordered]@{

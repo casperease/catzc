@@ -7,7 +7,8 @@
 # bundle'.
 Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
     BeforeAll {
-        # One widget-source entry avoiding 'widget bundle' (say 'widget suite'), with optional source options.
+        # One entry from the widget's source avoiding 'widget bundle' (say 'widget suite'), with the source's
+        # options, if any.
         $script:entry = {
             param([System.Collections.IDictionary] $options = @{})
             $concept = [Catzc.Base.Docs.GlossaryConcept]::new('widget suite', [ordered]@{

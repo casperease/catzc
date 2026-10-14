@@ -25,7 +25,7 @@ and [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md). The rationale is in
 The whole machine rather than one tool: install (and uninstall) the complete locked tool set in the order declared dependencies require,
 report each tool's aggregate status — correct, usable-but-wrong-manager, wrong-version, missing, or unwanted — through the
 `ToolStatus`/`ToolStatusKind` types (see [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)), and assert that status is
-clean. This is the diagnostic and convergence layer over the per-tool engines.
+clean. It sits over the per-tool engines, diagnosing and converging.
 
 ### responsibility:2 — Workstation hygiene
 
@@ -50,7 +50,7 @@ Provisioning is also where the platform's package-manager support matters for en
 must still install where the public registries are unreachable. The support is uneven by manager: apt-get has full Artifactory support, so
 its repositories can be mirrored and pinned behind a private proxy; Homebrew is partial, in that bottle caching can be redirected with
 `HOMEBREW_BOTTLE_DOMAIN` but formula metadata still resolves upstream; and winget has none, so the practical options are to store the
-installers in a Generic repository and point at a private REST source, or to pre-install the tools in the base image.
+installers in a Generic repository and point at a private REST feed, or to pre-install the tools in the base image.
 
 ## Division
 

@@ -130,7 +130,7 @@ function Get-FirewallIpgsYaml {
             throw 'No IP Groups collected — no targets were supplied on the pipeline.'
         }
 
-        # Stable output: sort sources and groups by name regardless of the order targets arrived in.
+        # Stable output: sort the sources and groups by name regardless of the order targets arrived in.
         $sortedSources = [ordered]@{}
         foreach ($k in ($allSources.Keys | Sort-Object)) {
             $sortedSources[$k] = $allSources[$k]

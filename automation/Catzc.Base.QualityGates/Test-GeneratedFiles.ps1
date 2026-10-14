@@ -23,7 +23,7 @@
 
     Collects every stale file and ends with Write-QualityGateReport: the report lands in
     out/test-generated-files/, and the gate throws once listing every issue (or returns the result with -PassThru).
-    The generators read and write the source tree, so the gate needs source mode (Assert-SourceTree).
+    The generators read and write the source tree, so the gate needs the source mode (Assert-SourceTree).
 .PARAMETER Generator
     Check only these generators (default: every one). Build-RootConfig selects every managed root file;
     a generator it renders (New-Importer, …) selects only that generator's files.

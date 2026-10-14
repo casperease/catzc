@@ -94,7 +94,7 @@ Winget ships with Windows 11 and Windows 10 (via App Installer). It is the first
 - **Mandatory review.** Every submission undergoes automated malware scanning and moderator review before approval. Packages are not
   available until review completes.
 
-- **Microsoft Store integration.** MSIX packages from the Store source are signed and sandboxed, providing an additional trust layer.
+- **Microsoft Store integration.** MSIX packages from the source for the Store are signed and sandboxed, adding a layer of trust on top.
 
 - **No additional trust boundary.** Winget is a Windows component. There is no third-party runtime to install, trust, or whitelist.
 

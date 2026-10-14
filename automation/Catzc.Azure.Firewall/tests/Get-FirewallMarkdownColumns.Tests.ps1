@@ -78,7 +78,7 @@ Describe 'Get-FirewallMarkdownColumns' -Tag 'L0', 'logic' {
                 CompositeColumns       = ([ordered]@{ Source = @('SourceIpGroups', 'SourceAddresses') })
                 ProtocolPortColumnName = 'Protocol/Port'
                 AdditionalColumns      = @()
-                Present                = @('Name')   # nothing backs Source
+                Present                = @('Name')   # nothing backs the Source column
             }
         } | Should -Throw '*No matching CSV fields*'
     }

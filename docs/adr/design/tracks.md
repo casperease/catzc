@@ -36,7 +36,7 @@ services and C# function apps.
 
 Tracks are **subscribable, never path-coupled**: a consumer binds to a track through its module dependencies (depm — dependencies between
 modules, never on systems) or through its globset's native trigger projection (`ADR-FLOW-CD-GLOBS`), never by hand-matching the track's
-source paths. The globsets are the coordinating source of truth for "which tracks and deployable-units carry changes in this commit" —
+source paths. The globsets are the source of truth that coordinates "which tracks and deployable-units carry changes in this commit" —
 computed from git, the mechanism that keeps a change in one track from rebuilding every customer of every other track.
 
 - [Subscription and coordination](#subscription-and-coordination)

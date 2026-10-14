@@ -48,7 +48,7 @@ function Get-ModuleDependencyViolations {
         }
     }
 
-    # Resolves a source module to { Constrained; Allowed }. An unconstrained source (not a declared
+    # Resolves a source module to { Constrained; Allowed }. A source with no constraint (not a declared
     # module and not a group member) is skipped by callers regardless of its (empty) Allowed set.
     $resolveAllowed = {
         param([string] $From)
@@ -96,7 +96,7 @@ function Get-ModuleDependencyViolations {
         $resolved = & $resolveAllowed $edge.From
         if (-not $resolved.Constrained) {
             continue
-        }   # unconstrained source
+        }   # a source with no constraint
         if ($edge.To -notin $resolved.Allowed) {
             $funcs = $edge.Functions -join ', '
             $violations.Add("[UndeclaredDependency] $($edge.From) -> $($edge.To)  ($funcs)  -- not allowed for $($edge.From)")
@@ -110,7 +110,7 @@ function Get-ModuleDependencyViolations {
         $resolved = & $resolveAllowed $edge.From
         if (-not $resolved.Constrained) {
             continue
-        }   # unconstrained source
+        }   # a source with no constraint
         if ($edge.To -notin $resolved.Allowed) {
             $refs = $edge.References -join ', '
             $violations.Add("[UndeclaredTypeDependency] $($edge.From) -> $($edge.To)  ($refs)  -- not allowed for $($edge.From)")

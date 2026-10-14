@@ -128,8 +128,8 @@ quality gate, and invisible to cspell.
   integrity test** (`Get-RepositoryGuids.Tests.ps1`) runs it, protected-globs-wrapped for the local inner loop.
 - **`Assert-ManagedGuid` / `Test-ManagedGuid`** — the one shared lookup (`Resolve-ManagedGuid`) behind the throwing and boolean checks, for
   any code or operator that needs to assert a GUID against the table.
-- **The cspell config** (`ignoreRegExpList`, in the managed root `cspell.yml` source) — keeps GUID fragments out of `Test-Spelling`, so the
-  two quality gates cannot double-report.
+- **The cspell config** (`ignoreRegExpList`, in the source of the managed root `cspell.yml`) — keeps GUID fragments out of `Test-Spelling`,
+  so the two quality gates cannot double-report.
 - **Code review** — classifies a new entry (external-facing vs placeholder) and checks a placeholder was minted, not invented.
 
 ## Consequences

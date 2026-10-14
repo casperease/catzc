@@ -1,6 +1,6 @@
 # Integrity for the SHIPPED bicep templates (infrastructure/templates/): that they are NAMED so discovery
 # finds them, and that their CONTENTS meet easily-verifiable structural constraints — WITHOUT building them.
-# Actually compiling a production template is the PIPELINE'S build phase, not an integrity test; e2e build
+# Actually compiling a production template is the PIPELINE'S build step, not an integrity test; e2e build
 # coverage lives in the FIXTURE-based L2 'real az' logic tests (Build-Bicep.*.Tests.ps1, which mock
 # Get-BicepTemplatesRoot to tests/assets/templates/ and build a sample-* asset). This file binds to the real
 # infrastructure/templates/ + configs (it does NOT mock the Get-BicepTemplatesRoot / Resolve-ConfigEntry
@@ -79,7 +79,7 @@ Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
     It 'every shipped template is structurally valid WITHOUT building it (Assert-BicepTemplate, no -Build)' {
         # Deliberately no -Build: this validates the files (main.bicep, options schema, identity references,
         # parameter alignment); it does NOT compile production bicep. Compiling production templates is the
-        # pipeline's build phase; e2e build is covered by the fixture-based L2 'real az' logic tests.
+        # pipeline's build step; e2e build is covered by the fixture-based L2 'real az' logic tests.
         $validationError | Should -BeNullOrEmpty -Because "shipped templates must satisfy Assert-BicepTemplate (no build):`n$validationError"
     }
 }

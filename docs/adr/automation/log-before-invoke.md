@@ -41,9 +41,9 @@ noisy plumbing calls or commands carrying a runtime secret ADO cannot mask.
 
 ## Context
 
-When an external command fails, the first question is always: "What exactly did it run?" If the answer requires reading source code, adding
-`-Verbose`, or reproducing the issue with debug flags, you have already lost minutes. In a CI pipeline where the environment is gone after
-the run, those minutes turn into a full rebuild cycle.
+When an external command fails, the first question is always: "What exactly did it run?" If the answer requires reading the source code,
+adding `-Verbose`, or reproducing the issue with debug flags, you have already lost minutes. In a CI pipeline where the environment is gone
+after the run, those minutes turn into a full rebuild cycle.
 
 PowerShell automation is fundamentally about orchestrating external tools — `az`, `dotnet`, `winget`, `poetry`, `git`. Each of these has
 dozens of flags, and the difference between success and failure is often a single argument or a missing quote. If the exact invocation is

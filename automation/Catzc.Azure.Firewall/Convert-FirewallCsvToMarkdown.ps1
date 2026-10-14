@@ -171,7 +171,7 @@ function Convert-FirewallCsvToMarkdown {
         }
 
         # In Object mode CsvPath comes from the piped object (the Path set is ValidateScript'd); assert it
-        # exists either way so a bad source path fails here, named, not as a raw Import-Csv error.
+        # exists either way so a source path that is wrong fails here, named, not as a raw Import-Csv error.
         Assert-PathExist $CsvPath -PathType Leaf
 
         $rows = @(Import-Csv -Path $CsvPath)

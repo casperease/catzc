@@ -35,7 +35,7 @@
       would otherwise be committed next to the new one. One red line names the surplus; any other
       changed generated path still commits.
     - Holds back automation/.compiled while any type source (automation/*/types/*.cs) differs from HEAD:
-      the build is named for the hash of the working-tree sources, so committing it ahead of them would
+      the build is named for the hash of the sources in the working tree, so committing it ahead of them would
       leave HEAD with a build its own sources do not produce. One yellow line asks for the sources to be
       committed; the next import commits the build.
 

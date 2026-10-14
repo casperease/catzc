@@ -7,7 +7,7 @@
     checkout, independent of build residue, blind to untracked and
     ignored files. Read through Get-GitTrackedPath, the one place that answers it (from the index, in-process —
     [ADR-AUTO-TRACKED#1](/docs/adr/automation/tracked-files-from-the-index.md#rule-adr-auto-tracked1)).
-    A tracked file may be missing on disk (an unstaged deletion) — it is still listed here; the hash layer
+    A tracked file may be missing on disk (an unstaged deletion) — it is still listed here; the hashing code
     folds a distinct marker for it.
 .EXAMPLE
     Get-TrackedFile

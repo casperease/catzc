@@ -65,9 +65,9 @@ ingress" — and the two together are what keep the mainline both trustworthy to
 
 ## Decision
 
-Treat the server git remote as the audited source of truth, bridged by local clones. Consumers **integrate from the last verified commit,
-not the remote HEAD**. Changes enter only through a **PR that authenticates and merges** them. Together these make a dirty HEAD a non-event
-for everyone downstream and keep the audit trail complete.
+Treat the server git remote as the source of truth — audited, and bridged by local clones. Consumers **integrate from the last verified
+commit, not the remote HEAD**. Changes enter only through a **PR that authenticates and merges** them. Together these make a dirty HEAD a
+non-event for everyone downstream and keep the audit trail complete.
 
 ### The authoritative remote
 

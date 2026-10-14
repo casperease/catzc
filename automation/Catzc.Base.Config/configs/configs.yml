@@ -39,6 +39,8 @@ configs:
     type: Catzc.Base.QualityGates.AnalyzerAdrMapConfig
   vendor:
     type: Catzc.Base.Vendor.VendorConfig
+  timeouts:
+    type: Catzc.Base.Timeouts.TimeoutsConfig
   guids:
     type: Catzc.Base.QualityGates.GuidsConfig
   exporter:

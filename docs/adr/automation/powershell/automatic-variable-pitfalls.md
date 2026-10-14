@@ -26,7 +26,8 @@ Capture `$Matches` into a named local on the very next line after a `-match` —
 
 ### Rule ADR-AUTO-AUTOVAR:4
 
-Capture `$_`/`$PSItem` into a named local before nesting pipelines or mixing pipeline with `catch`/`switch` — inner scopes shadow it.
+Capture `$_`/`$PSItem` into a named local before nesting pipelines or mixing pipeline with `catch`/`switch` — the scopes nested inside
+shadow it.
 
 - [`$_` / `$PSItem`](#_--psitem)
 

@@ -196,9 +196,9 @@ terminal `run.json` stamp is recorded `abandoned` by the next run in the same re
 ### Rule ADR-AUTO-TEST:26
 
 A **phase** is one of a test run's three scheduling stages, run in order: the parallel shards, then the greedy phase, then the serial phase.
-Two optional phase tags (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`) name tests that must not share the
-machine with the parallel pool; `Split-TestAutomationFiles` owns the split, and a file is the scheduling unit, so one tagged test moves its
-whole file (serial wins over greedy):
+Two phase tags, both optional (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`), name tests that must not share
+the machine with the parallel pool; `Split-TestAutomationFiles` owns the split, and a file is the scheduling unit, so one tagged test moves
+its whole file (serial wins over greedy):
 
 - **`serial`** — the test mutates state shared across worker processes: the committed `.compiled` assembly, a fixed `out/` path two files
   both write (e.g. the `out/template/<name>` build folders). Its file runs in the final **one-worker phase**, strictly alone, one file after
@@ -504,13 +504,12 @@ flowchart TB
 - **L2 — vertical, through the local-tool ring.** Drives a local tool for real — `git`, `az bicep build`, `python`, `dotnet`, `poetry`,
   Pester, … No cloud. Runs on a devbox **and in fast CI** (where the tools are installed); a test **self-skips** when its specific tool is
   absent. The pipelines pin `-Level 2`, the CI gate's fast build validation and the BVT; `-Level 1` excludes L2 for a core-only pass.
-- **L3 — vertical system tests, through both rings.** Changes or depends on state outside the repository: the real cloud API layer (maybe
-  through a CLI tool, e.g. `az deployment create` / `az account show`), the user's persistent environment, installed tools. It
-  **self-skips** when its prerequisite (cloud access, the platform) is missing, and runs only in the working folder itself
-  (ADR-AUTO-TEST#33), so a devbox run that owns the folder includes it by default. This is the integration sliver that
-  [fail-fast](fail-fast-with-asserts.md) argues you cannot rely on alone — kept thin, one test per distinct outside boundary, each a worked
-  example of its kind (the persistent-environment seam's real round trip, `Set-PermanentEnvironmentVariable.Tests.ps1`, is one). A test that
-  only drives a local tool inside the repository is L2.
+- **L3 — vertical system tests, through both rings.** Changes or depends on state outside the repository: the real cloud APIs (maybe through
+  a CLI tool, e.g. `az deployment create` / `az account show`), the user's persistent environment, installed tools. It **self-skips** when
+  its prerequisite (cloud access, the platform) is missing, and runs only in the working folder itself (ADR-AUTO-TEST#33), so a devbox run
+  that owns the folder includes it by default. This is the integration sliver that [fail-fast](fail-fast-with-asserts.md) argues you cannot
+  rely on alone — kept thin, one test per distinct outside boundary, each a worked example of its kind (the persistent-environment seam's
+  real round trip, `Set-PermanentEnvironmentVariable.Tests.ps1`, is one). A test that only drives a local tool inside the repository is L2.
 
 ### Fast logic tests
 

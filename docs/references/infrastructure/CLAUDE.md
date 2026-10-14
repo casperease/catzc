@@ -7,7 +7,7 @@ one `<template>.md` per deployable template (named for its `infrastructure/templ
 `index.md` is the reader's guide and the article list; this file is the author's guide. Copy `_template.md` as the skeleton for a new
 template article; when in doubt, match `foundation.md` (the smallest complete example).
 
-Each article is also the **link source** for its folder's generated `README.md` (module `Catzc.Base.Docs`; see
+Each article is also the **source** that its folder's generated `README.md` links to (module `Catzc.Base.Docs`; see
 [generated-readmes](../../adr/repository/generated-readmes.md)): the README is a filesystem link to the article, not a copy. The mapping
 from folder to source lives in `automation/Catzc.Base.Docs/configs/readme.yml`. Author links relative to _this_ directory — the docs tree is
 the reading surface where they resolve; the README is a pointer to the article, not a second rendering.

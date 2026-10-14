@@ -28,7 +28,7 @@
 
     Collects every issue and ends with Write-QualityGateReport: the report lands in out/test-build-artifact/, and
     the gate throws once listing every issue (or returns the result with -PassThru). It builds from the source
-    tree, so it needs source mode (Assert-SourceTree).
+    tree, so it needs the source mode (Assert-SourceTree).
 .PARAMETER Module
     Modules to build (combinable with -ModuleProfile; closure-expanded by Build-Modules). Neither -> the exporter's
     default profile.

@@ -67,7 +67,7 @@ are real process launches, so a test that runs one is L2.
 
 ## Context
 
-Many parts of the platform scope their work by the files git tracks: the globsets select from them
+Many parts of the platform set the scope of their work by the files git tracks: the globsets select from them
 ([durable-sha-globs](../flow/durable-sha-globs.md)), the managed-GUID scan reads them ([managed-guids](managed-guids.md)), the Markdown
 title and link quality gates check them, and the glossary checks read their prose. "Tracked" is the repository as committed and staged — not
 build residue, not a scratch file — and that is the set every one of these checks means.

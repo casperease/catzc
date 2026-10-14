@@ -6,7 +6,7 @@
 
 ### Rule ADR-REPO-FORMAT:1
 
-Let the tools format your code; never hand-format. `.editorconfig` is the single cross-language source of truth for text formatting —
+Let the tools format your code; never hand-format. `.editorconfig` is the single source of truth for text formatting, across languages —
 configure your editor to honour it, and let each language's analyzers catch the rest.
 
 - [How this is enforced](#how-this-is-enforced)

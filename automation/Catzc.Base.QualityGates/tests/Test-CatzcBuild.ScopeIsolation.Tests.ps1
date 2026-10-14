@@ -35,7 +35,7 @@ Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE#3' {
         }
     }
 
-    # In-process, in whichever mode this session runs: the source run proves source mode, the build run (where
+    # In-process, in whichever mode this session runs: the source run proves the source mode, the build run (where
     # this file runs against the built modules) proves build mode.
     Context 'in the loaded session' -Tag 'L1', 'logic' {
         It 'gives each module its own value for the same variable name, invisible to the session' {

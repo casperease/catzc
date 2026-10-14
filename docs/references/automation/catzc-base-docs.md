@@ -42,12 +42,12 @@ The map is the single place the folder-to-source pairing is stated; the generato
 and never hard-codes a path.
 
 The map is also the **opt-in switch** for the generated README. Listing a folder here opts it in: its `README.md` becomes a derived copy of
-the named source, gitignored and out of the markdown and spelling quality gates' scope (the source under `docs/` is what those quality gates
-check). A folder _not_ listed opts out — it keeps a hand-authored, committed `README.md` that is un-ignored in `.gitignore` and checked like
-any other doc. Two details keep the opt-in safe: a `patterns` glob supports only a trailing `/*` and matches just the immediate,
-non-dot-prefixed subdirectories of its prefix (so `.vendor`, `.internal`, and other dot-folders can never be swept in), and a matched folder
-whose derived source does not exist yet is skipped rather than generated — so a module with no reference article is fine; it simply has no
-generated README until its source lands.
+the source the map names, gitignored and out of the markdown and spelling quality gates' scope (the source under `docs/` is what those
+quality gates check). A folder _not_ listed opts out — it keeps a hand-authored, committed `README.md` that is un-ignored in `.gitignore`
+and checked like any other doc. Two details keep the opt-in safe: a `patterns` glob supports only a trailing `/*` and matches just the
+immediate, non-dot-prefixed subdirectories of its prefix (so `.vendor`, `.internal`, and other dot-folders can never be swept in), and a
+matched folder whose derived source does not exist yet is skipped rather than generated — so a module with no reference article is fine; it
+simply has no generated README until its source lands.
 
 ### responsibility:3 — Managed .gitkeep files
 

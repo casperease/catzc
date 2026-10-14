@@ -72,14 +72,14 @@ bootstrap pre-pass; what remains are the concerns this module owns. Responsibili
 import, so a type edit produces a clean single-file swap in `.compiled/` rather than an accumulating pile of stale assemblies.
 Responsibility 2 reconstructs the cross-module type references that a single combined assembly makes invisible to the compiler, handing them
 to `Catzc.Base.ModuleSystem` so the same layering contract polices both worlds. Responsibility 3 is the on-disk module enumeration both of
-those build on — and the platform's one module-name source besides.
+those build on — and the platform's one source of module names besides.
 
-The module sits in the `Base` group. It depends only on the group's lower layers — `Catzc.Base.Repository` (repository root, pipeline
-detection), `Catzc.Base.Files` (file-lock detection), `Catzc.Base.Execution` (running `dotnet` for the editor build), `Catzc.Base.Writers`
-(console output), and `Catzc.Base.Asserts` — and is depended on by `Catzc.Base.ModuleSystem` and `Catzc.Base.QualityGates`, which call
-`Get-CSharpTypeDependency` and `Get-AutomationModules` from their integrity checks and completers. Placing the module enumeration and the C#
-edge scan here, below `Catzc.Base.ModuleSystem`, is what lets the module-dependency graph fold in the type edges without the two modules
-forming a cycle.
+The module sits in the `Base` group. It depends only on the layers below it in the group — `Catzc.Base.Repository` (repository root,
+pipeline detection), `Catzc.Base.Files` (file-lock detection), `Catzc.Base.Execution` (running `dotnet` for the editor build),
+`Catzc.Base.Writers` (console output), and `Catzc.Base.Asserts` — and is depended on by `Catzc.Base.ModuleSystem` and
+`Catzc.Base.QualityGates`, which call `Get-CSharpTypeDependency` and `Get-AutomationModules` from their integrity checks and completers.
+Placing the module enumeration and the C# edge scan here, below `Catzc.Base.ModuleSystem`, is what lets the module-dependency graph fold in
+the type edges without the two modules forming a cycle.
 
 ## Division
 

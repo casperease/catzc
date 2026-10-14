@@ -50,7 +50,7 @@ function Set-PermanentEnvironmentVariable {
     }
 
     if ($removing) {
-        # PowerShell hands $null to a .NET string parameter as '', which the registry scopes store as an empty value;
+        # PowerShell hands $null to a .NET string parameter as '', which the scopes the registry backs store as an empty value;
         # only a real null deletes it.
         [System.Environment]::SetEnvironmentVariable($Name, [NullString]::Value, $Scope)
         Write-Message "$Scope environment: removed $Name"

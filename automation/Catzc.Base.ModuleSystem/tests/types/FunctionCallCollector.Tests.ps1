@@ -1,6 +1,6 @@
 # FunctionCallCollector attributes every statically named call in a file to the top-level function whose body holds
 # it, and lists the functions nested inside each — the walk Test-FunctionDependency resolves calls from. Each case
-# parses a small widget/gadget source.
+# parses the source of a small widget/gadget script.
 Describe 'FunctionCallCollector' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:collect = {

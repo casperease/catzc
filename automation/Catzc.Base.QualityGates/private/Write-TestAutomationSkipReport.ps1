@@ -10,8 +10,8 @@
                   listed with its reason (the row's SkipReason, resolved by ConvertTo-TestAutomationRowSet
                   in the process that ran the test), so "az not installed" is visible rather than a bare
                   count.
-      - Not run : the test was never executed because its tier/category tag fell outside this run's
-                  requested scope (the -MinLevel/-MaxLevel/-Category filter). These are grouped by
+      - Not run : the test was never executed because its tier/category tag fell outside the scope
+                  this run requested (the -MinLevel/-MaxLevel/-Category filter). These are grouped by
                   tier+category with counts and the scope that excluded them — listing all of them would be
                   noise, but the breakdown tells the reader exactly what raising -Level would add.
 
@@ -22,9 +22,10 @@
 .PARAMETER Rows
     The aggregated per-test rows (ConvertTo-TestAutomationRowSet output, merged across shards).
 .PARAMETER MinLevel
-    The -MinLevel the run was invoked with — names the excluding scope in the "not run" header.
+    The -MinLevel the run was invoked with — names the scope that excluded a test in the "not run" header.
 .PARAMETER MaxLevel
-    The -MaxLevel (-Level) the run was invoked with — names the excluding scope in the "not run" header.
+    The -MaxLevel (-Level) the run was invoked with — names the scope that excluded a test in the "not run"
+    header.
 .PARAMETER Category
     The -Category the run was invoked with (Logic/Integrity/Both) — named in the scope when not Both.
 #>

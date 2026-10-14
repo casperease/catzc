@@ -44,7 +44,7 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
         $tokens.Token | Should -Contain 'acme_lower'
     }
 
-    It 'excludes deployable-unit and pipeline names (Phase 1 — they collide with folder literals)' {
+    It 'excludes deployable-unit and pipeline names (Stage 1 — they collide with folder literals)' {
         $tokens = & $script:run
         ($tokens | Where-Object { $_.Kind -in 'deployable-unit', 'pipeline' }) | Should -BeNullOrEmpty
     }

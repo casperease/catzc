@@ -4,7 +4,8 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
     BeforeAll {
         # The source-tree guard is its own unit (below); here the fixture stands in for the source tree in either run mode.
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
-        # Fixture repo: automation/<modules> + a dot-dir; reference sources for two of the three modules.
+        # Fixture repo: automation/<modules> + a dot-dir; reference articles, as the sources, for two of the three
+        # modules.
         $script:root = Join-Path $TestDrive ([guid]::NewGuid())
         foreach ($d in 'automation/Catzc.Azure.DevOps', 'automation/Catzc.Base.Files', 'automation/Catzc.NoDoc', 'automation/.vendor', 'docs/references/automation') {
             [System.IO.Directory]::CreateDirectory((Join-Path $script:root $d)) | Out-Null

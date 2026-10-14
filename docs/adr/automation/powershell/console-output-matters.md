@@ -38,7 +38,7 @@ Report outcomes, not steps, and stay silent when there is nothing meaningful to 
 
 ### Rule ADR-AUTO-CONSOLE:6
 
-Errors must be self-contained — the thrown message alone must diagnose the problem without reading source.
+Errors must be self-contained — the thrown message alone must diagnose the problem without reading the source.
 
 - [Rules for output](#rules-for-output)
 
@@ -170,7 +170,7 @@ end state, not the journey.
 silently — the absence of an error _is_ the output. Do not add "Python found!" for reassurance.
 
 **Errors must be self-contained.** When a function throws, the error message must contain everything needed to diagnose the problem without
-reading source code. "'Python' is not installed" is good. "Assertion failed" is not. The `Assert-*` library provides structured error
+reading the source code. "'Python' is not installed" is good. "Assertion failed" is not. The `Assert-*` library provides structured error
 messages by convention.
 
 **Use color sparingly and consistently.** Color draws the eye — use it only for information that deserves attention. Both GitHub Actions and

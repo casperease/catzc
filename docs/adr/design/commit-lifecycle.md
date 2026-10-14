@@ -72,10 +72,10 @@ machine decides, up to and including the always-on environment.
 
 ### Rule ADR-DSGN-LIFE:7
 
-**The dirty HEAD is the latest commit on main and is not a safe sync or promotion source.** HEAD is simply the newest commit; it may have
-_failed_ a downstream stage (for example, died in `main-UAT`). Such a commit is the **dirty HEAD**: it is the tip of main, but it must not
-be synced from and cannot be promoted downstream. Consumers who naively track HEAD are pointed instead at the stable `main-UAT` occupant
-(ADR-DSGN-LIFE#6). "Latest" and "safe to build on" are different questions, and the model keeps them separate.
+**The dirty HEAD is the latest commit on main and is not a source that is safe to sync or promote from.** HEAD is simply the newest commit;
+it may have _failed_ a downstream stage (for example, died in `main-UAT`). Such a commit is the **dirty HEAD**: it is the tip of main, but
+it must not be synced from and cannot be promoted downstream. Consumers who naively track HEAD are pointed instead at the stable `main-UAT`
+occupant (ADR-DSGN-LIFE#6). "Latest" and "safe to build on" are different questions, and the model keeps them separate.
 
 - [The dirty HEAD](#the-dirty-head)
 
@@ -207,4 +207,4 @@ These commits are the canonical encoding of the model; each number is one commit
 | 7   | entered BVT                                | **discarded** — auto-rejected at BVT                                   |
 | 8   | landed on main, entered BVT                | **in-process** — currently being BVT-verified                          |
 | 9   | topic commit, deployed by a workflow       | **off-main** — out-of-band deployed, not yet integrated to main/master |
-| 10  | latest commit; entered main-UAT and failed | **dirty HEAD** — tip of main, not a sync/downstream source (use 6)     |
+| 10  | latest commit; entered main-UAT and failed | **dirty HEAD** — tip of main, not a source for sync/downstream (use 6) |

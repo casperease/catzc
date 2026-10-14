@@ -92,8 +92,8 @@ A glossary source is a module's `configs/glossary.yml`, so the module that owns 
 the registration ([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md)). A module without a source contributes no terms and
 has nothing checked on its behalf. Within a source, `options:` sets the checks its terms take part in (`checks`), where its avoided
 phrasings are scanned (`scope`, `exclude`), and which kinds of text are read there (`surfaces`). Every option has a default that suits most
-sources, so a typical source carries no options at all ([sensible-defaults](../automation/sensible-defaults.md)). The default excludes — the
-DORA research text, generated output, vendored code — are always kept, because external language is not this repository's to correct.
+sources, so most sources carry no options at all ([sensible-defaults](../automation/sensible-defaults.md)). The default excludes — the DORA
+research text, generated output, vendored code — are always kept, because external language is not this repository's to correct.
 
 ### Everything in the repository
 
@@ -158,11 +158,11 @@ with their replacements. A source's options default sensibly, and a source overr
   defined term (ADR-REPO-VOCAB#5), an explanation for every contrast (ADR-REPO-VOCAB#4), repo-relative globs and no URL anywhere
   (ADR-REPO-VOCAB#3), and the option defaults (ADR-REPO-VOCAB#2). Every violation is reported in one throw.
 
-- **`Get-GlossarySourceViolations`** (`Catzc.Base.Docs`) checks the facts that span sources, over every source `Get-GlossarySources`
-  discovers (`Get-Config -Config glossary -ListOwners`): a term or machine key declared by two sources and a domain that `adrs.yml` does not
-  declare (ADR-REPO-VOCAB#1), a contrast or relation target that no source defines and a source that git does not track (ADR-REPO-VOCAB#3),
-  a contrast that is not reciprocal (ADR-REPO-VOCAB#4), and an avoided phrase that is another source's term (ADR-REPO-VOCAB#5). It names the
-  source path and the term in one message per violation.
+- **`Get-GlossarySourceViolations`** (`Catzc.Base.Docs`) checks the facts that span more than one source, over every source
+  `Get-GlossarySources` discovers (`Get-Config -Config glossary -ListOwners`): a term or machine key declared by two sources and a domain
+  that `adrs.yml` does not declare (ADR-REPO-VOCAB#1), a contrast or relation target that no source defines and a source that git does not
+  track (ADR-REPO-VOCAB#3), a contrast that is not reciprocal (ADR-REPO-VOCAB#4), and an avoided phrase that is another source's term
+  (ADR-REPO-VOCAB#5). It names the source path and the term in one message per violation.
 
 - **`Get-GlossaryAnchorViolations`** (`Catzc.Base.Docs`) checks that every term is anchored on its defining rule: its `defined_by` names a
   rule of an indexed ADR, and that rule's normative summary bolds the term (ADR-REPO-VOCAB#1). Only the normative summary counts — bold text
@@ -204,8 +204,8 @@ with their replacements. A source's options default sensibly, and a source overr
 - A defined term has one findable home — its defining rule — and a reader meets the same meaning in every ADR, help text, and message.
 - Near-neighbour terms come with their differences spelled out, so the common confusions are answered where the terms are defined.
 - A blurring phrasing carries its replacement, so fixing one is a mechanical edit rather than a judgement call.
-- Vocabulary control is opt-in per module: a module with no glossary source pays nothing, and a source that needs a narrower scope or fewer
-  checks says so in its options.
+- Vocabulary control is opt-in per module: a module with no glossary source pays nothing, and a source that needs less — a scope that is
+  narrower, or fewer checks — says so in its options.
 - The cost is a second artifact beside the ADR for every defined term — a glossary entry — and the discipline of recording contrasts in both
   directions.
 

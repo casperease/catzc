@@ -35,7 +35,7 @@ Describe 'Get-GlossaryAnchorViolations' -Tag 'L0', 'logic' {
                     'A **gadget run** executes widgets.'
                 ) -join "`n"))
 
-        # One merged glossary entry: a prose-only concept from the widget source, with the source's optional checks.
+        # One merged glossary entry: a prose-only concept from the widget's source, with the source's optional checks.
         $script:entry = {
             param([string] $term, [string] $definedBy, [string[]] $checks)
             $concept = [Catzc.Base.Docs.GlossaryConcept]::new($term, [ordered]@{

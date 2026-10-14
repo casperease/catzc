@@ -7,7 +7,7 @@
 ### Rule ADR-PIPE-AUTH:1
 
 Select the credential by which one is configured, in fixed precedence (in-pipeline token → PAT → az CLI), with no fallback on auth failure —
-a selected source's failure raises its own error rather than degrading to the next.
+the failure of the source that was selected raises its own error rather than degrading to the next.
 
 - [Pattern](#pattern)
 - [Decision](#decision)
@@ -75,7 +75,7 @@ first fails to authenticate — leads to silent auth failures that manifest as o
 
 A function calling the ADO REST API must include an `Authorization` header. If the function hardcodes `$env:SYSTEM_ACCESSTOKEN`, it fails
 locally. If it hardcodes `az account get-access-token`, it fails in the pipeline (the Az CLI may not be installed, or the agent identity may
-not have the right scope), and ignores an operator-supplied PAT.
+not have the scope it needs), and ignores an operator-supplied PAT.
 
 The dual-auth pattern makes credential selection explicit and deterministic, and proves every credential is aimed at the _configured_
 organization/tenant (`ado.yml`) before a header is returned.
@@ -168,7 +168,7 @@ security audit trail.
 ## Consequences
 
 - Credential selection is deterministic. The in-pipeline agent token wins when present; otherwise a configured PAT; otherwise the az CLI
-  session. No ambiguity, and no silent fallback when a selected source fails to authenticate.
+  session. No ambiguity, and no silent fallback when the source that was selected fails to authenticate.
 - Every returned header is proven to target the `ado.yml` organization/tenant, so a present credential cannot resolve to a different org by
   accident.
 - Auth failures produce clear error messages naming the specific missing credential.

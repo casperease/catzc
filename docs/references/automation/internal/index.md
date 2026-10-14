@@ -2,10 +2,10 @@
 
 `Internal (.psm1 shared infrastructure) — automation reference`
 
-`.internal` is the loader-and-shared-library layer under `automation/.internal/`. It holds the sanctioned `.psm1` modules that run the
-toolset's import sequence and the code that BOTH the pre-module bootstrap (which runs before any `Catzc` module exists) and the post-import
-`Catzc` modules (which run after) must call — the single home for what would otherwise be duplicated across those two layers (see
-[one-living-version](../../../adr/principles/one-living-version.md)). Everything under `automation/*` is documented per module in the
+`.internal` is the home of the loader and the shared libraries, under `automation/.internal/`. It holds the sanctioned `.psm1` modules that
+run the toolset's import sequence and the code that BOTH the pre-module bootstrap (which runs before any `Catzc` module exists) and the
+post-import `Catzc` modules (which run after) must call — the single home for what would otherwise be duplicated across those two layers
+(see [one-living-version](../../../adr/principles/one-living-version.md)). Everything under `automation/*` is documented per module in the
 [module reference](../index.md); this area documents the infrastructure those modules are loaded by and never see.
 
 These are `.psm1` files on purpose. The repository's function files are `.ps1` so they share one module scope with no import ceremony; the

@@ -12,7 +12,7 @@
       - types: exactly one .compiled/Catzc.Types.<hash>.dll, named for build.json typesHash. Every build ships the
         full type set: the selected modules' sources under <Module>/types/, every other module's under
         .compiled/types/<Module>/. build.json typeSources lists them all (build-relative paths); each must exist,
-        no shipped source may be missing from the list, and the listed sources must hash (Get-CombinedTypeHash,
+        no shipped source may be missing from the list, and the sources in the list must hash (Get-CombinedTypeHash,
         the one implementation) to typesHash — "the DLL was built from these sources" is proven by hash;
       - modules: the module folders are exactly build.json's modules; each has its <Module>.psd1 and merged
         <Module>.functions.ps1, the manifest's NestedModules is exactly that one file (a nested <Module>.ps1 would
@@ -95,7 +95,7 @@ function Assert-CatzcBundle {
                 }
             }
 
-            # Stage the recorded sources in the one layout Get-CombinedTypeHash reads (<Module>/types/<File>.cs), so the
+            # Stage the sources build.json records in the one layout Get-CombinedTypeHash reads (<Module>/types/<File>.cs), so the
             # hash comes from the one implementation rather than a second copy of its recipe.
             $staging = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "catzc-types-$([System.Guid]::NewGuid().ToString('N'))")
             try {

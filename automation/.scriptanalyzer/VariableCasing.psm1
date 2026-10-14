@@ -99,7 +99,7 @@ function Measure-VariableCasing {
         $isScoped = -not $isTestFile -and $varPath.IsGlobal
 
         $name = $varPath.UserPath
-        # Strip scope prefix for the casing check (script:Foo → Foo)
+        # Strip the scope prefix for the casing check (script:Foo → Foo)
         if ($name -match '^(script|global|private):(.+)$') {
             $name = $Matches[2]
         }

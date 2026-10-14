@@ -75,8 +75,8 @@ changing files on disk" contract.
 
 ## Context
 
-The repository root carries configuration files for git, editors, and quality-gate tools. Kept by hand, each is its own little source of
-truth with its own drift risk, and the tool-specific quirks (a `.psd1` that must be a literal hashtable, a JSON manifest with no comment
+The repository root carries configuration files for git, editors, and quality-gate tools. Kept by hand, each is a source of truth of its
+own, with its own drift risk, and the tool-specific quirks (a `.psd1` that must be a literal hashtable, a JSON manifest with no comment
 syntax) get re-solved ad hoc. "Root" names the ownership — one source of truth under `automation/`, one writer — not a path constraint: the
 managed set covers the repository root and, below it, the `.vscode/` editor files (settings, extension recommendations, launch profiles, the
 Azure Pipelines schema, and the preview CSS) and `.cspell/.gitignore` — all of those `committed: false`, so the editor greys them and a

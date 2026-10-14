@@ -10,8 +10,8 @@
     re-keys every module). Two fail-safe cases widen the fold with the declared whole-repository 'repository'
     set (every tracked file under every named root): a module that is UNCONSTRAINED in dependencies.yml (its true dependency set is unknown), and a module
     whose tests include the 'integrity' category (by definition they read the real repository beyond the
-    module). The dot-prefixed infra test units ('.internal', '.scriptanalyzer') key on their reserved scope
-    and are always widened. Per-set hashes are memoized in the caller-owned -HashCache, so one run hashes
+    module). The dot-prefixed infra test units ('.internal', '.scriptanalyzer') key on the scope reserved for
+    them and are always widened. Per-set hashes are memoized in the caller-owned -HashCache, so one run hashes
     each named set at most once.
 .PARAMETER Module
     The unit's folder name under automation/ — a module ('Catzc.Base.Globs') or the infra test units

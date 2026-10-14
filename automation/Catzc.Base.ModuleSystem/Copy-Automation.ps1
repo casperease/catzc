@@ -13,7 +13,7 @@
 
     Each selected module copies its folder plus each of its packages whose name is not excluded, to the SAME
     repository-root-relative path under -Destination, so the destination becomes a new root mirroring ours. A
-    selected source absent from this tree (e.g. .compiled before a first build) is skipped.
+    source that is selected but absent from this tree (e.g. .compiled before a first build) is skipped.
 
     Conflict handling is a fast pre-scan (fast / faster / fastest):
       - default          full pre-scan; if any file it would write already exists, throw and list them —
@@ -107,7 +107,7 @@ function Copy-Automation {
         }
     }
 
-    # Resolve to absolute; drop sources absent from this tree (e.g. .compiled before a first build).
+    # Resolve to absolute; drop the sources absent from this tree (e.g. .compiled before a first build).
     $destinationRoot = [System.IO.Path]::GetFullPath($Destination)
     $plan = [System.Collections.Generic.List[object]]::new()
     foreach ($relative in $relatives) {

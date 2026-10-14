@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Lists the glossary facts that span sources (check G1, cross-source) — one message per violation.
+    Lists the glossary facts that span more than one source (check G1, cross-source) — one message per violation.
 .DESCRIPTION
     The GlossaryConfig type checks each source on its own when it loads; this checks what no single source can
     see ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)):
@@ -17,7 +17,7 @@
       - a source that git does not track
       ([ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3)).
     The first source in owner order keeps a duplicated term or key; every later one is reported. Each message
-    starts with the reporting source's repo-relative path and names the term, so it points at the line to fix.
+    starts with the repo-relative path of the source it reports and names the term, so it points at the line to fix.
 
     Private helper for the glossary checks; not exported.
 .PARAMETER Source

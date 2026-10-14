@@ -29,8 +29,8 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-REPO-OUTDIR](dedicated-output-directory.md)
 
-> DORA's research connects version control discipline to deployment predictability; separating source and output prevents dirty working
-> trees and makes CI artifact collection trivial and reliable.
+> DORA's research connects version control discipline to deployment predictability; separating the source and the output prevents dirty
+> working trees and makes CI artifact collection trivial and reliable.
 
 - [Version control](../../references/dora/capabilities.md#version-control) — a clean working tree with no stray generated files keeps
   history and blame legible.

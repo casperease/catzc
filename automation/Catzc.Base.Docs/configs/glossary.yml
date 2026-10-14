@@ -43,7 +43,7 @@ concepts:
         defined_by: ADR-REPO-VOCAB#8
         short: One stratum of a structure, always qualified — an implementation layer (language, PowerShell, installer, tooling) or a globset layer (module, fileset).
         realized_by: { kind: prose-only }
-        forms: [automation, language, PowerShell, installer, config, configuration, Azure, tooling, YAML, module, template, templating, vendor, abstraction, analyzer, compatibility, mapping, serialization, base, design, spelling, Pester, pip, path, support, doctrine, globset, fileset, cross, ADR, shaping]
+        forms: [implementation, automation, language, PowerShell, installer, config, configuration, Azure, tooling, YAML, module, template, templating, vendor, abstraction, analyzer, compatibility, mapping, serialization, base, design, spelling, Pester, pip, path, support, doctrine, globset, fileset, cross, ADR, shaping]
         verbs: true
     scope:
         key: scope
@@ -51,5 +51,5 @@ concepts:
         defined_by: ADR-REPO-VOCAB#8
         short: What something reaches, always qualified — a PowerShell scope (module, script, global), an install scope (user, machine), or a selection scope (verify, scan, content).
         realized_by: { kind: prose-only }
-        forms: [module, user, machine, content, script, verify, shared, file, target, scan, test, persistent, category, global, process, Pester, default, install, markdown, repo, lint, child, environment, subscription, report, tag, declared, whole, top, strict, isolated, discovery, glossary, deployment, infra, radius]
+        forms: [PowerShell, selection, module, user, machine, content, script, verify, shared, file, target, scan, test, persistent, category, global, process, Pester, default, install, markdown, repo, lint, child, environment, subscription, report, tag, declared, whole, top, strict, isolated, discovery, glossary, deployment, infra, radius]
         verbs: true

@@ -283,7 +283,7 @@ function Measure-AnnounceStateChange {
         $false
     }
 
-    # Whether a node sits inside a finally block that belongs to the given scope.
+    # Whether a node sits inside a finally block that belongs to the scope passed in.
     $isInFinally = {
         param($node, $scope)
         $child = $node

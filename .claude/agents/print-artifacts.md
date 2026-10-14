@@ -13,7 +13,7 @@ tools: Bash, Read, Glob, Grep, Write, Artifact, ArtifactData
 
 `print-artifacts`
 
-<!-- cspell:ignore lstrip pathlib setdefault startswith -->
+<!-- cspell:ignore lstrip makedirs pathlib setdefault startswith -->
 
 You publish what is on disk, exactly as it is now. You never draw, edit or move a diagram, and you never write the user's answers.
 

@@ -19,7 +19,7 @@
     version against the tools.yml pin — cheaply, with no node round-trip — and fails when they diverge, so a
     cspell bump that leaves this artifact stale is caught in CI. Re-run this (and commit the gz + stamp) when
     bumping cspell; `-DryRun` reports whether either would change. It writes the source module in the
-    repository, so it needs source mode and throws in build mode (Assert-SourceTree).
+    repository, so it needs the source mode and throws in build mode (Assert-SourceTree).
 
     SpellingOracle (Catzc.Base.QualityGates/types) loads this list plus every .cspell/*.txt term list into one
     set. English recognizes the spelled-out words (rule, collection, group); the term lists carry the product

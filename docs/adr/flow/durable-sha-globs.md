@@ -71,10 +71,11 @@ no longer equals its projection, or whose file is missing.
 Every globset carries a **layer** — the kind of thing it maps. Two are declared in `globs.yml`: `deployable-unit` (a configurable unit that
 ships) and `loose-fileset` (a cross-cutting check surface that deliberately overlaps the boundaries it cuts across — a track's root concern
 (`ADR-DSGN-TRACK`) such as `automation`/`infrastructure`, a scan scope, a reserved umbrella). A loose-fileset must earn its place by a
-**demonstrated use** — a pipeline it triggers, a scan it scopes, a protection it drives (YAGNI: no catch-all-for-completeness's-sake). The
-third, `module`, is **derived-only** (`ADR-REPO-PROTGLOB`): the folders are the registration, declaring it is rejected, and the layer
-carries the per-folder module sets plus the `module-leftovers` catch-all (module-space files no module owns); derived sets scope protection
-and blast-radius through the same `Matches()` machinery as declared sets (`ADR-REPO-PROTGLOB#7`), with nothing committed per set.
+**demonstrated use** — a pipeline it triggers, a scan whose scope it sets, a protection it drives (YAGNI: no
+catch-all-for-completeness's-sake). The third, `module`, is **derived-only** (`ADR-REPO-PROTGLOB`): the folders are the registration,
+declaring it is rejected, and the layer carries the per-folder module sets plus the `module-leftovers` catch-all (module-space files no
+module owns); derived sets set the scope of protection and blast-radius through the same `Matches()` machinery as declared sets
+(`ADR-REPO-PROTGLOB#7`), with nothing committed per set.
 
 A deployable unit takes one of two shapes: a **configured** unit — a base plus its own configuration, e.g. a customer or platform unit — and
 a **base** unit — a shared, un-configured surface that exists only to be composed, e.g. `template-azure-subscription-foundation`, which
@@ -136,14 +137,14 @@ declared registry and the derived module sets (`ADR-REPO-PROTGLOB:7`) alike; a v
 A deployable unit is a high-level composition of modules in the modular repository — a whole track or a reduced slice of one (see
 [tracks](../design/tracks.md), `ADR-DSGN-TRACK#5`) — mapped onto actual files under version control. Both Azure DevOps (`trigger:`/`pr:`
 `paths:`, build-validation policies) and GitHub (`on.*.paths`) decide whether to run by matching changed paths against filter lists. Writing
-those lists directly into every pipeline and workflow by hand scatters one fact — "which files compose this unit" — across the orchestration
-layer, in two vendor dialects, where drift is invisible until a deploy silently does not fire.
+those lists directly into every pipeline and workflow by hand scatters one fact — "which files compose this unit" — across the pipeline and
+workflow definitions, in two vendor dialects, where drift is invisible until a deploy silently does not fire.
 
-The design keeps the composition declared once, at the deterministic source-of-truth layer (`globs.yml`), and derives everything else from
-it. Two derivations do the work a committed per-set marker would carry: the trigger is the globset **projected** into each vendor's native
-path-filter dialect (`Get-GlobSetTrigger`), generated into the orchestration YAML and drift-checked against the source; and "did this change
-touch the unit?" is **reflected** from git at the real refs (`Get-ChangedGlobSet` / `Test-GlobSetAffected`). Nothing is committed per set,
-so there is no whole-set hash to go stale.
+The design keeps the composition declared once, in `globs.yml` — the layer that is the source of truth, and is deterministic — and derives
+everything else from it. Two derivations do the work a committed per-set marker would carry: the trigger is the globset **projected** into
+each vendor's native path-filter dialect (`Get-GlobSetTrigger`), generated into the orchestration YAML and drift-checked against the source;
+and "did this change touch the unit?" is **reflected** from git at the real refs (`Get-ChangedGlobSet` / `Test-GlobSetAffected`). Nothing is
+committed per set, so there is no whole-set hash to go stale.
 
 ## Decision
 

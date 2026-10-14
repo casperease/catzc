@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Writes the PATH environment variable at a given scope (the Windows registry for User/Machine).
+    Writes the PATH environment variable at the scope given (the Windows registry for User/Machine).
 .DESCRIPTION
     The single seam through which the PATH helpers (Add-/Remove-PermanentPath, the tooling uninstallers)
     WRITE the persistent PATH, so tests can Mock the registry boundary

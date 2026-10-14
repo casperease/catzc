@@ -39,7 +39,7 @@ author adding any imports or boilerplate. This requires all function files withi
 `NestedModules` in a manifest gets its own isolated module scope — by design, not by accident.
 
 Microsoft designed `NestedModules` with `.psm1` files for **dependency composition** — independent sub-libraries (like referencing a NuGet
-package), each with their own encapsulated scope and controlled exports. This works well for that purpose.
+package), each encapsulated in a scope of its own, with controlled exports. This works well for that purpose.
 
 Our use case is different: we want **code organization** — splitting one module's internals across files. For this, scope isolation is
 harmful:
@@ -101,4 +101,5 @@ is generated from.
 - No `_loader.psm1` workaround needed — manifest-only solution
 - Private functions are automatically available to public functions
 - Aligns with the established PowerShell community convention
-- The installed build carries one generated `.ps1` per module with the same shared-scope semantics, so source and build load the same way
+- The installed build carries one generated `.ps1` per module with the same shared-scope semantics, so the source and the build load the
+  same way

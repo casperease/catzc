@@ -162,7 +162,7 @@ Neither `assets/PrePost.psm1` nor `infrastructure/templates/<name>/PrePost.psm1`
 - The per-template module lives **outside `automation/`** entirely, in `infrastructure/`.
 
 The `use-ps1-not-psm1` "shared scope across module internals" use case and this ADR's "isolated extension point loaded on demand" use case
-have different scope requirements. The two ADRs apply in different parts of the repo and do not contradict each other.
+have requirements for scope that differ. The two ADRs apply in different parts of the repo and do not contradict each other.
 
 ### Not three `.ps1` files
 

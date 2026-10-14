@@ -66,7 +66,7 @@ The vendored modules themselves are managed by [Catzc.Base.Vendor](catzc-base-ve
 
 ## What the module does
 
-The module is the platform's self-knowledge layer. Responsibility 1 enumerates the functions the modules define, responsibility 2 computes
+The module holds the platform's knowledge of itself. Responsibility 1 enumerates the functions the modules define, responsibility 2 computes
 and checks what the code actually depends on, responsibility 3 checks the shape of the module tree, responsibility 4 models the modules and
 copies them, and responsibility 5 generates and commits the files that load them.
 

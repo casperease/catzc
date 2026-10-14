@@ -321,11 +321,11 @@ One stratum of a structure, always qualified — an implementation layer (langua
 - **Defined by:** [ADR-REPO-VOCAB#8](repository/controlled-vocabulary.md#rule-adr-repo-vocab8)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
-- **Forms:** `automation layer`, `language layer`, `PowerShell layer`, `installer layer`, `config layer`, `configuration layer`,
-  `Azure layer`, `tooling layer`, `YAML layer`, `module layer`, `template layer`, `templating layer`, `vendor layer`, `abstraction layer`,
-  `analyzer layer`, `compatibility layer`, `mapping layer`, `serialization layer`, `base layer`, `design layer`, `spelling layer`,
-  `Pester layer`, `pip layer`, `path layer`, `support layer`, `doctrine layer`, `globset layer`, `fileset layer`, `cross layer`,
-  `ADR layer`, `shaping layer`, and the bare `layer`, with its verb forms
+- **Forms:** `implementation layer`, `automation layer`, `language layer`, `PowerShell layer`, `installer layer`, `config layer`,
+  `configuration layer`, `Azure layer`, `tooling layer`, `YAML layer`, `module layer`, `template layer`, `templating layer`, `vendor layer`,
+  `abstraction layer`, `analyzer layer`, `compatibility layer`, `mapping layer`, `serialization layer`, `base layer`, `design layer`,
+  `spelling layer`, `Pester layer`, `pip layer`, `path layer`, `support layer`, `doctrine layer`, `globset layer`, `fileset layer`,
+  `cross layer`, `ADR layer`, `shaping layer`, and the bare `layer`, with its verb forms
 
 ### markdown link
 
@@ -346,11 +346,12 @@ scope (verify, scan, content).
 - **Defined by:** [ADR-REPO-VOCAB#8](repository/controlled-vocabulary.md#rule-adr-repo-vocab8)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
-- **Forms:** `module scope`, `user scope`, `machine scope`, `content scope`, `script scope`, `verify scope`, `shared scope`, `file scope`,
-  `target scope`, `scan scope`, `test scope`, `persistent scope`, `category scope`, `global scope`, `process scope`, `Pester scope`,
-  `default scope`, `install scope`, `markdown scope`, `repo scope`, `lint scope`, `child scope`, `environment scope`, `subscription scope`,
-  `report scope`, `tag scope`, `declared scope`, `whole scope`, `top scope`, `strict scope`, `isolated scope`, `discovery scope`,
-  `glossary scope`, `deployment scope`, `infra scope`, `radius scope`, and the bare `scope`, with its verb forms
+- **Forms:** `PowerShell scope`, `selection scope`, `module scope`, `user scope`, `machine scope`, `content scope`, `script scope`,
+  `verify scope`, `shared scope`, `file scope`, `target scope`, `scan scope`, `test scope`, `persistent scope`, `category scope`,
+  `global scope`, `process scope`, `Pester scope`, `default scope`, `install scope`, `markdown scope`, `repo scope`, `lint scope`,
+  `child scope`, `environment scope`, `subscription scope`, `report scope`, `tag scope`, `declared scope`, `whole scope`, `top scope`,
+  `strict scope`, `isolated scope`, `discovery scope`, `glossary scope`, `deployment scope`, `infra scope`, `radius scope`, and the bare
+  `scope`, with its verb forms
 
 ### source
 

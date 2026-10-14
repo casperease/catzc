@@ -104,11 +104,6 @@ function Invoke-Importer {
 
     if ($DiagnoseLoadTime) {
         $script:diagSw = [Diagnostics.Stopwatch]::StartNew()
-        function script:Write-LoadTime {
-            param([string] $Step)
-            Write-ImporterMessage ('{0,6}ms  {1}' -f [int]$script:diagSw.Elapsed.TotalMilliseconds, $Step) -ForegroundColor DarkGray
-            $script:diagSw.Restart()
-        }
         # Collectors the Bootstrap loaders (incl. Import-CSharpTypes) append to, summarized at the end.
         $global:__CatzcLoadTimings = [System.Collections.Generic.List[object]]::new()
     }
@@ -260,7 +255,7 @@ function Invoke-Importer {
         }
 
         # Keep the managed .gitkeep files current (Catzc.Base.Docs). Every .gitkeep is a committed copy of the
-        # one shared template, pointing at its folder's generated README — reproduced here so a source change
+        # one shared template, pointing at its folder's generated README — reproduced here so a template change
         # propagates, and a fast no-op on a clean tree. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
         if (-not $SkipJanitors -and (Get-Command Build-GitKeep -ErrorAction Ignore)) {
             Build-GitKeep -Silent | Out-Null
@@ -440,6 +435,31 @@ function Invoke-TypeCacheJanitor {
     catch {
         Write-ImporterMessage $_.Exception.Message -ForegroundColor Red
     }
+}
+
+function Write-LoadTime {
+    <#
+    .SYNOPSIS
+        Writes one -DiagnoseLoadTime stage line: the milliseconds since the previous stage, then restarts the clock.
+    .DESCRIPTION
+        Internal to the importer overlay, called only under -DiagnoseLoadTime, which starts $script:diagSw. The slot
+        is probed strict-clean
+        ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4)), so a
+        call before the clock exists starts it instead of throwing on the unset variable.
+    .PARAMETER Step
+        The stage just finished.
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory, Position = 0)]
+        [string] $Step
+    )
+
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:diagSw')) {
+        $script:diagSw = [Diagnostics.Stopwatch]::StartNew()
+    }
+    Write-ImporterMessage ('{0,6}ms  {1}' -f [int]$script:diagSw.Elapsed.TotalMilliseconds, $Step) -ForegroundColor DarkGray
+    $script:diagSw.Restart()
 }
 
 function Write-LoadTimeSummary {

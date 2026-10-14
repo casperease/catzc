@@ -6,7 +6,7 @@
 # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
     BeforeAll {
-        # One merged glossary entry from the widget source: realized as a tag unless said otherwise.
+        # One merged glossary entry from the widget's source: realized as a tag unless said otherwise.
         $script:entry = {
             param([string] $term, [string] $definedBy, [string] $kind = 'tag', [string[]] $checks)
             $realization = [ordered]@{ kind = $kind }

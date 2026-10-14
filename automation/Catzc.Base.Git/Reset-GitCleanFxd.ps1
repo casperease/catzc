@@ -38,7 +38,7 @@ function Reset-GitCleanFxd {
 
     Assert-Command git
 
-    # git's own dry run is the candidate source: exactly what `git clean -fxd` would remove, no
+    # git's own dry run is the source of the candidates: exactly what `git clean -fxd` would remove, no
     # re-implementation of ignore semantics.
     $listing = Invoke-Executable 'git clean -xdn' -PassThru -Silent
     $candidates = foreach ($line in ($listing.Output -split '\r?\n')) {

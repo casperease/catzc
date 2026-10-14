@@ -82,7 +82,7 @@ we do not build a function.
 The platform never re-implements what the vendor already does well. ARM templating is Bicep's job; the platform composes Bicep modules and
 supplies their configuration, it does not generate ARM by hand. Control-plane and account actions are the az CLI's job; the platform curates
 a pinned az surface and calls it (`ADR-AUTO-AZCLI`), it does not reach for SDK assemblies to redo the same calls. What the platform _does_
-own is the harmonization layer on top: uniform invocation, a single authentication path (local token vs. pipeline identity resolved for
+own is the layer on top that harmonizes: uniform invocation, a single authentication path (local token vs. pipeline identity resolved for
 you), sensible zero-arg behaviour, and the guardrails that keep every call consistent. That is the line between a platform and a framework —
 a platform makes the vendor easier to use correctly; a framework tries to replace it and inherits its entire maintenance surface.
 
@@ -100,10 +100,10 @@ single consumer.
 `Everything the platform covers is code`
 
 A thin abstraction is only trustworthy if it is fully materialized. Everything the platform touches is checked in and versioned as one
-living source of truth (`ADR-PRIN-EAC`, `ADR-PRIN-ONELIVE`): the PowerShell/C# automation, the Bicep infrastructure, the per-target
+source of truth, a living one (`ADR-PRIN-EAC`, `ADR-PRIN-ONELIVE`): the PowerShell/C# automation, the Bicep infrastructure, the per-target
 configuration, the pinned tool versions, and the vendored dependencies. Nothing is configured by clicking a console, and nothing is a "we
-usually run this by hand" step. This is what lets the thin layer stay thin without becoming lossy — the full representation is in the repo,
-so the abstraction can be reproduced, reviewed, and diffed rather than trusted on faith.
+usually run this by hand" step. This is what lets the layer stay thin without becoming lossy — the full representation is in the repo, so
+the abstraction can be reproduced, reviewed, and diffed rather than trusted on faith.
 
 ### Owned as a product
 
@@ -130,8 +130,8 @@ covering Azure and Azure RM via Bicep plus a curated az CLI.
   model (a platform team develops and manages it as X-as-a-Service).
 - **Hohpe's _Platform Strategy_** supplies the discipline (harmonize, don't reimplement; build abstractions, not illusions) and the
   guardrail (surface the decisions that scale-time cost punishes).
-- **`ADR-PRIN-EAC` / `ADR-PRIN-ONELIVE`** keep the abstraction fully materialized and singular — no drift, no legacy shims behind the thin
-  layer.
+- **`ADR-PRIN-EAC` / `ADR-PRIN-ONELIVE`** keep the abstraction fully materialized and singular — no drift, no legacy shims behind a layer
+  that is thin.
 - **`ADR-AUTO-AZCLI` and the Bicep infrastructure track** are the concrete substrate bindings the CLI delegates to.
 - **`ADR-AUTO-PARITY`** keeps the one CLI surface identical on a developer box and in the pipeline, which is what makes it a real service
   boundary.

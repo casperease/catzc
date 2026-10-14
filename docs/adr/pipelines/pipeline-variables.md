@@ -60,8 +60,8 @@ This syntax is awkward, error-prone, and has several sharp edges:
   the original characters. A variable set as `my.var` must be referenced as `my_var` downstream. If the setter and consumer use different
   conventions, the variable silently resolves to empty.
 
-- **Output vs. local scope.** Without `isOutput=true`, the variable is local to the current step. To pass it to another job, it must be an
-  output variable — but the syntax is easy to forget.
+- **Output vs. local to the step.** Without `isOutput=true`, the variable is local to the current step. To pass it to another job, it must
+  be an output variable — but the syntax is easy to forget.
 
 - **Secret masking.** `issecret=true` tells ADO to mask the value in logs. Forgetting this for sensitive values leaks them to the build log.
 

@@ -396,10 +396,11 @@ function Import-CSharpTypes {
     }
 
     # Validate each source and derive its FQN (<module>.<filename>). These two poka-yokes are the loader's job,
-    # deliberately NOT in the shared enumerator (the janitor must never throw on a source that is wrong): a dotted filename
-    # (the old fully-qualified style) is rejected, and a file whose declared file-scoped namespace does not match
-    # its module folder (or is missing/block-scoped) is rejected — the same invariant Test-Formatting enforces,
-    # checked here at load; Format-Types repairs all of them. The source list is already ordinally sorted.
+    # deliberately NOT in the shared enumerator (the janitor must never throw on a source that is wrong): a
+    # dotted filename (the old fully-qualified style) is rejected, and a file whose declared file-scoped namespace
+    # does not match its module folder (or is missing/block-scoped) is rejected — the same invariant
+    # Test-Formatting enforces, checked here at load; Format-Types repairs all of them. The source list is already
+    # ordinally sorted.
     $arr = [object[]]@(foreach ($file in $hashResult.Files) {
             $moduleName = $file.Module
             $base = $file.Base

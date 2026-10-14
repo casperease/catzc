@@ -6,7 +6,7 @@ Describe 'Get-ChangedGlobSet' -Tag 'L0', 'logic' {
         # Neutral fixture globset names (widget/gadget/report), not the shipped set names, so this logic test
         # owns its inputs ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). 'report'
         # overlaps 'widget' on src/** (both loose-filesets, the
-        # independence-exempt layer) to prove multi-set matches come back in registry order.
+        # layer exempt from independence) to prove multi-set matches come back in registry order.
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
                     'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**') }

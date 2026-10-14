@@ -6,7 +6,7 @@
 
 ### Rule ADR-PROC-BUILTIN:1
 
-Quality is built into the process, not inspected in afterwards. Every step produces already-correct output; there is no separate phase that
+Quality is built into the process, not inspected in afterwards. Every step produces already-correct output; there is no separate stage that
 blesses defective work as finished. The definition of done includes green quality gates, not a later sign-off.
 
 - [Decision](#decision)
@@ -43,13 +43,13 @@ answer is jidoka: build quality into each step so the output is correct by const
 
 The Poppendiecks carry this into software as "build integrity in" [^1]. It is the natural partner of poka-yoke
 ([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)): where poka-yoke is the mechanism (prevent, else detect early), building quality in is the
-policy that there is no other mechanism — no end-of-line QA phase to fall back on.
+policy that there is no other mechanism — no end-of-line QA stage to fall back on.
 
 ## Decision
 
 Quality is a property of how the work is produced, not a gate at the end of it. This has three consequences the platform enforces:
 
-- **No inspection phase.** There is no stage whose job is to find defects in finished work. The gates run _as_ the work is produced, and a
+- **No inspection stage.** There is no step whose job is to find defects in finished work. The gates run _as_ the work is produced, and a
   change is not "done pending QA" — it is done when its gates are green ([ADR-AUTO-TEST](../automation/test-automation.md)).
 - **Prevent, then detect.** The first choice is to make the defect impossible to express — derive behaviour from convention so there is
   nothing to get wrong ([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md), [ADR-PRIN-REDUCEVAR](../principles/reduce-variability.md)). Where
@@ -60,11 +60,11 @@ Quality is a property of how the work is produced, not a gate at the end of it. 
 
 ## Why
 
-**Inspection is too late and too weak.** By the time a separate QA phase looks at the work, the cost of the defect is already spent, and
+**Inspection is too late and too weak.** By the time a separate QA stage looks at the work, the cost of the defect is already spent, and
 sampling never catches everything. Building quality in removes the defect at the point where removing it is cheapest — before it exists, or
 at its origin.
 
-**A fallback QA phase erodes the process that feeds it.** If there is an inspection net at the end, every upstream step is quietly permitted
+**A fallback QA stage erodes the process that feeds it.** If there is an inspection net at the end, every upstream step is quietly permitted
 to be a little careless. Removing the net is what forces each step to be correct by construction — the same reason the line stops rather
 than routing defects to a rework area ([ADR-PROC-ANDON](holding-the-line.md)).
 

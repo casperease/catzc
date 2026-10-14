@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Reads the PATH environment variable at a given scope (the Windows registry for User/Machine).
+    Reads the PATH environment variable at the scope given (the Windows registry for User/Machine).
 .DESCRIPTION
     The single seam through which the PATH helpers (Add-/Remove-PermanentPath, Sync-SessionPath, the tooling
     uninstallers) READ the persistent PATH, so tests can Mock the registry boundary

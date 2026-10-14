@@ -7,7 +7,7 @@
     lowercased with dots turned to hyphens (automation/Catzc.Azure.DevOps ->
     docs/references/automation/catzc-azure-devops.md). A matched folder whose derived source file does not exist
     is skipped, so a module with no reference article yet simply gets no generated README — the importer runs
-    Build-Readme on every load and must never throw for a missing source. An explicit mapping WINS over a
+    Build-Readme on every load and must never throw when a source is missing. An explicit mapping WINS over a
     pattern that targets the same folder.
 
     Only a trailing `/*` glob is supported: `<prefix>/*` matches the immediate, non-dot-prefixed subdirectories

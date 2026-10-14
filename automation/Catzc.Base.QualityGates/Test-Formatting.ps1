@@ -15,7 +15,7 @@
     Collects every unformatted file and ends with Write-QualityGateReport: the report lands in
     out/test-formatting/, and the gate throws once listing every issue (or returns the result with -PassThru).
     The Prettier formatters need prettier on PATH and throw without it; the default scopes are the source tree,
-    so the gate needs source mode (Assert-SourceTree).
+    so the gate needs the source mode (Assert-SourceTree).
 .PARAMETER Formatter
     Check only these formatters (default: every one).
 .PARAMETER OutputFolder

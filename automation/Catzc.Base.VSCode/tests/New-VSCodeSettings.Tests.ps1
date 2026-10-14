@@ -63,7 +63,7 @@ Describe 'New-VSCodeSettings — real vscode-settings.yml' -Tag 'L1', 'integrity
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $json.'powershell.scriptAnalysis.settingsPath' | Should -Be './automation/.internal/assets/PSScriptAnalyzerSettings.psd1'
         $json.'search.exclude'.'importer.ps1' | Should -BeTrue
-        # The authored un-exclude of the analyzer source must survive rendering verbatim.
+        # The authored un-exclude of the analyzer's settings file must survive rendering verbatim.
         $json.'search.exclude'.'automation/.internal/assets/PSScriptAnalyzerSettings.psd1' | Should -BeFalse
     }
 }

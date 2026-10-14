@@ -114,7 +114,7 @@ export and fails fast, naming every collision, when:
 - an automation function would shadow an already-imported shipped command — one from a vendored module or a built-in. The shadow check is
   scoped to shipped commands by module path, so a user's unrelated session module never blocks the import.
 
-The import-time guard scopes itself to the set the manifests export — module-root functions always, `private/` functions under
+The import-time guard limits its scope to the set the manifests export — module-root functions always, `private/` functions under
 `-ExportPrivates` — because that is the set a load can actually break. The repository is stricter than that: an integrity test
 (`Test-Automation.Tests.ps1`) parses every module file and fails if any function name, public or private, is defined in more than one file.
 Reusing a private name across modules would not break an import (privates are module-scoped), but the repo forbids it anyway so the

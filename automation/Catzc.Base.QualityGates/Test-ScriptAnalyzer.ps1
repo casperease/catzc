@@ -23,7 +23,8 @@
     One or more files or directories to analyze. Defaults to the canonical checked set (Get-AutomationSourceFiles):
     module root *.ps1, private/, tests/, the .internal and .scriptanalyzer infrastructure folders (bootstrap,
     TestKit, custom analyzer rules, and their tests), the root importer.ps1, and authored .psd1 config. The
-    default set is the catzc source tree, so it needs source mode; an explicit -Path works in either run mode.
+    default set is the catzc source tree, so it needs the source mode; an explicit -Path works in either run
+    mode.
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-script-analyzer.
 .PARAMETER PassThru

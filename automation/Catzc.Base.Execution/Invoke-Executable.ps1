@@ -26,6 +26,11 @@
       .Raw      — unprocessed output array
 
     -PassThru and -Direct are mutually exclusive (separate parameter sets).
+
+    The default (Stream) mode runs inside a time safeguard: a process that outlives its limit is killed with its
+    whole tree and the call throws a TimeoutException. The limit is the executable's entry in timeouts.yml, or
+    its default_seconds (Get-TimeoutSeconds); -TimeoutSeconds sets it for one call. -Direct is the interactive
+    mode — a person at the prompt is its safeguard — so it has no limit.
 .PARAMETER Command
     The command string to execute.
 .PARAMETER Direct
@@ -45,6 +50,9 @@
     The directory to run the command in. Defaults to the repository root
     ($env:RepositoryRoot). Callers that need a specific directory should
     pass it explicitly rather than relying on $PWD.
+.PARAMETER TimeoutSeconds
+    The time limit for this call, in seconds. Defaults to the executable's limit from timeouts.yml
+    (Get-TimeoutSeconds). Not compatible with -Direct.
 .PARAMETER DryRun
     Return the command string without executing. Used for testing.
 .EXAMPLE
@@ -75,6 +83,10 @@ function Invoke-Executable {
 
         [Parameter(ParameterSetName = 'Stream')]
         [switch] $PassThru,
+
+        [Parameter(ParameterSetName = 'Stream')]
+        [ValidateRange(1, [int]::MaxValue)]
+        [int] $TimeoutSeconds,
 
         [switch] $NoAssert,
         [switch] $Silent,
@@ -115,6 +127,9 @@ function Invoke-Executable {
         Invoke-ExecutableDirect @params
     }
     else {
-        Invoke-ExecutableStreamed @params
+        if (-not $PSBoundParameters.ContainsKey('TimeoutSeconds')) {
+            $TimeoutSeconds = Get-TimeoutSeconds -Executable ([Catzc.Base.Execution.CliRunner]::ExecutableName($Command))
+        }
+        Invoke-ExecutableStreamed @params -TimeoutSeconds $TimeoutSeconds
     }
 }

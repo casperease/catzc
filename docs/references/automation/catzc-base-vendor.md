@@ -7,7 +7,7 @@ from the network. Vendoring checks each dependency's exact version straight into
 (deterministic, fast, offline; see [vendor-toolset-dependencies](../../adr/automation/powershell/vendor-toolset-dependencies.md)); this
 module is the lifecycle around that committed set. It deliberately does **not** load them at import time — that is the internal,
 pre-module-system loader (`Import-VendorModules`); this module is the post-import surface for managing what is committed. Every operation
-targets a configurable source (`vendor.yml` — the PowerShell Gallery by default, a custom feed when set), reached through the bundled
+targets a configured source (`vendor.yml` — the PowerShell Gallery by default, a custom feed when set), reached through the bundled
 `Microsoft.PowerShell.PSResourceGet` (shipped with PowerShell 7.4+).
 
 ## Responsibilities
@@ -37,8 +37,8 @@ binaries to slim the repository runs this check first.
 
 The single source setting the other responsibilities resolve against — which registered repository to download from and validate against. It
 defaults to the PowerShell Gallery and needs no url; a custom feed (an Artifactory or proxy) is named by an optional url that is registered
-as a trusted repository on first use. The default is deliberately the only value the shipped config carries — a custom source is an
-override, undefined until a consumer sets it.
+as a trusted repository on first use. The default is deliberately the only value the shipped config carries — a custom feed is an override,
+undefined until a consumer sets it.
 
 ## What the module does
 

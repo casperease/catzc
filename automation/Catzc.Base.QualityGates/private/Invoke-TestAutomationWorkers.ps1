@@ -248,8 +248,8 @@ function Invoke-TestAutomationWorkers {
         }
 
         # One summary per worker for the end-of-run table: queue number is submission order (greedy after
-        # the pool, serial last), start is on the run's single wall-clock timeline (each later phase's
-        # workers offset by their phase boundary).
+        # the pool, serial last), start is on the run's single wall-clock timeline (the workers of
+        # each phase after the first offset by their phase boundary).
         $isSerial = $serialShard -and $shard.Label -eq $serialShard.Label
         # ForEach-Object, not .Label: member enumeration on an empty list throws under strict mode (no greedy files).
         $isGreedy = -not $isSerial -and $shard.Label -in @($greedyShards | ForEach-Object { $_.Label })

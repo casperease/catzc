@@ -1,7 +1,9 @@
 // A streaming process runner: it parses a command string and runs the executable directly (no shell, via
 // CreateProcess/fork+exec), streaming stdout/stderr to the console char-by-char on background threads while
 // also capturing them. The instance is both the runner and its own result — Run/RunDirect populate the
-// three captured fields below.
+// three captured fields below. Every run is inside a time safeguard: a process that outlives its limit is killed
+// with its whole tree and the run throws a TimeoutException (the limit comes from timeouts.yml, resolved by the
+// caller through Get-TimeoutSeconds).
 
 using System;
 using System.Collections.Generic;
@@ -25,10 +27,17 @@ public class CliRunner
 
     /// <summary>
     /// Runs a command string. Parses it into executable + arguments and runs
-    /// directly (no shell). Throws if shell operators (|, &amp;&amp;, ||, ;) are detected.
+    /// directly (no shell). Throws if shell operators (|, &amp;&amp;, ||, ;) are detected,
+    /// and throws a TimeoutException (after killing the process tree) when the run
+    /// outlives timeoutSeconds.
     /// </summary>
-    public static CliRunner Run(string commandLine, bool silent, string workingDirectory = null)
+    public static CliRunner Run(string commandLine, bool silent, string workingDirectory, int timeoutSeconds)
     {
+        if (timeoutSeconds <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(timeoutSeconds), "every run needs a positive time limit");
+        }
+
         var parsed = ParseCommand(commandLine);
 
         if (parsed.HasShellOperator)
@@ -38,10 +47,20 @@ public class CliRunner
                 "Break the command into separate Invoke-Executable calls, or use -Direct for shell expressions.");
         }
 
-        return RunDirect(parsed.Executable, parsed.Arguments, silent, workingDirectory);
+        return RunDirect(commandLine, parsed.Executable, parsed.Arguments, silent, workingDirectory, timeoutSeconds);
     }
 
-    private static CliRunner RunDirect(string executable, List<string> arguments, bool silent, string workingDirectory)
+    /// <summary>
+    /// The executable a command string runs (its first token, quotes removed), or an
+    /// empty string for a blank command — the name its time limit is looked up by.
+    /// </summary>
+    public static string ExecutableName(string commandLine)
+    {
+        return ParseCommand(commandLine ?? "").Executable ?? "";
+    }
+
+    private static CliRunner RunDirect(string commandLine, string executable, List<string> arguments, bool silent,
+        string workingDirectory, int timeoutSeconds)
     {
         var runner = new CliRunner();
         var stdoutSb = new StringBuilder();
@@ -77,11 +96,11 @@ public class CliRunner
             psi.ArgumentList.Add(arg);
         }
 
-        return Execute(psi, stdoutSb, stderrSb, silent, runner);
+        return Execute(commandLine, psi, stdoutSb, stderrSb, silent, timeoutSeconds, runner);
     }
 
-    private static CliRunner Execute(ProcessStartInfo psi, StringBuilder stdoutSb,
-        StringBuilder stderrSb, bool silent, CliRunner runner)
+    private static CliRunner Execute(string commandLine, ProcessStartInfo psi, StringBuilder stdoutSb,
+        StringBuilder stderrSb, bool silent, int timeoutSeconds, CliRunner runner)
     {
         var previousEncoding = Console.OutputEncoding;
 
@@ -121,6 +140,20 @@ public class CliRunner
 
                 stdoutThread.Start();
                 stderrThread.Start();
+
+                if (!process.WaitForExit(TimeSpan.FromSeconds(timeoutSeconds)))
+                {
+                    // Kill the whole tree: a .cmd shim or a tool's own workers would otherwise keep the output
+                    // pipes open and the reader threads alive.
+                    process.Kill(entireProcessTree: true);
+                    process.WaitForExit();
+                    stdoutThread.Join();
+                    stderrThread.Join();
+                    throw new TimeoutException(
+                        $"Killed '{commandLine}' after {timeoutSeconds}s: it did not finish within its time limit. " +
+                        "Make it faster, or raise the limit: pass -TimeoutSeconds, or tune the executable's entry in " +
+                        "automation/Catzc.Base.Timeouts/configs/timeouts.yml.");
+                }
 
                 process.WaitForExit();
                 stdoutThread.Join();

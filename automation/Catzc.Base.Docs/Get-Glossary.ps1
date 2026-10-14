@@ -8,9 +8,10 @@
     repo-relative path, and the source's defaulted options. Sorted by term (ordinal), so the result reads like a
     glossary and is stable across runs.
 
-    Each source is validated on load by its type; the facts that span sources — a term or key declared twice,
-    a contrast that is not reciprocal, an untracked source — are not checked here. They belong to the glossary
-    checks (Get-GlossarySourceViolations), so a reader always gets the vocabulary as declared.
+    Each source is validated on load by its type; the facts that span more than one source — a term or key
+    declared twice, a contrast that is not reciprocal, a source git does not track — are not checked here. They
+    belong to the glossary checks (Get-GlossarySourceViolations), so a reader always gets the vocabulary as
+    declared.
 
     The result is cached for the session per repository root
     ([ADR-AUTO-PSCACHE](/docs/adr/automation/powershell/script-scope-caching.md)); re-run the importer to pick up

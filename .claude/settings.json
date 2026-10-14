@@ -43,5 +43,20 @@
       "Bash(git mv:*)",
       "Bash(git rm:*)"
     ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pwsh -NoProfile -NonInteractive -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/Assert-BashTimeout.ps1\"",
+            "timeout": 10,
+            "statusMessage": "Checking the Bash time safeguard"
+          }
+        ]
+      }
+    ]
   }
 }

@@ -65,7 +65,7 @@ The console session is where the user works. Dot-sourcing `importer.ps1` into it
 preferences, moves `PATH` entries, and points environment variables at tool homes; an installer rewrites `PATH` and the user environment; a
 quality gate lazy-loads Pester. Each of these changes what the next command in that session does. When they happen silently, the user is
 left with questions the scrollback cannot answer: why does `dotnet` resolve from this folder, which build of the types is loaded, where did
-this `PSModulePath` entry go. The only way to find out is to read source or re-run with diagnostics, which is exactly what
+this `PSModulePath` entry go. The only way to find out is to read the source or re-run with diagnostics, which is exactly what
 [console-output-matters](console-output-matters.md) rules out: a reader understands what happened by reading the output once, top to bottom.
 
 So the scrollback is made a complete record of how the session reached its state. Every change is announced as it happens, with the value it

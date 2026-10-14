@@ -2,9 +2,9 @@
 
 `Catzc.Azure.Firewall`
 
-The firewall-rule module. It is a small, focused converter: it takes firewall rules authored in a spreadsheet-friendly source and renders
-them into the forms the rest of the system consumes — structured YAML for infrastructure, and a readable table for documentation. It changes
-no cloud state; it transforms data between representations.
+The firewall-rule module. It is a small, focused converter: it takes firewall rules authored in a spreadsheet and renders them into the
+forms the rest of the system consumes — structured YAML for infrastructure, and a readable table for documentation. It changes no cloud
+state; it transforms data between representations.
 
 ## Responsibilities
 
@@ -15,9 +15,9 @@ no cloud state; it transforms data between representations.
 
 ### responsibility:1 — Rule source ingestion
 
-Reading firewall rules from their authoring source — a CSV in a storage account (firewall), or a direct read to the azure control plane
-(ipgs) — into structured records the rest of the module works with. This is the single entry point that turns the human-edited source into
-data.
+Reading firewall rules from their authored source — a CSV in a storage account (firewall), or a direct read to the azure control plane
+(ipgs) — into structured records the rest of the module works with. This is the single entry point that turns the source that people edit
+into data.
 
 ### responsibility:2 — Rule rendering
 
@@ -35,7 +35,7 @@ shape on demand.
 Responsibility 1 is the one place the authored source is parsed, so every projection starts from the same in-memory rules. Responsibility 2
 is a set of pure renderers over those rules — none of them feeds back into the source, and adding a new output shape means adding another
 projection, not another source of truth. The result is the everything-as-code discipline applied to a network artifact: the spreadsheet is
-the editable source, version control holds it, and the YAML and Markdown are generated, never hand-maintained (see
+the source people edit, version control holds it, and the YAML and Markdown are generated, never hand-maintained (see
 [everything-as-code](../../adr/principles/everything-as-code.md)).
 
 ## Division

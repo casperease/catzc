@@ -17,11 +17,12 @@
     Write-QualityGateReport, which writes out/test-logic-test-identity/, prints every finding as
     '<file>:<line>: <message>', and throws once listing them all; -PassThru returns the result instead.
 
-    Phase 1 matches the DISTINCTIVE identities exactly (customers, subscriptions, org, templates, deployable
-    units, ADO project); environment names (dev/test/preprod/prod) are a later, position-aware phase.
+    Stage 1 matches the DISTINCTIVE identities exactly (customers, subscriptions, org, templates, deployable
+    units, ADO project); environment names (dev/test/preprod/prod) are a later, position-aware stage.
 .PARAMETER Path
     Test files to check. Defaults to every *.Tests.ps1 under automation/ (excluding vendored modules) — the
-    catzc source tree, so the default needs source mode (Assert-SourceTree); an explicit -Path works in either.
+    catzc source tree, so the default needs the source mode (Assert-SourceTree); an explicit -Path works in
+    either.
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-logic-test-identity.
 .PARAMETER PassThru

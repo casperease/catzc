@@ -25,11 +25,11 @@ reproduce, or review what is not written down.
 
 ### Rule ADR-DSGN-SELFSERV:3
 
-What ships is an **immutable, content-addressed artifact** built **reproducibly** from a known source commit and carrying **provenance**
-from source to deployed state. The globset durable-SHA identities (`ADR-FLOW-CD-GLOBS`) content-address each shippable unit; a build is a
-verifiable path from that commit to its output, not a one-off act that cannot be repeated. This is what makes self-service _auditable_:
-every deployed thing traces to one exact, reviewed commit, and anyone can independently rebuild it and confirm the match. (Primary sources:
-the Reproducible Builds project on the source-to-binary verification path, and SLSA on build provenance and attestation.)
+What ships is an **immutable, content-addressed artifact** built **reproducibly** from a source commit that is known and carrying
+**provenance** from source to deployed state. The globset durable-SHA identities (`ADR-FLOW-CD-GLOBS`) content-address each shippable unit;
+a build is a verifiable path from that commit to its output, not a one-off act that cannot be repeated. This is what makes self-service
+_auditable_: every deployed thing traces to one exact, reviewed commit, and anyone can independently rebuild it and confirm the match.
+(Primary sources: the Reproducible Builds project on the source-to-binary verification path, and SLSA on build provenance and attestation.)
 
 - [Immutable artifacts and provenance](#immutable-artifacts-and-provenance)
 
@@ -126,8 +126,8 @@ artifact with provenance** (ADR-DSGN-SELFSERV#3), landed via **trunk-based devel
 - **Everything-as-code** (`ADR-PRIN-EAC`) keeps the repository the sole authoritative source; there is no supported out-of-band channel.
 - **The globset durable-SHA identities** (`ADR-FLOW-CD-GLOBS`) content-address every shippable unit, giving each deployment a single
   verifiable identity.
-- **One living version** (`ADR-PRIN-ONELIVE`) forbids long-lived branches and legacy variants, keeping trunk the one always-releasable
-  source.
+- **One living version** (`ADR-PRIN-ONELIVE`) forbids long-lived branches and legacy variants, keeping trunk the one source that is always
+  releasable.
 - **Fail-fast asserts and the quality gates** (`ADR-AUTO-FAILFAST`, the spelling, terminology and freshness quality gates) are the automated
   guardrails a self-service change must clear before it can merge.
 - **The thin CLI** (`ADR-DSGN-THINPLAT`) is the only actuator, so no self-service action can bypass the record.

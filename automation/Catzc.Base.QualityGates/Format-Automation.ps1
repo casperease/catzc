@@ -17,8 +17,8 @@
     One or more files or directories to format. Defaults to the canonical checked set (Get-AutomationSourceFiles):
     module root *.ps1, private/, tests/, the .internal and .scriptanalyzer infrastructure folders (bootstrap,
     TestKit, custom analyzer rules, and their tests), the root importer.ps1, and authored .psd1 config. The
-    default set is the catzc source tree, so it needs source mode; an explicit -Path works in either run mode.
-    The vendored PSScriptAnalyzer and its settings file are always read from the loaded code root
+    default set is the catzc source tree, so it needs the source mode; an explicit -Path works in either run
+    mode. The vendored PSScriptAnalyzer and its settings file are always read from the loaded code root
     (Get-CatzcModulesRoot).
 .PARAMETER DryRun
     Report which files would change without writing them. The returned list of changed files is the

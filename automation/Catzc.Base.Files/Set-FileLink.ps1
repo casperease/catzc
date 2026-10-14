@@ -18,7 +18,7 @@
 .PARAMETER Path
     Path of the link file to create or verify.
 .PARAMETER Target
-    Path of the existing source file the link must resolve to.
+    Path of the source file, which must exist, that the link must resolve to.
 .PARAMETER DryRun
     Report whether the link would change without touching the filesystem. See
     [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).

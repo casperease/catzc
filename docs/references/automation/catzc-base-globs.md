@@ -52,10 +52,10 @@ staleness and correct across renames.
 
 ### responsibility:4 — Protected scans
 
-The session-memory skip for heavy read-only scans: a (test, scope) key holds the durable identity of the last green run; an unchanged scope
-answers "protected" and the scan is skipped. Recording happens only after a green run, on the identity computed before the scan, and in a
-pipeline the whole mechanism is ignored — CI always scans full. Every globset — the **declared** registry (responsibility:1) and the
-**derived** sets the registry never lists (one per module folder by convention, one per internal `.psm1` module, the reserved infra
+The session-memory skip for heavy read-only scans: a (test, scope) key holds the durable identity of the last green run; a scope that has
+not changed answers "protected" and the scan is skipped. Recording happens only after a green run, on the identity computed before the scan,
+and in a pipeline the whole mechanism is ignored — CI always scans full. Every globset — the **declared** registry (responsibility:1) and
+the **derived** sets the registry never lists (one per module folder by convention, one per internal `.psm1` module, the reserved infra
 umbrellas `internal`/`vendor`/`compiled`/`scriptanalyzer`, and the `module-leftovers` catch-all) — scopes protection and blast-radius
 through the same `Matches()` machinery, with nothing committed per set. The derived sets double as the building blocks `Test-Automation`
 composes into per-module protection identities.
