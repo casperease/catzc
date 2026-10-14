@@ -18,7 +18,8 @@
 //     column header of the world map fits its limit (row_axis and root_files within max_row_label, column_axis and
 //     unlisted_files within max_column_label); the value_chain_ labels have no length limit;
 //   - output_folder is one path segment;
-//   - a pin names an ADR code (optionally #n), a track name, a kebab-case file language and a reason.
+//   - a pin names an ADR code (optionally #n), a track name, a kebab-case file language and a reason;
+//   - highlight.citation_exclude is a list of repository-relative, '/'-separated globs.
 
 using System;
 using System.Collections;
@@ -42,7 +43,7 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
         "legend_highlight", "value_chain_title", "value_chain_row_axis", "value_chain_column_axis", "value_chain_legend_adrs",
         "value_chain_legend_highlight"
     };
-    private static readonly string[] HighlightKeys = { "pins", "exceptions" };
+    private static readonly string[] HighlightKeys = { "pins", "exceptions", "citation_exclude" };
     private static readonly string[] PinKeys = { "adr", "track", "file_language", "reason" };
     private static readonly Regex Colour = new Regex("^#[0-9A-Fa-f]{6}$");
     private static readonly Regex AdrCode = new Regex("^ADR(-[A-Z0-9]+)+(#[1-9][0-9]*)?$");
@@ -107,7 +108,8 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
             ReadLabel(labelsMap, "value_chain_legend_highlight", MapsLabels.DefaultValueChainLegendHighlight, 0, errors));
 
         IDictionary highlightMap = Section(raw, "highlight", HighlightKeys, errors);
-        highlight = new MapsHighlight(ReadPins(highlightMap, "pins", errors), ReadPins(highlightMap, "exceptions", errors));
+        highlight = new MapsHighlight(ReadPins(highlightMap, "pins", errors), ReadPins(highlightMap, "exceptions", errors),
+            ReadGlobs(highlightMap, "citation_exclude", MapsHighlight.DefaultCitationExclude, errors));
 
         output_folder = ReadOutputFolder(raw, errors);
 
@@ -237,6 +239,31 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
             if (errors.Count == before) { pins.Add(new MapsPin(adr, track, language, reason)); }
         }
         return pins.ToArray();
+    }
+
+    // A list of repository-relative glob strings, each non-empty, '/'-separated and not rooted; the default when absent.
+    private static string[] ReadGlobs(IDictionary map, string key, IReadOnlyList<string> fallback, List<string> errors)
+    {
+        if (!Has(map, key)) { return new List<string>(fallback).ToArray(); }
+        IList list = map[key] as IList;
+        if (list == null || map[key] is string)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "highlight.{0} must be a list of globs, e.g. [docs/.assets/**]", key));
+            return Array.Empty<string>();
+        }
+        List<string> globs = new List<string>();
+        for (int i = 0; i < list.Count; i++)
+        {
+            string glob = Text(list[i]).Trim();
+            if (glob.Length == 0 || glob.Contains("\\") || glob.StartsWith("/", StringComparison.Ordinal))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture,
+                    "highlight.{0}[{1}]: '{2}' is not a repository-relative glob ('/'-separated, not rooted)", key, i, glob));
+                continue;
+            }
+            globs.Add(glob);
+        }
+        return globs.ToArray();
     }
 
     private static string PinField(IDictionary entry, string key, Regex shape, string hint, string at, List<string> errors)

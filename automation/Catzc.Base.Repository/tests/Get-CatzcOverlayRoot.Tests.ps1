@@ -14,7 +14,7 @@ Describe 'Get-CatzcOverlayRoot' -Tag 'L0', 'logic' {
         $env:RepositoryRoot = $script:originalRepositoryRoot
     }
 
-    It 'is <RepositoryRoot>/.catzc/automation in build mode' {
+    It 'is the working root''s .catzc/automation in build mode' {
         $env:RepositoryRoot = $consumer
         $env:CatzcModulesRoot = $bundle
         Get-CatzcOverlayRoot | Should -Be ([System.IO.Path]::GetFullPath($overlay))

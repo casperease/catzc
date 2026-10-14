@@ -82,12 +82,13 @@ None of these are per-function files within a module, so the rule above is intac
 The toolset runs in two modes ([run-modes](../design/run-modes.md)). In source mode the generated manifest lists every `.ps1` function file
 of a module in its `PrivateData`, and its one `NestedModules` entry, the shared loader `automation/.internal/assets/Import-ModuleFiles.ps1`,
 parses each file in memory and dot-sources it into the module's session state
-([dynamic-module-manifests](dynamic-module-manifests.md#regenerated-manifests)). In build mode `Build-Modules` concatenates the same files — `private/` first, then the root, each in ordinal
-order and each preceded by a `# source:` marker line naming its source path — into one `<Module>.functions.ps1`, and the built manifest
-lists that one file ([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest5)). The merged file is a `.ps1` too, so
-the module's public and private functions share one session state in both modes, and it is one module per folder, so each module keeps its
-own `$script:` scope. It is output, not source: it exists only in a build under `out/automation/built/` and the installs copied from it, is
-rewritten on every build, and the rules of this ADR apply to the files it is generated from.
+([dynamic-module-manifests](dynamic-module-manifests.md#regenerated-manifests)). In build mode `Build-Modules` concatenates the same files —
+`private/` first, then the root, each in ordinal order and each preceded by a `# source:` marker line naming its source path — into one
+`<Module>.functions.ps1`, and the built manifest lists that one file
+([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest5)). The merged file is a `.ps1` too, so the module's public
+and private functions share one session state in both modes, and it is one module per folder, so each module keeps its own `$script:` scope.
+It is output, not source: it exists only in a build under `out/automation/built/` and the installs copied from it, is rewritten on every
+build, and the rules of this ADR apply to the files it is generated from.
 
 ### How this is enforced
 

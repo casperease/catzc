@@ -94,8 +94,10 @@ Describe 'Bootstrap' -Tag 'L0', 'logic' {
             Add-SandboxFunction -Module 'PrivA' -Function 'Get-Shared' -Body '"a"' -Private
             Add-SandboxFunction -Module 'PrivB' -Function 'Get-PrivBThing' -Body 'Get-Shared'
             Add-SandboxFunction -Module 'PrivB' -Function 'Get-Shared' -Body '"b"' -Private
+            # Reads a variable nobody set: strict mode makes that an error, so the answer says how the module runs.
+            Add-SandboxFunction -Module 'Acme' -Function 'Test-AcmeStrict' -Body 'try { $null = $acmeNeverSet; "not strict" } catch { "strict" }'
 
-            $script:observed = Invoke-Sandbox -Capture "[pscustomobject]@{ Modules = $moduleListExpr; Proxy = (Get-AcmeProxy) }"
+            $script:observed = Invoke-Sandbox -Capture "[pscustomobject]@{ Modules = $moduleListExpr; Proxy = (Get-AcmeProxy); Strict = (Test-AcmeStrict) }"
             $script:modules = @($observed.Modules)
         }
 
@@ -113,6 +115,10 @@ Describe 'Bootstrap' -Tag 'L0', 'logic' {
 
         It 'makes a private function callable from a public one (shared module scope)' {
             $observed.Proxy | Should -Be 'secret'
+        }
+
+        It 'runs the module''s functions strict' {
+            $observed.Strict | Should -Be 'strict'
         }
 
         It 'loads multiple modules independently' {

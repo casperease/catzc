@@ -314,6 +314,12 @@ terms:
     - term: auth
       meaning: "authentication / authorization"
       expands_to: "authentication"
+    - term: automa
+      meaning: "AUTOMA — the automation value-chain concern's six-letter column code on the value-chain minimap (ADR-DSGN-TRACK#15)"
+      expands_to: "automation"
+    - term: releas
+      meaning: "RELEAS — the release value-chain concern's six-letter column code on the value-chain minimap (ADR-DSGN-TRACK#15)"
+      expands_to: "release"
     - term: dora
       meaning:
         "DevOps Research and Assessment (DORA) — the research program and its DevOps capability model, cited as a cross-cutting source"

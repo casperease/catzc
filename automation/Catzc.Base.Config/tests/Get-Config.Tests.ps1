@@ -49,6 +49,61 @@ Describe 'Get-Config' -Tag 'L0' {
         }
     }
 
+    Context 'a consumer overlay fragment' -Tag 'logic' {
+        # A bundled config and a consumer overlay, both fixtures, through the Resolve-ConfigEntry, overlay-root and
+        # registry seams ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)).
+        BeforeEach {
+            $script:bundled = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            $script:overlay = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path $bundled | Out-Null
+            New-Item -ItemType Directory -Path (Join-Path $overlay 'Catzc.Base.Widget/configs') | Out-Null
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -MockWith {
+                @{ Name = $Config; Module = 'Catzc.Base.Widget'; Path = (Join-Path $bundled "$Config.yml") }
+            }
+            Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlay }
+            Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith {
+                [ordered]@{ 'widget-sealed' = [ordered]@{ type = 'System.Collections.Hashtable'; overridable = $false } }
+            }
+        }
+
+        It 'merges the fragment onto the bundled config before it is returned' {
+            Set-Content -Path (Join-Path $bundled 'widget-merged.yml') -Value @('owner: widget', 'limit: 3', 'gadgets:', '  lever: 1', '  sprung: 2')
+            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/widget-merged.yml') -Value @('limit: 5', 'gadgets:', '  sprung: null')
+            $configuration = Get-Config -Config widget-merged
+            $configuration.owner | Should -Be 'widget'
+            $configuration.limit | Should -Be 5
+            $configuration.gadgets.lever | Should -Be 1
+            $configuration.gadgets.Contains('sprung') | Should -BeFalse
+        }
+
+        It 'returns the bundled config unchanged when the overlay has no fragment of it' {
+            Set-Content -Path (Join-Path $bundled 'widget-plain.yml') -Value 'limit: 3'
+            (Get-Config -Config widget-plain).limit | Should -Be 3
+        }
+
+        It 'serves an edited fragment, never a stale merge' {
+            Set-Content -Path (Join-Path $bundled 'widget-edited.yml') -Value 'limit: 3'
+            $fragment = Join-Path $overlay 'Catzc.Base.Widget/configs/widget-edited.yml'
+            Set-Content -Path $fragment -Value 'limit: 5'
+            (Get-Config -Config widget-edited).limit | Should -Be 5
+            Set-Content -Path $fragment -Value 'limit: 70'
+            [System.IO.File]::SetLastWriteTimeUtc($fragment, [datetime]::UtcNow.AddMinutes(1))
+            (Get-Config -Config widget-edited).limit | Should -Be 70
+        }
+
+        It 'refuses a fragment of a sealed config' {
+            Set-Content -Path (Join-Path $bundled 'widget-sealed.yml') -Value 'limit: 3'
+            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/widget-sealed.yml') -Value 'limit: 5'
+            { Get-Config -Config widget-sealed } | Should -Throw "*Config 'widget-sealed' is sealed*remove*widget-sealed.yml*"
+        }
+
+        It 'refuses a fragment that is not a map' {
+            Set-Content -Path (Join-Path $bundled 'widget-list.yml') -Value 'limit: 3'
+            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/widget-list.yml') -Value @('- gadget', '- gizmo')
+            { Get-Config -Config widget-list } | Should -Throw '*must both be maps*'
+        }
+    }
+
     Context 'collision handling (Resolve-ConfigEntry)' -Tag 'logic' {
         It 'throws when a name exists in multiple modules, and -Module disambiguates' {
             InModuleScope Catzc.Base.Config {
@@ -156,8 +211,31 @@ namespace CatzcGetConfigTest {
             $thrown = { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ a = @{ module = 'X' }; b = @{ type = 'Foo'; pwsh = 'Bar' }; c = $null } }) } |
                 Should -Throw -PassThru
             $thrown.Exception.Message | Should -BeLike "*config 'a': an entry must specify a 'type'*"
-            $thrown.Exception.Message | Should -BeLike "*config 'b': unknown key 'pwsh' (allowed: type)*"
+            $thrown.Exception.Message | Should -BeLike "*config 'b': unknown key 'pwsh' (allowed: type, overridable)*"
             $thrown.Exception.Message | Should -BeLike "*config 'c': an entry must specify a 'type'*"
+        }
+
+        It 'lists the sealed configs (overridable: false); absent means overridable' {
+            $registry = [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{
+                        widget = @{ type = 'Tst.Widget' }
+                        gadget = @{ type = 'Tst.Gadget'; overridable = $false }
+                        gizmo  = @{ type = 'Tst.Gizmo'; overridable = $true }
+                    }
+                })
+            @($registry.sealedConfigs) | Should -Be @('gadget')
+        }
+
+        It 'rejects an overridable that is not true or false' {
+            { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ widget = @{ type = 'Tst.Widget'; overridable = 'no' } } }) } |
+                Should -Throw "*config 'widget': overridable must be true or false*"
+        }
+
+        It 'the shipped registry seals the engine-intrinsic configs' -Tag 'integrity' {
+            $raw = Get-Content (Get-CatzcModuleRoot -Module Catzc.Base.Config 'configs/configs.yml') -Raw | ConvertFrom-Yaml -Ordered
+            $registry = [Catzc.Base.Config.ConfigsConfig]::new($raw)
+            foreach ($name in 'configs', 'dependencies', 'profiles', 'exporter', 'glossary') {
+                @($registry.sealedConfigs) | Should -Contain $name
+            }
         }
     }
 }

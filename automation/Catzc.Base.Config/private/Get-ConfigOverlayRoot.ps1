@@ -14,7 +14,7 @@ function Get-ConfigOverlayRoot {
     [OutputType([string])]
     param()
 
-    $anchors = "$env:RepositoryRoot|$env:CatzcModulesRoot"
+    $anchors = "$(Get-RepositoryRoot)|$(Get-CatzcModulesRoot)"
     # strict-clean probe of the lazy cache entry
     # ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
     if ($ExecutionContext.SessionState.PSVariable.GetValue('script:configOverlayAnchors') -ne $anchors) {

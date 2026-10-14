@@ -14,8 +14,8 @@ file in memory and dot-sources it into the module. Loading each file as a script
 parse, so parsing them in memory is what keeps the import short. Vendor modules that are expensive to load (Pester, PSScriptAnalyzer) are
 deferred via the `Lazy` parameter and only imported on first use.
 
-In practice the entire import takes about two seconds for every module, the C# types and the vendored modules together; `importer.ps1
--DiagnoseLoadTime` shows where each part goes. The time grows with the number of files, not with the functions a script calls.
+In practice the entire import takes about two seconds for every module, the C# types and the vendored modules together;
+`importer.ps1 -DiagnoseLoadTime` shows where each part goes. The time grows with the number of files, not with the functions a script calls.
 
 ## What about dependency hell?
 

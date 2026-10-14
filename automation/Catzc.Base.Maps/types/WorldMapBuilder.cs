@@ -21,6 +21,8 @@
 //   3. a file of the pipelines track carries its own citations, else those of the files of the globset whose
 //      pipeline key names it;
 //   4. every other file (module code included) carries its own citations.
+// A file a citation_exclude glob matches cites nothing at any step (maps.yml highlight.citation_exclude): it sits in its
+// cell, and its citations light nothing.
 // The registry types are named in full, so the module dependency gate sees each cross-module edge
 // ([ADR-AUTO-TYPES#4](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types4)).
 
@@ -40,9 +42,17 @@ public static class WorldMapBuilder
     // The track whose files fall back to their globset's citations.
     public const string PipelinesTrack = "pipelines";
 
+    // citationExclude: the globs of the files whose citations light nothing (maps.yml highlight.citation_exclude); such a
+    // file still sits in its cell. None when null.
     public static WorldMap Build(IEnumerable tracks, IEnumerable fileLanguages, IEnumerable paths, IDictionary aspects, IDictionary adrIndex,
-        IDictionary texts, IDictionary rootOwners, IEnumerable globSets)
+        IDictionary texts, IDictionary rootOwners, IEnumerable globSets, IEnumerable citationExclude = null)
     {
+        List<Catzc.Base.Globs.GlobPattern> excluded = new List<Catzc.Base.Globs.GlobPattern>();
+        foreach (object glob in citationExclude ?? Array.Empty<object>())
+        {
+            string pattern = Convert.ToString(Unwrap(glob), CultureInfo.InvariantCulture);
+            if (!string.IsNullOrEmpty(pattern)) { excluded.Add(new Catzc.Base.Globs.GlobPattern(pattern)); }
+        }
         List<Catzc.Base.Variants.VariantTrack> trackList = Items<Catzc.Base.Variants.VariantTrack>(tracks, "track");
         List<Catzc.Base.Languages.FileLanguage> languageList = Items<Catzc.Base.Languages.FileLanguage>(fileLanguages, "file language");
         List<Catzc.Base.Globs.GlobSet> globSetList = Items<Catzc.Base.Globs.GlobSet>(globSets, "globset");
@@ -82,7 +92,7 @@ public static class WorldMapBuilder
         foreach (string path in pathList)
         {
             string text;
-            bool cites = CitationScanner.Cites(path) && textByPath.TryGetValue(path, out text);
+            bool cites = CitationScanner.Cites(path) && !excluded.Exists(glob => glob.Matches(path)) && textByPath.TryGetValue(path, out text);
             ownCitations[path] = cites ? CitationScanner.Scan(textByPath[path], index) : Array.Empty<string>();
             ownSites[path] = cites ? CitationScanner.Sites(path, textByPath[path], index) : Array.Empty<CitationSite>();
         }

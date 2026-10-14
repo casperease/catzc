@@ -7,7 +7,9 @@
     (Get-FileLanguage, [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)), the tracked files from the
     git index (Get-GitTrackedPath, [ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)), each
     configured track's aspects (Get-Aspect), the adrs index (Get-AdrRuleSet: ADR code to domain), the owners of the
-    repository-root files (files.yml, read through Get-Config) and the globsets (Get-GlobSet).
+    repository-root files (files.yml, read through Get-Config), the globsets (Get-GlobSet), and the globs of the files
+    whose citations light nothing (maps.yml highlight.citation_exclude; the generated slide descriptions under
+    docs/.assets/ by default, so a minimap never lights its own description).
 
     The root folder gives a file's track and its extension gives its file language; a file under no track or in no file
     language lands in a bucket row or column, so every file has exactly one cell. A live file whose file language its
@@ -89,7 +91,9 @@ function Get-WorldMap {
         }
     }
 
-    $map = [Catzc.Base.Maps.WorldMapBuilder]::Build($tracks, @(Get-FileLanguage), $paths, $aspects, $adrIndex, $texts, $rootOwners, @(Get-GlobSet))
+    $citationExclude = @((Get-Config -Config maps).highlight.citation_exclude)
+    $map = [Catzc.Base.Maps.WorldMapBuilder]::Build($tracks, @(Get-FileLanguage), $paths, $aspects, $adrIndex, $texts, $rootOwners, @(Get-GlobSet),
+        $citationExclude)
     if ($AsJson) {
         return $map.ToJson()
     }

@@ -105,10 +105,10 @@ every `private/*.ps1` a non-exported one. The files are listed, `private/` first
 `PrivateData.CatzcFiles`; its one `NestedModules` entry is the shared loader `automation/.internal/assets/Import-ModuleFiles.ps1`, which
 parses each listed file in memory and dot-sources it into the module's session state. Loading each file as its own nested script cost about
 3 ms per file on top of its parse — most of the import — while the parsed script block keeps the source file and line for `Get-Command`,
-errors and stack traces. The file is written only when the recomputed content differs — a clean
-tree costs a read per module and no write, which is also what lets Test-Automation's parallel workers import concurrently without racing the
-manifest files. A directory that has lost all its `.ps1` files has its stale manifest deleted in the same loop. The manifest is never read
-as an input and never hand-edited; the filesystem of `.ps1` files is the single source of truth, and the manifest is its output.
+errors and stack traces. The file is written only when the recomputed content differs — a clean tree costs a read per module and no write,
+which is also what lets Test-Automation's parallel workers import concurrently without racing the manifest files. A directory that has lost
+all its `.ps1` files has its stale manifest deleted in the same loop. The manifest is never read as an input and never hand-edited; the
+filesystem of `.ps1` files is the single source of truth, and the manifest is its output.
 
 Because the manifest is regenerated from scratch on every import, committing it would be committing a build output. It would drift from the
 `.ps1` files on any branch that adds, renames, or moves a function, and produce noisy, conflict-prone diffs that say nothing the directory
