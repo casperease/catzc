@@ -59,6 +59,14 @@ reaches catzc in that engine, so one test's command text is the same under all t
 
 - [The cats dispatcher](#the-cats-dispatcher)
 
+### Rule ADR-AUTO-ENGINE:7
+
+**auto** is the engine value that names no particular engine: a setting or argument that says `auto` takes whatever engine its sensible
+default resolves to (ADR-AUTO-DEFAULT#6), and names pwsh, bash or zsh only when it needs that one. `auto` is not a fourth engine and never
+appears in the model's `Names`; it is a choice left open.
+
+- [Leaving the engine open](#leaving-the-engine-open)
+
 ## Context
 
 PowerShell is the engine every module runs under. Bash is the shell the Claude Code agents run commands in, the shell of every Linux CI
@@ -154,6 +162,13 @@ test, not a loop: for many commands in a row, start pwsh.
 `importer.sh` is a root-config file, generated from its source in `Catzc.Base.RootConfig` and committed so a fresh clone has it; it is LF,
 as every `*.sh` is, and checked by `Test-ShellScripts` (ADR-AUTO-BASH#6). Bash tests call catzc exactly this way
 ([bash test artifacts](bash/bash-test-artifacts.md)).
+
+### Leaving the engine open
+
+Most work does not care which engine runs it; it only needs one. Naming pwsh, bash or zsh where any would do pins a choice the caller never
+made, and the pin outlives the reason. So a setting or argument that takes an engine accepts `auto`, the value that leaves the choice open:
+the caller gets whatever engine the setting's sensible default resolves to, declared once on its config type (ADR-AUTO-DEFAULT#6). Naming an
+engine is for work that needs that one. `auto` is a value, not an engine: the model's three instances stay the only engines there are.
 
 ## Decision
 

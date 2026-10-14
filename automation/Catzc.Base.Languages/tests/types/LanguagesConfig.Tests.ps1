@@ -161,5 +161,23 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*unknown formatter engine 'Format-Widget' (one of: prettier, *"
             $err.Exception.Message | Should -BeLike "*invalid adr_folder '../widgets'*"
         }
+
+        It 'reads a language''s checks in declared order, and none when the entry names none' {
+            $config = & $script:make ([ordered]@{ languages = [ordered]@{
+                        widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never'; checks = @('Test-WidgetLint', 'Test-Spelling') }
+                        gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'never' }
+                    }
+                })
+            $config.languages[0].checks | Should -Be @('Test-WidgetLint', 'Test-Spelling')
+            @($config.languages[1].checks) | Should -HaveCount 0
+        }
+
+        It 'throws on a check that is not a quality-gate name, on a duplicate check, and on checks that are not a list' {
+            $err = { & $script:one ([ordered]@{ extensions = @('.wdg'); checks = @('Format-Widget', 'Test-Spelling', 'Test-Spelling') }) } |
+                Should -Throw -PassThru
+            $err.Exception.Message | Should -BeLike "*invalid check 'Format-Widget'*"
+            $err.Exception.Message | Should -BeLike "*duplicate check 'Test-Spelling'*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); checks = 'Test-Spelling' }) } | Should -Throw '*checks must be a list*'
+        }
     }
 }

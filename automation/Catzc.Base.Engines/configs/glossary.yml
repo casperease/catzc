@@ -10,3 +10,14 @@ concepts:
     short:
       One of the three shells the repository's own code runs under: pwsh, bash and zsh, declared once with everything that differs between them.
     realized_by: { kind: prose-only }
+    contrasts:
+      auto: auto is a value that leaves the engine open; an execution engine is the pwsh, bash or zsh it resolves to.
+  auto:
+    key: auto
+    domain: automation
+    defined_by: ADR-AUTO-ENGINE#7
+    short:
+      The engine value that names no particular engine: the caller takes whatever engine the sensible default resolves to.
+    realized_by: { kind: prose-only }
+    contrasts:
+      execution engine: An execution engine is one of pwsh, bash and zsh; auto is a value that leaves the choice among them open.

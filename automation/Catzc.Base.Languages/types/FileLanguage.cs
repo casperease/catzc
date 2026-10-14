@@ -33,7 +33,12 @@ public sealed class FileLanguage
     // The language's ADR folder under docs/adr/ (e.g. pwsh). Null when it has none.
     public string adr_folder { get; }
 
-    public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string adrFolder)
+    // The quality gates that check a changed file of the language (e.g. Test-ScriptAnalyzer), in the order Test-Change
+    // runs them. Empty when the entry names none.
+    public IReadOnlyList<string> checks { get; }
+
+    public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string adrFolder,
+        string[] checks)
     {
         this.name = name;
         this.extensions = extensions == null ? Array.Empty<string>() : (string[])extensions.Clone();
@@ -41,5 +46,6 @@ public sealed class FileLanguage
         no_formatter = noFormatter;
         vscode_language = vscodeLanguage ?? name;
         adr_folder = adrFolder;
+        this.checks = checks == null ? Array.Empty<string>() : (string[])checks.Clone();
     }
 }

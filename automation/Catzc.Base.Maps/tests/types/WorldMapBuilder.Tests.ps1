@@ -8,11 +8,11 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::PipelinesTrack, 'pipelines', 'adapter', @('gadget-pipe'))
         )
         $script:languages = @(
-            [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null)
-            [Catzc.Base.Languages.FileLanguage]::new('widget-config', @('.yml'), $null, 'fixture', $null, $null)
-            [Catzc.Base.Languages.FileLanguage]::new('gadget-pipe', @('.yaml'), $null, 'fixture', $null, $null)
-            [Catzc.Base.Languages.FileLanguage]::new('notes', @('.md'), $null, 'fixture', $null, $null)
-            [Catzc.Base.Languages.FileLanguage]::new('probe-lang', @('.prb'), $null, 'fixture', $null, $null)
+            [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null)
+            [Catzc.Base.Languages.FileLanguage]::new('widget-config', @('.yml'), $null, 'fixture', $null, $null, $null)
+            [Catzc.Base.Languages.FileLanguage]::new('gadget-pipe', @('.yaml'), $null, 'fixture', $null, $null, $null)
+            [Catzc.Base.Languages.FileLanguage]::new('notes', @('.md'), $null, 'fixture', $null, $null, $null)
+            [Catzc.Base.Languages.FileLanguage]::new('probe-lang', @('.prb'), $null, 'fixture', $null, $null, $null)
         )
         $script:aspects = [ordered]@{
             widgets = @(

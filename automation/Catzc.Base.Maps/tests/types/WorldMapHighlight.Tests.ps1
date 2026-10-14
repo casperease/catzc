@@ -6,9 +6,9 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::PipelinesTrack, 'pipelines', 'adapter', @('gadget-pipe'))
         )
         $languages = @(
-            [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null)
-            [Catzc.Base.Languages.FileLanguage]::new('gadget-pipe', @('.yaml'), $null, 'fixture', $null, $null)
-            [Catzc.Base.Languages.FileLanguage]::new('notes', @('.md'), $null, 'fixture', $null, $null)
+            [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null)
+            [Catzc.Base.Languages.FileLanguage]::new('gadget-pipe', @('.yaml'), $null, 'fixture', $null, $null, $null)
+            [Catzc.Base.Languages.FileLanguage]::new('notes', @('.md'), $null, 'fixture', $null, $null, $null)
         )
         $texts = [ordered]@{
             'widgets/Alpha/Get-Widget.ps1' = '# ADR-WIDGET-GADGET#2'

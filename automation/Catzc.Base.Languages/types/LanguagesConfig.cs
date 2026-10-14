@@ -14,12 +14,14 @@
 //
 // The sensible defaults are declared here, once
 // ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted 'languages' is no
-// file language, and an omitted 'adr_folder' is none.
+// file language, an omitted 'adr_folder' is none, and an omitted 'checks' is no quality gate.
 //
 // Constructing an instance validates the file, collecting every violation into one ArgumentException:
-//   - only 'engines' and 'languages' at the top; only 'extensions', 'formatter', 'no_formatter', 'vscode_language' and
-//     'adr_folder' in a language entry; only 'vscode_extension' and 'settings' in an engine entry — an unknown key (a
-//     typo) fails at load;
+//   - only 'engines' and 'languages' at the top; only 'extensions', 'formatter', 'no_formatter', 'vscode_language',
+//     'adr_folder' and 'checks' in a language entry; only 'vscode_extension' and 'settings' in an engine entry — an
+//     unknown key (a typo) fails at load;
+//   - 'checks' is a list of quality-gate command names (Test-<Noun>, e.g. Test-ScriptAnalyzer), each at most once: the
+//     gates Test-Change runs over a changed file of the language;
 //   - an engine entry's key is one of FormatterEngines, its 'vscode_extension' a publisher.name extension id, and its
 //     'settings' a list of '/'-separated repository-relative files (no '.' or '..' segment);
 //   - 'vscode_language' (default: the language's own name) is a VS Code language id;
@@ -41,7 +43,8 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
     private static readonly string[] AllowedKeys = { "engines", "languages" };
-    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder" };
+    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks" };
+    private static readonly Regex CheckName = new Regex("^Test-[A-Z][A-Za-z0-9]*$");
     private static readonly string[] AllowedEngineKeys = { "vscode_extension", "settings" };
     private static readonly Regex SettingsPath = new Regex("^[A-Za-z0-9_.-]+(/[A-Za-z0-9_.-]+)*$");
     private static readonly Regex LanguageName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
@@ -291,10 +294,41 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
+        List<string> checks = ReadChecks(name, entry.Contains("checks") ? entry["checks"] : null, errors);
+
         if (errors.Count > before) { return null; }
-        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder);
+        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray());
         foreach (string extension in extensions) { byExtension[extension] = language; }
         return language;
+    }
+
+    private static List<string> ReadChecks(string name, object value, List<string> errors)
+    {
+        List<string> checks = new List<string>();
+        if (value == null) { return checks; }
+        IList list = value as IList;
+        if (list == null)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: checks must be a list of quality-gate names (e.g. [Test-Spelling])", name));
+            return checks;
+        }
+        foreach (object item in list)
+        {
+            string check = Text(item);
+            if (!CheckName.IsMatch(check))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: invalid check '{1}' (a quality-gate command, Test-<Noun>)", name, check));
+            }
+            else if (checks.Contains(check))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: duplicate check '{1}'", name, check));
+            }
+            else
+            {
+                checks.Add(check);
+            }
+        }
+        return checks;
     }
 
     private List<string> ReadExtensions(string name, object value, List<string> errors)

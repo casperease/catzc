@@ -1,4 +1,4 @@
-# cspell:ignore nbeta  -- the escape-sequence artifact in the "alpha`nbeta" fixture strings
+# cspell:ignore nbeta nmodule  -- the escape-sequence artifacts in the "alpha`nbeta" and "`nmodule …" fixture strings
 Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

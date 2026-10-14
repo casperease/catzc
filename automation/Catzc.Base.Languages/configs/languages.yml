@@ -23,6 +23,9 @@
 #   no_formatter     instead of formatter: why the language has none (exactly one of the two)
 #   vscode_language  the VS Code language id of its files; omitted = the language's own name
 #   adr_folder       its ADR folder under docs/adr/; omitted = none
+#   checks           the quality gates Test-Change runs over a changed file of the language, in this order; a gate
+#                    with a -Path parameter is given the changed files, any other runs whole and its issues are kept
+#                    when they name a changed file; omitted = none
 #
 # The defaults and the engine list are declared once on Catzc.Base.Languages.LanguagesConfig
 # ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). Loaded via
@@ -74,31 +77,39 @@ languages:
     extensions: [.ps1, .psm1, .psd1]
     formatter: psscriptanalyzer
     adr_folder: pwsh
+    checks: [Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links]
   csharp:
     extensions: [.cs]
     formatter: dotnet-format
     adr_folder: automation/BCL
+    checks: [Test-Formatting, Test-Spelling, Test-Links]
   pipeline-yaml:
     extensions: [.yaml]
     formatter: prettier
     vscode_language: azure-pipelines
     adr_folder: pipelines
+    checks: [Test-Formatting, Test-Spelling, Test-Links]
   yaml:
     extensions: [.yml]
     formatter: prettier
+    checks: [Test-Formatting, Test-Spelling, Test-Links]
   markdown:
     extensions: [.md]
     formatter: prettier
+    checks: [Test-Markdownlint, Test-MarkdownTitle, Test-Formatting, Test-Spelling, Test-Links]
   bicep:
     extensions: [.bicep]
     formatter: bicep
+    checks: [Test-Formatting, Test-Spelling]
   python:
     extensions: [.py]
     formatter: ruff
     adr_folder: automation/python
+    checks: [Test-PythonLint, Test-Formatting, Test-Spelling]
   json:
     extensions: [.json]
     formatter: prettier
+    checks: [Test-Formatting, Test-Spelling]
   jsonl:
     extensions: [.jsonl]
     no_formatter: one record per line by definition, so there is no layout to format
@@ -106,18 +117,22 @@ languages:
     extensions: [.go]
     formatter: gofmt
     adr_folder: automation/go
+    checks: [Test-Formatting, Test-Spelling]
   bash:
     extensions: [.sh, .bats]
     no_formatter: no engine is configured for Bash yet
+    checks: [Test-ShellScripts]
   xml:
     extensions: [.ps1xml, .xml, .xsd, .dtd, .csproj]
     no_formatter: no engine is configured for XML; .editorconfig and the editor's XML extension cover its layout
   html:
     extensions: [.html]
     formatter: prettier
+    checks: [Test-Formatting]
   css:
     extensions: [.css]
     formatter: prettier
+    checks: [Test-Formatting]
   solution:
     extensions: [.sln]
     no_formatter: the Visual Studio solution format is written by Visual Studio and dotnet sln, not formatted by hand

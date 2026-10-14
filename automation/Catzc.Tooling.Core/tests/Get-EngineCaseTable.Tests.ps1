@@ -7,19 +7,21 @@ cases:
   - case: starts
     pwsh: { command: Start-Widget, expect: allow }
     bash: { command: start-widget, expect: allow }
+    zsh: { command: start-widget, expect: allow }
   - case: pwsh only
     pwsh: { command: Get-Gadget, expect: allow }
     bash: "n/a: bash has no gadget"
+    zsh: "n/a: zsh has no gadget"
 '@
     }
 
     It 'returns one -ForEach-shaped row per case and engine' {
         $rows = @(Get-EngineCaseTable $table)
-        $rows.Count | Should -Be 4
+        $rows.Count | Should -Be 6
         $rows[0].Case | Should -Be 'starts'
         $rows[0].Engine | Should -Be 'pwsh'
         $rows[0].Fields.command | Should -Be 'Start-Widget'
-        $rows[3].NotApplicable | Should -Be 'bash has no gadget'
+        $rows[4].NotApplicable | Should -Be 'bash has no gadget'
     }
 
     It 'filters to one engine' {
@@ -27,13 +29,13 @@ cases:
     }
 
     It 'skips the n/a cells with -Applicable' {
-        @(Get-EngineCaseTable $table -Applicable).Count | Should -Be 3
+        @(Get-EngineCaseTable $table -Applicable).Count | Should -Be 4
         @(Get-EngineCaseTable $table -Engine bash -Applicable).Case | Should -Be 'starts'
     }
 
     It 'resolves a relative path against the repository root, never the current directory' {
         Mock Resolve-RepoPath -ModuleName Catzc.Tooling.Core { $script:table }
-        @(Get-EngineCaseTable 'widget-cases.yml').Count | Should -Be 4
+        @(Get-EngineCaseTable 'widget-cases.yml').Count | Should -Be 6
         Should -Invoke Resolve-RepoPath -ModuleName Catzc.Tooling.Core -Times 1 -Exactly -ParameterFilter { $Path -eq 'widget-cases.yml' }
     }
 

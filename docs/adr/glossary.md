@@ -340,6 +340,17 @@ Every test in the repository — every test file of every module, at every tier 
 | `pester test suite` | all tests   |
 | `full suite`        | all tests   |
 
+### auto
+
+System.Collections.Specialized.OrderedDictionary
+
+- **Defined by:** [ADR-AUTO-ENGINE#7](automation/execution-engines.md#rule-adr-auto-engine7)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Engines/configs/glossary.yml`
+- **Contrasts:**
+  - [execution engine](#execution-engine): An execution engine is one of pwsh, bash and zsh; auto is a value that leaves the choice among
+    them open.
+
 ### bash test folder
 
 The folder `<root>/tests/<module>/` under the Bash root — one per catzc module, named for it in kebab case, holding its black-box `.bats`
@@ -381,6 +392,8 @@ System.Collections.Specialized.OrderedDictionary
 - **Defined by:** [ADR-AUTO-ENGINE#1](automation/execution-engines.md#rule-adr-auto-engine1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Engines/configs/glossary.yml`
+- **Contrasts:**
+  - [auto](#auto): auto is a value that leaves the engine open; an execution engine is the pwsh, bash or zsh it resolves to.
 
 ### go test module
 

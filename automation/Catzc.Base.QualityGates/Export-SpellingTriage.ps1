@@ -18,9 +18,9 @@
     place); only genuinely new, unaccepted tokens reach the queue.
 
     cspell must be on PATH — install it once with Install-Cspell (or: npm install -g cspell).
-.PARAMETER Glob
-    Globs/paths to scan. Defaults to the repository's known text file types — the same scope Test-Spelling
-    checks. cspell still applies the ignorePaths from cspell.yml.
+.PARAMETER Path
+    Repository-relative paths or globs to scan (cspell expands a glob). Defaults to the repository's known text file
+    types — the same scope Test-Spelling checks. cspell still applies the ignorePaths from cspell.yml.
 .PARAMETER Exclude
     Globs to skip, passed to cspell as --exclude. Defaults to the authored/generated trees that are out of
     scope to spell-check, matching Test-Spelling so the tokens queued are exactly the tokens the gate flags.
@@ -41,7 +41,7 @@ function Export-SpellingTriage {
     [CmdletBinding()]
     [OutputType([string[]])]
     param(
-        [string[]] $Glob = @(
+        [string[]] $Path = @(
             '**/*.md'
             '**/*.ps1'
             '**/*.psm1'
@@ -77,8 +77,8 @@ function Export-SpellingTriage {
         )
     }
 
-    $quotedGlobs = foreach ($g in $Glob) {
-        "'$g'"
+    $quotedPaths = foreach ($p in $Path) {
+        "'$p'"
     }
     $excludeArgs = foreach ($e in $Exclude) {
         "--exclude '$e'"
@@ -86,7 +86,7 @@ function Export-SpellingTriage {
     # --words-only prints just the flagged tokens (one per line); --unique de-duplicates; --no-summary keeps
     # the trailing "Issues found" line out of the token stream.
     $command = (
-        "cspell lint $($quotedGlobs -join ' ') $($excludeArgs -join ' ') " +
+        "cspell lint $($quotedPaths -join ' ') $($excludeArgs -join ' ') " +
         "--config '$configPath' --words-only --unique --no-summary --no-progress --no-color"
     )
 
