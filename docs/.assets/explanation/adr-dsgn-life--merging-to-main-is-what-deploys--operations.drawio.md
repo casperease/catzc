@@ -35,7 +35,7 @@ row. Six markers number the reading order.
 | --------------------- | ----- | -------------------------------------------------------------------------------- |
 | commit                | 2     | brown push topic, open PR (TOPIC), grey complete PR (MAIN)                       |
 | runner                | 3     | ADO PR build and Release: Run workflow (OUT-OF-BAND), ADO CD run (AFTER LANDING) |
-| environment           | 1     | `<Customer>-<env>-<slot>` (AFTER LANDING, top row), empty                        |
+| environment           | 1     | `<Customer>-<env>[-<slot>]` (AFTER LANDING, top row), empty                      |
 | ADR-only              | 1     | deploy topic (OUT-OF-BAND, bottom row), a dashed white pill                      |
 
 Runners are slate pills with white names; the environment is neutral grey; the commits keep the locked commit palette.

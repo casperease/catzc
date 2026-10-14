@@ -43,35 +43,70 @@ function Get-LiveIdentityTokens {
         }
     }
 
-    # Customers (customer.yml) — keys and 2-char shortcodes. The clearest live identity in a logic test.
-    $customer = Get-Config -Config customer
-    if ($customer.Contains('customers')) {
-        foreach ($key in $customer.customers.Keys) {
-            & $add $key 'customer-key' 'customer.yml' 'a fixture customer (acme / globex)'
-            & $add $customer.customers[$key].shortcode 'customer-shortcode' 'customer.yml' 'a fixture shortcode (ac / gx)'
-        }
-    }
-
-    # Azure identity (azure.yml) — the org component and the subscription names (distinctive → exact match).
-    $azure = Get-Config -Config azure
-    & $add $azure.org 'org' 'azure.yml' 'the fixture org (tst)'
-    if ($azure.Contains('subscriptions')) {
-        foreach ($subName in $azure.subscriptions.Keys) {
-            & $add $subName 'subscription' 'azure.yml' 'a fixture subscription (core_lower / acme_lower)'
-        }
-    }
-
-    # Environment names and shortcodes (azure.yml) — ambiguous words ('test'/'dev'), so 'position' match only
-    # (a value bound to -Environment/-Env/-Shortcode). The per-subscription identity envs (nsub/psub) are
-    # shared structural vocabulary, not a discriminating identity, and are skipped.
-    if ($azure.Contains('environments')) {
-        foreach ($envName in $azure.environments.Keys) {
-            $environmentEntry = $azure.environments[$envName]
-            if ($environmentEntry.Contains('per_subscription') -and $environmentEntry['per_subscription']) {
-                continue
+    # A config node's child by key, and its entries, whether the node is parsed YAML or a typed config object.
+    $childOf = {
+        param($node, [string] $key)
+        if ($node -is [System.Collections.IDictionary]) {
+            if ($node.Contains($key)) {
+                $node[$key]
             }
-            & $add $envName 'environment' 'azure.yml' 'a fixture environment (alpha / beta / gamma / delta)' 'position'
-            & $add $azure.environments[$envName].shortcode 'environment-shortcode' 'azure.yml' 'a fixture env shortcode (al / bt)' 'position'
+        }
+        elseif ($null -ne $node -and $node.PSObject.Properties[$key]) {
+            $node.$key
+        }
+    }
+    $isSkipped = {
+        param($entry, [string] $skipWhen)
+        $skipWhen -and [bool] (& $childOf $entry $skipWhen)
+    }
+    # Walks one rule's path from a node: a key segment steps in, a '*' steps into every entry of a map (leaving
+    # out an entry that sets skip_when), and the end of the path yields the scalar or the map's keys.
+    $walk = {
+        param($node, [string[]] $path, [int] $depth, $rule)
+        if ($null -eq $node) {
+            return
+        }
+        if ($depth -eq $path.Count) {
+            if ($rule.take -eq 'keys') {
+                if ($node -is [System.Collections.IDictionary]) {
+                    foreach ($key in @($node.Keys)) {
+                        if (-not (& $isSkipped $node[$key] $rule.skip_when)) {
+                            $key
+                        }
+                    }
+                }
+            }
+            elseif ($node -isnot [System.Collections.IDictionary] -and $node -isnot [System.Collections.IList]) {
+                $node
+            }
+            return
+        }
+        if ($path[$depth] -ne '*') {
+            & $walk (& $childOf $node $path[$depth]) $path ($depth + 1) $rule
+            return
+        }
+        if ($node -is [System.Collections.IDictionary]) {
+            foreach ($key in @($node.Keys)) {
+                if (-not (& $isSkipped $node[$key] $rule.skip_when)) {
+                    & $walk $node[$key] $path ($depth + 1) $rule
+                }
+            }
+        }
+    }
+
+    # The identities each owning module declares about its own configs (configs/identity-tokens.yml): customers,
+    # the org, subscriptions, environments (position match — ambiguous words such as 'test'), the ADO project.
+    foreach ($owner in @(Get-Config -Config identity-tokens -ListOwners)) {
+        $declaration = Get-Config -Config identity-tokens -Module $owner.Module
+        foreach ($rule in $declaration.tokens) {
+            $configOwners = @(Get-Config -Config $rule.config -ListOwners | ForEach-Object { $_.Module })
+            if ($owner.Module -notin $configOwners) {
+                throw "$($owner.Module)/configs/identity-tokens.yml declares tokens of config '$($rule.config)', which $($owner.Module) does not own; a module declares the identities of its own configs only."
+            }
+            $config = Get-Config -Config $rule.config
+            foreach ($token in @(& $walk $config ([string[]] @($rule.path)) 0 $rule)) {
+                & $add $token $rule.kind "$($rule.config).yml" $rule.suggest $rule.match
+            }
         }
     }
 
@@ -80,10 +115,6 @@ function Get-LiveIdentityTokens {
     # appear as legitimate string literals throughout the tests, so matching them is pure false-positive; the
     # customer-named units (apex/nova/flux) are already covered by the customer keys above. A later stage may
     # add the DISTINCTIVE units with an explicit folder-collision exclusion.
-
-    # ADO project (ado.yml).
-    $ado = Get-Config -Config ado
-    & $add $ado.project 'ado-project' 'ado.yml' 'a fixture project name'
 
     # Shipped template names (infrastructure/templates/<name>).
     $templatesRoot = Join-Path (Get-RepositoryRoot) 'infrastructure/templates'
