@@ -11,7 +11,7 @@ A pull request run skips every Deploy_* stage; only the run on main deploys, so 
 4  out-of-band deploy   the deploy ADR-DSGN-LIFE#9 allows; no pipeline or workflow runs it
 5  main                 completing the PR lands the commit; trigger: [main] starts the CD run
 6  stage: CI            the CD run's CI stage; the main-only condition now holds
-7  Deploy_* stages      five stages carry the condition; they run in dependsOn order
+7  Deploy_* stages      six stages carry the condition; they run in dependsOn order
 
 Supports ADR-DSGN-LIFE#9 (implementation lens).
 ```
@@ -38,9 +38,10 @@ The diagram is described element by element in
 5. **Main.** Completing the pull request lands the commit on main, and the push trigger `trigger: branches: include: [main]` starts the CD
    run.
 6. **Stage `CI`.** The CD run executes the same `CI` stage, and the main-only condition now holds.
-7. **`Deploy_*` stages.** `Deploy_Foundation`, `Deploy_Discovery` and `Deploy_Expedition` follow one another through `dependsOn`. Five
-   `Deploy_*` stages carry the main-only condition: three in the customer template `extends/cd-customer.yaml` and two in `cd-shared.yaml`.
-   `Deploy_Expedition` deploys to the slotted environment `<Customer>-<env>-<slot>`.
+7. **`Deploy_*` stages.** `Deploy_Foundation`, `Deploy_Discovery` and `Deploy_Expedition` follow one another through `dependsOn`. Six
+   `Deploy_*` stages carry the main-only condition: three in the customer template `extends/cd-customer.yaml` and three in
+   `cd-shared.yaml`. In the customer template, `Deploy_Expedition` deploys an entry with a slot to the environment
+   `<Customer>-<env>-<slot>`, and an entry without one to the env's base slot, `<Customer>-<env>`.
 
 No stage in `pipelines/` is named BVT; the pipeline guide names the CI type's post-commit run on main the BVT.
 
