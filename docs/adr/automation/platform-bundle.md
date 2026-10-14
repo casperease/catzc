@@ -117,9 +117,10 @@ installs to another root and loads there with no git and no compile, owned by `C
 
 ### What a bundle is
 
-A bundle is the platform, made portable. `Build-Modules` takes the selected modules — named explicitly, by profile, or both, then
-closure-expanded so every dependency comes along — and writes one installable package root, `out/automation/build/Catzc/<version>/` by
-default. Inside it every selected module is **its own module of the same name**: same public functions, same private functions, same configs
+A bundle is the platform, made portable. The repository declares its bundles by name in `exporter.yml` — `full`, and smaller ones such as
+`azure` or `minimal` — each a release identity of its own. `Build-Modules` takes a bundle's modules — its profile, or for an experiment
+modules named explicitly, by profile, or both — closure-expands them so every dependency comes along, and writes one installable package
+root, `out/automation/built/<bundle>/Catzc/<version>/` by default, so two bundles never share a folder. Inside it every selected module is **its own module of the same name**: same public functions, same private functions, same configs
 and assets, its own module state ([run-modes](../design/run-modes.md)). Only its on-disk form differs: one manifest and one merged function
 file instead of a folder of function files. It is small (the `tests/` surface is dropped), fast (a few dozen files to open, no compile, no
 discovery drift), and sharable (one versioned folder). It is distinct from the repository it is built from: an install is not a repository,
@@ -169,15 +170,27 @@ out: no `tests/` tree travels. The exact form of the payload in pwsh is
 
 `The immutable, verified artifact`
 
-A bundle is content-addressed. `Build-Modules` writes its output canonically — UTF-8 without BOM, LF, one trailing newline, through
-`Write-FileIfChanged` — so rebuilding a commit rewrites nothing, the DLL included, because it is the same copied file — and computes a
-durable SHA over the whole payload with the same recipe the globsets use. The DLL's own name carries the `typesHash`, so which sources it
-was compiled from is proven by hash. The content hash, `typesHash`, type-source list, source commit, version, and module list travel in
-`build.json`, which is excluded from the hash it carries. `Assert-CatzcBundle` closes the loop: given any bundle, it recomputes the hash and
-checks it against `build.json`, confirms no test file leaked in, confirms exactly one types DLL whose name matches `typesHash`, confirms
-every module's manifest and merged file, confirms every manifest export resolves to a function in its merged file, and confirms every
-internal asset the code depends on is present — throwing with the full list of what is wrong. A build verifies itself with it, and an
-install verifies its source with it.
+A bundle is content-addressed. Its input is a commit, not a checkout: the build takes the files git tracks and writes each as git stores it,
+so an untracked scratch file, an ignored `bin/` or `obj/`, or a Windows checkout's CRLF line endings never change what ships — a file git
+holds LF-only is written LF-only, and every other file (CRLF-stored, binary, a vendored script whose signature covers its bytes) is a byte
+copy. The type sources and the DLL are the exception that proves the rule: they follow the type set the DLL's name proves, which on a devbox
+with an uncommitted `types/*.cs` includes it, and on a clean tree is the same set. `Build-Modules` writes its generated output canonically —
+UTF-8 without BOM, LF, one trailing newline, through `Write-FileIfChanged` — so rebuilding a commit rewrites nothing, the DLL included,
+because it is the same copied file — and computes a durable SHA over the whole payload with the same recipe the globsets use. The same
+commit therefore hashes the same on every OS, which the CI pipeline proves by building on each and comparing.
+
+A partial bundle is only as good as its closure. `dependencies.yml` leaves a module it does not list unconstrained, so the build does not
+take the declared closure on trust: before it writes anything it walks the code of the selected modules and fails, with the full list, on a
+call to a catzc function or a literal config read that lands in a module the bundle leaves out. The fix is to declare the dependency, so the
+closure brings the owner in, or to move what is read to where it belongs. The same pre-write pass checks every inventoried internal asset.
+
+The DLL's own name carries the `typesHash`, so which sources it was compiled from is proven by hash. The bundle, content hash, `typesHash`,
+type-source list, source commit, whether the tree differed from that commit, version, and module list travel in `build.json`, which is
+excluded from the hash it carries. A devbox may build a tree with uncommitted changes, and `build.json` says so; a pipeline refuses, so a
+released bundle is always exactly its commit. `Assert-CatzcBundle` closes the loop: given any bundle, it recomputes the hash and checks it
+against `build.json`, confirms no test file leaked in, confirms exactly one types DLL whose name matches `typesHash` and that the shipped type
+sources hash to it, confirms every module's manifest and merged file, and confirms every manifest export resolves to a function in its
+merged file — throwing with the full list of what is wrong. A build verifies itself with it, and an install verifies its source with it.
 
 ### The two-part install
 
@@ -198,12 +211,13 @@ it as a local package. The vendored dependencies ride inside the build's own `.v
 A build on a devbox is a local convenience, not a release, so it carries the fixed `6.6.666` placeholder and overwrites in place — an
 obviously-unreal number that reads as "built locally" — and `Build-Modules` says so with a yellow `Write-Message` line. It is never a
 warning, which terminates in a catzc session (ADR-AUTO-BUNDLE#8). A pipeline export gets a real version, and that version is **calculated,
-not chosen**: `MAJOR.MINOR` is the reviewed `version` in `exporter.yml`, and `PATCH` is the first-parent commit count of the built commit
+not chosen**: `MAJOR.MINOR` is the bundle's own reviewed `version` in `exporter.yml` — the repository is a mono repo, so each bundle has its
+own version line and no bundle's version moves another's — and `PATCH` is the first-parent commit count of the built commit
 (`git rev-list --first-parent --count HEAD`, which needs the full history the pipelines fetch,
 [durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs9)). The same commit therefore always gets the same version — build
 once, version once ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd3)) — and versions
 increase monotonically along `main` without a counter to store. The placeholder never leaves a devbox: a pipeline build that names it
-explicitly is rejected. Every version, along with the profile and vendor policy, is declared in one `exporter.yml` read through `Get-Config`
+explicitly is rejected. Every bundle, with its profile, vendor policy, and version line, is declared in one `exporter.yml` read through `Get-Config`
 — the single place the repository states how it wants to export itself, validated on load and substitutable by a fixture in tests.
 
 ### A session, not a library
