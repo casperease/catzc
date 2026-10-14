@@ -40,8 +40,9 @@ platform change is a new draft in its unit's `0.0.0`, never an old version kept 
 ### Rule ADR-REPO-CONTRACT:4
 
 Contracts are **binding**, proven by tests: the owning module verifies that the repository honours every asset of its unit's current version
-folder, and every provided asset of a released version a consumer pins. A change that breaks a contract fails CI here, not a consumer or a
-platform in production. This is what makes "kept for back-compat" a guarantee rather than a hope.
+folder, and the provided assets of every released version folder still in the tree — released folders are the pin record, so retiring a
+version means deleting its folder. The depended-on assets of an older release are not re-checked: they follow their platform
+(ADR-REPO-CONTRACT#3). A change that breaks a contract fails CI here, not a consumer or a platform in production. This is what makes "kept for back-compat" a guarantee rather than a hope.
 
 - [Binding, by contract testing](#binding-by-contract-testing)
 - [How this is enforced](#how-this-is-enforced)
@@ -50,7 +51,9 @@ platform in production. This is what makes "kept for back-compat" a guarantee ra
 
 A released version folder is immutable. Evolving a contract means editing its unit's draft, `contracts/<unit>/0.0.0/`, the only mutable
 folder of that unit; releasing the unit freezes the draft as `contracts/<unit>/<version>/`, and that folder is never edited again. The draft
-freezes only when its own unit is released. The devbox build version `6.6.666` names no release, so it never freezes a folder.
+freezes only when its own unit is released. The devbox build version `6.6.666` names no release, so it never freezes a folder. Releasing
+freezes the draft with `Publish-ContractRelease`, which writes the folder's `.frozen` record (the SHA-256 of each file), and
+`Test-Contracts` fails on any file changed, added, or removed since.
 
 - [A released folder is frozen](#a-released-folder-is-frozen)
 
